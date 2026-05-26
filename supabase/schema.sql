@@ -14,3 +14,22 @@ create table ai_audit_log (
   confidence numeric,
   created_at timestamp default now()
 );
+
+create table fiscal_events (
+  id uuid primary key,
+  event_name text not null,
+  event_type text not null,
+  event_date date not null,
+  summary text,
+  estimated_financial_impact numeric,
+  created_at timestamp default now()
+);
+
+create table retirement_scenarios (
+  id uuid primary key,
+  scenario_name text not null,
+  uptake_rate numeric,
+  eligible_employees integer,
+  year_one_net_impact numeric,
+  created_at timestamp default now()
+);
