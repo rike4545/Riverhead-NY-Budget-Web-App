@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
   pages: write
   id-token: write
 
@@ -18,19 +18,53 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: true
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install ETL dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests beautifulsoup4 pypdf
+
+      - name: Parse all financial-report PDFs
+        run: python etl/parse_all_pdfs.py
+
+      - name: Commit parsed financial-report data
+        run: |
+          set -e
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add web/public/data/financial-reports || true
+          if git diff --cached --quiet; then
+            echo "No parsed financial-report data changes."
+          else
+            git commit -m "Update parsed Riverhead financial-report data"
+            git pull --rebase origin main
+            git push origin HEAD:main
+          fi
 
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 24
+          cache: npm
+          cache-dependency-path: web/package-lock.json
 
       - name: Install dependencies
         working-directory: web
-        run: npm install
+        run: npm install --no-audit --no-fund
 
       - name: Build static export
         working-directory: web
