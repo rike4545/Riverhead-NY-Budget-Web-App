@@ -1,6 +1,6 @@
 {
   "source_index": "https://www.townofriverheadny.gov/206/Financial-Reports",
-  "parsed_at": "2026-05-28T17:32:04.294702+00:00",
+  "parsed_at": "2026-05-28T17:35:49.653382+00:00",
   "document_count": 0,
   "audit_document_count": 0,
   "failure_count": 1,
@@ -18,7 +18,7 @@
       "page_count": 0,
       "money_value_count": 0,
       "sha256": null,
-      "parsed_at": "2026-05-28T17:32:04.294702+00:00",
+      "parsed_at": "2026-05-28T17:35:49.653382+00:00",
       "status": "pending_parser_success"
     }
   ],
