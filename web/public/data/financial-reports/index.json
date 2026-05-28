@@ -1,0 +1,33 @@
+{
+  "source_index": "https://www.townofriverheadny.gov/206/Financial-Reports",
+  "parsed_at": "2026-05-28T15:16:54.409154+00:00",
+  "document_count": 0,
+  "audit_document_count": 0,
+  "failure_count": 1,
+  "page_record_count": 0,
+  "citation_count": 0,
+  "line_item_candidate_count": 0,
+  "documents": [
+    {
+      "title": "Audit documents pending parsed ingestion",
+      "url": "https://www.townofriverheadny.gov/206/Financial-Reports",
+      "year": null,
+      "category": "audit",
+      "slug": "audit-documents-pending-ingestion",
+      "json": null,
+      "page_count": 0,
+      "money_value_count": 0,
+      "sha256": null,
+      "parsed_at": "2026-05-28T15:16:54.409154+00:00",
+      "status": "pending_parser_success"
+    }
+  ],
+  "failures": [
+    {
+      "title": "Parser run",
+      "url": "https://www.townofriverheadny.gov/206/Financial-Reports",
+      "error": "parse_all_pdfs.py exited with code 1"
+    }
+  ],
+  "warning": "Parser did not produce full document outputs. The site can still build while ingestion diagnostics are preserved."
+}
