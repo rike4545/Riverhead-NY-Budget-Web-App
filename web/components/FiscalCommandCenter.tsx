@@ -1,8 +1,7 @@
 import { analyticsModules, automatedKpis } from '../lib/analytics-modules'
 import { allOperatingFunds2026, fundBalanceUseSummary } from '../lib/all-funds'
-import { auditAfrClarity, narrativeInsights, pressureIndicators } from '../lib/intelligence'
+import { narrativeInsights } from '../lib/intelligence'
 import { retirementProgramAssessment, retirementRiskFactors } from '../lib/retirement-risk-analysis'
-import { surplusScenario, surplusScenarioAssessment, surplusScenarioTotals } from '../lib/surplus-scenarios'
 import { archiveStats, financialReportsArchive } from '../lib/financial-reports-archive'
 import { dollars } from '../lib/financial-data'
 
@@ -20,9 +19,31 @@ const nav = [
 const shell = { background: 'white', border: '1px solid #e2e8f0', borderRadius: 24, boxShadow: '0 24px 60px rgba(15,23,42,.08)' } as const
 const muted = '#64748b'
 
+const surplusScenario = {
+  totalAvailable: 5000000,
+  allocations: [
+    { category: 'Contract and labor pressure reserve', amount: 1200000, description: 'Reserve for labor settlements and workforce cost pressure.', benefit: 'Creates a buffer for contract volatility.', caution: 'Needs public rules and reporting.' },
+    { category: 'Tax stabilization fund', amount: 2000000, description: 'Reserve to smooth levy pressure.', benefit: 'Can offset levy growth if formally applied.', caution: 'One-time source unless recurring savings replace it.' },
+    { category: 'Parks', amount: 750000, description: 'Parks and quality-of-life infrastructure.', benefit: 'Supports public assets.', caution: 'May create maintenance costs.' },
+    { category: 'Vehicles', amount: 525000, description: 'Fleet replacement or modernization.', benefit: 'Can reduce repair and borrowing pressure.', caution: 'Should align with fleet schedule.' },
+    { category: 'Software', amount: 150000, description: 'Technology and service modernization.', benefit: 'Can improve productivity.', caution: 'May create recurring subscription costs.' },
+    { category: 'Training / tuition', amount: 150000, description: 'Staff development and credentials.', benefit: 'Builds internal capacity.', caution: 'Depends on retention.' },
+    { category: 'Classification / compensation investments', amount: 175000, description: 'Targeted workforce investment.', benefit: 'Supports recruitment and retention.', caution: 'May create recurring costs.' },
+    { category: 'Remaining balance', amount: 50000, description: 'Unallocated remainder.', benefit: 'Small contingency.', caution: 'Should have assigned purpose.' },
+  ],
+}
+
+const packageTotal = surplusScenario.allocations.reduce((sum, item) => sum + item.amount, 0)
+const surplusScenarioTotals = {
+  packageTotal,
+  remainingFromFiveMillion: surplusScenario.totalAvailable - packageTotal,
+  reserveAndStabilization: 3200000,
+  capitalTechnologyWorkforce: 1750000,
+}
+const scenarioSummary = 'This scenario allocates $4.95M of a $5M package and leaves $50K unallocated. It combines stabilization, reserves, parks, vehicles, software, training, and compensation investments.'
+
 export default function FiscalCommandCenter() {
   const reserveUsers = allOperatingFunds2026.filter((fund) => fund.appropriatedFundBalance2026 > 0)
-  const highestLevyFunds = [...allOperatingFunds2026].sort((a, b) => b.taxLevy2026 - a.taxLevy2026).slice(0, 6)
   const recentDocs = financialReportsArchive.slice(0, 10)
 
   return (
@@ -77,13 +98,8 @@ export default function FiscalCommandCenter() {
           </section>
 
           <section id="insights" style={{ ...shell, scrollMarginTop: 24, marginTop: 18, padding: 24 }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'end', gap: 20 }}>
-              <div>
-                <h2 style={{ margin: 0 }}>Resident Insights</h2>
-                <p style={{ color: muted, marginBottom: 0 }}>What changed, why it matters, and what still needs validation.</p>
-              </div>
-              <span style={{ background: '#dbeafe', color: '#1e40af', padding: '7px 11px', borderRadius: 999, fontSize: 12, fontWeight: 950 }}>AI-assisted, source-backed</span>
-            </div>
+            <h2 style={{ margin: 0 }}>Resident Insights</h2>
+            <p style={{ color: muted }}>What changed, why it matters, and what still needs validation.</p>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(280px,1fr))', gap: 14, marginTop: 16 }}>
               {narrativeInsights.map((insight) => (
                 <article key={insight.title} style={{ border: '1px solid #e2e8f0', borderRadius: 18, padding: 16, background: '#f8fafc' }}>
@@ -134,8 +150,8 @@ export default function FiscalCommandCenter() {
           </section>
 
           <section id="scenario" style={{ ...shell, scrollMarginTop: 24, marginTop: 18, padding: 24 }}>
-            <h2 style={{ marginTop: 0 }}>Scenario Lab: $5M Surplus Allocation</h2>
-            <p style={{ color: muted }}>{surplusScenarioAssessment.plainEnglish}</p>
+            <h2 style={{ marginTop: 0 }}>Scenario Lab: $5M Allocation</h2>
+            <p style={{ color: muted }}>{scenarioSummary}</p>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(220px,1fr))', gap: 14 }}>
               <Mini label="Package total" value={dollars(surplusScenarioTotals.packageTotal)} />
               <Mini label="Reserve + stabilization" value={dollars(surplusScenarioTotals.reserveAndStabilization)} />
@@ -147,7 +163,7 @@ export default function FiscalCommandCenter() {
                 <div key={item.category} style={{ border: '1px solid #e2e8f0', borderRadius: 14, padding: 14, background: '#f8fafc' }}>
                   <strong>{item.category}: {dollars(item.amount)}</strong>
                   <p style={{ color: '#475569' }}>{item.description}</p>
-                  <p style={{ color: muted }}><strong>Benefit:</strong> {item.potentialBenefit}</p>
+                  <p style={{ color: muted }}><strong>Benefit:</strong> {item.benefit}</p>
                   <p style={{ color: muted }}><strong>Caution:</strong> {item.caution}</p>
                 </div>
               ))}
