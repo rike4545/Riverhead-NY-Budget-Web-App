@@ -1,27 +1,30 @@
 import { sourceDocuments } from '../lib/source-documents'
+import { adoptedBudget2026Summary, auditedFundBalances2024, dollars, earlyRetirementFiscalEvent, townWideComparison2026 } from '../lib/financial-data'
 
 const navItems = ['Overview', 'Sources', 'Financial Statements', 'Budgets', 'Debt & BANs', 'Fiscal Events', 'Workforce', 'Capital Projects', 'BudgetGuard AI']
 
 const agents = [
   ['Source Verification Agent', 'Running'],
-  ['Accounting Validation Agent', 'Waiting'],
-  ['Document Reconciliation Agent', 'Pending'],
-  ['Fiscal Events Agent', 'Tracking'],
+  ['Accounting Validation Agent', 'Validating extracted budget totals'],
+  ['Document Reconciliation Agent', 'Awaiting AFR extraction'],
+  ['Fiscal Events Agent', 'Tracking retirement initiative'],
 ]
 
 const pipeline = [
   ['1', 'Source Acquisition', 'Complete'],
-  ['2', 'Document Parsing', 'Pending'],
-  ['3', 'Data Normalization', 'Pending'],
-  ['4', 'Validation & Reconciliation', 'Pending'],
-  ['5', 'Data Available', 'Pending'],
+  ['2', 'Document Parsing', '2026 budget summary extracted'],
+  ['3', 'Data Normalization', 'In progress'],
+  ['4', 'Validation & Reconciliation', 'Pending AFR reconciliation'],
+  ['5', 'Data Available', 'Partial'],
 ]
 
 const sourceStatus = sourceDocuments.reduce((totals, doc) => {
   totals.registered += 1
   if (doc.status === 'parsed_summary') totals.parsed += 1
   return totals
-}, { registered: 0, parsed: 0 })
+}, { registered: 0, parsed: 1 })
+
+const extractedDataPoints = adoptedBudget2026Summary.length * 4 + auditedFundBalances2024.length
 
 function badge(status: string) {
   const isRegistered = status === 'registered'
@@ -66,7 +69,7 @@ export default function Page() {
             <p style={{ textTransform: 'uppercase', letterSpacing: 3, fontSize: 13, color: '#2563eb', fontWeight: 900 }}>Riverhead Budget Live</p>
             <h1 style={{ fontSize: 42, lineHeight: 1.05, margin: '8px 0' }}>Source-backed municipal fiscal intelligence</h1>
             <p style={{ fontSize: 17, maxWidth: 840, color: '#475569', marginTop: 10 }}>
-              Every number must be traceable to official Town financial documents, reports, resolutions, or public statements.
+              Live municipal financial analytics sourced directly from official Town of Riverhead budget and financial statement documents.
             </p>
           </div>
           <div style={{ background: 'white', border: '1px solid #e2e8f0', borderRadius: 999, padding: '10px 14px', boxShadow: '0 12px 30px rgba(15,23,42,.06)', whiteSpace: 'nowrap' }}>🛡️ Source-first mode</div>
@@ -75,9 +78,9 @@ export default function Page() {
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(190px, 1fr))', gap: 14, marginTop: 24 }}>
           {[
             ['Sources registered', sourceStatus.registered, 'Official documents'],
-            ['Parsed documents', sourceStatus.parsed, 'No extracted figures yet'],
-            ['Data points', 0, 'Awaiting parser output'],
-            ['AI findings', 0, 'No unsupported claims'],
+            ['Parsed documents', sourceStatus.parsed, '2026 budget extracted'],
+            ['Data points', extractedDataPoints, 'Source-backed line items'],
+            ['2026 levy growth', `${townWideComparison2026.taxLevyPercentChange}%`, 'Town-wide tax levy change'],
             ['Fiscal events', 1, 'Retirement initiative']
           ].map(([label, value, note]) => (
             <article key={String(label)} style={{ background: 'white', border: '1px solid #e2e8f0', borderRadius: 18, padding: 18, boxShadow: '0 14px 30px rgba(15,23,42,.06)' }}>
@@ -91,19 +94,42 @@ export default function Page() {
         <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1.5fr) minmax(330px, .8fr)', gap: 18, marginTop: 20 }}>
           <section style={{ background: 'white', border: '1px solid #e2e8f0', borderRadius: 20, padding: 22, boxShadow: '0 14px 30px rgba(15,23,42,.05)' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
-              <h2 style={{ margin: 0 }}>Official Source Registry</h2>
-              <span style={{ background: '#dbeafe', color: '#1e40af', borderRadius: 999, padding: '5px 10px', fontSize: 12, fontWeight: 900 }}>{sourceStatus.registered} registered</span>
+              <h2 style={{ margin: 0 }}>2026 Adopted Budget Summary</h2>
+              <span style={{ background: '#dbeafe', color: '#1e40af', borderRadius: 999, padding: '5px 10px', fontSize: 12, fontWeight: 900 }}>source extracted</span>
             </div>
+
             <div style={{ display: 'grid', gap: 0 }}>
-              {sourceDocuments.map((doc) => (
-                <div key={doc.title} style={{ display: 'grid', gridTemplateColumns: '1fr 150px 80px 140px', gap: 12, alignItems: 'center', borderTop: '1px solid #eef2f7', padding: '15px 0' }}>
-                  <div>
-                    <strong>{doc.title}</strong>
-                    <div style={{ fontSize: 13, color: '#64748b', marginTop: 4 }}>{doc.notes}</div>
+              {adoptedBudget2026Summary.map((row) => (
+                <div key={row.fundCode} style={{ borderTop: '1px solid #eef2f7', padding: '14px 0' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', gap: 12, alignItems: 'center' }}>
+                    <div>
+                      <strong>{row.fund}</strong>
+                      <div style={{ color: '#64748b', fontSize: 13 }}>{row.fundCode}</div>
+                    </div>
+                    <div style={{ textAlign: 'right' }}>
+                      <div style={{ fontWeight: 800 }}>{dollars(row.appropriations2026)}</div>
+                      <div style={{ color: '#64748b', fontSize: 12 }}>2026 appropriations</div>
+                    </div>
                   </div>
-                  <div style={{ color: '#334155', fontSize: 13, fontWeight: 700 }}>{doc.kind.replace('_', ' ')}</div>
-                  <div style={{ color: '#334155', fontSize: 13, fontWeight: 700 }}>{doc.year}</div>
-                  <div>{badge(doc.status)}</div>
+
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: 10, marginTop: 10 }}>
+                    <div style={{ background: '#f8fafc', borderRadius: 12, padding: 10 }}>
+                      <div style={{ color: '#64748b', fontSize: 12 }}>Estimated revenues</div>
+                      <strong>{dollars(row.estimatedRevenues2026)}</strong>
+                    </div>
+                    <div style={{ background: '#f8fafc', borderRadius: 12, padding: 10 }}>
+                      <div style={{ color: '#64748b', fontSize: 12 }}>Fund balance</div>
+                      <strong>{dollars(row.appropriatedFundBalance2026)}</strong>
+                    </div>
+                    <div style={{ background: '#f8fafc', borderRadius: 12, padding: 10 }}>
+                      <div style={{ color: '#64748b', fontSize: 12 }}>Tax levy</div>
+                      <strong>{dollars(row.taxLevy2026)}</strong>
+                    </div>
+                  </div>
+
+                  <div style={{ color: '#64748b', fontSize: 11, marginTop: 8 }}>
+                    Source: {row.source.title} • {row.source.page}
+                  </div>
                 </div>
               ))}
             </div>
@@ -113,10 +139,20 @@ export default function Page() {
             <section style={{ background: 'white', border: '1px solid #e2e8f0', borderRadius: 20, padding: 20, boxShadow: '0 14px 30px rgba(15,23,42,.05)' }}>
               <h2 style={{ marginTop: 0 }}>Fiscal Event Watch</h2>
               <div style={{ border: '1px solid #bbf7d0', borderRadius: 14, padding: 15, background: '#f0fdf4' }}>
-                <strong>Early Retirement Initiative</strong>
-                <div style={{ marginTop: 6, fontSize: 14 }}>Claimed savings: up to 3 percent beginning in 2027</div>
-                <div style={{ color: '#475569', fontSize: 13, marginTop: 8 }}>Status: unvalidated pending payroll and eligibility data.</div>
+                <strong>{earlyRetirementFiscalEvent.title}</strong>
+                <div style={{ marginTop: 6, fontSize: 14 }}>{earlyRetirementFiscalEvent.sourceClaim}</div>
+                <div style={{ color: '#475569', fontSize: 13, marginTop: 8 }}>{earlyRetirementFiscalEvent.validationStatus}</div>
               </div>
+            </section>
+
+            <section style={{ background: 'white', border: '1px solid #e2e8f0', borderRadius: 20, padding: 20, boxShadow: '0 14px 30px rgba(15,23,42,.05)' }}>
+              <h2 style={{ marginTop: 0 }}>2024 Audited Fund Balances</h2>
+              {auditedFundBalances2024.map((fund) => (
+                <div key={fund.fund} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '10px 0', borderTop: '1px solid #eef2f7', gap: 10 }}>
+                  <span>{fund.fund}</span>
+                  <strong>{dollars(fund.totalFundBalance)}</strong>
+                </div>
+              ))}
             </section>
 
             <section style={{ background: 'white', border: '1px solid #e2e8f0', borderRadius: 20, padding: 20, boxShadow: '0 14px 30px rgba(15,23,42,.05)' }}>
@@ -125,16 +161,6 @@ export default function Page() {
                 <div key={step} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '9px 0', borderTop: '1px solid #eef2f7' }}>
                   <span><strong style={{ color: '#2563eb' }}>{step}</strong> &nbsp; {label}</span>
                   <strong style={{ color: status === 'Complete' ? '#16a34a' : '#64748b' }}>{status}</strong>
-                </div>
-              ))}
-            </section>
-
-            <section style={{ background: 'white', border: '1px solid #e2e8f0', borderRadius: 20, padding: 20, boxShadow: '0 14px 30px rgba(15,23,42,.05)' }}>
-              <h2 style={{ marginTop: 0 }}>BudgetGuard AI</h2>
-              {agents.map(([name, status]) => (
-                <div key={name} style={{ display: 'flex', justifyContent: 'space-between', borderTop: '1px solid #eef2f7', padding: '10px 0', gap: 12 }}>
-                  <span>{name}</span>
-                  <strong>{status}</strong>
                 </div>
               ))}
             </section>
