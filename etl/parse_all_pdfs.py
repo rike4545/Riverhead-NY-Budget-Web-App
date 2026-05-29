@@ -21,6 +21,10 @@ CACHE = ROOT / '.cache' / 'financial-reports'
 MONEY = re.compile(r'\$?\(?\d{1,3}(?:,\d{3})+(?:\.\d{2})?\)?')
 YEAR = re.compile(r'\b(20\d{2})\b')
 ACCOUNT = re.compile(r'\b[A-Z]{1,3}\d{0,3}(?:[.-]\d{1,5}){1,4}\b')
+HEADERS = {
+    'User-Agent': 'Mozilla/5.0 RiverheadBudgetLive/1.0 (+public budget transparency parser)',
+    'Accept': 'text/html,application/pdf,*/*',
+}
 
 @dataclass
 class Link:
@@ -29,6 +33,12 @@ class Link:
     year: int | None
     category: str
     slug: str
+
+DIRECT_PDFS: list[Link] = [
+    Link('2025 Annual Financial Report', 'https://www.townofriverheadny.gov/DocumentCenter/View/3513/2025-Annual-Financial-Report', 2025, 'annual_financial_report', '2025-annual-financial-report'),
+    Link('2024 Audited Basic Financial Statements', 'https://www.townofriverheadny.gov/DocumentCenter/View/2858/2024-Audited-Basic-Financial-Statements-PDF', 2024, 'audit', '2024-audited-basic-financial-statements'),
+    Link('2026 Adopted Budget', 'https://www.townofriverheadny.gov/DocumentCenter/View/2967/2026-Adopted-Budget', 2026, 'adopted_budget', '2026-adopted-budget'),
+]
 
 
 def slugify(value: str) -> str:
@@ -45,7 +55,7 @@ def category(title: str) -> str:
         return 'preliminary_budget'
     if 'annual financial report' in t:
         return 'annual_financial_report'
-    if 'audit' in t:
+    if 'audited basic financial' in t or 'audited financial' in t or 'audit' in t:
         return 'audit'
     if 'justice court' in t:
         return 'justice_court'
@@ -54,29 +64,40 @@ def category(title: str) -> str:
     return 'other'
 
 
+def merge_links(found: list[Link]) -> list[Link]:
+    merged: dict[str, Link] = {}
+    for link in DIRECT_PDFS + found:
+        merged[link.url.split('?')[0]] = link
+    return sorted(merged.values(), key=lambda x: ((x.year or 0), x.title), reverse=True)
+
+
 def discover() -> list[Link]:
-    html = requests.get(INDEX_URL, timeout=30).text
-    soup = BeautifulSoup(html, 'html.parser')
-    seen = set()
     links: list[Link] = []
-    for a in soup.find_all('a'):
-        title = ' '.join(a.get_text(' ', strip=True).split())
-        href = a.get('href')
-        if not title or not href:
-            continue
-        url = urljoin(INDEX_URL, href)
-        if 'DocumentCenter' not in url and not url.lower().endswith('.pdf'):
-            continue
-        if not re.search(r'20\d{2}|financial|budget|audit|annual|report|justice|community|supplement', title, re.I):
-            continue
-        key = url.split('?')[0]
-        if key in seen:
-            continue
-        seen.add(key)
-        m = YEAR.search(title)
-        year = int(m.group(1)) if m else None
-        links.append(Link(title, url, year, category(title), slugify(f'{year or "unknown"}-{title}')))
-    return sorted(links, key=lambda x: ((x.year or 0), x.title), reverse=True)
+    try:
+        response = requests.get(INDEX_URL, timeout=45, headers=HEADERS)
+        response.raise_for_status()
+        soup = BeautifulSoup(response.text, 'html.parser')
+        seen = set()
+        for a in soup.find_all('a'):
+            title = ' '.join(a.get_text(' ', strip=True).split())
+            href = a.get('href')
+            if not title or not href:
+                continue
+            url = urljoin(INDEX_URL, href)
+            if 'DocumentCenter' not in url and not url.lower().endswith('.pdf'):
+                continue
+            if not re.search(r'20\d{2}|financial|budget|audit|annual|report|justice|community|supplement|statement', title, re.I):
+                continue
+            key = url.split('?')[0]
+            if key in seen:
+                continue
+            seen.add(key)
+            m = YEAR.search(title)
+            year = int(m.group(1)) if m else None
+            links.append(Link(title, url, year, category(title), slugify(f'{year or "unknown"}-{title}')))
+    except Exception as exc:
+        print(f'financial reports index unavailable; using direct PDF fallbacks: {exc}')
+    return merge_links(links)
 
 
 def sha256(path: Path) -> str:
@@ -92,10 +113,10 @@ def download(link: Link) -> Path:
     path = CACHE / f'{link.slug}.pdf'
     if path.exists() and path.stat().st_size:
         return path
-    r = requests.get(link.url, timeout=90)
+    r = requests.get(link.url, timeout=120, headers=HEADERS)
     r.raise_for_status()
     if not r.content.startswith(b'%PDF') and 'pdf' not in r.headers.get('content-type', '').lower():
-        raise RuntimeError('not a PDF response')
+        raise RuntimeError(f'not a PDF response: {r.headers.get("content-type", "unknown")}')
     path.write_bytes(r.content)
     return path
 
@@ -118,7 +139,10 @@ def main() -> int:
     citations = []
     line_candidates = []
 
-    for link in discover():
+    links = discover()
+    print(f'discovered {len(links)} candidate financial-report PDFs')
+
+    for link in links:
         try:
             pdf = download(link)
             reader = PdfReader(str(pdf))
@@ -126,7 +150,11 @@ def main() -> int:
             pages = []
             money_count = 0
             for page_no, page in enumerate(reader.pages, start=1):
-                text = page.extract_text() or ''
+                try:
+                    text = page.extract_text() or ''
+                except Exception as exc:
+                    text = ''
+                    failures.append({'title': link.title, 'url': link.url, 'page': page_no, 'error': f'page text extraction failed: {exc}'})
                 text = '\n'.join(line.rstrip() for line in text.splitlines() if line.strip())
                 values = MONEY.findall(text)
                 money_count += len(values)
@@ -144,17 +172,18 @@ def main() -> int:
             payload = {**asdict(link), 'sha256': doc_hash, 'page_count': len(pages), 'money_value_count': money_count, 'pages': pages, 'parsed_at': parsed_at}
             (DOCS / f'{link.slug}.json').write_text(json.dumps(payload, indent=2), encoding='utf-8')
             docs.append({'title': link.title, 'url': link.url, 'year': link.year, 'category': link.category, 'slug': link.slug, 'json': f'documents/{link.slug}.json', 'page_count': len(pages), 'money_value_count': money_count, 'sha256': doc_hash, 'parsed_at': parsed_at})
-            print(f'parsed {link.title}')
+            print(f'parsed {link.title} ({len(pages)} pages, {money_count} money values)')
         except Exception as exc:
             failures.append({'title': link.title, 'url': link.url, 'error': str(exc)})
             print(f'failed {link.title}: {exc}')
 
-    index = {'source_index': INDEX_URL, 'parsed_at': parsed_at, 'document_count': len(docs), 'failure_count': len(failures), 'page_record_count': len(search_records), 'citation_count': len(citations), 'line_item_candidate_count': len(line_candidates), 'documents': docs, 'failures': failures}
+    index = {'source_index': INDEX_URL, 'parsed_at': parsed_at, 'document_count': len(docs), 'audit_document_count': sum(1 for d in docs if d['category'] == 'audit'), 'failure_count': len(failures), 'page_record_count': len(search_records), 'citation_count': len(citations), 'line_item_candidate_count': len(line_candidates), 'documents': docs, 'failures': failures}
     (OUT / 'index.json').write_text(json.dumps(index, indent=2), encoding='utf-8')
     (OUT / 'search-index.json').write_text(json.dumps({'parsed_at': parsed_at, 'records': search_records}, indent=2), encoding='utf-8')
     (OUT / 'citations.json').write_text(json.dumps({'parsed_at': parsed_at, 'records': citations}, indent=2), encoding='utf-8')
     (OUT / 'line-item-candidates.json').write_text(json.dumps({'parsed_at': parsed_at, 'records': line_candidates}, indent=2), encoding='utf-8')
     (OUT / 'extraction-report.json').write_text(json.dumps(index, indent=2), encoding='utf-8')
+    print(f'parsed documents: {len(docs)}; failures: {len(failures)}')
     return 0 if docs else 1
 
 if __name__ == '__main__':
