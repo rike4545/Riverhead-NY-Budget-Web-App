@@ -14,6 +14,7 @@
   {
    "code": "6410",
    "name": "Publicity/Economic Developmen",
+   "adopted2024": 175400.0,
    "adopted2025": 180700.0,
    "adopted2026": 141236.0,
    "change": -39464.0,
@@ -32,7 +33,8 @@
      "deptRequested2026": 137636.0,
      "tentative2026": 137636.0,
      "preliminary2026": 137636.0,
-     "adopted2026": 137636.0
+     "adopted2026": 137636.0,
+     "adopted2024": 123600.0
     },
     {
      "account": "CM1-6-6410-441-000-00000",
@@ -42,7 +44,8 @@
      "deptRequested2026": 0.0,
      "tentative2026": 0.0,
      "preliminary2026": 0.0,
-     "adopted2026": 0.0
+     "adopted2026": 0.0,
+     "adopted2024": 48400.0
     },
     {
      "account": "CM1-6-6410-495-000-00000",
@@ -52,7 +55,8 @@
      "deptRequested2026": 3600.0,
      "tentative2026": 3600.0,
      "preliminary2026": 3600.0,
-     "adopted2026": 3600.0
+     "adopted2026": 3600.0,
+     "adopted2024": 3400.0
     }
    ],
    "lineItemCount": 3
@@ -60,6 +64,7 @@
   {
    "code": "1910",
    "name": "Unallocated Insurance",
+   "adopted2024": 2800.0,
    "adopted2025": 2800.0,
    "adopted2026": 2900.0,
    "change": 100.0,
@@ -78,7 +83,8 @@
      "deptRequested2026": 2100.0,
      "tentative2026": 2100.0,
      "preliminary2026": 2100.0,
-     "adopted2026": 2100.0
+     "adopted2026": 2100.0,
+     "adopted2024": 1900.0
     },
     {
      "account": "CM1-1-1910-488-000-00000",
@@ -88,7 +94,8 @@
      "deptRequested2026": 800.0,
      "tentative2026": 800.0,
      "preliminary2026": 800.0,
-     "adopted2026": 800.0
+     "adopted2026": 800.0,
+     "adopted2024": 900.0
     }
    ],
    "lineItemCount": 2

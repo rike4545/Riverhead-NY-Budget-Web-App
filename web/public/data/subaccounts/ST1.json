@@ -14,6 +14,7 @@
   {
    "code": "5650",
    "name": "Public Parking District",
+   "adopted2024": 114300.0,
    "adopted2025": 113500.0,
    "adopted2026": 126600.0,
    "change": 13100.0,
@@ -32,7 +33,8 @@
      "deptRequested2026": 61800.0,
      "tentative2026": 61800.0,
      "preliminary2026": 61800.0,
-     "adopted2026": 61800.0
+     "adopted2026": 61800.0,
+     "adopted2024": 61800.0
     },
     {
      "account": "ST1-5-5650-465-000-00000",
@@ -42,7 +44,8 @@
      "deptRequested2026": 15000.0,
      "tentative2026": 15000.0,
      "preliminary2026": 15000.0,
-     "adopted2026": 15000.0
+     "adopted2026": 15000.0,
+     "adopted2024": 15000.0
     },
     {
      "account": "ST1-5-5650-472-000-00000",
@@ -52,7 +55,8 @@
      "deptRequested2026": 43700.0,
      "tentative2026": 43700.0,
      "preliminary2026": 43700.0,
-     "adopted2026": 43700.0
+     "adopted2026": 43700.0,
+     "adopted2024": 31000.0
     },
     {
      "account": "ST1-5-5650-495-000-00000",
@@ -62,7 +66,8 @@
      "deptRequested2026": 6100.0,
      "tentative2026": 6100.0,
      "preliminary2026": 6100.0,
-     "adopted2026": 6100.0
+     "adopted2026": 6100.0,
+     "adopted2024": 6500.0
     }
    ],
    "lineItemCount": 4
@@ -70,6 +75,7 @@
   {
    "code": "9901",
    "name": "Transfers to Other Funds",
+   "adopted2024": 77300.0,
    "adopted2025": 77000.0,
    "adopted2026": 76300.0,
    "change": -700.0,
@@ -88,7 +94,8 @@
      "deptRequested2026": 76300.0,
      "tentative2026": 76300.0,
      "preliminary2026": 76300.0,
-     "adopted2026": 76300.0
+     "adopted2026": 76300.0,
+     "adopted2024": 77300.0
     }
    ],
    "lineItemCount": 1
@@ -96,6 +103,7 @@
   {
    "code": "1910",
    "name": "Unallocated Insurance",
+   "adopted2024": 3100.0,
    "adopted2025": 3100.0,
    "adopted2026": 3200.0,
    "change": 100.0,
@@ -114,7 +122,8 @@
      "deptRequested2026": 2300.0,
      "tentative2026": 2300.0,
      "preliminary2026": 2300.0,
-     "adopted2026": 2300.0
+     "adopted2026": 2300.0,
+     "adopted2024": 2100.0
     },
     {
      "account": "ST1-1-1910-488-000-00000",
@@ -124,7 +133,8 @@
      "deptRequested2026": 900.0,
      "tentative2026": 900.0,
      "preliminary2026": 900.0,
-     "adopted2026": 900.0
+     "adopted2026": 900.0,
+     "adopted2024": 1000.0
     }
    ],
    "lineItemCount": 2
@@ -132,6 +142,7 @@
   {
    "code": "1950",
    "name": "Taxes & Asses. On Prope",
+   "adopted2024": 1000.0,
    "adopted2025": 1000.0,
    "adopted2026": 1000.0,
    "change": 0.0,
@@ -150,7 +161,8 @@
      "deptRequested2026": 1000.0,
      "tentative2026": 1000.0,
      "preliminary2026": 1000.0,
-     "adopted2026": 1000.0
+     "adopted2026": 1000.0,
+     "adopted2024": 1000.0
     }
    ],
    "lineItemCount": 1
@@ -158,6 +170,7 @@
   {
    "code": "9990",
    "name": "Function 9990",
+   "adopted2024": 0,
    "adopted2025": 7000.0,
    "adopted2026": 0,
    "change": -7000.0,
@@ -176,7 +189,8 @@
      "deptRequested2026": 0.0,
      "tentative2026": 0.0,
      "preliminary2026": 0.0,
-     "adopted2026": 0.0
+     "adopted2026": 0.0,
+     "adopted2024": 0.0
     }
    ],
    "lineItemCount": 1

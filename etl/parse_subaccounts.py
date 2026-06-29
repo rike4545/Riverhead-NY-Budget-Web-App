@@ -22,7 +22,11 @@ from collections import OrderedDict
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-SRC = ROOT / "web/public/data/financial-reports/documents/2026-2026-adopted-budget.json"
+DOCS = ROOT / "web/public/data/financial-reports/documents"
+SRC = DOCS / "2026-2026-adopted-budget.json"
+# The 2025 adopted budget prints the 2024 adopted figure in its first money
+# column, letting us attach a 2024 -> 2026 trend to each line item.
+PRIOR_SRC = DOCS / "2025-2025-adopted-budget-pdf.json"
 OUT = ROOT / "web/public/data/subaccounts"
 
 SOURCE_DOC = {
@@ -122,8 +126,8 @@ def split_line(line):
     return account, desc, money
 
 
-def get_pages(text_type):
-    data = json.loads(SRC.read_text())
+def get_pages(text_type, src=SRC):
+    data = json.loads(src.read_text())
     for page in data["pages"]:
         lines = [l.rstrip() for l in page["text"].split("\n")]
         header = " ".join(lines[:4]).upper()
@@ -131,6 +135,24 @@ def get_pages(text_type):
             yield page["page"], lines
         if text_type == "revenue" and "REVENUE" in header and "EXPENDITURES" not in header:
             yield page["page"], lines
+
+
+def extract_prior_adopted(src):
+    """Map account number -> the prior-year adopted figure (first money column)
+    from an older adopted-budget file. Used to attach a multi-year trend."""
+    prior = {}
+    if not src.exists():
+        return prior
+    for _page, lines in get_pages("expenditures", src):
+        for raw in lines:
+            line = raw.strip()
+            m = EXP_RE.match(line)
+            if not m:
+                continue
+            account, _desc, money = split_line(line)
+            if money:
+                prior[account] = money[0]
+    return prior
 
 
 def parse_expenditures():
@@ -222,6 +244,7 @@ def parse_revenue():
 def build():
     exp = parse_expenditures()
     rev = parse_revenue()
+    prior2024 = extract_prior_adopted(PRIOR_SRC)
 
     OUT.mkdir(parents=True, exist_ok=True)
     index = []
@@ -232,8 +255,12 @@ def build():
             items = dept["lineItems"]
             if not items:
                 continue
+            # attach the 2024 adopted figure (from the 2025 budget) for a 3-year trend
+            for i in items:
+                i["adopted2024"] = prior2024.get(i["account"])
             dept_adopted2026 = sum(i["adopted2026"] or 0 for i in items)
             dept_adopted2025 = sum(i["adopted2025"] or 0 for i in items)
+            dept_adopted2024 = sum(i["adopted2024"] or 0 for i in items)
             # category rollups
             cat_totals = OrderedDict()
             for i in items:
@@ -241,6 +268,7 @@ def build():
             departments.append({
                 "code": dcode,
                 "name": dept["name"],
+                "adopted2024": round(dept_adopted2024, 2),
                 "adopted2025": round(dept_adopted2025, 2),
                 "adopted2026": round(dept_adopted2026, 2),
                 "change": round(dept_adopted2026 - dept_adopted2025, 2),

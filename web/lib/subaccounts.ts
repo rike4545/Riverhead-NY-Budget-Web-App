@@ -28,6 +28,7 @@ export type SubLineItem = {
   account: string
   name: string
   category: string
+  adopted2024: number | null
   adopted2025: number | null
   deptRequested2026: number | null
   tentative2026: number | null
@@ -40,6 +41,7 @@ export type SubCategoryTotal = { category: string; adopted2026: number }
 export type SubDepartment = {
   code: string
   name: string
+  adopted2024: number
   adopted2025: number
   adopted2026: number
   change: number

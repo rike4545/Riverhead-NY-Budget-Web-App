@@ -14,6 +14,7 @@
   {
    "code": "6980",
    "name": "Economic Development",
+   "adopted2024": 22600.0,
    "adopted2025": 22600.0,
    "adopted2026": 22700.0,
    "change": 100.0,
@@ -32,7 +33,8 @@
      "deptRequested2026": 8000.0,
      "tentative2026": 8000.0,
      "preliminary2026": 8000.0,
-     "adopted2026": 8000.0
+     "adopted2026": 8000.0,
+     "adopted2024": 8000.0
     },
     {
      "account": "Z14-6-6980-433-000-00000",
@@ -42,7 +44,8 @@
      "deptRequested2026": 12000.0,
      "tentative2026": 12000.0,
      "preliminary2026": 12000.0,
-     "adopted2026": 12000.0
+     "adopted2026": 12000.0,
+     "adopted2024": 12000.0
     },
     {
      "account": "Z14-6-6980-436-210-00000",
@@ -52,7 +55,8 @@
      "deptRequested2026": 2100.0,
      "tentative2026": 2100.0,
      "preliminary2026": 2100.0,
-     "adopted2026": 2100.0
+     "adopted2026": 2100.0,
+     "adopted2024": 2100.0
     },
     {
      "account": "Z14-6-6980-471-000-00000",
@@ -62,7 +66,8 @@
      "deptRequested2026": 600.0,
      "tentative2026": 600.0,
      "preliminary2026": 600.0,
-     "adopted2026": 600.0
+     "adopted2026": 600.0,
+     "adopted2024": 500.0
     }
    ],
    "lineItemCount": 4
@@ -70,6 +75,7 @@
   {
    "code": "1910",
    "name": "Unallocated Insurance",
+   "adopted2024": 20400.0,
    "adopted2025": 20400.0,
    "adopted2026": 21400.0,
    "change": 1000.0,
@@ -88,7 +94,8 @@
      "deptRequested2026": 21200.0,
      "tentative2026": 21200.0,
      "preliminary2026": 21200.0,
-     "adopted2026": 21200.0
+     "adopted2026": 21200.0,
+     "adopted2024": 20200.0
     },
     {
      "account": "Z14-1-1910-488-000-00000",
@@ -98,7 +105,8 @@
      "deptRequested2026": 200.0,
      "tentative2026": 200.0,
      "preliminary2026": 200.0,
-     "adopted2026": 200.0
+     "adopted2026": 200.0,
+     "adopted2024": 200.0
     }
    ],
    "lineItemCount": 2

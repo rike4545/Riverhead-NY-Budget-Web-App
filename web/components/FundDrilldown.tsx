@@ -2,6 +2,8 @@
 
 import { useMemo, useState } from 'react'
 import type { FundDetail, SubDepartment } from '../lib/subaccounts'
+import Sparkline from './Sparkline'
+import { appropriationsByYear } from '../lib/budget-history'
 
 const usd = (n: number | null | undefined) =>
   n == null ? '—' : new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(n)
@@ -47,6 +49,8 @@ export default function FundDrilldown({ fund }: { fund: FundDetail }) {
       : filteredRevenues.length
     : null
 
+  const history = appropriationsByYear(fund.code).filter((p) => p.value != null)
+
   return (
     <div style={{ display: 'grid', gap: 16 }}>
       <section style={{ ...card, display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(170px,1fr))', gap: 12 }}>
@@ -60,6 +64,24 @@ export default function FundDrilldown({ fund }: { fund: FundDetail }) {
           good={fund.reconciled}
         />
       </section>
+
+      {history.length >= 2 && (
+        <section style={{ ...card, display: 'flex', gap: 18, alignItems: 'center', flexWrap: 'wrap', justifyContent: 'space-between' }}>
+          <div>
+            <div style={{ color: '#64748b', fontSize: 12, textTransform: 'uppercase', fontWeight: 900, letterSpacing: 0.4 }}>
+              Appropriations history {history[0].year}–{history[history.length - 1].year}
+            </div>
+            <div style={{ display: 'flex', gap: 14, flexWrap: 'wrap', marginTop: 8 }}>
+              {history.map((p) => (
+                <span key={p.year} style={{ fontSize: 13, color: '#334155', fontWeight: 700 }}>
+                  <span style={{ color: '#94a3b8' }}>{p.year}</span> {usd(p.value)}
+                </span>
+              ))}
+            </div>
+          </div>
+          <Sparkline values={history.map((p) => p.value)} width={200} height={48} />
+        </section>
+      )}
 
       <section style={{ ...card, display: 'flex', gap: 12, flexWrap: 'wrap', alignItems: 'center', justifyContent: 'space-between' }}>
         <div style={{ display: 'flex', gap: 8 }}>
@@ -92,7 +114,7 @@ export default function FundDrilldown({ fund }: { fund: FundDetail }) {
         <section style={card}>
           <h3 style={{ marginTop: 0 }}>Estimated Revenues by Source</h3>
           <LineTable
-            rows={filteredRevenues.map((r) => ({ account: r.account, name: r.name, prior: r.adopted2025, adopted: r.adopted2026 }))}
+            rows={filteredRevenues.map((r) => ({ account: r.account, name: r.name, y2024: null, y2025: r.adopted2025, y2026: r.adopted2026 }))}
           />
           {filteredRevenues.length === 0 && <Empty />}
         </section>
@@ -142,13 +164,13 @@ function DepartmentCard({ dept, expanded, fundExp }: { dept: SubDepartment; expa
       </div>
 
       <LineTable
-        rows={dept.lineItems.map((i) => ({ account: i.account, name: i.name, category: i.category, prior: i.adopted2025, adopted: i.adopted2026 }))}
+        rows={dept.lineItems.map((i) => ({ account: i.account, name: i.name, category: i.category, y2024: i.adopted2024, y2025: i.adopted2025, y2026: i.adopted2026 }))}
       />
     </details>
   )
 }
 
-type Row = { account: string; name: string; category?: string; prior: number | null; adopted: number | null }
+type Row = { account: string; name: string; category?: string; y2024: number | null; y2025: number | null; y2026: number | null }
 
 function LineTable({ rows }: { rows: Row[] }) {
   return (
@@ -158,22 +180,28 @@ function LineTable({ rows }: { rows: Row[] }) {
           <tr style={{ textAlign: 'left', color: '#64748b', borderBottom: '2px solid #e2e8f0' }}>
             <th style={{ padding: '7px 8px' }}>Account</th>
             <th style={{ padding: '7px 8px' }}>Description</th>
-            <th style={{ padding: '7px 8px', textAlign: 'right' }}>2025 Adopted</th>
-            <th style={{ padding: '7px 8px', textAlign: 'right' }}>2026 Adopted</th>
-            <th style={{ padding: '7px 8px', textAlign: 'right' }}>Change</th>
+            <th style={{ padding: '7px 8px', textAlign: 'right' }}>2024</th>
+            <th style={{ padding: '7px 8px', textAlign: 'right' }}>2025</th>
+            <th style={{ padding: '7px 8px', textAlign: 'right' }}>2026</th>
+            <th style={{ padding: '7px 8px', textAlign: 'right' }}>25→26 Δ</th>
+            <th style={{ padding: '7px 8px', textAlign: 'center' }}>Trend</th>
           </tr>
         </thead>
         <tbody>
           {rows.map((r) => {
-            const change = (r.adopted ?? 0) - (r.prior ?? 0)
+            const change = (r.y2026 ?? 0) - (r.y2025 ?? 0)
             return (
               <tr key={r.account} style={{ borderBottom: '1px solid #f1f5f9' }}>
                 <td style={{ padding: '7px 8px', fontFamily: 'monospace', fontSize: 11.5, color: '#475569', whiteSpace: 'nowrap' }}>{r.account}</td>
                 <td style={{ padding: '7px 8px' }}>{r.name}</td>
-                <td style={{ padding: '7px 8px', textAlign: 'right', color: '#64748b' }}>{usd(r.prior)}</td>
-                <td style={{ padding: '7px 8px', textAlign: 'right', fontWeight: 700 }}>{usd(r.adopted)}</td>
+                <td style={{ padding: '7px 8px', textAlign: 'right', color: '#94a3b8' }}>{usd(r.y2024)}</td>
+                <td style={{ padding: '7px 8px', textAlign: 'right', color: '#64748b' }}>{usd(r.y2025)}</td>
+                <td style={{ padding: '7px 8px', textAlign: 'right', fontWeight: 700 }}>{usd(r.y2026)}</td>
                 <td style={{ padding: '7px 8px', textAlign: 'right', color: change > 0 ? '#b91c1c' : change < 0 ? '#15803d' : '#94a3b8', fontWeight: 700 }}>
-                  {change === 0 ? '—' : `${change > 0 ? '+' : '−'}${usd(Math.abs(change)).replace('$', '$')}`}
+                  {change === 0 ? '—' : `${change > 0 ? '+' : '−'}${usd(Math.abs(change))}`}
+                </td>
+                <td style={{ padding: '4px 8px', textAlign: 'center' }}>
+                  <div style={{ display: 'inline-block' }}><Sparkline values={[r.y2024, r.y2025, r.y2026]} width={72} height={22} /></div>
                 </td>
               </tr>
             )

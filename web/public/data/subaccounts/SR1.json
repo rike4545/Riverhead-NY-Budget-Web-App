@@ -14,6 +14,7 @@
   {
    "code": "8160",
    "name": "Refuse & Garbage",
+   "adopted2024": 4793071.0,
    "adopted2025": 5012432.0,
    "adopted2026": 5097076.0,
    "change": 84644.0,
@@ -36,7 +37,8 @@
      "deptRequested2026": 50000.0,
      "tentative2026": 50000.0,
      "preliminary2026": 50000.0,
-     "adopted2026": 50000.0
+     "adopted2026": 50000.0,
+     "adopted2024": 10000.0
     },
     {
      "account": "SR1-8-8160-400-000-00000",
@@ -46,7 +48,8 @@
      "deptRequested2026": 385400.0,
      "tentative2026": 385400.0,
      "preliminary2026": 385400.0,
-     "adopted2026": 385400.0
+     "adopted2026": 385400.0,
+     "adopted2024": 378771.0
     },
     {
      "account": "SR1-8-8160-405-000-00000",
@@ -56,7 +59,8 @@
      "deptRequested2026": 6000.0,
      "tentative2026": 6000.0,
      "preliminary2026": 6000.0,
-     "adopted2026": 6000.0
+     "adopted2026": 6000.0,
+     "adopted2024": 6000.0
     },
     {
      "account": "SR1-8-8160-426-000-00000",
@@ -66,7 +70,8 @@
      "deptRequested2026": 4500.0,
      "tentative2026": 4500.0,
      "preliminary2026": 4500.0,
-     "adopted2026": 4500.0
+     "adopted2026": 4500.0,
+     "adopted2024": 4500.0
     },
     {
      "account": "SR1-8-8160-455-231-00000",
@@ -76,7 +81,8 @@
      "deptRequested2026": 1000.0,
      "tentative2026": 1000.0,
      "preliminary2026": 1000.0,
-     "adopted2026": 1000.0
+     "adopted2026": 1000.0,
+     "adopted2024": 1000.0
     },
     {
      "account": "SR1-8-8160-482-000-00000",
@@ -86,7 +92,8 @@
      "deptRequested2026": 4529102.0,
      "tentative2026": 4529102.0,
      "preliminary2026": 4529102.0,
-     "adopted2026": 4529102.0
+     "adopted2026": 4529102.0,
+     "adopted2024": 4371000.0
     },
     {
      "account": "SR1-8-8160-482-100-00000",
@@ -96,7 +103,8 @@
      "deptRequested2026": 100000.0,
      "tentative2026": 100000.0,
      "preliminary2026": 100000.0,
-     "adopted2026": 100000.0
+     "adopted2026": 100000.0,
+     "adopted2024": 0.0
     },
     {
      "account": "SR1-8-8160-490-000-00000",
@@ -106,7 +114,8 @@
      "deptRequested2026": 4274.0,
      "tentative2026": 4274.0,
      "preliminary2026": 4274.0,
-     "adopted2026": 4274.0
+     "adopted2026": 4274.0,
+     "adopted2024": 5000.0
     },
     {
      "account": "SR1-8-8160-495-000-00000",
@@ -116,7 +125,8 @@
      "deptRequested2026": 16800.0,
      "tentative2026": 16800.0,
      "preliminary2026": 16800.0,
-     "adopted2026": 16800.0
+     "adopted2026": 16800.0,
+     "adopted2024": 16800.0
     }
    ],
    "lineItemCount": 9
@@ -124,6 +134,7 @@
   {
    "code": "1910",
    "name": "Unallocated Insurance",
+   "adopted2024": 69900.0,
    "adopted2025": 77700.0,
    "adopted2026": 79700.0,
    "change": 2000.0,
@@ -142,7 +153,8 @@
      "deptRequested2026": 57700.0,
      "tentative2026": 57700.0,
      "preliminary2026": 57700.0,
-     "adopted2026": 57700.0
+     "adopted2026": 57700.0,
+     "adopted2024": 48200.0
     },
     {
      "account": "SR1-1-1910-488-000-00000",
@@ -152,7 +164,8 @@
      "deptRequested2026": 22000.0,
      "tentative2026": 22000.0,
      "preliminary2026": 22000.0,
-     "adopted2026": 22000.0
+     "adopted2026": 22000.0,
+     "adopted2024": 21700.0
     }
    ],
    "lineItemCount": 2
@@ -160,6 +173,7 @@
   {
    "code": "9040",
    "name": "WC",
+   "adopted2024": 54000.0,
    "adopted2025": 55000.0,
    "adopted2026": 56300.0,
    "change": 1300.0,
@@ -178,7 +192,8 @@
      "deptRequested2026": 17500.0,
      "tentative2026": 17500.0,
      "preliminary2026": 17500.0,
-     "adopted2026": 17500.0
+     "adopted2026": 17500.0,
+     "adopted2024": 15400.0
     },
     {
      "account": "SR1-9-9040-888-000-00000",
@@ -188,7 +203,8 @@
      "deptRequested2026": 38800.0,
      "tentative2026": 38800.0,
      "preliminary2026": 38800.0,
-     "adopted2026": 38800.0
+     "adopted2026": 38800.0,
+     "adopted2024": 38600.0
     }
    ],
    "lineItemCount": 2
@@ -196,6 +212,7 @@
   {
    "code": "9060",
    "name": "Hosp",
+   "adopted2024": 17159.0,
    "adopted2025": 20568.0,
    "adopted2026": 21464.0,
    "change": 896.0,
@@ -214,7 +231,8 @@
      "deptRequested2026": 21464.0,
      "tentative2026": 21464.0,
      "preliminary2026": 21464.0,
-     "adopted2026": 21464.0
+     "adopted2026": 21464.0,
+     "adopted2024": 17159.0
     }
    ],
    "lineItemCount": 1

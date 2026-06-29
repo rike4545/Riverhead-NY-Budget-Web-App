@@ -14,6 +14,7 @@
   {
    "code": "9901",
    "name": "Transfers to Other Funds",
+   "adopted2024": 3185700.0,
    "adopted2025": 3076600.0,
    "adopted2026": 2959300.0,
    "change": -117300.0,
@@ -32,7 +33,8 @@
      "deptRequested2026": 2959300.0,
      "tentative2026": 2959300.0,
      "preliminary2026": 2959300.0,
-     "adopted2026": 2959300.0
+     "adopted2026": 2959300.0,
+     "adopted2024": 3185700.0
     }
    ],
    "lineItemCount": 1
@@ -40,6 +42,7 @@
   {
    "code": "1320",
    "name": "Auditor",
+   "adopted2024": 14300.0,
    "adopted2025": 14300.0,
    "adopted2026": 20000.0,
    "change": 5700.0,
@@ -58,7 +61,8 @@
      "deptRequested2026": 20000.0,
      "tentative2026": 20000.0,
      "preliminary2026": 20000.0,
-     "adopted2026": 20000.0
+     "adopted2026": 20000.0,
+     "adopted2024": 14300.0
     }
    ],
    "lineItemCount": 1
