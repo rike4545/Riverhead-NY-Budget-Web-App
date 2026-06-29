@@ -1,0 +1,237 @@
+{
+ "code": "SR1",
+ "name": "Refuse and Garbage District",
+ "source": {
+  "title": "2026 Adopted Budget",
+  "url": "https://www.townofriverheadny.gov/DocumentCenter/View/2967/2026-Adopted-Budget"
+ },
+ "expenditureTotal2026": 5254540.0,
+ "expenditureTotal2025": 5165700.0,
+ "revenueTotal2026": 5254540.0,
+ "departmentCount": 4,
+ "lineItemCount": 15,
+ "departments": [
+  {
+   "code": "8160",
+   "name": "Refuse & Garbage",
+   "adopted2025": 5012432.0,
+   "adopted2026": 5097076.0,
+   "change": 84644.0,
+   "categoryTotals": [
+    {
+     "category": "Equipment & Capital Outlay",
+     "adopted2026": 50000.0
+    },
+    {
+     "category": "Contractual",
+     "adopted2026": 5047076.0
+    }
+   ],
+   "lineItems": [
+    {
+     "account": "SR1-8-8160-280-000-00000",
+     "name": "Refuse - Vehicles",
+     "category": "Equipment & Capital Outlay",
+     "adopted2025": 50000.0,
+     "deptRequested2026": 50000.0,
+     "tentative2026": 50000.0,
+     "preliminary2026": 50000.0,
+     "adopted2026": 50000.0
+    },
+    {
+     "account": "SR1-8-8160-400-000-00000",
+     "name": "Refuse - Contractual",
+     "category": "Contractual",
+     "adopted2025": 341200.0,
+     "deptRequested2026": 385400.0,
+     "tentative2026": 385400.0,
+     "preliminary2026": 385400.0,
+     "adopted2026": 385400.0
+    },
+    {
+     "account": "SR1-8-8160-405-000-00000",
+     "name": "Refuse - R&M - Vehicles",
+     "category": "Contractual",
+     "adopted2025": 6000.0,
+     "deptRequested2026": 6000.0,
+     "tentative2026": 6000.0,
+     "preliminary2026": 6000.0,
+     "adopted2026": 6000.0
+    },
+    {
+     "account": "SR1-8-8160-426-000-00000",
+     "name": "Refuse Fuel - Gasoline & Diesel",
+     "category": "Contractual",
+     "adopted2025": 4500.0,
+     "deptRequested2026": 4500.0,
+     "tentative2026": 4500.0,
+     "preliminary2026": 4500.0,
+     "adopted2026": 4500.0
+    },
+    {
+     "account": "SR1-8-8160-455-231-00000",
+     "name": "Refuse - Program Exp - Recycling Program",
+     "category": "Contractual",
+     "adopted2025": 1000.0,
+     "deptRequested2026": 1000.0,
+     "tentative2026": 1000.0,
+     "preliminary2026": 1000.0,
+     "adopted2026": 1000.0
+    },
+    {
+     "account": "SR1-8-8160-482-000-00000",
+     "name": "Refuse - Waste Disposal",
+     "category": "Contractual",
+     "adopted2025": 4485858.0,
+     "deptRequested2026": 4529102.0,
+     "tentative2026": 4529102.0,
+     "preliminary2026": 4529102.0,
+     "adopted2026": 4529102.0
+    },
+    {
+     "account": "SR1-8-8160-482-100-00000",
+     "name": "Refuse - Waste Disposal - Tipping Fees",
+     "category": "Contractual",
+     "adopted2025": 100000.0,
+     "deptRequested2026": 100000.0,
+     "tentative2026": 100000.0,
+     "preliminary2026": 100000.0,
+     "adopted2026": 100000.0
+    },
+    {
+     "account": "SR1-8-8160-490-000-00000",
+     "name": "Refuse - Miscellaneous",
+     "category": "Contractual",
+     "adopted2025": 4274.0,
+     "deptRequested2026": 4274.0,
+     "tentative2026": 4274.0,
+     "preliminary2026": 4274.0,
+     "adopted2026": 4274.0
+    },
+    {
+     "account": "SR1-8-8160-495-000-00000",
+     "name": "Refuse - Administrative Charges",
+     "category": "Contractual",
+     "adopted2025": 19600.0,
+     "deptRequested2026": 16800.0,
+     "tentative2026": 16800.0,
+     "preliminary2026": 16800.0,
+     "adopted2026": 16800.0
+    }
+   ],
+   "lineItemCount": 9
+  },
+  {
+   "code": "1910",
+   "name": "Unallocated Insurance",
+   "adopted2025": 77700.0,
+   "adopted2026": 79700.0,
+   "change": 2000.0,
+   "categoryTotals": [
+    {
+     "category": "Contractual",
+     "adopted2026": 79700.0
+    }
+   ],
+   "lineItems": [
+    {
+     "account": "SR1-1-1910-487-000-00000",
+     "name": "Gen Liab - Insurance Premium",
+     "category": "Contractual",
+     "adopted2025": 55300.0,
+     "deptRequested2026": 57700.0,
+     "tentative2026": 57700.0,
+     "preliminary2026": 57700.0,
+     "adopted2026": 57700.0
+    },
+    {
+     "account": "SR1-1-1910-488-000-00000",
+     "name": "Gen Liab - Claim Payments",
+     "category": "Contractual",
+     "adopted2025": 22400.0,
+     "deptRequested2026": 22000.0,
+     "tentative2026": 22000.0,
+     "preliminary2026": 22000.0,
+     "adopted2026": 22000.0
+    }
+   ],
+   "lineItemCount": 2
+  },
+  {
+   "code": "9040",
+   "name": "WC",
+   "adopted2025": 55000.0,
+   "adopted2026": 56300.0,
+   "change": 1300.0,
+   "categoryTotals": [
+    {
+     "category": "Employee Benefits",
+     "adopted2026": 56300.0
+    }
+   ],
+   "lineItems": [
+    {
+     "account": "SR1-9-9040-887-000-00000",
+     "name": "WC - Insurance Premuim",
+     "category": "Employee Benefits",
+     "adopted2025": 16200.0,
+     "deptRequested2026": 17500.0,
+     "tentative2026": 17500.0,
+     "preliminary2026": 17500.0,
+     "adopted2026": 17500.0
+    },
+    {
+     "account": "SR1-9-9040-888-000-00000",
+     "name": "WC - Claim Payments",
+     "category": "Employee Benefits",
+     "adopted2025": 38800.0,
+     "deptRequested2026": 38800.0,
+     "tentative2026": 38800.0,
+     "preliminary2026": 38800.0,
+     "adopted2026": 38800.0
+    }
+   ],
+   "lineItemCount": 2
+  },
+  {
+   "code": "9060",
+   "name": "Hosp",
+   "adopted2025": 20568.0,
+   "adopted2026": 21464.0,
+   "change": 896.0,
+   "categoryTotals": [
+    {
+     "category": "Employee Benefits",
+     "adopted2026": 21464.0
+    }
+   ],
+   "lineItems": [
+    {
+     "account": "SR1-9-9060-810-NON-00000",
+     "name": "Hosp - Hosp, Den & Opt Ins Non-Uni Pers",
+     "category": "Employee Benefits",
+     "adopted2025": 20568.0,
+     "deptRequested2026": 21464.0,
+     "tentative2026": 21464.0,
+     "preliminary2026": 21464.0,
+     "adopted2026": 21464.0
+    }
+   ],
+   "lineItemCount": 1
+  }
+ ],
+ "revenues": [
+  {
+   "account": "SR1-1001-001-00000-A",
+   "name": "Property Taxes",
+   "adopted2025": 5165700.0,
+   "deptRequested2026": 5254540.0,
+   "tentative2026": 5254540.0,
+   "preliminary2026": 5254540.0,
+   "adopted2026": 5254540.0
+  }
+ ],
+ "officialAppropriations2026": 5254540,
+ "reconciliationVariance2026": 0.0,
+ "reconciled": true
+}

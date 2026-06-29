@@ -1,0 +1,120 @@
+{
+ "code": "CM1",
+ "name": "Business Improvement District",
+ "source": {
+  "title": "2026 Adopted Budget",
+  "url": "https://www.townofriverheadny.gov/DocumentCenter/View/2967/2026-Adopted-Budget"
+ },
+ "expenditureTotal2026": 144136.0,
+ "expenditureTotal2025": 183500.0,
+ "revenueTotal2026": 144136.0,
+ "departmentCount": 2,
+ "lineItemCount": 7,
+ "departments": [
+  {
+   "code": "6410",
+   "name": "Publicity/Economic Developmen",
+   "adopted2025": 180700.0,
+   "adopted2026": 141236.0,
+   "change": -39464.0,
+   "categoryTotals": [
+    {
+     "category": "Contractual",
+     "adopted2026": 141236.0
+    }
+   ],
+   "lineItems": [
+    {
+     "account": "CM1-6-6410-436-203-00000",
+     "name": "Eco Dev - Prof Svcs - Other BIDMA",
+     "category": "Contractual",
+     "adopted2025": 128300.0,
+     "deptRequested2026": 137636.0,
+     "tentative2026": 137636.0,
+     "preliminary2026": 137636.0,
+     "adopted2026": 137636.0
+    },
+    {
+     "account": "CM1-6-6410-441-000-00000",
+     "name": "Eco Dev - Marketing & Advertising",
+     "category": "Contractual",
+     "adopted2025": 48400.0,
+     "deptRequested2026": 0.0,
+     "tentative2026": 0.0,
+     "preliminary2026": 0.0,
+     "adopted2026": 0.0
+    },
+    {
+     "account": "CM1-6-6410-495-000-00000",
+     "name": "Eco Dev - Administrative Charges",
+     "category": "Contractual",
+     "adopted2025": 4000.0,
+     "deptRequested2026": 3600.0,
+     "tentative2026": 3600.0,
+     "preliminary2026": 3600.0,
+     "adopted2026": 3600.0
+    }
+   ],
+   "lineItemCount": 3
+  },
+  {
+   "code": "1910",
+   "name": "Unallocated Insurance",
+   "adopted2025": 2800.0,
+   "adopted2026": 2900.0,
+   "change": 100.0,
+   "categoryTotals": [
+    {
+     "category": "Contractual",
+     "adopted2026": 2900.0
+    }
+   ],
+   "lineItems": [
+    {
+     "account": "CM1-1-1910-487-000-00000",
+     "name": "Gen Liab - Insurance Premium",
+     "category": "Contractual",
+     "adopted2025": 2000.0,
+     "deptRequested2026": 2100.0,
+     "tentative2026": 2100.0,
+     "preliminary2026": 2100.0,
+     "adopted2026": 2100.0
+    },
+    {
+     "account": "CM1-1-1910-488-000-00000",
+     "name": "Gen Liab - Claim Payments",
+     "category": "Contractual",
+     "adopted2025": 800.0,
+     "deptRequested2026": 800.0,
+     "tentative2026": 800.0,
+     "preliminary2026": 800.0,
+     "adopted2026": 800.0
+    }
+   ],
+   "lineItemCount": 2
+  }
+ ],
+ "revenues": [
+  {
+   "account": "CM1-1001-001-00000-A",
+   "name": "Property Taxes",
+   "adopted2025": 140300.0,
+   "deptRequested2026": 144136.0,
+   "tentative2026": 144136.0,
+   "preliminary2026": 144136.0,
+   "adopted2026": 144136.0
+  },
+  {
+   "account": "CM1-5031-A01-00000-K",
+   "name": "Interfund Transfers - Transfer From A01",
+   "adopted2025": 43200.0,
+   "deptRequested2026": 0.0,
+   "tentative2026": 0.0,
+   "preliminary2026": 0.0,
+   "adopted2026": 0.0
+  }
+ ],
+ "officialAppropriations2026": 144136,
+ "reconciliationVariance2026": 0.0,
+ "reconciled": true
+}
