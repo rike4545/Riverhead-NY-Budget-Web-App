@@ -2,6 +2,7 @@ export default function PageShell({ title, subtitle, children }: { title: string
   const base = '/rike4545-riverhead-budget-live'
   const links = [
     ['Dashboard', `${base}/`],
+    ['Start Here', `${base}/guide/`],
     ['Payroll', `${base}/payroll/`],
     ['Funds Explorer', `${base}/funds/`],
     ['Budget Compare', `${base}/compare/`],

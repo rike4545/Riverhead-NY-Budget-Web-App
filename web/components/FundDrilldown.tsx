@@ -3,6 +3,7 @@
 import { useMemo, useState } from 'react'
 import type { FundDetail, SubDepartment } from '../lib/subaccounts'
 import Sparkline from './Sparkline'
+import { ColumnGuide } from './PlainCallout'
 import { appropriationsByYear } from '../lib/budget-history'
 
 const usd = (n: number | null | undefined) =>
@@ -102,6 +103,13 @@ export default function FundDrilldown({ fund }: { fund: FundDetail }) {
           <span style={{ color: '#475569', fontWeight: 700, fontSize: 13 }}>{matchCount} matching line items</span>
         )}
       </section>
+
+      <ColumnGuide items={[
+        { term: 'Account', plain: 'The Town’s internal code for a single spending line.' },
+        { term: '2024 / 2025 / 2026', plain: 'What was budgeted for that spending line in each of those years.' },
+        { term: '25→26 Δ', plain: 'The dollar change from the 2025 budget to the 2026 budget (red = up, green = down).' },
+        { term: '’20–’26', plain: 'A mini trend line showing the budgeted amount each year from 2020 through 2026.' },
+      ]} />
 
       {view === 'expenditures' ? (
         <section style={{ display: 'grid', gap: 12 }}>

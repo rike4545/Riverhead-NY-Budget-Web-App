@@ -1,4 +1,7 @@
+import type { ReactNode } from 'react'
 import PageShell from '../../components/PageShell'
+import PlainCallout from '../../components/PlainCallout'
+import Term from '../../components/Term'
 import { allOperatingFunds2026 } from '../../lib/all-funds'
 import { dollars } from '../../lib/financial-data'
 import { subAccountIndex, townwideSubAccountTotals, townwideCategoryTotals } from '../../lib/subaccounts'
@@ -25,12 +28,23 @@ export default function FundsPage() {
       title="Funds Explorer"
       subtitle="Every operating fund drills down to department, spending category, and individual account line items — extracted from the 2026 Adopted Budget and reconciled to the dollar against the official Summary page."
     >
+      <PlainCallout
+        tips={[
+          { label: 'A "fund"', text: 'is a separate pot of money for a purpose — General (most services), Highway, Water, Sewer, and so on. Each has its own balanced budget.' },
+          { label: 'Click any fund', text: 'to open it and see the departments and individual spending lines inside it, with multi-year trends.' },
+          { label: '"Reconciled"', text: 'means our line-item totals add up exactly to the Town’s official published numbers.' },
+        ]}
+      >
+        This page shows <strong>where the Town plans to spend money</strong> in 2026, organized into separate pots called
+        funds. The biggest is the General Fund, which pays for most town-wide services.
+      </PlainCallout>
+
       <section style={{ ...card, display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(160px,1fr))', gap: 12, marginBottom: 18 }}>
         <Stat label="Operating Funds" value={String(subAccountIndex.fundCount)} />
         <Stat label="Departments / Functions" value={String(townwideSubAccountTotals.departments)} />
         <Stat label="Account Line Items" value={townwideSubAccountTotals.lineItems.toLocaleString()} />
-        <Stat label="Total Appropriations" value={dollars(townwideSubAccountTotals.expenditure2026)} />
-        <Stat label="Funds Reconciled" value={`${townwideSubAccountTotals.reconciledFunds}/${subAccountIndex.fundCount}`} good />
+        <Stat label={<Term id="appropriations">Total Appropriations</Term>} value={dollars(townwideSubAccountTotals.expenditure2026)} />
+        <Stat label={<Term id="reconciled">Funds Reconciled</Term>} value={`${townwideSubAccountTotals.reconciledFunds}/${subAccountIndex.fundCount}`} good />
       </section>
 
       <section style={{ ...card, marginBottom: 18 }}>
@@ -75,9 +89,9 @@ export default function FundsPage() {
               </div>
 
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(150px,1fr))', gap: 12, marginTop: 16 }}>
-                <Mini label="Estimated Revenues" value={dollars(fund.estimatedRevenues2026)} />
-                <Mini label="Fund Balance Used" value={dollars(fund.appropriatedFundBalance2026)} />
-                <Mini label="Tax Levy" value={dollars(fund.taxLevy2026)} />
+                <Mini label={<Term id="estimated-revenues">Estimated Revenues</Term>} value={dollars(fund.estimatedRevenues2026)} />
+                <Mini label={<Term id="appropriated-fund-balance">Fund Balance Used</Term>} value={dollars(fund.appropriatedFundBalance2026)} />
+                <Mini label={<Term id="tax-levy">Tax Levy</Term>} value={dollars(fund.taxLevy2026)} />
                 <Mini label="Departments" value={detail ? String(detail.departmentCount) : '—'} />
                 <Mini label="Line Items" value={detail ? String(detail.lineItemCount) : '—'} />
               </div>
@@ -93,7 +107,7 @@ export default function FundsPage() {
   )
 }
 
-function Mini({ label, value }: { label: string; value: string }) {
+function Mini({ label, value }: { label: ReactNode; value: string }) {
   return (
     <div style={{ background: '#f8fafc', border: '1px solid #e2e8f0', borderRadius: 14, padding: 14 }}>
       <div style={{ color: '#64748b', fontSize: 12, textTransform: 'uppercase', fontWeight: 900 }}>{label}</div>
@@ -102,7 +116,7 @@ function Mini({ label, value }: { label: string; value: string }) {
   )
 }
 
-function Stat({ label, value, good }: { label: string; value: string; good?: boolean }) {
+function Stat({ label, value, good }: { label: ReactNode; value: string; good?: boolean }) {
   return (
     <div style={{ background: '#f8fafc', border: '1px solid #e2e8f0', borderRadius: 12, padding: 12 }}>
       <div style={{ color: '#64748b', fontSize: 11.5, textTransform: 'uppercase', fontWeight: 900, letterSpacing: 0.4 }}>{label}</div>

@@ -8,6 +8,7 @@ import { dollars } from '../lib/financial-data'
 const base = '/rike4545-riverhead-budget-live'
 const nav = [
   ['Command Center', '#top'],
+  ['🟢 Start Here (plain English)', `${base}/guide/`],
   ['Payroll Explorer', `${base}/payroll/`],
   ['Funds & Sub-Accounts', `${base}/funds/`],
   ['Budget Compare', `${base}/compare/`],
@@ -90,6 +91,16 @@ export default function FiscalCommandCenter() {
               <div style={{ borderRadius: 999, background: '#dcfce7', color: '#166534', padding: '10px 14px', fontWeight: 950, whiteSpace: 'nowrap' }}>Source-first</div>
             </div>
           </header>
+
+          <a href={`${base}/guide/`} style={{ display: 'block', textDecoration: 'none', marginTop: 18 }}>
+            <div style={{ background: '#eef6ff', border: '1px solid #bcd9f5', borderLeft: '6px solid #1f5f8f', borderRadius: 14, padding: '14px 18px', display: 'flex', gap: 12, alignItems: 'center', flexWrap: 'wrap' }}>
+              <span aria-hidden style={{ fontSize: 22 }}>👋</span>
+              <span style={{ color: '#1f3a52', fontSize: 15.5, lineHeight: 1.5 }}>
+                <strong style={{ color: '#12385b' }}>New to town budgets?</strong> Start with our plain-English guide — it explains
+                each tool and every budget word in everyday language. <strong style={{ color: '#1f5f8f' }}>Open the Start Here guide →</strong>
+              </span>
+            </div>
+          </a>
 
           <section style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(260px,1fr))', gap: 14, marginTop: 18 }}>
             <FeatureCard

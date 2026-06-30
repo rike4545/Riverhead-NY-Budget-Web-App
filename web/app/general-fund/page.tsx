@@ -1,5 +1,6 @@
 import PageShell from '../../components/PageShell'
 import LineChart, { ChartLegend, type Series } from '../../components/LineChart'
+import PlainCallout from '../../components/PlainCallout'
 import { generalFund } from '../../lib/general-fund'
 import { dollars } from '../../lib/financial-data'
 
@@ -22,6 +23,17 @@ export default function GeneralFundPage() {
       title="General Fund — 20-Year History"
       subtitle={`How the Town's principal operating fund has grown from ${g.firstYear} to ${g.lastYear}: appropriations, tax levy, estimated revenues, and reserve use, straight from the adopted budgets.`}
     >
+      <PlainCallout
+        tips={[
+          { label: 'Appropriations', text: 'the dark line = total planned spending. Tax levy (gold) = the amount raised from property taxes. Revenues (green) = other income like fees and state aid.' },
+          { label: 'Why it matters', text: 'when the tax-levy line rises faster than spending, more of the budget is being paid for by property taxes.' },
+          { label: 'Adopted figures', text: 'these are the budgeted plans approved each year, not the final year-end actuals.' },
+        ]}
+      >
+        This page shows <strong>20 years of the General Fund</strong> — the main town budget — so you can see how spending
+        and the property-tax bill have changed over time.
+      </PlainCallout>
+
       <section style={{ ...card, display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(180px,1fr))', gap: 12, marginBottom: 18 }}>
         <Stat label={`Appropriations ${g.firstYear}`} value={dollars(rows[0].appropriations ?? 0)} />
         <Stat label={`Appropriations ${g.lastYear}`} value={dollars(rows[rows.length - 1].appropriations ?? 0)} accent />

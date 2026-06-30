@@ -2,6 +2,7 @@
 
 import { useMemo, useState } from 'react'
 import Sparkline from './Sparkline'
+import { ColumnGuide } from './PlainCallout'
 import {
   payrollRecords, payrollYears, yearSummaries, yearSummary, unionLabel, payrollSource, payrollNote,
 } from '../lib/payroll'
@@ -109,6 +110,12 @@ export default function PayrollExplorer() {
 
       {/* Table */}
       <section style={card}>
+        <ColumnGuide items={[
+          { term: 'Regular', plain: 'Base salary or wages — the normal pay, not counting overtime.' },
+          { term: 'Overtime', plain: 'Extra pay for hours worked beyond the normal schedule.' },
+          { term: 'Gross Pay', plain: 'Everything paid for the year added together — base pay, overtime, plus extras like stipends, longevity, and buy-outs.' },
+          { term: 'Group', plain: 'The union or bargaining group the employee belongs to (for example PBA for police, CSEA for many town workers).' },
+        ]} />
         <div style={{ color: '#475569', fontWeight: 700, marginBottom: 10, fontSize: 14 }}>
           Showing {Math.min(limit, filtered.length).toLocaleString()} of {filtered.length.toLocaleString()} employees
         </div>
