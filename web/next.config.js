@@ -3,6 +3,9 @@ const isProd = process.env.NODE_ENV === 'production';
 
 const nextConfig = {
   output: 'export',
+  // Emit foo/index.html so trailing-slash links (used throughout the nav)
+  // resolve correctly on GitHub Pages.
+  trailingSlash: true,
   images: {
     unoptimized: true,
   },
