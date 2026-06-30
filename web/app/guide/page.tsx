@@ -34,6 +34,13 @@ const tools = [
     how: 'Read the chart from left (2005) to right (today). The table below shows the exact numbers for every year, including how much the property-tax levy changed.',
   },
   {
+    href: `${base}/annual-report/`,
+    emoji: '🧾',
+    title: '2025 Annual Report',
+    answers: 'What actually happened with the money last year, compared with the plan?',
+    how: 'See whether the Town ended the year with a surplus or deficit, where the money really came from and went, and how each fund did.',
+  },
+  {
     href: `${base}/search/`,
     emoji: '🔎',
     title: 'Search Records',
