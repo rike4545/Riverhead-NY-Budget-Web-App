@@ -5,6 +5,7 @@ export default function PageShell({ title, subtitle, children }: { title: string
     ['Payroll', `${base}/payroll/`],
     ['Funds Explorer', `${base}/funds/`],
     ['Budget Compare', `${base}/compare/`],
+    ['General Fund', `${base}/general-fund/`],
     ['Search Records', `${base}/search/`],
     ['Analytics', `${base}/analytics/`],
     ['Source Library', `${base}/sources/`],

@@ -110,6 +110,12 @@ export default function FiscalCommandCenter() {
               title="Budget Compare"
               body="Compare adopted appropriations across funds from 2020–2026, sorted by the biggest dollar and percent movers, with trend sparklines."
             />
+            <FeatureCard
+              href={`${base}/general-fund/`}
+              tag="New · 20-year"
+              title="General Fund History"
+              body="Two decades of the principal operating fund (2005–2026): appropriations, tax levy, and revenues charted year by year — appropriations have more than doubled."
+            />
           </section>
 
           <section style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(190px,1fr))', gap: 14, marginTop: 18 }}>

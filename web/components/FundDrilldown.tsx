@@ -114,7 +114,7 @@ export default function FundDrilldown({ fund }: { fund: FundDetail }) {
         <section style={card}>
           <h3 style={{ marginTop: 0 }}>Estimated Revenues by Source</h3>
           <LineTable
-            rows={filteredRevenues.map((r) => ({ account: r.account, name: r.name, y2024: null, y2025: r.adopted2025, y2026: r.adopted2026 }))}
+            rows={filteredRevenues.map((r) => ({ account: r.account, name: r.name, y2024: null, y2025: r.adopted2025, y2026: r.adopted2026, trend: [r.adopted2025, r.adopted2026] }))}
           />
           {filteredRevenues.length === 0 && <Empty />}
         </section>
@@ -164,13 +164,13 @@ function DepartmentCard({ dept, expanded, fundExp }: { dept: SubDepartment; expa
       </div>
 
       <LineTable
-        rows={dept.lineItems.map((i) => ({ account: i.account, name: i.name, category: i.category, y2024: i.adopted2024, y2025: i.adopted2025, y2026: i.adopted2026 }))}
+        rows={dept.lineItems.map((i) => ({ account: i.account, name: i.name, category: i.category, y2024: i.adopted2024, y2025: i.adopted2025, y2026: i.adopted2026, trend: i.history.map((h) => h.value) }))}
       />
     </details>
   )
 }
 
-type Row = { account: string; name: string; category?: string; y2024: number | null; y2025: number | null; y2026: number | null }
+type Row = { account: string; name: string; category?: string; y2024: number | null; y2025: number | null; y2026: number | null; trend: (number | null)[] }
 
 function LineTable({ rows }: { rows: Row[] }) {
   return (
@@ -184,7 +184,7 @@ function LineTable({ rows }: { rows: Row[] }) {
             <th style={{ padding: '7px 8px', textAlign: 'right' }}>2025</th>
             <th style={{ padding: '7px 8px', textAlign: 'right' }}>2026</th>
             <th style={{ padding: '7px 8px', textAlign: 'right' }}>25→26 Δ</th>
-            <th style={{ padding: '7px 8px', textAlign: 'center' }}>Trend</th>
+            <th style={{ padding: '7px 8px', textAlign: 'center' }} title="Adopted appropriations 2020–2026">’20–’26</th>
           </tr>
         </thead>
         <tbody>
@@ -201,7 +201,7 @@ function LineTable({ rows }: { rows: Row[] }) {
                   {change === 0 ? '—' : `${change > 0 ? '+' : '−'}${usd(Math.abs(change))}`}
                 </td>
                 <td style={{ padding: '4px 8px', textAlign: 'center' }}>
-                  <div style={{ display: 'inline-block' }}><Sparkline values={[r.y2024, r.y2025, r.y2026]} width={72} height={22} /></div>
+                  <div style={{ display: 'inline-block' }}><Sparkline values={r.trend} width={84} height={22} /></div>
                 </td>
               </tr>
             )

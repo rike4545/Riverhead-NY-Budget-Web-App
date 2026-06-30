@@ -34,7 +34,10 @@ export type SubLineItem = {
   tentative2026: number | null
   preliminary2026: number | null
   adopted2026: number | null
+  history: SubYearValue[]
 }
+
+export type SubYearValue = { year: number; value: number }
 
 export type SubCategoryTotal = { category: string; adopted2026: number }
 
@@ -93,6 +96,7 @@ export type SubAccountIndex = {
   generatedFrom: string
   fundCount: number
   totalLineItems: number
+  historyYears: number[]
   funds: FundIndexEntry[]
 }
 

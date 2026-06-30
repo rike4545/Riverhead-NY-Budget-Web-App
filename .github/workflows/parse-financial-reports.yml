@@ -37,6 +37,9 @@ jobs:
       - name: Build multi-year fund appropriations history
         run: python etl/parse_budget_history.py
 
+      - name: Build long-run General Fund history
+        run: python etl/parse_general_fund.py
+
       - name: Rebuild payroll dataset from slim sources
         run: python etl/parse_payroll.py
 

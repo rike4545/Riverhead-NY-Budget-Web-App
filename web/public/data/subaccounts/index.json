@@ -6,6 +6,15 @@
  "generatedFrom": "2026-2026-adopted-budget.json",
  "fundCount": 19,
  "totalLineItems": 1009,
+ "historyYears": [
+  2020,
+  2021,
+  2022,
+  2023,
+  2024,
+  2025,
+  2026
+ ],
  "funds": [
   {
    "code": "A01",

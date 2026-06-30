@@ -24,10 +24,12 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 DOCS = ROOT / "web/public/data/financial-reports/documents"
 SRC = DOCS / "2026-2026-adopted-budget.json"
-# The 2025 adopted budget prints the 2024 adopted figure in its first money
-# column, letting us attach a 2024 -> 2026 trend to each line item.
-PRIOR_SRC = DOCS / "2025-2025-adopted-budget-pdf.json"
 OUT = ROOT / "web/public/data/subaccounts"
+
+# Older budgets (2020-2023) use the same chart of accounts but print account
+# numbers with a Unicode hyphen instead of ASCII '-'. Normalizing the dash lets
+# us parse every adopted budget and attach a long per-account trend.
+DASH_TRANS = {ord(c): "-" for c in "‐‑‒–—−­"}
 
 SOURCE_DOC = {
     "title": "2026 Adopted Budget",
@@ -129,7 +131,8 @@ def split_line(line):
 def get_pages(text_type, src=SRC):
     data = json.loads(src.read_text())
     for page in data["pages"]:
-        lines = [l.rstrip() for l in page["text"].split("\n")]
+        text = page["text"].translate(DASH_TRANS)
+        lines = [l.rstrip() for l in text.split("\n")]
         header = " ".join(lines[:4]).upper()
         if text_type == "expenditures" and "EXPENDITURES" in header:
             yield page["page"], lines
@@ -137,22 +140,38 @@ def get_pages(text_type, src=SRC):
             yield page["page"], lines
 
 
-def extract_prior_adopted(src):
-    """Map account number -> the prior-year adopted figure (first money column)
-    from an older adopted-budget file. Used to attach a multi-year trend."""
-    prior = {}
+def extract_adopted_by_account(src):
+    """Map account number -> that budget's adopted figure (the last money column)
+    for one adopted-budget file. Returns {} if the file has no line items."""
+    out = {}
     if not src.exists():
-        return prior
+        return out
     for _page, lines in get_pages("expenditures", src):
         for raw in lines:
             line = raw.strip()
-            m = EXP_RE.match(line)
-            if not m:
+            if not EXP_RE.match(line):
                 continue
             account, _desc, money = split_line(line)
             if money:
-                prior[account] = money[0]
-    return prior
+                out[account] = money[-1]  # last column = this year's adopted
+    return out
+
+
+def build_year_maps():
+    """For every adopted budget that carries account lines, map
+    year -> {account: adopted value}. Used to build per-account trends."""
+    maps = {}
+    for path in sorted(DOCS.glob("*adopted-budget*.json")):
+        try:
+            year = json.loads(path.read_text()).get("year")
+        except Exception:
+            continue
+        if not year:
+            continue
+        acct_map = extract_adopted_by_account(path)
+        if len(acct_map) > 50:  # require a credible number of line items
+            maps[int(year)] = acct_map
+    return maps
 
 
 def parse_expenditures():
@@ -244,7 +263,8 @@ def parse_revenue():
 def build():
     exp = parse_expenditures()
     rev = parse_revenue()
-    prior2024 = extract_prior_adopted(PRIOR_SRC)
+    year_maps = build_year_maps()
+    history_years = sorted(year_maps)
 
     OUT.mkdir(parents=True, exist_ok=True)
     index = []
@@ -255,9 +275,14 @@ def build():
             items = dept["lineItems"]
             if not items:
                 continue
-            # attach the 2024 adopted figure (from the 2025 budget) for a 3-year trend
+            # attach a per-account adopted trend across every available budget year
             for i in items:
-                i["adopted2024"] = prior2024.get(i["account"])
+                acct = i["account"]
+                i["history"] = [
+                    {"year": y, "value": year_maps[y][acct]}
+                    for y in history_years if acct in year_maps[y]
+                ]
+                i["adopted2024"] = year_maps.get(2024, {}).get(acct)
             dept_adopted2026 = sum(i["adopted2026"] or 0 for i in items)
             dept_adopted2025 = sum(i["adopted2025"] or 0 for i in items)
             dept_adopted2024 = sum(i["adopted2024"] or 0 for i in items)
@@ -316,6 +341,7 @@ def build():
         "generatedFrom": SRC.name,
         "fundCount": len(index),
         "totalLineItems": sum(f["lineItemCount"] for f in index),
+        "historyYears": history_years,
         "funds": index,
     }, indent=1))
 
