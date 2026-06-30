@@ -5,8 +5,12 @@ import { retirementProgramAssessment, retirementRiskFactors } from '../lib/retir
 import { archiveStats, financialReportsArchive } from '../lib/financial-reports-archive'
 import { dollars } from '../lib/financial-data'
 
+const base = '/rike4545-riverhead-budget-live'
 const nav = [
   ['Command Center', '#top'],
+  ['Payroll Explorer', `${base}/payroll/`],
+  ['Funds & Sub-Accounts', `${base}/funds/`],
+  ['Budget Compare', `${base}/compare/`],
   ['Resident Insights', '#insights'],
   ['All Funds', '#funds'],
   ['Reserve Use', '#reserves'],
@@ -87,6 +91,27 @@ export default function FiscalCommandCenter() {
             </div>
           </header>
 
+          <section style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(260px,1fr))', gap: 14, marginTop: 18 }}>
+            <FeatureCard
+              href={`${base}/payroll/`}
+              tag="New · SeeThroughNY-style"
+              title="Payroll Explorer"
+              body="Search 4,400+ employee earnings records (2018–2023): base pay, overtime, and total gross by name, title, department, and union."
+            />
+            <FeatureCard
+              href={`${base}/funds/`}
+              tag="New · Account-level"
+              title="Funds & Sub-Accounts"
+              body="Drill every operating fund down to department, category, and individual account line items — 1,000+ lines reconciled to the dollar."
+            />
+            <FeatureCard
+              href={`${base}/compare/`}
+              tag="New · Multi-year"
+              title="Budget Compare"
+              body="Compare adopted appropriations across funds from 2020–2026, sorted by the biggest dollar and percent movers, with trend sparklines."
+            />
+          </section>
+
           <section style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(190px,1fr))', gap: 14, marginTop: 18 }}>
             {automatedKpis.map((kpi) => (
               <article key={kpi.label} style={{ ...shell, padding: 18 }}>
@@ -115,7 +140,7 @@ export default function FiscalCommandCenter() {
 
           <section id="funds" style={{ ...shell, scrollMarginTop: 24, marginTop: 18, padding: 24 }}>
             <h2 style={{ marginTop: 0 }}>All Operating Funds / Department-Level Starting Point</h2>
-            <p style={{ color: muted }}>This view expands beyond the major funds and shows every operating fund currently extracted from the adopted budget summary. Full account/department lines will populate from the parser pipeline.</p>
+            <p style={{ color: muted }}>Every operating fund extracted from the adopted budget. Account- and department-level line items are now live — open the <a href={`${base}/funds/`} style={{ color: '#1f5f8f', fontWeight: 800 }}>Funds &amp; Sub-Accounts explorer</a> to drill any fund down to individual accounts with multi-year trends.</p>
             <div style={{ display: 'grid', gap: 10 }}>
               {allOperatingFunds2026.map((fund) => (
                 <details key={fund.code} style={{ border: '1px solid #e2e8f0', borderRadius: 16, padding: 14, background: '#f8fafc' }}>
@@ -131,6 +156,7 @@ export default function FiscalCommandCenter() {
                     <Mini label="Ending balance estimate" value={fund.estimatedFundBalance123125 ? dollars(fund.estimatedFundBalance123125) : 'Pending'} />
                   </div>
                   <div style={{ color: muted, fontSize: 12, marginTop: 10 }}>Source: {fund.source}</div>
+                  <a href={`${base}/funds/${fund.code}/`} style={{ display: 'inline-block', marginTop: 10, color: '#1f5f8f', fontWeight: 800 }}>Open {fund.code} account-level drilldown →</a>
                 </details>
               ))}
             </div>
@@ -227,5 +253,16 @@ function Mini({ label, value }: { label: string; value: string }) {
       <div style={{ color: muted, fontSize: 12, textTransform: 'uppercase', fontWeight: 950 }}>{label}</div>
       <strong style={{ fontSize: 20 }}>{value}</strong>
     </div>
+  )
+}
+
+function FeatureCard({ href, tag, title, body }: { href: string; tag: string; title: string; body: string }) {
+  return (
+    <a href={href} style={{ ...shell, padding: 20, textDecoration: 'none', color: 'inherit', display: 'block', borderTop: '5px solid #c99a2e' }}>
+      <div style={{ color: '#2563eb', fontSize: 11, fontWeight: 950, textTransform: 'uppercase', letterSpacing: 1 }}>{tag}</div>
+      <h3 style={{ margin: '8px 0 6px', fontSize: 22, color: '#12385b' }}>{title}</h3>
+      <p style={{ color: muted, fontSize: 14, lineHeight: 1.5, margin: 0 }}>{body}</p>
+      <div style={{ color: '#1f5f8f', fontWeight: 900, marginTop: 12 }}>Open →</div>
+    </a>
   )
 }

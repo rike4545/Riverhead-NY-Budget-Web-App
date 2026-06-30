@@ -4,11 +4,51 @@ An independent public fiscal intelligence platform for exploring Riverhead Town 
 
 ## Live Platform
 
-Riverhead Budget Live:
-https://rike4545.github.io/rike4545-riverhead-budget-live/
+### ▶ **[Open Riverhead Budget Live](https://rike4545.github.io/rike4545-riverhead-budget-live/)**
+
+| Page | Direct link |
+| --- | --- |
+| 💰 Payroll Explorer (SeeThroughNY-style) | https://rike4545.github.io/rike4545-riverhead-budget-live/payroll/ |
+| 🏛️ Funds & Sub-Accounts | https://rike4545.github.io/rike4545-riverhead-budget-live/funds/ |
+| 📊 Budget Compare (2020–2026) | https://rike4545.github.io/rike4545-riverhead-budget-live/compare/ |
+| 🔎 Search Records | https://rike4545.github.io/rike4545-riverhead-budget-live/search/ |
 
 GitHub Repository:
 https://github.com/rike4545/rike4545-riverhead-budget-live
+
+---
+
+# What's New
+
+This release brings the platform much closer to a SeeThroughNY-style transparency
+tool, with employee-level payroll, account-level budget detail, and multi-year
+comparison.
+
+### 💰 Payroll Explorer — `/payroll`
+A searchable, sortable record of **actual** Town of Riverhead employee earnings
+(2018–2023), modeled on [SeeThroughNY Payrolls](https://www.seethroughny.net/payrolls):
+
+- 4,400+ per-employee records: base pay, **overtime**, and total gross pay
+- filter by year, union/bargaining group, and department; sort by gross, overtime, or base pay
+- overtime is summed from the detailed overtime pay codes (~$1.3M/year town-wide)
+- department, title, and pay class are reported from 2022 onward
+- top earners, overtime leaders, and click-through to any employee's multi-year history
+- multi-year gross-pay and overtime trend lines
+
+### 🏛️ Funds & Sub-Accounts — `/funds`
+Every operating fund now drills down to **department → spending category → individual
+account line item**, extracted from the 2026 Adopted Budget:
+
+- 1,000+ account line items across all 19 operating funds
+- **every fund reconciles to the dollar** against the official Summary page
+- per-line 2024 → 2025 → 2026 trend, category roll-ups, and revenue detail
+- full-text search across account numbers and descriptions
+
+### 📊 Budget Compare — `/compare`
+Compare adopted appropriations across every fund from **2020 to 2026**:
+
+- pick any two years and sort funds by the biggest dollar or percent movers
+- per-fund trend sparklines; town-total appropriations reconcile to the official figure
 
 ---
 
@@ -181,11 +221,26 @@ Built using:
 # Repository Layout
 
 ```text
-web/        Next.js public dashboard
+web/        Next.js public dashboard (static export to GitHub Pages)
 etl/        Financial document ingestion and normalization pipeline
+etl/data/   Slimmed source CSVs committed for reproducible builds (payroll)
 docs/       Architecture, parser, and intelligence documentation
 .cache/     Cached downloaded source documents
 ```
+
+## Data pipeline
+
+| Script | Output | Notes |
+| --- | --- | --- |
+| `etl/parse_financial_reports.py` | `web/public/data/financial-reports/` | Parses every Town PDF into searchable page records |
+| `etl/parse_subaccounts.py` | `web/public/data/subaccounts/` | Fund → department → category → account line items; reconciles to the dollar |
+| `etl/parse_budget_history.py` | `web/public/data/history/` | Fund-level adopted appropriations 2020–2026 |
+| `etl/parse_payroll.py` | `web/public/data/payroll/` | Per-employee gross/overtime/base pay 2018–2023 |
+
+The weekly **Parse Financial Reports** GitHub Action regenerates all of the
+above and commits any changes. Payroll regenerates from the slimmed CSVs in
+`etl/data/payroll/`, so it is reproducible in CI without the original
+140-column exports.
 
 ---
 
