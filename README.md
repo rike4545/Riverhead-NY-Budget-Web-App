@@ -11,6 +11,7 @@ An independent public fiscal intelligence platform for exploring Riverhead Town 
 | 💰 Payroll Explorer (SeeThroughNY-style) | https://rike4545.github.io/rike4545-riverhead-budget-live/payroll/ |
 | 🏛️ Funds & Sub-Accounts | https://rike4545.github.io/rike4545-riverhead-budget-live/funds/ |
 | 📊 Budget Compare (2020–2026) | https://rike4545.github.io/rike4545-riverhead-budget-live/compare/ |
+| 📈 General Fund 20-Year History | https://rike4545.github.io/rike4545-riverhead-budget-live/general-fund/ |
 | 🔎 Search Records | https://rike4545.github.io/rike4545-riverhead-budget-live/search/ |
 
 GitHub Repository:
@@ -49,6 +50,19 @@ Compare adopted appropriations across every fund from **2020 to 2026**:
 
 - pick any two years and sort funds by the biggest dollar or percent movers
 - per-fund trend sparklines; town-total appropriations reconcile to the official figure
+
+### 📈 General Fund 20-Year History — `/general-fund`
+Two decades of the Town's principal operating fund (**2005–2026**):
+
+- multi-series chart of appropriations, tax levy, and estimated revenues
+- year-by-year table with tax-levy year-over-year change
+- appropriations have grown **+110%** and the tax levy **+126%** over the period
+
+### 🔍 Deeper account-level trends
+Sub-account line items now carry a **2020 → 2026** adopted trend (not just the
+prior year). The 2020–2023 budgets use a Unicode-hyphen account format that is
+now normalized and parsed, so each account on a fund drilldown page shows a
+full 7-year sparkline.
 
 ---
 
@@ -235,6 +249,7 @@ docs/       Architecture, parser, and intelligence documentation
 | `etl/parse_financial_reports.py` | `web/public/data/financial-reports/` | Parses every Town PDF into searchable page records |
 | `etl/parse_subaccounts.py` | `web/public/data/subaccounts/` | Fund → department → category → account line items; reconciles to the dollar |
 | `etl/parse_budget_history.py` | `web/public/data/history/` | Fund-level adopted appropriations 2020–2026 |
+| `etl/parse_general_fund.py` | `web/public/data/history/general-fund.json` | Long-run General Fund history 2005–2026 |
 | `etl/parse_payroll.py` | `web/public/data/payroll/` | Per-employee gross/overtime/base pay 2018–2023 |
 
 The weekly **Parse Financial Reports** GitHub Action regenerates all of the
