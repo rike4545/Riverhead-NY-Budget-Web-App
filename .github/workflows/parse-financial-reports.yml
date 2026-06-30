@@ -34,6 +34,12 @@ jobs:
       - name: Parse account-level sub-account detail
         run: python etl/parse_subaccounts.py
 
+      - name: Build multi-year fund appropriations history
+        run: python etl/parse_budget_history.py
+
+      - name: Rebuild payroll dataset from slim sources
+        run: python etl/parse_payroll.py
+
       - name: Upload parsed data artifact
         uses: actions/upload-artifact@v4
         with:
@@ -45,7 +51,7 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-          git add web/public/data/financial-reports web/public/data/subaccounts || true
+          git add web/public/data/financial-reports web/public/data/subaccounts web/public/data/history web/public/data/payroll || true
 
           if git diff --cached --quiet; then
             echo "No parsed-data changes detected."

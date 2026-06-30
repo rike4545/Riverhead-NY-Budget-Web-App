@@ -1,0 +1,740 @@
+year,name,department,title,pay_class,union,regular,overtime,gross
+2021,Payroll Name,,,,Union Code,0.0,0.0,0.0
+2021,"Abrahamsen, Indira",,,,CSE,1088.15,0.0,4020.23
+2021,"Adams-Korn, Rebecca K",,,,CSE,10004.52,0.0,10924.8
+2021,"Adla, Taleb M",,,,PBA,94849.52,2161.78,158853.92
+2021,"Ady, Stephen A",,,,PBA,32648.11,322.93,37443.84
+2021,"Agostino, Timothy R",,,,NON,1393.65,0.0,1393.65
+2021,"Aguiar, Yvette M",,,,ELE,115148.0,0.0,124928.31
+2021,"Alexander, Frederick",,,,,0.0,0.0,0.0
+2021,"Alexander, Irene",,,,,0.0,0.0,0.0
+2021,"Alexander, Warren",,,,,0.0,0.0,0.0
+2021,"Alfano, James A",,,,NON,1227.56,0.0,1227.56
+2021,"Allen, Charles",,,,,0.0,0.0,0.0
+2021,"Allen, Timothy",,,,,114388.0,0.0,152810.64
+2021,"Altman, Courtney E",,,,PBA,64134.51,921.05,98647.79
+2021,"Anasky, Jennifer L",,,,NON,2708.4,0.0,2708.4
+2021,"Anasky, Lauren",,,,NON,4032.25,0.0,4032.25
+2021,"Anderson, Christopher Q",,,,NON,2108.2,0.0,2108.2
+2021,"Anderson, Peter J",,,,PBA,55028.76,4964.48,84109.83
+2021,"Anderson, Richard",,,,PBA,106053.97,13072.17,194411.94
+2021,"Andruszkiewicz, David J",,,,CSE,62855.51,962.45,118317.48
+2021,"Apicello, John K",,,,CON,49244.92,271.13,75823.05
+2021,"Ariizumi, Hideaki",,,,,2500.0,0.0,2500.0
+2021,"Arrigo, John",,,,CSE,56459.24,4780.23,89875.79
+2021,"Arteaga, David",,,,CSE,40527.04,0.0,62425.02
+2021,"Atkins, Waverly",,,,,0.0,0.0,7200.0
+2021,"Atkinson, Ronald J",,,,SOA,0.0,0.0,13583.82
+2021,"Attridge, Douglas J",,,,CSE,53933.23,8407.48,88170.32
+2021,"Ayala, Juan",,,,CSE,48465.58,2704.67,75639.79
+2021,"Baas, Christian A",,,,,210.0,0.0,210.0
+2021,"Baier, Joseph H",,,,,8999.9,0.0,8999.9
+2021,"Baird, Kim J",,,,CSE,38952.06,1059.58,47748.37
+2021,"Bakowski, John L",,,,CSE,46133.93,2583.82,62489.66
+2021,"Baldinucci, Teresa A",,,,CSE,59891.78,103.55,71670.8
+2021,"Baldwin, Emelyn G",,,,NON,2010.94,0.0,2010.94
+2021,"Baldwin, Matthew J",,,,NON,975.0,0.0,975.0
+2021,"Barauskas, Lynn M",,,,,0.0,0.0,0.0
+2021,"Bardram, James A",,,,NON,2514.9,0.0,2514.9
+2021,"Barnes, Leroy E",,,,,6000.02,0.0,6000.02
+2021,"Baron, Amanda J",,,,NON,13514.33,0.0,13514.33
+2021,"Barry, John A",,,,NON,1992.0,0.0,1992.0
+2021,"Barth, Judith Joy",,,,,2500.0,0.0,2500.0
+2021,"Bates, Richard G",,,,CSE,50194.1,197.62,77004.61
+2021,"Bauerfeind, Paul R",,,,CSE,27833.17,1972.11,55247.23
+2021,"Bazarewski, Emily A",,,,NON,3574.2,0.0,3574.2
+2021,"Bazarewski, Jack P",,,,NON,2249.3,0.0,2249.3
+2021,"Beal, Susan",,,,,0.0,0.0,0.0
+2021,"Beatty, Diane F",,,,,0.0,0.0,0.0
+2021,"Behr, Cheryl A",,,,CSE,37318.72,363.62,53188.08
+2021,"Behr, Eric T",,,,NON,126.0,0.0,126.0
+2021,"Bell, Remy M",,,,,14988.64,0.0,14988.64
+2021,"Benedict, Michael S",,,,,0.0,0.0,0.0
+2021,"Benton, Timothy V",,,,,0.0,0.0,0.0
+2021,"Bergman, Gregory",,,,CSE,51749.29,717.21,67692.5
+2021,"Berry, Justin T.",,,,CSE,38747.3,601.43,55604.5
+2021,"Beyrodt, Frank",,,,NON,48955.0,0.0,53833.18
+2021,"Bianco, William A",,,,PBA,95018.4,37126.74,200037.3
+2021,"Bilello, Audrey M",,,,NON,1850.9,0.0,1850.9
+2021,"Bilello, Rebecca A",,,,NON,2344.75,0.0,2344.75
+2021,"Bilski, William R",,,,,0.0,0.0,0.0
+2021,"Binkis, Paul L",,,,,0.0,0.0,0.0
+2021,"Blass, Barbara A",,,,,0.0,0.0,0.0
+2021,"Blizzard, Jason W",,,,CSE,49448.07,440.16,65511.51
+2021,"Bloss, Charles B",,,,,0.0,0.0,0.0
+2021,"Blount, Jahquel A",,,,NON,14337.25,0.0,14337.25
+2021,"Bobinski, Christian J",,,,,741.38,0.0,741.38
+2021,"Boden, Bryan T",,,,PBA,10614.81,0.0,11884.08
+2021,"Boden, Katie N",,,,,0.0,0.0,0.0
+2021,"Boden, Richard K",,,,SOA,40016.92,644.48,221810.13
+2021,"Bokee, Paul J",,,,,0.0,0.0,0.0
+2021,"Bokinz, Richard",,,,,0.0,0.0,0.0
+2021,"Bonne, David",,,,CSE,44278.29,1340.08,57222.15
+2021,"Bonne, Jason C",,,,NON,1591.17,0.0,1591.17
+2021,"Bouchard, Raymond",,,,CSE,45312.66,79.71,57551.08
+2021,"Bowe, Howard M",,,,CSE,37224.7,918.59,51199.7
+2021,"Bozuhoski, Dawn J",,,,CSE,18309.04,242.89,23473.73
+2021,"Breitenbach, Emil",,,,,0.0,0.0,0.0
+2021,"Brodman, Gary F",,,,CSE,40458.53,475.62,52260.72
+2021,"Brogan, Raymond",,,,PBA,97408.22,35936.88,188374.64
+2021,"Brown, Carl D",,,,NON,6224.09,0.0,6455.46
+2021,"Brown, Charles",,,,,0.0,0.0,0.0
+2021,"Brown, Dana N",,,,,74468.1,0.0,80759.7
+2021,"Brown, Joyce A",,,,,104.48,0.0,104.48
+2021,"Brown, Margaret",,,,,0.0,0.0,0.0
+2021,"Buckner, Nicole L",,,,CSE,62975.14,61.64,78035.77
+2021,"Bugdin, Caroline B",,,,,0.0,0.0,0.0
+2021,"Bugdin, Dorothy E",,,,,0.0,0.0,0.0
+2021,"Bugdin, James A",,,,,0.0,0.0,0.0
+2021,"Bugge, Christopher M",,,,CSE,41720.88,0.0,56781.16
+2021,"Burgess, Sarah A",,,,CSE,44741.25,114.98,63771.33
+2021,"Burns, Christopher",,,,,97615.85,10122.18,156034.03
+2021,"Buthmann, Caitlin",,,,CON,95983.21,0.0,95992.72
+2021,"Butler, Sonja",,,,,0.0,0.0,0.0
+2021,"Buyukdeniz, Deborah L",,,,CSE,44290.07,14179.9,92220.02
+2021,"Caccioppo, Beatrice P",,,,CSE,0.0,0.0,0.0
+2021,"Caffrey, Ronald C",,,,CSE,54603.49,6430.01,90509.08
+2021,"Cain, Victoria L",,,,CSE,32113.34,0.0,58868.4
+2021,"Calamita, Laura J",,,,CSE,73157.85,0.0,101450.07
+2021,"Campbell, Verna S",,,,,0.0,0.0,0.0
+2021,"Caporusso, Nicolas A",,,,NON,78.75,0.0,78.75
+2021,"Cardinale, Philip J",,,,,0.0,0.0,0.0
+2021,"Carey, Edward J",,,,,112165.79,23630.43,221781.04
+2021,"Carey, Joshua M",,,,NON,12866.75,0.0,12866.75
+2021,"Carey, Logann",,,,NON,4461.01,0.0,4461.01
+2021,"Carey, Nicholas E",,,,PBA,61328.79,6083.12,112953.61
+2021,"Carey, Stanley J",,,,,10615.42,0.0,10615.42
+2021,"Carrieri, Michael J",,,,PBA,102321.06,10071.34,154530.4
+2021,"Cartwright, Pamela",,,,,0.0,0.0,0.0
+2021,"Case, Georgette L",,,,,6972.18,0.0,6972.28
+2021,"Cassara, Shaye-Ann K",,,,NON,1795.5,0.0,1795.5
+2021,"Castantine, Kaley N",,,,PBA,91492.38,15426.42,147292.89
+2021,"Cavaluzzi, Madeline",,,,CSE,902.78,0.0,65154.33
+2021,"Cavanagh, Dennis M",,,,PBA,12769.07,0.0,83437.69
+2021,"Cawley, Guy R",,,,CSE,37031.49,120.89,102896.38
+2021,"Cheshire, Charlene C",,,,NON,1288.11,0.0,1288.11
+2021,"Cheshire, David G",,,,,0.0,0.0,0.0
+2021,"Chester, Erin K",,,,CSE,52148.27,12092.01,92222.81
+2021,"Chiaramonte, Anthony M",,,,PBA,34568.59,1420.86,40689.25
+2021,"Cichanowicz, Charles F",,,,SOA,95063.77,33065.04,192927.56
+2021,"Clark, Daniel G.",,,,PBA,57332.36,5953.35,86206.42
+2021,"Clarkin, Christian A",,,,PBA,7320.18,581.26,11048.87
+2021,"Clarkin, James D",,,,CSE,50805.15,612.85,69615.22
+2021,"Clement, Justin T",,,,NON,5351.64,0.0,5351.64
+2021,"Clements, Brian T",,,,SOA,113617.56,13686.58,183703.85
+2021,"Clennan, Sean L",,,,CSE,44017.13,4099.09,63436.27
+2021,"Clifford, Shannon M",,,,CSE,41982.58,41.44,51310.67
+2021,"Clinton, Ann E",,,,,0.0,0.0,0.0
+2021,"Clinton, Tanesha N",,,,CSE,253.75,0.0,253.75
+2021,"Coach, Elrod H",,,,CSE,43449.89,0.0,59149.04
+2021,"Cohen, Eric D",,,,PBA,103793.75,17938.52,169634.8
+2021,"Collado, Evelyn",,,,NON,4082.61,0.0,4082.61
+2021,"Collins, Carissa M",,,,CSE,61862.91,570.58,79234.96
+2021,"Coman, Veronica A",,,,NON,2642.63,0.0,2642.63
+2021,"Coman, Victoria M",,,,NON,768.51,0.0,768.51
+2021,"Commins, Michael C",,,,CSE,62013.8,273.21,82525.05
+2021,"Condzella, Anton",,,,,0.0,0.0,0.0
+2021,"Conklin, Mark",,,,,0.0,0.0,61761.06
+2021,"Conklin, Perry V",,,,,0.0,0.0,0.0
+2021,"Conyers, Karli E",,,,PBA,79839.3,27602.57,154856.77
+2021,"Cook, Emily R",,,,NON,3592.7,0.0,3592.7
+2021,"Coome, Melissa B",,,,CSE,40021.31,0.0,50163.78
+2021,"Costantini, Sabina J",,,,NON,31400.25,0.0,31568.25
+2021,"Coyne, Raymond A",,,,,111057.89,0.0,150943.09
+2021,"Crohan, Tyler E",,,,CSE,39445.65,1221.42,57729.62
+2021,"Crump, Hannah R",,,,NON,4097.1,0.0,4097.1
+2021,"Crump, Ollie T",,,,,0.0,0.0,0.0
+2021,"Cunningham, Brian J",,,,,23427.28,0.0,27622.91
+2021,"Curtis, Michael J",,,,CSE,51843.91,7322.11,84136.67
+2021,"Curven, Austin C",,,,NON,6225.63,0.0,6225.63
+2021,"Curven, Edward A",,,,,0.0,0.0,0.0
+2021,"Cybulski, Brian",,,,CSE,43759.17,838.99,64251.62
+2021,"Czech, William S",,,,,0.0,0.0,0.0
+2021,"D'Amara, Neil",,,,CSE,44735.74,0.0,57611.94
+2021,"Dahlem, John",,,,CSE,54292.23,1120.45,73107.64
+2021,"Dangelmaier, Arthur W",,,,,0.0,0.0,0.0
+2021,"Daniels, Kelly A",,,,CSE,0.0,0.0,0.0
+2021,"Danowski, Donna",,,,CSE,32449.66,0.0,38216.56
+2021,"Danowski, Peter S",,,,,0.0,0.0,0.0
+2021,"Darling, Ronald C",,,,CSE,0.0,0.0,0.0
+2021,"Davis, Jeffrey",,,,CSE,2954.2,0.0,43273.72
+2021,"Davis, Keith A",,,,CSE,35093.65,119.07,52767.35
+2021,"Davis, Kerri F",,,,PBA,0.0,0.0,0.0
+2021,"DeFilippis, Theresa A",,,,CSE,51685.0,30.81,80349.27
+2021,"Del Vecchio, Carol A",,,,CSE,52606.84,0.0,69798.23
+2021,"Dempsey, Ian M",,,,PBA,7548.92,1033.35,11500.94
+2021,"Densieski, Antone",,,,,0.0,0.0,0.0
+2021,"Densieski, Edward",,,,,9750.0,0.0,9750.0
+2021,"DesRoches, Olivia K",,,,NON,1837.88,0.0,1837.88
+2021,"Desimone, Scott",,,,,0.0,0.0,0.0
+2021,"Devereaux, Jonathan",,,,SOA,130493.84,36348.77,227973.24
+2021,"Devos, William",,,,,0.0,0.0,0.0
+2021,"Dick, Andrew C",,,,CSE,40509.56,83.01,60087.52
+2021,"Diem, Michael R",,,,,770.0,0.0,770.0
+2021,"Dillingham, Drew E",,,,,122052.28,0.0,136447.98
+2021,"Dispenziere, Gabriel",,,,NON,1928.52,0.0,1928.52
+2021,"Divan, James M",,,,CSE,0.0,0.0,0.0
+2021,"Doll, Judith",,,,,0.0,0.0,0.0
+2021,"Domaleski, Katherine",,,,,0.0,0.0,0.0
+2021,"Dorfer, Patricia A",,,,,2246.85,0.0,2246.85
+2021,"Dorfer, Thomas",,,,,0.0,0.0,0.0
+2021,"Doroski, Rachel Lynn",,,,NON,37277.94,0.0,37277.94
+2021,"Doscinski, Allison M",,,,PBA,62685.47,12599.31,120531.97
+2021,"Doscinski, John",,,,PBA,73412.81,3662.3,159950.56
+2021,"Downs, Charles",,,,,0.0,0.0,0.0
+2021,"Downs, Richard W",,,,CSE,74636.69,916.67,104741.66
+2021,"Droskoski, Wesley",,,,,0.0,0.0,0.0
+2021,"Drost, Brett R",,,,PBA,37744.63,4908.45,57685.34
+2021,"Dunleavy, John",,,,,0.0,0.0,0.0
+2021,"Dunn, Kristina",,,,,568.43,0.0,568.43
+2021,"Dyson, Jasmine A",,,,CSE,46173.88,6021.03,64154.93
+2021,"Eastwood, Colleen M",,,,CSE,56651.24,371.58,77177.3
+2021,"Economos, Agnes T",,,,,0.0,0.0,0.0
+2021,"Edwards, Bruce W",,,,,8100.0,0.0,8100.0
+2021,"Edwards, Elizabeth",,,,,0.0,0.0,0.0
+2021,"Edwards, Susan M",,,,CSE,49747.1,0.0,62534.01
+2021,"Egan, Sean P",,,,SOA,122675.7,8442.69,275256.01
+2021,"Ehlers, Richard A",,,,,0.0,0.0,0.0
+2021,"Eibs-Stankaitis, Jessica",,,,CSE,25466.72,606.07,61775.76
+2021,"Elco, Melissa M",,,,CSE,48786.73,5429.26,81050.51
+2021,"Epp, Natalie F",,,,NON,4602.8,0.0,4602.8
+2021,"Erb, Catherine E",,,,NON,1332.53,0.0,1332.53
+2021,"Erb, John",,,,NON,3344.9,0.0,3344.9
+2021,"Erick, Glenn",,,,PBA,91299.35,59423.81,215797.93
+2021,"Erick, Linda M",,,,,0.0,0.0,0.0
+2021,"Erickson, Shawn M",,,,CSE,39385.6,0.0,42321.49
+2021,"Evans, Sean M",,,,PBA,102680.58,12767.21,158061.34
+2021,"Evje, Dylan C",,,,NON,8553.48,0.0,8691.26
+2021,"Fagan, Dennis J",,,,,0.0,0.0,0.0
+2021,"Fagan, Joanne",,,,CSE,0.0,0.0,3743.56
+2021,"Falisi, Robert T",,,,CSE,38927.14,383.5,45323.52
+2021,"Fandrey, Michael",,,,,0.0,0.0,0.0
+2021,"Fedun, Daniel",,,,NON,15.68,0.0,15.68
+2021,"Ferris, Margaret L",,,,,81697.1,0.0,104407.24
+2021,"Fideli, Baycan M",,,,,11504.32,0.0,11865.92
+2021,"Fink, Keith V",,,,CSE,43108.51,0.0,55288.1
+2021,"Fink, William M",,,,,0.0,0.0,0.0
+2021,"Flaim, Thomas M",,,,NON,3725.51,0.0,3725.51
+2021,"Fleming, William M",,,,CSE,45911.47,15830.66,78248.08
+2021,"Fliss, Corey A",,,,CSE,29658.26,0.0,31940.83
+2021,"Flynn, John L",,,,NON,121446.82,0.0,122114.58
+2021,"Fogal, Arthur J",,,,CSE,47940.8,0.0,70537.03
+2021,"Foley, Patrick D",,,,NON,8485.0,0.0,8485.0
+2021,"Foote, Frederick",,,,,0.0,0.0,0.0
+2021,"Fox, Cathleen M",,,,,335.4,0.0,335.4
+2021,"Fox, Robert H",,,,,770.0,0.0,770.0
+2021,"Franco, Cheryl L",,,,NON,5978.02,0.0,6606.76
+2021,"Frankman, James P",,,,,0.0,0.0,0.0
+2021,"Frati, Logan P",,,,PBA,51494.93,5834.18,72964.94
+2021,"Fredricks, George J",,,,,0.0,0.0,0.0
+2021,"Freeborn, David A",,,,,0.0,0.0,0.0
+2021,"Freeborn, Richard J",,,,PBA,112436.44,28357.41,213376.45
+2021,"Friszolowski, Frances",,,,CSE,0.0,0.0,0.0
+2021,"Froehlich, Daniel S",,,,CSE,46563.96,4062.59,54769.52
+2021,"Froehlich, Muriel A",,,,,0.0,0.0,0.0
+2021,"Frost, Edward J",,,,SOA,129220.84,4833.59,219082.3
+2021,"Frost, Garrett J",,,,NON,1440.55,0.0,1440.55
+2021,"Fusco, Marie J",,,,NON,9645.0,0.0,9645.0
+2021,"Gablenz, Brian T",,,,CSE,0.0,0.0,0.0
+2021,"Gabrielsen, George E",,,,,0.0,0.0,0.0
+2021,"Gadzinski, Richard E",,,,,0.0,0.0,0.0
+2021,"Gajowski, Mark A.",,,,,0.0,0.0,0.0
+2021,"Galka, Madeline J",,,,,14017.5,0.0,14017.5
+2021,"Galka, Thomas J",,,,NON,4115.8,0.0,4115.8
+2021,"Gallo, Thomas F",,,,CSE,47231.66,904.86,60366.45
+2021,"Garcia, Jorge M.",,,,CSE,40153.98,0.0,46886.05
+2021,"Garcia, Yohana Y",,,,NON,9855.0,0.0,9855.0
+2021,"Garza, Tyrone",,,,,3450.0,0.0,3450.0
+2021,"Gassert, Howard W",,,,,0.0,0.0,0.0
+2021,"Gazzillo, Ralph T",,,,NON,6000.02,0.0,6000.02
+2021,"Geraci, Douglas G",,,,PBA,91022.67,2848.46,154688.42
+2021,"Gerdes, Donna M",,,,,0.0,0.0,0.0
+2021,"Giglio, Jodi A",,,,,0.0,0.0,0.0
+2021,"Gleason, Brian",,,,SOA,0.0,0.0,0.0
+2021,"Gluth, Karin A",,,,CSE,0.0,0.0,0.0
+2021,"Godzieba, Benjamin J",,,,CSE,43987.86,162.74,63888.42
+2021,"Goff, Monique R",,,,NON,5831.25,0.0,5831.25
+2021,"Grabowski, Stasia",,,,,0.0,0.0,0.0
+2021,"Gradischer, Kevin G",,,,PBA,0.0,0.0,14972.41
+2021,"Grams, Amanda L",,,,NON,358.88,0.0,358.88
+2021,"Grattan, Joseph",,,,,0.0,0.0,0.0
+2021,"Green, Donald H",,,,,0.0,0.0,0.0
+2021,"Greenwood, Frank",,,,CSE,39600.74,18.32,52592.03
+2021,"Griffin, Ethel Elizabeth",,,,CSE,33437.76,53.22,41070.23
+2021,"Griffin, Janet L",,,,,0.0,0.0,0.0
+2021,"Griffin, Mark E",,,,,0.0,0.0,0.0
+2021,"Grodski, Christina M",,,,NON,8554.01,0.0,8554.01
+2021,"Groneman, Andrew",,,,PBA,47401.65,9217.6,149343.23
+2021,"Grossman, August M",,,,,0.0,0.0,0.0
+2021,"Grzegorczyk, Chester P",,,,,0.0,0.0,0.0
+2021,"Guglielmo, Matthew T",,,,CSE,28663.27,178.94,34126.77
+2021,"Guthy, Helga",,,,,6077.15,0.0,6077.15
+2021,"Haas, Mason E",,,,,17519.59,0.0,17519.59
+2021,"Haley, Robert H",,,,,0.0,0.0,0.0
+2021,"Hall, Joseph B",,,,,0.0,0.0,0.0
+2021,"Halliday, David L",,,,,0.0,0.0,0.0
+2021,"Halpin, Patrick M",,,,CSE,43690.4,250.53,55689.07
+2021,"Halpin, Robin L",,,,CSE,43054.0,0.0,57337.4
+2021,"Hamilton, Jeffrey G",,,,PBA,0.0,0.0,0.0
+2021,"Hammond, Brad",,,,,0.0,0.0,0.0
+2021,"Hanley, Richard",,,,,0.0,0.0,0.0
+2021,"Hansen, Debra Ann",,,,NON,9284.0,0.0,9284.0
+2021,"Hansen, Denise M.",,,,,0.0,0.0,0.0
+2021,"Harden, Jordan C",,,,CSE,41591.06,761.07,51136.67
+2021,"Hatcher, Alan C",,,,CSE,0.0,0.0,0.0
+2021,"Hattorff, Matthew E",,,,CSE,0.0,0.0,14106.89
+2021,"Hatzinikolaou, Katerina",,,,PBA,50161.71,9763.11,77047.15
+2021,"Hayes, Jarrod P",,,,CSE,44591.37,0.0,61132.0
+2021,"Hazzard, Rebecca J",,,,CSE,34921.3,0.0,44166.37
+2021,"Hecker, Jill",,,,,0.0,0.0,0.0
+2021,"Heerbrandt, David J.",,,,NON,5184.0,0.0,5184.0
+2021,"Hegermiller, David J",,,,,199427.01,0.0,278266.47
+2021,"Heller, Branden H",,,,PBA,98492.52,6866.81,155473.63
+2021,"Hendrickson, Danielle",,,,CSE,0.0,0.0,0.0
+2021,"Henry, Michael",,,,PBA,114852.78,14535.9,197246.72
+2021,"Heppner, Mark G",,,,,0.0,0.0,0.0
+2021,"Hernandez, Frank",,,,PBA,0.0,0.0,12314.86
+2021,"Herold, Michael T",,,,NON,595.0,0.0,595.0
+2021,"Hettrick, Bernard",,,,,0.0,0.0,0.0
+2021,"Hickey, Christian W",,,,,562.59,0.0,562.59
+2021,"Higgins, Devon M",,,,NON,84147.26,0.0,84155.6
+2021,"Hill, Harry",,,,SOA,0.0,0.0,17855.66
+2021,"Hobson-Womack, Evelyn J",,,,PBA,49592.05,2412.36,153170.03
+2021,"Hocker, Patricia E",,,,,6352.5,0.0,6352.5
+2021,"Hodun, Heather N",,,,CSE,25685.63,0.0,27824.07
+2021,"Hodun, Mark A",,,,CSE,8649.8,716.03,10053.22
+2021,"Hoffman, Daniel J",,,,PBA,70924.16,5862.55,100643.34
+2021,"Hogan, Daniel J",,,,PBA,107659.03,29474.01,178818.41
+2021,"Hogan, Jeanne M",,,,CSE,41241.72,905.71,50714.79
+2021,"Homfeld, Amber N",,,,NON,7263.78,0.0,7263.78
+2021,"Hotchkiss, Cheryl J",,,,,0.0,0.0,9971.4
+2021,"Houston, Edna M",,,,,0.0,0.0,0.0
+2021,"Howard, Erik C.",,,,NON,95983.21,0.0,95992.72
+2021,"Hubbard, Caroline A",,,,,0.0,0.0,0.0
+2021,"Hubbard, Gary A",,,,,61221.94,3621.57,90872.71
+2021,"Hubbard, Gina I",,,,CSE,43530.76,0.0,64968.61
+2021,"Hubbard, Jason S",,,,CSE,53858.26,0.0,77537.06
+2021,"Hubbard, Rachael A",,,,NON,1076.0,0.0,1076.0
+2021,"Hubbard, Robert E",,,,CSE,50583.0,94.2,70124.0
+2021,"Hubbard, Timothy C",,,,,48955.0,0.0,53833.18
+2021,"Hulse, Lori M",,,,,84571.0,0.0,89449.18
+2021,"Hunt, William F",,,,NON,2425.14,0.0,2425.14
+2021,"Iannacchino, Cristina I",,,,NON,4213.87,0.0,4213.87
+2021,"Imwalle, Johanna",,,,,4784.97,0.0,4784.97
+2021,"Inghingolo, Michael Anthony",,,,CSE,59903.75,1045.19,69772.9
+2021,"Interiano, Banesa M",,,,NON,2925.39,0.0,2925.39
+2021,"Isgro, Dino",,,,SOA,120180.11,9556.66,194129.67
+2021,"Jablonski, Jacob M",,,,NON,1975.4,0.0,1975.4
+2021,"Jackson, Lawyer",,,,,0.0,0.0,0.0
+2021,"Jaeger, Billie Jo",,,,CSE,42290.48,3972.29,62963.61
+2021,"James, Christopher R",,,,PBA,0.0,0.0,0.0
+2021,"Janecek, James",,,,,0.0,0.0,0.0
+2021,"Jermusyk, William",,,,,0.0,0.0,0.0
+2021,"Johnson, Julianna L",,,,,0.0,0.0,0.0
+2021,"Johnson, Kevin A",,,,NON,5092.5,0.0,5092.5
+2021,"Kaiser, Louis A",,,,CSE,42423.14,1329.61,48542.38
+2021,"Kane, James W",,,,,1000.0,0.0,1000.0
+2021,"Kavasch, Alan W",,,,NON,5959.79,0.0,6301.53
+2021,"Keegan, William J",,,,PBA,89515.3,9308.36,165839.8
+2021,"Keeney, Susan S",,,,,0.0,0.0,0.0
+2021,"Kellar, John P",,,,CSE,51807.59,3229.44,75437.29
+2021,"Keller, Brian",,,,,0.0,0.0,0.0
+2021,"Keller, Daniel Martin",,,,CSE,45482.54,468.12,66491.52
+2021,"Keller, Elizabeth A.",,,,CSE,48010.73,130.55,60812.32
+2021,"Kempner, Christina M",,,,,0.0,0.0,0.0
+2021,"Kent, Catherine",,,,ELE,48955.0,0.0,53833.18
+2021,"Kinghan, John",,,,CSE,60034.82,4508.75,76498.09
+2021,"Kirsch, Alex P.",,,,CSE,41980.3,1942.6,57528.38
+2021,"Kitchen, Dylan P",,,,NON,1132.0,0.0,1132.0
+2021,"Kitchen, Tyler M",,,,NON,1908.0,0.0,1908.0
+2021,"Kitz, Michael G.",,,,PBA,88085.35,5265.92,151548.45
+2021,"Klein, Charles",,,,CSE,33839.25,0.0,42623.26
+2021,"Kleppe, John R",,,,,4732.5,0.0,4732.5
+2021,"Klick, Michael H",,,,,0.0,0.0,0.0
+2021,"Klos Klein, Sharon E",,,,,0.0,0.0,0.0
+2021,"Komosinski, Mary E",,,,NON,456.77,0.0,19017.13
+2021,"Kornafel, Cheryl A",,,,CSE,48250.05,0.0,66440.4
+2021,"Kowalski, Chester J",,,,,0.0,0.0,0.0
+2021,"Kozakiewicz, Robert F",,,,,136757.61,0.0,176411.43
+2021,"Krajewski, Joann M",,,,,0.0,0.0,0.0
+2021,"Kreymborg, Henry O",,,,CSE,70951.72,251.45,88128.82
+2021,"Kruger, Thomas W",,,,CSE,17892.27,0.0,62949.33
+2021,"Krupski, Dennis M",,,,CSE,49048.25,0.0,62424.76
+2021,"Kubetz, Jill P",,,,SOA,98244.81,3447.1,195603.5
+2021,"Kujawski, Robert",,,,,770.0,0.0,770.0
+2021,"Kurpetski, John",,,,,0.0,0.0,0.0
+2021,"Kwasna, Kendal Marie",,,,NON,2799.0,0.0,2799.0
+2021,"Kwasna, Mark A",,,,,0.0,0.0,0.0
+2021,"Lagun, Magdalena",,,,NON,10008.06,0.0,10337.18
+2021,"Laight, James E",,,,NON,2247.51,0.0,2247.51
+2021,"Langan, Kelly R",,,,NON,4636.41,0.0,4636.41
+2021,"Laporte, Raymond D",,,,PBA,88560.45,3662.3,152306.68
+2021,"Lassandro, Thomas D",,,,CSE,0.0,0.0,19126.37
+2021,"Lech, Michael",,,,CSE,40693.88,731.89,136801.46
+2021,"Lee, Jaylen J",,,,NON,3719.26,0.0,3719.26
+2021,"Lefebvre, Dana S",,,,PBA,44333.29,1525.97,150813.72
+2021,"Leja, Charles",,,,CSE,46898.89,69.81,85930.78
+2021,"Lennon, Patrick J",,,,PBA,92943.92,2110.91,150389.17
+2021,"Leonardi, William P",,,,NON,2948.16,0.0,2948.16
+2021,"Lescenski, Christopher J",,,,CSE,43228.89,0.0,60403.17
+2021,"Lessard, David L",,,,SOA,78867.96,4575.8,226246.38
+2021,"Lessard, Thomas D",,,,SOA,77312.4,5605.3,199710.89
+2021,"Leszczynski, Paul E",,,,,0.0,0.0,0.0
+2021,"Letson, John A",,,,CSE,54084.07,1680.61,81929.71
+2021,"Levasseur, Connor J",,,,NON,1088.5,0.0,1088.5
+2021,"Levasseur, Karen M",,,,NON,0.0,0.0,0.0
+2021,"Levy, Brandon S",,,,NON,9424.78,0.0,9424.78
+2021,"Levy, Lawrence M",,,,,0.0,0.0,0.0
+2021,"Lewin, Duane B",,,,,770.0,0.0,770.0
+2021,"Lewis, Jill S",,,,,0.0,0.0,0.0
+2021,"Ligon, Kimberlyn",,,,,5119.98,0.0,5119.98
+2021,"Linnen, Brian A",,,,CSE,2945.32,0.0,2945.32
+2021,"Lipinsky, Eric C",,,,PBA,91707.03,18651.69,167234.95
+2021,"Lipinsky, Meredith B",,,,NON,83846.0,0.0,88724.18
+2021,"Lismanis, Anita",,,,,0.0,0.0,0.0
+2021,"Littlefield, William M",,,,NON,4352.6,0.0,4352.6
+2021,"Loggia, Joseph C",,,,,0.0,0.0,0.0
+2021,"Lojko, Michael J",,,,,0.0,0.0,0.0
+2021,"Lombardo, Michael",,,,PBA,91177.61,6643.44,181925.67
+2021,"Long, Thomas",,,,,0.0,0.0,0.0
+2021,"Lopez, Alice M",,,,,0.0,0.0,0.0
+2021,"Lopez, Patricia A",,,,,43306.42,10993.75,73949.98
+2021,"Loszewski, Patryk",,,,PBA,99870.41,33090.92,176230.74
+2021,"Luppens, James M",,,,PBA,7022.24,0.0,8291.51
+2021,"Lyczkowski, Donna M",,,,,0.0,0.0,0.0
+2021,"Lydon, James M",,,,,0.0,0.0,0.0
+2021,"Lynch, Thomas R",,,,,0.0,0.0,0.0
+2021,"Lynn, Maureen T",,,,,0.0,0.0,0.0
+2021,"Mabanta, Kristin A",,,,CSE,6262.76,0.0,6687.3
+2021,"MacIntosh, George J",,,,CSE,40796.23,1432.69,56968.82
+2021,"Maccabee, Kevin",,,,,0.0,0.0,0.0
+2021,"Maccagli, Elizabeth C",,,,CSE,46101.0,538.13,68946.05
+2021,"Mackie, Frank",,,,,0.0,0.0,0.0
+2021,"Mackie, Sean",,,,PBA,95567.79,11393.87,163361.58
+2021,"Maffia, Michael",,,,,0.0,0.0,0.0
+2021,"Magee, Dylan R",,,,NON,7954.4,0.0,7954.4
+2021,"Magee, Glenn",,,,,0.0,0.0,0.0
+2021,"Magee, Penelope M",,,,CSE,34838.37,419.36,44676.29
+2021,"Magee, Prince D",,,,CSE,818.14,0.0,818.14
+2021,"Maiorana, Joseph A",,,,CSE,84677.81,1793.29,112796.95
+2021,"Majeski, Chester",,,,,0.0,0.0,0.0
+2021,"Malahias, George",,,,,0.0,0.0,0.0
+2021,"Mancini, Frank R",,,,NON,152636.19,0.0,153329.31
+2021,"Mansibang, Randy John R.",,,,NON,14923.42,0.0,14923.42
+2021,"Marafino, John C.",,,,NON,0.0,0.0,0.0
+2021,"Marshak, Dionne A",,,,NON,61054.33,0.0,61060.38
+2021,"Marsland, Frederick H",,,,,0.0,0.0,0.0
+2021,"Martell, Brendan G",,,,NON,1224.32,0.0,1224.32
+2021,"Matlak, John",,,,,0.0,0.0,0.0
+2021,"Matthew, Martell",,,,NON,2145.55,0.0,2145.55
+2021,"Mauceri, Charles F",,,,PBA,93803.68,9193.97,211389.21
+2021,"May, Nicholas R",,,,CSE,37209.12,551.66,62987.37
+2021,"Mazzo, Lawrence",,,,,0.0,0.0,0.0
+2021,"Mc Evoy, Suzanne",,,,,0.0,0.0,0.0
+2021,"McAllister, Timothy P",,,,PBA,0.0,0.0,0.0
+2021,"McCabe, Sean M",,,,CSE,46116.48,661.43,68516.48
+2021,"McCormick, Daniel P",,,,,117590.68,0.0,127935.45
+2021,"McDermott, Patrick O",,,,SOA,120884.87,56106.94,218464.94
+2021,"McDonald, Owen",,,,,0.0,0.0,0.0
+2021,"McGoey, Janice L",,,,,0.0,0.0,0.0
+2021,"McGuire, Lauren K",,,,PBA,32190.6,645.85,37537.13
+2021,"McIntosh, Megan E",,,,NON,3722.2,0.0,3722.2
+2021,"McKay, Linda L",,,,CSE,0.0,0.0,0.0
+2021,"McKay, Margaret",,,,CSE,50026.31,779.26,68510.54
+2021,"McKay, Steven C",,,,CSE,57396.01,2836.78,84648.43
+2021,"McKillop, Laurie",,,,CSE,0.0,0.0,0.0
+2021,"McLaughlin, Frederick J",,,,,7999.94,0.0,7999.94
+2021,"McMillon, Danny T",,,,CSE,36437.49,518.15,52331.77
+2021,"Melfi, Lauren",,,,,7011.14,0.0,7011.14
+2021,"Merker, William D",,,,CSE,49855.49,223.18,73116.1
+2021,"Messina, Carlee J",,,,NON,4751.25,0.0,4751.25
+2021,"Messina, Frank G",,,,CSE,56224.0,523.88,72477.22
+2021,"Messina, Melissa A",,,,,34038.85,0.0,45013.24
+2021,"Meyer, John",,,,CSE,37079.56,19.01,52699.27
+2021,"Milden, Leon D",,,,,0.0,0.0,0.0
+2021,"Miles, Oliver W",,,,,0.0,0.0,0.0
+2021,"Miller, Benjamin",,,,,0.0,0.0,0.0
+2021,"Miller, Lorraine",,,,,0.0,0.0,0.0
+2021,"Miller, Ralph S",,,,,0.0,0.0,0.0
+2021,"Mills, Brian D",,,,,1100.0,0.0,1100.0
+2021,"Miloski, Jean M",,,,CSE,0.0,0.0,13286.78
+2021,"Milton, Anna M",,,,NON,1691.15,0.0,1691.15
+2021,"Milton, Emily Anne",,,,NON,2660.15,0.0,2660.15
+2021,"Milton, Kae'son Jaheim",,,,NON,9688.29,0.0,9688.29
+2021,"Moisa, William W",,,,,0.0,0.0,0.0
+2021,"Montalbano, Anthony S",,,,SOA,111384.79,39396.54,192753.65
+2021,"Montefusco, Cole Russell",,,,PBA,34797.34,602.79,40330.44
+2021,"Monti, Thomas M",,,,PBA,6176.4,86.11,9409.94
+2021,"Mooney, Brian T",,,,NON,2085.0,0.0,2085.0
+2021,"Moore, Tammy J",,,,CSE,37037.67,0.0,47439.48
+2021,"Moreno, Joseph A",,,,CSE,41021.93,0.0,59142.21
+2021,"Morris, John A",,,,PBA,99062.4,8545.39,170439.87
+2021,"Morrissey, Roberta J",,,,CSE,61066.56,23305.83,110240.71
+2021,"Mottern, George E",,,,CSE,51526.43,3461.88,72806.06
+2021,"Mottern, Joan C",,,,CSE,55191.73,2517.29,80394.95
+2021,"Mottern, Sara J",,,,,3456.0,0.0,3456.0
+2021,"Mowdy, Michael W",,,,PBA,88738.53,42181.88,222711.16
+2021,"Mudzinski, Matthew J",,,,PBA,91942.87,5010.24,155081.66
+2021,"Muller, Melissa A",,,,CSE,33560.76,0.0,42429.29
+2021,"Muller, Ricky A",,,,,0.0,0.0,0.0
+2021,"Murphree, Jefferson V",,,,,129523.0,0.0,144553.14
+2021,"Murphy, Colleen A",,,,,0.0,0.0,0.0
+2021,"Murphy, David B",,,,,0.0,0.0,0.0
+2021,"Murphy, Timothy J",,,,PBA,86647.39,46805.13,200093.87
+2021,"Nagy, Kenneth E",,,,CSE,47159.92,2449.56,75487.39
+2021,"Nava, Eduardo M",,,,PBA,93384.26,19385.69,154372.85
+2021,"Neely, John",,,,NON,397.5,0.0,397.5
+2021,"Neknez, Matthew R",,,,PBA,108269.64,54727.19,197556.69
+2021,"Newman, Tanya G",,,,CSE,34756.46,0.0,81310.87
+2021,"Nicholson, Amber",,,,,7796.83,0.0,7796.83
+2021,"Nicholson, Jared T",,,,NON,4592.9,0.0,4592.9
+2021,"Niewadomski, John F",,,,CSE,0.0,0.0,7200.0
+2021,"Nungesser, William",,,,,0.0,0.0,0.0
+2021,"Nunnaro, George J",,,,,8999.9,0.0,8999.9
+2021,"O'Connor, Claire S",,,,NON,924.73,0.0,924.73
+2021,"O'Dea, Richard M",,,,,8999.9,0.0,8999.9
+2021,"O'Kula, Linda M",,,,CSE,8291.12,0.0,14803.54
+2021,"O'Kula, Stephen M",,,,CSE,39197.67,69.6,50259.99
+2021,"O'Kula, Walter J",,,,,0.0,0.0,0.0
+2021,"O'Neill, Hannah C",,,,NON,3737.13,0.0,3783.51
+2021,"O'Neill, Juliann M",,,,CSE,42834.03,0.0,60533.46
+2021,"Obie, Robert",,,,,0.0,0.0,0.0
+2021,"Occhiogrosso, Karen A",,,,,68061.98,0.0,68062.96
+2021,"Okula, Kevin N",,,,CSE,43643.86,398.97,50433.56
+2021,"Oliver, Richard C",,,,PBA,0.0,0.0,22445.18
+2021,"Osman, David A",,,,CSE,42953.13,0.0,54376.39
+2021,"Oswald, Cameron D",,,,PBA,63102.37,5783.07,93049.92
+2021,"Owen, Donald S",,,,CSE,0.0,0.0,16583.13
+2021,"Paasch, Paul O",,,,,0.0,0.0,0.0
+2021,"Pace, Cristian M",,,,NON,2813.58,0.0,2813.58
+2021,"Palermo, Joseph",,,,,0.0,0.0,0.0
+2021,"Palmer, Dixon A",,,,PBA,0.0,0.0,15495.19
+2021,"Palmer, Stephen T",,,,SOA,26130.97,959.19,115168.22
+2021,"Palumbo, Courtney P",,,,NON,3754.76,0.0,3754.76
+2021,"Palumbo, Thomas J",,,,NON,2552.0,0.0,2552.0
+2021,"Parkin, Christopher T",,,,,0.0,0.0,9523.22
+2021,"Partridge, Kai M",,,,NON,1344.0,0.0,1344.0
+2021,"Paveglio, Cherie L",,,,,5092.25,0.0,5092.25
+2021,"Peeker, Melissa W",,,,CSE,50108.06,1649.3,77851.09
+2021,"Peeker, Robert",,,,,0.0,0.0,0.0
+2021,"Pendzick, Christopher L",,,,PBA,80213.1,3554.64,138571.25
+2021,"Pendzick, Gary J",,,,,0.0,0.0,0.0
+2021,"Pendzick, Irene J",,,,,0.0,0.0,0.0
+2021,"Perez Avalos, Nelson O",,,,PBA,34797.35,193.75,39921.42
+2021,"Perez, Byron E",,,,PBA,86388.46,40112.83,193192.55
+2021,"Perry, Edwin M",,,,,4165.06,0.0,4165.06
+2021,"Perry, Jacob M",,,,NON,525.45,0.0,525.45
+2021,"Petraszewski, Clement I",,,,,0.0,0.0,0.0
+2021,"Pezzica, Adrian J",,,,NON,1188.16,0.0,1188.16
+2021,"Piccione, Kenda J",,,,CSE,38211.63,34.41,42156.1
+2021,"Pipczynski, James A",,,,CSE,45246.5,0.0,63045.42
+2021,"Pipczynski, Lori U",,,,CSE,0.0,0.0,0.0
+2021,"Podlas, Jocelyn P",,,,NON,2671.4,0.0,2671.4
+2021,"Podlas, Richard P",,,,CSE,0.0,0.0,0.0
+2021,"Pope, Te-Andre T",,,,NON,9413.04,0.0,9413.04
+2021,"Poveromo, Charles Michael",,,,NON,7952.3,0.0,7952.3
+2021,"Pray, Michelle",,,,NON,5226.0,0.0,4526.0
+2021,"Prudenti, Annemarie",,,,,126058.81,0.0,150758.35
+2021,"Psaltis, John A",,,,,0.0,0.0,0.0
+2021,"Purick, Kevin M",,,,CSE,32433.64,0.0,37178.21
+2021,"Purick, Michael A",,,,PBA,0.0,0.0,12032.96
+2021,"Quick, Richard M",,,,,6909.07,0.0,6909.07
+2021,"Quinn, Joseph P",,,,CSE,0.0,0.0,0.0
+2021,"Rachubka, Zygmunt M",,,,CSE,48382.61,0.0,66385.85
+2021,"Rambo, Kevin J",,,,CSE,39937.6,76.47,54926.75
+2021,"Rassner, Samantha B",,,,NON,2402.85,0.0,2402.85
+2021,"Realander, Kristen L",,,,,784.13,0.0,784.13
+2021,"Reed, Michael P",,,,,0.0,0.0,0.0
+2021,"Reeve, Edward",,,,CSE,55770.45,108.14,85386.17
+2021,"Reeve, John F",,,,,0.0,0.0,0.0
+2021,"Reeve, Lindsay Palmer",,,,,0.0,0.0,0.0
+2021,"Reichel, Ariel",,,,CSE,46490.29,2009.06,63983.41
+2021,"Reichel, Michael P",,,,,146702.3,0.0,184020.63
+2021,"Renten, William A",,,,CSE,39792.55,1162.07,61654.84
+2021,"Reyes, Tina E",,,,,0.0,0.0,0.0
+2021,"Reynolds, Brian R",,,,NON,218.75,0.0,218.75
+2021,"Reynolds, Courtney E",,,,NON,833.0,0.0,833.0
+2021,"Reynolds, Dillon R",,,,NON,1839.75,0.0,1839.75
+2021,"Richards, Lisa M",,,,NON,64175.55,0.0,64176.51
+2021,"Ritter, Jaime D",,,,CSE,41565.68,903.59,56086.06
+2021,"Roberts, Mark F",,,,PBA,0.0,0.0,28849.17
+2021,"Robinson, Donald J",,,,,0.0,0.0,0.0
+2021,"Rodgers, Frederick",,,,,0.0,0.0,0.0
+2021,"Rogers, Mary B",,,,,0.0,0.0,0.0
+2021,"Rogers, Nicholas T",,,,NON,4454.49,0.0,4454.49
+2021,"Rogers, Thomas F",,,,CSE,43661.91,3618.43,59136.71
+2021,"Roman, Eileen G",,,,,0.0,0.0,0.0
+2021,"Ronacher, Isabella M",,,,NON,677.89,0.0,677.89
+2021,"Ronning, Lindsey T",,,,CSE,8052.11,0.0,8509.98
+2021,"Rosato, Abigail G",,,,NON,2800.9,0.0,2800.9
+2021,"Rosini, Ernesto G",,,,CON,0.0,0.0,0.0
+2021,"Rosini, Giuseppe T",,,,PBA,96165.56,37888.26,182043.7
+2021,"Ross, Mckinley",,,,,0.0,0.0,0.0
+2021,"Rothaar, William J",,,,,159774.96,0.0,183984.54
+2021,"Rothwell, Kenneth T",,,,NON,47072.12,0.0,48551.53
+2021,"Ruales, Hernan",,,,CSE,14002.1,0.0,15633.0
+2021,"Rywelski, Regina J",,,,,0.0,0.0,0.0
+2021,"Sadowski, Edward A",,,,,0.0,0.0,0.0
+2021,"Sadowsky, Donna L",,,,NON,39605.33,0.0,45304.49
+2021,"Saia, Salvatore M",,,,NON,3056.25,0.0,3056.25
+2021,"Sanchez, Marcella C",,,,NON,1917.65,0.0,1917.65
+2021,"Sannino, Ava G",,,,NON,2460.0,0.0,2460.0
+2021,"Santoro, Ashley N",,,,NON,1078.65,0.0,1078.65
+2021,"Santoro, Jenna D.",,,,,2975.55,0.0,2975.55
+2021,"Santoro, Madison",,,,,3414.13,0.0,3414.13
+2021,"Savelli, Kenneth E",,,,NON,3043.75,0.0,3043.75
+2021,"Sawaya, Joanna",,,,CSE,31801.23,182.59,39631.29
+2021,"Sawaya, Luke J",,,,NON,3847.5,0.0,3847.5
+2021,"Scelzi, Raymond E",,,,CSE,67261.03,0.0,79454.65
+2021,"Schandel, Ashley",,,,CSE,40839.52,0.0,56177.63
+2021,"Schmidt, Michael",,,,PBA,101482.44,22851.49,239622.19
+2021,"Schneider, Charles C",,,,,0.0,0.0,0.0
+2021,"Schoberl, Anthony D",,,,,23543.94,0.0,23543.94
+2021,"Schroeder, Judith",,,,,0.0,0.0,0.0
+2021,"Schroeher, Christopher S",,,,CSE,48961.9,1388.9,79788.07
+2021,"Schroeher, Kathleen",,,,,56674.03,296.91,83538.87
+2021,"Schule, Allan J",,,,PBA,0.0,0.0,0.0
+2021,"Schwarz, Debra L",,,,CSE,47879.76,259.26,71592.27
+2021,"Schwarz, John L",,,,,0.0,0.0,0.0
+2021,"Sclafani, Carol A",,,,NON,43277.13,0.0,44952.74
+2021,"Scott, Karen L",,,,,0.0,0.0,0.0
+2021,"Scruggs, James H",,,,,0.0,0.0,0.0
+2021,"Seabrook, Frank H",,,,,3230.78,0.0,3230.78
+2021,"Seal, John W",,,,PBA,90898.56,12894.4,170139.32
+2021,"Seebeck, Catherine H",,,,CSE,47607.89,0.0,62156.15
+2021,"Segal, Meyer",,,,,0.0,0.0,0.0
+2021,"Selock, Joanna L",,,,PBA,7320.16,193.75,10661.34
+2021,"Serafico, Jason",,,,CSE,42397.42,2252.7,50331.49
+2021,"Seuling, Catherine",,,,NON,3071.25,0.0,3071.25
+2021,"Sforza, Jessica",,,,,3618.49,0.0,3618.49
+2021,"Shauger, Kelly",,,,APT,2500.0,0.0,2500.0
+2021,"Shaw, Eric",,,,CSE,43128.14,18.78,52051.77
+2021,"Sheppard, Joseph M",,,,CSE,40719.45,1130.87,50386.18
+2021,"Sheppard, Joseph T",,,,,0.0,0.0,0.0
+2021,"Shuot, John M",,,,,10455.0,0.0,10455.0
+2021,"Sickler, Brenda L",,,,CSE,0.0,0.0,7200.0
+2021,"Silleck, Charles W",,,,PBA,0.0,0.0,23099.83
+2021,"Skarka, Ann P",,,,,0.0,0.0,0.0
+2021,"Sloan, Daniel G",,,,CSE,37601.22,1083.5,49682.91
+2021,"Smith, Allen M",,,,,0.0,0.0,0.0
+2021,"Smith, Andrew",,,,CSE,0.0,0.0,0.0
+2021,"Smith, Christie L",,,,PBA,70284.53,2329.42,124374.97
+2021,"Smith, James A",,,,CSE,52946.65,0.0,71789.99
+2021,"Smith, Michael J",,,,CSE,48446.13,2425.54,73703.35
+2021,"Smith, Richard T",,,,,188101.45,0.0,253471.96
+2021,"Smith, Robert B",,,,CSE,0.0,0.0,0.0
+2021,"Sofoklis, Andreas P",,,,CSE,84116.93,2228.05,105297.75
+2021,"Sokoloski, Roy J",,,,,2500.0,0.0,2500.0
+2021,"Sollazzo, Jill M",,,,CSE,44360.3,418.05,63881.36
+2021,"Sollazzo, Leisa A",,,,,0.0,0.0,0.0
+2021,"Soto, Ivan G",,,,CSE,36702.57,0.0,46867.89
+2021,"Spanburgh, Joann",,,,,2384.62,0.0,2384.62
+2021,"Sproston, Robert T",,,,PBA,45263.07,3677.09,119223.72
+2021,"Staker, Matthew T",,,,PBA,48038.61,19009.5,84741.02
+2021,"Stasiukiewicz, Cole",,,,PBA,67792.01,6757.26,102476.59
+2021,"Stelzer, Constance F",,,,,0.0,0.0,0.0
+2021,"Stephenson, Kyle A",,,,,5166.0,0.0,5166.0
+2021,"Stevens, William J",,,,PBA,6846.68,0.0,8115.95
+2021,"Stewart, Tracy A",,,,CSE,13793.76,0.0,15262.85
+2021,"Stoddard, John L",,,,CSE,43303.14,315.45,55477.24
+2021,"Stoltenborg, Luke R",,,,NON,2076.0,0.0,2076.0
+2021,"Strahmann, Angelika",,,,,0.0,0.0,0.0
+2021,"Strange, Doris L",,,,CSE,52410.05,449.02,70340.65
+2021,"Stromski, Jane",,,,,0.0,0.0,0.0
+2021,"Stromski, Madison L",,,,NON,3244.9,0.0,3244.9
+2021,"Stromski, Mark",,,,PBA,98302.81,15575.61,238082.1
+2021,"Sulzer, Scott A",,,,CSE,50048.5,93.06,68862.57
+2021,"Summerville, Albert",,,,,0.0,0.0,0.0
+2021,"Sumwalt, Ava L",,,,NON,228.2,0.0,228.2
+2021,"Suprina, Matthew T",,,,PBA,72944.36,18113.17,137092.82
+2021,"Sykes, Deontae A",,,,NON,4469.5,0.0,4469.5
+2021,"Szentmariay, Aidan W",,,,NON,2783.24,0.0,2783.24
+2021,"Tague, Laura A",,,,CSE,0.0,0.0,0.0
+2021,"Tam, Christopher K",,,,PBA,93979.63,18209.84,161062.43
+2021,"Tangredi, Albert",,,,NON,156.55,0.0,156.55
+2021,"Taylor, Lawrence",,,,,0.0,0.0,0.0
+2021,"Tedesco, Robert L",,,,CSE,44621.48,126.56,57879.74
+2021,"Tennenberg, Laverne",,,,,96177.65,0.0,101055.83
+2021,"Testa, Donna M",,,,,0.0,0.0,0.0
+2021,"Testa, Kenneth",,,,,102009.95,0.0,106368.14
+2021,"Thomas, Charles M",,,,NON,770.0,0.0,770.0
+2021,"Thomas, Dawn Christine",,,,NON,119659.27,0.0,130668.3
+2021,"Thomas, Kevin H",,,,PBA,34621.78,1420.87,41492.97
+2021,"Thompson, Dan",,,,CSE,19428.72,0.0,22050.15
+2021,"Tocci, Grace",,,,,1943.15,0.0,1943.15
+2021,"Tocci, Kelly A",,,,NON,76074.39,0.0,109621.39
+2021,"Tooker, Marissa L",,,,CSE,26818.11,767.87,33803.02
+2021,"Toth, Emily",,,,CSE,61630.73,0.0,73125.75
+2021,"Treadwell, James E",,,,PBA,72956.11,2507.7,112881.03
+2021,"Trent, Cynthia V",,,,CSE,7372.18,0.0,10347.72
+2021,"Trivelli, Joseph",,,,PBA,52787.58,5435.92,72712.91
+2021,"Trojanowski, Heather L",,,,CSE,40649.33,0.0,48219.88
+2021,"Troyan, Peter",,,,PBA,99847.31,21962.89,185366.13
+2021,"Troyan, Peter",,,,,0.0,0.0,0.0
+2021,"Trumpatori, Louis R",,,,CSE,45237.71,689.13,51135.01
+2021,"Turpin, Eric",,,,CSE,50409.01,3265.83,63537.57
+2021,"Tutoli, Michael",,,,CSE,38081.2,0.0,48627.42
+2021,"Uguil, Jessa Bhel",,,,CSE,30587.29,0.0,36728.72
+2021,"Ulmet, Candee",,,,,0.0,0.0,0.0
+2021,"Underwood, Reginald G",,,,,0.0,0.0,0.0
+2021,"Urevich, Catherine M",,,,CSE,0.0,0.0,0.0
+2021,"Vail, John H",,,,SOA,121572.65,19663.41,225192.2
+2021,"Vail, Maribeth",,,,CSE,45786.23,927.35,60466.11
+2021,"Van Den Thoorn, Jane",,,,,0.0,0.0,0.0
+2021,"Vance, Scott",,,,CSE,39136.65,18.09,50158.36
+2021,"Vance, Thomas E",,,,CSE,41406.25,0.0,59583.09
+2021,"Vankurin, Rachel L",,,,CSE,37368.71,0.0,46022.7
+2021,"Vasey, Craig J",,,,PBA,0.0,0.0,0.0
+2021,"Von Voigt, David",,,,PBA,84162.08,25522.48,168138.54
+2021,"Von Voigt, Richard",,,,,0.0,0.0,0.0
+2021,"Von Voigt, Richard M",,,,PBA,72826.11,11063.26,130117.55
+2021,"Vourakis, Victoria L",,,,,0.0,0.0,0.0
+2021,"Walls, Frank E",,,,CSE,44354.02,597.96,64016.42
+2021,"Walter, Sean M",,,,,84571.0,0.0,89449.18
+2021,"Walther, Daniel C",,,,PBA,91747.49,7044.87,149331.82
+2021,"Wansor, Charles E",,,,NON,1157.09,0.0,1157.09
+2021,"Ward, Lauren",,,,NON,3041.95,0.0,3041.95
+2021,"Ward, Nicholas G",,,,NON,2114.94,0.0,2114.94
+2021,"Warner, James A",,,,,0.0,0.0,0.0
+2021,"Warner, Richard F",,,,,0.0,0.0,0.0
+2021,"Washburn, Shannon E",,,,NON,12699.86,0.0,12699.86
+2021,"Waski, Patrick A",,,,PBA,0.0,0.0,10711.7
+2021,"Waskowiak, Lauren C",,,,CSE,37883.28,95.87,40761.48
+2021,"Weinand, Dennis",,,,,0.0,0.0,0.0
+2021,"Welsh, James P",,,,SOA,101009.56,11381.13,168305.58
+2021,"Westwood, Karen B",,,,CSE,39020.43,433.6,51477.5
+2021,"White, Anthony M",,,,CSE,36650.31,281.95,45873.98
+2021,"Wicklund, Scott A",,,,PBA,0.0,0.0,7458.06
+2021,"Widener, Paulette M",,,,CSE,15325.58,77.78,16899.51
+2021,"Wilhelm, Diane M",,,,,83846.0,0.0,93724.18
+2021,"Wilkinson, Jacob C",,,,NON,5741.47,0.0,5741.47
+2021,"Wilkinson, Orangielee A",,,,NON,21.75,0.0,21.75
+2021,"Williams, Brandon M",,,,NON,7208.32,0.0,7208.32
+2021,"Williams, Zebedee",,,,CSE,39672.14,0.0,57488.14
+2021,"Willsey, Danielle E",,,,SOA,117121.88,18147.64,198531.31
+2021,"Wilson, Timothy",,,,PBA,82059.39,17746.05,169110.18
+2021,"Witt, Jeffrey E",,,,CSE,28184.43,0.0,54980.37
+2021,"Witt, Walter",,,,,0.0,0.0,0.0
+2021,"Wittmeier, Otto",,,,,6000.02,0.0,6000.02
+2021,"Woodhull, George H",,,,,770.0,0.0,770.0
+2021,"Woods, Kenneth",,,,,0.0,0.0,0.0
+2021,"Woodson, George E",,,,,114803.0,0.0,120056.18
+2021,"Woodson, James H",,,,,0.0,0.0,0.0
+2021,"Woodson, John F",,,,,0.0,0.0,0.0
+2021,"Wooten, James M",,,,NON,7153.5,0.0,7153.5
+2021,"Wooten, Travis P",,,,PBA,48205.07,1451.77,67396.65
+2021,"Wulffraat, Arnold T",,,,CSE,56613.18,352.3,83607.77
+2021,"Wulffraat, Lisa M",,,,CSE,54574.23,0.0,71760.98
+2021,"Wulffraat, Nicholas T",,,,CSE,34549.79,1699.77,39353.39
+2021,"Yakaboski, Donald M",,,,,0.0,0.0,0.0
+2021,"Young, Dale M",,,,,0.0,0.0,0.0
+2021,"Young, Myron E",,,,,0.0,0.0,0.0
+2021,"Zak, Richard M",,,,,0.0,0.0,0.0
+2021,"Zaleski, James E",,,,,0.0,0.0,0.0
+2021,"Zaleski, Michael T",,,,,93203.7,0.0,100984.66
+2021,"Zaneski, Laurie A",,,,,83846.0,0.0,88724.18
+2021,"Zaveski, Timothy P",,,,CSE,50811.78,821.54,76991.76
+2021,"Zaweski, Daniel W",,,,NON,2076.93,0.0,2076.93
+2021,"Zebrowski, David L",,,,CSE,54601.44,4967.91,76209.61
+2021,"Zegarelli, Meagan B",,,,NON,0.0,0.0,0.0
+2021,"Zitek, Craig W",,,,CSE,78036.3,8386.71,112505.54
