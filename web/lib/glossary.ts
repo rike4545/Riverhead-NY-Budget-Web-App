@@ -100,6 +100,18 @@ export const glossary: Record<string, GlossaryEntry> = {
     term: 'Reserve Use',
     plain: 'Spending savings instead of recurring income. It can balance a single budget but is risky if repeated year after year.',
   },
+  resolution: {
+    term: 'Resolution',
+    plain: 'A formal item the Town Board votes on — approving a contract, setting a fee, authorizing spending, or making an appointment.',
+  },
+  'mover-seconder': {
+    term: 'Mover / Seconder',
+    plain: 'The member who formally proposes a resolution ("moves" it) and the member who supports bringing it to a vote ("seconds" it).',
+  },
+  abstain: {
+    term: 'Abstain',
+    plain: 'To formally decline to vote yes or no — often because a member has a conflict of interest on that item.',
+  },
 }
 
 export function lookup(key: string): GlossaryEntry | undefined {

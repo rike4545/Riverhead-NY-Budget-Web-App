@@ -1,0 +1,17 @@
+{
+ "source": {
+  "title": "Town of Riverhead Town Board Meeting Minutes",
+  "url": "https://www.townofriverheadny.gov/AgendaCenter"
+ },
+ "meetings": [
+  {
+   "slug": "2025-01-07",
+   "date": "January 7, 2025",
+   "type": "Regular Meeting",
+   "total": 90,
+   "unanimous": 85,
+   "contested": 5,
+   "failed": 1
+  }
+ ]
+}

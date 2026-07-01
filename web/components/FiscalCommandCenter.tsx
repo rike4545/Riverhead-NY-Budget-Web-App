@@ -133,6 +133,12 @@ export default function FiscalCommandCenter() {
               title="2025 Annual Report"
               body="What actually happened in 2025: the General Fund ran a $5.0M surplus and savings grew to $33.4M. Budget-vs-actual, revenues and spending by category, and every fund."
             />
+            <FeatureCard
+              href={`${base}/meetings/`}
+              tag="New · Voting record"
+              title="Town Board Votes"
+              body="How the Board voted, resolution by resolution — who moved, seconded, and how each member voted. Filter straight to the contested and failed votes."
+            />
           </section>
 
           <section style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(190px,1fr))', gap: 14, marginTop: 18 }}>

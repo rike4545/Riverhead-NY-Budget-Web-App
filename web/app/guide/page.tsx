@@ -41,6 +41,13 @@ const tools = [
     how: 'See whether the Town ended the year with a surplus or deficit, where the money really came from and went, and how each fund did.',
   },
   {
+    href: `${base}/meetings/`,
+    emoji: '🗳️',
+    title: 'Town Board Votes',
+    answers: 'What did the Town Board decide, and did every member agree?',
+    how: 'Browse each resolution with its result and who voted how. Use the filter buttons to jump straight to the contested or failed votes.',
+  },
+  {
     href: `${base}/search/`,
     emoji: '🔎',
     title: 'Search Records',

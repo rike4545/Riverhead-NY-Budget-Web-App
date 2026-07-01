@@ -43,6 +43,12 @@ jobs:
       - name: Parse Annual Financial Report actuals
         run: python etl/parse_afr.py
 
+      - name: Parse Town Board meeting votes
+        run: python etl/parse_meetings.py
+
+      - name: Parse 2025 authorized salary schedule
+        run: python etl/parse_salary_schedule.py
+
       - name: Rebuild payroll dataset from slim sources
         run: python etl/parse_payroll.py
 
@@ -57,7 +63,7 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-          git add web/public/data/financial-reports web/public/data/subaccounts web/public/data/history web/public/data/payroll web/public/data/afr || true
+          git add web/public/data/financial-reports web/public/data/subaccounts web/public/data/history web/public/data/payroll web/public/data/afr web/public/data/meetings web/public/data/salary || true
 
           if git diff --cached --quiet; then
             echo "No parsed-data changes detected."
