@@ -19,9 +19,9 @@ SRC = ROOT / "etl/data/salary/agenda-packet-2026.txt"
 SAL25 = ROOT / "web/public/data/salary/authorized-2025.json"
 OUT = ROOT / "web/public/data/salary"
 
-# "Last, First [grade] Title ... 12,345.67"
-ROW = re.compile(r"^([A-Z][A-Za-z.'-]+,\s+[A-Z][A-Za-z.' -]+?)\s+(.+?)\s+([\d,]+\.\d{2})\s*\$?$")
-GRADE = re.compile(r"^(\d{1,2}/[A-Z0-9]{1,3})\b\s*")
+MONEY = re.compile(r"[\d,]+\.\d{2}")
+GRADE = re.compile(r"\b(\d{1,2}/[A-Z0-9]{1,3})\b")
+COMMA_NAME = re.compile(r"^([A-Z][A-Za-z.'-]+,\s+[A-Z][A-Za-z.'-]+)\s+(.*)$")
 DEPT_HDR = re.compile(r"^[A-Z][A-Z '&/.-]{4,40}$")
 NOISE = re.compile(r"ANNUAL SALARY|EMPLOYEE|FISCAL IMPACT|THE VOTE|ADOPTED|TOWN OF RIVERHEAD|RESOLUTION|WHEREAS|NOTICE")
 
@@ -30,16 +30,111 @@ def clean(s):
     return re.sub(r"\s+", " ", s).strip(" .$")
 
 
+def normalize_name(name):
+    """Normalize to 'Last, First'. Some sections print 'First Last'."""
+    name = clean(name)
+    if "," in name:
+        return name
+    parts = name.split()
+    if len(parts) == 2:
+        return f"{parts[1]}, {parts[0]}"
+    if len(parts) > 2:
+        return f"{parts[-1]}, {parts[0]}"
+    return name
+
+
+def parse_row_2026(line):
+    """Handle both 'Last, First [grade] Title $ salary' and 'First Last [grade]
+    Title $ salary'. Returns (name, grade, title, annual) or None."""
+    nums = MONEY.findall(line)
+    if not nums:
+        return None
+    first = MONEY.search(line)
+    pre = line[:first.start()]
+    annual = max(float(n.replace(",", "")) for n in nums)
+    if annual < 1000 or annual > 400000:
+        return None
+
+    g = GRADE.search(pre)
+    if g:
+        name = normalize_name(pre[:g.start()])
+        title = clean(pre[g.end():])
+    else:
+        cm = COMMA_NAME.match(pre.strip())
+        if cm:
+            name, title = clean(cm.group(1)), clean(cm.group(2))
+        else:
+            toks = pre.split()
+            if len(toks) >= 3 and toks[0][:1].isupper() and toks[1][:1].isupper():
+                name, title = normalize_name(" ".join(toks[:2])), clean(" ".join(toks[2:]))
+            else:
+                return None
+    if "," not in name or not title:
+        return None
+    return name, g.group(1) if g else "", title, round(annual, 2)
+
+
 def key(name):
     p = name.lower().split(",")
     return (p[0].strip(), p[1].strip().split(" ")[0]) if len(p) == 2 else (p[0].strip(), "")
+
+
+def enrich_with_actual(records):
+    """Attach each employee's most recent actual pay (from the payroll data)."""
+    payroll = ROOT / "web/public/data/payroll/records.json"
+    if not payroll.exists():
+        return
+    data = json.loads(payroll.read_text())
+    latest = max((r["y"] for r in data["records"]), default=None)
+    actual = {key(r["n"]): r for r in data["records"] if r["y"] == latest}
+    for rec in records:
+        a = actual.get(key(rec["name"]))
+        if a:
+            rec["actualYear"] = latest
+            rec["actualRegular"] = a["r"]
+            rec["actualOvertime"] = a["o"]
+            rec["actualGross"] = a["g"]
+
+
+def write_authorized_2026(r26, r25):
+    """Emit a standalone 2026 authorized-salary dataset (same shape as 2025)."""
+    recs = []
+    for name, a in r26.items():
+        b = r25.get(key(name))
+        recs.append({
+            "name": a["name"], "grade": a["grade"], "title": a["title"],
+            "department": a["department"], "group": b["group"] if b else "New in 2026",
+            "resolution": None, "annual": a["annual2026"], "hourly": None,
+            "isStipend": a["title"].lower() == "stipend",
+        })
+    enrich_with_actual(recs)
+    by_group = {}
+    for r in recs:
+        by_group.setdefault(r["group"], {"headcount": 0, "authorized": 0.0})
+        by_group[r["group"]]["headcount"] += 1
+        by_group[r["group"]]["authorized"] += r["annual"]
+    payload = {
+        "source": {"title": "2026 salary schedule (Town Board agenda packet, Jan 6, 2026)",
+                   "url": "https://www.townofriverheadny.gov/AgendaCenter"},
+        "year": 2026,
+        "note": "Board-authorized annual base salaries for 2026, from the January 6, 2026 agenda packet. "
+                "This is authorized pay, not actual pay. Sewer/Scavenger and purely seasonal/hourly staff "
+                "are not included.",
+        "count": len(recs),
+        "totalAuthorized": round(sum(r["annual"] for r in recs if not r["isStipend"]), 2),
+        "byGroup": [{"group": g, **{k: round(v, 2) for k, v in d.items()}} for g, d in
+                    sorted(by_group.items(), key=lambda kv: kv[1]["authorized"], reverse=True)],
+        "records": sorted(recs, key=lambda r: r["annual"], reverse=True),
+    }
+    (OUT / "authorized-2026.json").write_text(json.dumps(payload, separators=(",", ":")))
+    return payload["count"], payload["totalAuthorized"]
 
 
 def parse_2026():
     dept = ""
     rows = {}
     for raw in SRC.read_text(encoding="utf-8", errors="ignore").split("\n"):
-        line = clean(raw) if False else raw.strip()
+        line = raw.strip()
         if not line:
             continue
         if DEPT_HDR.match(line) and not any(c.isdigit() for c in line) and not NOISE.search(line):
@@ -47,18 +142,11 @@ def parse_2026():
             continue
         if NOISE.search(line):
             continue
-        m = ROW.match(line)
-        if not m:
+        parsed = parse_row_2026(line)
+        if not parsed:
             continue
-        annual = float(m.group(3).replace(",", ""))
-        if annual < 1000 or annual > 400000:
-            continue
-        mid = m.group(2)
-        g = GRADE.match(mid)
-        grade = g.group(1) if g else ""
-        title = clean(mid[g.end():] if g else mid)
-        name = clean(m.group(1))
-        rows[name] = {"name": name, "grade": grade, "title": title, "department": dept, "annual2026": round(annual, 2)}
+        name, grade, title, annual = parsed
+        rows[name] = {"name": name, "grade": grade, "title": title, "department": dept, "annual2026": annual}
     return rows
 
 
@@ -129,6 +217,8 @@ def build():
         "records": sorted(records, key=lambda r: r["annual2026"], reverse=True),
     }
     (OUT / "comparison-2025-2026.json").write_text(json.dumps(payload, separators=(",", ":")))
+    n26, tot26 = write_authorized_2026(r26, r25)
+    print(f"authorized-2026.json: {n26} positions, ${tot26:,.0f} total base")
 
     print(f"2026 positions: {len(records)} | matched to 2025: {len(matched)} | raised: {len(raised)} | promotions: {len(promotions)}")
     print(f"avg raise ${summary['avgRaise']:,.0f} | median {summary['medianRaisePct']}% | total ${summary['totalRaise']:,.0f}")

@@ -4,6 +4,7 @@
 // etl/parse_salary_schedule.py.
 
 import salaryJson from '../public/data/salary/authorized-2025.json'
+import salary2026Json from '../public/data/salary/authorized-2026.json'
 import comparisonJson from '../public/data/salary/comparison-2025-2026.json'
 
 export type SalaryRecord = {
@@ -35,12 +36,22 @@ export type AuthorizedSalary = {
 }
 
 export const authorizedSalary = salaryJson as AuthorizedSalary
+export const authorizedSalary2026 = salary2026Json as AuthorizedSalary
 
-export const salaryActualYear =
-  authorizedSalary.records.find((r) => r.actualYear)?.actualYear ?? null
+export function authorizedFor(year: 2025 | 2026): AuthorizedSalary {
+  return year === 2026 ? authorizedSalary2026 : authorizedSalary
+}
 
-export const salaryMatchedCount =
-  authorizedSalary.records.filter((r) => r.actualGross != null).length
+export function actualYearFor(data: AuthorizedSalary): number | null {
+  return data.records.find((r) => r.actualYear)?.actualYear ?? null
+}
+
+export function matchedCountFor(data: AuthorizedSalary): number {
+  return data.records.filter((r) => r.actualGross != null).length
+}
+
+export const salaryActualYear = actualYearFor(authorizedSalary)
+export const salaryMatchedCount = matchedCountFor(authorizedSalary)
 
 // ---- 2025 -> 2026 raise comparison ----
 

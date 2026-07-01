@@ -1,7 +1,7 @@
 'use client'
 
 import { useMemo, useState } from 'react'
-import { authorizedSalary, salaryActualYear, salaryMatchedCount, type SalaryRecord } from '../lib/salary'
+import { authorizedFor, actualYearFor, matchedCountFor, type SalaryRecord } from '../lib/salary'
 
 const usd = (n: number | null | undefined) =>
   n == null ? '—' : new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(n)
@@ -11,17 +11,20 @@ const sel = { padding: '9px 11px', border: '1px solid #cbd5e1', borderRadius: 9,
 type SortKey = 'annual' | 'actualGross' | 'gap' | 'name'
 
 export default function AuthorizedSalary() {
+  const [year, setYear] = useState<2025 | 2026>(2025)
   const [q, setQ] = useState('')
   const [group, setGroup] = useState('all')
   const [sortKey, setSortKey] = useState<SortKey>('annual')
   const [limit, setLimit] = useState(100)
   const yq = q.trim().toLowerCase()
 
-  const groups = authorizedSalary.byGroup
-  const actualYear = salaryActualYear
+  const data = authorizedFor(year)
+  const groups = data.byGroup
+  const actualYear = actualYearFor(data)
+  const matchedCount = matchedCountFor(data)
 
   const rows = useMemo(() => {
-    const list = authorizedSalary.records.filter((r) => {
+    const list = data.records.filter((r) => {
       if (group !== 'all' && r.group !== group) return false
       if (yq && !(`${r.name} ${r.title}`.toLowerCase().includes(yq))) return false
       return true
@@ -34,16 +37,27 @@ export default function AuthorizedSalary() {
       return b.annual - a.annual
     })
     return list
-  }, [group, yq, sortKey])
+  }, [data, group, yq, sortKey])
 
   const totalAuth = useMemo(() => rows.filter((r) => !r.isStipend).reduce((s, r) => s + r.annual, 0), [rows])
 
   return (
     <div style={{ display: 'grid', gap: 16 }}>
+      <section style={{ ...card, display: 'flex', gap: 8, alignItems: 'center', flexWrap: 'wrap' }}>
+        <span style={{ fontWeight: 800, color: '#334155' }}>Salary year:</span>
+        {([2025, 2026] as const).map((y) => (
+          <button key={y} onClick={() => { setYear(y); setGroup('all'); setLimit(100) }} style={{
+            padding: '8px 16px', borderRadius: 9, border: '1px solid', cursor: 'pointer', fontWeight: 800, fontSize: 14,
+            borderColor: year === y ? '#1f5f8f' : '#cbd5e1', background: year === y ? '#1f5f8f' : 'white', color: year === y ? 'white' : '#334155',
+          }}>{y}</button>
+        ))}
+        <span style={{ color: '#64748b', fontSize: 13 }}>Board-authorized base salaries for {year}.</span>
+      </section>
+
       <section style={{ ...card, display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(160px,1fr))', gap: 12 }}>
-        <Stat label="Positions (authorized)" value={authorizedSalary.count.toLocaleString()} />
-        <Stat label="Total authorized base" value={usd(authorizedSalary.totalAuthorized)} accent />
-        <Stat label="Matched to actual pay" value={`${salaryMatchedCount} of ${authorizedSalary.count}`} />
+        <Stat label={`Positions (${year})`} value={data.count.toLocaleString()} />
+        <Stat label="Total authorized base" value={usd(data.totalAuthorized)} accent />
+        <Stat label="Matched to actual pay" value={`${matchedCount} of ${data.count}`} />
         <Stat label="Actual pay year" value={actualYear ? String(actualYear) : '—'} />
       </section>
 
@@ -135,7 +149,7 @@ export default function AuthorizedSalary() {
       </section>
 
       <p style={{ color: '#64748b', fontSize: 13, lineHeight: 1.5 }}>
-        Source: {authorizedSalary.source.title}. {authorizedSalary.note} &quot;Actual {actualYear}&quot; is the most recent
+        Source: {data.source.title}. {data.note} &quot;Actual {actualYear}&quot; is the most recent
         year of actual gross pay available and may differ in year from the authorized figure; actual pay includes
         overtime, longevity, and buy-outs on top of base salary, which is why it often exceeds the authorized base.
         Positions with &quot;no match&quot; could not be linked to an actual-pay record (new hires or name differences).
