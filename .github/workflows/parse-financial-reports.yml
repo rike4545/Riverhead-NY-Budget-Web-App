@@ -49,6 +49,9 @@ jobs:
       - name: Parse 2025 authorized salary schedule
         run: python etl/parse_salary_schedule.py
 
+      - name: Build 2025 to 2026 salary raise comparison
+        run: python etl/parse_salary_2026.py
+
       - name: Rebuild payroll dataset from slim sources
         run: python etl/parse_payroll.py
 

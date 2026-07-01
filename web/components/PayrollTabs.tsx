@@ -3,16 +3,18 @@
 import { useState } from 'react'
 import PayrollExplorer from './PayrollExplorer'
 import AuthorizedSalary from './AuthorizedSalary'
+import SalaryRaises from './SalaryRaises'
 
 export default function PayrollTabs() {
-  const [tab, setTab] = useState<'actual' | 'authorized'>('actual')
+  const [tab, setTab] = useState<'actual' | 'authorized' | 'raises'>('actual')
   return (
     <div style={{ display: 'grid', gap: 16 }}>
       <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
         <Tab active={tab === 'actual'} onClick={() => setTab('actual')} title="Actual Pay" sub="What employees were paid, 2018–2023" />
         <Tab active={tab === 'authorized'} onClick={() => setTab('authorized')} title="Authorized Salary (2025)" sub="What the Board set — and how it compares to actual pay" />
+        <Tab active={tab === 'raises'} onClick={() => setTab('raises')} title="Raises 2025 → 2026" sub="Who got a raise, and by how much" />
       </div>
-      {tab === 'actual' ? <PayrollExplorer /> : <AuthorizedSalary />}
+      {tab === 'actual' ? <PayrollExplorer /> : tab === 'authorized' ? <AuthorizedSalary /> : <SalaryRaises />}
     </div>
   )
 }
