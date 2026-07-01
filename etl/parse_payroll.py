@@ -102,8 +102,8 @@ def read_year(year):
             ot_cols = [c for c in header if is_overtime_col(c)]
             for r in reader:
                 name = (r.get(c_name) or "").strip()
-                if not name:
-                    continue
+                if not name or name.lower() == "payroll name":
+                    continue  # skip blanks and duplicate header rows (present in some exports)
                 ot_detail = sum(money(r.get(c)) for c in ot_cols)
                 ot = ot_detail if ot_detail > 0 else money(r.get(c_ot_total))
                 yield {
@@ -122,9 +122,12 @@ def read_year(year):
     if slim.exists():
         with slim.open(encoding="utf-8", newline="") as fh:
             for r in csv.DictReader(fh):
+                name = (r.get("name") or "").strip()
+                if not name or name.lower() == "payroll name":
+                    continue
                 yield {
                     "year": year,
-                    "name": r["name"],
+                    "name": name,
                     "department": r.get("department", ""),
                     "title": r.get("title", ""),
                     "pay_class": r.get("pay_class", ""),
