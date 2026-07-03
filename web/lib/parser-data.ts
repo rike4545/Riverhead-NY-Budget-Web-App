@@ -1,7 +1,10 @@
+// Metadata about the parsed financial-report archive (document list, counts,
+// failures). Deliberately imports ONLY the small index.json — the heavyweight
+// parser outputs (search-index.json ~47MB, citations.json ~11MB,
+// line-item-candidates.json ~80MB) must never be imported at build time; the
+// search page uses the compact fetch-on-demand index in data/search/ instead.
+
 import extractionReport from '../public/data/financial-reports/index.json'
-import searchIndex from '../public/data/financial-reports/search-index.json'
-import citationsIndex from '../public/data/financial-reports/citations.json'
-import lineItemIndex from '../public/data/financial-reports/line-item-candidates.json'
 
 export type ParsedDocument = {
   title: string
@@ -17,48 +20,6 @@ export type ParsedDocument = {
   status?: string
 }
 
-export type ParsedSearchRecord = {
-  id: string
-  document: string
-  slug: string
-  year: number | null
-  category: string
-  page: number
-  url: string
-  text?: string
-  snippet: string
-  money_values?: string[]
-  confidence: string
-  parsed_at: string
-}
-
-export type CitationRecord = {
-  id: string
-  document: string
-  url: string
-  page: number
-  snippet: string
-  confidence: string
-  sha256?: string | null
-  parsed_at: string
-}
-
-export type LineItemCandidate = {
-  id: string
-  document: string
-  slug: string
-  year: number | null
-  category: string
-  page: number
-  line_number: number
-  raw_text: string
-  account_code_candidate?: string | null
-  amounts: string[]
-  confidence: string
-  source_url: string
-  parsed_at: string
-}
-
 export const parserExtractionReport = extractionReport as {
   source_index: string
   parsed_at: string
@@ -72,10 +33,6 @@ export const parserExtractionReport = extractionReport as {
   failures: Array<{ title: string; url: string; error: string }>
   warning?: string
 }
-
-export const parsedSearchRecords = (searchIndex as { records: ParsedSearchRecord[] }).records ?? []
-export const parsedCitations = (citationsIndex as { records: CitationRecord[] }).records ?? []
-export const parsedLineItemCandidates = (lineItemIndex as { records: LineItemCandidate[] }).records ?? []
 
 export const latestBudgetDocument =
   parserExtractionReport.documents.find((doc) => doc.category === 'adopted_budget' && doc.year === 2026) ??

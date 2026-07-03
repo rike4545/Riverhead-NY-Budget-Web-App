@@ -3,6 +3,12 @@ import PayrollTabs from '../../components/PayrollTabs'
 import PlainCallout from '../../components/PlainCallout'
 import { payrollYears } from '../../lib/payroll'
 
+export const metadata = {
+  title: 'Payroll Explorer — employee pay, overtime & salaries',
+  description:
+    'Search actual Town of Riverhead employee pay 2018–2023 (base, overtime, gross), Board-authorized salaries for 2025 and 2026, and every raise between them.',
+}
+
 export default function PayrollPage() {
   return (
     <PageShell

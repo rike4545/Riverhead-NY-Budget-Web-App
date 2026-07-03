@@ -3,6 +3,12 @@ import CompareExplorer from '../../components/CompareExplorer'
 import PlainCallout from '../../components/PlainCallout'
 import { budgetHistory } from '../../lib/budget-history'
 
+export const metadata = {
+  title: 'Budget Compare — fund spending across years',
+  description:
+    'Compare Town of Riverhead adopted appropriations across every operating fund from 2020 to 2026, sorted by the biggest dollar and percent movers.',
+}
+
 export default function ComparePage() {
   const years = budgetHistory.years
   return (

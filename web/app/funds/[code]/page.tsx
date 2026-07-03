@@ -3,9 +3,21 @@ import FundDrilldown from '../../../components/FundDrilldown'
 import PlainCallout from '../../../components/PlainCallout'
 import { allFundCodes, getFundDetail } from '../../../lib/subaccounts'
 import { allOperatingFunds2026 } from '../../../lib/all-funds'
+import { afrGroupForBudgetFund } from '../../../lib/afr'
+import { dollars } from '../../../lib/financial-data'
 
 export function generateStaticParams() {
   return allFundCodes().map((code) => ({ code }))
+}
+
+export async function generateMetadata({ params }: { params: Promise<{ code: string }> }) {
+  const { code } = await params
+  const fund = getFundDetail(code)
+  if (!fund) return { title: 'Fund not found' }
+  return {
+    title: `${fund.name} (${fund.code}) — budget drilldown`,
+    description: `Every department and account line item in the Town of Riverhead ${fund.name}: 2026 appropriations, revenues, and multi-year trends back to 2020.`,
+  }
 }
 
 export default async function FundDetailPage({ params }: { params: Promise<{ code: string }> }) {
@@ -40,7 +52,55 @@ export default async function FundDetailPage({ params }: { params: Promise<{ cod
         This is the detailed breakdown of one fund. It shows <strong>exactly what the money inside this fund is budgeted
         for</strong>, from big departments down to individual spending lines.
       </PlainCallout>
+      <ActualsStrip code={fund.code} />
       <FundDrilldown fund={fund} />
     </PageShell>
+  )
+}
+
+// What ACTUALLY happened in 2025 for this fund's AFR group — the reality check
+// next to the budget plan below it.
+function ActualsStrip({ code }: { code: string }) {
+  const group = afrGroupForBudgetFund(code)
+  if (!group) return null
+  const { fund, shared } = group
+  const rev = fund.revenues?.['2025']
+  const exp = fund.expenditures?.['2025']
+  const surplus = fund.surplus?.['2025']
+  const fb = fund.fundBalance?.['2025']
+  if (rev == null && exp == null) return null
+
+  return (
+    <section style={{ background: '#f0fdf4', border: '1px solid #bbf7d0', borderLeft: '6px solid #15803d', borderRadius: 14, padding: '14px 18px', marginBottom: 16 }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', gap: 12, flexWrap: 'wrap', alignItems: 'baseline' }}>
+        <strong style={{ color: '#14532d', fontSize: 15 }}>
+          What actually happened in 2025 {shared ? `(${fund.name} group)` : ''}
+        </strong>
+        <a href="/rike4545-riverhead-budget-live/annual-report/" style={{ color: '#15803d', fontWeight: 800, fontSize: 13.5, textDecoration: 'none' }}>
+          Full 2025 Annual Report →
+        </a>
+      </div>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(160px,1fr))', gap: 10, marginTop: 10 }}>
+        <ActualStat label="Money in" value={rev != null ? dollars(rev) : '—'} />
+        <ActualStat label="Money out" value={exp != null ? dollars(exp) : '—'} />
+        <ActualStat label={surplus != null && surplus < 0 ? 'Deficit' : 'Surplus'} value={surplus != null ? dollars(Math.abs(surplus)) : '—'} strong={surplus != null} negative={surplus != null && surplus < 0} />
+        <ActualStat label="Year-end savings" value={fb != null ? dollars(fb) : 'n/a (net position)'} />
+      </div>
+      {shared && (
+        <p style={{ color: '#166534', fontSize: 12.5, margin: '8px 0 0', lineHeight: 1.4 }}>
+          The Annual Financial Report reports actuals for the combined {fund.name} group, which includes this fund and
+          its sibling funds — so these figures cover the whole group, not this budget fund alone.
+        </p>
+      )}
+    </section>
+  )
+}
+
+function ActualStat({ label, value, strong, negative }: { label: string; value: string; strong?: boolean; negative?: boolean }) {
+  return (
+    <div style={{ background: 'white', border: '1px solid #d1fae5', borderRadius: 10, padding: '9px 12px' }}>
+      <div style={{ color: '#166534', fontSize: 11, textTransform: 'uppercase', fontWeight: 900, letterSpacing: 0.4 }}>{label}</div>
+      <strong style={{ fontSize: 16.5, color: negative ? '#b91c1c' : strong ? '#15803d' : '#14532d' }}>{value}</strong>
+    </div>
   )
 }

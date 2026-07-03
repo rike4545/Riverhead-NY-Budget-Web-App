@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://rike4545.github.io/rike4545-riverhead-budget-live/sitemap.xml

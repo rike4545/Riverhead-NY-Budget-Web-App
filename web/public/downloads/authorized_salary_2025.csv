@@ -1,0 +1,346 @@
+name,grade,title,department,group,annual_salary,is_stipend
+"Hubbard, Timothy",,Town Supervisor,Of Proposed Riverhead Town Board Legislation,Elected Officials,118919.0,False
+"Wooten, James",,Town Clerk,Of Proposed Riverhead Town Board Legislation,Elected Officials,93038.0,False
+"Wooten, James",,Registrar of Vital Statistics,Of Proposed Riverhead Town Board Legislation,Elected Officials,5000.0,False
+"Zaleski, Michael",,Superintendent of Hwys,Of Proposed Riverhead Town Board Legislation,Elected Officials,104543.0,False
+"Hulse, Lori",,Town Justice,Of Proposed Riverhead Town Board Legislation,Elected Officials,93800.0,False
+"Walter, Sean",,Town Justice,Of Proposed Riverhead Town Board Legislation,Elected Officials,93800.0,False
+"Tennenberg, Laverne",,"Assessor, Chairperson",Of Proposed Riverhead Town Board Legislation,Elected Officials,107154.0,False
+"Brown, Dana",,Assessor,Of Proposed Riverhead Town Board Legislation,Elected Officials,93038.0,False
+"Lipinsky, Meredith",,Assessor,Of Proposed Riverhead Town Board Legislation,Elected Officials,93038.0,False
+"Zaneski, Laurie",,Receiver of Taxes,Of Proposed Riverhead Town Board Legislation,Elected Officials,93038.0,False
+"Kern, Robert",,Councilman,Of Proposed Riverhead Town Board Legislation,Elected Officials,50558.0,False
+"Merrifield, Denise",,Councilwoman,Of Proposed Riverhead Town Board Legislation,Elected Officials,50558.0,False
+"Rothwell, Kenneth",,Councilman,Of Proposed Riverhead Town Board Legislation,Elected Officials,48955.0,False
+"Waski, Joann",,Councilwoman,Of Proposed Riverhead Town Board Legislation,Elected Officials,48955.0,False
+"Hazzard, Rebecca",9/8A,Senior Assessment Clerk,Assessors,General Fund,56993.5,False
+"Squillace-Neal, Annamaria",5/8A,Assessment Clerk,Assessors,General Fund,50214.26,False
+"Wulffraat, Lisa",15/13,Account Clerk,Assessors,General Fund,73083.04,False
+"Ayala, Juan",7/17A,Maintenance Mechanic II,Buildings & Grounds,General Fund,74780.54,False
+"Bauerfeind, Paul",1/9A,Custodial Worker I,Buildings & Grounds,General Fund,56555.65,False
+"Blackmore, Andrew",7/4,Maintenance Mechanic II,Buildings & Grounds,General Fund,55587.0,False
+"Bojaj, Tomi",7/4,Maintenance Mechanic II,Buildings & Grounds,General Fund,55587.0,False
+"Bowe, Howard",3/10,Groundskeeper I,Buildings & Grounds,General Fund,59506.49,False
+"Carragher, James",1/P,Custodial Worker I,Buildings & Grounds,General Fund,48331.56,False
+"Colon, Michael",7/4,Maintenance Mechanic II,Buildings & Grounds,General Fund,55587.0,False
+"Detwiler, Bryon",7/4,Maintenance Mechanic II,Buildings & Grounds,General Fund,55587.0,False
+"Falisi, Robert",3/5A,Groundskeeper I,Buildings & Grounds,General Fund,53574.16,False
+"Henderson, Damion",1/4,Custodial Worker I,Buildings & Grounds,General Fund,49596.8,False
+"Hubbard, Robert",7/18A,Maintenance Mechanic II,Buildings & Grounds,General Fund,76202.28,False
+"Kiel, Michael",5/P,Groundskeeper II,Buildings & Grounds,General Fund,52225.07,False
+"Linnen, Brian",1/7,Custodial Worker I,Buildings & Grounds,General Fund,53392.54,False
+"MacIntosh, George",12/7A,Maintenance Mechanic IV,Buildings & Grounds,General Fund,66047.4,False
+"McKay, Steven",16/18A,Grounds Maintenance Supervisor,Buildings & Grounds,General Fund,88531.79,False
+"McMillon, Danny",3/6,Groundskeeper I,Buildings & Grounds,General Fund,54233.31,False
+"Neff, Christopher",7/P,Maintenance Mechanic II,Buildings & Grounds,General Fund,54165.26,False
+"Rachubka, Zygmunt",12/13,Maintenance Mechanic IV,Buildings & Grounds,General Fund,74625.61,False
+"Rambo, Kevin",8/10,Maintenance Mechanic III,Buildings & Grounds,General Fund,65265.1,False
+"Stoddard, John",7/9,Maintenance Mechanic II,Buildings & Grounds,General Fund,62695.72,False
+"Sulzer, Scott",8/19,Maintenance Mechanic III,Buildings & Grounds,General Fund,78275.65,False
+"Vance, Thomas",8/13,Maintenance Mechanic III,Buildings & Grounds,General Fund,69601.95,False
+"Zebrowski, David",20/16A,Building Maintenance Manager,Buildings & Grounds,General Fund,90578.12,False
+"Thomas, Dawn",,Community Dev Admin,Economic Development,General Fund,149086.3,False
+"Thomas, Dawn",,Stipend,Economic Development,General Fund,20000.0,True
+"Collins, Carissa",7/7A,Associate Administrator,Economic Development,General Fund,86439.23,False
+"Maiorana, Joseph",9/15A,Asst Community Dev Project Super,Economic Development,General Fund,120146.12,False
+"Messina, Frank",6/10,Grants Analyst,Economic Development,General Fund,85970.38,False
+"Thompson, Daniel",5/13A,Housing Inspector,Economic Development,General Fund,86855.33,False
+"Danowski, Marisa",4/4,Office Assistant,Building,General Fund,43606.46,False
+"Hodun, Heather",8/5,Senior Office Assistant,Building,General Fund,50856.44,False
+"Inghingolo, Michael",6/7,Building Inspector,Building,General Fund,79349.72,False
+"Kantor, Melissa",2/4A,Building Permits Examiner,Building,General Fund,52087.75,False
+"Muller, Robert",6/4,Building Inspector,Building,General Fund,72729.06,False
+"Schwarz, Christopher",6/4,Electrical Inspector,Building,General Fund,72729.06,False
+"Sofoklis, Andreas",9/15A,Chief Building Inspector,Building,General Fund,120146.12,False
+"Murphree, Jefferson",,Town Building & Planning Adminstrat,Planning,General Fund,149391.83,False
+"Bergman, Gregory",10/8A,Senior Planner,Planning,General Fund,107223.19,False
+"Charters, Matthew",10/5A,Senior Planner,Planning,General Fund,98533.58,False
+"Trojanowski, Heather",9/4A,Planner,Planning,General Fund,90180.75,False
+"Dillingham, Drew",,Town Engineer,Engineering,General Fund,166053.12,False
+"Testa, Kenneth",,Town Engineer,Engineering,General Fund,156978.0,False
+"Clifford, Shannon",2/12,Administrative Assistant,Engineering,General Fund,63591.67,False
+"Piccione, Kenda",4/9A,Office Assistant,Engineering,General Fund,49675.39,False
+"DiPaola, Jeanette",,Chief Accountant,Finance,General Fund,165600.0,False
+"Rabal, John",,Principal Accountant,Finance,General Fund,105000.0,False
+"Montella, Michael",10/P,Senior Accountant,Finance,General Fund,91292.24,False
+"DeFilippis, Vincent",7/4A,Accountant,Finance,General Fund,79293.38,False
+"Miller, Brittany",3/7,Budget Assistant,Finance,General Fund,61810.46,False
+"Peeker, Melissa",6/12A,Payroll Supervisor,Finance,General Fund,91487.59,False
+"Dinizio, Melanie",9/P,Account Clerk,Finance,General Fund,49801.22,False
+"Schroeher, Kathleen",4/17A,Principal Account Clerk,Finance,General Fund,87446.04,False
+"Froehlich, Daniel",6/5,Harbormaster I,Harbormaster,General Fund,74935.95,False
+"Case, Georgette",,Town Historian,Historian,General Fund,9000.0,False
+"Marshak, Dionne",,Personnel Assistant,Historian,General Fund,72726.48,False
+"Striplin-Tio, Ashley",,Town Personnel Officer,Historian,General Fund,85042.5,False
+"Kreymborg, Henry",,Network and Systems Administrator,Information Technology,General Fund,131188.43,False
+"DeFilippis, Theresa",6/11,Network and Systems Specialist II,Information Technology,General Fund,88177.26,False
+"DeFilippis, Theresa",,Stipend,Information Technology,General Fund,3000.0,True
+"Fisher, Justin",2/P,Technical Support Aide,Information Technology,General Fund,49788.03,False
+"Kinghan, John",6/9A,Network and Systems Specialist II,Information Technology,General Fund,84866.93,False
+"Triebwasser, Anna",6/P,GIS Technician III,Information Technology,General Fund,70522.18,False
+"West, John",6/4A,Network and Systems Specialist II,Information Technology,General Fund,73832.51,False
+"West, John",,Stipend,Information Technology,General Fund,3000.0,True
+"Behr, Cheryl",9/10A,Account Clerk,Juvenile Aid Bureau,General Fund,59608.87,False
+"Maccagli, Elizabeth",1/3,Youth Counselor,Juvenile Aid Bureau,General Fund,77102.59,False
+"Avelar Gonzalez, Yenci",11/4,Justice Court Clerk- Spanish Speaking,Justice Court,General Fund,54086.01,False
+"Biancospino, Kathleen",11/4,Justice Court Clerk,Justice Court,General Fund,54086.01,False
+"Burgess, Sarah",6/14A,Justice Court Director,Justice Court,General Fund,95901.36,False
+"Chabla, Jennifer",11/P,Justice Court Clerk- Spanish Speaking,Justice Court,General Fund,52706.71,False
+"Mabanta, Kristen",11/5,Justice Court Clerk,Justice Court,General Fund,55465.32,False
+"Vail, Maribeth",12/11A,Senior Justice Court Clerk,Justice Court,General Fund,66250.09,False
+"Waskowiak, Lauren",12/6A,Justice Court Clerk,Justice Court,General Fund,59141.38,False
+"Tucci, Diane",,Legislative Secretary,Legislative,General Fund,53856.05,False
+"Curtis, Michael",12/17,Auto Mechanic IV,Municipal Garage Employees,General Fund,80864.3,False
+"Ritter, Jaime",9/13A,Account Clerk,Municipal Garage Employees,General Fund,63531.92,False
+"Rogers, Thomas",9/9,Auto Mechanic III,Municipal Garage Employees,General Fund,65008.42,False
+"Schwarz, Brian",9/6,Auto Mechanic III,Municipal Garage Employees,General Fund,60560.16,False
+"Jaeger, Billie Jo",9/17,Account Clerk,Police Civilian,General Fund,68108.82,False
+"Kornafel, Cheryl",9/19,Account Clerk,Police Civilian,General Fund,70724.19,False
+"Moore, Tammy",11/5A,Principal Office Assistant,Police Civilian,General Fund,56154.97,False
+"Baird, Kim",1/5,Public Safety Dispatcher I,Police Civilian,General Fund,57014.02,False
+"Buyukdeniz, Deborah",1/16,Public Safety Dispatcher I,Police Civilian,General Fund,72682.38,False
+"Chester, Erin",1/18A,Public Safety Dispatcher I,Police Civilian,General Fund,76243.37,False
+"Dyson, Jasmine",1/5A,Public Safety Dispatcher I,Police Civilian,General Fund,57726.22,False
+"Eibs-Stankaitis, Jessica",1/7A,Public Safety Dispatcher I,Police Civilian,General Fund,60575.01,False
+"Elco, Melissa",2/13A,Public Safety Dispatcher II,Police Civilian,General Fund,70377.06,False
+"Fleming, William",1/7,Public Safety Dispatcher I,Police Civilian,General Fund,59862.82,False
+"Gabriele, Patrick",1/4,Public Safety Dispatcher I,Police Civilian,General Fund,55589.63,False
+"Lopez, Patricia",1/7,Public Safety Dispatcher I,Police Civilian,General Fund,59862.82,False
+"Newman, Tanya",1/18,Public Safety Dispatcher I,Police Civilian,General Fund,75531.17,False
+"Sinclair, Tara",1/4,Public Safety Dispatcher I,Police Civilian,General Fund,55589.63,False
+"Baldinucci, Teresa",,Senior Purchasing Agent,Police Civilian,General Fund,95013.0,False
+"Gregorovius, Eva",4/4,Purchasing Technician,Police Civilian,General Fund,62057.57,False
+"Coyne, Raymond",,Superintendant of Recreation I,Recreation,General Fund,133573.52,False
+"Coyne, Raymond",,Stipend,Recreation,General Fund,8000.0,True
+"Rebecca, Adams-Korn",4/5,Cultural Affairs Supervisor,Recreation,General Fund,63938.2,False
+"Eastwood, Colleen",4/18,Recreation Supervisor,Recreation,General Fund,88386.35,False
+"Harden, Jordan",2/9A,Recreation Leader,Recreation,General Fund,59753.49,False
+"Keller, Elizabeth",4/7A,Community Relations Specialist,Recreation,General Fund,68639.77,False
+"Schandel, Ashley",3/12,Asst Recreation Program Coordinator,Recreation,General Fund,70338.27,False
+"Strange, Doris",9/19,Account Clerk,Recreation,General Fund,70724.19,False
+"LeCann, Vanessa",,Deputy Registrar,Registrar Of Vital Statistics,General Fund,1000.0,False
+"Sostre, Angelo",6/P,Automotive Equipment Operator,Sanitation Department & Yard Waste Program,General Fund,53201.81,False
+"Stark, John",6/P,Automotive Equipment Operator,Sanitation Department & Yard Waste Program,General Fund,53201.81,False
+"Turpin, Eric",6/12,Automotive Equipment Operator,Sanitation Department & Yard Waste Program,General Fund,65830.39,False
+"Tocci, Kelly",,Senior Citizens Program Director,Senior Citizen Programs Administration,General Fund,126599.93,False
+"Westwood, Karen",1/15,Senior Citizens Program Supervisor,Senior Citizen Programs Administration,General Fund,61419.85,False
+"Dodge, Rosemary",4/4,Mini-Bus Driver,Senior Citizen Programs Bus Operations,General Fund,43606.46,False
+"Griffin, Ethel",4/6A,Mini-Bus Driver,Senior Citizen Programs Bus Operations,General Fund,46365.06,False
+"Magee, Penelope",4/11A,Mini-Bus Driver,Senior Citizen Programs Bus Operations,General Fund,51882.28,False
+"Widener, Paulette",4/5A,Mini-Bus Driver,Senior Citizen Programs Bus Operations,General Fund,45261.62,False
+"White, Anthony",4/10A,Mini-Bus Driver,Senior Citizen Programs Bus Operations,General Fund,50778.83,False
+"Danowski, Donna",2/8A,Senior Citizen Aide,Senior Citizen Programs Nutrition,General Fund,45214.24,False
+"Sawaya, Joanna",2/10,Senior Citizen Aide,Senior Citizen Programs Nutrition,General Fund,46746.06,False
+"Klein, Charles",4/10,Senior Cook,Senior Citizen Programs Nutrition,General Fund,50227.11,False
+"Giordano, Nancy",2/6,Cook,Senior Citizen Programs Nutrition,General Fund,42661.2,False
+"Schwarz, Melissa",2/13,Cook,Senior Citizen Programs Nutrition,General Fund,49809.7,False
+"Curven, Austin",4/4,Maintenance Mechanic I,Seniors Helping Seniors Program,General Fund,52595.76,False
+"Higgins, Devon",,Deputy Town Supervisor,Supervisor’S Office,General Fund,102180.36,False
+"Burkowsky, Debi",,Town Budget Officer,Supervisor’S Office,General Fund,72569.6,False
+"Cannon, Joann",,Secretary,Supervisor’S Office,General Fund,59740.45,False
+"Richards, Lisa",,Deputy Tax Receiver,Tax Receiver’S Office,General Fund,62954.83,False
+"Vankurin, Rachel",9/8A,Account Clerk,Tax Receiver’S Office,General Fund,56993.5,False
+"Howard, Erik",,Town Attorney,Town Attorney,General Fund,162095.48,False
+"Ceru, Victoria",,Deputy Town Attorney,Town Attorney,General Fund,123722.42,False
+"Hurley, Danielle",,Deputy Town Attorney,Town Attorney,General Fund,130321.83,False
+"Prudenti, Annemarie",,Deputy Town Attorney,Town Attorney,General Fund,158094.6,False
+"Occhiogrosso, Karen",7/8A,Paralegal,Town Attorney,General Fund,88821.18,False
+"Seebeck, Catherine",7/6,Paralegal,Town Attorney,General Fund,82866.31,False
+"Buckner, Nicole",9/5,Town Investigator,Town Attorney,General Fund,91542.81,False
+"Cutolo, Connor",2/P,Code Enforcement Officer,Town Attorney,General Fund,49788.03,False
+"DeRosa, Kyle",2/P,Code Enforcement Officer,Town Attorney,General Fund,49788.03,False
+"Downs, Richard",12/8,Senior Town Investigator,Town Attorney,General Fund,117920.93,False
+"Hulse, Pamla",4/P,Code Compliance Coordinator,Town Attorney,General Fund,60176.95,False
+"Ruales, Hernan",2/7,Code Enforce. Officer-Spanish Speaki,Town Attorney,General Fund,55920.62,False
+"Soto, Ivan",2/7A,Code Enforce. Officer-Spanish Speaki,Town Attorney,General Fund,56687.2,False
+"Cassara, Shaye-Ann",9/P,Account Clerk,Town Attorney,General Fund,49801.22,False
+"Keating, Liam",6/8,Fire Marshal I,Town Attorney,General Fund,81556.6,False
+"Smith, Andrew",10/8A,Chief Fire Marshal,Town Attorney,General Fund,107223.19,False
+"Visser III, Fred",6/P,Fire Marshal I,Town Attorney,General Fund,70522.18,False
+"LeCann, Vanessa",,Deputy Town Clerk,Town Clerk,General Fund,55000.0,False
+"Del Vecchio, Carol",15/17A,Senior Account Clerk,Town Clerk,General Fund,80029.96,False
+"Apicello, John",,Deputy Highway Superintendent,Transportation Administration,General Fund,95247.6,False
+"Mottern, Joan",5/10A,Administrative Assistant (HWY),Transportation Administration,General Fund,80712.13,False
+"Sokoloski, Roy",,Member- Chair,Architectural Review Board,Boards,3000.0,False
+"McNeill, John",,Board Member,Architectural Review Board,Boards,3000.0,False
+"Ariizumi, Hideaki",,Board Member,Architectural Review Board,Boards,3000.0,False
+"Barth, Judy",,Board Member,Architectural Review Board,Boards,3000.0,False
+"Carrick, Megan",,Board Member,Architectural Review Board,Boards,3000.0,False
+"Acevedo, Marjorie",,Member,Assessment Review Board,Boards,1200.0,False
+"Hogan, Jeanne",,Member,Assessment Review Board,Boards,1200.0,False
+"Mills, Brian",,Member,Assessment Review Board,Boards,1200.0,False
+"Mills, Brian",,Chairman,Assessment Review Board,Boards,100.0,False
+"Kujawski, Robert",,Member-Vice Chair,Conservation Advisory Council,Boards,1540.0,False
+"Reichel, Michael",,Member,Conservation Advisory Council,Boards,1540.0,False
+"Fox, Robert",,Member,Conservation Advisory Council,Boards,1540.0,False
+"Lewin, Duane",,Member,Conservation Advisory Council,Boards,1540.0,False
+"Thomas, Charles",,Member,Conservation Advisory Council,Boards,1540.0,False
+"Woodhull, George",,Member,Conservation Advisory Council,Boards,1540.0,False
+"Densieski, Edward",,Member-Chair,Planning Board,Boards,14400.0,False
+"Hogan, John",,Member-Vice Chair,Planning Board,Boards,11750.0,False
+"Baier, Joseph H",,Member,Planning Board,Boards,10800.0,False
+"Zilnicki, Kenneth",,Member,Planning Board,Boards,10800.0,False
+"Nunnaro, George",,Member,Planning Board,Boards,10800.0,False
+"Wittmeier, Otto",,Member-Chair,Zoning Board Of Appeals,Boards,9600.0,False
+"Gazzillo, Ralph",,Member-Vice Chair,Zoning Board Of Appeals,Police,7200.0,False
+"Barnes, Leroy",,Member,Zoning Board Of Appeals,Police,7200.0,False
+"Zaweski, Daniel",,Member,Zoning Board Of Appeals,Police,7200.0,False
+"Frost, Edward",,Chief,Police Officers,Police,224030.0,False
+"Frost, Edward",,Emergency Services Coordinator,Police Officers,Police,6000.0,False
+"Willsey, Danielle",,Captain,Police Officers,Police,203190.0,False
+"Adlah, Taleb",,Police Officer,Police Officers,Police,146683.57,False
+"Ady, Stephan",,Police Officer,Police Officers,Police,115138.6,False
+"Anderson, Peter",,Police Officer,Police Officers,Police,130911.08,False
+"Bianco, William",,Police Officer,Police Officers,Police,146683.57,False
+"Boden, Bryan",,Police Officer,Police Officers,Police,99366.11,False
+"Brogan, Ray",,Police Officer,Police Officers,Police,146683.57,False
+"Buczynski, Julia",,Police Officer,Police Officers,Police,67821.14,False
+"Burns, Christopher",,Police Officer,Police Officers,Police,146683.57,False
+"Carey, Nicholas",,Police Officer,Police Officers,Police,146683.57,False
+"Cassidy, Christie",,Police Officer,Police Officers,Police,146683.57,False
+"Castantine, Kaley",,Police Officer,Police Officers,Police,146683.57,False
+"Chiaramonte, Anthony",,Police Officer,Police Officers,Police,115138.6,False
+"Cichanowicz, Charles",,Sergeant,Police Officers,Police,174553.97,False
+"Clark, Daniel",,Police Officer,Police Officers,Police,130911.08,False
+"Clarkin, Christian",,Police Officer,Police Officers,Police,115138.6,False
+"Clements, Brian",,Lieutenant,Police Officers,Police,187652.65,False
+"Cohen, Eric",,Police Officer,Police Officers,Police,146683.57,False
+"Conyers, Karli",,Sergeant,Police Officers,Police,161329.06,False
+"Costantini, Sabina",,Police Officer,Police Officers,Police,99366.11,False
+"Dahlem, John",,Police Officer,Police Officers,Police,83593.63,False
+"Dempsey, Ian",,Police Officer,Police Officers,Police,115138.6,False
+"Devereaux, Jonathan",,Lieutenant,Police Officers,Police,187652.65,False
+"Doscinski, Allison",,Police Officer,Police Officers,Police,146683.57,False
+"Doscinski, Brett",,Police Officer,Police Officers,Police,67821.14,False
+"Drost, Brett",,Police Officer,Police Officers,Police,115138.6,False
+"Falsitta, Gina",,Police Officer,Police Officers,Police,52048.66,False
+"Fitzgerald, Kieran",,Police Officer,Police Officers,Police,83593.63,False
+"Frati, Logan",,Police Officer,Police Officers,Police,115138.6,False
+"Heller, Branden",,Police Officer,Police Officers,Police,146683.57,False
+"Hoffman, Daniel",,Police Officer,Police Officers,Police,146683.57,False
+"Isgro, Dino",,Lieutenant,Police Officers,Police,187652.62,False
+"Keegan, William",,Police Officer,Police Officers,Police,146683.57,False
+"Kitz, Michael",,Police Officer,Police Officers,Police,146683.57,False
+"Kolyer, Zachary",,Police Officer,Police Officers,Police,83593.63,False
+"Krause, William",,Police Officer,Police Officers,Police,83593.63,False
+"Laporte, Raymond",,Police Officer,Police Officers,Police,146683.57,False
+"Lazar, Anthony",,Police Officer,Police Officers,Police,67821.14,False
+"Lennon, Patrick",,Police Officer,Police Officers,Police,146683.57,False
+"Leonardi, William",,Police Officer,Police Officers,Police,67821.14,False
+"Lipinsky, Eric",,Police Officer,Police Officers,Police,146683.57,False
+"Loszewski, Patryk",,Police Officer,Police Officers,Police,146683.57,False
+"Luppens, James",,Police Officer,Police Officers,Police,99366.11,False
+"Mackie, Sean",,Police Officer,Police Officers,Police,146683.57,False
+"Mcdermott, Patrick",,Detective Sergeant,Police Officers,Police,178954.51,False
+"Mcguire, Lauren",,Police Officer,Police Officers,Police,115138.6,False
+"Mettrock, James",,Police Officer,Police Officers,Police,99366.11,False
+"Montalbano, Anthony",,Sergeant,Police Officers,Police,174553.97,False
+"Montefusco, Cole",,Police Officer,Police Officers,Police,115138.6,False
+"Monti, Thomas",,Police Officer,Police Officers,Police,115138.6,False
+"Morris, John",,Police Officer,Police Officers,Police,146683.57,False
+"Mowdy, Michael",,Police Officer,Police Officers,Police,146683.57,False
+"Mudzinski, Matthew",,Police Officer,Police Officers,Police,146683.57,False
+"Murphy, Timothy",,Police Officer,Police Officers,Police,146683.57,False
+"Nava, Eduardo",,Police Officer,Police Officers,Police,146683.57,False
+"Neknez, Katerina",,Police Officer,Police Officers,Police,115138.6,False
+"Neknez, Matthew",,Police Officer,Police Officers,Police,146683.57,False
+"Oswald, Cameron",,Police Officer,Police Officers,Police,146683.57,False
+"Pendzick, Christopher",,Sergeant,Police Officers,Police,161329.06,False
+"Polak, Jared",,Police Officer,Police Officers,Police,67821.14,False
+"Romer, Krista",,Police Officer,Police Officers,Police,52048.66,False
+"Rosini, Giuseppe",,Sergeant,Police Officers,Police,174553.97,False
+"Selock, Joanna",,Police Officer,Police Officers,Police,115138.6,False
+"Sproston, Robert",,Police Officer,Police Officers,Police,146683.57,False
+"Staker, Matthew",,Police Officer,Police Officers,Police,115138.6,False
+"Stasiukiewicz, Cole",,Police Officer,Police Officers,Police,146683.57,False
+"Stevens, William",,Police Officer,Police Officers,Police,99366.11,False
+"Sullivan, Matthew",,Police Officer,Police Officers,Police,67821.14,False
+"Suprina, Matthew",,Police Officer,Police Officers,Police,146683.57,False
+"Thomas, Kevin",,Police Officer,Police Officers,Police,115138.6,False
+"Thomas, Rachel",,Police Officer,Police Officers,Police,83593.63,False
+"Treadwell, James",,Police Officer,Police Officers,Police,146683.57,False
+"Trivelli, Joseph",,Police Officer,Police Officers,Police,115138.6,False
+"Troyan, Peter",,Police Officer,Police Officers,Police,146683.57,False
+"Vail, John",,Sergeant,Police Officers,Police,174553.97,False
+"VonVoigt, David",,Police Officer,Police Officers,Police,146683.57,False
+"VonVoigt, Richard",,Police Officer,Police Officers,Police,146683.57,False
+"Walther, Daniel",,Police Officer,Police Officers,Police,146683.57,False
+"Waski, Andrew",,Police Officer,Police Officers,Police,67821.14,False
+"Waski, Ryan",,Police Officer,Police Officers,Police,52048.66,False
+"Weiss, Mark",,Police Officer,Police Officers,Police,83593.63,False
+"Welsh, James",,Sergeant,Police Officers,Police,174553.97,False
+"Williams, Brandon",,Police Officer,Police Officers,Police,83593.63,False
+"Wilson, Timothy",,Police Officer,Police Officers,Police,146683.57,False
+"Wnorowski, Sebastian",,Police Officer,Police Officers,Police,52048.66,False
+"Wooten, Travis",,Police Officer,Police Officers,Police,115138.6,False
+"Yeager, Blaze",,Police Officer,Police Officers,Police,83593.63,False
+"Henry, Michael",,Detective Grade I,Detectives,Police,168322.37,False
+"Mauceri, Charles",,Detective Grade I,Detectives,Police,168322.37,False
+"Schmidt, Michael",,Detective Grade I,Detectives,Police,168322.37,False
+"Freeborn, Richard",,Detective Grade II,Detectives,Police,164101.77,False
+"Carrieri, Michael",,Detective Grade III,Detectives,Police,157376.43,False
+"Evans, Sean",,Detective Grade III,Detectives,Police,157376.43,False
+"Hogan, Daniel",,Detective Grade III,Detectives,Police,157376.43,False
+"Perez, Byron",,Detective Grade III,Detectives,Police,157376.43,False
+"McKay, Margaret",9/17A,Account Clerk,Of Proposed Riverhead Town Board Legislation,Highway,68762.67,False
+"Bakowski, Parker",6/5,Automotive Equipment Operator,Of Proposed Riverhead Town Board Legislation,Highway,56008.16,False
+"Bancroft, Christopher",6/5A,Automotive Equipment Operator,Of Proposed Riverhead Town Board Legislation,Highway,56709.74,False
+"Bennett, Ronald",6/5,Automotive Equipment Operator,Of Proposed Riverhead Town Board Legislation,Highway,56008.16,False
+"Corwin, Robert",6/5,Automotive Equipment Operator,Of Proposed Riverhead Town Board Legislation,Highway,56008.16,False
+"Davis, Keith",6/8,Automotive Equipment Operator,Of Proposed Riverhead Town Board Legislation,Highway,60217.68,False
+"Kaiser, Louis",6/6A,Automotive Equipment Operator,Of Proposed Riverhead Town Board Legislation,Highway,58112.92,False
+"Liles, Charles",6/5,Automotive Equipment Operator,Of Proposed Riverhead Town Board Legislation,Highway,56008.16,False
+"Mammina, Nicholas",6/5,Automotive Equipment Operator,Of Proposed Riverhead Town Board Legislation,Highway,56008.16,False
+"McWilliams, Ryan",6/5,Automotive Equipment Operator,Of Proposed Riverhead Town Board Legislation,Highway,56008.16,False
+"Muir, Michael",6/5,Automotive Equipment Operator,Of Proposed Riverhead Town Board Legislation,Highway,56008.16,False
+"Naulaguari, Henry",6/5,Automotive Equipment Operator,Of Proposed Riverhead Town Board Legislation,Highway,56008.16,False
+"Sheppard, Joseph",6/7,Automotive Equipment Operator,Of Proposed Riverhead Town Board Legislation,Highway,58814.51,False
+"Stettner, Robert",6/5A,Automotive Equipment Operator,Of Proposed Riverhead Town Board Legislation,Highway,56709.74,False
+"Vance, Scott",6/8A,Automotive Equipment Operator,Of Proposed Riverhead Town Board Legislation,Highway,60919.27,False
+"Wandolowski, William",6/5A,Automotive Equipment Operator,Of Proposed Riverhead Town Board Legislation,Highway,56709.74,False
+"Wignington, James",6/5,Automotive Equipment Operator,Of Proposed Riverhead Town Board Legislation,Highway,56008.16,False
+"Hayes, Jarrod",9/13A,Construction Equip Operator,Of Proposed Riverhead Town Board Legislation,Highway,71680.8,False
+"Renten, William",9/12A,Construction Equip Operator,Of Proposed Riverhead Town Board Legislation,Highway,70198.04,False
+"Arteaga, David",9/14,Construction Equipment Operator,Of Proposed Riverhead Town Board Legislation,Highway,72422.17,False
+"Coach, Elrod",9/13A,Construction Equipment Operator,Of Proposed Riverhead Town Board Legislation,Highway,71680.8,False
+"Lescenski, Christopher",9/14,Construction Equipment Operator,Of Proposed Riverhead Town Board Legislation,Highway,72422.17,False
+"Moreno, Joseph",9/13A,Construction Equipment Operator,Of Proposed Riverhead Town Board Legislation,Highway,71680.8,False
+"Osman, David",9/11,Construction Equipment Operator,Of Proposed Riverhead Town Board Legislation,Highway,67973.92,False
+"Bouchard, Raymond",7/13A,Heavy Equipment Operator,Of Proposed Riverhead Town Board Legislation,Highway,69093.57,False
+"Bugge, Christopher",7/13,Heavy Equipment Operator,Of Proposed Riverhead Town Board Legislation,Highway,68382.69,False
+"D'Amara, Neil",7/13,Heavy Equipment Operator,Of Proposed Riverhead Town Board Legislation,Highway,68382.69,False
+"Dick, Andrew",7/14,Heavy Equipment Operator,Of Proposed Riverhead Town Board Legislation,Highway,69804.44,False
+"Greenwood, Frank",7/8A,Heavy Equipment Operator,Of Proposed Riverhead Town Board Legislation,Highway,61984.85,False
+"Pipczynski, James",7/14A,Heavy Equipment Operator,Of Proposed Riverhead Town Board Legislation,Highway,70515.31,False
+"Shaw, Eric",7/10,Heavy Equipment Operator,Of Proposed Riverhead Town Board Legislation,Highway,64117.46,False
+"Tedesco, Robert",7/12A,Heavy Equipment Operator,Of Proposed Riverhead Town Board Legislation,Highway,67671.82,False
+"Witt, Jeffrey",7/12A,Heavy Equipment Operator,Of Proposed Riverhead Town Board Legislation,Highway,67671.82,False
+"Bates, Richard",12/19,Highway Labor Crew Leader,Of Proposed Riverhead Town Board Legislation,Highway,83983.65,False
+"Fogal, Arthur",12/18A,Highway Labor Crew Leader,Of Proposed Riverhead Town Board Legislation,Highway,83203.81,False
+"Nagy, Kenneth",12/18A,Highway Labor Crew Leader,Of Proposed Riverhead Town Board Legislation,Highway,83203.81,False
+"Fink, Keith",12/11,Maintenance Mechanic IV HWY,Of Proposed Riverhead Town Board Legislation,Highway,71506.26,False
+"Commins, Michael",15/19,Electrical Services Supervisor,Gf/Stlt,Street Lighting,88132.62,False
+"Merker, William",8/15,Maintenance Mechanic III,Gf/Stlt,Street Lighting,72493.18,False
+"Merker, William",,License Stipend,Gf/Stlt,Street Lighting,3000.0,False
+"Pressgrove, Andrew",7/P,Maintenance Mechanic II,Gf/Stlt,Street Lighting,54165.26,False
+"Smith, James",8/16A,Maintenance Mechanic III,Gf/Stlt,Street Lighting,74661.61,False
+"Smith, James",,License Stipend,Gf/Stlt,Street Lighting,3000.0,False
+"Mancini, Frank",,Water District Superintendant Type I B,Water District,Water District,183685.31,False
+"Flynn, John",,Asst Water Dist Superintendent Type I B,Water District,Water District,151671.75,False
+"Albee, Keith",15/4,Water Treatment Plant Operator Type II B,Water District,Water District,63583.67,False
+"Balzarano, Jesse",7/4A,Maintenance Mechanic II,Water District,Water District,56297.88,False
+"Cain, Victoria",3/15,Water Meter Reader,Water District,Water District,66097.97,False
+"Caparros, Paul",9/P,Water Treatment Plant Operator Trainee,Water District,Water District,56111.91,False
+"Clennan, Sean",15/12A,Water Treatment Plant Operator Type II B,Water District,Water District,77494.74,False
+"Coome, Melissa",9/14,Account Clerk,Water District,Water District,64185.77,False
+"Godzieba, Benjamin",14/14,Water District Maintenance Crew Leader,Water District,Water District,78655.91,False
+"Halpin, Robin",11/16A,Senior Account Clerk,Water District,Water District,71327.31,False
+"Hubbard, Jason",16/17,Sr Water Trt. Plant Operator IIB,Water District,Water District,86053.0,False
+"Kellar, John",15/14A,Water Treatment Plant Operator Type II B,Water District,Water District,80767.93,False
+"Keller, Daniel",17/17A,Sr. Water Treatment Plant Operator Type I B,Water District,Water District,88234.7,False
+"Kochanskyj, Kyle",7/4,Maintenance Mechanic II,Water District,Water District,55587.0,False
+"Letson, John",15/19,Water Treatment Plant Operator Type II B,Water District,Water District,88132.62,False
+"May, Nicholas",15/P,Water Treatment Plant Operator IIB,Water District,Water District,61974.3,False
+"Rocco, Travis",15/4,Water Treatment Plant Operator IIB,Water District,Water District,63583.67,False
+"Visek, Jonathan",7/P,Maintenance Mechanic II,Water District,Water District,54165.26,False
+"Wulffraat, Nicholas",15/6A,Water Treatment Plant Operator Type II B,Water District,Water District,67675.15,False

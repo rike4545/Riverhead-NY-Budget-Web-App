@@ -18,6 +18,12 @@ const CATEGORY_COLOR: Record<string, string> = {
   Other: '#64748b',
 }
 
+export const metadata = {
+  title: 'Funds Explorer — every fund, department & line item',
+  description:
+    'Drill every Town of Riverhead operating fund down to departments, spending categories, and 848 individual account line items, reconciled to the official 2026 adopted budget.',
+}
+
 export default function FundsPage() {
   const indexByCode = new Map(subAccountIndex.funds.map((f) => [f.code, f]))
   const categories = townwideCategoryTotals()

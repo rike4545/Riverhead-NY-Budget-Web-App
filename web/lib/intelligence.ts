@@ -1,4 +1,5 @@
 import { adoptedBudget2026Summary, auditedFundBalances2024, dollars, townWideComparison2026 } from './financial-data'
+import { generalFundAfr } from './afr'
 
 export type IntelligenceInsight = {
   title: string
@@ -35,12 +36,12 @@ export const narrativeInsights: IntelligenceInsight[] = [
     source: '2026 Adopted Budget • Summary p. 3',
   },
   {
-    title: '2025 AFR is not the same as a 2025 audit',
-    status: 'information',
-    value: 'AFR posted; audit not yet indexed',
-    explanation: 'The archive includes a 2025 Annual Financial Report, while the latest indexed audited basic financial statements are 2024.',
-    whyItMatters: 'AFR data is useful management-reported financial information, but an audited statement carries independent audit opinion and note disclosures.',
-    source: 'Town Financial Reports archive',
+    title: 'The General Fund ran a real surplus in 2025',
+    status: 'positive',
+    value: `${dollars(generalFundAfr.surplus?.['2025'] ?? 0)} surplus`,
+    explanation: `Actual 2025 results show the General Fund took in ${dollars(generalFundAfr.revenues?.['2025'] ?? 0)} and spent ${dollars(generalFundAfr.expenditures?.['2025'] ?? 0)}, growing fund balance to ${dollars(generalFundAfr.fundBalance?.['2025'] ?? 0)}.`,
+    whyItMatters: 'A surplus grows the Town’s savings and reduces pressure to raise taxes — but it can also mean revenues were under-forecast. These are management-reported AFR figures, not yet an audited statement.',
+    source: '2025 Annual Financial Report (NYS AUD)',
   },
 ]
 

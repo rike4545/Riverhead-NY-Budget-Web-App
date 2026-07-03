@@ -9,6 +9,12 @@ const card = { background: 'white', border: '1px solid #e2e8f0', borderRadius: 1
 const th = { padding: '8px 10px' } as const
 const td = { padding: '7px 10px' } as const
 
+export const metadata = {
+  title: '2025 Annual Report — actual year-end results',
+  description:
+    'What actually happened with Riverhead’s money in 2025: a $5.0M General Fund surplus, savings growth to $33.4M, plan-vs-actual, and results for all 14 funds.',
+}
+
 const CLASS_PLAIN: Record<string, string> = {
   Unassigned: 'The true "rainy-day" savings — money with no strings attached that the Town can use for any purpose.',
   Assigned: 'Savings the Town intends to use for a particular purpose but has not formally locked in.',

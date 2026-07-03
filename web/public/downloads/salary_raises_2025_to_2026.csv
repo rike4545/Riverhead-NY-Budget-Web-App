@@ -1,0 +1,363 @@
+name,title_2025,title_2026,group,annual_2025,annual_2026,raise,raise_pct,promoted
+"Willsey, Danielle",Captain,Captain,Police,203190.0,215381.4,12191.4,6.0,False
+"Clements, Brian",Lieutenant,Lieutenant,Police,187652.65,201531.81,13879.16,7.4,False
+"Devereaux, Jonathan",Lieutenant,Lieutenant,Police,187652.65,201531.81,13879.16,7.4,False
+"Isgro, Dino",Lieutenant,Lieutenant,Police,187652.62,201531.81,13879.19,7.4,False
+"Mcdermott, Patrick",Detective Sergeant,Detective Sergeant,Police,178954.51,192311.78,13357.27,7.5,False
+"Mancini, Frank",Water District Superintendant Type I B,Water District Superintendant Type I B,Water District,183685.31,189563.24,5877.93,3.2,False
+"Cichanowicz, Charles",Sergeant,Sergeant,Police,174553.97,187647.21,13093.24,7.5,False
+"Conyers, Karli",Sergeant,Sergeant,Police,161329.06,187647.21,26318.15,16.3,False
+"Montalbano, Anthony",Sergeant,Sergeant,Police,174553.97,187647.21,13093.24,7.5,False
+"Pendzick, Christopher",Sergeant,Sergeant,Police,161329.06,187647.21,26318.15,16.3,False
+"Rosini, Giuseppe",Sergeant,Sergeant,Police,174553.97,187647.21,13093.24,7.5,False
+"Christopher, Tam",,Sergeant,New in 2026,,187647.21,,,
+"Vail, John",Sergeant,Sergeant,Police,174553.97,187647.21,13093.24,7.5,False
+"Welsh, James",Sergeant,Sergeant,Police,174553.97,187647.21,13093.24,7.5,False
+"Howard, Erik",Town Attorney,Town Attorney,General Fund,162095.48,175774.31,13678.83,8.4,False
+"Henry, Michael",Detective Grade I,Detective Grade I,Police,168322.37,175080.43,6758.06,4.0,False
+"Mauceri, Charles",Detective Grade I,Detective Grade I,Police,168322.37,175080.43,6758.06,4.0,False
+"Schmidt, Michael",Detective Grade I,Detective Grade I,Police,168322.37,175080.43,6758.06,4.0,False
+"Anderson, Jr.,",,Richard Detective Grade I,New in 2026,,175080.43,,,
+"Freeborn, Richard",Detective Grade II,Detective Grade I,Police,164101.77,175080.43,10978.66,6.7,True
+"Dillingham, Drew",Town Engineer,Town Engineer,General Fund,166053.12,174073.23,8020.11,4.8,False
+"Prudenti, Annemarie",Deputy Town Attorney,Deputy Town Attorney,General Fund,158094.6,171435.81,13341.21,8.4,False
+"DiPaola, Jeanette",Chief Accountant,Chief Accountant,General Fund,165600.0,171023.4,5423.4,3.3,False
+"Hogan, Daniel",Detective Grade III,Detective Grade II,Police,157376.43,170754.31,13377.88,8.5,True
+"Dist, Wastewater",,Super,New in 2026,,167305.5,,,
+"Fund, Highway",,5-DA1,New in 2026,,166755.03,,,
+"Carrieri, Michael",Detective Grade III,Detective Grade III,Police,157376.43,163860.84,6484.41,4.1,False
+"Evans, Sean",Detective Grade III,Detective Grade III,Police,157376.43,163860.84,6484.41,4.1,False
+"Perez, Byron",Detective Grade III,Detective Grade III,Police,157376.43,163860.84,6484.41,4.1,False
+"Testa, Kenneth",Town Engineer,Town Engineer,General Fund,156978.0,162119.03,5141.03,3.3,False
+"Kreymborg, Henry",Network and Systems Administrator,Network and Systems Coordinator,General Fund,131188.43,160076.25,28887.82,22.0,True
+"Flynn, John",Asst Water Dist Superintendent Type I B,Asst Water Dist Superintendent Type I B,Water District,151671.75,156639.0,4967.25,3.3,False
+"Adla, Taleb",,Police Officer,New in 2026,,152900.66,,,
+"Anderson, Peter",Police Officer,Police Officer,Police,130911.08,152900.66,21989.58,16.8,False
+"Bianco, William",Police Officer,Police Officer,Police,146683.57,152900.66,6217.09,4.2,False
+"Brogan, Ray",Police Officer,Police Officer,Police,146683.57,152900.66,6217.09,4.2,False
+"Burns, Christopher",Police Officer,Police Officer,Police,146683.57,152900.66,6217.09,4.2,False
+"Carey, Nicholas",Police Officer,Police Officer,Police,146683.57,152900.66,6217.09,4.2,False
+"Cassidy, Christie",Police Officer,Police Officer,Police,146683.57,152900.66,6217.09,4.2,False
+"Castantine, Kaley",Police Officer,Police Officer,Police,146683.57,152900.66,6217.09,4.2,False
+"Clark, Daniel",Police Officer,Police Officer,Police,130911.08,152900.66,21989.58,16.8,False
+"Cohen, Eric",Police Officer,Police Officer,Police,146683.57,152900.66,6217.09,4.2,False
+"Heller, Branden",Police Officer,Police Officer,Police,146683.57,152900.66,6217.09,4.2,False
+"Hoffman, Daniel",Police Officer,Police Officer,Police,146683.57,152900.66,6217.09,4.2,False
+"Keegan, William",Police Officer,Police Officer,Police,146683.57,152900.66,6217.09,4.2,False
+"Kitz, Michael",Police Officer,Police Officer,Police,146683.57,152900.66,6217.09,4.2,False
+"Laporte, Raymond",Police Officer,Police Officer,Police,146683.57,152900.66,6217.09,4.2,False
+"Lennon, Patrick",Police Officer,Police Officer,Police,146683.57,152900.66,6217.09,4.2,False
+"Lipinsky, Eric",Police Officer,Police Officer,Police,146683.57,152900.66,6217.09,4.2,False
+"Loszewski, Patryk",Police Officer,Police Officer,Police,146683.57,152900.66,6217.09,4.2,False
+"Mackie, Sean",Police Officer,Police Officer,Police,146683.57,152900.66,6217.09,4.2,False
+"Morris, John",Police Officer,Police Officer,Police,146683.57,152900.66,6217.09,4.2,False
+"Mowdy, Michael",Police Officer,Police Officer,Police,146683.57,152900.66,6217.09,4.2,False
+"Mudzinski, Matthew",Police Officer,Police Officer,Police,146683.57,152900.66,6217.09,4.2,False
+"Murphy, Timothy",Police Officer,Police Officer,Police,146683.57,152900.66,6217.09,4.2,False
+"Nava, Eduardo",Police Officer,Police Officer,Police,146683.57,152900.66,6217.09,4.2,False
+"Neknez, Matthew",Police Officer,Police Officer,Police,146683.57,152900.66,6217.09,4.2,False
+"Oswald, Cameron",Police Officer,Police Officer,Police,146683.57,152900.66,6217.09,4.2,False
+"Seal Jr.,",,John Police Officer,New in 2026,,152900.66,,,
+"Sproston, Robert",Police Officer,Police Officer,Police,146683.57,152900.66,6217.09,4.2,False
+"Stasiukiewiczi, Allison",,Police Officer,New in 2026,,152900.66,,,
+"Stasiukiewicz, Cole",Police Officer,Police Officer,Police,146683.57,152900.66,6217.09,4.2,False
+"Suprina, Matthew",Police Officer,Police Officer,Police,146683.57,152900.66,6217.09,4.2,False
+"Treadwell, James",Police Officer,Police Officer,Police,146683.57,152900.66,6217.09,4.2,False
+"Troyan, Peter",Police Officer,Police Officer,Police,146683.57,152900.66,6217.09,4.2,False
+"VonVoigt, David",Police Officer,Police Officer,Police,146683.57,152900.66,6217.09,4.2,False
+"VonVoigt, Richard",Police Officer,Police Officer,Police,146683.57,152900.66,6217.09,4.2,False
+"Walther, Daniel",Police Officer,Police Officer,Police,146683.57,152900.66,6217.09,4.2,False
+"Wilson, Timothy",Police Officer,Police Officer,Police,146683.57,152900.66,6217.09,4.2,False
+"Hurley, Danielle",Deputy Town Attorney,Deputy Town Attorney,General Fund,130321.83,141082.7,10760.87,8.3,False
+"Coyne, Raymond",Superintendant of Recreation I,Superintendant of Recreation I,General Fund,133573.52,137948.05,4374.53,3.3,False
+"Ady, Stephan",Police Officer,Police Officer,Police,115138.6,136733.86,21595.26,18.8,False
+"Chiaramonte, Anthony",Police Officer,Police Officer,Police,115138.6,136733.86,21595.26,18.8,False
+"Clarkin, Christian",Police Officer,Police Officer,Police,115138.6,136733.86,21595.26,18.8,False
+"Dempsey, Ian",Police Officer,Police Officer,Police,115138.6,136733.86,21595.26,18.8,False
+"Drost, Brett",Police Officer,Police Officer,Police,115138.6,136733.86,21595.26,18.8,False
+"Frati, Logan",Police Officer,Police Officer,Police,115138.6,136733.86,21595.26,18.8,False
+"Mcguire, Lauren",Police Officer,Police Officer,Police,115138.6,136733.86,21595.26,18.8,False
+"Montefusco, Cole",Police Officer,Police Officer,Police,115138.6,136733.86,21595.26,18.8,False
+"Monti, Thomas",Police Officer,Police Officer,Police,115138.6,136733.86,21595.26,18.8,False
+"Neknez, Katerina",Police Officer,Police Officer,Police,115138.6,136733.86,21595.26,18.8,False
+"Perez Avalos,",,Nelson Police Officer,New in 2026,,136733.86,,,
+"Selock, Joanna",Police Officer,Police Officer,Police,115138.6,136733.86,21595.26,18.8,False
+"Staker, Matthew",Police Officer,Police Officer,Police,115138.6,136733.86,21595.26,18.8,False
+"Thomas, Kevin",Police Officer,Police Officer,Police,115138.6,136733.86,21595.26,18.8,False
+"Trivelli, Joseph",Police Officer,Police Officer,Police,115138.6,136733.86,21595.26,18.8,False
+"Wooten, Travis",Police Officer,Police Officer,Police,115138.6,136733.86,21595.26,18.8,False
+"Tocci, Kelly",Senior Citizens Program Director,Senior Citizens Program Director,General Fund,126599.93,130746.08,4146.15,3.3,False
+"Ceru, Victoria",Deputy Town Attorney,Deputy Town Attorney,General Fund,123722.42,127774.33,4051.91,3.3,False
+"Maiorana, Joseph",Asst Community Dev Project Super,Asst Community Dev Project Super,General Fund,120146.12,125438.34,5292.22,4.4,False
+"Downs, Richard",Senior Town Investigator,Senior Town Investigator,General Fund,117920.93,123435.15,5514.22,4.7,False
+"Boden, Bryan",Police Officer,Police Officer,Police,99366.11,120567.07,21200.96,21.3,False
+"Costantini, Sabina",Police Officer,Police Officer,Police,99366.11,120567.07,21200.96,21.3,False
+"Luppens, James",Police Officer,Police Officer,Police,99366.11,120567.07,21200.96,21.3,False
+"Mettrock, James",Police Officer,Police Officer,Police,99366.11,120567.07,21200.96,21.3,False
+"Stevens, William",Police Officer,Police Officer,Police,99366.11,120567.07,21200.96,21.3,False
+"Bergman, Gregory",Senior Planner,Senior Planner,General Fund,107223.19,115299.34,8076.15,7.5,False
+"Smith, Andrew",Chief Fire Marshal,Chief Fire Marshal,General Fund,107223.19,112344.89,5121.7,4.8,False
+"Wastewater, Assistant",,Dist. Super,New in 2026,,111020.63,,,
+"Tennenberg, Laverne","Assessor, Chairperson","Assessor, Chairperson",Elected Officials,107154.0,110663.0,3509.0,3.3,False
+"Halpin, Jerry",,Town Supervisor,New in 2026,,110000.0,,,
+"Montella, Michael",Senior Accountant,Principal Accountant,General Fund,91292.24,108438.75,17146.51,18.8,True
+"Zaleski, Michael",Superintendent of Hwys,Superintendent of Hwys,Elected Officials,104543.0,107967.0,3424.0,3.3,False
+"Charters, Matthew",Senior Planner,Senior Planner,General Fund,98533.58,106435.96,7902.38,8.0,False
+"Higgins, Devon",Deputy Town Supervisor,Deputy Town Supervisor,General Fund,102180.36,105526.77,3346.41,3.3,False
+"Muller, Robert",Building Inspector,Sr. Building Inspector,General Fund,72729.06,104849.4,32120.34,44.2,True
+"Dahlem, John",Police Officer,Police Officer,Police,83593.63,104400.27,20806.64,24.9,False
+"Fitzgerald, Kieran",Police Officer,Police Officer,Police,83593.63,104400.27,20806.64,24.9,False
+"Kolyer, Zachary",Police Officer,Police Officer,Police,83593.63,104400.27,20806.64,24.9,False
+"Krause, William",Police Officer,Police Officer,Police,83593.63,104400.27,20806.64,24.9,False
+"Thomas, Rachel",Police Officer,Police Officer,Police,83593.63,104400.27,20806.64,24.9,False
+"Weiss, Mark",Police Officer,Police Officer,Police,83593.63,104400.27,20806.64,24.9,False
+"Williams, Brandon",Police Officer,Police Officer,Police,83593.63,104400.27,20806.64,24.9,False
+"Yeager, Blaze",Police Officer,Police Officer,Police,83593.63,104400.27,20806.64,24.9,False
+"Peeker, Melissa",Payroll Supervisor,Payroll Supervisor,General Fund,91487.59,101209.5,9721.91,10.6,False
+"Burgess, Sarah",Justice Court Director,Justice Court Director,General Fund,95901.36,100444.9,4543.54,4.7,False
+"Zebrowski, David",Building Maintenance Manager,Building Maintenance Manager,General Fund,90578.12,99041.58,8463.46,9.3,False
+"Baldinucci, Teresa",Senior Purchasing Agent,Senior Purchasing Agent,General Fund,95013.0,98124.68,3111.68,3.3,False
+"Trojanowski, Heather",Planner,Planner,General Fund,90180.75,97652.28,7471.53,8.3,False
+"Collins, Carissa",Associate Administrator,Associate Administrator,General Fund,86439.23,96956.79,10517.56,12.2,False
+"Hulse, Lori",Town Justice,Town Justice,Elected Officials,93800.0,96872.0,3072.0,3.3,False
+"Walter, Sean",Town Justice,Town Justice,Elected Officials,93800.0,96872.0,3072.0,3.3,False
+"Buckner, Nicole",Town Investigator,Town Investigator,General Fund,91542.81,96262.97,4720.16,5.2,False
+"Brown, Dana",Assessor,Assessor,Elected Officials,93038.0,96085.0,3047.0,3.3,False
+"Lipinsky, Meredith",Assessor,Assessor,Elected Officials,93038.0,96085.0,3047.0,3.3,False
+"Zaneski, Laurie",Receiver of Taxes,Receiver of Taxes,Elected Officials,93038.0,96085.0,3047.0,3.3,False
+"Messina, Frank",Grants Analyst,Grants Analyst,General Fund,85970.38,95942.85,9972.47,11.6,False
+"Eastwood, Colleen",Recreation Supervisor,Recreation Supervisor,General Fund,88386.35,93572.32,5185.97,5.9,False
+"Occhiogrosso, Karen",Paralegal,Paralegal,General Fund,88821.18,93312.4,4491.22,5.1,False
+"McKay, Steven",Grounds Maintenance Supervisor,Grounds Maintenance Supervisor,General Fund,88531.79,92645.21,4113.42,4.6,False
+"Keller, Daniel",Sr. Water Treatment Plant Operator Type I B,Sr. Water Treatment Plant Operator Type I B,Water District,88234.7,92355.7,4121.0,4.7,False
+"Dick, Andrew",Heavy Equipment Operator,Deputy Highway Superintendent,Highway,69804.44,92147.0,22342.56,32.0,True
+"Blackmore, Melissa",,Accountant,New in 2026,,92097.61,,,
+"Commins, Michael",Electrical Services Supervisor,Electrical Services Supervisor,Street Lighting,88132.62,91395.27,3262.65,3.7,False
+"Thompson, Daniel",Housing Inspector,Housing Inspector,General Fund,86855.33,91136.79,4281.46,4.9,False
+"Striplin-Tio, Ashley",Town Personnel Officer,Town Personnel Officer,General Fund,85042.5,90409.52,5367.02,6.3,False
+"Hubbard, Jason",Sr Water Trt. Plant Operator IIB,Sr Water Trt. Plant Operator IIB,Water District,86053.0,90116.87,4063.87,4.7,False
+"Waste, Sr",,Water Trmt Plant Operator IIIA,New in 2026,,89403.16,,,
+"Tmt, Wastewater",,Plant Oper II,New in 2026,,88287.3,,,
+"Buczynski, Julia",Police Officer,Police Officer,Police,67821.14,88233.47,20412.33,30.1,False
+"Doscinski, Brett",Police Officer,Police Officer,Police,67821.14,88233.47,20412.33,30.1,False
+"Lazar, Anthony",Police Officer,Police Officer,Police,67821.14,88233.47,20412.33,30.1,False
+"Leonardi, William",Police Officer,Police Officer,Police,67821.14,88233.47,20412.33,30.1,False
+"Polak, Jared",Police Officer,Police Officer,Police,67821.14,88233.47,20412.33,30.1,False
+"Sullivan, Matthew",Police Officer,Police Officer,Police,67821.14,88233.47,20412.33,30.1,False
+"Waski, Andrew",Police Officer,Police Officer,Police,67821.14,88233.47,20412.33,30.1,False
+"Seebeck, Catherine",Paralegal,Paralegal,General Fund,82866.31,87238.43,4372.12,5.3,False
+"Curtis, Michael",Auto Mechanic IV,Auto Mechanic IV,General Fund,80864.3,87163.32,6299.02,7.8,False
+"Bates, Richard",Highway Labor Crew Leader,Highway Labor Crew Leader,Highway,83983.65,87163.32,3179.67,3.8,False
+"Fogal, Arthur",Highway Labor Crew Leader,Highway Labor Crew Leader,Highway,83203.81,87163.32,3959.51,4.8,False
+"Nagy, Kenneth",Highway Labor Crew Leader,Highway Labor Crew Leader,Highway,83203.81,87163.32,3959.51,4.8,False
+"Maccagli, Elizabeth",Youth Counselor,Youth Counselor,General Fund,77102.59,85899.36,8796.77,11.4,False
+"Keating, Liam",Fire Marshal I,Fire Marshal I,General Fund,81556.6,85813.25,4256.65,5.2,False
+"Godzieba, Benjamin",Water District Maintenance Crew Leader,Water District Maintenance Crew Leader,Water District,78655.91,85008.16,6352.25,8.1,False
+"Mottern, Joan",Administrative Assistant (HWY),Administrative Assistant (HWY),General Fund,80712.13,84870.72,4158.59,5.2,False
+"Kellar, John",Water Treatment Plant Operator Type II B,Water Treatment Plant Operator Type II B,Water District,80767.93,84717.96,3950.03,4.9,False
+"Del Vecchio, Carol",Senior Account Clerk,Senior Account Clerk,General Fund,80029.96,83917.87,3887.91,4.9,False
+"Inghingolo, Michael",Building Inspector,Building Inspector,General Fund,79349.72,83562.23,4212.51,5.3,False
+"Sulzer, Scott",Maintenance Mechanic III,Maintenance Mechanic III,General Fund,78275.65,81341.16,3065.51,3.9,False
+"Triebwasser, Anna",GIS Technician III,GIS Technician III,General Fund,70522.18,81311.2,10789.02,15.3,False
+"Schandel, Ashley",Asst Recreation Program Coordinator,Assistant Superintendent of Recreatiob,General Fund,70338.27,81000.0,10661.73,15.2,True
+"Elco, Melissa",Public Safety Dispatcher II,Public Safety Dispatcher III,General Fund,70377.06,80606.16,10229.1,14.5,True
+"Burkowsky, Debi",Town Budget Officer,Town Budget Officer,General Fund,72569.6,80567.22,7997.62,11.0,False
+"Buyukdeniz, Deborah",Public Safety Dispatcher I,Public Safety Dispatcher I,General Fund,72682.38,79994.68,7312.3,10.1,False
+"Chester, Erin",Public Safety Dispatcher I,Public Safety Dispatcher I,General Fund,76243.37,79994.68,3751.31,4.9,False
+"Newman, Tanya",Public Safety Dispatcher I,Public Safety Dispatcher I,General Fund,75531.17,79994.68,4463.51,5.9,False
+"Hubbard, Robert",Maintenance Mechanic II,Maintenance Mechanic II,General Fund,76202.28,79951.42,3749.14,4.9,False
+"Danowski, Marisa",Office Assistant,Site Plan Reviewer,General Fund,43606.46,78734.86,35128.4,80.6,True
+"Rutt, Joseph",,Junior Civil Engineer,New in 2026,,78734.86,,,
+"Ayala, Juan",Maintenance Mechanic II,Maintenance Mechanic II,General Fund,74780.54,78501.24,3720.7,5.0,False
+"Wastewater, Sr.",,Treatment Plant Operator 3A,New in 2026,,77225.45,,,
+"Marshak, Dionne",Personnel Assistant,Personnel Assistant,General Fund,72726.48,77173.77,4447.29,6.1,False
+"Wulffraat, Lisa",Account Clerk,Account Clerk,General Fund,73083.04,76832.03,3748.99,5.1,False
+"Schwarz, Christopher",Electrical Inspector,Electrical Inspector,General Fund,72729.06,76809.16,4080.1,5.6,False
+"Strange, Doris",Account Clerk,Account Clerk,General Fund,70724.19,76364.19,5640.0,8.0,False
+"Arteaga, David",Construction Equipment Operator,Construction Equipment Operator,Highway,72422.17,76126.82,3704.65,5.1,False
+"Lescenski, Christopher",Construction Equipment Operator,Construction Equipment Operator,Highway,72422.17,76126.82,3704.65,5.1,False
+"Bugge, Christopher",Heavy Equipment Operator,Construction Equipment Operator,Highway,68382.69,75370.61,6987.92,10.2,True
+"Coach, Elrod",Construction Equipment Operator,Construction Equipment Operator,Highway,71680.8,75370.61,3689.81,5.1,False
+"Hayes, Jarrod",Construction Equip Operator,Construction Equip Operator,Highway,71680.8,75370.61,3689.81,5.1,False
+"Moreno, Joseph",Construction Equipment Operator,Construction Equipment Operator,Highway,71680.8,75370.61,3689.81,5.1,False
+"Fink, Keith",Maintenance Mechanic IV HWY,Maintenance Mechanic IV HWY,Highway,71506.26,75231.82,3725.56,5.2,False
+"Halpin, Robin",Senior Account Clerk,Senior Account Clerk,Water District,71327.31,74957.3,3629.99,5.1,False
+"D'Amara, Neil",Heavy Equipment Operator,Construction Equipment Operator,Highway,68382.69,74614.41,6231.72,9.1,True
+"Pipczynski, James",Heavy Equipment Operator,Heavy Equipment Operator,Highway,70515.31,74150.7,3635.39,5.2,False
+"Rogers, Thomas",Auto Mechanic III,Auto Mechanic III,General Fund,65008.42,73858.21,8849.79,13.6,False
+"Tedesco, Robert",Heavy Equipment Operator,Heavy Equipment Operator,Highway,67671.82,73858.21,6186.39,9.1,False
+"Witt, Jeffrey",Heavy Equipment Operator,Construction Equipment Operator,Highway,67671.82,73858.21,6186.39,9.1,True
+"Kornafel, Cheryl",Account Clerk,Account Clerk,General Fund,70724.19,73638.68,2914.49,4.1,False
+"Account, Senior",,Clerk,New in 2026,,73550.41,,,
+"Popino, Donald",,Harbormaster I,New in 2026,,73432.62,,,
+"Palmer, Jordan",,Fire Marshal I,New in 2026,,73432.62,,,
+"Keller, Elizabeth",Community Relations Specialist,Community Development Program Analyst,General Fund,68639.77,73430.8,4791.03,7.0,True
+"Vail, Maribeth",Senior Justice Court Clerk,Senior Justice Court Clerk,General Fund,66250.09,73425.63,7175.54,10.8,False
+"Vance, Thomas",Maintenance Mechanic III,Maintenance Mechanic III,General Fund,69601.95,73231.25,3629.3,5.2,False
+"McKay, Margaret",Account Clerk,Account Clerk,Highway,68762.67,72304.84,3542.17,5.2,False
+"Meyer, Gina",,Police Officer,New in 2026,,72066.67,,,
+"Romer, Krista",Police Officer,Police Officer,Police,52048.66,72066.67,20018.01,38.5,False
+"Waski, Ryan",Police Officer,Police Officer,Police,52048.66,72066.67,20018.01,38.5,False
+"Wnorowski, Sebastian",Police Officer,Police Officer,Police,52048.66,72066.67,20018.01,38.5,False
+"Jaeger, Billie Jo",Account Clerk,Account Clerk,General Fund,68108.82,71637.92,3529.1,5.2,False
+"Osman, David",Construction Equipment Operator,Construction Equipment Operator,Highway,67973.92,71589.6,3615.68,5.3,False
+"Wulffraat, Nicholas",Water Treatment Plant Operator Type II B,Water Treatment Plant Operator Type II B,Water District,67675.15,71363.33,3688.18,5.4,False
+"Soto, Ivan",Code Enforce. Officer-Spanish Speaki,Ordinance Inspector-Spanish Speaking,General Fund,56687.2,70249.89,13562.69,23.9,True
+"Harden, Jordan",Recreation Leader,Assistant Recreation Program Coordinator,General Fund,59753.49,69765.69,10012.2,16.8,True
+"MacIntosh, George",Maintenance Mechanic IV,Maintenance Mechanic IV,General Fund,66047.4,69663.78,3616.38,5.5,False
+"Cain, Victoria",Water Meter Reader,Water Meter Reader,Water District,66097.97,69592.26,3494.29,5.3,False
+"Fleming, William",Public Safety Dispatcher I,Public Safety Dispatcher II,General Fund,59862.82,69584.75,9721.93,16.2,True
+"Turpin, Eric",Automotive Equipment Operator,Automotive Equipment Operator,General Fund,65830.39,69362.62,3532.23,5.4,False
+"Ruales, Hernan",Code Enforce. Officer-Spanish Speaki,Ordinance Inspector- Spanish Speaking,General Fund,55920.62,69205.54,13284.92,23.8,True
+"Neff, Christopher",Maintenance Mechanic II,Maintenance Mechanic IV,General Fund,54165.26,68868.35,14703.09,27.1,True
+"Albee, Keith",Water Treatment Plant Operator Type II B,Water Treatment Plant Operator Type II B,Water District,63583.67,68859.34,5275.67,8.3,False
+"Caparros, Paul",Water Treatment Plant Operator Trainee,Water Treatment Plant Operator Type II B,Water District,56111.91,68859.34,12747.43,22.7,True
+"Rocco, Travis",Water Treatment Plant Operator IIB,Water Treatment Plant Operator IIB,Water District,63583.67,68859.34,5275.67,8.3,False
+"Rambo, Kevin",Maintenance Mechanic III,Maintenance Mechanic III,General Fund,65265.1,68807.67,3542.57,5.4,False
+"Rebecca, Adams-Korn",Cultural Affairs Supervisor,Cultural Affairs Supervisor,General Fund,63938.2,68635.2,4697.0,7.3,False
+"Schwarz, Brian",Auto Mechanic III,Auto Mechanic III,General Fund,60560.16,68564.79,8004.63,13.2,False
+"Westwood, Karen",Senior Citizens Program Supervisor,Senior Citizens Program Supervisor,General Fund,61419.85,68328.33,6908.48,11.2,False
+"Richards, Lisa",Deputy Tax Receiver,Deputy Tax Receiver,General Fund,62954.83,68267.43,5312.6,8.4,False
+"Jones, Jeremy",,Building Plans Examiner,New in 2026,,68161.2,,,
+"Coome, Melissa",Account Clerk,Account Clerk,Water District,64185.77,67636.4,3450.63,5.4,False
+"Shaw, Eric",Heavy Equipment Operator,Heavy Equipment Operator,Highway,64117.46,67624.9,3507.44,5.5,False
+"Clifford, Shannon",Administrative Assistant,Administrative Assistant,General Fund,63591.67,67145.41,3553.74,5.6,False
+"Ritter, Jaime",Account Clerk,Account Clerk,General Fund,63531.92,66969.48,3437.56,5.4,False
+"Eibs-Stankaitis, Jessica",Public Safety Dispatcher I,Public Safety Dispatcher I,General Fund,60575.01,66918.72,6343.71,10.5,False
+"May, Nicholas",Water Treatment Plant Operator IIB,Water Treatment Plant Operator IIB,Water District,61974.3,66355.35,4381.05,7.1,False
+"Lopez, Patricia",Public Safety Dispatcher I,Public Safety Dispatcher I,General Fund,59862.82,66192.28,6329.46,10.6,False
+"Linnen, Brian",Custodial Worker I,Custodial Worker III,General Fund,53392.54,66174.72,12782.18,23.9,True
+"Stoddard, John",Maintenance Mechanic II,Maintenance Mechanic II,General Fund,62695.72,66174.72,3479.0,5.5,False
+"Greenwood, Frank",Heavy Equipment Operator,Heavy Equipment Operator,Highway,61984.85,66174.72,4189.87,6.8,False
+"Gregorovius, Eva",Purchasing Technician,Purchasing Technician,General Fund,62057.57,65757.84,3700.27,6.0,False
+"Miller, Brittany",Budget Assistant,Budget Assistant,General Fund,61810.46,65416.51,3606.05,5.8,False
+"Dinizio, Melanie",Account Clerk,Principal Account Clerk,General Fund,49801.22,64798.72,14997.5,30.1,True
+"Hulse, Pamla",Code Compliance Coordinator,Code Compliance Coordinator,General Fund,60176.95,64798.72,4621.77,7.7,False
+"Sheppard, Joseph",Automotive Equipment Operator,Heavy Equipment Operator,Highway,58814.51,64724.55,5910.04,10.0,True
+"Moore, Tammy",Principal Office Assistant,Principal Office Assistant,General Fund,56154.97,64405.63,8250.66,14.7,False
+"Vance, Scott",Automotive Equipment Operator,Automotive Equipment Operator,Highway,60919.27,64353.28,3434.01,5.6,False
+"Fund, General",,5-A01,New in 2026,,63884.34,,,
+"Enaya, Mahmoud",,Auto Mechanic II,New in 2026,,63646.82,,,
+"Davis, Keith",Automotive Equipment Operator,Automotive Equipment Operator,Highway,60217.68,63637.66,3419.98,5.7,False
+"Baird, Kim",Public Safety Dispatcher I,Public Safety Dispatcher I,General Fund,57014.02,63286.51,6272.49,11.0,False
+"Trt, Wastewater",,Plnt Operator Trainee,New in 2026,,63271.37,,,
+"Behr, Cheryl",Account Clerk,Account Clerk,General Fund,59608.87,62967.96,3359.09,5.6,False
+"Bowe, Howard",Groundskeeper I,Groundskeeper I,General Fund,59506.49,62868.95,3362.46,5.7,False
+"Waskowiak, Lauren",Justice Court Clerk,Senior Justice Court Clerk,General Fund,59141.38,62549.29,3407.91,5.8,True
+"Gabriele, Patrick",Public Safety Dispatcher I,Public Safety Dispatcher I,General Fund,55589.63,61833.63,6244.0,11.2,False
+"Sinclair, Tara",Public Safety Dispatcher I,Public Safety Dispatcher I,General Fund,55589.63,61833.63,6244.0,11.2,False
+"Kaiser, Louis",Automotive Equipment Operator,Automotive Equipment Operator,Highway,58112.92,61490.8,3377.88,5.8,False
+"Pressgrove, Andrew",Maintenance Mechanic II,Maintenance Mechanic III,Street Lighting,54165.26,60697.76,6532.5,12.1,True
+"Acevedo, Camille",,Public Safety Dispatcher I,New in 2026,,60380.75,,,
+"Felice, Olivia",,Public Safety Dispatcher I,New in 2026,,60380.75,,,
+"Maichin, Jordyn",,Public Safety Dispatcher I,New in 2026,,60380.75,,,
+"Wicklund, Hunter",,Public Safety Dispatcher I,New in 2026,,60380.75,,,
+"Visek, Jonathan",Maintenance Mechanic II,Maintenance Mechanic II,Water District,54165.26,60374.01,6208.75,11.5,False
+"Hazzard, Rebecca",Senior Assessment Clerk,Senior Assessment Clerk,General Fund,56993.5,60300.28,3306.78,5.8,False
+"Vankurin, Rachel",Account Clerk,Account Clerk,General Fund,56993.5,60300.28,3306.78,5.8,False
+"Hodun, Heather",Senior Office Assistant,Principal Office Assistant,General Fund,50856.44,60184.96,9328.52,18.3,True
+"Stettner, Robert",Automotive Equipment Operator,Automotive Equipment Operator,Highway,56709.74,60059.56,3349.82,5.9,False
+"Wandolowski, William",Automotive Equipment Operator,Automotive Equipment Operator,Highway,56709.74,60059.56,3349.82,5.9,False
+"Boulier, Stamintina",,Legislative Secretary,New in 2026,,59829.12,,,
+"Cote, David",,Secretary,New in 2026,,59740.45,,,
+"Falisi, Robert",Groundskeeper I,Maintenance Mechanic II,General Fund,53574.16,59648.92,6074.76,11.3,True
+"Bakowski, Parker",Automotive Equipment Operator,Automotive Equipment Operator,Highway,56008.16,59343.94,3335.78,6.0,False
+"Liles, Charles",Automotive Equipment Operator,Automotive Equipment Operator,Highway,56008.16,59343.94,3335.78,6.0,False
+"Mammina, Nicholas",Automotive Equipment Operator,Automotive Equipment Operator,Highway,56008.16,59343.94,3335.78,6.0,False
+"McWilliams, Ryan",Automotive Equipment Operator,Automotive Equipment Operator,Highway,56008.16,59343.94,3335.78,6.0,False
+"Muir, Michael",Automotive Equipment Operator,Automotive Equipment Operator,Highway,56008.16,59343.94,3335.78,6.0,False
+"Wignington, James",Automotive Equipment Operator,Automotive Equipment Operator,Highway,56008.16,59343.94,3335.78,6.0,False
+"Blackmore, Andrew",Maintenance Mechanic II,Maintenance Mechanic II,General Fund,55587.0,58923.83,3336.83,6.0,False
+"Colon, Michael",Maintenance Mechanic II,Maintenance Mechanic II,General Fund,55587.0,58923.83,3336.83,6.0,False
+"Mabanta, Kristen",Justice Court Clerk,Justice Court Clerk,General Fund,55465.32,58778.07,3312.75,6.0,False
+"Treatment, Wastewater",,Plant Operator Trainee,New in 2026,,58734.15,,,
+"Calderon, Christopher",,Water Treatment Plant Operator Trainee,New in 2026,,58734.15,,,
+"LaRocco, Paul",,Water Treatment Plant Operator Trainee,New in 2026,,58734.15,,,
+"LeCann, Vanessa",Deputy Registrar,Deputy Town Clerk,General Fund,1000.0,58661.49,57661.49,5766.1,True
+"Guerra, Joseph",,Automotive Equipment Operator,New in 2026,,58628.32,,,
+"Deon, Ryan",,Automotive Equipment Operator,New in 2026,,58628.32,,,
+"Franks, Matthew",,Automotive Equipment Operator,New in 2026,,58628.32,,,
+"McGarrity, Brian",,Automotive Equipment Operator,New in 2026,,58628.32,,,
+"Sostre, Steven",,Automotive Equipment Operator,New in 2026,,58628.32,,,
+"Urbinati, Frank",,Automotive Equipment Operator,New in 2026,,58628.32,,,
+"Mechanic, Maintenance",,II,New in 2026,,58198.74,,,
+"Avelar Gonzalez, Yenci",Justice Court Clerk- Spanish Speaking,Justice Court Clerk- Spanish Speaking,General Fund,54086.01,57371.18,3285.17,6.1,False
+"Biancospino, Kathleen",Justice Court Clerk,Justice Court Clerk,General Fund,54086.01,57371.18,3285.17,6.1,False
+"Sostre, Angelo",Automotive Equipment Operator,Automotive Equipment Operator,General Fund,53201.81,57197.08,3995.27,7.5,False
+"Stark, John",Automotive Equipment Operator,Automotive Equipment Operator,General Fund,53201.81,57197.08,3995.27,7.5,False
+"Henderson, Damion",Custodial Worker I,Custodial Worker II,General Fund,49596.8,56817.98,7221.18,14.6,True
+"Falci, Javier",,Maintenance Mechanic II,New in 2026,,56748.57,,,
+"Horl, Dennis",,Maintenance Mechanic II,New in 2026,,56748.57,,,
+"Chabla, Jennifer",Justice Court Clerk- Spanish Speaking,Justice Court Clerk- Spanish Speaking,General Fund,52706.71,56667.73,3961.02,7.5,False
+"Piccione, Kenda",Office Assistant,Senior Office Assistant,General Fund,49675.39,56593.18,6917.79,13.9,True
+"Klein, Charles",Senior Cook,Senior Cook,General Fund,50227.11,56108.19,5881.08,11.7,False
+"Curven, Austin",Maintenance Mechanic I,Maintenance Mechanic I,General Fund,52595.76,55834.88,3239.12,6.2,False
+"Schwarz, Melissa",Cook,Cook,General Fund,49809.7,55430.82,5621.12,11.3,False
+"Magee, Penelope",Mini-Bus Driver,Mini-Bus Driver,General Fund,51882.28,54982.68,3100.4,6.0,False
+"White, Anthony",Mini-Bus Driver,Mini-Bus Driver,General Fund,50778.83,53857.17,3078.34,6.1,False
+"Fisher, Justin",Technical Support Aide,Technical Support Aide,General Fund,49788.03,53847.6,4059.57,8.2,False
+"Cassara, Shaye-Ann",Account Clerk,Account Clerk,General Fund,49801.22,53631.09,3829.87,7.7,False
+"Squillace-Neal, Annamaria",Assessment Clerk,Assessment Clerk,General Fund,50214.26,53298.89,3084.63,6.1,False
+"Narvaez, Ashley",,Account Clerk,New in 2026,,52297.25,,,
+"Levanti, Samantha",,Account Clerk,New in 2026,,52297.25,,,
+"Petraco, Kaylee",,Account Clerk,New in 2026,,52297.25,,,
+"Carragher, James",Custodial Worker I,Custodial Worker I,General Fund,48331.56,52088.74,3757.18,7.8,False
+"Kern, Robert",Councilman,Councilman,Elected Officials,50558.0,50558.0,0.0,0.0,False
+"Merrifield, Denise",Councilwoman,Councilwoman,Elected Officials,50558.0,50558.0,0.0,0.0,False
+"Rothwell, Kenneth",Councilman,Councilman,Elected Officials,48955.0,50558.0,1603.0,3.3,False
+"Waski, Joann",Councilwoman,Councilwoman,Elected Officials,48955.0,50558.0,1603.0,3.3,False
+"Widener, Paulette",Mini-Bus Driver,Mini-Bus Driver,General Fund,45261.62,49917.88,4656.26,10.3,False
+"Sawaya, Joanna",Senior Citizen Aide,Senior Citizen Aide,General Fund,46746.06,49701.8,2955.74,6.3,False
+"Griffin, Ethel",Mini-Bus Driver,Mini-Bus Driver,General Fund,46365.06,49355.12,2990.06,6.4,False
+"Danowski, Donna",Senior Citizen Aide,Senior Citizen Aide,General Fund,45214.24,48139.34,2925.1,6.5,False
+"Dodge, Rosemary",Mini-Bus Driver,Mini-Bus Driver,General Fund,43606.46,46541.34,2934.88,6.7,False
+"Giordano, Nancy",Cook,Cook,General Fund,42661.2,45535.24,2874.04,6.7,False
+"Prevette, Dominique",,Office Assistant,New in 2026,,44853.07,,,
+"Sullivan, Maria",,Office Assistant,New in 2026,,44853.07,,,
+"District, Water",,Capital Projects X-EW3,New in 2026,,40104.06,,,
+"Sewer, Riverhead",,Capital Projects X-ES2,New in 2026,,26291.25,,,
+"Scavenger, Riverhead",,Waste District 5-ES5,New in 2026,,25825.15,,,
+"Waste, Scavenger",,Capital Projects X-ES6,New in 2026,,24161.25,,,
+"Thomas, Dawn",Community Dev Admin,Stipend,General Fund,149086.3,20000.0,-129086.3,-86.6,True
+"Densieski, Edward",Member-Chair,Member-Chair,Boards,14400.0,14400.0,0.0,0.0,False
+"Hogan, John",Member-Vice Chair,Member-Vice Chair,Boards,11750.0,11750.0,0.0,0.0,False
+"Baier, Joseph",Member,H. Member,Boards,10800.0,10800.0,0.0,0.0,True
+"Zilnicki, Kenneth",Member,Member,Boards,10800.0,10800.0,0.0,0.0,False
+"Nunnaro, George",Member,Member,Boards,10800.0,10800.0,0.0,0.0,False
+"Case, Georgette",Town Historian,Town Historian,General Fund,9000.0,10200.0,1200.0,13.3,False
+"Wittmeier, Otto",Member-Chair,Member-Chair,Boards,9600.0,9600.0,0.0,0.0,False
+"Gazzillo, Ralph",Member-Vice Chair,Member-Vice Chair,Police,7200.0,7200.0,0.0,0.0,False
+"Barnes, Leroy",Member,Member,Police,7200.0,7200.0,0.0,0.0,False
+"Porchia, John",,Member,New in 2026,,7200.0,,,
+"Zaweski, Daniel",Member,Member,Police,7200.0,7200.0,0.0,0.0,False
+"Lighting, Street",,District 5-SL1,New in 2026,,6735.24,,,
+"Frost, Edward",Chief,Emergency Services Coordinator,Police,224030.0,6000.0,-218030.0,-97.3,True
+"Wooten, James",Town Clerk,Registrar of Vital Statistics,Elected Officials,93038.0,5000.0,-88038.0,-94.6,True
+"Consortium, CDBG",,Account X-CD4,New in 2026,,5000.0,,,
+"Program, Recreation",,Fund 5-A06,New in 2026,,3471.12,,,
+"Sewer, Calverton",,District 5-ES3,New in 2026,,3256.16,,,
+"DeFilippis, Theresa",Network and Systems Specialist II,Stipend,General Fund,88177.26,3000.0,-85177.26,-96.6,True
+"Merker, William",Maintenance Mechanic III,License Stipend,Street Lighting,72493.18,3000.0,-69493.18,-95.9,True
+"Smith, James",Maintenance Mechanic III,License Stipend,Street Lighting,74661.61,3000.0,-71661.61,-96.0,True
+"Sokoloski, Roy",Member- Chair,Member- Chair,Boards,3000.0,3000.0,0.0,0.0,False
+"McNeill, John",Board Member,Board Member,Boards,3000.0,3000.0,0.0,0.0,False
+"Ariizumi, Hideaki",Board Member,Board Member,Boards,3000.0,3000.0,0.0,0.0,False
+"Barth, Judy",Board Member,Board Member,Boards,3000.0,3000.0,0.0,0.0,False
+"Carrick, Megan",Board Member,Board Member,Boards,3000.0,3000.0,0.0,0.0,False
+"Developer, EW3-2130-000-82520-8",,Fees,New in 2026,,3000.0,,,
+"Water, EW3-8-8320-435-000-82520",,– Prof Svcs – Engineering,New in 2026,,3000.0,,,
+"Projects, Capital",,X-H01,New in 2026,,2926.67,,,
+"District, Ambulance",,5-SM1,New in 2026,,2718.75,,,
+"McCabe Sr.,",,Sean M. Member-Chair,New in 2026,,1940.0,,,
+"Parking, Public",,District 5-ST1,New in 2026,,1638.12,,,
+"Kujawski, Robert",Member-Vice Chair,Member-Vice Chair,Boards,1540.0,1540.0,0.0,0.0,False
+"Reichel, Michael",Member,Member,Boards,1540.0,1540.0,0.0,0.0,False
+"Fox, Robert",Member,Member,Boards,1540.0,1540.0,0.0,0.0,False
+"Lewin, Duane",Member,Member,Boards,1540.0,1540.0,0.0,0.0,False
+"Thomas, Charles",Member,Member,Boards,1540.0,1540.0,0.0,0.0,False
+"Woodhull, George",Member,Member,Boards,1540.0,1540.0,0.0,0.0,False
+"Creek, East",,Docking Facility Fund 5-CM2,New in 2026,,1515.26,,,
+"Of, Total",,All Funds:,New in 2026,,1450.83,,,
+"Acevedo, Marjorie",Member,Member,Boards,1200.0,1200.0,0.0,0.0,False
+"Hogan, Jeanne",Member,Member,Boards,1200.0,1200.0,0.0,0.0,False
+"Mills, Brian",Member,Member,Boards,1200.0,1200.0,0.0,0.0,False

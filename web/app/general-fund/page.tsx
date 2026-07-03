@@ -8,6 +8,12 @@ const card = { background: 'white', border: '1px solid #e2e8f0', borderRadius: 1
 
 const COLORS = { appropriations: '#12385b', taxLevy: '#c99a2e', estimatedRevenues: '#0f766e', appropriatedFundBalance: '#7c3aed' }
 
+export const metadata = {
+  title: 'General Fund — 20-year history',
+  description:
+    'Two decades of the Town of Riverhead General Fund (2005–2025): appropriations, tax levy, and revenues charted year by year from the adopted budgets.',
+}
+
 export default function GeneralFundPage() {
   const rows = generalFund.rows
   const g = generalFund.growth

@@ -56,6 +56,12 @@ const tools = [
   },
 ]
 
+export const metadata = {
+  title: 'Start Here — town budgets in plain English',
+  description:
+    'New to municipal budgets? A plain-English guide to every tool on Riverhead Budget Live, a 30-second budget primer, and a glossary of budget terms.',
+}
+
 export default function GuidePage() {
   return (
     <PageShell

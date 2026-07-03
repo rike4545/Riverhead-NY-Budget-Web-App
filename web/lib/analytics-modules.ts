@@ -1,5 +1,9 @@
 import { allOperatingFunds2026, fundBalanceUseSummary } from './all-funds'
 import { dollars, townWideComparison2026 } from './financial-data'
+import { generalFundAfr } from './afr'
+// NOTE: import the small payroll summary directly — pulling in lib/payroll.ts
+// would drag the full 500KB records file into every page that shows KPIs.
+import payrollSummary from '../public/data/payroll/summary.json'
 
 export type AnalyticsModule = {
   name: string
@@ -89,7 +93,16 @@ export const analyticsModules: AnalyticsModule[] = [
   },
 ]
 
+const latestPayrollYear = payrollSummary.yearSummaries[payrollSummary.yearSummaries.length - 1]
+const gfSurplus2025 = generalFundAfr.surplus?.['2025'] ?? 0
+const gfFundBalance2025 = generalFundAfr.fundBalance?.['2025'] ?? 0
+
 export const automatedKpis = [
+  {
+    label: '2025 General Fund surplus (actual)',
+    value: dollars(gfSurplus2025),
+    explanation: `The General Fund actually took in ${dollars(gfSurplus2025)} more than it spent in 2025, growing savings to ${dollars(gfFundBalance2025)} (2025 Annual Financial Report).`,
+  },
   {
     label: 'Town-wide levy growth',
     value: `${townWideComparison2026.taxLevyPercentChange}%`,
@@ -101,14 +114,19 @@ export const automatedKpis = [
     explanation: `Town-wide appropriations increased by ${dollars(townWideComparison2026.dollarChange)} from 2025 to 2026.`,
   },
   {
+    label: `Actual payroll (${latestPayrollYear.year})`,
+    value: dollars(latestPayrollYear.totalGross),
+    explanation: `${latestPayrollYear.headcount.toLocaleString()} employees were paid ${dollars(latestPayrollYear.totalGross)} in gross pay, including ${dollars(latestPayrollYear.totalOvertime)} of overtime.`,
+  },
+  {
     label: 'Appropriated fund balance used',
     value: dollars(fundBalanceUseSummary.totalAppropriatedFundBalanceInSummary),
-    explanation: 'This reflects reserve and fund-balance use in the adopted budget summary and should not be interpreted as recurring operating revenue.',
+    explanation: 'Reserve and fund-balance use in the adopted budget summary — not recurring operating revenue.',
   },
   {
     label: 'Operating funds indexed',
     value: String(allOperatingFunds2026.length),
-    explanation: 'Every currently extracted 2026 operating fund is represented for fund-level comparison and future department drilldowns.',
+    explanation: 'Every 2026 operating fund drills down to departments and individual account line items.',
   },
 ]
 

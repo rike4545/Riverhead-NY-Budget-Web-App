@@ -52,6 +52,12 @@ jobs:
       - name: Build 2025 to 2026 salary raise comparison
         run: python etl/parse_salary_2026.py
 
+      - name: Build unified search index
+        run: python etl/build_search_index.py
+
+      - name: Export CSV downloads
+        run: python etl/export_csv.py
+
       - name: Rebuild payroll dataset from slim sources
         run: python etl/parse_payroll.py
 
@@ -66,7 +72,7 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-          git add web/public/data/financial-reports web/public/data/subaccounts web/public/data/history web/public/data/payroll web/public/data/afr web/public/data/meetings web/public/data/salary || true
+          git add web/public/data/financial-reports web/public/data/subaccounts web/public/data/history web/public/data/payroll web/public/data/afr web/public/data/meetings web/public/data/salary web/public/data/search web/public/downloads || true
 
           if git diff --cached --quiet; then
             echo "No parsed-data changes detected."

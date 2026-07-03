@@ -5,6 +5,12 @@ import { latestMeeting, meetingsIndex, MEMBER_ORDER } from '../../lib/meetings'
 
 const card = { background: 'white', border: '1px solid #e2e8f0', borderRadius: 16, padding: 20, boxShadow: '0 14px 34px rgba(15,23,42,.05)' } as const
 
+export const metadata = {
+  title: 'Town Board Votes — who voted for what',
+  description:
+    'The Riverhead Town Board voting record: every resolution, its result, who moved and seconded it, and how each member voted — with contested and failed votes highlighted.',
+}
+
 export default function MeetingsPage() {
   const m = latestMeeting
 

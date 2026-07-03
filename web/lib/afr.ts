@@ -34,3 +34,26 @@ export function afrFund(code: string): AfrFund | undefined {
 }
 
 export const generalFundAfr = afrFund('A')!
+
+// Budget fund codes (A01, DA1, …) roll up into the AFR's broader fund groups
+// (A, DA, …). Several budget funds can share one AFR group, so actuals shown
+// on a fund page are for the whole group.
+const BUDGET_TO_AFR: Record<string, string> = {
+  A01: 'A', A04: 'A', A06: 'A',
+  CM1: 'CM', CM2: 'CM', CM4: 'CM',
+  DA1: 'DA',
+  ES1: 'ES', ES3: 'ES', ES5: 'ES',
+  EW1: 'EW',
+  MS1: 'MS', MS2: 'MS',
+  SL1: 'SL', SM1: 'SM', SR1: 'SR', ST1: 'ST',
+  V01: 'V',
+}
+
+export function afrGroupForBudgetFund(budgetCode: string): { fund: AfrFund; shared: boolean } | null {
+  const letter = BUDGET_TO_AFR[budgetCode.toUpperCase()]
+  if (!letter) return null
+  const fund = afrFund(letter)
+  if (!fund) return null
+  const shared = Object.values(BUDGET_TO_AFR).filter((v) => v === letter).length > 1
+  return { fund, shared }
+}
