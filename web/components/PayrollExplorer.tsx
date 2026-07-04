@@ -3,8 +3,10 @@
 import { useMemo, useState } from 'react'
 import Sparkline from './Sparkline'
 import { ColumnGuide } from './PlainCallout'
+import { useFetchJson } from './useFetchJson'
 import {
-  payrollRecords, payrollYears, yearSummaries, yearSummary, unionLabel, payrollSource, payrollNote,
+  PAYROLL_RECORDS_URL, mapRawRecords, payrollYears, yearSummaries, yearSummary, unionLabel, payrollSource, payrollNote,
+  type PayrollRecordRaw,
 } from '../lib/payroll'
 
 const usd = (n: number) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(n)
@@ -25,17 +27,22 @@ export default function PayrollExplorer() {
   const yq = q.trim().toLowerCase()
   const summary = year === 'all' ? undefined : yearSummary(year)
 
+  // The full per-employee dataset is fetched at runtime, not bundled.
+  const { data: rawData, error: loadError } = useFetchJson<{ records: PayrollRecordRaw[] }>(PAYROLL_RECORDS_URL)
+  const payrollRecords = useMemo(() => (rawData ? mapRawRecords(rawData.records) : []), [rawData])
+  const loading = !rawData && !loadError
+
   const unions = useMemo(() => {
     const set = new Set<string>()
     payrollRecords.forEach((r) => { if (year === 'all' || r.year === year) set.add(r.union || '') })
     return Array.from(set).sort()
-  }, [year])
+  }, [payrollRecords, year])
 
   const departments = useMemo(() => {
     const set = new Set<string>()
     payrollRecords.forEach((r) => { if ((year === 'all' || r.year === year) && r.department) set.add(r.department) })
     return Array.from(set).sort()
-  }, [year])
+  }, [payrollRecords, year])
 
   const filtered = useMemo(() => {
     const rows = payrollRecords.filter((r) => {
@@ -50,7 +57,7 @@ export default function PayrollExplorer() {
       return (b[sortKey] as number) - (a[sortKey] as number)
     })
     return rows
-  }, [year, union, dept, yq, sortKey])
+  }, [payrollRecords, year, union, dept, yq, sortKey])
 
   const totals = useMemo(() => ({
     headcount: filtered.length,
@@ -117,7 +124,11 @@ export default function PayrollExplorer() {
           { term: 'Group', plain: 'The union or bargaining group the employee belongs to (for example PBA for police, CSEA for many town workers).' },
         ]} />
         <div style={{ color: '#475569', fontWeight: 700, marginBottom: 10, fontSize: 14 }}>
-          Showing {Math.min(limit, filtered.length).toLocaleString()} of {filtered.length.toLocaleString()} employees
+          {loading
+            ? 'Loading employee records…'
+            : loadError
+              ? 'Could not load the employee records — check your connection and reload.'
+              : `Showing ${Math.min(limit, filtered.length).toLocaleString()} of ${filtered.length.toLocaleString()} employees`}
         </div>
         <div style={{ overflowX: 'auto' }}>
           <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 13.5 }}>

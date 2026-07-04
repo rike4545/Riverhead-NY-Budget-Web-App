@@ -1,11 +1,16 @@
-// 2025 Board-authorized salary schedule (from the Jan 7, 2025 salary
-// resolutions), enriched with each employee's most recent ACTUAL pay so
-// authorized-vs-actual can be shown directly. Built by
-// etl/parse_salary_schedule.py.
+// Board-authorized salary schedules (2025 & 2026) and the raise comparison
+// between them, built by etl/parse_salary_schedule.py and parse_salary_2026.py.
+//
+// These datasets (~380KB combined) are fetched in the browser on demand rather
+// than bundled — see the URL constants below and components/useFetchJson.ts.
 
-import salaryJson from '../public/data/salary/authorized-2025.json'
-import salary2026Json from '../public/data/salary/authorized-2026.json'
-import comparisonJson from '../public/data/salary/comparison-2025-2026.json'
+const base = '/rike4545-riverhead-budget-live'
+
+export function authorizedSalaryUrl(year: 2025 | 2026): string {
+  return `${base}/data/salary/authorized-${year}.json`
+}
+
+export const SALARY_COMPARISON_URL = `${base}/data/salary/comparison-2025-2026.json`
 
 export type SalaryRecord = {
   name: string
@@ -35,13 +40,6 @@ export type AuthorizedSalary = {
   records: SalaryRecord[]
 }
 
-export const authorizedSalary = salaryJson as AuthorizedSalary
-export const authorizedSalary2026 = salary2026Json as AuthorizedSalary
-
-export function authorizedFor(year: 2025 | 2026): AuthorizedSalary {
-  return year === 2026 ? authorizedSalary2026 : authorizedSalary
-}
-
 export function actualYearFor(data: AuthorizedSalary): number | null {
   return data.records.find((r) => r.actualYear)?.actualYear ?? null
 }
@@ -49,9 +47,6 @@ export function actualYearFor(data: AuthorizedSalary): number | null {
 export function matchedCountFor(data: AuthorizedSalary): number {
   return data.records.filter((r) => r.actualGross != null).length
 }
-
-export const salaryActualYear = actualYearFor(authorizedSalary)
-export const salaryMatchedCount = matchedCountFor(authorizedSalary)
 
 // ---- 2025 -> 2026 raise comparison ----
 
@@ -89,5 +84,3 @@ export type SalaryComparison = {
   summary: RaiseSummary
   records: RaiseRecord[]
 }
-
-export const salaryComparison = comparisonJson as SalaryComparison

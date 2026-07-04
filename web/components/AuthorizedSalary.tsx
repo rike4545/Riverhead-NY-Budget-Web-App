@@ -1,7 +1,8 @@
 'use client'
 
 import { useMemo, useState } from 'react'
-import { authorizedFor, actualYearFor, matchedCountFor, type SalaryRecord } from '../lib/salary'
+import { useFetchJson, LoadingCard } from './useFetchJson'
+import { authorizedSalaryUrl, actualYearFor, matchedCountFor, type AuthorizedSalary as AuthorizedSalaryData, type SalaryRecord } from '../lib/salary'
 
 const usd = (n: number | null | undefined) =>
   n == null ? '—' : new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(n)
@@ -18,7 +19,11 @@ export default function AuthorizedSalary() {
   const [limit, setLimit] = useState(100)
   const yq = q.trim().toLowerCase()
 
-  const data = authorizedFor(year)
+  // Fetched at runtime (not bundled); cached across year switches.
+  const { data: fetched, error: loadError } = useFetchJson<AuthorizedSalaryData>(authorizedSalaryUrl(year))
+  const data: AuthorizedSalaryData = fetched ?? {
+    source: { title: '', url: '' }, year, note: '', count: 0, totalAuthorized: 0, byGroup: [], records: [],
+  }
   const groups = data.byGroup
   const actualYear = actualYearFor(data)
   const matchedCount = matchedCountFor(data)
@@ -53,6 +58,9 @@ export default function AuthorizedSalary() {
         ))}
         <span style={{ color: '#64748b', fontSize: 13 }}>Board-authorized base salaries for {year}.</span>
       </section>
+
+      {!fetched && !loadError && <LoadingCard label={`Loading the ${year} salary schedule…`} />}
+      {loadError && <LoadingCard label="Could not load the salary data — check your connection and reload." />}
 
       <section style={{ ...card, display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(160px,1fr))', gap: 12 }}>
         <Stat label={`Positions (${year})`} value={data.count.toLocaleString()} />

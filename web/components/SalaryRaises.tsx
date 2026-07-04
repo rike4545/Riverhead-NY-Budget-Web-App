@@ -1,7 +1,8 @@
 'use client'
 
 import { useMemo, useState } from 'react'
-import { salaryComparison, type RaiseRecord } from '../lib/salary'
+import { useFetchJson, LoadingCard } from './useFetchJson'
+import { SALARY_COMPARISON_URL, type SalaryComparison, type RaiseRecord } from '../lib/salary'
 
 const usd = (n: number | null | undefined) =>
   n == null ? '—' : new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(n)
@@ -10,8 +11,16 @@ const sel = { padding: '9px 11px', border: '1px solid #cbd5e1', borderRadius: 9,
 
 type SortKey = 'raise' | 'raisePct' | 'annual2026' | 'name'
 
+const EMPTY_SUMMARY = {
+  count2026: 0, matched: 0, raised: 0, promotions: 0,
+  totalRaise: 0, avgRaise: 0, medianRaisePct: null, topRaises: [],
+}
+
 export default function SalaryRaises() {
-  const { summary, records } = salaryComparison
+  // Fetched at runtime (not bundled).
+  const { data: comparison, error: loadError } = useFetchJson<SalaryComparison>(SALARY_COMPARISON_URL)
+  const summary = comparison?.summary ?? EMPTY_SUMMARY
+  const records = useMemo(() => comparison?.records ?? [], [comparison])
   const [q, setQ] = useState('')
   const [only, setOnly] = useState<'all' | 'raised' | 'promotions'>('raised')
   const [sortKey, setSortKey] = useState<SortKey>('raise')
@@ -33,6 +42,9 @@ export default function SalaryRaises() {
     })
     return list
   }, [records, only, yq, sortKey])
+
+  if (!comparison && !loadError) return <LoadingCard label="Loading the raise comparison…" />
+  if (loadError) return <LoadingCard label="Could not load the raise data — check your connection and reload." />
 
   return (
     <div style={{ display: 'grid', gap: 16 }}>
@@ -133,7 +145,7 @@ export default function SalaryRaises() {
       </section>
 
       <p style={{ color: '#64748b', fontSize: 13, lineHeight: 1.5 }}>
-        Source: {salaryComparison.source.title}. {salaryComparison.note} A raise here is the change in Board-authorized
+        Source: {comparison?.source.title ?? 'Town Board salary resolutions'}. {comparison?.note ?? ''} A raise here is the change in Board-authorized
         base salary; it excludes overtime and stipends. People who were part-time or hourly in 2025 show &quot;n/a&quot; for
         the 2025 salary because there was no comparable full-time figure.
       </p>

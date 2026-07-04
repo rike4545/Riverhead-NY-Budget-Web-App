@@ -1,57 +1,58 @@
+// Post-build smoke check: run with `npm run verify` after `npm run build`.
+// Confirms the export contains the pages and datasets the site depends on.
+
 import { existsSync, readFileSync } from 'node:fs'
 import { join } from 'node:path'
 
 const root = process.cwd()
+
 const requiredFiles = [
   'app/page.tsx',
   'components/FiscalCommandCenter.tsx',
-  'components/InteractiveDashboard.tsx',
+  'components/PayrollTabs.tsx',
+  'components/UnifiedSearch.tsx',
   'lib/all-funds.ts',
-  'lib/analytics-modules.ts',
-  'lib/department-drilldowns.ts',
-  'lib/financial-data.ts',
-  'lib/financial-reports-archive.ts',
-  'lib/intelligence.ts',
-  'lib/retirement-risk-analysis.ts',
-  'lib/source-documents.ts',
-  'lib/surplus-scenarios.ts',
+  'lib/afr.ts',
+  'lib/payroll.ts',
+  'lib/salary.ts',
+  'lib/meetings.ts',
+  'lib/subaccounts.ts',
+  'lib/budget-history.ts',
+  'lib/general-fund.ts',
 ]
 
-const missing = requiredFiles.filter((file) => !existsSync(join(root, file)))
+const requiredOutputs = [
+  'out/index.html',
+  'out/guide/index.html',
+  'out/payroll/index.html',
+  'out/funds/index.html',
+  'out/funds/A01/index.html',
+  'out/compare/index.html',
+  'out/general-fund/index.html',
+  'out/annual-report/index.html',
+  'out/meetings/index.html',
+  'out/search/index.html',
+  'out/downloads/index.html',
+  'out/sitemap.xml',
+  'out/robots.txt',
+  'out/data/search/unified.json',
+  'out/data/payroll/records.json',
+  'out/downloads/payroll_actual_2018_2023.csv',
+]
+
+const missing = [...requiredFiles, ...requiredOutputs].filter((f) => !existsSync(join(root, f)))
 if (missing.length) {
   console.error('Missing required files:')
   for (const file of missing) console.error(`- ${file}`)
   process.exit(1)
 }
 
-const page = readFileSync(join(root, 'app/page.tsx'), 'utf8')
-if (!page.includes('FiscalCommandCenter') && !page.includes('InteractiveDashboard')) {
-  console.error('app/page.tsx is not wired to a dashboard component.')
-  process.exit(1)
-}
-
-const commandCenter = existsSync(join(root, 'components/FiscalCommandCenter.tsx'))
-  ? readFileSync(join(root, 'components/FiscalCommandCenter.tsx'), 'utf8')
-  : ''
-
-const requiredCopy = [
-  'Not an official Town website',
-  'All Operating Funds',
-  'Fund Balance / Reserve Use',
-  'Scenario Lab',
-  'Early Retirement Risk Review',
-  'Automation and Analytics Modules',
-]
-
-const missingCopy = requiredCopy.filter((text) => !commandCenter.includes(text))
+const home = readFileSync(join(root, 'out/index.html'), 'utf8')
+const requiredCopy = ['Payroll Explorer', 'Start Here']
+const missingCopy = requiredCopy.filter((text) => !home.includes(text))
 if (missingCopy.length) {
-  console.error('Missing required interface sections:')
+  console.error('Missing expected home-page content:')
   for (const text of missingCopy) console.error(`- ${text}`)
-  process.exit(1)
-}
-
-if (!existsSync(join(root, 'out', 'index.html'))) {
-  console.error('Static export failed: out/index.html was not generated.')
   process.exit(1)
 }
 

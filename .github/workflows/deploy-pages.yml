@@ -70,6 +70,20 @@ jobs:
         run: |
           npm run build
           touch out/.nojekyll
+          npm run verify
+
+      - name: Trim heavyweight parser outputs from the Pages artifact
+        working-directory: web
+        # These raw parser files (~175MB) are ETL inputs kept in the repo, but
+        # nothing on the site fetches them at runtime — search uses the compact
+        # data/search/unified.json instead. Removing them cuts the deploy
+        # artifact by ~95%.
+        run: |
+          rm -rf out/data/financial-reports/documents
+          rm -f out/data/financial-reports/line-item-candidates.json
+          rm -f out/data/financial-reports/search-index.json
+          rm -f out/data/financial-reports/citations.json
+          du -sh out
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3

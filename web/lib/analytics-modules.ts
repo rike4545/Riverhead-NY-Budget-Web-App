@@ -16,10 +16,10 @@ export type AnalyticsModule = {
 export const analyticsModules: AnalyticsModule[] = [
   {
     name: 'Searchable Financial Records',
-    status: 'partial',
-    description: 'Search across funds, departments, appropriations, revenues, reserves, debt references, payroll references, source documents, and extracted monetary values. The platform is evolving toward full line-item search directly from budgets, AFRs, audits, and supporting financial records.',
-    sourceBasis: '2026 adopted budget extracted fund data plus parsed financial-report JSON pipeline.',
-    nextStep: 'Bind the resident-facing search experience directly to generated parser datasets and live extracted document records.',
+    status: 'active',
+    description: 'One unified search across budget line items, employee payroll, Board-authorized salaries, Town Board votes, operating funds, and 12,000+ parsed document pages, with live filtering by record type.',
+    sourceBasis: 'Compact unified index built from every structured dataset plus the parsed financial-report archive.',
+    nextStep: 'Add fielded queries (year, dollar ranges) and deep links from results into pre-filtered views.',
   },
   {
     name: 'Resident-Focused AI Explanations',
