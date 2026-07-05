@@ -17,7 +17,9 @@ const sectionAnchors = [
   ['Disclaimers', '#disclaimers'],
 ]
 
-const shell = { background: 'white', border: '1px solid #e2e8f0', borderRadius: 24, boxShadow: '0 24px 60px rgba(15,23,42,.08)' } as const
+// Matches the standard card style used on every other page (see e.g. funds/page.tsx)
+// so the home page reads as part of the same site.
+const shell = { background: 'white', border: '1px solid #e2e8f0', borderRadius: 16, boxShadow: '0 14px 34px rgba(15,23,42,.05)' } as const
 const muted = '#64748b'
 
 const surplusScenario = {
