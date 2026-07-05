@@ -6,12 +6,8 @@ import { archiveStats, financialReportsArchive } from '../lib/financial-reports-
 import { dollars } from '../lib/financial-data'
 
 const base = '/rike4545-riverhead-budget-live'
-const nav = [
-  ['Command Center', '#top'],
-  ['🟢 Start Here (plain English)', `${base}/guide/`],
-  ['Payroll Explorer', `${base}/payroll/`],
-  ['Funds & Sub-Accounts', `${base}/funds/`],
-  ['Budget Compare', `${base}/compare/`],
+// In-page section anchors (site navigation lives in the shared PageShell header).
+const sectionAnchors = [
   ['Resident Insights', '#insights'],
   ['All Funds', '#funds'],
   ['Reserve Use', '#reserves'],
@@ -52,47 +48,18 @@ export default function FiscalCommandCenter() {
   const recentDocs = financialReportsArchive.slice(0, 10)
 
   return (
-    <main id="top" style={{ minHeight: '100vh', background: 'radial-gradient(circle at top left,#e0f2fe 0,#f8fafc 34%,#eef2ff 100%)', color: '#0f172a', fontFamily: 'Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Arial, sans-serif' }}>
-      <section style={{ display: 'grid', gridTemplateColumns: '290px 1fr', minHeight: '100vh' }}>
-        <aside style={{ position: 'sticky', top: 0, alignSelf: 'start', height: '100vh', overflow: 'auto', padding: 22, color: 'white', background: 'linear-gradient(180deg,#061a32,#092846 60%,#020617)' }}>
-          <div style={{ display: 'flex', gap: 12, alignItems: 'center' }}>
-            <div style={{ width: 56, height: 56, borderRadius: 18, background: 'linear-gradient(135deg,#bfdbfe,#60a5fa)', color: '#082f49', display: 'grid', placeItems: 'center', fontWeight: 950 }}>RB</div>
-            <div>
-              <div style={{ fontSize: 22, lineHeight: 1, fontWeight: 950 }}>Riverhead<br />Budget Live</div>
-              <div style={{ color: '#bfdbfe', fontSize: 12, marginTop: 5 }}>Unofficial fiscal intelligence</div>
-            </div>
-          </div>
+    <div id="top">
+      <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', alignItems: 'center' }}>
+        <span style={{ color: '#64748b', fontWeight: 800, fontSize: 12.5, textTransform: 'uppercase', letterSpacing: 0.5 }}>On this page:</span>
+        {sectionAnchors.map(([label, href]) => (
+          <a key={href} href={href} style={{ color: '#1f5f8f', textDecoration: 'none', border: '1px solid #cbd5e1', background: 'white', borderRadius: 999, padding: '6px 12px', fontWeight: 800, fontSize: 12.5 }}>{label}</a>
+        ))}
+        <span style={{ color: '#64748b', fontSize: 12.5, marginLeft: 'auto' }}>
+          Source coverage: {archiveStats.indexedItems} documents across {archiveStats.yearsCovered} years
+        </span>
+      </div>
 
-          <div style={{ marginTop: 20, border: '1px solid rgba(252,165,165,.35)', background: 'rgba(127,29,29,.32)', borderRadius: 16, padding: 14, fontSize: 12, lineHeight: 1.45 }}>
-            <strong>Not an official Town website.</strong>
-            <div style={{ marginTop: 5, color: '#fecaca' }}>Independent public-analysis project. Verify figures against official Town source documents.</div>
-          </div>
-
-          <nav style={{ display: 'grid', gap: 8, marginTop: 26 }}>
-            {nav.map(([label, href]) => (
-              <a key={href} href={href} style={{ color: 'white', textDecoration: 'none', padding: '12px 14px', borderRadius: 14, background: 'rgba(255,255,255,.06)', border: '1px solid rgba(147,197,253,.16)', fontWeight: 800 }}>{label}</a>
-            ))}
-          </nav>
-
-          <div style={{ marginTop: 26, border: '1px solid rgba(147,197,253,.22)', borderRadius: 18, padding: 15, background: 'rgba(15,23,42,.35)' }}>
-            <strong>Source coverage</strong>
-            <div style={{ color: '#bfdbfe', marginTop: 8, fontSize: 14 }}>{archiveStats.indexedItems} documents across {archiveStats.yearsCovered} years.</div>
-          </div>
-        </aside>
-
-        <section style={{ padding: 32, maxWidth: 1500 }}>
-          <header style={{ ...shell, padding: 28, background: 'linear-gradient(135deg,#ffffff,#f8fbff)' }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', gap: 20, alignItems: 'flex-start' }}>
-              <div>
-                <div style={{ color: '#2563eb', letterSpacing: 3, fontWeight: 950, fontSize: 12, textTransform: 'uppercase' }}>Municipal Fiscal Command Center</div>
-                <h1 style={{ fontSize: 46, lineHeight: 1.02, margin: '10px 0' }}>Readable budget intelligence for residents.</h1>
-                <p style={{ fontSize: 18, color: '#475569', maxWidth: 850, margin: 0 }}>Plain-English insights, fund drilldowns, reserve-use tracking, scenario modeling, and automated source parsing for Town of Riverhead financial documents.</p>
-              </div>
-              <div style={{ borderRadius: 999, background: '#dcfce7', color: '#166534', padding: '10px 14px', fontWeight: 950, whiteSpace: 'nowrap' }}>Source-first</div>
-            </div>
-          </header>
-
-          <a href={`${base}/guide/`} style={{ display: 'block', textDecoration: 'none', marginTop: 18 }}>
+      <a href={`${base}/guide/`} style={{ display: 'block', textDecoration: 'none', marginTop: 18 }}>
             <div style={{ background: '#eef6ff', border: '1px solid #bcd9f5', borderLeft: '6px solid #1f5f8f', borderRadius: 14, padding: '14px 18px', display: 'flex', gap: 12, alignItems: 'center', flexWrap: 'wrap' }}>
               <span aria-hidden style={{ fontSize: 22 }}>👋</span>
               <span style={{ color: '#1f3a52', fontSize: 15.5, lineHeight: 1.5 }}>
@@ -270,9 +237,7 @@ export default function FiscalCommandCenter() {
             <p>Financial information is derived from publicly available source documents. Parsed values, AI-generated explanations, projections, summaries, classifications, and trend analyses may contain errors, omissions, extraction issues, OCR limitations, or timing mismatches.</p>
             <p>Users should verify all figures and interpretations against original official source documents before relying on them.</p>
           </section>
-        </section>
-      </section>
-    </main>
+    </div>
   )
 }
 
