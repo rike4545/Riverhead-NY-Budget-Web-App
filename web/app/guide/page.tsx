@@ -106,6 +106,27 @@ export default function GuidePage() {
         </p>
       </section>
 
+      <section id="budget-process" style={{ ...card, marginBottom: 18, scrollMarginTop: 24 }}>
+        <h2 style={{ marginTop: 0, color: '#12385b' }}>How the budget gets made</h2>
+        <p style={{ color: '#1f3a52', fontSize: 15.5, lineHeight: 1.6 }}>
+          Each fall, Riverhead&apos;s budget goes through four public stages, and you can see all four in this site&apos;s data:
+        </p>
+        <ol style={{ color: '#1f3a52', fontSize: 15.5, lineHeight: 1.7, paddingLeft: 22, margin: '0 0 12px' }}>
+          <li><strong>Department requests</strong> — each department proposes what it needs for the coming year.</li>
+          <li><strong>Tentative budget</strong> — the Supervisor assembles the requests into a first full draft.</li>
+          <li><strong>Preliminary budget</strong> — the Town Board revises the tentative budget and holds a public hearing where residents can comment.</li>
+          <li><strong>Adopted budget</strong> — the Board votes to approve the final budget in November. This is the official plan the rest of this site is built on.</li>
+        </ol>
+        <p style={{ color: '#1f3a52', fontSize: 15.5, lineHeight: 1.6, margin: 0 }}>
+          The budget can still change after adoption — but only by a formal Town Board vote. Those amendments (budget
+          adoptions for capital projects, transfers, salary changes) appear as resolutions in the{' '}
+          <a href={`${base}/meetings/`} style={{ color: '#1f5f8f', fontWeight: 800 }}>Town Board Votes</a> record, so
+          you can watch the plan evolve during the year. And when the year ends, the{' '}
+          <a href={`${base}/annual-report/`} style={{ color: '#1f5f8f', fontWeight: 800 }}>Annual Report</a> shows what
+          actually happened compared with the plan.
+        </p>
+      </section>
+
       <h2 id="glossary" style={{ color: '#12385b' }}>Budget words, explained</h2>
       <p style={{ color: '#475569', marginTop: 0 }}>Every term the site uses, in everyday language.</p>
       <Glossary />

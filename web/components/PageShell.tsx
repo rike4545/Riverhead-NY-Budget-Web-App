@@ -13,6 +13,7 @@ export default function PageShell({ title, subtitle, children }: { title: string
     ['Town Board Votes', `${base}/meetings/`],
     ['Search', `${base}/search/`],
     ['Downloads', `${base}/downloads/`],
+    ['Standards', `${base}/gfoa/`],
     ['Analytics', `${base}/analytics/`],
     ['Source Library', `${base}/sources/`],
     ['Scenario Lab', `${base}/scenarios/`],
