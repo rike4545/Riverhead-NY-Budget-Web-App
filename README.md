@@ -242,20 +242,38 @@ docs/       Architecture, parser, and intelligence documentation
 .cache/     Cached downloaded source documents
 ```
 
-## Data pipeline
+## The automated data pipeline
 
-| Script | Output | Notes |
-| --- | --- | --- |
-| `etl/parse_financial_reports.py` | `web/public/data/financial-reports/` | Parses every Town PDF into searchable page records |
-| `etl/parse_subaccounts.py` | `web/public/data/subaccounts/` | Fund → department → category → account line items; reconciles to the dollar |
-| `etl/parse_budget_history.py` | `web/public/data/history/` | Fund-level adopted appropriations 2020–2026 |
-| `etl/parse_general_fund.py` | `web/public/data/history/general-fund.json` | Long-run General Fund history 2005–2026 |
-| `etl/parse_payroll.py` | `web/public/data/payroll/` | Per-employee gross/overtime/base pay 2018–2023 |
+The site keeps itself current. Every Monday (and on demand), a GitHub Action
+runs the full pipeline:
 
-The weekly **Parse Financial Reports** GitHub Action regenerates all of the
-above and commits any changes. Payroll regenerates from the slimmed CSVs in
-`etl/data/payroll/`, so it is reproducible in CI without the original
-140-column exports.
+1. **Fetch** — new Town Board meeting minutes are pulled from the Town's
+   CivicClerk portal (`fetch_meetings.py`); financial-report PDFs are
+   re-ingested from the Town website.
+2. **Parse & validate** — every dataset below is regenerated from the raw
+   documents; budget line items must reconcile to the dollar against the
+   official Summary page.
+3. **Publish** — the unified search index, CSV downloads, and a data-freshness
+   stamp are rebuilt; changes are committed; the site verifies its build and
+   redeploys itself. Every page shows "Data last refreshed ⟨date⟩."
+
+| Script | Produces |
+| --- | --- |
+| `fetch_meetings.py` | New meeting-minutes text from the CivicClerk API (idempotent) |
+| `parse_financial_reports.py` | Searchable page records for every Town PDF |
+| `parse_subaccounts.py` | Fund → department → category → account line items, with 2020–2026 history |
+| `parse_budget_history.py` / `parse_general_fund.py` | Fund appropriations 2020–2026; General Fund 2005–2025 |
+| `parse_afr.py` | Actual year-end results (revenues, spending, surplus, fund balance) for all 14 AFR funds |
+| `parse_meetings.py` | The voting record — every resolution and vote, plus per-member career records |
+| `parse_salary_schedule.py` / `parse_salary_2026.py` | Board-authorized salaries for 2025 and 2026, and the raise comparison |
+| `parse_payroll.py` | Per-employee actual pay 2018–2023 (from slimmed CSVs committed in `etl/data/`) |
+| `build_search_index.py` | The compact unified search index (16,000+ entries) |
+| `export_csv.py` | Ten CSV downloads for journalists and researchers |
+| `write_meta.py` | The sitewide data-freshness stamp |
+
+Every input the pipeline needs (minutes text, slimmed payroll CSVs, the AFR
+PDF, agenda text) is committed to the repo, so any run is reproducible from a
+clean checkout.
 
 ---
 
