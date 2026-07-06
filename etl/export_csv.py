@@ -55,15 +55,15 @@ def build():
               [[r["name"], r.get("title2025") or "", r["title2026"], r["group"], r.get("annual2025"),
                 r["annual2026"], r.get("raise"), r.get("raisePct"), r.get("promoted")] for r in c["records"]])
 
-    # Town Board votes
+    # Town Board votes. Member columns are the UNION across meetings — the
+    # board roster changes between years (e.g. Hubbard 2025 -> Halpin 2026),
+    # so a per-meeting column list would misalign rows.
     idx = load("meetings/index.json")
     if idx:
+        meetings = [m2 for m in idx["meetings"] if (m2 := load(f"meetings/{m['slug']}.json"))]
+        members = sorted({last for m in meetings for last in m["memberTallies"]})
         rows = []
-        for m in idx["meetings"]:
-            meeting = load(f"meetings/{m['slug']}.json")
-            if not meeting:
-                continue
-            members = sorted(meeting["memberTallies"].keys())
+        for meeting in meetings:
             for r in meeting["resolutions"]:
                 rows.append([meeting["date"], r["seq"], r["number"] or "", r["title"], r["result"],
                              r["adopted"], r["mover"], r["seconder"]] + [r["votes"].get(mm, "") for mm in members])

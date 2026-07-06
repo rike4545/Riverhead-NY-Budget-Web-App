@@ -1,11 +1,17 @@
 // Town Board voting record, extracted from meeting minutes by
-// etl/parse_meetings.py. Each resolution records the result, who moved and
-// seconded it, and how every member voted.
+// etl/parse_meetings.py. The small index (meeting list + totals) is imported
+// at build time; each meeting's full record is fetched at runtime.
 
 import indexJson from '../public/data/meetings/index.json'
-import jan2025 from '../public/data/meetings/2025-01-07.json'
+
+const base = '/rike4545-riverhead-budget-live'
+
+export function meetingUrl(slug: string): string {
+  return `${base}/data/meetings/${slug}.json`
+}
 
 export type Vote = 'aye' | 'nay' | 'abstain' | 'absent'
+export type ResolutionTag = 'unanimous' | 'split' | 'failed' | 'tabled'
 
 export type Resolution = {
   seq: number
@@ -13,13 +19,15 @@ export type Resolution = {
   title: string
   result: string
   adopted: boolean
-  tag: 'unanimous' | 'split' | 'failed'
+  tag: ResolutionTag
   ayesCount: number | null
   naysCount: number | null
   mover: string
   seconder: string
   votes: Record<string, Vote>
 }
+
+export type RosterMember = { last: string; name: string; title: string }
 
 export type MemberTally = {
   name: string
@@ -32,32 +40,34 @@ export type MemberTally = {
   seconded: number
 }
 
+export type MeetingStats = { total: number; unanimous: number; contested: number; failed: number; tabled: number }
+
 export type Meeting = {
   slug: string
   date: string
   type: string
   calledToOrder: string | null
+  roster: RosterMember[]
   resolutions: Resolution[]
-  stats: { total: number; unanimous: number; contested: number; failed: number }
+  stats: MeetingStats
   memberTallies: Record<string, MemberTally>
+}
+
+export type MeetingIndexEntry = {
+  slug: string
+  date: string
+  type: string
+  total: number
+  unanimous: number
+  contested: number
+  failed: number
+  tabled: number
 }
 
 export type MeetingsIndex = {
   source: { title: string; url: string }
-  meetings: { slug: string; date: string; type: string; total: number; unanimous: number; contested: number; failed: number }[]
+  totals: { meetings: number; votes: number; contested: number; failed: number; tabled: number }
+  meetings: MeetingIndexEntry[]
 }
 
 export const meetingsIndex = indexJson as MeetingsIndex
-
-const meetings: Record<string, Meeting> = {
-  '2025-01-07': jan2025 as unknown as Meeting,
-}
-
-export function getMeeting(slug: string): Meeting | undefined {
-  return meetings[slug]
-}
-
-export const latestMeeting = meetings[meetingsIndex.meetings[0].slug]
-
-// Member display order (Supervisor first).
-export const MEMBER_ORDER = ['Hubbard', 'Rothwell', 'Kern', 'Merrifield', 'Waski']

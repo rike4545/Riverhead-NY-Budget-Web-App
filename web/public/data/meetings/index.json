@@ -1,9 +1,136 @@
 {
  "source": {
   "title": "Town of Riverhead Town Board Meeting Minutes",
-  "url": "https://www.townofriverheadny.gov/AgendaCenter"
+  "url": "https://www.townofriverheadny.gov/129/Agendas-Minutes"
+ },
+ "totals": {
+  "meetings": 13,
+  "votes": 721,
+  "contested": 17,
+  "failed": 1,
+  "tabled": 3
  },
  "meetings": [
+  {
+   "slug": "2026-06-16",
+   "date": "June 16, 2026",
+   "type": "Regular Meeting",
+   "total": 66,
+   "unanimous": 65,
+   "contested": 1,
+   "failed": 0,
+   "tabled": 0
+  },
+  {
+   "slug": "2026-06-02",
+   "date": "June 2, 2026",
+   "type": "Regular Meeting",
+   "total": 39,
+   "unanimous": 38,
+   "contested": 1,
+   "failed": 0,
+   "tabled": 0
+  },
+  {
+   "slug": "2026-05-20",
+   "date": "May 20, 2026",
+   "type": "Regular Meeting",
+   "total": 56,
+   "unanimous": 56,
+   "contested": 0,
+   "failed": 0,
+   "tabled": 0
+  },
+  {
+   "slug": "2026-05-05",
+   "date": "May 5, 2026",
+   "type": "Regular Meeting",
+   "total": 58,
+   "unanimous": 57,
+   "contested": 1,
+   "failed": 0,
+   "tabled": 0
+  },
+  {
+   "slug": "2026-04-21",
+   "date": "April 21, 2026",
+   "type": "Regular Meeting",
+   "total": 52,
+   "unanimous": 48,
+   "contested": 4,
+   "failed": 0,
+   "tabled": 0
+  },
+  {
+   "slug": "2026-04-07",
+   "date": "April 7, 2026",
+   "type": "Regular Meeting",
+   "total": 93,
+   "unanimous": 92,
+   "contested": 1,
+   "failed": 0,
+   "tabled": 0
+  },
+  {
+   "slug": "2026-03-17",
+   "date": "March 17, 2026",
+   "type": "Regular Meeting",
+   "total": 46,
+   "unanimous": 44,
+   "contested": 1,
+   "failed": 0,
+   "tabled": 1
+  },
+  {
+   "slug": "2026-03-03",
+   "date": "March 3, 2026",
+   "type": "Regular Meeting",
+   "total": 27,
+   "unanimous": 27,
+   "contested": 0,
+   "failed": 0,
+   "tabled": 0
+  },
+  {
+   "slug": "2026-02-18",
+   "date": "February 18, 2026",
+   "type": "Regular Meeting",
+   "total": 40,
+   "unanimous": 40,
+   "contested": 0,
+   "failed": 0,
+   "tabled": 0
+  },
+  {
+   "slug": "2026-02-03",
+   "date": "February 3, 2026",
+   "type": "Regular Meeting",
+   "total": 54,
+   "unanimous": 52,
+   "contested": 2,
+   "failed": 0,
+   "tabled": 0
+  },
+  {
+   "slug": "2026-01-21",
+   "date": "January 21, 2026",
+   "type": "Regular Meeting",
+   "total": 40,
+   "unanimous": 40,
+   "contested": 0,
+   "failed": 0,
+   "tabled": 0
+  },
+  {
+   "slug": "2026-01-06",
+   "date": "January 6, 2026",
+   "type": "Regular Meeting",
+   "total": 60,
+   "unanimous": 57,
+   "contested": 1,
+   "failed": 0,
+   "tabled": 2
+  },
   {
    "slug": "2025-01-07",
    "date": "January 7, 2025",
@@ -11,7 +138,8 @@
    "total": 90,
    "unanimous": 85,
    "contested": 5,
-   "failed": 1
+   "failed": 1,
+   "tabled": 0
   }
  ]
 }
