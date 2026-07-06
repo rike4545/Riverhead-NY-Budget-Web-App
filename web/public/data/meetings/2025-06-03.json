@@ -1,0 +1,930 @@
+{
+ "date": "June 3, 2025",
+ "type": "Regular Meeting",
+ "calledToOrder": "2:04 PM",
+ "roster": [
+  {
+   "last": "Hubbard",
+   "name": "Tim Hubbard",
+   "title": "Supervisor"
+  },
+  {
+   "last": "Rothwell",
+   "name": "Kenneth Rothwell",
+   "title": "Councilman"
+  },
+  {
+   "last": "Kern",
+   "name": "Robert Kern",
+   "title": "Councilman"
+  },
+  {
+   "last": "Merrifield",
+   "name": "Denise Merrifield",
+   "title": "Councilwoman"
+  },
+  {
+   "last": "Waski",
+   "name": "Joann Waski",
+   "title": "Councilwoman"
+  }
+ ],
+ "resolutions": [
+  {
+   "seq": 1,
+   "number": "2025-467",
+   "title": "Water District Capital Project #82424 Budget Adoption for Electrical Upgrade at Plant No. 7 RESULT: ADOPTED [UNANIMOUS] MOVER: Kenneth Rothwell, Councilman SECONDER: Robert Kern, Councilman AYES: Hubbard, Rothwell, Kern, Merrifield, Waski",
+   "result": "ADOPTED [UNANIMOUS]",
+   "adopted": true,
+   "tag": "unanimous",
+   "ayesCount": null,
+   "naysCount": 0,
+   "mover": "Kenneth Rothwell",
+   "seconder": "Robert Kern",
+   "votes": {
+    "Hubbard": "aye",
+    "Rothwell": "aye",
+    "Kern": "aye",
+    "Merrifield": "aye",
+    "Waski": "aye"
+   }
+  },
+  {
+   "seq": 2,
+   "number": "2025-468",
+   "title": "Authorizes the Supervisor to Execute an Agreement Authorizing the Town to Accept Funds from Suffolk County Office for the Aging to Supplement the Town\u2019s 2025 Residential Repair Program for the Elderly RESULT: ADOPTED [UNANIMOUS] MOVER: Robert Kern, Councilman SECONDER: Denise Merrifield, Councilwoman AYES: Hubbard, Rothwell, Kern, Merrifield, Waski",
+   "result": "ADOPTED [UNANIMOUS]",
+   "adopted": true,
+   "tag": "unanimous",
+   "ayesCount": null,
+   "naysCount": 0,
+   "mover": "Robert Kern",
+   "seconder": "Denise Merrifield",
+   "votes": {
+    "Hubbard": "aye",
+    "Rothwell": "aye",
+    "Kern": "aye",
+    "Merrifield": "aye",
+    "Waski": "aye"
+   }
+  },
+  {
+   "seq": 3,
+   "number": "2025-469",
+   "title": "Ratifies Acceptance of Donation of Services from Peconic Monument Works RESULT: ADOPTED [UNANIMOUS] MOVER: Denise Merrifield, Councilwoman SECONDER: Joann Waski, Councilwoman AYES: Hubbard, Rothwell, Kern, Merrifield, Waski",
+   "result": "ADOPTED [UNANIMOUS]",
+   "adopted": true,
+   "tag": "unanimous",
+   "ayesCount": null,
+   "naysCount": 0,
+   "mover": "Denise Merrifield",
+   "seconder": "Joann Waski",
+   "votes": {
+    "Hubbard": "aye",
+    "Rothwell": "aye",
+    "Kern": "aye",
+    "Merrifield": "aye",
+    "Waski": "aye"
+   }
+  },
+  {
+   "seq": 4,
+   "number": "2025-470",
+   "title": "Authorizes Attendance at Seminar by Fire Marshall RESULT: ADOPTED [UNANIMOUS] MOVER: Joann Waski, Councilwoman SECONDER: Kenneth Rothwell, Councilman AYES: Hubbard, Rothwell, Kern, Merrifield, Waski",
+   "result": "ADOPTED [UNANIMOUS]",
+   "adopted": true,
+   "tag": "unanimous",
+   "ayesCount": null,
+   "naysCount": 0,
+   "mover": "Joann Waski",
+   "seconder": "Kenneth Rothwell",
+   "votes": {
+    "Hubbard": "aye",
+    "Rothwell": "aye",
+    "Kern": "aye",
+    "Merrifield": "aye",
+    "Waski": "aye"
+   }
+  },
+  {
+   "seq": 5,
+   "number": "2025-471",
+   "title": "Ratifies the Authorization for Two Police Officers to Attend a Training RESULT: ADOPTED [UNANIMOUS] MOVER: Kenneth Rothwell, Councilman SECONDER: Robert Kern, Councilman AYES: Hubbard, Rothwell, Kern, Merrifield, Waski",
+   "result": "ADOPTED [UNANIMOUS]",
+   "adopted": true,
+   "tag": "unanimous",
+   "ayesCount": null,
+   "naysCount": 0,
+   "mover": "Kenneth Rothwell",
+   "seconder": "Robert Kern",
+   "votes": {
+    "Hubbard": "aye",
+    "Rothwell": "aye",
+    "Kern": "aye",
+    "Merrifield": "aye",
+    "Waski": "aye"
+   }
+  },
+  {
+   "seq": 6,
+   "number": "2025-472",
+   "title": "Ratifies a Salary Increase for a GIS Technician III RESULT: ADOPTED [UNANIMOUS] MOVER: Robert Kern, Councilman SECONDER: Denise Merrifield, Councilwoman AYES: Hubbard, Rothwell, Kern, Merrifield, Waski",
+   "result": "ADOPTED [UNANIMOUS]",
+   "adopted": true,
+   "tag": "unanimous",
+   "ayesCount": null,
+   "naysCount": 0,
+   "mover": "Robert Kern",
+   "seconder": "Denise Merrifield",
+   "votes": {
+    "Hubbard": "aye",
+    "Rothwell": "aye",
+    "Kern": "aye",
+    "Merrifield": "aye",
+    "Waski": "aye"
+   }
+  },
+  {
+   "seq": 7,
+   "number": "2025-473",
+   "title": "Appoints Seasonal Traffic Control Specialists RESULT: ADOPTED [UNANIMOUS] MOVER: Denise Merrifield, Councilwoman SECONDER: Joann Waski, Councilwoman AYES: Hubbard, Rothwell, Kern, Merrifield, Waski",
+   "result": "ADOPTED [UNANIMOUS]",
+   "adopted": true,
+   "tag": "unanimous",
+   "ayesCount": null,
+   "naysCount": 0,
+   "mover": "Denise Merrifield",
+   "seconder": "Joann Waski",
+   "votes": {
+    "Hubbard": "aye",
+    "Rothwell": "aye",
+    "Kern": "aye",
+    "Merrifield": "aye",
+    "Waski": "aye"
+   }
+  },
+  {
+   "seq": 8,
+   "number": "2025-474",
+   "title": "Appoints Returning Seasonal Employees to the Recreation Department RESULT: ADOPTED [UNANIMOUS] MOVER: Joann Waski, Councilwoman SECONDER: Kenneth Rothwell, Councilman AYES: Hubbard, Rothwell, Kern, Merrifield, Waski",
+   "result": "ADOPTED [UNANIMOUS]",
+   "adopted": true,
+   "tag": "unanimous",
+   "ayesCount": null,
+   "naysCount": 0,
+   "mover": "Joann Waski",
+   "seconder": "Kenneth Rothwell",
+   "votes": {
+    "Hubbard": "aye",
+    "Rothwell": "aye",
+    "Kern": "aye",
+    "Merrifield": "aye",
+    "Waski": "aye"
+   }
+  },
+  {
+   "seq": 9,
+   "number": "2025-475",
+   "title": "Appoints New Seasonal Employees to the Recreation Department RESULT: ADOPTED [UNANIMOUS] MOVER: Kenneth Rothwell, Councilman SECONDER: Robert Kern, Councilman AYES: Hubbard, Rothwell, Kern, Merrifield, Waski",
+   "result": "ADOPTED [UNANIMOUS]",
+   "adopted": true,
+   "tag": "unanimous",
+   "ayesCount": null,
+   "naysCount": 0,
+   "mover": "Kenneth Rothwell",
+   "seconder": "Robert Kern",
+   "votes": {
+    "Hubbard": "aye",
+    "Rothwell": "aye",
+    "Kern": "aye",
+    "Merrifield": "aye",
+    "Waski": "aye"
+   }
+  },
+  {
+   "seq": 10,
+   "number": "2025-476",
+   "title": "Reappoints a Temporary Office Assistant to the Tax Receiver's Office RESULT: ADOPTED [UNANIMOUS] MOVER: Robert Kern, Councilman SECONDER: Denise Merrifield, Councilwoman AYES: Hubbard, Rothwell, Kern, Merrifield, Waski",
+   "result": "ADOPTED [UNANIMOUS]",
+   "adopted": true,
+   "tag": "unanimous",
+   "ayesCount": null,
+   "naysCount": 0,
+   "mover": "Robert Kern",
+   "seconder": "Denise Merrifield",
+   "votes": {
+    "Hubbard": "aye",
+    "Rothwell": "aye",
+    "Kern": "aye",
+    "Merrifield": "aye",
+    "Waski": "aye"
+   }
+  },
+  {
+   "seq": 11,
+   "number": "2025-477",
+   "title": "Ratifies the Provisional Appointment of a Junior Civil Engineer RESULT: ADOPTED [UNANIMOUS] MOVER: Denise Merrifield, Councilwoman SECONDER: Joann Waski, Councilwoman AYES: Hubbard, Rothwell, Kern, Merrifield, Waski",
+   "result": "ADOPTED [UNANIMOUS]",
+   "adopted": true,
+   "tag": "unanimous",
+   "ayesCount": null,
+   "naysCount": 0,
+   "mover": "Denise Merrifield",
+   "seconder": "Joann Waski",
+   "votes": {
+    "Hubbard": "aye",
+    "Rothwell": "aye",
+    "Kern": "aye",
+    "Merrifield": "aye",
+    "Waski": "aye"
+   }
+  },
+  {
+   "seq": 12,
+   "number": "2025-478",
+   "title": "Ratifies the Promotion of a Custodial Worker I to a Custodial Worker III RESULT: ADOPTED [UNANIMOUS] MOVER: Joann Waski, Councilwoman SECONDER: Kenneth Rothwell, Councilman AYES: Hubbard, Rothwell, Kern, Merrifield, Waski",
+   "result": "ADOPTED [UNANIMOUS]",
+   "adopted": true,
+   "tag": "unanimous",
+   "ayesCount": null,
+   "naysCount": 0,
+   "mover": "Joann Waski",
+   "seconder": "Kenneth Rothwell",
+   "votes": {
+    "Hubbard": "aye",
+    "Rothwell": "aye",
+    "Kern": "aye",
+    "Merrifield": "aye",
+    "Waski": "aye"
+   }
+  },
+  {
+   "seq": 13,
+   "number": "2025-479",
+   "title": "Ratifies the Promotion of a Custodial Worker I to a Custodial Worker II RESULT: ADOPTED [UNANIMOUS] MOVER: Kenneth Rothwell, Councilman SECONDER: Robert Kern, Councilman AYES: Hubbard, Rothwell, Kern, Merrifield, Waski",
+   "result": "ADOPTED [UNANIMOUS]",
+   "adopted": true,
+   "tag": "unanimous",
+   "ayesCount": null,
+   "naysCount": 0,
+   "mover": "Kenneth Rothwell",
+   "seconder": "Robert Kern",
+   "votes": {
+    "Hubbard": "aye",
+    "Rothwell": "aye",
+    "Kern": "aye",
+    "Merrifield": "aye",
+    "Waski": "aye"
+   }
+  },
+  {
+   "seq": 14,
+   "number": "2025-480",
+   "title": "Ratifies the Reappointment of Members to the Riverhead Farmland Preservation Committee \u2013 Rottkamp, RESULT: ADOPTED [UNANIMOUS] MOVER: Robert Kern, Councilman SECONDER: Denise Merrifield, Councilwoman AYES: Hubbard, Rothwell, Kern, Merrifield, Waski",
+   "result": "ADOPTED [UNANIMOUS]",
+   "adopted": true,
+   "tag": "unanimous",
+   "ayesCount": null,
+   "naysCount": 0,
+   "mover": "Robert Kern",
+   "seconder": "Denise Merrifield",
+   "votes": {
+    "Hubbard": "aye",
+    "Rothwell": "aye",
+    "Kern": "aye",
+    "Merrifield": "aye",
+    "Waski": "aye"
+   }
+  },
+  {
+   "seq": 15,
+   "number": "2025-481",
+   "title": "Ratifies the Reappointment of a Member to the Riverhead Farmland Preservation Committee \u2013 Scheer RESULT: ADOPTED [UNANIMOUS] MOVER: Denise Merrifield, Councilwoman SECONDER: Joann Waski, Councilwoman AYES: Hubbard, Rothwell, Kern, Merrifield, Waski",
+   "result": "ADOPTED [UNANIMOUS]",
+   "adopted": true,
+   "tag": "unanimous",
+   "ayesCount": null,
+   "naysCount": 0,
+   "mover": "Denise Merrifield",
+   "seconder": "Joann Waski",
+   "votes": {
+    "Hubbard": "aye",
+    "Rothwell": "aye",
+    "Kern": "aye",
+    "Merrifield": "aye",
+    "Waski": "aye"
+   }
+  },
+  {
+   "seq": 16,
+   "number": "2025-482",
+   "title": "Ratifies the Reappointment of a Member to the Riverhead Farmland Preservation Committee \u2013 Schmitt RESULT: ADOPTED [UNANIMOUS] MOVER: Joann Waski, Councilwoman SECONDER: Kenneth Rothwell, Councilman AYES: Hubbard, Rothwell, Kern, Merrifield, Waski",
+   "result": "ADOPTED [UNANIMOUS]",
+   "adopted": true,
+   "tag": "unanimous",
+   "ayesCount": null,
+   "naysCount": 0,
+   "mover": "Joann Waski",
+   "seconder": "Kenneth Rothwell",
+   "votes": {
+    "Hubbard": "aye",
+    "Rothwell": "aye",
+    "Kern": "aye",
+    "Merrifield": "aye",
+    "Waski": "aye"
+   }
+  },
+  {
+   "seq": 17,
+   "number": "2025-483",
+   "title": "Ratifies the Reappointment of a Member of the Riverhead Farmland Preservation Committee \u2013 Wines RESULT: ADOPTED [UNANIMOUS] MOVER: Kenneth Rothwell, Councilman SECONDER: Robert Kern, Councilman AYES: Hubbard, Rothwell, Kern, Merrifield, Waski",
+   "result": "ADOPTED [UNANIMOUS]",
+   "adopted": true,
+   "tag": "unanimous",
+   "ayesCount": null,
+   "naysCount": 0,
+   "mover": "Kenneth Rothwell",
+   "seconder": "Robert Kern",
+   "votes": {
+    "Hubbard": "aye",
+    "Rothwell": "aye",
+    "Kern": "aye",
+    "Merrifield": "aye",
+    "Waski": "aye"
+   }
+  },
+  {
+   "seq": 18,
+   "number": "2025-484",
+   "title": "Ratifies Reappointment of Member to the Parking District Advisory Committee \u2013 Sendlewski RESULT: ADOPTED [UNANIMOUS] MOVER: Robert Kern, Councilman SECONDER: Denise Merrifield, Councilwoman AYES: Hubbard, Rothwell, Kern, Merrifield, Waski",
+   "result": "ADOPTED [UNANIMOUS]",
+   "adopted": true,
+   "tag": "unanimous",
+   "ayesCount": null,
+   "naysCount": 0,
+   "mover": "Robert Kern",
+   "seconder": "Denise Merrifield",
+   "votes": {
+    "Hubbard": "aye",
+    "Rothwell": "aye",
+    "Kern": "aye",
+    "Merrifield": "aye",
+    "Waski": "aye"
+   }
+  },
+  {
+   "seq": 19,
+   "number": "2025-485",
+   "title": "Authorizes Supervisor to Execute Agreement with SUSA Soccer Training LLC for Training and Referee Services for Town of Riverhead Police Athletic League Girls and Boys Soccer Program for the Fall 2025 Soccer Season RESULT: ADOPTED [UNANIMOUS] MOVER: Denise Merrifield, Councilwoman SECONDER: Joann Waski, Councilwoman AYES: Hubbard, Rothwell, Kern, Merrifield, Waski",
+   "result": "ADOPTED [UNANIMOUS]",
+   "adopted": true,
+   "tag": "unanimous",
+   "ayesCount": null,
+   "naysCount": 0,
+   "mover": "Denise Merrifield",
+   "seconder": "Joann Waski",
+   "votes": {
+    "Hubbard": "aye",
+    "Rothwell": "aye",
+    "Kern": "aye",
+    "Merrifield": "aye",
+    "Waski": "aye"
+   }
+  },
+  {
+   "seq": 20,
+   "number": "2025-486",
+   "title": "Awards Bid for Printing and Mailing of Recreation Brochures RESULT: ADOPTED [UNANIMOUS] MOVER: Joann Waski, Councilwoman SECONDER: Kenneth Rothwell, Councilman AYES: Hubbard, Rothwell, Kern, Merrifield, Waski",
+   "result": "ADOPTED [UNANIMOUS]",
+   "adopted": true,
+   "tag": "unanimous",
+   "ayesCount": null,
+   "naysCount": 0,
+   "mover": "Joann Waski",
+   "seconder": "Kenneth Rothwell",
+   "votes": {
+    "Hubbard": "aye",
+    "Rothwell": "aye",
+    "Kern": "aye",
+    "Merrifield": "aye",
+    "Waski": "aye"
+   }
+  },
+  {
+   "seq": 21,
+   "number": "2025-487",
+   "title": "Awards Rebid 203-213 East Main Street Sewer Improvements, Contract S - Sewers RESULT: ADOPTED [UNANIMOUS] MOVER: Kenneth Rothwell, Councilman SECONDER: Robert Kern, Councilman AYES: Hubbard, Rothwell, Kern, Merrifield, Waski",
+   "result": "ADOPTED [UNANIMOUS]",
+   "adopted": true,
+   "tag": "unanimous",
+   "ayesCount": null,
+   "naysCount": 0,
+   "mover": "Kenneth Rothwell",
+   "seconder": "Robert Kern",
+   "votes": {
+    "Hubbard": "aye",
+    "Rothwell": "aye",
+    "Kern": "aye",
+    "Merrifield": "aye",
+    "Waski": "aye"
+   }
+  },
+  {
+   "seq": 22,
+   "number": "2025-488",
+   "title": "Authorizes Designated Alcohol Service Vendors to Serve Alcohol at the 2025 \u201cAlive on 25\u201d Street Festival RESULT: ADOPTED [UNANIMOUS] MOVER: Robert Kern, Councilman SECONDER: Denise Merrifield, Councilwoman AYES: Hubbard, Rothwell, Kern, Merrifield, Waski",
+   "result": "ADOPTED [UNANIMOUS]",
+   "adopted": true,
+   "tag": "unanimous",
+   "ayesCount": null,
+   "naysCount": 0,
+   "mover": "Robert Kern",
+   "seconder": "Denise Merrifield",
+   "votes": {
+    "Hubbard": "aye",
+    "Rothwell": "aye",
+    "Kern": "aye",
+    "Merrifield": "aye",
+    "Waski": "aye"
+   }
+  },
+  {
+   "seq": 23,
+   "number": "2025-489",
+   "title": "Approves Special Event Chapter 255 Application for Foodie Fest Productions, Inc. (Annual Summer Foodie Fest) RESULT: ADOPTED [UNANIMOUS] MOVER: Denise Merrifield, Councilwoman SECONDER: Joann Waski, Councilwoman AYES: Hubbard, Rothwell, Kern, Merrifield, Waski",
+   "result": "ADOPTED [UNANIMOUS]",
+   "adopted": true,
+   "tag": "unanimous",
+   "ayesCount": null,
+   "naysCount": 0,
+   "mover": "Denise Merrifield",
+   "seconder": "Joann Waski",
+   "votes": {
+    "Hubbard": "aye",
+    "Rothwell": "aye",
+    "Kern": "aye",
+    "Merrifield": "aye",
+    "Waski": "aye"
+   }
+  },
+  {
+   "seq": 24,
+   "number": "2025-490",
+   "title": "Approves Special Event Chapter 255 Application for Rise Life Services (RISE Sensory Garden Ken-Ducky Derby Race) RESULT: ADOPTED [UNANIMOUS] MOVER: Joann Waski, Councilwoman SECONDER: Kenneth Rothwell, Councilman AYES: Hubbard, Rothwell, Kern, Merrifield, Waski",
+   "result": "ADOPTED [UNANIMOUS]",
+   "adopted": true,
+   "tag": "unanimous",
+   "ayesCount": null,
+   "naysCount": 0,
+   "mover": "Joann Waski",
+   "seconder": "Kenneth Rothwell",
+   "votes": {
+    "Hubbard": "aye",
+    "Rothwell": "aye",
+    "Kern": "aye",
+    "Merrifield": "aye",
+    "Waski": "aye"
+   }
+  },
+  {
+   "seq": 25,
+   "number": "2025-491",
+   "title": "Approves Special Event Chapter 255 Application for Jamesport Fire Department (Annual Carnival) RESULT: ADOPTED [UNANIMOUS] MOVER: Kenneth Rothwell, Councilman SECONDER: Robert Kern, Councilman AYES: Hubbard, Rothwell, Kern, Merrifield, Waski",
+   "result": "ADOPTED [UNANIMOUS]",
+   "adopted": true,
+   "tag": "unanimous",
+   "ayesCount": null,
+   "naysCount": 0,
+   "mover": "Kenneth Rothwell",
+   "seconder": "Robert Kern",
+   "votes": {
+    "Hubbard": "aye",
+    "Rothwell": "aye",
+    "Kern": "aye",
+    "Merrifield": "aye",
+    "Waski": "aye"
+   }
+  },
+  {
+   "seq": 26,
+   "number": "2025-492",
+   "title": "Approves Special Event Chapter 255 Application for Jamesport Fire Department (Sound to Bay 5K/10K) RESULT: ADOPTED [UNANIMOUS] MOVER: Robert Kern, Councilman SECONDER: Denise Merrifield, Councilwoman AYES: Hubbard, Rothwell, Kern, Merrifield, Waski",
+   "result": "ADOPTED [UNANIMOUS]",
+   "adopted": true,
+   "tag": "unanimous",
+   "ayesCount": null,
+   "naysCount": 0,
+   "mover": "Robert Kern",
+   "seconder": "Denise Merrifield",
+   "votes": {
+    "Hubbard": "aye",
+    "Rothwell": "aye",
+    "Kern": "aye",
+    "Merrifield": "aye",
+    "Waski": "aye"
+   }
+  },
+  {
+   "seq": 27,
+   "number": "2025-493",
+   "title": "Approves Special Event Chapter 255 Application for Riverhead Chamber of Commerce (Cardboard Boat Race) RESULT: ADOPTED [UNANIMOUS] MOVER: Denise Merrifield, Councilwoman SECONDER: Joann Waski, Councilwoman AYES: Hubbard, Rothwell, Kern, Merrifield, Waski",
+   "result": "ADOPTED [UNANIMOUS]",
+   "adopted": true,
+   "tag": "unanimous",
+   "ayesCount": null,
+   "naysCount": 0,
+   "mover": "Denise Merrifield",
+   "seconder": "Joann Waski",
+   "votes": {
+    "Hubbard": "aye",
+    "Rothwell": "aye",
+    "Kern": "aye",
+    "Merrifield": "aye",
+    "Waski": "aye"
+   }
+  },
+  {
+   "seq": 28,
+   "number": "2025-494",
+   "title": "Approves Special Event Chapter 255 Application for Northeast Stage (Othello-Shakespeare in the Park) RESULT: ADOPTED [UNANIMOUS] MOVER: Joann Waski, Councilwoman SECONDER: Kenneth Rothwell, Councilman AYES: Hubbard, Rothwell, Kern, Merrifield, Waski",
+   "result": "ADOPTED [UNANIMOUS]",
+   "adopted": true,
+   "tag": "unanimous",
+   "ayesCount": null,
+   "naysCount": 0,
+   "mover": "Joann Waski",
+   "seconder": "Kenneth Rothwell",
+   "votes": {
+    "Hubbard": "aye",
+    "Rothwell": "aye",
+    "Kern": "aye",
+    "Merrifield": "aye",
+    "Waski": "aye"
+   }
+  },
+  {
+   "seq": 29,
+   "number": "2025-495",
+   "title": "Amends Special Event Chapter 255 Application for Our Future Generation (For Us by Us for All of Us Vendor Fair) RESULT: ADOPTED [UNANIMOUS] MOVER: Kenneth Rothwell, Councilman SECONDER: Robert Kern, Councilman AYES: Hubbard, Rothwell, Kern, Merrifield, Waski",
+   "result": "ADOPTED [UNANIMOUS]",
+   "adopted": true,
+   "tag": "unanimous",
+   "ayesCount": null,
+   "naysCount": 0,
+   "mover": "Kenneth Rothwell",
+   "seconder": "Robert Kern",
+   "votes": {
+    "Hubbard": "aye",
+    "Rothwell": "aye",
+    "Kern": "aye",
+    "Merrifield": "aye",
+    "Waski": "aye"
+   }
+  },
+  {
+   "seq": 30,
+   "number": "2025-496",
+   "title": "Approves Fireworks Permit for the Rock Golf Club (July 5, 2025) RESULT: ADOPTED [UNANIMOUS] MOVER: Robert Kern, Councilman SECONDER: Denise Merrifield, Councilwoman AYES: Hubbard, Rothwell, Kern, Merrifield, Waski",
+   "result": "ADOPTED [UNANIMOUS]",
+   "adopted": true,
+   "tag": "unanimous",
+   "ayesCount": null,
+   "naysCount": 0,
+   "mover": "Robert Kern",
+   "seconder": "Denise Merrifield",
+   "votes": {
+    "Hubbard": "aye",
+    "Rothwell": "aye",
+    "Kern": "aye",
+    "Merrifield": "aye",
+    "Waski": "aye"
+   }
+  },
+  {
+   "seq": 31,
+   "number": "2025-497",
+   "title": "Authorizes Designated Alcohol Service Vendors to Serve Alcohol at the 2025 \u201cDuck Pond Day\u201d Street Festival RESULT: ADOPTED [UNANIMOUS] MOVER: Denise Merrifield, Councilwoman SECONDER: Joann Waski, Councilwoman AYES: Hubbard, Rothwell, Kern, Merrifield, Waski",
+   "result": "ADOPTED [UNANIMOUS]",
+   "adopted": true,
+   "tag": "unanimous",
+   "ayesCount": null,
+   "naysCount": 0,
+   "mover": "Denise Merrifield",
+   "seconder": "Joann Waski",
+   "votes": {
+    "Hubbard": "aye",
+    "Rothwell": "aye",
+    "Kern": "aye",
+    "Merrifield": "aye",
+    "Waski": "aye"
+   }
+  },
+  {
+   "seq": 32,
+   "number": "2025-498",
+   "title": "Authorizes Town Clerk to Publish and Post Public Notice to Consider a Local Law to Amend Chapter 105 RESULT: ADOPTED [UNANIMOUS] MOVER: Joann Waski, Councilwoman SECONDER: Kenneth Rothwell, Councilman AYES: Hubbard, Rothwell, Kern, Merrifield, Waski",
+   "result": "ADOPTED [UNANIMOUS]",
+   "adopted": true,
+   "tag": "unanimous",
+   "ayesCount": null,
+   "naysCount": 0,
+   "mover": "Joann Waski",
+   "seconder": "Kenneth Rothwell",
+   "votes": {
+    "Hubbard": "aye",
+    "Rothwell": "aye",
+    "Kern": "aye",
+    "Merrifield": "aye",
+    "Waski": "aye"
+   }
+  },
+  {
+   "seq": 33,
+   "number": "2025-499",
+   "title": "Resolution Adopting Findings and Determination Pursuant to Article 2 of the Eminent Domain Procedure Law Regarding Acquisition of the Leasehold Interest to the Easterly Ground Floor Rental Unit Located at 127 East Main Street, Riverhead, New York, Suffolk County Tax Map #600-129-1-14, Reputed Lessee SNR Bar 25 Corp. RESULT: ADOPTED [4 TO 1] MOVER: Kenneth Rothwell, Councilman SECONDER: Robert Kern, Councilman AYES: Tim Hubbard, Kenneth Rothwell, Denise Merrifield, Joann Waski NAYS: Robert Kern",
+   "result": "ADOPTED [4 TO 1]",
+   "adopted": true,
+   "tag": "split",
+   "ayesCount": 4,
+   "naysCount": 1,
+   "mover": "Kenneth Rothwell",
+   "seconder": "Robert Kern",
+   "votes": {
+    "Hubbard": "aye",
+    "Rothwell": "aye",
+    "Kern": "nay",
+    "Merrifield": "aye",
+    "Waski": "aye"
+   }
+  },
+  {
+   "seq": 34,
+   "number": "2025-500",
+   "title": "Grants Special Permit for National Grid Facility Upgrades 8 Mill Road, Riverhead, NY SCTM No. 600-120-2-7 RESULT: ADOPTED [UNANIMOUS] MOVER: Robert Kern, Councilman SECONDER: Denise Merrifield, Councilwoman AYES: Hubbard, Rothwell, Kern, Merrifield, Waski",
+   "result": "ADOPTED [UNANIMOUS]",
+   "adopted": true,
+   "tag": "unanimous",
+   "ayesCount": null,
+   "naysCount": 0,
+   "mover": "Robert Kern",
+   "seconder": "Denise Merrifield",
+   "votes": {
+    "Hubbard": "aye",
+    "Rothwell": "aye",
+    "Kern": "aye",
+    "Merrifield": "aye",
+    "Waski": "aye"
+   }
+  },
+  {
+   "seq": 35,
+   "number": "2025-501",
+   "title": "Ratifies Authorization for the Town Attorney to Execute an Agreement with Jeffrey Seeman for SEQRA Review RESULT: ADOPTED [UNANIMOUS] MOVER: Denise Merrifield, Councilwoman SECONDER: Joann Waski, Councilwoman AYES: Hubbard, Rothwell, Kern, Merrifield, Waski",
+   "result": "ADOPTED [UNANIMOUS]",
+   "adopted": true,
+   "tag": "unanimous",
+   "ayesCount": null,
+   "naysCount": 0,
+   "mover": "Denise Merrifield",
+   "seconder": "Joann Waski",
+   "votes": {
+    "Hubbard": "aye",
+    "Rothwell": "aye",
+    "Kern": "aye",
+    "Merrifield": "aye",
+    "Waski": "aye"
+   }
+  },
+  {
+   "seq": 36,
+   "number": "2025-502",
+   "title": "Authorizes Supervisor to Execute License Agreement with Civil Air Patrol, 9Th Suffolk Cadet Squadron RESULT: ADOPTED [UNANIMOUS] MOVER: Joann Waski, Councilwoman SECONDER: Kenneth Rothwell, Councilman AYES: Hubbard, Rothwell, Kern, Merrifield, Waski",
+   "result": "ADOPTED [UNANIMOUS]",
+   "adopted": true,
+   "tag": "unanimous",
+   "ayesCount": null,
+   "naysCount": 0,
+   "mover": "Joann Waski",
+   "seconder": "Kenneth Rothwell",
+   "votes": {
+    "Hubbard": "aye",
+    "Rothwell": "aye",
+    "Kern": "aye",
+    "Merrifield": "aye",
+    "Waski": "aye"
+   }
+  },
+  {
+   "seq": 37,
+   "number": "2025-503",
+   "title": "Authorize Supervisor to Execute Agreement with Interpreter for Justice Court (Corella) RESULT: ADOPTED [UNANIMOUS] MOVER: Kenneth Rothwell, Councilman SECONDER: Robert Kern, Councilman AYES: Hubbard, Rothwell, Kern, Merrifield, Waski",
+   "result": "ADOPTED [UNANIMOUS]",
+   "adopted": true,
+   "tag": "unanimous",
+   "ayesCount": null,
+   "naysCount": 0,
+   "mover": "Kenneth Rothwell",
+   "seconder": "Robert Kern",
+   "votes": {
+    "Hubbard": "aye",
+    "Rothwell": "aye",
+    "Kern": "aye",
+    "Merrifield": "aye",
+    "Waski": "aye"
+   }
+  },
+  {
+   "seq": 38,
+   "number": "2025-504",
+   "title": "Authorizes the Supervisor to Execute an Agreement with the County of Suffolk Office for the Aging (AAA Transportation Program 2025) RESULT: ADOPTED [UNANIMOUS] MOVER: Robert Kern, Councilman SECONDER: Denise Merrifield, Councilwoman AYES: Hubbard, Rothwell, Kern, Merrifield, Waski",
+   "result": "ADOPTED [UNANIMOUS]",
+   "adopted": true,
+   "tag": "unanimous",
+   "ayesCount": null,
+   "naysCount": 0,
+   "mover": "Robert Kern",
+   "seconder": "Denise Merrifield",
+   "votes": {
+    "Hubbard": "aye",
+    "Rothwell": "aye",
+    "Kern": "aye",
+    "Merrifield": "aye",
+    "Waski": "aye"
+   }
+  },
+  {
+   "seq": 39,
+   "number": "2025-505",
+   "title": "Pays Bills RESULT: ADOPTED [UNANIMOUS] MOVER: Denise Merrifield, Councilwoman SECONDER: Joann Waski, Councilwoman AYES: Hubbard, Rothwell, Kern, Merrifield, Waski",
+   "result": "ADOPTED [UNANIMOUS]",
+   "adopted": true,
+   "tag": "unanimous",
+   "ayesCount": null,
+   "naysCount": 0,
+   "mover": "Denise Merrifield",
+   "seconder": "Joann Waski",
+   "votes": {
+    "Hubbard": "aye",
+    "Rothwell": "aye",
+    "Kern": "aye",
+    "Merrifield": "aye",
+    "Waski": "aye"
+   }
+  },
+  {
+   "seq": 40,
+   "number": "2025-506",
+   "title": "Approves Fireworks Permit for Dreamland Amusements (June 28, 2025) RESULT: ADOPTED [UNANIMOUS] MOVER: Joann Waski, Councilwoman SECONDER: Kenneth Rothwell, Councilman AYES: Hubbard, Rothwell, Kern, Merrifield, Waski",
+   "result": "ADOPTED [UNANIMOUS]",
+   "adopted": true,
+   "tag": "unanimous",
+   "ayesCount": null,
+   "naysCount": 0,
+   "mover": "Joann Waski",
+   "seconder": "Kenneth Rothwell",
+   "votes": {
+    "Hubbard": "aye",
+    "Rothwell": "aye",
+    "Kern": "aye",
+    "Merrifield": "aye",
+    "Waski": "aye"
+   }
+  },
+  {
+   "seq": 41,
+   "number": "2025-507",
+   "title": "Appoints a Part-Time Bilingual Clerk RESULT: ADOPTED [UNANIMOUS] MOVER: Kenneth Rothwell, Councilman SECONDER: Robert Kern, Councilman AYES: Hubbard, Rothwell, Kern, Merrifield, Waski",
+   "result": "ADOPTED [UNANIMOUS]",
+   "adopted": true,
+   "tag": "unanimous",
+   "ayesCount": null,
+   "naysCount": 0,
+   "mover": "Kenneth Rothwell",
+   "seconder": "Robert Kern",
+   "votes": {
+    "Hubbard": "aye",
+    "Rothwell": "aye",
+    "Kern": "aye",
+    "Merrifield": "aye",
+    "Waski": "aye"
+   }
+  },
+  {
+   "seq": 42,
+   "number": "2025-508",
+   "title": "Sets Hours for Town Beach Parking Lots RESULT: ADOPTED [UNANIMOUS] MOVER: Robert Kern, Councilman SECONDER: Denise Merrifield, Councilwoman AYES: Hubbard, Rothwell, Kern, Merrifield, Waski",
+   "result": "ADOPTED [UNANIMOUS]",
+   "adopted": true,
+   "tag": "unanimous",
+   "ayesCount": null,
+   "naysCount": 0,
+   "mover": "Robert Kern",
+   "seconder": "Denise Merrifield",
+   "votes": {
+    "Hubbard": "aye",
+    "Rothwell": "aye",
+    "Kern": "aye",
+    "Merrifield": "aye",
+    "Waski": "aye"
+   }
+  },
+  {
+   "seq": 43,
+   "number": "2025-509",
+   "title": "Classifies the Special Permit and Site Plan Applications of Duffy MX Motocross Track as a Type 1 Action Pursuant to SEQRA, Requests Lead Agency Status for the Purposes of Coordinated Review 2822 River Road, Calverton, NY SCTM No. 600-136-1-4 RESULT: ADOPTED [UNANIMOUS] MOVER: Denise Merrifield, Councilwoman SECONDER: Joann Waski, Councilwoman AYES: Hubbard, Rothwell, Kern, Merrifield, Waski",
+   "result": "ADOPTED [UNANIMOUS]",
+   "adopted": true,
+   "tag": "unanimous",
+   "ayesCount": null,
+   "naysCount": 0,
+   "mover": "Denise Merrifield",
+   "seconder": "Joann Waski",
+   "votes": {
+    "Hubbard": "aye",
+    "Rothwell": "aye",
+    "Kern": "aye",
+    "Merrifield": "aye",
+    "Waski": "aye"
+   }
+  },
+  {
+   "seq": 44,
+   "number": "2025-510",
+   "title": "Ratifies Reappointment of Member to the Parking District Advisory Committee \u2013 Israel RESULT: ADOPTED [UNANIMOUS] MOVER: Joann Waski, Councilwoman SECONDER: Kenneth Rothwell, Councilman AYES: Hubbard, Rothwell, Kern, Merrifield, Waski X.",
+   "result": "ADOPTED [UNANIMOUS]",
+   "adopted": true,
+   "tag": "unanimous",
+   "ayesCount": null,
+   "naysCount": 0,
+   "mover": "Joann Waski",
+   "seconder": "Kenneth Rothwell",
+   "votes": {
+    "Hubbard": "aye",
+    "Rothwell": "aye",
+    "Kern": "aye",
+    "Merrifield": "aye",
+    "Waski": "aye"
+   }
+  }
+ ],
+ "slug": "2025-06-03",
+ "stats": {
+  "total": 44,
+  "unanimous": 43,
+  "contested": 1,
+  "failed": 0,
+  "tabled": 0
+ },
+ "memberTallies": {
+  "Hubbard": {
+   "name": "Tim Hubbard",
+   "title": "Supervisor",
+   "aye": 44,
+   "nay": 0,
+   "abstain": 0,
+   "absent": 0,
+   "moved": 0,
+   "seconded": 0
+  },
+  "Rothwell": {
+   "name": "Kenneth Rothwell",
+   "title": "Councilman",
+   "aye": 44,
+   "nay": 0,
+   "abstain": 0,
+   "absent": 0,
+   "moved": 11,
+   "seconded": 11
+  },
+  "Kern": {
+   "name": "Robert Kern",
+   "title": "Councilman",
+   "aye": 43,
+   "nay": 1,
+   "abstain": 0,
+   "absent": 0,
+   "moved": 11,
+   "seconded": 11
+  },
+  "Merrifield": {
+   "name": "Denise Merrifield",
+   "title": "Councilwoman",
+   "aye": 44,
+   "nay": 0,
+   "abstain": 0,
+   "absent": 0,
+   "moved": 11,
+   "seconded": 11
+  },
+  "Waski": {
+   "name": "Joann Waski",
+   "title": "Councilwoman",
+   "aye": 44,
+   "nay": 0,
+   "abstain": 0,
+   "absent": 0,
+   "moved": 11,
+   "seconded": 11
+  }
+ }
+}

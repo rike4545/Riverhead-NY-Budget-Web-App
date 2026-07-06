@@ -1,3 +1,5 @@
+import meta from '../public/data/meta.json'
+
 export default function PageShell({ title, subtitle, children }: { title: string; subtitle: string; children: React.ReactNode }) {
   const base = '/rike4545-riverhead-budget-live'
   const links = [
@@ -39,6 +41,9 @@ export default function PageShell({ title, subtitle, children }: { title: string
           <p style={{ color: '#44576a', fontSize: 17, lineHeight: 1.55, margin: 0, maxWidth: 980 }}>{subtitle}</p>
           <div style={{ marginTop: 18, background: '#fff8e6', border: '1px solid #d8b45a', color: '#5f430d', padding: 13, borderRadius: 8, fontSize: 14, lineHeight: 1.45 }}>
             This is an independent public-information project and is not affiliated with, endorsed by, or operated by the Town of Riverhead. Verify figures against official source documents before relying on them.
+            <span style={{ display: 'block', marginTop: 6, fontSize: 12.5, color: '#8a6a1f' }}>
+              Data last refreshed {meta.generatedAtDisplay} · updates automatically as the Town publishes new records.
+            </span>
           </div>
         </div>
         {children}

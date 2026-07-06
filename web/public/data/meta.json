@@ -1,0 +1,19 @@
+{
+ "generatedAt": "2026-07-06T02:48:13Z",
+ "generatedAtDisplay": "July 6, 2026",
+ "datasets": {
+  "meetings": 39,
+  "votes": 1672,
+  "latestMeeting": "June 16, 2026",
+  "budgetLineItems": 1009,
+  "payrollYears": [
+   2018,
+   2019,
+   2020,
+   2021,
+   2022,
+   2023
+  ],
+  "searchEntries": 16288
+ }
+}

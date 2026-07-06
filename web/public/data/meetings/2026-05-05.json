@@ -169,7 +169,7 @@
    "title": "Accepts Donation from Kenneth Rothwell, Alexander-Rothwell Funeral Home for PAL RESULT: ADOPTED [4 - 0] MOVER: Councilwoman Joann Waski SECONDER: Councilman Kenneth Rothwell AYES: Jerry Halpin, Robert Kern, Denise Merrifield, Joann Waski NAYS: None",
    "result": "ADOPTED [4 - 0]",
    "adopted": true,
-   "tag": "split",
+   "tag": "unanimous",
    "ayesCount": 4,
    "naysCount": 0,
    "mover": "Joann Waski",
@@ -1136,8 +1136,8 @@
  "slug": "2026-05-05",
  "stats": {
   "total": 58,
-  "unanimous": 57,
-  "contested": 1,
+  "unanimous": 58,
+  "contested": 0,
   "failed": 0,
   "tabled": 0
  },

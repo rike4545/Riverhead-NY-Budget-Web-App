@@ -1,0 +1,98 @@
+{
+ "date": "December 30, 2025",
+ "type": "Special Meeting",
+ "calledToOrder": "10:09 AM",
+ "roster": [
+  {
+   "last": "Hubbard",
+   "name": "Tim Hubbard",
+   "title": "Supervisor"
+  },
+  {
+   "last": "Merrifield",
+   "name": "Denise Merrifield",
+   "title": "Councilwoman"
+  },
+  {
+   "last": "Waski",
+   "name": "Joann Waski",
+   "title": "Councilwoman"
+  }
+ ],
+ "resolutions": [
+  {
+   "seq": 1,
+   "number": "2025-1035",
+   "title": "Ratifies Budget Adjustment for the Purchase of a New Dump Truck for the Highway Department RESULT: ADOPTED [UNANIMOUS] MOVER: Councilwoman Denise Merrifield SECONDER: Councilwoman Joann Waski AYES: Tim Hubbard, Robert Kern, Denise Merrifield, Joann Waski",
+   "result": "ADOPTED [UNANIMOUS]",
+   "adopted": true,
+   "tag": "unanimous",
+   "ayesCount": null,
+   "naysCount": 0,
+   "mover": "Denise Merrifield",
+   "seconder": "Joann Waski",
+   "votes": {
+    "Hubbard": "aye",
+    "Merrifield": "aye",
+    "Waski": "aye"
+   }
+  },
+  {
+   "seq": 2,
+   "number": "2025-1036",
+   "title": "Approves Transfer of Funds for the Suffolk County Fiscal Year 2024 & 2025 Community Development Block Grant Funds RESULT: ADOPTED [3 - 1] MOVER: Councilwoman Joann Waski SECONDER: Councilwoman Denise Merrifield AYES: Tim Hubbard, Denise Merrifield, Joann Waski NAYS: Robert Kern VI.",
+   "result": "ADOPTED [3 - 1]",
+   "adopted": true,
+   "tag": "split",
+   "ayesCount": 3,
+   "naysCount": 1,
+   "mover": "Joann Waski",
+   "seconder": "Denise Merrifield",
+   "votes": {
+    "Hubbard": "aye",
+    "Merrifield": "aye",
+    "Waski": "aye"
+   }
+  }
+ ],
+ "slug": "2025-12-30",
+ "stats": {
+  "total": 2,
+  "unanimous": 1,
+  "contested": 1,
+  "failed": 0,
+  "tabled": 0
+ },
+ "memberTallies": {
+  "Hubbard": {
+   "name": "Tim Hubbard",
+   "title": "Supervisor",
+   "aye": 2,
+   "nay": 0,
+   "abstain": 0,
+   "absent": 0,
+   "moved": 0,
+   "seconded": 0
+  },
+  "Merrifield": {
+   "name": "Denise Merrifield",
+   "title": "Councilwoman",
+   "aye": 2,
+   "nay": 0,
+   "abstain": 0,
+   "absent": 0,
+   "moved": 1,
+   "seconded": 1
+  },
+  "Waski": {
+   "name": "Joann Waski",
+   "title": "Councilwoman",
+   "aye": 2,
+   "nay": 0,
+   "abstain": 0,
+   "absent": 0,
+   "moved": 1,
+   "seconded": 1
+  }
+ }
+}

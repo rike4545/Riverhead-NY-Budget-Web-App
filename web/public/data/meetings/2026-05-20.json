@@ -46,7 +46,7 @@
     "Rothwell": "aye",
     "Merrifield": "aye",
     "Waski": "aye",
-    "Kern": "aye"
+    "Kern": "absent"
    }
   },
   {
@@ -1147,10 +1147,10 @@
   "Kern": {
    "name": "Robert Kern",
    "title": "Councilman",
-   "aye": 56,
+   "aye": 55,
    "nay": 0,
    "abstain": 0,
-   "absent": 0,
+   "absent": 1,
    "moved": 14,
    "seconded": 15
   }

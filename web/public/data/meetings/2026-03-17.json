@@ -701,7 +701,7 @@
    "title": "Zenith Building Addition Site Plan Preliminary Approval 301 E. Main Street & 12 McDermott Ave, Riverhead, NY SCTM Nos. 600-129-4-1 & 600-129-4-5.2 RESULT: ADOPTED [4 - 0] MOVER: Councilwoman Joann Waski SECONDER: Councilman Kenneth Rothwell AYES: Kenneth Rothwell, Robert Kern, Denise Merrifield, Joann Waski ABSTAIN Jerry Halpin",
    "result": "ADOPTED [4 - 0]",
    "adopted": true,
-   "tag": "split",
+   "tag": "unanimous",
    "ayesCount": 4,
    "naysCount": 0,
    "mover": "Joann Waski",
@@ -908,8 +908,8 @@
  "slug": "2026-03-17",
  "stats": {
   "total": 46,
-  "unanimous": 44,
-  "contested": 1,
+  "unanimous": 45,
+  "contested": 0,
   "failed": 0,
   "tabled": 1
  },

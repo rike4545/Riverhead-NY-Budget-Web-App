@@ -4,11 +4,11 @@
   "url": "https://www.townofriverheadny.gov/129/Agendas-Minutes"
  },
  "totals": {
-  "meetings": 13,
-  "votes": 721,
-  "contested": 17,
+  "meetings": 39,
+  "votes": 1672,
+  "contested": 33,
   "failed": 1,
-  "tabled": 3
+  "tabled": 9
  },
  "meetings": [
   {
@@ -46,8 +46,8 @@
    "date": "May 5, 2026",
    "type": "Regular Meeting",
    "total": 58,
-   "unanimous": 57,
-   "contested": 1,
+   "unanimous": 58,
+   "contested": 0,
    "failed": 0,
    "tabled": 0
   },
@@ -76,8 +76,8 @@
    "date": "March 17, 2026",
    "type": "Regular Meeting",
    "total": 46,
-   "unanimous": 44,
-   "contested": 1,
+   "unanimous": 45,
+   "contested": 0,
    "failed": 0,
    "tabled": 1
   },
@@ -130,6 +130,266 @@
    "contested": 1,
    "failed": 0,
    "tabled": 2
+  },
+  {
+   "slug": "2025-12-30",
+   "date": "December 30, 2025",
+   "type": "Special Meeting",
+   "total": 2,
+   "unanimous": 1,
+   "contested": 1,
+   "failed": 0,
+   "tabled": 0
+  },
+  {
+   "slug": "2025-12-16",
+   "date": "December 16, 2025",
+   "type": "Regular Meeting",
+   "total": 62,
+   "unanimous": 62,
+   "contested": 0,
+   "failed": 0,
+   "tabled": 0
+  },
+  {
+   "slug": "2025-12-02",
+   "date": "December 2, 2025",
+   "type": "Regular Meeting",
+   "total": 27,
+   "unanimous": 27,
+   "contested": 0,
+   "failed": 0,
+   "tabled": 0
+  },
+  {
+   "slug": "2025-11-18",
+   "date": "November 18, 2025",
+   "type": "Regular Meeting",
+   "total": 25,
+   "unanimous": 23,
+   "contested": 2,
+   "failed": 0,
+   "tabled": 0
+  },
+  {
+   "slug": "2025-11-06",
+   "date": "November 6, 2025",
+   "type": "Regular Meeting",
+   "total": 26,
+   "unanimous": 26,
+   "contested": 0,
+   "failed": 0,
+   "tabled": 0
+  },
+  {
+   "slug": "2025-10-21",
+   "date": "October 21, 2025",
+   "type": "Regular Meeting",
+   "total": 33,
+   "unanimous": 33,
+   "contested": 0,
+   "failed": 0,
+   "tabled": 0
+  },
+  {
+   "slug": "2025-10-07",
+   "date": "October 7, 2025",
+   "type": "Regular Meeting",
+   "total": 55,
+   "unanimous": 53,
+   "contested": 0,
+   "failed": 0,
+   "tabled": 2
+  },
+  {
+   "slug": "2025-09-29",
+   "date": "September 29, 2025",
+   "type": "Special Meeting",
+   "total": 1,
+   "unanimous": 0,
+   "contested": 1,
+   "failed": 0,
+   "tabled": 0
+  },
+  {
+   "slug": "2025-09-16",
+   "date": "September 16, 2025",
+   "type": "Regular Meeting",
+   "total": 28,
+   "unanimous": 27,
+   "contested": 0,
+   "failed": 0,
+   "tabled": 1
+  },
+  {
+   "slug": "2025-09-03",
+   "date": "September 3, 2025",
+   "type": "Regular Meeting",
+   "total": 29,
+   "unanimous": 28,
+   "contested": 1,
+   "failed": 0,
+   "tabled": 0
+  },
+  {
+   "slug": "2025-08-19",
+   "date": "August 19, 2025",
+   "type": "Regular Meeting",
+   "total": 50,
+   "unanimous": 50,
+   "contested": 0,
+   "failed": 0,
+   "tabled": 0
+  },
+  {
+   "slug": "2025-08-05",
+   "date": "August 5, 2025",
+   "type": "Regular Meeting",
+   "total": 55,
+   "unanimous": 55,
+   "contested": 0,
+   "failed": 0,
+   "tabled": 0
+  },
+  {
+   "slug": "2025-07-15",
+   "date": "July 15, 2025",
+   "type": "Regular Meeting",
+   "total": 33,
+   "unanimous": 33,
+   "contested": 0,
+   "failed": 0,
+   "tabled": 0
+  },
+  {
+   "slug": "2025-07-01",
+   "date": "July 1, 2025",
+   "type": "Regular Meeting",
+   "total": 32,
+   "unanimous": 30,
+   "contested": 1,
+   "failed": 0,
+   "tabled": 1
+  },
+  {
+   "slug": "2025-06-17",
+   "date": "June 17, 2025",
+   "type": "Regular Meeting",
+   "total": 67,
+   "unanimous": 66,
+   "contested": 1,
+   "failed": 0,
+   "tabled": 0
+  },
+  {
+   "slug": "2025-06-03",
+   "date": "June 3, 2025",
+   "type": "Regular Meeting",
+   "total": 44,
+   "unanimous": 43,
+   "contested": 1,
+   "failed": 0,
+   "tabled": 0
+  },
+  {
+   "slug": "2025-05-21",
+   "date": "May 21, 2025",
+   "type": "Regular Meeting",
+   "total": 46,
+   "unanimous": 42,
+   "contested": 4,
+   "failed": 0,
+   "tabled": 0
+  },
+  {
+   "slug": "2025-05-08",
+   "date": "May 8, 2025",
+   "type": "Special Meeting",
+   "total": 3,
+   "unanimous": 3,
+   "contested": 0,
+   "failed": 0,
+   "tabled": 0
+  },
+  {
+   "slug": "2025-05-06",
+   "date": "May 6, 2025",
+   "type": "Regular Meeting",
+   "total": 42,
+   "unanimous": 42,
+   "contested": 0,
+   "failed": 0,
+   "tabled": 0
+  },
+  {
+   "slug": "2025-04-15",
+   "date": "April 15, 2025",
+   "type": "Regular Meeting",
+   "total": 47,
+   "unanimous": 43,
+   "contested": 3,
+   "failed": 0,
+   "tabled": 1
+  },
+  {
+   "slug": "2025-04-01",
+   "date": "April 1, 2025",
+   "type": "Regular Meeting",
+   "total": 49,
+   "unanimous": 48,
+   "contested": 1,
+   "failed": 0,
+   "tabled": 0
+  },
+  {
+   "slug": "2025-03-18",
+   "date": "March 18, 2025",
+   "type": "Regular Meeting",
+   "total": 38,
+   "unanimous": 38,
+   "contested": 0,
+   "failed": 0,
+   "tabled": 0
+  },
+  {
+   "slug": "2025-03-04",
+   "date": "March 4, 2025",
+   "type": "Regular Meeting",
+   "total": 32,
+   "unanimous": 30,
+   "contested": 2,
+   "failed": 0,
+   "tabled": 0
+  },
+  {
+   "slug": "2025-02-19",
+   "date": "February 19, 2025",
+   "type": "Regular Meeting",
+   "total": 44,
+   "unanimous": 44,
+   "contested": 0,
+   "failed": 0,
+   "tabled": 0
+  },
+  {
+   "slug": "2025-02-04",
+   "date": "February 4, 2025",
+   "type": "Regular Meeting",
+   "total": 36,
+   "unanimous": 36,
+   "contested": 0,
+   "failed": 0,
+   "tabled": 0
+  },
+  {
+   "slug": "2025-01-22",
+   "date": "January 22, 2025",
+   "type": "Regular Meeting",
+   "total": 45,
+   "unanimous": 44,
+   "contested": 0,
+   "failed": 0,
+   "tabled": 1
   },
   {
    "slug": "2025-01-07",
