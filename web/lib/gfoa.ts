@@ -1,9 +1,10 @@
 // Mapping of this site against the GFOA Distinguished Budget Presentation
-// Award criteria (gfoa.org/budget-award). The award itself applies to a
-// government's budget document — the Town's, not ours — but its 26 criteria
-// are the recognized standard for presenting budget information, so we hold
-// the site to every criterion that can apply to an independent presentation,
-// and we're explicit about what's met, partial, or missing.
+// Award criteria (gfoa.org/budget-award — 25 criteria across four roles).
+// The award itself applies to a government's budget document — the Town's,
+// not ours — but its criteria are the recognized standard for presenting
+// budget information, so we hold the site to every criterion that can apply
+// to an independent presentation, and we're explicit about what's met,
+// partial, or missing.
 
 const base = '/rike4545-riverhead-budget-live'
 

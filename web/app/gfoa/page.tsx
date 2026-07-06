@@ -25,7 +25,7 @@ export default function GfoaPage() {
       <PlainCallout
         tips={[
           { label: 'What GFOA is', text: 'the Government Finance Officers Association, whose Distinguished Budget Presentation Award defines how a budget should be presented: as a policy document, a financial plan, an operations guide, and a communication device.' },
-          { label: 'Why it applies here', text: 'the award rates a government’s own budget document — but its 26 criteria are the recognized yardstick for budget presentation, so we hold this site to every criterion that can apply and say plainly where we fall short.' },
+          { label: 'Why it applies here', text: 'the award rates a government’s own budget document — but its criteria are the recognized yardstick for budget presentation, so we hold this site to every criterion that can apply and say plainly where we fall short.' },
           { label: 'Honest statuses', text: '"Not yet" usually means the Town has not published the underlying information (goals, performance measures, debt schedules) in a form anyone can extract.' },
         ]}
       >
