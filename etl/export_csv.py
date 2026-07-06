@@ -72,6 +72,17 @@ def build():
                   ["meeting_date", "item", "resolution", "title", "result", "adopted", "mover", "seconder"] + members,
                   rows)
 
+    # Board member career voting records
+    mem = load("meetings/members.json")
+    if mem:
+        rows = []
+        for m in mem["members"]:
+            for year, c in sorted(m["byYear"].items()):
+                rows.append([m["name"], m["titles"][0] if m["titles"] else "", year,
+                             c.get("aye", 0), c.get("nay", 0), c.get("abstain", 0), c.get("absent", 0)])
+        write("board_member_voting_records.csv",
+              ["member", "title", "year", "aye", "nay", "abstain", "absent"], rows)
+
     # Budget line items (2026 adopted, with history)
     si = load("subaccounts/index.json")
     if si:

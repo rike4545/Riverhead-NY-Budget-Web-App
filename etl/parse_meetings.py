@@ -280,6 +280,8 @@ def build():
         flags = "; ".join(f"#{r['seq']} {r['result']}" for r in res if r["tag"] != "unanimous")
         print(f"{meeting['date']:<22} {len(res):>3} votes | {contested} contested | {failed} failed | {tabled} tabled {('| ' + flags[:80]) if flags else ''}")
 
+    build_member_records(index)
+
     index.sort(key=lambda m: m["slug"], reverse=True)
     totals = {
         "meetings": len(index),
@@ -295,6 +297,82 @@ def build():
         "meetings": index,
     }, indent=1))
     print(f"\n{totals['meetings']} meetings, {totals['votes']} votes ({totals['contested']} contested, {totals['failed']} failed)")
+
+
+def build_member_records(index_entries):
+    """Aggregate each board member's career voting record across all parsed
+    meetings into members.json: tallies by year, every dissent and abstention
+    with its resolution, and mover/seconder activity.
+
+    Members are keyed by last name across years (fine for this board; two
+    different members sharing a last name would need disambiguation)."""
+    members = {}
+    for entry in sorted(index_entries, key=lambda m: m["slug"]):
+        meeting = json.loads((OUT / f"{entry['slug']}.json").read_text())
+        year = entry["slug"][:4]
+        for member in meeting["roster"]:
+            last = member["last"]
+            rec = members.setdefault(last, {
+                "key": last, "name": member["name"], "titles": [],
+                "years": [], "byYear": {}, "career": Counter(),
+                "moved": 0, "seconded": 0, "meetingsVoted": 0,
+                "dissents": [], "abstentions": [],
+            })
+            if len(member["name"].split()) >= 2:
+                rec["name"] = member["name"]
+            if member["title"] not in rec["titles"]:
+                rec["titles"].append(member["title"])
+            if year not in rec["years"]:
+                rec["years"].append(year)
+            yc = rec["byYear"].setdefault(year, Counter())
+            tally = meeting["memberTallies"][last]
+            rec["moved"] += tally["moved"]
+            rec["seconded"] += tally["seconded"]
+            voted_here = False
+            for r in meeting["resolutions"]:
+                v = r["votes"].get(last)
+                if not v:
+                    continue
+                yc[v] += 1
+                rec["career"][v] += 1
+                if v in ("aye", "nay", "abstain"):
+                    voted_here = True
+                item = {"slug": entry["slug"], "date": meeting["date"],
+                        "number": r["number"], "title": r["title"], "result": r["result"]}
+                if v == "nay":
+                    rec["dissents"].append(item)
+                elif v == "abstain":
+                    rec["abstentions"].append(item)
+            if voted_here:
+                rec["meetingsVoted"] += 1
+
+    TITLE_PRIORITY = ["Supervisor", "Councilwoman", "Councilman", "Councilmember"]
+    out = []
+    for rec in members.values():
+        rec["titles"] = sorted(rec["titles"], key=TITLE_PRIORITY.index)[:1]
+        career = rec["career"]
+        cast = career["aye"] + career["nay"] + career["abstain"]
+        out.append({
+            **{k: rec[k] for k in ("key", "name", "titles", "years", "moved", "seconded",
+                                    "meetingsVoted", "dissents", "abstentions")},
+            "byYear": {y: dict(c) for y, c in rec["byYear"].items()},
+            "career": dict(career),
+            "ayePct": round(career["aye"] / cast * 100, 1) if cast else None,
+        })
+    # Current board first (active in the latest year), Supervisor on top.
+    latest = max((y for m in out for y in m["years"]), default="")
+    out.sort(key=lambda m: (latest not in m["years"], "Supervisor" not in m["titles"], m["name"]))
+
+    (OUT / "members.json").write_text(json.dumps({
+        "source": {"title": "Town of Riverhead Town Board Meeting Minutes",
+                   "url": "https://www.townofriverheadny.gov/129/Agendas-Minutes"},
+        "note": "Career voting records aggregated from every meeting on record. 'Absent' is inferred "
+                "when a member appears on no roll-call line of a vote.",
+        "latestYear": latest,
+        "members": out,
+    }, indent=1))
+    print(f"members.json: {len(out)} members "
+          f"({sum(len(m['dissents']) for m in out)} dissents, {sum(len(m['abstentions']) for m in out)} abstentions)")
 
 
 if __name__ == "__main__":

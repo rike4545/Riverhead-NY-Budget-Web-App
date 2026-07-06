@@ -71,3 +71,31 @@ export type MeetingsIndex = {
 }
 
 export const meetingsIndex = indexJson as MeetingsIndex
+
+// ---- per-member career records (members.json, fetched at runtime) ----
+
+export const MEMBERS_URL = `${base}/data/meetings/members.json`
+
+export type VotedItem = { slug: string; date: string; number: string | null; title: string; result: string }
+
+export type MemberRecord = {
+  key: string
+  name: string
+  titles: string[]
+  years: string[]
+  byYear: Record<string, Partial<Record<Vote, number>>>
+  career: Partial<Record<Vote, number>>
+  ayePct: number | null
+  moved: number
+  seconded: number
+  meetingsVoted: number
+  dissents: VotedItem[]
+  abstentions: VotedItem[]
+}
+
+export type MembersData = {
+  source: { title: string; url: string }
+  note: string
+  latestYear: string
+  members: MemberRecord[]
+}

@@ -41,9 +41,16 @@ const datasets = [
   {
     file: 'town_board_votes.csv',
     title: 'Town Board voting record',
-    rows: '90 votes',
-    desc: 'Every resolution voted on, the result, mover, seconder, and how each member voted.',
-    json: `${base}/data/meetings/2025-01-07.json`,
+    rows: '1,672 votes · 39 meetings',
+    desc: 'Every resolution voted on since January 2025: the result, mover, seconder, and how each member voted.',
+    json: `${base}/data/meetings/index.json`,
+  },
+  {
+    file: 'board_member_voting_records.csv',
+    title: 'Board member career records',
+    rows: '6 members, by year',
+    desc: 'Each member’s yes/no/abstain/absent tallies per year, aggregated from every meeting on record.',
+    json: `${base}/data/meetings/members.json`,
   },
   {
     file: 'budget_line_items_2020_2026.csv',

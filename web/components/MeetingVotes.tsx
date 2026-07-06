@@ -2,7 +2,10 @@
 
 import { useMemo, useState } from 'react'
 import { useFetchJson, LoadingCard } from './useFetchJson'
-import { meetingsIndex, meetingUrl, type Meeting, type Resolution, type Vote } from '../lib/meetings'
+import {
+  meetingsIndex, meetingUrl, MEMBERS_URL,
+  type Meeting, type Resolution, type Vote, type MembersData, type MemberRecord, type VotedItem,
+} from '../lib/meetings'
 
 const card = { background: 'white', border: '1px solid #e2e8f0', borderRadius: 16, padding: 18, boxShadow: '0 14px 34px rgba(15,23,42,.05)' } as const
 
@@ -11,13 +14,20 @@ const VOTE_LABEL: Record<Vote, string> = { aye: 'Yes', nay: 'No', abstain: 'Abst
 
 export default function MeetingVotes() {
   const meetings = meetingsIndex.meetings
+  const [view, setView] = useState<'meetings' | 'members'>('meetings')
   const [slug, setSlug] = useState(meetings[0].slug)
   const [q, setQ] = useState('')
   const [filter, setFilter] = useState<'all' | 'contested' | 'tabled'>('all')
   const query = q.trim().toLowerCase()
 
   const { data: meeting, error } = useFetchJson<Meeting>(meetingUrl(slug))
-  const entry = meetings.find((m) => m.slug === slug)!
+
+  const openMeeting = (s: string) => {
+    setSlug(s)
+    setFilter('contested')
+    setQ('')
+    setView('meetings')
+  }
 
   const filtered = useMemo(() => {
     if (!meeting) return []
@@ -32,8 +42,19 @@ export default function MeetingVotes() {
   const shortName = (last: string) => meeting?.memberTallies[last]?.name.split(' ').slice(-1)[0] ?? last
   const rosterOrder = meeting?.roster.map((r) => r.last) ?? []
 
+  if (view === 'members') {
+    return (
+      <div style={{ display: 'grid', gap: 16 }}>
+        <ViewToggle view={view} setView={setView} />
+        <MembersPanel openMeeting={openMeeting} />
+      </div>
+    )
+  }
+
   return (
     <div style={{ display: 'grid', gap: 16 }}>
+      <ViewToggle view={view} setView={setView} />
+
       {/* Meeting picker */}
       <section style={{ ...card, display: 'flex', gap: 8, flexWrap: 'wrap', alignItems: 'center' }}>
         <span style={{ fontWeight: 800, color: '#334155' }}>Meeting:</span>
@@ -182,6 +203,110 @@ function ResolutionRow({ r, shortName, rosterOrder }: { r: Resolution; shortName
         </div>
       )}
     </article>
+  )
+}
+
+function ViewToggle({ view, setView }: { view: 'meetings' | 'members'; setView: (v: 'meetings' | 'members') => void }) {
+  return (
+    <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+      {([['meetings', 'By meeting', 'Every vote, one meeting at a time'], ['members', 'By member', 'Each member’s career record, dissents & abstentions']] as const).map(([v, title, sub]) => (
+        <button key={v} onClick={() => setView(v)} style={{
+          flex: '1 1 240px', textAlign: 'left', cursor: 'pointer', borderRadius: 12, padding: '12px 16px',
+          border: '1px solid', borderColor: view === v ? '#1f5f8f' : '#cbd5e1',
+          background: view === v ? '#1f5f8f' : 'white', color: view === v ? 'white' : '#334155',
+          boxShadow: view === v ? '0 10px 24px rgba(31,95,143,.22)' : 'none',
+        }}>
+          <div style={{ fontWeight: 900, fontSize: 16 }}>{title}</div>
+          <div style={{ fontSize: 12.5, opacity: 0.85 }}>{sub}</div>
+        </button>
+      ))}
+    </div>
+  )
+}
+
+function MembersPanel({ openMeeting }: { openMeeting: (slug: string) => void }) {
+  const { data, error } = useFetchJson<MembersData>(MEMBERS_URL)
+  if (!data && !error) return <LoadingCard label="Loading member records…" />
+  if (error || !data) return <LoadingCard label="Could not load member records — check your connection and reload." />
+
+  return (
+    <div style={{ display: 'grid', gap: 14 }}>
+      {data.members.map((m) => (
+        <MemberCard key={m.key} m={m} current={m.years.includes(data.latestYear)} openMeeting={openMeeting} />
+      ))}
+      <p style={{ color: '#64748b', fontSize: 13, lineHeight: 1.5 }}>
+        Source: {data.source.title}. {data.note} A high &quot;votes yes&quot; share is normal — most municipal
+        resolutions are routine and pass unanimously; the dissents and abstentions are where members distinguish themselves.
+      </p>
+    </div>
+  )
+}
+
+function MemberCard({ m, current, openMeeting }: { m: MemberRecord; current: boolean; openMeeting: (slug: string) => void }) {
+  const c = m.career
+  return (
+    <article style={{ ...card, borderLeft: `5px solid ${current ? '#1f5f8f' : '#cbd5e1'}` }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', gap: 14, flexWrap: 'wrap', alignItems: 'baseline' }}>
+        <div>
+          <h3 style={{ margin: 0, fontSize: 20, color: '#12385b' }}>{m.name}</h3>
+          <div style={{ color: '#64748b', fontSize: 13 }}>
+            {m.titles[0] ?? 'Board member'} · on record {m.years.join(' & ')}{current ? '' : ' (former)'} · voted in {m.meetingsVoted} meetings
+          </div>
+        </div>
+        {m.ayePct != null && (
+          <div style={{ textAlign: 'right' }}>
+            <strong style={{ fontSize: 22, color: '#12385b' }}>{m.ayePct}%</strong>
+            <div style={{ color: '#64748b', fontSize: 12 }}>votes yes</div>
+          </div>
+        )}
+      </div>
+
+      <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', marginTop: 12 }}>
+        <Chip label="Yes" value={c.aye ?? 0} color="#15803d" />
+        <Chip label="No" value={c.nay ?? 0} color="#b91c1c" strong={(c.nay ?? 0) > 0} />
+        <Chip label="Abstained" value={c.abstain ?? 0} color="#b45309" strong={(c.abstain ?? 0) > 0} />
+        <Chip label="Absent" value={c.absent ?? 0} color="#64748b" />
+        <Chip label="Moved" value={m.moved} color="#1f5f8f" />
+        <Chip label="Seconded" value={m.seconded} color="#1f5f8f" />
+      </div>
+
+      {m.dissents.length > 0 && (
+        <VotedList label={`Every “no” vote (${m.dissents.length})`} items={m.dissents} openMeeting={openMeeting} color="#b91c1c" />
+      )}
+      {m.abstentions.length > 0 && (
+        <VotedList label={`Abstentions (${m.abstentions.length})`} items={m.abstentions} openMeeting={openMeeting} color="#b45309" />
+      )}
+      {m.dissents.length === 0 && m.abstentions.length === 0 && (
+        <p style={{ color: '#64748b', fontSize: 13.5, margin: '12px 0 0' }}>Never voted no or abstained in the period on record.</p>
+      )}
+    </article>
+  )
+}
+
+function VotedList({ label, items, openMeeting, color }: { label: string; items: VotedItem[]; openMeeting: (slug: string) => void; color: string }) {
+  return (
+    <details style={{ marginTop: 12 }}>
+      <summary style={{ cursor: 'pointer', fontWeight: 800, color }}>{label}</summary>
+      <div style={{ display: 'grid', gap: 6, marginTop: 10 }}>
+        {items.map((it, i) => (
+          <button key={`${it.slug}-${it.number}-${i}`} onClick={() => openMeeting(it.slug)}
+            title="Open this meeting's contested votes"
+            style={{ textAlign: 'left', background: '#f8fafc', border: '1px solid #e2e8f0', borderRadius: 10, padding: '9px 12px', cursor: 'pointer' }}>
+            <span style={{ color: '#94a3b8', fontWeight: 800, fontSize: 12 }}>{it.date}{it.number ? ` · ${it.number}` : ''}</span>
+            <span style={{ display: 'block', color: '#12385b', fontWeight: 600, fontSize: 13.5, lineHeight: 1.4 }}>{it.title}</span>
+          </button>
+        ))}
+      </div>
+    </details>
+  )
+}
+
+function Chip({ label, value, color, strong }: { label: string; value: number; color: string; strong?: boolean }) {
+  return (
+    <span style={{ background: '#f8fafc', border: '1px solid #e2e8f0', borderRadius: 999, padding: '5px 12px', fontSize: 13, fontWeight: strong ? 900 : 700, color: strong ? color : '#334155' }}>
+      <span style={{ display: 'inline-block', width: 9, height: 9, borderRadius: 9, background: color, marginRight: 6 }} />
+      {label}: {value.toLocaleString()}
+    </span>
   )
 }
 
