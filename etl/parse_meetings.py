@@ -76,12 +76,15 @@ def clean_person(name):
     return clean(re.sub(r"\b(Supervisor|Councilman|Councilwoman|Council member)\b", "", name))
 
 
+NON_NAMES = {"None", "All", "N/A", "Na"}
+
+
 def name_tokens(value):
     """Split a vote-line value into person tokens ('Tim Hubbard' or 'Hubbard')."""
     out = []
     for part in value.split(","):
         part = clean_person(part)
-        if not part:
+        if not part or part in NON_NAMES:
             continue
         words = part.split()
         if 1 <= len(words) <= 3 and all(w[:1].isupper() for w in words):
@@ -191,6 +194,12 @@ def parse_meeting(path):
         abstain_m = members_in(fields.get("ABSTAIN", "") + " " + fields.get("ABSTAINED", "") + " " + fields.get("RECUSED", ""), roster)
         absent_m = members_in(fields.get("ABSENT", ""), roster)
 
+        # Some minutes write just 'RESULT: ADOPTED' with the roll in AYES/NAYS
+        # ('NAYS: None'). With no nays and no abstentions that's a unanimous
+        # vote of those present, not a split.
+        if tag == "split" and not nays_m and not abstain_m and not nays:
+            tag = "unanimous"
+
         votes = {}
         if tag == "tabled" and not (ayes_m or nays_m):
             pass  # tabled without a roll call — no per-member votes to record
@@ -202,7 +211,10 @@ def parse_meeting(path):
                     votes[last] = "abstain"
                 elif last in absent_m:
                     votes[last] = "absent"
-                elif last in ayes_m or tag == "unanimous":
+                elif last in ayes_m:
+                    votes[last] = "aye"
+                elif tag == "unanimous" and not ayes_m:
+                    # unanimous with no explicit roll call recorded
                     votes[last] = "aye"
                 else:
                     votes[last] = "absent"
