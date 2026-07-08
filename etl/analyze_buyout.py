@@ -70,6 +70,133 @@ def step_backfill(eligible_list):
     }
 
 
+RANK_WORDS = ("sergeant", "lieutenant", "captain", "chief", "detective")
+
+
+def is_ranked_police(title):
+    """A ranked (supervisory / appointed) police title, as opposed to a rank-
+    and-file Police Officer. Ranked vacancies are filled by promoting/appointing
+    from below, not by hiring a rookie into that rank."""
+    return any(w in (title or "").lower() for w in RANK_WORDS)
+
+
+def police_ladder():
+    """The police rank ladder with authorized top-of-rank salary and headcount,
+    top to bottom, for illustrating the promotion chain."""
+    if not SALARY_2025.exists():
+        return None, None, None
+    recs = json.loads(SALARY_2025.read_text())["records"]
+    pol = [r for r in recs if r.get("group") == "Police" and not r.get("isStipend") and r["annual"] >= 1000]
+    officer = [r["annual"] for r in pol if r["title"].strip().lower() == "police officer"]
+    if not officer:
+        return None, None, None
+    officer_entry, officer_top = round(min(officer)), round(max(officer))
+    order = ["Chief", "Captain", "Lieutenant", "Detective Sergeant", "Sergeant",
+             "Detective Grade I", "Detective Grade II", "Detective Grade III", "Police Officer"]
+    ladder = []
+    for name in order:
+        sal = [r["annual"] for r in pol if r["title"].strip() == name]
+        if sal:
+            ladder.append({"rank": name, "top": round(max(sal)), "count": len(sal),
+                           "isOfficer": name == "Police Officer"})
+    return ladder, officer_entry, officer_top
+
+
+def rank_top_for(title, ladder):
+    """Map a retiree's police title to the authorized top-of-rank salary."""
+    t = (title or "").lower()
+    tops = {r["rank"]: r["top"] for r in ladder}
+    if "lieutenant" in t:
+        return tops.get("Lieutenant")
+    if "captain" in t:
+        return tops.get("Captain")
+    if "chief" in t:
+        return tops.get("Chief")
+    if "detective sergeant" in t:
+        return tops.get("Detective Sergeant")
+    if "sergeant" in t:
+        return tops.get("Sergeant")
+    if "detective" in t:  # unspecified grade — use the top detective grade
+        return tops.get("Detective Grade I")
+    return None
+
+
+def police_chain(police_eligible):
+    """Model what a police retirement actually costs to backfill, respecting the
+    rank structure. A rank-and-file Police Officer who retires is replaced by a
+    rookie at the entry step. A RANKED retiree (sergeant, lieutenant, detective,
+    …) is NOT replaced by a rookie of that rank — a senior officer is promoted up
+    to fill it, that officer's seat is backfilled from below, and the chain ends
+    with a rookie hired at the bottom. Every rank in between stays filled at its
+    rank cost, so the net saving of the whole chain lands at the bottom: it is a
+    top-step senior officer swapped for a rookie, NOT the retiree's rank salary
+    swapped for a rookie. This deliberately UNDER-counts: if a newly promoted
+    person starts at a lower step of the higher rank, the Town saves a bit more."""
+    ladder, entry, top = police_ladder()
+    if not ladder:
+        return None
+    officers = [e for e in police_eligible if not is_ranked_police(e["title"])]
+    ranked = [e for e in police_eligible if is_ranked_police(e["title"])]
+
+    # Rank-and-file: replaced by a rookie (never below zero — a few show partial-
+    # year earnings under the entry rate).
+    officer_saving = sum(max(0, e["base"] - entry) for e in officers)
+
+    # Ranked: the chain terminates with a top-step officer replaced by a rookie,
+    # so the real recurring saving is the same for every ranked retiree.
+    per_ranked = top - entry
+    ranked_saving = per_ranked * len(ranked)
+
+    # The "naive" view, on the SAME authorized salary scale: assume a ranked
+    # retirement simply sheds that rank's salary and drops in a rookie. This is
+    # what the chain model corrects downward — the rank stays filled, so you
+    # cannot actually pocket a lieutenant's or sergeant's whole salary.
+    naive_ranked = sum(max(0, (rank_top_for(e["title"], ladder) or top) - entry) for e in ranked)
+    rank_breakdown = {}
+    for e in ranked:
+        rt = rank_top_for(e["title"], ladder) or top
+        key = e["title"]
+        b = rank_breakdown.setdefault(key, {"count": 0, "rankTop": round(rt),
+                                            "naivePer": round(max(0, rt - entry)),
+                                            "chainPer": round(per_ranked)})
+        b["count"] += 1
+
+    return {
+        "officerEntryStep": entry,
+        "officerTopStep": top,
+        "ladder": ladder,
+        "officers": {"count": len(officers), "netSavings": round(officer_saving)},
+        "ranked": {"count": len(ranked), "perRetiree": round(per_ranked),
+                   "chainSavings": round(ranked_saving),
+                   "naiveSavings": round(naive_ranked),
+                   "correction": round(naive_ranked - ranked_saving),
+                   "byRank": [dict(title=k, **v) for k, v in
+                              sorted(rank_breakdown.items(), key=lambda x: -x[1]["rankTop"])]},
+        "totalNetSavings": round(officer_saving + ranked_saving),
+        "example": {
+            "title": "A retiring sergeant",
+            "steps": [
+                "A sergeant retires (top-step sergeant costs the Town about $174,600).",
+                "A top-step police officer (about $146,700) is promoted into the sergeant seat — that seat stays filled, at a sergeant's cost.",
+                "The officer's now-empty seat is filled by a rookie at the $52,049 entry step.",
+            ],
+            "beforeCost": round(174554 + top),
+            "afterCost": round(174554 + entry),
+            "netSaving": round(top - entry),
+            "naiveClaim": round(174554 - entry),
+        },
+        "why": (
+            "For ranked police jobs the Town must keep the rank filled, so a retirement doesn't remove that "
+            "salary — it triggers a promotion chain. The only seat that actually gets cheaper is the one at the "
+            "bottom, where a senior officer's departure (via promotion) is backfilled by a rookie. So the real "
+            "recurring saving from a ranked retirement is a top-step officer (~$%s) minus a rookie ($%s) = about "
+            "$%s per retirement — not the retiree's own rank salary minus a rookie. Rank-and-file officer "
+            "retirements are the simple case: a rookie directly replaces them. (This is conservative: if the "
+            "newly promoted people start at lower steps of their higher ranks, the Town saves somewhat more.)"
+        ) % (f"{top:,}", f"{entry:,}", f"{top - entry:,}"),
+    }
+
+
 def retirements_2019():
     if not RETIREES_2019.exists():
         return None
@@ -159,6 +286,8 @@ def build(xls_path):
     eligible_list.sort(key=lambda x: (x["program"], -x["yearsService"], x["name"]))
 
     backfill = step_backfill(eligible_list)
+    police_eligible_list = [e for e in eligible_list if e["program"] == "Police"]
+    chain = police_chain(police_eligible_list)
     ret2019 = retirements_2019()
 
     # No one who retired in the 2019 program can be in the 2026 active pool.
@@ -197,6 +326,7 @@ def build(xls_path):
         },
         "scenarios": scenarios,
         "realisticBackfill": backfill,
+        "policeChain": chain,
         "retireeHealthcare": {
             "opebLiability2023": 152597117,
             "annualBenefitPayments2023": 3552558,

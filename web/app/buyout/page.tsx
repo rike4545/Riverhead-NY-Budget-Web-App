@@ -183,10 +183,105 @@ export default function BuyoutPage() {
               <strong> transfer</strong> from another department (moving the gap elsewhere), or the position can be
               <strong> eliminated or restructured</strong> (which saves more). For ranked jobs like police, that&apos;s
               exactly what happens — a retiring sergeant triggers a promotion chain, and the rookie is hired at the
-              bottom, so the real saving lands there, not in the sergeant&apos;s slot. Treat the figures above as one
-              illustrative path (direct replacement), not a guaranteed result.
+              bottom, so the real saving lands there, not in the sergeant&apos;s slot (<a href="#police-chain" style={{ color: '#92400e', fontWeight: 800 }}>modeled below</a>).
+              Treat the figures above as one illustrative path (direct replacement), not a guaranteed result.
             </p>
           </div>
+        </section>
+      )}
+
+      {analysis.policeChain && (
+        <section id="police-chain" style={{ ...card, marginBottom: 18, borderLeft: '6px solid #1e3a8a' }}>
+          <h3 style={{ marginTop: 0 }}>Police: where the saving really lands (the promotion chain)</h3>
+          <p style={{ color: '#334155', fontSize: 14.5, lineHeight: 1.6, marginTop: 0 }}>
+            A ranked officer can&apos;t be replaced by a rookie of the same rank — the Town still needs a sergeant, a
+            lieutenant, a captain. So a ranked retirement doesn&apos;t erase that salary; it sets off a
+            {' '}<strong>chain of promotions</strong> that keeps every rank filled and ends with one rookie hired at the
+            bottom. The recurring saving is therefore <strong>a top-step officer swapped for a rookie</strong> — the same
+            for every ranked retirement, no matter how senior — <em>not</em> the retiree&apos;s own rank salary swapped
+            for a rookie.
+          </p>
+
+          {/* Worked example: a retiring sergeant */}
+          <div style={{ background: '#eff6ff', border: '1px solid #bfdbfe', borderRadius: 12, padding: '14px 16px', margin: '4px 0 16px' }}>
+            <div style={{ fontWeight: 900, color: '#1e3a8a', fontSize: 14 }}>{analysis.policeChain.example.title}</div>
+            <ol style={{ color: '#1e3a52', fontSize: 13.8, lineHeight: 1.55, margin: '8px 0 12px', paddingLeft: 20 }}>
+              {analysis.policeChain.example.steps.map((s, i) => <li key={i}>{s}</li>)}
+            </ol>
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: 18, alignItems: 'baseline' }}>
+              <div>
+                <div style={{ color: '#64748b', fontSize: 11.5, fontWeight: 800, textTransform: 'uppercase', letterSpacing: 0.3 }}>A simple model would claim</div>
+                <div style={{ fontSize: 19, fontWeight: 800, color: '#94a3b8', textDecoration: 'line-through' }}>{usd(analysis.policeChain.example.naiveClaim)}/yr</div>
+                <div style={{ color: '#64748b', fontSize: 12 }}>sergeant&apos;s pay − rookie</div>
+              </div>
+              <div style={{ fontSize: 22, color: '#94a3b8' }}>→</div>
+              <div>
+                <div style={{ color: '#166534', fontSize: 11.5, fontWeight: 800, textTransform: 'uppercase', letterSpacing: 0.3 }}>Realistic recurring saving</div>
+                <div style={{ fontSize: 22, fontWeight: 900, color: '#15803d' }}>{usd(analysis.policeChain.example.netSaving)}/yr</div>
+                <div style={{ color: '#166534', fontSize: 12 }}>top-step officer − rookie</div>
+              </div>
+            </div>
+          </div>
+
+          {/* Rank ladder */}
+          <div style={{ fontWeight: 800, color: '#334155', fontSize: 13.5, margin: '2px 0 8px' }}>The rank ladder the vacancy travels down</div>
+          <div style={{ display: 'grid', gap: 4, marginBottom: 16 }}>
+            {analysis.policeChain.ladder.map((r) => (
+              <div key={r.rank} style={{
+                display: 'flex', alignItems: 'center', gap: 10, padding: '7px 12px', borderRadius: 8,
+                background: r.isOfficer ? '#ecfdf5' : '#f8fafc', border: `1px solid ${r.isOfficer ? '#a7f3d0' : '#e2e8f0'}`,
+              }}>
+                <span style={{ fontWeight: 800, color: '#12385b', flex: 1, fontSize: 13.5 }}>{r.rank}</span>
+                <span style={{ color: '#64748b', fontSize: 12.5 }}>{r.count} {r.count === 1 ? 'position' : 'positions'}</span>
+                <span style={{ fontWeight: 800, color: r.isOfficer ? '#15803d' : '#334155', fontSize: 13.5, minWidth: 92, textAlign: 'right' }}>{usd(r.top)}</span>
+                {r.isOfficer && <span style={{ background: '#15803d', color: 'white', fontSize: 10.5, fontWeight: 900, padding: '2px 8px', borderRadius: 999, whiteSpace: 'nowrap' }}>rookie hired here · {usd(analysis.policeChain!.officerEntryStep)}</span>}
+              </div>
+            ))}
+          </div>
+
+          {/* By-rank table for the eligible pool */}
+          <div style={{ overflowX: 'auto' }}>
+            <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 13.5 }}>
+              <thead>
+                <tr style={{ textAlign: 'left', color: '#64748b', borderBottom: '2px solid #e2e8f0' }}>
+                  <th style={th}>Eligible police, by rank</th>
+                  <th style={{ ...th, textAlign: 'right' }}>Count</th>
+                  <th style={{ ...th, textAlign: 'right' }}>Simple estimate / retiree</th>
+                  <th style={{ ...th, textAlign: 'right' }}>Realistic / retiree</th>
+                </tr>
+              </thead>
+              <tbody>
+                {analysis.policeChain.ranked.byRank.map((r) => (
+                  <tr key={r.title} style={{ borderBottom: '1px solid #f1f5f9' }}>
+                    <td style={{ ...td, fontWeight: 700, color: '#12385b' }}>{r.title.replace(/\s+Police-Towns and Village/, '')}</td>
+                    <td style={{ ...td, textAlign: 'right' }}>{r.count}</td>
+                    <td style={{ ...td, textAlign: 'right', color: '#94a3b8', textDecoration: 'line-through' }}>{usd(r.naivePer)}</td>
+                    <td style={{ ...td, textAlign: 'right', color: '#15803d', fontWeight: 800 }}>{usd(r.chainPer)}</td>
+                  </tr>
+                ))}
+                <tr style={{ borderBottom: '1px solid #f1f5f9' }}>
+                  <td style={{ ...td, fontWeight: 700, color: '#12385b' }}>Police Officer (rank-and-file)</td>
+                  <td style={{ ...td, textAlign: 'right' }}>{analysis.policeChain.officers.count}</td>
+                  <td style={{ ...td, textAlign: 'right', color: '#64748b' }} colSpan={2}>replaced directly by a rookie → {usd(analysis.policeChain.officers.netSavings)}/yr total</td>
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr style={{ borderTop: '2px solid #e2e8f0' }}>
+                  <td style={{ ...td, fontWeight: 900, color: '#12385b' }}>All {analysis.policeChain.officers.count + analysis.policeChain.ranked.count} eligible police, if all retire &amp; all posts refilled</td>
+                  <td style={td}></td>
+                  <td style={{ ...td, textAlign: 'right', color: '#94a3b8', textDecoration: 'line-through' }}>{usd(analysis.policeChain.ranked.naiveSavings + analysis.policeChain.officers.netSavings)}/yr</td>
+                  <td style={{ ...td, textAlign: 'right', color: '#15803d', fontWeight: 900, fontSize: 15 }}>{usd(analysis.policeChain.totalNetSavings)}/yr</td>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
+          <p style={{ color: '#64748b', fontSize: 12.5, marginTop: 12, marginBottom: 0, lineHeight: 1.55 }}>
+            Ranks and step salaries come from the Town&apos;s <a href={`${base}/downloads/`} style={{ color: '#1f5f8f', fontWeight: 700 }}>authorized 2025 salary schedule</a>.
+            The chain model treats each ranked retirement as a top-step officer (about {usd(analysis.policeChain.officerTopStep)}) replaced by a
+            rookie ({usd(analysis.policeChain.officerEntryStep)}) — trimming the ranked group&apos;s claimed saving by
+            about {usd(analysis.policeChain.ranked.correction)}/yr versus assuming each rank&apos;s whole salary disappears.
+            It is deliberately conservative: if newly promoted people start at lower steps of their higher ranks, the Town saves somewhat more.
+          </p>
         </section>
       )}
 
