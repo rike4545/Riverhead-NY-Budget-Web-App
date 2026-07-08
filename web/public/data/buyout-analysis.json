@@ -1,0 +1,83 @@
+{
+ "program": "2026 Voluntary Retirement Incentive Program",
+ "basedOn": "Town of Riverhead 2025 Gross Earnings report (active employees, hire dates)",
+ "eligibility": {
+  "csea": {
+   "count": 54,
+   "avgYearsService": 23.6,
+   "avgBase": 60280.63,
+   "totalBase": 3255154
+  },
+  "police": {
+   "count": 24,
+   "avgYearsService": 25.2,
+   "avgBase": 116861.27,
+   "totalBase": 2804670
+  },
+  "totalCount": 78,
+  "totalAnnualBase": 6059824
+ },
+ "oneTimeCostMax": 1604616,
+ "oneTimeBreakdown": {
+  "cseaTotal": 675000,
+  "policeServicePay": 606000,
+  "policeSickDayMax": 323616
+ },
+ "perRetiree": {
+  "cseaIncentive": 12500,
+  "cseaAvgBase": 60280.63,
+  "policeAvgIncentive": 38734,
+  "policeAvgBase": 116861.27,
+  "avgBaseAllEligible": 77690
+ },
+ "breakEvenYears_refill80": {
+  "csea": 1.0,
+  "police": 1.7
+ },
+ "scenarios": [
+  {
+   "uptakePct": 15,
+   "retirees": 12,
+   "oneTimeCost": 261753,
+   "baseVacatedPerYear": 1029757,
+   "annualSavings_refillSameCost": 0,
+   "annualSavings_refill80": 205951,
+   "annualSavings_holdVacant": 1029757
+  },
+  {
+   "uptakePct": 30,
+   "retirees": 23,
+   "oneTimeCost": 466349,
+   "baseVacatedPerYear": 1785556,
+   "annualSavings_refillSameCost": 0,
+   "annualSavings_refill80": 357111,
+   "annualSavings_holdVacant": 1785556
+  },
+  {
+   "uptakePct": 50,
+   "retirees": 39,
+   "oneTimeCost": 787369,
+   "baseVacatedPerYear": 3077697,
+   "annualSavings_refillSameCost": 0,
+   "annualSavings_refill80": 615539,
+   "annualSavings_holdVacant": 3077697
+  },
+  {
+   "uptakePct": 100,
+   "retirees": 78,
+   "oneTimeCost": 1604616,
+   "baseVacatedPerYear": 6059824,
+   "annualSavings_refillSameCost": 0,
+   "annualSavings_refill80": 1211965,
+   "annualSavings_holdVacant": 6059824
+  }
+ ],
+ "assumptions": [
+  "Eligible pool is an upper bound from hire date and union; actual eligibility also requires age / retirement eligibility, so fewer people likely qualify.",
+  "Participation is unknown until the September 1, 2026 election deadline; scenarios show 15%, 30%, 50%, and 100% uptake.",
+  "Savings use base salary only. Real compensation (benefits ~30%, longevity, overtime) is higher, so salary savings are understated \u2014 but retiree health insurance continues, offsetting some of that.",
+  "The police sick-day payout is modeled at its 30-day maximum; many members have no excess accrual, so police cost is likely lower.",
+  "Accrued leave payouts owed at any separation are not counted as incentive cost (they are owed regardless of the buyout)."
+ ],
+ "verdict": "Whether the Town saves money depends on what it does with the vacated positions. The one-time incentive is small next to the salaries: about $12,500 per CSEA retiree and ~$38,734 per police retiree, against average base salaries of $60,281 (CSEA) and $116,861 (police). If positions are refilled at a lower starting step, the incentive is typically recovered within ~1-2 years and the Town saves every year after. If positions are held vacant, savings are immediate and large. Only if every position is refilled at the same cost does the buyout become a pure one-time expense with no salary offset."
+}

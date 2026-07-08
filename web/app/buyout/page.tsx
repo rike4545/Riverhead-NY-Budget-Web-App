@@ -1,9 +1,11 @@
 import PageShell from '../../components/PageShell'
 import PlainCallout from '../../components/PlainCallout'
 import { buyout2026 as b } from '../../lib/buyout-2026'
+import analysis from '../../public/data/buyout-analysis.json'
 
 const base = '/rike4545-riverhead-budget-live'
 const card = { background: 'white', border: '1px solid #e2e8f0', borderRadius: 16, padding: 20, boxShadow: '0 14px 34px rgba(15,23,42,.05)' } as const
+const usd = (n: number) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(n)
 
 export const metadata = {
   title: '2026 Early Retirement Buyout — final terms',
@@ -97,6 +99,68 @@ export default function BuyoutPage() {
         </p>
       </section>
 
+      {/* Cost & savings analysis */}
+      <h2 id="cost" style={{ color: '#12385b' }}>What it costs — and will the Town save money?</h2>
+      <PlainCallout title="The short answer">
+        <strong>It depends on what the Town does with the vacated jobs — but the math favors savings.</strong> The
+        payment is small next to the salaries: about {usd(analysis.perRetiree.cseaIncentive)} per CSEA retiree and
+        roughly {usd(analysis.perRetiree.policeAvgIncentive)} per police retiree, against average base salaries of
+        {' '}{usd(analysis.perRetiree.cseaAvgBase)} (CSEA) and {usd(analysis.perRetiree.policeAvgBase)} (police). If jobs
+        are refilled at a lower starting step, the Town recovers the payment in about{' '}
+        {analysis.breakEvenYears_refill80.csea}–{analysis.breakEvenYears_refill80.police} years and saves after that.
+        If jobs are held vacant, savings are immediate. Only if every job is refilled at the same cost is it a pure
+        one-time expense.
+      </PlainCallout>
+
+      <section style={{ ...card, display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(170px,1fr))', gap: 12, marginBottom: 14 }}>
+        <Stat label="Eligible (upper bound)" value={String(analysis.eligibility.totalCount)} sub={`${analysis.eligibility.csea.count} CSEA · ${analysis.eligibility.police.count} police`} />
+        <Stat label="Their annual base salary" value={usd(analysis.eligibility.totalAnnualBase)} sub="reshapeable payroll" accent />
+        <Stat label="Max one-time cost" value={usd(analysis.oneTimeCostMax)} sub="if everyone eligible takes it" />
+        <Stat label="Break-even (refill at lower step)" value={`~${analysis.breakEvenYears_refill80.csea}–${analysis.breakEvenYears_refill80.police} yrs`} />
+      </section>
+
+      <section style={{ ...card, marginBottom: 14 }}>
+        <h3 style={{ marginTop: 0 }}>Cost and yearly savings by how many take the buyout</h3>
+        <p style={{ color: '#64748b', fontSize: 13.5, marginTop: 0 }}>Participation won&apos;t be known until the September 1, 2026 deadline. Yearly savings depend on whether each vacated job is refilled at the same cost, refilled cheaper (a new hire starts at a lower step), or held open.</p>
+        <div style={{ overflowX: 'auto' }}>
+          <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 13.5 }}>
+            <thead>
+              <tr style={{ textAlign: 'left', color: '#64748b', borderBottom: '2px solid #e2e8f0' }}>
+                <th style={th}>If this many take it</th>
+                <th style={{ ...th, textAlign: 'right' }}>Retirees</th>
+                <th style={{ ...th, textAlign: 'right' }}>One-time cost</th>
+                <th style={{ ...th, textAlign: 'right' }}>Refill same cost</th>
+                <th style={{ ...th, textAlign: 'right' }}>Refill cheaper (~20%)</th>
+                <th style={{ ...th, textAlign: 'right' }}>Hold vacant</th>
+              </tr>
+            </thead>
+            <tbody>
+              {analysis.scenarios.map((s) => (
+                <tr key={s.uptakePct} style={{ borderBottom: '1px solid #f1f5f9' }}>
+                  <td style={td}><strong>{s.uptakePct}% of eligible</strong></td>
+                  <td style={{ ...td, textAlign: 'right' }}>{s.retirees}</td>
+                  <td style={{ ...td, textAlign: 'right', color: '#b45309', fontWeight: 700 }}>{usd(s.oneTimeCost)}</td>
+                  <td style={{ ...td, textAlign: 'right', color: '#94a3b8' }}>$0/yr</td>
+                  <td style={{ ...td, textAlign: 'right', color: '#15803d', fontWeight: 700 }}>{usd(s.annualSavings_refill80)}/yr</td>
+                  <td style={{ ...td, textAlign: 'right', color: '#15803d', fontWeight: 700 }}>{usd(s.annualSavings_holdVacant)}/yr</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <p style={{ color: '#64748b', fontSize: 12.5, marginTop: 10, marginBottom: 0, lineHeight: 1.5 }}>
+          &quot;Refill cheaper&quot; assumes a replacement hired at ~80% of the retiree&apos;s pay (a new employee near the
+          bottom of the salary scale). Savings recur every year; the one-time cost is paid once.
+        </p>
+      </section>
+
+      <section style={{ ...card, marginBottom: 18 }}>
+        <h3 style={{ marginTop: 0 }}>How this estimate was built &amp; its limits</h3>
+        <ul style={{ color: '#475569', fontSize: 14, lineHeight: 1.55, paddingLeft: 18, margin: 0 }}>
+          {analysis.assumptions.map((a, i) => <li key={i}>{a}</li>)}
+        </ul>
+      </section>
+
       <section style={{ ...card, marginBottom: 18 }}>
         <h3 style={{ marginTop: 0 }}>Important caveats</h3>
         <ul style={{ color: '#475569', fontSize: 14, lineHeight: 1.55, paddingLeft: 18, margin: 0 }}>
@@ -105,9 +169,23 @@ export default function BuyoutPage() {
       </section>
 
       <p style={{ color: '#64748b', fontSize: 13, lineHeight: 1.5 }}>
-        Source: {b.source.title}. Transcribed from the official agenda packet. Verify against the executed agreements and
+        Source: {b.source.title}. Transcribed from the official agenda packet. Cost estimate built from the Town&apos;s
+        2025 Gross Earnings report (active employees, hire dates). Verify against the executed agreements and
         the adopted resolutions before relying on these terms.
       </p>
     </PageShell>
+  )
+}
+
+const th = { padding: '8px 10px' } as const
+const td = { padding: '7px 10px' } as const
+
+function Stat({ label, value, sub, accent }: { label: string; value: string; sub?: string; accent?: boolean }) {
+  return (
+    <div style={{ background: accent ? '#dbeafe' : '#f8fafc', border: '1px solid #e2e8f0', borderRadius: 12, padding: 12 }}>
+      <div style={{ color: '#64748b', fontSize: 11.5, textTransform: 'uppercase', fontWeight: 900, letterSpacing: 0.4 }}>{label}</div>
+      <strong style={{ fontSize: 20, color: '#12385b' }}>{value}</strong>
+      {sub && <div style={{ color: '#64748b', fontSize: 12.5, marginTop: 2 }}>{sub}</div>}
+    </div>
   )
 }
