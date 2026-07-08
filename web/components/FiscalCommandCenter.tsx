@@ -196,6 +196,14 @@ export default function FiscalCommandCenter() {
 
           <section id="retirement" style={{ ...shell, scrollMarginTop: 24, marginTop: 18, padding: 24 }}>
             <h2 style={{ marginTop: 0 }}>Early Retirement Risk Review</h2>
+            <div style={{ background: '#f0fdf4', border: '1px solid #bbf7d0', borderRadius: 12, padding: '12px 16px', marginBottom: 14 }}>
+              <strong style={{ color: '#14532d' }}>Update — the buyout is now final.</strong>{' '}
+              <span style={{ color: '#166534' }}>
+                The Town has executed 2026 Voluntary Retirement Incentive agreements with all three unions (CSEA $12,500;
+                PBA &amp; SOA $1,000/yr of service + sick-day payout).{' '}
+                <a href={`${base}/buyout/`} style={{ color: '#15803d', fontWeight: 800 }}>See the final terms →</a>
+              </span>
+            </div>
             <p style={{ color: muted }}><strong>{retirementProgramAssessment.classification}:</strong> {retirementProgramAssessment.explanation}</p>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(260px,1fr))', gap: 14 }}>
               {retirementRiskFactors.map((risk) => (

@@ -11,6 +11,7 @@ export default function PageShell({ title, subtitle, children }: { title: string
     ['General Fund', `${base}/general-fund/`],
     ['Annual Report', `${base}/annual-report/`],
     ['Town Board Votes', `${base}/meetings/`],
+    ['2026 Buyout', `${base}/buyout/`],
     ['Search', `${base}/search/`],
     ['Downloads', `${base}/downloads/`],
     ['Standards', `${base}/gfoa/`],

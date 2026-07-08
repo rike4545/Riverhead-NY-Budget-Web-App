@@ -8,6 +8,18 @@ export const glossary: Record<string, GlossaryEntry> = {
     term: 'Appropriations',
     plain: "The money the Town plans to spend. This is the spending side of the budget.",
   },
+  'retirement-buyout': {
+    term: 'Early Retirement Buyout / Incentive',
+    plain: 'A one-time payment the Town offers to encourage eligible longtime employees to retire now, so it can hold positions open, combine roles, or refill them at lower cost.',
+  },
+  ers: {
+    term: 'ERS',
+    plain: 'The New York State & Local Employees’ Retirement System — the state pension system most non-police town workers belong to.',
+  },
+  pfrs: {
+    term: 'PFRS',
+    plain: 'The New York State Police and Fire Retirement System — the state pension system for police officers and firefighters.',
+  },
   'estimated-revenues': {
     term: 'Estimated Revenues',
     plain: 'Money the Town expects to take in from things other than property taxes — fees, permits, state aid, interest, and so on.',
