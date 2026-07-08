@@ -168,13 +168,25 @@ export default function BuyoutPage() {
             {' '}<strong style={{ color: '#15803d' }}>{usd(analysis.realisticBackfill.annualSavings)}/yr</strong>
             {' '}(about {analysis.realisticBackfill.savedShare}% of their pay, not 20%).
           </p>
-          <p style={{ color: '#475569', fontSize: 14.5, lineHeight: 1.55, margin: 0 }}>
+          <p style={{ color: '#475569', fontSize: 14.5, lineHeight: 1.55, margin: '0 0 12px' }}>
             The effect is largest for police: a top-step officer earns well over $110,000, while a new officer starts
             near <strong>{usd(analysis.realisticBackfill.policeOfficerEntryStep ?? 0)}</strong> — so replacing one with
             a rookie saves roughly <strong>$60,000 a year</strong>, every year. (This is a salary figure only;
             an academy-trained replacement also carries training costs, and the Town may choose to hold the post open
             instead.)
           </p>
+          <div style={{ background: '#fffbeb', border: '1px solid #fcd34d', borderRadius: 10, padding: '12px 14px' }}>
+            <strong style={{ color: '#92400e' }}>Important: a retirement isn&apos;t always &quot;replace with a rookie.&quot;</strong>
+            <p style={{ color: '#78350f', fontSize: 13.5, lineHeight: 1.55, margin: '6px 0 0' }}>
+              A vacancy can also be filled by <strong>promoting</strong> a current employee — who then gets a raise, so
+              the savings shrink and the vacancy just shifts down to <em>their</em> old role. It can be filled by a
+              <strong> transfer</strong> from another department (moving the gap elsewhere), or the position can be
+              <strong> eliminated or restructured</strong> (which saves more). For ranked jobs like police, that&apos;s
+              exactly what happens — a retiring sergeant triggers a promotion chain, and the rookie is hired at the
+              bottom, so the real saving lands there, not in the sergeant&apos;s slot. Treat the figures above as one
+              illustrative path (direct replacement), not a guaranteed result.
+            </p>
+          </div>
         </section>
       )}
 

@@ -242,6 +242,7 @@ def build(xls_path):
             "Eligible pool is an upper bound from hire date and union; actual eligibility also requires age / retirement eligibility, so fewer people likely qualify.",
             "Participation is unknown until the September 1, 2026 election deadline; scenarios show 15%, 30%, 50%, and 100% uptake.",
             "Savings use base salary only. Real compensation (benefits ~30%, longevity, overtime) is higher, so salary savings are understated — but retiree health insurance continues, offsetting some of that.",
+            "The step-based backfill assumes each vacated role is filled by a NEW HIRE at the entry step. In practice a retirement may instead trigger a promotion (an existing employee moves up and gets a raise, which reduces the net saving), a lateral transfer (the vacancy simply moves to another role), or elimination/restructuring of the position (which increases the saving). For ranked jobs like police, a retiring sergeant is not replaced by a rookie sergeant — a senior officer is promoted and the rookie is hired at the bottom of the chain, so the real saving lands there.",
             "The police sick-day payout is modeled at its 30-day maximum; many members have no excess accrual, so police cost is likely lower.",
             "Accrued leave payouts owed at any separation are not counted as incentive cost (they are owed regardless of the buyout).",
         ],
