@@ -72,6 +72,834 @@
    "annualSavings_holdVacant": 6059824
   }
  ],
+ "eligibleEmployees": [
+  {
+   "name": "Wulffraat, Lisa M",
+   "title": "Account Clerk",
+   "union": "CSE",
+   "program": "CSEA",
+   "hireYear": 1985,
+   "yearsService": 41,
+   "base": 60892,
+   "estIncentive": 12500
+  },
+  {
+   "name": "Vail, Maribeth",
+   "title": "Senior Justice Court Clerk",
+   "union": "CSE",
+   "program": "CSEA",
+   "hireYear": 1990,
+   "yearsService": 36,
+   "base": 54546,
+   "estIncentive": 12500
+  },
+  {
+   "name": "Strange, Doris L",
+   "title": "Account Clerk",
+   "union": "CSE",
+   "program": "CSEA",
+   "hireYear": 1993,
+   "yearsService": 33,
+   "base": 57053,
+   "estIncentive": 12500
+  },
+  {
+   "name": "Fleming, William M",
+   "title": "Public Safety Dispatcher II",
+   "union": "CSE",
+   "program": "CSEA",
+   "hireYear": 1994,
+   "yearsService": 32,
+   "base": 62472,
+   "estIncentive": 12500
+  },
+  {
+   "name": "Hubbard, Robert E",
+   "title": "Maintenance Mechanic II BLDG",
+   "union": "CSE",
+   "program": "CSEA",
+   "hireYear": 1994,
+   "yearsService": 32,
+   "base": 58487,
+   "estIncentive": 12500
+  },
+  {
+   "name": "Maiorana, Joseph A",
+   "title": "Asst Community Dev Project Super",
+   "union": "CSE",
+   "program": "CSEA",
+   "hireYear": 1994,
+   "yearsService": 32,
+   "base": 94151,
+   "estIncentive": 12500
+  },
+  {
+   "name": "Chester, Erin K",
+   "title": "Public Safety Dispatcher I",
+   "union": "CSE",
+   "program": "CSEA",
+   "hireYear": 1999,
+   "yearsService": 27,
+   "base": 60525,
+   "estIncentive": 12500
+  },
+  {
+   "name": "DeFilippis, Theresa A",
+   "title": "Network and Systems Specialist II",
+   "union": "CSE",
+   "program": "CSEA",
+   "hireYear": 1999,
+   "yearsService": 27,
+   "base": 61826,
+   "estIncentive": 12500
+  },
+  {
+   "name": "Hubbard, Jason S",
+   "title": "Sr Water Trt. Plant Operator IIB",
+   "union": "CSE",
+   "program": "CSEA",
+   "hireYear": 1999,
+   "yearsService": 27,
+   "base": 65959,
+   "estIncentive": 12500
+  },
+  {
+   "name": "Jaeger, Billie Jo",
+   "title": "Account Clerk",
+   "union": "CSE",
+   "program": "CSEA",
+   "hireYear": 1999,
+   "yearsService": 27,
+   "base": 51425,
+   "estIncentive": 12500
+  },
+  {
+   "name": "Nagy, Kenneth E",
+   "title": "Highway Labor Crew Leader",
+   "union": "CSE",
+   "program": "CSEA",
+   "hireYear": 1999,
+   "yearsService": 27,
+   "base": 59784,
+   "estIncentive": 12500
+  },
+  {
+   "name": "Newman, Tanya G",
+   "title": "Public Safety Dispatcher I",
+   "union": "CSE",
+   "program": "CSEA",
+   "hireYear": 1999,
+   "yearsService": 27,
+   "base": 58858,
+   "estIncentive": 12500
+  },
+  {
+   "name": "Arrigo, John E",
+   "title": "Waste Water Treatment Plant Operator II",
+   "union": "CSE",
+   "program": "CSEA",
+   "hireYear": 2000,
+   "yearsService": 26,
+   "base": 62019,
+   "estIncentive": 12500
+  },
+  {
+   "name": "Attridge, Douglas J",
+   "title": "Sr Waste Water Trmt Plant Operator IIIA",
+   "union": "CSE",
+   "program": "CSEA",
+   "hireYear": 2000,
+   "yearsService": 26,
+   "base": 70773,
+   "estIncentive": 12500
+  },
+  {
+   "name": "Ayala, Juan",
+   "title": "Maintenance Mechanic II BLDG",
+   "union": "CSE",
+   "program": "CSEA",
+   "hireYear": 2000,
+   "yearsService": 26,
+   "base": 59981,
+   "estIncentive": 12500
+  },
+  {
+   "name": "Bates, Richard G",
+   "title": "Highway Labor Crew Leader",
+   "union": "CSE",
+   "program": "CSEA",
+   "hireYear": 2000,
+   "yearsService": 26,
+   "base": 65133,
+   "estIncentive": 12500
+  },
+  {
+   "name": "Downs, Richard W",
+   "title": "Senior Town Investigator",
+   "union": "CSE",
+   "program": "CSEA",
+   "hireYear": 2000,
+   "yearsService": 26,
+   "base": 93600,
+   "estIncentive": 12500
+  },
+  {
+   "name": "Keller, Elizabeth A.",
+   "title": "Community Development Program Analyst",
+   "union": "CSE",
+   "program": "CSEA",
+   "hireYear": 2000,
+   "yearsService": 26,
+   "base": 57062,
+   "estIncentive": 12500
+  },
+  {
+   "name": "McKay, Steven C",
+   "title": "Grounds Maintenance Supervisor",
+   "union": "CSE",
+   "program": "CSEA",
+   "hireYear": 2000,
+   "yearsService": 26,
+   "base": 70275,
+   "estIncentive": 12500
+  },
+  {
+   "name": "Commins, Michael C",
+   "title": "Electrical Services Supervisor",
+   "union": "CSE",
+   "program": "CSEA",
+   "hireYear": 2001,
+   "yearsService": 25,
+   "base": 30570,
+   "estIncentive": 12500
+  },
+  {
+   "name": "Fogal, Arthur J",
+   "title": "Highway Labor Crew Leader",
+   "union": "CSE",
+   "program": "CSEA",
+   "hireYear": 2001,
+   "yearsService": 25,
+   "base": 61642,
+   "estIncentive": 12500
+  },
+  {
+   "name": "Hubbard, Gina I",
+   "title": "Senior Account Clerk",
+   "union": "CSE",
+   "program": "CSEA",
+   "hireYear": 2001,
+   "yearsService": 25,
+   "base": 52991,
+   "estIncentive": 12500
+  },
+  {
+   "name": "Buyukdeniz, Deborah L",
+   "title": "Public Safety Dispatcher I",
+   "union": "CSE",
+   "program": "CSEA",
+   "hireYear": 2002,
+   "yearsService": 24,
+   "base": 58000,
+   "estIncentive": 12500
+  },
+  {
+   "name": "McKay, Margaret",
+   "title": "Account Clerk",
+   "union": "CSE",
+   "program": "CSEA",
+   "hireYear": 2002,
+   "yearsService": 24,
+   "base": 61251,
+   "estIncentive": 12500
+  },
+  {
+   "name": "Arteaga, David",
+   "title": "Construction Equip Operator",
+   "union": "CSE",
+   "program": "CSEA",
+   "hireYear": 2003,
+   "yearsService": 23,
+   "base": 54078,
+   "estIncentive": 12500
+  },
+  {
+   "name": "Del Vecchio, Carol A",
+   "title": "Senior Account Clerk",
+   "union": "CSE",
+   "program": "CSEA",
+   "hireYear": 2003,
+   "yearsService": 23,
+   "base": 62455,
+   "estIncentive": 12500
+  },
+  {
+   "name": "Eastwood, Colleen M",
+   "title": "Recreation Supervisor",
+   "union": "CSE",
+   "program": "CSEA",
+   "hireYear": 2003,
+   "yearsService": 23,
+   "base": 64417,
+   "estIncentive": 12500
+  },
+  {
+   "name": "Sulzer, Scott A",
+   "title": "Maintenance Mechanic III BLDG",
+   "union": "CSE",
+   "program": "CSEA",
+   "hireYear": 2003,
+   "yearsService": 23,
+   "base": 61829,
+   "estIncentive": 12500
+  },
+  {
+   "name": "Cain, Victoria L",
+   "title": "Water Meter Reader",
+   "union": "CSE",
+   "program": "CSEA",
+   "hireYear": 2004,
+   "yearsService": 22,
+   "base": 48764,
+   "estIncentive": 12500
+  },
+  {
+   "name": "Merker, William D",
+   "title": "Maintenance Mechanic III BLDG",
+   "union": "CSE",
+   "program": "CSEA",
+   "hireYear": 2004,
+   "yearsService": 22,
+   "base": 62824,
+   "estIncentive": 12500
+  },
+  {
+   "name": "Thompson, Dan",
+   "title": "Housing Inspector",
+   "union": "CSE",
+   "program": "CSEA",
+   "hireYear": 2004,
+   "yearsService": 22,
+   "base": 73636,
+   "estIncentive": 12500
+  },
+  {
+   "name": "Zebrowski, David L",
+   "title": "Building Maintenance Manager",
+   "union": "CSE",
+   "program": "CSEA",
+   "hireYear": 2004,
+   "yearsService": 22,
+   "base": 78583,
+   "estIncentive": 12500
+  },
+  {
+   "name": "Elco, Melissa M",
+   "title": "Public Safety Dispatcher III",
+   "union": "CSE",
+   "program": "CSEA",
+   "hireYear": 2005,
+   "yearsService": 21,
+   "base": 62835,
+   "estIncentive": 12500
+  },
+  {
+   "name": "Kellar, John P",
+   "title": "Water Treatment Plant Operator Type II B",
+   "union": "CSE",
+   "program": "CSEA",
+   "hireYear": 2005,
+   "yearsService": 21,
+   "base": 52789,
+   "estIncentive": 12500
+  },
+  {
+   "name": "Kornafel, Cheryl A",
+   "title": "Account Clerk",
+   "union": "CSE",
+   "program": "CSEA",
+   "hireYear": 2005,
+   "yearsService": 21,
+   "base": 50634,
+   "estIncentive": 12500
+  },
+  {
+   "name": "Mottern, Joan C",
+   "title": "Administrative Assistant",
+   "union": "CSE",
+   "program": "CSEA",
+   "hireYear": 2005,
+   "yearsService": 21,
+   "base": 48252,
+   "estIncentive": 12500
+  },
+  {
+   "name": "Curtis, Michael J",
+   "title": "Auto Mechanic IV",
+   "union": "CSE",
+   "program": "CSEA",
+   "hireYear": 2006,
+   "yearsService": 20,
+   "base": 60427,
+   "estIncentive": 12500
+  },
+  {
+   "name": "Pipczynski, James A",
+   "title": "Heavy Equipment Operator",
+   "union": "CSE",
+   "program": "CSEA",
+   "hireYear": 2006,
+   "yearsService": 20,
+   "base": 51687,
+   "estIncentive": 12500
+  },
+  {
+   "name": "Ritter, Jaime D",
+   "title": "Account Clerk",
+   "union": "CSE",
+   "program": "CSEA",
+   "hireYear": 2006,
+   "yearsService": 20,
+   "base": 47808,
+   "estIncentive": 12500
+  },
+  {
+   "name": "Smith, James A",
+   "title": "Maintenance Mechanic III BLDG",
+   "union": "CSE",
+   "program": "CSEA",
+   "hireYear": 2006,
+   "yearsService": 20,
+   "base": 60497,
+   "estIncentive": 12500
+  },
+  {
+   "name": "Westwood, Karen B",
+   "title": "Senior Citizens Program Supervisor",
+   "union": "CSE",
+   "program": "CSEA",
+   "hireYear": 2006,
+   "yearsService": 20,
+   "base": 54017,
+   "estIncentive": 12500
+  },
+  {
+   "name": "Harden, Jordan C",
+   "title": "Asst Recreation Program Coordinator",
+   "union": "CSE",
+   "program": "CSEA",
+   "hireYear": 2007,
+   "yearsService": 19,
+   "base": 52544,
+   "estIncentive": 12500
+  },
+  {
+   "name": "Hayes, Jarrod P",
+   "title": "Construction Equip Operator",
+   "union": "CSE",
+   "program": "CSEA",
+   "hireYear": 2007,
+   "yearsService": 19,
+   "base": 52231,
+   "estIncentive": 12500
+  },
+  {
+   "name": "Lescenski, Christopher J",
+   "title": "Construction Equip Operator",
+   "union": "CSE",
+   "program": "CSEA",
+   "hireYear": 2007,
+   "yearsService": 19,
+   "base": 56386,
+   "estIncentive": 12500
+  },
+  {
+   "name": "Maccagli, Elizabeth C",
+   "title": "Youth Counselor",
+   "union": "CSE",
+   "program": "CSEA",
+   "hireYear": 2007,
+   "yearsService": 19,
+   "base": 43837,
+   "estIncentive": 12500
+  },
+  {
+   "name": "Seebeck, Catherine H",
+   "title": "Paralegal",
+   "union": "CSE",
+   "program": "CSEA",
+   "hireYear": 2007,
+   "yearsService": 19,
+   "base": 66642,
+   "estIncentive": 12500
+  },
+  {
+   "name": "Buckner, Nicole L",
+   "title": "Town Investigator",
+   "union": "CSE",
+   "program": "CSEA",
+   "hireYear": 2008,
+   "yearsService": 18,
+   "base": 80126,
+   "estIncentive": 12500
+  },
+  {
+   "name": "Burgess, Sarah A",
+   "title": "Justice Court Director",
+   "union": "CSE",
+   "program": "CSEA",
+   "hireYear": 2008,
+   "yearsService": 18,
+   "base": 73747,
+   "estIncentive": 12500
+  },
+  {
+   "name": "Coach, Elrod H",
+   "title": "Construction Equip Operator",
+   "union": "CSE",
+   "program": "CSEA",
+   "hireYear": 2008,
+   "yearsService": 18,
+   "base": 53696,
+   "estIncentive": 12500
+  },
+  {
+   "name": "Moreno, Joseph A",
+   "title": "Construction Equip Operator",
+   "union": "CSE",
+   "program": "CSEA",
+   "hireYear": 2008,
+   "yearsService": 18,
+   "base": 51156,
+   "estIncentive": 12500
+  },
+  {
+   "name": "Vance, Thomas E",
+   "title": "Maintenance Mechanic III BLDG",
+   "union": "CSE",
+   "program": "CSEA",
+   "hireYear": 2008,
+   "yearsService": 18,
+   "base": 54060,
+   "estIncentive": 12500
+  },
+  {
+   "name": "Bugge, Christopher M",
+   "title": "Construction Equip Operator",
+   "union": "CSE",
+   "program": "CSEA",
+   "hireYear": 2009,
+   "yearsService": 17,
+   "base": 54705,
+   "estIncentive": 12500
+  },
+  {
+   "name": "D'Amara, Neil",
+   "title": "Construction Equip Operator",
+   "union": "CSE",
+   "program": "CSEA",
+   "hireYear": 2009,
+   "yearsService": 17,
+   "base": 56160,
+   "estIncentive": 12500
+  },
+  {
+   "name": "Messina, Frank G",
+   "title": "Grants Analyst",
+   "union": "CSE",
+   "program": "CSEA",
+   "hireYear": 2009,
+   "yearsService": 17,
+   "base": 75055,
+   "estIncentive": 12500
+  },
+  {
+   "name": "Vail, John H",
+   "title": "Sergeant Police-Towns and Village",
+   "union": "SOA",
+   "program": "Police",
+   "hireYear": 1989,
+   "yearsService": 37,
+   "base": 132142,
+   "estIncentive": 37000
+  },
+  {
+   "name": "Troyan, Peter",
+   "title": "Police Officer",
+   "union": "PBA",
+   "program": "Police",
+   "hireYear": 1991,
+   "yearsService": 35,
+   "base": 109148,
+   "estIncentive": 35000
+  },
+  {
+   "name": "Anderson, Richard",
+   "title": "Detective",
+   "union": "PBA",
+   "program": "Police",
+   "hireYear": 1996,
+   "yearsService": 30,
+   "base": 112298,
+   "estIncentive": 30000
+  },
+  {
+   "name": "Henry, Michael J",
+   "title": "Detective",
+   "union": "PBA",
+   "program": "Police",
+   "hireYear": 1996,
+   "yearsService": 30,
+   "base": 100271,
+   "estIncentive": 30000
+  },
+  {
+   "name": "Mowdy, Michael W",
+   "title": "Police Officer",
+   "union": "PBA",
+   "program": "Police",
+   "hireYear": 1996,
+   "yearsService": 30,
+   "base": 102205,
+   "estIncentive": 30000
+  },
+  {
+   "name": "Schmidt, Michael J",
+   "title": "Detective",
+   "union": "PBA",
+   "program": "Police",
+   "hireYear": 1996,
+   "yearsService": 30,
+   "base": 106080,
+   "estIncentive": 30000
+  },
+  {
+   "name": "Brogan, Raymond",
+   "title": "Police Officer",
+   "union": "PBA",
+   "program": "Police",
+   "hireYear": 1997,
+   "yearsService": 29,
+   "base": 110635,
+   "estIncentive": 29000
+  },
+  {
+   "name": "Murphy, Timothy J",
+   "title": "Police Officer",
+   "union": "PBA",
+   "program": "Police",
+   "hireYear": 1999,
+   "yearsService": 27,
+   "base": 107935,
+   "estIncentive": 27000
+  },
+  {
+   "name": "Wilson, Timothy C",
+   "title": "Police Officer",
+   "union": "PBA",
+   "program": "Police",
+   "hireYear": 1999,
+   "yearsService": 27,
+   "base": 100846,
+   "estIncentive": 27000
+  },
+  {
+   "name": "Freeborn, Richard J",
+   "title": "Detective",
+   "union": "PBA",
+   "program": "Police",
+   "hireYear": 2001,
+   "yearsService": 25,
+   "base": 49512,
+   "estIncentive": 25000
+  },
+  {
+   "name": "Mauceri, Charles F",
+   "title": "Detective",
+   "union": "PBA",
+   "program": "Police",
+   "hireYear": 2001,
+   "yearsService": 25,
+   "base": 113143,
+   "estIncentive": 25000
+  },
+  {
+   "name": "Seal, John W",
+   "title": "Police Officer",
+   "union": "PBA",
+   "program": "Police",
+   "hireYear": 2001,
+   "yearsService": 25,
+   "base": 106830,
+   "estIncentive": 25000
+  },
+  {
+   "name": "Morris, John A",
+   "title": "Police Officer",
+   "union": "PBA",
+   "program": "Police",
+   "hireYear": 2002,
+   "yearsService": 24,
+   "base": 102681,
+   "estIncentive": 24000
+  },
+  {
+   "name": "Cichanowicz, Charles F",
+   "title": "Sergeant Police-Towns and Village",
+   "union": "SOA",
+   "program": "Police",
+   "hireYear": 2004,
+   "yearsService": 22,
+   "base": 132965,
+   "estIncentive": 22000
+  },
+  {
+   "name": "Clements, Brian T",
+   "title": "Lieutenant  Police-Towns and Village",
+   "union": "SOA",
+   "program": "Police",
+   "hireYear": 2004,
+   "yearsService": 22,
+   "base": 153297,
+   "estIncentive": 22000
+  },
+  {
+   "name": "Devereaux, Jonathan",
+   "title": "Lieutenant  Police-Towns and Village",
+   "union": "SOA",
+   "program": "Police",
+   "hireYear": 2004,
+   "yearsService": 22,
+   "base": 160388,
+   "estIncentive": 22000
+  },
+  {
+   "name": "Heller, Branden H",
+   "title": "Police Officer",
+   "union": "PBA",
+   "program": "Police",
+   "hireYear": 2004,
+   "yearsService": 22,
+   "base": 117673,
+   "estIncentive": 22000
+  },
+  {
+   "name": "Welsh, James P",
+   "title": "Sergeant Police-Towns and Village",
+   "union": "SOA",
+   "program": "Police",
+   "hireYear": 2004,
+   "yearsService": 22,
+   "base": 132684,
+   "estIncentive": 22000
+  },
+  {
+   "name": "Isgro, Dino",
+   "title": "Lieutenant  Police-Towns and Village",
+   "union": "SOA",
+   "program": "Police",
+   "hireYear": 2005,
+   "yearsService": 21,
+   "base": 163025,
+   "estIncentive": 21000
+  },
+  {
+   "name": "Lennon, Patrick J",
+   "title": "Police Officer",
+   "union": "PBA",
+   "program": "Police",
+   "hireYear": 2005,
+   "yearsService": 21,
+   "base": 109472,
+   "estIncentive": 21000
+  },
+  {
+   "name": "Cohen, Eric D",
+   "title": "Police Officer",
+   "union": "PBA",
+   "program": "Police",
+   "hireYear": 2006,
+   "yearsService": 20,
+   "base": 115932,
+   "estIncentive": 20000
+  },
+  {
+   "name": "Keegan, William J",
+   "title": "Police Officer",
+   "union": "PBA",
+   "program": "Police",
+   "hireYear": 2006,
+   "yearsService": 20,
+   "base": 112065,
+   "estIncentive": 20000
+  },
+  {
+   "name": "McDermott, Patrick O",
+   "title": "Detective Sergeant",
+   "union": "SOA",
+   "program": "Police",
+   "hireYear": 2006,
+   "yearsService": 20,
+   "base": 149081,
+   "estIncentive": 20000
+  },
+  {
+   "name": "Mudzinski, Matthew J",
+   "title": "Police Officer",
+   "union": "PBA",
+   "program": "Police",
+   "hireYear": 2006,
+   "yearsService": 20,
+   "base": 104363,
+   "estIncentive": 20000
+  }
+ ],
+ "compare2019": {
+  "note": "The Town ran an earlier retirement incentive in 2019 (the '2019 Voluntary Retirement Incentive Program,' ratified as resolution 2019-538). It was structured very differently, and anyone who took it retired by December 31, 2019 \u2014 so they are not in the 2025 payroll and cannot take the 2026 program.",
+  "rows": [
+   {
+    "item": "Who it covered",
+    "y2019": "CSEA bargaining unit only (Local 1000, Riverhead Unit #852).",
+    "y2026": "CSEA and the police unions (PBA and SOA)."
+   },
+   {
+    "item": "The benefit",
+    "y2019": "Continued health insurance: the Town pays family-plan premiums in full for 48 months after retirement (or $600/month for 48 months for employees on individual plans).",
+    "y2026": "Cash: CSEA $12,500 flat; police $1,000 per year of service plus a payout for up to 30 accrued sick days."
+   },
+   {
+    "item": "Cost pattern",
+    "y2019": "A recurring cost spread over four years of premiums after each retirement.",
+    "y2026": "A one-time lump sum at retirement."
+   },
+   {
+    "item": "Who qualified",
+    "y2019": "Full-time CSEA members employed as of July 2, 2019 who could retire into NYS ERS with no age- or service-related pension reduction (an unreduced, full pension).",
+    "y2026": "CSEA members retiring into ERS as fully vested Tier IV; police retiring into PFRS with 20 years of service."
+   },
+   {
+    "item": "Estimated eligible",
+    "y2019": "About 15-20 CSEA members (Town/union estimate).",
+    "y2026": "About 54 CSEA + 24 police (upper bound from hire date and union)."
+   },
+   {
+    "item": "Deadlines",
+    "y2019": "Notify by Sept 5, 2019; retire on or before Dec 31, 2019.",
+    "y2026": "Elect by Sept 1, 2026."
+   },
+   {
+    "item": "Stated fiscal impact",
+    "y2019": "The Town's fiscal-impact statement said the cost could be absorbed within the existing annual budget (no separate multi-year cost was disclosed).",
+    "y2026": "See the cost model above."
+   }
+  ],
+  "sources": [
+   "Town of Riverhead Resolution 2019-538 \u2014 CSEA Retirement Incentive MOA (July 9, 2019 agenda packet)",
+   "riverheadlocal.com/2019/07/10/town-union-reach-deal-on-retirement-incentives",
+   "riverheadlocal.com/2019/07/02/town-settles-csea-labor-contract"
+  ]
+ },
+ "reconciliation": "Eligibility for 2026 is drawn only from employees still ACTIVE in the 2025 payroll (424 active employees). Employees who elected the 2019 incentive retired in 2019-2020 and are no longer on the payroll, so they are automatically excluded from the 2026 pool \u2014 no one can be counted in both.",
  "assumptions": [
   "Eligible pool is an upper bound from hire date and union; actual eligibility also requires age / retirement eligibility, so fewer people likely qualify.",
   "Participation is unknown until the September 1, 2026 election deadline; scenarios show 15%, 30%, 50%, and 100% uptake.",

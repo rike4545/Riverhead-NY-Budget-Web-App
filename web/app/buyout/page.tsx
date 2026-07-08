@@ -1,5 +1,6 @@
 import PageShell from '../../components/PageShell'
 import PlainCallout from '../../components/PlainCallout'
+import BuyoutEligible, { type EligibleEmployee } from '../../components/BuyoutEligible'
 import { buyout2026 as b } from '../../lib/buyout-2026'
 import analysis from '../../public/data/buyout-analysis.json'
 
@@ -159,6 +160,48 @@ export default function BuyoutPage() {
         <ul style={{ color: '#475569', fontSize: 14, lineHeight: 1.55, paddingLeft: 18, margin: 0 }}>
           {analysis.assumptions.map((a, i) => <li key={i}>{a}</li>)}
         </ul>
+      </section>
+
+      {/* Who appears eligible */}
+      <h2 id="eligible" style={{ color: '#12385b' }}>Which employees appear eligible</h2>
+      <PlainCallout title="Read this first">
+        These are current employees whose <strong>hire date and union</strong> match the program&apos;s service
+        requirements — an <strong>estimate, not a decision</strong>. Actual eligibility also depends on age and pension
+        tier, which payroll doesn&apos;t show, and taking the buyout is entirely voluntary. Listing someone here does
+        not mean they are retiring. Names and hire dates are already public payroll records.
+      </PlainCallout>
+      <BuyoutEligible employees={analysis.eligibleEmployees as EligibleEmployee[]} />
+
+      {/* 2019 vs 2026 */}
+      <h2 id="compare2019" style={{ color: '#12385b', marginTop: 26 }}>How this compares to the 2019 buyout</h2>
+      <PlainCallout title="No one can be counted twice">
+        {analysis.reconciliation}
+      </PlainCallout>
+      <section style={{ ...card, marginBottom: 18 }}>
+        <p style={{ color: '#475569', marginTop: 0, fontSize: 14.5, lineHeight: 1.55 }}>{analysis.compare2019.note}</p>
+        <div style={{ overflowX: 'auto' }}>
+          <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 13.5 }}>
+            <thead>
+              <tr style={{ textAlign: 'left', color: '#64748b', borderBottom: '2px solid #e2e8f0' }}>
+                <th style={th}></th>
+                <th style={th}>2019 program</th>
+                <th style={th}>2026 program</th>
+              </tr>
+            </thead>
+            <tbody>
+              {analysis.compare2019.rows.map((r) => (
+                <tr key={r.item} style={{ borderBottom: '1px solid #f1f5f9', verticalAlign: 'top' }}>
+                  <td style={{ ...td, fontWeight: 800, color: '#12385b', whiteSpace: 'nowrap' }}>{r.item}</td>
+                  <td style={{ ...td, color: '#475569', lineHeight: 1.5 }}>{r.y2019}</td>
+                  <td style={{ ...td, color: '#334155', lineHeight: 1.5 }}>{r.y2026}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <p style={{ color: '#64748b', fontSize: 12.5, marginTop: 12, marginBottom: 0, lineHeight: 1.5 }}>
+          Sources: {analysis.compare2019.sources.join(' · ')}
+        </p>
       </section>
 
       <section style={{ ...card, marginBottom: 18 }}>
