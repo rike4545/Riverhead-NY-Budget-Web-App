@@ -121,8 +121,8 @@ export default function FiscalCommandCenter() {
           </section>
 
           <section id="insights" style={{ ...shell, scrollMarginTop: 24, marginTop: 18, padding: 24 }}>
-            <h2 style={{ margin: 0 }}>Resident Insights</h2>
-            <p style={{ color: muted }}>What changed, why it matters, and what still needs validation.</p>
+            <h2 style={{ margin: 0 }}>What&apos;s worth knowing</h2>
+            <p style={{ color: muted }}>The handful of things that actually moved — what changed, why it matters to you, and what we&apos;re still double-checking.</p>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(280px,1fr))', gap: 14, marginTop: 16 }}>
               {narrativeInsights.map((insight) => (
                 <article key={insight.title} style={{ border: '1px solid #e2e8f0', borderRadius: 18, padding: 16, background: '#f8fafc' }}>
@@ -137,8 +137,8 @@ export default function FiscalCommandCenter() {
           </section>
 
           <section id="funds" style={{ ...shell, scrollMarginTop: 24, marginTop: 18, padding: 24 }}>
-            <h2 style={{ marginTop: 0 }}>All Operating Funds / Department-Level Starting Point</h2>
-            <p style={{ color: muted }}>Every operating fund extracted from the adopted budget. Account- and department-level line items are now live — open the <a href={`${base}/funds/`} style={{ color: '#1f5f8f', fontWeight: 800 }}>Funds &amp; Sub-Accounts explorer</a> to drill any fund down to individual accounts with multi-year trends.</p>
+            <h2 style={{ marginTop: 0 }}>Where the money sits — every operating fund</h2>
+            <p style={{ color: muted }}>A town budget isn&apos;t one pot; it&apos;s a set of separate &quot;funds,&quot; each with its own money. Here&apos;s all of them from the adopted budget. Want to go deeper? The <a href={`${base}/funds/`} style={{ color: '#1f5f8f', fontWeight: 800 }}>Funds &amp; Sub-Accounts explorer</a> lets you open any fund right down to the individual line items, with year-by-year trends.</p>
             <div style={{ display: 'grid', gap: 10 }}>
               {allOperatingFunds2026.map((fund) => (
                 <details key={fund.code} style={{ border: '1px solid #e2e8f0', borderRadius: 16, padding: 14, background: '#f8fafc' }}>
@@ -161,7 +161,7 @@ export default function FiscalCommandCenter() {
           </section>
 
           <section id="reserves" style={{ ...shell, scrollMarginTop: 24, marginTop: 18, padding: 24 }}>
-            <h2 style={{ marginTop: 0 }}>Fund Balance / Reserve Use</h2>
+            <h2 style={{ marginTop: 0 }}>Dipping into savings (reserve use)</h2>
             <p style={{ color: muted }}>{fundBalanceUseSummary.note}</p>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(220px,1fr))', gap: 14 }}>
               <Mini label="Appropriated fund balance" value={dollars(fundBalanceUseSummary.totalAppropriatedFundBalanceInSummary)} />
@@ -174,7 +174,7 @@ export default function FiscalCommandCenter() {
           </section>
 
           <section id="scenario" style={{ ...shell, scrollMarginTop: 24, marginTop: 18, padding: 24 }}>
-            <h2 style={{ marginTop: 0 }}>Scenario Lab: $5M Allocation</h2>
+            <h2 style={{ marginTop: 0 }}>A what-if: how would you spend a $5M surplus?</h2>
             <p style={{ color: muted }}>{scenarioSummary}</p>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(220px,1fr))', gap: 14 }}>
               <Mini label="Package total" value={dollars(surplusScenarioTotals.packageTotal)} />
@@ -195,7 +195,7 @@ export default function FiscalCommandCenter() {
           </section>
 
           <section id="retirement" style={{ ...shell, scrollMarginTop: 24, marginTop: 18, padding: 24 }}>
-            <h2 style={{ marginTop: 0 }}>Early Retirement Risk Review</h2>
+            <h2 style={{ marginTop: 0 }}>The retirement buyout — and what to watch</h2>
             <div style={{ background: '#f0fdf4', border: '1px solid #bbf7d0', borderRadius: 12, padding: '12px 16px', marginBottom: 14 }}>
               <strong style={{ color: '#14532d' }}>Update — the buyout is now final.</strong>{' '}
               <span style={{ color: '#166534' }}>
@@ -218,7 +218,7 @@ export default function FiscalCommandCenter() {
           </section>
 
           <section id="automation" style={{ ...shell, scrollMarginTop: 24, marginTop: 18, padding: 24 }}>
-            <h2 style={{ marginTop: 0 }}>Automation and Analytics Modules</h2>
+            <h2 style={{ marginTop: 0 }}>What updates itself, behind the scenes</h2>
             <div style={{ display: 'grid', gap: 10 }}>
               {analyticsModules.map((module) => (
                 <div key={module.name} style={{ display: 'grid', gridTemplateColumns: '240px 130px 1fr', gap: 14, borderTop: '1px solid #e2e8f0', padding: '12px 0' }}>
@@ -231,7 +231,7 @@ export default function FiscalCommandCenter() {
           </section>
 
           <section style={{ ...shell, marginTop: 18, padding: 24 }}>
-            <h2 style={{ marginTop: 0 }}>Recent Source Documents</h2>
+            <h2 style={{ marginTop: 0 }}>The documents this is built from</h2>
             {recentDocs.map((doc) => (
               <div key={`${doc.year}-${doc.title}`} style={{ display: 'grid', gridTemplateColumns: '80px 1fr 180px', gap: 12, borderTop: '1px solid #e2e8f0', padding: '10px 0' }}>
                 <strong>{doc.year}</strong>
@@ -242,10 +242,10 @@ export default function FiscalCommandCenter() {
           </section>
 
           <section id="disclaimers" style={{ ...shell, scrollMarginTop: 24, marginTop: 18, padding: 24, borderLeft: '8px solid #dc2626', background: '#fff7f7' }}>
-            <h2 style={{ marginTop: 0, color: '#991b1b' }}>Important Disclaimers</h2>
-            <p>This website is an independent public-information and fiscal-analysis project. It is not an official Town of Riverhead website and is not affiliated with, endorsed by, sponsored by, or operated by the Town of Riverhead or any Town department.</p>
-            <p>Financial information is derived from publicly available source documents. Parsed values, AI-generated explanations, projections, summaries, classifications, and trend analyses may contain errors, omissions, extraction issues, OCR limitations, or timing mismatches.</p>
-            <p>Users should verify all figures and interpretations against original official source documents before relying on them.</p>
+            <h2 style={{ marginTop: 0, color: '#991b1b' }}>The fine print</h2>
+            <p>This is a resident-built project to make the Town&apos;s finances easier to follow. It&apos;s not the Town&apos;s official website, and it isn&apos;t affiliated with, endorsed by, or run by the Town of Riverhead or any department.</p>
+            <p>The numbers come from public documents, pulled out automatically. That means a figure can occasionally be misread — a scanning glitch, a mislabeled line, or a report that hadn&apos;t caught up yet.</p>
+            <p>So if a number matters to you, check it against the original official document before you rely on it. And if you spot something off, that&apos;s worth flagging.</p>
           </section>
     </div>
   )

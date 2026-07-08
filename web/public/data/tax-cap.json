@@ -15,7 +15,7 @@
  "implications": [
   {"title": "It's a compliance violation, not a rounding issue", "text": "The tax-cap statute contemplates that a levy raised above the limit without proper authorization be placed in reserve and used to reduce the following year's levy. Five years over the cap with no override law is a genuine internal-controls failure, not a technicality."},
   {"title": "It points to weak controls over the levy calculation", "text": "A miscalculation that went uncorrected from 2018 through 2022 means the number that sets residents' taxes wasn't being independently checked against the state formula each year."},
-  {"title": "2027 is where the lesson bites next", "text": "The 2026 tentative budget proposed a town-wide tax-RATE increase of about 6.74% — far above the ~2% levy cap — so an override is again in play. Doing it correctly means the Board must adopt the override local law first, in public, with the 60% vote on the record."}
+  {"title": "The Town now overrides the right way — but overriding is the new normal", "text": "For 2026 the Board did it correctly: on November 18, 2025 it unanimously adopted the override local law first, then passed the $121.1M budget, which raised the town-wide levy 7.74% (rate $67.031 to $71.549 per $1,000). So 2023 and 2026 were both proper, public overrides. The worry is no longer the paperwork — it's that a ~7.74% levy jump, far above the 2% cap, has become routine, which puts real pressure on 2027 and beyond."}
  ],
  "levyContext": {
   "note": "General Fund tax levy by year (context for the growth pressure, not the town-wide cap measure). The cap applies to the total levy across all town funds; this series is the General Fund portion the site tracks.",
@@ -37,11 +37,12 @@
   {"year": "2021", "status": "over-no-law", "label": "Over cap — no override law"},
   {"year": "2022", "status": "over-no-law", "label": "Over cap — no override law (auditor-confirmed)"},
   {"year": "2023", "status": "over-with-law", "label": "Over cap — override local law adopted (corrected)"},
-  {"year": "2026", "status": "proposed", "label": "Tentative budget proposes ~6.74% rate increase — override again in play"}
+  {"year": "2026", "status": "over-with-law", "label": "Over cap — override local law adopted Nov 18, 2025 (unanimous); 7.74% levy / 6.74% rate increase"}
  ],
  "sources": [
   "Town of Riverhead 2022 Audited Basic Financial Statements, Management's Discussion & Analysis (tax-cap note).",
   "Town of Riverhead 2021 Independent Auditor's Report (origin of the 2018 tax-cap calculation error).",
-  "RiverheadLOCAL, “Riverhead’s 2026 tentative budget calls for town-wide tax rate increase of 6.74%” (Sept. 29, 2025)."
+  "RiverheadLOCAL, “Riverhead’s 2026 tentative budget calls for town-wide tax rate increase of 6.74%” (Sept. 29, 2025).",
+  "RiverheadLOCAL, “Riverhead Town Board approves 2026 budget” (Nov. 20, 2025) — the Board unanimously adopted the override local law before passing the $121.1M budget."
  ]
 }

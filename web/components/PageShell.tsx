@@ -30,7 +30,7 @@ export default function PageShell({ title, subtitle, children }: { title: string
           <span style={{ width: 48, height: 48, borderRadius: 8, display: 'grid', placeItems: 'center', background: '#f8f5ec', color: '#12385b', border: '2px solid #c99a2e', fontWeight: 950 }}>RB</span>
           <span>
             <strong style={{ fontSize: 22 }}>Riverhead Budget Live</strong>
-            <div style={{ color: '#d7e7f4', fontSize: 12 }}>Independent municipal finance explorer</div>
+            <div style={{ color: '#d7e7f4', fontSize: 12 }}>Following the Town&apos;s money, in plain English</div>
           </span>
         </a>
         <nav style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
@@ -41,13 +41,13 @@ export default function PageShell({ title, subtitle, children }: { title: string
       </header>
       <section style={{ padding: 30, maxWidth: 1380, margin: '0 auto' }}>
         <div style={{ background: '#ffffff', border: '1px solid #d8e0e7', borderTop: '6px solid #1f5f8f', borderRadius: 12, padding: 28, boxShadow: '0 14px 34px rgba(31,95,143,.10)', marginBottom: 18 }}>
-          <div style={{ color: '#9b6b12', letterSpacing: 2, textTransform: 'uppercase', fontSize: 12, fontWeight: 950 }}>Public fiscal intelligence / unofficial</div>
+          <div style={{ color: '#9b6b12', letterSpacing: 2, textTransform: 'uppercase', fontSize: 12, fontWeight: 950 }}>A resident-built project · not the Town&apos;s official site</div>
           <h1 style={{ fontSize: 42, lineHeight: 1.05, margin: '8px 0', color: '#12385b' }}>{title}</h1>
           <p style={{ color: '#44576a', fontSize: 17, lineHeight: 1.55, margin: 0, maxWidth: 980 }}>{subtitle}</p>
           <div style={{ marginTop: 18, background: '#fff8e6', border: '1px solid #d8b45a', color: '#5f430d', padding: 13, borderRadius: 8, fontSize: 14, lineHeight: 1.45 }}>
-            This is an independent public-information project and is not affiliated with, endorsed by, or operated by the Town of Riverhead. Verify figures against official source documents before relying on them.
+            A neighbor made this to make the Town&apos;s finances easier to follow. It isn&apos;t affiliated with or endorsed by the Town of Riverhead, and figures can carry parsing errors — so double-check anything important against the official documents before you rely on it.
             <span style={{ display: 'block', marginTop: 6, fontSize: 12.5, color: '#8a6a1f' }}>
-              Data last refreshed {meta.generatedAtDisplay} · updates automatically as the Town publishes new records.
+              Last refreshed {meta.generatedAtDisplay} · it updates itself whenever the Town posts something new.
             </span>
           </div>
         </div>
