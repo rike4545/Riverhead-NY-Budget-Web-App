@@ -41,6 +41,17 @@ export default function MeetingsPage() {
         <Stat label="Tabled" value={String(t.tabled)} />
       </section>
 
+      <section style={{ ...card, marginBottom: 18, background: '#eef6ff', border: '1px solid #bcd9f5' }}>
+        <h3 style={{ marginTop: 0, color: '#12385b' }}>New: what each resolution actually costs</h3>
+        <p style={{ color: '#1f3a52', fontSize: 14.5, lineHeight: 1.6, margin: 0 }}>
+          A vote tells you <em>whether</em> the Board acted; it doesn&apos;t tell you the price. Our{' '}
+          <a href="/rike4545-riverhead-budget-live/fiscal-impact/" style={{ color: '#1f5f8f', fontWeight: 800 }}>Fiscal Impact, corrected</a>{' '}
+          page takes the Town&apos;s own “Fiscal Impact Statement” for every July 7 resolution and flags where it marks
+          “no fiscal impact” on items that plainly move money — a $227,683 well closure, three union stipulations, new
+          recurring salaries, and more.
+        </p>
+      </section>
+
       <MeetingVotes />
     </PageShell>
   )

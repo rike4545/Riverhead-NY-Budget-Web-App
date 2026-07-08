@@ -1,0 +1,1106 @@
+{
+ "date": "July 7, 2026",
+ "type": "Regular Meeting",
+ "calledToOrder": "2:02 PM",
+ "roster": [
+  {
+   "last": "Halpin",
+   "name": "Jerry Halpin",
+   "title": "Supervisor",
+   "party": "Democrat"
+  },
+  {
+   "last": "Rothwell",
+   "name": "Kenneth Rothwell",
+   "title": "Councilman",
+   "party": "Republican"
+  },
+  {
+   "last": "Kern",
+   "name": "Robert Kern",
+   "title": "Councilman",
+   "party": "Republican"
+  },
+  {
+   "last": "Merrifield",
+   "name": "Denise Merrifield",
+   "title": "Councilwoman",
+   "party": "Republican"
+  },
+  {
+   "last": "Waski",
+   "name": "Joann Waski",
+   "title": "Councilwoman",
+   "party": "Republican"
+  }
+ ],
+ "resolutions": [
+  {
+   "seq": 1,
+   "number": "2026-633",
+   "title": "Water District Capital Project #82301 Budget Adjustment RESULT: ADOPTED [UNANIMOUS] MOVER: Councilman Kenneth Rothwell SECONDER: Councilman Robert Kern AYES: Jerry Halpin, Kenneth Rothwell, Robert Kern, Denise Merrifield, Joann Waski",
+   "result": "ADOPTED [UNANIMOUS]",
+   "adopted": true,
+   "tag": "unanimous",
+   "ayesCount": null,
+   "naysCount": 0,
+   "mover": "Kenneth Rothwell",
+   "seconder": "Robert Kern",
+   "votes": {
+    "Halpin": "aye",
+    "Rothwell": "aye",
+    "Kern": "aye",
+    "Merrifield": "aye",
+    "Waski": "aye"
+   }
+  },
+  {
+   "seq": 2,
+   "number": "2026-634",
+   "title": "Water Capital Project #81851 \u2013 USGS Test Wells Closure RESULT: ADOPTED [UNANIMOUS] MOVER: Councilman Robert Kern SECONDER: Councilwoman Denise Merrifield AYES: Jerry Halpin, Kenneth Rothwell, Robert Kern, Denise Merrifield, Joann Waski",
+   "result": "ADOPTED [UNANIMOUS]",
+   "adopted": true,
+   "tag": "unanimous",
+   "ayesCount": null,
+   "naysCount": 0,
+   "mover": "Robert Kern",
+   "seconder": "Denise Merrifield",
+   "votes": {
+    "Halpin": "aye",
+    "Rothwell": "aye",
+    "Kern": "aye",
+    "Merrifield": "aye",
+    "Waski": "aye"
+   }
+  },
+  {
+   "seq": 3,
+   "number": "2026-635",
+   "title": "Water District Capital Project 82605 National Grid Hydrant Relocation Mill Rd. Budget Adjustment RESULT: ADOPTED [UNANIMOUS] MOVER: Councilwoman Denise Merrifield SECONDER: Councilwoman Joann Waski AYES: Jerry Halpin, Kenneth Rothwell, Robert Kern, Denise Merrifield, Joann Waski",
+   "result": "ADOPTED [UNANIMOUS]",
+   "adopted": true,
+   "tag": "unanimous",
+   "ayesCount": null,
+   "naysCount": 0,
+   "mover": "Denise Merrifield",
+   "seconder": "Joann Waski",
+   "votes": {
+    "Halpin": "aye",
+    "Rothwell": "aye",
+    "Kern": "aye",
+    "Merrifield": "aye",
+    "Waski": "aye"
+   }
+  },
+  {
+   "seq": 4,
+   "number": "2026-636",
+   "title": "Water District Capital Project #82612 Peconic River Hotel 127 E Main St Budget Adoption RESULT: ADOPTED [UNANIMOUS] MOVER: Councilwoman Joann Waski SECONDER: Councilman Kenneth Rothwell AYES: Jerry Halpin, Kenneth Rothwell, Robert Kern, Denise Merrifield, Joann Waski",
+   "result": "ADOPTED [UNANIMOUS]",
+   "adopted": true,
+   "tag": "unanimous",
+   "ayesCount": null,
+   "naysCount": 0,
+   "mover": "Joann Waski",
+   "seconder": "Kenneth Rothwell",
+   "votes": {
+    "Halpin": "aye",
+    "Rothwell": "aye",
+    "Kern": "aye",
+    "Merrifield": "aye",
+    "Waski": "aye"
+   }
+  },
+  {
+   "seq": 5,
+   "number": "2026-637",
+   "title": "Capital Project #52513 EWR 2025-2026 Highway Budget Adjustment RESULT: ADOPTED [UNANIMOUS] MOVER: Councilman Kenneth Rothwell SECONDER: Councilman Robert Kern AYES: Jerry Halpin, Kenneth Rothwell, Robert Kern, Denise Merrifield, Joann Waski",
+   "result": "ADOPTED [UNANIMOUS]",
+   "adopted": true,
+   "tag": "unanimous",
+   "ayesCount": null,
+   "naysCount": 0,
+   "mover": "Kenneth Rothwell",
+   "seconder": "Robert Kern",
+   "votes": {
+    "Halpin": "aye",
+    "Rothwell": "aye",
+    "Kern": "aye",
+    "Merrifield": "aye",
+    "Waski": "aye"
+   }
+  },
+  {
+   "seq": 6,
+   "number": "2026-638",
+   "title": "Budget Adjustment For Purchase of New Bucket Truck for Street Lighting Division RESULT: ADOPTED [UNANIMOUS] MOVER: Councilman Robert Kern SECONDER: Councilwoman Denise Merrifield AYES: Jerry Halpin, Kenneth Rothwell, Robert Kern, Denise Merrifield, Joann Waski",
+   "result": "ADOPTED [UNANIMOUS]",
+   "adopted": true,
+   "tag": "unanimous",
+   "ayesCount": null,
+   "naysCount": 0,
+   "mover": "Robert Kern",
+   "seconder": "Denise Merrifield",
+   "votes": {
+    "Halpin": "aye",
+    "Rothwell": "aye",
+    "Kern": "aye",
+    "Merrifield": "aye",
+    "Waski": "aye"
+   }
+  },
+  {
+   "seq": 7,
+   "number": "2026-639",
+   "title": "Ratifies Budget Adjustment for East Creek Boat Launch Repairs RESULT: ADOPTED [UNANIMOUS] MOVER: Councilwoman Denise Merrifield SECONDER: Councilwoman Joann Waski AYES: Jerry Halpin, Kenneth Rothwell, Robert Kern, Denise Merrifield, Joann Waski",
+   "result": "ADOPTED [UNANIMOUS]",
+   "adopted": true,
+   "tag": "unanimous",
+   "ayesCount": null,
+   "naysCount": 0,
+   "mover": "Denise Merrifield",
+   "seconder": "Joann Waski",
+   "votes": {
+    "Halpin": "aye",
+    "Rothwell": "aye",
+    "Kern": "aye",
+    "Merrifield": "aye",
+    "Waski": "aye"
+   }
+  },
+  {
+   "seq": 8,
+   "number": "2026-640",
+   "title": "Suffolk County Water Authority Federal Pass-Through Grant 2025 Budget Adjustment RESULT: ADOPTED [UNANIMOUS] MOVER: Councilman Kenneth Rothwell SECONDER: Councilman Robert Kern AYES: Jerry Halpin, Kenneth Rothwell, Robert Kern, Denise Merrifield, Joann Waski",
+   "result": "ADOPTED [UNANIMOUS]",
+   "adopted": true,
+   "tag": "unanimous",
+   "ayesCount": null,
+   "naysCount": 0,
+   "mover": "Kenneth Rothwell",
+   "seconder": "Robert Kern",
+   "votes": {
+    "Halpin": "aye",
+    "Rothwell": "aye",
+    "Kern": "aye",
+    "Merrifield": "aye",
+    "Waski": "aye"
+   }
+  },
+  {
+   "seq": 9,
+   "number": "2026-641",
+   "title": "Budget Adjustment to Pay Down Town Square BAN RESULT: ADOPTED [UNANIMOUS] MOVER: Councilman Robert Kern SECONDER: Councilwoman Denise Merrifield AYES: Jerry Halpin, Kenneth Rothwell, Robert Kern, Denise Merrifield, Joann Waski",
+   "result": "ADOPTED [UNANIMOUS]",
+   "adopted": true,
+   "tag": "unanimous",
+   "ayesCount": null,
+   "naysCount": 0,
+   "mover": "Robert Kern",
+   "seconder": "Denise Merrifield",
+   "votes": {
+    "Halpin": "aye",
+    "Rothwell": "aye",
+    "Kern": "aye",
+    "Merrifield": "aye",
+    "Waski": "aye"
+   }
+  },
+  {
+   "seq": 10,
+   "number": "2026-642",
+   "title": "Budget Adjustment to Pay Down 2018 Series B Bond Refunding RESULT: ADOPTED [UNANIMOUS] MOVER: Councilwoman Denise Merrifield SECONDER: Councilwoman Joann Waski AYES: Jerry Halpin, Kenneth Rothwell, Robert Kern, Denise Merrifield, Joann Waski",
+   "result": "ADOPTED [UNANIMOUS]",
+   "adopted": true,
+   "tag": "unanimous",
+   "ayesCount": null,
+   "naysCount": 0,
+   "mover": "Denise Merrifield",
+   "seconder": "Joann Waski",
+   "votes": {
+    "Halpin": "aye",
+    "Rothwell": "aye",
+    "Kern": "aye",
+    "Merrifield": "aye",
+    "Waski": "aye"
+   }
+  },
+  {
+   "seq": 11,
+   "number": "2026-643",
+   "title": "Acceptance of Donations from George and Janice Gabrielsen Family June 2026 RESULT: ADOPTED [UNANIMOUS] MOVER: Councilwoman Joann Waski SECONDER: Councilman Kenneth Rothwell AYES: Jerry Halpin, Kenneth Rothwell, Robert Kern, Denise Merrifield, Joann Waski",
+   "result": "ADOPTED [UNANIMOUS]",
+   "adopted": true,
+   "tag": "unanimous",
+   "ayesCount": null,
+   "naysCount": 0,
+   "mover": "Joann Waski",
+   "seconder": "Kenneth Rothwell",
+   "votes": {
+    "Halpin": "aye",
+    "Rothwell": "aye",
+    "Kern": "aye",
+    "Merrifield": "aye",
+    "Waski": "aye"
+   }
+  },
+  {
+   "seq": 12,
+   "number": "2026-644",
+   "title": "Accepts Donation from The Riverhead Police Benevolent Association for PAL Bike Rodeo Sponsorship RESULT: ADOPTED [UNANIMOUS] MOVER: Councilman Kenneth Rothwell SECONDER: Councilman Robert Kern AYES: Jerry Halpin, Kenneth Rothwell, Robert Kern, Denise Merrifield, Joann Waski",
+   "result": "ADOPTED [UNANIMOUS]",
+   "adopted": true,
+   "tag": "unanimous",
+   "ayesCount": null,
+   "naysCount": 0,
+   "mover": "Kenneth Rothwell",
+   "seconder": "Robert Kern",
+   "votes": {
+    "Halpin": "aye",
+    "Rothwell": "aye",
+    "Kern": "aye",
+    "Merrifield": "aye",
+    "Waski": "aye"
+   }
+  },
+  {
+   "seq": 13,
+   "number": "2026-645",
+   "title": "Authorizes Purchase of Meals on Wheels Truck for Seniors Department and Approves Budget Adjustment RESULT: ADOPTED [UNANIMOUS] MOVER: Councilman Robert Kern SECONDER: Councilwoman Denise Merrifield AYES: Jerry Halpin, Kenneth Rothwell, Robert Kern, Denise Merrifield, Joann Waski",
+   "result": "ADOPTED [UNANIMOUS]",
+   "adopted": true,
+   "tag": "unanimous",
+   "ayesCount": null,
+   "naysCount": 0,
+   "mover": "Robert Kern",
+   "seconder": "Denise Merrifield",
+   "votes": {
+    "Halpin": "aye",
+    "Rothwell": "aye",
+    "Kern": "aye",
+    "Merrifield": "aye",
+    "Waski": "aye"
+   }
+  },
+  {
+   "seq": 14,
+   "number": "2026-646",
+   "title": "Sets the Fees for Showmobile Usage RESULT: ADOPTED [UNANIMOUS] MOVER: Councilwoman Denise Merrifield SECONDER: Councilwoman Joann Waski AYES: Jerry Halpin, Kenneth Rothwell, Robert Kern, Denise Merrifield, Joann Waski",
+   "result": "ADOPTED [UNANIMOUS]",
+   "adopted": true,
+   "tag": "unanimous",
+   "ayesCount": null,
+   "naysCount": 0,
+   "mover": "Denise Merrifield",
+   "seconder": "Joann Waski",
+   "votes": {
+    "Halpin": "aye",
+    "Rothwell": "aye",
+    "Kern": "aye",
+    "Merrifield": "aye",
+    "Waski": "aye"
+   }
+  },
+  {
+   "seq": 15,
+   "number": "2026-647",
+   "title": "Amends Resolution #2026-107 Setting Fees for Riverhead Scavenger Waste RESULT: ADOPTED [UNANIMOUS] MOVER: Councilwoman Joann Waski SECONDER: Councilman Kenneth Rothwell AYES: Jerry Halpin, Kenneth Rothwell, Robert Kern, Denise Merrifield, Joann Waski",
+   "result": "ADOPTED [UNANIMOUS]",
+   "adopted": true,
+   "tag": "unanimous",
+   "ayesCount": null,
+   "naysCount": 0,
+   "mover": "Joann Waski",
+   "seconder": "Kenneth Rothwell",
+   "votes": {
+    "Halpin": "aye",
+    "Rothwell": "aye",
+    "Kern": "aye",
+    "Merrifield": "aye",
+    "Waski": "aye"
+   }
+  },
+  {
+   "seq": 16,
+   "number": "2026-648",
+   "title": "Appoints A Student Intern II To The Engineering Department (Deieso) RESULT: ADOPTED [UNANIMOUS] MOVER: Councilman Kenneth Rothwell SECONDER: Councilman Robert Kern AYES: Jerry Halpin, Kenneth Rothwell, Robert Kern, Denise Merrifield, Joann Waski",
+   "result": "ADOPTED [UNANIMOUS]",
+   "adopted": true,
+   "tag": "unanimous",
+   "ayesCount": null,
+   "naysCount": 0,
+   "mover": "Kenneth Rothwell",
+   "seconder": "Robert Kern",
+   "votes": {
+    "Halpin": "aye",
+    "Rothwell": "aye",
+    "Kern": "aye",
+    "Merrifield": "aye",
+    "Waski": "aye"
+   }
+  },
+  {
+   "seq": 17,
+   "number": "2026-649",
+   "title": "Appoints A Student Intern II To The Engineering Department (Occhiogrosso) RESULT: ADOPTED [UNANIMOUS] MOVER: Councilman Robert Kern SECONDER: Councilwoman Denise Merrifield AYES: Jerry Halpin, Kenneth Rothwell, Robert Kern, Denise Merrifield, Joann Waski",
+   "result": "ADOPTED [UNANIMOUS]",
+   "adopted": true,
+   "tag": "unanimous",
+   "ayesCount": null,
+   "naysCount": 0,
+   "mover": "Robert Kern",
+   "seconder": "Denise Merrifield",
+   "votes": {
+    "Halpin": "aye",
+    "Rothwell": "aye",
+    "Kern": "aye",
+    "Merrifield": "aye",
+    "Waski": "aye"
+   }
+  },
+  {
+   "seq": 18,
+   "number": "2026-650",
+   "title": "Appoints Seasonal Personnel to the Recreation Department RESULT: ADOPTED [UNANIMOUS] MOVER: Councilwoman Denise Merrifield SECONDER: Councilwoman Joann Waski AYES: Jerry Halpin, Kenneth Rothwell, Robert Kern, Denise Merrifield, Joann Waski",
+   "result": "ADOPTED [UNANIMOUS]",
+   "adopted": true,
+   "tag": "unanimous",
+   "ayesCount": null,
+   "naysCount": 0,
+   "mover": "Denise Merrifield",
+   "seconder": "Joann Waski",
+   "votes": {
+    "Halpin": "aye",
+    "Rothwell": "aye",
+    "Kern": "aye",
+    "Merrifield": "aye",
+    "Waski": "aye"
+   }
+  },
+  {
+   "seq": 19,
+   "number": "2026-651",
+   "title": "Appoints Part-time Court Officers to the Police Department RESULT: ADOPTED [UNANIMOUS] MOVER: Councilwoman Joann Waski SECONDER: Councilman Kenneth Rothwell AYES: Jerry Halpin, Kenneth Rothwell, Robert Kern, Denise Merrifield, Joann Waski",
+   "result": "ADOPTED [UNANIMOUS]",
+   "adopted": true,
+   "tag": "unanimous",
+   "ayesCount": null,
+   "naysCount": 0,
+   "mover": "Joann Waski",
+   "seconder": "Kenneth Rothwell",
+   "votes": {
+    "Halpin": "aye",
+    "Rothwell": "aye",
+    "Kern": "aye",
+    "Merrifield": "aye",
+    "Waski": "aye"
+   }
+  },
+  {
+   "seq": 20,
+   "number": "2026-652",
+   "title": "Ratifies the Appointment of a Part-time Office Assistant RESULT: ADOPTED [UNANIMOUS] MOVER: Councilman Kenneth Rothwell SECONDER: Councilman Robert Kern AYES: Jerry Halpin, Kenneth Rothwell, Robert Kern, Denise Merrifield, Joann Waski",
+   "result": "ADOPTED [UNANIMOUS]",
+   "adopted": true,
+   "tag": "unanimous",
+   "ayesCount": null,
+   "naysCount": 0,
+   "mover": "Kenneth Rothwell",
+   "seconder": "Robert Kern",
+   "votes": {
+    "Halpin": "aye",
+    "Rothwell": "aye",
+    "Kern": "aye",
+    "Merrifield": "aye",
+    "Waski": "aye"
+   }
+  },
+  {
+   "seq": 21,
+   "number": "2026-653",
+   "title": "Ratifies the Appointment of a Part-Time Office Assistant RESULT: ADOPTED [UNANIMOUS] MOVER: Councilman Robert Kern SECONDER: Councilwoman Denise Merrifield AYES: Jerry Halpin, Kenneth Rothwell, Robert Kern, Denise Merrifield, Joann Waski",
+   "result": "ADOPTED [UNANIMOUS]",
+   "adopted": true,
+   "tag": "unanimous",
+   "ayesCount": null,
+   "naysCount": 0,
+   "mover": "Robert Kern",
+   "seconder": "Denise Merrifield",
+   "votes": {
+    "Halpin": "aye",
+    "Rothwell": "aye",
+    "Kern": "aye",
+    "Merrifield": "aye",
+    "Waski": "aye"
+   }
+  },
+  {
+   "seq": 22,
+   "number": "2026-654",
+   "title": "Appoints a Senior Justice Court Clerk RESULT: ADOPTED [UNANIMOUS] MOVER: Councilwoman Denise Merrifield SECONDER: Councilwoman Joann Waski AYES: Jerry Halpin, Kenneth Rothwell, Robert Kern, Denise Merrifield, Joann Waski",
+   "result": "ADOPTED [UNANIMOUS]",
+   "adopted": true,
+   "tag": "unanimous",
+   "ayesCount": null,
+   "naysCount": 0,
+   "mover": "Denise Merrifield",
+   "seconder": "Joann Waski",
+   "votes": {
+    "Halpin": "aye",
+    "Rothwell": "aye",
+    "Kern": "aye",
+    "Merrifield": "aye",
+    "Waski": "aye"
+   }
+  },
+  {
+   "seq": 23,
+   "number": "2026-655",
+   "title": "Appoints Maintenance Mechanic II's to the Engineering Department RESULT: ADOPTED [UNANIMOUS] MOVER: Councilwoman Joann Waski SECONDER: Councilman Kenneth Rothwell AYES: Jerry Halpin, Kenneth Rothwell, Robert Kern, Denise Merrifield, Joann Waski",
+   "result": "ADOPTED [UNANIMOUS]",
+   "adopted": true,
+   "tag": "unanimous",
+   "ayesCount": null,
+   "naysCount": 0,
+   "mover": "Joann Waski",
+   "seconder": "Kenneth Rothwell",
+   "votes": {
+    "Halpin": "aye",
+    "Rothwell": "aye",
+    "Kern": "aye",
+    "Merrifield": "aye",
+    "Waski": "aye"
+   }
+  },
+  {
+   "seq": 24,
+   "number": "2026-656",
+   "title": "Amends Resolution 2026-605 Appointing an Automotive Equipment Operator RESULT: ADOPTED [UNANIMOUS] MOVER: Councilman Kenneth Rothwell SECONDER: Councilman Robert Kern AYES: Jerry Halpin, Kenneth Rothwell, Robert Kern, Denise Merrifield, Joann Waski",
+   "result": "ADOPTED [UNANIMOUS]",
+   "adopted": true,
+   "tag": "unanimous",
+   "ayesCount": null,
+   "naysCount": 0,
+   "mover": "Kenneth Rothwell",
+   "seconder": "Robert Kern",
+   "votes": {
+    "Halpin": "aye",
+    "Rothwell": "aye",
+    "Kern": "aye",
+    "Merrifield": "aye",
+    "Waski": "aye"
+   }
+  },
+  {
+   "seq": 25,
+   "number": "2026-657",
+   "title": "Appoints Amy Eliss to the Emerging Technology Committee RESULT: ADOPTED [UNANIMOUS] MOVER: Councilman Robert Kern SECONDER: Councilwoman Denise Merrifield AYES: Jerry Halpin, Kenneth Rothwell, Robert Kern, Denise Merrifield, Joann Waski",
+   "result": "ADOPTED [UNANIMOUS]",
+   "adopted": true,
+   "tag": "unanimous",
+   "ayesCount": null,
+   "naysCount": 0,
+   "mover": "Robert Kern",
+   "seconder": "Denise Merrifield",
+   "votes": {
+    "Halpin": "aye",
+    "Rothwell": "aye",
+    "Kern": "aye",
+    "Merrifield": "aye",
+    "Waski": "aye"
+   }
+  },
+  {
+   "seq": 26,
+   "number": "2026-658",
+   "title": "Appoints Salim Massoud as Chairperson of the Anti-Bias Task Force RESULT: ADOPTED [UNANIMOUS] MOVER: Councilwoman Denise Merrifield SECONDER: Councilwoman Joann Waski AYES: Jerry Halpin, Kenneth Rothwell, Robert Kern, Denise Merrifield, Joann Waski",
+   "result": "ADOPTED [UNANIMOUS]",
+   "adopted": true,
+   "tag": "unanimous",
+   "ayesCount": null,
+   "naysCount": 0,
+   "mover": "Denise Merrifield",
+   "seconder": "Joann Waski",
+   "votes": {
+    "Halpin": "aye",
+    "Rothwell": "aye",
+    "Kern": "aye",
+    "Merrifield": "aye",
+    "Waski": "aye"
+   }
+  },
+  {
+   "seq": 27,
+   "number": "2026-659",
+   "title": "Reappoints Thomas Najdzion to the Veterans Advisory Committee RESULT: ADOPTED [UNANIMOUS] MOVER: Councilwoman Joann Waski SECONDER: Councilman Kenneth Rothwell AYES: Jerry Halpin, Kenneth Rothwell, Robert Kern, Denise Merrifield, Joann Waski",
+   "result": "ADOPTED [UNANIMOUS]",
+   "adopted": true,
+   "tag": "unanimous",
+   "ayesCount": null,
+   "naysCount": 0,
+   "mover": "Joann Waski",
+   "seconder": "Kenneth Rothwell",
+   "votes": {
+    "Halpin": "aye",
+    "Rothwell": "aye",
+    "Kern": "aye",
+    "Merrifield": "aye",
+    "Waski": "aye"
+   }
+  },
+  {
+   "seq": 28,
+   "number": "2026-660",
+   "title": "Reappoints Kimberly Judd to the Veterans Advisory Committee RESULT: ADOPTED [UNANIMOUS] MOVER: Councilman Kenneth Rothwell SECONDER: Councilman Robert Kern AYES: Jerry Halpin, Kenneth Rothwell, Robert Kern, Denise Merrifield, Joann Waski",
+   "result": "ADOPTED [UNANIMOUS]",
+   "adopted": true,
+   "tag": "unanimous",
+   "ayesCount": null,
+   "naysCount": 0,
+   "mover": "Kenneth Rothwell",
+   "seconder": "Robert Kern",
+   "votes": {
+    "Halpin": "aye",
+    "Rothwell": "aye",
+    "Kern": "aye",
+    "Merrifield": "aye",
+    "Waski": "aye"
+   }
+  },
+  {
+   "seq": 29,
+   "number": "2026-661",
+   "title": "Ratifies the Resignation of a Minibus Driver RESULT: ADOPTED [UNANIMOUS] MOVER: Councilman Robert Kern SECONDER: Councilwoman Denise Merrifield AYES: Jerry Halpin, Kenneth Rothwell, Robert Kern, Denise Merrifield, Joann Waski",
+   "result": "ADOPTED [UNANIMOUS]",
+   "adopted": true,
+   "tag": "unanimous",
+   "ayesCount": null,
+   "naysCount": 0,
+   "mover": "Robert Kern",
+   "seconder": "Denise Merrifield",
+   "votes": {
+    "Halpin": "aye",
+    "Rothwell": "aye",
+    "Kern": "aye",
+    "Merrifield": "aye",
+    "Waski": "aye"
+   }
+  },
+  {
+   "seq": 30,
+   "number": "2026-662",
+   "title": "Ratifies the Resignation of an Automotive Equipment Operator RESULT: ADOPTED [UNANIMOUS] MOVER: Councilwoman Denise Merrifield SECONDER: Councilwoman Joann Waski AYES: Jerry Halpin, Kenneth Rothwell, Robert Kern, Denise Merrifield, Joann Waski",
+   "result": "ADOPTED [UNANIMOUS]",
+   "adopted": true,
+   "tag": "unanimous",
+   "ayesCount": null,
+   "naysCount": 0,
+   "mover": "Denise Merrifield",
+   "seconder": "Joann Waski",
+   "votes": {
+    "Halpin": "aye",
+    "Rothwell": "aye",
+    "Kern": "aye",
+    "Merrifield": "aye",
+    "Waski": "aye"
+   }
+  },
+  {
+   "seq": 31,
+   "number": "2026-663",
+   "title": "Authorizes Town Clerk to Publish and Post Public Notice to Consider a Local Law to Amend Chapter 289-17 of the Riverhead Town Code Titled \"Parking time limited\" RESULT: ADOPTED [UNANIMOUS] MOVER: Councilwoman Joann Waski SECONDER: Councilman Kenneth Rothwell AYES: Jerry Halpin, Kenneth Rothwell, Robert Kern, Denise Merrifield, Joann Waski",
+   "result": "ADOPTED [UNANIMOUS]",
+   "adopted": true,
+   "tag": "unanimous",
+   "ayesCount": null,
+   "naysCount": 0,
+   "mover": "Joann Waski",
+   "seconder": "Kenneth Rothwell",
+   "votes": {
+    "Halpin": "aye",
+    "Rothwell": "aye",
+    "Kern": "aye",
+    "Merrifield": "aye",
+    "Waski": "aye"
+   }
+  },
+  {
+   "seq": 32,
+   "number": "2026-664",
+   "title": "Authorizes Town Clerk To Publish And Post Public Notice To Consider A Local Law To Amend Chapter 289 Of The Riverhead Town Code Entitled \u201cVehicles, Traffic And Parking Regulations\u201d RESULT: ADOPTED [UNANIMOUS] MOVER: Councilman Kenneth Rothwell SECONDER: Councilman Robert Kern AYES: Jerry Halpin, Kenneth Rothwell, Robert Kern, Denise Merrifield, Joann Waski",
+   "result": "ADOPTED [UNANIMOUS]",
+   "adopted": true,
+   "tag": "unanimous",
+   "ayesCount": null,
+   "naysCount": 0,
+   "mover": "Kenneth Rothwell",
+   "seconder": "Robert Kern",
+   "votes": {
+    "Halpin": "aye",
+    "Rothwell": "aye",
+    "Kern": "aye",
+    "Merrifield": "aye",
+    "Waski": "aye"
+   }
+  },
+  {
+   "seq": 33,
+   "number": "2026-665",
+   "title": "Authorizes Town Clerk to Publish and Post Public Notice to Consider a Local Law to Amend Chapter 293 of the Riverhead Town Code RESULT: TABLED [UNANIMOUS] MOVER: Councilman Robert Kern SECONDER: Councilwoman Denise Merrifield AYES: Jerry Halpin, Kenneth Rothwell, Robert Kern, Denise Merrifield, Joann Waski",
+   "result": "TABLED [UNANIMOUS]",
+   "adopted": false,
+   "tag": "tabled",
+   "ayesCount": null,
+   "naysCount": 0,
+   "mover": "Robert Kern",
+   "seconder": "Denise Merrifield",
+   "votes": {
+    "Halpin": "aye",
+    "Rothwell": "aye",
+    "Kern": "aye",
+    "Merrifield": "aye",
+    "Waski": "aye"
+   }
+  },
+  {
+   "seq": 34,
+   "number": "2026-666",
+   "title": "Adopts Local Law to Amend Chapter 301, Article XVII of the Riverhead Town Code entitled \"Business F (BUS F) Zoning Use District (Manufacturers Outlet Center Overlay Zone) RESULT: ADOPTED [UNANIMOUS] MOVER: Councilwoman Denise Merrifield SECONDER: Councilwoman Joann Waski AYES: Jerry Halpin, Kenneth Rothwell, Robert Kern, Denise Merrifield, Joann Waski",
+   "result": "ADOPTED [UNANIMOUS]",
+   "adopted": true,
+   "tag": "unanimous",
+   "ayesCount": null,
+   "naysCount": 0,
+   "mover": "Denise Merrifield",
+   "seconder": "Joann Waski",
+   "votes": {
+    "Halpin": "aye",
+    "Rothwell": "aye",
+    "Kern": "aye",
+    "Merrifield": "aye",
+    "Waski": "aye"
+   }
+  },
+  {
+   "seq": 35,
+   "number": "2026-667",
+   "title": "Authorizes Town Clerk to Publish and Post Notice to Bidders for Cues Flexitrax C550C Portable Video Pipe Inspection Camera, or Equal, for the Riverhead Sewer District RESULT: ADOPTED [UNANIMOUS] MOVER: Councilwoman Joann Waski SECONDER: Councilman Kenneth Rothwell AYES: Jerry Halpin, Kenneth Rothwell, Robert Kern, Denise Merrifield, Joann Waski",
+   "result": "ADOPTED [UNANIMOUS]",
+   "adopted": true,
+   "tag": "unanimous",
+   "ayesCount": null,
+   "naysCount": 0,
+   "mover": "Joann Waski",
+   "seconder": "Kenneth Rothwell",
+   "votes": {
+    "Halpin": "aye",
+    "Rothwell": "aye",
+    "Kern": "aye",
+    "Merrifield": "aye",
+    "Waski": "aye"
+   }
+  },
+  {
+   "seq": 36,
+   "number": "2026-668",
+   "title": "Ratifies Authorization for the Town Clerk to Publish and Post Request for Proposals for the Redevelopment of the Railroad Street Property Designated as Transit-oriented Development (TOD) RESULT: ADOPTED [UNANIMOUS] MOVER: Councilman Kenneth Rothwell SECONDER: Councilman Robert Kern AYES: Jerry Halpin, Kenneth Rothwell, Robert Kern, Denise Merrifield, Joann Waski",
+   "result": "ADOPTED [UNANIMOUS]",
+   "adopted": true,
+   "tag": "unanimous",
+   "ayesCount": null,
+   "naysCount": 0,
+   "mover": "Kenneth Rothwell",
+   "seconder": "Robert Kern",
+   "votes": {
+    "Halpin": "aye",
+    "Rothwell": "aye",
+    "Kern": "aye",
+    "Merrifield": "aye",
+    "Waski": "aye"
+   }
+  },
+  {
+   "seq": 37,
+   "number": "2026-669",
+   "title": "Ratifies Award for Request for Proposals for Buses for Recreation Department Summer Day Camp Trips RESULT: ADOPTED [UNANIMOUS] MOVER: Councilman Robert Kern SECONDER: Councilwoman Denise Merrifield AYES: Jerry Halpin, Kenneth Rothwell, Robert Kern, Denise Merrifield, Joann Waski",
+   "result": "ADOPTED [UNANIMOUS]",
+   "adopted": true,
+   "tag": "unanimous",
+   "ayesCount": null,
+   "naysCount": 0,
+   "mover": "Robert Kern",
+   "seconder": "Denise Merrifield",
+   "votes": {
+    "Halpin": "aye",
+    "Rothwell": "aye",
+    "Kern": "aye",
+    "Merrifield": "aye",
+    "Waski": "aye"
+   }
+  },
+  {
+   "seq": 38,
+   "number": "2026-670",
+   "title": "Approves Special Event Chapter 255 Application for Chamber of Commerce (Concerts in the Park) RESULT: ADOPTED [UNANIMOUS] MOVER: Councilwoman Denise Merrifield SECONDER: Councilwoman Joann Waski AYES: Jerry Halpin, Kenneth Rothwell, Robert Kern, Denise Merrifield, Joann Waski",
+   "result": "ADOPTED [UNANIMOUS]",
+   "adopted": true,
+   "tag": "unanimous",
+   "ayesCount": null,
+   "naysCount": 0,
+   "mover": "Denise Merrifield",
+   "seconder": "Joann Waski",
+   "votes": {
+    "Halpin": "aye",
+    "Rothwell": "aye",
+    "Kern": "aye",
+    "Merrifield": "aye",
+    "Waski": "aye"
+   }
+  },
+  {
+   "seq": 39,
+   "number": "2026-671",
+   "title": "Approves Special Event Chapter 255 Application for Hallockville Farm Museum (Hallockville Hootenanny) RESULT: ADOPTED [UNANIMOUS] MOVER: Councilwoman Joann Waski SECONDER: Councilman Kenneth Rothwell AYES: Jerry Halpin, Kenneth Rothwell, Robert Kern, Denise Merrifield, Joann Waski",
+   "result": "ADOPTED [UNANIMOUS]",
+   "adopted": true,
+   "tag": "unanimous",
+   "ayesCount": null,
+   "naysCount": 0,
+   "mover": "Joann Waski",
+   "seconder": "Kenneth Rothwell",
+   "votes": {
+    "Halpin": "aye",
+    "Rothwell": "aye",
+    "Kern": "aye",
+    "Merrifield": "aye",
+    "Waski": "aye"
+   }
+  },
+  {
+   "seq": 40,
+   "number": "2026-672",
+   "title": "Approves Special Event Chapter 255 Application for Iglesia Pentecostal Familia de Dias (Prayer Service) RESULT: ADOPTED [UNANIMOUS] MOVER: Councilman Kenneth Rothwell SECONDER: Councilman Robert Kern AYES: Jerry Halpin, Kenneth Rothwell, Robert Kern, Denise Merrifield, Joann Waski",
+   "result": "ADOPTED [UNANIMOUS]",
+   "adopted": true,
+   "tag": "unanimous",
+   "ayesCount": null,
+   "naysCount": 0,
+   "mover": "Kenneth Rothwell",
+   "seconder": "Robert Kern",
+   "votes": {
+    "Halpin": "aye",
+    "Rothwell": "aye",
+    "Kern": "aye",
+    "Merrifield": "aye",
+    "Waski": "aye"
+   }
+  },
+  {
+   "seq": 41,
+   "number": "2026-673",
+   "title": "Approve Fireworks Application for Jamesport Fire Department (July 18, 2026) RESULT: ADOPTED [UNANIMOUS] MOVER: Councilman Robert Kern SECONDER: Councilwoman Denise Merrifield AYES: Jerry Halpin, Kenneth Rothwell, Robert Kern, Denise Merrifield, Joann Waski",
+   "result": "ADOPTED [UNANIMOUS]",
+   "adopted": true,
+   "tag": "unanimous",
+   "ayesCount": null,
+   "naysCount": 0,
+   "mover": "Robert Kern",
+   "seconder": "Denise Merrifield",
+   "votes": {
+    "Halpin": "aye",
+    "Rothwell": "aye",
+    "Kern": "aye",
+    "Merrifield": "aye",
+    "Waski": "aye"
+   }
+  },
+  {
+   "seq": 42,
+   "number": "2026-674",
+   "title": "Ratifies Approval Of Fireworks And Designates Alcohol Vendor For Town Of Riverhead America 250 July 4, 2026 Event At South Jamesport Beach RESULT: ADOPTED [UNANIMOUS] MOVER: Councilwoman Denise Merrifield SECONDER: Councilwoman Joann Waski AYES: Jerry Halpin, Kenneth Rothwell, Robert Kern, Denise Merrifield, Joann Waski",
+   "result": "ADOPTED [UNANIMOUS]",
+   "adopted": true,
+   "tag": "unanimous",
+   "ayesCount": null,
+   "naysCount": 0,
+   "mover": "Denise Merrifield",
+   "seconder": "Joann Waski",
+   "votes": {
+    "Halpin": "aye",
+    "Rothwell": "aye",
+    "Kern": "aye",
+    "Merrifield": "aye",
+    "Waski": "aye"
+   }
+  },
+  {
+   "seq": 43,
+   "number": "2026-675",
+   "title": "Authorizes Additional Designated Alcohol Service Vendor To Serve Alcohol At The 2026 \u201cAlive On 25\u201d Street Festival RESULT: ADOPTED [UNANIMOUS] MOVER: Councilwoman Joann Waski SECONDER: Councilman Kenneth Rothwell AYES: Jerry Halpin, Kenneth Rothwell, Robert Kern, Denise Merrifield, Joann Waski",
+   "result": "ADOPTED [UNANIMOUS]",
+   "adopted": true,
+   "tag": "unanimous",
+   "ayesCount": null,
+   "naysCount": 0,
+   "mover": "Joann Waski",
+   "seconder": "Kenneth Rothwell",
+   "votes": {
+    "Halpin": "aye",
+    "Rothwell": "aye",
+    "Kern": "aye",
+    "Merrifield": "aye",
+    "Waski": "aye"
+   }
+  },
+  {
+   "seq": 44,
+   "number": "2026-676",
+   "title": "Authorizes Supervisor to Sign a License Agreement with Advanced Climate Resources, LLC RESULT: ADOPTED [UNANIMOUS] MOVER: Councilman Kenneth Rothwell SECONDER: Councilman Robert Kern AYES: Jerry Halpin, Kenneth Rothwell, Robert Kern, Denise Merrifield, Joann Waski",
+   "result": "ADOPTED [UNANIMOUS]",
+   "adopted": true,
+   "tag": "unanimous",
+   "ayesCount": null,
+   "naysCount": 0,
+   "mover": "Kenneth Rothwell",
+   "seconder": "Robert Kern",
+   "votes": {
+    "Halpin": "aye",
+    "Rothwell": "aye",
+    "Kern": "aye",
+    "Merrifield": "aye",
+    "Waski": "aye"
+   }
+  },
+  {
+   "seq": 45,
+   "number": "2026-677",
+   "title": "Authorizes The Supervisor To Execute An Addendum To An Agreement With LVF Landscape Architects, PLLC For East End Arts Buildings RESULT: ADOPTED [UNANIMOUS] MOVER: Councilman Robert Kern SECONDER: Councilwoman Denise Merrifield AYES: Jerry Halpin, Kenneth Rothwell, Robert Kern, Denise Merrifield, Joann Waski",
+   "result": "ADOPTED [UNANIMOUS]",
+   "adopted": true,
+   "tag": "unanimous",
+   "ayesCount": null,
+   "naysCount": 0,
+   "mover": "Robert Kern",
+   "seconder": "Denise Merrifield",
+   "votes": {
+    "Halpin": "aye",
+    "Rothwell": "aye",
+    "Kern": "aye",
+    "Merrifield": "aye",
+    "Waski": "aye"
+   }
+  },
+  {
+   "seq": 46,
+   "number": "2026-678",
+   "title": "Ratifies Authorization for the Supervisor to Execute Stipulation with the CSEA, Local 1000, AFSCME, AFL-CIO, Riverhead Unit of the Suffolk Local #852 RESULT: ADOPTED [UNANIMOUS] MOVER: Councilwoman Denise Merrifield SECONDER: Councilwoman Joann Waski AYES: Jerry Halpin, Kenneth Rothwell, Robert Kern, Denise Merrifield, Joann Waski",
+   "result": "ADOPTED [UNANIMOUS]",
+   "adopted": true,
+   "tag": "unanimous",
+   "ayesCount": null,
+   "naysCount": 0,
+   "mover": "Denise Merrifield",
+   "seconder": "Joann Waski",
+   "votes": {
+    "Halpin": "aye",
+    "Rothwell": "aye",
+    "Kern": "aye",
+    "Merrifield": "aye",
+    "Waski": "aye"
+   }
+  },
+  {
+   "seq": 47,
+   "number": "2026-679",
+   "title": "Ratifies the Authorization for the Supervisor to Execute Stipulation with Riverhead Town Superior Officers Association, Inc. RESULT: ADOPTED [UNANIMOUS] MOVER: Councilwoman Joann Waski SECONDER: Councilman Kenneth Rothwell AYES: Jerry Halpin, Kenneth Rothwell, Robert Kern, Denise Merrifield, Joann Waski",
+   "result": "ADOPTED [UNANIMOUS]",
+   "adopted": true,
+   "tag": "unanimous",
+   "ayesCount": null,
+   "naysCount": 0,
+   "mover": "Joann Waski",
+   "seconder": "Kenneth Rothwell",
+   "votes": {
+    "Halpin": "aye",
+    "Rothwell": "aye",
+    "Kern": "aye",
+    "Merrifield": "aye",
+    "Waski": "aye"
+   }
+  },
+  {
+   "seq": 48,
+   "number": "2026-680",
+   "title": "Ratifies Authorization for the Supervisor to Execute Stipulation with Riverhead Town Police Benevolent Association RESULT: ADOPTED [UNANIMOUS] MOVER: Councilman Kenneth Rothwell SECONDER: Councilman Robert Kern AYES: Jerry Halpin, Kenneth Rothwell, Robert Kern, Denise Merrifield, Joann Waski",
+   "result": "ADOPTED [UNANIMOUS]",
+   "adopted": true,
+   "tag": "unanimous",
+   "ayesCount": null,
+   "naysCount": 0,
+   "mover": "Kenneth Rothwell",
+   "seconder": "Robert Kern",
+   "votes": {
+    "Halpin": "aye",
+    "Rothwell": "aye",
+    "Kern": "aye",
+    "Merrifield": "aye",
+    "Waski": "aye"
+   }
+  },
+  {
+   "seq": 49,
+   "number": "2026-681",
+   "title": "Authorizes Release of Performance Security for Overlook Homes Major Subdivision 72 Overlook Dr, Aquebogue, NY SCTM No. 600-86-1-33.3 RESULT: ADOPTED [UNANIMOUS] MOVER: Councilman Robert Kern SECONDER: Councilwoman Denise Merrifield AYES: Jerry Halpin, Kenneth Rothwell, Robert Kern, Denise Merrifield, Joann Waski",
+   "result": "ADOPTED [UNANIMOUS]",
+   "adopted": true,
+   "tag": "unanimous",
+   "ayesCount": null,
+   "naysCount": 0,
+   "mover": "Robert Kern",
+   "seconder": "Denise Merrifield",
+   "votes": {
+    "Halpin": "aye",
+    "Rothwell": "aye",
+    "Kern": "aye",
+    "Merrifield": "aye",
+    "Waski": "aye"
+   }
+  },
+  {
+   "seq": 50,
+   "number": "2026-682",
+   "title": "Amends Resolution 2026-320 and Authorizes the Release of a Letter of Credit for Birchwood Major Subdivision (Section 3) RESULT: ADOPTED [UNANIMOUS] MOVER: Councilwoman Denise Merrifield SECONDER: Councilwoman Joann Waski AYES: Jerry Halpin, Kenneth Rothwell, Robert Kern, Denise Merrifield, Joann Waski",
+   "result": "ADOPTED [UNANIMOUS]",
+   "adopted": true,
+   "tag": "unanimous",
+   "ayesCount": null,
+   "naysCount": 0,
+   "mover": "Denise Merrifield",
+   "seconder": "Joann Waski",
+   "votes": {
+    "Halpin": "aye",
+    "Rothwell": "aye",
+    "Kern": "aye",
+    "Merrifield": "aye",
+    "Waski": "aye"
+   }
+  },
+  {
+   "seq": 51,
+   "number": "2026-683",
+   "title": "Authorizes the Supervisor to execute Certification And Point Of Contact Information Sheet With The Department Of Navy (Loaned Aircraft) RESULT: ADOPTED [UNANIMOUS] MOVER: Councilwoman Joann Waski SECONDER: Councilman Kenneth Rothwell AYES: Jerry Halpin, Kenneth Rothwell, Robert Kern, Denise Merrifield, Joann Waski",
+   "result": "ADOPTED [UNANIMOUS]",
+   "adopted": true,
+   "tag": "unanimous",
+   "ayesCount": null,
+   "naysCount": 0,
+   "mover": "Joann Waski",
+   "seconder": "Kenneth Rothwell",
+   "votes": {
+    "Halpin": "aye",
+    "Rothwell": "aye",
+    "Kern": "aye",
+    "Merrifield": "aye",
+    "Waski": "aye"
+   }
+  },
+  {
+   "seq": 52,
+   "number": "2026-684",
+   "title": "Accepts H2M Architects and Engineers Proposal to Prepare Map and Plan for Town Square Splash Pad RESULT: ADOPTED [UNANIMOUS] MOVER: Councilman Kenneth Rothwell SECONDER: Councilman Robert Kern AYES: Jerry Halpin, Kenneth Rothwell, Robert Kern, Denise Merrifield, Joann Waski",
+   "result": "ADOPTED [UNANIMOUS]",
+   "adopted": true,
+   "tag": "unanimous",
+   "ayesCount": null,
+   "naysCount": 0,
+   "mover": "Kenneth Rothwell",
+   "seconder": "Robert Kern",
+   "votes": {
+    "Halpin": "aye",
+    "Rothwell": "aye",
+    "Kern": "aye",
+    "Merrifield": "aye",
+    "Waski": "aye"
+   }
+  },
+  {
+   "seq": 53,
+   "number": "2026-685",
+   "title": "Pays Bills RESULT: ADOPTED [UNANIMOUS] MOVER: Councilman Robert Kern SECONDER: Councilwoman Denise Merrifield AYES: Jerry Halpin, Kenneth Rothwell, Robert Kern, Denise Merrifield, Joann Waski X.",
+   "result": "ADOPTED [UNANIMOUS]",
+   "adopted": true,
+   "tag": "unanimous",
+   "ayesCount": null,
+   "naysCount": 0,
+   "mover": "Robert Kern",
+   "seconder": "Denise Merrifield",
+   "votes": {
+    "Halpin": "aye",
+    "Rothwell": "aye",
+    "Kern": "aye",
+    "Merrifield": "aye",
+    "Waski": "aye"
+   }
+  }
+ ],
+ "slug": "2026-07-07",
+ "stats": {
+  "total": 53,
+  "unanimous": 52,
+  "contested": 0,
+  "failed": 0,
+  "tabled": 1
+ },
+ "memberTallies": {
+  "Halpin": {
+   "name": "Jerry Halpin",
+   "title": "Supervisor",
+   "aye": 53,
+   "nay": 0,
+   "abstain": 0,
+   "absent": 0,
+   "moved": 0,
+   "seconded": 0
+  },
+  "Rothwell": {
+   "name": "Kenneth Rothwell",
+   "title": "Councilman",
+   "aye": 53,
+   "nay": 0,
+   "abstain": 0,
+   "absent": 0,
+   "moved": 14,
+   "seconded": 12
+  },
+  "Kern": {
+   "name": "Robert Kern",
+   "title": "Councilman",
+   "aye": 53,
+   "nay": 0,
+   "abstain": 0,
+   "absent": 0,
+   "moved": 14,
+   "seconded": 14
+  },
+  "Merrifield": {
+   "name": "Denise Merrifield",
+   "title": "Councilwoman",
+   "aye": 53,
+   "nay": 0,
+   "abstain": 0,
+   "absent": 0,
+   "moved": 13,
+   "seconded": 14
+  },
+  "Waski": {
+   "name": "Joann Waski",
+   "title": "Councilwoman",
+   "aye": 53,
+   "nay": 0,
+   "abstain": 0,
+   "absent": 0,
+   "moved": 12,
+   "seconded": 13
+  }
+ }
+}

@@ -19,7 +19,7 @@
    ],
    "moved": 0,
    "seconded": 0,
-   "meetingsVoted": 12,
+   "meetingsVoted": 13,
    "dissents": [
     {
      "slug": "2026-04-07",
@@ -61,17 +61,17 @@
    ],
    "byYear": {
     "2026": {
-     "aye": 626,
+     "aye": 679,
      "abstain": 2,
      "nay": 3
     }
    },
    "career": {
-    "aye": 626,
+    "aye": 679,
     "abstain": 2,
     "nay": 3
    },
-   "ayePct": 99.2
+   "ayePct": 99.3
   },
   {
    "key": "Merrifield",
@@ -84,9 +84,9 @@
     "2025",
     "2026"
    ],
-   "moved": 416,
-   "seconded": 418,
-   "meetingsVoted": 38,
+   "moved": 429,
+   "seconded": 432,
+   "meetingsVoted": 39,
    "dissents": [
     {
      "slug": "2025-01-07",
@@ -182,12 +182,12 @@
      "abstain": 2
     },
     "2026": {
-     "aye": 630,
+     "aye": 683,
      "abstain": 1
     }
    },
    "career": {
-    "aye": 1659,
+    "aye": 1712,
     "nay": 9,
     "abstain": 3
    },
@@ -204,9 +204,9 @@
     "2025",
     "2026"
    ],
-   "moved": 404,
-   "seconded": 419,
-   "meetingsVoted": 38,
+   "moved": 416,
+   "seconded": 432,
+   "meetingsVoted": 39,
    "dissents": [
     {
      "slug": "2025-01-07",
@@ -230,11 +230,11 @@
      "nay": 2
     },
     "2026": {
-     "aye": 631
+     "aye": 684
     }
    },
    "career": {
-    "aye": 1669,
+    "aye": 1722,
     "nay": 2
    },
    "ayePct": 99.9
@@ -250,9 +250,9 @@
     "2025",
     "2026"
    ],
-   "moved": 431,
-   "seconded": 398,
-   "meetingsVoted": 36,
+   "moved": 445,
+   "seconded": 410,
+   "meetingsVoted": 37,
    "dissents": [
     {
      "slug": "2025-01-07",
@@ -321,14 +321,14 @@
      "absent": 1
     },
     "2026": {
-     "aye": 626,
+     "aye": 679,
      "abstain": 3,
      "nay": 1,
      "absent": 1
     }
    },
    "career": {
-    "aye": 1626,
+    "aye": 1679,
     "nay": 4,
     "abstain": 4,
     "absent": 2
@@ -346,9 +346,9 @@
     "2025",
     "2026"
    ],
-   "moved": 409,
-   "seconded": 427,
-   "meetingsVoted": 36,
+   "moved": 423,
+   "seconded": 441,
+   "meetingsVoted": 37,
    "dissents": [
     {
      "slug": "2025-01-07",
@@ -443,14 +443,14 @@
      "nay": 7
     },
     "2026": {
-     "aye": 625,
+     "aye": 678,
      "nay": 4,
      "absent": 1,
      "abstain": 1
     }
    },
    "career": {
-    "aye": 1630,
+    "aye": 1683,
     "nay": 11,
     "absent": 1,
     "abstain": 1

@@ -1,0 +1,1137 @@
+{
+ "slug": "2026-07-07",
+ "meetingDate": "July 7, 2026",
+ "source": {
+  "title": "Town of Riverhead Town Board Agenda Packet, July 7, 2026 (Fiscal Impact Statements)",
+  "url": "https://www.townofriverheadny.gov/129/Agendas-Minutes"
+ },
+ "method": "Each resolution's Town 'Fiscal Impact Statement' answer is shown as-published, alongside a plain-English realistic read. Dollar figures are transcribed from each resolution's RESOLVED clause; where the packet states an amount only in a backup table it is left blank rather than guessed.",
+ "summary": {
+  "total": 53,
+  "markedNo": 31,
+  "markedYes": 22,
+  "understated": 29,
+  "understatedMarkedNo": 11,
+  "identifiedDollarsAtStake": 3622209,
+  "largestUnderstatedMarkedNo": [
+   227683,
+   "2026-634",
+   "Water Capital Project #81851 \u2013 USGS Test Wells Closure"
+  ]
+ },
+ "resolutions": [
+  {
+   "number": "2026-633",
+   "seq": 1,
+   "title": "Water District Capital Project #82301 Budget Adjustment",
+   "category": "capital",
+   "townFiscalImpact": "Yes",
+   "townTreatment": "absorbed",
+   "amount": 14368,
+   "note": "Water District capital project #82301 budget adjustment.",
+   "realistic": {
+    "verdict": "Understated \u2014 'absorbed by existing budget'",
+    "reason": "Understated \u2014 but it commits capital dollars (~$14,368), typically drawn from reserves, fund balance, or borrowing.",
+    "flag": "reserve-draw"
+   },
+   "vote": {
+    "adopted": true,
+    "tag": "unanimous",
+    "ayes": null,
+    "nays": 0
+   }
+  },
+  {
+   "number": "2026-634",
+   "seq": 2,
+   "title": "Water Capital Project #81851 \u2013 USGS Test Wells Closure",
+   "category": "capital",
+   "townFiscalImpact": "No",
+   "townTreatment": "described",
+   "amount": 227683,
+   "note": "Closure of the USGS test wells \u2014 a real capital cost, yet the form marks 'no fiscal impact.'",
+   "realistic": {
+    "verdict": "Understated \u2014 the form says 'no fiscal impact'",
+    "reason": "Understated \u2014 but it commits capital dollars (~$227,683), typically drawn from reserves, fund balance, or borrowing.",
+    "flag": "understated"
+   },
+   "vote": {
+    "adopted": true,
+    "tag": "unanimous",
+    "ayes": null,
+    "nays": 0
+   }
+  },
+  {
+   "number": "2026-635",
+   "seq": 3,
+   "title": "Water District Capital Project 82605 National Grid Hydrant Relocation Mill Rd. Budget Adjustment",
+   "category": "capital",
+   "townFiscalImpact": "Yes",
+   "townTreatment": "absorbed",
+   "amount": 13990,
+   "note": "National Grid hydrant relocation, Mill Rd.",
+   "realistic": {
+    "verdict": "Understated \u2014 'absorbed by existing budget'",
+    "reason": "Understated \u2014 but it commits capital dollars (~$13,990), typically drawn from reserves, fund balance, or borrowing.",
+    "flag": "reserve-draw"
+   },
+   "vote": {
+    "adopted": true,
+    "tag": "unanimous",
+    "ayes": null,
+    "nays": 0
+   }
+  },
+  {
+   "number": "2026-636",
+   "seq": 4,
+   "title": "Water District Capital Project #82612 Peconic River Hotel 127 E Main St Budget Adoption",
+   "category": "capital",
+   "townFiscalImpact": "Yes",
+   "townTreatment": "absorbed",
+   "amount": 7500,
+   "note": "Peconic River Hotel water capital project (developer-driven).",
+   "realistic": {
+    "verdict": "Understated \u2014 'absorbed by existing budget'",
+    "reason": "Understated \u2014 but it commits capital dollars (~$7,500), typically drawn from reserves, fund balance, or borrowing.",
+    "flag": "reserve-draw"
+   },
+   "vote": {
+    "adopted": true,
+    "tag": "unanimous",
+    "ayes": null,
+    "nays": 0
+   }
+  },
+  {
+   "number": "2026-637",
+   "seq": 5,
+   "title": "Capital Project #52513 EWR 2025-2026 Highway Budget Adjustment",
+   "category": "capital",
+   "townFiscalImpact": "Yes",
+   "townTreatment": "absorbed",
+   "amount": 118919,
+   "note": "EWR 2025\u201326 highway capital project adjustment.",
+   "realistic": {
+    "verdict": "Understated \u2014 'absorbed by existing budget'",
+    "reason": "Understated \u2014 but it commits capital dollars (~$118,919), typically drawn from reserves, fund balance, or borrowing.",
+    "flag": "reserve-draw"
+   },
+   "vote": {
+    "adopted": true,
+    "tag": "unanimous",
+    "ayes": null,
+    "nays": 0
+   }
+  },
+  {
+   "number": "2026-638",
+   "seq": 6,
+   "title": "Budget Adjustment For Purchase of New Bucket Truck for Street Lighting Division",
+   "category": "capital",
+   "townFiscalImpact": "Yes",
+   "townTreatment": "absorbed",
+   "amount": 257000,
+   "note": "New bucket truck for the Street Lighting Division (funded over 2 years).",
+   "realistic": {
+    "verdict": "Understated \u2014 'absorbed by existing budget'",
+    "reason": "Understated \u2014 but it commits capital dollars (~$257,000), typically drawn from reserves, fund balance, or borrowing.",
+    "flag": "reserve-draw"
+   },
+   "vote": {
+    "adopted": true,
+    "tag": "unanimous",
+    "ayes": null,
+    "nays": 0
+   }
+  },
+  {
+   "number": "2026-639",
+   "seq": 7,
+   "title": "Ratifies Budget Adjustment for East Creek Boat Launch Repairs",
+   "category": "capital",
+   "townFiscalImpact": "Yes",
+   "townTreatment": "absorbed",
+   "amount": 60000,
+   "note": "East Creek boat-launch repairs.",
+   "realistic": {
+    "verdict": "Understated \u2014 'absorbed by existing budget'",
+    "reason": "Understated \u2014 but it commits capital dollars (~$60,000), typically drawn from reserves, fund balance, or borrowing.",
+    "flag": "reserve-draw"
+   },
+   "vote": {
+    "adopted": true,
+    "tag": "unanimous",
+    "ayes": null,
+    "nays": 0
+   }
+  },
+  {
+   "number": "2026-640",
+   "seq": 8,
+   "title": "Suffolk County Water Authority Federal Pass-Through Grant 2025 Budget Adjustment",
+   "category": "grant",
+   "townFiscalImpact": "Yes",
+   "townTreatment": "absorbed",
+   "amount": 2275000,
+   "note": "Suffolk County Water Authority federal pass-through grant \u2014 offsetting outside revenue.",
+   "realistic": {
+    "verdict": "Revenue in / offsetting",
+    "reason": "Money flows, but from a grant, donation, or a developer's own escrow \u2014 not the tax levy.",
+    "flag": "neutral"
+   },
+   "vote": {
+    "adopted": true,
+    "tag": "unanimous",
+    "ayes": null,
+    "nays": 0
+   }
+  },
+  {
+   "number": "2026-641",
+   "seq": 9,
+   "title": "Budget Adjustment to Pay Down Town Square BAN",
+   "category": "debt",
+   "townFiscalImpact": "Yes",
+   "townTreatment": "absorbed",
+   "amount": 2625000,
+   "note": "Uses fund balance to pay down the Town Square bond anticipation note.",
+   "realistic": {
+    "verdict": "Understated \u2014 'absorbed by existing budget'",
+    "reason": "Understated \u2014 but it spends fund balance (~$2,625,000) to retire debt \u2014 a real use of reserves.",
+    "flag": "reserve-draw"
+   },
+   "vote": {
+    "adopted": true,
+    "tag": "unanimous",
+    "ayes": null,
+    "nays": 0
+   }
+  },
+  {
+   "number": "2026-642",
+   "seq": 10,
+   "title": "Budget Adjustment to Pay Down 2018 Series B Bond Refunding",
+   "category": "debt",
+   "townFiscalImpact": "Yes",
+   "townTreatment": "absorbed",
+   "amount": null,
+   "note": "Pays down the 2018 Series B refunding \u2014 booked as present-value debt-service savings.",
+   "realistic": {
+    "verdict": "Understated \u2014 'absorbed by existing budget'",
+    "reason": "Understated \u2014 but it spends fund balance to retire debt \u2014 a real use of reserves.",
+    "flag": "reserve-draw"
+   },
+   "vote": {
+    "adopted": true,
+    "tag": "unanimous",
+    "ayes": null,
+    "nays": 0
+   }
+  },
+  {
+   "number": "2026-643",
+   "seq": 11,
+   "title": "Acceptance of Donations from George and Janice Gabrielsen Family June 2026",
+   "category": "donation",
+   "townFiscalImpact": "Yes",
+   "townTreatment": "absorbed",
+   "amount": 2000,
+   "note": "Gabrielsen family donation \u2014 revenue in.",
+   "realistic": {
+    "verdict": "Revenue in / offsetting",
+    "reason": "Money flows, but from a grant, donation, or a developer's own escrow \u2014 not the tax levy.",
+    "flag": "neutral"
+   },
+   "vote": {
+    "adopted": true,
+    "tag": "unanimous",
+    "ayes": null,
+    "nays": 0
+   }
+  },
+  {
+   "number": "2026-644",
+   "seq": 12,
+   "title": "Accepts Donation from The Riverhead Police Benevolent Association for PAL Bike Rodeo Sponsorship",
+   "category": "donation",
+   "townFiscalImpact": "Yes",
+   "townTreatment": "absorbed",
+   "amount": 313,
+   "note": "PBA donation for the PAL bike rodeo \u2014 revenue in.",
+   "realistic": {
+    "verdict": "Revenue in / offsetting",
+    "reason": "Money flows, but from a grant, donation, or a developer's own escrow \u2014 not the tax levy.",
+    "flag": "neutral"
+   },
+   "vote": {
+    "adopted": true,
+    "tag": "unanimous",
+    "ayes": null,
+    "nays": 0
+   }
+  },
+  {
+   "number": "2026-645",
+   "seq": 13,
+   "title": "Authorizes Purchase of Meals on Wheels Truck for Seniors Department and Approves Budget Adjustment",
+   "category": "capital",
+   "townFiscalImpact": "Yes",
+   "townTreatment": "absorbed",
+   "amount": 80000,
+   "note": "Meals-on-Wheels truck for the Seniors Department.",
+   "realistic": {
+    "verdict": "Understated \u2014 'absorbed by existing budget'",
+    "reason": "Understated \u2014 but it commits capital dollars (~$80,000), typically drawn from reserves, fund balance, or borrowing.",
+    "flag": "reserve-draw"
+   },
+   "vote": {
+    "adopted": true,
+    "tag": "unanimous",
+    "ayes": null,
+    "nays": 0
+   }
+  },
+  {
+   "number": "2026-646",
+   "seq": 14,
+   "title": "Sets the Fees for Showmobile Usage",
+   "category": "fees",
+   "townFiscalImpact": "No",
+   "townTreatment": "described",
+   "amount": null,
+   "note": "Sets Showmobile usage fees \u2014 a revenue change, marked 'no fiscal impact.'",
+   "realistic": {
+    "verdict": "Understated \u2014 the form says 'no fiscal impact'",
+    "reason": "Understated \u2014 but changing fees changes Town revenue \u2014 a fiscal effect either way.",
+    "flag": "understated"
+   },
+   "vote": {
+    "adopted": true,
+    "tag": "unanimous",
+    "ayes": null,
+    "nays": 0
+   }
+  },
+  {
+   "number": "2026-647",
+   "seq": 15,
+   "title": "Amends Resolution #2026-107 Setting Fees for Riverhead Scavenger Waste",
+   "category": "fees",
+   "townFiscalImpact": "No",
+   "townTreatment": "described",
+   "amount": null,
+   "note": "Amends scavenger-waste fees \u2014 a revenue change, marked 'no fiscal impact.'",
+   "realistic": {
+    "verdict": "Understated \u2014 the form says 'no fiscal impact'",
+    "reason": "Understated \u2014 but changing fees changes Town revenue \u2014 a fiscal effect either way.",
+    "flag": "understated"
+   },
+   "vote": {
+    "adopted": true,
+    "tag": "unanimous",
+    "ayes": null,
+    "nays": 0
+   }
+  },
+  {
+   "number": "2026-648",
+   "seq": 16,
+   "title": "Appoints A Student Intern II To The Engineering Department (Deieso)",
+   "category": "personnel",
+   "townFiscalImpact": "Yes",
+   "townTreatment": "absorbed",
+   "amount": 4000,
+   "note": "Student Intern II wage (Engineering).",
+   "realistic": {
+    "verdict": "Understated \u2014 'absorbed by existing budget'",
+    "reason": "Understated \u2014 but it adds recurring or seasonal payroll (~$4,000/yr) that continues in future budgets.",
+    "flag": "reserve-draw"
+   },
+   "vote": {
+    "adopted": true,
+    "tag": "unanimous",
+    "ayes": null,
+    "nays": 0
+   }
+  },
+  {
+   "number": "2026-649",
+   "seq": 17,
+   "title": "Appoints A Student Intern II To The Engineering Department (Occhiogrosso)",
+   "category": "personnel",
+   "townFiscalImpact": "Yes",
+   "townTreatment": "absorbed",
+   "amount": 4000,
+   "note": "Student Intern II wage (Engineering).",
+   "realistic": {
+    "verdict": "Understated \u2014 'absorbed by existing budget'",
+    "reason": "Understated \u2014 but it adds recurring or seasonal payroll (~$4,000/yr) that continues in future budgets.",
+    "flag": "reserve-draw"
+   },
+   "vote": {
+    "adopted": true,
+    "tag": "unanimous",
+    "ayes": null,
+    "nays": 0
+   }
+  },
+  {
+   "number": "2026-650",
+   "seq": 18,
+   "title": "Appoints Seasonal Personnel to the Recreation Department",
+   "category": "personnel",
+   "townFiscalImpact": "Yes",
+   "townTreatment": "absorbed",
+   "amount": null,
+   "note": null,
+   "realistic": {
+    "verdict": "Understated \u2014 'absorbed by existing budget'",
+    "reason": "Understated \u2014 but it adds recurring or seasonal payroll that continues in future budgets.",
+    "flag": "reserve-draw"
+   },
+   "vote": {
+    "adopted": true,
+    "tag": "unanimous",
+    "ayes": null,
+    "nays": 0
+   }
+  },
+  {
+   "number": "2026-651",
+   "seq": 19,
+   "title": "Appoints Part-time Court Officers to the Police Department",
+   "category": "personnel",
+   "townFiscalImpact": "Yes",
+   "townTreatment": "absorbed",
+   "amount": null,
+   "note": null,
+   "realistic": {
+    "verdict": "Understated \u2014 'absorbed by existing budget'",
+    "reason": "Understated \u2014 but it adds recurring or seasonal payroll that continues in future budgets.",
+    "flag": "reserve-draw"
+   },
+   "vote": {
+    "adopted": true,
+    "tag": "unanimous",
+    "ayes": null,
+    "nays": 0
+   }
+  },
+  {
+   "number": "2026-652",
+   "seq": 20,
+   "title": "Ratifies the Appointment of a Part-time Office Assistant",
+   "category": "personnel",
+   "townFiscalImpact": "Yes",
+   "townTreatment": "absorbed",
+   "amount": null,
+   "note": null,
+   "realistic": {
+    "verdict": "Understated \u2014 'absorbed by existing budget'",
+    "reason": "Understated \u2014 but it adds recurring or seasonal payroll that continues in future budgets.",
+    "flag": "reserve-draw"
+   },
+   "vote": {
+    "adopted": true,
+    "tag": "unanimous",
+    "ayes": null,
+    "nays": 0
+   }
+  },
+  {
+   "number": "2026-653",
+   "seq": 21,
+   "title": "Ratifies the Appointment of a Part-Time Office Assistant",
+   "category": "personnel",
+   "townFiscalImpact": "Yes",
+   "townTreatment": "absorbed",
+   "amount": null,
+   "note": null,
+   "realistic": {
+    "verdict": "Understated \u2014 'absorbed by existing budget'",
+    "reason": "Understated \u2014 but it adds recurring or seasonal payroll that continues in future budgets.",
+    "flag": "reserve-draw"
+   },
+   "vote": {
+    "adopted": true,
+    "tag": "unanimous",
+    "ayes": null,
+    "nays": 0
+   }
+  },
+  {
+   "number": "2026-654",
+   "seq": 22,
+   "title": "Appoints a Senior Justice Court Clerk",
+   "category": "personnel",
+   "townFiscalImpact": "No",
+   "townTreatment": "described",
+   "amount": null,
+   "note": "Appoints a full-time Senior Justice Court Clerk \u2014 a recurring salary, marked 'no fiscal impact.'",
+   "realistic": {
+    "verdict": "Understated \u2014 the form says 'no fiscal impact'",
+    "reason": "Understated \u2014 but it adds recurring or seasonal payroll that continues in future budgets.",
+    "flag": "understated"
+   },
+   "vote": {
+    "adopted": true,
+    "tag": "unanimous",
+    "ayes": null,
+    "nays": 0
+   }
+  },
+  {
+   "number": "2026-655",
+   "seq": 23,
+   "title": "Appoints Maintenance Mechanic II's to the Engineering Department",
+   "category": "personnel",
+   "townFiscalImpact": "No",
+   "townTreatment": "absorbed",
+   "amount": 56749,
+   "note": "Maintenance Mechanic II \u2014 recurring salary each, yet marked 'no fiscal impact.'",
+   "realistic": {
+    "verdict": "Understated \u2014 the form says 'no fiscal impact'",
+    "reason": "Understated \u2014 but it adds recurring or seasonal payroll (~$56,749/yr) that continues in future budgets.",
+    "flag": "understated"
+   },
+   "vote": {
+    "adopted": true,
+    "tag": "unanimous",
+    "ayes": null,
+    "nays": 0
+   }
+  },
+  {
+   "number": "2026-656",
+   "seq": 24,
+   "title": "Amends Resolution 2026-605 Appointing an Automotive Equipment Operator",
+   "category": "personnel",
+   "townFiscalImpact": "No",
+   "townTreatment": "described",
+   "amount": null,
+   "note": null,
+   "realistic": {
+    "verdict": "Understated \u2014 the form says 'no fiscal impact'",
+    "reason": "Understated \u2014 but it adds recurring or seasonal payroll that continues in future budgets.",
+    "flag": "understated"
+   },
+   "vote": {
+    "adopted": true,
+    "tag": "unanimous",
+    "ayes": null,
+    "nays": 0
+   }
+  },
+  {
+   "number": "2026-657",
+   "seq": 25,
+   "title": "Appoints Amy Eliss to the Emerging Technology Committee",
+   "category": "appointment-volunteer",
+   "townFiscalImpact": "No",
+   "townTreatment": "described",
+   "amount": null,
+   "note": null,
+   "realistic": {
+    "verdict": "No direct cost",
+    "reason": "Appointment to an unpaid advisory board, committee, or task force \u2014 no salary attached.",
+    "flag": "fair"
+   },
+   "vote": {
+    "adopted": true,
+    "tag": "unanimous",
+    "ayes": null,
+    "nays": 0
+   }
+  },
+  {
+   "number": "2026-658",
+   "seq": 26,
+   "title": "Appoints Salim Massoud as Chairperson of the Anti-Bias Task Force",
+   "category": "appointment-volunteer",
+   "townFiscalImpact": "No",
+   "townTreatment": "described",
+   "amount": null,
+   "note": null,
+   "realistic": {
+    "verdict": "No direct cost",
+    "reason": "Appointment to an unpaid advisory board, committee, or task force \u2014 no salary attached.",
+    "flag": "fair"
+   },
+   "vote": {
+    "adopted": true,
+    "tag": "unanimous",
+    "ayes": null,
+    "nays": 0
+   }
+  },
+  {
+   "number": "2026-659",
+   "seq": 27,
+   "title": "Reappoints Thomas Najdzion to the Veterans Advisory Committee",
+   "category": "appointment-volunteer",
+   "townFiscalImpact": "No",
+   "townTreatment": "described",
+   "amount": null,
+   "note": null,
+   "realistic": {
+    "verdict": "No direct cost",
+    "reason": "Appointment to an unpaid advisory board, committee, or task force \u2014 no salary attached.",
+    "flag": "fair"
+   },
+   "vote": {
+    "adopted": true,
+    "tag": "unanimous",
+    "ayes": null,
+    "nays": 0
+   }
+  },
+  {
+   "number": "2026-660",
+   "seq": 28,
+   "title": "Reappoints Kimberly Judd to the Veterans Advisory Committee",
+   "category": "appointment-volunteer",
+   "townFiscalImpact": "No",
+   "townTreatment": "described",
+   "amount": null,
+   "note": null,
+   "realistic": {
+    "verdict": "No direct cost",
+    "reason": "Appointment to an unpaid advisory board, committee, or task force \u2014 no salary attached.",
+    "flag": "fair"
+   },
+   "vote": {
+    "adopted": true,
+    "tag": "unanimous",
+    "ayes": null,
+    "nays": 0
+   }
+  },
+  {
+   "number": "2026-661",
+   "seq": 29,
+   "title": "Ratifies the Resignation of a Minibus Driver",
+   "category": "personnel-out",
+   "townFiscalImpact": "Yes",
+   "townTreatment": "absorbed",
+   "amount": null,
+   "note": null,
+   "realistic": {
+    "verdict": "Actually a saving",
+    "reason": "A departure reduces payroll \u2014 the opposite of a cost.",
+    "flag": "saving"
+   },
+   "vote": {
+    "adopted": true,
+    "tag": "unanimous",
+    "ayes": null,
+    "nays": 0
+   }
+  },
+  {
+   "number": "2026-662",
+   "seq": 30,
+   "title": "Ratifies the Resignation of an Automotive Equipment Operator",
+   "category": "personnel-out",
+   "townFiscalImpact": "No",
+   "townTreatment": "described",
+   "amount": null,
+   "note": null,
+   "realistic": {
+    "verdict": "Actually a saving",
+    "reason": "A departure reduces payroll \u2014 the opposite of a cost.",
+    "flag": "saving"
+   },
+   "vote": {
+    "adopted": true,
+    "tag": "unanimous",
+    "ayes": null,
+    "nays": 0
+   }
+  },
+  {
+   "number": "2026-663",
+   "seq": 31,
+   "title": "Authorizes Town Clerk to Publish and Post Public Notice to Consider a Local Law to Amend Chapter 289-17 of the Riverhead Town Code Titled \"Parking time limited\"",
+   "category": "procedural",
+   "townFiscalImpact": "No",
+   "townTreatment": "described",
+   "amount": null,
+   "note": null,
+   "realistic": {
+    "verdict": "No direct cost",
+    "reason": "Publishing a notice or advancing a local law has no immediate dollar cost (policy effects come later).",
+    "flag": "fair"
+   },
+   "vote": {
+    "adopted": true,
+    "tag": "unanimous",
+    "ayes": null,
+    "nays": 0
+   }
+  },
+  {
+   "number": "2026-664",
+   "seq": 32,
+   "title": "Authorizes Town Clerk To Publish And Post Public Notice To Consider A Local Law To Amend Chapter 289 Of The Riverhead Town Code Entitled \u201cVehicles, Traffic And Parking Regulations\u201d",
+   "category": "procedural",
+   "townFiscalImpact": "No",
+   "townTreatment": "described",
+   "amount": null,
+   "note": null,
+   "realistic": {
+    "verdict": "No direct cost",
+    "reason": "Publishing a notice or advancing a local law has no immediate dollar cost (policy effects come later).",
+    "flag": "fair"
+   },
+   "vote": {
+    "adopted": true,
+    "tag": "unanimous",
+    "ayes": null,
+    "nays": 0
+   }
+  },
+  {
+   "number": "2026-665",
+   "seq": 33,
+   "title": "Authorizes Town Clerk to Publish and Post Public Notice to Consider a Local Law to Amend Chapter 293 of the Riverhead Town Code",
+   "category": "procedural",
+   "townFiscalImpact": "No",
+   "townTreatment": "described",
+   "amount": null,
+   "note": null,
+   "realistic": {
+    "verdict": "No direct cost",
+    "reason": "Publishing a notice or advancing a local law has no immediate dollar cost (policy effects come later).",
+    "flag": "fair"
+   },
+   "vote": {
+    "adopted": false,
+    "tag": "tabled",
+    "ayes": null,
+    "nays": 0
+   }
+  },
+  {
+   "number": "2026-666",
+   "seq": 34,
+   "title": "Adopts Local Law to Amend Chapter 301, Article XVII of the Riverhead Town Code entitled \"Business F (BUS F) Zoning Use District (Manufacturers Outlet Center Overlay Zone)",
+   "category": "legislative",
+   "townFiscalImpact": "No",
+   "townTreatment": "described",
+   "amount": null,
+   "note": null,
+   "realistic": {
+    "verdict": "No direct cost",
+    "reason": "Publishing a notice or advancing a local law has no immediate dollar cost (policy effects come later).",
+    "flag": "fair"
+   },
+   "vote": {
+    "adopted": true,
+    "tag": "unanimous",
+    "ayes": null,
+    "nays": 0
+   }
+  },
+  {
+   "number": "2026-667",
+   "seq": 35,
+   "title": "Authorizes Town Clerk to Publish and Post Notice to Bidders for Cues Flexitrax C550C Portable Video Pipe Inspection Camera, or Equal, for the Riverhead Sewer District",
+   "category": "procedural",
+   "townFiscalImpact": "No",
+   "townTreatment": "described",
+   "amount": null,
+   "note": null,
+   "realistic": {
+    "verdict": "No direct cost",
+    "reason": "Publishing a notice or advancing a local law has no immediate dollar cost (policy effects come later).",
+    "flag": "fair"
+   },
+   "vote": {
+    "adopted": true,
+    "tag": "unanimous",
+    "ayes": null,
+    "nays": 0
+   }
+  },
+  {
+   "number": "2026-668",
+   "seq": 36,
+   "title": "Ratifies Authorization for the Town Clerk to Publish and Post Request for Proposals for the Redevelopment of the Railroad Street Property Designated as Transit-oriented Development (TOD)",
+   "category": "procedural",
+   "townFiscalImpact": "No",
+   "townTreatment": "described",
+   "amount": null,
+   "note": null,
+   "realistic": {
+    "verdict": "No direct cost",
+    "reason": "Publishing a notice or advancing a local law has no immediate dollar cost (policy effects come later).",
+    "flag": "fair"
+   },
+   "vote": {
+    "adopted": true,
+    "tag": "unanimous",
+    "ayes": null,
+    "nays": 0
+   }
+  },
+  {
+   "number": "2026-669",
+   "seq": 37,
+   "title": "Ratifies Award for Request for Proposals for Buses for Recreation Department Summer Day Camp Trips",
+   "category": "contract",
+   "townFiscalImpact": "Yes",
+   "townTreatment": "absorbed",
+   "amount": null,
+   "note": null,
+   "realistic": {
+    "verdict": "Understated \u2014 'absorbed by existing budget'",
+    "reason": "Understated \u2014 but signing an agreement or license has a fiscal dimension \u2014 a cost or a revenue \u2014 that 'no impact' glosses over.",
+    "flag": "reserve-draw"
+   },
+   "vote": {
+    "adopted": true,
+    "tag": "unanimous",
+    "ayes": null,
+    "nays": 0
+   }
+  },
+  {
+   "number": "2026-670",
+   "seq": 38,
+   "title": "Approves Special Event Chapter 255 Application for Chamber of Commerce (Concerts in the Park)",
+   "category": "permit",
+   "townFiscalImpact": "No",
+   "townTreatment": "described",
+   "amount": null,
+   "note": null,
+   "realistic": {
+    "verdict": "Minimal / applicant-borne",
+    "reason": "Event insurance and costs are carried by the applicant, not the Town.",
+    "flag": "fair"
+   },
+   "vote": {
+    "adopted": true,
+    "tag": "unanimous",
+    "ayes": null,
+    "nays": 0
+   }
+  },
+  {
+   "number": "2026-671",
+   "seq": 39,
+   "title": "Approves Special Event Chapter 255 Application for Hallockville Farm Museum (Hallockville Hootenanny)",
+   "category": "permit",
+   "townFiscalImpact": "No",
+   "townTreatment": "described",
+   "amount": null,
+   "note": null,
+   "realistic": {
+    "verdict": "Minimal / applicant-borne",
+    "reason": "Event insurance and costs are carried by the applicant, not the Town.",
+    "flag": "fair"
+   },
+   "vote": {
+    "adopted": true,
+    "tag": "unanimous",
+    "ayes": null,
+    "nays": 0
+   }
+  },
+  {
+   "number": "2026-672",
+   "seq": 40,
+   "title": "Approves Special Event Chapter 255 Application for Iglesia Pentecostal Familia de Dias (Prayer Service)",
+   "category": "permit",
+   "townFiscalImpact": "No",
+   "townTreatment": "described",
+   "amount": null,
+   "note": null,
+   "realistic": {
+    "verdict": "Minimal / applicant-borne",
+    "reason": "Event insurance and costs are carried by the applicant, not the Town.",
+    "flag": "fair"
+   },
+   "vote": {
+    "adopted": true,
+    "tag": "unanimous",
+    "ayes": null,
+    "nays": 0
+   }
+  },
+  {
+   "number": "2026-673",
+   "seq": 41,
+   "title": "Approve Fireworks Application for Jamesport Fire Department (July 18, 2026)",
+   "category": "permit",
+   "townFiscalImpact": "No",
+   "townTreatment": "described",
+   "amount": null,
+   "note": null,
+   "realistic": {
+    "verdict": "Minimal / applicant-borne",
+    "reason": "Event insurance and costs are carried by the applicant, not the Town.",
+    "flag": "fair"
+   },
+   "vote": {
+    "adopted": true,
+    "tag": "unanimous",
+    "ayes": null,
+    "nays": 0
+   }
+  },
+  {
+   "number": "2026-674",
+   "seq": 42,
+   "title": "Ratifies Approval Of Fireworks And Designates Alcohol Vendor For Town Of Riverhead America 250 July 4, 2026 Event At South Jamesport Beach",
+   "category": "permit",
+   "townFiscalImpact": "No",
+   "townTreatment": "described",
+   "amount": null,
+   "note": null,
+   "realistic": {
+    "verdict": "Minimal / applicant-borne",
+    "reason": "Event insurance and costs are carried by the applicant, not the Town.",
+    "flag": "fair"
+   },
+   "vote": {
+    "adopted": true,
+    "tag": "unanimous",
+    "ayes": null,
+    "nays": 0
+   }
+  },
+  {
+   "number": "2026-675",
+   "seq": 43,
+   "title": "Authorizes Additional Designated Alcohol Service Vendor To Serve Alcohol At The 2026 \u201cAlive On 25\u201d Street Festival",
+   "category": "permit",
+   "townFiscalImpact": "No",
+   "townTreatment": "described",
+   "amount": null,
+   "note": null,
+   "realistic": {
+    "verdict": "Minimal / applicant-borne",
+    "reason": "Event insurance and costs are carried by the applicant, not the Town.",
+    "flag": "fair"
+   },
+   "vote": {
+    "adopted": true,
+    "tag": "unanimous",
+    "ayes": null,
+    "nays": 0
+   }
+  },
+  {
+   "number": "2026-676",
+   "seq": 44,
+   "title": "Authorizes Supervisor to Sign a License Agreement with Advanced Climate Resources, LLC",
+   "category": "contract",
+   "townFiscalImpact": "No",
+   "townTreatment": "described",
+   "amount": null,
+   "note": null,
+   "realistic": {
+    "verdict": "Understated \u2014 the form says 'no fiscal impact'",
+    "reason": "Understated \u2014 but signing an agreement or license has a fiscal dimension \u2014 a cost or a revenue \u2014 that 'no impact' glosses over.",
+    "flag": "understated"
+   },
+   "vote": {
+    "adopted": true,
+    "tag": "unanimous",
+    "ayes": null,
+    "nays": 0
+   }
+  },
+  {
+   "number": "2026-677",
+   "seq": 45,
+   "title": "Authorizes The Supervisor To Execute An Addendum To An Agreement With LVF Landscape Architects, PLLC For East End Arts Buildings",
+   "category": "contract",
+   "townFiscalImpact": "Yes",
+   "townTreatment": "absorbed",
+   "amount": 76500,
+   "note": "Addendum to the LVF landscape-architecture agreement \u2014 professional-services cost.",
+   "realistic": {
+    "verdict": "Understated \u2014 'absorbed by existing budget'",
+    "reason": "Understated \u2014 but it obligates professional-services dollars (~$76,500).",
+    "flag": "reserve-draw"
+   },
+   "vote": {
+    "adopted": true,
+    "tag": "unanimous",
+    "ayes": null,
+    "nays": 0
+   }
+  },
+  {
+   "number": "2026-678",
+   "seq": 46,
+   "title": "Ratifies Authorization for the Supervisor to Execute Stipulation with the CSEA, Local 1000, AFSCME, AFL-CIO, Riverhead Unit of the Suffolk Local #852",
+   "category": "labor-contract",
+   "townFiscalImpact": "No",
+   "townTreatment": "described",
+   "amount": 76500,
+   "note": "CSEA stipulation \u2014 a labor settlement with real cost, yet marked 'no fiscal impact.'",
+   "realistic": {
+    "verdict": "Understated \u2014 the form says 'no fiscal impact'",
+    "reason": "Understated \u2014 but a union stipulation carries real, often recurring, labor cost (~$76,500).",
+    "flag": "understated"
+   },
+   "vote": {
+    "adopted": true,
+    "tag": "unanimous",
+    "ayes": null,
+    "nays": 0
+   }
+  },
+  {
+   "number": "2026-679",
+   "seq": 47,
+   "title": "Ratifies the Authorization for the Supervisor to Execute Stipulation with Riverhead Town Superior Officers Association, Inc.",
+   "category": "labor-contract",
+   "townFiscalImpact": "No",
+   "townTreatment": "described",
+   "amount": null,
+   "note": null,
+   "realistic": {
+    "verdict": "Understated \u2014 the form says 'no fiscal impact'",
+    "reason": "Understated \u2014 but a union stipulation carries real, often recurring, labor cost.",
+    "flag": "understated"
+   },
+   "vote": {
+    "adopted": true,
+    "tag": "unanimous",
+    "ayes": null,
+    "nays": 0
+   }
+  },
+  {
+   "number": "2026-680",
+   "seq": 48,
+   "title": "Ratifies Authorization for the Supervisor to Execute Stipulation with Riverhead Town Police Benevolent Association",
+   "category": "labor-contract",
+   "townFiscalImpact": "No",
+   "townTreatment": "described",
+   "amount": null,
+   "note": null,
+   "realistic": {
+    "verdict": "Understated \u2014 the form says 'no fiscal impact'",
+    "reason": "Understated \u2014 but a union stipulation carries real, often recurring, labor cost.",
+    "flag": "understated"
+   },
+   "vote": {
+    "adopted": true,
+    "tag": "unanimous",
+    "ayes": null,
+    "nays": 0
+   }
+  },
+  {
+   "number": "2026-681",
+   "seq": 49,
+   "title": "Authorizes Release of Performance Security for Overlook Homes Major Subdivision 72 Overlook Dr, Aquebogue, NY SCTM No. 600-86-1-33.3",
+   "category": "escrow-neutral",
+   "townFiscalImpact": "No",
+   "townTreatment": "described",
+   "amount": 283000,
+   "note": "Release of a developer's performance security \u2014 not Town money.",
+   "realistic": {
+    "verdict": "Net-neutral to taxpayers",
+    "reason": "Money flows, but from a grant, donation, or a developer's own escrow \u2014 not the tax levy.",
+    "flag": "neutral"
+   },
+   "vote": {
+    "adopted": true,
+    "tag": "unanimous",
+    "ayes": null,
+    "nays": 0
+   }
+  },
+  {
+   "number": "2026-682",
+   "seq": 50,
+   "title": "Amends Resolution 2026-320 and Authorizes the Release of a Letter of Credit for Birchwood Major Subdivision (Section 3)",
+   "category": "escrow-neutral",
+   "townFiscalImpact": "No",
+   "townTreatment": "described",
+   "amount": 501000,
+   "note": "Release of a developer's letter of credit \u2014 not Town money.",
+   "realistic": {
+    "verdict": "Net-neutral to taxpayers",
+    "reason": "Money flows, but from a grant, donation, or a developer's own escrow \u2014 not the tax levy.",
+    "flag": "neutral"
+   },
+   "vote": {
+    "adopted": true,
+    "tag": "unanimous",
+    "ayes": null,
+    "nays": 0
+   }
+  },
+  {
+   "number": "2026-683",
+   "seq": 51,
+   "title": "Authorizes the Supervisor to execute Certification And Point Of Contact Information Sheet With The Department Of Navy (Loaned Aircraft)",
+   "category": "admin",
+   "townFiscalImpact": "No",
+   "townTreatment": "described",
+   "amount": null,
+   "note": null,
+   "realistic": {
+    "verdict": "No direct cost",
+    "reason": "A routine administrative signature or certification with no dollar commitment.",
+    "flag": "fair"
+   },
+   "vote": {
+    "adopted": true,
+    "tag": "unanimous",
+    "ayes": null,
+    "nays": 0
+   }
+  },
+  {
+   "number": "2026-684",
+   "seq": 52,
+   "title": "Accepts H2M Architects and Engineers Proposal to Prepare Map and Plan for Town Square Splash Pad",
+   "category": "contract",
+   "townFiscalImpact": "Yes",
+   "townTreatment": "absorbed",
+   "amount": null,
+   "note": null,
+   "realistic": {
+    "verdict": "Understated \u2014 'absorbed by existing budget'",
+    "reason": "Understated \u2014 but signing an agreement or license has a fiscal dimension \u2014 a cost or a revenue \u2014 that 'no impact' glosses over.",
+    "flag": "reserve-draw"
+   },
+   "vote": {
+    "adopted": true,
+    "tag": "unanimous",
+    "ayes": null,
+    "nays": 0
+   }
+  },
+  {
+   "number": "2026-685",
+   "seq": 53,
+   "title": "Pays Bills",
+   "category": "warrant",
+   "townFiscalImpact": "No",
+   "townTreatment": "described",
+   "amount": null,
+   "note": null,
+   "realistic": {
+    "verdict": "This IS the spending",
+    "reason": "'Pays Bills' authorizes the meeting's actual disbursement warrant \u2014 the single largest money item, marked 'no fiscal impact.'",
+    "flag": "understated"
+   },
+   "vote": {
+    "adopted": true,
+    "tag": "unanimous",
+    "ayes": null,
+    "nays": 0
+   }
+  }
+ ]
+}

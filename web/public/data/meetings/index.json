@@ -4,13 +4,23 @@
   "url": "https://www.townofriverheadny.gov/129/Agendas-Minutes"
  },
  "totals": {
-  "meetings": 39,
-  "votes": 1672,
+  "meetings": 40,
+  "votes": 1725,
   "contested": 33,
   "failed": 1,
-  "tabled": 9
+  "tabled": 10
  },
  "meetings": [
+  {
+   "slug": "2026-07-07",
+   "date": "July 7, 2026",
+   "type": "Regular Meeting",
+   "total": 53,
+   "unanimous": 52,
+   "contested": 0,
+   "failed": 0,
+   "tabled": 1
+  },
   {
    "slug": "2026-06-16",
    "date": "June 16, 2026",
