@@ -241,6 +241,16 @@ export default function FiscalCommandCenter() {
             ))}
           </section>
 
+          <section id="about" style={{ ...shell, scrollMarginTop: 24, marginTop: 18, padding: 24, borderLeft: '8px solid #1f5f8f' }}>
+            <h2 style={{ marginTop: 0, color: '#12385b' }}>About Riverhead Budget Live</h2>
+            <p>Riverhead Budget Live is an independent, non-partisan, non-profit project. Our mission is to make Riverhead a better place to live and work by promoting public-policy reforms grounded in the fiscally responsible ideals of effective and accountable government.</p>
+          </section>
+
+          <section id="how-to-use" style={{ ...shell, scrollMarginTop: 24, marginTop: 18, padding: 24, borderLeft: '8px solid #15803d' }}>
+            <h2 style={{ marginTop: 0, color: '#12385b' }}>How to use this site</h2>
+            <p>Use this site to share, analyze, and compare data from governmental entities throughout Riverhead. The information on this website comes from official government sources, but the author cannot guarantee data accuracy or completeness.</p>
+          </section>
+
           <section id="disclaimers" style={{ ...shell, scrollMarginTop: 24, marginTop: 18, padding: 24, borderLeft: '8px solid #dc2626', background: '#fff7f7' }}>
             <h2 style={{ marginTop: 0, color: '#991b1b' }}>The fine print</h2>
             <p>This website is an independent public-information and fiscal-analysis project. It is not an official Town of Riverhead website and is not affiliated with, endorsed by, sponsored by, or operated by the Town of Riverhead or any Town department, political subdivision, political party or political organization or candidate.</p>
