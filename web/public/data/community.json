@@ -1,0 +1,45 @@
+{
+ "title": "Community & tax base",
+ "intro": "Who and what the Town of Riverhead taxes. Population sets the scale of demand for services; the tax base — the assessed value of all taxable property — is what the levy is spread across. A few large commercial properties carry an outsized share, which is why grievance settlements on them ripple onto everyone else's bill.",
+ "population": {
+  "census2020": 35902,
+  "estimate2024": 35980,
+  "source": "U.S. Census Bureau QuickFacts, Riverhead town, Suffolk County, NY."
+ },
+ "taxBase": {
+  "impliedFullValuation": 7082608871,
+  "impliedFullValuationNote": "Implied from the audited debt-limit disclosure: the statutory debt limit is 7% of the Town's five-year-average full (market) valuation, and that limit is $495,782,621 — so the five-year-average full valuation is about $7.08 billion.",
+  "debtLimit": 495782621,
+  "debtLimitExhaustedPct": 4.83,
+  "outstandingGoDebtApprox": 23950000,
+  "moodyRating": "Aa2 (Moody's Investors Service)",
+  "assessmentRatioNote": "Riverhead assesses property at roughly 8% of market value — an assessed value of about $50,040 corresponds to a ~$600,000 market-value home (near the Town median).",
+  "townWideRateChange2023": "The town-wide tax rate rose $2.409 per $1,000 of assessed value in 2023.",
+  "assessedChange2023": "Total assessed value barely moved in 2023 — up $380,869, or 0.05%, from 2022.",
+  "transferTax": "Since a 1998 voter referendum, Riverhead levies a 2% real-estate transfer tax (the Community Preservation Fund) on sales above $150,000 (developed) / $75,000 (undeveloped)."
+ },
+ "largestTaxpayers": {
+  "note": "The Town does not publish a ranked principal-taxpayers schedule in its basic financial statements, so this is a list of the major known commercial ratables from public reporting rather than an official assessed-value ranking. Tanger is repeatedly described as the Town's single largest tax generator.",
+  "items": [
+   {"name": "Tanger Outlets (Tanger Factory Outlet Centers)", "note": "Two outlet centers on Route 58 — repeatedly cited as the Town's largest single tax generator."},
+   {"name": "PSEG Long Island / utility infrastructure", "note": "Electric transmission and distribution property is a major utility ratable."},
+   {"name": "Costco Wholesale", "note": "Big-box anchor; has litigated its assessment (a claimed ~$20.3M over-valuation)."},
+   {"name": "Walmart", "note": "Big-box anchor; won a settlement cutting its assessed value ~$950,000 over five years."},
+   {"name": "Route 58 big-box retail corridor", "note": "Home Depot, Lowe's, Target and neighbors form a concentrated commercial tax base."},
+   {"name": "EPCAL / Calverton Enterprise Park", "note": "The former Grumman site — a large publicly-influenced parcel the Town has worked for years to return to the tax rolls."}
+  ]
+ },
+ "assessmentStress": {
+  "headline": "Riverhead's assessment system is under chronic strain.",
+  "points": [
+   "More than 300 tax-grievance lawsuits are filed against the Town every year, and settlements shift the burden onto other taxpayers.",
+   "A decades-old assessment error tied to the Friar's Head golf property produced tax spikes of up to ~160% for some residents in 2026.",
+   "Because assessed values sit at ~8% of market and are not regularly reassessed town-wide, small percentage swings move large dollar amounts."
+  ]
+ },
+ "sources": [
+  "U.S. Census Bureau QuickFacts — Riverhead town, Suffolk County, NY.",
+  "Town of Riverhead 2022 Audited Basic Financial Statements (debt-limit and assessed-value disclosures).",
+  "RiverheadLOCAL and Riverhead News-Review reporting on Tanger, big-box assessments, grievance litigation, and the Friar's Head refund (2022, 2024, 2026)."
+ ]
+}
