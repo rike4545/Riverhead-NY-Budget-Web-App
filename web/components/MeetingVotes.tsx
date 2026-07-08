@@ -114,9 +114,14 @@ export default function MeetingVotes() {
                   {rosterOrder.map((last) => {
                     const t = meeting.memberTallies[last]
                     if (!t) return null
+                    const party = meeting.roster.find((r) => r.last === last)?.party ?? null
                     return (
                       <tr key={last} style={{ borderBottom: '1px solid #f1f5f9' }}>
-                        <td style={td}><strong style={{ color: '#12385b' }}>{t.name}</strong> <span style={{ color: '#94a3b8', fontSize: 12.5 }}>{t.title}</span></td>
+                        <td style={td}>
+                          <strong style={{ color: '#12385b' }}>{t.name}</strong>{' '}
+                          <PartyChip party={party} small />{' '}
+                          <span style={{ color: '#94a3b8', fontSize: 12.5 }}>{t.title}</span>
+                        </td>
                         <td style={{ ...td, textAlign: 'right' }}>{t.aye}</td>
                         <td style={{ ...td, textAlign: 'right', color: t.nay ? '#b91c1c' : '#94a3b8', fontWeight: t.nay ? 800 : 400 }}>{t.nay}</td>
                         <td style={{ ...td, textAlign: 'right', color: t.abstain ? '#b45309' : '#94a3b8', fontWeight: t.abstain ? 800 : 400 }}>{t.abstain}</td>
@@ -235,7 +240,7 @@ function MembersPanel({ openMeeting }: { openMeeting: (slug: string) => void }) 
         <MemberCard key={m.key} m={m} current={m.years.includes(data.latestYear)} openMeeting={openMeeting} />
       ))}
       <p style={{ color: '#64748b', fontSize: 13, lineHeight: 1.5 }}>
-        Source: {data.source.title}. {data.note} A high &quot;votes yes&quot; share is normal — most municipal
+        Source: {data.source.title}. {data.note} {data.partySource} A high &quot;votes yes&quot; share is normal — most municipal
         resolutions are routine and pass unanimously; the dissents and abstentions are where members distinguish themselves.
       </p>
     </div>
@@ -245,12 +250,16 @@ function MembersPanel({ openMeeting }: { openMeeting: (slug: string) => void }) 
 function MemberCard({ m, current, openMeeting }: { m: MemberRecord; current: boolean; openMeeting: (slug: string) => void }) {
   const c = m.career
   return (
-    <article style={{ ...card, borderLeft: `5px solid ${current ? '#1f5f8f' : '#cbd5e1'}` }}>
+    <article style={{ ...card, borderLeft: `5px solid ${current ? partyColor(m.party) : '#cbd5e1'}` }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', gap: 14, flexWrap: 'wrap', alignItems: 'baseline' }}>
         <div>
-          <h3 style={{ margin: 0, fontSize: 20, color: '#12385b' }}>{m.name}</h3>
-          <div style={{ color: '#64748b', fontSize: 13 }}>
-            {m.titles[0] ?? 'Board member'} · on record {m.years.join(' & ')}{current ? '' : ' (former)'} · voted in {m.meetingsVoted} meetings
+          <div style={{ display: 'flex', gap: 8, alignItems: 'center', flexWrap: 'wrap' }}>
+            <h3 style={{ margin: 0, fontSize: 20, color: '#12385b' }}>{m.name}</h3>
+            <PartyChip party={m.party} />
+            {!current && <span style={{ background: '#f1f5f9', color: '#475569', fontWeight: 800, fontSize: 11, padding: '2px 9px', borderRadius: 999, textTransform: 'uppercase', letterSpacing: 0.4 }}>Former member</span>}
+          </div>
+          <div style={{ color: '#64748b', fontSize: 13, marginTop: 2 }}>
+            {m.titles[0] ?? 'Board member'} · on record {m.years.join(' & ')} · voted in {m.meetingsVoted} meetings
           </div>
         </div>
         {m.ayePct != null && (
@@ -307,6 +316,23 @@ function Chip({ label, value, color, strong }: { label: string; value: number; c
       <span style={{ display: 'inline-block', width: 9, height: 9, borderRadius: 9, background: color, marginRight: 6 }} />
       {label}: {value.toLocaleString()}
     </span>
+  )
+}
+
+function partyColor(party: string | null) {
+  return party === 'Democrat' ? '#1d4ed8' : party === 'Republican' ? '#b91c1c' : '#64748b'
+}
+
+function PartyChip({ party, small }: { party: string | null; small?: boolean }) {
+  if (!party) return null
+  const c = partyColor(party)
+  const label = small ? party[0] : party
+  return (
+    <span title={party} style={{
+      display: 'inline-block', background: party === 'Democrat' ? '#dbeafe' : '#fee2e2', color: c,
+      fontWeight: 800, fontSize: small ? 10.5 : 12, padding: small ? '1px 7px' : '2px 9px', borderRadius: 999,
+      verticalAlign: 'middle', letterSpacing: 0.3,
+    }}>{label}</span>
   )
 }
 

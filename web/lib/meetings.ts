@@ -27,7 +27,8 @@ export type Resolution = {
   votes: Record<string, Vote>
 }
 
-export type RosterMember = { last: string; name: string; title: string }
+export type Party = 'Democrat' | 'Republican' | null
+export type RosterMember = { last: string; name: string; title: string; party: Party }
 
 export type MemberTally = {
   name: string
@@ -82,6 +83,7 @@ export type MemberRecord = {
   key: string
   name: string
   titles: string[]
+  party: Party
   years: string[]
   byYear: Record<string, Partial<Record<Vote, number>>>
   career: Partial<Record<Vote, number>>
@@ -96,6 +98,7 @@ export type MemberRecord = {
 export type MembersData = {
   source: { title: string; url: string }
   note: string
+  partySource: string
   latestYear: string
   members: MemberRecord[]
 }

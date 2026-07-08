@@ -6,27 +6,32 @@
   {
    "last": "Hubbard",
    "name": "Tim Hubbard",
-   "title": "Supervisor"
+   "title": "Supervisor",
+   "party": "Republican"
   },
   {
    "last": "Rothwell",
    "name": "Rothwell",
-   "title": "Councilman"
+   "title": "Councilman",
+   "party": "Republican"
   },
   {
    "last": "Kern",
    "name": "Kern",
-   "title": "Councilman"
+   "title": "Councilman",
+   "party": "Republican"
   },
   {
    "last": "Merrifield",
    "name": "Merrifield",
-   "title": "Councilwoman"
+   "title": "Councilwoman",
+   "party": "Republican"
   },
   {
    "last": "Waski",
    "name": "Waski",
-   "title": "Councilwoman"
+   "title": "Councilwoman",
+   "party": "Republican"
   }
  ],
  "resolutions": [

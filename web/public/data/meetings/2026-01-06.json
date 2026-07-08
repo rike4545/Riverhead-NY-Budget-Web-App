@@ -6,27 +6,32 @@
   {
    "last": "Halpin",
    "name": "Jerry Halpin",
-   "title": "Supervisor"
+   "title": "Supervisor",
+   "party": "Democrat"
   },
   {
    "last": "Rothwell",
    "name": "Kenneth Rothwell",
-   "title": "Councilman"
+   "title": "Councilman",
+   "party": "Republican"
   },
   {
    "last": "Kern",
    "name": "Robert Kern",
-   "title": "Councilman"
+   "title": "Councilman",
+   "party": "Republican"
   },
   {
    "last": "Merrifield",
    "name": "Denise Merrifield",
-   "title": "Councilman"
+   "title": "Councilman",
+   "party": "Republican"
   },
   {
    "last": "Waski",
    "name": "Joann Waski",
-   "title": "Councilman"
+   "title": "Councilman",
+   "party": "Republican"
   }
  ],
  "resolutions": [

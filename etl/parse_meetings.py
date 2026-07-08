@@ -27,6 +27,20 @@ ROOT = Path(__file__).resolve().parent.parent
 SRC_DIR = ROOT / "etl/data/meetings"
 OUT = ROOT / "web/public/data/meetings"
 
+# Political party affiliation by last name. Curated and source-cited — parties
+# are not stated in the minutes, so they are maintained here from election
+# results reporting. If a future member shares a last name, disambiguate.
+MEMBER_PARTY = {
+    "Halpin": "Democrat",       # Supervisor 2026; ran/endorsed on the Democratic line
+    "Hubbard": "Republican",    # Supervisor 2025; Republican incumbent
+    "Rothwell": "Republican",   # Republican councilman; 2026 GOP supervisor nominee
+    "Kern": "Republican",       # Republican councilman
+    "Merrifield": "Republican", # Won 2023 council seat on the Republican line
+    "Waski": "Republican",      # Won 2023 council seat on the Republican line
+}
+PARTY_SOURCE = ("Party affiliation is from local election-results reporting (RiverheadLOCAL, "
+                "Riverhead News-Review), not the meeting minutes.")
+
 FOOTER = re.compile(r"For more information visit our website|www\.townofriverheadn?y?\.gov|Page \d+ of \d+")
 FIELD_RE = re.compile(r"^\s*(RESULT|MOVER|SECONDER|AYES|NAYS|ABSTAIN|ABSTAINED|ABSENT|RECUSED)\s*:\s*(.*)$")
 ITEM_MARK = r"^[ \t]*\d{1,3}\.[ \t]+\S"
@@ -237,7 +251,7 @@ def parse_meeting(path):
         "date": date,
         "type": mtype,
         "calledToOrder": time_m.group(1).upper().replace(".", "") if time_m else None,
-        "roster": [{"last": last, **info} for last, info in roster.items()],
+        "roster": [{"last": last, **info, "party": MEMBER_PARTY.get(last)} for last, info in roster.items()],
         "resolutions": resolutions,
     }
 
@@ -314,7 +328,7 @@ def build_member_records(index_entries):
             last = member["last"]
             rec = members.setdefault(last, {
                 "key": last, "name": member["name"], "titles": [],
-                "years": [], "byYear": {}, "career": Counter(),
+                "party": MEMBER_PARTY.get(last), "years": [], "byYear": {}, "career": Counter(),
                 "moved": 0, "seconded": 0, "meetingsVoted": 0,
                 "dissents": [], "abstentions": [],
             })
@@ -353,7 +367,7 @@ def build_member_records(index_entries):
         career = rec["career"]
         cast = career["aye"] + career["nay"] + career["abstain"]
         out.append({
-            **{k: rec[k] for k in ("key", "name", "titles", "years", "moved", "seconded",
+            **{k: rec[k] for k in ("key", "name", "titles", "party", "years", "moved", "seconded",
                                     "meetingsVoted", "dissents", "abstentions")},
             "byYear": {y: dict(c) for y, c in rec["byYear"].items()},
             "career": dict(career),
@@ -368,6 +382,7 @@ def build_member_records(index_entries):
                    "url": "https://www.townofriverheadny.gov/129/Agendas-Minutes"},
         "note": "Career voting records aggregated from every meeting on record. 'Absent' is inferred "
                 "when a member appears on no roll-call line of a vote.",
+        "partySource": PARTY_SOURCE,
         "latestYear": latest,
         "members": out,
     }, indent=1))

@@ -6,22 +6,26 @@
   {
    "last": "Hubbard",
    "name": "Tim Hubbard",
-   "title": "Supervisor"
+   "title": "Supervisor",
+   "party": "Republican"
   },
   {
    "last": "Kern",
    "name": "Robert Kern",
-   "title": "Councilman"
+   "title": "Councilman",
+   "party": "Republican"
   },
   {
    "last": "Merrifield",
    "name": "Denise Merrifield",
-   "title": "Councilwoman"
+   "title": "Councilwoman",
+   "party": "Republican"
   },
   {
    "last": "Waski",
    "name": "Joann Waski",
-   "title": "Councilwoman"
+   "title": "Councilwoman",
+   "party": "Republican"
   }
  ],
  "resolutions": [
