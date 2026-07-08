@@ -155,6 +155,29 @@ export default function BuyoutPage() {
         </p>
       </section>
 
+      {analysis.realisticBackfill && (
+        <section style={{ ...card, marginBottom: 18, borderLeft: '6px solid #15803d' }}>
+          <h3 style={{ marginTop: 0 }}>A more realistic backfill (using the actual salary steps)</h3>
+          <p style={{ color: '#475569', fontSize: 14.5, lineHeight: 1.55, marginTop: 0 }}>
+            The 20% figure above is a round number. Using the Town&apos;s actual salary schedule — where each job has a
+            full ladder of steps from entry to top — the gap between a long-tenured retiree and a new hire is usually
+            much larger. For the {analysis.realisticBackfill.matched} eligible positions where the schedule shows an
+            entry step, refilling each at the bottom of the scale would cut their combined salary from
+            {' '}<strong>{usd(analysis.realisticBackfill.currentBase)}</strong> to
+            {' '}<strong>{usd(analysis.realisticBackfill.replacementAtEntryStep)}</strong> — an annual salary saving of
+            {' '}<strong style={{ color: '#15803d' }}>{usd(analysis.realisticBackfill.annualSavings)}/yr</strong>
+            {' '}(about {analysis.realisticBackfill.savedShare}% of their pay, not 20%).
+          </p>
+          <p style={{ color: '#475569', fontSize: 14.5, lineHeight: 1.55, margin: 0 }}>
+            The effect is largest for police: a top-step officer earns well over $110,000, while a new officer starts
+            near <strong>{usd(analysis.realisticBackfill.policeOfficerEntryStep ?? 0)}</strong> — so replacing one with
+            a rookie saves roughly <strong>$60,000 a year</strong>, every year. (This is a salary figure only;
+            an academy-trained replacement also carries training costs, and the Town may choose to hold the post open
+            instead.)
+          </p>
+        </section>
+      )}
+
       <section style={{ ...card, marginBottom: 18 }}>
         <h3 style={{ marginTop: 0 }}>How this estimate was built &amp; its limits</h3>
         <ul style={{ color: '#475569', fontSize: 14, lineHeight: 1.55, paddingLeft: 18, margin: 0 }}>

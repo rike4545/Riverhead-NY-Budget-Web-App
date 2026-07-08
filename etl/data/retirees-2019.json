@@ -1,0 +1,160 @@
+{
+ "note": "Employees whose payroll status is 'Retired' with a 2019 retirement date, from the Town Gross Earnings reports 2018-2021. The 2019 Voluntary Retirement Incentive (CSEA) required retirement by Dec 31, 2019.",
+ "count": 21,
+ "byUnion": {
+  "PBA": 4,
+  "Unspecified": 6,
+  "CSE": 9,
+  "SOA": 1,
+  "NON": 1
+ },
+ "retirees": [
+  {
+   "name": "Davis, Kerri F",
+   "union": "PBA",
+   "retired": "2019-01-22",
+   "hireYear": 1993,
+   "yearsService": 26
+  },
+  {
+   "name": "Palmer, Dixon A",
+   "union": "PBA",
+   "retired": "2019-01-31",
+   "hireYear": 1985,
+   "yearsService": 34
+  },
+  {
+   "name": "Sollazzo, Leisa A",
+   "union": null,
+   "retired": "2019-02-02",
+   "hireYear": 1987,
+   "yearsService": 32
+  },
+  {
+   "name": "Hernandez, Frank",
+   "union": "PBA",
+   "retired": "2019-02-22",
+   "hireYear": 1988,
+   "yearsService": 31
+  },
+  {
+   "name": "Divan, James M",
+   "union": "CSE",
+   "retired": "2019-02-26",
+   "hireYear": 1989,
+   "yearsService": 30
+  },
+  {
+   "name": "McAllister, Timothy P",
+   "union": "PBA",
+   "retired": "2019-02-28",
+   "hireYear": 1998,
+   "yearsService": 21
+  },
+  {
+   "name": "Quinn, Joseph P",
+   "union": "CSE",
+   "retired": "2019-02-28",
+   "hireYear": 1989,
+   "yearsService": 30
+  },
+  {
+   "name": "Hill, Harry",
+   "union": "SOA",
+   "retired": "2019-03-26",
+   "hireYear": 1991,
+   "yearsService": 28
+  },
+  {
+   "name": "Doll, Judith",
+   "union": null,
+   "retired": "2019-04-26",
+   "hireYear": 1988,
+   "yearsService": 31
+  },
+  {
+   "name": "Griffin, Mark E",
+   "union": null,
+   "retired": "2019-06-29",
+   "hireYear": 1994,
+   "yearsService": 25
+  },
+  {
+   "name": "Conklin, Mark",
+   "union": null,
+   "retired": "2019-07-02",
+   "hireYear": 1981,
+   "yearsService": 38
+  },
+  {
+   "name": "Miloski, Jean M",
+   "union": "CSE",
+   "retired": "2019-08-29",
+   "hireYear": 1983,
+   "yearsService": 36
+  },
+  {
+   "name": "Hattorff, Matthew E",
+   "union": "CSE",
+   "retired": "2019-08-30",
+   "hireYear": 1986,
+   "yearsService": 33
+  },
+  {
+   "name": "Owen, Donald S",
+   "union": "CSE",
+   "retired": "2019-08-30",
+   "hireYear": 1986,
+   "yearsService": 33
+  },
+  {
+   "name": "McKillop, Laurie",
+   "union": "CSE",
+   "retired": "2019-09-10",
+   "hireYear": 2016,
+   "yearsService": 3
+  },
+  {
+   "name": "Komosinski, Mary E",
+   "union": "NON",
+   "retired": "2019-10-25",
+   "hireYear": 1983,
+   "yearsService": 36
+  },
+  {
+   "name": "Niewadomski, John F",
+   "union": "CSE",
+   "retired": "2019-11-01",
+   "hireYear": 1986,
+   "yearsService": 33
+  },
+  {
+   "name": "Atkins, Waverly",
+   "union": null,
+   "retired": "2019-12-08",
+   "hireYear": 1995,
+   "yearsService": 24
+  },
+  {
+   "name": "Smith, Robert B",
+   "union": "CSE",
+   "retired": "2019-12-30",
+   "hireYear": 2009,
+   "yearsService": 10
+  },
+  {
+   "name": "Fagan, Joanne",
+   "union": "CSE",
+   "retired": "2019-12-31",
+   "hireYear": 2004,
+   "yearsService": 15
+  },
+  {
+   "name": "Hotchkiss, Cheryl J",
+   "union": null,
+   "retired": "2019-12-31",
+   "hireYear": 2001,
+   "yearsService": 18
+  }
+ ]
+}

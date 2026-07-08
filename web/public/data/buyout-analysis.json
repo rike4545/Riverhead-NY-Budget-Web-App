@@ -72,6 +72,174 @@
    "annualSavings_holdVacant": 6059824
   }
  ],
+ "realisticBackfill": {
+  "matched": 20,
+  "currentBase": 1758423,
+  "replacementAtEntryStep": 1040359,
+  "annualSavings": 718064,
+  "savedShare": 41,
+  "policeOfficerEntryStep": 52049
+ },
+ "retirements2019": {
+  "count": 21,
+  "byUnion": {
+   "PBA": 4,
+   "Unspecified": 6,
+   "CSE": 9,
+   "SOA": 1,
+   "NON": 1
+  },
+  "cseaCount": 9,
+  "retirees": [
+   {
+    "name": "Davis, Kerri F",
+    "union": "PBA",
+    "retired": "2019-01-22",
+    "hireYear": 1993,
+    "yearsService": 26
+   },
+   {
+    "name": "Palmer, Dixon A",
+    "union": "PBA",
+    "retired": "2019-01-31",
+    "hireYear": 1985,
+    "yearsService": 34
+   },
+   {
+    "name": "Sollazzo, Leisa A",
+    "union": null,
+    "retired": "2019-02-02",
+    "hireYear": 1987,
+    "yearsService": 32
+   },
+   {
+    "name": "Hernandez, Frank",
+    "union": "PBA",
+    "retired": "2019-02-22",
+    "hireYear": 1988,
+    "yearsService": 31
+   },
+   {
+    "name": "Divan, James M",
+    "union": "CSE",
+    "retired": "2019-02-26",
+    "hireYear": 1989,
+    "yearsService": 30
+   },
+   {
+    "name": "McAllister, Timothy P",
+    "union": "PBA",
+    "retired": "2019-02-28",
+    "hireYear": 1998,
+    "yearsService": 21
+   },
+   {
+    "name": "Quinn, Joseph P",
+    "union": "CSE",
+    "retired": "2019-02-28",
+    "hireYear": 1989,
+    "yearsService": 30
+   },
+   {
+    "name": "Hill, Harry",
+    "union": "SOA",
+    "retired": "2019-03-26",
+    "hireYear": 1991,
+    "yearsService": 28
+   },
+   {
+    "name": "Doll, Judith",
+    "union": null,
+    "retired": "2019-04-26",
+    "hireYear": 1988,
+    "yearsService": 31
+   },
+   {
+    "name": "Griffin, Mark E",
+    "union": null,
+    "retired": "2019-06-29",
+    "hireYear": 1994,
+    "yearsService": 25
+   },
+   {
+    "name": "Conklin, Mark",
+    "union": null,
+    "retired": "2019-07-02",
+    "hireYear": 1981,
+    "yearsService": 38
+   },
+   {
+    "name": "Miloski, Jean M",
+    "union": "CSE",
+    "retired": "2019-08-29",
+    "hireYear": 1983,
+    "yearsService": 36
+   },
+   {
+    "name": "Hattorff, Matthew E",
+    "union": "CSE",
+    "retired": "2019-08-30",
+    "hireYear": 1986,
+    "yearsService": 33
+   },
+   {
+    "name": "Owen, Donald S",
+    "union": "CSE",
+    "retired": "2019-08-30",
+    "hireYear": 1986,
+    "yearsService": 33
+   },
+   {
+    "name": "McKillop, Laurie",
+    "union": "CSE",
+    "retired": "2019-09-10",
+    "hireYear": 2016,
+    "yearsService": 3
+   },
+   {
+    "name": "Komosinski, Mary E",
+    "union": "NON",
+    "retired": "2019-10-25",
+    "hireYear": 1983,
+    "yearsService": 36
+   },
+   {
+    "name": "Niewadomski, John F",
+    "union": "CSE",
+    "retired": "2019-11-01",
+    "hireYear": 1986,
+    "yearsService": 33
+   },
+   {
+    "name": "Atkins, Waverly",
+    "union": null,
+    "retired": "2019-12-08",
+    "hireYear": 1995,
+    "yearsService": 24
+   },
+   {
+    "name": "Smith, Robert B",
+    "union": "CSE",
+    "retired": "2019-12-30",
+    "hireYear": 2009,
+    "yearsService": 10
+   },
+   {
+    "name": "Fagan, Joanne",
+    "union": "CSE",
+    "retired": "2019-12-31",
+    "hireYear": 2004,
+    "yearsService": 15
+   },
+   {
+    "name": "Hotchkiss, Cheryl J",
+    "union": null,
+    "retired": "2019-12-31",
+    "hireYear": 2001,
+    "yearsService": 18
+   }
+  ]
+ },
  "eligibleEmployees": [
   {
    "name": "Wulffraat, Lisa M",
@@ -879,7 +1047,7 @@
    },
    {
     "item": "Estimated eligible",
-    "y2019": "About 15-20 CSEA members (Town/union estimate).",
+    "y2019": "About 15-20 CSEA members (Town/union estimate); payroll records show 9 CSEA employees actually retired during 2019.",
     "y2026": "About 54 CSEA + 24 police (upper bound from hire date and union)."
    },
    {
@@ -899,7 +1067,7 @@
    "riverheadlocal.com/2019/07/02/town-settles-csea-labor-contract"
   ]
  },
- "reconciliation": "Eligibility for 2026 is drawn only from employees still ACTIVE in the 2025 payroll (424 active employees). Employees who elected the 2019 incentive retired in 2019-2020 and are no longer on the payroll, so they are automatically excluded from the 2026 pool \u2014 no one can be counted in both.",
+ "reconciliation": "Eligibility for 2026 is drawn only from employees still ACTIVE in the 2025 payroll (424 active employees). The 9 CSEA employees who retired during 2019 are no longer on the payroll, and a name-by-name check confirms none of them appear in the 2026 eligible list \u2014 so no one is counted in both programs.",
  "assumptions": [
   "Eligible pool is an upper bound from hire date and union; actual eligibility also requires age / retirement eligibility, so fewer people likely qualify.",
   "Participation is unknown until the September 1, 2026 election deadline; scenarios show 15%, 30%, 50%, and 100% uptake.",

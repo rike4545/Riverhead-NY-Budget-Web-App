@@ -32,7 +32,51 @@ import xlrd
 
 ROOT = Path(__file__).resolve().parent.parent
 OUT = ROOT / "web/public/data/buyout-analysis.json"
+SALARY_2025 = ROOT / "web/public/data/salary/authorized-2025.json"
+RETIREES_2019 = ROOT / "etl/data/retirees-2019.json"
 YEAR = 2026
+
+
+def step_backfill(eligible_list):
+    """A more realistic replacement cost: refill each vacated job at the entry
+    step for that title, using the actual authorized salary schedule (which
+    carries every title's full range of steps). Where a title has only one
+    holder we can't derive an entry step, so it's left out of this subtotal."""
+    if not SALARY_2025.exists():
+        return None
+    recs = json.loads(SALARY_2025.read_text())["records"]
+    entry = {}
+    for r in recs:
+        if r.get("isStipend") or r["annual"] < 1000:
+            continue
+        t = r["title"].lower()
+        entry[t] = min(entry.get(t, r["annual"]), r["annual"])
+    cur = repl = 0.0
+    matched = 0
+    for e in eligible_list:
+        ent = entry.get(e["title"].lower())
+        if ent and ent < e["base"]:
+            cur += e["base"]
+            repl += ent
+            matched += 1
+    police_entry = entry.get("police officer")
+    return {
+        "matched": matched,
+        "currentBase": round(cur),
+        "replacementAtEntryStep": round(repl),
+        "annualSavings": round(cur - repl),
+        "savedShare": round((cur - repl) / cur * 100) if cur else None,
+        "policeOfficerEntryStep": round(police_entry) if police_entry else None,
+    }
+
+
+def retirements_2019():
+    if not RETIREES_2019.exists():
+        return None
+    d = json.loads(RETIREES_2019.read_text())
+    return {"count": d["count"], "byUnion": d["byUnion"],
+            "cseaCount": d["byUnion"].get("CSE", 0),
+            "retirees": d["retirees"]}
 
 
 def load(xls_path):
@@ -114,6 +158,15 @@ def build(xls_path):
     eligible_list = ([emp(e, "CSEA") for e in csea] + [emp(e, "Police") for e in police])
     eligible_list.sort(key=lambda x: (x["program"], -x["yearsService"], x["name"]))
 
+    backfill = step_backfill(eligible_list)
+    ret2019 = retirements_2019()
+
+    # No one who retired in the 2019 program can be in the 2026 active pool.
+    if ret2019:
+        elig_names = {e["name"] for e in eligible_list}
+        overlap = [r["name"] for r in ret2019["retirees"] if r["name"] in elig_names]
+        assert not overlap, f"2019 retirees appear in 2026 eligible list: {overlap}"
+
     payload = {
         "program": "2026 Voluntary Retirement Incentive Program",
         "basedOn": "Town of Riverhead 2025 Gross Earnings report (active employees, hire dates)",
@@ -143,6 +196,8 @@ def build(xls_path):
             "police": round(police_inc_each_avg / (avg(police) * 0.20), 1) if avg(police) else None,
         },
         "scenarios": scenarios,
+        "realisticBackfill": backfill,
+        "retirements2019": ret2019,
         "eligibleEmployees": eligible_list,
         "compare2019": {
             "note": "The Town ran an earlier retirement incentive in 2019 (the '2019 Voluntary Retirement Incentive "
@@ -163,7 +218,7 @@ def build(xls_path):
                  "y2019": "Full-time CSEA members employed as of July 2, 2019 who could retire into NYS ERS with no age- or service-related pension reduction (an unreduced, full pension).",
                  "y2026": "CSEA members retiring into ERS as fully vested Tier IV; police retiring into PFRS with 20 years of service."},
                 {"item": "Estimated eligible",
-                 "y2019": "About 15-20 CSEA members (Town/union estimate).",
+                 "y2019": "About 15-20 CSEA members (Town/union estimate); payroll records show 9 CSEA employees actually retired during 2019.",
                  "y2026": "About 54 CSEA + 24 police (upper bound from hire date and union)."},
                 {"item": "Deadlines",
                  "y2019": "Notify by Sept 5, 2019; retire on or before Dec 31, 2019.",
@@ -180,8 +235,8 @@ def build(xls_path):
         },
         "reconciliation": (
             "Eligibility for 2026 is drawn only from employees still ACTIVE in the 2025 payroll (424 active "
-            "employees). Employees who elected the 2019 incentive retired in 2019-2020 and are no longer on the "
-            "payroll, so they are automatically excluded from the 2026 pool — no one can be counted in both."
+            "employees). The 9 CSEA employees who retired during 2019 are no longer on the payroll, and a name-by-name "
+            "check confirms none of them appear in the 2026 eligible list — so no one is counted in both programs."
         ),
         "assumptions": [
             "Eligible pool is an upper bound from hire date and union; actual eligibility also requires age / retirement eligibility, so fewer people likely qualify.",
