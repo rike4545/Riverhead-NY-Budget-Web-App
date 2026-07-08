@@ -1,0 +1,565 @@
+{
+ "disclaimer": "This is an independent projection, not the Town's budget. It grows the 2026 Adopted Budget line by line using the per-category assumptions below. Real 2027 figures will differ; treat this as a transparent baseline to test, not a forecast to bank on.",
+ "method": "Predicted 2027 = 2026 Adopted \u00d7 (1 + the growth rate for that line's category). Rates are calibrated to each category's actual 2024\u20132026 trend and the Town's stated cost drivers, then rounded to assumptions you can second-guess.",
+ "assumptions": [
+  {
+   "category": "Personal Services",
+   "ratePct": 3.5,
+   "recentTrend": "+11.3% over 2024\u20132026 (~5.5%/yr)",
+   "why": "Contractual raises and step increases across the CSEA, PBA and SOA contracts, partly offset by the 2026 retirement buyout replacing senior staff with lower-step hires (or holding posts vacant). We use less than the recent pace because 2024 was inflated by adding five police officers."
+  },
+  {
+   "category": "Employee Benefits",
+   "ratePct": 8.0,
+   "recentTrend": "+15.5% over 2024\u20132026 (~7.5%/yr) \u2014 the fastest-growing category",
+   "why": "Health-insurance premiums and NYS retirement (ERS/PFRS) contributions keep climbing; the Town itself named these as the main driver of recent increases. A wave of buyout retirements also adds lifetime retiree-health (OPEB) cost."
+  },
+  {
+   "category": "Contractual",
+   "ratePct": 3.5,
+   "recentTrend": "+8.5% over 2024\u20132026 (~4.2%/yr)",
+   "why": "General inflation on services, utilities, fuel, and insurance the Town buys."
+  },
+  {
+   "category": "Equipment & Capital Outlay",
+   "ratePct": 3.0,
+   "recentTrend": "+7.1% over 2024\u20132026 (~3.5%/yr)",
+   "why": "Vehicle and equipment costs rise with inflation; capital timing is lumpy year to year."
+  },
+  {
+   "category": "Interfund / Transfers",
+   "ratePct": 3.0,
+   "recentTrend": "+11.5% over 2024\u20132026 (~5.6%/yr)",
+   "why": "Transfers between funds are policy choices; we hold near inflation absent a stated plan."
+  },
+  {
+   "category": "Other",
+   "ratePct": 0.0,
+   "recentTrend": "\u22126.6% over 2024\u20132026",
+   "why": "A mix of debt service and contingency that has been flat-to-declining; held flat without a published 2027 debt schedule."
+  }
+ ],
+ "totals": {
+  "appropriations2026": 121110904,
+  "appropriations2027": 126152504,
+  "delta": 5041600,
+  "pct": 4.16,
+  "lineItems": 848
+ },
+ "levyEstimate": {
+  "note": "Illustrative only. Assumes non-property-tax revenue (state aid, fees, grants, reserves) grows 2% and the property-tax levy balances the rest. The real levy also depends on revenue and reserve choices the Board makes.",
+  "levy2026": 65343939,
+  "levy2027": 69270200,
+  "levyIncreasePct": 6.0,
+  "appropriations2027": 126152504,
+  "nonLevyRevenueGrowthPct": 2,
+  "recentLevyIncreases": "For context, the town-wide levy rose 4.86% (2024) and 7.74% (2026)."
+ },
+ "byCategory": [
+  {
+   "category": "Employee Benefits",
+   "count": 59,
+   "v2026": 27409031,
+   "v2027": 29601754,
+   "delta": 2192723,
+   "pct": 8.0
+  },
+  {
+   "category": "Personal Services",
+   "count": 225,
+   "v2026": 40497622,
+   "v2027": 41915037,
+   "delta": 1417415,
+   "pct": 3.5
+  },
+  {
+   "category": "Contractual",
+   "count": 479,
+   "v2026": 31370181,
+   "v2027": 32468128,
+   "delta": 1097947,
+   "pct": 3.5
+  },
+  {
+   "category": "Interfund / Transfers",
+   "count": 12,
+   "v2026": 8523150,
+   "v2027": 8778845,
+   "delta": 255695,
+   "pct": 3.0
+  },
+  {
+   "category": "Equipment & Capital Outlay",
+   "count": 56,
+   "v2026": 2594019,
+   "v2027": 2671839,
+   "delta": 77820,
+   "pct": 3.0
+  },
+  {
+   "category": "Other",
+   "count": 17,
+   "v2026": 10716901,
+   "v2027": 10716901,
+   "delta": 0,
+   "pct": 0.0
+  }
+ ],
+ "byFund": [
+  {
+   "fundCode": "A01",
+   "fund": "General Fund",
+   "v2026": 69113159,
+   "v2027": 72511216,
+   "delta": 3398057,
+   "pct": 4.9
+  },
+  {
+   "fundCode": "DA1",
+   "fund": "Highway Fund",
+   "v2026": 7919250,
+   "v2027": 8309921,
+   "delta": 390671,
+   "pct": 4.9
+  },
+  {
+   "fundCode": "EW1",
+   "fund": "Water District",
+   "v2026": 11008655,
+   "v2027": 11372958,
+   "delta": 364303,
+   "pct": 3.3
+  },
+  {
+   "fundCode": "ES1",
+   "fund": "Riverhead Sewer District",
+   "v2026": 8142722,
+   "v2027": 8402763,
+   "delta": 260041,
+   "pct": 3.2
+  },
+  {
+   "fundCode": "SR1",
+   "fund": "Refuse and Garbage District",
+   "v2026": 5254540,
+   "v2027": 5441699,
+   "delta": 187159,
+   "pct": 3.6
+  },
+  {
+   "fundCode": "ES5",
+   "fund": "Riverhead Scavenger Waste",
+   "v2026": 2231988,
+   "v2027": 2324580,
+   "delta": 92592,
+   "pct": 4.1
+  },
+  {
+   "fundCode": "CM4",
+   "fund": "Community Preservation Fund",
+   "v2026": 2979300,
+   "v2027": 3068779,
+   "delta": 89479,
+   "pct": 3.0
+  },
+  {
+   "fundCode": "SM1",
+   "fund": "Ambulance District",
+   "v2026": 2388824,
+   "v2027": 2463107,
+   "delta": 74283,
+   "pct": 3.1
+  },
+  {
+   "fundCode": "ES3",
+   "fund": "Calverton Sewer District",
+   "v2026": 1488357,
+   "v2027": 1538272,
+   "delta": 49915,
+   "pct": 3.4
+  },
+  {
+   "fundCode": "SL1",
+   "fund": "Street Lighting District",
+   "v2026": 926533,
+   "v2027": 966020,
+   "delta": 39487,
+   "pct": 4.3
+  },
+  {
+   "fundCode": "MS1",
+   "fund": "Workers Compensation Fund",
+   "v2026": 1050000,
+   "v2027": 1086750,
+   "delta": 36750,
+   "pct": 3.5
+  },
+  {
+   "fundCode": "A06",
+   "fund": "Recreation Program Fund",
+   "v2026": 504500,
+   "v2027": 520989,
+   "delta": 16489,
+   "pct": 3.3
+  },
+  {
+   "fundCode": "MS2",
+   "fund": "Risk Retention Fund",
+   "v2026": 450000,
+   "v2027": 465750,
+   "delta": 15750,
+   "pct": 3.5
+  },
+  {
+   "fundCode": "CM2",
+   "fund": "East Creek Docking Facility",
+   "v2026": 288100,
+   "v2027": 298426,
+   "delta": 10326,
+   "pct": 3.6
+  },
+  {
+   "fundCode": "ST1",
+   "fund": "Public Parking District",
+   "v2026": 207100,
+   "v2027": 213966,
+   "delta": 6866,
+   "pct": 3.3
+  },
+  {
+   "fundCode": "CM1",
+   "fund": "Business Improvement District",
+   "v2026": 144136,
+   "v2027": 149181,
+   "delta": 5045,
+   "pct": 3.5
+  },
+  {
+   "fundCode": "A04",
+   "fund": "Police Athletic League",
+   "v2026": 81490,
+   "v2027": 84333,
+   "delta": 2843,
+   "pct": 3.5
+  },
+  {
+   "fundCode": "Z14",
+   "fund": "Calverton Parks Community Development Agency",
+   "v2026": 44100,
+   "v2027": 45644,
+   "delta": 1544,
+   "pct": 3.5
+  },
+  {
+   "fundCode": "V01",
+   "fund": "Debt Service Fund",
+   "v2026": 6888150,
+   "v2027": 6888150,
+   "delta": 0,
+   "pct": 0.0
+  }
+ ],
+ "topMovers": [
+  {
+   "fund": "General Fund",
+   "dept": "Pol Ret",
+   "name": "Pol Ret - NYS Retirement Uni Pers",
+   "category": "Employee Benefits",
+   "v2026": 6633131.0,
+   "v2027": 7163781,
+   "delta": 530650.0,
+   "pct": 8.0
+  },
+  {
+   "fund": "General Fund",
+   "dept": "Police",
+   "name": "Police - Pers Serv - FT Uni Pers",
+   "category": "Personal Services",
+   "v2026": 14966311.0,
+   "v2027": 15490132,
+   "delta": 523821.0,
+   "pct": 3.5
+  },
+  {
+   "fund": "General Fund",
+   "dept": "Hosp",
+   "name": "Hosp - Hosp, Den & Opt Ins Non-Uni Pers",
+   "category": "Employee Benefits",
+   "v2026": 5503333.0,
+   "v2027": 5943600,
+   "delta": 440267.0,
+   "pct": 8.0
+  },
+  {
+   "fund": "General Fund",
+   "dept": "Hosp",
+   "name": "Hosp - Hosp, Den & Opt Ins Uni Pers",
+   "category": "Employee Benefits",
+   "v2026": 3971332.0,
+   "v2027": 4289039,
+   "delta": 317707.0,
+   "pct": 8.0
+  },
+  {
+   "fund": "General Fund",
+   "dept": "Function 9010",
+   "name": "Ret -NYS Retirement Non-Uni Pers",
+   "category": "Employee Benefits",
+   "v2026": 2268352.0,
+   "v2027": 2449820,
+   "delta": 181468.0,
+   "pct": 8.0
+  },
+  {
+   "fund": "Refuse and Garbage District",
+   "dept": "Refuse & Garbage",
+   "name": "Refuse - Waste Disposal",
+   "category": "Contractual",
+   "v2026": 4529102.0,
+   "v2027": 4687621,
+   "delta": 158519.0,
+   "pct": 3.5
+  },
+  {
+   "fund": "Highway Fund",
+   "dept": "Hosp",
+   "name": "Hosp - Hosp, Den & Opt Ins Non-Uni Pers",
+   "category": "Employee Benefits",
+   "v2026": 1394544.0,
+   "v2027": 1506108,
+   "delta": 111564.0,
+   "pct": 8.0
+  },
+  {
+   "fund": "General Fund",
+   "dept": "FICA Pol",
+   "name": "FICA Pol - FICA Uni Personnel",
+   "category": "Employee Benefits",
+   "v2026": 1334471.0,
+   "v2027": 1441229,
+   "delta": 106758.0,
+   "pct": 8.0
+  },
+  {
+   "fund": "General Fund",
+   "dept": "Function 9030",
+   "name": "FICA -FICA Non-Uni Personnel",
+   "category": "Employee Benefits",
+   "v2026": 1157504.0,
+   "v2027": 1250104,
+   "delta": 92600.0,
+   "pct": 8.0
+  },
+  {
+   "fund": "General Fund",
+   "dept": "Transfers to Other Funds",
+   "name": "Trf - Interfund Trf - Gen Fund Debt Svc",
+   "category": "Interfund / Transfers",
+   "v2026": 3054850.0,
+   "v2027": 3146496,
+   "delta": 91646.0,
+   "pct": 3.0
+  },
+  {
+   "fund": "Community Preservation Fund",
+   "dept": "Transfers to Other Funds",
+   "name": "Trf - Interfund Trf - Gen Fund Debt Svc",
+   "category": "Interfund / Transfers",
+   "v2026": 2959300.0,
+   "v2027": 3048079,
+   "delta": 88779.0,
+   "pct": 3.0
+  },
+  {
+   "fund": "Highway Fund",
+   "dept": "General Repairs",
+   "name": "Repair - Personal Services",
+   "category": "Personal Services",
+   "v2026": 2468135.0,
+   "v2027": 2554520,
+   "delta": 86385.0,
+   "pct": 3.5
+  },
+  {
+   "fund": "Riverhead Sewer District",
+   "dept": "Depreciation",
+   "name": "Depr - Depreciation",
+   "category": "Contractual",
+   "v2026": 2150000.0,
+   "v2027": 2225250,
+   "delta": 75250.0,
+   "pct": 3.5
+  },
+  {
+   "fund": "Water District",
+   "dept": "Depreciation",
+   "name": "Depr - Depreciation",
+   "category": "Contractual",
+   "v2026": 1850000.0,
+   "v2027": 1914750,
+   "delta": 64750.0,
+   "pct": 3.5
+  },
+  {
+   "fund": "General Fund",
+   "dept": "Building & Grounds",
+   "name": "B&G - Personal Services",
+   "category": "Personal Services",
+   "v2026": 1653637.0,
+   "v2027": 1711514,
+   "delta": 57877.0,
+   "pct": 3.5
+  },
+  {
+   "fund": "Water District",
+   "dept": "Water AdmWater Administration",
+   "name": "Water AdmPersonal Services",
+   "category": "Personal Services",
+   "v2026": 1613708.0,
+   "v2027": 1670188,
+   "delta": 56480.0,
+   "pct": 3.5
+  },
+  {
+   "fund": "Water District",
+   "dept": "Hosp",
+   "name": "Hosp - Hosp, Den & Opt Ins Non-Uni Pers",
+   "category": "Employee Benefits",
+   "v2026": 671128.0,
+   "v2027": 724818,
+   "delta": 53690.0,
+   "pct": 8.0
+  },
+  {
+   "fund": "General Fund",
+   "dept": "Hosp",
+   "name": "Hosp - Hosp, Den & Opt Ins Non-Uni Pers",
+   "category": "Employee Benefits",
+   "v2026": 629046.0,
+   "v2027": 679370,
+   "delta": 50324.0,
+   "pct": 8.0
+  },
+  {
+   "fund": "General Fund",
+   "dept": "Police",
+   "name": "Police - Personal Services",
+   "category": "Personal Services",
+   "v2026": 1403312.0,
+   "v2027": 1452428,
+   "delta": 49116.0,
+   "pct": 3.5
+  },
+  {
+   "fund": "Ambulance District",
+   "dept": "Ambulance",
+   "name": "Amb - Prof Svcs - RVAC Inc.",
+   "category": "Contractual",
+   "v2026": 1274924.0,
+   "v2027": 1319546,
+   "delta": 44622.0,
+   "pct": 3.5
+  },
+  {
+   "fund": "General Fund",
+   "dept": "WC",
+   "name": "WC - Claim Payments",
+   "category": "Employee Benefits",
+   "v2026": 486300.0,
+   "v2027": 525204,
+   "delta": 38904.0,
+   "pct": 8.0
+  },
+  {
+   "fund": "Water District",
+   "dept": "Source of Water Supply & Power",
+   "name": "Water - Utl - Electricity",
+   "category": "Contractual",
+   "v2026": 1100000.0,
+   "v2027": 1138500,
+   "delta": 38500.0,
+   "pct": 3.5
+  },
+  {
+   "fund": "Workers Compensation Fund",
+   "dept": "Workers Comp",
+   "name": "Workers Comp - Claim Payments",
+   "category": "Contractual",
+   "v2026": 1050000.0,
+   "v2027": 1086750,
+   "delta": 36750.0,
+   "pct": 3.5
+  },
+  {
+   "fund": "Highway Fund",
+   "dept": "Function 9010",
+   "name": "Ret -NYS Retirement Non-Uni Pers",
+   "category": "Employee Benefits",
+   "v2026": 447917.0,
+   "v2027": 483750,
+   "delta": 35833.0,
+   "pct": 8.0
+  },
+  {
+   "fund": "General Fund",
+   "dept": "Police",
+   "name": "Police - Pers Svcs Uniform OT",
+   "category": "Personal Services",
+   "v2026": 1000000.0,
+   "v2027": 1035000,
+   "delta": 35000.0,
+   "pct": 3.5
+  },
+  {
+   "fund": "General Fund",
+   "dept": "Police",
+   "name": "Police - Pers Svcs Holiday Pay Uni",
+   "category": "Personal Services",
+   "v2026": 943000.0,
+   "v2027": 976005,
+   "delta": 33005.0,
+   "pct": 3.5
+  },
+  {
+   "fund": "Riverhead Sewer District",
+   "dept": "Hosp",
+   "name": "Hosp - Hosp, Den & Opt Ins Non-Uni Pers",
+   "category": "Employee Benefits",
+   "v2026": 400963.0,
+   "v2027": 433040,
+   "delta": 32077.0,
+   "pct": 8.0
+  },
+  {
+   "fund": "Highway Fund",
+   "dept": "WC",
+   "name": "WC - Claim Payments",
+   "category": "Employee Benefits",
+   "v2026": 373600.0,
+   "v2027": 403488,
+   "delta": 29888.0,
+   "pct": 8.0
+  },
+  {
+   "fund": "General Fund",
+   "dept": "Town Attorney",
+   "name": "Atty - Personal Services",
+   "category": "Personal Services",
+   "v2026": 821524.0,
+   "v2027": 850277,
+   "delta": 28753.0,
+   "pct": 3.5
+  },
+  {
+   "fund": "General Fund",
+   "dept": "Unallocated Insurance",
+   "name": "Gen Liab - Insurance Premium",
+   "category": "Contractual",
+   "v2026": 816400.0,
+   "v2027": 844974,
+   "delta": 28574.0,
+   "pct": 3.5
+  }
+ ],
+ "source": "Built from the Town of Riverhead 2026 Adopted Budget line items (etl/parse_subaccounts.py)."
+}
