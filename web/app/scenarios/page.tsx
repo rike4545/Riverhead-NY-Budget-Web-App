@@ -4,38 +4,38 @@ const card = { background: 'white', border: '1px solid #e2e8f0', borderRadius: 1
 
 const scenarios = [
   {
-    title: '$5M Surplus Allocation Scenario',
-    type: 'Reserve + operational investment',
-    summary: 'Explores balancing tax stabilization, reserve support, parks investment, vehicles, software modernization, and workforce investments.',
+    title: 'What if the Town had a $5M surplus to spend?',
+    type: 'Using a one-time surplus',
+    summary: 'Weighs the obvious choices for a windfall — holding taxes down, topping up the rainy-day fund, fixing up parks, replacing aging vehicles, or upgrading software — and what each one buys.',
     status: 'Modeled',
-    confidence: 'Analytical scenario',
+    confidence: 'A what-if, not a Town plan',
   },
   {
-    title: 'Tax Stabilization Scenario',
-    type: 'Levy mitigation',
-    summary: 'Explores how reserve-supported stabilization could reduce short-term levy pressure while highlighting sustainability risks.',
+    title: 'Can the Town keep taxes flatter next year?',
+    type: 'Easing the tax increase',
+    summary: 'Looks at whether dipping into reserves could soften a tax hike in the short run — and why leaning on savings can catch up with you later.',
     status: 'Conceptual',
-    confidence: 'Requires adopted policy assumptions',
+    confidence: 'Depends on Board policy choices',
   },
   {
-    title: 'Retirement Incentive Risk Scenario',
-    type: 'Workforce transition',
-    summary: 'Models operational and payroll risks associated with early retirement incentives and staffing turnover.',
-    status: 'Partial analytics',
-    confidence: 'Awaiting payroll normalization',
+    title: 'What does the retirement buyout do to staffing?',
+    type: 'Workforce turnover',
+    summary: 'Traces the ripple effects of early-retirement incentives — overtime to cover gaps, rehiring, and the promotion chains that follow a wave of departures.',
+    status: 'Partial analysis',
+    confidence: 'Still refining the payroll data',
   },
   {
-    title: 'Debt and Capital Financing Scenario',
-    type: 'Long-term financing',
-    summary: 'Evaluates debt-service exposure, capital investment timing, and reserve dependency under different financing assumptions.',
-    status: 'Framework active',
-    confidence: 'Awaiting debt schedule extraction',
+    title: 'How much is the Town borrowing against the future?',
+    type: 'Debt & big projects',
+    summary: 'Examines how much room is left for debt payments, when big capital projects land, and how much all of it leans on reserves.',
+    status: 'In progress',
+    confidence: 'Waiting on the full debt schedule',
   },
 ]
 
 export default function ScenariosPage() {
   return (
-    <PageShell title="Fiscal Scenarios and Policy Modeling" subtitle="Evaluate potential reserve allocations, levy stabilization strategies, workforce risks, debt exposure, and operational investment approaches.">
+    <PageShell title="What-if scenarios" subtitle="Playing out choices the Town could make — how to use a surplus, steady the tax levy, handle workforce and debt pressure — and the trade-offs that come with each. These are illustrations for thinking, not Town policy.">
       <section style={{ display: 'grid', gap: 16 }}>
         {scenarios.map((scenario) => (
           <article key={scenario.title} style={card}>

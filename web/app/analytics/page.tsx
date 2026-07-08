@@ -11,7 +11,7 @@ export default function AnalyticsPage() {
   const reserveUse = fundBalanceUseSummary.totalAppropriatedFundBalanceInSummary
 
   return (
-    <PageShell title="Trends, Risks, and Fiscal Analytics" subtitle="Explore levy pressure, reserve usage, fund composition, automation status, and emerging municipal intelligence indicators.">
+    <PageShell title="Trends &amp; risks, at a glance" subtitle="The bigger patterns behind the numbers: how fast the tax levy is climbing, how much the Town leans on its savings, what each fund is made of, and where the pressure points are.">
       <section style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(220px,1fr))', gap: 14, marginBottom: 18 }}>
         <Metric label="Operating funds indexed" value={String(allOperatingFunds2026.length)} />
         <Metric label="Appropriations indexed" value={dollars(appropriationTotal)} />

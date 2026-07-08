@@ -17,7 +17,7 @@ export default function SourcesPage() {
   const docs = parserExtractionReport.documents
 
   return (
-    <PageShell title="Source Documents and Financial Records" subtitle="Browse parsed budgets, audits, annual financial reports, supplements, extraction status, source freshness, and parser failures.">
+    <PageShell title="The paper trail" subtitle="Every official document this site is built from — budgets, audits, and annual reports — with how fresh each one is and an honest note on anything that didn't parse cleanly.">
       <section style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(190px,1fr))', gap: 12, marginBottom: 18 }}>
         <Metric label="Documents parsed" value={String(parserDatasetStats.documents)} />
         <Metric label="Audits parsed" value={String(parserDatasetStats.audits)} />

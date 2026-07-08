@@ -243,7 +243,7 @@ export default function FiscalCommandCenter() {
 
           <section id="disclaimers" style={{ ...shell, scrollMarginTop: 24, marginTop: 18, padding: 24, borderLeft: '8px solid #dc2626', background: '#fff7f7' }}>
             <h2 style={{ marginTop: 0, color: '#991b1b' }}>The fine print</h2>
-            <p>This is a resident-built project to make the Town&apos;s finances easier to follow. It&apos;s not the Town&apos;s official website, and it isn&apos;t affiliated with, endorsed by, or run by the Town of Riverhead or any department.</p>
+            <p>This website is an independent public-information and fiscal-analysis project. It is not an official Town of Riverhead website and is not affiliated with, endorsed by, sponsored by, or operated by the Town of Riverhead or any Town department, political subdivision, political party or political organization or candidate.</p>
             <p>The numbers come from public documents, pulled out automatically. That means a figure can occasionally be misread — a scanning glitch, a mislabeled line, or a report that hadn&apos;t caught up yet.</p>
             <p>So if a number matters to you, check it against the original official document before you rely on it. And if you spot something off, that&apos;s worth flagging.</p>
           </section>
