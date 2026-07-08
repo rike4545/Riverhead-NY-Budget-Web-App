@@ -76,7 +76,7 @@ export default function FiscalCommandCenter() {
               href={`${base}/payroll/`}
               tag="New · SeeThroughNY-style"
               title="Payroll Explorer"
-              body="Search 4,400+ employee earnings records (2018–2023): base pay, overtime, and total gross by name, title, department, and union."
+              body="Search 6,000+ employee earnings records (2018–2025): base pay, overtime, and total gross by name, title, department, and union."
             />
             <FeatureCard
               href={`${base}/funds/`}

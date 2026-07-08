@@ -24,7 +24,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 SLIM_DIR = ROOT / "etl/data/payroll"
 OUT = ROOT / "web/public/data/payroll"
-YEARS = range(2018, 2024)
+YEARS = range(2018, 2026)
 
 # Where the original full exports live (developer machine). Optional in CI.
 SOURCE_DIRS = [

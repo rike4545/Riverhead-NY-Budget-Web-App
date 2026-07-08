@@ -195,7 +195,7 @@ export const gfoaCategories: GfoaCategory[] = [
       {
         code: 'O3', title: 'Position Summary Schedule', mandatory: true,
         requires: 'Position counts for prior, current, and budgeted years, entity-wide.',
-        howWeAddress: 'Authorized positions with salaries for 2025 and 2026 (by department and group) and actual headcounts 2018–2023 exist — but not yet as a single position-count table across years.',
+        howWeAddress: 'Authorized positions with salaries for 2025 and 2026 (by department and group) and actual headcounts 2018–2025 exist — but not yet as a single position-count table across years.',
         status: 'partial', link: `${base}/payroll/`, linkLabel: 'Payroll Explorer',
         gapNote: 'Publish a consolidated headcount-by-department table across years.',
       },

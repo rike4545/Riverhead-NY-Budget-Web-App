@@ -32,10 +32,12 @@ def write(name, header, rows):
 def build():
     print("Exporting CSVs:")
 
-    # Payroll (actual pay)
+    # Payroll (actual pay). Filename spans the years actually present.
     p = load("payroll/records.json")
     if p:
-        write("payroll_actual_2018_2023.csv",
+        years = sorted({r["y"] for r in p["records"]})
+        span = f"{years[0]}_{years[-1]}" if years else "actual"
+        write(f"payroll_actual_{span}.csv",
               ["year", "name", "department", "title", "pay_class", "union", "regular", "overtime", "gross"],
               [[r["y"], r["n"], r["d"], r["t"], r["c"], r["u"], r["r"], r["o"], r["g"]] for r in p["records"]])
 

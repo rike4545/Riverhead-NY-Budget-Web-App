@@ -31,9 +31,9 @@ export const analyticsModules: AnalyticsModule[] = [
   {
     name: 'Payroll and Overtime Intelligence',
     status: 'active',
-    description: 'Actual pay for every employee 2018–2023 (base, overtime summed from detailed pay codes, gross), Board-authorized salaries for 2025 and 2026, and a raise-by-raise comparison with promotions flagged.',
-    sourceBasis: 'Town Gross Earnings reports and the Board’s annual salary resolutions.',
-    nextStep: 'Ingest 2024–2025 gross-earnings reports when released so authorized-vs-actual aligns on the same year.',
+    description: 'Actual pay for every employee 2018–2025 (base, overtime summed from detailed pay codes, gross), Board-authorized salaries for 2025 and 2026, and a raise-by-raise comparison with promotions flagged. The 2025 authorized figures now compare against same-year 2025 actual pay.',
+    sourceBasis: 'Town Gross Earnings reports (2018–2025) and the Board’s annual salary resolutions.',
+    nextStep: 'Add benefits-cost and retirement-pressure indicators from the payroll and budget data.',
   },
   {
     name: 'Cross-Document Financial Reconciliation',
@@ -45,7 +45,7 @@ export const analyticsModules: AnalyticsModule[] = [
   {
     name: 'Multi-Year Fiscal Trend Analysis',
     status: 'active',
-    description: 'Budget Compare tracks every fund’s appropriations 2020–2026; the General Fund page charts two decades (2005–2025); each of 848 account line items carries its own seven-year trend; payroll trends span 2018–2023.',
+    description: 'Budget Compare tracks every fund’s appropriations 2020–2026; the General Fund page charts two decades (2005–2025); each of 848 account line items carries its own seven-year trend; payroll trends span 2018–2025.',
     sourceBasis: 'Adopted budget Summary pages 2020–2026, line-item schedules 2020–2026, and General Fund history 2005–2025.',
     nextStep: 'Extend account-level history to pre-2020 budgets, which use older layouts.',
   },

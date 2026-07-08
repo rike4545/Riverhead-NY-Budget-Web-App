@@ -27,7 +27,7 @@ comparison.
 
 ### 💰 Payroll Explorer — `/payroll`
 A searchable, sortable record of **actual** Town of Riverhead employee earnings
-(2018–2023), modeled on [SeeThroughNY Payrolls](https://www.seethroughny.net/payrolls):
+(2018–2025), modeled on [SeeThroughNY Payrolls](https://www.seethroughny.net/payrolls):
 
 - 4,400+ per-employee records: base pay, **overtime**, and total gross pay
 - filter by year, union/bargaining group, and department; sort by gross, overtime, or base pay
@@ -266,7 +266,7 @@ runs the full pipeline:
 | `parse_afr.py` | Actual year-end results (revenues, spending, surplus, fund balance) for all 14 AFR funds |
 | `parse_meetings.py` | The voting record — every resolution and vote, plus per-member career records |
 | `parse_salary_schedule.py` / `parse_salary_2026.py` | Board-authorized salaries for 2025 and 2026, and the raise comparison |
-| `parse_payroll.py` | Per-employee actual pay 2018–2023 (from slimmed CSVs committed in `etl/data/`) |
+| `parse_payroll.py` | Per-employee actual pay 2018–2025 (from slimmed CSVs committed in `etl/data/`) |
 | `build_search_index.py` | The compact unified search index (16,000+ entries) |
 | `export_csv.py` | Ten CSV downloads for journalists and researchers |
 | `write_meta.py` | The sitewide data-freshness stamp |

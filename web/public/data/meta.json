@@ -1,6 +1,6 @@
 {
- "generatedAt": "2026-07-06T12:48:54Z",
- "generatedAtDisplay": "July 6, 2026",
+ "generatedAt": "2026-07-08T04:04:50Z",
+ "generatedAtDisplay": "July 8, 2026",
  "datasets": {
   "meetings": 39,
   "votes": 1672,
@@ -12,8 +12,10 @@
    2020,
    2021,
    2022,
-   2023
+   2023,
+   2024,
+   2025
   ],
-  "searchEntries": 16288
+  "searchEntries": 16472
  }
 }

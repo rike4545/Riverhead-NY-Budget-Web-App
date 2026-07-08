@@ -11,9 +11,9 @@ export const metadata = {
 
 const datasets = [
   {
-    file: 'payroll_actual_2018_2023.csv',
-    title: 'Actual payroll, 2018–2023',
-    rows: '4,444 rows',
+    file: 'payroll_actual_2018_2025.csv',
+    title: 'Actual payroll, 2018–2025',
+    rows: '5,993 rows',
     desc: 'Every employee-year: base pay, overtime, gross pay, union, and (from 2022) department and title.',
     json: `${base}/data/payroll/records.json`,
   },

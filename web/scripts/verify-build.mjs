@@ -37,7 +37,7 @@ const requiredOutputs = [
   'out/robots.txt',
   'out/data/search/unified.json',
   'out/data/payroll/records.json',
-  'out/downloads/payroll_actual_2018_2023.csv',
+  'out/downloads/payroll_actual_2018_2025.csv',
 ]
 
 const missing = [...requiredFiles, ...requiredOutputs].filter((f) => !existsSync(join(root, f)))

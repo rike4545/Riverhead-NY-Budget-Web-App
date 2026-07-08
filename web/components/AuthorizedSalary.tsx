@@ -157,10 +157,13 @@ export default function AuthorizedSalary() {
       </section>
 
       <p style={{ color: '#64748b', fontSize: 13, lineHeight: 1.5 }}>
-        Source: {data.source.title}. {data.note} &quot;Actual {actualYear}&quot; is the most recent
-        year of actual gross pay available and may differ in year from the authorized figure; actual pay includes
-        overtime, longevity, and buy-outs on top of base salary, which is why it often exceeds the authorized base.
-        Positions with &quot;no match&quot; could not be linked to an actual-pay record (new hires or name differences).
+        Source: {data.source.title}. {data.note}{' '}
+        {actualYear === year
+          ? `The "Actual ${actualYear}" column is the same-year actual gross pay for direct comparison.`
+          : `"Actual ${actualYear}" is the most recent year of actual gross pay available, so it is one year behind the authorized figure.`}
+        {' '}Actual pay includes overtime, longevity, and buy-outs on top of base salary, which is why it often exceeds
+        the authorized base. Positions with &quot;no match&quot; could not be linked to an actual-pay record (new hires or
+        name differences).
       </p>
     </div>
   )
