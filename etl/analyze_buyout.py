@@ -197,6 +197,25 @@ def build(xls_path):
         },
         "scenarios": scenarios,
         "realisticBackfill": backfill,
+        "retireeHealthcare": {
+            "opebLiability2023": 152597117,
+            "annualBenefitPayments2023": 3552558,
+            "retireesReceivingBenefits": 211,
+            "activeEmployees": 306,
+            "perRetireeAnnualEstimate": round(3552558 / 211),
+            "source": "Town of Riverhead 2023 Audited Basic Financial Statements (OPEB note).",
+            "why": (
+                "Retirees keep Town-subsidized health coverage for life (an 'OPEB' cost). The Town already carries a "
+                "$152.6M retiree-health liability and paid $3.6M in 2023 for 211 retirees' health — roughly $17,000 "
+                "each. The cost/savings figures on this page count SALARY only and do not net out retiree health. "
+                "Two effects reduce the salary savings: (1) the buyout pulls each retiree's ~$17k/yr health cost "
+                "forward, and (2) if the job is refilled, the Town then pays health for BOTH the retiree AND the new "
+                "active employee — so healthcare spending for that position can nearly double even as salary falls. "
+                "The 2019 CSEA incentive was itself a retiree-health benefit (48 months of premiums), which shows how "
+                "large this cost is. Net savings are therefore smaller than the salary-only numbers above; a full "
+                "accounting would subtract roughly $17k per year for each additional retiree."
+            ),
+        },
         "retirements2019": ret2019,
         "eligibleEmployees": eligible_list,
         "compare2019": {
@@ -241,7 +260,7 @@ def build(xls_path):
         "assumptions": [
             "Eligible pool is an upper bound from hire date and union; actual eligibility also requires age / retirement eligibility, so fewer people likely qualify.",
             "Participation is unknown until the September 1, 2026 election deadline; scenarios show 15%, 30%, 50%, and 100% uptake.",
-            "Savings use base salary only. Real compensation (benefits ~30%, longevity, overtime) is higher, so salary savings are understated — but retiree health insurance continues, offsetting some of that.",
+            "These figures count SALARY only. They do not net out retiree healthcare (OPEB): each new retiree keeps Town-paid health for life (~$17k/yr), which the buyout pulls forward, and a refilled position then carries both retiree and new-active health coverage. See the retiree-healthcare section — net savings are smaller than the salary numbers shown.",
             "The step-based backfill assumes each vacated role is filled by a NEW HIRE at the entry step. In practice a retirement may instead trigger a promotion (an existing employee moves up and gets a raise, which reduces the net saving), a lateral transfer (the vacancy simply moves to another role), or elimination/restructuring of the position (which increases the saving). For ranked jobs like police, a retiring sergeant is not replaced by a rookie sergeant — a senior officer is promoted and the rookie is hired at the bottom of the chain, so the real saving lands there.",
             "The police sick-day payout is modeled at its 30-day maximum; many members have no excess accrual, so police cost is likely lower.",
             "Accrued leave payouts owed at any separation are not counted as incentive cost (they are owed regardless of the buyout).",
@@ -253,7 +272,10 @@ def build(xls_path):
             f"${avg(csea):,.0f} (CSEA) and ${avg(police):,.0f} (police). If positions are refilled at a lower "
             "starting step, the incentive is typically recovered within ~1-2 years and the Town saves every year "
             "after. If positions are held vacant, savings are immediate and large. Only if every position is "
-            "refilled at the same cost does the buyout become a pure one-time expense with no salary offset."
+            "refilled at the same cost does the buyout become a pure one-time expense with no salary offset. "
+            "One large caveat: these are salary figures. They do not subtract retiree healthcare, which the Town pays "
+            "for life (~$17k/yr per retiree) and the buyout pulls forward — so the true net savings are smaller than "
+            "the salary numbers suggest."
         ),
     }
     OUT.parent.mkdir(parents=True, exist_ok=True)

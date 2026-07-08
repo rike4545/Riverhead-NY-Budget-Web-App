@@ -190,6 +190,41 @@ export default function BuyoutPage() {
         </section>
       )}
 
+      {analysis.retireeHealthcare && (
+        <section style={{ ...card, marginBottom: 18, borderLeft: '6px solid #b45309' }}>
+          <h3 style={{ marginTop: 0 }}>What about retiree healthcare?</h3>
+          <p style={{ color: '#334155', fontSize: 14.5, lineHeight: 1.6, marginTop: 0 }}>
+            The savings figures above count <strong>salary only</strong> — they do <strong>not</strong> subtract
+            retiree healthcare, which is the biggest recurring cost of a retirement. Riverhead retirees keep
+            Town-subsidized health coverage for life. As of the 2023 audit the Town already carried a
+            {' '}<strong>{usd(analysis.retireeHealthcare.opebLiability2023)}</strong> retiree-health liability and paid
+            {' '}<strong>{usd(analysis.retireeHealthcare.annualBenefitPayments2023)}</strong> that year for
+            {' '}{analysis.retireeHealthcare.retireesReceivingBenefits} retirees — about
+            {' '}<strong>{usd(analysis.retireeHealthcare.perRetireeAnnualEstimate)} per retiree per year</strong>.
+          </p>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(160px,1fr))', gap: 12, margin: '4px 0 14px' }}>
+            <Stat label="Retiree-health liability (2023)" value={usd(analysis.retireeHealthcare.opebLiability2023)} />
+            <Stat label="Paid for retiree health (2023)" value={usd(analysis.retireeHealthcare.annualBenefitPayments2023)} />
+            <Stat label="Retirees on Town health" value={String(analysis.retireeHealthcare.retireesReceivingBenefits)} />
+            <Stat label="Per retiree / year" value={usd(analysis.retireeHealthcare.perRetireeAnnualEstimate)} accent />
+          </div>
+          <p style={{ color: '#334155', fontSize: 14.5, lineHeight: 1.6, margin: 0 }}>
+            Two things cut into the salary savings: <strong>(1)</strong> the buyout pulls each retiree&apos;s ~$17k/year
+            health cost <em>forward</em>, and <strong>(2)</strong> if the job is refilled, the Town then pays health for
+            <strong> both</strong> the retiree <strong>and</strong> the new active employee — so healthcare spending for
+            that position can nearly double even as salary falls. So the true net saving is smaller than the salary
+            numbers: for a police officer, roughly $60k/yr in salary savings minus ~$17k/yr of added retiree health is
+            closer to <strong>~$43k/yr net</strong>; for a lower-paid CSEA role the health cost can offset most or all of
+            the salary saving. (Tellingly, the <strong>2019</strong> incentive <em>was</em> retiree healthcare — 48
+            months of paid premiums — which is exactly why it&apos;s such a large factor.)
+          </p>
+          <p style={{ color: '#64748b', fontSize: 12.5, marginTop: 10, marginBottom: 0 }}>
+            Source: {analysis.retireeHealthcare.source} A precise net figure needs the Town&apos;s per-employee
+            health cost-share and each retiree&apos;s age (pre- vs post-Medicare), which payroll does not show.
+          </p>
+        </section>
+      )}
+
       <section style={{ ...card, marginBottom: 18 }}>
         <h3 style={{ marginTop: 0 }}>How this estimate was built &amp; its limits</h3>
         <ul style={{ color: '#475569', fontSize: 14, lineHeight: 1.55, paddingLeft: 18, margin: 0 }}>
