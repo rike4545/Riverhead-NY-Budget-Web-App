@@ -1,0 +1,47 @@
+{
+ "title": "New York's property-tax cap and Riverhead's overrides",
+ "capBasics": {
+  "law": "Chapter 97 of the Laws of 2011 (the NYS Real Property Tax Levy Cap).",
+  "limit": "Starting in 2012, a local government's tax LEVY (the total it raises from property taxes, not the rate) may grow at most 2% or the rate of inflation, whichever is less — after a few adjustments (a tax-base-growth factor, prior-year carryover, and statutory exclusions such as certain pension-cost spikes and voter-approved capital).",
+  "override": "A town may exceed the limit only if it BOTH (1) passes a local law authorizing the override by a 60% vote of the governing body and (2) does so before adopting the budget. On a five-member board, 60% is three votes — so the vote is usually easy to reach; the step towns miss is adopting the local law."
+ },
+ "finding": {
+  "headline": "Riverhead exceeded the cap five years running (2018–2022) without ever adopting the required override local law.",
+  "cause": "The town's independent auditor traced it to an error in calculating the tax cap for the 2018 fiscal year, which then carried forward.",
+  "auditQuote": "The Town exceeded the 2% property tax cap for the year ended December 31, 2022 without adopting a local law in accordance with the New York State enacted Chapter 97, Laws of 2011 Real Property Tax Levy Cap and Mandate Relief Provisions.",
+  "correction": "The Town adopted a local law and exceeded the 2% cap, inclusive of allowable exclusions, in 2023.",
+  "correctionQuoteYear": 2023
+ },
+ "implications": [
+  {"title": "It's a compliance violation, not a rounding issue", "text": "The tax-cap statute contemplates that a levy raised above the limit without proper authorization be placed in reserve and used to reduce the following year's levy. Five years over the cap with no override law is a genuine internal-controls failure, not a technicality."},
+  {"title": "It points to weak controls over the levy calculation", "text": "A miscalculation that went uncorrected from 2018 through 2022 means the number that sets residents' taxes wasn't being independently checked against the state formula each year."},
+  {"title": "2027 is where the lesson bites next", "text": "The 2026 tentative budget proposed a town-wide tax-RATE increase of about 6.74% — far above the ~2% levy cap — so an override is again in play. Doing it correctly means the Board must adopt the override local law first, in public, with the 60% vote on the record."}
+ ],
+ "levyContext": {
+  "note": "General Fund tax levy by year (context for the growth pressure, not the town-wide cap measure). The cap applies to the total levy across all town funds; this series is the General Fund portion the site tracks.",
+  "rows": [
+   {"year": 2017, "levy": 36254400, "pct": 4.81},
+   {"year": 2018, "levy": 37322300, "pct": 2.95},
+   {"year": 2019, "levy": 38848800, "pct": 4.09},
+   {"year": 2020, "levy": 40070000, "pct": 3.14},
+   {"year": 2021, "levy": 41784500, "pct": 4.28},
+   {"year": 2022, "levy": 40489138, "pct": -3.10},
+   {"year": 2024, "levy": 44524150, "pct": 9.97},
+   {"year": 2025, "levy": 48639479, "pct": 9.24}
+  ]
+ },
+ "capStatus": [
+  {"year": "2018", "status": "over-no-law", "label": "Over cap — no override law"},
+  {"year": "2019", "status": "over-no-law", "label": "Over cap — no override law"},
+  {"year": "2020", "status": "over-no-law", "label": "Over cap — no override law"},
+  {"year": "2021", "status": "over-no-law", "label": "Over cap — no override law"},
+  {"year": "2022", "status": "over-no-law", "label": "Over cap — no override law (auditor-confirmed)"},
+  {"year": "2023", "status": "over-with-law", "label": "Over cap — override local law adopted (corrected)"},
+  {"year": "2026", "status": "proposed", "label": "Tentative budget proposes ~6.74% rate increase — override again in play"}
+ ],
+ "sources": [
+  "Town of Riverhead 2022 Audited Basic Financial Statements, Management's Discussion & Analysis (tax-cap note).",
+  "Town of Riverhead 2021 Independent Auditor's Report (origin of the 2018 tax-cap calculation error).",
+  "RiverheadLOCAL, “Riverhead’s 2026 tentative budget calls for town-wide tax rate increase of 6.74%” (Sept. 29, 2025)."
+ ]
+}

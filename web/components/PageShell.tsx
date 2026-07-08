@@ -9,6 +9,7 @@ export default function PageShell({ title, subtitle, children }: { title: string
     ['Funds Explorer', `${base}/funds/`],
     ['Budget Compare', `${base}/compare/`],
     ['General Fund', `${base}/general-fund/`],
+    ['Tax Cap', `${base}/tax-cap/`],
     ['Annual Report', `${base}/annual-report/`],
     ['Town Board Votes', `${base}/meetings/`],
     ['Fiscal Impact', `${base}/fiscal-impact/`],
