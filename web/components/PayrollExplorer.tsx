@@ -1,12 +1,12 @@
 'use client'
 
-import { useMemo, useState } from 'react'
+import { Fragment, useMemo, useState } from 'react'
 import Sparkline from './Sparkline'
 import { ColumnGuide } from './PlainCallout'
 import { useFetchJson } from './useFetchJson'
 import {
   PAYROLL_RECORDS_URL, mapRawRecords, payrollYears, yearSummaries, yearSummary, unionLabel, payrollSource, payrollNote,
-  type PayrollRecordRaw,
+  type PayrollRecordRaw, type PayrollRecord,
 } from '../lib/payroll'
 
 const usd = (n: number) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(n)
@@ -23,6 +23,7 @@ export default function PayrollExplorer() {
   const [dept, setDept] = useState('all')
   const [sortKey, setSortKey] = useState<SortKey>('gross')
   const [limit, setLimit] = useState(100)
+  const [expanded, setExpanded] = useState<string | null>(null)
 
   const yq = q.trim().toLowerCase()
   const summary = year === 'all' ? undefined : yearSummary(year)
@@ -120,9 +121,14 @@ export default function PayrollExplorer() {
         <ColumnGuide items={[
           { term: 'Regular', plain: 'Base salary or wages — the normal pay, not counting overtime.' },
           { term: 'Overtime', plain: 'Extra pay for hours worked beyond the normal schedule.' },
-          { term: 'Gross Pay', plain: 'Everything paid for the year added together — base pay, overtime, plus extras like stipends, longevity, and buy-outs.' },
+          { term: 'Other pay', plain: 'Everything on top of base and overtime: longevity, holiday and shift differentials, stipends, retroactive pay, and leave/termination buy-outs. Click a row to see the exact breakdown.' },
+          { term: 'Gross Pay', plain: 'Base pay + overtime + other pay, all added together — the total actually paid for the year.' },
           { term: 'Group', plain: 'The union or bargaining group the employee belongs to (for example PBA for police, CSEA for many town workers).' },
         ]} />
+        <div style={{ color: '#475569', fontSize: 13, marginBottom: 8, lineHeight: 1.5 }}>
+          <strong>Tip:</strong> click any employee row to expand a full breakdown of how their gross pay is built —
+          base + overtime + each addition (longevity, holiday, stipends, buy-outs, retro) adds up to the total.
+        </div>
         <div style={{ color: '#475569', fontWeight: 700, marginBottom: 10, fontSize: 14 }}>
           {loading
             ? 'Loading employee records…'
@@ -141,24 +147,42 @@ export default function PayrollExplorer() {
                 <th style={th}>Group</th>
                 <SortTh label="Regular" active={sortKey === 'regular'} onClick={() => setSortKey('regular')} />
                 <SortTh label="Overtime" active={sortKey === 'overtime'} onClick={() => setSortKey('overtime')} />
+                <th style={{ ...th, textAlign: 'right' }}>Other pay</th>
                 <SortTh label="Gross Pay" active={sortKey === 'gross'} onClick={() => setSortKey('gross')} />
+                <th style={th} aria-label="expand" />
               </tr>
             </thead>
             <tbody>
-              {filtered.slice(0, limit).map((r, i) => (
-                <tr key={`${r.name}-${r.year}-${i}`} style={{ borderBottom: '1px solid #f1f5f9' }}>
-                  {year === 'all' && <td style={{ ...td, color: '#94a3b8' }}>{r.year}</td>}
-                  <td style={{ ...td, fontWeight: 700, color: '#12385b' }}>
-                    <button onClick={() => { setQ(r.name); setYear('all'); setLimit(100) }} style={nameBtn} title="Show this employee across all years">{r.name}</button>
-                  </td>
-                  <td style={td}>{r.title || '—'}</td>
-                  <td style={td}>{r.department || '—'}</td>
-                  <td style={{ ...td, color: '#475569' }}>{r.union || '—'}</td>
-                  <td style={{ ...td, textAlign: 'right', color: '#64748b' }}>{usd(r.regular)}</td>
-                  <td style={{ ...td, textAlign: 'right', color: r.overtime > 0 ? '#b45309' : '#94a3b8', fontWeight: r.overtime > 0 ? 700 : 400 }}>{usd(r.overtime)}</td>
-                  <td style={{ ...td, textAlign: 'right', fontWeight: 800 }}>{usd(r.gross)}</td>
-                </tr>
-              ))}
+              {filtered.slice(0, limit).map((r, i) => {
+                const key = `${r.name}-${r.year}-${i}`
+                const open = expanded === key
+                const cols = (year === 'all' ? 6 : 5) + 4
+                return (
+                  <Fragment key={key}>
+                    <tr onClick={() => setExpanded(open ? null : key)} style={{ borderBottom: open ? 'none' : '1px solid #f1f5f9', cursor: 'pointer', background: open ? '#f8fafc' : undefined }}>
+                      {year === 'all' && <td style={{ ...td, color: '#94a3b8' }}>{r.year}</td>}
+                      <td style={{ ...td, fontWeight: 700, color: '#12385b' }}>
+                        <button onClick={(e) => { e.stopPropagation(); setQ(r.name); setYear('all'); setLimit(100) }} style={nameBtn} title="Show this employee across all years">{r.name}</button>
+                      </td>
+                      <td style={td}>{r.title || '—'}</td>
+                      <td style={td}>{r.department || '—'}</td>
+                      <td style={{ ...td, color: '#475569' }}>{r.union || '—'}</td>
+                      <td style={{ ...td, textAlign: 'right', color: '#64748b' }}>{usd(r.regular)}</td>
+                      <td style={{ ...td, textAlign: 'right', color: r.overtime > 0 ? '#b45309' : '#94a3b8', fontWeight: r.overtime > 0 ? 700 : 400 }}>{usd(r.overtime)}</td>
+                      <td style={{ ...td, textAlign: 'right', color: r.other > 0 ? '#0369a1' : '#94a3b8', fontWeight: r.other > 0 ? 700 : 400 }}>{usd(r.other)}</td>
+                      <td style={{ ...td, textAlign: 'right', fontWeight: 800 }}>{usd(r.gross)}</td>
+                      <td style={{ ...td, textAlign: 'center', color: '#1f5f8f', fontWeight: 800 }}>{open ? '▾' : '▸'}</td>
+                    </tr>
+                    {open && (
+                      <tr style={{ borderBottom: '1px solid #e2e8f0', background: '#f8fafc' }}>
+                        <td colSpan={cols} style={{ padding: '4px 14px 16px' }}>
+                          <PayBreakdown record={r} />
+                        </td>
+                      </tr>
+                    )}
+                  </Fragment>
+                )
+              })}
             </tbody>
           </table>
         </div>
@@ -180,10 +204,56 @@ export default function PayrollExplorer() {
       )}
 
       <p style={{ color: '#64748b', fontSize: 13, lineHeight: 1.5 }}>
-        Source: {payrollSource.title}. {payrollNote} Overtime is summed from the detailed overtime pay codes. Department,
-        title, and pay class are reported from 2022 onward. Figures are gross paid earnings and may include stipends,
-        longevity, buy-outs, and retroactive pay in the gross total. Verify against the official records before relying on them.
+        Source: {payrollSource.title}. {payrollNote} Overtime is summed from the detailed overtime pay codes, and each
+        gross is broken into base pay, overtime, and the additions on top (longevity, holiday &amp; shift differentials,
+        stipends, buy-outs, retroactive pay, and smaller adjustments) — click any row to see the parts add up to the
+        total. Department, title, and pay class are reported from 2022 onward. Verify against the official records before relying on them.
       </p>
+    </div>
+  )
+}
+
+const COMP_COLOR: Record<string, string> = {
+  regular: '#1f5f8f', overtime: '#c99a2e', longevity: '#0e7490', holiday: '#7c3aed',
+  stipend: '#0891b2', buyout: '#dc2626', retro: '#65a30d', misc: '#64748b',
+}
+
+function PayBreakdown({ record }: { record: PayrollRecord }) {
+  const parts = record.components.filter((c) => c.amount !== 0)
+  const total = record.gross || 1
+  const positive = parts.filter((c) => c.amount > 0)
+  return (
+    <div style={{ display: 'grid', gap: 12, maxWidth: 720 }}>
+      <div style={{ color: '#334155', fontSize: 13.5, fontWeight: 700 }}>
+        Why {record.name}&apos;s {record.year} gross pay is {usd(record.gross)}:
+      </div>
+      {/* stacked bar */}
+      <div style={{ display: 'flex', height: 22, borderRadius: 6, overflow: 'hidden', border: '1px solid #e2e8f0' }}>
+        {positive.map((c) => (
+          <div key={c.key} title={`${c.label}: ${usd(c.amount)}`} style={{ width: `${(c.amount / total) * 100}%`, background: COMP_COLOR[c.key] || '#94a3b8' }} />
+        ))}
+      </div>
+      {/* component list */}
+      <div style={{ display: 'grid', gap: 5 }}>
+        {parts.map((c) => (
+          <div key={c.key} style={{ display: 'grid', gridTemplateColumns: '14px 1fr auto auto', gap: 10, alignItems: 'center', fontSize: 13.5 }}>
+            <span style={{ width: 11, height: 11, borderRadius: 3, background: COMP_COLOR[c.key] || '#94a3b8' }} />
+            <span style={{ color: '#334155', fontWeight: c.key === 'regular' ? 700 : 500 }}>{c.label}</span>
+            <span style={{ color: '#94a3b8', fontSize: 12, minWidth: 44, textAlign: 'right' }}>{((c.amount / total) * 100).toFixed(0)}%</span>
+            <strong style={{ color: c.amount < 0 ? '#b91c1c' : '#12385b', minWidth: 92, textAlign: 'right' }}>{usd(c.amount)}</strong>
+          </div>
+        ))}
+        <div style={{ display: 'grid', gridTemplateColumns: '14px 1fr auto auto', gap: 10, alignItems: 'center', fontSize: 14, borderTop: '2px solid #e2e8f0', paddingTop: 6, marginTop: 2 }}>
+          <span />
+          <span style={{ color: '#12385b', fontWeight: 900 }}>Gross pay</span>
+          <span />
+          <strong style={{ color: '#12385b', minWidth: 92, textAlign: 'right' }}>{usd(record.gross)}</strong>
+        </div>
+      </div>
+      <div style={{ color: '#64748b', fontSize: 12, lineHeight: 1.5 }}>
+        &quot;Other pay &amp; adjustments&quot; groups smaller additive codes (call-back, standby, comp time, night differential, etc.).
+        Figures are the actual amounts paid under each code in the Town&apos;s Gross Earnings export; the parts add up to gross pay.
+      </div>
     </div>
   )
 }

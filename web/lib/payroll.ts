@@ -12,7 +12,10 @@ export const PAYROLL_RECORDS_URL = '/rike4545-riverhead-budget-live/data/payroll
 export type PayrollRecordRaw = {
   y: number; n: string; d: string; t: string; c: string; u: string
   r: number; o: number; g: number
+  k?: number[]   // [longevity, holiday, stipend, buyout, retro] breakdown of "other"
 }
+
+export type PayComponent = { key: string; label: string; amount: number }
 
 export type PayrollRecord = {
   year: number
@@ -23,8 +26,19 @@ export type PayrollRecord = {
   union: string
   regular: number
   overtime: number
+  other: number   // gross - regular - overtime: longevity, stipends, retro, buy-outs, etc.
   gross: number
+  // Additive breakdown that sums EXACTLY to gross (misc absorbs the remainder).
+  components: PayComponent[]
 }
+
+const COMPONENT_LABELS: [string, string][] = [
+  ['longevity', 'Longevity'],
+  ['holiday', 'Holiday & shift differential'],
+  ['stipend', 'Stipends & allowances'],
+  ['buyout', 'Leave & termination buy-outs'],
+  ['retro', 'Retroactive pay'],
+]
 
 export type LeaderRow = { name: string; title: string; department: string; gross: number; overtime: number }
 export type UnionRollup = { union: string; headcount: number; gross: number; overtime: number }
@@ -71,11 +85,29 @@ export const unionLabels: Record<string, string> = {
 export const payrollYears = summary.years
 export const yearSummaries = summary.yearSummaries
 
+const r2 = (n: number) => Math.round(n * 100) / 100
+
 export function mapRawRecords(raw: PayrollRecordRaw[]): PayrollRecord[] {
-  return raw.map((r) => ({
-    year: r.y, name: r.n, department: r.d, title: r.t, payClass: r.c, union: r.u,
-    regular: r.r, overtime: r.o, gross: r.g,
-  }))
+  return raw.map((r) => {
+    // The residual after base pay and overtime — everything else in the gross.
+    const other = r2(r.g - r.r - r.o)
+    const k = r.k ?? []
+    const named = k.reduce((s, v) => s + (v || 0), 0)
+    const misc = r2(other - named)
+    // Build the additive component list that sums EXACTLY to gross.
+    const components: PayComponent[] = [
+      { key: 'regular', label: 'Regular (base pay)', amount: r.r },
+      { key: 'overtime', label: 'Overtime', amount: r.o },
+    ]
+    COMPONENT_LABELS.forEach(([key, label], i) => {
+      if (k[i]) components.push({ key, label, amount: r2(k[i]) })
+    })
+    if (Math.abs(misc) >= 1) components.push({ key: 'misc', label: 'Other pay & adjustments', amount: misc })
+    return {
+      year: r.y, name: r.n, department: r.d, title: r.t, payClass: r.c, union: r.u,
+      regular: r.r, overtime: r.o, gross: r.g, other, components,
+    }
+  })
 }
 
 export function yearSummary(year: number): YearSummary | undefined {
