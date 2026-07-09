@@ -24,8 +24,41 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 SUB = ROOT / "web/public/data/subaccounts"
 PAYROLL_SUMMARY = ROOT / "web/public/data/payroll/summary.json"
+PAYROLL_RECORDS = ROOT / "web/public/data/payroll/records.json"
 OUT_SUMMARY = ROOT / "web/public/data/budget-2027-prediction.json"
 OUT_LINES = ROOT / "web/public/data/budget-2027-lines.json"
+
+# CSEA Article 15(2) (Wages), fully executed 2026-2029 CBA: each year is a % step increase
+# PLUS a flat, non-recurring dollar amount added to every step — and that dollar amount
+# carries forward into the base every later year's % is computed from. A flat $1,000 is a much
+# bigger raise for a $45k CSEA base salary than for a $90k one, so the headline "%" alone
+# understates the true rate; we convert it to an effective % using the union's actual average
+# base pay (compounding the dollar adjustments forward year over year).
+CSEA_WAGE_TERMS = {
+    2026: {"pctStep": 0.020, "flatAdj": 1500},
+    2027: {"pctStep": 0.025, "flatAdj": 1000},
+    2028: {"pctStep": 0.030, "flatAdj": 500},
+    2029: {"pctStep": 0.035, "flatAdj": 0},
+}
+
+
+def csea_effective_rates():
+    """Simulate CSEA's Article 15(2) formula forward from actual average CSEA base pay to
+    get each year's true effective raise (step % + flat $ as a % of that year's base)."""
+    records = json.loads(PAYROLL_RECORDS.read_text())["records"]
+    latest_year = max(r["y"] for r in records if r["u"] == "CSE")
+    base_pool = [r["r"] for r in records if r["y"] == latest_year and r["u"] == "CSE" and r["r"] > 0]
+    starting_base = sum(base_pool) / len(base_pool)
+    effective = {}
+    base = starting_base
+    for year, terms in sorted(CSEA_WAGE_TERMS.items()):
+        new_base = base * (1 + terms["pctStep"]) + terms["flatAdj"]
+        effective[year] = new_base / base - 1
+        base = new_base
+    return effective, latest_year, starting_base
+
+
+CSEA_EFFECTIVE_RATES, CSEA_PAYROLL_YEAR, CSEA_STARTING_BASE = csea_effective_rates()
 
 # Each Riverhead bargaining unit's actual negotiated raises, by contract. Where the
 # contract doesn't cover 2027, "rate2027" is left None and computed as that union's own
@@ -34,10 +67,14 @@ UNION_CONTRACTS = {
     "CSE": {
         "label": "CSEA",
         "term": "2026–2029 CBA",
-        "rates": {2026: 0.020, 2027: 0.025, 2028: 0.030, 2029: 0.035},
+        "rates": CSEA_EFFECTIVE_RATES,
         "known2027": True,
-        "source": "Town Board Resolution 2025-1001 (ratified 12/16/2025); RiverheadLOCAL, "
-                  "“Town Board approves CSEA deal through 2029” (12/17/2025)",
+        "source": f"Fully executed 2026–2029 CSEA Agreement, Article 15(2) (Wages), signed 12/6/2025. "
+                  f"Each year is a step % PLUS a flat, non-recurring dollar add-on that compounds into "
+                  f"later years' base (2%+$1,500 in 2026, 2.5%+$1,000 in 2027, 3%+$500 in 2028, 3.5% in "
+                  f"2029) — converted here to an effective % using {CSEA_PAYROLL_YEAR} actual average CSEA "
+                  f"base pay (${CSEA_STARTING_BASE:,.0f}), so the flat dollars are properly weighted "
+                  f"rather than ignored.",
     },
     "PBA": {
         "label": "PBA",

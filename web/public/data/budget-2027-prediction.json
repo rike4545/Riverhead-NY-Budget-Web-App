@@ -4,9 +4,9 @@
  "assumptions": [
   {
    "category": "Personal Services",
-   "ratePct": 3.1,
+   "ratePct": 3.8,
    "recentTrend": "+11.3% over 2024\u20132026 (~5.5%/yr)",
-   "why": "Payroll-weighted blend of each Riverhead bargaining unit's own 2027 terms: CSEA gets its contractual 2.5% (2026\u20132029 CBA). PBA and SOA are between contracts \u2014 both 2023\u20132026 agreements expire 12/31/2026 with no successor yet public \u2014 so each uses its own trailing average annual raise as a placeholder. Non-union staff use a general 3.0% trend assumption. Weighted by each group's share of 2025 actual Town payroll. Full breakdown below."
+   "why": "Payroll-weighted blend of each Riverhead bargaining unit's own 2027 terms: CSEA gets its contractual 4.6% (2026\u20132029 CBA). PBA and SOA are between contracts \u2014 both 2023\u20132026 agreements expire 12/31/2026 with no successor yet public \u2014 so each uses its own trailing average annual raise as a placeholder. Non-union staff use a general 3.0% trend assumption. Weighted by each group's share of 2025 actual Town payroll. Full breakdown below."
   },
   {
    "category": "Employee Benefits",
@@ -41,17 +41,17 @@
  ],
  "totals": {
   "appropriations2026": 121110904,
-  "appropriations2027": 125976013,
-  "delta": 4865109,
-  "pct": 4.02,
+  "appropriations2027": 126285166,
+  "delta": 5174262,
+  "pct": 4.27,
   "lineItems": 848
  },
  "levyEstimate": {
   "note": "Illustrative only. Assumes non-property-tax revenue (state aid, fees, grants, reserves) grows 2% and the property-tax levy balances the rest. The real levy also depends on revenue and reserve choices the Board makes.",
   "levy2026": 65343939,
-  "levy2027": 69093709,
-  "levyIncreasePct": 5.7,
-  "appropriations2027": 125976013,
+  "levy2027": 69402862,
+  "levyIncreasePct": 6.2,
+  "appropriations2027": 126285166,
   "nonLevyRevenueGrowthPct": 2,
   "recentLevyIncreases": "For context, the town-wide levy rose 4.86% (2024) and 7.74% (2026)."
  },
@@ -59,10 +59,10 @@
   "piercesCap": true,
   "capBasePct": 2,
   "allowedLevy": 66650818,
-  "predictedLevy": 69093709,
-  "gap": 2442891,
-  "predictedLevyPct": 5.7,
-  "summary": "On current trends the 2027 levy grows about 5.7% \u2014 well above the roughly 2% the cap allows \u2014 so the budget would pierce the cap by about $2,442,891. To stay under the cap the Town would have to close that ~$2,442,891 gap. (The real ceiling is a bit higher than a flat 2% once the tax-base-growth factor and exclusions are added, which would shrink the gap somewhat.)",
+  "predictedLevy": 69402862,
+  "gap": 2752044,
+  "predictedLevyPct": 6.2,
+  "summary": "On current trends the 2027 levy grows about 6.2% \u2014 well above the roughly 2% the cap allows \u2014 so the budget would pierce the cap by about $2,752,044. To stay under the cap the Town would have to close that ~$2,752,044 gap. (The real ceiling is a bit higher than a flat 2% once the tax-base-growth factor and exclusions are added, which would shrink the gap somewhat.)",
   "levers": [
    {
     "lever": "Refill fewer / lower-cost positions (the retirement buyout)",
@@ -70,7 +70,7 @@
    },
    {
     "lever": "Trim or slow spending",
-    "detail": "Every 1% cut to the $125,976,013 spending plan is about $1,259,760. Closing the whole gap this way means roughly a 1.9% cut \u2014 e.g. holding posts vacant, deferring equipment and capital, or trimming contractual lines."
+    "detail": "Every 1% cut to the $126,285,166 spending plan is about $1,262,852. Closing the whole gap this way means roughly a 2.2% cut \u2014 e.g. holding posts vacant, deferring equipment and capital, or trimming contractual lines."
    },
    {
     "lever": "Grow non-property-tax revenue",
@@ -78,7 +78,7 @@
    },
    {
     "lever": "Use reserves (one-time)",
-    "detail": "Appropriating about $2,442,891 more of the $33,407,251 General Fund balance would erase the gap outright \u2014 but it's roughly 7.3% of the cushion, spends one-time money on recurring cost, and can't be repeated forever."
+    "detail": "Appropriating about $2,752,044 more of the $33,407,251 General Fund balance would erase the gap outright \u2014 but it's roughly 8.2% of the cushion, spends one-time money on recurring cost, and can't be repeated forever."
    },
    {
     "lever": "Claim the cap's legal exclusions",
@@ -91,15 +91,15 @@
   ]
  },
  "unionBreakdown": {
-  "note": "How the Personal Services rate above (3.06%/yr) is built: each bargaining unit's own 2027 rate, weighted by its share of 2025 actual Town payroll.",
+  "note": "How the Personal Services rate above (3.83%/yr) is built: each bargaining unit's own 2027 rate, weighted by its share of 2025 actual Town payroll.",
   "groups": [
    {
     "union": "CSEA",
     "payrollSharePct": 36.8,
-    "ratePct": 2.5,
+    "ratePct": 4.57,
     "known2027": true,
     "term": "2026\u20132029 CBA",
-    "source": "Town Board Resolution 2025-1001 (ratified 12/16/2025); RiverheadLOCAL, \u201cTown Board approves CSEA deal through 2029\u201d (12/17/2025)"
+    "source": "Fully executed 2026\u20132029 CSEA Agreement, Article 15(2) (Wages), signed 12/6/2025. Each year is a step % PLUS a flat, non-recurring dollar add-on that compounds into later years' base (2%+$1,500 in 2026, 2.5%+$1,000 in 2027, 3%+$500 in 2028, 3.5% in 2029) \u2014 converted here to an effective % using 2025 actual average CSEA base pay ($45,811), so the flat dollars are properly weighted rather than ignored."
    },
    {
     "union": "PBA",
@@ -140,9 +140,9 @@
    "category": "Personal Services",
    "count": 225,
    "v2026": 40497622,
-   "v2027": 41738546,
-   "delta": 1240924,
-   "pct": 3.1
+   "v2027": 42047699,
+   "delta": 1550077,
+   "pct": 3.8
   },
   {
    "category": "Contractual",
@@ -182,33 +182,33 @@
    "fundCode": "A01",
    "fund": "General Fund",
    "v2026": 69113159,
-   "v2027": 72362269,
-   "delta": 3249110,
-   "pct": 4.7
+   "v2027": 72623179,
+   "delta": 3510020,
+   "pct": 5.1
   },
   {
    "fundCode": "DA1",
    "fund": "Highway Fund",
    "v2026": 7919250,
-   "v2027": 8298243,
-   "delta": 378993,
-   "pct": 4.8
+   "v2027": 8318696,
+   "delta": 399446,
+   "pct": 5.0
   },
   {
    "fundCode": "EW1",
    "fund": "Water District",
    "v2026": 11008655,
-   "v2027": 11365238,
-   "delta": 356583,
-   "pct": 3.2
+   "v2027": 11378760,
+   "delta": 370105,
+   "pct": 3.4
   },
   {
    "fundCode": "ES1",
    "fund": "Riverhead Sewer District",
    "v2026": 8142722,
-   "v2027": 8399063,
-   "delta": 256341,
-   "pct": 3.1
+   "v2027": 8405544,
+   "delta": 262822,
+   "pct": 3.2
   },
   {
    "fundCode": "SR1",
@@ -222,9 +222,9 @@
    "fundCode": "ES5",
    "fund": "Riverhead Scavenger Waste",
    "v2026": 2231988,
-   "v2027": 2322927,
-   "delta": 90939,
-   "pct": 4.1
+   "v2027": 2325825,
+   "delta": 93837,
+   "pct": 4.2
   },
   {
    "fundCode": "CM4",
@@ -246,17 +246,17 @@
    "fundCode": "ES3",
    "fund": "Calverton Sewer District",
    "v2026": 1488357,
-   "v2027": 1537491,
-   "delta": 49134,
-   "pct": 3.3
+   "v2027": 1538858,
+   "delta": 50501,
+   "pct": 3.4
   },
   {
    "fundCode": "SL1",
    "fund": "Street Lighting District",
    "v2026": 926533,
-   "v2027": 964945,
-   "delta": 38412,
-   "pct": 4.1
+   "v2027": 966829,
+   "delta": 40296,
+   "pct": 4.3
   },
   {
    "fundCode": "MS1",
@@ -267,6 +267,14 @@
    "pct": 3.5
   },
   {
+   "fundCode": "A06",
+   "fund": "Recreation Program Fund",
+   "v2026": 504500,
+   "v2027": 521548,
+   "delta": 17048,
+   "pct": 3.4
+  },
+  {
    "fundCode": "MS2",
    "fund": "Risk Retention Fund",
    "v2026": 450000,
@@ -275,20 +283,12 @@
    "pct": 3.5
   },
   {
-   "fundCode": "A06",
-   "fund": "Recreation Program Fund",
-   "v2026": 504500,
-   "v2027": 520244,
-   "delta": 15744,
-   "pct": 3.1
-  },
-  {
    "fundCode": "CM2",
    "fund": "East Creek Docking Facility",
    "v2026": 288100,
-   "v2027": 298234,
-   "delta": 10134,
-   "pct": 3.5
+   "v2027": 298568,
+   "delta": 10468,
+   "pct": 3.6
   },
   {
    "fundCode": "ST1",
@@ -334,6 +334,16 @@
  "topMovers": [
   {
    "fund": "General Fund",
+   "dept": "Police",
+   "name": "Police - Pers Serv - FT Uni Pers",
+   "category": "Personal Services",
+   "v2026": 14966311.0,
+   "v2027": 15539155,
+   "delta": 572844.0,
+   "pct": 3.8
+  },
+  {
+   "fund": "General Fund",
    "dept": "Pol Ret",
    "name": "Pol Ret - NYS Retirement Uni Pers",
    "category": "Employee Benefits",
@@ -341,16 +351,6 @@
    "v2027": 7163781,
    "delta": 530650.0,
    "pct": 8.0
-  },
-  {
-   "fund": "General Fund",
-   "dept": "Police",
-   "name": "Police - Pers Serv - FT Uni Pers",
-   "category": "Personal Services",
-   "v2026": 14966311.0,
-   "v2027": 15424909,
-   "delta": 458598.0,
-   "pct": 3.1
   },
   {
    "fund": "General Fund",
@@ -413,6 +413,16 @@
    "pct": 8.0
   },
   {
+   "fund": "Highway Fund",
+   "dept": "General Repairs",
+   "name": "Repair - Personal Services",
+   "category": "Personal Services",
+   "v2026": 2468135.0,
+   "v2027": 2562604,
+   "delta": 94469.0,
+   "pct": 3.8
+  },
+  {
    "fund": "General Fund",
    "dept": "Function 9030",
    "name": "FICA -FICA Non-Uni Personnel",
@@ -443,16 +453,6 @@
    "pct": 3.0
   },
   {
-   "fund": "Highway Fund",
-   "dept": "General Repairs",
-   "name": "Repair - Personal Services",
-   "category": "Personal Services",
-   "v2026": 2468135.0,
-   "v2027": 2543764,
-   "delta": 75629.0,
-   "pct": 3.1
-  },
-  {
    "fund": "Riverhead Sewer District",
    "dept": "Depreciation",
    "name": "Depr - Depreciation",
@@ -473,6 +473,36 @@
    "pct": 3.5
   },
   {
+   "fund": "General Fund",
+   "dept": "Building & Grounds",
+   "name": "B&G - Personal Services",
+   "category": "Personal Services",
+   "v2026": 1653637.0,
+   "v2027": 1716931,
+   "delta": 63294.0,
+   "pct": 3.8
+  },
+  {
+   "fund": "Water District",
+   "dept": "Water AdmWater Administration",
+   "name": "Water AdmPersonal Services",
+   "category": "Personal Services",
+   "v2026": 1613708.0,
+   "v2027": 1675474,
+   "delta": 61766.0,
+   "pct": 3.8
+  },
+  {
+   "fund": "General Fund",
+   "dept": "Police",
+   "name": "Police - Personal Services",
+   "category": "Personal Services",
+   "v2026": 1403312.0,
+   "v2027": 1457025,
+   "delta": 53713.0,
+   "pct": 3.8
+  },
+  {
    "fund": "Water District",
    "dept": "Hosp",
    "name": "Hosp - Hosp, Den & Opt Ins Non-Uni Pers",
@@ -481,16 +511,6 @@
    "v2027": 724818,
    "delta": 53690.0,
    "pct": 8.0
-  },
-  {
-   "fund": "General Fund",
-   "dept": "Building & Grounds",
-   "name": "B&G - Personal Services",
-   "category": "Personal Services",
-   "v2026": 1653637.0,
-   "v2027": 1704308,
-   "delta": 50671.0,
-   "pct": 3.1
   },
   {
    "fund": "General Fund",
@@ -503,16 +523,6 @@
    "pct": 8.0
   },
   {
-   "fund": "Water District",
-   "dept": "Water AdmWater Administration",
-   "name": "Water AdmPersonal Services",
-   "category": "Personal Services",
-   "v2026": 1613708.0,
-   "v2027": 1663155,
-   "delta": 49447.0,
-   "pct": 3.1
-  },
-  {
    "fund": "Ambulance District",
    "dept": "Ambulance",
    "name": "Amb - Prof Svcs - RVAC Inc.",
@@ -521,16 +531,6 @@
    "v2027": 1319546,
    "delta": 44622.0,
    "pct": 3.5
-  },
-  {
-   "fund": "General Fund",
-   "dept": "Police",
-   "name": "Police - Personal Services",
-   "category": "Personal Services",
-   "v2026": 1403312.0,
-   "v2027": 1446312,
-   "delta": 43000.0,
-   "pct": 3.1
   },
   {
    "fund": "General Fund",
@@ -553,6 +553,16 @@
    "pct": 3.5
   },
   {
+   "fund": "General Fund",
+   "dept": "Police",
+   "name": "Police - Pers Svcs Uniform OT",
+   "category": "Personal Services",
+   "v2026": 1000000.0,
+   "v2027": 1038276,
+   "delta": 38276.0,
+   "pct": 3.8
+  },
+  {
    "fund": "Workers Compensation Fund",
    "dept": "Workers Comp",
    "name": "Workers Comp - Claim Payments",
@@ -561,6 +571,16 @@
    "v2027": 1086750,
    "delta": 36750.0,
    "pct": 3.5
+  },
+  {
+   "fund": "General Fund",
+   "dept": "Police",
+   "name": "Police - Pers Svcs Holiday Pay Uni",
+   "category": "Personal Services",
+   "v2026": 943000.0,
+   "v2027": 979094,
+   "delta": 36094.0,
+   "pct": 3.8
   },
   {
    "fund": "Highway Fund",
@@ -584,13 +604,13 @@
   },
   {
    "fund": "General Fund",
-   "dept": "Police",
-   "name": "Police - Pers Svcs Uniform OT",
+   "dept": "Town Attorney",
+   "name": "Atty - Personal Services",
    "category": "Personal Services",
-   "v2026": 1000000.0,
-   "v2027": 1030642,
-   "delta": 30642.0,
-   "pct": 3.1
+   "v2026": 821524.0,
+   "v2027": 852968,
+   "delta": 31444.0,
+   "pct": 3.8
   },
   {
    "fund": "Highway Fund",
@@ -604,33 +624,13 @@
   },
   {
    "fund": "General Fund",
-   "dept": "Police",
-   "name": "Police - Pers Svcs Holiday Pay Uni",
+   "dept": "Finance",
+   "name": "Acct - Personal Services",
    "category": "Personal Services",
-   "v2026": 943000.0,
-   "v2027": 971895,
-   "delta": 28895.0,
-   "pct": 3.1
-  },
-  {
-   "fund": "General Fund",
-   "dept": "Unallocated Insurance",
-   "name": "Gen Liab - Insurance Premium",
-   "category": "Contractual",
-   "v2026": 816400.0,
-   "v2027": 844974,
-   "delta": 28574.0,
-   "pct": 3.5
-  },
-  {
-   "fund": "Riverhead Sewer District",
-   "dept": "Sewer Treatment & Disposal",
-   "name": "Sewer Trmt - Utl - Electricity",
-   "category": "Contractual",
-   "v2026": 800000.0,
-   "v2027": 828000,
-   "delta": 28000.0,
-   "pct": 3.5
+   "v2026": 749817.0,
+   "v2027": 778517,
+   "delta": 28700.0,
+   "pct": 3.8
   }
  ],
  "source": "Built from the Town of Riverhead 2026 Adopted Budget line items (etl/parse_subaccounts.py)."
