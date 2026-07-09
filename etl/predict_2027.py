@@ -133,6 +133,51 @@ def build():
     levy_2027 = approp_2027 - nonlevy_2027
     levy_increase_pct = round((levy_2027 / LEVY_2026 - 1) * 100, 1)
 
+    # Does 2027 pierce the tax cap, and what would it take not to?
+    cap_base_pct = 0.02
+    allowed_levy = round(LEVY_2026 * (1 + cap_base_pct))
+    gap = levy_2027 - allowed_levy
+    approp_cut_for_1pct = round(approp_2027 / 100)
+    reserve_share = round(gap / 33407251 * 100, 1)  # GF fund balance from the 2025 AFR
+    cap_gap = {
+        "piercesCap": gap > 0,
+        "capBasePct": int(cap_base_pct * 100),
+        "allowedLevy": allowed_levy,
+        "predictedLevy": levy_2027,
+        "gap": gap,
+        "predictedLevyPct": levy_increase_pct,
+        "summary": f"On current trends the 2027 levy grows about {levy_increase_pct}% — well above the roughly "
+                   f"{int(cap_base_pct*100)}% the cap allows — so the budget would pierce the cap by about "
+                   f"${gap:,}. To stay under the cap the Town would have to close that ~${gap:,} gap. "
+                   f"(The real ceiling is a bit higher than a flat 2% once the tax-base-growth factor and "
+                   f"exclusions are added, which would shrink the gap somewhat.)",
+        "levers": [
+            {"lever": "Refill fewer / lower-cost positions (the retirement buyout)",
+             "detail": "Realized salary savings from the 2026 buyout flow straight into Personal Services. Our buyout "
+                       "model puts this at roughly $0.7M on the positions with a clear entry step, and up to ~$1.8M if "
+                       "the eligible police fully turn over — a large share of the gap on its own."},
+            {"lever": "Trim or slow spending",
+             "detail": f"Every 1% cut to the ${approp_2027:,} spending plan is about ${approp_cut_for_1pct:,}. Closing the "
+                       f"whole gap this way means roughly a {round(gap/approp_2027*100,1)}% cut — e.g. holding posts vacant, "
+                       "deferring equipment and capital, or trimming contractual lines."},
+            {"lever": "Grow non-property-tax revenue",
+             "detail": "State aid, mortgage tax, fees, and interest earnings offset the levy dollar-for-dollar. Every "
+                       "extra $1M of non-tax revenue is $1M less that has to come from the cap-busting levy."},
+            {"lever": "Use reserves (one-time)",
+             "detail": f"Appropriating about ${gap:,} more of the ${33407251:,} General Fund balance would erase the gap "
+                       f"outright — but it's roughly {reserve_share}% of the cushion, spends one-time money on recurring "
+                       "cost, and can't be repeated forever."},
+            {"lever": "Claim the cap's legal exclusions",
+             "detail": "The cap formula already excludes pension-contribution growth above two percentage points and "
+                       "voter-approved capital. Booking those correctly raises the legal ceiling — the opposite of the "
+                       "2018–2022 error, when the ceiling was miscalculated the other way."},
+            {"lever": "Or override it — but on purpose",
+             "detail": "If the Board decides the services are worth it, it can pierce the cap the right way: adopt the "
+                       "override local law first, in public, with the 60% vote on the record — as it did in 2023, 2024, "
+                       "and 2026. The cap can be exceeded legally; it just has to be a deliberate, disclosed choice."},
+        ],
+    }
+
     movers = sorted(out_lines, key=lambda x: -x["delta"])[:30]
 
     summary = {
@@ -165,6 +210,7 @@ def build():
             "nonLevyRevenueGrowthPct": int(NONLEVY_REVENUE_GROWTH * 100),
             "recentLevyIncreases": "For context, the town-wide levy rose 4.86% (2024) and 7.74% (2026).",
         },
+        "capGap": cap_gap,
         "byCategory": [
             {"category": k, "count": v["count"], "v2026": round(v["v2026"]), "v2027": round(v["v2027"]),
              "delta": round(v["v2027"] - v["v2026"]), "pct": round((v["v2027"] / v["v2026"] - 1) * 100, 1)}

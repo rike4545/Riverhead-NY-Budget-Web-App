@@ -55,6 +55,41 @@
   "nonLevyRevenueGrowthPct": 2,
   "recentLevyIncreases": "For context, the town-wide levy rose 4.86% (2024) and 7.74% (2026)."
  },
+ "capGap": {
+  "piercesCap": true,
+  "capBasePct": 2,
+  "allowedLevy": 66650818,
+  "predictedLevy": 69270200,
+  "gap": 2619382,
+  "predictedLevyPct": 6.0,
+  "summary": "On current trends the 2027 levy grows about 6.0% \u2014 well above the roughly 2% the cap allows \u2014 so the budget would pierce the cap by about $2,619,382. To stay under the cap the Town would have to close that ~$2,619,382 gap. (The real ceiling is a bit higher than a flat 2% once the tax-base-growth factor and exclusions are added, which would shrink the gap somewhat.)",
+  "levers": [
+   {
+    "lever": "Refill fewer / lower-cost positions (the retirement buyout)",
+    "detail": "Realized salary savings from the 2026 buyout flow straight into Personal Services. Our buyout model puts this at roughly $0.7M on the positions with a clear entry step, and up to ~$1.8M if the eligible police fully turn over \u2014 a large share of the gap on its own."
+   },
+   {
+    "lever": "Trim or slow spending",
+    "detail": "Every 1% cut to the $126,152,504 spending plan is about $1,261,525. Closing the whole gap this way means roughly a 2.1% cut \u2014 e.g. holding posts vacant, deferring equipment and capital, or trimming contractual lines."
+   },
+   {
+    "lever": "Grow non-property-tax revenue",
+    "detail": "State aid, mortgage tax, fees, and interest earnings offset the levy dollar-for-dollar. Every extra $1M of non-tax revenue is $1M less that has to come from the cap-busting levy."
+   },
+   {
+    "lever": "Use reserves (one-time)",
+    "detail": "Appropriating about $2,619,382 more of the $33,407,251 General Fund balance would erase the gap outright \u2014 but it's roughly 7.8% of the cushion, spends one-time money on recurring cost, and can't be repeated forever."
+   },
+   {
+    "lever": "Claim the cap's legal exclusions",
+    "detail": "The cap formula already excludes pension-contribution growth above two percentage points and voter-approved capital. Booking those correctly raises the legal ceiling \u2014 the opposite of the 2018\u20132022 error, when the ceiling was miscalculated the other way."
+   },
+   {
+    "lever": "Or override it \u2014 but on purpose",
+    "detail": "If the Board decides the services are worth it, it can pierce the cap the right way: adopt the override local law first, in public, with the 60% vote on the record \u2014 as it did in 2023, 2024, and 2026. The cap can be exceeded legally; it just has to be a deliberate, disclosed choice."
+   }
+  ]
+ },
  "byCategory": [
   {
    "category": "Employee Benefits",

@@ -3,6 +3,7 @@ import PlainCallout from '../../components/PlainCallout'
 import Budget2027Table from '../../components/Budget2027Table'
 import p from '../../public/data/budget-2027-prediction.json'
 
+const base = '/rike4545-riverhead-budget-live'
 const usd = (n: number) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(n)
 const card = { background: 'white', border: '1px solid #e2e8f0', borderRadius: 16, padding: 20, boxShadow: '0 14px 34px rgba(15,23,42,.05)' } as const
 const th = { padding: '8px 10px' } as const
@@ -40,6 +41,37 @@ export default function Predict2027Page() {
         for its category (below). Add it all up and 2027 spending lands near <strong>{usd(t.appropriations2027)}</strong>,
         up <strong>{t.pct}%</strong>. The <em>tax-levy</em> figure is a separate, illustrative estimate — {le.note.charAt(0).toLowerCase() + le.note.slice(1)}
       </PlainCallout>
+
+      {/* Does it pierce the tax cap? */}
+      <section style={{ ...card, marginBottom: 16, borderLeft: '6px solid #b91c1c' }}>
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: 12, alignItems: 'baseline', justifyContent: 'space-between' }}>
+          <h2 style={{ margin: 0, color: '#12385b' }}>Does the 2027 budget pierce the tax cap?</h2>
+          <span style={{ background: '#fee2e2', color: '#991b1b', fontWeight: 900, fontSize: 14, padding: '5px 14px', borderRadius: 999 }}>
+            Yes — by about {usd(p.capGap.gap)}
+          </span>
+        </div>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(150px,1fr))', gap: 10, margin: '14px 0' }}>
+          <Stat label={`Cap allows (~${p.capGap.capBasePct}%)`} value={usd(p.capGap.allowedLevy)} />
+          <Stat label="Predicted levy" value={usd(p.capGap.predictedLevy)} amber />
+          <Stat label="Over the cap by" value={usd(p.capGap.gap)} />
+        </div>
+        <p style={{ color: '#334155', fontSize: 14.5, lineHeight: 1.6, margin: 0 }}>{p.capGap.summary}</p>
+
+        <h3 style={{ color: '#12385b', marginBottom: 8, marginTop: 18 }}>What could be done to stay under it</h3>
+        <div style={{ display: 'grid', gap: 8 }}>
+          {p.capGap.levers.map((l, i) => (
+            <div key={i} style={{ background: '#f8fafc', border: '1px solid #e2e8f0', borderRadius: 10, padding: '11px 14px' }}>
+              <strong style={{ color: '#12385b', fontSize: 14.5 }}>{l.lever}</strong>
+              <div style={{ color: '#475569', fontSize: 13.8, lineHeight: 1.5, marginTop: 3 }}>{l.detail}</div>
+            </div>
+          ))}
+        </div>
+        <p style={{ color: '#64748b', fontSize: 13, marginTop: 12, marginBottom: 0 }}>
+          Want to try the trade-offs yourself? The <a href={`${base}/scenarios/`} style={{ color: '#1f5f8f', fontWeight: 700 }}>What-if scenarios</a> page
+          has an interactive tool to close the gap with your own mix of cuts, revenue, and reserves — and the
+          {' '}<a href={`${base}/tax-cap/`} style={{ color: '#1f5f8f', fontWeight: 700 }}>Tax Cap page</a> explains how the override works.
+        </p>
+      </section>
 
       {/* Method + assumptions */}
       <section style={{ ...card, marginBottom: 16 }}>
