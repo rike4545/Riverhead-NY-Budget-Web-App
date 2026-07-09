@@ -1,8 +1,8 @@
 {
  "title": "New York's property-tax cap and Riverhead's overrides",
  "capBasics": {
-  "law": "Chapter 97 of the Laws of 2011 (the NYS Real Property Tax Levy Cap).",
-  "limit": "Starting in 2012, a local government's tax LEVY (the total it raises from property taxes, not the rate) may grow at most 2% or the rate of inflation, whichever is less — after a few adjustments (a tax-base-growth factor, prior-year carryover, and statutory exclusions such as certain pension-cost spikes and voter-approved capital).",
+  "law": "Chapter 97 of the Laws of 2011, codified for towns at General Municipal Law §3-c; the State Comptroller (OSC) publishes the formula and collects a tax-cap compliance filing from every local government each year.",
+  "limit": "It caps the tax LEVY (the total dollars raised from property taxes, not the rate). OSC's formula is: prior-year levy × a tax-base-growth factor, plus prior-year PILOTs, all multiplied by an 'allowable levy growth factor' (the lesser of 2% or inflation — it has been the full 2% in recent years), minus coming-year PILOTs, plus any unused carryover — then certain costs are EXCLUDED (notably pension-contribution growth above two percentage points and some tort judgments and capital). The headline is '2%,' but the real ceiling is usually a bit higher once growth and exclusions are added.",
   "override": "A town may exceed the limit only if it BOTH (1) passes a local law authorizing the override by a 60% vote of the governing body and (2) does so before adopting the budget. On a five-member board, 60% is three votes — so the vote is usually easy to reach; the step towns miss is adopting the local law."
  },
  "finding": {
@@ -15,7 +15,8 @@
  "implications": [
   {"title": "It's a compliance violation, not a rounding issue", "text": "The tax-cap statute contemplates that a levy raised above the limit without proper authorization be placed in reserve and used to reduce the following year's levy. Five years over the cap with no override law is a genuine internal-controls failure, not a technicality."},
   {"title": "It points to weak controls over the levy calculation", "text": "A miscalculation that went uncorrected from 2018 through 2022 means the number that sets residents' taxes wasn't being independently checked against the state formula each year."},
-  {"title": "The Town now overrides the right way — but overriding is the new normal", "text": "Since the 2018–2022 lapse, the Board has done it correctly every time: 2023, 2024 (4.86% levy), and 2026 (7.74% levy) were all proper, public overrides. The 2026 budget was Supervisor Tim Hubbard's (R): his board unanimously adopted the override local law first, then passed the $121.1M budget (rate $67.031 to $71.549 per $1,000) on November 18, 2025 — just days before Hubbard narrowly lost re-election to Jerry Halpin (D) by 37 votes, so it was Halpin who took office in January 2026 to administer a budget he did not write. The worry is no longer the paperwork — it's that piercing the 2% cap has become the Town's routine practice, not the exception, which puts real pressure on 2027 and beyond."}
+  {"title": "Nine straight years over the cap (2018–2026)", "text": "Put the two halves together and Riverhead has exceeded the state tax cap every single year from 2018 through 2026 — the first five (2018–2022) without the required override law, the last four (2023, 2024, 2025, 2026) with it. Piercing the cap is not an occasional emergency here; it is simply how the Town budgets."},
+  {"title": "The Town now overrides the right way — but overriding is the new normal", "text": "Since the 2018–2022 lapse, the Board has done it correctly every time: 2023, 2024 (4.86% levy), 2025 (7.89% levy — the largest hike since the cap began in 2012), and 2026 (7.74% levy) were all proper, public overrides. The 2025 and 2026 budgets were Supervisor Tim Hubbard's (R); for 2026 his board unanimously adopted the override local law first, then passed the $121.1M budget (rate $67.031 to $71.549 per $1,000) on November 18, 2025 — just days before Hubbard narrowly lost re-election to Jerry Halpin (D) by 37 votes, so it was Halpin who took office in January 2026 to administer a budget he did not write. The worry is no longer the paperwork — it's that a 7–8% levy increase, far above the ~2% cap, has become the Town's routine, which puts real pressure on 2027 and beyond."}
  ],
  "levyContext": {
   "note": "General Fund tax levy by year (context for the growth pressure, not the town-wide cap measure). The cap applies to the total levy across all town funds; this series is the General Fund portion the site tracks.",
@@ -38,6 +39,7 @@
   {"year": "2022", "status": "over-no-law", "label": "Over cap — no override law (auditor-confirmed)"},
   {"year": "2023", "status": "over-with-law", "label": "Over cap — override local law adopted (corrected)"},
   {"year": "2024", "status": "over-with-law", "label": "Over cap — override local law adopted (unanimous); 4.86% levy / 4.54% rate increase"},
+  {"year": "2025", "status": "over-with-law", "label": "Over cap — override local law adopted (unanimous, Nov 19, 2024); 7.89% levy — the largest hike since the cap began in 2012"},
   {"year": "2026", "status": "over-with-law", "label": "Over cap — override local law adopted Nov 18, 2025 (unanimous); 7.74% levy / 6.74% rate increase"}
  ],
  "sources": [
@@ -46,6 +48,8 @@
   "RiverheadLOCAL, “Riverhead’s 2026 tentative budget calls for town-wide tax rate increase of 6.74%” (Sept. 29, 2025).",
   "RiverheadLOCAL, “Riverhead Town Board approves 2026 budget” (Nov. 20, 2025) — the Board unanimously adopted the override local law before passing the $121.1M budget.",
   "RiverheadLOCAL, “Aguiar’s proposed 2024 budget: … 4.9% tax levy hike, piercing cap” (Oct. 2, 2023) and “Town’s 2024 operating budget is adopted” (Nov. 16, 2023) — the 2024 budget pierced the cap with an override local law (4.86% adopted levy; $69.4M town-wide).",
-  "East End Beacon, “With recount complete, Riverhead Town Supervisor Tim Hubbard concedes” (Nov. 25, 2025) — Halpin defeated Hubbard 3,958–3,921 (37 votes), confirmed on manual recount; the 2026 budget had already been adopted under Hubbard on Nov. 18, 2025."
+  "East End Beacon, “With recount complete, Riverhead Town Supervisor Tim Hubbard concedes” (Nov. 25, 2025) — Halpin defeated Hubbard 3,958–3,921 (37 votes), confirmed on manual recount; the 2026 budget had already been adopted under Hubbard on Nov. 18, 2025.",
+  "Riverhead News-Review, “Year in Review: Riverhead Town pierces state-mandated tax cap” (Dec. 2024) — the 2025 budget overrode the cap by local law at a 7.89% levy hike, the town's largest since the cap took effect in 2012.",
+  "NYS Office of the State Comptroller — Real Property Tax Cap for Local Governments and Tax Cap Compliance (osc.ny.gov): the levy-limit formula and the annual compliance filing every local government must submit."
  ]
 }
