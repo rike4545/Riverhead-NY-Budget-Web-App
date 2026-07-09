@@ -48,6 +48,20 @@ export default function BuyoutPage() {
         </div>
       </section>
 
+      {/* Actual ratified numbers */}
+      <section style={{ ...card, marginBottom: 18, borderLeft: '6px solid #166534' }}>
+        <h3 style={{ marginTop: 0, color: '#12385b' }}>The real numbers, now that it&apos;s ratified</h3>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(170px,1fr))', gap: 12, marginBottom: 10 }}>
+          <Stat label="Actually eligible" value={String(b.actualEligible.total)} sub={`${b.actualEligible.csea} CSEA · ${b.actualEligible.pba} PBA · ${b.actualEligible.soa} SOA`} accent />
+          <Stat label="Town's savings estimate" value={`${usd(b.estimatedSavings.low)}–${usd(b.estimatedSavings.high)}`} sub="depends on uptake" />
+        </div>
+        <p style={{ color: '#475569', fontSize: 14, lineHeight: 1.55, margin: 0 }}>
+          The Town has now confirmed the actual eligible headcount and its own savings estimate — see the box below for
+          how that compares to the payroll-derived upper-bound model further down this page. The Town declined to give
+          a gross cost estimate until it knows which of the 53 eligible employees actually opt in.
+        </p>
+      </section>
+
       {/* Per-union programs */}
       <h2 style={{ color: '#12385b' }}>What each retiree receives</h2>
       <section style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(300px,1fr))', gap: 14, marginBottom: 18 }}>
@@ -115,7 +129,7 @@ export default function BuyoutPage() {
       </PlainCallout>
 
       <section style={{ ...card, display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(170px,1fr))', gap: 12, marginBottom: 14 }}>
-        <Stat label="Eligible (upper bound)" value={String(analysis.eligibility.totalCount)} sub={`${analysis.eligibility.csea.count} CSEA · ${analysis.eligibility.police.count} police`} />
+        <Stat label="Modeled eligible (upper bound)" value={String(analysis.eligibility.totalCount)} sub={`${analysis.eligibility.csea.count} CSEA · ${analysis.eligibility.police.count} police — actual is ${b.actualEligible.total}`} />
         <Stat label="Their annual base salary" value={usd(analysis.eligibility.totalAnnualBase)} sub="reshapeable payroll" accent />
         <Stat label="Max one-time cost" value={usd(analysis.oneTimeCostMax)} sub="if everyone eligible takes it" />
         <Stat label="Break-even (refill at lower step)" value={`~${analysis.breakEvenYears_refill80.csea}–${analysis.breakEvenYears_refill80.police} yrs`} />

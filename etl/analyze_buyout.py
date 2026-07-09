@@ -11,17 +11,28 @@ Eligibility (from the executed agreements) is approximated from payroll fields:
 These are UPPER bounds: actual eligibility also depends on age / retirement
 eligibility, which payroll does not reveal, so the true pool is likely smaller.
 
-Benefit amounts (final language):
+Benefit amounts (as ratified — Town Board, July 2026; RiverheadLOCAL 7/9/2026):
   CSEA  — flat $12,500.
   PBA/SOA — $1,000 per year of service, plus a lump sum for up to 30 accrued
-          sick days beyond the contract maximum, at the average of 2024-2026
-          base salary. We model the 30-day amount as an upper bound (a daily
-          rate of base/260); many members will have no excess accrual.
+          sick days beyond the contract maximum, at the average of the
+          employee's 2024, 2025, and 2026 base salary. We model the 30-day
+          amount as an upper bound (a daily rate of avg-base/260); many
+          members will have no excess accrual. 2026 base is projected from
+          each employee's actual 2025 base using their union's confirmed
+          2026 contract raise (PBA +2.5%, SOA +6%); 2024 base comes from the
+          actual 2024 payroll where the employee is matched by name, and
+          falls back to their 2025 base if no 2024 record is found.
 
-Developer helper (needs xlrd + the source .xls). Output committed as
+Actual 2026 program (ratified 7/8/2026, RiverheadLOCAL 7/9/2026): 53
+eligible — 29 CSEA, 18 PBA, 6 SOA — vs. the payroll-derived upper bound
+below. Town estimate: $500K-$800K in savings, depending on uptake; all
+vacated positions are expected to be refilled. Resignation letters due
+9/1/2026, retirement by 10/1/2026.
+
+Developer helper (needs xlrd + the source .xls files). Output committed as
 web/public/data/buyout-analysis.json.
 
-Usage: python etl/analyze_buyout.py "/path/Gross.Earnings.2025.xls"
+Usage: python etl/analyze_buyout.py "/path/Gross.Earnings.2025.xls" ["/path/Gross.Earnings.2024.xls"]
 """
 
 import json
@@ -35,6 +46,30 @@ OUT = ROOT / "web/public/data/buyout-analysis.json"
 SALARY_2025 = ROOT / "web/public/data/salary/authorized-2025.json"
 RETIREES_2019 = ROOT / "etl/data/retirees-2019.json"
 YEAR = 2026
+
+# Confirmed 2026 across-the-board contract raise, used only to project each
+# police employee's 2026 base for the sick-payout 3-year average below.
+POLICE_2026_RATE = {"PBA": 0.025, "SOA": 0.060}
+
+# The actual, ratified 2026 program (Town Board, 7/8/2026; RiverheadLOCAL 7/9/2026),
+# for comparison against the payroll-derived upper-bound eligibility model below.
+ACTUAL_PROGRAM = {
+    "ratifiedDate": "2026-07-08",
+    "eligible": {"csea": 29, "pba": 18, "soa": 6, "total": 53},
+    "estimatedSavings": {"low": 500000, "high": 800000},
+    "resignationLetterDeadline": "2026-09-01",
+    "retirementDeadline": "2026-10-01",
+    "allPositionsExpectedRefilled": True,
+    "source": "RiverheadLOCAL, \"Riverhead approves voluntary retirement incentives for 53 eligible "
+              "Town employees\" (7/9/2026), quoting Financial Administrator Jeannette DiPaola.",
+    "note": "The Town declined to give a gross cost estimate pending actual uptake, and the fiscal "
+            "impact statements attached to the resolutions were filed as \"no fiscal impact\" (not "
+            "updated before the agenda packet went out) — so this savings range is the only official "
+            "figure available. Our payroll-derived model below is an upper-bound estimate (78 eligible: "
+            "54 CSEA + 24 police) built from hire-date proxies, since payroll doesn't reveal true "
+            "retirement eligibility (age, etc.) — the real number came in well under that ceiling, as "
+            "expected.",
+}
 
 # Retirements and backfill hires under the 2026 program happen in 2026, so a
 # rookie replacing a retiree is hired at the 2026 step, not 2025's. authorized-2025.json
@@ -260,7 +295,7 @@ def load(xls_path):
     return rows
 
 
-def build(xls_path):
+def build(xls_path, xls_path_2024=None):
     active = load(xls_path)
     csea = [e for e in active if e["union"] == "CSE" and e["hire"] <= 2009]
     police = [e for e in active if e["union"] in ("PBA", "SOA") and e["hire"] <= 2006]
@@ -269,9 +304,21 @@ def build(xls_path):
     def avg(g, key="base"):
         return round(sum(e[key] for e in g) / len(g), 2) if g else 0
 
+    # 3-year average base (2024, 2025, 2026) for the sick-day payout, per the ratified
+    # agreements. 2025 is each employee's actual base from the primary xls; 2024 is their
+    # actual base from the prior-year xls if available (falls back to 2025 if no match by
+    # name); 2026 is projected from 2025 using their union's confirmed contract raise.
+    base_2024_by_name = {r["name"]: r["base"] for r in load(xls_path_2024)} if xls_path_2024 else {}
+
+    def sick_base_3yr_avg(e):
+        b2025 = e["base"]
+        b2024 = base_2024_by_name.get(e["name"], b2025)
+        b2026 = b2025 * (1 + POLICE_2026_RATE.get(e["union"], 0))
+        return (b2024 + b2025 + b2026) / 3
+
     csea_inc_each = 12500
     police_service = sum(1000 * (YEAR - e["hire"]) for e in police)
-    police_sick_max = sum(30 * (e["base"] / 260) for e in police)
+    police_sick_max = sum(30 * (sick_base_3yr_avg(e) / 260) for e in police)
     police_inc_total_max = police_service + police_sick_max
     onetime_max = len(csea) * csea_inc_each + police_inc_total_max
 
@@ -283,7 +330,7 @@ def build(xls_path):
     for up in (0.15, 0.30, 0.50, 1.00):
         nc, nppd = round(len(csea) * up), round(len(police) * up)
         cs, po = csea[:nc], police[:nppd]
-        onetime = nc * csea_inc_each + sum(1000 * (YEAR - e["hire"]) for e in po) + sum(30 * e["base"] / 260 for e in po)
+        onetime = nc * csea_inc_each + sum(1000 * (YEAR - e["hire"]) for e in po) + sum(30 * sick_base_3yr_avg(e) / 260 for e in po)
         base_vac = sum(e["base"] for e in cs + po)
         scenarios.append({
             "uptakePct": int(up * 100),
@@ -323,6 +370,7 @@ def build(xls_path):
     payload = {
         "program": "2026 Voluntary Retirement Incentive Program",
         "basedOn": "Town of Riverhead 2025 Gross Earnings report (active employees, hire dates)",
+        "actualProgram": ACTUAL_PROGRAM,
         "eligibility": {
             "csea": {"count": len(csea), "avgYearsService": round(avg(csea, "hire") and (YEAR - avg(csea, "hire")), 1) if csea else 0,
                      "avgBase": avg(csea), "totalBase": round(sum(e["base"] for e in csea))},
@@ -420,13 +468,15 @@ def build(xls_path):
             "Accrued leave payouts owed at any separation are not counted as incentive cost (they are owed regardless of the buyout).",
         ],
         "verdict": (
-            "Whether the Town saves money depends on what it does with the vacated positions. "
-            "The one-time incentive is small next to the salaries: about $12,500 per CSEA retiree and "
-            f"~${round(police_inc_each_avg):,} per police retiree, against average base salaries of "
+            "Now that the program is ratified, the Town says all vacated positions ARE expected to be refilled — "
+            "so the refill scenarios below are the realistic case, not the hold-vacant one. The one-time incentive "
+            "is small next to the salaries: about $12,500 per CSEA retiree and "
+            f"~${round(police_inc_each_avg):,} per police retiree (our upper-bound model's average; the actual 53 "
+            f"eligible employees' figure may differ), against average base salaries of "
             f"${avg(csea):,.0f} (CSEA) and ${avg(police):,.0f} (police). If positions are refilled at a lower "
             "starting step, the incentive is typically recovered within ~1-2 years and the Town saves every year "
-            "after. If positions are held vacant, savings are immediate and large. Only if every position is "
-            "refilled at the same cost does the buyout become a pure one-time expense with no salary offset. "
+            "after. The Town's own estimate — $500K-$800K, depending on uptake among the actual 53 eligible "
+            "employees — sits within the range our participation scenarios below would predict. "
             "One large caveat: these are salary figures. They do not subtract retiree healthcare, which the Town pays "
             "for life (~$17k/yr per retiree) and the buyout pulls forward — so the true net savings are smaller than "
             "the salary numbers suggest."
@@ -442,4 +492,5 @@ def build(xls_path):
 
 
 if __name__ == "__main__":
-    build(sys.argv[1] if len(sys.argv) > 1 else "/Users/bryan/Downloads/Gross.Earnings.2025.xls")
+    build(sys.argv[1] if len(sys.argv) > 1 else "/Users/bryan/Downloads/Gross.Earnings.2025.xls",
+          sys.argv[2] if len(sys.argv) > 2 else None)

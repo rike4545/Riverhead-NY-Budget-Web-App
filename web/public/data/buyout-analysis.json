@@ -1,6 +1,24 @@
 {
  "program": "2026 Voluntary Retirement Incentive Program",
  "basedOn": "Town of Riverhead 2025 Gross Earnings report (active employees, hire dates)",
+ "actualProgram": {
+  "ratifiedDate": "2026-07-08",
+  "eligible": {
+   "csea": 29,
+   "pba": 18,
+   "soa": 6,
+   "total": 53
+  },
+  "estimatedSavings": {
+   "low": 500000,
+   "high": 800000
+  },
+  "resignationLetterDeadline": "2026-09-01",
+  "retirementDeadline": "2026-10-01",
+  "allPositionsExpectedRefilled": true,
+  "source": "RiverheadLOCAL, \"Riverhead approves voluntary retirement incentives for 53 eligible Town employees\" (7/9/2026), quoting Financial Administrator Jeannette DiPaola.",
+  "note": "The Town declined to give a gross cost estimate pending actual uptake, and the fiscal impact statements attached to the resolutions were filed as \"no fiscal impact\" (not updated before the agenda packet went out) \u2014 so this savings range is the only official figure available. Our payroll-derived model below is an upper-bound estimate (78 eligible: 54 CSEA + 24 police) built from hire-date proxies, since payroll doesn't reveal true retirement eligibility (age, etc.) \u2014 the real number came in well under that ceiling, as expected."
+ },
  "eligibility": {
   "csea": {
    "count": 54,
@@ -17,16 +35,16 @@
   "totalCount": 78,
   "totalAnnualBase": 6059824
  },
- "oneTimeCostMax": 1604616,
+ "oneTimeCostMax": 1607094,
  "oneTimeBreakdown": {
   "cseaTotal": 675000,
   "policeServicePay": 606000,
-  "policeSickDayMax": 323616
+  "policeSickDayMax": 326094
  },
  "perRetiree": {
   "cseaIncentive": 12500,
   "cseaAvgBase": 60280.63,
-  "policeAvgIncentive": 38734,
+  "policeAvgIncentive": 38837,
   "policeAvgBase": 116861.27,
   "avgBaseAllEligible": 77690
  },
@@ -38,7 +56,7 @@
   {
    "uptakePct": 15,
    "retirees": 12,
-   "oneTimeCost": 261753,
+   "oneTimeCost": 260949,
    "baseVacatedPerYear": 1029757,
    "annualSavings_refillSameCost": 0,
    "annualSavings_refill80": 205951,
@@ -47,7 +65,7 @@
   {
    "uptakePct": 30,
    "retirees": 23,
-   "oneTimeCost": 466349,
+   "oneTimeCost": 468172,
    "baseVacatedPerYear": 1785556,
    "annualSavings_refillSameCost": 0,
    "annualSavings_refill80": 357111,
@@ -56,7 +74,7 @@
   {
    "uptakePct": 50,
    "retirees": 39,
-   "oneTimeCost": 787369,
+   "oneTimeCost": 789041,
    "baseVacatedPerYear": 3077697,
    "annualSavings_refillSameCost": 0,
    "annualSavings_refill80": 615539,
@@ -65,7 +83,7 @@
   {
    "uptakePct": 100,
    "retirees": 78,
-   "oneTimeCost": 1604616,
+   "oneTimeCost": 1607094,
    "baseVacatedPerYear": 6059824,
    "annualSavings_refillSameCost": 0,
    "annualSavings_refill80": 1211965,
@@ -1200,5 +1218,5 @@
   "The police sick-day payout is modeled at its 30-day maximum; many members have no excess accrual, so police cost is likely lower.",
   "Accrued leave payouts owed at any separation are not counted as incentive cost (they are owed regardless of the buyout)."
  ],
- "verdict": "Whether the Town saves money depends on what it does with the vacated positions. The one-time incentive is small next to the salaries: about $12,500 per CSEA retiree and ~$38,734 per police retiree, against average base salaries of $60,281 (CSEA) and $116,861 (police). If positions are refilled at a lower starting step, the incentive is typically recovered within ~1-2 years and the Town saves every year after. If positions are held vacant, savings are immediate and large. Only if every position is refilled at the same cost does the buyout become a pure one-time expense with no salary offset. One large caveat: these are salary figures. They do not subtract retiree healthcare, which the Town pays for life (~$17k/yr per retiree) and the buyout pulls forward \u2014 so the true net savings are smaller than the salary numbers suggest."
+ "verdict": "Now that the program is ratified, the Town says all vacated positions ARE expected to be refilled \u2014 so the refill scenarios below are the realistic case, not the hold-vacant one. The one-time incentive is small next to the salaries: about $12,500 per CSEA retiree and ~$38,837 per police retiree (our upper-bound model's average; the actual 53 eligible employees' figure may differ), against average base salaries of $60,281 (CSEA) and $116,861 (police). If positions are refilled at a lower starting step, the incentive is typically recovered within ~1-2 years and the Town saves every year after. The Town's own estimate \u2014 $500K-$800K, depending on uptake among the actual 53 eligible employees \u2014 sits within the range our participation scenarios below would predict. One large caveat: these are salary figures. They do not subtract retiree healthcare, which the Town pays for life (~$17k/yr per retiree) and the buyout pulls forward \u2014 so the true net savings are smaller than the salary numbers suggest."
 }
