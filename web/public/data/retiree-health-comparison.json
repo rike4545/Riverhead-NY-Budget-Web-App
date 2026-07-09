@@ -1,0 +1,29 @@
+{
+ "title": "How does this compare to other towns?",
+ "intro": "Lifetime, Town-subsidized retiree health coverage isn't unique to Riverhead — it's standard practice across Long Island towns, all of which face the same math: a pay-as-you-go promise that grows every year retirees live longer and premiums rise. The Empire Center for Public Policy publishes a per-municipality OPEB liability comparison; here's where Riverhead lands next to its Suffolk County neighbors.",
+ "methodologyNote": "This table uses the Empire Center's OPEB Liabilities Tool (published Dec. 2020), which reports a 'municipal net liability' and a per-resident 'share' — a different snapshot, and possibly a different accounting scope, than the $152,597,117 OPEB figure sourced from Riverhead's 2023 audit used elsewhere on this site. Treat this as a same-source, apples-to-apples ranking across towns rather than a literal match to the 2023 figure.",
+ "towns": [
+  {"name": "Shelter Island", "netLiability": 33516686, "perResident": 30359},
+  {"name": "East Hampton", "netLiability": 161174898, "perResident": 17565},
+  {"name": "Southampton", "netLiability": 334360174, "perResident": 15478},
+  {"name": "Riverhead", "netLiability": 178105730, "perResident": 13726, "isRiverhead": true},
+  {"name": "Southold", "netLiability": 103685282, "perResident": 10830},
+  {"name": "Smithtown", "netLiability": 273890847, "perResident": 6816},
+  {"name": "Huntington", "netLiability": 338392305, "perResident": 4922},
+  {"name": "Islip", "netLiability": 357744021, "perResident": 3638},
+  {"name": "Brookhaven", "netLiability": 535569809, "perResident": 3322},
+  {"name": "Babylon", "netLiability": 200578948, "perResident": 3039}
+ ],
+ "ranking": "Riverhead ranks 4th-highest of these 10 Suffolk towns on a per-resident basis — behind the smaller East End towns (Shelter Island, East Hampton, Southampton, which spread a similar-sized liability across far fewer residents) and ahead of the larger western-Suffolk towns (Brookhaven, Islip, Huntington), which have much bigger populations to spread the same kind of cost across.",
+ "whyItVaries": [
+  "Population size is the single biggest driver of the per-resident figure: East End towns are small, so even a modest total liability produces a high per-resident number; Brookhaven and Islip are Suffolk's largest towns by population, so a much bigger total liability still nets out to a small per-resident share.",
+  "How generous each town's retiree health benefit is (lifetime full-family coverage vs. a buyback/opt-out option, contribution-sharing rules, how many years of service vest the benefit) varies by union contract and changes over time — Riverhead's own CSEA 2026-2029 contract, for example, added new retiree buyback amounts for employees who decline coverage.",
+  "Workforce mix matters: towns with larger police forces tend to carry more of this liability, since police and fire unions have historically negotiated stronger retiree-health terms than general civilian units."
+ ],
+ "empireContext": "For scale, New York's own statewide NYSHIP Participating-Employer premium (the benchmark plan Riverhead's coverage tracks) runs about $1,611/month ($19,337/yr) for individual coverage and $3,664/month ($43,965/yr) for family coverage for a non-Medicare retiree, or about $596/month (~$7,157/yr) once a retiree becomes Medicare-primary. Riverhead's own blended ~$17,000/retiree/year (2023 audit) sits between those figures — consistent with a retiree population that's a mix of pre-Medicare and Medicare-eligible ages.",
+ "sources": [
+  "Empire Center for Public Policy, OPEB Liabilities Tool (empirecenter.org/publications/opeb-liabilities-tool/), published Dec. 9, 2020.",
+  "NYS Civil Service, NYSHIP Participating Employer premium rates (cs.ny.gov/employee-benefits/pa-market/pe_rates.cfm) and Participating Agency rates (rates.cfm).",
+  "Town of Riverhead 2023 Audited Basic Financial Statements (OPEB note)."
+ ]
+}

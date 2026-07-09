@@ -3,6 +3,7 @@ import PlainCallout from '../../components/PlainCallout'
 import BuyoutEligible, { type EligibleEmployee } from '../../components/BuyoutEligible'
 import { buyout2026 as b } from '../../lib/buyout-2026'
 import analysis from '../../public/data/buyout-analysis.json'
+import retireeHealthComparison from '../../public/data/retiree-health-comparison.json'
 
 const base = '/rike4545-riverhead-budget-live'
 const card = { background: 'white', border: '1px solid #e2e8f0', borderRadius: 16, padding: 20, boxShadow: '0 14px 34px rgba(15,23,42,.05)' } as const
@@ -319,6 +320,64 @@ export default function BuyoutPage() {
           </p>
         </section>
       )}
+
+      <section style={{ ...card, marginBottom: 18, borderLeft: '6px solid #0f766e' }}>
+        <h3 style={{ marginTop: 0 }}>{retireeHealthComparison.title}</h3>
+        <p style={{ color: '#334155', fontSize: 14.5, lineHeight: 1.6, marginTop: 0 }}>{retireeHealthComparison.intro}</p>
+
+        <div style={{ overflowX: 'auto', margin: '4px 0 12px' }}>
+          <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 13.5, minWidth: 480 }}>
+            <thead>
+              <tr style={{ textAlign: 'left', color: '#64748b', borderBottom: '2px solid #e2e8f0' }}>
+                <th style={th}>Town</th>
+                <th style={{ ...th, textAlign: 'right' }}>Net OPEB liability</th>
+                <th style={{ ...th, textAlign: 'right' }}>Per resident</th>
+              </tr>
+            </thead>
+            <tbody>
+              {retireeHealthComparison.towns
+                .slice()
+                .sort((a, b) => b.perResident - a.perResident)
+                .map((t) => (
+                  <tr
+                    key={t.name}
+                    style={{
+                      borderBottom: '1px solid #f1f5f9',
+                      background: t.isRiverhead ? '#f0fdfa' : undefined,
+                      fontWeight: t.isRiverhead ? 800 : 400,
+                    }}
+                  >
+                    <td style={{ ...td, color: t.isRiverhead ? '#0f766e' : '#12385b' }}>{t.name}{t.isRiverhead ? ' ← this site' : ''}</td>
+                    <td style={{ ...td, textAlign: 'right', color: '#475569' }}>{usd(t.netLiability)}</td>
+                    <td style={{ ...td, textAlign: 'right', color: t.isRiverhead ? '#0f766e' : '#334155', fontWeight: 800 }}>{usd(t.perResident)}</td>
+                  </tr>
+                ))}
+            </tbody>
+          </table>
+        </div>
+
+        <p style={{ color: '#334155', fontSize: 14, lineHeight: 1.6 }}>{retireeHealthComparison.ranking}</p>
+
+        <div style={{ display: 'grid', gap: 8, margin: '10px 0' }}>
+          {retireeHealthComparison.whyItVaries.map((point, i) => (
+            <div key={i} style={{ display: 'flex', gap: 8, alignItems: 'flex-start' }}>
+              <span style={{ color: '#0f766e', fontWeight: 900, fontSize: 13 }}>•</span>
+              <span style={{ color: '#475569', fontSize: 13.8, lineHeight: 1.5 }}>{point}</span>
+            </div>
+          ))}
+        </div>
+
+        <p style={{ color: '#475569', fontSize: 13.8, lineHeight: 1.55, background: '#f8fafc', border: '1px solid #e2e8f0', borderRadius: 10, padding: '10px 12px' }}>
+          {retireeHealthComparison.empireContext}
+        </p>
+
+        <div style={{ background: '#fffbeb', border: '1px solid #fcd34d', borderRadius: 10, padding: '10px 12px', marginTop: 10 }}>
+          <strong style={{ color: '#92400e', fontSize: 13 }}>A note on the numbers:</strong>{' '}
+          <span style={{ color: '#78350f', fontSize: 13, lineHeight: 1.5 }}>{retireeHealthComparison.methodologyNote}</span>
+        </div>
+
+        <p style={{ color: '#94a3b8', fontSize: 12, marginTop: 10, marginBottom: 0 }}>Sources: {retireeHealthComparison.sources.join(' · ')}</p>
+      </section>
 
       <section style={{ ...card, marginBottom: 18 }}>
         <h3 style={{ marginTop: 0 }}>How this estimate was built &amp; its limits</h3>
