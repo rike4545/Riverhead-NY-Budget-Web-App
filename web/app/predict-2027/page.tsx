@@ -101,6 +101,42 @@ export default function Predict2027Page() {
         </div>
       </section>
 
+      {/* Union contract breakdown */}
+      <section style={{ ...card, marginBottom: 16 }}>
+        <h2 style={{ marginTop: 0, color: '#12385b' }}>How the Personal Services rate is built</h2>
+        <p style={{ color: '#475569', fontSize: 14.5, lineHeight: 1.55, marginTop: 0 }}>{p.unionBreakdown.note}</p>
+        <div style={{ overflowX: 'auto' }}>
+          <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 13.5 }}>
+            <thead>
+              <tr style={{ textAlign: 'left', color: '#64748b', borderBottom: '2px solid #e2e8f0' }}>
+                <th style={th}>Union</th>
+                <th style={{ ...th, textAlign: 'right' }}>Share of payroll</th>
+                <th style={{ ...th, textAlign: 'right' }}>2027 rate used</th>
+                <th style={th}>Contract</th>
+                <th style={th}>Source</th>
+              </tr>
+            </thead>
+            <tbody>
+              {p.unionBreakdown.groups.map((g) => (
+                <tr key={g.union} style={{ borderBottom: '1px solid #f1f5f9', verticalAlign: 'top' }}>
+                  <td style={{ ...td, fontWeight: 800, color: '#12385b', whiteSpace: 'nowrap' }}>{g.union}</td>
+                  <td style={{ ...td, textAlign: 'right', color: '#64748b' }}>{g.payrollSharePct}%</td>
+                  <td style={{ ...td, textAlign: 'right', fontWeight: 800, color: 'var(--inc)' }}>
+                    +{g.ratePct}%{!g.known2027 && <span style={{ color: '#b45309', fontWeight: 700 }}> (est.)</span>}
+                  </td>
+                  <td style={{ ...td, color: '#475569' }}>{g.term ?? '—'}</td>
+                  <td style={{ ...td, color: '#64748b', fontSize: 12.5, lineHeight: 1.4 }}>{g.source}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <p style={{ color: '#64748b', fontSize: 13, marginTop: 10, marginBottom: 0 }}>
+          “(est.)” means that union's contract expires 12/31/2026 with no successor yet public — the rate shown is
+          that union's own trailing average annual raise from its just-completed contract, used as a placeholder.
+        </p>
+      </section>
+
       {/* By category */}
       <section style={{ ...card, marginBottom: 16 }}>
         <h2 style={{ marginTop: 0, color: '#12385b' }}>Where the increase comes from</h2>

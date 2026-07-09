@@ -23,20 +23,95 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 SUB = ROOT / "web/public/data/subaccounts"
+PAYROLL_SUMMARY = ROOT / "web/public/data/payroll/summary.json"
 OUT_SUMMARY = ROOT / "web/public/data/budget-2027-prediction.json"
 OUT_LINES = ROOT / "web/public/data/budget-2027-lines.json"
+
+# Each Riverhead bargaining unit's actual negotiated raises, by contract. Where the
+# contract doesn't cover 2027, "rate2027" is left None and computed as that union's own
+# trailing geometric-average annual raise (a placeholder until a successor CBA is public).
+UNION_CONTRACTS = {
+    "CSE": {
+        "label": "CSEA",
+        "term": "2026–2029 CBA",
+        "rates": {2026: 0.020, 2027: 0.025, 2028: 0.030, 2029: 0.035},
+        "known2027": True,
+        "source": "Town Board Resolution 2025-1001 (ratified 12/16/2025); RiverheadLOCAL, "
+                  "“Town Board approves CSEA deal through 2029” (12/17/2025)",
+    },
+    "PBA": {
+        "label": "PBA",
+        "term": "2023–2026 MOA (expires 12/31/2026, no successor yet public)",
+        "rates": {2023: 0.060, 2024: 0.025, 2025: 0.025, 2026: 0.025},
+        "known2027": False,
+        "source": "Signed PBA MOA, Article XXXVII (Salaries), 7/25/2023",
+    },
+    "SOA": {
+        "label": "SOA",
+        "term": "2023–2026 agreement (expires 12/31/2026, no successor yet public)",
+        "rates": {2023: 0.060, 2024: 0.020, 2025: 0.040, 2026: 0.060},
+        "known2027": False,
+        "source": "RiverheadLOCAL, “Town reaches labor deal with police brass, providing "
+                  "19% pay hike over 3½ years” (12/15/2023)",
+    },
+}
+NON_UNION_RATE = 0.03  # no CBA governs these (management/confidential, elected, temp); general trend
+
+def _geometric_avg_rate(rates: dict) -> float:
+    product = 1.0
+    for r in rates.values():
+        product *= 1 + r
+    return product ** (1 / len(rates)) - 1
+
+
+def personal_services_rate():
+    """Payroll-weighted blend of each union's actual 2027 contract rate (or, for unions
+    between contracts, their own trailing average as a placeholder), weighted by each
+    group's share of the latest year's actual Town payroll."""
+    payroll = json.loads(PAYROLL_SUMMARY.read_text())
+    latest = max(payroll["yearSummaries"], key=lambda y: y["year"])
+    shares = {row["union"]: row["gross"] for row in latest["byUnion"]}
+    total = sum(shares.values())
+
+    breakdown = []
+    blended = 0.0
+    for code, c in UNION_CONTRACTS.items():
+        rate = c["rates"][2027] if c["known2027"] else _geometric_avg_rate(c["rates"])
+        weight = shares.get(code, 0.0) / total
+        blended += weight * rate
+        breakdown.append({
+            "union": c["label"], "payrollSharePct": round(weight * 100, 1),
+            "ratePct": round(rate * 100, 2), "known2027": c["known2027"],
+            "term": c["term"], "source": c["source"],
+        })
+    other_weight = sum(g for u, g in shares.items() if u not in UNION_CONTRACTS) / total
+    blended += other_weight * NON_UNION_RATE
+    breakdown.append({
+        "union": "Non-union / other (management-confidential, elected, temporary, unspecified)",
+        "payrollSharePct": round(other_weight * 100, 1), "ratePct": round(NON_UNION_RATE * 100, 2),
+        "known2027": False, "term": None, "source": "No CBA covers these positions.",
+    })
+    why = (
+        "Payroll-weighted blend of each Riverhead bargaining unit's own 2027 terms: CSEA gets its "
+        f"contractual {round(UNION_CONTRACTS['CSE']['rates'][2027] * 100, 1)}% (2026–2029 CBA). PBA and SOA "
+        "are between contracts — both 2023–2026 agreements expire 12/31/2026 with no successor yet "
+        "public — so each uses its own trailing average annual raise as a placeholder. Non-union staff use "
+        f"a general {round(NON_UNION_RATE * 100, 1)}% trend assumption. Weighted by each group's share of "
+        f"{latest['year']} actual Town payroll. Full breakdown below."
+    )
+    return blended, why, breakdown, latest["year"]
+
+
+PS_RATE, PS_WHY, UNION_BREAKDOWN, PAYROLL_YEAR = personal_services_rate()
 
 # Per-category annual growth applied to every 2026 line. Each rate is a rounded,
 # defensible read of the recent trend + known 2027 drivers; the recentTrend is
 # the actual 2024->2026 change we measured, shown so readers can judge the rate.
 ASSUMPTIONS = {
     "Personal Services": {
-        "rate": 0.035,
+        "rate": PS_RATE,
         "recentTrend": "+11.3% over 2024–2026 (~5.5%/yr)",
-        "why": "Contractual raises and step increases across the CSEA, PBA and SOA "
-               "contracts, partly offset by the 2026 retirement buyout replacing senior "
-               "staff with lower-step hires (or holding posts vacant). We use less than the "
-               "recent pace because 2024 was inflated by adding five police officers.",
+        "why": PS_WHY,
     },
     "Employee Benefits": {
         "rate": 0.080,
@@ -211,6 +286,11 @@ def build():
             "recentLevyIncreases": "For context, the town-wide levy rose 4.86% (2024) and 7.74% (2026).",
         },
         "capGap": cap_gap,
+        "unionBreakdown": {
+            "note": f"How the Personal Services rate above ({round(PS_RATE * 100, 2)}%/yr) is built: each "
+                    f"bargaining unit's own 2027 rate, weighted by its share of {PAYROLL_YEAR} actual Town payroll.",
+            "groups": UNION_BREAKDOWN,
+        },
         "byCategory": [
             {"category": k, "count": v["count"], "v2026": round(v["v2026"]), "v2027": round(v["v2027"]),
              "delta": round(v["v2027"] - v["v2026"]), "pct": round((v["v2027"] / v["v2026"] - 1) * 100, 1)}
