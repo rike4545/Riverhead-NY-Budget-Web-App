@@ -66,7 +66,19 @@ export default function OfficialsPage() {
         })}
       </div>
 
-      <section style={{ ...card, marginTop: 16, background: '#f8fafc' }}>
+      <section style={{ ...card, marginTop: 16, borderLeft: '6px solid #7c3aed' }}>
+        <div style={{ color: '#7c3aed', fontWeight: 900, fontSize: 12, textTransform: 'uppercase', letterSpacing: 0.4 }}>Coming up</div>
+        <h3 style={{ margin: '4px 0 8px', color: '#12385b' }}>The 2026 Town Supervisor race</h3>
+        <p style={{ color: '#334155', fontSize: 14.5, lineHeight: 1.6, margin: 0 }}>
+          Riverhead&apos;s next Supervisor election is in <strong>November 2026</strong>: Republican councilman
+          {' '}<strong>Kenneth Rothwell</strong> (nominated by the Riverhead GOP in February 2026) against incumbent Democrat
+          {' '}<strong>Jerry Halpin</strong>, who won the seat by 37 votes in 2025. New York&apos;s shift toward even-year
+          local elections is what puts this contest on the 2026 ballot so soon after the last one.
+        </p>
+        <div style={{ color: '#94a3b8', fontSize: 12, marginTop: 8, lineHeight: 1.45 }}>Sources: Riverhead News-Review, “Riverhead GOP nominate Kenneth Rothwell for town supervisor” (Feb. 2026) · NYS Board of Elections, even-year local-elections guidance (2025).</div>
+      </section>
+
+      <section style={{ ...card, marginTop: 12, background: '#f8fafc' }}>
         <p style={{ color: '#475569', fontSize: 13.5, lineHeight: 1.55, margin: 0 }}>{data.note}</p>
         <p style={{ color: '#64748b', fontSize: 12.5, lineHeight: 1.5, margin: '10px 0 0' }}>Sources: {data.sources.join(' · ')}</p>
       </section>
