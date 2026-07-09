@@ -15,6 +15,7 @@ export default function PageShell({ title, subtitle, children }: { title: string
     ['Tax Cap', `${base}/tax-cap/`],
     ['Annual Report', `${base}/annual-report/`],
     ['Town Board Votes', `${base}/meetings/`],
+    ['Officials & Pensions', `${base}/officials/`],
     ['Fiscal Impact', `${base}/fiscal-impact/`],
     ['2026 Buyout', `${base}/buyout/`],
     ['Search', `${base}/search/`],
