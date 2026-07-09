@@ -73,11 +73,20 @@ export default function PayrollExplorer() {
     <div style={{ display: 'grid', gap: 16 }}>
       {/* Summary cards */}
       <section style={{ ...card, display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(160px,1fr))', gap: 12 }}>
-        <Stat label={year === 'all' ? 'Records (all years)' : `Employees ${year}`} value={totals.headcount.toLocaleString()} />
+        <Stat label={year === 'all' ? 'Employees (all years)' : `Employees ${year}`} value={totals.headcount.toLocaleString()} sub={year !== 'all' ? 'actually paid that year' : undefined} />
         <Stat label="Total Gross Pay" value={usd(totals.gross)} accent />
         <Stat label="Total Overtime" value={usd(totals.overtime)} />
-        {summary && <Stat label="Median Gross" value={usd(summary.medianGross)} />}
-        {summary && <Stat label="Highest Paid" value={usd(summary.maxGross)} />}
+        {summary && <Stat label="Average Salary" value={usd(summary.avgGross)} />}
+        {summary && <Stat label="Median Salary" value={usd(summary.medianGross)} />}
+        {summary?.avgTenureYears != null && <Stat label="Average Tenure" value={`${summary.avgTenureYears} yrs`} />}
+        {summary?.turnover && (
+          <Stat
+            label={`Turnover vs ${year !== 'all' ? year - 1 : ''}`}
+            value={summary.turnover.ratePct != null ? `${summary.turnover.ratePct}%` : '—'}
+            sub={`${summary.turnover.separations} left · ${summary.turnover.newHires} hired`}
+            amber
+          />
+        )}
       </section>
 
       {/* Multi-year trend */}
@@ -312,11 +321,12 @@ function SortTh({ label, active, onClick }: { label: string; active: boolean; on
   )
 }
 
-function Stat({ label, value, accent }: { label: string; value: string; accent?: boolean }) {
+function Stat({ label, value, sub, accent, amber }: { label: string; value: string; sub?: string; accent?: boolean; amber?: boolean }) {
   return (
-    <div style={{ background: accent ? '#dbeafe' : '#f8fafc', border: '1px solid #e2e8f0', borderRadius: 12, padding: 12 }}>
+    <div style={{ background: amber ? '#fff7ed' : accent ? '#dbeafe' : '#f8fafc', border: '1px solid #e2e8f0', borderRadius: 12, padding: 12 }}>
       <div style={{ color: '#64748b', fontSize: 11.5, textTransform: 'uppercase', fontWeight: 900, letterSpacing: 0.4 }}>{label}</div>
-      <strong style={{ fontSize: 19, color: '#12385b' }}>{value}</strong>
+      <strong style={{ fontSize: 19, color: amber ? '#b45309' : '#12385b' }}>{value}</strong>
+      {sub && <div style={{ color: '#94a3b8', fontSize: 11.5, marginTop: 2 }}>{sub}</div>}
     </div>
   )
 }

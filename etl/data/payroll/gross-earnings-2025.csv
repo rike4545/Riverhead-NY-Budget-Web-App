@@ -1,789 +1,789 @@
-year,name,department,title,pay_class,union,regular,overtime,gross,longevity,holiday,stipend,buyout,retro
-2025,"Acevedo, Camille",PSD - Public Safet Disp,Public Safety Dispatcher I,PSD 8-40,CSE,23476.34,0.0,27949.84,0.0,2916.44,0.0,0.0,0.0
-2025,"Acevedo, Marjorie E",Assessment Elected/Board,Member of Board Of Assessors,Part Time,APT,1200.0,0.0,1200.0,0.0,0.0,0.0,0.0,0.0
-2025,"Adams, Erin L",,,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"Adams-Korn, Rebecca K",Recreation,Cultural Affairs Supervisor,REC CSEA 7-35,CSE,50198.41,146.49,64567.34,0.0,3467.26,400.0,0.0,0.0
-2025,"Adla, Taleb M",Squad 4 - Police,Police Officer,PBA 8-40,PBA,103071.49,6512.32,178392.9,8797.09,14782.71,1200.0,0.0,0.0
-2025,"Ady, Stephen A",Squad 2 - Police,Police Officer,PBA 10-40,PBA,86036.83,9713.02,144326.28,0.0,16620.11,1200.0,0.0,0.0
-2025,"Ajcuc, Nicolena",Traffic Control,Traffic Control Specialist,Police Part Time,NON,9338.91,0.0,9338.91,0.0,0.0,0.0,0.0,0.0
-2025,"Albee, Keith E",Water,Water Treatment Plant Operator Type II B,Water CSEA 8-40,CSE,54692.92,773.98,70347.21,0.0,3783.64,0.0,1710.0,0.0
-2025,"Alexander, Irene",Justice Court,,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"Alexander, Warren",,,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"Allen, Timothy M",Sewer / Scavenger Waste Management,Sr. Wastewater Trmnt Plant Op 4A,Contractual 8,,155575.35,0.0,206577.83,10890.21,0.0,603.0,32774.37,85.21
-2025,"Anderson, Peter J",Squad 5 - Police,Police Officer,PBA 8-40,PBA,89752.79,4133.1,177049.74,0.0,13686.42,1200.0,15458.2,0.0
-2025,"Anderson, Richard",Detectives,Detective,PBA 8-40,PBA,112297.56,18755.28,237383.15,11476.34,16746.04,2200.0,15458.2,0.0
-2025,"Andruszkiewicz, David J",Fire Marshal,Fire Marshal I,CSEA-Flex 30DED,CSE,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"Apicello, John K",Highway Admin  Elected/Appointed,Deputy Highway Superintendent,Contractual 8,CON,94727.53,0.0,116648.92,6630.85,0.0,390.0,14900.54,0.0
-2025,"Arabio, Kaitlyn A",Recreation,Lifeguard,NON-TIME,NON,5075.94,0.0,5075.94,0.0,0.0,0.0,0.0,0.0
-2025,"Arena, Ellie A",Recreation,Lifeguard,NON-TIME,NON,1234.69,0.0,1234.69,0.0,0.0,0.0,0.0,0.0
-2025,"Arena, Isabella M",Recreation,Lifeguard,NON-TIME,NON,1585.9,0.0,1585.9,0.0,0.0,0.0,0.0,0.0
-2025,"Arena, Michael J",Recreation,Lifeguard,NON-TIME,NON,1349.93,0.0,1349.93,0.0,0.0,0.0,0.0,0.0
-2025,"Ariizumi, Hideaki",Planning / Zoning / CAC/AARB,Member of Appointed Board,NON-TIME,,1500.0,0.0,1500.0,0.0,0.0,0.0,0.0,0.0
-2025,"Arrigo, John E",Sewer / Scavenger Waste,Waste Water Treatment Plant Operator II,Sewer CSEA 10-40,CSE,62019.18,2030.94,93202.21,5899.73,2812.36,0.0,0.0,0.0
-2025,"Arteaga, David",General Repairs Highway,Construction Equip Operator,Highway CSEA 8-40,CSE,54078.31,1056.16,78163.76,5069.55,3875.47,0.0,0.0,0.0
-2025,"Atkins, Waverly",General Repairs Highway,Construction Equip Operator,Highway CSEA 8-40,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"Attridge, Douglas J",Sewer / Scavenger Waste,Sr Waste Water Trmt Plant Operator IIIA,Sewer CSEA 10-40,CSE,70772.59,5976.6,99048.0,5972.88,7342.2,0.0,0.0,0.0
-2025,"Avelar Gonzalez, Yenci Vanessa",Justice Court,Justice Court Clerk,CSEA 7-35,CSE,45844.83,44.4,58846.46,0.0,2893.78,3273.5,1650.0,0.0
-2025,"Ayala, Juan",Police Clerical,Maintenance Mechanic II BLDG,Engineer CSEA 8-40,CSE,59981.29,2336.93,81953.46,5234.64,4001.91,0.0,0.0,0.0
-2025,"Baier, Joseph H",Planning / Zoning / CAC/AARB,Member of Planning Board,NON-TIME,,830.76,0.0,10800.0,0.0,0.0,0.0,0.0,0.0
-2025,"Baird, Kim J",PSD - Public Safet Disp,Public Safety Dispatcher I,PSD 8-40,CSE,49051.79,471.6,70330.17,0.0,6165.58,0.0,0.0,0.0
-2025,"Bakowski, Parker J",General Repairs Highway,Automotive Equipment Operator,Highway CSEA 8-40,CSE,41937.7,98.43,50831.37,0.0,2782.03,0.0,356.25,0.0
-2025,"Baldinucci, Teresa A",Purchasing,Senior Purchasing Agent,Contractual 7,NON,94494.17,0.0,94494.17,0.0,0.0,0.0,0.0,0.0
-2025,"Balzarano, Jesse A",Water,Maintenance Mechanic III Water,Water CSEA 8-40,CSE,45888.15,1655.91,62335.02,0.0,3158.52,0.0,0.0,97.62
-2025,"Bancroft, Christopher I",General Repairs Highway,Automotive Equipment Operator,Highway CSEA 8-40,CSE,20802.45,373.32,30472.65,0.0,1295.98,0.0,0.0,0.0
-2025,"Barauskas, Lynn M",Water,Account Clerk Typist,Water CSEA 7-35,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"Barnes, Leroy E",Planning / Zoning / CAC/AARB,Member of Zoning Board Of Appeals,NON-TIME,,553.84,0.0,7200.0,0.0,0.0,0.0,0.0,0.0
-2025,"Baron, Amanda J",Recreation,Recreation Leader,Recreation PT Seasonal,NON,16150.85,0.0,16150.85,0.0,0.0,0.0,0.0,0.0
-2025,"Barth, Judith Joy",Planning / Zoning / CAC/AARB,Member of Appointed Board,NON-TIME,,1500.0,0.0,1500.0,0.0,0.0,0.0,0.0,0.0
-2025,"Bates, Richard G",General Repairs Highway,Highway Labor Crew Leader,Highway CSEA 8-40,CSE,65132.73,737.12,93477.17,5878.86,4494.46,0.0,0.0,0.0
-2025,"Bauerfeind, Paul R",Buildings and Grounds,Custodial Worker I,CSEA 10-40,CSE,32140.28,406.29,42615.95,2827.78,2628.46,0.0,0.0,0.0
-2025,"Beal, Susan",Highway Admin Clerical,,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"Beatty, Diane F",Recreation,,Recreation CSEA 7-35,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"Bedell, Emily E",Recreation,Assistant Recreation Leader,NON-TIME,NON,5796.7,0.0,5796.7,0.0,0.0,0.0,0.0,0.0
-2025,"Behr, Cheryl A",Juvenile Aide Bureau / Police,Account Clerk,Police CSEA 7-35,CSE,41741.55,256.94,64788.52,2980.44,3189.66,400.0,1827.09,0.0
-2025,"Bennett, Ronald E",General Repairs Highway,Automotive Equipment Operator,Highway CSEA 8-40,CSE,37145.68,809.77,48479.98,0.0,2138.26,0.0,0.0,0.0
-2025,"Bergman, Gregory T",Planning Department,Senior Planner,CSEA 7-35,CSE,87600.58,3819.87,116683.55,0.0,5880.66,3388.88,0.0,0.0
-2025,"Berry, Justin T.",Sewer / Scavenger Waste,Maintenance Mechanic IV SEWER,Sewer CSEA 8-40,CSE,55128.73,356.37,66945.61,0.0,3376.15,0.0,0.0,0.0
-2025,"Bianco, William A",Squad 1 - Police,Police Officer,PBA 10-40,PBA,104772.2,8834.19,199411.86,8797.09,18513.49,1200.0,15458.2,0.0
-2025,"Biancospino, Kathleen M",Justice Court,Justice Court Clerk,CSEA 7-35,CSE,39457.84,0.0,55058.62,0.0,2893.78,400.0,1905.0,0.0
-2025,"Bilski, William R",General Repairs Highway,,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"Binkis, Paul L",Nutrition,Bus Driver,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"Blackmore, Andrew P",Buildings and Grounds,Maintenance Mechanic II BLDG,Engineer CSEA 8-40,CSE,42993.29,115.5,56947.36,0.0,2974.06,1250.0,0.0,0.0
-2025,"Blackmore, Melissa A",Accounting,Accountant,CSEA 7-35,CSE,46525.08,17.99,51621.47,0.0,2686.0,266.67,476.25,0.0
-2025,"Blass, Barbara A",Town Board Elected,,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"Blount, Jahquel A",Recreation,Assistant Recreation Leader,NON-TIME,NON,13105.0,0.0,13105.0,0.0,0.0,0.0,0.0,0.0
-2025,"Boden, Bryan T",COPE Comm Oriented Police Enforce,Police Officer,PBA 8-40,PBA,87576.7,19771.81,142577.69,0.0,13058.65,1200.0,0.0,241.72
-2025,"Boden, Richard K",Headquarters,Lieutenant  Police-Towns and Village,SOA 8-40,SOA,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"Boerum, Maxwell Rafael",Recreation,Park Attendant I,NON-TIME,NON,3012.64,0.0,3012.64,0.0,0.0,0.0,0.0,0.0
-2025,"Bojaj, Tomi",Buildings and Grounds,Maintenance Mechanic II BLDG,Engineer CSEA 8-40,CSE,27235.65,1652.21,39745.51,0.0,1696.2,0.0,0.0,0.0
-2025,"Bokee, Paul J",Water,Water Treatment Plant Operator Type II B,Part Time - TC Entry,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"Bokinz, Richard",Sewer / Scavenger Waste,,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"Bonilla Guerra, Jose A",General Repairs Highway,Automotive Equipment Operator,Highway CSEA 8-40,CSE,7628.48,297.99,8350.27,0.0,423.8,0.0,0.0,0.0
-2025,"Bouchard, Raymond",General Repairs Highway,Heavy Equipment Operator,Highway CSEA 8-40,CSE,2440.33,215.91,13486.52,122.71,520.61,0.0,0.0,0.0
-2025,"Bowe, Howard M",Buildings and Grounds,Groundskeeper I,Engineer CSEA 8-40,CSE,50090.25,3426.97,64992.22,2380.26,3184.09,0.0,0.0,0.0
-2025,"Brabant, Jason P",Recreation,Beach Attendant,NON-TIME,NON,837.25,0.0,837.25,0.0,0.0,0.0,0.0,0.0
-2025,"Breitenbach, Emil",Headquarters,,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"Brennan, Caitlin E",Recreation,Recreation Aide,NON-TIME,NON,4453.57,0.0,4453.57,0.0,0.0,0.0,0.0,0.0
-2025,"Brogan, Raymond",Headquarters,Police Officer,PBA 8-40,PBA,110635.04,21786.73,225141.15,10263.3,11300.73,1200.0,32972.99,0.0
-2025,"Brooks, Irlynn E",Recreation,Recreation Aide,NON-TIME,NON,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"Brooks, Jack W",Recreation,Lifeguard,NON-TIME,NON,2820.59,0.0,2820.59,0.0,0.0,0.0,0.0,0.0
-2025,"Brown, Carl D",Nutrition,Recreation Aide,Part Time - TC Entry,NON,7807.43,0.0,11035.83,0.0,553.13,0.0,0.0,0.0
-2025,"Brown, Dana N",Assessment Elected/Board,Member of Board Of Assessors,Elected,,93038.0,0.0,98800.28,0.0,0.0,0.0,0.0,0.0
-2025,"Brown, Kershia L",Nutrition,Homemaker,Part Time - TC Entry,NON,702.0,0.0,702.0,0.0,0.0,0.0,0.0,0.0
-2025,"Brown, Margaret",Nutrition,Food Service Worker,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"Brumsey, Ronnie M",Traffic Control,Traffic Control Specialist,Police Part Time,NON,3800.37,0.0,3800.37,0.0,0.0,0.0,0.0,0.0
-2025,"Buckner, Nicole L",Town Attorney Clerical,Town Investigator,CSEA 7-35,CSE,80125.98,845.54,117526.75,4577.14,4897.07,0.0,5261.08,0.0
-2025,"Buczynski, Julia R",Squad 3 - Police,Police Officer,PBA 8-40,PBA,56770.02,5993.77,87222.12,0.0,10864.47,1500.0,0.0,209.93
-2025,"Bugdin, Caroline B",Tax Collection,,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"Bugdin, Dorothy E",Tax Collection,Account Clerk Typist,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"Bugdin, James A",Municipal Garage,,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"Bugge, Christopher M",General Repairs Highway,Construction Equip Operator,Highway CSEA 8-40,CSE,54704.76,0.0,74042.2,2867.23,3823.54,0.0,0.0,0.0
-2025,"Burgess, Sarah A",Justice Court,Justice Court Director,CSEA 7-35,CSE,73747.13,196.85,102663.17,4795.07,5131.45,400.0,1837.19,0.0
-2025,"Burkowsky, Debi Iris",Supervisor Management,Town Budget Officer,Contractual 7,NON,77345.1,0.0,77345.1,0.0,0.0,0.0,0.0,0.0
-2025,"Burns, Christopher C",K-9,Police Officer,PBA 8-40,PBA,108762.6,5742.54,183585.44,5864.76,17224.05,7200.0,0.0,0.0
-2025,"Butler, Sonja",Accounting,Senior Account Clerk Typist,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"Buyukdeniz, Deborah L",PSD - Public Safet Disp,Public Safety Dispatcher I,PSD 8-40,CSE,58000.36,11670.66,110482.63,5386.89,13636.32,0.0,0.0,0.0
-2025,"Buzis, Persephone K",Recreation,Recreation Aide,NON-TIME,NON,1203.77,0.0,1203.77,0.0,0.0,0.0,0.0,0.0
-2025,"Caccioppo, Beatrice P",Buildings and Grounds,Custodial Worker I,Engineer CSEA 8-40,CSE,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"Caffrey, Ronald C",General Repairs Highway,Highway Labor Crew Leader,Highway CSEA 8-40,CSE,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"Cain, Victoria L",Water,Water Meter Reader,Water CSEA 8-40,CSE,48764.36,0.0,70204.79,4626.86,3537.12,0.0,0.0,0.0
-2025,"Calamita, Laura J",Town Attorney Clerical,,CSEA-Flex 30DED,CSE,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"Calderon, Christopher B",Water,Water Treatment Plant Oper Trainee,Water CSEA 8-40,CSE,46558.35,513.96,53643.4,0.0,3541.11,0.0,0.0,0.0
-2025,"Calvert, John C",Recreation,Lifeguard,NON-TIME,NON,2480.36,0.0,2480.36,0.0,0.0,0.0,0.0,0.0
-2025,"Cannon, Joann E",Supervisor Clerical,Secretary,Contractual 7,NON,59414.4,0.0,59414.4,0.0,0.0,0.0,0.0,0.0
-2025,"Caparros, Paul M",Water,Water Treatment Plant Operator Type II B,Water CSEA 8-40,CSE,52076.19,1241.62,70042.83,0.0,2939.27,0.0,1825.0,540.32
-2025,"Cardinale, Philip J",Supervisor Elected,,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"Carey, Edward J",Detectives,Detective,PBA 8-40,PBA,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"Carey, Joshua M",Recreation,Assistant Recreation Leader,NON-TIME,NON,27150.03,0.0,27150.03,0.0,0.0,0.0,0.0,0.0
-2025,"Carey, Logann",Recreation,Recreation Aide,NON-TIME,NON,4781.58,0.0,4781.58,0.0,0.0,0.0,0.0,0.0
-2025,"Carey, Nicholas E",Squad 2 - Police,Police Officer,PBA 10-40,PBA,101723.89,1628.08,185514.18,0.0,20146.93,1200.0,15458.2,0.0
-2025,"Carragher, James H",Buildings and Grounds,Custodial Worker I,Engineer CSEA 8-40,CSE,42815.26,2292.35,51884.37,0.0,2609.97,0.0,855.0,0.0
-2025,"Carrick, Megan A",Planning / Zoning / CAC/AARB,Member of Appointed Board,Part Time,APT,1500.0,0.0,1500.0,0.0,0.0,0.0,0.0,0.0
-2025,"Carrieri, Michael J",Detectives,Detective,PBA 8-40,PBA,121362.45,10277.98,201997.12,9434.33,16174.18,2200.0,0.0,0.0
-2025,"Cartwright, Pamela",Police Clerical,Office Assistant,Police CSEA 7-35,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"Case, Georgette L",Town Historian Planning Department,Town Historian,NON-TIME,,0.0,0.0,8931.26,0.0,0.0,0.0,0.0,0.0
-2025,"Cassara, Shaye-Ann K",Fire Marshal,Account Clerk,CSEA 7-35,CSE,39404.23,0.0,51396.56,0.0,2694.4,400.0,855.0,0.0
-2025,"Cassidy, Christie L",Squad 1 - Police,Police Officer,PBA 10-40,PBA,103222.69,937.08,166718.99,0.0,17973.02,1200.0,0.0,0.0
-2025,"Castantine, Kaley N",COPE Comm Oriented Police Enforce,Police Officer,PBA 8-40,PBA,119725.96,8523.58,166594.29,0.0,10249.07,1200.0,0.0,0.0
-2025,"Catarelli, Anthony John",Recreation,Recreation Aide,NON-TIME,NON,2811.38,0.0,2811.38,0.0,0.0,0.0,0.0,0.0
-2025,"Cavaluzzi, Madeline",Buildings and Grounds,Custodial Worker I,Engineer CSEA 8-40,CSE,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"Cavanagh, Dennis M",Squad 5 - Police,Police Officer,PBA 8-40,PBA,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"Cawley, Guy R",Buildings and Grounds,Building Maintenance Supervisor,Engineer CSEA 8-40,CSE,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"Chabla, Jennifer D",Justice Court,Justice Court Clerk,CSEA 7-35,CSE,46783.19,21.92,54188.81,0.0,2846.23,400.0,925.0,0.0
-2025,"Charters, Matthew J",Planning Department,Senior Planner,CSEA 7-35,CSE,85444.23,387.43,105304.99,0.0,5415.35,3158.56,0.0,0.0
-2025,"Chattaway, Collin R",Recreation,Park Attendant I,NON-TIME,NON,181.5,0.0,181.5,0.0,0.0,0.0,0.0,0.0
-2025,"Chavooshian, J Dean",Recreation,Recreation Specialist,NON-TIME,NON,673.4,0.0,673.4,0.0,0.0,0.0,0.0,0.0
-2025,"Cheshire, David G",Detectives,,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"Chester, Erin K",PSD - Public Safet Disp,Public Safety Dispatcher I,PSD 8-40,CSE,60524.85,1576.29,100273.72,5386.89,8195.72,0.0,0.0,0.0
-2025,"Chiaramonte, Anthony M",Squad 2 - Police,Police Officer,PBA 10-40,PBA,81580.94,1455.56,137322.42,0.0,16931.02,1200.0,0.0,-12.43
-2025,"Chizever, Richard",Recreation,Recreation Specialist,NON-TIME,NON,2557.1,0.0,2557.1,0.0,0.0,0.0,0.0,0.0
-2025,"Cichanowicz, Charles F",Squad 2 - Police,Sergeant Police-Towns and Village,SOA 10-40,SOA,132965.0,9290.45,220603.98,12196.28,22783.69,1100.0,475.0,0.0
-2025,"Clark, Daniel G.",COPE Comm Oriented Police Enforce,Police Officer,PBA 8-40,PBA,109855.94,18605.39,177624.06,0.0,15795.63,1200.0,0.0,-130.47
-2025,"Clarkin, Christian A",Squad 3 - Police,Police Officer,PBA 8-40,PBA,95722.04,17779.96,165049.75,0.0,13684.01,1200.0,15458.2,-130.47
-2025,"Clarkin, James D",Buildings and Grounds,Laborer,Engineer CSEA 8-40,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"Clements, Brian T",Headquarters,Lieutenant  Police-Towns and Village,SOA 8-40,SOA,153297.24,12853.99,257032.33,13107.87,20078.97,1100.0,6443.48,0.0
-2025,"Clennan, Sean L",Water,Water Treatment Plant Operator Type II B,Water CSEA 10-40,CSE,53824.14,1174.6,73919.27,0.0,3849.87,0.0,0.0,0.0
-2025,"Clifford, Shannon M",Town Engineer,Administrative Assistant,CSEA 7-35,CSE,51333.69,4569.55,68516.99,0.0,3402.52,400.0,0.0,0.0
-2025,"Clinton, Ann E",Nutrition,Senior Cook,CSEA 7-35,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"Coach, Elrod H",General Repairs Highway,Construction Equip Operator,Highway CSEA 8-40,CSE,53696.28,326.97,89067.61,3584.04,3835.77,0.0,13731.95,0.0
-2025,"Coach, Wally Rodney",Recreation,Park Attendant I,NON-TIME,NON,4063.15,0.0,4063.15,0.0,0.0,0.0,0.0,0.0
-2025,"Cohen, Eric D",COPE Comm Oriented Police Enforce,Police Officer,PBA 8-40,PBA,115931.79,8054.68,178104.35,10263.3,11964.69,1200.0,0.0,0.0
-2025,"Collins, Carissa M",Community Development Clerical,Associate Administrator,CSEA-Flex,CSE,78556.05,0.0,95715.79,3695.76,4920.99,400.0,0.0,0.0
-2025,"Colon, Michael J",Buildings and Grounds,Maintenance Mechanic II BLDG,Engineer CSEA 8-40,CSE,41400.03,0.0,56207.53,0.0,2974.06,0.0,0.0,0.0
-2025,"Commins, Michael C",Street Lighting,Electrical Services Supervisor,Engineer CSEA 8-40,CSE,30569.72,474.86,58081.77,6169.28,3365.78,0.0,0.0,0.0
-2025,"Concannon, Ayden T",Recreation,Recreation Aide,NON-TIME,NON,4683.85,0.0,4683.85,0.0,0.0,0.0,0.0,0.0
-2025,"Concannon, Daniel R",P/T Police,Police Officer P/T Seasonal,Police Part Time,NON,29846.07,0.0,29846.07,0.0,0.0,0.0,0.0,0.0
-2025,"Conklin, Mark",Water Management,Water District Superintendant Type I B,Contractual 8,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"Connell, Ellie A",Recreation,Lifeguard,NON-TIME,NON,2848.76,0.0,2848.76,0.0,0.0,0.0,0.0,0.0
-2025,"Conyers, Karli E",Headquarters,Sergeant Police-Towns and Village,SOA 8-40,SOA,128494.14,2669.55,183909.51,0.0,17026.49,1100.0,375.0,0.0
-2025,"Cook, James Patrick",Recreation,Lifeguard,NON-TIME,NON,2606.57,0.0,2606.57,0.0,0.0,0.0,0.0,0.0
-2025,"Cooke, Abigail D",Recreation,Lifeguard,NON-TIME,NON,736.39,0.0,736.39,0.0,0.0,0.0,0.0,0.0
-2025,"Coome, Melissa B",Water,Account Clerk,Water CSEA 7-35,CSE,46169.08,3945.42,69851.01,0.0,3434.71,400.0,1650.0,0.0
-2025,"Corwin, Robert E",General Repairs Highway,Automotive Equipment Operator,Highway CSEA 8-40,CSE,28617.41,390.91,40777.86,0.0,1716.72,0.0,0.0,0.0
-2025,"Costantini, Sabina J",Squad 2 - Police,Police Officer,PBA 10-40,PBA,69360.72,7417.22,126823.17,0.0,12094.16,1200.0,0.0,-93.19
-2025,"Coyne, Raymond A",Recreation Management,Superintendant of Recreation I,Contractual 7 with Comp30,,132844.31,0.0,174961.73,9299.27,0.0,7968.09,18200.37,0.0
-2025,"Cravotta, Anthony J",Recreation,Lifeguard,NON-TIME,NON,1333.0,0.0,1333.0,0.0,0.0,0.0,0.0,0.0
-2025,"Crohan, Tyler E",Sewer / Scavenger Waste,Wastewater Treatment Plant Operator 3A,Sewer CSEA 8-40,CSE,51863.67,391.59,70972.04,0.0,3940.97,0.0,0.0,0.0
-2025,"Crump, Ollie T",Squad 3 - Police,Police Officer,PBA 8-40,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"Curtis, Michael J",Town Engineer,Auto Mechanic IV,CSEA 8-40,CSE,60426.6,2506.87,94034.64,3925.71,4417.03,0.0,0.0,0.0
-2025,"Curven, Austin C",Nutrition,Maintenance Mechanic I - Seniors,CSEA 8-40,CSE,44496.91,0.0,52317.02,0.0,2814.03,0.0,0.0,0.0
-2025,"Curven, Edward A",,,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"Cusati, Cynthia M",PSD - Public Safet Disp,Public Safety Dispatcher I,PSD 8-40,CSE,13714.48,0.0,16126.25,0.0,600.0,0.0,0.0,0.0
-2025,"Cutolo, Connor P",Town Attorney Clerical,Code Enforcement Officer,CSEA 7-35,CSE,39595.64,0.0,49943.58,0.0,2082.37,0.0,142.5,2864.37
-2025,"Cybulski, Brian A",Sewer / Scavenger Waste,Wastewater Treatment Plant Op 4A,Contractual 8,NON,89586.5,0.0,100367.84,4921.48,1461.19,309.0,0.0,0.0
-2025,"Czawursky, Steven J",Court Officers,Court Officer,Police Part Time,NON,7250.25,0.0,7250.25,0.0,0.0,0.0,0.0,0.0
-2025,"Czech, William S",General Repairs Highway,Highway Labor Crew Leader,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"D'Amara, Neil",General Repairs Highway,Construction Equip Operator,Highway CSEA 8-40,CSE,56159.95,488.73,73775.79,2837.58,3786.62,0.0,0.0,0.0
-2025,"Daccus, Alexis V",Recreation,Lifeguard,NON-TIME,NON,532.25,0.0,532.25,0.0,0.0,0.0,0.0,0.0
-2025,"Dahlem, John",Squad 3 - Police,Police Officer,PBA 8-40,PBA,72426.35,4031.77,112813.43,0.0,11994.11,1200.0,0.0,1450.33
-2025,"Dangelmaier, Arthur W",Water,,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"Daniels, Aidan",Recreation,Recreation Aide,NON-TIME,NON,3862.95,0.0,3862.95,0.0,0.0,0.0,0.0,0.0
-2025,"Daniels, Albert C",Recreation,Park Attendant II,NON-TIME,NON,13873.17,0.0,13873.17,0.0,0.0,0.0,0.0,0.0
-2025,"Daniels, Kelly A",Crossing Guards,School Crossing Guard,Police Part Time,CSE,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"Danowski, Donna",Nutrition,Senior Citizen Aide,CSEA 7-35,CSE,38582.88,37.13,45425.2,0.0,2419.29,400.0,0.0,0.0
-2025,"Danowski, Marisa E",Safety Inspection / Clerical,Site Plan Reviewer,CSEA 7-35,CSE,58429.98,612.99,71305.57,0.0,3563.5,400.0,0.0,0.0
-2025,"Danowski, Peter S",,,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"Darling, Ronald C",Buildings and Grounds,Automotive Equipment Operator,Engineer CSEA 8-40,CSE,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"David, Colin J",Recreation,Lifeguard,NON-TIME,NON,2872.8,0.0,2872.8,0.0,0.0,0.0,0.0,0.0
-2025,"Davis, Jeffrey",General Repairs Highway,Construction Equip Operator,Highway CSEA 8-40,CSE,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"Davis, Keith A",General Repairs Highway,Automotive Equipment Operator,Highway CSEA 8-40,CSE,52482.73,441.17,66856.78,2408.71,3222.07,0.0,1650.0,0.0
-2025,"Davis, Kerri F",Squad 5 - Police,Police Officer,PBA 8-40,PBA,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"DeFilippis, Theresa A",Information Technology,Network and Systems Specialist II,CSEA 7-35 30DED,CSE,61825.89,126.69,97389.47,6172.41,4717.77,3388.0,0.0,0.0
-2025,"DeFilippis, Vincent A",Accounting,Accountant,CSEA 7-35,CSE,8223.25,0.0,13713.68,0.0,899.88,0.0,0.0,0.0
-2025,"DeRosa, Kyle T",Town Attorney Clerical,Code Enforcement Officer,CSEA 7-35,CSE,14017.77,40.88,18212.75,0.0,1358.58,0.0,825.0,0.0
-2025,"Del Vecchio, Carol A",Town Clerk,Senior Account Clerk,CSEA 7-35,CSE,62454.83,0.0,86095.29,5602.1,4282.77,890.45,0.0,0.0
-2025,"Dempsey, Ian M",Squad 4 - Police,Police Officer,PBA 8-40,PBA,92479.27,5301.99,137099.79,0.0,13125.56,1200.0,0.0,0.0
-2025,"Densieski, Antone",Headquarters,,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"Densieski, Edward",Planning / Zoning / CAC/AARB,Member of Planning Board,NON-TIME,,14400.0,0.0,14400.0,0.0,0.0,0.0,0.0,0.0
-2025,"Deon, Ryan A",General Repairs Highway,Automotive Equipment Operator,Highway CSEA 8-40,CSE,36076.36,298.01,40228.3,0.0,2119.0,0.0,0.0,0.0
-2025,"Desimone, Scott",,,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"Detwiler, Bryon T",Buildings and Grounds,Maintenance Mechanic II BLDG,Engineer CSEA 8-40,CSE,38522.9,115.5,52428.21,0.0,2335.14,0.0,0.0,0.0
-2025,"Devereaux, Jonathan",Headquarters,Lieutenant  Police-Towns and Village,SOA 8-40,SOA,160387.89,10684.03,269749.01,13107.87,18818.0,1100.0,24706.24,0.0
-2025,"Devos, William",General Repairs Highway,,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"DiPaola, Jeanette",Accounting Management,Chief Accountant,Contractual 7,NON,164680.03,0.0,164680.03,0.0,0.0,0.0,0.0,0.0
-2025,"Dick, Andrew C",Highway Admin  Elected/Appointed,Deputy Highway Superintendent,Contractual 8,APT,53955.44,377.2,75946.24,3621.11,3865.78,0.0,0.0,0.0
-2025,"Diego Merida, Yasmin R",Traffic Control,Traffic Control Specialist,Police Part Time,NON,12595.84,0.0,12595.84,0.0,0.0,0.0,0.0,0.0
-2025,"Dillingham, Drew E",Town Engineer Management,Town Engineer,Contractual 7,,167521.96,0.0,177573.33,10051.37,0.0,0.0,0.0,0.0
-2025,"Dinizio, Melanie L",Accounting,Principal Account Clerk,CSEA 7-35,CSE,48929.91,0.0,57977.67,0.0,3042.66,400.0,1050.0,0.0
-2025,"Divan, James M",Harbormaster I,Harbormaster I,CSEA 7-35 No DED,CSE,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"Dodge, Rosemary",Nutrition,Mini-Bus Driver,CSEA 7-35,CSE,29798.96,161.12,44685.67,0.0,2316.34,400.0,900.0,0.0
-2025,"Doll, Judith",Nutrition,Senior Citizens Program Director,Contractual 7 with Comp30,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"Dorfer, Patricia A",Det Attnd,Detention Attendant,Police Part Time,,7633.8,0.0,7633.8,0.0,0.0,0.0,0.0,0.0
-2025,"Dorfer, Thomas",Headquarters,,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"Doscinski, Brett A",Squad 5 - Police,Police Officer,PBA 8-40,,62201.37,4974.34,94388.47,0.0,10451.5,1200.0,0.0,-60.43
-2025,"Doscinski, John",K-9,Police Officer,PBA 8-40,PBA,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"Downs, Richard W",Town Attorney Clerical,Senior Town Investigator,CSEA 7-35,CSE,93600.41,193.64,142662.44,8254.47,6308.6,400.0,4518.04,0.0
-2025,"Droskoski, Wesley",Headquarters,,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"Drost, Brett R",Squad 5 - Police,Police Officer,PBA 8-40,PBA,98952.55,4927.77,152546.19,0.0,19272.31,1200.0,0.0,0.0
-2025,"Dunleavy, John",Town Board Elected,Council Member,Elected,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"Dyson, Jasmine A",PSD - Public Safet Disp,Public Safety Dispatcher I,PSD 10-40,CSE,32038.86,1038.63,56288.65,0.0,9939.5,0.0,0.0,0.0
-2025,"Eastwood, Brooke R",Recreation,Recreation Aide,NON-TIME,NON,6705.15,0.0,6705.15,0.0,0.0,0.0,0.0,0.0
-2025,"Eastwood, Colleen M",Recreation,Recreation Supervisor,REC CSEA 7-35,CSE,64417.05,296.45,97257.13,6318.69,4823.27,400.0,0.0,0.0
-2025,"Edwards, Michael J",Buildings and Grounds,Maintenance Mechanic II BLDG,Engineer CSEA 8-40,CSE,4773.19,0.0,4980.72,0.0,207.53,0.0,0.0,0.0
-2025,"Edwards, Susan M",Safety Inspection / Inspectors,Building Permits Examiner,CSEA-Flex,CSE,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"Egan, Sean P",Headquarters,Lieutenant  Police-Towns and Village,SOA 8-40,SOA,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"Ehlers, Richard A",Justice Court Elected,,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"Eibs-Stankaitis, Jessica",PSD - Public Safet Disp,Public Safety Dispatcher I,PSD 8-40,CSE,44690.57,2448.38,77018.52,0.0,4538.7,0.0,1650.0,0.0
-2025,"Elco, Melissa M",PSD - Public Safet Disp,Public Safety Dispatcher III,PSD 8-40,CSE,62835.42,3326.7,103300.09,5180.31,11141.96,0.0,1050.0,0.0
-2025,"Ellington Liggon, Lisa",Nutrition,Homemaker,Part Time - TC Entry,NON,3402.75,0.0,3402.75,0.0,0.0,0.0,0.0,0.0
-2025,"Ellis, John R",Recreation,Recreation Aide,NON-TIME,NON,4317.95,0.0,4317.95,0.0,0.0,0.0,0.0,0.0
-2025,"Ellwood, Rachel L",Tax Collection,Account Clerk,CSEA 7-35,CSE,46198.71,0.0,57084.63,0.0,3049.61,400.0,0.0,0.0
-2025,"Elmore, Ariel J",Recreation,Recreation Aide,NON-TIME,NON,5355.35,0.0,5355.35,0.0,0.0,0.0,0.0,0.0
-2025,"Elmore, Kaitlin S",Recreation,Recreation Aide,NON-TIME,NON,5086.9,0.0,5086.9,0.0,0.0,0.0,0.0,0.0
-2025,"Enaya, Mahmoud",Municipal Garage,Auto Mechanic II,CSEA 8-40,CSE,39877.44,346.03,43193.34,0.0,2306.7,0.0,0.0,0.0
-2025,"Erick, Glenn",Squad 2 - Police,Police Officer,PBA 10-40,PBA,0.0,0.0,23304.68,0.0,0.0,0.0,23304.68,0.0
-2025,"Erick, Linda M",MES - Medical Eval Squad,,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"Evans, Sean M",Detectives,Detective,PBA 8-40,PBA,126285.44,23802.74,213848.11,6290.34,17021.16,2200.0,0.0,0.0
-2025,"Fagan, Joanne",Town Attorney Clerical,Account Clerk,CSEA 7-35,CSE,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"Falci Rodriguez, Nestor J",Buildings and Grounds,Maintenance Mechanic II BLDG,Engineer CSEA 8-40,CSE,26330.35,0.0,29650.82,0.0,1452.71,0.0,0.0,0.0
-2025,"Falisi, Robert T",Buildings and Grounds,Maintenance Mechanic II BLDG,Engineer CSEA 8-40,CSE,42999.37,879.82,58475.28,0.0,3002.11,0.0,0.0,0.0
-2025,"Fandrey, Michael",Headquarters,,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"Federbush, Karyne",PSD - Public Safet Disp,Public Safety Dispatcher I,PSD 8-40,CSE,264.96,0.0,264.96,0.0,0.0,0.0,0.0,0.0
-2025,"Felice, Olivia F",PSD - Public Safet Disp,Public Safety Dispatcher I,PSD 8-40,CSE,23221.79,0.0,28554.06,0.0,4433.96,0.0,0.0,0.0
-2025,"Ferrara, Angelo J",Sewer / Scavenger Waste,Maintenance Mechanic II SEWER,Sewer CSEA 8-40,CSE,14851.36,175.11,16748.44,0.0,1245.18,0.0,0.0,0.0
-2025,"Ferris, Margaret L",Town Attorney Management,Town Personnel Officer,Contractual 7 with Comp30,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"Fideli, Baycan M",PMO - Parking Meter Officer,Traffic Control Specialist,Police Part Time,,20281.8,0.0,20281.8,0.0,0.0,0.0,0.0,0.0
-2025,"Fink, Keith V",General Repairs Highway,Maintenance Mechanic IV HWY,Highway CSEA 8-40,CSE,53859.05,154.11,74627.32,2860.25,3826.27,0.0,0.0,0.0
-2025,"Fink, William M",General Repairs Highway,Heavy Equipment Operator,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"Fisher, Justin B",Information Technology,Technical Support Aide,CSEA-SuperFlex,CSE,44181.86,83.01,50776.89,0.0,2698.5,400.0,0.0,0.0
-2025,"Fitzgerald, Kieran M",Squad 3 - Police,Police Officer,PBA 8-40,PBA,71260.61,6908.78,107963.95,0.0,11383.5,1200.0,0.0,-45.5
-2025,"Fitzpatrick, Karina",Recreation,Lifeguard,NON-TIME,NON,150.5,0.0,150.5,0.0,0.0,0.0,0.0,0.0
-2025,"Fleming, William M",PSD - Public Safet Disp,Public Safety Dispatcher II,PSD 8-40,CSE,62471.78,6599.32,87866.48,0.0,11954.56,0.0,0.0,0.0
-2025,"Flynn, John L",Water Management,Asst Water Dist Superintendent Type I B,Contractual 8,NON,150791.75,0.0,154033.32,2626.57,0.0,615.0,0.0,0.0
-2025,"Fogal, Arthur J",General Repairs Highway,Highway Labor Crew Leader,Highway CSEA 8-40,CSE,61641.79,547.07,89177.16,5824.27,4452.7,0.0,0.0,0.0
-2025,"Foley, Patrick D",Nutrition,Maintenance Mechanic II - Seniors,Part Time - TC Entry,NON,17985.3,0.0,19887.72,0.0,1020.42,0.0,0.0,0.0
-2025,"Foote, Frederick",MES - Medical Eval Squad,,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"Fox, Robert H",Planning / Zoning / CAC/AARB,Member of Appointed Board,NON-TIME,,1540.0,0.0,1540.0,0.0,0.0,0.0,0.0,0.0
-2025,"Franco, Lorecy L",P/T Police,Police Officer P/T Seasonal,Police Part Time,NON,9348.48,0.0,9348.48,0.0,0.0,0.0,0.0,0.0
-2025,"Frankman, James P",Headquarters,,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"Franks, Matthew D",General Repairs Highway,Automotive Equipment Operator,Highway CSEA 8-40,CSE,5933.3,307.92,6665.03,0.0,423.81,0.0,0.0,0.0
-2025,"Frati, Logan P",COPE Comm Oriented Police Enforce,Police Officer,PBA 8-40,PBA,106627.14,21765.97,167343.91,0.0,13595.35,1950.0,0.0,-11.37
-2025,"Fredricks, George J",Squad 3 - Police,,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"Freeborn, David A",Detectives,,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"Freeborn, Richard J",Detectives,Detective,PBA 8-40,PBA,49511.55,7498.36,214275.25,4826.3,12572.62,1100.0,14755.37,0.0
-2025,"Friszolowski, Frances",Safety Inspection / Inspectors,Chief Office Assistant,CSEA 7-35,CSE,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"Froehlich, Daniel S",Harbormaster I,Harbormaster I,Police Part Time,NON,24178.53,246.09,30905.49,0.0,1424.72,0.0,0.0,0.0
-2025,"Froehlich, Muriel A",Town Clerk,,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"Frost, Edward J",Headquarters,Police Chief III,Police Dept Head,,222718.63,0.0,298549.08,16653.57,28421.44,5976.26,18129.49,0.0
-2025,"Frost, Garrett J",Recreation,Beach Attendant,NON-TIME,NON,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"Funn, Amari X",Recreation,Park Attendant II,NON-TIME,NON,1343.79,0.0,1343.79,0.0,0.0,0.0,0.0,0.0
-2025,"Fusco, Marie J",Crossing Guards,School Crossing Guard,Police Part Time,NON,13985.0,0.0,13985.0,0.0,0.0,0.0,0.0,0.0
-2025,"Gablenz, Brian T",Water,Water Treatment Plant Operator Type II B,Water CSEA 8-40,CSE,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"Gabriel, Michael A",Recreation,Lifeguard,NON-TIME,NON,2184.0,0.0,2184.0,0.0,0.0,0.0,0.0,0.0
-2025,"Gabriele, Patrick M",PSD - Public Safet Disp,Public Safety Dispatcher I,PSD 10-40,CSE,50857.8,368.32,70905.38,0.0,9727.24,0.0,0.0,0.0
-2025,"Gabrielsen, George E",Town Board Elected,Council Member,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"Gadzinski, Richard E",Safety Inspection / Inspectors,,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"Gajowski, Mark A.",Highway Admin  Elected/Appointed,,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"Galka, Madeline J",Crossing Guards,School Crossing Guard,Police Part Time,,18160.0,0.0,18160.0,0.0,0.0,0.0,0.0,0.0
-2025,"Galka, Tara R",Safety Inspection / Clerical,Office Assistant,CSEA 7-35,CSE,15168.08,104.69,16766.31,0.0,488.55,0.0,0.0,0.0
-2025,"Gallo, Thomas F",Sewer / Scavenger Waste,Wastewater Treatment Plant Operator 3A,Sewer CSEA 8-40,CSE,55071.85,105.06,76072.3,2924.93,3912.67,0.0,0.0,0.0
-2025,"Garcia, Andrew",Recreation,Lifeguard,NON-TIME,NON,4513.6,0.0,4513.6,0.0,0.0,0.0,0.0,0.0
-2025,"Garcia, Cloe A",Recreation,Recreation Aide,NON-TIME,NON,561.0,0.0,561.0,0.0,0.0,0.0,0.0,0.0
-2025,"Gassert, Howard W",Sewer / Scavenger Waste,,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"Gazzillo, Ralph T",Planning / Zoning / CAC/AARB,Member of Zoning Board Of Appeals,NON-TIME,NON,553.84,0.0,7200.0,0.0,0.0,0.0,0.0,0.0
-2025,"Geraci, Douglas G",Squad 3 - Police,Police Officer,PBA 8-40,PBA,0.0,0.0,11115.07,0.0,0.0,0.0,11115.07,0.0
-2025,"Giglione, Jett T",Traffic Control,Traffic Control Specialist,Police Part Time,NON,256.0,0.0,256.0,0.0,0.0,0.0,0.0,0.0
-2025,"Giordano, Nancy L",Nutrition,Cook,CSEA 7-35,CSE,35571.5,67.59,42592.88,0.0,1961.42,400.0,0.0,0.0
-2025,"Gleason, Brian",Headquarters,Sergeant Police-Towns and Village,SOA 10-40,SOA,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"Gluth, Karin A",Planning Department,Planner,CSEA 7-35,CSE,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"Godsey, Bailey C",Recreation,Recreation Aide,NON-TIME,NON,6167.89,0.0,6167.89,0.0,0.0,0.0,0.0,0.0
-2025,"Godzieba, Benjamin J",Water,Water District Maintenance Crew Leader,Water CSEA 10-40,CSE,63438.99,7360.11,90660.52,0.0,4329.12,0.0,1075.0,0.0
-2025,"Goetz, Brandon L",Traffic Control,Traffic Control Specialist,Police Part Time,NON,1341.9,0.0,1341.9,0.0,0.0,0.0,0.0,0.0
-2025,"Goff, Monique R",Nutrition,Mini-Bus Driver,Part Time - TC Entry,NON,11704.03,0.0,11704.03,0.0,0.0,0.0,0.0,0.0
-2025,"Gradischer, Ava G",Recreation,Lifeguard,NON-TIME,NON,2433.9,0.0,2433.9,0.0,0.0,0.0,0.0,0.0
-2025,"Gradischer, Kevin G",Squad 3 - Police,Police Officer,PBA 8-40,PBA,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"Grattan, Joseph",Headquarters,,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"Green, Donald H",Squad 3 - Police,,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"Green, Rose Christine",Recreation,Recreation Aide,NON-TIME,NON,5810.18,0.0,5810.18,0.0,0.0,0.0,0.0,0.0
-2025,"Green, William J",Recreation,Recreation Aide,Part Time,NON,3918.7,0.0,3918.7,0.0,0.0,0.0,0.0,0.0
-2025,"Greenwood, Frank",General Repairs Highway,Heavy Equipment Operator,Highway CSEA 8-40,CSE,51233.74,11.27,64847.35,2507.83,3352.03,0.0,0.0,0.0
-2025,"Gregorovius, Eva",Purchasing,Purchasing Technician,CSEA 7-35,CSE,51046.47,0.0,63762.25,0.0,3319.71,400.0,1880.0,0.0
-2025,"Griffin, Ethel Elizabeth",Nutrition,Mini-Bus Driver,CSEA 7-35,CSE,39434.76,76.14,48493.99,0.0,2480.77,400.0,1905.0,0.0
-2025,"Griffin, Mark E",Safety Inspection / Inspectors,Building Inspector,CSEA 7-35,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"Groneman, Andrew",Squad 5 - Police,Police Officer,PBA 8-40,PBA,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"Grossman, August M",Headquarters,,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"Grzegorczyk, Chester P",Buildings and Grounds,Maintenance Mechanic III BLDG,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"Haas, Mason E",Assessment Elected/Board,Member of Board Of Assessors,Elected,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"Haley, Robert H",Detectives,,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"Hall, Joseph B",Planning Department,,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"Halliday, David L",,,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"Halpin, Patrick M",Water,Water Treatment Plant Operator Type II B,Water CSEA 10-40,CSE,0.0,0.0,200.0,0.0,200.0,0.0,0.0,0.0
-2025,"Halpin, Robin L",Water,Senior Account Clerk,Water CSEA 7-35,CSE,55426.39,6845.8,83311.43,2853.09,3816.98,400.0,1905.0,0.0
-2025,"Hamilton, Jeffrey G",Headquarters,Police Officer,PBA 8-40,PBA,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"Hanley, Richard",Planning Department,,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"Hansen, Denise M.",,,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"Hansen, Jaidin L",Recreation,Recreation Aide,NON-TIME,NON,3687.69,0.0,3687.69,0.0,0.0,0.0,0.0,0.0
-2025,"Harden, Jordan C",Recreation,Asst Recreation Program Coordinator,REC CSEA 7-35,CSE,52544.45,2570.5,73062.46,0.0,3473.77,400.0,2923.75,0.0
-2025,"Harris, Christopher F",Recreation,Park Attendant II,NON-TIME,NON,1373.88,0.0,1373.88,0.0,0.0,0.0,0.0,0.0
-2025,"Harris, Melina N",Accounting,Student Intern II,Part Time - TC Entry,NON,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"Hart, Liam A",Recreation,Lifeguard,NON-TIME,NON,1214.75,0.0,1214.75,0.0,0.0,0.0,0.0,0.0
-2025,"Hartmann, Joseph J",Sewer / Scavenger Waste,Wastewater Trt Plnt Operator Trainee,Sewer CSEA 8-40,CSE,44249.96,428.87,62018.96,0.0,3038.92,0.0,3016.25,0.0
-2025,"Hatcher, Alan C",Water,Maintenance Mechanic III Water,Water CSEA 8-40,CSE,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"Hattorff, Matthew E",Sewer / Scavenger Waste,Sr Waste Water Trmt Plant Operator IIIA,Sewer CSEA 8-40,CSE,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"Hayes, Jarrod P",General Repairs Highway,Construction Equip Operator,Highway CSEA 8-40,CSE,52230.96,994.64,82756.02,3584.04,3835.77,0.0,6865.98,0.0
-2025,"Hazzard, Rebecca J",Assessment,Senior Assessment Clerk,CSEA 7-35,CSE,46136.31,0.0,59364.39,2279.74,3049.61,400.0,0.0,0.0
-2025,"Heck, Addison Rose",Recreation,Beach Attendant,NON-TIME,NON,3010.23,0.0,3010.23,0.0,0.0,0.0,0.0,0.0
-2025,"Hecker, Jill",Justice Court,Justice Court Clerk,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"Hegermiller, David J",Headquarters,Police Chief III,Police Dept Head,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"Heigh, Michael D",Recreation,Recreation Specialist,NON-TIME,NON,240.98,0.0,240.98,0.0,0.0,0.0,0.0,0.0
-2025,"Heller, Branden H",Headquarters,Police Officer,PBA 8-40,PBA,117673.38,2917.35,167846.14,7231.92,9875.16,1200.0,0.0,0.0
-2025,"Henderson, Damion D",Buildings and Grounds,Custodial Worker II,Engineer CSEA 8-40,CSE,45430.38,2582.56,62401.67,0.0,4975.47,0.0,0.0,0.0
-2025,"Henry, Michael J",Detectives,Detective,PBA 8-40,PBA,100271.43,16391.87,222146.13,11770.27,17423.02,2200.0,0.0,0.0
-2025,"Heppner, Mark G",,,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"Herb, Gwendolyn A",Recreation,Recreation Aide,NON-TIME,NON,4567.51,0.0,4567.51,0.0,0.0,0.0,0.0,0.0
-2025,"Hernandez, Frank",Detectives,Detective,PBA 8-40,PBA,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"Herr, Emily A",Recreation,Lifeguard,NON-TIME,NON,4731.8,0.0,4731.8,0.0,0.0,0.0,0.0,0.0
-2025,"Herr, Ryan C",Recreation,Lifeguard,NON-TIME,NON,3953.6,0.0,3953.6,0.0,0.0,0.0,0.0,0.0
-2025,"Herrera, Danny",Traffic Control,Traffic Control Specialist,Police Part Time,NON,22736.07,0.0,22917.77,0.0,0.0,0.0,0.0,181.7
-2025,"Higgins, Devon M",Supervisor Clerical,Deputy Supervisor,Contractual 7,NON,101622.62,0.0,101622.62,0.0,0.0,0.0,0.0,0.0
-2025,"Hill, Harry",Squad 5 - Police,Sergeant Police-Towns and Village,SOA 8-40,SOA,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"Hobson-Womack, Evelyn J",Squad 5 - Police,Detective,PBA 8-40,PBA,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"Hodun, Heather N",Safety Inspection / Clerical,Principal Office Assistant,CSEA 7-35,CSE,43205.85,8684.5,62406.37,0.0,2851.57,400.0,0.0,0.0
-2025,"Hodun, Mark A",Sewer / Scavenger Waste,Wastewater Treatment Plant Operator IIA,Sewer CSEA 8-40,CSE,48693.55,375.17,60519.8,0.0,3160.84,0.0,0.0,0.0
-2025,"Hoffman, Daniel J",COPE Comm Oriented Police Enforce,Police Officer,PBA 8-40,PBA,117772.49,15945.93,179243.53,0.0,15483.27,1200.0,0.0,0.0
-2025,"Hogan, Daniel J",Detectives,Detective,PBA 8-40,PBA,114426.36,33673.7,242917.33,6299.18,17344.43,7382.38,15458.2,0.0
-2025,"Hogan, Jeanne M",Assessment Elected/Board,Member of Board Of Assessors,Part Time,APT,1200.0,0.0,1200.0,0.0,0.0,0.0,0.0,0.0
-2025,"Hogan, John",Planning / Zoning / CAC/AARB,Member of Planning Board,Part Time,APT,903.84,0.0,11750.0,0.0,0.0,0.0,0.0,0.0
-2025,"Horl, Dennis J",Water,Maintenance Mechanic II Water,Water CSEA 8-40,CSE,4565.66,875.53,5441.19,0.0,0.0,0.0,0.0,0.0
-2025,"Hotchkiss, Cheryl J",Assessment,Senior Assessment Clerk,CSEA 7-35,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"Houston, Edna M",Supervisor Clerical,,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"Howard, Erik C.",Town Attorney Appointed,Town Attorney,Contractual 7,NON,168895.94,0.0,184883.98,0.0,0.0,5976.26,10011.78,0.0
-2025,"Hubbard, Caroline A",Nutrition,Homemaker,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"Hubbard, Erin M",Recreation,Recreation Aide,NON-TIME,NON,4751.26,0.0,4751.26,0.0,0.0,0.0,0.0,0.0
-2025,"Hubbard, Gary A",Buildings and Grounds,Maintenance Mechanic V BLDG,Engineer CSEA 8-40,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"Hubbard, Gina I",Sewer / Scavenger Waste,Senior Account Clerk,Sewer CSEA 7-35,CSE,52991.08,3512.94,79293.56,4896.36,3743.16,400.0,900.0,0.0
-2025,"Hubbard, Jason S",Water,Sr Water Trt. Plant Operator IIB,Water CSEA 10-40,CSE,65958.64,0.0,91617.36,6023.71,3945.63,0.0,0.0,0.0
-2025,"Hubbard, Robert E",Buildings and Grounds,Maintenance Mechanic II BLDG,Engineer CSEA 8-40,CSE,58487.37,158.9,82079.36,5383.92,4113.44,0.0,0.0,0.0
-2025,"Hubbard, Timothy C",Supervisor Elected,Supervisor,Elected,ELE,118919.0,0.0,128522.8,0.0,0.0,0.0,0.0,0.0
-2025,"Hulse, Lori M",Justice Court Elected,Town Justice,Elected,,93800.0,0.0,99562.28,0.0,0.0,0.0,0.0,0.0
-2025,"Hulse, Pamla A",Town Attorney Clerical,Code Compliance Coordinator,CSEA 7-35,CSE,51781.82,0.0,60818.33,0.0,3254.91,400.0,0.0,0.0
-2025,"Hurley, Danielle",Town Attorney Appointed,Deputy Town Attorney,Contractual 7,NON,135588.75,0.0,150215.96,0.0,0.0,5976.26,8609.8,41.15
-2025,"Iannacchino, Cristina I",Recreation,Lifeguard,Recreation PT Seasonal,NON,2921.0,0.0,2921.0,0.0,0.0,0.0,0.0,0.0
-2025,"Imwalle, Johanna",Recreation,Lifeguard,Recreation PT Seasonal,,4627.57,0.0,4627.57,0.0,0.0,0.0,0.0,0.0
-2025,"Inghingolo, Michael Anthony",Safety Inspection / Inspectors,Building Inspector,CSEA 7-35,CSE,69389.27,9869.93,90830.9,0.0,4245.05,400.0,1650.0,0.0
-2025,"Isgro, Dino",Headquarters,Lieutenant  Police-Towns and Village,SOA 8-40,SOA,163025.16,7249.39,268073.18,13107.87,18804.51,1100.0,25201.56,0.0
-2025,"Jaeger, Billie Jo",Police Clerical,Account Clerk,Police CSEA 7-35,CSE,51425.17,0.0,71451.55,3405.44,3644.78,400.0,0.0,0.0
-2025,"James, Christopher R",Headquarters,Police Officer,PBA 8-40,PBA,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"Johnson, Julianna L",Nutrition,Cook,CSEA 7-35,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"Johnson, Kassidy J",Recreation,Beach Attendant,NON-TIME,NON,459.0,0.0,459.0,0.0,0.0,0.0,0.0,0.0
-2025,"Jones, Jeremy B",Building / Planning Management,Building Plans Examiner,CSEA 7-35,CSE,7655.06,1287.8,9543.66,0.0,500.8,100.0,0.0,0.0
-2025,"Kaelin, Lily A",Tax Collection,Office Assistant,Part Time - TC Entry,NON,1354.13,0.0,1414.51,0.0,0.0,0.0,0.0,0.0
-2025,"Kaiser, Louis A",General Repairs Highway,Automotive Equipment Operator,Highway CSEA 8-40,CSE,48956.67,3102.92,60899.45,0.0,3109.39,0.0,0.0,0.0
-2025,"Kantor, Melissa",Safety Inspection / Inspectors,Building Permits Examiner,CSEA-Flex,CSE,14190.21,2858.03,21344.53,0.0,790.75,0.0,0.0,0.0
-2025,"Keating, Liam Clarke",Fire Marshal,Fire Marshal I,CSEA 7-35 30DED,CSE,70622.58,20410.24,116236.77,0.0,4363.27,0.0,0.0,0.0
-2025,"Keating, Wesley R",Recreation,Recreation Aide,NON-TIME,NON,6337.68,0.0,6337.68,0.0,0.0,0.0,0.0,0.0
-2025,"Keegan, William J",Headquarters,Police Officer,PBA 8-40,PBA,112065.41,927.63,186431.05,10263.3,11960.19,1200.0,15458.2,0.0
-2025,"Keeney, Susan S",Safety Inspection / Inspectors,,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"Kellar, John P",Water,Water Treatment Plant Operator Type II B,Water CSEA 8-40,CSE,52788.73,232.1,98620.26,5653.76,4941.01,0.0,0.0,0.0
-2025,"Keller, Brian",Detectives,,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"Keller, Daniel Martin",Water,Sr Water Treamt Plant Operator Type I B,Water CSEA 8-40,CSE,74646.34,4202.7,103898.27,0.0,5059.9,0.0,0.0,0.0
-2025,"Keller, Elizabeth A.",Community Development Clerical,Community Development Program Analyst,CSEA 7-35,CSE,57062.33,0.0,71459.29,0.0,3719.0,400.0,1905.0,0.0
-2025,"Kelvas, Stephen D",Water,Water Treatment Plant Operator Type II B,Part Time - TC Entry,NON,4222.54,0.0,4222.54,0.0,0.0,0.0,0.0,0.0
-2025,"Kern, Robert E",Town Board Elected,Council Member,NON-TIME,NON,50558.0,0.0,56320.28,0.0,0.0,0.0,0.0,0.0
-2025,"Kiel, Michael G",Buildings and Grounds,Groundskeeper II,Engineer CSEA 8-40,CSE,24057.15,0.0,33449.62,0.0,1406.5,0.0,0.0,-760.21
-2025,"King, Susan B",Recreation,Recreation Specialist,NON-TIME,NON,322.15,0.0,322.15,0.0,0.0,0.0,0.0,0.0
-2025,"Kinghan, John E",Police Clerical,Network and Systems Specialist II,Police CSEA 7-35,CSE,52994.17,2055.5,101361.63,0.0,2914.72,0.0,2276.12,0.0
-2025,"Kirsch, Alex P.",Sewer / Scavenger Waste,Sr Waste Water Trmt Plant Operator IIIA,Sewer CSEA 8-40,CSE,68257.66,5685.1,84282.01,0.0,2717.6,0.0,2705.17,0.0
-2025,"Kitz, Michael G.",Squad 2 - Police,Police Officer,PBA 10-40,PBA,111314.14,995.65,167412.12,0.0,18597.74,1200.0,0.0,0.0
-2025,"Klein, Charles",Nutrition,Senior Cook,CSEA 7-35,CSE,36401.22,0.0,52977.2,0.0,2825.01,400.0,0.0,0.0
-2025,"Klos Klein, Sharon E",Safety Inspection / Inspectors,,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"Kochanskyj, Kyle C",Water,Maintenance Mechanic II Water,Water CSEA 8-40,CSE,31112.55,215.24,47143.98,0.0,1996.3,0.0,855.0,0.0
-2025,"Kolyer, Zachary T",Squad 3 - Police,Police Officer,PBA 8-40,PBA,71868.54,4056.29,120058.73,0.0,11551.52,1200.0,6713.31,-16.89
-2025,"Komosinski, Mary E",Recreation,Recreation Specialist,Police CSEA 7-35,NON,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"Kornafel, Cheryl A",Police Clerical,Account Clerk,Police CSEA 7-35,CSE,50633.54,0.0,75727.96,4950.69,3787.28,400.0,0.0,0.0
-2025,"Kowalski, Chester J",Buildings and Grounds,Maintenance Mechanic II BLDG,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"Kozakiewicz, Robert F",Town Attorney Appointed,Town Attorney,Contractual 7 with Comp,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"Krajewski, Joann M",Safety Inspection / Inspectors,Senior Account Clerk Typist,CSEA-Flex,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"Kramer, Logan M",Recreation,Park Attendant I,NON-TIME,NON,3168.5,0.0,3168.5,0.0,0.0,0.0,0.0,0.0
-2025,"Krause, William H",Squad 3 - Police,Police Officer,PBA 8-40,PBA,73911.85,19778.45,120821.49,0.0,11383.5,1200.0,0.0,-56.87
-2025,"Kreymborg, Henry O",Information Technology,Network & Systems Coordinator,Contractual 7,NON,133209.28,0.0,133209.28,0.0,0.0,0.0,0.0,0.0
-2025,"Kruger, Thomas W",Water,Sr Water Treamt Plant Operator Type I B,Water CSEA 8-40,CSE,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"Kujawski, Robert",Planning / Zoning / CAC/AARB,Member of Appointed Board,NON-TIME,,1540.0,0.0,1540.0,0.0,0.0,0.0,0.0,0.0
-2025,"Kurpetski, John",Headquarters,,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"Kwasna, Kendal Marie",Recreation,Assistant Recreation Leader,NON-TIME,NON,5094.16,0.0,5094.16,0.0,0.0,0.0,0.0,0.0
-2025,"Kwasna, Mark A",Highway Admin  Elected/Appointed,Superintendant Of Highways,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"LaRocco, Paul A",Water,Water Treatment Plant Oper Trainee,Water CSEA 8-40,CSE,15909.11,1027.92,19301.91,0.0,1289.94,0.0,0.0,0.0
-2025,"Lagnena, Peter L",Recreation,Recreation Aide,NON-TIME,NON,346.5,0.0,346.5,0.0,0.0,0.0,0.0,0.0
-2025,"Lagun, Magdalena E",Nutrition,Homemaker,Part Time,NON,11214.57,0.0,13526.95,0.0,1078.74,0.0,0.0,0.0
-2025,"Laight, James E",Recreation,Assistant Beach Manager,NON-TIME,NON,5479.69,0.0,5479.69,0.0,0.0,0.0,0.0,0.0
-2025,"Langan, Kelly R",Recreation,Recreation Leader,NON-TIME,NON,8411.0,0.0,8411.0,0.0,0.0,0.0,0.0,0.0
-2025,"Langan, Sean P",Recreation,Recreation Aide,NON-TIME,NON,3718.76,0.0,3718.76,0.0,0.0,0.0,0.0,0.0
-2025,"Laporte, Raymond D",Detectives,Police Officer,PBA 8-40,PBA,119096.99,11914.21,186906.1,8797.09,15126.24,1950.0,0.0,0.0
-2025,"Lazar, Anthony J",Squad 4 - Police,Police Officer,PBA 8-40,PBA,60792.04,5799.87,86505.76,0.0,10665.68,1500.0,0.0,22.36
-2025,"LeCann, Vanessa R",Town Clerk,Deputy Town Clerk,Contractual 7 - 30DED,APT,55964.41,0.0,56962.52,0.0,0.0,995.92,0.0,2.19
-2025,"Lech, Michael",Sewer / Scavenger Waste,Sr Waste Water Trmt Plant Operator IIIA,Sewer CSEA 8-40,CSE,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"Lefebvre, Dana S",Squad 3 - Police,Police Officer,PBA 8-40,PBA,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"Leja, Charles",Water,Water District Maintenance Crew Leader,Water CSEA 8-40,CSE,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"Lennon, Patrick J",Squad 1 - Police,Police Officer,PBA 10-40,PBA,109471.64,1190.79,193881.09,10263.3,18928.81,1200.0,15458.2,0.0
-2025,"Leo, Joseph A",Recreation,Lifeguard,NON-TIME,NON,2507.8,0.0,2507.8,0.0,0.0,0.0,0.0,0.0
-2025,"Leonardi, William P",Squad 5 - Police,Police Officer,PBA 8-40,PBA,66658.09,5064.28,100377.04,0.0,10616.1,1200.0,6791.04,0.0
-2025,"Lescenski, Christopher J",General Repairs Highway,Construction Equip Operator,Highway CSEA 8-40,CSE,56386.01,854.99,77107.92,3621.11,3875.47,0.0,0.0,0.0
-2025,"Lessard, David L",Headquarters,Lieutenant  Police-Towns and Village,SOA 8-40,SOA,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"Lessard, Thomas D",Squad 4 - Police,Sergeant Police-Towns and Village,SOA 8-40,SOA,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"Leszczynski, Paul E",Assessment Elected/Board,Member of Board Of Assessors,Elected,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"Letson, John A",Water,Water Treatment Plant Operator Type II B,Water CSEA 8-40,CSE,37787.87,0.0,69976.21,6169.28,2690.42,0.0,0.0,0.0
-2025,"Levanti, Salvatore G",Sewer / Scavenger Waste,Wastewater Trt Plnt Operator Trainee,Sewer CSEA 8-40,CSE,38180.53,806.21,43363.78,0.0,1504.93,0.0,450.0,0.0
-2025,"Levanti, Samantha L",Police Clerical,Account Clerk,Police CSEA 7-35,CSE,31429.13,0.0,34829.99,0.0,1717.29,300.0,375.0,0.0
-2025,"Lewin, Duane B",Planning / Zoning / CAC/AARB,Member of Appointed Board,NON-TIME,,1540.0,0.0,1540.0,0.0,0.0,0.0,0.0,0.0
-2025,"Lewis, Jill S",Supervisor Clerical,Deputy Supervisor,Contractual 7 with Comp30,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"Licata, Olivia",Recreation,Beach Attendant,NON-TIME,NON,2719.61,0.0,2719.61,0.0,0.0,0.0,0.0,0.0
-2025,"Ligon, Michaela R",Recreation,Recreation Aide,NON-TIME,NON,5283.31,0.0,5283.31,0.0,0.0,0.0,0.0,0.0
-2025,"Liles, Charles J",General Repairs Highway,Automotive Equipment Operator,Highway CSEA 8-40,CSE,44165.59,611.53,56675.69,0.0,2996.62,0.0,0.0,0.0
-2025,"Linnen, Brian A",Buildings and Grounds,Custodial Worker III,CSEA 8-40,CSE,47698.86,916.35,62289.9,0.0,2989.48,0.0,0.0,0.0
-2025,"Lipinsky, Eric C",Squad 4 - Police,Police Officer,PBA 8-40,PBA,102870.04,17957.99,195849.47,8797.09,20813.39,1200.0,0.0,0.0
-2025,"Lipinsky, Meredith B",Assessment Elected/Board,Member of Board Of Assessors,Elected,NON,93038.0,0.0,98800.28,0.0,0.0,5762.28,0.0,0.0
-2025,"Lismanis, Anita",Headquarters,,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"Loggia, Joseph C",Detectives,,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"Lojko, Michael J",Headquarters,Police Officer,PBA 8-40,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"Lombardo, Michael",Squad 5 - Police,Police Officer,PBA 8-40,PBA,0.0,0.0,28965.74,0.0,0.0,0.0,28965.74,0.0
-2025,"Long, Thomas",MES - Medical Eval Squad,,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"Lopez, Patricia A",PSD - Public Safet Disp,Public Safety Dispatcher I,PSD 10-40,,46745.1,395.25,77734.31,0.0,11963.56,0.0,0.0,0.0
-2025,"Loszewski, Patryk",COPE Comm Oriented Police Enforce,Police Officer,PBA 8-40,PBA,110550.26,6158.94,176875.27,5864.76,15247.9,1950.0,0.0,0.0
-2025,"Luppens, James M",Squad 4 - Police,Police Officer,PBA 8-40,PBA,74895.15,9536.42,131794.88,0.0,12558.06,1200.0,0.0,181.29
-2025,"Luppens, Jonathan J",P/T Police,Police Officer P/T Seasonal,Police Part Time,NON,4908.0,0.0,4908.0,0.0,0.0,0.0,0.0,0.0
-2025,"Lyczkowski, Donna M",Recreation,,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"Lydon, James M",Squad 3 - Police,Police Officer,PBA 8-40,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"Lynch, Thomas R",Headquarters,,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"Lynn, Maureen T",Water,,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"Mabanta, Kristin A",Justice Court,Justice Court Clerk,CSEA 7-35,CSE,46627.59,0.0,56462.34,0.0,2967.6,400.0,900.0,0.0
-2025,"MacIntosh, George J",Buildings and Grounds,Maintenance Mechanic IV BLDG,Engineer CSEA 8-40,CSE,35672.34,8073.34,75229.59,0.0,3483.38,0.0,1650.0,0.0
-2025,"Maccabee, Kevin",Code Enforcement,,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"Maccagli, Elizabeth C",Juvenile Aide Bureau / Police,Youth Counselor,Police CSEA 7-35,CSE,43837.3,3072.76,96548.18,4090.21,4359.57,400.0,7835.64,0.0
-2025,"Mackie, Sean",Squad 2 - Police,Police Officer,PBA 10-40,PBA,104968.47,5354.4,179754.07,7158.68,19422.23,1200.0,0.0,0.0
-2025,"Maffia, Michael",,,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"Magee, Penelope M",Nutrition,Mini-Bus Driver,CSEA 7-35,CSE,45989.37,42.6,57414.29,2075.29,2776.24,400.0,3037.83,0.0
-2025,"Maichin, Jordyn R",PSD - Public Safet Disp,Public Safety Dispatcher I,PSD 8-40,CSE,24194.98,0.0,28548.71,0.0,4114.2,0.0,0.0,0.0
-2025,"Maiorana, Joseph A",Community Development Clerical,Asst Community Dev Project Super,CSEA 7-35,CSE,94150.74,493.22,135934.18,8410.23,6428.77,400.0,6904.95,0.0
-2025,"Makarewicz, Alexander Matthew",Recreation,Lifeguard,NON-TIME,NON,2145.61,0.0,2145.61,0.0,0.0,0.0,0.0,0.0
-2025,"Makarewicz, Zachary T",Recreation,Lifeguard,NON-TIME,NON,913.75,0.0,913.75,0.0,0.0,0.0,0.0,0.0
-2025,"Malahias, George",Community Development Clerical,,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"Mammina, Nicholas S.",General Repairs Highway,Automotive Equipment Operator,Highway CSEA 8-40,CSE,47732.22,507.29,56229.49,0.0,2996.62,0.0,0.0,0.0
-2025,"Mancini, Frank R",Water Management,Water District Superintendant Type I B,Contractual 8,NON,182619.47,0.0,190820.92,3652.51,0.0,690.0,3858.94,0.0
-2025,"Mannetta, Lucia A",Recreation,,NON-TIME,NON,570.15,0.0,570.15,0.0,0.0,0.0,0.0,0.0
-2025,"Mansibang, Randy John R.",Court Officers,Court Officer,Police Part Time,NON,7081.76,0.0,7081.76,0.0,0.0,0.0,0.0,0.0
-2025,"Marcucci, Isabella M",,,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"Marcus, Xavier Lavern",Recreation,Recreation Specialist,NON-TIME,NON,201.25,0.0,201.25,0.0,0.0,0.0,0.0,0.0
-2025,"Marshak, Dionne A",Town Attorney Management,Personnel Assistant,Contractual 7 - 30DED,NON,74229.73,0.0,74229.73,0.0,0.0,0.0,0.0,0.0
-2025,"Marsland, Frederick H",Nutrition,Recreation Leader,Part Time,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"Matlak, John",Squad 3 - Police,,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"Mauceri, Charles F",Detectives,Detective,PBA 8-40,PBA,113142.89,16248.64,238033.41,11770.27,17423.02,2200.0,15134.87,0.0
-2025,"May, Nicholas R",Water,Water Treatment Plant Operator Type II B,Water CSEA 10-40,CSE,52283.34,133.65,64475.76,0.0,3989.1,0.0,0.0,0.0
-2025,"Mazzo, Lawrence",,,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"Mc Evoy, Suzanne",Nutrition,,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"McCabe, Sean M",Planning / Zoning / CAC/AARB,Member of Appointed Board,Sewer CSEA 8-40,APT,1940.0,0.0,1940.0,0.0,0.0,0.0,0.0,0.0
-2025,"McClintock, Kaitlyn N",,,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"McDermott, Patrick O",Detectives,Detective Sergeant,SOA 8-40,SOA,149081.08,28409.33,380613.36,12502.48,14164.93,5872.43,140862.21,0.0
-2025,"McDonald, Owen",Headquarters,,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"McGarrity, Brian K",General Repairs Highway,Automotive Equipment Operator,Highway CSEA 8-40,CSE,2119.02,9.93,2128.95,0.0,0.0,0.0,0.0,0.0
-2025,"McGoey, Janice L",Municipal Garage,Account Clerk Typist,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"McGuire, Lauren K",Squad 5 - Police,Police Officer,PBA 8-40,PBA,87740.06,11270.03,149654.12,0.0,13684.01,1200.0,6713.31,0.0
-2025,"McGunnigle, Thomas S",Recreation,Recreation Aide,NON-TIME,NON,5363.94,0.0,5363.94,0.0,0.0,0.0,0.0,0.0
-2025,"McIntosh, Megan E",Recreation,Beach Attendant,NON-TIME,NON,5925.0,0.0,5925.0,0.0,0.0,0.0,0.0,0.0
-2025,"McKay, Brianne E",Recreation,Recreation Aide,NON-TIME,NON,4002.86,0.0,4002.86,0.0,0.0,0.0,0.0,0.0
-2025,"McKay, Margaret",Highway Admin Clerical,Account Clerk,Highway CSEA 7-35,CSE,61251.41,897.78,84835.74,4813.39,3679.84,400.0,3951.88,0.0
-2025,"McKay, Steven C",Buildings and Grounds,Grounds Maintenance Supervisor,Engineer CSEA 8-40,CSE,70275.05,5093.58,100601.2,6197.23,4737.79,1250.0,0.0,0.0
-2025,"McLaughlin, Frederick J",Planning / Zoning / CAC/AARB,Member of Zoning Board Of Appeals,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"McMillon, Danny T",Buildings and Grounds,Maintenance Mechanic II BLDG,Engineer CSEA 8-40,CSE,10613.77,112.77,22162.94,0.0,855.73,0.0,0.0,0.0
-2025,"McNeill, John E",Planning / Zoning / CAC/AARB,Member of Appointed Board,Part Time,APT,1500.0,0.0,1500.0,0.0,0.0,0.0,0.0,0.0
-2025,"McQuade, Liam J",Recreation,Beach Attendant,NON-TIME,NON,131.75,0.0,131.75,0.0,0.0,0.0,0.0,0.0
-2025,"McWilliams, Ryan D",General Repairs Highway,Automotive Equipment Operator,Highway CSEA 8-40,CSE,44555.47,320.5,56830.47,0.0,2996.62,0.0,0.0,0.0
-2025,"Melvin, Lauren Elizabeth",Recreation,Beach Attendant,NON-TIME,NON,6836.76,0.0,6836.76,0.0,0.0,0.0,0.0,0.0
-2025,"Merker, William D",Street Lighting,Maintenance Mechanic III BLDG,Engineer CSEA 8-40,CSE,62824.0,3348.83,105977.09,5378.1,4195.11,3000.0,7359.2,0.0
-2025,"Messina, Frank G",Community Development Clerical,Grants Analyst,CSEA 7-35,CSE,75054.94,37.56,99258.81,4574.38,4874.44,400.0,3505.27,0.0
-2025,"Mettrock, James R",Squad 5 - Police,Police Officer,PBA 8-40,PBA,91778.25,10832.51,130936.72,0.0,12869.77,1200.0,0.0,-152.83
-2025,"Meyer, Gina Lisa Marie",Squad 5 - Police,Police Officer,PBA 8-40,PBA,57485.24,4872.75,79499.84,0.0,8869.36,1200.0,0.0,0.0
-2025,"Milden, Leon D",Buildings and Grounds,,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"Miles, Oliver W",Water,,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"Miller, Bailey M",Tax Collection,Office Assistant,Part Time - TC Entry,NON,2622.0,0.0,2656.5,0.0,0.0,0.0,0.0,0.0
-2025,"Miller, Benjamin",General Repairs Highway,Construction Equip Operator,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"Miller, Brittney Leigh",Accounting,Budget Assistant,CSEA 7-35,CSE,54092.06,61.71,62786.07,0.0,3306.76,400.0,855.0,0.0
-2025,"Miller, James D",Traffic Control,Traffic Control Specialist,Police Part Time,NON,2255.4,0.0,2255.4,0.0,0.0,0.0,0.0,0.0
-2025,"Miller, Lorraine",Police Clerical,Account Clerk Typist,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"Miller, Ralph S",Water,,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"Mills, Brian D",Assessment Elected/Board,Member of Appointed Board,NON-TIME,APT,1300.0,0.0,1300.0,0.0,0.0,0.0,0.0,0.0
-2025,"Miloski, Jean M",Accounting,Principal Account Clerk,CSEA-Flex 30DED,CSE,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"Milton, Kae'son",Recreation,Park Attendant II,NON-TIME,NON,5022.45,0.0,5022.45,0.0,0.0,0.0,0.0,0.0
-2025,"Moisa, William W",Headquarters,,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"Montalbano, Anthony S",Squad 4 - Police,Sergeant Police-Towns and Village,SOA 8-40,SOA,144189.01,25244.4,258784.49,6969.4,21137.84,1100.0,27505.64,0.0
-2025,"Montaperto, Andrea",Traffic Control,Traffic Control Specialist,Police Part Time,NON,20816.44,0.0,20816.44,0.0,0.0,0.0,0.0,0.0
-2025,"Montefusco, Cole R",Squad 1 - Police,Police Officer,PBA 10-40,PBA,93596.88,2770.78,145131.81,0.0,17098.23,1200.0,6713.31,0.0
-2025,"Montella, Michael V",Accounting,Principal Accountant,Contractual 7,NON,86058.83,112.43,93828.16,0.0,3489.63,366.67,900.0,0.0
-2025,"Monti, Thomas M",Squad 3 - Police,Police Officer,PBA 8-40,PBA,78910.11,3841.59,136808.49,0.0,15005.47,1200.0,0.0,0.0
-2025,"Moore, Tammy J",Police Clerical,Principal Office Assistant,Police CSEA 7-35,CSE,50196.44,0.0,60835.77,0.0,3245.0,400.0,0.0,0.0
-2025,"Moran, Kevin Patrick",Recreation,Park Attendant II,NON-TIME,NON,1387.9,0.0,1387.9,0.0,0.0,0.0,0.0,0.0
-2025,"Moreno, Joseph A",General Repairs Highway,Construction Equip Operator,Highway CSEA 8-40,CSE,51155.88,1082.17,75966.98,3584.04,3835.77,0.0,0.0,0.0
-2025,"Morris, John A",K-9,Police Officer,PBA 8-40,PBA,102681.47,9511.1,197964.11,10263.3,18813.33,7200.0,0.0,0.0
-2025,"Morrissey, Roberta J",Justice Court,Justice Court Director,CSEA 7-35,CSE,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"Mosca, Adrianna N",Recreation,Recreation Aide,NON-TIME,NON,6833.92,0.0,6833.92,0.0,0.0,0.0,0.0,0.0
-2025,"Mottern, George E",Buildings and Grounds,Custodial Worker I,Engineer CSEA 8-40,NON,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"Mottern, Joan C",Highway Admin Clerical,Administrative Assistant,CSEA-Flex,CSE,48252.3,1049.62,105683.01,5649.85,4318.31,400.0,16362.09,0.0
-2025,"Mowdy, Michael W",Squad 5 - Police,Police Officer,PBA 8-40,PBA,102205.26,19602.78,208143.6,10263.3,14551.11,1200.0,15458.2,0.0
-2025,"Mudzinski, Matthew J",Squad 4 - Police,Police Officer,PBA 8-40,PBA,104362.98,8070.19,182146.94,10263.3,15532.26,1200.0,0.0,0.0
-2025,"Muir, Michael I",General Repairs Highway,Automotive Equipment Operator,Highway CSEA 8-40,CSE,43669.35,1013.89,56858.16,0.0,2996.62,0.0,142.5,0.0
-2025,"Muller, Robert G",Building / Planning Management,Senior Building Inspector,CSEA 7-35,CSE,67898.82,18143.63,103751.02,0.0,4518.56,400.0,1650.0,0.0
-2025,"Murphree, Jefferson V",Building / Planning Management,Town Building & Planning Adminstrator,Contractual 7,,33171.95,0.0,34498.82,1326.87,0.0,0.0,0.0,0.0
-2025,"Murphy, Colleen A",Headquarters,,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"Murphy, Timothy J",COPE Comm Oriented Police Enforce,Police Officer,PBA 8-40,PBA,107934.58,58399.89,239427.14,10263.3,15870.98,1200.0,6594.6,0.0
-2025,"Nagy, Kenneth E",General Repairs Highway,Highway Labor Crew Leader,Highway CSEA 8-40,CSE,59783.95,3908.74,94258.88,5824.27,4452.7,0.0,1675.0,0.0
-2025,"Narvaez, Ashley I",Accounting,Account Clerk,CSEA 7-35,CSE,11448.6,0.0,12345.17,0.0,763.24,133.33,0.0,0.0
-2025,"Naulaguari, Henry L",General Repairs Highway,Automotive Equipment Operator,Highway CSEA 8-40,CSE,18917.88,609.09,26854.08,0.0,1067.94,0.0,0.0,-197.58
-2025,"Nava, Eduardo M",Squad 1 - Police,Police Officer,PBA 10-40,PBA,118321.63,32991.93,217971.86,0.0,18276.97,4173.67,15458.2,0.0
-2025,"Neff, Christopher J",Buildings and Grounds,Maintenance Mechanic IV BLDG,Engineer CSEA 8-40,CSE,49586.1,5685.51,66370.75,0.0,3166.67,0.0,1905.0,0.0
-2025,"Neknez, Katerina",COPE Comm Oriented Police Enforce,Police Officer,PBA 8-40,PBA,107097.99,6095.56,161003.82,0.0,13835.55,3858.22,6791.04,-45.49
-2025,"Neknez, Matthew R",Squad 4 - Police,Police Officer,PBA 8-40,PBA,113468.05,14572.11,184311.4,5864.76,15239.16,1200.0,0.0,0.0
-2025,"Newman, Tanya G",PSD - Public Safet Disp,Public Safety Dispatcher I,PSD 8-40,CSE,58858.5,3607.28,101040.64,5386.89,10576.6,0.0,1675.0,0.0
-2025,"Nicholson, Amber",Recreation,Senior Recreation Leader,Recreation PT Seasonal,,15135.44,0.0,15135.44,0.0,0.0,0.0,0.0,0.0
-2025,"Nicholson, Jared T",Recreation,Recreation Aide,NON-TIME,NON,6186.27,0.0,6186.27,0.0,0.0,0.0,0.0,0.0
-2025,"Niewadomski, John F",General Repairs Highway,Maintenance Mechanic III HWY,Highway CSEA 8-40,CSE,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"Noulis, Nicholas J",Buildings and Grounds,Maintenance Mechanic II BLDG,Engineer CSEA 8-40,CSE,7678.61,0.0,8262.29,0.0,415.06,0.0,0.0,0.0
-2025,"Nungesser, William",Sewer / Scavenger Waste,Maintenance Mechanic II SEWER,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"Nunnaro, George J",Planning / Zoning / CAC/AARB,Member of Planning Board,NON-TIME,,830.76,0.0,10800.0,0.0,0.0,0.0,0.0,0.0
-2025,"O'Kula, Linda M",Supervisor Clerical,Driver Messenger,Part Time,CSE,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"O'Neill, Juliann M",Town Clerk,Account Clerk,CSEA 7-35,CSE,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"Occhiogrosso, Karen",Town Attorney Clerical,Paralegal,CSEA 7-35,CSE,73279.79,0.0,91150.68,0.0,4751.94,400.0,2382.18,0.0
-2025,"Okula, Kevin N",Sewer / Scavenger Waste,Senior Wastewater Trtmnt Plant Oper. II,Sewer CSEA 8-40,CSE,29962.91,135.11,44109.43,0.0,2295.31,0.0,0.0,0.0
-2025,"Oliver, Richard C",Squad 2 - Police,Police Officer,PBA 10-40,PBA,0.0,0.0,16367.51,0.0,0.0,0.0,16367.51,0.0
-2025,"Orfanitopoulos, Nicole",Recreation,Recreation Specialist,NON-TIME,NON,365.93,0.0,365.93,0.0,0.0,0.0,0.0,0.0
-2025,"Ortiz Vargas, Christian D",Traffic Control,Traffic Control Specialist,Police Part Time,NON,15509.85,0.0,15509.85,0.0,0.0,0.0,0.0,0.0
-2025,"Osman, David A",General Repairs Highway,Heavy Equipment Operator,Highway CSEA 8-40,CSE,55712.6,24.42,70713.33,2718.96,3637.28,0.0,0.0,0.0
-2025,"Oswald, Cameron D",Squad 1 - Police,Police Officer,PBA 10-40,PBA,114706.76,5494.77,171900.86,0.0,18589.33,1200.0,0.0,0.0
-2025,"Ott, Ryan J",Traffic Control,Court Officer,Police Part Time,NON,22551.35,0.0,22551.35,0.0,0.0,0.0,0.0,0.0
-2025,"Owen, Donald S",General Repairs Highway,Highway Labor Crew Leader,Highway CSEA 8-40,CSE,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"Paasch, Paul O",Headquarters,,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"Palermo, Joseph",General Repairs Highway,Construction Equip Operator,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"Palmer, Dixon A",Detectives,Detective,PBA 8-40,PBA,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"Palmer, Jordan M",Fire Marshal,Fire Marshal I,CSEA 7-35,CSE,50025.6,3734.55,66788.04,0.0,2702.0,0.0,0.0,0.0
-2025,"Palmer, Stephen T",Squad 4 - Police,Sergeant Police-Towns and Village,SOA 8-40,SOA,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"Paolillo, Christian James",Recreation,Lifeguard,NON-TIME,NON,4222.4,0.0,4222.4,0.0,0.0,0.0,0.0,0.0
-2025,"Parkin, Christopher T",Headquarters,,NON-TIME,,0.0,0.0,13087.79,0.0,0.0,0.0,13087.79,0.0
-2025,"Parkinson, James-Henry M",Recreation,Lifeguard,NON-TIME,NON,2394.46,0.0,2394.46,0.0,0.0,0.0,0.0,0.0
-2025,"Paveglio, Cherie L",Recreation,Recreation Specialist,Recreation PT Seasonal,,3436.55,0.0,3436.55,0.0,0.0,0.0,0.0,0.0
-2025,"Payne, Abigail E",Recreation,Recreation Aide,NON-TIME,NON,178.5,0.0,178.5,0.0,0.0,0.0,0.0,0.0
-2025,"Peeker, Melissa",Accounting,Payroll Supervisor,Contractual 7,NON,82626.05,289.89,124697.27,9136.77,2090.86,200.0,13217.64,0.0
-2025,"Peeker, Robert",Headquarters,,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"Pendzick, Christopher L",Squad 1 - Police,Sergeant Police-Towns and Village,SOA 10-40,SOA,132425.51,4075.14,201867.3,0.0,16623.6,1100.0,15931.57,-443.61
-2025,"Pendzick, Gary J",Water Management,,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"Perez Avalos, Nelson O",Detectives,Police Officer,PBA 8-40,PBA,89853.34,14659.01,148227.24,0.0,14516.01,1700.0,0.0,0.0
-2025,"Perez, Byron E",Detectives,Detective,PBA 10-40,PBA,125039.93,20951.44,220981.12,6290.34,16659.83,2200.0,8667.16,0.0
-2025,"Perry, Noelia",Town Clerk,Office Assistant - Spanish Speaking,Part Time - TC Entry,NON,595.0,0.0,595.0,0.0,0.0,0.0,0.0,0.0
-2025,"Petraco, Kaylee",Recreation,Account Clerk,REC CSEA 7-35,CSE,32044.95,603.09,33000.92,0.0,0.0,66.67,0.0,0.0
-2025,"Piccione, Kenda J",Town Engineer,Senior Office Assistant,CSEA 7-35,CSE,44822.41,0.0,53328.65,0.0,2842.69,400.0,0.0,0.0
-2025,"Pietramala, Payton G",Buildings and Grounds,Maintenance Mechanic II BLDG,Engineer CSEA 8-40,CSE,8301.2,1245.18,9961.44,0.0,415.06,0.0,0.0,0.0
-2025,"Pilo, Victoria C",Town Attorney Appointed,Deputy Town Attorney,Contractual 7,NON,123046.91,0.0,123046.91,0.0,0.0,0.0,0.0,0.0
-2025,"Pilon, Logan M",Recreation,Recreation Aide,NON-TIME,NON,2699.38,0.0,2699.38,0.0,0.0,0.0,0.0,0.0
-2025,"Pipczynski, James A",General Repairs Highway,Heavy Equipment Operator,Highway CSEA 8-40,CSE,51686.76,1701.75,75466.33,3525.77,3773.43,0.0,0.0,0.0
-2025,"Pipczynski, Lori U",Accounting,Computer Operator II,CSEA-Flex 30DED,CSE,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"Podlas, Ashley N",Recreation,Recreation Aide,NON-TIME,NON,14512.65,0.0,14512.65,0.0,0.0,0.0,0.0,0.0
-2025,"Podlas, Jocelyn P",Recreation,Senior Recreation Leader,NON-TIME,NON,7901.63,0.0,7901.63,0.0,0.0,0.0,0.0,0.0
-2025,"Podlas, Richard P",Safety Inspection / Inspectors,Building Inspector,CSEA 7-35,CSE,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"Polak, Jared G",Squad 4 - Police,Police Officer,PBA 8-40,PBA,61756.04,4136.31,84963.59,0.0,10538.44,1500.0,0.0,69.75
-2025,"Pope, Te-Andre T",Recreation,Park Attendant II,NON-TIME,NON,13717.77,0.0,13717.77,0.0,0.0,0.0,0.0,0.0
-2025,"Popino, Donald J",Harbormaster I,Harbormaster I,Police CSEA 7-35,CSE,20766.8,1765.96,27336.45,0.0,1621.2,166.67,0.0,0.0
-2025,"Porchia, John",Planning / Zoning / CAC/AARB,Member of Zoning Board Of Appeals,Nonunion - 30,APT,553.84,0.0,7200.0,0.0,0.0,0.0,0.0,0.0
-2025,"Poulos, Stamatina P",Town Board Elected,Legislative Secretary,Contractual 7,APT,2030.4,0.0,2030.4,0.0,0.0,0.0,0.0,0.0
-2025,"Poveromo, Charles Michael",Recreation,Assistant Recreation Leader,NON-TIME,NON,14771.91,0.0,14771.91,0.0,0.0,0.0,0.0,0.0
-2025,"Pray, Michelle",Sewer / Scavenger Waste,Office Assistant,Part Time,NON,6450.0,0.0,6450.0,0.0,0.0,0.0,0.0,0.0
-2025,"Pressgrove, Andrew E",Street Lighting,Maintenance Mechanic III BLDG,Engineer CSEA 8-40,CSE,42490.87,4077.59,62382.75,0.0,2972.95,0.0,1905.0,0.0
-2025,"Prevette, Dominique M",Safety Inspection / Clerical,Office Assistant,CSEA 7-35,CSE,21356.19,651.51,24981.75,0.0,1302.78,266.67,250.0,0.0
-2025,"Prevette, Natalie",Code Enforcement,Senior Office Assistant,Part Time - TC Entry,NON,25707.5,0.0,26832.5,0.0,0.0,0.0,0.0,1125.0
-2025,"Prudenti, Annemarie",Town Attorney Appointed,Deputy Town Attorney,Contractual 7 with Comp,,164727.33,0.0,208290.81,11530.94,0.0,8964.26,16418.59,0.0
-2025,"Purick, Michael A",Squad 3 - Police,Police Officer,PBA 8-40,PBA,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"Quesada, Caesar",Sewer / Scavenger Waste,Wastewater Trt Plnt Operator Trainee,Sewer CSEA 8-40,CSE,47982.74,0.0,59844.53,0.0,3081.45,0.0,1800.0,0.0
-2025,"Quick, Richard M",Harbormaster I,Pumpout Boat Operator,Police Part Time,,10472.6,0.0,12511.45,0.0,0.0,0.0,0.0,2038.85
-2025,"Quinn, Joseph P",General Repairs Highway,Heavy Equipment Operator,Highway CSEA 8-40,CSE,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"Rabal, John J",Accounting,Principal Accountant,Contractual 7 - 30DED,NON,94616.32,0.0,107252.53,0.0,0.0,0.0,0.0,1499.64
-2025,"Rachubka, Zygmunt M",Buildings and Grounds,Maintenance Mechanic IV BLDG,Engineer CSEA 8-40,CSE,29396.9,1038.2,104509.82,5223.72,1991.85,0.0,0.0,0.0
-2025,"Rambo, Kevin J",Buildings and Grounds,Maintenance Mechanic III BLDG,Engineer CSEA 8-40,CSE,48256.58,675.04,70843.19,2610.6,3492.29,1250.0,0.0,0.0
-2025,"Ramos, Beatriz Y",Nutrition,Food Service Worker,Part Time - TC Entry,NON,1241.0,0.0,1241.0,0.0,0.0,0.0,0.0,0.0
-2025,"Ramos, Joseph S",P/T Police,Police Officer P/T Seasonal,Police Part Time,NON,31347.95,0.0,31347.95,0.0,0.0,0.0,0.0,0.0
-2025,"Raplee, Mark A",Recreation,Assistant Recreation Leader,Recreation PT Seasonal,,5908.46,0.0,5908.46,0.0,0.0,0.0,0.0,0.0
-2025,"Rassner, Samantha B",Recreation,Lifeguard,NON-TIME,NON,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"Raynor, Shannan L",Recreation,Recreation Leader,NON-TIME,NON,5080.99,0.0,5080.99,0.0,0.0,0.0,0.0,0.0
-2025,"Realander, Dillon P",Recreation,Recreation Aide,NON-TIME,NON,524.52,0.0,524.52,0.0,0.0,0.0,0.0,0.0
-2025,"Realander, Kristen L",Recreation,Recreation Specialist,Recreation PT Seasonal,,1790.78,0.0,1790.78,0.0,0.0,0.0,0.0,0.0
-2025,"Realander, Summer Makenzie",Recreation,Recreation Aide,NON-TIME,NON,4180.04,0.0,4180.04,0.0,0.0,0.0,0.0,0.0
-2025,"Reed, Michael P",Detectives,,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"Reeve, Edward",General Repairs Highway,Highway Labor Crew Leader,Highway CSEA 8-40,CSE,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"Reeve, John F",Sanitation Management,,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"Reeve, Lindsay Palmer",Sewer / Scavenger Waste,,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"Reichel, Michael P",Planning / Zoning / CAC/AARB,Wastewater Dist Superintendent Type II,Contractual 8 with Comp,,48595.32,0.0,235202.22,3293.89,0.0,1340.32,44821.62,0.0
-2025,"Reilly, Aidan P",Recreation,Lifeguard,NON-TIME,NON,456.88,0.0,456.88,0.0,0.0,0.0,0.0,0.0
-2025,"Renten, William A",General Repairs Highway,Construction Equip Operator,Highway CSEA 8-40,CSE,2836.99,0.0,29176.38,5061.95,1066.78,0.0,0.0,0.0
-2025,"Reyes, Tina E",Justice Court,Senior Justice Court Clerk,CSEA 7-35,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"Richards, Lisa M",Tax Collection,Deputy Tax Receiver,Contractual 7,NON,65602.21,0.0,65602.21,0.0,0.0,0.0,0.0,0.0
-2025,"Rios, Karina E",Town Clerk,Clerk-Spanish Speaking,Part Time - TC Entry,NON,8285.0,0.0,8285.0,0.0,0.0,0.0,0.0,0.0
-2025,"Ritter, Jaime D",Town Engineer,Account Clerk,CSEA 7-35,CSE,47808.14,0.0,66750.14,3176.6,3399.73,400.0,0.0,0.0
-2025,"Rizzi, Madeline J",Recreation,Lifeguard,NON-TIME,NON,1365.26,0.0,1365.26,0.0,0.0,0.0,0.0,0.0
-2025,"Roberts, Andrew G",Recreation,Beach Attendant,NON-TIME,NON,2656.25,0.0,2656.25,0.0,0.0,0.0,0.0,0.0
-2025,"Roberts, Mark F",Squad 5 - Police,Police Officer,PBA 8-40,PBA,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"Rocco, Travis M",Water,Water Treatment Plant Operator Type II B,Water CSEA 8-40,CSE,55566.94,0.0,67500.6,0.0,3533.75,0.0,0.0,0.0
-2025,"Rodgers, Frederick",Squad 3 - Police,,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"Rogers, Mary B",Justice Court,,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"Rogers, Thomas F",Town Engineer,Auto Mechanic III,CSEA 8-40,CSE,59062.35,2980.22,81753.05,2600.34,3677.29,0.0,1868.06,0.0
-2025,"Rollins, Rodney W",Nutrition,Mini-Bus Driver,Part Time - TC Entry,NON,4739.03,0.0,4739.03,0.0,0.0,0.0,0.0,0.0
-2025,"Roman, Eileen G",Planning Department,,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"Romer, Krista L",Squad 3 - Police,Police Officer,PBA 8-40,PBA,57025.58,2055.4,69076.03,0.0,6703.84,1500.0,0.0,0.0
-2025,"Rosato, Abigail G",Recreation,Recreation Aide,NON-TIME,NON,6587.81,0.0,6587.81,0.0,0.0,0.0,0.0,0.0
-2025,"Rosini, Giuseppe T",Squad 3 - Police,Sergeant Police-Towns and Village,SOA 8-40,SOA,142826.15,17853.76,224570.84,6969.58,17898.34,2936.16,3442.29,0.0
-2025,"Rossetti, Gabriella Catherine",Recreation,Recreation Aide,NON-TIME,NON,383.63,0.0,383.63,0.0,0.0,0.0,0.0,0.0
-2025,"Rothaar, William J",Accounting Management,Chief Accountant,Contractual 7 with Comp30,,0.0,0.0,99352.04,0.0,0.0,0.0,99352.04,0.0
-2025,"Rothwell, Kenneth T",Town Board Elected,Council Member,Contractual 7,NON,48955.0,0.0,54717.28,0.0,0.0,0.0,0.0,0.0
-2025,"Ruales, Hernan",Town Attorney Clerical,Ordinance Inspector Spanish Speaking,CSEA 7-35,CSE,43725.13,68.87,57585.87,0.0,2991.74,0.0,1905.0,0.0
-2025,"Ruis, Michael A",Court Officers,Court Officer,Police Part Time,NON,16216.37,0.0,16216.37,0.0,0.0,0.0,0.0,0.0
-2025,"Rutt, Joseph P",Town Engineer,Junior Civil Engineer,Engineer CSEA 7-35,CSE,36803.32,683.86,41478.73,0.0,2030.82,233.33,225.0,0.0
-2025,"Saladino, Kelsey R",Recreation,Recreation Aide,NON-TIME,NON,4654.4,0.0,4654.4,0.0,0.0,0.0,0.0,0.0
-2025,"Santoro, Madison",Recreation,Recreation Specialist,Recreation PT Seasonal,,2968.63,0.0,2968.63,0.0,0.0,0.0,0.0,0.0
-2025,"Sapolin, Zachariah J",Traffic Control,Traffic Control Specialist,Police Part Time,NON,768.18,0.0,768.18,0.0,0.0,0.0,0.0,0.0
-2025,"Sawaya, Joanna E.",Nutrition,Senior Citizen Aide,CSEA 7-35,CSE,41088.69,95.96,47066.43,0.0,2501.33,400.0,0.0,0.0
-2025,"Sawaya, Luke J",Nutrition,Food Service Worker,Part Time - TC Entry,NON,607.75,0.0,607.75,0.0,0.0,0.0,0.0,0.0
-2025,"Scelzi, Raymond E",Accounting,Accountant,CSEA-Flex,CSE,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"Schandel, Ashley",Recreation,Assistant Superintendent of Recreation I,REC CSEA 7-35,CSE,60492.99,236.79,80098.76,2813.53,4015.31,400.0,0.0,755.54
-2025,"Scherer, Liam",Recreation,Recreation Aide,NON-TIME,NON,276.38,0.0,276.38,0.0,0.0,0.0,0.0,0.0
-2025,"Schmidt, Michael J",Detectives,Detective,PBA 8-40,PBA,106079.88,25038.83,232998.5,11770.27,16287.91,2200.0,0.0,0.0
-2025,"Schneider, Charles C",Headquarters,,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"Schroeder, Judith",Nutrition,,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"Schroeher, Christopher S",Sewer / Scavenger Waste,Maintenance Mechanic III SEWER,Sewer CSEA 10-40,CSE,26571.07,0.0,50866.08,5479.3,1489.84,0.0,0.0,0.0
-2025,"Schroeher, Kathleen",Accounting,Principal Account Clerk,Part Time - TC Entry,,15117.9,629.15,54684.85,3645.97,1328.82,0.0,2680.34,0.0
-2025,"Schule, Allan J",Squad 1 - Police,Police Officer,PBA 8-40,PBA,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"Schwarz, Brian K",Town Engineer,Auto Mechanic III,CSEA 8-40,CSE,57806.81,1117.49,65411.53,0.0,3410.65,0.0,0.0,0.0
-2025,"Schwarz, Christopher N",Building / Planning Management,Electrical Inspector,CSEA 7-35,CSE,60746.85,716.58,73439.43,0.0,3890.58,400.0,0.0,0.0
-2025,"Schwarz, Debra L",Nutrition,Senior Citizens Center Manager,CSEA 7-35,CSE,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"Schwarz, John L",General Repairs Highway,Construction Equip Operator,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"Schwarz, Melissa A",Nutrition,Cook,CSEA 7-35,CSE,42155.94,0.0,54462.79,2094.51,2792.56,400.0,0.0,0.0
-2025,"Scruggs, James H",General Repairs Highway,Heavy Equipment Operator,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"Seal, Jayme E",Recreation,Recreation Aide,NON-TIME,NON,4265.42,0.0,4265.42,0.0,0.0,0.0,0.0,0.0
-2025,"Seal, John W",Squad 5 - Police,Police Officer,PBA 8-40,PBA,106829.83,19743.89,199198.95,10263.3,20920.68,1200.0,0.0,0.0
-2025,"Seebeck, Catherine H",Town Attorney Clerical,Paralegal,CSEA 7-35,CSE,66642.24,0.0,88854.73,4143.32,4433.11,400.0,1905.0,0.0
-2025,"Selock, Joanna L",Squad 4 - Police,Police Officer,PBA 8-40,PBA,86151.87,1056.54,142541.66,0.0,7854.03,1200.0,15458.2,0.0
-2025,"Seuling, Catherine",Recreation,Registered Nurse,Recreation PT Seasonal,NON,3693.76,0.0,3693.76,0.0,0.0,0.0,0.0,0.0
-2025,"Shaw, Eric J",General Repairs Highway,Heavy Equipment Operator,Highway CSEA 8-40,CSE,51602.7,11.52,66351.25,2564.7,3430.84,0.0,0.0,0.0
-2025,"Sheedy, Cameron P",Recreation,Lifeguard,NON-TIME,NON,2100.0,0.0,2100.0,0.0,0.0,0.0,0.0,0.0
-2025,"Sheppard, Joseph M",General Repairs Highway,Heavy Equipment Operator,Highway CSEA 8-40,CSE,45530.11,1397.44,60363.42,0.0,3194.01,0.0,0.0,0.0
-2025,"Silleck, Charles W",Squad 3 - Police,Police Officer,PBA 8-40,PBA,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"Sinclair, Tara L",PSD - Public Safet Disp,Public Safety Dispatcher I,PSD 10-40,CSE,51015.43,1012.86,71783.09,0.0,8512.22,0.0,0.0,0.0
-2025,"Skop, Evelyn Victoria",Recreation,Beach Attendant,NON-TIME,NON,1778.38,0.0,1778.38,0.0,0.0,0.0,0.0,0.0
-2025,"Sloan, Daniel G",Sewer / Scavenger Waste,Wastewater Trt Plnt Operator Trainee,Sewer CSEA 8-40,CSE,46263.52,171.9,58687.44,0.0,3201.41,0.0,0.0,0.0
-2025,"Smith, Andrew J",Fire Marshal,Chief Fire Marshal,CSEA 7-35,CSE,83971.41,17607.99,134477.06,0.0,5736.45,0.0,0.0,0.0
-2025,"Smith, James A",Street Lighting,Maintenance Mechanic III BLDG,Engineer CSEA 8-40,CSE,60496.87,111.71,84821.77,3733.08,4089.96,3000.0,0.0,0.0
-2025,"Smith, Michael J",General Repairs Highway,Heavy Equipment Operator,Highway CSEA 8-40,CSE,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"Smith, Richard T",Headquarters,Captain  Police-Towns and Village,Police Dept Head,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"Smith, Robert B",Sewer / Scavenger Waste,Waste Water Treatment Plant Operator II,Sewer CSEA 8-40,CSE,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"Sofoklis, Andreas P",Safety Inspection / Inspectors,Chief Building Inspector,CSEA 7-35,CSE,64051.07,4371.12,121034.96,0.0,3739.87,0.0,0.0,0.0
-2025,"Sokoloski, Roy J",Planning / Zoning / CAC/AARB,Member of Appointed Board,NON-TIME,,1500.0,0.0,1500.0,0.0,0.0,0.0,0.0,0.0
-2025,"Sollazzo, Leisa A",Town Engineer,Associate Administrator,Engineer CSEA 7-35,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"Sostre, Angelo M",Sanitation,Automotive Equipment Operator,Engineer CSEA 8-40,CSE,50782.85,806.21,60061.6,0.0,3681.09,0.0,0.0,0.0
-2025,"Sostre, Steven",General Repairs Highway,Automotive Equipment Operator,Highway CSEA 8-40,CSE,39625.7,129.14,44440.4,0.0,2119.0,0.0,825.0,0.0
-2025,"Soto, Ivan G",Town Attorney Clerical,Ordinance Inspector Spanish Speaking,CSEA 7-35,CSE,53164.66,54.5,69553.86,0.0,3441.15,0.0,1880.0,371.29
-2025,"Spanburgh, Joann",Town Board Elected,Council Member,NON-TIME,,48955.0,0.0,54717.28,0.0,0.0,0.0,0.0,0.0
-2025,"Spear, Emma A",Recreation,Recreation Aide,Recreation PT Seasonal,NON,5021.76,0.0,5021.76,0.0,0.0,0.0,0.0,0.0
-2025,"Sproston, Robert T",Headquarters,Police Officer,PBA 8-40,PBA,107782.89,0.0,159936.58,0.0,12114.83,1200.0,0.0,0.0
-2025,"Squillace-Neal, Annamaria",Assessment,Assessment Clerk,CSEA 7-35,CSE,40203.07,0.0,52261.02,0.0,2686.84,400.0,1905.0,0.0
-2025,"Staker, Matthew T",Squad 2 - Police,Police Officer,PBA 10-40,PBA,86737.09,5881.39,171038.74,0.0,18120.57,1200.0,15458.2,0.0
-2025,"Stankaitis, William J",Recreation,Lifeguard,NON-TIME,NON,2451.01,0.0,2451.01,0.0,0.0,0.0,0.0,0.0
-2025,"Stark, John M",Sanitation,Automotive Equipment Operator,Engineer CSEA 8-40,CSE,46776.71,3136.66,56738.84,0.0,2881.26,0.0,0.0,0.0
-2025,"Stasiukiewicz, Allison M",COPE Comm Oriented Police Enforce,Police Officer,PBA 8-40,PBA,112998.47,7565.5,177838.96,0.0,15182.63,1200.0,6791.04,0.0
-2025,"Stasiukiewicz, Cole",COPE Comm Oriented Police Enforce,Police Officer,PBA 8-40,PBA,112804.53,14663.74,177702.57,0.0,15175.11,1200.0,0.0,0.0
-2025,"Stelzer, Constance F",Justice Court,Justice Court Clerk,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"Stettner, Robert W",General Repairs Highway,Automotive Equipment Operator,Highway CSEA 8-40,CSE,40605.39,566.84,56967.25,0.0,3034.22,0.0,0.0,0.0
-2025,"Stevens, William J",Squad 2 - Police,Police Officer,PBA 10-40,PBA,86173.36,8450.65,131502.32,0.0,13300.53,1200.0,0.0,241.72
-2025,"Stoddard, John L",Buildings and Grounds,Maintenance Mechanic II BLDG,Engineer CSEA 8-40,CSE,48149.99,130.47,65032.08,2507.83,3354.69,0.0,0.0,0.0
-2025,"Stoltenborg, Logan John",Recreation,Lifeguard,NON-TIME,NON,2008.44,0.0,2008.44,0.0,0.0,0.0,0.0,0.0
-2025,"Stoltenborg, Sarah S",Recreation,Lifeguard,NON-TIME,NON,4391.39,0.0,4391.39,0.0,0.0,0.0,0.0,0.0
-2025,"Strand, Trinity O",Recreation,,NON-TIME,NON,127.5,0.0,127.5,0.0,0.0,0.0,0.0,0.0
-2025,"Strange, Doris L",Recreation,Account Clerk,REC CSEA 7-35,CSE,57053.03,582.0,84699.92,4950.69,3853.21,400.0,4064.61,0.0
-2025,"Striplin-Tio, Ashley Heather",Town Attorney Appointed,Town Personnel Officer,Contractual 7 - 30DED,NON,86953.73,0.0,86953.73,0.0,0.0,0.0,0.0,0.0
-2025,"Stromski, Jane",Planning Department,,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"Stromski, Mark",Detectives,Detective,PBA 8-40,PBA,0.0,0.0,27778.41,0.0,0.0,0.0,27778.41,0.0
-2025,"Stromski, Morgan Grace",Recreation,Recreation Aide,NON-TIME,NON,795.2,0.0,795.2,0.0,0.0,0.0,0.0,0.0
-2025,"Sullivan, Maria L",Building / Planning Management,Office Assistant,CSEA 7-35,CSE,5048.24,436.21,5910.14,0.0,325.69,100.0,0.0,0.0
-2025,"Sullivan, Matthew C",Squad 5 - Police,Police Officer,PBA 8-40,PBA,65476.83,2222.11,91873.45,0.0,10451.5,1200.0,0.0,-66.12
-2025,"Sulzer, Scott A",Buildings and Grounds,Maintenance Mechanic III BLDG,Engineer CSEA 8-40,CSE,61829.01,164.76,84763.47,5479.3,4191.71,0.0,0.0,0.0
-2025,"Suprina, Matthew T",COPE Comm Oriented Police Enforce,Police Officer,PBA 8-40,PBA,118418.0,27800.32,208415.26,0.0,15479.07,1200.0,15458.2,0.0
-2025,"Sweeney, Danica",Recreation,Recreation Aide,Part Time,NON,614.65,0.0,614.65,0.0,0.0,0.0,0.0,0.0
-2025,"Swenk, Preston Riley",Recreation,Lifeguard,NON-TIME,NON,4636.8,0.0,4636.8,0.0,0.0,0.0,0.0,0.0
-2025,"Sykes, Deontae A",Recreation,Recreation Leader,NON-TIME,NON,1783.89,0.0,1783.89,0.0,0.0,0.0,0.0,0.0
-2025,"Tam, Christopher K",COPE Comm Oriented Police Enforce,Sergeant Police-Towns and Village,SOA 8-40,SOA,139077.52,12695.6,222614.15,6969.58,22425.01,1100.0,4184.12,0.0
-2025,"Tangredi, Albert",Recreation,Recreation Leader,Part Time,NON,43.6,0.0,43.6,0.0,0.0,0.0,0.0,0.0
-2025,"Tedesco, Robert L",General Repairs Highway,Construction Equip Operator,Highway CSEA 8-40,CSE,56416.72,777.58,74252.9,3509.9,3747.04,0.0,0.0,0.0
-2025,"Tennenberg, Laverne",Assessment Elected/Board,Member of Board Of Assessors,Elected,,107154.0,0.0,112916.28,0.0,0.0,3827.18,0.0,0.0
-2025,"Testa, Donna M",Highway Admin Clerical,Account Clerk Typist,Highway CSEA 7-35,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"Testa, Kenneth",Town Engineer Management,Town Engineer,Contractual 7,,156120.94,0.0,168754.27,0.0,0.0,0.0,12633.33,0.0
-2025,"Thomas, Charles M",Planning / Zoning / CAC/AARB,Member of Appointed Board,NON-TIME,NON,1540.0,0.0,1540.0,0.0,0.0,0.0,0.0,0.0
-2025,"Thomas, Dawn C",Community Development Management,Community Development Project Supervisor,Contractual 7 - 30DED,NON,148258.04,0.0,173816.12,0.0,0.0,19920.36,5637.72,0.0
-2025,"Thomas, Kerry C",Accounting,Student Intern II,Part Time - TC Entry,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"Thomas, Kevin H",COPE Comm Oriented Police Enforce,Police Officer,PBA 8-40,PBA,96038.29,18575.26,151842.45,0.0,14732.14,1200.0,0.0,-55.91
-2025,"Thomas, Rachel L",Squad 4 - Police,Police Officer,PBA 8-40,PBA,80837.56,7079.65,123378.35,0.0,11529.66,1200.0,6791.04,-54.06
-2025,"Thompson, Brianna N",Recreation,Recreation Aide,NON-TIME,NON,4908.76,0.0,4908.76,0.0,0.0,0.0,0.0,0.0
-2025,"Thompson, Dan",Community Development Clerical,Housing Inspector,CSEA 7-35,CSE,73635.71,0.0,88504.68,0.0,4647.32,400.0,1650.0,0.0
-2025,"Thornton, Gabrielle Grace",Recreation,Recreation Aide,NON-TIME,NON,1340.11,0.0,1340.11,0.0,0.0,0.0,0.0,0.0
-2025,"Timmons, Denise M",Town Board Elected,Council Member,Contractual 7,NON,50558.0,0.0,59620.28,0.0,0.0,0.0,3300.0,0.0
-2025,"Tocci, Kelly A",Nutrition Management,Senior Citizens Program Director,Contractual 7,NON,125908.73,0.0,139844.86,8813.62,0.0,0.0,5122.51,0.0
-2025,"Treadwell, James E",Squad 4 - Police,Police Officer,PBA 8-40,PBA,101117.52,6255.2,169059.11,0.0,14550.39,1200.0,0.0,0.0
-2025,"Trent, Cynthia V",Nutrition,Homemaker,Part Time,CSE,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"Trent, Justine",Traffic Control,Traffic Control Specialist,Police Part Time,NON,3426.27,0.0,3426.27,0.0,0.0,0.0,0.0,0.0
-2025,"Triebwasser, Anna",Information Technology,GIS Technician III,CSEA 7-35,CSE,63603.01,0.0,73827.44,0.0,3975.2,400.0,0.0,0.0
-2025,"Trivelli, Joseph A",Squad 1 - Police,Police Officer,PBA 10-40,PBA,102293.81,2801.93,149332.02,0.0,14118.98,1200.0,0.0,0.0
-2025,"Trojanowski, Heather L",Planning Department,Planner,CSEA 7-35,CSE,78818.36,6273.78,100844.61,0.0,4959.84,400.0,1905.0,0.0
-2025,"Troyan, Peter",Squad 4 - Police,Police Officer,PBA 8-40,PBA,109147.56,14326.05,203811.75,10263.3,15519.72,1200.0,15458.2,0.0
-2025,"Troyan, Peter",,,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"Trypuc, Nicole M",Recreation,Recreation Aide,NON-TIME,NON,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"Tucci, Diane E",Town Board Elected,Legislative Secretary,Contractual 7,APT,43095.55,0.0,48401.42,0.0,0.0,0.0,0.0,0.0
-2025,"Tucci, Natalie Josephine",Recreation,Lifeguard,NON-TIME,NON,1591.37,0.0,1591.37,0.0,0.0,0.0,0.0,0.0
-2025,"Turpin, Eric",Buildings and Grounds,Automotive Equipment Operator,Engineer CSEA 8-40,CSE,58599.12,3901.59,72010.86,2633.22,3522.59,0.0,0.0,0.0
-2025,"Ulmet, Candee",PSD - Public Safet Disp,,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"Urbinati, Frank P",General Repairs Highway,Automotive Equipment Operator,Highway CSEA 8-40,CSE,2119.02,427.11,2546.13,0.0,0.0,0.0,0.0,0.0
-2025,"Vaccaro, Joseph M",Fire Marshal,Fire Marshal I,CSEA 7-35,CSE,29123.62,3821.4,45229.46,0.0,1891.4,0.0,0.0,0.0
-2025,"Vail, John H",Squad 1 - Police,Sergeant Police-Towns and Village,SOA 8-40,SOA,132142.01,16937.15,234020.25,12196.28,21994.43,1100.0,7166.04,0.0
-2025,"Vail, Maribeth",Justice Court,Senior Justice Court Clerk,CSEA 7-35,CSE,54546.05,286.58,76376.76,3490.22,3722.1,400.0,2929.5,0.0
-2025,"Van Den Thoorn, Jane",Recreation Management,Superintendant of Recreation I,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"Van der Loos, Skye A",Sewer / Scavenger Waste,Maintenance Mechanic II SEWER,Sewer CSEA 8-40,CSE,45552.24,1751.64,58380.41,0.0,2936.0,0.0,1650.0,-2.55
-2025,"Vance, Scott R",General Repairs Highway,Automotive Equipment Operator,Highway CSEA 8-40,CSE,46757.73,10.94,60600.2,0.0,3259.64,0.0,0.0,0.0
-2025,"Vance, Thomas E",Buildings and Grounds,Maintenance Mechanic III BLDG,Engineer CSEA 8-40,CSE,54060.2,0.0,72724.88,3480.1,3724.47,0.0,0.0,0.0
-2025,"Velasquez, David",Recreation,Recreation Specialist,NON-TIME,NON,1050.0,0.0,1050.0,0.0,0.0,0.0,0.0,0.0
-2025,"Venturino, Anthony C",Recreation,Lifeguard,NON-TIME,NON,4138.2,0.0,4138.2,0.0,0.0,0.0,0.0,0.0
-2025,"Visek, Jonathan T",Water,Maintenance Mechanic II Water,Water CSEA 8-40,CSE,46017.61,1100.8,56641.38,0.0,2752.36,0.0,0.0,0.0
-2025,"Visser III, Fredric J",Fire Marshal,Fire Marshal I,CSEA 7-35,CSE,19446.05,1917.07,29797.01,0.0,1074.49,0.0,0.0,0.0
-2025,"Volkman, Robert G",Water,Water Treatment Plant Operator Type II B,Water CSEA 10-40,CSE,0.0,0.0,400.0,0.0,400.0,0.0,0.0,0.0
-2025,"Von Voigt, David C",Squad 3 - Police,Police Officer,PBA 8-40,PBA,72911.15,8899.41,191016.79,3398.28,12988.52,1200.0,15458.2,0.0
-2025,"Von Voigt, Richard",Detectives,,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"Von Voigt, Richard M",COPE Comm Oriented Police Enforce,Police Officer,PBA 8-40,PBA,99435.64,6109.96,194522.21,5864.76,19049.3,1200.0,15458.2,0.0
-2025,"Vourakis, Victoria L",Police Clerical,,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"Walsh, Cailyn F",Traffic Control,Traffic Control Specialist,Police Part Time,NON,5519.22,0.0,5519.22,0.0,0.0,0.0,0.0,0.0
-2025,"Walter, Sean M",Justice Court Elected,Town Justice,Elected,,93800.0,0.0,99562.28,0.0,0.0,0.0,0.0,0.0
-2025,"Walters, Dajuon M",Recreation,Recreation Aide,Recreation PT Seasonal,,208.15,0.0,208.15,0.0,0.0,0.0,0.0,0.0
-2025,"Walther, Daniel C",Squad 1 - Police,Police Officer,PBA 10-40,PBA,114253.4,1445.29,172205.68,5864.76,17089.72,1200.0,0.0,0.0
-2025,"Wandolowski, William W",General Repairs Highway,Automotive Equipment Operator,Highway CSEA 8-40,CSE,43327.1,803.62,58171.35,0.0,2165.1,0.0,0.0,0.0
-2025,"Warner, James A",General Repairs Highway,Heavy Equipment Operator,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"Warner, Richard F",Municipal Garage,,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"Waski, Andrew John",Squad 4 - Police,Police Officer,PBA 8-40,PBA,63961.8,6248.81,94368.97,0.0,10283.05,1200.0,0.0,0.0
-2025,"Waski, Patrick A",Detectives,Detective,PBA 8-40,PBA,0.0,0.0,7190.53,0.0,0.0,0.0,7190.53,0.0
-2025,"Waski, Ryan E",Squad 5 - Police,Police Officer,PBA 8-40,NON,58004.94,3298.51,84916.13,0.0,8873.2,1200.0,6791.04,0.0
-2025,"Waskowiak, Lauren C",Justice Court,Senior Justice Court Clerk,CSEA 7-35,CSE,51499.11,182.11,59729.54,0.0,3164.42,400.0,0.0,0.0
-2025,"Weinand, Dennis",MES - Medical Eval Squad,,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"Weiss, Mark S",Squad 3 - Police,Police Officer,PBA 8-40,PBA,70763.18,14587.3,127394.13,0.0,12976.61,1200.0,0.0,-39.31
-2025,"Welsh, James P",COPE Comm Oriented Police Enforce,Sergeant Police-Towns and Village,SOA 8-40,SOA,132684.24,13666.79,226480.34,12196.28,21994.43,2989.13,475.0,0.0
-2025,"West II, John R",Information Technology,Network and Systems Specialist II,CSEA-Flex,CSE,65357.65,8015.81,101746.68,0.0,4333.95,3388.0,1905.0,0.0
-2025,"Westwood, Karen B",Nutrition,Senior Citizens Program Supervisor,CSEA 7-35,CSE,54017.12,186.3,73571.1,3241.75,3456.6,400.0,3726.15,0.0
-2025,"White, Anthony M",Nutrition,Mini-Bus Driver,CSEA 7-35,CSE,42496.06,41.69,53228.14,2031.15,2717.21,400.0,0.0,0.0
-2025,"Wicklund, Hunter S",PSD - Public Safet Disp,Public Safety Dispatcher I,PSD 8-40,CSE,36599.34,0.0,41477.09,0.0,2916.44,0.0,0.0,0.0
-2025,"Wicklund, Scott A",Squad 4 - Police,Police Officer,PBA 8-40,PBA,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"Widener, Paulette M",Nutrition,Mini-Bus Driver,CSEA 7-35,CSE,30593.75,0.0,39062.97,0.0,1785.14,333.33,0.0,-90.45
-2025,"Widercrantz, Tyler M",P/T Police,Police Officer P/T Seasonal,Police Part Time,NON,33663.83,0.0,33663.83,0.0,0.0,0.0,0.0,0.0
-2025,"Wigington, James E",General Repairs Highway,Automotive Equipment Operator,Highway CSEA 8-40,CSE,44588.23,1054.51,56855.32,0.0,2999.25,0.0,0.0,-76.8
-2025,"Wilhelm, Diane M",Town Clerk,Town Clerk,Elected,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"Wilkinson, Jacob C",Recreation,Park Attendant II,NON-TIME,NON,1794.92,0.0,1794.92,0.0,0.0,0.0,0.0,0.0
-2025,"Williams, Brandon M",Squad 3 - Police,Police Officer,PBA 8-40,PBA,64607.13,4759.38,114638.69,0.0,12124.79,1200.0,0.0,0.0
-2025,"Williams, Zebedee",General Repairs Highway,Heavy Equipment Operator,Highway CSEA 8-40,CSE,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"Willsey, Danielle E",Headquarters,Captain  Police-Towns and Village,Police Dept Head,NON,201932.33,0.0,259091.66,14139.61,25408.01,0.0,10962.02,0.0
-2025,"Wilson, Timothy C",Squad 3 - Police,Police Officer,PBA 8-40,PBA,100845.6,7275.27,180917.38,10263.3,15541.25,1200.0,0.0,0.0
-2025,"Wirth, Reese V",Recreation,Recreation Aide,NON-TIME,NON,2428.2,0.0,2428.2,0.0,0.0,0.0,0.0,0.0
-2025,"Witt, Jeffrey E",General Repairs Highway,Construction Equip Operator,Highway CSEA 8-40,CSE,50989.37,3413.84,75773.0,3383.59,3669.6,0.0,0.0,0.0
-2025,"Witt, Walter",Headquarters,,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"Wittmeier, Otto",Planning / Zoning / CAC/AARB,Member of Zoning Board Of Appeals,NON-TIME,,738.46,0.0,9600.0,0.0,0.0,0.0,0.0,0.0
-2025,"Wnorowski, Sebastian",Squad 5 - Police,Police Officer,PBA 8-40,PBA,54893.12,3837.49,71561.21,0.0,7406.94,1500.0,0.0,0.0
-2025,"Woodhull, George H",Planning / Zoning / CAC/AARB,Member of Appointed Board,NON-TIME,,1540.0,0.0,1540.0,0.0,0.0,0.0,0.0,0.0
-2025,"Woods, Kenneth",Detectives,,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"Woodson, George E",Highway Admin  Elected/Appointed,Superintendant Of Highways,Elected,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"Woodson, John F",,,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"Wooten, Alivia Grace",Nutrition,Food Service Worker,Part Time - TC Entry,NON,3417.0,0.0,3417.0,0.0,0.0,0.0,0.0,0.0
-2025,"Wooten, James M",Town Clerk Elected,Town Clerk,Elected,ELE,93038.0,0.0,103800.28,0.0,0.0,5000.0,0.0,0.0
-2025,"Wooten, Travis P",COPE Comm Oriented Police Enforce,Police Officer,PBA 8-40,PBA,89186.12,43501.05,190619.85,0.0,13125.56,1200.0,15458.2,-49.71
-2025,"Wulffraat, Arnold T",Water,Sr Water Trt. Plant Operator IIB,Water CSEA 8-40,CSE,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"Wulffraat, Lisa M",Assessment,Account Clerk,CSEA 7-35,CSE,60892.44,0.0,81575.81,5115.81,3910.72,400.0,2800.12,0.0
-2025,"Wulffraat, Nicholas T",Water,Water Treatment Plant Operator Type II B,Water CSEA 10-40,CSE,55215.02,545.43,70554.18,0.0,2983.79,0.0,0.0,0.0
-2025,"Yakaboski, Donald M",Headquarters,,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"Yat, Mark A",PMO - Parking Meter Officer,Traffic Control Specialist,Police Part Time,NON,10515.6,0.0,10515.6,0.0,0.0,0.0,0.0,0.0
-2025,"Yeager, Blaze",Squad 5 - Police,Police Officer,PBA 8-40,PBA,75969.74,2532.02,109875.48,0.0,11977.43,1200.0,0.0,51.19
-2025,"Young, Dale M",Justice Court,,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"Young, Myron E",General Repairs Highway,Highway Labor Crew Leader,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"Zak, Richard M",Squad 4 - Police,,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-2025,"Zaleski, Dillon",Recreation,Recreation Aide,NON-TIME,NON,574.54,0.0,574.54,0.0,0.0,0.0,0.0,0.0
-2025,"Zaleski, Michael T",Highway Admin  Elected/Appointed,Superintendant Of Highways,Contractual 8,,104543.0,0.0,111400.28,0.0,0.0,1095.0,0.0,0.0
-2025,"Zaleski, Ryan T",Traffic Control,Traffic Control Specialist,Police Part Time,NON,15425.34,0.0,15425.34,0.0,0.0,0.0,0.0,0.0
-2025,"Zaneski, Laurie A",Tax Collection Elected,Town Tax Receiver,Elected,,93038.0,0.0,98800.28,0.0,0.0,0.0,0.0,0.0
-2025,"Zaveski, Timothy P",Town Engineer,Auto Mechanic III,CSEA 8-40,CSE,1194.97,0.0,8318.73,4565.78,298.74,0.0,0.0,0.0
-2025,"Zaweski, Daniel W",Planning / Zoning / CAC/AARB,Member of Zoning Board Of Appeals,NON-TIME,NON,7200.0,0.0,7200.0,0.0,0.0,0.0,0.0,0.0
-2025,"Zebrowski, David L",Buildings and Grounds,Building Maintenance Manager,Engineer CSEA 8-40,CSE,78582.68,11516.28,113182.85,6340.47,4960.26,0.0,3394.51,0.0
-2025,"Zilnicki, Ava T",Recreation,Recreation Aide,NON-TIME,NON,8031.95,0.0,8031.95,0.0,0.0,0.0,0.0,0.0
-2025,"Zilnicki, Kenneth J",Planning / Zoning / CAC/AARB,Member of Planning Board,NON-TIME,,830.76,0.0,10800.0,0.0,0.0,0.0,0.0,0.0
-2025,"Zitek, Craig W",Fire Marshal,Chief Fire Marshal,CSEA 7-35 30DED,CSE,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+year,name,department,title,pay_class,union,regular,overtime,gross,longevity,holiday,stipend,buyout,retro,hire_year
+2025,"Acevedo, Camille",PSD - Public Safet Disp,Public Safety Dispatcher I,PSD 8-40,CSE,23476.34,0.0,27949.84,0.0,2916.44,0.0,0.0,0.0,2025
+2025,"Acevedo, Marjorie E",Assessment Elected/Board,Member of Board Of Assessors,Part Time,APT,1200.0,0.0,1200.0,0.0,0.0,0.0,0.0,0.0,2023
+2025,"Adams, Erin L",,,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,2025
+2025,"Adams-Korn, Rebecca K",Recreation,Cultural Affairs Supervisor,REC CSEA 7-35,CSE,50198.41,146.49,64567.34,0.0,3467.26,400.0,0.0,0.0,2021
+2025,"Adla, Taleb M",Squad 4 - Police,Police Officer,PBA 8-40,PBA,103071.49,6512.32,178392.9,8797.09,14782.71,1200.0,0.0,0.0,2008
+2025,"Ady, Stephen A",Squad 2 - Police,Police Officer,PBA 10-40,PBA,86036.83,9713.02,144326.28,0.0,16620.11,1200.0,0.0,0.0,2021
+2025,"Ajcuc, Nicolena",Traffic Control,Traffic Control Specialist,Police Part Time,NON,9338.91,0.0,9338.91,0.0,0.0,0.0,0.0,0.0,2025
+2025,"Albee, Keith E",Water,Water Treatment Plant Operator Type II B,Water CSEA 8-40,CSE,54692.92,773.98,70347.21,0.0,3783.64,0.0,1710.0,0.0,2023
+2025,"Alexander, Irene",Justice Court,,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1977
+2025,"Alexander, Warren",,,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1990
+2025,"Allen, Timothy M",Sewer / Scavenger Waste Management,Sr. Wastewater Trmnt Plant Op 4A,Contractual 8,,155575.35,0.0,206577.83,10890.21,0.0,603.0,32774.37,85.21,1986
+2025,"Anderson, Peter J",Squad 5 - Police,Police Officer,PBA 8-40,PBA,89752.79,4133.1,177049.74,0.0,13686.42,1200.0,15458.2,0.0,2019
+2025,"Anderson, Richard",Detectives,Detective,PBA 8-40,PBA,112297.56,18755.28,237383.15,11476.34,16746.04,2200.0,15458.2,0.0,1996
+2025,"Andruszkiewicz, David J",Fire Marshal,Fire Marshal I,CSEA-Flex 30DED,CSE,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1996
+2025,"Apicello, John K",Highway Admin  Elected/Appointed,Deputy Highway Superintendent,Contractual 8,CON,94727.53,0.0,116648.92,6630.85,0.0,390.0,14900.54,0.0,1998
+2025,"Arabio, Kaitlyn A",Recreation,Lifeguard,NON-TIME,NON,5075.94,0.0,5075.94,0.0,0.0,0.0,0.0,0.0,2023
+2025,"Arena, Ellie A",Recreation,Lifeguard,NON-TIME,NON,1234.69,0.0,1234.69,0.0,0.0,0.0,0.0,0.0,2024
+2025,"Arena, Isabella M",Recreation,Lifeguard,NON-TIME,NON,1585.9,0.0,1585.9,0.0,0.0,0.0,0.0,0.0,2024
+2025,"Arena, Michael J",Recreation,Lifeguard,NON-TIME,NON,1349.93,0.0,1349.93,0.0,0.0,0.0,0.0,0.0,2024
+2025,"Ariizumi, Hideaki",Planning / Zoning / CAC/AARB,Member of Appointed Board,NON-TIME,,1500.0,0.0,1500.0,0.0,0.0,0.0,0.0,0.0,2018
+2025,"Arrigo, John E",Sewer / Scavenger Waste,Waste Water Treatment Plant Operator II,Sewer CSEA 10-40,CSE,62019.18,2030.94,93202.21,5899.73,2812.36,0.0,0.0,0.0,2000
+2025,"Arteaga, David",General Repairs Highway,Construction Equip Operator,Highway CSEA 8-40,CSE,54078.31,1056.16,78163.76,5069.55,3875.47,0.0,0.0,0.0,2003
+2025,"Atkins, Waverly",General Repairs Highway,Construction Equip Operator,Highway CSEA 8-40,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1995
+2025,"Attridge, Douglas J",Sewer / Scavenger Waste,Sr Waste Water Trmt Plant Operator IIIA,Sewer CSEA 10-40,CSE,70772.59,5976.6,99048.0,5972.88,7342.2,0.0,0.0,0.0,2000
+2025,"Avelar Gonzalez, Yenci Vanessa",Justice Court,Justice Court Clerk,CSEA 7-35,CSE,45844.83,44.4,58846.46,0.0,2893.78,3273.5,1650.0,0.0,2023
+2025,"Ayala, Juan",Police Clerical,Maintenance Mechanic II BLDG,Engineer CSEA 8-40,CSE,59981.29,2336.93,81953.46,5234.64,4001.91,0.0,0.0,0.0,2000
+2025,"Baier, Joseph H",Planning / Zoning / CAC/AARB,Member of Planning Board,NON-TIME,,830.76,0.0,10800.0,0.0,0.0,0.0,0.0,0.0,1986
+2025,"Baird, Kim J",PSD - Public Safet Disp,Public Safety Dispatcher I,PSD 8-40,CSE,49051.79,471.6,70330.17,0.0,6165.58,0.0,0.0,0.0,2021
+2025,"Bakowski, Parker J",General Repairs Highway,Automotive Equipment Operator,Highway CSEA 8-40,CSE,41937.7,98.43,50831.37,0.0,2782.03,0.0,356.25,0.0,2022
+2025,"Baldinucci, Teresa A",Purchasing,Senior Purchasing Agent,Contractual 7,NON,94494.17,0.0,94494.17,0.0,0.0,0.0,0.0,0.0,2019
+2025,"Balzarano, Jesse A",Water,Maintenance Mechanic III Water,Water CSEA 8-40,CSE,45888.15,1655.91,62335.02,0.0,3158.52,0.0,0.0,97.62,2022
+2025,"Bancroft, Christopher I",General Repairs Highway,Automotive Equipment Operator,Highway CSEA 8-40,CSE,20802.45,373.32,30472.65,0.0,1295.98,0.0,0.0,0.0,2022
+2025,"Barauskas, Lynn M",Water,Account Clerk Typist,Water CSEA 7-35,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1986
+2025,"Barnes, Leroy E",Planning / Zoning / CAC/AARB,Member of Zoning Board Of Appeals,NON-TIME,,553.84,0.0,7200.0,0.0,0.0,0.0,0.0,0.0,1982
+2025,"Baron, Amanda J",Recreation,Recreation Leader,Recreation PT Seasonal,NON,16150.85,0.0,16150.85,0.0,0.0,0.0,0.0,0.0,2012
+2025,"Barth, Judith Joy",Planning / Zoning / CAC/AARB,Member of Appointed Board,NON-TIME,,1500.0,0.0,1500.0,0.0,0.0,0.0,0.0,0.0,2002
+2025,"Bates, Richard G",General Repairs Highway,Highway Labor Crew Leader,Highway CSEA 8-40,CSE,65132.73,737.12,93477.17,5878.86,4494.46,0.0,0.0,0.0,2000
+2025,"Bauerfeind, Paul R",Buildings and Grounds,Custodial Worker I,CSEA 10-40,CSE,32140.28,406.29,42615.95,2827.78,2628.46,0.0,0.0,0.0,2010
+2025,"Beal, Susan",Highway Admin Clerical,,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1986
+2025,"Beatty, Diane F",Recreation,,Recreation CSEA 7-35,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1994
+2025,"Bedell, Emily E",Recreation,Assistant Recreation Leader,NON-TIME,NON,5796.7,0.0,5796.7,0.0,0.0,0.0,0.0,0.0,2022
+2025,"Behr, Cheryl A",Juvenile Aide Bureau / Police,Account Clerk,Police CSEA 7-35,CSE,41741.55,256.94,64788.52,2980.44,3189.66,400.0,1827.09,0.0,2010
+2025,"Bennett, Ronald E",General Repairs Highway,Automotive Equipment Operator,Highway CSEA 8-40,CSE,37145.68,809.77,48479.98,0.0,2138.26,0.0,0.0,0.0,2024
+2025,"Bergman, Gregory T",Planning Department,Senior Planner,CSEA 7-35,CSE,87600.58,3819.87,116683.55,0.0,5880.66,3388.88,0.0,0.0,2016
+2025,"Berry, Justin T.",Sewer / Scavenger Waste,Maintenance Mechanic IV SEWER,Sewer CSEA 8-40,CSE,55128.73,356.37,66945.61,0.0,3376.15,0.0,0.0,0.0,2018
+2025,"Bianco, William A",Squad 1 - Police,Police Officer,PBA 10-40,PBA,104772.2,8834.19,199411.86,8797.09,18513.49,1200.0,15458.2,0.0,2007
+2025,"Biancospino, Kathleen M",Justice Court,Justice Court Clerk,CSEA 7-35,CSE,39457.84,0.0,55058.62,0.0,2893.78,400.0,1905.0,0.0,2023
+2025,"Bilski, William R",General Repairs Highway,,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1966
+2025,"Binkis, Paul L",Nutrition,Bus Driver,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,2002
+2025,"Blackmore, Andrew P",Buildings and Grounds,Maintenance Mechanic II BLDG,Engineer CSEA 8-40,CSE,42993.29,115.5,56947.36,0.0,2974.06,1250.0,0.0,0.0,2013
+2025,"Blackmore, Melissa A",Accounting,Accountant,CSEA 7-35,CSE,46525.08,17.99,51621.47,0.0,2686.0,266.67,476.25,0.0,2025
+2025,"Blass, Barbara A",Town Board Elected,,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1983
+2025,"Blount, Jahquel A",Recreation,Assistant Recreation Leader,NON-TIME,NON,13105.0,0.0,13105.0,0.0,0.0,0.0,0.0,0.0,2019
+2025,"Boden, Bryan T",COPE Comm Oriented Police Enforce,Police Officer,PBA 8-40,PBA,87576.7,19771.81,142577.69,0.0,13058.65,1200.0,0.0,241.72,2018
+2025,"Boden, Richard K",Headquarters,Lieutenant  Police-Towns and Village,SOA 8-40,SOA,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1985
+2025,"Boerum, Maxwell Rafael",Recreation,Park Attendant I,NON-TIME,NON,3012.64,0.0,3012.64,0.0,0.0,0.0,0.0,0.0,2024
+2025,"Bojaj, Tomi",Buildings and Grounds,Maintenance Mechanic II BLDG,Engineer CSEA 8-40,CSE,27235.65,1652.21,39745.51,0.0,1696.2,0.0,0.0,0.0,2023
+2025,"Bokee, Paul J",Water,Water Treatment Plant Operator Type II B,Part Time - TC Entry,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1983
+2025,"Bokinz, Richard",Sewer / Scavenger Waste,,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1980
+2025,"Bonilla Guerra, Jose A",General Repairs Highway,Automotive Equipment Operator,Highway CSEA 8-40,CSE,7628.48,297.99,8350.27,0.0,423.8,0.0,0.0,0.0,2025
+2025,"Bouchard, Raymond",General Repairs Highway,Heavy Equipment Operator,Highway CSEA 8-40,CSE,2440.33,215.91,13486.52,122.71,520.61,0.0,0.0,0.0,2008
+2025,"Bowe, Howard M",Buildings and Grounds,Groundskeeper I,Engineer CSEA 8-40,CSE,50090.25,3426.97,64992.22,2380.26,3184.09,0.0,0.0,0.0,2012
+2025,"Brabant, Jason P",Recreation,Beach Attendant,NON-TIME,NON,837.25,0.0,837.25,0.0,0.0,0.0,0.0,0.0,2025
+2025,"Breitenbach, Emil",Headquarters,,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1988
+2025,"Brennan, Caitlin E",Recreation,Recreation Aide,NON-TIME,NON,4453.57,0.0,4453.57,0.0,0.0,0.0,0.0,0.0,2024
+2025,"Brogan, Raymond",Headquarters,Police Officer,PBA 8-40,PBA,110635.04,21786.73,225141.15,10263.3,11300.73,1200.0,32972.99,0.0,1997
+2025,"Brooks, Irlynn E",Recreation,Recreation Aide,NON-TIME,NON,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,2019
+2025,"Brooks, Jack W",Recreation,Lifeguard,NON-TIME,NON,2820.59,0.0,2820.59,0.0,0.0,0.0,0.0,0.0,2024
+2025,"Brown, Carl D",Nutrition,Recreation Aide,Part Time - TC Entry,NON,7807.43,0.0,11035.83,0.0,553.13,0.0,0.0,0.0,2019
+2025,"Brown, Dana N",Assessment Elected/Board,Member of Board Of Assessors,Elected,,93038.0,0.0,98800.28,0.0,0.0,0.0,0.0,0.0,2013
+2025,"Brown, Kershia L",Nutrition,Homemaker,Part Time - TC Entry,NON,702.0,0.0,702.0,0.0,0.0,0.0,0.0,0.0,2023
+2025,"Brown, Margaret",Nutrition,Food Service Worker,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1989
+2025,"Brumsey, Ronnie M",Traffic Control,Traffic Control Specialist,Police Part Time,NON,3800.37,0.0,3800.37,0.0,0.0,0.0,0.0,0.0,2025
+2025,"Buckner, Nicole L",Town Attorney Clerical,Town Investigator,CSEA 7-35,CSE,80125.98,845.54,117526.75,4577.14,4897.07,0.0,5261.08,0.0,2008
+2025,"Buczynski, Julia R",Squad 3 - Police,Police Officer,PBA 8-40,PBA,56770.02,5993.77,87222.12,0.0,10864.47,1500.0,0.0,209.93,2024
+2025,"Bugdin, Caroline B",Tax Collection,,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1978
+2025,"Bugdin, Dorothy E",Tax Collection,Account Clerk Typist,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1984
+2025,"Bugdin, James A",Municipal Garage,,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1980
+2025,"Bugge, Christopher M",General Repairs Highway,Construction Equip Operator,Highway CSEA 8-40,CSE,54704.76,0.0,74042.2,2867.23,3823.54,0.0,0.0,0.0,2009
+2025,"Burgess, Sarah A",Justice Court,Justice Court Director,CSEA 7-35,CSE,73747.13,196.85,102663.17,4795.07,5131.45,400.0,1837.19,0.0,2008
+2025,"Burkowsky, Debi Iris",Supervisor Management,Town Budget Officer,Contractual 7,NON,77345.1,0.0,77345.1,0.0,0.0,0.0,0.0,0.0,2022
+2025,"Burns, Christopher C",K-9,Police Officer,PBA 8-40,PBA,108762.6,5742.54,183585.44,5864.76,17224.05,7200.0,0.0,0.0,2012
+2025,"Butler, Sonja",Accounting,Senior Account Clerk Typist,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1997
+2025,"Buyukdeniz, Deborah L",PSD - Public Safet Disp,Public Safety Dispatcher I,PSD 8-40,CSE,58000.36,11670.66,110482.63,5386.89,13636.32,0.0,0.0,0.0,2002
+2025,"Buzis, Persephone K",Recreation,Recreation Aide,NON-TIME,NON,1203.77,0.0,1203.77,0.0,0.0,0.0,0.0,0.0,2023
+2025,"Caccioppo, Beatrice P",Buildings and Grounds,Custodial Worker I,Engineer CSEA 8-40,CSE,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,2007
+2025,"Caffrey, Ronald C",General Repairs Highway,Highway Labor Crew Leader,Highway CSEA 8-40,CSE,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1981
+2025,"Cain, Victoria L",Water,Water Meter Reader,Water CSEA 8-40,CSE,48764.36,0.0,70204.79,4626.86,3537.12,0.0,0.0,0.0,2004
+2025,"Calamita, Laura J",Town Attorney Clerical,,CSEA-Flex 30DED,CSE,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1991
+2025,"Calderon, Christopher B",Water,Water Treatment Plant Oper Trainee,Water CSEA 8-40,CSE,46558.35,513.96,53643.4,0.0,3541.11,0.0,0.0,0.0,2025
+2025,"Calvert, John C",Recreation,Lifeguard,NON-TIME,NON,2480.36,0.0,2480.36,0.0,0.0,0.0,0.0,0.0,2024
+2025,"Cannon, Joann E",Supervisor Clerical,Secretary,Contractual 7,NON,59414.4,0.0,59414.4,0.0,0.0,0.0,0.0,0.0,2021
+2025,"Caparros, Paul M",Water,Water Treatment Plant Operator Type II B,Water CSEA 8-40,CSE,52076.19,1241.62,70042.83,0.0,2939.27,0.0,1825.0,540.32,2024
+2025,"Cardinale, Philip J",Supervisor Elected,,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1998
+2025,"Carey, Edward J",Detectives,Detective,PBA 8-40,PBA,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,2002
+2025,"Carey, Joshua M",Recreation,Assistant Recreation Leader,NON-TIME,NON,27150.03,0.0,27150.03,0.0,0.0,0.0,0.0,0.0,2019
+2025,"Carey, Logann",Recreation,Recreation Aide,NON-TIME,NON,4781.58,0.0,4781.58,0.0,0.0,0.0,0.0,0.0,2021
+2025,"Carey, Nicholas E",Squad 2 - Police,Police Officer,PBA 10-40,PBA,101723.89,1628.08,185514.18,0.0,20146.93,1200.0,15458.2,0.0,2018
+2025,"Carragher, James H",Buildings and Grounds,Custodial Worker I,Engineer CSEA 8-40,CSE,42815.26,2292.35,51884.37,0.0,2609.97,0.0,855.0,0.0,2019
+2025,"Carrick, Megan A",Planning / Zoning / CAC/AARB,Member of Appointed Board,Part Time,APT,1500.0,0.0,1500.0,0.0,0.0,0.0,0.0,0.0,2024
+2025,"Carrieri, Michael J",Detectives,Detective,PBA 8-40,PBA,121362.45,10277.98,201997.12,9434.33,16174.18,2200.0,0.0,0.0,2008
+2025,"Cartwright, Pamela",Police Clerical,Office Assistant,Police CSEA 7-35,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1980
+2025,"Case, Georgette L",Town Historian Planning Department,Town Historian,NON-TIME,,0.0,0.0,8931.26,0.0,0.0,0.0,0.0,0.0,2002
+2025,"Cassara, Shaye-Ann K",Fire Marshal,Account Clerk,CSEA 7-35,CSE,39404.23,0.0,51396.56,0.0,2694.4,400.0,855.0,0.0,2021
+2025,"Cassidy, Christie L",Squad 1 - Police,Police Officer,PBA 10-40,PBA,103222.69,937.08,166718.99,0.0,17973.02,1200.0,0.0,0.0,2015
+2025,"Castantine, Kaley N",COPE Comm Oriented Police Enforce,Police Officer,PBA 8-40,PBA,119725.96,8523.58,166594.29,0.0,10249.07,1200.0,0.0,0.0,2014
+2025,"Catarelli, Anthony John",Recreation,Recreation Aide,NON-TIME,NON,2811.38,0.0,2811.38,0.0,0.0,0.0,0.0,0.0,2024
+2025,"Cavaluzzi, Madeline",Buildings and Grounds,Custodial Worker I,Engineer CSEA 8-40,CSE,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,2006
+2025,"Cavanagh, Dennis M",Squad 5 - Police,Police Officer,PBA 8-40,PBA,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1986
+2025,"Cawley, Guy R",Buildings and Grounds,Building Maintenance Supervisor,Engineer CSEA 8-40,CSE,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1992
+2025,"Chabla, Jennifer D",Justice Court,Justice Court Clerk,CSEA 7-35,CSE,46783.19,21.92,54188.81,0.0,2846.23,400.0,925.0,0.0,2024
+2025,"Charters, Matthew J",Planning Department,Senior Planner,CSEA 7-35,CSE,85444.23,387.43,105304.99,0.0,5415.35,3158.56,0.0,0.0,2022
+2025,"Chattaway, Collin R",Recreation,Park Attendant I,NON-TIME,NON,181.5,0.0,181.5,0.0,0.0,0.0,0.0,0.0,2025
+2025,"Chavooshian, J Dean",Recreation,Recreation Specialist,NON-TIME,NON,673.4,0.0,673.4,0.0,0.0,0.0,0.0,0.0,2023
+2025,"Cheshire, David G",Detectives,,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1975
+2025,"Chester, Erin K",PSD - Public Safet Disp,Public Safety Dispatcher I,PSD 8-40,CSE,60524.85,1576.29,100273.72,5386.89,8195.72,0.0,0.0,0.0,1999
+2025,"Chiaramonte, Anthony M",Squad 2 - Police,Police Officer,PBA 10-40,PBA,81580.94,1455.56,137322.42,0.0,16931.02,1200.0,0.0,-12.43,2021
+2025,"Chizever, Richard",Recreation,Recreation Specialist,NON-TIME,NON,2557.1,0.0,2557.1,0.0,0.0,0.0,0.0,0.0,2023
+2025,"Cichanowicz, Charles F",Squad 2 - Police,Sergeant Police-Towns and Village,SOA 10-40,SOA,132965.0,9290.45,220603.98,12196.28,22783.69,1100.0,475.0,0.0,2004
+2025,"Clark, Daniel G.",COPE Comm Oriented Police Enforce,Police Officer,PBA 8-40,PBA,109855.94,18605.39,177624.06,0.0,15795.63,1200.0,0.0,-130.47,2019
+2025,"Clarkin, Christian A",Squad 3 - Police,Police Officer,PBA 8-40,PBA,95722.04,17779.96,165049.75,0.0,13684.01,1200.0,15458.2,-130.47,2021
+2025,"Clarkin, James D",Buildings and Grounds,Laborer,Engineer CSEA 8-40,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,2002
+2025,"Clements, Brian T",Headquarters,Lieutenant  Police-Towns and Village,SOA 8-40,SOA,153297.24,12853.99,257032.33,13107.87,20078.97,1100.0,6443.48,0.0,2004
+2025,"Clennan, Sean L",Water,Water Treatment Plant Operator Type II B,Water CSEA 10-40,CSE,53824.14,1174.6,73919.27,0.0,3849.87,0.0,0.0,0.0,2019
+2025,"Clifford, Shannon M",Town Engineer,Administrative Assistant,CSEA 7-35,CSE,51333.69,4569.55,68516.99,0.0,3402.52,400.0,0.0,0.0,2017
+2025,"Clinton, Ann E",Nutrition,Senior Cook,CSEA 7-35,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1984
+2025,"Coach, Elrod H",General Repairs Highway,Construction Equip Operator,Highway CSEA 8-40,CSE,53696.28,326.97,89067.61,3584.04,3835.77,0.0,13731.95,0.0,2008
+2025,"Coach, Wally Rodney",Recreation,Park Attendant I,NON-TIME,NON,4063.15,0.0,4063.15,0.0,0.0,0.0,0.0,0.0,2025
+2025,"Cohen, Eric D",COPE Comm Oriented Police Enforce,Police Officer,PBA 8-40,PBA,115931.79,8054.68,178104.35,10263.3,11964.69,1200.0,0.0,0.0,2006
+2025,"Collins, Carissa M",Community Development Clerical,Associate Administrator,CSEA-Flex,CSE,78556.05,0.0,95715.79,3695.76,4920.99,400.0,0.0,0.0,2013
+2025,"Colon, Michael J",Buildings and Grounds,Maintenance Mechanic II BLDG,Engineer CSEA 8-40,CSE,41400.03,0.0,56207.53,0.0,2974.06,0.0,0.0,0.0,2023
+2025,"Commins, Michael C",Street Lighting,Electrical Services Supervisor,Engineer CSEA 8-40,CSE,30569.72,474.86,58081.77,6169.28,3365.78,0.0,0.0,0.0,2001
+2025,"Concannon, Ayden T",Recreation,Recreation Aide,NON-TIME,NON,4683.85,0.0,4683.85,0.0,0.0,0.0,0.0,0.0,2023
+2025,"Concannon, Daniel R",P/T Police,Police Officer P/T Seasonal,Police Part Time,NON,29846.07,0.0,29846.07,0.0,0.0,0.0,0.0,0.0,2022
+2025,"Conklin, Mark",Water Management,Water District Superintendant Type I B,Contractual 8,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1981
+2025,"Connell, Ellie A",Recreation,Lifeguard,NON-TIME,NON,2848.76,0.0,2848.76,0.0,0.0,0.0,0.0,0.0,2025
+2025,"Conyers, Karli E",Headquarters,Sergeant Police-Towns and Village,SOA 8-40,SOA,128494.14,2669.55,183909.51,0.0,17026.49,1100.0,375.0,0.0,2017
+2025,"Cook, James Patrick",Recreation,Lifeguard,NON-TIME,NON,2606.57,0.0,2606.57,0.0,0.0,0.0,0.0,0.0,2024
+2025,"Cooke, Abigail D",Recreation,Lifeguard,NON-TIME,NON,736.39,0.0,736.39,0.0,0.0,0.0,0.0,0.0,2025
+2025,"Coome, Melissa B",Water,Account Clerk,Water CSEA 7-35,CSE,46169.08,3945.42,69851.01,0.0,3434.71,400.0,1650.0,0.0,2016
+2025,"Corwin, Robert E",General Repairs Highway,Automotive Equipment Operator,Highway CSEA 8-40,CSE,28617.41,390.91,40777.86,0.0,1716.72,0.0,0.0,0.0,2024
+2025,"Costantini, Sabina J",Squad 2 - Police,Police Officer,PBA 10-40,PBA,69360.72,7417.22,126823.17,0.0,12094.16,1200.0,0.0,-93.19,2021
+2025,"Coyne, Raymond A",Recreation Management,Superintendant of Recreation I,Contractual 7 with Comp30,,132844.31,0.0,174961.73,9299.27,0.0,7968.09,18200.37,0.0,2005
+2025,"Cravotta, Anthony J",Recreation,Lifeguard,NON-TIME,NON,1333.0,0.0,1333.0,0.0,0.0,0.0,0.0,0.0,2025
+2025,"Crohan, Tyler E",Sewer / Scavenger Waste,Wastewater Treatment Plant Operator 3A,Sewer CSEA 8-40,CSE,51863.67,391.59,70972.04,0.0,3940.97,0.0,0.0,0.0,2020
+2025,"Crump, Ollie T",Squad 3 - Police,Police Officer,PBA 8-40,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1996
+2025,"Curtis, Michael J",Town Engineer,Auto Mechanic IV,CSEA 8-40,CSE,60426.6,2506.87,94034.64,3925.71,4417.03,0.0,0.0,0.0,2006
+2025,"Curven, Austin C",Nutrition,Maintenance Mechanic I - Seniors,CSEA 8-40,CSE,44496.91,0.0,52317.02,0.0,2814.03,0.0,0.0,0.0,2021
+2025,"Curven, Edward A",,,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1984
+2025,"Cusati, Cynthia M",PSD - Public Safet Disp,Public Safety Dispatcher I,PSD 8-40,CSE,13714.48,0.0,16126.25,0.0,600.0,0.0,0.0,0.0,2025
+2025,"Cutolo, Connor P",Town Attorney Clerical,Code Enforcement Officer,CSEA 7-35,CSE,39595.64,0.0,49943.58,0.0,2082.37,0.0,142.5,2864.37,2024
+2025,"Cybulski, Brian A",Sewer / Scavenger Waste,Wastewater Treatment Plant Op 4A,Contractual 8,NON,89586.5,0.0,100367.84,4921.48,1461.19,309.0,0.0,0.0,2013
+2025,"Czawursky, Steven J",Court Officers,Court Officer,Police Part Time,NON,7250.25,0.0,7250.25,0.0,0.0,0.0,0.0,0.0,2025
+2025,"Czech, William S",General Repairs Highway,Highway Labor Crew Leader,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1986
+2025,"D'Amara, Neil",General Repairs Highway,Construction Equip Operator,Highway CSEA 8-40,CSE,56159.95,488.73,73775.79,2837.58,3786.62,0.0,0.0,0.0,2009
+2025,"Daccus, Alexis V",Recreation,Lifeguard,NON-TIME,NON,532.25,0.0,532.25,0.0,0.0,0.0,0.0,0.0,2025
+2025,"Dahlem, John",Squad 3 - Police,Police Officer,PBA 8-40,PBA,72426.35,4031.77,112813.43,0.0,11994.11,1200.0,0.0,1450.33,2019
+2025,"Dangelmaier, Arthur W",Water,,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1977
+2025,"Daniels, Aidan",Recreation,Recreation Aide,NON-TIME,NON,3862.95,0.0,3862.95,0.0,0.0,0.0,0.0,0.0,2023
+2025,"Daniels, Albert C",Recreation,Park Attendant II,NON-TIME,NON,13873.17,0.0,13873.17,0.0,0.0,0.0,0.0,0.0,2025
+2025,"Daniels, Kelly A",Crossing Guards,School Crossing Guard,Police Part Time,CSE,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,2001
+2025,"Danowski, Donna",Nutrition,Senior Citizen Aide,CSEA 7-35,CSE,38582.88,37.13,45425.2,0.0,2419.29,400.0,0.0,0.0,2015
+2025,"Danowski, Marisa E",Safety Inspection / Clerical,Site Plan Reviewer,CSEA 7-35,CSE,58429.98,612.99,71305.57,0.0,3563.5,400.0,0.0,0.0,2023
+2025,"Danowski, Peter S",,,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1976
+2025,"Darling, Ronald C",Buildings and Grounds,Automotive Equipment Operator,Engineer CSEA 8-40,CSE,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,2003
+2025,"David, Colin J",Recreation,Lifeguard,NON-TIME,NON,2872.8,0.0,2872.8,0.0,0.0,0.0,0.0,0.0,2023
+2025,"Davis, Jeffrey",General Repairs Highway,Construction Equip Operator,Highway CSEA 8-40,CSE,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1990
+2025,"Davis, Keith A",General Repairs Highway,Automotive Equipment Operator,Highway CSEA 8-40,CSE,52482.73,441.17,66856.78,2408.71,3222.07,0.0,1650.0,0.0,2015
+2025,"Davis, Kerri F",Squad 5 - Police,Police Officer,PBA 8-40,PBA,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1993
+2025,"DeFilippis, Theresa A",Information Technology,Network and Systems Specialist II,CSEA 7-35 30DED,CSE,61825.89,126.69,97389.47,6172.41,4717.77,3388.0,0.0,0.0,1999
+2025,"DeFilippis, Vincent A",Accounting,Accountant,CSEA 7-35,CSE,8223.25,0.0,13713.68,0.0,899.88,0.0,0.0,0.0,2022
+2025,"DeRosa, Kyle T",Town Attorney Clerical,Code Enforcement Officer,CSEA 7-35,CSE,14017.77,40.88,18212.75,0.0,1358.58,0.0,825.0,0.0,2024
+2025,"Del Vecchio, Carol A",Town Clerk,Senior Account Clerk,CSEA 7-35,CSE,62454.83,0.0,86095.29,5602.1,4282.77,890.45,0.0,0.0,2003
+2025,"Dempsey, Ian M",Squad 4 - Police,Police Officer,PBA 8-40,PBA,92479.27,5301.99,137099.79,0.0,13125.56,1200.0,0.0,0.0,2021
+2025,"Densieski, Antone",Headquarters,,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1971
+2025,"Densieski, Edward",Planning / Zoning / CAC/AARB,Member of Planning Board,NON-TIME,,14400.0,0.0,14400.0,0.0,0.0,0.0,0.0,0.0,1996
+2025,"Deon, Ryan A",General Repairs Highway,Automotive Equipment Operator,Highway CSEA 8-40,CSE,36076.36,298.01,40228.3,0.0,2119.0,0.0,0.0,0.0,2025
+2025,"Desimone, Scott",,,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,2001
+2025,"Detwiler, Bryon T",Buildings and Grounds,Maintenance Mechanic II BLDG,Engineer CSEA 8-40,CSE,38522.9,115.5,52428.21,0.0,2335.14,0.0,0.0,0.0,2023
+2025,"Devereaux, Jonathan",Headquarters,Lieutenant  Police-Towns and Village,SOA 8-40,SOA,160387.89,10684.03,269749.01,13107.87,18818.0,1100.0,24706.24,0.0,2004
+2025,"Devos, William",General Repairs Highway,,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1986
+2025,"DiPaola, Jeanette",Accounting Management,Chief Accountant,Contractual 7,NON,164680.03,0.0,164680.03,0.0,0.0,0.0,0.0,0.0,2022
+2025,"Dick, Andrew C",Highway Admin  Elected/Appointed,Deputy Highway Superintendent,Contractual 8,APT,53955.44,377.2,75946.24,3621.11,3865.78,0.0,0.0,0.0,2008
+2025,"Diego Merida, Yasmin R",Traffic Control,Traffic Control Specialist,Police Part Time,NON,12595.84,0.0,12595.84,0.0,0.0,0.0,0.0,0.0,2024
+2025,"Dillingham, Drew E",Town Engineer Management,Town Engineer,Contractual 7,,167521.96,0.0,177573.33,10051.37,0.0,0.0,0.0,0.0,2009
+2025,"Dinizio, Melanie L",Accounting,Principal Account Clerk,CSEA 7-35,CSE,48929.91,0.0,57977.67,0.0,3042.66,400.0,1050.0,0.0,2024
+2025,"Divan, James M",Harbormaster I,Harbormaster I,CSEA 7-35 No DED,CSE,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1989
+2025,"Dodge, Rosemary",Nutrition,Mini-Bus Driver,CSEA 7-35,CSE,29798.96,161.12,44685.67,0.0,2316.34,400.0,900.0,0.0,2022
+2025,"Doll, Judith",Nutrition,Senior Citizens Program Director,Contractual 7 with Comp30,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1988
+2025,"Dorfer, Patricia A",Det Attnd,Detention Attendant,Police Part Time,,7633.8,0.0,7633.8,0.0,0.0,0.0,0.0,0.0,2003
+2025,"Dorfer, Thomas",Headquarters,,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1970
+2025,"Doscinski, Brett A",Squad 5 - Police,Police Officer,PBA 8-40,,62201.37,4974.34,94388.47,0.0,10451.5,1200.0,0.0,-60.43,2015
+2025,"Doscinski, John",K-9,Police Officer,PBA 8-40,PBA,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1989
+2025,"Downs, Richard W",Town Attorney Clerical,Senior Town Investigator,CSEA 7-35,CSE,93600.41,193.64,142662.44,8254.47,6308.6,400.0,4518.04,0.0,2000
+2025,"Droskoski, Wesley",Headquarters,,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1961
+2025,"Drost, Brett R",Squad 5 - Police,Police Officer,PBA 8-40,PBA,98952.55,4927.77,152546.19,0.0,19272.31,1200.0,0.0,0.0,2021
+2025,"Dunleavy, John",Town Board Elected,Council Member,Elected,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1967
+2025,"Dyson, Jasmine A",PSD - Public Safet Disp,Public Safety Dispatcher I,PSD 10-40,CSE,32038.86,1038.63,56288.65,0.0,9939.5,0.0,0.0,0.0,2020
+2025,"Eastwood, Brooke R",Recreation,Recreation Aide,NON-TIME,NON,6705.15,0.0,6705.15,0.0,0.0,0.0,0.0,0.0,2023
+2025,"Eastwood, Colleen M",Recreation,Recreation Supervisor,REC CSEA 7-35,CSE,64417.05,296.45,97257.13,6318.69,4823.27,400.0,0.0,0.0,2003
+2025,"Edwards, Michael J",Buildings and Grounds,Maintenance Mechanic II BLDG,Engineer CSEA 8-40,CSE,4773.19,0.0,4980.72,0.0,207.53,0.0,0.0,0.0,2025
+2025,"Edwards, Susan M",Safety Inspection / Inspectors,Building Permits Examiner,CSEA-Flex,CSE,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,2003
+2025,"Egan, Sean P",Headquarters,Lieutenant  Police-Towns and Village,SOA 8-40,SOA,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1991
+2025,"Ehlers, Richard A",Justice Court Elected,,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1982
+2025,"Eibs-Stankaitis, Jessica",PSD - Public Safet Disp,Public Safety Dispatcher I,PSD 8-40,CSE,44690.57,2448.38,77018.52,0.0,4538.7,0.0,1650.0,0.0,2012
+2025,"Elco, Melissa M",PSD - Public Safet Disp,Public Safety Dispatcher III,PSD 8-40,CSE,62835.42,3326.7,103300.09,5180.31,11141.96,0.0,1050.0,0.0,2005
+2025,"Ellington Liggon, Lisa",Nutrition,Homemaker,Part Time - TC Entry,NON,3402.75,0.0,3402.75,0.0,0.0,0.0,0.0,0.0,2025
+2025,"Ellis, John R",Recreation,Recreation Aide,NON-TIME,NON,4317.95,0.0,4317.95,0.0,0.0,0.0,0.0,0.0,2023
+2025,"Ellwood, Rachel L",Tax Collection,Account Clerk,CSEA 7-35,CSE,46198.71,0.0,57084.63,0.0,3049.61,400.0,0.0,0.0,2018
+2025,"Elmore, Ariel J",Recreation,Recreation Aide,NON-TIME,NON,5355.35,0.0,5355.35,0.0,0.0,0.0,0.0,0.0,2023
+2025,"Elmore, Kaitlin S",Recreation,Recreation Aide,NON-TIME,NON,5086.9,0.0,5086.9,0.0,0.0,0.0,0.0,0.0,2023
+2025,"Enaya, Mahmoud",Municipal Garage,Auto Mechanic II,CSEA 8-40,CSE,39877.44,346.03,43193.34,0.0,2306.7,0.0,0.0,0.0,2025
+2025,"Erick, Glenn",Squad 2 - Police,Police Officer,PBA 10-40,PBA,0.0,0.0,23304.68,0.0,0.0,0.0,23304.68,0.0,1989
+2025,"Erick, Linda M",MES - Medical Eval Squad,,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1989
+2025,"Evans, Sean M",Detectives,Detective,PBA 8-40,PBA,126285.44,23802.74,213848.11,6290.34,17021.16,2200.0,0.0,0.0,2012
+2025,"Fagan, Joanne",Town Attorney Clerical,Account Clerk,CSEA 7-35,CSE,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,2004
+2025,"Falci Rodriguez, Nestor J",Buildings and Grounds,Maintenance Mechanic II BLDG,Engineer CSEA 8-40,CSE,26330.35,0.0,29650.82,0.0,1452.71,0.0,0.0,0.0,2025
+2025,"Falisi, Robert T",Buildings and Grounds,Maintenance Mechanic II BLDG,Engineer CSEA 8-40,CSE,42999.37,879.82,58475.28,0.0,3002.11,0.0,0.0,0.0,2020
+2025,"Fandrey, Michael",Headquarters,,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1986
+2025,"Federbush, Karyne",PSD - Public Safet Disp,Public Safety Dispatcher I,PSD 8-40,CSE,264.96,0.0,264.96,0.0,0.0,0.0,0.0,0.0,2024
+2025,"Felice, Olivia F",PSD - Public Safet Disp,Public Safety Dispatcher I,PSD 8-40,CSE,23221.79,0.0,28554.06,0.0,4433.96,0.0,0.0,0.0,2025
+2025,"Ferrara, Angelo J",Sewer / Scavenger Waste,Maintenance Mechanic II SEWER,Sewer CSEA 8-40,CSE,14851.36,175.11,16748.44,0.0,1245.18,0.0,0.0,0.0,2025
+2025,"Ferris, Margaret L",Town Attorney Management,Town Personnel Officer,Contractual 7 with Comp30,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,2006
+2025,"Fideli, Baycan M",PMO - Parking Meter Officer,Traffic Control Specialist,Police Part Time,,20281.8,0.0,20281.8,0.0,0.0,0.0,0.0,0.0,2009
+2025,"Fink, Keith V",General Repairs Highway,Maintenance Mechanic IV HWY,Highway CSEA 8-40,CSE,53859.05,154.11,74627.32,2860.25,3826.27,0.0,0.0,0.0,2012
+2025,"Fink, William M",General Repairs Highway,Heavy Equipment Operator,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1994
+2025,"Fisher, Justin B",Information Technology,Technical Support Aide,CSEA-SuperFlex,CSE,44181.86,83.01,50776.89,0.0,2698.5,400.0,0.0,0.0,2024
+2025,"Fitzgerald, Kieran M",Squad 3 - Police,Police Officer,PBA 8-40,PBA,71260.61,6908.78,107963.95,0.0,11383.5,1200.0,0.0,-45.5,2023
+2025,"Fitzpatrick, Karina",Recreation,Lifeguard,NON-TIME,NON,150.5,0.0,150.5,0.0,0.0,0.0,0.0,0.0,2025
+2025,"Fleming, William M",PSD - Public Safet Disp,Public Safety Dispatcher II,PSD 8-40,CSE,62471.78,6599.32,87866.48,0.0,11954.56,0.0,0.0,0.0,1994
+2025,"Flynn, John L",Water Management,Asst Water Dist Superintendent Type I B,Contractual 8,NON,150791.75,0.0,154033.32,2626.57,0.0,615.0,0.0,0.0,2020
+2025,"Fogal, Arthur J",General Repairs Highway,Highway Labor Crew Leader,Highway CSEA 8-40,CSE,61641.79,547.07,89177.16,5824.27,4452.7,0.0,0.0,0.0,2001
+2025,"Foley, Patrick D",Nutrition,Maintenance Mechanic II - Seniors,Part Time - TC Entry,NON,17985.3,0.0,19887.72,0.0,1020.42,0.0,0.0,0.0,2021
+2025,"Foote, Frederick",MES - Medical Eval Squad,,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1970
+2025,"Fox, Robert H",Planning / Zoning / CAC/AARB,Member of Appointed Board,NON-TIME,,1540.0,0.0,1540.0,0.0,0.0,0.0,0.0,0.0,2009
+2025,"Franco, Lorecy L",P/T Police,Police Officer P/T Seasonal,Police Part Time,NON,9348.48,0.0,9348.48,0.0,0.0,0.0,0.0,0.0,2023
+2025,"Frankman, James P",Headquarters,,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1989
+2025,"Franks, Matthew D",General Repairs Highway,Automotive Equipment Operator,Highway CSEA 8-40,CSE,5933.3,307.92,6665.03,0.0,423.81,0.0,0.0,0.0,2025
+2025,"Frati, Logan P",COPE Comm Oriented Police Enforce,Police Officer,PBA 8-40,PBA,106627.14,21765.97,167343.91,0.0,13595.35,1950.0,0.0,-11.37,2019
+2025,"Fredricks, George J",Squad 3 - Police,,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1986
+2025,"Freeborn, David A",Detectives,,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1993
+2025,"Freeborn, Richard J",Detectives,Detective,PBA 8-40,PBA,49511.55,7498.36,214275.25,4826.3,12572.62,1100.0,14755.37,0.0,2001
+2025,"Friszolowski, Frances",Safety Inspection / Inspectors,Chief Office Assistant,CSEA 7-35,CSE,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1983
+2025,"Froehlich, Daniel S",Harbormaster I,Harbormaster I,Police Part Time,NON,24178.53,246.09,30905.49,0.0,1424.72,0.0,0.0,0.0,2021
+2025,"Froehlich, Muriel A",Town Clerk,,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1990
+2025,"Frost, Edward J",Headquarters,Police Chief III,Police Dept Head,,222718.63,0.0,298549.08,16653.57,28421.44,5976.26,18129.49,0.0,1994
+2025,"Frost, Garrett J",Recreation,Beach Attendant,NON-TIME,NON,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,2019
+2025,"Funn, Amari X",Recreation,Park Attendant II,NON-TIME,NON,1343.79,0.0,1343.79,0.0,0.0,0.0,0.0,0.0,2024
+2025,"Fusco, Marie J",Crossing Guards,School Crossing Guard,Police Part Time,NON,13985.0,0.0,13985.0,0.0,0.0,0.0,0.0,0.0,2018
+2025,"Gablenz, Brian T",Water,Water Treatment Plant Operator Type II B,Water CSEA 8-40,CSE,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,2005
+2025,"Gabriel, Michael A",Recreation,Lifeguard,NON-TIME,NON,2184.0,0.0,2184.0,0.0,0.0,0.0,0.0,0.0,2023
+2025,"Gabriele, Patrick M",PSD - Public Safet Disp,Public Safety Dispatcher I,PSD 10-40,CSE,50857.8,368.32,70905.38,0.0,9727.24,0.0,0.0,0.0,2023
+2025,"Gabrielsen, George E",Town Board Elected,Council Member,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,2009
+2025,"Gadzinski, Richard E",Safety Inspection / Inspectors,,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1988
+2025,"Gajowski, Mark A.",Highway Admin  Elected/Appointed,,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1989
+2025,"Galka, Madeline J",Crossing Guards,School Crossing Guard,Police Part Time,,18160.0,0.0,18160.0,0.0,0.0,0.0,0.0,0.0,2014
+2025,"Galka, Tara R",Safety Inspection / Clerical,Office Assistant,CSEA 7-35,CSE,15168.08,104.69,16766.31,0.0,488.55,0.0,0.0,0.0,2024
+2025,"Gallo, Thomas F",Sewer / Scavenger Waste,Wastewater Treatment Plant Operator 3A,Sewer CSEA 8-40,CSE,55071.85,105.06,76072.3,2924.93,3912.67,0.0,0.0,0.0,2013
+2025,"Garcia, Andrew",Recreation,Lifeguard,NON-TIME,NON,4513.6,0.0,4513.6,0.0,0.0,0.0,0.0,0.0,2023
+2025,"Garcia, Cloe A",Recreation,Recreation Aide,NON-TIME,NON,561.0,0.0,561.0,0.0,0.0,0.0,0.0,0.0,2024
+2025,"Gassert, Howard W",Sewer / Scavenger Waste,,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1991
+2025,"Gazzillo, Ralph T",Planning / Zoning / CAC/AARB,Member of Zoning Board Of Appeals,NON-TIME,NON,553.84,0.0,7200.0,0.0,0.0,0.0,0.0,0.0,2020
+2025,"Geraci, Douglas G",Squad 3 - Police,Police Officer,PBA 8-40,PBA,0.0,0.0,11115.07,0.0,0.0,0.0,11115.07,0.0,1993
+2025,"Giglione, Jett T",Traffic Control,Traffic Control Specialist,Police Part Time,NON,256.0,0.0,256.0,0.0,0.0,0.0,0.0,0.0,2024
+2025,"Giordano, Nancy L",Nutrition,Cook,CSEA 7-35,CSE,35571.5,67.59,42592.88,0.0,1961.42,400.0,0.0,0.0,2024
+2025,"Gleason, Brian",Headquarters,Sergeant Police-Towns and Village,SOA 10-40,SOA,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1988
+2025,"Gluth, Karin A",Planning Department,Planner,CSEA 7-35,CSE,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,2005
+2025,"Godsey, Bailey C",Recreation,Recreation Aide,NON-TIME,NON,6167.89,0.0,6167.89,0.0,0.0,0.0,0.0,0.0,2022
+2025,"Godzieba, Benjamin J",Water,Water District Maintenance Crew Leader,Water CSEA 10-40,CSE,63438.99,7360.11,90660.52,0.0,4329.12,0.0,1075.0,0.0,2019
+2025,"Goetz, Brandon L",Traffic Control,Traffic Control Specialist,Police Part Time,NON,1341.9,0.0,1341.9,0.0,0.0,0.0,0.0,0.0,2025
+2025,"Goff, Monique R",Nutrition,Mini-Bus Driver,Part Time - TC Entry,NON,11704.03,0.0,11704.03,0.0,0.0,0.0,0.0,0.0,2020
+2025,"Gradischer, Ava G",Recreation,Lifeguard,NON-TIME,NON,2433.9,0.0,2433.9,0.0,0.0,0.0,0.0,0.0,2021
+2025,"Gradischer, Kevin G",Squad 3 - Police,Police Officer,PBA 8-40,PBA,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,2004
+2025,"Grattan, Joseph",Headquarters,,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1963
+2025,"Green, Donald H",Squad 3 - Police,,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1973
+2025,"Green, Rose Christine",Recreation,Recreation Aide,NON-TIME,NON,5810.18,0.0,5810.18,0.0,0.0,0.0,0.0,0.0,2024
+2025,"Green, William J",Recreation,Recreation Aide,Part Time,NON,3918.7,0.0,3918.7,0.0,0.0,0.0,0.0,0.0,2023
+2025,"Greenwood, Frank",General Repairs Highway,Heavy Equipment Operator,Highway CSEA 8-40,CSE,51233.74,11.27,64847.35,2507.83,3352.03,0.0,0.0,0.0,2015
+2025,"Gregorovius, Eva",Purchasing,Purchasing Technician,CSEA 7-35,CSE,51046.47,0.0,63762.25,0.0,3319.71,400.0,1880.0,0.0,2022
+2025,"Griffin, Ethel Elizabeth",Nutrition,Mini-Bus Driver,CSEA 7-35,CSE,39434.76,76.14,48493.99,0.0,2480.77,400.0,1905.0,0.0,2017
+2025,"Griffin, Mark E",Safety Inspection / Inspectors,Building Inspector,CSEA 7-35,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1994
+2025,"Groneman, Andrew",Squad 5 - Police,Police Officer,PBA 8-40,PBA,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1989
+2025,"Grossman, August M",Headquarters,,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1970
+2025,"Grzegorczyk, Chester P",Buildings and Grounds,Maintenance Mechanic III BLDG,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,2001
+2025,"Haas, Mason E",Assessment Elected/Board,Member of Board Of Assessors,Elected,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,2007
+2025,"Haley, Robert H",Detectives,,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1984
+2025,"Hall, Joseph B",Planning Department,,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1988
+2025,"Halliday, David L",,,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1983
+2025,"Halpin, Patrick M",Water,Water Treatment Plant Operator Type II B,Water CSEA 10-40,CSE,0.0,0.0,200.0,0.0,200.0,0.0,0.0,0.0,2019
+2025,"Halpin, Robin L",Water,Senior Account Clerk,Water CSEA 7-35,CSE,55426.39,6845.8,83311.43,2853.09,3816.98,400.0,1905.0,0.0,2011
+2025,"Hamilton, Jeffrey G",Headquarters,Police Officer,PBA 8-40,PBA,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1991
+2025,"Hanley, Richard",Planning Department,,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1978
+2025,"Hansen, Denise M.",,,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,2007
+2025,"Hansen, Jaidin L",Recreation,Recreation Aide,NON-TIME,NON,3687.69,0.0,3687.69,0.0,0.0,0.0,0.0,0.0,2023
+2025,"Harden, Jordan C",Recreation,Asst Recreation Program Coordinator,REC CSEA 7-35,CSE,52544.45,2570.5,73062.46,0.0,3473.77,400.0,2923.75,0.0,2007
+2025,"Harris, Christopher F",Recreation,Park Attendant II,NON-TIME,NON,1373.88,0.0,1373.88,0.0,0.0,0.0,0.0,0.0,2022
+2025,"Harris, Melina N",Accounting,Student Intern II,Part Time - TC Entry,NON,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,2019
+2025,"Hart, Liam A",Recreation,Lifeguard,NON-TIME,NON,1214.75,0.0,1214.75,0.0,0.0,0.0,0.0,0.0,2025
+2025,"Hartmann, Joseph J",Sewer / Scavenger Waste,Wastewater Trt Plnt Operator Trainee,Sewer CSEA 8-40,CSE,44249.96,428.87,62018.96,0.0,3038.92,0.0,3016.25,0.0,2024
+2025,"Hatcher, Alan C",Water,Maintenance Mechanic III Water,Water CSEA 8-40,CSE,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,2008
+2025,"Hattorff, Matthew E",Sewer / Scavenger Waste,Sr Waste Water Trmt Plant Operator IIIA,Sewer CSEA 8-40,CSE,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1986
+2025,"Hayes, Jarrod P",General Repairs Highway,Construction Equip Operator,Highway CSEA 8-40,CSE,52230.96,994.64,82756.02,3584.04,3835.77,0.0,6865.98,0.0,2007
+2025,"Hazzard, Rebecca J",Assessment,Senior Assessment Clerk,CSEA 7-35,CSE,46136.31,0.0,59364.39,2279.74,3049.61,400.0,0.0,0.0,2014
+2025,"Heck, Addison Rose",Recreation,Beach Attendant,NON-TIME,NON,3010.23,0.0,3010.23,0.0,0.0,0.0,0.0,0.0,2024
+2025,"Hecker, Jill",Justice Court,Justice Court Clerk,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,2008
+2025,"Hegermiller, David J",Headquarters,Police Chief III,Police Dept Head,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1981
+2025,"Heigh, Michael D",Recreation,Recreation Specialist,NON-TIME,NON,240.98,0.0,240.98,0.0,0.0,0.0,0.0,0.0,2024
+2025,"Heller, Branden H",Headquarters,Police Officer,PBA 8-40,PBA,117673.38,2917.35,167846.14,7231.92,9875.16,1200.0,0.0,0.0,2004
+2025,"Henderson, Damion D",Buildings and Grounds,Custodial Worker II,Engineer CSEA 8-40,CSE,45430.38,2582.56,62401.67,0.0,4975.47,0.0,0.0,0.0,2023
+2025,"Henry, Michael J",Detectives,Detective,PBA 8-40,PBA,100271.43,16391.87,222146.13,11770.27,17423.02,2200.0,0.0,0.0,1996
+2025,"Heppner, Mark G",,,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1989
+2025,"Herb, Gwendolyn A",Recreation,Recreation Aide,NON-TIME,NON,4567.51,0.0,4567.51,0.0,0.0,0.0,0.0,0.0,2025
+2025,"Hernandez, Frank",Detectives,Detective,PBA 8-40,PBA,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1988
+2025,"Herr, Emily A",Recreation,Lifeguard,NON-TIME,NON,4731.8,0.0,4731.8,0.0,0.0,0.0,0.0,0.0,2023
+2025,"Herr, Ryan C",Recreation,Lifeguard,NON-TIME,NON,3953.6,0.0,3953.6,0.0,0.0,0.0,0.0,0.0,2023
+2025,"Herrera, Danny",Traffic Control,Traffic Control Specialist,Police Part Time,NON,22736.07,0.0,22917.77,0.0,0.0,0.0,0.0,181.7,2024
+2025,"Higgins, Devon M",Supervisor Clerical,Deputy Supervisor,Contractual 7,NON,101622.62,0.0,101622.62,0.0,0.0,0.0,0.0,0.0,2020
+2025,"Hill, Harry",Squad 5 - Police,Sergeant Police-Towns and Village,SOA 8-40,SOA,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1991
+2025,"Hobson-Womack, Evelyn J",Squad 5 - Police,Detective,PBA 8-40,PBA,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1993
+2025,"Hodun, Heather N",Safety Inspection / Clerical,Principal Office Assistant,CSEA 7-35,CSE,43205.85,8684.5,62406.37,0.0,2851.57,400.0,0.0,0.0,2021
+2025,"Hodun, Mark A",Sewer / Scavenger Waste,Wastewater Treatment Plant Operator IIA,Sewer CSEA 8-40,CSE,48693.55,375.17,60519.8,0.0,3160.84,0.0,0.0,0.0,2021
+2025,"Hoffman, Daniel J",COPE Comm Oriented Police Enforce,Police Officer,PBA 8-40,PBA,117772.49,15945.93,179243.53,0.0,15483.27,1200.0,0.0,0.0,2016
+2025,"Hogan, Daniel J",Detectives,Detective,PBA 8-40,PBA,114426.36,33673.7,242917.33,6299.18,17344.43,7382.38,15458.2,0.0,2012
+2025,"Hogan, Jeanne M",Assessment Elected/Board,Member of Board Of Assessors,Part Time,APT,1200.0,0.0,1200.0,0.0,0.0,0.0,0.0,0.0,2015
+2025,"Hogan, John",Planning / Zoning / CAC/AARB,Member of Planning Board,Part Time,APT,903.84,0.0,11750.0,0.0,0.0,0.0,0.0,0.0,2023
+2025,"Horl, Dennis J",Water,Maintenance Mechanic II Water,Water CSEA 8-40,CSE,4565.66,875.53,5441.19,0.0,0.0,0.0,0.0,0.0,2025
+2025,"Hotchkiss, Cheryl J",Assessment,Senior Assessment Clerk,CSEA 7-35,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,2001
+2025,"Houston, Edna M",Supervisor Clerical,,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1998
+2025,"Howard, Erik C.",Town Attorney Appointed,Town Attorney,Contractual 7,NON,168895.94,0.0,184883.98,0.0,0.0,5976.26,10011.78,0.0,2017
+2025,"Hubbard, Caroline A",Nutrition,Homemaker,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1993
+2025,"Hubbard, Erin M",Recreation,Recreation Aide,NON-TIME,NON,4751.26,0.0,4751.26,0.0,0.0,0.0,0.0,0.0,2024
+2025,"Hubbard, Gary A",Buildings and Grounds,Maintenance Mechanic V BLDG,Engineer CSEA 8-40,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1996
+2025,"Hubbard, Gina I",Sewer / Scavenger Waste,Senior Account Clerk,Sewer CSEA 7-35,CSE,52991.08,3512.94,79293.56,4896.36,3743.16,400.0,900.0,0.0,2001
+2025,"Hubbard, Jason S",Water,Sr Water Trt. Plant Operator IIB,Water CSEA 10-40,CSE,65958.64,0.0,91617.36,6023.71,3945.63,0.0,0.0,0.0,1999
+2025,"Hubbard, Robert E",Buildings and Grounds,Maintenance Mechanic II BLDG,Engineer CSEA 8-40,CSE,58487.37,158.9,82079.36,5383.92,4113.44,0.0,0.0,0.0,1994
+2025,"Hubbard, Timothy C",Supervisor Elected,Supervisor,Elected,ELE,118919.0,0.0,128522.8,0.0,0.0,0.0,0.0,0.0,1985
+2025,"Hulse, Lori M",Justice Court Elected,Town Justice,Elected,,93800.0,0.0,99562.28,0.0,0.0,0.0,0.0,0.0,2016
+2025,"Hulse, Pamla A",Town Attorney Clerical,Code Compliance Coordinator,CSEA 7-35,CSE,51781.82,0.0,60818.33,0.0,3254.91,400.0,0.0,0.0,2024
+2025,"Hurley, Danielle",Town Attorney Appointed,Deputy Town Attorney,Contractual 7,NON,135588.75,0.0,150215.96,0.0,0.0,5976.26,8609.8,41.15,2022
+2025,"Iannacchino, Cristina I",Recreation,Lifeguard,Recreation PT Seasonal,NON,2921.0,0.0,2921.0,0.0,0.0,0.0,0.0,0.0,2014
+2025,"Imwalle, Johanna",Recreation,Lifeguard,Recreation PT Seasonal,,4627.57,0.0,4627.57,0.0,0.0,0.0,0.0,0.0,1995
+2025,"Inghingolo, Michael Anthony",Safety Inspection / Inspectors,Building Inspector,CSEA 7-35,CSE,69389.27,9869.93,90830.9,0.0,4245.05,400.0,1650.0,0.0,2017
+2025,"Isgro, Dino",Headquarters,Lieutenant  Police-Towns and Village,SOA 8-40,SOA,163025.16,7249.39,268073.18,13107.87,18804.51,1100.0,25201.56,0.0,2005
+2025,"Jaeger, Billie Jo",Police Clerical,Account Clerk,Police CSEA 7-35,CSE,51425.17,0.0,71451.55,3405.44,3644.78,400.0,0.0,0.0,1999
+2025,"James, Christopher R",Headquarters,Police Officer,PBA 8-40,PBA,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1995
+2025,"Johnson, Julianna L",Nutrition,Cook,CSEA 7-35,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,2000
+2025,"Johnson, Kassidy J",Recreation,Beach Attendant,NON-TIME,NON,459.0,0.0,459.0,0.0,0.0,0.0,0.0,0.0,2025
+2025,"Jones, Jeremy B",Building / Planning Management,Building Plans Examiner,CSEA 7-35,CSE,7655.06,1287.8,9543.66,0.0,500.8,100.0,0.0,0.0,2025
+2025,"Kaelin, Lily A",Tax Collection,Office Assistant,Part Time - TC Entry,NON,1354.13,0.0,1414.51,0.0,0.0,0.0,0.0,0.0,2023
+2025,"Kaiser, Louis A",General Repairs Highway,Automotive Equipment Operator,Highway CSEA 8-40,CSE,48956.67,3102.92,60899.45,0.0,3109.39,0.0,0.0,0.0,2020
+2025,"Kantor, Melissa",Safety Inspection / Inspectors,Building Permits Examiner,CSEA-Flex,CSE,14190.21,2858.03,21344.53,0.0,790.75,0.0,0.0,0.0,2022
+2025,"Keating, Liam Clarke",Fire Marshal,Fire Marshal I,CSEA 7-35 30DED,CSE,70622.58,20410.24,116236.77,0.0,4363.27,0.0,0.0,0.0,2023
+2025,"Keating, Wesley R",Recreation,Recreation Aide,NON-TIME,NON,6337.68,0.0,6337.68,0.0,0.0,0.0,0.0,0.0,2022
+2025,"Keegan, William J",Headquarters,Police Officer,PBA 8-40,PBA,112065.41,927.63,186431.05,10263.3,11960.19,1200.0,15458.2,0.0,2006
+2025,"Keeney, Susan S",Safety Inspection / Inspectors,,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1966
+2025,"Kellar, John P",Water,Water Treatment Plant Operator Type II B,Water CSEA 8-40,CSE,52788.73,232.1,98620.26,5653.76,4941.01,0.0,0.0,0.0,2005
+2025,"Keller, Brian",Detectives,,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1973
+2025,"Keller, Daniel Martin",Water,Sr Water Treamt Plant Operator Type I B,Water CSEA 8-40,CSE,74646.34,4202.7,103898.27,0.0,5059.9,0.0,0.0,0.0,2016
+2025,"Keller, Elizabeth A.",Community Development Clerical,Community Development Program Analyst,CSEA 7-35,CSE,57062.33,0.0,71459.29,0.0,3719.0,400.0,1905.0,0.0,2000
+2025,"Kelvas, Stephen D",Water,Water Treatment Plant Operator Type II B,Part Time - TC Entry,NON,4222.54,0.0,4222.54,0.0,0.0,0.0,0.0,0.0,2022
+2025,"Kern, Robert E",Town Board Elected,Council Member,NON-TIME,NON,50558.0,0.0,56320.28,0.0,0.0,0.0,0.0,0.0,2022
+2025,"Kiel, Michael G",Buildings and Grounds,Groundskeeper II,Engineer CSEA 8-40,CSE,24057.15,0.0,33449.62,0.0,1406.5,0.0,0.0,-760.21,2024
+2025,"King, Susan B",Recreation,Recreation Specialist,NON-TIME,NON,322.15,0.0,322.15,0.0,0.0,0.0,0.0,0.0,2014
+2025,"Kinghan, John E",Police Clerical,Network and Systems Specialist II,Police CSEA 7-35,CSE,52994.17,2055.5,101361.63,0.0,2914.72,0.0,2276.12,0.0,2016
+2025,"Kirsch, Alex P.",Sewer / Scavenger Waste,Sr Waste Water Trmt Plant Operator IIIA,Sewer CSEA 8-40,CSE,68257.66,5685.1,84282.01,0.0,2717.6,0.0,2705.17,0.0,2020
+2025,"Kitz, Michael G.",Squad 2 - Police,Police Officer,PBA 10-40,PBA,111314.14,995.65,167412.12,0.0,18597.74,1200.0,0.0,0.0,2016
+2025,"Klein, Charles",Nutrition,Senior Cook,CSEA 7-35,CSE,36401.22,0.0,52977.2,0.0,2825.01,400.0,0.0,0.0,2016
+2025,"Klos Klein, Sharon E",Safety Inspection / Inspectors,,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1993
+2025,"Kochanskyj, Kyle C",Water,Maintenance Mechanic II Water,Water CSEA 8-40,CSE,31112.55,215.24,47143.98,0.0,1996.3,0.0,855.0,0.0,2023
+2025,"Kolyer, Zachary T",Squad 3 - Police,Police Officer,PBA 8-40,PBA,71868.54,4056.29,120058.73,0.0,11551.52,1200.0,6713.31,-16.89,2022
+2025,"Komosinski, Mary E",Recreation,Recreation Specialist,Police CSEA 7-35,NON,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1983
+2025,"Kornafel, Cheryl A",Police Clerical,Account Clerk,Police CSEA 7-35,CSE,50633.54,0.0,75727.96,4950.69,3787.28,400.0,0.0,0.0,2005
+2025,"Kowalski, Chester J",Buildings and Grounds,Maintenance Mechanic II BLDG,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1983
+2025,"Kozakiewicz, Robert F",Town Attorney Appointed,Town Attorney,Contractual 7 with Comp,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1994
+2025,"Krajewski, Joann M",Safety Inspection / Inspectors,Senior Account Clerk Typist,CSEA-Flex,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1990
+2025,"Kramer, Logan M",Recreation,Park Attendant I,NON-TIME,NON,3168.5,0.0,3168.5,0.0,0.0,0.0,0.0,0.0,2025
+2025,"Krause, William H",Squad 3 - Police,Police Officer,PBA 8-40,PBA,73911.85,19778.45,120821.49,0.0,11383.5,1200.0,0.0,-56.87,2023
+2025,"Kreymborg, Henry O",Information Technology,Network & Systems Coordinator,Contractual 7,NON,133209.28,0.0,133209.28,0.0,0.0,0.0,0.0,0.0,2020
+2025,"Kruger, Thomas W",Water,Sr Water Treamt Plant Operator Type I B,Water CSEA 8-40,CSE,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1988
+2025,"Kujawski, Robert",Planning / Zoning / CAC/AARB,Member of Appointed Board,NON-TIME,,1540.0,0.0,1540.0,0.0,0.0,0.0,0.0,0.0,1999
+2025,"Kurpetski, John",Headquarters,,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1966
+2025,"Kwasna, Kendal Marie",Recreation,Assistant Recreation Leader,NON-TIME,NON,5094.16,0.0,5094.16,0.0,0.0,0.0,0.0,0.0,2018
+2025,"Kwasna, Mark A",Highway Admin  Elected/Appointed,Superintendant Of Highways,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1996
+2025,"LaRocco, Paul A",Water,Water Treatment Plant Oper Trainee,Water CSEA 8-40,CSE,15909.11,1027.92,19301.91,0.0,1289.94,0.0,0.0,0.0,2025
+2025,"Lagnena, Peter L",Recreation,Recreation Aide,NON-TIME,NON,346.5,0.0,346.5,0.0,0.0,0.0,0.0,0.0,2024
+2025,"Lagun, Magdalena E",Nutrition,Homemaker,Part Time,NON,11214.57,0.0,13526.95,0.0,1078.74,0.0,0.0,0.0,2016
+2025,"Laight, James E",Recreation,Assistant Beach Manager,NON-TIME,NON,5479.69,0.0,5479.69,0.0,0.0,0.0,0.0,0.0,2021
+2025,"Langan, Kelly R",Recreation,Recreation Leader,NON-TIME,NON,8411.0,0.0,8411.0,0.0,0.0,0.0,0.0,0.0,2018
+2025,"Langan, Sean P",Recreation,Recreation Aide,NON-TIME,NON,3718.76,0.0,3718.76,0.0,0.0,0.0,0.0,0.0,2025
+2025,"Laporte, Raymond D",Detectives,Police Officer,PBA 8-40,PBA,119096.99,11914.21,186906.1,8797.09,15126.24,1950.0,0.0,0.0,2008
+2025,"Lazar, Anthony J",Squad 4 - Police,Police Officer,PBA 8-40,PBA,60792.04,5799.87,86505.76,0.0,10665.68,1500.0,0.0,22.36,2024
+2025,"LeCann, Vanessa R",Town Clerk,Deputy Town Clerk,Contractual 7 - 30DED,APT,55964.41,0.0,56962.52,0.0,0.0,995.92,0.0,2.19,2024
+2025,"Lech, Michael",Sewer / Scavenger Waste,Sr Waste Water Trmt Plant Operator IIIA,Sewer CSEA 8-40,CSE,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1989
+2025,"Lefebvre, Dana S",Squad 3 - Police,Police Officer,PBA 8-40,PBA,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,2001
+2025,"Leja, Charles",Water,Water District Maintenance Crew Leader,Water CSEA 8-40,CSE,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1983
+2025,"Lennon, Patrick J",Squad 1 - Police,Police Officer,PBA 10-40,PBA,109471.64,1190.79,193881.09,10263.3,18928.81,1200.0,15458.2,0.0,2005
+2025,"Leo, Joseph A",Recreation,Lifeguard,NON-TIME,NON,2507.8,0.0,2507.8,0.0,0.0,0.0,0.0,0.0,2024
+2025,"Leonardi, William P",Squad 5 - Police,Police Officer,PBA 8-40,PBA,66658.09,5064.28,100377.04,0.0,10616.1,1200.0,6791.04,0.0,2019
+2025,"Lescenski, Christopher J",General Repairs Highway,Construction Equip Operator,Highway CSEA 8-40,CSE,56386.01,854.99,77107.92,3621.11,3875.47,0.0,0.0,0.0,2007
+2025,"Lessard, David L",Headquarters,Lieutenant  Police-Towns and Village,SOA 8-40,SOA,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1988
+2025,"Lessard, Thomas D",Squad 4 - Police,Sergeant Police-Towns and Village,SOA 8-40,SOA,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1989
+2025,"Leszczynski, Paul E",Assessment Elected/Board,Member of Board Of Assessors,Elected,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1999
+2025,"Letson, John A",Water,Water Treatment Plant Operator Type II B,Water CSEA 8-40,CSE,37787.87,0.0,69976.21,6169.28,2690.42,0.0,0.0,0.0,1999
+2025,"Levanti, Salvatore G",Sewer / Scavenger Waste,Wastewater Trt Plnt Operator Trainee,Sewer CSEA 8-40,CSE,38180.53,806.21,43363.78,0.0,1504.93,0.0,450.0,0.0,2025
+2025,"Levanti, Samantha L",Police Clerical,Account Clerk,Police CSEA 7-35,CSE,31429.13,0.0,34829.99,0.0,1717.29,300.0,375.0,0.0,2025
+2025,"Lewin, Duane B",Planning / Zoning / CAC/AARB,Member of Appointed Board,NON-TIME,,1540.0,0.0,1540.0,0.0,0.0,0.0,0.0,0.0,2003
+2025,"Lewis, Jill S",Supervisor Clerical,Deputy Supervisor,Contractual 7 with Comp30,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,2004
+2025,"Licata, Olivia",Recreation,Beach Attendant,NON-TIME,NON,2719.61,0.0,2719.61,0.0,0.0,0.0,0.0,0.0,2024
+2025,"Ligon, Michaela R",Recreation,Recreation Aide,NON-TIME,NON,5283.31,0.0,5283.31,0.0,0.0,0.0,0.0,0.0,2019
+2025,"Liles, Charles J",General Repairs Highway,Automotive Equipment Operator,Highway CSEA 8-40,CSE,44165.59,611.53,56675.69,0.0,2996.62,0.0,0.0,0.0,2024
+2025,"Linnen, Brian A",Buildings and Grounds,Custodial Worker III,CSEA 8-40,CSE,47698.86,916.35,62289.9,0.0,2989.48,0.0,0.0,0.0,2021
+2025,"Lipinsky, Eric C",Squad 4 - Police,Police Officer,PBA 8-40,PBA,102870.04,17957.99,195849.47,8797.09,20813.39,1200.0,0.0,0.0,2007
+2025,"Lipinsky, Meredith B",Assessment Elected/Board,Member of Board Of Assessors,Elected,NON,93038.0,0.0,98800.28,0.0,0.0,5762.28,0.0,0.0,2020
+2025,"Lismanis, Anita",Headquarters,,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1989
+2025,"Loggia, Joseph C",Detectives,,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1981
+2025,"Lojko, Michael J",Headquarters,Police Officer,PBA 8-40,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1996
+2025,"Lombardo, Michael",Squad 5 - Police,Police Officer,PBA 8-40,PBA,0.0,0.0,28965.74,0.0,0.0,0.0,28965.74,0.0,1995
+2025,"Long, Thomas",MES - Medical Eval Squad,,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1989
+2025,"Lopez, Patricia A",PSD - Public Safet Disp,Public Safety Dispatcher I,PSD 10-40,,46745.1,395.25,77734.31,0.0,11963.56,0.0,0.0,0.0,2017
+2025,"Loszewski, Patryk",COPE Comm Oriented Police Enforce,Police Officer,PBA 8-40,PBA,110550.26,6158.94,176875.27,5864.76,15247.9,1950.0,0.0,0.0,2012
+2025,"Luppens, James M",Squad 4 - Police,Police Officer,PBA 8-40,PBA,74895.15,9536.42,131794.88,0.0,12558.06,1200.0,0.0,181.29,2021
+2025,"Luppens, Jonathan J",P/T Police,Police Officer P/T Seasonal,Police Part Time,NON,4908.0,0.0,4908.0,0.0,0.0,0.0,0.0,0.0,2023
+2025,"Lyczkowski, Donna M",Recreation,,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1982
+2025,"Lydon, James M",Squad 3 - Police,Police Officer,PBA 8-40,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1981
+2025,"Lynch, Thomas R",Headquarters,,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1981
+2025,"Lynn, Maureen T",Water,,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1982
+2025,"Mabanta, Kristin A",Justice Court,Justice Court Clerk,CSEA 7-35,CSE,46627.59,0.0,56462.34,0.0,2967.6,400.0,900.0,0.0,2021
+2025,"MacIntosh, George J",Buildings and Grounds,Maintenance Mechanic IV BLDG,Engineer CSEA 8-40,CSE,35672.34,8073.34,75229.59,0.0,3483.38,0.0,1650.0,0.0,2019
+2025,"Maccabee, Kevin",Code Enforcement,,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,2006
+2025,"Maccagli, Elizabeth C",Juvenile Aide Bureau / Police,Youth Counselor,Police CSEA 7-35,CSE,43837.3,3072.76,96548.18,4090.21,4359.57,400.0,7835.64,0.0,2007
+2025,"Mackie, Sean",Squad 2 - Police,Police Officer,PBA 10-40,PBA,104968.47,5354.4,179754.07,7158.68,19422.23,1200.0,0.0,0.0,2010
+2025,"Maffia, Michael",,,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,2003
+2025,"Magee, Penelope M",Nutrition,Mini-Bus Driver,CSEA 7-35,CSE,45989.37,42.6,57414.29,2075.29,2776.24,400.0,3037.83,0.0,2015
+2025,"Maichin, Jordyn R",PSD - Public Safet Disp,Public Safety Dispatcher I,PSD 8-40,CSE,24194.98,0.0,28548.71,0.0,4114.2,0.0,0.0,0.0,2025
+2025,"Maiorana, Joseph A",Community Development Clerical,Asst Community Dev Project Super,CSEA 7-35,CSE,94150.74,493.22,135934.18,8410.23,6428.77,400.0,6904.95,0.0,1994
+2025,"Makarewicz, Alexander Matthew",Recreation,Lifeguard,NON-TIME,NON,2145.61,0.0,2145.61,0.0,0.0,0.0,0.0,0.0,2024
+2025,"Makarewicz, Zachary T",Recreation,Lifeguard,NON-TIME,NON,913.75,0.0,913.75,0.0,0.0,0.0,0.0,0.0,2025
+2025,"Malahias, George",Community Development Clerical,,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1989
+2025,"Mammina, Nicholas S.",General Repairs Highway,Automotive Equipment Operator,Highway CSEA 8-40,CSE,47732.22,507.29,56229.49,0.0,2996.62,0.0,0.0,0.0,2019
+2025,"Mancini, Frank R",Water Management,Water District Superintendant Type I B,Contractual 8,NON,182619.47,0.0,190820.92,3652.51,0.0,690.0,3858.94,0.0,2019
+2025,"Mannetta, Lucia A",Recreation,,NON-TIME,NON,570.15,0.0,570.15,0.0,0.0,0.0,0.0,0.0,2025
+2025,"Mansibang, Randy John R.",Court Officers,Court Officer,Police Part Time,NON,7081.76,0.0,7081.76,0.0,0.0,0.0,0.0,0.0,2018
+2025,"Marcucci, Isabella M",,,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,2023
+2025,"Marcus, Xavier Lavern",Recreation,Recreation Specialist,NON-TIME,NON,201.25,0.0,201.25,0.0,0.0,0.0,0.0,0.0,2025
+2025,"Marshak, Dionne A",Town Attorney Management,Personnel Assistant,Contractual 7 - 30DED,NON,74229.73,0.0,74229.73,0.0,0.0,0.0,0.0,0.0,2019
+2025,"Marsland, Frederick H",Nutrition,Recreation Leader,Part Time,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,2005
+2025,"Matlak, John",Squad 3 - Police,,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1988
+2025,"Mauceri, Charles F",Detectives,Detective,PBA 8-40,PBA,113142.89,16248.64,238033.41,11770.27,17423.02,2200.0,15134.87,0.0,2001
+2025,"May, Nicholas R",Water,Water Treatment Plant Operator Type II B,Water CSEA 10-40,CSE,52283.34,133.65,64475.76,0.0,3989.1,0.0,0.0,0.0,2017
+2025,"Mazzo, Lawrence",,,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1987
+2025,"Mc Evoy, Suzanne",Nutrition,,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1986
+2025,"McCabe, Sean M",Planning / Zoning / CAC/AARB,Member of Appointed Board,Sewer CSEA 8-40,APT,1940.0,0.0,1940.0,0.0,0.0,0.0,0.0,0.0,2002
+2025,"McClintock, Kaitlyn N",,,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,2023
+2025,"McDermott, Patrick O",Detectives,Detective Sergeant,SOA 8-40,SOA,149081.08,28409.33,380613.36,12502.48,14164.93,5872.43,140862.21,0.0,2006
+2025,"McDonald, Owen",Headquarters,,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1969
+2025,"McGarrity, Brian K",General Repairs Highway,Automotive Equipment Operator,Highway CSEA 8-40,CSE,2119.02,9.93,2128.95,0.0,0.0,0.0,0.0,0.0,2025
+2025,"McGoey, Janice L",Municipal Garage,Account Clerk Typist,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,2002
+2025,"McGuire, Lauren K",Squad 5 - Police,Police Officer,PBA 8-40,PBA,87740.06,11270.03,149654.12,0.0,13684.01,1200.0,6713.31,0.0,2021
+2025,"McGunnigle, Thomas S",Recreation,Recreation Aide,NON-TIME,NON,5363.94,0.0,5363.94,0.0,0.0,0.0,0.0,0.0,2024
+2025,"McIntosh, Megan E",Recreation,Beach Attendant,NON-TIME,NON,5925.0,0.0,5925.0,0.0,0.0,0.0,0.0,0.0,2019
+2025,"McKay, Brianne E",Recreation,Recreation Aide,NON-TIME,NON,4002.86,0.0,4002.86,0.0,0.0,0.0,0.0,0.0,2024
+2025,"McKay, Margaret",Highway Admin Clerical,Account Clerk,Highway CSEA 7-35,CSE,61251.41,897.78,84835.74,4813.39,3679.84,400.0,3951.88,0.0,2002
+2025,"McKay, Steven C",Buildings and Grounds,Grounds Maintenance Supervisor,Engineer CSEA 8-40,CSE,70275.05,5093.58,100601.2,6197.23,4737.79,1250.0,0.0,0.0,2000
+2025,"McLaughlin, Frederick J",Planning / Zoning / CAC/AARB,Member of Zoning Board Of Appeals,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1996
+2025,"McMillon, Danny T",Buildings and Grounds,Maintenance Mechanic II BLDG,Engineer CSEA 8-40,CSE,10613.77,112.77,22162.94,0.0,855.73,0.0,0.0,0.0,2019
+2025,"McNeill, John E",Planning / Zoning / CAC/AARB,Member of Appointed Board,Part Time,APT,1500.0,0.0,1500.0,0.0,0.0,0.0,0.0,0.0,2024
+2025,"McQuade, Liam J",Recreation,Beach Attendant,NON-TIME,NON,131.75,0.0,131.75,0.0,0.0,0.0,0.0,0.0,2025
+2025,"McWilliams, Ryan D",General Repairs Highway,Automotive Equipment Operator,Highway CSEA 8-40,CSE,44555.47,320.5,56830.47,0.0,2996.62,0.0,0.0,0.0,2024
+2025,"Melvin, Lauren Elizabeth",Recreation,Beach Attendant,NON-TIME,NON,6836.76,0.0,6836.76,0.0,0.0,0.0,0.0,0.0,2024
+2025,"Merker, William D",Street Lighting,Maintenance Mechanic III BLDG,Engineer CSEA 8-40,CSE,62824.0,3348.83,105977.09,5378.1,4195.11,3000.0,7359.2,0.0,2004
+2025,"Messina, Frank G",Community Development Clerical,Grants Analyst,CSEA 7-35,CSE,75054.94,37.56,99258.81,4574.38,4874.44,400.0,3505.27,0.0,2009
+2025,"Mettrock, James R",Squad 5 - Police,Police Officer,PBA 8-40,PBA,91778.25,10832.51,130936.72,0.0,12869.77,1200.0,0.0,-152.83,2022
+2025,"Meyer, Gina Lisa Marie",Squad 5 - Police,Police Officer,PBA 8-40,PBA,57485.24,4872.75,79499.84,0.0,8869.36,1200.0,0.0,0.0,2024
+2025,"Milden, Leon D",Buildings and Grounds,,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1980
+2025,"Miles, Oliver W",Water,,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1978
+2025,"Miller, Bailey M",Tax Collection,Office Assistant,Part Time - TC Entry,NON,2622.0,0.0,2656.5,0.0,0.0,0.0,0.0,0.0,2025
+2025,"Miller, Benjamin",General Repairs Highway,Construction Equip Operator,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1987
+2025,"Miller, Brittney Leigh",Accounting,Budget Assistant,CSEA 7-35,CSE,54092.06,61.71,62786.07,0.0,3306.76,400.0,855.0,0.0,2022
+2025,"Miller, James D",Traffic Control,Traffic Control Specialist,Police Part Time,NON,2255.4,0.0,2255.4,0.0,0.0,0.0,0.0,0.0,2025
+2025,"Miller, Lorraine",Police Clerical,Account Clerk Typist,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1985
+2025,"Miller, Ralph S",Water,,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1969
+2025,"Mills, Brian D",Assessment Elected/Board,Member of Appointed Board,NON-TIME,APT,1300.0,0.0,1300.0,0.0,0.0,0.0,0.0,0.0,2010
+2025,"Miloski, Jean M",Accounting,Principal Account Clerk,CSEA-Flex 30DED,CSE,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1983
+2025,"Milton, Kae'son",Recreation,Park Attendant II,NON-TIME,NON,5022.45,0.0,5022.45,0.0,0.0,0.0,0.0,0.0,2018
+2025,"Moisa, William W",Headquarters,,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1962
+2025,"Montalbano, Anthony S",Squad 4 - Police,Sergeant Police-Towns and Village,SOA 8-40,SOA,144189.01,25244.4,258784.49,6969.4,21137.84,1100.0,27505.64,0.0,2013
+2025,"Montaperto, Andrea",Traffic Control,Traffic Control Specialist,Police Part Time,NON,20816.44,0.0,20816.44,0.0,0.0,0.0,0.0,0.0,2024
+2025,"Montefusco, Cole R",Squad 1 - Police,Police Officer,PBA 10-40,PBA,93596.88,2770.78,145131.81,0.0,17098.23,1200.0,6713.31,0.0,2017
+2025,"Montella, Michael V",Accounting,Principal Accountant,Contractual 7,NON,86058.83,112.43,93828.16,0.0,3489.63,366.67,900.0,0.0,2024
+2025,"Monti, Thomas M",Squad 3 - Police,Police Officer,PBA 8-40,PBA,78910.11,3841.59,136808.49,0.0,15005.47,1200.0,0.0,0.0,2021
+2025,"Moore, Tammy J",Police Clerical,Principal Office Assistant,Police CSEA 7-35,CSE,50196.44,0.0,60835.77,0.0,3245.0,400.0,0.0,0.0,2020
+2025,"Moran, Kevin Patrick",Recreation,Park Attendant II,NON-TIME,NON,1387.9,0.0,1387.9,0.0,0.0,0.0,0.0,0.0,2024
+2025,"Moreno, Joseph A",General Repairs Highway,Construction Equip Operator,Highway CSEA 8-40,CSE,51155.88,1082.17,75966.98,3584.04,3835.77,0.0,0.0,0.0,2008
+2025,"Morris, John A",K-9,Police Officer,PBA 8-40,PBA,102681.47,9511.1,197964.11,10263.3,18813.33,7200.0,0.0,0.0,2002
+2025,"Morrissey, Roberta J",Justice Court,Justice Court Director,CSEA 7-35,CSE,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1996
+2025,"Mosca, Adrianna N",Recreation,Recreation Aide,NON-TIME,NON,6833.92,0.0,6833.92,0.0,0.0,0.0,0.0,0.0,2023
+2025,"Mottern, George E",Buildings and Grounds,Custodial Worker I,Engineer CSEA 8-40,NON,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,2002
+2025,"Mottern, Joan C",Highway Admin Clerical,Administrative Assistant,CSEA-Flex,CSE,48252.3,1049.62,105683.01,5649.85,4318.31,400.0,16362.09,0.0,2005
+2025,"Mowdy, Michael W",Squad 5 - Police,Police Officer,PBA 8-40,PBA,102205.26,19602.78,208143.6,10263.3,14551.11,1200.0,15458.2,0.0,1996
+2025,"Mudzinski, Matthew J",Squad 4 - Police,Police Officer,PBA 8-40,PBA,104362.98,8070.19,182146.94,10263.3,15532.26,1200.0,0.0,0.0,2006
+2025,"Muir, Michael I",General Repairs Highway,Automotive Equipment Operator,Highway CSEA 8-40,CSE,43669.35,1013.89,56858.16,0.0,2996.62,0.0,142.5,0.0,2024
+2025,"Muller, Robert G",Building / Planning Management,Senior Building Inspector,CSEA 7-35,CSE,67898.82,18143.63,103751.02,0.0,4518.56,400.0,1650.0,0.0,2023
+2025,"Murphree, Jefferson V",Building / Planning Management,Town Building & Planning Adminstrator,Contractual 7,,33171.95,0.0,34498.82,1326.87,0.0,0.0,0.0,0.0,2012
+2025,"Murphy, Colleen A",Headquarters,,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,2003
+2025,"Murphy, Timothy J",COPE Comm Oriented Police Enforce,Police Officer,PBA 8-40,PBA,107934.58,58399.89,239427.14,10263.3,15870.98,1200.0,6594.6,0.0,1999
+2025,"Nagy, Kenneth E",General Repairs Highway,Highway Labor Crew Leader,Highway CSEA 8-40,CSE,59783.95,3908.74,94258.88,5824.27,4452.7,0.0,1675.0,0.0,1999
+2025,"Narvaez, Ashley I",Accounting,Account Clerk,CSEA 7-35,CSE,11448.6,0.0,12345.17,0.0,763.24,133.33,0.0,0.0,2025
+2025,"Naulaguari, Henry L",General Repairs Highway,Automotive Equipment Operator,Highway CSEA 8-40,CSE,18917.88,609.09,26854.08,0.0,1067.94,0.0,0.0,-197.58,2023
+2025,"Nava, Eduardo M",Squad 1 - Police,Police Officer,PBA 10-40,PBA,118321.63,32991.93,217971.86,0.0,18276.97,4173.67,15458.2,0.0,2014
+2025,"Neff, Christopher J",Buildings and Grounds,Maintenance Mechanic IV BLDG,Engineer CSEA 8-40,CSE,49586.1,5685.51,66370.75,0.0,3166.67,0.0,1905.0,0.0,2024
+2025,"Neknez, Katerina",COPE Comm Oriented Police Enforce,Police Officer,PBA 8-40,PBA,107097.99,6095.56,161003.82,0.0,13835.55,3858.22,6791.04,-45.49,2019
+2025,"Neknez, Matthew R",Squad 4 - Police,Police Officer,PBA 8-40,PBA,113468.05,14572.11,184311.4,5864.76,15239.16,1200.0,0.0,0.0,2014
+2025,"Newman, Tanya G",PSD - Public Safet Disp,Public Safety Dispatcher I,PSD 8-40,CSE,58858.5,3607.28,101040.64,5386.89,10576.6,0.0,1675.0,0.0,1999
+2025,"Nicholson, Amber",Recreation,Senior Recreation Leader,Recreation PT Seasonal,,15135.44,0.0,15135.44,0.0,0.0,0.0,0.0,0.0,2015
+2025,"Nicholson, Jared T",Recreation,Recreation Aide,NON-TIME,NON,6186.27,0.0,6186.27,0.0,0.0,0.0,0.0,0.0,2018
+2025,"Niewadomski, John F",General Repairs Highway,Maintenance Mechanic III HWY,Highway CSEA 8-40,CSE,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1986
+2025,"Noulis, Nicholas J",Buildings and Grounds,Maintenance Mechanic II BLDG,Engineer CSEA 8-40,CSE,7678.61,0.0,8262.29,0.0,415.06,0.0,0.0,0.0,2025
+2025,"Nungesser, William",Sewer / Scavenger Waste,Maintenance Mechanic II SEWER,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1986
+2025,"Nunnaro, George J",Planning / Zoning / CAC/AARB,Member of Planning Board,NON-TIME,,830.76,0.0,10800.0,0.0,0.0,0.0,0.0,0.0,2015
+2025,"O'Kula, Linda M",Supervisor Clerical,Driver Messenger,Part Time,CSE,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,2002
+2025,"O'Neill, Juliann M",Town Clerk,Account Clerk,CSEA 7-35,CSE,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,2007
+2025,"Occhiogrosso, Karen",Town Attorney Clerical,Paralegal,CSEA 7-35,CSE,73279.79,0.0,91150.68,0.0,4751.94,400.0,2382.18,0.0,2012
+2025,"Okula, Kevin N",Sewer / Scavenger Waste,Senior Wastewater Trtmnt Plant Oper. II,Sewer CSEA 8-40,CSE,29962.91,135.11,44109.43,0.0,2295.31,0.0,0.0,0.0,2020
+2025,"Oliver, Richard C",Squad 2 - Police,Police Officer,PBA 10-40,PBA,0.0,0.0,16367.51,0.0,0.0,0.0,16367.51,0.0,1998
+2025,"Orfanitopoulos, Nicole",Recreation,Recreation Specialist,NON-TIME,NON,365.93,0.0,365.93,0.0,0.0,0.0,0.0,0.0,2023
+2025,"Ortiz Vargas, Christian D",Traffic Control,Traffic Control Specialist,Police Part Time,NON,15509.85,0.0,15509.85,0.0,0.0,0.0,0.0,0.0,2023
+2025,"Osman, David A",General Repairs Highway,Heavy Equipment Operator,Highway CSEA 8-40,CSE,55712.6,24.42,70713.33,2718.96,3637.28,0.0,0.0,0.0,2012
+2025,"Oswald, Cameron D",Squad 1 - Police,Police Officer,PBA 10-40,PBA,114706.76,5494.77,171900.86,0.0,18589.33,1200.0,0.0,0.0,2016
+2025,"Ott, Ryan J",Traffic Control,Court Officer,Police Part Time,NON,22551.35,0.0,22551.35,0.0,0.0,0.0,0.0,0.0,2025
+2025,"Owen, Donald S",General Repairs Highway,Highway Labor Crew Leader,Highway CSEA 8-40,CSE,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1986
+2025,"Paasch, Paul O",Headquarters,,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1967
+2025,"Palermo, Joseph",General Repairs Highway,Construction Equip Operator,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1985
+2025,"Palmer, Dixon A",Detectives,Detective,PBA 8-40,PBA,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1985
+2025,"Palmer, Jordan M",Fire Marshal,Fire Marshal I,CSEA 7-35,CSE,50025.6,3734.55,66788.04,0.0,2702.0,0.0,0.0,0.0,2025
+2025,"Palmer, Stephen T",Squad 4 - Police,Sergeant Police-Towns and Village,SOA 8-40,SOA,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1986
+2025,"Paolillo, Christian James",Recreation,Lifeguard,NON-TIME,NON,4222.4,0.0,4222.4,0.0,0.0,0.0,0.0,0.0,2023
+2025,"Parkin, Christopher T",Headquarters,,NON-TIME,,0.0,0.0,13087.79,0.0,0.0,0.0,13087.79,0.0,2005
+2025,"Parkinson, James-Henry M",Recreation,Lifeguard,NON-TIME,NON,2394.46,0.0,2394.46,0.0,0.0,0.0,0.0,0.0,2024
+2025,"Paveglio, Cherie L",Recreation,Recreation Specialist,Recreation PT Seasonal,,3436.55,0.0,3436.55,0.0,0.0,0.0,0.0,0.0,2010
+2025,"Payne, Abigail E",Recreation,Recreation Aide,NON-TIME,NON,178.5,0.0,178.5,0.0,0.0,0.0,0.0,0.0,2022
+2025,"Peeker, Melissa",Accounting,Payroll Supervisor,Contractual 7,NON,82626.05,289.89,124697.27,9136.77,2090.86,200.0,13217.64,0.0,2000
+2025,"Peeker, Robert",Headquarters,,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1981
+2025,"Pendzick, Christopher L",Squad 1 - Police,Sergeant Police-Towns and Village,SOA 10-40,SOA,132425.51,4075.14,201867.3,0.0,16623.6,1100.0,15931.57,-443.61,2010
+2025,"Pendzick, Gary J",Water Management,,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1974
+2025,"Perez Avalos, Nelson O",Detectives,Police Officer,PBA 8-40,PBA,89853.34,14659.01,148227.24,0.0,14516.01,1700.0,0.0,0.0,2021
+2025,"Perez, Byron E",Detectives,Detective,PBA 10-40,PBA,125039.93,20951.44,220981.12,6290.34,16659.83,2200.0,8667.16,0.0,2014
+2025,"Perry, Noelia",Town Clerk,Office Assistant - Spanish Speaking,Part Time - TC Entry,NON,595.0,0.0,595.0,0.0,0.0,0.0,0.0,0.0,2024
+2025,"Petraco, Kaylee",Recreation,Account Clerk,REC CSEA 7-35,CSE,32044.95,603.09,33000.92,0.0,0.0,66.67,0.0,0.0,2022
+2025,"Piccione, Kenda J",Town Engineer,Senior Office Assistant,CSEA 7-35,CSE,44822.41,0.0,53328.65,0.0,2842.69,400.0,0.0,0.0,2019
+2025,"Pietramala, Payton G",Buildings and Grounds,Maintenance Mechanic II BLDG,Engineer CSEA 8-40,CSE,8301.2,1245.18,9961.44,0.0,415.06,0.0,0.0,0.0,2025
+2025,"Pilo, Victoria C",Town Attorney Appointed,Deputy Town Attorney,Contractual 7,NON,123046.91,0.0,123046.91,0.0,0.0,0.0,0.0,0.0,2023
+2025,"Pilon, Logan M",Recreation,Recreation Aide,NON-TIME,NON,2699.38,0.0,2699.38,0.0,0.0,0.0,0.0,0.0,2025
+2025,"Pipczynski, James A",General Repairs Highway,Heavy Equipment Operator,Highway CSEA 8-40,CSE,51686.76,1701.75,75466.33,3525.77,3773.43,0.0,0.0,0.0,2006
+2025,"Pipczynski, Lori U",Accounting,Computer Operator II,CSEA-Flex 30DED,CSE,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1984
+2025,"Podlas, Ashley N",Recreation,Recreation Aide,NON-TIME,NON,14512.65,0.0,14512.65,0.0,0.0,0.0,0.0,0.0,2023
+2025,"Podlas, Jocelyn P",Recreation,Senior Recreation Leader,NON-TIME,NON,7901.63,0.0,7901.63,0.0,0.0,0.0,0.0,0.0,2019
+2025,"Podlas, Richard P",Safety Inspection / Inspectors,Building Inspector,CSEA 7-35,CSE,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1997
+2025,"Polak, Jared G",Squad 4 - Police,Police Officer,PBA 8-40,PBA,61756.04,4136.31,84963.59,0.0,10538.44,1500.0,0.0,69.75,2024
+2025,"Pope, Te-Andre T",Recreation,Park Attendant II,NON-TIME,NON,13717.77,0.0,13717.77,0.0,0.0,0.0,0.0,0.0,2020
+2025,"Popino, Donald J",Harbormaster I,Harbormaster I,Police CSEA 7-35,CSE,20766.8,1765.96,27336.45,0.0,1621.2,166.67,0.0,0.0,2025
+2025,"Porchia, John",Planning / Zoning / CAC/AARB,Member of Zoning Board Of Appeals,Nonunion - 30,APT,553.84,0.0,7200.0,0.0,0.0,0.0,0.0,0.0,2024
+2025,"Poulos, Stamatina P",Town Board Elected,Legislative Secretary,Contractual 7,APT,2030.4,0.0,2030.4,0.0,0.0,0.0,0.0,0.0,2025
+2025,"Poveromo, Charles Michael",Recreation,Assistant Recreation Leader,NON-TIME,NON,14771.91,0.0,14771.91,0.0,0.0,0.0,0.0,0.0,2017
+2025,"Pray, Michelle",Sewer / Scavenger Waste,Office Assistant,Part Time,NON,6450.0,0.0,6450.0,0.0,0.0,0.0,0.0,0.0,2017
+2025,"Pressgrove, Andrew E",Street Lighting,Maintenance Mechanic III BLDG,Engineer CSEA 8-40,CSE,42490.87,4077.59,62382.75,0.0,2972.95,0.0,1905.0,0.0,2024
+2025,"Prevette, Dominique M",Safety Inspection / Clerical,Office Assistant,CSEA 7-35,CSE,21356.19,651.51,24981.75,0.0,1302.78,266.67,250.0,0.0,2025
+2025,"Prevette, Natalie",Code Enforcement,Senior Office Assistant,Part Time - TC Entry,NON,25707.5,0.0,26832.5,0.0,0.0,0.0,0.0,1125.0,2023
+2025,"Prudenti, Annemarie",Town Attorney Appointed,Deputy Town Attorney,Contractual 7 with Comp,,164727.33,0.0,208290.81,11530.94,0.0,8964.26,16418.59,0.0,2006
+2025,"Purick, Michael A",Squad 3 - Police,Police Officer,PBA 8-40,PBA,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1993
+2025,"Quesada, Caesar",Sewer / Scavenger Waste,Wastewater Trt Plnt Operator Trainee,Sewer CSEA 8-40,CSE,47982.74,0.0,59844.53,0.0,3081.45,0.0,1800.0,0.0,2023
+2025,"Quick, Richard M",Harbormaster I,Pumpout Boat Operator,Police Part Time,,10472.6,0.0,12511.45,0.0,0.0,0.0,0.0,2038.85,2008
+2025,"Quinn, Joseph P",General Repairs Highway,Heavy Equipment Operator,Highway CSEA 8-40,CSE,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1989
+2025,"Rabal, John J",Accounting,Principal Accountant,Contractual 7 - 30DED,NON,94616.32,0.0,107252.53,0.0,0.0,0.0,0.0,1499.64,2024
+2025,"Rachubka, Zygmunt M",Buildings and Grounds,Maintenance Mechanic IV BLDG,Engineer CSEA 8-40,CSE,29396.9,1038.2,104509.82,5223.72,1991.85,0.0,0.0,0.0,2005
+2025,"Rambo, Kevin J",Buildings and Grounds,Maintenance Mechanic III BLDG,Engineer CSEA 8-40,CSE,48256.58,675.04,70843.19,2610.6,3492.29,1250.0,0.0,0.0,2013
+2025,"Ramos, Beatriz Y",Nutrition,Food Service Worker,Part Time - TC Entry,NON,1241.0,0.0,1241.0,0.0,0.0,0.0,0.0,0.0,2025
+2025,"Ramos, Joseph S",P/T Police,Police Officer P/T Seasonal,Police Part Time,NON,31347.95,0.0,31347.95,0.0,0.0,0.0,0.0,0.0,2023
+2025,"Raplee, Mark A",Recreation,Assistant Recreation Leader,Recreation PT Seasonal,,5908.46,0.0,5908.46,0.0,0.0,0.0,0.0,0.0,2014
+2025,"Rassner, Samantha B",Recreation,Lifeguard,NON-TIME,NON,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,2019
+2025,"Raynor, Shannan L",Recreation,Recreation Leader,NON-TIME,NON,5080.99,0.0,5080.99,0.0,0.0,0.0,0.0,0.0,2025
+2025,"Realander, Dillon P",Recreation,Recreation Aide,NON-TIME,NON,524.52,0.0,524.52,0.0,0.0,0.0,0.0,0.0,2025
+2025,"Realander, Kristen L",Recreation,Recreation Specialist,Recreation PT Seasonal,,1790.78,0.0,1790.78,0.0,0.0,0.0,0.0,0.0,2010
+2025,"Realander, Summer Makenzie",Recreation,Recreation Aide,NON-TIME,NON,4180.04,0.0,4180.04,0.0,0.0,0.0,0.0,0.0,2023
+2025,"Reed, Michael P",Detectives,,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1986
+2025,"Reeve, Edward",General Repairs Highway,Highway Labor Crew Leader,Highway CSEA 8-40,CSE,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1990
+2025,"Reeve, John F",Sanitation Management,,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1980
+2025,"Reeve, Lindsay Palmer",Sewer / Scavenger Waste,,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1982
+2025,"Reichel, Michael P",Planning / Zoning / CAC/AARB,Wastewater Dist Superintendent Type II,Contractual 8 with Comp,,48595.32,0.0,235202.22,3293.89,0.0,1340.32,44821.62,0.0,1984
+2025,"Reilly, Aidan P",Recreation,Lifeguard,NON-TIME,NON,456.88,0.0,456.88,0.0,0.0,0.0,0.0,0.0,2025
+2025,"Renten, William A",General Repairs Highway,Construction Equip Operator,Highway CSEA 8-40,CSE,2836.99,0.0,29176.38,5061.95,1066.78,0.0,0.0,0.0,2003
+2025,"Reyes, Tina E",Justice Court,Senior Justice Court Clerk,CSEA 7-35,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,2001
+2025,"Richards, Lisa M",Tax Collection,Deputy Tax Receiver,Contractual 7,NON,65602.21,0.0,65602.21,0.0,0.0,0.0,0.0,0.0,2020
+2025,"Rios, Karina E",Town Clerk,Clerk-Spanish Speaking,Part Time - TC Entry,NON,8285.0,0.0,8285.0,0.0,0.0,0.0,0.0,0.0,2025
+2025,"Ritter, Jaime D",Town Engineer,Account Clerk,CSEA 7-35,CSE,47808.14,0.0,66750.14,3176.6,3399.73,400.0,0.0,0.0,2006
+2025,"Rizzi, Madeline J",Recreation,Lifeguard,NON-TIME,NON,1365.26,0.0,1365.26,0.0,0.0,0.0,0.0,0.0,2025
+2025,"Roberts, Andrew G",Recreation,Beach Attendant,NON-TIME,NON,2656.25,0.0,2656.25,0.0,0.0,0.0,0.0,0.0,2025
+2025,"Roberts, Mark F",Squad 5 - Police,Police Officer,PBA 8-40,PBA,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1994
+2025,"Rocco, Travis M",Water,Water Treatment Plant Operator Type II B,Water CSEA 8-40,CSE,55566.94,0.0,67500.6,0.0,3533.75,0.0,0.0,0.0,2023
+2025,"Rodgers, Frederick",Squad 3 - Police,,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1973
+2025,"Rogers, Mary B",Justice Court,,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1993
+2025,"Rogers, Thomas F",Town Engineer,Auto Mechanic III,CSEA 8-40,CSE,59062.35,2980.22,81753.05,2600.34,3677.29,0.0,1868.06,0.0,2013
+2025,"Rollins, Rodney W",Nutrition,Mini-Bus Driver,Part Time - TC Entry,NON,4739.03,0.0,4739.03,0.0,0.0,0.0,0.0,0.0,2019
+2025,"Roman, Eileen G",Planning Department,,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1986
+2025,"Romer, Krista L",Squad 3 - Police,Police Officer,PBA 8-40,PBA,57025.58,2055.4,69076.03,0.0,6703.84,1500.0,0.0,0.0,2024
+2025,"Rosato, Abigail G",Recreation,Recreation Aide,NON-TIME,NON,6587.81,0.0,6587.81,0.0,0.0,0.0,0.0,0.0,2019
+2025,"Rosini, Giuseppe T",Squad 3 - Police,Sergeant Police-Towns and Village,SOA 8-40,SOA,142826.15,17853.76,224570.84,6969.58,17898.34,2936.16,3442.29,0.0,2014
+2025,"Rossetti, Gabriella Catherine",Recreation,Recreation Aide,NON-TIME,NON,383.63,0.0,383.63,0.0,0.0,0.0,0.0,0.0,2024
+2025,"Rothaar, William J",Accounting Management,Chief Accountant,Contractual 7 with Comp30,,0.0,0.0,99352.04,0.0,0.0,0.0,99352.04,0.0,2007
+2025,"Rothwell, Kenneth T",Town Board Elected,Council Member,Contractual 7,NON,48955.0,0.0,54717.28,0.0,0.0,0.0,0.0,0.0,2021
+2025,"Ruales, Hernan",Town Attorney Clerical,Ordinance Inspector Spanish Speaking,CSEA 7-35,CSE,43725.13,68.87,57585.87,0.0,2991.74,0.0,1905.0,0.0,2021
+2025,"Ruis, Michael A",Court Officers,Court Officer,Police Part Time,NON,16216.37,0.0,16216.37,0.0,0.0,0.0,0.0,0.0,2024
+2025,"Rutt, Joseph P",Town Engineer,Junior Civil Engineer,Engineer CSEA 7-35,CSE,36803.32,683.86,41478.73,0.0,2030.82,233.33,225.0,0.0,2025
+2025,"Saladino, Kelsey R",Recreation,Recreation Aide,NON-TIME,NON,4654.4,0.0,4654.4,0.0,0.0,0.0,0.0,0.0,2024
+2025,"Santoro, Madison",Recreation,Recreation Specialist,Recreation PT Seasonal,,2968.63,0.0,2968.63,0.0,0.0,0.0,0.0,0.0,2015
+2025,"Sapolin, Zachariah J",Traffic Control,Traffic Control Specialist,Police Part Time,NON,768.18,0.0,768.18,0.0,0.0,0.0,0.0,0.0,2025
+2025,"Sawaya, Joanna E.",Nutrition,Senior Citizen Aide,CSEA 7-35,CSE,41088.69,95.96,47066.43,0.0,2501.33,400.0,0.0,0.0,2016
+2025,"Sawaya, Luke J",Nutrition,Food Service Worker,Part Time - TC Entry,NON,607.75,0.0,607.75,0.0,0.0,0.0,0.0,0.0,2019
+2025,"Scelzi, Raymond E",Accounting,Accountant,CSEA-Flex,CSE,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,2012
+2025,"Schandel, Ashley",Recreation,Assistant Superintendent of Recreation I,REC CSEA 7-35,CSE,60492.99,236.79,80098.76,2813.53,4015.31,400.0,0.0,755.54,2015
+2025,"Scherer, Liam",Recreation,Recreation Aide,NON-TIME,NON,276.38,0.0,276.38,0.0,0.0,0.0,0.0,0.0,2025
+2025,"Schmidt, Michael J",Detectives,Detective,PBA 8-40,PBA,106079.88,25038.83,232998.5,11770.27,16287.91,2200.0,0.0,0.0,1996
+2025,"Schneider, Charles C",Headquarters,,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,2010
+2025,"Schroeder, Judith",Nutrition,,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1977
+2025,"Schroeher, Christopher S",Sewer / Scavenger Waste,Maintenance Mechanic III SEWER,Sewer CSEA 10-40,CSE,26571.07,0.0,50866.08,5479.3,1489.84,0.0,0.0,0.0,1995
+2025,"Schroeher, Kathleen",Accounting,Principal Account Clerk,Part Time - TC Entry,,15117.9,629.15,54684.85,3645.97,1328.82,0.0,2680.34,0.0,1993
+2025,"Schule, Allan J",Squad 1 - Police,Police Officer,PBA 8-40,PBA,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,2006
+2025,"Schwarz, Brian K",Town Engineer,Auto Mechanic III,CSEA 8-40,CSE,57806.81,1117.49,65411.53,0.0,3410.65,0.0,0.0,0.0,2022
+2025,"Schwarz, Christopher N",Building / Planning Management,Electrical Inspector,CSEA 7-35,CSE,60746.85,716.58,73439.43,0.0,3890.58,400.0,0.0,0.0,2023
+2025,"Schwarz, Debra L",Nutrition,Senior Citizens Center Manager,CSEA 7-35,CSE,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1988
+2025,"Schwarz, John L",General Repairs Highway,Construction Equip Operator,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1992
+2025,"Schwarz, Melissa A",Nutrition,Cook,CSEA 7-35,CSE,42155.94,0.0,54462.79,2094.51,2792.56,400.0,0.0,0.0,2014
+2025,"Scruggs, James H",General Repairs Highway,Heavy Equipment Operator,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1992
+2025,"Seal, Jayme E",Recreation,Recreation Aide,NON-TIME,NON,4265.42,0.0,4265.42,0.0,0.0,0.0,0.0,0.0,2022
+2025,"Seal, John W",Squad 5 - Police,Police Officer,PBA 8-40,PBA,106829.83,19743.89,199198.95,10263.3,20920.68,1200.0,0.0,0.0,2001
+2025,"Seebeck, Catherine H",Town Attorney Clerical,Paralegal,CSEA 7-35,CSE,66642.24,0.0,88854.73,4143.32,4433.11,400.0,1905.0,0.0,2007
+2025,"Selock, Joanna L",Squad 4 - Police,Police Officer,PBA 8-40,PBA,86151.87,1056.54,142541.66,0.0,7854.03,1200.0,15458.2,0.0,2021
+2025,"Seuling, Catherine",Recreation,Registered Nurse,Recreation PT Seasonal,NON,3693.76,0.0,3693.76,0.0,0.0,0.0,0.0,0.0,2016
+2025,"Shaw, Eric J",General Repairs Highway,Heavy Equipment Operator,Highway CSEA 8-40,CSE,51602.7,11.52,66351.25,2564.7,3430.84,0.0,0.0,0.0,2012
+2025,"Sheedy, Cameron P",Recreation,Lifeguard,NON-TIME,NON,2100.0,0.0,2100.0,0.0,0.0,0.0,0.0,0.0,2023
+2025,"Sheppard, Joseph M",General Repairs Highway,Heavy Equipment Operator,Highway CSEA 8-40,CSE,45530.11,1397.44,60363.42,0.0,3194.01,0.0,0.0,0.0,2019
+2025,"Silleck, Charles W",Squad 3 - Police,Police Officer,PBA 8-40,PBA,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1998
+2025,"Sinclair, Tara L",PSD - Public Safet Disp,Public Safety Dispatcher I,PSD 10-40,CSE,51015.43,1012.86,71783.09,0.0,8512.22,0.0,0.0,0.0,2023
+2025,"Skop, Evelyn Victoria",Recreation,Beach Attendant,NON-TIME,NON,1778.38,0.0,1778.38,0.0,0.0,0.0,0.0,0.0,2024
+2025,"Sloan, Daniel G",Sewer / Scavenger Waste,Wastewater Trt Plnt Operator Trainee,Sewer CSEA 8-40,CSE,46263.52,171.9,58687.44,0.0,3201.41,0.0,0.0,0.0,2020
+2025,"Smith, Andrew J",Fire Marshal,Chief Fire Marshal,CSEA 7-35,CSE,83971.41,17607.99,134477.06,0.0,5736.45,0.0,0.0,0.0,2014
+2025,"Smith, James A",Street Lighting,Maintenance Mechanic III BLDG,Engineer CSEA 8-40,CSE,60496.87,111.71,84821.77,3733.08,4089.96,3000.0,0.0,0.0,2006
+2025,"Smith, Michael J",General Repairs Highway,Heavy Equipment Operator,Highway CSEA 8-40,CSE,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,2000
+2025,"Smith, Richard T",Headquarters,Captain  Police-Towns and Village,Police Dept Head,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1989
+2025,"Smith, Robert B",Sewer / Scavenger Waste,Waste Water Treatment Plant Operator II,Sewer CSEA 8-40,CSE,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,2009
+2025,"Sofoklis, Andreas P",Safety Inspection / Inspectors,Chief Building Inspector,CSEA 7-35,CSE,64051.07,4371.12,121034.96,0.0,3739.87,0.0,0.0,0.0,2020
+2025,"Sokoloski, Roy J",Planning / Zoning / CAC/AARB,Member of Appointed Board,NON-TIME,,1500.0,0.0,1500.0,0.0,0.0,0.0,0.0,0.0,1995
+2025,"Sollazzo, Leisa A",Town Engineer,Associate Administrator,Engineer CSEA 7-35,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1987
+2025,"Sostre, Angelo M",Sanitation,Automotive Equipment Operator,Engineer CSEA 8-40,CSE,50782.85,806.21,60061.6,0.0,3681.09,0.0,0.0,0.0,2024
+2025,"Sostre, Steven",General Repairs Highway,Automotive Equipment Operator,Highway CSEA 8-40,CSE,39625.7,129.14,44440.4,0.0,2119.0,0.0,825.0,0.0,2025
+2025,"Soto, Ivan G",Town Attorney Clerical,Ordinance Inspector Spanish Speaking,CSEA 7-35,CSE,53164.66,54.5,69553.86,0.0,3441.15,0.0,1880.0,371.29,2019
+2025,"Spanburgh, Joann",Town Board Elected,Council Member,NON-TIME,,48955.0,0.0,54717.28,0.0,0.0,0.0,0.0,0.0,2020
+2025,"Spear, Emma A",Recreation,Recreation Aide,Recreation PT Seasonal,NON,5021.76,0.0,5021.76,0.0,0.0,0.0,0.0,0.0,2016
+2025,"Sproston, Robert T",Headquarters,Police Officer,PBA 8-40,PBA,107782.89,0.0,159936.58,0.0,12114.83,1200.0,0.0,0.0,2015
+2025,"Squillace-Neal, Annamaria",Assessment,Assessment Clerk,CSEA 7-35,CSE,40203.07,0.0,52261.02,0.0,2686.84,400.0,1905.0,0.0,2022
+2025,"Staker, Matthew T",Squad 2 - Police,Police Officer,PBA 10-40,PBA,86737.09,5881.39,171038.74,0.0,18120.57,1200.0,15458.2,0.0,2021
+2025,"Stankaitis, William J",Recreation,Lifeguard,NON-TIME,NON,2451.01,0.0,2451.01,0.0,0.0,0.0,0.0,0.0,2025
+2025,"Stark, John M",Sanitation,Automotive Equipment Operator,Engineer CSEA 8-40,CSE,46776.71,3136.66,56738.84,0.0,2881.26,0.0,0.0,0.0,2024
+2025,"Stasiukiewicz, Allison M",COPE Comm Oriented Police Enforce,Police Officer,PBA 8-40,PBA,112998.47,7565.5,177838.96,0.0,15182.63,1200.0,6791.04,0.0,2017
+2025,"Stasiukiewicz, Cole",COPE Comm Oriented Police Enforce,Police Officer,PBA 8-40,PBA,112804.53,14663.74,177702.57,0.0,15175.11,1200.0,0.0,0.0,2016
+2025,"Stelzer, Constance F",Justice Court,Justice Court Clerk,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1995
+2025,"Stettner, Robert W",General Repairs Highway,Automotive Equipment Operator,Highway CSEA 8-40,CSE,40605.39,566.84,56967.25,0.0,3034.22,0.0,0.0,0.0,2022
+2025,"Stevens, William J",Squad 2 - Police,Police Officer,PBA 10-40,PBA,86173.36,8450.65,131502.32,0.0,13300.53,1200.0,0.0,241.72,2021
+2025,"Stoddard, John L",Buildings and Grounds,Maintenance Mechanic II BLDG,Engineer CSEA 8-40,CSE,48149.99,130.47,65032.08,2507.83,3354.69,0.0,0.0,0.0,2013
+2025,"Stoltenborg, Logan John",Recreation,Lifeguard,NON-TIME,NON,2008.44,0.0,2008.44,0.0,0.0,0.0,0.0,0.0,2024
+2025,"Stoltenborg, Sarah S",Recreation,Lifeguard,NON-TIME,NON,4391.39,0.0,4391.39,0.0,0.0,0.0,0.0,0.0,2025
+2025,"Strand, Trinity O",Recreation,,NON-TIME,NON,127.5,0.0,127.5,0.0,0.0,0.0,0.0,0.0,2025
+2025,"Strange, Doris L",Recreation,Account Clerk,REC CSEA 7-35,CSE,57053.03,582.0,84699.92,4950.69,3853.21,400.0,4064.61,0.0,1993
+2025,"Striplin-Tio, Ashley Heather",Town Attorney Appointed,Town Personnel Officer,Contractual 7 - 30DED,NON,86953.73,0.0,86953.73,0.0,0.0,0.0,0.0,0.0,2022
+2025,"Stromski, Jane",Planning Department,,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1976
+2025,"Stromski, Mark",Detectives,Detective,PBA 8-40,PBA,0.0,0.0,27778.41,0.0,0.0,0.0,27778.41,0.0,1991
+2025,"Stromski, Morgan Grace",Recreation,Recreation Aide,NON-TIME,NON,795.2,0.0,795.2,0.0,0.0,0.0,0.0,0.0,2023
+2025,"Sullivan, Maria L",Building / Planning Management,Office Assistant,CSEA 7-35,CSE,5048.24,436.21,5910.14,0.0,325.69,100.0,0.0,0.0,2025
+2025,"Sullivan, Matthew C",Squad 5 - Police,Police Officer,PBA 8-40,PBA,65476.83,2222.11,91873.45,0.0,10451.5,1200.0,0.0,-66.12,2023
+2025,"Sulzer, Scott A",Buildings and Grounds,Maintenance Mechanic III BLDG,Engineer CSEA 8-40,CSE,61829.01,164.76,84763.47,5479.3,4191.71,0.0,0.0,0.0,2003
+2025,"Suprina, Matthew T",COPE Comm Oriented Police Enforce,Police Officer,PBA 8-40,PBA,118418.0,27800.32,208415.26,0.0,15479.07,1200.0,15458.2,0.0,2017
+2025,"Sweeney, Danica",Recreation,Recreation Aide,Part Time,NON,614.65,0.0,614.65,0.0,0.0,0.0,0.0,0.0,2025
+2025,"Swenk, Preston Riley",Recreation,Lifeguard,NON-TIME,NON,4636.8,0.0,4636.8,0.0,0.0,0.0,0.0,0.0,2023
+2025,"Sykes, Deontae A",Recreation,Recreation Leader,NON-TIME,NON,1783.89,0.0,1783.89,0.0,0.0,0.0,0.0,0.0,2021
+2025,"Tam, Christopher K",COPE Comm Oriented Police Enforce,Sergeant Police-Towns and Village,SOA 8-40,SOA,139077.52,12695.6,222614.15,6969.58,22425.01,1100.0,4184.12,0.0,2014
+2025,"Tangredi, Albert",Recreation,Recreation Leader,Part Time,NON,43.6,0.0,43.6,0.0,0.0,0.0,0.0,0.0,2017
+2025,"Tedesco, Robert L",General Repairs Highway,Construction Equip Operator,Highway CSEA 8-40,CSE,56416.72,777.58,74252.9,3509.9,3747.04,0.0,0.0,0.0,2010
+2025,"Tennenberg, Laverne",Assessment Elected/Board,Member of Board Of Assessors,Elected,,107154.0,0.0,112916.28,0.0,0.0,3827.18,0.0,0.0,1987
+2025,"Testa, Donna M",Highway Admin Clerical,Account Clerk Typist,Highway CSEA 7-35,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,2001
+2025,"Testa, Kenneth",Town Engineer Management,Town Engineer,Contractual 7,,156120.94,0.0,168754.27,0.0,0.0,0.0,12633.33,0.0,1990
+2025,"Thomas, Charles M",Planning / Zoning / CAC/AARB,Member of Appointed Board,NON-TIME,NON,1540.0,0.0,1540.0,0.0,0.0,0.0,0.0,0.0,2018
+2025,"Thomas, Dawn C",Community Development Management,Community Development Project Supervisor,Contractual 7 - 30DED,NON,148258.04,0.0,173816.12,0.0,0.0,19920.36,5637.72,0.0,2016
+2025,"Thomas, Kerry C",Accounting,Student Intern II,Part Time - TC Entry,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,2014
+2025,"Thomas, Kevin H",COPE Comm Oriented Police Enforce,Police Officer,PBA 8-40,PBA,96038.29,18575.26,151842.45,0.0,14732.14,1200.0,0.0,-55.91,2011
+2025,"Thomas, Rachel L",Squad 4 - Police,Police Officer,PBA 8-40,PBA,80837.56,7079.65,123378.35,0.0,11529.66,1200.0,6791.04,-54.06,2016
+2025,"Thompson, Brianna N",Recreation,Recreation Aide,NON-TIME,NON,4908.76,0.0,4908.76,0.0,0.0,0.0,0.0,0.0,2024
+2025,"Thompson, Dan",Community Development Clerical,Housing Inspector,CSEA 7-35,CSE,73635.71,0.0,88504.68,0.0,4647.32,400.0,1650.0,0.0,2004
+2025,"Thornton, Gabrielle Grace",Recreation,Recreation Aide,NON-TIME,NON,1340.11,0.0,1340.11,0.0,0.0,0.0,0.0,0.0,2024
+2025,"Timmons, Denise M",Town Board Elected,Council Member,Contractual 7,NON,50558.0,0.0,59620.28,0.0,0.0,0.0,3300.0,0.0,2020
+2025,"Tocci, Kelly A",Nutrition Management,Senior Citizens Program Director,Contractual 7,NON,125908.73,0.0,139844.86,8813.62,0.0,0.0,5122.51,0.0,1990
+2025,"Treadwell, James E",Squad 4 - Police,Police Officer,PBA 8-40,PBA,101117.52,6255.2,169059.11,0.0,14550.39,1200.0,0.0,0.0,2017
+2025,"Trent, Cynthia V",Nutrition,Homemaker,Part Time,CSE,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,2000
+2025,"Trent, Justine",Traffic Control,Traffic Control Specialist,Police Part Time,NON,3426.27,0.0,3426.27,0.0,0.0,0.0,0.0,0.0,2024
+2025,"Triebwasser, Anna",Information Technology,GIS Technician III,CSEA 7-35,CSE,63603.01,0.0,73827.44,0.0,3975.2,400.0,0.0,0.0,2024
+2025,"Trivelli, Joseph A",Squad 1 - Police,Police Officer,PBA 10-40,PBA,102293.81,2801.93,149332.02,0.0,14118.98,1200.0,0.0,0.0,2020
+2025,"Trojanowski, Heather L",Planning Department,Planner,CSEA 7-35,CSE,78818.36,6273.78,100844.61,0.0,4959.84,400.0,1905.0,0.0,2018
+2025,"Troyan, Peter",Squad 4 - Police,Police Officer,PBA 8-40,PBA,109147.56,14326.05,203811.75,10263.3,15519.72,1200.0,15458.2,0.0,1991
+2025,"Troyan, Peter",,,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1986
+2025,"Trypuc, Nicole M",Recreation,Recreation Aide,NON-TIME,NON,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,2019
+2025,"Tucci, Diane E",Town Board Elected,Legislative Secretary,Contractual 7,APT,43095.55,0.0,48401.42,0.0,0.0,0.0,0.0,0.0,2024
+2025,"Tucci, Natalie Josephine",Recreation,Lifeguard,NON-TIME,NON,1591.37,0.0,1591.37,0.0,0.0,0.0,0.0,0.0,2024
+2025,"Turpin, Eric",Buildings and Grounds,Automotive Equipment Operator,Engineer CSEA 8-40,CSE,58599.12,3901.59,72010.86,2633.22,3522.59,0.0,0.0,0.0,2014
+2025,"Ulmet, Candee",PSD - Public Safet Disp,,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1990
+2025,"Urbinati, Frank P",General Repairs Highway,Automotive Equipment Operator,Highway CSEA 8-40,CSE,2119.02,427.11,2546.13,0.0,0.0,0.0,0.0,0.0,2025
+2025,"Vaccaro, Joseph M",Fire Marshal,Fire Marshal I,CSEA 7-35,CSE,29123.62,3821.4,45229.46,0.0,1891.4,0.0,0.0,0.0,2025
+2025,"Vail, John H",Squad 1 - Police,Sergeant Police-Towns and Village,SOA 8-40,SOA,132142.01,16937.15,234020.25,12196.28,21994.43,1100.0,7166.04,0.0,1989
+2025,"Vail, Maribeth",Justice Court,Senior Justice Court Clerk,CSEA 7-35,CSE,54546.05,286.58,76376.76,3490.22,3722.1,400.0,2929.5,0.0,1990
+2025,"Van Den Thoorn, Jane",Recreation Management,Superintendant of Recreation I,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1984
+2025,"Van der Loos, Skye A",Sewer / Scavenger Waste,Maintenance Mechanic II SEWER,Sewer CSEA 8-40,CSE,45552.24,1751.64,58380.41,0.0,2936.0,0.0,1650.0,-2.55,2024
+2025,"Vance, Scott R",General Repairs Highway,Automotive Equipment Operator,Highway CSEA 8-40,CSE,46757.73,10.94,60600.2,0.0,3259.64,0.0,0.0,0.0,2016
+2025,"Vance, Thomas E",Buildings and Grounds,Maintenance Mechanic III BLDG,Engineer CSEA 8-40,CSE,54060.2,0.0,72724.88,3480.1,3724.47,0.0,0.0,0.0,2008
+2025,"Velasquez, David",Recreation,Recreation Specialist,NON-TIME,NON,1050.0,0.0,1050.0,0.0,0.0,0.0,0.0,0.0,2025
+2025,"Venturino, Anthony C",Recreation,Lifeguard,NON-TIME,NON,4138.2,0.0,4138.2,0.0,0.0,0.0,0.0,0.0,2022
+2025,"Visek, Jonathan T",Water,Maintenance Mechanic II Water,Water CSEA 8-40,CSE,46017.61,1100.8,56641.38,0.0,2752.36,0.0,0.0,0.0,2024
+2025,"Visser III, Fredric J",Fire Marshal,Fire Marshal I,CSEA 7-35,CSE,19446.05,1917.07,29797.01,0.0,1074.49,0.0,0.0,0.0,2024
+2025,"Volkman, Robert G",Water,Water Treatment Plant Operator Type II B,Water CSEA 10-40,CSE,0.0,0.0,400.0,0.0,400.0,0.0,0.0,0.0,2023
+2025,"Von Voigt, David C",Squad 3 - Police,Police Officer,PBA 8-40,PBA,72911.15,8899.41,191016.79,3398.28,12988.52,1200.0,15458.2,0.0,2012
+2025,"Von Voigt, Richard",Detectives,,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1973
+2025,"Von Voigt, Richard M",COPE Comm Oriented Police Enforce,Police Officer,PBA 8-40,PBA,99435.64,6109.96,194522.21,5864.76,19049.3,1200.0,15458.2,0.0,2014
+2025,"Vourakis, Victoria L",Police Clerical,,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1976
+2025,"Walsh, Cailyn F",Traffic Control,Traffic Control Specialist,Police Part Time,NON,5519.22,0.0,5519.22,0.0,0.0,0.0,0.0,0.0,2025
+2025,"Walter, Sean M",Justice Court Elected,Town Justice,Elected,,93800.0,0.0,99562.28,0.0,0.0,0.0,0.0,0.0,2000
+2025,"Walters, Dajuon M",Recreation,Recreation Aide,Recreation PT Seasonal,,208.15,0.0,208.15,0.0,0.0,0.0,0.0,0.0,2009
+2025,"Walther, Daniel C",Squad 1 - Police,Police Officer,PBA 10-40,PBA,114253.4,1445.29,172205.68,5864.76,17089.72,1200.0,0.0,0.0,2014
+2025,"Wandolowski, William W",General Repairs Highway,Automotive Equipment Operator,Highway CSEA 8-40,CSE,43327.1,803.62,58171.35,0.0,2165.1,0.0,0.0,0.0,2023
+2025,"Warner, James A",General Repairs Highway,Heavy Equipment Operator,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1988
+2025,"Warner, Richard F",Municipal Garage,,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1991
+2025,"Waski, Andrew John",Squad 4 - Police,Police Officer,PBA 8-40,PBA,63961.8,6248.81,94368.97,0.0,10283.05,1200.0,0.0,0.0,2022
+2025,"Waski, Patrick A",Detectives,Detective,PBA 8-40,PBA,0.0,0.0,7190.53,0.0,0.0,0.0,7190.53,0.0,1993
+2025,"Waski, Ryan E",Squad 5 - Police,Police Officer,PBA 8-40,NON,58004.94,3298.51,84916.13,0.0,8873.2,1200.0,6791.04,0.0,2023
+2025,"Waskowiak, Lauren C",Justice Court,Senior Justice Court Clerk,CSEA 7-35,CSE,51499.11,182.11,59729.54,0.0,3164.42,400.0,0.0,0.0,2021
+2025,"Weinand, Dennis",MES - Medical Eval Squad,,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1973
+2025,"Weiss, Mark S",Squad 3 - Police,Police Officer,PBA 8-40,PBA,70763.18,14587.3,127394.13,0.0,12976.61,1200.0,0.0,-39.31,2022
+2025,"Welsh, James P",COPE Comm Oriented Police Enforce,Sergeant Police-Towns and Village,SOA 8-40,SOA,132684.24,13666.79,226480.34,12196.28,21994.43,2989.13,475.0,0.0,2004
+2025,"West II, John R",Information Technology,Network and Systems Specialist II,CSEA-Flex,CSE,65357.65,8015.81,101746.68,0.0,4333.95,3388.0,1905.0,0.0,2022
+2025,"Westwood, Karen B",Nutrition,Senior Citizens Program Supervisor,CSEA 7-35,CSE,54017.12,186.3,73571.1,3241.75,3456.6,400.0,3726.15,0.0,2006
+2025,"White, Anthony M",Nutrition,Mini-Bus Driver,CSEA 7-35,CSE,42496.06,41.69,53228.14,2031.15,2717.21,400.0,0.0,0.0,2012
+2025,"Wicklund, Hunter S",PSD - Public Safet Disp,Public Safety Dispatcher I,PSD 8-40,CSE,36599.34,0.0,41477.09,0.0,2916.44,0.0,0.0,0.0,2022
+2025,"Wicklund, Scott A",Squad 4 - Police,Police Officer,PBA 8-40,PBA,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1993
+2025,"Widener, Paulette M",Nutrition,Mini-Bus Driver,CSEA 7-35,CSE,30593.75,0.0,39062.97,0.0,1785.14,333.33,0.0,-90.45,2019
+2025,"Widercrantz, Tyler M",P/T Police,Police Officer P/T Seasonal,Police Part Time,NON,33663.83,0.0,33663.83,0.0,0.0,0.0,0.0,0.0,2023
+2025,"Wigington, James E",General Repairs Highway,Automotive Equipment Operator,Highway CSEA 8-40,CSE,44588.23,1054.51,56855.32,0.0,2999.25,0.0,0.0,-76.8,2023
+2025,"Wilhelm, Diane M",Town Clerk,Town Clerk,Elected,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1998
+2025,"Wilkinson, Jacob C",Recreation,Park Attendant II,NON-TIME,NON,1794.92,0.0,1794.92,0.0,0.0,0.0,0.0,0.0,2020
+2025,"Williams, Brandon M",Squad 3 - Police,Police Officer,PBA 8-40,PBA,64607.13,4759.38,114638.69,0.0,12124.79,1200.0,0.0,0.0,2019
+2025,"Williams, Zebedee",General Repairs Highway,Heavy Equipment Operator,Highway CSEA 8-40,CSE,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,2008
+2025,"Willsey, Danielle E",Headquarters,Captain  Police-Towns and Village,Police Dept Head,NON,201932.33,0.0,259091.66,14139.61,25408.01,0.0,10962.02,0.0,2006
+2025,"Wilson, Timothy C",Squad 3 - Police,Police Officer,PBA 8-40,PBA,100845.6,7275.27,180917.38,10263.3,15541.25,1200.0,0.0,0.0,1999
+2025,"Wirth, Reese V",Recreation,Recreation Aide,NON-TIME,NON,2428.2,0.0,2428.2,0.0,0.0,0.0,0.0,0.0,2022
+2025,"Witt, Jeffrey E",General Repairs Highway,Construction Equip Operator,Highway CSEA 8-40,CSE,50989.37,3413.84,75773.0,3383.59,3669.6,0.0,0.0,0.0,2010
+2025,"Witt, Walter",Headquarters,,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1972
+2025,"Wittmeier, Otto",Planning / Zoning / CAC/AARB,Member of Zoning Board Of Appeals,NON-TIME,,738.46,0.0,9600.0,0.0,0.0,0.0,0.0,0.0,1994
+2025,"Wnorowski, Sebastian",Squad 5 - Police,Police Officer,PBA 8-40,PBA,54893.12,3837.49,71561.21,0.0,7406.94,1500.0,0.0,0.0,2024
+2025,"Woodhull, George H",Planning / Zoning / CAC/AARB,Member of Appointed Board,NON-TIME,,1540.0,0.0,1540.0,0.0,0.0,0.0,0.0,0.0,2007
+2025,"Woods, Kenneth",Detectives,,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1973
+2025,"Woodson, George E",Highway Admin  Elected/Appointed,Superintendant Of Highways,Elected,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1985
+2025,"Woodson, John F",,,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1987
+2025,"Wooten, Alivia Grace",Nutrition,Food Service Worker,Part Time - TC Entry,NON,3417.0,0.0,3417.0,0.0,0.0,0.0,0.0,0.0,2024
+2025,"Wooten, James M",Town Clerk Elected,Town Clerk,Elected,ELE,93038.0,0.0,103800.28,0.0,0.0,5000.0,0.0,0.0,2006
+2025,"Wooten, Travis P",COPE Comm Oriented Police Enforce,Police Officer,PBA 8-40,PBA,89186.12,43501.05,190619.85,0.0,13125.56,1200.0,15458.2,-49.71,2019
+2025,"Wulffraat, Arnold T",Water,Sr Water Trt. Plant Operator IIB,Water CSEA 8-40,CSE,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1998
+2025,"Wulffraat, Lisa M",Assessment,Account Clerk,CSEA 7-35,CSE,60892.44,0.0,81575.81,5115.81,3910.72,400.0,2800.12,0.0,1985
+2025,"Wulffraat, Nicholas T",Water,Water Treatment Plant Operator Type II B,Water CSEA 10-40,CSE,55215.02,545.43,70554.18,0.0,2983.79,0.0,0.0,0.0,2021
+2025,"Yakaboski, Donald M",Headquarters,,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1970
+2025,"Yat, Mark A",PMO - Parking Meter Officer,Traffic Control Specialist,Police Part Time,NON,10515.6,0.0,10515.6,0.0,0.0,0.0,0.0,0.0,2024
+2025,"Yeager, Blaze",Squad 5 - Police,Police Officer,PBA 8-40,PBA,75969.74,2532.02,109875.48,0.0,11977.43,1200.0,0.0,51.19,2016
+2025,"Young, Dale M",Justice Court,,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1987
+2025,"Young, Myron E",General Repairs Highway,Highway Labor Crew Leader,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1987
+2025,"Zak, Richard M",Squad 4 - Police,,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1986
+2025,"Zaleski, Dillon",Recreation,Recreation Aide,NON-TIME,NON,574.54,0.0,574.54,0.0,0.0,0.0,0.0,0.0,2023
+2025,"Zaleski, Michael T",Highway Admin  Elected/Appointed,Superintendant Of Highways,Contractual 8,,104543.0,0.0,111400.28,0.0,0.0,1095.0,0.0,0.0,1994
+2025,"Zaleski, Ryan T",Traffic Control,Traffic Control Specialist,Police Part Time,NON,15425.34,0.0,15425.34,0.0,0.0,0.0,0.0,0.0,2025
+2025,"Zaneski, Laurie A",Tax Collection Elected,Town Tax Receiver,Elected,,93038.0,0.0,98800.28,0.0,0.0,0.0,0.0,0.0,2003
+2025,"Zaveski, Timothy P",Town Engineer,Auto Mechanic III,CSEA 8-40,CSE,1194.97,0.0,8318.73,4565.78,298.74,0.0,0.0,0.0,1995
+2025,"Zaweski, Daniel W",Planning / Zoning / CAC/AARB,Member of Zoning Board Of Appeals,NON-TIME,NON,7200.0,0.0,7200.0,0.0,0.0,0.0,0.0,0.0,2021
+2025,"Zebrowski, David L",Buildings and Grounds,Building Maintenance Manager,Engineer CSEA 8-40,CSE,78582.68,11516.28,113182.85,6340.47,4960.26,0.0,3394.51,0.0,2004
+2025,"Zilnicki, Ava T",Recreation,Recreation Aide,NON-TIME,NON,8031.95,0.0,8031.95,0.0,0.0,0.0,0.0,0.0,2024
+2025,"Zilnicki, Kenneth J",Planning / Zoning / CAC/AARB,Member of Planning Board,NON-TIME,,830.76,0.0,10800.0,0.0,0.0,0.0,0.0,0.0,2024
+2025,"Zitek, Craig W",Fire Marshal,Chief Fire Marshal,CSEA 7-35 30DED,CSE,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,2005

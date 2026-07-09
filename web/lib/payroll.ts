@@ -44,6 +44,8 @@ export type LeaderRow = { name: string; title: string; department: string; gross
 export type UnionRollup = { union: string; headcount: number; gross: number; overtime: number }
 export type DeptRollup = { department: string; headcount: number; gross: number; overtime: number }
 
+export type Turnover = { priorHeadcount: number; separations: number; newHires: number; ratePct: number | null }
+
 export type YearSummary = {
   year: number
   headcount: number
@@ -58,6 +60,9 @@ export type YearSummary = {
   overtimeLeaders: LeaderRow[]
   byUnion: UnionRollup[]
   byDepartment: DeptRollup[]
+  turnover: Turnover | null
+  avgTenureYears: number | null
+  tenureKnown: number
 }
 
 const summary = summaryJson as { years: number[]; yearSummaries: YearSummary[] }
@@ -67,7 +72,9 @@ export const payrollSource = {
   url: 'https://www.townofriverheadny.gov/206/Financial-Reports',
 }
 export const payrollNote =
-  'Actual paid earnings (including overtime) by employee and year. Department, title, and pay class are available for 2022 onward.'
+  'Actual paid earnings (including overtime) by employee and year — retired, deceased, terminated, and on-leave people ' +
+  'who earned nothing that year are excluded, so the count reflects who was actually paid, not the Town’s full roster. ' +
+  'Department, title, and pay class are available for 2022 onward.'
 
 // Matches UNION_LABELS in etl/parse_payroll.py.
 export const unionLabels: Record<string, string> = {

@@ -81,7 +81,7 @@ UNION_LABELS = {
 }
 
 SLIM_COLUMNS = ["year", "name", "department", "title", "pay_class", "union",
-                "regular", "overtime", "gross"] + BUCKETS
+                "regular", "overtime", "gross"] + BUCKETS + ["hire_year"]
 
 
 def money(val):
@@ -101,6 +101,29 @@ def find_col(header, *needles):
         low = col.lower()
         if all(n in low for n in needles):
             return col
+    return None
+
+
+def hire_year(val):
+    """Best-effort year from a Hire Date cell: Excel serial (from .xls), a
+    MM/DD/YYYY or MM/DD/YY string (from .csv), or anything with a 4-digit year."""
+    if val is None or val == "":
+        return None
+    try:
+        f = float(val)
+        if f > 20000:  # Excel date serial (days since 1899-12-30)
+            from datetime import datetime, timedelta
+            return (datetime(1899, 12, 30) + timedelta(days=f)).year
+    except (ValueError, TypeError):
+        pass
+    s = str(val)
+    m = re.search(r"\b(19\d{2}|20\d{2})\b", s)
+    if m:
+        return int(m.group(1))
+    m = re.match(r"\s*\d{1,2}[/-]\d{1,2}[/-](\d{2})\b", s)
+    if m:
+        yy = int(m.group(1))
+        return 2000 + yy if yy < 60 else 1900 + yy
     return None
 
 
@@ -160,6 +183,7 @@ def parse_source_row(header, r, year, cols, ot_cols, cat_cols):
         "pay_class": (str(r.get(cols["class"]) or "")).strip() if cols["class"] else "",
         "union": (str(r.get(cols["union"]) or "")).strip() if cols["union"] else "",
         "regular": reg, "overtime": round(ot, 2), "gross": gross,
+        "hire_year": hire_year(r.get(cols["hire"])) if cols.get("hire") else None,
         **buckets,
     }
 
@@ -181,6 +205,7 @@ def read_year(year):
                     "reg": find_col(header, "regular", "earnings"),
                     "ot_total": find_col(header, "overtime", "earnings", "total"),
                     "gross": find_col(header, "gross", "pay"),
+                    "hire": find_col(header, "hire", "date"),
                 }
                 ot_cols = [c for c in header if is_overtime_col(c)]
                 cat_cols = {b: [c for c in header if category_of(c) == b] for b in BUCKETS}
@@ -202,6 +227,7 @@ def read_year(year):
                     "pay_class": r.get("pay_class", ""), "union": r.get("union", ""),
                     "regular": money(r.get("regular")), "overtime": money(r.get("overtime")),
                     "gross": money(r.get("gross")),
+                    "hire_year": int(r["hire_year"]) if (r.get("hire_year") or "").strip() else None,
                     **{b: money(r.get(b)) for b in BUCKETS},
                 }
 
@@ -227,10 +253,16 @@ def build():
     all_rows = []
     per_year = {}
     for year in YEARS:
-        rows = list(read_year(year))
-        if not rows:
+        raw = list(read_year(year))
+        if not raw:
             continue
-        write_slim(year, rows)
+        write_slim(year, raw)  # keep the full raw export as the committed source
+        # Publish only people actually PAID that year. The Gross Earnings report
+        # also lists retired, deceased, terminated, and on-leave people who earned
+        # $0 during the year — and a rehired name can appear twice (one active row
+        # with pay, one retired row at $0). Counting those overstates the workforce
+        # and double-counts, so anyone with no earnings for the year is dropped.
+        rows = [r for r in raw if (r["gross"] or 0) or (r["regular"] or 0) or (r["overtime"] or 0)]
         all_rows.extend(rows)
         per_year[year] = rows
 
@@ -279,6 +311,26 @@ def build():
                 depts[r["department"]]["headcount"] += 1
                 depts[r["department"]]["gross"] += r["gross"]
                 depts[r["department"]]["overtime"] += r["overtime"]
+        # Turnover vs the prior year: people paid last year but not this year
+        # (separations) against last year's paid headcount, and this year's new
+        # names (hires). Only when we have the prior year on record.
+        prev = per_year.get(year - 1)
+        turnover = None
+        if prev:
+            prev_names = {r["name"] for r in prev}
+            cur_names = {r["name"] for r in rows}
+            separations = len(prev_names - cur_names)
+            turnover = {
+                "priorHeadcount": len(prev_names),
+                "separations": separations,
+                "newHires": len(cur_names - prev_names),
+                "ratePct": round(separations / len(prev_names) * 100, 1) if prev_names else None,
+            }
+        # Average tenure (years) for people whose hire year we know and isn't after
+        # the pay year.
+        tenures = [year - r["hire_year"] for r in rows if r.get("hire_year") and r["hire_year"] <= year]
+        avg_tenure = round(sum(tenures) / len(tenures), 1) if tenures else None
+
         years_summary.append({
             "year": year,
             "headcount": len(rows),
@@ -288,6 +340,9 @@ def build():
             "avgGross": round(sum(gross) / len(gross), 2),
             "medianGross": median(gross),
             "maxGross": max(gross),
+            "turnover": turnover,
+            "avgTenureYears": avg_tenure,
+            "tenureKnown": len(tenures),
             "hasDepartments": any(r["department"] for r in rows),
             "topEarners": [{"name": r["name"], "title": r["title"], "department": r["department"], "gross": r["gross"], "overtime": r["overtime"]} for r in top_gross],
             "overtimeLeaders": [{"name": r["name"], "title": r["title"], "department": r["department"], "overtime": r["overtime"], "gross": r["gross"]} for r in top_ot],
