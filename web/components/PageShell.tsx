@@ -1,31 +1,9 @@
 import meta from '../public/data/meta.json'
 import TrendColors from './TrendColors'
+import SiteNav from './SiteNav'
 
 export default function PageShell({ title, subtitle, children }: { title: string; subtitle: string; children: React.ReactNode }) {
   const base = '/rike4545-riverhead-budget-live'
-  const links = [
-    ['Dashboard', `${base}/`],
-    ['Explore the Budget', `${base}/explore/`],
-    ['Start Here', `${base}/guide/`],
-    ['Payroll', `${base}/payroll/`],
-    ['Funds Explorer', `${base}/funds/`],
-    ['Budget Compare', `${base}/compare/`],
-    ['2027 Prediction', `${base}/predict-2027/`],
-    ['General Fund', `${base}/general-fund/`],
-    ['Community', `${base}/community/`],
-    ['Tax Cap', `${base}/tax-cap/`],
-    ['Annual Report', `${base}/annual-report/`],
-    ['Town Board Votes', `${base}/meetings/`],
-    ['Officials & Pensions', `${base}/officials/`],
-    ['Fiscal Impact', `${base}/fiscal-impact/`],
-    ['2026 Buyout', `${base}/buyout/`],
-    ['Search', `${base}/search/`],
-    ['Downloads', `${base}/downloads/`],
-    ['Standards', `${base}/gfoa/`],
-    ['Analytics', `${base}/analytics/`],
-    ['Source Library', `${base}/sources/`],
-    ['Scenario Lab', `${base}/scenarios/`],
-  ]
 
   return (
     <main style={{ minHeight: '100vh', background: 'linear-gradient(180deg,#eef3f8 0,#f7f8f5 42%,#ffffff 100%)', color: '#1f2933', fontFamily: 'Inter, Arial, sans-serif' }}>
@@ -37,11 +15,7 @@ export default function PageShell({ title, subtitle, children }: { title: string
             <div style={{ color: '#d7e7f4', fontSize: 12 }}>Following the Town&apos;s money, in plain English</div>
           </span>
         </a>
-        <nav style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
-          {links.map(([label, href]) => (
-            <a key={href} href={href} style={{ color: 'white', textDecoration: 'none', border: '1px solid rgba(255,255,255,.28)', borderRadius: 6, padding: '9px 13px', fontWeight: 800, background: 'rgba(12,43,72,.35)' }}>{label}</a>
-          ))}
-        </nav>
+        <SiteNav />
       </header>
       <section style={{ padding: 30, maxWidth: 1380, margin: '0 auto' }}>
         <div style={{ background: '#ffffff', border: '1px solid #d8e0e7', borderTop: '6px solid #1f5f8f', borderRadius: 12, padding: 28, boxShadow: '0 14px 34px rgba(31,95,143,.10)', marginBottom: 18 }}>
