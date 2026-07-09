@@ -119,7 +119,7 @@ const td = { padding: '8px 10px' } as const
 
 function changeColor(n: number | null) {
   if (n == null) return '#94a3b8'
-  return n > 0 ? '#b91c1c' : n < 0 ? '#15803d' : '#94a3b8'
+  return n > 0 ? 'var(--inc)' : n < 0 ? 'var(--dec)' : '#94a3b8'
 }
 
 function Stat({ label, value, accent, good }: { label: string; value: string; accent?: boolean; good?: boolean }) {

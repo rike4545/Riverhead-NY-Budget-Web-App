@@ -126,7 +126,7 @@ export default function SalaryRaises() {
                   </td>
                   <td style={{ ...td, textAlign: 'right', color: '#64748b' }}>{r.comparable ? usd(r.annual2025) : <span style={{ color: '#cbd5e1' }}>n/a</span>}</td>
                   <td style={{ ...td, textAlign: 'right', fontWeight: 700 }}>{usd(r.annual2026)}</td>
-                  <td style={{ ...td, textAlign: 'right', fontWeight: 700, color: !r.comparable ? '#cbd5e1' : (r.raise ?? 0) > 0 ? '#b45309' : (r.raise ?? 0) < 0 ? '#15803d' : '#94a3b8' }}>
+                  <td style={{ ...td, textAlign: 'right', fontWeight: 700, color: !r.comparable ? '#cbd5e1' : (r.raise ?? 0) > 0 ? 'var(--inc)' : (r.raise ?? 0) < 0 ? 'var(--dec)' : '#94a3b8' }}>
                     {!r.comparable || r.raise == null ? '—' : `${r.raise >= 0 ? '+' : '−'}${usd(Math.abs(r.raise))}`}
                   </td>
                   <td style={{ ...td, textAlign: 'right', color: !r.comparable ? '#cbd5e1' : '#334155', fontWeight: 700 }}>

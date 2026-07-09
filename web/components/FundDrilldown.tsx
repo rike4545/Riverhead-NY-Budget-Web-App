@@ -153,7 +153,7 @@ function DepartmentCard({ dept, expanded, fundExp }: { dept: SubDepartment; expa
           <div style={{ color: '#64748b', fontSize: 12.5 }}>
             {dept.lineItemCount} line items · {pct.toFixed(1)}% of fund
             {changePct != null && (
-              <span style={{ color: dept.change >= 0 ? '#b91c1c' : '#15803d', fontWeight: 800 }}>
+              <span style={{ color: dept.change >= 0 ? 'var(--inc)' : 'var(--dec)', fontWeight: 800 }}>
                 {' '}· {dept.change >= 0 ? '▲' : '▼'} {Math.abs(changePct).toFixed(1)}% vs 2025
               </span>
             )}
@@ -205,7 +205,7 @@ function LineTable({ rows }: { rows: Row[] }) {
                 <td style={{ padding: '7px 8px', textAlign: 'right', color: '#94a3b8' }}>{usd(r.y2024)}</td>
                 <td style={{ padding: '7px 8px', textAlign: 'right', color: '#64748b' }}>{usd(r.y2025)}</td>
                 <td style={{ padding: '7px 8px', textAlign: 'right', fontWeight: 700 }}>{usd(r.y2026)}</td>
-                <td style={{ padding: '7px 8px', textAlign: 'right', color: change > 0 ? '#b91c1c' : change < 0 ? '#15803d' : '#94a3b8', fontWeight: 700 }}>
+                <td style={{ padding: '7px 8px', textAlign: 'right', color: change > 0 ? 'var(--inc)' : change < 0 ? 'var(--dec)' : '#94a3b8', fontWeight: 700 }}>
                   {change === 0 ? '—' : `${change > 0 ? '+' : '−'}${usd(Math.abs(change))}`}
                 </td>
                 <td style={{ padding: '4px 8px', textAlign: 'center' }}>

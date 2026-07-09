@@ -17,9 +17,20 @@ export const metadata: Metadata = {
   },
 }
 
+// Semantic up/down colors as CSS variables so a reader can flip the convention.
+// Default (accountant view): an increase is red, a decrease is green.
+// "green-up" (plain view): an increase is green, a decrease is red.
+const TREND_CSS = `:root{--inc:#b91c1c;--dec:#15803d}:root[data-tc="green-up"]{--inc:#15803d;--dec:#b91c1c}`
+// Apply the saved choice before first paint so colors don't flash.
+const TREND_INIT = `try{var t=localStorage.getItem('tc');if(t)document.documentElement.setAttribute('data-tc',t)}catch(e){}`
+
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
+      <head>
+        <style dangerouslySetInnerHTML={{ __html: TREND_CSS }} />
+        <script dangerouslySetInnerHTML={{ __html: TREND_INIT }} />
+      </head>
       <body>{children}</body>
     </html>
   )

@@ -91,7 +91,7 @@ export default function Predict2027Page() {
               {p.assumptions.map((a) => (
                 <tr key={a.category} style={{ borderBottom: '1px solid #f1f5f9', verticalAlign: 'top' }}>
                   <td style={{ ...td, fontWeight: 800, color: '#12385b', whiteSpace: 'nowrap' }}>{a.category}</td>
-                  <td style={{ ...td, textAlign: 'right', fontWeight: 800, color: '#b45309' }}>+{a.ratePct}%/yr</td>
+                  <td style={{ ...td, textAlign: 'right', fontWeight: 800, color: 'var(--inc)' }}>+{a.ratePct}%/yr</td>
                   <td style={{ ...td, color: '#475569', whiteSpace: 'nowrap' }}>{a.recentTrend}</td>
                   <td style={{ ...td, color: '#475569', lineHeight: 1.45 }}>{a.why}</td>
                 </tr>
@@ -122,7 +122,7 @@ export default function Predict2027Page() {
                   <td style={{ ...td, textAlign: 'right', color: '#94a3b8' }}>{c.count}</td>
                   <td style={{ ...td, textAlign: 'right', color: '#64748b' }}>{usd(c.v2026)}</td>
                   <td style={{ ...td, textAlign: 'right', fontWeight: 700 }}>{usd(c.v2027)}</td>
-                  <td style={{ ...td, textAlign: 'right', fontWeight: 700, color: '#b45309', whiteSpace: 'nowrap' }}>+{usd(c.delta)} ({c.pct}%)</td>
+                  <td style={{ ...td, textAlign: 'right', fontWeight: 700, color: 'var(--inc)', whiteSpace: 'nowrap' }}>+{usd(c.delta)} ({c.pct}%)</td>
                 </tr>
               ))}
             </tbody>
@@ -149,7 +149,7 @@ export default function Predict2027Page() {
                   <td style={{ ...td, fontWeight: 700, color: '#12385b' }}>{m.name}</td>
                   <td style={{ ...td, color: '#64748b' }}>{m.fund} · {m.dept}</td>
                   <td style={{ ...td, textAlign: 'right', color: '#64748b', whiteSpace: 'nowrap' }}>{usd(m.v2026)} → {usd(m.v2027)}</td>
-                  <td style={{ ...td, textAlign: 'right', fontWeight: 800, color: '#b45309', whiteSpace: 'nowrap' }}>+{usd(m.delta)}</td>
+                  <td style={{ ...td, textAlign: 'right', fontWeight: 800, color: 'var(--inc)', whiteSpace: 'nowrap' }}>+{usd(m.delta)}</td>
                 </tr>
               ))}
             </tbody>

@@ -267,7 +267,7 @@ function TrendBlock({ label, values, years, stroke }: { label: string; values: (
       <div>
         <div style={{ color: '#64748b', fontSize: 11.5, textTransform: 'uppercase', fontWeight: 900, letterSpacing: 0.3 }}>{label}</div>
         <strong style={{ fontSize: 18, color: '#12385b' }}>{usd(last)}</strong>
-        <span style={{ marginLeft: 8, fontWeight: 800, fontSize: 13, color: pct >= 0 ? '#b91c1c' : '#15803d' }}>
+        <span style={{ marginLeft: 8, fontWeight: 800, fontSize: 13, color: pct >= 0 ? 'var(--inc)' : 'var(--dec)' }}>
           {pct >= 0 ? '▲' : '▼'} {Math.abs(pct).toFixed(0)}% since {years[0]}
         </span>
       </div>

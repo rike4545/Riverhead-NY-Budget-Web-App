@@ -140,7 +140,7 @@ export default function AuthorizedSalary() {
                       {r.actualGross != null ? usd(r.actualGross) : <span style={{ color: '#cbd5e1' }}>no match</span>}
                       {r.actualOvertime ? <div style={{ fontSize: 11.5, color: '#b45309' }}>incl. {usd(r.actualOvertime)} OT</div> : null}
                     </td>
-                    <td style={{ ...td, textAlign: 'right', fontWeight: 700, color: gap == null ? '#cbd5e1' : gap >= 0 ? '#b45309' : '#15803d' }}>
+                    <td style={{ ...td, textAlign: 'right', fontWeight: 700, color: gap == null ? '#cbd5e1' : gap >= 0 ? 'var(--inc)' : 'var(--dec)' }}>
                       {gap == null ? '—' : `${gap >= 0 ? '+' : '−'}${usd(Math.abs(gap))}`}
                     </td>
                   </tr>

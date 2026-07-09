@@ -1,4 +1,5 @@
 import meta from '../public/data/meta.json'
+import TrendColors from './TrendColors'
 
 export default function PageShell({ title, subtitle, children }: { title: string; subtitle: string; children: React.ReactNode }) {
   const base = '/rike4545-riverhead-budget-live'
@@ -52,6 +53,9 @@ export default function PageShell({ title, subtitle, children }: { title: string
             <span style={{ display: 'block', marginTop: 6, fontSize: 12.5, color: '#8a6a1f' }}>
               Last refreshed {meta.generatedAtDisplay} · it updates itself whenever the Town posts something new.
             </span>
+          </div>
+          <div style={{ marginTop: 12, display: 'flex', justifyContent: 'flex-end' }}>
+            <TrendColors />
           </div>
         </div>
         {children}
