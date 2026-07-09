@@ -36,6 +36,24 @@ SALARY_2025 = ROOT / "web/public/data/salary/authorized-2025.json"
 RETIREES_2019 = ROOT / "etl/data/retirees-2019.json"
 YEAR = 2026
 
+# Retirements and backfill hires under the 2026 program happen in 2026, so a
+# rookie replacing a retiree is hired at the 2026 step, not 2025's. authorized-2025.json
+# (last actual payroll) is one year stale, and authorized-2026.json can't fill the gap
+# either — as of its Jan 2026 snapshot no rookie has yet been hired into the entry step,
+# so its "minimum" for a title is really a 1-2-year officer, not the true entry rate.
+# These are the actual 2026 step values from the signed contracts (PBA Article XXXVI;
+# SOA Article XXXII), used to override the stale entry/top figures for police ranks only.
+POLICE_OFFICER_ENTRY_2026 = 53349.88  # PBA Academy rate, 2026
+CONTRACT_TOP_2026 = {
+    "Police Officer": 150350.66,       # PBA, 6th Year Officer, 2026
+    "Detective Grade I": 172530.43,    # PBA, 2026
+    "Detective Grade II": 168204.31,   # PBA, 2026
+    "Detective Grade III": 161310.84,  # PBA, 2026
+    "Sergeant": 185027.21,             # SOA, 2026
+    "Detective Sergeant": 189691.78,   # SOA, 2026
+    "Lieutenant": 198911.81,           # SOA, 2026
+}
+
 
 def step_backfill(eligible_list):
     """A more realistic replacement cost: refill each vacated job at the entry
@@ -51,6 +69,7 @@ def step_backfill(eligible_list):
             continue
         t = r["title"].lower()
         entry[t] = min(entry.get(t, r["annual"]), r["annual"])
+    entry["police officer"] = POLICE_OFFICER_ENTRY_2026  # actual 2026 Academy rate, not stale 2025
     cur = repl = 0.0
     matched = 0
     for e in eligible_list:
@@ -90,14 +109,19 @@ def police_ladder():
     officer = [r["annual"] for r in pol if r["title"].strip().lower() == "police officer"]
     if not officer:
         return None, None, None
-    officer_entry, officer_top = round(min(officer)), round(max(officer))
+    # Contract-confirmed 2026 figures override the stale 2025 payroll snapshot for
+    # PBA/SOA-covered ranks; Chief and Captain aren't in either CBA, so they keep
+    # the payroll-derived (2025) top, the best figure available for them.
+    officer_entry = round(POLICE_OFFICER_ENTRY_2026)
+    officer_top = round(CONTRACT_TOP_2026["Police Officer"])
     order = ["Chief", "Captain", "Lieutenant", "Detective Sergeant", "Sergeant",
              "Detective Grade I", "Detective Grade II", "Detective Grade III", "Police Officer"]
     ladder = []
     for name in order:
         sal = [r["annual"] for r in pol if r["title"].strip() == name]
         if sal:
-            ladder.append({"rank": name, "top": round(max(sal)), "count": len(sal),
+            top = CONTRACT_TOP_2026.get(name, max(sal))
+            ladder.append({"rank": name, "top": round(top), "count": len(sal),
                            "isOfficer": name == "Police Officer"})
     return ladder, officer_entry, officer_top
 
@@ -176,14 +200,14 @@ def police_chain(police_eligible):
         "example": {
             "title": "A retiring sergeant",
             "steps": [
-                "A sergeant retires (top-step sergeant costs the Town about $174,600).",
-                "A top-step police officer (about $146,700) is promoted into the sergeant seat — that seat stays filled, at a sergeant's cost.",
-                "The officer's now-empty seat is filled by a rookie at the $52,049 entry step.",
+                f"A sergeant retires (top-step sergeant costs the Town about ${CONTRACT_TOP_2026['Sergeant']:,.0f}).",
+                f"A top-step police officer (about ${top:,.0f}) is promoted into the sergeant seat — that seat stays filled, at a sergeant's cost.",
+                f"The officer's now-empty seat is filled by a rookie at the ${entry:,.0f} entry step.",
             ],
-            "beforeCost": round(174554 + top),
-            "afterCost": round(174554 + entry),
+            "beforeCost": round(CONTRACT_TOP_2026["Sergeant"] + top),
+            "afterCost": round(CONTRACT_TOP_2026["Sergeant"] + entry),
             "netSaving": round(top - entry),
-            "naiveClaim": round(174554 - entry),
+            "naiveClaim": round(CONTRACT_TOP_2026["Sergeant"] - entry),
         },
         "why": (
             "For ranked police jobs the Town must keep the rank filled, so a retirement doesn't remove that "
