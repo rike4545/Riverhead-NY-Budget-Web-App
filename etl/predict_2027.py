@@ -44,15 +44,22 @@ UNION_CONTRACTS = {
         "term": "2023–2026 MOA (expires 12/31/2026, no successor yet public)",
         "rates": {2023: 0.060, 2024: 0.025, 2025: 0.025, 2026: 0.025},
         "known2027": False,
-        "source": "Signed PBA MOA, Article XXXVII (Salaries), 7/25/2023",
+        "source": "Signed PBA MOA, Article XXXVII (Salaries), 7/25/2023. Full known PBA history back to "
+                  "2016 (2%/2%/1.5%/1.5% in 2017–2020, 2%/2% in the 2021–2022 COVID extension per Town "
+                  "Board Resolution 2020-519) confirms the contracts are continuous with no gap — but the "
+                  "placeholder below still uses only the most recent 2023–2026 contract, as the closer "
+                  "starting point for the next negotiation.",
     },
     "SOA": {
         "label": "SOA",
         "term": "2023–2026 agreement (expires 12/31/2026, no successor yet public)",
         "rates": {2023: 0.060, 2024: 0.020, 2025: 0.040, 2026: 0.060},
         "known2027": False,
-        "source": "RiverheadLOCAL, “Town reaches labor deal with police brass, providing "
-                  "19% pay hike over 3½ years” (12/15/2023)",
+        "source": "Signed SOA MOA, Article XXXII (Salaries), 12/12/2023. Full known SOA history back to "
+                  "2016 (2%/2%/2%/2%/1.5% in 2016–2020, 2%/2% in the 2021–2022 COVID extension per Town "
+                  "Board Resolution 2020-520) confirms the contracts are continuous with no gap — but the "
+                  "placeholder below still uses only the most recent 2023–2026 contract, as the closer "
+                  "starting point for the next negotiation.",
     },
 }
 NON_UNION_RATE = 0.03  # no CBA governs these (management/confidential, elected, temp); general trend
