@@ -62,6 +62,16 @@
   "predictedLevy": 69402862,
   "gap": 2752044,
   "predictedLevyPct": 6.2,
+  "pensionExclusion": {
+   "totalEstimate": 134499,
+   "pfrsRateIncreasePts": 2.8,
+   "ersRateIncreasePts": 1.1,
+   "pfrsExcessPts": 0.8,
+   "pfrsExclusionEstimate": 134499,
+   "ersExclusionEstimate": 0,
+   "payrollYear": 2025,
+   "source": "OSC, \u201cNYSLRS Announces Employer Contribution Rates for SFY 2026-27\u201d (9/2025): ERS 16.5%\u219217.6% (+1.1 pts, no exclusion \u2014 under the 2-pt threshold); PFRS 33.7%\u219236.5% (+2.8 pts, 0.8 pts over the threshold, so a real exclusion applies). Estimate uses actual PBA+SOA payroll as a stand-in for the state's \u201cestimated salary base\u201d \u2014 the Town's own ERS/PFRS billing detail would be more precise."
+  },
   "summary": "On current trends the 2027 levy grows about 6.2% \u2014 well above the roughly 2% the cap allows \u2014 so the budget would pierce the cap by about $2,752,044. To stay under the cap the Town would have to close that ~$2,752,044 gap. (The real ceiling is a bit higher than a flat 2% once the tax-base-growth factor and exclusions are added, which would shrink the gap somewhat.)",
   "levers": [
    {
@@ -82,7 +92,7 @@
    },
    {
     "lever": "Claim the cap's legal exclusions",
-    "detail": "The cap formula already excludes pension-contribution growth above two percentage points and voter-approved capital. Booking those correctly raises the legal ceiling \u2014 the opposite of the 2018\u20132022 error, when the ceiling was miscalculated the other way."
+    "detail": "The cap formula excludes pension-cost growth above a 2-percentage-point rise in the retirement systems' own contribution rate, plus voter-approved capital. For 2027, PFRS's rate (covering PBA/SOA) rose 2.8 points \u2014 0.8 points over the threshold \u2014 worth an estimated $134,499 in legally excludable levy on its own (ERS/CSEA's 1.1-point rise doesn't clear the threshold, so no exclusion there). Booking this correctly raises the legal ceiling \u2014 the opposite of the 2018\u20132022 error, when the ceiling was miscalculated the other way."
    },
    {
     "lever": "Or override it \u2014 but on purpose",

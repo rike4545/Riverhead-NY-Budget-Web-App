@@ -101,6 +101,50 @@ UNION_CONTRACTS = {
 }
 NON_UNION_RATE = 0.03  # no CBA governs these (management/confidential, elected, temp); general trend
 
+# NY's tax cap law excludes the portion of pension-cost growth driven by the retirement
+# systems' own average actuarial contribution rate rising more than 2 percentage points
+# year over year (State Comptroller's Real Property Tax Cap guidance). NYSLRS announced
+# the SFY 2026-27 employer rates in September 2025: ERS (covers CSEA) 16.5% -> 17.6%
+# (+1.1 pts, under the 2-pt threshold, no exclusion); PFRS (covers PBA/SOA) 33.7% -> 36.5%
+# (+2.8 pts, clears the threshold by 0.8 pts).
+# Source: OSC, "NYSLRS Announces Employer Contribution Rates for SFY 2026-27" (9/2025).
+ERS_RATE_INCREASE_PTS = 17.6 - 16.5
+PFRS_RATE_INCREASE_PTS = 36.5 - 33.7
+CAP_EXCLUSION_THRESHOLD_PTS = 2.0
+
+
+def pension_exclusion_estimate():
+    """Estimate the legally excludable pension-cost levy: (rate increase beyond the 2-point
+    threshold) x the payroll base covered by that retirement system. Uses actual PBA+SOA
+    (PFRS) and CSEA (ERS) payroll as a stand-in for the state's "estimated salary base" —
+    the Town's actual ERS/PFRS billing detail would give a more precise figure."""
+    payroll = json.loads(PAYROLL_SUMMARY.read_text())
+    latest = max(payroll["yearSummaries"], key=lambda y: y["year"])
+    shares = {row["union"]: row["gross"] for row in latest["byUnion"]}
+    pfrs_base = shares.get("PBA", 0.0) + shares.get("SOA", 0.0)
+    ers_base = shares.get("CSE", 0.0)
+
+    pfrs_excess_pts = max(0.0, PFRS_RATE_INCREASE_PTS - CAP_EXCLUSION_THRESHOLD_PTS)
+    ers_excess_pts = max(0.0, ERS_RATE_INCREASE_PTS - CAP_EXCLUSION_THRESHOLD_PTS)
+    pfrs_exclusion = pfrs_excess_pts / 100 * pfrs_base
+    ers_exclusion = ers_excess_pts / 100 * ers_base
+
+    return {
+        "totalEstimate": round(pfrs_exclusion + ers_exclusion),
+        "pfrsRateIncreasePts": round(PFRS_RATE_INCREASE_PTS, 1),
+        "ersRateIncreasePts": round(ERS_RATE_INCREASE_PTS, 1),
+        "pfrsExcessPts": round(pfrs_excess_pts, 1),
+        "pfrsExclusionEstimate": round(pfrs_exclusion),
+        "ersExclusionEstimate": round(ers_exclusion),
+        "payrollYear": latest["year"],
+        "source": "OSC, “NYSLRS Announces Employer Contribution Rates for SFY 2026-27” (9/2025): "
+                  "ERS 16.5%→17.6% (+1.1 pts, no exclusion — under the 2-pt threshold); PFRS "
+                  "33.7%→36.5% (+2.8 pts, 0.8 pts over the threshold, so a real exclusion applies). "
+                  "Estimate uses actual PBA+SOA payroll as a stand-in for the state's “estimated "
+                  "salary base” — the Town's own ERS/PFRS billing detail would be more precise.",
+    }
+
+
 def _geometric_avg_rate(rates: dict) -> float:
     product = 1.0
     for r in rates.values():
@@ -258,6 +302,7 @@ def build():
     gap = levy_2027 - allowed_levy
     approp_cut_for_1pct = round(approp_2027 / 100)
     reserve_share = round(gap / 33407251 * 100, 1)  # GF fund balance from the 2025 AFR
+    pension_exclusion = pension_exclusion_estimate()
     cap_gap = {
         "piercesCap": gap > 0,
         "capBasePct": int(cap_base_pct * 100),
@@ -265,6 +310,7 @@ def build():
         "predictedLevy": levy_2027,
         "gap": gap,
         "predictedLevyPct": levy_increase_pct,
+        "pensionExclusion": pension_exclusion,
         "summary": f"On current trends the 2027 levy grows about {levy_increase_pct}% — well above the roughly "
                    f"{int(cap_base_pct*100)}% the cap allows — so the budget would pierce the cap by about "
                    f"${gap:,}. To stay under the cap the Town would have to close that ~${gap:,} gap. "
@@ -287,9 +333,14 @@ def build():
                        f"outright — but it's roughly {reserve_share}% of the cushion, spends one-time money on recurring "
                        "cost, and can't be repeated forever."},
             {"lever": "Claim the cap's legal exclusions",
-             "detail": "The cap formula already excludes pension-contribution growth above two percentage points and "
-                       "voter-approved capital. Booking those correctly raises the legal ceiling — the opposite of the "
-                       "2018–2022 error, when the ceiling was miscalculated the other way."},
+             "detail": f"The cap formula excludes pension-cost growth above a 2-percentage-point rise in the "
+                       f"retirement systems' own contribution rate, plus voter-approved capital. For 2027, PFRS's "
+                       f"rate (covering PBA/SOA) rose {pension_exclusion['pfrsRateIncreasePts']} points — "
+                       f"{pension_exclusion['pfrsExcessPts']} points over the threshold — worth an estimated "
+                       f"${pension_exclusion['pfrsExclusionEstimate']:,} in legally excludable levy on its own "
+                       f"(ERS/CSEA's {pension_exclusion['ersRateIncreasePts']}-point rise doesn't clear the "
+                       f"threshold, so no exclusion there). Booking this correctly raises the legal ceiling — the "
+                       f"opposite of the 2018–2022 error, when the ceiling was miscalculated the other way."},
             {"lever": "Or override it — but on purpose",
              "detail": "If the Board decides the services are worth it, it can pierce the cap the right way: adopt the "
                        "override local law first, in public, with the 60% vote on the record — as it did in 2023, 2024, "
