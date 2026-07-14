@@ -41,6 +41,7 @@ const GROUPS: Group[] = [
     links: [
       ['Town Board Votes', `${base}/meetings/`],
       ['Fiscal Impact', `${base}/fiscal-impact/`],
+      ['Campaign Finance', `${base}/campaign-finance/`],
     ],
   },
   {

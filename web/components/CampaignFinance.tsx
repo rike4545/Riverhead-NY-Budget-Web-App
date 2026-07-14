@@ -1,0 +1,151 @@
+'use client'
+
+import { useState } from 'react'
+import { fetchCampaignSnapshots, type CampaignOfficial, type CampaignSnapshot } from '../lib/campaign-finance'
+
+const usd = (n: number) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(n)
+const card = { background: 'white', border: '1px solid #e2e8f0', borderRadius: 16, padding: 18, boxShadow: '0 14px 34px rgba(15,23,42,.05)' } as const
+
+function dateOnly(value: string | null): string | null {
+  return value ? value.slice(0, 10) : null
+}
+
+export default function CampaignFinance({
+  officials,
+  startYear,
+  endYear,
+}: {
+  officials: CampaignOfficial[]
+  startYear: number
+  endYear: number
+}) {
+  const [snapshots, setSnapshots] = useState<Record<string, CampaignSnapshot> | null>(null)
+  const [status, setStatus] = useState<'idle' | 'loading' | 'error'>('idle')
+  const [lastUpdated, setLastUpdated] = useState<Date | null>(null)
+  const [errorMessage, setErrorMessage] = useState<string | null>(null)
+
+  async function refresh() {
+    setStatus('loading')
+    setErrorMessage(null)
+    try {
+      const result = await fetchCampaignSnapshots(officials, startYear, endYear)
+      setSnapshots(result)
+      setLastUpdated(new Date())
+      setStatus('idle')
+    } catch (err) {
+      setStatus('error')
+      setErrorMessage(err instanceof Error ? err.message : 'Update failed.')
+    }
+  }
+
+  return (
+    <div>
+      <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: 12 }}>
+        <button
+          onClick={refresh}
+          disabled={status === 'loading'}
+          style={{
+            background: status === 'loading' ? '#93c5fd' : '#1f5f8f',
+            color: 'white',
+            border: 'none',
+            borderRadius: 10,
+            padding: '10px 16px',
+            fontWeight: 800,
+            cursor: status === 'loading' ? 'default' : 'pointer',
+          }}
+        >
+          {status === 'loading' ? 'Updating…' : 'Refresh from NY Open Data'}
+        </button>
+      </div>
+
+      {status === 'error' && (
+        <div style={{ marginBottom: 12, color: '#b91c1c', background: '#fef2f2', border: '1px solid #fecaca', borderRadius: 10, padding: 10, fontSize: 13 }}>
+          Update failed: {errorMessage}
+        </div>
+      )}
+
+      {lastUpdated && (
+        <div style={{ marginBottom: 12, color: '#64748b', fontSize: 12 }}>Filings last updated: {lastUpdated.toLocaleString()}</div>
+      )}
+
+      <div style={{ display: 'grid', gap: 14 }}>
+        {officials.map((official) => {
+          const live = snapshots?.[official.name]
+          const raised = live ? live.raised : official.seedRaised
+          const direct = live ? live.directContributions : official.seedDirectContributions
+          const transfers = live ? live.transfersIn : official.seedTransfersIn
+          const lastReported = dateOnly(live ? live.lastReported : official.seedLastReported)
+          const latestYear = live?.latestYear
+
+          return (
+            <article key={official.name} style={{ ...card, borderLeft: `6px solid ${official.currentlyServing ? '#1f5f8f' : '#94a3b8'}` }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', gap: 12, flexWrap: 'wrap' }}>
+                <div>
+                  <strong style={{ fontSize: 16, color: '#12385b' }}>{official.name}</strong>
+                  <div style={{ color: '#64748b', fontSize: 13 }}>{official.office}</div>
+                </div>
+                <span
+                  style={{
+                    background: official.currentlyServing ? '#eef6ff' : '#f1f5f9',
+                    color: official.currentlyServing ? '#1f5f8f' : '#475569',
+                    border: `1px solid ${official.currentlyServing ? '#bcd9f5' : '#e2e8f0'}`,
+                    borderRadius: 999,
+                    padding: '3px 10px',
+                    fontSize: 12,
+                    fontWeight: 800,
+                    height: 'fit-content',
+                  }}
+                >
+                  {official.currentlyServing ? 'Currently serving' : 'No longer serving'}
+                </span>
+              </div>
+
+              {official.termStarts && official.termEnds && (
+                <div style={{ color: '#64748b', fontSize: 13, marginTop: 8 }}>
+                  Term: {official.termStarts} → {official.termEnds}
+                  {official.nextElection ? ` · Next election: ${official.nextElection}` : ''}
+                </div>
+              )}
+
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))', gap: 10, marginTop: 12 }}>
+                <Stat label="Total raised" value={raised != null ? usd(raised) : 'No data on file'} />
+                <Stat label="Direct contributions" value={direct != null ? usd(direct) : '—'} />
+                <Stat label="Transfers in" value={transfers != null ? usd(transfers) : '—'} />
+                <Stat label="Last reported" value={lastReported ?? '—'} />
+              </div>
+
+              <div style={{ marginTop: 12, borderTop: '1px solid #e2e8f0', paddingTop: 10 }}>
+                <div style={{ fontSize: 12, fontWeight: 800, color: '#12385b', textTransform: 'uppercase', letterSpacing: 0.4 }}>
+                  {endYear} filing activity
+                </div>
+                {latestYear ? (
+                  <div style={{ color: '#166534', fontSize: 13, marginTop: 4 }}>
+                    {usd(latestYear.filingAmount)} across {latestYear.rowCount} row(s), schedules {latestYear.schedules || 'none'}
+                    {latestYear.lastReported ? ` · latest ${dateOnly(latestYear.lastReported)}` : ''}
+                  </div>
+                ) : snapshots ? (
+                  <div style={{ color: '#92400e', fontSize: 13, marginTop: 4 }}>No {endYear} filings found yet for this committee.</div>
+                ) : (
+                  <div style={{ color: '#64748b', fontSize: 13, marginTop: 4 }}>
+                    Tap &ldquo;Refresh from NY Open Data&rdquo; to check {endYear} activity.
+                  </div>
+                )}
+              </div>
+
+              <div style={{ color: '#94a3b8', fontSize: 11, marginTop: 10 }}>{official.note}</div>
+            </article>
+          )
+        })}
+      </div>
+    </div>
+  )
+}
+
+function Stat({ label, value }: { label: string; value: string }) {
+  return (
+    <div style={{ background: '#f8fafc', borderRadius: 10, padding: 10 }}>
+      <div style={{ color: '#64748b', fontSize: 11, textTransform: 'uppercase', fontWeight: 800 }}>{label}</div>
+      <div style={{ fontWeight: 800, marginTop: 2, color: '#12385b' }}>{value}</div>
+    </div>
+  )
+}
