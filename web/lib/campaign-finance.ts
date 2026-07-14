@@ -125,6 +125,25 @@ export async function fetchFilingHistory(
   return result
 }
 
+// NY State Board of Elections 2026 filing calendar (State/Local candidates), source:
+// https://elections.ny.gov/system/files/documents/2025/12/2026-filing-calendar-12112025-approved.secure.accessible.pdf
+export type FilingDeadline = { label: string; date: string; periodNote: string }
+
+export const nyFilingDeadlines2026: FilingDeadline[] = [
+  { label: 'July Periodic Report', date: '2026-07-15', periodNote: 'activity Jan 12 – Jul 11' },
+  { label: '32-Day Pre-General Report', date: '2026-10-02', periodNote: 'period ends Sep 28' },
+  { label: '11-Day Pre-General Report', date: '2026-10-23', periodNote: 'period ends Oct 19' },
+  { label: 'General Election Day', date: '2026-11-03', periodNote: 'Election Day, not a filing deadline' },
+  { label: '27-Day Post-General Report', date: '2026-11-30', periodNote: 'period ends Nov 26' },
+]
+
+export function nextFilingDeadline(from: Date = new Date()): FilingDeadline | null {
+  const upcoming = nyFilingDeadlines2026
+    .filter((d) => new Date(`${d.date}T23:59:59`) >= from)
+    .sort((a, b) => a.date.localeCompare(b.date))
+  return upcoming[0] ?? null
+}
+
 function yearsClause(startYear: number, endYear: number): string {
   const years: string[] = []
   for (let y = startYear; y <= endYear; y++) years.push(`'${y}'`)
