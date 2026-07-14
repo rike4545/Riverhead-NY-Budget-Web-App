@@ -24,6 +24,7 @@ const GROUPS: Group[] = [
       ['General Fund', `${base}/general-fund/`],
       ['2027 Prediction', `${base}/predict-2027/`],
       ['Tax Cap', `${base}/tax-cap/`],
+      ['My Tax Bill', `${base}/tax-bill/`],
       ['Annual Report', `${base}/annual-report/`],
       ['Community', `${base}/community/`],
     ],

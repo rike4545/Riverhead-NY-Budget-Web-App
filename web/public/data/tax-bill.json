@@ -1,0 +1,28 @@
+{
+ "title": "My tax bill — what would I actually pay?",
+ "asOf": "2026",
+ "intro": "Estimate the Town's portion of your property-tax bill using the Town's own published 2026 rate table. This covers only the Town — county, school, fire, and library taxes are billed separately and aren't included here.",
+ "rateSource": {
+  "title": "2026 Adopted Budget",
+  "url": "https://www.townofriverheadny.gov/DocumentCenter/View/2967/2026-Adopted-Budget",
+  "note": "Rate table, p. 6: 'Total Town Wide' rate, updated based on the final assessment roll."
+ },
+ "rates2026": {
+  "generalFund": 61.948,
+  "highway": 8.695,
+  "streetLighting": 0.955,
+  "totalTownWide": 71.598
+ },
+ "rates2025": {
+  "generalFund": 57.503,
+  "highway": 8.538,
+  "streetLighting": 0.990,
+  "totalTownWide": 67.031
+ },
+ "equalization": {
+  "uniformPercentage": 8.34,
+  "asOfYear": 2024,
+  "source": "Town of Riverhead Assessor's Report, S495 Exemption Impact Report, Suffolk County RPS221/V04/L001 (assessment roll referenced in the 2025 Adopted Budget). Uniform Percentage 8.34% means the assessed value on your tax bill is roughly 8.34% of full market value — Suffolk County towns assess at a fraction of market value, not at 100%.",
+  "note": "This ratio can shift slightly from year to year with each new assessment roll. Use it only as an approximation if you don't know your assessed value directly; if you have a recent tax bill or assessment notice, enter that assessed value instead for an exact answer."
+ }
+}
