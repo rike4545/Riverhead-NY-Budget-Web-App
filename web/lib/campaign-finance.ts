@@ -46,6 +46,85 @@ type SocrataAggRow = {
   row_count?: string
 }
 
+// A single filing SUBMISSION (e.g. "January Periodic, Original, Itemized, State/Local") as
+// opposed to an individual itemized transaction within it. The bulk Socrata data has no
+// "date filed" timestamp — only sched_date per transaction, which for recurring liabilities
+// (an outstanding loan re-reported every period) can carry a stale original date. We use
+// max(sched_date) as "latest reported activity," not a claimed filing date.
+export type FilingEvent = {
+  filerID: string
+  committeeName: string
+  electionYear: string
+  filingDesc: string
+  isAmendment: boolean
+  category: string
+  electionType: string
+  amount: number
+  transactionCount: number
+  lastActivity: string | null
+}
+
+type SocrataFilingRow = {
+  filer_id: string
+  election_year: string
+  filing_desc?: string
+  r_amend?: string
+  filing_cat_desc?: string
+  election_type?: string
+  amount?: string
+  row_count?: string
+  last_activity?: string
+}
+
+export async function fetchFilingHistory(
+  officials: CampaignOfficial[],
+  startYear: number,
+  endYear: number
+): Promise<Record<string, FilingEvent[]>> {
+  const allFilerIDs = Array.from(new Set(officials.flatMap((o) => o.filerIDs.map((f) => f.filerID))))
+  if (allFilerIDs.length === 0) return {}
+  const inClause = allFilerIDs.map((id) => `'${id}'`).join(',')
+  const years = yearsClause(startYear, endYear)
+
+  const url =
+    `https://data.ny.gov/resource/e9ss-239a.json?` +
+    new URLSearchParams({
+      '$select':
+        'filer_id,election_year,filing_desc,r_amend,filing_cat_desc,election_type,sum(org_amt) as amount,count(*) as row_count,max(sched_date) as last_activity',
+      '$where': `filer_id in (${inClause}) and election_year in(${years})`,
+      '$group': 'filer_id,election_year,filing_desc,r_amend,filing_cat_desc,election_type',
+      '$order': 'election_year DESC, last_activity DESC',
+      '$limit': '2000',
+    }).toString()
+
+  const rows = (await fetchSocrataRows(url)) as unknown as SocrataFilingRow[]
+
+  const committeeNameByFiler: Record<string, string> = {}
+  for (const official of officials) {
+    for (const ref of official.filerIDs) committeeNameByFiler[ref.filerID] = ref.committeeName
+  }
+
+  const result: Record<string, FilingEvent[]> = {}
+  for (const official of officials) {
+    const ids = new Set(official.filerIDs.map((f) => f.filerID))
+    result[official.name] = rows
+      .filter((r) => ids.has(r.filer_id))
+      .map((r) => ({
+        filerID: r.filer_id,
+        committeeName: committeeNameByFiler[r.filer_id] ?? r.filer_id,
+        electionYear: r.election_year,
+        filingDesc: r.filing_desc ?? 'Unlabeled filing',
+        isAmendment: (r.r_amend ?? '').toUpperCase() === 'Y',
+        category: r.filing_cat_desc ?? '—',
+        electionType: r.election_type ?? '—',
+        amount: parseFloat(r.amount ?? '0') || 0,
+        transactionCount: parseInt(r.row_count ?? '0', 10) || 0,
+        lastActivity: r.last_activity ?? null,
+      }))
+  }
+  return result
+}
+
 function yearsClause(startYear: number, endYear: number): string {
   const years: string[] = []
   for (let y = startYear; y <= endYear; y++) years.push(`'${y}'`)

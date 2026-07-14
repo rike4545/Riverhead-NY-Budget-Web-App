@@ -1,13 +1,33 @@
 'use client'
 
 import { useState } from 'react'
-import { fetchCampaignSnapshots, type CampaignOfficial, type CampaignSnapshot } from '../lib/campaign-finance'
+import { fetchCampaignSnapshots, fetchFilingHistory, type CampaignOfficial, type CampaignSnapshot, type FilingEvent } from '../lib/campaign-finance'
 
 const usd = (n: number) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(n)
 const card = { background: 'white', border: '1px solid #e2e8f0', borderRadius: 16, padding: 18, boxShadow: '0 14px 34px rgba(15,23,42,.05)' } as const
 
 function dateOnly(value: string | null): string | null {
   return value ? value.slice(0, 10) : null
+}
+
+// "2026" / "2025" / "Prior" — the two most recent years on their own, everything else lumped.
+function yearBucket(electionYear: string, endYear: number): string {
+  const y = Number(electionYear)
+  if (y === endYear) return String(endYear)
+  if (y === endYear - 1) return String(endYear - 1)
+  return 'Prior'
+}
+
+function groupFilingsByBucket(filings: FilingEvent[], endYear: number): { bucket: string; filings: FilingEvent[] }[] {
+  const buckets = [String(endYear), String(endYear - 1), 'Prior']
+  return buckets
+    .map((bucket) => ({
+      bucket,
+      filings: filings
+        .filter((f) => yearBucket(f.electionYear, endYear) === bucket)
+        .sort((a, b) => (b.lastActivity ?? '').localeCompare(a.lastActivity ?? '')),
+    }))
+    .filter((g) => g.filings.length > 0)
 }
 
 export default function CampaignFinance({
@@ -20,6 +40,7 @@ export default function CampaignFinance({
   endYear: number
 }) {
   const [snapshots, setSnapshots] = useState<Record<string, CampaignSnapshot> | null>(null)
+  const [filingsByOfficial, setFilingsByOfficial] = useState<Record<string, FilingEvent[]> | null>(null)
   const [status, setStatus] = useState<'idle' | 'loading' | 'error'>('idle')
   const [lastUpdated, setLastUpdated] = useState<Date | null>(null)
   const [errorMessage, setErrorMessage] = useState<string | null>(null)
@@ -28,8 +49,12 @@ export default function CampaignFinance({
     setStatus('loading')
     setErrorMessage(null)
     try {
-      const result = await fetchCampaignSnapshots(officials, startYear, endYear)
-      setSnapshots(result)
+      const [snapshotResult, filingResult] = await Promise.all([
+        fetchCampaignSnapshots(officials, startYear, endYear),
+        fetchFilingHistory(officials, startYear, endYear),
+      ])
+      setSnapshots(snapshotResult)
+      setFilingsByOfficial(filingResult)
       setLastUpdated(new Date())
       setStatus('idle')
     } catch (err) {
@@ -132,10 +157,63 @@ export default function CampaignFinance({
                 )}
               </div>
 
+              <CampaignFilingsList filings={filingsByOfficial?.[official.name] ?? null} endYear={endYear} hasFetched={!!filingsByOfficial} />
+
               <div style={{ color: '#94a3b8', fontSize: 11, marginTop: 10 }}>{official.note}</div>
             </article>
           )
         })}
+      </div>
+    </div>
+  )
+}
+
+function CampaignFilingsList({ filings, endYear, hasFetched }: { filings: FilingEvent[] | null; endYear: number; hasFetched: boolean }) {
+  if (!hasFetched) return null
+  if (!filings || filings.length === 0) {
+    return (
+      <div style={{ marginTop: 12, borderTop: '1px solid #e2e8f0', paddingTop: 10 }}>
+        <div style={{ fontSize: 12, fontWeight: 800, color: '#12385b', textTransform: 'uppercase', letterSpacing: 0.4 }}>Campaign filings</div>
+        <div style={{ color: '#64748b', fontSize: 13, marginTop: 4 }}>No filings found for this committee in this range.</div>
+      </div>
+    )
+  }
+
+  const groups = groupFilingsByBucket(filings, endYear)
+  const hasMultipleCommittees = new Set(filings.map((f) => f.filerID)).size > 1
+
+  return (
+    <div style={{ marginTop: 12, borderTop: '1px solid #e2e8f0', paddingTop: 10 }}>
+      <div style={{ fontSize: 12, fontWeight: 800, color: '#12385b', textTransform: 'uppercase', letterSpacing: 0.4, marginBottom: 6 }}>Campaign filings</div>
+      <div style={{ display: 'grid', gap: 10 }}>
+        {groups.map((g) => (
+          <div key={g.bucket}>
+            <div style={{ fontSize: 12, fontWeight: 800, color: '#1f5f8f', marginBottom: 4 }}>{g.bucket}</div>
+            <div style={{ display: 'grid', gap: 4 }}>
+              {g.filings.map((f, i) => (
+                <div
+                  key={`${f.filerID}-${f.electionYear}-${f.filingDesc}-${f.isAmendment}-${i}`}
+                  style={{ display: 'flex', justifyContent: 'space-between', gap: 10, fontSize: 12.5, background: '#f8fafc', borderRadius: 8, padding: '6px 10px', flexWrap: 'wrap' }}
+                >
+                  <span style={{ color: '#334155' }}>
+                    <strong>{f.filingDesc}</strong>
+                    <span style={{ color: '#64748b' }}> — {f.category}, {f.isAmendment ? 'Amendment' : 'Original'}, {f.electionType}</span>
+                    {hasMultipleCommittees && <span style={{ color: '#94a3b8' }}> ({f.committeeName})</span>}
+                  </span>
+                  <span style={{ color: '#475569', whiteSpace: 'nowrap' }}>
+                    {usd(f.amount)} · {f.transactionCount} row{f.transactionCount === 1 ? '' : 's'}
+                    {f.lastActivity ? ` · through ${dateOnly(f.lastActivity)}` : ''}
+                  </span>
+                </div>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+      <div style={{ color: '#94a3b8', fontSize: 11, marginTop: 6 }}>
+        &ldquo;Through&rdquo; is the latest transaction date reported inside that filing, not the date the filing was submitted — the
+        bulk data doesn&apos;t carry a submission timestamp, only per-transaction dates (which can be old for a recurring loan
+        balance re-reported each period).
       </div>
     </div>
   )
