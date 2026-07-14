@@ -39,6 +39,21 @@ def clean(s):
     return re.sub(r"\s+", " ", s).strip(" .$")
 
 
+# Misspellings in the Town's own salary-schedule source documents, confirmed against
+# Suffolk County's official Civil Service title list.
+TITLE_CORRECTIONS = {
+    "Superintendant": "Superintendent",
+    "Specialst": "Specialist",
+    "Adminstrator": "Administrator",
+}
+
+
+def normalize_title(title):
+    for wrong, right in TITLE_CORRECTIONS.items():
+        title = title.replace(wrong, right)
+    return title
+
+
 def normalize_name(name):
     """Normalize to 'Last, First'. Highway/Sewer print 'First Last'."""
     name = clean(name)
@@ -66,12 +81,12 @@ def parse_row(line):
     g = GRADE.search(pre)
     if g:
         name = normalize_name(pre[:g.start()])
-        title = clean(pre[g.end():])
+        title = normalize_title(clean(pre[g.end():]))
         grade = g.group(1)
     else:
         cm = COMMA_NAME.match(pre)
         if cm:
-            name, title, grade = clean(cm.group(1)), clean(cm.group(2)), ""
+            name, title, grade = clean(cm.group(1)), normalize_title(clean(cm.group(2))), ""
         else:
             return None
     if "," not in name or not title:

@@ -51,6 +51,21 @@ CATEGORY_CODES = {
 }
 CATEGORY_NAMES = {"Hol Straight Pay": "holiday"}  # columns with no code prefix
 
+# Misspellings in the Town's own Gross Earnings source exports, confirmed against
+# Suffolk County's official Civil Service title list (e.g. "Superintendant" appears
+# nowhere in the county's classified titles; the correct spelling is "Superintendent").
+TITLE_CORRECTIONS = {
+    "Superintendant": "Superintendent",
+    "Specialst": "Specialist",
+    "Adminstrator": "Administrator",
+}
+
+
+def normalize_title(title):
+    for wrong, right in TITLE_CORRECTIONS.items():
+        title = title.replace(wrong, right)
+    return title
+
 
 def col_code(header):
     return re.split(r"\s+-\s+|_", header.strip(), 1)[0].strip()
@@ -179,7 +194,7 @@ def parse_source_row(header, r, year, cols, ot_cols, cat_cols):
     return {
         "year": year, "name": name,
         "department": (str(r.get(cols["dept"]) or "")).strip() if cols["dept"] else "",
-        "title": (str(r.get(cols["title"]) or "")).strip() if cols["title"] else "",
+        "title": normalize_title((str(r.get(cols["title"]) or "")).strip()) if cols["title"] else "",
         "pay_class": (str(r.get(cols["class"]) or "")).strip() if cols["class"] else "",
         "union": (str(r.get(cols["union"]) or "")).strip() if cols["union"] else "",
         "regular": reg, "overtime": round(ot, 2), "gross": gross,
@@ -223,7 +238,7 @@ def read_year(year):
                     continue
                 yield {
                     "year": year, "name": name,
-                    "department": r.get("department", ""), "title": r.get("title", ""),
+                    "department": r.get("department", ""), "title": normalize_title(r.get("title", "")),
                     "pay_class": r.get("pay_class", ""), "union": r.get("union", ""),
                     "regular": money(r.get("regular")), "overtime": money(r.get("overtime")),
                     "gross": money(r.get("gross")),
