@@ -44,6 +44,7 @@ const GROUPS: Group[] = [
       ['Town Board Votes', `${base}/meetings/`],
       ['Fiscal Impact', `${base}/fiscal-impact/`],
       ['Campaign Finance', `${base}/campaign-finance/`],
+      ['Outlier Watch', `${base}/outliers/`],
     ],
   },
   {
