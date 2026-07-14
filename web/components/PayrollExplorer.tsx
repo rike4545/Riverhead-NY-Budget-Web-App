@@ -69,6 +69,7 @@ export default function PayrollExplorer() {
     const currentCount = new Set(filtered.filter((r) => r.year === latest).map((r) => r.name)).size
     return {
       headcount: year === 'all' ? currentCount : filtered.length,
+      formerCount: allTimeCount - currentCount,
       allTimeCount,
       recordCount: filtered.length,
       gross: filtered.reduce((s, r) => s + r.gross, 0),
@@ -86,8 +87,15 @@ export default function PayrollExplorer() {
         <Stat
           label={year === 'all' ? `Current Employees (${latest})` : `Employees ${year}`}
           value={totals.headcount.toLocaleString()}
-          sub={year === 'all' ? `${totals.allTimeCount.toLocaleString()} people paid at some point since ${payrollYears[0]} · ${totals.recordCount.toLocaleString()} employee-year records` : 'actually paid that year'}
+          sub={year === 'all' ? `of ${totals.allTimeCount.toLocaleString()} people paid since ${payrollYears[0]}` : 'actually paid that year'}
         />
+        {year === 'all' && (
+          <Stat
+            label={`Former Employees (before ${latest})`}
+            value={totals.formerCount.toLocaleString()}
+            sub={`left, retired, or otherwise stopped appearing before ${latest} · ${totals.recordCount.toLocaleString()} employee-year records total`}
+          />
+        )}
         <Stat label="Total Gross Pay" value={usd(totals.gross)} accent />
         <Stat label="Total Overtime" value={usd(totals.overtime)} />
         {summary && <Stat label="Average Salary" value={usd(summary.avgGross)} />}
