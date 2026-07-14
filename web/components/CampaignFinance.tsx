@@ -213,7 +213,8 @@ function CampaignFilingsList({ filings, endYear, hasFetched }: { filings: Filing
       <div style={{ color: '#94a3b8', fontSize: 11, marginTop: 6 }}>
         &ldquo;Through&rdquo; is the latest transaction date reported inside that filing, not the date the filing was submitted — the
         bulk data doesn&apos;t carry a submission timestamp, only per-transaction dates (which can be old for a recurring loan
-        balance re-reported each period).
+        balance re-reported each period). This list also only shows filings that reported at least one itemized transaction —
+        a filing with no reportable activity for that period won&apos;t appear here at all, since the bulk data has no row for it.
       </div>
     </div>
   )
