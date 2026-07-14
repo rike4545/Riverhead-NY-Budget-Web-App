@@ -61,10 +61,14 @@ export default function PayrollExplorer() {
   }, [payrollRecords, year, union, dept, yq, sortKey])
 
   const totals = useMemo(() => ({
-    headcount: filtered.length,
+    // filtered has one row per employee PER YEAR, so across "all years" its length is a
+    // record count, not a headcount - the same person paid in 8 different years counts 8
+    // times. Dedupe by name for the real distinct-employee figure in that view.
+    headcount: year === 'all' ? new Set(filtered.map((r) => r.name)).size : filtered.length,
+    recordCount: filtered.length,
     gross: filtered.reduce((s, r) => s + r.gross, 0),
     overtime: filtered.reduce((s, r) => s + r.overtime, 0),
-  }), [filtered])
+  }), [filtered, year])
 
   const grossTrend = payrollYears.map((y) => yearSummary(y)?.totalGross ?? null)
   const otTrend = payrollYears.map((y) => yearSummary(y)?.totalOvertime ?? null)
@@ -73,7 +77,11 @@ export default function PayrollExplorer() {
     <div style={{ display: 'grid', gap: 16 }}>
       {/* Summary cards */}
       <section style={{ ...card, display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(160px,1fr))', gap: 12 }}>
-        <Stat label={year === 'all' ? 'Employees (all years)' : `Employees ${year}`} value={totals.headcount.toLocaleString()} sub={year !== 'all' ? 'actually paid that year' : undefined} />
+        <Stat
+          label={year === 'all' ? 'Distinct Employees (all years)' : `Employees ${year}`}
+          value={totals.headcount.toLocaleString()}
+          sub={year === 'all' ? `${totals.recordCount.toLocaleString()} employee-year records across ${payrollYears.length} years` : 'actually paid that year'}
+        />
         <Stat label="Total Gross Pay" value={usd(totals.gross)} accent />
         <Stat label="Total Overtime" value={usd(totals.overtime)} />
         {summary && <Stat label="Average Salary" value={usd(summary.avgGross)} />}
