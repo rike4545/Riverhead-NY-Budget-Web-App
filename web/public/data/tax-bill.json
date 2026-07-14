@@ -20,9 +20,9 @@
   "totalTownWide": 67.031
  },
  "equalization": {
-  "uniformPercentage": 8.34,
-  "asOfYear": 2024,
-  "source": "Town of Riverhead Assessor's Report, S495 Exemption Impact Report, Suffolk County RPS221/V04/L001 (assessment roll referenced in the 2025 Adopted Budget). Uniform Percentage 8.34% means the assessed value on your tax bill is roughly 8.34% of full market value — Suffolk County towns assess at a fraction of market value, not at 100%.",
+  "residentialAssessmentRatio": 7.44,
+  "asOfYear": 2025,
+  "source": "Town of Riverhead 2025-2026 Receiver of Taxes rate sheet. Its residential assessment ratio (RAR) of 7.44% is the figure New York's Homestead Tax Option (RPTL Article 19) designates specifically for converting a residential property's market value to assessed value — more precise for this purpose than the town's general equalization/uniform percentage (about 8.16-8.34% depending on the roll year), which is meant for cross-jurisdiction comparison, not household-level conversion.",
   "note": "This ratio can shift slightly from year to year with each new assessment roll. Use it only as an approximation if you don't know your assessed value directly; if you have a recent tax bill or assessment notice, enter that assessed value instead for an exact answer."
  }
 }

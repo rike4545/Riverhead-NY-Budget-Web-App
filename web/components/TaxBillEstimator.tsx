@@ -9,18 +9,18 @@ const card = { background: 'white', border: '1px solid #e2e8f0', borderRadius: 1
 export default function TaxBillEstimator({
   rates2026,
   rates2025,
-  uniformPercentage,
+  residentialAssessmentRatio,
 }: {
   rates2026: TaxRates
   rates2025: TaxRates
-  uniformPercentage: number
+  residentialAssessmentRatio: number
 }) {
   const [inputMode, setInputMode] = useState<'assessed' | 'market'>('assessed')
   const [assessedValue, setAssessedValue] = useState(45000)
   const [marketValue, setMarketValue] = useState(550000)
   const [starReduction, setStarReduction] = useState(0)
 
-  const effectiveAssessed = inputMode === 'assessed' ? assessedValue : assessedFromMarketValue(marketValue, uniformPercentage)
+  const effectiveAssessed = inputMode === 'assessed' ? assessedValue : assessedFromMarketValue(marketValue, residentialAssessmentRatio)
   const estimate2026 = estimateTaxBill(effectiveAssessed, starReduction, rates2026)
   const estimate2025 = estimateTaxBill(effectiveAssessed, starReduction, rates2025)
   const diff = estimate2026.total - estimate2025.total
@@ -48,7 +48,7 @@ export default function TaxBillEstimator({
         <Field
           label="Market value"
           value={usd(marketValue)}
-          hint={`Converted to an estimated assessed value of ${usd(effectiveAssessed)} using Riverhead's ${uniformPercentage}% uniform percentage — an approximation, not exact.`}
+          hint={`Converted to an estimated assessed value of ${usd(effectiveAssessed)} using Riverhead's ${residentialAssessmentRatio}% residential assessment ratio — an approximation, not exact.`}
         >
           <input
             type="range"

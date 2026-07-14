@@ -21,7 +21,7 @@ export default function TaxBillPage() {
         These rates come straight from the {data.rateSource.title} ({data.rateSource.note}) — not an estimate.
       </PlainCallout>
 
-      <TaxBillEstimator rates2026={data.rates2026} rates2025={data.rates2025} uniformPercentage={data.equalization.uniformPercentage} />
+      <TaxBillEstimator rates2026={data.rates2026} rates2025={data.rates2025} residentialAssessmentRatio={data.equalization.residentialAssessmentRatio} />
 
       <p style={{ color: '#64748b', fontSize: 13, lineHeight: 1.55, marginTop: 16 }}>
         Source: <a href={data.rateSource.url} style={{ color: '#1f5f8f', fontWeight: 700 }}>{data.rateSource.title}</a>.{' '}
