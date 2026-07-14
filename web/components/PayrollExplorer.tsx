@@ -60,15 +60,21 @@ export default function PayrollExplorer() {
     return rows
   }, [payrollRecords, year, union, dept, yq, sortKey])
 
-  const totals = useMemo(() => ({
-    // filtered has one row per employee PER YEAR, so across "all years" its length is a
-    // record count, not a headcount - the same person paid in 8 different years counts 8
-    // times. Dedupe by name for the real distinct-employee figure in that view.
-    headcount: year === 'all' ? new Set(filtered.map((r) => r.name)).size : filtered.length,
-    recordCount: filtered.length,
-    gross: filtered.reduce((s, r) => s + r.gross, 0),
-    overtime: filtered.reduce((s, r) => s + r.overtime, 0),
-  }), [filtered, year])
+  const totals = useMemo(() => {
+    // filtered has one row per employee PER YEAR. "Current" headcount means people
+    // actually paid in the latest year on record — someone who left in 2021 shouldn't
+    // count toward how many people the Town employs today. allTimeCount (distinct names
+    // across every year) is kept only as context in the sub-label, not as the headline.
+    const allTimeCount = new Set(filtered.map((r) => r.name)).size
+    const currentCount = new Set(filtered.filter((r) => r.year === latest).map((r) => r.name)).size
+    return {
+      headcount: year === 'all' ? currentCount : filtered.length,
+      allTimeCount,
+      recordCount: filtered.length,
+      gross: filtered.reduce((s, r) => s + r.gross, 0),
+      overtime: filtered.reduce((s, r) => s + r.overtime, 0),
+    }
+  }, [filtered, year, latest])
 
   const grossTrend = payrollYears.map((y) => yearSummary(y)?.totalGross ?? null)
   const otTrend = payrollYears.map((y) => yearSummary(y)?.totalOvertime ?? null)
@@ -78,9 +84,9 @@ export default function PayrollExplorer() {
       {/* Summary cards */}
       <section style={{ ...card, display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(160px,1fr))', gap: 12 }}>
         <Stat
-          label={year === 'all' ? 'Distinct Employees (all years)' : `Employees ${year}`}
+          label={year === 'all' ? `Current Employees (${latest})` : `Employees ${year}`}
           value={totals.headcount.toLocaleString()}
-          sub={year === 'all' ? `${totals.recordCount.toLocaleString()} employee-year records across ${payrollYears.length} years` : 'actually paid that year'}
+          sub={year === 'all' ? `${totals.allTimeCount.toLocaleString()} people paid at some point since ${payrollYears[0]} · ${totals.recordCount.toLocaleString()} employee-year records` : 'actually paid that year'}
         />
         <Stat label="Total Gross Pay" value={usd(totals.gross)} accent />
         <Stat label="Total Overtime" value={usd(totals.overtime)} />
