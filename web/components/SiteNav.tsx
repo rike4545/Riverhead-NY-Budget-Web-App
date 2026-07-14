@@ -116,7 +116,7 @@ export default function SiteNav() {
           </a>
         ))}
 
-        {GROUPS.map((g) => (
+        {GROUPS.map((g, index) => (
           <div key={g.label} className="nav-group" style={{ position: 'relative' }}>
             {/* Desktop: the panel opens on hover/keyboard-focus via CSS below — no click required
                 and immune to any click-timing quirks. The click handler is a fallback for touch
@@ -132,9 +132,13 @@ export default function SiteNav() {
               {g.label} ▾
             </button>
             {/* top:100% with no gap — a gap here would be a hover "dead zone" that drops the
-                menu before the mouse reaches it. The 8px breathing room moves inside as padding. */}
+                menu before the mouse reaches it. The 8px breathing room moves inside as padding.
+                The last group sits at the far right of the header, so anchoring its dropdown
+                from the right (instead of the left, like every other group) keeps it from
+                running off the edge of the viewport. */}
             <div className={`nav-dropdown${open === g.label ? ' force-open' : ''}`} style={{
-              position: 'absolute', top: '100%', left: 0, minWidth: 220, paddingTop: 8, zIndex: 40,
+              position: 'absolute', top: '100%', minWidth: 220, paddingTop: 8, zIndex: 40,
+              ...(index === GROUPS.length - 1 ? { right: 0 } : { left: 0 }),
             }}>
               <div style={{
                 background: 'white', border: '1px solid #d8e0e7', borderRadius: 10,
