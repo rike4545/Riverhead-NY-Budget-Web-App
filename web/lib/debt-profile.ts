@@ -1,27 +1,26 @@
-// The Town's total outstanding debt, from the 2024 Annual Financial Report
-// Update's Statement of Indebtedness (p.142) and Bond Repayment schedule
-// (p.145-147) — the newest figures available, covering all activities
-// (governmental + business-type) combined.
+// The Town's total outstanding debt, from the 2025 Annual Financial Report's
+// Statement of Indebtedness (p.142) and Bond Repayment schedule (p.144-146) —
+// the newest figures available, covering all activities (governmental +
+// business-type) combined.
 //
 // The debt-limit metrics below (governmentalBonds, businessTypeBonds,
 // bondsAuthorizedUnissued, constitutionalDebtLimit, debtSubjectToLimit,
 // debtLimitExhaustedPct) require a governmental-vs-business-type split and a
 // constitutional debt limit that only an independent audit discloses — the
-// 2024/2025 Annual Financial Report Updates don't carry that MD&A section,
-// and the itemized 2024 debt records don't cleanly separate every bond by
-// fund type (one 2021 bond is billed as "water & street parking
-// improvements," mixing an enterprise and a governmental purpose). So
-// debtLimit is still sourced from the 2023 Audited Basic Financial
-// Statement — the newest audit available — and is one year older than the
-// totals above.
+// Annual Financial Reports filed since 2023 don't carry that MD&A section,
+// and the itemized debt records don't cleanly separate every bond by fund
+// type (one 2021 bond is billed as "water & street parking improvements,"
+// mixing an enterprise and a governmental purpose). So debtLimit is still
+// sourced from the 2023 Audited Basic Financial Statement — the newest audit
+// available — and is two years older than the totals above.
 export const debtProfile = {
-  asOf: 'December 31, 2024',
+  asOf: 'December 31, 2025',
   source: {
-    title: 'Town of Riverhead 2024 Annual Financial Report Update',
-    detail: 'Statement of Indebtedness, p.142; Bond Repayment schedule, p.145-147',
+    title: 'Town of Riverhead 2025 Annual Financial Report',
+    detail: 'Statement of Indebtedness, p.142; Bond Repayment schedule, p.144-146',
   },
-  totalBondedDebt: 43_959_898, // excl. BANs, all activities combined
-  bondAnticipationNotes: 22_800_000, // ending balance, all activities
+  totalBondedDebt: 38_423_858, // excl. BANs, all activities combined
+  bondAnticipationNotes: 21_975_000, // ending balance, all activities
   moodyRating: 'Aa2',
   moodyRatingAsOf: 'July 2021',
   debtLimit: {
@@ -38,9 +37,8 @@ export const debtProfile = {
     debtLimitExhaustedPct: 3.78,
   },
   // Future principal & interest on all bonds already on the books (all
-  // activities combined), from the 2024 AFR's Bond Repayment schedule.
+  // activities combined), from the 2025 AFR's Bond Repayment schedule.
   amortization: [
-    { period: '2025', principal: 5_536_040, interest: 1_529_837 },
     { period: '2026', principal: 5_961_040, interest: 1_287_124 },
     { period: '2027', principal: 5_845_778, interest: 1_036_167 },
     { period: '2028', principal: 3_826_040, interest: 815_734 },
