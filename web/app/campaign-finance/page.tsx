@@ -50,6 +50,23 @@ export default function CampaignFinancePage() {
           endYear={data.campaignFilingEndYear}
         />
       </div>
+
+      <div style={{ marginTop: 18 }}>
+        <PlainCallout
+          title="What NY law actually limits"
+          tips={[
+            { label: 'Most donors', text: 'capped at the number of registered voters in the district × $0.05 — a limit that scales with the size of the race, not a flat dollar figure.' },
+            { label: 'Family donors', text: 'child, parent, grandparent, sibling, or the spouse of any of those get a higher cap — the greater of (registered voters × $0.25) or $1,250.' },
+            { label: "The candidate's own money", text: "no cap at all. New York's self-funding limit only applies to candidates in the state's public campaign-financing program — local town races aren't part of it, so a candidate (or, per the cap above, their family) can put in far more than any ordinary donor could." },
+          ]}
+        >
+          Every dollar amount on this page is real. The specific legal cap for any one committee isn&apos;t shown here —
+          it depends on the registered-voter count for that exact race and year, which we haven&apos;t verified for each
+          committee. This is the general shape of the law (NY Election Law § 14-114), not a computed pass/fail for any
+          donor or committee. Confirm specifics with the NY State or Suffolk County Board of Elections before treating
+          any number as authoritative.
+        </PlainCallout>
+      </div>
     </PageShell>
   )
 }
