@@ -9,7 +9,7 @@ const usd = (n: number) => new Intl.NumberFormat('en-US', { style: 'currency', c
 export const metadata = {
   title: 'Capital & Debt — how Riverhead borrows, and what it owes',
   description:
-    "Riverhead's actual outstanding debt from its most recent audit, plus a calculator comparing the two ways a town finances a capital project: issue a bond immediately, or borrow short-term with a Bond Anticipation Note (BAN) first.",
+    "Riverhead's actual outstanding debt from its most recent financial report, plus a calculator comparing the two ways a town finances a capital project: issue a bond immediately, or borrow short-term with a Bond Anticipation Note (BAN) first.",
 }
 
 export default function CapitalDebtPage() {
@@ -18,7 +18,7 @@ export default function CapitalDebtPage() {
   return (
     <PageShell
       title="Capital & Debt"
-      subtitle="What Riverhead actually owes, from its most recent audit — plus a calculator for the two ways a town finances a capital project: bond immediately, or borrow short-term with a Bond Anticipation Note first."
+      subtitle="What Riverhead actually owes, from its most recent financial report — plus a calculator for the two ways a town finances a capital project: bond immediately, or borrow short-term with a Bond Anticipation Note first."
     >
       <PlainCallout
         tips={[
@@ -29,23 +29,25 @@ export default function CapitalDebtPage() {
       >
         As of {debtProfile.asOf}, Riverhead had <strong>{usd(debtProfile.totalBondedDebt)}</strong> in bonded debt
         outstanding and <strong>{usd(debtProfile.bondAnticipationNotes)}</strong> in Bond Anticipation Notes — plus{' '}
-        <strong>{usd(debtProfile.bondsAuthorizedUnissued)}</strong> the Board has authorized but not yet issued as
-        long-term bonds, which is exactly the kind of balance a BAN typically carries in the interim.
+        <strong>{usd(debtProfile.debtLimit.bondsAuthorizedUnissued)}</strong> the Board had authorized but not yet
+        issued as long-term bonds as of {debtProfile.debtLimit.asOf}, which is exactly the kind of balance a BAN
+        typically carries in the interim.
       </PlainCallout>
 
       <section style={{ ...card, display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(180px,1fr))', gap: 12, marginBottom: 16 }}>
         <Stat label="Total bonded debt" value={usd(debtProfile.totalBondedDebt)} sub="excl. BANs, all activities" />
-        <Stat label="Bond Anticipation Notes" value={usd(debtProfile.bondAnticipationNotes)} sub="governmental activities" accent />
-        <Stat label="Authorized, not yet issued" value={usd(debtProfile.bondsAuthorizedUnissued)} sub="Board-approved borrowing" />
-        <Stat label="Debt limit used" value={`${debtProfile.debtLimitExhaustedPct}%`} sub={`of ${usd(debtProfile.constitutionalDebtLimit)} limit`} />
+        <Stat label="Bond Anticipation Notes" value={usd(debtProfile.bondAnticipationNotes)} sub="all activities" accent />
+        <Stat label="Authorized, not yet issued" value={usd(debtProfile.debtLimit.bondsAuthorizedUnissued)} sub={`Board-approved, as of ${debtProfile.debtLimit.asOf}`} />
+        <Stat label="Debt limit used" value={`${debtProfile.debtLimit.debtLimitExhaustedPct}%`} sub={`of ${usd(debtProfile.debtLimit.constitutionalDebtLimit)} limit, as of ${debtProfile.debtLimit.asOf}`} />
         <Stat label="Credit rating" value={debtProfile.moodyRating} sub={`Moody's, ${debtProfile.moodyRatingAsOf}`} />
       </section>
 
       <h2 style={{ color: '#12385b' }}>What's already on the books</h2>
       <section style={{ ...card, marginBottom: 18 }}>
         <p style={{ color: '#64748b', fontSize: 13.5, marginTop: 0 }}>
-          Future principal and interest on the Town's governmental-activities bonds, from the 2023 audit's amortization
-          schedule. Bars show principal (dark) and interest (gold) for each period.
+          Future principal and interest on all of the Town's bonds (governmental and business-type activities
+          combined), from the 2024 Annual Financial Report's Bond Repayment schedule. Bars show principal (dark) and
+          interest (gold) for each period.
         </p>
         <div style={{ display: 'grid', gap: 10 }}>
           {debtProfile.amortization.map((r) => {
@@ -82,9 +84,13 @@ export default function CapitalDebtPage() {
       <CapitalDebtCalculator />
 
       <p style={{ color: '#94a3b8', fontSize: 12.5, marginTop: 16 }}>
-        Debt figures: {debtProfile.source.title}, {debtProfile.source.detail}. Only the governmental-activities
-        portion of bonded debt ({usd(debtProfile.debtSubjectToLimit)}) counts toward the constitutional debt limit —
-        water and sewer district debt is excluded by statute. Verify against the official audit before relying on it.
+        Total debt and amortization figures: {debtProfile.source.title}, {debtProfile.source.detail}. Debt-limit
+        figures (authorized-unissued, constitutional limit, and % exhausted) are from the last independent audit —
+        {' '}{debtProfile.debtLimit.source.title}, {debtProfile.debtLimit.source.detail} — since Annual Financial
+        Report Updates filed since then don't carry that disclosure. Only the governmental-activities portion of
+        bonded debt ({usd(debtProfile.debtLimit.debtSubjectToLimit)}, as of {debtProfile.debtLimit.asOf}) counts
+        toward the constitutional debt limit — water and sewer district debt is excluded by statute. Verify against
+        the official filings before relying on it.
       </p>
     </PageShell>
   )
