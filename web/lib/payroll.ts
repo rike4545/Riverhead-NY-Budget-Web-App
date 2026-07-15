@@ -7,7 +7,11 @@
 
 import summaryJson from '../public/data/payroll/summary.json'
 
-export const PAYROLL_RECORDS_URL = '/rike4545-riverhead-budget-live/data/payroll/records.json'
+// Matches next.config.js's basePath: the prod prefix only applies to the production
+// export (GitHub Pages); a plain fetch() URL doesn't get it rewritten automatically
+// the way <Link>/router navigation does, so it has to be included here by hand.
+const isProd = process.env.NODE_ENV === 'production'
+export const PAYROLL_RECORDS_URL = `${isProd ? '/rike4545-riverhead-budget-live' : ''}/data/payroll/records.json`
 
 export type PayrollRecordRaw = {
   y: number; n: string; d: string; t: string; c: string; u: string
