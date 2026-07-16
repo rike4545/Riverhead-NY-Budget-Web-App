@@ -53,6 +53,7 @@ export default async function FundDetailPage({ params }: { params: Promise<{ cod
         for</strong>, from big departments down to individual spending lines.
       </PlainCallout>
       <ActualsStrip code={fund.code} />
+      <FundContextNote code={fund.code} />
       <FundDrilldown fund={fund} />
     </PageShell>
   )
@@ -92,6 +93,33 @@ function ActualsStrip({ code }: { code: string }) {
           its sibling funds — so these figures cover the whole group, not this budget fund alone.
         </p>
       )}
+    </section>
+  )
+}
+
+// Fund-specific background context that doesn't show up in the line-item numbers themselves —
+// added case by case as sourced reporting explains what's actually driving a fund.
+function FundContextNote({ code }: { code: string }) {
+  if (code.toUpperCase() !== 'SM1') return null
+  return (
+    <section style={{ background: '#fff7ed', border: '1px solid #fed7aa', borderLeft: '6px solid #c2410c', borderRadius: 14, padding: '14px 18px', marginBottom: 16 }}>
+      <strong style={{ color: '#9a3412', fontSize: 15 }}>Why this fund is under pressure</strong>
+      <p style={{ color: '#7c2d12', fontSize: 13.8, lineHeight: 1.55, margin: '8px 0 0' }}>
+        The Riverhead Volunteer Ambulance Corps (which runs this district) has grown from about 1,200 calls a year in
+        1989 to nearly 6,000 in 2025 — over 300% growth on the same 1988-89 headquarters. It&apos;s building a new
+        16,600-square-foot facility, funded through community donations (about $6.4 million raised toward a roughly
+        $9 million estimate) rather than the tax levy above. A billing program expanded to all calls in 2023 is meant
+        to generate insurance revenue to cover that debt service without adding to taxes. Staffing is 150 people, 110
+        of them volunteers.
+      </p>
+      <a
+        href="https://riverheadlocal.com/2026/01/09/in-role-reversal-riverhead-ambulance-calls-on-community-help-us-grow/"
+        target="_blank"
+        rel="noopener noreferrer"
+        style={{ color: '#c2410c', fontWeight: 800, fontSize: 12.5, display: 'inline-block', marginTop: 8 }}
+      >
+        RiverheadLOCAL, Jan. 9, 2026 →
+      </a>
     </section>
   )
 }
