@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import type { ReactNode } from 'react'
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://rike4545.github.io/rike4545-riverhead-budget-live'),
+  metadataBase: new URL('https://rike4545.github.io/Riverhead-NY-Budget-Web-App'),
   title: {
     default: 'Riverhead Budget Live — Town of Riverhead budget, payroll & votes explained',
     template: '%s — Riverhead Budget Live',

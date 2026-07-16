@@ -24,7 +24,7 @@ export default async function FundDetailPage({ params }: { params: Promise<{ cod
   const { code } = await params
   const fund = getFundDetail(code)
   const meta = allOperatingFunds2026.find((f) => f.code.toUpperCase() === code.toUpperCase())
-  const base = '/rike4545-riverhead-budget-live'
+  const base = '/Riverhead-NY-Budget-Web-App'
 
   if (!fund) {
     return (
@@ -77,7 +77,7 @@ function ActualsStrip({ code }: { code: string }) {
         <strong style={{ color: '#14532d', fontSize: 15 }}>
           What actually happened in 2025 {shared ? `(${fund.name} group)` : ''}
         </strong>
-        <a href="/rike4545-riverhead-budget-live/annual-report/" style={{ color: '#15803d', fontWeight: 800, fontSize: 13.5, textDecoration: 'none' }}>
+        <a href="/Riverhead-NY-Budget-Web-App/annual-report/" style={{ color: '#15803d', fontWeight: 800, fontSize: 13.5, textDecoration: 'none' }}>
           Full 2025 Annual Report →
         </a>
       </div>

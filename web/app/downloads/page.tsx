@@ -1,7 +1,7 @@
 import PageShell from '../../components/PageShell'
 import PlainCallout from '../../components/PlainCallout'
 
-const base = '/rike4545-riverhead-budget-live'
+const base = '/Riverhead-NY-Budget-Web-App'
 const card = { background: 'white', border: '1px solid #e2e8f0', borderRadius: 16, padding: 18, boxShadow: '0 14px 34px rgba(15,23,42,.05)' } as const
 
 export const metadata = {
@@ -116,7 +116,7 @@ export default function DownloadsPage() {
 
       <p style={{ color: '#64748b', fontSize: 13, lineHeight: 1.5, marginTop: 16 }}>
         These files are regenerated automatically whenever the underlying data updates. The parsing code is open source in
-        the <a href="https://github.com/rike4545/rike4545-riverhead-budget-live" style={{ color: '#1f5f8f', fontWeight: 700 }}>GitHub repository</a>.
+        the <a href="https://github.com/rike4545/Riverhead-NY-Budget-Web-App" style={{ color: '#1f5f8f', fontWeight: 700 }}>GitHub repository</a>.
       </p>
     </PageShell>
   )

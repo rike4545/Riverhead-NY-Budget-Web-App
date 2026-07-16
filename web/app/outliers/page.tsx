@@ -41,7 +41,7 @@ export default function OutlierWatchPage() {
 
       <p style={{ color: '#94a3b8', fontSize: 12.5, marginTop: 16 }}>
         Source: each year's Adopted Budget Summary page, via the same fund-appropriations history that powers{' '}
-        <a href="/rike4545-riverhead-budget-live/funds/" style={{ color: '#1f5f8f' }}>Funds Explorer</a>.
+        <a href="/Riverhead-NY-Budget-Web-App/funds/" style={{ color: '#1f5f8f' }}>Funds Explorer</a>.
       </p>
     </PageShell>
   )

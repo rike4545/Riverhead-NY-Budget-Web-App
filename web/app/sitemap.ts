@@ -3,7 +3,7 @@ import { allFundCodes } from '../lib/subaccounts'
 
 export const dynamic = 'force-static'
 
-const SITE = 'https://rike4545.github.io/rike4545-riverhead-budget-live'
+const SITE = 'https://rike4545.github.io/Riverhead-NY-Budget-Web-App'
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const routes = [

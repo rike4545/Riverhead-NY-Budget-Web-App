@@ -4,7 +4,7 @@
 // These datasets (~380KB combined) are fetched in the browser on demand rather
 // than bundled — see the URL constants below and components/useFetchJson.ts.
 
-const base = '/rike4545-riverhead-budget-live'
+const base = '/Riverhead-NY-Budget-Web-App'
 
 export function authorizedSalaryUrl(year: 2025 | 2026): string {
   return `${base}/data/salary/authorized-${year}.json`

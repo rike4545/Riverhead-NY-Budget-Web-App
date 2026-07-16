@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useRef, useState } from 'react'
 
-const base = '/rike4545-riverhead-budget-live'
+const base = '/Riverhead-NY-Budget-Web-App'
 const card = { background: 'white', border: '1px solid #e2e8f0', borderRadius: 16, padding: 18, boxShadow: '0 14px 34px rgba(15,23,42,.05)' } as const
 
 type EntryType = 'line-item' | 'payroll' | 'salary' | 'resolution' | 'fund' | 'page'

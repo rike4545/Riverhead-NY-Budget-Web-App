@@ -4,7 +4,7 @@
 
 import indexJson from '../public/data/meetings/index.json'
 
-const base = '/rike4545-riverhead-budget-live'
+const base = '/Riverhead-NY-Budget-Web-App'
 
 export function meetingUrl(slug: string): string {
   return `${base}/data/meetings/${slug}.json`

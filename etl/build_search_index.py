@@ -24,7 +24,7 @@ ROOT = Path(__file__).resolve().parent.parent
 DATA = ROOT / "web/public/data"
 OUT = DATA / "search"
 
-BASE = "/rike4545-riverhead-budget-live"
+BASE = "/Riverhead-NY-Budget-Web-App"
 
 
 def clean(s, limit=None):

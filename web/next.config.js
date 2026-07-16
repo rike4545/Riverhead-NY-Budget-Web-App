@@ -9,8 +9,8 @@ const nextConfig = {
   images: {
     unoptimized: true,
   },
-  basePath: isProd ? '/rike4545-riverhead-budget-live' : '',
-  assetPrefix: isProd ? '/rike4545-riverhead-budget-live/' : '',
+  basePath: isProd ? '/Riverhead-NY-Budget-Web-App' : '',
+  assetPrefix: isProd ? '/Riverhead-NY-Budget-Web-App/' : '',
 };
 
 module.exports = nextConfig;

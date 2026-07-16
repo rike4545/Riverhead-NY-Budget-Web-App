@@ -4,27 +4,27 @@ An independent public fiscal intelligence platform for exploring Riverhead Town 
 
 ## Live Platform
 
-### ▶ **[Open Riverhead Budget Live](https://rike4545.github.io/rike4545-riverhead-budget-live/)**
+### ▶ **[Open Riverhead Budget Live](https://rike4545.github.io/Riverhead-NY-Budget-Web-App/)**
 
 | Page | Direct link |
 | --- | --- |
-| 💰 Payroll Explorer (SeeThroughNY-style) | https://rike4545.github.io/rike4545-riverhead-budget-live/payroll/ |
-| 🧾 Campaign Finance | https://rike4545.github.io/rike4545-riverhead-budget-live/campaign-finance/ |
-| 🏠 My Tax Bill | https://rike4545.github.io/rike4545-riverhead-budget-live/tax-bill/ |
-| 🏦 Reserves & Fund Balance | https://rike4545.github.io/rike4545-riverhead-budget-live/reserves/ |
-| 🏗️ Capital & Debt | https://rike4545.github.io/rike4545-riverhead-budget-live/capital-debt/ |
-| 🚩 Outlier Watch | https://rike4545.github.io/rike4545-riverhead-budget-live/outliers/ |
-| 🏛️ Funds & Sub-Accounts | https://rike4545.github.io/rike4545-riverhead-budget-live/funds/ |
-| 📊 Budget Compare (2020–2026) | https://rike4545.github.io/rike4545-riverhead-budget-live/compare/ |
-| 📈 General Fund 20-Year History | https://rike4545.github.io/rike4545-riverhead-budget-live/general-fund/ |
-| 🔎 Search Records | https://rike4545.github.io/rike4545-riverhead-budget-live/search/ |
+| 💰 Payroll Explorer (SeeThroughNY-style) | https://rike4545.github.io/Riverhead-NY-Budget-Web-App/payroll/ |
+| 🧾 Campaign Finance | https://rike4545.github.io/Riverhead-NY-Budget-Web-App/campaign-finance/ |
+| 🏠 My Tax Bill | https://rike4545.github.io/Riverhead-NY-Budget-Web-App/tax-bill/ |
+| 🏦 Reserves & Fund Balance | https://rike4545.github.io/Riverhead-NY-Budget-Web-App/reserves/ |
+| 🏗️ Capital & Debt | https://rike4545.github.io/Riverhead-NY-Budget-Web-App/capital-debt/ |
+| 🚩 Outlier Watch | https://rike4545.github.io/Riverhead-NY-Budget-Web-App/outliers/ |
+| 🏛️ Funds & Sub-Accounts | https://rike4545.github.io/Riverhead-NY-Budget-Web-App/funds/ |
+| 📊 Budget Compare (2020–2026) | https://rike4545.github.io/Riverhead-NY-Budget-Web-App/compare/ |
+| 📈 General Fund 20-Year History | https://rike4545.github.io/Riverhead-NY-Budget-Web-App/general-fund/ |
+| 🔎 Search Records | https://rike4545.github.io/Riverhead-NY-Budget-Web-App/search/ |
 
 The full page list is in the site's own navigation (grouped as Budget /
 People & Pay / Accountability / More) — see **Core Features** below for
 what each page covers.
 
 GitHub Repository:
-https://github.com/rike4545/rike4545-riverhead-budget-live
+https://github.com/rike4545/Riverhead-NY-Budget-Web-App
 
 ## Also Available
 
@@ -32,10 +32,11 @@ https://github.com/rike4545/rike4545-riverhead-budget-live
 the native iOS companion app, covering much of the same ground (budget,
 taxes, payroll, campaign finance, capital projects) plus resident-facing
 civic tools like a hearing toolkit and a Town Board scorecard. Repo:
-https://github.com/rike4545/Riverhead-NY-Budget-App
+https://github.com/rike4545/Riverhead-NY-Budget-iOS-App
 
-An Android release is in early development (native Kotlin + Jetpack
-Compose port, `AndroidFork/` in the iOS repo) — not yet published.
+An Android release is in early development — native Kotlin + Jetpack
+Compose port, not yet published. Repo:
+https://github.com/rike4545/Riverhead-NY-Budget-Android-App
 
 ---
 

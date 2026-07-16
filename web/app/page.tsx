@@ -1,7 +1,7 @@
 import PageShell from '../components/PageShell'
 import FiscalCommandCenter from '../components/FiscalCommandCenter'
 
-const base = '/rike4545-riverhead-budget-live'
+const base = '/Riverhead-NY-Budget-Web-App'
 
 export default function Page() {
   return (

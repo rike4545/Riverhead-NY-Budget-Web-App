@@ -6,7 +6,7 @@
 // to an independent presentation, and we're explicit about what's met,
 // partial, or missing.
 
-const base = '/rike4545-riverhead-budget-live'
+const base = '/Riverhead-NY-Budget-Web-App'
 
 export type GfoaStatus = 'met' | 'partial' | 'gap'
 
