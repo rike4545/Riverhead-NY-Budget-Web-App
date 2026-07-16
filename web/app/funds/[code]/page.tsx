@@ -105,21 +105,30 @@ function FundContextNote({ code }: { code: string }) {
     <section style={{ background: '#fff7ed', border: '1px solid #fed7aa', borderLeft: '6px solid #c2410c', borderRadius: 14, padding: '14px 18px', marginBottom: 16 }}>
       <strong style={{ color: '#9a3412', fontSize: 15 }}>Why this fund is under pressure</strong>
       <p style={{ color: '#7c2d12', fontSize: 13.8, lineHeight: 1.55, margin: '8px 0 0' }}>
-        The Riverhead Volunteer Ambulance Corps (which runs this district) has grown from about 1,200 calls a year in
-        1989 to nearly 6,000 in 2025 — over 300% growth on the same 1988-89 headquarters. It&apos;s building a new
-        16,600-square-foot facility, funded through community donations (about $6.4 million raised toward a roughly
-        $9 million estimate) rather than the tax levy above. A billing program expanded to all calls in 2023 is meant
-        to generate insurance revenue to cover that debt service without adding to taxes. Staffing is 150 people, 110
-        of them volunteers.
+        The Riverhead Volunteer Ambulance Corps (RVAC) is a private nonprofit that serves this district under
+        contract with the Town — it doesn&apos;t run the district itself. In 2021 RVAC said its roughly $1.2 million
+        town contract couldn&apos;t cover adequate staffing and asked for $1.78 million for 2022; the Town offered a
+        1% increase. Call volume has kept climbing since — over 4,000/year in 2021, about 5,500 by early 2025, nearly
+        6,000 in 2025. Since 2023, RVAC has billed insurance for every transport (not just crash calls) to raise money
+        without relying only on the tax levy above. RVAC is now separately raising money — through its own donations
+        and billing revenue, not this fund&apos;s tax levy — for a new headquarters: estimated at $6-7 million when
+        unveiled in January 2025, cited near $9 million by January 2026 as costs rose, with about $6.4 million raised
+        by then.
       </p>
-      <a
-        href="https://riverheadlocal.com/2026/01/09/in-role-reversal-riverhead-ambulance-calls-on-community-help-us-grow/"
-        target="_blank"
-        rel="noopener noreferrer"
-        style={{ color: '#c2410c', fontWeight: 800, fontSize: 12.5, display: 'inline-block', marginTop: 8 }}
-      >
-        RiverheadLOCAL, Jan. 9, 2026 →
-      </a>
+      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '4px 14px', marginTop: 8 }}>
+        <a href="https://riverheadlocal.com/2021/11/01/we-cant-sustain-this-riverhead-ambulance-corps-says-it-lacks-funds-needed-to-serve-residents/" target="_blank" rel="noopener noreferrer" style={{ color: '#c2410c', fontWeight: 800, fontSize: 12.5 }}>
+          RiverheadLOCAL, Nov. 1, 2021 →
+        </a>
+        <a href="https://riverheadlocal.com/2023/05/01/riverhead-ambulance-will-begin-billing-for-all-transports-in-the-next-60-90-days-to-cover-the-rising-costs-of-emergency-rescue-services/" target="_blank" rel="noopener noreferrer" style={{ color: '#c2410c', fontWeight: 800, fontSize: 12.5 }}>
+          RiverheadLOCAL, May 1, 2023 →
+        </a>
+        <a href="https://riverheadlocal.com/2025/01/31/riverhead-ambulance-unveils-plans-for-new-headquarters-building-on-osborn-avenue/" target="_blank" rel="noopener noreferrer" style={{ color: '#c2410c', fontWeight: 800, fontSize: 12.5 }}>
+          RiverheadLOCAL, Jan. 31, 2025 →
+        </a>
+        <a href="https://riverheadlocal.com/2026/01/09/in-role-reversal-riverhead-ambulance-calls-on-community-help-us-grow/" target="_blank" rel="noopener noreferrer" style={{ color: '#c2410c', fontWeight: 800, fontSize: 12.5 }}>
+          RiverheadLOCAL, Jan. 9, 2026 →
+        </a>
+      </div>
     </section>
   )
 }
