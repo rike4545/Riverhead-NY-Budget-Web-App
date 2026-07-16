@@ -115,7 +115,49 @@ function FundContextNote({ code }: { code: string }) {
         unveiled in January 2025, cited near $9 million by January 2026 as costs rose, with about $6.4 million raised
         by then.
       </p>
-      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '4px 14px', marginTop: 8 }}>
+
+      <p style={{ color: '#7c2d12', fontSize: 13.8, lineHeight: 1.55, margin: '10px 0 0' }}>
+        RVAC&apos;s own IRS Form 990 filings — separate from this Town fund — show that donation-driven revenue
+        growth: total revenue rose from $1.54 million (FY2022) to $2.23 million (FY2024), and net assets more than
+        doubled over the same span. But the insurance-billing ramp-up has been slower than the Town projected: the
+        2023 district budget projected $2.06 million in medical billing revenue once RVAC billed every transport,
+        while RVAC&apos;s own program-service revenue (mostly billing) was only about $255,000 in FY2023 and
+        $829,734 in FY2024 — still well short of that projection two years in.
+      </p>
+      <div style={{ overflowX: 'auto', marginTop: 10 }}>
+        <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 12.5 }}>
+          <thead>
+            <tr style={{ textAlign: 'left', color: '#9a3412', borderBottom: '1px solid #fed7aa' }}>
+              <th style={rvacTh}></th>
+              <th style={{ ...rvacTh, textAlign: 'right' }}>FY2022</th>
+              <th style={{ ...rvacTh, textAlign: 'right' }}>FY2023</th>
+              <th style={{ ...rvacTh, textAlign: 'right' }}>FY2024</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style={{ borderBottom: '1px solid #ffedd5' }}>
+              <td style={{ ...rvacTd, fontWeight: 700 }}>Total revenue</td>
+              <td style={{ ...rvacTd, textAlign: 'right' }}>$1,540,107</td>
+              <td style={{ ...rvacTd, textAlign: 'right' }}>$1,627,206</td>
+              <td style={{ ...rvacTd, textAlign: 'right', fontWeight: 700 }}>$2,229,291</td>
+            </tr>
+            <tr style={{ borderBottom: '1px solid #ffedd5' }}>
+              <td style={rvacTd}>Total expenses</td>
+              <td style={{ ...rvacTd, textAlign: 'right' }}>$1,463,302</td>
+              <td style={{ ...rvacTd, textAlign: 'right' }}>$1,562,248</td>
+              <td style={{ ...rvacTd, textAlign: 'right' }}>$1,719,329</td>
+            </tr>
+            <tr>
+              <td style={rvacTd}>Net assets (year-end)</td>
+              <td style={{ ...rvacTd, textAlign: 'right' }}>$1,679,395</td>
+              <td style={{ ...rvacTd, textAlign: 'right' }}>$1,758,353</td>
+              <td style={{ ...rvacTd, textAlign: 'right' }}>$2,221,380</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '4px 14px', marginTop: 10 }}>
         <a href="https://riverheadlocal.com/2021/11/01/we-cant-sustain-this-riverhead-ambulance-corps-says-it-lacks-funds-needed-to-serve-residents/" target="_blank" rel="noopener noreferrer" style={{ color: '#c2410c', fontWeight: 800, fontSize: 12.5 }}>
           RiverheadLOCAL, Nov. 1, 2021 →
         </a>
@@ -128,10 +170,16 @@ function FundContextNote({ code }: { code: string }) {
         <a href="https://riverheadlocal.com/2026/01/09/in-role-reversal-riverhead-ambulance-calls-on-community-help-us-grow/" target="_blank" rel="noopener noreferrer" style={{ color: '#c2410c', fontWeight: 800, fontSize: 12.5 }}>
           RiverheadLOCAL, Jan. 9, 2026 →
         </a>
+        <a href="https://projects.propublica.org/nonprofits/organizations/113396823" target="_blank" rel="noopener noreferrer" style={{ color: '#c2410c', fontWeight: 800, fontSize: 12.5 }}>
+          ProPublica Nonprofit Explorer, RVAC Form 990s →
+        </a>
       </div>
     </section>
   )
 }
+
+const rvacTh = { padding: '5px 8px' } as const
+const rvacTd = { padding: '5px 8px', color: '#7c2d12' } as const
 
 function ActualStat({ label, value, strong, negative }: { label: string; value: string; strong?: boolean; negative?: boolean }) {
   return (
