@@ -18,12 +18,12 @@ export default function SpendingReduction2027Page() {
       subtitle="A real, sourced recurring spending-reduction package for the 2027 budget — not a wishlist. Toggle items to build your own package and watch it move against the modeled payroll-pressure gap."
     >
       <PlainCallout title="Where this comes from">
-        This totals <strong>{usd(fullRecurringReductionPackage)}</strong> — reconciled across the app&apos;s
-        own three previously-inconsistent 2027 planning models, which used to disagree with each other by
-        up to $12K on this same figure. It is deliberately not $2.75M: the largest driver in the 2027
-        model, about $907.9K of modeled PBA/SOA/CSEA union wage growth, is contractually locked and stays
-        on the pressure side of the budget rather than being counted as a lever here. The modeled 2027
-        automatic payroll-pressure gap this package is measured against is{' '}
+        This totals <strong>{usd(fullRecurringReductionPackage)}</strong> in real, individually-sourced
+        recurring savings and cost-recovery opportunities — not a wishlist, and not the whole 2027 gap.
+        The single largest driver of 2027 budget pressure, about $907.9K of modeled PBA/SOA/CSEA union
+        wage growth, is contractually locked and isn&apos;t included here, since it can&apos;t be cut
+        without a successor labor agreement. The modeled 2027 automatic payroll-pressure gap this package
+        is measured against — how much of that pressure it could offset — is{' '}
         <strong>{usd(modeledAutomaticPayrollPressure)}</strong>.
       </PlainCallout>
 

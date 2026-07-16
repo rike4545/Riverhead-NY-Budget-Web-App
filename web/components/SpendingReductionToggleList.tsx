@@ -86,11 +86,11 @@ export default function SpendingReductionToggleList() {
 
       <section style={{ background: '#f8fafc', border: '1px solid #e2e8f0', borderLeft: '6px solid #64748b', borderRadius: 12, padding: '14px 16px' }}>
         <p style={{ margin: 0, color: '#334155', fontSize: 13.8, lineHeight: 1.55 }}>
-          This is not $2.75M. Union wage growth ($907.9K of modeled PBA/SOA/CSEA pressure) is the single largest
-          driver in the 2027 model, but it&apos;s contractually locked and cannot be treated as a spending-reduction
-          lever without a successor labor agreement — it stays on the pressure side of the budget, not here. Every
-          dollar below is traceable to either a named formula input or an actual 2025→2026 account-level change in
-          the Town&apos;s own 2026 Budget Supplement. Click any item to test a package that leaves it out.
+          Union wage growth ($907.9K of modeled PBA/SOA/CSEA pressure) is the single largest driver in the 2027
+          model, but it&apos;s contractually locked and cannot be treated as a spending-reduction lever without a
+          successor labor agreement — it stays on the pressure side of the budget, not here. Every dollar below is
+          traceable to either a named formula input or an actual 2025→2026 account-level change in the Town&apos;s
+          own 2026 Budget Supplement. Click any item to test a package that leaves it out.
         </p>
         <p style={{ margin: '10px 0 0', color: '#334155', fontSize: 13.8, lineHeight: 1.55 }}>
           PBA and SOA contracts both expire 12/31/2026 (CSEA is already locked through a ratified 2026-2029
@@ -108,7 +108,7 @@ export default function SpendingReductionToggleList() {
         items={personnelPolicyItems}
         isSelected={isSelected}
         onToggle={toggle}
-        footer="Six categories reconciled across the iOS app's three 2027 planning models, which previously disagreed on this total by up to $12K."
+        footer="Six categories: policy or formula-driven savings that would require Board or contract action to actually capture."
       />
 
       <ItemSection
