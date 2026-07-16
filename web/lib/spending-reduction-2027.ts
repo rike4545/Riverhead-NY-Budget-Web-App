@@ -25,7 +25,14 @@ const healthcareContributionSavings =
 const policeUniformOTActual2024 = 1_401_354.0
 const policeUniformOTBudget2024 = 1_000_000.0
 const policeUniformOTVariance = policeUniformOTActual2024 - policeUniformOTBudget2024
-const overtimeControlSavings = 250_000.0
+
+// Peer benchmark: Southampton's 2026 adopted Town Police OT (account 6101) is $1,476,854 for
+// 113 officers — $13,069.50/officer. Applied to Riverhead's ~100 officers, that implies a
+// regionally-normal OT budget of ~$1,306,950.44, meaning only the actual's excess over that
+// (not the full variance over Riverhead's own $1M budget) is credibly "recoverable."
+const peerBenchmarkOvertimePerOfficer = 1_476_854.0 / 113.0
+const peerBenchmarkNormalizedBudget = peerBenchmarkOvertimePerOfficer * 100.0
+const overtimeControlSavings = policeUniformOTActual2024 - peerBenchmarkNormalizedBudget
 
 const civilianVacancyFactorSavings = 124_158.19
 const targetedRetirementRefillSavings = 291_300.0
@@ -45,7 +52,7 @@ export const personnelPolicyItems: SpendingReductionItem[] = [
     title: 'Police Uniform OT recovery target',
     amount: overtimeControlSavings,
     source: `2024 actual ($${Math.round(policeUniformOTActual2024).toLocaleString()}) vs. $${Math.round(policeUniformOTBudget2024).toLocaleString()} budget — a $${Math.round(policeUniformOTVariance).toLocaleString()} variance`,
-    rationale: 'Only credible with published monthly OT-by-cause reporting and a scheduling plan — not a booked cut.',
+    rationale: "Southampton's 2026 adopted Police OT is $13,069.50/officer for 113 officers; at that regional rate Riverhead's ~100 officers would need about $1,306,950 — meaning most of the variance is likely real coverage need, not scheduling waste. Zero OT isn't realistic, so this targets only the residual above that peer benchmark.",
   },
   {
     id: 'retirementRefill',
