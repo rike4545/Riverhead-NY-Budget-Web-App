@@ -92,6 +92,13 @@ export default function SpendingReductionToggleList() {
           dollar below is traceable to either a named formula input or an actual 2025→2026 account-level change in
           the Town&apos;s own 2026 Budget Supplement. Click any item to test a package that leaves it out.
         </p>
+        <p style={{ margin: '10px 0 0', color: '#334155', fontSize: 13.8, lineHeight: 1.55 }}>
+          PBA and SOA contracts both expire 12/31/2026 (CSEA is already locked through a ratified 2026-2029
+          agreement). New York law routes police/fire bargaining impasses to binding arbitration rather than
+          legislative resolution, and comparable Long Island police contracts have taken 1-3+ years past expiration
+          to settle — so the PBA/SOA figures above will likely remain placeholder estimates through the 2027 budget
+          cycle, with any successor terms applied retroactively once reached.
+        </p>
       </section>
 
       <ItemSection
