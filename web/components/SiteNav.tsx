@@ -23,6 +23,7 @@ const GROUPS: Group[] = [
       ['Budget Compare', `${base}/compare/`],
       ['General Fund', `${base}/general-fund/`],
       ['2027 Prediction', `${base}/predict-2027/`],
+      ['2027 Spending Reduction', `${base}/spending-reduction-2027/`],
       ['Tax Cap', `${base}/tax-cap/`],
       ['My Tax Bill', `${base}/tax-bill/`],
       ['Reserves & Fund Balance', `${base}/reserves/`],
