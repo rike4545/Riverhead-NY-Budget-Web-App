@@ -26,6 +26,17 @@ what each page covers.
 GitHub Repository:
 https://github.com/rike4545/rike4545-riverhead-budget-live
 
+## Also Available
+
+**[Riverhead NY Budget App on the App Store](https://apps.apple.com/us/app/riverhead-ny-budget-app/id6751372951)** —
+the native iOS companion app, covering much of the same ground (budget,
+taxes, payroll, campaign finance, capital projects) plus resident-facing
+civic tools like a hearing toolkit and a Town Board scorecard. Repo:
+https://github.com/rike4545/Riverhead-NY-Budget-App
+
+An Android release is in early development (native Kotlin + Jetpack
+Compose port, `AndroidFork/` in the iOS repo) — not yet published.
+
 ---
 
 # What's New
