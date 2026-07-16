@@ -24,7 +24,9 @@ ROOT = Path(__file__).resolve().parent.parent
 DATA = ROOT / "web/public/data"
 OUT = DATA / "search"
 
-BASE = "/Riverhead-NY-Budget-Web-App"
+# Root-relative — the client prepends whatever basePath the current deploy needs
+# (GitHub Pages vs. Netlify vs. local dev) at render time. See UnifiedSearch.tsx.
+BASE = ""
 
 
 def clean(s, limit=None):

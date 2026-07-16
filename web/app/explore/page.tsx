@@ -7,7 +7,7 @@ import meetingsIndex from '../../public/data/meetings/index.json'
 import afr2025 from '../../public/data/afr/2025.json'
 import buyout from '../../public/data/buyout-analysis.json'
 
-const base = '/Riverhead-NY-Budget-Web-App'
+const base = process.env.NEXT_PUBLIC_BASE_PATH || ''
 const usd0 = (n: number) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(n)
 const M = (n: number) => `$${(n / 1e6).toFixed(1)}M`
 

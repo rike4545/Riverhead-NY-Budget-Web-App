@@ -6,7 +6,7 @@ import { allOperatingFunds2026 } from '../../lib/all-funds'
 import { dollars } from '../../lib/financial-data'
 import { subAccountIndex, townwideSubAccountTotals, townwideCategoryTotals } from '../../lib/subaccounts'
 
-const base = '/Riverhead-NY-Budget-Web-App'
+const base = process.env.NEXT_PUBLIC_BASE_PATH || ''
 const card = { background: 'white', border: '1px solid #e2e8f0', borderRadius: 18, padding: 20, boxShadow: '0 14px 34px rgba(15,23,42,.05)' } as const
 
 const CATEGORY_COLOR: Record<string, string> = {

@@ -3,6 +3,7 @@ import PlainCallout from '../../components/PlainCallout'
 import OutlierWatch from '../../components/OutlierWatch'
 import { outliers, yearTransitions, allYoyChanges, PCT_THRESHOLD, DOLLAR_THRESHOLD } from '../../lib/outlier-watch'
 
+const base = process.env.NEXT_PUBLIC_BASE_PATH || ''
 const card = { background: 'white', border: '1px solid #e2e8f0', borderRadius: 16, padding: 20, boxShadow: '0 14px 34px rgba(15,23,42,.05)' } as const
 const usd = (n: number) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(n)
 
@@ -41,7 +42,7 @@ export default function OutlierWatchPage() {
 
       <p style={{ color: '#94a3b8', fontSize: 12.5, marginTop: 16 }}>
         Source: each year's Adopted Budget Summary page, via the same fund-appropriations history that powers{' '}
-        <a href="/Riverhead-NY-Budget-Web-App/funds/" style={{ color: '#1f5f8f' }}>Funds Explorer</a>.
+        <a href={`${base}/funds/`} style={{ color: '#1f5f8f' }}>Funds Explorer</a>.
       </p>
     </PageShell>
   )

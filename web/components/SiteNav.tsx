@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { usePathname } from 'next/navigation'
 
-const base = '/Riverhead-NY-Budget-Web-App'
+const base = process.env.NEXT_PUBLIC_BASE_PATH || ''
 
 type Link = [label: string, href: string]
 type Group = { label: string; links: Link[] }

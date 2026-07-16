@@ -5,7 +5,7 @@ import { retirementProgramAssessment, retirementRiskFactors } from '../lib/retir
 import { archiveStats, financialReportsArchive } from '../lib/financial-reports-archive'
 import { dollars } from '../lib/financial-data'
 
-const base = '/Riverhead-NY-Budget-Web-App'
+const base = process.env.NEXT_PUBLIC_BASE_PATH || ''
 // In-page section anchors (site navigation lives in the shared PageShell header).
 const sectionAnchors = [
   ['Resident Insights', '#insights'],

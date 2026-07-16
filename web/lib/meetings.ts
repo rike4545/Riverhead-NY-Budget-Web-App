@@ -4,7 +4,7 @@
 
 import indexJson from '../public/data/meetings/index.json'
 
-const base = '/Riverhead-NY-Budget-Web-App'
+const base = process.env.NEXT_PUBLIC_BASE_PATH || ''
 
 export function meetingUrl(slug: string): string {
   return `${base}/data/meetings/${slug}.json`

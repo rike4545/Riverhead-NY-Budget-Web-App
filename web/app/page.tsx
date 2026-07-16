@@ -1,7 +1,7 @@
 import PageShell from '../components/PageShell'
 import FiscalCommandCenter from '../components/FiscalCommandCenter'
 
-const base = '/Riverhead-NY-Budget-Web-App'
+const base = process.env.NEXT_PUBLIC_BASE_PATH || ''
 
 export default function Page() {
   return (

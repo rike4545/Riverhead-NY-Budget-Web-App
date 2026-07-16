@@ -3,7 +3,7 @@ import TrendColors from './TrendColors'
 import SiteNav from './SiteNav'
 
 export default function PageShell({ title, subtitle, children }: { title: string; subtitle: string; children: React.ReactNode }) {
-  const base = '/Riverhead-NY-Budget-Web-App'
+  const base = process.env.NEXT_PUBLIC_BASE_PATH || ''
 
   return (
     <main style={{ minHeight: '100vh', background: 'linear-gradient(180deg,#eef3f8 0,#f7f8f5 42%,#ffffff 100%)', color: '#1f2933', fontFamily: 'Inter, Arial, sans-serif' }}>

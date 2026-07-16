@@ -7,11 +7,11 @@
 
 import summaryJson from '../public/data/payroll/summary.json'
 
-// Matches next.config.js's basePath: the prod prefix only applies to the production
-// export (GitHub Pages); a plain fetch() URL doesn't get it rewritten automatically
-// the way <Link>/router navigation does, so it has to be included here by hand.
-const isProd = process.env.NODE_ENV === 'production'
-export const PAYROLL_RECORDS_URL = `${isProd ? '/Riverhead-NY-Budget-Web-App' : ''}/data/payroll/records.json`
+// Matches next.config.js's basePath: the prefix only applies on the GitHub Pages
+// production export, not on Netlify or local dev; a plain fetch() URL doesn't get
+// it rewritten automatically the way <Link>/router navigation does, so it has to
+// be included here by hand via the same NEXT_PUBLIC_BASE_PATH next.config.js sets.
+export const PAYROLL_RECORDS_URL = `${process.env.NEXT_PUBLIC_BASE_PATH || ''}/data/payroll/records.json`
 
 export type PayrollRecordRaw = {
   y: number; n: string; d: string; t: string; c: string; u: string

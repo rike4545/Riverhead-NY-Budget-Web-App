@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useRef, useState } from 'react'
 
-const base = '/Riverhead-NY-Budget-Web-App'
+const base = process.env.NEXT_PUBLIC_BASE_PATH || ''
 const card = { background: 'white', border: '1px solid #e2e8f0', borderRadius: 16, padding: 18, boxShadow: '0 14px 34px rgba(15,23,42,.05)' } as const
 
 type EntryType = 'line-item' | 'payroll' | 'salary' | 'resolution' | 'fund' | 'page'
@@ -115,8 +115,11 @@ export default function UnifiedSearch() {
         {results.slice(0, limit).map((e, i) => {
           const meta = TYPE_META[e.t]
           const external = e.u.startsWith('http')
+          // Result URLs in the index are root-relative (e.g. /funds/A01/) so the
+          // same data works under any basePath — GitHub Pages, Netlify, or local dev.
+          const href = e.u ? (external ? e.u : `${base}${e.u}`) : undefined
           return (
-            <a key={`${e.t}-${e.n}-${i}`} href={e.u || undefined} target={external ? '_blank' : undefined} rel={external ? 'noreferrer' : undefined}
+            <a key={`${e.t}-${e.n}-${i}`} href={href} target={external ? '_blank' : undefined} rel={external ? 'noreferrer' : undefined}
               style={{ ...card, padding: 14, textDecoration: 'none', color: 'inherit', display: 'block' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', gap: 12, alignItems: 'start', flexWrap: 'wrap' }}>
                 <div style={{ minWidth: 0, flex: '1 1 320px' }}>

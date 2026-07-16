@@ -6,7 +6,7 @@
 // to an independent presentation, and we're explicit about what's met,
 // partial, or missing.
 
-const base = '/Riverhead-NY-Budget-Web-App'
+const base = process.env.NEXT_PUBLIC_BASE_PATH || ''
 
 export type GfoaStatus = 'met' | 'partial' | 'gap'
 
