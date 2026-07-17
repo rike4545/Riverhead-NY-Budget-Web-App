@@ -5,7 +5,7 @@
  },
  "totals": {
   "meetings": 40,
-  "votes": 1725,
+  "votes": 1721,
   "contested": 33,
   "failed": 1,
   "tabled": 10
@@ -375,8 +375,8 @@
    "slug": "2025-02-19",
    "date": "February 19, 2025",
    "type": "Regular Meeting",
-   "total": 44,
-   "unanimous": 44,
+   "total": 40,
+   "unanimous": 40,
    "contested": 0,
    "failed": 0,
    "tabled": 0

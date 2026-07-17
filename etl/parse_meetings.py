@@ -42,7 +42,7 @@ PARTY_SOURCE = ("Party affiliation is from local election-results reporting (Riv
                 "Riverhead News-Review), not the meeting minutes.")
 
 FOOTER = re.compile(r"For more information visit our website|www\.townofriverheadn?y?\.gov|Page \d+ of \d+")
-FIELD_RE = re.compile(r"^\s*(RESULT|MOVER|SECONDER|AYES|NAYS|ABSTAIN|ABSTAINED|ABSENT|RECUSED)\s*:\s*(.*)$")
+FIELD_RE = re.compile(r"^\s*(RESULT|MOVER|SECONDER|AYES|NAYS|ABSTAIN|ABSTAINED|ABSENT|RECUSED)\s*:\s*(.*)$", re.M)
 ITEM_MARK = r"^[ \t]*\d{1,3}\.[ \t]+\S"
 ITEM = re.compile(r"^[ \t]*(\d{1,3})\.[ \t]+(.*)")
 RESNUM = re.compile(r"^(\d{4}-\d+)\s+(.*)")
@@ -173,11 +173,20 @@ def parse_meeting(path):
 
     # First pass: collect fields per block (with wrapped-line continuation)
     parsed_blocks = []
+    last_seq = 0
     for block in blocks:
         first = ITEM.match(block.lstrip("\n").split("\n", 1)[0])
         if not first:
             continue
         seq = int(first.group(1))
+        if seq <= last_seq:
+            # A numbered clause embedded in a resolution's own body text (a legal
+            # condition, a SEQR form question, an exhibit) matches ITEM_MARK too,
+            # creating a false item boundary. Real items are strictly increasing
+            # per meeting, so anything that doesn't advance the count is noise,
+            # not a new resolution.
+            continue
+        last_seq = seq
         fm = FIELD_RE.search(block)
         head = block[:fm.start()] if fm else block
         head = clean(re.sub(r"^[ \t]*\d{1,3}\.[ \t]+", "", head.strip("\n")))
