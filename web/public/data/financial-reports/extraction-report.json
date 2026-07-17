@@ -1,6 +1,6 @@
 {
   "source_index": "https://www.townofriverheadny.gov/206/Financial-Reports",
-  "parsed_at": "2026-07-16T15:19:43.408797+00:00",
+  "parsed_at": "2026-07-17T00:00:08.088165+00:00",
   "document_count": 86,
   "audit_document_count": 20,
   "failure_count": 44,
@@ -18,7 +18,7 @@
       "page_count": 71,
       "money_value_count": 3909,
       "sha256": "a20643fc7e55a57bd6110a770cb8b12b71783d74d231cd574c98a8b50927d9bf",
-      "parsed_at": "2026-07-16T15:19:43.408797+00:00"
+      "parsed_at": "2026-07-17T00:00:08.088165+00:00"
     },
     {
       "title": "2026 Preliminary Budget (PDF)",
@@ -30,7 +30,7 @@
       "page_count": 68,
       "money_value_count": 5136,
       "sha256": "246b8c4411ad9accd1712f4253bd08bfd376ca736f2fc92b4b07ff1aafb9aea4",
-      "parsed_at": "2026-07-16T15:19:43.408797+00:00"
+      "parsed_at": "2026-07-17T00:00:08.088165+00:00"
     },
     {
       "title": "2026 Preliminary Budget",
@@ -42,7 +42,7 @@
       "page_count": 68,
       "money_value_count": 5136,
       "sha256": "246b8c4411ad9accd1712f4253bd08bfd376ca736f2fc92b4b07ff1aafb9aea4",
-      "parsed_at": "2026-07-16T15:19:43.408797+00:00"
+      "parsed_at": "2026-07-17T00:00:08.088165+00:00"
     },
     {
       "title": "2026 Budget Supplement (PDF)",
@@ -54,7 +54,7 @@
       "page_count": 60,
       "money_value_count": 4873,
       "sha256": "53d3e3797aba400d677503db7b17d30d3ed101660dce6f0632e109f8f509f931",
-      "parsed_at": "2026-07-16T15:19:43.408797+00:00"
+      "parsed_at": "2026-07-17T00:00:08.088165+00:00"
     },
     {
       "title": "2026 Adopted Budget",
@@ -66,7 +66,7 @@
       "page_count": 66,
       "money_value_count": 6363,
       "sha256": "225eb7f7d340f879544124d73e584d6afa975249ac59b5d3b97044cc903f2ab8",
-      "parsed_at": "2026-07-16T15:19:43.408797+00:00"
+      "parsed_at": "2026-07-17T00:00:08.088165+00:00"
     },
     {
       "title": "2025 Tentative Budget (PDF)",
@@ -78,7 +78,7 @@
       "page_count": 81,
       "money_value_count": 3931,
       "sha256": "1d02905aafc28021b2124a74308ffd7a72bcc9151bc12e7492cd98a63e9af1fb",
-      "parsed_at": "2026-07-16T15:19:43.408797+00:00"
+      "parsed_at": "2026-07-17T00:00:08.088165+00:00"
     },
     {
       "title": "2025 Peconic Bay Community Preservation Fund Audited Financial Statements",
@@ -90,7 +90,7 @@
       "page_count": 16,
       "money_value_count": 46,
       "sha256": "9b5c8a9df7f8e319d641a98b00d2d0663f23fcf4261bcc37503900053aae8be1",
-      "parsed_at": "2026-07-16T15:19:43.408797+00:00"
+      "parsed_at": "2026-07-17T00:00:08.088165+00:00"
     },
     {
       "title": "2025 Budget Supplement (PDF)",
@@ -102,7 +102,7 @@
       "page_count": 60,
       "money_value_count": 4864,
       "sha256": "6e468143dbe235352064c38d5dd32ebfa1cef8a182ccaa3f349c36afeecd5d2a",
-      "parsed_at": "2026-07-16T15:19:43.408797+00:00"
+      "parsed_at": "2026-07-17T00:00:08.088165+00:00"
     },
     {
       "title": "2025 Annual Financial Report",
@@ -114,7 +114,7 @@
       "page_count": 155,
       "money_value_count": 3420,
       "sha256": "e02dc652bd4ca5185125d3893acdd288c1071eb56adb73d09aa7e575592ae7c5",
-      "parsed_at": "2026-07-16T15:19:43.408797+00:00"
+      "parsed_at": "2026-07-17T00:00:08.088165+00:00"
     },
     {
       "title": "2025 Adopted Budget (PDF)",
@@ -126,7 +126,7 @@
       "page_count": 72,
       "money_value_count": 6397,
       "sha256": "1d6e631eae54522bb2adf953400a815c59c97ff4b15298019fe50b0a6150a4f0",
-      "parsed_at": "2026-07-16T15:19:43.408797+00:00"
+      "parsed_at": "2026-07-17T00:00:08.088165+00:00"
     },
     {
       "title": "2024 Tentative Budget (PDF)",
@@ -138,7 +138,7 @@
       "page_count": 82,
       "money_value_count": 3999,
       "sha256": "d4881fb7cc970c0afd684eef3489f53eaca189c0f549b05067316d8b2a314be6",
-      "parsed_at": "2026-07-16T15:19:43.408797+00:00"
+      "parsed_at": "2026-07-17T00:00:08.088165+00:00"
     },
     {
       "title": "2024 Budget Supplement (PDF)",
@@ -150,7 +150,7 @@
       "page_count": 59,
       "money_value_count": 4962,
       "sha256": "31f94a96bc06d9a2153ccfd1cbc7ec266bcbc7f7c12414330719a3245f72db12",
-      "parsed_at": "2026-07-16T15:19:43.408797+00:00"
+      "parsed_at": "2026-07-17T00:00:08.088165+00:00"
     },
     {
       "title": "2024 Annual Financial Report Update (PDF)",
@@ -162,7 +162,7 @@
       "page_count": 156,
       "money_value_count": 3454,
       "sha256": "4f223cb0c6c2afd76b26fe2a07ce949ecfd2622a300d39a24af94a646e1ea043",
-      "parsed_at": "2026-07-16T15:19:43.408797+00:00"
+      "parsed_at": "2026-07-17T00:00:08.088165+00:00"
     },
     {
       "title": "2024 Adopted Budget (PDF)",
@@ -174,7 +174,7 @@
       "page_count": 72,
       "money_value_count": 6508,
       "sha256": "08196e1e6e0ffa5e5ba0ccaa315a1e0007433ca0bbd5235b8cce9696f8b24479",
-      "parsed_at": "2026-07-16T15:19:43.408797+00:00"
+      "parsed_at": "2026-07-17T00:00:08.088165+00:00"
     },
     {
       "title": "2023 Tentative Budget (PDF)",
@@ -186,7 +186,7 @@
       "page_count": 79,
       "money_value_count": 3985,
       "sha256": "2b6d5a1305e8ccbd1a75e49d6a600d3244e1b50dc53c49fc8c6164e7291e4f74",
-      "parsed_at": "2026-07-16T15:19:43.408797+00:00"
+      "parsed_at": "2026-07-17T00:00:08.088165+00:00"
     },
     {
       "title": "2023 Budget Supplement (PDF)",
@@ -198,7 +198,7 @@
       "page_count": 60,
       "money_value_count": 4846,
       "sha256": "1cc7a4d7120e76f4ee095191dedde6eb7303a0ab5f34d5989d10056e189b8f5e",
-      "parsed_at": "2026-07-16T15:19:43.408797+00:00"
+      "parsed_at": "2026-07-17T00:00:08.088165+00:00"
     },
     {
       "title": "2023 Audited Basic Financial Statement (PDF)",
@@ -210,7 +210,7 @@
       "page_count": 96,
       "money_value_count": 2799,
       "sha256": "1bc077565cf41a1958845a8dca7ed609466db8652d9aca6b0494379dfa609fcf",
-      "parsed_at": "2026-07-16T15:19:43.408797+00:00"
+      "parsed_at": "2026-07-17T00:00:08.088165+00:00"
     },
     {
       "title": "2023 Annual Financial Report Update (PDF)",
@@ -222,7 +222,7 @@
       "page_count": 157,
       "money_value_count": 3348,
       "sha256": "6b0cd08f1321a61ba0fb8c277f265c650c0457b85e45397d6950731f05f3fbf2",
-      "parsed_at": "2026-07-16T15:19:43.408797+00:00"
+      "parsed_at": "2026-07-17T00:00:08.088165+00:00"
     },
     {
       "title": "2023 Adopted Budget",
@@ -234,7 +234,7 @@
       "page_count": 76,
       "money_value_count": 6508,
       "sha256": "e95d9a99d8e9e9d9cb16a74e221677f15c5d97019b6d60c7c7b722b349095dcb",
-      "parsed_at": "2026-07-16T15:19:43.408797+00:00"
+      "parsed_at": "2026-07-17T00:00:08.088165+00:00"
     },
     {
       "title": "2022 Tentative Budget (PDF)",
@@ -246,7 +246,7 @@
       "page_count": 77,
       "money_value_count": 3852,
       "sha256": "c41ef5f612dbf58225068512fac4314029e3737aecb9f312e8b265f1b7456857",
-      "parsed_at": "2026-07-16T15:19:43.408797+00:00"
+      "parsed_at": "2026-07-17T00:00:08.088165+00:00"
     },
     {
       "title": "2022 Budget Supplement (PDF)",
@@ -258,7 +258,7 @@
       "page_count": 51,
       "money_value_count": 4536,
       "sha256": "36bb36806b3449a271d778e4ba9950cb891c931d5ca775abddfb24a7ff75f738",
-      "parsed_at": "2026-07-16T15:19:43.408797+00:00"
+      "parsed_at": "2026-07-17T00:00:08.088165+00:00"
     },
     {
       "title": "2022 Annual Financial Report Update (PDF)",
@@ -270,7 +270,7 @@
       "page_count": 97,
       "money_value_count": 2294,
       "sha256": "2285fd9aac4efc23f1c5f7d58081c1f97dcaf81bd473ee08a59357c4b8ffe076",
-      "parsed_at": "2026-07-16T15:19:43.408797+00:00"
+      "parsed_at": "2026-07-17T00:00:08.088165+00:00"
     },
     {
       "title": "2022 Adopted Budget (PDF)",
@@ -282,7 +282,7 @@
       "page_count": 75,
       "money_value_count": 5095,
       "sha256": "1d6ca03bd9be57137539c530c9958bd14c2cc5760864b2b5a08ebd19f6bd3364",
-      "parsed_at": "2026-07-16T15:19:43.408797+00:00"
+      "parsed_at": "2026-07-17T00:00:08.088165+00:00"
     },
     {
       "title": "2021 Budget Supplement (PDF)",
@@ -294,7 +294,7 @@
       "page_count": 54,
       "money_value_count": 4535,
       "sha256": "992e62eb2614775334dbfa66df011caa3743f05a17bbdbbbf7e0345b03840c99",
-      "parsed_at": "2026-07-16T15:19:43.408797+00:00"
+      "parsed_at": "2026-07-17T00:00:08.088165+00:00"
     },
     {
       "title": "2021 Audited Basic Financial Statement (PDF)",
@@ -306,7 +306,7 @@
       "page_count": 97,
       "money_value_count": 0,
       "sha256": "36b7815b583ab5bcd24e7ed332f0d3f5ea2755c3113a5ab5899af7bbc91496b0",
-      "parsed_at": "2026-07-16T15:19:43.408797+00:00"
+      "parsed_at": "2026-07-17T00:00:08.088165+00:00"
     },
     {
       "title": "2021 Annual Financial Report Update (PDF)",
@@ -318,7 +318,7 @@
       "page_count": 100,
       "money_value_count": 2231,
       "sha256": "ab31f1d95cf9bb0bce30c4aa7e3c043264c7cc10fdb235649f5ab9dbdcc836bd",
-      "parsed_at": "2026-07-16T15:19:43.408797+00:00"
+      "parsed_at": "2026-07-17T00:00:08.088165+00:00"
     },
     {
       "title": "2021 Adopted Budget (PDF)",
@@ -330,7 +330,7 @@
       "page_count": 74,
       "money_value_count": 6303,
       "sha256": "5a6b43097ec371a036329883892ffbe24d4e20b6db113cb4b55f1764249241c5",
-      "parsed_at": "2026-07-16T15:19:43.408797+00:00"
+      "parsed_at": "2026-07-17T00:00:08.088165+00:00"
     },
     {
       "title": "2020 Proposed Changes to Preliminary Budget (PDF)",
@@ -342,7 +342,7 @@
       "page_count": 21,
       "money_value_count": 2469,
       "sha256": "d806035becf6529434dd5a91913756c4ec8c680be741871542d7fdb3922ec086",
-      "parsed_at": "2026-07-16T15:19:43.408797+00:00"
+      "parsed_at": "2026-07-17T00:00:08.088165+00:00"
     },
     {
       "title": "2020 Budget Supplement (PDF)",
@@ -354,7 +354,7 @@
       "page_count": 54,
       "money_value_count": 5865,
       "sha256": "f7889fc634fe6cfaf1103e2174bc6f1c84e72ce345447d18a450b0641cfe01f9",
-      "parsed_at": "2026-07-16T15:19:43.408797+00:00"
+      "parsed_at": "2026-07-17T00:00:08.088165+00:00"
     },
     {
       "title": "2020 Audited Basic Financial Statement (PDF)",
@@ -366,7 +366,7 @@
       "page_count": 96,
       "money_value_count": 2575,
       "sha256": "f66ff7858a889cbdb8336cb76770ff37484eb7ad0a84322559a4210fa1e0f7a7",
-      "parsed_at": "2026-07-16T15:19:43.408797+00:00"
+      "parsed_at": "2026-07-17T00:00:08.088165+00:00"
     },
     {
       "title": "2020 Annual Financial Report Update (PDF)",
@@ -378,7 +378,7 @@
       "page_count": 98,
       "money_value_count": 2176,
       "sha256": "9a18bfeed6d42d604a3c2d73f7047c7427f59b8a26406f4b7f509b74db9492ab",
-      "parsed_at": "2026-07-16T15:19:43.408797+00:00"
+      "parsed_at": "2026-07-17T00:00:08.088165+00:00"
     },
     {
       "title": "2020 Adopted Budget (PDF)",
@@ -390,7 +390,7 @@
       "page_count": 71,
       "money_value_count": 6423,
       "sha256": "e7068f6dd552060a6de6e621a285da4cadbfd1362484abb07baf68855b3cf1fc",
-      "parsed_at": "2026-07-16T15:19:43.408797+00:00"
+      "parsed_at": "2026-07-17T00:00:08.088165+00:00"
     },
     {
       "title": "2019 Peconic Bay Community Preservation Fund Financial Statements (PDF)",
@@ -402,7 +402,7 @@
       "page_count": 15,
       "money_value_count": 48,
       "sha256": "4fdbad581c5864995556493e936b48be85c902597ae69ff964123edbfd2a5a21",
-      "parsed_at": "2026-07-16T15:19:43.408797+00:00"
+      "parsed_at": "2026-07-17T00:00:08.088165+00:00"
     },
     {
       "title": "2019 Final Budget (PDF)",
@@ -414,7 +414,7 @@
       "page_count": 78,
       "money_value_count": 6263,
       "sha256": "a3f2f0cecc7b919e55863ba54317aa24dc88e863578884bf72ddb8faaabb792c",
-      "parsed_at": "2026-07-16T15:19:43.408797+00:00"
+      "parsed_at": "2026-07-17T00:00:08.088165+00:00"
     },
     {
       "title": "2019 Audited Basic Financial Statement (PDF)",
@@ -426,7 +426,7 @@
       "page_count": 90,
       "money_value_count": 2603,
       "sha256": "e1491008a642224321a83b160f016df14f826098880e9426f77b8d394b96db5a",
-      "parsed_at": "2026-07-16T15:19:43.408797+00:00"
+      "parsed_at": "2026-07-17T00:00:08.088165+00:00"
     },
     {
       "title": "2019 Annual Financial Report Update (PDF)",
@@ -438,7 +438,7 @@
       "page_count": 96,
       "money_value_count": 2251,
       "sha256": "bc6faa97c5051ef234ef62f3daad7019f48ecdc01e3f48f7ac761bb29be2572d",
-      "parsed_at": "2026-07-16T15:19:43.408797+00:00"
+      "parsed_at": "2026-07-17T00:00:08.088165+00:00"
     },
     {
       "title": "2018 Tentative Budget (PDF)",
@@ -450,7 +450,7 @@
       "page_count": 438,
       "money_value_count": 11886,
       "sha256": "af8ac81b5fc5e4ca8c228ff4d456a54002999824d22b7959bdbb0acb9cba8021",
-      "parsed_at": "2026-07-16T15:19:43.408797+00:00"
+      "parsed_at": "2026-07-17T00:00:08.088165+00:00"
     },
     {
       "title": "2018 Financial (PDF)",
@@ -462,7 +462,7 @@
       "page_count": 82,
       "money_value_count": 0,
       "sha256": "a46277b90bfdcae238ecdd5e83a1a8e669065d97af7b524913966072cd70c8ae",
-      "parsed_at": "2026-07-16T15:19:43.408797+00:00"
+      "parsed_at": "2026-07-17T00:00:08.088165+00:00"
     },
     {
       "title": "2018 Audited Basic Financial Statement (PDF)",
@@ -474,7 +474,7 @@
       "page_count": 4,
       "money_value_count": 0,
       "sha256": "2af254e8c05f3a37e8bb989a9f5369be87dce805e1e65152e7b392a607eb5959",
-      "parsed_at": "2026-07-16T15:19:43.408797+00:00"
+      "parsed_at": "2026-07-17T00:00:08.088165+00:00"
     },
     {
       "title": "2018 Annual Financial Report Update (PDF)",
@@ -486,7 +486,7 @@
       "page_count": 96,
       "money_value_count": 2252,
       "sha256": "84ed08e768bd2b81a25e859baf32de694141dfaef6dbbcdee2f359c77bf17fda",
-      "parsed_at": "2026-07-16T15:19:43.408797+00:00"
+      "parsed_at": "2026-07-17T00:00:08.088165+00:00"
     },
     {
       "title": "2017 Peconic Bay Community Preservation Fund Financial Statements (PDF)",
@@ -498,7 +498,7 @@
       "page_count": 5,
       "money_value_count": 0,
       "sha256": "d2cc368f7d8099f135efd874558428f3bb363788702f9c451abab9f1ebe5c465",
-      "parsed_at": "2026-07-16T15:19:43.408797+00:00"
+      "parsed_at": "2026-07-17T00:00:08.088165+00:00"
     },
     {
       "title": "2017 Audited Basic Financial Statement (PDF)",
@@ -510,7 +510,7 @@
       "page_count": 83,
       "money_value_count": 0,
       "sha256": "63af41927c8109120101baece351b26d19f76cff1a8bf1f3b0d26e7ce13f1579",
-      "parsed_at": "2026-07-16T15:19:43.408797+00:00"
+      "parsed_at": "2026-07-17T00:00:08.088165+00:00"
     },
     {
       "title": "2017 Annual Financial Report Update (PDF)",
@@ -522,7 +522,7 @@
       "page_count": 96,
       "money_value_count": 2144,
       "sha256": "b7c6fd41cfa6c33b69f4096b3fbdf642bbb4be921265199e7d91b2034d8766fd",
-      "parsed_at": "2026-07-16T15:19:43.408797+00:00"
+      "parsed_at": "2026-07-17T00:00:08.088165+00:00"
     },
     {
       "title": "2017 Adopted Budget (PDF)",
@@ -534,7 +534,7 @@
       "page_count": 470,
       "money_value_count": 16979,
       "sha256": "0908cab91e49b7b6d10077fb3b3b9ed5f450923cbc02b79562a7833e1240504e",
-      "parsed_at": "2026-07-16T15:19:43.408797+00:00"
+      "parsed_at": "2026-07-17T00:00:08.088165+00:00"
     },
     {
       "title": "2016 Justice Court Statement of Cash Receipts and Cash Disbursements (PDF)",
@@ -546,7 +546,7 @@
       "page_count": 6,
       "money_value_count": 19,
       "sha256": "a98685ee0667c060f3284cd23b8839476790566f8297122b5b6b627771d9a74c",
-      "parsed_at": "2026-07-16T15:19:43.408797+00:00"
+      "parsed_at": "2026-07-17T00:00:08.088165+00:00"
     },
     {
       "title": "2016 Annual Financial Report Update (PDF)",
@@ -558,7 +558,7 @@
       "page_count": 95,
       "money_value_count": 2204,
       "sha256": "83ba89cdfa80117dc4602772a1f37d9acd8b4f3a014cae09d2a1d82829432a2b",
-      "parsed_at": "2026-07-16T15:19:43.408797+00:00"
+      "parsed_at": "2026-07-17T00:00:08.088165+00:00"
     },
     {
       "title": "2016 Adopted Budget (PDF)",
@@ -570,7 +570,7 @@
       "page_count": 459,
       "money_value_count": 17146,
       "sha256": "36f2f03d502e6000ae517985ca16165ad350e0f0e3b3ea96842941a12ddf9d6e",
-      "parsed_at": "2026-07-16T15:19:43.408797+00:00"
+      "parsed_at": "2026-07-17T00:00:08.088165+00:00"
     },
     {
       "title": "2015 Justice Court Statement of Cash Receipts and Cash Disbursements (PDF)",
@@ -582,7 +582,7 @@
       "page_count": 6,
       "money_value_count": 20,
       "sha256": "b14383bfff30fd2c60fea0cafcabcd288ef791a9b7b64bb0aa6529ed4bc3c1c0",
-      "parsed_at": "2026-07-16T15:19:43.408797+00:00"
+      "parsed_at": "2026-07-17T00:00:08.088165+00:00"
     },
     {
       "title": "2015 Final Budget (PDF)",
@@ -594,7 +594,7 @@
       "page_count": 488,
       "money_value_count": 17679,
       "sha256": "1be670344cbca7af01ecc2b3b310974c323108122471c082050c5f1df54b0b30",
-      "parsed_at": "2026-07-16T15:19:43.408797+00:00"
+      "parsed_at": "2026-07-17T00:00:08.088165+00:00"
     },
     {
       "title": "2015 Annual Financial Report Update (PDF)",
@@ -606,7 +606,7 @@
       "page_count": 92,
       "money_value_count": 2170,
       "sha256": "8f7518435d428e9b379582efea29c7d5ad2e9e60179f1c87877fede92158aeb2",
-      "parsed_at": "2026-07-16T15:19:43.408797+00:00"
+      "parsed_at": "2026-07-17T00:00:08.088165+00:00"
     },
     {
       "title": "2014 Peconic Bay Community Preservation Fund Financial Statements (PDF)",
@@ -618,7 +618,7 @@
       "page_count": 5,
       "money_value_count": 0,
       "sha256": "a4f02682d99ca49edaa151a87a29f85ec1ffd1ed5511dfd31c46f89d4d86f36e",
-      "parsed_at": "2026-07-16T15:19:43.408797+00:00"
+      "parsed_at": "2026-07-17T00:00:08.088165+00:00"
     },
     {
       "title": "2014 Annual Financial Report Update (PDF)",
@@ -630,7 +630,7 @@
       "page_count": 92,
       "money_value_count": 2232,
       "sha256": "6eb964b58e69dd228381b96e29c24c544f8bbf5cd8d320002f22da6b372ec269",
-      "parsed_at": "2026-07-16T15:19:43.408797+00:00"
+      "parsed_at": "2026-07-17T00:00:08.088165+00:00"
     },
     {
       "title": "2014 Adopted Budget (PDF)",
@@ -642,7 +642,7 @@
       "page_count": 495,
       "money_value_count": 17706,
       "sha256": "6250e1ca04f639cb1177b35bde915e335ecf62f6463393fe305349b8dd577f61",
-      "parsed_at": "2026-07-16T15:19:43.408797+00:00"
+      "parsed_at": "2026-07-17T00:00:08.088165+00:00"
     },
     {
       "title": "2013 Peconic Bay Community Preservation Fund Financial Statements (PDF)",
@@ -654,7 +654,7 @@
       "page_count": 5,
       "money_value_count": 0,
       "sha256": "22f7cde6fc4293529bc9279ffea0c07d7ba36cd2143f98eb29d1bc96c8165d84",
-      "parsed_at": "2026-07-16T15:19:43.408797+00:00"
+      "parsed_at": "2026-07-17T00:00:08.088165+00:00"
     },
     {
       "title": "2013 Annual Financial Report Update (PDF)",
@@ -666,7 +666,7 @@
       "page_count": 92,
       "money_value_count": 2216,
       "sha256": "bc28f7a60e40c5c46b0e10fdc06599de22fc41272159cec8882862a15dca3305",
-      "parsed_at": "2026-07-16T15:19:43.408797+00:00"
+      "parsed_at": "2026-07-17T00:00:08.088165+00:00"
     },
     {
       "title": "2013 Adopted Budget (PDF)",
@@ -678,7 +678,7 @@
       "page_count": 495,
       "money_value_count": 17123,
       "sha256": "2613cbf05039b23d802f879e2b76e2cea1c2948ab5c4cf958f11bf08b9ff0c1e",
-      "parsed_at": "2026-07-16T15:19:43.408797+00:00"
+      "parsed_at": "2026-07-17T00:00:08.088165+00:00"
     },
     {
       "title": "2012 Peconic Bay Community Preservation Fund Financial Statements (PDF)",
@@ -690,7 +690,7 @@
       "page_count": 5,
       "money_value_count": 0,
       "sha256": "d2ed98c5c75655bc1af00b738edd8b529780015fe82202e552768c10987bb6c7",
-      "parsed_at": "2026-07-16T15:19:43.408797+00:00"
+      "parsed_at": "2026-07-17T00:00:08.088165+00:00"
     },
     {
       "title": "2012 Annual Financial Report Update (PDF)",
@@ -702,7 +702,7 @@
       "page_count": 92,
       "money_value_count": 2142,
       "sha256": "c024b213c37bbf82ce2d063c42022b0943e824f809146307667adcb671665bde",
-      "parsed_at": "2026-07-16T15:19:43.408797+00:00"
+      "parsed_at": "2026-07-17T00:00:08.088165+00:00"
     },
     {
       "title": "2012 Adopted Budget (PDF)",
@@ -714,7 +714,7 @@
       "page_count": 477,
       "money_value_count": 17396,
       "sha256": "a36e912a3a4db58c42195bbb0f47cd526b751833193a645994af762270e7e14a",
-      "parsed_at": "2026-07-16T15:19:43.408797+00:00"
+      "parsed_at": "2026-07-17T00:00:08.088165+00:00"
     },
     {
       "title": "2011 Peconic Bay Community Preservation Fund Audited Financial Statement (PDF)",
@@ -726,7 +726,7 @@
       "page_count": 8,
       "money_value_count": 0,
       "sha256": "f770b63c27f0c23549c5f99669ff375478e24b389d2e32fa783ff752067d6832",
-      "parsed_at": "2026-07-16T15:19:43.408797+00:00"
+      "parsed_at": "2026-07-17T00:00:08.088165+00:00"
     },
     {
       "title": "2011 Annual Financial Report Update (PDF)",
@@ -738,7 +738,7 @@
       "page_count": 107,
       "money_value_count": 2191,
       "sha256": "dfc31e7297504acc5b2ffb5f6d138929a428eb21e3c754abd26761baccfffd1a",
-      "parsed_at": "2026-07-16T15:19:43.408797+00:00"
+      "parsed_at": "2026-07-17T00:00:08.088165+00:00"
     },
     {
       "title": "2011 Adopted Budget (PDF)",
@@ -750,7 +750,7 @@
       "page_count": 496,
       "money_value_count": 18674,
       "sha256": "200cfe3ec6e1e6de2b398ff59fdf47309d8b0a6bd99a192189bd682980ce2994",
-      "parsed_at": "2026-07-16T15:19:43.408797+00:00"
+      "parsed_at": "2026-07-17T00:00:08.088165+00:00"
     },
     {
       "title": "2010 Peconic Bay Community Preservation Fund Audited Financial Statements (PDF)",
@@ -762,7 +762,7 @@
       "page_count": 5,
       "money_value_count": 0,
       "sha256": "cd64eca69a6263530865bcd62b1bca358556f85c3d3b11bbc074b5b1ada6fe83",
-      "parsed_at": "2026-07-16T15:19:43.408797+00:00"
+      "parsed_at": "2026-07-17T00:00:08.088165+00:00"
     },
     {
       "title": "2010 Annual Financial Report Update (PDF)",
@@ -774,7 +774,7 @@
       "page_count": 110,
       "money_value_count": 2213,
       "sha256": "2c38a615830278d86621779e2aa9741f66e09a5006b2a6174a9eaf6277941cd6",
-      "parsed_at": "2026-07-16T15:19:43.408797+00:00"
+      "parsed_at": "2026-07-17T00:00:08.088165+00:00"
     },
     {
       "title": "2010 Adopted Budget (PDF)",
@@ -786,7 +786,7 @@
       "page_count": 532,
       "money_value_count": 19307,
       "sha256": "46dad0eb553b900646494f30dc5d5670a2c4ad04e67a9af2aa808be54d598d88",
-      "parsed_at": "2026-07-16T15:19:43.408797+00:00"
+      "parsed_at": "2026-07-17T00:00:08.088165+00:00"
     },
     {
       "title": "2009 Single Audit (PDF)",
@@ -798,7 +798,7 @@
       "page_count": 28,
       "money_value_count": 0,
       "sha256": "2884fc42acc229d51928eb3f1ab345b130fbb813a3fbadba0c470080d0bb4513",
-      "parsed_at": "2026-07-16T15:19:43.408797+00:00"
+      "parsed_at": "2026-07-17T00:00:08.088165+00:00"
     },
     {
       "title": "2009 Peconic Bay Community Preservation Fund Audited Financial Statements (PDF)",
@@ -810,7 +810,7 @@
       "page_count": 5,
       "money_value_count": 0,
       "sha256": "40854c33940bd478bb71e0c42bd367148ea19132eeef3683283c6189b745286e",
-      "parsed_at": "2026-07-16T15:19:43.408797+00:00"
+      "parsed_at": "2026-07-17T00:00:08.088165+00:00"
     },
     {
       "title": "2009 NYS Dept of Transportation Single Audit (PDF)",
@@ -822,7 +822,7 @@
       "page_count": 8,
       "money_value_count": 0,
       "sha256": "8aec849fd35a68cce501c531caa9a77dfbd2ab5ff99ac736f6399ec1da6f525f",
-      "parsed_at": "2026-07-16T15:19:43.408797+00:00"
+      "parsed_at": "2026-07-17T00:00:08.088165+00:00"
     },
     {
       "title": "2009 Annual Financial Report Update (PDF)",
@@ -834,7 +834,7 @@
       "page_count": 105,
       "money_value_count": 2243,
       "sha256": "d74463133167ea1828a17df728a0ee7f70a8a35103b410b3a8307c06c89ea16e",
-      "parsed_at": "2026-07-16T15:19:43.408797+00:00"
+      "parsed_at": "2026-07-17T00:00:08.088165+00:00"
     },
     {
       "title": "2009 Adopted Budget (PDF)",
@@ -846,7 +846,7 @@
       "page_count": 589,
       "money_value_count": 22160,
       "sha256": "3a1c1b4cfa3786a757ae667324404369619c2c4093eb8bde93e4b1d1c399dc0c",
-      "parsed_at": "2026-07-16T15:19:43.408797+00:00"
+      "parsed_at": "2026-07-17T00:00:08.088165+00:00"
     },
     {
       "title": "2008 Peconic Bay Community Preservation Fund Audited Financial Statements (PDF)",
@@ -858,7 +858,7 @@
       "page_count": 5,
       "money_value_count": 0,
       "sha256": "bf4a00730b2d4181b31f9aba04b8c67060d7e2378f75c57d9a5e9096e69e69fe",
-      "parsed_at": "2026-07-16T15:19:43.408797+00:00"
+      "parsed_at": "2026-07-17T00:00:08.088165+00:00"
     },
     {
       "title": "2008 Annual Financial Report Update (PDF)",
@@ -870,7 +870,7 @@
       "page_count": 173,
       "money_value_count": 3071,
       "sha256": "c65786464131c13173cdd9a2ef50696ab4c5781fc7901d5e8c032c448b3ea7e0",
-      "parsed_at": "2026-07-16T15:19:43.408797+00:00"
+      "parsed_at": "2026-07-17T00:00:08.088165+00:00"
     },
     {
       "title": "2008 Adopted Budget (PDF)",
@@ -882,7 +882,7 @@
       "page_count": 785,
       "money_value_count": 25760,
       "sha256": "0c4fdccdc2ca3473d58308bfbe6a1c2359b27ebd4639ec26ead3684e5acb619c",
-      "parsed_at": "2026-07-16T15:19:43.408797+00:00"
+      "parsed_at": "2026-07-17T00:00:08.088165+00:00"
     },
     {
       "title": "2007 Single Audit (PDF)",
@@ -894,7 +894,7 @@
       "page_count": 30,
       "money_value_count": 0,
       "sha256": "7e047032cad67231319896da64223d091552699e22ed2c945bfc3d5e053a5379",
-      "parsed_at": "2026-07-16T15:19:43.408797+00:00"
+      "parsed_at": "2026-07-17T00:00:08.088165+00:00"
     },
     {
       "title": "2007 NYS Dept of Transportation Single Audit (PDF)",
@@ -906,7 +906,7 @@
       "page_count": 7,
       "money_value_count": 0,
       "sha256": "c9546cef7199aba7b6ca63dc742406c0fa0b39ae7a1cfd56b6732e63075c0536",
-      "parsed_at": "2026-07-16T15:19:43.408797+00:00"
+      "parsed_at": "2026-07-17T00:00:08.088165+00:00"
     },
     {
       "title": "2007 Audited Basic Financial Statements (PDF)",
@@ -918,7 +918,7 @@
       "page_count": 78,
       "money_value_count": 0,
       "sha256": "7138d20b50d44960ca05e368bced78f0433b19c4dc3527ff1734c9cf2089db91",
-      "parsed_at": "2026-07-16T15:19:43.408797+00:00"
+      "parsed_at": "2026-07-17T00:00:08.088165+00:00"
     },
     {
       "title": "2007 Annual Financial Report Update (PDF)",
@@ -930,7 +930,7 @@
       "page_count": 162,
       "money_value_count": 2473,
       "sha256": "a0cc3a7fbd78e2c817a0f5e7f21889b16c6f8225d5a7f18417d1adee9c84d05f",
-      "parsed_at": "2026-07-16T15:19:43.408797+00:00"
+      "parsed_at": "2026-07-17T00:00:08.088165+00:00"
     },
     {
       "title": "2007 Adopted Budget (PDF)",
@@ -942,7 +942,7 @@
       "page_count": 597,
       "money_value_count": 21743,
       "sha256": "68aa75f41808d7136d13b1b2cdd96ce1ba2ac79566f752d8887b01a885993a4c",
-      "parsed_at": "2026-07-16T15:19:43.408797+00:00"
+      "parsed_at": "2026-07-17T00:00:08.088165+00:00"
     },
     {
       "title": "2006 Single Audit (PDF)",
@@ -954,7 +954,7 @@
       "page_count": 10,
       "money_value_count": 0,
       "sha256": "7b571ca910a1b8d250106b97cb4b0815285ad5a8f6fbaae8107d3f980a65189c",
-      "parsed_at": "2026-07-16T15:19:43.408797+00:00"
+      "parsed_at": "2026-07-17T00:00:08.088165+00:00"
     },
     {
       "title": "2006 Audited Basic Financial Statements (PDF)",
@@ -966,7 +966,7 @@
       "page_count": 48,
       "money_value_count": 0,
       "sha256": "08ab325b5006e94e037335ba8e6ae4c184072a1e45724afc273a7e36a276d058",
-      "parsed_at": "2026-07-16T15:19:43.408797+00:00"
+      "parsed_at": "2026-07-17T00:00:08.088165+00:00"
     },
     {
       "title": "2006 Annual Financial Report Update (PDF)",
@@ -978,7 +978,7 @@
       "page_count": 211,
       "money_value_count": 2815,
       "sha256": "1eb1adfe7f0e3c448aa620a51ffa3f699e96785c6eca1a9368dac1a52b0247cf",
-      "parsed_at": "2026-07-16T15:19:43.408797+00:00"
+      "parsed_at": "2026-07-17T00:00:08.088165+00:00"
     },
     {
       "title": "2006 Adopted Budget (PDF)",
@@ -990,7 +990,7 @@
       "page_count": 807,
       "money_value_count": 25365,
       "sha256": "05e70f723a8ae26c1d45871ea7dbefee91972439f9cd56746a3be45f686a20b8",
-      "parsed_at": "2026-07-16T15:19:43.408797+00:00"
+      "parsed_at": "2026-07-17T00:00:08.088165+00:00"
     },
     {
       "title": "2005 Single Audit (PDF)",
@@ -1002,7 +1002,7 @@
       "page_count": 10,
       "money_value_count": 0,
       "sha256": "195a917f592cb3adfef6b7ef93b13f3ea7b8012b60c596a49268dfae939f7019",
-      "parsed_at": "2026-07-16T15:19:43.408797+00:00"
+      "parsed_at": "2026-07-17T00:00:08.088165+00:00"
     },
     {
       "title": "2005 Audited Basic Financial Statements (PDF)",
@@ -1014,7 +1014,7 @@
       "page_count": 49,
       "money_value_count": 0,
       "sha256": "a0797d522671157f6466b84dc19369504b62ebec0a1c1499d429ed0c2fdbfb7a",
-      "parsed_at": "2026-07-16T15:19:43.408797+00:00"
+      "parsed_at": "2026-07-17T00:00:08.088165+00:00"
     },
     {
       "title": "2005 Annual Financial Report Update (PDF)",
@@ -1026,7 +1026,7 @@
       "page_count": 176,
       "money_value_count": 2366,
       "sha256": "13c558bc8175cad667d47d46e548cb90d675168d21e93e1d73448a0c7279940d",
-      "parsed_at": "2026-07-16T15:19:43.408797+00:00"
+      "parsed_at": "2026-07-17T00:00:08.088165+00:00"
     },
     {
       "title": "2005 Adopted Budget (PDF)",
@@ -1038,7 +1038,7 @@
       "page_count": 804,
       "money_value_count": 26017,
       "sha256": "3f63a7ac3c2fde21c720e6a8ac33b61b68f6770af3e50865ae1f54c84f189f2f",
-      "parsed_at": "2026-07-16T15:19:43.408797+00:00"
+      "parsed_at": "2026-07-17T00:00:08.088165+00:00"
     }
   ],
   "failures": [
