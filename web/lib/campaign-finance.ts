@@ -29,12 +29,30 @@ export type LatestYearSnapshot = {
   lastReported: string | null
 }
 
+export type ContributorTypeAmount = { type: string; amount: number; donorCount: number }
+
 export type CampaignSnapshot = {
   raised: number
   directContributions: number
   transfersIn: number
   lastReported: string | null
   latestYear: LatestYearSnapshot | null
+  donorCount: number
+  avgDonationPerDonor: number | null
+  contributorTypeBreakdown: ContributorTypeAmount[]
+  loanAmount: number | null
+  loanLastReported: string | null
+}
+
+// U.S. Census Bureau QuickFacts, Riverhead town, Suffolk County, NY — 2024 estimate. Used only to
+// contextualize a committee's raised total as a "per resident" figure.
+export const RIVERHEAD_POPULATION_ESTIMATE_2024 = 35980
+
+function contributorTypeBucket(desc: string | null | undefined): string {
+  const lower = (desc ?? '').toLowerCase()
+  if (lower.includes('individual')) return 'Individual'
+  if (lower.includes('committee') || lower.includes('party') || lower.includes('pac')) return 'PAC / Committee'
+  return 'Business / Other'
 }
 
 type SocrataAggRow = {
@@ -183,7 +201,32 @@ export async function fetchCampaignSnapshots(
       '$group': 'filer_id,election_year,filing_sched_abbrev',
     }).toString()
 
-  const [raisedRows, latestYearRows] = await Promise.all([fetchSocrataRows(raisedURL), fetchSocrataRows(latestYearURL)])
+  const typeBreakdownURL =
+    `https://data.ny.gov/resource/4j2b-6a2j.json?` +
+    new URLSearchParams({
+      '$select': 'filer_id,cntrbr_type_desc,sum(org_amt) as amount,count(*) as row_count',
+      '$where': `filer_id in (${inClause}) and election_year in(${years}) and filing_sched_abbrev in('A','B','C')`,
+      '$group': 'filer_id,cntrbr_type_desc',
+    }).toString()
+
+  // Schedule J/K/N (or a filing_sched_desc/loan_other_desc mentioning "loan") — mirrors the
+  // iOS app's loan query. Local candidate committees are almost always self-funded this way.
+  const loanURL =
+    `https://data.ny.gov/resource/4j2b-6a2j.json?` +
+    new URLSearchParams({
+      '$select': 'filer_id,sum(coalesce(owed_amt, org_amt)) as loan_amt,max(sched_date) as last_reported_loan',
+      '$where': `filer_id in (${inClause}) and election_year in(${years}) and (filing_sched_abbrev in('J','K','N') or lower(filing_sched_desc) like '%loan%')`,
+      '$group': 'filer_id',
+    }).toString()
+
+  const [raisedRows, latestYearRows, typeBreakdownRows, loanRows] = await Promise.all([
+    fetchSocrataRows(raisedURL),
+    fetchSocrataRows(latestYearURL),
+    fetchSocrataRows(typeBreakdownURL) as unknown as Promise<
+      { filer_id: string; cntrbr_type_desc?: string; amount?: string; row_count?: string }[]
+    >,
+    fetchSocrataRows(loanURL) as unknown as Promise<{ filer_id: string; loan_amt?: string; last_reported_loan?: string }[]>,
+  ])
 
   const directByFiler: Record<string, number> = {}
   const transfersByFiler: Record<string, number> = {}
@@ -206,6 +249,16 @@ export async function fetchCampaignSnapshots(
   for (const row of latestYearRows) {
     if (row.election_year !== `${endYear}`) continue
     latestYearRowsByFiler[row.filer_id] = [...(latestYearRowsByFiler[row.filer_id] ?? []), row]
+  }
+
+  const typeRowsByFiler: Record<string, { cntrbr_type_desc?: string; amount?: string; row_count?: string }[]> = {}
+  for (const row of typeBreakdownRows) {
+    typeRowsByFiler[row.filer_id] = [...(typeRowsByFiler[row.filer_id] ?? []), row]
+  }
+
+  const loanByFiler: Record<string, { amount: number; lastReported: string | null }> = {}
+  for (const row of loanRows) {
+    loanByFiler[row.filer_id] = { amount: parseFloat(row.loan_amt ?? '0') || 0, lastReported: row.last_reported_loan ?? null }
   }
 
   const result: Record<string, CampaignSnapshot> = {}
@@ -233,7 +286,35 @@ export async function fetchCampaignSnapshots(
       latestYear = { direct: direct2, transfers: transfers2, filingAmount, rowCount, schedules, lastReported: latestReportedDate }
     }
 
-    result[official.name] = { raised: direct + transfers, directContributions: direct, transfersIn: transfers, lastReported, latestYear }
+    const typeTotals = new Map<string, { amount: number; donorCount: number }>()
+    for (const id of ids) {
+      for (const row of typeRowsByFiler[id] ?? []) {
+        const bucket = contributorTypeBucket(row.cntrbr_type_desc)
+        const existing = typeTotals.get(bucket) ?? { amount: 0, donorCount: 0 }
+        existing.amount += parseFloat(row.amount ?? '0') || 0
+        existing.donorCount += parseInt(row.row_count ?? '0', 10) || 0
+        typeTotals.set(bucket, existing)
+      }
+    }
+    const contributorTypeBreakdown = Array.from(typeTotals.entries())
+      .map(([type, { amount, donorCount }]) => ({ type, amount, donorCount }))
+      .sort((a, b) => b.amount - a.amount)
+    const donorCount = contributorTypeBreakdown.reduce((sum, t) => sum + t.donorCount, 0)
+
+    const loan = ids.map((id) => loanByFiler[id]).find((l) => l && l.amount > 0) ?? null
+
+    result[official.name] = {
+      raised: direct + transfers,
+      directContributions: direct,
+      transfersIn: transfers,
+      lastReported,
+      latestYear,
+      donorCount,
+      avgDonationPerDonor: donorCount > 0 ? direct / donorCount : null,
+      contributorTypeBreakdown,
+      loanAmount: loan?.amount ?? null,
+      loanLastReported: loan?.lastReported ?? null,
+    }
   }
 
   return result

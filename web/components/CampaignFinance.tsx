@@ -1,13 +1,26 @@
 'use client'
 
 import { useState } from 'react'
-import { fetchCampaignSnapshots, fetchFilingHistory, type CampaignOfficial, type CampaignSnapshot, type FilingEvent } from '../lib/campaign-finance'
+import {
+  fetchCampaignSnapshots,
+  fetchFilingHistory,
+  RIVERHEAD_POPULATION_ESTIMATE_2024,
+  type CampaignOfficial,
+  type CampaignSnapshot,
+  type FilingEvent,
+} from '../lib/campaign-finance'
 
 const usd = (n: number) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(n)
 const card = { background: 'white', border: '1px solid #e2e8f0', borderRadius: 16, padding: 18, boxShadow: '0 14px 34px rgba(15,23,42,.05)' } as const
 
 function dateOnly(value: string | null): string | null {
   return value ? value.slice(0, 10) : null
+}
+
+function daysToElection(nextElection: string | null): number | null {
+  if (!nextElection) return null
+  const ms = new Date(`${nextElection}T00:00:00`).getTime() - new Date(new Date().toDateString()).getTime()
+  return Math.round(ms / (1000 * 60 * 60 * 24))
 }
 
 // "2026" / "2025" / "Prior" — the two most recent years on their own, everything else lumped.
@@ -101,6 +114,8 @@ export default function CampaignFinance({
           const transfers = live ? live.transfersIn : official.seedTransfersIn
           const lastReported = dateOnly(live ? live.lastReported : official.seedLastReported)
           const latestYear = live?.latestYear
+          const days = daysToElection(official.nextElection)
+          const perResident = raised != null ? raised / RIVERHEAD_POPULATION_ESTIMATE_2024 : null
 
           return (
             <article key={official.name} style={{ ...card, borderLeft: `6px solid ${official.currentlyServing ? '#1f5f8f' : '#94a3b8'}` }}>
@@ -138,6 +153,37 @@ export default function CampaignFinance({
                 <Stat label="Transfers in" value={transfers != null ? usd(transfers) : '—'} />
                 <Stat label="Last reported" value={lastReported ?? '—'} />
               </div>
+
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))', gap: 10, marginTop: 10 }}>
+                <Stat
+                  label="Days to next election"
+                  value={days == null ? '—' : days > 0 ? `${days} day${days === 1 ? '' : 's'}` : days === 0 ? 'Today' : 'Passed'}
+                />
+                <Stat
+                  label="Avg. donation / donor"
+                  value={live && live.avgDonationPerDonor != null ? `${usd(live.avgDonationPerDonor)} (${live.donorCount} donors)` : '—'}
+                />
+                <Stat label="Raised / resident" value={perResident != null ? `$${perResident.toFixed(2)}` : '—'} />
+                <Stat label="Candidate loans" value={live?.loanAmount ? usd(live.loanAmount) : 'None on file'} />
+              </div>
+
+              {live && live.contributorTypeBreakdown.length > 0 && (
+                <div style={{ marginTop: 12, borderTop: '1px solid #e2e8f0', paddingTop: 10 }}>
+                  <div style={{ fontSize: 12, fontWeight: 800, color: '#12385b', textTransform: 'uppercase', letterSpacing: 0.4, marginBottom: 6 }}>
+                    Who&rsquo;s giving
+                  </div>
+                  <div style={{ display: 'grid', gap: 4 }}>
+                    {live.contributorTypeBreakdown.map((bucket) => (
+                      <div key={bucket.type} style={{ display: 'flex', justifyContent: 'space-between', fontSize: 13, color: '#334155' }}>
+                        <span>
+                          {bucket.type} ({bucket.donorCount})
+                        </span>
+                        <strong style={{ color: '#12385b' }}>{usd(bucket.amount)}</strong>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
 
               <div style={{ marginTop: 12, borderTop: '1px solid #e2e8f0', paddingTop: 10 }}>
                 <div style={{ fontSize: 12, fontWeight: 800, color: '#12385b', textTransform: 'uppercase', letterSpacing: 0.4 }}>
