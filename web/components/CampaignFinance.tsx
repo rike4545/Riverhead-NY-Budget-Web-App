@@ -115,14 +115,29 @@ export default function CampaignFinance({
           const lastReported = dateOnly(live ? live.lastReported : official.seedLastReported)
           const latestYear = live?.latestYear
           const days = daysToElection(official.nextElection)
-          const perResident = raised != null ? raised / RIVERHEAD_POPULATION_ESTIMATE_2024 : null
+          const currentCycleRaised = live
+            ? live.contributorTypeBreakdown.reduce((sum, t) => sum + t.amount, 0)
+            : null
+          const perResident = currentCycleRaised != null ? currentCycleRaised / RIVERHEAD_POPULATION_ESTIMATE_2024 : null
 
           return (
             <article key={official.name} style={{ ...card, borderLeft: `6px solid ${official.currentlyServing ? '#1f5f8f' : '#94a3b8'}` }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', gap: 12, flexWrap: 'wrap' }}>
-                <div>
-                  <strong style={{ fontSize: 16, color: '#12385b' }}>{official.name}</strong>
-                  <div style={{ color: '#64748b', fontSize: 13 }}>{official.office}</div>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+                  {official.photoUrl && (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img
+                      src={official.photoUrl}
+                      alt={official.name}
+                      width={48}
+                      height={48}
+                      style={{ borderRadius: '50%', objectFit: 'cover', flexShrink: 0 }}
+                    />
+                  )}
+                  <div>
+                    <strong style={{ fontSize: 16, color: '#12385b' }}>{official.name}</strong>
+                    <div style={{ color: '#64748b', fontSize: 13 }}>{official.office}</div>
+                  </div>
                 </div>
                 <span
                   style={{
@@ -147,24 +162,42 @@ export default function CampaignFinance({
                 </div>
               )}
 
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))', gap: 10, marginTop: 12 }}>
+              <div style={{ fontSize: 11, fontWeight: 800, color: '#64748b', textTransform: 'uppercase', letterSpacing: 0.4, marginTop: 12 }}>
+                Lifetime totals ({startYear}–{endYear})
+              </div>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))', gap: 10, marginTop: 6 }}>
                 <Stat label="Total raised" value={raised != null ? usd(raised) : 'No data on file'} />
                 <Stat label="Direct contributions" value={direct != null ? usd(direct) : '—'} />
                 <Stat label="Transfers in" value={transfers != null ? usd(transfers) : '—'} />
                 <Stat label="Last reported" value={lastReported ?? '—'} />
               </div>
 
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))', gap: 10, marginTop: 10 }}>
+              <div style={{ fontSize: 11, fontWeight: 800, color: '#64748b', textTransform: 'uppercase', letterSpacing: 0.4, marginTop: 14 }}>
+                {endYear} election cycle
+              </div>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))', gap: 10, marginTop: 6 }}>
                 <Stat
                   label="Days to next election"
                   value={days == null ? '—' : days > 0 ? `${days} day${days === 1 ? '' : 's'}` : days === 0 ? 'Today' : 'Passed'}
                 />
+                <Stat label="Raised this cycle" value={currentCycleRaised != null ? usd(currentCycleRaised) : '—'} />
                 <Stat
                   label="Avg. donation / donor"
                   value={live && live.avgDonationPerDonor != null ? `${usd(live.avgDonationPerDonor)} (${live.donorCount} donors)` : '—'}
                 />
                 <Stat label="Raised / resident" value={perResident != null ? `$${perResident.toFixed(2)}` : '—'} />
-                <Stat label="Candidate loans" value={live?.loanAmount ? usd(live.loanAmount) : 'None on file'} />
+              </div>
+
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))', gap: 10, marginTop: 10 }}>
+                <Stat label="Loans received (all-time)" value={live?.loanAmount ? usd(live.loanAmount) : 'None on file'} />
+                <Stat
+                  label="Currently outstanding"
+                  value={
+                    live?.outstandingLoanAmount
+                      ? `${usd(live.outstandingLoanAmount)}${live.outstandingLoanYear ? ` (${live.outstandingLoanYear})` : ''}`
+                      : 'None on file'
+                  }
+                />
               </div>
 
               {live && live.contributorTypeBreakdown.length > 0 && (

@@ -18,6 +18,7 @@ export type CampaignOfficial = {
   seedDirectContributions: number | null
   seedTransfersIn: number | null
   seedLastReported: string | null
+  photoUrl?: string | null
 }
 
 export type LatestYearSnapshot = {
@@ -37,11 +38,15 @@ export type CampaignSnapshot = {
   transfersIn: number
   lastReported: string | null
   latestYear: LatestYearSnapshot | null
+  /** Scoped to the current cycle (endYear) only — not the full multi-year window. */
   donorCount: number
   avgDonationPerDonor: number | null
   contributorTypeBreakdown: ContributorTypeAmount[]
+  /** Loans received (schedule I), summed across the full window — safe to sum since each row is new money. */
   loanAmount: number | null
-  loanLastReported: string | null
+  /** Latest outstanding balance (schedule N) as of its most recent election_year — NOT a sum, since N re-reports a running balance every filing year. */
+  outstandingLoanAmount: number | null
+  outstandingLoanYear: string | null
 }
 
 // U.S. Census Bureau QuickFacts, Riverhead town, Suffolk County, NY — 2024 estimate. Used only to
@@ -201,31 +206,47 @@ export async function fetchCampaignSnapshots(
       '$group': 'filer_id,election_year,filing_sched_abbrev',
     }).toString()
 
+  // Scoped to the current cycle (endYear) only — lumping the full multi-year window together
+  // understates how concentrated recent giving actually is.
   const typeBreakdownURL =
     `https://data.ny.gov/resource/4j2b-6a2j.json?` +
     new URLSearchParams({
       '$select': 'filer_id,cntrbr_type_desc,sum(org_amt) as amount,count(*) as row_count',
-      '$where': `filer_id in (${inClause}) and election_year in(${years}) and filing_sched_abbrev in('A','B','C')`,
+      '$where': `filer_id in (${inClause}) and election_year='${endYear}' and filing_sched_abbrev in('A','B','C')`,
       '$group': 'filer_id,cntrbr_type_desc',
     }).toString()
 
-  // Schedule J/K/N (or a filing_sched_desc/loan_other_desc mentioning "loan") — mirrors the
-  // iOS app's loan query. Local candidate committees are almost always self-funded this way.
-  const loanURL =
-    `https://data.ny.gov/resource/4j2b-6a2j.json?` +
+  // Schedule I = Loans Received (new money that period, safe to sum across years). Neither this
+  // nor schedule N below exist in the itemized-contributions dataset (4j2b-6a2j) for these
+  // filers — both must hit e9ss-239a, the per-filing aggregate dataset.
+  const loanReceivedURL =
+    `https://data.ny.gov/resource/e9ss-239a.json?` +
     new URLSearchParams({
-      '$select': 'filer_id,sum(coalesce(owed_amt, org_amt)) as loan_amt,max(sched_date) as last_reported_loan',
-      '$where': `filer_id in (${inClause}) and election_year in(${years}) and (filing_sched_abbrev in('J','K','N') or lower(filing_sched_desc) like '%loan%')`,
+      '$select': 'filer_id,sum(org_amt) as amount',
+      '$where': `filer_id in (${inClause}) and election_year in(${years}) and filing_sched_abbrev='I'`,
       '$group': 'filer_id',
     }).toString()
 
-  const [raisedRows, latestYearRows, typeBreakdownRows, loanRows] = await Promise.all([
+  // Schedule N = Outstanding Liabilities/Loans, re-reported as a running balance every filing
+  // year — summing across years double-counts, so only the highest election_year's value is
+  // used client-side below (sched_date is unreliable here: NY BOE carries a loan's original
+  // transaction date forward on every re-report, so it can't be used to find "most recent").
+  const outstandingLoanURL =
+    `https://data.ny.gov/resource/e9ss-239a.json?` +
+    new URLSearchParams({
+      '$select': 'filer_id,election_year,sum(org_amt) as amount',
+      '$where': `filer_id in (${inClause}) and election_year in(${years}) and filing_sched_abbrev='N'`,
+      '$group': 'filer_id,election_year',
+    }).toString()
+
+  const [raisedRows, latestYearRows, typeBreakdownRows, loanReceivedRows, outstandingLoanRows] = await Promise.all([
     fetchSocrataRows(raisedURL),
     fetchSocrataRows(latestYearURL),
     fetchSocrataRows(typeBreakdownURL) as unknown as Promise<
       { filer_id: string; cntrbr_type_desc?: string; amount?: string; row_count?: string }[]
     >,
-    fetchSocrataRows(loanURL) as unknown as Promise<{ filer_id: string; loan_amt?: string; last_reported_loan?: string }[]>,
+    fetchSocrataRows(loanReceivedURL) as unknown as Promise<{ filer_id: string; amount?: string }[]>,
+    fetchSocrataRows(outstandingLoanURL) as unknown as Promise<{ filer_id: string; election_year?: string; amount?: string }[]>,
   ])
 
   const directByFiler: Record<string, number> = {}
@@ -256,9 +277,19 @@ export async function fetchCampaignSnapshots(
     typeRowsByFiler[row.filer_id] = [...(typeRowsByFiler[row.filer_id] ?? []), row]
   }
 
-  const loanByFiler: Record<string, { amount: number; lastReported: string | null }> = {}
-  for (const row of loanRows) {
-    loanByFiler[row.filer_id] = { amount: parseFloat(row.loan_amt ?? '0') || 0, lastReported: row.last_reported_loan ?? null }
+  const loanReceivedByFiler: Record<string, number> = {}
+  for (const row of loanReceivedRows) {
+    loanReceivedByFiler[row.filer_id] = parseFloat(row.amount ?? '0') || 0
+  }
+
+  // Keep only the highest election_year per filer.
+  const outstandingByFiler: Record<string, { amount: number; year: string }> = {}
+  for (const row of outstandingLoanRows) {
+    const year = row.election_year ?? ''
+    const existing = outstandingByFiler[row.filer_id]
+    if (!existing || year > existing.year) {
+      outstandingByFiler[row.filer_id] = { amount: parseFloat(row.amount ?? '0') || 0, year }
+    }
   }
 
   const result: Record<string, CampaignSnapshot> = {}
@@ -300,8 +331,13 @@ export async function fetchCampaignSnapshots(
       .map(([type, { amount, donorCount }]) => ({ type, amount, donorCount }))
       .sort((a, b) => b.amount - a.amount)
     const donorCount = contributorTypeBreakdown.reduce((sum, t) => sum + t.donorCount, 0)
+    const currentCycleRaised = contributorTypeBreakdown.reduce((sum, t) => sum + t.amount, 0)
 
-    const loan = ids.map((id) => loanByFiler[id]).find((l) => l && l.amount > 0) ?? null
+    const loanReceived = ids.reduce((sum, id) => sum + (loanReceivedByFiler[id] ?? 0), 0)
+    const outstanding = ids
+      .map((id) => outstandingByFiler[id])
+      .filter((o): o is { amount: number; year: string } => !!o)
+      .sort((a, b) => b.year.localeCompare(a.year))[0] ?? null
 
     result[official.name] = {
       raised: direct + transfers,
@@ -310,10 +346,11 @@ export async function fetchCampaignSnapshots(
       lastReported,
       latestYear,
       donorCount,
-      avgDonationPerDonor: donorCount > 0 ? direct / donorCount : null,
+      avgDonationPerDonor: donorCount > 0 ? currentCycleRaised / donorCount : null,
       contributorTypeBreakdown,
-      loanAmount: loan?.amount ?? null,
-      loanLastReported: loan?.lastReported ?? null,
+      loanAmount: loanReceived > 0 ? loanReceived : null,
+      outstandingLoanAmount: outstanding && outstanding.amount > 0 ? outstanding.amount : null,
+      outstandingLoanYear: outstanding?.year ?? null,
     }
   }
 

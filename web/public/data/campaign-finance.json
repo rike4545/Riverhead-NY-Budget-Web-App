@@ -10,17 +10,19 @@
    "committeeName": "Friends of Jerry Halpin",
    "filerIDs": [{ "committeeName": "Friends of Jerry Halpin", "filerID": "506796" }],
    "note": "COMMCAND fields: candidate ID 506792, Jerome Halpin, County, TERMINATED, Supervisor, Suffolk / Riverhead Town. Committee/filer ID 506796, Friends of Jerry Halpin, County, ACTIVE, Authorized Single Candidate Committee.",
-   "seedRaised": 18440.74, "seedDirectContributions": 18440.74, "seedTransfersIn": 0, "seedLastReported": "2026-06-12"
+   "seedRaised": 18440.74, "seedDirectContributions": 18440.74, "seedTransfersIn": 0, "seedLastReported": "2026-06-12",
+   "photoUrl": "https://www.townofriverheadny.gov/ImageRepository/Document?documentID=3086"
   },
   {
-   "name": "Kenneth Rothwell", "office": "Councilman", "termStarts": "2026-01-01", "termEnds": "2028-12-31", "nextElection": "2028-11-07", "currentlyServing": true,
+   "name": "Kenneth Rothwell", "office": "Councilman", "termStarts": "2026-01-01", "termEnds": "2028-12-31", "nextElection": "2026-11-03", "currentlyServing": true,
    "committeeName": "Friends of Ken Rothwell",
    "filerIDs": [
     { "committeeName": "Friends of Ken Rothwell", "filerID": "154927" },
     { "committeeName": "Ken Rothwell Supervisor filing", "filerID": "154926" }
    ],
-   "note": "Combines filer IDs 154927 and 154926 because Rothwell also ran for Supervisor. Candidate record 154926 is County, ACTIVE, Supervisor.",
-   "seedRaised": 163624.61, "seedDirectContributions": 163624.61, "seedTransfersIn": 0, "seedLastReported": "2026-06-03"
+   "note": "Combines filer IDs 154927 and 154926 because Rothwell is actively running for Supervisor in the Nov 2026 election (candidate record 154926 is County, ACTIVE, Supervisor) — next election reflects that race, not his council seat's 2028 term-end.",
+   "seedRaised": 163624.61, "seedDirectContributions": 163624.61, "seedTransfersIn": 0, "seedLastReported": "2026-06-03",
+   "photoUrl": "https://www.townofriverheadny.gov/ImageRepository/Document?documentID=186"
   },
   {
    "name": "Robert \"Bob\" Kern", "office": "Councilman", "termStarts": "2026-01-01", "termEnds": "2028-12-31", "nextElection": "2028-11-07", "currentlyServing": true,
@@ -30,21 +32,24 @@
     { "committeeName": "Friends of Bob Kern", "filerID": "154941" }
    ],
    "note": "Combines current committee 527501 with legacy committee 154941 (\"Friends of Bob Kern\") for the full 2005-2026 review window.",
-   "seedRaised": 62838.80, "seedDirectContributions": 62638.80, "seedTransfersIn": 200.0, "seedLastReported": "2025-10-14"
+   "seedRaised": 62838.80, "seedDirectContributions": 62638.80, "seedTransfersIn": 200.0, "seedLastReported": "2025-10-14",
+   "photoUrl": "https://www.townofriverheadny.gov/ImageRepository/Document?documentID=3106"
   },
   {
    "name": "Joann Waski", "office": "Councilwoman", "termStarts": "2024-01-01", "termEnds": "2027-12-31", "nextElection": "2027-11-02", "currentlyServing": true,
    "committeeName": "Friends of Joann Waski",
    "filerIDs": [{ "committeeName": "Friends of Joann Waski", "filerID": "320293" }],
    "note": "COMMCAND fields: candidate 320292, Joann Waski, County, TERMINATED, Council Member (legacy candidate record). Committee/filer 320293, Friends of Joann Waski, County, ACTIVE, Authorized Single Candidate Committee. The TERMINATED tag is on the legacy candidate registration, not her current Town Board seat.",
-   "seedRaised": 19460.0, "seedDirectContributions": 18460.0, "seedTransfersIn": 1000.0, "seedLastReported": "2024-01-10"
+   "seedRaised": 19460.0, "seedDirectContributions": 18460.0, "seedTransfersIn": 1000.0, "seedLastReported": "2024-01-10",
+   "photoUrl": "https://www.townofriverheadny.gov/ImageRepository/Document?documentID=195"
   },
   {
    "name": "Denise Merrifield", "office": "Councilwoman", "termStarts": "2024-01-01", "termEnds": "2027-12-31", "nextElection": "2027-11-02", "currentlyServing": true,
    "committeeName": "Committee to Elect Denise Merrifield",
    "filerIDs": [{ "committeeName": "Committee to Elect Denise Merrifield", "filerID": "319756" }],
    "note": "COMMCAND fields: candidate 319755, Denise M. Merrifield, County, TERMINATED, Council Member (legacy candidate record). Committee/filer 319756, Committee to Elect Denise Merrifield, County, TERMINATED, Authorized Single Candidate Committee. These TERMINATED tags are on the legacy campaign-finance registration, not her current Town Board seat.",
-   "seedRaised": 17579.75, "seedDirectContributions": 15579.75, "seedTransfersIn": 2000.0, "seedLastReported": "2023-11-30"
+   "seedRaised": 17579.75, "seedDirectContributions": 15579.75, "seedTransfersIn": 2000.0, "seedLastReported": "2023-11-30",
+   "photoUrl": "https://www.townofriverheadny.gov/ImageRepository/Document?documentID=193"
   },
   {
    "name": "Tim Hubbard", "office": "Former Councilman", "termStarts": null, "termEnds": null, "nextElection": null, "currentlyServing": false,
