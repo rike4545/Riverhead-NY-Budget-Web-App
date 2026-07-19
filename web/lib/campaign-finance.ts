@@ -177,6 +177,59 @@ export function nextFilingDeadline(from: Date = new Date()): FilingDeadline | nu
   return upcoming[0] ?? null
 }
 
+const summaryUsd = (n: number) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(n)
+
+/**
+ * A deterministic, template-based summary of a candidate's fundraising -- not an
+ * LLM-generated take. Every clause restates a number already shown elsewhere on the
+ * card, so nothing here can say something the underlying data doesn't support.
+ */
+export function buildCandidateSummary(official: CampaignOfficial, snapshot: CampaignSnapshot, endYear: number): string {
+  const shortName = official.name.replace('Honorable ', '')
+  const cycleRaised = snapshot.contributorTypeBreakdown.reduce((sum, t) => sum + t.amount, 0)
+  const donorCount = snapshot.donorCount
+
+  let electionClause = ''
+  const days = daysToElectionFor(official.nextElection)
+  if (days != null) {
+    if (days > 0) electionClause = `, with ${days} day${days === 1 ? '' : 's'} until the election`
+    else if (days === 0) electionClause = ', with the election today'
+  }
+
+  const sentences: string[] = []
+  if (donorCount > 0) {
+    sentences.push(`${shortName} has raised ${summaryUsd(cycleRaised)} from ${donorCount} donor${donorCount === 1 ? '' : 's'} this cycle${electionClause}.`)
+  } else {
+    sentences.push(`${shortName} has no reported contributions for the ${endYear} cycle yet${electionClause}.`)
+  }
+
+  const dominant = snapshot.contributorTypeBreakdown.reduce(
+    (max, t) => (!max || t.amount > max.amount ? t : max),
+    null as ContributorTypeAmount | null
+  )
+  if (dominant && cycleRaised > 0) {
+    const share = Math.floor((dominant.amount / cycleRaised) * 100)
+    if (share >= 50) sentences.push(`${dominant.type} donors account for ${share}% of this cycle's fundraising.`)
+  }
+
+  if (snapshot.outstandingLoanAmount && snapshot.outstandingLoanAmount > 0) {
+    const yearClause = snapshot.outstandingLoanYear ? ` as of the ${snapshot.outstandingLoanYear} filing.` : '.'
+    sentences.push(`The campaign is carrying ${summaryUsd(snapshot.outstandingLoanAmount)} in outstanding loans${yearClause}`)
+  } else if (snapshot.loanAmount && snapshot.loanAmount > 0) {
+    sentences.push(`The campaign has taken loans totaling ${summaryUsd(snapshot.loanAmount)} over time, none currently outstanding.`)
+  } else {
+    sentences.push('No campaign loans on file.')
+  }
+
+  return sentences.join(' ')
+}
+
+function daysToElectionFor(nextElection: string | null): number | null {
+  if (!nextElection) return null
+  const ms = new Date(`${nextElection}T00:00:00`).getTime() - new Date(new Date().toDateString()).getTime()
+  return Math.round(ms / (1000 * 60 * 60 * 24))
+}
+
 function yearsClause(startYear: number, endYear: number): string {
   const years: string[] = []
   for (let y = startYear; y <= endYear; y++) years.push(`'${y}'`)

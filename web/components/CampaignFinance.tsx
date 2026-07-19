@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import {
+  buildCandidateSummary,
   fetchCampaignSnapshots,
   fetchFilingHistory,
   RIVERHEAD_POPULATION_ESTIMATE_2024,
@@ -160,6 +161,12 @@ export default function CampaignFinance({
                 <div style={{ color: '#64748b', fontSize: 13, marginTop: 8 }}>
                   Term: {official.termStarts} → {official.termEnds}
                   {official.nextElection ? ` · Next election: ${official.nextElection}` : ''}
+                </div>
+              )}
+
+              {live && (
+                <div style={{ marginTop: 12, background: '#eef6ff', border: '1px solid #bcd9f5', borderRadius: 10, padding: 12, fontSize: 13.5, color: '#1e3a5f', lineHeight: 1.5 }}>
+                  {buildCandidateSummary(official, live, endYear)}
                 </div>
               )}
 
