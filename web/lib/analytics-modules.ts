@@ -23,10 +23,10 @@ export const analyticsModules: AnalyticsModule[] = [
   },
   {
     name: 'Town Board Voting Records',
-    status: 'active',
+    status: 'partial',
     description: 'Every recorded Town Board vote since January 2025 — 39 meetings and 1,672 resolutions with results, movers, seconders, and how each member voted — plus per-member career records listing every dissent and abstention.',
-    sourceBasis: 'Official meeting minutes, fetched automatically from the Town’s CivicClerk portal as they are published.',
-    nextStep: 'Extend backfill to pre-2025 meetings and tag budget-related resolutions.',
+    sourceBasis: 'Official meeting minutes from the Town’s CivicClerk portal, fetched and parsed by a script a maintainer runs periodically — new meetings are not pulled in automatically as they are published.',
+    nextStep: 'Extend backfill to pre-2025 meetings, tag budget-related resolutions, and get minutes ingestion running unattended.',
   },
   {
     name: 'Payroll and Overtime Intelligence',
@@ -92,11 +92,11 @@ export const analyticsModules: AnalyticsModule[] = [
     nextStep: 'Add page-level source citations with extraction confidence to each explanation.',
   },
   {
-    name: 'Automated Data Pipeline',
-    status: 'active',
-    description: 'A weekly run fetches new meeting minutes from the Town’s portal, re-parses every dataset, rebuilds search and CSV downloads, verifies the build, commits changes, and redeploys the site — every page shows when data was last refreshed.',
-    sourceBasis: 'GitHub Actions running the open-source ETL against Town document sources.',
-    nextStep: 'Auto-discover newly posted budget and AFR documents the same way minutes are fetched.',
+    name: 'Data Pipeline',
+    status: 'partial',
+    description: 'Re-parsing already-known financial-report PDFs, rebuilding search and CSV downloads, and redeploying the site run automatically on every update. Pulling in newly posted meeting minutes and folding in newly published fiscal statements (AFRs, budgets, audits) still take a maintainer manually running the fetch/parse scripts and reviewing the output.',
+    sourceBasis: 'GitHub Actions running the open-source ETL against Town document sources for the automatic steps; manual script runs for new-document discovery and vote ingestion.',
+    nextStep: 'Auto-discover newly posted budget, AFR, and meeting-minute documents so the whole pipeline runs unattended.',
   },
   {
     name: 'Open Data Downloads',
