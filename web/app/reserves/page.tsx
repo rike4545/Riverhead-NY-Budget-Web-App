@@ -4,6 +4,7 @@ import ReserveDrawdownSlider from '../../components/ReserveDrawdownSlider'
 import { dollars } from '../../lib/financial-data'
 import {
   appropriations,
+  communityBlockGrants,
   deployableAbove288,
   deploymentOptions,
   fundBalanceHealth,
@@ -160,6 +161,25 @@ export default function ReservesPage() {
         <div style={{ display: 'flex', justifyContent: 'space-between', fontWeight: 800 }}>
           <span>Still available after these deployments</span>
           <span style={{ color: '#16a34a' }}>{dollars(remainingAfterDeploymentOptions)}</span>
+        </div>
+      </section>
+
+      <section style={{ ...card, marginBottom: 16 }}>
+        <h3 style={{ marginTop: 0, color: '#284a69' }}>Community block grants — who would get funded</h3>
+        <p style={{ color: '#475569', fontSize: 14.5, marginTop: 0 }}>
+          The breakdown behind deployment option #5 above: four nonprofits serving Riverhead and the East End. These
+          amounts are this site&apos;s own illustrative sizing, not an official Town budget line or commitment.
+        </p>
+        <div style={{ display: 'grid', gap: 12 }}>
+          {communityBlockGrants.map((grant) => (
+            <div key={grant.organization} style={{ display: 'flex', justifyContent: 'space-between', gap: 10, borderTop: '1px solid #e2e8f0', paddingTop: 10 }}>
+              <div>
+                <strong style={{ fontSize: 14 }}>{grant.organization}</strong>
+                <p style={{ color: '#64748b', fontSize: 13, margin: '2px 0 0' }}>{grant.focus}</p>
+              </div>
+              <span style={{ color: '#9b6b12', fontWeight: 800, fontSize: 13, whiteSpace: 'nowrap' }}>{dollars(grant.amount)}</span>
+            </div>
+          ))}
         </div>
       </section>
 

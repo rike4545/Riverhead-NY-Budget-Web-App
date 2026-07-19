@@ -2,7 +2,7 @@ import PageShell from '../../components/PageShell'
 import PlainCallout from '../../components/PlainCallout'
 import CampaignFinance from '../../components/CampaignFinance'
 import EmployeeDonorWatch from '../../components/EmployeeDonorWatch'
-import { nextFilingDeadline } from '../../lib/campaign-finance'
+import { nextFilingDeadline, riverheadContributionLimits } from '../../lib/campaign-finance'
 import data from '../../public/data/campaign-finance.json'
 
 export const metadata = {
@@ -53,20 +53,46 @@ export default function CampaignFinancePage() {
 
       <div style={{ marginTop: 18 }}>
         <PlainCallout
-          title="What NY law actually limits"
+          title="What NY law actually limits, for a Riverhead Town race"
           tips={[
-            { label: 'Most donors', text: 'capped at the number of registered voters in the district × $0.05 — a limit that scales with the size of the race, not a flat dollar figure.' },
+            { label: 'Most donors', text: 'capped at the number of registered voters in the district × $0.05 (minimum $1,000) — a limit that scales with the size of the race, not a flat dollar figure.' },
             { label: 'Family donors', text: 'child, parent, grandparent, sibling, or the spouse of any of those get a higher cap — the greater of (registered voters × $0.25) or $1,250.' },
             { label: "The candidate's own money", text: "no cap at all. New York's self-funding limit only applies to candidates in the state's public campaign-financing program — local town races aren't part of it, so a candidate (or, per the cap above, their family) can put in far more than any ordinary donor could." },
           ]}
         >
-          Every dollar amount on this page is real. The specific legal cap for any one committee isn&apos;t shown here —
-          it depends on the registered-voter count for that exact race and year, which we haven&apos;t verified for each
-          committee. This is the general shape of the law (NY Election Law § 14-114), not a computed pass/fail for any
-          donor or committee. Confirm specifics with the NY State or Suffolk County Board of Elections before treating
-          any number as authoritative.
+          <p style={{ marginTop: 0 }}>
+            This is the general shape of the law (NY Election Law § 14-114) — those formulas produce an actual dollar
+            cap once you know the district&apos;s registered-voter count. For a Riverhead Town race, the Business
+            Council of New York State computed that cap as of {riverheadContributionLimits.asOfYear}:
+          </p>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(180px,1fr))', gap: 10, margin: '10px 0' }}>
+            <LimitCard label="General election" individual={riverheadContributionLimits.general.individual} family={riverheadContributionLimits.general.family} />
+            <LimitCard label="Democratic primary" individual={riverheadContributionLimits.democraticPrimary.individual} family={riverheadContributionLimits.democraticPrimary.family} />
+            <LimitCard label="Republican primary" individual={riverheadContributionLimits.republicanPrimary.individual} family={riverheadContributionLimits.republicanPrimary.family} />
+          </div>
+          <p style={{ marginBottom: 0 }}>
+            Registered-voter counts (and therefore these dollar caps) shift over time, so treat these as a concrete,
+            real reference point rather than a guarantee for the current cycle — confirm the up-to-date figure with
+            the Suffolk County Board of Elections&apos; own Comprehensive Limits Report before treating any specific
+            donor or committee as over or under the line. Source: {riverheadContributionLimits.source}.
+          </p>
         </PlainCallout>
       </div>
     </PageShell>
+  )
+}
+
+function LimitCard({ label, individual, family }: { label: string; individual: number; family: number }) {
+  const usd = (n: number) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 2 }).format(n)
+  return (
+    <div style={{ background: 'white', border: '1px solid #f0d999', borderRadius: 10, padding: 12 }}>
+      <div style={{ fontWeight: 800, color: '#5f430d', fontSize: 13 }}>{label}</div>
+      <div style={{ fontSize: 13, color: '#5f430d', marginTop: 6 }}>
+        Individual: <strong>{usd(individual)}</strong>
+      </div>
+      <div style={{ fontSize: 13, color: '#5f430d', marginTop: 2 }}>
+        Family: <strong>{usd(family)}</strong>
+      </div>
+    </div>
   )
 }

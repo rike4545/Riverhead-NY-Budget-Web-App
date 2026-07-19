@@ -447,3 +447,19 @@ export async function fetchCampaignSnapshots(
 
   return result
 }
+
+// Riverhead Town-race contribution limits under NY Election Law § 14-114, computed by
+// the Business Council of NYS from the registered-voter-count formula (most donors:
+// registered voters x $0.05, minimum $1,000; family donors: the greater of registered
+// voters x $0.25 or $1,250). Published August 2022, so it reflects that cycle's
+// registered-voter count, not necessarily the current one — voter rolls (and therefore
+// these dollar caps) shift over time, so treat this as a concrete recent reference point
+// rather than this exact cycle's number. Confirm the current figure with the Suffolk
+// County Board of Elections' own Comprehensive Limits Report before relying on it.
+export const riverheadContributionLimits = {
+  asOfYear: 2022,
+  source: 'Business Council of New York State, "NYS Campaign Contribution Limits"',
+  general: { individual: 1109.3, family: 5546.5 },
+  democraticPrimary: { individual: 1000, family: 1538 },
+  republicanPrimary: { individual: 1000, family: 2000.75 },
+}

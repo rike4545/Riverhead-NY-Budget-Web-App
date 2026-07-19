@@ -1,4 +1,4 @@
-import { analyticsModules, automatedKpis } from '../lib/analytics-modules'
+import { automatedKpis } from '../lib/analytics-modules'
 import { allOperatingFunds2026, fundBalanceUseSummary } from '../lib/all-funds'
 import { narrativeInsights } from '../lib/intelligence'
 import { retirementProgramAssessment, retirementRiskFactors } from '../lib/retirement-risk-analysis'
@@ -13,7 +13,6 @@ const sectionAnchors = [
   ['Reserve Use', '#reserves'],
   ['Scenario Lab', '#scenario'],
   ['Retirement Risk', '#retirement'],
-  ['Automation', '#automation'],
   ['Disclaimers', '#disclaimers'],
 ]
 
@@ -213,19 +212,6 @@ export default function FiscalCommandCenter() {
                   <p>{risk.description}</p>
                   <p style={{ color: muted }}><strong>Fiscal impact:</strong> {risk.fiscalImpact}</p>
                 </article>
-              ))}
-            </div>
-          </section>
-
-          <section id="automation" style={{ ...shell, scrollMarginTop: 24, marginTop: 18, padding: 24 }}>
-            <h2 style={{ marginTop: 0 }}>What updates itself, behind the scenes</h2>
-            <div style={{ display: 'grid', gap: 10 }}>
-              {analyticsModules.map((module) => (
-                <div key={module.name} style={{ display: 'grid', gridTemplateColumns: '240px 130px 1fr', gap: 14, borderTop: '1px solid #e2e8f0', padding: '12px 0' }}>
-                  <strong>{module.name}</strong>
-                  <span style={{ fontWeight: 950, color: module.status === 'active' ? '#16a34a' : module.status === 'partial' ? '#ca8a04' : '#64748b' }}>{module.status}</span>
-                  <span style={{ color: muted }}>{module.description}</span>
-                </div>
               ))}
             </div>
           </section>

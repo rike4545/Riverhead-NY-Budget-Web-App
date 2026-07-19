@@ -1,5 +1,6 @@
 import PageShell from '../../components/PageShell'
 import { parserDatasetStats, parserExtractionReport } from '../../lib/parser-data'
+import { analyticsModules } from '../../lib/analytics-modules'
 
 const card = { background: 'white', border: '1px solid #d8e0e7', borderRadius: 12, padding: 20, boxShadow: '0 10px 24px rgba(31,95,143,.08)' } as const
 
@@ -30,6 +31,20 @@ export default function SourcesPage() {
         <p style={{ color: '#44576a' }}>Last parser run: {new Date(parserExtractionReport.parsed_at).toLocaleString()}</p>
         <p style={{ color: '#44576a' }}>Source index: <a href={parserExtractionReport.source_index} target="_blank" rel="noreferrer" style={{ color: '#4a7297', fontWeight: 900 }}>Town financial reports page</a></p>
         {parserExtractionReport.warning && <p style={{ color: '#9b6b12', fontWeight: 800 }}>{parserExtractionReport.warning}</p>}
+      </section>
+
+      <section style={{ ...card, marginBottom: 18 }}>
+        <h2 style={{ marginTop: 0, color: '#284a69' }}>What updates itself, behind the scenes</h2>
+        <p style={{ color: '#44576a' }}>A status list of this site&apos;s own tools and pipelines, for anyone curious how the automation works.</p>
+        <div style={{ display: 'grid', gap: 10 }}>
+          {analyticsModules.map((module) => (
+            <div key={module.name} style={{ display: 'grid', gridTemplateColumns: '240px 130px 1fr', gap: 14, borderTop: '1px solid #d8e0e7', padding: '12px 0' }}>
+              <strong>{module.name}</strong>
+              <span style={{ fontWeight: 950, color: module.status === 'active' ? '#16a34a' : module.status === 'partial' ? '#ca8a04' : '#64748b' }}>{module.status}</span>
+              <span style={{ color: '#44576a' }}>{module.description}</span>
+            </div>
+          ))}
+        </div>
       </section>
 
       {parserExtractionReport.failures.length > 0 && (

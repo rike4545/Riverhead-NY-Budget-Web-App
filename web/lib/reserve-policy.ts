@@ -36,6 +36,39 @@ export const surplusAboveUpper = unassignedFundBalance - targetUpper
 export const targetUnassignedAt288 = appropriations * targetReservePercent
 export const deployableAbove288 = Math.max(0, unassignedFundBalance - targetUnassignedAt288)
 
+export type CommunityGrant = {
+  organization: string
+  focus: string
+  amount: number
+}
+
+// Illustrative one-time grant amounts, sized like the deployment plan's other
+// single-nonprofit grants — not an official Town commitment or budget line.
+export const communityBlockGrants: CommunityGrant[] = [
+  {
+    organization: 'Legal Aid Society of Suffolk County',
+    focus: 'Civil legal services for low-income Suffolk County residents',
+    amount: 15000,
+  },
+  {
+    organization: 'Helping Hands of the East End',
+    focus: 'Emergency assistance for East End families and individuals in crisis',
+    amount: 10000,
+  },
+  {
+    organization: 'RISE',
+    focus: 'Long Island community and social-services nonprofit',
+    amount: 10000,
+  },
+  {
+    organization: 'Long Island Housing Partnership (LIHP)',
+    focus: 'Regional affordable-housing development and homebuyer counseling',
+    amount: 15000,
+  },
+]
+
+export const communityBlockGrantsTotal = communityBlockGrants.reduce((sum, g) => sum + g.amount, 0)
+
 export type DeploymentOption = {
   number: number
   title: string
@@ -74,10 +107,10 @@ export const deploymentOptions: DeploymentOption[] = [
   },
   {
     number: 5,
-    title: 'File a one-time Legal Aid support grant',
-    amount: 15000,
+    title: 'File a round of community block grants',
+    amount: communityBlockGrantsTotal,
     detail:
-      'Reserve a one-time $15,000 grant application to the Legal Aid Society of Suffolk County as a targeted community-support investment that does not create a recurring operating obligation.',
+      'Reserve one-time grant applications to four community-service nonprofits serving Riverhead and the East End as targeted community-support investments that do not create a recurring operating obligation. See the breakdown below.',
   },
   {
     number: 6,
