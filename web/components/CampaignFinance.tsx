@@ -8,6 +8,7 @@ import {
   type CampaignOfficial,
   type CampaignSnapshot,
   type FilingEvent,
+  type YearBreakdown,
 } from '../lib/campaign-finance'
 
 const usd = (n: number) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(n)
@@ -218,6 +219,8 @@ export default function CampaignFinance({
                 </div>
               )}
 
+              {live && live.historicalByYear.length > 0 && <YearBreakdownList years={live.historicalByYear} />}
+
               <div style={{ marginTop: 12, borderTop: '1px solid #e2e8f0', paddingTop: 10 }}>
                 <div style={{ fontSize: 12, fontWeight: 800, color: '#12385b', textTransform: 'uppercase', letterSpacing: 0.4 }}>
                   {endYear} filing activity
@@ -294,6 +297,40 @@ function CampaignFilingsList({ filings, endYear, hasFetched }: { filings: Filing
         bulk data doesn&apos;t carry a submission timestamp, only per-transaction dates (which can be old for a recurring loan
         balance re-reported each period). This list also only shows filings that reported at least one itemized transaction —
         a filing with no reportable activity for that period won&apos;t appear here at all, since the bulk data has no row for it.
+      </div>
+    </div>
+  )
+}
+
+function YearBreakdownList({ years }: { years: YearBreakdown[] }) {
+  return (
+    <div style={{ marginTop: 12, borderTop: '1px solid #e2e8f0', paddingTop: 10 }}>
+      <div style={{ fontSize: 12, fontWeight: 800, color: '#12385b', textTransform: 'uppercase', letterSpacing: 0.4, marginBottom: 6 }}>
+        Direct contributions by year
+      </div>
+      <div style={{ display: 'grid', gap: 4 }}>
+        {years.map((year) => (
+          <details key={year.year} style={{ background: '#f8fafc', borderRadius: 8, padding: '6px 10px' }}>
+            <summary style={{ cursor: 'pointer', display: 'flex', justifyContent: 'space-between', fontSize: 13, color: '#334155' }}>
+              <span>{year.year}</span>
+              <strong style={{ color: '#12385b' }}>{usd(year.raised)}</strong>
+            </summary>
+            <div style={{ marginTop: 6, paddingLeft: 4, display: 'grid', gap: 3 }}>
+              <div style={{ fontSize: 12, color: '#64748b' }}>
+                {year.donorCount} donor{year.donorCount === 1 ? '' : 's'}
+                {year.avgDonationPerDonor != null ? `, avg ${usd(year.avgDonationPerDonor)}` : ''}
+              </div>
+              {year.typeBreakdown.map((bucket) => (
+                <div key={bucket.type} style={{ display: 'flex', justifyContent: 'space-between', fontSize: 12, color: '#475569' }}>
+                  <span>
+                    {bucket.type} ({bucket.donorCount})
+                  </span>
+                  <span>{usd(bucket.amount)}</span>
+                </div>
+              ))}
+            </div>
+          </details>
+        ))}
       </div>
     </div>
   )

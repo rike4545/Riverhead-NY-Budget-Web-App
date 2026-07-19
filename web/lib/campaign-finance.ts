@@ -32,6 +32,14 @@ export type LatestYearSnapshot = {
 
 export type ContributorTypeAmount = { type: string; amount: number; donorCount: number }
 
+export type YearBreakdown = {
+  year: string
+  raised: number
+  donorCount: number
+  avgDonationPerDonor: number | null
+  typeBreakdown: ContributorTypeAmount[]
+}
+
 export type CampaignSnapshot = {
   raised: number
   directContributions: number
@@ -47,6 +55,8 @@ export type CampaignSnapshot = {
   /** Latest outstanding balance (schedule N) as of its most recent election_year — NOT a sum, since N re-reports a running balance every filing year. */
   outstandingLoanAmount: number | null
   outstandingLoanYear: string | null
+  /** Direct contributions by election year, most recent first, excluding the current cycle. */
+  historicalByYear: YearBreakdown[]
 }
 
 // U.S. Census Bureau QuickFacts, Riverhead town, Suffolk County, NY — 2024 estimate. Used only to
@@ -206,14 +216,14 @@ export async function fetchCampaignSnapshots(
       '$group': 'filer_id,election_year,filing_sched_abbrev',
     }).toString()
 
-  // Scoped to the current cycle (endYear) only — lumping the full multi-year window together
-  // understates how concentrated recent giving actually is.
+  // Full window here (not scoped to endYear) — grouped by election_year too, so both the
+  // current-cycle breakdown AND the by-year historical breakdown can come from one query.
   const typeBreakdownURL =
     `https://data.ny.gov/resource/4j2b-6a2j.json?` +
     new URLSearchParams({
-      '$select': 'filer_id,cntrbr_type_desc,sum(org_amt) as amount,count(*) as row_count',
-      '$where': `filer_id in (${inClause}) and election_year='${endYear}' and filing_sched_abbrev in('A','B','C')`,
-      '$group': 'filer_id,cntrbr_type_desc',
+      '$select': 'filer_id,election_year,cntrbr_type_desc,sum(org_amt) as amount,count(*) as row_count',
+      '$where': `filer_id in (${inClause}) and election_year in(${years}) and filing_sched_abbrev in('A','B','C')`,
+      '$group': 'filer_id,election_year,cntrbr_type_desc',
     }).toString()
 
   // Schedule I = Loans Received (new money that period, safe to sum across years). Neither this
@@ -243,7 +253,7 @@ export async function fetchCampaignSnapshots(
     fetchSocrataRows(raisedURL),
     fetchSocrataRows(latestYearURL),
     fetchSocrataRows(typeBreakdownURL) as unknown as Promise<
-      { filer_id: string; cntrbr_type_desc?: string; amount?: string; row_count?: string }[]
+      { filer_id: string; election_year?: string; cntrbr_type_desc?: string; amount?: string; row_count?: string }[]
     >,
     fetchSocrataRows(loanReceivedURL) as unknown as Promise<{ filer_id: string; amount?: string }[]>,
     fetchSocrataRows(outstandingLoanURL) as unknown as Promise<{ filer_id: string; election_year?: string; amount?: string }[]>,
@@ -272,9 +282,25 @@ export async function fetchCampaignSnapshots(
     latestYearRowsByFiler[row.filer_id] = [...(latestYearRowsByFiler[row.filer_id] ?? []), row]
   }
 
-  const typeRowsByFiler: Record<string, { cntrbr_type_desc?: string; amount?: string; row_count?: string }[]> = {}
+  const typeRowsByFiler: Record<string, { election_year?: string; cntrbr_type_desc?: string; amount?: string; row_count?: string }[]> = {}
   for (const row of typeBreakdownRows) {
     typeRowsByFiler[row.filer_id] = [...(typeRowsByFiler[row.filer_id] ?? []), row]
+  }
+
+  function buildTypeBreakdown(
+    rows: { cntrbr_type_desc?: string; amount?: string; row_count?: string }[]
+  ): ContributorTypeAmount[] {
+    const typeTotals = new Map<string, { amount: number; donorCount: number }>()
+    for (const row of rows) {
+      const bucket = contributorTypeBucket(row.cntrbr_type_desc)
+      const existing = typeTotals.get(bucket) ?? { amount: 0, donorCount: 0 }
+      existing.amount += parseFloat(row.amount ?? '0') || 0
+      existing.donorCount += parseInt(row.row_count ?? '0', 10) || 0
+      typeTotals.set(bucket, existing)
+    }
+    return Array.from(typeTotals.entries())
+      .map(([type, { amount, donorCount }]) => ({ type, amount, donorCount }))
+      .sort((a, b) => b.amount - a.amount)
   }
 
   const loanReceivedByFiler: Record<string, number> = {}
@@ -317,21 +343,32 @@ export async function fetchCampaignSnapshots(
       latestYear = { direct: direct2, transfers: transfers2, filingAmount, rowCount, schedules, lastReported: latestReportedDate }
     }
 
-    const typeTotals = new Map<string, { amount: number; donorCount: number }>()
-    for (const id of ids) {
-      for (const row of typeRowsByFiler[id] ?? []) {
-        const bucket = contributorTypeBucket(row.cntrbr_type_desc)
-        const existing = typeTotals.get(bucket) ?? { amount: 0, donorCount: 0 }
-        existing.amount += parseFloat(row.amount ?? '0') || 0
-        existing.donorCount += parseInt(row.row_count ?? '0', 10) || 0
-        typeTotals.set(bucket, existing)
-      }
-    }
-    const contributorTypeBreakdown = Array.from(typeTotals.entries())
-      .map(([type, { amount, donorCount }]) => ({ type, amount, donorCount }))
-      .sort((a, b) => b.amount - a.amount)
+    const allTypeRows = ids.flatMap((id) => typeRowsByFiler[id] ?? [])
+    const currentCycleRows = allTypeRows.filter((r) => r.election_year === `${endYear}`)
+    const contributorTypeBreakdown = buildTypeBreakdown(currentCycleRows)
     const donorCount = contributorTypeBreakdown.reduce((sum, t) => sum + t.donorCount, 0)
     const currentCycleRaised = contributorTypeBreakdown.reduce((sum, t) => sum + t.amount, 0)
+
+    const rowsByYear = new Map<string, typeof allTypeRows>()
+    for (const row of allTypeRows) {
+      if (row.election_year === `${endYear}`) continue
+      const year = row.election_year ?? 'Unknown'
+      rowsByYear.set(year, [...(rowsByYear.get(year) ?? []), row])
+    }
+    const historicalByYear: YearBreakdown[] = Array.from(rowsByYear.entries())
+      .map(([year, rows]) => {
+        const typeBreakdown = buildTypeBreakdown(rows)
+        const yearRaised = typeBreakdown.reduce((sum, t) => sum + t.amount, 0)
+        const yearDonorCount = typeBreakdown.reduce((sum, t) => sum + t.donorCount, 0)
+        return {
+          year,
+          raised: yearRaised,
+          donorCount: yearDonorCount,
+          avgDonationPerDonor: yearDonorCount > 0 ? yearRaised / yearDonorCount : null,
+          typeBreakdown,
+        }
+      })
+      .sort((a, b) => b.year.localeCompare(a.year))
 
     const loanReceived = ids.reduce((sum, id) => sum + (loanReceivedByFiler[id] ?? 0), 0)
     const outstanding = ids
@@ -351,6 +388,7 @@ export async function fetchCampaignSnapshots(
       loanAmount: loanReceived > 0 ? loanReceived : null,
       outstandingLoanAmount: outstanding && outstanding.amount > 0 ? outstanding.amount : null,
       outstandingLoanYear: outstanding?.year ?? null,
+      historicalByYear,
     }
   }
 
