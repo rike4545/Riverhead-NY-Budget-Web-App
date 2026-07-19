@@ -70,7 +70,7 @@ export default function SpendingReductionToggleList() {
         </div>
 
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(180px,1fr))', gap: 10, marginBottom: 14 }}>
-          <MetricTile label="Personnel & policy" value={personnelSelected} color="#12385b" />
+          <MetricTile label="Personnel & policy" value={personnelSelected} color="#284a69" />
           <MetricTile label="Operational growth control" value={operationalSelected} color="#b45309" />
         </div>
 
@@ -152,7 +152,7 @@ function ItemSection({
 }) {
   return (
     <section style={card}>
-      <h2 style={{ margin: '0 0 12px', color: '#12385b', fontSize: 17 }}>
+      <h2 style={{ margin: '0 0 12px', color: '#284a69', fontSize: 17 }}>
         {title} — {usd(selectedAmount)} of {usd(fullAmount)}
       </h2>
       <div style={{ display: 'grid', gap: 10 }}>
@@ -173,7 +173,7 @@ function ItemSection({
               }}
             >
               <div style={{ display: 'flex', justifyContent: 'space-between', gap: 10, alignItems: 'baseline' }}>
-                <span style={{ display: 'flex', alignItems: 'center', gap: 8, fontWeight: 800, color: '#12385b', fontSize: 14.5 }}>
+                <span style={{ display: 'flex', alignItems: 'center', gap: 8, fontWeight: 800, color: '#284a69', fontSize: 14.5 }}>
                   <span
                     aria-hidden
                     style={{

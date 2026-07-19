@@ -22,8 +22,8 @@ export default function ReserveDrawdownSlider({
   return (
     <div>
       <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 4 }}>
-        <span style={{ fontWeight: 800, color: '#12385b', fontSize: 14.5 }}>Use for capital / tax relief</span>
-        <span style={{ fontWeight: 800, color: '#1f5f8f', fontSize: 14 }}>{usd(drawDown)}</span>
+        <span style={{ fontWeight: 800, color: '#284a69', fontSize: 14.5 }}>Use for capital / tax relief</span>
+        <span style={{ fontWeight: 800, color: '#4a7297', fontSize: 14 }}>{usd(drawDown)}</span>
       </div>
       <input
         type="range"
@@ -32,7 +32,7 @@ export default function ReserveDrawdownSlider({
         step={50000}
         value={drawDown}
         onChange={(e) => setDrawDown(Number(e.target.value))}
-        style={{ width: '100%', accentColor: '#1f5f8f' }}
+        style={{ width: '100%', accentColor: '#4a7297' }}
       />
 
       <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: 12, fontSize: 14.5 }}>

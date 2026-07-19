@@ -34,7 +34,7 @@ export default function EmployeeDonorWatch({ officials, startYear, endYear }: { 
     <section style={card}>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: 12 }}>
         <div>
-          <h3 style={{ margin: 0, color: '#12385b' }}>Town Employee Donors</h3>
+          <h3 style={{ margin: 0, color: '#284a69' }}>Town Employee Donors</h3>
           <p style={{ margin: '4px 0 0', color: '#64748b', fontSize: 13, maxWidth: 560, lineHeight: 1.5 }}>
             Cross-references Town payroll employees against individual campaign donors to the committees above. Matched by
             name only — this is disclosure context, not an accusation. Modest personal donations from Town employees to
@@ -45,7 +45,7 @@ export default function EmployeeDonorWatch({ officials, startYear, endYear }: { 
           onClick={check}
           disabled={status === 'loading'}
           style={{
-            background: status === 'loading' ? '#93c5fd' : '#1f5f8f', color: 'white', border: 'none', borderRadius: 10,
+            background: status === 'loading' ? '#93c5fd' : '#4a7297', color: 'white', border: 'none', borderRadius: 10,
             padding: '10px 16px', fontWeight: 800, cursor: status === 'loading' ? 'default' : 'pointer', whiteSpace: 'nowrap',
           }}
         >
@@ -84,7 +84,7 @@ export default function EmployeeDonorWatch({ officials, startYear, endYear }: { 
                 <tbody>
                   {matches.map((m, i) => (
                     <tr key={`${m.employeeName}-${m.officialName}-${m.electionYear}-${m.filingDesc}-${i}`} style={{ borderBottom: '1px solid #f1f5f9' }}>
-                      <td style={{ ...td, fontWeight: 700, color: '#12385b' }}>
+                      <td style={{ ...td, fontWeight: 700, color: '#284a69' }}>
                         {m.employeeName}
                         {(m.department || m.title) && (
                           <div style={{ fontWeight: 500, color: '#94a3b8', fontSize: 11.5 }}>
@@ -112,7 +112,7 @@ function Stat({ label, value }: { label: string; value: string }) {
   return (
     <div style={{ background: '#f8fafc', borderRadius: 10, padding: 10 }}>
       <div style={{ color: '#64748b', fontSize: 11, textTransform: 'uppercase', fontWeight: 800 }}>{label}</div>
-      <div style={{ fontWeight: 800, marginTop: 2, color: '#12385b' }}>{value}</div>
+      <div style={{ fontWeight: 800, marginTop: 2, color: '#284a69' }}>{value}</div>
     </div>
   )
 }

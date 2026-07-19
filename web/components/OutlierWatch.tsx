@@ -21,14 +21,14 @@ export default function OutlierWatch({ outliers, yearTransitions }: { outliers: 
       <section style={{ ...card, display: 'flex', gap: 6, flexWrap: 'wrap' }}>
         <button onClick={() => setTransition('all')} style={{
           padding: '8px 13px', borderRadius: 9, border: '1px solid', cursor: 'pointer', fontWeight: 800, fontSize: 13.5,
-          borderColor: transition === 'all' ? '#1f5f8f' : '#cbd5e1', background: transition === 'all' ? '#1f5f8f' : 'white', color: transition === 'all' ? 'white' : '#334155',
+          borderColor: transition === 'all' ? '#4a7297' : '#cbd5e1', background: transition === 'all' ? '#4a7297' : 'white', color: transition === 'all' ? 'white' : '#334155',
         }}>All years ({outliers.length})</button>
         {yearTransitions.map((t) => {
           const count = outliers.filter((o) => `${o.fromYear}→${o.toYear}` === t).length
           return (
             <button key={t} onClick={() => setTransition(t)} disabled={count === 0} style={{
               padding: '8px 13px', borderRadius: 9, border: '1px solid', cursor: count === 0 ? 'default' : 'pointer', fontWeight: 800, fontSize: 13.5,
-              borderColor: transition === t ? '#1f5f8f' : '#cbd5e1', background: transition === t ? '#1f5f8f' : 'white',
+              borderColor: transition === t ? '#4a7297' : '#cbd5e1', background: transition === t ? '#4a7297' : 'white',
               color: transition === t ? 'white' : count === 0 ? '#94a3b8' : '#334155',
             }}>{t} ({count})</button>
           )
@@ -52,7 +52,7 @@ export default function OutlierWatch({ outliers, yearTransitions }: { outliers: 
             <tbody>
               {rows.map((o) => (
                 <tr key={`${o.code}-${o.fromYear}`} style={{ borderBottom: '1px solid #f1f5f9' }}>
-                  <td style={{ ...td, fontWeight: 800, color: '#12385b' }}>{o.name}<div style={{ fontWeight: 600, color: '#94a3b8', fontSize: 11.5 }}>{o.code}</div></td>
+                  <td style={{ ...td, fontWeight: 800, color: '#284a69' }}>{o.name}<div style={{ fontWeight: 600, color: '#94a3b8', fontSize: 11.5 }}>{o.code}</div></td>
                   <td style={td}>{o.fromYear} → {o.toYear}</td>
                   <td style={{ ...td, textAlign: 'right' }}>{usd(o.prior)}</td>
                   <td style={{ ...td, textAlign: 'right' }}>{usd(o.current)}</td>

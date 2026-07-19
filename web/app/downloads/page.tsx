@@ -102,13 +102,13 @@ export default function DownloadsPage() {
         {datasets.map((d) => (
           <article key={d.file} style={{ ...card, display: 'flex', justifyContent: 'space-between', gap: 16, flexWrap: 'wrap', alignItems: 'center' }}>
             <div style={{ minWidth: 0, flex: '1 1 380px' }}>
-              <h2 style={{ margin: '0 0 4px', fontSize: 19, color: '#12385b' }}>{d.title}</h2>
+              <h2 style={{ margin: '0 0 4px', fontSize: 19, color: '#284a69' }}>{d.title}</h2>
               <p style={{ color: '#475569', margin: 0, fontSize: 14.5, lineHeight: 1.5 }}>{d.desc}</p>
               <div style={{ color: '#94a3b8', fontSize: 12.5, marginTop: 4 }}>{d.rows}</div>
             </div>
             <div style={{ display: 'flex', gap: 8 }}>
-              <a href={`${base}/downloads/${d.file}`} download style={{ padding: '10px 16px', borderRadius: 10, background: '#1f5f8f', color: 'white', fontWeight: 800, textDecoration: 'none' }}>⬇ CSV</a>
-              <a href={d.json} target="_blank" rel="noreferrer" style={{ padding: '10px 16px', borderRadius: 10, border: '1px solid #1f5f8f', color: '#1f5f8f', fontWeight: 800, textDecoration: 'none' }}>JSON</a>
+              <a href={`${base}/downloads/${d.file}`} download style={{ padding: '10px 16px', borderRadius: 10, background: '#4a7297', color: 'white', fontWeight: 800, textDecoration: 'none' }}>⬇ CSV</a>
+              <a href={d.json} target="_blank" rel="noreferrer" style={{ padding: '10px 16px', borderRadius: 10, border: '1px solid #4a7297', color: '#4a7297', fontWeight: 800, textDecoration: 'none' }}>JSON</a>
             </div>
           </article>
         ))}
@@ -116,7 +116,7 @@ export default function DownloadsPage() {
 
       <p style={{ color: '#64748b', fontSize: 13, lineHeight: 1.5, marginTop: 16 }}>
         These files are regenerated automatically whenever the underlying data updates. The parsing code is open source in
-        the <a href="https://github.com/rike4545/Riverhead-NY-Budget-Web-App" style={{ color: '#1f5f8f', fontWeight: 700 }}>GitHub repository</a>.
+        the <a href="https://github.com/rike4545/Riverhead-NY-Budget-Web-App" style={{ color: '#4a7297', fontWeight: 700 }}>GitHub repository</a>.
       </p>
     </PageShell>
   )

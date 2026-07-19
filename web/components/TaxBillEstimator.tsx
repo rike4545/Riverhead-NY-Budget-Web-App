@@ -41,7 +41,7 @@ export default function TaxBillEstimator({
             step={1000}
             value={assessedValue}
             onChange={(e) => setAssessedValue(Number(e.target.value))}
-            style={{ width: '100%', accentColor: '#1f5f8f' }}
+            style={{ width: '100%', accentColor: '#4a7297' }}
           />
         </Field>
       ) : (
@@ -57,7 +57,7 @@ export default function TaxBillEstimator({
             step={10000}
             value={marketValue}
             onChange={(e) => setMarketValue(Number(e.target.value))}
-            style={{ width: '100%', accentColor: '#1f5f8f' }}
+            style={{ width: '100%', accentColor: '#4a7297' }}
           />
         </Field>
       )}
@@ -71,7 +71,7 @@ export default function TaxBillEstimator({
             step={500}
             value={starReduction}
             onChange={(e) => setStarReduction(Number(e.target.value))}
-            style={{ width: '100%', accentColor: '#1f5f8f' }}
+            style={{ width: '100%', accentColor: '#4a7297' }}
           />
         </Field>
       </div>
@@ -79,8 +79,8 @@ export default function TaxBillEstimator({
       <hr style={{ border: 'none', borderTop: '1px solid #e2e8f0', margin: '18px 0' }} />
 
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline' }}>
-        <span style={{ color: '#12385b', fontWeight: 800 }}>2026 Town portion (estimated)</span>
-        <strong style={{ fontSize: 28, color: '#12385b' }}>{usd(estimate2026.total)}</strong>
+        <span style={{ color: '#284a69', fontWeight: 800 }}>2026 Town portion (estimated)</span>
+        <strong style={{ fontSize: 28, color: '#284a69' }}>{usd(estimate2026.total)}</strong>
       </div>
       <div style={{ display: 'flex', justifyContent: 'space-between', color: '#64748b', fontSize: 13.5, marginTop: 4 }}>
         <span>2025 (for comparison)</span>
@@ -116,9 +116,9 @@ function ModeButton({ active, onClick, label }: { active: boolean; onClick: () =
         flex: 1,
         padding: '10px 12px',
         borderRadius: 8,
-        border: active ? '1px solid #1f5f8f' : '1px solid #e2e8f0',
-        background: active ? '#1f5f8f' : 'white',
-        color: active ? 'white' : '#12385b',
+        border: active ? '1px solid #4a7297' : '1px solid #e2e8f0',
+        background: active ? '#4a7297' : 'white',
+        color: active ? 'white' : '#284a69',
         fontWeight: 800,
         fontSize: 13.5,
         cursor: 'pointer',
@@ -133,8 +133,8 @@ function Field({ label, value, hint, children }: { label: string; value: string;
   return (
     <div>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline' }}>
-        <span style={{ fontWeight: 800, color: '#12385b', fontSize: 14.5 }}>{label}</span>
-        <span style={{ fontWeight: 800, color: '#1f5f8f', fontSize: 14 }}>{value}</span>
+        <span style={{ fontWeight: 800, color: '#284a69', fontSize: 14.5 }}>{label}</span>
+        <span style={{ fontWeight: 800, color: '#4a7297', fontSize: 14 }}>{value}</span>
       </div>
       {children}
       <div style={{ color: '#94a3b8', fontSize: 12, lineHeight: 1.4, marginTop: 4 }}>{hint}</div>
@@ -146,7 +146,7 @@ function Mini({ label, value }: { label: string; value: string }) {
   return (
     <div style={{ background: '#f8fafc', borderRadius: 10, padding: 10 }}>
       <div style={{ color: '#64748b', fontSize: 11, textTransform: 'uppercase', fontWeight: 800 }}>{label}</div>
-      <div style={{ fontWeight: 800, marginTop: 2, color: '#12385b' }}>{value}</div>
+      <div style={{ fontWeight: 800, marginTop: 2, color: '#284a69' }}>{value}</div>
     </div>
   )
 }

@@ -26,7 +26,7 @@ export default function OfficialsPage() {
 
   return (
     <PageShell title={data.title} subtitle={data.intro}>
-      <div style={{ background: '#eef6ff', border: '1px solid #bcd9f5', borderLeft: '6px solid #1f5f8f', borderRadius: 12, padding: '14px 16px', marginBottom: 16, color: '#1f3a52', fontSize: 14.5, lineHeight: 1.6 }}>
+      <div style={{ background: '#eef6ff', border: '1px solid #bcd9f5', borderLeft: '6px solid #4a7297', borderRadius: 12, padding: '14px 16px', marginBottom: 16, color: '#1f3a52', fontSize: 14.5, lineHeight: 1.6 }}>
         <strong>It’s legal — this is disclosure, not an accusation.</strong> {data.legalNote}
       </div>
 
@@ -49,7 +49,7 @@ export default function OfficialsPage() {
             <section key={o.name} style={{ ...card, borderLeft: `6px solid ${s.border}` }}>
               <div style={{ display: 'flex', flexWrap: 'wrap', gap: 10, alignItems: 'baseline', justifyContent: 'space-between' }}>
                 <div>
-                  <span style={{ fontSize: 18, fontWeight: 900, color: '#12385b' }}>{o.name}</span>
+                  <span style={{ fontSize: 18, fontWeight: 900, color: '#284a69' }}>{o.name}</span>
                   <span style={{ color: '#64748b', fontWeight: 700, marginLeft: 8 }}>{o.office}{o.party && o.party !== '—' ? ` · ${o.party}` : ''}</span>
                 </div>
                 <span style={{ background: s.bg, color: s.fg, border: `1px solid ${s.border}`, fontWeight: 800, fontSize: 12, padding: '3px 11px', borderRadius: 999 }}>
@@ -68,7 +68,7 @@ export default function OfficialsPage() {
 
       <section style={{ ...card, marginTop: 16, borderLeft: '6px solid #7c3aed' }}>
         <div style={{ color: '#7c3aed', fontWeight: 900, fontSize: 12, textTransform: 'uppercase', letterSpacing: 0.4 }}>Coming up</div>
-        <h3 style={{ margin: '4px 0 8px', color: '#12385b' }}>The 2026 Town Supervisor race</h3>
+        <h3 style={{ margin: '4px 0 8px', color: '#284a69' }}>The 2026 Town Supervisor race</h3>
         <p style={{ color: '#334155', fontSize: 14.5, lineHeight: 1.6, margin: 0 }}>
           Riverhead&apos;s next Supervisor election is in <strong>November 2026</strong>: Republican councilman
           {' '}<strong>Kenneth Rothwell</strong> (nominated by the Riverhead GOP in February 2026) against incumbent Democrat
@@ -90,7 +90,7 @@ function Stat({ label, value, accent }: { label: string; value: string; accent?:
   return (
     <div style={{ background: accent ? '#fff7ed' : '#f8fafc', border: '1px solid #e2e8f0', borderRadius: 12, padding: 12 }}>
       <div style={{ color: '#64748b', fontSize: 11.5, textTransform: 'uppercase', fontWeight: 900, letterSpacing: 0.4 }}>{label}</div>
-      <strong style={{ fontSize: 26, color: accent ? '#b45309' : '#12385b' }}>{value}</strong>
+      <strong style={{ fontSize: 26, color: accent ? '#b45309' : '#284a69' }}>{value}</strong>
     </div>
   )
 }

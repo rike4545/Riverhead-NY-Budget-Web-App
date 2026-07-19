@@ -58,7 +58,7 @@ export default function FiscalImpactPage() {
         </section>
       )}
 
-      <h2 style={{ color: '#12385b' }}>The corrections</h2>
+      <h2 style={{ color: '#284a69' }}>The corrections</h2>
       <section style={{ ...card, marginBottom: 18 }}>
         <p style={{ color: '#64748b', fontSize: 13.5, marginTop: 0 }}>
           Resolutions the Town marked <strong>“no fiscal impact”</strong> that, on a realistic read, commit or change
@@ -78,7 +78,7 @@ export default function FiscalImpactPage() {
             <tbody>
               {corrections.map((r) => (
                 <tr key={r.number} style={{ borderBottom: '1px solid #f1f5f9', verticalAlign: 'top' }}>
-                  <td style={{ ...td, fontWeight: 800, color: '#12385b', whiteSpace: 'nowrap' }}>{r.number}</td>
+                  <td style={{ ...td, fontWeight: 800, color: '#284a69', whiteSpace: 'nowrap' }}>{r.number}</td>
                   <td style={{ ...td, color: '#334155', lineHeight: 1.4 }}>{r.title}</td>
                   <td style={{ ...td, textAlign: 'right', fontWeight: 800, color: '#b91c1c', whiteSpace: 'nowrap' }}>{r.amount ? usd(r.amount) : '—'}</td>
                   <td style={{ ...td, color: '#64748b', lineHeight: 1.4, maxWidth: 380 }}>{r.note || r.realistic.reason}</td>
@@ -89,7 +89,7 @@ export default function FiscalImpactPage() {
         </div>
       </section>
 
-      <h2 style={{ color: '#12385b' }}>Every resolution, judged</h2>
+      <h2 style={{ color: '#284a69' }}>Every resolution, judged</h2>
       <p style={{ color: '#475569', fontSize: 14.5, lineHeight: 1.55, maxWidth: 900 }}>
         All {s.total} July 7 resolutions with the Town’s stated fiscal impact next to a realistic read. Filter to the
         corrections, or to the items that carry a dollar figure. Not every “no impact” is wrong — publishing a legal
@@ -99,21 +99,21 @@ export default function FiscalImpactPage() {
       <FiscalImpactTable resolutions={resolutions} />
 
       <section style={{ ...card, margin: '18px 0', background: '#eef6ff', border: '1px solid #bcd9f5' }}>
-        <h3 style={{ marginTop: 0, color: '#12385b' }}>What this means for the 2027 budget</h3>
+        <h3 style={{ marginTop: 0, color: '#284a69' }}>What this means for the 2027 budget</h3>
         <p style={{ color: '#1f3a52', fontSize: 15, lineHeight: 1.6, margin: 0 }}>
           Most one-time items here (a truck, a boat-launch repair, a well closure) hit 2026. The pieces that follow the
           Town into <strong>2027</strong> are the <strong>recurring</strong> ones the form tends to wave through: new
           full-time and part-time hires, the seasonal payroll, and the three <strong>union stipulations</strong> (CSEA,
           PBA, SOA), whose wage terms compound with each future budget. Those recurring commitments — not the one-time
           purchases — are what a resident should track against next year’s tax levy. See how they interact with the{' '}
-          <a href={`${base}/buyout/`} style={{ color: '#1f5f8f', fontWeight: 800 }}>2026 retirement buyout</a> and the
-          {' '}<a href={`${base}/meetings/`} style={{ color: '#1f5f8f', fontWeight: 800 }}>full voting record</a>.
+          <a href={`${base}/buyout/`} style={{ color: '#4a7297', fontWeight: 800 }}>2026 retirement buyout</a> and the
+          {' '}<a href={`${base}/meetings/`} style={{ color: '#4a7297', fontWeight: 800 }}>full voting record</a>.
         </p>
       </section>
 
       <p style={{ color: '#64748b', fontSize: 13, lineHeight: 1.5 }}>
         Source: {fiscal.source.title}. {fiscal.method} All {s.total} resolutions were adopted 5–0 except the one tabled
-        item; see the <a href={`${base}/meetings/`} style={{ color: '#1f5f8f', fontWeight: 700 }}>Town Board Votes</a>{' '}
+        item; see the <a href={`${base}/meetings/`} style={{ color: '#4a7297', fontWeight: 700 }}>Town Board Votes</a>{' '}
         record. This is an independent read, not the Town’s official position — verify against the agenda packet.
       </p>
     </PageShell>
@@ -127,7 +127,7 @@ function Stat({ label, value, sub, accent }: { label: string; value: string; sub
   return (
     <div style={{ background: accent ? '#fee2e2' : '#f8fafc', border: '1px solid #e2e8f0', borderRadius: 12, padding: 12 }}>
       <div style={{ color: '#64748b', fontSize: 11.5, textTransform: 'uppercase', fontWeight: 900, letterSpacing: 0.4 }}>{label}</div>
-      <strong style={{ fontSize: 22, color: accent ? '#991b1b' : '#12385b' }}>{value}</strong>
+      <strong style={{ fontSize: 22, color: accent ? '#991b1b' : '#284a69' }}>{value}</strong>
       {sub && <div style={{ color: '#64748b', fontSize: 12.5, marginTop: 2 }}>{sub}</div>}
     </div>
   )

@@ -29,7 +29,7 @@ export default async function FundDetailPage({ params }: { params: Promise<{ cod
   if (!fund) {
     return (
       <PageShell title="Fund not found" subtitle="No account-level detail is available for this fund code.">
-        <a href={`${base}/funds/`} style={{ color: '#1f5f8f', fontWeight: 800 }}>← Back to Funds Explorer</a>
+        <a href={`${base}/funds/`} style={{ color: '#4a7297', fontWeight: 800 }}>← Back to Funds Explorer</a>
       </PageShell>
     )
   }
@@ -39,7 +39,7 @@ export default async function FundDetailPage({ params }: { params: Promise<{ cod
       title={`${fund.name} (${fund.code})`}
       subtitle={meta?.description ?? `Account-level appropriations and revenues for the ${fund.name}.`}
     >
-      <a href={`${base}/funds/`} style={{ color: '#1f5f8f', fontWeight: 800, display: 'inline-block', marginBottom: 14 }}>
+      <a href={`${base}/funds/`} style={{ color: '#4a7297', fontWeight: 800, display: 'inline-block', marginBottom: 14 }}>
         ← Back to Funds Explorer
       </a>
       <PlainCallout

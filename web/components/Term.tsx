@@ -19,12 +19,12 @@ export default function Term({ id, children }: { id: string; children?: React.Re
         aria-expanded={open}
         style={{
           background: 'none', border: 'none', padding: 0, font: 'inherit', cursor: 'help',
-          color: 'inherit', borderBottom: '1.5px dotted #1f5f8f', lineHeight: 1.2,
+          color: 'inherit', borderBottom: '1.5px dotted #4a7297', lineHeight: 1.2,
         }}
         title={entry.plain}
       >
         {label}
-        <sup style={{ color: '#1f5f8f', fontWeight: 900, fontSize: '0.7em', marginLeft: 1 }}>?</sup>
+        <sup style={{ color: '#4a7297', fontWeight: 900, fontSize: '0.7em', marginLeft: 1 }}>?</sup>
       </button>
       {open && (
         <>

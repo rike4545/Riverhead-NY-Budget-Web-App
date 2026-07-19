@@ -78,7 +78,7 @@ export default function Budget2027Table() {
 
       <section style={card}>
         <div style={{ color: '#475569', fontWeight: 700, marginBottom: 10, fontSize: 14 }}>
-          {rows.length.toLocaleString()} line items · {usd(totals.v2026)} → <span style={{ color: '#12385b' }}>{usd(totals.v2027)}</span> predicted
+          {rows.length.toLocaleString()} line items · {usd(totals.v2026)} → <span style={{ color: '#284a69' }}>{usd(totals.v2027)}</span> predicted
         </div>
         <div style={{ overflowX: 'auto' }}>
           <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 13 }}>
@@ -95,7 +95,7 @@ export default function Budget2027Table() {
             <tbody>
               {rows.slice(0, limit).map((r, i) => (
                 <tr key={`${r.account}-${i}`} style={{ borderBottom: '1px solid #f1f5f9' }}>
-                  <td style={{ ...td, fontWeight: 700, color: '#12385b' }}>{r.name}</td>
+                  <td style={{ ...td, fontWeight: 700, color: '#284a69' }}>{r.name}</td>
                   <td style={{ ...td, color: '#64748b' }}>{r.fund} · {r.dept}</td>
                   <td style={td}><span style={{ background: '#eef2f7', color: '#475569', fontSize: 11, fontWeight: 700, padding: '2px 8px', borderRadius: 999 }}>{r.category}</span></td>
                   <td style={{ ...td, textAlign: 'right', color: '#64748b' }}>{usd(r.v2026)}</td>
@@ -111,7 +111,7 @@ export default function Budget2027Table() {
         </div>
         {limit < rows.length && (
           <div style={{ textAlign: 'center', marginTop: 14 }}>
-            <button onClick={() => setLimit((l) => l + 120)} style={{ padding: '10px 18px', borderRadius: 10, border: '1px solid #1f5f8f', background: '#1f5f8f', color: 'white', fontWeight: 800, cursor: 'pointer' }}>Show more</button>
+            <button onClick={() => setLimit((l) => l + 120)} style={{ padding: '10px 18px', borderRadius: 10, border: '1px solid #4a7297', background: '#4a7297', color: 'white', fontWeight: 800, cursor: 'pointer' }}>Show more</button>
           </div>
         )}
       </section>

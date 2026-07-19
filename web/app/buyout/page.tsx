@@ -41,7 +41,7 @@ export default function BuyoutPage() {
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(200px,1fr))', gap: 12 }}>
           {b.timeline.map((t) => (
             <div key={t.date} style={{ background: '#f8fafc', border: '1px solid #e2e8f0', borderRadius: 12, padding: 14 }}>
-              <div style={{ color: '#1f5f8f', fontWeight: 900 }}>{t.date}</div>
+              <div style={{ color: '#4a7297', fontWeight: 900 }}>{t.date}</div>
               <div style={{ color: '#334155', fontSize: 14, lineHeight: 1.45, marginTop: 4 }}>{t.event}</div>
             </div>
           ))}
@@ -49,12 +49,12 @@ export default function BuyoutPage() {
       </section>
 
       {/* Per-union programs */}
-      <h2 style={{ color: '#12385b' }}>What each retiree receives</h2>
+      <h2 style={{ color: '#284a69' }}>What each retiree receives</h2>
       <section style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(300px,1fr))', gap: 14, marginBottom: 18 }}>
         {b.programs.map((p) => (
           <article key={p.unit} style={{ ...card, borderTop: '5px solid #c99a2e' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', gap: 10, alignItems: 'baseline' }}>
-              <h3 style={{ margin: 0, color: '#12385b' }}>{p.unit}</h3>
+              <h3 style={{ margin: 0, color: '#284a69' }}>{p.unit}</h3>
               <a href={`${base}/meetings/`} title="Ratifying resolution" style={{ color: '#2563eb', fontWeight: 900, fontSize: 12, textDecoration: 'none' }}>{p.resolution} →</a>
             </div>
             <div style={{ color: '#64748b', fontSize: 12.5, marginTop: 2, lineHeight: 1.4 }}>{p.unitFull}</div>
@@ -89,20 +89,20 @@ export default function BuyoutPage() {
 
       {/* Why it matters */}
       <section style={{ ...card, marginBottom: 18, background: '#eef6ff', border: '1px solid #bcd9f5' }}>
-        <h3 style={{ marginTop: 0, color: '#12385b' }}>Why this matters for the budget</h3>
+        <h3 style={{ marginTop: 0, color: '#284a69' }}>Why this matters for the budget</h3>
         <p style={{ color: '#1f3a52', fontSize: 15, lineHeight: 1.6, margin: 0 }}>
           Personnel is the Town’s largest controllable cost. A buyout trades a one-time payment now for the chance to
           hold positions vacant, consolidate roles, or refill at lower cost — turning recurring payroll pressure into a
           near-term expense. Used well it can support tax stabilization and reserve health; used poorly it spends money
           without proving lasting savings. You can see the workforce it applies to in the{' '}
-          <a href={`${base}/payroll/`} style={{ color: '#1f5f8f', fontWeight: 800 }}>Payroll Explorer</a>, and the
+          <a href={`${base}/payroll/`} style={{ color: '#4a7297', fontWeight: 800 }}>Payroll Explorer</a>, and the
           ratifying votes in the{' '}
-          <a href={`${base}/meetings/`} style={{ color: '#1f5f8f', fontWeight: 800 }}>Town Board Votes</a> record.
+          <a href={`${base}/meetings/`} style={{ color: '#4a7297', fontWeight: 800 }}>Town Board Votes</a> record.
         </p>
       </section>
 
       {/* Cost & savings analysis */}
-      <h2 id="cost" style={{ color: '#12385b' }}>What it costs — and will the Town save money?</h2>
+      <h2 id="cost" style={{ color: '#284a69' }}>What it costs — and will the Town save money?</h2>
       <PlainCallout title="The short answer">
         <strong>It depends on what the Town does with the vacated jobs — but the math favors savings.</strong> The
         payment is small next to the salaries: about {usd(analysis.perRetiree.cseaIncentive)} per CSEA retiree and
@@ -232,7 +232,7 @@ export default function BuyoutPage() {
                 display: 'flex', alignItems: 'center', gap: 10, padding: '7px 12px', borderRadius: 8,
                 background: r.isOfficer ? '#ecfdf5' : '#f8fafc', border: `1px solid ${r.isOfficer ? '#a7f3d0' : '#e2e8f0'}`,
               }}>
-                <span style={{ fontWeight: 800, color: '#12385b', flex: 1, fontSize: 13.5 }}>{r.rank}</span>
+                <span style={{ fontWeight: 800, color: '#284a69', flex: 1, fontSize: 13.5 }}>{r.rank}</span>
                 <span style={{ color: '#64748b', fontSize: 12.5 }}>{r.count} {r.count === 1 ? 'position' : 'positions'}</span>
                 <span style={{ fontWeight: 800, color: r.isOfficer ? '#15803d' : '#334155', fontSize: 13.5, minWidth: 92, textAlign: 'right' }}>{usd(r.top)}</span>
                 {r.isOfficer && <span style={{ background: '#15803d', color: 'white', fontSize: 10.5, fontWeight: 900, padding: '2px 8px', borderRadius: 999, whiteSpace: 'nowrap' }}>rookie hired here · {usd(analysis.policeChain!.officerEntryStep)}</span>}
@@ -254,21 +254,21 @@ export default function BuyoutPage() {
               <tbody>
                 {analysis.policeChain.ranked.byRank.map((r) => (
                   <tr key={r.title} style={{ borderBottom: '1px solid #f1f5f9' }}>
-                    <td style={{ ...td, fontWeight: 700, color: '#12385b' }}>{r.title.replace(/\s+Police-Towns and Village/, '')}</td>
+                    <td style={{ ...td, fontWeight: 700, color: '#284a69' }}>{r.title.replace(/\s+Police-Towns and Village/, '')}</td>
                     <td style={{ ...td, textAlign: 'right' }}>{r.count}</td>
                     <td style={{ ...td, textAlign: 'right', color: '#94a3b8', textDecoration: 'line-through' }}>{usd(r.naivePer)}</td>
                     <td style={{ ...td, textAlign: 'right', color: '#15803d', fontWeight: 800 }}>{usd(r.chainPer)}</td>
                   </tr>
                 ))}
                 <tr style={{ borderBottom: '1px solid #f1f5f9' }}>
-                  <td style={{ ...td, fontWeight: 700, color: '#12385b' }}>Police Officer (rank-and-file)</td>
+                  <td style={{ ...td, fontWeight: 700, color: '#284a69' }}>Police Officer (rank-and-file)</td>
                   <td style={{ ...td, textAlign: 'right' }}>{analysis.policeChain.officers.count}</td>
                   <td style={{ ...td, textAlign: 'right', color: '#64748b' }} colSpan={2}>replaced directly by a rookie → {usd(analysis.policeChain.officers.netSavings)}/yr total</td>
                 </tr>
               </tbody>
               <tfoot>
                 <tr style={{ borderTop: '2px solid #e2e8f0' }}>
-                  <td style={{ ...td, fontWeight: 900, color: '#12385b' }}>All {analysis.policeChain.officers.count + analysis.policeChain.ranked.count} eligible police, if all retire &amp; all posts refilled</td>
+                  <td style={{ ...td, fontWeight: 900, color: '#284a69' }}>All {analysis.policeChain.officers.count + analysis.policeChain.ranked.count} eligible police, if all retire &amp; all posts refilled</td>
                   <td style={td}></td>
                   <td style={{ ...td, textAlign: 'right', color: '#94a3b8', textDecoration: 'line-through' }}>{usd(analysis.policeChain.ranked.naiveSavings + analysis.policeChain.officers.netSavings)}/yr</td>
                   <td style={{ ...td, textAlign: 'right', color: '#15803d', fontWeight: 900, fontSize: 15 }}>{usd(analysis.policeChain.totalNetSavings)}/yr</td>
@@ -277,7 +277,7 @@ export default function BuyoutPage() {
             </table>
           </div>
           <p style={{ color: '#64748b', fontSize: 12.5, marginTop: 12, marginBottom: 0, lineHeight: 1.55 }}>
-            Ranks and step salaries come from the Town&apos;s <a href={`${base}/downloads/`} style={{ color: '#1f5f8f', fontWeight: 700 }}>authorized 2025 salary schedule</a>.
+            Ranks and step salaries come from the Town&apos;s <a href={`${base}/downloads/`} style={{ color: '#4a7297', fontWeight: 700 }}>authorized 2025 salary schedule</a>.
             The chain model treats each ranked retirement as a top-step officer (about {usd(analysis.policeChain.officerTopStep)}) replaced by a
             rookie ({usd(analysis.policeChain.officerEntryStep)}) — trimming the ranked group&apos;s claimed saving by
             about {usd(analysis.policeChain.ranked.correction)}/yr versus assuming each rank&apos;s whole salary disappears.
@@ -347,7 +347,7 @@ export default function BuyoutPage() {
                       fontWeight: t.isRiverhead ? 800 : 400,
                     }}
                   >
-                    <td style={{ ...td, color: t.isRiverhead ? '#0f766e' : '#12385b' }}>{t.name}{t.isRiverhead ? ' ← this site' : ''}</td>
+                    <td style={{ ...td, color: t.isRiverhead ? '#0f766e' : '#284a69' }}>{t.name}{t.isRiverhead ? ' ← this site' : ''}</td>
                     <td style={{ ...td, textAlign: 'right', color: '#475569' }}>{usd(t.netLiability)}</td>
                     <td style={{ ...td, textAlign: 'right', color: t.isRiverhead ? '#0f766e' : '#334155', fontWeight: 800 }}>{usd(t.perResident)}</td>
                   </tr>
@@ -387,7 +387,7 @@ export default function BuyoutPage() {
       </section>
 
       {/* Who appears eligible */}
-      <h2 id="eligible" style={{ color: '#12385b' }}>Which employees appear eligible</h2>
+      <h2 id="eligible" style={{ color: '#284a69' }}>Which employees appear eligible</h2>
       <PlainCallout title="Read this first">
         These are current employees whose <strong>hire date and union</strong> match the program&apos;s service
         requirements — an <strong>estimate, not a decision</strong>. Actual eligibility also depends on age and pension
@@ -397,7 +397,7 @@ export default function BuyoutPage() {
       <BuyoutEligible employees={analysis.eligibleEmployees as EligibleEmployee[]} />
 
       {/* 2019 vs 2026 */}
-      <h2 id="compare2019" style={{ color: '#12385b', marginTop: 26 }}>How this compares to the 2019 buyout</h2>
+      <h2 id="compare2019" style={{ color: '#284a69', marginTop: 26 }}>How this compares to the 2019 buyout</h2>
       <PlainCallout title="No one can be counted twice">
         {analysis.reconciliation}
       </PlainCallout>
@@ -415,7 +415,7 @@ export default function BuyoutPage() {
             <tbody>
               {analysis.compare2019.rows.map((r) => (
                 <tr key={r.item} style={{ borderBottom: '1px solid #f1f5f9', verticalAlign: 'top' }}>
-                  <td style={{ ...td, fontWeight: 800, color: '#12385b', whiteSpace: 'nowrap' }}>{r.item}</td>
+                  <td style={{ ...td, fontWeight: 800, color: '#284a69', whiteSpace: 'nowrap' }}>{r.item}</td>
                   <td style={{ ...td, color: '#475569', lineHeight: 1.5 }}>{r.y2019}</td>
                   <td style={{ ...td, color: '#334155', lineHeight: 1.5 }}>{r.y2026}</td>
                 </tr>
@@ -451,7 +451,7 @@ function Stat({ label, value, sub, accent }: { label: string; value: string; sub
   return (
     <div style={{ background: accent ? '#dbeafe' : '#f8fafc', border: '1px solid #e2e8f0', borderRadius: 12, padding: 12 }}>
       <div style={{ color: '#64748b', fontSize: 11.5, textTransform: 'uppercase', fontWeight: 900, letterSpacing: 0.4 }}>{label}</div>
-      <strong style={{ fontSize: 20, color: '#12385b' }}>{value}</strong>
+      <strong style={{ fontSize: 20, color: '#284a69' }}>{value}</strong>
       {sub && <div style={{ color: '#64748b', fontSize: 12.5, marginTop: 2 }}>{sub}</div>}
     </div>
   )

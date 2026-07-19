@@ -76,7 +76,7 @@ export default function AnnualReportPage() {
       {/* Revenue + expenditure categories */}
       <section style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(340px,1fr))', gap: 16, marginBottom: 18 }}>
         <CategoryCard title="Where the money came from" subtitle="General Fund revenues, 2025" rows={gf.revenueCategories.map((c) => ({ name: c.category, v2025: c.values['2025'], v2024: c.values['2024'] }))} color="#0f766e" />
-        <CategoryCard title="Where the money went" subtitle="General Fund spending, 2025" rows={gf.expenditureCategories.map((c) => ({ name: c.category, v2025: c.values['2025'], v2024: c.values['2024'] }))} color="#1f5f8f" />
+        <CategoryCard title="Where the money went" subtitle="General Fund spending, 2025" rows={gf.expenditureCategories.map((c) => ({ name: c.category, v2025: c.values['2025'], v2024: c.values['2024'] }))} color="#4a7297" />
       </section>
 
       {/* Fund balance breakdown */}
@@ -90,11 +90,11 @@ export default function AnnualReportPage() {
             return (
               <div key={c.class}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', gap: 10, fontSize: 14.5 }}>
-                  <strong style={{ color: '#12385b' }}>{c.class}</strong>
+                  <strong style={{ color: '#284a69' }}>{c.class}</strong>
                   <strong>{dollars(v)} <span style={{ color: '#94a3b8', fontWeight: 600 }}>({pct.toFixed(0)}%)</span></strong>
                 </div>
                 <div style={{ height: 9, background: '#f1f5f9', borderRadius: 9, marginTop: 4 }}>
-                  <div style={{ width: `${pct}%`, height: '100%', borderRadius: 9, background: c.class === 'Unassigned' ? '#15803d' : '#1f5f8f' }} />
+                  <div style={{ width: `${pct}%`, height: '100%', borderRadius: 9, background: c.class === 'Unassigned' ? '#15803d' : '#4a7297' }} />
                 </div>
                 <p style={{ color: '#64748b', fontSize: 13, margin: '4px 0 0', lineHeight: 1.4 }}>{CLASS_PLAIN[c.class]}</p>
               </div>
@@ -149,7 +149,7 @@ function Stat({ label, value, sub, accent, good }: { label: React.ReactNode; val
   return (
     <div style={{ background: accent ? '#dcfce7' : '#f8fafc', border: '1px solid #e2e8f0', borderRadius: 12, padding: 14 }}>
       <div style={{ color: '#64748b', fontSize: 11.5, textTransform: 'uppercase', fontWeight: 900, letterSpacing: 0.4 }}>{label}</div>
-      <strong style={{ fontSize: 20, color: good ? '#15803d' : '#12385b' }}>{value}</strong>
+      <strong style={{ fontSize: 20, color: good ? '#15803d' : '#284a69' }}>{value}</strong>
       {sub && <div style={{ color: '#64748b', fontSize: 12.5, marginTop: 2 }}>{sub}</div>}
     </div>
   )
@@ -159,7 +159,7 @@ function Compare({ label, value, delta, deltaLabel, good }: { label: string; val
   return (
     <div style={{ background: '#f8fafc', border: '1px solid #e2e8f0', borderRadius: 12, padding: 14 }}>
       <div style={{ color: '#64748b', fontSize: 12.5, fontWeight: 700 }}>{label}</div>
-      <strong style={{ fontSize: 22, color: '#12385b' }}>{dollars(value)}</strong>
+      <strong style={{ fontSize: 22, color: '#284a69' }}>{dollars(value)}</strong>
       {delta != null && (
         <div style={{ color: (good ?? delta < 0) ? '#15803d' : '#b45309', fontWeight: 800, fontSize: 13, marginTop: 2 }}>
           {delta >= 0 ? '+' : '−'}{dollars(Math.abs(delta))} {deltaLabel}

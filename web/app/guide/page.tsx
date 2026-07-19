@@ -69,33 +69,33 @@ export default function GuidePage() {
       subtitle="New to town budgets? This page explains, in everyday language, what each part of the site does and what the budget words mean. No finance background needed."
     >
       <section style={{ ...card, marginBottom: 18, background: '#eef6ff', border: '1px solid #bcd9f5' }}>
-        <h2 style={{ marginTop: 0, color: '#12385b' }}>What is this website?</h2>
+        <h2 style={{ marginTop: 0, color: '#284a69' }}>What is this website?</h2>
         <p style={{ color: '#1f3a52', fontSize: 16, lineHeight: 1.6, margin: 0 }}>
           The Town of Riverhead publishes its budgets, audits, and payroll as long PDF documents that are hard to read.
           This site turns those documents into <strong>plain-English, searchable pages</strong> so you can quickly see
           where your tax dollars come from and where they go. It is an independent public-information project — not an
-          official Town website. Throughout the site, any word with a <span style={{ borderBottom: '1.5px dotted #1f5f8f' }}>dotted underline</span>
+          official Town website. Throughout the site, any word with a <span style={{ borderBottom: '1.5px dotted #4a7297' }}>dotted underline</span>
           {' '}can be tapped for a quick definition.
         </p>
       </section>
 
-      <h2 style={{ color: '#12385b' }}>The tools, in plain words</h2>
+      <h2 style={{ color: '#284a69' }}>The tools, in plain words</h2>
       <section style={{ display: 'grid', gap: 14, marginBottom: 26 }}>
         {tools.map((t) => (
           <a key={t.href} href={t.href} style={{ ...card, textDecoration: 'none', color: 'inherit', display: 'block', borderLeft: '5px solid #c99a2e' }}>
             <div style={{ display: 'flex', gap: 12, alignItems: 'baseline', flexWrap: 'wrap' }}>
               <span style={{ fontSize: 22 }} aria-hidden>{t.emoji}</span>
-              <h3 style={{ margin: 0, color: '#12385b', fontSize: 20 }}>{t.title}</h3>
+              <h3 style={{ margin: 0, color: '#284a69', fontSize: 20 }}>{t.title}</h3>
             </div>
             <p style={{ color: '#1f3a52', fontSize: 15.5, lineHeight: 1.5, margin: '10px 0 6px' }}><strong>Answers:</strong> {t.answers}</p>
             <p style={{ color: '#475569', fontSize: 14.5, lineHeight: 1.5, margin: 0 }}><strong>How to use it:</strong> {t.how}</p>
-            <div style={{ color: '#1f5f8f', fontWeight: 800, marginTop: 12 }}>Open {t.title} →</div>
+            <div style={{ color: '#4a7297', fontWeight: 800, marginTop: 12 }}>Open {t.title} →</div>
           </a>
         ))}
       </section>
 
       <section style={{ ...card, marginBottom: 18 }}>
-        <h2 style={{ marginTop: 0, color: '#12385b' }}>A 30-second budget primer</h2>
+        <h2 style={{ marginTop: 0, color: '#284a69' }}>A 30-second budget primer</h2>
         <p style={{ color: '#1f3a52', fontSize: 15.5, lineHeight: 1.6 }}>
           A town budget has two sides that must balance. On one side are <strong>appropriations</strong> — the money the
           Town plans to spend. On the other side is how that spending is paid for: mostly <strong>revenues</strong>
@@ -107,7 +107,7 @@ export default function GuidePage() {
       </section>
 
       <section id="budget-process" style={{ ...card, marginBottom: 18, scrollMarginTop: 24 }}>
-        <h2 style={{ marginTop: 0, color: '#12385b' }}>How the budget gets made</h2>
+        <h2 style={{ marginTop: 0, color: '#284a69' }}>How the budget gets made</h2>
         <p style={{ color: '#1f3a52', fontSize: 15.5, lineHeight: 1.6 }}>
           Each fall, Riverhead&apos;s budget goes through four public stages, and you can see all four in this site&apos;s data:
         </p>
@@ -120,14 +120,14 @@ export default function GuidePage() {
         <p style={{ color: '#1f3a52', fontSize: 15.5, lineHeight: 1.6, margin: 0 }}>
           The budget can still change after adoption — but only by a formal Town Board vote. Those amendments (budget
           adoptions for capital projects, transfers, salary changes) appear as resolutions in the{' '}
-          <a href={`${base}/meetings/`} style={{ color: '#1f5f8f', fontWeight: 800 }}>Town Board Votes</a> record, so
+          <a href={`${base}/meetings/`} style={{ color: '#4a7297', fontWeight: 800 }}>Town Board Votes</a> record, so
           you can watch the plan evolve during the year. And when the year ends, the{' '}
-          <a href={`${base}/annual-report/`} style={{ color: '#1f5f8f', fontWeight: 800 }}>Annual Report</a> shows what
+          <a href={`${base}/annual-report/`} style={{ color: '#4a7297', fontWeight: 800 }}>Annual Report</a> shows what
           actually happened compared with the plan.
         </p>
       </section>
 
-      <h2 id="glossary" style={{ color: '#12385b' }}>Budget words, explained</h2>
+      <h2 id="glossary" style={{ color: '#284a69' }}>Budget words, explained</h2>
       <p style={{ color: '#475569', marginTop: 0 }}>Every term the site uses, in everyday language.</p>
       <Glossary />
     </PageShell>

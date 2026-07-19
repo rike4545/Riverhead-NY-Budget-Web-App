@@ -33,7 +33,7 @@ export default function BuyoutEligible({ employees }: { employees: EligibleEmplo
           {(['all', 'CSEA', 'Police'] as const).map((p) => (
             <button key={p} onClick={() => setProgram(p)} style={{
               padding: '8px 13px', borderRadius: 9, border: '1px solid', cursor: 'pointer', fontWeight: 800, fontSize: 13.5,
-              borderColor: program === p ? '#1f5f8f' : '#cbd5e1', background: program === p ? '#1f5f8f' : 'white', color: program === p ? 'white' : '#334155',
+              borderColor: program === p ? '#4a7297' : '#cbd5e1', background: program === p ? '#4a7297' : 'white', color: program === p ? 'white' : '#334155',
             }}>{p === 'all' ? `All (${employees.length})` : p === 'CSEA' ? `CSEA (${counts.CSEA})` : `Police (${counts.Police})`}</button>
           ))}
         </div>
@@ -58,7 +58,7 @@ export default function BuyoutEligible({ employees }: { employees: EligibleEmplo
             <tbody>
               {rows.map((e, i) => (
                 <tr key={`${e.name}-${i}`} style={{ borderBottom: '1px solid #f1f5f9' }}>
-                  <td style={{ ...td, fontWeight: 700, color: '#12385b' }}>{e.name}</td>
+                  <td style={{ ...td, fontWeight: 700, color: '#284a69' }}>{e.name}</td>
                   <td style={td}>{e.title || '—'}</td>
                   <td style={td}>
                     <span style={{ background: e.program === 'CSEA' ? '#dcfce7' : '#dbeafe', color: e.program === 'CSEA' ? '#166534' : '#1e3a8a', fontWeight: 800, fontSize: 11.5, padding: '2px 9px', borderRadius: 999 }}>{e.program} 2026</span>

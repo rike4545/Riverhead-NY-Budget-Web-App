@@ -99,7 +99,7 @@ export default function UnifiedSearch() {
             )
           })}
           {types.size > 0 && (
-            <button onClick={() => setTypes(new Set())} style={{ padding: '6px 12px', borderRadius: 999, fontWeight: 800, fontSize: 12.5, cursor: 'pointer', border: 'none', background: 'none', color: '#1f5f8f' }}>clear filters</button>
+            <button onClick={() => setTypes(new Set())} style={{ padding: '6px 12px', borderRadius: 999, fontWeight: 800, fontSize: 12.5, cursor: 'pointer', border: 'none', background: 'none', color: '#4a7297' }}>clear filters</button>
           )}
         </div>
         <p style={{ color: '#64748b', fontSize: 13, margin: '10px 0 0' }}>
@@ -124,17 +124,17 @@ export default function UnifiedSearch() {
               <div style={{ display: 'flex', justifyContent: 'space-between', gap: 12, alignItems: 'start', flexWrap: 'wrap' }}>
                 <div style={{ minWidth: 0, flex: '1 1 320px' }}>
                   <span style={{ background: meta.bg, color: meta.fg, fontWeight: 800, fontSize: 11, padding: '2px 9px', borderRadius: 999, textTransform: 'uppercase', letterSpacing: 0.4 }}>{meta.label}</span>
-                  <div style={{ fontWeight: 700, color: '#12385b', marginTop: 6, lineHeight: 1.35 }}>{e.n}</div>
+                  <div style={{ fontWeight: 700, color: '#284a69', marginTop: 6, lineHeight: 1.35 }}>{e.n}</div>
                   <div style={{ color: '#64748b', fontSize: 13, marginTop: 3, lineHeight: 1.45 }}>{e.x}</div>
                 </div>
-                {e.v != null && <strong style={{ color: '#12385b', whiteSpace: 'nowrap' }}>{usd(e.v)}</strong>}
+                {e.v != null && <strong style={{ color: '#284a69', whiteSpace: 'nowrap' }}>{usd(e.v)}</strong>}
               </div>
             </a>
           )
         })}
         {results.length > limit && (
           <div style={{ textAlign: 'center' }}>
-            <button onClick={() => setLimit((l) => l + 100)} style={{ padding: '10px 18px', borderRadius: 10, border: '1px solid #1f5f8f', background: '#1f5f8f', color: 'white', fontWeight: 800, cursor: 'pointer' }}>
+            <button onClick={() => setLimit((l) => l + 100)} style={{ padding: '10px 18px', borderRadius: 10, border: '1px solid #4a7297', background: '#4a7297', color: 'white', fontWeight: 800, cursor: 'pointer' }}>
               Show more ({(results.length - limit).toLocaleString()} remaining)
             </button>
           </div>

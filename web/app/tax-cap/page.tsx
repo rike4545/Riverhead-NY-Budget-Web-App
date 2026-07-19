@@ -66,7 +66,7 @@ export default function TaxCapPage() {
             return (
               <div key={c.year} style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '9px 14px', borderRadius: 10, background: st.bg }}>
                 <span style={{ width: 10, height: 10, borderRadius: 999, background: st.dot, flexShrink: 0 }} />
-                <span style={{ fontWeight: 900, color: '#12385b', minWidth: 46 }}>{c.year}</span>
+                <span style={{ fontWeight: 900, color: '#284a69', minWidth: 46 }}>{c.year}</span>
                 <span style={{ color: st.fg, fontWeight: 700, fontSize: 14 }}>{c.label}</span>
               </div>
             )
@@ -80,11 +80,11 @@ export default function TaxCapPage() {
       </section>
 
       {/* Implications */}
-      <h2 style={{ color: '#12385b' }}>Why it matters</h2>
+      <h2 style={{ color: '#284a69' }}>Why it matters</h2>
       <section style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(280px,1fr))', gap: 14, marginBottom: 16 }}>
         {d.implications.map((im, i) => (
-          <article key={i} style={{ ...card, borderTop: '5px solid #1f5f8f' }}>
-            <h3 style={{ marginTop: 0, color: '#12385b', fontSize: 16 }}>{im.title}</h3>
+          <article key={i} style={{ ...card, borderTop: '5px solid #4a7297' }}>
+            <h3 style={{ marginTop: 0, color: '#284a69', fontSize: 16 }}>{im.title}</h3>
             <p style={{ color: '#475569', fontSize: 14, lineHeight: 1.55, margin: 0 }}>{im.text}</p>
           </article>
         ))}
@@ -106,7 +106,7 @@ export default function TaxCapPage() {
             <tbody>
               {d.levyContext.rows.map((r) => (
                 <tr key={r.year} style={{ borderBottom: '1px solid #f1f5f9' }}>
-                  <td style={{ ...td, fontWeight: 700, color: '#12385b' }}>{r.year}</td>
+                  <td style={{ ...td, fontWeight: 700, color: '#284a69' }}>{r.year}</td>
                   <td style={{ ...td, textAlign: 'right' }}>{usd(r.levy)}</td>
                   <td style={{ ...td, textAlign: 'right', fontWeight: 700, color: r.pct > 2 ? '#b91c1c' : r.pct < 0 ? '#166534' : '#475569' }}>
                     {r.pct > 0 ? '+' : ''}{r.pct.toFixed(2)}%

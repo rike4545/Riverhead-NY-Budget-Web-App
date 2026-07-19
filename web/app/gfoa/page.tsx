@@ -42,7 +42,7 @@ export default function GfoaPage() {
 
       {gfoaCategories.map((cat) => (
         <section key={cat.key} style={{ marginBottom: 22 }}>
-          <h2 style={{ color: '#12385b', marginBottom: 2 }}>{cat.name}</h2>
+          <h2 style={{ color: '#284a69', marginBottom: 2 }}>{cat.name}</h2>
           <p style={{ color: '#475569', marginTop: 0 }}>{cat.plain}</p>
           <div style={{ display: 'grid', gap: 10 }}>
             {cat.criteria.map((c) => <CriterionRow key={c.code} c={c} />)}
@@ -52,7 +52,7 @@ export default function GfoaPage() {
 
       <p style={{ color: '#64748b', fontSize: 13, lineHeight: 1.5 }}>
         Criteria summarized from the GFOA Distinguished Budget Presentation Award program
-        (<a href="https://www.gfoa.org/budget-award" target="_blank" rel="noreferrer" style={{ color: '#1f5f8f', fontWeight: 700 }}>gfoa.org/budget-award</a>).
+        (<a href="https://www.gfoa.org/budget-award" target="_blank" rel="noreferrer" style={{ color: '#4a7297', fontWeight: 700 }}>gfoa.org/budget-award</a>).
         This is an independent self-assessment, not a GFOA review; the award itself is earned by governments for their
         official budget documents. &quot;Mandatory&quot; marks criteria GFOA requires for the award.
       </p>
@@ -65,17 +65,17 @@ function CriterionRow({ c }: { c: GfoaCriterion }) {
   return (
     <article style={{ ...card, padding: 16, borderLeft: `5px solid ${s.fg}` }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', gap: 12, flexWrap: 'wrap', alignItems: 'baseline' }}>
-        <div style={{ fontWeight: 800, color: '#12385b' }}>
+        <div style={{ fontWeight: 800, color: '#284a69' }}>
           <span style={{ color: '#94a3b8', fontWeight: 900, fontSize: 12, marginRight: 8 }}>{c.code}</span>
           {c.title}
-          {c.mandatory && <span style={{ marginLeft: 8, background: '#eef6ff', color: '#1f5f8f', fontSize: 11, fontWeight: 800, padding: '2px 8px', borderRadius: 999 }}>Mandatory</span>}
+          {c.mandatory && <span style={{ marginLeft: 8, background: '#eef6ff', color: '#4a7297', fontSize: 11, fontWeight: 800, padding: '2px 8px', borderRadius: 999 }}>Mandatory</span>}
         </div>
         <span style={{ background: s.bg, color: s.fg, fontWeight: 800, fontSize: 12.5, padding: '4px 11px', borderRadius: 999 }}>{s.label}</span>
       </div>
       <p style={{ color: '#64748b', fontSize: 13.5, margin: '8px 0 4px', lineHeight: 1.5 }}><strong>GFOA asks:</strong> {c.requires}</p>
       <p style={{ color: '#334155', fontSize: 14, margin: 0, lineHeight: 1.5 }}>
         {c.howWeAddress}{' '}
-        {c.link && <a href={c.link} style={{ color: '#1f5f8f', fontWeight: 800 }}>{c.linkLabel ?? 'View'} →</a>}
+        {c.link && <a href={c.link} style={{ color: '#4a7297', fontWeight: 800 }}>{c.linkLabel ?? 'View'} →</a>}
       </p>
       {c.gapNote && (
         <p style={{ color: '#92400e', fontSize: 13, margin: '6px 0 0', lineHeight: 1.45 }}><strong>To close the gap:</strong> {c.gapNote}</p>
@@ -88,7 +88,7 @@ function Stat({ label, value, color }: { label: string; value: string; color?: s
   return (
     <div style={{ background: '#f8fafc', border: '1px solid #e2e8f0', borderRadius: 12, padding: 12 }}>
       <div style={{ color: '#64748b', fontSize: 11.5, textTransform: 'uppercase', fontWeight: 900, letterSpacing: 0.4 }}>{label}</div>
-      <strong style={{ fontSize: 22, color: color ?? '#12385b' }}>{value}</strong>
+      <strong style={{ fontSize: 22, color: color ?? '#284a69' }}>{value}</strong>
     </div>
   )
 }

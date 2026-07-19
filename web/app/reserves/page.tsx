@@ -58,7 +58,7 @@ export default function ReservesPage() {
       </PlainCallout>
 
       <section style={{ ...card, marginBottom: 16 }}>
-        <h3 style={{ marginTop: 0, color: '#12385b' }}>Policy compliance at a glance</h3>
+        <h3 style={{ marginTop: 0, color: '#284a69' }}>Policy compliance at a glance</h3>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           <strong>General Fund</strong>
           <span
@@ -106,7 +106,7 @@ export default function ReservesPage() {
       </section>
 
       <section style={{ ...card, marginBottom: 16 }}>
-        <h3 style={{ marginTop: 0, color: '#12385b' }}>28.8% Reserve Reset</h3>
+        <h3 style={{ marginTop: 0, color: '#284a69' }}>28.8% Reserve Reset</h3>
         <p style={{ color: '#475569', fontSize: 14.5, marginTop: 0 }}>
           A one-time-money plan: keep a strong cushion, use the rest on purpose, and show what still fits after the
           serious bills are paid.
@@ -121,7 +121,7 @@ export default function ReservesPage() {
         </div>
         <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 15, marginTop: 6 }}>
           <span>Available for one-time deployment</span>
-          <strong style={{ color: '#1f5f8f' }}>{dollars(deployableAbove288)}</strong>
+          <strong style={{ color: '#4a7297' }}>{dollars(deployableAbove288)}</strong>
         </div>
 
         <hr style={{ border: 'none', borderTop: '1px solid #e2e8f0', margin: '14px 0' }} />
@@ -134,8 +134,8 @@ export default function ReservesPage() {
                   width: 26,
                   height: 26,
                   borderRadius: '50%',
-                  background: '#1f5f8f22',
-                  color: '#1f5f8f',
+                  background: '#4a729722',
+                  color: '#4a7297',
                   display: 'grid',
                   placeItems: 'center',
                   fontSize: 12,
@@ -164,7 +164,7 @@ export default function ReservesPage() {
       </section>
 
       <section style={{ ...card, marginBottom: 16 }}>
-        <h3 style={{ marginTop: 0, color: '#12385b' }}>How 28.8% compares nearby</h3>
+        <h3 style={{ marginTop: 0, color: '#284a69' }}>How 28.8% compares nearby</h3>
         <p style={{ color: '#475569', fontSize: 14.5, marginTop: 0 }}>
           Riverhead&apos;s target lands below what Brookhaven and Smithtown are doing today, but above
           Southampton&apos;s official policy.
@@ -174,7 +174,7 @@ export default function ReservesPage() {
             <div key={peer.town}>
               <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                 <strong style={{ fontSize: 14 }}>{peer.town}</strong>
-                <span style={{ color: peer.town === 'Riverhead target' ? '#1f5f8f' : '#9b6b12', fontWeight: 800 }}>{pct(peer.percent)}</span>
+                <span style={{ color: peer.town === 'Riverhead target' ? '#4a7297' : '#9b6b12', fontWeight: 800 }}>{pct(peer.percent)}</span>
               </div>
               <p style={{ color: '#64748b', fontSize: 13, margin: '2px 0 0' }}>{peer.detail}</p>
             </div>
@@ -189,7 +189,7 @@ export default function ReservesPage() {
       </section>
 
       <section style={{ ...card, marginBottom: 16 }}>
-        <h3 style={{ marginTop: 0, color: '#12385b' }}>What if Riverhead matched its peers?</h3>
+        <h3 style={{ marginTop: 0, color: '#284a69' }}>What if Riverhead matched its peers?</h3>
         <p style={{ color: '#475569', fontSize: 14.5, marginTop: 0 }}>
           How much one-time room Riverhead would have if it matched a neighboring town&apos;s reserve levels — or the
           average of them all.
@@ -223,7 +223,7 @@ export default function ReservesPage() {
       </section>
 
       <section style={{ ...card }}>
-        <h3 style={{ marginTop: 0, color: '#12385b' }}>What if the Town uses some savings?</h3>
+        <h3 style={{ marginTop: 0, color: '#284a69' }}>What if the Town uses some savings?</h3>
         <p style={{ color: '#475569', fontSize: 14.5, marginTop: 0 }}>
           See how using reserves for tax relief or a project would affect the cushion.
         </p>

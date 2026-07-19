@@ -4,7 +4,7 @@ export default function Sparkline({
   values,
   width = 120,
   height = 30,
-  stroke = '#1f5f8f',
+  stroke = '#4a7297',
   fill = 'rgba(31,95,143,0.12)',
 }: {
   values: (number | null)[]

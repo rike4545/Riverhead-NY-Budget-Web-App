@@ -53,7 +53,7 @@ export default function AuthorizedSalary() {
         {([2025, 2026] as const).map((y) => (
           <button key={y} onClick={() => { setYear(y); setGroup('all'); setLimit(100) }} style={{
             padding: '8px 16px', borderRadius: 9, border: '1px solid', cursor: 'pointer', fontWeight: 800, fontSize: 14,
-            borderColor: year === y ? '#1f5f8f' : '#cbd5e1', background: year === y ? '#1f5f8f' : 'white', color: year === y ? 'white' : '#334155',
+            borderColor: year === y ? '#4a7297' : '#cbd5e1', background: year === y ? '#4a7297' : 'white', color: year === y ? 'white' : '#334155',
           }}>{y}</button>
         ))}
         <span style={{ color: '#64748b', fontSize: 13 }}>Board-authorized base salaries for {year}.</span>
@@ -80,11 +80,11 @@ export default function AuthorizedSalary() {
                 <button key={g.group} onClick={() => setGroup(group === g.group ? 'all' : g.group)}
                   style={{ background: 'none', border: 'none', textAlign: 'left', cursor: 'pointer', padding: 0 }}>
                   <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 13.5 }}>
-                    <span style={{ fontWeight: group === g.group ? 900 : 700, color: '#12385b' }}>{g.group} <span style={{ color: '#94a3b8', fontWeight: 600 }}>({g.headcount})</span></span>
+                    <span style={{ fontWeight: group === g.group ? 900 : 700, color: '#284a69' }}>{g.group} <span style={{ color: '#94a3b8', fontWeight: 600 }}>({g.headcount})</span></span>
                     <strong>{usd(g.authorized)}</strong>
                   </div>
                   <div style={{ height: 8, background: '#f1f5f9', borderRadius: 8, marginTop: 3 }}>
-                    <div style={{ width: `${(g.authorized / max) * 100}%`, height: '100%', borderRadius: 8, background: group === g.group ? '#c99a2e' : '#1f5f8f' }} />
+                    <div style={{ width: `${(g.authorized / max) * 100}%`, height: '100%', borderRadius: 8, background: group === g.group ? '#c99a2e' : '#4a7297' }} />
                   </div>
                 </button>
               ))}
@@ -131,7 +131,7 @@ export default function AuthorizedSalary() {
                 return (
                   <tr key={`${r.name}-${r.title}-${i}`} style={{ borderBottom: '1px solid #f1f5f9' }}>
                     <td style={td}>
-                      <strong style={{ color: '#12385b' }}>{r.name}</strong>
+                      <strong style={{ color: '#284a69' }}>{r.name}</strong>
                       <div style={{ color: '#64748b', fontSize: 12.5 }}>{r.title}{r.isStipend ? ' (stipend)' : ''}{r.grade ? ` · ${r.grade}` : ''}</div>
                     </td>
                     <td style={{ ...td, color: '#475569' }}>{r.group}</td>
@@ -151,7 +151,7 @@ export default function AuthorizedSalary() {
         </div>
         {limit < rows.length && (
           <div style={{ textAlign: 'center', marginTop: 14 }}>
-            <button onClick={() => setLimit((l) => l + 200)} style={{ padding: '10px 18px', borderRadius: 10, border: '1px solid #1f5f8f', background: '#1f5f8f', color: 'white', fontWeight: 800, cursor: 'pointer' }}>Show more</button>
+            <button onClick={() => setLimit((l) => l + 200)} style={{ padding: '10px 18px', borderRadius: 10, border: '1px solid #4a7297', background: '#4a7297', color: 'white', fontWeight: 800, cursor: 'pointer' }}>Show more</button>
           </div>
         )}
       </section>
@@ -176,7 +176,7 @@ function Stat({ label, value, accent }: { label: string; value: string; accent?:
   return (
     <div style={{ background: accent ? '#dbeafe' : '#f8fafc', border: '1px solid #e2e8f0', borderRadius: 12, padding: 12 }}>
       <div style={{ color: '#64748b', fontSize: 11.5, textTransform: 'uppercase', fontWeight: 900, letterSpacing: 0.4 }}>{label}</div>
-      <strong style={{ fontSize: 19, color: '#12385b' }}>{value}</strong>
+      <strong style={{ fontSize: 19, color: '#284a69' }}>{value}</strong>
     </div>
   )
 }

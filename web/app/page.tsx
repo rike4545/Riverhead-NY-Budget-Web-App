@@ -11,7 +11,7 @@ export default function Page() {
     >
       <a href={`${base}/explore/`} style={{
         display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 16, justifyContent: 'space-between',
-        textDecoration: 'none', background: 'linear-gradient(100deg,#0f2942,#1f5f8f)', color: 'white',
+        textDecoration: 'none', background: 'linear-gradient(100deg,#0f2942,#4a7297)', color: 'white',
         borderRadius: 16, padding: '20px 24px', marginBottom: 18, boxShadow: '0 14px 34px rgba(15,23,42,.14)',
       }}>
         <div style={{ minWidth: 240 }}>

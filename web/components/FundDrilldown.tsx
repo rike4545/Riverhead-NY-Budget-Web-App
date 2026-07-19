@@ -12,7 +12,7 @@ const usd = (n: number | null | undefined) =>
 const card = { background: 'white', border: '1px solid #e2e8f0', borderRadius: 16, padding: 18, boxShadow: '0 14px 34px rgba(15,23,42,.05)' } as const
 
 const CATEGORY_COLOR: Record<string, string> = {
-  'Personal Services': '#1f5f8f',
+  'Personal Services': '#4a7297',
   'Employee Benefits': '#2563eb',
   Contractual: '#c99a2e',
   'Equipment & Capital Outlay': '#0f766e',
@@ -132,7 +132,7 @@ export default function FundDrilldown({ fund }: { fund: FundDetail }) {
         Source: {fund.source.title}. Account-level detail extracted programmatically and reconciled to the official
         Summary page. The 2026 column is the adopted figure; the 2025 column is the prior-year adopted budget for the
         same account. Verify against the{' '}
-        <a href={fund.source.url} target="_blank" rel="noreferrer" style={{ color: '#1f5f8f', fontWeight: 700 }}>
+        <a href={fund.source.url} target="_blank" rel="noreferrer" style={{ color: '#4a7297', fontWeight: 700 }}>
           official document
         </a>{' '}
         before relying on these numbers.
@@ -159,7 +159,7 @@ function DepartmentCard({ dept, expanded, fundExp }: { dept: SubDepartment; expa
             )}
           </div>
         </div>
-        <strong style={{ fontSize: 18, color: '#12385b' }}>{usd(dept.adopted2026)}</strong>
+        <strong style={{ fontSize: 18, color: '#284a69' }}>{usd(dept.adopted2026)}</strong>
       </summary>
 
       <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', margin: '12px 0' }}>
@@ -224,7 +224,7 @@ function Stat({ label, value, accent, good }: { label: string; value: string; ac
   return (
     <div style={{ background: accent ? '#dbeafe' : '#f8fafc', border: '1px solid #e2e8f0', borderRadius: 12, padding: 12 }}>
       <div style={{ color: '#64748b', fontSize: 11.5, textTransform: 'uppercase', fontWeight: 900, letterSpacing: 0.4 }}>{label}</div>
-      <strong style={{ fontSize: 19, color: good ? '#15803d' : '#12385b' }}>{value}</strong>
+      <strong style={{ fontSize: 19, color: good ? '#15803d' : '#284a69' }}>{value}</strong>
     </div>
   )
 }
@@ -233,7 +233,7 @@ function Toggle({ active, onClick, children }: { active: boolean; onClick: () =>
   return (
     <button
       onClick={onClick}
-      style={{ padding: '9px 14px', borderRadius: 10, border: '1px solid', borderColor: active ? '#1f5f8f' : '#cbd5e1', background: active ? '#1f5f8f' : 'white', color: active ? 'white' : '#334155', fontWeight: 800, cursor: 'pointer', fontSize: 14 }}
+      style={{ padding: '9px 14px', borderRadius: 10, border: '1px solid', borderColor: active ? '#4a7297' : '#cbd5e1', background: active ? '#4a7297' : 'white', color: active ? 'white' : '#334155', fontWeight: 800, cursor: 'pointer', fontSize: 14 }}
     >
       {children}
     </button>

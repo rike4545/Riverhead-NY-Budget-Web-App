@@ -86,7 +86,7 @@ export default function CompareExplorer() {
               {rows.map((r) => (
                 <tr key={r.code} style={{ borderBottom: '1px solid #f1f5f9' }}>
                   <td style={td}>
-                    <a href={`${base}/funds/${r.code}/`} style={{ color: '#12385b', fontWeight: 700, textDecoration: 'none' }}>
+                    <a href={`${base}/funds/${r.code}/`} style={{ color: '#284a69', fontWeight: 700, textDecoration: 'none' }}>
                       <span style={{ color: '#94a3b8', fontWeight: 800, fontSize: 12 }}>{r.code}</span> {r.name}
                     </a>
                   </td>
@@ -107,7 +107,7 @@ export default function CompareExplorer() {
       <p style={{ color: '#64748b', fontSize: 13, lineHeight: 1.5 }}>
         Source: {budgetHistory.source.title}. {budgetHistory.note} Appropriations reconcile to the official town total.
         Tax-levy history is intentionally omitted here because the Summary-page levy column is not column-stable across
-        funds; see each <a href={`${base}/funds/`} style={{ color: '#1f5f8f', fontWeight: 700 }}>fund page</a> for current-year levy detail.
+        funds; see each <a href={`${base}/funds/`} style={{ color: '#4a7297', fontWeight: 700 }}>fund page</a> for current-year levy detail.
       </p>
     </div>
   )
@@ -126,7 +126,7 @@ function Stat({ label, value, accent, good }: { label: string; value: string; ac
   return (
     <div style={{ background: accent ? '#dbeafe' : '#f8fafc', border: '1px solid #e2e8f0', borderRadius: 12, padding: 12 }}>
       <div style={{ color: '#64748b', fontSize: 11.5, textTransform: 'uppercase', fontWeight: 900, letterSpacing: 0.4 }}>{label}</div>
-      <strong style={{ fontSize: 19, color: good ? '#15803d' : '#12385b' }}>{value}</strong>
+      <strong style={{ fontSize: 19, color: good ? '#15803d' : '#284a69' }}>{value}</strong>
     </div>
   )
 }

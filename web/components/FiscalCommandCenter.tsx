@@ -54,7 +54,7 @@ export default function FiscalCommandCenter() {
       <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', alignItems: 'center' }}>
         <span style={{ color: '#64748b', fontWeight: 800, fontSize: 12.5, textTransform: 'uppercase', letterSpacing: 0.5 }}>On this page:</span>
         {sectionAnchors.map(([label, href]) => (
-          <a key={href} href={href} style={{ color: '#1f5f8f', textDecoration: 'none', border: '1px solid #cbd5e1', background: 'white', borderRadius: 999, padding: '6px 12px', fontWeight: 800, fontSize: 12.5 }}>{label}</a>
+          <a key={href} href={href} style={{ color: '#4a7297', textDecoration: 'none', border: '1px solid #cbd5e1', background: 'white', borderRadius: 999, padding: '6px 12px', fontWeight: 800, fontSize: 12.5 }}>{label}</a>
         ))}
         <span style={{ color: '#64748b', fontSize: 12.5, marginLeft: 'auto' }}>
           Source coverage: {archiveStats.indexedItems} documents across {archiveStats.yearsCovered} years
@@ -62,11 +62,11 @@ export default function FiscalCommandCenter() {
       </div>
 
       <a href={`${base}/guide/`} style={{ display: 'block', textDecoration: 'none', marginTop: 18 }}>
-            <div style={{ background: '#eef6ff', border: '1px solid #bcd9f5', borderLeft: '6px solid #1f5f8f', borderRadius: 14, padding: '14px 18px', display: 'flex', gap: 12, alignItems: 'center', flexWrap: 'wrap' }}>
+            <div style={{ background: '#eef6ff', border: '1px solid #bcd9f5', borderLeft: '6px solid #4a7297', borderRadius: 14, padding: '14px 18px', display: 'flex', gap: 12, alignItems: 'center', flexWrap: 'wrap' }}>
               <span aria-hidden style={{ fontSize: 22 }}>👋</span>
               <span style={{ color: '#1f3a52', fontSize: 15.5, lineHeight: 1.5 }}>
-                <strong style={{ color: '#12385b' }}>New to town budgets?</strong> Start with our plain-English guide — it explains
-                each tool and every budget word in everyday language. <strong style={{ color: '#1f5f8f' }}>Open the Start Here guide →</strong>
+                <strong style={{ color: '#284a69' }}>New to town budgets?</strong> Start with our plain-English guide — it explains
+                each tool and every budget word in everyday language. <strong style={{ color: '#4a7297' }}>Open the Start Here guide →</strong>
               </span>
             </div>
           </a>
@@ -138,7 +138,7 @@ export default function FiscalCommandCenter() {
 
           <section id="funds" style={{ ...shell, scrollMarginTop: 24, marginTop: 18, padding: 24 }}>
             <h2 style={{ marginTop: 0 }}>Where the money sits — every operating fund</h2>
-            <p style={{ color: muted }}>A town budget isn&apos;t one pot; it&apos;s a set of separate &quot;funds,&quot; each with its own money. Here&apos;s all of them from the adopted budget. Want to go deeper? The <a href={`${base}/funds/`} style={{ color: '#1f5f8f', fontWeight: 800 }}>Funds &amp; Sub-Accounts explorer</a> lets you open any fund right down to the individual line items, with year-by-year trends.</p>
+            <p style={{ color: muted }}>A town budget isn&apos;t one pot; it&apos;s a set of separate &quot;funds,&quot; each with its own money. Here&apos;s all of them from the adopted budget. Want to go deeper? The <a href={`${base}/funds/`} style={{ color: '#4a7297', fontWeight: 800 }}>Funds &amp; Sub-Accounts explorer</a> lets you open any fund right down to the individual line items, with year-by-year trends.</p>
             <div style={{ display: 'grid', gap: 10 }}>
               {allOperatingFunds2026.map((fund) => (
                 <details key={fund.code} style={{ border: '1px solid #e2e8f0', borderRadius: 16, padding: 14, background: '#f8fafc' }}>
@@ -154,7 +154,7 @@ export default function FiscalCommandCenter() {
                     <Mini label="Ending balance estimate" value={fund.estimatedFundBalance123125 ? dollars(fund.estimatedFundBalance123125) : 'Pending'} />
                   </div>
                   <div style={{ color: muted, fontSize: 12, marginTop: 10 }}>Source: {fund.source}</div>
-                  <a href={`${base}/funds/${fund.code}/`} style={{ display: 'inline-block', marginTop: 10, color: '#1f5f8f', fontWeight: 800 }}>Open {fund.code} account-level drilldown →</a>
+                  <a href={`${base}/funds/${fund.code}/`} style={{ display: 'inline-block', marginTop: 10, color: '#4a7297', fontWeight: 800 }}>Open {fund.code} account-level drilldown →</a>
                 </details>
               ))}
             </div>
@@ -241,13 +241,13 @@ export default function FiscalCommandCenter() {
             ))}
           </section>
 
-          <section id="about" style={{ ...shell, scrollMarginTop: 24, marginTop: 18, padding: 24, borderLeft: '8px solid #1f5f8f' }}>
-            <h2 style={{ marginTop: 0, color: '#12385b' }}>About Riverhead Budget Live</h2>
+          <section id="about" style={{ ...shell, scrollMarginTop: 24, marginTop: 18, padding: 24, borderLeft: '8px solid #4a7297' }}>
+            <h2 style={{ marginTop: 0, color: '#284a69' }}>About Riverhead Budget Live</h2>
             <p>Riverhead Budget Live is an independent, non-partisan, non-profit project. Our mission is to make Riverhead a better place to live and work by promoting public-policy reforms grounded in the fiscally responsible ideals of effective and accountable government.</p>
           </section>
 
           <section id="how-to-use" style={{ ...shell, scrollMarginTop: 24, marginTop: 18, padding: 24, borderLeft: '8px solid #15803d' }}>
-            <h2 style={{ marginTop: 0, color: '#12385b' }}>How to use this site</h2>
+            <h2 style={{ marginTop: 0, color: '#284a69' }}>How to use this site</h2>
             <p>Use this site to share, analyze, and compare data from governmental entities throughout Riverhead. The information on this website comes from official government sources, but the author cannot guarantee data accuracy or completeness.</p>
           </section>
 
@@ -275,9 +275,9 @@ function FeatureCard({ href, tag, title, body }: { href: string; tag: string; ti
   return (
     <a href={href} style={{ ...shell, padding: 20, textDecoration: 'none', color: 'inherit', display: 'block', borderTop: '5px solid #c99a2e' }}>
       <div style={{ color: '#2563eb', fontSize: 11, fontWeight: 950, textTransform: 'uppercase', letterSpacing: 1 }}>{tag}</div>
-      <h3 style={{ margin: '8px 0 6px', fontSize: 22, color: '#12385b' }}>{title}</h3>
+      <h3 style={{ margin: '8px 0 6px', fontSize: 22, color: '#284a69' }}>{title}</h3>
       <p style={{ color: muted, fontSize: 14, lineHeight: 1.5, margin: 0 }}>{body}</p>
-      <div style={{ color: '#1f5f8f', fontWeight: 900, marginTop: 12 }}>Open →</div>
+      <div style={{ color: '#4a7297', fontWeight: 900, marginTop: 12 }}>Open →</div>
     </a>
   )
 }

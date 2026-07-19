@@ -6,7 +6,7 @@ import { dollars } from '../../lib/financial-data'
 
 const card = { background: 'white', border: '1px solid #e2e8f0', borderRadius: 16, padding: 20, boxShadow: '0 14px 34px rgba(15,23,42,.05)' } as const
 
-const COLORS = { appropriations: '#12385b', taxLevy: '#c99a2e', estimatedRevenues: '#0f766e', appropriatedFundBalance: '#7c3aed' }
+const COLORS = { appropriations: '#284a69', taxLevy: '#c99a2e', estimatedRevenues: '#0f766e', appropriatedFundBalance: '#7c3aed' }
 
 export const metadata = {
   title: 'General Fund — 20-year history',
@@ -104,7 +104,7 @@ function Stat({ label, value, accent, good }: { label: string; value: string; ac
   return (
     <div style={{ background: accent ? '#dbeafe' : '#f8fafc', border: '1px solid #e2e8f0', borderRadius: 12, padding: 12 }}>
       <div style={{ color: '#64748b', fontSize: 11.5, textTransform: 'uppercase', fontWeight: 900, letterSpacing: 0.4 }}>{label}</div>
-      <strong style={{ fontSize: 19, color: good === false ? '#b91c1c' : '#12385b' }}>{value}</strong>
+      <strong style={{ fontSize: 19, color: good === false ? '#b91c1c' : '#284a69' }}>{value}</strong>
     </div>
   )
 }

@@ -30,7 +30,7 @@ export default function CampaignFinancePage() {
       )}
       <PlainCallout title="Where this comes from">
         These figures come straight from New York State&apos;s open campaign-finance data (
-        <a href="https://data.ny.gov" style={{ color: '#1f5f8f', fontWeight: 800 }}>
+        <a href="https://data.ny.gov" style={{ color: '#4a7297', fontWeight: 800 }}>
           data.ny.gov
         </a>
         ), covering {data.campaignFilingStartYear}–{data.campaignFilingEndYear}. The numbers shown on page load are a

@@ -34,13 +34,13 @@ type Stop = {
 
 const stops: Stop[] = [
   {
-    n: 1, kicker: 'Start here', title: 'What “the budget” actually is', accent: '#1f5f8f',
+    n: 1, kicker: 'Start here', title: 'What “the budget” actually is', accent: '#4a7297',
     body: <>Once a year the Town Board writes down what it plans to spend and how it plans to pay for it, and votes it into law. That plan is the budget. For 2026 it comes to <b>{usd0(approp)}</b>, split across {fundCount} separate “funds” — buckets of money that can only be spent on certain things. New to any of this? The plain-language guide explains every term.</>,
     stats: [{ label: '2026 total plan', value: M(approp) }, { label: 'Operating funds', value: String(fundCount) }],
     href: `${base}/guide/`, cta: 'Read the plain-English guide',
   },
   {
-    n: 2, kicker: 'The whole pie', title: 'It’s not one budget — it’s many funds', accent: '#1f5f8f',
+    n: 2, kicker: 'The whole pie', title: 'It’s not one budget — it’s many funds', accent: '#4a7297',
     body: <>The General Fund pays for most day-to-day town services, but Highway, the Water District, street-lighting, sewer, and the ambulance district each get their own fund with its own taxes and spending. You can open any fund and drill all the way down to a single line item — reconciled to the dollar against the Town’s own summary.</>,
     stats: [{ label: 'Funds you can open', value: String(fundCount) }],
     href: `${base}/funds/`, cta: 'Open the funds',
@@ -64,13 +64,13 @@ const stops: Stop[] = [
     href: `${base}/payroll/`, cta: 'Search the payroll',
   },
   {
-    n: 6, kicker: 'The cushion', title: 'What the Town has in savings', accent: '#1f5f8f',
+    n: 6, kicker: 'The cushion', title: 'What the Town has in savings', accent: '#4a7297',
     body: <>A town keeps reserves (“fund balance”) for emergencies and to steady the tax rate. The General Fund ended 2025 with <b>{usd0(gfBalance)}</b> in fund balance and ran a <b>{usd0(gfSurplus)}</b> surplus for the year. How much of that cushion the Town leans on each year is one of the clearest signs of fiscal health.</>,
     stats: [{ label: 'General Fund savings', value: M(gfBalance) }, { label: '2025 surplus', value: M(gfSurplus) }],
     href: `${base}/annual-report/`, cta: 'See what actually happened',
   },
   {
-    n: 7, kicker: 'Plan vs. reality', title: 'The budget is a promise — the audit is the receipt', accent: '#1f5f8f',
+    n: 7, kicker: 'Plan vs. reality', title: 'The budget is a promise — the audit is the receipt', accent: '#4a7297',
     body: <>The budget says what the Town intends to do; the year-end Annual Financial Report, filed with the State Comptroller, shows what actually happened. Comparing the two — where revenue came in high, where a department overspent — is where the real accountability lives.</>,
     href: `${base}/annual-report/`, cta: 'Compare budget vs. actual',
   },
@@ -112,14 +112,14 @@ export default function ExplorePage() {
             }}>{s.n}</div>
             <div>
               <div style={{ color: s.accent, fontWeight: 900, fontSize: 12, textTransform: 'uppercase', letterSpacing: 0.6 }}>{s.kicker}</div>
-              <h2 style={{ margin: '2px 0 8px', color: '#12385b', fontSize: 21 }}>{s.title}</h2>
+              <h2 style={{ margin: '2px 0 8px', color: '#284a69', fontSize: 21 }}>{s.title}</h2>
               <p style={{ color: '#334155', fontSize: 15.5, lineHeight: 1.6, margin: 0 }}>{s.body}</p>
               {s.stats && (
                 <div style={{ display: 'flex', flexWrap: 'wrap', gap: 10, margin: '12px 0 4px' }}>
                   {s.stats.map((st) => (
                     <div key={st.label} style={{ background: '#f8fafc', border: '1px solid #e2e8f0', borderRadius: 10, padding: '8px 14px' }}>
                       <div style={{ color: '#64748b', fontSize: 11, textTransform: 'uppercase', fontWeight: 800, letterSpacing: 0.3 }}>{st.label}</div>
-                      <strong style={{ fontSize: 20, color: '#12385b' }}>{st.value}</strong>
+                      <strong style={{ fontSize: 20, color: '#284a69' }}>{st.value}</strong>
                     </div>
                   ))}
                 </div>

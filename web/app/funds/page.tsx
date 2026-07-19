@@ -10,7 +10,7 @@ const base = process.env.NEXT_PUBLIC_BASE_PATH || ''
 const card = { background: 'white', border: '1px solid #e2e8f0', borderRadius: 18, padding: 20, boxShadow: '0 14px 34px rgba(15,23,42,.05)' } as const
 
 const CATEGORY_COLOR: Record<string, string> = {
-  'Personal Services': '#1f5f8f',
+  'Personal Services': '#4a7297',
   'Employee Benefits': '#2563eb',
   Contractual: '#c99a2e',
   'Equipment & Capital Outlay': '#0f766e',
@@ -102,7 +102,7 @@ export default function FundsPage() {
                 <Mini label="Line Items" value={detail ? String(detail.lineItemCount) : '—'} />
               </div>
 
-              <div style={{ marginTop: 14, color: '#1f5f8f', fontWeight: 800 }}>
+              <div style={{ marginTop: 14, color: '#4a7297', fontWeight: 800 }}>
                 Explore departments &amp; account line items →
               </div>
             </a>
@@ -126,7 +126,7 @@ function Stat({ label, value, good }: { label: ReactNode; value: string; good?: 
   return (
     <div style={{ background: '#f8fafc', border: '1px solid #e2e8f0', borderRadius: 12, padding: 12 }}>
       <div style={{ color: '#64748b', fontSize: 11.5, textTransform: 'uppercase', fontWeight: 900, letterSpacing: 0.4 }}>{label}</div>
-      <strong style={{ fontSize: 20, color: good ? '#15803d' : '#12385b' }}>{value}</strong>
+      <strong style={{ fontSize: 20, color: good ? '#15803d' : '#284a69' }}>{value}</strong>
     </div>
   )
 }

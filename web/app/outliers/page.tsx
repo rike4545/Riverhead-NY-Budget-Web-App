@@ -42,7 +42,7 @@ export default function OutlierWatchPage() {
 
       <p style={{ color: '#94a3b8', fontSize: 12.5, marginTop: 16 }}>
         Source: each year's Adopted Budget Summary page, via the same fund-appropriations history that powers{' '}
-        <a href={`${base}/funds/`} style={{ color: '#1f5f8f' }}>Funds Explorer</a>.
+        <a href={`${base}/funds/`} style={{ color: '#4a7297' }}>Funds Explorer</a>.
       </p>
     </PageShell>
   )
@@ -52,7 +52,7 @@ function Stat({ label, value, sub, accent }: { label: string; value: string; sub
   return (
     <div>
       <div style={{ color: '#64748b', fontSize: 12.5, fontWeight: 700, textTransform: 'uppercase', letterSpacing: 0.3 }}>{label}</div>
-      <div style={{ color: accent ? '#b91c1c' : '#12385b', fontSize: 26, fontWeight: 900, lineHeight: 1.2 }}>{value}</div>
+      <div style={{ color: accent ? '#b91c1c' : '#284a69', fontSize: 26, fontWeight: 900, lineHeight: 1.2 }}>{value}</div>
       {sub && <div style={{ color: '#94a3b8', fontSize: 12.5 }}>{sub}</div>}
     </div>
   )

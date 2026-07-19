@@ -115,7 +115,7 @@ export default function SiteNav() {
 
       <nav className="nav-links" style={{ display: 'flex', gap: 8, flexWrap: 'wrap', alignItems: 'center' }}>
         {PRIMARY.map(([label, href]) => (
-          <a key={href} href={href} style={{ ...linkStyle, ...(pathname && href.endsWith(pathname) ? { background: '#c99a2e', borderColor: '#c99a2e', color: '#12385b' } : {}) }}>
+          <a key={href} href={href} style={{ ...linkStyle, ...(pathname && href.endsWith(pathname) ? { background: '#c99a2e', borderColor: '#c99a2e', color: '#284a69' } : {}) }}>
             {label}
           </a>
         ))}
@@ -130,7 +130,7 @@ export default function SiteNav() {
               aria-expanded={open === g.label}
               style={{
                 ...linkStyle, cursor: 'pointer',
-                ...(groupIsActive(g) || open === g.label ? { background: '#c99a2e', borderColor: '#c99a2e', color: '#12385b' } : {}),
+                ...(groupIsActive(g) || open === g.label ? { background: '#c99a2e', borderColor: '#c99a2e', color: '#284a69' } : {}),
               }}
             >
               {g.label} ▾
@@ -150,7 +150,7 @@ export default function SiteNav() {
               }}>
                 {g.links.map(([label, href]) => (
                   <a key={href} href={href} style={{
-                    color: pathname && href.endsWith(pathname) ? '#12385b' : '#33475a', textDecoration: 'none',
+                    color: pathname && href.endsWith(pathname) ? '#284a69' : '#33475a', textDecoration: 'none',
                     fontWeight: pathname && href.endsWith(pathname) ? 900 : 700, fontSize: 14, padding: '8px 10px',
                     borderRadius: 7, background: pathname && href.endsWith(pathname) ? '#fdf3da' : 'transparent',
                   }}>
@@ -171,7 +171,7 @@ export default function SiteNav() {
           boxShadow: '0 18px 40px rgba(15,23,42,.2)', padding: 10, zIndex: 50,
         }}>
           {PRIMARY.map(([label, href]) => (
-            <a key={href} href={href} style={{ display: 'block', color: '#12385b', textDecoration: 'none', fontWeight: 900, fontSize: 14.5, padding: '9px 10px', borderRadius: 7 }}>{label}</a>
+            <a key={href} href={href} style={{ display: 'block', color: '#284a69', textDecoration: 'none', fontWeight: 900, fontSize: 14.5, padding: '9px 10px', borderRadius: 7 }}>{label}</a>
           ))}
           {GROUPS.map((g) => (
             <div key={g.label} style={{ marginTop: 8 }}>

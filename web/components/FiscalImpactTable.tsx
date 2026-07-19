@@ -44,7 +44,7 @@ export default function FiscalImpactTable({ resolutions }: { resolutions: Fiscal
           {([['all', `All 53`], ['corrections', `Corrections (${correctionCount})`], ['money', `Has a dollar figure (${moneyCount})`]] as const).map(([v, label]) => (
             <button key={v} onClick={() => setView(v)} style={{
               padding: '8px 13px', borderRadius: 9, border: '1px solid', cursor: 'pointer', fontWeight: 800, fontSize: 13.5,
-              borderColor: view === v ? '#1f5f8f' : '#cbd5e1', background: view === v ? '#1f5f8f' : 'white', color: view === v ? 'white' : '#334155',
+              borderColor: view === v ? '#4a7297' : '#cbd5e1', background: view === v ? '#4a7297' : 'white', color: view === v ? 'white' : '#334155',
             }}>{label}</button>
           ))}
         </div>
@@ -72,7 +72,7 @@ export default function FiscalImpactTable({ resolutions }: { resolutions: Fiscal
                 return (
                   <tr key={r.number} style={{ borderBottom: '1px solid #f1f5f9', verticalAlign: 'top' }}>
                     <td style={{ ...td, whiteSpace: 'nowrap' }}>
-                      <div style={{ fontWeight: 800, color: '#12385b' }}>{r.number}</div>
+                      <div style={{ fontWeight: 800, color: '#284a69' }}>{r.number}</div>
                       {r.vote && <div style={{ fontSize: 11, color: r.vote.tag === 'tabled' ? '#92400e' : '#64748b' }}>{r.vote.tag === 'tabled' ? 'tabled' : `adopted ${r.vote.ayes ?? ''}${r.vote.ayes != null ? '-' + (r.vote.nays ?? 0) : ''}`}</div>}
                     </td>
                     <td style={{ ...td, maxWidth: 360 }}>
@@ -85,7 +85,7 @@ export default function FiscalImpactTable({ resolutions }: { resolutions: Fiscal
                       </span>
                       <div style={{ fontSize: 10.5, color: '#94a3b8', marginTop: 2 }}>{r.townTreatment === 'absorbed' ? 'absorbed' : ''}</div>
                     </td>
-                    <td style={{ ...td, textAlign: 'right', whiteSpace: 'nowrap', fontWeight: 700, color: '#12385b' }}>
+                    <td style={{ ...td, textAlign: 'right', whiteSpace: 'nowrap', fontWeight: 700, color: '#284a69' }}>
                       {r.amount ? usd(r.amount) : <span style={{ color: '#cbd5e1', fontWeight: 500 }}>—</span>}
                     </td>
                     <td style={{ ...td, maxWidth: 340 }}>

@@ -88,7 +88,7 @@ function PathCard({
 }) {
   return (
     <div style={{ background: '#f8fafc', border: '1px solid #e2e8f0', borderRadius: 12, padding: 14 }}>
-      <div style={{ fontWeight: 900, color: '#12385b', fontSize: 15 }}>{title}</div>
+      <div style={{ fontWeight: 900, color: '#284a69', fontSize: 15 }}>{title}</div>
       <div style={{ color: '#64748b', fontSize: 12, marginBottom: 10 }}>{sub}</div>
       <Mini label="Total interest" value={usd(totalInterest)} />
       <div style={{ height: 8 }} />
@@ -113,7 +113,7 @@ function Mini({ label, value }: { label: string; value: string }) {
   return (
     <div style={{ background: 'white', border: '1px solid #e2e8f0', borderRadius: 10, padding: 10 }}>
       <div style={{ color: '#64748b', fontSize: 11, textTransform: 'uppercase', fontWeight: 800 }}>{label}</div>
-      <div style={{ fontWeight: 800, marginTop: 2, color: '#12385b' }}>{value}</div>
+      <div style={{ fontWeight: 800, marginTop: 2, color: '#284a69' }}>{value}</div>
     </div>
   )
 }
@@ -122,8 +122,8 @@ function Field({ label, value, hint, children }: { label: string; value: string;
   return (
     <div>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline' }}>
-        <span style={{ fontWeight: 800, color: '#12385b', fontSize: 14.5 }}>{label}</span>
-        <span style={{ fontWeight: 800, color: '#1f5f8f', fontSize: 14 }}>{value}</span>
+        <span style={{ fontWeight: 800, color: '#284a69', fontSize: 14.5 }}>{label}</span>
+        <span style={{ fontWeight: 800, color: '#4a7297', fontSize: 14 }}>{value}</span>
       </div>
       {children}
       <div style={{ color: '#94a3b8', fontSize: 12, lineHeight: 1.4, marginTop: 4 }}>{hint}</div>
@@ -131,4 +131,4 @@ function Field({ label, value, hint, children }: { label: string; value: string;
   )
 }
 
-const slider = { width: '100%', accentColor: '#1f5f8f' } as const
+const slider = { width: '100%', accentColor: '#4a7297' } as const
