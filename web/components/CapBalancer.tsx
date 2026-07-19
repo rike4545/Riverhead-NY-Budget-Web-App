@@ -58,7 +58,7 @@ export default function CapBalancer({ levy2026, predictedLevy, allowedLevy, appr
           )}
         </div>
       </div>
-      <p style={{ color: '#94a3b8', fontSize: 12, marginTop: 14, marginBottom: 0, lineHeight: 1.45 }}>
+      <p style={{ color: '#6b7280', fontSize: 12, marginTop: 14, marginBottom: 0, lineHeight: 1.45 }}>
         Illustrative. Moves each lever against the model&apos;s predicted levy; the real cap ceiling is a bit above a flat {capPct}%
         once the tax-base-growth factor and pension/capital exclusions are added, so the true gap is somewhat smaller.
       </p>
@@ -77,7 +77,7 @@ function Slider({ label, value, min, max, step, onChange, display, hint }: {
       </div>
       <input type="range" min={min} max={max} step={step} value={value} onChange={(e) => onChange(Number(e.target.value))}
         style={{ width: '100%', accentColor: '#4a7297', marginTop: 6 }} />
-      <div style={{ color: '#94a3b8', fontSize: 12, lineHeight: 1.35 }}>{hint}</div>
+      <div style={{ color: '#6b7280', fontSize: 12, lineHeight: 1.35 }}>{hint}</div>
     </div>
   )
 }

@@ -29,7 +29,7 @@ export default function OutlierWatch({ outliers, yearTransitions }: { outliers: 
             <button key={t} onClick={() => setTransition(t)} disabled={count === 0} style={{
               padding: '8px 13px', borderRadius: 9, border: '1px solid', cursor: count === 0 ? 'default' : 'pointer', fontWeight: 800, fontSize: 13.5,
               borderColor: transition === t ? '#4a7297' : '#cbd5e1', background: transition === t ? '#4a7297' : 'white',
-              color: transition === t ? 'white' : count === 0 ? '#94a3b8' : '#334155',
+              color: transition === t ? 'white' : count === 0 ? '#6b7280' : '#334155',
             }}>{t} ({count})</button>
           )
         })}
@@ -52,7 +52,7 @@ export default function OutlierWatch({ outliers, yearTransitions }: { outliers: 
             <tbody>
               {rows.map((o) => (
                 <tr key={`${o.code}-${o.fromYear}`} style={{ borderBottom: '1px solid #f1f5f9' }}>
-                  <td style={{ ...td, fontWeight: 800, color: '#284a69' }}>{o.name}<div style={{ fontWeight: 600, color: '#94a3b8', fontSize: 11.5 }}>{o.code}</div></td>
+                  <td style={{ ...td, fontWeight: 800, color: '#284a69' }}>{o.name}<div style={{ fontWeight: 600, color: '#6b7280', fontSize: 11.5 }}>{o.code}</div></td>
                   <td style={td}>{o.fromYear} → {o.toYear}</td>
                   <td style={{ ...td, textAlign: 'right' }}>{usd(o.prior)}</td>
                   <td style={{ ...td, textAlign: 'right' }}>{usd(o.current)}</td>
@@ -65,7 +65,7 @@ export default function OutlierWatch({ outliers, yearTransitions }: { outliers: 
                 </tr>
               ))}
               {rows.length === 0 && (
-                <tr><td style={{ ...td, color: '#94a3b8' }} colSpan={6}>No flagged changes for this range.</td></tr>
+                <tr><td style={{ ...td, color: '#6b7280' }} colSpan={6}>No flagged changes for this range.</td></tr>
               )}
             </tbody>
           </table>

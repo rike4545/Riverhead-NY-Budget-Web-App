@@ -142,7 +142,7 @@ export default function BuyoutPage() {
                   <td style={td}><strong>{s.uptakePct}% of eligible</strong></td>
                   <td style={{ ...td, textAlign: 'right' }}>{s.retirees}</td>
                   <td style={{ ...td, textAlign: 'right', color: '#b45309', fontWeight: 700 }}>{usd(s.oneTimeCost)}</td>
-                  <td style={{ ...td, textAlign: 'right', color: '#94a3b8' }}>$0/yr</td>
+                  <td style={{ ...td, textAlign: 'right', color: '#6b7280' }}>$0/yr</td>
                   <td style={{ ...td, textAlign: 'right', color: '#15803d', fontWeight: 700 }}>{usd(s.annualSavings_refill80)}/yr</td>
                   <td style={{ ...td, textAlign: 'right', color: '#15803d', fontWeight: 700 }}>{usd(s.annualSavings_holdVacant)}/yr</td>
                 </tr>
@@ -212,10 +212,10 @@ export default function BuyoutPage() {
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: 18, alignItems: 'baseline' }}>
               <div>
                 <div style={{ color: '#64748b', fontSize: 11.5, fontWeight: 800, textTransform: 'uppercase', letterSpacing: 0.3 }}>A simple model would claim</div>
-                <div style={{ fontSize: 19, fontWeight: 800, color: '#94a3b8', textDecoration: 'line-through' }}>{usd(analysis.policeChain.example.naiveClaim)}/yr</div>
+                <div style={{ fontSize: 19, fontWeight: 800, color: '#6b7280', textDecoration: 'line-through' }}>{usd(analysis.policeChain.example.naiveClaim)}/yr</div>
                 <div style={{ color: '#64748b', fontSize: 12 }}>sergeant&apos;s pay − rookie</div>
               </div>
-              <div style={{ fontSize: 22, color: '#94a3b8' }}>→</div>
+              <div style={{ fontSize: 22, color: '#6b7280' }}>→</div>
               <div>
                 <div style={{ color: '#166534', fontSize: 11.5, fontWeight: 800, textTransform: 'uppercase', letterSpacing: 0.3 }}>Realistic recurring saving</div>
                 <div style={{ fontSize: 22, fontWeight: 900, color: '#15803d' }}>{usd(analysis.policeChain.example.netSaving)}/yr</div>
@@ -256,7 +256,7 @@ export default function BuyoutPage() {
                   <tr key={r.title} style={{ borderBottom: '1px solid #f1f5f9' }}>
                     <td style={{ ...td, fontWeight: 700, color: '#284a69' }}>{r.title.replace(/\s+Police-Towns and Village/, '')}</td>
                     <td style={{ ...td, textAlign: 'right' }}>{r.count}</td>
-                    <td style={{ ...td, textAlign: 'right', color: '#94a3b8', textDecoration: 'line-through' }}>{usd(r.naivePer)}</td>
+                    <td style={{ ...td, textAlign: 'right', color: '#6b7280', textDecoration: 'line-through' }}>{usd(r.naivePer)}</td>
                     <td style={{ ...td, textAlign: 'right', color: '#15803d', fontWeight: 800 }}>{usd(r.chainPer)}</td>
                   </tr>
                 ))}
@@ -270,7 +270,7 @@ export default function BuyoutPage() {
                 <tr style={{ borderTop: '2px solid #e2e8f0' }}>
                   <td style={{ ...td, fontWeight: 900, color: '#284a69' }}>All {analysis.policeChain.officers.count + analysis.policeChain.ranked.count} eligible police, if all retire &amp; all posts refilled</td>
                   <td style={td}></td>
-                  <td style={{ ...td, textAlign: 'right', color: '#94a3b8', textDecoration: 'line-through' }}>{usd(analysis.policeChain.ranked.naiveSavings + analysis.policeChain.officers.netSavings)}/yr</td>
+                  <td style={{ ...td, textAlign: 'right', color: '#6b7280', textDecoration: 'line-through' }}>{usd(analysis.policeChain.ranked.naiveSavings + analysis.policeChain.officers.netSavings)}/yr</td>
                   <td style={{ ...td, textAlign: 'right', color: '#15803d', fontWeight: 900, fontSize: 15 }}>{usd(analysis.policeChain.totalNetSavings)}/yr</td>
                 </tr>
               </tfoot>
@@ -376,7 +376,7 @@ export default function BuyoutPage() {
           <span style={{ color: '#78350f', fontSize: 13, lineHeight: 1.5 }}>{retireeHealthComparison.methodologyNote}</span>
         </div>
 
-        <p style={{ color: '#94a3b8', fontSize: 12, marginTop: 10, marginBottom: 0 }}>Sources: {retireeHealthComparison.sources.join(' · ')}</p>
+        <p style={{ color: '#6b7280', fontSize: 12, marginTop: 10, marginBottom: 0 }}>Sources: {retireeHealthComparison.sources.join(' · ')}</p>
       </section>
 
       <section style={{ ...card, marginBottom: 18 }}>

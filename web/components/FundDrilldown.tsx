@@ -75,7 +75,7 @@ export default function FundDrilldown({ fund }: { fund: FundDetail }) {
             <div style={{ display: 'flex', gap: 14, flexWrap: 'wrap', marginTop: 8 }}>
               {history.map((p) => (
                 <span key={p.year} style={{ fontSize: 13, color: '#334155', fontWeight: 700 }}>
-                  <span style={{ color: '#94a3b8' }}>{p.year}</span> {usd(p.value)}
+                  <span style={{ color: '#6b7280' }}>{p.year}</span> {usd(p.value)}
                 </span>
               ))}
             </div>
@@ -148,7 +148,7 @@ function DepartmentCard({ dept, expanded, fundExp }: { dept: SubDepartment; expa
     <details open={expanded} style={card}>
       <summary style={{ cursor: 'pointer', listStyle: 'none', display: 'flex', justifyContent: 'space-between', gap: 16, alignItems: 'center', flexWrap: 'wrap' }}>
         <div>
-          <span style={{ color: '#94a3b8', fontWeight: 800, fontSize: 12 }}>#{dept.code}</span>{' '}
+          <span style={{ color: '#6b7280', fontWeight: 800, fontSize: 12 }}>#{dept.code}</span>{' '}
           <strong style={{ fontSize: 17 }}>{dept.name}</strong>
           <div style={{ color: '#64748b', fontSize: 12.5 }}>
             {dept.lineItemCount} line items · {pct.toFixed(1)}% of fund
@@ -202,10 +202,10 @@ function LineTable({ rows }: { rows: Row[] }) {
               <tr key={r.account} style={{ borderBottom: '1px solid #f1f5f9' }}>
                 <td style={{ padding: '7px 8px', fontFamily: 'monospace', fontSize: 11.5, color: '#475569', whiteSpace: 'nowrap' }}>{r.account}</td>
                 <td style={{ padding: '7px 8px' }}>{r.name}</td>
-                <td style={{ padding: '7px 8px', textAlign: 'right', color: '#94a3b8' }}>{usd(r.y2024)}</td>
+                <td style={{ padding: '7px 8px', textAlign: 'right', color: '#6b7280' }}>{usd(r.y2024)}</td>
                 <td style={{ padding: '7px 8px', textAlign: 'right', color: '#64748b' }}>{usd(r.y2025)}</td>
                 <td style={{ padding: '7px 8px', textAlign: 'right', fontWeight: 700 }}>{usd(r.y2026)}</td>
-                <td style={{ padding: '7px 8px', textAlign: 'right', color: change > 0 ? 'var(--inc)' : change < 0 ? 'var(--dec)' : '#94a3b8', fontWeight: 700 }}>
+                <td style={{ padding: '7px 8px', textAlign: 'right', color: change > 0 ? 'var(--inc)' : change < 0 ? 'var(--dec)' : '#6b7280', fontWeight: 700 }}>
                   {change === 0 ? '—' : `${change > 0 ? '+' : '−'}${usd(Math.abs(change))}`}
                 </td>
                 <td style={{ padding: '4px 8px', textAlign: 'center' }}>

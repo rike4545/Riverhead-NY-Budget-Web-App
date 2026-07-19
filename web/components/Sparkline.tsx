@@ -14,7 +14,7 @@ export default function Sparkline({
   fill?: string
 }) {
   const pts = values.map((v, i) => ({ v, i })).filter((p): p is { v: number; i: number } => p.v != null)
-  if (pts.length < 2) return <span style={{ color: '#94a3b8', fontSize: 12 }}>—</span>
+  if (pts.length < 2) return <span style={{ color: '#6b7280', fontSize: 12 }}>—</span>
 
   const xs = pts.map((p) => p.i)
   const vs = pts.map((p) => p.v)

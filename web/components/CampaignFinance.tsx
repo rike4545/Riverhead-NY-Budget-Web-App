@@ -123,7 +123,7 @@ export default function CampaignFinance({
           const perResident = currentCycleRaised != null ? currentCycleRaised / RIVERHEAD_POPULATION_ESTIMATE_2024 : null
 
           return (
-            <article key={official.name} style={{ ...card, borderLeft: `6px solid ${official.currentlyServing ? '#4a7297' : '#94a3b8'}` }}>
+            <article key={official.name} style={{ ...card, borderLeft: `6px solid ${official.currentlyServing ? '#4a7297' : '#6b7280'}` }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', gap: 12, flexWrap: 'wrap' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
                   {official.photoUrl && (
@@ -248,7 +248,7 @@ export default function CampaignFinance({
 
               <CampaignFilingsList filings={filingsByOfficial?.[official.name] ?? null} endYear={endYear} hasFetched={!!filingsByOfficial} />
 
-              <div style={{ color: '#94a3b8', fontSize: 11, marginTop: 10 }}>{official.note}</div>
+              <div style={{ color: '#6b7280', fontSize: 11, marginTop: 10 }}>{official.note}</div>
             </article>
           )
         })}
@@ -287,7 +287,7 @@ function CampaignFilingsList({ filings, endYear, hasFetched }: { filings: Filing
                   <span style={{ color: '#334155' }}>
                     <strong>{f.filingDesc}</strong>
                     <span style={{ color: '#64748b' }}> — {f.category}, {f.isAmendment ? 'Amendment' : 'Original'}, {f.electionType}</span>
-                    {hasMultipleCommittees && <span style={{ color: '#94a3b8' }}> ({f.committeeName})</span>}
+                    {hasMultipleCommittees && <span style={{ color: '#6b7280' }}> ({f.committeeName})</span>}
                   </span>
                   <span style={{ color: '#475569', whiteSpace: 'nowrap' }}>
                     {usd(f.amount)} · {f.transactionCount} row{f.transactionCount === 1 ? '' : 's'}
@@ -299,7 +299,7 @@ function CampaignFilingsList({ filings, endYear, hasFetched }: { filings: Filing
           </div>
         ))}
       </div>
-      <div style={{ color: '#94a3b8', fontSize: 11, marginTop: 6 }}>
+      <div style={{ color: '#6b7280', fontSize: 11, marginTop: 6 }}>
         &ldquo;Through&rdquo; is the latest transaction date reported inside that filing, not the date the filing was submitted — the
         bulk data doesn&apos;t carry a submission timestamp, only per-transaction dates (which can be old for a recurring loan
         balance re-reported each period). This list also only shows filings that reported at least one itemized transaction —

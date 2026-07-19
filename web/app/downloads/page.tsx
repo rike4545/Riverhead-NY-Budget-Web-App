@@ -104,7 +104,7 @@ export default function DownloadsPage() {
             <div style={{ minWidth: 0, flex: '1 1 380px' }}>
               <h2 style={{ margin: '0 0 4px', fontSize: 19, color: '#284a69' }}>{d.title}</h2>
               <p style={{ color: '#475569', margin: 0, fontSize: 14.5, lineHeight: 1.5 }}>{d.desc}</p>
-              <div style={{ color: '#94a3b8', fontSize: 12.5, marginTop: 4 }}>{d.rows}</div>
+              <div style={{ color: '#6b7280', fontSize: 12.5, marginTop: 4 }}>{d.rows}</div>
             </div>
             <div style={{ display: 'flex', gap: 8 }}>
               <a href={`${base}/downloads/${d.file}`} download style={{ padding: '10px 16px', borderRadius: 10, background: '#4a7297', color: 'white', fontWeight: 800, textDecoration: 'none' }}>⬇ CSV</a>

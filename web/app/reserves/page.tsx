@@ -181,7 +181,7 @@ export default function ReservesPage() {
           ))}
         </div>
         <hr style={{ border: 'none', borderTop: '1px solid #e2e8f0', margin: '12px 0' }} />
-        <p style={{ color: '#94a3b8', fontSize: 12.5 }}>
+        <p style={{ color: '#6b7280', fontSize: 12.5 }}>
           Benchmark note: GFOA guidance commonly points to at least two months of regular operating spending or
           revenue in unrestricted fund balance, about 16.7% to 17% — which is why Southampton&apos;s 17% policy reads
           more like a minimum floor than a default target.
@@ -214,7 +214,7 @@ export default function ReservesPage() {
           ))}
         </div>
         <hr style={{ border: 'none', borderTop: '1px solid #e2e8f0', margin: '12px 0' }} />
-        <p style={{ color: '#94a3b8', fontSize: 12.5 }}>
+        <p style={{ color: '#6b7280', fontSize: 12.5 }}>
           Ideal guidance: treat 17% like a GFOA-style minimum floor, not the automatic target. East Hampton&apos;s
           56.2% reads like a high-cushion outlier. For Riverhead, a practical operating range is still roughly 25% to
           32%, with 28.8% as a strong middle path that leaves room for debt reduction and one-time public

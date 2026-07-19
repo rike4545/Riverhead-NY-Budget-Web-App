@@ -180,7 +180,7 @@ function ItemSection({
                       width: 16,
                       height: 16,
                       borderRadius: 4,
-                      border: `2px solid ${selected ? '#1f7a5c' : '#94a3b8'}`,
+                      border: `2px solid ${selected ? '#1f7a5c' : '#6b7280'}`,
                       background: selected ? '#1f7a5c' : 'transparent',
                       display: 'inline-flex',
                       alignItems: 'center',
@@ -192,17 +192,17 @@ function ItemSection({
                   </span>
                   {item.title}
                 </span>
-                <span style={{ fontWeight: 800, color: selected ? '#1f7a5c' : '#94a3b8', fontSize: 14.5, whiteSpace: 'nowrap' }}>
+                <span style={{ fontWeight: 800, color: selected ? '#1f7a5c' : '#6b7280', fontSize: 14.5, whiteSpace: 'nowrap' }}>
                   {usd(item.amount)}
                 </span>
               </div>
               <div style={{ color: '#64748b', fontSize: 12.5, marginTop: 5, marginLeft: 24 }}>{item.source}</div>
-              <div style={{ color: '#94a3b8', fontSize: 12.5, marginTop: 3, marginLeft: 24, fontStyle: 'italic' }}>{item.rationale}</div>
+              <div style={{ color: '#6b7280', fontSize: 12.5, marginTop: 3, marginLeft: 24, fontStyle: 'italic' }}>{item.rationale}</div>
             </button>
           )
         })}
       </div>
-      <p style={{ color: '#94a3b8', fontSize: 12, marginTop: 12, marginBottom: 0, lineHeight: 1.45 }}>{footer}</p>
+      <p style={{ color: '#6b7280', fontSize: 12, marginTop: 12, marginBottom: 0, lineHeight: 1.45 }}>{footer}</p>
     </section>
   )
 }

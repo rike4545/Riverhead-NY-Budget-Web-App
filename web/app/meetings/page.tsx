@@ -69,7 +69,7 @@ export default function MeetingsPage() {
           <span style={{ color: '#4c1d55', fontSize: 14.5, lineHeight: 1.55 }}>{consentCalendar.verdict}</span>
         </div>
 
-        <p style={{ color: '#94a3b8', fontSize: 12, marginTop: 12, marginBottom: 0 }}>Sources: {consentCalendar.sources.join(' · ')}</p>
+        <p style={{ color: '#6b7280', fontSize: 12, marginTop: 12, marginBottom: 0 }}>Sources: {consentCalendar.sources.join(' · ')}</p>
       </section>
 
       <section style={{ ...card, marginBottom: 18, background: '#eef6ff', border: '1px solid #bcd9f5' }}>

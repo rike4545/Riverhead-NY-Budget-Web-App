@@ -66,7 +66,7 @@ export default function SalaryRaises() {
               <div key={r.name}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', gap: 10, fontSize: 13.5 }}>
                   <span style={{ color: '#284a69', fontWeight: 700 }}>
-                    {r.name} <span style={{ color: '#94a3b8', fontWeight: 600 }}>· {r.title2026}</span>
+                    {r.name} <span style={{ color: '#6b7280', fontWeight: 600 }}>· {r.title2026}</span>
                     {r.promoted && <span style={{ marginLeft: 6, background: '#ede9fe', color: '#6d28d9', fontSize: 11, fontWeight: 800, padding: '1px 7px', borderRadius: 999 }}>promotion</span>}
                   </span>
                   <strong style={{ whiteSpace: 'nowrap' }}>{usd(r.annual2025)} → {usd(r.annual2026)} <span style={{ color: '#b45309' }}>(+{usd(r.raise)})</span></strong>
@@ -126,7 +126,7 @@ export default function SalaryRaises() {
                   </td>
                   <td style={{ ...td, textAlign: 'right', color: '#64748b' }}>{r.comparable ? usd(r.annual2025) : <span style={{ color: '#cbd5e1' }}>n/a</span>}</td>
                   <td style={{ ...td, textAlign: 'right', fontWeight: 700 }}>{usd(r.annual2026)}</td>
-                  <td style={{ ...td, textAlign: 'right', fontWeight: 700, color: !r.comparable ? '#cbd5e1' : (r.raise ?? 0) > 0 ? 'var(--inc)' : (r.raise ?? 0) < 0 ? 'var(--dec)' : '#94a3b8' }}>
+                  <td style={{ ...td, textAlign: 'right', fontWeight: 700, color: !r.comparable ? '#cbd5e1' : (r.raise ?? 0) > 0 ? 'var(--inc)' : (r.raise ?? 0) < 0 ? 'var(--dec)' : '#6b7280' }}>
                     {!r.comparable || r.raise == null ? '—' : `${r.raise >= 0 ? '+' : '−'}${usd(Math.abs(r.raise))}`}
                   </td>
                   <td style={{ ...td, textAlign: 'right', color: !r.comparable ? '#cbd5e1' : '#334155', fontWeight: 700 }}>

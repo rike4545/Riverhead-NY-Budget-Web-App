@@ -126,7 +126,7 @@ function Field({ label, value, hint, children }: { label: string; value: string;
         <span style={{ fontWeight: 800, color: '#4a7297', fontSize: 14 }}>{value}</span>
       </div>
       {children}
-      <div style={{ color: '#94a3b8', fontSize: 12, lineHeight: 1.4, marginTop: 4 }}>{hint}</div>
+      <div style={{ color: '#6b7280', fontSize: 12, lineHeight: 1.4, marginTop: 4 }}>{hint}</div>
     </div>
   )
 }

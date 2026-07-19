@@ -120,11 +120,11 @@ export default function MeetingVotes() {
                         <td style={td}>
                           <strong style={{ color: '#284a69' }}>{t.name}</strong>{' '}
                           <PartyChip party={party} small />{' '}
-                          <span style={{ color: '#94a3b8', fontSize: 12.5 }}>{t.title}</span>
+                          <span style={{ color: '#6b7280', fontSize: 12.5 }}>{t.title}</span>
                         </td>
                         <td style={{ ...td, textAlign: 'right' }}>{t.aye}</td>
-                        <td style={{ ...td, textAlign: 'right', color: t.nay ? '#b91c1c' : '#94a3b8', fontWeight: t.nay ? 800 : 400 }}>{t.nay}</td>
-                        <td style={{ ...td, textAlign: 'right', color: t.abstain ? '#b45309' : '#94a3b8', fontWeight: t.abstain ? 800 : 400 }}>{t.abstain}</td>
+                        <td style={{ ...td, textAlign: 'right', color: t.nay ? '#b91c1c' : '#6b7280', fontWeight: t.nay ? 800 : 400 }}>{t.nay}</td>
+                        <td style={{ ...td, textAlign: 'right', color: t.abstain ? '#b45309' : '#6b7280', fontWeight: t.abstain ? 800 : 400 }}>{t.abstain}</td>
                         <td style={{ ...td, textAlign: 'right', color: '#64748b' }}>{t.absent}</td>
                         <td style={{ ...td, textAlign: 'right', color: '#64748b' }}>{t.moved}</td>
                         <td style={{ ...td, textAlign: 'right', color: '#64748b' }}>{t.seconded}</td>
@@ -177,7 +177,7 @@ function ResolutionRow({ r, shortName, rosterOrder }: { r: Resolution; shortName
     : r.tag === 'tabled' ? { bg: '#f1f5f9', fg: '#475569', text: 'Tabled' }
     : r.tag === 'split' ? { bg: '#fef3c7', fg: '#92400e', text: r.ayesCount != null && r.naysCount != null ? `Passed ${r.ayesCount}–${r.naysCount}` : 'Passed (split)' }
     : { bg: '#dcfce7', fg: '#166534', text: 'Passed unanimously' }
-  const border = r.tag === 'failed' ? '#b91c1c' : r.tag === 'tabled' ? '#94a3b8' : r.tag === 'split' ? '#c99a2e' : '#15803d'
+  const border = r.tag === 'failed' ? '#b91c1c' : r.tag === 'tabled' ? '#6b7280' : r.tag === 'split' ? '#c99a2e' : '#15803d'
   const hasVotes = Object.keys(r.votes).length > 0
 
   return (
@@ -301,7 +301,7 @@ function VotedList({ label, items, openMeeting, color }: { label: string; items:
           <button key={`${it.slug}-${it.number}-${i}`} onClick={() => openMeeting(it.slug)}
             title="Open this meeting's contested votes"
             style={{ textAlign: 'left', background: '#f8fafc', border: '1px solid #e2e8f0', borderRadius: 10, padding: '9px 12px', cursor: 'pointer' }}>
-            <span style={{ color: '#94a3b8', fontWeight: 800, fontSize: 12 }}>{it.date}{it.number ? ` · ${it.number}` : ''}</span>
+            <span style={{ color: '#6b7280', fontWeight: 800, fontSize: 12 }}>{it.date}{it.number ? ` · ${it.number}` : ''}</span>
             <span style={{ display: 'block', color: '#284a69', fontWeight: 600, fontSize: 13.5, lineHeight: 1.4 }}>{it.title}</span>
           </button>
         ))}

@@ -59,7 +59,7 @@ export default function OfficialsPage() {
               <p style={{ color: '#334155', fontSize: 14.5, lineHeight: 1.55, margin: '10px 0 6px' }}>{o.background}</p>
               <p style={{ color: o.status === 'pension' ? '#9a3412' : '#475569', fontSize: 14, lineHeight: 1.55, margin: 0, fontWeight: o.status === 'pension' ? 700 : 400 }}>{o.pension}</p>
               {o.sources?.length > 0 && (
-                <div style={{ color: '#94a3b8', fontSize: 12, marginTop: 8, lineHeight: 1.45 }}>Sources: {o.sources.join(' · ')}</div>
+                <div style={{ color: '#6b7280', fontSize: 12, marginTop: 8, lineHeight: 1.45 }}>Sources: {o.sources.join(' · ')}</div>
               )}
             </section>
           )
@@ -75,7 +75,7 @@ export default function OfficialsPage() {
           {' '}<strong>Jerry Halpin</strong>, who won the seat by 37 votes in 2025. New York&apos;s shift toward even-year
           local elections is what puts this contest on the 2026 ballot so soon after the last one.
         </p>
-        <div style={{ color: '#94a3b8', fontSize: 12, marginTop: 8, lineHeight: 1.45 }}>Sources: Riverhead News-Review, “Riverhead GOP nominate Kenneth Rothwell for town supervisor” (Feb. 2026) · NYS Board of Elections, even-year local-elections guidance (2025).</div>
+        <div style={{ color: '#6b7280', fontSize: 12, marginTop: 8, lineHeight: 1.45 }}>Sources: Riverhead News-Review, “Riverhead GOP nominate Kenneth Rothwell for town supervisor” (Feb. 2026) · NYS Board of Elections, even-year local-elections guidance (2025).</div>
       </section>
 
       <section style={{ ...card, marginTop: 12, background: '#f8fafc' }}>

@@ -119,7 +119,7 @@ export default function Predict2027Page() {
               {p.byCategory.map((c) => (
                 <tr key={c.category} style={{ borderBottom: '1px solid #f1f5f9' }}>
                   <td style={{ ...td, fontWeight: 700, color: '#284a69' }}>{c.category}</td>
-                  <td style={{ ...td, textAlign: 'right', color: '#94a3b8' }}>{c.count}</td>
+                  <td style={{ ...td, textAlign: 'right', color: '#6b7280' }}>{c.count}</td>
                   <td style={{ ...td, textAlign: 'right', color: '#64748b' }}>{usd(c.v2026)}</td>
                   <td style={{ ...td, textAlign: 'right', fontWeight: 700 }}>{usd(c.v2027)}</td>
                   <td style={{ ...td, textAlign: 'right', fontWeight: 700, color: 'var(--inc)', whiteSpace: 'nowrap' }}>+{usd(c.delta)} ({c.pct}%)</td>

@@ -87,7 +87,7 @@ export default function CompareExplorer() {
                 <tr key={r.code} style={{ borderBottom: '1px solid #f1f5f9' }}>
                   <td style={td}>
                     <a href={`${base}/funds/${r.code}/`} style={{ color: '#284a69', fontWeight: 700, textDecoration: 'none' }}>
-                      <span style={{ color: '#94a3b8', fontWeight: 800, fontSize: 12 }}>{r.code}</span> {r.name}
+                      <span style={{ color: '#6b7280', fontWeight: 800, fontSize: 12 }}>{r.code}</span> {r.name}
                     </a>
                   </td>
                   <td style={{ ...td, textAlign: 'right', color: '#64748b' }}>{usd(r.from)}</td>
@@ -118,8 +118,8 @@ const th = { padding: '8px 10px' } as const
 const td = { padding: '8px 10px' } as const
 
 function changeColor(n: number | null) {
-  if (n == null) return '#94a3b8'
-  return n > 0 ? 'var(--inc)' : n < 0 ? 'var(--dec)' : '#94a3b8'
+  if (n == null) return '#6b7280'
+  return n > 0 ? 'var(--inc)' : n < 0 ? 'var(--dec)' : '#6b7280'
 }
 
 function Stat({ label, value, accent, good }: { label: string; value: string; accent?: boolean; good?: boolean }) {

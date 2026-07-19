@@ -191,7 +191,7 @@ export default function PayrollExplorer() {
                 return (
                   <Fragment key={key}>
                     <tr onClick={() => setExpanded(open ? null : key)} style={{ borderBottom: open ? 'none' : '1px solid #f1f5f9', cursor: 'pointer', background: open ? '#f8fafc' : undefined }}>
-                      {year === 'all' && <td style={{ ...td, color: '#94a3b8' }}>{r.year}</td>}
+                      {year === 'all' && <td style={{ ...td, color: '#6b7280' }}>{r.year}</td>}
                       <td style={{ ...td, fontWeight: 700, color: '#284a69' }}>
                         <button onClick={(e) => { e.stopPropagation(); setQ(r.name); setYear('all'); setLimit(100) }} style={nameBtn} title="Show this employee across all years">{r.name}</button>
                       </td>
@@ -199,8 +199,8 @@ export default function PayrollExplorer() {
                       <td style={td}>{r.department || '—'}</td>
                       <td style={{ ...td, color: '#475569' }}>{r.union || '—'}</td>
                       <td style={{ ...td, textAlign: 'right', color: '#64748b' }}>{usd(r.regular)}</td>
-                      <td style={{ ...td, textAlign: 'right', color: r.overtime > 0 ? '#b45309' : '#94a3b8', fontWeight: r.overtime > 0 ? 700 : 400 }}>{usd(r.overtime)}</td>
-                      <td style={{ ...td, textAlign: 'right', color: r.other > 0 ? '#0369a1' : '#94a3b8', fontWeight: r.other > 0 ? 700 : 400 }}>{usd(r.other)}</td>
+                      <td style={{ ...td, textAlign: 'right', color: r.overtime > 0 ? '#b45309' : '#6b7280', fontWeight: r.overtime > 0 ? 700 : 400 }}>{usd(r.overtime)}</td>
+                      <td style={{ ...td, textAlign: 'right', color: r.other > 0 ? '#0369a1' : '#6b7280', fontWeight: r.other > 0 ? 700 : 400 }}>{usd(r.other)}</td>
                       <td style={{ ...td, textAlign: 'right', fontWeight: 800 }}>{usd(r.gross)}</td>
                       <td style={{ ...td, textAlign: 'center', color: '#4a7297', fontWeight: 800 }}>{open ? '▾' : '▸'}</td>
                     </tr>
@@ -261,16 +261,16 @@ function PayBreakdown({ record }: { record: PayrollRecord }) {
       {/* stacked bar */}
       <div style={{ display: 'flex', height: 22, borderRadius: 6, overflow: 'hidden', border: '1px solid #e2e8f0' }}>
         {positive.map((c) => (
-          <div key={c.key} title={`${c.label}: ${usd(c.amount)}`} style={{ width: `${(c.amount / total) * 100}%`, background: COMP_COLOR[c.key] || '#94a3b8' }} />
+          <div key={c.key} title={`${c.label}: ${usd(c.amount)}`} style={{ width: `${(c.amount / total) * 100}%`, background: COMP_COLOR[c.key] || '#6b7280' }} />
         ))}
       </div>
       {/* component list */}
       <div style={{ display: 'grid', gap: 5 }}>
         {parts.map((c) => (
           <div key={c.key} style={{ display: 'grid', gridTemplateColumns: '14px 1fr auto auto', gap: 10, alignItems: 'center', fontSize: 13.5 }}>
-            <span style={{ width: 11, height: 11, borderRadius: 3, background: COMP_COLOR[c.key] || '#94a3b8' }} />
+            <span style={{ width: 11, height: 11, borderRadius: 3, background: COMP_COLOR[c.key] || '#6b7280' }} />
             <span style={{ color: '#334155', fontWeight: c.key === 'regular' ? 700 : 500 }}>{c.label}</span>
-            <span style={{ color: '#94a3b8', fontSize: 12, minWidth: 44, textAlign: 'right' }}>{((c.amount / total) * 100).toFixed(0)}%</span>
+            <span style={{ color: '#6b7280', fontSize: 12, minWidth: 44, textAlign: 'right' }}>{((c.amount / total) * 100).toFixed(0)}%</span>
             <strong style={{ color: c.amount < 0 ? '#b91c1c' : '#284a69', minWidth: 92, textAlign: 'right' }}>{usd(c.amount)}</strong>
           </div>
         ))}
@@ -348,7 +348,7 @@ function Stat({ label, value, sub, accent, amber }: { label: string; value: stri
     <div style={{ background: amber ? '#fff7ed' : accent ? '#dbeafe' : '#f8fafc', border: '1px solid #e2e8f0', borderRadius: 12, padding: 12 }}>
       <div style={{ color: '#64748b', fontSize: 11.5, textTransform: 'uppercase', fontWeight: 900, letterSpacing: 0.4 }}>{label}</div>
       <strong style={{ fontSize: 19, color: amber ? '#b45309' : '#284a69' }}>{value}</strong>
-      {sub && <div style={{ color: '#94a3b8', fontSize: 11.5, marginTop: 2 }}>{sub}</div>}
+      {sub && <div style={{ color: '#6b7280', fontSize: 11.5, marginTop: 2 }}>{sub}</div>}
     </div>
   )
 }

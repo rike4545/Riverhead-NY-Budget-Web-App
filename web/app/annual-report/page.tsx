@@ -91,7 +91,7 @@ export default function AnnualReportPage() {
               <div key={c.class}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', gap: 10, fontSize: 14.5 }}>
                   <strong style={{ color: '#284a69' }}>{c.class}</strong>
-                  <strong>{dollars(v)} <span style={{ color: '#94a3b8', fontWeight: 600 }}>({pct.toFixed(0)}%)</span></strong>
+                  <strong>{dollars(v)} <span style={{ color: '#6b7280', fontWeight: 600 }}>({pct.toFixed(0)}%)</span></strong>
                 </div>
                 <div style={{ height: 9, background: '#f1f5f9', borderRadius: 9, marginTop: 4 }}>
                   <div style={{ width: `${pct}%`, height: '100%', borderRadius: 9, background: c.class === 'Unassigned' ? '#15803d' : '#4a7297' }} />
@@ -123,10 +123,10 @@ export default function AnnualReportPage() {
                 const s = f.surplus?.['2025'] ?? null
                 return (
                   <tr key={f.code} style={{ borderBottom: '1px solid #f1f5f9' }}>
-                    <td style={td}><span style={{ color: '#94a3b8', fontWeight: 800, fontSize: 12 }}>{f.code}</span> {f.name}</td>
+                    <td style={td}><span style={{ color: '#6b7280', fontWeight: 800, fontSize: 12 }}>{f.code}</span> {f.name}</td>
                     <td style={{ ...td, textAlign: 'right' }}>{f.revenues ? dollars(f.revenues['2025']) : '—'}</td>
                     <td style={{ ...td, textAlign: 'right' }}>{f.expenditures ? dollars(f.expenditures['2025']) : '—'}</td>
-                    <td style={{ ...td, textAlign: 'right', fontWeight: 700, color: s == null ? '#94a3b8' : s >= 0 ? '#15803d' : '#b91c1c' }}>
+                    <td style={{ ...td, textAlign: 'right', fontWeight: 700, color: s == null ? '#6b7280' : s >= 0 ? '#15803d' : '#b91c1c' }}>
                       {s == null ? '—' : s >= 0 ? dollars(s) : `(${dollars(Math.abs(s))})`}
                     </td>
                     <td style={{ ...td, textAlign: 'right' }}>{f.fundBalance ? dollars(f.fundBalance['2025']) : '—'}</td>

@@ -53,7 +53,7 @@ export default function CommunityPage() {
         <div style={{ display: 'grid', gap: 8 }}>
           {d.largestTaxpayers.items.map((t, i) => (
             <div key={i} style={{ display: 'flex', gap: 12, alignItems: 'baseline', padding: '9px 12px', background: i === 0 ? '#eff6ff' : '#f8fafc', border: `1px solid ${i === 0 ? '#bfdbfe' : '#e2e8f0'}`, borderRadius: 10 }}>
-              <span style={{ fontWeight: 900, color: i === 0 ? '#1e3a8a' : '#94a3b8', minWidth: 20 }}>{i + 1}</span>
+              <span style={{ fontWeight: 900, color: i === 0 ? '#1e3a8a' : '#6b7280', minWidth: 20 }}>{i + 1}</span>
               <div>
                 <div style={{ fontWeight: 800, color: '#284a69' }}>{t.name}{i === 0 && <span style={{ marginLeft: 8, background: '#1e3a8a', color: 'white', fontSize: 10.5, fontWeight: 900, padding: '2px 8px', borderRadius: 999 }}>largest</span>}</div>
                 <div style={{ color: '#64748b', fontSize: 13, lineHeight: 1.45 }}>{t.note}</div>

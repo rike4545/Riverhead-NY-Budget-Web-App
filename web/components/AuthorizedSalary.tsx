@@ -80,7 +80,7 @@ export default function AuthorizedSalary() {
                 <button key={g.group} onClick={() => setGroup(group === g.group ? 'all' : g.group)}
                   style={{ background: 'none', border: 'none', textAlign: 'left', cursor: 'pointer', padding: 0 }}>
                   <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 13.5 }}>
-                    <span style={{ fontWeight: group === g.group ? 900 : 700, color: '#284a69' }}>{g.group} <span style={{ color: '#94a3b8', fontWeight: 600 }}>({g.headcount})</span></span>
+                    <span style={{ fontWeight: group === g.group ? 900 : 700, color: '#284a69' }}>{g.group} <span style={{ color: '#6b7280', fontWeight: 600 }}>({g.headcount})</span></span>
                     <strong>{usd(g.authorized)}</strong>
                   </div>
                   <div style={{ height: 8, background: '#f1f5f9', borderRadius: 8, marginTop: 3 }}>

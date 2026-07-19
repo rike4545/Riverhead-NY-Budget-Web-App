@@ -83,7 +83,7 @@ export default function FiscalImpactTable({ resolutions }: { resolutions: Fiscal
                       <span style={{ background: townNo ? '#f1f5f9' : '#e0f2fe', color: townNo ? '#475569' : '#075985', fontWeight: 800, fontSize: 11.5, padding: '2px 9px', borderRadius: 999 }}>
                         {townNo ? 'No impact' : 'Impact'}
                       </span>
-                      <div style={{ fontSize: 10.5, color: '#94a3b8', marginTop: 2 }}>{r.townTreatment === 'absorbed' ? 'absorbed' : ''}</div>
+                      <div style={{ fontSize: 10.5, color: '#6b7280', marginTop: 2 }}>{r.townTreatment === 'absorbed' ? 'absorbed' : ''}</div>
                     </td>
                     <td style={{ ...td, textAlign: 'right', whiteSpace: 'nowrap', fontWeight: 700, color: '#284a69' }}>
                       {r.amount ? usd(r.amount) : <span style={{ color: '#cbd5e1', fontWeight: 500 }}>—</span>}

@@ -83,7 +83,7 @@ export default function CapitalDebtPage() {
       </p>
       <CapitalDebtCalculator />
 
-      <p style={{ color: '#94a3b8', fontSize: 12.5, marginTop: 16 }}>
+      <p style={{ color: '#6b7280', fontSize: 12.5, marginTop: 16 }}>
         Total debt and amortization figures: {debtProfile.source.title}, {debtProfile.source.detail}. Debt-limit
         figures (authorized-unissued, constitutional limit, and % exhausted) are from the last independent audit —
         {' '}{debtProfile.debtLimit.source.title}, {debtProfile.debtLimit.source.detail} — since Annual Financial
@@ -101,7 +101,7 @@ function Stat({ label, value, sub, accent }: { label: string; value: string; sub
     <div>
       <div style={{ color: '#64748b', fontSize: 12.5, fontWeight: 700, textTransform: 'uppercase', letterSpacing: 0.3 }}>{label}</div>
       <div style={{ color: accent ? '#b45309' : '#284a69', fontSize: 22, fontWeight: 900, lineHeight: 1.2 }}>{value}</div>
-      {sub && <div style={{ color: '#94a3b8', fontSize: 12.5 }}>{sub}</div>}
+      {sub && <div style={{ color: '#6b7280', fontSize: 12.5 }}>{sub}</div>}
     </div>
   )
 }

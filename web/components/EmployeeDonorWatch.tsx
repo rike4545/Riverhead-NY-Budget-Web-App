@@ -87,12 +87,12 @@ export default function EmployeeDonorWatch({ officials, startYear, endYear }: { 
                       <td style={{ ...td, fontWeight: 700, color: '#284a69' }}>
                         {m.employeeName}
                         {(m.department || m.title) && (
-                          <div style={{ fontWeight: 500, color: '#94a3b8', fontSize: 11.5 }}>
+                          <div style={{ fontWeight: 500, color: '#6b7280', fontSize: 11.5 }}>
                             {[m.title, m.department].filter(Boolean).join(', ')} ({m.mostRecentPayrollYear})
                           </div>
                         )}
                       </td>
-                      <td style={td}>{m.officialName}<div style={{ color: '#94a3b8', fontSize: 11.5 }}>{m.committeeName}</div></td>
+                      <td style={td}>{m.officialName}<div style={{ color: '#6b7280', fontSize: 11.5 }}>{m.committeeName}</div></td>
                       <td style={td}>{m.electionYear} {m.filingDesc}</td>
                       <td style={{ ...td, textAlign: 'right', fontWeight: 700 }}>{usd(m.amount)}</td>
                       <td style={td}>{m.date ? m.date.slice(0, 10) : '—'}</td>

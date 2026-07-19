@@ -66,7 +66,7 @@ function CriterionRow({ c }: { c: GfoaCriterion }) {
     <article style={{ ...card, padding: 16, borderLeft: `5px solid ${s.fg}` }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', gap: 12, flexWrap: 'wrap', alignItems: 'baseline' }}>
         <div style={{ fontWeight: 800, color: '#284a69' }}>
-          <span style={{ color: '#94a3b8', fontWeight: 900, fontSize: 12, marginRight: 8 }}>{c.code}</span>
+          <span style={{ color: '#6b7280', fontWeight: 900, fontSize: 12, marginRight: 8 }}>{c.code}</span>
           {c.title}
           {c.mandatory && <span style={{ marginLeft: 8, background: '#eef6ff', color: '#4a7297', fontSize: 11, fontWeight: 800, padding: '2px 8px', borderRadius: 999 }}>Mandatory</span>}
         </div>

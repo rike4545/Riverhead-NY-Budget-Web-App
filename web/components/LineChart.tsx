@@ -55,7 +55,7 @@ export default function LineChart({
       {xLabels.map((x) => (
         <text key={x} x={sx(x)} y={height - padB + 18} textAnchor="middle" fontSize={11} fill="#64748b">{x}</text>
       ))}
-      {yLabel && <text x={16} y={padT + 2} fontSize={11} fill="#94a3b8" transform={`rotate(-90 16 ${height / 2})`}>{yLabel}</text>}
+      {yLabel && <text x={16} y={padT + 2} fontSize={11} fill="#6b7280" transform={`rotate(-90 16 ${height / 2})`}>{yLabel}</text>}
 
       {/* series */}
       {series.map((s) => {

@@ -100,8 +100,8 @@ export default function Budget2027Table() {
                   <td style={td}><span style={{ background: '#eef2f7', color: '#475569', fontSize: 11, fontWeight: 700, padding: '2px 8px', borderRadius: 999 }}>{r.category}</span></td>
                   <td style={{ ...td, textAlign: 'right', color: '#64748b' }}>{usd(r.v2026)}</td>
                   <td style={{ ...td, textAlign: 'right', fontWeight: 700 }}>{usd(r.v2027)}</td>
-                  <td style={{ ...td, textAlign: 'right', fontWeight: 700, color: r.delta > 0 ? 'var(--inc)' : r.delta < 0 ? 'var(--dec)' : '#94a3b8', whiteSpace: 'nowrap' }}>
-                    {r.delta >= 0 ? '+' : '−'}{usd(Math.abs(r.delta))}{r.pct != null && <span style={{ fontWeight: 500, color: '#94a3b8' }}> ({r.pct > 0 ? '+' : ''}{r.pct}%)</span>}
+                  <td style={{ ...td, textAlign: 'right', fontWeight: 700, color: r.delta > 0 ? 'var(--inc)' : r.delta < 0 ? 'var(--dec)' : '#6b7280', whiteSpace: 'nowrap' }}>
+                    {r.delta >= 0 ? '+' : '−'}{usd(Math.abs(r.delta))}{r.pct != null && <span style={{ fontWeight: 500, color: '#6b7280' }}> ({r.pct > 0 ? '+' : ''}{r.pct}%)</span>}
                   </td>
                 </tr>
               ))}

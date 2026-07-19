@@ -78,7 +78,7 @@ export default function GeneralFundPage() {
                     <td style={{ ...td, textAlign: 'right', color: '#64748b' }}>{r.estimatedRevenues != null ? dollars(r.estimatedRevenues) : '—'}</td>
                     <td style={{ ...td, textAlign: 'right', color: '#64748b' }}>{r.appropriatedFundBalance != null ? dollars(r.appropriatedFundBalance) : '—'}</td>
                     <td style={{ ...td, textAlign: 'right', fontWeight: 700 }}>{r.taxLevy != null ? dollars(r.taxLevy) : '—'}</td>
-                    <td style={{ ...td, textAlign: 'right', color: levyChange == null ? '#94a3b8' : levyChange > 0 ? 'var(--inc)' : 'var(--dec)', fontWeight: 700 }}>
+                    <td style={{ ...td, textAlign: 'right', color: levyChange == null ? '#6b7280' : levyChange > 0 ? 'var(--inc)' : 'var(--dec)', fontWeight: 700 }}>
                       {levyChange == null ? '—' : `${levyChange > 0 ? '+' : ''}${levyChange.toFixed(1)}%`}
                     </td>
                   </tr>
