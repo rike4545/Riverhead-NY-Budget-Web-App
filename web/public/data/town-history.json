@@ -2,7 +2,7 @@
  "title": "Supervisors & Council Members, 2004–2026",
  "asOf": "2026",
  "intro": "Who has held Riverhead's top elected offices over roughly the last two decades — sourced from RiverheadLOCAL, Riverhead News-Review, and campaign/election records.",
- "scopeNote": "This is not a complete roster back to the Town's 1792 founding — that record isn't published online; the Town Historian's office holds it. This page covers what could be sourced for the last ~20 years, and it isn't complete even for that window: the Town Board has always had a Supervisor plus four council seats, and not every seat-holder from the mid-2000s to mid-2010s could be pinned down with a specific source. If you can source a correction or fill a gap, please flag it.",
+ "scopeNote": "This is not a complete roster back to the Town's 1792 founding — the town's own Historian's office cites Daniel Well as its first Supervisor, elected at the town's first meeting in April 1792, and Sylvester Miller as its longest-serving (1841–1861), but a full year-by-year record isn't published online. This page covers what could be sourced for the last ~20 years. The Town Board always has a Supervisor plus four council seats; coverage is complete for every seat from 2016 onward, but thinner for 2008–2016, when not every seat-holder could be pinned down with a specific source. If you can source a correction or fill a gap, please flag it.",
  "supervisors": [
   {
    "name": "Phil Cardinale", "party": null, "termStart": "2004-01-01", "termEnd": "2010-01-01",
@@ -21,7 +21,7 @@
   },
   {
    "name": "Yvette Aguiar", "party": "R", "termStart": "2020-01-01", "termEnd": "2024-01-01",
-   "note": "Defeated incumbent Laura Jens-Smith in November 2019, won a second two-year term in 2021, and did not seek a third term — her time in office ended December 31, 2023.",
+   "note": "The Town's 63rd Supervisor. Defeated incumbent Laura Jens-Smith in November 2019, defeated a challenge from councilwoman Catherine Kent in 2021, and did not seek a third term — her time in office ended December 31, 2023.",
    "sources": ["RiverheadLOCAL, “Riverhead supervisor bows out: Aguiar announces she will not seek a third term of office” (Feb. 2023).", "Riverhead News-Review, “Outgoing Riverhead Town Supervisor Yvette Aguiar reflects on her tenure” (Dec. 2023)."]
   },
   {
@@ -55,6 +55,16 @@
    "name": "Tim Hubbard", "party": "R", "termStart": "2016-01-01", "termEnd": "2024-01-01",
    "note": "Elected Town Supervisor in November 2023, taking office January 2024 (see Supervisors above).",
    "sources": ["Riverhead News-Review, “Hulse, Hubbard sworn into office in town ceremony” (Jan. 2016)."]
+  },
+  {
+   "name": "Catherine Kent", "party": "D", "termStart": "2018-01-01", "termEnd": "2022-01-01",
+   "note": "A retired teacher, elected councilwoman in November 2017 by a narrow margin over Frank Beyrodt. Served one term, then unsuccessfully challenged incumbent Yvette Aguiar for Town Supervisor in November 2021.",
+   "sources": ["Riverhead News-Review, “Live Riverhead town election results” (Nov. 2017) — Kent narrowly edges Beyrodt for the second council seat.", "Riverhead News-Review, “Kent to oppose Aguiar for Town Supervisor” (Feb. 2021)."]
+  },
+  {
+   "name": "Frank Beyrodt", "party": "R", "termStart": "2020-01-01", "termEnd": "2024-01-01",
+   "note": "Lost a close race for council in 2017, then won a seat in November 2019. Served one term and did not seek re-election in 2023.",
+   "sources": ["Riverhead News-Review, “Endorsement: Frank Beyrodt, Diane Tucci for Town Board” (Nov. 2019).", "RiverheadLOCAL, “Board members, staff and residents bid farewell to three elected officials at final Town Board meeting of 2023” (Dec. 2023)."]
   },
   {
    "name": "Kenneth Rothwell", "party": "R", "termStart": "2021-01-01", "termEnd": null,
