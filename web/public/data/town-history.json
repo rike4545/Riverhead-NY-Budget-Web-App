@@ -1,0 +1,80 @@
+{
+ "title": "Supervisors & Council Members, 2004–2026",
+ "asOf": "2026",
+ "intro": "Who has held Riverhead's top elected offices over roughly the last two decades — sourced from RiverheadLOCAL, Riverhead News-Review, and campaign/election records.",
+ "scopeNote": "This is not a complete roster back to the Town's 1792 founding — that record isn't published online; the Town Historian's office holds it. This page covers what could be sourced for the last ~20 years, and it isn't complete even for that window: the Town Board has always had a Supervisor plus four council seats, and not every seat-holder from the mid-2000s to mid-2010s could be pinned down with a specific source. If you can source a correction or fill a gap, please flag it.",
+ "supervisors": [
+  {
+   "name": "Phil Cardinale", "party": null, "termStart": "2004-01-01", "termEnd": "2010-01-01",
+   "note": "Defeated by Sean Walter in the November 2009 election.",
+   "sources": ["Riverhead News-Review, “Former Riverhead supervisor Phil Cardinale hints at state run” (March 2012)."]
+  },
+  {
+   "name": "Sean Walter", "party": "R", "termStart": "2010-01-01", "termEnd": "2018-01-01",
+   "note": "Elected four times, serving 2010–2017; defeated by Laura Jens-Smith in the November 2017 election. Later elected Riverhead Town Justice in 2020.",
+   "sources": ["Riverhead News-Review, “Q&A with outgoing Riverhead Town supervisor Sean Walter” (Dec. 2017).", "RiverheadLOCAL, “Sean Walter sworn in as Riverhead town justice” (Nov. 2020)."]
+  },
+  {
+   "name": "Laura Jens-Smith", "party": "D", "termStart": "2018-01-01", "termEnd": "2020-01-01",
+   "note": "The first woman elected Riverhead Town Supervisor in the town's 227-year history at the time. Defeated by Yvette Aguiar in the November 2019 election.",
+   "sources": ["RiverheadLOCAL, “History is made in Riverhead: Jens-Smith sworn in as first woman town supervisor” (Jan. 1, 2018)."]
+  },
+  {
+   "name": "Yvette Aguiar", "party": "R", "termStart": "2020-01-01", "termEnd": "2024-01-01",
+   "note": "Defeated incumbent Laura Jens-Smith in November 2019, won a second two-year term in 2021, and did not seek a third term — her time in office ended December 31, 2023.",
+   "sources": ["RiverheadLOCAL, “Riverhead supervisor bows out: Aguiar announces she will not seek a third term of office” (Feb. 2023).", "Riverhead News-Review, “Outgoing Riverhead Town Supervisor Yvette Aguiar reflects on her tenure” (Dec. 2023)."]
+  },
+  {
+   "name": "Tim Hubbard", "party": "R", "termStart": "2024-01-01", "termEnd": "2026-01-01",
+   "note": "The Town's 64th Supervisor. Previously an 8-year Town Councilman (2016–2023). Lost the November 2025 election to Jerry Halpin by 37 votes after a recount.",
+   "sources": ["RiverheadLOCAL, “A new day in Riverhead: Tim Hubbard… sworn in as the county seat's 64th town supervisor” (Jan. 2, 2024).", "East End Beacon, “With Recount Complete, Riverhead Town Supervisor Tim Hubbard Concedes.”"]
+  },
+  {
+   "name": "Jerome Halpin", "party": "D", "termStart": "2026-01-01", "termEnd": null,
+   "note": "Currently serving. A pastor of North Shore Christian Church for about 22 years and a political newcomer before winning the Supervisor race by 37 votes.",
+   "sources": ["RiverheadLOCAL, “Pastor Jerry Halpin will be sworn in as town supervisor” (Dec. 31, 2025)."]
+  }
+ ],
+ "councilMembers": [
+  {
+   "name": "James M. Wooten", "party": "R", "termStart": "2008-01-01", "termEnd": "2020-01-01",
+   "note": "Elected in November 2007. Served three four-year terms (12 years total) before being term-limited. Later elected Riverhead Town Clerk in 2023.",
+   "sources": ["Riverhead News-Review, “Town Board members thank Wooten for his 12 years of service” (Dec. 2019).", "RiverheadLOCAL, “Former councilman James Wooten returns to Riverhead Town Hall” (Dec. 3, 2020)."]
+  },
+  {
+   "name": "George Gabrielsen", "party": "R", "termStart": "2009-11-01", "termEnd": "2015-11-01",
+   "note": "Elected in a November 2009 special election to fill the remaining term of a departed councilman, then won a full four-year term in 2011. Did not seek re-election in 2015, citing business commitments.",
+   "sources": ["Riverhead News-Review, “Gabrielsen will not seek re-election, cites business commitments” (April 2015)."]
+  },
+  {
+   "name": "Jodi Giglio", "party": "R", "termStart": "2010-01-01", "termEnd": "2021-01-05",
+   "note": "Elected in 2009 and re-elected in 2013, serving about a decade on the Town Board before resigning to take office in the NY State Assembly (District 2), sworn in January 5, 2021.",
+   "sources": ["RiverheadLOCAL, “Jodi Giglio sworn in as member of State Assembly” (Jan. 6, 2021).", "New York State Assembly, Jodi Giglio member biography."]
+  },
+  {
+   "name": "Tim Hubbard", "party": "R", "termStart": "2016-01-01", "termEnd": "2024-01-01",
+   "note": "Elected Town Supervisor in November 2023, taking office January 2024 (see Supervisors above).",
+   "sources": ["Riverhead News-Review, “Hulse, Hubbard sworn into office in town ceremony” (Jan. 2016)."]
+  },
+  {
+   "name": "Kenneth Rothwell", "party": "R", "termStart": "2021-01-01", "termEnd": null,
+   "note": "Appointed in January 2021 to fill the vacancy left by Jodi Giglio's move to the Assembly, then won his first full term in November 2021. Currently serving.",
+   "sources": ["RiverheadLOCAL, “Meet Riverhead Town's new councilman, Kenneth Rothwell” (Jan. 2021)."]
+  },
+  {
+   "name": "Robert \"Bob\" Kern", "party": "R", "termStart": "2022-01-01", "termEnd": null,
+   "note": "Elected November 2021. Currently serving.",
+   "sources": ["Riverhead News-Review / Patch candidate profiles — Bob Kern (2021, 2025)."]
+  },
+  {
+   "name": "Joann Waski", "party": "R", "termStart": "2024-01-01", "termEnd": null,
+   "note": "Elected November 2023. Currently serving.",
+   "sources": ["Riverhead News-Review, “Election 2023: Meet the candidates for Town Council” (Oct. 2023)."]
+  },
+  {
+   "name": "Denise Merrifield", "party": "R", "termStart": "2024-01-01", "termEnd": null,
+   "note": "Elected November 2023. Currently serving.",
+   "sources": ["Riverhead News-Review, “Election 2023: Meet the candidates for Town Council” (Oct. 2023)."]
+  }
+ ]
+}

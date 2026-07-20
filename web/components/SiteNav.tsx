@@ -39,6 +39,7 @@ const GROUPS: Group[] = [
       ['Payroll', `${base}/payroll/`],
       ['2026 Buyout', `${base}/buyout/`],
       ['Officials & Pensions', `${base}/officials/`],
+      ['Supervisors & Council History', `${base}/town-history/`],
     ],
   },
   {
