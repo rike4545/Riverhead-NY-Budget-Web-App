@@ -6,11 +6,11 @@ const card = { background: 'white', border: '1px solid #e2e8f0', borderRadius: 1
 const usd = (n: number) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(n)
 
 export type FiscalResolution = {
-  number: string; seq: number; title: string; category: string
+  number: string | null; seq: number; title: string; category: string
   townFiscalImpact: 'Yes' | 'No'; townTreatment: string
-  amount: number | null; note: string | null
+  amount: number | null; note?: string | null
   realistic: { verdict: string; reason: string; flag: string }
-  vote: { adopted: boolean; tag: string; ayes: number | null; nays: number | null } | null
+  vote: { adopted: boolean | null; tag: string | null; ayes: number | null; nays: number | null } | null
 }
 
 const FLAG_STYLE: Record<string, { bg: string; fg: string; label: string }> = {
@@ -41,7 +41,7 @@ export default function FiscalImpactTable({ resolutions }: { resolutions: Fiscal
     <div style={{ display: 'grid', gap: 12 }}>
       <section style={{ ...card, display: 'flex', gap: 10, flexWrap: 'wrap', alignItems: 'center' }}>
         <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
-          {([['all', `All 53`], ['corrections', `Corrections (${correctionCount})`], ['money', `Has a dollar figure (${moneyCount})`]] as const).map(([v, label]) => (
+          {([['all', `All ${resolutions.length}`], ['corrections', `Corrections (${correctionCount})`], ...(moneyCount > 0 ? [['money', `Has a dollar figure (${moneyCount})`] as const] : [])] as const).map(([v, label]) => (
             <button key={v} onClick={() => setView(v)} style={{
               padding: '8px 13px', borderRadius: 9, border: '1px solid', cursor: 'pointer', fontWeight: 800, fontSize: 13.5,
               borderColor: view === v ? '#4a7297' : '#cbd5e1', background: view === v ? '#4a7297' : 'white', color: view === v ? 'white' : '#334155',

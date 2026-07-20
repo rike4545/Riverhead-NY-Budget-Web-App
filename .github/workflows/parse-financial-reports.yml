@@ -53,6 +53,9 @@ jobs:
       - name: Parse Town Board meeting votes
         run: python etl/parse_meetings.py
 
+      - name: Parse agenda-packet Fiscal Impact Statements
+        run: python etl/parse_fiscal_impact.py
+
       - name: Parse 2025 authorized salary schedule
         run: python etl/parse_salary_schedule.py
 
