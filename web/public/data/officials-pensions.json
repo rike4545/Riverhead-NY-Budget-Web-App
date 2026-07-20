@@ -1,7 +1,7 @@
 {
  "title": "Elected officials who also collect a public pension",
  "asOf": "2026",
- "intro": "Some of Riverhead's elected officials spent long careers in government, retired, and now serve in elected office while collecting a New York State pension. This page reviews every current elected official and says plainly which ones do — a straightforward transparency question, since both the pension and the salary are public money.",
+ "intro": "Some of Riverhead's elected officials spent long careers in government, retired, and then served in elected office while collecting a New York State pension. This page reviews every current elected official — plus recently former ones with a notable pension story — and says plainly which ones do — a straightforward transparency question, since both the pension and the salary are public money.",
  "legalNote": "This is legal and fairly common. Under New York law, an elected office is generally exempt from the earnings caps (Retirement and Social Security Law §§211–212) that limit other public retirees who return to government work — so a retiree can hold elected office and keep a full pension. This page is disclosure, not an accusation; several of these officials had long, decorated public-service careers.",
  "statusLabels": {
   "pension": "Collects a public pension",
@@ -16,6 +16,12 @@
    "background": "Retired Riverhead Town police officer on 7/4/2005 (retired after 23 years) and a former Town Councilman (12 years, term-limited).",
    "pension": "Collects a New York State Police & Fire Retirement System (PFRS) pension. The Empire Center's SeeThroughNY reported it at about $45,556 in 2015, while he was serving on the Town Board; SeeThroughNY reports it at $48,454 in 2025.",
    "sources": ["RiverheadLOCAL, “Former councilman James Wooten returns to Riverhead Town Hall” (Dec. 3, 2020).", "Riverhead News-Review, “Town Board member calls for a raise” (Dec. 2015) — cites SeeThroughNY pension of $45,556.", "Empire Center, SeeThroughNY pension database — James M Wooten, Town of Riverhead, NYS Police and Fire Retirement System, retirement date 7/4/2005, $48,454 (2025)."]
+  },
+  {
+   "name": "Timothy C. Hubbard", "office": "Former Town Supervisor (2024–2025); previously an 8-year Councilman", "party": "R", "status": "pension",
+   "background": "A 32-year career with the Riverhead Town Police Department, retiring 12/28/2014 as a Detective 1st Grade. Served 8 years as Town Councilman, then was sworn in as the Town's 64th Supervisor on January 1, 2024. Lost the November 2025 election to Jerry Halpin by 37 votes after a recount.",
+   "pension": "As a retired 32-year Riverhead police officer, he collects a New York State Police & Fire Retirement System (PFRS) pension — meaning he was drawing it throughout his time as both Councilman and Supervisor. SeeThroughNY reported it at $92,195 in 2025.",
+   "sources": ["RiverheadLOCAL, “A new day in Riverhead: Tim Hubbard… sworn in as the county seat's 64th town supervisor” (Jan. 2, 2024).", "East End Beacon, “With Recount Complete, Riverhead Town Supervisor Tim Hubbard Concedes.”", "Dan's Papers, “Timothy Hubbard: Riverhead's Homegrown Town Supervisor” (April 2024).", "Empire Center, SeeThroughNY pension database — Timothy C Hubbard, Town of Riverhead, NYS Police and Fire Retirement System, retirement date 12/28/2014, $92,195 (2025)."]
   },
   {
    "name": "Denise Merrifield", "office": "Councilwoman", "party": "R", "status": "pension",

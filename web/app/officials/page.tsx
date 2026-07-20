@@ -7,7 +7,7 @@ const card = { background: 'white', border: '1px solid #e2e8f0', borderRadius: 1
 export const metadata = {
   title: 'Elected officials who also collect a public pension',
   description:
-    'A transparent, sourced review of every current Town of Riverhead elected official and whether they also collect a New York State public pension while in office — legal, common, and public money either way.',
+    'A transparent, sourced review of Town of Riverhead elected officials and whether they also collect a New York State public pension while in office — legal, common, and public money either way.',
 }
 
 const STYLE: Record<string, { bg: string; fg: string; border: string }> = {
@@ -31,7 +31,7 @@ export default function OfficialsPage() {
       </div>
 
       <section style={{ ...card, display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(180px,1fr))', gap: 12, marginBottom: 16 }}>
-        <Stat label="Current elected officials reviewed" value={String(data.officials.length)} />
+        <Stat label="Elected officials reviewed" value={String(data.officials.length)} />
         <Stat label="Collect a public pension while serving" value={String(pensionCount)} accent />
         <Stat label="Still-active career public employees" value={String(data.officials.filter((o) => o.status === 'active').length)} />
       </section>
