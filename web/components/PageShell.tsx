@@ -25,7 +25,7 @@ export default function PageShell({ title, subtitle, children }: { title: string
           <div style={{ marginTop: 18, background: '#fff8e6', border: '1px solid #d8b45a', color: '#5f430d', padding: 13, borderRadius: 8, fontSize: 14, lineHeight: 1.45 }}>
             A neighbor made this to make the Town&apos;s finances easier to follow. It isn&apos;t affiliated with or endorsed by the Town of Riverhead, and figures can carry parsing errors — so double-check anything important against the official documents before you rely on it.
             <span style={{ display: 'block', marginTop: 6, fontSize: 12.5, color: '#8a6a1f' }}>
-              Last refreshed {meta.generatedAtDisplay} · already-known documents re-parse automatically, but pulling in brand-new meeting minutes or newly published financial statements still takes a manual check.
+              Last refreshed {meta.generatedAtDisplay} · new meeting minutes and financial-report documents are fetched and parsed automatically every week.
             </span>
           </div>
           <div style={{ marginTop: 12, display: 'flex', justifyContent: 'flex-end' }}>

@@ -1,0 +1,82 @@
+{
+  "title": "2020 Justice Court Statement of Cash Receipts and Cash Disbursements (PDF)",
+  "url": "https://www.townofriverheadny.gov/DocumentCenter/View/273/2020-Justice-Court-Statement-of-Cash-Receipts-and-Cash-Disbursements-PDF",
+  "year": 2020,
+  "category": "justice_court",
+  "slug": "2020-2020-justice-court-statement-of-cash-receipts-and-cash-disbursements-pdf",
+  "sha256": "22b7a5fe170d73815f1b0f5900e63c46e69b07f1e5a8e04cbc28db02878ad0b3",
+  "page_count": 7,
+  "money_value_count": 19,
+  "pages": [
+    {
+      "page": 1,
+      "text": "TOWN OF RIVERHEAD\nJUSTICE COURT\nCOMBINING SCHEDULE OF COLLECTIONS\nAND DISBURSEMENTS\nYear Ended December 31, 2020",
+      "money_values": [],
+      "line_count": 5,
+      "confidence": "medium"
+    },
+    {
+      "page": 2,
+      "text": "                                 TABLE OF CONTENTS\n Page No.\nIndependent Auditors\u2019 Report .................................................................................  1-2\nStatement of Cash Receipts, Cash Disbursements and Cash Balances ................  3\nNote to the Financial Statement .............................................................................  4-5",
+      "money_values": [],
+      "line_count": 5,
+      "confidence": "medium"
+    },
+    {
+      "page": 3,
+      "text": "PKF O\u2019CONNOR DAVIES LLP\n878 Veterans Memorial Highway, Fourth Floor, Hauppauge, NY 11788  I  Tel: 631.434.9500  I  Fax: 631.434.9518  I  www.pkfod.com\nPKF O\u2019Connor Davies LLP is a member firm of the PKF International Limited network of legally independent firms and does not accept\nany responsibility or liability for the actions or inactions on the part of any other individual member firm or firms.\nIndependent Auditors\u2019 Report\nHonorable Supervisor and Town Board\nTown of Riverhead\nRiverhead, New York\nReport on the Financial Statement\nWe have audited the accompanying statement of cash receipts, cash disbursements and cash\nbalances of the Town of Riverhead, New York, Justice Court, (the \u201cJustice Court\u201d) as of and for the year\nended December 31, 2020, and the related note to the financial statement.\nManagement\u2019s Responsibility for the Financial Statement\nManagement is responsible for the preparation and fair presentation of this financial statement in\naccordance with the basis of accounting described in Note A.2; this includes determining that the cash\nbasis of accounting is an acceptable basis for the preparation of the financial statement in the\ncircumstances. Management is also responsible for the design, implementation and maintenance of\ninternal control relevant to the preparation and fair presentation of a financial statement that is free from\nmaterial misstatement, whether due to fraud or error.\nAuditors\u2019 Responsibility\nOur responsibility is to express an opinion on this financial statement based on our audit. We conducted\nour audit in accordance with auditing standards generally accepted in the United States of America.\nThose standards require that we plan and perform the audit to obtain reasonable assurance about\nwhether the financial statement is free from material misstatement.\nAn audit involves performing procedures to obtain audit evidence about the amounts and disclosures in\nthe financial statement. The procedures selected depend on the auditors\u2019 judgment, including the\nassessment of the risks of material misstatement of the financial statement, whether due to fraud or\nerror. In making those risk assessments, the auditors consider internal control relevant to the entity\u2019s\npreparation and fair presentation of the financial statement in order to design audit procedures that are\nappropriate in the circumstances, but not for the purpose of expressing an opinion on the effectiveness\nof the entity\u2019s internal control. Accordingly, we express no such opinion. An audit also includes\nevaluating the appropriateness of accounting policies used and the reasonableness of the significant\naccounting estimates made by management, as well as evaluating the overall presentation of the\nfinancial statement.\nWe believe that the audit evidence we have obtained is sufficient and appropriate to provide a basis for\nour audit opinion.",
+      "money_values": [],
+      "line_count": 36,
+      "confidence": "medium"
+    },
+    {
+      "page": 4,
+      "text": "- 2 -\nOpinion\nIn our opinion, the financial statement referred to in the first paragraph presents fairly, in all material\nrespects, the cash receipts, cash disbursements, and the cash balances of the Town of Riverhead,\nNew York, Justice Court as of December 31, 2020 and for the year then ended, in accordance with the\nbasis of accounting as described in Note A.2.\nBasis of Accounting\nWe draw attention to Note A.2 to the financial statement, which describes the basis of accounting. The\nfinancial statement was prepared on the cash basis of accounting, which is a basis of accounting other\nthan accounting principles generally accepted in the United States of America. Our opinion is not\nmodified with respect to that matter.\nRestriction on Use\nThis report is intended solely for the information and use of the Town of Riverhead\u2019s Town Board, the\nOffice of Court Administration and management and is not intended to be and should not be used by\nanyone other than these specified parties.\nPKF O\u2019Connor Davies, LLP\nHauppauge, New York\nFebruary 24, 2023",
+      "money_values": [],
+      "line_count": 18,
+      "confidence": "medium"
+    },
+    {
+      "page": 5,
+      "text": "See note to the schedule.\n- 3 -\nTOWN OF RIVERHEAD\nJUSTICE COURT\nSTATEMENT OF CASH RECEIPTS, CASH DISBURSEMENTS AND CASH BALANCES\nYear Ended December 31, 2020\nAllen M. Lori M. Sean M. Bail Petty Cash\nSmith Hulse Walter Account Account Combined\nCash Balance at the\nBeginning of the Year 140,552 $     137,190 $     - $             392,182$     100 $            670,024$\nAdd:\nCollection of Fines,\nPenalties, and Fees 174,430        786,122        11,465          972,017\nBail Collected 51,951         51,951\nLess:\nDisbursements to the Town\nof Riverhead 314,982        870,633        -                1,185,615\nReturn of Bail and Other 131,309        131,309\nCash Balance at the\nEnd of the Year - $             52,679$       11,465 $       312,824 $     100 $            377,068$",
+      "money_values": [
+        "140,552",
+        "137,190",
+        "392,182",
+        "670,024",
+        "174,430",
+        "786,122",
+        "11,465",
+        "972,017",
+        "51,951",
+        "51,951",
+        "314,982",
+        "870,633",
+        "1,185,615",
+        "131,309",
+        "131,309",
+        "52,679",
+        "11,465",
+        "312,824",
+        "377,068"
+      ],
+      "line_count": 20,
+      "confidence": "high"
+    },
+    {
+      "page": 6,
+      "text": "TOWN OF RIVERHEAD\nJUSTICE COURT\nNOTE TO FINANCIAL STATEMENT\nDecember 31, 2020\n- 4 -\nA. SUMMARY OF SIGNIFICANT ACCOUNTING POLICIES\n1. Reporting Entity\nThe Town of Riverhead, New York, Justice Court (the \u201cJustice Court\u201d) is a special fund\nestablished by the Office of the New York State Comptroller pursuant to Section 99-a of the\nState Finance Law. The purpose of Section 99-a is to provide centralized accounting for the\nfines, penalties, forfeitures and fees collected by all of the justice courts in New York State,\nincluding the Town of Riverhead, New York, Justice Court. All justice courts in New York State\nare administered by the Division of Local Government and School Accountability, Justice Court\nFund, within the Office of the State Comptroller.\nThe cash balances and related liabilities of the individual Town of Riverhead Justices are\nreported in the Town of Riverhead\u2019s general fund. Cash balances and related liabilities relating\nto bail, are reported in the Town of Riverhead\u2019s Custodial Fund.\n2. Basis of Presentation\nThe financial statement was prepared to present the cash receipts, cash disbursements, and\ncash balances of the Justice Court. Under this presentation, fines, penalties, forfeitures, fees\nand bail collections are considered to be increases to the related cash balances and\ndisbursements to other governments, the return of bail and forfeited bail are considered\ndecreases to the related cash balances. The operating expenditures for the Justice Court are\naccounted for in the General Fund of the Town of Riverhead (the \u201cTown\u201d). The financial\nstatement is not intended to be a presentation in conformity with accounting principles\ngenerally accepted in the United States of America.\n3. Cash Balances\nThe cash balances of the Town Justices at December 31, 2020 represent fines, penalties,\nforfeitures, and other items collected during December 2020 that have not yet been remitted to\nNew York State and the Town. The bail account cash balance at December 31, 2020\nrepresents the bail deposits collected by the Justice Court that have not yet been returned, or\napplied towards fines, penalties, forfeitures or fees.\nThe Justice Court\u2019s investment policy is governed by State statutes and the Town\u2019s\ninvestment policy. Justice Court monies must be deposited in FDIC-insured commercial\nbanks and trust companies located within the state. The Town is authorized to use\ncertificates of deposit, savings, time, demand, and money market accounts. Permissible\ninvestments include direct obligations of the United States Government, including treasury\nbills and notes.\nCollateral is required for demand deposit accounts, time deposit accounts and certificates of\ndeposit at 100% of all deposits not covered by Federal deposit insurance.  The Town has\nentered into custodial agreements with the various banks which hold their deposits.  These\nagreements authorize the obligations that may be pledged as collateral.  Such obligations\ninclude, among other instruments, obligations of the United States and its agencies and\nobligations of the State and its municipal and school district subdivisions.",
+      "money_values": [],
+      "line_count": 44,
+      "confidence": "medium"
+    },
+    {
+      "page": 7,
+      "text": "TOWN OF RIVERHEAD\nJUSTICE COURT\nNOTE TO FINANCIAL STATEMENT\nDecember 31, 2020\n- 5 -\nA. SUMMARY OF SIGNIFICANT ACCOUNTING POLICIES (continued)\n3. Cash Balances (continued)\nCustodial credit risk is the risk that in the event of a bank failure, the Town\u2019s deposits may\nnot be returned to it. GASB Statement No. 40, \u201cDeposit and Investment Risk Disclosures \u2013\nan amendment of GASB Statement No. 3\u201d, directs that deposits be disclosed as exposed to\ncustodial credit risk if they are not covered by depository insurance and the deposits are\neither uncollateralized, collateralized by securities held by the pledging financial institution or\ncollateralized by securities held by the pledging financial institution\u2019s trust department but\nnot in the Town\u2019s name. The Town\u2019s aggregate bank balances that were not covered by\ndepository insurance were not exposed to custodial risk at December 31, 2020.\n4. Disbursements to Town of Riverhead\nChapter 465, Laws of 1998 permits the Justice Court to transmit monthly collections directly to\nthe Town without first sending them to the Office of the New York State Comptroller for\ndistribution. The Town will then remit any amounts owed to New York State.",
+      "money_values": [],
+      "line_count": 19,
+      "confidence": "medium"
+    }
+  ],
+  "parsed_at": "2026-07-20T01:39:19.379309+00:00"
+}

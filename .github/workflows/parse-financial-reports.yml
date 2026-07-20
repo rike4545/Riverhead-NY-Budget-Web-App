@@ -35,6 +35,9 @@ jobs:
       - name: Parse financial reports
         run: python etl/parse_financial_reports.py
 
+      - name: Parse Peconic Bay CPF financial statements
+        run: python etl/parse_cpf.py
+
       - name: Parse account-level sub-account detail
         run: python etl/parse_subaccounts.py
 

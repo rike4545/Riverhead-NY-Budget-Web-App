@@ -23,10 +23,10 @@ export const analyticsModules: AnalyticsModule[] = [
   },
   {
     name: 'Town Board Voting Records',
-    status: 'partial',
+    status: 'active',
     description: 'Every recorded Town Board vote since January 2025 — 39 meetings and 1,672 resolutions with results, movers, seconders, and how each member voted — plus per-member career records listing every dissent and abstention.',
-    sourceBasis: 'Official meeting minutes from the Town’s CivicClerk portal, fetched and parsed by a script a maintainer runs periodically — new meetings are not pulled in automatically as they are published.',
-    nextStep: 'Extend backfill to pre-2025 meetings, tag budget-related resolutions, and get minutes ingestion running unattended.',
+    sourceBasis: 'Official meeting minutes, fetched automatically every week from the Town’s CivicClerk portal and parsed into structured votes.',
+    nextStep: 'Extend backfill to pre-2025 meetings and tag budget-related resolutions.',
   },
   {
     name: 'Payroll and Overtime Intelligence',
@@ -92,11 +92,11 @@ export const analyticsModules: AnalyticsModule[] = [
     nextStep: 'Add page-level source citations with extraction confidence to each explanation.',
   },
   {
-    name: 'Data Pipeline',
-    status: 'partial',
-    description: 'Re-parsing already-known financial-report PDFs, rebuilding search and CSV downloads, and redeploying the site run automatically on every update. Pulling in newly posted meeting minutes and folding in newly published fiscal statements (AFRs, budgets, audits) still take a maintainer manually running the fetch/parse scripts and reviewing the output.',
-    sourceBasis: 'GitHub Actions running the open-source ETL against Town document sources for the automatic steps; manual script runs for new-document discovery and vote ingestion.',
-    nextStep: 'Auto-discover newly posted budget, AFR, and meeting-minute documents so the whole pipeline runs unattended.',
+    name: 'Automated Data Pipeline',
+    status: 'active',
+    description: 'A weekly run fetches new meeting minutes from the Town’s CivicClerk portal and re-scrapes the Town’s Financial Reports page for new PDFs, parses everything with a dedicated parser per document type (budget, AFR, payroll, salary schedule, meeting votes), rebuilds search and CSV downloads, verifies the build, commits changes, and redeploys the site.',
+    sourceBasis: 'GitHub Actions running the open-source ETL against Town document sources, on a weekly schedule.',
+    nextStep: 'When the Town starts publishing a genuinely new document type, a maintainer still has to write that type’s structured parser once before its numbers show up on the site.',
   },
   {
     name: 'Open Data Downloads',
