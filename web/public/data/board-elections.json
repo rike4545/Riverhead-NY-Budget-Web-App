@@ -1,0 +1,46 @@
+{
+ "title": "How the current Town Board was elected",
+ "asOf": "2026",
+ "intro": "How many actual votes put each current Riverhead Town Board member in office — and how that compares to the town's total population and its registered voters. A low share isn't an accusation; it's the normal reality of low-turnout local elections, and a useful reminder of how few votes decide who controls the Town's budget.",
+ "denominators": {
+  "population": 35902,
+  "populationSource": "U.S. Census Bureau, 2020 Census — Town of Riverhead population 35,902.",
+  "registeredVoters": 24217,
+  "registeredVotersSource": "Suffolk County Board of Elections, active registered voters in the Town of Riverhead as of the November 2025 election (~24,217)."
+ },
+ "note": "Vote counts are the winning candidate's own total, from the Suffolk County Board of Elections' final certified results (including the 2025 supervisor recount). The registered-voter denominator is the November 2025 figure; the 2023 winners are compared against it as an approximate reference, since the exact 2023 roll differed slightly. Percentages are the winner's votes divided by each denominator — not a turnout rate.",
+ "members": [
+  {
+   "name": "Jerome (Jerry) Halpin", "office": "Town Supervisor", "party": "D",
+   "electionLabel": "November 2025", "votes": 3958,
+   "result": "Defeated incumbent Tim Hubbard 3,958 to 3,921 — a 37-vote margin that held through a full manual recount."
+  },
+  {
+   "name": "Robert \"Bob\" Kern", "office": "Councilman", "party": "R",
+   "electionLabel": "November 2025", "votes": 3958,
+   "result": "Re-elected to a three-year term; his 3,958 votes were the highest total in any Riverhead race that year."
+  },
+  {
+   "name": "Kenneth Rothwell", "office": "Councilman", "party": "R",
+   "electionLabel": "November 2025", "votes": 3882,
+   "result": "Re-elected to a three-year term, defeating Democrat Mark Woolley 3,882 to 3,824 — a 58-vote margin."
+  },
+  {
+   "name": "Joann Waski", "office": "Councilwoman", "party": "R",
+   "electionLabel": "November 2023", "votes": 4875,
+   "result": "Won one of two open council seats with 4,875 votes (29.2%) in a four-way race."
+  },
+  {
+   "name": "Denise Merrifield", "office": "Councilwoman", "party": "R",
+   "electionLabel": "November 2023", "votes": 4992,
+   "result": "Top vote-getter for the two open council seats with 4,992 votes (29.9%) in a four-way race."
+  }
+ ],
+ "sources": [
+  "RiverheadLOCAL, “Halpin wins supervisor race by 37 votes: final results announced by Suffolk Board of Elections” (Nov. 25, 2025).",
+  "RiverheadLOCAL / Riverhead News-Review 2025 town council results (Kern, Rothwell vote totals).",
+  "RiverheadLOCAL, “Republicans sweep in Riverhead town races” (Nov. 7, 2023) — Waski and Merrifield council totals.",
+  "Suffolk County Board of Elections, Election Results (suffolkcountyny.gov/Departments/BOE/Election-Results).",
+  "U.S. Census Bureau, 2020 Census — Town of Riverhead."
+ ]
+}
