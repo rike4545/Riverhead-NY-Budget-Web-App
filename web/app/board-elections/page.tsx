@@ -33,9 +33,11 @@ export default function BoardElectionsPage() {
       </section>
 
       <PlainCallout title="How to read this">
-        The percentages below are each winner's own vote total divided by the town population, and by the registered-voter
-        roll. They are <strong>not</strong> turnout rates — they're a plain way to see how small a slice of the whole town
-        actually chose the people who now control its budget. Low shares are normal for off-year local elections.
+        Each card leads with the raw votes that won the seat, then measures them two ways: against the{' '}
+        <strong>registered voters</strong> (people who could have voted) and against the <strong>whole population</strong>{' '}
+        (which also counts kids and others who can&apos;t vote). Neither is a turnout rate — together they just show how
+        small a slice of the town actually chose the people who now control its budget. Low shares are normal for off-year
+        local elections.
       </PlainCallout>
 
       <div style={{ display: 'grid', gap: 12, marginTop: 4 }}>
@@ -49,10 +51,23 @@ export default function BoardElectionsPage() {
               <span style={{ color: '#64748b', fontSize: 13, fontWeight: 700 }}>{m.electionLabel}</span>
             </div>
 
-            <div style={{ display: 'flex', flexWrap: 'wrap', gap: 20, margin: '12px 0' }}>
-              <Figure label="Votes to win" value={m.votes.toLocaleString()} big />
-              <Figure label="of town population" value={pct(m.votes, population)} />
-              <Figure label="of registered voters" value={pct(m.votes, registeredVoters)} />
+            <div style={{ margin: '12px 0' }}>
+              <div style={{ display: 'flex', alignItems: 'baseline', gap: 8, flexWrap: 'wrap' }}>
+                <span style={{ fontSize: 30, fontWeight: 900, color: '#284a69' }}>{m.votes.toLocaleString()}</span>
+                <span style={{ color: '#64748b', fontWeight: 700 }}>votes won the seat</span>
+              </div>
+              <p style={{ color: '#334155', fontSize: 14.5, lineHeight: 1.5, margin: '6px 0 10px' }}>
+                That&apos;s <strong style={{ color: '#4a7297' }}>{pct(m.votes, registeredVoters)}</strong> of the town&apos;s{' '}
+                {registeredVoters.toLocaleString()} registered voters — and <strong>{pct(m.votes, population)}</strong> of
+                its {population.toLocaleString()} residents.
+              </p>
+              {/* Bar: votes as a share of registered voters (the meaningful yardstick). */}
+              <div style={{ background: '#e2e8f0', borderRadius: 999, height: 10, overflow: 'hidden' }}>
+                <div style={{ width: `${(m.votes / registeredVoters) * 100}%`, height: '100%', background: '#4a7297', borderRadius: 999 }} />
+              </div>
+              <div style={{ color: '#6b7280', fontSize: 11.5, marginTop: 3, fontWeight: 700 }}>
+                share of registered voters
+              </div>
             </div>
 
             <p style={{ color: '#334155', fontSize: 14, lineHeight: 1.55, margin: 0 }}>{m.result}</p>
@@ -77,11 +92,3 @@ function Stat({ label, value, accent }: { label: string; value: string; accent?:
   )
 }
 
-function Figure({ label, value, big }: { label: string; value: string; big?: boolean }) {
-  return (
-    <div>
-      <div style={{ fontSize: big ? 26 : 22, fontWeight: 900, color: big ? '#284a69' : '#4a7297' }}>{value}</div>
-      <div style={{ color: '#64748b', fontSize: 12, fontWeight: 700 }}>{label}</div>
-    </div>
-  )
-}
