@@ -106,6 +106,7 @@ export default function UnifiedSearch() {
   const [aiState, setAiState] = useState<'idle' | 'thinking' | 'done' | 'error'>('idle')
   const [aiError, setAiError] = useState('')
   const aiAbort = useRef<AbortController | null>(null)
+  const skipFirstUrlWrite = useRef(true)
 
   // Load the search index once, caching the in-flight promise so ask-mode and
   // keyword-mode share a single fetch.
@@ -125,6 +126,32 @@ export default function UnifiedSearch() {
   useEffect(() => {
     try { setApiKey(localStorage.getItem(KEY_STORAGE) ?? '') } catch { /* ignore */ }
   }, [])
+
+  // Restore the query and mode from the URL on mount, so returning to this page
+  // after clicking a result (which navigates away) brings the search back —
+  // and so a search is shareable/bookmarkable.
+  useEffect(() => {
+    try {
+      const params = new URLSearchParams(window.location.search)
+      if (params.get('mode') === 'ask') setMode('ask')
+      const qp = params.get('q') ?? ''
+      if (qp) { setQ(qp); setDebounced(qp); ensureIndex() }
+    } catch { /* ignore */ }
+  }, [ensureIndex])
+
+  // Mirror the (debounced) query and mode into the URL without adding history
+  // entries. Skip the very first run so we don't clobber a restored ?q= before
+  // state settles.
+  useEffect(() => {
+    if (skipFirstUrlWrite.current) { skipFirstUrlWrite.current = false; return }
+    try {
+      const params = new URLSearchParams(window.location.search)
+      if (debounced) params.set('q', debounced); else params.delete('q')
+      if (mode === 'ask') params.set('mode', 'ask'); else params.delete('mode')
+      const qs = params.toString()
+      window.history.replaceState(null, '', qs ? `?${qs}` : window.location.pathname)
+    } catch { /* ignore */ }
+  }, [debounced, mode])
 
   useEffect(() => { if (mode === 'find' && q) ensureIndex() }, [q, mode, ensureIndex])
   // Debounce so we don't rescore 16k entries on every keystroke.
