@@ -181,18 +181,6 @@
    "excess": 51622.57
   },
   {
-   "account": "ES5-1-1994-492-000-00000",
-   "fund": "ES5",
-   "name": "Depr - Depreciation",
-   "control": "controllable",
-   "actual2024": 52092.24,
-   "budget2025": 100000.0,
-   "ytd2025": 0.0,
-   "tentative2026": 100000.0,
-   "flag": "over-budget",
-   "excess": 47907.76
-  },
-  {
    "account": "ES1-8-8130-403-000-00000",
    "fund": "ES1",
    "name": "Sewer Trmt - R&M - Equipment",
@@ -1040,7 +1028,7 @@
    "account": "EW1-9-9010-810-NON-00000",
    "fund": "EW1",
    "name": "Pension Expense - NPL",
-   "control": "controllable",
+   "control": "mandated",
    "actual2024": 94108.0,
    "budget2025": 0.0,
    "ytd2025": 0.0,
@@ -1076,7 +1064,7 @@
    "account": "ES1-9-9010-810-NON-00000",
    "fund": "ES1",
    "name": "Pension Expense - NPL",
-   "control": "controllable",
+   "control": "mandated",
    "actual2024": 56194.5,
    "budget2025": 0.0,
    "ytd2025": 0.0,
@@ -1277,6 +1265,6 @@
    "excess": 10000.0
   }
  ],
- "recoverablePoolControllable": 2406842.33,
+ "recoverablePoolControllable": 2358934.57,
  "note": "Over-budget = 2026 Tentative above the trailing full-year run-rate (max of 2024 Actual and annualized 2025 YTD), restricted to controllable non-personnel lines. Mandated costs (pension, workers comp, insurance, debt service, payroll taxes) and revenue lines are excluded \u2014 their variance is obligation or timing, not waste."
 }

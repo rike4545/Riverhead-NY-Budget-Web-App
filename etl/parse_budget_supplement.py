@@ -61,6 +61,8 @@ MANDATED = [
     # Insurance/liability claim payouts are actuarial obligations, not spending
     # the Board can simply cut like a supply line.
     "claim payments", "gen liab", "judgments", "settlements",
+    # Non-cash accounting entries — no appropriation to cut.
+    "depreciation", "depr -", "amortization", "npl", "opeb", "gasb",
 ]
 PERSONNEL = ["personal services", "pers svcs", "personal svc", "pers serv",
              "longevity", "buy back", "buy-back", "overtime", "pers svc"]
@@ -243,6 +245,64 @@ def build():
         }
 
     ob = over_budget_outliers()
+
+    # Itemized 2027 reduction candidates: every controllable line budgeted above
+    # its trailing run-rate becomes a "trim toward run-rate" target. Each is
+    # tagged by how firm the trim is, since fuel/energy is price-volatile and
+    # capital/equipment fluctuates year to year — the total is honest about that
+    # rather than hiding it behind a blanket haircut.
+    FUND_NAMES = {
+        "A01": "General Fund", "DA1": "Highway", "DB1": "Highway",
+        "EW1": "Water", "EW2": "Water", "ES1": "Sewer", "ES3": "Sewer",
+        "ES5": "Scavenger Waste", "SL1": "Street Lighting", "CM4": "Ambulance",
+        "CM2": "Ambulance", "CM1": "Ambulance", "SR1": "Refuse", "SM1": "Sewer",
+        "Z14": "Economic Development", "V01": "Debt Service", "ST1": "Street",
+    }
+    VOLATILE = ("fuel", "gasoline", "diesel", "utl -", "utility", "electric",
+                "natural gas", "heating", " water")
+    CAPITAL = ("improvement", "equipment", "purchase of land", "vehicle",
+               "machinery", "mach -", "resurfac", "paving", "r&m", "construction")
+
+    def confidence(name: str) -> str:
+        n = name.lower()
+        if any(k in n for k in VOLATILE):
+            return "volatile"      # price-driven; trim is real but not guaranteed
+        if any(k in n for k in CAPITAL):
+            return "moderate"      # capital/maintenance; fluctuates year to year
+        return "firm"              # operating/professional services over-budgeted
+
+    reductions = []
+    for x in ob:
+        reductions.append({
+            "account": x["account"],
+            "name": x["name"],
+            "fund": x["fund"],
+            "fundName": FUND_NAMES.get(x["fund"], x["fund"]),
+            "actual2024": x["actual2024"],
+            "ytd2025": x["ytd2025"],
+            "tentative2026": x["tentative2026"],
+            "target": x["excess"],          # trim back to the trailing run-rate
+            "confidence": confidence(x["name"]),
+        })
+    conf_total = {c: round(sum(r["target"] for r in reductions if r["confidence"] == c), 2)
+                  for c in ("firm", "moderate", "volatile")}
+    (OUT / "reductions.json").write_text(json.dumps({
+        "gapToClose": 936_727.00,
+        "gapSource": "Modeled 2027 automatic payroll pressure (PBA+SOA+CSEA+non-contract at default COLA)",
+        "total": round(sum(r["target"] for r in reductions), 2),
+        "byConfidence": conf_total,
+        "items": reductions,
+        "method": (
+            "Each controllable, non-mandated expenditure line whose 2026 Tentative "
+            "sits >30% above its trailing full-year run-rate (max of 2024 Actual "
+            "and annualized 2025 YTD). 'target' trims the line back to that "
+            "run-rate. Confidence: firm = operating/professional services; "
+            "moderate = capital/maintenance that fluctuates; volatile = "
+            "price-driven fuel/energy/utilities. Mandated costs (pension, workers "
+            "comp, insurance, debt, claims) and revenue are excluded."
+        ),
+    }, indent=1))
+
     outliers = {
         "overBudget": ob,
         "chronicOverrun": chronic_overrun(),

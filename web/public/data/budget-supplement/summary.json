@@ -5,16 +5,16 @@
  "tentative2026Expenditures": 118614214.0,
  "byControl": {
   "mandated": {
-   "lineCount": 286,
-   "tentative2026": 45105162.0
+   "lineCount": 302,
+   "tentative2026": 49850162.0
   },
   "personnel": {
    "lineCount": 323,
    "tentative2026": 39725364.0
   },
   "controllable": {
-   "lineCount": 1124,
-   "tentative2026": 33783688.0
+   "lineCount": 1108,
+   "tentative2026": 29038688.0
   }
  },
  "sources": [
