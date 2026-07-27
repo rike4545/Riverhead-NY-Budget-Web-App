@@ -4,7 +4,7 @@ name,grade,title,department,group,annual_salary,is_stipend
 "Devereaux, Jonathan",,Lieutenant,Police Officers,Police,201531.81,False
 "Isgro, Dino",,Lieutenant,Police Officers,Police,201531.81,False
 "Mcdermott, Patrick",,Detective Sergeant,Police Officers,Police,192311.78,False
-"Mancini, Frank",,Water District Superintendant Type I B,Water District,Water District,189563.24,False
+"Mancini, Frank",,Water District Superintendent Type I B,Water District,Water District,189563.24,False
 "Cichanowicz, Charles",,Sergeant,Police Officers,Police,187647.21,False
 "Conyers, Karli",,Sergeant,Police Officers,Police,187647.21,False
 "Montalbano, Anthony",,Sergeant,Police Officers,Police,187647.21,False
@@ -69,7 +69,7 @@ name,grade,title,department,group,annual_salary,is_stipend
 "Walther, Daniel",,Police Officer,Police Officers,Police,152900.66,False
 "Wilson, Timothy",,Police Officer,Police Officers,Police,152900.66,False
 "Hurley, Danielle",,Deputy Town Attorney,Town Attorney,General Fund,141082.7,False
-"Coyne, Raymond",,Superintendant of Recreation I,Recreation,General Fund,137948.05,False
+"Coyne, Raymond",,Superintendent of Recreation I,Recreation,General Fund,137948.05,False
 "Ady, Stephan",,Police Officer,Police Officers,Police,136733.86,False
 "Chiaramonte, Anthony",,Police Officer,Police Officers,Police,136733.86,False
 "Clarkin, Christian",,Police Officer,Police Officers,Police,136733.86,False

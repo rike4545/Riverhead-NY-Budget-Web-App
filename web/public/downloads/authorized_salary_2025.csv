@@ -110,7 +110,7 @@ name,grade,title,department,group,annual_salary,is_stipend
 "Sinclair, Tara",1/4,Public Safety Dispatcher I,Police Civilian,General Fund,55589.63,False
 "Baldinucci, Teresa",,Senior Purchasing Agent,Police Civilian,General Fund,95013.0,False
 "Gregorovius, Eva",4/4,Purchasing Technician,Police Civilian,General Fund,62057.57,False
-"Coyne, Raymond",,Superintendant of Recreation I,Recreation,General Fund,133573.52,False
+"Coyne, Raymond",,Superintendent of Recreation I,Recreation,General Fund,133573.52,False
 "Coyne, Raymond",,Stipend,Recreation,General Fund,8000.0,True
 "Rebecca, Adams-Korn",4/5,Cultural Affairs Supervisor,Recreation,General Fund,63938.2,False
 "Eastwood, Colleen",4/18,Recreation Supervisor,Recreation,General Fund,88386.35,False
@@ -325,7 +325,7 @@ name,grade,title,department,group,annual_salary,is_stipend
 "Pressgrove, Andrew",7/P,Maintenance Mechanic II,Gf/Stlt,Street Lighting,54165.26,False
 "Smith, James",8/16A,Maintenance Mechanic III,Gf/Stlt,Street Lighting,74661.61,False
 "Smith, James",,License Stipend,Gf/Stlt,Street Lighting,3000.0,False
-"Mancini, Frank",,Water District Superintendant Type I B,Water District,Water District,183685.31,False
+"Mancini, Frank",,Water District Superintendent Type I B,Water District,Water District,183685.31,False
 "Flynn, John",,Asst Water Dist Superintendent Type I B,Water District,Water District,151671.75,False
 "Albee, Keith",15/4,Water Treatment Plant Operator Type II B,Water District,Water District,63583.67,False
 "Balzarano, Jesse",7/4A,Maintenance Mechanic II,Water District,Water District,56297.88,False
