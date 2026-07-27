@@ -73,6 +73,31 @@ export const cpfMechanics = {
   acresProtected: 2280,
 }
 
+// ADOPTED — the Town Board voted unanimously on July 7, 2026 (Resolution
+// 2026-642, "Budget Adjustment to Pay Down 2018 Series B Bond Refunding") to
+// retire the remaining CPF land-preservation debt about five years early. The
+// vote is in the app's own meeting record; the dollar figures are from
+// RiverheadLOCAL's reporting, attributed as such.
+export const cpfDebtPayoffProposal = {
+  status: 'adopted' as const,
+  adoptedDate: 'July 7, 2026',
+  resolutionNumber: '2026-642',
+  resolutionVote: 'unanimous',
+  cpfFundBalanceUsed: 7_200_000,
+  generalFundShare: 92_000,
+  yearsEarly: 5,
+  originalFinalMaturityYear: 2030,
+  interestSaved: 660_000,
+  fundBalanceEnd2025: 30_100_000,
+  projectedFundBalanceAfter: 20_100_000,
+  projectedAfterReserves: 19_700_000,
+  voteUrl: '/meetings/',
+  source: {
+    title: 'RiverheadLOCAL — "Riverhead looks to pay off remaining land-preservation debt five years early" (July 1, 2026)',
+    url: 'https://riverheadlocal.com/2026/07/01/riverhead-looks-to-pay-off-remaining-land-preservation-debt-five-years-early/',
+  },
+}
+
 export const revenueSwing = {
   lowYear: lowYearEntry.year,
   lowAmount: lowYearEntry.transferTaxRevenue,

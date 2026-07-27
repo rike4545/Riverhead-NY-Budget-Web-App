@@ -1,7 +1,8 @@
 import PageShell from '../../components/PageShell'
 import PlainCallout from '../../components/PlainCallout'
-import { cpfDebt, cpfHistory, cpfMechanics, cpfTotalRevenue, revenueSwing } from '../../lib/cpf'
+import { cpfDebt, cpfDebtPayoffProposal, cpfHistory, cpfMechanics, cpfTotalRevenue, revenueSwing } from '../../lib/cpf'
 
+const base = process.env.NEXT_PUBLIC_BASE_PATH || ''
 const card = { background: 'white', border: '1px solid #e2e8f0', borderRadius: 16, padding: 20, boxShadow: '0 14px 34px rgba(15,23,42,.05)' } as const
 const usd = (n: number) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(n)
 const pct = (v: number, digits = 1) => `${(v * 100).toFixed(digits)}%`
@@ -120,6 +121,38 @@ export default function CommunityPreservationFundPage() {
           </div>
         </section>
       )}
+
+      <section style={{ ...card, marginBottom: 16, background: '#f0fdf4', border: '1px solid #86efac', borderLeft: '8px solid #15803d' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 10, flexWrap: 'wrap' }}>
+          <h3 style={{ margin: 0, color: '#14532d' }}>Adopted: paying off the remaining preservation debt 5 years early</h3>
+          <span style={{ background: '#15803d', color: 'white', fontWeight: 800, fontSize: 11, padding: '3px 10px', borderRadius: 999, textTransform: 'uppercase', letterSpacing: 0.4 }}>Adopted {cpfDebtPayoffProposal.adoptedDate}</span>
+        </div>
+        <p style={{ color: '#14532d', fontSize: 14.5, lineHeight: 1.65 }}>
+          On {cpfDebtPayoffProposal.adoptedDate} the Town Board voted{' '}
+          <strong>{cpfDebtPayoffProposal.resolutionVote}ly</strong> (Resolution{' '}
+          <a href={`${base}${cpfDebtPayoffProposal.voteUrl}`} style={{ color: '#166534', fontWeight: 800 }}>{cpfDebtPayoffProposal.resolutionNumber}</a>) to use{' '}
+          <strong>{usd(cpfDebtPayoffProposal.cpfFundBalanceUsed)}</strong> of CPF fund balance (plus about{' '}
+          <strong>{usd(cpfDebtPayoffProposal.generalFundShare)}</strong> from the general fund) to retire the
+          remaining land-preservation debt — the borrowing that otherwise ran annually through{' '}
+          {cpfDebtPayoffProposal.originalFinalMaturityYear} — about {cpfDebtPayoffProposal.yearsEarly} years early,
+          saving an estimated <strong>{usd(cpfDebtPayoffProposal.interestSaved)}</strong> in future interest.
+        </p>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(160px,1fr))', gap: 12, margin: '4px 0 12px' }}>
+          <div><div style={{ color: '#166534', fontSize: 12, fontWeight: 800, textTransform: 'uppercase' }}>CPF balance, end 2025</div><strong style={{ fontSize: 20, color: '#14532d' }}>{usd(cpfDebtPayoffProposal.fundBalanceEnd2025)}</strong></div>
+          <div><div style={{ color: '#166534', fontSize: 12, fontWeight: 800, textTransform: 'uppercase' }}>Balance after paydown</div><strong style={{ fontSize: 20, color: '#14532d' }}>~{usd(cpfDebtPayoffProposal.projectedFundBalanceAfter)}</strong></div>
+          <div><div style={{ color: '#166534', fontSize: 12, fontWeight: 800, textTransform: 'uppercase' }}>Interest saved</div><strong style={{ fontSize: 20, color: '#14532d' }}>~{usd(cpfDebtPayoffProposal.interestSaved)}</strong></div>
+        </div>
+        <p style={{ color: '#14532d', fontSize: 13, lineHeight: 1.6, marginBottom: 0 }}>
+          The vote (a budget adjustment to pay down the 2018 Series B refunding bonds) draws the CPF balance down to
+          roughly {usd(cpfDebtPayoffProposal.projectedAfterReserves)} after reserves — a one-time cash use in exchange
+          for lower long-run debt service. Sources: the Town Board&apos;s own{' '}
+          <a href={`${base}${cpfDebtPayoffProposal.voteUrl}`} style={{ color: '#166534', fontWeight: 800 }}>July 7 vote record</a>{' '}
+          (Resolution {cpfDebtPayoffProposal.resolutionNumber}, {cpfDebtPayoffProposal.resolutionVote}) and{' '}
+          <a href={cpfDebtPayoffProposal.source.url} target="_blank" rel="noreferrer" style={{ color: '#166534', fontWeight: 800 }}>
+            {cpfDebtPayoffProposal.source.title}
+          </a>.
+        </p>
+      </section>
 
       <section style={{ ...card, marginBottom: 16, borderLeft: '8px solid #4a7297' }}>
         <h3 style={{ marginTop: 0, color: '#284a69' }}>Is the current rate still enough?</h3>
