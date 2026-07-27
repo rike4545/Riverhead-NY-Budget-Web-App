@@ -4,8 +4,10 @@ import { useMemo, useState } from 'react'
 import {
   personnelPolicyItems,
   operationalItems,
+  supplementTrimItems,
   personnelPolicyTotal,
   operationalTotal,
+  supplementTrimTotal,
   fullRecurringReductionPackage,
   modeledAutomaticPayrollPressure,
   type SpendingReductionItem,
@@ -14,7 +16,13 @@ import {
 const usd = (n: number) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(n)
 const card = { background: 'white', border: '1px solid #e2e8f0', borderRadius: 16, padding: 20, boxShadow: '0 14px 34px rgba(15,23,42,.05)' } as const
 
-const allItems = [...personnelPolicyItems, ...operationalItems]
+const CONFIDENCE_STYLE: Record<string, { label: string; color: string; bg: string }> = {
+  firm: { label: 'FIRM', color: '#1f7a5c', bg: '#d1fae5' },
+  moderate: { label: 'MODERATE', color: '#b45309', bg: '#fef3c7' },
+  volatile: { label: 'VOLATILE', color: '#b91c1c', bg: '#fee2e2' },
+}
+
+const allItems = [...personnelPolicyItems, ...operationalItems, ...supplementTrimItems]
 
 export default function SpendingReductionToggleList() {
   const [deselected, setDeselected] = useState<Set<string>>(new Set())
@@ -35,11 +43,13 @@ export default function SpendingReductionToggleList() {
 
   const personnelSelected = useMemo(() => selectedTotal(personnelPolicyItems), [deselected])
   const operationalSelected = useMemo(() => selectedTotal(operationalItems), [deselected])
-  const grandSelected = personnelSelected + operationalSelected
+  const supplementSelected = useMemo(() => selectedTotal(supplementTrimItems), [deselected])
+  const grandSelected = personnelSelected + operationalSelected + supplementSelected
 
-  const coverage = modeledAutomaticPayrollPressure > 0
-    ? Math.min(grandSelected / modeledAutomaticPayrollPressure, 1)
-    : 0
+  // Uncapped ratio — with the supplement trims this now exceeds 100%, which is
+  // the headline: verified trims cover the gap several times over.
+  const rawCoverage = modeledAutomaticPayrollPressure > 0 ? grandSelected / modeledAutomaticPayrollPressure : 0
+  const coverage = Math.min(rawCoverage, 1)
 
   return (
     <div style={{ display: 'grid', gap: 16 }}>
@@ -66,12 +76,14 @@ export default function SpendingReductionToggleList() {
           />
         </div>
         <div style={{ color: '#64748b', fontSize: 12.5, marginBottom: 14 }}>
-          {(coverage * 100).toFixed(0)}% of the {usd(modeledAutomaticPayrollPressure)} modeled 2027 payroll-pressure gap
+          {(rawCoverage * 100).toFixed(0)}% of the {usd(modeledAutomaticPayrollPressure)} modeled 2027 payroll-pressure gap
+          {rawCoverage >= 1 ? ' — fully covered' : ''}
         </div>
 
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(180px,1fr))', gap: 10, marginBottom: 14 }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(160px,1fr))', gap: 10, marginBottom: 14 }}>
           <MetricTile label="Personnel & policy" value={personnelSelected} color="#284a69" />
-          <MetricTile label="Operational growth control" value={operationalSelected} color="#b45309" />
+          <MetricTile label="Operational control" value={operationalSelected} color="#b45309" />
+          <MetricTile label="Line-item trims" value={supplementSelected} color="#1f5f8f" />
         </div>
 
         <div style={{ display: 'flex', gap: 8 }}>
@@ -120,6 +132,18 @@ export default function SpendingReductionToggleList() {
         onToggle={toggle}
         footer="Real account-level growth from the 2026 Budget Supplement, flagged for Board scrutiny before being carried forward as a permanent baseline."
       />
+
+      {supplementTrimItems.length > 0 && (
+        <ItemSection
+          title="Line-Item Trims · 2026 Supplement"
+          selectedAmount={supplementSelected}
+          fullAmount={supplementTrimTotal}
+          items={supplementTrimItems}
+          isSelected={isSelected}
+          onToggle={toggle}
+          footer="Every controllable, non-mandated line the 2026 Supplement budgets more than 30% above its trailing actuals — trimmed back to that run-rate. Tagged FIRM (operating / professional services), MODERATE (capital / maintenance that fluctuates), or VOLATILE (price-driven fuel and energy). Mandated costs — pension, workers' comp, insurance, debt service — are excluded, since their growth is obligation, not waste."
+        />
+      )}
     </div>
   )
 }
@@ -191,6 +215,12 @@ function ItemSection({
                     {selected && <span style={{ color: 'white', fontSize: 11, lineHeight: 1 }}>✓</span>}
                   </span>
                   {item.title}
+                  {item.confidence && CONFIDENCE_STYLE[item.confidence] && (
+                    <span style={{
+                      background: CONFIDENCE_STYLE[item.confidence].bg, color: CONFIDENCE_STYLE[item.confidence].color,
+                      fontWeight: 800, fontSize: 10, letterSpacing: 0.3, padding: '2px 7px', borderRadius: 999, whiteSpace: 'nowrap',
+                    }}>{CONFIDENCE_STYLE[item.confidence].label}</span>
+                  )}
                 </span>
                 <span style={{ fontWeight: 800, color: selected ? '#1f7a5c' : '#6b7280', fontSize: 14.5, whiteSpace: 'nowrap' }}>
                   {usd(item.amount)}
