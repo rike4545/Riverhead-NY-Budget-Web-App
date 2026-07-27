@@ -21,7 +21,13 @@ Output: web/public/data/meetings/index.json + <slug>.json
 import json
 import re
 from collections import Counter, OrderedDict
+from datetime import date, timedelta
 from pathlib import Path
+
+# Only surface a vote-less meeting from its docket if it's recent enough that the
+# Clerk's vote-bearing revision is plausibly still pending. Older vote-less
+# meetings are genuinely vote-less (or unparseable) and would just add noise.
+PRELIMINARY_MAX_AGE_DAYS = 60
 
 ROOT = Path(__file__).resolve().parent.parent
 SRC_DIR = ROOT / "etl/data/meetings"
@@ -265,6 +271,36 @@ def parse_meeting(path):
     }
 
 
+# Preliminary minutes (posted right after a meeting) list the resolution docket
+# but no roll-call votes; the Town Clerk posts the vote-bearing revision a few
+# days later. We still surface the meeting from its docket so residents see it
+# happened, then the weekly re-ingest upgrades it to a full vote record.
+DOCKET_HEADER = re.compile(r"^\s*[IVXL]+\.\s+Resolutions\s*$")
+DOCKET_SECTION_END = re.compile(r"^\s*[IVXL]+\.\s+\S")
+DOCKET_ITEM = re.compile(r"^\s*(\d+)\.\s*(20\d{2}-\d{3,4})\s*(.*\S)?\s*$")
+
+
+def extract_docket(raw):
+    lines = raw.splitlines()
+    start = next((i + 1 for i, ln in enumerate(lines) if DOCKET_HEADER.match(ln)), None)
+    if start is None:
+        return []
+    items, cur = [], None
+    for ln in lines[start:]:
+        if DOCKET_SECTION_END.match(ln):
+            break
+        m = DOCKET_ITEM.match(ln)
+        if m:
+            if cur:
+                items.append(cur)
+            cur = {"seq": int(m.group(1)), "number": m.group(2), "title": (m.group(3) or "").strip()}
+        elif cur and ln.strip():
+            cur["title"] = (cur["title"] + " " + ln.strip()).strip()
+    if cur:
+        items.append(cur)
+    return items
+
+
 def build():
     OUT.mkdir(parents=True, exist_ok=True)
     index = []
@@ -274,7 +310,28 @@ def build():
         meeting["slug"] = slug
         res = meeting["resolutions"]
         if not res:
-            print(f"{slug}: no recorded votes — skipped ({meeting['type']})")
+            try:
+                recent = date.fromisoformat(slug) >= date.today() - timedelta(days=PRELIMINARY_MAX_AGE_DAYS)
+            except ValueError:
+                recent = False
+            docket = extract_docket(path.read_text(encoding="utf-8", errors="ignore")) if recent else []
+            if docket:
+                meeting_out = {
+                    "slug": slug, "date": meeting["date"], "type": meeting["type"],
+                    "calledToOrder": meeting.get("calledToOrder"),
+                    "roster": meeting["roster"], "resolutions": [],
+                    "preliminary": True, "docket": docket,
+                    "stats": {"total": 0, "unanimous": 0, "contested": 0, "failed": 0, "tabled": 0},
+                }
+                (OUT / f"{slug}.json").write_text(json.dumps(meeting_out, indent=1))
+                index.append({
+                    "slug": slug, "date": meeting["date"], "type": meeting["type"],
+                    "total": 0, "unanimous": 0, "contested": 0, "failed": 0, "tabled": 0,
+                    "preliminary": True, "docketCount": len(docket),
+                })
+                print(f"{meeting['date']:<22} preliminary — {len(docket)} resolutions on docket, votes not yet posted")
+                continue
+            print(f"{slug}: no recorded votes and no docket — skipped ({meeting['type']})")
             continue
 
         unanimous = sum(1 for r in res if r["tag"] == "unanimous")
@@ -303,7 +360,7 @@ def build():
         flags = "; ".join(f"#{r['seq']} {r['result']}" for r in res if r["tag"] != "unanimous")
         print(f"{meeting['date']:<22} {len(res):>3} votes | {contested} contested | {failed} failed | {tabled} tabled {('| ' + flags[:80]) if flags else ''}")
 
-    build_member_records(index)
+    build_member_records([e for e in index if not e.get("preliminary")])
 
     index.sort(key=lambda m: m["slug"], reverse=True)
     totals = {

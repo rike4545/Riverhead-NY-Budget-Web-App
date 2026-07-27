@@ -39,7 +39,7 @@ export default function MeetingVotes() {
     })
   }, [meeting, filter, query])
 
-  const shortName = (last: string) => meeting?.memberTallies[last]?.name.split(' ').slice(-1)[0] ?? last
+  const shortName = (last: string) => meeting?.memberTallies?.[last]?.name.split(' ').slice(-1)[0] ?? last
   const rosterOrder = meeting?.roster.map((r) => r.last) ?? []
 
   if (view === 'members') {
@@ -62,7 +62,9 @@ export default function MeetingVotes() {
           style={{ padding: '10px 12px', border: '1px solid #cbd5e1', borderRadius: 9, fontSize: 15, fontWeight: 700, maxWidth: '100%' }}>
           {meetings.map((m) => (
             <option key={m.slug} value={m.slug}>
-              {m.date} — {m.type} ({m.total} votes{m.contested ? `, ${m.contested} contested` : ''})
+              {m.date} — {m.type} {m.preliminary
+                ? `(preliminary — ${m.docketCount ?? 0} resolutions, votes pending)`
+                : `(${m.total} votes${m.contested ? `, ${m.contested} contested` : ''})`}
             </option>
           ))}
         </select>
@@ -74,7 +76,9 @@ export default function MeetingVotes() {
       {!meeting && !error && <LoadingCard label="Loading the meeting record…" />}
       {error && <LoadingCard label="Could not load this meeting — check your connection and reload." />}
 
-      {meeting && (
+      {meeting && meeting.preliminary && <PreliminaryPanel meeting={meeting} />}
+
+      {meeting && !meeting.preliminary && (
         <>
           {/* Meeting header stats */}
           <section style={card}>
@@ -112,7 +116,7 @@ export default function MeetingVotes() {
                 </thead>
                 <tbody>
                   {rosterOrder.map((last) => {
-                    const t = meeting.memberTallies[last]
+                    const t = meeting.memberTallies?.[last]
                     if (!t) return null
                     const party = meeting.roster.find((r) => r.last === last)?.party ?? null
                     return (
@@ -168,6 +172,47 @@ export default function MeetingVotes() {
         </>
       )}
     </div>
+  )
+}
+
+function PreliminaryPanel({ meeting }: { meeting: Meeting }) {
+  const docket = meeting.docket ?? []
+  return (
+    <>
+      <section style={card}>
+        <div style={{ color: '#2563eb', fontWeight: 900, fontSize: 12, textTransform: 'uppercase' }}>{meeting.type}</div>
+        <h2 style={{ margin: '4px 0' }}>{meeting.date}</h2>
+        <div style={{ color: '#64748b' }}>{meeting.calledToOrder ? `Called to order at ${meeting.calledToOrder}.` : ''}</div>
+      </section>
+
+      <section style={{ ...card, background: '#fff7ed', border: '1px solid #fdba74', borderLeft: '6px solid #c2410c' }}>
+        <div style={{ color: '#7c2d12', fontWeight: 900, fontSize: 15, marginBottom: 6 }}>
+          Vote results not posted yet
+        </div>
+        <p style={{ color: '#7c2d12', fontSize: 14, lineHeight: 1.6, margin: 0 }}>
+          The Town Clerk has published this meeting&apos;s preliminary minutes — the {docket.length} resolutions on
+          the docket are listed below — but the roll-call vote results are usually posted a few days later in a
+          revised set of minutes. This page will fill in each member&apos;s vote automatically once the Town posts them.
+        </p>
+      </section>
+
+      <section style={card}>
+        <h3 style={{ marginTop: 0 }}>Resolutions on the docket ({docket.length})</h3>
+        <div style={{ display: 'grid', gap: 8 }}>
+          {docket.map((d) => (
+            <div key={d.number + d.seq} style={{ background: '#f8fafc', border: '1px solid #e2e8f0', borderRadius: 10, padding: '10px 13px' }}>
+              <span style={{ color: '#2563eb', fontWeight: 900, fontSize: 12 }}>{d.number}</span>
+              <div style={{ fontWeight: 600, color: '#284a69', marginTop: 2, lineHeight: 1.4, fontSize: 14 }}>{d.title}</div>
+            </div>
+          ))}
+          {docket.length === 0 && <p style={{ color: '#64748b' }}>No resolutions were listed in the preliminary minutes.</p>}
+        </div>
+        <p style={{ color: '#64748b', fontSize: 13, lineHeight: 1.5, marginTop: 14 }}>
+          Source: {meetingsIndex.source.title} — {meeting.date} (preliminary minutes). Resolution numbers and titles are
+          the Town&apos;s own; vote outcomes are pending the revised minutes.
+        </p>
+      </section>
+    </>
   )
 }
 

@@ -43,6 +43,10 @@ export type MemberTally = {
 
 export type MeetingStats = { total: number; unanimous: number; contested: number; failed: number; tabled: number }
 
+// A resolution on the docket of a preliminary (just-held) meeting, before the
+// Clerk posts the vote-bearing revised minutes.
+export type DocketItem = { seq: number; number: string; title: string }
+
 export type Meeting = {
   slug: string
   date: string
@@ -51,7 +55,9 @@ export type Meeting = {
   roster: RosterMember[]
   resolutions: Resolution[]
   stats: MeetingStats
-  memberTallies: Record<string, MemberTally>
+  memberTallies?: Record<string, MemberTally>
+  preliminary?: boolean
+  docket?: DocketItem[]
 }
 
 export type MeetingIndexEntry = {
@@ -63,6 +69,8 @@ export type MeetingIndexEntry = {
   contested: number
   failed: number
   tabled: number
+  preliminary?: boolean
+  docketCount?: number
 }
 
 export type MeetingsIndex = {

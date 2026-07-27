@@ -76,8 +76,13 @@ def fetch():
                 pending += 1
             continue
         if dest.exists():
-            skipped += 1
-            continue
+            # Final minutes (with a vote summary) never change — keep the cache.
+            # But preliminary minutes (posted right after a meeting, no votes)
+            # are re-fetched every run so we pick up the Clerk's vote-bearing
+            # revision, usually posted two to three days later.
+            if re.search(r"RESULT\s*:", dest.read_text(encoding="utf-8", errors="ignore")):
+                skipped += 1
+                continue
         fid = minutes[0]["fileId"]
         url = f"{API}/Meetings/GetMeetingFileStream(fileId={fid},plainText=false)"
         pdf_bytes = http_get(url)
