@@ -9,7 +9,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const routes = [
     '', '/guide', '/payroll', '/funds', '/compare', '/general-fund',
     '/annual-report', '/meetings', '/buyout', '/search', '/downloads', '/gfoa',
-    '/analytics', '/sources', '/scenarios',
+    '/analytics', '/sources', '/scenarios', '/board-elections', '/election-law-case',
     ...allFundCodes().map((code) => `/funds/${code}`),
   ]
   const now = new Date()
