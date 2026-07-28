@@ -77,6 +77,26 @@ export const electionLawCase = {
     'Why was the decision to withdraw not discussed publicly by the Town Board before the dismissal was filed?',
   ],
 
+  // Can the Town withhold / claw back? The NY legal levers — general civic
+  // information, not legal advice, and not a determination that any amount is
+  // owed back.
+  recovery: {
+    intro:
+      "New York gives towns real tools to not pay a bill in full — but they run through the town's audit process and depend on the itemized invoices, which the Town has not released.",
+    levers: [
+      { title: 'Audit every claim before paying (Town Law §118–§119)', text: "A town may not pay any claim until it is audited. On audit the town board — or a claims auditor it appoints under General Municipal Law §5-a — may allow a claim in full, allow it in part, or reject it, paying only what is a lawful, documented, reasonable “proper town charge.” The board can even take sworn testimony on a claim's “justness and accuracy.”" },
+      { title: 'Reduce or withhold what hasn’t been paid yet', text: 'For any invoice still outstanding, the audit is where the Town would question or trim charges — for example hospitality or travel it considers unreasonable — before cutting a check.' },
+      { title: 'Recover money already paid (GML §51)', text: 'For amounts already out the door, recovery is harder: the routes are the retainer’s own terms, a negotiated credit from the firm, or a General Municipal Law §51 taxpayer action to recover an illegal municipal expenditure. Any of these would need the itemized invoices and the Town attorney’s involvement.' },
+    ],
+    bottomLine:
+      "So the direct answer: the town board's audit power (Town Law §118–§119, GML §5-a) is exactly the tool to review, reduce, or refuse charges that aren't a proper, reasonable town charge — most usefully on anything not yet paid. Clawing back the $207,958.79 already paid is possible but far harder, and none of it can be decided without the itemized invoices the Town has not released. This is general civic information, not legal advice.",
+    lawSources: [
+      { title: 'NY Town Law §119 — Audit of Claims and Issuance of Warrants (Justia)', url: 'https://law.justia.com/codes/new-york/twn/article-8/119/' },
+      { title: 'NY General Municipal Law §51 — taxpayer action for illegal acts (Justia)', url: 'https://law.justia.com/codes/new-york/gmu/article-4/51/' },
+      { title: 'NYS OSC — Claims Auditing guidance', url: 'https://www.osc.ny.gov/local-government/publications/claims-auditing-process/claims-auditing' },
+    ],
+  },
+
   // Benchmark context — NOT a disallowance or recovery figure.
   travelBenchmarkNote:
     "New York's OSC Travel Manual reimburses public employees for travel at federal GSA per-diem rates — in FY2025 that is about $110/night for lodging and $68/day for all meals (downstate high-cost areas run somewhat higher, but even the top New York meal tier is about $92 for a full day). Measured against that yardstick, a $332-per-person banquet is several times a full day's meal allowance, and a ~$467-per-room-night stay is well above the lodging cap. Two caveats: these were a private law firm's billed expenses, not public-employee travel, so the manual doesn't legally bind them; and this is a comparison of scale, not a legal determination that any amount must be returned. The mileage yardstick, for reference, is the IRS 2026 rate of 72.5¢ per mile.",

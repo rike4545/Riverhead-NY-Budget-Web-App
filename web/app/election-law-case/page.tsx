@@ -41,6 +41,30 @@ export default function ElectionLawCasePage() {
         </blockquote>
       </section>
 
+      {/* Can the Town claw it back? NY legal levers. */}
+      <section style={{ ...card, marginBottom: 16, borderLeft: '6px solid #4a7297' }}>
+        <h3 style={{ marginTop: 0, color: '#284a69' }}>Can the Town refuse or claw back any of it?</h3>
+        <p style={{ color: '#334155', fontSize: 14.5, lineHeight: 1.6, margin: '0 0 10px' }}>{c.recovery.intro}</p>
+        <div style={{ display: 'grid', gap: 10 }}>
+          {c.recovery.levers.map((l) => (
+            <div key={l.title} style={{ background: '#f8fafc', border: '1px solid #e2e8f0', borderRadius: 10, padding: '11px 14px' }}>
+              <div style={{ fontWeight: 800, color: '#284a69', fontSize: 14 }}>{l.title}</div>
+              <div style={{ color: '#334155', fontSize: 13.5, lineHeight: 1.55, marginTop: 3 }}>{l.text}</div>
+            </div>
+          ))}
+        </div>
+        <p style={{ color: '#334155', fontSize: 14, lineHeight: 1.6, margin: '12px 0 0', fontWeight: 600 }}>{c.recovery.bottomLine}</p>
+        <p style={{ color: '#6b7280', fontSize: 12, marginTop: 8, marginBottom: 0 }}>
+          Legal references:{' '}
+          {c.recovery.lawSources.map((s, i) => (
+            <span key={s.url}>
+              <a href={s.url} target="_blank" rel="noreferrer" style={{ color: '#4a7297', fontWeight: 700 }}>{s.title}</a>
+              {i < c.recovery.lawSources.length - 1 ? ' · ' : '.'}
+            </span>
+          ))}
+        </p>
+      </section>
+
       {/* Itemized travel / banquet charges. */}
       <section style={{ ...card, marginBottom: 16 }}>
         <h3 style={{ marginTop: 0, color: '#284a69' }}>Hotel and banquet charges billed to the case</h3>
