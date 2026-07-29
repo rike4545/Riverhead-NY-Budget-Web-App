@@ -60,15 +60,17 @@ export default function FiscalCommandCenter() {
         </span>
       </div>
 
-      <a href={`${base}/guide/`} style={{ display: 'block', textDecoration: 'none', marginTop: 18 }}>
-            <div style={{ background: '#eef6ff', border: '1px solid #bcd9f5', borderLeft: '6px solid #4a7297', borderRadius: 14, padding: '14px 18px', display: 'flex', gap: 12, alignItems: 'center', flexWrap: 'wrap' }}>
-              <span aria-hidden style={{ fontSize: 22 }}>👋</span>
-              <span style={{ color: '#1f3a52', fontSize: 15.5, lineHeight: 1.5 }}>
-                <strong style={{ color: '#284a69' }}>New to town budgets?</strong> Start with our plain-English guide — it explains
-                each tool and every budget word in everyday language. <strong style={{ color: '#4a7297' }}>Open the Start Here guide →</strong>
-              </span>
-            </div>
-          </a>
+          {/* Lead with the numbers — the striking figures orient a first-time
+              visitor before the tool cards. */}
+          <section style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(190px,1fr))', gap: 14, marginTop: 18 }}>
+            {automatedKpis.map((kpi) => (
+              <article key={kpi.label} style={{ ...shell, padding: 18 }}>
+                <div style={{ color: muted, textTransform: 'uppercase', fontSize: 11, fontWeight: 950 }}>{kpi.label}</div>
+                <div style={{ fontSize: 32, fontWeight: 950, marginTop: 8 }}>{kpi.value}</div>
+                <p style={{ color: muted, fontSize: 13, lineHeight: 1.4 }}>{kpi.explanation}</p>
+              </article>
+            ))}
+          </section>
 
           <section style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(260px,1fr))', gap: 14, marginTop: 18 }}>
             <FeatureCard
@@ -107,16 +109,6 @@ export default function FiscalCommandCenter() {
               title="Town Board Votes"
               body="How the Board voted, resolution by resolution — who moved, seconded, and how each member voted. Filter straight to the contested and failed votes."
             />
-          </section>
-
-          <section style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(190px,1fr))', gap: 14, marginTop: 18 }}>
-            {automatedKpis.map((kpi) => (
-              <article key={kpi.label} style={{ ...shell, padding: 18 }}>
-                <div style={{ color: muted, textTransform: 'uppercase', fontSize: 11, fontWeight: 950 }}>{kpi.label}</div>
-                <div style={{ fontSize: 32, fontWeight: 950, marginTop: 8 }}>{kpi.value}</div>
-                <p style={{ color: muted, fontSize: 13, lineHeight: 1.4 }}>{kpi.explanation}</p>
-              </article>
-            ))}
           </section>
 
           <section id="insights" style={{ ...shell, scrollMarginTop: 24, marginTop: 18, padding: 24 }}>
