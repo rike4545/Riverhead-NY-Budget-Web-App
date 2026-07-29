@@ -7,10 +7,10 @@ import { acrossTheBoard2027 as atb } from '../../lib/across-the-board-2027'
 
 const usd = (n: number) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(n)
 const card = { background: 'white', border: '1px solid #e2e8f0', borderRadius: 16, padding: 20, boxShadow: '0 14px 34px rgba(15,23,42,.05)' } as const
-const KIND: Record<string, { label: string; color: string; bg: string }> = {
-  budget: { label: 'Budget', color: '#1e40af', bg: '#dbeafe' },
-  supplement: { label: 'Supplement', color: '#166534', bg: '#dcfce7' },
-  afr: { label: 'Financial report', color: '#92400e', bg: '#fef3c7' },
+const KIND: Record<string, { color: string; bg: string }> = {
+  budget: { color: '#1e40af', bg: '#dbeafe' },
+  supplement: { color: '#166534', bg: '#dcfce7' },
+  afr: { color: '#92400e', bg: '#fef3c7' },
 }
 
 export const metadata = {
@@ -25,25 +25,49 @@ export default function SpendingReduction2027Page() {
       title="2027 Spending Reduction"
       subtitle="A real, sourced recurring spending-reduction package for the 2027 budget — not a wishlist. Toggle items to build your own package and watch it move against the modeled payroll-pressure gap."
     >
-      <PlainCallout title="Where this comes from">
-        This totals <strong>{usd(fullRecurringReductionPackage)}</strong> in real, individually-sourced
-        recurring savings and cost-recovery opportunities — not a wishlist, and not the whole 2027 gap.
-        The single largest driver of 2027 budget pressure, about $907.9K of modeled PBA/SOA/CSEA union
-        wage growth, is contractually locked and isn&apos;t included here, since it can&apos;t be cut
-        without a successor labor agreement. The modeled 2027 automatic payroll-pressure gap this package
-        is measured against — how much of that pressure it could offset — is{' '}
-        <strong>{usd(modeledAutomaticPayrollPressure)}</strong>.
+      {/* 1 — The gap, and how this closes it. */}
+      <PlainCallout title="The 2027 gap, and how this closes it">
+        The modeled 2027 automatic payroll-pressure gap — the recurring cost the Town has to cover just to stand
+        still — is <strong>{usd(modeledAutomaticPayrollPressure)}</strong>. The package below totals{' '}
+        <strong>{usd(fullRecurringReductionPackage)}</strong> in real, individually-sourced recurring savings and
+        cost-recovery, enough to cover that gap several times over. It deliberately excludes the single largest
+        driver of pressure — about $907.9K of contractually locked PBA/SOA/CSEA union wage growth — which can&apos;t be
+        cut without a successor labor agreement. Toggle any item to build your own package.
       </PlainCallout>
 
+      {/* 2 — The interactive package (centerpiece). */}
       <div style={{ marginTop: 16 }}>
         <SpendingReductionToggleList />
       </div>
 
+      {/* 3 — Inflation / buying-power lens. */}
+      <section style={{ ...card, marginTop: 16, borderLeft: '6px solid #c99a2e' }}>
+        <h2 style={{ margin: '0 0 6px', color: '#284a69', fontSize: 17 }}>In real terms: the cost of standing still</h2>
+        <p style={{ color: '#334155', fontSize: 14.5, lineHeight: 1.6, margin: 0 }}>
+          Most of that {usd(modeledAutomaticPayrollPressure)} gap isn&apos;t new programs — it&apos;s the automatic
+          cost-of-living growth built into payroll (the model uses a 2.5% COLA). Meanwhile New York&apos;s tax cap
+          limits the Town&apos;s levy growth to the <em>lesser</em> of 2% or inflation. So contracted costs are set to
+          rise about as fast as — or faster than — the revenue the Town is allowed to raise.
+        </p>
+        <p style={{ color: '#334155', fontSize: 14.5, lineHeight: 1.6, margin: '10px 0 0' }}>
+          That cuts both ways when reading a &ldquo;cut.&rdquo; Because prices keep rising, a line that merely holds
+          flat in dollars is already a real cut in what it buys — and a savings target set in today&apos;s dollars
+          buys a little less each year it slips. The honest way to read this package is in <strong>recurring, real
+          terms</strong>: it&apos;s about keeping recurring costs within recurring revenue as both are pushed by
+          inflation, not a one-time patch.
+        </p>
+        <p style={{ color: '#6b7280', fontSize: 12, marginTop: 10, marginBottom: 0 }}>
+          Inflation reference: U.S. Bureau of Labor Statistics, Consumer Price Index. Levy-growth limit: NY&apos;s
+          2% property-tax cap (the lesser of 2% or CPI).
+        </p>
+      </section>
+
+      {/* 4 — The blunter alternative: a flat 2.5% cut. */}
       <section style={{ ...card, marginTop: 16 }}>
-        <h2 style={{ margin: '0 0 4px', color: '#284a69', fontSize: 17 }}>What if the Supervisor asked every department to cut 2.5%?</h2>
+        <h2 style={{ margin: '0 0 4px', color: '#284a69', fontSize: 17 }}>The blunter alternative: a flat 2.5% cut</h2>
         <p style={{ color: '#64748b', fontSize: 13.5, margin: '0 0 12px' }}>
-          A flat across-the-board percentage is the classic budget directive. Here&apos;s how 2.5% actually pencils out —
-          and why the blunt version overstates what&apos;s really cuttable.
+          Instead of the targeted lines above, a Supervisor could simply tell every department to cut 2.5%. Here&apos;s
+          how that actually pencils out — and why the blunt version overstates what&apos;s really cuttable.
         </p>
 
         <div style={{ display: 'grid', gap: 8, marginBottom: 14 }}>
@@ -83,36 +107,30 @@ export default function SpendingReduction2027Page() {
 
         <p style={{ color: '#334155', fontSize: 14, lineHeight: 1.6, margin: '12px 0 0' }}>{atb.takeaway}</p>
         <p style={{ color: '#6b7280', fontSize: 12, marginTop: 8, marginBottom: 0 }}>
-          Computed from the 2026 Budget Supplement line totals. “Controllable” excludes personnel and mandated costs
-          (pension, debt service, insurance, payroll taxes) that a flat directive can&apos;t change. Measured against the{' '}
-          {usd(atb.gapToClose)} modeled payroll-pressure gap.
+          Computed from the 2026 Budget Supplement line totals. &ldquo;Controllable&rdquo; excludes personnel and
+          mandated costs (pension, debt service, insurance, payroll taxes) a flat directive can&apos;t change. Measured
+          against the {usd(atb.gapToClose)} modeled payroll-pressure gap.
         </p>
       </section>
 
+      {/* 5 — Compact provenance strip. */}
       <section style={{ ...card, marginTop: 16 }}>
-        <h2 style={{ margin: '0 0 4px', color: '#284a69', fontSize: 17 }}>The documents this is built from</h2>
-        <p style={{ color: '#64748b', fontSize: 13.5, margin: '0 0 12px' }}>
-          Every figure on this page traces to the Town of Riverhead&apos;s own official documents. Open any of them:
-        </p>
-        <div style={{ display: 'grid', gap: 8 }}>
+        <h2 style={{ margin: '0 0 8px', color: '#284a69', fontSize: 15 }}>Built from the Town&apos;s own documents</h2>
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
           {builtFromDocuments.map((doc) => {
             const k = KIND[doc.kind]
             return (
               <a key={doc.url} href={doc.url} target="_blank" rel="noreferrer"
-                style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 12, textDecoration: 'none',
-                  background: '#f8fafc', border: '1px solid #e2e8f0', borderRadius: 10, padding: '10px 14px' }}>
-                <span style={{ display: 'flex', alignItems: 'center', gap: 10, minWidth: 0 }}>
-                  <span style={{ background: k.bg, color: k.color, fontWeight: 800, fontSize: 11, padding: '2px 9px', borderRadius: 999, whiteSpace: 'nowrap' }}>{k.label}</span>
-                  <span style={{ color: '#284a69', fontWeight: 700, fontSize: 14.5 }}>{doc.title}</span>
-                </span>
-                <span style={{ color: '#4a7297', fontWeight: 800, fontSize: 13, whiteSpace: 'nowrap' }}>Open ↗</span>
+                style={{ display: 'inline-flex', alignItems: 'center', gap: 6, textDecoration: 'none', background: k.bg, color: k.color,
+                  border: `1px solid ${k.color}22`, borderRadius: 999, padding: '5px 11px', fontSize: 12.5, fontWeight: 700 }}>
+                {doc.title} ↗
               </a>
             )
           })}
         </div>
-        <p style={{ color: '#6b7280', fontSize: 12, marginTop: 12, marginBottom: 0 }}>
-          Links go to the Town&apos;s DocumentCenter (townofriverheadny.gov). The Budget Supplements are the line-item
-          ledgers behind the adopted budgets; the Annual Financial Report is the audited year-end statement.
+        <p style={{ color: '#6b7280', fontSize: 12, marginTop: 10, marginBottom: 0 }}>
+          Links open the Town&apos;s DocumentCenter (townofriverheadny.gov). Blue = budget, green = supplement, amber =
+          financial report.
         </p>
       </section>
     </PageShell>
