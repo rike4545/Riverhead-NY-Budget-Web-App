@@ -1,6 +1,7 @@
 import PageShell from '../../components/PageShell'
 import data from '../../public/data/candidate-watch.json'
 
+const base = process.env.NEXT_PUBLIC_BASE_PATH || ''
 const card = { background: 'white', border: '1px solid #e2e8f0', borderRadius: 16, padding: 20, boxShadow: '0 14px 34px rgba(15,23,42,.05)' } as const
 
 export const metadata = {
@@ -39,6 +40,15 @@ export default function CandidateWatchPage() {
       title="2026 Candidate Watch"
       subtitle="Who's on the ballot for Riverhead Town office this November — with each candidate's campaign links and, in their own words, what they're running on."
     >
+      <div style={{ ...card, marginBottom: 18, borderLeft: '6px solid #0d9488', background: '#f0fdfa' }}>
+        <strong style={{ color: '#0f766e' }}>Want the numbers behind the promises?</strong>{' '}
+        <span style={{ color: '#134e4a', fontSize: 14.5, lineHeight: 1.6 }}>
+          This page is each candidate in their own words. For an even-handed cost–benefit look at every plank — plus a
+          non-partisan fiscal view of the Town&apos;s repeated tax increases — see{' '}
+          <a href={`${base}/candidate-cost-benefit/`} style={{ color: '#0d9488', fontWeight: 800 }}>Candidate Proposals: Cost &amp; Benefit</a>.
+        </span>
+      </div>
+
       {races.map((race) => (
         <section key={race.office} style={{ marginBottom: 22 }}>
           <div style={{ display: 'flex', alignItems: 'baseline', gap: 12, flexWrap: 'wrap', marginBottom: 12 }}>
