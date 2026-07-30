@@ -32,6 +32,9 @@ jobs:
       - name: Fetch new Town Board meeting minutes (CivicClerk)
         run: python etl/fetch_meetings.py
 
+      - name: Fetch upcoming Town Board meeting schedule (CivicClerk)
+        run: python etl/fetch_upcoming.py
+
       - name: Parse financial reports
         run: python etl/parse_financial_reports.py
 

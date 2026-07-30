@@ -1,0 +1,117 @@
+{
+ "source": {
+  "title": "Town of Riverhead Town Board \u2014 upcoming meetings (CivicClerk)",
+  "url": "https://www.townofriverheadny.gov/129/Agendas-Minutes"
+ },
+ "generatedAt": "2026-07-30",
+ "meetings": [
+  {
+   "slug": "2026-08-04",
+   "date": "2026-08-04",
+   "startDateTime": "2026-08-04T14:00:00Z",
+   "type": "Town Board Meeting",
+   "agendaPublished": false,
+   "docket": [],
+   "hearings": []
+  },
+  {
+   "slug": "2026-08-18",
+   "date": "2026-08-18",
+   "startDateTime": "2026-08-18T18:00:00Z",
+   "type": "Town Board Meeting",
+   "agendaPublished": false,
+   "docket": [],
+   "hearings": []
+  },
+  {
+   "slug": "2026-09-01",
+   "date": "2026-09-01",
+   "startDateTime": "2026-09-01T14:00:00Z",
+   "type": "Town Board Meeting",
+   "agendaPublished": false,
+   "docket": [],
+   "hearings": []
+  },
+  {
+   "slug": "2026-09-15",
+   "date": "2026-09-15",
+   "startDateTime": "2026-09-15T18:00:00Z",
+   "type": "Town Board Meeting",
+   "agendaPublished": false,
+   "docket": [],
+   "hearings": []
+  },
+  {
+   "slug": "2026-10-06",
+   "date": "2026-10-06",
+   "startDateTime": "2026-10-06T14:00:00Z",
+   "type": "Town Board Meeting",
+   "agendaPublished": false,
+   "docket": [],
+   "hearings": []
+  },
+  {
+   "slug": "2026-10-20",
+   "date": "2026-10-20",
+   "startDateTime": "2026-10-20T18:00:00Z",
+   "type": "Town Board Meeting",
+   "agendaPublished": false,
+   "docket": [],
+   "hearings": []
+  },
+  {
+   "slug": "2026-11-05",
+   "date": "2026-11-05",
+   "startDateTime": "2026-11-05T14:00:00Z",
+   "type": "Town Board Meeting",
+   "agendaPublished": false,
+   "docket": [],
+   "hearings": []
+  },
+  {
+   "slug": "2026-11-17",
+   "date": "2026-11-17",
+   "startDateTime": "2026-11-17T18:00:00Z",
+   "type": "Town Board Meeting",
+   "agendaPublished": false,
+   "docket": [],
+   "hearings": []
+  },
+  {
+   "slug": "2026-12-01",
+   "date": "2026-12-01",
+   "startDateTime": "2026-12-01T14:00:00Z",
+   "type": "Town Board Meeting",
+   "agendaPublished": false,
+   "docket": [],
+   "hearings": []
+  },
+  {
+   "slug": "2026-12-15",
+   "date": "2026-12-15",
+   "startDateTime": "2026-12-15T14:00:00Z",
+   "type": "Town Board Meeting",
+   "agendaPublished": false,
+   "docket": [],
+   "hearings": []
+  },
+  {
+   "slug": "2027-01-05",
+   "date": "2027-01-05",
+   "startDateTime": "2027-01-05T14:00:00Z",
+   "type": "Town Board Meeting",
+   "agendaPublished": false,
+   "docket": [],
+   "hearings": []
+  },
+  {
+   "slug": "2027-01-19",
+   "date": "2027-01-19",
+   "startDateTime": "2027-01-19T18:00:00Z",
+   "type": "Town Board Meeting",
+   "agendaPublished": false,
+   "docket": [],
+   "hearings": []
+  }
+ ]
+}

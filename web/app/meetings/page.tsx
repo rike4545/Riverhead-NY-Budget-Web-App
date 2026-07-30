@@ -3,9 +3,27 @@ import PlainCallout from '../../components/PlainCallout'
 import MeetingVotes from '../../components/MeetingVotes'
 import { meetingsIndex } from '../../lib/meetings'
 import consentCalendar from '../../public/data/consent-calendar.json'
+import upcoming from '../../public/data/meetings/upcoming.json'
 
 const base = process.env.NEXT_PUBLIC_BASE_PATH || ''
 const card = { background: 'white', border: '1px solid #e2e8f0', borderRadius: 16, padding: 20, boxShadow: '0 14px 34px rgba(15,23,42,.05)' } as const
+
+type UpcomingMeeting = {
+  date: string; startDateTime: string; type: string; agendaPublished: boolean
+  docket: { seq: number; number: string; title: string }[]; hearings: string[]
+}
+
+// Format "2026-08-04T14:00:00Z" as "Tuesday, August 4, 2026 · 2:00 PM" using the
+// clock time as written (no timezone conversion — these are local meeting times).
+function formatMeeting(iso: string): string {
+  const [d, t = ''] = iso.split('T')
+  const day = new Date(`${d}T12:00:00Z`).toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric', timeZone: 'UTC' })
+  const m = t.match(/^(\d{2}):(\d{2})/)
+  if (!m) return day
+  let h = parseInt(m[1], 10); const min = m[2]; const ampm = h >= 12 ? 'PM' : 'AM'
+  h = h % 12 || 12
+  return `${day} · ${h}:${min} ${ampm}`
+}
 
 export const metadata = {
   title: 'Town Board Votes — who voted for what',
@@ -33,6 +51,66 @@ export default function MeetingsPage() {
         This page is the Town Board&apos;s <strong>voting record</strong>. It shows exactly what the Board decided at each
         meeting and where members disagreed — a plain-language accountability record.
       </PlainCallout>
+
+      {/* Coming up — the forward-looking companion to the voting record. */}
+      {(() => {
+        const meetings = (upcoming.meetings as UpcomingMeeting[]) ?? []
+        if (meetings.length === 0) return null
+        const [next, ...rest] = meetings
+        return (
+          <section style={{ ...card, marginBottom: 18, borderLeft: '6px solid #15803d', background: '#f0fdf4' }}>
+            <div style={{ display: 'flex', alignItems: 'baseline', gap: 10, flexWrap: 'wrap' }}>
+              <h2 style={{ margin: 0, color: '#14532d' }}>Coming up</h2>
+              <span style={{ color: '#166534', fontWeight: 700, fontSize: 13 }}>show up before the vote, not after</span>
+            </div>
+
+            <div style={{ marginTop: 12, background: 'white', border: '1px solid #bbf7d0', borderRadius: 12, padding: '14px 16px' }}>
+              <div style={{ color: '#166534', fontWeight: 900, fontSize: 12, textTransform: 'uppercase', letterSpacing: 0.4 }}>Next meeting</div>
+              <div style={{ color: '#14532d', fontWeight: 900, fontSize: 19, margin: '2px 0 4px' }}>{formatMeeting(next.startDateTime)}</div>
+              {next.hearings.length > 0 && (
+                <div style={{ color: '#334155', fontSize: 13.5, marginBottom: 6 }}>
+                  <strong>Public hearings:</strong> {next.hearings.join(' · ')}
+                </div>
+              )}
+              {next.agendaPublished && next.docket.length > 0 ? (
+                <div style={{ marginTop: 6 }}>
+                  <div style={{ color: '#166534', fontWeight: 800, fontSize: 13 }}>{next.docket.length} resolutions on the docket:</div>
+                  <ul style={{ margin: '6px 0 0', paddingLeft: 18, color: '#334155', fontSize: 13.5, lineHeight: 1.5, display: 'grid', gap: 3 }}>
+                    {next.docket.slice(0, 12).map((r) => (
+                      <li key={r.number}><span style={{ color: '#2563eb', fontWeight: 800 }}>{r.number}</span> {r.title}</li>
+                    ))}
+                    {next.docket.length > 12 && <li style={{ color: '#64748b' }}>…and {next.docket.length - 12} more</li>}
+                  </ul>
+                </div>
+              ) : (
+                <div style={{ color: '#475569', fontSize: 13.5 }}>
+                  The agenda for this meeting hasn&apos;t been posted yet — the Town usually publishes it a few days
+                  beforehand. The resolutions on the docket and any public hearings will appear here automatically once it does.
+                </div>
+              )}
+              <a href="https://www.townofriverheadny.gov/129/Agendas-Minutes" target="_blank" rel="noreferrer" style={{ display: 'inline-block', marginTop: 10, color: '#15803d', fontWeight: 800, fontSize: 13.5 }}>
+                Official agendas &amp; meeting info ↗
+              </a>
+            </div>
+
+            {rest.length > 0 && (
+              <div style={{ marginTop: 12 }}>
+                <div style={{ color: '#166534', fontWeight: 800, fontSize: 12.5, textTransform: 'uppercase', letterSpacing: 0.3, marginBottom: 6 }}>Also scheduled</div>
+                <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
+                  {rest.slice(0, 8).map((m) => (
+                    <span key={m.startDateTime} style={{ background: 'white', border: '1px solid #bbf7d0', borderRadius: 999, padding: '5px 12px', fontSize: 12.5, fontWeight: 700, color: '#14532d' }}>
+                      {formatMeeting(m.startDateTime)}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            )}
+            <p style={{ color: '#6b7280', fontSize: 12, marginTop: 10, marginBottom: 0 }}>
+              Schedule from the Town&apos;s CivicClerk portal, refreshed weekly. Times are as posted.
+            </p>
+          </section>
+        )
+      })()}
 
       {/* Archive totals */}
       <section style={{ ...card, display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(140px,1fr))', gap: 12, marginBottom: 18 }}>
