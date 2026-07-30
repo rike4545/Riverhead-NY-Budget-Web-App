@@ -2,8 +2,15 @@ import { automatedKpis } from '../lib/analytics-modules'
 import { allOperatingFunds2026, fundBalanceUseSummary } from '../lib/all-funds'
 import { narrativeInsights } from '../lib/intelligence'
 import { retirementProgramAssessment, retirementRiskFactors } from '../lib/retirement-risk-analysis'
-import { archiveStats, financialReportsArchive } from '../lib/financial-reports-archive'
+import { archiveStats } from '../lib/financial-reports-archive'
+import { builtFromDocuments } from '../lib/built-from-documents'
 import { dollars } from '../lib/financial-data'
+
+const DOC_KIND: Record<string, { label: string; color: string; bg: string }> = {
+  budget: { label: 'Budget', color: '#1e40af', bg: '#dbeafe' },
+  supplement: { label: 'Supplement', color: '#166534', bg: '#dcfce7' },
+  afr: { label: 'Financial report', color: '#92400e', bg: '#fef3c7' },
+}
 
 const base = process.env.NEXT_PUBLIC_BASE_PATH || ''
 // In-page section anchors (site navigation lives in the shared PageShell header).
@@ -46,7 +53,6 @@ const scenarioSummary = 'This scenario allocates $4.95M of a $5M package and lea
 
 export default function FiscalCommandCenter() {
   const reserveUsers = allOperatingFunds2026.filter((fund) => fund.appropriatedFundBalance2026 > 0)
-  const recentDocs = financialReportsArchive.slice(0, 10)
 
   return (
     <div id="top">
@@ -210,13 +216,21 @@ export default function FiscalCommandCenter() {
 
           <section style={{ ...shell, marginTop: 18, padding: 24 }}>
             <h2 style={{ marginTop: 0 }}>The documents this is built from</h2>
-            {recentDocs.map((doc) => (
-              <div key={`${doc.year}-${doc.title}`} style={{ display: 'grid', gridTemplateColumns: '80px 1fr 180px', gap: 12, borderTop: '1px solid #e2e8f0', padding: '10px 0' }}>
-                <strong>{doc.year}</strong>
-                <span>{doc.title}</span>
-                <span style={{ color: '#2563eb', fontWeight: 900 }}>{doc.category.replace('_', ' ')}</span>
-              </div>
-            ))}
+            <p style={{ color: muted, marginTop: 0 }}>Every figure traces to the Town&apos;s own official records. Open any of them:</p>
+            {builtFromDocuments.map((doc) => {
+              const k = DOC_KIND[doc.kind]
+              return (
+                <a key={doc.url} href={doc.url} target="_blank" rel="noreferrer"
+                  style={{ display: 'grid', gridTemplateColumns: '64px 1fr 150px 70px', gap: 12, alignItems: 'center',
+                    borderTop: '1px solid #e2e8f0', padding: '10px 0', textDecoration: 'none', color: 'inherit' }}>
+                  <strong>{doc.year}</strong>
+                  <span style={{ color: '#284a69', fontWeight: 700 }}>{doc.title}</span>
+                  <span style={{ justifySelf: 'start', background: k.bg, color: k.color, fontWeight: 800, fontSize: 11.5, padding: '3px 10px', borderRadius: 999 }}>{k.label}</span>
+                  <span style={{ color: '#4a7297', fontWeight: 900, justifySelf: 'end' }}>Open ↗</span>
+                </a>
+              )
+            })}
+            <p style={{ color: muted, fontSize: 12, marginTop: 12, marginBottom: 0 }}>Links open the Town&apos;s DocumentCenter (townofriverheadny.gov).</p>
           </section>
 
           <section id="about" style={{ ...shell, scrollMarginTop: 24, marginTop: 18, padding: 24, borderLeft: '8px solid #4a7297' }}>
