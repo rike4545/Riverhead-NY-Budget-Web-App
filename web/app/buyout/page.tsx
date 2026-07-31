@@ -121,6 +121,10 @@ export default function BuyoutPage() {
         <Stat label="Break-even (refill at lower step)" value={`~${analysis.breakEvenYears_refill80.csea}–${analysis.breakEvenYears_refill80.police} yrs`} />
       </section>
 
+      <h2 style={{ margin: '26px 0 4px', color: '#284a69', fontSize: 18 }}>Go deeper: the full cost-and-savings analysis</h2>
+      <p style={{ color: '#64748b', fontSize: 13.5, margin: '0 0 8px' }}>The detail behind the short answer — open only what you want.</p>
+
+      <Detail title="Cost & yearly savings by how many take the buyout">
       <section style={{ ...card, marginBottom: 14 }}>
         <h3 style={{ marginTop: 0 }}>Cost and yearly savings by how many take the buyout</h3>
         <p style={{ color: '#64748b', fontSize: 13.5, marginTop: 0 }}>Participation won&apos;t be known until the September 1, 2026 deadline. Yearly savings depend on whether each vacated job is refilled at the same cost, refilled cheaper (a new hire starts at a lower step), or held open.</p>
@@ -190,7 +194,9 @@ export default function BuyoutPage() {
           </div>
         </section>
       )}
+      </Detail>
 
+      <Detail title="Police: where the saving really lands (the promotion chain)">
       {analysis.policeChain && (
         <section id="police-chain" style={{ ...card, marginBottom: 18, borderLeft: '6px solid #1e3a8a' }}>
           <h3 style={{ marginTop: 0 }}>Police: where the saving really lands (the promotion chain)</h3>
@@ -286,6 +292,9 @@ export default function BuyoutPage() {
         </section>
       )}
 
+      </Detail>
+
+      <Detail title="Retiree healthcare — the recurring cost the salary numbers miss">
       {analysis.retireeHealthcare && (
         <section style={{ ...card, marginBottom: 18, borderLeft: '6px solid #b45309' }}>
           <h3 style={{ marginTop: 0 }}>What about retiree healthcare?</h3>
@@ -378,16 +387,19 @@ export default function BuyoutPage() {
 
         <p style={{ color: '#6b7280', fontSize: 12, marginTop: 10, marginBottom: 0 }}>Sources: {retireeHealthComparison.sources.join(' · ')}</p>
       </section>
+      </Detail>
 
+      <Detail title="How this estimate was built & its limits">
       <section style={{ ...card, marginBottom: 18 }}>
         <h3 style={{ marginTop: 0 }}>How this estimate was built &amp; its limits</h3>
         <ul style={{ color: '#475569', fontSize: 14, lineHeight: 1.55, paddingLeft: 18, margin: 0 }}>
           {analysis.assumptions.map((a, i) => <li key={i}>{a}</li>)}
         </ul>
       </section>
+      </Detail>
 
       {/* Who appears eligible */}
-      <h2 id="eligible" style={{ color: '#284a69' }}>Which employees appear eligible</h2>
+      <Detail title="Which employees appear eligible (estimate, not a decision)">
       <PlainCallout title="Read this first">
         These are current employees whose <strong>hire date and union</strong> match the program&apos;s service
         requirements — an <strong>estimate, not a decision</strong>. Actual eligibility also depends on age and pension
@@ -395,9 +407,10 @@ export default function BuyoutPage() {
         not mean they are retiring. Names and hire dates are already public payroll records.
       </PlainCallout>
       <BuyoutEligible employees={analysis.eligibleEmployees as EligibleEmployee[]} />
+      </Detail>
 
       {/* 2019 vs 2026 */}
-      <h2 id="compare2019" style={{ color: '#284a69', marginTop: 26 }}>How this compares to the 2019 buyout</h2>
+      <Detail title="How this compares to the 2019 buyout">
       <PlainCallout title="No one can be counted twice">
         {analysis.reconciliation}
       </PlainCallout>
@@ -427,13 +440,16 @@ export default function BuyoutPage() {
           Sources: {analysis.compare2019.sources.join(' · ')}
         </p>
       </section>
+      </Detail>
 
+      <Detail title="Important caveats">
       <section style={{ ...card, marginBottom: 18 }}>
         <h3 style={{ marginTop: 0 }}>Important caveats</h3>
         <ul style={{ color: '#475569', fontSize: 14, lineHeight: 1.55, paddingLeft: 18, margin: 0 }}>
           {b.caveats.map((c, i) => <li key={i}>{c}</li>)}
         </ul>
       </section>
+      </Detail>
 
       <p style={{ color: '#64748b', fontSize: 13, lineHeight: 1.5 }}>
         Source: {b.source.title}. Transcribed from the official agenda packet. Cost estimate built from the Town&apos;s
@@ -446,6 +462,18 @@ export default function BuyoutPage() {
 
 const th = { padding: '8px 10px' } as const
 const td = { padding: '7px 10px' } as const
+
+function Detail({ title, children }: { title: string; children: React.ReactNode }) {
+  return (
+    <details style={{ ...card, padding: 0, marginBottom: 12, overflow: 'hidden' }}>
+      <summary style={{ cursor: 'pointer', listStyle: 'none', padding: '15px 18px', fontWeight: 800, color: '#284a69', fontSize: 15.5, display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 12 }}>
+        <span>{title}</span>
+        <span aria-hidden style={{ color: '#6b7280', fontSize: 13, fontWeight: 700 }}>Open ▾</span>
+      </summary>
+      <div style={{ padding: '0 18px 18px' }}>{children}</div>
+    </details>
+  )
+}
 
 function Stat({ label, value, sub, accent }: { label: string; value: string; sub?: string; accent?: boolean }) {
   return (
