@@ -1,5 +1,4 @@
 import PageShell from '../../components/PageShell'
-import PlainCallout from '../../components/PlainCallout'
 import Budget2027Table from '../../components/Budget2027Table'
 import p from '../../public/data/budget-2027-prediction.json'
 
@@ -22,13 +21,13 @@ export default function Predict2027Page() {
   return (
     <PageShell
       title="A 2027 budget prediction — line by line"
-      subtitle="What next year’s budget could look like if current trends hold — every 2026 line grown by a stated, category-based assumption you can see and argue with. This is a model, not the Town’s budget."
+      subtitle="What next year’s budget could look like if current trends hold. Start with the headline; open the detail as far as you like. This is a model, not the Town’s budget."
     >
       <div style={{ background: '#fff7ed', border: '1px solid #fdba74', borderLeft: '6px solid #ea580c', borderRadius: 12, padding: '14px 16px', marginBottom: 16, color: '#7c2d12', fontSize: 14.5, lineHeight: 1.55 }}>
         <strong>Read this first — it’s a prediction, not a fact.</strong> {p.disclaimer}
       </div>
 
-      {/* Headline numbers */}
+      {/* Headline numbers — the answer. */}
       <section style={{ ...card, display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(180px,1fr))', gap: 12, marginBottom: 16 }}>
         <Stat label="2026 adopted (appropriations)" value={usd(t.appropriations2026)} />
         <Stat label="2027 predicted" value={usd(t.appropriations2027)} accent />
@@ -36,13 +35,7 @@ export default function Predict2027Page() {
         <Stat label="Implied levy increase" value={`+${le.levyIncreasePct}%`} sub={`${usd(le.levy2026)} → ${usd(le.levy2027)}`} amber />
       </section>
 
-      <PlainCallout title="How to read this">
-        The spending (appropriations) side is projected <strong>line by line</strong>: each 2026 amount grows by the rate
-        for its category (below). Add it all up and 2027 spending lands near <strong>{usd(t.appropriations2027)}</strong>,
-        up <strong>{t.pct}%</strong>. The <em>tax-levy</em> figure is a separate, illustrative estimate — {le.note.charAt(0).toLowerCase() + le.note.slice(1)}
-      </PlainCallout>
-
-      {/* Does it pierce the tax cap? */}
+      {/* The headline finding: pierces the cap. */}
       <section style={{ ...card, marginBottom: 16, borderLeft: '6px solid #b91c1c' }}>
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: 12, alignItems: 'baseline', justifyContent: 'space-between' }}>
           <h2 style={{ margin: 0, color: '#284a69' }}>Does the 2027 budget pierce the tax cap?</h2>
@@ -57,26 +50,38 @@ export default function Predict2027Page() {
         </div>
         <p style={{ color: '#334155', fontSize: 14.5, lineHeight: 1.6, margin: 0 }}>{p.capGap.summary}</p>
 
-        <h3 style={{ color: '#284a69', marginBottom: 8, marginTop: 18 }}>What could be done to stay under it</h3>
-        <div style={{ display: 'grid', gap: 8 }}>
-          {p.capGap.levers.map((l, i) => (
-            <div key={i} style={{ background: '#f8fafc', border: '1px solid #e2e8f0', borderRadius: 10, padding: '11px 14px' }}>
-              <strong style={{ color: '#284a69', fontSize: 14.5 }}>{l.lever}</strong>
-              <div style={{ color: '#475569', fontSize: 13.8, lineHeight: 1.5, marginTop: 3 }}>{l.detail}</div>
-            </div>
-          ))}
+        <div style={{ background: '#f0fdf4', border: '1px solid #bbf7d0', borderRadius: 10, padding: '12px 14px', marginTop: 14 }}>
+          <strong style={{ color: '#166534' }}>How the gap gets closed →</strong>{' '}
+          <span style={{ color: '#334155', fontSize: 14, lineHeight: 1.55 }}>
+            The <a href={`${base}/spending-reduction-2027/`} style={{ color: '#15803d', fontWeight: 800 }}>2027 Spending Reduction</a> page
+            lays out the plan — the retirement incentive plus sourced trims cover essentially the whole gap. Prefer to try the
+            trade-offs yourself? Use the <a href={`${base}/scenarios/`} style={{ color: '#15803d', fontWeight: 800 }}>What-if scenarios</a> tool.
+          </span>
         </div>
-        <p style={{ color: '#64748b', fontSize: 13, marginTop: 12, marginBottom: 0 }}>
-          Want to try the trade-offs yourself? The <a href={`${base}/scenarios/`} style={{ color: '#4a7297', fontWeight: 700 }}>What-if scenarios</a> page
-          has an interactive tool to close the gap with your own mix of cuts, revenue, and reserves — and the
-          {' '}<a href={`${base}/tax-cap/`} style={{ color: '#4a7297', fontWeight: 700 }}>Tax Cap page</a> explains how the override works.
-        </p>
+
+        <Detail title="Or stay under it another way — the full menu of levers">
+          <div style={{ display: 'grid', gap: 8 }}>
+            {p.capGap.levers.map((l, i) => (
+              <div key={i} style={{ background: '#f8fafc', border: '1px solid #e2e8f0', borderRadius: 10, padding: '11px 14px' }}>
+                <strong style={{ color: '#284a69', fontSize: 14.5 }}>{l.lever}</strong>
+                <div style={{ color: '#475569', fontSize: 13.8, lineHeight: 1.5, marginTop: 3 }}>{l.detail}</div>
+              </div>
+            ))}
+          </div>
+        </Detail>
       </section>
 
-      {/* Method + assumptions */}
-      <section style={{ ...card, marginBottom: 16 }}>
-        <h2 style={{ marginTop: 0, color: '#284a69' }}>The assumptions — argue with them</h2>
-        <p style={{ color: '#475569', fontSize: 14.5, lineHeight: 1.55, marginTop: 0 }}>{p.method}</p>
+      {/* GO DEEPER — the method and the big tables, progressively disclosed. */}
+      <h2 style={{ margin: '26px 0 4px', color: '#284a69', fontSize: 18 }}>Go deeper</h2>
+      <p style={{ color: '#64748b', fontSize: 13.5, margin: '0 0 8px' }}>The full model — open only what you want.</p>
+
+      <Detail title="How this projection works — and the assumptions you can argue with">
+        <p style={{ color: '#334155', fontSize: 14.5, lineHeight: 1.6, margin: '0 0 8px' }}>
+          The spending side is projected <strong>line by line</strong>: each 2026 amount grows by the rate for its
+          category. Add it up and 2027 spending lands near <strong>{usd(t.appropriations2027)}</strong>, up{' '}
+          <strong>{t.pct}%</strong>. The tax-levy figure is a separate, illustrative estimate — {le.note.charAt(0).toLowerCase() + le.note.slice(1)}
+        </p>
+        <p style={{ color: '#475569', fontSize: 14, lineHeight: 1.55, margin: '0 0 12px' }}>{p.method}</p>
         <div style={{ overflowX: 'auto' }}>
           <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 13.5 }}>
             <thead>
@@ -99,11 +104,9 @@ export default function Predict2027Page() {
             </tbody>
           </table>
         </div>
-      </section>
+      </Detail>
 
-      {/* By category */}
-      <section style={{ ...card, marginBottom: 16 }}>
-        <h2 style={{ marginTop: 0, color: '#284a69' }}>Where the increase comes from</h2>
+      <Detail title="Where the increase comes from (by category)">
         <div style={{ overflowX: 'auto' }}>
           <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 13.5 }}>
             <thead>
@@ -128,11 +131,9 @@ export default function Predict2027Page() {
             </tbody>
           </table>
         </div>
-      </section>
+      </Detail>
 
-      {/* Top movers */}
-      <section style={{ ...card, marginBottom: 16 }}>
-        <h2 style={{ marginTop: 0, color: '#284a69' }}>The 10 biggest single-line increases</h2>
+      <Detail title="The 10 biggest single-line increases">
         <div style={{ overflowX: 'auto' }}>
           <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 13.5 }}>
             <thead>
@@ -155,21 +156,32 @@ export default function Predict2027Page() {
             </tbody>
           </table>
         </div>
-      </section>
+      </Detail>
 
-      {/* Full line-by-line */}
-      <h2 style={{ color: '#284a69' }}>Every line, projected</h2>
-      <p style={{ color: '#475569', fontSize: 14.5, lineHeight: 1.55, marginTop: 0 }}>
-        All {t.lineItems.toLocaleString()} budget lines with their predicted 2027 value. Filter by fund or category,
-        search a department, or sort by the biggest movers.
-      </p>
-      <Budget2027Table />
+      <Detail title={`Every line, projected (all ${t.lineItems.toLocaleString()} lines)`}>
+        <p style={{ color: '#475569', fontSize: 14, lineHeight: 1.55, margin: '0 0 12px' }}>
+          Filter by fund or category, search a department, or sort by the biggest movers.
+        </p>
+        <Budget2027Table />
+      </Detail>
 
       <p style={{ color: '#64748b', fontSize: 13, lineHeight: 1.5, marginTop: 16 }}>
-        {p.source} {le.recentLevyIncreases} A prediction is only as good as its assumptions — these are laid out above
-        precisely so you can change them in your head and see which way the answer moves.
+        {p.source} {le.recentLevyIncreases} A prediction is only as good as its assumptions — they’re laid out in
+        &ldquo;How this projection works&rdquo; precisely so you can change them in your head and see which way the answer moves.
       </p>
     </PageShell>
+  )
+}
+
+function Detail({ title, children }: { title: string; children: React.ReactNode }) {
+  return (
+    <details style={{ ...card, padding: 0, marginTop: 12, overflow: 'hidden' }}>
+      <summary style={{ cursor: 'pointer', listStyle: 'none', padding: '15px 18px', fontWeight: 800, color: '#284a69', fontSize: 15.5, display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 12 }}>
+        <span>{title}</span>
+        <span aria-hidden style={{ color: '#6b7280', fontSize: 13, fontWeight: 700 }}>Open ▾</span>
+      </summary>
+      <div style={{ padding: '0 18px 18px' }}>{children}</div>
+    </details>
   )
 }
 
