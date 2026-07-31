@@ -133,6 +133,22 @@ def main() -> int:
     OUT.mkdir(parents=True, exist_ok=True)
     DOCS.mkdir(parents=True, exist_ok=True)
     parsed_at = datetime.now(timezone.utc).isoformat()
+    # Reuse a document's previous parsed_at when its content (sha256) is
+    # unchanged, so an unchanged PDF yields byte-identical output. Otherwise the
+    # wall-clock timestamp rewrote every document/record every run, and
+    # concurrent ETL runs then collided on a rebase across all ~137 documents.
+    prev_parsed_at: dict = {}
+    prev_index_path = OUT / 'index.json'
+    if prev_index_path.exists():
+        try:
+            prev_index = json.loads(prev_index_path.read_text(encoding='utf-8'))
+            for d in prev_index.get('documents', []):
+                slug, sha, ts = d.get('slug'), d.get('sha256'), d.get('parsed_at')
+                if slug and sha and ts:
+                    prev_parsed_at[(slug, sha)] = ts
+        except Exception:
+            pass
+    doc_timestamps: list = []
     docs = []
     failures = []
     search_records = []
@@ -147,6 +163,8 @@ def main() -> int:
             pdf = download(link)
             reader = PdfReader(str(pdf))
             doc_hash = sha256(pdf)
+            doc_ts = prev_parsed_at.get((link.slug, doc_hash), parsed_at)
+            doc_timestamps.append(doc_ts)
             pages = []
             money_count = 0
             for page_no, page in enumerate(reader.pages, start=1):
@@ -161,27 +179,31 @@ def main() -> int:
                 conf = confidence(text, values)
                 pages.append({'page': page_no, 'text': text, 'money_values': values[:500], 'line_count': len(text.splitlines()), 'confidence': conf})
                 snippet = ' '.join(text.split())[:500]
-                search_records.append({'id': f'{link.slug}-p{page_no}', 'document': link.title, 'slug': link.slug, 'year': link.year, 'category': link.category, 'page': page_no, 'url': link.url, 'text': text, 'snippet': snippet, 'money_values': values, 'confidence': conf, 'parsed_at': parsed_at})
-                citations.append({'id': f'{link.slug}-p{page_no}', 'document': link.title, 'url': link.url, 'page': page_no, 'snippet': snippet, 'confidence': conf, 'sha256': doc_hash, 'parsed_at': parsed_at})
+                search_records.append({'id': f'{link.slug}-p{page_no}', 'document': link.title, 'slug': link.slug, 'year': link.year, 'category': link.category, 'page': page_no, 'url': link.url, 'text': text, 'snippet': snippet, 'money_values': values, 'confidence': conf, 'parsed_at': doc_ts})
+                citations.append({'id': f'{link.slug}-p{page_no}', 'document': link.title, 'url': link.url, 'page': page_no, 'snippet': snippet, 'confidence': conf, 'sha256': doc_hash, 'parsed_at': doc_ts})
                 for line_no, line in enumerate(text.splitlines(), start=1):
                     vals = MONEY.findall(line)
                     if not vals:
                         continue
                     code = ACCOUNT.search(line)
-                    line_candidates.append({'id': f'{link.slug}-p{page_no}-l{line_no}', 'document': link.title, 'slug': link.slug, 'year': link.year, 'category': link.category, 'page': page_no, 'line_number': line_no, 'raw_text': line, 'account_code_candidate': code.group(0) if code else None, 'amounts': vals, 'confidence': 'medium' if code else 'low', 'source_url': link.url, 'parsed_at': parsed_at})
-            payload = {**asdict(link), 'sha256': doc_hash, 'page_count': len(pages), 'money_value_count': money_count, 'pages': pages, 'parsed_at': parsed_at}
+                    line_candidates.append({'id': f'{link.slug}-p{page_no}-l{line_no}', 'document': link.title, 'slug': link.slug, 'year': link.year, 'category': link.category, 'page': page_no, 'line_number': line_no, 'raw_text': line, 'account_code_candidate': code.group(0) if code else None, 'amounts': vals, 'confidence': 'medium' if code else 'low', 'source_url': link.url, 'parsed_at': doc_ts})
+            payload = {**asdict(link), 'sha256': doc_hash, 'page_count': len(pages), 'money_value_count': money_count, 'pages': pages, 'parsed_at': doc_ts}
             (DOCS / f'{link.slug}.json').write_text(json.dumps(payload, indent=2), encoding='utf-8')
-            docs.append({'title': link.title, 'url': link.url, 'year': link.year, 'category': link.category, 'slug': link.slug, 'json': f'documents/{link.slug}.json', 'page_count': len(pages), 'money_value_count': money_count, 'sha256': doc_hash, 'parsed_at': parsed_at})
+            docs.append({'title': link.title, 'url': link.url, 'year': link.year, 'category': link.category, 'slug': link.slug, 'json': f'documents/{link.slug}.json', 'page_count': len(pages), 'money_value_count': money_count, 'sha256': doc_hash, 'parsed_at': doc_ts})
             print(f'parsed {link.title} ({len(pages)} pages, {money_count} money values)')
         except Exception as exc:
             failures.append({'title': link.title, 'url': link.url, 'error': str(exc)})
             print(f'failed {link.title}: {exc}')
 
-    index = {'source_index': INDEX_URL, 'parsed_at': parsed_at, 'document_count': len(docs), 'audit_document_count': sum(1 for d in docs if d['category'] == 'audit'), 'failure_count': len(failures), 'page_record_count': len(search_records), 'citation_count': len(citations), 'line_item_candidate_count': len(line_candidates), 'documents': docs, 'failures': failures}
+    # Dataset-level timestamp = the newest per-document timestamp. It only
+    # advances when at least one document actually changed, so a no-change run
+    # leaves every output byte-identical (nothing to commit, nothing to conflict).
+    dataset_ts = max(doc_timestamps) if doc_timestamps else parsed_at
+    index = {'source_index': INDEX_URL, 'parsed_at': dataset_ts, 'document_count': len(docs), 'audit_document_count': sum(1 for d in docs if d['category'] == 'audit'), 'failure_count': len(failures), 'page_record_count': len(search_records), 'citation_count': len(citations), 'line_item_candidate_count': len(line_candidates), 'documents': docs, 'failures': failures}
     (OUT / 'index.json').write_text(json.dumps(index, indent=2), encoding='utf-8')
-    (OUT / 'search-index.json').write_text(json.dumps({'parsed_at': parsed_at, 'records': search_records}, indent=2), encoding='utf-8')
-    (OUT / 'citations.json').write_text(json.dumps({'parsed_at': parsed_at, 'records': citations}, indent=2), encoding='utf-8')
-    (OUT / 'line-item-candidates.json').write_text(json.dumps({'parsed_at': parsed_at, 'records': line_candidates}, indent=2), encoding='utf-8')
+    (OUT / 'search-index.json').write_text(json.dumps({'parsed_at': dataset_ts, 'records': search_records}, indent=2), encoding='utf-8')
+    (OUT / 'citations.json').write_text(json.dumps({'parsed_at': dataset_ts, 'records': citations}, indent=2), encoding='utf-8')
+    (OUT / 'line-item-candidates.json').write_text(json.dumps({'parsed_at': dataset_ts, 'records': line_candidates}, indent=2), encoding='utf-8')
     (OUT / 'extraction-report.json').write_text(json.dumps(index, indent=2), encoding='utf-8')
     print(f'parsed documents: {len(docs)}; failures: {len(failures)}')
     return 0 if docs else 1
