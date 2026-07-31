@@ -1,5 +1,4 @@
 import PageShell from '../../components/PageShell'
-import PlainCallout from '../../components/PlainCallout'
 import SpendingReductionToggleList from '../../components/SpendingReductionToggleList'
 import { fullRecurringReductionPackage, modeledAutomaticPayrollPressure } from '../../lib/spending-reduction-2027'
 import { builtFromDocuments } from '../../lib/built-from-documents'
@@ -23,100 +22,106 @@ const KIND: Record<string, { color: string; bg: string }> = {
   afr: { color: '#92400e', bg: '#fef3c7' },
 }
 
+const comboLow = Math.round(((ri.projectedSavingsLow + firmRecurringTotal) / capGap2027.gap) * 100)
+const comboHigh = Math.round(((ri.projectedSavingsHigh + firmRecurringTotal) / capGap2027.gap) * 100)
+
 export const metadata = {
-  title: '2027 Spending Reduction — a real, sourced savings package',
+  title: '2027 Spending Reduction — how the Town can close the tax-cap gap',
   description:
-    'Every real, individually-sourced recurring spending-reduction candidate identified for the 2027 budget, toggleable so you can build your own package and see it against the modeled payroll-pressure gap.',
+    'In plain terms: Riverhead’s 2027 budget is projected to pierce the tax cap by about $2.62M. The retirement incentive plus sourced line trims close it — with an interactive package, the politics, and the alternatives explained.',
 }
 
 export default function SpendingReduction2027Page() {
   return (
     <PageShell
       title="2027 Spending Reduction"
-      subtitle="A real, sourced recurring spending-reduction package for the 2027 budget — not a wishlist. Toggle items to build your own package and watch it move against the modeled payroll-pressure gap."
+      subtitle="Riverhead’s 2027 budget is on track to pierce the state tax cap. Here’s the plainest way to close the gap — start with the three-number plan, then dig in as far as you like."
     >
-      {/* 1 — Two different gaps: which one actually binds. */}
-      <PlainCallout title="Two different “gaps” — and which one actually binds">
-        You&apos;ll see two gap numbers in the 2027 views, and they measure different things. The{' '}
-        <strong>payroll-pressure gap</strong> ({usd(modeledAutomaticPayrollPressure)}) is the recurring cost of
-        standing still — the automatic wage growth the Town must cover to keep the same staff. The number that
-        actually forces a decision is bigger: the projected 2027 levy overshoots New York&apos;s 2% property-tax cap
-        by about <strong>{usd(capGap2027.gap)}</strong> (a ~{capGap2027.predictedLevyPct}% levy against a ~
-        {capGap2027.capBasePct}% ceiling). That is the real overage to resolve — and the Town has only a handful of
-        legal ways to do it. The package below is sized in real, individually-sourced recurring dollars so it can be
-        measured against <em>either</em> gap. Toggle any item to build your own.
-      </PlainCallout>
-
-      {/* 1b — Resolving the real $2.62M cap gap, honestly. */}
-      <section style={{ ...card, marginTop: 16, borderLeft: '6px solid #15803d' }}>
-        <h2 style={{ margin: '0 0 6px', color: '#284a69', fontSize: 17 }}>
-          Closing the {usd(capGap2027.gap)} without piercing the cap
+      {/* THE PROBLEM — one clear framing, one number. */}
+      <section style={{ ...card, borderLeft: '6px solid #b91c1c' }}>
+        <div style={{ color: '#b91c1c', fontWeight: 900, fontSize: 12, textTransform: 'uppercase', letterSpacing: 0.5 }}>The problem</div>
+        <h2 style={{ margin: '4px 0 8px', color: '#284a69', fontSize: 21 }}>
+          The 2027 budget is on track to blow past the tax cap by about {usd(capGap2027.gap)}
         </h2>
+        <p style={{ color: '#334155', fontSize: 15, lineHeight: 1.6, margin: 0 }}>
+          On current trends the tax levy would rise about {capGap2027.predictedLevyPct}% — but New York&apos;s cap
+          allows only about {capGap2027.capBasePct}%. To stay under the cap, the Town has to find roughly{' '}
+          <strong>{usd(capGap2027.gap)}</strong>. The good news: it can be done with real, recurring savings — no
+          reserve raid, no cap override. Here&apos;s how.
+        </p>
+      </section>
+
+      {/* THE ANSWER — the plan in three numbers. */}
+      <section style={{ ...card, marginTop: 16, borderLeft: '6px solid #15803d' }}>
+        <h2 style={{ margin: '0 0 6px', color: '#284a69', fontSize: 19 }}>The plan, in three numbers</h2>
         <p style={{ color: '#334155', fontSize: 14.5, lineHeight: 1.6, margin: 0 }}>
-          The honest claim isn&apos;t that this is easy — it&apos;s that the overage can be closed with{' '}
-          <strong>recurring, sourced measures</strong>, not a one-time reserve raid or an accidental cap breach. Two
-          building blocks the Town has largely in hand already come to about the full gap:
+          Two things the Town has largely in hand already add up to the whole gap:
         </p>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(190px,1fr))', gap: 12, margin: '14px 0' }}>
-          <Tile label="Retirement-incentive savings" value={`${usd(ri.projectedSavingsLow)}–${usd(ri.projectedSavingsHigh)}`} note="Town projection · already adopted 5–0" green />
-          <Tile label="Firm-confidence sourced trims" value={usd(firmRecurringTotal)} note="Excludes volatile fuel/energy & capital-timing items" green />
-          <Tile label="Combined vs. the cap gap" value={`${Math.round(((ri.projectedSavingsLow + firmRecurringTotal) / capGap2027.gap) * 100)}–${Math.round(((ri.projectedSavingsHigh + firmRecurringTotal) / capGap2027.gap) * 100)}%`} note={`of the ${usd(capGap2027.gap)} overage`} accent />
+          <Tile label="1 · Retirement incentive" value={`${usd(ri.projectedSavingsLow)}–${usd(ri.projectedSavingsHigh)}`} note="Town projection · already adopted 5–0" green />
+          <Tile label="2 · Sourced line trims" value={usd(firmRecurringTotal)} note="Only the firmest — no volatile fuel/energy or capital-timing items" green />
+          <Tile label="Together" value={`${comboLow}–${comboHigh}%`} note={`of the ${usd(capGap2027.gap)} gap — essentially all of it`} accent />
         </div>
         <p style={{ color: '#334155', fontSize: 14, lineHeight: 1.6, margin: 0 }}>
-          In other words, the unanimous retirement incentive plus only the <em>firmest</em> line trims — nothing
-          volatile, no fund-balance appropriation, no override — already sum to roughly the entire {usd(capGap2027.gap)}{' '}
-          gap. The full toggle package below ({usd(fullRecurringReductionPackage)}) leaves real headroom for the parts
-          that depend on 2027 project timing or successor labor terms.
+          The unanimous retirement incentive plus only the <em>firmest</em> line trims cover essentially the entire
+          gap. Everything below is the detail behind those two numbers — and the alternatives, for anyone who wants them.
         </p>
       </section>
 
-      {/* 2 — The interactive package (centerpiece). */}
-      <div style={{ marginTop: 16 }}>
-        <SpendingReductionToggleList />
+      {/* WHAT THE TWO BUILDING BLOCKS ARE — two short cards. */}
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(280px,1fr))', gap: 16, marginTop: 16 }}>
+        <section style={{ ...card }}>
+          <h3 style={{ margin: '0 0 6px', color: '#284a69', fontSize: 16 }}>1 · The retirement incentive</h3>
+          <p style={{ color: '#334155', fontSize: 14, lineHeight: 1.55, margin: '0 0 10px' }}>
+            On July 7, 2026 the Board unanimously approved three voluntary retirement incentives ({ri.eligibleTotal}{' '}
+            eligible). The Town projects <strong>{usd(ri.projectedSavingsLow)}–{usd(ri.projectedSavingsHigh)}</strong>{' '}
+            in savings over {ri.savingsWindow} — recurring payroll relief, exactly the kind of pressure the gap is made of.
+          </p>
+          <div style={{ display: 'grid', gap: 6 }}>
+            {ri.eligible.map((u) => (
+              <div key={u.unit} style={{ display: 'flex', justifyContent: 'space-between', gap: 10, alignItems: 'baseline', flexWrap: 'wrap', background: '#f8fafc', border: '1px solid #e2e8f0', borderRadius: 8, padding: '7px 11px' }}>
+                <span style={{ color: '#284a69', fontWeight: 700, fontSize: 13.5 }}>{u.unit} <span style={{ color: '#64748b', fontWeight: 600 }}>· {u.count}</span></span>
+                <span style={{ color: '#475569', fontSize: 12.5 }}>{u.benefit}</span>
+              </div>
+            ))}
+          </div>
+          <p style={{ color: '#6b7280', fontSize: 11.5, marginTop: 10, marginBottom: 0 }}>
+            Elect by {ri.electionDeadline}, retire by {ri.retireBy}. Resolutions {ri.resolutions}. Projection: RiverheadLOCAL, July 9, 2026.
+          </p>
+        </section>
+
+        <section style={{ ...card }}>
+          <h3 style={{ margin: '0 0 6px', color: '#284a69', fontSize: 16 }}>2 · The sourced line trims</h3>
+          <p style={{ color: '#334155', fontSize: 14, lineHeight: 1.55, margin: '0 0 10px' }}>
+            About <strong>{usd(firmRecurringTotal)}</strong> in firm-confidence recurring trims — every one tied to a
+            specific line the Town&apos;s own 2026 Budget Supplement budgets well above its trailing actuals (a line up
+            800%, 1,563%, and so on). Not program cuts — accountability questions.
+          </p>
+          <p style={{ color: '#334155', fontSize: 14, lineHeight: 1.55, margin: 0 }}>
+            The full menu runs to <strong>{usd(fullRecurringReductionPackage)}</strong> once you add the softer,
+            timing-dependent items. Want to see each line and build your own version? Open{' '}
+            <strong>&ldquo;Build your own savings package&rdquo;</strong> below.
+          </p>
+        </section>
       </div>
 
-      {/* 2b — The retirement incentive as a gap-closing lever. */}
-      <section style={{ ...card, marginTop: 16, borderLeft: '6px solid #15803d' }}>
-        <h2 style={{ margin: '0 0 6px', color: '#284a69', fontSize: 17 }}>
-          The 2026 retirement incentive: {ri.eligibleTotal} eligible, savings the Town already put a number on
-        </h2>
-        <p style={{ color: '#334155', fontSize: 14.5, lineHeight: 1.6, margin: 0 }}>
-          On July 7, 2026 the Town Board unanimously approved three voluntary retirement incentives (resolutions{' '}
-          {ri.resolutions}). The Town projects <strong>{usd(ri.projectedSavingsLow)}–{usd(ri.projectedSavingsHigh)}</strong>{' '}
-          in savings over {ri.savingsWindow}. That saving is real because a top-of-scale departure refilled at a lower
-          step — or not refilled — is recurring payroll relief, which is exactly the kind of pressure the gap above is
-          made of.
-        </p>
-        <div style={{ display: 'grid', gap: 8, margin: '14px 0' }}>
-          {ri.eligible.map((u) => (
-            <div key={u.unit} style={{ display: 'flex', justifyContent: 'space-between', gap: 12, alignItems: 'baseline', flexWrap: 'wrap', background: '#f8fafc', border: '1px solid #e2e8f0', borderRadius: 10, padding: '10px 14px' }}>
-              <span style={{ color: '#284a69', fontWeight: 700, fontSize: 14 }}>
-                {u.unit} <span style={{ color: '#64748b', fontWeight: 600 }}>· {u.count} eligible</span>
-              </span>
-              <span style={{ color: '#475569', fontSize: 13 }}>{u.benefit}</span>
-            </div>
-          ))}
-        </div>
-        <p style={{ color: '#334155', fontSize: 13.8, lineHeight: 1.6, margin: 0 }}>
-          Eligible employees must elect by <strong>{ri.electionDeadline}</strong> and retire by{' '}
-          <strong>{ri.retireBy}</strong>. A concrete example of the departures in this window: a 30-year Riverhead
-          police officer (P.O. Michael Mowdy) retired in July 2026 — the Town did not state whether his retirement was
-          under the incentive, but it is the kind of senior, top-of-scale exit whose refill cost drives the saving.
-        </p>
-        <p style={{ color: '#6b7280', fontSize: 12, marginTop: 10, marginBottom: 0 }}>
-          {ri.note} Executed program terms: resolutions {ri.resolutions} (see the Town Board Votes record).
-          Savings projection: RiverheadLOCAL, July 9, 2026.
-        </p>
-      </section>
+      {/* GO DEEPER — everything else, progressively disclosed. */}
+      <h2 style={{ margin: '26px 0 4px', color: '#284a69', fontSize: 18 }}>Go deeper</h2>
+      <p style={{ color: '#64748b', fontSize: 13.5, margin: '0 0 8px' }}>Optional detail — open only what you want.</p>
 
-      {/* 2c — The politically durable path. */}
-      <section style={{ ...card, marginTop: 16, borderLeft: '6px solid #7c3aed' }}>
-        <h2 style={{ margin: '0 0 6px', color: '#284a69', fontSize: 17 }}>The best way forward through a split board</h2>
-        <p style={{ color: '#334155', fontSize: 14.5, lineHeight: 1.6, margin: '0 0 4px' }}>
-          Closing the gap isn&apos;t only arithmetic — it has to pass a divided Town Board. Riverhead&apos;s is a{' '}
-          <strong>Democratic Supervisor with a four-member Republican Council majority</strong>. Under NY Town Law the
-          Supervisor prepares the tentative budget and the Council adopts it, so a durable plan needs buy-in from both.
-          The levers below are ordered by how well each survives that split — least partisan first.
+      <Detail title="Build your own savings package (interactive)">
+        <p style={{ color: '#334155', fontSize: 14, lineHeight: 1.6, margin: '0 0 12px' }}>
+          Every real, individually-sourced trim, toggleable. Turn items on and off to build a package and watch it move
+          against the modeled payroll-pressure gap.
+        </p>
+        <SpendingReductionToggleList />
+      </Detail>
+
+      <Detail title="Will it pass a divided board? The politics">
+        <p style={{ color: '#334155', fontSize: 14, lineHeight: 1.6, margin: '0 0 4px' }}>
+          Closing the gap has to pass a <strong>Democratic Supervisor with a four-member Republican Council majority</strong>.
+          Under NY Town Law the Supervisor prepares the budget and the Council adopts it, so a durable plan needs both.
+          These levers are ordered by how well each survives that split — least partisan first.
         </p>
         <div style={{ display: 'grid', gap: 10, margin: '14px 0 0' }}>
           {gapClosingPaths.map((p, i) => {
@@ -135,47 +140,22 @@ export default function SpendingReduction2027Page() {
           })}
         </div>
         <p style={{ color: '#334155', fontSize: 14, lineHeight: 1.6, margin: '14px 0 0' }}>
-          <strong>The pragmatic reading:</strong> start with what already carries bipartisan support (the 5–0 retirement
-          incentive), stack the audit-driven trims and any non-tax revenue on top — none of which asks either side to
-          hand the other a political win — and reserve one-time fund balance for the small residual. A cap override
-          stays available, but as a deliberate, disclosed choice rather than a number the budget backs into.
+          <strong>The pragmatic reading:</strong> start with what already has bipartisan support (the 5–0 retirement
+          incentive), stack the audit-driven trims and any non-tax revenue on top, and reserve one-time fund balance for
+          the small residual. A cap override stays available, but as a deliberate, disclosed choice — not a number the
+          budget backs into.
         </p>
         <p style={{ color: '#6b7280', fontSize: 12, marginTop: 10, marginBottom: 0 }}>
           Board composition from the November 2025 results; budget roles per NY Town Law §§104–106. Cap-override
-          mechanics per General Municipal Law §3-c (a 60% vote of the governing body).
+          mechanics per General Municipal Law §3-c (a 60% vote).
         </p>
-      </section>
+      </Detail>
 
-      {/* 3 — Inflation / buying-power lens. */}
-      <section style={{ ...card, marginTop: 16, borderLeft: '6px solid #c99a2e' }}>
-        <h2 style={{ margin: '0 0 6px', color: '#284a69', fontSize: 17 }}>In real terms: the cost of standing still</h2>
-        <p style={{ color: '#334155', fontSize: 14.5, lineHeight: 1.6, margin: 0 }}>
-          Most of that {usd(modeledAutomaticPayrollPressure)} gap isn&apos;t new programs — it&apos;s the automatic
-          cost-of-living growth built into payroll (the model uses a 2.5% COLA). Meanwhile New York&apos;s tax cap
-          limits the Town&apos;s levy growth to the <em>lesser</em> of 2% or inflation. So contracted costs are set to
-          rise about as fast as — or faster than — the revenue the Town is allowed to raise.
-        </p>
-        <p style={{ color: '#334155', fontSize: 14.5, lineHeight: 1.6, margin: '10px 0 0' }}>
-          That cuts both ways when reading a &ldquo;cut.&rdquo; Because prices keep rising, a line that merely holds
-          flat in dollars is already a real cut in what it buys — and a savings target set in today&apos;s dollars
-          buys a little less each year it slips. The honest way to read this package is in <strong>recurring, real
-          terms</strong>: it&apos;s about keeping recurring costs within recurring revenue as both are pushed by
-          inflation, not a one-time patch.
-        </p>
-        <p style={{ color: '#6b7280', fontSize: 12, marginTop: 10, marginBottom: 0 }}>
-          Inflation reference: U.S. Bureau of Labor Statistics, Consumer Price Index. Levy-growth limit: NY&apos;s
-          2% property-tax cap (the lesser of 2% or CPI).
-        </p>
-      </section>
-
-      {/* 4 — The blunter alternative: a flat 2.5% cut. */}
-      <section style={{ ...card, marginTop: 16 }}>
-        <h2 style={{ margin: '0 0 4px', color: '#284a69', fontSize: 17 }}>The blunter alternative: a flat 2.5% cut</h2>
+      <Detail title="The blunt alternative: an across-the-board 2.5% cut">
         <p style={{ color: '#64748b', fontSize: 13.5, margin: '0 0 12px' }}>
-          Instead of the targeted lines above, a Supervisor could simply tell every department to cut 2.5%. Here&apos;s
-          how that actually pencils out — and why the blunt version overstates what&apos;s really cuttable.
+          Instead of the targeted lines, a Supervisor could tell every department to cut 2.5%. Here&apos;s how that
+          actually pencils out — and why the blunt version overstates what&apos;s really cuttable.
         </p>
-
         <div style={{ display: 'grid', gap: 8, marginBottom: 14 }}>
           {atb.bases.map((b) => (
             <div key={b.label} style={{ background: '#f8fafc', border: '1px solid #e2e8f0', borderRadius: 10, padding: '10px 14px' }}>
@@ -187,7 +167,6 @@ export default function SpendingReduction2027Page() {
             </div>
           ))}
         </div>
-
         <div style={{ overflowX: 'auto' }}>
           <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 13.5 }}>
             <thead>
@@ -210,18 +189,37 @@ export default function SpendingReduction2027Page() {
             </tbody>
           </table>
         </div>
-
         <p style={{ color: '#334155', fontSize: 14, lineHeight: 1.6, margin: '12px 0 0' }}>{atb.takeaway}</p>
         <p style={{ color: '#6b7280', fontSize: 12, marginTop: 8, marginBottom: 0 }}>
-          Computed from the 2026 Budget Supplement line totals. &ldquo;Controllable&rdquo; excludes personnel and
-          mandated costs (pension, debt service, insurance, payroll taxes) a flat directive can&apos;t change. Measured
-          against the {usd(atb.gapToClose)} modeled payroll-pressure gap.
+          &ldquo;Controllable&rdquo; excludes personnel and mandated costs (pension, debt service, insurance) a flat
+          directive can&apos;t change.
         </p>
-      </section>
+      </Detail>
 
-      {/* 5 — Compact provenance strip. */}
-      <section style={{ ...card, marginTop: 16 }}>
-        <h2 style={{ margin: '0 0 8px', color: '#284a69', fontSize: 15 }}>Built from the Town&apos;s own documents</h2>
+      <Detail title="Why you'll see two different “gap” numbers">
+        <p style={{ color: '#334155', fontSize: 14, lineHeight: 1.6, margin: 0 }}>
+          The number on this page is the <strong>cap-piercing gap</strong> ({usd(capGap2027.gap)}) — how far the levy
+          overshoots the 2% cap, and the one that forces a decision. You&apos;ll also see a smaller{' '}
+          <strong>payroll-pressure gap</strong> ({usd(modeledAutomaticPayrollPressure)}) — just the automatic wage
+          growth needed to keep the same staff. The interactive package is measured against that smaller one, which is
+          why it can read &ldquo;fully covered&rdquo; there while the bigger cap gap is the real target.
+        </p>
+      </Detail>
+
+      <Detail title="In real terms: inflation and buying power">
+        <p style={{ color: '#334155', fontSize: 14, lineHeight: 1.6, margin: 0 }}>
+          Most of the payroll-pressure gap isn&apos;t new programs — it&apos;s automatic cost-of-living growth (the model
+          uses a 2.5% COLA). Meanwhile the tax cap limits levy growth to the <em>lesser</em> of 2% or inflation, so
+          contracted costs rise about as fast as the revenue the Town is allowed to raise. Because prices keep rising, a
+          line that merely holds flat in dollars is already a real cut in what it buys — so read this package in
+          recurring, real terms: keeping recurring costs within recurring revenue, not a one-time patch.
+        </p>
+        <p style={{ color: '#6b7280', fontSize: 12, marginTop: 10, marginBottom: 0 }}>
+          Inflation: U.S. BLS Consumer Price Index. Levy limit: NY&apos;s 2% property-tax cap (lesser of 2% or CPI).
+        </p>
+      </Detail>
+
+      <Detail title="Built from the Town's own documents">
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
           {builtFromDocuments.map((doc) => {
             const k = KIND[doc.kind]
@@ -235,11 +233,22 @@ export default function SpendingReduction2027Page() {
           })}
         </div>
         <p style={{ color: '#6b7280', fontSize: 12, marginTop: 10, marginBottom: 0 }}>
-          Links open the Town&apos;s DocumentCenter (townofriverheadny.gov). Blue = budget, green = supplement, amber =
-          financial report.
+          Links open the Town&apos;s DocumentCenter. Blue = budget, green = supplement, amber = financial report.
         </p>
-      </section>
+      </Detail>
     </PageShell>
+  )
+}
+
+function Detail({ title, children }: { title: string; children: React.ReactNode }) {
+  return (
+    <details style={{ ...card, padding: 0, marginTop: 12, overflow: 'hidden' }}>
+      <summary style={{ cursor: 'pointer', listStyle: 'none', padding: '15px 18px', fontWeight: 800, color: '#284a69', fontSize: 15.5, display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 12 }}>
+        <span>{title}</span>
+        <span aria-hidden style={{ color: '#6b7280', fontSize: 13, fontWeight: 700 }}>Open ▾</span>
+      </summary>
+      <div style={{ padding: '0 18px 18px' }}>{children}</div>
+    </details>
   )
 }
 
