@@ -164,6 +164,10 @@ export default function ReservesPage() {
         </div>
       </section>
 
+      <h2 style={{ margin: '26px 0 4px', color: '#284a69', fontSize: 18 }}>Go deeper</h2>
+      <p style={{ color: '#64748b', fontSize: 13.5, margin: '0 0 8px' }}>The breakdown, peer comparisons, and a draw-down tool — open only what you want.</p>
+
+      <Detail title="Community block grants — who would get funded">
       <section style={{ ...card, marginBottom: 16 }}>
         <h3 style={{ marginTop: 0, color: '#284a69' }}>Community block grants — who would get funded</h3>
         <p style={{ color: '#475569', fontSize: 14.5, marginTop: 0 }}>
@@ -183,6 +187,9 @@ export default function ReservesPage() {
         </div>
       </section>
 
+      </Detail>
+
+      <Detail title="How Riverhead's 28.8% target compares nearby">
       <section style={{ ...card, marginBottom: 16 }}>
         <h3 style={{ marginTop: 0, color: '#284a69' }}>How 28.8% compares nearby</h3>
         <p style={{ color: '#475569', fontSize: 14.5, marginTop: 0 }}>
@@ -208,6 +215,9 @@ export default function ReservesPage() {
         </p>
       </section>
 
+      </Detail>
+
+      <Detail title="What if Riverhead matched its peers?">
       <section style={{ ...card, marginBottom: 16 }}>
         <h3 style={{ marginTop: 0, color: '#284a69' }}>What if Riverhead matched its peers?</h3>
         <p style={{ color: '#475569', fontSize: 14.5, marginTop: 0 }}>
@@ -242,6 +252,9 @@ export default function ReservesPage() {
         </p>
       </section>
 
+      </Detail>
+
+      <Detail title="Try it: what if the Town uses some savings?">
       <section style={{ ...card }}>
         <h3 style={{ marginTop: 0, color: '#284a69' }}>What if the Town uses some savings?</h3>
         <p style={{ color: '#475569', fontSize: 14.5, marginTop: 0 }}>
@@ -253,6 +266,7 @@ export default function ReservesPage() {
           policyMinimumPercent={policyMinimumPercent}
         />
       </section>
+      </Detail>
 
       <p style={{ color: '#64748b', fontSize: 13, lineHeight: 1.55, marginTop: 16 }}>
         Sources: 2025 Annual Financial Report (actual unassigned fund balance), 2026 Adopted Budget (General Fund
@@ -260,5 +274,17 @@ export default function ReservesPage() {
         budget or policy document where available.
       </p>
     </PageShell>
+  )
+}
+
+function Detail({ title, children }: { title: string; children: React.ReactNode }) {
+  return (
+    <details style={{ ...card, padding: 0, marginBottom: 12, overflow: 'hidden' }}>
+      <summary style={{ cursor: 'pointer', listStyle: 'none', padding: '15px 18px', fontWeight: 800, color: '#284a69', fontSize: 15.5, display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 12 }}>
+        <span>{title}</span>
+        <span aria-hidden style={{ color: '#6b7280', fontSize: 13, fontWeight: 700 }}>Open ▾</span>
+      </summary>
+      <div style={{ padding: '0 18px 18px' }}>{children}</div>
+    </details>
   )
 }
