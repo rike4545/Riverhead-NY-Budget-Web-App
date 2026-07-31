@@ -108,7 +108,7 @@ export default function CandidateWatchPage() {
       <section style={{ ...card, marginBottom: 16 }}>
         <h3 style={{ marginTop: 0, color: '#284a69' }}>Key dates</h3>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(150px,1fr))', gap: 12 }}>
-          <DateItem label="Primary" value={cal.primary} highlight />
+          <DateItem label="Primary (held)" value={cal.primary} />
           <DateItem label="General election" value={cal.generalElection} highlight />
           <DateItem label="Filing — major parties" value={cal.filingDeadlineMajorParties} />
           <DateItem label="Filing — independents" value={cal.filingDeadlineIndependents} />

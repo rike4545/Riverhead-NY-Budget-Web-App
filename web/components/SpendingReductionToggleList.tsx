@@ -78,6 +78,7 @@ export default function SpendingReductionToggleList() {
         <div style={{ color: '#64748b', fontSize: 12.5, marginBottom: 14 }}>
           {(rawCoverage * 100).toFixed(0)}% of the {usd(modeledAutomaticPayrollPressure)} modeled 2027 payroll-pressure gap
           {rawCoverage >= 1 ? ' — fully covered' : ''}
+          {' '}<span style={{ color: '#6b7280' }}>(the smaller of the two gaps; the ~$2.62M cap-piercing gap is the one that actually binds)</span>
         </div>
 
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(160px,1fr))', gap: 10, marginBottom: 14 }}>
