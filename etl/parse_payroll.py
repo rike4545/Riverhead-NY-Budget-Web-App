@@ -407,6 +407,34 @@ def build():
         "yearSummaries": years_summary,
     }, separators=(",", ":")))
 
+    # Headcount by title and year (for the "Workforce by Title" view — how each
+    # job's staffing changes over time). Titles are populated 2022 onward.
+    title_years = sorted({r["year"] for r in all_rows if (r["title"] or "").strip()})
+    by_title = {}
+    for r in all_rows:
+        t = (r["title"] or "").strip()
+        if not t:
+            continue
+        by_title.setdefault(t, {}).setdefault(r["year"], set()).add(r["name"])
+    titles_out = []
+    for t, ym in by_title.items():
+        counts = {str(y): len(ym.get(y, set())) for y in title_years}
+        nonzero = [counts[str(y)] for y in title_years if counts[str(y)]]
+        first, last = (nonzero[0], nonzero[-1]) if nonzero else (0, 0)
+        titles_out.append({
+            "title": t, "counts": counts,
+            "latest": counts[str(title_years[-1])] if title_years else 0,
+            "first": first, "last": last, "delta": last - first,
+        })
+    titles_out.sort(key=lambda x: (-x["latest"], x["title"]))
+    (OUT / "titles-by-year.json").write_text(json.dumps({
+        "years": title_years,
+        "note": "Distinct employees paid under each civil-service title, by year. Titles are available 2022 onward; seasonal and part-time roles (lifeguards, recreation aides, beach attendants) inflate summer headcounts.",
+        "source": {"title": "Town of Riverhead Gross Earnings reports", "url": "https://www.townofriverheadny.gov/206/Financial-Reports"},
+        "titles": titles_out,
+    }, separators=(",", ":")))
+    print(f"Titles by year: {len(titles_out)} titles across {title_years}")
+
     print(f"Payroll records: {len(records)} across years {[y['year'] for y in years_summary]}")
     for y in years_summary:
         print(f"  {y['year']}  headcount={y['headcount']:>4}  gross={y['totalGross']:>14,.0f}  "

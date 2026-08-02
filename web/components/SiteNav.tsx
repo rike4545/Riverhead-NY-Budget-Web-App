@@ -37,6 +37,7 @@ const GROUPS: Group[] = [
     label: 'People & Pay',
     links: [
       ['Payroll', `${base}/payroll/`],
+      ['Workforce by Title', `${base}/workforce-by-title/`],
       ['2026 Buyout', `${base}/buyout/`],
       ['Officials & Pensions', `${base}/officials/`],
       ['Supervisors & Council History', `${base}/town-history/`],
