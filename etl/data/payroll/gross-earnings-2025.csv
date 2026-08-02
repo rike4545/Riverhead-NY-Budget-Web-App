@@ -133,7 +133,7 @@ year,name,department,title,pay_class,union,regular,overtime,gross,longevity,holi
 2025,"Commins, Michael C",Street Lighting,Electrical Services Supervisor,Engineer CSEA 8-40,CSE,30569.72,474.86,58081.77,6169.28,3365.78,0.0,0.0,0.0,2001
 2025,"Concannon, Ayden T",Recreation,Recreation Aide,NON-TIME,NON,4683.85,0.0,4683.85,0.0,0.0,0.0,0.0,0.0,2023
 2025,"Concannon, Daniel R",P/T Police,Police Officer P/T Seasonal,Police Part Time,NON,29846.07,0.0,29846.07,0.0,0.0,0.0,0.0,0.0,2022
-2025,"Conklin, Mark",Water Management,Water District Superintendant Type I B,Contractual 8,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1981
+2025,"Conklin, Mark",Water Management,Water District Superintendent Type I B,Contractual 8,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1981
 2025,"Connell, Ellie A",Recreation,Lifeguard,NON-TIME,NON,2848.76,0.0,2848.76,0.0,0.0,0.0,0.0,0.0,2025
 2025,"Conyers, Karli E",Headquarters,Sergeant Police-Towns and Village,SOA 8-40,SOA,128494.14,2669.55,183909.51,0.0,17026.49,1100.0,375.0,0.0,2017
 2025,"Cook, James Patrick",Recreation,Lifeguard,NON-TIME,NON,2606.57,0.0,2606.57,0.0,0.0,0.0,0.0,0.0,2024
@@ -141,7 +141,7 @@ year,name,department,title,pay_class,union,regular,overtime,gross,longevity,holi
 2025,"Coome, Melissa B",Water,Account Clerk,Water CSEA 7-35,CSE,46169.08,3945.42,69851.01,0.0,3434.71,400.0,1650.0,0.0,2016
 2025,"Corwin, Robert E",General Repairs Highway,Automotive Equipment Operator,Highway CSEA 8-40,CSE,28617.41,390.91,40777.86,0.0,1716.72,0.0,0.0,0.0,2024
 2025,"Costantini, Sabina J",Squad 2 - Police,Police Officer,PBA 10-40,PBA,69360.72,7417.22,126823.17,0.0,12094.16,1200.0,0.0,-93.19,2021
-2025,"Coyne, Raymond A",Recreation Management,Superintendant of Recreation I,Contractual 7 with Comp30,,132844.31,0.0,174961.73,9299.27,0.0,7968.09,18200.37,0.0,2005
+2025,"Coyne, Raymond A",Recreation Management,Superintendent of Recreation I,Contractual 7 with Comp30,,132844.31,0.0,174961.73,9299.27,0.0,7968.09,18200.37,0.0,2005
 2025,"Cravotta, Anthony J",Recreation,Lifeguard,NON-TIME,NON,1333.0,0.0,1333.0,0.0,0.0,0.0,0.0,0.0,2025
 2025,"Crohan, Tyler E",Sewer / Scavenger Waste,Wastewater Treatment Plant Operator 3A,Sewer CSEA 8-40,CSE,51863.67,391.59,70972.04,0.0,3940.97,0.0,0.0,0.0,2020
 2025,"Crump, Ollie T",Squad 3 - Police,Police Officer,PBA 8-40,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1996
@@ -381,7 +381,7 @@ year,name,department,title,pay_class,union,regular,overtime,gross,longevity,holi
 2025,"Kujawski, Robert",Planning / Zoning / CAC/AARB,Member of Appointed Board,NON-TIME,,1540.0,0.0,1540.0,0.0,0.0,0.0,0.0,0.0,1999
 2025,"Kurpetski, John",Headquarters,,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1966
 2025,"Kwasna, Kendal Marie",Recreation,Assistant Recreation Leader,NON-TIME,NON,5094.16,0.0,5094.16,0.0,0.0,0.0,0.0,0.0,2018
-2025,"Kwasna, Mark A",Highway Admin  Elected/Appointed,Superintendant Of Highways,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1996
+2025,"Kwasna, Mark A",Highway Admin  Elected/Appointed,Superintendent Of Highways,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1996
 2025,"LaRocco, Paul A",Water,Water Treatment Plant Oper Trainee,Water CSEA 8-40,CSE,15909.11,1027.92,19301.91,0.0,1289.94,0.0,0.0,0.0,2025
 2025,"Lagnena, Peter L",Recreation,Recreation Aide,NON-TIME,NON,346.5,0.0,346.5,0.0,0.0,0.0,0.0,0.0,2024
 2025,"Lagun, Magdalena E",Nutrition,Homemaker,Part Time,NON,11214.57,0.0,13526.95,0.0,1078.74,0.0,0.0,0.0,2016
@@ -438,7 +438,7 @@ year,name,department,title,pay_class,union,regular,overtime,gross,longevity,holi
 2025,"Makarewicz, Zachary T",Recreation,Lifeguard,NON-TIME,NON,913.75,0.0,913.75,0.0,0.0,0.0,0.0,0.0,2025
 2025,"Malahias, George",Community Development Clerical,,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1989
 2025,"Mammina, Nicholas S.",General Repairs Highway,Automotive Equipment Operator,Highway CSEA 8-40,CSE,47732.22,507.29,56229.49,0.0,2996.62,0.0,0.0,0.0,2019
-2025,"Mancini, Frank R",Water Management,Water District Superintendant Type I B,Contractual 8,NON,182619.47,0.0,190820.92,3652.51,0.0,690.0,3858.94,0.0,2019
+2025,"Mancini, Frank R",Water Management,Water District Superintendent Type I B,Contractual 8,NON,182619.47,0.0,190820.92,3652.51,0.0,690.0,3858.94,0.0,2019
 2025,"Mannetta, Lucia A",Recreation,,NON-TIME,NON,570.15,0.0,570.15,0.0,0.0,0.0,0.0,0.0,2025
 2025,"Mansibang, Randy John R.",Court Officers,Court Officer,Police Part Time,NON,7081.76,0.0,7081.76,0.0,0.0,0.0,0.0,0.0,2018
 2025,"Marcucci, Isabella M",,,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,2023
@@ -501,7 +501,7 @@ year,name,department,title,pay_class,union,regular,overtime,gross,longevity,holi
 2025,"Mudzinski, Matthew J",Squad 4 - Police,Police Officer,PBA 8-40,PBA,104362.98,8070.19,182146.94,10263.3,15532.26,1200.0,0.0,0.0,2006
 2025,"Muir, Michael I",General Repairs Highway,Automotive Equipment Operator,Highway CSEA 8-40,CSE,43669.35,1013.89,56858.16,0.0,2996.62,0.0,142.5,0.0,2024
 2025,"Muller, Robert G",Building / Planning Management,Senior Building Inspector,CSEA 7-35,CSE,67898.82,18143.63,103751.02,0.0,4518.56,400.0,1650.0,0.0,2023
-2025,"Murphree, Jefferson V",Building / Planning Management,Town Building & Planning Adminstrator,Contractual 7,,33171.95,0.0,34498.82,1326.87,0.0,0.0,0.0,0.0,2012
+2025,"Murphree, Jefferson V",Building / Planning Management,Town Building & Planning Administrator,Contractual 7,,33171.95,0.0,34498.82,1326.87,0.0,0.0,0.0,0.0,2012
 2025,"Murphy, Colleen A",Headquarters,,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,2003
 2025,"Murphy, Timothy J",COPE Comm Oriented Police Enforce,Police Officer,PBA 8-40,PBA,107934.58,58399.89,239427.14,10263.3,15870.98,1200.0,6594.6,0.0,1999
 2025,"Nagy, Kenneth E",General Repairs Highway,Highway Labor Crew Leader,Highway CSEA 8-40,CSE,59783.95,3908.74,94258.88,5824.27,4452.7,0.0,1675.0,0.0,1999
@@ -715,7 +715,7 @@ year,name,department,title,pay_class,union,regular,overtime,gross,longevity,holi
 2025,"Vaccaro, Joseph M",Fire Marshal,Fire Marshal I,CSEA 7-35,CSE,29123.62,3821.4,45229.46,0.0,1891.4,0.0,0.0,0.0,2025
 2025,"Vail, John H",Squad 1 - Police,Sergeant Police-Towns and Village,SOA 8-40,SOA,132142.01,16937.15,234020.25,12196.28,21994.43,1100.0,7166.04,0.0,1989
 2025,"Vail, Maribeth",Justice Court,Senior Justice Court Clerk,CSEA 7-35,CSE,54546.05,286.58,76376.76,3490.22,3722.1,400.0,2929.5,0.0,1990
-2025,"Van Den Thoorn, Jane",Recreation Management,Superintendant of Recreation I,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1984
+2025,"Van Den Thoorn, Jane",Recreation Management,Superintendent of Recreation I,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1984
 2025,"Van der Loos, Skye A",Sewer / Scavenger Waste,Maintenance Mechanic II SEWER,Sewer CSEA 8-40,CSE,45552.24,1751.64,58380.41,0.0,2936.0,0.0,1650.0,-2.55,2024
 2025,"Vance, Scott R",General Repairs Highway,Automotive Equipment Operator,Highway CSEA 8-40,CSE,46757.73,10.94,60600.2,0.0,3259.64,0.0,0.0,0.0,2016
 2025,"Vance, Thomas E",Buildings and Grounds,Maintenance Mechanic III BLDG,Engineer CSEA 8-40,CSE,54060.2,0.0,72724.88,3480.1,3724.47,0.0,0.0,0.0,2008
@@ -763,7 +763,7 @@ year,name,department,title,pay_class,union,regular,overtime,gross,longevity,holi
 2025,"Wnorowski, Sebastian",Squad 5 - Police,Police Officer,PBA 8-40,PBA,54893.12,3837.49,71561.21,0.0,7406.94,1500.0,0.0,0.0,2024
 2025,"Woodhull, George H",Planning / Zoning / CAC/AARB,Member of Appointed Board,NON-TIME,,1540.0,0.0,1540.0,0.0,0.0,0.0,0.0,0.0,2007
 2025,"Woods, Kenneth",Detectives,,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1973
-2025,"Woodson, George E",Highway Admin  Elected/Appointed,Superintendant Of Highways,Elected,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1985
+2025,"Woodson, George E",Highway Admin  Elected/Appointed,Superintendent Of Highways,Elected,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1985
 2025,"Woodson, John F",,,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1987
 2025,"Wooten, Alivia Grace",Nutrition,Food Service Worker,Part Time - TC Entry,NON,3417.0,0.0,3417.0,0.0,0.0,0.0,0.0,0.0,2024
 2025,"Wooten, James M",Town Clerk Elected,Town Clerk,Elected,ELE,93038.0,0.0,103800.28,0.0,0.0,5000.0,0.0,0.0,2006
@@ -778,7 +778,7 @@ year,name,department,title,pay_class,union,regular,overtime,gross,longevity,holi
 2025,"Young, Myron E",General Repairs Highway,Highway Labor Crew Leader,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1987
 2025,"Zak, Richard M",Squad 4 - Police,,NON-TIME,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1986
 2025,"Zaleski, Dillon",Recreation,Recreation Aide,NON-TIME,NON,574.54,0.0,574.54,0.0,0.0,0.0,0.0,0.0,2023
-2025,"Zaleski, Michael T",Highway Admin  Elected/Appointed,Superintendant Of Highways,Contractual 8,,104543.0,0.0,111400.28,0.0,0.0,1095.0,0.0,0.0,1994
+2025,"Zaleski, Michael T",Highway Admin  Elected/Appointed,Superintendent Of Highways,Contractual 8,,104543.0,0.0,111400.28,0.0,0.0,1095.0,0.0,0.0,1994
 2025,"Zaleski, Ryan T",Traffic Control,Traffic Control Specialist,Police Part Time,NON,15425.34,0.0,15425.34,0.0,0.0,0.0,0.0,0.0,2025
 2025,"Zaneski, Laurie A",Tax Collection Elected,Town Tax Receiver,Elected,,93038.0,0.0,98800.28,0.0,0.0,0.0,0.0,0.0,2003
 2025,"Zaveski, Timothy P",Town Engineer,Auto Mechanic III,CSEA 8-40,CSE,1194.97,0.0,8318.73,4565.78,298.74,0.0,0.0,0.0,1995
