@@ -67,6 +67,35 @@ def normalize_title(title):
     return title
 
 
+def name_key(name):
+    """Normalized 'Last, First' key for cross-referencing an employee across the
+    name-only Gross Earnings exports and the File-Number lookup."""
+    return " ".join((name or "").upper().replace(".", "").split())
+
+
+def load_file_numbers():
+    """Map name_key -> File Number from the Town's payroll roster
+    (GFZCodeLookup.csv). The Gross Earnings exports carry no employee ID, so this
+    is the only way to make the payroll data searchable/cross-referenceable by
+    File Number. Committed at etl/data/payroll/gfz-code-lookup.csv for CI."""
+    candidates = [SLIM_DIR / "gfz-code-lookup.csv"]
+    for base in SOURCE_DIRS:
+        candidates.append(base / "GFZCodeLookup.csv")
+    for path in candidates:
+        if not path.exists():
+            continue
+        out = {}
+        with path.open(encoding="utf-8-sig", newline="") as fh:
+            for row in csv.DictReader(fh):
+                fn = (row.get("File Number") or "").strip()
+                nm = row.get("Payroll Name") or ""
+                if fn and nm:
+                    out[name_key(nm)] = fn
+        if out:
+            return out
+    return {}
+
+
 def col_code(header):
     return re.split(r"\s+-\s+|_", header.strip(), 1)[0].strip()
 
@@ -284,23 +313,31 @@ def build():
     # Compact records: short keys keep the payload small for the static site.
     # "k" is the [longevity, holiday, stipend, buyout, retro] breakdown of the
     # pay beyond base and overtime; omitted when the employee has none of it.
+    file_numbers = load_file_numbers()
+
     def rec(r):
         d = {
             "y": r["year"], "n": r["name"], "d": r["department"], "t": r["title"],
             "c": r["pay_class"], "u": r["union"],
             "r": r["regular"], "o": r["overtime"], "g": r["gross"],
         }
+        fn = file_numbers.get(name_key(r["name"]))
+        if fn:
+            d["f"] = fn
         k = [round(r.get(b, 0) or 0, 2) for b in BUCKETS]
         if any(k):
             d["k"] = k
         return d
     records = [rec(r) for r in all_rows]
+    matched = sum(1 for x in records if x.get("f"))
+    print(f"File Numbers matched: {matched}/{len(records)} records "
+          f"({len({x['n'] for x in records if x.get('f')})} distinct employees)")
 
     OUT.mkdir(parents=True, exist_ok=True)
     (OUT / "records.json").write_text(json.dumps({
         "source": {"title": "Town of Riverhead Gross Earnings reports", "url": "https://www.townofriverheadny.gov/206/Financial-Reports"},
         "note": "Actual paid earnings (including overtime) by employee and year. Department, title, and pay class are available for 2022 onward.",
-        "fields": {"y": "year", "n": "name", "d": "department", "t": "title", "c": "pay class", "u": "union", "r": "regular earnings", "o": "overtime", "g": "gross pay", "k": "[longevity, holiday/differential, stipends, buy-outs, retro] breakdown of other pay"},
+        "fields": {"y": "year", "n": "name", "f": "payroll file number", "d": "department", "t": "title", "c": "pay class", "u": "union", "r": "regular earnings", "o": "overtime", "g": "gross pay", "k": "[longevity, holiday/differential, stipends, buy-outs, retro] breakdown of other pay"},
         "unionLabels": UNION_LABELS,
         "count": len(records),
         "records": records,

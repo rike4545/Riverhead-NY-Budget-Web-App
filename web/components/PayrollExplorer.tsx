@@ -50,7 +50,14 @@ export default function PayrollExplorer() {
       if (year !== 'all' && r.year !== year) return false
       if (union !== 'all' && (r.union || '') !== union) return false
       if (dept !== 'all' && r.department !== dept) return false
-      if (yq && !(`${r.name} ${r.title} ${r.department}`.toLowerCase().includes(yq))) return false
+      if (yq) {
+        const hay = `${r.name} ${r.title} ${r.department}`.toLowerCase()
+        // Also match the payroll file number, with or without leading zeros.
+        const fn = r.fileNumber
+        const digits = yq.replace(/\D/g, '')
+        const fnMatch = !!fn && !!digits && (fn === digits || fn === digits.padStart(fn.length, '0') || fn.replace(/^0+/, '') === digits.replace(/^0+/, ''))
+        if (!hay.includes(yq) && !fnMatch) return false
+      }
       return true
     })
     rows.sort((a, b) => {
@@ -142,7 +149,7 @@ export default function PayrollExplorer() {
         <input
           value={q}
           onChange={(e) => { setQ(e.target.value); setLimit(100) }}
-          placeholder="Search employee name, title, department…"
+          placeholder="Search name, title, department, or file #…"
           style={{ flex: 1, minWidth: 220, padding: '10px 13px', border: '1px solid #cbd5e1', borderRadius: 9, fontSize: 15 }}
         />
       </section>
@@ -194,6 +201,7 @@ export default function PayrollExplorer() {
                       {year === 'all' && <td style={{ ...td, color: '#6b7280' }}>{r.year}</td>}
                       <td style={{ ...td, fontWeight: 700, color: '#284a69' }}>
                         <button onClick={(e) => { e.stopPropagation(); setQ(r.name); setYear('all'); setLimit(100) }} style={nameBtn} title="Show this employee across all years">{r.name}</button>
+                        {r.fileNumber && <div style={{ fontSize: 11, color: '#6b7280', fontWeight: 600 }}>File #{r.fileNumber}</div>}
                       </td>
                       <td style={td}>{r.title || '—'}</td>
                       <td style={td}>{r.department || '—'}</td>

@@ -16,6 +16,7 @@ export const PAYROLL_RECORDS_URL = `${process.env.NEXT_PUBLIC_BASE_PATH || ''}/d
 export type PayrollRecordRaw = {
   y: number; n: string; d: string; t: string; c: string; u: string
   r: number; o: number; g: number
+  f?: string     // payroll file number (employee ID), joined from the Town roster
   k?: number[]   // [longevity, holiday, stipend, buyout, retro] breakdown of "other"
 }
 
@@ -24,6 +25,7 @@ export type PayComponent = { key: string; label: string; amount: number }
 export type PayrollRecord = {
   year: number
   name: string
+  fileNumber: string   // payroll file number (employee ID); '' when not in the roster
   department: string
   title: string
   payClass: string
@@ -115,7 +117,7 @@ export function mapRawRecords(raw: PayrollRecordRaw[]): PayrollRecord[] {
     })
     if (Math.abs(misc) >= 1) components.push({ key: 'misc', label: 'Other pay & adjustments', amount: misc })
     return {
-      year: r.y, name: r.n, department: r.d, title: r.t, payClass: r.c, union: r.u,
+      year: r.y, name: r.n, fileNumber: r.f ?? '', department: r.d, title: r.t, payClass: r.c, union: r.u,
       regular: r.r, overtime: r.o, gross: r.g, other, components,
     }
   })
