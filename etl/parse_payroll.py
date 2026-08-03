@@ -297,8 +297,8 @@ def median(nums):
 # Elected officials and board members are paid a fixed salary or a per-meeting
 # stipend with no defined workweek behind it — dividing a Planning Board
 # member's $10,800 by any number of hours invents a wage nobody is paid.
-# Sworn police work a PBA / superior-officers chart schedule, and these
-# resolutions never state its annual hours, so there is nothing to divide by.
+# Sergeants and above are the Superior Officers unit, a separate contract we
+# don't hold, so their duty chart's annual days are unknown.
 NO_DERIVED_HOURLY = {
     "supervisor", "deputy supervisor", "council member", "town clerk",
     "town justice", "town tax receiver", "superintendent of highways",
@@ -306,8 +306,13 @@ NO_DERIVED_HOURLY = {
     "member of zoning board of appeals", "member of appointed board",
     "police chief iii", "captain police-towns and village",
     "lieutenant police-towns and village", "sergeant police-towns and village",
-    "detective sergeant", "detective", "police officer",
+    "detective sergeant",
 }
+
+# The PBA unit — Police Officers and Detectives only (PBA agreement Art. I).
+# Art. VIII(A) sets the basic tour at eight hours a day; Art. XIII(B) sets the
+# duty chart at 238 work days a year, or 260 for an officer's first 30 months.
+PBA_TITLES = {"police officer", "detective"}
 
 
 # The two regular workweeks in the CSEA agreement (Art. 3(4)(a), Art. 4(2), as
@@ -322,15 +327,25 @@ NO_DERIVED_HOURLY = {
 HOURS_35_WEEK = 1827
 HOURS_40_WEEK = 2088
 
+# PBA: 8 hours a day (Art. VIII(A)) across the two duty-chart years in
+# Art. XIII(B) — 260 days for an officer's first 30 months, 238 thereafter.
+HOURS_PBA_NEW = 2080
+HOURS_PBA_REGULAR = 1904
+
+# (more annual hours -> lower rate, so the first of each pair sets hrDerivedMin)
+CSEA_BASIS = (HOURS_40_WEEK, "a 40-hour week", HOURS_35_WEEK, "a 35-hour week")
+PBA_BASIS = (HOURS_PBA_NEW, "a 260-day year", HOURS_PBA_REGULAR, "a 238-day year")
+
 
 def _derive_hourly(wage_by_title, reso_source):
     """Bracket an hourly rate for titles whose resolution prints only an annual.
 
     Every department roster except the Water District leaves the HOURLY column
-    blank for full-time staff, and the rosters never say which employees are on
-    the 35-hour week and which are on the 40-hour week. So rather than pick one
-    and present a single fabricated rate, this brackets the title between the
-    two: the annual over 2,088 at the low end, over 1,827 at the high end.
+    blank for full-time staff, and no roster says which workweek or duty chart
+    a given title sits on. So rather than pick one and present a single
+    fabricated rate, this brackets each title between the two schedules its
+    contract allows — the CSEA unit's 35- and 40-hour weeks, or the PBA's
+    238- and 260-day duty-chart years.
 
     Kept in separate hrDerived* fields, never written into hrMin/hrMax: this is
     arithmetic on the annual figure, not a rate the Board authorized, and every
@@ -339,10 +354,13 @@ def _derive_hourly(wage_by_title, reso_source):
     for tkey, w in wage_by_title.items():
         if w.get("hrMin") or not w.get("annMin") or tkey in NO_DERIVED_HOURLY:
             continue
-        w["hrBasisLow"] = HOURS_35_WEEK
-        w["hrBasisHigh"] = HOURS_40_WEEK
-        w["hrDerivedMin"] = round(w["annMin"] / HOURS_40_WEEK, 4)
-        w["hrDerivedMax"] = round((w.get("annMax") or w["annMin"]) / HOURS_35_WEEK, 4)
+        lo_hrs, lo_label, hi_hrs, hi_label = PBA_BASIS if tkey in PBA_TITLES else CSEA_BASIS
+        w["hrBasisLow"] = lo_hrs
+        w["hrBasisHigh"] = hi_hrs
+        w["hrLowLabel"] = lo_label
+        w["hrHighLabel"] = hi_label
+        w["hrDerivedMin"] = round(w["annMin"] / lo_hrs, 4)
+        w["hrDerivedMax"] = round((w.get("annMax") or w["annMin"]) / hi_hrs, 4)
 
 
 def build():

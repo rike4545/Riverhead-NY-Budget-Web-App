@@ -10,6 +10,7 @@ type Wage = {
   // Present only where the resolution prints an annual salary and leaves the
   // hourly column blank: the annual bracketed between the two CSEA workweeks.
   hrBasisLow?: number; hrBasisHigh?: number
+  hrLowLabel?: string; hrHighLabel?: string
   hrDerivedMin?: number; hrDerivedMax?: number
 }
 type TitleRow = {
@@ -125,10 +126,14 @@ export default function WorkforceByTitle() {
           line brackets it instead: the annual over <strong>2,088</strong> hours (a 40-hour week) at the low end and
           over <strong>1,827</strong> hours (a 35-hour week) at the high end. Those are the two regular workweeks in
           the CSEA agreement, on Riverhead&apos;s 261-workday year; all 16 of the Water District&apos;s published
-          hourly rates land on exactly one or the other. The rosters don&apos;t say which workweek each title is on,
-          which is why the figure is a range and not a single number — and why it is arithmetic by this site, not a
-          rate the Board voted on. No hourly figure at all is shown for elected officials, board members (paid a
-          stipend, not a wage) or sworn police, whose contract workweek these resolutions don&apos;t state. Source:{' '}
+          hourly rates land on exactly one or the other. (The Town pays biweekly, but the rate is struck on that
+          261-day year, not on 26 × 80 hours — the published rates match 2,088 and miss 2,080.) Police Officers and
+          Detectives are bracketed on their own contract instead: the PBA agreement sets an eight-hour tour with a
+          duty chart of 238 work days a year, or 260 during an officer&apos;s first 30 months. The rosters
+          don&apos;t say which schedule each title is on, which is why the figure is a range and not a single number
+          — and why it is arithmetic by this site, not a rate the Board voted on. No hourly figure at all is shown
+          for elected officials, board members (paid a stipend, not a wage), or sergeants and above, who are a
+          separate Superior Officers unit whose duty chart we don&apos;t hold. Source:{' '}
           <a href={data.source.url} target="_blank" rel="noreferrer" style={{ color: '#4a7297', fontWeight: 700 }}>{data.source.title} ↗</a>
         </p>
       </section>
@@ -154,8 +159,8 @@ function WageLine({ w }: { w: Wage }) {
       </div>
       {!authorized && w.hrDerivedMin != null && w.hrDerivedMax != null && (
         <div style={{ fontWeight: 400, color: '#64748b', fontSize: 12, marginTop: 2 }}>
-          ≈ ${w.hrDerivedMin.toFixed(4)}/hr on a 40-hour week to ${w.hrDerivedMax.toFixed(4)}/hr on a 35-hour
-          week — computed by this site, not a published rate
+          ≈ ${w.hrDerivedMin.toFixed(4)}/hr on {w.hrLowLabel} to ${w.hrDerivedMax.toFixed(4)}/hr on{' '}
+          {w.hrHighLabel} — computed by this site, not a published rate
         </div>
       )}
     </>
