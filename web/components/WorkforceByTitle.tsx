@@ -3,7 +3,15 @@
 import { useMemo, useState } from 'react'
 import titlesData from '../public/data/payroll/titles-by-year.json'
 
-type Wage = { n: number; hrMin: number | null; hrMax: number | null; annMin: number | null; annMax: number | null }
+type Wage = {
+  n: number
+  hrMin: number | null; hrMax: number | null
+  annMin: number | null; annMax: number | null
+  // Present only where the resolution prints an annual salary and leaves the
+  // hourly column blank: the annual bracketed between the two CSEA workweeks.
+  hrBasisLow?: number; hrBasisHigh?: number
+  hrDerivedMin?: number; hrDerivedMax?: number
+}
 type TitleRow = {
   title: string
   counts: Record<string, number>
@@ -108,12 +116,19 @@ export default function WorkforceByTitle() {
         </div>
 
         <p style={{ color: '#6b7280', fontSize: 12, marginTop: 12, marginBottom: 0, lineHeight: 1.5 }}>
-          {data.note} Counts are distinct employees paid under each title that year. Where shown, the teal
-          &ldquo;2026 authorized rate&rdquo; line is the Board-authorized hourly rate (on that title&apos;s own
-          workweek) from the 2026 salary schedule — a single rate where uniform, or a step range — with annual for
-          salaried roles, available for {data.titles.filter((t) => t.wage2026).length} of the titles. Titles set by
-          separate resolutions (police PBA/SOA, elected officials, seasonal, water/sewer districts) aren&apos;t in
-          that schedule. Source:{' '}
+          {data.note} Counts are distinct employees paid under each title that year. The teal
+          &ldquo;2026 authorized rate&rdquo; line is what the Town Board&apos;s January 2026 salary resolutions
+          actually print for that title, available for {data.titles.filter((t) => t.wage2026).length} of the titles.
+          Those rosters have an ANNUAL SALARY column and an HOURLY column, but the Town fills the hourly one in only
+          for part-time and per-hour staff — and for the Water District, the one department that publishes both. For
+          every other full-time title, <strong>no hourly rate is published</strong>, so the grey <strong>≈</strong>{' '}
+          line brackets it instead: the annual over <strong>2,088</strong> hours (a 40-hour week) at the low end and
+          over <strong>1,827</strong> hours (a 35-hour week) at the high end. Those are the two regular workweeks in
+          the CSEA agreement, on Riverhead&apos;s 261-workday year; all 16 of the Water District&apos;s published
+          hourly rates land on exactly one or the other. The rosters don&apos;t say which workweek each title is on,
+          which is why the figure is a range and not a single number — and why it is arithmetic by this site, not a
+          rate the Board voted on. No hourly figure at all is shown for elected officials, board members (paid a
+          stipend, not a wage) or sworn police, whose contract workweek these resolutions don&apos;t state. Source:{' '}
           <a href={data.source.url} target="_blank" rel="noreferrer" style={{ color: '#4a7297', fontWeight: 700 }}>{data.source.title} ↗</a>
         </p>
       </section>
@@ -121,17 +136,29 @@ export default function WorkforceByTitle() {
   )
 }
 
-// 2026 authorized wage line under a title: hourly to 4 decimals (the real rate
-// on that title's own workweek), plus annual for salaried roles.
+// 2026 wage line under a title: hourly to 4 decimals (the real rate on that
+// title's own workweek), plus annual for salaried roles. Where the resolution
+// set only an annual salary, the hourly is computed here instead of quoted —
+// shown in grey with a "≈" and its divisor, so it never reads as a rate the
+// Board authorized.
 function WageLine({ w }: { w: Wage }) {
+  const authorized = w.hrMin != null && w.hrMax != null
   const parts: string[] = []
-  if (w.hrMin != null && w.hrMax != null) parts.push(hrRange(w.hrMin, w.hrMax))
+  if (authorized) parts.push(hrRange(w.hrMin!, w.hrMax!))
   if (w.annMin != null && w.annMax != null) parts.push(yrRange(w.annMin, w.annMax))
   if (parts.length === 0) return null
   return (
-    <div style={{ fontWeight: 400, color: '#0f766e', fontSize: 12, marginTop: 3 }}>
-      2026 authorized rate · {parts.join(' · ')}
-    </div>
+    <>
+      <div style={{ fontWeight: 400, color: '#0f766e', fontSize: 12, marginTop: 3 }}>
+        2026 authorized rate · {parts.join(' · ')}
+      </div>
+      {!authorized && w.hrDerivedMin != null && w.hrDerivedMax != null && (
+        <div style={{ fontWeight: 400, color: '#64748b', fontSize: 12, marginTop: 2 }}>
+          ≈ ${w.hrDerivedMin.toFixed(4)}/hr on a 40-hour week to ${w.hrDerivedMax.toFixed(4)}/hr on a 35-hour
+          week — computed by this site, not a published rate
+        </div>
+      )}
+    </>
   )
 }
 

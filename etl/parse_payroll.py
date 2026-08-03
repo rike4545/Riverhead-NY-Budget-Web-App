@@ -293,6 +293,58 @@ def median(nums):
     return s[n // 2] if n % 2 else round((s[n // 2 - 1] + s[n // 2]) / 2, 2)
 
 
+# Titles whose annual salary must NOT be turned into an hourly rate.
+# Elected officials and board members are paid a fixed salary or a per-meeting
+# stipend with no defined workweek behind it — dividing a Planning Board
+# member's $10,800 by any number of hours invents a wage nobody is paid.
+# Sworn police work a PBA / superior-officers chart schedule, and these
+# resolutions never state its annual hours, so there is nothing to divide by.
+NO_DERIVED_HOURLY = {
+    "supervisor", "deputy supervisor", "council member", "town clerk",
+    "town justice", "town tax receiver", "superintendent of highways",
+    "member of board of assessors", "member of planning board",
+    "member of zoning board of appeals", "member of appointed board",
+    "police chief iii", "captain police-towns and village",
+    "lieutenant police-towns and village", "sergeant police-towns and village",
+    "detective sergeant", "detective", "police officer",
+}
+
+
+# The two regular workweeks in the CSEA agreement (Art. 3(4)(a), Art. 4(2), as
+# amended 12/6/25): 35 hours and 40 hours. Riverhead pays both on a 261-workday
+# year, so the annual-hours divisors are 261x7 and 261x8.
+#
+# These are not guesses. The Water District roster is the one department whose
+# resolution prints the HOURLY column as well as ANNUAL SALARY, and all 16 of
+# its hourly employees divide out to exactly one of these two numbers — the
+# clerical titles (Account Clerk, Senior Account Clerk) at 1,827 and the plant,
+# meter and crew-leader titles at 2,088.
+HOURS_35_WEEK = 1827
+HOURS_40_WEEK = 2088
+
+
+def _derive_hourly(wage_by_title, reso_source):
+    """Bracket an hourly rate for titles whose resolution prints only an annual.
+
+    Every department roster except the Water District leaves the HOURLY column
+    blank for full-time staff, and the rosters never say which employees are on
+    the 35-hour week and which are on the 40-hour week. So rather than pick one
+    and present a single fabricated rate, this brackets the title between the
+    two: the annual over 2,088 at the low end, over 1,827 at the high end.
+
+    Kept in separate hrDerived* fields, never written into hrMin/hrMax: this is
+    arithmetic on the annual figure, not a rate the Board authorized, and every
+    view labels it that way.
+    """
+    for tkey, w in wage_by_title.items():
+        if w.get("hrMin") or not w.get("annMin") or tkey in NO_DERIVED_HOURLY:
+            continue
+        w["hrBasisLow"] = HOURS_35_WEEK
+        w["hrBasisHigh"] = HOURS_40_WEEK
+        w["hrDerivedMin"] = round(w["annMin"] / HOURS_40_WEEK, 4)
+        w["hrDerivedMax"] = round((w.get("annMax") or w["annMin"]) / HOURS_35_WEEK, 4)
+
+
 def build():
     all_rows = []
     per_year = {}
@@ -426,15 +478,17 @@ def build():
             "latest": counts[str(title_years[-1])] if title_years else 0,
             "first": first, "last": last, "delta": last - first,
         })
-    # Per-title 2026 authorized wage: the authorized hourly rate from the Board's
-    # 2026 salary schedule (the "Hourly basis" — the real rate on each title's own
-    # workweek, not annual/2080), shown as a single rate when uniform or a
-    # min–max range across the steps of the current incumbents. Annual likewise,
-    # for salaried titles. Source: schedule-2026-hourly.csv.
+    # Per-title 2026 authorized wage, from the Board's January salary resolutions.
+    # The department rosters print an ANNUAL SALARY column and an HOURLY column,
+    # but the Town fills the hourly one in only for part-time and per-hour staff
+    # — every full-time title in these rosters carries an annual figure and a
+    # blank hourly. So this file is annual-only; the hourly rate for those titles
+    # is not a published number and must not be invented here.
+    # Source: schedule-2026-annual.csv.
     def _tkey(s):
         return " ".join((s or "").lower().split())
     wage_by_title = {}
-    sched_path = ROOT / "etl/data/salary/schedule-2026-hourly.csv"
+    sched_path = ROOT / "etl/data/salary/schedule-2026-annual.csv"
     if sched_path.exists():
         raw = {}
         with sched_path.open(encoding="utf-8-sig", newline="") as fh:
@@ -443,16 +497,10 @@ def build():
                 if not k:
                     continue
                 try:
-                    hourly = float(r.get("hourly_basis") or "")
-                except ValueError:
-                    hourly = None
-                try:
                     annual = float(r.get("annual") or "")
                 except ValueError:
                     annual = None
                 raw.setdefault(k, {"h": [], "a": []})
-                if hourly:
-                    raw[k]["h"].append(hourly)
                 if annual:
                     raw[k]["a"].append(annual)
         for k, v in raw.items():
@@ -476,6 +524,7 @@ def build():
         except (TypeError, ValueError):
             return None
     reso_path = ROOT / "etl/data/salary/resolution-salaries-2026.csv"
+    reso_source = {}
     if reso_path.exists():
         with reso_path.open(encoding="utf-8-sig", newline="") as fh:
             for r in csv.DictReader(fh):
@@ -484,6 +533,7 @@ def build():
                     continue
                 hrmin, hrmax = _num(r.get("hr_min")), _num(r.get("hr_max"))
                 annmin, annmax = _num(r.get("ann_min")), _num(r.get("ann_max"))
+                reso_source[k] = r.get("source") or ""
                 wage_by_title[k] = {
                     "n": 0,
                     "hrMin": round(hrmin, 4) if hrmin else None,
@@ -492,10 +542,15 @@ def build():
                     "annMax": round(annmax) if annmax else None,
                 }
 
+    _derive_hourly(wage_by_title, reso_source)
+
     for t in titles_out:
         w = wage_by_title.get(_tkey(t["title"]))
         if w:
             t["wage2026"] = w
+    n_derived = sum(1 for t in titles_out if (t.get("wage2026") or {}).get("hrDerivedMin"))
+    print(f"  2026 wages: {sum(1 for t in titles_out if (t.get('wage2026') or {}).get('hrMin'))} "
+          f"authorized hourly, {n_derived} derived hourly")
 
     titles_out.sort(key=lambda x: (-x["latest"], x["title"]))
     (OUT / "titles-by-year.json").write_text(json.dumps({
