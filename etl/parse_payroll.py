@@ -426,10 +426,11 @@ def build():
             "latest": counts[str(title_years[-1])] if title_years else 0,
             "first": first, "last": last, "delta": last - first,
         })
-    # Per-title 2026 authorized wage: avg/median hourly (on each title's own
-    # workweek, from the schedule's "Hourly basis") and annual. Hourly is the
-    # real derived rate, not annual/2080. Source: schedule-2026-hourly.csv,
-    # extracted from the Board's 2026 salary schedule.
+    # Per-title 2026 authorized wage: the authorized hourly rate from the Board's
+    # 2026 salary schedule (the "Hourly basis" — the real rate on each title's own
+    # workweek, not annual/2080), shown as a single rate when uniform or a
+    # min–max range across the steps of the current incumbents. Annual likewise,
+    # for salaried titles. Source: schedule-2026-hourly.csv.
     def _tkey(s):
         return " ".join((s or "").lower().split())
     wage_by_title = {}
@@ -457,10 +458,10 @@ def build():
         for k, v in raw.items():
             wage_by_title[k] = {
                 "n": max(len(v["h"]), len(v["a"])),
-                "hrAvg": round(sum(v["h"]) / len(v["h"]), 4) if v["h"] else None,
-                "hrMed": round(median(v["h"]), 4) if v["h"] else None,
-                "annAvg": round(sum(v["a"]) / len(v["a"])) if v["a"] else None,
-                "annMed": round(median(v["a"])) if v["a"] else None,
+                "hrMin": round(min(v["h"]), 4) if v["h"] else None,
+                "hrMax": round(max(v["h"]), 4) if v["h"] else None,
+                "annMin": round(min(v["a"])) if v["a"] else None,
+                "annMax": round(max(v["a"])) if v["a"] else None,
             }
     for t in titles_out:
         w = wage_by_title.get(_tkey(t["title"]))
