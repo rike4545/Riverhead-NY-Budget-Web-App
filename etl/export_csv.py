@@ -73,12 +73,15 @@ def build():
     idx = load("meetings/index.json")
     if idx:
         meetings = [m2 for m in idx["meetings"] if (m2 := load(f"meetings/{m['slug']}.json"))]
-        members = sorted({last for m in meetings for last in m["memberTallies"]})
+        # Preliminary meetings (minutes not posted yet) have a docket but no
+        # roll-call votes, so they carry no memberTallies — skip them here.
+        members = sorted({last for m in meetings for last in (m.get("memberTallies") or {})})
         rows = []
         for meeting in meetings:
-            for r in meeting["resolutions"]:
-                rows.append([meeting["date"], r["seq"], r["number"] or "", r["title"], r["result"],
-                             r["adopted"], r["mover"], r["seconder"]] + [r["votes"].get(mm, "") for mm in members])
+            for r in meeting.get("resolutions", []):
+                votes = r.get("votes") or {}
+                rows.append([meeting["date"], r["seq"], r.get("number") or "", r["title"], r.get("result"),
+                             r.get("adopted"), r.get("mover"), r.get("seconder")] + [votes.get(mm, "") for mm in members])
         if rows:
             write("town_board_votes.csv",
                   ["meeting_date", "item", "resolution", "title", "result", "adopted", "mover", "seconder"] + members,
