@@ -3,6 +3,7 @@
 import { useMemo, useState } from 'react'
 import titlesData from '../public/data/payroll/titles-by-year.json'
 
+type Wage = { n: number; hrAvg: number | null; hrMed: number | null; annAvg: number | null; annMed: number | null }
 type TitleRow = {
   title: string
   counts: Record<string, number>
@@ -10,7 +11,11 @@ type TitleRow = {
   first: number
   last: number
   delta: number
+  wage2026?: Wage
 }
+
+const hr = (n: number) => `$${n.toFixed(4)}/hr`
+const yr = (n: number) => `$${Math.round(n).toLocaleString()}/yr`
 
 const data = titlesData as { years: number[]; note: string; source: { title: string; url: string }; titles: TitleRow[] }
 const years = data.years
@@ -84,6 +89,7 @@ export default function WorkforceByTitle() {
                   <td style={{ padding: '7px 10px', color: '#284a69', fontWeight: 700 }}>
                     {t.title}
                     <Spark counts={t.counts} max={maxLatest} />
+                    {t.wage2026 && <WageLine w={t.wage2026} />}
                   </td>
                   {years.map((y) => {
                     const v = t.counts[String(y)] ?? 0
@@ -99,10 +105,28 @@ export default function WorkforceByTitle() {
         </div>
 
         <p style={{ color: '#6b7280', fontSize: 12, marginTop: 12, marginBottom: 0, lineHeight: 1.5 }}>
-          {data.note} Counts are distinct employees paid under each title that year. Source:{' '}
+          {data.note} Counts are distinct employees paid under each title that year. Where shown, the teal
+          &ldquo;2026 authorized&rdquo; line is the average and median hourly rate (on that title&apos;s own workweek)
+          from the Board&apos;s 2026 salary schedule, with annual for salaried roles — available for {' '}
+          {data.titles.filter((t) => t.wage2026).length} of the titles. Source:{' '}
           <a href={data.source.url} target="_blank" rel="noreferrer" style={{ color: '#4a7297', fontWeight: 700 }}>{data.source.title} ↗</a>
         </p>
       </section>
+    </div>
+  )
+}
+
+// 2026 authorized wage line under a title: hourly to 4 decimals (the real rate
+// on that title's own workweek), plus annual for salaried roles.
+function WageLine({ w }: { w: Wage }) {
+  const parts: string[] = []
+  if (w.hrAvg != null) parts.push(`avg ${hr(w.hrAvg)}`)
+  if (w.hrMed != null) parts.push(`median ${hr(w.hrMed)}`)
+  if (w.annAvg != null) parts.push(`~${yr(w.annAvg)}`)
+  if (parts.length === 0) return null
+  return (
+    <div style={{ fontWeight: 400, color: '#0f766e', fontSize: 12, marginTop: 3 }}>
+      2026 authorized · {parts.join(' · ')}
     </div>
   )
 }

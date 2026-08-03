@@ -426,6 +426,47 @@ def build():
             "latest": counts[str(title_years[-1])] if title_years else 0,
             "first": first, "last": last, "delta": last - first,
         })
+    # Per-title 2026 authorized wage: avg/median hourly (on each title's own
+    # workweek, from the schedule's "Hourly basis") and annual. Hourly is the
+    # real derived rate, not annual/2080. Source: schedule-2026-hourly.csv,
+    # extracted from the Board's 2026 salary schedule.
+    def _tkey(s):
+        return " ".join((s or "").lower().split())
+    wage_by_title = {}
+    sched_path = ROOT / "etl/data/salary/schedule-2026-hourly.csv"
+    if sched_path.exists():
+        raw = {}
+        with sched_path.open(encoding="utf-8-sig", newline="") as fh:
+            for r in csv.DictReader(fh):
+                k = _tkey(r.get("title"))
+                if not k:
+                    continue
+                try:
+                    hourly = float(r.get("hourly_basis") or "")
+                except ValueError:
+                    hourly = None
+                try:
+                    annual = float(r.get("annual") or "")
+                except ValueError:
+                    annual = None
+                raw.setdefault(k, {"h": [], "a": []})
+                if hourly:
+                    raw[k]["h"].append(hourly)
+                if annual:
+                    raw[k]["a"].append(annual)
+        for k, v in raw.items():
+            wage_by_title[k] = {
+                "n": max(len(v["h"]), len(v["a"])),
+                "hrAvg": round(sum(v["h"]) / len(v["h"]), 4) if v["h"] else None,
+                "hrMed": round(median(v["h"]), 4) if v["h"] else None,
+                "annAvg": round(sum(v["a"]) / len(v["a"])) if v["a"] else None,
+                "annMed": round(median(v["a"])) if v["a"] else None,
+            }
+    for t in titles_out:
+        w = wage_by_title.get(_tkey(t["title"]))
+        if w:
+            t["wage2026"] = w
+
     titles_out.sort(key=lambda x: (-x["latest"], x["title"]))
     (OUT / "titles-by-year.json").write_text(json.dumps({
         "years": title_years,
