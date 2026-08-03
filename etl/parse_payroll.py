@@ -464,8 +464,12 @@ def build():
                 "annMax": round(max(v["a"])) if v["a"] else None,
             }
     # Second source: salaries set by separate resolution at the January
-    # organizational meeting (elected/appointed officials), which aren't in the
-    # main salary schedule. Fills titles the schedule doesn't cover.
+    # organizational meeting — elected/appointed officials, seasonal recreation
+    # charts, police ranks, and water/sewer titles that aren't in the main
+    # salary schedule. This is the actual authorizing resolution, so it TAKES
+    # PRECEDENCE over the schedule-derived figures where both exist (e.g. the
+    # schedule's $27.00/hr under "Police Officer" is really the P/T rate; the
+    # resolution roster gives the full-time officers' authorized salaries).
     def _num(x):
         try:
             return float(x)
@@ -476,7 +480,7 @@ def build():
         with reso_path.open(encoding="utf-8-sig", newline="") as fh:
             for r in csv.DictReader(fh):
                 k = _tkey(r.get("title"))
-                if not k or k in wage_by_title:
+                if not k:
                     continue
                 hrmin, hrmax = _num(r.get("hr_min")), _num(r.get("hr_max"))
                 annmin, annmax = _num(r.get("ann_min")), _num(r.get("ann_max"))
