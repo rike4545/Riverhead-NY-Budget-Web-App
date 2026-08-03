@@ -1,5 +1,6 @@
 import PageShell from '../../components/PageShell'
 import Glossary from '../../components/Glossary'
+import { budgetConcepts } from '../../lib/budget-concepts'
 
 const base = process.env.NEXT_PUBLIC_BASE_PATH || ''
 const card = { background: 'white', border: '1px solid #e2e8f0', borderRadius: 16, padding: 20, boxShadow: '0 14px 34px rgba(15,23,42,.05)' } as const
@@ -130,6 +131,35 @@ export default function GuidePage() {
       <h2 id="glossary" style={{ color: '#284a69' }}>Budget words, explained</h2>
       <p style={{ color: '#475569', marginTop: 0 }}>Every term the site uses, in everyday language.</p>
       <Glossary />
+
+      {/* The concepts behind the vocabulary — open only what you want. */}
+      <h2 id="concepts" style={{ color: '#284a69', marginTop: 30, scrollMarginTop: 24 }}>Going deeper: the ideas behind the words</h2>
+      <p style={{ color: '#475569', marginTop: 0 }}>
+        The glossary above defines the terms. These are the concepts underneath them — the accounting and fiscal-policy
+        ideas the rest of this site leans on, with Riverhead&apos;s own numbers where they exist. Optional; open only
+        what you want.
+      </p>
+
+      {budgetConcepts.map((c) => (
+        <details key={c.id} id={c.id} style={{ ...card, padding: 0, marginBottom: 12, overflow: 'hidden', scrollMarginTop: 24 }}>
+          <summary style={{ cursor: 'pointer', listStyle: 'none', padding: '15px 18px', fontWeight: 800, color: '#284a69', fontSize: 15.5, display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 12 }}>
+            <span>{c.title}</span>
+            <span aria-hidden style={{ color: '#6b7280', fontSize: 13, fontWeight: 700 }}>Open ▾</span>
+          </summary>
+          <div style={{ padding: '0 18px 18px' }}>
+            <p style={{ color: '#1f3a52', fontSize: 15, lineHeight: 1.6, marginTop: 0 }}>{c.plain}</p>
+            {c.riverhead && (
+              <div style={{ background: '#f0fdfa', border: '1px solid #99f6e4', borderRadius: 10, padding: '12px 14px', margin: '10px 0' }}>
+                <strong style={{ color: '#0f766e', fontSize: 13 }}>In Riverhead&apos;s numbers:</strong>{' '}
+                <span style={{ color: '#134e4a', fontSize: 14.5, lineHeight: 1.6 }}>{c.riverhead}</span>
+              </div>
+            )}
+            <div style={{ color: '#475569', fontSize: 14.5, lineHeight: 1.6 }}>
+              <strong style={{ color: '#284a69' }}>Question to ask:</strong> {c.ask}
+            </div>
+          </div>
+        </details>
+      ))}
     </PageShell>
   )
 }
