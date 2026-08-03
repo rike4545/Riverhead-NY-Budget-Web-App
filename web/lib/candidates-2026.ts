@@ -9,7 +9,7 @@
 // Platforms are transcribed from CandidateWatchData (iOS CandidateWatchView),
 // which sourced them from each campaign's own website/social media plus local
 // news coverage. Fiscal anchors (the $2.62M cap gap, the retirement buyout,
-// police OT, the $33.4M fund balance, the Peconic Bay CPF) are the same figures
+// police OT, the $33.4M General Fund balance of which $29.7M is unassigned, the Peconic Bay CPF) are the same figures
 // used elsewhere in the app.
 
 export type Plank = {
@@ -86,7 +86,7 @@ export const candidates2026: Candidate[] = [
         benefit:
           'Frames the goal as recurring balance rather than one-time patches — the fiscally honest target, and consistent with staying under the tax cap year over year.',
         cost:
-          '“Stable” is an outcome, not a mechanism: it still requires either the trims or the new revenue above. If neither fully lands, the only lever left is the $33.4M fund balance — one-time money that can’t fund a recurring gap twice.',
+          '“Stable” is an outcome, not a mechanism: it still requires either the trims or the new revenue above. If neither fully lands, the only lever left is fund balance — $29.7M of the $33.4M General Fund balance is unassigned and actually flexible — and that is one-time money that can’t fund a recurring gap twice.',
         tradeoff:
           'Protecting specific groups from tax increases can mean shifting cost to fees or districts, which are less visible but still land on the same households.',
         anchor: { label: 'What it means for your tax bill', href: '/my-tax-bill/' },
@@ -106,7 +106,7 @@ export const candidates2026: Candidate[] = [
       {
         proposal: 'Lower the cost of taxes — the campaign’s stated top issue.',
         benefit:
-          'Direct, immediately felt relief for every property owner, and the Town has a large cushion to work from: a ~$33.4M General Fund balance.',
+          'Direct, immediately felt relief for every property owner, and the Town has a large cushion to work from: a $33.4M General Fund balance, of which $29.7M is unassigned and actually available.',
         cost:
           'An actual levy cut (versus merely holding growth) widens the ~$2.62M cap gap rather than closing it — the reduction has to be found on top of the gap. Funding a cut from reserves spends one-time money on a recurring obligation and can’t be repeated.',
         tradeoff:
@@ -200,7 +200,7 @@ export const neutralView = {
     {
       title: 'Set — and respect — a fund-balance target',
       detail:
-        'The ~$33.4M General Fund balance is a genuine strength; GFOA guidance is to hold at least ~two months of operating expenditures. That cushion is for emergencies and cash flow, not for buying down recurring costs. Naming the target keeps reserves from being spent down quietly year after year.',
+        'The $33.4M General Fund balance — $29.7M of it unassigned — is a genuine strength; GFOA guidance is to hold at least ~two months of operating expenditures. That cushion is for emergencies and cash flow, not for buying down recurring costs. Naming the target keeps reserves from being spent down quietly year after year.',
     },
     {
       title: 'Treat a cap override as an exception, decided in the open',

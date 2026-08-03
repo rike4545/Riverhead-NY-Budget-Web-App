@@ -94,7 +94,7 @@ export const gapClosingPaths: GapPath[] = [
     closes: 'whatever gap remains after the recurring measures above',
     standing: 'one-time',
     politics:
-      "An easy vote — it raises no tax and cuts no service — but it spends one-time money on recurring cost, so it can only bridge a transitional remainder, not the whole gap. Appropriating the full $2.62M would burn ~7.8% of the General Fund cushion for something that recurs.",
+      "An easy vote — it raises no tax and cuts no service — but it spends one-time money on recurring cost, so it can only bridge a transitional remainder, not the whole gap. Appropriating the full $2.62M would burn ~8.8% of the $29.7M unassigned fund balance — the truly flexible cushion — for something that recurs.",
   },
   {
     name: 'If the Board still wants the spending, override the cap — deliberately and in public',
