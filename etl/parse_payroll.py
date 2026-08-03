@@ -463,6 +463,31 @@ def build():
                 "annMin": round(min(v["a"])) if v["a"] else None,
                 "annMax": round(max(v["a"])) if v["a"] else None,
             }
+    # Second source: salaries set by separate resolution at the January
+    # organizational meeting (elected/appointed officials), which aren't in the
+    # main salary schedule. Fills titles the schedule doesn't cover.
+    def _num(x):
+        try:
+            return float(x)
+        except (TypeError, ValueError):
+            return None
+    reso_path = ROOT / "etl/data/salary/resolution-salaries-2026.csv"
+    if reso_path.exists():
+        with reso_path.open(encoding="utf-8-sig", newline="") as fh:
+            for r in csv.DictReader(fh):
+                k = _tkey(r.get("title"))
+                if not k or k in wage_by_title:
+                    continue
+                hrmin, hrmax = _num(r.get("hr_min")), _num(r.get("hr_max"))
+                annmin, annmax = _num(r.get("ann_min")), _num(r.get("ann_max"))
+                wage_by_title[k] = {
+                    "n": 0,
+                    "hrMin": round(hrmin, 4) if hrmin else None,
+                    "hrMax": round(hrmax, 4) if hrmax else None,
+                    "annMin": round(annmin) if annmin else None,
+                    "annMax": round(annmax) if annmax else None,
+                }
+
     for t in titles_out:
         w = wage_by_title.get(_tkey(t["title"]))
         if w:
