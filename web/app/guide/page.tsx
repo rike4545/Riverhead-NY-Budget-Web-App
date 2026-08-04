@@ -1,6 +1,6 @@
 import PageShell from '../../components/PageShell'
 import Glossary from '../../components/Glossary'
-import { budgetConcepts } from '../../lib/budget-concepts'
+import { budgetConcepts, OSC_TOWN_GUIDE } from '../../lib/budget-concepts'
 
 const base = process.env.NEXT_PUBLIC_BASE_PATH || ''
 const card = { background: 'white', border: '1px solid #e2e8f0', borderRadius: 16, padding: 20, boxShadow: '0 14px 34px rgba(15,23,42,.05)' } as const
@@ -110,14 +110,20 @@ export default function GuidePage() {
       <section id="budget-process" style={{ ...card, marginBottom: 18, scrollMarginTop: 24 }}>
         <h2 style={{ marginTop: 0, color: '#284a69' }}>How the budget gets made</h2>
         <p style={{ color: '#1f3a52', fontSize: 15.5, lineHeight: 1.6 }}>
-          Each fall, Riverhead&apos;s budget goes through four public stages, and you can see all four in this site&apos;s data:
+          Each fall, Riverhead&apos;s budget goes through four public stages on a calendar set by State law — these
+          are deadlines, not customs, and you can see all four in this site&apos;s data:
         </p>
         <ol style={{ color: '#1f3a52', fontSize: 15.5, lineHeight: 1.7, paddingLeft: 22, margin: '0 0 12px' }}>
-          <li><strong>Department requests</strong> — each department proposes what it needs for the coming year.</li>
-          <li><strong>Tentative budget</strong> — the Supervisor assembles the requests into a first full draft.</li>
-          <li><strong>Preliminary budget</strong> — the Town Board revises the tentative budget and holds a public hearing where residents can comment.</li>
-          <li><strong>Adopted budget</strong> — the Board votes to approve the final budget in November. This is the official plan the rest of this site is built on.</li>
+          <li><strong>Department requests</strong> — each department proposes what it needs. Estimates are due to the budget officer by <strong>September 20</strong>.</li>
+          <li><strong>Tentative budget</strong> — the Supervisor (as budget officer) assembles the requests into a first full draft, filed with the Town Clerk by <strong>September 30</strong> and put before the Board by <strong>October 5</strong>.</li>
+          <li><strong>Preliminary budget</strong> — the Board revises the tentative budget, publishes notice at least five days ahead, and holds the public hearing on the <strong>Thursday after the general election</strong> (adjournable, but never past November 15).</li>
+          <li><strong>Adopted budget</strong> — the Board must adopt by <strong>November 20</strong>. This is the official plan the rest of this site is built on.</li>
         </ol>
+        <p style={{ color: '#1f3a52', fontSize: 15.5, lineHeight: 1.6, margin: '0 0 12px' }}>
+          One consequence is worth knowing: if the Board <em>doesn&apos;t</em> adopt a budget by November 20, the
+          preliminary budget becomes the budget automatically. Letting the clock run out isn&apos;t a way to block a
+          budget — it&apos;s a way to pass one without a final vote.
+        </p>
         <p style={{ color: '#1f3a52', fontSize: 15.5, lineHeight: 1.6, margin: 0 }}>
           The budget can still change after adoption — but only by a formal Town Board vote. Those amendments (budget
           adoptions for capital projects, transfers, salary changes) appear as resolutions in the{' '}
@@ -157,9 +163,23 @@ export default function GuidePage() {
             <div style={{ color: '#475569', fontSize: 14.5, lineHeight: 1.6 }}>
               <strong style={{ color: '#284a69' }}>Question to ask:</strong> {c.ask}
             </div>
+            {c.cite && (
+              <div style={{ color: '#6b7280', fontSize: 13, marginTop: 10, paddingTop: 10, borderTop: '1px solid #e2e8f0' }}>
+                <strong>Authority:</strong> {c.cite}
+              </div>
+            )}
           </div>
         </details>
       ))}
+
+      <p style={{ color: '#6b7280', fontSize: 13.5, lineHeight: 1.6, marginTop: 16 }}>
+        Statutory detail and deadlines above come from the State Comptroller&apos;s{' '}
+        <a href={OSC_TOWN_GUIDE.url} target="_blank" rel="noreferrer" style={{ color: '#4a7297', fontWeight: 700 }}>
+          {OSC_TOWN_GUIDE.label} ↗
+        </a>. Riverhead is a town of the <strong>second class</strong> — Town Law §10 places every Suffolk County
+        town in that class regardless of population — so the deadlines shown are the general ones, not the later
+        dates that apply only to Westchester and Monroe County towns.
+      </p>
     </PageShell>
   )
 }
