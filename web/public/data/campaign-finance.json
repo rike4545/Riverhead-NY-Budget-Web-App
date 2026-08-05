@@ -6,7 +6,7 @@
  "campaignFilingEndYear": 2026,
  "officials": [
   {
-   "name": "Honorable Jerome Halpin", "office": "Riverhead Town Supervisor", "termStarts": "2026-01-01", "termEnds": "2026-12-31", "nextElection": "2026-11-03", "currentlyServing": true,
+   "name": "Honorable Jerome Halpin", "office": "Riverhead Town Supervisor", "termStarts": "2026-01-01", "termEnds": "2026-12-31", "nextElection": "2026-11-03", "currentlyServing": true, "salary": 110000, "salaryBudgeted": 118919, "salaryNote": "voluntarily reduced from $118,919 at the Jan 6, 2026 Town Board meeting", "termYears": 2,
    "committeeName": "Friends of Jerry Halpin",
    "filerIDs": [{ "committeeName": "Friends of Jerry Halpin", "filerID": "506796" }],
    "note": "COMMCAND fields: candidate ID 506792, Jerome Halpin, County, TERMINATED, Supervisor, Suffolk / Riverhead Town. Committee/filer ID 506796, Friends of Jerry Halpin, County, ACTIVE, Authorized Single Candidate Committee.",
@@ -14,7 +14,7 @@
    "photoUrl": "https://www.townofriverheadny.gov/ImageRepository/Document?documentID=3086"
   },
   {
-   "name": "Kenneth Rothwell", "office": "Councilman", "termStarts": "2026-01-01", "termEnds": "2028-12-31", "nextElection": "2026-11-03", "currentlyServing": true,
+   "name": "Kenneth Rothwell", "office": "Councilman", "termStarts": "2026-01-01", "termEnds": "2028-12-31", "nextElection": "2026-11-03", "currentlyServing": true, "salary": 50558, "termYears": 4,
    "committeeName": "Friends of Ken Rothwell",
    "filerIDs": [
     { "committeeName": "Friends of Ken Rothwell", "filerID": "154927" },
@@ -25,7 +25,7 @@
    "photoUrl": "https://www.townofriverheadny.gov/ImageRepository/Document?documentID=186"
   },
   {
-   "name": "Robert \"Bob\" Kern", "office": "Councilman", "termStarts": "2026-01-01", "termEnds": "2028-12-31", "nextElection": "2028-11-07", "currentlyServing": true,
+   "name": "Robert \"Bob\" Kern", "office": "Councilman", "termStarts": "2026-01-01", "termEnds": "2028-12-31", "nextElection": "2028-11-07", "currentlyServing": true, "salary": 50558, "termYears": 4,
    "committeeName": "Friends of Robert Kern",
    "filerIDs": [
     { "committeeName": "Friends of Robert Kern", "filerID": "527501" },
@@ -36,7 +36,7 @@
    "photoUrl": "https://www.townofriverheadny.gov/ImageRepository/Document?documentID=3106"
   },
   {
-   "name": "Joann Waski", "office": "Councilwoman", "termStarts": "2024-01-01", "termEnds": "2027-12-31", "nextElection": "2027-11-02", "currentlyServing": true,
+   "name": "Joann Waski", "office": "Councilwoman", "termStarts": "2024-01-01", "termEnds": "2027-12-31", "nextElection": "2027-11-02", "currentlyServing": true, "salary": 50558, "termYears": 4,
    "committeeName": "Friends of Joann Waski",
    "filerIDs": [{ "committeeName": "Friends of Joann Waski", "filerID": "320293" }],
    "note": "COMMCAND fields: candidate 320292, Joann Waski, County, TERMINATED, Council Member (legacy candidate record). Committee/filer 320293, Friends of Joann Waski, County, ACTIVE, Authorized Single Candidate Committee. The TERMINATED tag is on the legacy candidate registration, not her current Town Board seat.",
@@ -44,7 +44,7 @@
    "photoUrl": "https://www.townofriverheadny.gov/ImageRepository/Document?documentID=195"
   },
   {
-   "name": "Denise Merrifield", "office": "Councilwoman", "termStarts": "2024-01-01", "termEnds": "2027-12-31", "nextElection": "2027-11-02", "currentlyServing": true,
+   "name": "Denise Merrifield", "office": "Councilwoman", "termStarts": "2024-01-01", "termEnds": "2027-12-31", "nextElection": "2027-11-02", "currentlyServing": true, "salary": 50558, "termYears": 4,
    "committeeName": "Committee to Elect Denise Merrifield",
    "filerIDs": [{ "committeeName": "Committee to Elect Denise Merrifield", "filerID": "319756" }],
    "note": "COMMCAND fields: candidate 319755, Denise M. Merrifield, County, TERMINATED, Council Member (legacy candidate record). Committee/filer 319756, Committee to Elect Denise Merrifield, County, TERMINATED, Authorized Single Candidate Committee. These TERMINATED tags are on the legacy campaign-finance registration, not her current Town Board seat.",

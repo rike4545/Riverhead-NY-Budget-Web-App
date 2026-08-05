@@ -22,6 +22,12 @@ function dateOnly(value: string | null): string | null {
   return value ? value.slice(0, 10) : null
 }
 
+function fmtDate(iso: string | null): string | null {
+  if (!iso) return null
+  const d = new Date(`${iso}T00:00:00`)
+  return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
+}
+
 function daysToElection(nextElection: string | null): number | null {
   if (!nextElection) return null
   const ms = new Date(`${nextElection}T00:00:00`).getTime() - new Date(new Date().toDateString()).getTime()
@@ -166,10 +172,33 @@ export default function CampaignFinance({
                 </span>
               </div>
 
-              {official.termStarts && official.termEnds && (
-                <div style={{ color: '#64748b', fontSize: 13, marginTop: 8 }}>
-                  Term: {official.termStarts} → {official.termEnds}
-                  {official.nextElection ? ` · Next election: ${official.nextElection}` : ''}
+              {/* Term, next election & salary */}
+              {(official.termStarts || official.salary) && (
+                <div style={{ marginTop: 10, display: 'flex', flexWrap: 'wrap', gap: '6px 20px', fontSize: 13, color: '#475569', lineHeight: 1.5 }}>
+                  {official.termYears && (
+                    <span style={{ fontWeight: 700, color: '#284a69' }}>
+                      {official.termYears}-year term
+                    </span>
+                  )}
+                  {official.termStarts && official.termEnds && (
+                    <span>
+                      {fmtDate(official.termStarts)} – {fmtDate(official.termEnds)}
+                    </span>
+                  )}
+                  {official.nextElection && (
+                    <span>
+                      Next election: <strong>{fmtDate(official.nextElection)}</strong>
+                      {days != null && days > 0 ? ` (${days} day${days === 1 ? '' : 's'})` : days === 0 ? ' (today)' : ''}
+                    </span>
+                  )}
+                  {official.salary != null && (
+                    <span>
+                      Salary: <strong>{usd(official.salary)}/yr</strong>
+                      {official.salaryNote && (
+                        <span style={{ color: '#64748b', fontStyle: 'italic', marginLeft: 4 }}>— {official.salaryNote}</span>
+                      )}
+                    </span>
+                  )}
                 </div>
               )}
 

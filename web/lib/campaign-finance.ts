@@ -20,6 +20,14 @@ export type CampaignOfficial = {
   seedLastReported: string | null
   photoUrl?: string | null
   isPartyCommittee?: boolean
+  /** Annual base salary the official is actually drawing. */
+  salary?: number | null
+  /** Budgeted / position salary if different from salary (e.g. voluntary reduction). */
+  salaryBudgeted?: number | null
+  /** Short note explaining a salary difference, e.g. "voluntarily reduced". */
+  salaryNote?: string | null
+  /** Length of the elected term in years (2 for Supervisor, 4 for Council). */
+  termYears?: number | null
 }
 
 export type LatestYearSnapshot = {
@@ -518,14 +526,16 @@ export async function fetchCampaignSnapshots(
       '$group': 'filer_id',
     }).toString()
 
-  // Schedule N = Outstanding Liabilities/Loans, re-reported as a running balance every filing
-  // year — summing across years double-counts, so only the highest election_year's value is
-  // used client-side below (sched_date is unreliable here: NY BOE carries a loan's original
-  // transaction date forward on every re-report, so it can't be used to find "most recent").
+  // Schedule N = Outstanding Liabilities/Loans. e9ss-239a is a per-filing aggregate, so the
+  // same outstanding balance is re-reported as a fresh row every filing period within a year.
+  // Summing would multiply the balance by the number of filings. max(org_amt) gives the
+  // highest per-filing total within the election_year — the peak outstanding for that cycle.
+  // We then pick the highest election_year client-side (sched_date is unreliable because NY BOE
+  // carries a loan's original transaction date forward on every re-report).
   const outstandingLoanURL =
     `https://data.ny.gov/resource/e9ss-239a.json?` +
     new URLSearchParams({
-      '$select': 'filer_id,election_year,sum(org_amt) as amount',
+      '$select': 'filer_id,election_year,max(org_amt) as amount',
       '$where': `filer_id in (${inClause}) and election_year in(${years}) and filing_sched_abbrev='N'`,
       '$group': 'filer_id,election_year',
     }).toString()
