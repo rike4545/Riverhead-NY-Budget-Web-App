@@ -144,6 +144,7 @@ type ItemizedRow = {
   sched_date?: string
   filing_sched_abbrev?: string
   cntrbr_type_desc?: string
+  election_year?: string
 }
 
 function nameFields(row: ItemizedRow) {
@@ -228,7 +229,7 @@ export async function fetchAllWatchContributions(
   const url =
     `https://data.ny.gov/resource/4j2b-6a2j.json?` +
     new URLSearchParams({
-      '$select': 'filer_id,flng_ent_name,flng_ent_first_name,flng_ent_last_name,org_amt,sched_date,filing_sched_abbrev,cntrbr_type_desc',
+      '$select': 'filer_id,flng_ent_name,flng_ent_first_name,flng_ent_last_name,org_amt,sched_date,filing_sched_abbrev,cntrbr_type_desc,election_year',
       '$where': `filer_id in (${inClause}) and election_year in(${years}) and filing_sched_abbrev in('A','B','C')`,
       '$limit': '5000',
       '$order': 'sched_date DESC',
@@ -237,8 +238,12 @@ export async function fetchAllWatchContributions(
   const rows = (await fetchSocrataRows(url)) as unknown as ItemizedRow[]
 
   const filerToOfficial: Record<string, string> = {}
+  const filerToCurrentlyServing: Record<string, boolean> = {}
   for (const official of officials) {
-    for (const ref of official.filerIDs) filerToOfficial[ref.filerID] = official.name
+    for (const ref of official.filerIDs) {
+      filerToOfficial[ref.filerID] = official.name
+      filerToCurrentlyServing[ref.filerID] = official.currentlyServing
+    }
   }
 
   const petrocelli: Record<string, WatchContribution[]> = {}
@@ -250,9 +255,14 @@ export async function fetchAllWatchContributions(
     candidateFamily[o.name] = []
   }
 
+  const endYearStr = String(endYear)
   for (const row of rows) {
     const name = filerToOfficial[row.filer_id]
     if (!name) continue
+    // Former officials cannot have current-year filings — exclude them to avoid
+    // misleading "clear" results that imply an active 2026 scan.
+    const isServing = filerToCurrentlyServing[row.filer_id] ?? true
+    if (!isServing && row.election_year === endYearStr) continue
     if (isPetroCelliRow(row)) petrocelli[name].push(toWatchContribution(row))
     if (isScottPointeRow(row)) scottPointe[name].push(toWatchContribution(row))
     if (isCandidateFamilyRow(row, name)) candidateFamily[name].push(toWatchContribution(row))

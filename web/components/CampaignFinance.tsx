@@ -259,14 +259,20 @@ export default function CampaignFinance({
               <PetroCelliWatch
                 contributions={live?.petrocelliContributions ?? null}
                 hasFetched={!!snapshots}
+                currentlyServing={official.currentlyServing}
+                endYear={endYear}
               />
               <ScottPointeWatch
                 contributions={live?.scottPointeContributions ?? null}
                 hasFetched={!!snapshots}
+                currentlyServing={official.currentlyServing}
+                endYear={endYear}
               />
               <CandidateFamilyWatch
                 contributions={live?.candidateFamilyContributions ?? null}
                 hasFetched={!!snapshots}
+                currentlyServing={official.currentlyServing}
+                endYear={endYear}
               />
 
               <div style={{ color: '#6b7280', fontSize: 11, marginTop: 10 }}>{official.note}</div>
@@ -369,8 +375,8 @@ function YearBreakdownList({ years }: { years: YearBreakdown[] }) {
 // Mirrors petrocelliDisclosureNote(for:) in CouncilScorecardView.swift.
 // ---------------------------------------------------------------------------
 
-const PETROCELLI_SCOPE_NOTE =
-  'Scope (2005–2026): this is a corporate/project-interest watch, not candidate immediate-family support. ' +
+const petrocelliScopeNote = (endYear: number, currentlyServing: boolean) =>
+  `Scope (2005–${currentlyServing ? endYear : endYear - 1}): this is a corporate/project-interest watch, not candidate immediate-family support. ` +
   'It matches Petrocelli-named donor fields — J Petrocelli Construction, J. Petrocelli Contracting, ' +
   'J. Petrocelli Development Inc, J Petrocelli Wine Cellars LLC, J. Petrocelli Cellars LLC, ' +
   'J. Petrocelli Riverhead Town Square LLC, M. Petrocelli, Marie Petrocelli, Michael Petrocelli, ' +
@@ -383,9 +389,13 @@ const PETROCELLI_SCOPE_NOTE =
 function PetroCelliWatch({
   contributions,
   hasFetched,
+  currentlyServing,
+  endYear,
 }: {
   contributions: WatchContribution[] | null
   hasFetched: boolean
+  currentlyServing: boolean
+  endYear: number
 }) {
   if (!hasFetched) return null
 
@@ -432,7 +442,7 @@ function PetroCelliWatch({
       {clear && (
         <div style={{ fontSize: 12, color: '#166534' }}>
           No Petrocelli-named individual, related business, Hp East End Riverhead LLC, or known venue/entity donor
-          rows were found in NY Open Data for this committee across the 2005–2026 filing window.
+          rows were found in NY Open Data for this committee across the 2005–{currentlyServing ? endYear : endYear - 1} filing window.
         </div>
       )}
 
@@ -475,7 +485,7 @@ function PetroCelliWatch({
               lineHeight: 1.5,
             }}
           >
-            {PETROCELLI_SCOPE_NOTE}
+            {petrocelliScopeNote(endYear, currentlyServing)}
           </div>
 
           <div
@@ -500,8 +510,8 @@ function PetroCelliWatch({
 // Scott's Pointe / Island Water Park Project-Interest Watch
 // ---------------------------------------------------------------------------
 
-const SCOTT_POINTE_SCOPE_NOTE =
-  "Scope (2005–2026): project-interest watch for the Scott's Pointe / Island Water Park development proposal. " +
+const scottPointeScopeNote = (endYear: number, currentlyServing: boolean) =>
+  `Scope (2005–${currentlyServing ? endYear : endYear - 1}): project-interest watch for the Scott's Pointe / Island Water Park development proposal. ` +
   "Matches entity terms (Scott's Pointe, Scotts Pointe, Island Water Park Corp, Island Water Sports, Lake View Grill) " +
   'and named individuals (Eric Scott, Claudia Scott, Cody Scott, Jake Scott, Ken Myers, Grant Anderson) from public filings. ' +
   'These matches are transparency context, not proof of coordination or quid pro quo.'
@@ -509,9 +519,13 @@ const SCOTT_POINTE_SCOPE_NOTE =
 function ScottPointeWatch({
   contributions,
   hasFetched,
+  currentlyServing,
+  endYear,
 }: {
   contributions: WatchContribution[] | null
   hasFetched: boolean
+  currentlyServing: boolean
+  endYear: number
 }) {
   if (!hasFetched) return null
 
@@ -556,7 +570,7 @@ function ScottPointeWatch({
       {clear && (
         <div style={{ fontSize: 12, color: '#166534' }}>
           No Scott&rsquo;s Pointe entities, Island Water Park Corp, or known individual donors (Eric, Claudia, Cody, Jake Scott; Ken Myers; Grant Anderson)
-          were found in NY Open Data for this committee across the 2005–2026 filing window.
+          were found in NY Open Data for this committee across the 2005–{currentlyServing ? endYear : endYear - 1} filing window.
         </div>
       )}
 
@@ -582,7 +596,7 @@ function ScottPointeWatch({
             ))}
           </div>
 
-          <div style={{ fontSize: 11, color: '#64748b', marginBottom: 6, lineHeight: 1.5 }}>{SCOTT_POINTE_SCOPE_NOTE}</div>
+          <div style={{ fontSize: 11, color: '#64748b', marginBottom: 6, lineHeight: 1.5 }}>{scottPointeScopeNote(endYear, currentlyServing)}</div>
 
           <div style={{ fontSize: 11, color: total > 1000 ? '#5b21b6' : '#475569', fontStyle: 'italic', lineHeight: 1.5 }}>
             {total > 1000
@@ -599,8 +613,8 @@ function ScottPointeWatch({
 // Candidate & Family Financing Watch
 // ---------------------------------------------------------------------------
 
-const CANDIDATE_FAMILY_SCOPE_NOTE =
-  'Scope (2005–2026): candidate self-funding and known immediate-family financing watch. ' +
+const candidateFamilyScopeNote = (endYear: number, currentlyServing: boolean) =>
+  `Scope (2005–${currentlyServing ? endYear : endYear - 1}): candidate self-funding and known immediate-family financing watch. ` +
   'Matches contributor type fields ("Candidate/Candidate Spouse", "Candidate Family Member") plus ' +
   'known family names from public records: Halpin family (Dennis, Chloe, Patrick, Kristen Halpin); ' +
   'Rothwell family (Werner Rothwell, Alexander Rothwell — each reported $2,500 outstanding Schedule N loans). ' +
@@ -610,9 +624,13 @@ const CANDIDATE_FAMILY_SCOPE_NOTE =
 function CandidateFamilyWatch({
   contributions,
   hasFetched,
+  currentlyServing,
+  endYear,
 }: {
   contributions: WatchContribution[] | null
   hasFetched: boolean
+  currentlyServing: boolean
+  endYear: number
 }) {
   if (!hasFetched) return null
 
@@ -656,7 +674,7 @@ function CandidateFamilyWatch({
 
       {clear && (
         <div style={{ fontSize: 12, color: '#166534' }}>
-          No candidate self-funding or known immediate-family donor rows were found in NY Open Data for this committee across the 2005–2026 filing window.
+          No candidate self-funding or known immediate-family donor rows were found in NY Open Data for this committee across the 2005–{currentlyServing ? endYear : endYear - 1} filing window.
         </div>
       )}
 
@@ -682,7 +700,7 @@ function CandidateFamilyWatch({
             ))}
           </div>
 
-          <div style={{ fontSize: 11, color: '#64748b', marginBottom: 6, lineHeight: 1.5 }}>{CANDIDATE_FAMILY_SCOPE_NOTE}</div>
+          <div style={{ fontSize: 11, color: '#64748b', marginBottom: 6, lineHeight: 1.5 }}>{candidateFamilyScopeNote(endYear, currentlyServing)}</div>
 
           <div style={{ fontSize: 11, color: '#475569', fontStyle: 'italic', lineHeight: 1.5 }}>
             Candidate self-loans and family gifts are lawful under NY Election Law. This watch surfaces them for
