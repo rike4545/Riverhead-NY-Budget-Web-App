@@ -3,12 +3,14 @@
 import { useState } from 'react'
 import {
   buildCandidateSummary,
+  fetchAllWatchContributions,
   fetchCampaignSnapshots,
   fetchFilingHistory,
   RIVERHEAD_POPULATION_ESTIMATE_2024,
   type CampaignOfficial,
   type CampaignSnapshot,
   type FilingEvent,
+  type WatchContribution,
   type YearBreakdown,
 } from '../lib/campaign-finance'
 
@@ -64,10 +66,16 @@ export default function CampaignFinance({
     setStatus('loading')
     setErrorMessage(null)
     try {
-      const [snapshotResult, filingResult] = await Promise.all([
+      const [snapshotResult, filingResult, watchResult] = await Promise.all([
         fetchCampaignSnapshots(officials, startYear, endYear),
         fetchFilingHistory(officials, startYear, endYear),
+        fetchAllWatchContributions(officials, startYear, endYear),
       ])
+      for (const name of Object.keys(snapshotResult)) {
+        snapshotResult[name].petrocelliContributions = watchResult.petrocelli[name] ?? []
+        snapshotResult[name].scottPointeContributions = watchResult.scottPointe[name] ?? []
+        snapshotResult[name].candidateFamilyContributions = watchResult.candidateFamily[name] ?? []
+      }
       setSnapshots(snapshotResult)
       setFilingsByOfficial(filingResult)
       setLastUpdated(new Date())
@@ -248,6 +256,19 @@ export default function CampaignFinance({
 
               <CampaignFilingsList filings={filingsByOfficial?.[official.name] ?? null} endYear={endYear} hasFetched={!!filingsByOfficial} />
 
+              <PetroCelliWatch
+                contributions={live?.petrocelliContributions ?? null}
+                hasFetched={!!snapshots}
+              />
+              <ScottPointeWatch
+                contributions={live?.scottPointeContributions ?? null}
+                hasFetched={!!snapshots}
+              />
+              <CandidateFamilyWatch
+                contributions={live?.candidateFamilyContributions ?? null}
+                hasFetched={!!snapshots}
+              />
+
               <div style={{ color: '#6b7280', fontSize: 11, marginTop: 10 }}>{official.note}</div>
             </article>
           )
@@ -339,6 +360,336 @@ function YearBreakdownList({ years }: { years: YearBreakdown[] }) {
           </details>
         ))}
       </div>
+    </div>
+  )
+}
+
+// ---------------------------------------------------------------------------
+// Petrocelli Project-Interest Watch
+// Mirrors petrocelliDisclosureNote(for:) in CouncilScorecardView.swift.
+// ---------------------------------------------------------------------------
+
+const PETROCELLI_SCOPE_NOTE =
+  'Scope (2005–2026): this is a corporate/project-interest watch, not candidate immediate-family support. ' +
+  'It matches Petrocelli-named donor fields — J Petrocelli Construction, J. Petrocelli Contracting, ' +
+  'J. Petrocelli Development Inc, J Petrocelli Wine Cellars LLC, J. Petrocelli Cellars LLC, ' +
+  'J. Petrocelli Riverhead Town Square LLC, M. Petrocelli, Marie Petrocelli, Michael Petrocelli, ' +
+  'Jennifer Petrocelli — and Hp East End Riverhead LLC, as well as associated venue/entity watch terms ' +
+  'from public profiles: Jacqueline Phillips, Alexandra Bussi, The Preston House, Atlantis Banquets, ' +
+  'Sea Star Ballroom, Taste the East End, Raphael Vineyard, Long Island Aquarium, Hyatt Place East End. ' +
+  'Source basis: Schneps / QNS and Dan\'s Papers profiles. ' +
+  'These matches are transparency context, not proof of coordination or quid pro quo.'
+
+function PetroCelliWatch({
+  contributions,
+  hasFetched,
+}: {
+  contributions: WatchContribution[] | null
+  hasFetched: boolean
+}) {
+  if (!hasFetched) return null
+
+  const total = (contributions ?? []).reduce((sum, c) => sum + c.amount, 0)
+  const hasHits = contributions !== null && contributions.length > 0
+  const clear = contributions !== null && contributions.length === 0
+
+  const borderColor = hasHits ? '#c2700a' : clear ? '#15803d' : '#64748b'
+  const bgColor = hasHits ? '#fff7ed' : clear ? '#f0fdf4' : '#f8fafc'
+
+  return (
+    <div
+      style={{
+        marginTop: 14,
+        borderTop: '1px solid #e2e8f0',
+        paddingTop: 10,
+        background: bgColor,
+        border: `1px solid ${borderColor}`,
+        borderRadius: 10,
+        padding: 12,
+      }}
+    >
+      <div
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          gap: 6,
+          fontWeight: 800,
+          fontSize: 13,
+          color: hasHits ? '#92400e' : clear ? '#14532d' : '#334155',
+          marginBottom: 6,
+        }}
+      >
+        <span>{hasHits ? '⚠️' : clear ? '✅' : '🔍'}</span>
+        <span>Petrocelli Project-Interest Watch</span>
+      </div>
+
+      {contributions === null && (
+        <div style={{ fontSize: 12, color: '#64748b' }}>
+          Tap &ldquo;Refresh from NY Open Data&rdquo; to run the Petrocelli donor watchlist check.
+        </div>
+      )}
+
+      {clear && (
+        <div style={{ fontSize: 12, color: '#166534' }}>
+          No Petrocelli-named individual, related business, Hp East End Riverhead LLC, or known venue/entity donor
+          rows were found in NY Open Data for this committee across the 2005–2026 filing window.
+        </div>
+      )}
+
+      {hasHits && (
+        <>
+          <div style={{ fontSize: 13, fontWeight: 700, color: '#c2700a', marginBottom: 6 }}>
+            {usd(total)} matched across {contributions!.length} contribution{contributions!.length === 1 ? '' : 's'}
+          </div>
+
+          <div style={{ display: 'grid', gap: 4, marginBottom: 8 }}>
+            {contributions!.map((c, i) => (
+              <div
+                key={i}
+                style={{
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  gap: 10,
+                  fontSize: 12,
+                  background: '#fff',
+                  borderRadius: 6,
+                  padding: '5px 8px',
+                  flexWrap: 'wrap',
+                }}
+              >
+                <span style={{ color: '#334155', fontWeight: 600 }}>{c.donorName}</span>
+                <span style={{ color: '#475569', whiteSpace: 'nowrap' }}>
+                  {usd(c.amount)}
+                  {c.date ? ` · ${c.date}` : ''}
+                  {c.contributorType ? ` · ${c.contributorType}` : ''}
+                </span>
+              </div>
+            ))}
+          </div>
+
+          <div
+            style={{
+              fontSize: 11,
+              color: '#64748b',
+              marginBottom: 6,
+              lineHeight: 1.5,
+            }}
+          >
+            {PETROCELLI_SCOPE_NOTE}
+          </div>
+
+          <div
+            style={{
+              fontSize: 11,
+              color: total > 1000 ? '#92400e' : '#475569',
+              fontStyle: 'italic',
+              lineHeight: 1.5,
+            }}
+          >
+            {total > 1000
+              ? 'Ethics implication: the matched total exceeds $1,000 — any Petrocelli-related Town matter should be publicly disclosed and reviewed for conflict handling. For elected officials, disclosure is the minimum guardrail; recusal may be appropriate depending on the matter and legal advice.'
+              : 'Ethics implication: the matched total is below $1,000, so it does not by itself establish a code violation or automatic recusal requirement. It still warrants transparency if Petrocelli-related business comes before the Town.'}
+          </div>
+        </>
+      )}
+    </div>
+  )
+}
+
+// ---------------------------------------------------------------------------
+// Scott's Pointe / Island Water Park Project-Interest Watch
+// ---------------------------------------------------------------------------
+
+const SCOTT_POINTE_SCOPE_NOTE =
+  "Scope (2005–2026): project-interest watch for the Scott's Pointe / Island Water Park development proposal. " +
+  "Matches entity terms (Scott's Pointe, Scotts Pointe, Island Water Park Corp, Island Water Sports, Lake View Grill) " +
+  'and named individuals (Eric Scott, Claudia Scott, Cody Scott, Jake Scott, Ken Myers, Grant Anderson) from public filings. ' +
+  'These matches are transparency context, not proof of coordination or quid pro quo.'
+
+function ScottPointeWatch({
+  contributions,
+  hasFetched,
+}: {
+  contributions: WatchContribution[] | null
+  hasFetched: boolean
+}) {
+  if (!hasFetched) return null
+
+  const total = (contributions ?? []).reduce((sum, c) => sum + c.amount, 0)
+  const hasHits = contributions !== null && contributions.length > 0
+  const clear = contributions !== null && contributions.length === 0
+
+  const borderColor = hasHits ? '#6d28d9' : clear ? '#15803d' : '#64748b'
+  const bgColor = hasHits ? '#f5f3ff' : clear ? '#f0fdf4' : '#f8fafc'
+
+  return (
+    <div
+      style={{
+        marginTop: 14,
+        background: bgColor,
+        border: `1px solid ${borderColor}`,
+        borderRadius: 10,
+        padding: 12,
+      }}
+    >
+      <div
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          gap: 6,
+          fontWeight: 800,
+          fontSize: 13,
+          color: hasHits ? '#5b21b6' : clear ? '#14532d' : '#334155',
+          marginBottom: 6,
+        }}
+      >
+        <span>{hasHits ? '⚠️' : clear ? '✅' : '🔍'}</span>
+        <span>Scott&rsquo;s Pointe / Island Water Park Watch</span>
+      </div>
+
+      {contributions === null && (
+        <div style={{ fontSize: 12, color: '#64748b' }}>
+          Tap &ldquo;Refresh from NY Open Data&rdquo; to run the Scott&rsquo;s Pointe donor watchlist check.
+        </div>
+      )}
+
+      {clear && (
+        <div style={{ fontSize: 12, color: '#166534' }}>
+          No Scott&rsquo;s Pointe entities, Island Water Park Corp, or known individual donors (Eric, Claudia, Cody, Jake Scott; Ken Myers; Grant Anderson)
+          were found in NY Open Data for this committee across the 2005–2026 filing window.
+        </div>
+      )}
+
+      {hasHits && (
+        <>
+          <div style={{ fontSize: 13, fontWeight: 700, color: '#5b21b6', marginBottom: 6 }}>
+            {usd(total)} matched across {contributions!.length} contribution{contributions!.length === 1 ? '' : 's'}
+          </div>
+
+          <div style={{ display: 'grid', gap: 4, marginBottom: 8 }}>
+            {contributions!.map((c, i) => (
+              <div
+                key={i}
+                style={{ display: 'flex', justifyContent: 'space-between', gap: 10, fontSize: 12, background: '#fff', borderRadius: 6, padding: '5px 8px', flexWrap: 'wrap' }}
+              >
+                <span style={{ color: '#334155', fontWeight: 600 }}>{c.donorName}</span>
+                <span style={{ color: '#475569', whiteSpace: 'nowrap' }}>
+                  {usd(c.amount)}
+                  {c.date ? ` · ${c.date}` : ''}
+                  {c.contributorType ? ` · ${c.contributorType}` : ''}
+                </span>
+              </div>
+            ))}
+          </div>
+
+          <div style={{ fontSize: 11, color: '#64748b', marginBottom: 6, lineHeight: 1.5 }}>{SCOTT_POINTE_SCOPE_NOTE}</div>
+
+          <div style={{ fontSize: 11, color: total > 1000 ? '#5b21b6' : '#475569', fontStyle: 'italic', lineHeight: 1.5 }}>
+            {total > 1000
+              ? "Ethics implication: the matched total exceeds $1,000 — any Scott's Pointe or Island Water Park matter should be publicly disclosed and reviewed for conflict handling."
+              : "Ethics implication: the matched total is below $1,000, but any pending Scott's Pointe or Island Water Park matter still warrants transparency disclosures."}
+          </div>
+        </>
+      )}
+    </div>
+  )
+}
+
+// ---------------------------------------------------------------------------
+// Candidate & Family Financing Watch
+// ---------------------------------------------------------------------------
+
+const CANDIDATE_FAMILY_SCOPE_NOTE =
+  'Scope (2005–2026): candidate self-funding and known immediate-family financing watch. ' +
+  'Matches contributor type fields ("Candidate/Candidate Spouse", "Candidate Family Member") plus ' +
+  'known family names from public records: Halpin family (Dennis, Chloe, Patrick, Kristen Halpin); ' +
+  'Rothwell family (Werner Rothwell, Alexander Rothwell — each reported $2,500 outstanding Schedule N loans). ' +
+  'Candidate self-loans and family contributions are legal under NY Election Law but relevant to understanding who finances a committee. ' +
+  'These matches are disclosure context, not proof of wrongdoing.'
+
+function CandidateFamilyWatch({
+  contributions,
+  hasFetched,
+}: {
+  contributions: WatchContribution[] | null
+  hasFetched: boolean
+}) {
+  if (!hasFetched) return null
+
+  const total = (contributions ?? []).reduce((sum, c) => sum + c.amount, 0)
+  const hasHits = contributions !== null && contributions.length > 0
+  const clear = contributions !== null && contributions.length === 0
+
+  const borderColor = hasHits ? '#0369a1' : clear ? '#15803d' : '#64748b'
+  const bgColor = hasHits ? '#f0f9ff' : clear ? '#f0fdf4' : '#f8fafc'
+
+  return (
+    <div
+      style={{
+        marginTop: 14,
+        background: bgColor,
+        border: `1px solid ${borderColor}`,
+        borderRadius: 10,
+        padding: 12,
+      }}
+    >
+      <div
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          gap: 6,
+          fontWeight: 800,
+          fontSize: 13,
+          color: hasHits ? '#0c4a6e' : clear ? '#14532d' : '#334155',
+          marginBottom: 6,
+        }}
+      >
+        <span>{hasHits ? '💰' : clear ? '✅' : '🔍'}</span>
+        <span>Candidate &amp; Family Financing Watch</span>
+      </div>
+
+      {contributions === null && (
+        <div style={{ fontSize: 12, color: '#64748b' }}>
+          Tap &ldquo;Refresh from NY Open Data&rdquo; to check for candidate and family financing activity.
+        </div>
+      )}
+
+      {clear && (
+        <div style={{ fontSize: 12, color: '#166534' }}>
+          No candidate self-funding or known immediate-family donor rows were found in NY Open Data for this committee across the 2005–2026 filing window.
+        </div>
+      )}
+
+      {hasHits && (
+        <>
+          <div style={{ fontSize: 13, fontWeight: 700, color: '#0c4a6e', marginBottom: 6 }}>
+            {usd(total)} matched across {contributions!.length} contribution{contributions!.length === 1 ? '' : 's'}
+          </div>
+
+          <div style={{ display: 'grid', gap: 4, marginBottom: 8 }}>
+            {contributions!.map((c, i) => (
+              <div
+                key={i}
+                style={{ display: 'flex', justifyContent: 'space-between', gap: 10, fontSize: 12, background: '#fff', borderRadius: 6, padding: '5px 8px', flexWrap: 'wrap' }}
+              >
+                <span style={{ color: '#334155', fontWeight: 600 }}>{c.donorName}</span>
+                <span style={{ color: '#475569', whiteSpace: 'nowrap' }}>
+                  {usd(c.amount)}
+                  {c.date ? ` · ${c.date}` : ''}
+                  {c.contributorType ? ` · ${c.contributorType}` : ''}
+                </span>
+              </div>
+            ))}
+          </div>
+
+          <div style={{ fontSize: 11, color: '#64748b', marginBottom: 6, lineHeight: 1.5 }}>{CANDIDATE_FAMILY_SCOPE_NOTE}</div>
+
+          <div style={{ fontSize: 11, color: '#475569', fontStyle: 'italic', lineHeight: 1.5 }}>
+            Candidate self-loans and family gifts are lawful under NY Election Law. This watch surfaces them for
+            transparency — voters and journalists can weigh whether personal and family resources are substituting for broader donor support.
+          </div>
+        </>
+      )}
     </div>
   )
 }

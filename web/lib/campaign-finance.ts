@@ -40,6 +40,17 @@ export type YearBreakdown = {
   typeBreakdown: ContributorTypeAmount[]
 }
 
+export type WatchContribution = {
+  donorName: string
+  amount: number
+  date: string | null
+  schedule: string | null
+  contributorType: string | null
+}
+
+/** @deprecated Use WatchContribution — kept for back-compat with callers that imported the old name. */
+export type PetroCelliContribution = WatchContribution
+
 export type CampaignSnapshot = {
   raised: number
   directContributions: number
@@ -57,11 +68,208 @@ export type CampaignSnapshot = {
   outstandingLoanYear: string | null
   /** Direct contributions by election year, most recent first, excluding the current cycle. */
   historicalByYear: YearBreakdown[]
+  /** Petrocelli project-interest donor rows matched across the full filing window. null = not yet fetched. */
+  petrocelliContributions: WatchContribution[] | null
+  /** Scott's Pointe / Island Water Park project-interest donor rows. null = not yet fetched. */
+  scottPointeContributions: WatchContribution[] | null
+  /** Candidate self-funding and known family-name contributions. null = not yet fetched. */
+  candidateFamilyContributions: WatchContribution[] | null
 }
 
 // U.S. Census Bureau QuickFacts, Riverhead town, Suffolk County, NY — 2024 estimate. Used only to
 // contextualize a committee's raised total as a "per resident" figure.
 export const RIVERHEAD_POPULATION_ESTIMATE_2024 = 35980
+
+// ---------------------------------------------------------------------------
+// Project-interest and candidate-family watch logic
+// Mirrors isPetrocelliContribution(), isScottPointeRelatedContribution(),
+// and isCandidateOrFamilyFinancing() from CouncilScorecardView.swift.
+// All matches are transparency context, not proof of coordination or quid pro quo.
+// ---------------------------------------------------------------------------
+
+const PETROCELLI_WATCHLIST = [
+  'petrocelli',
+  'hp east end riverhead',
+  'jacqueline phillips',
+  'alexandra bussi',
+  'preston house',
+  'atlantis banquets',
+  'sea star ballroom',
+  'taste the east end',
+  'raphael vineyard',
+  'long island aquarium',
+  'hyatt place east end',
+]
+
+const SCOTT_POINTE_ENTITY_WATCHLIST = [
+  "scott's pointe",
+  'scotts pointe',
+  'island water park',
+  'island waterpark',
+  'island water park corp',
+  'island water sports',
+  'lake view grill',
+]
+
+// Individual name matches for Scott's Pointe — [first, last] pairs
+const SCOTT_POINTE_PEOPLE: [string, string][] = [
+  ['eric', 'scott'],
+  ['claudia', 'scott'],
+  ['cody', 'scott'],
+  ['jake', 'scott'],
+  ['ken', 'myers'],
+  ['grant', 'anderson'],
+]
+
+// Per-official candidate self-name and known family-name sets.
+// Mirrors candidateSelfNames() and candidateFamilyNames() in the iOS app.
+const CANDIDATE_SELF_NAMES: Record<string, string[]> = {
+  'Honorable Jerome Halpin': ['jerome halpin', 'jerry halpin'],
+  'Kenneth Rothwell': ['kenneth rothwell', 'kenneth t rothwell', 'ken rothwell'],
+  'Joann Waski': ['joann waski'],
+  'Robert "Bob" Kern': ['robert kern', 'bob kern'],
+  'Denise Merrifield': ['denise merrifield', 'denise m merrifield', 'denise m. merrifield'],
+}
+const CANDIDATE_FAMILY_NAMES: Record<string, string[]> = {
+  'Honorable Jerome Halpin': ['dennis halpin', 'chloe halpin', 'patrick halpin', 'kristen halpin'],
+  'Kenneth Rothwell': ['werner rothwell', 'alexander rothwell'],
+}
+
+type ItemizedRow = {
+  filer_id: string
+  flng_ent_name?: string
+  flng_ent_first_name?: string
+  flng_ent_last_name?: string
+  org_amt?: string
+  sched_date?: string
+  filing_sched_abbrev?: string
+  cntrbr_type_desc?: string
+}
+
+function nameFields(row: ItemizedRow) {
+  return [
+    row.flng_ent_name ?? '',
+    row.flng_ent_first_name ?? '',
+    row.flng_ent_last_name ?? '',
+    `${row.flng_ent_first_name ?? ''} ${row.flng_ent_last_name ?? ''}`,
+  ].map((s) => s.toLowerCase().trim())
+}
+
+function isPetroCelliRow(row: ItemizedRow): boolean {
+  const fields = nameFields(row)
+  return PETROCELLI_WATCHLIST.some((term) => fields.some((f) => f.includes(term)))
+}
+
+function isScottPointeRow(row: ItemizedRow): boolean {
+  const entity = (row.flng_ent_name ?? '').toLowerCase()
+  if (SCOTT_POINTE_ENTITY_WATCHLIST.some((term) => entity.includes(term))) return true
+  const first = (row.flng_ent_first_name ?? '').trim().toLowerCase()
+  const last = (row.flng_ent_last_name ?? '').trim().toLowerCase()
+  return SCOTT_POINTE_PEOPLE.some(([pf, pl]) => first === pf && last === pl)
+}
+
+function isCandidateFamilyRow(row: ItemizedRow, officialName: string): boolean {
+  const type = (row.cntrbr_type_desc ?? '').toLowerCase()
+  if (type === 'candidate/candidate spouse' || type === 'candidate family member') return true
+  const fullName = nameFields(row).at(-1) ?? '' // "first last"
+  const self = CANDIDATE_SELF_NAMES[officialName] ?? []
+  const family = CANDIDATE_FAMILY_NAMES[officialName] ?? []
+  return [...self, ...family].some((n) => fullName === n || nameFields(row).includes(n))
+}
+
+function donorDisplayName(row: ItemizedRow): string {
+  const entity = (row.flng_ent_name ?? '').trim()
+  if (entity) return entity
+  const first = (row.flng_ent_first_name ?? '').trim()
+  const last = (row.flng_ent_last_name ?? '').trim()
+  if (first || last) return `${first} ${last}`.trim()
+  return 'Unknown'
+}
+
+function toWatchContribution(row: ItemizedRow): WatchContribution {
+  return {
+    donorName: donorDisplayName(row),
+    amount: parseFloat(row.org_amt ?? '0') || 0,
+    date: row.sched_date ? row.sched_date.slice(0, 10) : null,
+    schedule: row.filing_sched_abbrev ?? null,
+    contributorType: row.cntrbr_type_desc ?? null,
+  }
+}
+
+export type AllWatchResults = {
+  petrocelli: Record<string, WatchContribution[]>
+  scottPointe: Record<string, WatchContribution[]>
+  candidateFamily: Record<string, WatchContribution[]>
+}
+
+/**
+ * Fetches all itemized contribution rows for the given officials in a single
+ * Socrata query, then runs each row through all three watch checks:
+ *   - Petrocelli project-interest
+ *   - Scott's Pointe / Island Water Park project-interest
+ *   - Candidate self-funding and known family-name financing
+ *
+ * Returns results bucketed by official name for each watch type.
+ */
+export async function fetchAllWatchContributions(
+  officials: CampaignOfficial[],
+  startYear: number,
+  endYear: number
+): Promise<AllWatchResults> {
+  const allFilerIDs = Array.from(new Set(officials.flatMap((o) => o.filerIDs.map((f) => f.filerID))))
+  if (allFilerIDs.length === 0) {
+    const empty = Object.fromEntries(officials.map((o) => [o.name, []]))
+    return { petrocelli: empty, scottPointe: empty, candidateFamily: empty }
+  }
+
+  const inClause = allFilerIDs.map((id) => `'${id}'`).join(',')
+  const years = Array.from({ length: endYear - startYear + 1 }, (_, i) => `'${startYear + i}'`).join(',')
+
+  const url =
+    `https://data.ny.gov/resource/4j2b-6a2j.json?` +
+    new URLSearchParams({
+      '$select': 'filer_id,flng_ent_name,flng_ent_first_name,flng_ent_last_name,org_amt,sched_date,filing_sched_abbrev,cntrbr_type_desc',
+      '$where': `filer_id in (${inClause}) and election_year in(${years}) and filing_sched_abbrev in('A','B','C')`,
+      '$limit': '5000',
+      '$order': 'sched_date DESC',
+    }).toString()
+
+  const rows = (await fetchSocrataRows(url)) as unknown as ItemizedRow[]
+
+  const filerToOfficial: Record<string, string> = {}
+  for (const official of officials) {
+    for (const ref of official.filerIDs) filerToOfficial[ref.filerID] = official.name
+  }
+
+  const petrocelli: Record<string, WatchContribution[]> = {}
+  const scottPointe: Record<string, WatchContribution[]> = {}
+  const candidateFamily: Record<string, WatchContribution[]> = {}
+  for (const o of officials) {
+    petrocelli[o.name] = []
+    scottPointe[o.name] = []
+    candidateFamily[o.name] = []
+  }
+
+  for (const row of rows) {
+    const name = filerToOfficial[row.filer_id]
+    if (!name) continue
+    if (isPetroCelliRow(row)) petrocelli[name].push(toWatchContribution(row))
+    if (isScottPointeRow(row)) scottPointe[name].push(toWatchContribution(row))
+    if (isCandidateFamilyRow(row, name)) candidateFamily[name].push(toWatchContribution(row))
+  }
+
+  return { petrocelli, scottPointe, candidateFamily }
+}
+
+/** @deprecated Use fetchAllWatchContributions — kept for callers that imported the old name. */
+export async function fetchPetroCelliContributions(
+  officials: CampaignOfficial[],
+  startYear: number,
+  endYear: number
+): Promise<Record<string, WatchContribution[]>> {
+  const result = await fetchAllWatchContributions(officials, startYear, endYear)
+  return result.petrocelli
+}
 
 function contributorTypeBucket(desc: string | null | undefined): string {
   const lower = (desc ?? '').toLowerCase()
@@ -442,6 +650,9 @@ export async function fetchCampaignSnapshots(
       outstandingLoanAmount: outstanding && outstanding.amount > 0 ? outstanding.amount : null,
       outstandingLoanYear: outstanding?.year ?? null,
       historicalByYear,
+      petrocelliContributions: null,       // populated by fetchAllWatchContributions after the main fetch
+      scottPointeContributions: null,
+      candidateFamilyContributions: null,
     }
   }
 
