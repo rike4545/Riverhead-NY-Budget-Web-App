@@ -511,6 +511,88 @@ const petrocelliScopeNote = (endYear: number, currentlyServing: boolean) =>
   'Source basis: Schneps / QNS and Dan\'s Papers profiles. ' +
   'These matches are transparency context, not proof of coordination or quid pro quo.'
 
+// ---------------------------------------------------------------------------
+// § 113-4(B)(1)(f) Ethics Analysis Panel — reused by both project-interest watches
+// ---------------------------------------------------------------------------
+
+function EthicsAnalysisPanel({
+  contributions,
+  accentColor,
+  watchLabel,
+}: {
+  contributions: WatchContribution[]
+  accentColor: string
+  watchLabel: string
+}) {
+  const groups = groupByDonorAndYear(contributions)
+  const flagged = groups.filter((g) => g.total > 1000)
+  const approaching = groups.filter((g) => g.total > 800 && g.total <= 1000)
+  const allClear = flagged.length === 0 && approaching.length === 0
+
+  return (
+    <div
+      style={{
+        marginTop: 8,
+        padding: '10px 12px',
+        background: flagged.length > 0 ? '#fef2f2' : approaching.length > 0 ? '#fffbeb' : '#f0fdf4',
+        borderRadius: 8,
+        border: `1px solid ${flagged.length > 0 ? '#fca5a5' : approaching.length > 0 ? '#fcd34d' : '#86efac'}`,
+      }}
+    >
+      <div style={{ fontSize: 12, fontWeight: 800, color: flagged.length > 0 ? '#991b1b' : approaching.length > 0 ? '#92400e' : '#14532d', marginBottom: 6 }}>
+        § 113-4(B)(1)(f) Ethics Analysis — Town of Riverhead Code of Ethics
+      </div>
+
+      {allClear && (
+        <div style={{ fontSize: 11, color: '#166534' }}>
+          No single donor exceeded $1,000 in any campaign — the automatic recusal/disclosure threshold of § 113-4(B)(1)(f) is not reached for this watch. Transparency is still appropriate if {watchLabel} matters come before the Town.
+        </div>
+      )}
+
+      {flagged.map(({ donor, year, total: groupTotal }) => (
+        <div key={`${donor}||${year}`} style={{ marginBottom: 8 }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', fontSize: 12 }}>
+            <span style={{ fontWeight: 700, color: '#7f1d1d' }}>
+              {donor} <span style={{ fontWeight: 400, color: '#64748b' }}>({year} election)</span>
+            </span>
+            <span style={{ fontWeight: 800, color: '#b91c1c', fontSize: 11 }}>⚠ THRESHOLD EXCEEDED</span>
+          </div>
+          <div style={{ fontSize: 10, color: '#7f1d1d', marginTop: 2, lineHeight: 1.4 }}>
+            {usd(groupTotal)} received — exceeds the $1,000 per-campaign limit of § 113-4(B)(1)(f).
+            Elected officials must publicly disclose this relationship when any matter involving this donor comes before the Town.
+            Recusal is also an option and may be required depending on the nature of the matter and legal advice.
+          </div>
+        </div>
+      ))}
+
+      {approaching.map(({ donor, year, total: groupTotal }) => (
+        <div key={`${donor}||${year}`} style={{ marginBottom: 8 }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', fontSize: 12 }}>
+            <span style={{ fontWeight: 700, color: '#78350f' }}>
+              {donor} <span style={{ fontWeight: 400, color: '#64748b' }}>({year} election)</span>
+            </span>
+            <span style={{ fontWeight: 800, color: '#b45309', fontSize: 11 }}>Approaching $1,000</span>
+          </div>
+          <div style={{ fontSize: 10, color: '#78350f', marginTop: 2, lineHeight: 1.4 }}>
+            {usd(groupTotal)} received — below the $1,000 threshold of § 113-4(B)(1)(f) but close. Additional contributions in the same campaign would trigger the recusal/disclosure requirement.
+          </div>
+        </div>
+      ))}
+
+      <div style={{ fontSize: 10, color: '#64748b', marginTop: 6, lineHeight: 1.4, fontStyle: 'italic', borderTop: '1px solid #e2e8f0', paddingTop: 6 }}>
+        § 113-4(B)(1)(f) of the Town of Riverhead Code of Ethics prohibits a Town officer from taking or failing to take any action
+        that may benefit a person who contributed more than $1,000 in aggregate during their most recent or current campaign —
+        unless the officer recuses or (for elected officials) publicly discloses the relationship on the record.
+        § 113-12 additionally requires land use applications (variance, zoning change, site plan, special exception) to disclose
+        any Town officer interest in the applicant. See{' '}
+        <a href="https://ecode360.com/29708189" target="_blank" rel="noopener noreferrer" style={{ color: accentColor }}>
+          Riverhead Code of Ethics § 113-4
+        </a>.
+      </div>
+    </div>
+  )
+}
+
 function PetroCelliWatch({
   contributions,
   hasFetched,
@@ -613,18 +695,7 @@ function PetroCelliWatch({
             {petrocelliScopeNote(endYear, currentlyServing)}
           </div>
 
-          <div
-            style={{
-              fontSize: 11,
-              color: total > 1000 ? '#92400e' : '#475569',
-              fontStyle: 'italic',
-              lineHeight: 1.5,
-            }}
-          >
-            {total > 1000
-              ? 'Ethics implication: the matched total exceeds $1,000 — any Petrocelli-related Town matter should be publicly disclosed and reviewed for conflict handling. For elected officials, disclosure is the minimum guardrail; recusal may be appropriate depending on the matter and legal advice.'
-              : 'Ethics implication: the matched total is below $1,000, so it does not by itself establish a code violation or automatic recusal requirement. It still warrants transparency if Petrocelli-related business comes before the Town.'}
-          </div>
+          <EthicsAnalysisPanel contributions={contributions!} accentColor="#92400e" watchLabel="Petrocelli" />
           <div style={{ fontSize: 10, color: '#64748b', marginTop: 6, lineHeight: 1.4, fontStyle: 'italic' }}>
             § 14-114 note: individual contributors are subject to the Town of Riverhead per-election limit ({usd(SUFFOLK_TOWN_LIMIT_PER_ELECTION)} general / {usd(SUFFOLK_TOWN_PRIMARY_LIMIT)} primary, per BCNYS limits table). Corporate entities are generally prohibited from contributing to NY candidates under § 14-116. See{' '}
             <a href="https://elections.ny.gov/laws-regulations/contribution-limits" target="_blank" rel="noopener noreferrer" style={{ color: '#92400e' }}>elections.ny.gov</a> for current limits.
@@ -727,11 +798,7 @@ function ScottPointeWatch({
 
           <div style={{ fontSize: 11, color: '#64748b', marginBottom: 6, lineHeight: 1.5 }}>{scottPointeScopeNote(endYear, currentlyServing)}</div>
 
-          <div style={{ fontSize: 11, color: total > 1000 ? '#5b21b6' : '#475569', fontStyle: 'italic', lineHeight: 1.5 }}>
-            {total > 1000
-              ? "Ethics implication: the matched total exceeds $1,000 — any Scott's Pointe or Island Water Park matter should be publicly disclosed and reviewed for conflict handling."
-              : "Ethics implication: the matched total is below $1,000, but any pending Scott's Pointe or Island Water Park matter still warrants transparency disclosures."}
-          </div>
+          <EthicsAnalysisPanel contributions={contributions!} accentColor="#5b21b6" watchLabel="Scott's Pointe / Island Water Park" />
           <div style={{ fontSize: 10, color: '#64748b', marginTop: 6, lineHeight: 1.4, fontStyle: 'italic' }}>
             § 14-114 note: individual contributors are subject to the Town of Riverhead per-election limit ({usd(SUFFOLK_TOWN_LIMIT_PER_ELECTION)} general / {usd(SUFFOLK_TOWN_PRIMARY_LIMIT)} primary, per BCNYS limits table). Corporate entities are generally prohibited from contributing to NY candidates under § 14-116. See{' '}
             <a href="https://elections.ny.gov/laws-regulations/contribution-limits" target="_blank" rel="noopener noreferrer" style={{ color: '#5b21b6' }}>elections.ny.gov</a> for current limits.
