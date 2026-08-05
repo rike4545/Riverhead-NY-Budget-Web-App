@@ -622,7 +622,7 @@ function PetroCelliWatch({
               : 'Ethics implication: the matched total is below $1,000, so it does not by itself establish a code violation or automatic recusal requirement. It still warrants transparency if Petrocelli-related business comes before the Town.'}
           </div>
           <div style={{ fontSize: 10, color: '#64748b', marginTop: 6, lineHeight: 1.4, fontStyle: 'italic' }}>
-            § 14-114 note: individual contributors are subject to the Suffolk County town-office per-election limit (~{usd(SUFFOLK_TOWN_LIMIT_PER_ELECTION)}/election, 2025–26). Corporate entities are generally prohibited from contributing to NY candidates under § 14-116. See{' '}
+            § 14-114 note: individual contributors are subject to the Town of Riverhead per-election limit ({usd(SUFFOLK_TOWN_LIMIT_PER_ELECTION)} general / {usd(SUFFOLK_TOWN_PRIMARY_LIMIT)} primary, per BCNYS limits table). Corporate entities are generally prohibited from contributing to NY candidates under § 14-116. See{' '}
             <a href="https://elections.ny.gov/laws-regulations/contribution-limits" target="_blank" rel="noopener noreferrer" style={{ color: '#92400e' }}>elections.ny.gov</a> for current limits.
           </div>
         </>
@@ -729,7 +729,7 @@ function ScottPointeWatch({
               : "Ethics implication: the matched total is below $1,000, but any pending Scott's Pointe or Island Water Park matter still warrants transparency disclosures."}
           </div>
           <div style={{ fontSize: 10, color: '#64748b', marginTop: 6, lineHeight: 1.4, fontStyle: 'italic' }}>
-            § 14-114 note: individual contributors are subject to the Suffolk County town-office per-election limit (~{usd(SUFFOLK_TOWN_LIMIT_PER_ELECTION)}/election, 2025–26). Corporate entities are generally prohibited from contributing to NY candidates under § 14-116. See{' '}
+            § 14-114 note: individual contributors are subject to the Town of Riverhead per-election limit ({usd(SUFFOLK_TOWN_LIMIT_PER_ELECTION)} general / {usd(SUFFOLK_TOWN_PRIMARY_LIMIT)} primary, per BCNYS limits table). Corporate entities are generally prohibited from contributing to NY candidates under § 14-116. See{' '}
             <a href="https://elections.ny.gov/laws-regulations/contribution-limits" target="_blank" rel="noopener noreferrer" style={{ color: '#5b21b6' }}>elections.ny.gov</a> for current limits.
           </div>
         </>
@@ -750,10 +750,12 @@ const candidateFamilyScopeNote = (endYear: number, currentlyServing: boolean) =>
   'Candidate self-loans and family contributions are legal under NY Election Law but relevant to understanding who finances a committee. ' +
   'These matches are disclosure context, not proof of wrongdoing.'
 
-// NY Election Law § 14-114(1): per-contributor per-election limit for town offices in Suffolk County
-// (population ~1.6M; biennial CPI-adjusted; primary and general elections count separately).
-// Source: NY BOE contribution limits chart, 2025-26 cycle — verify at elections.ny.gov/laws-regulations/contribution-limits.
-const SUFFOLK_TOWN_LIMIT_PER_ELECTION = 4700
+// NY Election Law § 14-114(1): per-contributor per-election limit for Town of Riverhead.
+// Source: BCNYS "NYS Campaign Contribution Limits" (Aug 2022), Suffolk County table, Town of Riverhead row:
+//   General election individual: $1,109.30 | DEM primary: $1,000.00 | REP primary: $1,000.00
+// These limits are biennial CPI-adjusted; primary and general elections count separately.
+const SUFFOLK_TOWN_LIMIT_PER_ELECTION = 1109.30
+const SUFFOLK_TOWN_PRIMARY_LIMIT = 1000.00
 
 type DonorElectionGroup = { donor: string; year: string; total: number; rows: WatchContribution[] }
 
@@ -862,7 +864,7 @@ function CandidateFamilyWatch({
             }}
           >
             <div style={{ fontSize: 12, fontWeight: 800, color: '#0c4a6e', marginBottom: 8 }}>
-              § 14-114 Limit Analysis — {usd(SUFFOLK_TOWN_LIMIT_PER_ELECTION)}/election per contributor (approx., Suffolk County town office, 2025–26 cycle)
+              § 14-114 Limit Analysis — {usd(SUFFOLK_TOWN_LIMIT_PER_ELECTION)} general / {usd(SUFFOLK_TOWN_PRIMARY_LIMIT)} primary per contributor (Town of Riverhead, BCNYS limits table)
             </div>
 
             {groups.map(({ donor, year, total: groupTotal }) => {
@@ -896,7 +898,7 @@ function CandidateFamilyWatch({
 
             <div style={{ fontSize: 10, color: '#64748b', marginTop: 4, lineHeight: 1.4, fontStyle: 'italic' }}>
               Primary and general elections are separate limits under § 14-114(1). This analysis groups by election year as reported in the filing; it cannot distinguish primary vs. general election
-              within the same year without per-transaction filing-type data. Verify current limits at{' '}
+              within the same year. Limits shown are from the BCNYS "NYS Campaign Contribution Limits" table (Aug 2022); biennial CPI adjustments may apply. Verify current limits at{' '}
               <a href="https://elections.ny.gov/laws-regulations/contribution-limits" target="_blank" rel="noopener noreferrer" style={{ color: '#0369a1' }}>
                 elections.ny.gov
               </a>.
