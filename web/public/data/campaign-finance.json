@@ -52,6 +52,15 @@
    "photoUrl": "https://www.townofriverheadny.gov/ImageRepository/Document?documentID=193"
   },
   {
+   "name": "Riverhead Town Democratic Committee", "office": "Riverhead Town Democratic Committee (party organization)",
+   "termStarts": null, "termEnds": null, "nextElection": null, "currentlyServing": true,
+   "isPartyCommittee": true,
+   "committeeName": "Riverhead Town Democratic Committee",
+   "filerIDs": [{ "committeeName": "Riverhead Town Democratic Committee", "filerID": "13181" }],
+   "note": "The local Democratic party committee. Shown here for completeness — no Petrocelli or Scott's Pointe project-interest contributions appear in the NY Open Data filings for this committee.",
+   "seedRaised": 0, "seedDirectContributions": 0, "seedTransfersIn": 0, "seedLastReported": null
+  },
+  {
    "name": "Riverhead Republican Committee", "office": "Suffolk County Republican Committee — Riverhead (party organization)",
    "termStarts": null, "termEnds": null, "nextElection": null, "currentlyServing": true,
    "isPartyCommittee": true,
