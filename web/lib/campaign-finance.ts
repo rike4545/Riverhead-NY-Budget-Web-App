@@ -124,7 +124,7 @@ const SCOTT_POINTE_PEOPLE: [string, string][] = [
 
 // Per-official candidate self-name and known family-name sets.
 // Mirrors candidateSelfNames() and candidateFamilyNames() in the iOS app.
-const CANDIDATE_SELF_NAMES: Record<string, string[]> = {
+export const CANDIDATE_SELF_NAMES: Record<string, string[]> = {
   'Honorable Jerome Halpin': ['jerome halpin', 'jerry halpin'],
   'Kenneth Rothwell': ['kenneth rothwell', 'kenneth t rothwell', 'ken rothwell'],
   'Joann Waski': ['joann waski'],
@@ -138,7 +138,8 @@ const CANDIDATE_SELF_NAMES: Record<string, string[]> = {
 }
 const CANDIDATE_FAMILY_NAMES: Record<string, string[]> = {
   'Honorable Jerome Halpin': ['dennis halpin', 'chloe halpin', 'patrick halpin', 'kristen halpin'],
-  'Kenneth Rothwell': ['werner rothwell', 'alexander rothwell'],
+  'Kenneth Rothwell': ['werner rothwell', 'alexander rothwell', 'thomas rothwell'],
+  'Denise Merrifield': ['peter timmons'],
 }
 
 type ItemizedRow = {

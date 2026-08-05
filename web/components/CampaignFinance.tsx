@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import {
   buildCandidateSummary,
+  CANDIDATE_SELF_NAMES,
   fetchAllWatchContributions,
   fetchCampaignSnapshots,
   fetchFilingHistory,
@@ -273,6 +274,7 @@ export default function CampaignFinance({
                 hasFetched={!!snapshots}
                 currentlyServing={official.currentlyServing}
                 endYear={endYear}
+                selfNames={CANDIDATE_SELF_NAMES[official.name] ?? []}
               />
 
               <div style={{ color: '#6b7280', fontSize: 11, marginTop: 10 }}>{official.note}</div>
@@ -392,7 +394,7 @@ function FormerOfficialsSection({
 
                 <PetroCelliWatch contributions={live?.petrocelliContributions ?? null} hasFetched={!!snapshots} currentlyServing={false} endYear={endYear} />
                 <ScottPointeWatch contributions={live?.scottPointeContributions ?? null} hasFetched={!!snapshots} currentlyServing={false} endYear={endYear} />
-                <CandidateFamilyWatch contributions={live?.candidateFamilyContributions ?? null} hasFetched={!!snapshots} currentlyServing={false} endYear={endYear} />
+                <CandidateFamilyWatch contributions={live?.candidateFamilyContributions ?? null} hasFetched={!!snapshots} currentlyServing={false} endYear={endYear} selfNames={CANDIDATE_SELF_NAMES[official.name] ?? []} />
 
                 <div style={{ color: '#6b7280', fontSize: 11, marginTop: 10 }}>{official.note}</div>
               </article>
@@ -776,11 +778,13 @@ function CandidateFamilyWatch({
   hasFetched,
   currentlyServing,
   endYear,
+  selfNames = [],
 }: {
   contributions: WatchContribution[] | null
   hasFetched: boolean
   currentlyServing: boolean
   endYear: number
+  selfNames?: string[]
 }) {
   if (!hasFetched) return null
 
@@ -868,6 +872,24 @@ function CandidateFamilyWatch({
             </div>
 
             {groups.map(({ donor, year, total: groupTotal }) => {
+              const isSelf = selfNames.some((n) => donor.toLowerCase().includes(n))
+
+              if (isSelf) {
+                return (
+                  <div key={`${donor}||${year}`} style={{ marginBottom: 10 }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', fontSize: 12 }}>
+                      <span style={{ fontWeight: 700, color: '#1e3a5f' }}>
+                        {donor} <span style={{ fontWeight: 400, color: '#64748b' }}>({year} election)</span>
+                      </span>
+                      <span style={{ fontWeight: 800, color: '#7c3aed', fontSize: 11 }}>No cap — self-funding</span>
+                    </div>
+                    <div style={{ fontSize: 10, color: '#475569' }}>
+                      {usd(groupTotal)} · Candidate self-funding is unlimited for local town races not in NY&apos;s public financing program.
+                    </div>
+                  </div>
+                )
+              }
+
               const remaining = Math.max(0, SUFFOLK_TOWN_LIMIT_PER_ELECTION - groupTotal)
               const pct = Math.min(100, (groupTotal / SUFFOLK_TOWN_LIMIT_PER_ELECTION) * 100)
               const over = groupTotal > SUFFOLK_TOWN_LIMIT_PER_ELECTION
