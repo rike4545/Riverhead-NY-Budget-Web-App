@@ -52,25 +52,41 @@
    "photoUrl": "https://www.townofriverheadny.gov/ImageRepository/Document?documentID=193"
   },
   {
-   "name": "Tim Hubbard", "office": "Former Town Supervisor; previously an 8-year Councilman", "termStarts": null, "termEnds": null, "nextElection": null, "currentlyServing": false,
-   "committeeName": "Friends of Tim Hubbard",
-   "filerIDs": [{ "committeeName": "Friends of Tim Hubbard", "filerID": "154933" }],
-   "note": "Sworn in as the Town's 64th Supervisor on January 1, 2024; lost the November 2025 election to Jerry Halpin by 37 votes after a recount. No longer serving; included here for continuity of the campaign-finance record across the 2005-2026 window.",
-   "seedRaised": null, "seedDirectContributions": null, "seedTransfersIn": null, "seedLastReported": null
+   "name": "Tim Hubbard", "office": "Former Town Supervisor (2024–2025); 8-year Councilman", "termStarts": null, "termEnds": null, "nextElection": null, "currentlyServing": false,
+   "committeeName": "Tim Hubbard for Supervisor",
+   "filerIDs": [
+    { "committeeName": "Tim Hubbard for Supervisor", "filerID": "319970" },
+    { "committeeName": "Friends of Tim Hubbard", "filerID": "3085" }
+   ],
+   "note": "Sworn in as the Town's 64th Supervisor on January 1, 2024; lost the November 2025 election to Jerry Halpin by 37 votes after a recount. Combines two committees: filer 319970 (supervisor campaign, 2023–2026) and filer 3085 (council-era committee, 2015–2023).",
+   "seedRaised": 120047.68, "seedDirectContributions": 120047.68, "seedTransfersIn": 0, "seedLastReported": "2026-01-05"
   },
   {
-   "name": "Jodi Giglio", "office": "Former Councilwoman; later NY Assembly AD-2", "termStarts": null, "termEnds": null, "nextElection": null, "currentlyServing": false,
-   "committeeName": "Friends of Jodi Giglio",
-   "filerIDs": [{ "committeeName": "Friends of Jodi Giglio", "filerID": "155155" }],
-   "note": "No longer serving on the Town Board; records may be terminated or consolidated with her Assembly committee.",
-   "seedRaised": null, "seedDirectContributions": null, "seedTransfersIn": null, "seedLastReported": null
+   "name": "Jodi Giglio", "office": "Former Councilwoman (2009–2021); later NY Assembly AD-2", "termStarts": null, "termEnds": null, "nextElection": null, "currentlyServing": false,
+   "committeeName": "Jodi Giglio For Riverhead Town Council",
+   "filerIDs": [
+    { "committeeName": "Jodi Giglio For Riverhead Town Council", "filerID": "9841" },
+    { "committeeName": "Friends of Jodi Giglio", "filerID": "3421" }
+   ],
+   "note": "Riverhead Town Board committees only (filer 9841 and 3421). Her Assembly committees (Giglio For Assembly / filer 20584 and filer 4950) are excluded from this Riverhead-scope review. Last Riverhead-committee activity: February 2020.",
+   "seedRaised": 419270.50, "seedDirectContributions": 419270.50, "seedTransfersIn": 0, "seedLastReported": "2020-02-28"
   },
   {
-   "name": "Yvette Aguiar", "office": "Former Supervisor", "termStarts": null, "termEnds": null, "nextElection": null, "currentlyServing": false,
+   "name": "Yvette Aguiar", "office": "Former Supervisor (2012–2023)", "termStarts": null, "termEnds": null, "nextElection": null, "currentlyServing": false,
    "committeeName": "Taxpayers for Aguiar",
-   "filerIDs": [{ "committeeName": "Taxpayers for Aguiar", "filerID": "66984" }],
-   "note": "No longer serving; included here for continuity of the campaign-finance record across the 2005-2026 window.",
-   "seedRaised": null, "seedDirectContributions": null, "seedTransfersIn": null, "seedLastReported": null
+   "filerIDs": [{ "committeeName": "Taxpayers for Aguiar", "filerID": "18707" }],
+   "note": "Served as Town Supervisor until 2023. Committee: Taxpayers For Aguiar, filer 18707.",
+   "seedRaised": 170818.0, "seedDirectContributions": 170818.0, "seedTransfersIn": 0, "seedLastReported": "2022-12-27"
+  },
+  {
+   "name": "Laura Jens-Smith", "office": "Former Councilwoman (2016–2021)", "termStarts": null, "termEnds": null, "nextElection": null, "currentlyServing": false,
+   "committeeName": "Friends of Laura Jens-Smith",
+   "filerIDs": [
+    { "committeeName": "Friends of Laura Jens-Smith", "filerID": "17738" },
+    { "committeeName": "Friends of Laura Jens-Smith", "filerID": "2378" }
+   ],
+   "note": "Combines two registered committees under the same name: filer 17738 (primary 2020-era committee) and filer 2378 (earlier 2015–2019 committee).",
+   "seedRaised": 173635.13, "seedDirectContributions": 173635.13, "seedTransfersIn": 0, "seedLastReported": "2020-12-09"
   }
  ]
 }

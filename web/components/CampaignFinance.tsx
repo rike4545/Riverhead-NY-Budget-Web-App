@@ -117,7 +117,7 @@ export default function CampaignFinance({
       )}
 
       <div style={{ display: 'grid', gap: 14 }}>
-        {officials.map((official) => {
+        {officials.filter((o) => o.currentlyServing).map((official) => {
           const live = snapshots?.[official.name]
           const raised = live ? live.raised : official.seedRaised
           const direct = live ? live.directContributions : official.seedDirectContributions
@@ -279,10 +279,131 @@ export default function CampaignFinance({
             </article>
           )
         })}
+
+        {officials.some((o) => !o.currentlyServing) && (
+          <FormerOfficialsSection officials={officials} snapshots={snapshots} filingsByOfficial={filingsByOfficial} startYear={startYear} endYear={endYear} />
+        )}
       </div>
     </div>
   )
 }
+
+function FormerOfficialsSection({
+  officials,
+  snapshots,
+  filingsByOfficial,
+  startYear,
+  endYear,
+}: {
+  officials: CampaignOfficial[]
+  snapshots: Record<string, CampaignSnapshot> | null
+  filingsByOfficial: Record<string, FilingEvent[]> | null
+  startYear: number
+  endYear: number
+}) {
+  const [open, setOpen] = useState(false)
+  const former = officials.filter((o) => !o.currentlyServing)
+
+  return (
+    <div style={{ marginTop: 8 }}>
+      <button
+        onClick={() => setOpen((v) => !v)}
+        style={{
+          width: '100%',
+          cursor: 'pointer',
+          fontWeight: 800,
+          fontSize: 14,
+          color: '#4a7297',
+          padding: '10px 14px',
+          background: '#f1f5f9',
+          border: '1px solid #e2e8f0',
+          borderRadius: 10,
+          display: 'flex',
+          alignItems: 'center',
+          gap: 8,
+          textAlign: 'left',
+        }}
+      >
+        <span style={{ fontSize: 13, transition: 'transform 0.15s', transform: open ? 'rotate(90deg)' : 'rotate(0deg)', display: 'inline-block' }}>▶</span>
+        Former officials ({former.length})
+        <span style={{ fontWeight: 400, fontSize: 12, color: '#64748b', marginLeft: 4 }}>— historical campaign-finance records</span>
+      </button>
+
+      {open && (
+        <div style={{ display: 'grid', gap: 14, marginTop: 12 }}>
+          {former.map((official) => {
+            const live = snapshots?.[official.name]
+            const raised = live ? live.raised : official.seedRaised
+            const direct = live ? live.directContributions : official.seedDirectContributions
+            const transfers = live ? live.transfersIn : official.seedTransfersIn
+            const lastReported = dateOnly(live ? live.lastReported : official.seedLastReported)
+
+            return (
+              <article key={official.name} style={{ background: 'white', border: '1px solid #e2e8f0', borderRadius: 16, padding: 18, boxShadow: '0 14px 34px rgba(15,23,42,.05)', borderLeft: '6px solid #9ca3af' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', gap: 12, flexWrap: 'wrap' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+                    {official.photoUrl && (
+                      // eslint-disable-next-line @next/next/no-img-element
+                      <img src={official.photoUrl} alt={official.name} width={48} height={48} style={{ borderRadius: '50%', objectFit: 'cover', flexShrink: 0 }} />
+                    )}
+                    <div>
+                      <strong style={{ fontSize: 16, color: '#374151' }}>{official.name}</strong>
+                      <div style={{ color: '#64748b', fontSize: 13 }}>{official.office}</div>
+                    </div>
+                  </div>
+                  <span style={{ background: '#f1f5f9', color: '#475569', border: '1px solid #e2e8f0', borderRadius: 999, padding: '3px 10px', fontSize: 12, fontWeight: 800, height: 'fit-content' }}>
+                    No longer serving
+                  </span>
+                </div>
+
+                {live && (
+                  <div style={{ marginTop: 12, background: '#f1f5f9', border: '1px solid #e2e8f0', borderRadius: 10, padding: 12, fontSize: 13.5, color: '#374151', lineHeight: 1.5 }}>
+                    {buildCandidateSummary(official, live, endYear)}
+                  </div>
+                )}
+
+                <div style={{ fontSize: 11, fontWeight: 800, color: '#64748b', textTransform: 'uppercase', letterSpacing: 0.4, marginTop: 12 }}>
+                  Lifetime totals ({startYear}–{endYear})
+                </div>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))', gap: 10, marginTop: 6 }}>
+                  <Stat label="Total raised" value={raised != null ? usd(raised) : 'No data on file'} />
+                  <Stat label="Direct contributions" value={direct != null ? usd(direct) : '—'} />
+                  <Stat label="Transfers in" value={transfers != null ? usd(transfers) : '—'} />
+                  <Stat label="Last reported" value={lastReported ?? '—'} />
+                </div>
+
+                {live && live.contributorTypeBreakdown.length > 0 && (
+                  <div style={{ marginTop: 12, borderTop: '1px solid #e2e8f0', paddingTop: 10 }}>
+                    <div style={{ fontSize: 12, fontWeight: 800, color: '#374151', textTransform: 'uppercase', letterSpacing: 0.4, marginBottom: 6 }}>Who&rsquo;s giving</div>
+                    <div style={{ display: 'grid', gap: 4 }}>
+                      {live.contributorTypeBreakdown.map((bucket) => (
+                        <div key={bucket.type} style={{ display: 'flex', justifyContent: 'space-between', fontSize: 13, color: '#334155' }}>
+                          <span>{bucket.type} ({bucket.donorCount})</span>
+                          <strong style={{ color: '#374151' }}>{usd(bucket.amount)}</strong>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {live && live.historicalByYear.length > 0 && <YearBreakdownList years={live.historicalByYear} />}
+
+                <CampaignFilingsList filings={filingsByOfficial?.[official.name] ?? null} endYear={endYear} hasFetched={!!filingsByOfficial} />
+
+                <PetroCelliWatch contributions={live?.petrocelliContributions ?? null} hasFetched={!!snapshots} currentlyServing={false} endYear={endYear} />
+                <ScottPointeWatch contributions={live?.scottPointeContributions ?? null} hasFetched={!!snapshots} currentlyServing={false} endYear={endYear} />
+                <CandidateFamilyWatch contributions={live?.candidateFamilyContributions ?? null} hasFetched={!!snapshots} currentlyServing={false} endYear={endYear} />
+
+                <div style={{ color: '#6b7280', fontSize: 11, marginTop: 10 }}>{official.note}</div>
+              </article>
+            )
+          })}
+        </div>
+      )}
+    </div>
+  )
+}
+
 
 function CampaignFilingsList({ filings, endYear, hasFetched }: { filings: FilingEvent[] | null; endYear: number; hasFetched: boolean }) {
   if (!hasFetched) return null
