@@ -46,6 +46,7 @@ export type WatchContribution = {
   date: string | null
   schedule: string | null
   contributorType: string | null
+  electionYear: string | null
 }
 
 /** @deprecated Use WatchContribution — kept for back-compat with callers that imported the old name. */
@@ -129,6 +130,11 @@ const CANDIDATE_SELF_NAMES: Record<string, string[]> = {
   'Joann Waski': ['joann waski'],
   'Robert "Bob" Kern': ['robert kern', 'bob kern'],
   'Denise Merrifield': ['denise merrifield', 'denise m merrifield', 'denise m. merrifield'],
+  // Former officials
+  'Tim Hubbard': ['tim hubbard', 'timothy hubbard'],
+  'Jodi Giglio': ['jodi giglio', 'jodi a giglio'],
+  'Yvette Aguiar': ['yvette aguiar'],
+  'Laura Jens-Smith': ['laura jens-smith', 'laura jens smith'],
 }
 const CANDIDATE_FAMILY_NAMES: Record<string, string[]> = {
   'Honorable Jerome Halpin': ['dennis halpin', 'chloe halpin', 'patrick halpin', 'kristen halpin'],
@@ -194,6 +200,7 @@ function toWatchContribution(row: ItemizedRow): WatchContribution {
     date: row.sched_date ? row.sched_date.slice(0, 10) : null,
     schedule: row.filing_sched_abbrev ?? null,
     contributorType: row.cntrbr_type_desc ?? null,
+    electionYear: row.election_year ?? null,
   }
 }
 

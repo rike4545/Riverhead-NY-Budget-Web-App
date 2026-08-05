@@ -621,6 +621,10 @@ function PetroCelliWatch({
               ? 'Ethics implication: the matched total exceeds $1,000 — any Petrocelli-related Town matter should be publicly disclosed and reviewed for conflict handling. For elected officials, disclosure is the minimum guardrail; recusal may be appropriate depending on the matter and legal advice.'
               : 'Ethics implication: the matched total is below $1,000, so it does not by itself establish a code violation or automatic recusal requirement. It still warrants transparency if Petrocelli-related business comes before the Town.'}
           </div>
+          <div style={{ fontSize: 10, color: '#64748b', marginTop: 6, lineHeight: 1.4, fontStyle: 'italic' }}>
+            § 14-114 note: individual contributors are subject to the Suffolk County town-office per-election limit (~{usd(SUFFOLK_TOWN_LIMIT_PER_ELECTION)}/election, 2025–26). Corporate entities are generally prohibited from contributing to NY candidates under § 14-116. See{' '}
+            <a href="https://elections.ny.gov/laws-regulations/contribution-limits" target="_blank" rel="noopener noreferrer" style={{ color: '#92400e' }}>elections.ny.gov</a> for current limits.
+          </div>
         </>
       )}
     </div>
@@ -724,6 +728,10 @@ function ScottPointeWatch({
               ? "Ethics implication: the matched total exceeds $1,000 — any Scott's Pointe or Island Water Park matter should be publicly disclosed and reviewed for conflict handling."
               : "Ethics implication: the matched total is below $1,000, but any pending Scott's Pointe or Island Water Park matter still warrants transparency disclosures."}
           </div>
+          <div style={{ fontSize: 10, color: '#64748b', marginTop: 6, lineHeight: 1.4, fontStyle: 'italic' }}>
+            § 14-114 note: individual contributors are subject to the Suffolk County town-office per-election limit (~{usd(SUFFOLK_TOWN_LIMIT_PER_ELECTION)}/election, 2025–26). Corporate entities are generally prohibited from contributing to NY candidates under § 14-116. See{' '}
+            <a href="https://elections.ny.gov/laws-regulations/contribution-limits" target="_blank" rel="noopener noreferrer" style={{ color: '#5b21b6' }}>elections.ny.gov</a> for current limits.
+          </div>
         </>
       )}
     </div>
@@ -741,6 +749,25 @@ const candidateFamilyScopeNote = (endYear: number, currentlyServing: boolean) =>
   'Rothwell family (Werner Rothwell, Alexander Rothwell — each reported $2,500 outstanding Schedule N loans). ' +
   'Candidate self-loans and family contributions are legal under NY Election Law but relevant to understanding who finances a committee. ' +
   'These matches are disclosure context, not proof of wrongdoing.'
+
+// NY Election Law § 14-114(1): per-contributor per-election limit for town offices in Suffolk County
+// (population ~1.6M; biennial CPI-adjusted; primary and general elections count separately).
+// Source: NY BOE contribution limits chart, 2025-26 cycle — verify at elections.ny.gov/laws-regulations/contribution-limits.
+const SUFFOLK_TOWN_LIMIT_PER_ELECTION = 4700
+
+type DonorElectionGroup = { donor: string; year: string; total: number; rows: WatchContribution[] }
+
+function groupByDonorAndYear(contributions: WatchContribution[]): DonorElectionGroup[] {
+  const map = new Map<string, DonorElectionGroup>()
+  for (const c of contributions) {
+    const year = c.electionYear ?? c.date?.slice(0, 4) ?? 'Unknown'
+    const key = `${c.donorName}||${year}`
+    const g = map.get(key)
+    if (g) { g.total += c.amount; g.rows.push(c) }
+    else map.set(key, { donor: c.donorName, year, total: c.amount, rows: [c] })
+  }
+  return Array.from(map.values()).sort((a, b) => b.year.localeCompare(a.year) || b.total - a.total)
+}
 
 function CandidateFamilyWatch({
   contributions,
@@ -761,6 +788,8 @@ function CandidateFamilyWatch({
 
   const borderColor = hasHits ? '#0369a1' : clear ? '#15803d' : '#64748b'
   const bgColor = hasHits ? '#f0f9ff' : clear ? '#f0fdf4' : '#f8fafc'
+
+  const groups = hasHits ? groupByDonorAndYear(contributions!) : []
 
   return (
     <div
@@ -801,11 +830,12 @@ function CandidateFamilyWatch({
 
       {hasHits && (
         <>
-          <div style={{ fontSize: 13, fontWeight: 700, color: '#0c4a6e', marginBottom: 6 }}>
+          <div style={{ fontSize: 13, fontWeight: 700, color: '#0c4a6e', marginBottom: 8 }}>
             {usd(total)} matched across {contributions!.length} contribution{contributions!.length === 1 ? '' : 's'}
           </div>
 
-          <div style={{ display: 'grid', gap: 4, marginBottom: 8 }}>
+          {/* Raw contribution rows */}
+          <div style={{ display: 'grid', gap: 4, marginBottom: 10 }}>
             {contributions!.map((c, i) => (
               <div
                 key={i}
@@ -814,14 +844,66 @@ function CandidateFamilyWatch({
                 <span style={{ color: '#334155', fontWeight: 600 }}>{c.donorName}</span>
                 <span style={{ color: '#475569', whiteSpace: 'nowrap' }}>
                   {usd(c.amount)}
-                  {c.date ? ` · ${c.date}` : ''}
+                  {c.electionYear ? ` · ${c.electionYear}` : c.date ? ` · ${c.date}` : ''}
                   {c.contributorType ? ` · ${c.contributorType}` : ''}
                 </span>
               </div>
             ))}
           </div>
 
-          <div style={{ fontSize: 11, color: '#64748b', marginBottom: 6, lineHeight: 1.5 }}>{candidateFamilyScopeNote(endYear, currentlyServing)}</div>
+          {/* § 14-114 per-election limit analysis */}
+          <div
+            style={{
+              marginTop: 6,
+              padding: '10px 12px',
+              background: '#e0f2fe',
+              borderRadius: 8,
+              border: '1px solid #bae6fd',
+            }}
+          >
+            <div style={{ fontSize: 12, fontWeight: 800, color: '#0c4a6e', marginBottom: 8 }}>
+              § 14-114 Limit Analysis — {usd(SUFFOLK_TOWN_LIMIT_PER_ELECTION)}/election per contributor (approx., Suffolk County town office, 2025–26 cycle)
+            </div>
+
+            {groups.map(({ donor, year, total: groupTotal }) => {
+              const remaining = Math.max(0, SUFFOLK_TOWN_LIMIT_PER_ELECTION - groupTotal)
+              const pct = Math.min(100, (groupTotal / SUFFOLK_TOWN_LIMIT_PER_ELECTION) * 100)
+              const over = groupTotal > SUFFOLK_TOWN_LIMIT_PER_ELECTION
+              const atLimit = !over && remaining === 0
+              const barColor = over ? '#b91c1c' : pct >= 80 ? '#b45309' : '#0369a1'
+              const labelColor = over ? '#b91c1c' : atLimit ? '#92400e' : '#166534'
+
+              return (
+                <div key={`${donor}||${year}`} style={{ marginBottom: 10 }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', fontSize: 12 }}>
+                    <span style={{ fontWeight: 700, color: '#1e3a5f' }}>
+                      {donor} <span style={{ fontWeight: 400, color: '#64748b' }}>({year} election)</span>
+                    </span>
+                    <span style={{ fontWeight: 800, color: labelColor, fontSize: 11 }}>
+                      {over ? '⚠ OVER LIMIT' : atLimit ? 'AT LIMIT' : `${usd(remaining)} remaining`}
+                    </span>
+                  </div>
+                  <div style={{ height: 6, background: '#bae6fd', borderRadius: 3, margin: '4px 0', overflow: 'hidden' }}>
+                    <div style={{ height: '100%', width: `${pct}%`, background: barColor, borderRadius: 3, transition: 'width 0.3s' }} />
+                  </div>
+                  <div style={{ fontSize: 10, color: '#475569' }}>
+                    {usd(groupTotal)} of {usd(SUFFOLK_TOWN_LIMIT_PER_ELECTION)} per-election limit
+                    {over && ` — EXCESS: ${usd(groupTotal - SUFFOLK_TOWN_LIMIT_PER_ELECTION)}`}
+                  </div>
+                </div>
+              )
+            })}
+
+            <div style={{ fontSize: 10, color: '#64748b', marginTop: 4, lineHeight: 1.4, fontStyle: 'italic' }}>
+              Primary and general elections are separate limits under § 14-114(1). This analysis groups by election year as reported in the filing; it cannot distinguish primary vs. general election
+              within the same year without per-transaction filing-type data. Verify current limits at{' '}
+              <a href="https://elections.ny.gov/laws-regulations/contribution-limits" target="_blank" rel="noopener noreferrer" style={{ color: '#0369a1' }}>
+                elections.ny.gov
+              </a>.
+            </div>
+          </div>
+
+          <div style={{ fontSize: 11, color: '#64748b', marginTop: 8, marginBottom: 4, lineHeight: 1.5 }}>{candidateFamilyScopeNote(endYear, currentlyServing)}</div>
 
           <div style={{ fontSize: 11, color: '#475569', fontStyle: 'italic', lineHeight: 1.5 }}>
             Candidate self-loans and family gifts are lawful under NY Election Law. This watch surfaces them for
