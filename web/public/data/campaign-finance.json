@@ -52,6 +52,15 @@
    "photoUrl": "https://www.townofriverheadny.gov/ImageRepository/Document?documentID=193"
   },
   {
+   "name": "Riverhead Republican Committee", "office": "Suffolk County Republican Committee — Riverhead (party organization)",
+   "termStarts": null, "termEnds": null, "nextElection": null, "currentlyServing": true,
+   "isPartyCommittee": true,
+   "committeeName": "Riverhead Republican Committee",
+   "filerIDs": [{ "committeeName": "Riverhead Republican Committee", "filerID": "5418" }],
+   "note": "The local party committee that nominates and supports Republican candidates for Town Board. Petrocelli and project-interest contributions to this committee fund the broader candidate pipeline, not a single election.",
+   "seedRaised": 0, "seedDirectContributions": 0, "seedTransfersIn": 0, "seedLastReported": null
+  },
+  {
    "name": "Tim Hubbard", "office": "Former Town Supervisor (2024–2025); 8-year Councilman", "termStarts": null, "termEnds": null, "nextElection": null, "currentlyServing": false,
    "committeeName": "Tim Hubbard for Supervisor",
    "filerIDs": [

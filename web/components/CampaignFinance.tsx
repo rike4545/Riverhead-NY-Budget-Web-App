@@ -269,13 +269,15 @@ export default function CampaignFinance({
                 currentlyServing={official.currentlyServing}
                 endYear={endYear}
               />
-              <CandidateFamilyWatch
-                contributions={live?.candidateFamilyContributions ?? null}
-                hasFetched={!!snapshots}
-                currentlyServing={official.currentlyServing}
-                endYear={endYear}
-                selfNames={CANDIDATE_SELF_NAMES[official.name] ?? []}
-              />
+              {!official.isPartyCommittee && (
+                <CandidateFamilyWatch
+                  contributions={live?.candidateFamilyContributions ?? null}
+                  hasFetched={!!snapshots}
+                  currentlyServing={official.currentlyServing}
+                  endYear={endYear}
+                  selfNames={CANDIDATE_SELF_NAMES[official.name] ?? []}
+                />
+              )}
 
               <div style={{ color: '#6b7280', fontSize: 11, marginTop: 10 }}>{official.note}</div>
             </article>

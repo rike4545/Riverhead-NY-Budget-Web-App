@@ -19,6 +19,7 @@ export type CampaignOfficial = {
   seedTransfersIn: number | null
   seedLastReported: string | null
   photoUrl?: string | null
+  isPartyCommittee?: boolean
 }
 
 export type LatestYearSnapshot = {
@@ -90,6 +91,7 @@ export const RIVERHEAD_POPULATION_ESTIMATE_2024 = 35980
 
 const PETROCELLI_WATCHLIST = [
   'petrocelli',
+  'petrocelli development',
   'hp east end riverhead',
   'jacqueline phillips',
   'alexandra bussi',
