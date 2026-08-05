@@ -118,7 +118,7 @@ export default function CampaignFinance({
       )}
 
       <div style={{ display: 'grid', gap: 14 }}>
-        {officials.filter((o) => o.currentlyServing).map((official) => {
+        {officials.filter((o) => o.currentlyServing && !o.isPartyCommittee).map((official) => {
           const live = snapshots?.[official.name]
           const raised = live ? live.raised : official.seedRaised
           const direct = live ? live.directContributions : official.seedDirectContributions
@@ -284,10 +284,96 @@ export default function CampaignFinance({
           )
         })}
 
+        {officials.some((o) => o.isPartyCommittee) && (
+          <PartyCommitteesSection officials={officials} snapshots={snapshots} filingsByOfficial={filingsByOfficial} startYear={startYear} endYear={endYear} />
+        )}
+
         {officials.some((o) => !o.currentlyServing) && (
           <FormerOfficialsSection officials={officials} snapshots={snapshots} filingsByOfficial={filingsByOfficial} startYear={startYear} endYear={endYear} />
         )}
       </div>
+    </div>
+  )
+}
+
+function PartyCommitteesSection({
+  officials,
+  snapshots,
+  filingsByOfficial,
+  startYear,
+  endYear,
+}: {
+  officials: CampaignOfficial[]
+  snapshots: Record<string, CampaignSnapshot> | null
+  filingsByOfficial: Record<string, FilingEvent[]> | null
+  startYear: number
+  endYear: number
+}) {
+  const [open, setOpen] = useState(false)
+  const committees = officials.filter((o) => o.isPartyCommittee)
+
+  return (
+    <div style={{ marginTop: 8 }}>
+      <button
+        onClick={() => setOpen((v) => !v)}
+        style={{
+          width: '100%',
+          cursor: 'pointer',
+          fontWeight: 800,
+          fontSize: 14,
+          color: '#4a7297',
+          padding: '10px 14px',
+          background: '#f1f5f9',
+          border: '1px solid #e2e8f0',
+          borderRadius: 10,
+          display: 'flex',
+          alignItems: 'center',
+          gap: 8,
+          textAlign: 'left',
+        }}
+      >
+        <span style={{ fontSize: 13, transition: 'transform 0.15s', transform: open ? 'rotate(90deg)' : 'rotate(0deg)', display: 'inline-block' }}>▶</span>
+        Party committees ({committees.length})
+        <span style={{ fontWeight: 400, fontSize: 12, color: '#64748b', marginLeft: 4 }}>— Republican &amp; Democratic funding records</span>
+      </button>
+
+      {open && (
+        <div style={{ display: 'grid', gap: 14, marginTop: 12 }}>
+          {committees.map((official) => {
+            const live = snapshots?.[official.name]
+            const raised = live ? live.raised : official.seedRaised
+            const direct = live ? live.directContributions : official.seedDirectContributions
+            const transfers = live ? live.transfersIn : official.seedTransfersIn
+            const lastReported = dateOnly(live ? live.lastReported : official.seedLastReported)
+
+            return (
+              <article key={official.name} style={{ background: 'white', border: '1px solid #e2e8f0', borderRadius: 16, padding: 18, boxShadow: '0 14px 34px rgba(15,23,42,.05)', borderLeft: '6px solid #7c6fa0' }}>
+                <div>
+                  <strong style={{ fontSize: 16, color: '#374151' }}>{official.name}</strong>
+                  <div style={{ color: '#64748b', fontSize: 13 }}>{official.office}</div>
+                </div>
+
+                <div style={{ fontSize: 11, fontWeight: 800, color: '#64748b', textTransform: 'uppercase', letterSpacing: 0.4, marginTop: 12 }}>
+                  Lifetime totals ({startYear}–{endYear})
+                </div>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))', gap: 10, marginTop: 6 }}>
+                  <Stat label="Total raised" value={raised != null ? usd(raised) : 'No data on file'} />
+                  <Stat label="Direct contributions" value={direct != null ? usd(direct) : '—'} />
+                  <Stat label="Transfers in" value={transfers != null ? usd(transfers) : '—'} />
+                  <Stat label="Last reported" value={lastReported ?? '—'} />
+                </div>
+
+                <CampaignFilingsList filings={filingsByOfficial?.[official.name] ?? null} endYear={endYear} hasFetched={!!filingsByOfficial} />
+
+                <PetroCelliWatch contributions={live?.petrocelliContributions ?? null} hasFetched={!!snapshots} currentlyServing={true} endYear={endYear} />
+                <ScottPointeWatch contributions={live?.scottPointeContributions ?? null} hasFetched={!!snapshots} currentlyServing={true} endYear={endYear} />
+
+                <div style={{ color: '#6b7280', fontSize: 11, marginTop: 10 }}>{official.note}</div>
+              </article>
+            )
+          })}
+        </div>
+      )}
     </div>
   )
 }
