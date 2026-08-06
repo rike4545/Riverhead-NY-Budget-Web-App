@@ -110,6 +110,9 @@ const PETROCELLI_WATCHLIST = [
   'raphael vineyard',
   'long island aquarium',
   'hyatt place east end',
+  // "Hyatt Place Long Island / East End" (the hotel's public name) does not
+  // contain "hyatt place east end" as a substring — the two terms cover both forms.
+  'hyatt place long island',
 ]
 
 const SCOTT_POINTE_ENTITY_WATCHLIST = [

@@ -617,11 +617,16 @@ function YearBreakdownList({ years }: { years: YearBreakdown[] }) {
 
 const petrocelliScopeNote = (endYear: number, currentlyServing: boolean) =>
   `Scope (2005–${currentlyServing ? endYear : endYear - 1}): this is a corporate/project-interest watch, not candidate immediate-family support. ` +
-  'It matches any donor field containing "Petrocelli" (catching all J. Petrocelli entity variants) ' +
-  'plus Hp East End Riverhead LLC / H.P. East End Riverhead LLC (both period-forms matched), ' +
-  'as well as associated venue/entity watch terms ' +
-  'from public profiles: Jacqueline Phillips, Alexandra Bussi, The Preston House, Atlantis Banquets, ' +
-  'Sea Star Ballroom, Taste the East End, Raphael Vineyard, Long Island Aquarium, Hyatt Place East End. ' +
+  'It matches any donor field containing "Petrocelli" — covering J. Petrocelli Development Associates, ' +
+  'J. Petrocelli Contracting, J. Petrocelli Construction, J. Petrocelli Development Inc, ' +
+  'J. Petrocelli Cellars LLC, J. Petrocelli Wine Cellars LLC, J. Petrocelli Riverhead Town Square LLC, ' +
+  'M. Petrocelli, Marie Petrocelli, Michael Petrocelli, Jennifer Petrocelli, and other variants. ' +
+  'Also matches HP East End Riverhead LLC / H.P. East End Riverhead LLC — the operating entity for the ' +
+  'Hyatt Place Long Island / East End hotel at 451 East Main Street, Riverhead, developed by J. Petrocelli. ' +
+  'Additional venue/entity watch terms from public profiles: Jacqueline Phillips, Alexandra Bussi, ' +
+  'The Preston House, Atlantis Banquets, Sea Star Ballroom, Taste the East End, Raphael Vineyard, ' +
+  'Long Island Aquarium (also constructed by J. Petrocelli Contracting), ' +
+  'Hyatt Place Long Island / East End, Hyatt Place East End. ' +
   'Source basis: Schneps / QNS and Dan\'s Papers profiles. ' +
   'These matches are transparency context, not proof of coordination or quid pro quo.'
 
