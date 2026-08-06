@@ -1,0 +1,470 @@
+{
+ "slug": "2026-07-21",
+ "meetingDate": "2026-07-21",
+ "source": {
+  "title": "Town of Riverhead Town Board Agenda Packet, 2026-07-21 (Fiscal Impact Statements)",
+  "url": "https://www.townofriverheadny.gov/129/Agendas-Minutes"
+ },
+ "method": "Each resolution's Town 'Fiscal Impact Statement' answer (Yes/No and absorbed vs. detailed) is transcribed as-published from the agenda packet, alongside a plain-English realistic read keyed on the resolution's category. Dollar amounts are not auto-extracted from this packet \u2014 they live in interleaved backup tables that don't reliably tie to a single resolution \u2014 so they are left blank rather than guessed.",
+ "summary": {
+  "total": 30,
+  "markedNo": 25,
+  "markedYes": 5,
+  "understated": 8,
+  "understatedMarkedNo": 3,
+  "identifiedDollarsAtStake": 0,
+  "largestUnderstatedMarkedNo": null
+ },
+ "resolutions": [
+  {
+   "number": null,
+   "seq": 1,
+   "title": "Water District Capital Project 82517 Summerwind Farm Subdivision Budget",
+   "category": "capital",
+   "townFiscalImpact": "Yes",
+   "townTreatment": "absorbed",
+   "amount": null,
+   "realistic": {
+    "verdict": "Understated \u2014 'absorbed by existing budget'",
+    "reason": "It commits capital or debt-service dollars, typically drawn from reserves, fund balance, or borrowing \u2014 not truly cost-free even if 'absorbed'.",
+    "flag": "reserve-draw"
+   },
+   "vote": null
+  },
+  {
+   "number": null,
+   "seq": 2,
+   "title": "Sewer District Capital Project 82613 Peconic River Hotel 127 E Main St",
+   "category": "capital",
+   "townFiscalImpact": "Yes",
+   "townTreatment": "absorbed",
+   "amount": null,
+   "realistic": {
+    "verdict": "Understated \u2014 'absorbed by existing budget'",
+    "reason": "It commits capital or debt-service dollars, typically drawn from reserves, fund balance, or borrowing \u2014 not truly cost-free even if 'absorbed'.",
+    "flag": "reserve-draw"
+   },
+   "vote": null
+  },
+  {
+   "number": null,
+   "seq": 3,
+   "title": "Ratifies Acceptance of Donation of Life Ring For Grangebel Park",
+   "category": "donation",
+   "townFiscalImpact": "No",
+   "townTreatment": "described",
+   "amount": null,
+   "realistic": {
+    "verdict": "Revenue in / offsetting",
+    "reason": "Money flows, but from a grant, donation, or a developer's own escrow \u2014 not the tax levy.",
+    "flag": "neutral"
+   },
+   "vote": null
+  },
+  {
+   "number": null,
+   "seq": 4,
+   "title": "Ratifies Acceptance of Donation from Various Local Businesses For Annual",
+   "category": "donation",
+   "townFiscalImpact": "No",
+   "townTreatment": "described",
+   "amount": null,
+   "realistic": {
+    "verdict": "Revenue in / offsetting",
+    "reason": "Money flows, but from a grant, donation, or a developer's own escrow \u2014 not the tax levy.",
+    "flag": "neutral"
+   },
+   "vote": null
+  },
+  {
+   "number": null,
+   "seq": 5,
+   "title": "Authorizes Financial Administrator to Deposit Funds for Road Restoration",
+   "category": "procedural",
+   "townFiscalImpact": "No",
+   "townTreatment": "described",
+   "amount": null,
+   "realistic": {
+    "verdict": "No direct cost",
+    "reason": "A procedural, permit, or administrative action with no direct levy cost identified.",
+    "flag": "fair"
+   },
+   "vote": null
+  },
+  {
+   "number": null,
+   "seq": 6,
+   "title": "Authorizes Attendance at Training Seminar by Deputy Chief Fire Marshal",
+   "category": "procedural",
+   "townFiscalImpact": "No",
+   "townTreatment": "described",
+   "amount": null,
+   "realistic": {
+    "verdict": "No direct cost",
+    "reason": "A procedural, permit, or administrative action with no direct levy cost identified.",
+    "flag": "fair"
+   },
+   "vote": null
+  },
+  {
+   "number": null,
+   "seq": 7,
+   "title": "Appoints Seasonal Pump-out Boat Operator",
+   "category": "personnel",
+   "townFiscalImpact": "Yes",
+   "townTreatment": "absorbed",
+   "amount": null,
+   "realistic": {
+    "verdict": "Real, recurring cost",
+    "reason": "A salary, raise, contract, or fee change that commits ongoing money.",
+    "flag": "reserve-draw"
+   },
+   "vote": null
+  },
+  {
+   "number": null,
+   "seq": 8,
+   "title": "Appoints a Maintenance Mechanic III HVAC Concentration",
+   "category": "personnel",
+   "townFiscalImpact": "Yes",
+   "townTreatment": "absorbed",
+   "amount": null,
+   "realistic": {
+    "verdict": "Real, recurring cost",
+    "reason": "A salary, raise, contract, or fee change that commits ongoing money.",
+    "flag": "reserve-draw"
+   },
+   "vote": null
+  },
+  {
+   "number": null,
+   "seq": 9,
+   "title": "Appoints a Water Treatment Plant Operator Trainee",
+   "category": "personnel",
+   "townFiscalImpact": "Yes",
+   "townTreatment": "absorbed",
+   "amount": null,
+   "realistic": {
+    "verdict": "Real, recurring cost",
+    "reason": "A salary, raise, contract, or fee change that commits ongoing money.",
+    "flag": "reserve-draw"
+   },
+   "vote": null
+  },
+  {
+   "number": null,
+   "seq": 10,
+   "title": "Ratifies Appointment Of Recreation Superintendent And Sets Terms And",
+   "category": "personnel",
+   "townFiscalImpact": "No",
+   "townTreatment": "described",
+   "amount": null,
+   "realistic": {
+    "verdict": "Understated \u2014 the form says 'no fiscal impact'",
+    "reason": "A salary, contract, or fee item marked 'no fiscal impact' typically still moves money.",
+    "flag": "understated"
+   },
+   "vote": null
+  },
+  {
+   "number": null,
+   "seq": 11,
+   "title": "Authorizes the Riverhead Police Department to Apply for DHS FEMA",
+   "category": "procedural",
+   "townFiscalImpact": "No",
+   "townTreatment": "described",
+   "amount": null,
+   "realistic": {
+    "verdict": "No direct cost",
+    "reason": "A procedural, permit, or administrative action with no direct levy cost identified.",
+    "flag": "fair"
+   },
+   "vote": null
+  },
+  {
+   "number": null,
+   "seq": 12,
+   "title": "Acceptance of 2025 Justice Court Audit",
+   "category": "procedural",
+   "townFiscalImpact": "No",
+   "townTreatment": "described",
+   "amount": null,
+   "realistic": {
+    "verdict": "No direct cost",
+    "reason": "A procedural, permit, or administrative action with no direct levy cost identified.",
+    "flag": "fair"
+   },
+   "vote": null
+  },
+  {
+   "number": null,
+   "seq": 13,
+   "title": "Ratifies the Resignation of a Part-time Code Enforcement Officer",
+   "category": "personnel-out",
+   "townFiscalImpact": "No",
+   "townTreatment": "described",
+   "amount": null,
+   "realistic": {
+    "verdict": "Actually a saving",
+    "reason": "A departure reduces payroll \u2014 the opposite of a cost.",
+    "flag": "saving"
+   },
+   "vote": null
+  },
+  {
+   "number": null,
+   "seq": 14,
+   "title": "Accepts the Retirement of a Police Officer Michael Mowdy",
+   "category": "personnel-out",
+   "townFiscalImpact": "No",
+   "townTreatment": "described",
+   "amount": null,
+   "realistic": {
+    "verdict": "Actually a saving",
+    "reason": "A departure reduces payroll \u2014 the opposite of a cost.",
+    "flag": "saving"
+   },
+   "vote": null
+  },
+  {
+   "number": null,
+   "seq": 15,
+   "title": "Authorizes the Town Clerk to Publish and Post Notice to Bidders for",
+   "category": "procedural",
+   "townFiscalImpact": "No",
+   "townTreatment": "described",
+   "amount": null,
+   "realistic": {
+    "verdict": "No direct cost",
+    "reason": "A procedural, permit, or administrative action with no direct levy cost identified.",
+    "flag": "fair"
+   },
+   "vote": null
+  },
+  {
+   "number": null,
+   "seq": 16,
+   "title": "Ratifies Authorization for Town Clerk to Publish and Post Public Notice for",
+   "category": "procedural",
+   "townFiscalImpact": "No",
+   "townTreatment": "described",
+   "amount": null,
+   "realistic": {
+    "verdict": "No direct cost",
+    "reason": "A procedural, permit, or administrative action with no direct levy cost identified.",
+    "flag": "fair"
+   },
+   "vote": null
+  },
+  {
+   "number": null,
+   "seq": 17,
+   "title": "Adopts Local Law to Amend Chapter 301 Zoning and Land Development to",
+   "category": "legislative",
+   "townFiscalImpact": "No",
+   "townTreatment": "described",
+   "amount": null,
+   "realistic": {
+    "verdict": "No direct cost",
+    "reason": "A procedural, permit, or administrative action with no direct levy cost identified.",
+    "flag": "fair"
+   },
+   "vote": null
+  },
+  {
+   "number": null,
+   "seq": 18,
+   "title": "Adopts Local Law to Amend Chapter 105 Boards, Commission and",
+   "category": "appointment-volunteer",
+   "townFiscalImpact": "No",
+   "townTreatment": "described",
+   "amount": null,
+   "realistic": {
+    "verdict": "No direct cost",
+    "reason": "Appointment to an unpaid advisory board, committee, or task force \u2014 no salary attached.",
+    "flag": "fair"
+   },
+   "vote": null
+  },
+  {
+   "number": null,
+   "seq": 19,
+   "title": "Adopts Local Law to Amend Chapter 219 Coastal Erosion Hazard Areas,",
+   "category": "legislative",
+   "townFiscalImpact": "No",
+   "townTreatment": "described",
+   "amount": null,
+   "realistic": {
+    "verdict": "No direct cost",
+    "reason": "A procedural, permit, or administrative action with no direct levy cost identified.",
+    "flag": "fair"
+   },
+   "vote": null
+  },
+  {
+   "number": null,
+   "seq": 20,
+   "title": "Adopts Local Law to Amend Chapter 295 Wetlands, \u00a7295-6 Application for",
+   "category": "legislative",
+   "townFiscalImpact": "No",
+   "townTreatment": "described",
+   "amount": null,
+   "realistic": {
+    "verdict": "No direct cost",
+    "reason": "A procedural, permit, or administrative action with no direct levy cost identified.",
+    "flag": "fair"
+   },
+   "vote": null
+  },
+  {
+   "number": null,
+   "seq": 21,
+   "title": "Sets Planning Division Fees",
+   "category": "fees",
+   "townFiscalImpact": "No",
+   "townTreatment": "described",
+   "amount": null,
+   "realistic": {
+    "verdict": "Understated \u2014 the form says 'no fiscal impact'",
+    "reason": "A salary, contract, or fee item marked 'no fiscal impact' typically still moves money.",
+    "flag": "understated"
+   },
+   "vote": null
+  },
+  {
+   "number": null,
+   "seq": 22,
+   "title": "Adopts a Local Law to Amend Chapter 289 of the Riverhead Town Code",
+   "category": "legislative",
+   "townFiscalImpact": "No",
+   "townTreatment": "described",
+   "amount": null,
+   "realistic": {
+    "verdict": "No direct cost",
+    "reason": "A procedural, permit, or administrative action with no direct levy cost identified.",
+    "flag": "fair"
+   },
+   "vote": null
+  },
+  {
+   "number": null,
+   "seq": 23,
+   "title": "Adopts a Local Law to Amend Chapter 289-17 of the Riverhead Town Code",
+   "category": "legislative",
+   "townFiscalImpact": "No",
+   "townTreatment": "described",
+   "amount": null,
+   "realistic": {
+    "verdict": "No direct cost",
+    "reason": "A procedural, permit, or administrative action with no direct levy cost identified.",
+    "flag": "fair"
+   },
+   "vote": null
+  },
+  {
+   "number": null,
+   "seq": 24,
+   "title": "Ratifies Designation of Alcohol Service Vendor To Serve Alcohol At The",
+   "category": "procedural",
+   "townFiscalImpact": "No",
+   "townTreatment": "described",
+   "amount": null,
+   "realistic": {
+    "verdict": "No direct cost",
+    "reason": "A procedural, permit, or administrative action with no direct levy cost identified.",
+    "flag": "fair"
+   },
+   "vote": null
+  },
+  {
+   "number": null,
+   "seq": 25,
+   "title": "Approves Special Event Chapter 255 Application for Daniel Cox (Akliral",
+   "category": "permit",
+   "townFiscalImpact": "No",
+   "townTreatment": "described",
+   "amount": null,
+   "realistic": {
+    "verdict": "No direct cost",
+    "reason": "A procedural, permit, or administrative action with no direct levy cost identified.",
+    "flag": "fair"
+   },
+   "vote": null
+  },
+  {
+   "number": null,
+   "seq": 26,
+   "title": "Approves Special Event Chapter 255 Application for Protection Sports",
+   "category": "permit",
+   "townFiscalImpact": "No",
+   "townTreatment": "described",
+   "amount": null,
+   "realistic": {
+    "verdict": "No direct cost",
+    "reason": "A procedural, permit, or administrative action with no direct levy cost identified.",
+    "flag": "fair"
+   },
+   "vote": null
+  },
+  {
+   "number": null,
+   "seq": 27,
+   "title": "Pays Bills",
+   "category": "procedural",
+   "townFiscalImpact": "No",
+   "townTreatment": "described",
+   "amount": null,
+   "realistic": {
+    "verdict": "No direct cost",
+    "reason": "A procedural, permit, or administrative action with no direct levy cost identified.",
+    "flag": "fair"
+   },
+   "vote": null
+  },
+  {
+   "number": null,
+   "seq": 28,
+   "title": "Amends Resolution 2026-673 Approves Fireworks Application for Jamesport",
+   "category": "procedural",
+   "townFiscalImpact": "No",
+   "townTreatment": "described",
+   "amount": null,
+   "realistic": {
+    "verdict": "No direct cost",
+    "reason": "A procedural, permit, or administrative action with no direct levy cost identified.",
+    "flag": "fair"
+   },
+   "vote": null
+  },
+  {
+   "number": null,
+   "seq": 29,
+   "title": "Authorizes Town Clerk to Publish and Post Public Notice to Consider a",
+   "category": "procedural",
+   "townFiscalImpact": "No",
+   "townTreatment": "described",
+   "amount": null,
+   "realistic": {
+    "verdict": "No direct cost",
+    "reason": "A procedural, permit, or administrative action with no direct levy cost identified.",
+    "flag": "fair"
+   },
+   "vote": null
+  },
+  {
+   "number": null,
+   "seq": 30,
+   "title": "Resolution To Authorize And Approve Agreement With Riverhead",
+   "category": "contract",
+   "townFiscalImpact": "No",
+   "townTreatment": "described",
+   "amount": null,
+   "realistic": {
+    "verdict": "Understated \u2014 the form says 'no fiscal impact'",
+    "reason": "A salary, contract, or fee item marked 'no fiscal impact' typically still moves money.",
+    "flag": "understated"
+   },
+   "vote": null
+  }
+ ]
+}

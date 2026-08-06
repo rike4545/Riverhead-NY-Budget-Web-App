@@ -1,0 +1,1100 @@
+{
+ "slug": "2026-02-03",
+ "meetingDate": "2026-02-03",
+ "source": {
+  "title": "Town of Riverhead Town Board Agenda Packet, 2026-02-03 (Fiscal Impact Statements)",
+  "url": "https://www.townofriverheadny.gov/129/Agendas-Minutes"
+ },
+ "method": "Each resolution's Town 'Fiscal Impact Statement' answer (Yes/No and absorbed vs. detailed) is transcribed as-published from the agenda packet, alongside a plain-English realistic read keyed on the resolution's category. Dollar amounts are not auto-extracted from this packet \u2014 they live in interleaved backup tables that don't reliably tie to a single resolution \u2014 so they are left blank rather than guessed.",
+ "summary": {
+  "total": 54,
+  "markedNo": 35,
+  "markedYes": 19,
+  "understated": 31,
+  "understatedMarkedNo": 19,
+  "identifiedDollarsAtStake": 0,
+  "largestUnderstatedMarkedNo": null
+ },
+ "resolutions": [
+  {
+   "number": "2026-101",
+   "seq": 1,
+   "title": "Authorizes Removal of Fixed Assets",
+   "category": "procedural",
+   "townFiscalImpact": "No",
+   "townTreatment": "described",
+   "amount": null,
+   "realistic": {
+    "verdict": "No direct cost",
+    "reason": "A procedural, permit, or administrative action with no direct levy cost identified.",
+    "flag": "fair"
+   },
+   "vote": {
+    "adopted": true,
+    "tag": "unanimous",
+    "ayes": null,
+    "nays": 0
+   }
+  },
+  {
+   "number": "2026-102",
+   "seq": 2,
+   "title": "Authorizes Financial Administrator to Establish a Budget for America 250",
+   "category": "procedural",
+   "townFiscalImpact": "No",
+   "townTreatment": "described",
+   "amount": null,
+   "realistic": {
+    "verdict": "No direct cost",
+    "reason": "A procedural, permit, or administrative action with no direct levy cost identified.",
+    "flag": "fair"
+   },
+   "vote": {
+    "adopted": true,
+    "tag": "unanimous",
+    "ayes": null,
+    "nays": 0
+   }
+  },
+  {
+   "number": "2026-103",
+   "seq": 3,
+   "title": "Water District Capital Project 81855 Plant 2A Budget Amendment",
+   "category": "capital",
+   "townFiscalImpact": "Yes",
+   "townTreatment": "absorbed",
+   "amount": null,
+   "realistic": {
+    "verdict": "Understated \u2014 'absorbed by existing budget'",
+    "reason": "It commits capital or debt-service dollars, typically drawn from reserves, fund balance, or borrowing \u2014 not truly cost-free even if 'absorbed'.",
+    "flag": "reserve-draw"
+   },
+   "vote": {
+    "adopted": true,
+    "tag": "unanimous",
+    "ayes": null,
+    "nays": 0
+   }
+  },
+  {
+   "number": "2026-104",
+   "seq": 4,
+   "title": "Water District Capital Project 82602 Riverhead Mazda 1419 Old Country Rd",
+   "category": "capital",
+   "townFiscalImpact": "Yes",
+   "townTreatment": "absorbed",
+   "amount": null,
+   "realistic": {
+    "verdict": "Understated \u2014 'absorbed by existing budget'",
+    "reason": "It commits capital or debt-service dollars, typically drawn from reserves, fund balance, or borrowing \u2014 not truly cost-free even if 'absorbed'.",
+    "flag": "reserve-draw"
+   },
+   "vote": {
+    "adopted": true,
+    "tag": "unanimous",
+    "ayes": null,
+    "nays": 0
+   }
+  },
+  {
+   "number": "2026-105",
+   "seq": 5,
+   "title": "Sewer District Capital Project 82603 840 Old Country Rd Budget Adoption",
+   "category": "capital",
+   "townFiscalImpact": "Yes",
+   "townTreatment": "absorbed",
+   "amount": null,
+   "realistic": {
+    "verdict": "Understated \u2014 'absorbed by existing budget'",
+    "reason": "It commits capital or debt-service dollars, typically drawn from reserves, fund balance, or borrowing \u2014 not truly cost-free even if 'absorbed'.",
+    "flag": "reserve-draw"
+   },
+   "vote": {
+    "adopted": true,
+    "tag": "unanimous",
+    "ayes": null,
+    "nays": 0
+   }
+  },
+  {
+   "number": "2026-106",
+   "seq": 6,
+   "title": "Ratifies Acceptance Of Donation Of Plants From Gabrielsen Farms 2025",
+   "category": "donation",
+   "townFiscalImpact": "No",
+   "townTreatment": "described",
+   "amount": null,
+   "realistic": {
+    "verdict": "Revenue in / offsetting",
+    "reason": "Money flows, but from a grant, donation, or a developer's own escrow \u2014 not the tax levy.",
+    "flag": "neutral"
+   },
+   "vote": {
+    "adopted": true,
+    "tag": "unanimous",
+    "ayes": null,
+    "nays": 0
+   }
+  },
+  {
+   "number": "2026-107",
+   "seq": 7,
+   "title": "Sets Fees For Riverhead Sewer District, Calverton Sewer District And",
+   "category": "fees",
+   "townFiscalImpact": "No",
+   "townTreatment": "described",
+   "amount": null,
+   "realistic": {
+    "verdict": "Understated \u2014 the form says 'no fiscal impact'",
+    "reason": "A salary, contract, or fee item marked 'no fiscal impact' typically still moves money.",
+    "flag": "understated"
+   },
+   "vote": {
+    "adopted": true,
+    "tag": "unanimous",
+    "ayes": null,
+    "nays": 0
+   }
+  },
+  {
+   "number": "2026-108",
+   "seq": 8,
+   "title": "Authorization for Police Department Employees to attend a Training",
+   "category": "procedural",
+   "townFiscalImpact": "No",
+   "townTreatment": "described",
+   "amount": null,
+   "realistic": {
+    "verdict": "No direct cost",
+    "reason": "A procedural, permit, or administrative action with no direct levy cost identified.",
+    "flag": "fair"
+   },
+   "vote": {
+    "adopted": true,
+    "tag": "unanimous",
+    "ayes": null,
+    "nays": 0
+   }
+  },
+  {
+   "number": "2026-109",
+   "seq": 9,
+   "title": "Authorizes One Police Department Employee to attend a Training",
+   "category": "procedural",
+   "townFiscalImpact": "Yes",
+   "townTreatment": "absorbed",
+   "amount": null,
+   "realistic": {
+    "verdict": "Administrative / offsetting",
+    "reason": "A procedural, permit, or administrative action with no direct levy cost identified.",
+    "flag": "fair"
+   },
+   "vote": {
+    "adopted": true,
+    "tag": "unanimous",
+    "ayes": null,
+    "nays": 0
+   }
+  },
+  {
+   "number": "2026-110",
+   "seq": 10,
+   "title": "Establishes Standard Work Day for Elected Official",
+   "category": "procedural",
+   "townFiscalImpact": "No",
+   "townTreatment": "described",
+   "amount": null,
+   "realistic": {
+    "verdict": "No direct cost",
+    "reason": "A procedural, permit, or administrative action with no direct levy cost identified.",
+    "flag": "fair"
+   },
+   "vote": {
+    "adopted": true,
+    "tag": "unanimous",
+    "ayes": null,
+    "nays": 0
+   }
+  },
+  {
+   "number": "2026-111",
+   "seq": 11,
+   "title": "Amends Resolution 2026-2 Sets Salaries of General Town Employees for",
+   "category": "personnel",
+   "townFiscalImpact": "Yes",
+   "townTreatment": "absorbed",
+   "amount": null,
+   "realistic": {
+    "verdict": "Real, recurring cost",
+    "reason": "A salary, raise, contract, or fee change that commits ongoing money.",
+    "flag": "reserve-draw"
+   },
+   "vote": {
+    "adopted": true,
+    "tag": "unanimous",
+    "ayes": null,
+    "nays": 0
+   }
+  },
+  {
+   "number": "2026-112",
+   "seq": 12,
+   "title": "Ratifies the Appointment of a Maintenance Mechanic II",
+   "category": "personnel",
+   "townFiscalImpact": "No",
+   "townTreatment": "absorbed",
+   "amount": null,
+   "realistic": {
+    "verdict": "Understated \u2014 the form says 'no fiscal impact'",
+    "reason": "A salary, contract, or fee item marked 'no fiscal impact' typically still moves money.",
+    "flag": "understated"
+   },
+   "vote": {
+    "adopted": true,
+    "tag": "unanimous",
+    "ayes": null,
+    "nays": 0
+   }
+  },
+  {
+   "number": "2026-113",
+   "seq": 13,
+   "title": "Appoints an Assistant Chief Fire Marshal",
+   "category": "personnel",
+   "townFiscalImpact": "Yes",
+   "townTreatment": "absorbed",
+   "amount": null,
+   "realistic": {
+    "verdict": "Real, recurring cost",
+    "reason": "A salary, raise, contract, or fee change that commits ongoing money.",
+    "flag": "reserve-draw"
+   },
+   "vote": {
+    "adopted": true,
+    "tag": "unanimous",
+    "ayes": null,
+    "nays": 0
+   }
+  },
+  {
+   "number": "2026-114",
+   "seq": 14,
+   "title": "Appoints a Senior Accountant",
+   "category": "personnel",
+   "townFiscalImpact": "Yes",
+   "townTreatment": "absorbed",
+   "amount": null,
+   "realistic": {
+    "verdict": "Real, recurring cost",
+    "reason": "A salary, raise, contract, or fee change that commits ongoing money.",
+    "flag": "reserve-draw"
+   },
+   "vote": {
+    "adopted": true,
+    "tag": "unanimous",
+    "ayes": null,
+    "nays": 0
+   }
+  },
+  {
+   "number": "2026-115",
+   "seq": 15,
+   "title": "Appoints Marriage Officer James Wooten",
+   "category": "personnel",
+   "townFiscalImpact": "No",
+   "townTreatment": "described",
+   "amount": null,
+   "realistic": {
+    "verdict": "Understated \u2014 the form says 'no fiscal impact'",
+    "reason": "A salary, contract, or fee item marked 'no fiscal impact' typically still moves money.",
+    "flag": "understated"
+   },
+   "vote": {
+    "adopted": true,
+    "tag": "unanimous",
+    "ayes": null,
+    "nays": 0
+   }
+  },
+  {
+   "number": "2026-116",
+   "seq": 16,
+   "title": "Appoints Jeffrey Seeman as Member to the Town of Riverhead Climate",
+   "category": "personnel",
+   "townFiscalImpact": "No",
+   "townTreatment": "described",
+   "amount": null,
+   "realistic": {
+    "verdict": "Understated \u2014 the form says 'no fiscal impact'",
+    "reason": "A salary, contract, or fee item marked 'no fiscal impact' typically still moves money.",
+    "flag": "understated"
+   },
+   "vote": {
+    "adopted": true,
+    "tag": "unanimous",
+    "ayes": null,
+    "nays": 0
+   }
+  },
+  {
+   "number": "2026-117",
+   "seq": 17,
+   "title": "Appoints Joseph Rutt as Coordinator for the Climate Smart Community Task",
+   "category": "personnel",
+   "townFiscalImpact": "No",
+   "townTreatment": "described",
+   "amount": null,
+   "realistic": {
+    "verdict": "Understated \u2014 the form says 'no fiscal impact'",
+    "reason": "A salary, contract, or fee item marked 'no fiscal impact' typically still moves money.",
+    "flag": "understated"
+   },
+   "vote": {
+    "adopted": true,
+    "tag": "unanimous",
+    "ayes": null,
+    "nays": 0
+   }
+  },
+  {
+   "number": "2026-118",
+   "seq": 18,
+   "title": "Reappoints and Appoints Members of the Internal Green Team of Climate",
+   "category": "personnel",
+   "townFiscalImpact": "No",
+   "townTreatment": "described",
+   "amount": null,
+   "realistic": {
+    "verdict": "Understated \u2014 the form says 'no fiscal impact'",
+    "reason": "A salary, contract, or fee item marked 'no fiscal impact' typically still moves money.",
+    "flag": "understated"
+   },
+   "vote": {
+    "adopted": true,
+    "tag": "unanimous",
+    "ayes": null,
+    "nays": 0
+   }
+  },
+  {
+   "number": "2026-119",
+   "seq": 19,
+   "title": "Reappoints George Bartunek as Member of the Town of Riverhead Climate",
+   "category": "personnel",
+   "townFiscalImpact": "No",
+   "townTreatment": "described",
+   "amount": null,
+   "realistic": {
+    "verdict": "Understated \u2014 the form says 'no fiscal impact'",
+    "reason": "A salary, contract, or fee item marked 'no fiscal impact' typically still moves money.",
+    "flag": "understated"
+   },
+   "vote": {
+    "adopted": true,
+    "tag": "unanimous",
+    "ayes": null,
+    "nays": 0
+   }
+  },
+  {
+   "number": "2026-120",
+   "seq": 20,
+   "title": "Reappoints Mark Haubner as Member of the Town of Riverhead Climate",
+   "category": "personnel",
+   "townFiscalImpact": "No",
+   "townTreatment": "described",
+   "amount": null,
+   "realistic": {
+    "verdict": "Understated \u2014 the form says 'no fiscal impact'",
+    "reason": "A salary, contract, or fee item marked 'no fiscal impact' typically still moves money.",
+    "flag": "understated"
+   },
+   "vote": {
+    "adopted": true,
+    "tag": "unanimous",
+    "ayes": null,
+    "nays": 0
+   }
+  },
+  {
+   "number": "2026-121",
+   "seq": 21,
+   "title": "Reappoints Angela DeVito as Member of the Town of Riverhead Climate",
+   "category": "personnel",
+   "townFiscalImpact": "No",
+   "townTreatment": "described",
+   "amount": null,
+   "realistic": {
+    "verdict": "Understated \u2014 the form says 'no fiscal impact'",
+    "reason": "A salary, contract, or fee item marked 'no fiscal impact' typically still moves money.",
+    "flag": "understated"
+   },
+   "vote": {
+    "adopted": true,
+    "tag": "unanimous",
+    "ayes": null,
+    "nays": 0
+   }
+  },
+  {
+   "number": "2026-122",
+   "seq": 22,
+   "title": "Reappoints Kenneth R. Rothwell as Member of the Town of Riverhead",
+   "category": "personnel",
+   "townFiscalImpact": "No",
+   "townTreatment": "described",
+   "amount": null,
+   "realistic": {
+    "verdict": "Understated \u2014 the form says 'no fiscal impact'",
+    "reason": "A salary, contract, or fee item marked 'no fiscal impact' typically still moves money.",
+    "flag": "understated"
+   },
+   "vote": {
+    "adopted": true,
+    "tag": "unanimous",
+    "ayes": null,
+    "nays": 0
+   }
+  },
+  {
+   "number": "2026-123",
+   "seq": 23,
+   "title": "Reappoints Barbara Blass as Member of the Town of Riverhead Climate",
+   "category": "personnel",
+   "townFiscalImpact": "No",
+   "townTreatment": "described",
+   "amount": null,
+   "realistic": {
+    "verdict": "Understated \u2014 the form says 'no fiscal impact'",
+    "reason": "A salary, contract, or fee item marked 'no fiscal impact' typically still moves money.",
+    "flag": "understated"
+   },
+   "vote": {
+    "adopted": true,
+    "tag": "unanimous",
+    "ayes": null,
+    "nays": 0
+   }
+  },
+  {
+   "number": "2026-124",
+   "seq": 24,
+   "title": "Reappoints Megan Carrick to the Town of Riverhead Architectural Review",
+   "category": "personnel",
+   "townFiscalImpact": "No",
+   "townTreatment": "described",
+   "amount": null,
+   "realistic": {
+    "verdict": "Understated \u2014 the form says 'no fiscal impact'",
+    "reason": "A salary, contract, or fee item marked 'no fiscal impact' typically still moves money.",
+    "flag": "understated"
+   },
+   "vote": {
+    "adopted": true,
+    "tag": "unanimous",
+    "ayes": null,
+    "nays": 0
+   }
+  },
+  {
+   "number": "2026-125",
+   "seq": 25,
+   "title": "Reappoints Sean McCabe Sr., as Member of the Town of Riverhead",
+   "category": "personnel",
+   "townFiscalImpact": "No",
+   "townTreatment": "described",
+   "amount": null,
+   "realistic": {
+    "verdict": "Understated \u2014 the form says 'no fiscal impact'",
+    "reason": "A salary, contract, or fee item marked 'no fiscal impact' typically still moves money.",
+    "flag": "understated"
+   },
+   "vote": {
+    "adopted": true,
+    "tag": "unanimous",
+    "ayes": null,
+    "nays": 0
+   }
+  },
+  {
+   "number": "2026-126",
+   "seq": 26,
+   "title": "Reappoints Robert Fox as Member of the Town of Riverhead Conservation",
+   "category": "personnel",
+   "townFiscalImpact": "No",
+   "townTreatment": "described",
+   "amount": null,
+   "realistic": {
+    "verdict": "Understated \u2014 the form says 'no fiscal impact'",
+    "reason": "A salary, contract, or fee item marked 'no fiscal impact' typically still moves money.",
+    "flag": "understated"
+   },
+   "vote": {
+    "adopted": true,
+    "tag": "unanimous",
+    "ayes": null,
+    "nays": 0
+   }
+  },
+  {
+   "number": "2026-127",
+   "seq": 27,
+   "title": "Reappoints Charles Thomas as Member of the Town of Riverhead",
+   "category": "personnel",
+   "townFiscalImpact": "No",
+   "townTreatment": "described",
+   "amount": null,
+   "realistic": {
+    "verdict": "Understated \u2014 the form says 'no fiscal impact'",
+    "reason": "A salary, contract, or fee item marked 'no fiscal impact' typically still moves money.",
+    "flag": "understated"
+   },
+   "vote": {
+    "adopted": true,
+    "tag": "unanimous",
+    "ayes": null,
+    "nays": 0
+   }
+  },
+  {
+   "number": "2026-128",
+   "seq": 28,
+   "title": "Reappoints Duane Lewin as Member of the Town of Riverhead",
+   "category": "personnel",
+   "townFiscalImpact": "No",
+   "townTreatment": "described",
+   "amount": null,
+   "realistic": {
+    "verdict": "Understated \u2014 the form says 'no fiscal impact'",
+    "reason": "A salary, contract, or fee item marked 'no fiscal impact' typically still moves money.",
+    "flag": "understated"
+   },
+   "vote": {
+    "adopted": true,
+    "tag": "unanimous",
+    "ayes": null,
+    "nays": 0
+   }
+  },
+  {
+   "number": "2026-129",
+   "seq": 29,
+   "title": "Reappoints George Woodhull as Member of the Town of Riverhead",
+   "category": "personnel",
+   "townFiscalImpact": "No",
+   "townTreatment": "described",
+   "amount": null,
+   "realistic": {
+    "verdict": "Understated \u2014 the form says 'no fiscal impact'",
+    "reason": "A salary, contract, or fee item marked 'no fiscal impact' typically still moves money.",
+    "flag": "understated"
+   },
+   "vote": {
+    "adopted": true,
+    "tag": "unanimous",
+    "ayes": null,
+    "nays": 0
+   }
+  },
+  {
+   "number": "2026-130",
+   "seq": 30,
+   "title": "Reappoints Robert Kujawski as Member of the Town of Riverhead",
+   "category": "personnel",
+   "townFiscalImpact": "No",
+   "townTreatment": "described",
+   "amount": null,
+   "realistic": {
+    "verdict": "Understated \u2014 the form says 'no fiscal impact'",
+    "reason": "A salary, contract, or fee item marked 'no fiscal impact' typically still moves money.",
+    "flag": "understated"
+   },
+   "vote": {
+    "adopted": true,
+    "tag": "unanimous",
+    "ayes": null,
+    "nays": 0
+   }
+  },
+  {
+   "number": "2026-131",
+   "seq": 31,
+   "title": "Renews a Stipend for Pine Barrens Designee",
+   "category": "personnel",
+   "townFiscalImpact": "Yes",
+   "townTreatment": "absorbed",
+   "amount": null,
+   "realistic": {
+    "verdict": "Real, recurring cost",
+    "reason": "A salary, raise, contract, or fee change that commits ongoing money.",
+    "flag": "reserve-draw"
+   },
+   "vote": {
+    "adopted": true,
+    "tag": "unanimous",
+    "ayes": null,
+    "nays": 0
+   }
+  },
+  {
+   "number": "2026-132",
+   "seq": 32,
+   "title": "Authorizes Supervisor to Sign an Agreement with Court Reporter (Galante)",
+   "category": "contract",
+   "townFiscalImpact": "Yes",
+   "townTreatment": "absorbed",
+   "amount": null,
+   "realistic": {
+    "verdict": "Real, recurring cost",
+    "reason": "A salary, raise, contract, or fee change that commits ongoing money.",
+    "flag": "reserve-draw"
+   },
+   "vote": {
+    "adopted": true,
+    "tag": "unanimous",
+    "ayes": null,
+    "nays": 0
+   }
+  },
+  {
+   "number": "2026-133",
+   "seq": 33,
+   "title": "Authorizes the Supervisor to Issue a Letter to the Suffolk County",
+   "category": "procedural",
+   "townFiscalImpact": "No",
+   "townTreatment": "described",
+   "amount": null,
+   "realistic": {
+    "verdict": "No direct cost",
+    "reason": "A procedural, permit, or administrative action with no direct levy cost identified.",
+    "flag": "fair"
+   },
+   "vote": {
+    "adopted": true,
+    "tag": "unanimous",
+    "ayes": null,
+    "nays": 0
+   }
+  },
+  {
+   "number": "2026-134",
+   "seq": 34,
+   "title": "Ratifies the Authorization for the Supervisor to Execute an Amended",
+   "category": "procedural",
+   "townFiscalImpact": "Yes",
+   "townTreatment": "absorbed",
+   "amount": null,
+   "realistic": {
+    "verdict": "Administrative / offsetting",
+    "reason": "A procedural, permit, or administrative action with no direct levy cost identified.",
+    "flag": "fair"
+   },
+   "vote": {
+    "adopted": true,
+    "tag": "split",
+    "ayes": 3,
+    "nays": 2
+   }
+  },
+  {
+   "number": "2026-135",
+   "seq": 35,
+   "title": "Authorizes the Supervisor to Execute a Professional Services Agreement",
+   "category": "contract",
+   "townFiscalImpact": "Yes",
+   "townTreatment": "absorbed",
+   "amount": null,
+   "realistic": {
+    "verdict": "Real, recurring cost",
+    "reason": "A salary, raise, contract, or fee change that commits ongoing money.",
+    "flag": "reserve-draw"
+   },
+   "vote": {
+    "adopted": true,
+    "tag": "unanimous",
+    "ayes": null,
+    "nays": 0
+   }
+  },
+  {
+   "number": "2026-136",
+   "seq": 36,
+   "title": "Resolution Authorizing Agreement with TAN Productions, Inc. for the",
+   "category": "contract",
+   "townFiscalImpact": "No",
+   "townTreatment": "described",
+   "amount": null,
+   "realistic": {
+    "verdict": "Understated \u2014 the form says 'no fiscal impact'",
+    "reason": "A salary, contract, or fee item marked 'no fiscal impact' typically still moves money.",
+    "flag": "understated"
+   },
+   "vote": {
+    "adopted": true,
+    "tag": "unanimous",
+    "ayes": null,
+    "nays": 0
+   }
+  },
+  {
+   "number": "2026-137",
+   "seq": 37,
+   "title": "Authorizes the Release of the Performance Bond for the Major Subdivision",
+   "category": "escrow-neutral",
+   "townFiscalImpact": "No",
+   "townTreatment": "described",
+   "amount": null,
+   "realistic": {
+    "verdict": "Revenue in / offsetting",
+    "reason": "Money flows, but from a grant, donation, or a developer's own escrow \u2014 not the tax levy.",
+    "flag": "neutral"
+   },
+   "vote": {
+    "adopted": true,
+    "tag": "unanimous",
+    "ayes": null,
+    "nays": 0
+   }
+  },
+  {
+   "number": "2026-138",
+   "seq": 38,
+   "title": "Authorizes Town Clerk To Publish And Post Public Notice To Consider A",
+   "category": "procedural",
+   "townFiscalImpact": "No",
+   "townTreatment": "described",
+   "amount": null,
+   "realistic": {
+    "verdict": "No direct cost",
+    "reason": "A procedural, permit, or administrative action with no direct levy cost identified.",
+    "flag": "fair"
+   },
+   "vote": {
+    "adopted": true,
+    "tag": "unanimous",
+    "ayes": null,
+    "nays": 0
+   }
+  },
+  {
+   "number": "2026-139",
+   "seq": 39,
+   "title": "Authorizes the Town Clerk to Publish and Post Notice to Bidders for Charter",
+   "category": "procedural",
+   "townFiscalImpact": "No",
+   "townTreatment": "described",
+   "amount": null,
+   "realistic": {
+    "verdict": "No direct cost",
+    "reason": "A procedural, permit, or administrative action with no direct levy cost identified.",
+    "flag": "fair"
+   },
+   "vote": {
+    "adopted": true,
+    "tag": "unanimous",
+    "ayes": null,
+    "nays": 0
+   }
+  },
+  {
+   "number": "2026-140",
+   "seq": 40,
+   "title": "Authorize Issuance of a Request for Proposals for an Administrative Law",
+   "category": "procedural",
+   "townFiscalImpact": "No",
+   "townTreatment": "described",
+   "amount": null,
+   "realistic": {
+    "verdict": "No direct cost",
+    "reason": "A procedural, permit, or administrative action with no direct levy cost identified.",
+    "flag": "fair"
+   },
+   "vote": {
+    "adopted": true,
+    "tag": "unanimous",
+    "ayes": null,
+    "nays": 0
+   }
+  },
+  {
+   "number": "2026-141",
+   "seq": 41,
+   "title": "Extends Bid for Sensus Water Meter & Accessory Equipment, or",
+   "category": "procedural",
+   "townFiscalImpact": "Yes",
+   "townTreatment": "absorbed",
+   "amount": null,
+   "realistic": {
+    "verdict": "Administrative / offsetting",
+    "reason": "A procedural, permit, or administrative action with no direct levy cost identified.",
+    "flag": "fair"
+   },
+   "vote": {
+    "adopted": true,
+    "tag": "unanimous",
+    "ayes": null,
+    "nays": 0
+   }
+  },
+  {
+   "number": "2026-142",
+   "seq": 42,
+   "title": "Awards Bid for Construction of Well No. 2A - Contract E - Electrical",
+   "category": "contract",
+   "townFiscalImpact": "Yes",
+   "townTreatment": "absorbed",
+   "amount": null,
+   "realistic": {
+    "verdict": "Real, recurring cost",
+    "reason": "A salary, raise, contract, or fee change that commits ongoing money.",
+    "flag": "reserve-draw"
+   },
+   "vote": {
+    "adopted": true,
+    "tag": "unanimous",
+    "ayes": null,
+    "nays": 0
+   }
+  },
+  {
+   "number": "2026-143",
+   "seq": 43,
+   "title": "Schedules Public Scoping Session for the Special Permit and Site Plan",
+   "category": "permit",
+   "townFiscalImpact": "No",
+   "townTreatment": "described",
+   "amount": null,
+   "realistic": {
+    "verdict": "No direct cost",
+    "reason": "A procedural, permit, or administrative action with no direct levy cost identified.",
+    "flag": "fair"
+   },
+   "vote": {
+    "adopted": true,
+    "tag": "unanimous",
+    "ayes": null,
+    "nays": 0
+   }
+  },
+  {
+   "number": "2026-144",
+   "seq": 44,
+   "title": "Designates the Senior Citizen Program Director as an Accountable",
+   "category": "procedural",
+   "townFiscalImpact": "No",
+   "townTreatment": "described",
+   "amount": null,
+   "realistic": {
+    "verdict": "No direct cost",
+    "reason": "A procedural, permit, or administrative action with no direct levy cost identified.",
+    "flag": "fair"
+   },
+   "vote": {
+    "adopted": true,
+    "tag": "unanimous",
+    "ayes": null,
+    "nays": 0
+   }
+  },
+  {
+   "number": "2026-145",
+   "seq": 45,
+   "title": "Authorizing Submission of an Application to the Office of Parks, Recreation",
+   "category": "procedural",
+   "townFiscalImpact": "Yes",
+   "townTreatment": "described",
+   "amount": null,
+   "realistic": {
+    "verdict": "Administrative / offsetting",
+    "reason": "A procedural, permit, or administrative action with no direct levy cost identified.",
+    "flag": "fair"
+   },
+   "vote": {
+    "adopted": true,
+    "tag": "unanimous",
+    "ayes": null,
+    "nays": 0
+   }
+  },
+  {
+   "number": "2026-146",
+   "seq": 46,
+   "title": "Authorizes the Community Development Department to Apply for a",
+   "category": "grant",
+   "townFiscalImpact": "Yes",
+   "townTreatment": "absorbed",
+   "amount": null,
+   "realistic": {
+    "verdict": "Revenue in / offsetting",
+    "reason": "Money flows, but from a grant, donation, or a developer's own escrow \u2014 not the tax levy.",
+    "flag": "neutral"
+   },
+   "vote": {
+    "adopted": true,
+    "tag": "unanimous",
+    "ayes": null,
+    "nays": 0
+   }
+  },
+  {
+   "number": "2026-147",
+   "seq": 47,
+   "title": "Approves Chapter 255 Special Event Application for Andrew Mc Morris",
+   "category": "permit",
+   "townFiscalImpact": "No",
+   "townTreatment": "described",
+   "amount": null,
+   "realistic": {
+    "verdict": "No direct cost",
+    "reason": "A procedural, permit, or administrative action with no direct levy cost identified.",
+    "flag": "fair"
+   },
+   "vote": {
+    "adopted": true,
+    "tag": "unanimous",
+    "ayes": null,
+    "nays": 0
+   }
+  },
+  {
+   "number": "2026-148",
+   "seq": 48,
+   "title": "Pays Bills",
+   "category": "procedural",
+   "townFiscalImpact": "No",
+   "townTreatment": "described",
+   "amount": null,
+   "realistic": {
+    "verdict": "No direct cost",
+    "reason": "A procedural, permit, or administrative action with no direct levy cost identified.",
+    "flag": "fair"
+   },
+   "vote": {
+    "adopted": true,
+    "tag": "unanimous",
+    "ayes": null,
+    "nays": 0
+   }
+  },
+  {
+   "number": "2026-149",
+   "seq": 49,
+   "title": "Authorizes Attendance at the 2026 Annual Meeting & Training School Held",
+   "category": "procedural",
+   "townFiscalImpact": "Yes",
+   "townTreatment": "absorbed",
+   "amount": null,
+   "realistic": {
+    "verdict": "Administrative / offsetting",
+    "reason": "A procedural, permit, or administrative action with no direct levy cost identified.",
+    "flag": "fair"
+   },
+   "vote": {
+    "adopted": true,
+    "tag": "split",
+    "ayes": 4,
+    "nays": 0
+   }
+  },
+  {
+   "number": "2026-133",
+   "seq": 50,
+   "title": "Authorizes the Supervisor to Issue a Letter to the Suffolk County",
+   "category": "procedural",
+   "townFiscalImpact": "No",
+   "townTreatment": "described",
+   "amount": null,
+   "realistic": {
+    "verdict": "No direct cost",
+    "reason": "A procedural, permit, or administrative action with no direct levy cost identified.",
+    "flag": "fair"
+   },
+   "vote": {
+    "adopted": true,
+    "tag": "unanimous",
+    "ayes": null,
+    "nays": 0
+   }
+  },
+  {
+   "number": "2026-151",
+   "seq": 51,
+   "title": "Promotes a Police Officer to the Rank of Sergeant",
+   "category": "personnel",
+   "townFiscalImpact": "Yes",
+   "townTreatment": "absorbed",
+   "amount": null,
+   "realistic": {
+    "verdict": "Real, recurring cost",
+    "reason": "A salary, raise, contract, or fee change that commits ongoing money.",
+    "flag": "reserve-draw"
+   },
+   "vote": {
+    "adopted": true,
+    "tag": "unanimous",
+    "ayes": null,
+    "nays": 0
+   }
+  },
+  {
+   "number": "2026-152",
+   "seq": 52,
+   "title": "Authorizes the Supervisor to Execute an Intermunicipal Agreement with the",
+   "category": "contract",
+   "townFiscalImpact": "Yes",
+   "townTreatment": "described",
+   "amount": null,
+   "realistic": {
+    "verdict": "Real, recurring cost",
+    "reason": "A salary, raise, contract, or fee change that commits ongoing money.",
+    "flag": "reserve-draw"
+   },
+   "vote": {
+    "adopted": true,
+    "tag": "unanimous",
+    "ayes": null,
+    "nays": 0
+   }
+  },
+  {
+   "number": "2026-153",
+   "seq": 53,
+   "title": "Authorizes Town Clerk to Publish and Post Notice of a Public Hearing to",
+   "category": "legislative",
+   "townFiscalImpact": "No",
+   "townTreatment": "described",
+   "amount": null,
+   "realistic": {
+    "verdict": "No direct cost",
+    "reason": "A procedural, permit, or administrative action with no direct levy cost identified.",
+    "flag": "fair"
+   },
+   "vote": {
+    "adopted": true,
+    "tag": "unanimous",
+    "ayes": null,
+    "nays": 0
+   }
+  },
+  {
+   "number": "2026-138",
+   "seq": 54,
+   "title": "Authorizes Town Clerk to Publish and Post Public Notice to Consider a",
+   "category": "procedural",
+   "townFiscalImpact": "Yes",
+   "townTreatment": "absorbed",
+   "amount": null,
+   "realistic": {
+    "verdict": "Administrative / offsetting",
+    "reason": "A procedural, permit, or administrative action with no direct levy cost identified.",
+    "flag": "fair"
+   },
+   "vote": {
+    "adopted": true,
+    "tag": "unanimous",
+    "ayes": null,
+    "nays": 0
+   }
+  }
+ ]
+}

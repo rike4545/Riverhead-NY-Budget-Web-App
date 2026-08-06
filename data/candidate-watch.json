@@ -1,0 +1,52 @@
+{
+ "title": "2026 Town Campaign Candidate Watch",
+ "asOf": "2026",
+ "intro": "Who's running for Riverhead Town office in the November 2026 general election, their campaign links, and their stated platforms — sourced from each campaign's own website and social media plus local news coverage.",
+ "electionCalendar": {
+  "filingDeadlineMajorParties": "April 6, 2026",
+  "filingDeadlineIndependents": "June 15, 2026",
+  "filingDeadlineOtherParties": "July 2026",
+  "primary": "June 23, 2026",
+  "generalElection": "November 3, 2026"
+ },
+ "legend": {
+  "bold": "Active Candidate",
+  "asterisk": "Incumbent",
+  "note": "Incumbent party listed first."
+ },
+ "races": [
+  {
+   "office": "Town Supervisor",
+   "candidates": [
+    {
+     "name": "Jerome (Jerry) Halpin", "party": "D", "incumbent": true, "active": true,
+     "website": "https://www.votejerryhalpin.com/",
+     "socialMedia": [{ "platform": "Facebook", "url": "https://www.facebook.com/p/Vote-Jerry-Halpin-61573816546076/" }],
+     "background": "Co-founder and former lead pastor of North Shore Christian Church in Riverhead for about 22 years. Defeated incumbent Tim Hubbard by 37 votes in November 2025, running on opposition to the 2025 budget's 7.89% tax increase.",
+     "platform": [
+      "Keep a tight lid on town spending.",
+      "Bring in new tax dollars through economic development rather than raising the levy.",
+      "Support businesses and small businesses while maintaining Riverhead's rural character and open space.",
+      "Build a stable budget not dependent on over-taxing young adults, working families, and seniors."
+     ],
+     "sources": ["votejerryhalpin.com — campaign website.", "Riverhead News-Review, “Jerry Halpin secures supervisor nomination from Riverhead Democrats” (Feb. 2026)."]
+    },
+    {
+     "name": "Kenneth Rothwell", "party": "R/C", "incumbent": false, "active": true,
+     "website": "https://www.friendsofkenrothwell.com/",
+     "socialMedia": [{ "platform": "Facebook", "url": "https://www.facebook.com/p/Friends-of-Ken-Rothwell-Riverhead-Town-Council-100065600135011/" }],
+     "background": "Current Town Councilman (appointed Jan. 2021, elected since) and licensed funeral director. Nominated by the Riverhead Republican Committee in February 2026 and also seeking the Conservative Party line. Note: his campaign website still shows content from his prior Town Council races as of this writing, not yet fully updated for the Supervisor race.",
+     "platform": [
+      "Lower the cost of taxes — the campaign's stated top issue.",
+      "Make each Town department more self-sustaining to reduce the burden on taxpayers.",
+      "Expand clean water access for residents (cites the Manorville clean-water project as a councilman).",
+      "Expand veterans programs and continue supporting police and first responders.",
+      "Attract high-tech development to build a more sustainable tax base."
+     ],
+     "sources": ["friendsofkenrothwell.com — campaign website.", "Riverhead News-Review, “Riverhead GOP nominate Kenneth Rothwell for town supervisor” (Feb. 2026)."]
+    }
+   ]
+  }
+ ],
+ "noRaceNote": "No Town Council seats are on the ballot in November 2026. Bob Kern and Kenneth Rothwell won three-year council terms in the November 2025 election that run through December 31, 2028 — Rothwell's council seat doesn't expire this cycle even though he's running for Supervisor, so it would need to be filled separately (by appointment or special election) if he wins. Joann Waski and Denise Merrifield's seats aren't up until 2027."
+}

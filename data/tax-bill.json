@@ -1,0 +1,28 @@
+{
+ "title": "My tax bill — what would I actually pay?",
+ "asOf": "2026",
+ "intro": "Estimate the Town's portion of your property-tax bill using the Town's own published 2026 rate table. This covers only the Town — county, school, fire, and library taxes are billed separately and aren't included here.",
+ "rateSource": {
+  "title": "2026 Adopted Budget",
+  "url": "https://www.townofriverheadny.gov/DocumentCenter/View/2967/2026-Adopted-Budget",
+  "note": "Rate table, p. 6: 'Total Town Wide' rate, updated based on the final assessment roll."
+ },
+ "rates2026": {
+  "generalFund": 61.948,
+  "highway": 8.695,
+  "streetLighting": 0.955,
+  "totalTownWide": 71.598
+ },
+ "rates2025": {
+  "generalFund": 57.503,
+  "highway": 8.538,
+  "streetLighting": 0.990,
+  "totalTownWide": 67.031
+ },
+ "equalization": {
+  "residentialAssessmentRatio": 7.44,
+  "asOfYear": 2025,
+  "source": "Town of Riverhead 2025-2026 Receiver of Taxes rate sheet. Its residential assessment ratio (RAR) of 7.44% is the figure New York's Homestead Tax Option (RPTL Article 19) designates specifically for converting a residential property's market value to assessed value — more precise for this purpose than the town's general equalization/uniform percentage (about 8.16-8.34% depending on the roll year), which is meant for cross-jurisdiction comparison, not household-level conversion.",
+  "note": "This ratio can shift slightly from year to year with each new assessment roll. Use it only as an approximation if you don't know your assessed value directly; if you have a recent tax bill or assessment notice, enter that assessed value instead for an exact answer."
+ }
+}

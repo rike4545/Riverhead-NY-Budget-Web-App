@@ -1,0 +1,24 @@
+{
+ "lineCount": 1995,
+ "expenditureLineCount": 1733,
+ "revenueLineCount": 262,
+ "tentative2026Expenditures": 118614214.0,
+ "byControl": {
+  "mandated": {
+   "lineCount": 302,
+   "tentative2026": 49850162.0
+  },
+  "personnel": {
+   "lineCount": 323,
+   "tentative2026": 39725364.0
+  },
+  "controllable": {
+   "lineCount": 1108,
+   "tentative2026": 29038688.0
+  }
+ },
+ "sources": [
+  "2026 Budget Supplement (PDF)",
+  "2025 Budget Supplement (PDF)"
+ ]
+}
