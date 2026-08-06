@@ -982,19 +982,29 @@ const SUFFOLK_TOWN_PRIMARY_LIMIT = 1000.00
 
 type DonorElectionGroup = { donor: string; year: string; total: number; rows: WatchContribution[] }
 
+// Maps normalized variant names → canonical display name so contributions
+// filed under alternate spellings merge into a single ethics-threshold group.
+const DONOR_NAME_ALIASES: Record<string, string> = {
+  'li builders pac': 'Long Island Builders PAC',
+}
+
 function groupByDonorAndYear(contributions: WatchContribution[]): DonorElectionGroup[] {
   const map = new Map<string, DonorElectionGroup>()
   for (const c of contributions) {
     const year = c.electionYear ?? c.date?.slice(0, 4) ?? 'Unknown'
-    // Normalize to lowercase, trim, and replace hyphens with spaces so that
-    // capitalization typos ("THomas") and hyphen variants ("Jens-Smith" vs
-    // "Jens Smith") collapse into the same group.
-    const key = `${c.donorName.trim().toLowerCase().replace(/-/g, ' ').replace(/\s+/g, ' ')}||${year}`
+    const normalized = c.donorName.trim().toLowerCase().replace(/-/g, ' ').replace(/\s+/g, ' ')
+    const canonical = DONOR_NAME_ALIASES[normalized]
+    const key = `${canonical !== undefined ? canonical.toLowerCase() : normalized}||${year}`
     const g = map.get(key)
     if (g) { g.total += c.amount; g.rows.push(c) }
-    else map.set(key, { donor: c.donorName, year, total: c.amount, rows: [c] })
+    else map.set(key, { donor: canonical ?? c.donorName, year, total: c.amount, rows: [c] })
   }
   return Array.from(map.values()).sort((a, b) => b.year.localeCompare(a.year) || b.total - a.total)
+}
+
+function isCommitteeContrib(c: WatchContribution): boolean {
+  const type = (c.contributorType ?? '').toLowerCase()
+  return type.includes('committee') && !type.includes('party') && !type.includes('county')
 }
 
 function CandidateFamilyWatch({
@@ -1016,10 +1026,13 @@ function CandidateFamilyWatch({
   const hasHits = contributions !== null && contributions.length > 0
   const clear = contributions !== null && contributions.length === 0
 
+  const committeeContribs = hasHits ? contributions!.filter(isCommitteeContrib) : []
+  const individualContribs = hasHits ? contributions!.filter((c) => !isCommitteeContrib(c)) : []
+
   const borderColor = hasHits ? '#0369a1' : clear ? '#15803d' : '#64748b'
   const bgColor = hasHits ? '#f0f9ff' : clear ? '#f0fdf4' : '#f8fafc'
 
-  const groups = hasHits ? groupByDonorAndYear(contributions!) : []
+  const groupsIndividual = individualContribs.length > 0 ? groupByDonorAndYear(individualContribs) : []
 
   return (
     <div
@@ -1054,7 +1067,7 @@ function CandidateFamilyWatch({
 
       {clear && (
         <div style={{ fontSize: 12, color: '#166534' }}>
-          No candidate self-funding or known immediate-family donor rows were found in NY Open Data for this committee across the 2005–{currentlyServing ? endYear : endYear - 1} filing window.
+          No candidate self-funding, known immediate-family donor rows, or PAC/committee contributors were found in NY Open Data for this committee across the 2005–{currentlyServing ? endYear : endYear - 1} filing window.
         </div>
       )}
 
@@ -1064,98 +1077,132 @@ function CandidateFamilyWatch({
             {usd(total)} matched across {contributions!.length} contribution{contributions!.length === 1 ? '' : 's'}
           </div>
 
-          {/* Raw contribution rows */}
-          <div style={{ display: 'grid', gap: 4, marginBottom: 10 }}>
-            {contributions!.map((c, i) => (
-              <div
-                key={i}
-                style={{ display: 'flex', justifyContent: 'space-between', gap: 10, fontSize: 12, background: '#fff', borderRadius: 6, padding: '5px 8px', flexWrap: 'wrap' }}
-              >
-                <span style={{ color: '#334155', fontWeight: 600 }}>{c.donorName}</span>
-                <span style={{ color: '#475569', whiteSpace: 'nowrap' }}>
-                  {usd(c.amount)}
-                  {c.electionYear ? ` · ${c.electionYear}` : c.date ? ` · ${c.date}` : ''}
-                  {c.contributorType ? ` · ${c.contributorType}` : ''}
-                </span>
+          {/* PAC & Committee Donors subsection */}
+          {committeeContribs.length > 0 && (
+            <div style={{ marginBottom: 10 }}>
+              <div style={{ fontSize: 12, fontWeight: 800, color: '#5b21b6', marginBottom: 6, borderBottom: '1px solid #ddd6fe', paddingBottom: 4 }}>
+                PAC &amp; Committee Donors
               </div>
-            ))}
-          </div>
-
-          {/* § 14-114 per-election limit analysis */}
-          <div
-            style={{
-              marginTop: 6,
-              padding: '10px 12px',
-              background: '#e0f2fe',
-              borderRadius: 8,
-              border: '1px solid #bae6fd',
-            }}
-          >
-            <div style={{ fontSize: 12, fontWeight: 800, color: '#0c4a6e', marginBottom: 8 }}>
-              § 14-114 Limit Analysis — {usd(SUFFOLK_TOWN_LIMIT_PER_ELECTION)} general / {usd(SUFFOLK_TOWN_PRIMARY_LIMIT)} primary per contributor (Town of Riverhead, BCNYS limits table)
+              <div style={{ display: 'grid', gap: 4, marginBottom: 8 }}>
+                {committeeContribs.map((c, i) => (
+                  <div
+                    key={i}
+                    style={{ display: 'flex', justifyContent: 'space-between', gap: 10, fontSize: 12, background: '#fff', borderRadius: 6, padding: '5px 8px', flexWrap: 'wrap' }}
+                  >
+                    <span style={{ color: '#334155', fontWeight: 600 }}>{c.donorName}</span>
+                    <span style={{ color: '#475569', whiteSpace: 'nowrap' }}>
+                      {usd(c.amount)}
+                      {c.electionYear ? ` · ${c.electionYear}` : c.date ? ` · ${c.date}` : ''}
+                      {c.contributorType ? ` · ${c.contributorType}` : ''}
+                    </span>
+                  </div>
+                ))}
+              </div>
+              <EthicsAnalysisPanel contributions={committeeContribs} accentColor="#5b21b6" watchLabel="PAC/committee" />
             </div>
+          )}
 
-            {groups.map(({ donor, year, total: groupTotal }) => {
-              const isSelf = selfNames.some((n) => donor.toLowerCase().includes(n))
-
-              if (isSelf) {
-                return (
-                  <div key={`${donor}||${year}`} style={{ marginBottom: 10 }}>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', fontSize: 12 }}>
-                      <span style={{ fontWeight: 700, color: '#1e3a5f' }}>
-                        {donor} <span style={{ fontWeight: 400, color: '#64748b' }}>({year} election)</span>
-                      </span>
-                      <span style={{ fontWeight: 800, color: '#7c3aed', fontSize: 11 }}>No cap — self-funding</span>
-                    </div>
-                    <div style={{ fontSize: 10, color: '#475569' }}>
-                      {usd(groupTotal)} · Candidate self-funding is unlimited for local town races not in NY&apos;s public financing program.
-                    </div>
-                  </div>
-                )
-              }
-
-              const remaining = Math.max(0, SUFFOLK_TOWN_LIMIT_PER_ELECTION - groupTotal)
-              const pct = Math.min(100, (groupTotal / SUFFOLK_TOWN_LIMIT_PER_ELECTION) * 100)
-              const over = groupTotal > SUFFOLK_TOWN_LIMIT_PER_ELECTION
-              const atLimit = !over && remaining === 0
-              const barColor = over ? '#b91c1c' : pct >= 80 ? '#b45309' : '#0369a1'
-              const labelColor = over ? '#b91c1c' : atLimit ? '#92400e' : '#166534'
-
-              return (
-                <div key={`${donor}||${year}`} style={{ marginBottom: 10 }}>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', fontSize: 12 }}>
-                    <span style={{ fontWeight: 700, color: '#1e3a5f' }}>
-                      {donor} <span style={{ fontWeight: 400, color: '#64748b' }}>({year} election)</span>
-                    </span>
-                    <span style={{ fontWeight: 800, color: labelColor, fontSize: 11 }}>
-                      {over ? '⚠ OVER LIMIT' : atLimit ? 'AT LIMIT' : `${usd(remaining)} remaining`}
-                    </span>
-                  </div>
-                  <div style={{ height: 6, background: '#bae6fd', borderRadius: 3, margin: '4px 0', overflow: 'hidden' }}>
-                    <div style={{ height: '100%', width: `${pct}%`, background: barColor, borderRadius: 3, transition: 'width 0.3s' }} />
-                  </div>
-                  <div style={{ fontSize: 10, color: '#475569' }}>
-                    {usd(groupTotal)} of {usd(SUFFOLK_TOWN_LIMIT_PER_ELECTION)} per-election limit
-                    {over && ` — EXCESS: ${usd(groupTotal - SUFFOLK_TOWN_LIMIT_PER_ELECTION)}`}
-                  </div>
+          {/* Self-Funding & Family Donors subsection */}
+          {individualContribs.length > 0 && (
+            <div>
+              {committeeContribs.length > 0 && (
+                <div style={{ fontSize: 12, fontWeight: 800, color: '#0c4a6e', marginBottom: 6, borderBottom: '1px solid #bae6fd', paddingBottom: 4, marginTop: 4 }}>
+                  Self-Funding &amp; Family Donors
                 </div>
-              )
-            })}
+              )}
+              <div style={{ display: 'grid', gap: 4, marginBottom: 10 }}>
+                {individualContribs.map((c, i) => (
+                  <div
+                    key={i}
+                    style={{ display: 'flex', justifyContent: 'space-between', gap: 10, fontSize: 12, background: '#fff', borderRadius: 6, padding: '5px 8px', flexWrap: 'wrap' }}
+                  >
+                    <span style={{ color: '#334155', fontWeight: 600 }}>{c.donorName}</span>
+                    <span style={{ color: '#475569', whiteSpace: 'nowrap' }}>
+                      {usd(c.amount)}
+                      {c.electionYear ? ` · ${c.electionYear}` : c.date ? ` · ${c.date}` : ''}
+                      {c.contributorType ? ` · ${c.contributorType}` : ''}
+                    </span>
+                  </div>
+                ))}
+              </div>
 
-            <div style={{ fontSize: 10, color: '#64748b', marginTop: 4, lineHeight: 1.4, fontStyle: 'italic' }}>
-              Primary and general elections are separate limits under § 14-114(1). This analysis groups by election year as reported in the filing; it cannot distinguish primary vs. general election
-              within the same year. Limits shown are from the BCNYS "NYS Campaign Contribution Limits" table (Aug 2022); biennial CPI adjustments may apply. Verify current limits at{' '}
-              <a href="https://elections.ny.gov/laws-regulations/contribution-limits" target="_blank" rel="noopener noreferrer" style={{ color: '#0369a1' }}>
-                elections.ny.gov
-              </a>.
+              {/* § 14-114 per-election limit analysis */}
+              <div
+                style={{
+                  marginTop: 6,
+                  padding: '10px 12px',
+                  background: '#e0f2fe',
+                  borderRadius: 8,
+                  border: '1px solid #bae6fd',
+                }}
+              >
+                <div style={{ fontSize: 12, fontWeight: 800, color: '#0c4a6e', marginBottom: 8 }}>
+                  § 14-114 Limit Analysis — {usd(SUFFOLK_TOWN_LIMIT_PER_ELECTION)} general / {usd(SUFFOLK_TOWN_PRIMARY_LIMIT)} primary per contributor (Town of Riverhead, BCNYS limits table)
+                </div>
+
+                {groupsIndividual.map(({ donor, year, total: groupTotal }) => {
+                  const isSelf = selfNames.some((n) => donor.toLowerCase().includes(n))
+
+                  if (isSelf) {
+                    return (
+                      <div key={`${donor}||${year}`} style={{ marginBottom: 10 }}>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', fontSize: 12 }}>
+                          <span style={{ fontWeight: 700, color: '#1e3a5f' }}>
+                            {donor} <span style={{ fontWeight: 400, color: '#64748b' }}>({year} election)</span>
+                          </span>
+                          <span style={{ fontWeight: 800, color: '#7c3aed', fontSize: 11 }}>No cap — self-funding</span>
+                        </div>
+                        <div style={{ fontSize: 10, color: '#475569' }}>
+                          {usd(groupTotal)} · Candidate self-funding is unlimited for local town races not in NY&apos;s public financing program.
+                        </div>
+                      </div>
+                    )
+                  }
+
+                  const remaining = Math.max(0, SUFFOLK_TOWN_LIMIT_PER_ELECTION - groupTotal)
+                  const pct = Math.min(100, (groupTotal / SUFFOLK_TOWN_LIMIT_PER_ELECTION) * 100)
+                  const over = groupTotal > SUFFOLK_TOWN_LIMIT_PER_ELECTION
+                  const atLimit = !over && remaining === 0
+                  const barColor = over ? '#b91c1c' : pct >= 80 ? '#b45309' : '#0369a1'
+                  const labelColor = over ? '#b91c1c' : atLimit ? '#92400e' : '#166534'
+
+                  return (
+                    <div key={`${donor}||${year}`} style={{ marginBottom: 10 }}>
+                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', fontSize: 12 }}>
+                        <span style={{ fontWeight: 700, color: '#1e3a5f' }}>
+                          {donor} <span style={{ fontWeight: 400, color: '#64748b' }}>({year} election)</span>
+                        </span>
+                        <span style={{ fontWeight: 800, color: labelColor, fontSize: 11 }}>
+                          {over ? '⚠ OVER LIMIT' : atLimit ? 'AT LIMIT' : `${usd(remaining)} remaining`}
+                        </span>
+                      </div>
+                      <div style={{ height: 6, background: '#bae6fd', borderRadius: 3, margin: '4px 0', overflow: 'hidden' }}>
+                        <div style={{ height: '100%', width: `${pct}%`, background: barColor, borderRadius: 3, transition: 'width 0.3s' }} />
+                      </div>
+                      <div style={{ fontSize: 10, color: '#475569' }}>
+                        {usd(groupTotal)} of {usd(SUFFOLK_TOWN_LIMIT_PER_ELECTION)} per-election limit
+                        {over && ` — EXCESS: ${usd(groupTotal - SUFFOLK_TOWN_LIMIT_PER_ELECTION)}`}
+                      </div>
+                    </div>
+                  )
+                })}
+
+                <div style={{ fontSize: 10, color: '#64748b', marginTop: 4, lineHeight: 1.4, fontStyle: 'italic' }}>
+                  Primary and general elections are separate limits under § 14-114(1). This analysis groups by election year as reported in the filing; it cannot distinguish primary vs. general election
+                  within the same year. Limits shown are from the BCNYS "NYS Campaign Contribution Limits" table (Aug 2022); biennial CPI adjustments may apply. Verify current limits at{' '}
+                  <a href="https://elections.ny.gov/laws-regulations/contribution-limits" target="_blank" rel="noopener noreferrer" style={{ color: '#0369a1' }}>
+                    elections.ny.gov
+                  </a>.
+                </div>
+              </div>
             </div>
-          </div>
+          )}
 
           <div style={{ fontSize: 11, color: '#64748b', marginTop: 8, marginBottom: 4, lineHeight: 1.5 }}>{candidateFamilyScopeNote(endYear, currentlyServing)}</div>
 
           <div style={{ fontSize: 11, color: '#475569', fontStyle: 'italic', lineHeight: 1.5 }}>
-            Candidate self-loans and family gifts are lawful under NY Election Law. This watch surfaces them for
-            transparency — voters and journalists can weigh whether personal and family resources are substituting for broader donor support.
+            Candidate self-loans, family gifts, and PAC contributions are lawful under NY Election Law. This watch surfaces them for
+            transparency — voters and journalists can weigh whether personal, family, or organized interests are a primary funding source.
           </div>
         </>
       )}

@@ -75,7 +75,8 @@ async function fetchIndividualContributions(filerIDs: string[], startYear: numbe
     new URLSearchParams({
       '$select': 'filer_id,election_year,filing_desc,flng_ent_first_name,flng_ent_last_name,org_amt,sched_date,cntrbr_type_desc',
       '$where': `filer_id in (${inClause}) and election_year in(${years}) and filing_sched_abbrev in('A','B','C') and cntrbr_type_desc='Individual'`,
-      '$limit': '5000',
+      '$limit': '10000',
+      '$order': 'election_year DESC, sched_date DESC',
     }).toString()
   const response = await fetch(url)
   if (!response.ok) throw new Error(`NY Open Data request failed: ${response.status}`)
