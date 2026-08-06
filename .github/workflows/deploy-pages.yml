@@ -8,15 +8,13 @@ on:
 
 permissions:
   contents: write
-  pages: write
-  id-token: write
 
 concurrency:
-  group: pages
+  group: build-and-deploy
   cancel-in-progress: true
 
 jobs:
-  build:
+  build-and-deploy:
     runs-on: ubuntu-latest
 
     steps:
@@ -72,12 +70,11 @@ jobs:
           touch out/.nojekyll
           npm run verify
 
-      - name: Trim heavyweight parser outputs from the Pages artifact
+      - name: Trim heavyweight parser outputs
         working-directory: web
         # These raw parser files (~175MB) are ETL inputs kept in the repo, but
-        # nothing on the site fetches them at runtime — search uses the compact
-        # data/search/unified.json instead. Removing them cuts the deploy
-        # artifact by ~95%.
+        # nothing on the site fetches them at runtime. Removing them keeps the
+        # gh-pages branch lean.
         run: |
           rm -rf out/data/financial-reports/documents
           rm -f out/data/financial-reports/line-item-candidates.json
@@ -85,33 +82,10 @@ jobs:
           rm -f out/data/financial-reports/citations.json
           du -sh out
 
-      - name: Upload Pages artifact
-        uses: actions/upload-pages-artifact@v5
+      - name: Deploy to gh-pages branch
+        uses: JamesIves/github-pages-deploy-action@v4
         with:
-          path: web/out
-
-  deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url || steps.deployment_retry.outputs.page_url }}
-
-    runs-on: ubuntu-latest
-    needs: build
-
-    steps:
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v5
-        continue-on-error: true
-
-      # The Pages service occasionally returns a transient
-      # "Deployment failed, try again later." — one automatic retry after a
-      # short pause absorbs it instead of failing the whole run.
-      - name: Wait before retry
-        if: steps.deployment.outcome == 'failure'
-        run: sleep 60
-
-      - name: Retry deploy (transient Pages failures)
-        if: steps.deployment.outcome == 'failure'
-        id: deployment_retry
-        uses: actions/deploy-pages@v5
+          folder: web/out
+          branch: gh-pages
+          clean: true
+          force: false
