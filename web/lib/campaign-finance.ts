@@ -173,9 +173,15 @@ function nameFields(row: ItemizedRow) {
   ].map((s) => s.toLowerCase().trim())
 }
 
+// Strip periods so "H.P. East End Riverhead" normalizes to the same string as
+// "HP East End Riverhead" — NY Open Data filing clerks use both forms.
+function stripPeriods(s: string): string {
+  return s.replace(/\./g, '').replace(/\s+/g, ' ').trim()
+}
+
 function isPetroCelliRow(row: ItemizedRow): boolean {
-  const fields = nameFields(row)
-  return PETROCELLI_WATCHLIST.some((term) => fields.some((f) => f.includes(term)))
+  const fields = nameFields(row).map(stripPeriods)
+  return PETROCELLI_WATCHLIST.map(stripPeriods).some((term) => fields.some((f) => f.includes(term)))
 }
 
 function isScottPointeRow(row: ItemizedRow): boolean {

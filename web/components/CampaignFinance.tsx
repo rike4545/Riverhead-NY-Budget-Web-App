@@ -617,10 +617,9 @@ function YearBreakdownList({ years }: { years: YearBreakdown[] }) {
 
 const petrocelliScopeNote = (endYear: number, currentlyServing: boolean) =>
   `Scope (2005–${currentlyServing ? endYear : endYear - 1}): this is a corporate/project-interest watch, not candidate immediate-family support. ` +
-  'It matches Petrocelli-named donor fields — J Petrocelli Construction, J. Petrocelli Contracting, ' +
-  'J. Petrocelli Development Inc, J Petrocelli Wine Cellars LLC, J. Petrocelli Cellars LLC, ' +
-  'J. Petrocelli Riverhead Town Square LLC, M. Petrocelli, Marie Petrocelli, Michael Petrocelli, ' +
-  'Jennifer Petrocelli — and Hp East End Riverhead LLC, as well as associated venue/entity watch terms ' +
+  'It matches any donor field containing "Petrocelli" (catching all J. Petrocelli entity variants) ' +
+  'plus Hp East End Riverhead LLC / H.P. East End Riverhead LLC (both period-forms matched), ' +
+  'as well as associated venue/entity watch terms ' +
   'from public profiles: Jacqueline Phillips, Alexandra Bussi, The Preston House, Atlantis Banquets, ' +
   'Sea Star Ballroom, Taste the East End, Raphael Vineyard, Long Island Aquarium, Hyatt Place East End. ' +
   'Source basis: Schneps / QNS and Dan\'s Papers profiles. ' +
@@ -644,6 +643,14 @@ function EthicsAnalysisPanel({
   const approaching = groups.filter((g) => g.total > 800 && g.total <= 1000)
   const allClear = flagged.length === 0 && approaching.length === 0
 
+  // Combined exposure: all contributions in this watch summed together.
+  // Fires when no single entity/person hit $1,000 individually but the
+  // total across multiple entities exceeds $1,000 — e.g. two Petrocelli
+  // LLCs each giving $600 would not trigger per-entity flagging but the
+  // combined relationship still warrants voluntary disclosure.
+  const combinedTotal = contributions.reduce((s, c) => s + c.amount, 0)
+  const showCombinedWarning = flagged.length === 0 && groups.length > 1 && combinedTotal > 1000
+
   return (
     <div
       style={{
@@ -658,9 +665,25 @@ function EthicsAnalysisPanel({
         § 113-4(B)(1)(f) Ethics Analysis — Town of Riverhead Code of Ethics
       </div>
 
-      {allClear && (
+      {allClear && !showCombinedWarning && (
         <div style={{ fontSize: 11, color: '#166534' }}>
           No donor&rsquo;s combined contributions exceeded $1,000 in any campaign — the aggregate recusal/disclosure threshold of § 113-4(B)(1)(f) is not reached for this watch. Transparency is still appropriate if {watchLabel} matters come before the Town.
+        </div>
+      )}
+
+      {showCombinedWarning && (
+        <div style={{ marginBottom: 8 }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', fontSize: 12 }}>
+            <span style={{ fontWeight: 700, color: '#78350f' }}>
+              Combined {watchLabel} entity exposure
+            </span>
+            <span style={{ fontWeight: 800, color: '#b45309', fontSize: 11 }}>⚠ COMBINED TOTAL EXCEEDS $1,000</span>
+          </div>
+          <div style={{ fontSize: 10, color: '#78350f', marginTop: 2, lineHeight: 1.4 }}>
+            {usd(combinedTotal)} total across {groups.length} {watchLabel}-linked entities or individuals — no single entity reached the $1,000 per-person threshold of § 113-4(B)(1)(f) individually,
+            but the combined relationship with {watchLabel}-associated interests totals {usd(combinedTotal)}.
+            Voluntary disclosure of this aggregate relationship is appropriate when any {watchLabel}-related matter comes before the Town.
+          </div>
         </div>
       )}
 
