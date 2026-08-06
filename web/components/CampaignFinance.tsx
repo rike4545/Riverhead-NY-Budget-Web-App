@@ -385,7 +385,7 @@ function PartyCommitteesSection({
                 <strong>Housekeeping:</strong> No contribution limits for funds designated toward housekeeping expenses. Only constituted committees may maintain a housekeeping fund for headquarters upkeep.
               </div>
               <div style={{ fontSize: 10, color: '#7c3aed', marginTop: 2, fontStyle: 'italic', lineHeight: 1.4 }}>
-                Source: Suffolk County BOE 2026 Comprehensive Limits Report. Note: corporate contributions to individual <em>candidate</em> committees are generally <em>prohibited</em> under NY Election Law § 14-116 — a stricter rule than applies here.
+                Source: Suffolk County BOE 2026 Comprehensive Limits Report; NCSL 2025–26 State Limits on Contributions to Candidates. Note: corporations may also contribute to candidate committees subject to the same per-candidate limits as individuals, but face a $5,000 statewide aggregate cap across all NY political contributions per calendar year under § 14-116.
               </div>
             </div>
           </div>
@@ -871,7 +871,7 @@ function PetroCelliWatch({
 
           <EthicsAnalysisPanel contributions={contributions!} accentColor="#92400e" watchLabel="Petrocelli" />
           <div style={{ fontSize: 10, color: '#64748b', marginTop: 6, lineHeight: 1.4, fontStyle: 'italic' }}>
-            § 14-114 note: individual contributors are subject to the Town of Riverhead per-election limit ({usd(SUFFOLK_TOWN_LIMIT_PER_ELECTION)} general / {usd(SUFFOLK_TOWN_PRIMARY_LIMIT)} primary, per Suffolk County BOE 2026 Comprehensive Limits Report). Corporate contributions to candidate committees are prohibited under § 14-116 (corporations may contribute to party/constituted committees up to $5,000 statewide aggregate per year — Suffolk County BOE 2026 Comprehensive Limits Report). See{' '}
+            § 14-114 note: individual contributors are subject to the Town of Riverhead per-election limit ({usd(SUFFOLK_TOWN_LIMIT_PER_ELECTION)} general / {usd(SUFFOLK_TOWN_PRIMARY_LIMIT)} primary, per Suffolk County BOE 2026 Comprehensive Limits Report). Corporations, PACs, and unions face the same per-candidate limits as individuals under § 14-114; corporations are additionally capped at $5,000 statewide aggregate across all NY political contributions per calendar year under § 14-116 (Suffolk County BOE 2026 Comprehensive Limits Report; NCSL 2025–26). See{' '}
             <a href="https://elections.ny.gov/laws-regulations/contribution-limits" target="_blank" rel="noopener noreferrer" style={{ color: '#92400e' }}>elections.ny.gov</a> for current limits.
           </div>
         </>
@@ -974,7 +974,7 @@ function ScottPointeWatch({
 
           <EthicsAnalysisPanel contributions={contributions!} accentColor="#5b21b6" watchLabel="Scott's Pointe / Island Water Park" />
           <div style={{ fontSize: 10, color: '#64748b', marginTop: 6, lineHeight: 1.4, fontStyle: 'italic' }}>
-            § 14-114 note: individual contributors are subject to the Town of Riverhead per-election limit ({usd(SUFFOLK_TOWN_LIMIT_PER_ELECTION)} general / {usd(SUFFOLK_TOWN_PRIMARY_LIMIT)} primary, per Suffolk County BOE 2026 Comprehensive Limits Report). Corporate contributions to candidate committees are prohibited under § 14-116 (corporations may contribute to party/constituted committees up to $5,000 statewide aggregate per year — Suffolk County BOE 2026 Comprehensive Limits Report). See{' '}
+            § 14-114 note: individual contributors are subject to the Town of Riverhead per-election limit ({usd(SUFFOLK_TOWN_LIMIT_PER_ELECTION)} general / {usd(SUFFOLK_TOWN_PRIMARY_LIMIT)} primary, per Suffolk County BOE 2026 Comprehensive Limits Report). Corporations, PACs, and unions face the same per-candidate limits as individuals under § 14-114; corporations are additionally capped at $5,000 statewide aggregate across all NY political contributions per calendar year under § 14-116 (Suffolk County BOE 2026 Comprehensive Limits Report; NCSL 2025–26). See{' '}
             <a href="https://elections.ny.gov/laws-regulations/contribution-limits" target="_blank" rel="noopener noreferrer" style={{ color: '#5b21b6' }}>elections.ny.gov</a> for current limits.
           </div>
         </>
