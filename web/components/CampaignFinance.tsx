@@ -966,11 +966,11 @@ function ScottPointeWatch({
 // ---------------------------------------------------------------------------
 
 const candidateFamilyScopeNote = (endYear: number, currentlyServing: boolean) =>
-  `Scope (2005–${currentlyServing ? endYear : endYear - 1}): candidate self-funding and known immediate-family financing watch. ` +
-  'Matches contributor type fields ("Candidate/Candidate Spouse", "Candidate Family Member") plus ' +
-  'known family names from public records: Halpin family (Dennis, Chloe, Patrick, Kristen Halpin); ' +
+  `Scope (2005–${currentlyServing ? endYear : endYear - 1}): candidate self-funding, known immediate-family financing, and cross-campaign committee donations. ` +
+  'Matches contributor type fields ("Candidate/Candidate Spouse", "Candidate Family Member") plus committee-type donors (e.g. another candidate\'s campaign committee) ' +
+  'and known family names from public records: Halpin family (Dennis, Chloe, Patrick, Kristen Halpin); ' +
   'Rothwell family (Werner Rothwell, Alexander Rothwell — each reported $2,500 outstanding Schedule N loans; Thomas Rothwell). ' +
-  'Candidate self-loans and family contributions are legal under NY Election Law but relevant to understanding who finances a committee. ' +
+  'Candidate self-loans, family contributions, and cross-campaign committee donations are legal under NY Election Law but relevant to understanding who finances a committee. ' +
   'These matches are disclosure context, not proof of wrongdoing.'
 
 // NY Election Law § 14-114(1): per-contributor per-election limit for Town of Riverhead.
@@ -986,9 +986,10 @@ function groupByDonorAndYear(contributions: WatchContribution[]): DonorElectionG
   const map = new Map<string, DonorElectionGroup>()
   for (const c of contributions) {
     const year = c.electionYear ?? c.date?.slice(0, 4) ?? 'Unknown'
-    // Normalize to lowercase+trim so capitalization typos in NY Open Data
-    // (e.g. "THomas Rothwell" vs "Thomas Rothwell") collapse into one group.
-    const key = `${c.donorName.trim().toLowerCase()}||${year}`
+    // Normalize to lowercase, trim, and replace hyphens with spaces so that
+    // capitalization typos ("THomas") and hyphen variants ("Jens-Smith" vs
+    // "Jens Smith") collapse into the same group.
+    const key = `${c.donorName.trim().toLowerCase().replace(/-/g, ' ').replace(/\s+/g, ' ')}||${year}`
     const g = map.get(key)
     if (g) { g.total += c.amount; g.rows.push(c) }
     else map.set(key, { donor: c.donorName, year, total: c.amount, rows: [c] })

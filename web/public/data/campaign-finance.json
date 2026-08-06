@@ -6,32 +6,32 @@
  "campaignFilingEndYear": 2026,
  "officials": [
   {
-   "name": "Honorable Jerome Halpin", "office": "Riverhead Town Supervisor", "termStarts": "2026-01-01", "termEnds": "2026-12-31", "nextElection": "2026-11-03", "currentlyServing": true, "salary": 110000, "salaryBudgeted": 118919, "salaryNote": "voluntarily reduced from $118,919 at the Jan 6, 2026 Town Board meeting", "termYears": 2,
+   "name": "Honorable Jerome Halpin", "office": "Riverhead Town Supervisor", "termStarts": "2026-01-01", "termEnds": "2026-12-31", "nextElection": "2026-11-03", "currentlyServing": true, "salary": 110000, "salaryBudgeted": 118919, "salaryNote": "voluntarily reduced from $118,919 at the Jan 6, 2026 Town Board meeting", "termYears": 1,
    "committeeName": "Friends of Jerry Halpin",
    "filerIDs": [{ "committeeName": "Friends of Jerry Halpin", "filerID": "506796" }],
-   "note": "COMMCAND fields: candidate ID 506792, Jerome Halpin, County, TERMINATED, Supervisor, Suffolk / Riverhead Town. Committee/filer ID 506796, Friends of Jerry Halpin, County, ACTIVE, Authorized Single Candidate Committee.",
+   "note": "COMMCAND fields: candidate ID 506792, Jerome Halpin, County, TERMINATED, Supervisor, Suffolk / Riverhead Town. Committee/filer ID 506796, Friends of Jerry Halpin, County, ACTIVE, Authorized Single Candidate Committee. NY's shift to even-year elections shortened the supervisor term elected in 2025 from two years to one; a re-election in November 2026 would begin a regular two-year term. Source: NYS BOE Even-Year Elections Transition Guidance (Nov 2025).",
    "seedRaised": 18440.74, "seedDirectContributions": 18440.74, "seedTransfersIn": 0, "seedLastReported": "2026-06-12",
    "photoUrl": "https://www.townofriverheadny.gov/ImageRepository/Document?documentID=3086"
   },
   {
-   "name": "Kenneth Rothwell", "office": "Councilman", "termStarts": "2026-01-01", "termEnds": "2028-12-31", "nextElection": "2026-11-03", "currentlyServing": true, "salary": 50558, "termYears": 4,
+   "name": "Kenneth Rothwell", "office": "Councilman", "termStarts": "2026-01-01", "termEnds": "2028-12-31", "nextElection": "2026-11-03", "currentlyServing": true, "salary": 50558, "termYears": 3,
    "committeeName": "Friends of Ken Rothwell",
    "filerIDs": [
     { "committeeName": "Friends of Ken Rothwell", "filerID": "154927" },
     { "committeeName": "Ken Rothwell Supervisor filing", "filerID": "154926" }
    ],
-   "note": "Combines filer IDs 154927 and 154926 because Rothwell is actively running for Supervisor in the Nov 2026 election (candidate record 154926 is County, ACTIVE, Supervisor) — next election reflects that race, not his council seat's 2028 term-end.",
+   "note": "Combines filer IDs 154927 and 154926 because Rothwell is actively running for Supervisor in the Nov 2026 election (candidate record 154926 is County, ACTIVE, Supervisor) — next election reflects that race, not his council seat's 2028 term-end. Rothwell retains his council seat unless and until elected Supervisor; the Nov 3, 2026 election decides the Supervisor post only. The 3-year council term (not the usual 4) reflects NY's even-year election transition: council seats elected in Nov 2025 were shortened by one year under NYS BOE Even-Year Elections Transition Guidance (Nov 2025).",
    "seedRaised": 163624.61, "seedDirectContributions": 163624.61, "seedTransfersIn": 0, "seedLastReported": "2026-06-03",
    "photoUrl": "https://www.townofriverheadny.gov/ImageRepository/Document?documentID=186"
   },
   {
-   "name": "Robert \"Bob\" Kern", "office": "Councilman", "termStarts": "2026-01-01", "termEnds": "2028-12-31", "nextElection": "2028-11-07", "currentlyServing": true, "salary": 50558, "termYears": 4,
+   "name": "Robert \"Bob\" Kern", "office": "Councilman", "termStarts": "2026-01-01", "termEnds": "2028-12-31", "nextElection": "2028-11-07", "currentlyServing": true, "salary": 50558, "termYears": 3,
    "committeeName": "Friends of Robert Kern",
    "filerIDs": [
     { "committeeName": "Friends of Robert Kern", "filerID": "527501" },
     { "committeeName": "Friends of Bob Kern", "filerID": "154941" }
    ],
-   "note": "Combines current committee 527501 with legacy committee 154941 (\"Friends of Bob Kern\") for the full 2005-2026 review window.",
+   "note": "Combines current committee 527501 with legacy committee 154941 (\"Friends of Bob Kern\") for the full 2005-2026 review window. The 3-year council term (not the usual 4) reflects NY's even-year election transition: council seats elected in Nov 2025 were shortened by one year under NYS BOE Even-Year Elections Transition Guidance (Nov 2025).",
    "seedRaised": 62838.80, "seedDirectContributions": 62638.80, "seedTransfersIn": 200.0, "seedLastReported": "2025-10-14",
    "photoUrl": "https://www.townofriverheadny.gov/ImageRepository/Document?documentID=3106"
   },

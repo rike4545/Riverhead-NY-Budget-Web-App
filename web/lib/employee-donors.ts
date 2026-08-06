@@ -43,11 +43,14 @@ const SELF_NAME_KEYS: Record<string, string[]> = {
   'Tim Hubbard': ['hubbard|tim', 'hubbard|timothy'],
   'Jodi Giglio': ['giglio|jodi'],
   'Yvette Aguiar': ['aguiar|yvette'],
+  // Hyphen in "Jens-Smith" normalizes to space in nameKey, so the key is "jens smith|laura".
+  'Laura Jens-Smith': ['jens smith|laura'],
 }
 
 function nameKey(last: string | undefined, first: string | undefined): string | null {
-  const l = (last ?? '').trim().toLowerCase()
-  const f = (first ?? '').trim().toLowerCase().split(/\s+/)[0]
+  // Normalize hyphens to spaces so "Jens-Smith" and "Jens Smith" produce the same key.
+  const l = (last ?? '').trim().toLowerCase().replace(/-/g, ' ').replace(/\s+/g, ' ')
+  const f = (first ?? '').trim().toLowerCase().split(/[\s-]+/)[0]
   if (!l || !f) return null
   return `${l}|${f}`
 }

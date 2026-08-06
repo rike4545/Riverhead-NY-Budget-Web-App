@@ -198,6 +198,11 @@ function isScottPointeRow(row: ItemizedRow): boolean {
 function isCandidateFamilyRow(row: ItemizedRow, officialName: string): boolean {
   const type = (row.cntrbr_type_desc ?? '').toLowerCase()
   if (type === 'candidate/candidate spouse' || type === 'candidate family member') return true
+  // Cross-campaign committee donations: another candidate's committee (e.g. "Friends of
+  // Kathleen Rice") donating to a Riverhead official's campaign. Catches committee-type
+  // contributors while excluding routine party/county committee donations.
+  const isCommittee = type.includes('committee') && !type.includes('party') && !type.includes('county')
+  if (isCommittee && (row.flng_ent_name ?? '').trim() !== '') return true
   const fullName = nameFields(row).at(-1) ?? '' // "first last"
   const self = CANDIDATE_SELF_NAMES[officialName] ?? []
   const family = CANDIDATE_FAMILY_NAMES[officialName] ?? []
