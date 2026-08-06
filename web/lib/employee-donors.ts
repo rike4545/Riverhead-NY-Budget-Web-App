@@ -38,7 +38,9 @@ const SELF_NAME_KEYS: Record<string, string[]> = {
   'Honorable Jerome Halpin': ['halpin|jerome', 'halpin|jerry'],
   'Kenneth Rothwell': ['rothwell|kenneth', 'rothwell|ken'],
   'Robert "Bob" Kern': ['kern|robert', 'kern|bob'],
-  'Joann Waski': ['waski|joann'],
+  // Joann Waski also appears as "Joann Spanburgh-Waski" and "Joann Spanburgh" in some records.
+  // After hyphen normalization, "spanburgh-waski" → "spanburgh waski".
+  'Joann Waski': ['waski|joann', 'spanburgh waski|joann', 'spanburgh|joann'],
   'Denise Merrifield': ['merrifield|denise'],
   'Tim Hubbard': ['hubbard|tim', 'hubbard|timothy'],
   'Jodi Giglio': ['giglio|jodi'],

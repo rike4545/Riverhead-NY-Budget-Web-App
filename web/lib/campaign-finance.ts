@@ -140,7 +140,7 @@ const SCOTT_POINTE_PEOPLE: [string, string][] = [
 export const CANDIDATE_SELF_NAMES: Record<string, string[]> = {
   'Honorable Jerome Halpin': ['jerome halpin', 'jerry halpin'],
   'Kenneth Rothwell': ['kenneth rothwell', 'kenneth t rothwell', 'ken rothwell'],
-  'Joann Waski': ['joann waski'],
+  'Joann Waski': ['joann waski', 'joann spanburgh-waski', 'joann spanburgh waski', 'joann spanburgh'],
   'Robert "Bob" Kern': ['robert kern', 'bob kern'],
   'Denise Merrifield': ['denise merrifield', 'denise m merrifield', 'denise m. merrifield'],
   // Former officials
