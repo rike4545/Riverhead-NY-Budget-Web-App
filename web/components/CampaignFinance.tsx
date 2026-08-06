@@ -1002,6 +1002,16 @@ const candidateFamilyScopeNote = (endYear: number, currentlyServing: boolean) =>
 const SUFFOLK_TOWN_LIMIT_PER_ELECTION = 1219.30
 const SUFFOLK_TOWN_PRIMARY_LIMIT = 1000.00
 
+// NY Election Law § 14-114 family aggregate limit: 1/4 × registered voters in district.
+// Source: Suffolk County BOE voter enrollment report, Feb 20, 2026.
+// All Riverhead town offices are town-wide races (25,341 total registered).
+//   General:          1/4 × 25,341 = $6,335.25
+//   Dem primary:      1/4 × 6,914  = $1,728.50
+//   Rep primary:      1/4 × 8,919  = $2,229.75
+const FAMILY_AGGREGATE_GENERAL = 6335.25
+const FAMILY_AGGREGATE_DEM_PRIMARY = 1728.50
+const FAMILY_AGGREGATE_REP_PRIMARY = 2229.75
+
 type DonorElectionGroup = { donor: string; year: string; total: number; rows: WatchContribution[] }
 
 // Maps normalized variant names → canonical display name so contributions
@@ -1161,6 +1171,51 @@ function CandidateFamilyWatch({
                 <div style={{ fontSize: 12, fontWeight: 800, color: '#0c4a6e', marginBottom: 8 }}>
                   § 14-114 Limit Analysis — {usd(SUFFOLK_TOWN_LIMIT_PER_ELECTION)} general / {usd(SUFFOLK_TOWN_PRIMARY_LIMIT)} primary per contributor (Town of Riverhead, Suffolk County BOE 2026)
                 </div>
+
+                {/* Family aggregate cap — all immediate family combined, per election year */}
+                {(() => {
+                  const familyGroups = groupsIndividual.filter((g) => !selfNames.some((n) => g.donor.toLowerCase().includes(n)))
+                  const byYear = new Map<string, number>()
+                  for (const g of familyGroups) byYear.set(g.year, (byYear.get(g.year) ?? 0) + g.total)
+                  if (byYear.size === 0) return null
+                  return (
+                    <div style={{ marginBottom: 12, paddingBottom: 10, borderBottom: '1px solid #bae6fd' }}>
+                      <div style={{ fontSize: 11, fontWeight: 700, color: '#1e3a5f', marginBottom: 6 }}>
+                        Family Aggregate Cap — all immediate family members combined
+                      </div>
+                      {Array.from(byYear.entries()).sort((a, b) => b[0].localeCompare(a[0])).map(([year, familyTotal]) => {
+                        const remaining = Math.max(0, FAMILY_AGGREGATE_GENERAL - familyTotal)
+                        const pct = Math.min(100, (familyTotal / FAMILY_AGGREGATE_GENERAL) * 100)
+                        const over = familyTotal > FAMILY_AGGREGATE_GENERAL
+                        const atLimit = !over && remaining === 0
+                        const barColor = over ? '#b91c1c' : pct >= 80 ? '#b45309' : '#7c3aed'
+                        const labelColor = over ? '#b91c1c' : atLimit ? '#92400e' : '#166534'
+                        return (
+                          <div key={year} style={{ marginBottom: 8 }}>
+                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', fontSize: 12 }}>
+                              <span style={{ fontWeight: 700, color: '#1e3a5f' }}>
+                                All family members <span style={{ fontWeight: 400, color: '#64748b' }}>({year} election)</span>
+                              </span>
+                              <span style={{ fontWeight: 800, color: labelColor, fontSize: 11 }}>
+                                {over ? '⚠ OVER AGGREGATE CAP' : atLimit ? 'AT CAP' : `${usd(remaining)} remaining`}
+                              </span>
+                            </div>
+                            <div style={{ height: 6, background: '#bae6fd', borderRadius: 3, margin: '4px 0', overflow: 'hidden' }}>
+                              <div style={{ height: '100%', width: `${pct}%`, background: barColor, borderRadius: 3, transition: 'width 0.3s' }} />
+                            </div>
+                            <div style={{ fontSize: 10, color: '#475569' }}>
+                              {usd(familyTotal)} of {usd(FAMILY_AGGREGATE_GENERAL)} general-election family aggregate cap (1/4 × 25,341 registered voters)
+                              {over && ` — EXCESS: ${usd(familyTotal - FAMILY_AGGREGATE_GENERAL)}`}
+                            </div>
+                          </div>
+                        )
+                      })}
+                      <div style={{ fontSize: 10, color: '#64748b', lineHeight: 1.4, fontStyle: 'italic' }}>
+                        § 14-114 caps combined immediate-family contributions (child, parent, grandparent, sibling, and their spouses) at 1/4 of total registered voters. Primary limits are lower: DEM {usd(FAMILY_AGGREGATE_DEM_PRIMARY)} / REP {usd(FAMILY_AGGREGATE_REP_PRIMARY)} (Feb 20, 2026 Suffolk County BOE enrollment).
+                      </div>
+                    </div>
+                  )
+                })()}
 
                 {groupsIndividual.map(({ donor, year, total: groupTotal }) => {
                   const isSelf = selfNames.some((n) => donor.toLowerCase().includes(n))
