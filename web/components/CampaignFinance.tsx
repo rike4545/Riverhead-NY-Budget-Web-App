@@ -660,27 +660,34 @@ function EthicsAnalysisPanel({
 
       {allClear && (
         <div style={{ fontSize: 11, color: '#166534' }}>
-          No single donor exceeded $1,000 in any campaign — the automatic recusal/disclosure threshold of § 113-4(B)(1)(f) is not reached for this watch. Transparency is still appropriate if {watchLabel} matters come before the Town.
+          No donor&rsquo;s combined contributions exceeded $1,000 in any campaign — the aggregate recusal/disclosure threshold of § 113-4(B)(1)(f) is not reached for this watch. Transparency is still appropriate if {watchLabel} matters come before the Town.
         </div>
       )}
 
-      {flagged.map(({ donor, year, total: groupTotal }) => (
-        <div key={`${donor}||${year}`} style={{ marginBottom: 8 }}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', fontSize: 12 }}>
-            <span style={{ fontWeight: 700, color: '#7f1d1d' }}>
-              {donor} <span style={{ fontWeight: 400, color: '#64748b' }}>({year} election)</span>
-            </span>
-            <span style={{ fontWeight: 800, color: '#b91c1c', fontSize: 11 }}>⚠ THRESHOLD EXCEEDED</span>
+      {flagged.map(({ donor, year, total: groupTotal, rows }) => {
+        const maxSingle = Math.max(...rows.map((r) => r.amount))
+        const isStructured = rows.length > 1 && maxSingle < 1000
+        return (
+          <div key={`${donor}||${year}`} style={{ marginBottom: 8 }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', fontSize: 12 }}>
+              <span style={{ fontWeight: 700, color: '#7f1d1d' }}>
+                {donor} <span style={{ fontWeight: 400, color: '#64748b' }}>({year} election)</span>
+              </span>
+              <span style={{ fontWeight: 800, color: '#b91c1c', fontSize: 11 }}>⚠ THRESHOLD EXCEEDED</span>
+            </div>
+            <div style={{ fontSize: 10, color: '#7f1d1d', marginTop: 2, lineHeight: 1.4 }}>
+              {usd(groupTotal)} received in aggregate — exceeds the $1,000 per-campaign limit of § 113-4(B)(1)(f).
+              {isStructured && (
+                <> Composed of {rows.length} contributions (largest: {usd(maxSingle)}) each individually below $1,000 — the threshold is an <em>in-aggregate</em> limit, so the total triggers disclosure/recusal regardless of per-transaction size.</>
+              )}
+              {' '}Elected officials must publicly disclose this relationship when any matter involving this donor comes before the Town.
+              Recusal is also an option and may be required depending on the nature of the matter and legal advice.
+            </div>
           </div>
-          <div style={{ fontSize: 10, color: '#7f1d1d', marginTop: 2, lineHeight: 1.4 }}>
-            {usd(groupTotal)} received — exceeds the $1,000 per-campaign limit of § 113-4(B)(1)(f).
-            Elected officials must publicly disclose this relationship when any matter involving this donor comes before the Town.
-            Recusal is also an option and may be required depending on the nature of the matter and legal advice.
-          </div>
-        </div>
-      ))}
+        )
+      })}
 
-      {approaching.map(({ donor, year, total: groupTotal }) => (
+      {approaching.map(({ donor, year, total: groupTotal, rows }) => (
         <div key={`${donor}||${year}`} style={{ marginBottom: 8 }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', fontSize: 12 }}>
             <span style={{ fontWeight: 700, color: '#78350f' }}>
@@ -689,15 +696,17 @@ function EthicsAnalysisPanel({
             <span style={{ fontWeight: 800, color: '#b45309', fontSize: 11 }}>Approaching $1,000</span>
           </div>
           <div style={{ fontSize: 10, color: '#78350f', marginTop: 2, lineHeight: 1.4 }}>
-            {usd(groupTotal)} received — below the $1,000 threshold of § 113-4(B)(1)(f) but close. Additional contributions in the same campaign would trigger the recusal/disclosure requirement.
+            {usd(groupTotal)} received{rows.length > 1 ? ` across ${rows.length} contributions` : ''} — below the $1,000 aggregate threshold of § 113-4(B)(1)(f) but close. Any additional contribution in the same campaign would trigger the recusal/disclosure requirement.
           </div>
         </div>
       ))}
 
       <div style={{ fontSize: 10, color: '#64748b', marginTop: 6, lineHeight: 1.4, fontStyle: 'italic', borderTop: '1px solid #e2e8f0', paddingTop: 6 }}>
         § 113-4(B)(1)(f) of the Town of Riverhead Code of Ethics prohibits a Town officer from taking or failing to take any action
-        that may benefit a person who contributed more than $1,000 in aggregate during their most recent or current campaign —
+        that may benefit a person who contributed more than $1,000 <strong>in aggregate</strong> during their most recent or current campaign —
         unless the officer recuses or (for elected officials) publicly discloses the relationship on the record.
+        The threshold is per-campaign aggregate: multiple contributions from the same donor that individually fall below $1,000
+        still count toward the total and trigger disclosure/recusal obligations when they collectively exceed $1,000.
         § 113-12 additionally requires land use applications (variance, zoning change, site plan, special exception) to disclose
         any Town officer interest in the applicant. See{' '}
         <a href="https://ecode360.com/29708189" target="_blank" rel="noopener noreferrer" style={{ color: accentColor }}>
