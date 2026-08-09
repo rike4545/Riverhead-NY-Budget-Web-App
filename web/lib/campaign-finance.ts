@@ -203,6 +203,14 @@ function isCandidateFamilyRow(row: ItemizedRow, officialName: string): boolean {
   // contributors while excluding routine party/county committee donations.
   const isCommittee = type.includes('committee') && !type.includes('party') && !type.includes('county')
   if (isCommittee && (row.flng_ent_name ?? '').trim() !== '') return true
+  // Business entities (LLC/PLLC, partnership, sole proprietorship, association, other)
+  // that contribute to candidate committees — subject to same per-candidate limit as
+  // individuals plus a $5,000 statewide corporate aggregate cap under § 14-116.
+  const isBusiness = (
+    type.includes('llc') || type.includes('pllc') || type.includes('partnership') ||
+    type.includes('sole') || type === 'association' || type === 'other'
+  ) && !type.includes('unitem')
+  if (isBusiness && (row.flng_ent_name ?? '').trim() !== '') return true
   const fullName = nameFields(row).at(-1) ?? '' // "first last"
   const self = CANDIDATE_SELF_NAMES[officialName] ?? []
   const family = CANDIDATE_FAMILY_NAMES[officialName] ?? []

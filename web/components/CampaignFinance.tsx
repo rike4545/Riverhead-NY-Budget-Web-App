@@ -988,11 +988,11 @@ function ScottPointeWatch({
 // ---------------------------------------------------------------------------
 
 const candidateFamilyScopeNote = (endYear: number, currentlyServing: boolean) =>
-  `Scope (2005–${currentlyServing ? endYear : endYear - 1}): candidate self-funding, known immediate-family financing, and cross-campaign committee donations. ` +
-  'Matches contributor type fields ("Candidate/Candidate Spouse", "Candidate Family Member") plus committee-type donors (e.g. another candidate\'s campaign committee) ' +
-  'and known family names from public records: Halpin family (Dennis, Chloe, Patrick, Kristen Halpin); ' +
+  `Scope (2005–${currentlyServing ? endYear : endYear - 1}): candidate self-funding, known immediate-family financing, cross-campaign committee donations, and business-entity contributors (LLC, partnership, sole proprietorship, association). ` +
+  'Matches contributor type fields ("Candidate/Candidate Spouse", "Candidate Family Member", committee-type donors, and business-entity types) ' +
+  'plus known family names from public records: Halpin family (Dennis, Chloe, Patrick, Kristen Halpin); ' +
   'Rothwell family (Werner Rothwell, Alexander Rothwell — each reported $2,500 outstanding Schedule N loans; Thomas Rothwell). ' +
-  'Candidate self-loans, family contributions, and cross-campaign committee donations are legal under NY Election Law but relevant to understanding who finances a committee. ' +
+  'All contributions shown are legal under NY Election Law but relevant to understanding who finances a committee. ' +
   'These matches are disclosure context, not proof of wrongdoing.'
 
 // NY Election Law § 14-114(1): per-contributor per-election limit for Town of Riverhead.
@@ -1017,7 +1017,63 @@ type DonorElectionGroup = { donor: string; year: string; total: number; rows: Wa
 // Maps normalized variant names → canonical display name so contributions
 // filed under alternate spellings merge into a single ethics-threshold group.
 const DONOR_NAME_ALIASES: Record<string, string> = {
-  'li builders pac': 'Long Island Builders PAC',
+  'li builders pac':           'Long Island Builders PAC',
+  'long island buiders pac':   'Long Island Builders PAC', // typo in filing
+  'long island builders':      'Long Island Builders PAC', // name without PAC suffix
+  // Mason Tenders variants
+  'mason tender district council of greater ny pac':    'Mason Tenders District Council PAC',
+  'mason tenders district council of greater pac':      'Mason Tenders District Council PAC',
+  'mason tenders district council of greater ny pac':   'Mason Tenders District Council PAC',
+  "mason tender's district council":                    'Mason Tenders District Council PAC',
+  // Riverhead PBA variants
+  'riverhead pba pac':                         'Riverhead PBA PAC',
+  'riverhead pba inc pac':                     'Riverhead PBA PAC',
+  'riverhead police benevolent assoc pac':     'Riverhead PBA PAC',
+  'riverhead police bene assoc pac':           'Riverhead PBA PAC',
+  'riverhead police benevolent assoc':         'Riverhead PBA PAC',
+  'riverhead police benevolent ass.':          'Riverhead PBA PAC',
+  'riverhed police benevolent assoc pac':      'Riverhead PBA PAC',
+  'riverhead pba':                             'Riverhead PBA PAC',
+  // Sheet Metal Workers variants
+  'sheet metal workers lu 28':   'Sheet Metal Workers LU 28',
+  'sheet metal workders lu 28':  'Sheet Metal Workers LU 28', // typo
+  'sheet metal  workers lu 28':  'Sheet Metal Workers LU 28', // double space
+  // Operating Engineers variants
+  'international union of operating engineers':       'IUOE PAC',
+  'international union of operation engineers':       'IUOE PAC', // typo
+  "int'l union of operating eng local 138 138a pac":  'IUOE PAC',
+  // Plumbers Local 200 variants
+  'plumbers local union #200':     'Plumbers Local Union #200',
+  'plumbers local union#200':      'Plumbers Local Union #200',
+  'plumbers local union #200 pac': 'Plumbers Local Union #200',
+  'plumbers local union pac':      'Plumbers Local Union #200',
+  // NERCC variants
+  'nercc political education committee-nys':      'NERCC Political Education Committee',
+  'nercc political education committee--nys pac': 'NERCC Political Education Committee',
+  // 1199 SEIU variants
+  '1199 seiu':                        '1199 SEIU',
+  '1199 seiu - nys political action fund': '1199 SEIU',
+  // Steamfitters variants
+  'ua steamfitters lu #638':      'Steamfitters LU 638',
+  'u.a. steamfitters l.u.#638':   'Steamfitters LU 638',
+  'steamfitters local union 638': 'Steamfitters LU 638',
+  // Suffolk County PBA variants
+  'suffolk county pba pac':    'Suffolk County PBA PAC',
+  'suffolk count pba pac':     'Suffolk County PBA PAC', // typo
+  'suffolk county p.b.a. pac': 'Suffolk County PBA PAC',
+  // Suffolk County Corrections variants
+  'suffolk county correction officers assoc pac':     'Suffolk County Correction Officers Assoc PAC',
+  'suffolk cty correction officers assoc':            'Suffolk County Correction Officers Assoc PAC',
+  'suffolk county corrections officers assc':         'Suffolk County Correction Officers Assoc PAC',
+  'suffolk county correction officers assoc inc':     'Suffolk County Correction Officers Assoc PAC',
+  'suffolk count correction officers assoc pac':      'Suffolk County Correction Officers Assoc PAC',
+  // Eleanor Roosevelt Legacy variants
+  "eleanor roosevelt legacy committee inc.": 'Eleanor Roosevelt Legacy Committee',
+  'eleanor rooevelt legacy':                 'Eleanor Roosevelt Legacy Committee', // typo
+  // Building Trades variants
+  'building & construction trade - nassau &':           'Building & Construction Trades Council',
+  'building & contruction trades council nass & suff':  'Building & Construction Trades Council', // typo
+  'building and construction trades':                   'Building & Construction Trades Council',
 }
 
 function groupByDonorAndYear(contributions: WatchContribution[]): DonorElectionGroup[] {
@@ -1037,6 +1093,15 @@ function groupByDonorAndYear(contributions: WatchContribution[]): DonorElectionG
 function isCommitteeContrib(c: WatchContribution): boolean {
   const type = (c.contributorType ?? '').toLowerCase()
   return type.includes('committee') && !type.includes('party') && !type.includes('county')
+}
+
+function isBusinessContrib(c: WatchContribution): boolean {
+  const type = (c.contributorType ?? '').toLowerCase()
+  if (!type || type.includes('individual') || type.includes('candidate') || type.includes('unitem')) return false
+  if (type.includes('committee') || type.includes('party') || type.includes('county') || type.includes('pac')) return false
+  // LLC, PLLC, Partnership, Sole Proprietorship, Association, Other
+  return type.includes('llc') || type.includes('pllc') || type.includes('partnership') ||
+    type.includes('sole') || type === 'association' || type === 'other'
 }
 
 function CandidateFamilyWatch({
@@ -1059,7 +1124,8 @@ function CandidateFamilyWatch({
   const clear = contributions !== null && contributions.length === 0
 
   const committeeContribs = hasHits ? contributions!.filter(isCommitteeContrib) : []
-  const individualContribs = hasHits ? contributions!.filter((c) => !isCommitteeContrib(c)) : []
+  const businessContribs  = hasHits ? contributions!.filter((c) => !isCommitteeContrib(c) && isBusinessContrib(c)) : []
+  const individualContribs = hasHits ? contributions!.filter((c) => !isCommitteeContrib(c) && !isBusinessContrib(c)) : []
 
   const borderColor = hasHits ? '#0369a1' : clear ? '#15803d' : '#64748b'
   const bgColor = hasHits ? '#f0f9ff' : clear ? '#f0fdf4' : '#f8fafc'
@@ -1131,6 +1197,34 @@ function CandidateFamilyWatch({
                 ))}
               </div>
               <EthicsAnalysisPanel contributions={committeeContribs} accentColor="#5b21b6" watchLabel="PAC/committee" />
+            </div>
+          )}
+
+          {/* Business & Corporate Donors subsection */}
+          {businessContribs.length > 0 && (
+            <div style={{ marginBottom: 10 }}>
+              <div style={{ fontSize: 12, fontWeight: 800, color: '#92400e', marginBottom: 6, borderBottom: '1px solid #fde68a', paddingBottom: 4 }}>
+                Business &amp; Corporate Donors
+              </div>
+              <div style={{ display: 'grid', gap: 4, marginBottom: 8 }}>
+                {businessContribs.map((c, i) => (
+                  <div
+                    key={i}
+                    style={{ display: 'flex', justifyContent: 'space-between', gap: 10, fontSize: 12, background: '#fff', borderRadius: 6, padding: '5px 8px', flexWrap: 'wrap' }}
+                  >
+                    <span style={{ color: '#334155', fontWeight: 600 }}>{c.donorName}</span>
+                    <span style={{ color: '#475569', whiteSpace: 'nowrap' }}>
+                      {usd(c.amount)}
+                      {c.electionYear ? ` · ${c.electionYear}` : c.date ? ` · ${c.date}` : ''}
+                      {c.contributorType ? ` · ${c.contributorType}` : ''}
+                    </span>
+                  </div>
+                ))}
+              </div>
+              <EthicsAnalysisPanel contributions={businessContribs} accentColor="#92400e" watchLabel="business entity" />
+              <div style={{ fontSize: 10, color: '#78350f', marginTop: 6, lineHeight: 1.4, fontStyle: 'italic' }}>
+                Corporations, LLCs, and partnerships may contribute to candidate committees subject to the same per-election limit as individuals ({usd(SUFFOLK_TOWN_LIMIT_PER_ELECTION)} general / {usd(SUFFOLK_TOWN_PRIMARY_LIMIT)} primary). Corporations are additionally capped at $5,000 statewide aggregate across all NY political contributions per calendar year under § 14-116 (Suffolk County BOE 2026 Comprehensive Limits Report).
+              </div>
             </div>
           )}
 
