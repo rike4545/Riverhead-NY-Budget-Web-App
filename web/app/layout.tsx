@@ -78,7 +78,7 @@ const SETTINGS_INIT = `try{
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <head>
         <style dangerouslySetInnerHTML={{ __html: TREND_CSS }} />
         <style dangerouslySetInnerHTML={{ __html: SETTINGS_CSS }} />

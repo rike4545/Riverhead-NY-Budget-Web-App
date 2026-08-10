@@ -127,7 +127,7 @@ export default function SiteNav() {
 
       <nav className="nav-links" style={{ display: 'flex', gap: 8, flexWrap: 'wrap', alignItems: 'center' }}>
         {PRIMARY.map(([label, href]) => (
-          <a key={href} href={href} style={{ ...linkStyle, ...(pathname && href.endsWith(pathname) ? { background: '#c99a2e', borderColor: '#c99a2e', color: '#284a69' } : {}) }}>
+          <a key={href} href={href} style={{ ...linkStyle, ...(pathname && href.endsWith(pathname) ? { background: '#c99a2e', border: '1px solid #c99a2e', color: '#284a69' } : {}) }}>
             {label}
           </a>
         ))}
@@ -142,7 +142,7 @@ export default function SiteNav() {
               aria-expanded={open === g.label}
               style={{
                 ...linkStyle, cursor: 'pointer',
-                ...(groupIsActive(g) || open === g.label ? { background: '#c99a2e', borderColor: '#c99a2e', color: '#284a69' } : {}),
+                ...(groupIsActive(g) || open === g.label ? { background: '#c99a2e', border: '1px solid #c99a2e', color: '#284a69' } : {}),
               }}
             >
               {g.label} ▾
@@ -187,7 +187,7 @@ export default function SiteNav() {
             aria-expanded={settingsOpen}
             style={{
               ...linkStyle, cursor: 'pointer', fontSize: 17, padding: '9px 12px',
-              ...(settingsOpen ? { background: '#c99a2e', borderColor: '#c99a2e', color: '#284a69' } : {}),
+              ...(settingsOpen ? { background: '#c99a2e', border: '1px solid #c99a2e', color: '#284a69' } : {}),
             }}
           >
             ⚙

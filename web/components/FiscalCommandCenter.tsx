@@ -25,7 +25,7 @@ const sectionAnchors = [
 
 // Matches the standard card style used on every other page (see e.g. funds/page.tsx)
 // so the home page reads as part of the same site.
-const shell = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, boxShadow: '0 14px 34px rgba(15,23,42,.05)' } as const
+const shell = { background: 'var(--rbl-surface)', borderTop: '1px solid var(--rbl-border-subtle)', borderRight: '1px solid var(--rbl-border-subtle)', borderBottom: '1px solid var(--rbl-border-subtle)', borderLeft: '1px solid var(--rbl-border-subtle)', borderRadius: 16, boxShadow: '0 14px 34px rgba(15,23,42,.05)' } as const
 const muted = 'var(--rbl-text-muted)'
 
 // Map each KPI to an accent color: green = good news, amber = cost pressure, blue = informational
@@ -83,7 +83,9 @@ export default function FiscalCommandCenter() {
               return (
                 <article key={kpi.label} style={{
                   background: 'var(--rbl-surface)',
-                  border: '1px solid var(--rbl-border-subtle)',
+                  borderTop: '1px solid var(--rbl-border-subtle)',
+                  borderRight: '1px solid var(--rbl-border-subtle)',
+                  borderBottom: '1px solid var(--rbl-border-subtle)',
                   borderLeft: `4px solid ${accent.border}`,
                   borderRadius: 16,
                   boxShadow: '0 14px 34px rgba(15,23,42,.05)',

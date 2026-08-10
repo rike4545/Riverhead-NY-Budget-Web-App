@@ -18,7 +18,7 @@ export default function PageShell({ title, subtitle, children }: { title: string
         <SiteNav />
       </header>
       <section style={{ padding: 30, maxWidth: 1380, margin: '0 auto' }}>
-        <div style={{ background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border)', borderTop: '6px solid var(--rbl-page-accent)', borderRadius: 12, padding: 28, boxShadow: '0 14px 34px var(--rbl-shadow)', marginBottom: 18 }}>
+        <div style={{ background: 'var(--rbl-surface)', borderTop: '6px solid var(--rbl-page-accent)', borderRight: '1px solid var(--rbl-border)', borderBottom: '1px solid var(--rbl-border)', borderLeft: '1px solid var(--rbl-border)', borderRadius: 12, padding: 28, boxShadow: '0 14px 34px var(--rbl-shadow)', marginBottom: 18 }}>
           <div style={{ color: 'var(--rbl-badge)', letterSpacing: 2, textTransform: 'uppercase', fontSize: 12, fontWeight: 950 }}>A resident-built project · not the Town&apos;s official site</div>
           <h1 style={{ fontSize: 42, lineHeight: 1.05, margin: '8px 0', color: 'var(--rbl-title)' }}>{title}</h1>
           <p style={{ color: 'var(--rbl-text-sub)', fontSize: 17, lineHeight: 1.55, margin: 0, maxWidth: 980 }}>{subtitle}</p>

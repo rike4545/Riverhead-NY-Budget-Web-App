@@ -51,7 +51,7 @@ export default function SettingsPanel({ onClose }: { onClose: () => void }) {
     color: 'var(--rbl-text)',
   }
   const btnActive: React.CSSProperties = {
-    background: 'var(--rbl-page-accent)', color: 'white', borderColor: 'var(--rbl-page-accent)',
+    background: 'var(--rbl-page-accent)', color: 'white', border: '1px solid var(--rbl-page-accent)',
   }
   const btnInactive: React.CSSProperties = { background: 'var(--rbl-surface)' }
 
