@@ -2,7 +2,6 @@
 
 import { useEffect, useRef, useState } from 'react'
 import { usePathname } from 'next/navigation'
-import SettingsPanel from './SettingsPanel'
 
 const base = process.env.NEXT_PUBLIC_BASE_PATH || ''
 
@@ -79,18 +78,16 @@ export default function SiteNav() {
   const pathname = usePathname() || ''
   const [open, setOpen] = useState<string | null>(null)
   const [mobileOpen, setMobileOpen] = useState(false)
-  const [settingsOpen, setSettingsOpen] = useState(false)
   const navRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     function onMouseDown(e: MouseEvent) {
       if (navRef.current && !navRef.current.contains(e.target as Node)) {
         setOpen(null)
-        setSettingsOpen(false)
       }
     }
     function onKey(e: KeyboardEvent) {
-      if (e.key === 'Escape') { setOpen(null); setSettingsOpen(false) }
+      if (e.key === 'Escape') { setOpen(null) }
     }
     document.addEventListener('mousedown', onMouseDown)
     document.addEventListener('keydown', onKey)
@@ -101,7 +98,7 @@ export default function SiteNav() {
   }, [])
 
   // Close menus whenever the route changes (e.g. after clicking a link).
-  useEffect(() => { setOpen(null); setMobileOpen(false); setSettingsOpen(false) }, [pathname])
+  useEffect(() => { setOpen(null); setMobileOpen(false) }, [pathname])
 
   const groupIsActive = (g: Group) => g.links.some(([, href]) => pathname && href.endsWith(pathname))
 
@@ -179,21 +176,6 @@ export default function SiteNav() {
           </div>
         ))}
 
-        {/* Settings gear — opens floating SettingsPanel */}
-        <div style={{ position: 'relative' }}>
-          <button
-            onClick={() => setSettingsOpen((v) => !v)}
-            aria-label="Display settings"
-            aria-expanded={settingsOpen}
-            style={{
-              ...linkStyle, cursor: 'pointer', fontSize: 17, padding: '9px 12px',
-              ...(settingsOpen ? { background: '#c99a2e', border: '1px solid #c99a2e', color: '#284a69' } : {}),
-            }}
-          >
-            ⚙
-          </button>
-          {settingsOpen && <SettingsPanel onClose={() => setSettingsOpen(false)} />}
-        </div>
       </nav>
 
       {/* Mobile dropdown: primary links + every group's links, flat */}
