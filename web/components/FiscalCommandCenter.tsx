@@ -25,8 +25,17 @@ const sectionAnchors = [
 
 // Matches the standard card style used on every other page (see e.g. funds/page.tsx)
 // so the home page reads as part of the same site.
-const shell = { background: 'white', border: '1px solid #e2e8f0', borderRadius: 16, boxShadow: '0 14px 34px rgba(15,23,42,.05)' } as const
-const muted = '#64748b'
+const shell = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, boxShadow: '0 14px 34px rgba(15,23,42,.05)' } as const
+const muted = 'var(--rbl-text-muted)'
+
+// Map each KPI to an accent color: green = good news, amber = cost pressure, blue = informational
+function kpiAccent(label: string): { border: string; label: string } {
+  const l = label.toLowerCase()
+  if (l.includes('surplus'))       return { border: '#16a34a', label: '#15803d' }
+  if (l.includes('levy') || l.includes('appropriation') || l.includes('fund balance used'))
+                                    return { border: '#d97706', label: '#b45309' }
+  return { border: '#4a7297', label: '#4a7297' }
+}
 
 const surplusScenario = {
   totalAvailable: 5000000,
@@ -59,7 +68,7 @@ export default function FiscalCommandCenter() {
       <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', alignItems: 'center' }}>
         <span style={{ color: '#64748b', fontWeight: 800, fontSize: 12.5, textTransform: 'uppercase', letterSpacing: 0.5 }}>On this page:</span>
         {sectionAnchors.map(([label, href]) => (
-          <a key={href} href={href} style={{ color: '#4a7297', textDecoration: 'none', border: '1px solid #cbd5e1', background: 'white', borderRadius: 999, padding: '6px 12px', fontWeight: 800, fontSize: 12.5 }}>{label}</a>
+          <a key={href} href={href} style={{ color: 'var(--rbl-page-accent)', textDecoration: 'none', border: '1px solid var(--rbl-border)', background: 'var(--rbl-surface)', borderRadius: 999, padding: '6px 12px', fontWeight: 800, fontSize: 12.5 }}>{label}</a>
         ))}
         <span style={{ color: '#64748b', fontSize: 12.5, marginLeft: 'auto' }}>
           Source coverage: {archiveStats.indexedItems} documents across {archiveStats.yearsCovered} years
@@ -69,13 +78,23 @@ export default function FiscalCommandCenter() {
           {/* Lead with the numbers — the striking figures orient a first-time
               visitor before the tool cards. */}
           <section style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(190px,1fr))', gap: 14, marginTop: 18 }}>
-            {automatedKpis.map((kpi) => (
-              <article key={kpi.label} style={{ ...shell, padding: 18 }}>
-                <div style={{ color: muted, textTransform: 'uppercase', fontSize: 11, fontWeight: 950 }}>{kpi.label}</div>
-                <div style={{ fontSize: 32, fontWeight: 950, marginTop: 8 }}>{kpi.value}</div>
-                <p style={{ color: muted, fontSize: 13, lineHeight: 1.4 }}>{kpi.explanation}</p>
-              </article>
-            ))}
+            {automatedKpis.map((kpi) => {
+              const accent = kpiAccent(kpi.label)
+              return (
+                <article key={kpi.label} style={{
+                  background: 'var(--rbl-surface)',
+                  border: '1px solid var(--rbl-border-subtle)',
+                  borderLeft: `4px solid ${accent.border}`,
+                  borderRadius: 16,
+                  boxShadow: '0 14px 34px rgba(15,23,42,.05)',
+                  padding: 18,
+                }}>
+                  <div style={{ color: accent.label, textTransform: 'uppercase', fontSize: 11, fontWeight: 950, letterSpacing: 0.4 }}>{kpi.label}</div>
+                  <div style={{ fontSize: 32, fontWeight: 950, marginTop: 8, color: 'var(--rbl-text)' }}>{kpi.value}</div>
+                  <p style={{ color: muted, fontSize: 13, lineHeight: 1.4, margin: 0, marginTop: 6 }}>{kpi.explanation}</p>
+                </article>
+              )
+            })}
           </section>
 
           <section style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(260px,1fr))', gap: 14, marginTop: 18 }}>

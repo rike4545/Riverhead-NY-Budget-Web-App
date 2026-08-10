@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react'
 import { usePathname } from 'next/navigation'
+import SettingsPanel from './SettingsPanel'
 
 const base = process.env.NEXT_PUBLIC_BASE_PATH || ''
 
@@ -78,25 +79,29 @@ export default function SiteNav() {
   const pathname = usePathname() || ''
   const [open, setOpen] = useState<string | null>(null)
   const [mobileOpen, setMobileOpen] = useState(false)
+  const [settingsOpen, setSettingsOpen] = useState(false)
   const navRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    function onClick(e: MouseEvent) {
-      if (navRef.current && !navRef.current.contains(e.target as Node)) setOpen(null)
+    function onMouseDown(e: MouseEvent) {
+      if (navRef.current && !navRef.current.contains(e.target as Node)) {
+        setOpen(null)
+        setSettingsOpen(false)
+      }
     }
     function onKey(e: KeyboardEvent) {
-      if (e.key === 'Escape') setOpen(null)
+      if (e.key === 'Escape') { setOpen(null); setSettingsOpen(false) }
     }
-    document.addEventListener('mousedown', onClick)
+    document.addEventListener('mousedown', onMouseDown)
     document.addEventListener('keydown', onKey)
     return () => {
-      document.removeEventListener('mousedown', onClick)
+      document.removeEventListener('mousedown', onMouseDown)
       document.removeEventListener('keydown', onKey)
     }
   }, [])
 
   // Close menus whenever the route changes (e.g. after clicking a link).
-  useEffect(() => { setOpen(null); setMobileOpen(false) }, [pathname])
+  useEffect(() => { setOpen(null); setMobileOpen(false); setSettingsOpen(false) }, [pathname])
 
   const groupIsActive = (g: Group) => g.links.some(([, href]) => pathname && href.endsWith(pathname))
 
@@ -155,19 +160,40 @@ export default function SiteNav() {
                 background: 'white', border: '1px solid #d8e0e7', borderRadius: 10,
                 boxShadow: '0 18px 40px rgba(15,23,42,.18)', padding: 8, display: 'grid', gap: 2,
               }}>
-                {g.links.map(([label, href]) => (
-                  <a key={href} href={href} style={{
-                    color: pathname && href.endsWith(pathname) ? '#284a69' : '#33475a', textDecoration: 'none',
-                    fontWeight: pathname && href.endsWith(pathname) ? 900 : 700, fontSize: 14, padding: '8px 10px',
-                    borderRadius: 7, background: pathname && href.endsWith(pathname) ? '#fdf3da' : 'transparent',
+                {g.links.map(([label, href]) => {
+                  const active = !!(pathname && href.endsWith(pathname))
+                  return (
+                  <a key={href} href={href} className="nav-dropdown-link" style={{
+                    color: active ? '#284a69' : '#33475a', textDecoration: 'none',
+                    fontWeight: active ? 900 : 600, fontSize: 13.5, padding: '8px 10px',
+                    borderRadius: 7, background: active ? '#fdf3da' : 'transparent',
+                    borderLeft: active ? '3px solid #c99a2e' : '3px solid transparent',
+                    display: 'block', transition: 'background .1s',
                   }}>
                     {label}
                   </a>
-                ))}
+                  )
+                })}
               </div>
             </div>
           </div>
         ))}
+
+        {/* Settings gear — opens floating SettingsPanel */}
+        <div style={{ position: 'relative' }}>
+          <button
+            onClick={() => setSettingsOpen((v) => !v)}
+            aria-label="Display settings"
+            aria-expanded={settingsOpen}
+            style={{
+              ...linkStyle, cursor: 'pointer', fontSize: 17, padding: '9px 12px',
+              ...(settingsOpen ? { background: '#c99a2e', borderColor: '#c99a2e', color: '#284a69' } : {}),
+            }}
+          >
+            ⚙
+          </button>
+          {settingsOpen && <SettingsPanel onClose={() => setSettingsOpen(false)} />}
+        </div>
       </nav>
 
       {/* Mobile dropdown: primary links + every group's links, flat */}
@@ -200,6 +226,10 @@ export default function SiteNav() {
         .nav-group:focus-within .nav-dropdown,
         .nav-dropdown.force-open {
           opacity: 1; visibility: visible; pointer-events: auto; transform: translateY(0);
+        }
+        .nav-dropdown-link:hover {
+          background: #f0f6ff !important;
+          color: #284a69 !important;
         }
         @media (max-width: 860px) {
           .nav-links { display: none !important; }
