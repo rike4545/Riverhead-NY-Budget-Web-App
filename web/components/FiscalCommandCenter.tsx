@@ -7,9 +7,9 @@ import { builtFromDocuments } from '../lib/built-from-documents'
 import { dollars } from '../lib/financial-data'
 
 const DOC_KIND: Record<string, { label: string; color: string; bg: string }> = {
-  budget: { label: 'Budget', color: '#1e40af', bg: '#dbeafe' },
-  supplement: { label: 'Supplement', color: '#166534', bg: '#dcfce7' },
-  afr: { label: 'Financial report', color: '#92400e', bg: '#fef3c7' },
+  budget: { label: 'Budget', color: '#3b82f6', bg: 'rgba(59,130,246,.12)' },
+  supplement: { label: 'Supplement', color: '#22c55e', bg: 'rgba(34,197,94,.12)' },
+  afr: { label: 'Financial report', color: '#f59e0b', bg: 'rgba(245,158,11,.12)' },
 }
 
 const base = process.env.NEXT_PUBLIC_BASE_PATH || ''
@@ -66,11 +66,11 @@ export default function FiscalCommandCenter() {
   return (
     <div id="top">
       <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', alignItems: 'center' }}>
-        <span style={{ color: '#64748b', fontWeight: 800, fontSize: 12.5, textTransform: 'uppercase', letterSpacing: 0.5 }}>On this page:</span>
+        <span style={{ color: 'var(--rbl-text-muted)', fontWeight: 800, fontSize: 12.5, textTransform: 'uppercase', letterSpacing: 0.5 }}>On this page:</span>
         {sectionAnchors.map(([label, href]) => (
           <a key={href} href={href} style={{ color: 'var(--rbl-page-accent)', textDecoration: 'none', border: '1px solid var(--rbl-border)', background: 'var(--rbl-surface)', borderRadius: 999, padding: '6px 12px', fontWeight: 800, fontSize: 12.5 }}>{label}</a>
         ))}
-        <span style={{ color: '#64748b', fontSize: 12.5, marginLeft: 'auto' }}>
+        <span style={{ color: 'var(--rbl-text-muted)', fontSize: 12.5, marginLeft: 'auto' }}>
           Source coverage: {archiveStats.indexedItems} documents across {archiveStats.yearsCovered} years
         </span>
       </div>
@@ -143,11 +143,11 @@ export default function FiscalCommandCenter() {
             <p style={{ color: muted }}>The handful of things that actually moved — what changed, why it matters to you, and what we&apos;re still double-checking.</p>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(280px,1fr))', gap: 14, marginTop: 16 }}>
               {narrativeInsights.map((insight) => (
-                <article key={insight.title} style={{ border: '1px solid #e2e8f0', borderRadius: 18, padding: 16, background: '#f8fafc' }}>
-                  <div style={{ color: '#2563eb', fontSize: 12, fontWeight: 950, textTransform: 'uppercase' }}>{insight.status}</div>
-                  <h3 style={{ margin: '8px 0' }}>{insight.title}</h3>
-                  <div style={{ fontSize: 26, fontWeight: 950 }}>{insight.value}</div>
-                  <p style={{ color: '#334155' }}>{insight.explanation}</p>
+                <article key={insight.title} style={{ border: '1px solid var(--rbl-border-subtle)', borderRadius: 18, padding: 16, background: 'var(--rbl-surface)' }}>
+                  <div style={{ color: 'var(--rbl-page-accent)', fontSize: 12, fontWeight: 950, textTransform: 'uppercase' }}>{insight.status}</div>
+                  <h3 style={{ margin: '8px 0', color: 'var(--rbl-title)' }}>{insight.title}</h3>
+                  <div style={{ fontSize: 26, fontWeight: 950, color: 'var(--rbl-text)' }}>{insight.value}</div>
+                  <p style={{ color: 'var(--rbl-text-sub)' }}>{insight.explanation}</p>
                   <p style={{ color: muted }}><strong>Why it matters:</strong> {insight.whyItMatters}</p>
                 </article>
               ))}
@@ -159,12 +159,12 @@ export default function FiscalCommandCenter() {
             <p style={{ color: muted }}>A town budget isn&apos;t one pot; it&apos;s a set of separate &quot;funds,&quot; each with its own money. Here&apos;s all of them from the adopted budget. Want to go deeper? The <a href={`${base}/funds/`} style={{ color: '#4a7297', fontWeight: 800 }}>Funds &amp; Sub-Accounts explorer</a> lets you open any fund right down to the individual line items, with year-by-year trends.</p>
             <div style={{ display: 'grid', gap: 10 }}>
               {allOperatingFunds2026.map((fund) => (
-                <details key={fund.code} style={{ border: '1px solid #e2e8f0', borderRadius: 16, padding: 14, background: '#f8fafc' }}>
+                <details key={fund.code} style={{ border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 14, background: 'var(--rbl-surface)' }}>
                   <summary style={{ cursor: 'pointer', fontWeight: 950, display: 'flex', justifyContent: 'space-between', gap: 12 }}>
                     <span>{fund.code} — {fund.name}</span>
                     <span>{dollars(fund.appropriations2026)}</span>
                   </summary>
-                  <p style={{ color: '#475569' }}>{fund.description}</p>
+                  <p style={{ color: 'var(--rbl-text-sub)' }}>{fund.description}</p>
                   <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(170px,1fr))', gap: 10 }}>
                     <Mini label="Estimated revenues" value={dollars(fund.estimatedRevenues2026)} />
                     <Mini label="Fund balance used" value={dollars(fund.appropriatedFundBalance2026)} />
@@ -172,7 +172,7 @@ export default function FiscalCommandCenter() {
                     <Mini label="Ending balance estimate" value={fund.estimatedFundBalance123125 ? dollars(fund.estimatedFundBalance123125) : 'Pending'} />
                   </div>
                   <div style={{ color: muted, fontSize: 12, marginTop: 10 }}>Source: {fund.source}</div>
-                  <a href={`${base}/funds/${fund.code}/`} style={{ display: 'inline-block', marginTop: 10, color: '#4a7297', fontWeight: 800 }}>Open {fund.code} account-level drilldown →</a>
+                  <a href={`${base}/funds/${fund.code}/`} style={{ display: 'inline-block', marginTop: 10, color: 'var(--rbl-page-accent)', fontWeight: 800 }}>Open {fund.code} account-level drilldown →</a>
                 </details>
               ))}
             </div>
@@ -187,7 +187,7 @@ export default function FiscalCommandCenter() {
               <Mini label="Funds using balance" value={String(reserveUsers.length)} />
             </div>
             <div style={{ marginTop: 16 }}>
-              {fundBalanceUseSummary.highestUseFunds.map((item) => <div key={item} style={{ padding: '9px 0', borderTop: '1px solid #e2e8f0' }}>{item}</div>)}
+              {fundBalanceUseSummary.highestUseFunds.map((item) => <div key={item} style={{ padding: '9px 0', borderTop: '1px solid var(--rbl-border-subtle)' }}>{item}</div>)}
             </div>
           </section>
 
@@ -202,9 +202,9 @@ export default function FiscalCommandCenter() {
             </div>
             <div style={{ display: 'grid', gap: 10, marginTop: 16 }}>
               {surplusScenario.allocations.map((item) => (
-                <div key={item.category} style={{ border: '1px solid #e2e8f0', borderRadius: 14, padding: 14, background: '#f8fafc' }}>
+                <div key={item.category} style={{ border: '1px solid var(--rbl-border-subtle)', borderRadius: 14, padding: 14, background: 'var(--rbl-surface)' }}>
                   <strong>{item.category}: {dollars(item.amount)}</strong>
-                  <p style={{ color: '#475569' }}>{item.description}</p>
+                  <p style={{ color: 'var(--rbl-text-sub)' }}>{item.description}</p>
                   <p style={{ color: muted }}><strong>Benefit:</strong> {item.benefit}</p>
                   <p style={{ color: muted }}><strong>Caution:</strong> {item.caution}</p>
                 </div>
@@ -214,18 +214,18 @@ export default function FiscalCommandCenter() {
 
           <section id="retirement" style={{ ...shell, scrollMarginTop: 24, marginTop: 18, padding: 24 }}>
             <h2 style={{ marginTop: 0 }}>The retirement buyout — and what to watch</h2>
-            <div style={{ background: '#f0fdf4', border: '1px solid #bbf7d0', borderRadius: 12, padding: '12px 16px', marginBottom: 14 }}>
-              <strong style={{ color: '#14532d' }}>Update — the buyout is now final.</strong>{' '}
-              <span style={{ color: '#166534' }}>
+            <div style={{ background: 'var(--rbl-note-bg)', border: '1px solid var(--rbl-note-border)', borderRadius: 12, padding: '12px 16px', marginBottom: 14 }}>
+              <strong style={{ color: 'var(--rbl-note-text)' }}>Update — the buyout is now final.</strong>{' '}
+              <span style={{ color: 'var(--rbl-note-sub)' }}>
                 The Town has executed 2026 Voluntary Retirement Incentive agreements with all three unions (CSEA $12,500;
                 PBA &amp; SOA $1,000/yr of service + sick-day payout).{' '}
-                <a href={`${base}/buyout/`} style={{ color: '#15803d', fontWeight: 800 }}>See the final terms →</a>
+                <a href={`${base}/buyout/`} style={{ color: 'var(--rbl-note-sub)', fontWeight: 800 }}>See the final terms →</a>
               </span>
             </div>
             <p style={{ color: muted }}><strong>{retirementProgramAssessment.classification}:</strong> {retirementProgramAssessment.explanation}</p>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(260px,1fr))', gap: 14 }}>
               {retirementRiskFactors.map((risk) => (
-                <article key={risk.title} style={{ border: '1px solid #e2e8f0', borderRadius: 16, padding: 14, background: '#f8fafc' }}>
+                <article key={risk.title} style={{ border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 14, background: 'var(--rbl-surface)' }}>
                   <div style={{ color: risk.riskLevel === 'High' ? '#dc2626' : '#ca8a04', fontWeight: 950 }}>{risk.riskLevel}</div>
                   <h3>{risk.title}</h3>
                   <p>{risk.description}</p>
@@ -243,29 +243,29 @@ export default function FiscalCommandCenter() {
               return (
                 <a key={doc.url} href={doc.url} target="_blank" rel="noreferrer"
                   style={{ display: 'grid', gridTemplateColumns: '64px 1fr 150px 70px', gap: 12, alignItems: 'center',
-                    borderTop: '1px solid #e2e8f0', padding: '10px 0', textDecoration: 'none', color: 'inherit' }}>
+                    borderTop: '1px solid var(--rbl-border-subtle)', padding: '10px 0', textDecoration: 'none', color: 'inherit' }}>
                   <strong>{doc.year}</strong>
-                  <span style={{ color: '#284a69', fontWeight: 700 }}>{doc.title}</span>
+                  <span style={{ color: 'var(--rbl-title)', fontWeight: 700 }}>{doc.title}</span>
                   <span style={{ justifySelf: 'start', background: k.bg, color: k.color, fontWeight: 800, fontSize: 11.5, padding: '3px 10px', borderRadius: 999 }}>{k.label}</span>
-                  <span style={{ color: '#4a7297', fontWeight: 900, justifySelf: 'end' }}>Open ↗</span>
+                  <span style={{ color: 'var(--rbl-page-accent)', fontWeight: 900, justifySelf: 'end' }}>Open ↗</span>
                 </a>
               )
             })}
             <p style={{ color: muted, fontSize: 12, marginTop: 12, marginBottom: 0 }}>Links open the Town&apos;s DocumentCenter (townofriverheadny.gov).</p>
           </section>
 
-          <section id="about" style={{ ...shell, scrollMarginTop: 24, marginTop: 18, padding: 24, borderLeft: '8px solid #4a7297' }}>
-            <h2 style={{ marginTop: 0, color: '#284a69' }}>About Riverhead Budget Live</h2>
+          <section id="about" style={{ ...shell, scrollMarginTop: 24, marginTop: 18, padding: 24, borderLeft: '8px solid var(--rbl-page-accent)' }}>
+            <h2 style={{ marginTop: 0, color: 'var(--rbl-title)' }}>About Riverhead Budget Live</h2>
             <p>Riverhead Budget Live is an independent, non-partisan, non-profit project. Our mission is to make Riverhead a better place to live and work by promoting public-policy reforms grounded in the fiscally responsible ideals of effective and accountable government.</p>
           </section>
 
           <section id="how-to-use" style={{ ...shell, scrollMarginTop: 24, marginTop: 18, padding: 24, borderLeft: '8px solid #15803d' }}>
-            <h2 style={{ marginTop: 0, color: '#284a69' }}>How to use this site</h2>
+            <h2 style={{ marginTop: 0, color: 'var(--rbl-title)' }}>How to use this site</h2>
             <p>Use this site to share, analyze, and compare data from governmental entities throughout Riverhead. The information on this website comes from official government sources, but the author cannot guarantee data accuracy or completeness.</p>
           </section>
 
-          <section id="disclaimers" style={{ ...shell, scrollMarginTop: 24, marginTop: 18, padding: 24, borderLeft: '8px solid #dc2626', background: '#fff7f7' }}>
-            <h2 style={{ marginTop: 0, color: '#991b1b' }}>The fine print</h2>
+          <section id="disclaimers" style={{ ...shell, scrollMarginTop: 24, marginTop: 18, padding: 24, borderLeft: '8px solid #dc2626' }}>
+            <h2 style={{ marginTop: 0, color: '#dc2626' }}>The fine print</h2>
             <p>This website is an independent public-information and fiscal-analysis project. It is not an official Town of Riverhead website and is not affiliated with, endorsed by, sponsored by, or operated by the Town of Riverhead or any Town department, political subdivision, political party or political organization or candidate.</p>
             <p>The figures are pulled automatically from public source documents, so the author cannot guarantee they are accurate or complete. A number can be misread, mislabeled, or lag behind the latest filing — a scanning glitch, a stray column, or a report that hadn&apos;t caught up yet.</p>
             <p>Nothing here is legal, financial, tax, or investment advice. The explanations, projections, classifications, and “realistic” analyses are the author&apos;s own interpretation of public records — not the Town&apos;s position and not a professional opinion.</p>
@@ -277,7 +277,7 @@ export default function FiscalCommandCenter() {
 
 function Mini({ label, value }: { label: string; value: string }) {
   return (
-    <div style={{ background: '#f8fafc', border: '1px solid #e2e8f0', borderRadius: 16, padding: 14 }}>
+    <div style={{ background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 14 }}>
       <div style={{ color: muted, fontSize: 12, textTransform: 'uppercase', fontWeight: 950 }}>{label}</div>
       <strong style={{ fontSize: 20 }}>{value}</strong>
     </div>
@@ -286,11 +286,11 @@ function Mini({ label, value }: { label: string; value: string }) {
 
 function FeatureCard({ href, tag, title, body }: { href: string; tag: string; title: string; body: string }) {
   return (
-    <a href={href} style={{ ...shell, padding: 20, textDecoration: 'none', color: 'inherit', display: 'block', borderTop: '5px solid #c99a2e' }}>
-      <div style={{ color: '#2563eb', fontSize: 11, fontWeight: 950, textTransform: 'uppercase', letterSpacing: 1 }}>{tag}</div>
-      <h3 style={{ margin: '8px 0 6px', fontSize: 22, color: '#284a69' }}>{title}</h3>
+    <a href={href} style={{ ...shell, padding: 20, textDecoration: 'none', color: 'inherit', display: 'block', borderTop: '5px solid var(--rbl-gold)' }}>
+      <div style={{ color: 'var(--rbl-page-accent)', fontSize: 11, fontWeight: 950, textTransform: 'uppercase', letterSpacing: 1 }}>{tag}</div>
+      <h3 style={{ margin: '8px 0 6px', fontSize: 22, color: 'var(--rbl-title)' }}>{title}</h3>
       <p style={{ color: muted, fontSize: 14, lineHeight: 1.5, margin: 0 }}>{body}</p>
-      <div style={{ color: '#4a7297', fontWeight: 900, marginTop: 12 }}>Open →</div>
+      <div style={{ color: 'var(--rbl-page-accent)', fontWeight: 900, marginTop: 12 }}>Open →</div>
     </a>
   )
 }
