@@ -7,6 +7,7 @@ import {
   scoreEntries,
   retrieveForQuestion,
   askRiverheadSearchAI,
+  verifyAnswer,
   RiverheadAIError,
 } from '../lib/riverheadSearchAI'
 
@@ -68,17 +69,22 @@ function snippet(text: string, terms: string[]): string {
 }
 
 // Render the AI answer, turning [n] citation markers into small chips that jump
-// to the matching numbered source record below.
-function renderAnswer(text: string): React.ReactNode {
+// to the matching numbered source record below. `sourceCount` is the number of
+// records actually shown, so a marker pointing past the end of that list — the
+// one citation failure a reader cannot catch on their own — renders as inert
+// text instead of a chip that scrolls nowhere.
+function renderAnswer(text: string, sourceCount: number): React.ReactNode {
   const parts = text.split(/(\[\d+\])/g)
   return parts.map((part, i) => {
     const m = part.match(/^\[(\d+)\]$/)
     if (m) {
+      const id = Number(m[1])
+      if (id < 1 || id > sourceCount) return part
       return (
-        <a key={i} href={`#ai-src-${m[1]}`} style={{
+        <a key={i} href={`#ai-src-${id}`} style={{
           display: 'inline-block', background: '#e0e7ff', color: '#3730a3', fontWeight: 800, fontSize: 11,
           padding: '0 6px', borderRadius: 6, textDecoration: 'none', verticalAlign: 'baseline', margin: '0 1px',
-        }}>{m[1]}</a>
+        }}>{id}</a>
       )
     }
     return part
@@ -254,6 +260,11 @@ export default function UnifiedSearch() {
   const searching = q !== debounced
   const hasKey = apiKey.trim().length > 0
 
+  // Check the answer against the records it was grounded on. On a transparency
+  // site a citation that leads nowhere is worse than no citation, so the failure
+  // is surfaced to the reader rather than rendered as though it checked out.
+  const answerCheck = useMemo(() => (aiAnswer ? verifyAnswer(aiAnswer, aiSources) : null), [aiAnswer, aiSources])
+
   return (
     <div style={{ display: 'grid', gap: 16 }}>
       {/* Mode toggle: keyword search vs. natural-language AI answer. */}
@@ -406,7 +417,28 @@ export default function UnifiedSearch() {
                 <span style={{ background: '#e0e7ff', color: '#3730a3', fontWeight: 800, fontSize: 11, padding: '2px 9px', borderRadius: 999, textTransform: 'uppercase', letterSpacing: 0.4 }}>AI answer</span>
                 <span style={{ color: '#94a3b8', fontSize: 12 }}>gpt-5-mini · grounded on the records below</span>
               </div>
-              <div style={{ color: '#1e293b', fontSize: 15, lineHeight: 1.6, whiteSpace: 'pre-wrap' }}>{renderAnswer(aiAnswer)}</div>
+              <div style={{ color: '#1e293b', fontSize: 15, lineHeight: 1.6, whiteSpace: 'pre-wrap' }}>{renderAnswer(aiAnswer, aiSources.length)}</div>
+
+              {answerCheck && (answerCheck.invalidCitations.length > 0 || answerCheck.unsupportedFigures.length > 0) && (
+                <div style={{ marginTop: 12, background: '#fffbeb', border: '1px solid #fde68a', borderRadius: 10, padding: '10px 12px' }}>
+                  <div style={{ fontWeight: 800, color: '#92400e', fontSize: 12.5, marginBottom: 3 }}>Check this answer before using it</div>
+                  <ul style={{ margin: 0, paddingLeft: 18, color: '#78350f', fontSize: 12.5, lineHeight: 1.55 }}>
+                    {answerCheck.invalidCitations.length > 0 && (
+                      <li>
+                        Cited {answerCheck.invalidCitations.map((n) => `[${n}]`).join(', ')}, which {answerCheck.invalidCitations.length === 1 ? 'is not a record' : 'are not records'} in
+                        the list below.
+                      </li>
+                    )}
+                    {answerCheck.unsupportedFigures.length > 0 && (
+                      <li>
+                        {answerCheck.unsupportedFigures.join(', ')} {answerCheck.unsupportedFigures.length === 1 ? 'does' : 'do'} not appear in
+                        any record below. Confirm against the official document before quoting {answerCheck.unsupportedFigures.length === 1 ? 'it' : 'them'}.
+                      </li>
+                    )}
+                  </ul>
+                </div>
+              )}
+
               <p style={{ color: '#6b7280', fontSize: 12, margin: '12px 0 0', borderTop: '1px solid #f1f5f9', paddingTop: 10 }}>
                 Unofficial AI explainer — numbers can be misread. Verify against the cited records and official Town documents.
               </p>

@@ -63,6 +63,13 @@ jobs:
         working-directory: web
         run: npm install --no-audit --no-fund
 
+      # Runs before the build: retrieval quality is what the Ask AI answer rests
+      # on, and it can regress from a ranker change or a reshaped index without
+      # anything else failing. No API key needed.
+      - name: Verify search retrieval
+        working-directory: web
+        run: npm run verify:retrieval
+
       - name: Build static export
         working-directory: web
         run: |
