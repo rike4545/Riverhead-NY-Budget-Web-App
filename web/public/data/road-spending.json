@@ -1,0 +1,41 @@
+{
+ "title": "Road spending per mile — Riverhead against the other Suffolk towns",
+ "asOf": "Fiscal year 2024",
+ "intro": "Every Suffolk County town files the same annual report to the State Comptroller using the same chart of accounts, so their road spending can be compared line for line. Divide it by the road miles each town actually maintains and you get a per-mile figure that is fair across towns of very different sizes.",
+ "spending": {
+  "source": "NYS Office of the State Comptroller, Financial Data for Local Governments",
+  "detail": "Annual financial report filings, fiscal year ending December 31, 2024; expenditures where Level 2 category = 'Highways'. Data snapshot dated July 31, 2026.",
+  "url": "https://www.osc.ny.gov/local-government/data"
+ },
+ "mileage": {
+  "source": "NYS Department of Transportation, Highway Mileage: Beginning 2008",
+  "detail": "Locally maintained centerline miles by municipality (field 'local_mileage'), 2020 — the most recent year published. Excludes state and county roads within the town, which those governments maintain.",
+  "url": "https://data.ny.gov/d/tccz-tc3t"
+ },
+ "towns": [
+  { "town": "Smithtown", "highways": 19851243, "miles": 470.70, "perMile": 42174 },
+  { "town": "Huntington", "highways": 31174857, "miles": 786.90, "perMile": 39617 },
+  { "town": "Babylon", "highways": 17947081, "miles": 529.97, "perMile": 33864 },
+  { "town": "Islip", "highways": 33487302, "miles": 997.98, "perMile": 33555 },
+  { "town": "Brookhaven", "highways": 59800886, "miles": 1799.59, "perMile": 33230 },
+  { "town": "Southampton", "highways": 12900129, "miles": 436.67, "perMile": 29542 },
+  { "town": "Southold", "highways": 4793578, "miles": 200.41, "perMile": 23919 },
+  { "town": "Riverhead", "highways": 4673787, "miles": 207.77, "perMile": 22495 },
+  { "town": "Shelter Island", "highways": 1110721, "miles": 49.52, "perMile": 22430 },
+  { "town": "East Hampton", "highways": 5347054, "miles": 285.58, "perMile": 18723 }
+ ],
+ "riverheadMix": [
+  { "object": "Personal Services", "amount": 2722233 },
+  { "object": "Equipment and Capital Outlay", "amount": 995678 },
+  { "object": "Contractual", "amount": 955876 }
+ ],
+ "caveats": [
+  "Low spending is not automatically good. Spending less per mile can mean an efficient operation or it can mean deferred maintenance, and this data cannot tell the two apart. Only pavement-condition ratings can, and Riverhead does not publish any.",
+  "Centerline miles, not lane miles. A four-lane road counts the same as a two-lane road of equal length, so towns with wider roads look more expensive per mile than they are.",
+  "The Highways category excludes employee benefits and debt service, which the Comptroller reports separately. The figures here are wages, contractual costs and equipment — not the full cost of running a highway department. Because every town is measured the same way, the comparison holds even though the absolute number understates.",
+  "Airports, bus service, waterways and transportation facilities are excluded. They sit in the broader 'Transportation' function, and including them would badly distort East Hampton, which runs an airport.",
+  "Villages maintain their own streets. Village roads and village spending are filed separately and are excluded from both sides here.",
+  "The two sources are from different years — spending is 2024, mileage is 2020, the latest NYSDOT published. Road mileage moves slowly, but it is not a perfect match.",
+  "A single year can mislead. A town that repaved heavily in 2024 looks expensive; one that deferred looks thrifty."
+ ]
+}
