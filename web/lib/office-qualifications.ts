@@ -40,9 +40,9 @@ export const electedRequirements: Requirement[] = [
   },
   {
     label: 'Residency',
-    value: 'Must live in Riverhead',
+    value: 'Must be an elector of the Town',
     detail:
-      'A candidate must be a resident of New York and of the Town, and must be an elector of the Town — a registered voter here — both at the time of election and continuously throughout the term. Moving out of Riverhead mid-term vacates the office.',
+      'A candidate must be a resident of New York and of the Town, and must be an elector of Riverhead — someone qualified to vote here — both at the time of election and continuously throughout the term. Moving out of Riverhead mid-term vacates the office. See what “elector” means below; it is a lower bar than most people expect.',
     source: 'Public Officers Law § 3(1); Town Law § 23',
   },
   {
@@ -69,7 +69,7 @@ export const notRequired = {
     'No education requirement — no degree of any kind, in any subject.',
     'No professional credential. The Supervisor is the Town’s chief fiscal officer and need hold no accounting, finance, or management qualification.',
     'No prior experience in government, budgeting, or management.',
-    'No minimum length of residency before running — being an elector on election day is enough.',
+    'No long residency history. Thirty days in the county before the election is the whole durational requirement — someone who moved to Riverhead a month before Election Day is eligible to run the Town.',
     'No competency or examination requirement of any kind.',
   ],
   closing:
@@ -126,13 +126,107 @@ export const appointedStaff = {
     'One distinction matters and is easy to miss: these rules bind public *officers*, not every public *employee*. A department head who holds an office is covered; ordinary staff generally are not, and civil service rules rather than the Town Code govern most hiring. Where a particular position falls is a legal question this page does not try to settle.',
 }
 
+// ---------------------------------------------------------------------------
+// "Elector of the town" — the load-bearing phrase in Town Law § 23
+// ---------------------------------------------------------------------------
+// Every residency rule for Riverhead office runs through this one word, and it
+// does less work than people assume. An elector is simply a person QUALIFIED to
+// vote, per Election Law § 5-102 — not someone with any length of tie to the
+// place. The durational requirement is thirty days, in the county.
+export const elector = {
+  title: 'What “elector of the Town” actually means',
+  lede:
+    'Both the state and the Town hang their residency rule on this phrase. An elector is a person qualified to vote here — nothing more demanding than that.',
+  tests: [
+    {
+      label: 'Citizenship',
+      detail: 'A citizen of the United States.',
+    },
+    {
+      label: 'Age',
+      detail: 'Eighteen or older on the day of the election — not on the day of filing or of taking office.',
+    },
+    {
+      label: 'Residency, and its length',
+      detail:
+        'A resident of New York State and of the county for at least 30 days before the election. Thirty days is the entire durational test. There is no requirement to have lived in Riverhead for a year, or to have grown up here, or to own property.',
+    },
+    {
+      label: 'What “residence” means',
+      detail:
+        'Election Law defines it as “that place where a person maintains a fixed, permanent and principal home and to which he, wherever temporarily located, always intends to return.” A second home in Riverhead does not qualify unless it is genuinely the principal one — which is why residency challenges usually turn on where someone actually lives rather than what they own.',
+    },
+  ],
+  disqualified:
+    'A person judged incompetent by a court cannot vote, and a person serving a felony sentence in prison cannot vote while incarcerated. New York restores voting rights on release.',
+  sources: 'Election Law §§ 5-102, 5-106; “residence” defined at Election Law § 1-104(22)',
+  note:
+    'Registration is the practical proof of being an elector and any real candidacy will involve it, but the statutory test is qualification to vote, not the paperwork.',
+}
+
+// ---------------------------------------------------------------------------
+// Which offices Riverhead elects, and how that got decided
+// ---------------------------------------------------------------------------
+// Chapter 103 is largely a record of the Town choosing its own governance
+// structure by local law, several times by mandatory referendum. Worth laying
+// out because who is elected — rather than hired for the skill — is a structural
+// choice Riverhead made, not a given.
+export const electedOffices = {
+  title: 'Which offices Riverhead elects',
+  lede:
+    'Six Town offices go on the ballot, and the Town chose that structure itself. Several of these choices were put to a mandatory referendum, so voters approved them directly.',
+  offices: [
+    'Supervisor',
+    'Town Council',
+    'Town Clerk',
+    'Receiver of Taxes',
+    'Highway Superintendent',
+    'Board of Assessors',
+  ],
+  source: 'Riverhead Town Code § 103-31',
+  decisions: [
+    {
+      what: 'Three elected Assessors, kept by public vote',
+      detail:
+        'Riverhead retained elective Assessors under a 1971 local law that voters ratified at a special election. Most New York towns moved the other way, to a single appointed assessor who must meet State certification standards. Riverhead did not: the officials who set the assessed value your tax bill is calculated from answer to the ballot rather than to a professional qualification.',
+      source: 'Town Code §§ 103-1 to 103-3 (L.L. No. 1-1971, approved at special election)',
+    },
+    {
+      what: 'Town Clerk: two-year term extended to four',
+      detail: 'Approved by referendum at the biennial Town election of November 6, 2007.',
+      source: 'Town Code §§ 103-5, 103-6 (L.L. No. 35-2007)',
+    },
+    {
+      what: 'Highway Superintendent: two-year term extended to four',
+      detail: 'Approved by referendum at the biennial Town election of November 3, 2009.',
+      source: 'Town Code §§ 103-9, 103-10 (L.L. No. 59-2009)',
+    },
+  ],
+}
+
+// This one is genuinely unresolved and the page should not pretend otherwise.
+export const oddYearElections = {
+  title: 'The Town’s own election-timing law, and the case that overtook it',
+  body: [
+    'On November 7, 2024 the Town Board adopted Local Law No. 30-2024, which states that the Supervisor, Town Council, Town Clerk, Receiver of Taxes, Highway Superintendent and Board of Assessors “shall be held on the Tuesday next succeeding the first Monday in November of every odd-numbered year.” Its findings trace the practice to 1899 and rest the Town’s authority on Article IX of the State Constitution and Municipal Home Rule Law § 10(1)(a)(1).',
+    'New York’s 2023 Even-Year Election Law moves most town elections to even-numbered years. Riverhead joined the federal challenge to that law, paid outside counsel, and withdrew in June 2026; on June 29, 2026 the court dismissed the government plaintiffs’ claims with prejudice and the even-year law stands.',
+    'So the Town has a local law on its books saying odd years, and a state law — upheld — saying even. In practice the 2026 election is proceeding on the even-year calendar. Which instrument ultimately controls, and whether L.L. 30-2024 has any remaining effect, is a legal question this site cannot answer; it is flagged here because a resident reading the Town Code alone would come away with the wrong idea about when their officials are elected.',
+  ],
+  caseHref: '/election-law-case/',
+}
+
 export const disclaimer =
   'A plain-English summary of statute and local law, not legal advice. Quoted language is from the sources named; anyone relying on this for an actual candidacy or appointment should read the sections themselves and speak to the Suffolk County Board of Elections or counsel.'
 
 export const sources = [
   { label: 'NY Public Officers Law § 3', url: 'https://www.nysenate.gov/legislation/laws/PBO/3' },
   { label: 'NY Town Law § 23', url: 'https://www.nysenate.gov/legislation/laws/TWN/23' },
-  { label: 'Riverhead Town Code Ch. 103, Art. VI (Term Limits)', url: 'https://ecode360.com/31054318' },
-  { label: 'Riverhead Town Code Ch. 103, Art. IV (Town Attorney)', url: 'https://ecode360.com/6246962' },
-  { label: 'Riverhead Town Code Ch. 103, Art. V (Dept. of Economic Development & Planning)', url: 'https://ecode360.com/29707857' },
+  { label: 'NY Election Law § 5-102 (voter qualifications)', url: 'https://www.nysenate.gov/legislation/laws/ELN/5-102' },
+  { label: 'NY Election Law § 1-104 (definitions)', url: 'https://www.nysenate.gov/legislation/laws/ELN/1-104' },
+  { label: 'Riverhead Town Code Ch. 103 (Town Officers and Employees)', url: 'https://ecode360.com/6246899' },
+  { label: 'Ch. 103, Art. I (Assessors)', url: 'https://ecode360.com/27154680' },
+  { label: 'Ch. 103, Art. VI (Term Limits)', url: 'https://ecode360.com/31054318' },
+  { label: 'Ch. 103, Art. VII (Biennial Town Elections)', url: 'https://ecode360.com/46063417' },
+  { label: 'Ch. 103, Art. IV (Town Attorney)', url: 'https://ecode360.com/6246962' },
+  { label: 'Ch. 103, Art. V (Dept. of Economic Development & Planning)', url: 'https://ecode360.com/29707857' },
 ]

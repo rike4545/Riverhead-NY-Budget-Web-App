@@ -3,8 +3,11 @@ import PlainCallout from '../../components/PlainCallout'
 import data from '../../public/data/board-elections.json'
 import {
   electedRequirements, notRequired, termLimitNote, appointedStaff, disclaimer,
+  elector, electedOffices, oddYearElections,
   sources as qualSources, type Requirement,
 } from '../../lib/office-qualifications'
+
+const base = process.env.NEXT_PUBLIC_BASE_PATH || ''
 
 const card = { background: 'white', border: '1px solid #e2e8f0', borderRadius: 16, padding: 18, boxShadow: '0 14px 34px rgba(15,23,42,.05)' } as const
 
@@ -137,6 +140,23 @@ export default function BoardElectionsPage() {
         </div>
       </section>
 
+      {/* What "elector" means — the phrase every residency rule hangs on */}
+      <section style={{ ...card, marginTop: 14, borderLeft: '6px solid #0d9488', background: '#f0fdfa' }}>
+        <h3 style={{ margin: '0 0 5px', color: '#0f766e', fontSize: 18 }}>{elector.title}</h3>
+        <p style={{ color: '#134e4a', fontSize: 14.5, lineHeight: 1.65, margin: '0 0 12px' }}>{elector.lede}</p>
+        <div style={{ display: 'grid', gap: 9 }}>
+          {elector.tests.map((t) => (
+            <div key={t.label} style={{ background: 'white', border: '1px solid #99f6e4', borderRadius: 10, padding: '11px 13px' }}>
+              <div style={{ color: '#0f766e', fontWeight: 900, fontSize: 13.5, marginBottom: 3 }}>{t.label}</div>
+              <div style={{ color: '#134e4a', fontSize: 14, lineHeight: 1.6 }}>{t.detail}</div>
+            </div>
+          ))}
+        </div>
+        <p style={{ color: '#134e4a', fontSize: 14, lineHeight: 1.6, margin: '11px 0 0' }}>{elector.disqualified}</p>
+        <p style={{ color: '#115e59', fontSize: 13.5, lineHeight: 1.6, margin: '8px 0 0' }}>{elector.note}</p>
+        <div style={{ color: '#5eaaa4', fontSize: 12, fontWeight: 700, marginTop: 7 }}>{elector.sources}</div>
+      </section>
+
       <section style={{ ...card, marginTop: 14, borderLeft: '6px solid #b45309', background: '#fffbeb' }}>
         <h3 style={{ margin: '0 0 8px', color: '#92400e', fontSize: 18 }}>{notRequired.title}</h3>
         <ul style={{ margin: '0 0 10px', paddingLeft: 0, listStyle: 'none', display: 'grid', gap: 7 }}>
@@ -158,6 +178,38 @@ export default function BoardElectionsPage() {
         <p style={{ color: '#334155', fontSize: 14.5, lineHeight: 1.65, margin: '0 0 9px' }}>{termLimitNote.intent}</p>
         <p style={{ color: '#334155', fontSize: 14.5, lineHeight: 1.65, margin: '0 0 9px' }}>{termLimitNote.mechanics}</p>
         <p style={{ color: '#64748b', fontSize: 13.5, lineHeight: 1.6, margin: 0 }}>{termLimitNote.authority}</p>
+      </section>
+
+      {/* Which offices are elected, and the choices behind that */}
+      <section style={{ ...card, marginTop: 14, borderLeft: '6px solid #4a7297' }}>
+        <h3 style={{ margin: '0 0 5px', color: '#284a69', fontSize: 18 }}>{electedOffices.title}</h3>
+        <p style={{ color: '#334155', fontSize: 14.5, lineHeight: 1.65, margin: '0 0 11px' }}>{electedOffices.lede}</p>
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: 7, marginBottom: 13 }}>
+          {electedOffices.offices.map((o) => (
+            <span key={o} style={{ background: '#eef6ff', color: '#284a69', border: '1px solid #bcd9f5', borderRadius: 999, padding: '5px 12px', fontSize: 13, fontWeight: 800 }}>{o}</span>
+          ))}
+        </div>
+        <div style={{ display: 'grid', gap: 10 }}>
+          {electedOffices.decisions.map((d) => (
+            <div key={d.what} style={{ background: '#f8fafc', border: '1px solid #e2e8f0', borderRadius: 12, padding: '12px 14px' }}>
+              <div style={{ color: '#284a69', fontWeight: 900, fontSize: 15, marginBottom: 4 }}>{d.what}</div>
+              <div style={{ color: '#475569', fontSize: 14, lineHeight: 1.6 }}>{d.detail}</div>
+              <div style={{ color: '#94a3b8', fontSize: 12, fontWeight: 700, marginTop: 5 }}>{d.source}</div>
+            </div>
+          ))}
+        </div>
+        <div style={{ color: '#94a3b8', fontSize: 12, fontWeight: 700, marginTop: 9 }}>Offices listed at {electedOffices.source}</div>
+      </section>
+
+      {/* Odd-year local law vs. the upheld even-year state law */}
+      <section style={{ ...card, marginTop: 14, borderLeft: '6px solid #b91c1c', background: '#fef2f2' }}>
+        <h3 style={{ margin: '0 0 8px', color: '#b91c1c', fontSize: 18 }}>{oddYearElections.title}</h3>
+        {oddYearElections.body.map((para, i) => (
+          <p key={i} style={{ color: '#7f1d1d', fontSize: 14.5, lineHeight: 1.65, margin: i === 0 ? 0 : '10px 0 0' }}>{para}</p>
+        ))}
+        <a href={`${base}${oddYearElections.caseHref}`} style={{ display: 'inline-block', marginTop: 10, color: '#b91c1c', fontWeight: 800, fontSize: 13.5, textDecoration: 'none' }}>
+          What the Town spent on that case →
+        </a>
       </section>
 
       <section style={{ ...card, marginTop: 14, borderLeft: '6px solid #5b21b6' }}>
