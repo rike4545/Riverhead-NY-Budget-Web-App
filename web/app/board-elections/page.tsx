@@ -1,6 +1,10 @@
 import PageShell from '../../components/PageShell'
 import PlainCallout from '../../components/PlainCallout'
 import data from '../../public/data/board-elections.json'
+import {
+  electedRequirements, notRequired, termLimitNote, appointedStaff, disclaimer,
+  sources as qualSources, type Requirement,
+} from '../../lib/office-qualifications'
 
 const card = { background: 'white', border: '1px solid #e2e8f0', borderRadius: 16, padding: 18, boxShadow: '0 14px 34px rgba(15,23,42,.05)' } as const
 
@@ -120,11 +124,85 @@ export default function BoardElectionsPage() {
         ))}
       </div>
 
+      {/* ---- What the job legally requires ---- */}
+      <h2 style={{ color: '#284a69', fontSize: 25, margin: '30px 0 4px' }}>What the job legally requires</h2>
+      <p style={{ color: '#64748b', fontSize: 14.5, lineHeight: 1.6, margin: '0 0 14px', maxWidth: 880 }}>
+        The votes above put these people in office. This is what the law asked of them before they could stand for it —
+        for the Supervisor and every Council member alike, since the qualifications are identical.
+      </p>
+
+      <section style={{ ...card, borderLeft: '6px solid #4a7297' }}>
+        <div style={{ display: 'grid', gap: 10 }}>
+          {electedRequirements.map((r) => <ReqRow key={r.label} r={r} />)}
+        </div>
+      </section>
+
+      <section style={{ ...card, marginTop: 14, borderLeft: '6px solid #b45309', background: '#fffbeb' }}>
+        <h3 style={{ margin: '0 0 8px', color: '#92400e', fontSize: 18 }}>{notRequired.title}</h3>
+        <ul style={{ margin: '0 0 10px', paddingLeft: 0, listStyle: 'none', display: 'grid', gap: 7 }}>
+          {notRequired.items.map((i) => (
+            <li key={i} style={{ display: 'flex', gap: 9, alignItems: 'baseline', color: '#78350f', fontSize: 14.5, lineHeight: 1.6 }}>
+              <span aria-hidden style={{ color: '#b45309', fontWeight: 900 }}>✕</span>
+              <span>{i}</span>
+            </li>
+          ))}
+        </ul>
+        <p style={{ color: '#78350f', fontSize: 14.5, lineHeight: 1.65, margin: 0 }}>{notRequired.closing}</p>
+      </section>
+
+      <section style={{ ...card, marginTop: 14, borderLeft: '6px solid #15803d' }}>
+        <h3 style={{ margin: '0 0 4px', color: '#284a69', fontSize: 18 }}>{termLimitNote.title}</h3>
+        <div style={{ color: '#64748b', fontSize: 12.5, fontWeight: 700, marginBottom: 9 }}>
+          Adopted {termLimitNote.adopted} · {termLimitNote.law}
+        </div>
+        <p style={{ color: '#334155', fontSize: 14.5, lineHeight: 1.65, margin: '0 0 9px' }}>{termLimitNote.intent}</p>
+        <p style={{ color: '#334155', fontSize: 14.5, lineHeight: 1.65, margin: '0 0 9px' }}>{termLimitNote.mechanics}</p>
+        <p style={{ color: '#64748b', fontSize: 13.5, lineHeight: 1.6, margin: 0 }}>{termLimitNote.authority}</p>
+      </section>
+
+      <section style={{ ...card, marginTop: 14, borderLeft: '6px solid #5b21b6' }}>
+        <h3 style={{ margin: '0 0 6px', color: '#284a69', fontSize: 18 }}>{appointedStaff.title}</h3>
+        <p style={{ color: '#334155', fontSize: 14.5, lineHeight: 1.65, margin: '0 0 12px' }}>{appointedStaff.lede}</p>
+        <div style={{ display: 'grid', gap: 10 }}>
+          {appointedStaff.requirements.map((r) => <ReqRow key={r.label} r={r} />)}
+        </div>
+        <p style={{ color: '#475569', fontSize: 13.5, lineHeight: 1.6, margin: '12px 0 0', paddingTop: 11, borderTop: '1px solid #e2e8f0' }}>
+          {appointedStaff.officerVsEmployee}
+        </p>
+      </section>
+
+      <section style={{ ...card, marginTop: 14 }}>
+        <p style={{ color: '#475569', fontSize: 13.5, lineHeight: 1.6, margin: '0 0 9px' }}>{disclaimer}</p>
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: 7 }}>
+          {qualSources.map((s) => (
+            <a key={s.url} href={s.url} target="_blank" rel="noreferrer"
+              style={{ color: '#4a7297', textDecoration: 'none', border: '1px solid #d8e0e7', background: '#f8fafc', borderRadius: 999, padding: '5px 11px', fontWeight: 700, fontSize: 12.5 }}>
+              {s.label} ↗
+            </a>
+          ))}
+        </div>
+      </section>
+
       <p style={{ color: '#6b7280', fontSize: 12.5, lineHeight: 1.55, marginTop: 16 }}>{data.note}</p>
       <p style={{ color: '#6b7280', fontSize: 12.5, lineHeight: 1.55, marginTop: 8 }}>
         Sources: {data.sources.join(' · ')}
       </p>
     </PageShell>
+  )
+}
+
+function ReqRow({ r }: { r: Requirement }) {
+  return (
+    <div style={{ background: '#f8fafc', border: '1px solid #e2e8f0', borderRadius: 12, padding: '12px 14px' }}>
+      <div style={{ display: 'flex', gap: 10, alignItems: 'baseline', flexWrap: 'wrap' }}>
+        <span style={{ color: '#64748b', fontSize: 11.5, fontWeight: 800, textTransform: 'uppercase', letterSpacing: 0.4, minWidth: 118 }}>
+          {r.label}
+        </span>
+        <strong style={{ color: '#284a69', fontSize: 16 }}>{r.value}</strong>
+      </div>
+      <div style={{ color: '#475569', fontSize: 14, lineHeight: 1.6, marginTop: 5 }}>{r.detail}</div>
+      <div style={{ color: '#94a3b8', fontSize: 12, fontWeight: 700, marginTop: 5 }}>{r.source}</div>
+    </div>
   )
 }
 
