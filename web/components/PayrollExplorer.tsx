@@ -162,7 +162,8 @@ export default function PayrollExplorer() {
           { term: 'Overtime', plain: 'Extra pay for hours worked beyond the normal schedule.' },
           { term: 'Other pay', plain: 'Everything on top of base and overtime: longevity, holiday and shift differentials, stipends, retroactive pay, and leave/termination buy-outs. That last group mixes sick and vacation buy-backs with severance and health-insurance opt-out buy-backs — only the buy-backs are accrued leave. Hover the column heading, or click a row, for the breakdown.' },
           { term: 'Gross Pay', plain: 'Base pay + overtime + other pay, all added together — the total actually paid for the year.' },
-          { term: 'Group', plain: 'The union or bargaining group the employee belongs to (for example PBA for police, CSEA for many town workers).' },
+          { term: 'Group', plain: 'The union or bargaining group the employee belongs to (for example PBA for police, CSEA for many town workers). Elected, appointed, management and part-time staff are not union-covered.' },
+          { term: 'Titles marked “·carried”', plain: 'The Town’s payroll export only includes job titles and departments from 2022 onward. Where someone held one unchanging title across every year on record, it is carried back to their earlier years and marked — it is an inference, not something the Town reported for that year. Anyone whose title ever changed is left blank instead, so a later promotion is never written into an earlier year.' },
         ]} />
         <div style={{ color: '#475569', fontSize: 13, marginBottom: 8, lineHeight: 1.5 }}>
           <strong>Tip:</strong> click any employee row to expand a full breakdown of how their gross pay is built —
@@ -217,8 +218,8 @@ export default function PayrollExplorer() {
                         <button onClick={(e) => { e.stopPropagation(); setQ(r.name); setYear('all'); setLimit(100) }} style={nameBtn} title="Show this employee across all years">{r.name}</button>
                         {r.fileNumber && <div style={{ fontSize: 11, color: '#6b7280', fontWeight: 600 }}>File #{r.fileNumber}</div>}
                       </td>
-                      <td style={td}>{r.title || '—'}</td>
-                      <td style={td}>{r.department || '—'}</td>
+                      <td style={td}><Inferred value={r.title} inferred={r.inferredTitle} /></td>
+                      <td style={td}><Inferred value={r.department} inferred={r.inferredDepartment} /></td>
                       <td style={{ ...td, color: '#475569' }}>{r.union || '—'}</td>
                       <td style={{ ...td, textAlign: 'right', color: '#64748b' }}>{usd(r.regular)}</td>
                       <td style={{ ...td, textAlign: 'right', color: r.overtime > 0 ? '#b45309' : '#6b7280', fontWeight: r.overtime > 0 ? 700 : 400 }}>{usd(r.overtime)}</td>
@@ -392,6 +393,24 @@ function OtherPayTip({ rows }: { rows: PayrollRecord[] }) {
         Click any row for that person&apos;s exact line-by-line breakdown.
       </span>
     </>
+  )
+}
+
+// The Town's export only carries title/department from 2022 on. Earlier years
+// are carried back from the same person's other years where every observed value
+// agreed — shown in italic with a dotted underline so an inference never reads
+// as something the Town reported for that year.
+function Inferred({ value, inferred }: { value: string; inferred: boolean }) {
+  if (!value) return <>—</>
+  if (!inferred) return <>{value}</>
+  return (
+    <span
+      title="Not reported for this year — carried back from another year in which this person held this same title, unchanged."
+      style={{ fontStyle: 'italic', color: '#64748b', borderBottom: '1px dotted #94a3b8', cursor: 'help' }}
+    >
+      {value}
+      <span aria-hidden style={{ color: '#94a3b8', fontWeight: 700 }}> ·carried</span>
+    </span>
   )
 }
 

@@ -18,6 +18,7 @@ export type PayrollRecordRaw = {
   r: number; o: number; g: number
   f?: string     // payroll file number (employee ID), joined from the Town roster
   k?: number[]   // [longevity, holiday, stipend, buyout, retro] breakdown of "other"
+  i?: string     // fields carried back from the person's other years: d/t/c/u
 }
 
 export type PayComponent = { key: string; label: string; amount: number }
@@ -36,6 +37,14 @@ export type PayrollRecord = {
   gross: number
   // Additive breakdown that sums EXACTLY to gross (misc absorbs the remainder).
   components: PayComponent[]
+  // The Town's export carries department/title/pay class only from 2022 on. For
+  // earlier years these are carried back from the same person's other years when
+  // every observed value agreed — an inference, so it's flagged rather than
+  // silently merged with reported data.
+  inferredDepartment: boolean
+  inferredTitle: boolean
+  inferredPayClass: boolean
+  inferredUnion: boolean
 }
 
 const COMPONENT_LABELS: [string, string][] = [
@@ -116,9 +125,14 @@ export function mapRawRecords(raw: PayrollRecordRaw[]): PayrollRecord[] {
       if (k[i]) components.push({ key, label, amount: r2(k[i]) })
     })
     if (Math.abs(misc) >= 1) components.push({ key: 'misc', label: 'Other pay & adjustments', amount: misc })
+    const inf = r.i ?? ''
     return {
       year: r.y, name: r.n, fileNumber: r.f ?? '', department: r.d, title: r.t, payClass: r.c, union: r.u,
       regular: r.r, overtime: r.o, gross: r.g, other, components,
+      inferredDepartment: inf.indexOf('d') >= 0,
+      inferredTitle: inf.indexOf('t') >= 0,
+      inferredPayClass: inf.indexOf('c') >= 0,
+      inferredUnion: inf.indexOf('u') >= 0,
     }
   })
 }

@@ -41,7 +41,13 @@ export const BENEFIT_LOAD = { low: 0.35, mid: 0.45, high: 0.55 }
 
 export const SWORN_UNIONS = ['PBA', 'SOA'] as const
 
-type Raw = { y: number; n: string; d: string; t: string; c: string; u: string; r: number; o: number; g: number }
+type Raw = { y: number; n: string; d: string; t: string; c: string; u: string; r: number; o: number; g: number; i?: string }
+
+// A title carried back from another year is an inference, and this analysis
+// assigns dollars to a specific rank in a specific year. Using a carried title
+// here would let a since-promoted officer's current rank absorb overtime they
+// earned at a lower one. Rank figures use reported titles only.
+const titleIsReported = (r: Raw) => (r.i ?? '').indexOf('t') < 0
 
 const records = (recordsJson as { records: Raw[] }).records
 
@@ -86,6 +92,7 @@ function rankYears(): RankYear[] {
   const buckets: Record<string, RankYear> = {}
   for (const r of records) {
     if (r.y < TITLE_DATA_FROM) continue
+    if (!titleIsReported(r)) continue
     if (!(SWORN_UNIONS as readonly string[]).includes(r.u)) continue
     if (r.r <= 0) continue // no base pay recorded — can't form a ratio
     const title = (r.t || '').trim()

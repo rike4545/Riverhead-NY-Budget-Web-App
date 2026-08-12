@@ -363,6 +363,61 @@ def _derive_hourly(wage_by_title, reso_source):
         w["hrDerivedMax"] = round((w.get("annMax") or w["annMin"]) / hi_hrs, 4)
 
 
+# The Town's Gross Earnings export gained Home Department Description, Job
+# Function Description and Pay Class in 2022; the 2018-2021 exports simply do
+# not contain those columns, so roughly 2,200 records carry no title. Where a
+# person held ONE AND ONLY ONE title across every year we can actually observe,
+# carrying it back is a defensible inference.
+#
+# It is still an inference, so two rules apply and neither is negotiable:
+#   1. Only fill when the observed values are unanimous. Anyone whose title,
+#      department, pay class or union ever changed is skipped for that field —
+#      about 8% of staff changed title within the 2022-2025 window alone, and
+#      back-filling a promotion would invent a history that never happened.
+#   2. Every filled value is flagged in the record's "i" string, so the site can
+#      mark it as inferred and any analysis that needs ground truth can drop it.
+CARRY_FIELDS = [("department", "d"), ("title", "t"), ("pay_class", "c"), ("union", "u")]
+
+
+def carry_forward_static_fields(rows, file_numbers):
+    """Fill blank department/title/pay_class/union from the same person's other
+    years, but only where every observed value agrees. Mutates rows in place,
+    setting row["_inferred"] to the short codes filled. Returns a count per field."""
+    def identity(row):
+        # Prefer the payroll File Number: it survives a name change (three people
+        # in this dataset appear under two surnames). Fall back to the normalized
+        # name when the lookup has no entry.
+        key = name_key(row["name"])
+        return file_numbers.get(key) or key
+
+    people = {}
+    for row in rows:
+        people.setdefault(identity(row), []).append(row)
+
+    counts = {code: 0 for _, code in CARRY_FIELDS}
+    skipped = {code: 0 for _, code in CARRY_FIELDS}
+    for person_rows in people.values():
+        for field, code in CARRY_FIELDS:
+            observed = {(r.get(field) or "").strip() for r in person_rows}
+            observed.discard("")
+            if len(observed) != 1:
+                if len(observed) > 1:
+                    skipped[code] += 1
+                continue
+            value = observed.pop()
+            for r in person_rows:
+                if (r.get(field) or "").strip():
+                    continue
+                r[field] = value
+                r["_inferred"] = r.get("_inferred", "") + code
+                counts[code] += 1
+
+    for field, code in CARRY_FIELDS:
+        print(f"Carried forward {field}: {counts[code]} records filled, "
+              f"{skipped[code]} people skipped (value changed over time)")
+    return counts
+
+
 def build():
     all_rows = []
     per_year = {}
@@ -385,6 +440,8 @@ def build():
     # pay beyond base and overtime; omitted when the employee has none of it.
     file_numbers = load_file_numbers()
 
+    inferred_counts = carry_forward_static_fields(all_rows, file_numbers)
+
     def rec(r):
         d = {
             "y": r["year"], "n": r["name"], "d": r["department"], "t": r["title"],
@@ -394,6 +451,8 @@ def build():
         fn = file_numbers.get(name_key(r["name"]))
         if fn:
             d["f"] = fn
+        if r.get("_inferred"):
+            d["i"] = r["_inferred"]
         k = [round(r.get(b, 0) or 0, 2) for b in BUCKETS]
         if any(k):
             d["k"] = k
@@ -406,8 +465,8 @@ def build():
     OUT.mkdir(parents=True, exist_ok=True)
     (OUT / "records.json").write_text(json.dumps({
         "source": {"title": "Town of Riverhead Gross Earnings reports", "url": "https://www.townofriverheadny.gov/206/Financial-Reports"},
-        "note": "Actual paid earnings (including overtime) by employee and year. Department, title, and pay class are available for 2022 onward.",
-        "fields": {"y": "year", "n": "name", "f": "payroll file number", "d": "department", "t": "title", "c": "pay class", "u": "union", "r": "regular earnings", "o": "overtime", "g": "gross pay", "k": "[longevity, holiday/differential, stipends, buy-outs, retro] breakdown of other pay"},
+        "note": "Actual paid earnings (including overtime) by employee and year. The Town's export only carries department, title, and pay class from 2022 onward; earlier years are blank unless the same person held one unchanging value across every year on record, in which case it is carried back and flagged in \"i\".",
+        "fields": {"y": "year", "n": "name", "f": "payroll file number", "d": "department", "t": "title", "c": "pay class", "u": "union", "r": "regular earnings", "o": "overtime", "g": "gross pay", "k": "[longevity, holiday/differential, stipends, buy-outs, retro] breakdown of other pay", "i": "fields carried back from the same person's other years rather than reported for this year (d=department, t=title, c=pay class, u=union)"},
         "unionLabels": UNION_LABELS,
         "count": len(records),
         "records": records,
