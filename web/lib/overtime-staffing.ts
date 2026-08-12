@@ -33,11 +33,12 @@ import recordsJson from '../public/data/payroll/records.json'
 // rate, so overtime dollars must be divided by this to compare with base pay.
 export const OT_PREMIUM = 1.5
 
-// Modeled employer cost on top of base salary — pension, health, FICA. NY police
-// pension contributions alone run high, so this band is deliberately wide and is
-// presented to the reader as an assumption, not a Town-published figure. This is
-// the one number on the page that isn't sourced from a Town document.
-export const BENEFIT_LOAD = { low: 0.35, mid: 0.45, high: 0.55 }
+// Employer cost on top of base salary — pension, health, FICA. Computed from
+// Riverhead's own Comptroller filing rather than assumed; see lib/benefit-load.ts
+// for the derivation and for why the range exists at all (it is one methodological
+// choice about health insurance, not uncertainty about the Town's numbers).
+import { BENEFIT_LOAD } from './benefit-load'
+export { BENEFIT_LOAD }
 
 export const SWORN_UNIONS = ['PBA', 'SOA'] as const
 
@@ -327,7 +328,7 @@ export const totalOpportunityMid = costComparisons.reduce((s, c) => s + Math.max
 export const caveats = [
   'Not all overtime is vacancy coverage. Court appearances, grant-funded details, special events, and genuine emergencies all land in the same line, and none of them are fixed by adding headcount.',
   'A position is permanent; overtime is not. Overtime flexes down in a quiet year, and a hire made in a busy one still has to be paid in the quiet one — with a pension obligation that outlives the budget that created it.',
-  'The benefit load is an assumption, not a Town figure. Everything else on this page comes from the Town’s Gross Earnings reports; the 35–55% employer cost band is modeled, and the conclusion moves with it.',
+  'The benefit load now comes from the Town’s own Comptroller filing rather than an assumption, but it still carries one judgment: health insurance is bought per person and has to be divided between police and everyone else. Splitting it per person or per payroll dollar moves the load from about 45% to about 56%, and the conclusion moves with it.',
   'Contract terms shape the floor. Minimum call-in guarantees and shift-swap rules can mean a rank cannot actually convert overtime hours into a post one-for-one.',
   'Supervisory ranks can’t be hired into. Detective, Sergeant, and Lieutenant are promotional, so adding one means promoting a serving officer and hiring an entry-step officer to backfill — that combined cost is what is shown here, not a pretend external hire.',
   'A new officer isn’t available immediately. Academy training and field training mean a hire authorized this budget year does not relieve overtime until well into the next one.',

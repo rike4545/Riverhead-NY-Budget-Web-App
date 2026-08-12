@@ -57,6 +57,9 @@ export type OvertimeStaffingProps = {
   individual: IndividualCheckProp
   totalOpportunityMid: number
   benefitLoad: { low: number; mid: number; high: number }
+  benefitBasis: { low: string; mid: string; high: string }
+  benefitExplainer: string
+  benefitSource: { title: string; detail: string; url: string }
   otPremium: number
   latestYear: number
   caveats: string[]
@@ -128,26 +131,35 @@ export default function OvertimeStaffing(p: OvertimeStaffingProps) {
 
       {/* Benefit-load control */}
       <section style={{ ...card, borderLeft: '6px solid #92400e', background: '#fffbeb' }}>
-        <h3 style={{ margin: '0 0 6px', color: '#92400e', fontSize: 16 }}>The one number here that isn&apos;t the Town&apos;s</h3>
+        <h3 style={{ margin: '0 0 6px', color: '#92400e', fontSize: 16 }}>
+          What a hire costs beyond salary — from Riverhead&apos;s own filing
+        </h3>
+        <p style={{ color: '#78350f', fontSize: 14.5, lineHeight: 1.6, margin: '0 0 10px' }}>{p.benefitExplainer}</p>
         <p style={{ color: '#78350f', fontSize: 14.5, lineHeight: 1.6, margin: '0 0 12px' }}>
-          Comparing overtime to a new hire requires knowing what a hire costs beyond salary — pension, health
-          insurance, FICA. The Town doesn&apos;t publish that as a single rate, so it is modeled here. Move it and watch
-          the conclusion move with it; that honesty is the point.
+          So the range below is not doubt about the Town&apos;s numbers. It is one methodological choice, shown rather
+          than hidden: split health insurance per person and the load lands near{' '}
+          <strong>{Math.round(p.benefitLoad.low * 100)}%</strong>; split it per dollar of wages and it reaches{' '}
+          <strong>{Math.round(p.benefitLoad.high * 100)}%</strong>.
         </p>
         <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
           {(['low', 'mid', 'high'] as const).map((k) => (
             <button
               key={k}
               onClick={() => setLoad(k)}
+              title={p.benefitBasis[k]}
               style={{
-                cursor: 'pointer', borderRadius: 999, padding: '7px 15px', fontWeight: 800, fontSize: 13.5,
+                cursor: 'pointer', borderRadius: 999, padding: '7px 15px', fontWeight: 800, fontSize: 13.5, textAlign: 'left',
                 border: '1px solid', borderColor: load === k ? '#92400e' : '#fde68a',
                 background: load === k ? '#92400e' : 'white', color: load === k ? 'white' : '#92400e',
               }}
             >
-              +{Math.round(p.benefitLoad[k] * 100)}% benefits
+              +{Math.round(p.benefitLoad[k] * 100)}%
+              <span style={{ display: 'block', fontSize: 11, fontWeight: 600, opacity: 0.85 }}>{p.benefitBasis[k]}</span>
             </button>
           ))}
+        </div>
+        <div style={{ color: '#92400e', fontSize: 12.5, marginTop: 10 }}>
+          Source: {p.benefitSource.title} — {p.benefitSource.detail}.
         </div>
         {p.totalOpportunityMid > 0 && load === 'mid' && (
           <p style={{ color: '#78350f', fontSize: 14.5, lineHeight: 1.6, margin: '12px 0 0' }}>

@@ -10,6 +10,7 @@ import {
   separationSummary, compensatedAbsences, liabilityOneYearChange, liabilityTwoYearChange,
   whyItMattersNow, caveats as separationCaveats, whatWouldSettleIt,
 } from '../../lib/separation-pay'
+import { BENEFIT_LOAD_BASIS, explainer as benefitExplainer, source as benefitSource } from '../../lib/benefit-load'
 
 export const metadata = {
   title: 'Payroll Explorer — employee pay, overtime & salaries',
@@ -41,6 +42,9 @@ export default function PayrollPage() {
           individual: individualRatioCheck,
           totalOpportunityMid,
           benefitLoad: BENEFIT_LOAD,
+          benefitBasis: BENEFIT_LOAD_BASIS,
+          benefitExplainer: benefitExplainer,
+          benefitSource: benefitSource,
           otPremium: OT_PREMIUM,
           latestYear,
           caveats,
