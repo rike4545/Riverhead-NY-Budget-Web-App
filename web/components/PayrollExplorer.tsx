@@ -2,6 +2,7 @@
 
 import { Fragment, useMemo, useState } from 'react'
 import Sparkline from './Sparkline'
+import InfoTip from './InfoTip'
 import { ColumnGuide } from './PlainCallout'
 import { useFetchJson } from './useFetchJson'
 import {
@@ -159,7 +160,7 @@ export default function PayrollExplorer() {
         <ColumnGuide items={[
           { term: 'Regular', plain: 'Base salary or wages — the normal pay, not counting overtime.' },
           { term: 'Overtime', plain: 'Extra pay for hours worked beyond the normal schedule.' },
-          { term: 'Other pay', plain: 'Everything on top of base and overtime: longevity, holiday and shift differentials, stipends, retroactive pay, and leave/termination buy-outs. Click a row to see the exact breakdown.' },
+          { term: 'Other pay', plain: 'Everything on top of base and overtime: longevity, holiday and shift differentials, stipends, retroactive pay, and leave/termination buy-outs. That last group mixes sick and vacation buy-backs with severance and health-insurance opt-out buy-backs — only the buy-backs are accrued leave. Hover the column heading, or click a row, for the breakdown.' },
           { term: 'Gross Pay', plain: 'Base pay + overtime + other pay, all added together — the total actually paid for the year.' },
           { term: 'Group', plain: 'The union or bargaining group the employee belongs to (for example PBA for police, CSEA for many town workers).' },
         ]} />
@@ -183,10 +184,23 @@ export default function PayrollExplorer() {
                 <th style={th}>Title</th>
                 <th style={th}>Department</th>
                 <th style={th}>Group</th>
-                <SortTh label="Regular" active={sortKey === 'regular'} onClick={() => setSortKey('regular')} />
-                <SortTh label="Overtime" active={sortKey === 'overtime'} onClick={() => setSortKey('overtime')} />
-                <th style={{ ...th, textAlign: 'right' }}>Other pay</th>
-                <SortTh label="Gross Pay" active={sortKey === 'gross'} onClick={() => setSortKey('gross')} />
+                <SortTh
+                  label="Regular" active={sortKey === 'regular'} onClick={() => setSortKey('regular')}
+                  tip={{ heading: 'Regular (base pay)', body: 'Base salary or wages for normal scheduled hours — before overtime and before any of the additions in “Other pay.”' }}
+                />
+                <SortTh
+                  label="Overtime" active={sortKey === 'overtime'} onClick={() => setSortKey('overtime')}
+                  tip={{ heading: 'Overtime', body: 'Pay for hours worked beyond the normal schedule, at the contractual premium rate (generally 1.5× the straight-time rate).' }}
+                />
+                <th style={{ ...th, textAlign: 'right' }}>
+                  <InfoTip label={<span style={{ fontWeight: 800, color: '#64748b' }}>Other pay</span>} heading="Other pay — what’s in it" align="right">
+                    <OtherPayTip rows={filtered} />
+                  </InfoTip>
+                </th>
+                <SortTh
+                  label="Gross Pay" active={sortKey === 'gross'} onClick={() => setSortKey('gross')}
+                  tip={{ heading: 'Gross Pay', body: 'Base pay + overtime + other pay — the total actually paid out for the year, before taxes and deductions. This is what the Town spent on that person, not their take-home.' }}
+                />
                 <th style={th} aria-label="expand" />
               </tr>
             </thead>
@@ -337,16 +351,72 @@ function LeaderCard({ title, rows, onPick, amber }: { title: string; rows: { nam
   )
 }
 
+// Live composition of "Other pay" across whatever rows are currently filtered,
+// so the tooltip describes the year/union the reader is actually looking at.
+function OtherPayTip({ rows }: { rows: PayrollRecord[] }) {
+  const totals: Record<string, { label: string; amount: number }> = {}
+  let total = 0
+  for (const r of rows) {
+    for (const c of r.components) {
+      if (c.key === 'regular' || c.key === 'overtime') continue
+      totals[c.key] = { label: c.label, amount: (totals[c.key]?.amount ?? 0) + c.amount }
+      total += c.amount
+    }
+  }
+  const parts = Object.keys(totals)
+    .map((k) => totals[k])
+    .filter((p) => p.amount > 0)
+    .sort((a, b) => b.amount - a.amount)
+
+  return (
+    <>
+      Everything paid on top of base salary and overtime. For the rows shown, it breaks down as:
+      {parts.length > 0 && (
+        <span style={{ display: 'block', margin: '7px 0 0' }}>
+          {parts.map((p) => (
+            <span key={p.label} style={{ display: 'flex', justifyContent: 'space-between', gap: 10, padding: '1.5px 0' }}>
+              <span style={{ color: '#b9cbdc' }}>{p.label}</span>
+              <span style={{ color: '#fff', fontWeight: 700, whiteSpace: 'nowrap' }}>
+                {total > 0 ? `${Math.round((p.amount / total) * 100)}%` : '—'}
+              </span>
+            </span>
+          ))}
+        </span>
+      )}
+      <span style={{ display: 'block', marginTop: 8, paddingTop: 7, borderTop: '1px solid rgba(255,255,255,.16)', color: '#cbd9e6' }}>
+        <strong style={{ color: '#fff' }}>“Leave &amp; termination buy-outs” is mixed.</strong> It holds sick and
+        vacation buy-backs — the accrued leave the Town owes — together with severance and health-insurance opt-out
+        buy-backs, which are not leave at all. In 2023 sick and vacation buy-backs were about 44% of that line.
+      </span>
+      <span style={{ display: 'block', marginTop: 6, color: '#9fb6ca' }}>
+        Click any row for that person&apos;s exact line-by-line breakdown.
+      </span>
+    </>
+  )
+}
+
 const th = { padding: '8px 9px' } as const
 const td = { padding: '7px 9px' } as const
 const nameBtn = { background: 'none', border: 'none', color: '#284a69', fontWeight: 700, cursor: 'pointer', padding: 0, font: 'inherit', textAlign: 'left' as const }
 
-function SortTh({ label, active, onClick }: { label: string; active: boolean; onClick: () => void }) {
+function SortTh({
+  label, active, onClick, tip,
+}: { label: string; active: boolean; onClick: () => void; tip?: { heading: string; body: React.ReactNode } }) {
+  const button = (
+    <button onClick={onClick} style={{ background: 'none', border: 'none', cursor: 'pointer', fontWeight: 800, color: active ? '#4a7297' : '#64748b', font: 'inherit' }}>
+      {label}{active ? ' ▾' : ''}
+    </button>
+  )
   return (
     <th style={{ ...th, textAlign: 'right' }}>
-      <button onClick={onClick} style={{ background: 'none', border: 'none', cursor: 'pointer', fontWeight: 800, color: active ? '#4a7297' : '#64748b', font: 'inherit' }}>
-        {label}{active ? ' ▾' : ''}
-      </button>
+      {tip ? (
+        // The sort button and the tooltip trigger are siblings, not nested — a
+        // button inside a button is invalid, and the tip's own click handler
+        // stops propagation so opening it never triggers a re-sort.
+        <span style={{ display: 'inline-flex', alignItems: 'center', gap: 3 }}>
+          <InfoTip label={button} heading={tip.heading} align="right">{tip.body}</InfoTip>
+        </span>
+      ) : button}
     </th>
   )
 }

@@ -37,6 +37,20 @@ export type SeparationPayProps = {
 }
 
 const usd = (n: number) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(n)
+
+// lib/payroll.ts's unionLabels only names the actual bargaining units. These are
+// the remaining group codes in the payroll data, read off the pay classes and
+// titles that carry them — none of them are unions, which is exactly why they
+// need spelling out rather than showing as a bare code.
+const NON_UNION_LABELS: Record<string, string> = {
+  NON: 'Non-represented (incl. part-time & seasonal)',
+  APT: 'Appointed board members',
+  CON: 'Individual contract',
+  ELE: 'Elected',
+  '(unlabeled)': 'Group not recorded',
+}
+const groupLabel = (code: string, unionLabels: Record<string, string>) =>
+  unionLabels[code] ?? NON_UNION_LABELS[code] ?? code
 const card = { background: 'white', border: '1px solid #e2e8f0', borderRadius: 16, padding: 20, boxShadow: '0 14px 34px rgba(15,23,42,.05)' } as const
 
 export default function SeparationPay(p: SeparationPayProps) {
@@ -117,11 +131,17 @@ export default function SeparationPay(p: SeparationPayProps) {
           </span>
         </div>
 
+        <div style={{ background: '#f8fafc', border: '1px solid #e2e8f0', borderRadius: 10, padding: '11px 13px', marginBottom: 12, color: '#475569', fontSize: 13.5, lineHeight: 1.6 }}>
+          <strong style={{ color: '#284a69' }}>Not all of these are unions.</strong> CSEA, the PBA and the SOA are
+          bargaining units, and their leave and buy-back terms are set in a negotiated contract. Elected, appointed,
+          management and non-represented staff are not union-covered — their leave benefits come from Board policy or
+          an individual agreement, which is a different accountability path for the same kind of cost.
+        </div>
         <div style={{ overflowX: 'auto' }}>
           <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 14, minWidth: 520 }}>
             <thead>
               <tr style={{ background: '#f8fafc' }}>
-                <Th align="left">Bargaining unit</Th>
+                <Th align="left">Group</Th>
                 <Th align="right">Separations</Th>
                 <Th align="right">Final-year pay above career average</Th>
                 <Th align="right">Median separation year</Th>
@@ -130,7 +150,7 @@ export default function SeparationPay(p: SeparationPayProps) {
             <tbody>
               {p.summary.byUnion.map((u) => (
                 <tr key={u.union} style={{ borderTop: '1px solid #e2e8f0' }}>
-                  <Td align="left"><strong style={{ color: '#284a69' }}>{p.unionLabels[u.union] ?? u.union}</strong></Td>
+                  <Td align="left"><strong style={{ color: '#284a69' }}>{groupLabel(u.union, p.unionLabels)}</strong></Td>
                   <Td align="right">{u.separations}</Td>
                   <Td align="right">{usd(u.excessOverCareerAverage)}</Td>
                   <Td align="right">{usd(u.medianFinalYearResidual)}</Td>

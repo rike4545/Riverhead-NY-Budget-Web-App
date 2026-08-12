@@ -12,6 +12,22 @@ export const glossary: Record<string, GlossaryEntry> = {
     term: 'Early Retirement Buyout / Incentive',
     plain: 'A one-time payment the Town offers to encourage eligible longtime employees to retire now, so it can hold positions open, combine roles, or refill them at lower cost.',
   },
+  'leave-buyback': {
+    term: 'Sick / vacation buy-back',
+    plain: 'Employees earn sick and vacation days each year, and unused days often carry over. A buy-back is the Town paying cash for some of those banked days instead of letting the person take the time off — either periodically during a career, or as one payment when they leave. The days were already earned, so this is settling a debt, not a bonus.',
+  },
+  'compensated-absences': {
+    term: 'Compensated absences',
+    plain: 'The accounting name for unused sick, vacation, and personal time that employees have earned and the Town will eventually have to pay for. It appears as a liability on the Town’s audited books because it is money owed, even though nobody has cashed it out yet.',
+  },
+  'health-insurance-buyback': {
+    term: 'Health insurance buy-back',
+    plain: 'A payment to an employee who declines the Town’s health coverage — usually because they are covered by a spouse’s plan. The Town pays them part of what the premium would have cost. Despite the similar name, this has nothing to do with sick or vacation time.',
+  },
+  severance: {
+    term: 'Severance',
+    plain: 'A payment made because employment is ending, set by contract or agreement. Unlike a leave buy-back it is not time the employee banked and earned — which is why the two should not be read as the same thing even though they land in the same payroll column.',
+  },
   ers: {
     term: 'ERS',
     plain: 'The New York State & Local Employees’ Retirement System — the state pension system most non-police town workers belong to.',
