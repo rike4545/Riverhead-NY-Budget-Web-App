@@ -19,6 +19,7 @@ Outputs:
 import csv
 import json
 import re
+from collections import Counter
 from pathlib import Path
 
 try:
@@ -418,6 +419,55 @@ def carry_forward_static_fields(rows, file_numbers):
     return counts
 
 
+# A blank union code is the largest remaining hole in the dataset. Pay Class
+# often names the bargaining unit outright ("Highway CSEA 8-40", "PBA 8-40"), so
+# where a pay class is overwhelmingly associated with one union among the records
+# that DO carry a code, that association can fill the blanks.
+#
+# The mapping is learned from the data rather than hardcoded, so it stays correct
+# as the Town's pay classes change. Two thresholds keep it honest, and the mixed
+# cases are exactly the ones that must not be guessed: "Police Dept Head" splits
+# SOA/NON 12-to-4 and "Elected" splits three ways, so neither qualifies.
+PAY_CLASS_UNION_MIN_SAMPLE = 10
+PAY_CLASS_UNION_MIN_SHARE = 0.95
+
+
+def union_from_pay_class(rows):
+    """Fill a blank union from the row's own Pay Class, where that pay class maps
+    to one union with near-unanimity among labelled records. Mutates rows."""
+    observed = {}
+    for r in rows:
+        pc = (r.get("pay_class") or "").strip()
+        u = (r.get("union") or "").strip()
+        if pc and u:
+            observed.setdefault(pc, Counter())[u] += 1
+
+    mapping = {}
+    for pc, dist in observed.items():
+        total = sum(dist.values())
+        union, n = dist.most_common(1)[0]
+        if total >= PAY_CLASS_UNION_MIN_SAMPLE and n / total >= PAY_CLASS_UNION_MIN_SHARE:
+            mapping[pc] = (union, n / total, total)
+
+    filled = 0
+    for r in rows:
+        if (r.get("union") or "").strip():
+            continue
+        hit = mapping.get((r.get("pay_class") or "").strip())
+        if not hit:
+            continue
+        r["union"] = hit[0]
+        if "u" not in r.get("_inferred", ""):
+            r["_inferred"] = r.get("_inferred", "") + "u"
+        filled += 1
+
+    for pc, (u, share, total) in sorted(mapping.items()):
+        print(f"  pay class {pc!r} -> {u} ({share*100:.1f}% of {total} labelled)")
+    print(f"Union derived from pay class: {filled} records filled "
+          f"({len(observed) - len(mapping)} pay classes too mixed to use)")
+    return filled
+
+
 def build():
     all_rows = []
     per_year = {}
@@ -440,6 +490,9 @@ def build():
     # pay beyond base and overtime; omitted when the employee has none of it.
     file_numbers = load_file_numbers()
 
+    # Pay-class derivation runs FIRST so the unions it recovers become observed
+    # values that carry-forward can then propagate to the person's other years.
+    union_from_pay_class(all_rows)
     inferred_counts = carry_forward_static_fields(all_rows, file_numbers)
 
     def rec(r):

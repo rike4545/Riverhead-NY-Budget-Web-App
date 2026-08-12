@@ -27,7 +27,7 @@
 
 import recordsJson from '../public/data/payroll/records.json'
 
-type Raw = { y: number; n: string; d: string; t: string; c: string; u: string; r: number; o: number; g: number }
+type Raw = { y: number; n: string; d: string; t: string; c: string; u: string; r: number; o: number; g: number; f?: string }
 const records = (recordsJson as { records: Raw[] }).records
 
 const LAST_FULL_YEAR = 2025
@@ -45,10 +45,41 @@ export type SeparationSummary = {
   totalExcess: number
   medianFinalYearResidual: number
   largestFinalYearResidual: number
+  /** People whose final year exceeded their own norm by a material amount. */
+  concentratedCount: number
+  /** Share of the whole total those few people account for. */
+  concentratedShare: number
   byUnion: UnionSeparationRollup[]
 }
 
+// Above this, a separation year is materially bigger than the person's own norm
+// rather than ordinary year-to-year noise.
+const MATERIAL_EXCESS = 5_000
+
 const residual = (r: Raw) => r.g - r.r - r.o
+
+// A blank union code is not one thing. Most of these people are pre-2022 leavers
+// whose records predate the Town reporting a group at all — genuinely unknown.
+// But the largest separation payouts in the whole dataset sit in this bucket and
+// are NOT unknown: they are department heads and appointed officials, who are not
+// union-covered by definition. Lumping a police chief in with an unidentifiable
+// seasonal worker as "(unlabeled)" hides the most interesting row on the table.
+function groupOf(r: Raw): string {
+  const union = (r.u || '').trim()
+  if (union) return union
+  const payClass = (r.c || '').trim().toLowerCase()
+  const title = (r.t || '').trim().toLowerCase()
+  if (payClass === 'elected' || title === 'town clerk' || title === 'supervisor') return '~elected'
+  if (payClass.indexOf('dept head') >= 0 || payClass.indexOf('contractual') >= 0) return '~appointed'
+  if (title.indexOf('member of') === 0) return '~appointed'
+  return '~unknown'
+}
+
+export const DERIVED_GROUP_LABELS: Record<string, string> = {
+  '~elected': 'Elected — group inferred from pay class',
+  '~appointed': 'Department head / appointed — group inferred',
+  '~unknown': 'Group not recorded',
+}
 const median = (xs: number[]) => {
   if (!xs.length) return 0
   const s = xs.slice().sort((a, b) => a - b)
@@ -59,7 +90,12 @@ const median = (xs: number[]) => {
 export const separationSummary: SeparationSummary = (() => {
   const byPerson: Record<string, Raw[]> = {}
   for (const r of records) {
-    const key = `${r.n}|${r.u}`
+    // Identity must not include a field this pipeline fills in. Keying on the
+    // union code would split one person into two the moment a blank code got
+    // derived, inventing a separation that never happened. The payroll File
+    // Number is stable and even follows a name change; fall back to the name,
+    // which is 1:1 with File Number across this dataset.
+    const key = (r.f || '').trim() || r.n
     byPerson[key] = (byPerson[key] ?? []).concat(r)
   }
 
@@ -75,7 +111,7 @@ export const separationSummary: SeparationSummary = (() => {
     const prior = ys.slice(0, -1).map(residual)
     const careerAvg = prior.reduce((s, x) => s + x, 0) / prior.length
     const finalResidual = residual(last)
-    rows.push({ union: last.u || '(unlabeled)', excess: finalResidual - careerAvg, finalResidual })
+    rows.push({ union: groupOf(last), excess: finalResidual - careerAvg, finalResidual })
   }
 
   const byUnionMap: Record<string, Row[]> = {}
@@ -93,11 +129,17 @@ export const separationSummary: SeparationSummary = (() => {
     }))
     .sort((a, b) => b.excessOverCareerAverage - a.excessOverCareerAverage)
 
+  const totalExcess = rows.reduce((s, r) => s + Math.max(0, r.excess), 0)
+  const concentrated = rows.filter((r) => r.excess > MATERIAL_EXCESS)
   return {
     separations: rows.length,
-    totalExcess: rows.reduce((s, r) => s + Math.max(0, r.excess), 0),
+    totalExcess,
     medianFinalYearResidual: median(rows.map((r) => r.finalResidual)),
     largestFinalYearResidual: Math.max.apply(null, rows.map((r) => r.finalResidual)),
+    concentratedCount: concentrated.length,
+    concentratedShare: totalExcess > 0
+      ? concentrated.reduce((s, r) => s + r.excess, 0) / totalExcess
+      : 0,
     byUnion,
   }
 })()

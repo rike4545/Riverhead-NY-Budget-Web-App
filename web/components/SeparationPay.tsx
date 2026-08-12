@@ -20,6 +20,8 @@ export type SeparationPayProps = {
     totalExcess: number
     medianFinalYearResidual: number
     largestFinalYearResidual: number
+    concentratedCount: number
+    concentratedShare: number
     byUnion: UnionRollupProp[]
   }
   liability: {
@@ -47,7 +49,11 @@ const NON_UNION_LABELS: Record<string, string> = {
   APT: 'Appointed board members',
   CON: 'Individual contract',
   ELE: 'Elected',
-  '(unlabeled)': 'Group not recorded',
+  // Derived in lib/separation-pay.ts where the Town reported no group code but
+  // the pay class or title still says plainly that the person wasn't in a union.
+  '~elected': 'Elected — group inferred from pay class',
+  '~appointed': 'Department head / appointed — group inferred',
+  '~unknown': 'Group not recorded',
 }
 const groupLabel = (code: string, unionLabels: Record<string, string>) =>
   unionLabels[code] ?? NON_UNION_LABELS[code] ?? code
@@ -125,9 +131,10 @@ export default function SeparationPay(p: SeparationPayProps) {
         <div style={{ background: '#f0fdf4', border: '1px solid #bbf7d0', borderRadius: 10, padding: '12px 14px', marginBottom: 16 }}>
           <strong style={{ color: '#166534' }}>The median is the important number.</strong>{' '}
           <span style={{ color: '#14532d', fontSize: 14.5, lineHeight: 1.6 }}>
-            At {usd(p.summary.medianFinalYearResidual)}, the typical separation is unremarkable. This is a tail, not a
-            norm — a small number of very large final years make up nearly all of the total. Any reading of this that
-            implies most departing employees receive a windfall is wrong.
+            At {usd(p.summary.medianFinalYearResidual)}, the typical separation is unremarkable. Precisely{' '}
+            <strong>{p.summary.concentratedCount} of the {p.summary.separations}</strong> people here account for{' '}
+            <strong>{Math.round(p.summary.concentratedShare * 100)}%</strong> of the entire total. This is a tail, not a
+            norm, and any reading that implies most departing employees receive a windfall is wrong.
           </span>
         </div>
 
@@ -135,7 +142,10 @@ export default function SeparationPay(p: SeparationPayProps) {
           <strong style={{ color: '#284a69' }}>Not all of these are unions.</strong> CSEA, the PBA and the SOA are
           bargaining units, and their leave and buy-back terms are set in a negotiated contract. Elected, appointed,
           management and non-represented staff are not union-covered — their leave benefits come from Board policy or
-          an individual agreement, which is a different accountability path for the same kind of cost.
+          an individual agreement, which is a different accountability path for the same kind of cost. Where the Town
+          reported no group at all, the pay class and job title are used to say at least whether the person was
+          union-covered; the rows that remain genuinely unidentifiable are mostly people who left before 2022, when the
+          Town began reporting titles and departments at all.
         </div>
         <div style={{ overflowX: 'auto' }}>
           <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 14, minWidth: 520 }}>
