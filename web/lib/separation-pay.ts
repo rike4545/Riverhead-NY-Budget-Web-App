@@ -64,19 +64,25 @@ const residual = (r: Raw) => r.g - r.r - r.o
 // are NOT unknown: they are department heads and appointed officials, who are not
 // union-covered by definition. Lumping a police chief in with an unidentifiable
 // seasonal worker as "(unlabeled)" hides the most interesting row on the table.
+//
+// Where the inference lands on the SAME real category the Town's own union code
+// already names (ELE for elected, APT for appointed board members), return that
+// code directly rather than a separate "~elected"/"~appointed-board" bucket — a
+// blank code doesn't make someone a different kind of person, and showing both
+// produced two rows for what is really one group. Only "department head /
+// contractual" has no corresponding raw code, so it keeps its own derived bucket.
 function groupOf(r: Raw): string {
   const union = (r.u || '').trim()
   if (union) return union
   const payClass = (r.c || '').trim().toLowerCase()
   const title = (r.t || '').trim().toLowerCase()
-  if (payClass === 'elected' || title === 'town clerk' || title === 'supervisor') return '~elected'
+  if (payClass === 'elected' || title === 'town clerk' || title === 'supervisor') return 'ELE'
+  if (title.indexOf('member of') === 0) return 'APT'
   if (payClass.indexOf('dept head') >= 0 || payClass.indexOf('contractual') >= 0) return '~appointed'
-  if (title.indexOf('member of') === 0) return '~appointed'
   return '~unknown'
 }
 
 export const DERIVED_GROUP_LABELS: Record<string, string> = {
-  '~elected': 'Elected — group inferred from pay class',
   '~appointed': 'Department head / appointed — group inferred',
   '~unknown': 'Group not recorded',
 }

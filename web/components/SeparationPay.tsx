@@ -50,8 +50,11 @@ const NON_UNION_LABELS: Record<string, string> = {
   CON: 'Individual contract',
   ELE: 'Elected',
   // Derived in lib/separation-pay.ts where the Town reported no group code but
-  // the pay class or title still says plainly that the person wasn't in a union.
-  '~elected': 'Elected — group inferred from pay class',
+  // the pay class still says plainly the person was a department head or
+  // contractual employee — no raw union code covers that category, so it keeps
+  // its own bucket (unlike the elected/appointed-board inferences, which are
+  // folded into ELE/APT directly in separation-pay.ts since those already have
+  // a real code).
   '~appointed': 'Department head / appointed — group inferred',
   '~unknown': 'Group not recorded',
 }
