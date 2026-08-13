@@ -6,6 +6,19 @@
   "estimate2024": 35980,
   "source": "U.S. Census Bureau QuickFacts, Riverhead town, Suffolk County, NY."
  },
+ "businesses": {
+  "totalEmployerFirms": 1424,
+  "totalEmployerFirmsYear": 2022,
+  "totalEmployerFirmsSource": "U.S. Census Bureau, County Business Patterns (via Census Bureau QuickFacts, Riverhead town, Suffolk County, NY).",
+  "totalEmployment2024": 6520,
+  "employmentGrowth2023to2024Pct": 1.72,
+  "topIndustriesByEmployment2024": [
+   {"industry": "Health Care & Social Assistance", "employees": 1009},
+   {"industry": "Construction", "employees": 806},
+   {"industry": "Administrative & Support & Waste Management Services", "employees": 728}
+  ],
+  "note": "Employer-firm count and industry breakdown are from different Census products (County Business Patterns firm counts vs. American Community Survey-derived employment by industry, both aggregated by Data USA/Census QuickFacts), so they don't reconcile to a single table — a full establishment-by-industry breakdown (e.g. retail, accommodation & food service, wholesale) wasn't accessible this pass; these are the three largest sectors by people employed, not by establishment count."
+ },
  "taxBase": {
   "impliedFullValuation": 7082608871,
   "impliedFullValuationNote": "Implied from the audited debt-limit disclosure: the statutory debt limit is 7% of the Town's five-year-average full (market) valuation, and that limit is $495,782,621 — so the five-year-average full valuation is about $7.08 billion.",
@@ -40,6 +53,7 @@
  "sources": [
   "U.S. Census Bureau QuickFacts — Riverhead town, Suffolk County, NY.",
   "Town of Riverhead 2022 Audited Basic Financial Statements (debt-limit and assessed-value disclosures).",
-  "RiverheadLOCAL and Riverhead News-Review reporting on Tanger, big-box assessments, grievance litigation, and the Friar's Head refund (2022, 2024, 2026)."
+  "RiverheadLOCAL and Riverhead News-Review reporting on Tanger, big-box assessments, grievance litigation, and the Friar's Head refund (2022, 2024, 2026).",
+  "U.S. Census Bureau County Business Patterns and Data USA (Census-derived employment by industry)."
  ]
 }

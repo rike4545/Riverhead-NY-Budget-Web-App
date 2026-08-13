@@ -31,6 +31,7 @@ export default function CommunityPage() {
 
       <section style={{ ...card, display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(180px,1fr))', gap: 12, marginBottom: 16 }}>
         <Stat label="Population (2020 Census)" value={d.population.census2020.toLocaleString()} sub={`~${d.population.estimate2024.toLocaleString()} (2024 est.)`} />
+        <Stat label="Employer businesses" value={d.businesses.totalEmployerFirms.toLocaleString()} sub={`${d.businesses.totalEmployerFirmsYear} (Census County Business Patterns)`} />
         <Stat label="Tax base — full (market) value" value={bn(d.taxBase.impliedFullValuation)} sub="implied from debt limit" accent />
         <Stat label="Debt limit (7% of value)" value={usd0(d.taxBase.debtLimit)} sub={`${d.taxBase.debtLimitExhaustedPct}% used`} />
         <Stat label="Credit rating" value="Aa2" sub="Moody’s" />
@@ -45,6 +46,25 @@ export default function CommunityPage() {
           <li>The Town’s outstanding general-obligation debt uses only <strong>{d.taxBase.debtLimitExhaustedPct}%</strong> of its legal debt limit (about {usd0(d.taxBase.outstandingGoDebtApprox)} of a {usd0(d.taxBase.debtLimit)} ceiling) — it carries a Moody’s {d.taxBase.moodyRating.replace(' (Moody’s Investors Service)', '')} rating.</li>
           <li>{d.taxBase.transferTax}</li>
         </ul>
+      </section>
+
+      <h2 style={{ color: '#284a69' }}>Businesses & industries</h2>
+      <section style={{ ...card, marginBottom: 16 }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(180px,1fr))', gap: 12, marginBottom: 14 }}>
+          <Stat label="Employer businesses" value={d.businesses.totalEmployerFirms.toLocaleString()} sub={`All employer firms, ${d.businesses.totalEmployerFirmsYear}`} accent />
+          <Stat label="Total employment" value={d.businesses.totalEmployment2024.toLocaleString()} sub={`2024, +${d.businesses.employmentGrowth2023to2024Pct}% vs 2023`} />
+        </div>
+        <p style={{ color: '#334155', fontSize: 14.5, marginTop: 0, marginBottom: 8 }}>Largest industries by people employed (2024):</p>
+        <div style={{ display: 'grid', gap: 8, marginBottom: 10 }}>
+          {d.businesses.topIndustriesByEmployment2024.map((ind, i) => (
+            <div key={ind.industry} style={{ display: 'flex', gap: 12, alignItems: 'baseline', padding: '9px 12px', background: i === 0 ? '#eff6ff' : '#f8fafc', border: `1px solid ${i === 0 ? '#bfdbfe' : '#e2e8f0'}`, borderRadius: 10 }}>
+              <span style={{ fontWeight: 900, color: i === 0 ? '#1e3a8a' : '#6b7280', minWidth: 20 }}>{i + 1}</span>
+              <div style={{ flex: 1, fontWeight: 700, color: '#284a69' }}>{ind.industry}</div>
+              <div style={{ color: '#64748b', fontSize: 13.5 }}>{ind.employees.toLocaleString()} employees</div>
+            </div>
+          ))}
+        </div>
+        <p style={{ color: '#64748b', fontSize: 13, marginTop: 0, marginBottom: 0, lineHeight: 1.5 }}>{d.businesses.note} Source: {d.businesses.totalEmployerFirmsSource}</p>
       </section>
 
       <h2 style={{ color: '#284a69' }}>Largest taxpayers</h2>
