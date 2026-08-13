@@ -19,6 +19,8 @@ export type Buyout2026 = {
   status: string
   agendaNote: string
   source: { title: string; url: string }
+  actualEligible: { csea: number; pba: number; soa: number; total: number }
+  estimatedSavings: { low: number; high: number }
   commonEligibility: string[]
   timeline: { date: string; event: string }[]
   commonTerms: string[]
@@ -29,13 +31,15 @@ export type Buyout2026 = {
 export const buyout2026: Buyout2026 = {
   title: '2026 Voluntary Retirement Incentive Program',
   dated: 'July 2026',
-  status: 'Union stipulations executed; Town Board ratification on the July 7, 2026 agenda',
+  status: 'Ratified — the Town Board voted unanimously on July 7, 2026 to approve all three agreements',
   agendaNote:
-    'The three union agreements were negotiated and executed as stipulations; the Town Board ratifies them by resolution. The recorded votes will appear in the Town Board Votes record once the July 7, 2026 minutes are published.',
+    'The three union agreements were negotiated and executed as stipulations, then ratified unanimously by the Town Board on July 7, 2026. Financial Administrator Jeannette DiPaola put the number of eligible employees at 53 (29 CSEA, 18 PBA, 6 SOA) and estimated Town savings of $500,000-$800,000 depending on how many opt in; she said all vacated positions are expected to be refilled. The fiscal impact statements attached to the resolutions were filed as "no fiscal impact" — DiPaola said they were added to the agenda late and not updated to reflect the savings estimate.',
   source: {
-    title: 'Town of Riverhead Town Board agenda, July 7, 2026 — resolutions 2026-678 (CSEA), 2026-679 (SOA), 2026-680 (PBA)',
-    url: 'https://www.townofriverheadny.gov/129/Agendas-Minutes',
+    title: 'RiverheadLOCAL, "Riverhead approves voluntary retirement incentives for 53 eligible Town employees" (7/9/2026)',
+    url: 'https://riverheadlocal.com/2026/07/09/riverhead-approves-voluntary-retirement-incentives-for-53-eligible-town-employees/',
   },
+  actualEligible: { csea: 29, pba: 18, soa: 6, total: 53 },
+  estimatedSavings: { low: 500000, high: 800000 },
   commonEligibility: [
     'Employed by the Town as of June 1, 2026.',
     'Voluntarily resigns from Town service for retirement purposes, effective no later than October 1, 2026.',

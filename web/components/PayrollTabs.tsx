@@ -6,6 +6,7 @@ import AuthorizedSalary from './AuthorizedSalary'
 import SalaryRaises from './SalaryRaises'
 import OvertimeStaffing, { type OvertimeStaffingProps } from './OvertimeStaffing'
 import SeparationPay, { type SeparationPayProps } from './SeparationPay'
+import PoliceStepSchedule from './PoliceStepSchedule'
 
 // `overtime` and `separation` are computed at build time by lib/overtime-staffing.ts
 // and lib/separation-pay.ts (server-only — they read the full payroll record set)
@@ -13,7 +14,7 @@ import SeparationPay, { type SeparationPayProps } from './SeparationPay'
 export default function PayrollTabs({
   overtime, separation,
 }: { overtime: OvertimeStaffingProps; separation: SeparationPayProps }) {
-  const [tab, setTab] = useState<'actual' | 'authorized' | 'raises' | 'overtime' | 'separation'>('actual')
+  const [tab, setTab] = useState<'actual' | 'authorized' | 'raises' | 'overtime' | 'separation' | 'steps'>('actual')
   return (
     <div style={{ display: 'grid', gap: 16 }}>
       <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
@@ -22,12 +23,14 @@ export default function PayrollTabs({
         <Tab active={tab === 'raises'} onClick={() => setTab('raises')} title="Raises 2025 → 2026" sub="Who got a raise, and by how much" />
         <Tab active={tab === 'overtime'} onClick={() => setTab('overtime')} title="Overtime & Staffing" sub="Which police ranks run overtime instead of headcount" />
         <Tab active={tab === 'separation'} onClick={() => setTab('separation')} title="Separation Pay" sub="Unused leave the Town owes, and what leaving costs" />
+        <Tab active={tab === 'steps'} onClick={() => setTab('steps')} title="Police Pay Steps" sub="How PBA step increases actually work" />
       </div>
       {tab === 'actual' ? <PayrollExplorer />
         : tab === 'authorized' ? <AuthorizedSalary />
         : tab === 'raises' ? <SalaryRaises />
         : tab === 'overtime' ? <OvertimeStaffing {...overtime} />
-        : <SeparationPay {...separation} />}
+        : tab === 'separation' ? <SeparationPay {...separation} />
+        : <PoliceStepSchedule />}
     </div>
   )
 }

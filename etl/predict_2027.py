@@ -23,20 +23,183 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 SUB = ROOT / "web/public/data/subaccounts"
+PAYROLL_SUMMARY = ROOT / "web/public/data/payroll/summary.json"
+PAYROLL_RECORDS = ROOT / "web/public/data/payroll/records.json"
 OUT_SUMMARY = ROOT / "web/public/data/budget-2027-prediction.json"
 OUT_LINES = ROOT / "web/public/data/budget-2027-lines.json"
+
+# CSEA Article 15(2) (Wages), fully executed 2026-2029 CBA: each year is a % step increase
+# PLUS a flat, non-recurring dollar amount added to every step — and that dollar amount
+# carries forward into the base every later year's % is computed from. A flat $1,000 is a much
+# bigger raise for a $45k CSEA base salary than for a $90k one, so the headline "%" alone
+# understates the true rate; we convert it to an effective % using the union's actual average
+# base pay (compounding the dollar adjustments forward year over year).
+CSEA_WAGE_TERMS = {
+    2026: {"pctStep": 0.020, "flatAdj": 1500},
+    2027: {"pctStep": 0.025, "flatAdj": 1000},
+    2028: {"pctStep": 0.030, "flatAdj": 500},
+    2029: {"pctStep": 0.035, "flatAdj": 0},
+}
+
+
+def csea_effective_rates():
+    """Simulate CSEA's Article 15(2) formula forward from actual average CSEA base pay to
+    get each year's true effective raise (step % + flat $ as a % of that year's base)."""
+    records = json.loads(PAYROLL_RECORDS.read_text())["records"]
+    latest_year = max(r["y"] for r in records if r["u"] == "CSE")
+    base_pool = [r["r"] for r in records if r["y"] == latest_year and r["u"] == "CSE" and r["r"] > 0]
+    starting_base = sum(base_pool) / len(base_pool)
+    effective = {}
+    base = starting_base
+    for year, terms in sorted(CSEA_WAGE_TERMS.items()):
+        new_base = base * (1 + terms["pctStep"]) + terms["flatAdj"]
+        effective[year] = new_base / base - 1
+        base = new_base
+    return effective, latest_year, starting_base
+
+
+CSEA_EFFECTIVE_RATES, CSEA_PAYROLL_YEAR, CSEA_STARTING_BASE = csea_effective_rates()
+
+# Each Riverhead bargaining unit's actual negotiated raises, by contract. Where the
+# contract doesn't cover 2027, "rate2027" is left None and computed as that union's own
+# trailing geometric-average annual raise (a placeholder until a successor CBA is public).
+UNION_CONTRACTS = {
+    "CSE": {
+        "label": "CSEA",
+        "term": "2026–2029 CBA",
+        "rates": CSEA_EFFECTIVE_RATES,
+        "known2027": True,
+        "source": f"Fully executed 2026–2029 CSEA Agreement, Article 15(2) (Wages), signed 12/6/2025. "
+                  f"Each year is a step % PLUS a flat, non-recurring dollar add-on that compounds into "
+                  f"later years' base (2%+$1,500 in 2026, 2.5%+$1,000 in 2027, 3%+$500 in 2028, 3.5% in "
+                  f"2029) — converted here to an effective % using {CSEA_PAYROLL_YEAR} actual average CSEA "
+                  f"base pay (${CSEA_STARTING_BASE:,.0f}), so the flat dollars are properly weighted "
+                  f"rather than ignored.",
+    },
+    "PBA": {
+        "label": "PBA",
+        "term": "2023–2026 MOA (expires 12/31/2026, no successor yet public)",
+        "rates": {2023: 0.060, 2024: 0.025, 2025: 0.025, 2026: 0.025},
+        "known2027": False,
+        "source": "Signed PBA MOA, Article XXXVII (Salaries), 7/25/2023. Full known PBA history back to "
+                  "2016 (2%/2%/1.5%/1.5% in 2017–2020, 2%/2% in the 2021–2022 COVID extension per Town "
+                  "Board Resolution 2020-519) confirms the contracts are continuous with no gap — but the "
+                  "placeholder below still uses only the most recent 2023–2026 contract, as the closer "
+                  "starting point for the next negotiation.",
+    },
+    "SOA": {
+        "label": "SOA",
+        "term": "2023–2026 agreement (expires 12/31/2026, no successor yet public)",
+        "rates": {2023: 0.060, 2024: 0.020, 2025: 0.040, 2026: 0.060},
+        "known2027": False,
+        "source": "Signed SOA MOA, Article XXXII (Salaries), 12/12/2023. Full known SOA history back to "
+                  "2016 (2%/2%/2%/2%/1.5% in 2016–2020, 2%/2% in the 2021–2022 COVID extension per Town "
+                  "Board Resolution 2020-520) confirms the contracts are continuous with no gap — but the "
+                  "placeholder below still uses only the most recent 2023–2026 contract, as the closer "
+                  "starting point for the next negotiation.",
+    },
+}
+NON_UNION_RATE = 0.03  # no CBA governs these (management/confidential, elected, temp); general trend
+
+# NY's tax cap law excludes the portion of pension-cost growth driven by the retirement
+# systems' own average actuarial contribution rate rising more than 2 percentage points
+# year over year (State Comptroller's Real Property Tax Cap guidance). NYSLRS announced
+# the SFY 2026-27 employer rates in September 2025: ERS (covers CSEA) 16.5% -> 17.6%
+# (+1.1 pts, under the 2-pt threshold, no exclusion); PFRS (covers PBA/SOA) 33.7% -> 36.5%
+# (+2.8 pts, clears the threshold by 0.8 pts).
+# Source: OSC, "NYSLRS Announces Employer Contribution Rates for SFY 2026-27" (9/2025).
+ERS_RATE_INCREASE_PTS = 17.6 - 16.5
+PFRS_RATE_INCREASE_PTS = 36.5 - 33.7
+CAP_EXCLUSION_THRESHOLD_PTS = 2.0
+
+
+def pension_exclusion_estimate():
+    """Estimate the legally excludable pension-cost levy: (rate increase beyond the 2-point
+    threshold) x the payroll base covered by that retirement system. Uses actual PBA+SOA
+    (PFRS) and CSEA (ERS) payroll as a stand-in for the state's "estimated salary base" —
+    the Town's actual ERS/PFRS billing detail would give a more precise figure."""
+    payroll = json.loads(PAYROLL_SUMMARY.read_text())
+    latest = max(payroll["yearSummaries"], key=lambda y: y["year"])
+    shares = {row["union"]: row["gross"] for row in latest["byUnion"]}
+    pfrs_base = shares.get("PBA", 0.0) + shares.get("SOA", 0.0)
+    ers_base = shares.get("CSE", 0.0)
+
+    pfrs_excess_pts = max(0.0, PFRS_RATE_INCREASE_PTS - CAP_EXCLUSION_THRESHOLD_PTS)
+    ers_excess_pts = max(0.0, ERS_RATE_INCREASE_PTS - CAP_EXCLUSION_THRESHOLD_PTS)
+    pfrs_exclusion = pfrs_excess_pts / 100 * pfrs_base
+    ers_exclusion = ers_excess_pts / 100 * ers_base
+
+    return {
+        "totalEstimate": round(pfrs_exclusion + ers_exclusion),
+        "pfrsRateIncreasePts": round(PFRS_RATE_INCREASE_PTS, 1),
+        "ersRateIncreasePts": round(ERS_RATE_INCREASE_PTS, 1),
+        "pfrsExcessPts": round(pfrs_excess_pts, 1),
+        "pfrsExclusionEstimate": round(pfrs_exclusion),
+        "ersExclusionEstimate": round(ers_exclusion),
+        "payrollYear": latest["year"],
+        "source": "OSC, “NYSLRS Announces Employer Contribution Rates for SFY 2026-27” (9/2025): "
+                  "ERS 16.5%→17.6% (+1.1 pts, no exclusion — under the 2-pt threshold); PFRS "
+                  "33.7%→36.5% (+2.8 pts, 0.8 pts over the threshold, so a real exclusion applies). "
+                  "Estimate uses actual PBA+SOA payroll as a stand-in for the state's “estimated "
+                  "salary base” — the Town's own ERS/PFRS billing detail would be more precise.",
+    }
+
+
+def _geometric_avg_rate(rates: dict) -> float:
+    product = 1.0
+    for r in rates.values():
+        product *= 1 + r
+    return product ** (1 / len(rates)) - 1
+
+
+def personal_services_rate():
+    """Payroll-weighted blend of each union's actual 2027 contract rate (or, for unions
+    between contracts, their own trailing average as a placeholder), weighted by each
+    group's share of the latest year's actual Town payroll."""
+    payroll = json.loads(PAYROLL_SUMMARY.read_text())
+    latest = max(payroll["yearSummaries"], key=lambda y: y["year"])
+    shares = {row["union"]: row["gross"] for row in latest["byUnion"]}
+    total = sum(shares.values())
+
+    breakdown = []
+    blended = 0.0
+    for code, c in UNION_CONTRACTS.items():
+        rate = c["rates"][2027] if c["known2027"] else _geometric_avg_rate(c["rates"])
+        weight = shares.get(code, 0.0) / total
+        blended += weight * rate
+        breakdown.append({
+            "union": c["label"], "payrollSharePct": round(weight * 100, 1),
+            "ratePct": round(rate * 100, 2), "known2027": c["known2027"],
+            "term": c["term"], "source": c["source"],
+        })
+    other_weight = sum(g for u, g in shares.items() if u not in UNION_CONTRACTS) / total
+    blended += other_weight * NON_UNION_RATE
+    breakdown.append({
+        "union": "Non-union / other (management-confidential, elected, temporary, unspecified)",
+        "payrollSharePct": round(other_weight * 100, 1), "ratePct": round(NON_UNION_RATE * 100, 2),
+        "known2027": False, "term": None, "source": "No CBA covers these positions.",
+    })
+    why = (
+        "Payroll-weighted blend of each Riverhead bargaining unit's own 2027 terms: CSEA gets its "
+        f"contractual {round(UNION_CONTRACTS['CSE']['rates'][2027] * 100, 1)}% (2026–2029 CBA). PBA and SOA "
+        "are between contracts — both 2023–2026 agreements expire 12/31/2026 with no successor yet "
+        "public — so each uses its own trailing average annual raise as a placeholder. Non-union staff use "
+        f"a general {round(NON_UNION_RATE * 100, 1)}% trend assumption. Weighted by each group's share of "
+        f"{latest['year']} actual Town payroll. Full breakdown below."
+    )
+    return blended, why, breakdown, latest["year"]
+
+
+PS_RATE, PS_WHY, UNION_BREAKDOWN, PAYROLL_YEAR = personal_services_rate()
 
 # Per-category annual growth applied to every 2026 line. Each rate is a rounded,
 # defensible read of the recent trend + known 2027 drivers; the recentTrend is
 # the actual 2024->2026 change we measured, shown so readers can judge the rate.
 ASSUMPTIONS = {
     "Personal Services": {
-        "rate": 0.035,
+        "rate": PS_RATE,
         "recentTrend": "+11.3% over 2024–2026 (~5.5%/yr)",
-        "why": "Contractual raises and step increases across the CSEA, PBA and SOA "
-               "contracts, partly offset by the 2026 retirement buyout replacing senior "
-               "staff with lower-step hires (or holding posts vacant). We use less than the "
-               "recent pace because 2024 was inflated by adding five police officers.",
+        "why": PS_WHY,
     },
     "Employee Benefits": {
         "rate": 0.080,
@@ -139,6 +302,7 @@ def build():
     gap = levy_2027 - allowed_levy
     approp_cut_for_1pct = round(approp_2027 / 100)
     reserve_share = round(gap / 33407251 * 100, 1)  # GF fund balance from the 2025 AFR
+    pension_exclusion = pension_exclusion_estimate()
     cap_gap = {
         "piercesCap": gap > 0,
         "capBasePct": int(cap_base_pct * 100),
@@ -146,6 +310,7 @@ def build():
         "predictedLevy": levy_2027,
         "gap": gap,
         "predictedLevyPct": levy_increase_pct,
+        "pensionExclusion": pension_exclusion,
         "summary": f"On current trends the 2027 levy grows about {levy_increase_pct}% — well above the roughly "
                    f"{int(cap_base_pct*100)}% the cap allows — so the budget would pierce the cap by about "
                    f"${gap:,}. To stay under the cap the Town would have to close that ~${gap:,} gap. "
@@ -168,9 +333,14 @@ def build():
                        f"outright — but it's roughly {reserve_share}% of the cushion, spends one-time money on recurring "
                        "cost, and can't be repeated forever."},
             {"lever": "Claim the cap's legal exclusions",
-             "detail": "The cap formula already excludes pension-contribution growth above two percentage points and "
-                       "voter-approved capital. Booking those correctly raises the legal ceiling — the opposite of the "
-                       "2018–2022 error, when the ceiling was miscalculated the other way."},
+             "detail": f"The cap formula excludes pension-cost growth above a 2-percentage-point rise in the "
+                       f"retirement systems' own contribution rate, plus voter-approved capital. For 2027, PFRS's "
+                       f"rate (covering PBA/SOA) rose {pension_exclusion['pfrsRateIncreasePts']} points — "
+                       f"{pension_exclusion['pfrsExcessPts']} points over the threshold — worth an estimated "
+                       f"${pension_exclusion['pfrsExclusionEstimate']:,} in legally excludable levy on its own "
+                       f"(ERS/CSEA's {pension_exclusion['ersRateIncreasePts']}-point rise doesn't clear the "
+                       f"threshold, so no exclusion there). Booking this correctly raises the legal ceiling — the "
+                       f"opposite of the 2018–2022 error, when the ceiling was miscalculated the other way."},
             {"lever": "Or override it — but on purpose",
              "detail": "If the Board decides the services are worth it, it can pierce the cap the right way: adopt the "
                        "override local law first, in public, with the 60% vote on the record — as it did in 2023, 2024, "
@@ -211,6 +381,11 @@ def build():
             "recentLevyIncreases": "For context, the town-wide levy rose 4.86% (2024) and 7.74% (2026).",
         },
         "capGap": cap_gap,
+        "unionBreakdown": {
+            "note": f"How the Personal Services rate above ({round(PS_RATE * 100, 2)}%/yr) is built: each "
+                    f"bargaining unit's own 2027 rate, weighted by its share of {PAYROLL_YEAR} actual Town payroll.",
+            "groups": UNION_BREAKDOWN,
+        },
         "byCategory": [
             {"category": k, "count": v["count"], "v2026": round(v["v2026"]), "v2027": round(v["v2027"]),
              "delta": round(v["v2027"] - v["v2026"]), "pct": round((v["v2027"] / v["v2026"] - 1) * 100, 1)}
