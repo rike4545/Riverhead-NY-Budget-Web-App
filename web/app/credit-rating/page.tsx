@@ -11,6 +11,7 @@ import {
   peerRatings,
   ratingCriteria,
   levers,
+  opebLevers,
   caveats,
 } from '../../lib/credit-rating'
 import retireeHealthComparison from '../../public/data/retiree-health-comparison.json'
@@ -252,6 +253,35 @@ export default function CreditRatingPage() {
           Source: Empire Center for Public Policy OPEB Liabilities Tool (Dec. 2020) — see the{' '}
           2026 Buyout page for the fuller breakdown and methodology note.
         </p>
+      </section>
+
+      <h2 style={{ color: '#284a69' }}>How to actually reduce or fund the OPEB liability</h2>
+      <section style={{ ...card, marginBottom: 16, borderLeft: '6px solid #9333ea' }}>
+        <p style={{ color: '#475569', fontSize: 14, lineHeight: 1.6, marginTop: 0 }}>
+          Two different things: <strong>funding</strong> the liability (how it gets paid for) versus{' '}
+          <strong>shrinking</strong> it (how big it gets in the first place). Current retirees&apos; and current
+          employees&apos; accrued benefits are generally vested and can&apos;t be clawed back — the plan-design moves
+          below apply to future hires and to funding mechanics, not to cutting what&apos;s already been promised.
+        </p>
+        <div style={{ display: 'grid', gap: 16 }}>
+          {opebLevers.map((l, i) => (
+            <div key={l.title} style={{ display: 'flex', gap: 12, borderTop: i > 0 ? '1px solid #f1f5f9' : undefined, paddingTop: i > 0 ? 14 : 0 }}>
+              <div
+                style={{
+                  width: 26, height: 26, borderRadius: '50%', background: '#9333ea22', color: '#9333ea',
+                  display: 'grid', placeItems: 'center', fontSize: 12, fontWeight: 800, flexShrink: 0,
+                }}
+              >
+                {i + 1}
+              </div>
+              <div>
+                <strong style={{ fontSize: 14.5, color: '#284a69' }}>{l.title}</strong>
+                <p style={{ color: '#334155', fontSize: 13.5, lineHeight: 1.6, margin: '4px 0 6px' }}>{l.detail}</p>
+                <p style={{ color: '#64748b', fontSize: 12, margin: 0, fontStyle: 'italic' }}>{l.evidence}</p>
+              </div>
+            </div>
+          ))}
+        </div>
       </section>
 
       <section style={{ ...card, marginBottom: 16 }}>

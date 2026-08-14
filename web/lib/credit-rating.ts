@@ -207,6 +207,44 @@ export const levers: Lever[] = [
   },
 ]
 
+// Two different things: FUNDING the liability (how it gets paid for) vs.
+// SHRINKING it (how big it gets in the first place). Current retirees' and
+// current employees' accrued benefits are generally vested and can't be
+// clawed back — the plan-design levers below apply to future hires and to
+// funding mechanics, not to cutting what's already been promised.
+export const opebLevers: Lever[] = [
+  {
+    title: 'Fund it through a trust instead of pay-as-you-go',
+    detail:
+      "Riverhead pays retiree health costs out of the current operating budget each year — the $152.6M liability just sits on the books, unfunded. General Municipal Law §6-r lets a town establish an OPEB trust and pre-fund it, the same way a pension is funded. This has a real, non-cosmetic effect: GASB 75 requires an unfunded plan to use a low municipal-bond discount rate when calculating the liability, while a funded trust earning investment returns can use a higher expected-return rate — so funding it can shrink the reported liability itself, not just improve how the Town looks like it's handling it.",
+    evidence: '$152,597,117 OPEB liability, unfunded, pay-as-you-go basis (2023 audit).',
+  },
+  {
+    title: 'Coordinate retirees onto Medicare more aggressively',
+    detail:
+      "The single biggest lever in Riverhead's own numbers. NYSHIP's benchmark rate runs about $19,337/year for a non-Medicare retiree's individual coverage, versus about $7,157/year once Medicare becomes primary at 65 — roughly a 3x difference for the same person. Riverhead's blended average of about $17,000/retiree/year implies a meaningful share of the pool is still pre-Medicare-primary. Making sure every eligible retiree is actually enrolled in Medicare Part B, with the Town's plan wrapping around it rather than paying first, captures most of that gap with no benefit cut.",
+    evidence: 'NYSHIP Participating Employer rates: ~$19,337/yr non-Medicare individual vs. ~$7,157/yr Medicare-primary; Riverhead blended ~$17,000/retiree/yr (2023 audit) — see the Empire Center comparison on the 2026 Buyout page.',
+  },
+  {
+    title: 'Bargain plan-design changes for future hires in successor contracts',
+    detail:
+      "Current retirees' benefits are vested and can't be reduced. But the PBA contract expired in 2026 with no successor public yet — a real, near-term opening. Police and fire units have historically negotiated the strongest retiree-health terms of any bargaining unit, so this is the highest-leverage seat at the table. Common changes towns negotiate for new hires only: a longer years-of-service vesting requirement before retiree health kicks in, retiree premium cost-sharing instead of a fully Town-paid premium, or capping the Town's dollar contribution so it doesn't automatically scale with future healthcare cost inflation.",
+    evidence: 'PBA contract (2023–2026) expired with no successor public as of this page; police/fire units cited as the workforce segment carrying the strongest retiree-health terms (see the 2026 Buyout page comparison notes).',
+  },
+  {
+    title: "Extend the buyback/opt-out CSEA already has to PBA and SOA",
+    detail:
+      "The 2026–2029 CSEA contract added a buyback amount for employees who decline Town health coverage — for example because they're covered under a spouse's plan — paying a smaller stipend instead of a full premium. That's already precedent inside the Town's own contracts; extending an equivalent option to PBA and SOA in their next contracts is a natural, already-proven ask.",
+    evidence: "Riverhead's CSEA 2026–2029 contract added new retiree buyback amounts for employees who decline coverage (see the retiree-health comparison notes).",
+  },
+  {
+    title: 'Seed a trust with existing reserve surplus',
+    detail:
+      "Riverhead already holds more in reserves (42.9% of budget) than its own peer comparisons suggest it needs. Directing part of that one-time surplus into a new OPEB trust — rather than only capital projects — is a concrete first move that doesn't require new revenue or a union negotiation to start, and it's the same one-time money already identified as available on the Reserves & Fund Balance page.",
+    evidence: "Unassigned fund balance 42.9% of 2026 General Fund appropriations, above every peer town in this site's comparison (see lib/reserve-policy.ts).",
+  },
+]
+
 export const caveats = [
   "Every quote and figure here that isn't independently confirmed against a primary audited document is marked REPORTED — reconstructed from news coverage and press releases, not a certified transcript of the rating agency's own text.",
   'Rating-agency methodology weights are approximate, synthesized from secondary summaries rather than a direct read of the current Moody\'s/S&P methodology PDFs — treat them as illustrative, not precise.',
