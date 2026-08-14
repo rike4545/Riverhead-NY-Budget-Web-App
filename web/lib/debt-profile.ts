@@ -22,7 +22,11 @@ export const debtProfile = {
   totalBondedDebt: 38_423_858, // excl. BANs, all activities combined
   bondAnticipationNotes: 21_975_000, // ending balance, all activities
   moodyRating: 'Aa2',
-  moodyRatingAsOf: 'July 2021',
+  // Aa2 was first assigned in an upgrade dated July 23, 2021 (from Aa3) and has
+  // since been affirmed, most recently in a Feb. 16, 2024 rating action tied to
+  // a $20M BAN renewal (which also carried a MIG 1 short-term rating). See
+  // lib/credit-rating.ts for the full rating history and sourcing detail.
+  moodyRatingAsOf: 'affirmed February 2024',
   debtLimit: {
     asOf: 'December 31, 2023',
     source: {

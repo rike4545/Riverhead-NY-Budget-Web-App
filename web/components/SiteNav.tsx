@@ -28,6 +28,7 @@ const GROUPS: Group[] = [
       ['My Tax Bill', `${base}/tax-bill/`],
       ['Reserves & Fund Balance', `${base}/reserves/`],
       ['Capital & Debt', `${base}/capital-debt/`],
+      ['Credit Rating', `${base}/credit-rating/`],
       ['Road Spending per Mile', `${base}/road-spending/`],
       ['Community Preservation Fund', `${base}/community-preservation-fund/`],
       ['Annual Report', `${base}/annual-report/`],
