@@ -50,6 +50,16 @@ type Raw = { y: number; n: string; d: string; t: string; c: string; u: string; r
 // earned at a lower one. Rank figures use reported titles only.
 const titleIsReported = (r: Raw) => (r.i ?? '').indexOf('t') < 0
 
+// A DERIVED UNION is treated differently, and deliberately so. Titles are
+// carried across years, which is where the promotion risk lives. A union code
+// filled from the row's own Pay Class is not a guess about a different year —
+// pay classes like "PBA 8-40" and "SOA 8-40" name the bargaining unit outright,
+// and the parser only maps one where >=95% of labelled records with that pay
+// class agree. Excluding those rows would drop genuinely sworn officers from
+// their own rank. Eleven sworn rows currently reach this analysis that way, and
+// including them raised the Police Officer figures for 2023-2025 (6.57 -> 6.65,
+// 7.99 -> 8.07, 5.29 -> 5.35) over what a reported-union-only cut produced.
+
 const records = (recordsJson as { records: Raw[] }).records
 
 export type RankYear = {
