@@ -31,6 +31,7 @@ const GROUPS: Group[] = [
       ['Credit Rating', `${base}/credit-rating/`],
       ['Road Spending per Mile', `${base}/road-spending/`],
       ['Community Preservation Fund', `${base}/community-preservation-fund/`],
+      ['Community Housing Plan', `${base}/housing-plan/`],
       ['Annual Report', `${base}/annual-report/`],
       ['Community', `${base}/community/`],
     ],

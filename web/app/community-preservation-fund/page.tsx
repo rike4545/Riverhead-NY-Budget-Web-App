@@ -1,6 +1,7 @@
 import PageShell from '../../components/PageShell'
 import PlainCallout from '../../components/PlainCallout'
 import { cpfDebt, cpfDebtPayoffProposal, cpfHistory, cpfMechanics, cpfTotalRevenue, revenueSwing } from '../../lib/cpf'
+import { forgoneHigh, forgoneLow, forgoneThroughYear, fourTownTotal, HOUSING_FUND_RATE, statute } from '../../lib/community-housing'
 
 const base = process.env.NEXT_PUBLIC_BASE_PATH || ''
 const card = { background: 'white', border: '1px solid #e2e8f0', borderRadius: 16, padding: 20, boxShadow: '0 14px 34px rgba(15,23,42,.05)' } as const
@@ -183,6 +184,26 @@ export default function CommunityPreservationFundPage() {
           revenue may be used for water-quality projects rather than land purchases — both are facts about the
           program&apos;s current scope, not arguments either way on the rate.
         </p>
+      </section>
+
+      <section style={{ ...card, marginBottom: 16, borderLeft: '8px solid #c99a2e' }}>
+        <h3 style={{ marginTop: 0, color: '#284a69' }}>The other half-percent: the housing fund Riverhead didn&apos;t adopt</h3>
+        <p style={{ color: '#334155', fontSize: 14.5, lineHeight: 1.65 }}>
+          The same state law that created this fund was extended in {statute.enactedYear} to allow a second,
+          separate transfer tax — {(HOUSING_FUND_RATE * 100).toFixed(1)}% dedicated to community housing — in the
+          same five Peconic Bay towns. Four of them adopted it, put it to their voters in November 2022, and began
+          collecting {statute.collectionsBegan}; together they have raised about{' '}
+          <strong>${(fourTownTotal.amount / 1e6).toFixed(1)}M</strong> since. Riverhead&apos;s board did not put the question on the
+          ballot, so a Riverhead buyer pays 2% at closing where a Southold or Shelter Island buyer pays 2.5%.
+        </p>
+        <p style={{ color: '#334155', fontSize: 14.5, lineHeight: 1.65 }}>
+          Applying that quarter-rate to the audited revenue on this page sizes the difference at roughly{' '}
+          <strong>${(forgoneLow / 1e6).toFixed(2)}M–${(forgoneHigh / 1e6).toFixed(2)}M</strong> through {forgoneThroughYear} — before the exemption
+          changes that come with adopting it, which would trim both funds.
+        </p>
+        <a href={`${base}/housing-plan/`} style={{ color: '#4a7297', fontWeight: 800, fontSize: 14.5, textDecoration: 'none' }}>
+          See the Community Housing Plan page — what the law requires, and what the other four towns did →
+        </a>
       </section>
 
       <p style={{ color: '#64748b', fontSize: 13, lineHeight: 1.55 }}>
