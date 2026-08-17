@@ -3,16 +3,21 @@
   "title": "Town of Riverhead Town Board \u2014 upcoming meetings (CivicClerk)",
   "url": "https://www.townofriverheadny.gov/129/Agendas-Minutes"
  },
- "generatedAt": "2026-08-10",
+ "generatedAt": "2026-08-17",
  "meetings": [
   {
    "slug": "2026-08-18",
    "date": "2026-08-18",
    "startDateTime": "2026-08-18T18:00:00Z",
    "type": "Town Board Meeting",
-   "agendaPublished": false,
+   "agendaPublished": true,
    "docket": [],
-   "hearings": []
+   "hearings": [
+    "VII.  Public Hearings",
+    "\u25cf 6:00 PM Public Hearing - Amend Chapter 301, Art.XVI Business PB Zoning Use",
+    "37.  Authorizes A Public Hearing For The Purpose Of Conducting The \"Monroe Balancing",
+    "38.  Resolution Calling Public Hearing Regarding Extension of The Riverhead Sewer District"
+   ]
   },
   {
    "slug": "2026-09-01",
