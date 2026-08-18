@@ -24,6 +24,43 @@ const TREND_CSS = `:root{--inc:#b91c1c;--dec:#15803d}:root[data-tc="green-up"]{-
 // Apply the saved choice before first paint so colors don't flash.
 const TREND_INIT = `try{var t=localStorage.getItem('tc');if(t)document.documentElement.setAttribute('data-tc',t)}catch(e){}`
 
+// Dark mode: the app's ~140 colors are hand-picked hex literals scattered across
+// 70+ inline-styled components rather than a token palette, so recoloring every
+// element for a "true" dark theme isn't practical. Instead this inverts the whole
+// page and rotates hue 180° back, the standard filter trick (same idea browser
+// dark-reader extensions use) — it recolors everything for free and needs no
+// per-component changes. It's scoped to #rbl-shell (a wrapper below <body>, not
+// <body> itself) so the toggle in DisplaySettings.tsx never has to hand-pick colors.
+// Photos (CampaignFinance headshots) get filtered back to normal with a second
+// invert. InfoTip's fixed-position popover is portaled straight to <body>,
+// escaping #rbl-shell entirely — filter creates a new containing block for
+// `position: fixed` descendants, which would otherwise put its viewport-relative
+// coordinates relative to the (much taller) shell instead.
+const MODE_CSS = `
+html[data-mode="dark"]{color-scheme:dark}
+html[data-mode="dark"] #rbl-shell{filter:invert(1) hue-rotate(180deg);background:#fff}
+html[data-mode="dark"] #rbl-shell img,
+html[data-mode="dark"] #rbl-shell video{filter:invert(1) hue-rotate(180deg)}
+`
+const MODE_INIT = `try{
+  var m=localStorage.getItem('rbl-mode');
+  if(m!=='light'&&m!=='dark'){m=(window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light'}
+  document.documentElement.setAttribute('data-mode',m);
+}catch(e){}`
+
+// Text zoom: scales the whole page (text, spacing, icons) via CSS `zoom` rather
+// than a root font-size, since ~1,000 fontSize values across the app are hardcoded
+// px, not rem — a root font-size change wouldn't reach them, but `zoom` reflows
+// the real layout (unlike `transform: scale`, which would just clip/overlap).
+const ZOOM_CSS = `
+html[data-zoom="115"] #rbl-shell{zoom:1.15}
+html[data-zoom="130"] #rbl-shell{zoom:1.3}
+`
+const ZOOM_INIT = `try{
+  var z=localStorage.getItem('rbl-zoom');
+  if(z==='115'||z==='130')document.documentElement.setAttribute('data-zoom',z);
+}catch(e){}`
+
 // Structural color tokens consumed by PageShell, DisclaimerBanner, and all page components.
 const THEME_CSS = `
 :root{
@@ -53,9 +90,15 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       <head>
         <style dangerouslySetInnerHTML={{ __html: TREND_CSS }} />
         <style dangerouslySetInnerHTML={{ __html: THEME_CSS }} />
+        <style dangerouslySetInnerHTML={{ __html: MODE_CSS }} />
+        <style dangerouslySetInnerHTML={{ __html: ZOOM_CSS }} />
         <script dangerouslySetInnerHTML={{ __html: TREND_INIT }} />
+        <script dangerouslySetInnerHTML={{ __html: MODE_INIT }} />
+        <script dangerouslySetInnerHTML={{ __html: ZOOM_INIT }} />
       </head>
-      <body>{children}</body>
+      <body>
+        <div id="rbl-shell" style={{ minHeight: '100vh', background: '#fff' }}>{children}</div>
+      </body>
     </html>
   )
 }
