@@ -16,7 +16,7 @@ import {
 } from '../lib/campaign-finance'
 
 const usd = (n: number) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(n)
-const card = { background: 'white', border: '1px solid #e2e8f0', borderRadius: 16, padding: 18, boxShadow: '0 14px 34px rgba(15,23,42,.05)' } as const
+const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 18, boxShadow: '0 14px 34px var(--rbl-shadow)' } as const
 
 function dateOnly(value: string | null): string | null {
   return value ? value.slice(0, 10) : null
@@ -100,7 +100,7 @@ export default function CampaignFinance({
           onClick={refresh}
           disabled={status === 'loading'}
           style={{
-            background: status === 'loading' ? '#93c5fd' : '#4a7297',
+            background: status === 'loading' ? '#93c5fd' : 'var(--rbl-fill-accent)',
             color: 'white',
             border: 'none',
             borderRadius: 10,
@@ -114,13 +114,13 @@ export default function CampaignFinance({
       </div>
 
       {status === 'error' && (
-        <div style={{ marginBottom: 12, color: '#b91c1c', background: '#fef2f2', border: '1px solid #fecaca', borderRadius: 10, padding: 10, fontSize: 13 }}>
+        <div style={{ marginBottom: 12, color: 'var(--rbl-danger)', background: 'var(--rbl-danger-bg)', border: '1px solid var(--rbl-danger-border)', borderRadius: 10, padding: 10, fontSize: 13 }}>
           Update failed: {errorMessage}
         </div>
       )}
 
       {lastUpdated && (
-        <div style={{ marginBottom: 12, color: '#64748b', fontSize: 12 }}>Filings last updated: {lastUpdated.toLocaleString()}</div>
+        <div style={{ marginBottom: 12, color: 'var(--rbl-text-muted)', fontSize: 12 }}>Filings last updated: {lastUpdated.toLocaleString()}</div>
       )}
 
       <div style={{ display: 'grid', gap: 14 }}>
@@ -138,7 +138,7 @@ export default function CampaignFinance({
           const perResident = currentCycleRaised != null ? currentCycleRaised / RIVERHEAD_POPULATION_ESTIMATE_2024 : null
 
           return (
-            <article key={official.name} style={{ ...card, borderLeft: `6px solid ${official.currentlyServing ? '#4a7297' : '#6b7280'}` }}>
+            <article key={official.name} style={{ ...card, borderLeft: `6px solid ${official.currentlyServing ? 'var(--rbl-accent-border)' : 'var(--rbl-text-muted)'}` }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', gap: 12, flexWrap: 'wrap' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
                   {official.photoUrl && (
@@ -152,15 +152,15 @@ export default function CampaignFinance({
                     />
                   )}
                   <div>
-                    <strong style={{ fontSize: 16, color: '#284a69' }}>{official.name}</strong>
-                    <div style={{ color: '#64748b', fontSize: 13 }}>{official.office}</div>
+                    <strong style={{ fontSize: 16, color: 'var(--rbl-title)' }}>{official.name}</strong>
+                    <div style={{ color: 'var(--rbl-text-muted)', fontSize: 13 }}>{official.office}</div>
                   </div>
                 </div>
                 <span
                   style={{
-                    background: official.currentlyServing ? '#eef6ff' : '#f1f5f9',
-                    color: official.currentlyServing ? '#4a7297' : '#475569',
-                    border: `1px solid ${official.currentlyServing ? '#bcd9f5' : '#e2e8f0'}`,
+                    background: official.currentlyServing ? 'var(--rbl-info-bg)' : 'var(--rbl-surface-3)',
+                    color: official.currentlyServing ? 'var(--rbl-accent)' : 'var(--rbl-text-body)',
+                    border: `1px solid ${official.currentlyServing ? 'var(--rbl-info-border)' : 'var(--rbl-border-subtle)'}`,
                     borderRadius: 999,
                     padding: '3px 10px',
                     fontSize: 12,
@@ -174,9 +174,9 @@ export default function CampaignFinance({
 
               {/* Term, next election & salary */}
               {(official.termStarts || official.salary) && (
-                <div style={{ marginTop: 10, display: 'flex', flexWrap: 'wrap', gap: '6px 20px', fontSize: 13, color: '#475569', lineHeight: 1.5 }}>
+                <div style={{ marginTop: 10, display: 'flex', flexWrap: 'wrap', gap: '6px 20px', fontSize: 13, color: 'var(--rbl-text-body)', lineHeight: 1.5 }}>
                   {official.termYears && (
-                    <span style={{ fontWeight: 700, color: '#284a69' }}>
+                    <span style={{ fontWeight: 700, color: 'var(--rbl-title)' }}>
                       {official.termYears}-year term
                     </span>
                   )}
@@ -195,7 +195,7 @@ export default function CampaignFinance({
                     <span>
                       Salary: <strong>{usd(official.salary)}/yr</strong>
                       {official.salaryNote && (
-                        <span style={{ color: '#64748b', fontStyle: 'italic', marginLeft: 4 }}>— {official.salaryNote}</span>
+                        <span style={{ color: 'var(--rbl-text-muted)', fontStyle: 'italic', marginLeft: 4 }}>— {official.salaryNote}</span>
                       )}
                     </span>
                   )}
@@ -203,12 +203,12 @@ export default function CampaignFinance({
               )}
 
               {live && (
-                <div style={{ marginTop: 12, background: '#eef6ff', border: '1px solid #bcd9f5', borderRadius: 10, padding: 12, fontSize: 13.5, color: '#1e3a5f', lineHeight: 1.5 }}>
+                <div style={{ marginTop: 12, background: 'var(--rbl-info-bg)', border: '1px solid var(--rbl-info-border)', borderRadius: 10, padding: 12, fontSize: 13.5, color: 'var(--rbl-title)', lineHeight: 1.5 }}>
                   {buildCandidateSummary(official, live, endYear)}
                 </div>
               )}
 
-              <div style={{ fontSize: 11, fontWeight: 800, color: '#64748b', textTransform: 'uppercase', letterSpacing: 0.4, marginTop: 12 }}>
+              <div style={{ fontSize: 11, fontWeight: 800, color: 'var(--rbl-text-muted)', textTransform: 'uppercase', letterSpacing: 0.4, marginTop: 12 }}>
                 Lifetime totals ({startYear}–{endYear})
               </div>
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))', gap: 10, marginTop: 6 }}>
@@ -218,7 +218,7 @@ export default function CampaignFinance({
                 <Stat label="Last reported" value={lastReported ?? '—'} />
               </div>
 
-              <div style={{ fontSize: 11, fontWeight: 800, color: '#64748b', textTransform: 'uppercase', letterSpacing: 0.4, marginTop: 14 }}>
+              <div style={{ fontSize: 11, fontWeight: 800, color: 'var(--rbl-text-muted)', textTransform: 'uppercase', letterSpacing: 0.4, marginTop: 14 }}>
                 {endYear} election cycle
               </div>
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))', gap: 10, marginTop: 6 }}>
@@ -247,17 +247,17 @@ export default function CampaignFinance({
               </div>
 
               {live && live.contributorTypeBreakdown.length > 0 && (
-                <div style={{ marginTop: 12, borderTop: '1px solid #e2e8f0', paddingTop: 10 }}>
-                  <div style={{ fontSize: 12, fontWeight: 800, color: '#284a69', textTransform: 'uppercase', letterSpacing: 0.4, marginBottom: 6 }}>
+                <div style={{ marginTop: 12, borderTop: '1px solid var(--rbl-border-subtle)', paddingTop: 10 }}>
+                  <div style={{ fontSize: 12, fontWeight: 800, color: 'var(--rbl-title)', textTransform: 'uppercase', letterSpacing: 0.4, marginBottom: 6 }}>
                     Who&rsquo;s giving
                   </div>
                   <div style={{ display: 'grid', gap: 4 }}>
                     {live.contributorTypeBreakdown.map((bucket) => (
-                      <div key={bucket.type} style={{ display: 'flex', justifyContent: 'space-between', fontSize: 13, color: '#334155' }}>
+                      <div key={bucket.type} style={{ display: 'flex', justifyContent: 'space-between', fontSize: 13, color: 'var(--rbl-text-strong)' }}>
                         <span>
                           {bucket.type} ({bucket.donorCount})
                         </span>
-                        <strong style={{ color: '#284a69' }}>{usd(bucket.amount)}</strong>
+                        <strong style={{ color: 'var(--rbl-title)' }}>{usd(bucket.amount)}</strong>
                       </div>
                     ))}
                   </div>
@@ -266,19 +266,19 @@ export default function CampaignFinance({
 
               {live && live.historicalByYear.length > 0 && <YearBreakdownList years={live.historicalByYear} />}
 
-              <div style={{ marginTop: 12, borderTop: '1px solid #e2e8f0', paddingTop: 10 }}>
-                <div style={{ fontSize: 12, fontWeight: 800, color: '#284a69', textTransform: 'uppercase', letterSpacing: 0.4 }}>
+              <div style={{ marginTop: 12, borderTop: '1px solid var(--rbl-border-subtle)', paddingTop: 10 }}>
+                <div style={{ fontSize: 12, fontWeight: 800, color: 'var(--rbl-title)', textTransform: 'uppercase', letterSpacing: 0.4 }}>
                   {endYear} filing activity
                 </div>
                 {latestYear ? (
-                  <div style={{ color: '#166534', fontSize: 13, marginTop: 4 }}>
+                  <div style={{ color: 'var(--rbl-success-strong)', fontSize: 13, marginTop: 4 }}>
                     {usd(latestYear.filingAmount)} across {latestYear.rowCount} row(s), schedules {latestYear.schedules || 'none'}
                     {latestYear.lastReported ? ` · latest ${dateOnly(latestYear.lastReported)}` : ''}
                   </div>
                 ) : snapshots ? (
-                  <div style={{ color: '#92400e', fontSize: 13, marginTop: 4 }}>No {endYear} filings found yet for this committee.</div>
+                  <div style={{ color: 'var(--rbl-warn)', fontSize: 13, marginTop: 4 }}>No {endYear} filings found yet for this committee.</div>
                 ) : (
-                  <div style={{ color: '#64748b', fontSize: 13, marginTop: 4 }}>
+                  <div style={{ color: 'var(--rbl-text-muted)', fontSize: 13, marginTop: 4 }}>
                     Tap &ldquo;Refresh from NY Open Data&rdquo; to check {endYear} activity.
                   </div>
                 )}
@@ -308,7 +308,7 @@ export default function CampaignFinance({
                 />
               )}
 
-              <div style={{ color: '#6b7280', fontSize: 11, marginTop: 10 }}>{official.note}</div>
+              <div style={{ color: 'var(--rbl-text-muted)', fontSize: 11, marginTop: 10 }}>{official.note}</div>
             </article>
           )
         })}
@@ -350,10 +350,10 @@ function PartyCommitteesSection({
           cursor: 'pointer',
           fontWeight: 800,
           fontSize: 14,
-          color: '#4a7297',
+          color: 'var(--rbl-accent)',
           padding: '10px 14px',
-          background: '#f1f5f9',
-          border: '1px solid #e2e8f0',
+          background: 'var(--rbl-surface-3)',
+          border: '1px solid var(--rbl-border-subtle)',
           borderRadius: 10,
           display: 'flex',
           alignItems: 'center',
@@ -363,28 +363,28 @@ function PartyCommitteesSection({
       >
         <span style={{ fontSize: 13, transition: 'transform 0.15s', transform: open ? 'rotate(90deg)' : 'rotate(0deg)', display: 'inline-block' }}>▶</span>
         Party committees ({committees.length})
-        <span style={{ fontWeight: 400, fontSize: 12, color: '#64748b', marginLeft: 4 }}>— Republican &amp; Democratic funding records</span>
+        <span style={{ fontWeight: 400, fontSize: 12, color: 'var(--rbl-text-muted)', marginLeft: 4 }}>— Republican &amp; Democratic funding records</span>
       </button>
 
       {open && (
         <div style={{ display: 'grid', gap: 14, marginTop: 12 }}>
 
           {/* Contribution rules for constituted committees */}
-          <div style={{ background: '#f5f3ff', border: '1px solid #ddd6fe', borderRadius: 10, padding: 12 }}>
-            <div style={{ fontSize: 12, fontWeight: 800, color: '#5b21b6', marginBottom: 8 }}>
+          <div style={{ background: '#f5f3ff', border: '1px solid var(--rbl-violet-border)', borderRadius: 10, padding: 12 }}>
+            <div style={{ fontSize: 12, fontWeight: 800, color: 'var(--rbl-violet-strong)', marginBottom: 8 }}>
               Constituted Committee Contribution Rules (2026)
             </div>
             <div style={{ display: 'grid', gap: 5 }}>
-              <div style={{ fontSize: 11, color: '#4c1d95', lineHeight: 1.5 }}>
+              <div style={{ fontSize: 11, color: 'var(--rbl-violet-strong)', lineHeight: 1.5 }}>
                 <strong>Individual:</strong> Up to $117,300 per calendar year to any constituted committee.
               </div>
-              <div style={{ fontSize: 11, color: '#4c1d95', lineHeight: 1.5 }}>
+              <div style={{ fontSize: 11, color: 'var(--rbl-violet-strong)', lineHeight: 1.5 }}>
                 <strong>Corporate:</strong> Corporations face a separate $5,000 aggregate limit per calendar year across <em>all</em> NY political contributions statewide — this does not override individual per-committee limits.
               </div>
-              <div style={{ fontSize: 11, color: '#4c1d95', lineHeight: 1.5 }}>
+              <div style={{ fontSize: 11, color: 'var(--rbl-violet-strong)', lineHeight: 1.5 }}>
                 <strong>Housekeeping:</strong> No contribution limits for funds designated toward housekeeping expenses. Only constituted committees may maintain a housekeeping fund for headquarters upkeep.
               </div>
-              <div style={{ fontSize: 10, color: '#7c3aed', marginTop: 2, fontStyle: 'italic', lineHeight: 1.4 }}>
+              <div style={{ fontSize: 10, color: 'var(--rbl-violet)', marginTop: 2, fontStyle: 'italic', lineHeight: 1.4 }}>
                 Source: Suffolk County BOE 2026 Comprehensive Limits Report; NCSL 2025–26 State Limits on Contributions to Candidates. Note: corporations may also contribute to candidate committees subject to the same per-candidate limits as individuals, but face a $5,000 statewide aggregate cap across all NY political contributions per calendar year under § 14-116.
               </div>
             </div>
@@ -398,13 +398,13 @@ function PartyCommitteesSection({
             const lastReported = dateOnly(live ? live.lastReported : official.seedLastReported)
 
             return (
-              <article key={official.name} style={{ background: 'white', border: '1px solid #e2e8f0', borderRadius: 16, padding: 18, boxShadow: '0 14px 34px rgba(15,23,42,.05)', borderLeft: '6px solid #7c6fa0' }}>
+              <article key={official.name} style={{ background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 18, boxShadow: '0 14px 34px var(--rbl-shadow)', borderLeft: '6px solid #7c6fa0' }}>
                 <div>
-                  <strong style={{ fontSize: 16, color: '#374151' }}>{official.name}</strong>
-                  <div style={{ color: '#64748b', fontSize: 13 }}>{official.office}</div>
+                  <strong style={{ fontSize: 16, color: 'var(--rbl-text-body)' }}>{official.name}</strong>
+                  <div style={{ color: 'var(--rbl-text-muted)', fontSize: 13 }}>{official.office}</div>
                 </div>
 
-                <div style={{ fontSize: 11, fontWeight: 800, color: '#64748b', textTransform: 'uppercase', letterSpacing: 0.4, marginTop: 12 }}>
+                <div style={{ fontSize: 11, fontWeight: 800, color: 'var(--rbl-text-muted)', textTransform: 'uppercase', letterSpacing: 0.4, marginTop: 12 }}>
                   Lifetime totals ({startYear}–{endYear})
                 </div>
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))', gap: 10, marginTop: 6 }}>
@@ -419,7 +419,7 @@ function PartyCommitteesSection({
                 <PetroCelliWatch contributions={live?.petrocelliContributions ?? null} hasFetched={!!snapshots} currentlyServing={true} endYear={endYear} />
                 <ScottPointeWatch contributions={live?.scottPointeContributions ?? null} hasFetched={!!snapshots} currentlyServing={true} endYear={endYear} />
 
-                <div style={{ color: '#6b7280', fontSize: 11, marginTop: 10 }}>{official.note}</div>
+                <div style={{ color: 'var(--rbl-text-muted)', fontSize: 11, marginTop: 10 }}>{official.note}</div>
               </article>
             )
           })}
@@ -454,10 +454,10 @@ function FormerOfficialsSection({
           cursor: 'pointer',
           fontWeight: 800,
           fontSize: 14,
-          color: '#4a7297',
+          color: 'var(--rbl-accent)',
           padding: '10px 14px',
-          background: '#f1f5f9',
-          border: '1px solid #e2e8f0',
+          background: 'var(--rbl-surface-3)',
+          border: '1px solid var(--rbl-border-subtle)',
           borderRadius: 10,
           display: 'flex',
           alignItems: 'center',
@@ -467,7 +467,7 @@ function FormerOfficialsSection({
       >
         <span style={{ fontSize: 13, transition: 'transform 0.15s', transform: open ? 'rotate(90deg)' : 'rotate(0deg)', display: 'inline-block' }}>▶</span>
         Former officials ({former.length})
-        <span style={{ fontWeight: 400, fontSize: 12, color: '#64748b', marginLeft: 4 }}>— historical campaign-finance records</span>
+        <span style={{ fontWeight: 400, fontSize: 12, color: 'var(--rbl-text-muted)', marginLeft: 4 }}>— historical campaign-finance records</span>
       </button>
 
       {open && (
@@ -480,7 +480,7 @@ function FormerOfficialsSection({
             const lastReported = dateOnly(live ? live.lastReported : official.seedLastReported)
 
             return (
-              <article key={official.name} style={{ background: 'white', border: '1px solid #e2e8f0', borderRadius: 16, padding: 18, boxShadow: '0 14px 34px rgba(15,23,42,.05)', borderLeft: '6px solid #9ca3af' }}>
+              <article key={official.name} style={{ background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 18, boxShadow: '0 14px 34px var(--rbl-shadow)', borderLeft: '6px solid #9ca3af' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', gap: 12, flexWrap: 'wrap' }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
                     {official.photoUrl && (
@@ -488,22 +488,22 @@ function FormerOfficialsSection({
                       <img src={official.photoUrl} alt={official.name} width={48} height={48} style={{ borderRadius: '50%', objectFit: 'cover', flexShrink: 0 }} />
                     )}
                     <div>
-                      <strong style={{ fontSize: 16, color: '#374151' }}>{official.name}</strong>
-                      <div style={{ color: '#64748b', fontSize: 13 }}>{official.office}</div>
+                      <strong style={{ fontSize: 16, color: 'var(--rbl-text-body)' }}>{official.name}</strong>
+                      <div style={{ color: 'var(--rbl-text-muted)', fontSize: 13 }}>{official.office}</div>
                     </div>
                   </div>
-                  <span style={{ background: '#f1f5f9', color: '#475569', border: '1px solid #e2e8f0', borderRadius: 999, padding: '3px 10px', fontSize: 12, fontWeight: 800, height: 'fit-content' }}>
+                  <span style={{ background: 'var(--rbl-surface-3)', color: 'var(--rbl-text-body)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 999, padding: '3px 10px', fontSize: 12, fontWeight: 800, height: 'fit-content' }}>
                     No longer serving
                   </span>
                 </div>
 
                 {live && (
-                  <div style={{ marginTop: 12, background: '#f1f5f9', border: '1px solid #e2e8f0', borderRadius: 10, padding: 12, fontSize: 13.5, color: '#374151', lineHeight: 1.5 }}>
+                  <div style={{ marginTop: 12, background: 'var(--rbl-surface-3)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 10, padding: 12, fontSize: 13.5, color: 'var(--rbl-text-body)', lineHeight: 1.5 }}>
                     {buildCandidateSummary(official, live, endYear)}
                   </div>
                 )}
 
-                <div style={{ fontSize: 11, fontWeight: 800, color: '#64748b', textTransform: 'uppercase', letterSpacing: 0.4, marginTop: 12 }}>
+                <div style={{ fontSize: 11, fontWeight: 800, color: 'var(--rbl-text-muted)', textTransform: 'uppercase', letterSpacing: 0.4, marginTop: 12 }}>
                   Lifetime totals ({startYear}–{endYear})
                 </div>
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))', gap: 10, marginTop: 6 }}>
@@ -514,13 +514,13 @@ function FormerOfficialsSection({
                 </div>
 
                 {live && live.contributorTypeBreakdown.length > 0 && (
-                  <div style={{ marginTop: 12, borderTop: '1px solid #e2e8f0', paddingTop: 10 }}>
-                    <div style={{ fontSize: 12, fontWeight: 800, color: '#374151', textTransform: 'uppercase', letterSpacing: 0.4, marginBottom: 6 }}>Who&rsquo;s giving</div>
+                  <div style={{ marginTop: 12, borderTop: '1px solid var(--rbl-border-subtle)', paddingTop: 10 }}>
+                    <div style={{ fontSize: 12, fontWeight: 800, color: 'var(--rbl-text-body)', textTransform: 'uppercase', letterSpacing: 0.4, marginBottom: 6 }}>Who&rsquo;s giving</div>
                     <div style={{ display: 'grid', gap: 4 }}>
                       {live.contributorTypeBreakdown.map((bucket) => (
-                        <div key={bucket.type} style={{ display: 'flex', justifyContent: 'space-between', fontSize: 13, color: '#334155' }}>
+                        <div key={bucket.type} style={{ display: 'flex', justifyContent: 'space-between', fontSize: 13, color: 'var(--rbl-text-strong)' }}>
                           <span>{bucket.type} ({bucket.donorCount})</span>
-                          <strong style={{ color: '#374151' }}>{usd(bucket.amount)}</strong>
+                          <strong style={{ color: 'var(--rbl-text-body)' }}>{usd(bucket.amount)}</strong>
                         </div>
                       ))}
                     </div>
@@ -535,7 +535,7 @@ function FormerOfficialsSection({
                 <ScottPointeWatch contributions={live?.scottPointeContributions ?? null} hasFetched={!!snapshots} currentlyServing={false} endYear={endYear} />
                 <CandidateFamilyWatch contributions={live?.candidateFamilyContributions ?? null} hasFetched={!!snapshots} currentlyServing={false} endYear={endYear} selfNames={CANDIDATE_SELF_NAMES[official.name] ?? []} />
 
-                <div style={{ color: '#6b7280', fontSize: 11, marginTop: 10 }}>{official.note}</div>
+                <div style={{ color: 'var(--rbl-text-muted)', fontSize: 11, marginTop: 10 }}>{official.note}</div>
               </article>
             )
           })}
@@ -550,9 +550,9 @@ function CampaignFilingsList({ filings, endYear, hasFetched }: { filings: Filing
   if (!hasFetched) return null
   if (!filings || filings.length === 0) {
     return (
-      <div style={{ marginTop: 12, borderTop: '1px solid #e2e8f0', paddingTop: 10 }}>
-        <div style={{ fontSize: 12, fontWeight: 800, color: '#284a69', textTransform: 'uppercase', letterSpacing: 0.4 }}>Campaign filings</div>
-        <div style={{ color: '#64748b', fontSize: 13, marginTop: 4 }}>No filings found for this committee in this range.</div>
+      <div style={{ marginTop: 12, borderTop: '1px solid var(--rbl-border-subtle)', paddingTop: 10 }}>
+        <div style={{ fontSize: 12, fontWeight: 800, color: 'var(--rbl-title)', textTransform: 'uppercase', letterSpacing: 0.4 }}>Campaign filings</div>
+        <div style={{ color: 'var(--rbl-text-muted)', fontSize: 13, marginTop: 4 }}>No filings found for this committee in this range.</div>
       </div>
     )
   }
@@ -561,24 +561,24 @@ function CampaignFilingsList({ filings, endYear, hasFetched }: { filings: Filing
   const hasMultipleCommittees = new Set(filings.map((f) => f.filerID)).size > 1
 
   return (
-    <div style={{ marginTop: 12, borderTop: '1px solid #e2e8f0', paddingTop: 10 }}>
-      <div style={{ fontSize: 12, fontWeight: 800, color: '#284a69', textTransform: 'uppercase', letterSpacing: 0.4, marginBottom: 6 }}>Campaign filings</div>
+    <div style={{ marginTop: 12, borderTop: '1px solid var(--rbl-border-subtle)', paddingTop: 10 }}>
+      <div style={{ fontSize: 12, fontWeight: 800, color: 'var(--rbl-title)', textTransform: 'uppercase', letterSpacing: 0.4, marginBottom: 6 }}>Campaign filings</div>
       <div style={{ display: 'grid', gap: 10 }}>
         {groups.map((g) => (
           <div key={g.bucket}>
-            <div style={{ fontSize: 12, fontWeight: 800, color: '#4a7297', marginBottom: 4 }}>{g.bucket}</div>
+            <div style={{ fontSize: 12, fontWeight: 800, color: 'var(--rbl-accent)', marginBottom: 4 }}>{g.bucket}</div>
             <div style={{ display: 'grid', gap: 4 }}>
               {g.filings.map((f, i) => (
                 <div
                   key={`${f.filerID}-${f.electionYear}-${f.filingDesc}-${f.isAmendment}-${i}`}
-                  style={{ display: 'flex', justifyContent: 'space-between', gap: 10, fontSize: 12.5, background: '#f8fafc', borderRadius: 8, padding: '6px 10px', flexWrap: 'wrap' }}
+                  style={{ display: 'flex', justifyContent: 'space-between', gap: 10, fontSize: 12.5, background: 'var(--rbl-surface-2)', borderRadius: 8, padding: '6px 10px', flexWrap: 'wrap' }}
                 >
-                  <span style={{ color: '#334155' }}>
+                  <span style={{ color: 'var(--rbl-text-strong)' }}>
                     <strong>{f.filingDesc}</strong>
-                    <span style={{ color: '#64748b' }}> — {f.category}, {f.isAmendment ? 'Amendment' : 'Original'}, {f.electionType}</span>
-                    {hasMultipleCommittees && <span style={{ color: '#6b7280' }}> ({f.committeeName})</span>}
+                    <span style={{ color: 'var(--rbl-text-muted)' }}> — {f.category}, {f.isAmendment ? 'Amendment' : 'Original'}, {f.electionType}</span>
+                    {hasMultipleCommittees && <span style={{ color: 'var(--rbl-text-muted)' }}> ({f.committeeName})</span>}
                   </span>
-                  <span style={{ color: '#475569', whiteSpace: 'nowrap' }}>
+                  <span style={{ color: 'var(--rbl-text-body)', whiteSpace: 'nowrap' }}>
                     {usd(f.amount)} · {f.transactionCount} row{f.transactionCount === 1 ? '' : 's'}
                     {f.lastActivity ? ` · through ${dateOnly(f.lastActivity)}` : ''}
                   </span>
@@ -588,7 +588,7 @@ function CampaignFilingsList({ filings, endYear, hasFetched }: { filings: Filing
           </div>
         ))}
       </div>
-      <div style={{ color: '#6b7280', fontSize: 11, marginTop: 6 }}>
+      <div style={{ color: 'var(--rbl-text-muted)', fontSize: 11, marginTop: 6 }}>
         &ldquo;Through&rdquo; is the latest transaction date reported inside that filing, not the date the filing was submitted — the
         bulk data doesn&apos;t carry a submission timestamp, only per-transaction dates (which can be old for a recurring loan
         balance re-reported each period). This list also only shows filings that reported at least one itemized transaction —
@@ -600,24 +600,24 @@ function CampaignFilingsList({ filings, endYear, hasFetched }: { filings: Filing
 
 function YearBreakdownList({ years }: { years: YearBreakdown[] }) {
   return (
-    <div style={{ marginTop: 12, borderTop: '1px solid #e2e8f0', paddingTop: 10 }}>
-      <div style={{ fontSize: 12, fontWeight: 800, color: '#284a69', textTransform: 'uppercase', letterSpacing: 0.4, marginBottom: 6 }}>
+    <div style={{ marginTop: 12, borderTop: '1px solid var(--rbl-border-subtle)', paddingTop: 10 }}>
+      <div style={{ fontSize: 12, fontWeight: 800, color: 'var(--rbl-title)', textTransform: 'uppercase', letterSpacing: 0.4, marginBottom: 6 }}>
         Direct contributions by year
       </div>
       <div style={{ display: 'grid', gap: 4 }}>
         {years.map((year) => (
-          <details key={year.year} style={{ background: '#f8fafc', borderRadius: 8, padding: '6px 10px' }}>
-            <summary style={{ cursor: 'pointer', display: 'flex', justifyContent: 'space-between', fontSize: 13, color: '#334155' }}>
+          <details key={year.year} style={{ background: 'var(--rbl-surface-2)', borderRadius: 8, padding: '6px 10px' }}>
+            <summary style={{ cursor: 'pointer', display: 'flex', justifyContent: 'space-between', fontSize: 13, color: 'var(--rbl-text-strong)' }}>
               <span>{year.year}</span>
-              <strong style={{ color: '#284a69' }}>{usd(year.raised)}</strong>
+              <strong style={{ color: 'var(--rbl-title)' }}>{usd(year.raised)}</strong>
             </summary>
             <div style={{ marginTop: 6, paddingLeft: 4, display: 'grid', gap: 3 }}>
-              <div style={{ fontSize: 12, color: '#64748b' }}>
+              <div style={{ fontSize: 12, color: 'var(--rbl-text-muted)' }}>
                 {year.donorCount} donor{year.donorCount === 1 ? '' : 's'}
                 {year.avgDonationPerDonor != null ? `, avg ${usd(year.avgDonationPerDonor)}` : ''}
               </div>
               {year.typeBreakdown.map((bucket) => (
-                <div key={bucket.type} style={{ display: 'flex', justifyContent: 'space-between', fontSize: 12, color: '#475569' }}>
+                <div key={bucket.type} style={{ display: 'flex', justifyContent: 'space-between', fontSize: 12, color: 'var(--rbl-text-body)' }}>
                   <span>
                     {bucket.type} ({bucket.donorCount})
                   </span>
@@ -683,17 +683,17 @@ function EthicsAnalysisPanel({
       style={{
         marginTop: 8,
         padding: '10px 12px',
-        background: flagged.length > 0 ? '#fef2f2' : approaching.length > 0 ? '#fffbeb' : '#f0fdf4',
+        background: flagged.length > 0 ? 'var(--rbl-danger-bg)' : approaching.length > 0 ? 'var(--rbl-warn-bg)' : 'var(--rbl-success-bg)',
         borderRadius: 8,
-        border: `1px solid ${flagged.length > 0 ? '#fca5a5' : approaching.length > 0 ? '#fcd34d' : '#86efac'}`,
+        border: `1px solid ${flagged.length > 0 ? 'var(--rbl-danger-border)' : approaching.length > 0 ? 'var(--rbl-warn-border)' : 'var(--rbl-success-border)'}`,
       }}
     >
-      <div style={{ fontSize: 12, fontWeight: 800, color: flagged.length > 0 ? '#991b1b' : approaching.length > 0 ? '#92400e' : '#14532d', marginBottom: 6 }}>
+      <div style={{ fontSize: 12, fontWeight: 800, color: flagged.length > 0 ? 'var(--rbl-danger-strong)' : approaching.length > 0 ? 'var(--rbl-warn)' : 'var(--rbl-success-strong)', marginBottom: 6 }}>
         § 113-4(B)(1)(f) Ethics Analysis — Town of Riverhead Code of Ethics
       </div>
 
       {allClear && !showCombinedWarning && (
-        <div style={{ fontSize: 11, color: '#166534' }}>
+        <div style={{ fontSize: 11, color: 'var(--rbl-success-strong)' }}>
           No donor&rsquo;s combined contributions exceeded $1,000 in any campaign — the aggregate recusal/disclosure threshold of § 113-4(B)(1)(f) is not reached for this watch. Transparency is still appropriate if {watchLabel} matters come before the Town.
         </div>
       )}
@@ -701,12 +701,12 @@ function EthicsAnalysisPanel({
       {showCombinedWarning && (
         <div style={{ marginBottom: 8 }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', fontSize: 12 }}>
-            <span style={{ fontWeight: 700, color: '#78350f' }}>
+            <span style={{ fontWeight: 700, color: 'var(--rbl-warn-strong)' }}>
               Combined {watchLabel} entity exposure
             </span>
-            <span style={{ fontWeight: 800, color: '#b45309', fontSize: 11 }}>⚠ COMBINED TOTAL EXCEEDS $1,000</span>
+            <span style={{ fontWeight: 800, color: 'var(--rbl-warn)', fontSize: 11 }}>⚠ COMBINED TOTAL EXCEEDS $1,000</span>
           </div>
-          <div style={{ fontSize: 10, color: '#78350f', marginTop: 2, lineHeight: 1.4 }}>
+          <div style={{ fontSize: 10, color: 'var(--rbl-warn-strong)', marginTop: 2, lineHeight: 1.4 }}>
             {usd(combinedTotal)} total across {groups.length} {watchLabel}-linked entities or individuals — no single entity reached the $1,000 per-person threshold of § 113-4(B)(1)(f) individually,
             but the combined relationship with {watchLabel}-associated interests totals {usd(combinedTotal)}.
             Voluntary disclosure of this aggregate relationship is appropriate when any {watchLabel}-related matter comes before the Town.
@@ -720,12 +720,12 @@ function EthicsAnalysisPanel({
         return (
           <div key={`${donor}||${year}`} style={{ marginBottom: 8 }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', fontSize: 12 }}>
-              <span style={{ fontWeight: 700, color: '#7f1d1d' }}>
-                {donor} <span style={{ fontWeight: 400, color: '#64748b' }}>({year} election)</span>
+              <span style={{ fontWeight: 700, color: 'var(--rbl-danger-strong)' }}>
+                {donor} <span style={{ fontWeight: 400, color: 'var(--rbl-text-muted)' }}>({year} election)</span>
               </span>
-              <span style={{ fontWeight: 800, color: '#b91c1c', fontSize: 11 }}>⚠ THRESHOLD EXCEEDED</span>
+              <span style={{ fontWeight: 800, color: 'var(--rbl-danger)', fontSize: 11 }}>⚠ THRESHOLD EXCEEDED</span>
             </div>
-            <div style={{ fontSize: 10, color: '#7f1d1d', marginTop: 2, lineHeight: 1.4 }}>
+            <div style={{ fontSize: 10, color: 'var(--rbl-danger-strong)', marginTop: 2, lineHeight: 1.4 }}>
               {usd(groupTotal)} received in aggregate — exceeds the $1,000 per-campaign limit of § 113-4(B)(1)(f).
               {isStructured && (
                 <> Composed of {rows.length} contributions (largest: {usd(maxSingle)}) each individually below $1,000 — the threshold is an <em>in-aggregate</em> limit, so the total triggers disclosure/recusal regardless of per-transaction size.</>
@@ -740,18 +740,18 @@ function EthicsAnalysisPanel({
       {approaching.map(({ donor, year, total: groupTotal, rows }) => (
         <div key={`${donor}||${year}`} style={{ marginBottom: 8 }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', fontSize: 12 }}>
-            <span style={{ fontWeight: 700, color: '#78350f' }}>
-              {donor} <span style={{ fontWeight: 400, color: '#64748b' }}>({year} election)</span>
+            <span style={{ fontWeight: 700, color: 'var(--rbl-warn-strong)' }}>
+              {donor} <span style={{ fontWeight: 400, color: 'var(--rbl-text-muted)' }}>({year} election)</span>
             </span>
-            <span style={{ fontWeight: 800, color: '#b45309', fontSize: 11 }}>Approaching $1,000</span>
+            <span style={{ fontWeight: 800, color: 'var(--rbl-warn)', fontSize: 11 }}>Approaching $1,000</span>
           </div>
-          <div style={{ fontSize: 10, color: '#78350f', marginTop: 2, lineHeight: 1.4 }}>
+          <div style={{ fontSize: 10, color: 'var(--rbl-warn-strong)', marginTop: 2, lineHeight: 1.4 }}>
             {usd(groupTotal)} received{rows.length > 1 ? ` across ${rows.length} contributions` : ''} — below the $1,000 aggregate threshold of § 113-4(B)(1)(f) but close. Any additional contribution in the same campaign would trigger the recusal/disclosure requirement.
           </div>
         </div>
       ))}
 
-      <div style={{ fontSize: 10, color: '#64748b', marginTop: 6, lineHeight: 1.4, fontStyle: 'italic', borderTop: '1px solid #e2e8f0', paddingTop: 6 }}>
+      <div style={{ fontSize: 10, color: 'var(--rbl-text-muted)', marginTop: 6, lineHeight: 1.4, fontStyle: 'italic', borderTop: '1px solid var(--rbl-border-subtle)', paddingTop: 6 }}>
         § 113-4(B)(1)(f) of the Town of Riverhead Code of Ethics prohibits a Town officer from taking or failing to take any action
         that may benefit a person who contributed more than $1,000 <strong>in aggregate</strong> during their most recent or current campaign —
         unless the officer recuses or (for elected officials) publicly discloses the relationship on the record.
@@ -784,14 +784,14 @@ function PetroCelliWatch({
   const hasHits = contributions !== null && contributions.length > 0
   const clear = contributions !== null && contributions.length === 0
 
-  const borderColor = hasHits ? '#c2700a' : clear ? '#15803d' : '#64748b'
-  const bgColor = hasHits ? '#fff7ed' : clear ? '#f0fdf4' : '#f8fafc'
+  const borderColor = hasHits ? '#c2700a' : clear ? 'var(--rbl-success)' : 'var(--rbl-series-slate)'
+  const bgColor = hasHits ? 'var(--rbl-warn-bg)' : clear ? 'var(--rbl-success-bg)' : 'var(--rbl-surface-2)'
 
   return (
     <div
       style={{
         marginTop: 14,
-        borderTop: '1px solid #e2e8f0',
+        borderTop: '1px solid var(--rbl-border-subtle)',
         paddingTop: 10,
         background: bgColor,
         border: `1px solid ${borderColor}`,
@@ -806,7 +806,7 @@ function PetroCelliWatch({
           gap: 6,
           fontWeight: 800,
           fontSize: 13,
-          color: hasHits ? '#92400e' : clear ? '#14532d' : '#334155',
+          color: hasHits ? 'var(--rbl-warn)' : clear ? 'var(--rbl-success-strong)' : 'var(--rbl-text-strong)',
           marginBottom: 6,
         }}
       >
@@ -815,13 +815,13 @@ function PetroCelliWatch({
       </div>
 
       {contributions === null && (
-        <div style={{ fontSize: 12, color: '#64748b' }}>
+        <div style={{ fontSize: 12, color: 'var(--rbl-text-muted)' }}>
           Tap &ldquo;Refresh from NY Open Data&rdquo; to run the Petrocelli donor watchlist check.
         </div>
       )}
 
       {clear && (
-        <div style={{ fontSize: 12, color: '#166534' }}>
+        <div style={{ fontSize: 12, color: 'var(--rbl-success-strong)' }}>
           No Petrocelli-named individual, related business, Hp East End Riverhead LLC, or known venue/entity donor
           rows were found in NY Open Data for this committee across the 2005–{currentlyServing ? endYear : endYear - 1} filing window.
         </div>
@@ -842,14 +842,14 @@ function PetroCelliWatch({
                   justifyContent: 'space-between',
                   gap: 10,
                   fontSize: 12,
-                  background: '#fff',
+                  background: 'var(--rbl-surface)',
                   borderRadius: 6,
                   padding: '5px 8px',
                   flexWrap: 'wrap',
                 }}
               >
-                <span style={{ color: '#334155', fontWeight: 600 }}>{c.donorName}</span>
-                <span style={{ color: '#475569', whiteSpace: 'nowrap' }}>
+                <span style={{ color: 'var(--rbl-text-strong)', fontWeight: 600 }}>{c.donorName}</span>
+                <span style={{ color: 'var(--rbl-text-body)', whiteSpace: 'nowrap' }}>
                   {usd(c.amount)}
                   {c.date ? ` · ${c.date}` : ''}
                   {c.contributorType ? ` · ${c.contributorType}` : ''}
@@ -861,7 +861,7 @@ function PetroCelliWatch({
           <div
             style={{
               fontSize: 11,
-              color: '#64748b',
+              color: 'var(--rbl-text-muted)',
               marginBottom: 6,
               lineHeight: 1.5,
             }}
@@ -870,9 +870,9 @@ function PetroCelliWatch({
           </div>
 
           <EthicsAnalysisPanel contributions={contributions!} accentColor="#92400e" watchLabel="Petrocelli" />
-          <div style={{ fontSize: 10, color: '#64748b', marginTop: 6, lineHeight: 1.4, fontStyle: 'italic' }}>
+          <div style={{ fontSize: 10, color: 'var(--rbl-text-muted)', marginTop: 6, lineHeight: 1.4, fontStyle: 'italic' }}>
             § 14-114 note: individual contributors are subject to the Town of Riverhead per-election limit ({usd(SUFFOLK_TOWN_LIMIT_PER_ELECTION)} general / {usd(SUFFOLK_TOWN_PRIMARY_LIMIT)} primary, per Suffolk County BOE 2026 Comprehensive Limits Report). Corporations, PACs, and unions face the same per-candidate limits as individuals under § 14-114; corporations are additionally capped at $5,000 statewide aggregate across all NY political contributions per calendar year under § 14-116 (Suffolk County BOE 2026 Comprehensive Limits Report; NCSL 2025–26). See{' '}
-            <a href="https://elections.ny.gov/laws-regulations/contribution-limits" target="_blank" rel="noopener noreferrer" style={{ color: '#92400e' }}>elections.ny.gov</a> for current limits.
+            <a href="https://elections.ny.gov/laws-regulations/contribution-limits" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--rbl-warn)' }}>elections.ny.gov</a> for current limits.
           </div>
         </>
       )}
@@ -907,8 +907,8 @@ function ScottPointeWatch({
   const hasHits = contributions !== null && contributions.length > 0
   const clear = contributions !== null && contributions.length === 0
 
-  const borderColor = hasHits ? '#6d28d9' : clear ? '#15803d' : '#64748b'
-  const bgColor = hasHits ? '#f5f3ff' : clear ? '#f0fdf4' : '#f8fafc'
+  const borderColor = hasHits ? '#6d28d9' : clear ? 'var(--rbl-success)' : 'var(--rbl-series-slate)'
+  const bgColor = hasHits ? 'var(--rbl-violet-bg)' : clear ? 'var(--rbl-success-bg)' : 'var(--rbl-surface-2)'
 
   return (
     <div
@@ -927,7 +927,7 @@ function ScottPointeWatch({
           gap: 6,
           fontWeight: 800,
           fontSize: 13,
-          color: hasHits ? '#5b21b6' : clear ? '#14532d' : '#334155',
+          color: hasHits ? 'var(--rbl-violet-strong)' : clear ? 'var(--rbl-success-strong)' : 'var(--rbl-text-strong)',
           marginBottom: 6,
         }}
       >
@@ -936,13 +936,13 @@ function ScottPointeWatch({
       </div>
 
       {contributions === null && (
-        <div style={{ fontSize: 12, color: '#64748b' }}>
+        <div style={{ fontSize: 12, color: 'var(--rbl-text-muted)' }}>
           Tap &ldquo;Refresh from NY Open Data&rdquo; to run the Scott&rsquo;s Pointe donor watchlist check.
         </div>
       )}
 
       {clear && (
-        <div style={{ fontSize: 12, color: '#166534' }}>
+        <div style={{ fontSize: 12, color: 'var(--rbl-success-strong)' }}>
           No Scott&rsquo;s Pointe entities, Island Water Park Corp, or known individual donors (Eric, Claudia, Cody, Jake Scott; Ken Myers; Grant Anderson)
           were found in NY Open Data for this committee across the 2005–{currentlyServing ? endYear : endYear - 1} filing window.
         </div>
@@ -950,7 +950,7 @@ function ScottPointeWatch({
 
       {hasHits && (
         <>
-          <div style={{ fontSize: 13, fontWeight: 700, color: '#5b21b6', marginBottom: 6 }}>
+          <div style={{ fontSize: 13, fontWeight: 700, color: 'var(--rbl-violet-strong)', marginBottom: 6 }}>
             {usd(total)} matched across {contributions!.length} contribution{contributions!.length === 1 ? '' : 's'}
           </div>
 
@@ -958,10 +958,10 @@ function ScottPointeWatch({
             {contributions!.map((c, i) => (
               <div
                 key={i}
-                style={{ display: 'flex', justifyContent: 'space-between', gap: 10, fontSize: 12, background: '#fff', borderRadius: 6, padding: '5px 8px', flexWrap: 'wrap' }}
+                style={{ display: 'flex', justifyContent: 'space-between', gap: 10, fontSize: 12, background: 'var(--rbl-surface)', borderRadius: 6, padding: '5px 8px', flexWrap: 'wrap' }}
               >
-                <span style={{ color: '#334155', fontWeight: 600 }}>{c.donorName}</span>
-                <span style={{ color: '#475569', whiteSpace: 'nowrap' }}>
+                <span style={{ color: 'var(--rbl-text-strong)', fontWeight: 600 }}>{c.donorName}</span>
+                <span style={{ color: 'var(--rbl-text-body)', whiteSpace: 'nowrap' }}>
                   {usd(c.amount)}
                   {c.date ? ` · ${c.date}` : ''}
                   {c.contributorType ? ` · ${c.contributorType}` : ''}
@@ -970,12 +970,12 @@ function ScottPointeWatch({
             ))}
           </div>
 
-          <div style={{ fontSize: 11, color: '#64748b', marginBottom: 6, lineHeight: 1.5 }}>{scottPointeScopeNote(endYear, currentlyServing)}</div>
+          <div style={{ fontSize: 11, color: 'var(--rbl-text-muted)', marginBottom: 6, lineHeight: 1.5 }}>{scottPointeScopeNote(endYear, currentlyServing)}</div>
 
           <EthicsAnalysisPanel contributions={contributions!} accentColor="#5b21b6" watchLabel="Scott's Pointe / Island Water Park" />
-          <div style={{ fontSize: 10, color: '#64748b', marginTop: 6, lineHeight: 1.4, fontStyle: 'italic' }}>
+          <div style={{ fontSize: 10, color: 'var(--rbl-text-muted)', marginTop: 6, lineHeight: 1.4, fontStyle: 'italic' }}>
             § 14-114 note: individual contributors are subject to the Town of Riverhead per-election limit ({usd(SUFFOLK_TOWN_LIMIT_PER_ELECTION)} general / {usd(SUFFOLK_TOWN_PRIMARY_LIMIT)} primary, per Suffolk County BOE 2026 Comprehensive Limits Report). Corporations, PACs, and unions face the same per-candidate limits as individuals under § 14-114; corporations are additionally capped at $5,000 statewide aggregate across all NY political contributions per calendar year under § 14-116 (Suffolk County BOE 2026 Comprehensive Limits Report; NCSL 2025–26). See{' '}
-            <a href="https://elections.ny.gov/laws-regulations/contribution-limits" target="_blank" rel="noopener noreferrer" style={{ color: '#5b21b6' }}>elections.ny.gov</a> for current limits.
+            <a href="https://elections.ny.gov/laws-regulations/contribution-limits" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--rbl-violet-strong)' }}>elections.ny.gov</a> for current limits.
           </div>
         </>
       )}
@@ -1127,8 +1127,8 @@ function CandidateFamilyWatch({
   const businessContribs  = hasHits ? contributions!.filter((c) => !isCommitteeContrib(c) && isBusinessContrib(c)) : []
   const individualContribs = hasHits ? contributions!.filter((c) => !isCommitteeContrib(c) && !isBusinessContrib(c)) : []
 
-  const borderColor = hasHits ? '#0369a1' : clear ? '#15803d' : '#64748b'
-  const bgColor = hasHits ? '#f0f9ff' : clear ? '#f0fdf4' : '#f8fafc'
+  const borderColor = hasHits ? '#0369a1' : clear ? 'var(--rbl-success)' : 'var(--rbl-series-slate)'
+  const bgColor = hasHits ? '#f0f9ff' : clear ? '#f0fdf4' : 'var(--rbl-surface-2)'
 
   const groupsIndividual = individualContribs.length > 0 ? groupByDonorAndYear(individualContribs) : []
 
@@ -1149,7 +1149,7 @@ function CandidateFamilyWatch({
           gap: 6,
           fontWeight: 800,
           fontSize: 13,
-          color: hasHits ? '#0c4a6e' : clear ? '#14532d' : '#334155',
+          color: hasHits ? 'var(--rbl-info-text)' : clear ? 'var(--rbl-success-strong)' : 'var(--rbl-text-strong)',
           marginBottom: 6,
         }}
       >
@@ -1158,37 +1158,37 @@ function CandidateFamilyWatch({
       </div>
 
       {contributions === null && (
-        <div style={{ fontSize: 12, color: '#64748b' }}>
+        <div style={{ fontSize: 12, color: 'var(--rbl-text-muted)' }}>
           Tap &ldquo;Refresh from NY Open Data&rdquo; to check for candidate and family financing activity.
         </div>
       )}
 
       {clear && (
-        <div style={{ fontSize: 12, color: '#166534' }}>
+        <div style={{ fontSize: 12, color: 'var(--rbl-success-strong)' }}>
           No candidate self-funding, known immediate-family donor rows, or PAC/committee contributors were found in NY Open Data for this committee across the 2005–{currentlyServing ? endYear : endYear - 1} filing window.
         </div>
       )}
 
       {hasHits && (
         <>
-          <div style={{ fontSize: 13, fontWeight: 700, color: '#0c4a6e', marginBottom: 8 }}>
+          <div style={{ fontSize: 13, fontWeight: 700, color: 'var(--rbl-info-text)', marginBottom: 8 }}>
             {usd(total)} matched across {contributions!.length} contribution{contributions!.length === 1 ? '' : 's'}
           </div>
 
           {/* PAC & Committee Donors subsection */}
           {committeeContribs.length > 0 && (
             <div style={{ marginBottom: 10 }}>
-              <div style={{ fontSize: 12, fontWeight: 800, color: '#5b21b6', marginBottom: 6, borderBottom: '1px solid #ddd6fe', paddingBottom: 4 }}>
+              <div style={{ fontSize: 12, fontWeight: 800, color: 'var(--rbl-violet-strong)', marginBottom: 6, borderBottom: '1px solid var(--rbl-violet-border)', paddingBottom: 4 }}>
                 PAC &amp; Committee Donors
               </div>
               <div style={{ display: 'grid', gap: 4, marginBottom: 8 }}>
                 {committeeContribs.map((c, i) => (
                   <div
                     key={i}
-                    style={{ display: 'flex', justifyContent: 'space-between', gap: 10, fontSize: 12, background: '#fff', borderRadius: 6, padding: '5px 8px', flexWrap: 'wrap' }}
+                    style={{ display: 'flex', justifyContent: 'space-between', gap: 10, fontSize: 12, background: 'var(--rbl-surface)', borderRadius: 6, padding: '5px 8px', flexWrap: 'wrap' }}
                   >
-                    <span style={{ color: '#334155', fontWeight: 600 }}>{c.donorName}</span>
-                    <span style={{ color: '#475569', whiteSpace: 'nowrap' }}>
+                    <span style={{ color: 'var(--rbl-text-strong)', fontWeight: 600 }}>{c.donorName}</span>
+                    <span style={{ color: 'var(--rbl-text-body)', whiteSpace: 'nowrap' }}>
                       {usd(c.amount)}
                       {c.electionYear ? ` · ${c.electionYear}` : c.date ? ` · ${c.date}` : ''}
                       {c.contributorType ? ` · ${c.contributorType}` : ''}
@@ -1203,17 +1203,17 @@ function CandidateFamilyWatch({
           {/* Business & Corporate Donors subsection */}
           {businessContribs.length > 0 && (
             <div style={{ marginBottom: 10 }}>
-              <div style={{ fontSize: 12, fontWeight: 800, color: '#92400e', marginBottom: 6, borderBottom: '1px solid #fde68a', paddingBottom: 4 }}>
+              <div style={{ fontSize: 12, fontWeight: 800, color: 'var(--rbl-warn)', marginBottom: 6, borderBottom: '1px solid var(--rbl-warn-border)', paddingBottom: 4 }}>
                 Business &amp; Corporate Donors
               </div>
               <div style={{ display: 'grid', gap: 4, marginBottom: 8 }}>
                 {businessContribs.map((c, i) => (
                   <div
                     key={i}
-                    style={{ display: 'flex', justifyContent: 'space-between', gap: 10, fontSize: 12, background: '#fff', borderRadius: 6, padding: '5px 8px', flexWrap: 'wrap' }}
+                    style={{ display: 'flex', justifyContent: 'space-between', gap: 10, fontSize: 12, background: 'var(--rbl-surface)', borderRadius: 6, padding: '5px 8px', flexWrap: 'wrap' }}
                   >
-                    <span style={{ color: '#334155', fontWeight: 600 }}>{c.donorName}</span>
-                    <span style={{ color: '#475569', whiteSpace: 'nowrap' }}>
+                    <span style={{ color: 'var(--rbl-text-strong)', fontWeight: 600 }}>{c.donorName}</span>
+                    <span style={{ color: 'var(--rbl-text-body)', whiteSpace: 'nowrap' }}>
                       {usd(c.amount)}
                       {c.electionYear ? ` · ${c.electionYear}` : c.date ? ` · ${c.date}` : ''}
                       {c.contributorType ? ` · ${c.contributorType}` : ''}
@@ -1222,7 +1222,7 @@ function CandidateFamilyWatch({
                 ))}
               </div>
               <EthicsAnalysisPanel contributions={businessContribs} accentColor="#92400e" watchLabel="business entity" />
-              <div style={{ fontSize: 10, color: '#78350f', marginTop: 6, lineHeight: 1.4, fontStyle: 'italic' }}>
+              <div style={{ fontSize: 10, color: 'var(--rbl-warn-strong)', marginTop: 6, lineHeight: 1.4, fontStyle: 'italic' }}>
                 Corporations, LLCs, and partnerships may contribute to candidate committees subject to the same per-election limit as individuals ({usd(SUFFOLK_TOWN_LIMIT_PER_ELECTION)} general / {usd(SUFFOLK_TOWN_PRIMARY_LIMIT)} primary). Corporations are additionally capped at $5,000 statewide aggregate across all NY political contributions per calendar year under § 14-116 (Suffolk County BOE 2026 Comprehensive Limits Report).
               </div>
             </div>
@@ -1232,7 +1232,7 @@ function CandidateFamilyWatch({
           {individualContribs.length > 0 && (
             <div>
               {committeeContribs.length > 0 && (
-                <div style={{ fontSize: 12, fontWeight: 800, color: '#0c4a6e', marginBottom: 6, borderBottom: '1px solid #bae6fd', paddingBottom: 4, marginTop: 4 }}>
+                <div style={{ fontSize: 12, fontWeight: 800, color: 'var(--rbl-info-text)', marginBottom: 6, borderBottom: '1px solid var(--rbl-sky-border)', paddingBottom: 4, marginTop: 4 }}>
                   Self-Funding &amp; Family Donors
                 </div>
               )}
@@ -1240,10 +1240,10 @@ function CandidateFamilyWatch({
                 {individualContribs.map((c, i) => (
                   <div
                     key={i}
-                    style={{ display: 'flex', justifyContent: 'space-between', gap: 10, fontSize: 12, background: '#fff', borderRadius: 6, padding: '5px 8px', flexWrap: 'wrap' }}
+                    style={{ display: 'flex', justifyContent: 'space-between', gap: 10, fontSize: 12, background: 'var(--rbl-surface)', borderRadius: 6, padding: '5px 8px', flexWrap: 'wrap' }}
                   >
-                    <span style={{ color: '#334155', fontWeight: 600 }}>{c.donorName}</span>
-                    <span style={{ color: '#475569', whiteSpace: 'nowrap' }}>
+                    <span style={{ color: 'var(--rbl-text-strong)', fontWeight: 600 }}>{c.donorName}</span>
+                    <span style={{ color: 'var(--rbl-text-body)', whiteSpace: 'nowrap' }}>
                       {usd(c.amount)}
                       {c.electionYear ? ` · ${c.electionYear}` : c.date ? ` · ${c.date}` : ''}
                       {c.contributorType ? ` · ${c.contributorType}` : ''}
@@ -1259,10 +1259,10 @@ function CandidateFamilyWatch({
                   padding: '10px 12px',
                   background: '#e0f2fe',
                   borderRadius: 8,
-                  border: '1px solid #bae6fd',
+                  border: '1px solid var(--rbl-sky-border)',
                 }}
               >
-                <div style={{ fontSize: 12, fontWeight: 800, color: '#0c4a6e', marginBottom: 8 }}>
+                <div style={{ fontSize: 12, fontWeight: 800, color: 'var(--rbl-info-text)', marginBottom: 8 }}>
                   § 14-114 Limit Analysis — {usd(SUFFOLK_TOWN_LIMIT_PER_ELECTION)} general / {usd(SUFFOLK_TOWN_PRIMARY_LIMIT)} primary per contributor (Town of Riverhead, Suffolk County BOE 2026)
                 </div>
 
@@ -1273,8 +1273,8 @@ function CandidateFamilyWatch({
                   for (const g of familyGroups) byYear.set(g.year, (byYear.get(g.year) ?? 0) + g.total)
                   if (byYear.size === 0) return null
                   return (
-                    <div style={{ marginBottom: 12, paddingBottom: 10, borderBottom: '1px solid #bae6fd' }}>
-                      <div style={{ fontSize: 11, fontWeight: 700, color: '#1e3a5f', marginBottom: 6 }}>
+                    <div style={{ marginBottom: 12, paddingBottom: 10, borderBottom: '1px solid var(--rbl-sky-border)' }}>
+                      <div style={{ fontSize: 11, fontWeight: 700, color: 'var(--rbl-title)', marginBottom: 6 }}>
                         Family Aggregate Cap — all immediate family members combined
                       </div>
                       {Array.from(byYear.entries()).sort((a, b) => b[0].localeCompare(a[0])).map(([year, familyTotal]) => {
@@ -1282,29 +1282,29 @@ function CandidateFamilyWatch({
                         const pct = Math.min(100, (familyTotal / FAMILY_AGGREGATE_GENERAL) * 100)
                         const over = familyTotal > FAMILY_AGGREGATE_GENERAL
                         const atLimit = !over && remaining === 0
-                        const barColor = over ? '#b91c1c' : pct >= 80 ? '#b45309' : '#7c3aed'
-                        const labelColor = over ? '#b91c1c' : atLimit ? '#92400e' : '#166534'
+                        const barColor = over ? 'var(--rbl-danger)' : pct >= 80 ? 'var(--rbl-warn)' : 'var(--rbl-series-violet)'
+                        const labelColor = over ? 'var(--rbl-danger)' : atLimit ? '#92400e' : 'var(--rbl-success-strong)'
                         return (
                           <div key={year} style={{ marginBottom: 8 }}>
                             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', fontSize: 12 }}>
-                              <span style={{ fontWeight: 700, color: '#1e3a5f' }}>
-                                All family members <span style={{ fontWeight: 400, color: '#64748b' }}>({year} election)</span>
+                              <span style={{ fontWeight: 700, color: 'var(--rbl-title)' }}>
+                                All family members <span style={{ fontWeight: 400, color: 'var(--rbl-text-muted)' }}>({year} election)</span>
                               </span>
                               <span style={{ fontWeight: 800, color: labelColor, fontSize: 11 }}>
                                 {over ? '⚠ OVER AGGREGATE CAP' : atLimit ? 'AT CAP' : `${usd(remaining)} remaining`}
                               </span>
                             </div>
-                            <div style={{ height: 6, background: '#bae6fd', borderRadius: 3, margin: '4px 0', overflow: 'hidden' }}>
+                            <div style={{ height: 6, background: 'var(--rbl-sky-bg)', borderRadius: 3, margin: '4px 0', overflow: 'hidden' }}>
                               <div style={{ height: '100%', width: `${pct}%`, background: barColor, borderRadius: 3, transition: 'width 0.3s' }} />
                             </div>
-                            <div style={{ fontSize: 10, color: '#475569' }}>
+                            <div style={{ fontSize: 10, color: 'var(--rbl-text-body)' }}>
                               {usd(familyTotal)} of {usd(FAMILY_AGGREGATE_GENERAL)} general-election family aggregate cap (1/4 × 25,341 registered voters)
                               {over && ` — EXCESS: ${usd(familyTotal - FAMILY_AGGREGATE_GENERAL)}`}
                             </div>
                           </div>
                         )
                       })}
-                      <div style={{ fontSize: 10, color: '#64748b', lineHeight: 1.4, fontStyle: 'italic' }}>
+                      <div style={{ fontSize: 10, color: 'var(--rbl-text-muted)', lineHeight: 1.4, fontStyle: 'italic' }}>
                         § 14-114 caps combined immediate-family contributions (child, parent, grandparent, sibling, and their spouses) at 1/4 of total registered voters. Primary limits are lower: DEM {usd(FAMILY_AGGREGATE_DEM_PRIMARY)} / REP {usd(FAMILY_AGGREGATE_REP_PRIMARY)} (Feb 20, 2026 Suffolk County BOE enrollment).
                       </div>
                     </div>
@@ -1318,12 +1318,12 @@ function CandidateFamilyWatch({
                     return (
                       <div key={`${donor}||${year}`} style={{ marginBottom: 10 }}>
                         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', fontSize: 12 }}>
-                          <span style={{ fontWeight: 700, color: '#1e3a5f' }}>
-                            {donor} <span style={{ fontWeight: 400, color: '#64748b' }}>({year} election)</span>
+                          <span style={{ fontWeight: 700, color: 'var(--rbl-title)' }}>
+                            {donor} <span style={{ fontWeight: 400, color: 'var(--rbl-text-muted)' }}>({year} election)</span>
                           </span>
-                          <span style={{ fontWeight: 800, color: '#7c3aed', fontSize: 11 }}>No cap — self-funding</span>
+                          <span style={{ fontWeight: 800, color: 'var(--rbl-violet)', fontSize: 11 }}>No cap — self-funding</span>
                         </div>
-                        <div style={{ fontSize: 10, color: '#475569' }}>
+                        <div style={{ fontSize: 10, color: 'var(--rbl-text-body)' }}>
                           {usd(groupTotal)} · Candidate self-funding is unlimited for local town races not in NY&apos;s public financing program.
                         </div>
                       </div>
@@ -1334,23 +1334,23 @@ function CandidateFamilyWatch({
                   const pct = Math.min(100, (groupTotal / SUFFOLK_TOWN_LIMIT_PER_ELECTION) * 100)
                   const over = groupTotal > SUFFOLK_TOWN_LIMIT_PER_ELECTION
                   const atLimit = !over && remaining === 0
-                  const barColor = over ? '#b91c1c' : pct >= 80 ? '#b45309' : '#0369a1'
-                  const labelColor = over ? '#b91c1c' : atLimit ? '#92400e' : '#166534'
+                  const barColor = over ? 'var(--rbl-danger)' : pct >= 80 ? 'var(--rbl-warn)' : 'var(--rbl-accent)'
+                  const labelColor = over ? 'var(--rbl-danger)' : atLimit ? '#92400e' : 'var(--rbl-success-strong)'
 
                   return (
                     <div key={`${donor}||${year}`} style={{ marginBottom: 10 }}>
                       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', fontSize: 12 }}>
-                        <span style={{ fontWeight: 700, color: '#1e3a5f' }}>
-                          {donor} <span style={{ fontWeight: 400, color: '#64748b' }}>({year} election)</span>
+                        <span style={{ fontWeight: 700, color: 'var(--rbl-title)' }}>
+                          {donor} <span style={{ fontWeight: 400, color: 'var(--rbl-text-muted)' }}>({year} election)</span>
                         </span>
                         <span style={{ fontWeight: 800, color: labelColor, fontSize: 11 }}>
                           {over ? '⚠ OVER LIMIT' : atLimit ? 'AT LIMIT' : `${usd(remaining)} remaining`}
                         </span>
                       </div>
-                      <div style={{ height: 6, background: '#bae6fd', borderRadius: 3, margin: '4px 0', overflow: 'hidden' }}>
+                      <div style={{ height: 6, background: 'var(--rbl-sky-bg)', borderRadius: 3, margin: '4px 0', overflow: 'hidden' }}>
                         <div style={{ height: '100%', width: `${pct}%`, background: barColor, borderRadius: 3, transition: 'width 0.3s' }} />
                       </div>
-                      <div style={{ fontSize: 10, color: '#475569' }}>
+                      <div style={{ fontSize: 10, color: 'var(--rbl-text-body)' }}>
                         {usd(groupTotal)} of {usd(SUFFOLK_TOWN_LIMIT_PER_ELECTION)} per-election limit
                         {over && ` — EXCESS: ${usd(groupTotal - SUFFOLK_TOWN_LIMIT_PER_ELECTION)}`}
                       </div>
@@ -1358,7 +1358,7 @@ function CandidateFamilyWatch({
                   )
                 })}
 
-                <div style={{ fontSize: 10, color: '#64748b', marginTop: 4, lineHeight: 1.4, fontStyle: 'italic' }}>
+                <div style={{ fontSize: 10, color: 'var(--rbl-text-muted)', marginTop: 4, lineHeight: 1.4, fontStyle: 'italic' }}>
                   Primary and general elections are separate limits under § 14-114(1). This analysis groups by election year as reported in the filing; it cannot distinguish primary vs. general election
                   within the same year. Limits shown are from the Suffolk County BOE 2026 Comprehensive Limits Report (general: {usd(SUFFOLK_TOWN_LIMIT_PER_ELECTION)}, all primaries: {usd(SUFFOLK_TOWN_PRIMARY_LIMIT)}). These are biennial CPI-adjusted; verify the current cycle at{' '}
                   <a href="https://elections.ny.gov/laws-regulations/contribution-limits" target="_blank" rel="noopener noreferrer" style={{ color: '#0369a1' }}>
@@ -1369,9 +1369,9 @@ function CandidateFamilyWatch({
             </div>
           )}
 
-          <div style={{ fontSize: 11, color: '#64748b', marginTop: 8, marginBottom: 4, lineHeight: 1.5 }}>{candidateFamilyScopeNote(endYear, currentlyServing)}</div>
+          <div style={{ fontSize: 11, color: 'var(--rbl-text-muted)', marginTop: 8, marginBottom: 4, lineHeight: 1.5 }}>{candidateFamilyScopeNote(endYear, currentlyServing)}</div>
 
-          <div style={{ fontSize: 11, color: '#475569', fontStyle: 'italic', lineHeight: 1.5 }}>
+          <div style={{ fontSize: 11, color: 'var(--rbl-text-body)', fontStyle: 'italic', lineHeight: 1.5 }}>
             Candidate self-loans, family gifts, and PAC contributions are lawful under NY Election Law. This watch surfaces them for
             transparency — voters and journalists can weigh whether personal, family, or organized interests are a primary funding source.
           </div>
@@ -1383,9 +1383,9 @@ function CandidateFamilyWatch({
 
 function Stat({ label, value }: { label: string; value: string }) {
   return (
-    <div style={{ background: '#f8fafc', borderRadius: 10, padding: 10 }}>
-      <div style={{ color: '#64748b', fontSize: 11, textTransform: 'uppercase', fontWeight: 800 }}>{label}</div>
-      <div style={{ fontWeight: 800, marginTop: 2, color: '#284a69' }}>{value}</div>
+    <div style={{ background: 'var(--rbl-surface-2)', borderRadius: 10, padding: 10 }}>
+      <div style={{ color: 'var(--rbl-text-muted)', fontSize: 11, textTransform: 'uppercase', fontWeight: 800 }}>{label}</div>
+      <div style={{ fontWeight: 800, marginTop: 2, color: 'var(--rbl-title)' }}>{value}</div>
     </div>
   )
 }

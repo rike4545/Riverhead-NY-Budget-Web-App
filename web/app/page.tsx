@@ -13,8 +13,8 @@ export default function Page() {
           glossary/guide as a secondary link (these used to be two separate CTAs). */}
       <div style={{
         display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 16, justifyContent: 'space-between',
-        background: 'linear-gradient(100deg,#0f2942,#4a7297)', color: 'white',
-        borderRadius: 16, padding: '20px 24px', marginBottom: 18, boxShadow: '0 14px 34px rgba(15,23,42,.14)',
+        background: 'linear-gradient(100deg,#0f2942,var(--rbl-fill-accent))', color: 'white',
+        borderRadius: 16, padding: '20px 24px', marginBottom: 18, boxShadow: '0 14px 34px var(--rbl-shadow)',
       }}>
         <div style={{ minWidth: 240 }}>
           <div style={{ fontSize: 12, fontWeight: 900, letterSpacing: 0.8, textTransform: 'uppercase', color: '#9fd0ef' }}>New here? Start here</div>
@@ -24,7 +24,7 @@ export default function Page() {
             <a href={`${base}/guide/`} style={{ color: '#9fd0ef', fontWeight: 800 }}>Open the plain-English guide →</a>
           </div>
         </div>
-        <a href={`${base}/explore/`} style={{ background: '#38bdf8', color: '#08263c', fontWeight: 900, padding: '12px 22px', borderRadius: 10, whiteSpace: 'nowrap', textDecoration: 'none' }}>Start the tour →</a>
+        <a href={`${base}/explore/`} style={{ background: 'var(--rbl-cta-bg)', color: 'var(--rbl-cta-fg)', fontWeight: 900, padding: '12px 22px', borderRadius: 10, whiteSpace: 'nowrap', textDecoration: 'none' }}>Start the tour →</a>
       </div>
       <FiscalCommandCenter />
     </PageShell>

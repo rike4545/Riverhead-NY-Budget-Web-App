@@ -6,8 +6,8 @@ import { authorizedSalaryUrl, actualYearFor, matchedCountFor, type AuthorizedSal
 
 const usd = (n: number | null | undefined) =>
   n == null ? '—' : new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(n)
-const card = { background: 'white', border: '1px solid #e2e8f0', borderRadius: 16, padding: 18, boxShadow: '0 14px 34px rgba(15,23,42,.05)' } as const
-const sel = { padding: '9px 11px', border: '1px solid #cbd5e1', borderRadius: 9, fontSize: 14, fontWeight: 700 } as const
+const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 18, boxShadow: '0 14px 34px var(--rbl-shadow)' } as const
+const sel = { padding: '9px 11px', border: '1px solid var(--rbl-border-strong)', borderRadius: 9, fontSize: 14, fontWeight: 700 } as const
 
 type SortKey = 'annual' | 'actualGross' | 'gap' | 'name'
 
@@ -49,14 +49,14 @@ export default function AuthorizedSalary() {
   return (
     <div style={{ display: 'grid', gap: 16 }}>
       <section style={{ ...card, display: 'flex', gap: 8, alignItems: 'center', flexWrap: 'wrap' }}>
-        <span style={{ fontWeight: 800, color: '#334155' }}>Salary year:</span>
+        <span style={{ fontWeight: 800, color: 'var(--rbl-text-strong)' }}>Salary year:</span>
         {([2025, 2026] as const).map((y) => (
           <button key={y} onClick={() => { setYear(y); setGroup('all'); setLimit(100) }} style={{
             padding: '8px 16px', borderRadius: 9, border: '1px solid', cursor: 'pointer', fontWeight: 800, fontSize: 14,
-            borderColor: year === y ? '#4a7297' : '#cbd5e1', background: year === y ? '#4a7297' : 'white', color: year === y ? 'white' : '#334155',
+            borderColor: year === y ? 'var(--rbl-accent-border)' : 'var(--rbl-border-strong)', background: year === y ? 'var(--rbl-fill-accent)' : 'var(--rbl-surface)', color: year === y ? 'white' : 'var(--rbl-text-strong)',
           }}>{y}</button>
         ))}
-        <span style={{ color: '#64748b', fontSize: 13 }}>Board-authorized base salaries for {year}.</span>
+        <span style={{ color: 'var(--rbl-text-muted)', fontSize: 13 }}>Board-authorized base salaries for {year}.</span>
       </section>
 
       {!fetched && !loadError && <LoadingCard label={`Loading the ${year} salary schedule…`} />}
@@ -80,11 +80,11 @@ export default function AuthorizedSalary() {
                 <button key={g.group} onClick={() => setGroup(group === g.group ? 'all' : g.group)}
                   style={{ background: 'none', border: 'none', textAlign: 'left', cursor: 'pointer', padding: 0 }}>
                   <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 13.5 }}>
-                    <span style={{ fontWeight: group === g.group ? 900 : 700, color: '#284a69' }}>{g.group} <span style={{ color: '#6b7280', fontWeight: 600 }}>({g.headcount})</span></span>
+                    <span style={{ fontWeight: group === g.group ? 900 : 700, color: 'var(--rbl-title)' }}>{g.group} <span style={{ color: 'var(--rbl-text-muted)', fontWeight: 600 }}>({g.headcount})</span></span>
                     <strong>{usd(g.authorized)}</strong>
                   </div>
-                  <div style={{ height: 8, background: '#f1f5f9', borderRadius: 8, marginTop: 3 }}>
-                    <div style={{ width: `${(g.authorized / max) * 100}%`, height: '100%', borderRadius: 8, background: group === g.group ? '#c99a2e' : '#4a7297' }} />
+                  <div style={{ height: 8, background: 'var(--rbl-surface-3)', borderRadius: 8, marginTop: 3 }}>
+                    <div style={{ width: `${(g.authorized / max) * 100}%`, height: '100%', borderRadius: 8, background: group === g.group ? 'var(--rbl-fill-gold)' : 'var(--rbl-fill-accent)' }} />
                   </div>
                 </button>
               ))}
@@ -106,18 +106,18 @@ export default function AuthorizedSalary() {
           <option value="name">Sort: Name (A–Z)</option>
         </select>
         <input value={q} onChange={(e) => { setQ(e.target.value); setLimit(100) }} placeholder="Search name or title…"
-          style={{ flex: 1, minWidth: 220, padding: '10px 13px', border: '1px solid #cbd5e1', borderRadius: 9, fontSize: 15 }} />
+          style={{ flex: 1, minWidth: 220, padding: '10px 13px', border: '1px solid var(--rbl-border-strong)', borderRadius: 9, fontSize: 15 }} />
       </section>
 
       {/* table */}
       <section style={card}>
-        <div style={{ color: '#475569', fontWeight: 700, marginBottom: 10, fontSize: 14 }}>
+        <div style={{ color: 'var(--rbl-text-body)', fontWeight: 700, marginBottom: 10, fontSize: 14 }}>
           Showing {Math.min(limit, rows.length).toLocaleString()} of {rows.length.toLocaleString()} positions · authorized base in view: {usd(totalAuth)}
         </div>
         <div style={{ overflowX: 'auto' }}>
           <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 13.5 }}>
             <thead>
-              <tr style={{ textAlign: 'left', color: '#64748b', borderBottom: '2px solid #e2e8f0' }}>
+              <tr style={{ textAlign: 'left', color: 'var(--rbl-text-muted)', borderBottom: '2px solid var(--rbl-border-subtle)' }}>
                 <th style={th}>Employee / Position</th>
                 <th style={th}>Group</th>
                 <th style={{ ...th, textAlign: 'right' }}>Authorized 2025</th>
@@ -129,18 +129,18 @@ export default function AuthorizedSalary() {
               {rows.slice(0, limit).map((r, i) => {
                 const gap = r.actualGross != null ? r.actualGross - r.annual : null
                 return (
-                  <tr key={`${r.name}-${r.title}-${i}`} style={{ borderBottom: '1px solid #f1f5f9' }}>
+                  <tr key={`${r.name}-${r.title}-${i}`} style={{ borderBottom: '1px solid var(--rbl-border-subtle)' }}>
                     <td style={td}>
-                      <strong style={{ color: '#284a69' }}>{r.name}</strong>
-                      <div style={{ color: '#64748b', fontSize: 12.5 }}>{r.title}{r.isStipend ? ' (stipend)' : ''}{r.grade ? ` · ${r.grade}` : ''}</div>
+                      <strong style={{ color: 'var(--rbl-title)' }}>{r.name}</strong>
+                      <div style={{ color: 'var(--rbl-text-muted)', fontSize: 12.5 }}>{r.title}{r.isStipend ? ' (stipend)' : ''}{r.grade ? ` · ${r.grade}` : ''}</div>
                     </td>
-                    <td style={{ ...td, color: '#475569' }}>{r.group}</td>
+                    <td style={{ ...td, color: 'var(--rbl-text-body)' }}>{r.group}</td>
                     <td style={{ ...td, textAlign: 'right', fontWeight: 700 }}>{usd(r.annual)}</td>
-                    <td style={{ ...td, textAlign: 'right', color: '#475569' }}>
-                      {r.actualGross != null ? usd(r.actualGross) : <span style={{ color: '#cbd5e1' }}>no match</span>}
-                      {r.actualOvertime ? <div style={{ fontSize: 11.5, color: '#b45309' }}>incl. {usd(r.actualOvertime)} OT</div> : null}
+                    <td style={{ ...td, textAlign: 'right', color: 'var(--rbl-text-body)' }}>
+                      {r.actualGross != null ? usd(r.actualGross) : <span style={{ color: 'var(--rbl-text-faint)' }}>no match</span>}
+                      {r.actualOvertime ? <div style={{ fontSize: 11.5, color: 'var(--rbl-warn)' }}>incl. {usd(r.actualOvertime)} OT</div> : null}
                     </td>
-                    <td style={{ ...td, textAlign: 'right', fontWeight: 700, color: gap == null ? '#cbd5e1' : gap >= 0 ? 'var(--inc)' : 'var(--dec)' }}>
+                    <td style={{ ...td, textAlign: 'right', fontWeight: 700, color: gap == null ? 'var(--rbl-text-faint)' : gap >= 0 ? 'var(--inc)' : 'var(--dec)' }}>
                       {gap == null ? '—' : `${gap >= 0 ? '+' : '−'}${usd(Math.abs(gap))}`}
                     </td>
                   </tr>
@@ -151,12 +151,12 @@ export default function AuthorizedSalary() {
         </div>
         {limit < rows.length && (
           <div style={{ textAlign: 'center', marginTop: 14 }}>
-            <button onClick={() => setLimit((l) => l + 200)} style={{ padding: '10px 18px', borderRadius: 10, border: '1px solid #4a7297', background: '#4a7297', color: 'white', fontWeight: 800, cursor: 'pointer' }}>Show more</button>
+            <button onClick={() => setLimit((l) => l + 200)} style={{ padding: '10px 18px', borderRadius: 10, border: '1px solid var(--rbl-accent-border)', background: 'var(--rbl-fill-accent)', color: 'white', fontWeight: 800, cursor: 'pointer' }}>Show more</button>
           </div>
         )}
       </section>
 
-      <p style={{ color: '#64748b', fontSize: 13, lineHeight: 1.5 }}>
+      <p style={{ color: 'var(--rbl-text-muted)', fontSize: 13, lineHeight: 1.5 }}>
         Source: {data.source.title}. {data.note}{' '}
         {actualYear === year
           ? `The "Actual ${actualYear}" column is the same-year actual gross pay for direct comparison.`
@@ -174,9 +174,9 @@ const td = { padding: '7px 9px' } as const
 
 function Stat({ label, value, accent }: { label: string; value: string; accent?: boolean }) {
   return (
-    <div style={{ background: accent ? '#dbeafe' : '#f8fafc', border: '1px solid #e2e8f0', borderRadius: 12, padding: 12 }}>
-      <div style={{ color: '#64748b', fontSize: 11.5, textTransform: 'uppercase', fontWeight: 900, letterSpacing: 0.4 }}>{label}</div>
-      <strong style={{ fontSize: 19, color: '#284a69' }}>{value}</strong>
+    <div style={{ background: accent ? 'var(--rbl-info-bg)' : 'var(--rbl-surface-2)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 12, padding: 12 }}>
+      <div style={{ color: 'var(--rbl-text-muted)', fontSize: 11.5, textTransform: 'uppercase', fontWeight: 900, letterSpacing: 0.4 }}>{label}</div>
+      <strong style={{ fontSize: 19, color: 'var(--rbl-title)' }}>{value}</strong>
     </div>
   )
 }

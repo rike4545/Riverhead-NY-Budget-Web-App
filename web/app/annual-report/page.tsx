@@ -5,7 +5,7 @@ import { dollars } from '../../lib/financial-data'
 import { afr2025, generalFundAfr } from '../../lib/afr'
 import { generalFund } from '../../lib/general-fund'
 
-const card = { background: 'white', border: '1px solid #e2e8f0', borderRadius: 16, padding: 20, boxShadow: '0 14px 34px rgba(15,23,42,.05)' } as const
+const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 20, boxShadow: '0 14px 34px var(--rbl-shadow)' } as const
 const th = { padding: '8px 10px' } as const
 const td = { padding: '7px 10px' } as const
 
@@ -66,7 +66,7 @@ export default function AnnualReportPage() {
             <Compare label="Actual spending" value={exp} delta={exp - adopted2025} deltaLabel="vs. plan" />
             <Compare label="Actual money taken in" value={rev} delta={rev - adopted2025} deltaLabel="above planned spending" good />
           </div>
-          <p style={{ color: '#475569', marginTop: 14, marginBottom: 0, lineHeight: 1.55 }}>
+          <p style={{ color: 'var(--rbl-text-body)', marginTop: 14, marginBottom: 0, lineHeight: 1.55 }}>
             The Town planned to spend {dollars(adopted2025)}. It actually spent {dollars(exp)} but took in {dollars(rev)},
             so revenues came in well above plan — which is what produced the {dollars(surplus)} surplus.
           </p>
@@ -75,14 +75,14 @@ export default function AnnualReportPage() {
 
       {/* Revenue + expenditure categories */}
       <section style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(340px,1fr))', gap: 16, marginBottom: 18 }}>
-        <CategoryCard title="Where the money came from" subtitle="General Fund revenues, 2025" rows={gf.revenueCategories.map((c) => ({ name: c.category, v2025: c.values['2025'], v2024: c.values['2024'] }))} color="#0f766e" />
-        <CategoryCard title="Where the money went" subtitle="General Fund spending, 2025" rows={gf.expenditureCategories.map((c) => ({ name: c.category, v2025: c.values['2025'], v2024: c.values['2024'] }))} color="#4a7297" />
+        <CategoryCard title="Where the money came from" subtitle="General Fund revenues, 2025" rows={gf.revenueCategories.map((c) => ({ name: c.category, v2025: c.values['2025'], v2024: c.values['2024'] }))} color="var(--rbl-series-teal)" />
+        <CategoryCard title="Where the money went" subtitle="General Fund spending, 2025" rows={gf.expenditureCategories.map((c) => ({ name: c.category, v2025: c.values['2025'], v2024: c.values['2024'] }))} color="var(--rbl-series-blue)" />
       </section>
 
       {/* Fund balance breakdown */}
       <section style={{ ...card, marginBottom: 18 }}>
         <h2 style={{ marginTop: 0 }}>What&apos;s in the General Fund&apos;s ${(fb2025 / 1_000_000).toFixed(1)}M savings?</h2>
-        <p style={{ color: '#475569', marginTop: 0 }}>Fund balance is split into categories by how freely it can be spent.</p>
+        <p style={{ color: 'var(--rbl-text-body)', marginTop: 0 }}>Fund balance is split into categories by how freely it can be spent.</p>
         <div style={{ display: 'grid', gap: 10 }}>
           {gf.fundBalanceClasses.map((c) => {
             const v = c.values['2025']
@@ -90,13 +90,13 @@ export default function AnnualReportPage() {
             return (
               <div key={c.class}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', gap: 10, fontSize: 14.5 }}>
-                  <strong style={{ color: '#284a69' }}>{c.class}</strong>
-                  <strong>{dollars(v)} <span style={{ color: '#6b7280', fontWeight: 600 }}>({pct.toFixed(0)}%)</span></strong>
+                  <strong style={{ color: 'var(--rbl-title)' }}>{c.class}</strong>
+                  <strong>{dollars(v)} <span style={{ color: 'var(--rbl-text-muted)', fontWeight: 600 }}>({pct.toFixed(0)}%)</span></strong>
                 </div>
-                <div style={{ height: 9, background: '#f1f5f9', borderRadius: 9, marginTop: 4 }}>
-                  <div style={{ width: `${pct}%`, height: '100%', borderRadius: 9, background: c.class === 'Unassigned' ? '#15803d' : '#4a7297' }} />
+                <div style={{ height: 9, background: 'var(--rbl-surface-3)', borderRadius: 9, marginTop: 4 }}>
+                  <div style={{ width: `${pct}%`, height: '100%', borderRadius: 9, background: c.class === 'Unassigned' ? 'var(--rbl-fill-success)' : 'var(--rbl-fill-accent)' }} />
                 </div>
-                <p style={{ color: '#64748b', fontSize: 13, margin: '4px 0 0', lineHeight: 1.4 }}>{CLASS_PLAIN[c.class]}</p>
+                <p style={{ color: 'var(--rbl-text-muted)', fontSize: 13, margin: '4px 0 0', lineHeight: 1.4 }}>{CLASS_PLAIN[c.class]}</p>
               </div>
             )
           })}
@@ -106,11 +106,11 @@ export default function AnnualReportPage() {
       {/* Per-fund table */}
       <section style={card}>
         <h2 style={{ marginTop: 0 }}>Every fund in 2025</h2>
-        <p style={{ color: '#475569', marginTop: 0 }}>Actual money taken in, money spent, the resulting surplus or deficit, and year-end savings for each fund.</p>
+        <p style={{ color: 'var(--rbl-text-body)', marginTop: 0 }}>Actual money taken in, money spent, the resulting surplus or deficit, and year-end savings for each fund.</p>
         <div style={{ overflowX: 'auto' }}>
           <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 14 }}>
             <thead>
-              <tr style={{ textAlign: 'left', color: '#64748b', borderBottom: '2px solid #e2e8f0' }}>
+              <tr style={{ textAlign: 'left', color: 'var(--rbl-text-muted)', borderBottom: '2px solid var(--rbl-border-subtle)' }}>
                 <th style={th}>Fund</th>
                 <th style={{ ...th, textAlign: 'right' }}>Money In</th>
                 <th style={{ ...th, textAlign: 'right' }}>Money Out</th>
@@ -122,11 +122,11 @@ export default function AnnualReportPage() {
               {afr2025.funds.filter((f) => f.revenues || f.expenditures).map((f) => {
                 const s = f.surplus?.['2025'] ?? null
                 return (
-                  <tr key={f.code} style={{ borderBottom: '1px solid #f1f5f9' }}>
-                    <td style={td}><span style={{ color: '#6b7280', fontWeight: 800, fontSize: 12 }}>{f.code}</span> {f.name}</td>
+                  <tr key={f.code} style={{ borderBottom: '1px solid var(--rbl-border-subtle)' }}>
+                    <td style={td}><span style={{ color: 'var(--rbl-text-muted)', fontWeight: 800, fontSize: 12 }}>{f.code}</span> {f.name}</td>
                     <td style={{ ...td, textAlign: 'right' }}>{f.revenues ? dollars(f.revenues['2025']) : '—'}</td>
                     <td style={{ ...td, textAlign: 'right' }}>{f.expenditures ? dollars(f.expenditures['2025']) : '—'}</td>
-                    <td style={{ ...td, textAlign: 'right', fontWeight: 700, color: s == null ? '#6b7280' : s >= 0 ? '#15803d' : '#b91c1c' }}>
+                    <td style={{ ...td, textAlign: 'right', fontWeight: 700, color: s == null ? 'var(--rbl-text-muted)' : s >= 0 ? 'var(--rbl-success)' : 'var(--rbl-danger)' }}>
                       {s == null ? '—' : s >= 0 ? dollars(s) : `(${dollars(Math.abs(s))})`}
                     </td>
                     <td style={{ ...td, textAlign: 'right' }}>{f.fundBalance ? dollars(f.fundBalance['2025']) : '—'}</td>
@@ -136,7 +136,7 @@ export default function AnnualReportPage() {
             </tbody>
           </table>
         </div>
-        <p style={{ color: '#64748b', fontSize: 13, marginTop: 12, lineHeight: 1.5 }}>
+        <p style={{ color: 'var(--rbl-text-muted)', fontSize: 13, marginTop: 12, lineHeight: 1.5 }}>
           Source: {afr2025.source.title}. {afr2025.note} Enterprise funds (Water, Sewer) and some others report
           &quot;net position&quot; rather than fund balance, shown here as &quot;—&quot;.
         </p>
@@ -147,21 +147,21 @@ export default function AnnualReportPage() {
 
 function Stat({ label, value, sub, accent, good }: { label: React.ReactNode; value: string; sub?: string; accent?: boolean; good?: boolean }) {
   return (
-    <div style={{ background: accent ? '#dcfce7' : '#f8fafc', border: '1px solid #e2e8f0', borderRadius: 12, padding: 14 }}>
-      <div style={{ color: '#64748b', fontSize: 11.5, textTransform: 'uppercase', fontWeight: 900, letterSpacing: 0.4 }}>{label}</div>
-      <strong style={{ fontSize: 20, color: good ? '#15803d' : '#284a69' }}>{value}</strong>
-      {sub && <div style={{ color: '#64748b', fontSize: 12.5, marginTop: 2 }}>{sub}</div>}
+    <div style={{ background: accent ? 'var(--rbl-success-bg)' : 'var(--rbl-surface-2)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 12, padding: 14 }}>
+      <div style={{ color: 'var(--rbl-text-muted)', fontSize: 11.5, textTransform: 'uppercase', fontWeight: 900, letterSpacing: 0.4 }}>{label}</div>
+      <strong style={{ fontSize: 20, color: good ? 'var(--rbl-success)' : 'var(--rbl-title)' }}>{value}</strong>
+      {sub && <div style={{ color: 'var(--rbl-text-muted)', fontSize: 12.5, marginTop: 2 }}>{sub}</div>}
     </div>
   )
 }
 
 function Compare({ label, value, delta, deltaLabel, good }: { label: string; value: number; delta?: number; deltaLabel?: string; good?: boolean }) {
   return (
-    <div style={{ background: '#f8fafc', border: '1px solid #e2e8f0', borderRadius: 12, padding: 14 }}>
-      <div style={{ color: '#64748b', fontSize: 12.5, fontWeight: 700 }}>{label}</div>
-      <strong style={{ fontSize: 22, color: '#284a69' }}>{dollars(value)}</strong>
+    <div style={{ background: 'var(--rbl-surface-2)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 12, padding: 14 }}>
+      <div style={{ color: 'var(--rbl-text-muted)', fontSize: 12.5, fontWeight: 700 }}>{label}</div>
+      <strong style={{ fontSize: 22, color: 'var(--rbl-title)' }}>{dollars(value)}</strong>
       {delta != null && (
-        <div style={{ color: (good ?? delta < 0) ? '#15803d' : '#b45309', fontWeight: 800, fontSize: 13, marginTop: 2 }}>
+        <div style={{ color: (good ?? delta < 0) ? 'var(--rbl-success)' : 'var(--rbl-warn)', fontWeight: 800, fontSize: 13, marginTop: 2 }}>
           {delta >= 0 ? '+' : '−'}{dollars(Math.abs(delta))} {deltaLabel}
         </div>
       )}
@@ -175,24 +175,24 @@ function CategoryCard({ title, subtitle, rows, color }: { title: string; subtitl
   return (
     <div style={card}>
       <h3 style={{ margin: '0 0 2px' }}>{title}</h3>
-      <div style={{ color: '#64748b', fontSize: 13, marginBottom: 12 }}>{subtitle}</div>
+      <div style={{ color: 'var(--rbl-text-muted)', fontSize: 13, marginBottom: 12 }}>{subtitle}</div>
       <div style={{ display: 'grid', gap: 9 }}>
         {sorted.map((r) => {
           const change = r.v2024 ? ((r.v2025 - r.v2024) / r.v2024) * 100 : null
           return (
             <div key={r.name}>
               <div style={{ display: 'flex', justifyContent: 'space-between', gap: 8, fontSize: 13.5 }}>
-                <span style={{ color: '#334155' }}>{r.name}</span>
+                <span style={{ color: 'var(--rbl-text-strong)' }}>{r.name}</span>
                 <span style={{ fontWeight: 700, whiteSpace: 'nowrap' }}>
                   {dollars(r.v2025)}
                   {change != null && Math.abs(change) >= 0.5 && (
-                    <span style={{ color: change > 0 ? '#b45309' : '#15803d', fontWeight: 700, fontSize: 12, marginLeft: 6 }}>
+                    <span style={{ color: change > 0 ? 'var(--rbl-warn)' : 'var(--rbl-success)', fontWeight: 700, fontSize: 12, marginLeft: 6 }}>
                       {change > 0 ? '▲' : '▼'}{Math.abs(change).toFixed(0)}%
                     </span>
                   )}
                 </span>
               </div>
-              <div style={{ height: 7, background: '#f1f5f9', borderRadius: 7, marginTop: 3 }}>
+              <div style={{ height: 7, background: 'var(--rbl-surface-3)', borderRadius: 7, marginTop: 3 }}>
                 <div style={{ width: `${(r.v2025 / max) * 100}%`, height: '100%', borderRadius: 7, background: color }} />
               </div>
             </div>

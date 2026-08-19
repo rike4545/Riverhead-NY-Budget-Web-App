@@ -23,8 +23,8 @@ export default function TaxBillPage() {
 
       <TaxBillEstimator rates2026={data.rates2026} rates2025={data.rates2025} residentialAssessmentRatio={data.equalization.residentialAssessmentRatio} />
 
-      <p style={{ color: '#64748b', fontSize: 13, lineHeight: 1.55, marginTop: 16 }}>
-        Source: <a href={data.rateSource.url} style={{ color: '#4a7297', fontWeight: 700 }}>{data.rateSource.title}</a>.{' '}
+      <p style={{ color: 'var(--rbl-text-muted)', fontSize: 13, lineHeight: 1.55, marginTop: 16 }}>
+        Source: <a href={data.rateSource.url} style={{ color: 'var(--rbl-accent)', fontWeight: 700 }}>{data.rateSource.title}</a>.{' '}
         {data.equalization.note}
       </p>
     </PageShell>

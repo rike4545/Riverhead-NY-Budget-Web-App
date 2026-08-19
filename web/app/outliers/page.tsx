@@ -4,7 +4,7 @@ import OutlierWatch from '../../components/OutlierWatch'
 import { outliers, yearTransitions, allYoyChanges, PCT_THRESHOLD, DOLLAR_THRESHOLD } from '../../lib/outlier-watch'
 
 const base = process.env.NEXT_PUBLIC_BASE_PATH || ''
-const card = { background: 'white', border: '1px solid #e2e8f0', borderRadius: 16, padding: 20, boxShadow: '0 14px 34px rgba(15,23,42,.05)' } as const
+const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 20, boxShadow: '0 14px 34px var(--rbl-shadow)' } as const
 const usd = (n: number) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(n)
 
 export const metadata = {
@@ -40,9 +40,9 @@ export default function OutlierWatchPage() {
 
       <OutlierWatch outliers={outliers} yearTransitions={yearTransitions} />
 
-      <p style={{ color: '#6b7280', fontSize: 12.5, marginTop: 16 }}>
+      <p style={{ color: 'var(--rbl-text-muted)', fontSize: 12.5, marginTop: 16 }}>
         Source: each year's Adopted Budget Summary page, via the same fund-appropriations history that powers{' '}
-        <a href={`${base}/funds/`} style={{ color: '#4a7297' }}>Funds Explorer</a>.
+        <a href={`${base}/funds/`} style={{ color: 'var(--rbl-accent)' }}>Funds Explorer</a>.
       </p>
     </PageShell>
   )
@@ -51,9 +51,9 @@ export default function OutlierWatchPage() {
 function Stat({ label, value, sub, accent }: { label: string; value: string; sub?: string; accent?: boolean }) {
   return (
     <div>
-      <div style={{ color: '#64748b', fontSize: 12.5, fontWeight: 700, textTransform: 'uppercase', letterSpacing: 0.3 }}>{label}</div>
-      <div style={{ color: accent ? '#b91c1c' : '#284a69', fontSize: 26, fontWeight: 900, lineHeight: 1.2 }}>{value}</div>
-      {sub && <div style={{ color: '#6b7280', fontSize: 12.5 }}>{sub}</div>}
+      <div style={{ color: 'var(--rbl-text-muted)', fontSize: 12.5, fontWeight: 700, textTransform: 'uppercase', letterSpacing: 0.3 }}>{label}</div>
+      <div style={{ color: accent ? 'var(--rbl-danger)' : 'var(--rbl-title)', fontSize: 26, fontWeight: 900, lineHeight: 1.2 }}>{value}</div>
+      {sub && <div style={{ color: 'var(--rbl-text-muted)', fontSize: 12.5 }}>{sub}</div>}
     </div>
   )
 }

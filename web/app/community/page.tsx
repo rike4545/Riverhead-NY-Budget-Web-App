@@ -2,7 +2,7 @@ import PageShell from '../../components/PageShell'
 import PlainCallout from '../../components/PlainCallout'
 import data from '../../public/data/community.json'
 
-const card = { background: 'white', border: '1px solid #e2e8f0', borderRadius: 16, padding: 20, boxShadow: '0 14px 34px rgba(15,23,42,.05)' } as const
+const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 20, boxShadow: '0 14px 34px var(--rbl-shadow)' } as const
 const usd0 = (n: number) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(n)
 const bn = (n: number) => `$${(n / 1e9).toFixed(2)}B`
 
@@ -39,7 +39,7 @@ export default function CommunityPage() {
 
       <section style={{ ...card, marginBottom: 16 }}>
         <h3 style={{ marginTop: 0 }}>The tax base, explained</h3>
-        <ul style={{ color: '#334155', fontSize: 14.5, lineHeight: 1.65, paddingLeft: 18, margin: 0 }}>
+        <ul style={{ color: 'var(--rbl-text-strong)', fontSize: 14.5, lineHeight: 1.65, paddingLeft: 18, margin: 0 }}>
           <li>{d.taxBase.impliedFullValuationNote}</li>
           <li>{d.taxBase.assessmentRatioNote}</li>
           <li>{d.taxBase.assessedChange2023} {d.taxBase.townWideRateChange2023}</li>
@@ -48,49 +48,49 @@ export default function CommunityPage() {
         </ul>
       </section>
 
-      <h2 style={{ color: '#284a69' }}>Businesses & industries</h2>
+      <h2 style={{ color: 'var(--rbl-title)' }}>Businesses & industries</h2>
       <section style={{ ...card, marginBottom: 16 }}>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(180px,1fr))', gap: 12, marginBottom: 14 }}>
           <Stat label="Employer businesses" value={d.businesses.totalEmployerFirms.toLocaleString()} sub={`All employer firms, ${d.businesses.totalEmployerFirmsYear}`} accent />
           <Stat label="Total employment" value={d.businesses.totalEmployment2024.toLocaleString()} sub={`2024, +${d.businesses.employmentGrowth2023to2024Pct}% vs 2023`} />
         </div>
-        <p style={{ color: '#334155', fontSize: 14.5, marginTop: 0, marginBottom: 8 }}>Largest industries by people employed (2024):</p>
+        <p style={{ color: 'var(--rbl-text-strong)', fontSize: 14.5, marginTop: 0, marginBottom: 8 }}>Largest industries by people employed (2024):</p>
         <div style={{ display: 'grid', gap: 8, marginBottom: 10 }}>
           {d.businesses.topIndustriesByEmployment2024.map((ind, i) => (
-            <div key={ind.industry} style={{ display: 'flex', gap: 12, alignItems: 'baseline', padding: '9px 12px', background: i === 0 ? '#eff6ff' : '#f8fafc', border: `1px solid ${i === 0 ? '#bfdbfe' : '#e2e8f0'}`, borderRadius: 10 }}>
-              <span style={{ fontWeight: 900, color: i === 0 ? '#1e3a8a' : '#6b7280', minWidth: 20 }}>{i + 1}</span>
-              <div style={{ flex: 1, fontWeight: 700, color: '#284a69' }}>{ind.industry}</div>
-              <div style={{ color: '#64748b', fontSize: 13.5 }}>{ind.employees.toLocaleString()} employees</div>
+            <div key={ind.industry} style={{ display: 'flex', gap: 12, alignItems: 'baseline', padding: '9px 12px', background: i === 0 ? 'var(--rbl-info-bg)' : 'var(--rbl-surface-2)', border: `1px solid ${i === 0 ? 'var(--rbl-info-border)' : 'var(--rbl-border-subtle)'}`, borderRadius: 10 }}>
+              <span style={{ fontWeight: 900, color: i === 0 ? 'var(--rbl-info-text)' : 'var(--rbl-text-muted)', minWidth: 20 }}>{i + 1}</span>
+              <div style={{ flex: 1, fontWeight: 700, color: 'var(--rbl-title)' }}>{ind.industry}</div>
+              <div style={{ color: 'var(--rbl-text-muted)', fontSize: 13.5 }}>{ind.employees.toLocaleString()} employees</div>
             </div>
           ))}
         </div>
-        <p style={{ color: '#64748b', fontSize: 13, marginTop: 0, marginBottom: 0, lineHeight: 1.5 }}>{d.businesses.note} Source: {d.businesses.totalEmployerFirmsSource}</p>
+        <p style={{ color: 'var(--rbl-text-muted)', fontSize: 13, marginTop: 0, marginBottom: 0, lineHeight: 1.5 }}>{d.businesses.note} Source: {d.businesses.totalEmployerFirmsSource}</p>
       </section>
 
-      <h2 style={{ color: '#284a69' }}>Largest taxpayers</h2>
+      <h2 style={{ color: 'var(--rbl-title)' }}>Largest taxpayers</h2>
       <section style={{ ...card, marginBottom: 16 }}>
-        <p style={{ color: '#64748b', fontSize: 13, marginTop: 0, lineHeight: 1.5 }}>{d.largestTaxpayers.note}</p>
+        <p style={{ color: 'var(--rbl-text-muted)', fontSize: 13, marginTop: 0, lineHeight: 1.5 }}>{d.largestTaxpayers.note}</p>
         <div style={{ display: 'grid', gap: 8 }}>
           {d.largestTaxpayers.items.map((t, i) => (
-            <div key={i} style={{ display: 'flex', gap: 12, alignItems: 'baseline', padding: '9px 12px', background: i === 0 ? '#eff6ff' : '#f8fafc', border: `1px solid ${i === 0 ? '#bfdbfe' : '#e2e8f0'}`, borderRadius: 10 }}>
-              <span style={{ fontWeight: 900, color: i === 0 ? '#1e3a8a' : '#6b7280', minWidth: 20 }}>{i + 1}</span>
+            <div key={i} style={{ display: 'flex', gap: 12, alignItems: 'baseline', padding: '9px 12px', background: i === 0 ? 'var(--rbl-info-bg)' : 'var(--rbl-surface-2)', border: `1px solid ${i === 0 ? 'var(--rbl-info-border)' : 'var(--rbl-border-subtle)'}`, borderRadius: 10 }}>
+              <span style={{ fontWeight: 900, color: i === 0 ? 'var(--rbl-info-text)' : 'var(--rbl-text-muted)', minWidth: 20 }}>{i + 1}</span>
               <div>
-                <div style={{ fontWeight: 800, color: '#284a69' }}>{t.name}{i === 0 && <span style={{ marginLeft: 8, background: '#1e3a8a', color: 'white', fontSize: 10.5, fontWeight: 900, padding: '2px 8px', borderRadius: 999 }}>largest</span>}</div>
-                <div style={{ color: '#64748b', fontSize: 13, lineHeight: 1.45 }}>{t.note}</div>
+                <div style={{ fontWeight: 800, color: 'var(--rbl-title)' }}>{t.name}{i === 0 && <span style={{ marginLeft: 8, background: 'var(--rbl-fill-brand)', color: 'white', fontSize: 10.5, fontWeight: 900, padding: '2px 8px', borderRadius: 999 }}>largest</span>}</div>
+                <div style={{ color: 'var(--rbl-text-muted)', fontSize: 13, lineHeight: 1.45 }}>{t.note}</div>
               </div>
             </div>
           ))}
         </div>
       </section>
 
-      <section style={{ ...card, marginBottom: 16, borderLeft: '6px solid #b45309' }}>
+      <section style={{ ...card, marginBottom: 16, borderLeft: '6px solid var(--rbl-warn)' }}>
         <h3 style={{ marginTop: 0 }}>{d.assessmentStress.headline}</h3>
-        <ul style={{ color: '#334155', fontSize: 14.5, lineHeight: 1.6, paddingLeft: 18, margin: 0 }}>
+        <ul style={{ color: 'var(--rbl-text-strong)', fontSize: 14.5, lineHeight: 1.6, paddingLeft: 18, margin: 0 }}>
           {d.assessmentStress.points.map((p, i) => <li key={i}>{p}</li>)}
         </ul>
       </section>
 
-      <p style={{ color: '#64748b', fontSize: 13, lineHeight: 1.5 }}>
+      <p style={{ color: 'var(--rbl-text-muted)', fontSize: 13, lineHeight: 1.5 }}>
         Sources: {d.sources.join(' · ')} Independent public-information project — figures are compiled from public
         records and reporting; the largest-taxpayers list is illustrative of major ratables, not an official ranked
         assessment schedule. Verify against the Town Assessor before relying on them.
@@ -101,10 +101,10 @@ export default function CommunityPage() {
 
 function Stat({ label, value, sub, accent }: { label: string; value: string; sub?: string; accent?: boolean }) {
   return (
-    <div style={{ background: accent ? '#dbeafe' : '#f8fafc', border: '1px solid #e2e8f0', borderRadius: 12, padding: 12 }}>
-      <div style={{ color: '#64748b', fontSize: 11.5, textTransform: 'uppercase', fontWeight: 900, letterSpacing: 0.4 }}>{label}</div>
-      <strong style={{ fontSize: 20, color: '#284a69' }}>{value}</strong>
-      {sub && <div style={{ color: '#64748b', fontSize: 12.5, marginTop: 2 }}>{sub}</div>}
+    <div style={{ background: accent ? 'var(--rbl-info-bg)' : 'var(--rbl-surface-2)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 12, padding: 12 }}>
+      <div style={{ color: 'var(--rbl-text-muted)', fontSize: 11.5, textTransform: 'uppercase', fontWeight: 900, letterSpacing: 0.4 }}>{label}</div>
+      <strong style={{ fontSize: 20, color: 'var(--rbl-title)' }}>{value}</strong>
+      {sub && <div style={{ color: 'var(--rbl-text-muted)', fontSize: 12.5, marginTop: 2 }}>{sub}</div>}
     </div>
   )
 }

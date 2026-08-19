@@ -19,12 +19,12 @@ export default function Term({ id, children }: { id: string; children?: React.Re
         aria-expanded={open}
         style={{
           background: 'none', border: 'none', padding: 0, font: 'inherit', cursor: 'help',
-          color: 'inherit', borderBottom: '1.5px dotted #4a7297', lineHeight: 1.2,
+          color: 'inherit', borderBottom: '1.5px dotted var(--rbl-accent-border)', lineHeight: 1.2,
         }}
         title={entry.plain}
       >
         {label}
-        <sup style={{ color: '#4a7297', fontWeight: 900, fontSize: '0.7em', marginLeft: 1 }}>?</sup>
+        <sup style={{ color: 'var(--rbl-accent)', fontWeight: 900, fontSize: '0.7em', marginLeft: 1 }}>?</sup>
       </button>
       {open && (
         <>
@@ -33,12 +33,12 @@ export default function Term({ id, children }: { id: string; children?: React.Re
             role="tooltip"
             style={{
               position: 'absolute', zIndex: 50, top: '130%', left: 0, width: 'max-content', maxWidth: 300,
-              background: '#0f2740', color: '#f1f5f9', padding: '10px 12px', borderRadius: 10,
-              boxShadow: '0 16px 40px rgba(15,23,42,.32)', fontSize: 13.5, fontWeight: 500, lineHeight: 1.45,
+              background: '#0f2740', color: 'var(--rbl-surface-3)', padding: '10px 12px', borderRadius: 10,
+              boxShadow: '0 16px 40px var(--rbl-shadow)', fontSize: 13.5, fontWeight: 500, lineHeight: 1.45,
               textTransform: 'none', letterSpacing: 0, whiteSpace: 'normal', textAlign: 'left',
             }}
           >
-            <strong style={{ display: 'block', color: '#fff', marginBottom: 3 }}>{entry.term}</strong>
+            <strong style={{ display: 'block', color: 'var(--rbl-surface)', marginBottom: 3 }}>{entry.term}</strong>
             {entry.plain}
           </span>
         </>

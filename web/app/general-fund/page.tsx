@@ -4,9 +4,9 @@ import PlainCallout from '../../components/PlainCallout'
 import { generalFund } from '../../lib/general-fund'
 import { dollars } from '../../lib/financial-data'
 
-const card = { background: 'white', border: '1px solid #e2e8f0', borderRadius: 16, padding: 20, boxShadow: '0 14px 34px rgba(15,23,42,.05)' } as const
+const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 20, boxShadow: '0 14px 34px var(--rbl-shadow)' } as const
 
-const COLORS = { appropriations: '#284a69', taxLevy: '#c99a2e', estimatedRevenues: '#0f766e', appropriatedFundBalance: '#7c3aed' }
+const COLORS = { appropriations: 'var(--rbl-fill-brand)', taxLevy: 'var(--rbl-series-gold)', estimatedRevenues: 'var(--rbl-series-teal)', appropriatedFundBalance: 'var(--rbl-series-violet)' }
 
 export const metadata = {
   title: 'General Fund — 20-year history',
@@ -58,7 +58,7 @@ export default function GeneralFundPage() {
         <div style={{ overflowX: 'auto' }}>
           <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 14 }}>
             <thead>
-              <tr style={{ textAlign: 'left', color: '#64748b', borderBottom: '2px solid #e2e8f0' }}>
+              <tr style={{ textAlign: 'left', color: 'var(--rbl-text-muted)', borderBottom: '2px solid var(--rbl-border-subtle)' }}>
                 <th style={th}>Year</th>
                 <th style={{ ...th, textAlign: 'right' }}>Appropriations</th>
                 <th style={{ ...th, textAlign: 'right' }}>Estimated Revenues</th>
@@ -72,13 +72,13 @@ export default function GeneralFundPage() {
                 const prev = i > 0 ? rows[i - 1].taxLevy : null
                 const levyChange = prev && r.taxLevy ? ((r.taxLevy - prev) / prev) * 100 : null
                 return (
-                  <tr key={r.year} style={{ borderBottom: '1px solid #f1f5f9' }}>
+                  <tr key={r.year} style={{ borderBottom: '1px solid var(--rbl-border-subtle)' }}>
                     <td style={{ ...td, fontWeight: 700 }}>{r.year}</td>
                     <td style={{ ...td, textAlign: 'right', fontWeight: 700 }}>{r.appropriations != null ? dollars(r.appropriations) : '—'}</td>
-                    <td style={{ ...td, textAlign: 'right', color: '#64748b' }}>{r.estimatedRevenues != null ? dollars(r.estimatedRevenues) : '—'}</td>
-                    <td style={{ ...td, textAlign: 'right', color: '#64748b' }}>{r.appropriatedFundBalance != null ? dollars(r.appropriatedFundBalance) : '—'}</td>
+                    <td style={{ ...td, textAlign: 'right', color: 'var(--rbl-text-muted)' }}>{r.estimatedRevenues != null ? dollars(r.estimatedRevenues) : '—'}</td>
+                    <td style={{ ...td, textAlign: 'right', color: 'var(--rbl-text-muted)' }}>{r.appropriatedFundBalance != null ? dollars(r.appropriatedFundBalance) : '—'}</td>
                     <td style={{ ...td, textAlign: 'right', fontWeight: 700 }}>{r.taxLevy != null ? dollars(r.taxLevy) : '—'}</td>
-                    <td style={{ ...td, textAlign: 'right', color: levyChange == null ? '#6b7280' : levyChange > 0 ? 'var(--inc)' : 'var(--dec)', fontWeight: 700 }}>
+                    <td style={{ ...td, textAlign: 'right', color: levyChange == null ? 'var(--rbl-text-muted)' : levyChange > 0 ? 'var(--inc)' : 'var(--dec)', fontWeight: 700 }}>
                       {levyChange == null ? '—' : `${levyChange > 0 ? '+' : ''}${levyChange.toFixed(1)}%`}
                     </td>
                   </tr>
@@ -89,7 +89,7 @@ export default function GeneralFundPage() {
         </div>
       </section>
 
-      <p style={{ color: '#64748b', fontSize: 13, lineHeight: 1.5, marginTop: 14 }}>
+      <p style={{ color: 'var(--rbl-text-muted)', fontSize: 13, lineHeight: 1.5, marginTop: 14 }}>
         Source: {generalFund.source.title}. {generalFund.note} These are adopted (budgeted) figures, not year-end actuals.
         Gap years had no parsed adopted budget available.
       </p>
@@ -102,9 +102,9 @@ const td = { padding: '7px 10px' } as const
 
 function Stat({ label, value, accent, good }: { label: string; value: string; accent?: boolean; good?: boolean }) {
   return (
-    <div style={{ background: accent ? '#dbeafe' : '#f8fafc', border: '1px solid #e2e8f0', borderRadius: 12, padding: 12 }}>
-      <div style={{ color: '#64748b', fontSize: 11.5, textTransform: 'uppercase', fontWeight: 900, letterSpacing: 0.4 }}>{label}</div>
-      <strong style={{ fontSize: 19, color: good === false ? '#b91c1c' : '#284a69' }}>{value}</strong>
+    <div style={{ background: accent ? 'var(--rbl-info-bg)' : 'var(--rbl-surface-2)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 12, padding: 12 }}>
+      <div style={{ color: 'var(--rbl-text-muted)', fontSize: 11.5, textTransform: 'uppercase', fontWeight: 900, letterSpacing: 0.4 }}>{label}</div>
+      <strong style={{ fontSize: 19, color: good === false ? 'var(--rbl-danger)' : 'var(--rbl-title)' }}>{value}</strong>
     </div>
   )
 }

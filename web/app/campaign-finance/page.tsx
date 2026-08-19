@@ -18,19 +18,19 @@ export default function CampaignFinancePage() {
     <PageShell title={data.title} subtitle={data.intro}>
       {deadline && deadline.label !== 'General Election Day' && (
         <div style={{
-          background: '#fff7e6', border: '1px solid #f0d999', borderLeft: '6px solid #c99a2e',
-          borderRadius: 12, padding: '12px 16px', marginBottom: 16, fontSize: 14, color: '#5f430d',
+          background: 'var(--rbl-warn-bg)', border: '1px solid var(--rbl-gold-border)', borderLeft: '6px solid var(--rbl-gold-border)',
+          borderRadius: 12, padding: '12px 16px', marginBottom: 16, fontSize: 14, color: 'var(--rbl-warn-strong)',
         }}>
           <strong>Next filing deadline: {deadline.label}</strong> — due {deadline.date} ({deadline.periodNote}).
           Every committee tracked below is required to file by this date. Source:{' '}
-          <a href="https://elections.ny.gov/system/files/documents/2025/12/2026-filing-calendar-12112025-approved.secure.accessible.pdf" style={{ color: '#8a6a1f', fontWeight: 800 }}>
+          <a href="https://elections.ny.gov/system/files/documents/2025/12/2026-filing-calendar-12112025-approved.secure.accessible.pdf" style={{ color: 'var(--rbl-warn)', fontWeight: 800 }}>
             NY BOE 2026 filing calendar
           </a>.
         </div>
       )}
       <PlainCallout title="Where this comes from">
         These figures come straight from New York State&apos;s open campaign-finance data (
-        <a href="https://data.ny.gov" style={{ color: '#4a7297', fontWeight: 800 }}>
+        <a href="https://data.ny.gov" style={{ color: 'var(--rbl-accent)', fontWeight: 800 }}>
           data.ny.gov
         </a>
         ), covering {data.campaignFilingStartYear}–{data.campaignFilingEndYear}. The numbers shown on page load are a
@@ -85,12 +85,12 @@ export default function CampaignFinancePage() {
 function LimitCard({ label, individual, family }: { label: string; individual: number; family: number }) {
   const usd = (n: number) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 2 }).format(n)
   return (
-    <div style={{ background: 'white', border: '1px solid #f0d999', borderRadius: 10, padding: 12 }}>
-      <div style={{ fontWeight: 800, color: '#5f430d', fontSize: 13 }}>{label}</div>
-      <div style={{ fontSize: 13, color: '#5f430d', marginTop: 6 }}>
+    <div style={{ background: 'var(--rbl-surface)', border: '1px solid var(--rbl-gold-border)', borderRadius: 10, padding: 12 }}>
+      <div style={{ fontWeight: 800, color: 'var(--rbl-warn-strong)', fontSize: 13 }}>{label}</div>
+      <div style={{ fontSize: 13, color: 'var(--rbl-warn-strong)', marginTop: 6 }}>
         Individual: <strong>{usd(individual)}</strong>
       </div>
-      <div style={{ fontSize: 13, color: '#5f430d', marginTop: 2 }}>
+      <div style={{ fontSize: 13, color: 'var(--rbl-warn-strong)', marginTop: 2 }}>
         Family: <strong>{usd(family)}</strong>
       </div>
     </div>

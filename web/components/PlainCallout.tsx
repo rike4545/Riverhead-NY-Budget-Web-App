@@ -13,20 +13,20 @@ export default function PlainCallout({
   return (
     <section
       style={{
-        background: '#eef6ff', border: '1px solid #bcd9f5', borderLeft: '6px solid #4a7297',
+        background: 'var(--rbl-info-bg)', border: '1px solid var(--rbl-info-border)', borderLeft: '6px solid var(--rbl-accent-border)',
         borderRadius: 14, padding: '16px 18px', marginBottom: 18,
       }}
     >
       <div style={{ display: 'flex', gap: 8, alignItems: 'center', marginBottom: 6 }}>
         <span aria-hidden style={{ fontSize: 18 }}>💡</span>
-        <strong style={{ color: '#284a69', fontSize: 16 }}>{title}</strong>
+        <strong style={{ color: 'var(--rbl-title)', fontSize: 16 }}>{title}</strong>
       </div>
-      <div style={{ color: '#1f3a52', fontSize: 15, lineHeight: 1.55 }}>{children}</div>
+      <div style={{ color: 'var(--rbl-info-text)', fontSize: 15, lineHeight: 1.55 }}>{children}</div>
       {tips && tips.length > 0 && (
         <ul style={{ margin: '12px 0 0', paddingLeft: 0, listStyle: 'none', display: 'grid', gap: 8 }}>
           {tips.map((t) => (
-            <li key={t.label} style={{ display: 'flex', gap: 8, alignItems: 'baseline', fontSize: 14.5, color: '#1f3a52', lineHeight: 1.45 }}>
-              <span aria-hidden style={{ color: '#4a7297', fontWeight: 900 }}>›</span>
+            <li key={t.label} style={{ display: 'flex', gap: 8, alignItems: 'baseline', fontSize: 14.5, color: 'var(--rbl-info-text)', lineHeight: 1.45 }}>
+              <span aria-hidden style={{ color: 'var(--rbl-accent)', fontWeight: 900 }}>›</span>
               <span><strong>{t.label}:</strong> {t.text}</span>
             </li>
           ))}
@@ -39,13 +39,13 @@ export default function PlainCallout({
 // A collapsible "What do these columns mean?" guide for data tables.
 export function ColumnGuide({ items, label = 'What do these columns mean?' }: { items: { term: string; plain: string }[]; label?: string }) {
   return (
-    <details style={{ background: '#f8fafc', border: '1px solid #e2e8f0', borderRadius: 12, padding: '10px 14px', marginBottom: 12 }}>
-      <summary style={{ cursor: 'pointer', fontWeight: 800, color: '#4a7297' }}>{label}</summary>
+    <details style={{ background: 'var(--rbl-surface-2)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 12, padding: '10px 14px', marginBottom: 12 }}>
+      <summary style={{ cursor: 'pointer', fontWeight: 800, color: 'var(--rbl-accent)' }}>{label}</summary>
       <dl style={{ margin: '10px 0 0', display: 'grid', gap: 8 }}>
         {items.map((i) => (
           <div key={i.term}>
-            <dt style={{ fontWeight: 800, color: '#284a69' }}>{i.term}</dt>
-            <dd style={{ margin: '2px 0 0', color: '#475569', fontSize: 14, lineHeight: 1.45 }}>{i.plain}</dd>
+            <dt style={{ fontWeight: 800, color: 'var(--rbl-title)' }}>{i.term}</dt>
+            <dd style={{ margin: '2px 0 0', color: 'var(--rbl-text-body)', fontSize: 14, lineHeight: 1.45 }}>{i.plain}</dd>
           </div>
         ))}
       </dl>

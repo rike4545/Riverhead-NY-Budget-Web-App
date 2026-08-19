@@ -19,11 +19,11 @@ export default function CapBalancer({ levy2026, predictedLevy, allowedLevy, appr
   const under = newLevy <= allowedLevy
   const remaining = newLevy - allowedLevy
 
-  const good = '#15803d', bad = '#b91c1c'
+  const good = 'var(--rbl-success)', bad = 'var(--rbl-danger)'
   const col = under ? good : bad
 
   return (
-    <div style={{ background: 'white', border: '1px solid #e2e8f0', borderRadius: 16, padding: 20, boxShadow: '0 14px 34px rgba(15,23,42,.05)' }}>
+    <div style={{ background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 20, boxShadow: '0 14px 34px var(--rbl-shadow)' }}>
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(260px,1fr))', gap: 20 }}>
         {/* Controls */}
         <div style={{ display: 'grid', gap: 16 }}>
@@ -38,27 +38,27 @@ export default function CapBalancer({ levy2026, predictedLevy, allowedLevy, appr
         </div>
 
         {/* Result */}
-        <div style={{ background: under ? '#f0fdf4' : '#fef2f2', border: `1px solid ${under ? '#bbf7d0' : '#fecaca'}`, borderRadius: 14, padding: 18, display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-          <div style={{ color: '#64748b', fontSize: 12, fontWeight: 900, textTransform: 'uppercase', letterSpacing: 0.5 }}>Resulting 2027 levy</div>
-          <div style={{ fontSize: 34, fontWeight: 900, color: '#284a69', lineHeight: 1.1, margin: '2px 0 6px' }}>{usd(newLevy)}</div>
+        <div style={{ background: under ? 'var(--rbl-success-bg)' : 'var(--rbl-danger-bg)', border: `1px solid ${under ? 'var(--rbl-success-border)' : 'var(--rbl-danger-border)'}`, borderRadius: 14, padding: 18, display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+          <div style={{ color: 'var(--rbl-text-muted)', fontSize: 12, fontWeight: 900, textTransform: 'uppercase', letterSpacing: 0.5 }}>Resulting 2027 levy</div>
+          <div style={{ fontSize: 34, fontWeight: 900, color: 'var(--rbl-title)', lineHeight: 1.1, margin: '2px 0 6px' }}>{usd(newLevy)}</div>
           <div style={{ fontSize: 18, fontWeight: 800, color: col }}>{newPct >= 0 ? '+' : ''}{newPct.toFixed(1)}% vs 2026</div>
           <div style={{ marginTop: 12, padding: '10px 12px', borderRadius: 10, background: col, color: 'white', fontWeight: 800, fontSize: 14.5 }}>
             {under
               ? `✓ Under the ~${capPct}% cap — no override needed`
               : `✗ Still over the cap by ${usd(remaining)}`}
           </div>
-          <div style={{ color: '#64748b', fontSize: 12.5, marginTop: 10, lineHeight: 1.45 }}>
+          <div style={{ color: 'var(--rbl-text-muted)', fontSize: 12.5, marginTop: 10, lineHeight: 1.45 }}>
             Cap allows about <strong>{usd(allowedLevy)}</strong> (~{capPct}%). You&apos;ve found <strong>{usd(totalReduction)}</strong> so far;
             the starting gap was <strong>{usd(predictedLevy - allowedLevy)}</strong>.
           </div>
           {(reserves > 0 && under) && (
-            <div style={{ color: '#92400e', fontSize: 12, marginTop: 8, lineHeight: 1.4 }}>
+            <div style={{ color: 'var(--rbl-warn)', fontSize: 12, marginTop: 8, lineHeight: 1.4 }}>
               Note: {usd(reserves)} of this is one-time reserve money — it balances 2027 but reopens the gap in 2028.
             </div>
           )}
         </div>
       </div>
-      <p style={{ color: '#6b7280', fontSize: 12, marginTop: 14, marginBottom: 0, lineHeight: 1.45 }}>
+      <p style={{ color: 'var(--rbl-text-muted)', fontSize: 12, marginTop: 14, marginBottom: 0, lineHeight: 1.45 }}>
         Illustrative. Moves each lever against the model&apos;s predicted levy; the real cap ceiling is a bit above a flat {capPct}%
         once the tax-base-growth factor and pension/capital exclusions are added, so the true gap is somewhat smaller.
       </p>
@@ -72,12 +72,12 @@ function Slider({ label, value, min, max, step, onChange, display, hint }: {
   return (
     <div>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', gap: 8 }}>
-        <span style={{ fontWeight: 800, color: '#284a69', fontSize: 14.5 }}>{label}</span>
-        <span style={{ fontWeight: 800, color: '#4a7297', fontSize: 14 }}>{display}</span>
+        <span style={{ fontWeight: 800, color: 'var(--rbl-title)', fontSize: 14.5 }}>{label}</span>
+        <span style={{ fontWeight: 800, color: 'var(--rbl-accent)', fontSize: 14 }}>{display}</span>
       </div>
       <input type="range" min={min} max={max} step={step} value={value} onChange={(e) => onChange(Number(e.target.value))}
-        style={{ width: '100%', accentColor: '#4a7297', marginTop: 6 }} />
-      <div style={{ color: '#6b7280', fontSize: 12, lineHeight: 1.35 }}>{hint}</div>
+        style={{ width: '100%', accentColor: 'var(--rbl-series-blue)', marginTop: 6 }} />
+      <div style={{ color: 'var(--rbl-text-muted)', fontSize: 12, lineHeight: 1.35 }}>{hint}</div>
     </div>
   )
 }

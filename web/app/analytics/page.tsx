@@ -3,7 +3,7 @@ import { analyticsModules, automatedKpis } from '../../lib/analytics-modules'
 import { allOperatingFunds2026, fundBalanceUseSummary } from '../../lib/all-funds'
 import { dollars } from '../../lib/financial-data'
 
-const card = { background: 'white', border: '1px solid #e2e8f0', borderRadius: 18, padding: 20, boxShadow: '0 14px 34px rgba(15,23,42,.05)' } as const
+const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 18, padding: 20, boxShadow: '0 14px 34px var(--rbl-shadow)' } as const
 
 export default function AnalyticsPage() {
   const levyTotal = allOperatingFunds2026.reduce((sum, fund) => sum + fund.taxLevy2026, 0)
@@ -21,13 +21,13 @@ export default function AnalyticsPage() {
 
       <section style={{ ...card, marginBottom: 18 }}>
         <h2 style={{ marginTop: 0 }}>Automated KPI Engine</h2>
-        <p style={{ color: '#64748b' }}>Resident-readable indicators summarize major fiscal signals while preserving source-backed caution.</p>
+        <p style={{ color: 'var(--rbl-text-muted)' }}>Resident-readable indicators summarize major fiscal signals while preserving source-backed caution.</p>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(240px,1fr))', gap: 12 }}>
           {automatedKpis.map((kpi) => (
-            <article key={kpi.label} style={{ border: '1px solid #e2e8f0', borderRadius: 16, padding: 14, background: '#f8fafc' }}>
-              <div style={{ color: '#2563eb', fontWeight: 900, fontSize: 12, textTransform: 'uppercase' }}>{kpi.label}</div>
+            <article key={kpi.label} style={{ border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 14, background: 'var(--rbl-surface-2)' }}>
+              <div style={{ color: 'var(--rbl-link)', fontWeight: 900, fontSize: 12, textTransform: 'uppercase' }}>{kpi.label}</div>
               <strong style={{ fontSize: 26 }}>{kpi.value}</strong>
-              <p style={{ color: '#475569' }}>{kpi.explanation}</p>
+              <p style={{ color: 'var(--rbl-text-body)' }}>{kpi.explanation}</p>
             </article>
           ))}
         </div>
@@ -35,17 +35,17 @@ export default function AnalyticsPage() {
 
       <section style={card}>
         <h2 style={{ marginTop: 0 }}>Platform Intelligence Modules</h2>
-        <p style={{ color: '#64748b' }}>These modules show what is active, partial, or awaiting deeper parsed data.</p>
+        <p style={{ color: 'var(--rbl-text-muted)' }}>These modules show what is active, partial, or awaiting deeper parsed data.</p>
         <div style={{ display: 'grid', gap: 10 }}>
           {analyticsModules.map((module) => (
-            <article key={module.name} style={{ borderTop: '1px solid #e2e8f0', padding: '14px 0' }}>
+            <article key={module.name} style={{ borderTop: '1px solid var(--rbl-border-subtle)', padding: '14px 0' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', gap: 12, flexWrap: 'wrap' }}>
                 <h3 style={{ margin: 0 }}>{module.name}</h3>
-                <span style={{ fontWeight: 900, color: module.status === 'active' ? '#16a34a' : module.status === 'partial' ? '#ca8a04' : '#64748b' }}>{module.status}</span>
+                <span style={{ fontWeight: 900, color: module.status === 'active' ? 'var(--rbl-success)' : module.status === 'partial' ? 'var(--rbl-warn)' : 'var(--rbl-text-muted)' }}>{module.status}</span>
               </div>
-              <p style={{ color: '#334155' }}>{module.description}</p>
-              <p style={{ color: '#64748b', fontSize: 13 }}><strong>Source basis:</strong> {module.sourceBasis}</p>
-              <p style={{ color: '#64748b', fontSize: 13 }}><strong>Next step:</strong> {module.nextStep}</p>
+              <p style={{ color: 'var(--rbl-text-strong)' }}>{module.description}</p>
+              <p style={{ color: 'var(--rbl-text-muted)', fontSize: 13 }}><strong>Source basis:</strong> {module.sourceBasis}</p>
+              <p style={{ color: 'var(--rbl-text-muted)', fontSize: 13 }}><strong>Next step:</strong> {module.nextStep}</p>
             </article>
           ))}
         </div>
@@ -57,7 +57,7 @@ export default function AnalyticsPage() {
 function Metric({ label, value }: { label: string; value: string }) {
   return (
     <div style={card}>
-      <div style={{ color: '#64748b', fontSize: 12, textTransform: 'uppercase', fontWeight: 900 }}>{label}</div>
+      <div style={{ color: 'var(--rbl-text-muted)', fontSize: 12, textTransform: 'uppercase', fontWeight: 900 }}>{label}</div>
       <strong style={{ fontSize: 28 }}>{value}</strong>
     </div>
   )

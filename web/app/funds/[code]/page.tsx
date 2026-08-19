@@ -29,7 +29,7 @@ export default async function FundDetailPage({ params }: { params: Promise<{ cod
   if (!fund) {
     return (
       <PageShell title="Fund not found" subtitle="No account-level detail is available for this fund code.">
-        <a href={`${base}/funds/`} style={{ color: '#4a7297', fontWeight: 800 }}>← Back to Funds Explorer</a>
+        <a href={`${base}/funds/`} style={{ color: 'var(--rbl-accent)', fontWeight: 800 }}>← Back to Funds Explorer</a>
       </PageShell>
     )
   }
@@ -39,7 +39,7 @@ export default async function FundDetailPage({ params }: { params: Promise<{ cod
       title={`${fund.name} (${fund.code})`}
       subtitle={meta?.description ?? `Account-level appropriations and revenues for the ${fund.name}.`}
     >
-      <a href={`${base}/funds/`} style={{ color: '#4a7297', fontWeight: 800, display: 'inline-block', marginBottom: 14 }}>
+      <a href={`${base}/funds/`} style={{ color: 'var(--rbl-accent)', fontWeight: 800, display: 'inline-block', marginBottom: 14 }}>
         ← Back to Funds Explorer
       </a>
       <PlainCallout
@@ -72,12 +72,12 @@ function ActualsStrip({ code }: { code: string }) {
   if (rev == null && exp == null) return null
 
   return (
-    <section style={{ background: '#f0fdf4', border: '1px solid #bbf7d0', borderLeft: '6px solid #15803d', borderRadius: 14, padding: '14px 18px', marginBottom: 16 }}>
+    <section style={{ background: 'var(--rbl-success-bg)', border: '1px solid var(--rbl-success-border)', borderLeft: '6px solid var(--rbl-success)', borderRadius: 14, padding: '14px 18px', marginBottom: 16 }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', gap: 12, flexWrap: 'wrap', alignItems: 'baseline' }}>
-        <strong style={{ color: '#14532d', fontSize: 15 }}>
+        <strong style={{ color: 'var(--rbl-success-strong)', fontSize: 15 }}>
           What actually happened in 2025 {shared ? `(${fund.name} group)` : ''}
         </strong>
-        <a href={`${process.env.NEXT_PUBLIC_BASE_PATH || ''}/annual-report/`} style={{ color: '#15803d', fontWeight: 800, fontSize: 13.5, textDecoration: 'none' }}>
+        <a href={`${process.env.NEXT_PUBLIC_BASE_PATH || ''}/annual-report/`} style={{ color: 'var(--rbl-success)', fontWeight: 800, fontSize: 13.5, textDecoration: 'none' }}>
           Full 2025 Annual Report →
         </a>
       </div>
@@ -88,7 +88,7 @@ function ActualsStrip({ code }: { code: string }) {
         <ActualStat label="Year-end savings" value={fb != null ? dollars(fb) : 'n/a (net position)'} />
       </div>
       {shared && (
-        <p style={{ color: '#166534', fontSize: 12.5, margin: '8px 0 0', lineHeight: 1.4 }}>
+        <p style={{ color: 'var(--rbl-success-strong)', fontSize: 12.5, margin: '8px 0 0', lineHeight: 1.4 }}>
           The Annual Financial Report reports actuals for the combined {fund.name} group, which includes this fund and
           its sibling funds — so these figures cover the whole group, not this budget fund alone.
         </p>
@@ -102,9 +102,9 @@ function ActualsStrip({ code }: { code: string }) {
 function FundContextNote({ code }: { code: string }) {
   if (code.toUpperCase() !== 'SM1') return null
   return (
-    <section style={{ background: '#fff7ed', border: '1px solid #fed7aa', borderLeft: '6px solid #c2410c', borderRadius: 14, padding: '14px 18px', marginBottom: 16 }}>
-      <strong style={{ color: '#9a3412', fontSize: 15 }}>Why this fund is under pressure</strong>
-      <p style={{ color: '#7c2d12', fontSize: 13.8, lineHeight: 1.55, margin: '8px 0 0' }}>
+    <section style={{ background: 'var(--rbl-warn-bg)', border: '1px solid var(--rbl-warn-border)', borderLeft: '6px solid var(--rbl-warn)', borderRadius: 14, padding: '14px 18px', marginBottom: 16 }}>
+      <strong style={{ color: 'var(--rbl-warn-strong)', fontSize: 15 }}>Why this fund is under pressure</strong>
+      <p style={{ color: 'var(--rbl-warn-strong)', fontSize: 13.8, lineHeight: 1.55, margin: '8px 0 0' }}>
         The Riverhead Volunteer Ambulance Corps (RVAC) is a private nonprofit that serves this district under
         contract with the Town — it doesn&apos;t run the district itself. In 2021 RVAC said its roughly $1.2 million
         town contract couldn&apos;t cover adequate staffing and asked for $1.78 million for 2022; the Town offered a
@@ -116,7 +116,7 @@ function FundContextNote({ code }: { code: string }) {
         by then.
       </p>
 
-      <p style={{ color: '#7c2d12', fontSize: 13.8, lineHeight: 1.55, margin: '10px 0 0' }}>
+      <p style={{ color: 'var(--rbl-warn-strong)', fontSize: 13.8, lineHeight: 1.55, margin: '10px 0 0' }}>
         RVAC&apos;s own IRS Form 990 filings — separate from this Town fund — show that donation-driven revenue
         growth: total revenue rose from $1.54 million (FY2022) to $2.23 million (FY2024), and net assets more than
         doubled over the same span. But the insurance-billing ramp-up has been slower than the Town projected: the
@@ -127,7 +127,7 @@ function FundContextNote({ code }: { code: string }) {
       <div style={{ overflowX: 'auto', marginTop: 10 }}>
         <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 12.5 }}>
           <thead>
-            <tr style={{ textAlign: 'left', color: '#9a3412', borderBottom: '1px solid #fed7aa' }}>
+            <tr style={{ textAlign: 'left', color: 'var(--rbl-warn-strong)', borderBottom: '1px solid var(--rbl-warn-border)' }}>
               <th style={rvacTh}></th>
               <th style={{ ...rvacTh, textAlign: 'right' }}>FY2022</th>
               <th style={{ ...rvacTh, textAlign: 'right' }}>FY2023</th>
@@ -135,13 +135,13 @@ function FundContextNote({ code }: { code: string }) {
             </tr>
           </thead>
           <tbody>
-            <tr style={{ borderBottom: '1px solid #ffedd5' }}>
+            <tr style={{ borderBottom: '1px solid var(--rbl-warn-border)' }}>
               <td style={{ ...rvacTd, fontWeight: 700 }}>Total revenue</td>
               <td style={{ ...rvacTd, textAlign: 'right' }}>$1,540,107</td>
               <td style={{ ...rvacTd, textAlign: 'right' }}>$1,627,206</td>
               <td style={{ ...rvacTd, textAlign: 'right', fontWeight: 700 }}>$2,229,291</td>
             </tr>
-            <tr style={{ borderBottom: '1px solid #ffedd5' }}>
+            <tr style={{ borderBottom: '1px solid var(--rbl-warn-border)' }}>
               <td style={rvacTd}>Total expenses</td>
               <td style={{ ...rvacTd, textAlign: 'right' }}>$1,463,302</td>
               <td style={{ ...rvacTd, textAlign: 'right' }}>$1,562,248</td>
@@ -158,19 +158,19 @@ function FundContextNote({ code }: { code: string }) {
       </div>
 
       <div style={{ display: 'flex', flexWrap: 'wrap', gap: '4px 14px', marginTop: 10 }}>
-        <a href="https://riverheadlocal.com/2021/11/01/we-cant-sustain-this-riverhead-ambulance-corps-says-it-lacks-funds-needed-to-serve-residents/" target="_blank" rel="noopener noreferrer" style={{ color: '#c2410c', fontWeight: 800, fontSize: 12.5 }}>
+        <a href="https://riverheadlocal.com/2021/11/01/we-cant-sustain-this-riverhead-ambulance-corps-says-it-lacks-funds-needed-to-serve-residents/" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--rbl-warn)', fontWeight: 800, fontSize: 12.5 }}>
           RiverheadLOCAL, Nov. 1, 2021 →
         </a>
-        <a href="https://riverheadlocal.com/2023/05/01/riverhead-ambulance-will-begin-billing-for-all-transports-in-the-next-60-90-days-to-cover-the-rising-costs-of-emergency-rescue-services/" target="_blank" rel="noopener noreferrer" style={{ color: '#c2410c', fontWeight: 800, fontSize: 12.5 }}>
+        <a href="https://riverheadlocal.com/2023/05/01/riverhead-ambulance-will-begin-billing-for-all-transports-in-the-next-60-90-days-to-cover-the-rising-costs-of-emergency-rescue-services/" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--rbl-warn)', fontWeight: 800, fontSize: 12.5 }}>
           RiverheadLOCAL, May 1, 2023 →
         </a>
-        <a href="https://riverheadlocal.com/2025/01/31/riverhead-ambulance-unveils-plans-for-new-headquarters-building-on-osborn-avenue/" target="_blank" rel="noopener noreferrer" style={{ color: '#c2410c', fontWeight: 800, fontSize: 12.5 }}>
+        <a href="https://riverheadlocal.com/2025/01/31/riverhead-ambulance-unveils-plans-for-new-headquarters-building-on-osborn-avenue/" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--rbl-warn)', fontWeight: 800, fontSize: 12.5 }}>
           RiverheadLOCAL, Jan. 31, 2025 →
         </a>
-        <a href="https://riverheadlocal.com/2026/01/09/in-role-reversal-riverhead-ambulance-calls-on-community-help-us-grow/" target="_blank" rel="noopener noreferrer" style={{ color: '#c2410c', fontWeight: 800, fontSize: 12.5 }}>
+        <a href="https://riverheadlocal.com/2026/01/09/in-role-reversal-riverhead-ambulance-calls-on-community-help-us-grow/" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--rbl-warn)', fontWeight: 800, fontSize: 12.5 }}>
           RiverheadLOCAL, Jan. 9, 2026 →
         </a>
-        <a href="https://projects.propublica.org/nonprofits/organizations/113396823" target="_blank" rel="noopener noreferrer" style={{ color: '#c2410c', fontWeight: 800, fontSize: 12.5 }}>
+        <a href="https://projects.propublica.org/nonprofits/organizations/113396823" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--rbl-warn)', fontWeight: 800, fontSize: 12.5 }}>
           ProPublica Nonprofit Explorer, RVAC Form 990s →
         </a>
       </div>
@@ -179,13 +179,13 @@ function FundContextNote({ code }: { code: string }) {
 }
 
 const rvacTh = { padding: '5px 8px' } as const
-const rvacTd = { padding: '5px 8px', color: '#7c2d12' } as const
+const rvacTd = { padding: '5px 8px', color: 'var(--rbl-warn-strong)' } as const
 
 function ActualStat({ label, value, strong, negative }: { label: string; value: string; strong?: boolean; negative?: boolean }) {
   return (
-    <div style={{ background: 'white', border: '1px solid #d1fae5', borderRadius: 10, padding: '9px 12px' }}>
-      <div style={{ color: '#166534', fontSize: 11, textTransform: 'uppercase', fontWeight: 900, letterSpacing: 0.4 }}>{label}</div>
-      <strong style={{ fontSize: 16.5, color: negative ? '#b91c1c' : strong ? '#15803d' : '#14532d' }}>{value}</strong>
+    <div style={{ background: 'var(--rbl-surface)', border: '1px solid #d1fae5', borderRadius: 10, padding: '9px 12px' }}>
+      <div style={{ color: 'var(--rbl-success-strong)', fontSize: 11, textTransform: 'uppercase', fontWeight: 900, letterSpacing: 0.4 }}>{label}</div>
+      <strong style={{ fontSize: 16.5, color: negative ? 'var(--rbl-danger)' : strong ? 'var(--rbl-success)' : 'var(--rbl-success-strong)' }}>{value}</strong>
     </div>
   )
 }

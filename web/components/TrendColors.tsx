@@ -28,8 +28,8 @@ export default function TrendColors() {
         title={m === 'red-up' ? 'Show increases in red (accountant view)' : 'Show increases in green (up = green)'}
         style={{
           display: 'inline-flex', alignItems: 'center', gap: 6, cursor: 'pointer',
-          border: `1.5px solid ${active ? color : '#cbd5e1'}`, background: active ? color : 'white',
-          color: active ? 'white' : '#475569', fontWeight: 800, fontSize: 12.5,
+          border: `1.5px solid ${active ? color : 'var(--rbl-text-faint)'}`, background: active ? color : 'var(--rbl-surface)',
+          color: active ? 'white' : 'var(--rbl-text-body)', fontWeight: 800, fontSize: 12.5,
           padding: '5px 10px', borderRadius: 8,
         }}
       >
@@ -40,10 +40,10 @@ export default function TrendColors() {
 
   return (
     <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}>
-      <span style={{ color: '#64748b', fontSize: 12.5, fontWeight: 700 }}>Color an increase:</span>
+      <span style={{ color: 'var(--rbl-text-muted)', fontSize: 12.5, fontWeight: 700 }}>Color an increase:</span>
       <div style={{ display: 'inline-flex', gap: 6 }}>
-        {swatch('red-up', '#b91c1c')}
-        {swatch('green-up', '#15803d')}
+        {swatch('red-up', 'var(--rbl-fill-danger)')}
+        {swatch('green-up', 'var(--rbl-fill-success)')}
       </div>
     </div>
   )

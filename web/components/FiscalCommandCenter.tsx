@@ -7,9 +7,9 @@ import { builtFromDocuments } from '../lib/built-from-documents'
 import { dollars } from '../lib/financial-data'
 
 const DOC_KIND: Record<string, { label: string; color: string; bg: string }> = {
-  budget: { label: 'Budget', color: '#3b82f6', bg: 'rgba(59,130,246,.12)' },
-  supplement: { label: 'Supplement', color: '#22c55e', bg: 'rgba(34,197,94,.12)' },
-  afr: { label: 'Financial report', color: '#f59e0b', bg: 'rgba(245,158,11,.12)' },
+  budget: { label: 'Budget', color: 'var(--rbl-series-indigo)', bg: 'rgba(59,130,246,.12)' },
+  supplement: { label: 'Supplement', color: 'var(--rbl-success)', bg: 'rgba(34,197,94,.12)' },
+  afr: { label: 'Financial report', color: 'var(--rbl-warn)', bg: 'rgba(245,158,11,.12)' },
 }
 
 const base = process.env.NEXT_PUBLIC_BASE_PATH || ''
@@ -25,16 +25,16 @@ const sectionAnchors = [
 
 // Matches the standard card style used on every other page (see e.g. funds/page.tsx)
 // so the home page reads as part of the same site.
-const shell = { background: 'var(--rbl-surface)', borderTop: '1px solid var(--rbl-border-subtle)', borderRight: '1px solid var(--rbl-border-subtle)', borderBottom: '1px solid var(--rbl-border-subtle)', borderLeft: '1px solid var(--rbl-border-subtle)', borderRadius: 16, boxShadow: '0 14px 34px rgba(15,23,42,.05)' } as const
+const shell = { background: 'var(--rbl-surface)', borderTop: '1px solid var(--rbl-border-subtle)', borderRight: '1px solid var(--rbl-border-subtle)', borderBottom: '1px solid var(--rbl-border-subtle)', borderLeft: '1px solid var(--rbl-border-subtle)', borderRadius: 16, boxShadow: '0 14px 34px var(--rbl-shadow)' } as const
 const muted = 'var(--rbl-text-muted)'
 
 // Map each KPI to an accent color: green = good news, amber = cost pressure, blue = informational
 function kpiAccent(label: string): { border: string; label: string } {
   const l = label.toLowerCase()
-  if (l.includes('surplus'))       return { border: '#16a34a', label: '#15803d' }
+  if (l.includes('surplus'))       return { border: 'var(--rbl-success)', label: 'var(--rbl-success)' }
   if (l.includes('levy') || l.includes('appropriation') || l.includes('fund balance used'))
-                                    return { border: '#d97706', label: '#b45309' }
-  return { border: '#4a7297', label: '#4a7297' }
+                                    return { border: 'var(--rbl-warn)', label: 'var(--rbl-warn)' }
+  return { border: 'var(--rbl-accent-border)', label: 'var(--rbl-series-blue)' }
 }
 
 const surplusScenario = {
@@ -68,7 +68,7 @@ export default function FiscalCommandCenter() {
       <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', alignItems: 'center' }}>
         <span style={{ color: 'var(--rbl-text-muted)', fontWeight: 800, fontSize: 12.5, textTransform: 'uppercase', letterSpacing: 0.5 }}>On this page:</span>
         {sectionAnchors.map(([label, href]) => (
-          <a key={href} href={href} style={{ color: 'var(--rbl-page-accent)', textDecoration: 'none', border: '1px solid var(--rbl-border)', background: 'var(--rbl-surface)', borderRadius: 999, padding: '6px 12px', fontWeight: 800, fontSize: 12.5 }}>{label}</a>
+          <a key={href} href={href} style={{ color: 'var(--rbl-accent)', textDecoration: 'none', border: '1px solid var(--rbl-border)', background: 'var(--rbl-surface)', borderRadius: 999, padding: '6px 12px', fontWeight: 800, fontSize: 12.5 }}>{label}</a>
         ))}
         <span style={{ color: 'var(--rbl-text-muted)', fontSize: 12.5, marginLeft: 'auto' }}>
           Source coverage: {archiveStats.indexedItems} documents across {archiveStats.yearsCovered} years
@@ -88,7 +88,7 @@ export default function FiscalCommandCenter() {
                   borderBottom: '1px solid var(--rbl-border-subtle)',
                   borderLeft: `4px solid ${accent.border}`,
                   borderRadius: 16,
-                  boxShadow: '0 14px 34px rgba(15,23,42,.05)',
+                  boxShadow: '0 14px 34px var(--rbl-shadow)',
                   padding: 18,
                 }}>
                   <div style={{ color: accent.label, textTransform: 'uppercase', fontSize: 11, fontWeight: 950, letterSpacing: 0.4 }}>{kpi.label}</div>
@@ -156,7 +156,7 @@ export default function FiscalCommandCenter() {
 
           <section id="funds" style={{ ...shell, scrollMarginTop: 24, marginTop: 18, padding: 24 }}>
             <h2 style={{ marginTop: 0 }}>Where the money sits — every operating fund</h2>
-            <p style={{ color: muted }}>A town budget isn&apos;t one pot; it&apos;s a set of separate &quot;funds,&quot; each with its own money. Here&apos;s all of them from the adopted budget. Want to go deeper? The <a href={`${base}/funds/`} style={{ color: '#4a7297', fontWeight: 800 }}>Funds &amp; Sub-Accounts explorer</a> lets you open any fund right down to the individual line items, with year-by-year trends.</p>
+            <p style={{ color: muted }}>A town budget isn&apos;t one pot; it&apos;s a set of separate &quot;funds,&quot; each with its own money. Here&apos;s all of them from the adopted budget. Want to go deeper? The <a href={`${base}/funds/`} style={{ color: 'var(--rbl-accent)', fontWeight: 800 }}>Funds &amp; Sub-Accounts explorer</a> lets you open any fund right down to the individual line items, with year-by-year trends.</p>
             <div style={{ display: 'grid', gap: 10 }}>
               {allOperatingFunds2026.map((fund) => (
                 <details key={fund.code} style={{ border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 14, background: 'var(--rbl-surface)' }}>
@@ -226,7 +226,7 @@ export default function FiscalCommandCenter() {
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(260px,1fr))', gap: 14 }}>
               {retirementRiskFactors.map((risk) => (
                 <article key={risk.title} style={{ border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 14, background: 'var(--rbl-surface)' }}>
-                  <div style={{ color: risk.riskLevel === 'High' ? '#dc2626' : '#ca8a04', fontWeight: 950 }}>{risk.riskLevel}</div>
+                  <div style={{ color: risk.riskLevel === 'High' ? 'var(--rbl-danger)' : 'var(--rbl-warn)', fontWeight: 950 }}>{risk.riskLevel}</div>
                   <h3>{risk.title}</h3>
                   <p>{risk.description}</p>
                   <p style={{ color: muted }}><strong>Fiscal impact:</strong> {risk.fiscalImpact}</p>
@@ -259,13 +259,13 @@ export default function FiscalCommandCenter() {
             <p>Riverhead Budget Live is an independent, non-partisan, non-profit project. Our mission is to make Riverhead a better place to live and work by promoting public-policy reforms grounded in the fiscally responsible ideals of effective and accountable government.</p>
           </section>
 
-          <section id="how-to-use" style={{ ...shell, scrollMarginTop: 24, marginTop: 18, padding: 24, borderLeft: '8px solid #15803d' }}>
+          <section id="how-to-use" style={{ ...shell, scrollMarginTop: 24, marginTop: 18, padding: 24, borderLeft: '8px solid var(--rbl-success)' }}>
             <h2 style={{ marginTop: 0, color: 'var(--rbl-title)' }}>How to use this site</h2>
             <p>Use this site to share, analyze, and compare data from governmental entities throughout Riverhead. The information on this website comes from official government sources, but the author cannot guarantee data accuracy or completeness.</p>
           </section>
 
-          <section id="disclaimers" style={{ ...shell, scrollMarginTop: 24, marginTop: 18, padding: 24, borderLeft: '8px solid #dc2626' }}>
-            <h2 style={{ marginTop: 0, color: '#dc2626' }}>The fine print</h2>
+          <section id="disclaimers" style={{ ...shell, scrollMarginTop: 24, marginTop: 18, padding: 24, borderLeft: '8px solid var(--rbl-danger)' }}>
+            <h2 style={{ marginTop: 0, color: 'var(--rbl-danger)' }}>The fine print</h2>
             <p>This website is an independent public-information and fiscal-analysis project. It is not an official Town of Riverhead website and is not affiliated with, endorsed by, sponsored by, or operated by the Town of Riverhead or any Town department, political subdivision, political party or political organization or candidate.</p>
             <p>The figures are pulled automatically from public source documents, so the author cannot guarantee they are accurate or complete. A number can be misread, mislabeled, or lag behind the latest filing — a scanning glitch, a stray column, or a report that hadn&apos;t caught up yet.</p>
             <p>Nothing here is legal, financial, tax, or investment advice. The explanations, projections, classifications, and “realistic” analyses are the author&apos;s own interpretation of public records — not the Town&apos;s position and not a professional opinion.</p>
@@ -287,7 +287,7 @@ function Mini({ label, value }: { label: string; value: string }) {
 function FeatureCard({ href, tag, title, body }: { href: string; tag: string; title: string; body: string }) {
   return (
     <a href={href} style={{ ...shell, padding: 20, textDecoration: 'none', color: 'inherit', display: 'block', borderTop: '5px solid var(--rbl-gold)' }}>
-      <div style={{ color: 'var(--rbl-page-accent)', fontSize: 11, fontWeight: 950, textTransform: 'uppercase', letterSpacing: 1 }}>{tag}</div>
+      <div style={{ color: 'var(--rbl-accent)', fontSize: 11, fontWeight: 950, textTransform: 'uppercase', letterSpacing: 1 }}>{tag}</div>
       <h3 style={{ margin: '8px 0 6px', fontSize: 22, color: 'var(--rbl-title)' }}>{title}</h3>
       <p style={{ color: muted, fontSize: 14, lineHeight: 1.5, margin: 0 }}>{body}</p>
       <div style={{ color: 'var(--rbl-page-accent)', fontWeight: 900, marginTop: 12 }}>Open →</div>

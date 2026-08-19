@@ -47,15 +47,15 @@ export default function LineChart({
       {/* gridlines + y labels */}
       {yTicks.map((t, i) => (
         <g key={i}>
-          <line x1={padL} y1={sy(t)} x2={width - padR} y2={sy(t)} stroke="#e2e8f0" strokeWidth={1} />
-          <text x={padL - 8} y={sy(t) + 4} textAnchor="end" fontSize={11} fill="#64748b">{fmtUsd(t)}</text>
+          <line x1={padL} y1={sy(t)} x2={width - padR} y2={sy(t)} style={{ stroke: 'var(--rbl-border-subtle)' }} strokeWidth={1} />
+          <text x={padL - 8} y={sy(t) + 4} textAnchor="end" fontSize={11} style={{ fill: 'var(--rbl-text-muted)' }}>{fmtUsd(t)}</text>
         </g>
       ))}
       {/* x labels */}
       {xLabels.map((x) => (
-        <text key={x} x={sx(x)} y={height - padB + 18} textAnchor="middle" fontSize={11} fill="#64748b">{x}</text>
+        <text key={x} x={sx(x)} y={height - padB + 18} textAnchor="middle" fontSize={11} style={{ fill: 'var(--rbl-text-muted)' }}>{x}</text>
       ))}
-      {yLabel && <text x={16} y={padT + 2} fontSize={11} fill="#6b7280" transform={`rotate(-90 16 ${height / 2})`}>{yLabel}</text>}
+      {yLabel && <text x={16} y={padT + 2} fontSize={11} style={{ fill: 'var(--rbl-text-muted)' }} transform={`rotate(-90 16 ${height / 2})`}>{yLabel}</text>}
 
       {/* series */}
       {series.map((s) => {
@@ -63,8 +63,8 @@ export default function LineChart({
         const d = pts.map((p, i) => `${i === 0 ? 'M' : 'L'} ${sx(p.x).toFixed(1)} ${sy(p.y).toFixed(1)}`).join(' ')
         return (
           <g key={s.label}>
-            <path d={d} fill="none" stroke={s.color} strokeWidth={2.4} strokeLinejoin="round" strokeLinecap="round" />
-            {pts.map((p) => <circle key={p.x} cx={sx(p.x)} cy={sy(p.y)} r={2.6} fill={s.color} />)}
+            <path d={d} fill="none" style={{ stroke: s.color }} strokeWidth={2.4} strokeLinejoin="round" strokeLinecap="round" />
+            {pts.map((p) => <circle key={p.x} cx={sx(p.x)} cy={sy(p.y)} r={2.6} style={{ fill: s.color }} />)}
           </g>
         )
       })}
@@ -76,7 +76,7 @@ export function ChartLegend({ series }: { series: { label: string; color: string
   return (
     <div style={{ display: 'flex', gap: 16, flexWrap: 'wrap', marginTop: 10 }}>
       {series.map((s) => (
-        <span key={s.label} style={{ fontSize: 13, fontWeight: 700, color: '#334155' }}>
+        <span key={s.label} style={{ fontSize: 13, fontWeight: 700, color: 'var(--rbl-text-strong)' }}>
           <span style={{ display: 'inline-block', width: 14, height: 4, borderRadius: 4, background: s.color, marginRight: 6, verticalAlign: 'middle' }} />
           {s.label}
         </span>

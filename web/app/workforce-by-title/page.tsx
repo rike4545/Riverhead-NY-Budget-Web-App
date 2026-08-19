@@ -23,7 +23,7 @@ export default function WorkforceByTitlePage() {
       >
         This is the staffing side of the payroll data: not what people are paid, but <strong>how many hold each job</strong>{' '}
         and whether that job is growing or shrinking. For individual pay, use the{' '}
-        <a href="/payroll/" style={{ color: '#4a7297', fontWeight: 800 }}>Payroll Explorer</a>.
+        <a href="/payroll/" style={{ color: 'var(--rbl-accent)', fontWeight: 800 }}>Payroll Explorer</a>.
       </PlainCallout>
 
       <div style={{ marginTop: 16 }}>

@@ -9,15 +9,15 @@ import { appropriationsByYear } from '../lib/budget-history'
 const usd = (n: number | null | undefined) =>
   n == null ? '—' : new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(n)
 
-const card = { background: 'white', border: '1px solid #e2e8f0', borderRadius: 16, padding: 18, boxShadow: '0 14px 34px rgba(15,23,42,.05)' } as const
+const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 18, boxShadow: '0 14px 34px var(--rbl-shadow)' } as const
 
 const CATEGORY_COLOR: Record<string, string> = {
-  'Personal Services': '#4a7297',
-  'Employee Benefits': '#2563eb',
-  Contractual: '#c99a2e',
-  'Equipment & Capital Outlay': '#0f766e',
-  'Interfund / Transfers': '#7c3aed',
-  Other: '#64748b',
+  'Personal Services': 'var(--rbl-series-blue)',
+  'Employee Benefits': 'var(--rbl-series-indigo)',
+  Contractual: 'var(--rbl-series-gold)',
+  'Equipment & Capital Outlay': 'var(--rbl-series-teal)',
+  'Interfund / Transfers': 'var(--rbl-series-violet)',
+  Other: 'var(--rbl-series-slate)',
 }
 
 export default function FundDrilldown({ fund }: { fund: FundDetail }) {
@@ -69,13 +69,13 @@ export default function FundDrilldown({ fund }: { fund: FundDetail }) {
       {history.length >= 2 && (
         <section style={{ ...card, display: 'flex', gap: 18, alignItems: 'center', flexWrap: 'wrap', justifyContent: 'space-between' }}>
           <div>
-            <div style={{ color: '#64748b', fontSize: 12, textTransform: 'uppercase', fontWeight: 900, letterSpacing: 0.4 }}>
+            <div style={{ color: 'var(--rbl-text-muted)', fontSize: 12, textTransform: 'uppercase', fontWeight: 900, letterSpacing: 0.4 }}>
               Appropriations history {history[0].year}–{history[history.length - 1].year}
             </div>
             <div style={{ display: 'flex', gap: 14, flexWrap: 'wrap', marginTop: 8 }}>
               {history.map((p) => (
-                <span key={p.year} style={{ fontSize: 13, color: '#334155', fontWeight: 700 }}>
-                  <span style={{ color: '#6b7280' }}>{p.year}</span> {usd(p.value)}
+                <span key={p.year} style={{ fontSize: 13, color: 'var(--rbl-text-strong)', fontWeight: 700 }}>
+                  <span style={{ color: 'var(--rbl-text-muted)' }}>{p.year}</span> {usd(p.value)}
                 </span>
               ))}
             </div>
@@ -97,10 +97,10 @@ export default function FundDrilldown({ fund }: { fund: FundDetail }) {
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder="Search account number or line description…"
-          style={{ flex: 1, minWidth: 240, padding: '11px 14px', border: '1px solid #cbd5e1', borderRadius: 10, fontSize: 15 }}
+          style={{ flex: 1, minWidth: 240, padding: '11px 14px', border: '1px solid var(--rbl-border-strong)', borderRadius: 10, fontSize: 15 }}
         />
         {matchCount != null && (
-          <span style={{ color: '#475569', fontWeight: 700, fontSize: 13 }}>{matchCount} matching line items</span>
+          <span style={{ color: 'var(--rbl-text-body)', fontWeight: 700, fontSize: 13 }}>{matchCount} matching line items</span>
         )}
       </section>
 
@@ -128,11 +128,11 @@ export default function FundDrilldown({ fund }: { fund: FundDetail }) {
         </section>
       )}
 
-      <p style={{ color: '#64748b', fontSize: 13, lineHeight: 1.5 }}>
+      <p style={{ color: 'var(--rbl-text-muted)', fontSize: 13, lineHeight: 1.5 }}>
         Source: {fund.source.title}. Account-level detail extracted programmatically and reconciled to the official
         Summary page. The 2026 column is the adopted figure; the 2025 column is the prior-year adopted budget for the
         same account. Verify against the{' '}
-        <a href={fund.source.url} target="_blank" rel="noreferrer" style={{ color: '#4a7297', fontWeight: 700 }}>
+        <a href={fund.source.url} target="_blank" rel="noreferrer" style={{ color: 'var(--rbl-accent)', fontWeight: 700 }}>
           official document
         </a>{' '}
         before relying on these numbers.
@@ -148,9 +148,9 @@ function DepartmentCard({ dept, expanded, fundExp }: { dept: SubDepartment; expa
     <details open={expanded} style={card}>
       <summary style={{ cursor: 'pointer', listStyle: 'none', display: 'flex', justifyContent: 'space-between', gap: 16, alignItems: 'center', flexWrap: 'wrap' }}>
         <div>
-          <span style={{ color: '#6b7280', fontWeight: 800, fontSize: 12 }}>#{dept.code}</span>{' '}
+          <span style={{ color: 'var(--rbl-text-muted)', fontWeight: 800, fontSize: 12 }}>#{dept.code}</span>{' '}
           <strong style={{ fontSize: 17 }}>{dept.name}</strong>
-          <div style={{ color: '#64748b', fontSize: 12.5 }}>
+          <div style={{ color: 'var(--rbl-text-muted)', fontSize: 12.5 }}>
             {dept.lineItemCount} line items · {pct.toFixed(1)}% of fund
             {changePct != null && (
               <span style={{ color: dept.change >= 0 ? 'var(--inc)' : 'var(--dec)', fontWeight: 800 }}>
@@ -159,13 +159,13 @@ function DepartmentCard({ dept, expanded, fundExp }: { dept: SubDepartment; expa
             )}
           </div>
         </div>
-        <strong style={{ fontSize: 18, color: '#284a69' }}>{usd(dept.adopted2026)}</strong>
+        <strong style={{ fontSize: 18, color: 'var(--rbl-title)' }}>{usd(dept.adopted2026)}</strong>
       </summary>
 
       <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', margin: '12px 0' }}>
         {dept.categoryTotals.map((c) => (
-          <span key={c.category} style={{ background: '#f1f5f9', border: '1px solid #e2e8f0', borderRadius: 999, padding: '5px 11px', fontSize: 12.5, fontWeight: 700 }}>
-            <span style={{ display: 'inline-block', width: 9, height: 9, borderRadius: 9, background: CATEGORY_COLOR[c.category] ?? '#64748b', marginRight: 6 }} />
+          <span key={c.category} style={{ background: 'var(--rbl-surface-3)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 999, padding: '5px 11px', fontSize: 12.5, fontWeight: 700 }}>
+            <span style={{ display: 'inline-block', width: 9, height: 9, borderRadius: 9, background: CATEGORY_COLOR[c.category] ?? 'var(--rbl-series-slate)', marginRight: 6 }} />
             {c.category}: {usd(c.adopted2026)}
           </span>
         ))}
@@ -185,7 +185,7 @@ function LineTable({ rows }: { rows: Row[] }) {
     <div style={{ overflowX: 'auto' }}>
       <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 13.5 }}>
         <thead>
-          <tr style={{ textAlign: 'left', color: '#64748b', borderBottom: '2px solid #e2e8f0' }}>
+          <tr style={{ textAlign: 'left', color: 'var(--rbl-text-muted)', borderBottom: '2px solid var(--rbl-border-subtle)' }}>
             <th style={{ padding: '7px 8px' }}>Account</th>
             <th style={{ padding: '7px 8px' }}>Description</th>
             <th style={{ padding: '7px 8px', textAlign: 'right' }}>2024</th>
@@ -199,13 +199,13 @@ function LineTable({ rows }: { rows: Row[] }) {
           {rows.map((r) => {
             const change = (r.y2026 ?? 0) - (r.y2025 ?? 0)
             return (
-              <tr key={r.account} style={{ borderBottom: '1px solid #f1f5f9' }}>
-                <td style={{ padding: '7px 8px', fontFamily: 'monospace', fontSize: 11.5, color: '#475569', whiteSpace: 'nowrap' }}>{r.account}</td>
+              <tr key={r.account} style={{ borderBottom: '1px solid var(--rbl-border-subtle)' }}>
+                <td style={{ padding: '7px 8px', fontFamily: 'monospace', fontSize: 11.5, color: 'var(--rbl-text-body)', whiteSpace: 'nowrap' }}>{r.account}</td>
                 <td style={{ padding: '7px 8px' }}>{r.name}</td>
-                <td style={{ padding: '7px 8px', textAlign: 'right', color: '#6b7280' }}>{usd(r.y2024)}</td>
-                <td style={{ padding: '7px 8px', textAlign: 'right', color: '#64748b' }}>{usd(r.y2025)}</td>
+                <td style={{ padding: '7px 8px', textAlign: 'right', color: 'var(--rbl-text-muted)' }}>{usd(r.y2024)}</td>
+                <td style={{ padding: '7px 8px', textAlign: 'right', color: 'var(--rbl-text-muted)' }}>{usd(r.y2025)}</td>
                 <td style={{ padding: '7px 8px', textAlign: 'right', fontWeight: 700 }}>{usd(r.y2026)}</td>
-                <td style={{ padding: '7px 8px', textAlign: 'right', color: change > 0 ? 'var(--inc)' : change < 0 ? 'var(--dec)' : '#6b7280', fontWeight: 700 }}>
+                <td style={{ padding: '7px 8px', textAlign: 'right', color: change > 0 ? 'var(--inc)' : change < 0 ? 'var(--dec)' : 'var(--rbl-text-muted)', fontWeight: 700 }}>
                   {change === 0 ? '—' : `${change > 0 ? '+' : '−'}${usd(Math.abs(change))}`}
                 </td>
                 <td style={{ padding: '4px 8px', textAlign: 'center' }}>
@@ -222,9 +222,9 @@ function LineTable({ rows }: { rows: Row[] }) {
 
 function Stat({ label, value, accent, good }: { label: string; value: string; accent?: boolean; good?: boolean }) {
   return (
-    <div style={{ background: accent ? '#dbeafe' : '#f8fafc', border: '1px solid #e2e8f0', borderRadius: 12, padding: 12 }}>
-      <div style={{ color: '#64748b', fontSize: 11.5, textTransform: 'uppercase', fontWeight: 900, letterSpacing: 0.4 }}>{label}</div>
-      <strong style={{ fontSize: 19, color: good ? '#15803d' : '#284a69' }}>{value}</strong>
+    <div style={{ background: accent ? 'var(--rbl-info-bg)' : 'var(--rbl-surface-2)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 12, padding: 12 }}>
+      <div style={{ color: 'var(--rbl-text-muted)', fontSize: 11.5, textTransform: 'uppercase', fontWeight: 900, letterSpacing: 0.4 }}>{label}</div>
+      <strong style={{ fontSize: 19, color: good ? 'var(--rbl-success)' : 'var(--rbl-title)' }}>{value}</strong>
     </div>
   )
 }
@@ -233,7 +233,7 @@ function Toggle({ active, onClick, children }: { active: boolean; onClick: () =>
   return (
     <button
       onClick={onClick}
-      style={{ padding: '9px 14px', borderRadius: 10, border: '1px solid', borderColor: active ? '#4a7297' : '#cbd5e1', background: active ? '#4a7297' : 'white', color: active ? 'white' : '#334155', fontWeight: 800, cursor: 'pointer', fontSize: 14 }}
+      style={{ padding: '9px 14px', borderRadius: 10, border: '1px solid', borderColor: active ? 'var(--rbl-accent-border)' : 'var(--rbl-border-strong)', background: active ? 'var(--rbl-fill-accent)' : 'var(--rbl-surface)', color: active ? 'white' : 'var(--rbl-text-strong)', fontWeight: 800, cursor: 'pointer', fontSize: 14 }}
     >
       {children}
     </button>
@@ -241,5 +241,5 @@ function Toggle({ active, onClick, children }: { active: boolean; onClick: () =>
 }
 
 function Empty() {
-  return <p style={{ color: '#64748b', padding: 12 }}>No matching line items.</p>
+  return <p style={{ color: 'var(--rbl-text-muted)', padding: 12 }}>No matching line items.</p>
 }

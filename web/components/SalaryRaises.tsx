@@ -6,8 +6,8 @@ import { SALARY_COMPARISON_URL, type SalaryComparison, type RaiseRecord } from '
 
 const usd = (n: number | null | undefined) =>
   n == null ? '—' : new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(n)
-const card = { background: 'white', border: '1px solid #e2e8f0', borderRadius: 16, padding: 18, boxShadow: '0 14px 34px rgba(15,23,42,.05)' } as const
-const sel = { padding: '9px 11px', border: '1px solid #cbd5e1', borderRadius: 9, fontSize: 14, fontWeight: 700 } as const
+const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 18, boxShadow: '0 14px 34px var(--rbl-shadow)' } as const
+const sel = { padding: '9px 11px', border: '1px solid var(--rbl-border-strong)', borderRadius: 9, fontSize: 14, fontWeight: 700 } as const
 
 type SortKey = 'raise' | 'raisePct' | 'annual2026' | 'name'
 
@@ -65,14 +65,14 @@ export default function SalaryRaises() {
             return (
               <div key={r.name}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', gap: 10, fontSize: 13.5 }}>
-                  <span style={{ color: '#284a69', fontWeight: 700 }}>
-                    {r.name} <span style={{ color: '#6b7280', fontWeight: 600 }}>· {r.title2026}</span>
-                    {r.promoted && <span style={{ marginLeft: 6, background: '#ede9fe', color: '#6d28d9', fontSize: 11, fontWeight: 800, padding: '1px 7px', borderRadius: 999 }}>promotion</span>}
+                  <span style={{ color: 'var(--rbl-title)', fontWeight: 700 }}>
+                    {r.name} <span style={{ color: 'var(--rbl-text-muted)', fontWeight: 600 }}>· {r.title2026}</span>
+                    {r.promoted && <span style={{ marginLeft: 6, background: 'var(--rbl-violet-bg)', color: 'var(--rbl-violet)', fontSize: 11, fontWeight: 800, padding: '1px 7px', borderRadius: 999 }}>promotion</span>}
                   </span>
-                  <strong style={{ whiteSpace: 'nowrap' }}>{usd(r.annual2025)} → {usd(r.annual2026)} <span style={{ color: '#b45309' }}>(+{usd(r.raise)})</span></strong>
+                  <strong style={{ whiteSpace: 'nowrap' }}>{usd(r.annual2025)} → {usd(r.annual2026)} <span style={{ color: 'var(--rbl-warn)' }}>(+{usd(r.raise)})</span></strong>
                 </div>
-                <div style={{ height: 7, background: '#f1f5f9', borderRadius: 7, marginTop: 3 }}>
-                  <div style={{ width: `${(r.raise / max) * 100}%`, height: '100%', borderRadius: 7, background: r.promoted ? '#7c3aed' : '#c99a2e' }} />
+                <div style={{ height: 7, background: 'var(--rbl-surface-3)', borderRadius: 7, marginTop: 3 }}>
+                  <div style={{ width: `${(r.raise / max) * 100}%`, height: '100%', borderRadius: 7, background: r.promoted ? 'var(--rbl-series-violet)' : 'var(--rbl-fill-gold)' }} />
                 </div>
               </div>
             )
@@ -86,7 +86,7 @@ export default function SalaryRaises() {
           {(['raised', 'promotions', 'all'] as const).map((f) => (
             <button key={f} onClick={() => { setOnly(f); setLimit(60) }} style={{
               padding: '8px 13px', borderRadius: 9, border: '1px solid', cursor: 'pointer', fontWeight: 800, fontSize: 13.5,
-              borderColor: only === f ? '#4a7297' : '#cbd5e1', background: only === f ? '#4a7297' : 'white', color: only === f ? 'white' : '#334155',
+              borderColor: only === f ? 'var(--rbl-accent-border)' : 'var(--rbl-border-strong)', background: only === f ? 'var(--rbl-fill-accent)' : 'var(--rbl-surface)', color: only === f ? 'white' : 'var(--rbl-text-strong)',
             }}>{f === 'raised' ? `Raises (${summary.raised})` : f === 'promotions' ? `Promotions (${summary.promotions})` : `All 2026 (${summary.count2026})`}</button>
           ))}
         </div>
@@ -97,16 +97,16 @@ export default function SalaryRaises() {
           <option value="name">Sort: Name (A–Z)</option>
         </select>
         <input value={q} onChange={(e) => { setQ(e.target.value); setLimit(60) }} placeholder="Search name or title…"
-          style={{ flex: 1, minWidth: 200, padding: '10px 13px', border: '1px solid #cbd5e1', borderRadius: 9, fontSize: 15 }} />
+          style={{ flex: 1, minWidth: 200, padding: '10px 13px', border: '1px solid var(--rbl-border-strong)', borderRadius: 9, fontSize: 15 }} />
       </section>
 
       {/* Table */}
       <section style={card}>
-        <div style={{ color: '#475569', fontWeight: 700, marginBottom: 10, fontSize: 14 }}>Showing {Math.min(limit, rows.length)} of {rows.length}</div>
+        <div style={{ color: 'var(--rbl-text-body)', fontWeight: 700, marginBottom: 10, fontSize: 14 }}>Showing {Math.min(limit, rows.length)} of {rows.length}</div>
         <div style={{ overflowX: 'auto' }}>
           <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 13.5 }}>
             <thead>
-              <tr style={{ textAlign: 'left', color: '#64748b', borderBottom: '2px solid #e2e8f0' }}>
+              <tr style={{ textAlign: 'left', color: 'var(--rbl-text-muted)', borderBottom: '2px solid var(--rbl-border-subtle)' }}>
                 <th style={th}>Employee / Position</th>
                 <th style={{ ...th, textAlign: 'right' }}>2025</th>
                 <th style={{ ...th, textAlign: 'right' }}>2026</th>
@@ -116,20 +116,20 @@ export default function SalaryRaises() {
             </thead>
             <tbody>
               {rows.slice(0, limit).map((r, i) => (
-                <tr key={`${r.name}-${i}`} style={{ borderBottom: '1px solid #f1f5f9' }}>
+                <tr key={`${r.name}-${i}`} style={{ borderBottom: '1px solid var(--rbl-border-subtle)' }}>
                   <td style={td}>
-                    <strong style={{ color: '#284a69' }}>{r.name}</strong>
-                    {r.promoted && <span style={{ marginLeft: 6, background: '#ede9fe', color: '#6d28d9', fontSize: 11, fontWeight: 800, padding: '1px 7px', borderRadius: 999 }}>promotion</span>}
-                    <div style={{ color: '#64748b', fontSize: 12.5 }}>
+                    <strong style={{ color: 'var(--rbl-title)' }}>{r.name}</strong>
+                    {r.promoted && <span style={{ marginLeft: 6, background: 'var(--rbl-violet-bg)', color: 'var(--rbl-violet)', fontSize: 11, fontWeight: 800, padding: '1px 7px', borderRadius: 999 }}>promotion</span>}
+                    <div style={{ color: 'var(--rbl-text-muted)', fontSize: 12.5 }}>
                       {r.title2026}{r.promoted && r.title2025 ? ` (was ${r.title2025})` : ''} · {r.group}
                     </div>
                   </td>
-                  <td style={{ ...td, textAlign: 'right', color: '#64748b' }}>{r.comparable ? usd(r.annual2025) : <span style={{ color: '#cbd5e1' }}>n/a</span>}</td>
+                  <td style={{ ...td, textAlign: 'right', color: 'var(--rbl-text-muted)' }}>{r.comparable ? usd(r.annual2025) : <span style={{ color: 'var(--rbl-text-faint)' }}>n/a</span>}</td>
                   <td style={{ ...td, textAlign: 'right', fontWeight: 700 }}>{usd(r.annual2026)}</td>
-                  <td style={{ ...td, textAlign: 'right', fontWeight: 700, color: !r.comparable ? '#cbd5e1' : (r.raise ?? 0) > 0 ? 'var(--inc)' : (r.raise ?? 0) < 0 ? 'var(--dec)' : '#6b7280' }}>
+                  <td style={{ ...td, textAlign: 'right', fontWeight: 700, color: !r.comparable ? 'var(--rbl-text-faint)' : (r.raise ?? 0) > 0 ? 'var(--inc)' : (r.raise ?? 0) < 0 ? 'var(--dec)' : 'var(--rbl-text-muted)' }}>
                     {!r.comparable || r.raise == null ? '—' : `${r.raise >= 0 ? '+' : '−'}${usd(Math.abs(r.raise))}`}
                   </td>
-                  <td style={{ ...td, textAlign: 'right', color: !r.comparable ? '#cbd5e1' : '#334155', fontWeight: 700 }}>
+                  <td style={{ ...td, textAlign: 'right', color: !r.comparable ? 'var(--rbl-text-faint)' : 'var(--rbl-text-strong)', fontWeight: 700 }}>
                     {!r.comparable || r.raisePct == null ? '—' : `${r.raisePct > 0 ? '+' : ''}${r.raisePct}%`}
                   </td>
                 </tr>
@@ -139,12 +139,12 @@ export default function SalaryRaises() {
         </div>
         {limit < rows.length && (
           <div style={{ textAlign: 'center', marginTop: 14 }}>
-            <button onClick={() => setLimit((l) => l + 100)} style={{ padding: '10px 18px', borderRadius: 10, border: '1px solid #4a7297', background: '#4a7297', color: 'white', fontWeight: 800, cursor: 'pointer' }}>Show more</button>
+            <button onClick={() => setLimit((l) => l + 100)} style={{ padding: '10px 18px', borderRadius: 10, border: '1px solid var(--rbl-accent-border)', background: 'var(--rbl-fill-accent)', color: 'white', fontWeight: 800, cursor: 'pointer' }}>Show more</button>
           </div>
         )}
       </section>
 
-      <p style={{ color: '#64748b', fontSize: 13, lineHeight: 1.5 }}>
+      <p style={{ color: 'var(--rbl-text-muted)', fontSize: 13, lineHeight: 1.5 }}>
         Source: {comparison?.source.title ?? 'Town Board salary resolutions'}. {comparison?.note ?? ''} A raise here is the change in Board-authorized
         base salary; it excludes overtime and stipends. People who were part-time or hourly in 2025 show &quot;n/a&quot; for
         the 2025 salary because there was no comparable full-time figure.
@@ -158,10 +158,10 @@ const td = { padding: '7px 9px' } as const
 
 function Stat({ label, value, sub, accent }: { label: string; value: string; sub?: string; accent?: boolean }) {
   return (
-    <div style={{ background: accent ? '#dcfce7' : '#f8fafc', border: '1px solid #e2e8f0', borderRadius: 12, padding: 12 }}>
-      <div style={{ color: '#64748b', fontSize: 11.5, textTransform: 'uppercase', fontWeight: 900, letterSpacing: 0.4 }}>{label}</div>
-      <strong style={{ fontSize: 19, color: '#284a69' }}>{value}</strong>
-      {sub && <div style={{ color: '#64748b', fontSize: 12, marginTop: 1 }}>{sub}</div>}
+    <div style={{ background: accent ? 'var(--rbl-success-bg)' : 'var(--rbl-surface-2)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 12, padding: 12 }}>
+      <div style={{ color: 'var(--rbl-text-muted)', fontSize: 11.5, textTransform: 'uppercase', fontWeight: 900, letterSpacing: 0.4 }}>{label}</div>
+      <strong style={{ fontSize: 19, color: 'var(--rbl-title)' }}>{value}</strong>
+      {sub && <div style={{ color: 'var(--rbl-text-muted)', fontSize: 12, marginTop: 1 }}>{sub}</div>}
     </div>
   )
 }

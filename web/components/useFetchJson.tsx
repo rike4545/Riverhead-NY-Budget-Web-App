@@ -40,7 +40,7 @@ export function useFetchJson<T>(url: string): { data: T | null; error: boolean }
 
 export function LoadingCard({ label = 'Loading data…' }: { label?: string }) {
   return (
-    <div style={{ background: 'white', border: '1px solid #e2e8f0', borderRadius: 16, padding: 28, textAlign: 'center', color: '#64748b', fontWeight: 700 }}>
+    <div style={{ background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 28, textAlign: 'center', color: 'var(--rbl-text-muted)', fontWeight: 700 }}>
       {label}
     </div>
   )

@@ -4,7 +4,7 @@ import p from '../../public/data/budget-2027-prediction.json'
 
 const base = process.env.NEXT_PUBLIC_BASE_PATH || ''
 const usd = (n: number) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(n)
-const card = { background: 'white', border: '1px solid #e2e8f0', borderRadius: 16, padding: 20, boxShadow: '0 14px 34px rgba(15,23,42,.05)' } as const
+const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 20, boxShadow: '0 14px 34px var(--rbl-shadow)' } as const
 const th = { padding: '8px 10px' } as const
 const td = { padding: '7px 10px' } as const
 
@@ -23,7 +23,7 @@ export default function Predict2027Page() {
       title="A 2027 budget prediction — line by line"
       subtitle="What next year’s budget could look like if current trends hold. Start with the headline; open the detail as far as you like. This is a model, not the Town’s budget."
     >
-      <div style={{ background: '#fff7ed', border: '1px solid #fdba74', borderLeft: '6px solid #ea580c', borderRadius: 12, padding: '14px 16px', marginBottom: 16, color: '#7c2d12', fontSize: 14.5, lineHeight: 1.55 }}>
+      <div style={{ background: 'var(--rbl-warn-bg)', border: '1px solid var(--rbl-warn-border)', borderLeft: '6px solid #ea580c', borderRadius: 12, padding: '14px 16px', marginBottom: 16, color: 'var(--rbl-warn-strong)', fontSize: 14.5, lineHeight: 1.55 }}>
         <strong>Read this first — it’s a prediction, not a fact.</strong> {p.disclaimer}
       </div>
 
@@ -36,10 +36,10 @@ export default function Predict2027Page() {
       </section>
 
       {/* The headline finding: pierces the cap. */}
-      <section style={{ ...card, marginBottom: 16, borderLeft: '6px solid #b91c1c' }}>
+      <section style={{ ...card, marginBottom: 16, borderLeft: '6px solid var(--rbl-danger)' }}>
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: 12, alignItems: 'baseline', justifyContent: 'space-between' }}>
-          <h2 style={{ margin: 0, color: '#284a69' }}>Does the 2027 budget pierce the tax cap?</h2>
-          <span style={{ background: '#fee2e2', color: '#991b1b', fontWeight: 900, fontSize: 14, padding: '5px 14px', borderRadius: 999 }}>
+          <h2 style={{ margin: 0, color: 'var(--rbl-title)' }}>Does the 2027 budget pierce the tax cap?</h2>
+          <span style={{ background: 'var(--rbl-danger-bg)', color: 'var(--rbl-danger-strong)', fontWeight: 900, fontSize: 14, padding: '5px 14px', borderRadius: 999 }}>
             Yes — by about {usd(p.capGap.gap)}
           </span>
         </div>
@@ -48,23 +48,23 @@ export default function Predict2027Page() {
           <Stat label="Predicted levy" value={usd(p.capGap.predictedLevy)} amber />
           <Stat label="Over the cap by" value={usd(p.capGap.gap)} />
         </div>
-        <p style={{ color: '#334155', fontSize: 14.5, lineHeight: 1.6, margin: 0 }}>{p.capGap.summary}</p>
+        <p style={{ color: 'var(--rbl-text-strong)', fontSize: 14.5, lineHeight: 1.6, margin: 0 }}>{p.capGap.summary}</p>
 
-        <div style={{ background: '#f0fdf4', border: '1px solid #bbf7d0', borderRadius: 10, padding: '12px 14px', marginTop: 14 }}>
-          <strong style={{ color: '#166534' }}>How the gap gets closed →</strong>{' '}
-          <span style={{ color: '#334155', fontSize: 14, lineHeight: 1.55 }}>
-            The <a href={`${base}/spending-reduction-2027/`} style={{ color: '#15803d', fontWeight: 800 }}>2027 Spending Reduction</a> page
+        <div style={{ background: 'var(--rbl-success-bg)', border: '1px solid var(--rbl-success-border)', borderRadius: 10, padding: '12px 14px', marginTop: 14 }}>
+          <strong style={{ color: 'var(--rbl-success-strong)' }}>How the gap gets closed →</strong>{' '}
+          <span style={{ color: 'var(--rbl-text-strong)', fontSize: 14, lineHeight: 1.55 }}>
+            The <a href={`${base}/spending-reduction-2027/`} style={{ color: 'var(--rbl-success)', fontWeight: 800 }}>2027 Spending Reduction</a> page
             lays out the plan — the retirement incentive plus sourced trims cover essentially the whole gap. Prefer to try the
-            trade-offs yourself? Use the <a href={`${base}/scenarios/`} style={{ color: '#15803d', fontWeight: 800 }}>What-if scenarios</a> tool.
+            trade-offs yourself? Use the <a href={`${base}/scenarios/`} style={{ color: 'var(--rbl-success)', fontWeight: 800 }}>What-if scenarios</a> tool.
           </span>
         </div>
 
         <Detail title="Or stay under it another way — the full menu of levers">
           <div style={{ display: 'grid', gap: 8 }}>
             {p.capGap.levers.map((l, i) => (
-              <div key={i} style={{ background: '#f8fafc', border: '1px solid #e2e8f0', borderRadius: 10, padding: '11px 14px' }}>
-                <strong style={{ color: '#284a69', fontSize: 14.5 }}>{l.lever}</strong>
-                <div style={{ color: '#475569', fontSize: 13.8, lineHeight: 1.5, marginTop: 3 }}>{l.detail}</div>
+              <div key={i} style={{ background: 'var(--rbl-surface-2)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 10, padding: '11px 14px' }}>
+                <strong style={{ color: 'var(--rbl-title)', fontSize: 14.5 }}>{l.lever}</strong>
+                <div style={{ color: 'var(--rbl-text-body)', fontSize: 13.8, lineHeight: 1.5, marginTop: 3 }}>{l.detail}</div>
               </div>
             ))}
           </div>
@@ -72,20 +72,20 @@ export default function Predict2027Page() {
       </section>
 
       {/* GO DEEPER — the method and the big tables, progressively disclosed. */}
-      <h2 style={{ margin: '26px 0 4px', color: '#284a69', fontSize: 18 }}>Go deeper</h2>
-      <p style={{ color: '#64748b', fontSize: 13.5, margin: '0 0 8px' }}>The full model — open only what you want.</p>
+      <h2 style={{ margin: '26px 0 4px', color: 'var(--rbl-title)', fontSize: 18 }}>Go deeper</h2>
+      <p style={{ color: 'var(--rbl-text-muted)', fontSize: 13.5, margin: '0 0 8px' }}>The full model — open only what you want.</p>
 
       <Detail title="How this projection works — and the assumptions you can argue with">
-        <p style={{ color: '#334155', fontSize: 14.5, lineHeight: 1.6, margin: '0 0 8px' }}>
+        <p style={{ color: 'var(--rbl-text-strong)', fontSize: 14.5, lineHeight: 1.6, margin: '0 0 8px' }}>
           The spending side is projected <strong>line by line</strong>: each 2026 amount grows by the rate for its
           category. Add it up and 2027 spending lands near <strong>{usd(t.appropriations2027)}</strong>, up{' '}
           <strong>{t.pct}%</strong>. The tax-levy figure is a separate, illustrative estimate — {le.note.charAt(0).toLowerCase() + le.note.slice(1)}
         </p>
-        <p style={{ color: '#475569', fontSize: 14, lineHeight: 1.55, margin: '0 0 12px' }}>{p.method}</p>
+        <p style={{ color: 'var(--rbl-text-body)', fontSize: 14, lineHeight: 1.55, margin: '0 0 12px' }}>{p.method}</p>
         <div style={{ overflowX: 'auto' }}>
           <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 13.5 }}>
             <thead>
-              <tr style={{ textAlign: 'left', color: '#64748b', borderBottom: '2px solid #e2e8f0' }}>
+              <tr style={{ textAlign: 'left', color: 'var(--rbl-text-muted)', borderBottom: '2px solid var(--rbl-border-subtle)' }}>
                 <th style={th}>Category</th>
                 <th style={{ ...th, textAlign: 'right' }}>2027 growth used</th>
                 <th style={th}>Recent trend</th>
@@ -94,11 +94,11 @@ export default function Predict2027Page() {
             </thead>
             <tbody>
               {p.assumptions.map((a) => (
-                <tr key={a.category} style={{ borderBottom: '1px solid #f1f5f9', verticalAlign: 'top' }}>
-                  <td style={{ ...td, fontWeight: 800, color: '#284a69', whiteSpace: 'nowrap' }}>{a.category}</td>
+                <tr key={a.category} style={{ borderBottom: '1px solid var(--rbl-border-subtle)', verticalAlign: 'top' }}>
+                  <td style={{ ...td, fontWeight: 800, color: 'var(--rbl-title)', whiteSpace: 'nowrap' }}>{a.category}</td>
                   <td style={{ ...td, textAlign: 'right', fontWeight: 800, color: 'var(--inc)' }}>+{a.ratePct}%/yr</td>
-                  <td style={{ ...td, color: '#475569', whiteSpace: 'nowrap' }}>{a.recentTrend}</td>
-                  <td style={{ ...td, color: '#475569', lineHeight: 1.45 }}>{a.why}</td>
+                  <td style={{ ...td, color: 'var(--rbl-text-body)', whiteSpace: 'nowrap' }}>{a.recentTrend}</td>
+                  <td style={{ ...td, color: 'var(--rbl-text-body)', lineHeight: 1.45 }}>{a.why}</td>
                 </tr>
               ))}
             </tbody>
@@ -107,11 +107,11 @@ export default function Predict2027Page() {
       </Detail>
 
       <Detail title="How the Personal Services rate is built (CSEA/PBA/SOA breakdown)">
-        <p style={{ color: '#475569', fontSize: 14.5, lineHeight: 1.55, marginTop: 0 }}>{p.unionBreakdown.note}</p>
+        <p style={{ color: 'var(--rbl-text-body)', fontSize: 14.5, lineHeight: 1.55, marginTop: 0 }}>{p.unionBreakdown.note}</p>
         <div style={{ overflowX: 'auto' }}>
           <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 13.5 }}>
             <thead>
-              <tr style={{ textAlign: 'left', color: '#64748b', borderBottom: '2px solid #e2e8f0' }}>
+              <tr style={{ textAlign: 'left', color: 'var(--rbl-text-muted)', borderBottom: '2px solid var(--rbl-border-subtle)' }}>
                 <th style={th}>Union</th>
                 <th style={{ ...th, textAlign: 'right' }}>Share of payroll</th>
                 <th style={{ ...th, textAlign: 'right' }}>2027 rate used</th>
@@ -121,20 +121,20 @@ export default function Predict2027Page() {
             </thead>
             <tbody>
               {p.unionBreakdown.groups.map((g) => (
-                <tr key={g.union} style={{ borderBottom: '1px solid #f1f5f9', verticalAlign: 'top' }}>
-                  <td style={{ ...td, fontWeight: 800, color: '#284a69', whiteSpace: 'nowrap' }}>{g.union}</td>
-                  <td style={{ ...td, textAlign: 'right', color: '#64748b' }}>{g.payrollSharePct}%</td>
+                <tr key={g.union} style={{ borderBottom: '1px solid var(--rbl-border-subtle)', verticalAlign: 'top' }}>
+                  <td style={{ ...td, fontWeight: 800, color: 'var(--rbl-title)', whiteSpace: 'nowrap' }}>{g.union}</td>
+                  <td style={{ ...td, textAlign: 'right', color: 'var(--rbl-text-muted)' }}>{g.payrollSharePct}%</td>
                   <td style={{ ...td, textAlign: 'right', fontWeight: 800, color: 'var(--inc)' }}>
-                    +{g.ratePct}%{!g.known2027 && <span style={{ color: '#b45309', fontWeight: 700 }}> (est.)</span>}
+                    +{g.ratePct}%{!g.known2027 && <span style={{ color: 'var(--rbl-warn)', fontWeight: 700 }}> (est.)</span>}
                   </td>
-                  <td style={{ ...td, color: '#475569' }}>{g.term ?? '—'}</td>
-                  <td style={{ ...td, color: '#64748b', fontSize: 12.5, lineHeight: 1.4 }}>{g.source}</td>
+                  <td style={{ ...td, color: 'var(--rbl-text-body)' }}>{g.term ?? '—'}</td>
+                  <td style={{ ...td, color: 'var(--rbl-text-muted)', fontSize: 12.5, lineHeight: 1.4 }}>{g.source}</td>
                 </tr>
               ))}
             </tbody>
           </table>
         </div>
-        <p style={{ color: '#64748b', fontSize: 13, marginTop: 10, marginBottom: 0 }}>
+        <p style={{ color: 'var(--rbl-text-muted)', fontSize: 13, marginTop: 10, marginBottom: 0 }}>
           &quot;(est.)&quot; means that union&apos;s contract expires 12/31/2026 with no successor yet public — the rate
           shown is that union&apos;s own trailing average annual raise from its just-completed contract, used as a
           placeholder.
@@ -145,7 +145,7 @@ export default function Predict2027Page() {
         <div style={{ overflowX: 'auto' }}>
           <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 13.5 }}>
             <thead>
-              <tr style={{ textAlign: 'left', color: '#64748b', borderBottom: '2px solid #e2e8f0' }}>
+              <tr style={{ textAlign: 'left', color: 'var(--rbl-text-muted)', borderBottom: '2px solid var(--rbl-border-subtle)' }}>
                 <th style={th}>Category</th>
                 <th style={{ ...th, textAlign: 'right' }}>Lines</th>
                 <th style={{ ...th, textAlign: 'right' }}>2026</th>
@@ -155,10 +155,10 @@ export default function Predict2027Page() {
             </thead>
             <tbody>
               {p.byCategory.map((c) => (
-                <tr key={c.category} style={{ borderBottom: '1px solid #f1f5f9' }}>
-                  <td style={{ ...td, fontWeight: 700, color: '#284a69' }}>{c.category}</td>
-                  <td style={{ ...td, textAlign: 'right', color: '#6b7280' }}>{c.count}</td>
-                  <td style={{ ...td, textAlign: 'right', color: '#64748b' }}>{usd(c.v2026)}</td>
+                <tr key={c.category} style={{ borderBottom: '1px solid var(--rbl-border-subtle)' }}>
+                  <td style={{ ...td, fontWeight: 700, color: 'var(--rbl-title)' }}>{c.category}</td>
+                  <td style={{ ...td, textAlign: 'right', color: 'var(--rbl-text-muted)' }}>{c.count}</td>
+                  <td style={{ ...td, textAlign: 'right', color: 'var(--rbl-text-muted)' }}>{usd(c.v2026)}</td>
                   <td style={{ ...td, textAlign: 'right', fontWeight: 700 }}>{usd(c.v2027)}</td>
                   <td style={{ ...td, textAlign: 'right', fontWeight: 700, color: 'var(--inc)', whiteSpace: 'nowrap' }}>+{usd(c.delta)} ({c.pct}%)</td>
                 </tr>
@@ -172,7 +172,7 @@ export default function Predict2027Page() {
         <div style={{ overflowX: 'auto' }}>
           <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 13.5 }}>
             <thead>
-              <tr style={{ textAlign: 'left', color: '#64748b', borderBottom: '2px solid #e2e8f0' }}>
+              <tr style={{ textAlign: 'left', color: 'var(--rbl-text-muted)', borderBottom: '2px solid var(--rbl-border-subtle)' }}>
                 <th style={th}>Line item</th>
                 <th style={th}>Fund / Dept</th>
                 <th style={{ ...th, textAlign: 'right' }}>2026 → 2027</th>
@@ -181,10 +181,10 @@ export default function Predict2027Page() {
             </thead>
             <tbody>
               {p.topMovers.slice(0, 10).map((m, i) => (
-                <tr key={i} style={{ borderBottom: '1px solid #f1f5f9' }}>
-                  <td style={{ ...td, fontWeight: 700, color: '#284a69' }}>{m.name}</td>
-                  <td style={{ ...td, color: '#64748b' }}>{m.fund} · {m.dept}</td>
-                  <td style={{ ...td, textAlign: 'right', color: '#64748b', whiteSpace: 'nowrap' }}>{usd(m.v2026)} → {usd(m.v2027)}</td>
+                <tr key={i} style={{ borderBottom: '1px solid var(--rbl-border-subtle)' }}>
+                  <td style={{ ...td, fontWeight: 700, color: 'var(--rbl-title)' }}>{m.name}</td>
+                  <td style={{ ...td, color: 'var(--rbl-text-muted)' }}>{m.fund} · {m.dept}</td>
+                  <td style={{ ...td, textAlign: 'right', color: 'var(--rbl-text-muted)', whiteSpace: 'nowrap' }}>{usd(m.v2026)} → {usd(m.v2027)}</td>
                   <td style={{ ...td, textAlign: 'right', fontWeight: 800, color: 'var(--inc)', whiteSpace: 'nowrap' }}>+{usd(m.delta)}</td>
                 </tr>
               ))}
@@ -194,13 +194,13 @@ export default function Predict2027Page() {
       </Detail>
 
       <Detail title={`Every line, projected (all ${t.lineItems.toLocaleString()} lines)`}>
-        <p style={{ color: '#475569', fontSize: 14, lineHeight: 1.55, margin: '0 0 12px' }}>
+        <p style={{ color: 'var(--rbl-text-body)', fontSize: 14, lineHeight: 1.55, margin: '0 0 12px' }}>
           Filter by fund or category, search a department, or sort by the biggest movers.
         </p>
         <Budget2027Table />
       </Detail>
 
-      <p style={{ color: '#64748b', fontSize: 13, lineHeight: 1.5, marginTop: 16 }}>
+      <p style={{ color: 'var(--rbl-text-muted)', fontSize: 13, lineHeight: 1.5, marginTop: 16 }}>
         {p.source} {le.recentLevyIncreases} A prediction is only as good as its assumptions — they’re laid out in
         &ldquo;How this projection works&rdquo; precisely so you can change them in your head and see which way the answer moves.
       </p>
@@ -211,9 +211,9 @@ export default function Predict2027Page() {
 function Detail({ title, children }: { title: string; children: React.ReactNode }) {
   return (
     <details style={{ ...card, padding: 0, marginTop: 12, overflow: 'hidden' }}>
-      <summary style={{ cursor: 'pointer', listStyle: 'none', padding: '15px 18px', fontWeight: 800, color: '#284a69', fontSize: 15.5, display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 12 }}>
+      <summary style={{ cursor: 'pointer', listStyle: 'none', padding: '15px 18px', fontWeight: 800, color: 'var(--rbl-title)', fontSize: 15.5, display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 12 }}>
         <span>{title}</span>
-        <span aria-hidden style={{ color: '#6b7280', fontSize: 13, fontWeight: 700 }}>Open ▾</span>
+        <span aria-hidden style={{ color: 'var(--rbl-text-muted)', fontSize: 13, fontWeight: 700 }}>Open ▾</span>
       </summary>
       <div style={{ padding: '0 18px 18px' }}>{children}</div>
     </details>
@@ -222,10 +222,10 @@ function Detail({ title, children }: { title: string; children: React.ReactNode 
 
 function Stat({ label, value, sub, accent, amber }: { label: string; value: string; sub?: string; accent?: boolean; amber?: boolean }) {
   return (
-    <div style={{ background: amber ? '#fff7ed' : accent ? '#dbeafe' : '#f8fafc', border: '1px solid #e2e8f0', borderRadius: 12, padding: 12 }}>
-      <div style={{ color: '#64748b', fontSize: 11.5, textTransform: 'uppercase', fontWeight: 900, letterSpacing: 0.4 }}>{label}</div>
-      <strong style={{ fontSize: 20, color: amber ? '#b45309' : '#284a69' }}>{value}</strong>
-      {sub && <div style={{ color: '#64748b', fontSize: 12.5, marginTop: 2 }}>{sub}</div>}
+    <div style={{ background: amber ? 'var(--rbl-warn-bg)' : accent ? 'var(--rbl-info-bg)' : 'var(--rbl-surface-2)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 12, padding: 12 }}>
+      <div style={{ color: 'var(--rbl-text-muted)', fontSize: 11.5, textTransform: 'uppercase', fontWeight: 900, letterSpacing: 0.4 }}>{label}</div>
+      <strong style={{ fontSize: 20, color: amber ? 'var(--rbl-warn)' : 'var(--rbl-title)' }}>{value}</strong>
+      {sub && <div style={{ color: 'var(--rbl-text-muted)', fontSize: 12.5, marginTop: 2 }}>{sub}</div>}
     </div>
   )
 }

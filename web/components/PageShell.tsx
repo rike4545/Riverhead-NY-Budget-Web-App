@@ -1,3 +1,4 @@
+import ThemeToggle from './ThemeToggle'
 import TrendColors from './TrendColors'
 import SiteNav from './SiteNav'
 import DisclaimerBanner from './DisclaimerBanner'
@@ -7,9 +8,9 @@ export default function PageShell({ title, subtitle, children }: { title: string
 
   return (
     <main style={{ minHeight: '100vh', background: 'var(--rbl-bg)', color: 'var(--rbl-text)', fontFamily: 'Inter, Arial, sans-serif' }}>
-      <header style={{ background: 'linear-gradient(135deg,var(--rbl-header-a),var(--rbl-header-b) 62%,var(--rbl-header-a))', color: 'white', borderBottom: '5px solid var(--rbl-gold)', padding: '18px 28px', display: 'flex', justifyContent: 'space-between', gap: 20, alignItems: 'center', flexWrap: 'wrap', boxShadow: '0 14px 34px rgba(18,56,91,.24)' }}>
+      <header style={{ background: 'linear-gradient(135deg,var(--rbl-header-a),var(--rbl-header-b) 62%,var(--rbl-header-a))', color: 'white', borderBottom: '5px solid var(--rbl-gold)', padding: '18px 28px', display: 'flex', justifyContent: 'space-between', gap: 20, alignItems: 'center', flexWrap: 'wrap', boxShadow: '0 14px 34px var(--rbl-shadow)' }}>
         <a href={`${base}/`} style={{ color: 'white', textDecoration: 'none', display: 'flex', gap: 12, alignItems: 'center' }}>
-          <span style={{ width: 48, height: 48, borderRadius: 8, display: 'grid', placeItems: 'center', background: '#f8f5ec', color: '#284a69', border: '2px solid var(--rbl-gold)', fontWeight: 950 }}>RB</span>
+          <span style={{ width: 48, height: 48, borderRadius: 8, display: 'grid', placeItems: 'center', background: 'var(--rbl-logo-bg)', color: 'var(--rbl-logo-fg)', border: '2px solid var(--rbl-gold)', fontWeight: 950 }}>RB</span>
           <span>
             <strong style={{ fontSize: 22 }}>Riverhead Budget Live</strong>
             <div style={{ color: '#d7e7f4', fontSize: 12 }}>Following the Town&apos;s money, in plain English</div>
@@ -23,7 +24,8 @@ export default function PageShell({ title, subtitle, children }: { title: string
           <h1 style={{ fontSize: 42, lineHeight: 1.05, margin: '8px 0', color: 'var(--rbl-title)' }}>{title}</h1>
           <p style={{ color: 'var(--rbl-text-sub)', fontSize: 17, lineHeight: 1.55, margin: 0, maxWidth: 980 }}>{subtitle}</p>
           <DisclaimerBanner />
-          <div style={{ marginTop: 12, display: 'flex', justifyContent: 'flex-end' }}>
+          <div style={{ marginTop: 12, display: 'flex', justifyContent: 'flex-end', gap: 18, flexWrap: 'wrap', alignItems: 'center' }}>
+            <ThemeToggle />
             <TrendColors />
           </div>
         </div>

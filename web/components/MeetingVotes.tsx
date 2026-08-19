@@ -7,9 +7,9 @@ import {
   type Meeting, type Resolution, type Vote, type MembersData, type MemberRecord, type VotedItem,
 } from '../lib/meetings'
 
-const card = { background: 'white', border: '1px solid #e2e8f0', borderRadius: 16, padding: 18, boxShadow: '0 14px 34px rgba(15,23,42,.05)' } as const
+const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 18, boxShadow: '0 14px 34px var(--rbl-shadow)' } as const
 
-const VOTE_COLOR: Record<Vote, string> = { aye: '#15803d', nay: '#b91c1c', abstain: '#c99a2e', absent: '#cbd5e1' }
+const VOTE_COLOR: Record<Vote, string> = { aye: 'var(--rbl-success)', nay: 'var(--rbl-danger)', abstain: 'var(--rbl-series-gold)', absent: 'var(--rbl-border-strong)' }
 const VOTE_LABEL: Record<Vote, string> = { aye: 'Yes', nay: 'No', abstain: 'Abstained', absent: 'Absent' }
 
 export default function MeetingVotes() {
@@ -57,9 +57,9 @@ export default function MeetingVotes() {
 
       {/* Meeting picker */}
       <section style={{ ...card, display: 'flex', gap: 8, flexWrap: 'wrap', alignItems: 'center' }}>
-        <span style={{ fontWeight: 800, color: '#334155' }}>Meeting:</span>
+        <span style={{ fontWeight: 800, color: 'var(--rbl-text-strong)' }}>Meeting:</span>
         <select value={slug} onChange={(e) => { setSlug(e.target.value); setFilter('all'); setQ('') }}
-          style={{ padding: '10px 12px', border: '1px solid #cbd5e1', borderRadius: 9, fontSize: 15, fontWeight: 700, maxWidth: '100%' }}>
+          style={{ padding: '10px 12px', border: '1px solid var(--rbl-border-strong)', borderRadius: 9, fontSize: 15, fontWeight: 700, maxWidth: '100%' }}>
           {meetings.map((m) => (
             <option key={m.slug} value={m.slug}>
               {m.date} — {m.type} {m.preliminary
@@ -68,7 +68,7 @@ export default function MeetingVotes() {
             </option>
           ))}
         </select>
-        <span style={{ color: '#64748b', fontSize: 13 }}>
+        <span style={{ color: 'var(--rbl-text-muted)', fontSize: 13 }}>
           {meetingsIndex.totals.meetings} meetings · {meetingsIndex.totals.votes.toLocaleString()} votes on record
         </span>
       </section>
@@ -84,9 +84,9 @@ export default function MeetingVotes() {
           <section style={card}>
             <div style={{ display: 'flex', justifyContent: 'space-between', gap: 16, flexWrap: 'wrap', alignItems: 'start' }}>
               <div>
-                <div style={{ color: '#2563eb', fontWeight: 900, fontSize: 12, textTransform: 'uppercase' }}>{meeting.type}</div>
+                <div style={{ color: 'var(--rbl-link)', fontWeight: 900, fontSize: 12, textTransform: 'uppercase' }}>{meeting.type}</div>
                 <h2 style={{ margin: '4px 0' }}>{meeting.date}</h2>
-                <div style={{ color: '#64748b' }}>{meeting.calledToOrder ? `Called to order at ${meeting.calledToOrder}.` : ''}</div>
+                <div style={{ color: 'var(--rbl-text-muted)' }}>{meeting.calledToOrder ? `Called to order at ${meeting.calledToOrder}.` : ''}</div>
               </div>
             </div>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(130px,1fr))', gap: 12, marginTop: 14 }}>
@@ -104,7 +104,7 @@ export default function MeetingVotes() {
             <div style={{ overflowX: 'auto' }}>
               <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 14 }}>
                 <thead>
-                  <tr style={{ textAlign: 'left', color: '#64748b', borderBottom: '2px solid #e2e8f0' }}>
+                  <tr style={{ textAlign: 'left', color: 'var(--rbl-text-muted)', borderBottom: '2px solid var(--rbl-border-subtle)' }}>
                     <th style={th}>Member</th>
                     <th style={{ ...th, textAlign: 'right' }}>Yes</th>
                     <th style={{ ...th, textAlign: 'right' }}>No</th>
@@ -120,18 +120,18 @@ export default function MeetingVotes() {
                     if (!t) return null
                     const party = meeting.roster.find((r) => r.last === last)?.party ?? null
                     return (
-                      <tr key={last} style={{ borderBottom: '1px solid #f1f5f9' }}>
+                      <tr key={last} style={{ borderBottom: '1px solid var(--rbl-border-subtle)' }}>
                         <td style={td}>
-                          <strong style={{ color: '#284a69' }}>{t.name}</strong>{' '}
+                          <strong style={{ color: 'var(--rbl-title)' }}>{t.name}</strong>{' '}
                           <PartyChip party={party} small />{' '}
-                          <span style={{ color: '#6b7280', fontSize: 12.5 }}>{t.title}</span>
+                          <span style={{ color: 'var(--rbl-text-muted)', fontSize: 12.5 }}>{t.title}</span>
                         </td>
                         <td style={{ ...td, textAlign: 'right' }}>{t.aye}</td>
-                        <td style={{ ...td, textAlign: 'right', color: t.nay ? '#b91c1c' : '#6b7280', fontWeight: t.nay ? 800 : 400 }}>{t.nay}</td>
-                        <td style={{ ...td, textAlign: 'right', color: t.abstain ? '#b45309' : '#6b7280', fontWeight: t.abstain ? 800 : 400 }}>{t.abstain}</td>
-                        <td style={{ ...td, textAlign: 'right', color: '#64748b' }}>{t.absent}</td>
-                        <td style={{ ...td, textAlign: 'right', color: '#64748b' }}>{t.moved}</td>
-                        <td style={{ ...td, textAlign: 'right', color: '#64748b' }}>{t.seconded}</td>
+                        <td style={{ ...td, textAlign: 'right', color: t.nay ? 'var(--rbl-danger)' : 'var(--rbl-text-muted)', fontWeight: t.nay ? 800 : 400 }}>{t.nay}</td>
+                        <td style={{ ...td, textAlign: 'right', color: t.abstain ? 'var(--rbl-warn)' : 'var(--rbl-text-muted)', fontWeight: t.abstain ? 800 : 400 }}>{t.abstain}</td>
+                        <td style={{ ...td, textAlign: 'right', color: 'var(--rbl-text-muted)' }}>{t.absent}</td>
+                        <td style={{ ...td, textAlign: 'right', color: 'var(--rbl-text-muted)' }}>{t.moved}</td>
+                        <td style={{ ...td, textAlign: 'right', color: 'var(--rbl-text-muted)' }}>{t.seconded}</td>
                       </tr>
                     )
                   })}
@@ -146,14 +146,14 @@ export default function MeetingVotes() {
               {(['all', 'contested', 'tabled'] as const).map((f) => (
                 <button key={f} onClick={() => setFilter(f)} style={{
                   padding: '8px 13px', borderRadius: 9, border: '1px solid', cursor: 'pointer', fontWeight: 800, fontSize: 13.5,
-                  borderColor: filter === f ? '#4a7297' : '#cbd5e1', background: filter === f ? '#4a7297' : 'white', color: filter === f ? 'white' : '#334155',
+                  borderColor: filter === f ? 'var(--rbl-accent-border)' : 'var(--rbl-border-strong)', background: filter === f ? 'var(--rbl-fill-accent)' : 'var(--rbl-surface)', color: filter === f ? 'white' : 'var(--rbl-text-strong)',
                 }}>
                   {f === 'all' ? `All (${meeting.stats.total})` : f === 'contested' ? `Contested (${meeting.stats.contested})` : `Tabled (${meeting.stats.tabled})`}
                 </button>
               ))}
             </div>
             <input value={q} onChange={(e) => setQ(e.target.value)} placeholder="Search resolutions by number or topic…"
-              style={{ flex: 1, minWidth: 220, padding: '10px 13px', border: '1px solid #cbd5e1', borderRadius: 9, fontSize: 15 }} />
+              style={{ flex: 1, minWidth: 220, padding: '10px 13px', border: '1px solid var(--rbl-border-strong)', borderRadius: 9, fontSize: 15 }} />
           </section>
 
           {/* Resolutions */}
@@ -161,10 +161,10 @@ export default function MeetingVotes() {
             {filtered.map((r) => (
               <ResolutionRow key={r.seq} r={r} shortName={shortName} rosterOrder={rosterOrder} />
             ))}
-            {filtered.length === 0 && <p style={{ color: '#64748b', padding: 12 }}>No matching resolutions.</p>}
+            {filtered.length === 0 && <p style={{ color: 'var(--rbl-text-muted)', padding: 12 }}>No matching resolutions.</p>}
           </section>
 
-          <p style={{ color: '#64748b', fontSize: 13, lineHeight: 1.5 }}>
+          <p style={{ color: 'var(--rbl-text-muted)', fontSize: 13, lineHeight: 1.5 }}>
             Source: {meetingsIndex.source.title} — {meeting.date}. Extracted from the official meeting minutes; the full
             text of each resolution is in the Town&apos;s minutes. &quot;Tabled&quot; items were postponed, not defeated.
             New meetings are added as the Town publishes their minutes.
@@ -180,16 +180,16 @@ function PreliminaryPanel({ meeting }: { meeting: Meeting }) {
   return (
     <>
       <section style={card}>
-        <div style={{ color: '#2563eb', fontWeight: 900, fontSize: 12, textTransform: 'uppercase' }}>{meeting.type}</div>
+        <div style={{ color: 'var(--rbl-link)', fontWeight: 900, fontSize: 12, textTransform: 'uppercase' }}>{meeting.type}</div>
         <h2 style={{ margin: '4px 0' }}>{meeting.date}</h2>
-        <div style={{ color: '#64748b' }}>{meeting.calledToOrder ? `Called to order at ${meeting.calledToOrder}.` : ''}</div>
+        <div style={{ color: 'var(--rbl-text-muted)' }}>{meeting.calledToOrder ? `Called to order at ${meeting.calledToOrder}.` : ''}</div>
       </section>
 
-      <section style={{ ...card, background: '#fff7ed', border: '1px solid #fdba74', borderLeft: '6px solid #c2410c' }}>
-        <div style={{ color: '#7c2d12', fontWeight: 900, fontSize: 15, marginBottom: 6 }}>
+      <section style={{ ...card, background: 'var(--rbl-warn-bg)', border: '1px solid var(--rbl-warn-border)', borderLeft: '6px solid var(--rbl-warn)' }}>
+        <div style={{ color: 'var(--rbl-warn-strong)', fontWeight: 900, fontSize: 15, marginBottom: 6 }}>
           Vote results not posted yet
         </div>
-        <p style={{ color: '#7c2d12', fontSize: 14, lineHeight: 1.6, margin: 0 }}>
+        <p style={{ color: 'var(--rbl-warn-strong)', fontSize: 14, lineHeight: 1.6, margin: 0 }}>
           The Town Clerk has published this meeting&apos;s preliminary minutes — the {docket.length} resolutions on
           the docket are listed below — but the roll-call vote results are usually posted a few days later in a
           revised set of minutes. This page will fill in each member&apos;s vote automatically once the Town posts them.
@@ -200,14 +200,14 @@ function PreliminaryPanel({ meeting }: { meeting: Meeting }) {
         <h3 style={{ marginTop: 0 }}>Resolutions on the docket ({docket.length})</h3>
         <div style={{ display: 'grid', gap: 8 }}>
           {docket.map((d) => (
-            <div key={d.number + d.seq} style={{ background: '#f8fafc', border: '1px solid #e2e8f0', borderRadius: 10, padding: '10px 13px' }}>
-              <span style={{ color: '#2563eb', fontWeight: 900, fontSize: 12 }}>{d.number}</span>
-              <div style={{ fontWeight: 600, color: '#284a69', marginTop: 2, lineHeight: 1.4, fontSize: 14 }}>{d.title}</div>
+            <div key={d.number + d.seq} style={{ background: 'var(--rbl-surface-2)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 10, padding: '10px 13px' }}>
+              <span style={{ color: 'var(--rbl-link)', fontWeight: 900, fontSize: 12 }}>{d.number}</span>
+              <div style={{ fontWeight: 600, color: 'var(--rbl-title)', marginTop: 2, lineHeight: 1.4, fontSize: 14 }}>{d.title}</div>
             </div>
           ))}
-          {docket.length === 0 && <p style={{ color: '#64748b' }}>No resolutions were listed in the preliminary minutes.</p>}
+          {docket.length === 0 && <p style={{ color: 'var(--rbl-text-muted)' }}>No resolutions were listed in the preliminary minutes.</p>}
         </div>
-        <p style={{ color: '#64748b', fontSize: 13, lineHeight: 1.5, marginTop: 14 }}>
+        <p style={{ color: 'var(--rbl-text-muted)', fontSize: 13, lineHeight: 1.5, marginTop: 14 }}>
           Source: {meetingsIndex.source.title} — {meeting.date} (preliminary minutes). Resolution numbers and titles are
           the Town&apos;s own; vote outcomes are pending the revised minutes.
         </p>
@@ -218,20 +218,20 @@ function PreliminaryPanel({ meeting }: { meeting: Meeting }) {
 
 function ResolutionRow({ r, shortName, rosterOrder }: { r: Resolution; shortName: (l: string) => string; rosterOrder: string[] }) {
   const badge =
-    r.tag === 'failed' ? { bg: '#fee2e2', fg: '#991b1b', text: 'Failed' }
-    : r.tag === 'tabled' ? { bg: '#f1f5f9', fg: '#475569', text: 'Tabled' }
-    : r.tag === 'split' ? { bg: '#fef3c7', fg: '#92400e', text: r.ayesCount != null && r.naysCount != null ? `Passed ${r.ayesCount}–${r.naysCount}` : 'Passed (split)' }
-    : { bg: '#dcfce7', fg: '#166534', text: 'Passed unanimously' }
-  const border = r.tag === 'failed' ? '#b91c1c' : r.tag === 'tabled' ? '#6b7280' : r.tag === 'split' ? '#c99a2e' : '#15803d'
+    r.tag === 'failed' ? { bg: 'var(--rbl-danger-bg)', fg: 'var(--rbl-danger-strong)', text: 'Failed' }
+    : r.tag === 'tabled' ? { bg: 'var(--rbl-surface-3)', fg: 'var(--rbl-text-body)', text: 'Tabled' }
+    : r.tag === 'split' ? { bg: 'var(--rbl-warn-bg)', fg: 'var(--rbl-warn)', text: r.ayesCount != null && r.naysCount != null ? `Passed ${r.ayesCount}–${r.naysCount}` : 'Passed (split)' }
+    : { bg: 'var(--rbl-success-bg)', fg: 'var(--rbl-success-strong)', text: 'Passed unanimously' }
+  const border = r.tag === 'failed' ? 'var(--rbl-danger)' : r.tag === 'tabled' ? 'var(--rbl-text-muted)' : r.tag === 'split' ? 'var(--rbl-series-gold)' : 'var(--rbl-success)'
   const hasVotes = Object.keys(r.votes).length > 0
 
   return (
     <article style={{ ...card, borderLeft: `5px solid ${border}` }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', gap: 14, flexWrap: 'wrap', alignItems: 'start' }}>
         <div style={{ maxWidth: 780 }}>
-          {r.number && <span style={{ color: '#2563eb', fontWeight: 900, fontSize: 12 }}>{r.number}</span>}
-          <div style={{ fontWeight: 700, color: '#284a69', marginTop: 2, lineHeight: 1.4 }}>{r.title}</div>
-          <div style={{ color: '#64748b', fontSize: 12.5, marginTop: 4 }}>
+          {r.number && <span style={{ color: 'var(--rbl-link)', fontWeight: 900, fontSize: 12 }}>{r.number}</span>}
+          <div style={{ fontWeight: 700, color: 'var(--rbl-title)', marginTop: 2, lineHeight: 1.4 }}>{r.title}</div>
+          <div style={{ color: 'var(--rbl-text-muted)', fontSize: 12.5, marginTop: 4 }}>
             {r.mover ? `Moved by ${r.mover}` : ''}{r.seconder ? ` · seconded by ${r.seconder}` : ''}
           </div>
         </div>
@@ -244,7 +244,7 @@ function ResolutionRow({ r, shortName, rosterOrder }: { r: Resolution; shortName
             const v = r.votes[last]
             if (!v) return null
             return (
-              <span key={last} style={{ display: 'inline-flex', alignItems: 'center', gap: 5, fontSize: 12.5, fontWeight: 700, color: '#334155', background: '#f8fafc', border: '1px solid #e2e8f0', borderRadius: 999, padding: '4px 10px' }}>
+              <span key={last} style={{ display: 'inline-flex', alignItems: 'center', gap: 5, fontSize: 12.5, fontWeight: 700, color: 'var(--rbl-text-strong)', background: 'var(--rbl-surface-2)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 999, padding: '4px 10px' }}>
                 <span style={{ width: 9, height: 9, borderRadius: 9, background: VOTE_COLOR[v] }} />
                 {shortName(last)}: {VOTE_LABEL[v]}
               </span>
@@ -262,8 +262,8 @@ function ViewToggle({ view, setView }: { view: 'meetings' | 'members'; setView: 
       {([['meetings', 'By meeting', 'Every vote, one meeting at a time'], ['members', 'By member', 'Each member’s career record, dissents & abstentions']] as const).map(([v, title, sub]) => (
         <button key={v} onClick={() => setView(v)} style={{
           flex: '1 1 240px', textAlign: 'left', cursor: 'pointer', borderRadius: 12, padding: '12px 16px',
-          border: '1px solid', borderColor: view === v ? '#4a7297' : '#cbd5e1',
-          background: view === v ? '#4a7297' : 'white', color: view === v ? 'white' : '#334155',
+          border: '1px solid', borderColor: view === v ? 'var(--rbl-accent-border)' : 'var(--rbl-border-strong)',
+          background: view === v ? 'var(--rbl-fill-accent)' : 'var(--rbl-surface)', color: view === v ? 'white' : 'var(--rbl-text-strong)',
           boxShadow: view === v ? '0 10px 24px rgba(31,95,143,.22)' : 'none',
         }}>
           <div style={{ fontWeight: 900, fontSize: 16 }}>{title}</div>
@@ -284,7 +284,7 @@ function MembersPanel({ openMeeting }: { openMeeting: (slug: string) => void }) 
       {data.members.map((m) => (
         <MemberCard key={m.key} m={m} current={m.years.includes(data.latestYear)} openMeeting={openMeeting} />
       ))}
-      <p style={{ color: '#64748b', fontSize: 13, lineHeight: 1.5 }}>
+      <p style={{ color: 'var(--rbl-text-muted)', fontSize: 13, lineHeight: 1.5 }}>
         Source: {data.source.title}. {data.note} {data.partySource} A high &quot;votes yes&quot; share is normal — most municipal
         resolutions are routine and pass unanimously; the dissents and abstentions are where members distinguish themselves.
       </p>
@@ -295,43 +295,43 @@ function MembersPanel({ openMeeting }: { openMeeting: (slug: string) => void }) 
 function MemberCard({ m, current, openMeeting }: { m: MemberRecord; current: boolean; openMeeting: (slug: string) => void }) {
   const c = m.career
   return (
-    <article style={{ ...card, borderLeft: `5px solid ${current ? partyColor(m.party) : '#cbd5e1'}` }}>
+    <article style={{ ...card, borderLeft: `5px solid ${current ? partyColor(m.party) : 'var(--rbl-border-strong)'}` }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', gap: 14, flexWrap: 'wrap', alignItems: 'baseline' }}>
         <div>
           <div style={{ display: 'flex', gap: 8, alignItems: 'center', flexWrap: 'wrap' }}>
-            <h3 style={{ margin: 0, fontSize: 20, color: '#284a69' }}>{m.name}</h3>
+            <h3 style={{ margin: 0, fontSize: 20, color: 'var(--rbl-title)' }}>{m.name}</h3>
             <PartyChip party={m.party} />
-            {!current && <span style={{ background: '#f1f5f9', color: '#475569', fontWeight: 800, fontSize: 11, padding: '2px 9px', borderRadius: 999, textTransform: 'uppercase', letterSpacing: 0.4 }}>Former member</span>}
+            {!current && <span style={{ background: 'var(--rbl-surface-3)', color: 'var(--rbl-text-body)', fontWeight: 800, fontSize: 11, padding: '2px 9px', borderRadius: 999, textTransform: 'uppercase', letterSpacing: 0.4 }}>Former member</span>}
           </div>
-          <div style={{ color: '#64748b', fontSize: 13, marginTop: 2 }}>
+          <div style={{ color: 'var(--rbl-text-muted)', fontSize: 13, marginTop: 2 }}>
             {m.titles[0] ?? 'Board member'} · on record {m.years.join(' & ')} · voted in {m.meetingsVoted} meetings
           </div>
         </div>
         {m.ayePct != null && (
           <div style={{ textAlign: 'right' }}>
-            <strong style={{ fontSize: 22, color: '#284a69' }}>{m.ayePct}%</strong>
-            <div style={{ color: '#64748b', fontSize: 12 }}>votes yes</div>
+            <strong style={{ fontSize: 22, color: 'var(--rbl-title)' }}>{m.ayePct}%</strong>
+            <div style={{ color: 'var(--rbl-text-muted)', fontSize: 12 }}>votes yes</div>
           </div>
         )}
       </div>
 
       <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', marginTop: 12 }}>
-        <Chip label="Yes" value={c.aye ?? 0} color="#15803d" />
-        <Chip label="No" value={c.nay ?? 0} color="#b91c1c" strong={(c.nay ?? 0) > 0} />
+        <Chip label="Yes" value={c.aye ?? 0} color="var(--rbl-success)" />
+        <Chip label="No" value={c.nay ?? 0} color="var(--rbl-danger)" strong={(c.nay ?? 0) > 0} />
         <Chip label="Abstained" value={c.abstain ?? 0} color="#b45309" strong={(c.abstain ?? 0) > 0} />
-        <Chip label="Absent" value={c.absent ?? 0} color="#64748b" />
-        <Chip label="Moved" value={m.moved} color="#4a7297" />
-        <Chip label="Seconded" value={m.seconded} color="#4a7297" />
+        <Chip label="Absent" value={c.absent ?? 0} color="var(--rbl-series-slate)" />
+        <Chip label="Moved" value={m.moved} color="var(--rbl-series-blue)" />
+        <Chip label="Seconded" value={m.seconded} color="var(--rbl-series-blue)" />
       </div>
 
       {m.dissents.length > 0 && (
-        <VotedList label={`Every “no” vote (${m.dissents.length})`} items={m.dissents} openMeeting={openMeeting} color="#b91c1c" />
+        <VotedList label={`Every “no” vote (${m.dissents.length})`} items={m.dissents} openMeeting={openMeeting} color="var(--rbl-danger)" />
       )}
       {m.abstentions.length > 0 && (
         <VotedList label={`Abstentions (${m.abstentions.length})`} items={m.abstentions} openMeeting={openMeeting} color="#b45309" />
       )}
       {m.dissents.length === 0 && m.abstentions.length === 0 && (
-        <p style={{ color: '#64748b', fontSize: 13.5, margin: '12px 0 0' }}>Never voted no or abstained in the period on record.</p>
+        <p style={{ color: 'var(--rbl-text-muted)', fontSize: 13.5, margin: '12px 0 0' }}>Never voted no or abstained in the period on record.</p>
       )}
     </article>
   )
@@ -345,9 +345,9 @@ function VotedList({ label, items, openMeeting, color }: { label: string; items:
         {items.map((it, i) => (
           <button key={`${it.slug}-${it.number}-${i}`} onClick={() => openMeeting(it.slug)}
             title="Open this meeting's contested votes"
-            style={{ textAlign: 'left', background: '#f8fafc', border: '1px solid #e2e8f0', borderRadius: 10, padding: '9px 12px', cursor: 'pointer' }}>
-            <span style={{ color: '#6b7280', fontWeight: 800, fontSize: 12 }}>{it.date}{it.number ? ` · ${it.number}` : ''}</span>
-            <span style={{ display: 'block', color: '#284a69', fontWeight: 600, fontSize: 13.5, lineHeight: 1.4 }}>{it.title}</span>
+            style={{ textAlign: 'left', background: 'var(--rbl-surface-2)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 10, padding: '9px 12px', cursor: 'pointer' }}>
+            <span style={{ color: 'var(--rbl-text-muted)', fontWeight: 800, fontSize: 12 }}>{it.date}{it.number ? ` · ${it.number}` : ''}</span>
+            <span style={{ display: 'block', color: 'var(--rbl-title)', fontWeight: 600, fontSize: 13.5, lineHeight: 1.4 }}>{it.title}</span>
           </button>
         ))}
       </div>
@@ -357,7 +357,7 @@ function VotedList({ label, items, openMeeting, color }: { label: string; items:
 
 function Chip({ label, value, color, strong }: { label: string; value: number; color: string; strong?: boolean }) {
   return (
-    <span style={{ background: '#f8fafc', border: '1px solid #e2e8f0', borderRadius: 999, padding: '5px 12px', fontSize: 13, fontWeight: strong ? 900 : 700, color: strong ? color : '#334155' }}>
+    <span style={{ background: 'var(--rbl-surface-2)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 999, padding: '5px 12px', fontSize: 13, fontWeight: strong ? 900 : 700, color: strong ? color : 'var(--rbl-text-strong)' }}>
       <span style={{ display: 'inline-block', width: 9, height: 9, borderRadius: 9, background: color, marginRight: 6 }} />
       {label}: {value.toLocaleString()}
     </span>
@@ -365,7 +365,7 @@ function Chip({ label, value, color, strong }: { label: string; value: number; c
 }
 
 function partyColor(party: string | null) {
-  return party === 'Democrat' ? '#1d4ed8' : party === 'Republican' ? '#b91c1c' : '#64748b'
+  return party === 'Democrat' ? '#1d4ed8' : party === 'Republican' ? 'var(--rbl-danger)' : 'var(--rbl-series-slate)'
 }
 
 function PartyChip({ party, small }: { party: string | null; small?: boolean }) {
@@ -374,7 +374,7 @@ function PartyChip({ party, small }: { party: string | null; small?: boolean }) 
   const label = small ? party[0] : party
   return (
     <span title={party} style={{
-      display: 'inline-block', background: party === 'Democrat' ? '#dbeafe' : '#fee2e2', color: c,
+      display: 'inline-block', background: party === 'Democrat' ? 'var(--rbl-info-bg)' : 'var(--rbl-danger-bg)', color: c,
       fontWeight: 800, fontSize: small ? 10.5 : 12, padding: small ? '1px 7px' : '2px 9px', borderRadius: 999,
       verticalAlign: 'middle', letterSpacing: 0.3,
     }}>{label}</span>
@@ -386,9 +386,9 @@ const td = { padding: '8px 10px' } as const
 
 function Stat({ label, value, amber, red }: { label: string; value: string; amber?: boolean; red?: boolean }) {
   return (
-    <div style={{ background: '#f8fafc', border: '1px solid #e2e8f0', borderRadius: 12, padding: 12 }}>
-      <div style={{ color: '#64748b', fontSize: 11.5, textTransform: 'uppercase', fontWeight: 900, letterSpacing: 0.4 }}>{label}</div>
-      <strong style={{ fontSize: 22, color: red ? '#b91c1c' : amber ? '#b45309' : '#284a69' }}>{value}</strong>
+    <div style={{ background: 'var(--rbl-surface-2)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 12, padding: 12 }}>
+      <div style={{ color: 'var(--rbl-text-muted)', fontSize: 11.5, textTransform: 'uppercase', fontWeight: 900, letterSpacing: 0.4 }}>{label}</div>
+      <strong style={{ fontSize: 22, color: red ? 'var(--rbl-danger)' : amber ? 'var(--rbl-warn)' : 'var(--rbl-title)' }}>{value}</strong>
     </div>
   )
 }

@@ -4,7 +4,7 @@ import { useState } from 'react'
 import { assessedFromMarketValue, estimateTaxBill, type TaxRates } from '../lib/tax-bill'
 
 const usd = (n: number) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(n)
-const card = { background: 'white', border: '1px solid #e2e8f0', borderRadius: 16, padding: 20, boxShadow: '0 14px 34px rgba(15,23,42,.05)' } as const
+const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 20, boxShadow: '0 14px 34px var(--rbl-shadow)' } as const
 
 export default function TaxBillEstimator({
   rates2026,
@@ -41,7 +41,7 @@ export default function TaxBillEstimator({
             step={1000}
             value={assessedValue}
             onChange={(e) => setAssessedValue(Number(e.target.value))}
-            style={{ width: '100%', accentColor: '#4a7297' }}
+            style={{ width: '100%', accentColor: 'var(--rbl-series-blue)' }}
           />
         </Field>
       ) : (
@@ -57,7 +57,7 @@ export default function TaxBillEstimator({
             step={10000}
             value={marketValue}
             onChange={(e) => setMarketValue(Number(e.target.value))}
-            style={{ width: '100%', accentColor: '#4a7297' }}
+            style={{ width: '100%', accentColor: 'var(--rbl-series-blue)' }}
           />
         </Field>
       )}
@@ -71,24 +71,24 @@ export default function TaxBillEstimator({
             step={500}
             value={starReduction}
             onChange={(e) => setStarReduction(Number(e.target.value))}
-            style={{ width: '100%', accentColor: '#4a7297' }}
+            style={{ width: '100%', accentColor: 'var(--rbl-series-blue)' }}
           />
         </Field>
       </div>
 
-      <hr style={{ border: 'none', borderTop: '1px solid #e2e8f0', margin: '18px 0' }} />
+      <hr style={{ border: 'none', borderTop: '1px solid var(--rbl-border-subtle)', margin: '18px 0' }} />
 
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline' }}>
-        <span style={{ color: '#284a69', fontWeight: 800 }}>2026 Town portion (estimated)</span>
-        <strong style={{ fontSize: 28, color: '#284a69' }}>{usd(estimate2026.total)}</strong>
+        <span style={{ color: 'var(--rbl-title)', fontWeight: 800 }}>2026 Town portion (estimated)</span>
+        <strong style={{ fontSize: 28, color: 'var(--rbl-title)' }}>{usd(estimate2026.total)}</strong>
       </div>
-      <div style={{ display: 'flex', justifyContent: 'space-between', color: '#64748b', fontSize: 13.5, marginTop: 4 }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', color: 'var(--rbl-text-muted)', fontSize: 13.5, marginTop: 4 }}>
         <span>2025 (for comparison)</span>
         <span>{usd(estimate2025.total)}</span>
       </div>
       <div style={{ display: 'flex', justifyContent: 'space-between', fontWeight: 800, marginTop: 6 }}>
         <span>Change vs. 2025</span>
-        <span style={{ color: diff >= 0 ? '#b91c1c' : '#166534' }}>
+        <span style={{ color: diff >= 0 ? 'var(--rbl-danger)' : 'var(--rbl-success-strong)' }}>
           {diff >= 0 ? '+' : ''}
           {usd(diff)}
         </span>
@@ -100,7 +100,7 @@ export default function TaxBillEstimator({
         <Mini label="Street Lighting" value={usd(estimate2026.streetLighting)} />
       </div>
 
-      <p style={{ color: '#64748b', fontSize: 13, lineHeight: 1.5, marginTop: 16 }}>
+      <p style={{ color: 'var(--rbl-text-muted)', fontSize: 13, lineHeight: 1.5, marginTop: 16 }}>
         This is only the Town&apos;s portion of your bill — county, school, fire, and library taxes are separate line
         items on your actual tax bill and aren&apos;t estimated here.
       </p>
@@ -116,9 +116,9 @@ function ModeButton({ active, onClick, label }: { active: boolean; onClick: () =
         flex: 1,
         padding: '10px 12px',
         borderRadius: 8,
-        border: active ? '1px solid #4a7297' : '1px solid #e2e8f0',
-        background: active ? '#4a7297' : 'white',
-        color: active ? 'white' : '#284a69',
+        border: active ? '1px solid var(--rbl-accent-border)' : '1px solid var(--rbl-border-subtle)',
+        background: active ? 'var(--rbl-fill-accent)' : 'var(--rbl-surface)',
+        color: active ? 'white' : 'var(--rbl-title)',
         fontWeight: 800,
         fontSize: 13.5,
         cursor: 'pointer',
@@ -133,20 +133,20 @@ function Field({ label, value, hint, children }: { label: string; value: string;
   return (
     <div>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline' }}>
-        <span style={{ fontWeight: 800, color: '#284a69', fontSize: 14.5 }}>{label}</span>
-        <span style={{ fontWeight: 800, color: '#4a7297', fontSize: 14 }}>{value}</span>
+        <span style={{ fontWeight: 800, color: 'var(--rbl-title)', fontSize: 14.5 }}>{label}</span>
+        <span style={{ fontWeight: 800, color: 'var(--rbl-accent)', fontSize: 14 }}>{value}</span>
       </div>
       {children}
-      <div style={{ color: '#6b7280', fontSize: 12, lineHeight: 1.4, marginTop: 4 }}>{hint}</div>
+      <div style={{ color: 'var(--rbl-text-muted)', fontSize: 12, lineHeight: 1.4, marginTop: 4 }}>{hint}</div>
     </div>
   )
 }
 
 function Mini({ label, value }: { label: string; value: string }) {
   return (
-    <div style={{ background: '#f8fafc', borderRadius: 10, padding: 10 }}>
-      <div style={{ color: '#64748b', fontSize: 11, textTransform: 'uppercase', fontWeight: 800 }}>{label}</div>
-      <div style={{ fontWeight: 800, marginTop: 2, color: '#284a69' }}>{value}</div>
+    <div style={{ background: 'var(--rbl-surface-2)', borderRadius: 10, padding: 10 }}>
+      <div style={{ color: 'var(--rbl-text-muted)', fontSize: 11, textTransform: 'uppercase', fontWeight: 800 }}>{label}</div>
+      <div style={{ fontWeight: 800, marginTop: 2, color: 'var(--rbl-title)' }}>{value}</div>
     </div>
   )
 }
