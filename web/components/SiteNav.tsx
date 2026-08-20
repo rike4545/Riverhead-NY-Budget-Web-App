@@ -57,6 +57,7 @@ const GROUPS: Group[] = [
       ['How the Board Was Elected', `${base}/board-elections/`],
       ['Election Law Case', `${base}/election-law-case/`],
       ['Outlier Watch', `${base}/outliers/`],
+      ['Know Your Rights (ICE)', `${base}/know-your-rights/`],
     ],
   },
   {
