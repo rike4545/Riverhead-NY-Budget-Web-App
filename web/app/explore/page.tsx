@@ -7,6 +7,8 @@ import meetingsIndex from '../../public/data/meetings/index.json'
 import afr2025 from '../../public/data/afr/2025.json'
 import buyout from '../../public/data/buyout-analysis.json'
 
+import { debtProfile } from '../../lib/debt-profile'
+
 const base = process.env.NEXT_PUBLIC_BASE_PATH || ''
 const usd0 = (n: number) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(n)
 const M = (n: number) => `$${(n / 1e6).toFixed(1)}M`
@@ -65,29 +67,35 @@ const stops: Stop[] = [
   },
   {
     n: 6, kicker: 'The cushion', title: 'What the Town has in savings', accent: 'var(--rbl-series-blue)',
-    body: <>A town keeps reserves (“fund balance”) for emergencies and to steady the tax rate. The General Fund ended 2025 with <b>{usd0(gfBalance)}</b> in fund balance and ran a <b>{usd0(gfSurplus)}</b> surplus for the year. How much of that cushion the Town leans on each year is one of the clearest signs of fiscal health.</>,
+    body: <>A town keeps reserves (“fund balance”) for emergencies and to steady the tax rate. The General Fund ended 2025 with <b>{usd0(gfBalance)}</b> in fund balance and ran a <b>{usd0(gfSurplus)}</b> surplus for the year. The Town&apos;s own policy sets a 15% floor and a 20% target against General Fund spending; the balance is currently well above both. How much of that cushion the Town leans on each year is one of the clearest signs of fiscal health.</>,
     stats: [{ label: 'General Fund savings', value: M(gfBalance) }, { label: '2025 surplus', value: M(gfSurplus) }],
     href: `${base}/annual-report/`, cta: 'See what actually happened',
   },
   {
-    n: 7, kicker: 'Plan vs. reality', title: 'The budget is a promise — the audit is the receipt', accent: 'var(--rbl-series-blue)',
+    n: 7, kicker: 'What we owe', title: 'Borrowing pays for the big things', accent: 'var(--rbl-series-gold)',
+    body: <>Roads, buildings, and water mains are paid for by borrowing, then repaid over decades — so part of every budget is last decade&apos;s decisions. Riverhead owes about <b>{M(debtProfile.totalBondedDebt)}</b> in bonds plus <b>{M(debtProfile.bondAnticipationNotes)}</b> in short-term notes, and carries a {debtProfile.moodyRating} credit rating. Debt service falls steadily from here, which frees room in later budgets.</>,
+    stats: [{ label: 'Bonded debt', value: M(debtProfile.totalBondedDebt) }, { label: 'Short-term notes', value: M(debtProfile.bondAnticipationNotes) }],
+    href: `${base}/capital-debt/`, cta: 'See what the Town owes',
+  },
+  {
+    n: 8, kicker: 'Plan vs. reality', title: 'The budget is a promise — the audit is the receipt', accent: 'var(--rbl-series-blue)',
     body: <>The budget says what the Town intends to do; the year-end Annual Financial Report, filed with the State Comptroller, shows what actually happened. Comparing the two — where revenue came in high, where a department overspent — is where the real accountability lives.</>,
     href: `${base}/annual-report/`, cta: 'Compare budget vs. actual',
   },
   {
-    n: 8, kicker: 'Who decides', title: 'Every dollar is a vote', accent: 'var(--rbl-series-violet)',
+    n: 9, kicker: 'Who decides', title: 'Every dollar is a vote', accent: 'var(--rbl-series-violet)',
     body: <>Nothing gets spent without the Town Board voting for it. We’ve logged <b>{votes.votes.toLocaleString()}</b> votes across <b>{votes.meetings}</b> meetings — most pass unanimously, but <b>{votes.contested}</b> were contested. You can see how each member voted, and read a plain-English fiscal-impact read on recent resolutions (including where the Town’s own “no fiscal impact” box was wrong).</>,
     stats: [{ label: 'Votes on record', value: votes.votes.toLocaleString() }, { label: 'Contested', value: String(votes.contested) }],
     href: `${base}/meetings/`, cta: 'See the votes',
   },
   {
-    n: 9, kicker: 'On the table now', title: 'The retirement buyout & the tax override', accent: 'var(--rbl-warn)',
+    n: 10, kicker: 'On the table now', title: 'The retirement buyout & the tax override', accent: 'var(--rbl-warn)',
     body: <>Two live issues shape the next budget: a 2026 early-retirement buyout offered to as many as <b>{buyout.eligibility.totalCount}</b> eligible employees (and what it really saves once you account for promotion chains and retiree healthcare), and the Town’s pattern of overriding the state tax cap. Both are worked through in detail.</>,
     stats: [{ label: 'Buyout-eligible', value: String(buyout.eligibility.totalCount) }],
     href: `${base}/buyout/`, cta: 'Dig into the buyout',
   },
   {
-    n: 10, kicker: 'Go deeper', title: 'Search it, or take the raw data', accent: 'var(--rbl-series-teal)',
+    n: 11, kicker: 'Go deeper', title: 'Search it, or take the raw data', accent: 'var(--rbl-series-teal)',
     body: <>Every number here traces back to an official document. One search box covers budget line items, payroll, salaries, votes, and thousands of pages of source PDFs — and every dataset is free to download as a spreadsheet or JSON. Nothing here is a black box.</>,
     href: `${base}/downloads/`, cta: 'Download the data',
   },
@@ -97,7 +105,7 @@ export default function ExplorePage() {
   return (
     <PageShell
       title="Explore the Riverhead Town Budget"
-      subtitle="A short, guided tour — ten stops that take you from “what is the budget?” all the way to the raw data, in plain English. Follow it top to bottom, or jump to whatever you came for."
+      subtitle="A short, guided tour — eleven stops that take you from “what is the budget?” all the way to the raw data, in plain English. Follow it top to bottom, or jump to whatever you came for."
     >
       <div style={{ position: 'relative', display: 'grid', gap: 16 }}>
         {stops.map((s) => (

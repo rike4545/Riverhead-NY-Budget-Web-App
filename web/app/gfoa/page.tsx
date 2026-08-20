@@ -25,7 +25,7 @@ export default function GfoaPage() {
       <PlainCallout
         tips={[
           { label: 'What GFOA is', text: 'the Government Finance Officers Association, whose Distinguished Budget Presentation Award defines how a budget should be presented: as a policy document, a financial plan, an operations guide, and a communication device.' },
-          { label: 'Why it applies here', text: 'the award rates a government’s own budget document — but its criteria are the recognized yardstick for budget presentation, so we hold this site to every criterion that can apply and say plainly where we fall short.' },
+          { label: 'Why it applies here', text: 'for the 2026 program year GFOA widened the award to cover all budget communications — websites and dashboards included, not just the printed budget document — so these criteria now apply to a site like this one directly, and we say plainly where we fall short.' },
           { label: 'Honest statuses', text: '"Not yet" usually means the Town has not published the underlying information (goals, performance measures, debt schedules) in a form anyone can extract.' },
         ]}
       >
@@ -33,11 +33,28 @@ export default function GfoaPage() {
         including where this site doesn&apos;t measure up yet.
       </PlainCallout>
 
+      <section style={{ ...card, marginBottom: 18, borderLeft: '8px solid var(--rbl-gold-border)', background: 'var(--rbl-warn-bg)' }}>
+        <h3 style={{ marginTop: 0, color: 'var(--rbl-title)', fontSize: 17 }}>The standard changed for 2026 — read this scorecard accordingly</h3>
+        <p style={{ color: 'var(--rbl-text-body)', fontSize: 14.5, lineHeight: 1.6, marginBottom: 8 }}>
+          GFOA revised the award for the 2026 program year. Mandatory criteria are gone, replaced by a points
+          scale — Content categories worth 150 points, Material Type categories worth 50, and more than 100 of the
+          200 needed to receive the award. The content criteria are now framed as questions a member of the public
+          would ask about the budget, and eligibility was widened to cover <strong>all budget communications,
+          websites and dashboards included</strong>, rather than the budget document alone.
+        </p>
+        <p style={{ color: 'var(--rbl-text-body)', fontSize: 14.5, lineHeight: 1.6, marginBottom: 0 }}>
+          The {gfoaSummary.total} criteria below are the framework GFOA used through 2025. They are still a fair
+          check on whether a presentation covers the ground, and that is how this page uses them — as a coverage
+          self-assessment, not as a score under the current program. Re-scoring against the itemised 2026 criteria
+          is outstanding work.
+        </p>
+      </section>
+
       <section style={{ ...card, display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(140px,1fr))', gap: 12, marginBottom: 18 }}>
         <Stat label="Criteria assessed" value={String(gfoaSummary.total)} />
         <Stat label="Met" value={String(gfoaSummary.met)} color="var(--rbl-success-strong)" />
-        <Stat label="Partial" value={String(gfoaSummary.partial)} color="#92400e" />
-        <Stat label="Not yet" value={String(gfoaSummary.gap)} color="#991b1b" />
+        <Stat label="Partial" value={String(gfoaSummary.partial)} color="var(--rbl-warn)" />
+        <Stat label="Not yet" value={String(gfoaSummary.gap)} color="var(--rbl-danger-strong)" />
       </section>
 
       {gfoaCategories.map((cat) => (

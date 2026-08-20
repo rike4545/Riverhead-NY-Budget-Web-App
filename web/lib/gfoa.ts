@@ -1,10 +1,30 @@
 // Mapping of this site against the GFOA Distinguished Budget Presentation
-// Award criteria (gfoa.org/budget-award — 25 criteria across four roles).
-// The award itself applies to a government's budget document — the Town's,
-// not ours — but its criteria are the recognized standard for presenting
-// budget information, so we hold the site to every criterion that can apply
-// to an independent presentation, and we're explicit about what's met,
-// partial, or missing.
+// Award criteria — 25 criteria across four roles, the framework GFOA used
+// through the 2025 program year.
+//
+// IMPORTANT — the standard moved under us. For the 2026 program year GFOA
+// revised the award: mandatory criteria are eliminated in favour of a
+// points scale (Content categories worth 150, Material Type categories worth
+// 50, and more than 100 of the 200 needed to receive the award), the content
+// criteria are reframed as questions a public stakeholder would ask about the
+// budget, and — most relevant here — eligibility now covers "all budget
+// communications including the budget document, websites, dashboards,
+// multimedia," not the budget document alone. The Material Type half explicitly
+// weighs organisation, layout, and generally accepted accessibility standards.
+//
+// So the old caveat on this file — that the award applies to the Town's
+// document and not to a site like this one — is no longer accurate under the
+// 2026 program.
+//
+// The itemised 2026 criteria are NOT reflected below: gfoa.org and the mirrors
+// carrying the criteria PDF were unreachable from the environment that compiled
+// this file, so re-scoring against them would have meant inventing the items.
+// What follows is the 2025 framework, which remains a fair check on whether an
+// independent presentation covers the ground. Treat the statuses as a coverage
+// self-assessment, not as a score under the current program.
+//
+// Sources for the 2026 change: gfoa.org/budget-award-2026 and
+// gfoa.org/budget-award-2026-criteria.
 
 const base = process.env.NEXT_PUBLIC_BASE_PATH || ''
 
