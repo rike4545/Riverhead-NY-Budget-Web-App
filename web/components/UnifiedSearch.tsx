@@ -26,12 +26,17 @@ const TYPE_META: Record<EntryType, { label: string; bg: string; fg: string }> = 
 const TYPE_ORDER: EntryType[] = ['fund', 'line-item', 'salary', 'payroll', 'resolution', 'page']
 
 const usd = (n: number) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(n)
-const EXAMPLES = ['police overtime', 'Hegermiller', 'sewer district', 'Island Water Park', 'paving', 'Petrocelli']
+const EXAMPLES = ['police overtime', 'Hegermiller', 'sewer district', 'Island Water Park', 'road resurfacing', 'Petrocelli']
+// Every one of these is covered by scripts/verify-retrieval.mjs. A suggested
+// question the index cannot answer is worse than no suggestion: the model still
+// produces a confident answer, just from whatever records happened to rank. Do
+// not add one here without adding it to the eval — three of the four questions
+// this list used to hold retrieved nothing relevant.
 const AI_EXAMPLES = [
-  'How much does the Town spend on police overtime?',
   'What is the 2026 General Fund appropriation for the Highway department?',
-  'Which recent Town Board votes involved the Petrocelli project?',
-  'Who are the highest-paid employees on the payroll?',
+  'How much is budgeted for street lighting?',
+  'What is the authorized salary for the Chief Fire Marshal?',
+  'What did the Town Board decide about the Calverton Sewer District?',
 ]
 const KEY_STORAGE = 'riverhead-openai-key'
 const AI_RECORD_COUNT = 24 // records fed to the model as grounding

@@ -99,10 +99,28 @@ compact `{t,n,x,u,v}` shape because it ships to the browser on every search.
   terms than terse budget-line names like "Police - Personal Services", so
   multi-word questions skew toward resolutions. Extra common words in a question
   can push the specific record out entirely.
-- Two of the four suggested questions in `AI_EXAMPLES` don't retrieve well: the
-  index has **no police overtime data** (one overtime line item exists, and it's
-  Sewer Treatment), and the Petrocelli example question doesn't surface the
-  Petrocelli resolution at all. Fix the examples or the ranker, not the eval.
+- **Retrieval cannot answer superlatives or aggregates.** "Who are the
+  highest-paid employees?", "what did we spend in total on X" — the index has no
+  notion of ranking or summing, so these return whatever matched the words and
+  the model then answers confidently from the wrong records. Those questions
+  belong on the Payroll Explorer and the fund pages, which compute them. Don't
+  suggest them in `AI_EXAMPLES`.
+- **Every question in `AI_EXAMPLES` and `EXAMPLES` must be eval-covered.** The
+  app suggesting a question makes it the one residents actually ask. Three of
+  the four `AI_EXAMPLES` once retrieved nothing relevant — no police overtime
+  data exists at all (the single overtime line item is Sewer Treatment), the
+  Petrocelli question missed the Petrocelli resolution even at k=24, and the
+  highest-paid question returned 24 resolutions and zero payroll records. The
+  four current ones are checked by `verify:retrieval`; add cases before adding
+  suggestions.
+
+## Known data problem — not yet fixed
+
+`parse_salary_2026.py` emits ~10 authorized-salary records whose "name" is a
+budget-section header, not a person: "Fund, Highway", "Sewer, Calverton",
+"Projects, Capital", "District, Ambulance". All are tagged "New in 2026". They
+rank highly on fund-name queries and would render on the site as employees with
+authorized salaries. Fix belongs in `etl/`, not in the display component.
 
 ## Commands
 

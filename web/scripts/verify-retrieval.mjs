@@ -27,7 +27,33 @@ const K = 12 // roughly half of AI_RECORD_COUNT — what should rank near the to
 
 // What a resident types, and the kind of record that has to come back for the
 // model to have any chance of answering it.
+//
+// The first four are the AI_EXAMPLES shown in UnifiedSearch as one-tap starter
+// questions. They are the questions residents are most likely to ask, because
+// the app suggests them — so they are the ones that must not rot. A suggested
+// question the index cannot answer is worse than no suggestion: the model still
+// answers confidently, just from whatever records happened to rank.
 const cases = [
+  {
+    q: 'What is the 2026 General Fund appropriation for the Highway department?',
+    want: 'the General Fund and Highway Fund records',
+    ok: (e) => e.t === 'fund' && /general fund|highway fund/i.test(e.n),
+  },
+  {
+    q: 'How much is budgeted for street lighting?',
+    want: 'a street lighting budget line',
+    ok: (e) => e.t === 'line-item' && /street.*light|light.*street/i.test(e.n),
+  },
+  {
+    q: 'What is the authorized salary for the Chief Fire Marshal?',
+    want: 'a Fire Marshal authorized-salary record',
+    ok: (e) => e.t === 'salary' && /fire marshal/i.test(e.x),
+  },
+  {
+    q: 'What did the Town Board decide about the Calverton Sewer District?',
+    want: 'a Town Board resolution about a sewer district',
+    ok: (e) => e.t === 'resolution' && /sewer/i.test(`${e.n} ${e.x}`),
+  },
   {
     q: 'How much does the Town spend on police?',
     want: 'a Police budget line',
