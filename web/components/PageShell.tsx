@@ -1,4 +1,3 @@
-import ThemeToggle from './ThemeToggle'
 import TrendColors from './TrendColors'
 import SiteNav from './SiteNav'
 import DisclaimerBanner from './DisclaimerBanner'
@@ -24,8 +23,7 @@ export default function PageShell({ title, subtitle, children }: { title: string
           <h1 style={{ fontSize: 42, lineHeight: 1.05, margin: '8px 0', color: 'var(--rbl-title)' }}>{title}</h1>
           <p style={{ color: 'var(--rbl-text-sub)', fontSize: 17, lineHeight: 1.55, margin: 0, maxWidth: 980 }}>{subtitle}</p>
           <DisclaimerBanner />
-          <div style={{ marginTop: 12, display: 'flex', justifyContent: 'flex-end', gap: 18, flexWrap: 'wrap', alignItems: 'center' }}>
-            <ThemeToggle />
+          <div style={{ marginTop: 12, display: 'flex', justifyContent: 'flex-end' }}>
             <TrendColors />
           </div>
         </div>
