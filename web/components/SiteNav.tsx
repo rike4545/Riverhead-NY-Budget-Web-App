@@ -20,6 +20,7 @@ const GROUPS: Group[] = [
     label: 'Budget',
     links: [
       ['Funds Explorer', `${base}/funds/`],
+      ['Program Budget', `${base}/programs/`],
       ['Budget Compare', `${base}/compare/`],
       ['General Fund', `${base}/general-fund/`],
       ['2027 Prediction', `${base}/predict-2027/`],
@@ -104,7 +105,16 @@ export default function SiteNav() {
   // Close menus whenever the route changes (e.g. after clicking a link).
   useEffect(() => { setOpen(null); setMobileOpen(false) }, [pathname])
 
-  const groupIsActive = (g: Group) => g.links.some(([, href]) => pathname && href.endsWith(pathname))
+  // usePathname() returns the route without the basePath, while every href in
+  // this file carries it — so the two are compared after normalising both to a
+  // base-free path with a trailing slash. The previous href.endsWith(pathname)
+  // test looked equivalent but lit up every link on the home page, where
+  // pathname is "/" and every href ends in "/".
+  const normalise = (p: string) => (p.endsWith('/') ? p : `${p}/`)
+  const routeOf = (href: string) =>
+    normalise(base && href.startsWith(base) ? href.slice(base.length) || '/' : href)
+  const isActive = (href: string) => !!pathname && routeOf(href) === normalise(pathname)
+  const groupIsActive = (g: Group) => g.links.some(([, href]) => isActive(href))
 
   return (
     // marginLeft: auto keeps this flush against the header's right edge even when the
@@ -128,7 +138,7 @@ export default function SiteNav() {
 
       <nav className="nav-links" style={{ display: 'flex', gap: 8, flexWrap: 'wrap', alignItems: 'center' }}>
         {PRIMARY.map(([label, href]) => (
-          <a key={href} href={href} style={{ ...linkStyle, ...(pathname && href.endsWith(pathname) ? { background: 'var(--rbl-fill-gold)', border: '1px solid var(--rbl-gold-border)', color: 'var(--rbl-on-gold)' } : {}) }}>
+          <a key={href} href={href} style={{ ...linkStyle, ...(isActive(href) ? { background: 'var(--rbl-fill-gold)', border: '1px solid var(--rbl-gold-border)', color: 'var(--rbl-on-gold)' } : {}) }}>
             {label}
           </a>
         ))}
@@ -162,7 +172,7 @@ export default function SiteNav() {
                 boxShadow: '0 18px 40px var(--rbl-shadow)', padding: 8, display: 'grid', gap: 2,
               }}>
                 {g.links.map(([label, href]) => {
-                  const active = !!(pathname && href.endsWith(pathname))
+                  const active = isActive(href)
                   return (
                   <a key={href} href={href} className="nav-dropdown-link" style={{
                     color: active ? 'var(--rbl-title)' : 'var(--rbl-text-strong)', textDecoration: 'none',

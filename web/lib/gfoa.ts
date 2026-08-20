@@ -73,11 +73,11 @@ export const gfoaCategories: GfoaCategory[] = [
     kind: 'content', name: 'Value', points: 20,
     question: 'What is the public getting from the government, and how much does the government cost — per person, per household, for specific services?',
     howWeAddress:
-      'Road spending per maintained mile against the other nine Suffolk towns, the credit rating against peer towns, and reserve levels against peer policy are all real value comparisons rather than raw totals.',
-    status: 'partial', selfScore: 10,
-    link: `${base}/road-spending/`, linkLabel: 'Spending per mile',
+      'Cost is answered on every axis GFOA asks for: per resident and per household, town-wide and for each of the seven services, with Census household counts and median income as the denominators. Road spending per maintained mile against the other nine Suffolk towns, the credit rating against peer towns, and reserve levels against peer policy add outside comparison.',
+    status: 'strong', selfScore: 15,
+    link: `${base}/programs/`, linkLabel: 'Cost per resident and household',
     gapNote:
-      'Service levels and outcomes — what the money actually buys, measured — are largely absent, because the Town publishes no performance measures. This is the weakest of the high-value categories.',
+      'The cost half of the question is fully answered. The other half — what residents actually get, measured in response times, permits, tonnage or participation — is still descriptive rather than measured, because the Town publishes no performance data.',
   },
   {
     kind: 'content', name: 'Long-Term Outlook', points: 20,
@@ -109,18 +109,20 @@ export const gfoaCategories: GfoaCategory[] = [
     question: 'What services does each department provide, what do they cost, and how is the department held accountable for results?',
     howWeAddress:
       'Every operating fund drills to department and then to individual account line items, reconciled to the Town’s own published summary.',
-    status: 'strong', selfScore: 12,
+    status: 'strong', selfScore: 13,
     link: `${base}/funds/`, linkLabel: 'Funds and departments',
-    gapNote: 'Departmental narrative — what each department does and how it is organised — is thin next to the numbers.',
+    gapNote:
+      'Written narrative now exists for each of the seven service functions, and every department is listed under the one it belongs to — but there is still no prose for each of the 176 individual departments, and no accountability-for-results reporting, because the Town publishes none.',
   },
   {
     kind: 'content', name: 'Program Budget', points: 15,
     question: 'What are the major programs and services, what does each cost, what are their service-level goals, and do they generate revenue?',
     howWeAddress:
-      'Not presented. The Town budgets by fund and department rather than by program, and this site has not constructed a program view on top of that.',
-    status: 'gap', selfScore: 3,
+      'The whole budget regrouped into the seven services New York’s Uniform System of Accounts says the Town performs, with the full cost of each — including the pension and health insurance of the staff who deliver it — the fee revenue it earns back, its cost-recovery rate, and its net cost per resident and per household. The classification is the State’s and the revenue tagging is the Town’s own, so this is a regrouping rather than an invention.',
+    status: 'strong', selfScore: 11,
+    link: `${base}/programs/`, linkLabel: 'Program budget',
     gapNote:
-      'The clearest remaining content gap. Building it would mean mapping line items to services — real work, and partly a judgement call this site would have to make and defend.',
+      'Three of GFOA’s four questions are now answered — the programs, their full cost, and whether they earn revenue. The fourth is not: service-level goals require performance measures the Town does not publish, so no amount of rearranging the budget will produce them.',
   },
   {
     kind: 'content', name: 'Capital Budget', points: 15,

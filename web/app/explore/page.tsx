@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react'
 import PageShell from '../../components/PageShell'
+import { perHousehold as programPerHousehold, perResident as programPerResident } from '../../lib/programs'
 import { allOperatingFunds2026 } from '../../lib/all-funds'
 import community from '../../public/data/community.json'
 import payrollSummary from '../../public/data/payroll/summary.json'
@@ -84,10 +85,10 @@ const stops: Stop[] = [
     href: `${base}/capital-debt/`, cta: 'See what the Town owes',
   },
   {
-    n: 8, kicker: 'What it costs you', title: 'About $3,400 a year, per resident', accent: 'var(--rbl-series-teal)',
-    body: <>Divide the whole {M(totalApprop)} town-wide budget by the roughly <b>{community.population.estimate2024.toLocaleString()}</b> people who live here and it comes to about <b>{usd0(perResident)}</b> per resident per year — every fund, every service, everything the Town does. Your own share arrives as a tax bill built from your assessed value, not that average. Whether that buys a lot or a little is the fair question, and one place to check is road spending: Riverhead spends <b>{usd0(riverheadRoads.perMile)}</b> per maintained mile, {riverheadRank === 1 ? 'the most' : `${riverheadRank}${riverheadRank === 2 ? 'nd' : riverheadRank === 3 ? 'rd' : 'th'} of ${roadTowns.length}`} among Suffolk&apos;s ten towns, against a median of {usd0(medianPerMile)}.</>,
-    stats: [{ label: 'Per resident, per year', value: usd0(perResident) }, { label: 'Road spend per mile', value: usd0(riverheadRoads.perMile) }],
-    href: `${base}/tax-bill/`, cta: 'Estimate your own bill',
+    n: 8, kicker: 'What it costs you', title: 'About $6,700 a year, per household', accent: 'var(--rbl-series-teal)',
+    body: <>Divide the whole {M(totalApprop)} town-wide budget by the roughly <b>{community.population.estimate2024.toLocaleString()}</b> people who live here and it comes to about <b>{usd0(perResident)}</b> per resident per year. Some of that is money moving between Town funds, and about a fifth of what is left is paid by the people who use a service — water bills, permits, beach passes. Strip both out and the part carried by taxes and general revenue is <b>{usd0(programPerResident.everything)}</b> per resident, or <b>{usd0(programPerHousehold.everything)}</b> per household — {programPerHousehold.shareOfMedianIncome.toFixed(1)}% of what the median Riverhead household earns. Your own share arrives as a tax bill built from your assessed value, not that average. Whether it buys a lot or a little is the fair question: Riverhead spends <b>{usd0(riverheadRoads.perMile)}</b> per maintained mile of road, {riverheadRank === 1 ? 'the most' : `${riverheadRank}${riverheadRank === 2 ? 'nd' : riverheadRank === 3 ? 'rd' : 'th'} of ${roadTowns.length}`} among Suffolk&apos;s ten towns, against a median of {usd0(medianPerMile)}.</>,
+    stats: [{ label: 'Per household, all in', value: usd0(programPerHousehold.everything) }, { label: 'Per resident', value: usd0(programPerResident.everything) }, { label: 'Road spend per mile', value: usd0(riverheadRoads.perMile) }],
+    href: `${base}/programs/`, cta: 'See what each service costs',
   },
   {
     n: 9, kicker: 'Plan vs. reality', title: 'The budget is a promise — the audit is the receipt', accent: 'var(--rbl-series-blue)',
