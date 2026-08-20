@@ -20,6 +20,7 @@ const GROUPS: Group[] = [
     label: 'Budget',
     links: [
       ['Funds Explorer', `${base}/funds/`],
+      ['Program Budget', `${base}/programs/`],
       ['Budget Compare', `${base}/compare/`],
       ['General Fund', `${base}/general-fund/`],
       ['2027 Prediction', `${base}/predict-2027/`],

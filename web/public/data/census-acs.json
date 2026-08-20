@@ -1,0 +1,36 @@
+{
+  "place": "Riverhead town, Suffolk County, New York",
+  "geoid": "3610361984",
+  "dataset": "American Community Survey 2023 5-year estimates (2019–2023)",
+  "source": {
+    "title": "U.S. Census Bureau, American Community Survey 2023 5-Year Estimates, Data Profiles",
+    "url": "https://data.census.gov/table?g=060XX00US3610361984",
+    "detail": "Retrieved from the Census Data API. Five-year estimates are used because Riverhead is far below the 65,000-population threshold for one-year estimates."
+  },
+  "retrieved": "2026-08-20",
+  "households": {
+    "estimate": 13678,
+    "moe": 571,
+    "variable": "DP02_0001E"
+  },
+  "avgHouseholdSize": {
+    "estimate": 2.57,
+    "moe": 0.11,
+    "variable": "DP02_0016E"
+  },
+  "medianHouseholdIncome": {
+    "estimate": 93595,
+    "moe": 7559,
+    "variable": "DP03_0062E"
+  },
+  "housingUnits": {
+    "estimate": 16275,
+    "moe": 528,
+    "variable": "DP04_0001E"
+  },
+  "population": {
+    "estimate": 35826,
+    "moe": 44,
+    "variable": "DP05_0001E"
+  }
+}
