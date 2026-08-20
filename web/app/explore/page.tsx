@@ -111,7 +111,7 @@ export default function ExplorePage() {
               display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 900, fontSize: 20,
             }}>{s.n}</div>
             <div>
-              <div style={{ color: s.accent, fontWeight: 900, fontSize: 12, textTransform: 'uppercase', letterSpacing: 0.6 }}>{s.kicker}</div>
+              <div style={{ color: 'var(--rbl-text-muted)', fontWeight: 900, fontSize: 12, textTransform: 'uppercase', letterSpacing: 0.6 }}>{s.kicker}</div>
               <h2 style={{ margin: '2px 0 8px', color: 'var(--rbl-title)', fontSize: 21 }}>{s.title}</h2>
               <p style={{ color: 'var(--rbl-text-strong)', fontSize: 15.5, lineHeight: 1.6, margin: 0 }}>{s.body}</p>
               {s.stats && (
@@ -124,7 +124,7 @@ export default function ExplorePage() {
                   ))}
                 </div>
               )}
-              <a href={s.href} style={{ display: 'inline-block', marginTop: 12, color: s.accent, fontWeight: 800, fontSize: 14.5, textDecoration: 'none' }}>{s.cta} →</a>
+              <a href={s.href} style={{ display: 'inline-block', marginTop: 12, color: 'var(--rbl-accent)', fontWeight: 800, fontSize: 14.5, textDecoration: 'none' }}>{s.cta} →</a>
             </div>
           </section>
         ))}

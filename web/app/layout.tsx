@@ -45,8 +45,8 @@ const LIGHT_TOKENS = `
   --rbl-text-strong:#334155;
   --rbl-text-body:#475569;
   --rbl-text-sub:#44576a;
-  --rbl-text-muted:#64748b;
-  --rbl-text-faint:#94a3b8;
+  --rbl-text-muted:#5f6e83;
+  --rbl-text-faint:#687787;
   --rbl-title:#284a69;
   --rbl-accent:#4a7297;
   --rbl-accent-border:#4a7297;
@@ -111,88 +111,94 @@ const LIGHT_TOKENS = `
 `
 
 // Dark is a designed palette, not an inversion. Three rules hold it together:
-//   • Surfaces step UP in lightness as they stack (page < card < table header),
-//     because a dark UI reads depth from lightness, not from shadows.
-//   • Text tokens lose saturation rather than gaining brightness, so body copy
-//     sits near #c3d0de instead of pure white — full-white text on dark vibrates.
+//   • Surfaces step UP in clear increments as they stack (page #0d1015 < card
+//     #181d24 < panel #1f252e < table header #272f39). A dark UI reads depth
+//     from lightness, and a shadow is invisible on a dark ground, so the steps
+//     have to be large enough to see — an earlier pass used a 4% step and the
+//     whole page read as one flat field.
+//   • The neutrals are near-grey with only a trace of blue. Tinting every
+//     surface navy, as the first pass did, leaves the page a monochrome wash
+//     with nowhere for the brand blue to register.
+//   • Headings are near-white, not blue. That frees blue to mean "link" again
+//     instead of being the colour of all text everywhere.
 //   • A token used as a FILL behind white text (--rbl-fill-*) stays dark here,
 //     while the same brand color used as TEXT (--rbl-title) goes light. That
 //     split is why the migration had to be property-aware.
 const DARK_TOKENS = `
-  --rbl-bg:linear-gradient(180deg,#0b1420 0,#0e1826 46%,#0b131d 100%);
-  --rbl-page:#0b1420;
-  --rbl-surface:#141f2d;
-  --rbl-surface-2:#1a2634;
-  --rbl-surface-3:#202e3e;
-  --rbl-border:#2c3d52;
-  --rbl-border-subtle:#243244;
-  --rbl-border-strong:#3a4d64;
-  --rbl-track:#243244;
-  --rbl-track-strong:#3a4d64;
-  --rbl-text:#e7eef7;
-  --rbl-text-strong:#dae4f0;
-  --rbl-text-body:#c3d0de;
-  --rbl-text-sub:#b3c2d3;
-  --rbl-text-muted:#93a3b6;
-  --rbl-text-faint:#7c8ca0;
-  --rbl-title:#9ec8ec;
-  --rbl-accent:#7fb6e2;
-  --rbl-accent-border:#3d6a94;
-  --rbl-link:#8ab8f0;
-  --rbl-badge:#d9a742;
-  --rbl-gold:#e2b761;
-  --rbl-gold-border:#8a6c2a;
-  --rbl-header-a:#16263a;
-  --rbl-header-b:#20364e;
-  --rbl-page-accent:#7fb6e2;
-  --rbl-shadow:rgba(0,0,0,.5);
-  --rbl-fill-brand:#2b4b6b;
+  --rbl-bg:linear-gradient(180deg,#0d1015 0,#111519 46%,#0d1015 100%);
+  --rbl-page:#0d1015;
+  --rbl-surface:#181d24;
+  --rbl-surface-2:#1f252e;
+  --rbl-surface-3:#272f39;
+  --rbl-border:#333d49;
+  --rbl-border-subtle:#2a323d;
+  --rbl-border-strong:#45515f;
+  --rbl-track:#272f39;
+  --rbl-track-strong:#45515f;
+  --rbl-text:#eef2f6;
+  --rbl-text-strong:#e2e8ef;
+  --rbl-text-body:#c4ccd6;
+  --rbl-text-sub:#b4bdc8;
+  --rbl-text-muted:#98a2ae;
+  --rbl-text-faint:#7d8794;
+  --rbl-title:#e9eff6;
+  --rbl-accent:#74b3e8;
+  --rbl-accent-border:#3d5f80;
+  --rbl-link:#82bbf2;
+  --rbl-badge:#dcaa47;
+  --rbl-gold:#e3b662;
+  --rbl-gold-border:#7d6320;
+  --rbl-header-a:#141a21;
+  --rbl-header-b:#1e2836;
+  --rbl-page-accent:#74b3e8;
+  --rbl-shadow:rgba(0,0,0,.55);
+  --rbl-fill-brand:#2f5175;
   --rbl-fill-accent:#3d6a94;
   --rbl-fill-gold:#b98d2a;
   --rbl-fill-danger:#a32626;
   --rbl-fill-success:#1d6b3c;
   --rbl-fill-warn:#9a5f16;
-  --rbl-danger:#f78a8a;
-  --rbl-danger-strong:#fca5a5;
-  --rbl-danger-bg:#2c1517;
-  --rbl-danger-border:#5c2a2e;
-  --rbl-success:#6fd694;
-  --rbl-success-strong:#9ce8b8;
-  --rbl-success-bg:#12291d;
-  --rbl-success-border:#2d5c3e;
-  --rbl-warn:#eab766;
-  --rbl-warn-strong:#f6d79b;
-  --rbl-warn-bg:#2b2213;
-  --rbl-warn-border:#5f4a22;
-  --rbl-info-text:#a7c9e8;
-  --rbl-info-bg:#152435;
-  --rbl-info-border:#2f4d6d;
-  --rbl-sky-bg:#0f2433;
-  --rbl-sky-border:#2b5673;
-  --rbl-violet:#c0a3f0;
-  --rbl-violet-strong:#d6c2fa;
-  --rbl-violet-bg:#221a35;
-  --rbl-violet-border:#453268;
-  --rbl-teal:#5fcdb4;
-  --rbl-teal-strong:#93e3d0;
-  --rbl-teal-bg:#0f2b28;
-  --rbl-teal-border:#2a5c53;
-  --rbl-note-bg:#2a2313;
-  --rbl-note-border:#6a5423;
-  --rbl-note-text:#f0d9a0;
-  --rbl-note-sub:#c9ab6a;
+  --rbl-danger:#f79191;
+  --rbl-danger-strong:#fcaeae;
+  --rbl-danger-bg:#2a1618;
+  --rbl-danger-border:#5b2b2e;
+  --rbl-success:#74d99a;
+  --rbl-success-strong:#a2e9bd;
+  --rbl-success-bg:#132a1e;
+  --rbl-success-border:#2d5c40;
+  --rbl-warn:#eeba6b;
+  --rbl-warn-strong:#f7d99f;
+  --rbl-warn-bg:#2a2316;
+  --rbl-warn-border:#5d4924;
+  --rbl-info-text:#adcbe6;
+  --rbl-info-bg:#16212c;
+  --rbl-info-border:#2f4557;
+  --rbl-sky-bg:#12212c;
+  --rbl-sky-border:#2c4f65;
+  --rbl-violet:#c3a8f2;
+  --rbl-violet-strong:#d9c7fb;
+  --rbl-violet-bg:#231d31;
+  --rbl-violet-border:#453763;
+  --rbl-teal:#63d2b8;
+  --rbl-teal-strong:#96e6d3;
+  --rbl-teal-bg:#112a27;
+  --rbl-teal-border:#2a584f;
+  --rbl-note-bg:#272115;
+  --rbl-note-border:#6b5528;
+  --rbl-note-text:#f2dda8;
+  --rbl-note-sub:#cbae6d;
+  --rbl-logo-bg:#f8f5ec;
+  --rbl-logo-fg:#284a69;
+  --rbl-on-gold:#241a06;
+  --rbl-cta-bg:#7fc4ee;
+  --rbl-cta-fg:#08263c;
+  --rbl-on-series:#0d1015;
   --rbl-series-blue:#2E6FB7;
   --rbl-series-indigo:#8158CC;
   --rbl-series-gold:#B98416;
   --rbl-series-teal:#109184;
   --rbl-series-violet:#C2508F;
   --rbl-series-slate:#93a3b6;
-  --rbl-logo-bg:#f8f5ec;
-  --rbl-logo-fg:#284a69;
-  --rbl-on-gold:#241a06;
-  --rbl-cta-bg:#7fc4ee;
-  --rbl-cta-fg:#08263c;
-  --rbl-on-series:#0b1420;
   --tc-red:#f87171;
   --tc-green:#4ade80;
   color-scheme:dark;

@@ -7,7 +7,7 @@ import { builtFromDocuments } from '../lib/built-from-documents'
 import { dollars } from '../lib/financial-data'
 
 const DOC_KIND: Record<string, { label: string; color: string; bg: string }> = {
-  budget: { label: 'Budget', color: 'var(--rbl-series-indigo)', bg: 'rgba(59,130,246,.12)' },
+  budget: { label: 'Budget', color: 'var(--rbl-accent)', bg: 'rgba(59,130,246,.14)' },
   supplement: { label: 'Supplement', color: 'var(--rbl-success)', bg: 'rgba(34,197,94,.12)' },
   afr: { label: 'Financial report', color: 'var(--rbl-warn)', bg: 'rgba(245,158,11,.12)' },
 }
@@ -34,7 +34,7 @@ function kpiAccent(label: string): { border: string; label: string } {
   if (l.includes('surplus'))       return { border: 'var(--rbl-success)', label: 'var(--rbl-success)' }
   if (l.includes('levy') || l.includes('appropriation') || l.includes('fund balance used'))
                                     return { border: 'var(--rbl-warn)', label: 'var(--rbl-warn)' }
-  return { border: 'var(--rbl-accent-border)', label: 'var(--rbl-series-blue)' }
+  return { border: 'var(--rbl-accent-border)', label: 'var(--rbl-accent)' }
 }
 
 const surplusScenario = {
