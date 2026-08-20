@@ -1,5 +1,7 @@
 import PageShell from '../../components/PageShell'
 import PlainCallout from '../../components/PlainCallout'
+import BarRows from '../../components/charts/BarRows'
+import ColumnChart from '../../components/charts/ColumnChart'
 import type { Confidence } from '../../lib/community-housing'
 import {
   advisoryBoardSeats,
@@ -137,6 +139,23 @@ export default function HousingPlanPage() {
           tallies and the towns&apos; own housing pages — not from audited statements this site parses. Riverhead&apos;s
           row is the exception: there is no fund, so there is nothing to report.
         </p>
+        <BarRows
+          title="Collected for housing since the tax took effect"
+          lede="Four towns levy the same half-percent. Riverhead's bar is empty because there is no fund to collect into — not because collections were poor."
+          rows={peerTowns
+            .filter((t) => t.collected != null)
+            .sort((a, b) => (b.collected ?? 0) - (a.collected ?? 0))
+            .map((t) => ({
+              label: t.town,
+              value: t.collected ?? 0,
+              display: (t.collected ?? 0) === 0 ? 'no fund' : usd(t.collected ?? 0),
+              note: t.collectedAsOf,
+              highlight: !t.adoptedFund,
+            }))}
+          format={usd}
+          source="Reported figures from coverage of the annual East End transfer-tax tallies and the towns' own housing pages; Southampton does not separately report a cumulative total."
+        />
+        <div style={{ height: 22 }} />
         <div style={{ overflowX: 'auto' }}>
           <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 14 }}>
             <thead>
@@ -217,6 +236,19 @@ export default function HousingPlanPage() {
           The Town&apos;s CPF financial statements report exactly what a 2% transfer tax collected each year. A 0.5%
           tax is one quarter of that rate on the same conveyances, so the sizing is division, not modeling.
         </p>
+        <ColumnChart
+          title="What a 0.5% housing tax would have raised in Riverhead"
+          lede="One quarter of the CPF's 2% rate applied to the same audited conveyances, year by year. 2023 is shorter because the tax only became collectible on April 1."
+          columns={forgoneByYear.map((y) => ({
+            label: y.partialYear ? `${y.year} (9 mo.)` : String(y.year),
+            value: y.quarterShare,
+            display: usd(y.quarterShare),
+            color: 'var(--rbl-series-teal)',
+          }))}
+          format={usd}
+          source="Computed from the Town's audited CPF transfer-tax revenue. An estimate, not a forecast — see the caveats below."
+        />
+        <div style={{ height: 22 }} />
         <div style={{ overflowX: 'auto' }}>
           <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 14 }}>
             <thead>

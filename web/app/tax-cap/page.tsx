@@ -1,5 +1,7 @@
 import PageShell from '../../components/PageShell'
 import PlainCallout from '../../components/PlainCallout'
+import ColumnChart from '../../components/charts/ColumnChart'
+import StatusStrip from '../../components/charts/StatusStrip'
 import data from '../../public/data/tax-cap.json'
 
 const base = process.env.NEXT_PUBLIC_BASE_PATH || ''
@@ -16,6 +18,14 @@ const STATUS_STYLE: Record<string, { bg: string; fg: string; dot: string }> = {
   'over-no-law': { bg: 'var(--rbl-danger-bg)', fg: 'var(--rbl-danger-strong)', dot: 'var(--rbl-danger)' },
   'over-with-law': { bg: 'var(--rbl-success-bg)', fg: 'var(--rbl-success-strong)', dot: 'var(--rbl-success)' },
   proposed: { bg: 'var(--rbl-warn-bg)', fg: 'var(--rbl-warn)', dot: 'var(--rbl-warn)' },
+}
+
+// Colour plus a glyph: a status readable only by hue fails for a colourblind
+// reader and vanishes in print or forced-colours mode.
+const STATUS_TONES: Record<string, { label: string; color: string; bg: string; glyph: string }> = {
+  'over-no-law': { label: 'Over the cap, no override law', color: 'var(--rbl-danger)', bg: 'var(--rbl-danger-bg)', glyph: '✕' },
+  'over-with-law': { label: 'Over the cap, override adopted', color: 'var(--rbl-success)', bg: 'var(--rbl-success-bg)', glyph: '✓' },
+  proposed: { label: 'Proposed', color: 'var(--rbl-warn)', bg: 'var(--rbl-warn-bg)', glyph: '•' },
 }
 
 export default function TaxCapPage() {
@@ -59,7 +69,14 @@ export default function TaxCapPage() {
 
       {/* Compliance timeline */}
       <section style={{ ...card, marginBottom: 16 }}>
-        <h3 style={{ marginTop: 0 }}>Compliance timeline</h3>
+        <StatusStrip
+          title="Nine years of cap compliance, at a glance"
+          lede="Each cell is one budget year. Red means the Town went over the cap without adopting the override local law the statute requires; green means the override was adopted properly first."
+          years={d.capStatus.map((c) => ({ year: c.year, status: c.status, detail: `${c.year}: ${c.label}` }))}
+          tones={STATUS_TONES}
+          source="Status per the Town's audited financial statements and adopted override local laws."
+        />
+        <h4 style={{ color: 'var(--rbl-title)', fontSize: 14.5, margin: '22px 0 10px' }}>Year by year</h4>
         <div style={{ display: 'grid', gap: 8 }}>
           {d.capStatus.map((c) => {
             const st = STATUS_STYLE[c.status]
@@ -92,7 +109,25 @@ export default function TaxCapPage() {
 
       {/* Levy context */}
       <section style={{ ...card, marginBottom: 16 }}>
-        <h3 style={{ marginTop: 0 }}>Levy growth, for context</h3>
+        <ColumnChart
+          title="General Fund levy growth against the 2% cap"
+          lede="Every bar above the dashed line is a year the levy grew faster than the cap contemplates. Bars are measured from zero, and 2022's decline is shown below the line rather than flattened to nothing."
+          columns={d.levyContext.rows.map((r) => ({
+            label: String(r.year),
+            value: r.pct,
+            display: `${r.pct > 0 ? '+' : ''}${r.pct.toFixed(1)}%`,
+            emphasis: r.pct > 2,
+            color: r.pct > 2 ? 'var(--rbl-danger)' : 'var(--rbl-series-slate)',
+          }))}
+          format={(n) => `${n.toFixed(1)}%`}
+          threshold={{ value: 2, label: '2% cap' }}
+          legend={[
+            { label: 'Grew faster than the cap', color: 'var(--rbl-danger)' },
+            { label: 'Within the cap', color: 'var(--rbl-series-slate)' },
+          ]}
+          source="General Fund levy only; the statutory cap applies to the total levy across all town funds. 2023 is absent from the underlying series."
+        />
+        <h4 style={{ color: 'var(--rbl-title)', fontSize: 14.5, margin: '22px 0 6px' }}>The same series as a table</h4>
         <p style={{ color: 'var(--rbl-text-muted)', fontSize: 13, marginTop: 0, lineHeight: 1.5 }}>{d.levyContext.note}</p>
         <div style={{ overflowX: 'auto' }}>
           <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 13.5 }}>
