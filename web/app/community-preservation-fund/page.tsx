@@ -1,5 +1,6 @@
 import PageShell from '../../components/PageShell'
 import PlainCallout from '../../components/PlainCallout'
+import LineChart from '../../components/charts/LineChart'
 import { cpfDebt, cpfDebtPayoffProposal, cpfHistory, cpfMechanics, cpfTotalRevenue, revenueSwing } from '../../lib/cpf'
 import { forgoneHigh, forgoneLow, forgoneThroughYear, fourTownTotal, HOUSING_FUND_RATE, statute } from '../../lib/community-housing'
 
@@ -15,7 +16,6 @@ export const metadata = {
 }
 
 export default function CommunityPreservationFundPage() {
-  const maxRevenue = Math.max(...cpfHistory.map((y) => y.transferTaxRevenue))
   const latest = cpfHistory[cpfHistory.length - 1]
   const isPeakLatest = revenueSwing.peakYear === revenueSwing.latestYear
 
@@ -50,33 +50,19 @@ export default function CommunityPreservationFundPage() {
       </PlainCallout>
 
       <section style={{ ...card, marginBottom: 16 }}>
-        <h3 style={{ marginTop: 0, color: 'var(--rbl-title)' }}>Transfer-tax revenue, every audited year with usable data</h3>
-        <p style={{ color: 'var(--rbl-text-body)', fontSize: 14.5, marginTop: 0 }}>
-          Every figure below is the transfer-tax line from that year&apos;s CPF financial statement — not a
-          projection. Older years aren&apos;t shown because their source PDFs are scanned images with no extractable
-          text.
-        </p>
-        <div style={{ display: 'grid', gap: 14 }}>
+        <LineChart
+          title="Transfer-tax revenue, every audited year with usable data"
+          lede="The fund's only revenue source is a fixed share of real-estate sale prices, so the line tracks the housing market rather than any Town decision."
+          categories={cpfHistory.map((y) => String(y.year))}
+          series={[{ label: 'Transfer-tax revenue', color: 'var(--rbl-series-teal)', values: cpfHistory.map((y) => y.transferTaxRevenue), area: true }]}
+          format={(n) => `$${(n / 1e6).toFixed(1)}M`}
+          source="Each figure is the transfer-tax line from that year's CPF financial statement — not a projection. Older years are absent because their source PDFs are scanned images with no extractable text."
+        />
+        <div style={{ display: 'grid', gap: 10, marginTop: 18 }}>
           {cpfHistory.map((y) => (
-            <div key={y.year}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 14 }}>
-                <strong>{y.year}</strong>
-                <span style={{ fontWeight: 800, color: 'var(--rbl-accent)' }}>{usd(y.transferTaxRevenue)}</span>
-              </div>
-              <div style={{ background: 'var(--rbl-track)', borderRadius: 999, height: 10, overflow: 'hidden', marginTop: 4 }}>
-                <div
-                  style={{
-                    width: `${(y.transferTaxRevenue / maxRevenue) * 100}%`,
-                    height: '100%',
-                    background: 'var(--rbl-fill-accent)',
-                    borderRadius: 999,
-                  }}
-                />
-              </div>
-              <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 12.5, color: 'var(--rbl-text-muted)', marginTop: 4 }}>
-                <span>+ {usd(y.interestIncome)} interest = {usd(cpfTotalRevenue(y))} total revenue</span>
-                <span>Fund balance, year end: {usd(y.fundBalanceEnd)}</span>
-              </div>
+            <div key={y.year} style={{ display: 'flex', justifyContent: 'space-between', fontSize: 12.5, color: 'var(--rbl-text-muted)' }}>
+              <span><strong style={{ color: 'var(--rbl-title)' }}>{y.year}</strong> — {usd(y.transferTaxRevenue)} + {usd(y.interestIncome)} interest</span>
+              <span>Fund balance, year end: {usd(y.fundBalanceEnd)}</span>
             </div>
           ))}
         </div>

@@ -1,12 +1,12 @@
 import PageShell from '../../components/PageShell'
-import LineChart, { ChartLegend, type Series } from '../../components/LineChart'
+import LineChart from '../../components/charts/LineChart'
 import PlainCallout from '../../components/PlainCallout'
 import { generalFund } from '../../lib/general-fund'
 import { dollars } from '../../lib/financial-data'
 
 const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 20, boxShadow: '0 14px 34px var(--rbl-shadow)' } as const
 
-const COLORS = { appropriations: 'var(--rbl-fill-brand)', taxLevy: 'var(--rbl-series-gold)', estimatedRevenues: 'var(--rbl-series-teal)', appropriatedFundBalance: 'var(--rbl-series-violet)' }
+const COLORS = { appropriations: 'var(--rbl-series-blue)', taxLevy: 'var(--rbl-series-gold)', estimatedRevenues: 'var(--rbl-series-teal)', appropriatedFundBalance: 'var(--rbl-series-violet)' }
 
 export const metadata = {
   title: 'General Fund — 20-year history',
@@ -18,10 +18,10 @@ export default function GeneralFundPage() {
   const rows = generalFund.rows
   const g = generalFund.growth
 
-  const series: Series[] = [
-    { label: 'Appropriations (spending)', color: COLORS.appropriations, points: rows.map((r) => ({ x: r.year, y: r.appropriations })) },
-    { label: 'Tax Levy', color: COLORS.taxLevy, points: rows.map((r) => ({ x: r.year, y: r.taxLevy })) },
-    { label: 'Estimated Revenues', color: COLORS.estimatedRevenues, points: rows.map((r) => ({ x: r.year, y: r.estimatedRevenues })) },
+  const series = [
+    { label: 'Appropriations (spending)', color: COLORS.appropriations, values: rows.map((r) => r.appropriations ?? null) },
+    { label: 'Tax levy', color: COLORS.taxLevy, values: rows.map((r) => r.taxLevy ?? null) },
+    { label: 'Estimated revenues', color: COLORS.estimatedRevenues, values: rows.map((r) => r.estimatedRevenues ?? null) },
   ]
 
   return (
@@ -48,9 +48,15 @@ export default function GeneralFundPage() {
       </section>
 
       <section style={{ ...card, marginBottom: 18 }}>
-        <h2 style={{ marginTop: 0 }}>General Fund {g.firstYear}–{g.lastYear}</h2>
-        <LineChart series={series} yLabel="Adopted dollars" />
-        <ChartLegend series={series} />
+        <LineChart
+          title={`General Fund, ${g.firstYear}–${g.lastYear}`}
+          lede="Where the tax-levy line climbs faster than appropriations, a larger share of the budget is being carried by property taxes rather than by fees, state aid, and other revenue."
+          categories={rows.map((r) => String(r.year))}
+          series={series}
+          format={(n) => `$${(n / 1e6).toFixed(0)}M`}
+          height={340}
+          source="Adopted budget figures for each year — the plan approved, not the year-end actual."
+        />
       </section>
 
       <section style={card}>

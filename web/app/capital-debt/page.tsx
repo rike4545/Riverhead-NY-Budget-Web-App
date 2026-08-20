@@ -1,4 +1,5 @@
 import PageShell from '../../components/PageShell'
+import LineChart from '../../components/charts/LineChart'
 import PlainCallout from '../../components/PlainCallout'
 import CapitalDebtCalculator from '../../components/CapitalDebtCalculator'
 import { debtProfile, debtProfileTotals } from '../../lib/debt-profile'
@@ -10,6 +11,13 @@ export const metadata = {
   title: 'Capital & Debt — how Riverhead borrows, and what it owes',
   description:
     "Riverhead's actual outstanding debt from its most recent financial report, plus a calculator comparing the two ways a town finances a capital project: issue a bond immediately, or borrow short-term with a Bond Anticipation Note (BAN) first.",
+}
+
+// "2031–2035" covers five years; "2026" covers one. Used to put every point on
+// the same per-year footing.
+function periodYears(period: string): number {
+  const m = period.match(/^(\d{4})\s*[–-]\s*(\d{4})$/)
+  return m ? Number(m[2]) - Number(m[1]) + 1 : 1
 }
 
 export default function CapitalDebtPage() {
@@ -43,6 +51,18 @@ export default function CapitalDebtPage() {
       </section>
 
       <h2 style={{ color: 'var(--rbl-title)' }}>What's already on the books</h2>
+      <LineChart
+        title="Debt service per year, as currently scheduled"
+        lede="Principal and interest on the debt already issued. The later rows in the Town's schedule are multi-year bands, so each is divided by the years it covers — plotting a five-year total at a single point would draw a spike where the real obligation is falling."
+        categories={debtProfile.amortization.map((r) => r.period)}
+        series={[
+          { label: 'Principal per year', color: 'var(--rbl-series-blue)', values: debtProfile.amortization.map((r) => r.principal / periodYears(r.period)) },
+          { label: 'Interest per year', color: 'var(--rbl-series-gold)', values: debtProfile.amortization.map((r) => r.interest / periodYears(r.period)) },
+        ]}
+        format={(n) => `$${(n / 1e6).toFixed(1)}M`}
+        source={`${debtProfile.source.title} — ${debtProfile.source.detail}. Banded periods show the annual average across the band, not the band total.`}
+      />
+
       <section style={{ ...card, marginBottom: 18 }}>
         <p style={{ color: 'var(--rbl-text-muted)', fontSize: 13.5, marginTop: 0 }}>
           Future principal and interest on all of the Town's bonds (governmental and business-type activities
