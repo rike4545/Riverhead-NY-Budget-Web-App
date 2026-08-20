@@ -9,7 +9,7 @@ export default function Page() {
       title="Where does Riverhead’s money go?"
       subtitle="This is the whole Town budget — payroll, every fund, Town Board votes, the retirement buyout, the tax cap — pulled out of dense PDFs and explained the way you’d want a knowledgeable neighbor to explain it. Poke around; nothing here needs a finance degree."
     >
-      {/* Single "start here" banner — the 11-stop tour, with the plain-English
+      {/* Single "start here" banner — the 13-stop tour, with the plain-English
           glossary/guide as a secondary link (these used to be two separate CTAs). */}
       <div style={{
         display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 16, justifyContent: 'space-between',
@@ -20,7 +20,7 @@ export default function Page() {
           <div style={{ fontSize: 12, fontWeight: 900, letterSpacing: 0.8, textTransform: 'uppercase', color: '#9fd0ef' }}>New here? Start here</div>
           <div style={{ fontSize: 23, fontWeight: 900, margin: '4px 0 2px' }}>Explore the Riverhead Town Budget</div>
           <div style={{ color: '#cbdcec', fontSize: 14.5 }}>
-            An 11-stop, plain-English walkthrough — from “what is the budget?” to the raw data. Prefer definitions first?{' '}
+            A 13-stop, plain-English walkthrough — from “what is the budget?” to the raw data. Prefer definitions first?{' '}
             <a href={`${base}/guide/`} style={{ color: '#9fd0ef', fontWeight: 800 }}>Open the plain-English guide →</a>
           </div>
         </div>

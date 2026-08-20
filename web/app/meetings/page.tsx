@@ -1,6 +1,10 @@
 import PageShell from '../../components/PageShell'
 import PlainCallout from '../../components/PlainCallout'
 import MeetingVotes from '../../components/MeetingVotes'
+import {
+  boardRulesSource, executiveSessionTopics, meetingSchedule, orderOfBusiness,
+  speakingRules, specialMeetings, votingRules,
+} from '../../lib/board-rules'
 import { meetingsIndex } from '../../lib/meetings'
 import consentCalendar from '../../public/data/consent-calendar.json'
 import upcoming from '../../public/data/meetings/upcoming.json'
@@ -113,6 +117,83 @@ export default function MeetingsPage() {
       })()}
 
       {/* Archive totals */}
+
+      {/* ---- How to be heard: the Board's own rules of procedure ---------- */}
+      <section style={{ ...card, marginBottom: 18, borderLeft: '6px solid var(--rbl-gold-border)' }}>
+        <h3 style={{ marginTop: 0, color: 'var(--rbl-title)' }}>How to be heard: the Board&apos;s own rules</h3>
+        <p style={{ color: 'var(--rbl-text-body)', fontSize: 14.5, lineHeight: 1.6, marginTop: 0 }}>
+          Watching the votes is one thing; speaking before one is another. The Board adopts its own rules of
+          procedure, and they set out exactly when a resident may speak and for how long. The most useful line in the
+          whole document is that a <strong>public hearing carries no time limit</strong> — and the annual budget
+          hearing is a public hearing.
+        </p>
+
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(290px,1fr))', gap: 14, marginTop: 14 }}>
+          <div>
+            <h4 style={{ color: 'var(--rbl-title)', fontSize: 14.5, margin: '0 0 8px' }}>When you can speak</h4>
+            <div style={{ display: 'grid', gap: 8 }}>
+              {speakingRules.map((r) => (
+                <div key={r.rule} style={{ background: 'var(--rbl-surface-2)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 10, padding: '10px 12px' }}>
+                  <strong style={{ color: 'var(--rbl-title)', fontSize: 13.5 }}>{r.rule}</strong>
+                  <p style={{ color: 'var(--rbl-text-body)', fontSize: 13, lineHeight: 1.5, margin: '3px 0 0' }}>{r.detail}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div>
+            <h4 style={{ color: 'var(--rbl-title)', fontSize: 14.5, margin: '0 0 8px' }}>Where it falls in the meeting</h4>
+            <ol style={{ margin: 0, paddingLeft: 0, listStyle: 'none', display: 'grid', gap: 3 }}>
+              {orderOfBusiness.map((o) => (
+                <li key={o.n} style={{
+                  display: 'flex', gap: 9, alignItems: 'baseline', fontSize: 13.2, padding: '5px 9px', borderRadius: 7,
+                  background: o.publicSpeaks ? 'var(--rbl-warn-bg)' : 'transparent',
+                  color: o.publicSpeaks ? 'var(--rbl-warn-strong)' : 'var(--rbl-text-body)',
+                  fontWeight: o.publicSpeaks ? 700 : 400,
+                }}>
+                  <span style={{ color: 'var(--rbl-text-muted)', fontWeight: 800, minWidth: 16 }}>{o.n}</span>
+                  {o.item}
+                  {o.publicSpeaks && <span style={{ marginLeft: 'auto', fontSize: 11, fontWeight: 900, letterSpacing: 0.3 }}>YOU CAN SPEAK</span>}
+                </li>
+              ))}
+            </ol>
+            <h4 style={{ color: 'var(--rbl-title)', fontSize: 14.5, margin: '16px 0 6px' }}>When they meet</h4>
+            <p style={{ color: 'var(--rbl-text-body)', fontSize: 13.2, lineHeight: 1.55, margin: 0 }}>
+              {meetingSchedule.regular} {meetingSchedule.workSessions} {meetingSchedule.quorum}
+            </p>
+            <ul style={{ color: 'var(--rbl-text-muted)', fontSize: 12.5, lineHeight: 1.5, margin: '6px 0 0', paddingLeft: 18 }}>
+              {meetingSchedule.exceptions.map((e) => <li key={e}>{e}</li>)}
+            </ul>
+            <p style={{ color: 'var(--rbl-text-muted)', fontSize: 12.5, lineHeight: 1.5, margin: '6px 0 0' }}>{meetingSchedule.setBy}</p>
+          </div>
+        </div>
+
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(290px,1fr))', gap: 14, marginTop: 16, borderTop: '1px solid var(--rbl-border-subtle)', paddingTop: 14 }}>
+          <div>
+            <h4 style={{ color: 'var(--rbl-title)', fontSize: 14.5, margin: '0 0 6px' }}>When the doors can close</h4>
+            <p style={{ color: 'var(--rbl-text-body)', fontSize: 13, lineHeight: 1.5, marginTop: 0 }}>
+              The Board may go into executive session — with the public excluded — only on these subjects:
+            </p>
+            <ul style={{ color: 'var(--rbl-text-body)', fontSize: 12.8, lineHeight: 1.5, margin: 0, paddingLeft: 18 }}>
+              {executiveSessionTopics.map((t) => <li key={t}>{t}</li>)}
+            </ul>
+          </div>
+          <div>
+            <h4 style={{ color: 'var(--rbl-title)', fontSize: 14.5, margin: '0 0 6px' }}>Special meetings, and how a vote carries</h4>
+            <p style={{ color: 'var(--rbl-text-body)', fontSize: 13, lineHeight: 1.5, marginTop: 0 }}>
+              Called by {specialMeetings.calledBy.toLowerCase()} {specialMeetings.notice} {specialMeetings.limit}
+            </p>
+            <ul style={{ color: 'var(--rbl-text-body)', fontSize: 12.8, lineHeight: 1.5, margin: '6px 0 0', paddingLeft: 18 }}>
+              {votingRules.map((v) => <li key={v}>{v}</li>)}
+            </ul>
+          </div>
+        </div>
+
+        <p style={{ color: 'var(--rbl-text-muted)', fontSize: 12.5, marginTop: 14, marginBottom: 0 }}>
+          Source: {boardRulesSource.title}. {boardRulesSource.note} Summarised here — the adopted rules govern.
+        </p>
+      </section>
+
       <section style={{ ...card, display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(140px,1fr))', gap: 12, marginBottom: 18 }}>
         <Stat label="Meetings on Record" value={String(t.meetings)} />
         <Stat label="Total Votes" value={t.votes.toLocaleString()} accent />
