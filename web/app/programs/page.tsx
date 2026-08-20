@@ -11,7 +11,16 @@ const base = process.env.NEXT_PUBLIC_BASE_PATH || ''
 const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 20, boxShadow: '0 14px 34px var(--rbl-shadow)' } as const
 
 const usd = (n: number) => `$${Math.round(n).toLocaleString('en-US')}`
-const millions = (n: number) => `$${(n / 1e6).toFixed(n < 1e7 ? 2 : 1)}M`
+
+// Steps down through M / K / plain dollars so a small real number reads as
+// itself. Health's benefit share is $1,958 — formatting everything as millions
+// rendered that as "$0.00M", which looks like a bug rather than a small number.
+const millions = (n: number) => {
+  const magnitude = Math.abs(n)
+  if (magnitude >= 1e6) return `$${(n / 1e6).toFixed(magnitude < 1e7 ? 2 : 1)}M`
+  if (magnitude >= 1e4) return `$${Math.round(n / 1e3).toLocaleString('en-US')}K`
+  return usd(n)
+}
 
 // One hue per program, from the validated series palette. Kept stable so a
 // program reads as the same colour in the chart and on its own card.
