@@ -39,8 +39,8 @@ function Tab({ active, onClick, title, sub }: { active: boolean; onClick: () => 
   return (
     <button onClick={onClick} style={{
       flex: '1 1 260px', textAlign: 'left', cursor: 'pointer', borderRadius: 12, padding: '12px 16px',
-      border: '1px solid', borderColor: active ? '#4a7297' : '#cbd5e1',
-      background: active ? '#4a7297' : 'white', color: active ? 'white' : '#334155',
+      border: '1px solid', borderColor: active ? 'var(--rbl-accent-border)' : 'var(--rbl-border-strong)',
+      background: active ? 'var(--rbl-fill-accent)' : 'var(--rbl-surface)', color: active ? 'white' : 'var(--rbl-text-strong)',
       boxShadow: active ? '0 10px 24px rgba(31,95,143,.22)' : 'none',
     }}>
       <div style={{ fontWeight: 900, fontSize: 16 }}>{title}</div>

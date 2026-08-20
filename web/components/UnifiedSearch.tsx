@@ -11,15 +11,15 @@ import {
 } from '../lib/riverheadSearchAI'
 
 const base = process.env.NEXT_PUBLIC_BASE_PATH || ''
-const card = { background: 'white', border: '1px solid #e2e8f0', borderRadius: 16, padding: 18, boxShadow: '0 14px 34px rgba(15,23,42,.05)' } as const
+const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 18, boxShadow: '0 14px 34px var(--rbl-shadow)' } as const
 
 const TYPE_META: Record<EntryType, { label: string; bg: string; fg: string }> = {
-  fund: { label: 'Fund', bg: '#dbeafe', fg: '#1e3a8a' },
-  'line-item': { label: 'Budget line', bg: '#dcfce7', fg: '#166534' },
-  payroll: { label: 'Payroll', bg: '#fef3c7', fg: '#92400e' },
+  fund: { label: 'Fund', bg: 'var(--rbl-info-bg)', fg: 'var(--rbl-info-text)' },
+  'line-item': { label: 'Budget line', bg: 'var(--rbl-success-bg)', fg: 'var(--rbl-success-strong)' },
+  payroll: { label: 'Payroll', bg: 'var(--rbl-warn-bg)', fg: 'var(--rbl-warn)' },
   salary: { label: 'Salary 2026', bg: '#fce7f3', fg: '#9d174d' },
-  resolution: { label: 'Board vote', bg: '#ede9fe', fg: '#5b21b6' },
-  page: { label: 'Document', bg: '#f1f5f9', fg: '#334155' },
+  resolution: { label: 'Board vote', bg: 'var(--rbl-violet-bg)', fg: 'var(--rbl-violet-strong)' },
+  page: { label: 'Document', bg: 'var(--rbl-surface-3)', fg: 'var(--rbl-text-strong)' },
 }
 // Structured data first, documents last — the order chips render in.
 const TYPE_ORDER: EntryType[] = ['fund', 'line-item', 'salary', 'payroll', 'resolution', 'page']
@@ -76,7 +76,7 @@ function renderAnswer(text: string): React.ReactNode {
     if (m) {
       return (
         <a key={i} href={`#ai-src-${m[1]}`} style={{
-          display: 'inline-block', background: '#e0e7ff', color: '#3730a3', fontWeight: 800, fontSize: 11,
+          display: 'inline-block', background: 'var(--rbl-violet-bg)', color: 'var(--rbl-violet-strong)', fontWeight: 800, fontSize: 11,
           padding: '0 6px', borderRadius: 6, textDecoration: 'none', verticalAlign: 'baseline', margin: '0 1px',
         }}>{m[1]}</a>
       )
@@ -257,11 +257,11 @@ export default function UnifiedSearch() {
   return (
     <div style={{ display: 'grid', gap: 16 }}>
       {/* Mode toggle: keyword search vs. natural-language AI answer. */}
-      <div style={{ display: 'flex', gap: 6, background: '#eef2f7', padding: 4, borderRadius: 12, width: 'fit-content' }}>
+      <div style={{ display: 'flex', gap: 6, background: 'var(--rbl-surface-2)', padding: 4, borderRadius: 12, width: 'fit-content' }}>
         {(['find', 'ask'] as const).map((m) => (
           <button key={m} onClick={() => setMode(m)} style={{
             padding: '8px 16px', borderRadius: 9, border: 'none', cursor: 'pointer', fontWeight: 800, fontSize: 13.5,
-            background: mode === m ? 'white' : 'transparent', color: mode === m ? '#284a69' : '#64748b',
+            background: mode === m ? 'var(--rbl-surface)' : 'transparent', color: mode === m ? 'var(--rbl-title)' : 'var(--rbl-text-muted)',
             boxShadow: mode === m ? '0 1px 3px rgba(15,23,42,.12)' : 'none',
           }}>
             {m === 'find' ? 'Find records' : 'Ask AI'}
@@ -269,14 +269,14 @@ export default function UnifiedSearch() {
         ))}
       </div>
 
-      <section style={{ ...card, borderTop: '5px solid #c99a2e' }}>
+      <section style={{ ...card, borderTop: '5px solid var(--rbl-gold-border)' }}>
         {mode === 'find' ? (
           <input
             value={q}
             onFocus={ensureIndex}
             onChange={(e) => { setQ(e.target.value); setLimit(50) }}
             placeholder="Try: police overtime · Hegermiller · sewer · Island Water Park · paving…"
-            style={{ width: '100%', padding: 14, borderRadius: 10, border: '1px solid #b8c7d3', fontSize: 16, boxSizing: 'border-box' }}
+            style={{ width: '100%', padding: 14, borderRadius: 10, border: '1px solid var(--rbl-border)', fontSize: 16, boxSizing: 'border-box' }}
             aria-label="Search all Riverhead budget data"
           />
         ) : (
@@ -288,21 +288,21 @@ export default function UnifiedSearch() {
               onKeyDown={(e) => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); runAsk() } }}
               placeholder="Ask a question about Riverhead's budget, pay, funds, or Town Board votes…"
               rows={2}
-              style={{ width: '100%', padding: 14, borderRadius: 10, border: '1px solid #b8c7d3', fontSize: 16, boxSizing: 'border-box', resize: 'vertical', fontFamily: 'inherit' }}
+              style={{ width: '100%', padding: 14, borderRadius: 10, border: '1px solid var(--rbl-border)', fontSize: 16, boxSizing: 'border-box', resize: 'vertical', fontFamily: 'inherit' }}
               aria-label="Ask the Riverhead budget AI a question"
             />
             <div style={{ display: 'flex', gap: 10, alignItems: 'center', flexWrap: 'wrap' }}>
               <button onClick={runAsk} disabled={q.trim().length < 3 || aiState === 'thinking'} style={{
                 padding: '10px 20px', borderRadius: 10, border: 'none', fontWeight: 800, fontSize: 14,
                 cursor: q.trim().length < 3 || aiState === 'thinking' ? 'default' : 'pointer',
-                background: q.trim().length < 3 || aiState === 'thinking' ? '#94a3b8' : '#4a7297', color: 'white',
+                background: q.trim().length < 3 || aiState === 'thinking' ? 'var(--rbl-text-faint)' : 'var(--rbl-fill-accent)', color: 'white',
               }}>
                 {aiState === 'thinking' ? 'Thinking…' : 'Ask AI'}
               </button>
-              <span style={{ color: hasKey ? '#166534' : '#92400e', fontSize: 12.5, fontWeight: 700 }}>
+              <span style={{ color: hasKey ? 'var(--rbl-success-strong)' : 'var(--rbl-warn)', fontSize: 12.5, fontWeight: 700 }}>
                 {hasKey ? '● Live AI ready (your key)' : '○ Add your OpenAI key to enable AI answers'}
               </span>
-              <button onClick={() => setShowKeyPanel((v) => !v)} style={{ marginLeft: 'auto', background: 'none', border: 'none', color: '#4a7297', fontWeight: 800, fontSize: 12.5, cursor: 'pointer' }}>
+              <button onClick={() => setShowKeyPanel((v) => !v)} style={{ marginLeft: 'auto', background: 'none', border: 'none', color: 'var(--rbl-accent)', fontWeight: 800, fontSize: 12.5, cursor: 'pointer' }}>
                 {showKeyPanel ? 'Hide key setup' : hasKey ? 'Manage key' : 'Set up AI'}
               </button>
             </div>
@@ -318,18 +318,18 @@ export default function UnifiedSearch() {
               return (
                 <button key={t} onClick={() => toggleType(t)} style={{
                   padding: '6px 12px', borderRadius: 999, fontWeight: 800, fontSize: 12.5, cursor: 'pointer',
-                  border: `1px solid ${on ? meta.fg : '#cbd5e1'}`, background: on ? meta.bg : 'white', color: on ? meta.fg : '#475569',
+                  border: `1px solid ${on ? meta.fg : 'var(--rbl-border-strong)'}`, background: on ? meta.bg : 'var(--rbl-surface)', color: on ? meta.fg : 'var(--rbl-text-body)',
                 }}>{meta.label} <span style={{ opacity: 0.7 }}>{typeCounts[t].toLocaleString()}</span></button>
               )
             })}
             {types.size > 0 && (
-              <button onClick={() => setTypes(new Set())} style={{ padding: '6px 12px', borderRadius: 999, fontWeight: 800, fontSize: 12.5, cursor: 'pointer', border: 'none', background: 'none', color: '#4a7297' }}>show all</button>
+              <button onClick={() => setTypes(new Set())} style={{ padding: '6px 12px', borderRadius: 999, fontWeight: 800, fontSize: 12.5, cursor: 'pointer', border: 'none', background: 'none', color: 'var(--rbl-accent)' }}>show all</button>
             )}
           </div>
         )}
 
         {mode === 'find' && (
-          <p style={{ color: '#64748b', fontSize: 13, margin: '10px 0 0' }}>
+          <p style={{ color: 'var(--rbl-text-muted)', fontSize: 13, margin: '10px 0 0' }}>
             {status === 'loading' && 'Loading the search index…'}
             {status === 'error' && 'Could not load the search index — check your connection and try again.'}
             {status === 'idle' && 'Searches everything on this site: budget line items, employee pay, authorized salaries, Town Board votes, funds, and 12,000+ document pages.'}
@@ -339,7 +339,7 @@ export default function UnifiedSearch() {
         )}
 
         {mode === 'ask' && aiState === 'idle' && (
-          <p style={{ color: '#64748b', fontSize: 13, margin: '10px 0 0' }}>
+          <p style={{ color: 'var(--rbl-text-muted)', fontSize: 13, margin: '10px 0 0' }}>
             AI reads the same {`16,000+`} records the search covers, answers in plain language, and cites the exact records it used. Always verify against official Town documents.
           </p>
         )}
@@ -348,15 +348,15 @@ export default function UnifiedSearch() {
       {/* BYOK setup panel — the user's key stays in their browser only. */}
       {mode === 'ask' && showKeyPanel && (
         <section style={{ ...card }}>
-          <div style={{ fontWeight: 800, color: '#284a69', marginBottom: 4 }}>Live AI setup — your OpenAI key</div>
-          <p style={{ color: '#64748b', fontSize: 13.5, lineHeight: 1.5, margin: '0 0 6px' }}>
+          <div style={{ fontWeight: 800, color: 'var(--rbl-title)', marginBottom: 4 }}>Live AI setup — your OpenAI key</div>
+          <p style={{ color: 'var(--rbl-text-muted)', fontSize: 13.5, lineHeight: 1.5, margin: '0 0 6px' }}>
             This site is static and has no server, so AI answers use <strong>your own</strong> OpenAI key. It is stored
             only in this browser (localStorage) and sent directly to OpenAI when you ask — never to this site or anyone
             else. This is a power-user feature; the keyword search needs no key.
           </p>
-          <p style={{ color: '#64748b', fontSize: 12.5, margin: '0 0 12px' }}>
+          <p style={{ color: 'var(--rbl-text-muted)', fontSize: 12.5, margin: '0 0 12px' }}>
             Get a key at{' '}
-            <a href="https://platform.openai.com/api-keys" target="_blank" rel="noreferrer" style={{ color: '#4a7297', fontWeight: 700 }}>platform.openai.com/api-keys</a>. Usage is billed by OpenAI to your account.
+            <a href="https://platform.openai.com/api-keys" target="_blank" rel="noreferrer" style={{ color: 'var(--rbl-accent)', fontWeight: 700 }}>platform.openai.com/api-keys</a>. Usage is billed by OpenAI to your account.
           </p>
           <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', alignItems: 'center' }}>
             <input
@@ -365,18 +365,18 @@ export default function UnifiedSearch() {
               onChange={(e) => setKeyDraft(e.target.value)}
               placeholder={hasKey ? 'Enter a new key to replace the saved one' : 'sk-…'}
               autoComplete="off"
-              style={{ flex: '1 1 260px', padding: 11, borderRadius: 9, border: '1px solid #b8c7d3', fontSize: 14, fontFamily: 'monospace', boxSizing: 'border-box' }}
+              style={{ flex: '1 1 260px', padding: 11, borderRadius: 9, border: '1px solid var(--rbl-border)', fontSize: 14, fontFamily: 'monospace', boxSizing: 'border-box' }}
               aria-label="OpenAI API key"
             />
             <button onClick={saveKey} disabled={!keyDraft.trim()} style={{
               padding: '10px 16px', borderRadius: 9, border: 'none', fontWeight: 800, fontSize: 13,
-              cursor: keyDraft.trim() ? 'pointer' : 'default', background: keyDraft.trim() ? '#284a69' : '#94a3b8', color: 'white',
+              cursor: keyDraft.trim() ? 'pointer' : 'default', background: keyDraft.trim() ? 'var(--rbl-fill-brand)' : 'var(--rbl-text-faint)', color: 'white',
             }}>{hasKey ? 'Update key' : 'Save key'}</button>
             {hasKey && (
-              <button onClick={removeKey} style={{ padding: '10px 16px', borderRadius: 9, border: '1px solid #cbd5e1', background: 'white', color: '#b91c1c', fontWeight: 800, fontSize: 13, cursor: 'pointer' }}>Remove key</button>
+              <button onClick={removeKey} style={{ padding: '10px 16px', borderRadius: 9, border: '1px solid var(--rbl-border-strong)', background: 'var(--rbl-surface)', color: 'var(--rbl-danger)', fontWeight: 800, fontSize: 13, cursor: 'pointer' }}>Remove key</button>
             )}
           </div>
-          <p style={{ color: '#6b7280', fontSize: 12, margin: '10px 0 0' }}>
+          <p style={{ color: 'var(--rbl-text-muted)', fontSize: 12, margin: '10px 0 0' }}>
             {hasKey ? 'A saved key is active in this browser.' : 'No key saved yet.'}
           </p>
         </section>
@@ -386,37 +386,37 @@ export default function UnifiedSearch() {
       {mode === 'ask' && aiState !== 'idle' && (
         <section style={{ display: 'grid', gap: 12 }}>
           {aiAsked && (
-            <div style={{ color: '#284a69', fontWeight: 800, fontSize: 15 }}>“{aiAsked}”</div>
+            <div style={{ color: 'var(--rbl-title)', fontWeight: 800, fontSize: 15 }}>“{aiAsked}”</div>
           )}
 
           {aiState === 'thinking' && (
-            <div style={{ ...card, color: '#64748b', fontSize: 14 }}>Reading the budget records and drafting an answer…</div>
+            <div style={{ ...card, color: 'var(--rbl-text-muted)', fontSize: 14 }}>Reading the budget records and drafting an answer…</div>
           )}
 
           {aiState === 'error' && (
-            <div style={{ ...card, borderLeft: '5px solid #b91c1c' }}>
-              <div style={{ fontWeight: 800, color: '#b91c1c', marginBottom: 4 }}>Couldn&apos;t get an AI answer</div>
-              <p style={{ color: '#334155', fontSize: 14, margin: 0 }}>{aiError}</p>
+            <div style={{ ...card, borderLeft: '5px solid var(--rbl-danger)' }}>
+              <div style={{ fontWeight: 800, color: 'var(--rbl-danger)', marginBottom: 4 }}>Couldn&apos;t get an AI answer</div>
+              <p style={{ color: 'var(--rbl-text-strong)', fontSize: 14, margin: 0 }}>{aiError}</p>
             </div>
           )}
 
           {aiState === 'done' && aiAnswer && (
-            <div style={{ ...card, borderLeft: '5px solid #4a7297' }}>
+            <div style={{ ...card, borderLeft: '5px solid var(--rbl-accent-border)' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 8 }}>
-                <span style={{ background: '#e0e7ff', color: '#3730a3', fontWeight: 800, fontSize: 11, padding: '2px 9px', borderRadius: 999, textTransform: 'uppercase', letterSpacing: 0.4 }}>AI answer</span>
-                <span style={{ color: '#94a3b8', fontSize: 12 }}>gpt-5-mini · grounded on the records below</span>
+                <span style={{ background: 'var(--rbl-violet-bg)', color: 'var(--rbl-violet-strong)', fontWeight: 800, fontSize: 11, padding: '2px 9px', borderRadius: 999, textTransform: 'uppercase', letterSpacing: 0.4 }}>AI answer</span>
+                <span style={{ color: 'var(--rbl-text-faint)', fontSize: 12 }}>gpt-5-mini · grounded on the records below</span>
               </div>
-              <div style={{ color: '#1e293b', fontSize: 15, lineHeight: 1.6, whiteSpace: 'pre-wrap' }}>{renderAnswer(aiAnswer)}</div>
-              <p style={{ color: '#6b7280', fontSize: 12, margin: '12px 0 0', borderTop: '1px solid #f1f5f9', paddingTop: 10 }}>
+              <div style={{ color: 'var(--rbl-text-strong)', fontSize: 15, lineHeight: 1.6, whiteSpace: 'pre-wrap' }}>{renderAnswer(aiAnswer)}</div>
+              <p style={{ color: 'var(--rbl-text-muted)', fontSize: 12, margin: '12px 0 0', borderTop: '1px solid var(--rbl-border-subtle)', paddingTop: 10 }}>
                 Unofficial AI explainer — numbers can be misread. Verify against the cited records and official Town documents.
               </p>
             </div>
           )}
 
           {aiState === 'done' && !aiAnswer && (
-            <div style={{ ...card, borderLeft: '5px solid #c99a2e' }}>
-              <div style={{ fontWeight: 800, color: '#92400e', marginBottom: 4 }}>Add your OpenAI key to get an AI answer</div>
-              <p style={{ color: '#334155', fontSize: 14, margin: 0, lineHeight: 1.5 }}>
+            <div style={{ ...card, borderLeft: '5px solid var(--rbl-gold-border)' }}>
+              <div style={{ fontWeight: 800, color: 'var(--rbl-warn)', marginBottom: 4 }}>Add your OpenAI key to get an AI answer</div>
+              <p style={{ color: 'var(--rbl-text-strong)', fontSize: 14, margin: 0, lineHeight: 1.5 }}>
                 Here are the most relevant records for your question. To have the AI read them and answer in plain
                 language, add your OpenAI key in the setup panel above.
               </p>
@@ -425,7 +425,7 @@ export default function UnifiedSearch() {
 
           {aiSources.length > 0 && (
             <div style={{ display: 'grid', gap: 8 }}>
-              <div style={{ color: '#284a69', fontWeight: 800, fontSize: 13.5, textTransform: 'uppercase', letterSpacing: 0.4 }}>
+              <div style={{ color: 'var(--rbl-title)', fontWeight: 800, fontSize: 13.5, textTransform: 'uppercase', letterSpacing: 0.4 }}>
                 {aiAnswer ? 'Sources the answer used' : 'Most relevant records'}
               </div>
               {aiSources.map((e, i) => {
@@ -435,13 +435,13 @@ export default function UnifiedSearch() {
                 return (
                   <a key={`${e.t}-${e.n}-${i}`} id={`ai-src-${i + 1}`} href={href} target={external ? '_blank' : undefined} rel={external ? 'noreferrer' : undefined}
                     style={{ ...card, padding: 14, textDecoration: 'none', color: 'inherit', display: 'flex', gap: 12, alignItems: 'start' }}>
-                    <span style={{ background: '#e0e7ff', color: '#3730a3', fontWeight: 800, fontSize: 12, minWidth: 26, height: 26, borderRadius: 8, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>{i + 1}</span>
+                    <span style={{ background: 'var(--rbl-violet-bg)', color: 'var(--rbl-violet-strong)', fontWeight: 800, fontSize: 12, minWidth: 26, height: 26, borderRadius: 8, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>{i + 1}</span>
                     <div style={{ minWidth: 0, flex: 1 }}>
                       <span style={{ background: meta.bg, color: meta.fg, fontWeight: 800, fontSize: 11, padding: '2px 9px', borderRadius: 999, textTransform: 'uppercase', letterSpacing: 0.4 }}>{meta.label}</span>
-                      <div style={{ fontWeight: 700, color: '#284a69', marginTop: 6, lineHeight: 1.35 }}>{e.n}</div>
-                      <div style={{ color: '#64748b', fontSize: 13, marginTop: 3, lineHeight: 1.45 }}>{e.t === 'page' ? snippet(e.x, aiAsked.toLowerCase().split(/\s+/)) : e.x}</div>
+                      <div style={{ fontWeight: 700, color: 'var(--rbl-title)', marginTop: 6, lineHeight: 1.35 }}>{e.n}</div>
+                      <div style={{ color: 'var(--rbl-text-muted)', fontSize: 13, marginTop: 3, lineHeight: 1.45 }}>{e.t === 'page' ? snippet(e.x, aiAsked.toLowerCase().split(/\s+/)) : e.x}</div>
                     </div>
-                    {e.v != null && <strong style={{ color: '#284a69', whiteSpace: 'nowrap' }}>{usd(e.v)}</strong>}
+                    {e.v != null && <strong style={{ color: 'var(--rbl-title)', whiteSpace: 'nowrap' }}>{usd(e.v)}</strong>}
                   </a>
                 )
               })}
@@ -453,10 +453,10 @@ export default function UnifiedSearch() {
       {/* Ask-mode empty state: example questions. */}
       {mode === 'ask' && aiState === 'idle' && (
         <section style={{ ...card }}>
-          <div style={{ fontWeight: 800, color: '#284a69', marginBottom: 8 }}>Try asking</div>
+          <div style={{ fontWeight: 800, color: 'var(--rbl-title)', marginBottom: 8 }}>Try asking</div>
           <div style={{ display: 'grid', gap: 8 }}>
             {AI_EXAMPLES.map((ex) => (
-              <button key={ex} onClick={() => setQ(ex)} style={{ textAlign: 'left', padding: '10px 14px', borderRadius: 10, border: '1px solid #e2e8f0', background: '#f8fafc', color: '#334155', fontSize: 14, fontWeight: 600, cursor: 'pointer' }}>
+              <button key={ex} onClick={() => setQ(ex)} style={{ textAlign: 'left', padding: '10px 14px', borderRadius: 10, border: '1px solid var(--rbl-border-subtle)', background: 'var(--rbl-surface-2)', color: 'var(--rbl-text-strong)', fontSize: 14, fontWeight: 600, cursor: 'pointer' }}>
                 {ex}
               </button>
             ))}
@@ -467,14 +467,14 @@ export default function UnifiedSearch() {
       {/* Friendly empty state instead of a bare "0 results". */}
       {mode === 'find' && status === 'ready' && hasQuery && !searching && allScored.length === 0 && (
         <section style={{ ...card }}>
-          <div style={{ fontWeight: 800, color: '#284a69', marginBottom: 6 }}>No matches for “{debounced}”.</div>
-          <p style={{ color: '#64748b', fontSize: 14, margin: '0 0 10px' }}>
+          <div style={{ fontWeight: 800, color: 'var(--rbl-title)', marginBottom: 6 }}>No matches for “{debounced}”.</div>
+          <p style={{ color: 'var(--rbl-text-muted)', fontSize: 14, margin: '0 0 10px' }}>
             None of those words appear anywhere in the indexed records. Try a single last name, a department, or a
             project name — for example:
           </p>
           <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
             {EXAMPLES.map((ex) => (
-              <button key={ex} onClick={() => { setQ(ex); setLimit(50) }} style={{ padding: '6px 12px', borderRadius: 999, border: '1px solid #cbd5e1', background: 'white', color: '#4a7297', fontWeight: 700, fontSize: 13, cursor: 'pointer' }}>
+              <button key={ex} onClick={() => { setQ(ex); setLimit(50) }} style={{ padding: '6px 12px', borderRadius: 999, border: '1px solid var(--rbl-border-strong)', background: 'var(--rbl-surface)', color: 'var(--rbl-accent)', fontWeight: 700, fontSize: 13, cursor: 'pointer' }}>
                 {ex}
               </button>
             ))}
@@ -495,17 +495,17 @@ export default function UnifiedSearch() {
                 <div style={{ display: 'flex', justifyContent: 'space-between', gap: 12, alignItems: 'start', flexWrap: 'wrap' }}>
                   <div style={{ minWidth: 0, flex: '1 1 320px' }}>
                     <span style={{ background: meta.bg, color: meta.fg, fontWeight: 800, fontSize: 11, padding: '2px 9px', borderRadius: 999, textTransform: 'uppercase', letterSpacing: 0.4 }}>{meta.label}</span>
-                    <div style={{ fontWeight: 700, color: '#284a69', marginTop: 6, lineHeight: 1.35 }}>{highlight(e.n, terms)}</div>
-                    <div style={{ color: '#64748b', fontSize: 13, marginTop: 3, lineHeight: 1.45 }}>{highlight(ctx, terms)}</div>
+                    <div style={{ fontWeight: 700, color: 'var(--rbl-title)', marginTop: 6, lineHeight: 1.35 }}>{highlight(e.n, terms)}</div>
+                    <div style={{ color: 'var(--rbl-text-muted)', fontSize: 13, marginTop: 3, lineHeight: 1.45 }}>{highlight(ctx, terms)}</div>
                   </div>
-                  {e.v != null && <strong style={{ color: '#284a69', whiteSpace: 'nowrap' }}>{usd(e.v)}</strong>}
+                  {e.v != null && <strong style={{ color: 'var(--rbl-title)', whiteSpace: 'nowrap' }}>{usd(e.v)}</strong>}
                 </div>
               </a>
             )
           })}
           {results.length > limit && (
             <div style={{ textAlign: 'center' }}>
-              <button onClick={() => setLimit((l) => l + 100)} style={{ padding: '10px 18px', borderRadius: 10, border: '1px solid #4a7297', background: '#4a7297', color: 'white', fontWeight: 800, cursor: 'pointer' }}>
+              <button onClick={() => setLimit((l) => l + 100)} style={{ padding: '10px 18px', borderRadius: 10, border: '1px solid var(--rbl-accent-border)', background: 'var(--rbl-fill-accent)', color: 'white', fontWeight: 800, cursor: 'pointer' }}>
                 Show more ({(results.length - limit).toLocaleString()} remaining)
               </button>
             </div>

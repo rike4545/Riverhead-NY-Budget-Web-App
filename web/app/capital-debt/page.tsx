@@ -1,15 +1,23 @@
 import PageShell from '../../components/PageShell'
+import LineChart from '../../components/charts/LineChart'
 import PlainCallout from '../../components/PlainCallout'
 import CapitalDebtCalculator from '../../components/CapitalDebtCalculator'
 import { debtProfile, debtProfileTotals } from '../../lib/debt-profile'
 
-const card = { background: 'white', border: '1px solid #e2e8f0', borderRadius: 16, padding: 20, boxShadow: '0 14px 34px rgba(15,23,42,.05)' } as const
+const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 20, boxShadow: '0 14px 34px var(--rbl-shadow)' } as const
 const usd = (n: number) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(n)
 
 export const metadata = {
   title: 'Capital & Debt — how Riverhead borrows, and what it owes',
   description:
     "Riverhead's actual outstanding debt from its most recent financial report, plus a calculator comparing the two ways a town finances a capital project: issue a bond immediately, or borrow short-term with a Bond Anticipation Note (BAN) first.",
+}
+
+// "2031–2035" covers five years; "2026" covers one. Used to put every point on
+// the same per-year footing.
+function periodYears(period: string): number {
+  const m = period.match(/^(\d{4})\s*[–-]\s*(\d{4})$/)
+  return m ? Number(m[2]) - Number(m[1]) + 1 : 1
 }
 
 export default function CapitalDebtPage() {
@@ -42,9 +50,21 @@ export default function CapitalDebtPage() {
         <Stat label="Credit rating" value={debtProfile.moodyRating} sub={`Moody's, ${debtProfile.moodyRatingAsOf}`} />
       </section>
 
-      <h2 style={{ color: '#284a69' }}>What's already on the books</h2>
+      <h2 style={{ color: 'var(--rbl-title)' }}>What's already on the books</h2>
+      <LineChart
+        title="Debt service per year, as currently scheduled"
+        lede="Principal and interest on the debt already issued. The later rows in the Town's schedule are multi-year bands, so each is divided by the years it covers — plotting a five-year total at a single point would draw a spike where the real obligation is falling."
+        categories={debtProfile.amortization.map((r) => r.period)}
+        series={[
+          { label: 'Principal per year', color: 'var(--rbl-series-blue)', values: debtProfile.amortization.map((r) => r.principal / periodYears(r.period)) },
+          { label: 'Interest per year', color: 'var(--rbl-series-gold)', values: debtProfile.amortization.map((r) => r.interest / periodYears(r.period)) },
+        ]}
+        format={(n) => `$${(n / 1e6).toFixed(1)}M`}
+        source={`${debtProfile.source.title} — ${debtProfile.source.detail}. Banded periods show the annual average across the band, not the band total.`}
+      />
+
       <section style={{ ...card, marginBottom: 18 }}>
-        <p style={{ color: '#64748b', fontSize: 13.5, marginTop: 0 }}>
+        <p style={{ color: 'var(--rbl-text-muted)', fontSize: 13.5, marginTop: 0 }}>
           Future principal and interest on all of the Town's bonds (governmental and business-type activities
           combined), from the 2024 Annual Financial Report's Bond Repayment schedule. Bars show principal (dark) and
           interest (gold) for each period.
@@ -54,36 +74,36 @@ export default function CapitalDebtPage() {
             const total = r.principal + r.interest
             return (
               <div key={r.period} style={{ display: 'grid', gridTemplateColumns: '90px 1fr auto', gap: 10, alignItems: 'center' }}>
-                <span style={{ color: '#475569', fontWeight: 700, fontSize: 13 }}>{r.period}</span>
-                <div style={{ display: 'flex', height: 18, borderRadius: 5, overflow: 'hidden', background: '#f1f5f9', width: `${(total / maxAmort) * 100}%`, minWidth: 40 }}>
-                  <div style={{ width: `${(r.principal / total) * 100}%`, background: '#4a7297' }} title={`Principal: ${usd(r.principal)}`} />
-                  <div style={{ width: `${(r.interest / total) * 100}%`, background: '#c99a2e' }} title={`Interest: ${usd(r.interest)}`} />
+                <span style={{ color: 'var(--rbl-text-body)', fontWeight: 700, fontSize: 13 }}>{r.period}</span>
+                <div style={{ display: 'flex', height: 18, borderRadius: 5, overflow: 'hidden', background: 'var(--rbl-surface-3)', width: `${(total / maxAmort) * 100}%`, minWidth: 40 }}>
+                  <div style={{ width: `${(r.principal / total) * 100}%`, background: 'var(--rbl-fill-accent)' }} title={`Principal: ${usd(r.principal)}`} />
+                  <div style={{ width: `${(r.interest / total) * 100}%`, background: 'var(--rbl-fill-gold)' }} title={`Interest: ${usd(r.interest)}`} />
                 </div>
-                <span style={{ fontWeight: 800, color: '#284a69', fontSize: 13, textAlign: 'right' }}>{usd(total)}</span>
+                <span style={{ fontWeight: 800, color: 'var(--rbl-title)', fontSize: 13, textAlign: 'right' }}>{usd(total)}</span>
               </div>
             )
           })}
-          <div style={{ display: 'grid', gridTemplateColumns: '90px 1fr auto', gap: 10, borderTop: '2px solid #e2e8f0', paddingTop: 8, marginTop: 2 }}>
-            <span style={{ fontWeight: 900, color: '#284a69', fontSize: 13 }}>Total</span>
+          <div style={{ display: 'grid', gridTemplateColumns: '90px 1fr auto', gap: 10, borderTop: '2px solid var(--rbl-border-subtle)', paddingTop: 8, marginTop: 2 }}>
+            <span style={{ fontWeight: 900, color: 'var(--rbl-title)', fontSize: 13 }}>Total</span>
             <span />
-            <span style={{ fontWeight: 900, color: '#284a69', fontSize: 13, textAlign: 'right' }}>{usd(debtProfileTotals.principal + debtProfileTotals.interest)}</span>
+            <span style={{ fontWeight: 900, color: 'var(--rbl-title)', fontSize: 13, textAlign: 'right' }}>{usd(debtProfileTotals.principal + debtProfileTotals.interest)}</span>
           </div>
         </div>
-        <div style={{ display: 'flex', gap: 14, marginTop: 12, fontSize: 12, color: '#64748b' }}>
-          <span><span style={{ display: 'inline-block', width: 10, height: 10, borderRadius: 3, background: '#4a7297', marginRight: 5 }} />Principal</span>
-          <span><span style={{ display: 'inline-block', width: 10, height: 10, borderRadius: 3, background: '#c99a2e', marginRight: 5 }} />Interest</span>
+        <div style={{ display: 'flex', gap: 14, marginTop: 12, fontSize: 12, color: 'var(--rbl-text-muted)' }}>
+          <span><span style={{ display: 'inline-block', width: 10, height: 10, borderRadius: 3, background: 'var(--rbl-fill-accent)', marginRight: 5 }} />Principal</span>
+          <span><span style={{ display: 'inline-block', width: 10, height: 10, borderRadius: 3, background: 'var(--rbl-fill-gold)', marginRight: 5 }} />Interest</span>
         </div>
       </section>
 
-      <h2 style={{ color: '#284a69' }}>Try a hypothetical project</h2>
-      <p style={{ color: '#64748b', fontSize: 13.5, marginTop: 0, marginBottom: 12 }}>
+      <h2 style={{ color: 'var(--rbl-title)' }}>Try a hypothetical project</h2>
+      <p style={{ color: 'var(--rbl-text-muted)', fontSize: 13.5, marginTop: 0, marginBottom: 12 }}>
         The rate fields below are assumptions you set — not a quoted Town borrowing rate. Nobody, including the Town,
         knows what a future bond or BAN would price at until it's actually sold; this shows the mechanics of the
         tradeoff, not a prediction.
       </p>
       <CapitalDebtCalculator />
 
-      <p style={{ color: '#6b7280', fontSize: 12.5, marginTop: 16 }}>
+      <p style={{ color: 'var(--rbl-text-muted)', fontSize: 12.5, marginTop: 16 }}>
         Total debt and amortization figures: {debtProfile.source.title}, {debtProfile.source.detail}. Debt-limit
         figures (authorized-unissued, constitutional limit, and % exhausted) are from the last independent audit —
         {' '}{debtProfile.debtLimit.source.title}, {debtProfile.debtLimit.source.detail} — since Annual Financial
@@ -99,9 +119,9 @@ export default function CapitalDebtPage() {
 function Stat({ label, value, sub, accent }: { label: string; value: string; sub?: string; accent?: boolean }) {
   return (
     <div>
-      <div style={{ color: '#64748b', fontSize: 12.5, fontWeight: 700, textTransform: 'uppercase', letterSpacing: 0.3 }}>{label}</div>
-      <div style={{ color: accent ? '#b45309' : '#284a69', fontSize: 22, fontWeight: 900, lineHeight: 1.2 }}>{value}</div>
-      {sub && <div style={{ color: '#6b7280', fontSize: 12.5 }}>{sub}</div>}
+      <div style={{ color: 'var(--rbl-text-muted)', fontSize: 12.5, fontWeight: 700, textTransform: 'uppercase', letterSpacing: 0.3 }}>{label}</div>
+      <div style={{ color: accent ? 'var(--rbl-warn)' : 'var(--rbl-title)', fontSize: 22, fontWeight: 900, lineHeight: 1.2 }}>{value}</div>
+      {sub && <div style={{ color: 'var(--rbl-text-muted)', fontSize: 12.5 }}>{sub}</div>}
     </div>
   )
 }

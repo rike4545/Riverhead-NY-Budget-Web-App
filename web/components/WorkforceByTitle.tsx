@@ -33,7 +33,7 @@ const data = titlesData as { years: number[]; note: string; source: { title: str
 const years = data.years
 const latestYear = years[years.length - 1]
 
-const card = { background: 'white', border: '1px solid #e2e8f0', borderRadius: 16, padding: 20, boxShadow: '0 14px 34px rgba(15,23,42,.05)' } as const
+const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 20, boxShadow: '0 14px 34px var(--rbl-shadow)' } as const
 const th = { padding: '8px 10px', textAlign: 'right' as const, whiteSpace: 'nowrap' as const }
 const td = { padding: '7px 10px', textAlign: 'right' as const }
 
@@ -72,9 +72,9 @@ export default function WorkforceByTitle() {
             value={q}
             onChange={(e) => setQ(e.target.value)}
             placeholder="Search a title (e.g. Police Officer, Lifeguard)…"
-            style={{ flex: 1, minWidth: 220, padding: '10px 13px', border: '1px solid #cbd5e1', borderRadius: 9, fontSize: 15 }}
+            style={{ flex: 1, minWidth: 220, padding: '10px 13px', border: '1px solid var(--rbl-border-strong)', borderRadius: 9, fontSize: 15 }}
           />
-          <select value={sortKey} onChange={(e) => setSortKey(e.target.value as SortKey)} style={{ padding: '10px 12px', border: '1px solid #cbd5e1', borderRadius: 9, fontSize: 14 }}>
+          <select value={sortKey} onChange={(e) => setSortKey(e.target.value as SortKey)} style={{ padding: '10px 12px', border: '1px solid var(--rbl-border-strong)', borderRadius: 9, fontSize: 14 }}>
             <option value="latest">Sort: Most in {latestYear}</option>
             <option value="gain">Sort: Biggest increase</option>
             <option value="delta">Sort: Biggest decrease</option>
@@ -82,14 +82,14 @@ export default function WorkforceByTitle() {
           </select>
         </div>
 
-        <div style={{ color: '#475569', fontWeight: 700, marginBottom: 8, fontSize: 14 }}>
+        <div style={{ color: 'var(--rbl-text-body)', fontWeight: 700, marginBottom: 8, fontSize: 14 }}>
           Showing {rows.length.toLocaleString()} of {data.titles.length.toLocaleString()} titles
         </div>
 
         <div style={{ overflowX: 'auto' }}>
           <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 13.5 }}>
             <thead>
-              <tr style={{ color: '#64748b', borderBottom: '2px solid #e2e8f0' }}>
+              <tr style={{ color: 'var(--rbl-text-muted)', borderBottom: '2px solid var(--rbl-border-subtle)' }}>
                 <th style={{ padding: '8px 10px', textAlign: 'left' }}>Title</th>
                 {years.map((y) => <th key={y} style={th}>{y}</th>)}
                 <th style={th}>Change<br /><span style={{ fontWeight: 400, fontSize: 11 }}>{years[0]}→{latestYear}</span></th>
@@ -97,17 +97,17 @@ export default function WorkforceByTitle() {
             </thead>
             <tbody>
               {rows.map((t) => (
-                <tr key={t.title} style={{ borderBottom: '1px solid #f1f5f9' }}>
-                  <td style={{ padding: '7px 10px', color: '#284a69', fontWeight: 700 }}>
+                <tr key={t.title} style={{ borderBottom: '1px solid var(--rbl-border-subtle)' }}>
+                  <td style={{ padding: '7px 10px', color: 'var(--rbl-title)', fontWeight: 700 }}>
                     {t.title}
                     <Spark counts={t.counts} max={maxLatest} />
                     {t.wage2026 && <WageLine w={t.wage2026} />}
                   </td>
                   {years.map((y) => {
                     const v = t.counts[String(y)] ?? 0
-                    return <td key={y} style={{ ...td, color: v ? '#1e293b' : '#cbd5e1', fontWeight: y === latestYear ? 800 : 400 }}>{v || '—'}</td>
+                    return <td key={y} style={{ ...td, color: v ? 'var(--rbl-text-strong)' : 'var(--rbl-text-faint)', fontWeight: y === latestYear ? 800 : 400 }}>{v || '—'}</td>
                   })}
-                  <td style={{ ...td, fontWeight: 800, whiteSpace: 'nowrap', color: t.delta > 0 ? '#15803d' : t.delta < 0 ? '#b91c1c' : '#6b7280' }}>
+                  <td style={{ ...td, fontWeight: 800, whiteSpace: 'nowrap', color: t.delta > 0 ? 'var(--rbl-success)' : t.delta < 0 ? 'var(--rbl-danger)' : 'var(--rbl-text-muted)' }}>
                     {t.delta > 0 ? '▲ +' : t.delta < 0 ? '▼ ' : '– '}{t.delta !== 0 ? Math.abs(t.delta) : ''}
                   </td>
                 </tr>
@@ -116,7 +116,7 @@ export default function WorkforceByTitle() {
           </table>
         </div>
 
-        <p style={{ color: '#6b7280', fontSize: 12, marginTop: 12, marginBottom: 0, lineHeight: 1.5 }}>
+        <p style={{ color: 'var(--rbl-text-muted)', fontSize: 12, marginTop: 12, marginBottom: 0, lineHeight: 1.5 }}>
           {data.note} Counts are distinct employees paid under each title that year. The teal
           &ldquo;2026 authorized rate&rdquo; line is what the Town Board&apos;s January 2026 salary resolutions
           actually print for that title, available for {data.titles.filter((t) => t.wage2026).length} of the titles.
@@ -134,7 +134,7 @@ export default function WorkforceByTitle() {
           — and why it is arithmetic by this site, not a rate the Board voted on. No hourly figure at all is shown
           for elected officials, board members (paid a stipend, not a wage), or sergeants and above, who are a
           separate Superior Officers unit whose duty chart we don&apos;t hold. Source:{' '}
-          <a href={data.source.url} target="_blank" rel="noreferrer" style={{ color: '#4a7297', fontWeight: 700 }}>{data.source.title} ↗</a>
+          <a href={data.source.url} target="_blank" rel="noreferrer" style={{ color: 'var(--rbl-accent)', fontWeight: 700 }}>{data.source.title} ↗</a>
         </p>
       </section>
     </div>
@@ -154,11 +154,11 @@ function WageLine({ w }: { w: Wage }) {
   if (parts.length === 0) return null
   return (
     <>
-      <div style={{ fontWeight: 400, color: '#0f766e', fontSize: 12, marginTop: 3 }}>
+      <div style={{ fontWeight: 400, color: 'var(--rbl-teal)', fontSize: 12, marginTop: 3 }}>
         2026 authorized rate · {parts.join(' · ')}
       </div>
       {!authorized && w.hrDerivedMin != null && w.hrDerivedMax != null && (
-        <div style={{ fontWeight: 400, color: '#64748b', fontSize: 12, marginTop: 2 }}>
+        <div style={{ fontWeight: 400, color: 'var(--rbl-text-muted)', fontSize: 12, marginTop: 2 }}>
           ≈ ${w.hrDerivedMin.toFixed(4)}/hr on {w.hrLowLabel} to ${w.hrDerivedMax.toFixed(4)}/hr on{' '}
           {w.hrHighLabel} — computed by this site, not a published rate
         </div>
@@ -174,7 +174,7 @@ function Spark({ counts, max }: { counts: Record<string, number>; max: number })
       {years.map((y) => {
         const v = counts[String(y)] ?? 0
         const h = Math.max(2, Math.round((v / max) * 16))
-        return <div key={y} title={`${y}: ${v}`} style={{ width: 6, height: h, background: y === latestYear ? '#4a7297' : '#cbd5e1', borderRadius: 1 }} />
+        return <div key={y} title={`${y}: ${v}`} style={{ width: 6, height: h, background: y === latestYear ? 'var(--rbl-fill-accent)' : 'var(--rbl-track-strong)', borderRadius: 1 }} />
       })}
     </div>
   )
@@ -189,10 +189,10 @@ function topDelta(titles: TitleRow[], dir: 'gain' | 'loss') {
 
 function Stat({ label, value, sub, accent, green }: { label: string; value: string; sub?: string; accent?: boolean; green?: boolean }) {
   return (
-    <div style={{ background: green ? '#dcfce7' : accent ? '#dbeafe' : '#f8fafc', border: '1px solid #e2e8f0', borderRadius: 12, padding: 12 }}>
-      <div style={{ color: '#64748b', fontSize: 11.5, textTransform: 'uppercase', fontWeight: 900, letterSpacing: 0.4 }}>{label}</div>
-      <strong style={{ fontSize: 18, color: green ? '#166534' : accent ? '#1e40af' : '#284a69', display: 'block', marginTop: 2, lineHeight: 1.2 }}>{value}</strong>
-      {sub && <div style={{ color: '#6b7280', fontSize: 12, marginTop: 2 }}>{sub}</div>}
+    <div style={{ background: green ? 'var(--rbl-success-bg)' : accent ? 'var(--rbl-info-bg)' : 'var(--rbl-surface-2)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 12, padding: 12 }}>
+      <div style={{ color: 'var(--rbl-text-muted)', fontSize: 11.5, textTransform: 'uppercase', fontWeight: 900, letterSpacing: 0.4 }}>{label}</div>
+      <strong style={{ fontSize: 18, color: green ? 'var(--rbl-success-strong)' : accent ? 'var(--rbl-info-text)' : 'var(--rbl-title)', display: 'block', marginTop: 2, lineHeight: 1.2 }}>{value}</strong>
+      {sub && <div style={{ color: 'var(--rbl-text-muted)', fontSize: 12, marginTop: 2 }}>{sub}</div>}
     </div>
   )
 }

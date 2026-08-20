@@ -11,8 +11,8 @@ import {
 } from '../lib/payroll'
 
 const usd = (n: number) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(n)
-const card = { background: 'white', border: '1px solid #e2e8f0', borderRadius: 16, padding: 18, boxShadow: '0 14px 34px rgba(15,23,42,.05)' } as const
-const sel = { padding: '9px 11px', border: '1px solid #cbd5e1', borderRadius: 9, fontSize: 14, fontWeight: 700 } as const
+const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 18, boxShadow: '0 14px 34px var(--rbl-shadow)' } as const
+const sel = { padding: '9px 11px', border: '1px solid var(--rbl-border-strong)', borderRadius: 9, fontSize: 14, fontWeight: 700 } as const
 
 type SortKey = 'gross' | 'overtime' | 'regular' | 'name'
 
@@ -121,8 +121,8 @@ export default function PayrollExplorer() {
 
       {/* Multi-year trend */}
       <section style={{ ...card, display: 'flex', gap: 22, flexWrap: 'wrap', alignItems: 'center', justifyContent: 'space-between' }}>
-        <TrendBlock label={`Total gross pay ${payrollYears[0]}–${payrollYears[payrollYears.length - 1]}`} values={grossTrend} years={payrollYears} stroke="#4a7297" />
-        <TrendBlock label="Total overtime" values={otTrend} years={payrollYears} stroke="#c99a2e" />
+        <TrendBlock label={`Total gross pay ${payrollYears[0]}–${payrollYears[payrollYears.length - 1]}`} values={grossTrend} years={payrollYears} stroke="var(--rbl-series-blue)" />
+        <TrendBlock label="Total overtime" values={otTrend} years={payrollYears} stroke="var(--rbl-series-gold)" />
       </section>
 
       {/* Controls */}
@@ -151,7 +151,7 @@ export default function PayrollExplorer() {
           value={q}
           onChange={(e) => { setQ(e.target.value); setLimit(100) }}
           placeholder="Search name, title, department, or file #…"
-          style={{ flex: 1, minWidth: 220, padding: '10px 13px', border: '1px solid #cbd5e1', borderRadius: 9, fontSize: 15 }}
+          style={{ flex: 1, minWidth: 220, padding: '10px 13px', border: '1px solid var(--rbl-border-strong)', borderRadius: 9, fontSize: 15 }}
         />
       </section>
 
@@ -165,11 +165,11 @@ export default function PayrollExplorer() {
           { term: 'Group', plain: 'The union or bargaining group the employee belongs to (for example PBA for police, CSEA for many town workers). Elected, appointed, management and part-time staff are not union-covered.' },
           { term: 'Titles marked “·carried”', plain: 'The Town’s payroll export only includes job titles and departments from 2022 onward. Where someone held one unchanging title across every year on record, it is carried back to their earlier years and marked — it is an inference, not something the Town reported for that year. Anyone whose title ever changed is left blank instead, so a later promotion is never written into an earlier year.' },
         ]} />
-        <div style={{ color: '#475569', fontSize: 13, marginBottom: 8, lineHeight: 1.5 }}>
+        <div style={{ color: 'var(--rbl-text-body)', fontSize: 13, marginBottom: 8, lineHeight: 1.5 }}>
           <strong>Tip:</strong> click any employee row to expand a full breakdown of how their gross pay is built —
           base + overtime + each addition (longevity, holiday, stipends, buy-outs, retro) adds up to the total.
         </div>
-        <div style={{ color: '#475569', fontWeight: 700, marginBottom: 10, fontSize: 14 }}>
+        <div style={{ color: 'var(--rbl-text-body)', fontWeight: 700, marginBottom: 10, fontSize: 14 }}>
           {loading
             ? 'Loading employee records…'
             : loadError
@@ -179,7 +179,7 @@ export default function PayrollExplorer() {
         <div style={{ overflowX: 'auto' }}>
           <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 13.5 }}>
             <thead>
-              <tr style={{ textAlign: 'left', color: '#64748b', borderBottom: '2px solid #e2e8f0' }}>
+              <tr style={{ textAlign: 'left', color: 'var(--rbl-text-muted)', borderBottom: '2px solid var(--rbl-border-subtle)' }}>
                 {year === 'all' && <th style={th}>Yr</th>}
                 <th style={th}>Employee</th>
                 <th style={th}>Title</th>
@@ -194,7 +194,7 @@ export default function PayrollExplorer() {
                   tip={{ heading: 'Overtime', body: 'Pay for hours worked beyond the normal schedule, at the contractual premium rate (generally 1.5× the straight-time rate).' }}
                 />
                 <th style={{ ...th, textAlign: 'right' }}>
-                  <InfoTip label={<span style={{ fontWeight: 800, color: '#64748b' }}>Other pay</span>} heading="Other pay — what’s in it" align="right">
+                  <InfoTip label={<span style={{ fontWeight: 800, color: 'var(--rbl-text-muted)' }}>Other pay</span>} heading="Other pay — what’s in it" align="right">
                     <OtherPayTip rows={filtered} />
                   </InfoTip>
                 </th>
@@ -212,23 +212,23 @@ export default function PayrollExplorer() {
                 const cols = (year === 'all' ? 6 : 5) + 4
                 return (
                   <Fragment key={key}>
-                    <tr onClick={() => setExpanded(open ? null : key)} style={{ borderBottom: open ? 'none' : '1px solid #f1f5f9', cursor: 'pointer', background: open ? '#f8fafc' : undefined }}>
-                      {year === 'all' && <td style={{ ...td, color: '#6b7280' }}>{r.year}</td>}
-                      <td style={{ ...td, fontWeight: 700, color: '#284a69' }}>
+                    <tr onClick={() => setExpanded(open ? null : key)} style={{ borderBottom: open ? 'none' : '1px solid var(--rbl-border-subtle)', cursor: 'pointer', background: open ? 'var(--rbl-surface-2)' : undefined }}>
+                      {year === 'all' && <td style={{ ...td, color: 'var(--rbl-text-muted)' }}>{r.year}</td>}
+                      <td style={{ ...td, fontWeight: 700, color: 'var(--rbl-title)' }}>
                         <button onClick={(e) => { e.stopPropagation(); setQ(r.name); setYear('all'); setLimit(100) }} style={nameBtn} title="Show this employee across all years">{r.name}</button>
-                        {r.fileNumber && <div style={{ fontSize: 11, color: '#6b7280', fontWeight: 600 }}>File #{r.fileNumber}</div>}
+                        {r.fileNumber && <div style={{ fontSize: 11, color: 'var(--rbl-text-muted)', fontWeight: 600 }}>File #{r.fileNumber}</div>}
                       </td>
                       <td style={td}><Inferred value={r.title} inferred={r.inferredTitle} /></td>
                       <td style={td}><Inferred value={r.department} inferred={r.inferredDepartment} /></td>
-                      <td style={{ ...td, color: '#475569' }}>{r.union || '—'}</td>
-                      <td style={{ ...td, textAlign: 'right', color: '#64748b' }}>{usd(r.regular)}</td>
-                      <td style={{ ...td, textAlign: 'right', color: r.overtime > 0 ? '#b45309' : '#6b7280', fontWeight: r.overtime > 0 ? 700 : 400 }}>{usd(r.overtime)}</td>
-                      <td style={{ ...td, textAlign: 'right', color: r.other > 0 ? '#0369a1' : '#6b7280', fontWeight: r.other > 0 ? 700 : 400 }}>{usd(r.other)}</td>
+                      <td style={{ ...td, color: 'var(--rbl-text-body)' }}>{r.union || '—'}</td>
+                      <td style={{ ...td, textAlign: 'right', color: 'var(--rbl-text-muted)' }}>{usd(r.regular)}</td>
+                      <td style={{ ...td, textAlign: 'right', color: r.overtime > 0 ? 'var(--rbl-warn)' : 'var(--rbl-text-muted)', fontWeight: r.overtime > 0 ? 700 : 400 }}>{usd(r.overtime)}</td>
+                      <td style={{ ...td, textAlign: 'right', color: r.other > 0 ? '#0369a1' : 'var(--rbl-text-muted)', fontWeight: r.other > 0 ? 700 : 400 }}>{usd(r.other)}</td>
                       <td style={{ ...td, textAlign: 'right', fontWeight: 800 }}>{usd(r.gross)}</td>
-                      <td style={{ ...td, textAlign: 'center', color: '#4a7297', fontWeight: 800 }}>{open ? '▾' : '▸'}</td>
+                      <td style={{ ...td, textAlign: 'center', color: 'var(--rbl-accent)', fontWeight: 800 }}>{open ? '▾' : '▸'}</td>
                     </tr>
                     {open && (
-                      <tr style={{ borderBottom: '1px solid #e2e8f0', background: '#f8fafc' }}>
+                      <tr style={{ borderBottom: '1px solid var(--rbl-border-subtle)', background: 'var(--rbl-surface-2)' }}>
                         <td colSpan={cols} style={{ padding: '4px 14px 16px' }}>
                           <PayBreakdown record={r} />
                         </td>
@@ -242,7 +242,7 @@ export default function PayrollExplorer() {
         </div>
         {limit < filtered.length && (
           <div style={{ textAlign: 'center', marginTop: 14 }}>
-            <button onClick={() => setLimit((l) => l + 200)} style={{ padding: '10px 18px', borderRadius: 10, border: '1px solid #4a7297', background: '#4a7297', color: 'white', fontWeight: 800, cursor: 'pointer' }}>
+            <button onClick={() => setLimit((l) => l + 200)} style={{ padding: '10px 18px', borderRadius: 10, border: '1px solid var(--rbl-accent-border)', background: 'var(--rbl-fill-accent)', color: 'white', fontWeight: 800, cursor: 'pointer' }}>
               Show more
             </button>
           </div>
@@ -257,7 +257,7 @@ export default function PayrollExplorer() {
         </section>
       )}
 
-      <p style={{ color: '#64748b', fontSize: 13, lineHeight: 1.5 }}>
+      <p style={{ color: 'var(--rbl-text-muted)', fontSize: 13, lineHeight: 1.5 }}>
         Source: {payrollSource.title}. {payrollNote} Overtime is summed from the detailed overtime pay codes, and each
         gross is broken into base pay, overtime, and the additions on top (longevity, holiday &amp; shift differentials,
         stipends, buy-outs, retroactive pay, and smaller adjustments) — click any row to see the parts add up to the
@@ -268,8 +268,8 @@ export default function PayrollExplorer() {
 }
 
 const COMP_COLOR: Record<string, string> = {
-  regular: '#4a7297', overtime: '#c99a2e', longevity: '#0e7490', holiday: '#7c3aed',
-  stipend: '#0891b2', buyout: '#dc2626', retro: '#65a30d', misc: '#64748b',
+  regular: 'var(--rbl-series-blue)', overtime: 'var(--rbl-series-gold)', longevity: '#0e7490', holiday: 'var(--rbl-series-violet)',
+  stipend: '#0891b2', buyout: 'var(--rbl-danger)', retro: '#65a30d', misc: 'var(--rbl-series-slate)',
 }
 
 function PayBreakdown({ record }: { record: PayrollRecord }) {
@@ -278,33 +278,33 @@ function PayBreakdown({ record }: { record: PayrollRecord }) {
   const positive = parts.filter((c) => c.amount > 0)
   return (
     <div style={{ display: 'grid', gap: 12, maxWidth: 720 }}>
-      <div style={{ color: '#334155', fontSize: 13.5, fontWeight: 700 }}>
+      <div style={{ color: 'var(--rbl-text-strong)', fontSize: 13.5, fontWeight: 700 }}>
         Why {record.name}&apos;s {record.year} gross pay is {usd(record.gross)}:
       </div>
       {/* stacked bar */}
-      <div style={{ display: 'flex', height: 22, borderRadius: 6, overflow: 'hidden', border: '1px solid #e2e8f0' }}>
+      <div style={{ display: 'flex', height: 22, borderRadius: 6, overflow: 'hidden', border: '1px solid var(--rbl-border-subtle)' }}>
         {positive.map((c) => (
-          <div key={c.key} title={`${c.label}: ${usd(c.amount)}`} style={{ width: `${(c.amount / total) * 100}%`, background: COMP_COLOR[c.key] || '#6b7280' }} />
+          <div key={c.key} title={`${c.label}: ${usd(c.amount)}`} style={{ width: `${(c.amount / total) * 100}%`, background: COMP_COLOR[c.key] || 'var(--rbl-text-muted)' }} />
         ))}
       </div>
       {/* component list */}
       <div style={{ display: 'grid', gap: 5 }}>
         {parts.map((c) => (
           <div key={c.key} style={{ display: 'grid', gridTemplateColumns: '14px 1fr auto auto', gap: 10, alignItems: 'center', fontSize: 13.5 }}>
-            <span style={{ width: 11, height: 11, borderRadius: 3, background: COMP_COLOR[c.key] || '#6b7280' }} />
-            <span style={{ color: '#334155', fontWeight: c.key === 'regular' ? 700 : 500 }}>{c.label}</span>
-            <span style={{ color: '#6b7280', fontSize: 12, minWidth: 44, textAlign: 'right' }}>{((c.amount / total) * 100).toFixed(0)}%</span>
-            <strong style={{ color: c.amount < 0 ? '#b91c1c' : '#284a69', minWidth: 92, textAlign: 'right' }}>{usd(c.amount)}</strong>
+            <span style={{ width: 11, height: 11, borderRadius: 3, background: COMP_COLOR[c.key] || 'var(--rbl-text-muted)' }} />
+            <span style={{ color: 'var(--rbl-text-strong)', fontWeight: c.key === 'regular' ? 700 : 500 }}>{c.label}</span>
+            <span style={{ color: 'var(--rbl-text-muted)', fontSize: 12, minWidth: 44, textAlign: 'right' }}>{((c.amount / total) * 100).toFixed(0)}%</span>
+            <strong style={{ color: c.amount < 0 ? 'var(--rbl-danger)' : 'var(--rbl-title)', minWidth: 92, textAlign: 'right' }}>{usd(c.amount)}</strong>
           </div>
         ))}
-        <div style={{ display: 'grid', gridTemplateColumns: '14px 1fr auto auto', gap: 10, alignItems: 'center', fontSize: 14, borderTop: '2px solid #e2e8f0', paddingTop: 6, marginTop: 2 }}>
+        <div style={{ display: 'grid', gridTemplateColumns: '14px 1fr auto auto', gap: 10, alignItems: 'center', fontSize: 14, borderTop: '2px solid var(--rbl-border-subtle)', paddingTop: 6, marginTop: 2 }}>
           <span />
-          <span style={{ color: '#284a69', fontWeight: 900 }}>Gross pay</span>
+          <span style={{ color: 'var(--rbl-title)', fontWeight: 900 }}>Gross pay</span>
           <span />
-          <strong style={{ color: '#284a69', minWidth: 92, textAlign: 'right' }}>{usd(record.gross)}</strong>
+          <strong style={{ color: 'var(--rbl-title)', minWidth: 92, textAlign: 'right' }}>{usd(record.gross)}</strong>
         </div>
       </div>
-      <div style={{ color: '#64748b', fontSize: 12, lineHeight: 1.5 }}>
+      <div style={{ color: 'var(--rbl-text-muted)', fontSize: 12, lineHeight: 1.5 }}>
         &quot;Other pay &amp; adjustments&quot; groups smaller additive codes (call-back, standby, comp time, night differential, etc.).
         Figures are the actual amounts paid under each code in the Town&apos;s Gross Earnings export; the parts add up to gross pay.
       </div>
@@ -319,8 +319,8 @@ function TrendBlock({ label, values, years, stroke }: { label: string; values: (
   return (
     <div style={{ display: 'flex', gap: 14, alignItems: 'center' }}>
       <div>
-        <div style={{ color: '#64748b', fontSize: 11.5, textTransform: 'uppercase', fontWeight: 900, letterSpacing: 0.3 }}>{label}</div>
-        <strong style={{ fontSize: 18, color: '#284a69' }}>{usd(last)}</strong>
+        <div style={{ color: 'var(--rbl-text-muted)', fontSize: 11.5, textTransform: 'uppercase', fontWeight: 900, letterSpacing: 0.3 }}>{label}</div>
+        <strong style={{ fontSize: 18, color: 'var(--rbl-title)' }}>{usd(last)}</strong>
         <span style={{ marginLeft: 8, fontWeight: 800, fontSize: 13, color: pct >= 0 ? 'var(--inc)' : 'var(--dec)' }}>
           {pct >= 0 ? '▲' : '▼'} {Math.abs(pct).toFixed(0)}% since {years[0]}
         </span>
@@ -339,12 +339,12 @@ function LeaderCard({ title, rows, onPick, amber }: { title: string; rows: { nam
         {rows.slice(0, 12).map((r, i) => (
           <button key={r.name + i} onClick={() => onPick(r.name)} style={{ display: 'grid', gridTemplateColumns: '1fr auto', gap: 8, alignItems: 'center', background: 'none', border: 'none', textAlign: 'left', cursor: 'pointer', padding: '3px 0' }}>
             <div style={{ minWidth: 0 }}>
-              <div style={{ fontWeight: 700, color: '#284a69', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{r.name}</div>
-              <div style={{ height: 6, background: '#f1f5f9', borderRadius: 6, marginTop: 3 }}>
-                <div style={{ width: `${(r.value / max) * 100}%`, height: '100%', borderRadius: 6, background: amber ? '#c99a2e' : '#4a7297' }} />
+              <div style={{ fontWeight: 700, color: 'var(--rbl-title)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{r.name}</div>
+              <div style={{ height: 6, background: 'var(--rbl-surface-3)', borderRadius: 6, marginTop: 3 }}>
+                <div style={{ width: `${(r.value / max) * 100}%`, height: '100%', borderRadius: 6, background: amber ? 'var(--rbl-fill-gold)' : 'var(--rbl-fill-accent)' }} />
               </div>
             </div>
-            <strong style={{ color: amber ? '#b45309' : '#284a69' }}>{usd(r.value)}</strong>
+            <strong style={{ color: amber ? 'var(--rbl-warn)' : 'var(--rbl-title)' }}>{usd(r.value)}</strong>
           </button>
         ))}
       </div>
@@ -377,7 +377,7 @@ function OtherPayTip({ rows }: { rows: PayrollRecord[] }) {
           {parts.map((p) => (
             <span key={p.label} style={{ display: 'flex', justifyContent: 'space-between', gap: 10, padding: '1.5px 0' }}>
               <span style={{ color: '#b9cbdc' }}>{p.label}</span>
-              <span style={{ color: '#fff', fontWeight: 700, whiteSpace: 'nowrap' }}>
+              <span style={{ color: 'var(--rbl-surface)', fontWeight: 700, whiteSpace: 'nowrap' }}>
                 {total > 0 ? `${Math.round((p.amount / total) * 100)}%` : '—'}
               </span>
             </span>
@@ -385,7 +385,7 @@ function OtherPayTip({ rows }: { rows: PayrollRecord[] }) {
         </span>
       )}
       <span style={{ display: 'block', marginTop: 8, paddingTop: 7, borderTop: '1px solid rgba(255,255,255,.16)', color: '#cbd9e6' }}>
-        <strong style={{ color: '#fff' }}>“Leave &amp; termination buy-outs” is mixed.</strong> It holds sick and
+        <strong style={{ color: 'var(--rbl-surface)' }}>“Leave &amp; termination buy-outs” is mixed.</strong> It holds sick and
         vacation buy-backs — the accrued leave the Town owes — together with severance and health-insurance opt-out
         buy-backs, which are not leave at all. In 2023 sick and vacation buy-backs were about 44% of that line.
       </span>
@@ -406,23 +406,23 @@ function Inferred({ value, inferred }: { value: string; inferred: boolean }) {
   return (
     <span
       title="Not reported for this year — carried back from another year in which this person held this same title, unchanged."
-      style={{ fontStyle: 'italic', color: '#64748b', borderBottom: '1px dotted #94a3b8', cursor: 'help' }}
+      style={{ fontStyle: 'italic', color: 'var(--rbl-text-muted)', borderBottom: '1px dotted var(--rbl-border-strong)', cursor: 'help' }}
     >
       {value}
-      <span aria-hidden style={{ color: '#94a3b8', fontWeight: 700 }}> ·carried</span>
+      <span aria-hidden style={{ color: 'var(--rbl-text-faint)', fontWeight: 700 }}> ·carried</span>
     </span>
   )
 }
 
 const th = { padding: '8px 9px' } as const
 const td = { padding: '7px 9px' } as const
-const nameBtn = { background: 'none', border: 'none', color: '#284a69', fontWeight: 700, cursor: 'pointer', padding: 0, font: 'inherit', textAlign: 'left' as const }
+const nameBtn = { background: 'none', border: 'none', color: 'var(--rbl-title)', fontWeight: 700, cursor: 'pointer', padding: 0, font: 'inherit', textAlign: 'left' as const }
 
 function SortTh({
   label, active, onClick, tip,
 }: { label: string; active: boolean; onClick: () => void; tip?: { heading: string; body: React.ReactNode } }) {
   const button = (
-    <button onClick={onClick} style={{ background: 'none', border: 'none', cursor: 'pointer', fontWeight: 800, color: active ? '#4a7297' : '#64748b', font: 'inherit' }}>
+    <button onClick={onClick} style={{ background: 'none', border: 'none', cursor: 'pointer', fontWeight: 800, color: active ? 'var(--rbl-accent)' : 'var(--rbl-text-muted)', font: 'inherit' }}>
       {label}{active ? ' ▾' : ''}
     </button>
   )
@@ -442,10 +442,10 @@ function SortTh({
 
 function Stat({ label, value, sub, accent, amber }: { label: string; value: string; sub?: string; accent?: boolean; amber?: boolean }) {
   return (
-    <div style={{ background: amber ? '#fff7ed' : accent ? '#dbeafe' : '#f8fafc', border: '1px solid #e2e8f0', borderRadius: 12, padding: 12 }}>
-      <div style={{ color: '#64748b', fontSize: 11.5, textTransform: 'uppercase', fontWeight: 900, letterSpacing: 0.4 }}>{label}</div>
-      <strong style={{ fontSize: 19, color: amber ? '#b45309' : '#284a69' }}>{value}</strong>
-      {sub && <div style={{ color: '#6b7280', fontSize: 11.5, marginTop: 2 }}>{sub}</div>}
+    <div style={{ background: amber ? 'var(--rbl-warn-bg)' : accent ? 'var(--rbl-info-bg)' : 'var(--rbl-surface-2)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 12, padding: 12 }}>
+      <div style={{ color: 'var(--rbl-text-muted)', fontSize: 11.5, textTransform: 'uppercase', fontWeight: 900, letterSpacing: 0.4 }}>{label}</div>
+      <strong style={{ fontSize: 19, color: amber ? 'var(--rbl-warn)' : 'var(--rbl-title)' }}>{value}</strong>
+      {sub && <div style={{ color: 'var(--rbl-text-muted)', fontSize: 11.5, marginTop: 2 }}>{sub}</div>}
     </div>
   )
 }

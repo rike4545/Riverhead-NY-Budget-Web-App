@@ -2,7 +2,7 @@ import PageShell from '../../components/PageShell'
 import { parserDatasetStats, parserExtractionReport } from '../../lib/parser-data'
 import { analyticsModules } from '../../lib/analytics-modules'
 
-const card = { background: 'white', border: '1px solid #d8e0e7', borderRadius: 12, padding: 20, boxShadow: '0 10px 24px rgba(31,95,143,.08)' } as const
+const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border)', borderRadius: 12, padding: 20, boxShadow: '0 10px 24px var(--rbl-shadow)' } as const
 
 function readableCategory(category: string) {
   return category.replaceAll('_', ' ')
@@ -26,22 +26,22 @@ export default function SourcesPage() {
         <Metric label="Parser failures" value={String(parserDatasetStats.failures)} />
       </section>
 
-      <section style={{ ...card, marginBottom: 18, borderTop: '5px solid #c99a2e' }}>
-        <h2 style={{ marginTop: 0, color: '#284a69' }}>Extraction Freshness</h2>
-        <p style={{ color: '#44576a' }}>Last parser run: {new Date(parserExtractionReport.parsed_at).toLocaleString()}</p>
-        <p style={{ color: '#44576a' }}>Source index: <a href={parserExtractionReport.source_index} target="_blank" rel="noreferrer" style={{ color: '#4a7297', fontWeight: 900 }}>Town financial reports page</a></p>
-        {parserExtractionReport.warning && <p style={{ color: '#9b6b12', fontWeight: 800 }}>{parserExtractionReport.warning}</p>}
+      <section style={{ ...card, marginBottom: 18, borderTop: '5px solid var(--rbl-gold-border)' }}>
+        <h2 style={{ marginTop: 0, color: 'var(--rbl-title)' }}>Extraction Freshness</h2>
+        <p style={{ color: 'var(--rbl-text-body)' }}>Last parser run: {new Date(parserExtractionReport.parsed_at).toLocaleString()}</p>
+        <p style={{ color: 'var(--rbl-text-body)' }}>Source index: <a href={parserExtractionReport.source_index} target="_blank" rel="noreferrer" style={{ color: 'var(--rbl-accent)', fontWeight: 900 }}>Town financial reports page</a></p>
+        {parserExtractionReport.warning && <p style={{ color: 'var(--rbl-badge)', fontWeight: 800 }}>{parserExtractionReport.warning}</p>}
       </section>
 
       <section style={{ ...card, marginBottom: 18 }}>
-        <h2 style={{ marginTop: 0, color: '#284a69' }}>What updates itself, behind the scenes</h2>
-        <p style={{ color: '#44576a' }}>A status list of this site&apos;s own tools and pipelines, for anyone curious how the automation works.</p>
+        <h2 style={{ marginTop: 0, color: 'var(--rbl-title)' }}>What updates itself, behind the scenes</h2>
+        <p style={{ color: 'var(--rbl-text-body)' }}>A status list of this site&apos;s own tools and pipelines, for anyone curious how the automation works.</p>
         <div style={{ display: 'grid', gap: 10 }}>
           {analyticsModules.map((module) => (
-            <div key={module.name} style={{ display: 'grid', gridTemplateColumns: '240px 130px 1fr', gap: 14, borderTop: '1px solid #d8e0e7', padding: '12px 0' }}>
+            <div key={module.name} style={{ display: 'grid', gridTemplateColumns: '240px 130px 1fr', gap: 14, borderTop: '1px solid var(--rbl-border)', padding: '12px 0' }}>
               <strong>{module.name}</strong>
-              <span style={{ fontWeight: 950, color: module.status === 'active' ? '#16a34a' : module.status === 'partial' ? '#ca8a04' : '#64748b' }}>{module.status}</span>
-              <span style={{ color: '#44576a' }}>{module.description}</span>
+              <span style={{ fontWeight: 950, color: module.status === 'active' ? 'var(--rbl-success)' : module.status === 'partial' ? 'var(--rbl-warn)' : 'var(--rbl-text-muted)' }}>{module.status}</span>
+              <span style={{ color: 'var(--rbl-text-body)' }}>{module.description}</span>
             </div>
           ))}
         </div>
@@ -49,9 +49,9 @@ export default function SourcesPage() {
 
       {parserExtractionReport.failures.length > 0 && (
         <section style={{ ...card, marginBottom: 18, borderTop: '5px solid #9b2c2c' }}>
-          <h2 style={{ marginTop: 0, color: '#9b2c2c' }}>Extraction Warnings</h2>
+          <h2 style={{ marginTop: 0, color: 'var(--rbl-danger-strong)' }}>Extraction Warnings</h2>
           {parserExtractionReport.failures.slice(0, 8).map((failure, index) => (
-            <p key={`${failure.title}-${index}`} style={{ color: '#44576a' }}><strong>{failure.title}:</strong> {failure.error}</p>
+            <p key={`${failure.title}-${index}`} style={{ color: 'var(--rbl-text-body)' }}><strong>{failure.title}:</strong> {failure.error}</p>
           ))}
         </section>
       )}
@@ -60,27 +60,27 @@ export default function SourcesPage() {
         {docs.length === 0 ? (
           <article style={card}>
             <h2>No parsed source documents found yet.</h2>
-            <p style={{ color: '#44576a' }}>The parser has not produced document records yet. The workflow should run the safe ingestion step and commit generated JSON.</p>
+            <p style={{ color: 'var(--rbl-text-body)' }}>The parser has not produced document records yet. The workflow should run the safe ingestion step and commit generated JSON.</p>
           </article>
         ) : docs.map((report) => (
           <article key={`${report.slug}-${report.parsed_at}`} style={card}>
             <div style={{ display: 'flex', justifyContent: 'space-between', gap: 12, flexWrap: 'wrap' }}>
               <div>
-                <div style={{ color: '#9b6b12', fontWeight: 900, textTransform: 'uppercase', fontSize: 12 }}>{readableCategory(report.category)}</div>
-                <h2 style={{ margin: '6px 0', color: '#284a69' }}>{report.title}</h2>
-                <p style={{ color: '#44576a' }}>Parsed source document record generated from the financial-report ingestion pipeline.</p>
+                <div style={{ color: 'var(--rbl-badge)', fontWeight: 900, textTransform: 'uppercase', fontSize: 12 }}>{readableCategory(report.category)}</div>
+                <h2 style={{ margin: '6px 0', color: 'var(--rbl-title)' }}>{report.title}</h2>
+                <p style={{ color: 'var(--rbl-text-body)' }}>Parsed source document record generated from the financial-report ingestion pipeline.</p>
               </div>
-              <div style={{ background: '#eef3f8', color: '#284a69', borderRadius: 8, padding: '10px 14px', fontWeight: 900, height: 'fit-content' }}>{report.year ?? 'Year pending'}</div>
+              <div style={{ background: 'var(--rbl-surface-2)', color: 'var(--rbl-title)', borderRadius: 8, padding: '10px 14px', fontWeight: 900, height: 'fit-content' }}>{report.year ?? 'Year pending'}</div>
             </div>
 
             <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap', marginTop: 12 }}>
-              <span style={{ background: '#eef3f8', color: '#284a69', border: '1px solid #d8e0e7', borderRadius: 999, padding: '8px 12px', fontWeight: 800 }}>{statusFor(report)}</span>
-              <span style={{ background: '#fff8e6', color: '#5f430d', border: '1px solid #d8b45a', borderRadius: 999, padding: '8px 12px', fontWeight: 800 }}>{report.page_count} pages</span>
-              <span style={{ background: '#f7f8f5', color: '#44576a', border: '1px solid #d8e0e7', borderRadius: 999, padding: '8px 12px', fontWeight: 800 }}>{report.money_value_count} money values</span>
+              <span style={{ background: 'var(--rbl-surface-2)', color: 'var(--rbl-title)', border: '1px solid var(--rbl-border)', borderRadius: 999, padding: '8px 12px', fontWeight: 800 }}>{statusFor(report)}</span>
+              <span style={{ background: 'var(--rbl-warn-bg)', color: 'var(--rbl-warn-strong)', border: '1px solid var(--rbl-warn-border)', borderRadius: 999, padding: '8px 12px', fontWeight: 800 }}>{report.page_count} pages</span>
+              <span style={{ background: '#f7f8f5', color: 'var(--rbl-text-body)', border: '1px solid var(--rbl-border)', borderRadius: 999, padding: '8px 12px', fontWeight: 800 }}>{report.money_value_count} money values</span>
             </div>
 
-            <p style={{ color: '#44576a', fontSize: 13 }}>Parsed: {new Date(report.parsed_at).toLocaleString()} • Hash: {report.sha256 || 'pending'}</p>
-            <a href={report.url} target="_blank" rel="noreferrer" style={{ display: 'inline-block', marginTop: 8, textDecoration: 'none', background: '#284a69', color: 'white', padding: '12px 18px', borderRadius: 8, fontWeight: 900 }}>
+            <p style={{ color: 'var(--rbl-text-body)', fontSize: 13 }}>Parsed: {new Date(report.parsed_at).toLocaleString()} • Hash: {report.sha256 || 'pending'}</p>
+            <a href={report.url} target="_blank" rel="noreferrer" style={{ display: 'inline-block', marginTop: 8, textDecoration: 'none', background: 'var(--rbl-fill-brand)', color: 'white', padding: '12px 18px', borderRadius: 8, fontWeight: 900 }}>
               Open source document
             </a>
           </article>
@@ -93,8 +93,8 @@ export default function SourcesPage() {
 function Metric({ label, value }: { label: string; value: string }) {
   return (
     <div style={card}>
-      <div style={{ color: '#44576a', fontSize: 12, textTransform: 'uppercase', fontWeight: 900 }}>{label}</div>
-      <strong style={{ fontSize: 28, color: '#284a69' }}>{value}</strong>
+      <div style={{ color: 'var(--rbl-text-body)', fontSize: 12, textTransform: 'uppercase', fontWeight: 900 }}>{label}</div>
+      <strong style={{ fontSize: 28, color: 'var(--rbl-title)' }}>{value}</strong>
     </div>
   )
 }

@@ -1,9 +1,11 @@
 import PageShell from '../../components/PageShell'
 import PlainCallout from '../../components/PlainCallout'
+import ColumnChart from '../../components/charts/ColumnChart'
+import StatusStrip from '../../components/charts/StatusStrip'
 import data from '../../public/data/tax-cap.json'
 
 const base = process.env.NEXT_PUBLIC_BASE_PATH || ''
-const card = { background: 'white', border: '1px solid #e2e8f0', borderRadius: 16, padding: 20, boxShadow: '0 14px 34px rgba(15,23,42,.05)' } as const
+const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 20, boxShadow: '0 14px 34px var(--rbl-shadow)' } as const
 const usd = (n: number) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(n)
 
 export const metadata = {
@@ -13,9 +15,17 @@ export const metadata = {
 }
 
 const STATUS_STYLE: Record<string, { bg: string; fg: string; dot: string }> = {
-  'over-no-law': { bg: '#fee2e2', fg: '#991b1b', dot: '#dc2626' },
-  'over-with-law': { bg: '#dcfce7', fg: '#166534', dot: '#16a34a' },
-  proposed: { bg: '#fef3c7', fg: '#92400e', dot: '#d97706' },
+  'over-no-law': { bg: 'var(--rbl-danger-bg)', fg: 'var(--rbl-danger-strong)', dot: 'var(--rbl-danger)' },
+  'over-with-law': { bg: 'var(--rbl-success-bg)', fg: 'var(--rbl-success-strong)', dot: 'var(--rbl-success)' },
+  proposed: { bg: 'var(--rbl-warn-bg)', fg: 'var(--rbl-warn)', dot: 'var(--rbl-warn)' },
+}
+
+// Colour plus a glyph: a status readable only by hue fails for a colourblind
+// reader and vanishes in print or forced-colours mode.
+const STATUS_TONES: Record<string, { label: string; color: string; bg: string; glyph: string }> = {
+  'over-no-law': { label: 'Over the cap, no override law', color: 'var(--rbl-danger)', bg: 'var(--rbl-danger-bg)', glyph: '✕' },
+  'over-with-law': { label: 'Over the cap, override adopted', color: 'var(--rbl-success)', bg: 'var(--rbl-success-bg)', glyph: '✓' },
+  proposed: { label: 'Proposed', color: 'var(--rbl-warn)', bg: 'var(--rbl-warn-bg)', glyph: '•' },
 }
 
 export default function TaxCapPage() {
@@ -39,40 +49,47 @@ export default function TaxCapPage() {
 
       <section style={{ ...card, marginBottom: 16 }}>
         <h3 style={{ marginTop: 0 }}>How the cap works</h3>
-        <p style={{ color: '#334155', fontSize: 14.5, lineHeight: 1.6, marginTop: 0 }}><strong>The limit.</strong> {d.capBasics.limit}</p>
-        <p style={{ color: '#334155', fontSize: 14.5, lineHeight: 1.6, margin: 0 }}><strong>The override.</strong> {d.capBasics.override}</p>
-        <p style={{ color: '#64748b', fontSize: 12.5, marginTop: 10, marginBottom: 0 }}>Authority: {d.capBasics.law}</p>
+        <p style={{ color: 'var(--rbl-text-strong)', fontSize: 14.5, lineHeight: 1.6, marginTop: 0 }}><strong>The limit.</strong> {d.capBasics.limit}</p>
+        <p style={{ color: 'var(--rbl-text-strong)', fontSize: 14.5, lineHeight: 1.6, margin: 0 }}><strong>The override.</strong> {d.capBasics.override}</p>
+        <p style={{ color: 'var(--rbl-text-muted)', fontSize: 12.5, marginTop: 10, marginBottom: 0 }}>Authority: {d.capBasics.law}</p>
       </section>
 
       {/* The finding */}
-      <section style={{ ...card, marginBottom: 16, borderLeft: '6px solid #dc2626' }}>
+      <section style={{ ...card, marginBottom: 16, borderLeft: '6px solid var(--rbl-danger)' }}>
         <h3 style={{ marginTop: 0 }}>The finding: five years over the cap, no override law</h3>
-        <p style={{ color: '#334155', fontSize: 15, lineHeight: 1.6, marginTop: 0 }}>{d.finding.headline}{' '}{d.finding.cause}</p>
-        <blockquote style={{ margin: '0 0 12px', padding: '12px 16px', background: '#fef2f2', borderLeft: '4px solid #fca5a5', borderRadius: 8, color: '#7f1d1d', fontSize: 14, lineHeight: 1.55, fontStyle: 'italic' }}>
+        <p style={{ color: 'var(--rbl-text-strong)', fontSize: 15, lineHeight: 1.6, marginTop: 0 }}>{d.finding.headline}{' '}{d.finding.cause}</p>
+        <blockquote style={{ margin: '0 0 12px', padding: '12px 16px', background: 'var(--rbl-danger-bg)', borderLeft: '4px solid var(--rbl-danger-border)', borderRadius: 8, color: 'var(--rbl-danger-strong)', fontSize: 14, lineHeight: 1.55, fontStyle: 'italic' }}>
           “{d.finding.auditQuote}”
-          <span style={{ display: 'block', fontStyle: 'normal', fontSize: 12, color: '#b45309', marginTop: 6 }}>— Town of Riverhead 2022 Audited Basic Financial Statements</span>
+          <span style={{ display: 'block', fontStyle: 'normal', fontSize: 12, color: 'var(--rbl-warn)', marginTop: 6 }}>— Town of Riverhead 2022 Audited Basic Financial Statements</span>
         </blockquote>
-        <p style={{ color: '#334155', fontSize: 14.5, lineHeight: 1.6, margin: 0 }}>
+        <p style={{ color: 'var(--rbl-text-strong)', fontSize: 14.5, lineHeight: 1.6, margin: 0 }}>
           <strong>The correction.</strong> {d.finding.correction}
         </p>
       </section>
 
       {/* Compliance timeline */}
       <section style={{ ...card, marginBottom: 16 }}>
-        <h3 style={{ marginTop: 0 }}>Compliance timeline</h3>
+        <StatusStrip
+          title="Nine years of cap compliance, at a glance"
+          lede="Each cell is one budget year. Red means the Town went over the cap without adopting the override local law the statute requires; green means the override was adopted properly first."
+          years={d.capStatus.map((c) => ({ year: c.year, status: c.status, detail: `${c.year}: ${c.label}` }))}
+          tones={STATUS_TONES}
+          source="Status per the Town's audited financial statements and adopted override local laws."
+        />
+        <h4 style={{ color: 'var(--rbl-title)', fontSize: 14.5, margin: '22px 0 10px' }}>Year by year</h4>
         <div style={{ display: 'grid', gap: 8 }}>
           {d.capStatus.map((c) => {
             const st = STATUS_STYLE[c.status]
             return (
               <div key={c.year} style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '9px 14px', borderRadius: 10, background: st.bg }}>
                 <span style={{ width: 10, height: 10, borderRadius: 999, background: st.dot, flexShrink: 0 }} />
-                <span style={{ fontWeight: 900, color: '#284a69', minWidth: 46 }}>{c.year}</span>
+                <span style={{ fontWeight: 900, color: 'var(--rbl-title)', minWidth: 46 }}>{c.year}</span>
                 <span style={{ color: st.fg, fontWeight: 700, fontSize: 14 }}>{c.label}</span>
               </div>
             )
           })}
         </div>
-        <p style={{ color: '#64748b', fontSize: 12.5, marginTop: 12, marginBottom: 0 }}>
+        <p style={{ color: 'var(--rbl-text-muted)', fontSize: 12.5, marginTop: 12, marginBottom: 0 }}>
           Status reflects whether the Town adopted the required override local law in each year, per its audited
           financial statements. Years 2018–2022 were over the cap without that local law; 2023 was the first year the
           override was done correctly.
@@ -80,24 +97,42 @@ export default function TaxCapPage() {
       </section>
 
       {/* Implications */}
-      <h2 style={{ color: '#284a69' }}>Why it matters</h2>
+      <h2 style={{ color: 'var(--rbl-title)' }}>Why it matters</h2>
       <section style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(280px,1fr))', gap: 14, marginBottom: 16 }}>
         {d.implications.map((im, i) => (
-          <article key={i} style={{ ...card, borderTop: '5px solid #4a7297' }}>
-            <h3 style={{ marginTop: 0, color: '#284a69', fontSize: 16 }}>{im.title}</h3>
-            <p style={{ color: '#475569', fontSize: 14, lineHeight: 1.55, margin: 0 }}>{im.text}</p>
+          <article key={i} style={{ ...card, borderTop: '5px solid var(--rbl-accent-border)' }}>
+            <h3 style={{ marginTop: 0, color: 'var(--rbl-title)', fontSize: 16 }}>{im.title}</h3>
+            <p style={{ color: 'var(--rbl-text-body)', fontSize: 14, lineHeight: 1.55, margin: 0 }}>{im.text}</p>
           </article>
         ))}
       </section>
 
       {/* Levy context */}
       <section style={{ ...card, marginBottom: 16 }}>
-        <h3 style={{ marginTop: 0 }}>Levy growth, for context</h3>
-        <p style={{ color: '#64748b', fontSize: 13, marginTop: 0, lineHeight: 1.5 }}>{d.levyContext.note}</p>
+        <ColumnChart
+          title="General Fund levy growth against the 2% cap"
+          lede="Every bar above the dashed line is a year the levy grew faster than the cap contemplates. Bars are measured from zero, and 2022's decline is shown below the line rather than flattened to nothing."
+          columns={d.levyContext.rows.map((r) => ({
+            label: String(r.year),
+            value: r.pct,
+            display: `${r.pct > 0 ? '+' : ''}${r.pct.toFixed(1)}%`,
+            emphasis: r.pct > 2,
+            color: r.pct > 2 ? 'var(--rbl-danger)' : 'var(--rbl-series-slate)',
+          }))}
+          format={(n) => `${n.toFixed(1)}%`}
+          threshold={{ value: 2, label: '2% cap' }}
+          legend={[
+            { label: 'Grew faster than the cap', color: 'var(--rbl-danger)' },
+            { label: 'Within the cap', color: 'var(--rbl-series-slate)' },
+          ]}
+          source="General Fund levy only; the statutory cap applies to the total levy across all town funds. 2023 is absent from the underlying series."
+        />
+        <h4 style={{ color: 'var(--rbl-title)', fontSize: 14.5, margin: '22px 0 6px' }}>The same series as a table</h4>
+        <p style={{ color: 'var(--rbl-text-muted)', fontSize: 13, marginTop: 0, lineHeight: 1.5 }}>{d.levyContext.note}</p>
         <div style={{ overflowX: 'auto' }}>
           <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 13.5 }}>
             <thead>
-              <tr style={{ textAlign: 'left', color: '#64748b', borderBottom: '2px solid #e2e8f0' }}>
+              <tr style={{ textAlign: 'left', color: 'var(--rbl-text-muted)', borderBottom: '2px solid var(--rbl-border-subtle)' }}>
                 <th style={th}>Year</th>
                 <th style={{ ...th, textAlign: 'right' }}>General Fund tax levy</th>
                 <th style={{ ...th, textAlign: 'right' }}>Change vs prior</th>
@@ -105,10 +140,10 @@ export default function TaxCapPage() {
             </thead>
             <tbody>
               {d.levyContext.rows.map((r) => (
-                <tr key={r.year} style={{ borderBottom: '1px solid #f1f5f9' }}>
-                  <td style={{ ...td, fontWeight: 700, color: '#284a69' }}>{r.year}</td>
+                <tr key={r.year} style={{ borderBottom: '1px solid var(--rbl-border-subtle)' }}>
+                  <td style={{ ...td, fontWeight: 700, color: 'var(--rbl-title)' }}>{r.year}</td>
                   <td style={{ ...td, textAlign: 'right' }}>{usd(r.levy)}</td>
-                  <td style={{ ...td, textAlign: 'right', fontWeight: 700, color: r.pct > 2 ? '#b91c1c' : r.pct < 0 ? '#166534' : '#475569' }}>
+                  <td style={{ ...td, textAlign: 'right', fontWeight: 700, color: r.pct > 2 ? 'var(--rbl-danger)' : r.pct < 0 ? 'var(--rbl-success-strong)' : 'var(--rbl-text-body)' }}>
                     {r.pct > 0 ? '+' : ''}{r.pct.toFixed(2)}%
                   </td>
                 </tr>
@@ -116,7 +151,7 @@ export default function TaxCapPage() {
             </tbody>
           </table>
         </div>
-        <p style={{ color: '#64748b', fontSize: 12.5, marginTop: 10, marginBottom: 0 }}>
+        <p style={{ color: 'var(--rbl-text-muted)', fontSize: 12.5, marginTop: 10, marginBottom: 0 }}>
           Red marks years the General Fund levy grew faster than the ~2% cap. This is the General Fund portion only;
           the statutory cap applies to the total levy across all town funds, and the precise allowable limit each year
           also depends on exclusions and the tax-base-growth factor — so treat this as directional context, and rely on
@@ -124,7 +159,7 @@ export default function TaxCapPage() {
         </p>
       </section>
 
-      <p style={{ color: '#64748b', fontSize: 13, lineHeight: 1.5 }}>
+      <p style={{ color: 'var(--rbl-text-muted)', fontSize: 13, lineHeight: 1.5 }}>
         Sources: {d.sources.join(' · ')} Independent public-information project — verify against the official audited
         statements before relying on these figures.
       </p>

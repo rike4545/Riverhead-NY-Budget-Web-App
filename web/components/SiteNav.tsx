@@ -31,6 +31,7 @@ const GROUPS: Group[] = [
       ['Credit Rating', `${base}/credit-rating/`],
       ['Road Spending per Mile', `${base}/road-spending/`],
       ['Community Preservation Fund', `${base}/community-preservation-fund/`],
+      ['Community Housing Plan', `${base}/housing-plan/`],
       ['Annual Report', `${base}/annual-report/`],
       ['Community', `${base}/community/`],
     ],
@@ -56,6 +57,7 @@ const GROUPS: Group[] = [
       ['How the Board Was Elected', `${base}/board-elections/`],
       ['Election Law Case', `${base}/election-law-case/`],
       ['Outlier Watch', `${base}/outliers/`],
+      ['Know Your Rights (ICE)', `${base}/know-your-rights/`],
     ],
   },
   {
@@ -126,7 +128,7 @@ export default function SiteNav() {
 
       <nav className="nav-links" style={{ display: 'flex', gap: 8, flexWrap: 'wrap', alignItems: 'center' }}>
         {PRIMARY.map(([label, href]) => (
-          <a key={href} href={href} style={{ ...linkStyle, ...(pathname && href.endsWith(pathname) ? { background: '#c99a2e', border: '1px solid #c99a2e', color: '#284a69' } : {}) }}>
+          <a key={href} href={href} style={{ ...linkStyle, ...(pathname && href.endsWith(pathname) ? { background: 'var(--rbl-fill-gold)', border: '1px solid var(--rbl-gold-border)', color: 'var(--rbl-on-gold)' } : {}) }}>
             {label}
           </a>
         ))}
@@ -141,7 +143,7 @@ export default function SiteNav() {
               aria-expanded={open === g.label}
               style={{
                 ...linkStyle, cursor: 'pointer',
-                ...(groupIsActive(g) || open === g.label ? { background: '#c99a2e', border: '1px solid #c99a2e', color: '#284a69' } : {}),
+                ...(groupIsActive(g) || open === g.label ? { background: 'var(--rbl-fill-gold)', border: '1px solid var(--rbl-gold-border)', color: 'var(--rbl-on-gold)' } : {}),
               }}
             >
               {g.label} ▾
@@ -156,17 +158,17 @@ export default function SiteNav() {
               ...(index === GROUPS.length - 1 ? { right: 0 } : { left: 0 }),
             }}>
               <div style={{
-                background: 'white', border: '1px solid #d8e0e7', borderRadius: 10,
-                boxShadow: '0 18px 40px rgba(15,23,42,.18)', padding: 8, display: 'grid', gap: 2,
+                background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border)', borderRadius: 10,
+                boxShadow: '0 18px 40px var(--rbl-shadow)', padding: 8, display: 'grid', gap: 2,
               }}>
                 {g.links.map(([label, href]) => {
                   const active = !!(pathname && href.endsWith(pathname))
                   return (
                   <a key={href} href={href} className="nav-dropdown-link" style={{
-                    color: active ? '#284a69' : '#33475a', textDecoration: 'none',
+                    color: active ? 'var(--rbl-title)' : 'var(--rbl-text-strong)', textDecoration: 'none',
                     fontWeight: active ? 900 : 600, fontSize: 13.5, padding: '8px 10px',
-                    borderRadius: 7, background: active ? '#fdf3da' : 'transparent',
-                    borderLeft: active ? '3px solid #c99a2e' : '3px solid transparent',
+                    borderRadius: 7, background: active ? 'var(--rbl-warn-bg)' : 'transparent',
+                    borderLeft: active ? '3px solid var(--rbl-gold-border)' : '3px solid transparent',
                     display: 'block', transition: 'background .1s',
                   }}>
                     {label}
@@ -184,17 +186,17 @@ export default function SiteNav() {
       {mobileOpen && (
         <div className="nav-mobile-panel" style={{
           display: 'none', position: 'absolute', top: 'calc(100% + 8px)', right: 0, minWidth: 250, maxHeight: '70vh',
-          overflowY: 'auto', background: 'white', border: '1px solid #d8e0e7', borderRadius: 10,
-          boxShadow: '0 18px 40px rgba(15,23,42,.2)', padding: 10, zIndex: 50,
+          overflowY: 'auto', background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border)', borderRadius: 10,
+          boxShadow: '0 18px 40px var(--rbl-shadow)', padding: 10, zIndex: 50,
         }}>
           {PRIMARY.map(([label, href]) => (
-            <a key={href} href={href} style={{ display: 'block', color: '#284a69', textDecoration: 'none', fontWeight: 900, fontSize: 14.5, padding: '9px 10px', borderRadius: 7 }}>{label}</a>
+            <a key={href} href={href} style={{ display: 'block', color: 'var(--rbl-title)', textDecoration: 'none', fontWeight: 900, fontSize: 14.5, padding: '9px 10px', borderRadius: 7 }}>{label}</a>
           ))}
           {GROUPS.map((g) => (
             <div key={g.label} style={{ marginTop: 8 }}>
-              <div style={{ color: '#9b6b12', fontWeight: 900, fontSize: 11.5, textTransform: 'uppercase', letterSpacing: 0.5, padding: '4px 10px' }}>{g.label}</div>
+              <div style={{ color: 'var(--rbl-badge)', fontWeight: 900, fontSize: 11.5, textTransform: 'uppercase', letterSpacing: 0.5, padding: '4px 10px' }}>{g.label}</div>
               {g.links.map(([label, href]) => (
-                <a key={href} href={href} style={{ display: 'block', color: '#33475a', textDecoration: 'none', fontWeight: 700, fontSize: 14, padding: '8px 10px', borderRadius: 7 }}>{label}</a>
+                <a key={href} href={href} style={{ display: 'block', color: 'var(--rbl-text-strong)', textDecoration: 'none', fontWeight: 700, fontSize: 14, padding: '8px 10px', borderRadius: 7 }}>{label}</a>
               ))}
             </div>
           ))}
@@ -212,8 +214,8 @@ export default function SiteNav() {
           opacity: 1; visibility: visible; pointer-events: auto; transform: translateY(0);
         }
         .nav-dropdown-link:hover {
-          background: #f0f6ff !important;
-          color: #284a69 !important;
+          background: var(--rbl-info-bg) !important;
+          color: var(--rbl-title) !important;
         }
         @media (max-width: 860px) {
           .nav-links { display: none !important; }

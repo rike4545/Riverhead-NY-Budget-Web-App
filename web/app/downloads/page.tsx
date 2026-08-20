@@ -2,7 +2,7 @@ import PageShell from '../../components/PageShell'
 import PlainCallout from '../../components/PlainCallout'
 
 const base = process.env.NEXT_PUBLIC_BASE_PATH || ''
-const card = { background: 'white', border: '1px solid #e2e8f0', borderRadius: 16, padding: 18, boxShadow: '0 14px 34px rgba(15,23,42,.05)' } as const
+const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 18, boxShadow: '0 14px 34px var(--rbl-shadow)' } as const
 
 export const metadata = {
   title: 'Data Downloads — budgets, payroll & votes as CSV',
@@ -102,21 +102,21 @@ export default function DownloadsPage() {
         {datasets.map((d) => (
           <article key={d.file} style={{ ...card, display: 'flex', justifyContent: 'space-between', gap: 16, flexWrap: 'wrap', alignItems: 'center' }}>
             <div style={{ minWidth: 0, flex: '1 1 380px' }}>
-              <h2 style={{ margin: '0 0 4px', fontSize: 19, color: '#284a69' }}>{d.title}</h2>
-              <p style={{ color: '#475569', margin: 0, fontSize: 14.5, lineHeight: 1.5 }}>{d.desc}</p>
-              <div style={{ color: '#6b7280', fontSize: 12.5, marginTop: 4 }}>{d.rows}</div>
+              <h2 style={{ margin: '0 0 4px', fontSize: 19, color: 'var(--rbl-title)' }}>{d.title}</h2>
+              <p style={{ color: 'var(--rbl-text-body)', margin: 0, fontSize: 14.5, lineHeight: 1.5 }}>{d.desc}</p>
+              <div style={{ color: 'var(--rbl-text-muted)', fontSize: 12.5, marginTop: 4 }}>{d.rows}</div>
             </div>
             <div style={{ display: 'flex', gap: 8 }}>
-              <a href={`${base}/downloads/${d.file}`} download style={{ padding: '10px 16px', borderRadius: 10, background: '#4a7297', color: 'white', fontWeight: 800, textDecoration: 'none' }}>⬇ CSV</a>
-              <a href={d.json} target="_blank" rel="noreferrer" style={{ padding: '10px 16px', borderRadius: 10, border: '1px solid #4a7297', color: '#4a7297', fontWeight: 800, textDecoration: 'none' }}>JSON</a>
+              <a href={`${base}/downloads/${d.file}`} download style={{ padding: '10px 16px', borderRadius: 10, background: 'var(--rbl-fill-accent)', color: 'white', fontWeight: 800, textDecoration: 'none' }}>⬇ CSV</a>
+              <a href={d.json} target="_blank" rel="noreferrer" style={{ padding: '10px 16px', borderRadius: 10, border: '1px solid var(--rbl-accent-border)', color: 'var(--rbl-accent)', fontWeight: 800, textDecoration: 'none' }}>JSON</a>
             </div>
           </article>
         ))}
       </section>
 
-      <p style={{ color: '#64748b', fontSize: 13, lineHeight: 1.5, marginTop: 16 }}>
+      <p style={{ color: 'var(--rbl-text-muted)', fontSize: 13, lineHeight: 1.5, marginTop: 16 }}>
         These files are regenerated automatically whenever the underlying data updates. The parsing code is open source in
-        the <a href="https://github.com/rike4545/Riverhead-NY-Budget-Web-App" style={{ color: '#4a7297', fontWeight: 700 }}>GitHub repository</a>.
+        the <a href="https://github.com/rike4545/Riverhead-NY-Budget-Web-App" style={{ color: 'var(--rbl-accent)', fontWeight: 700 }}>GitHub repository</a>.
       </p>
     </PageShell>
   )

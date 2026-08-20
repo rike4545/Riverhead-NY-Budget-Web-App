@@ -4,7 +4,7 @@ export default function Sparkline({
   values,
   width = 120,
   height = 30,
-  stroke = '#4a7297',
+  stroke = 'var(--rbl-series-blue)',
   fill = 'rgba(31,95,143,0.12)',
 }: {
   values: (number | null)[]
@@ -14,7 +14,7 @@ export default function Sparkline({
   fill?: string
 }) {
   const pts = values.map((v, i) => ({ v, i })).filter((p): p is { v: number; i: number } => p.v != null)
-  if (pts.length < 2) return <span style={{ color: '#6b7280', fontSize: 12 }}>—</span>
+  if (pts.length < 2) return <span style={{ color: 'var(--rbl-text-muted)', fontSize: 12 }}>—</span>
 
   const xs = pts.map((p) => p.i)
   const vs = pts.map((p) => p.v)
@@ -33,9 +33,9 @@ export default function Sparkline({
 
   return (
     <svg width={width} height={height} viewBox={`0 0 ${width} ${height}`} style={{ display: 'block' }}>
-      <path d={area} fill={fill} stroke="none" />
-      <path d={line} fill="none" stroke={stroke} strokeWidth={1.6} strokeLinejoin="round" strokeLinecap="round" />
-      <circle cx={sx(last.i)} cy={sy(last.v)} r={2.6} fill={rising ? '#b91c1c' : '#15803d'} />
+      <path d={area} style={{ fill }} stroke="none" />
+      <path d={line} fill="none" style={{ stroke }} strokeWidth={1.6} strokeLinejoin="round" strokeLinecap="round" />
+      <circle cx={sx(last.i)} cy={sy(last.v)} r={2.6} style={{ fill: rising ? 'var(--rbl-danger)' : 'var(--rbl-success)' }} />
     </svg>
   )
 }

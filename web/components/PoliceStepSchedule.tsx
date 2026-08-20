@@ -12,7 +12,7 @@ import {
 
 const base = process.env.NEXT_PUBLIC_BASE_PATH || ''
 const usd = (n: number) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(n)
-const card = { background: 'white', border: '1px solid #e2e8f0', borderRadius: 16, padding: 18, boxShadow: '0 14px 34px rgba(15,23,42,.05)' } as const
+const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 18, boxShadow: '0 14px 34px var(--rbl-shadow)' } as const
 const th = { padding: '8px 9px' } as const
 const td = { padding: '7px 9px' } as const
 
@@ -27,7 +27,7 @@ function StepTable({ rows, highlightLast }: { rows: StepRow[]; highlightLast?: b
     <div style={{ overflowX: 'auto' }}>
       <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 13.5 }}>
         <thead>
-          <tr style={{ textAlign: 'left', color: '#64748b', borderBottom: '2px solid #e2e8f0' }}>
+          <tr style={{ textAlign: 'left', color: 'var(--rbl-text-muted)', borderBottom: '2px solid var(--rbl-border-subtle)' }}>
             <th style={th}>Step</th>
             {YEARS.map((y) => <th key={y} style={{ ...th, textAlign: 'right' }}>{y}</th>)}
           </tr>
@@ -36,8 +36,8 @@ function StepTable({ rows, highlightLast }: { rows: StepRow[]; highlightLast?: b
           {rows.map((r, i) => {
             const isTop = highlightLast && i === rows.length - 1
             return (
-              <tr key={r.step} style={{ borderBottom: '1px solid #f1f5f9', background: isTop ? '#fff7ed' : undefined }}>
-                <td style={{ ...td, fontWeight: isTop ? 900 : 700, color: '#284a69' }}>{r.step}</td>
+              <tr key={r.step} style={{ borderBottom: '1px solid var(--rbl-border-subtle)', background: isTop ? 'var(--rbl-warn-bg)' : undefined }}>
+                <td style={{ ...td, fontWeight: isTop ? 900 : 700, color: 'var(--rbl-title)' }}>{r.step}</td>
                 {YEARS.map((y) => <td key={y} style={{ ...td, textAlign: 'right', fontWeight: isTop ? 800 : 500 }}>{usd(r.values[y])}</td>)}
               </tr>
             )
@@ -71,8 +71,8 @@ export default function PoliceStepSchedule() {
       </PlainCallout>
 
       <section style={card}>
-        <h3 style={{ marginTop: 0, color: '#284a69' }}>Police Officer schedule — hired on or after 12/3/2012</h3>
-        <p style={{ color: '#64748b', fontSize: 13.5, marginTop: 0 }}>
+        <h3 style={{ marginTop: 0, color: 'var(--rbl-title)' }}>Police Officer schedule — hired on or after 12/3/2012</h3>
+        <p style={{ color: 'var(--rbl-text-muted)', fontSize: 13.5, marginTop: 0 }}>
           Seven steps from Academy to top pay. The Academy rate applies only until the officer completes the Academy and
           reports for regular duty — then they move to the 1st Year Officer rate for one year, and so on.
         </p>
@@ -80,8 +80,8 @@ export default function PoliceStepSchedule() {
       </section>
 
       <section style={card}>
-        <h3 style={{ marginTop: 0, color: '#284a69' }}>Officers hired before 12/3/2012</h3>
-        <p style={{ color: '#475569', fontSize: 14, lineHeight: 1.55 }}>
+        <h3 style={{ marginTop: 0, color: 'var(--rbl-title)' }}>Officers hired before 12/3/2012</h3>
+        <p style={{ color: 'var(--rbl-text-body)', fontSize: 14, lineHeight: 1.55 }}>
           Legacy officers — hired before December 3, 2012 — reach the <strong>same top-step dollar figure</strong> as the
           post-2012 schedule&apos;s 6th Year Officer rate, but a full year sooner: their ladder has no separate 6th-year step.
           Every officer hired before that date has long since reached the top, so the contract no longer needs to spell out
@@ -91,16 +91,16 @@ export default function PoliceStepSchedule() {
       </section>
 
       <section style={card}>
-        <h3 style={{ marginTop: 0, color: '#284a69' }}>Detective schedule</h3>
-        <p style={{ color: '#64748b', fontSize: 13.5, marginTop: 0 }}>
+        <h3 style={{ marginTop: 0, color: 'var(--rbl-title)' }}>Detective schedule</h3>
+        <p style={{ color: 'var(--rbl-text-muted)', fontSize: 13.5, marginTop: 0 }}>
           Applies once an officer is promoted to detective, regardless of hire date. Three grades, senior grade paying most.
         </p>
         <StepTable rows={detectiveSchedule} />
       </section>
 
-      <section style={{ ...card, background: '#eef6ff', border: '1px solid #bcd9f5' }}>
-        <h3 style={{ marginTop: 0, color: '#284a69' }}>What a step increase is actually worth</h3>
-        <p style={{ color: '#1f3a52', fontSize: 14.5, lineHeight: 1.6 }}>
+      <section style={{ ...card, background: 'var(--rbl-info-bg)', border: '1px solid var(--rbl-info-border)' }}>
+        <h3 style={{ marginTop: 0, color: 'var(--rbl-title)' }}>What a step increase is actually worth</h3>
+        <p style={{ color: 'var(--rbl-info-text)', fontSize: 14.5, lineHeight: 1.6 }}>
           Because step movement and the contract&apos;s across-the-board increase both apply in the same year, an officer
           climbing the ladder sees a much bigger raise than the 2.5% headline rate. Comparing each 2025 step to the next
           step&apos;s 2026 rate:
@@ -108,33 +108,33 @@ export default function PoliceStepSchedule() {
         <div style={{ overflowX: 'auto' }}>
           <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 13.5 }}>
             <thead>
-              <tr style={{ textAlign: 'left', color: '#1f3a52', borderBottom: '2px solid #bcd9f5' }}>
+              <tr style={{ textAlign: 'left', color: 'var(--rbl-info-text)', borderBottom: '2px solid var(--rbl-info-border)' }}>
                 <th style={th}>Officer&apos;s step move (2025 → 2026)</th>
                 <th style={{ ...th, textAlign: 'right' }}>Actual pay increase</th>
               </tr>
             </thead>
             <tbody>
               {jumps.map((j) => (
-                <tr key={j.from} style={{ borderBottom: '1px solid #dbeafe' }}>
-                  <td style={{ ...td, color: '#284a69', fontWeight: 700 }}>{j.from} → {j.to}</td>
+                <tr key={j.from} style={{ borderBottom: '1px solid var(--rbl-info-border)' }}>
+                  <td style={{ ...td, color: 'var(--rbl-title)', fontWeight: 700 }}>{j.from} → {j.to}</td>
                   <td style={{ ...td, textAlign: 'right', fontWeight: 900, color: 'var(--inc)' }}>+{j.pct}%</td>
                 </tr>
               ))}
             </tbody>
           </table>
         </div>
-        <p style={{ color: '#1f3a52', fontSize: 13, marginTop: 10, marginBottom: 0 }}>
+        <p style={{ color: 'var(--rbl-info-text)', fontSize: 13, marginTop: 10, marginBottom: 0 }}>
           That&apos;s why aggregate Personal Services costs can grow faster than the contract&apos;s headline % in years
           with a lot of junior officers on the force — every one of them is getting a step increase on top of the raise
           everyone gets. It cuts the other way too: an officer who retires at the top step and is replaced by a rookie at
           Academy pay is the single biggest source of savings in the{' '}
-          <a href={`${base}/buyout/`} style={{ color: '#4a7297', fontWeight: 800 }}>2026 retirement buyout</a> model.
+          <a href={`${base}/buyout/`} style={{ color: 'var(--rbl-accent)', fontWeight: 800 }}>2026 retirement buyout</a> model.
         </p>
       </section>
 
       <section style={card}>
-        <h3 style={{ marginTop: 0, color: '#284a69' }}>The real 2025 → 2026 raises, by name</h3>
-        <p style={{ color: '#475569', fontSize: 14, lineHeight: 1.6 }}>
+        <h3 style={{ marginTop: 0, color: 'var(--rbl-title)' }}>The real 2025 → 2026 raises, by name</h3>
+        <p style={{ color: 'var(--rbl-text-body)', fontSize: 14, lineHeight: 1.6 }}>
           The table above is the theoretical schedule. Here&apos;s what actually happened: every currently-serving Police
           Officer&apos;s 2025 and 2026 Board-authorized salary, grouped by officers who saw the exact same before-and-after
           pay. Every group lines up with a step move — plus one thing the base contract table doesn&apos;t show.
@@ -142,7 +142,7 @@ export default function PoliceStepSchedule() {
         <div style={{ overflowX: 'auto' }}>
           <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 13.5 }}>
             <thead>
-              <tr style={{ textAlign: 'left', color: '#64748b', borderBottom: '2px solid #e2e8f0' }}>
+              <tr style={{ textAlign: 'left', color: 'var(--rbl-text-muted)', borderBottom: '2px solid var(--rbl-border-subtle)' }}>
                 <th style={th}>Step move</th>
                 <th style={{ ...th, textAlign: 'right' }}>2025 actual</th>
                 <th style={{ ...th, textAlign: 'right' }}>2026 actual</th>
@@ -154,22 +154,22 @@ export default function PoliceStepSchedule() {
             </thead>
             <tbody>
               {realRaiseExamples.map((r) => (
-                <tr key={r.exampleName} style={{ borderBottom: '1px solid #f1f5f9' }}>
-                  <td style={{ ...td, color: '#284a69', fontWeight: 700 }}>
+                <tr key={r.exampleName} style={{ borderBottom: '1px solid var(--rbl-border-subtle)' }}>
+                  <td style={{ ...td, color: 'var(--rbl-title)', fontWeight: 700 }}>
                     {r.fromStep === r.toStep ? `${r.fromStep} (no move)` : `${r.fromStep} → ${r.toStep}`}
                   </td>
-                  <td style={{ ...td, textAlign: 'right', color: '#64748b' }}>{usd(r.actual2025)}</td>
+                  <td style={{ ...td, textAlign: 'right', color: 'var(--rbl-text-muted)' }}>{usd(r.actual2025)}</td>
                   <td style={{ ...td, textAlign: 'right', fontWeight: 800 }}>{usd(r.actual2026)}</td>
-                  <td style={{ ...td, textAlign: 'right', color: '#64748b' }}>{usd(r.contractStep2026)}</td>
-                  <td style={{ ...td, textAlign: 'right', fontWeight: 800, color: '#b45309' }}>+{usd(r.addOn)}</td>
-                  <td style={{ ...td, textAlign: 'right', color: '#64748b' }}>{r.officerCount}</td>
-                  <td style={{ ...td, color: '#64748b' }}>{r.exampleName}</td>
+                  <td style={{ ...td, textAlign: 'right', color: 'var(--rbl-text-muted)' }}>{usd(r.contractStep2026)}</td>
+                  <td style={{ ...td, textAlign: 'right', fontWeight: 800, color: 'var(--rbl-warn)' }}>+{usd(r.addOn)}</td>
+                  <td style={{ ...td, textAlign: 'right', color: 'var(--rbl-text-muted)' }}>{r.officerCount}</td>
+                  <td style={{ ...td, color: 'var(--rbl-text-muted)' }}>{r.exampleName}</td>
                 </tr>
               ))}
             </tbody>
           </table>
         </div>
-        <p style={{ color: '#475569', fontSize: 13, marginTop: 10, marginBottom: 0, lineHeight: 1.5 }}>
+        <p style={{ color: 'var(--rbl-text-body)', fontSize: 13, marginTop: 10, marginBottom: 0, lineHeight: 1.5 }}>
           Every single group — from Academy rookies to 32 officers already at the top step — landed exactly{' '}
           <strong>$2,550 above</strong> what the base Article XXXVI step schedule alone predicts for 2026. That&apos;s too
           precise and too universal to be a coincidence, but it isn&apos;t itemized anywhere in the salary article we have —
@@ -180,13 +180,13 @@ export default function PoliceStepSchedule() {
       </section>
 
       <section style={card}>
-        <h3 style={{ marginTop: 0, color: '#284a69' }}>How the Academy step transition works</h3>
-        <p style={{ color: '#475569', fontSize: 14, lineHeight: 1.6 }}>{academyRuleExample}</p>
+        <h3 style={{ marginTop: 0, color: 'var(--rbl-title)' }}>How the Academy step transition works</h3>
+        <p style={{ color: 'var(--rbl-text-body)', fontSize: 14, lineHeight: 1.6 }}>{academyRuleExample}</p>
       </section>
 
-      <p style={{ color: '#64748b', fontSize: 13, lineHeight: 1.5 }}>
+      <p style={{ color: 'var(--rbl-text-muted)', fontSize: 13, lineHeight: 1.5 }}>
         Source: {source.title}. {source.note} See the{' '}
-        <a href={`${base}/predict-2027/`} style={{ color: '#4a7297', fontWeight: 700 }}>2027 budget prediction</a> for how PBA&apos;s
+        <a href={`${base}/predict-2027/`} style={{ color: 'var(--rbl-accent)', fontWeight: 700 }}>2027 budget prediction</a> for how PBA&apos;s
         2027 rate is estimated now that the contract has expired.
       </p>
     </div>

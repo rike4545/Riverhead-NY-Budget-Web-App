@@ -8,9 +8,9 @@ export default function PageShell({ title, subtitle, children }: { title: string
 
   return (
     <main style={{ minHeight: '100vh', background: 'var(--rbl-bg)', color: 'var(--rbl-text)', fontFamily: 'Inter, Arial, sans-serif' }}>
-      <header style={{ background: 'linear-gradient(135deg,var(--rbl-header-a),var(--rbl-header-b) 62%,var(--rbl-header-a))', color: 'white', borderBottom: '5px solid var(--rbl-gold)', padding: '18px 28px', display: 'flex', justifyContent: 'space-between', gap: 20, alignItems: 'center', flexWrap: 'wrap', boxShadow: '0 14px 34px rgba(18,56,91,.24)' }}>
+      <header style={{ background: 'linear-gradient(135deg,var(--rbl-header-a),var(--rbl-header-b) 62%,var(--rbl-header-a))', color: 'white', borderBottom: '5px solid var(--rbl-gold)', padding: '18px 28px', display: 'flex', justifyContent: 'space-between', gap: 20, alignItems: 'center', flexWrap: 'wrap', boxShadow: '0 14px 34px var(--rbl-shadow)' }}>
         <a href={`${base}/`} style={{ color: 'white', textDecoration: 'none', display: 'flex', gap: 12, alignItems: 'center' }}>
-          <span style={{ width: 48, height: 48, borderRadius: 8, display: 'grid', placeItems: 'center', background: '#f8f5ec', color: '#284a69', border: '2px solid var(--rbl-gold)', fontWeight: 950 }}>RB</span>
+          <span style={{ width: 48, height: 48, borderRadius: 8, display: 'grid', placeItems: 'center', background: 'var(--rbl-logo-bg)', color: 'var(--rbl-logo-fg)', border: '2px solid var(--rbl-gold)', fontWeight: 950 }}>RB</span>
           <span>
             <strong style={{ fontSize: 22 }}>Riverhead Budget Live</strong>
             <div style={{ color: '#d7e7f4', fontSize: 12 }}>Following the Town&apos;s money, in plain English</div>

@@ -1,94 +1,119 @@
 import PageShell from '../../components/PageShell'
 import PlainCallout from '../../components/PlainCallout'
-import { gfoaCategories, gfoaSummary, type GfoaCriterion } from '../../lib/gfoa'
+import { gfoaCategories, gfoaSource, gfoaSummary, type GfoaCategory } from '../../lib/gfoa'
 
-const card = { background: 'white', border: '1px solid #e2e8f0', borderRadius: 16, padding: 20, boxShadow: '0 14px 34px rgba(15,23,42,.05)' } as const
+const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 20, boxShadow: '0 14px 34px var(--rbl-shadow)' } as const
 
 export const metadata = {
-  title: 'GFOA Standards Alignment — how this site measures up',
+  title: 'Standards — this site against the GFOA budget-presentation criteria',
   description:
-    'A criterion-by-criterion assessment of Riverhead Budget Live against the GFOA Distinguished Budget Presentation Award standards — what is met, partial, or missing.',
+    "How this site scores against the GFOA Distinguished Budget Presentation Award criteria as revised for 2026: nine content categories worth 150 points, five material-type categories worth 50, and an honest account of where the coverage runs out.",
 }
 
-const STATUS_META = {
-  met: { label: 'Met', bg: '#dcfce7', fg: '#166534' },
-  partial: { label: 'Partial', bg: '#fef3c7', fg: '#92400e' },
-  gap: { label: 'Not yet', bg: '#fee2e2', fg: '#991b1b' },
-} as const
+const STATUS_META: Record<string, { label: string; fg: string; bg: string }> = {
+  strong: { label: 'Well covered', fg: 'var(--rbl-success-strong)', bg: 'var(--rbl-success-bg)' },
+  partial: { label: 'Partly covered', fg: 'var(--rbl-warn)', bg: 'var(--rbl-warn-bg)' },
+  gap: { label: 'Not covered', fg: 'var(--rbl-danger-strong)', bg: 'var(--rbl-danger-bg)' },
+}
 
 export default function GfoaPage() {
   return (
     <PageShell
-      title="Budget Presentation Standards"
-      subtitle={`How this site measures up against the GFOA Distinguished Budget Presentation Award criteria — the national standard for presenting government budgets — assessed criterion by criterion: ${gfoaSummary.met} met, ${gfoaSummary.partial} partial, ${gfoaSummary.gap} not yet, of ${gfoaSummary.total}.`}
+      title="Measured against the national standard"
+      subtitle={`GFOA's Distinguished Budget Presentation Award criteria, revised for 2026: nine content categories worth 150 points and five material-type categories worth 50. On this site's own reading it scores ${gfoaSummary.totalScore} of ${gfoaSummary.totalPossible}, against the ${gfoaSummary.threshold} points GFOA requires — but read the two caveats before the number.`}
     >
       <PlainCallout
         tips={[
-          { label: 'What GFOA is', text: 'the Government Finance Officers Association, whose Distinguished Budget Presentation Award defines how a budget should be presented: as a policy document, a financial plan, an operations guide, and a communication device.' },
-          { label: 'Why it applies here', text: 'the award rates a government’s own budget document — but its criteria are the recognized yardstick for budget presentation, so we hold this site to every criterion that can apply and say plainly where we fall short.' },
-          { label: 'Honest statuses', text: '"Not yet" usually means the Town has not published the underlying information (goals, performance measures, debt schedules) in a form anyone can extract.' },
+          { label: 'What GFOA is', text: 'the Government Finance Officers Association. Its Distinguished Budget Presentation Award is the recognized standard for how a government should present a budget.' },
+          { label: 'What changed in 2026', text: 'mandatory criteria were replaced by a 200-point scale, the content criteria became questions a member of the public would actually ask, and websites and dashboards became eligible submission material alongside the budget document.' },
+          { label: 'Why bother', text: 'the criteria are a checklist for whether budget information has been presented honestly and completely — including the parts this site gets wrong.' },
         ]}
       >
-        This page is our public scorecard against the <strong>national standard for budget presentation</strong> —
-        including where this site doesn&apos;t measure up yet.
+        This page is a public scorecard of this site against the{' '}
+        <strong>national standard for budget presentation</strong> — written to be useful where it falls short.
       </PlainCallout>
 
-      <section style={{ ...card, display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(140px,1fr))', gap: 12, marginBottom: 18 }}>
-        <Stat label="Criteria assessed" value={String(gfoaSummary.total)} />
-        <Stat label="Met" value={String(gfoaSummary.met)} color="#166534" />
-        <Stat label="Partial" value={String(gfoaSummary.partial)} color="#92400e" />
-        <Stat label="Not yet" value={String(gfoaSummary.gap)} color="#991b1b" />
+      <section style={{ ...card, marginBottom: 18, borderLeft: '8px solid var(--rbl-gold-border)', background: 'var(--rbl-warn-bg)' }}>
+        <h3 style={{ marginTop: 0, color: 'var(--rbl-title)', fontSize: 17 }}>Two things to know before reading the score</h3>
+        <p style={{ color: 'var(--rbl-text-body)', fontSize: 14.5, lineHeight: 1.6 }}>
+          <strong>This site cannot win this award.</strong> GFOA grants it to governments that submit their own budget
+          communications. The 2026 revision widened what counts as a submission — a budget website or dashboard is now
+          eligible material alongside the document — but the applicant still has to be the government. These criteria
+          are used here as a yardstick, not as an application.
+        </p>
+        <p style={{ color: 'var(--rbl-text-body)', fontSize: 14.5, lineHeight: 1.6, marginBottom: 0 }}>
+          <strong>The points are GFOA&apos;s; the scores are this site&apos;s own.</strong> GFOA publishes what each
+          category is worth, not a rubric for partial credit inside it, so &ldquo;12 of 20&rdquo; means the coverage was
+          judged about three-fifths complete. It is a self-assessment — the reading most likely to flatter itself — so
+          the verdicts and the named gaps matter more than the arithmetic.
+        </p>
       </section>
 
-      {gfoaCategories.map((cat) => (
-        <section key={cat.key} style={{ marginBottom: 22 }}>
-          <h2 style={{ color: '#284a69', marginBottom: 2 }}>{cat.name}</h2>
-          <p style={{ color: '#475569', marginTop: 0 }}>{cat.plain}</p>
+      <section style={{ ...card, display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(150px,1fr))', gap: 12, marginBottom: 18 }}>
+        <Stat label="Self-assessed total" value={`${gfoaSummary.totalScore} / ${gfoaSummary.totalPossible}`} accent />
+        <Stat label="GFOA award threshold" value={`${gfoaSummary.threshold} points`} />
+        <Stat label="Content" value={`${gfoaSummary.contentScore} / ${gfoaSummary.contentPossible}`} />
+        <Stat label="Material type" value={`${gfoaSummary.materialScore} / ${gfoaSummary.materialPossible}`} />
+        <Stat label="Categories not covered" value={String(gfoaSummary.gap)} color="var(--rbl-danger-strong)" />
+      </section>
+
+      {([
+        ['content', 'Content — 150 points', 'What a member of the public wants to know. GFOA frames each category as a question the government should answer; the question under each heading is theirs.'],
+        ['material', 'Material type — 50 points', 'The tools used to communicate it: how they are organized and laid out, and whether they meet generally accepted accessibility standards.'],
+      ] as const).map(([kind, heading, blurb]) => (
+        <section key={kind} style={{ marginBottom: 22 }}>
+          <h2 style={{ color: 'var(--rbl-title)', marginBottom: 2 }}>{heading}</h2>
+          <p style={{ color: 'var(--rbl-text-body)', marginTop: 0 }}>{blurb}</p>
           <div style={{ display: 'grid', gap: 10 }}>
-            {cat.criteria.map((c) => <CriterionRow key={c.code} c={c} />)}
+            {gfoaCategories.filter((c) => c.kind === kind).map((c) => <CategoryRow key={c.name} c={c} />)}
           </div>
         </section>
       ))}
 
-      <p style={{ color: '#64748b', fontSize: 13, lineHeight: 1.5 }}>
-        Criteria summarized from the GFOA Distinguished Budget Presentation Award program
-        (<a href="https://www.gfoa.org/budget-award" target="_blank" rel="noreferrer" style={{ color: '#4a7297', fontWeight: 700 }}>gfoa.org/budget-award</a>).
-        This is an independent self-assessment, not a GFOA review; the award itself is earned by governments for their
-        official budget documents. &quot;Mandatory&quot; marks criteria GFOA requires for the award.
+      <p style={{ color: 'var(--rbl-text-muted)', fontSize: 13, lineHeight: 1.5 }}>
+        Categories, questions and point values from{' '}
+        <a href={gfoaSource.url} target="_blank" rel="noreferrer" style={{ color: 'var(--rbl-accent)', fontWeight: 700 }}>{gfoaSource.title}</a>.
+        The scores against them are this site&apos;s own — an independent self-assessment, not a GFOA review.
       </p>
     </PageShell>
   )
 }
 
-function CriterionRow({ c }: { c: GfoaCriterion }) {
+function CategoryRow({ c }: { c: GfoaCategory }) {
   const s = STATUS_META[c.status]
+  const pct = Math.round((c.selfScore / c.points) * 100)
   return (
     <article style={{ ...card, padding: 16, borderLeft: `5px solid ${s.fg}` }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', gap: 12, flexWrap: 'wrap', alignItems: 'baseline' }}>
-        <div style={{ fontWeight: 800, color: '#284a69' }}>
-          <span style={{ color: '#6b7280', fontWeight: 900, fontSize: 12, marginRight: 8 }}>{c.code}</span>
-          {c.title}
-          {c.mandatory && <span style={{ marginLeft: 8, background: '#eef6ff', color: '#4a7297', fontSize: 11, fontWeight: 800, padding: '2px 8px', borderRadius: 999 }}>Mandatory</span>}
+        <div style={{ fontWeight: 800, color: 'var(--rbl-title)' }}>{c.name}</div>
+        <div style={{ display: 'flex', gap: 8, alignItems: 'baseline', flexWrap: 'wrap' }}>
+          <span style={{ color: 'var(--rbl-text-strong)', fontWeight: 900, fontSize: 14, whiteSpace: 'nowrap' }}>{c.selfScore} / {c.points}</span>
+          <span style={{ background: s.bg, color: s.fg, fontWeight: 800, fontSize: 12.5, padding: '4px 11px', borderRadius: 999 }}>{s.label}</span>
         </div>
-        <span style={{ background: s.bg, color: s.fg, fontWeight: 800, fontSize: 12.5, padding: '4px 11px', borderRadius: 999 }}>{s.label}</span>
       </div>
-      <p style={{ color: '#64748b', fontSize: 13.5, margin: '8px 0 4px', lineHeight: 1.5 }}><strong>GFOA asks:</strong> {c.requires}</p>
-      <p style={{ color: '#334155', fontSize: 14, margin: 0, lineHeight: 1.5 }}>
+      <div style={{ background: 'var(--rbl-track)', borderRadius: 5, height: 8, overflow: 'hidden', margin: '9px 0 10px' }}
+           role="img" aria-label={`${c.name}: self-assessed ${c.selfScore} of ${c.points} points`}>
+        <div style={{ width: `${pct}%`, height: '100%', background: s.fg, borderRadius: 5 }} />
+      </div>
+      <p style={{ color: 'var(--rbl-text-muted)', fontSize: 13.5, margin: '0 0 5px', lineHeight: 1.5 }}>
+        <strong>GFOA asks:</strong> {c.question}
+      </p>
+      <p style={{ color: 'var(--rbl-text-strong)', fontSize: 14, margin: 0, lineHeight: 1.5 }}>
         {c.howWeAddress}{' '}
-        {c.link && <a href={c.link} style={{ color: '#4a7297', fontWeight: 800 }}>{c.linkLabel ?? 'View'} →</a>}
+        {c.link && <a href={c.link} style={{ color: 'var(--rbl-accent)', fontWeight: 800 }}>{c.linkLabel ?? 'View'} →</a>}
       </p>
       {c.gapNote && (
-        <p style={{ color: '#92400e', fontSize: 13, margin: '6px 0 0', lineHeight: 1.45 }}><strong>To close the gap:</strong> {c.gapNote}</p>
+        <p style={{ color: 'var(--rbl-warn)', fontSize: 13, margin: '6px 0 0', lineHeight: 1.45 }}><strong>What is missing:</strong> {c.gapNote}</p>
       )}
     </article>
   )
 }
 
-function Stat({ label, value, color }: { label: string; value: string; color?: string }) {
+function Stat({ label, value, color, accent }: { label: string; value: string; color?: string; accent?: boolean }) {
   return (
-    <div style={{ background: '#f8fafc', border: '1px solid #e2e8f0', borderRadius: 12, padding: 12 }}>
-      <div style={{ color: '#64748b', fontSize: 11.5, textTransform: 'uppercase', fontWeight: 900, letterSpacing: 0.4 }}>{label}</div>
-      <strong style={{ fontSize: 22, color: color ?? '#284a69' }}>{value}</strong>
+    <div style={{ background: 'var(--rbl-surface-2)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 12, padding: 12 }}>
+      <div style={{ color: 'var(--rbl-text-muted)', fontSize: 11.5, textTransform: 'uppercase', fontWeight: 900, letterSpacing: 0.4 }}>{label}</div>
+      <strong style={{ fontSize: accent ? 26 : 22, color: color ?? 'var(--rbl-title)' }}>{value}</strong>
     </div>
   )
 }

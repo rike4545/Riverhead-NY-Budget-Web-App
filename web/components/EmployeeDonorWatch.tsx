@@ -5,7 +5,7 @@ import { fetchEmployeeDonorMatches, type EmployeeDonorMatch } from '../lib/emplo
 import type { CampaignOfficial } from '../lib/campaign-finance'
 
 const usd = (n: number) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(n)
-const card = { background: 'white', border: '1px solid #e2e8f0', borderRadius: 16, padding: 18, boxShadow: '0 14px 34px rgba(15,23,42,.05)' } as const
+const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 18, boxShadow: '0 14px 34px var(--rbl-shadow)' } as const
 const th = { padding: '8px 10px', fontWeight: 800, fontSize: 12 } as const
 const td = { padding: '8px 10px' } as const
 
@@ -45,12 +45,12 @@ export default function EmployeeDonorWatch({ officials, startYear, endYear }: { 
     <section style={card}>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: 12 }}>
         <div>
-          <h3 style={{ margin: 0, color: '#284a69' }}>Town Employee Donors</h3>
-          <p style={{ margin: '4px 0 0', color: '#64748b', fontSize: 13, maxWidth: 560, lineHeight: 1.5 }}>
+          <h3 style={{ margin: 0, color: 'var(--rbl-title)' }}>Town Employee Donors</h3>
+          <p style={{ margin: '4px 0 0', color: 'var(--rbl-text-muted)', fontSize: 13, maxWidth: 560, lineHeight: 1.5 }}>
             Cross-references Town payroll employees against individual campaign donors to the committees above. Matched by
             name only — this is disclosure context, not an accusation. Modest personal donations from Town employees to
             sitting or former officials are common and legal. A 2011{' '}
-            <a href="https://riverheadlocal.com/2011/04/05/private-business-on-town-time-councilman-says-investigation-underway/" target="_blank" rel="noopener noreferrer" style={{ color: '#4a7297' }}>
+            <a href="https://riverheadlocal.com/2011/04/05/private-business-on-town-time-councilman-says-investigation-underway/" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--rbl-accent)' }}>
               RiverheadLOCAL investigation
             </a>{' '}
             found that a Town finance administrator was using town offices and equipment to conduct outside private
@@ -62,7 +62,7 @@ export default function EmployeeDonorWatch({ officials, startYear, endYear }: { 
           onClick={check}
           disabled={status === 'loading'}
           style={{
-            background: status === 'loading' ? '#93c5fd' : '#4a7297', color: 'white', border: 'none', borderRadius: 10,
+            background: status === 'loading' ? '#93c5fd' : 'var(--rbl-fill-accent)', color: 'white', border: 'none', borderRadius: 10,
             padding: '10px 16px', fontWeight: 800, cursor: status === 'loading' ? 'default' : 'pointer', whiteSpace: 'nowrap',
           }}
         >
@@ -71,7 +71,7 @@ export default function EmployeeDonorWatch({ officials, startYear, endYear }: { 
       </div>
 
       {status === 'error' && (
-        <div style={{ marginTop: 12, color: '#b91c1c', background: '#fef2f2', border: '1px solid #fecaca', borderRadius: 10, padding: 10, fontSize: 13 }}>
+        <div style={{ marginTop: 12, color: 'var(--rbl-danger)', background: 'var(--rbl-danger-bg)', border: '1px solid var(--rbl-danger-border)', borderRadius: 10, padding: 10, fontSize: 13 }}>
           Check failed: {errorMessage}
         </div>
       )}
@@ -127,24 +127,24 @@ function OfficialSection({ official, matches }: { official: CampaignOfficial; ma
 
   return (
     <div style={{
-      background: hasMatches ? '#fffbf0' : '#f8fafc',
-      border: `1px solid ${hasMatches ? '#e8c97a' : '#e2e8f0'}`,
+      background: hasMatches ? '#fffbf0' : 'var(--rbl-surface-2)',
+      border: `1px solid ${hasMatches ? '#e8c97a' : 'var(--rbl-border-subtle)'}`,
       borderRadius: 10,
       padding: '12px 14px',
     }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: 8 }}>
         <div>
-          <strong style={{ fontSize: 14, color: '#284a69' }}>{official.name}</strong>
-          <div style={{ color: '#64748b', fontSize: 11.5, marginTop: 2 }}>
+          <strong style={{ fontSize: 14, color: 'var(--rbl-title)' }}>{official.name}</strong>
+          <div style={{ color: 'var(--rbl-text-muted)', fontSize: 11.5, marginTop: 2 }}>
             {official.filerIDs.map((f) => f.committeeName).join(' · ')}
           </div>
         </div>
         {hasMatches ? (
-          <span style={{ fontSize: 12, fontWeight: 800, color: '#92400e', background: '#fff7ed', border: '1px solid #fde68a', borderRadius: 999, padding: '2px 8px', whiteSpace: 'nowrap' }}>
+          <span style={{ fontSize: 12, fontWeight: 800, color: 'var(--rbl-warn)', background: 'var(--rbl-warn-bg)', border: '1px solid var(--rbl-warn-border)', borderRadius: 999, padding: '2px 8px', whiteSpace: 'nowrap' }}>
             {matches.length} {matches.length === 1 ? 'match' : 'matches'} · {distinctEmployees} employee{distinctEmployees === 1 ? '' : 's'} · {usd(total)}
           </span>
         ) : (
-          <span style={{ fontSize: 12, fontWeight: 700, color: '#166534', background: '#f0fdf4', border: '1px solid #bbf7d0', borderRadius: 999, padding: '2px 8px' }}>
+          <span style={{ fontSize: 12, fontWeight: 700, color: 'var(--rbl-success-strong)', background: 'var(--rbl-success-bg)', border: '1px solid var(--rbl-success-border)', borderRadius: 999, padding: '2px 8px' }}>
             ✓ No matches
           </span>
         )}
@@ -158,16 +158,16 @@ function OfficialSection({ official, matches }: { official: CampaignOfficial; ma
             const yearDistinctEmployees = new Set(yearMatches.map((m) => m.employeeName)).size
             return (
               <details key={year} open={years.length === 1}>
-                <summary style={{ cursor: 'pointer', listStyle: 'none', padding: '8px 10px', background: 'white', border: '1px solid #e2e8f0', borderRadius: 8, display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap', gap: 8 }}>
-                  <strong style={{ color: '#284a69', fontSize: 13 }}>{year}</strong>
-                  <span style={{ color: '#64748b', fontSize: 12 }}>
-                    {yearMatches.length} {yearMatches.length === 1 ? 'contribution' : 'contributions'} · {yearDistinctEmployees} employee{yearDistinctEmployees === 1 ? '' : 's'} · <strong style={{ color: '#9b6b12' }}>{usd(yearTotal)}</strong>
+                <summary style={{ cursor: 'pointer', listStyle: 'none', padding: '8px 10px', background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 8, display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap', gap: 8 }}>
+                  <strong style={{ color: 'var(--rbl-title)', fontSize: 13 }}>{year}</strong>
+                  <span style={{ color: 'var(--rbl-text-muted)', fontSize: 12 }}>
+                    {yearMatches.length} {yearMatches.length === 1 ? 'contribution' : 'contributions'} · {yearDistinctEmployees} employee{yearDistinctEmployees === 1 ? '' : 's'} · <strong style={{ color: 'var(--rbl-badge)' }}>{usd(yearTotal)}</strong>
                   </span>
                 </summary>
                 <div style={{ overflowX: 'auto', marginTop: 6 }}>
                   <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 13 }}>
                     <thead>
-                      <tr style={{ textAlign: 'left', color: '#64748b', borderBottom: '2px solid #e2e8f0' }}>
+                      <tr style={{ textAlign: 'left', color: 'var(--rbl-text-muted)', borderBottom: '2px solid var(--rbl-border-subtle)' }}>
                         <th style={th}>Employee</th>
                         <th style={th}>Filing</th>
                         <th style={{ ...th, textAlign: 'right' }}>Amount</th>
@@ -176,11 +176,11 @@ function OfficialSection({ official, matches }: { official: CampaignOfficial; ma
                     </thead>
                     <tbody>
                       {yearMatches.map((m, i) => (
-                        <tr key={`${m.employeeName}-${m.electionYear}-${m.filingDesc}-${i}`} style={{ borderBottom: '1px solid #f1f5f9' }}>
-                          <td style={{ ...td, fontWeight: 700, color: '#284a69' }}>
+                        <tr key={`${m.employeeName}-${m.electionYear}-${m.filingDesc}-${i}`} style={{ borderBottom: '1px solid var(--rbl-border-subtle)' }}>
+                          <td style={{ ...td, fontWeight: 700, color: 'var(--rbl-title)' }}>
                             {m.employeeName}
                             {(m.department || m.title) && (
-                              <div style={{ fontWeight: 500, color: '#6b7280', fontSize: 11.5 }}>
+                              <div style={{ fontWeight: 500, color: 'var(--rbl-text-muted)', fontSize: 11.5 }}>
                                 {[m.title, m.department].filter(Boolean).join(', ')} ({m.mostRecentPayrollYear})
                               </div>
                             )}
@@ -188,7 +188,7 @@ function OfficialSection({ official, matches }: { official: CampaignOfficial; ma
                           <td style={td}>
                             {year} {m.filingDesc}
                             {official.filerIDs.length > 1 && (
-                              <div style={{ color: '#6b7280', fontSize: 11.5 }}>{m.committeeName}</div>
+                              <div style={{ color: 'var(--rbl-text-muted)', fontSize: 11.5 }}>{m.committeeName}</div>
                             )}
                           </td>
                           <td style={{ ...td, textAlign: 'right', fontWeight: 700 }}>{usd(m.amount)}</td>
@@ -214,14 +214,14 @@ function CollapsedGroup({ label, suffix, children }: { label: string; suffix: st
       <button
         onClick={() => setOpen((v) => !v)}
         style={{
-          width: '100%', cursor: 'pointer', fontWeight: 800, fontSize: 13, color: '#4a7297',
-          padding: '8px 12px', background: '#f1f5f9', border: '1px solid #e2e8f0', borderRadius: 8,
+          width: '100%', cursor: 'pointer', fontWeight: 800, fontSize: 13, color: 'var(--rbl-accent)',
+          padding: '8px 12px', background: 'var(--rbl-surface-3)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 8,
           display: 'flex', alignItems: 'center', gap: 6, textAlign: 'left',
         }}
       >
         <span style={{ fontSize: 12, transition: 'transform 0.15s', transform: open ? 'rotate(90deg)' : 'rotate(0deg)', display: 'inline-block' }}>▶</span>
         {label}
-        <span style={{ fontWeight: 400, fontSize: 11, color: '#64748b', marginLeft: 2 }}>— {suffix}</span>
+        <span style={{ fontWeight: 400, fontSize: 11, color: 'var(--rbl-text-muted)', marginLeft: 2 }}>— {suffix}</span>
       </button>
       {open && <div style={{ display: 'grid', gap: 6, marginTop: 8 }}>{children}</div>}
     </div>
@@ -230,9 +230,9 @@ function CollapsedGroup({ label, suffix, children }: { label: string; suffix: st
 
 function Stat({ label, value }: { label: string; value: string }) {
   return (
-    <div style={{ background: '#f8fafc', borderRadius: 10, padding: 10 }}>
-      <div style={{ color: '#64748b', fontSize: 11, textTransform: 'uppercase', fontWeight: 800 }}>{label}</div>
-      <div style={{ fontWeight: 800, marginTop: 2, color: '#284a69' }}>{value}</div>
+    <div style={{ background: 'var(--rbl-surface-2)', borderRadius: 10, padding: 10 }}>
+      <div style={{ color: 'var(--rbl-text-muted)', fontSize: 11, textTransform: 'uppercase', fontWeight: 800 }}>{label}</div>
+      <div style={{ fontWeight: 800, marginTop: 2, color: 'var(--rbl-title)' }}>{value}</div>
     </div>
   )
 }

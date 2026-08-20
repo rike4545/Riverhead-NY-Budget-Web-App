@@ -5,7 +5,7 @@ import PlainCallout from '../../components/PlainCallout'
 import FiscalImpactMeetings, { type FiscalMeeting } from '../../components/FiscalImpactMeetings'
 
 const base = process.env.NEXT_PUBLIC_BASE_PATH || ''
-const card = { background: 'white', border: '1px solid #e2e8f0', borderRadius: 16, padding: 20, boxShadow: '0 14px 34px rgba(15,23,42,.05)' } as const
+const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 20, boxShadow: '0 14px 34px var(--rbl-shadow)' } as const
 
 export const metadata = {
   title: 'Fiscal Impact, corrected — Town Board resolutions',
@@ -59,21 +59,21 @@ export default function FiscalImpactPage() {
 
       {meetingCount === 0 ? (
         <section style={{ ...card }}>
-          <p style={{ color: '#64748b', margin: 0 }}>No fiscal-impact data has been generated yet. Run the agenda-packet parser to populate this page.</p>
+          <p style={{ color: 'var(--rbl-text-muted)', margin: 0 }}>No fiscal-impact data has been generated yet. Run the agenda-packet parser to populate this page.</p>
         </section>
       ) : (
         <FiscalImpactMeetings meetings={meetings} />
       )}
 
-      <section style={{ ...card, margin: '18px 0', background: '#eef6ff', border: '1px solid #bcd9f5' }}>
-        <h3 style={{ marginTop: 0, color: '#284a69' }}>Why this matters for the budget</h3>
-        <p style={{ color: '#1f3a52', fontSize: 15, lineHeight: 1.6, margin: 0 }}>
+      <section style={{ ...card, margin: '18px 0', background: 'var(--rbl-info-bg)', border: '1px solid var(--rbl-info-border)' }}>
+        <h3 style={{ marginTop: 0, color: 'var(--rbl-title)' }}>Why this matters for the budget</h3>
+        <p style={{ color: 'var(--rbl-info-text)', fontSize: 15, lineHeight: 1.6, margin: 0 }}>
           The items that follow the Town into future budgets are the <strong>recurring</strong> ones the form tends to
           wave through: new full-time and part-time hires, seasonal payroll, and union stipulations (CSEA, PBA, SOA),
           whose wage terms compound with each future budget. Those recurring commitments — not the one-time purchases —
           are what a resident should track against next year’s tax levy. See how they interact with the{' '}
-          <a href={`${base}/buyout/`} style={{ color: '#4a7297', fontWeight: 800 }}>2026 retirement buyout</a> and the{' '}
-          <a href={`${base}/meetings/`} style={{ color: '#4a7297', fontWeight: 800 }}>full voting record</a>.
+          <a href={`${base}/buyout/`} style={{ color: 'var(--rbl-accent)', fontWeight: 800 }}>2026 retirement buyout</a> and the{' '}
+          <a href={`${base}/meetings/`} style={{ color: 'var(--rbl-accent)', fontWeight: 800 }}>full voting record</a>.
         </p>
       </section>
     </PageShell>

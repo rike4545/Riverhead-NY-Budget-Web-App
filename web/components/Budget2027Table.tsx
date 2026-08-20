@@ -6,8 +6,8 @@ import { useFetchJson } from './useFetchJson'
 const base = process.env.NEXT_PUBLIC_BASE_PATH || ''
 const LINES_URL = `${base}/data/budget-2027-lines.json`
 const usd = (n: number | null) => n == null ? '—' : new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(n)
-const card = { background: 'white', border: '1px solid #e2e8f0', borderRadius: 16, padding: 18, boxShadow: '0 14px 34px rgba(15,23,42,.05)' } as const
-const sel = { padding: '9px 11px', border: '1px solid #cbd5e1', borderRadius: 9, fontSize: 14, fontWeight: 700 } as const
+const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 18, boxShadow: '0 14px 34px var(--rbl-shadow)' } as const
+const sel = { padding: '9px 11px', border: '1px solid var(--rbl-border-strong)', borderRadius: 9, fontSize: 14, fontWeight: 700 } as const
 
 type Line = {
   fundCode: string; fund: string; dept: string; account: string; name: string
@@ -73,17 +73,17 @@ export default function Budget2027Table() {
           <option value="name">Sort: Name (A–Z)</option>
         </select>
         <input value={q} onChange={(e) => { setQ(e.target.value); setLimit(60) }} placeholder="Search a line item, department, or account…"
-          style={{ flex: 1, minWidth: 220, padding: '10px 13px', border: '1px solid #cbd5e1', borderRadius: 9, fontSize: 15 }} />
+          style={{ flex: 1, minWidth: 220, padding: '10px 13px', border: '1px solid var(--rbl-border-strong)', borderRadius: 9, fontSize: 15 }} />
       </section>
 
       <section style={card}>
-        <div style={{ color: '#475569', fontWeight: 700, marginBottom: 10, fontSize: 14 }}>
-          {rows.length.toLocaleString()} line items · {usd(totals.v2026)} → <span style={{ color: '#284a69' }}>{usd(totals.v2027)}</span> predicted
+        <div style={{ color: 'var(--rbl-text-body)', fontWeight: 700, marginBottom: 10, fontSize: 14 }}>
+          {rows.length.toLocaleString()} line items · {usd(totals.v2026)} → <span style={{ color: 'var(--rbl-title)' }}>{usd(totals.v2027)}</span> predicted
         </div>
         <div style={{ overflowX: 'auto' }}>
           <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 13 }}>
             <thead>
-              <tr style={{ textAlign: 'left', color: '#64748b', borderBottom: '2px solid #e2e8f0' }}>
+              <tr style={{ textAlign: 'left', color: 'var(--rbl-text-muted)', borderBottom: '2px solid var(--rbl-border-subtle)' }}>
                 <th style={th}>Line item</th>
                 <th style={th}>Fund / Dept</th>
                 <th style={th}>Category</th>
@@ -94,14 +94,14 @@ export default function Budget2027Table() {
             </thead>
             <tbody>
               {rows.slice(0, limit).map((r, i) => (
-                <tr key={`${r.account}-${i}`} style={{ borderBottom: '1px solid #f1f5f9' }}>
-                  <td style={{ ...td, fontWeight: 700, color: '#284a69' }}>{r.name}</td>
-                  <td style={{ ...td, color: '#64748b' }}>{r.fund} · {r.dept}</td>
-                  <td style={td}><span style={{ background: '#eef2f7', color: '#475569', fontSize: 11, fontWeight: 700, padding: '2px 8px', borderRadius: 999 }}>{r.category}</span></td>
-                  <td style={{ ...td, textAlign: 'right', color: '#64748b' }}>{usd(r.v2026)}</td>
+                <tr key={`${r.account}-${i}`} style={{ borderBottom: '1px solid var(--rbl-border-subtle)' }}>
+                  <td style={{ ...td, fontWeight: 700, color: 'var(--rbl-title)' }}>{r.name}</td>
+                  <td style={{ ...td, color: 'var(--rbl-text-muted)' }}>{r.fund} · {r.dept}</td>
+                  <td style={td}><span style={{ background: 'var(--rbl-surface-2)', color: 'var(--rbl-text-body)', fontSize: 11, fontWeight: 700, padding: '2px 8px', borderRadius: 999 }}>{r.category}</span></td>
+                  <td style={{ ...td, textAlign: 'right', color: 'var(--rbl-text-muted)' }}>{usd(r.v2026)}</td>
                   <td style={{ ...td, textAlign: 'right', fontWeight: 700 }}>{usd(r.v2027)}</td>
-                  <td style={{ ...td, textAlign: 'right', fontWeight: 700, color: r.delta > 0 ? 'var(--inc)' : r.delta < 0 ? 'var(--dec)' : '#6b7280', whiteSpace: 'nowrap' }}>
-                    {r.delta >= 0 ? '+' : '−'}{usd(Math.abs(r.delta))}{r.pct != null && <span style={{ fontWeight: 500, color: '#6b7280' }}> ({r.pct > 0 ? '+' : ''}{r.pct}%)</span>}
+                  <td style={{ ...td, textAlign: 'right', fontWeight: 700, color: r.delta > 0 ? 'var(--inc)' : r.delta < 0 ? 'var(--dec)' : 'var(--rbl-text-muted)', whiteSpace: 'nowrap' }}>
+                    {r.delta >= 0 ? '+' : '−'}{usd(Math.abs(r.delta))}{r.pct != null && <span style={{ fontWeight: 500, color: 'var(--rbl-text-muted)' }}> ({r.pct > 0 ? '+' : ''}{r.pct}%)</span>}
                   </td>
                 </tr>
               ))}
@@ -111,7 +111,7 @@ export default function Budget2027Table() {
         </div>
         {limit < rows.length && (
           <div style={{ textAlign: 'center', marginTop: 14 }}>
-            <button onClick={() => setLimit((l) => l + 120)} style={{ padding: '10px 18px', borderRadius: 10, border: '1px solid #4a7297', background: '#4a7297', color: 'white', fontWeight: 800, cursor: 'pointer' }}>Show more</button>
+            <button onClick={() => setLimit((l) => l + 120)} style={{ padding: '10px 18px', borderRadius: 10, border: '1px solid var(--rbl-accent-border)', background: 'var(--rbl-fill-accent)', color: 'white', fontWeight: 800, cursor: 'pointer' }}>Show more</button>
           </div>
         )}
       </section>

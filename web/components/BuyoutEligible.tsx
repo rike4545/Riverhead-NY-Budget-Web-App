@@ -2,7 +2,7 @@
 
 import { useMemo, useState } from 'react'
 
-const card = { background: 'white', border: '1px solid #e2e8f0', borderRadius: 16, padding: 18, boxShadow: '0 14px 34px rgba(15,23,42,.05)' } as const
+const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 18, boxShadow: '0 14px 34px var(--rbl-shadow)' } as const
 const usd = (n: number) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(n)
 
 export type EligibleEmployee = {
@@ -33,20 +33,20 @@ export default function BuyoutEligible({ employees }: { employees: EligibleEmplo
           {(['all', 'CSEA', 'Police'] as const).map((p) => (
             <button key={p} onClick={() => setProgram(p)} style={{
               padding: '8px 13px', borderRadius: 9, border: '1px solid', cursor: 'pointer', fontWeight: 800, fontSize: 13.5,
-              borderColor: program === p ? '#4a7297' : '#cbd5e1', background: program === p ? '#4a7297' : 'white', color: program === p ? 'white' : '#334155',
+              borderColor: program === p ? 'var(--rbl-accent-border)' : 'var(--rbl-border-strong)', background: program === p ? 'var(--rbl-fill-accent)' : 'var(--rbl-surface)', color: program === p ? 'white' : 'var(--rbl-text-strong)',
             }}>{p === 'all' ? `All (${employees.length})` : p === 'CSEA' ? `CSEA (${counts.CSEA})` : `Police (${counts.Police})`}</button>
           ))}
         </div>
         <input value={q} onChange={(e) => setQ(e.target.value)} placeholder="Search a name or title…"
-          style={{ flex: 1, minWidth: 200, padding: '10px 13px', border: '1px solid #cbd5e1', borderRadius: 9, fontSize: 15 }} />
+          style={{ flex: 1, minWidth: 200, padding: '10px 13px', border: '1px solid var(--rbl-border-strong)', borderRadius: 9, fontSize: 15 }} />
       </section>
 
       <section style={card}>
-        <div style={{ color: '#475569', fontWeight: 700, marginBottom: 8, fontSize: 14 }}>{rows.length} employees</div>
+        <div style={{ color: 'var(--rbl-text-body)', fontWeight: 700, marginBottom: 8, fontSize: 14 }}>{rows.length} employees</div>
         <div style={{ overflowX: 'auto' }}>
           <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 13.5 }}>
             <thead>
-              <tr style={{ textAlign: 'left', color: '#64748b', borderBottom: '2px solid #e2e8f0' }}>
+              <tr style={{ textAlign: 'left', color: 'var(--rbl-text-muted)', borderBottom: '2px solid var(--rbl-border-subtle)' }}>
                 <th style={th}>Employee</th>
                 <th style={th}>Title</th>
                 <th style={th}>Program</th>
@@ -57,13 +57,13 @@ export default function BuyoutEligible({ employees }: { employees: EligibleEmplo
             </thead>
             <tbody>
               {rows.map((e, i) => (
-                <tr key={`${e.name}-${i}`} style={{ borderBottom: '1px solid #f1f5f9' }}>
-                  <td style={{ ...td, fontWeight: 700, color: '#284a69' }}>{e.name}</td>
+                <tr key={`${e.name}-${i}`} style={{ borderBottom: '1px solid var(--rbl-border-subtle)' }}>
+                  <td style={{ ...td, fontWeight: 700, color: 'var(--rbl-title)' }}>{e.name}</td>
                   <td style={td}>{e.title || '—'}</td>
                   <td style={td}>
-                    <span style={{ background: e.program === 'CSEA' ? '#dcfce7' : '#dbeafe', color: e.program === 'CSEA' ? '#166534' : '#1e3a8a', fontWeight: 800, fontSize: 11.5, padding: '2px 9px', borderRadius: 999 }}>{e.program} 2026</span>
+                    <span style={{ background: e.program === 'CSEA' ? 'var(--rbl-success-bg)' : 'var(--rbl-info-bg)', color: e.program === 'CSEA' ? 'var(--rbl-success-strong)' : 'var(--rbl-info-text)', fontWeight: 800, fontSize: 11.5, padding: '2px 9px', borderRadius: 999 }}>{e.program} 2026</span>
                   </td>
-                  <td style={{ ...td, textAlign: 'right', color: '#64748b' }}>{e.hireYear}</td>
+                  <td style={{ ...td, textAlign: 'right', color: 'var(--rbl-text-muted)' }}>{e.hireYear}</td>
                   <td style={{ ...td, textAlign: 'right', fontWeight: 700 }}>{e.yearsService}</td>
                   <td style={{ ...td, textAlign: 'right' }}>{usd(e.estIncentive)}</td>
                 </tr>

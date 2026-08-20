@@ -1,235 +1,203 @@
-// Mapping of this site against the GFOA Distinguished Budget Presentation
-// Award criteria (gfoa.org/budget-award — 25 criteria across four roles).
-// The award itself applies to a government's budget document — the Town's,
-// not ours — but its criteria are the recognized standard for presenting
-// budget information, so we hold the site to every criterion that can apply
-// to an independent presentation, and we're explicit about what's met,
-// partial, or missing.
+// This site measured against the GFOA Distinguished Budget Presentation Award
+// criteria as revised for the 2026 program year.
+//
+// What changed in 2026: mandatory criteria were eliminated in favour of a
+// points scale. Nine Content categories carry 150 points between them and five
+// Material Type categories carry 50, for 200 possible; more than 100 earns the
+// award, and GFOA additionally recognises outstanding presentation within a
+// category. An applicant may submit materials against any subset of categories
+// — there is no requirement to cover them all. Content criteria are framed as
+// questions a member of the public would ask about the budget; Material Type
+// criteria are about the tools used to communicate it, their organisation and
+// layout, and whether they meet generally accepted accessibility standards.
+//
+// TWO HONEST LIMITS ON WHAT FOLLOWS.
+//
+// First, eligibility. The award is granted to governments that submit their own
+// budget communications. This site is the work of a resident, not the Town, so
+// it cannot apply and these scores are not GFOA scores. The criteria are used
+// here as the recognised yardstick for whether budget information has been
+// presented well, and the numbers below are a self-assessment — our own reading
+// of our own work, which is exactly the reading most likely to be generous.
+//
+// Second, the per-category point values are GFOA's; the scores against them are
+// ours. GFOA publishes what each category is worth, not a rubric for awarding
+// partial credit within it, so "12 of 20" means we judged the coverage roughly
+// three-fifths of the way to complete. Treat the category verdicts as the
+// signal and the arithmetic as a way of weighting them.
+
+// Criteria and point values: GFOA, "Distinguished Budget Presentation Award —
+// Revised Criteria (2026)", gfoa.org/budget-award-2026-criteria, and the
+// criteria sheet at gfoa-craftcms.files.svdcdn.com (Budget-Award-Criteria-NEW,
+// updated 8/1/2025). Both were unreachable from the environment that compiled
+// this file; the category list and points below were transcribed from that
+// published criteria text rather than fetched.
+
+export const gfoaSource = {
+  title: 'GFOA Distinguished Budget Presentation Award — Revised Criteria (2026)',
+  url: 'https://www.gfoa.org/budget-award-2026-criteria',
+  criteriaSheet: 'https://www.gfoa.org/budget-award-2026',
+}
 
 const base = process.env.NEXT_PUBLIC_BASE_PATH || ''
 
-export type GfoaStatus = 'met' | 'partial' | 'gap'
+export type GfoaStatus = 'strong' | 'partial' | 'gap'
 
-export type GfoaCriterion = {
-  code: string
-  title: string
-  mandatory: boolean
-  requires: string
+export type GfoaCategory = {
+  kind: 'content' | 'material'
+  name: string
+  points: number
+  /** The question a member of the public is asking, in GFOA's framing. */
+  question: string
   howWeAddress: string
   status: GfoaStatus
+  selfScore: number
   link?: string
   linkLabel?: string
   gapNote?: string
 }
 
-export type GfoaCategory = {
-  key: string
-  name: string
-  plain: string
-  criteria: GfoaCriterion[]
-}
-
 export const gfoaCategories: GfoaCategory[] = [
+  // ---------------------------------------------------------------- content
   {
-    key: 'communication',
-    name: 'As a Communication Device',
-    plain: 'Can an average reader actually find, read, and understand the information?',
-    criteria: [
-      {
-        code: 'C1', title: 'Table of Contents', mandatory: true,
-        requires: 'A comprehensive table of contents that makes information easy to find.',
-        howWeAddress: 'Persistent navigation on every page, a Start Here guide that maps every tool, on-page section anchors, and a full sitemap.',
-        status: 'met', link: `${base}/guide/`, linkLabel: 'Start Here guide',
-      },
-      {
-        code: 'C2', title: 'Budget Overview', mandatory: true,
-        requires: 'An overview of significant budgetary items and trends (a "budget in brief").',
-        howWeAddress: 'The dashboard leads with plain-English KPIs and insights (levy growth, surplus, reserve use), and the Annual Report page gives the plan-vs-actual story in brief.',
-        status: 'met', link: `${base}/`, linkLabel: 'Dashboard',
-      },
-      {
-        code: 'C3', title: 'Statistical / Supplemental Section', mandatory: false,
-        requires: 'Statistical and supplemental data about the organization, its community, and population.',
-        howWeAddress: 'Deep fiscal statistics exist (20-year General Fund history, payroll statistics, per-fund histories), but community context — population, tax base, demographics — is not yet presented.',
-        status: 'partial', link: `${base}/general-fund/`, linkLabel: 'General Fund history',
-        gapNote: 'Add community/tax-base statistics (population, assessed valuation, largest taxpayers).',
-      },
-      {
-        code: 'C4', title: 'Glossary', mandatory: false,
-        requires: 'A glossary defining terminology a lay reader would not know.',
-        howWeAddress: 'A full plain-English glossary on the Start Here page, plus tappable definitions on jargon terms and "what do these columns mean?" guides on data tables.',
-        status: 'met', link: `${base}/guide/#glossary`, linkLabel: 'Glossary',
-      },
-      {
-        code: 'C5', title: 'Charts and Graphs', mandatory: false,
-        requires: 'Charts and graphs highlighting financial information, with narrative interpretation where needed.',
-        howWeAddress: 'Twenty-year trend charts, per-line sparklines, category bars, and vote visualizations — each paired with a written explanation of what it shows.',
-        status: 'met', link: `${base}/compare/`, linkLabel: 'Budget Compare',
-      },
-      {
-        code: 'C6', title: 'Understandability and Usability', mandatory: false,
-        requires: 'Formatting oriented to the average reader: attractive, consistent, understandable.',
-        howWeAddress: 'Every tool opens with an "In plain English" intro; consistent design across all pages; per-page titles; mobile-friendly layout; the entire site is written for readers with no finance background.',
-        status: 'met', link: `${base}/guide/`, linkLabel: 'Start Here guide',
-      },
-    ],
+    kind: 'content', name: 'Community Priorities and Organizational Challenges / Opportunities', points: 20,
+    question: 'What are the major challenges facing the organization and the community, how does this budget address them, and are results expected to improve within the budget period?',
+    howWeAddress:
+      'The pressures are documented in detail: the 2027 tax-cap gap, the retirement buyout, five years of cap overrides, the OPEB liability, and the community housing fund the Town declined. Candidate platforms and Board voting records show where the disagreements are.',
+    status: 'partial', selfScore: 12,
+    link: `${base}/spending-reduction-2027/`, linkLabel: '2027 pressures',
+    gapNote:
+      'The challenges are well covered; the priorities are not. The Town publishes no strategic goals in a form anyone can extract, so this site cannot report what it has not adopted — and says so rather than substituting its own.',
   },
   {
-    key: 'policy',
-    name: 'As a Policy Document',
-    plain: 'Does it explain what the government is trying to achieve and the rules it follows?',
-    criteria: [
-      {
-        code: 'P1', title: 'Strategic Goals and Strategies', mandatory: true,
-        requires: 'A coherent statement of organization-wide strategic goals addressing long-term concerns.',
-        howWeAddress: 'The Town has not published machine-readable strategic goals; nothing to extract yet.',
-        status: 'gap',
-        gapNote: 'Extract and present strategic goals if the Town publishes them in a budget message or plan.',
-      },
-      {
-        code: 'P2', title: 'Priorities and Issues', mandatory: true,
-        requires: 'A budget message articulating priorities, issues, and significant changes for the year.',
-        howWeAddress: 'Resident Insights on the dashboard and the Annual Report narrative explain what changed and why it matters — an independent stand-in for a transmittal letter, not the Town’s own message.',
-        status: 'partial', link: `${base}/annual-report/`, linkLabel: '2025 Annual Report',
-        gapNote: 'Extract the Supervisor’s budget message from the adopted budget when one is included.',
-      },
-      {
-        code: 'P3', title: 'Financial Policies', mandatory: true,
-        requires: 'Entity-wide long-term financial policies, including the definition of a balanced budget.',
-        howWeAddress: 'Reserve-use and fund-balance context is explained where it appears, but the Town’s formal financial policies are not yet extracted and presented.',
-        status: 'partial',
-        gapNote: 'Extract the Town’s fund-balance and reserve policies into a dedicated policies section.',
-      },
-      {
-        code: 'P4', title: 'Budget Process', mandatory: true,
-        requires: 'A description of how the budget is prepared, reviewed, adopted, and amended.',
-        howWeAddress: 'The Start Here guide explains the tentative → preliminary → adopted process in plain English, and post-adoption amendments are visible as Town Board resolutions in the voting record.',
-        status: 'met', link: `${base}/guide/#budget-process`, linkLabel: 'How the budget gets made',
-      },
-    ],
+    kind: 'content', name: 'Value', points: 20,
+    question: 'What is the public getting from the government, and how much does the government cost — per person, per household, for specific services?',
+    howWeAddress:
+      'Road spending per maintained mile against the other nine Suffolk towns, the credit rating against peer towns, and reserve levels against peer policy are all real value comparisons rather than raw totals.',
+    status: 'partial', selfScore: 10,
+    link: `${base}/road-spending/`, linkLabel: 'Spending per mile',
+    gapNote:
+      'Service levels and outcomes — what the money actually buys, measured — are largely absent, because the Town publishes no performance measures. This is the weakest of the high-value categories.',
   },
   {
-    key: 'financial',
-    name: 'As a Financial Plan',
-    plain: 'Does it show all the money — where it comes from, where it goes, and what remains?',
-    criteria: [
-      {
-        code: 'F1', title: 'Fund Descriptions and Fund Structure', mandatory: false,
-        requires: 'Describe all appropriated funds and the fund structure.',
-        howWeAddress: 'All 19 operating funds are described in plain English with their codes, purposes, and financing mix.',
-        status: 'met', link: `${base}/funds/`, linkLabel: 'Funds Explorer',
-      },
-      {
-        code: 'F2', title: 'Basis of Budgeting', mandatory: false,
-        requires: 'Explain the basis of budgeting (cash, modified accrual, or other) for all funds.',
-        howWeAddress: 'The Town’s budget documents do not state a basis of budgeting for us to extract; we do not assert one.',
-        status: 'gap',
-        gapNote: 'Present the basis of budgeting if stated in future Town documents.',
-      },
-      {
-        code: 'F3', title: 'Consolidated Financial Schedule', mandatory: true,
-        requires: 'A consolidated summary of revenues, expenditures, and other sources/uses.',
-        howWeAddress: 'Town-wide totals with a category rollup of every account line, plus each fund’s revenues by source — reconciled to the dollar against the official Summary page.',
-        status: 'met', link: `${base}/funds/`, linkLabel: 'Funds Explorer',
-      },
-      {
-        code: 'F4', title: 'Three-Year Consolidated and Fund Schedules', mandatory: false,
-        requires: 'Revenues and expenditures for prior actual, current, and proposed years, consolidated and by fund.',
-        howWeAddress: 'Every budget line carries 2024–2026 adopted figures (and a trend back to 2020); the Annual Report shows three years of actuals (2023–2025) for every fund.',
-        status: 'met', link: `${base}/annual-report/`, linkLabel: 'Annual Report',
-      },
-      {
-        code: 'F5', title: 'Fund Balance', mandatory: true,
-        requires: 'Projected changes in fund balance for appropriated funds, with definitions.',
-        howWeAddress: 'Fund-balance use appears on every fund page; the Annual Report breaks the General Fund’s $33.4M balance into classifications with plain-English definitions; the glossary defines the terms.',
-        status: 'met', link: `${base}/annual-report/`, linkLabel: 'Fund balance breakdown',
-      },
-      {
-        code: 'F6', title: 'Revenues', mandatory: true,
-        requires: 'Describe major revenue sources, estimate assumptions, and trends.',
-        howWeAddress: 'Revenue line items for every fund, actual revenue categories with three-year trends, and 20 years of General Fund revenue history — but the Town’s estimating assumptions are not published for extraction.',
-        status: 'partial', link: `${base}/general-fund/`, linkLabel: 'Revenue trends',
-        gapNote: 'Present revenue assumptions if the Town publishes them.',
-      },
-      {
-        code: 'F7', title: 'Long-Range Operating Financial Plans', mandatory: false,
-        requires: 'Long-range financial plans extending at least two years beyond the budget year.',
-        howWeAddress: 'The Town does not publish a long-range operating plan; the Scenario Lab explores assumptions but is not a plan.',
-        status: 'gap',
-        gapNote: 'Present multi-year projections if the Town adopts a long-range plan.',
-      },
-      {
-        code: 'F8', title: 'Capital Program', mandatory: true,
-        requires: 'Budgeted capital expenditures and their impact on operations.',
-        howWeAddress: 'Capital-project budget adoptions are trackable in the Town Board voting record, and capital-fund actuals appear in the Annual Report — but there is no consolidated capital schedule yet.',
-        status: 'partial', link: `${base}/meetings/`, linkLabel: 'Capital resolutions',
-        gapNote: 'Build a consolidated capital-projects view from budget-adoption resolutions and the capital fund.',
-      },
-      {
-        code: 'F9', title: 'Debt', mandatory: true,
-        requires: 'Current debt obligations, legal debt limits, and effects on operations.',
-        howWeAddress: 'Debt Service Fund appropriations and actual debt-service spending are shown; principal/interest schedules, BAN exposure, and debt limits are not yet extracted.',
-        status: 'partial', link: `${base}/funds/V01/`, linkLabel: 'Debt Service Fund',
-        gapNote: 'Extract debt schedules and legal-limit calculations from the audit and AFR.',
-      },
-    ],
+    kind: 'content', name: 'Long-Term Outlook', points: 20,
+    question: 'How do current budget decisions affect the long-term outlook, reserve levels, deferred costs, and future obligations?',
+    howWeAddress:
+      'A 2027 projection built from signed contract terms, the cap gap it implies, a debt schedule running to 2053, the unfunded OPEB liability, and twenty years of General Fund history behind it all.',
+    status: 'strong', selfScore: 15,
+    link: `${base}/predict-2027/`, linkLabel: '2027 outlook',
+    gapNote: 'No multi-year forecast beyond 2027, and the Town publishes no long-range financial plan to check against.',
   },
   {
-    key: 'operations',
-    name: 'As an Operations Guide',
-    plain: 'Does it show who does the work — departments, people, and what they aim to accomplish?',
-    criteria: [
-      {
-        code: 'O1', title: 'Organization Chart', mandatory: true,
-        requires: 'A legible organization chart for the entire entity.',
-        howWeAddress: 'Not yet presented; the department structure exists in our data and could be rendered as a chart.',
-        status: 'gap',
-        gapNote: 'Render an organization view from the fund → department structure.',
-      },
-      {
-        code: 'O2', title: 'Department / Fund Relationship', mandatory: false,
-        requires: 'Show the relationship between departments and funds.',
-        howWeAddress: 'The Funds Explorer maps exactly this: every fund drills into its departments, and every department shows its fund.',
-        status: 'met', link: `${base}/funds/`, linkLabel: 'Fund drilldowns',
-      },
-      {
-        code: 'O3', title: 'Position Summary Schedule', mandatory: true,
-        requires: 'Position counts for prior, current, and budgeted years, entity-wide.',
-        howWeAddress: 'Authorized positions with salaries for 2025 and 2026 (by department and group) and actual headcounts 2018–2025 exist — but not yet as a single position-count table across years.',
-        status: 'partial', link: `${base}/payroll/`, linkLabel: 'Payroll Explorer',
-        gapNote: 'Publish a consolidated headcount-by-department table across years.',
-      },
-      {
-        code: 'O4', title: 'Departmental Descriptions', mandatory: true,
-        requires: 'Descriptions of each department or program.',
-        howWeAddress: 'Departments are clearly presented with their spending detail and categories; narrative descriptions of what each department does are not yet written.',
-        status: 'partial', link: `${base}/funds/A01/`, linkLabel: 'Department drilldowns',
-        gapNote: 'Add one-line plain-English descriptions per department.',
-      },
-      {
-        code: 'O5', title: 'Departmental Goals and Objectives', mandatory: false,
-        requires: 'Department goals linked to the entity’s strategic goals.',
-        howWeAddress: 'The Town does not publish departmental goals in its budget documents.',
-        status: 'gap',
-        gapNote: 'Present departmental goals if the Town publishes them.',
-      },
-      {
-        code: 'O6', title: 'Performance Measures', mandatory: true,
-        requires: 'Objective measures of progress for departments and programs.',
-        howWeAddress: 'The Town does not publish performance measures; the closest available signals (spending vs. plan, overtime trends) are shown but are not outcome measures.',
-        status: 'gap',
-        gapNote: 'Present performance data if the Town adopts measures.',
-      },
-    ],
+    kind: 'content', name: 'Revenue Budget', points: 20,
+    question: 'How much revenue is anticipated, how diverse and controllable is it, what is restricted, and how is the burden distributed across the community?',
+    howWeAddress:
+      'The levy and its growth against the cap, twenty years of revenue history, the CPF transfer tax, a personal tax-bill estimator built on the real assessment ratio, and the tax base the levy is spread across.',
+    status: 'strong', selfScore: 17,
+    link: `${base}/tax-cap/`, linkLabel: 'Levy and the cap',
+  },
+  {
+    kind: 'content', name: 'Personnel Budget', points: 15,
+    question: 'How many staff are budgeted, how did personnel costs change, where did staffing rise or fall, and what is driving the cost?',
+    howWeAddress:
+      'Actual pay by employee and year, authorized salary schedules, raises, overtime against staffing levels, union step schedules, separation pay, and the retirement incentive — the deepest area on the site.',
+    status: 'strong', selfScore: 14,
+    link: `${base}/payroll/`, linkLabel: 'Payroll explorer',
+  },
+  {
+    kind: 'content', name: 'Department Budget', points: 15,
+    question: 'What services does each department provide, what do they cost, and how is the department held accountable for results?',
+    howWeAddress:
+      'Every operating fund drills to department and then to individual account line items, reconciled to the Town’s own published summary.',
+    status: 'strong', selfScore: 12,
+    link: `${base}/funds/`, linkLabel: 'Funds and departments',
+    gapNote: 'Departmental narrative — what each department does and how it is organised — is thin next to the numbers.',
+  },
+  {
+    kind: 'content', name: 'Program Budget', points: 15,
+    question: 'What are the major programs and services, what does each cost, what are their service-level goals, and do they generate revenue?',
+    howWeAddress:
+      'Not presented. The Town budgets by fund and department rather than by program, and this site has not constructed a program view on top of that.',
+    status: 'gap', selfScore: 3,
+    gapNote:
+      'The clearest remaining content gap. Building it would mean mapping line items to services — real work, and partly a judgement call this site would have to make and defend.',
+  },
+  {
+    kind: 'content', name: 'Capital Budget', points: 15,
+    question: 'How is capital spending defined and prioritized, how is it funded, and what are the major projects?',
+    howWeAddress:
+      'The financing side is covered well: outstanding bonds and notes, the amortization schedule, debt limit headroom, the credit rating, and a bond-versus-note calculator.',
+    status: 'partial', selfScore: 8,
+    link: `${base}/capital-debt/`, linkLabel: 'Capital and debt',
+    gapNote: 'There is no project-level capital plan here — what is being built, when, and at what cost — because the Town publishes no extractable capital improvement plan.',
+  },
+  {
+    kind: 'content', name: 'Budget Process', points: 10,
+    question: 'How is the budget developed, who is involved, how are community priorities considered, and when can the public engage?',
+    howWeAddress:
+      'The statutory calendar, the tax-cap override mechanics, every Board vote on record with who voted how, fiscal-impact reads on resolutions, and a plain-English guide to the vocabulary. The Board’s own rules of procedure are laid out too — the two public-comment windows, the five-minute limit on resolutions, and the fact that a public hearing carries no time limit at all.',
+    status: 'strong', selfScore: 10,
+    link: `${base}/meetings/`, linkLabel: 'Board votes',
+  },
+
+  // ---------------------------------------------------------- material type
+  {
+    kind: 'material', name: 'Budget Document', points: 10,
+    question: 'Is the budget document findable, organized, clearly messaged, well illustrated, and accessibility-compliant?',
+    howWeAddress:
+      'Not applicable. The budget document is the Town’s to publish; this site reads it rather than replacing it, and links to the source PDFs.',
+    status: 'gap', selfScore: 0,
+    link: `${base}/sources/`, linkLabel: 'Source library',
+  },
+  {
+    kind: 'material', name: 'Budget-In-Brief / Newsletter', points: 10,
+    question: 'Is it actually brief, free of non-budget material, distributed to residents, and attractively designed?',
+    howWeAddress:
+      'The guided tour is exactly this — an eleven-stop walkthrough from "what is a budget" to the raw data — backed by a dashboard that leads with plain-English figures and a glossary.',
+    status: 'strong', selfScore: 7,
+    link: `${base}/explore/`, linkLabel: 'The guided tour',
+    gapNote: 'No printable or mailable version, which is what "newsletter" implies for a resident without reliable internet.',
+  },
+  {
+    kind: 'material', name: 'Budget Website or Dashboard', points: 10,
+    question: 'Is the budget site easy to reach, interactive with drill-down, accessible on mobile and to disabled users, and updated more than once a year?',
+    howWeAddress:
+      'This is the whole site: grouped navigation, on-page anchors, a search index across line items and documents, and charts that carry text labels and tooltips rather than relying on colour. Audited for heading order, landmarks, labelled controls and contrast.',
+    status: 'strong', selfScore: 9,
+    link: `${base}/`, linkLabel: 'Dashboard',
+  },
+  {
+    kind: 'material', name: 'Videos', points: 10,
+    question: 'Do videos carry the major budget messages and explain key terms for a general audience?',
+    howWeAddress: 'None. Nothing on this site is video, narrated, or captioned.',
+    status: 'gap', selfScore: 0,
+    gapNote: 'A short walkthrough of the tour would be the cheapest ten points available here, and would reach readers who will not read a page of numbers.',
+  },
+  {
+    kind: 'material', name: 'Others', points: 10,
+    question: 'What other tools reach people the main document will not?',
+    howWeAddress:
+      'Every dataset downloadable as CSV or JSON, a full-text search across budget lines and source documents, a source library of the underlying filings, and a companion iOS app.',
+    status: 'partial', selfScore: 6,
+    link: `${base}/downloads/`, linkLabel: 'Downloads',
   },
 ]
 
-export const gfoaSummary = (() => {
-  const all = gfoaCategories.flatMap((c) => c.criteria)
-  return {
-    total: all.length,
-    met: all.filter((c) => c.status === 'met').length,
-    partial: all.filter((c) => c.status === 'partial').length,
-    gap: all.filter((c) => c.status === 'gap').length,
-  }
-})()
+const sum = (xs: number[]) => xs.reduce((a, b) => a + b, 0)
+const content = gfoaCategories.filter((c) => c.kind === 'content')
+const material = gfoaCategories.filter((c) => c.kind === 'material')
+
+export const gfoaSummary = {
+  contentPossible: sum(content.map((c) => c.points)),   // 150
+  materialPossible: sum(material.map((c) => c.points)), // 50
+  totalPossible: sum(gfoaCategories.map((c) => c.points)), // 200
+  contentScore: sum(content.map((c) => c.selfScore)),
+  materialScore: sum(material.map((c) => c.selfScore)),
+  totalScore: sum(gfoaCategories.map((c) => c.selfScore)),
+  /** GFOA's threshold for the award. */
+  threshold: 100,
+  strong: gfoaCategories.filter((c) => c.status === 'strong').length,
+  partial: gfoaCategories.filter((c) => c.status === 'partial').length,
+  gap: gfoaCategories.filter((c) => c.status === 'gap').length,
+  total: gfoaCategories.length,
+}

@@ -15,11 +15,11 @@ import { createPortal } from 'react-dom'
 // devices (which get no hover) can still reach it, and closes on Escape,
 // scroll, or pointer-away.
 //
-// Rendered via a portal straight to <body> rather than inline: dark mode
-// (layout.tsx) applies a CSS filter to a wrapper below <body>, which creates a
-// new containing block for `position: fixed` descendants — without the portal,
-// `top`/`left` (taken from getBoundingClientRect, viewport-relative) would end
-// up positioned against that wrapper's much taller box instead of the viewport.
+// Rendered via a portal straight to <body> rather than inline, so it escapes the
+// #rbl-shell wrapper that carries the text-zoom scaling (layout.tsx). Inside that
+// wrapper, `top`/`left` — taken from getBoundingClientRect, so viewport-relative —
+// would be scaled again by the zoom and land in the wrong place. Outside it, the
+// popover has to opt into the zoom itself, which the `zoom` style below does.
 
 const WIDTH = 320
 
@@ -86,7 +86,7 @@ export default function InfoTip({
         onBlur={hide}
         style={{
           background: 'none', border: 'none', padding: 0, margin: 0, cursor: 'help',
-          color: '#4a7297', fontWeight: 900, fontSize: '0.92em', lineHeight: 1,
+          color: 'var(--rbl-accent)', fontWeight: 900, fontSize: '0.92em', lineHeight: 1,
           display: 'inline-flex', alignItems: 'center',
         }}
       >
@@ -107,7 +107,7 @@ export default function InfoTip({
           style={{
             position: 'fixed', top: pos.top, left: pos.left, width: WIDTH, zIndex: 60,
             background: '#0f2740', color: '#e6eef6', padding: '11px 13px', borderRadius: 10,
-            boxShadow: '0 18px 44px rgba(15,23,42,.36)', fontSize: 13, fontWeight: 400,
+            boxShadow: '0 18px 44px var(--rbl-shadow)', fontSize: 13, fontWeight: 400,
             lineHeight: 1.5, textAlign: 'left', textTransform: 'none', letterSpacing: 0,
             whiteSpace: 'normal', pointerEvents: 'none',
             // Matches the page's own text-zoom level (see DisplaySettings.tsx) — this
@@ -116,7 +116,7 @@ export default function InfoTip({
               : document.documentElement.getAttribute('data-zoom') === '115' ? 1.15 : 1,
           }}
         >
-          <strong style={{ display: 'block', color: '#fff', marginBottom: 5, fontSize: 13.5 }}>{heading}</strong>
+          <strong style={{ display: 'block', color: 'var(--rbl-surface)', marginBottom: 5, fontSize: 13.5 }}>{heading}</strong>
           {children}
         </span>,
         document.body,

@@ -20,7 +20,7 @@ import {
   unassignedFundBalance,
 } from '../../lib/reserve-policy'
 
-const card = { background: 'white', border: '1px solid #e2e8f0', borderRadius: 16, padding: 20, boxShadow: '0 14px 34px rgba(15,23,42,.05)' } as const
+const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 20, boxShadow: '0 14px 34px var(--rbl-shadow)' } as const
 const pct = (v: number, digits = 1) => `${(v * 100).toFixed(digits)}%`
 
 export const metadata = {
@@ -29,7 +29,7 @@ export const metadata = {
     "How Riverhead's savings stack up against its own reserve rules, a one-time deployment plan for the surplus above target, and how the Town's posture compares to neighboring towns.",
 }
 
-const healthColor: Record<string, string> = { healthy: '#16a34a', watch: '#c2410c', atRisk: '#dc2626' }
+const healthColor: Record<string, string> = { healthy: 'var(--rbl-success)', watch: 'var(--rbl-warn)', atRisk: 'var(--rbl-danger)' }
 const healthLabel: Record<string, string> = { healthy: 'Healthy', watch: 'Watch', atRisk: 'At risk' }
 const healthNote: Record<string, string> = {
   healthy: "The savings cushion is above the Town's minimum policy target — a good sign.",
@@ -59,7 +59,7 @@ export default function ReservesPage() {
       </PlainCallout>
 
       <section style={{ ...card, marginBottom: 16 }}>
-        <h3 style={{ marginTop: 0, color: '#284a69' }}>Policy compliance at a glance</h3>
+        <h3 style={{ marginTop: 0, color: 'var(--rbl-title)' }}>Policy compliance at a glance</h3>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           <strong>General Fund</strong>
           <span
@@ -79,7 +79,7 @@ export default function ReservesPage() {
           <span>Unassigned fund balance (FY2025 actual)</span>
           <strong>{dollars(unassignedFundBalance)}</strong>
         </div>
-        <div style={{ background: '#e2e8f0', borderRadius: 999, height: 8, overflow: 'hidden', marginTop: 8 }}>
+        <div style={{ background: 'var(--rbl-track)', borderRadius: 999, height: 8, overflow: 'hidden', marginTop: 8 }}>
           <div
             style={{
               width: `${Math.min(100, (pctOfApprop / (policyMinimumPercent * 2)) * 100)}%`,
@@ -89,26 +89,26 @@ export default function ReservesPage() {
             }}
           />
         </div>
-        <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 12.5, marginTop: 4, color: '#64748b' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 12.5, marginTop: 4, color: 'var(--rbl-text-muted)' }}>
           <span>{pct(pctOfApprop)} of appropriations</span>
           <span>Policy min: {pct(policyMinimumPercent, 0)}</span>
         </div>
         <p style={{ color: healthColor[health], fontSize: 14, fontWeight: 700, marginTop: 10 }}>{healthNote[health]}</p>
 
-        <hr style={{ border: 'none', borderTop: '1px solid #e2e8f0', margin: '14px 0' }} />
-        <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 13.5, color: '#64748b' }}>
+        <hr style={{ border: 'none', borderTop: '1px solid var(--rbl-border-subtle)', margin: '14px 0' }} />
+        <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 13.5, color: 'var(--rbl-text-muted)' }}>
           <span>Policy upper target (20%)</span>
           <span>{dollars(targetUpper)}</span>
         </div>
-        <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 13.5, color: '#64748b', marginTop: 4 }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 13.5, color: 'var(--rbl-text-muted)', marginTop: 4 }}>
           <span>Surplus above upper target</span>
-          <span style={{ color: surplusAboveUpper >= 0 ? '#16a34a' : '#c2410c', fontWeight: 700 }}>{dollars(surplusAboveUpper)}</span>
+          <span style={{ color: surplusAboveUpper >= 0 ? 'var(--rbl-success)' : 'var(--rbl-warn)', fontWeight: 700 }}>{dollars(surplusAboveUpper)}</span>
         </div>
       </section>
 
       <section style={{ ...card, marginBottom: 16 }}>
-        <h3 style={{ marginTop: 0, color: '#284a69' }}>28.8% Reserve Reset</h3>
-        <p style={{ color: '#475569', fontSize: 14.5, marginTop: 0 }}>
+        <h3 style={{ marginTop: 0, color: 'var(--rbl-title)' }}>28.8% Reserve Reset</h3>
+        <p style={{ color: 'var(--rbl-text-body)', fontSize: 14.5, marginTop: 0 }}>
           A one-time-money plan: keep a strong cushion, use the rest on purpose, and show what still fits after the
           serious bills are paid.
         </p>
@@ -122,10 +122,10 @@ export default function ReservesPage() {
         </div>
         <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 15, marginTop: 6 }}>
           <span>Available for one-time deployment</span>
-          <strong style={{ color: '#4a7297' }}>{dollars(deployableAbove288)}</strong>
+          <strong style={{ color: 'var(--rbl-accent)' }}>{dollars(deployableAbove288)}</strong>
         </div>
 
-        <hr style={{ border: 'none', borderTop: '1px solid #e2e8f0', margin: '14px 0' }} />
+        <hr style={{ border: 'none', borderTop: '1px solid var(--rbl-border-subtle)', margin: '14px 0' }} />
 
         <div style={{ display: 'grid', gap: 14 }}>
           {deploymentOptions.map((option) => (
@@ -136,7 +136,7 @@ export default function ReservesPage() {
                   height: 26,
                   borderRadius: '50%',
                   background: '#4a729722',
-                  color: '#4a7297',
+                  color: 'var(--rbl-accent)',
                   display: 'grid',
                   placeItems: 'center',
                   fontSize: 12,
@@ -149,39 +149,39 @@ export default function ReservesPage() {
               <div>
                 <div style={{ display: 'flex', justifyContent: 'space-between', gap: 10 }}>
                   <strong style={{ fontSize: 14 }}>{option.title}</strong>
-                  <span style={{ color: '#9b6b12', fontWeight: 800, fontSize: 13, whiteSpace: 'nowrap' }}>{dollars(option.amount)}</span>
+                  <span style={{ color: 'var(--rbl-badge)', fontWeight: 800, fontSize: 13, whiteSpace: 'nowrap' }}>{dollars(option.amount)}</span>
                 </div>
-                <p style={{ color: '#64748b', fontSize: 13, margin: '2px 0 0' }}>{option.detail}</p>
+                <p style={{ color: 'var(--rbl-text-muted)', fontSize: 13, margin: '2px 0 0' }}>{option.detail}</p>
               </div>
             </div>
           ))}
         </div>
 
-        <hr style={{ border: 'none', borderTop: '1px solid #e2e8f0', margin: '14px 0' }} />
+        <hr style={{ border: 'none', borderTop: '1px solid var(--rbl-border-subtle)', margin: '14px 0' }} />
         <div style={{ display: 'flex', justifyContent: 'space-between', fontWeight: 800 }}>
           <span>Still available after these deployments</span>
-          <span style={{ color: '#16a34a' }}>{dollars(remainingAfterDeploymentOptions)}</span>
+          <span style={{ color: 'var(--rbl-success)' }}>{dollars(remainingAfterDeploymentOptions)}</span>
         </div>
       </section>
 
-      <h2 style={{ margin: '26px 0 4px', color: '#284a69', fontSize: 18 }}>Go deeper</h2>
-      <p style={{ color: '#64748b', fontSize: 13.5, margin: '0 0 8px' }}>The breakdown, peer comparisons, and a draw-down tool — open only what you want.</p>
+      <h2 style={{ margin: '26px 0 4px', color: 'var(--rbl-title)', fontSize: 18 }}>Go deeper</h2>
+      <p style={{ color: 'var(--rbl-text-muted)', fontSize: 13.5, margin: '0 0 8px' }}>The breakdown, peer comparisons, and a draw-down tool — open only what you want.</p>
 
       <Detail title="Community block grants — who would get funded">
       <section style={{ ...card, marginBottom: 16 }}>
-        <h3 style={{ marginTop: 0, color: '#284a69' }}>Community block grants — who would get funded</h3>
-        <p style={{ color: '#475569', fontSize: 14.5, marginTop: 0 }}>
+        <h3 style={{ marginTop: 0, color: 'var(--rbl-title)' }}>Community block grants — who would get funded</h3>
+        <p style={{ color: 'var(--rbl-text-body)', fontSize: 14.5, marginTop: 0 }}>
           The breakdown behind deployment option #5 above: four nonprofits serving Riverhead and the East End. These
           amounts are this site&apos;s own illustrative sizing, not an official Town budget line or commitment.
         </p>
         <div style={{ display: 'grid', gap: 12 }}>
           {communityBlockGrants.map((grant) => (
-            <div key={grant.organization} style={{ display: 'flex', justifyContent: 'space-between', gap: 10, borderTop: '1px solid #e2e8f0', paddingTop: 10 }}>
+            <div key={grant.organization} style={{ display: 'flex', justifyContent: 'space-between', gap: 10, borderTop: '1px solid var(--rbl-border-subtle)', paddingTop: 10 }}>
               <div>
                 <strong style={{ fontSize: 14 }}>{grant.organization}</strong>
-                <p style={{ color: '#64748b', fontSize: 13, margin: '2px 0 0' }}>{grant.focus}</p>
+                <p style={{ color: 'var(--rbl-text-muted)', fontSize: 13, margin: '2px 0 0' }}>{grant.focus}</p>
               </div>
-              <span style={{ color: '#9b6b12', fontWeight: 800, fontSize: 13, whiteSpace: 'nowrap' }}>{dollars(grant.amount)}</span>
+              <span style={{ color: 'var(--rbl-badge)', fontWeight: 800, fontSize: 13, whiteSpace: 'nowrap' }}>{dollars(grant.amount)}</span>
             </div>
           ))}
         </div>
@@ -191,8 +191,8 @@ export default function ReservesPage() {
 
       <Detail title="How Riverhead's 28.8% target compares nearby">
       <section style={{ ...card, marginBottom: 16 }}>
-        <h3 style={{ marginTop: 0, color: '#284a69' }}>How 28.8% compares nearby</h3>
-        <p style={{ color: '#475569', fontSize: 14.5, marginTop: 0 }}>
+        <h3 style={{ marginTop: 0, color: 'var(--rbl-title)' }}>How 28.8% compares nearby</h3>
+        <p style={{ color: 'var(--rbl-text-body)', fontSize: 14.5, marginTop: 0 }}>
           Riverhead&apos;s target lands below what Brookhaven and Smithtown are doing today, but above
           Southampton&apos;s official policy.
         </p>
@@ -201,14 +201,14 @@ export default function ReservesPage() {
             <div key={peer.town}>
               <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                 <strong style={{ fontSize: 14 }}>{peer.town}</strong>
-                <span style={{ color: peer.town === 'Riverhead target' ? '#4a7297' : '#9b6b12', fontWeight: 800 }}>{pct(peer.percent)}</span>
+                <span style={{ color: peer.town === 'Riverhead target' ? 'var(--rbl-accent)' : 'var(--rbl-badge)', fontWeight: 800 }}>{pct(peer.percent)}</span>
               </div>
-              <p style={{ color: '#64748b', fontSize: 13, margin: '2px 0 0' }}>{peer.detail}</p>
+              <p style={{ color: 'var(--rbl-text-muted)', fontSize: 13, margin: '2px 0 0' }}>{peer.detail}</p>
             </div>
           ))}
         </div>
-        <hr style={{ border: 'none', borderTop: '1px solid #e2e8f0', margin: '12px 0' }} />
-        <p style={{ color: '#6b7280', fontSize: 12.5 }}>
+        <hr style={{ border: 'none', borderTop: '1px solid var(--rbl-border-subtle)', margin: '12px 0' }} />
+        <p style={{ color: 'var(--rbl-text-muted)', fontSize: 12.5 }}>
           Benchmark note: GFOA guidance commonly points to at least two months of regular operating spending or
           revenue in unrestricted fund balance, about 16.7% to 17% — which is why Southampton&apos;s 17% policy reads
           more like a minimum floor than a default target.
@@ -219,8 +219,8 @@ export default function ReservesPage() {
 
       <Detail title="What if Riverhead matched its peers?">
       <section style={{ ...card, marginBottom: 16 }}>
-        <h3 style={{ marginTop: 0, color: '#284a69' }}>What if Riverhead matched its peers?</h3>
-        <p style={{ color: '#475569', fontSize: 14.5, marginTop: 0 }}>
+        <h3 style={{ marginTop: 0, color: 'var(--rbl-title)' }}>What if Riverhead matched its peers?</h3>
+        <p style={{ color: 'var(--rbl-text-body)', fontSize: 14.5, marginTop: 0 }}>
           How much one-time room Riverhead would have if it matched a neighboring town&apos;s reserve levels — or the
           average of them all.
         </p>
@@ -229,22 +229,22 @@ export default function ReservesPage() {
             <div key={peer.label}>
               <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                 <strong style={{ fontSize: 14 }}>{peer.label}</strong>
-                <span style={{ color: '#9b6b12', fontWeight: 800 }}>{pct(peer.percent)}</span>
+                <span style={{ color: 'var(--rbl-badge)', fontWeight: 800 }}>{pct(peer.percent)}</span>
               </div>
-              <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 12.5, color: '#64748b', marginTop: 2 }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 12.5, color: 'var(--rbl-text-muted)', marginTop: 2 }}>
                 <span>Target balance</span>
                 <span>{dollars(peer.targetBalance)}</span>
               </div>
-              <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 12.5, color: peer.deploymentCapacity >= 0 ? '#16a34a' : '#c2410c', marginTop: 2 }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 12.5, color: peer.deploymentCapacity >= 0 ? 'var(--rbl-success)' : 'var(--rbl-warn)', marginTop: 2 }}>
                 <span>{peer.deploymentCapacity >= 0 ? 'One-time room created' : 'Additional reserve needed'}</span>
                 <span>{dollars(Math.abs(peer.deploymentCapacity))}</span>
               </div>
-              <p style={{ color: '#64748b', fontSize: 13, margin: '4px 0 0' }}>{peer.detail}</p>
+              <p style={{ color: 'var(--rbl-text-muted)', fontSize: 13, margin: '4px 0 0' }}>{peer.detail}</p>
             </div>
           ))}
         </div>
-        <hr style={{ border: 'none', borderTop: '1px solid #e2e8f0', margin: '12px 0' }} />
-        <p style={{ color: '#6b7280', fontSize: 12.5 }}>
+        <hr style={{ border: 'none', borderTop: '1px solid var(--rbl-border-subtle)', margin: '12px 0' }} />
+        <p style={{ color: 'var(--rbl-text-muted)', fontSize: 12.5 }}>
           Ideal guidance: treat 17% like a GFOA-style minimum floor, not the automatic target. East Hampton&apos;s
           56.2% reads like a high-cushion outlier. For Riverhead, a practical operating range is still roughly 25% to
           32%, with 28.8% as a strong middle path that leaves room for debt reduction and one-time public
@@ -256,8 +256,8 @@ export default function ReservesPage() {
 
       <Detail title="Try it: what if the Town uses some savings?">
       <section style={{ ...card }}>
-        <h3 style={{ marginTop: 0, color: '#284a69' }}>What if the Town uses some savings?</h3>
-        <p style={{ color: '#475569', fontSize: 14.5, marginTop: 0 }}>
+        <h3 style={{ marginTop: 0, color: 'var(--rbl-title)' }}>What if the Town uses some savings?</h3>
+        <p style={{ color: 'var(--rbl-text-body)', fontSize: 14.5, marginTop: 0 }}>
           See how using reserves for tax relief or a project would affect the cushion.
         </p>
         <ReserveDrawdownSlider
@@ -268,7 +268,7 @@ export default function ReservesPage() {
       </section>
       </Detail>
 
-      <p style={{ color: '#64748b', fontSize: 13, lineHeight: 1.55, marginTop: 16 }}>
+      <p style={{ color: 'var(--rbl-text-muted)', fontSize: 13, lineHeight: 1.55, marginTop: 16 }}>
         Sources: 2025 Annual Financial Report (actual unassigned fund balance), 2026 Adopted Budget (General Fund
         appropriations and one-time deployment figures). Peer-town figures from each town&apos;s own 2026 adopted
         budget or policy document where available.
@@ -280,9 +280,9 @@ export default function ReservesPage() {
 function Detail({ title, children }: { title: string; children: React.ReactNode }) {
   return (
     <details style={{ ...card, padding: 0, marginBottom: 12, overflow: 'hidden' }}>
-      <summary style={{ cursor: 'pointer', listStyle: 'none', padding: '15px 18px', fontWeight: 800, color: '#284a69', fontSize: 15.5, display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 12 }}>
+      <summary style={{ cursor: 'pointer', listStyle: 'none', padding: '15px 18px', fontWeight: 800, color: 'var(--rbl-title)', fontSize: 15.5, display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 12 }}>
         <span>{title}</span>
-        <span aria-hidden style={{ color: '#6b7280', fontSize: 13, fontWeight: 700 }}>Open ▾</span>
+        <span aria-hidden style={{ color: 'var(--rbl-text-muted)', fontSize: 13, fontWeight: 700 }}>Open ▾</span>
       </summary>
       <div style={{ padding: '0 18px 18px' }}>{children}</div>
     </details>

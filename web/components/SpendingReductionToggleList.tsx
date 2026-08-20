@@ -14,12 +14,12 @@ import {
 } from '../lib/spending-reduction-2027'
 
 const usd = (n: number) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(n)
-const card = { background: 'white', border: '1px solid #e2e8f0', borderRadius: 16, padding: 20, boxShadow: '0 14px 34px rgba(15,23,42,.05)' } as const
+const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 20, boxShadow: '0 14px 34px var(--rbl-shadow)' } as const
 
 const CONFIDENCE_STYLE: Record<string, { label: string; color: string; bg: string }> = {
-  firm: { label: 'FIRM', color: '#1f7a5c', bg: '#d1fae5' },
-  moderate: { label: 'MODERATE', color: '#b45309', bg: '#fef3c7' },
-  volatile: { label: 'VOLATILE', color: '#b91c1c', bg: '#fee2e2' },
+  firm: { label: 'FIRM', color: 'var(--rbl-success-strong)', bg: 'var(--rbl-success-border)' },
+  moderate: { label: 'MODERATE', color: 'var(--rbl-warn)', bg: 'var(--rbl-warn-bg)' },
+  volatile: { label: 'VOLATILE', color: 'var(--rbl-danger)', bg: 'var(--rbl-danger-bg)' },
 }
 
 const allItems = [...personnelPolicyItems, ...operationalItems, ...supplementTrimItems]
@@ -54,37 +54,37 @@ export default function SpendingReductionToggleList() {
   return (
     <div style={{ display: 'grid', gap: 16 }}>
       <section style={card}>
-        <div style={{ color: '#64748b', fontSize: 12.5, fontWeight: 900, textTransform: 'uppercase', letterSpacing: 0.4 }}>
+        <div style={{ color: 'var(--rbl-text-muted)', fontSize: 12.5, fontWeight: 900, textTransform: 'uppercase', letterSpacing: 0.4 }}>
           Your selected package
         </div>
-        <div style={{ fontSize: 34, fontWeight: 900, color: '#1f7a5c', lineHeight: 1.15, margin: '2px 0 6px' }}>
+        <div style={{ fontSize: 34, fontWeight: 900, color: 'var(--rbl-success)', lineHeight: 1.15, margin: '2px 0 6px' }}>
           {usd(grandSelected)}
         </div>
-        <div style={{ color: '#64748b', fontSize: 13.5, marginBottom: 12 }}>
+        <div style={{ color: 'var(--rbl-text-muted)', fontSize: 13.5, marginBottom: 12 }}>
           out of {usd(fullRecurringReductionPackage)} available
         </div>
 
-        <div style={{ height: 8, borderRadius: 999, background: '#e2e8f0', overflow: 'hidden', marginBottom: 6 }}>
+        <div style={{ height: 8, borderRadius: 999, background: 'var(--rbl-track)', overflow: 'hidden', marginBottom: 6 }}>
           <div
             style={{
               height: '100%',
               width: `${coverage * 100}%`,
-              background: '#1f7a5c',
+              background: 'var(--rbl-success)',
               borderRadius: 999,
               transition: 'width 0.2s ease',
             }}
           />
         </div>
-        <div style={{ color: '#64748b', fontSize: 12.5, marginBottom: 14 }}>
+        <div style={{ color: 'var(--rbl-text-muted)', fontSize: 12.5, marginBottom: 14 }}>
           {(rawCoverage * 100).toFixed(0)}% of the {usd(modeledAutomaticPayrollPressure)} modeled 2027 payroll-pressure gap
           {rawCoverage >= 1 ? ' — fully covered' : ''}
-          {' '}<span style={{ color: '#6b7280' }}>(the smaller of the two gaps; the ~$2.62M cap-piercing gap is the one that actually binds)</span>
+          {' '}<span style={{ color: 'var(--rbl-text-muted)' }}>(the smaller of the two gaps; the ~$2.62M cap-piercing gap is the one that actually binds)</span>
         </div>
 
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(160px,1fr))', gap: 10, marginBottom: 14 }}>
-          <MetricTile label="Personnel & policy" value={personnelSelected} color="#284a69" />
-          <MetricTile label="Operational control" value={operationalSelected} color="#b45309" />
-          <MetricTile label="Line-item trims" value={supplementSelected} color="#1f5f8f" />
+          <MetricTile label="Personnel & policy" value={personnelSelected} color="var(--rbl-title)" />
+          <MetricTile label="Operational control" value={operationalSelected} color="var(--rbl-warn)" />
+          <MetricTile label="Line-item trims" value={supplementSelected} color="var(--rbl-accent)" />
         </div>
 
         <div style={{ display: 'flex', gap: 8 }}>
@@ -97,15 +97,15 @@ export default function SpendingReductionToggleList() {
         </div>
       </section>
 
-      <section style={{ background: '#f8fafc', border: '1px solid #e2e8f0', borderLeft: '6px solid #64748b', borderRadius: 12, padding: '14px 16px' }}>
-        <p style={{ margin: 0, color: '#334155', fontSize: 13.8, lineHeight: 1.55 }}>
+      <section style={{ background: 'var(--rbl-surface-2)', border: '1px solid var(--rbl-border-subtle)', borderLeft: '6px solid #64748b', borderRadius: 12, padding: '14px 16px' }}>
+        <p style={{ margin: 0, color: 'var(--rbl-text-strong)', fontSize: 13.8, lineHeight: 1.55 }}>
           Union wage growth ($907.9K of modeled PBA/SOA/CSEA pressure) is the single largest driver in the 2027
           model, but it&apos;s contractually locked and cannot be treated as a spending-reduction lever without a
           successor labor agreement — it stays on the pressure side of the budget, not here. Every dollar below is
           traceable to either a named formula input or an actual 2025→2026 account-level change in the Town&apos;s
           own 2026 Budget Supplement. Click any item to test a package that leaves it out.
         </p>
-        <p style={{ margin: '10px 0 0', color: '#334155', fontSize: 13.8, lineHeight: 1.55 }}>
+        <p style={{ margin: '10px 0 0', color: 'var(--rbl-text-strong)', fontSize: 13.8, lineHeight: 1.55 }}>
           PBA and SOA contracts both expire 12/31/2026 (CSEA is already locked through a ratified 2026-2029
           agreement). New York law routes police/fire bargaining impasses to binding arbitration rather than
           legislative resolution, and comparable Long Island police contracts have taken 1-3+ years past expiration
@@ -152,7 +152,7 @@ export default function SpendingReductionToggleList() {
 function MetricTile({ label, value, color }: { label: string; value: number; color: string }) {
   return (
     <div style={{ background: `${color}14`, borderRadius: 10, padding: 10 }}>
-      <div style={{ color: '#64748b', fontSize: 11.5, fontWeight: 800, textTransform: 'uppercase', letterSpacing: 0.3 }}>{label}</div>
+      <div style={{ color: 'var(--rbl-text-muted)', fontSize: 11.5, fontWeight: 800, textTransform: 'uppercase', letterSpacing: 0.3 }}>{label}</div>
       <div style={{ color, fontSize: 18, fontWeight: 900 }}>{usd(value)}</div>
     </div>
   )
@@ -177,7 +177,7 @@ function ItemSection({
 }) {
   return (
     <section style={card}>
-      <h2 style={{ margin: '0 0 12px', color: '#284a69', fontSize: 17 }}>
+      <h2 style={{ margin: '0 0 12px', color: 'var(--rbl-title)', fontSize: 17 }}>
         {title} — {usd(selectedAmount)} of {usd(fullAmount)}
       </h2>
       <div style={{ display: 'grid', gap: 10 }}>
@@ -189,8 +189,8 @@ function ItemSection({
               onClick={() => onToggle(item.id)}
               style={{
                 textAlign: 'left',
-                background: selected ? '#f0fdf9' : '#f8fafc',
-                border: `1px solid ${selected ? '#99f6e4' : '#e2e8f0'}`,
+                background: selected ? 'var(--rbl-teal-bg)' : 'var(--rbl-surface-2)',
+                border: `1px solid ${selected ? 'var(--rbl-teal-border)' : 'var(--rbl-border-subtle)'}`,
                 borderRadius: 12,
                 padding: '12px 14px',
                 cursor: 'pointer',
@@ -198,15 +198,15 @@ function ItemSection({
               }}
             >
               <div style={{ display: 'flex', justifyContent: 'space-between', gap: 10, alignItems: 'baseline' }}>
-                <span style={{ display: 'flex', alignItems: 'center', gap: 8, fontWeight: 800, color: '#284a69', fontSize: 14.5 }}>
+                <span style={{ display: 'flex', alignItems: 'center', gap: 8, fontWeight: 800, color: 'var(--rbl-title)', fontSize: 14.5 }}>
                   <span
                     aria-hidden
                     style={{
                       width: 16,
                       height: 16,
                       borderRadius: 4,
-                      border: `2px solid ${selected ? '#1f7a5c' : '#6b7280'}`,
-                      background: selected ? '#1f7a5c' : 'transparent',
+                      border: `2px solid ${selected ? 'var(--rbl-success)' : 'var(--rbl-text-muted)'}`,
+                      background: selected ? 'var(--rbl-success)' : 'transparent',
                       display: 'inline-flex',
                       alignItems: 'center',
                       justifyContent: 'center',
@@ -223,25 +223,25 @@ function ItemSection({
                     }}>{CONFIDENCE_STYLE[item.confidence].label}</span>
                   )}
                 </span>
-                <span style={{ fontWeight: 800, color: selected ? '#1f7a5c' : '#6b7280', fontSize: 14.5, whiteSpace: 'nowrap' }}>
+                <span style={{ fontWeight: 800, color: selected ? 'var(--rbl-success)' : 'var(--rbl-text-muted)', fontSize: 14.5, whiteSpace: 'nowrap' }}>
                   {usd(item.amount)}
                 </span>
               </div>
-              <div style={{ color: '#64748b', fontSize: 12.5, marginTop: 5, marginLeft: 24 }}>{item.source}</div>
-              <div style={{ color: '#6b7280', fontSize: 12.5, marginTop: 3, marginLeft: 24, fontStyle: 'italic' }}>{item.rationale}</div>
+              <div style={{ color: 'var(--rbl-text-muted)', fontSize: 12.5, marginTop: 5, marginLeft: 24 }}>{item.source}</div>
+              <div style={{ color: 'var(--rbl-text-muted)', fontSize: 12.5, marginTop: 3, marginLeft: 24, fontStyle: 'italic' }}>{item.rationale}</div>
             </button>
           )
         })}
       </div>
-      <p style={{ color: '#6b7280', fontSize: 12, marginTop: 12, marginBottom: 0, lineHeight: 1.45 }}>{footer}</p>
+      <p style={{ color: 'var(--rbl-text-muted)', fontSize: 12, marginTop: 12, marginBottom: 0, lineHeight: 1.45 }}>{footer}</p>
     </section>
   )
 }
 
 const buttonStyle = {
-  border: '1px solid #cbd5e1',
-  background: 'white',
-  color: '#334155',
+  border: '1px solid var(--rbl-border-strong)',
+  background: 'var(--rbl-surface)',
+  color: 'var(--rbl-text-strong)',
   fontWeight: 700,
   fontSize: 13,
   padding: '7px 14px',
