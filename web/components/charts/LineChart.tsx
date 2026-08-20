@@ -85,8 +85,10 @@ export default function LineChart({
   const floor = padT + plotH - 2
   const overflow = prev - floor
   if (overflow > 0) for (const k of Object.keys(placed)) placed[k] -= overflow
-  // Crowded axes get every other label rather than overlapping text.
-  const labelEvery = categories.length > 10 ? 2 : 1
+  // Crowded axes get thinned labels rather than overlapping text — aim for
+  // about ten, so a 28-year amortisation schedule labels every third year
+  // instead of printing 28 tick labels on top of each other.
+  const labelEvery = Math.max(1, Math.ceil(categories.length / 10))
 
   return (
     <ChartFrame
