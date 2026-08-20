@@ -1,5 +1,6 @@
 import TrendColors from './TrendColors'
 import SiteNav from './SiteNav'
+import DisplaySettings from './DisplaySettings'
 import DisclaimerBanner from './DisclaimerBanner'
 
 export default function PageShell({ title, subtitle, children }: { title: string; subtitle: string; children: React.ReactNode }) {
@@ -15,7 +16,13 @@ export default function PageShell({ title, subtitle, children }: { title: string
             <div style={{ color: '#d7e7f4', fontSize: 12 }}>Following the Town&apos;s money, in plain English</div>
           </span>
         </a>
-        <SiteNav />
+        {/* marginLeft: auto mirrors the trick SiteNav uses internally — keeps this
+            flush against the header's right edge even when the header wraps to two
+            lines and this becomes the sole item on its row. */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: 12, flexWrap: 'wrap', marginLeft: 'auto' }}>
+          <SiteNav />
+          <DisplaySettings />
+        </div>
       </header>
       <section style={{ padding: 30, maxWidth: 1380, margin: '0 auto' }}>
         <div style={{ background: 'var(--rbl-surface)', borderTop: '6px solid var(--rbl-page-accent)', borderRight: '1px solid var(--rbl-border)', borderBottom: '1px solid var(--rbl-border)', borderLeft: '1px solid var(--rbl-border)', borderRadius: 12, padding: 28, boxShadow: '0 14px 34px var(--rbl-shadow)', marginBottom: 18 }}>

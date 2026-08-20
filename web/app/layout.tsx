@@ -105,6 +105,16 @@ const THEME_CSS = `
 html,body{background:var(--rbl-page);color:var(--rbl-text)}
 `
 
+// Text zoom: scales the whole page (text, spacing, icons) via CSS `zoom` rather
+// than a root font-size, since ~1,000 fontSize values across the app are hardcoded
+// px, not rem — a root font-size change wouldn't reach them, but `zoom` reflows
+// the real layout (unlike `transform: scale`, which would just clip/overlap).
+// Scoped to #rbl-shell, a wrapper below <body>, so the zoom has a single owner.
+const ZOOM_CSS = `
+html[data-zoom="115"] #rbl-shell{zoom:1.15}
+html[data-zoom="130"] #rbl-shell{zoom:1.3}
+`
+
 // Semantic up/down colors, so a reader can flip the convention: by default an
 // increase is red (the accountant's reading), or green for "up = green".
 const TREND_CSS = `
@@ -112,9 +122,9 @@ const TREND_CSS = `
 :root[data-tc="green-up"]{--inc:var(--tc-green);--dec:var(--tc-red)}
 `
 
-// Apply the saved trend-colour choice before first paint so the up/down colours
-// don't flash the wrong way round.
-const PREFS_INIT = `try{var d=document.documentElement;var t=localStorage.getItem('tc');if(t)d.setAttribute('data-tc',t)}catch(e){}`
+// Apply both saved preferences before first paint, so the up/down colours don't
+// flash the wrong way round and the page doesn't visibly resize on load.
+const PREFS_INIT = `try{var d=document.documentElement;var t=localStorage.getItem('tc');if(t)d.setAttribute('data-tc',t);var z=localStorage.getItem('rbl-zoom');if(z==='115'||z==='130')d.setAttribute('data-zoom',z)}catch(e){}`
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
@@ -122,9 +132,12 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       <head>
         <style dangerouslySetInnerHTML={{ __html: THEME_CSS }} />
         <style dangerouslySetInnerHTML={{ __html: TREND_CSS }} />
+        <style dangerouslySetInnerHTML={{ __html: ZOOM_CSS }} />
         <script dangerouslySetInnerHTML={{ __html: PREFS_INIT }} />
       </head>
-      <body>{children}</body>
+      <body>
+        <div id="rbl-shell" style={{ background: 'var(--rbl-page)' }}>{children}</div>
+      </body>
     </html>
   )
 }

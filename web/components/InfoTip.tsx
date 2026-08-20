@@ -1,6 +1,7 @@
 'use client'
 
 import { useCallback, useEffect, useRef, useState } from 'react'
+import { createPortal } from 'react-dom'
 
 // A hover/focus/tap definition popover for table headers and inline labels.
 //
@@ -13,6 +14,12 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 // Opens on mouse enter and on keyboard focus, toggles on click so touch
 // devices (which get no hover) can still reach it, and closes on Escape,
 // scroll, or pointer-away.
+//
+// Rendered via a portal straight to <body> rather than inline, so it escapes the
+// #rbl-shell wrapper that carries the text-zoom scaling (layout.tsx). Inside that
+// wrapper, `top`/`left` — taken from getBoundingClientRect, so viewport-relative —
+// would be scaled again by the zoom and land in the wrong place. Outside it, the
+// popover has to opt into the zoom itself, which the `zoom` style below does.
 
 const WIDTH = 320
 
@@ -94,7 +101,7 @@ export default function InfoTip({
         </span>
       </button>
 
-      {open && pos && (
+      {open && pos && typeof document !== 'undefined' && createPortal(
         <span
           role="tooltip"
           style={{
@@ -103,11 +110,16 @@ export default function InfoTip({
             boxShadow: '0 18px 44px var(--rbl-shadow)', fontSize: 13, fontWeight: 400,
             lineHeight: 1.5, textAlign: 'left', textTransform: 'none', letterSpacing: 0,
             whiteSpace: 'normal', pointerEvents: 'none',
+            // Matches the page's own text-zoom level (see DisplaySettings.tsx) — this
+            // node sits outside the zoomed wrapper, so it wouldn't otherwise scale with it.
+            zoom: document.documentElement.getAttribute('data-zoom') === '130' ? 1.3
+              : document.documentElement.getAttribute('data-zoom') === '115' ? 1.15 : 1,
           }}
         >
           <strong style={{ display: 'block', color: 'var(--rbl-surface)', marginBottom: 5, fontSize: 13.5 }}>{heading}</strong>
           {children}
-        </span>
+        </span>,
+        document.body,
       )}
     </span>
   )
