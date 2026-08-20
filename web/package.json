@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "verify": "node scripts/verify-build.mjs"
+    "verify": "node scripts/verify-build.mjs",
+    "verify:retrieval": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/verify-retrieval.mjs"
   },
   "dependencies": {
     "framer-motion": "^11.3.19",
