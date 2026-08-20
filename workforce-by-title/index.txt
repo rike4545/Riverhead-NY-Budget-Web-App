@@ -1,23 +1,107 @@
 1:"$Sreact.fragment"
-2:I[9766,[],""]
-3:I[8924,[],""]
-8:I[7150,[],""]
-0:{"P":null,"b":"W4lAfM00-mi6QS6f_q99Z","p":"/Riverhead-NY-Budget-Web-App","c":["","workforce-by-title",""],"i":false,"f":[[["",{"children":["workforce-by-title",{"children":["__PAGE__",{}]}]},"$undefined","$undefined",true],["",["$","$1","c",{"children":[null,["$","html",null,{"lang":"en","children":[["$","head",null,{"children":[["$","style",null,{"dangerouslySetInnerHTML":{"__html":":root{--inc:#b91c1c;--dec:#15803d}:root[data-tc=\"green-up\"]{--inc:#15803d;--dec:#b91c1c}"}}],["$","style",null,{"dangerouslySetInnerHTML":{"__html":"\n:root{\n  --rbl-bg:linear-gradient(180deg,#eef3f8 0,#f7f8f5 42%,#ffffff 100%);\n  --rbl-surface:#ffffff;\n  --rbl-border:#d8e0e7;\n  --rbl-border-subtle:#e2e8f0;\n  --rbl-text:#1f2933;\n  --rbl-text-muted:#64748b;\n  --rbl-text-sub:#44576a;\n  --rbl-title:#284a69;\n  --rbl-badge:#9b6b12;\n  --rbl-header-a:#284a69;\n  --rbl-header-b:#4a7297;\n  --rbl-page-accent:#4a7297;\n  --rbl-gold:#c99a2e;\n  --rbl-note-bg:#fff8e6;\n  --rbl-note-border:#d8b45a;\n  --rbl-note-text:#5f430d;\n  --rbl-note-sub:#8a6a1f;\n  --rbl-shadow:rgba(31,95,143,.10);\n}"}}],["$","style",null,{"dangerouslySetInnerHTML":{"__html":"\nhtml[data-mode=\"dark\"]{color-scheme:dark}\nhtml[data-mode=\"dark\"] #rbl-shell{filter:invert(1) hue-rotate(180deg);background:#fff}\nhtml[data-mode=\"dark\"] #rbl-shell img,\nhtml[data-mode=\"dark\"] #rbl-shell video{filter:invert(1) hue-rotate(180deg)}\n"}}],["$","style",null,{"dangerouslySetInnerHTML":{"__html":"\nhtml[data-zoom=\"115\"] #rbl-shell{zoom:1.15}\nhtml[data-zoom=\"130\"] #rbl-shell{zoom:1.3}\n"}}],["$","script",null,{"dangerouslySetInnerHTML":{"__html":"try{var t=localStorage.getItem('tc');if(t)document.documentElement.setAttribute('data-tc',t)}catch(e){}"}}],["$","script",null,{"dangerouslySetInnerHTML":{"__html":"try{\n  var m=localStorage.getItem('rbl-mode');\n  if(m!=='light'&&m!=='dark'){m=(window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light'}\n  document.documentElement.setAttribute('data-mode',m);\n}catch(e){}"}}],["$","script",null,{"dangerouslySetInnerHTML":{"__html":"try{\n  var z=localStorage.getItem('rbl-zoom');\n  if(z==='115'||z==='130')document.documentElement.setAttribute('data-zoom',z);\n}catch(e){}"}}]]}],["$","body",null,{"children":["$","div",null,{"id":"rbl-shell","style":{"minHeight":"100vh","background":"#fff"},"children":["$","$L2",null,{"parallelRouterKey":"children","error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L3",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":[[["$","title",null,{"children":"404: This page could not be found."}],["$","div",null,{"style":{"fontFamily":"system-ui,\"Segoe UI\",Roboto,Helvetica,Arial,sans-serif,\"Apple Color Emoji\",\"Segoe UI Emoji\"","height":"100vh","textAlign":"center","display":"flex","flexDirection":"column","alignItems":"center","justifyContent":"center"},"children":["$","div",null,{"children":[["$","style",null,{"dangerouslySetInnerHTML":{"__html":"body{color:#000;background:#fff;margin:0}.next-error-h1{border-right:1px solid rgba(0,0,0,.3)}@media (prefers-color-scheme:dark){body{color:#fff;background:#000}.next-error-h1{border-right:1px solid rgba(255,255,255,.3)}}"}}],["$","h1",null,{"className":"next-error-h1","style":{"display":"inline-block","margin":"0 20px 0 0","padding":"0 23px 0 0","fontSize":24,"fontWeight":500,"verticalAlign":"top","lineHeight":"49px"},"children":404}],["$","div",null,{"style":{"display":"inline-block"},"children":["$","h2",null,{"style":{"fontSize":14,"fontWeight":400,"lineHeight":"49px","margin":0},"children":"This page could not be found."}]}]]}]}]],[]],"forbidden":"$undefined","unauthorized":"$undefined"}]}]}]]}]]}],{"children":["workforce-by-title",["$","$1","c",{"children":[null,["$","$L2",null,{"parallelRouterKey":"children","error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L3",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","forbidden":"$undefined","unauthorized":"$undefined"}]]}],{"children":["__PAGE__",["$","$1","c",{"children":[["$","main",null,{"style":{"minHeight":"100vh","background":"var(--rbl-bg)","color":"var(--rbl-text)","fontFamily":"Inter, Arial, sans-serif"},"children":["$L4","$L5"]}],null,"$L6"]}],{},null,false]},null,false]},null,false],"$L7",false]],"m":"$undefined","G":["$8",[]],"s":false,"S":true}
-9:I[1845,["950","static/chunks/950-bedcff74a40acea1.js","738","static/chunks/app/workforce-by-title/page-995e7cf88b4e2142.js"],"default"]
-a:I[5687,["950","static/chunks/950-bedcff74a40acea1.js","738","static/chunks/app/workforce-by-title/page-995e7cf88b4e2142.js"],"default"]
-b:I[5744,["950","static/chunks/950-bedcff74a40acea1.js","738","static/chunks/app/workforce-by-title/page-995e7cf88b4e2142.js"],"default"]
-c:I[771,["950","static/chunks/950-bedcff74a40acea1.js","738","static/chunks/app/workforce-by-title/page-995e7cf88b4e2142.js"],"default"]
-d:I[8665,["950","static/chunks/950-bedcff74a40acea1.js","738","static/chunks/app/workforce-by-title/page-995e7cf88b4e2142.js"],"default"]
-e:I[4431,[],"OutletBoundary"]
-10:I[5278,[],"AsyncMetadataOutlet"]
-12:I[4431,[],"ViewportBoundary"]
-14:I[4431,[],"MetadataBoundary"]
-15:"$Sreact.suspense"
-4:["$","header",null,{"style":{"background":"linear-gradient(135deg,var(--rbl-header-a),var(--rbl-header-b) 62%,var(--rbl-header-a))","color":"white","borderBottom":"5px solid var(--rbl-gold)","padding":"18px 28px","display":"flex","justifyContent":"space-between","gap":20,"alignItems":"center","flexWrap":"wrap","boxShadow":"0 14px 34px rgba(18,56,91,.24)"},"children":[["$","a",null,{"href":"/Riverhead-NY-Budget-Web-App/","style":{"color":"white","textDecoration":"none","display":"flex","gap":12,"alignItems":"center"},"children":[["$","span",null,{"style":{"width":48,"height":48,"borderRadius":8,"display":"grid","placeItems":"center","background":"#f8f5ec","color":"#284a69","border":"2px solid var(--rbl-gold)","fontWeight":950},"children":"RB"}],["$","span",null,{"children":[["$","strong",null,{"style":{"fontSize":22},"children":"Riverhead Budget Live"}],["$","div",null,{"style":{"color":"#d7e7f4","fontSize":12},"children":"Following the Town's money, in plain English"}]]}]]}],["$","div",null,{"style":{"display":"flex","alignItems":"center","gap":12,"flexWrap":"wrap","marginLeft":"auto"},"children":[["$","$L9",null,{}],["$","$La",null,{}]]}]]}]
-5:["$","section",null,{"style":{"padding":30,"maxWidth":1380,"margin":"0 auto"},"children":[["$","div",null,{"style":{"background":"var(--rbl-surface)","borderTop":"6px solid var(--rbl-page-accent)","borderRight":"1px solid var(--rbl-border)","borderBottom":"1px solid var(--rbl-border)","borderLeft":"1px solid var(--rbl-border)","borderRadius":12,"padding":28,"boxShadow":"0 14px 34px var(--rbl-shadow)","marginBottom":18},"children":[["$","div",null,{"style":{"color":"var(--rbl-badge)","letterSpacing":2,"textTransform":"uppercase","fontSize":12,"fontWeight":950},"children":"A resident-built project · not the Town's official site"}],["$","h1",null,{"style":{"fontSize":42,"lineHeight":1.05,"margin":"8px 0","color":"var(--rbl-title)"},"children":"Workforce by Title"}],["$","p",null,{"style":{"color":"var(--rbl-text-sub)","fontSize":17,"lineHeight":1.55,"margin":0,"maxWidth":980},"children":"How many people hold each job title — and how each title’s headcount has changed from 2022 to 2025. Search a title or sort by the biggest increases and decreases."}],["$","$Lb",null,{}],["$","div",null,{"style":{"marginTop":12,"display":"flex","justifyContent":"flex-end"},"children":["$","$Lc",null,{}]}]]}],[["$","section",null,{"style":{"background":"#eef6ff","border":"1px solid #bcd9f5","borderLeft":"6px solid #4a7297","borderRadius":14,"padding":"16px 18px","marginBottom":18},"children":[["$","div",null,{"style":{"display":"flex","gap":8,"alignItems":"center","marginBottom":6},"children":[["$","span",null,{"aria-hidden":true,"style":{"fontSize":18},"children":"💡"}],["$","strong",null,{"style":{"color":"#284a69","fontSize":16},"children":"In plain English"}]]}],["$","div",null,{"style":{"color":"#1f3a52","fontSize":15,"lineHeight":1.55},"children":["This is the staffing side of the payroll data: not what people are paid, but ",["$","strong",null,{"children":"how many hold each job"}]," ","and whether that job is growing or shrinking. For individual pay, use the"," ",["$","a",null,{"href":"/payroll/","style":{"color":"#4a7297","fontWeight":800},"children":"Payroll Explorer"}],"."]}],["$","ul",null,{"style":{"margin":"12px 0 0","paddingLeft":0,"listStyle":"none","display":"grid","gap":8},"children":[["$","li","What a row shows",{"style":{"display":"flex","gap":8,"alignItems":"baseline","fontSize":14.5,"color":"#1f3a52","lineHeight":1.45},"children":[["$","span",null,{"aria-hidden":true,"style":{"color":"#4a7297","fontWeight":900},"children":"›"}],["$","span",null,{"children":[["$","strong",null,{"children":["What a row shows",":"]}]," ","the number of distinct employees paid under that title each year, and the net change from 2022 to 2025."]}]]}],["$","li","Seasonal spikes",{"style":{"display":"flex","gap":8,"alignItems":"baseline","fontSize":14.5,"color":"#1f3a52","lineHeight":1.45},"children":[["$","span",null,{"aria-hidden":true,"style":{"color":"#4a7297","fontWeight":900},"children":"›"}],["$","span",null,{"children":[["$","strong",null,{"children":["Seasonal spikes",":"]}]," ","part-time and seasonal roles — lifeguards, recreation aides, beach attendants — run high because everyone paid during the summer counts for that year."]}]]}],["$","li","Why it starts in 2022",{"style":{"display":"flex","gap":8,"alignItems":"baseline","fontSize":14.5,"color":"#1f3a52","lineHeight":1.45},"children":[["$","span",null,{"aria-hidden":true,"style":{"color":"#4a7297","fontWeight":900},"children":"›"}],["$","span",null,{"children":[["$","strong",null,{"children":["Why it starts in 2022",":"]}]," ","the Town’s gross-earnings exports only carry job titles from 2022 onward; earlier years have pay but no title."]}]]}]]}]]}],["$","div",null,{"style":{"marginTop":16},"children":["$","$Ld",null,{}]}]]]}]
-6:["$","$Le",null,{"children":["$Lf",["$","$L10",null,{"promise":"$@11"}]]}]
-7:["$","$1","h",{"children":[null,[["$","$L12",null,{"children":"$L13"}],null],["$","$L14",null,{"children":["$","div",null,{"hidden":true,"children":["$","$15",null,{"fallback":null,"children":"$L16"}]}]}]]}]
-13:[["$","meta","0",{"charSet":"utf-8"}],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1"}]]
-f:null
-11:{"metadata":[["$","title","0",{"children":"Workforce by Title — headcount by job, 2022–2025 — Riverhead Budget Live"}],["$","meta","1",{"name":"description","content":"How many Town of Riverhead employees hold each civil-service title, and how that headcount has changed year over year (2022–2025) — searchable and sortable, from the Town’s own Gross Earnings reports."}],["$","meta","2",{"property":"og:title","content":"Riverhead Budget Live"}],["$","meta","3",{"property":"og:description","content":"Where Riverhead’s money comes from and where it goes — budgets, payroll, salaries, and Town Board votes in plain English."}],["$","meta","4",{"property":"og:type","content":"website"}],["$","meta","5",{"name":"twitter:card","content":"summary"}],["$","meta","6",{"name":"twitter:title","content":"Riverhead Budget Live"}],["$","meta","7",{"name":"twitter:description","content":"Where Riverhead’s money comes from and where it goes — budgets, payroll, salaries, and Town Board votes in plain English."}]],"error":null,"digest":"$undefined"}
-16:"$11:metadata"
+3:I[9766,[],""]
+4:I[8924,[],""]
+9:I[7150,[],""]
+2:T88c,
+:root{
+  --rbl-bg:linear-gradient(180deg,#eef3f8 0,#f7f8f5 42%,#ffffff 100%);
+  --rbl-page:#eef3f8;
+  --rbl-surface:#ffffff;
+  --rbl-surface-2:#f8fafc;
+  --rbl-surface-3:#f1f5f9;
+  --rbl-border:#d8e0e7;
+  --rbl-border-subtle:#e2e8f0;
+  --rbl-border-strong:#cbd5e1;
+  --rbl-track:#e2e8f0;
+  --rbl-track-strong:#cbd5e1;
+  --rbl-text:#1f2933;
+  --rbl-text-strong:#334155;
+  --rbl-text-body:#475569;
+  --rbl-text-sub:#44576a;
+  --rbl-text-muted:#5f6e83;
+  --rbl-text-faint:#687787;
+  --rbl-title:#284a69;
+  --rbl-accent:#4a7297;
+  --rbl-accent-border:#4a7297;
+  --rbl-link:#2563eb;
+  --rbl-badge:#9b6b12;
+  --rbl-gold:#c99a2e;
+  --rbl-gold-border:#c99a2e;
+  --rbl-header-a:#284a69;
+  --rbl-header-b:#4a7297;
+  --rbl-page-accent:#4a7297;
+  --rbl-shadow:rgba(31,95,143,.10);
+  --rbl-fill-brand:#284a69;
+  --rbl-fill-accent:#4a7297;
+  --rbl-fill-gold:#c99a2e;
+  --rbl-fill-danger:#b91c1c;
+  --rbl-fill-success:#15803d;
+  --rbl-fill-warn:#b45309;
+  --rbl-danger:#b91c1c;
+  --rbl-danger-strong:#991b1b;
+  --rbl-danger-bg:#fef2f2;
+  --rbl-danger-border:#fecaca;
+  --rbl-success:#15803d;
+  --rbl-success-strong:#166534;
+  --rbl-success-bg:#f0fdf4;
+  --rbl-success-border:#bbf7d0;
+  --rbl-warn:#b45309;
+  --rbl-warn-strong:#78350f;
+  --rbl-warn-bg:#fff8e6;
+  --rbl-warn-border:#d8b45a;
+  --rbl-info-text:#1f3a52;
+  --rbl-info-bg:#eef6ff;
+  --rbl-info-border:#bcd9f5;
+  --rbl-sky-bg:#f0f9ff;
+  --rbl-sky-border:#bae6fd;
+  --rbl-violet:#7c3aed;
+  --rbl-violet-strong:#5b21b6;
+  --rbl-violet-bg:#f5f3ff;
+  --rbl-violet-border:#ddd6fe;
+  --rbl-teal:#0f766e;
+  --rbl-teal-strong:#115e59;
+  --rbl-teal-bg:#f0fdfa;
+  --rbl-teal-border:#99f6e4;
+  --rbl-note-bg:#fff8e6;
+  --rbl-note-border:#d8b45a;
+  --rbl-note-text:#5f430d;
+  --rbl-note-sub:#8a6a1f;
+  --rbl-series-blue:#2E6FB7;
+  --rbl-series-indigo:#8158CC;
+  --rbl-series-gold:#B98416;
+  --rbl-series-teal:#109184;
+  --rbl-series-violet:#C2508F;
+  --rbl-series-slate:#64748b;
+  --rbl-logo-bg:#f8f5ec;
+  --rbl-logo-fg:#284a69;
+  --rbl-on-gold:#3b2c05;
+  --rbl-cta-bg:#38bdf8;
+  --rbl-cta-fg:#08263c;
+  --rbl-on-series:#ffffff;
+  --tc-red:#b91c1c;
+  --tc-green:#15803d;
+  color-scheme:light;
+}
+html,body{background:var(--rbl-page);color:var(--rbl-text)}
+0:{"P":null,"b":"RD2huLrfqFEa4TkkQec_B","p":"/Riverhead-NY-Budget-Web-App","c":["","workforce-by-title",""],"i":false,"f":[[["",{"children":["workforce-by-title",{"children":["__PAGE__",{}]}]},"$undefined","$undefined",true],["",["$","$1","c",{"children":[null,["$","html",null,{"lang":"en","children":[["$","head",null,{"children":[["$","style",null,{"dangerouslySetInnerHTML":{"__html":"$2"}}],["$","style",null,{"dangerouslySetInnerHTML":{"__html":"\n:root{--inc:var(--tc-red);--dec:var(--tc-green)}\n:root[data-tc=\"green-up\"]{--inc:var(--tc-green);--dec:var(--tc-red)}\n"}}],["$","style",null,{"dangerouslySetInnerHTML":{"__html":"\nhtml[data-zoom=\"115\"] #rbl-shell{zoom:1.15}\nhtml[data-zoom=\"130\"] #rbl-shell{zoom:1.3}\n"}}],["$","script",null,{"dangerouslySetInnerHTML":{"__html":"try{var d=document.documentElement;var t=localStorage.getItem('tc');if(t)d.setAttribute('data-tc',t);var z=localStorage.getItem('rbl-zoom');if(z==='115'||z==='130')d.setAttribute('data-zoom',z)}catch(e){}"}}]]}],["$","body",null,{"children":["$","div",null,{"id":"rbl-shell","style":{"background":"var(--rbl-page)"},"children":["$","$L3",null,{"parallelRouterKey":"children","error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L4",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":[[["$","title",null,{"children":"404: This page could not be found."}],["$","div",null,{"style":{"fontFamily":"system-ui,\"Segoe UI\",Roboto,Helvetica,Arial,sans-serif,\"Apple Color Emoji\",\"Segoe UI Emoji\"","height":"100vh","textAlign":"center","display":"flex","flexDirection":"column","alignItems":"center","justifyContent":"center"},"children":"$L5"}]],[]],"forbidden":"$undefined","unauthorized":"$undefined"}]}]}]]}]]}],{"children":["workforce-by-title","$L6",{"children":["__PAGE__","$L7",{},null,false]},null,false]},null,false],"$L8",false]],"m":"$undefined","G":["$9",[]],"s":false,"S":true}
+a:I[1845,["8950","static/chunks/8950-761865364df512e0.js","6738","static/chunks/app/workforce-by-title/page-2f7296aa205b3366.js"],"default"]
+b:I[5687,["8950","static/chunks/8950-761865364df512e0.js","6738","static/chunks/app/workforce-by-title/page-2f7296aa205b3366.js"],"default"]
+c:I[5744,["8950","static/chunks/8950-761865364df512e0.js","6738","static/chunks/app/workforce-by-title/page-2f7296aa205b3366.js"],"default"]
+d:I[771,["8950","static/chunks/8950-761865364df512e0.js","6738","static/chunks/app/workforce-by-title/page-2f7296aa205b3366.js"],"default"]
+11:I[4431,[],"ViewportBoundary"]
+13:I[4431,[],"MetadataBoundary"]
+14:"$Sreact.suspense"
+5:["$","div",null,{"children":[["$","style",null,{"dangerouslySetInnerHTML":{"__html":"body{color:#000;background:#fff;margin:0}.next-error-h1{border-right:1px solid rgba(0,0,0,.3)}@media (prefers-color-scheme:dark){body{color:#fff;background:#000}.next-error-h1{border-right:1px solid rgba(255,255,255,.3)}}"}}],["$","h1",null,{"className":"next-error-h1","style":{"display":"inline-block","margin":"0 20px 0 0","padding":"0 23px 0 0","fontSize":24,"fontWeight":500,"verticalAlign":"top","lineHeight":"49px"},"children":404}],["$","div",null,{"style":{"display":"inline-block"},"children":["$","h2",null,{"style":{"fontSize":14,"fontWeight":400,"lineHeight":"49px","margin":0},"children":"This page could not be found."}]}]]}]
+6:["$","$1","c",{"children":[null,["$","$L3",null,{"parallelRouterKey":"children","error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L4",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","forbidden":"$undefined","unauthorized":"$undefined"}]]}]
+7:["$","$1","c",{"children":[["$","main",null,{"style":{"minHeight":"100vh","background":"var(--rbl-bg)","color":"var(--rbl-text)","fontFamily":"Inter, Arial, sans-serif"},"children":[["$","header",null,{"style":{"background":"linear-gradient(135deg,var(--rbl-header-a),var(--rbl-header-b) 62%,var(--rbl-header-a))","color":"white","borderBottom":"5px solid var(--rbl-gold)","padding":"18px 28px","display":"flex","justifyContent":"space-between","gap":20,"alignItems":"center","flexWrap":"wrap","boxShadow":"0 14px 34px var(--rbl-shadow)"},"children":[["$","a",null,{"href":"/Riverhead-NY-Budget-Web-App/","style":{"color":"white","textDecoration":"none","display":"flex","gap":12,"alignItems":"center"},"children":[["$","span",null,{"style":{"width":48,"height":48,"borderRadius":8,"display":"grid","placeItems":"center","background":"var(--rbl-logo-bg)","color":"var(--rbl-logo-fg)","border":"2px solid var(--rbl-gold)","fontWeight":950},"children":"RB"}],["$","span",null,{"children":[["$","strong",null,{"style":{"fontSize":22},"children":"Riverhead Budget Live"}],["$","div",null,{"style":{"color":"#d7e7f4","fontSize":12},"children":"Following the Town's money, in plain English"}]]}]]}],["$","div",null,{"style":{"display":"flex","alignItems":"center","gap":12,"flexWrap":"wrap","marginLeft":"auto"},"children":[["$","$La",null,{}],["$","$Lb",null,{}]]}]]}],["$","section",null,{"style":{"padding":30,"maxWidth":1380,"margin":"0 auto"},"children":[["$","div",null,{"style":{"background":"var(--rbl-surface)","borderTop":"6px solid var(--rbl-page-accent)","borderRight":"1px solid var(--rbl-border)","borderBottom":"1px solid var(--rbl-border)","borderLeft":"1px solid var(--rbl-border)","borderRadius":12,"padding":28,"boxShadow":"0 14px 34px var(--rbl-shadow)","marginBottom":18},"children":[["$","div",null,{"style":{"color":"var(--rbl-badge)","letterSpacing":2,"textTransform":"uppercase","fontSize":12,"fontWeight":950},"children":"A resident-built project · not the Town's official site"}],["$","h1",null,{"style":{"fontSize":42,"lineHeight":1.05,"margin":"8px 0","color":"var(--rbl-title)"},"children":"Workforce by Title"}],["$","p",null,{"style":{"color":"var(--rbl-text-sub)","fontSize":17,"lineHeight":1.55,"margin":0,"maxWidth":980},"children":"How many people hold each job title — and how each title’s headcount has changed from 2022 to 2025. Search a title or sort by the biggest increases and decreases."}],["$","$Lc",null,{}],["$","div",null,{"style":{"marginTop":12,"display":"flex","justifyContent":"flex-end"},"children":["$","$Ld",null,{}]}]]}],[["$","section",null,{"style":{"background":"var(--rbl-info-bg)","border":"1px solid var(--rbl-info-border)","borderLeft":"6px solid var(--rbl-accent-border)","borderRadius":14,"padding":"16px 18px","marginBottom":18},"children":[["$","div",null,{"style":{"display":"flex","gap":8,"alignItems":"center","marginBottom":6},"children":[["$","span",null,{"aria-hidden":true,"style":{"fontSize":18},"children":"💡"}],["$","strong",null,{"style":{"color":"var(--rbl-title)","fontSize":16},"children":"In plain English"}]]}],["$","div",null,{"style":{"color":"var(--rbl-info-text)","fontSize":15,"lineHeight":1.55},"children":["This is the staffing side of the payroll data: not what people are paid, but ",["$","strong",null,{"children":"how many hold each job"}]," ","and whether that job is growing or shrinking. For individual pay, use the"," ",["$","a",null,{"href":"/payroll/","style":{"color":"var(--rbl-accent)","fontWeight":800},"children":"Payroll Explorer"}],"."]}],["$","ul",null,{"style":{"margin":"12px 0 0","paddingLeft":0,"listStyle":"none","display":"grid","gap":8},"children":[["$","li","What a row shows",{"style":{"display":"flex","gap":8,"alignItems":"baseline","fontSize":14.5,"color":"var(--rbl-info-text)","lineHeight":1.45},"children":[["$","span",null,{"aria-hidden":true,"style":{"color":"var(--rbl-accent)","fontWeight":900},"children":"›"}],["$","span",null,{"children":[["$","strong",null,{"children":["What a row shows",":"]}]," ","the number of distinct employees paid under that title each year, and the net change from 2022 to 2025."]}]]}],["$","li","Seasonal spikes",{"style":{"display":"flex","gap":8,"alignItems":"baseline","fontSize":14.5,"color":"var(--rbl-info-text)","lineHeight":1.45},"children":[["$","span",null,{"aria-hidden":true,"style":{"color":"var(--rbl-accent)","fontWeight":900},"children":"›"}],["$","span",null,{"children":[["$","strong",null,{"children":["Seasonal spikes",":"]}]," ","part-time and seasonal roles — lifeguards, recreation aides, beach attendants — run high because everyone paid during the summer counts for that year."]}]]}],"$Le"]}]]}],"$Lf"]]}]]}],null,"$L10"]}]
+8:["$","$1","h",{"children":[null,[["$","$L11",null,{"children":"$L12"}],null],["$","$L13",null,{"children":["$","div",null,{"hidden":true,"children":["$","$14",null,{"fallback":null,"children":"$L15"}]}]}]]}]
+16:I[8665,["8950","static/chunks/8950-761865364df512e0.js","6738","static/chunks/app/workforce-by-title/page-2f7296aa205b3366.js"],"default"]
+17:I[4431,[],"OutletBoundary"]
+19:I[5278,[],"AsyncMetadataOutlet"]
+e:["$","li","Why it starts in 2022",{"style":{"display":"flex","gap":8,"alignItems":"baseline","fontSize":14.5,"color":"var(--rbl-info-text)","lineHeight":1.45},"children":[["$","span",null,{"aria-hidden":true,"style":{"color":"var(--rbl-accent)","fontWeight":900},"children":"›"}],["$","span",null,{"children":[["$","strong",null,{"children":["Why it starts in 2022",":"]}]," ","the Town’s gross-earnings exports only carry job titles from 2022 onward; earlier years have pay but no title."]}]]}]
+f:["$","div",null,{"style":{"marginTop":16},"children":["$","$L16",null,{}]}]
+10:["$","$L17",null,{"children":["$L18",["$","$L19",null,{"promise":"$@1a"}]]}]
+12:[["$","meta","0",{"charSet":"utf-8"}],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1"}]]
+18:null
+1a:{"metadata":[["$","title","0",{"children":"Workforce by Title — headcount by job, 2022–2025 — Riverhead Budget Live"}],["$","meta","1",{"name":"description","content":"How many Town of Riverhead employees hold each civil-service title, and how that headcount has changed year over year (2022–2025) — searchable and sortable, from the Town’s own Gross Earnings reports."}],["$","meta","2",{"property":"og:title","content":"Riverhead Budget Live"}],["$","meta","3",{"property":"og:description","content":"Where Riverhead’s money comes from and where it goes — budgets, payroll, salaries, and Town Board votes in plain English."}],["$","meta","4",{"property":"og:type","content":"website"}],["$","meta","5",{"name":"twitter:card","content":"summary"}],["$","meta","6",{"name":"twitter:title","content":"Riverhead Budget Live"}],["$","meta","7",{"name":"twitter:description","content":"Where Riverhead’s money comes from and where it goes — budgets, payroll, salaries, and Town Board votes in plain English."}]],"error":null,"digest":"$undefined"}
+15:"$1a:metadata"
