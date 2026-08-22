@@ -71,6 +71,30 @@ export default function Predict2027Page() {
         </Detail>
       </section>
 
+      {/* Things known to be moving that the line-by-line model can't carry. */}
+      <section style={{ ...card, marginBottom: 16, borderLeft: '6px solid var(--rbl-gold-border)' }}>
+        <h2 style={{ margin: '0 0 4px', color: 'var(--rbl-title)', fontSize: 18 }}>What to watch — and what this model can&apos;t see</h2>
+        <p style={{ color: 'var(--rbl-text-body)', fontSize: 14.2, lineHeight: 1.6, margin: '0 0 12px' }}>
+          A line-by-line projection grows what the Town already budgets. It cannot see a decision that
+          hasn&apos;t been made yet, or a document that hasn&apos;t been filed. These four are known to be moving.
+        </p>
+        <div style={{ display: 'grid', gap: 10 }}>
+          {p.watchList.map((w) => (
+            <div key={w.item} style={{ background: 'var(--rbl-surface-2)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 10, padding: '12px 14px' }}>
+              <div style={{ display: 'flex', gap: 10, alignItems: 'baseline', flexWrap: 'wrap' }}>
+                <strong style={{ color: 'var(--rbl-title)', fontSize: 14.8 }}>{w.item}</strong>
+                <span style={{
+                  marginLeft: 'auto', fontSize: 11, fontWeight: 900, letterSpacing: 0.3, textTransform: 'uppercase',
+                  padding: '2px 7px', borderRadius: 5, whiteSpace: 'nowrap',
+                  background: 'var(--rbl-warn-bg)', color: 'var(--rbl-warn-strong)', border: '1px solid var(--rbl-warn-border)',
+                }}>{w.effect}</span>
+              </div>
+              <p style={{ color: 'var(--rbl-text-body)', fontSize: 13.5, lineHeight: 1.55, margin: '5px 0 0' }}>{w.detail}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
       {/* GO DEEPER — the method and the big tables, progressively disclosed. */}
       <h2 style={{ margin: '26px 0 4px', color: 'var(--rbl-title)', fontSize: 18 }}>Go deeper</h2>
       <p style={{ color: 'var(--rbl-text-muted)', fontSize: 13.5, margin: '0 0 8px' }}>The full model — open only what you want.</p>
@@ -82,6 +106,15 @@ export default function Predict2027Page() {
           <strong>{t.pct}%</strong>. The tax-levy figure is a separate, illustrative estimate — {le.note.charAt(0).toLowerCase() + le.note.slice(1)}
         </p>
         <p style={{ color: 'var(--rbl-text-body)', fontSize: 14, lineHeight: 1.55, margin: '0 0 12px' }}>{p.method}</p>
+        <div style={{ background: 'var(--rbl-info-bg)', border: '1px solid var(--rbl-info-border)', borderRadius: 10, padding: '12px 14px', marginBottom: 14 }}>
+          <strong style={{ color: 'var(--rbl-info-text)', fontSize: 14 }}>Debt service is scheduled, not forecast</strong>
+          <p style={{ color: 'var(--rbl-info-text)', fontSize: 13.6, lineHeight: 1.55, margin: '4px 0 8px' }}>{p.debtSchedule.note}</p>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(150px,1fr))', gap: 10 }}>
+            <MiniStat label="Principal 2026 → 2027" value={`${usd(p.debtSchedule.principal2026)} → ${usd(p.debtSchedule.principal2027)}`} pct={p.debtSchedule.principalRatePct} />
+            <MiniStat label="Interest 2026 → 2027" value={`${usd(p.debtSchedule.interest2026)} → ${usd(p.debtSchedule.interest2027)}`} pct={p.debtSchedule.interestRatePct} />
+          </div>
+          <div style={{ color: 'var(--rbl-text-muted)', fontSize: 12, marginTop: 8 }}>{p.debtSchedule.source}</div>
+        </div>
         <div style={{ overflowX: 'auto' }}>
           <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 13.5 }}>
             <thead>
@@ -217,6 +250,16 @@ function Detail({ title, children }: { title: string; children: React.ReactNode 
       </summary>
       <div style={{ padding: '0 18px 18px' }}>{children}</div>
     </details>
+  )
+}
+
+function MiniStat({ label, value, pct }: { label: string; value: string; pct: number }) {
+  return (
+    <div style={{ background: 'var(--rbl-surface)', border: '1px solid var(--rbl-info-border)', borderRadius: 8, padding: '8px 10px' }}>
+      <div style={{ color: 'var(--rbl-text-muted)', fontSize: 11, fontWeight: 900, textTransform: 'uppercase', letterSpacing: 0.3 }}>{label}</div>
+      <div style={{ color: 'var(--rbl-title)', fontSize: 13.5, fontWeight: 800 }}>{value}</div>
+      <div style={{ color: 'var(--dec)', fontSize: 13, fontWeight: 900 }}>{pct}%</div>
+    </div>
   )
 }
 
