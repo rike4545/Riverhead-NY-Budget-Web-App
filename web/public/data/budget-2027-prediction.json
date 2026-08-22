@@ -1,6 +1,6 @@
 {
  "disclaimer": "This is an independent projection, not the Town's budget. It grows the 2026 Adopted Budget line by line using the per-category assumptions below. Real 2027 figures will differ; treat this as a transparent baseline to test, not a forecast to bank on.",
- "method": "Predicted 2027 = 2026 Adopted \u00d7 (1 + the growth rate for that line's category). Rates are calibrated to each category's actual 2024\u20132026 trend and the Town's stated cost drivers, then rounded to assumptions you can second-guess.",
+ "method": "Predicted 2027 = 2026 Adopted \u00d7 (1 + the growth rate for that line). Most lines take their category's rate, calibrated to the actual 2024\u20132026 trend and the Town's stated cost drivers and rounded to assumptions you can second-guess. Serial-bond debt service is the exception: it follows the Town's own published repayment schedule rather than any assumption.",
  "assumptions": [
   {
    "category": "Personal Services",
@@ -36,22 +36,22 @@
    "category": "Other",
    "ratePct": 0.0,
    "recentTrend": "\u22126.6% over 2024\u20132026",
-   "why": "A mix of debt service and contingency that has been flat-to-declining; held flat without a published 2027 debt schedule."
+   "why": "Contingency and reserve contributions, held flat because they are policy choices rather than trends. The debt-service lines that used to sit in this bucket no longer take a trend rate at all \u2014 they follow the Town's own published repayment schedule. See below."
   }
  ],
  "totals": {
   "appropriations2026": 121110904,
-  "appropriations2027": 126290255,
-  "delta": 5179351,
-  "pct": 4.28,
+  "appropriations2027": 125849378,
+  "delta": 4738474,
+  "pct": 3.91,
   "lineItems": 848
  },
  "levyEstimate": {
   "note": "Illustrative only. Assumes non-property-tax revenue (state aid, fees, grants, reserves) grows 2% and the property-tax levy balances the rest. The real levy also depends on revenue and reserve choices the Board makes.",
   "levy2026": 65343939,
-  "levy2027": 69407951,
-  "levyIncreasePct": 6.2,
-  "appropriations2027": 126290255,
+  "levy2027": 68967074,
+  "levyIncreasePct": 5.5,
+  "appropriations2027": 125849378,
   "nonLevyRevenueGrowthPct": 2,
   "recentLevyIncreases": "For context, the town-wide levy rose 4.86% (2024) and 7.74% (2026)."
  },
@@ -59,9 +59,9 @@
   "piercesCap": true,
   "capBasePct": 2,
   "allowedLevy": 66650818,
-  "predictedLevy": 69407951,
-  "gap": 2757133,
-  "predictedLevyPct": 6.2,
+  "predictedLevy": 68967074,
+  "gap": 2316256,
+  "predictedLevyPct": 5.5,
   "pensionExclusion": {
    "totalEstimate": 137642,
    "pfrsRateIncreasePts": 2.8,
@@ -72,7 +72,7 @@
    "payrollYear": 2025,
    "source": "OSC, \u201cNYSLRS Announces Employer Contribution Rates for SFY 2026-27\u201d (9/2025): ERS 16.5%\u219217.6% (+1.1 pts, no exclusion \u2014 under the 2-pt threshold); PFRS 33.7%\u219236.5% (+2.8 pts, 0.8 pts over the threshold, so a real exclusion applies). Estimate uses actual PBA+SOA payroll as a stand-in for the state's \u201cestimated salary base\u201d \u2014 the Town's own ERS/PFRS billing detail would be more precise."
   },
-  "summary": "On current trends the 2027 levy grows about 6.2% \u2014 well above the roughly 2% the cap allows \u2014 so the budget would pierce the cap by about $2,757,133. To stay under the cap the Town would have to close that ~$2,757,133 gap. (The real ceiling is a bit higher than a flat 2% once the tax-base-growth factor and exclusions are added, which would shrink the gap somewhat.)",
+  "summary": "On current trends the 2027 levy grows about 5.5% \u2014 well above the roughly 2% the cap allows \u2014 so the budget would pierce the cap by about $2,316,256. To stay under the cap the Town would have to close that ~$2,316,256 gap. (The real ceiling is a bit higher than a flat 2% once the tax-base-growth factor and exclusions are added, which would shrink the gap somewhat.)",
   "levers": [
    {
     "lever": "Refill fewer / lower-cost positions (the retirement buyout)",
@@ -80,7 +80,7 @@
    },
    {
     "lever": "Trim or slow spending",
-    "detail": "Every 1% cut to the $126,290,255 spending plan is about $1,262,903. Closing the whole gap this way means roughly a 2.2% cut \u2014 e.g. holding posts vacant, deferring equipment and capital, or trimming contractual lines."
+    "detail": "Every 1% cut to the $125,849,378 spending plan is about $1,258,494. Closing the whole gap this way means roughly a 1.8% cut \u2014 e.g. holding posts vacant, deferring equipment and capital, or trimming contractual lines."
    },
    {
     "lever": "Grow non-property-tax revenue",
@@ -88,7 +88,7 @@
    },
    {
     "lever": "Use reserves (one-time)",
-    "detail": "Appropriating about $2,757,133 more of the $33,407,251 General Fund balance would erase the gap outright \u2014 but it's roughly 8.3% of the cushion, spends one-time money on recurring cost, and can't be repeated forever."
+    "detail": "Appropriating about $2,316,256 more of the $33,407,251 General Fund balance would erase the gap outright \u2014 but it's roughly 6.9% of the cushion, spends one-time money on recurring cost, and can't be repeated forever."
    },
    {
     "lever": "Claim the cap's legal exclusions",
@@ -182,9 +182,9 @@
    "category": "Other",
    "count": 17,
    "v2026": 10716901,
-   "v2027": 10716901,
-   "delta": 0,
-   "pct": 0.0
+   "v2027": 10276024,
+   "delta": -440877,
+   "pct": -4.1
   }
  ],
  "byFund": [
@@ -208,17 +208,17 @@
    "fundCode": "EW1",
    "fund": "Water District",
    "v2026": 11008655,
-   "v2027": 11378982,
-   "delta": 370327,
-   "pct": 3.4
+   "v2027": 11234111,
+   "delta": 225456,
+   "pct": 2.0
   },
   {
    "fundCode": "ES1",
    "fund": "Riverhead Sewer District",
    "v2026": 8142722,
-   "v2027": 8405650,
-   "delta": 262928,
-   "pct": 3.2
+   "v2027": 8349686,
+   "delta": 206964,
+   "pct": 2.5
   },
   {
    "fundCode": "SR1",
@@ -256,9 +256,9 @@
    "fundCode": "ES3",
    "fund": "Calverton Sewer District",
    "v2026": 1488357,
-   "v2027": 1538881,
-   "delta": 50524,
-   "pct": 3.4
+   "v2027": 1536733,
+   "delta": 48376,
+   "pct": 3.3
   },
   {
    "fundCode": "SL1",
@@ -336,9 +336,9 @@
    "fundCode": "V01",
    "fund": "Debt Service Fund",
    "v2026": 6888150,
-   "v2027": 6888150,
-   "delta": 0,
-   "pct": 0.0
+   "v2027": 6650256,
+   "delta": -237894,
+   "pct": -3.5
   }
  ],
  "topMovers": [
@@ -643,5 +643,37 @@
    "pct": 3.8
   }
  ],
- "source": "Built from the Town of Riverhead 2026 Adopted Budget line items (etl/parse_subaccounts.py)."
+ "debtSchedule": {
+  "note": "Serial-bond debt service is scheduled, not forecast, so it takes the schedule's own rate of change. Principal falls 1.9% and interest falls 19.5% in 2027 \u2014 a move no trend rate would have found.",
+  "principalRatePct": -1.93,
+  "interestRatePct": -19.5,
+  "principal2026": 5961040,
+  "principal2027": 5845778,
+  "interest2026": 1287124,
+  "interest2027": 1036167,
+  "source": "Town of Riverhead 2025 Annual Financial Report, Bond Repayment schedule, p.144-146"
+ },
+ "watchList": [
+  {
+   "item": "The $19.25M Town Hall BAN has to become bonds by February 2028",
+   "effect": "adds cost, not yet modelled",
+   "detail": "State law gives a capital bond anticipation note five years from its original issue date to convert to long-term debt. This one was issued February 21, 2023. Converting it would add a new annual debt-service line \u2014 on a 15-to-20-year term that is roughly $1.3M\u2013$1.6M a year \u2014 which none of the figures above include. It is the largest single thing that could move the 2027 or 2028 budget."
+  },
+  {
+   "item": "Both bond anticipation notes matured during 2026",
+   "effect": "reduces cost by an unpublished amount",
+   "detail": "The Town Square note matured August 14, 2026 and the Town Hall note February 20, 2026. On July 7, 2026 the Board voted unanimously to use fund balance to pay down the Town Square note (res. 2026-641) and the 2018 Series B refunding (res. 2026-642). Neither resolution title states an amount and no financial report covering 2026 has been filed, so the saving is real but unquantifiable from public documents."
+  },
+  {
+   "item": "PBA and SOA stipulations were ratified July 7, 2026",
+   "effect": "unknown \u2014 could move Personal Services either way",
+   "detail": "The Personal Services rate below assumes PBA and SOA are between contracts with no successor public, and uses each unit's trailing average raise as a placeholder. Resolutions 2026-679 (SOA) and 2026-680 (PBA) ratified stipulations that the titles do not describe. A stipulation may be a full successor agreement or a narrow side deal. Until the terms are public the placeholder stands, but it should be treated as less reliable than it was."
+  },
+  {
+   "item": "The Town's own 2027 tentative budget is due September 30, 2026",
+   "effect": "supersedes this entirely",
+   "detail": "New York Town Law requires the Supervisor to file a tentative budget with the Town Clerk by September 30. Once it is filed, this projection becomes a yardstick to measure it against rather than an estimate of it."
+  }
+ ],
+ "source": "Built from the Town of Riverhead 2026 Adopted Budget line items (etl/parse_subaccounts.py), with serial-bond debt service from the 2025 Annual Financial Report's repayment schedule."
 }

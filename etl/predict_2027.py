@@ -226,11 +226,49 @@ ASSUMPTIONS = {
     "Other": {
         "rate": 0.000,
         "recentTrend": "−6.6% over 2024–2026",
-        "why": "A mix of debt service and contingency that has been flat-to-declining; held flat "
-               "without a published 2027 debt schedule.",
+        "why": "Contingency and reserve contributions, held flat because they are policy choices "
+               "rather than trends. The debt-service lines that used to sit in this bucket no "
+               "longer take a trend rate at all — they follow the Town's own published repayment "
+               "schedule. See below.",
     },
 }
 DEFAULT_RATE = 0.03
+
+# Debt service is not a trend, it is a contract. The 2025 Annual Financial Report
+# prints the exact bond repayment schedule year by year (p.144-146), so serial-bond
+# lines take the schedule's own rate of change instead of an assumption.
+#
+# Using the *rate* rather than the schedule's dollars on purpose: the Town budgets
+# principal almost exactly to schedule ($5,961,400 appropriated against $5,961,040
+# scheduled for 2026, a $360 difference) but carries roughly 30% more interest than
+# scheduled. Applying the rate preserves whatever cushion the Town builds in rather
+# than quietly stripping it out.
+BOND_SCHEDULE = {
+    "source": "Town of Riverhead 2025 Annual Financial Report, Bond Repayment schedule, p.144-146",
+    "principal2026": 5_961_040, "principal2027": 5_845_778,
+    "interest2026": 1_287_124, "interest2027": 1_036_167,
+}
+BOND_PRINCIPAL_RATE = BOND_SCHEDULE["principal2027"] / BOND_SCHEDULE["principal2026"] - 1
+BOND_INTEREST_RATE = BOND_SCHEDULE["interest2027"] / BOND_SCHEDULE["interest2026"] - 1
+
+
+def rate_for(line):
+    """Per-line growth rate: the published schedule for serial-bond debt service,
+    the category assumption for everything else.
+
+    Account codes carry the NY Uniform System of Accounts function in segment 3 and
+    the object in segment 4: 9710-600 is serial-bond principal, 9710-700 is its
+    interest. 9730 (bond anticipation notes) is deliberately left on the category
+    rate — both of Riverhead's BANs matured during 2026 and what replaces them is
+    a Board decision, not a schedule. That uncertainty is reported, not modelled.
+    """
+    parts = line["account"].split("-")
+    if len(parts) > 3 and parts[2] == "9710":
+        if parts[3] == "600":
+            return BOND_PRINCIPAL_RATE
+        if parts[3] == "700":
+            return BOND_INTEREST_RATE
+    return ASSUMPTIONS.get(line["category"], {}).get("rate", DEFAULT_RATE)
 
 # Levy estimate assumption: non-property-tax revenue (state aid, fees, grants,
 # reserves) grows modestly and the property-tax levy balances the rest.
@@ -273,7 +311,7 @@ def build():
     out_lines = []
     for ln in lines:
         cat = ln["category"]
-        rate = ASSUMPTIONS.get(cat, {}).get("rate", DEFAULT_RATE)
+        rate = rate_for(ln)
         v26 = ln["v2026"]
         v27 = round(v26 * (1 + rate))
         delta = v27 - v26
@@ -355,9 +393,11 @@ def build():
                       "2026 Adopted Budget line by line using the per-category assumptions below. "
                       "Real 2027 figures will differ; treat this as a transparent baseline to test, "
                       "not a forecast to bank on.",
-        "method": "Predicted 2027 = 2026 Adopted × (1 + the growth rate for that line's category). "
-                  "Rates are calibrated to each category's actual 2024–2026 trend and the Town's "
-                  "stated cost drivers, then rounded to assumptions you can second-guess.",
+        "method": "Predicted 2027 = 2026 Adopted × (1 + the growth rate for that line). Most lines "
+                  "take their category's rate, calibrated to the actual 2024–2026 trend and the "
+                  "Town's stated cost drivers and rounded to assumptions you can second-guess. "
+                  "Serial-bond debt service is the exception: it follows the Town's own published "
+                  "repayment schedule rather than any assumption.",
         "assumptions": [
             {"category": k, "ratePct": round(v["rate"] * 100, 1), **{kk: v[kk] for kk in ("recentTrend", "why")}}
             for k, v in ASSUMPTIONS.items()
@@ -401,7 +441,46 @@ def build():
              "v2026": m["v2026"], "v2027": m["v2027"], "delta": m["delta"], "pct": m["pct"]}
             for m in movers
         ],
-        "source": "Built from the Town of Riverhead 2026 Adopted Budget line items (etl/parse_subaccounts.py).",
+        "debtSchedule": {
+            "note": "Serial-bond debt service is scheduled, not forecast, so it takes the schedule's "
+                    "own rate of change. Principal falls 1.9% and interest falls 19.5% in 2027 — a "
+                    "move no trend rate would have found.",
+            "principalRatePct": round(BOND_PRINCIPAL_RATE * 100, 2),
+            "interestRatePct": round(BOND_INTEREST_RATE * 100, 2),
+            **{k: BOND_SCHEDULE[k] for k in
+               ("principal2026", "principal2027", "interest2026", "interest2027", "source")},
+        },
+        "watchList": [
+            {"item": "The $19.25M Town Hall BAN has to become bonds by February 2028",
+             "effect": "adds cost, not yet modelled",
+             "detail": "State law gives a capital bond anticipation note five years from its original "
+                       "issue date to convert to long-term debt. This one was issued February 21, 2023. "
+                       "Converting it would add a new annual debt-service line — on a 15-to-20-year "
+                       "term that is roughly $1.3M–$1.6M a year — which none of the figures above "
+                       "include. It is the largest single thing that could move the 2027 or 2028 budget."},
+            {"item": "Both bond anticipation notes matured during 2026",
+             "effect": "reduces cost by an unpublished amount",
+             "detail": "The Town Square note matured August 14, 2026 and the Town Hall note February 20, "
+                       "2026. On July 7, 2026 the Board voted unanimously to use fund balance to pay down "
+                       "the Town Square note (res. 2026-641) and the 2018 Series B refunding (res. 2026-642). "
+                       "Neither resolution title states an amount and no financial report covering 2026 has "
+                       "been filed, so the saving is real but unquantifiable from public documents."},
+            {"item": "PBA and SOA stipulations were ratified July 7, 2026",
+             "effect": "unknown — could move Personal Services either way",
+             "detail": "The Personal Services rate below assumes PBA and SOA are between contracts with no "
+                       "successor public, and uses each unit's trailing average raise as a placeholder. "
+                       "Resolutions 2026-679 (SOA) and 2026-680 (PBA) ratified stipulations that the titles "
+                       "do not describe. A stipulation may be a full successor agreement or a narrow side "
+                       "deal. Until the terms are public the placeholder stands, but it should be treated "
+                       "as less reliable than it was."},
+            {"item": "The Town's own 2027 tentative budget is due September 30, 2026",
+             "effect": "supersedes this entirely",
+             "detail": "New York Town Law requires the Supervisor to file a tentative budget with the Town "
+                       "Clerk by September 30. Once it is filed, this projection becomes a yardstick to "
+                       "measure it against rather than an estimate of it."},
+        ],
+        "source": "Built from the Town of Riverhead 2026 Adopted Budget line items (etl/parse_subaccounts.py), "
+                  "with serial-bond debt service from the 2025 Annual Financial Report's repayment schedule.",
     }
 
     OUT_SUMMARY.write_text(json.dumps(summary, indent=1))
