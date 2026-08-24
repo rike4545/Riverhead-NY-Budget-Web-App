@@ -4,13 +4,25 @@
   "url": "https://www.townofriverheadny.gov/129/Agendas-Minutes"
  },
  "totals": {
-  "meetings": 42,
+  "meetings": 43,
   "votes": 1770,
   "contested": 33,
   "failed": 1,
   "tabled": 10
  },
  "meetings": [
+  {
+   "slug": "2026-08-18",
+   "date": "August 18, 2026",
+   "type": "Regular Meeting",
+   "total": 0,
+   "unanimous": 0,
+   "contested": 0,
+   "failed": 0,
+   "tabled": 0,
+   "preliminary": true,
+   "docketCount": 49
+  },
   {
    "slug": "2026-08-04",
    "date": "August 4, 2026",

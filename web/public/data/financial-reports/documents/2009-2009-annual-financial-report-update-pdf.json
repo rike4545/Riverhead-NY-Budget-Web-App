@@ -24,7 +24,7 @@
     },
     {
       "page": 3,
-      "text": "Balance Sheet\n(A) GENERAL\nCode Description 2008 EdpCode 2009\nAssets\nCash 10,200,561\nA200 16,471,755\nCash In Time Deposits 6,500,000 A201\nPetty Cash 3,025 A210 3,625\nTOTAL Cash 16,703,586 16,475,380\nAccounts Receivable 147,993 A380 260,024\nAccrued Interest Receivable 53,239 A381\nTOTAL Other Receivables (net) 201,232 260,024\nDue From Other Funds 6,608,734 A391 3,355,068\nTOTAL Due From Other Funds 6,608,734 3,355,068\nDue From Other Governments 2,001,994 A440 4,463,955\nTOTAL Due From Other Governments 2,001,994 4,463,955\nInventory A445 142,335\nTOTAL Inventories 0 142,335\nPrepaid Expenses 522,804 A480 506,338\nTOTAL Prepaid Expenses 522,804 506,338\nCash, Special Reserves 106,077 A230 154,741\nCash In Time Deposits, Spec Res 539,000 A231 58,714\nTOTAL Restricted Assets 645,077 213,455\nMisc Current Assets 11,609 A489 11,609\nTOTAL Other 11,609 11,609\nTOTAL Assets 26,695,036 25,428,164\nOSC Municipality Code 470371600000Page 3\nTOWN OF Riverhead\nAnnual Update Document\nFor the Fiscal Year Ending 2009",
+      "text": "Balance Sheet\n(A) GENERAL\nCode Description 2008 EdpCode 2009\nAssets\nCash 10,200,561 A200 16,471,755\nCash In Time Deposits 6,500,000 A201\nPetty Cash 3,025 A210 3,625\nTOTAL Cash 16,703,586 16,475,380\nAccounts Receivable 147,993 A380 260,024\nAccrued Interest Receivable 53,239 A381\nTOTAL Other Receivables (net) 201,232 260,024\nDue From Other Funds 6,608,734 A391 3,355,068\nTOTAL Due From Other Funds 6,608,734 3,355,068\nDue From Other Governments 2,001,994 A440 4,463,955\nTOTAL Due From Other Governments 2,001,994 4,463,955\nInventory A445 142,335\nTOTAL Inventories 0 142,335\nPrepaid Expenses 522,804 A480 506,338\nTOTAL Prepaid Expenses 522,804 506,338\nCash, Special Reserves 106,077 A230 154,741\nCash In Time Deposits, Spec Res 539,000 A231 58,714\nTOTAL Restricted Assets 645,077 213,455\nMisc Current Assets 11,609 A489 11,609\nTOTAL Other 11,609 11,609\nTOTAL Assets 26,695,036 25,428,164\nOSC Municipality Code 470371600000Page 3\nTOWN OF Riverhead\nAnnual Update Document\nFor the Fiscal Year Ending 2009",
       "money_values": [
         "10,200,561",
         "16,471,755",
@@ -65,7 +65,7 @@
         "26,695,036",
         "25,428,164"
       ],
-      "line_count": 30,
+      "line_count": 29,
       "confidence": "high"
     },
     {
@@ -629,7 +629,7 @@
     },
     {
       "page": 13,
-      "text": "Balance Sheet\n(CD) SPECIAL GRANT\nCode Description 2008 EdpCode 2009\nAssets\nCash 65,232\nCD200 539,402\nCash In Time Deposits 338,000 CD201\nPetty Cash 50 CD210 50\nTOTAL Cash 403,282 539,452\nAccounts Receivable 45,953 CD380 39,541\nAccrued Interest Receivable 248 CD381\nTOTAL Other Receivables (net) 46,201 39,541\nDue From Other Governments 234,736 CD440 161,753\nTOTAL Due From Other Governments 234,736 161,753\nTOTAL Assets 684,219 740,746\nOSC Municipality Code 470371600000Page 13\nTOWN OF Riverhead\nAnnual Update Document\nFor the Fiscal Year Ending 2009",
+      "text": "Balance Sheet\n(CD) SPECIAL GRANT\nCode Description 2008 EdpCode 2009\nAssets\nCash 65,232 CD200 539,402\nCash In Time Deposits 338,000 CD201\nPetty Cash 50 CD210 50\nTOTAL Cash 403,282 539,452\nAccounts Receivable 45,953 CD380 39,541\nAccrued Interest Receivable 248 CD381\nTOTAL Other Receivables (net) 46,201 39,541\nDue From Other Governments 234,736 CD440 161,753\nTOTAL Due From Other Governments 234,736 161,753\nTOTAL Assets 684,219 740,746\nOSC Municipality Code 470371600000Page 13\nTOWN OF Riverhead\nAnnual Update Document\nFor the Fiscal Year Ending 2009",
       "money_values": [
         "65,232",
         "539,402",
@@ -647,7 +647,7 @@
         "684,219",
         "740,746"
       ],
-      "line_count": 19,
+      "line_count": 18,
       "confidence": "high"
     },
     {
@@ -769,7 +769,7 @@
     },
     {
       "page": 18,
-      "text": "Balance Sheet\n(CM) MISCELLANEOUS SPECIAL REV\nCode Description 2008 EdpCode 2009\nAssets\nCash 426,692\nCM200 6,399,168\nCash In Time Deposits 10,655,000 CM201 200\nPetty Cash 200 CM210\nTOTAL Cash 11,081,892 6,399,368\nAccrued Interest Receivable 12,369 CM381\nTOTAL Other Receivables (net) 12,369 0\nDue From Other Funds 19,960,074 CM391 17,617,073\nTOTAL Due From Other Funds 19,960,074 17,617,073\nDue From Other Governments 131,413 CM440 2,107,049\nTOTAL Due From Other Governments 131,413 2,107,049\nTOTAL Assets 31,185,748 26,123,490\nOSC Municipality Code 470371600000Page 18\nTOWN OF Riverhead\nAnnual Update Document\nFor the Fiscal Year Ending 2009",
+      "text": "Balance Sheet\n(CM) MISCELLANEOUS SPECIAL REV\nCode Description 2008 EdpCode 2009\nAssets\nCash 426,692 CM200 6,399,168\nCash In Time Deposits 10,655,000 CM201 200\nPetty Cash 200 CM210\nTOTAL Cash 11,081,892 6,399,368\nAccrued Interest Receivable 12,369 CM381\nTOTAL Other Receivables (net) 12,369 0\nDue From Other Funds 19,960,074 CM391 17,617,073\nTOTAL Due From Other Funds 19,960,074 17,617,073\nDue From Other Governments 131,413 CM440 2,107,049\nTOTAL Due From Other Governments 131,413 2,107,049\nTOTAL Assets 31,185,748 26,123,490\nOSC Municipality Code 470371600000Page 18\nTOWN OF Riverhead\nAnnual Update Document\nFor the Fiscal Year Ending 2009",
       "money_values": [
         "426,692",
         "6,399,168",
@@ -789,7 +789,7 @@
         "31,185,748",
         "26,123,490"
       ],
-      "line_count": 20,
+      "line_count": 19,
       "confidence": "high"
     },
     {
@@ -909,7 +909,7 @@
     },
     {
       "page": 23,
-      "text": "Balance Sheet\n(DA) HIGHWAY-TOWN-WIDE\nCode Description 2008 EdpCode 2009\nAssets\nCash 1,831,470\nDA200 3,579,839\nCash In Time Deposits 1,275,000 DA201\nPetty Cash 100 DA210 100\nTOTAL Cash 3,106,570 3,579,939\nAccrued Interest Receivable 672 DA381\nTOTAL Other Receivables (net) 672 0\nDue From Other Funds 866,581 DA391 732,754\nTOTAL Due From Other Funds 866,581 732,754\nPrepaid Expenses 33,330 DA480 32,819\nTOTAL Prepaid Expenses 33,330 32,819\nTOTAL Assets 4,007,153 4,345,512\nOSC Municipality Code 470371600000Page 23\nTOWN OF Riverhead\nAnnual Update Document\nFor the Fiscal Year Ending 2009",
+      "text": "Balance Sheet\n(DA) HIGHWAY-TOWN-WIDE\nCode Description 2008 EdpCode 2009\nAssets\nCash 1,831,470 DA200 3,579,839\nCash In Time Deposits 1,275,000 DA201\nPetty Cash 100 DA210 100\nTOTAL Cash 3,106,570 3,579,939\nAccrued Interest Receivable 672 DA381\nTOTAL Other Receivables (net) 672 0\nDue From Other Funds 866,581 DA391 732,754\nTOTAL Due From Other Funds 866,581 732,754\nPrepaid Expenses 33,330 DA480 32,819\nTOTAL Prepaid Expenses 33,330 32,819\nTOTAL Assets 4,007,153 4,345,512\nOSC Municipality Code 470371600000Page 23\nTOWN OF Riverhead\nAnnual Update Document\nFor the Fiscal Year Ending 2009",
       "money_values": [
         "1,831,470",
         "3,579,839",
@@ -927,7 +927,7 @@
         "4,007,153",
         "4,345,512"
       ],
-      "line_count": 20,
+      "line_count": 19,
       "confidence": "high"
     },
     {
@@ -1115,7 +1115,7 @@
     },
     {
       "page": 30,
-      "text": "Balance Sheet\n(ES) ENTERPRISE SEWER\nCode Description 2008 EdpCode 2009\nAssets\nCash 2,051,698\nES200 9,105,827\nCash In Time Deposits 7,098,000 ES201\nPetty Cash 200 ES210 200\nTOTAL Cash 9,149,898 9,106,027\nAccounts Receivable ES380\nAccrued Interest Receivable 5,062 ES381\nUnbilled Receivables 67,682 ES383 59,552\nAllowance For Receivables (credit) -14,423 ES389 -12,764\nTOTAL Other Receivables (net) 58,321 46,788\nDue From Other Funds 12,510 ES391 218,533\nTOTAL Due From Other Funds 12,510 218,533\nDue From Other Governments 678,717 ES440 513,929\nTOTAL Due From Other Governments 678,717 513,929\nPrepaid Expenses 18,447 ES480 17,196\nDeferred Charges 1,275 ES485 637\nTOTAL Prepaid Expenses 19,722 17,833\nLand 575,912 ES101 575,912\nBuildings 22,766,748 ES102 22,766,748\nImprovements Other Than Buildings 21,532,305 ES103 22,861,709\nEquipment 766,071 ES104 831,496\nConstruction Work In Progress 3,622,224 ES105 2,283,735\nAccum Deprec, Buildings -9,786,834 ES112 -10,144,293\nAccum Depr, Imp Other Than Bld -20,094,927 ES113 -20,335,007\nAccum Depr, Machinery & Equip -576,850 ES114 -632,879\nTOTAL Fixed Assets (net) 18,804,649 18,207,421\nTOTAL Assets 28,723,817 28,110,531\nOSC Municipality Code 470371600000Page 30\nTOWN OF Riverhead\nAnnual Update Document\nFor the Fiscal Year Ending 2009",
+      "text": "Balance Sheet\n(ES) ENTERPRISE SEWER\nCode Description 2008 EdpCode 2009\nAssets\nCash 2,051,698 ES200 9,105,827\nCash In Time Deposits 7,098,000 ES201\nPetty Cash 200 ES210 200\nTOTAL Cash 9,149,898 9,106,027\nAccounts Receivable ES380\nAccrued Interest Receivable 5,062 ES381\nUnbilled Receivables 67,682 ES383 59,552\nAllowance For Receivables (credit) -14,423 ES389 -12,764\nTOTAL Other Receivables (net) 58,321 46,788\nDue From Other Funds 12,510 ES391 218,533\nTOTAL Due From Other Funds 12,510 218,533\nDue From Other Governments 678,717 ES440 513,929\nTOTAL Due From Other Governments 678,717 513,929\nPrepaid Expenses 18,447 ES480 17,196\nDeferred Charges 1,275 ES485 637\nTOTAL Prepaid Expenses 19,722 17,833\nLand 575,912 ES101 575,912\nBuildings 22,766,748 ES102 22,766,748\nImprovements Other Than Buildings 21,532,305 ES103 22,861,709\nEquipment 766,071 ES104 831,496\nConstruction Work In Progress 3,622,224 ES105 2,283,735\nAccum Deprec, Buildings -9,786,834 ES112 -10,144,293\nAccum Depr, Imp Other Than Bld -20,094,927 ES113 -20,335,007\nAccum Depr, Machinery & Equip -576,850 ES114 -632,879\nTOTAL Fixed Assets (net) 18,804,649 18,207,421\nTOTAL Assets 28,723,817 28,110,531\nOSC Municipality Code 470371600000Page 30\nTOWN OF Riverhead\nAnnual Update Document\nFor the Fiscal Year Ending 2009",
       "money_values": [
         "2,051,698",
         "9,105,827",
@@ -1163,7 +1163,7 @@
         "28,723,817",
         "28,110,531"
       ],
-      "line_count": 35,
+      "line_count": 34,
       "confidence": "high"
     },
     {
@@ -1387,7 +1387,7 @@
     },
     {
       "page": 36,
-      "text": "Balance Sheet\n(EW) ENTERPRISE WATER\nCode Description 2008 EdpCode 2009\nAssets\nCash 1,614,290\nEW200 1,831,911\nCash In Time Deposits 1,248,000 EW201 300\nPetty Cash 300 EW210\nTOTAL Cash 2,862,590 1,832,211\nWater Rents Receivable 671,655 EW350 423,168\nAccured Interest Receivable 618 EW381\nUnbilled Receivables 311,516 EW383 179,673\nTOTAL Other Receivables (net) 983,789 602,841\nDue From Other Funds 12,384 EW391 10,864\nTOTAL Due From Other Funds 12,384 10,864\nInventory 49,469 EW445 35,675\nTOTAL Inventories 49,469 35,675\nPrepaid Expenses 30,756 EW480 30,899\nDeferred Charges 34,841 EW485 17,421\nTOTAL Prepaid Expenses 65,597 48,320\nLand 3,106,491 EW101 3,106,491\nBuildings 11,016,872 EW102 11,016,872\nImprovements Other Than Buildings 37,251,767 EW103 40,128,663\nEquipment 7,310,002 EW104 7,319,741\nConstruction Work In Progress 3,921,259 EW105 2,103,228\nAccum Deprec, Buildings -3,976,474 EW112 -4,229,819\nAccum Depr, Imp Other Than Bld -15,575,593 EW113 -16,393,063\nAccum Depr, Machinery & Equip -7,090,278 EW114 -7,163,958\nTOTAL Fixed Assets (net) 35,964,046 35,888,155\nTOTAL Assets 39,937,875 38,418,066\nOSC Municipality Code 470371600000Page 36\nTOWN OF Riverhead\nAnnual Update Document\nFor the Fiscal Year Ending 2009",
+      "text": "Balance Sheet\n(EW) ENTERPRISE WATER\nCode Description 2008 EdpCode 2009\nAssets\nCash 1,614,290 EW200 1,831,911\nCash In Time Deposits 1,248,000 EW201 300\nPetty Cash 300 EW210\nTOTAL Cash 2,862,590 1,832,211\nWater Rents Receivable 671,655 EW350 423,168\nAccured Interest Receivable 618 EW381\nUnbilled Receivables 311,516 EW383 179,673\nTOTAL Other Receivables (net) 983,789 602,841\nDue From Other Funds 12,384 EW391 10,864\nTOTAL Due From Other Funds 12,384 10,864\nInventory 49,469 EW445 35,675\nTOTAL Inventories 49,469 35,675\nPrepaid Expenses 30,756 EW480 30,899\nDeferred Charges 34,841 EW485 17,421\nTOTAL Prepaid Expenses 65,597 48,320\nLand 3,106,491 EW101 3,106,491\nBuildings 11,016,872 EW102 11,016,872\nImprovements Other Than Buildings 37,251,767 EW103 40,128,663\nEquipment 7,310,002 EW104 7,319,741\nConstruction Work In Progress 3,921,259 EW105 2,103,228\nAccum Deprec, Buildings -3,976,474 EW112 -4,229,819\nAccum Depr, Imp Other Than Bld -15,575,593 EW113 -16,393,063\nAccum Depr, Machinery & Equip -7,090,278 EW114 -7,163,958\nTOTAL Fixed Assets (net) 35,964,046 35,888,155\nTOTAL Assets 39,937,875 38,418,066\nOSC Municipality Code 470371600000Page 36\nTOWN OF Riverhead\nAnnual Update Document\nFor the Fiscal Year Ending 2009",
       "money_values": [
         "1,614,290",
         "1,831,911",
@@ -1435,7 +1435,7 @@
         "39,937,875",
         "38,418,066"
       ],
-      "line_count": 34,
+      "line_count": 33,
       "confidence": "high"
     },
     {
@@ -1661,7 +1661,7 @@
     },
     {
       "page": 42,
-      "text": "Balance Sheet\n(H) CAPITAL PROJECTS\nCode Description 2008 EdpCode 2009\nAssets\nCash 16,810,375\nH200 2,247,974\nCash In Time Deposits 586,000 H201\nTOTAL Cash 17,396,375 2,247,974\nAccounts Receivable 24,479 H380 22,901\nAccured Interest Receivable 340 H381\nTOTAL Other Receivables (net) 24,819 22,901\nDue From Other Funds 657,247 H391 198,909\nTOTAL Due From Other Funds 657,247 198,909\nDue From Other Governments 178,227 H440 1,283,560\nTOTAL Due From Other Governments 178,227 1,283,560\nPrepaid Expenses 1,507 H480 1,507\nTOTAL Prepaid Expenses 1,507 1,507\nTOTAL Assets 18,258,175 3,754,851\nOSC Municipality Code 470371600000Page 42\nTOWN OF Riverhead\nAnnual Update Document\nFor the Fiscal Year Ending 2009",
+      "text": "Balance Sheet\n(H) CAPITAL PROJECTS\nCode Description 2008 EdpCode 2009\nAssets\nCash 16,810,375 H200 2,247,974\nCash In Time Deposits 586,000 H201\nTOTAL Cash 17,396,375 2,247,974\nAccounts Receivable 24,479 H380 22,901\nAccured Interest Receivable 340 H381\nTOTAL Other Receivables (net) 24,819 22,901\nDue From Other Funds 657,247 H391 198,909\nTOTAL Due From Other Funds 657,247 198,909\nDue From Other Governments 178,227 H440 1,283,560\nTOTAL Due From Other Governments 178,227 1,283,560\nPrepaid Expenses 1,507 H480 1,507\nTOTAL Prepaid Expenses 1,507 1,507\nTOTAL Assets 18,258,175 3,754,851\nOSC Municipality Code 470371600000Page 42\nTOWN OF Riverhead\nAnnual Update Document\nFor the Fiscal Year Ending 2009",
       "money_values": [
         "16,810,375",
         "2,247,974",
@@ -1687,7 +1687,7 @@
         "18,258,175",
         "3,754,851"
       ],
-      "line_count": 22,
+      "line_count": 21,
       "confidence": "high"
     },
     {
@@ -1875,7 +1875,7 @@
     },
     {
       "page": 47,
-      "text": "Balance Sheet\n(M) INTERNAL SERVICE\nCode Description 2008 EdpCode 2009\nAssets\nCash 29,779\nM200\nTOTAL Cash 29,779 0\nAccounts Receivable 96,000 M380\nTOTAL Other Receivables (net) 96,000 0\nDue From Other Funds 329,149 M391\nTOTAL Due From Other Funds 329,149 0\nInventory of Materials & Supplies 118,147 M445\nTOTAL Inventories 118,147 0\nPrepaid Expenses 6,410 M480\nTOTAL Prepaid Expenses 6,410 0\nBuildings 1,466,137 M102\nImprovements Other Than Buildings 479,443 M103\nMachinery & Equipment 153,316 M104\nAccum Deprec, Buildings -365,226 M112\nAccum Depr, Imp Other Than Bld -207,817 M113\nAccum Depr, Machinery & Equip -152,739 M114\nTOTAL Fixed Assets (net) 1,373,114 0\nTOTAL Assets 1,952,599 0\nOSC Municipality Code 470371600000Page 47\nTOWN OF Riverhead\nAnnual Update Document\nFor the Fiscal Year Ending 2009",
+      "text": "Balance Sheet\n(M) INTERNAL SERVICE\nCode Description 2008 EdpCode 2009\nAssets\nCash 29,779 M200\nTOTAL Cash 29,779 0\nAccounts Receivable 96,000 M380\nTOTAL Other Receivables (net) 96,000 0\nDue From Other Funds 329,149 M391\nTOTAL Due From Other Funds 329,149 0\nInventory of Materials & Supplies 118,147 M445\nTOTAL Inventories 118,147 0\nPrepaid Expenses 6,410 M480\nTOTAL Prepaid Expenses 6,410 0\nBuildings 1,466,137 M102\nImprovements Other Than Buildings 479,443 M103\nMachinery & Equipment 153,316 M104\nAccum Deprec, Buildings -365,226 M112\nAccum Depr, Imp Other Than Bld -207,817 M113\nAccum Depr, Machinery & Equip -152,739 M114\nTOTAL Fixed Assets (net) 1,373,114 0\nTOTAL Assets 1,952,599 0\nOSC Municipality Code 470371600000Page 47\nTOWN OF Riverhead\nAnnual Update Document\nFor the Fiscal Year Ending 2009",
       "money_values": [
         "29,779",
         "29,779",
@@ -1896,7 +1896,7 @@
         "1,373,114",
         "1,952,599"
       ],
-      "line_count": 27,
+      "line_count": 26,
       "confidence": "high"
     },
     {
@@ -1988,7 +1988,7 @@
     },
     {
       "page": 53,
-      "text": "Balance Sheet\n(MS) SELF INSURANCE\nCode Description 2008 EdpCode 2009\nAssets\nCash 123,347\nMS200 5,023,741\nCash & Time Deposits 5,723,000 MS201\nTOTAL Cash 5,846,347 5,023,741\nAccrued Interest Receivable 3,690 MS381\nTOTAL Other Receivables (net) 3,690 0\nDue From Other Funds 475,452 MS391 156,981\nTOTAL Due From Other Funds 475,452 156,981\nTOTAL Assets 6,325,489 5,180,722\nOSC Municipality Code 470371600000Page 53\nTOWN OF Riverhead\nAnnual Update Document\nFor the Fiscal Year Ending 2009",
+      "text": "Balance Sheet\n(MS) SELF INSURANCE\nCode Description 2008 EdpCode 2009\nAssets\nCash 123,347 MS200 5,023,741\nCash & Time Deposits 5,723,000 MS201\nTOTAL Cash 5,846,347 5,023,741\nAccrued Interest Receivable 3,690 MS381\nTOTAL Other Receivables (net) 3,690 0\nDue From Other Funds 475,452 MS391 156,981\nTOTAL Due From Other Funds 475,452 156,981\nTOTAL Assets 6,325,489 5,180,722\nOSC Municipality Code 470371600000Page 53\nTOWN OF Riverhead\nAnnual Update Document\nFor the Fiscal Year Ending 2009",
       "money_values": [
         "123,347",
         "5,023,741",
@@ -2004,7 +2004,7 @@
         "6,325,489",
         "5,180,722"
       ],
-      "line_count": 17,
+      "line_count": 16,
       "confidence": "high"
     },
     {
@@ -2117,7 +2117,7 @@
     },
     {
       "page": 59,
-      "text": "Balance Sheet\n(SL) LIGHTING\nCode Description 2008 EdpCode 2009\nAssets\nCash 273,819\nSL200 744,487\nCash In Time Deposits 320,367 SL201\nTOTAL Cash 594,186 744,487\nAccured Interest Receivable 121 SL381\nTOTAL Other Receivables (net) 121 0\nDue From Other Funds 124,557 SL391\nTOTAL Due From Other Funds 124,557 0\nPrepaid Expenses 2,914 SL480 3,566\nTOTAL Prepaid Expenses 2,914 3,566\nTOTAL Assets 721,778 748,053\nOSC Municipality Code 470371600000Page 59\nTOWN OF Riverhead\nAnnual Update Document\nFor the Fiscal Year Ending 2009",
+      "text": "Balance Sheet\n(SL) LIGHTING\nCode Description 2008 EdpCode 2009\nAssets\nCash 273,819 SL200 744,487\nCash In Time Deposits 320,367 SL201\nTOTAL Cash 594,186 744,487\nAccured Interest Receivable 121 SL381\nTOTAL Other Receivables (net) 121 0\nDue From Other Funds 124,557 SL391\nTOTAL Due From Other Funds 124,557 0\nPrepaid Expenses 2,914 SL480 3,566\nTOTAL Prepaid Expenses 2,914 3,566\nTOTAL Assets 721,778 748,053\nOSC Municipality Code 470371600000Page 59\nTOWN OF Riverhead\nAnnual Update Document\nFor the Fiscal Year Ending 2009",
       "money_values": [
         "273,819",
         "744,487",
@@ -2133,7 +2133,7 @@
         "721,778",
         "748,053"
       ],
-      "line_count": 19,
+      "line_count": 18,
       "confidence": "high"
     },
     {
@@ -2259,7 +2259,7 @@
     },
     {
       "page": 64,
-      "text": "Balance Sheet\n(SM) MISCELLANEOUS\nCode Description 2008 EdpCode 2009\nAssets\nCash 109,891\nSM200 735,740\nCash In Time Deposits 401,436 SM201\nTOTAL Cash 511,327 735,740\nAccounts Receivable 98 SM380\nTOTAL Other Receivables (net) 98 0\nTOTAL Assets 511,425 735,740\nOSC Municipality Code 470371600000Page 64\nTOWN OF Riverhead\nAnnual Update Document\nFor the Fiscal Year Ending 2009",
+      "text": "Balance Sheet\n(SM) MISCELLANEOUS\nCode Description 2008 EdpCode 2009\nAssets\nCash 109,891 SM200 735,740\nCash In Time Deposits 401,436 SM201\nTOTAL Cash 511,327 735,740\nAccounts Receivable 98 SM380\nTOTAL Other Receivables (net) 98 0\nTOTAL Assets 511,425 735,740\nOSC Municipality Code 470371600000Page 64\nTOWN OF Riverhead\nAnnual Update Document\nFor the Fiscal Year Ending 2009",
       "money_values": [
         "109,891",
         "735,740",
@@ -2269,7 +2269,7 @@
         "511,425",
         "735,740"
       ],
-      "line_count": 15,
+      "line_count": 14,
       "confidence": "high"
     },
     {
@@ -2383,7 +2383,7 @@
     },
     {
       "page": 69,
-      "text": "Balance Sheet\n(SR) REFUSE AND GARBAGE\nCode Description 2008 EdpCode 2009\nAssets\nCash 30,580\nSR200 1,730,842\nCash In Time Deposits 1,509,435 SR201\nTOTAL Cash 1,540,015 1,730,842\nAccrued Interest Receivable 508 SR381\nTOTAL Other Receivables (net) 508 0\nDue From Other Funds 120,778 SR391 1,418\nTOTAL Due From Other Funds 120,778 1,418\nPrepaid Expenses 2,380 SR480 2,331\nTOTAL Prepaid Expenses 2,380 2,331\nTOTAL Assets 1,663,681 1,734,591\nOSC Municipality Code 470371600000Page 69\nTOWN OF Riverhead\nAnnual Update Document\nFor the Fiscal Year Ending 2009",
+      "text": "Balance Sheet\n(SR) REFUSE AND GARBAGE\nCode Description 2008 EdpCode 2009\nAssets\nCash 30,580 SR200 1,730,842\nCash In Time Deposits 1,509,435 SR201\nTOTAL Cash 1,540,015 1,730,842\nAccrued Interest Receivable 508 SR381\nTOTAL Other Receivables (net) 508 0\nDue From Other Funds 120,778 SR391 1,418\nTOTAL Due From Other Funds 120,778 1,418\nPrepaid Expenses 2,380 SR480 2,331\nTOTAL Prepaid Expenses 2,380 2,331\nTOTAL Assets 1,663,681 1,734,591\nOSC Municipality Code 470371600000Page 69\nTOWN OF Riverhead\nAnnual Update Document\nFor the Fiscal Year Ending 2009",
       "money_values": [
         "30,580",
         "1,730,842",
@@ -2401,7 +2401,7 @@
         "1,663,681",
         "1,734,591"
       ],
-      "line_count": 19,
+      "line_count": 18,
       "confidence": "high"
     },
     {
@@ -2524,7 +2524,7 @@
     },
     {
       "page": 74,
-      "text": "Balance Sheet\n(ST) PUBLIC PARKING\nCode Description 2008 EdpCode 2009\nAssets\nCash 1,531\nST200 126,013\nCash In Time Deposits 149,616 ST201\nTOTAL Cash 151,147 126,013\nAccrued Interest Receivable 139 ST381\nTOTAL Other Receivables (net) 139 0\nDue From Other Funds 74,013 ST391 74,013\nTOTAL Due From Other Funds 74,013 74,013\nTOTAL Assets 225,299 200,026\nOSC Municipality Code 470371600000Page 74\nTOWN OF Riverhead\nAnnual Update Document\nFor the Fiscal Year Ending 2009",
+      "text": "Balance Sheet\n(ST) PUBLIC PARKING\nCode Description 2008 EdpCode 2009\nAssets\nCash 1,531 ST200 126,013\nCash In Time Deposits 149,616 ST201\nTOTAL Cash 151,147 126,013\nAccrued Interest Receivable 139 ST381\nTOTAL Other Receivables (net) 139 0\nDue From Other Funds 74,013 ST391 74,013\nTOTAL Due From Other Funds 74,013 74,013\nTOTAL Assets 225,299 200,026\nOSC Municipality Code 470371600000Page 74\nTOWN OF Riverhead\nAnnual Update Document\nFor the Fiscal Year Ending 2009",
       "money_values": [
         "1,531",
         "126,013",
@@ -2538,7 +2538,7 @@
         "225,299",
         "200,026"
       ],
-      "line_count": 17,
+      "line_count": 16,
       "confidence": "high"
     },
     {
@@ -2647,7 +2647,7 @@
     },
     {
       "page": 79,
-      "text": "Balance Sheet\n(TA) AGENCY\nCode Description 2008 EdpCode 2009\nAssets\nCash 17,973,585\nTA200 20,319,239\nTOTAL Cash 17,973,585 20,319,239\nDue From Other Funds TA391 8,140\nTOTAL Due From Other Funds 0 8,140\nTOTAL Assets 17,973,585 20,327,379\nOSC Municipality Code 470371600000Page 79\nTOWN OF Riverhead\nAnnual Update Document\nFor the Fiscal Year Ending 2009",
+      "text": "Balance Sheet\n(TA) AGENCY\nCode Description 2008 EdpCode 2009\nAssets\nCash 17,973,585 TA200 20,319,239\nTOTAL Cash 17,973,585 20,319,239\nDue From Other Funds TA391 8,140\nTOTAL Due From Other Funds 0 8,140\nTOTAL Assets 17,973,585 20,327,379\nOSC Municipality Code 470371600000Page 79\nTOWN OF Riverhead\nAnnual Update Document\nFor the Fiscal Year Ending 2009",
       "money_values": [
         "17,973,585",
         "20,319,239",
@@ -2658,7 +2658,7 @@
         "17,973,585",
         "20,327,379"
       ],
-      "line_count": 14,
+      "line_count": 13,
       "confidence": "high"
     },
     {
@@ -2705,7 +2705,7 @@
     },
     {
       "page": 81,
-      "text": "Balance Sheet\n(V) DEBT SERVICE\nCode Description 2008 EdpCode 2009\nAssets\nCash 345,342\nV200 11,510,160\nCash In Time Deposits 10,573,000 V201\nTOTAL Cash 10,918,342 11,510,160\nAccrued Interest Receivable 6,669 V381\nTOTAL Other Receivables (net) 6,669 0\nDue From Other Funds 11,262,655 V391 5,382,353\nTOTAL Due From Other Funds 11,262,655 5,382,353\nTOTAL Assets 22,187,666 16,892,513\nOSC Municipality Code 470371600000Page 81\nTOWN OF Riverhead\nAnnual Update Document\nFor the Fiscal Year Ending 2009",
+      "text": "Balance Sheet\n(V) DEBT SERVICE\nCode Description 2008 EdpCode 2009\nAssets\nCash 345,342 V200 11,510,160\nCash In Time Deposits 10,573,000 V201\nTOTAL Cash 10,918,342 11,510,160\nAccrued Interest Receivable 6,669 V381\nTOTAL Other Receivables (net) 6,669 0\nDue From Other Funds 11,262,655 V391 5,382,353\nTOTAL Due From Other Funds 11,262,655 5,382,353\nTOTAL Assets 22,187,666 16,892,513\nOSC Municipality Code 470371600000Page 81\nTOWN OF Riverhead\nAnnual Update Document\nFor the Fiscal Year Ending 2009",
       "money_values": [
         "345,342",
         "11,510,160",
@@ -2721,7 +2721,7 @@
         "22,187,666",
         "16,892,513"
       ],
-      "line_count": 17,
+      "line_count": 16,
       "confidence": "high"
     },
     {
@@ -2818,13 +2818,13 @@
     },
     {
       "page": 86,
-      "text": "Balance Sheet\n(W) GENERAL LONG-TERM DEBT\nCode Description 2008 EdpCode 2009\nAssets\nTotal Non-Current Govt Liabilities 129,275,589\nW129\nTOTAL Provision To Be Made In Future Budgets 129,275,589 0\nTOTAL Assets 129,275,589 0\nOSC Municipality Code 470371600000Page 86\nTOWN OF Riverhead\nAnnual Update Document\nFor the Fiscal Year Ending 2009",
+      "text": "Balance Sheet\n(W) GENERAL LONG-TERM DEBT\nCode Description 2008 EdpCode 2009\nAssets\nTotal Non-Current Govt Liabilities 129,275,589 W129\nTOTAL Provision To Be Made In Future Budgets 129,275,589 0\nTOTAL Assets 129,275,589 0\nOSC Municipality Code 470371600000Page 86\nTOWN OF Riverhead\nAnnual Update Document\nFor the Fiscal Year Ending 2009",
       "money_values": [
         "129,275,589",
         "129,275,589",
         "129,275,589"
       ],
-      "line_count": 12,
+      "line_count": 11,
       "confidence": "high"
     },
     {
@@ -3030,7 +3030,7 @@
     },
     {
       "page": 100,
-      "text": "TOWN OF Riverhead\nStatement of Indebtedness\nFor the Fiscal Year Ending 2009\nIndebtedness Not Exempt From Constitutional Debt Limit\nPurpose of Issue\nCurrent Interest Rate\nEDPCODE Amount\ntext 3/6/2008\ntext2008 Refunding y2k Public Impr\ntext\nMonth and Year of Issue\nBond No. 2008000002\nOutstanding Beginning of Year\nPrior Year Adjustment\nIssued During the Fiscal Year\n    (do not include renewals here)\nPaid During the Fiscal Year\n    (do not include renewals here)\nOutstanding End of the Fiscal Year\nFinal Maturity Date\ntext\ntext text\n2P18773\ntext text\n2P18775 12,650\n2P18777 1,354,960\ntext 11/15/2020\ntext text\n0\n2.6250\n2P18771 1,367,610\n0text\nTotal Bond\nOutstanding Beginning of Year\nAmount\n124,231,616\nPrior Year Adjustment 0\nPaid During Fiscal Year\nOutstanding End of Year 117,122,151\n0\n7,109,465\nIssued During Fiscal Year 0\n***************************************************************************************************************************************\n***************************************************************************************************************************************\nTotal of All Indebtedness\nIncludes Total of Bonds and Notes - Exempt and Not Exempt\nTotal Bond Amount\nOutstanding Beginning of Year 138,024,099\n0Prior Year Adjustment\nIssued During Fiscal Year 0\nPaid During Fiscal Year 8,589,000\nOutstanding End of Year 129,435,099\nPage 100 OSC Municipality Code 470371600000",
+      "text": "TOWN OF Riverhead\nStatement of Indebtedness\nFor the Fiscal Year Ending 2009\nIndebtedness Not Exempt From Constitutional Debt Limit\nPurpose of Issue\nCurrent Interest Rate\nEDPCODE Amount\ntext 3/6/2008\ntext2008 Refunding y2k Public Impr\ntext\nMonth and Year of Issue\nBond No. 2008000002\nOutstanding Beginning of Year\nPrior Year Adjustment\nIssued During the Fiscal Year\n    (do not include renewals here)\nPaid During the Fiscal Year\n    (do not include renewals here)\nOutstanding End of the Fiscal Year\nFinal Maturity Date\ntext\ntext text\n2P18773\ntext text\n2P18775 12,650\n2P18777 1,354,960\ntext 11/15/2020\ntext text\n0\n2.6250\n2P18771 1,367,610\n0text\nTotal Bond\nOutstanding Beginning of Year\nAmount\n124,231,616\nPrior Year Adjustment 0\nPaid During Fiscal Year\nOutstanding End of Year 117,122,151\n0\n7,109,465\nIssued During Fiscal Year 0\n******************************************************************************************************************************************************************************************************************************************************************************\nTotal of All Indebtedness\nIncludes Total of Bonds and Notes - Exempt and Not Exempt\nTotal Bond Amount\nOutstanding Beginning of Year 138,024,099\n0Prior Year Adjustment\nIssued During Fiscal Year 0\nPaid During Fiscal Year 8,589,000\nOutstanding End of Year 129,435,099\nPage 100 OSC Municipality Code 470371600000",
       "money_values": [
         "12,650",
         "1,354,960",
@@ -3042,7 +3042,7 @@
         "8,589,000",
         "129,435,099"
       ],
-      "line_count": 53,
+      "line_count": 52,
       "confidence": "high"
     },
     {

@@ -1,10 +1,10 @@
 {
- "generatedAt": "2026-08-17T09:49:56Z",
- "generatedAtDisplay": "August 17, 2026",
+ "generatedAt": "2026-08-24T09:55:47Z",
+ "generatedAtDisplay": "August 24, 2026",
  "datasets": {
-  "meetings": 42,
+  "meetings": 43,
   "votes": 1770,
-  "latestMeeting": "August 4, 2026",
+  "latestMeeting": "August 18, 2026",
   "budgetLineItems": 1009,
   "payrollYears": [
    2018,
