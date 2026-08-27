@@ -1,10 +1,17 @@
 import PageShell from '../../components/PageShell'
 import PlainCallout from '../../components/PlainCallout'
 import {
-  disclaimer, help, nycCaveat, rights, sources, stateLaw, warrantNote,
+  disclaimer, help, nycCaveat, regionalContext, regionalResponses, rights, sources,
+  stateLaw, warrantNote, type TownResponse,
 } from '../../lib/know-your-rights'
 
 const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 20, boxShadow: '0 14px 34px var(--rbl-shadow)' } as const
+
+const STATUS: Record<TownResponse['status'], { label: string; bg: string; fg: string; border: string; glyph: string }> = {
+  adopted: { label: 'Adopted a protocol', bg: 'var(--rbl-success-bg)', fg: 'var(--rbl-success-strong)', border: 'var(--rbl-success-border)', glyph: '✓' },
+  'stated-position': { label: 'Position stated, not enacted', bg: 'var(--rbl-warn-bg)', fg: 'var(--rbl-warn-strong)', border: 'var(--rbl-warn-border)', glyph: '~' },
+  'no-action-on-record': { label: 'Nothing in the record', bg: 'var(--rbl-surface-3)', fg: 'var(--rbl-text-sub)', border: 'var(--rbl-border-strong)', glyph: '—' },
+}
 
 export const metadata = {
   title: 'Know Your Rights — ICE, and the 2026 New York protections',
@@ -69,6 +76,63 @@ export default function KnowYourRightsPage() {
               </div>
             </div>
           ))}
+        </div>
+      </section>
+
+      {/* What the neighbouring towns actually did about it. */}
+      <section style={{ ...card, marginBottom: 18 }}>
+        <h2 style={{ marginTop: 0, marginBottom: 4, color: 'var(--rbl-title)', fontSize: 24 }}>What the towns around here decided</h2>
+        <p style={{ color: 'var(--rbl-text-strong)', fontSize: 15, lineHeight: 1.6, marginTop: 0 }}>
+          The state law sets a floor. It does not tell a town how its own police should behave when federal agents
+          arrive — each town answers that for itself, and three neighbours answered it three different ways.
+        </p>
+
+        <div style={{ display: 'grid', gap: 12 }}>
+          {regionalResponses.map((t) => {
+            const st = STATUS[t.status]
+            return (
+              <article key={t.town} style={{ background: 'var(--rbl-surface-2)', border: `1px solid ${st.border}`, borderLeft: `6px solid ${st.border}`, borderRadius: 12, padding: 16 }}>
+                <div style={{ display: 'flex', gap: 10, alignItems: 'baseline', flexWrap: 'wrap' }}>
+                  <strong style={{ color: 'var(--rbl-title)', fontSize: 20 }}>{t.town}</strong>
+                  <span style={{
+                    fontSize: 11, fontWeight: 900, letterSpacing: 0.4, textTransform: 'uppercase',
+                    padding: '3px 9px', borderRadius: 5, background: st.bg, color: st.fg, border: `1px solid ${st.border}`,
+                  }}>
+                    <span aria-hidden style={{ marginRight: 5 }}>{st.glyph}</span>{st.label}
+                  </span>
+                  <span style={{ marginLeft: 'auto', color: 'var(--rbl-text-muted)', fontSize: 12.5 }}>{t.asOf}</span>
+                </div>
+
+                <div style={{ color: 'var(--rbl-text-strong)', fontSize: 15, fontWeight: 700, margin: '6px 0 4px' }}>{t.headline}</div>
+                <p style={{ color: 'var(--rbl-text-body)', fontSize: 13.8, lineHeight: 1.6, margin: '0 0 8px' }}>{t.detail}</p>
+
+                <ul style={{ color: 'var(--rbl-text-body)', fontSize: 13.5, lineHeight: 1.55, margin: 0, paddingLeft: 18, display: 'grid', gap: 5 }}>
+                  {t.what.map((w) => <li key={w}>{w}</li>)}
+                </ul>
+
+                <div style={{ marginTop: 10, paddingTop: 9, borderTop: '1px solid var(--rbl-border-subtle)', display: 'grid', gap: 4 }}>
+                  {t.sources.map((src) => (
+                    <a key={src.url} href={src.url} target="_blank" rel="noopener noreferrer"
+                       style={{ color: 'var(--rbl-link)', fontWeight: 600, fontSize: 12.6, lineHeight: 1.45, wordBreak: 'break-word' }}>
+                      {src.title} ↗
+                      <div style={{ color: 'var(--rbl-text-muted)', fontWeight: 400, fontSize: 11.6 }}>{src.url}</div>
+                    </a>
+                  ))}
+                </div>
+              </article>
+            )
+          })}
+        </div>
+
+        <div style={{ background: 'var(--rbl-info-bg)', border: '1px solid var(--rbl-info-border)', borderRadius: 10, padding: '12px 14px', marginTop: 14 }}>
+          <strong style={{ color: 'var(--rbl-info-text)', fontSize: 14 }}>One draft is behind most of this</strong>
+          <p style={{ color: 'var(--rbl-info-text)', fontSize: 13.6, lineHeight: 1.6, margin: '4px 0 8px' }}>{regionalContext.modelLaw}</p>
+          <p style={{ color: 'var(--rbl-info-text)', fontSize: 13.6, lineHeight: 1.6, margin: '0 0 6px' }}>{regionalContext.nassau}</p>
+          <a href={regionalContext.nassauSource.url} target="_blank" rel="noopener noreferrer"
+             style={{ color: 'var(--rbl-link)', fontWeight: 600, fontSize: 12.6, wordBreak: 'break-word' }}>
+            {regionalContext.nassauSource.title} ↗
+            <div style={{ color: 'var(--rbl-text-muted)', fontWeight: 400, fontSize: 11.6 }}>{regionalContext.nassauSource.url}</div>
+          </a>
         </div>
       </section>
 

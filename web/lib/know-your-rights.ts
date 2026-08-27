@@ -182,3 +182,113 @@ export const sources = [
     covers: 'The New Americans Hotline number and its hours.',
   },
 ]
+
+// WHAT THE NEIGHBOURING TOWNS DID. The state law above sets a floor; it does not
+// tell a town how its own police should behave when federal agents arrive. Three
+// East End towns answered that three different ways, and the contrast is the
+// useful part for a Riverhead resident.
+//
+// Riverhead's own entry needed the most care. Searching every Town Board
+// resolution this site has parsed — 42 meetings across 2025 and 2026 — turns up
+// nothing on immigration enforcement. That is a statement about the resolution
+// record, not proof no policy exists: a police department can hold a general
+// order that never reaches a Town Board vote. The entry says that and no more.
+
+export type TownResponse = {
+  town: string
+  status: 'adopted' | 'stated-position' | 'no-action-on-record'
+  headline: string
+  detail: string
+  what: string[]
+  asOf: string
+  sources: { title: string; url: string }[]
+}
+
+export const regionalResponses: TownResponse[] = [
+  {
+    town: 'Southold',
+    status: 'adopted',
+    headline: 'Adopted a written police response protocol — as a resolution, not a local law',
+    asOf: 'August 25, 2026',
+    detail:
+      'After months of debate that began with federal enforcement in Greenport, the Town Board settled on a resolution memorialising a procedure written by Police Chief Steven Grattan. It chose a resolution over a local law after the town attorney questioned whether parts of a law would be enforceable, and after board members argued over how far a town may direct its own police chief — the final text says the Board “acknowledges” the procedure rather than adopts or directs it.',
+    what: [
+      'When police learn an outside agency is operating in town — by advance notice, a 911 call, or an officer on patrol — an officer is dispatched to verify it is actually happening.',
+      'Once verified, Southold officers provide a “peacekeeping and calming presence,” activate body-worn cameras, and try to de-escalate confrontations involving bystanders — while not positioning themselves so as to impede the federal operation.',
+      'An earlier draft said officers would “neither obstruct nor assist.” The chief objected that this could stop his officers intervening if someone were attacked, so the final language preserves their duty to “act as required by law.”',
+      'A notification chain runs from the chief to the supervisor, then to Town Board members, the Greenport mayor, and administrators of affected schools, hospitals and clinics — for “situational awareness and preparedness only.”',
+      'The chief issues a “timely public statement” of non-sensitive information afterwards, which may wait until an operation has ended if releasing it sooner would compromise safety.',
+      'All sworn officers receive ongoing de-escalation training, and the Town Board, sitting as the Board of Police Commissioners, reviews the town’s own response afterwards — explicitly not whether the federal agency was justified.',
+      'Supervisor Al Krupski said the town is not going in the direction of the OLA model local law. Councilman Brian Mealy put the reasoning plainly at the work session: “We have to do it the Southold way. We can’t do it the same way as East Hampton Village.”',
+    ],
+    sources: [
+      {
+        title: 'North Fork Sun — Southold finalizes police response protocol for future immigration enforcement actions (August 25, 2026)',
+        url: 'https://northforksun.com/southold-finalizes-police-response-protocol-for-future-immigration-enforcement-actions/',
+      },
+      {
+        title: 'The Suffolk Times — Southold Town Board passes communication resolution regarding ICE and outside agency activities (August 26, 2026)',
+        url: 'https://suffolktimes.timesreview.com/2026/08/southold-town-board-agrees-on-communication-resolution-regarding-ice-and-outside-agency-activities/',
+      },
+    ],
+  },
+  {
+    town: 'Southampton',
+    status: 'stated-position',
+    headline: 'The Supervisor stated a police position out loud, but no local law has been adopted',
+    asOf: 'Position stated November 2025; still no law as of April 2026',
+    detail:
+      'After enforcement activity in Hampton Bays and Westhampton, Supervisor Maria Moore told residents at a Town Board meeting that Southampton police neither assist nor coordinate with federal immigration agents, and that the agency does not notify the department before operating in town. Advocates have kept pressing to have that written into law rather than left as a statement.',
+    what: [
+      'Moore: Southampton police “neither assist nor coordinate with” the agency.',
+      'On being asked for help: “If they were to ask for our assistance, we would not provide it unless they presented a court order signed by a judge.”',
+      'She said she would write to Senator Chuck Schumer and Congressman Nick LaLota asking for better communication and clear procedures for local governments when federal operations occur.',
+      'OLA of Eastern Long Island has been seeking a Town Board work session on its model law. As of April 2026 the town had not adopted one, and Southampton Village said conversations were still ongoing.',
+    ],
+    sources: [
+      {
+        title: 'RiverheadLOCAL — Southampton residents call on town to oppose ICE raids (November 13, 2025)',
+        url: 'https://riverheadlocal.com/2025/11/13/residents-press-southampton-town-board-to-oppose-ice-operations-in-local-communities/',
+      },
+      {
+        title: '27east — East End municipalities continue to discuss OLA ICE accountability law',
+        url: 'https://www.27east.com/southampton-press/news/government-news/article_5b925546-fc34-4a24-95d6-4a85bbc5ff31.html',
+      },
+      {
+        title: 'OLA of Eastern Long Island — East End municipalities continue to discuss the OLA ICE accountability law',
+        url: 'https://www.olaofeasternlongisland.org/post/east-end-municipalities-continue-to-discuss-ola-ice-accountability-law',
+      },
+    ],
+  },
+  {
+    town: 'Riverhead',
+    status: 'no-action-on-record',
+    headline: 'No resolution on immigration enforcement appears in the Town Board record',
+    asOf: 'Across 42 meetings on record, 2025 through August 2026',
+    detail:
+      'This site parses every Riverhead Town Board resolution it can obtain. Searching all of them for immigration enforcement — ICE, federal agents, a public-safety-and-accountability law, 287(g) — returns nothing. Southold spent months of work sessions on the question and voted. Southampton’s supervisor answered it at a public meeting. Riverhead’s Board has not taken it up in any resolution we can find.',
+    what: [
+      'This describes the resolution record, not the whole of Town policy. A police department can operate under a general order that never reaches a Town Board vote, and this site cannot see those.',
+      'The state law described above applies in Riverhead regardless. It is state legislation and does not depend on the Town adopting anything.',
+      'A resident who wants Riverhead’s position on the record can ask for it at a Town Board meeting. The rules for speaking are on the Town Board Votes page.',
+    ],
+    sources: [
+      {
+        title: 'Riverhead Budget Live — Town Board Votes, the resolution record searched for this',
+        url: 'https://rike4545.github.io/Riverhead-NY-Budget-Web-App/meetings/',
+      },
+    ],
+  },
+]
+
+// The model law behind most of this, and the county next door deciding what to do.
+export const regionalContext = {
+  modelLaw:
+    'Most of the East End activity traces to one draft. OLA of Eastern Long Island — Organización Latino Americana — circulated a Public Safety and Accountability Local Law in February 2026, written by former State Assemblyman Fred Thiele, and invited every municipality with its own police department to adapt it. East Hampton Village went furthest, adding a rule blocking federal access to its licence-plate-reader data. Southold ended up with a resolution instead. Southampton has not adopted a version.',
+  nassau:
+    'The same question is live west of here. Nassau County, which had signed an agreement deputising county police for federal immigration work, has been weighing its options against the new state law that bars exactly those arrangements.',
+  nassauSource: {
+    title: 'ABC7 New York — New York law bans local police cooperation with ICE, Nassau County weighs options',
+    url: 'https://abc7ny.com/post/new-york-law-bans-local-police-cooperation-ice-nassau-county-weighs-options/19732322/',
+  },
+}
