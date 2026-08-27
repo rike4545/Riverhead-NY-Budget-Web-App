@@ -1,0 +1,50 @@
+{
+  "$comment": "Canonical datasets the web app's ETL produces and the native apps consume. The web repo is the source of truth: etl/ writes web/public/data, this manifest names what travels, and scripts/sync-shared-data.mjs moves and verifies it. Regenerate hashes with `node scripts/sync-shared-data.mjs --refresh`.",
+  "canonicalRoot": "web/public/data",
+  "consumers": {
+    "ios": {
+      "repo": "rike4545/Riverhead-NY-Budget-iOS-App",
+      "root": "Riverhead NY Budget App"
+    }
+  },
+  "directories": [
+    {
+      "web": "meetings",
+      "ios": "MeetingsData",
+      "pattern": "*.json",
+      "note": "Every Town Board meeting, its fiscal-impact companion, and the index/roster files. Mirrored wholesale because a new meeting must not require editing this manifest."
+    }
+  ],
+  "files": [
+    {
+      "id": "budget-supplement/lines",
+      "web": "budget-supplement/lines.json",
+      "ios": "supplement-lines.json",
+      "sha256": "3c4a340f4f2bb0d47d6279854814823befc7896a657c8a5471e615f89bf84334"
+    },
+    {
+      "id": "budget-supplement/outliers",
+      "web": "budget-supplement/outliers.json",
+      "ios": "supplement-outliers.json",
+      "sha256": "b5592c4823838384099f9386588b0e8145e1c05f372682fc18aa194961fc14e4"
+    },
+    {
+      "id": "budget-supplement/reductions",
+      "web": "budget-supplement/reductions.json",
+      "ios": "reductions.json",
+      "sha256": "ee52b0f899172dd87ee1627f2feb03c842f291b642349464885cfaca051cc33e"
+    },
+    {
+      "id": "payroll/records",
+      "web": "payroll/records.json",
+      "ios": "payroll-records.json",
+      "sha256": "01a97e37864cdc2ca33658946dcd406b0d03fd3f2a10022448107a4f4c81373a"
+    },
+    {
+      "id": "payroll/titles-by-year",
+      "web": "payroll/titles-by-year.json",
+      "ios": "titles-by-year.json",
+      "sha256": "85a0a83079e0bb84a7204dc9e3d34baea92b86533b1f8772c3343f485eca63e1"
+    }
+  ]
+}
