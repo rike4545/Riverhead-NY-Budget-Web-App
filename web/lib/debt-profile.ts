@@ -308,3 +308,121 @@ export const debtIssueTotals = {
   bans: debtIssues.filter((d) => d.kind === 'ban').reduce((s, d) => s + d.outstanding, 0),
   all: debtIssues.reduce((s, d) => s + d.outstanding, 0),
 }
+
+// ---------------------------------------------------------------------------
+// Schedule W — Non-Current Government Liabilities, 2025 Annual Financial
+// Report, p.140. Bonds and notes are itemised above; this is everything else
+// the Town owes long-term, and it is the larger half of the picture by a wide
+// margin. Three comparative years are printed, so the direction of travel is
+// the Town's own, not a reconstruction.
+//
+// One basis warning that matters more than any single number here: Schedule W
+// is the schedule of *government* liabilities, so every figure below is the
+// governmental-activities share only. The Town's water and sewer enterprises
+// carry their own, and the audited financial statements report the combined
+// total. For OPEB the gap is material — see opebLiability.
+
+export type LongTermObligation = {
+  /** OSC account code from Schedule W. */
+  account: string
+  label: string
+  /** Governmental activities only. */
+  values: { 2025: number; 2024: number; 2023: number }
+  note?: string
+}
+
+export const longTermObligations: LongTermObligation[] = [
+  {
+    account: '683',
+    label: 'Other post-employment benefits (retiree health)',
+    values: { 2025: 129_479_192, 2024: 120_100_149, 2023: 140_439_500 },
+    note: 'By far the largest thing on the Town\'s books — bigger than all bonds, notes, pension and leave liabilities put together. Unfunded and paid year-to-year out of the operating budget.',
+  },
+  {
+    account: '638',
+    label: 'Net pension liability (proportionate share)',
+    values: { 2025: 27_346_801, 2024: 21_376_407, 2023: 26_299_923 },
+    note: 'Riverhead\'s slice of the State retirement systems\' shortfall. It swings with the systems\' investment returns rather than with anything the Town does, which is why it can move by millions in a year in either direction.',
+  },
+  {
+    account: '626',
+    label: 'Bond anticipation notes payable',
+    values: { 2025: 21_975_000, 2024: 22_800_000, 2023: 22_800_000 },
+  },
+  {
+    account: '628',
+    label: 'Bonds payable',
+    values: { 2025: 12_498_350, 2024: 16_281_792, 2023: 20_198_462 },
+    note: 'Governmental-activities bonds only. The full bond total across all activities is $38,423,858 — the difference is water and sewer, carried by the enterprise funds.',
+  },
+  {
+    account: '687',
+    label: 'Compensated absences (accrued leave)',
+    values: { 2025: 11_608_615.25, 2024: 9_773_699.95, 2023: 8_112_950.99 },
+    note: 'Unused vacation and sick time the Town will have to cash out when people leave. Broken out in detail, with the accounting-change caveat, on the Payroll page under Separation Pay.',
+  },
+  {
+    account: '684',
+    label: 'Landfill closure and post-closure care',
+    values: { 2025: 1_256_895, 2024: 1_325_278, 2023: 1_391_990 },
+    note: 'The only long-term obligation on this schedule that falls every single year without the Town having to do anything — the estimated remaining cost of monitoring a closed landfill winds down on its own.',
+  },
+  {
+    account: '685',
+    label: 'Installment purchase contract debt',
+    values: { 2025: 0, 2024: 0, 2023: 20_877.11 },
+    note: 'Paid off during 2024 and gone since. Kept on the list so the three columns still add to the Town\'s printed total.',
+  },
+]
+
+/** Schedule W's own total, for reconciliation. */
+export const longTermObligationsTotal = { 2025: 204_164_853.25, 2024: 191_657_325.95, 2023: 219_263_703.10 }
+
+// OPEB gets its own export because it is the number most often quoted about
+// Riverhead and the one most often quoted on a basis its source doesn't state.
+//
+// The audited statements report a TOTAL total-OPEB-liability; Schedule W of the
+// AFR reports only the governmental-activities share. Quoting one against the
+// other across years produces a fake trend. Both bases are kept here.
+export const opebLiability = {
+  source: {
+    governmental: '2025 Annual Financial Report, Schedule W — Non-Current Government Liabilities, account 683',
+    total: 'Town of Riverhead Audited Basic Financial Statements, Note 8 — Total OPEB Liability',
+  },
+  series: [
+    {
+      asOf: 'December 31, 2023',
+      governmental: 140_439_500,
+      businessType: 12_157_618,
+      total: 152_597_117,
+      discountRate: 4.0,
+    },
+    {
+      asOf: 'December 31, 2024',
+      governmental: 120_100_149,
+      businessType: 12_317_039,
+      total: 132_417_187,
+      discountRate: 4.28,
+    },
+    {
+      asOf: 'December 31, 2025',
+      governmental: 129_479_192,
+      businessType: null,
+      total: null,
+      discountRate: null,
+      note: 'The 2025 audited statements are not out yet, so only the AFR\'s governmental share is available. On the prior two years the enterprise funds added about $12.2M, so the eventual 2025 total should land near $142M.',
+    },
+  ],
+  // Why the numbers move the way they do. This matters: read on the
+  // governmental basis alone, the liability FELL by $20.3M in 2024 and then
+  // rose $9.4M in 2025, which looks like the Town did something and then
+  // stopped. It didn't. GASB 75 makes an unfunded plan discount its future
+  // retiree-health payments at a municipal-bond index rate, and that rate
+  // went from 4.00% to 4.28% between the two valuations. A higher discount
+  // rate mechanically shrinks the reported liability without one dollar
+  // being set aside or one benefit changing.
+  whyItMoves:
+    'This liability is an actuarial estimate, not a bill. Most of the year-to-year movement comes from the discount rate GASB 75 requires an unfunded plan to use — the S&P Municipal Bond 20-Year High Grade index. It rose from 4.00% at the 2023 valuation to 4.28% at the 2024 one, which is the bulk of why the reported liability dropped that year. Nothing was pre-funded and no benefit was reduced. Read the direction of this number as a rate story first and a policy story second.',
+  latestGovernmental: 129_479_192,
+  latestAuditedTotal: { amount: 132_417_187, asOf: 'December 31, 2024' },
+}

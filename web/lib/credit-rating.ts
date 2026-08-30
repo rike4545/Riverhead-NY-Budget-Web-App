@@ -163,7 +163,7 @@ export const ratingCriteria: CriteriaFactor[] = [
     approxWeight: '~20–30%',
     whatItMeans: 'Debt burden relative to the tax base and revenue, how fast principal amortizes, and pension/OPEB liabilities.',
     riverheadRead:
-      "Split picture: bonded debt is a genuine strength (just 3.78% of the constitutional debt limit used). But OPEB (retiree health) is a documented drag — Moody's named \"elevated OPEB liability\" explicitly in the 2021 upgrade language, and Riverhead's $152.6M 2023-audited liability ranks 4th-highest per resident among 10 Suffolk towns.",
+      "Split picture: bonded debt is a genuine strength — the 2024 audit puts debt subject to the constitutional limit at 6.74% of it, and the Town issued no new debt at all during 2025, retiring $6.36M of principal instead. But OPEB (retiree health) is a documented drag — Moody's named \"elevated OPEB liability\" explicitly in the 2021 upgrade language, and at $129.5M (governmental activities, Dec. 31, 2025) it is still the largest single thing the Town owes, bigger than all bonds, notes, pension and leave liabilities combined.",
   },
 ]
 
@@ -177,9 +177,9 @@ export const levers: Lever[] = [
   {
     title: 'Start pre-funding OPEB through a trust',
     detail:
-      "New York's General Municipal Law §6-r lets municipalities establish an OPEB trust to pre-fund retiree health costs instead of paying them year-to-year out of the operating budget. Riverhead's $152.6M liability (2023 audit) — the specific factor Moody's flagged as a drag in 2021 — keeps growing under pay-as-you-go. Directing part of the reserve surplus already identified on this site's Reserves page toward seeding a trust would be a concrete, board-actionable step rating agencies explicitly reward.",
+      "New York's General Municipal Law §6-r lets municipalities establish an OPEB trust to pre-fund retiree health costs instead of paying them year-to-year out of the operating budget. Riverhead's liability — the specific factor Moody's flagged as a drag in 2021 — stood at $129.5M on the governmental-activities basis at the end of 2025, and none of it is funded. It is worth being precise about the direction: that figure fell sharply in 2024 and rose again in 2025, but almost all of that movement is the GASB 75 discount rate moving from 4.00% to 4.28%, not the Town setting money aside. Directing part of the reserve surplus already identified on this site's Reserves page toward seeding a trust would be a concrete, board-actionable step rating agencies explicitly reward.",
     evidence:
-      "OPEB liability $152,597,117 (2023 audit); Riverhead ranks 4th-highest of 10 Suffolk towns on a per-resident basis ($13,726/resident, Empire Center OPEB tool) — behind only the smaller East End towns that spread a similar total across far fewer people.",
+      "OPEB liability $129,479,192 governmental activities at Dec. 31, 2025 (2025 Annual Financial Report, Schedule W acct. 683); newest audited all-activities total $132,417,187 at Dec. 31, 2024. The per-resident peer ranking below is computed on the older $152.6M (2023) figure, which was the number in the Empire Center tool when this comparison was built — Riverhead ranked 4th-highest of 10 Suffolk towns at $13,726/resident.",
   },
   {
     title: 'Close the last structural gaps with recurring revenue, not one-time transfers',
@@ -216,8 +216,8 @@ export const opebLevers: Lever[] = [
   {
     title: 'Fund it through a trust instead of pay-as-you-go',
     detail:
-      "Riverhead pays retiree health costs out of the current operating budget each year — the $152.6M liability just sits on the books, unfunded. General Municipal Law §6-r lets a town establish an OPEB trust and pre-fund it, the same way a pension is funded. This has a real, non-cosmetic effect: GASB 75 requires an unfunded plan to use a low municipal-bond discount rate when calculating the liability, while a funded trust earning investment returns can use a higher expected-return rate — so funding it can shrink the reported liability itself, not just improve how the Town looks like it's handling it.",
-    evidence: '$152,597,117 OPEB liability, unfunded, pay-as-you-go basis (2023 audit).',
+      "Riverhead pays retiree health costs out of the current operating budget each year — the $129.5M liability just sits on the books, unfunded. General Municipal Law §6-r lets a town establish an OPEB trust and pre-fund it, the same way a pension is funded. This has a real, non-cosmetic effect: GASB 75 requires an unfunded plan to use a low municipal-bond discount rate when calculating the liability, while a funded trust earning investment returns can use a higher expected-return rate — so funding it can shrink the reported liability itself, not just improve how the Town looks like it's handling it.",
+    evidence: '$129,479,192 OPEB liability, unfunded, pay-as-you-go basis (2025 Annual Financial Report, Schedule W acct. 683 — governmental activities).',
   },
   {
     title: 'Coordinate retirees onto Medicare more aggressively',

@@ -8,7 +8,7 @@ import meetingsIndex from '../../public/data/meetings/index.json'
 import afr2025 from '../../public/data/afr/2025.json'
 import buyout from '../../public/data/buyout-analysis.json'
 
-import { debtProfile } from '../../lib/debt-profile'
+import { debtProfile, opebLiability } from '../../lib/debt-profile'
 import { medianPerMile, riverhead as riverheadRoads, riverheadRank, towns as roadTowns } from '../../lib/road-spending'
 import prediction from '../../public/data/budget-2027-prediction.json'
 
@@ -110,7 +110,7 @@ const stops: Stop[] = [
   {
     n: 12, kicker: 'What is coming', title: 'Next year is already tight', accent: 'var(--rbl-warn)',
     body: <>Carried forward on contracts the Town has already signed, the 2027 levy grows about <b>{prediction.capGap.predictedLevyPct}%</b> — past what the tax cap allows by roughly <b>{usd0(prediction.capGap.gap)}</b>. Add the retiree-health promise the Town has not funded, and the picture is that today&apos;s decisions are mostly next year&apos;s obligations. Debt service, at least, falls from here.</>,
-    stats: [{ label: '2027 gap above the cap', value: M(prediction.capGap.gap) }, { label: 'Unfunded retiree health', value: '$152.6M' }],
+    stats: [{ label: '2027 gap above the cap', value: M(prediction.capGap.gap) }, { label: 'Unfunded retiree health', value: M(opebLiability.latestGovernmental) }],
     href: `${base}/predict-2027/`, cta: 'See the 2027 projection',
   },
   {

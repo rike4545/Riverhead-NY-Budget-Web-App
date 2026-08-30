@@ -6,37 +6,39 @@
 // account code, and one of those accounts is police-specific, so most of this
 // is now measured rather than assumed.
 //
-// All figures: Town of Riverhead, fiscal year ending December 31, 2024, NYS
-// Office of the State Comptroller, Financial Data for Local Governments.
+// All figures: Town of Riverhead, fiscal year ending December 31, 2025, NYS
+// Office of the State Comptroller — the 2025 Annual Financial Report, General
+// Fund Results of Operations (Employee Benefits, p.21) and the Personal
+// Services lines that make up the wage denominators.
 
 export const source = {
   title: 'NYS Office of the State Comptroller, Financial Data for Local Governments',
-  detail: 'Town of Riverhead annual financial report, fiscal year ended December 31, 2024',
+  detail: 'Town of Riverhead annual financial report, fiscal year ended December 31, 2025',
   url: 'https://www.osc.ny.gov/local-government/data',
 }
 
 // General Fund (A) wages. Every sworn officer's pay sits in this fund, so it is
 // the right denominator for splitting the shared benefit accounts.
-export const aFundWages = 31_231_490
-export const policeWages = 18_822_087
+export const aFundWages = 32_150_956
+export const policeWages = 19_576_794
 
 // A90158. The Police and Fire Retirement System is exactly that — sworn only.
 // No allocation is needed or appropriate: all of it belongs to police.
-export const policeRetirement = 4_341_995
+export const policeRetirement = 5_080_340
 
 // Shared A-fund benefit accounts, covering every General Fund employee.
 export const shared = {
-  health: 7_790_519,        // A90608 Hospital, Medical and Dental Insurance
-  socialSecurity: 2_184_766, // A90308
-  workersComp: 335_263,      // A90408
-  unemployment: 15_026,      // A90508
-  other: 102_799,            // A90898
+  health: 9_272_317,         // A90608 Hospital, Medical and Dental Insurance
+  socialSecurity: 2_274_100, // A90308
+  workersComp: 239_804,      // A90408
+  unemployment: 13_895,      // A90508
+  other: 45_363,             // A90898 (MTA payroll tax)
 }
 
 // A90108, State Retirement (ERS), is deliberately excluded: sworn officers are
 // in PFRS, not ERS, so none of that account is theirs.
 
-export const policeWageShare = policeWages / aFundWages // ≈ 60.3%
+export const policeWageShare = policeWages / aFundWages // ≈ 60.9%
 
 // Health insurance is bought per person, not per dollar of salary, so splitting
 // it by wage share overstates the police share — officers are paid more per head
@@ -60,9 +62,9 @@ function loadWith(healthShare: number): number {
 }
 
 export const BENEFIT_LOAD = {
-  low: loadWith(policeHeadcountShare.above40k),   // ≈ 0.45
-  mid: loadWith(policeHeadcountShare.above50k),   // ≈ 0.48
-  high: loadWith(policeWageShare),                // ≈ 0.56
+  low: loadWith(policeHeadcountShare.above40k),   // ≈ 0.49
+  mid: loadWith(policeHeadcountShare.above50k),   // ≈ 0.53
+  high: loadWith(policeWageShare),                // ≈ 0.63
 }
 
 export const BENEFIT_LOAD_BASIS: Record<keyof typeof BENEFIT_LOAD, string> = {
@@ -72,7 +74,7 @@ export const BENEFIT_LOAD_BASIS: Record<keyof typeof BENEFIT_LOAD, string> = {
 }
 
 /** Pension alone, as a share of police wages — exact, requiring no allocation. */
-export const pensionOnlyLoad = policeRetirement / policeWages // ≈ 23.1%
+export const pensionOnlyLoad = policeRetirement / policeWages // ≈ 26.0%
 
 export const explainer =
   'Riverhead’s police pension bill is measured, not modelled: the Comptroller reports Police and Fire Retirement as its own account, and all of it belongs to sworn staff — ' +

@@ -3,7 +3,8 @@ import LineChart from '../../components/charts/LineChart'
 import PlainCallout from '../../components/PlainCallout'
 import CapitalDebtCalculator from '../../components/CapitalDebtCalculator'
 import {
-  debtIssueTotals, debtIssues, debtProfile, debtProfileTotals, sinceBalanceSheet,
+  debtIssueTotals, debtIssues, debtProfile, debtProfileTotals, longTermObligations,
+  longTermObligationsTotal, opebLiability, sinceBalanceSheet,
   type DebtIssue,
 } from '../../lib/debt-profile'
 
@@ -145,6 +146,77 @@ export default function CapitalDebtPage() {
         <p style={{ color: 'var(--rbl-note-text)', fontSize: 13.4, lineHeight: 1.6, marginBottom: 0, marginTop: 12, fontWeight: 600 }}>
           {sinceBalanceSheet.caveat}
         </p>
+      </section>
+
+      <h2 style={{ color: 'var(--rbl-title)' }}>Bonds and notes are less than a third of it</h2>
+      <section style={{ ...card, marginBottom: 18 }}>
+        <p style={{ color: 'var(--rbl-text-body)', fontSize: 15, lineHeight: 1.65, marginTop: 0 }}>
+          Everything above this point is money the Town borrowed. It is the part that gets talked about, and at{' '}
+          {usd(debtIssueTotals.all)} it is also the part the Town has been paying down. But borrowing is not the
+          largest promise on the books. The Comptroller&apos;s Schedule of Non-Current Government Liabilities adds up
+          everything the Town owes beyond this year, and the total is{' '}
+          <strong>{usd(longTermObligationsTotal[2025])}</strong> — with retiree health insurance alone larger than all
+          the bonds, notes, pension and accrued leave put together.
+        </p>
+        <div style={{ overflowX: 'auto' }}>
+          <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 14, minWidth: 560 }}>
+            <thead>
+              <tr style={{ textAlign: 'left', color: 'var(--rbl-text-muted)', fontSize: 12, textTransform: 'uppercase', letterSpacing: 0.4 }}>
+                <th style={{ padding: '8px 10px' }}>What the Town owes</th>
+                <th style={{ padding: '8px 10px', textAlign: 'right' }}>Dec 31, 2025</th>
+                <th style={{ padding: '8px 10px', textAlign: 'right' }}>Dec 31, 2024</th>
+                <th style={{ padding: '8px 10px', textAlign: 'right' }}>Dec 31, 2023</th>
+              </tr>
+            </thead>
+            <tbody>
+              {longTermObligations.map((o) => (
+                <tr key={o.account} style={{ borderTop: '1px solid var(--rbl-border-subtle)' }}>
+                  <td style={{ padding: '9px 10px' }}>
+                    <strong style={{ color: 'var(--rbl-title)' }}>{o.label}</strong>
+                    {o.note && (
+                      <div style={{ color: 'var(--rbl-text-muted)', fontSize: 12.6, lineHeight: 1.5, marginTop: 3 }}>{o.note}</div>
+                    )}
+                  </td>
+                  <td style={{ padding: '9px 10px', textAlign: 'right', fontWeight: 800, color: 'var(--rbl-title)', whiteSpace: 'nowrap' }}>{usd(o.values[2025])}</td>
+                  <td style={{ padding: '9px 10px', textAlign: 'right', color: 'var(--rbl-text-muted)', whiteSpace: 'nowrap' }}>{usd(o.values[2024])}</td>
+                  <td style={{ padding: '9px 10px', textAlign: 'right', color: 'var(--rbl-text-muted)', whiteSpace: 'nowrap' }}>{usd(o.values[2023])}</td>
+                </tr>
+              ))}
+              <tr style={{ borderTop: '2px solid var(--rbl-border-subtle)' }}>
+                <td style={{ padding: '10px', fontWeight: 900, color: 'var(--rbl-title)' }}>Total long-term obligations</td>
+                <td style={{ padding: '10px', textAlign: 'right', fontWeight: 900, color: 'var(--rbl-title)', whiteSpace: 'nowrap' }}>{usd(longTermObligationsTotal[2025])}</td>
+                <td style={{ padding: '10px', textAlign: 'right', fontWeight: 700, color: 'var(--rbl-text-muted)', whiteSpace: 'nowrap' }}>{usd(longTermObligationsTotal[2024])}</td>
+                <td style={{ padding: '10px', textAlign: 'right', fontWeight: 700, color: 'var(--rbl-text-muted)', whiteSpace: 'nowrap' }}>{usd(longTermObligationsTotal[2023])}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p style={{ color: 'var(--rbl-text-muted)', fontSize: 13, lineHeight: 1.6, marginBottom: 0, marginTop: 12 }}>
+          Governmental activities only — the water and sewer enterprises carry their own share, which is why the bond
+          line here ({usd(longTermObligations.find((o) => o.account === '628')!.values[2025])}) is smaller than the{' '}
+          {usd(debtProfile.totalBondedDebt)} of bonds itemised above. Source: {debtProfile.source.title}, Schedule W.
+        </p>
+      </section>
+
+      <section style={{ ...card, marginBottom: 18, borderLeft: '6px solid var(--rbl-gold-border)' }}>
+        <h3 style={{ marginTop: 0, marginBottom: 6, color: 'var(--rbl-title)', fontSize: 18 }}>
+          Why the retiree-health number jumps around
+        </h3>
+        <p style={{ color: 'var(--rbl-text-body)', fontSize: 14.6, lineHeight: 1.65, marginTop: 0 }}>
+          {opebLiability.whyItMoves}
+        </p>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(160px,1fr))', gap: 10, marginTop: 12 }}>
+          {opebLiability.series.map((y) => (
+            <div key={y.asOf} style={{ background: 'var(--rbl-warn-bg)', border: '1px solid var(--rbl-warn-border)', borderRadius: 10, padding: '10px 12px' }}>
+              <div style={{ color: 'var(--rbl-badge)', fontSize: 11.5, fontWeight: 900, letterSpacing: 0.4, textTransform: 'uppercase' }}>{y.asOf}</div>
+              <div style={{ color: 'var(--rbl-title)', fontSize: 19, fontWeight: 900, marginTop: 3 }}>{usd(y.governmental)}</div>
+              <div style={{ color: 'var(--rbl-text-muted)', fontSize: 12.4, lineHeight: 1.5, marginTop: 2 }}>
+                {y.discountRate != null ? `Discount rate ${y.discountRate.toFixed(2)}%` : 'Discount rate not yet published'}
+                {y.total != null && <> · {usd(y.total)} including water &amp; sewer</>}
+              </div>
+            </div>
+          ))}
+        </div>
       </section>
 
       <h2 style={{ color: 'var(--rbl-title)' }}>What&apos;s already on the books</h2>
