@@ -15,7 +15,13 @@ const VOTE_LABEL: Record<Vote, string> = { aye: 'Yes', nay: 'No', abstain: 'Abst
 export default function MeetingVotes() {
   const meetings = meetingsIndex.meetings
   const [view, setView] = useState<'meetings' | 'members'>('meetings')
-  const [slug, setSlug] = useState(meetings[0].slug)
+  // Open on the newest meeting that actually has a vote record. The two most
+  // recent are often preliminary — the Clerk has published a docket but not
+  // yet the votes — and landing on one made a page called Town Board Votes
+  // show no votes at all. Preliminary meetings stay selectable in the list.
+  const [slug, setSlug] = useState(
+    (meetings.find((m) => !m.preliminary) ?? meetings[0]).slug
+  )
   const [q, setQ] = useState('')
   const [filter, setFilter] = useState<'all' | 'contested' | 'tabled'>('all')
   const query = q.trim().toLowerCase()

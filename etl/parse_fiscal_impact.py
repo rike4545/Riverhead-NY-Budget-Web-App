@@ -201,7 +201,11 @@ def match_resolution(title: str, meeting_resolutions: list[dict]) -> dict | None
 def build_meeting(date: str, packet_text: str) -> dict | None:
     meeting_path = MEETINGS / f"{date}.json"
     meeting = json.loads(meeting_path.read_text()) if meeting_path.exists() else {"resolutions": []}
-    meeting_res = meeting.get("resolutions", [])
+    # A preliminary meeting has no vote record yet, so "resolutions" is empty
+    # and the resolution numbers live in "docket" instead. Without this fallback
+    # every row for such a meeting came through with number: null, which is what
+    # the Fiscal Impact table's empty "Res #" column was showing.
+    meeting_res = meeting.get("resolutions") or meeting.get("docket") or []
 
     parsed = parse_packet(packet_text)
     if not parsed:

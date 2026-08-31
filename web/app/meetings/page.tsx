@@ -38,12 +38,13 @@ export const metadata = {
 export default function MeetingsPage() {
   const t = meetingsIndex.totals
   const newest = meetingsIndex.meetings[0]
+  const preliminaryCount = meetingsIndex.meetings.filter((m) => m.preliminary).length
   const oldest = meetingsIndex.meetings[meetingsIndex.meetings.length - 1]
 
   return (
     <PageShell
       title="Town Board Votes"
-      subtitle={`How the Town Board voted, resolution by resolution — ${t.votes.toLocaleString()} votes across ${t.meetings} meetings from ${oldest.date} through ${newest.date}, with every contested, failed, and tabled item flagged.`}
+      subtitle={`How the Town Board voted, resolution by resolution — ${t.votes.toLocaleString()} votes across ${t.meetings - preliminaryCount} meetings from ${oldest.date} through ${newest.date}, with every contested, failed, and tabled item flagged.${preliminaryCount > 0 ? ` ${preliminaryCount} more meeting${preliminaryCount === 1 ? ' has' : 's have'} a published docket but no votes yet.` : ''}`}
     >
       <PlainCallout
         tips={[
