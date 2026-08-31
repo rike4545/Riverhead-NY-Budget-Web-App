@@ -53,11 +53,20 @@ jobs:
       - name: Parse Annual Financial Report actuals
         run: python etl/parse_afr.py
 
+      - name: Re-analyse the budget supplement
+        run: python etl/parse_budget_supplement.py
+
       - name: Parse Town Board meeting votes
         run: python etl/parse_meetings.py
 
       - name: Parse agenda-packet Fiscal Impact Statements
         run: python etl/parse_fiscal_impact.py
+
+      # Also derived from the meetings JSON, so it has to follow parse_meetings.
+      # Left out of this workflow until now, which is why its figures drifted a
+      # meeting behind the rest of the votes page.
+      - name: Analyse consent-calendar voting pattern
+        run: python etl/analyze_consent_calendar.py
 
       - name: Parse 2025 authorized salary schedule
         run: python etl/parse_salary_schedule.py
@@ -70,6 +79,9 @@ jobs:
       - name: Rebuild payroll dataset from slim sources
         run: python etl/parse_payroll.py
 
+      - name: Rebuild 2027 budget projection
+        run: python etl/predict_2027.py
+
       - name: Build unified search index
         run: python etl/build_search_index.py
 
@@ -78,6 +90,13 @@ jobs:
 
       - name: Stamp data freshness metadata
         run: python etl/write_meta.py
+
+      # NOT run here: etl/analyze_buyout.py, which rebuilds
+      # web/public/data/buyout-analysis.json. It reads an .xls Gross Earnings
+      # workbook and defaults to a path under a developer's Downloads folder,
+      # so it cannot run in CI. The same data is in the repo as
+      # etl/data/payroll/gross-earnings-2025.csv; pointing the script at that
+      # would let it join the rest of these steps.
 
       - name: Upload parsed data artifact
         uses: actions/upload-artifact@v7
