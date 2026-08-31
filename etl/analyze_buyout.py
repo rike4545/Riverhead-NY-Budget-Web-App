@@ -29,19 +29,19 @@ below. Town estimate: $500K-$800K in savings, depending on uptake; all
 vacated positions are expected to be refilled. Resignation letters due
 9/1/2026, retirement by 10/1/2026.
 
-Developer helper (needs xlrd + the source .xls files). Output committed as
+Reads the committed slim payroll CSVs (etl/data/payroll/gross-earnings-*.csv),
+so it runs in CI with no external files. Output committed as
 web/public/data/buyout-analysis.json.
 
-Usage: python etl/analyze_buyout.py "/path/Gross.Earnings.2025.xls" ["/path/Gross.Earnings.2024.xls"]
+Usage: python etl/analyze_buyout.py
 """
 
+import csv
 import json
-import sys
 from pathlib import Path
 
-import xlrd
-
 ROOT = Path(__file__).resolve().parent.parent
+SLIM_DIR = ROOT / "etl/data/payroll"
 OUT = ROOT / "web/public/data/buyout-analysis.json"
 SALARY_2025 = ROOT / "web/public/data/salary/authorized-2025.json"
 RETIREES_2019 = ROOT / "etl/data/retirees-2019.json"
@@ -265,38 +265,44 @@ def retirements_2019():
             "retirees": d["retirees"]}
 
 
-def load(xls_path):
-    wb = xlrd.open_workbook(xls_path)
-    sh = wb.sheet_by_index(0)
-    hdr = [str(sh.cell_value(0, c)).strip() for c in range(sh.ncols)]
-    ci = {h: i for i, h in enumerate(hdr)}
+def load(year):
+    """Active employees for a payroll year, from the committed slim CSV.
+
+    This used to read the original .xls with xlrd, defaulting to a path under a
+    developer's Downloads folder, which kept the script out of CI. The slim CSV
+    now carries the workbook's Position Status, so the Active-only filter that
+    the eligibility model depends on survives the conversion — without it the
+    424 active employees would be joined by 364 retired, terminated, on-leave
+    and deceased ones.
+    """
+    path = SLIM_DIR / f"gross-earnings-{year}.csv"
     rows = []
-    for r in range(1, sh.nrows):
-        name = str(sh.cell_value(r, ci["Payroll Name"])).strip()
-        if not name or name.lower() == "payroll name":
-            continue
-        if str(sh.cell_value(r, ci["Position Status"])).strip() != "Active":
-            continue
-        hv = sh.cell_value(r, ci["Hire Date"])
-        try:
-            hy = xlrd.xldate.xldate_as_datetime(hv, wb.datemode).year
-        except Exception:
-            continue
-        title = ""
-        if "Job Function Description" in ci:
-            title = str(sh.cell_value(r, ci["Job Function Description"])).strip()
-        rows.append({
-            "name": name,
-            "title": title,
-            "union": str(sh.cell_value(r, ci["Union Code"])).strip(),
-            "hire": hy,
-            "base": float(sh.cell_value(r, ci["Regular Earnings Total"]) or 0),
-        })
+    with path.open(encoding="utf-8", newline="") as fh:
+        for r in csv.DictReader(fh):
+            name = (r.get("name") or "").strip()
+            if not name or name.lower() == "payroll name":
+                continue
+            if (r.get("status") or "").strip() != "Active":
+                continue
+            hy = (r.get("hire_year") or "").strip()
+            if not hy:
+                continue
+            try:
+                hire = int(float(hy))
+            except ValueError:
+                continue
+            rows.append({
+                "name": name,
+                "title": (r.get("title") or "").strip(),
+                "union": (r.get("union") or "").strip(),
+                "hire": hire,
+                "base": float(r.get("regular") or 0),
+            })
     return rows
 
 
-def build(xls_path, xls_path_2024=None):
-    active = load(xls_path)
+def build(year=2025, prior_year=2024):
+    active = load(year)
     csea = [e for e in active if e["union"] == "CSE" and e["hire"] <= 2009]
     police = [e for e in active if e["union"] in ("PBA", "SOA") and e["hire"] <= 2006]
     eligible = csea + police
@@ -308,7 +314,7 @@ def build(xls_path, xls_path_2024=None):
     # agreements. 2025 is each employee's actual base from the primary xls; 2024 is their
     # actual base from the prior-year xls if available (falls back to 2025 if no match by
     # name); 2026 is projected from 2025 using their union's confirmed contract raise.
-    base_2024_by_name = {r["name"]: r["base"] for r in load(xls_path_2024)} if xls_path_2024 else {}
+    base_2024_by_name = {r["name"]: r["base"] for r in load(prior_year)} if prior_year else {}
 
     def sick_base_3yr_avg(e):
         b2025 = e["base"]
@@ -492,5 +498,4 @@ def build(xls_path, xls_path_2024=None):
 
 
 if __name__ == "__main__":
-    build(sys.argv[1] if len(sys.argv) > 1 else "/Users/bryan/Downloads/Gross.Earnings.2025.xls",
-          sys.argv[2] if len(sys.argv) > 2 else None)
+    build()

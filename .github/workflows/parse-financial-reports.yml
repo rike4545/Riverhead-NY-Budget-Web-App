@@ -82,6 +82,10 @@ jobs:
       - name: Rebuild 2027 budget projection
         run: python etl/predict_2027.py
 
+      # Reads the same committed payroll CSVs, so it must follow parse_payroll.
+      - name: Rebuild retirement-buyout analysis
+        run: python etl/analyze_buyout.py
+
       - name: Build unified search index
         run: python etl/build_search_index.py
 
@@ -90,13 +94,6 @@ jobs:
 
       - name: Stamp data freshness metadata
         run: python etl/write_meta.py
-
-      # NOT run here: etl/analyze_buyout.py, which rebuilds
-      # web/public/data/buyout-analysis.json. It reads an .xls Gross Earnings
-      # workbook and defaults to a path under a developer's Downloads folder,
-      # so it cannot run in CI. The same data is in the repo as
-      # etl/data/payroll/gross-earnings-2025.csv; pointing the script at that
-      # would let it join the rest of these steps.
 
       - name: Upload parsed data artifact
         uses: actions/upload-artifact@v7

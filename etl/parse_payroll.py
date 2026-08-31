@@ -125,8 +125,12 @@ UNION_LABELS = {
     "TEM": "Temporary / Seasonal",
 }
 
+# "status" is the workbook's Position Status (Active / Retired / Terminated /
+# Leave / Deceased). It is carried through because analyze_buyout.py needs to
+# count only Active employees, and without it that script had to read the
+# original .xls, which kept it out of CI.
 SLIM_COLUMNS = ["year", "name", "department", "title", "pay_class", "union",
-                "regular", "overtime", "gross"] + BUCKETS + ["hire_year"]
+                "regular", "overtime", "gross"] + BUCKETS + ["hire_year", "status"]
 
 
 def money(val):
@@ -229,6 +233,7 @@ def parse_source_row(header, r, year, cols, ot_cols, cat_cols):
         "union": (str(r.get(cols["union"]) or "")).strip() if cols["union"] else "",
         "regular": reg, "overtime": round(ot, 2), "gross": gross,
         "hire_year": hire_year(r.get(cols["hire"])) if cols.get("hire") else None,
+        "status": (str(r.get(cols["status"]) or "")).strip() if cols.get("status") else "",
         **buckets,
     }
 
@@ -251,6 +256,7 @@ def read_year(year):
                     "ot_total": find_col(header, "overtime", "earnings", "total"),
                     "gross": find_col(header, "gross", "pay"),
                     "hire": find_col(header, "hire", "date"),
+                    "status": find_col(header, "position", "status"),
                 }
                 ot_cols = [c for c in header if is_overtime_col(c)]
                 cat_cols = {b: [c for c in header if category_of(c) == b] for b in BUCKETS}
@@ -273,6 +279,7 @@ def read_year(year):
                     "regular": money(r.get("regular")), "overtime": money(r.get("overtime")),
                     "gross": money(r.get("gross")),
                     "hire_year": int(r["hire_year"]) if (r.get("hire_year") or "").strip() else None,
+                    "status": (r.get("status") or "").strip(),
                     **{b: money(r.get(b)) for b in BUCKETS},
                 }
 
