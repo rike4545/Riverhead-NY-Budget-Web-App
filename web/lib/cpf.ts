@@ -73,6 +73,22 @@ export const cpfMechanics = {
   acresProtected: 2280,
 }
 
+// Where the Fund actually comes from. The CPF is NOT a General Municipal Law
+// reserve fund — GML Article 2's reserve list (§6-c through §6-v) does not reach
+// it. It is its own statutory scheme, created for the five East End towns only.
+export const cpfAuthority = {
+  enactedBy: 'Chapter 114 of the Laws of 1998, signed June 22, 1998',
+  enablingStatute: 'Town Law § 64-e',
+  revenueStatute: 'Tax Law Article 31-D',
+  eligibleTowns: ['Riverhead', 'Southampton', 'East Hampton', 'Shelter Island', 'Southold'],
+  amendments: [
+    { year: 2016, what: 'Extended the authority through 2050 and added water-quality protection as an eligible use.' },
+    { year: 2022, what: 'The Peconic Bay Region Community Housing Act authorized a separate community-housing fund alongside the CPF.' },
+  ],
+  note:
+    "The Peconic Bay Region Community Preservation Fund was created by Chapter 114 of the Laws of 1998. Town Law § 64-e is the enabling statute that lets the five East End towns establish the fund by local law, and Tax Law Article 31-D authorizes the real-estate transfer tax that pays for it. None of this runs through the General Municipal Law reserve-fund article — so the CPF is not interchangeable with the reserve funds a town may create by board resolution.",
+}
+
 // ADOPTED — the Town Board voted unanimously on July 7, 2026 (Resolution
 // 2026-642, "Budget Adjustment to Pay Down 2018 Series B Bond Refunding") to
 // retire the remaining CPF land-preservation debt about five years early. The

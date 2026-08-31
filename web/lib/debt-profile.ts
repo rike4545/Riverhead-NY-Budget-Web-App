@@ -53,7 +53,7 @@ export const debtIssues: DebtIssue[] = [
     outstanding: 19_250_000,
     activity: 'governmental',
     note:
-      'The single largest thing the Town owes. State law gives a capital BAN five years from its original issue date to be converted into long-term bonds, which puts the conversion deadline at February 2028.',
+      'The single largest thing the Town owes. State law gives a capital BAN five years from its original issue date to be converted into long-term bonds, which puts the conversion deadline at February 2028. The COVID-era seven-year extension (Chapter 157 of the Laws of 2020) does not reach this note — it applies only to BANs originally issued in calendar years 2015 through 2021, and this one was issued in 2023.',
   },
   {
     kind: 'bond',
@@ -158,7 +158,7 @@ export const debtIssues: DebtIssue[] = [
     outstanding: 2_725_000,
     activity: 'governmental',
     note:
-      'Originally issued in August 2021, which puts it at the five-year statutory limit for converting a capital BAN into long-term bonds.',
+      'Issued August 2021, so the usual five-year conversion limit did not bind it: a BAN first issued between 2015 and 2021 may be renewed for seven years under Chapter 157 of the Laws of 2020. The Town could have carried it to 2028 and chose not to, retiring it in August 2026 with the proceeds of the Petrocelli parcel sale.',
   },
   {
     kind: 'bond',
@@ -290,7 +290,7 @@ export const sinceBalanceSheet = {
     {
       date: 'August 14, 2026',
       what: 'The Town Square BAN reached its maturity date',
-      why: 'Five years to the day after the original August 2021 issue, which is the statutory outside limit for converting a capital BAN into long-term bonds.',
+      why: 'Five years to the day after the original August 2021 issue — but five was not the deadline. Chapter 157 of the Laws of 2020 lets a capital BAN originally issued in calendar years 2015 through 2021 be renewed for up to seven years rather than five, and this note was issued in August 2021, inside that window. The Town could have rolled it to 2028. It chose to retire it instead, using the proceeds of the Petrocelli parcel sale.',
       source: '2025 Annual Financial Report, Statement of Indebtedness Debt Records.',
     },
   ],

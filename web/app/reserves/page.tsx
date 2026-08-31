@@ -4,6 +4,9 @@ import ReserveDrawdownSlider from '../../components/ReserveDrawdownSlider'
 import { dollars } from '../../lib/financial-data'
 import {
   appropriations,
+  authorizedReserves,
+  authorizedReservesNote,
+  authorizedReservesSource,
   communityBlockGrants,
   deployableAbove288,
   deploymentOptions,
@@ -48,7 +51,7 @@ export default function ReservesPage() {
     >
       <PlainCallout
         tips={[
-          { label: 'Unassigned fund balance', text: 'the "rainy-day" savings with no strings attached — the actual FY2025 audited figure, not a mid-year estimate.' },
+          { label: 'Unassigned fund balance', text: 'the "rainy-day" savings with no strings attached — the actual FY2025 year-end figure from the Town\u2019s Annual Financial Report, not a mid-year estimate.' },
           { label: "Policy floor", text: `Riverhead's own policy sets a 15% minimum and 20% upper target of General Fund appropriations.` },
           { label: 'One-time vs. recurring', text: 'anything above the operating target is one-time money — good for debt paydown or capital, not for permanent new spending.' },
         ]}
@@ -164,6 +167,43 @@ export default function ReservesPage() {
         </div>
       </section>
 
+      <section style={{ ...card, marginBottom: 16 }}>
+        <h3 style={{ marginTop: 0, color: 'var(--rbl-title)' }}>Spending it is not the only option</h3>
+        <p style={{ color: 'var(--rbl-text-body)', fontSize: 14.5, marginTop: 0, lineHeight: 1.6 }}>
+          Every line above uses one-time money. New York also lets a town move it into a formal reserve &mdash; a
+          different legal thing from leaving it as unassigned fund balance. {authorizedReservesNote}
+        </p>
+        <div style={{ display: 'grid', gap: 10 }}>
+          {authorizedReserves.map((r) => (
+            <div
+              key={r.citation}
+              style={{
+                border: '1px solid var(--rbl-border-subtle)',
+                borderRadius: 10,
+                padding: '11px 13px',
+                background: 'var(--rbl-warn-bg)',
+              }}
+            >
+              <div style={{ display: 'flex', alignItems: 'baseline', gap: 8, flexWrap: 'wrap' }}>
+                <span style={{ color: 'var(--rbl-badge)', fontSize: 11.5, fontWeight: 900, letterSpacing: 0.4 }}>
+                  {r.citation}
+                </span>
+                <strong style={{ color: 'var(--rbl-title)', fontSize: 14.8 }}>{r.name}</strong>
+              </div>
+              <div style={{ color: 'var(--rbl-title)', fontSize: 13.5, fontWeight: 700, marginTop: 3 }}>
+                {r.exposure}: {dollars(r.exposureAmount)}
+              </div>
+              <div style={{ color: 'var(--rbl-text-muted)', fontSize: 13, lineHeight: 1.55, marginTop: 3 }}>
+                {r.detail}
+              </div>
+            </div>
+          ))}
+        </div>
+        <p style={{ color: 'var(--rbl-text-muted)', fontSize: 12.4, lineHeight: 1.55, marginBottom: 0, marginTop: 12 }}>
+          {authorizedReservesSource}
+        </p>
+      </section>
+
       <h2 style={{ margin: '26px 0 4px', color: 'var(--rbl-title)', fontSize: 18 }}>Go deeper</h2>
       <p style={{ color: 'var(--rbl-text-muted)', fontSize: 13.5, margin: '0 0 8px' }}>The breakdown, peer comparisons, and a draw-down tool — open only what you want.</p>
 
@@ -171,7 +211,7 @@ export default function ReservesPage() {
       <section style={{ ...card, marginBottom: 16 }}>
         <h3 style={{ marginTop: 0, color: 'var(--rbl-title)' }}>Community block grants — who would get funded</h3>
         <p style={{ color: 'var(--rbl-text-body)', fontSize: 14.5, marginTop: 0 }}>
-          The breakdown behind deployment option #5 above: four nonprofits serving Riverhead and the East End. These
+          The breakdown behind deployment option #6 above: four nonprofits serving Riverhead and the East End. These
           amounts are this site&apos;s own illustrative sizing, not an official Town budget line or commitment.
         </p>
         <div style={{ display: 'grid', gap: 12 }}>

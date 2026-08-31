@@ -100,27 +100,34 @@ export const deploymentOptions: DeploymentOption[] = [
   },
   {
     number: 4,
-    title: 'Use excess fund balance for CPF debt reduction',
-    amount: 2000000,
+    title: 'Start funding the accrued-leave reserve',
+    amount: 1834915,
     detail:
-      "Riverhead's CPF debt began as roughly $70M borrowed against future fund revenue, was refunded in 2016, and RiverheadLOCAL reported about $12.29M still outstanding as of December 31, 2024. Using some excess fund balance for a one-time CPF principal payment should lower future interest cost and shorten the payoff path.",
+      "Accrued leave owed to employees grew from $9,773,700 to $11,608,615 during 2025 — $1,834,915 in one year, none of it set aside. General Municipal Law § 6-p lets the Board create an Employee Benefit Accrued Liability Reserve by resolution and put one-time money into it. Funding one year's growth will not retire the liability, which is larger than the whole deployable surplus, but it stops the unfunded gap widening while the 2026 retirement incentive converts part of it to cash. Because this transfer is not already in the adopted budget, the Comptroller’s guidance is that it takes a board resolution stating the amount and naming the reserve being credited.",
   },
   {
     number: 5,
+    title: 'CPF debt paydown — already done, and mostly not from this money',
+    amount: 92000,
+    detail:
+      "This one is history rather than a proposal. On July 7, 2026 the Board adopted Resolution 2026-642 unanimously, retiring the remaining Community Preservation Fund land-preservation debt five years ahead of its 2030 maturity and saving about $660,000 in future interest. The money came almost entirely from the CPF’s own fund balance — about $7.2M on top of the $2.75M already budgeted for the year’s debt service — which is a separate fund and never part of the General Fund surplus shown above. Only about $92,000 of General Fund balance was needed, because a small slice of the same 2018 bond series is tied to the General Fund. The CPF was left holding roughly $20.1M.,",
+  },
+  {
+    number: 6,
     title: 'File a round of community block grants',
     amount: communityBlockGrantsTotal,
     detail:
       'Reserve one-time grant applications to four community-service nonprofits serving Riverhead and the East End as targeted community-support investments that do not create a recurring operating obligation. See the breakdown below.',
   },
   {
-    number: 6,
+    number: 7,
     title: 'Launch a community improvement micro-grant series',
     amount: 50000,
     detail:
       'Reserve one-time funding for a visible run of small grants of about $500 to $1,000 each, up to $50,000 total, for block-scale beautification, civic ideas, or neighborhood improvement projects.',
   },
   {
-    number: 7,
+    number: 8,
     title: 'Fund a visible innovation and service package',
     amount: 608294.61,
     detail:
@@ -213,3 +220,55 @@ export const peerAlignmentScenarios: PeerAlignmentScenario[] = [
     'Using the simple average of Brookhaven, Smithtown, East Hampton, and Southampton lands Riverhead near 38.0%, still notably above the current 28.8% target.'
   ),
 ]
+
+// ---------------------------------------------------------------------------
+// Every deployment option above SPENDS the one-time money. New York also lets a
+// town move it into a formal reserve, which is a different legal thing from
+// leaving it as unassigned fund balance: a statutory reserve is committed to a
+// named purpose and takes board action to unwind.
+//
+// General Municipal Law §§6-c through 6-r are the reserves a town may create.
+// Two of them match obligations Riverhead already carries. What the statute
+// does NOT offer is a retiree-health (OPEB) trust — see lib/credit-rating.ts.
+
+export type AuthorizedReserve = {
+  citation: string
+  name: string
+  /** The Riverhead exposure this reserve is actually for. */
+  exposure: string
+  exposureAmount: number
+  detail: string
+}
+
+export const authorizedReserves: AuthorizedReserve[] = [
+  {
+    citation: 'GML § 6-p',
+    name: 'Employee Benefit Accrued Liability Reserve',
+    exposure: 'Accrued leave owed at Dec. 31, 2025',
+    exposureAmount: 11_608_615,
+    detail:
+      'Pays out accumulated sick, vacation and holiday time when employees separate. The liability has risen every year since 2023, and the 2026 retirement incentive converts part of it to cash inside a single budget year.',
+  },
+  {
+    citation: 'GML § 6-r',
+    name: 'Retirement Contribution Reserve',
+    exposure: 'Net pension liability at Dec. 31, 2025',
+    exposureAmount: 27_346_801,
+    detail:
+      "Absorbs swings in the Town's NYSLRS and PFRS bills. Riverhead's share moved from $21.4M to $27.3M in a single year on investment returns alone — movement the Town does not control and cannot budget away.",
+  },
+  {
+    citation: 'GML § 6-e',
+    name: 'Contingency and Tax Stabilization Reserve',
+    exposure: 'Ceiling for Riverhead (10% of general + highway)',
+    exposureAmount: 7_703_241,
+    detail:
+      'The one written for the problem the Town actually has. It may be used to lessen or prevent a projected levy increase above 2½%, and to absorb unanticipated revenue losses. For a town the ceiling is 10% of the town-wide general and highway funds — about $77.0M for 2026. Establishing it takes a board resolution subject to permissive referendum, and spending from it needs the chief executive officer’s recommendation plus a two-thirds board vote. If the balance ever exceeds the 10% ceiling, the excess must go to reducing the next year’s levy.',
+  },
+]
+
+export const authorizedReservesNote =
+  'Unassigned fund balance is spendable on anything. A statutory reserve is not: the money is committed to a named purpose, and the Board has to act to get it back out. The first two below are created by board resolution and need no referendum; the tax-stabilization reserve is subject to permissive referendum. What the law does not offer is a retiree-health (OPEB) trust; there is no such reserve in the statute, which is why the Town\u2019s $129.5M OPEB liability cannot be pre-funded no matter how large the surplus gets.'
+
+export const authorizedReservesSource =
+  'NYS Comptroller, “Reserve Funds” (Local Government Management Guide); General Municipal Law Article 2. Liability figures from the 2025 Annual Financial Report, Schedule W (accounts 687 and 638).'
