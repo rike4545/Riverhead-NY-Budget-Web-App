@@ -1,0 +1,351 @@
+{
+ "supplementYears": [
+  2020,
+  2021,
+  2022,
+  2023,
+  2024,
+  2025,
+  2026
+ ],
+ "actualYears": [
+  2018,
+  2019,
+  2020,
+  2021,
+  2022,
+  2023,
+  2024
+ ],
+ "accountsTracked": 1080,
+ "linesParsed": {
+  "2020": 930,
+  "2021": 945,
+  "2022": 756,
+  "2023": 998,
+  "2024": 1039,
+  "2025": 1062,
+  "2026": 1080
+ },
+ "cyclical": [
+  {
+   "account": "A01-1-1910-488-000-00000",
+   "name": "Unall Ins - S.I.R.",
+   "series": {
+    "2018": 0.0,
+    "2019": 0.0,
+    "2020": 0.0,
+    "2021": 185761.0,
+    "2022": 0.0,
+    "2023": 0.0,
+    "2024": 210267.0
+   },
+   "spikeYears": [
+    2021,
+    2024
+   ],
+   "periodYears": 3,
+   "nextDue": 2027,
+   "spikeAverage": 198014.0,
+   "adopted2025": 274100.0,
+   "tentative2026": 275800.0
+  },
+  {
+   "account": "A01-1-1680-431-000-00000",
+   "name": "I.T. - Equip Maint Contracts",
+   "series": {
+    "2018": 197205.0,
+    "2019": 3400.0,
+    "2021": 36899.36,
+    "2022": -35772.86,
+    "2023": 379.0,
+    "2024": 0.0
+   },
+   "spikeYears": [
+    2018,
+    2021
+   ],
+   "periodYears": 3,
+   "nextDue": 2024,
+   "spikeAverage": 117052.18,
+   "adopted2025": 0,
+   "tentative2026": 0
+  },
+  {
+   "account": "Z14-6-6980-436-000-00000",
+   "name": "Eco Dev  - Prof Svcs - Consultants",
+   "series": {
+    "2018": 8250.0,
+    "2019": 49114.25,
+    "2020": 8124.2,
+    "2021": 8943.75,
+    "2022": 0.0,
+    "2023": 1505.0,
+    "2024": 63579.41
+   },
+   "spikeYears": [
+    2019,
+    2024
+   ],
+   "periodYears": 5,
+   "nextDue": 2029,
+   "spikeAverage": 56346.83,
+   "adopted2025": 0,
+   "tentative2026": 0
+  },
+  {
+   "account": "A01-3-3410-280-000-00000",
+   "name": "Fire Prot - Vehicles",
+   "series": {
+    "2018": 0.0,
+    "2019": 36792.0,
+    "2021": 0.0,
+    "2022": 0.0,
+    "2023": 65388.53,
+    "2024": 9300.55
+   },
+   "spikeYears": [
+    2019,
+    2023
+   ],
+   "periodYears": 4,
+   "nextDue": 2027,
+   "spikeAverage": 51090.26,
+   "adopted2025": 125000.0,
+   "tentative2026": 0
+  },
+  {
+   "account": "A01-1-1690-240-000-00000",
+   "name": "Muni Gar - Equipment",
+   "series": {
+    "2018": 500.0,
+    "2019": 59165.66,
+    "2021": 0.0,
+    "2022": 0.0,
+    "2023": 0.0,
+    "2024": 35000.0
+   },
+   "spikeYears": [
+    2019,
+    2024
+   ],
+   "periodYears": 5,
+   "nextDue": 2029,
+   "spikeAverage": 47082.83,
+   "adopted2025": 0,
+   "tentative2026": 5000.0
+  }
+ ],
+ "dueIn2027": [
+  {
+   "account": "A01-1-1910-488-000-00000",
+   "name": "Unall Ins - S.I.R.",
+   "series": {
+    "2018": 0.0,
+    "2019": 0.0,
+    "2020": 0.0,
+    "2021": 185761.0,
+    "2022": 0.0,
+    "2023": 0.0,
+    "2024": 210267.0
+   },
+   "spikeYears": [
+    2021,
+    2024
+   ],
+   "periodYears": 3,
+   "nextDue": 2027,
+   "spikeAverage": 198014.0,
+   "adopted2025": 274100.0,
+   "tentative2026": 275800.0
+  },
+  {
+   "account": "A01-3-3410-280-000-00000",
+   "name": "Fire Prot - Vehicles",
+   "series": {
+    "2018": 0.0,
+    "2019": 36792.0,
+    "2021": 0.0,
+    "2022": 0.0,
+    "2023": 65388.53,
+    "2024": 9300.55
+   },
+   "spikeYears": [
+    2019,
+    2023
+   ],
+   "periodYears": 4,
+   "nextDue": 2027,
+   "spikeAverage": 51090.26,
+   "adopted2025": 125000.0,
+   "tentative2026": 0
+  }
+ ],
+ "underBudgeted": [
+  {
+   "account": "A01-3-3120-152-000-00000",
+   "name": "Police - Pers Svcs Sick Buy Back",
+   "series": {
+    "2018": 0.0,
+    "2019": 0.0,
+    "2021": 0.0,
+    "2022": 0.0,
+    "2023": 0.0,
+    "2024": 334737.5
+   },
+   "quietYears": 5,
+   "averageWhenActive": 334737.5,
+   "peak": 334737.5,
+   "adopted2025": 174200.0,
+   "tentative2026": 116900.0,
+   "shortfall": 217837.5
+  },
+  {
+   "account": "A01-1-1690-280-000-00000",
+   "name": "Muni Gar - Vehicles",
+   "series": {
+    "2018": 0.0,
+    "2019": 42365.0,
+    "2020": 0.0,
+    "2021": 390049.32,
+    "2022": 357814.92,
+    "2023": 0.0,
+    "2024": 0.0
+   },
+   "quietYears": 4,
+   "averageWhenActive": 263409.75,
+   "peak": 390049.32,
+   "adopted2025": 0,
+   "tentative2026": 0,
+   "shortfall": 263409.75
+  },
+  {
+   "account": "A01-3-3120-240-100-00000",
+   "name": "Police - Equipment - CAD System",
+   "series": {
+    "2019": 0.0,
+    "2020": 99421.57,
+    "2021": 231983.67,
+    "2022": 0.0,
+    "2023": 231983.67,
+    "2024": 0.0
+   },
+   "quietYears": 3,
+   "averageWhenActive": 187796.3,
+   "peak": 231983.67,
+   "adopted2025": 0,
+   "tentative2026": 0,
+   "shortfall": 187796.3
+  },
+  {
+   "account": "A01-1-1680-431-000-00000",
+   "name": "I.T. - Equip Maint Contracts",
+   "series": {
+    "2018": 197205.0,
+    "2019": 3400.0,
+    "2021": 36899.36,
+    "2022": -35772.86,
+    "2023": 379.0,
+    "2024": 0.0
+   },
+   "quietYears": 2,
+   "averageWhenActive": 59470.84,
+   "peak": 197205.0,
+   "adopted2025": 0,
+   "tentative2026": 0,
+   "shortfall": 59470.84
+  },
+  {
+   "account": "A01-1-1310-430-000-00000",
+   "name": "Acct - Software License & Support",
+   "series": {
+    "2018": 52219.0,
+    "2019": -12275.0,
+    "2021": 0.0,
+    "2022": 0.0,
+    "2023": 0.0,
+    "2024": 0.0
+   },
+   "quietYears": 5,
+   "averageWhenActive": 52219.0,
+   "peak": 52219.0,
+   "adopted2025": 0,
+   "tentative2026": 0,
+   "shortfall": 52219.0
+  },
+  {
+   "account": "A01-3-3410-280-000-00000",
+   "name": "Fire Prot - Vehicles",
+   "series": {
+    "2018": 0.0,
+    "2019": 36792.0,
+    "2021": 0.0,
+    "2022": 0.0,
+    "2023": 65388.53,
+    "2024": 9300.55
+   },
+   "quietYears": 3,
+   "averageWhenActive": 37160.36,
+   "peak": 65388.53,
+   "adopted2025": 125000.0,
+   "tentative2026": 0,
+   "shortfall": 37160.36
+  },
+  {
+   "account": "A01-1-1690-240-000-00000",
+   "name": "Muni Gar - Equipment",
+   "series": {
+    "2018": 500.0,
+    "2019": 59165.66,
+    "2021": 0.0,
+    "2022": 0.0,
+    "2023": 0.0,
+    "2024": 35000.0
+   },
+   "quietYears": 3,
+   "averageWhenActive": 31555.22,
+   "peak": 59165.66,
+   "adopted2025": 0,
+   "tentative2026": 5000.0,
+   "shortfall": 26555.22
+  },
+  {
+   "account": "A01-8-8687-400-000-00000",
+   "name": "Ec Dev - Contractual",
+   "series": {
+    "2018": 5000.0,
+    "2019": 5000.0,
+    "2020": 5000.0,
+    "2021": 5000.0,
+    "2022": 50000.0,
+    "2023": 0.0,
+    "2024": 0.0
+   },
+   "quietYears": 2,
+   "averageWhenActive": 14000.0,
+   "peak": 50000.0,
+   "adopted2025": 0,
+   "tentative2026": 0,
+   "shortfall": 14000.0
+  }
+ ],
+ "renumbered": [
+  {
+   "name": "Police - Pers Svcs Health Ins Buy Back",
+   "oldAccount": "A01-3-3120-154-NON-00000",
+   "lastYear": 2023,
+   "newAccount": "A01-3-3120-154-000-00000",
+   "firstYear": 2024,
+   "peak": 401271.73
+  },
+  {
+   "name": "Police - Pers Svcs Health Ins Buy Back",
+   "oldAccount": "A01-3-3120-154-UNI-00000",
+   "lastYear": 2023,
+   "newAccount": "A01-3-3120-154-000-00000",
+   "firstYear": 2024,
+   "peak": 401271.73
+  }
+ ],
+ "note": "Built from the Town's own Budget Supplements, 2020 through 2026. Each prints an actual from two years back, so together they give an unbroken actual for 2018-2024 on the same account. Mandated costs, debt service and interfund transfers are excluded \u2014 their swings are obligation or timing, not discretion."
+}
