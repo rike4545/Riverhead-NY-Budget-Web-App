@@ -32,7 +32,9 @@ export default function FiscalImpactMeetings({ meetings }: { meetings: FiscalMee
   const m = meetings.find((x) => x.meetingDate === date) ?? meetings[0]
   if (!m) return null
   const s = m.summary
-  const corrections = m.resolutions.filter((r) => r.realistic.flag === 'understated' && r.townFiscalImpact === 'No')
+  const understatedNo = m.resolutions.filter((r) => r.realistic.flag === 'understated' && r.townFiscalImpact === 'No')
+  const reserveDraw = m.resolutions.filter((r) => r.realistic.flag === 'reserve-draw')
+  const corrections = [...understatedNo, ...reserveDraw]
   const lu = s.largestUnderstatedMarkedNo
 
   return (
@@ -54,7 +56,8 @@ export default function FiscalImpactMeetings({ meetings }: { meetings: FiscalMee
       <section style={{ ...card, display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(170px,1fr))', gap: 12 }}>
         <Stat label="Resolutions" value={String(s.total)} sub={`on ${fmtDate(m.meetingDate)}`} />
         <Stat label="Marked “no fiscal impact”" value={String(s.markedNo)} sub={`of ${s.total}`} />
-        <Stat label="…that plainly move money" value={String(s.understatedMarkedNo)} sub="the clearest corrections" accent />
+        <Stat label="…that plainly move money" value={String(understatedNo.length)} sub="marked “no impact”" accent />
+        <Stat label="Marked “absorbed”, but draws reserves" value={String(reserveDraw.length)} sub="the other half of the corrections" accent />
         {s.identifiedDollarsAtStake > 0 && (
           <Stat label="Identified dollars in play" value={usd(s.identifiedDollarsAtStake)} sub="cost items we could price" />
         )}
@@ -73,9 +76,11 @@ export default function FiscalImpactMeetings({ meetings }: { meetings: FiscalMee
 
       {corrections.length > 0 && (
         <p style={{ color: 'var(--rbl-text-body)', fontSize: 14.5, lineHeight: 1.55, margin: 0 }}>
-          Of the <strong>{s.total}</strong> resolutions, the Town marked <strong>{s.markedNo}</strong> as having{' '}
-          <strong>no fiscal impact</strong> — yet at least <strong>{corrections.length}</strong> of those commit or
-          change real money on a realistic read.
+          Of the <strong>{s.total}</strong> resolutions, <strong>{corrections.length}</strong> get a different answer here
+          than the Town gave. <strong>{understatedNo.length}</strong> were marked <strong>no fiscal impact</strong> yet
+          commit or change real money. Another <strong>{reserveDraw.length}</strong> the Town did flag as having an impact,
+          but called <strong>absorbed by the existing budget</strong> — on a realistic read those draw on reserves, fund
+          balance or borrowing, which is not the same as costing nothing.
         </p>
       )}
 

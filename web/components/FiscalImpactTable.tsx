@@ -22,19 +22,31 @@ const FLAG_STYLE: Record<string, { bg: string; fg: string; label: string }> = {
   fair: { bg: 'var(--rbl-surface-3)', fg: 'var(--rbl-text-body)', label: 'No direct cost' },
 }
 
+/** Either kind of correction to the Town's own fiscal-impact answer. */
+export function isCorrection(r: { realistic: { flag: string }; townFiscalImpact: string }) {
+  return (
+    (r.realistic.flag === 'understated' && r.townFiscalImpact === 'No') ||
+    r.realistic.flag === 'reserve-draw'
+  )
+}
+
 export default function FiscalImpactTable({ resolutions }: { resolutions: FiscalResolution[] }) {
   const [q, setQ] = useState('')
   const [view, setView] = useState<'all' | 'corrections' | 'money'>('all')
   const query = q.trim().toLowerCase()
 
   const rows = useMemo(() => resolutions.filter((r) => {
-    if (view === 'corrections' && !(r.realistic.flag === 'understated' && r.townFiscalImpact === 'No')) return false
+    // A correction is either kind of mis-answer: the Town said "no fiscal
+    // impact" on something that moves money, or it said "absorbed by the
+    // existing budget" on something that actually draws down reserves. Only
+    // the first was counted before, which hid every reserve-draw finding.
+    if (view === 'corrections' && !isCorrection(r)) return false
     if (view === 'money' && !r.amount) return false
     if (query && !(`${r.number} ${r.title} ${r.category}`.toLowerCase().includes(query))) return false
     return true
   }), [resolutions, view, query])
 
-  const correctionCount = resolutions.filter((r) => r.realistic.flag === 'understated' && r.townFiscalImpact === 'No').length
+  const correctionCount = resolutions.filter(isCorrection).length
   const moneyCount = resolutions.filter((r) => r.amount).length
 
   return (

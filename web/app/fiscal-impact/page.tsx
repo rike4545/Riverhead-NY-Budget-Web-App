@@ -38,6 +38,12 @@ export default function FiscalImpactPage() {
   const meetingCount = meetings.length
   const totalMarkedNo = meetings.reduce((n, m) => n + m.summary.markedNo, 0)
   const totalUnderstatedNo = meetings.reduce((n, m) => n + m.summary.understatedMarkedNo, 0)
+  // The other half of the correction: resolutions the Town DID flag as having
+  // an impact, but described as absorbed by the existing budget.
+  const totalReserveDraw = meetings.reduce(
+    (n, m) => n + m.resolutions.filter((r) => r.realistic.flag === 'reserve-draw').length,
+    0
+  )
 
   return (
     <PageShell
@@ -54,7 +60,9 @@ export default function FiscalImpactPage() {
         Across <strong>{meetingCount}</strong> Town Board meetings in 2026, the Town marked{' '}
         <strong>{totalMarkedNo.toLocaleString()}</strong> resolutions as having <strong>no fiscal impact</strong> —
         and on a realistic read, at least <strong>{totalUnderstatedNo.toLocaleString()}</strong> of those plainly
-        commit or change money.
+        commit or change money. A second group is easy to miss: <strong>{totalReserveDraw.toLocaleString()}</strong>{' '}
+        resolutions the Town did mark as having an impact, but called <strong>absorbed by the existing budget</strong>,
+        actually draw on reserves, fund balance or borrowing.
       </PlainCallout>
 
       {meetingCount === 0 ? (
