@@ -5,7 +5,7 @@
   "title": "Town of Riverhead Town Board Agenda Packet, 2026-07-21 (Fiscal Impact Statements)",
   "url": "https://www.townofriverheadny.gov/129/Agendas-Minutes"
  },
- "method": "Each resolution's Town 'Fiscal Impact Statement' answer (Yes/No and absorbed vs. detailed) is transcribed as-published from the agenda packet, alongside a plain-English realistic read keyed on the resolution's category. Dollar amounts are not auto-extracted from this packet \u2014 they live in interleaved backup tables that don't reliably tie to a single resolution \u2014 so they are left blank rather than guessed.",
+ "method": "Each resolution's Town 'Fiscal Impact Statement' answer (Yes/No and absorbed vs. detailed) is transcribed as-published from the agenda packet, alongside a plain-English realistic read keyed on the resolution's category. Dollar amounts are not auto-extracted from this packet — they live in interleaved backup tables that don't reliably tie to a single resolution — so they are left blank rather than guessed.",
  "summary": {
   "total": 30,
   "markedNo": 25,
@@ -17,7 +17,7 @@
  },
  "resolutions": [
   {
-   "number": null,
+   "number": "2026-686",
    "seq": 1,
    "title": "Water District Capital Project 82517 Summerwind Farm Subdivision Budget",
    "category": "capital",
@@ -25,14 +25,14 @@
    "townTreatment": "absorbed",
    "amount": null,
    "realistic": {
-    "verdict": "Understated \u2014 'absorbed by existing budget'",
-    "reason": "It commits capital or debt-service dollars, typically drawn from reserves, fund balance, or borrowing \u2014 not truly cost-free even if 'absorbed'.",
+    "verdict": "Understated — 'absorbed by existing budget'",
+    "reason": "It commits capital or debt-service dollars, typically drawn from reserves, fund balance, or borrowing — not truly cost-free even if 'absorbed'.",
     "flag": "reserve-draw"
    },
    "vote": null
   },
   {
-   "number": null,
+   "number": "2026-687",
    "seq": 2,
    "title": "Sewer District Capital Project 82613 Peconic River Hotel 127 E Main St",
    "category": "capital",
@@ -40,14 +40,14 @@
    "townTreatment": "absorbed",
    "amount": null,
    "realistic": {
-    "verdict": "Understated \u2014 'absorbed by existing budget'",
-    "reason": "It commits capital or debt-service dollars, typically drawn from reserves, fund balance, or borrowing \u2014 not truly cost-free even if 'absorbed'.",
+    "verdict": "Understated — 'absorbed by existing budget'",
+    "reason": "It commits capital or debt-service dollars, typically drawn from reserves, fund balance, or borrowing — not truly cost-free even if 'absorbed'.",
     "flag": "reserve-draw"
    },
    "vote": null
   },
   {
-   "number": null,
+   "number": "2026-688",
    "seq": 3,
    "title": "Ratifies Acceptance of Donation of Life Ring For Grangebel Park",
    "category": "donation",
@@ -56,13 +56,13 @@
    "amount": null,
    "realistic": {
     "verdict": "Revenue in / offsetting",
-    "reason": "Money flows, but from a grant, donation, or a developer's own escrow \u2014 not the tax levy.",
+    "reason": "Money flows, but from a grant, donation, or a developer's own escrow — not the tax levy.",
     "flag": "neutral"
    },
    "vote": null
   },
   {
-   "number": null,
+   "number": "2026-689",
    "seq": 4,
    "title": "Ratifies Acceptance of Donation from Various Local Businesses For Annual",
    "category": "donation",
@@ -71,13 +71,13 @@
    "amount": null,
    "realistic": {
     "verdict": "Revenue in / offsetting",
-    "reason": "Money flows, but from a grant, donation, or a developer's own escrow \u2014 not the tax levy.",
+    "reason": "Money flows, but from a grant, donation, or a developer's own escrow — not the tax levy.",
     "flag": "neutral"
    },
    "vote": null
   },
   {
-   "number": null,
+   "number": "2026-690",
    "seq": 5,
    "title": "Authorizes Financial Administrator to Deposit Funds for Road Restoration",
    "category": "procedural",
@@ -92,7 +92,7 @@
    "vote": null
   },
   {
-   "number": null,
+   "number": "2026-691",
    "seq": 6,
    "title": "Authorizes Attendance at Training Seminar by Deputy Chief Fire Marshal",
    "category": "procedural",
@@ -107,7 +107,7 @@
    "vote": null
   },
   {
-   "number": null,
+   "number": "2026-692",
    "seq": 7,
    "title": "Appoints Seasonal Pump-out Boat Operator",
    "category": "personnel",
@@ -122,7 +122,7 @@
    "vote": null
   },
   {
-   "number": null,
+   "number": "2026-693",
    "seq": 8,
    "title": "Appoints a Maintenance Mechanic III HVAC Concentration",
    "category": "personnel",
@@ -137,7 +137,7 @@
    "vote": null
   },
   {
-   "number": null,
+   "number": "2026-694",
    "seq": 9,
    "title": "Appoints a Water Treatment Plant Operator Trainee",
    "category": "personnel",
@@ -152,7 +152,7 @@
    "vote": null
   },
   {
-   "number": null,
+   "number": "2026-695",
    "seq": 10,
    "title": "Ratifies Appointment Of Recreation Superintendent And Sets Terms And",
    "category": "personnel",
@@ -160,14 +160,14 @@
    "townTreatment": "described",
    "amount": null,
    "realistic": {
-    "verdict": "Understated \u2014 the form says 'no fiscal impact'",
+    "verdict": "Understated — the form says 'no fiscal impact'",
     "reason": "A salary, contract, or fee item marked 'no fiscal impact' typically still moves money.",
     "flag": "understated"
    },
    "vote": null
   },
   {
-   "number": null,
+   "number": "2026-696",
    "seq": 11,
    "title": "Authorizes the Riverhead Police Department to Apply for DHS FEMA",
    "category": "procedural",
@@ -182,7 +182,7 @@
    "vote": null
   },
   {
-   "number": null,
+   "number": "2026-697",
    "seq": 12,
    "title": "Acceptance of 2025 Justice Court Audit",
    "category": "procedural",
@@ -197,7 +197,7 @@
    "vote": null
   },
   {
-   "number": null,
+   "number": "2026-698",
    "seq": 13,
    "title": "Ratifies the Resignation of a Part-time Code Enforcement Officer",
    "category": "personnel-out",
@@ -206,13 +206,13 @@
    "amount": null,
    "realistic": {
     "verdict": "Actually a saving",
-    "reason": "A departure reduces payroll \u2014 the opposite of a cost.",
+    "reason": "A departure reduces payroll — the opposite of a cost.",
     "flag": "saving"
    },
    "vote": null
   },
   {
-   "number": null,
+   "number": "2026-699",
    "seq": 14,
    "title": "Accepts the Retirement of a Police Officer Michael Mowdy",
    "category": "personnel-out",
@@ -221,13 +221,13 @@
    "amount": null,
    "realistic": {
     "verdict": "Actually a saving",
-    "reason": "A departure reduces payroll \u2014 the opposite of a cost.",
+    "reason": "A departure reduces payroll — the opposite of a cost.",
     "flag": "saving"
    },
    "vote": null
   },
   {
-   "number": null,
+   "number": "2026-700",
    "seq": 15,
    "title": "Authorizes the Town Clerk to Publish and Post Notice to Bidders for",
    "category": "procedural",
@@ -242,7 +242,7 @@
    "vote": null
   },
   {
-   "number": null,
+   "number": "2026-701",
    "seq": 16,
    "title": "Ratifies Authorization for Town Clerk to Publish and Post Public Notice for",
    "category": "procedural",
@@ -257,7 +257,7 @@
    "vote": null
   },
   {
-   "number": null,
+   "number": "2026-702",
    "seq": 17,
    "title": "Adopts Local Law to Amend Chapter 301 Zoning and Land Development to",
    "category": "legislative",
@@ -272,7 +272,7 @@
    "vote": null
   },
   {
-   "number": null,
+   "number": "2026-703",
    "seq": 18,
    "title": "Adopts Local Law to Amend Chapter 105 Boards, Commission and",
    "category": "appointment-volunteer",
@@ -281,13 +281,13 @@
    "amount": null,
    "realistic": {
     "verdict": "No direct cost",
-    "reason": "Appointment to an unpaid advisory board, committee, or task force \u2014 no salary attached.",
+    "reason": "Appointment to an unpaid advisory board, committee, or task force — no salary attached.",
     "flag": "fair"
    },
    "vote": null
   },
   {
-   "number": null,
+   "number": "2026-704",
    "seq": 19,
    "title": "Adopts Local Law to Amend Chapter 219 Coastal Erosion Hazard Areas,",
    "category": "legislative",
@@ -302,9 +302,9 @@
    "vote": null
   },
   {
-   "number": null,
+   "number": "2026-705",
    "seq": 20,
-   "title": "Adopts Local Law to Amend Chapter 295 Wetlands, \u00a7295-6 Application for",
+   "title": "Adopts Local Law to Amend Chapter 295 Wetlands, §295-6 Application for",
    "category": "legislative",
    "townFiscalImpact": "No",
    "townTreatment": "described",
@@ -317,7 +317,7 @@
    "vote": null
   },
   {
-   "number": null,
+   "number": "2026-706",
    "seq": 21,
    "title": "Sets Planning Division Fees",
    "category": "fees",
@@ -325,14 +325,14 @@
    "townTreatment": "described",
    "amount": null,
    "realistic": {
-    "verdict": "Understated \u2014 the form says 'no fiscal impact'",
+    "verdict": "Understated — the form says 'no fiscal impact'",
     "reason": "A salary, contract, or fee item marked 'no fiscal impact' typically still moves money.",
     "flag": "understated"
    },
    "vote": null
   },
   {
-   "number": null,
+   "number": "2026-707",
    "seq": 22,
    "title": "Adopts a Local Law to Amend Chapter 289 of the Riverhead Town Code",
    "category": "legislative",
@@ -347,7 +347,7 @@
    "vote": null
   },
   {
-   "number": null,
+   "number": "2026-708",
    "seq": 23,
    "title": "Adopts a Local Law to Amend Chapter 289-17 of the Riverhead Town Code",
    "category": "legislative",
@@ -362,7 +362,7 @@
    "vote": null
   },
   {
-   "number": null,
+   "number": "2026-709",
    "seq": 24,
    "title": "Ratifies Designation of Alcohol Service Vendor To Serve Alcohol At The",
    "category": "procedural",
@@ -377,7 +377,7 @@
    "vote": null
   },
   {
-   "number": null,
+   "number": "2026-710",
    "seq": 25,
    "title": "Approves Special Event Chapter 255 Application for Daniel Cox (Akliral",
    "category": "permit",
@@ -392,7 +392,7 @@
    "vote": null
   },
   {
-   "number": null,
+   "number": "2026-711",
    "seq": 26,
    "title": "Approves Special Event Chapter 255 Application for Protection Sports",
    "category": "permit",
@@ -407,7 +407,7 @@
    "vote": null
   },
   {
-   "number": null,
+   "number": "2026-712",
    "seq": 27,
    "title": "Pays Bills",
    "category": "procedural",
@@ -422,7 +422,7 @@
    "vote": null
   },
   {
-   "number": null,
+   "number": "2026-713",
    "seq": 28,
    "title": "Amends Resolution 2026-673 Approves Fireworks Application for Jamesport",
    "category": "procedural",
@@ -437,7 +437,7 @@
    "vote": null
   },
   {
-   "number": null,
+   "number": "2026-714",
    "seq": 29,
    "title": "Authorizes Town Clerk to Publish and Post Public Notice to Consider a",
    "category": "procedural",
@@ -452,7 +452,7 @@
    "vote": null
   },
   {
-   "number": null,
+   "number": "2026-715",
    "seq": 30,
    "title": "Resolution To Authorize And Approve Agreement With Riverhead",
    "category": "contract",
@@ -460,7 +460,7 @@
    "townTreatment": "described",
    "amount": null,
    "realistic": {
-    "verdict": "Understated \u2014 the form says 'no fiscal impact'",
+    "verdict": "Understated — the form says 'no fiscal impact'",
     "reason": "A salary, contract, or fee item marked 'no fiscal impact' typically still moves money.",
     "flag": "understated"
    },
