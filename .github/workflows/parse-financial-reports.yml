@@ -56,6 +56,11 @@ jobs:
       - name: Re-analyse the budget supplement
         run: python etl/parse_budget_supplement.py
 
+      # Stacks seven supplements into one 2018-2024 actual series per account,
+      # which is what makes cyclical lines and account renumberings visible.
+      - name: Build multi-year supplement history
+        run: python etl/parse_supplement_history.py
+
       - name: Parse Town Board meeting votes
         run: python etl/parse_meetings.py
 

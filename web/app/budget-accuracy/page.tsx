@@ -4,6 +4,8 @@ import BudgetAccuracyOutliers from '../../components/BudgetAccuracyOutliers'
 import {
   curatedFlags, overBudget, chronicOverrun, noBudget,
   recoverablePool, outlierNote, detectedCount, severityLabel,
+  dueIn2027, underBudgeted, renumbered, actualYears,
+  accountsTracked, historyNote, underBudgetedShortfall,
 } from '../../lib/budget-accuracy'
 
 const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 20, boxShadow: '0 14px 34px var(--rbl-shadow)' } as const
@@ -40,6 +42,94 @@ export default function BudgetAccuracyPage() {
         repeats a figure the previous year&apos;s actual spending had already blown past. Separately, the Town&apos;s own
         supplement yields <strong>{usd(recoverablePool)}</strong> budgeted above the trailing run-rate on controllable lines.
       </PlainCallout>
+
+      <h2 style={{ color: 'var(--rbl-title)' }}>The seven-year view</h2>
+      <p style={{ color: 'var(--rbl-text-muted)', fontSize: 14, marginTop: 0, lineHeight: 1.6 }}>{historyNote}</p>
+
+      <section style={{ ...card, marginBottom: 14, borderLeft: '6px solid var(--rbl-warn-border)' }}>
+        <h3 style={{ marginTop: 0, color: 'var(--rbl-title)' }}>Lines that go quiet, then cost real money</h3>
+        <p style={{ color: 'var(--rbl-text-body)', fontSize: 14.5, lineHeight: 1.6, marginTop: 0 }}>
+          These sit at or near zero for years, so any single-year comparison reads them as dead. Then the bill arrives.
+          Across {underBudgeted.length} such lines the 2026 budget is <strong>{usd(underBudgetedShortfall)}</strong> short
+          of what they have actually cost in the years they happened.
+        </p>
+        <div style={{ overflowX: 'auto' }}>
+          <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 13.5, minWidth: 620 }}>
+            <thead>
+              <tr style={{ textAlign: 'left', color: 'var(--rbl-text-muted)', fontSize: 11, textTransform: 'uppercase', letterSpacing: 0.4 }}>
+                <th style={{ padding: '8px 10px' }}>Line</th>
+                <th style={{ padding: '8px 10px' }}>{actualYears[0]}–{actualYears[actualYears.length - 1]} actuals</th>
+                <th style={{ padding: '8px 10px', textAlign: 'right' }}>Costs when it happens</th>
+                <th style={{ padding: '8px 10px', textAlign: 'right' }}>2026 budget</th>
+              </tr>
+            </thead>
+            <tbody>
+              {underBudgeted.map((r) => (
+                <tr key={r.account} style={{ borderTop: '1px solid var(--rbl-border-subtle)' }}>
+                  <td style={{ padding: '9px 10px' }}>
+                    <strong style={{ color: 'var(--rbl-title)' }}>{r.name}</strong>
+                    <div style={{ color: 'var(--rbl-text-muted)', fontSize: 11.5, marginTop: 2 }}>
+                      quiet in {r.quietYears} of {Object.keys(r.series).length} years
+                    </div>
+                  </td>
+                  <td style={{ padding: '9px 10px' }}>
+                    <Spark series={r.series} />
+                  </td>
+                  <td style={{ padding: '9px 10px', textAlign: 'right', fontWeight: 800, color: 'var(--rbl-title)', whiteSpace: 'nowrap' }}>{usd(r.averageWhenActive)}</td>
+                  <td style={{ padding: '9px 10px', textAlign: 'right', whiteSpace: 'nowrap', color: r.tentative2026 === 0 ? 'var(--rbl-danger)' : 'var(--rbl-text-body)' }}>
+                    {usd(r.tentative2026)}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      {dueIn2027.length > 0 && (
+        <section style={{ ...card, marginBottom: 14 }}>
+          <h3 style={{ marginTop: 0, color: 'var(--rbl-title)' }}>On a cycle, and due again in 2027</h3>
+          <p style={{ color: 'var(--rbl-text-body)', fontSize: 14.5, lineHeight: 1.6, marginTop: 0 }}>
+            Spending here repeats on a regular interval rather than every year. The last spike and the interval say the
+            next one lands in 2027, which is the budget being written now.
+          </p>
+          <div style={{ display: 'grid', gap: 10 }}>
+            {dueIn2027.map((c) => (
+              <div key={c.account} style={{ border: '1px solid var(--rbl-border-subtle)', borderRadius: 10, padding: '11px 13px', background: 'var(--rbl-warn-bg)' }}>
+                <div style={{ display: 'flex', alignItems: 'baseline', gap: 8, flexWrap: 'wrap' }}>
+                  <strong style={{ color: 'var(--rbl-title)', fontSize: 15 }}>{c.name}</strong>
+                  <span style={{ color: 'var(--rbl-badge)', fontSize: 11.5, fontWeight: 800 }}>
+                    every {c.periodYears} years · last {c.spikeYears[c.spikeYears.length - 1]}
+                  </span>
+                </div>
+                <div style={{ margin: '6px 0' }}><Spark series={c.series} /></div>
+                <div style={{ color: 'var(--rbl-text-body)', fontSize: 13 }}>
+                  Costs about <strong>{usd(c.spikeAverage)}</strong> when it lands. The 2026 budget carries{' '}
+                  <strong style={{ color: c.tentative2026 === 0 ? 'var(--rbl-danger)' : 'var(--rbl-title)' }}>{usd(c.tentative2026)}</strong>.
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+      )}
+
+      {renumbered.length > 0 && (
+        <section style={{ ...card, marginBottom: 22 }}>
+          <h3 style={{ marginTop: 0, color: 'var(--rbl-title)' }}>Renumbered, not abandoned</h3>
+          <p style={{ color: 'var(--rbl-text-body)', fontSize: 14.5, lineHeight: 1.6, marginTop: 0 }}>
+            These accounts stopped and an identically-named one started. Nothing was cut and nothing appeared from
+            nowhere — the money moved account numbers. They are listed so neither half gets read as a finding.
+          </p>
+          {renumbered.map((r) => (
+            <div key={r.oldAccount} style={{ borderTop: '1px solid var(--rbl-border-subtle)', paddingTop: 9, marginTop: 9 }}>
+              <strong style={{ color: 'var(--rbl-title)', fontSize: 14.5 }}>{r.name}</strong>
+              <div style={{ color: 'var(--rbl-text-muted)', fontSize: 12.4, marginTop: 3, lineHeight: 1.5 }}>
+                {r.oldAccount} through {r.lastYear} → {r.newAccount} from {r.firstYear}. Peak {usd(r.peak)}.
+              </div>
+            </div>
+          ))}
+        </section>
+      )}
 
       <h2 style={{ color: 'var(--rbl-title)' }}>Researched flags</h2>
       <p style={{ color: 'var(--rbl-text-muted)', fontSize: 14, marginTop: 0 }}>
@@ -102,6 +192,23 @@ function Fig({ label, value, strong }: { label: string; value: string; strong?: 
     <div>
       <div style={{ color: 'var(--rbl-text-muted)', fontSize: 10.5, fontWeight: 800, letterSpacing: 0.4, textTransform: 'uppercase' }}>{label}</div>
       <div style={{ color: strong ? 'var(--rbl-title)' : 'var(--rbl-text-body)', fontSize: 15, fontWeight: strong ? 800 : 600 }}>{value || '—'}</div>
+    </div>
+  )
+}
+
+function Spark({ series }: { series: Record<string, number> }) {
+  const years = Object.keys(series).sort()
+  const max = Math.max(...years.map((y) => Math.abs(series[y])), 1)
+  return (
+    <div style={{ display: 'flex', alignItems: 'flex-end', gap: 3, height: 30 }} aria-hidden>
+      {years.map((y) => {
+        const v = series[y]
+        const h = Math.max(2, Math.round((Math.abs(v) / max) * 28))
+        return (
+          <div key={y} title={`${y}: ${v.toLocaleString('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 })}`}
+            style={{ width: 9, height: h, borderRadius: 2, background: v > 0 ? 'var(--rbl-series-blue)' : 'var(--rbl-border-subtle)' }} />
+        )
+      })}
     </div>
   )
 }

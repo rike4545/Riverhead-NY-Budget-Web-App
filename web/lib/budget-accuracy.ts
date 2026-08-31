@@ -12,6 +12,7 @@
 //     time and read by nothing until this page.
 
 import outliers from '../public/data/budget-supplement/outliers.json'
+import history from '../public/data/budget-supplement/history.json'
 
 export type Severity = 'critical' | 'high' | 'explain'
 
@@ -185,3 +186,53 @@ export const severityLabel: Record<Severity, string> = {
   high: 'High',
   explain: 'Needs explaining',
 }
+
+// ---------------------------------------------------------------------------
+// Multi-year view, from etl/parse_supplement_history.py. The outliers above
+// compare one year against the next; these compare seven, which is the only way
+// to tell a line that is genuinely over budget from one that simply runs on a
+// three-year cycle and happens to be in an off year.
+
+export type CyclicalLine = {
+  account: string
+  name: string
+  series: Record<string, number>
+  spikeYears: number[]
+  periodYears: number
+  nextDue: number
+  spikeAverage: number
+  adopted2025: number
+  tentative2026: number
+}
+
+export type UnderBudgetedLine = {
+  account: string
+  name: string
+  series: Record<string, number>
+  quietYears: number
+  averageWhenActive: number
+  peak: number
+  adopted2025: number
+  tentative2026: number
+  shortfall: number
+}
+
+export type RenumberedLine = {
+  name: string
+  oldAccount: string
+  lastYear: number
+  newAccount: string
+  firstYear: number
+  peak: number
+}
+
+export const cyclical = history.cyclical as CyclicalLine[]
+export const dueIn2027 = history.dueIn2027 as CyclicalLine[]
+export const underBudgeted = history.underBudgeted as UnderBudgetedLine[]
+export const renumbered = history.renumbered as RenumberedLine[]
+export const actualYears = history.actualYears as number[]
+export const accountsTracked = history.accountsTracked as number
+export const historyNote = history.note as string
+
+/** What the lumpy, under-budgeted lines would cost if they all landed at once. */
+export const underBudgetedShortfall = underBudgeted.reduce((n, r) => n + r.shortfall, 0)
