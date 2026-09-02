@@ -10,7 +10,7 @@ const usd = (n: number) => new Intl.NumberFormat('en-US', { style: 'currency', c
 export const metadata = {
   title: 'What-if scenarios — balance the 2027 budget under the tax cap',
   description:
-    'Interactive: close the ~$2.6M gap between predicted 2027 spending and what the tax cap allows, using your own mix of spending trims, buyout savings, new revenue, and reserves — plus grounded scenarios on the surplus, the buyout, and debt.',
+    'Interactive: close the ~$2.3M gap between predicted 2027 spending and what the tax cap allows, using your own mix of spending trims, buyout savings, new revenue, and reserves — plus grounded scenarios on the surplus, the buyout, and debt.',
 }
 
 const cg = p.capGap
@@ -27,8 +27,8 @@ const grounded = [
   },
   {
     kicker: 'Debt & big projects', title: 'How much is the Town borrowing against the future?',
-    body: <>Riverhead has used budget adjustments to pay down a Town Square bond-anticipation note (<strong>$2.6M</strong>) and a 2018 refunding bond, and its debt is a modest ~5% of the legal limit. But debt service and big capital projects compete directly with the operating budget for the same tax dollars.</>,
-    href: `${base}/funds/`, cta: 'Explore the funds',
+    body: <>Riverhead has used budget adjustments to pay down the Town Square bond-anticipation note and a 2018 refunding bond, and its debt sits at <strong>6.74%</strong> of the legal limit. Neither resolution states an amount, so the paydowns cannot be sized from the record. But debt service and big capital projects compete directly with the operating budget for the same tax dollars.</>,
+    href: `${base}/town-square/`, cta: 'Follow the Town Square money',
   },
 ]
 
