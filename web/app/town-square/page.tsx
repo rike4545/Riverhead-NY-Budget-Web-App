@@ -3,7 +3,7 @@ import PlainCallout from '../../components/PlainCallout'
 import {
   acquisition, amphitheatre, boardRecord, buildSchedule, developmentBudget, garage, idaAssistance,
   idaPrecedent, inKindSupport, landAssembly, landSale, fundBalanceImpact, openQuestions, parkingDistrict,
-  petition, preposession, project, publicMoney, publicObjections, scopeDiscrepancy, scopeEvolution, sources,
+  opposition, preposession, project, publicMoney, publicObjections, scopeDiscrepancy, scopeEvolution, sources,
   threeLedgers, timeline, voteSummary, type Milestone,
 } from '../../lib/town-square'
 import { appropriations, policyMinimumPercent, policyUpperPercent, unassignedFundBalance } from '../../lib/reserve-policy'
@@ -311,15 +311,30 @@ export default function TownSquarePage() {
         <p style={{ color: 'var(--rbl-text-body)', fontSize: 13.4, lineHeight: 1.6, margin: 0 }}>{idaPrecedent.reading}</p>
 
         <div style={{ background: 'var(--rbl-surface-2)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 12, padding: '14px 16px', marginTop: 18 }}>
-          <h3 style={{ margin: '0 0 6px', color: 'var(--rbl-title)', fontSize: 16 }}>{petition.headline}</h3>
-          <p style={{ color: 'var(--rbl-text-body)', fontSize: 13.4, lineHeight: 1.6, margin: '0 0 8px' }}>{petition.what}</p>
-          <div style={{ display: 'grid', gap: 6, marginBottom: 8 }}>
-            <Field term="Started" value={petition.started} />
-            <Field term="By whom" value={petition.by} />
-            <Field term="How large" value={petition.size} />
-            <Field term="What it rests on" value={petition.basis} />
+          <h3 style={{ margin: '0 0 6px', color: 'var(--rbl-title)', fontSize: 16 }}>{opposition.headline}</h3>
+          <p style={{ color: 'var(--rbl-text-body)', fontSize: 13.4, lineHeight: 1.6, margin: '0 0 10px' }}>{opposition.whoRunsIt}</p>
+          <div style={{ display: 'grid', gap: 8, marginBottom: 10 }}>
+            {opposition.petitions.map((q) => (
+              <div key={q.title} style={{ background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 10, padding: '10px 13px' }}>
+                <div style={{ display: 'flex', gap: 10, alignItems: 'baseline', flexWrap: 'wrap' }}>
+                  <strong style={{ color: 'var(--rbl-title)', fontSize: 13.8 }}>{q.title}</strong>
+                  <span style={{ marginLeft: 'auto', color: 'var(--rbl-title)', fontWeight: 900, fontSize: 15 }}>
+                    {q.signatures.toLocaleString('en-US')}
+                    <span style={{ color: 'var(--rbl-text-muted)', fontWeight: 600, fontSize: 12.4 }}> of {q.goal.toLocaleString('en-US')}</span>
+                  </span>
+                </div>
+                <div style={{ color: 'var(--rbl-text-muted)', fontSize: 12.4, marginTop: 2 }}>Opened {q.started}, addressed to {q.target}.</div>
+                <div style={{ color: 'var(--rbl-text-body)', fontSize: 13.2, lineHeight: 1.55, marginTop: 4 }}>{q.asks}</div>
+              </div>
+            ))}
           </div>
-          <p style={{ color: 'var(--rbl-text-muted)', fontSize: 12.8, lineHeight: 1.6, margin: 0 }}>{petition.why}</p>
+          <p style={{ color: 'var(--rbl-text-muted)', fontSize: 12.6, lineHeight: 1.6, margin: '0 0 8px' }}>{opposition.countsAsOf}</p>
+          <p style={{ color: 'var(--rbl-text-body)', fontSize: 13.4, lineHeight: 1.6, margin: '0 0 8px' }}>{opposition.theCase}</p>
+          <div style={{ background: 'var(--rbl-warn-bg)', border: '1px solid var(--rbl-warn-border)', borderRadius: 10, padding: '11px 13px', marginBottom: 8 }}>
+            <strong style={{ color: 'var(--rbl-warn-strong)', fontSize: 13.4 }}>What this page does not take from it:</strong>{' '}
+            <span style={{ color: 'var(--rbl-warn-strong)', fontSize: 13.4, lineHeight: 1.55 }}>{opposition.notRelied}</span>
+          </div>
+          <p style={{ color: 'var(--rbl-text-muted)', fontSize: 12.8, lineHeight: 1.6, margin: 0 }}>{opposition.why}</p>
         </div>
       </section>
 
@@ -389,7 +404,13 @@ export default function TownSquarePage() {
           <strong style={{ color: 'var(--rbl-warn-strong)' }}>{usd(acquisition.offer)} is a floor, not a ceiling:</strong>{' '}
           <span style={{ color: 'var(--rbl-warn-strong)', fontSize: 14.4, lineHeight: 1.6 }}>{acquisition.notFinal}</span>
         </div>
-        <p style={{ color: 'var(--rbl-text-body)', fontSize: 14.2, lineHeight: 1.6, margin: 0 }}>{acquisition.whyItMatters}</p>
+        <p style={{ color: 'var(--rbl-text-body)', fontSize: 14.2, lineHeight: 1.6, margin: '0 0 12px' }}>{acquisition.whyItMatters}</p>
+        <div style={{ display: 'grid', gap: 9, marginBottom: 12 }}>
+          <Field term="The hearing" value={acquisition.theHearing} />
+          <Field term="Nobody could say what it would cost" value={acquisition.costUnknownAtTheHearing} />
+          <Field term="What public purpose was stated" value={acquisition.publicPurpose} />
+        </div>
+        <p style={{ color: 'var(--rbl-text-body)', fontSize: 13.6, lineHeight: 1.6, margin: 0 }}>{acquisition.contested}</p>
       </section>
 
       <h2 style={{ color: 'var(--rbl-title)' }}>What gets built, and when</h2>

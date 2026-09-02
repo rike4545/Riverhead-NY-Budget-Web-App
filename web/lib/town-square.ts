@@ -452,21 +452,38 @@ export const idaPrecedent = {
     'The pattern is legible without any arithmetic on the hotel: commercial and mixed-use projects downtown have generally received about ten years, affordable housing thirty, and the one existing hotel four. The request on the table is for twenty. That is roughly double what this agency has given comparable downtown commercial projects and five times what it gave the other hotel, and it is the single most checkable thing a resident can carry into the hearing. It is not a reason the request should be refused — the agency weighs jobs, investment and blight, not precedent alone — but it is the question the agency will have to answer.',
 }
 
-// ORGANISED OPPOSITION TO THE SUBSIDY, reported with its actual size. A petition
-// is not a proceeding and thirty-odd signatures is not a movement; leaving it out
-// would hide that opposition organised at all, and reporting it without the count
-// would inflate it. Both facts go in.
-export const petition = {
-  headline: 'A petition asks the agency to refuse',
-  what:
-    'A change.org petition titled “No IDA Subsidy for Town Square Hotel” urges the Riverhead Industrial Development Agency to “rigorously evaluate and completely reject” the request for tax subsidies, describing the project as a five-storey, thirty-four-million-dollar luxury tourist hotel that would dominate half of the new square.',
-  started: 'August 8, 2026 — three days after the Town Board approved the site plan, five days after the agency accepted the application for review.',
-  by: 'Posted under the name Riverhead Watch. No organisation is listed behind it.',
-  size: 'It had 33 signatures against a goal of 50 when this page was written, nearly all of them gathered in its first week.',
-  basis:
-    'The petition points readers to a linked document for its reasoning and describes part of that material as a ChatGPT analysis. This page has not evaluated those arguments and does not rely on them for any figure; the numbers on this page come from the Town’s own filings, the agency’s own records and named reporting.',
+// ORGANISED OPPOSITION, reported with its actual size and its actual author.
+// Two petitions, a blog and a recurring speaker at the podium look like four
+// sources of opposition. They are one Riverhead resident, and a reader sizing
+// the opposition should know that. It cuts both ways: it is one person, and he
+// has been at this for years and has gathered real signatures.
+export const opposition = {
+  headline: 'The organised opposition, and who is behind it',
+  whoRunsIt:
+    'The petitions and the Riverhead Watch blog are the work of John McAuliff, a Riverhead resident and non-profit executive director who has blogged since 2006. He is the same John McAuliff who has spoken against the project at Town Board hearings in July and August 2025 and again in June and August 2026, quoted elsewhere on this page. Naming him is not a mark against the arguments — a resident who shows up for years and organises is doing exactly what residents are supposed to do. It is here because “a petition,” “a blog” and “a speaker at the podium” read as three independent currents of opposition when they are one, and a reader weighing how much opposition exists should have that.',
+  petitions: [
+    {
+      title: 'No Hotel/Condo in Riverhead Town Square',
+      started: 'July 2, 2025, three weeks before the qualified-and-eligible hearing',
+      target: 'the Town Board',
+      signatures: 135, goal: 200,
+      asks: 'Not to compromise the square’s vista and character with a five-storey hotel and condominium on its east side; not to approve J. Petrocelli as master developer if he insisted on buying town-owned land for it; and to open competitive public bidding first.',
+    },
+    {
+      title: 'No IDA Subsidy for Town Square Hotel',
+      started: 'August 8, 2026, three days after the Town Board approved the site plan and five days after the agency took the application in',
+      target: 'the Riverhead Industrial Development Agency',
+      signatures: 33, goal: 50,
+      asks: 'That the agency “rigorously evaluate and completely reject” the request for tax subsidies to what it calls a five-storey, thirty-four-million-dollar luxury tourist hotel that would dominate half the new square.',
+    },
+  ],
+  countsAsOf: 'Signature counts as of the writing of this page. An earlier petition sought to save the Craft’d bar from demolition; its author writes plainly that it failed.',
+  theCase:
+    'The substantive argument, set out in a letter published in the Riverhead News-Review on July 10, 2025 and on the blog: that eminent domain is a power meant for roads, schools and hospitals rather than for handing public land to a private developer; that five-storey buildings on both sides would wall in the open space the square was meant to create, the west side having been spared in 2025 and the east side not; that a hotel could go on the riverfront near Spicey’s on West Main Street instead; and that Riverhead would do better with an open park along the lines of Greenport’s Mitchell Park.',
+  notRelied:
+    'His case also includes a claim about the developer’s political donations. This page has not checked it against campaign filings, does not repeat it as fact, and relies on it for nothing. Some of the illustrative material on the blog and the petitions is generated by ChatGPT — the author says so himself, and notes in one case that the image “contains errors.” Every figure on this page comes from the Town’s own filings, the agency’s own records, the lease agreement, or named reporting.',
   why:
-    'It is here because the abatement is the one live decision on this project that has not been made, and because the agency must hold a public hearing before it decides. Whatever a reader thinks of the petition, that hearing is the moment when support and objection both count, and it has not been scheduled.',
+    'This belongs beside the abatement because that is the one decision on this project still open, and because the agency must hold a public hearing before it decides. That hearing has not been scheduled. Whatever a reader makes of these petitions, it is the moment when support and objection both formally count.',
 }
 
 // The parking question keeps coming back, and it has a fiscal edge the argument
@@ -572,8 +589,16 @@ export const publicObjections = {
       what: 'Called for a cost-benefit analysis of the total public investment — land conveyed, easements, parking commitments, infrastructure and future maintenance — and for a statement separating infrastructure costs borne by the developer from those ultimately borne by taxpayers. She asked whether the Town had evaluated the loss of assessed value, property tax and school tax revenue in dropping the condominiums for a hotel-only plan, and argued the approval was premature given the site’s designation as a potential environmental justice area.',
     },
     {
-      who: 'Desmond Wong, Baiting Hollow — June 2026',
-      what: 'Objected that the hotel’s parking arrangement depends on infrastructure that does not exist yet — the First Street garage, which on the Town’s own August 2026 schedule is not finished until 2030. “That is not a parking plan — that is a hope.”',
+      who: 'Cindy Clifford, Heart of Riverhead Civic Association president — May 2026',
+      what: 'Told the Board she understood that “just saying this is for public use is not going to cut it” in the eyes of a court, and argued the science center would itself have drawn visitors from the aquarium and produced the foot traffic the square was promised to create.',
+    },
+    {
+      who: 'Colin Tooker, Riverhead — May 2026',
+      what: 'Asked what the eminent domain process was going to cost. The Town Attorney answered that he did not know, because there was no appraisal yet. Claudette Bianco of Baiting Hollow followed by saying she heard little concern from the Board about the cost to taxpayers, while stating she was neither for the taking nor against it.',
+    },
+    {
+      who: 'Desmond Wong, Baiting Hollow — May and June 2026',
+      what: 'At the condemnation hearing: “The question in front of this board is not really should we seize this parcel. The question is why does every problem in this downtown have the same solution?” A month later, on the hotel’s parking arrangement, he objected that it depends on infrastructure that does not exist yet — the First Street garage, which on the Town’s own August 2026 schedule is not finished until 2030. “That is not a parking plan — that is a hope.”',
     },
     {
       who: 'Martin Sendlewski, Parking District Advisory Committee chair — June and August 2026',
@@ -626,6 +651,12 @@ export const acquisition = {
     'The owner may take the $1.95 million as full payment, or take it as an advance payment and keep seeking more in court. Once title vests the remaining dispute is usually only about money — whether the appraisal reflects fair value. So $1.95 million is a floor on what this parcel costs the Town, not a ceiling.',
   whyItMatters:
     'The parcel borders the Town Square site on its west side and officials have called it integral to the plan. Board members have repeatedly cited the lack of progress on redeveloping the building as their reason for condemning it — the science center had not begun its first phase and held no building permits, and its representatives cancelled a scheduled Town Board update in March 2026 as a roughly $1 million grant tied to the project neared its deadline.',
+  theHearing:
+    'The EDPL hearing on May 20, 2026 ran nearly three hours and was contentious enough that reporting described the line between public testimony and board debate as blurred, with members rebutting critics from the dais. The Town’s case was put by Community Development Director Dawn Thomas: the building is “vacant, deteriorated, substandard and blighted,” the science center’s 2020 proposal for a roughly 24,000 square foot facility with a planetarium had repeatedly shrunk despite years of extensions, and at an April work session it emerged that the organisation “was experiencing financial difficulties and could not promise that the funding was available.” Environmental consultant Jeff Seeman added the flood argument: the square, the hotel and the East End Arts campus are being designed as one integrated flood mitigation system, and “one parcel would cause the other parcels to continue to flood unless they’re all systemically raised.” Council Member Joann Waski put the Town’s position in a line: “This is not about the science center. This is about 111 East Main Street.”',
+  costUnknownAtTheHearing:
+    'Asked at that hearing what the eminent domain process would cost, Town Attorney Erik Howard answered: “I don’t know. We don’t have an appraisal on the property yet.” No estimate was given for acquisition, appraisal, outside counsel, court costs or anything else. Claudette Bianco of Baiting Hollow told the Board she heard little concern from it about the cost to taxpayers, saying she was neither for the taking nor against it. The $1.95 million figure arrived three months later, and covers the offer alone.',
+  publicPurpose:
+    'The Town’s published hearing notice stated the acquisition was “for general municipal purposes.” Several speakers, including Heart of Riverhead Civic Association president Cindy Clifford, questioned whether so general a statement identifies a specific enough public use to hold up in court. Former Supervisor Laura Jens-Smith argued the science center had bought the building with the Town’s encouragement, and said that if conversations had already taken place about alternative private development of the site, they were relevant and should be disclosed.',
   contested:
     'The $1.95 million offer passed unanimously, but the decision to take the property did not. It was carried 3-2 in April 2026 over the Supervisor’s objection, twice, and the findings that made it final passed 3-1 in June with two abstentions. The Board had backed off eminent domain a year earlier, in 2025, after the science center presented a two-phase plan and pledged to proceed.',
 }
@@ -641,7 +672,7 @@ export const fundBalanceImpact = {
       label: 'Acquisition offer for 111 East Main Street',
       amount: 1_950_000,
       certainty: 'authorised' as const,
-      note: 'Authorised September 1, 2026, explicitly from the General Fund balance. Could rise if the owner pursues more in court.',
+      note: 'Authorised September 1, 2026, explicitly from the General Fund balance. Could rise if the owner pursues more in court. Board members said at the May hearing that the money could later be restored to fund balance if the Town eventually sold the property on for redevelopment — the same structure used for the hotel parcels, but with no buyer, no price and no agreement behind it.',
     },
     {
       label: 'Town Square note paydown',
@@ -651,7 +682,7 @@ export const fundBalanceImpact = {
     },
   ],
   offsets:
-    'Both draws have money running the other way against them, which is the part the resolutions do not say. The pre-possession lease has the developer paying the Town $17,500 a month to August 2026 and $19,000 a month through the six-month extension, set deliberately at the Town’s own debt service on the land. And if the sale has not closed by March 14, 2027 the developer must remit $2,493,750 — an obligation the agreement makes “absolute and unconditional” — which the Town may apply straight to the debt. Retiring the note out of surplus was not surplus spent and gone; it was surplus advanced against a contracted receipt, and it saved the Town a fifteen-year bond carrying more than $500,000 of interest.',
+    'Both draws have money running the other way against them, though only one of them is contracted. That is the part the resolutions do not say. The pre-possession lease has the developer paying the Town $17,500 a month to August 2026 and $19,000 a month through the six-month extension, set deliberately at the Town’s own debt service on the land. And if the sale has not closed by March 14, 2027 the developer must remit $2,493,750 — an obligation the agreement makes “absolute and unconditional” — which the Town may apply straight to the debt. Retiring the note out of surplus was not surplus spent and gone; it was surplus advanced against a contracted receipt, and it saved the Town a fifteen-year bond carrying more than $500,000 of interest. The 111 East Main Street draw is different in kind: the Board has said that money could come back if the parcel is sold on for redevelopment, but unlike the hotel parcels there is no buyer, no price and no signed agreement — only an intention.',
   verdict:
     'Even taking the paydown at its ceiling, the two together are about a sixth of the unassigned balance and leave it near twice the top of the Town’s own policy range. This is a real draw on surplus, it is comfortably affordable, and most of one of the two draws is contractually due back. All three things are true, and a page that reported only one of them would be misleading.',
   caveat:
@@ -768,9 +799,24 @@ export const sources = [
     covers: 'The twenty-year PILOT term stated by the developer’s attorney, the jobs estimates, the negotiation to pay for roughly 100 public parking spaces, and that the IDA application is not public — Newsday filed a records request for it.',
   },
   {
-    title: 'change.org — No IDA Subsidy for Town Square Hotel',
+    title: 'RiverheadLOCAL — Eminent domain hearing on science center property turns contentious (May 21, 2026)',
+    url: 'https://riverheadlocal.com/2026/05/21/eminent-domain-hearing-on-science-center-property-turns-contentious/',
+    covers: 'The three-hour condemnation hearing: the Town’s blight and flood-mitigation case, the “general municipal purposes” notice, the Town Attorney’s answer that the cost was unknown for want of an appraisal, and the Board’s statement that the money could be restored to fund balance if the parcel were later sold.',
+  },
+  {
+    title: 'change.org — No Hotel/Condo in Riverhead Town Square (opened July 2, 2025)',
+    url: 'https://www.change.org/p/no-hotel-condo-in-riverhead-town-square',
+    covers: 'The earlier petition to the Town Board, and its signature count. Cited for what it asks and how large it is, not as evidence for any figure.',
+  },
+  {
+    title: 'change.org — No IDA Subsidy for Town Square Hotel (opened August 8, 2026)',
     url: 'https://www.change.org/p/no-ida-subsidy-for-town-square-hotel',
-    covers: 'The petition asking the agency to refuse the abatement, its stated reasoning, and its signature count. Cited for what it says and how large it is, not as evidence for any figure.',
+    covers: 'The petition asking the agency to refuse the abatement, its stated reasoning, and its signature count. Same basis: what it says and how large it is.',
+  },
+  {
+    title: 'Riverhead Watch — More on Saving Town Square (July 13, 2025)',
+    url: 'https://saveepcal.blogspot.com/2025/07/more-on-saving-town-square.html',
+    covers: 'The fullest statement of the opposition case, published as a letter in the Riverhead News-Review on July 10, 2025. The blog is written by John McAuliff, who also created both petitions — confirmed from the Blogger profile it links to.',
   },
   {
     title: 'Riverhead Industrial Development Agency — Projects',
