@@ -3,7 +3,7 @@ import PlainCallout from '../../components/PlainCallout'
 import {
   acquisition, amphitheatre, boardRecord, buildSchedule, developmentBudget, garage, idaAssistance,
   idaPrecedent, inKindSupport, landAssembly, landSale, fundBalanceImpact, openQuestions, parkingDistrict,
-  preposession, project, publicMoney, publicObjections, scopeDiscrepancy, scopeEvolution, sources,
+  petition, preposession, project, publicMoney, publicObjections, scopeDiscrepancy, scopeEvolution, sources,
   threeLedgers, timeline, voteSummary, type Milestone,
 } from '../../lib/town-square'
 import { appropriations, policyMinimumPercent, policyUpperPercent, unassignedFundBalance } from '../../lib/reserve-policy'
@@ -274,6 +274,7 @@ export default function TownSquarePage() {
           <Field term="What to watch for" value={idaAssistance.whatToWatchFor} />
           <Field term="Who decides" value={idaAssistance.whoDecides} />
           <Field term="The project cost in that filing" value={idaAssistance.projectCost} />
+          <Field term="The application is not public" value={idaAssistance.notPublic} />
         </div>
         <div style={{ background: 'var(--rbl-warn-bg)', border: '1px solid var(--rbl-warn-border)', borderRadius: 10, padding: '11px 13px', margin: '12px 0 8px' }}>
           <strong style={{ color: 'var(--rbl-warn-strong)', fontSize: 13.6 }}>Why it belongs on this page:</strong>{' '}
@@ -308,6 +309,18 @@ export default function TownSquarePage() {
           </table>
         </div>
         <p style={{ color: 'var(--rbl-text-body)', fontSize: 13.4, lineHeight: 1.6, margin: 0 }}>{idaPrecedent.reading}</p>
+
+        <div style={{ background: 'var(--rbl-surface-2)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 12, padding: '14px 16px', marginTop: 18 }}>
+          <h3 style={{ margin: '0 0 6px', color: 'var(--rbl-title)', fontSize: 16 }}>{petition.headline}</h3>
+          <p style={{ color: 'var(--rbl-text-body)', fontSize: 13.4, lineHeight: 1.6, margin: '0 0 8px' }}>{petition.what}</p>
+          <div style={{ display: 'grid', gap: 6, marginBottom: 8 }}>
+            <Field term="Started" value={petition.started} />
+            <Field term="By whom" value={petition.by} />
+            <Field term="How large" value={petition.size} />
+            <Field term="What it rests on" value={petition.basis} />
+          </div>
+          <p style={{ color: 'var(--rbl-text-muted)', fontSize: 12.8, lineHeight: 1.6, margin: 0 }}>{petition.why}</p>
+        </div>
       </section>
 
       <section style={{ ...card, marginBottom: 18 }}>

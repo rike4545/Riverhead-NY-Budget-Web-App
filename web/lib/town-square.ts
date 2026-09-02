@@ -412,7 +412,9 @@ export const idaAssistance = {
   timeline:
     'J. Petrocelli Riverhead Town Square LLC applied to the Riverhead Industrial Development Agency for financial assistance in November 2025 and amended the application on June 12, 2026 to reflect the hotel-only plan. The IDA accepted the amended application on August 3, 2026 — one day before the Town Board granted site plan and special permit approval.',
   whatWasAsked:
-    'The developer has said it is seeking sales and use tax exemptions, mortgage recording tax exemptions, and real property tax abatements through a payment-in-lieu-of-taxes agreement.',
+    'Sales and use tax exemptions, mortgage recording tax exemptions, and real property tax abatement through a payment-in-lieu-of-taxes agreement. At the June 2026 hearing the developer’s attorney, Eric Russo, put a term on it: a twenty-year PILOT. Against that he set the project’s jobs case — an estimated 210 construction jobs, 26 full-time and 14 part-time hotel staff, and about 50 more across the ground-floor retail. Those are the applicant’s figures, given at a hearing; no independent verification of them has been published.',
+  notPublic:
+    'The application itself is not public. Newsday reported in June 2026 that it had filed a Freedom of Information Law request to obtain it. So the twenty-year figure above rests on what the developer’s attorney said in a public meeting rather than on a document anyone outside the agency has read.',
   whatWasDecided:
     'Nothing yet. The IDA resolution accepts the amended application for review and authorises Chairman James Farley to engage Camoin Associates to prepare an absorption and impact study at the applicant’s expense. A public hearing must be held before the agency decides, and none has been noticed: the agency’s own public hearing notices page carried nothing for this project when this page was written, its most recent posting of any kind dating to February 2024.',
   whatToWatchFor:
@@ -447,7 +449,24 @@ export const idaPrecedent = {
     { project: 'Riverhead Housing LP, River Pointe', where: '821 East Main Street', term: '2024–2054', years: 30, note: 'Affordable housing.' },
   ],
   reading:
-    'The pattern is legible without any arithmetic on the hotel: commercial and mixed-use projects downtown have generally received about ten years, affordable housing thirty, and the one existing hotel four. Whatever the agency decides here, that is the range it has been working in.',
+    'The pattern is legible without any arithmetic on the hotel: commercial and mixed-use projects downtown have generally received about ten years, affordable housing thirty, and the one existing hotel four. The request on the table is for twenty. That is roughly double what this agency has given comparable downtown commercial projects and five times what it gave the other hotel, and it is the single most checkable thing a resident can carry into the hearing. It is not a reason the request should be refused — the agency weighs jobs, investment and blight, not precedent alone — but it is the question the agency will have to answer.',
+}
+
+// ORGANISED OPPOSITION TO THE SUBSIDY, reported with its actual size. A petition
+// is not a proceeding and thirty-odd signatures is not a movement; leaving it out
+// would hide that opposition organised at all, and reporting it without the count
+// would inflate it. Both facts go in.
+export const petition = {
+  headline: 'A petition asks the agency to refuse',
+  what:
+    'A change.org petition titled “No IDA Subsidy for Town Square Hotel” urges the Riverhead Industrial Development Agency to “rigorously evaluate and completely reject” the request for tax subsidies, describing the project as a five-storey, thirty-four-million-dollar luxury tourist hotel that would dominate half of the new square.',
+  started: 'August 8, 2026 — three days after the Town Board approved the site plan, five days after the agency accepted the application for review.',
+  by: 'Posted under the name Riverhead Watch. No organisation is listed behind it.',
+  size: 'It had 33 signatures against a goal of 50 when this page was written, nearly all of them gathered in its first week.',
+  basis:
+    'The petition points readers to a linked document for its reasoning and describes part of that material as a ChatGPT analysis. This page has not evaluated those arguments and does not rely on them for any figure; the numbers on this page come from the Town’s own filings, the agency’s own records and named reporting.',
+  why:
+    'It is here because the abatement is the one live decision on this project that has not been made, and because the agency must hold a public hearing before it decides. Whatever a reader thinks of the petition, that hearing is the moment when support and objection both count, and it has not been scheduled.',
 }
 
 // The parking question keeps coming back, and it has a fiscal edge the argument
@@ -466,15 +485,15 @@ export const parkingDistrict = {
 // Each of these is a public asset committed to a private building under a
 // separate agreement, and none of them has a published price.
 export const inKindSupport = {
-  headline: 'Four public commitments with no price attached',
+  headline: 'Four public commitments, none of them priced',
   items: [
-    { label: 'Guest parking in public lots', detail: 'Hotel guests use valet service, with cars parked in the public lot behind the Suffolk Theater until the planned garage is built. After that, hotel parking shifts into the garage under an agreement with the Town.' },
+    { label: 'Guest parking in public lots — to be paid for', detail: 'Hotel guests use valet service, with cars parked in the public lot behind the Suffolk Theater until the planned garage is built, then in the garage. This one is not free: the developer’s attorney said in June 2026 that his client was negotiating an agreement with the Town Attorney’s office to pay for roughly 100 spaces in that lot in the meantime. What it will pay has not been published, and the agreement did not exist when the site plan was approved two months later.' },
     { label: 'Stormwater onto Town land', detail: 'Stormwater from the hotel is directed to 25 leaching galleys on the adjacent town square property, under an agreement with the Town.' },
     { label: 'Access across the square', detail: 'The hotel’s lower-level parking is reached from Heidi Behr Way through the town square parcel, under an agreement with the Town.' },
     { label: 'Maintenance of the public spaces', detail: 'The master developer agreement commits the Town to certain ongoing maintenance obligations for the plaza, playground, walkways and amphitheatre once built.' },
   ],
   note:
-    'None of these is improper and all are ordinary in a public-private downtown project. They are listed because the grant table and the developer’s budget are both cash ledgers, and a reader who adds those two up has still not seen this.',
+    'None of these is improper and all are ordinary in a public-private downtown project. One of them is to be paid for. They are listed together because the grant table and the developer’s budget are both cash ledgers, and a reader who adds those two up has still not seen any of this.',
 }
 
 // WHAT ACTUALLY GETS BUILT, AND WHEN. A resident's most practical question is
@@ -641,7 +660,8 @@ export const openQuestions = [
   'What does the Town actually net on the land sale? The price is $2,625,000, less $660,000 of credits for the developer’s grant-match contributions, less further credits the draft agreement allows for construction management fees and maintenance obligations. Those last two have no published figure, so the net is unknown and lower than $1,965,000.',
   'What is the 7% construction management fee worth in dollars? It is calculated on the total construction cost of the public plaza, playground, walkways and amphitheatre, and that cost has not been published.',
   'What will the Town’s maintenance obligation for the public spaces cost each year, and out of which budget line? The agreement commits to it; nothing published sizes it.',
-  'What will the Industrial Development Agency grant, and what is it worth? Sales tax, mortgage recording tax and a property tax abatement are all sought. No hearing has been scheduled, and the school district — which stands to forgo the largest share — has no vote in it.',
+  'What will the Industrial Development Agency grant, and what is it worth? A twenty-year PILOT has been requested, along with sales tax and mortgage recording tax relief. Nobody outside the agency has read the application, no hearing has been scheduled, and the school district — which stands to forgo the largest share — has no vote in it.',
+  'What will the developer pay for the roughly 100 public parking spaces it is negotiating to use, and for how long? The agreement did not exist when the site plan was approved.',
   'What did dropping the twelve condominiums cost the tax base? Owner-occupied units would have been taxable residential property; the question was asked of the Board in June 2026 and has not been answered publicly.',
   'What has the Town itself spent in total — land, demolition, site work, flood mitigation, outside counsel for the condemnations — as opposed to what the developer is spending? The developer’s budget is published; no equivalent consolidated figure for the Town’s own outlay is. This is the cost-benefit statement residents asked for in June 2026 and did not receive.',
 ]
@@ -737,6 +757,16 @@ export const sources = [
     title: 'Town of Riverhead — Agendas and Minutes',
     url: 'https://www.townofriverheadny.gov/129/Agendas-Minutes',
     covers: 'The Town’s own agendas and minutes, where the resolutions cited throughout this page originate.',
+  },
+  {
+    title: 'Newsday — Riverhead hotel plan advances, but residents debate parking plan (June 2026)',
+    url: 'https://www.newsday.com/long-island/towns/riverhead-hotel-parking-downtown-revitalization-slsr2lnl',
+    covers: 'The twenty-year PILOT term stated by the developer’s attorney, the jobs estimates, the negotiation to pay for roughly 100 public parking spaces, and that the IDA application is not public — Newsday filed a records request for it.',
+  },
+  {
+    title: 'change.org — No IDA Subsidy for Town Square Hotel',
+    url: 'https://www.change.org/p/no-ida-subsidy-for-town-square-hotel',
+    covers: 'The petition asking the agency to refuse the abatement, its stated reasoning, and its signature count. Cited for what it says and how large it is, not as evidence for any figure.',
   },
   {
     title: 'Riverhead Industrial Development Agency — Projects',
