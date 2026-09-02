@@ -264,6 +264,10 @@ export default function TownSquarePage() {
             </div>
           ))}
         </div>
+        <div style={{ background: 'var(--rbl-danger-bg)', border: '1px solid var(--rbl-danger-border)', borderRadius: 10, padding: '11px 13px', marginBottom: 10 }}>
+          <strong style={{ color: 'var(--rbl-danger-strong)', fontSize: 13.6 }}>The duties are not published:</strong>{' '}
+          <span style={{ color: 'var(--rbl-danger-strong)', fontSize: 13.6, lineHeight: 1.55 }}>{townPays.exhibitJ}</span>
+        </div>
         <p style={{ color: 'var(--rbl-text-body)', fontSize: 13.4, lineHeight: 1.6, margin: '0 0 8px' }}>{townPays.offset}</p>
         <p style={{ color: 'var(--rbl-text-muted)', fontSize: 12.8, lineHeight: 1.6, margin: 0 }}>{townPays.note}</p>
       </section>

@@ -361,7 +361,7 @@ export const landAssembly = {
 export const landSale = {
   headline: 'The Town is selling most of the site back out',
   resolution: 'Resolution 2025-696, adopted unanimously August 5, 2025 — moved by Rothwell, seconded by Kern',
-  document: 'Master Developer Agreement, Section 3.04, dated August 2025',
+  document: 'Master Developer Agreement, Section 3.04, executed August 19, 2025',
   parcels:
     'Not whole lots. The “Hotel Property” is four strips: a portion of Lot 14 measuring about 60ʹ × 220ʹ, a portion of Lot 13 at 14ʹ × 200ʹ, a portion of Lot 15 at about 10ʹ × 220ʹ, and a portion of Lot 86.1 at 14ʹ × 20ʹ — roughly 18,500 square feet, which matches the 0.42-acre site in the approved plan. Lot 12, which is 117 East Main Street, and the remaining portions of Lots 13, 14, 15 and 86.1 stay with the Town and become the square itself.',
   price: 2_625_000,
@@ -395,7 +395,7 @@ export const townPays = {
     {
       label: 'Town Square Operation & Management Agreement',
       amount: '$150,000 a year for 10 years — $1,500,000',
-      note: 'Section 3.04(b) and the Article III closing terms. Uniquely among the outstanding documents this fee is already fixed: the parties must complete negotiation of all terms at or prior to closing “with the exception of annual fee set at $150,000.00 per year for 10 year term.” The schedule of what the developer must do for it is Exhibit J. Year one is credited against the purchase price if the square is open to the public by closing.',
+      note: 'Section 3.04(b) and the Article III closing terms. Uniquely among the outstanding documents this fee is already fixed: the parties must complete negotiation of all terms at or prior to closing “with the exception of annual fee set at $150,000.00 per year for 10 year term.” Year one is credited against the purchase price if the square is open to the public by closing.',
     },
     {
       label: 'Three construction management agreements',
@@ -403,6 +403,8 @@ export const townPays = {
       note: 'Exhibits G, H and I cover the Town Square upper deck and public gathering space, the lower deck and playground, and the East End Arts relocation and amphitheatre. Each is written as a professional services agreement: “Town will pay Consultant the total sum of seven (7%) percent of the total construction costs to be billed for completion of the project,” billed per phase where the design and bid awards are phased, net thirty days. There is no cap and no stated construction cost, so the fee cannot be quantified here — but it is charged on the public half of the project, which the grant table puts at $34.9 million.',
     },
   ],
+  exhibitJ:
+    'What the Town gets for that $1,500,000 is not published. The agreement points to “a list of responsibilities for operation/maintenance attached hereto as Exhibit ‘J’,” which it says will be incorporated into the Operation & Management Agreement. Exhibit J is not in the copy the Town posts. The document runs to 124 pages and ends with the third construction management agreement; Exhibits A through I are all there and J is not. So the fee is fixed and public while the duties bought with it are neither — and the Operation & Management Agreement itself is still to be negotiated at or before closing, which has not happened.',
   offset:
     'One protection runs the Town’s way. If the developer defaults on the construction management agreements, a fee of $300,000 becomes due to the Town for its use of the staging areas it was licensed to occupy.',
   note:
@@ -730,7 +732,7 @@ export const openQuestions = [
   'How much did the July 7 note paydown actually apply? The resolution title does not say, and no 2026 financial report exists yet.',
   'Will The Place for Learning accept the $1.95 million as full payment, or take it as an advance and litigate for more? That answer sets the real acquisition cost.',
   'What is the 7% construction management fee worth in dollars? The agreement fixes the rate and caps nothing. It is charged on the total construction cost of the public plaza, playground, amphitheatre and East End Arts relocation, and that cost has not been published.',
-  'Out of which budget line does the $150,000 a year for running the square come, and does it start before or after the square opens? The fee is fixed in the agreement; where it sits in the Town’s own accounts is not.',
+  'What does the Town actually get for $150,000 a year? The duties are Exhibit J to the Master Developer Agreement, and Exhibit J is not attached to the copy the Town publishes. The fee is settled; the obligations bought with it are not public, and the agreement setting them out has still to be negotiated.',
   'What will the hotel pay for its roughly 100 interim parking spaces, and what will pay-to-park in the garage cost it? Both agreements were still unnegotiated when the site plan was approved.',
   'What will the Industrial Development Agency grant, and what is it worth? A twenty-year PILOT has been requested, along with sales tax and mortgage recording tax relief. Nobody outside the agency has read the application, no hearing has been scheduled, and the school district — which stands to forgo the largest share — has no vote in it.',
   'What will the developer pay for the roughly 100 public parking spaces it is negotiating to use, and for how long? The agreement did not exist when the site plan was approved.',
@@ -786,9 +788,9 @@ export const sources = [
     covers: 'Where the QE documents and presentation are published, alongside the East Main Street Urban Renewal Area Plan and the 2021 Pattern Book.',
   },
   {
-    title: 'Town of Riverhead — Master Developer Agreement (August 2025, 124pp)',
+    title: 'Town of Riverhead — Master Developer Agreement (executed August 19, 2025; 124pp)',
     url: 'https://www.townofriverheadny.gov/DocumentCenter/View/1197/Master-Developer-Agreement-PDF',
-    covers: 'The primary document for the sale and for what the Town pays: Section 3.04 on the $2,625,000 price and every credit against it, Section 3.03 on why the Craft’d leasehold had to be cleared, the recital making a PILOT “a material requirement,” the parking lease and pay-to-park structure, the annexed easements and staging licences, and Exhibits G–I fixing the construction management fee at 7% of construction cost. Read directly rather than through reporting.',
+    covers: 'The primary document for the sale and for what the Town pays: Section 3.04 on the $2,625,000 price and every credit against it, Section 3.03 on why the Craft’d leasehold had to be cleared, the recital making a PILOT “a material requirement,” the parking lease and pay-to-park structure, the annexed easements and staging licences, and Exhibits G–I fixing the construction management fee at 7% of construction cost. Read directly rather than through reporting. Exhibits A through I are attached; Exhibit J, the schedule of maintenance duties, is not.',
   },
   {
     title: 'Town of Riverhead — Pre-Possession and Lease Agreement with J. Petrocelli Riverhead Town Square LLC (2025)',
