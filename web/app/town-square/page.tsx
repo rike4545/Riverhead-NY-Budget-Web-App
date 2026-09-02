@@ -1,8 +1,9 @@
 import PageShell from '../../components/PageShell'
 import PlainCallout from '../../components/PlainCallout'
 import {
-  acquisition, developmentBudget, fundBalanceImpact, openQuestions, project,
-  scopeDiscrepancy, sources, timeline, type Milestone,
+  acquisition, boardRecord, developmentBudget, fundBalanceImpact, openQuestions,
+  project, publicMoney, scopeEvolution, sources, threeLedgers, timeline,
+  voteSummary, type Milestone,
 } from '../../lib/town-square'
 import { appropriations, policyMinimumPercent, policyUpperPercent, unassignedFundBalance } from '../../lib/reserve-policy'
 
@@ -10,6 +11,14 @@ const base = process.env.NEXT_PUBLIC_BASE_PATH || ''
 const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 20, boxShadow: '0 14px 34px var(--rbl-shadow)' } as const
 const usd = (n: number) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(n)
 const pct = (n: number) => `${((n / appropriations) * 100).toFixed(1)}%`
+
+// Government level, coloured from the validated series palette so federal, state
+// and county read apart at a glance.
+const LEVEL: Record<'federal' | 'state' | 'county', string> = {
+  federal: 'var(--rbl-series-blue)',
+  state: 'var(--rbl-series-teal)',
+  county: 'var(--rbl-series-gold)',
+}
 
 const KIND: Record<Milestone['kind'], { label: string; color: string; bg: string; border: string }> = {
   property: { label: 'Property', color: 'var(--rbl-violet-strong)', bg: 'var(--rbl-violet-bg)', border: 'var(--rbl-violet-border)' },
@@ -59,30 +68,41 @@ export default function TownSquarePage() {
         </div>
       </section>
 
-      {/* The distinction that stops a reader adding $32.7M to the Town's bill. */}
+      {/* Three pots, not one. The Town's own cash is the smallest. */}
       <section style={{ ...card, marginBottom: 18, borderLeft: '6px solid var(--rbl-violet)' }}>
-        <h2 style={{ marginTop: 0, marginBottom: 4, color: 'var(--rbl-title)', fontSize: 22 }}>Two ledgers, not one</h2>
-        <p style={{ color: 'var(--rbl-text-body)', fontSize: 15, lineHeight: 1.6, marginTop: 0 }}>
-          The easiest mistake here is adding the Town&apos;s spending to the development&apos;s cost. They are separate
-          books. The Town assembles and prepares the land; a private master developer builds the hotel, condominiums
-          and retail on it.
-        </p>
+        <h2 style={{ marginTop: 0, marginBottom: 4, color: 'var(--rbl-title)', fontSize: 22 }}>Three ledgers, not one</h2>
+        <p style={{ color: 'var(--rbl-text-strong)', fontSize: 15, lineHeight: 1.6, marginTop: 0 }}>{threeLedgers.lede}</p>
 
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(290px,1fr))', gap: 12 }}>
-          <div style={{ background: 'var(--rbl-warn-bg)', border: '1px solid var(--rbl-warn-border)', borderRadius: 12, padding: 14 }}>
-            <div style={{ color: 'var(--rbl-warn-strong)', fontSize: 11, fontWeight: 900, textTransform: 'uppercase', letterSpacing: 0.4 }}>The Town&apos;s book</div>
-            <div style={{ color: 'var(--rbl-title)', fontSize: 23, fontWeight: 900, margin: '2px 0 4px' }}>{usd(totalDraw)}<span style={{ fontSize: 13, fontWeight: 700, color: 'var(--rbl-text-muted)' }}> at most</span></div>
-            <div style={{ color: 'var(--rbl-warn-strong)', fontSize: 13.5, lineHeight: 1.55 }}>
-              Land assembly, out of fund balance: the {usd(acquisition.offer)} taking and the note paydown. Broken down below.
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(215px,1fr))', gap: 12, marginBottom: 12 }}>
+          <Ledger tone="info" label="Grants" amount={usd(publicMoney.total)} note="Federal, state and county awards. Seven of them, itemised below." />
+          <Ledger tone="violet" label="Private development" amount={usd(developmentBudget.total)} note={`The vertical build, financed by ${developmentBudget.developer}.`} />
+          <Ledger tone="warn" label="Town fund balance" amount={`${usd(totalDraw)} at most`} note="Land assembly — the taking and the note paydown. The Town's own money." />
+        </div>
+
+        <p style={{ color: 'var(--rbl-text-muted)', fontSize: 12.8, lineHeight: 1.6, margin: '0 0 14px' }}>{threeLedgers.note}</p>
+
+        <h3 style={{ color: 'var(--rbl-title)', fontSize: 16, margin: '0 0 6px' }}>Where the {usd(publicMoney.total)} of public money came from</h3>
+        <div style={{ display: 'grid', gap: 7, marginBottom: 10 }}>
+          {publicMoney.awards.map((a) => (
+            <div key={a.label}>
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr auto', gap: 10, alignItems: 'baseline' }}>
+                <span style={{ color: 'var(--rbl-text-strong)', fontSize: 13.4, fontWeight: 700 }}>{a.label}</span>
+                <span style={{ color: 'var(--rbl-title)', fontWeight: 800, fontSize: 13.4, whiteSpace: 'nowrap' }}>{usd(a.amount)}</span>
+              </div>
+              <div style={{ height: 7, borderRadius: 4, background: 'var(--rbl-track)', overflow: 'hidden', marginTop: 3 }}>
+                <div style={{ width: `${(a.amount / publicMoney.total) * 100}%`, height: '100%', background: LEVEL[a.level] }} />
+              </div>
+              {a.note && <div style={{ color: 'var(--rbl-text-muted)', fontSize: 12.3, lineHeight: 1.5, marginTop: 3 }}>{a.note}</div>}
             </div>
-          </div>
-          <div style={{ background: 'var(--rbl-violet-bg)', border: '1px solid var(--rbl-violet-border)', borderRadius: 12, padding: 14 }}>
-            <div style={{ color: 'var(--rbl-violet-strong)', fontSize: 11, fontWeight: 900, textTransform: 'uppercase', letterSpacing: 0.4 }}>The developer&apos;s book</div>
-            <div style={{ color: 'var(--rbl-title)', fontSize: 23, fontWeight: 900, margin: '2px 0 4px' }}>{usd(developmentBudget.total)}</div>
-            <div style={{ color: 'var(--rbl-violet-strong)', fontSize: 13.5, lineHeight: 1.55 }}>
-              The vertical build, financed privately by {developmentBudget.developer}. Not Town money.
-            </div>
-          </div>
+          ))}
+        </div>
+        <div style={{ display: 'flex', gap: 14, fontSize: 11.5, color: 'var(--rbl-text-muted)', marginBottom: 10 }}>
+          {(['federal', 'state', 'county'] as const).map((l) => (
+            <span key={l}><span style={{ display: 'inline-block', width: 10, height: 10, borderRadius: 3, background: LEVEL[l], marginRight: 5 }} />{l}</span>
+          ))}
+        </div>
+        <div style={{ color: 'var(--rbl-text-muted)', fontSize: 12.4 }}>
+          As itemised by the Town at the groundbreaking, {publicMoney.asOf}.
         </div>
 
         <div style={{ background: 'var(--rbl-surface-2)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 10, padding: '12px 14px', marginTop: 12 }}>
@@ -92,29 +112,59 @@ export default function TownSquarePage() {
             {developmentBudget.sources.map((f) => (
               <div key={f.label} style={{ display: 'grid', gridTemplateColumns: '1fr auto', gap: 10, alignItems: 'center' }}>
                 <div>
-                  <div style={{ display: 'flex', gap: 7, alignItems: 'baseline' }}>
-                    <span style={{ color: 'var(--rbl-text-strong)', fontSize: 13.4, fontWeight: 700 }}>{f.label}</span>
-                    <span style={{ fontSize: 10, fontWeight: 900, letterSpacing: 0.3, textTransform: 'uppercase', padding: '1px 6px', borderRadius: 4,
-                      background: f.kind === 'public' ? 'var(--rbl-info-bg)' : 'var(--rbl-surface-3)',
-                      color: f.kind === 'public' ? 'var(--rbl-info-text)' : 'var(--rbl-text-sub)',
-                      border: `1px solid ${f.kind === 'public' ? 'var(--rbl-info-border)' : 'var(--rbl-border-strong)'}` }}>{f.kind}</span>
-                  </div>
-                  <div style={{ height: 6, borderRadius: 3, background: 'var(--rbl-track)', overflow: 'hidden', marginTop: 4 }}>
+                  <span style={{ color: 'var(--rbl-text-strong)', fontSize: 13.2, fontWeight: 700 }}>{f.label}</span>
+                  <div style={{ height: 6, borderRadius: 3, background: 'var(--rbl-track)', overflow: 'hidden', marginTop: 3 }}>
                     <div style={{ width: `${f.share}%`, height: '100%', background: f.kind === 'public' ? 'var(--rbl-fill-accent)' : 'var(--rbl-series-violet)' }} />
                   </div>
                 </div>
-                <span style={{ color: 'var(--rbl-title)', fontWeight: 800, fontSize: 13.4, whiteSpace: 'nowrap' }}>{usd(f.amount)} · {f.share}%</span>
+                <span style={{ color: 'var(--rbl-title)', fontWeight: 800, fontSize: 13.2, whiteSpace: 'nowrap' }}>{usd(f.amount)} · {f.share}%</span>
               </div>
             ))}
           </div>
-          <div style={{ color: 'var(--rbl-text-muted)', fontSize: 12.3, marginTop: 9 }}>
-            Developer&apos;s budget as filed {developmentBudget.asOf}. {developmentBudget.qualification}
-          </div>
+          <div style={{ color: 'var(--rbl-text-muted)', fontSize: 12.3, marginTop: 9 }}>Developer&apos;s budget as filed {developmentBudget.asOf}. {developmentBudget.qualification}</div>
         </div>
+      </section>
 
-        <div style={{ background: 'var(--rbl-info-bg)', border: '1px solid var(--rbl-info-border)', borderRadius: 10, padding: '11px 14px', marginTop: 12 }}>
-          <strong style={{ color: 'var(--rbl-info-text)', fontSize: 13.8 }}>{scopeDiscrepancy.headline}</strong>
-          <div style={{ color: 'var(--rbl-info-text)', fontSize: 13.6, lineHeight: 1.6, marginTop: 3 }}>{scopeDiscrepancy.detail}</div>
+      {/* The building keeps changing. */}
+      <section style={{ ...card, marginBottom: 18 }}>
+        <h2 style={{ marginTop: 0, marginBottom: 8, color: 'var(--rbl-title)', fontSize: 20 }}>{scopeEvolution.headline}</h2>
+        <div style={{ display: 'grid', gap: 9 }}>
+          {scopeEvolution.rows.map((r) => (
+            <div key={r.when} style={{ background: 'var(--rbl-surface-2)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 10, padding: '11px 13px' }}>
+              <div style={{ display: 'flex', gap: 10, alignItems: 'baseline', flexWrap: 'wrap' }}>
+                <span style={{ color: 'var(--rbl-badge)', fontSize: 11, fontWeight: 900, textTransform: 'uppercase', letterSpacing: 0.4 }}>{r.when}</span>
+                <strong style={{ color: 'var(--rbl-title)', fontSize: 14.6 }}>{r.what}</strong>
+              </div>
+              <div style={{ color: 'var(--rbl-text-body)', fontSize: 13.4, lineHeight: 1.55, marginTop: 3 }}>{r.extra}</div>
+              <div style={{ color: 'var(--rbl-text-muted)', fontSize: 12, marginTop: 3 }}>{r.source}</div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* How the Board actually voted. */}
+      <section style={{ ...card, marginBottom: 18, borderLeft: '6px solid var(--rbl-danger-border)' }}>
+        <h2 style={{ marginTop: 0, marginBottom: 4, color: 'var(--rbl-title)', fontSize: 22 }}>The money votes were unanimous. The taking was not.</h2>
+        <p style={{ color: 'var(--rbl-text-body)', fontSize: 14.6, lineHeight: 1.6, marginTop: 0 }}>{voteSummary}</p>
+        <div style={{ display: 'grid', gap: 6 }}>
+          {boardRecord.map((v) => (
+            <div key={v.number} style={{
+              display: 'grid', gridTemplateColumns: 'auto 1fr auto', gap: 10, alignItems: 'baseline',
+              background: v.contested ? 'var(--rbl-warn-bg)' : 'var(--rbl-surface-2)',
+              border: `1px solid ${v.contested ? 'var(--rbl-warn-border)' : 'var(--rbl-border-subtle)'}`,
+              borderRadius: 9, padding: '9px 12px',
+            }}>
+              <span style={{ color: 'var(--rbl-text-muted)', fontSize: 11.6, fontWeight: 800, whiteSpace: 'nowrap' }}>{v.number}</span>
+              <div>
+                <div style={{ color: 'var(--rbl-text-strong)', fontSize: 13.4, lineHeight: 1.45 }}>{v.title}</div>
+                <div style={{ color: 'var(--rbl-text-muted)', fontSize: 12 }}>{v.date}{v.dissent ? ` · ${v.dissent}` : ''}</div>
+              </div>
+              <span style={{
+                fontSize: 11, fontWeight: 900, whiteSpace: 'nowrap',
+                color: v.contested ? 'var(--rbl-warn-strong)' : 'var(--rbl-success-strong)',
+              }}>{v.result}</span>
+            </div>
+          ))}
         </div>
       </section>
 
@@ -216,6 +266,21 @@ export default function TownSquarePage() {
         </ul>
       </section>
     </PageShell>
+  )
+}
+
+function Ledger({ tone, label, amount, note }: { tone: 'info' | 'violet' | 'warn'; label: string; amount: string; note: string }) {
+  const t = {
+    info: { bg: 'var(--rbl-info-bg)', bd: 'var(--rbl-info-border)', fg: 'var(--rbl-info-text)' },
+    violet: { bg: 'var(--rbl-violet-bg)', bd: 'var(--rbl-violet-border)', fg: 'var(--rbl-violet-strong)' },
+    warn: { bg: 'var(--rbl-warn-bg)', bd: 'var(--rbl-warn-border)', fg: 'var(--rbl-warn-strong)' },
+  }[tone]
+  return (
+    <div style={{ background: t.bg, border: `1px solid ${t.bd}`, borderRadius: 12, padding: 14 }}>
+      <div style={{ color: t.fg, fontSize: 11, fontWeight: 900, textTransform: 'uppercase', letterSpacing: 0.4 }}>{label}</div>
+      <div style={{ color: 'var(--rbl-title)', fontSize: 21, fontWeight: 900, margin: '2px 0 4px' }}>{amount}</div>
+      <div style={{ color: t.fg, fontSize: 13.2, lineHeight: 1.5 }}>{note}</div>
+    </div>
   )
 }
 

@@ -72,6 +72,30 @@ export const timeline: Milestone[] = [
     source: 'Town of Riverhead, Town Square QE Documents',
   },
   {
+    date: 'December 12, 2025',
+    kind: 'build',
+    what: 'Groundbreaking',
+    detail:
+      'The Town held its groundbreaking ceremony and published a full accounting of the public money behind the project — $34.9 million across seven federal, state and county awards. Supervisor Tim Hubbard called it “a vision that has been 30 years in the making.”',
+    source: 'Town of Riverhead press release, December 12, 2025',
+  },
+  {
+    date: 'March 2026',
+    kind: 'legal',
+    what: 'The Town revives eminent domain after the science center stalls',
+    detail:
+      'The nonprofit had not begun the first phase of its expansion and held no building permits. Its representatives cancelled a scheduled Town Board update at the last minute as a roughly $1 million grant tied to the project neared its deadline. Councilwoman Merrifield: “I have absolutely no hope that the Science Center will ever come to fruition in the time schedule that we need for the activation of our Town Square.” The Board had backed off eminent domain a year earlier when the science center presented a two-phase plan.',
+    source: 'Riverhead News-Review, March 27, 2026',
+  },
+  {
+    date: 'April–June 2026',
+    kind: 'legal',
+    what: 'The Board votes to take the property — over the Supervisor’s objection',
+    detail:
+      'Three votes, none unanimous. The acquisition was affirmed 3-2 on April 7 and the condemnation hearing set 3-2 on April 21, with Supervisor Halpin and Councilman Kern against both. The findings under the Eminent Domain Procedure Law passed 3-1 on June 2 with the same two abstaining.',
+    source: 'Town Board resolutions 2026-327, 2026-404 and 2026-553',
+  },
+  {
     date: 'June 18, 2026',
     kind: 'legal',
     what: 'The Town publishes its determination to take 111 East Main Street',
@@ -86,6 +110,14 @@ export const timeline: Milestone[] = [
     detail:
       'Resolution 2026-641, adopted unanimously — a budget adjustment using fund balance to pay the note down rather than roll it over again. The resolution title states no amount, and no financial report covering 2026 has been filed, so how much was applied is not on the public record.',
     source: 'Town Board meeting of July 7, 2026',
+  },
+  {
+    date: 'August 4, 2026',
+    kind: 'build',
+    what: 'The Peconic River Hotel wins site plan and special permit approval',
+    detail:
+      'A unanimous 5-0 vote on resolution 2026-746, for a five-storey, 94-room Tapestry by Hilton at 117–127 East Main Street — 69,738 square feet on about 0.42 acres, with retail, a restaurant, a café and nine staff parking spaces below. The same meeting ratified a budget adjustment temporarily amending the funding source for the note paydown, resolution 2026-762.',
+    source: 'RiverheadLOCAL, August 5, 2026; Town Board resolutions 2026-746 and 2026-762',
   },
   {
     date: 'August 26, 2026',
@@ -142,6 +174,116 @@ export const scopeDiscrepancy = {
     'RiverheadLOCAL reported in September 2026 that the project includes a five-storey, 92-room hotel. The developer’s own budget, filed with the Town in July 2025, describes 76 hotel rooms and 12 condominium units — 88 keys, which is the figure its cost-per-key is calculated on. Plans change over fourteen months and both may have been accurate when written, so both are shown here rather than one being picked.',
 }
 
+// THE VOTES. The September offer was unanimous, and reporting only that would
+// leave a false impression. The decision to take the property was not: it was
+// carried 3-2 twice over the Supervisor's objection, and the findings that made
+// it final passed 3-1 with two abstentions. Riverhead's own resolution record
+// holds all of it, so the page shows the split rather than the headline.
+export type BoardVote = {
+  date: string
+  number: string
+  title: string
+  result: string
+  contested: boolean
+  dissent?: string
+}
+
+export const boardRecord: BoardVote[] = [
+  {
+    date: 'June 3, 2025', number: '2025-499',
+    title: 'Findings and determination under the Eminent Domain Procedure Law — leasehold interest',
+    result: 'Adopted 4–1', contested: true, dissent: 'Kern voted no.',
+  },
+  {
+    date: 'July 1, 2025', number: '2025-591',
+    title: 'Accepts a $1,400,000 New York State ESD grant for the Town Square riverfront amphitheatre',
+    result: 'Adopted unanimously', contested: false,
+  },
+  {
+    date: 'April 7, 2026', number: '2026-327',
+    title: 'Affirms the prior authorisation to acquire 111 East Main Street',
+    result: 'Adopted 3–2', contested: true, dissent: 'Supervisor Halpin and Councilman Kern voted no.',
+  },
+  {
+    date: 'April 21, 2026', number: '2026-404',
+    title: 'Sets the public hearing on condemning the parcel',
+    result: 'Adopted 3–2', contested: true, dissent: 'Halpin and Kern voted no again.',
+  },
+  {
+    date: 'June 2, 2026', number: '2026-553',
+    title: 'Findings and determination under the Eminent Domain Procedure Law — fee title to 111 East Main Street',
+    result: 'Adopted 3–1', contested: true, dissent: 'Halpin and Kern abstained rather than voting no.',
+  },
+  {
+    date: 'June 16, 2026', number: '2026-566',
+    title: 'Closes Capital Project #12101, Town Square Properties',
+    result: 'Adopted unanimously', contested: false,
+  },
+  {
+    date: 'July 7, 2026', number: '2026-641',
+    title: 'Budget adjustment to pay down the Town Square bond anticipation note',
+    result: 'Adopted unanimously', contested: false,
+  },
+  {
+    date: 'August 4, 2026', number: '2026-746',
+    title: 'Grants special permit and site plan approval for the Peconic River Hotel',
+    result: 'Adopted unanimously', contested: false,
+  },
+  {
+    date: 'August 4, 2026', number: '2026-762',
+    title: 'Ratifies a budget adjustment temporarily amending the funding source for the note paydown',
+    result: 'Adopted unanimously', contested: false,
+  },
+]
+
+export const voteSummary =
+  'Every money vote on this project has been unanimous. Every vote to take the property was not. The Supervisor voted against the acquisition in April 2026 and against setting the condemnation hearing two weeks later, then abstained when the findings were adopted in June. Councilman Kern did the same, and had voted no on the leasehold findings a year earlier. Three members — Rothwell, Merrifield and Waski — carried it each time.'
+
+// PUBLIC MONEY. The Town published a complete itemisation at the December 2025
+// groundbreaking, which is a better source than any reporting: seven awards from
+// federal, state and county government totalling $34.9 million. The largest by
+// far is federal. Note the $1.4M amphitheatre award sits inside the $3.2M Empire
+// State Development line and is not a separate eighth award — adding it again
+// would overstate the total by that much.
+export const publicMoney = {
+  asOf: 'December 12, 2025',
+  awards: [
+    { label: 'Federal RAISE grant, U.S. Department of Transportation', amount: 24_123_369, level: 'federal' as const,
+      note: 'Secured under the Bipartisan Infrastructure Law. Senator Schumer described it as funding to reclaim the Peconic riverfront for public use, install flood mitigation, spur mixed-use development and make downtown safer for pedestrians and cyclists.' },
+    { label: 'NYS Downtown Revitalization Initiative, Department of State', amount: 4_200_000, level: 'state' as const,
+      note: 'Riverhead’s downtown won a $10 million DRI award in January 2022; this is the share directed to the Town Square itself.' },
+    { label: 'Empire State Development', amount: 3_200_000, level: 'state' as const,
+      note: 'Includes the $1,400,000 for the riverfront amphitheatre that the Board accepted by resolution 2025-591 — a part of this line, not an addition to it.' },
+    { label: 'Suffolk County Jumpstart', amount: 2_400_000, level: 'county' as const, note: '' },
+    { label: 'NYS Parks, Recreation and Historic Preservation', amount: 500_000, level: 'state' as const, note: '' },
+    { label: 'Brownfield Opportunity Area funds, Department of State', amount: 400_000, level: 'state' as const, note: '' },
+    { label: 'Suffolk County Downtown Revitalization', amount: 97_500, level: 'county' as const, note: '' },
+  ],
+  total: 34_920_869,
+}
+
+// THE WHOLE SHAPE. Three separate pots pay for this, and the Town's own money is
+// the smallest of them by a wide margin. Setting them side by side is the single
+// most useful thing this page does, because every individual story about the
+// project describes only one.
+export const threeLedgers = {
+  lede:
+    'Roughly $72 million is going into the Town Square between grants, private development and Town land assembly. Riverhead’s own accumulated surplus covers about 6% of that.',
+  note:
+    'These are not a single budget and should not be read as one. Grants and the developer’s financing pay for different things, on different schedules, and the Town’s figure is land assembly rather than construction. What the comparison shows is scale: the Town’s own cash exposure is small relative to the money moving through the project.',
+}
+
+// The building has been redescribed several times. Rather than pick, show the run.
+export const scopeEvolution = {
+  headline: 'The hotel has been four different buildings on paper',
+  rows: [
+    { when: 'April 2022', what: 'Four storeys, 84 rooms', extra: 'Plus a two-storey building west of the square, a boat house on the river, and a four-storey riverfront condominium building — all since dropped from the plan.', source: 'RiverheadLOCAL, April 17, 2024' },
+    { when: 'July 22, 2025', what: '76 hotel rooms and 12 condominium units', extra: '88 keys, which is what the developer’s cost-per-key of $371,283 is calculated on.', source: 'Town of Riverhead, Town Square QE Documents' },
+    { when: 'August 4, 2026', what: 'Five storeys, 94 rooms — approved', extra: 'A 69,738 sq ft building on roughly 0.42 acres at 117–127 East Main Street, with retail, a restaurant, a café and nine staff parking spaces on the lower level. Branded as a Tapestry by Hilton. This is the version that holds site plan and special permit approval, granted unanimously by resolution 2026-746.', source: 'RiverheadLOCAL, August 5, 2026; Town Board resolution 2026-746' },
+    { when: 'September 2, 2026', what: 'Described as 92 rooms', extra: 'Later reporting gives a slightly different count than the approved plan. The approved figure is the one to rely on.', source: 'RiverheadLOCAL, September 2, 2026' },
+  ],
+}
+
 export const acquisition = {
   parcel: '111 East Main Street',
   owner: 'The Place for Learning, which owns the real estate and operates the science center',
@@ -153,7 +295,9 @@ export const acquisition = {
   notFinal:
     'The owner may take the $1.95 million as full payment, or take it as an advance payment and keep seeking more in court. Once title vests the remaining dispute is usually only about money — whether the appraisal reflects fair value. So $1.95 million is a floor on what this parcel costs the Town, not a ceiling.',
   whyItMatters:
-    'The parcel borders the Town Square site on its west side and officials have called it integral to the plan. Board members have repeatedly cited the lack of progress on redeveloping the building as their reason for condemning it.',
+    'The parcel borders the Town Square site on its west side and officials have called it integral to the plan. Board members have repeatedly cited the lack of progress on redeveloping the building as their reason for condemning it — the science center had not begun its first phase and held no building permits, and its representatives cancelled a scheduled Town Board update in March 2026 as a roughly $1 million grant tied to the project neared its deadline.',
+  contested:
+    'The $1.95 million offer passed unanimously, but the decision to take the property did not. It was carried 3-2 in April 2026 over the Supervisor’s objection, twice, and the findings that made it final passed 3-1 in June with two abstentions. The Board had backed off eminent domain a year earlier, in 2025, after the science center presented a two-phase plan and pledged to proceed.',
 }
 
 // The fiscal question a resident actually has: does this dent the reserves?
@@ -186,7 +330,8 @@ export const openQuestions = [
   'How much did the July 7 note paydown actually apply? The resolution title does not say, and no 2026 financial report exists yet.',
   'Will The Place for Learning accept the $1.95 million as full payment, or take it as an advance and litigate for more? That answer sets the real acquisition cost.',
   'What has the Town itself spent in total — land, demolition, site work, flood mitigation — as opposed to what the developer is spending? The developer’s $32.7 million budget is published; no equivalent consolidated figure for the Town’s own outlay is.',
-  'Beyond the $1,000,000 Restore NY grant inside the developer’s budget, which state and federal awards has the Town secured for the square, flood mitigation and the parking garage, and for how much? The Town’s Downtown Revitalization Efforts page lists grants from 2006 to 2012 and planning studies, but nothing about Town Square.',
+  'What are the terms of the master developer agreement? J. Petrocelli was designated master developer in April 2022; as of April 2024 the agreement had not been finalised and its terms had not been publicly discussed. Nothing published since answers it.',
+  'What does the Town receive when the developer buys the land? The developer’s budget books $2,625,000 for land acquisition — money flowing toward the Town — but no public document reviewed here confirms the price or the terms of that conveyance.',
 ]
 
 export const sources = [
@@ -199,6 +344,31 @@ export const sources = [
     title: 'Town of Riverhead 2025 Annual Financial Report — Statement of Indebtedness',
     url: 'https://www.townofriverheadny.gov/DocumentCenter/View/3513/2025-Annual-Financial-Report',
     covers: 'The bond anticipation note: $2,800,000 issued August 15, 2021, $2,725,000 outstanding at December 31, 2025, matured August 14, 2026.',
+  },
+  {
+    title: 'Town of Riverhead — press release, groundbreaking ceremony (December 12, 2025)',
+    url: 'https://www.townofriverheadny.gov/',
+    covers: 'The complete itemisation of public funding — seven federal, state and county awards totalling $34,920,869 — and the groundbreaking itself. The Town’s own accounting, and the source for every grant figure on this page.',
+  },
+  {
+    title: 'Riverhead News-Review — Riverhead may seize L.I. Science Center property amid delays (March 27, 2026)',
+    url: 'https://riverheadnewsreview.timesreview.com/2026/03/132743/riverhead-may-seize-l-i-science-center-amid-delays/',
+    covers: 'Why the Town revived eminent domain: no building permits, no start on phase one, a cancelled Board update, and a $1 million grant nearing its deadline.',
+  },
+  {
+    title: 'RiverheadLOCAL — Petrocelli hotel wins site plan and special permit approvals (August 5, 2026)',
+    url: 'https://riverheadlocal.com/2026/08/05/https-riverheadlocal-com-2026-08-05-petrocelli-hotel-approvals-riverhead/',
+    covers: 'The approved building: five storeys, 94 rooms, 69,738 sq ft at 117–127 East Main Street, branded Tapestry by Hilton.',
+  },
+  {
+    title: 'RiverheadLOCAL — Town plans to apply for state grant to aid Petrocelli hotel project (April 17, 2024)',
+    url: 'https://riverheadlocal.com/2024/04/17/town-plans-to-apply-for-state-grant-to-aid-petrocelli-hotel-project-on-town-square/',
+    covers: 'The 2022 master developer designation, the original 84-room scheme and the elements since dropped, and the Restore NY application.',
+  },
+  {
+    title: 'Newsday — Riverhead close to selecting town square developer, but some criticize hotel part of plan (July 23, 2025)',
+    url: 'https://www.newsday.com/long-island/towns/riverhead-town-square-hotel-plan-wd7j9ckh',
+    covers: 'The developer selection. Cited for its headline and opening only — the article is behind a paywall and was not read in full here.',
   },
   {
     title: 'Town of Riverhead — Town Square QE Documents (Qualified and Eligible filing)',
