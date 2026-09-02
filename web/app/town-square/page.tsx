@@ -1,9 +1,10 @@
 import PageShell from '../../components/PageShell'
 import PlainCallout from '../../components/PlainCallout'
 import {
-  acquisition, boardRecord, developmentBudget, fundBalanceImpact, openQuestions,
-  project, publicMoney, scopeEvolution, sources, threeLedgers, timeline,
-  voteSummary, type Milestone,
+  acquisition, amphitheatre, boardRecord, buildSchedule, developmentBudget, garage, idaAssistance,
+  idaPrecedent, inKindSupport, landAssembly, landSale, fundBalanceImpact, openQuestions, parkingDistrict,
+  preposession, project, publicMoney, publicObjections, scopeDiscrepancy, scopeEvolution, sources,
+  threeLedgers, timeline, voteSummary, type Milestone,
 } from '../../lib/town-square'
 import { appropriations, policyMinimumPercent, policyUpperPercent, unassignedFundBalance } from '../../lib/reserve-policy'
 
@@ -30,7 +31,7 @@ const KIND: Record<Milestone['kind'], { label: string; color: string; bg: string
 export const metadata = {
   title: 'Town Square — what the Town is building, and what it is spending',
   description:
-    "Riverhead's Town Square project in one place: the plaza, hotel and flood work; the eminent domain taking of 111 East Main Street at $1.95 million; the bond anticipation note; and what both draws do to the General Fund balance.",
+    "Riverhead's Town Square project in one place: what the land cost and what the Town sells it back for; the lease whose rent is the Town's own debt service; the pending IDA tax abatement; the construction schedule to 2030; and what the draws do to the General Fund balance.",
 }
 
 export default function TownSquarePage() {
@@ -76,10 +77,11 @@ export default function TownSquarePage() {
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(215px,1fr))', gap: 12, marginBottom: 12 }}>
           <Ledger tone="info" label="Grants" amount={usd(publicMoney.total)} note="Federal, state and county awards. Seven of them, itemised below." />
           <Ledger tone="violet" label="Private development" amount={usd(developmentBudget.total)} note={`The vertical build, financed by ${developmentBudget.developer}.`} />
-          <Ledger tone="warn" label="Town fund balance" amount={`${usd(totalDraw)} at most`} note="Land assembly — the taking and the note paydown. The Town's own money." />
+          <Ledger tone="warn" label="Town land assembly" amount={usd(landAssembly.knownTotal)} note="Every parcel the Town bought or took. Part borrowed, part from surplus — itemised below." />
         </div>
 
         <p style={{ color: 'var(--rbl-text-muted)', fontSize: 12.8, lineHeight: 1.6, margin: '0 0 14px' }}>{threeLedgers.note}</p>
+        <p style={{ color: 'var(--rbl-text-muted)', fontSize: 12.8, lineHeight: 1.6, margin: '0 0 14px' }}>{threeLedgers.incomplete}</p>
 
         <h3 style={{ color: 'var(--rbl-title)', fontSize: 16, margin: '0 0 6px' }}>Where the {usd(publicMoney.total)} of public money came from</h3>
         <div style={{ display: 'grid', gap: 7, marginBottom: 10 }}>
@@ -128,6 +130,10 @@ export default function TownSquarePage() {
       {/* The building keeps changing. */}
       <section style={{ ...card, marginBottom: 18 }}>
         <h2 style={{ marginTop: 0, marginBottom: 8, color: 'var(--rbl-title)', fontSize: 20 }}>{scopeEvolution.headline}</h2>
+        <div style={{ background: 'var(--rbl-warn-bg)', border: '1px solid var(--rbl-warn-border)', borderRadius: 10, padding: '11px 13px', marginBottom: 12 }}>
+          <strong style={{ color: 'var(--rbl-warn-strong)', fontSize: 13.6 }}>{scopeDiscrepancy.headline}:</strong>{' '}
+          <span style={{ color: 'var(--rbl-warn-strong)', fontSize: 13.6, lineHeight: 1.55 }}>{scopeDiscrepancy.detail}</span>
+        </div>
         <div style={{ display: 'grid', gap: 9 }}>
           {scopeEvolution.rows.map((r) => (
             <div key={r.when} style={{ background: 'var(--rbl-surface-2)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 10, padding: '11px 13px' }}>
@@ -168,6 +174,155 @@ export default function TownSquarePage() {
         </div>
       </section>
 
+      {/* What the land cost, kept apart from how it was paid for. */}
+      <section style={{ ...card, marginBottom: 18 }}>
+        <h2 style={{ marginTop: 0, marginBottom: 4, color: 'var(--rbl-title)', fontSize: 22 }}>What the land cost the Town</h2>
+        <p style={{ color: 'var(--rbl-text-body)', fontSize: 14.6, lineHeight: 1.6, marginTop: 0 }}>
+          The price of assembling the site, whatever it was financed with. This is a different question from the fund
+          balance below — the 2021 purchases were paid for with borrowing, the 2026 taking comes out of surplus, and
+          adding a purchase to the note that financed it would count the same money twice.
+        </p>
+        <div style={{ color: 'var(--rbl-text-muted)', fontSize: 12.6, marginBottom: 8 }}>
+          Seller: {landAssembly.seller}.
+        </div>
+        <p style={{ color: 'var(--rbl-text-body)', fontSize: 13.4, lineHeight: 1.6, margin: '0 0 10px' }}>{landAssembly.whatStaysPublic}</p>
+        <div style={{ display: 'grid', gap: 7, marginBottom: 12 }}>
+          {landAssembly.parcels.map((p) => (
+            <div key={p.address} style={{ background: 'var(--rbl-surface-2)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 10, padding: '10px 13px' }}>
+              <div style={{ display: 'flex', gap: 10, alignItems: 'baseline', flexWrap: 'wrap' }}>
+                <strong style={{ color: 'var(--rbl-title)', fontSize: 14.4 }}>{p.address}</strong>
+                <span style={{ color: 'var(--rbl-text-muted)', fontSize: 12.2 }}>{p.when}</span>
+                <span style={{ marginLeft: 'auto', color: 'var(--rbl-title)', fontWeight: 900, fontSize: 16 }}>{usd(p.amount)}</span>
+              </div>
+              <div style={{ color: 'var(--rbl-text-body)', fontSize: 13.2, lineHeight: 1.5, marginTop: 2 }}>{p.fate}</div>
+            </div>
+          ))}
+          <div style={{ display: 'flex', justifyContent: 'space-between', borderTop: '2px solid var(--rbl-border-subtle)', paddingTop: 8 }}>
+            <strong style={{ color: 'var(--rbl-title)', fontSize: 14 }}>Known total</strong>
+            <strong style={{ color: 'var(--rbl-title)', fontSize: 17 }}>{usd(landAssembly.knownTotal)}</strong>
+          </div>
+        </div>
+        <p style={{ color: 'var(--rbl-text-body)', fontSize: 13.6, lineHeight: 1.6, margin: '0 0 8px' }}>{landAssembly.financing}</p>
+        <div style={{ background: 'var(--rbl-danger-bg)', border: '1px solid var(--rbl-danger-border)', borderRadius: 10, padding: '11px 13px', marginBottom: 8 }}>
+          <strong style={{ color: 'var(--rbl-danger-strong)', fontSize: 13.6 }}>One figure is missing:</strong>{' '}
+          <span style={{ color: 'var(--rbl-danger-strong)', fontSize: 13.6, lineHeight: 1.55 }}>{landAssembly.missing}</span>
+        </div>
+        <div style={{ background: 'var(--rbl-info-bg)', border: '1px solid var(--rbl-info-border)', borderRadius: 10, padding: '11px 13px' }}>
+          <strong style={{ color: 'var(--rbl-info-text)', fontSize: 13.6 }}>Residents could have forced a vote:</strong>{' '}
+          <span style={{ color: 'var(--rbl-info-text)', fontSize: 13.6, lineHeight: 1.55 }}>{landAssembly.referendum}</span>
+        </div>
+      </section>
+
+      <section style={{ ...card, marginBottom: 18, borderLeft: '6px solid var(--rbl-teal-border)' }}>
+        <h2 style={{ marginTop: 0, marginBottom: 4, color: 'var(--rbl-title)', fontSize: 22 }}>{landSale.headline}</h2>
+        <p style={{ color: 'var(--rbl-text-muted)', fontSize: 12.6, margin: '0 0 12px' }}>{landSale.resolution}</p>
+
+        <div style={{ display: 'grid', gap: 10, gridTemplateColumns: 'repeat(auto-fit, minmax(160px, 1fr))', marginBottom: 12 }}>
+          <Stat label="Sale price" value={usd(landSale.price)} sub="Set in the master developer agreement" />
+          <Stat label="Deposit, 5%" value={usd(landSale.deposit)} sub="Held in escrow, non-interest bearing" />
+          <Stat label="Grant-match credits" value={`− ${usd(landSale.credit)}`} sub="Reported when the draft was released" amber />
+          <Stat label="Net, before further credits" value={usd(landSale.net)} sub="The real net is lower — see below" amber />
+        </div>
+
+        <p style={{ color: 'var(--rbl-text-body)', fontSize: 13.8, lineHeight: 1.6, margin: '0 0 10px' }}>{landSale.parcels}</p>
+        <div style={{ background: 'var(--rbl-warn-bg)', border: '1px solid var(--rbl-warn-border)', borderRadius: 10, padding: '11px 13px', marginBottom: 10 }}>
+          <strong style={{ color: 'var(--rbl-warn-strong)', fontSize: 13.6 }}>The price is not all cash:</strong>{' '}
+          <span style={{ color: 'var(--rbl-warn-strong)', fontSize: 13.6, lineHeight: 1.55 }}>{landSale.creditNote}</span>
+        </div>
+        <p style={{ color: 'var(--rbl-text-body)', fontSize: 13.6, lineHeight: 1.6, margin: '0 0 10px' }}>{landSale.noBid}</p>
+        <p style={{ color: 'var(--rbl-text-body)', fontSize: 13.6, lineHeight: 1.6, margin: '0 0 10px' }}>{landSale.managementFee}</p>
+        <div style={{ background: 'var(--rbl-info-bg)', border: '1px solid var(--rbl-info-border)', borderRadius: 10, padding: '11px 13px' }}>
+          <strong style={{ color: 'var(--rbl-info-text)', fontSize: 13.6 }}>It has not closed:</strong>{' '}
+          <span style={{ color: 'var(--rbl-info-text)', fontSize: 13.6, lineHeight: 1.55 }}>{landSale.notClosedYet}</span>
+        </div>
+      </section>
+
+      <section style={{ ...card, marginBottom: 18, borderLeft: '6px solid var(--rbl-violet)' }}>
+        <h2 style={{ marginTop: 0, marginBottom: 4, color: 'var(--rbl-title)', fontSize: 22 }}>{preposession.headline}</h2>
+        <p style={{ color: 'var(--rbl-text-muted)', fontSize: 12.6, margin: '0 0 12px' }}>{preposession.document}</p>
+        <p style={{ color: 'var(--rbl-text-strong)', fontSize: 14.6, lineHeight: 1.6, marginTop: 0 }}>{preposession.purpose}</p>
+        <div style={{ background: 'var(--rbl-violet-bg)', border: '1px solid var(--rbl-violet-border)', borderRadius: 10, padding: '11px 13px', margin: '0 0 12px' }}>
+          <span style={{ color: 'var(--rbl-violet-strong)', fontSize: 13.6, lineHeight: 1.55 }}>{preposession.rentRule}</span>
+        </div>
+
+        <div style={{ display: 'grid', gap: 8, marginBottom: 12 }}>
+          {preposession.schedule.map((r) => (
+            <div key={r.label} style={{ background: 'var(--rbl-surface-2)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 10, padding: '10px 13px' }}>
+              <div style={{ display: 'flex', gap: 10, alignItems: 'baseline', flexWrap: 'wrap' }}>
+                <strong style={{ color: 'var(--rbl-title)', fontSize: 14.2 }}>{r.label}</strong>
+                <span style={{ marginLeft: 'auto', color: 'var(--rbl-title)', fontWeight: 900, fontSize: 16 }}>{usd(r.amount)}</span>
+              </div>
+              <div style={{ color: 'var(--rbl-text-body)', fontSize: 13.2, lineHeight: 1.5, marginTop: 2 }}>{r.note}</div>
+            </div>
+          ))}
+        </div>
+
+        <p style={{ color: 'var(--rbl-text-body)', fontSize: 13.8, lineHeight: 1.6, margin: '0 0 10px' }}>{preposession.avoidBonding}</p>
+        <div style={{ background: 'var(--rbl-danger-bg)', border: '1px solid var(--rbl-danger-border)', borderRadius: 10, padding: '11px 13px' }}>
+          <strong style={{ color: 'var(--rbl-danger-strong)', fontSize: 13.6 }}>Where the protection stops:</strong>{' '}
+          <span style={{ color: 'var(--rbl-danger-strong)', fontSize: 13.6, lineHeight: 1.55 }}>{preposession.risk}</span>
+        </div>
+      </section>
+
+      <section style={{ ...card, marginBottom: 18, borderLeft: '6px solid var(--rbl-warn-border)' }}>
+        <h2 style={{ marginTop: 0, marginBottom: 4, color: 'var(--rbl-title)', fontSize: 22 }}>{idaAssistance.headline}</h2>
+        <p style={{ color: 'var(--rbl-text-muted)', fontSize: 12.6, margin: '0 0 12px' }}>{idaAssistance.status}</p>
+        <div style={{ display: 'grid', gap: 9 }}>
+          <Field term="What happened" value={idaAssistance.timeline} />
+          <Field term="What was asked for" value={idaAssistance.whatWasAsked} />
+          <Field term="What was decided" value={idaAssistance.whatWasDecided} />
+          <Field term="What to watch for" value={idaAssistance.whatToWatchFor} />
+          <Field term="Who decides" value={idaAssistance.whoDecides} />
+          <Field term="The project cost in that filing" value={idaAssistance.projectCost} />
+        </div>
+        <div style={{ background: 'var(--rbl-warn-bg)', border: '1px solid var(--rbl-warn-border)', borderRadius: 10, padding: '11px 13px', margin: '12px 0 8px' }}>
+          <strong style={{ color: 'var(--rbl-warn-strong)', fontSize: 13.6 }}>Why it belongs on this page:</strong>{' '}
+          <span style={{ color: 'var(--rbl-warn-strong)', fontSize: 13.6, lineHeight: 1.55 }}>{idaAssistance.whyItMatters}</span>
+        </div>
+        <p style={{ color: 'var(--rbl-text-muted)', fontSize: 12.8, lineHeight: 1.6, margin: 0 }}>{idaAssistance.caution}</p>
+
+        <h3 style={{ margin: '18px 0 4px', color: 'var(--rbl-title)', fontSize: 17 }}>{idaPrecedent.headline}</h3>
+        <p style={{ color: 'var(--rbl-text-muted)', fontSize: 12.8, lineHeight: 1.6, margin: '0 0 10px' }}>{idaPrecedent.note}</p>
+        <div style={{ overflowX: 'auto', marginBottom: 10 }}>
+          <table style={{ borderCollapse: 'collapse', width: '100%', minWidth: 480, fontSize: 13 }}>
+            <thead>
+              <tr>
+                {['Project', 'Where', 'Term', 'Years'].map((h) => (
+                  <th key={h} style={{ textAlign: h === 'Years' ? 'right' : 'left', padding: '7px 9px', borderBottom: '2px solid var(--rbl-border-subtle)', color: 'var(--rbl-text-muted)', fontSize: 11.8, textTransform: 'uppercase', letterSpacing: 0.4 }}>{h}</th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {idaPrecedent.rows.map((r) => (
+                <tr key={r.project}>
+                  <td style={{ padding: '7px 9px', borderBottom: '1px solid var(--rbl-border-subtle)', color: 'var(--rbl-title)', fontWeight: 700 }}>
+                    {r.project}
+                    <div style={{ color: 'var(--rbl-text-muted)', fontSize: 12, fontWeight: 400, lineHeight: 1.45 }}>{r.note}</div>
+                  </td>
+                  <td style={{ padding: '7px 9px', borderBottom: '1px solid var(--rbl-border-subtle)', color: 'var(--rbl-text-body)' }}>{r.where}</td>
+                  <td style={{ padding: '7px 9px', borderBottom: '1px solid var(--rbl-border-subtle)', color: 'var(--rbl-text-body)', whiteSpace: 'nowrap' }}>{r.term}</td>
+                  <td style={{ padding: '7px 9px', borderBottom: '1px solid var(--rbl-border-subtle)', color: 'var(--rbl-title)', fontWeight: 800, textAlign: 'right' }}>{r.years}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <p style={{ color: 'var(--rbl-text-body)', fontSize: 13.4, lineHeight: 1.6, margin: 0 }}>{idaPrecedent.reading}</p>
+      </section>
+
+      <section style={{ ...card, marginBottom: 18 }}>
+        <h2 style={{ marginTop: 0, marginBottom: 8, color: 'var(--rbl-title)', fontSize: 20 }}>{inKindSupport.headline}</h2>
+        <div style={{ display: 'grid', gap: 8, marginBottom: 10 }}>
+          {inKindSupport.items.map((i) => (
+            <div key={i.label} style={{ background: 'var(--rbl-surface-2)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 10, padding: '10px 13px' }}>
+              <strong style={{ color: 'var(--rbl-title)', fontSize: 14.2 }}>{i.label}</strong>
+              <div style={{ color: 'var(--rbl-text-body)', fontSize: 13.2, lineHeight: 1.55, marginTop: 2 }}>{i.detail}</div>
+            </div>
+          ))}
+        </div>
+        <p style={{ color: 'var(--rbl-text-muted)', fontSize: 12.8, lineHeight: 1.6, margin: 0 }}>{inKindSupport.note}</p>
+      </section>
+
       <h2 style={{ color: 'var(--rbl-title)' }}>What it does to the fund balance</h2>
       <section style={{ ...card, marginBottom: 18, borderLeft: '6px solid var(--rbl-warn-border)' }}>
         <p style={{ color: 'var(--rbl-text-strong)', fontSize: 15, lineHeight: 1.6, marginTop: 0 }}>{fundBalanceImpact.lede}</p>
@@ -201,6 +356,10 @@ export default function TownSquarePage() {
 
         <div style={{ background: 'var(--rbl-info-bg)', border: '1px solid var(--rbl-info-border)', borderRadius: 10, padding: '12px 14px' }}>
           <strong style={{ color: 'var(--rbl-info-text)' }}>The verdict:</strong>{' '}
+          <div style={{ background: 'var(--rbl-teal-bg)', border: '1px solid var(--rbl-teal-border)', borderRadius: 10, padding: '11px 13px', marginBottom: 12 }}>
+            <strong style={{ color: 'var(--rbl-teal-strong)', fontSize: 13.6 }}>Money running the other way:</strong>{' '}
+            <span style={{ color: 'var(--rbl-teal-strong)', fontSize: 13.6, lineHeight: 1.55 }}>{fundBalanceImpact.offsets}</span>
+          </div>
           <span style={{ color: 'var(--rbl-info-text)', fontSize: 14.5, lineHeight: 1.6 }}>{fundBalanceImpact.verdict}</span>
         </div>
         <p style={{ color: 'var(--rbl-text-muted)', fontSize: 12.6, lineHeight: 1.55, marginTop: 10, marginBottom: 0 }}>{fundBalanceImpact.caveat}</p>
@@ -218,6 +377,74 @@ export default function TownSquarePage() {
           <span style={{ color: 'var(--rbl-warn-strong)', fontSize: 14.4, lineHeight: 1.6 }}>{acquisition.notFinal}</span>
         </div>
         <p style={{ color: 'var(--rbl-text-body)', fontSize: 14.2, lineHeight: 1.6, margin: 0 }}>{acquisition.whyItMatters}</p>
+      </section>
+
+      <h2 style={{ color: 'var(--rbl-title)' }}>What gets built, and when</h2>
+      <section style={{ ...card, marginBottom: 18, borderLeft: '6px solid var(--rbl-teal-border)' }}>
+        <h3 style={{ marginTop: 0, marginBottom: 4, color: 'var(--rbl-title)', fontSize: 18 }}>{buildSchedule.headline}</h3>
+        <p style={{ color: 'var(--rbl-text-muted)', fontSize: 12.6, margin: '0 0 10px' }}>{buildSchedule.asOf}</p>
+        <p style={{ color: 'var(--rbl-text-strong)', fontSize: 14.6, lineHeight: 1.6, marginTop: 0 }}>{buildSchedule.lede}</p>
+        <ol style={{ listStyle: 'none', padding: 0, margin: '0 0 12px', display: 'grid', gap: 7 }}>
+          {buildSchedule.rows.map((r) => (
+            <li key={r.when + r.what} style={{ background: 'var(--rbl-surface-2)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 10, padding: '10px 13px' }}>
+              <div style={{ display: 'flex', gap: 10, alignItems: 'baseline', flexWrap: 'wrap' }}>
+                <span style={{ color: 'var(--rbl-teal-strong)', fontSize: 12.4, fontWeight: 800, minWidth: 132 }}>{r.when}</span>
+                <strong style={{ color: 'var(--rbl-title)', fontSize: 14.2 }}>{r.what}</strong>
+              </div>
+              {r.detail ? <div style={{ color: 'var(--rbl-text-body)', fontSize: 13.2, lineHeight: 1.55, marginTop: 3 }}>{r.detail}</div> : null}
+            </li>
+          ))}
+        </ol>
+        <div style={{ background: 'var(--rbl-warn-bg)', border: '1px solid var(--rbl-warn-border)', borderRadius: 10, padding: '11px 13px', marginBottom: 10 }}>
+          <strong style={{ color: 'var(--rbl-warn-strong)', fontSize: 13.6 }}>It has slipped:</strong>{' '}
+          <span style={{ color: 'var(--rbl-warn-strong)', fontSize: 13.6, lineHeight: 1.55 }}>{buildSchedule.slippage}</span>
+        </div>
+        <p style={{ color: 'var(--rbl-text-body)', fontSize: 13.6, lineHeight: 1.6, margin: 0 }}>{buildSchedule.disruption}</p>
+      </section>
+
+      <div style={{ display: 'grid', gap: 14, gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', marginBottom: 18 }}>
+        <section style={{ ...card }}>
+          <h3 style={{ marginTop: 0, marginBottom: 8, color: 'var(--rbl-title)', fontSize: 17 }}>{garage.headline}</h3>
+          <div style={{ display: 'grid', gap: 10, gridTemplateColumns: 'repeat(auto-fit, minmax(120px, 1fr))', marginBottom: 10 }}>
+            <Stat label="Available" value={usd(garage.available)} sub="Of which about $2M for design" />
+            <Stat label="Spaces, current sizing" value={garage.spaces.toLocaleString('en-US')} sub="1995 plan contemplated 589" />
+          </div>
+          <p style={{ color: 'var(--rbl-text-body)', fontSize: 13.4, lineHeight: 1.6, margin: '0 0 8px' }}>{garage.detail}</p>
+          <p style={{ color: 'var(--rbl-text-body)', fontSize: 13.4, lineHeight: 1.6, margin: 0 }}>{garage.why}</p>
+        </section>
+        <section style={{ ...card }}>
+          <h3 style={{ marginTop: 0, marginBottom: 8, color: 'var(--rbl-title)', fontSize: 17 }}>{amphitheatre.headline}</h3>
+          <p style={{ color: 'var(--rbl-text-body)', fontSize: 13.4, lineHeight: 1.6, margin: '0 0 8px' }}>{amphitheatre.detail}</p>
+          <p style={{ color: 'var(--rbl-text-body)', fontSize: 13.4, lineHeight: 1.6, margin: 0 }}>{amphitheatre.memorial}</p>
+        </section>
+      </div>
+
+      <section style={{ ...card, marginBottom: 18 }}>
+        <h2 style={{ marginTop: 0, marginBottom: 8, color: 'var(--rbl-title)', fontSize: 20 }}>{parkingDistrict.headline}</h2>
+        <div style={{ display: 'grid', gap: 9 }}>
+          <Field term="Why it is a fiscal question" value={parkingDistrict.detail} />
+          <Field term="The arithmetic raised" value={parkingDistrict.arithmetic} />
+          <Field term="What the Board said" value={parkingDistrict.answer} />
+        </div>
+      </section>
+
+      <h2 style={{ color: 'var(--rbl-title)' }}>What residents said, and what they were told</h2>
+      <section style={{ ...card, marginBottom: 18, borderLeft: '6px solid var(--rbl-info-border)' }}>
+        <p style={{ color: 'var(--rbl-text-strong)', fontSize: 15, lineHeight: 1.6, marginTop: 0 }}>{publicObjections.lede}</p>
+        <div style={{ display: 'grid', gap: 8, marginBottom: 12 }}>
+          {publicObjections.raised.map((r) => (
+            <div key={r.who} style={{ background: 'var(--rbl-surface-2)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 10, padding: '10px 13px' }}>
+              <strong style={{ color: 'var(--rbl-title)', fontSize: 13.8 }}>{r.who}</strong>
+              <div style={{ color: 'var(--rbl-text-body)', fontSize: 13.2, lineHeight: 1.55, marginTop: 3 }}>{r.what}</div>
+            </div>
+          ))}
+        </div>
+        <div style={{ background: 'var(--rbl-info-bg)', border: '1px solid var(--rbl-info-border)', borderRadius: 10, padding: '11px 13px', marginBottom: 10 }}>
+          <strong style={{ color: 'var(--rbl-info-text)', fontSize: 13.6 }}>The Town&apos;s answers:</strong>{' '}
+          <span style={{ color: 'var(--rbl-info-text)', fontSize: 13.6, lineHeight: 1.55 }}>{publicObjections.answers}</span>
+        </div>
+        <p style={{ color: 'var(--rbl-text-body)', fontSize: 13.4, lineHeight: 1.6, margin: '0 0 8px' }}>{publicObjections.balance}</p>
+        <p style={{ color: 'var(--rbl-text-muted)', fontSize: 12.8, lineHeight: 1.6, margin: 0 }}>{publicObjections.tone}</p>
       </section>
 
       <h2 style={{ color: 'var(--rbl-title)' }}>How it got here</h2>

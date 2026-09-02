@@ -32,7 +32,7 @@ export const project = {
   what:
     'A public plaza, playground and amphitheatre, together with a five-storey, 92-room hotel and a restaurant, and major site work to carry out flood mitigation along the Peconic Riverfront. A parking garage north of East Main Street is planned separately as part of the same downtown effort.',
   status:
-    'Demolition and site work have begun. Town officials have said the overall project cannot be built out while the science center parcel stays unresolved, which is the stated reason for the condemnation described below.',
+    'Construction has started. The Town described itself in August 2026 as moving from planning into construction across six connected downtown projects, with the hotel mobilising first and the parking garage not finished until 2030. Officials have said the overall project cannot be built out while the science center parcel stays unresolved, which is the stated reason for the condemnation described below.',
   asOf: 'September 2, 2026',
 }
 
@@ -40,20 +40,28 @@ export const project = {
 // inferred from the shape of the story.
 export const timeline: Milestone[] = [
   {
-    date: '2020',
-    kind: 'property',
-    what: 'The Place for Learning buys 111 East Main Street',
+    date: 'December 2019',
+    kind: 'money',
+    what: 'Two state grants seed the idea',
     detail:
-      'The purchase of the building intended for the Long Island Science Center is what prompted the Town to buy the three adjoining properties to its east — the parcels that became the Town Square site.',
-    source: 'RiverheadLOCAL, September 2, 2026',
+      'The Long Island Regional Economic Development Council awarded $775,000 to the Long Island Science Center for its expansion and $800,000 to the Town, in the same round, to create a town square opening the riverfront to Main Street.',
+    source: 'RiverheadLOCAL, February 4, 2020',
   },
   {
-    date: 'February 14, 2020',
-    kind: 'build',
-    what: 'The Town unveils the Town Square plan',
+    date: 'February 2020',
+    kind: 'property',
+    what: 'The science center moves to buy the old Swezey’s building',
     detail:
-      'The Supervisor presented the plan for a town square and an expanded Long Island Science Center, describing it as a “heart transplant” for Main Street. The science center was then considered the centrepiece of the plan.',
-    source: 'RiverheadLOCAL, February 14, 2020',
+      'Board president Laurence Oxman announced the purchase of 111 East Main Street, the former Swezey’s Department Store, for a permanent home — 24,000 square feet over two floors, quadruple its existing space. Plans were unveiled at a February 14 press conference where Supervisor Yvette Aguiar called it “a heart transplant for Riverhead.” The completed purchase, in April 2020, was $1.45 million.',
+    source: 'RiverheadLOCAL, February 4 and 14, 2020; April 1, 2025',
+  },
+  {
+    date: 'May 2021',
+    kind: 'property',
+    what: 'The Town buys three buildings east of the science center',
+    detail:
+      'Two were demolished, creating the green space that became the public plaza. The third, 127 East Main Street, was left standing and cost the Town $2,650,000 — a two-storey building with two ground-floor storefronts and offices above, partly tenanted. One storefront was leased to the bar Craft’d; the other now houses the Riverhead Chamber of Commerce and the Business Improvement District.',
+    source: 'RiverheadLOCAL, April 1, 2025',
   },
   {
     date: 'August 15, 2021',
@@ -66,10 +74,26 @@ export const timeline: Milestone[] = [
   {
     date: 'July 2025',
     kind: 'build',
-    what: 'J. Petrocelli named master developer, with a $32.7M private budget',
+    what: 'The developer files a $32.7M private budget for review',
     detail:
-      'The Community Development Agency’s Qualified and Eligible review produced a CPA verification of the developer’s financial capacity and a development budget totalling $32,672,889.76 — about 97% of it a construction loan and developer equity, with a $1,000,000 Restore NY grant the only public money in it.',
+      'The Community Development Agency’s Qualified and Eligible review produced a CPA verification of the developer’s financial capacity and a development budget totalling $32,672,889.76 — about 97% of it a construction loan and developer equity, with a $1,000,000 Restore NY grant the only public money in it. J. Petrocelli had already been designated master developer in April 2022; this was the review that had to clear before the land could change hands.',
     source: 'Town of Riverhead, Town Square QE Documents',
+  },
+  {
+    date: 'August 5, 2025',
+    kind: 'money',
+    what: 'The Board approves the developer agreement and the land sale',
+    detail:
+      'Resolution 2025-696 declared J. Petrocelli Riverhead Town Square LLC a qualified and eligible sponsor under the State Urban Renewal Law, which lets the Town sell it the land — including the standing building at 127 East Main Street — for $2,625,000 without competitive bidding. The same action authorised the master developer agreement, under which the Town pays the company a construction management fee of 7% of the cost of building the public plaza, playground, walkways and amphitheatre, and takes on certain maintenance obligations for them. Adopted unanimously, moved by Rothwell and seconded by Kern, after fifteen letters of objection and a run of critical public comment.',
+    source: 'Town Board resolution 2025-696; RiverheadLOCAL, August 6, 2025',
+  },
+  {
+    date: 'April–September 2025',
+    kind: 'legal',
+    what: 'The Craft’d leasehold is condemned, then settled for $170,000',
+    detail:
+      'The Town owned 127 East Main Street but not the bar inside it: when it took title in 2021 it took the building subject to SNR Bar 25 Corp’s 2018 lease, whose two five-year renewal options ran the tenancy to November 2033. Clearing the site meant buying that lease out. Public hearings were set unanimously in April, with Supervisor Tim Hubbard saying he would invite the science center’s board to a work session and that the Town would help Craft’d relocate. Co-owner Sean Kenna told the Board he was disappointed by what he called a communication breakdown. The Board funded a $120,000 offer on August 5; a State Supreme Court judge granted the Town’s petition on August 27 and the order was filed the next day; the settlement was signed September 3 at $170,000, with a second budget adjustment on September 16 covering the difference. Craft’d closed on September 20.',
+    source: 'RiverheadLOCAL, April 3, August 29 and September 11, 2025; Town Board resolutions 2025-647 and 2025-778',
   },
   {
     date: 'December 12, 2025',
@@ -96,6 +120,14 @@ export const timeline: Milestone[] = [
     source: 'Town Board resolutions 2026-327, 2026-404 and 2026-553',
   },
   {
+    date: 'April 1, 2025',
+    kind: 'legal',
+    what: 'Two condemnations, not one',
+    detail:
+      'The Town moved on both buildings flanking the square at once: buying out the Craft’d bar’s lease inside its own building at 127 East Main Street, and acquiring the science center’s building at 111 East Main. Clearing both would let the Town convey each to private developers. The leasehold was settled by budget adjustments in August and September 2025; the science center’s building took another eighteen months.',
+    source: 'RiverheadLOCAL, April 1, 2025; Town Board resolutions 2025-316, 2025-499, 2025-647 and 2025-778',
+  },
+  {
     date: 'June 18, 2026',
     kind: 'legal',
     what: 'The Town publishes its determination to take 111 East Main Street',
@@ -118,6 +150,14 @@ export const timeline: Milestone[] = [
     detail:
       'A unanimous 5-0 vote on resolution 2026-746, for a five-storey, 94-room Tapestry by Hilton at 117–127 East Main Street — 69,738 square feet on about 0.42 acres, with retail, a restaurant, a café and nine staff parking spaces below. The same meeting ratified a budget adjustment temporarily amending the funding source for the note paydown, resolution 2026-762.',
     source: 'RiverheadLOCAL, August 5, 2026; Town Board resolutions 2026-746 and 2026-762',
+  },
+  {
+    date: 'August 6, 2026',
+    kind: 'build',
+    what: 'The Town publishes a schedule running to 2030',
+    detail:
+      'Six connected projects were put on one timetable at a Town Board work session: hotel construction mobilising that month, garage design in the autumn, Town Square construction in spring 2027 and opening in spring 2028, streetscape work in autumn 2027, and the parking garage built between 2028 and 2030. The public half had slipped: in November 2024 the same official said Town Square and playground construction could start as early as late summer 2025.',
+    source: 'RiverheadLOCAL, August 7, 2026',
   },
   {
     date: 'August 26, 2026',
@@ -158,20 +198,20 @@ export const developmentBudget = {
   ],
   uses: [
     { label: 'Hard costs', amount: 26_079_289.76, note: 'Includes $2,125,000 of parking garage construction, $1,579,000 of hotel infrastructure at the plaza, and $450,000 to demolish the existing building.' },
-    { label: 'Land acquisition', amount: 2_625_000, note: 'The developer acquiring the parcels — money flowing toward the Town, not out of it.' },
+    { label: 'Land acquisition', amount: 2_625_000, note: 'The developer acquiring the parcels — money flowing toward the Town, not out of it. Credits against this price reduce what the Town actually banks; see the land sale below.' },
     { label: 'Soft costs', amount: 3_365_600, note: 'Architecture and engineering, appraisal, legal, financing points, and a $1,680,000 interest reserve.' },
     { label: 'Contingency', amount: 603_000, note: 'Held against hard costs.' },
   ],
   // Worth stating plainly, because it is the thing most easily got wrong.
   whoPays:
-    'Of the $32.7 million, roughly 97% is private — a construction loan and developer equity. The only public money in this budget is a $1,000,000 Restore NY grant awarded in 2024. None of it is Town fund balance. A letter of support in the same filing describes it as “this privately funded project.”',
+    'Of the $32.7 million, roughly 97% is private — a construction loan and developer equity. The only public money in this budget is a $1,000,000 Restore NY grant awarded in 2024. None of it is Town fund balance. A letter of support in the same filing describes it as “this privately funded project.” Two things qualify that without contradicting it: the budget is a July 2025 snapshot the developer later revised upward to about $35.1 million, and it books cash only — it does not show the tax abatement now pending before the Industrial Development Agency, nor the public commitments listed further down that carry no price.',
 }
 
 // The two documents disagree about the building, and both are dated.
 export const scopeDiscrepancy = {
-  headline: 'The room count depends on which document you read',
+  headline: 'The condominiums were dropped, and that has a tax consequence',
   detail:
-    'RiverheadLOCAL reported in September 2026 that the project includes a five-storey, 92-room hotel. The developer’s own budget, filed with the Town in July 2025, describes 76 hotel rooms and 12 condominium units — 88 keys, which is the figure its cost-per-key is calculated on. Plans change over fourteen months and both may have been accurate when written, so both are shown here rather than one being picked.',
+    'The July 2025 budget describes 76 hotel rooms and 12 condominium units — 88 keys, the figure its cost-per-key is calculated on. The approved building has none: 94 rooms, of which 80 are guest rooms and 14 are suites, hotel-only. Twelve owner-occupied condominiums would have entered the assessment roll as taxable residential property paying town, county and school taxes; hotel rooms do not. Laura Jens-Smith asked the Board in June 2026 whether it had evaluated that difference in assessed value, property tax and school tax revenue. No analysis answering that question has been published.',
 }
 
 // THE VOTES. The September offer was unanimous, and reporting only that would
@@ -190,9 +230,34 @@ export type BoardVote = {
 
 export const boardRecord: BoardVote[] = [
   {
+    date: 'April 1, 2025', number: '2025-316',
+    title: 'Sets the public hearing on acquiring SNR Bar 25 Corp’s lease — the Craft’d bar at 127 East Main Street',
+    result: 'Adopted unanimously', contested: false,
+  },
+  {
     date: 'June 3, 2025', number: '2025-499',
-    title: 'Findings and determination under the Eminent Domain Procedure Law — leasehold interest',
+    title: 'Findings and determination under the Eminent Domain Procedure Law — the Craft’d leasehold',
     result: 'Adopted 4–1', contested: true, dissent: 'Kern voted no.',
+  },
+  {
+    date: 'August 5, 2025', number: '2025-647',
+    title: 'Budget adjustment funding a $120,000 settlement offer to the tenant of 127 East Main Street',
+    result: 'Adopted unanimously', contested: false,
+  },
+  {
+    date: 'August 5, 2025', number: '2025-696',
+    title: 'Designates J. Petrocelli Riverhead Town Square LLC a qualified and eligible sponsor and authorises the master developer agreement — the vote that permits the $2,625,000 land sale without competitive bidding',
+    result: 'Adopted unanimously', contested: false,
+  },
+  {
+    date: 'August 19, 2025', number: '2025-705',
+    title: 'Budget transfer for Capital Project #12101, Town Square Properties',
+    result: 'Adopted unanimously', contested: false,
+  },
+  {
+    date: 'September 16, 2025', number: '2025-778',
+    title: 'A second budget adjustment for the same tenant, covering the rise from the $120,000 offer to the $170,000 settlement',
+    result: 'Adopted unanimously', contested: false,
   },
   {
     date: 'July 1, 2025', number: '2025-591',
@@ -262,24 +327,266 @@ export const publicMoney = {
   total: 34_920_869,
 }
 
+// WHAT THE LAND COST. Distinct from the fund-balance question below: this is the
+// price of assembling the site, however it was financed. Keeping the two apart
+// matters, because the 2021 purchases were paid for with borrowing while the 2026
+// taking comes out of surplus, and adding a purchase to the note that financed it
+// would count the same money twice.
+export const landAssembly = {
+  seller: 'Riverhead Enterprises, for the 2020–21 purchases',
+  parcels: [
+    { address: '117 East Main Street', amount: 1_250_000, when: 'Authorised August 2020, title May 2021', fate: 'Demolished, to become the square.' },
+    { address: '121 East Main Street', amount: 950_000, when: 'Authorised August 2020, title May 2021', fate: 'Demolished, to become the square.' },
+    { address: '127 East Main Street', amount: 2_650_000, when: 'Option August 2020, title May 2021', fate: 'Kept and standing. Houses the Chamber of Commerce and the Business Improvement District, and formerly the Craft’d bar. Part of the hotel site.' },
+    { address: 'Six-month purchase option on 127', amount: 50_000, when: 'August 2020', fate: 'Paid to hold the third parcel while appraisals and environmental work were done.' },
+    { address: 'Craft’d leasehold at 127 East Main Street', amount: 170_000, when: 'Court order August 27, 2025; settled September 3, 2025', fate: 'Bought out from SNR Bar 25 Corp so the building could be demolished. The bar closed on September 20, 2025.' },
+    { address: '111 East Main Street', amount: 1_950_000, when: 'Authorised September 2026', fate: 'Taken by eminent domain from The Place for Learning. The offer is a floor, not a ceiling.' },
+  ],
+  knownTotal: 7_020_000,
+  whatStaysPublic:
+    'Of the three buildings bought in 2020–21, 117 East Main Street — tax lot 12 — is not part of the sale to the developer. It stays in public hands and becomes part of the square. What is being sold on is 121 and 127, plus an adjoining parcel.',
+  financing:
+    'The Board authorised $5,500,000 of bonding in August 2020 to cover the purchase price, site work and demolition. The $2,800,000 bond anticipation note issued in August 2021 is part of that authorisation rather than money on top of it. The 2026 taking, by contrast, is being paid from fund balance.',
+  missing:
+    'The settlement figure is known — $170,000, with the company to vacate by September 30, 2025 and the Town to pay by October 15. The Board had funded a $120,000 offer six weeks earlier and topped it up on September 16. The full settlement agreement was not attached to the resolution released to the press, so the terms beyond those dates and that number are not public.',
+  referendum:
+    'Both 2020 resolutions were subject to permissive referendum. Residents could have forced a town-wide vote on the purchase and the borrowing with 594 signatures — 10% of the 11,882 who voted in the 2018 governor’s election — within 30 days. No petition was filed.',
+}
+
+// WHAT COMES BACK. The land assembly above is only half the transaction. The
+// Town bought the site, and it is selling most of it on to the developer. Every
+// story about this project reports the buying; the selling sits in a resolution,
+// a master developer agreement and a lease, and it changes the net figure.
+export const landSale = {
+  headline: 'The Town is selling most of the site back out',
+  resolution: 'Resolution 2025-696, adopted unanimously August 5, 2025 — moved by Rothwell, seconded by Kern',
+  parcels:
+    'Portions of SCTM #0600-129-1 lots 13 and 14 — 121 and 127 East Main Street — together with #0600-128-6-86.1. The resolution also lists lot 15. What the Town is not selling is 117 East Main Street, lot 12, which stays public and becomes part of the square.',
+  price: 2_625_000,
+  deposit: 131_250,
+  credit: 660_000,
+  net: 1_965_000,
+  noBid:
+    'Designating J. Petrocelli Riverhead Town Square LLC a “qualified and eligible sponsor” under the State Urban Renewal Law is what allows the sale without competitive bidding. Town Attorney Erik Howard told the Board in May 2025 that as urban renewal properties these parcels do not require a request for proposals. That is a lawful and ordinary route inside an urban renewal area. It is also the reason no other price was ever tested against this one.',
+  creditNote:
+    'The purchase price is not all cash. When the draft master developer agreement was released in July 2025, RiverheadLOCAL reported credits against the price for the developer’s contributions supporting three of the Town’s grant applications — $660,000 in total — and further credits potentially applied for construction management fees and maintenance obligations on the public spaces. A resident, Adele Wallach, asked from the floor before the August 5 vote whether that 2022 pledge had effectively obligated the Town to the designation. The $1,965,000 shown here is the price less the grant-match credits only; the construction-management and maintenance credits have no published figure, so the true net is lower than this by an unknown amount.',
+  managementFee:
+    'The same agreement hires the developer to build the public side of the square — plaza, playground, walkways and amphitheatre — for a construction management fee of 7% of those projects’ total construction costs, and commits the Town to certain maintenance obligations afterwards. Neither can be priced here: the public construction cost the 7% is calculated against has not been published, and neither has the maintenance schedule.',
+  notClosedYet:
+    'As of August 2026 the sale had not closed. The developer exercised a contractual right to push the closing past July 31, 2026; the contract allows an extension of up to six months. Ron Hariri of Aquebogue called the delay “a red flag” about possible financing or investor issues at the August 4 meeting. Until it closes, the price is an expectation rather than a receipt — which is exactly what the lease below exists to manage.',
+}
+
+// THE PIECE THAT TIES THE PROJECT TO THE TOWN'S DEBT. This is the most useful
+// document on this page and the least reported. The Town let the developer take
+// possession and start demolishing before it had bought anything, and set the
+// rent at whatever the Town's own debt service on the land costs. Read alongside
+// the fund balance section: it explains why the Town could retire the note out
+// of surplus without that surplus staying gone.
+export const preposession = {
+  headline: 'The developer is renting the site, and the rent is the Town’s debt service',
+  document: 'Pre-Possession and Lease Agreement between the Town, the Community Development Agency and J. Petrocelli Riverhead Town Square LLC, 2025',
+  purpose:
+    'The agreement lets the developer take possession of the hotel parcels, demolish what stands on them and begin foundation work before title changes hands. The developer takes the property as is, with no Town warranty of any kind including environmental condition, bears every cost and liability of demolition, and carries $5,000,000 of general liability insurance with the Town named.',
+  rentRule:
+    'Section 3.03 sets the rent at “not less than cost of annual payment due for repayment of bond principal and interest related to purchase and demolition of 117, 121, and 127.” The rent is not a market rent. It is the Town’s carrying cost on the land, passed through.',
+  schedule: [
+    { label: 'Monthly rent to August 15, 2026', amount: 17_500, note: 'Due on the 15th. The first payment was due on execution. Twelve months of it is $210,000, against $209,000 of note debt service — $100,000 principal and $109,000 interest for the year to August 15, 2026.' },
+    { label: 'Monthly rent, six-month extension', amount: 19_000, note: 'If closing slipped past August 14, 2026 the parties could extend by mutual agreement, running to March 14, 2027 at the higher rate. The closing did slip.' },
+    { label: 'Backstop payment if no closing by March 14, 2027', amount: 2_493_750, note: 'The purchase price less the 5% deposit. The obligation is “absolute and unconditional without offset or counterclaim,” and the developer consents in advance to the Town releasing the money to pay down the debt.' },
+  ],
+  deposit: 131_250,
+  avoidBonding:
+    'The agreement states the purpose of that backstop in its own words: the money is to be released “to make payment related to indebtedness necessary to avoid long term bonding.” Without it the Town was required to convert the note into a fifteen-year bond on August 15, 2026 — roughly $175,000 of principal a year at an estimated 3.75%, $2,625,000 of principal over the term and more than $500,000 of interest on top. The purchase price and the bond principal are the same number, which is the whole design: the sale is meant to retire the debt on the land.',
+  risk:
+    'The protection is not total. The developer must post a performance bond or claw-back letter of credit before excavation, but the Town’s own departments set the amount and it is not fixed in the agreement, and the restoration obligation expressly does not cover the demolished buildings. If the project failed between demolition and closing, the Town would get back a cleared lot rather than the buildings it bought.',
+}
+
+// THE FOURTH LEDGER, AND THE ONE WITH NO NUMBER IN IT YET. Grants, private
+// financing and land assembly are all money that moves. This is money that does
+// not arrive: an Industrial Development Agency package abates taxes rather than
+// spending cash, so it never shows up in a budget line, and it is the piece of
+// this project with the longest tail for ordinary taxpayers.
+export const idaAssistance = {
+  headline: 'A tax-abatement application is pending, and nothing has been decided',
+  status: 'Application accepted for review, August 3, 2026. No assistance approved.',
+  timeline:
+    'J. Petrocelli Riverhead Town Square LLC applied to the Riverhead Industrial Development Agency for financial assistance in November 2025 and amended the application on June 12, 2026 to reflect the hotel-only plan. The IDA accepted the amended application on August 3, 2026 — one day before the Town Board granted site plan and special permit approval.',
+  whatWasAsked:
+    'The developer has said it is seeking sales and use tax exemptions, mortgage recording tax exemptions, and real property tax abatements through a payment-in-lieu-of-taxes agreement.',
+  whatWasDecided:
+    'Nothing yet. The IDA resolution accepts the amended application for review and authorises Chairman James Farley to engage Camoin Associates to prepare an absorption and impact study at the applicant’s expense. A public hearing must be held before the agency decides, and none has been noticed: the agency’s own public hearing notices page carried nothing for this project when this page was written, its most recent posting of any kind dating to February 2024.',
+  whatToWatchFor:
+    'When the hearing is noticed it will appear on the Riverhead IDA’s public hearing notices page, linked in the sources below. Judging by what the agency posted for comparable applications, the notice is usually accompanied by the application itself, a Camoin Associates report, a cost-benefit calculator and the authorising resolution — which together are the documents that would let a resident work out what the abatement is worth and who bears it. That hearing is the point at which the public can be heard on this, and it is the only one.',
+  projectCost:
+    'The amended application estimates total project cost at about $35.1 million — a branded 94-room hotel with roughly 8,800 square feet of first-floor specialty retail, restaurant and food-hall space. That is a later and larger figure than the $32.67 million in the July 2025 development budget shown above.',
+  whyItMatters:
+    'A PILOT does not spend money; it forgoes it. Property tax abated on the hotel is revenue the Town, the county, the fire district and — the largest share by far — the school district do not collect, which means the cost of running them is spread across everybody else’s assessment for the life of the agreement. None of that appears in the grant table or the developer’s budget, and none of it can be quantified until the IDA acts. What is on the record is that the master developer agreement treats IDA approval of financial assistance as integral to the project.',
+  whoDecides:
+    'The Riverhead Industrial Development Agency is a public benefit corporation created in 1980, separate from the Town Board and not elected. Its members are James Farley as chair, Lee Mendelsen as vice-chair, Lori Ann Pipczynski as secretary and Douglas Williams as treasurer, with Council Member Joann Waski as Town Board liaison. It has the authority to issue industrial development bonds and to grant real property tax abatements, sales and compensating use tax exemptions and mortgage recording tax exemptions — the three things sought here. It meets at 5pm on the first Monday of each month at Town Hall, and the meetings are open.',
+  caution:
+    'This page takes no position on whether the abatement should be granted. It notes that a fourth pot of public support is in play, that its size is unknown, and that the decision belongs to a body residents do not elect.',
+}
+
+// WHAT THE AGENCY HAS ACTUALLY GRANTED. Nobody can say what the hotel's
+// abatement will be worth, and this page will not guess. What can be shown is
+// the Riverhead IDA's own record — the terms it has given comparable projects —
+// so a resident reading the pending application has something to measure it
+// against. Every row is from the agency's published project list.
+export const idaPrecedent = {
+  headline: 'What abatements this agency has granted before',
+  note:
+    'The Petrocelli hotel is not on this list. Its application has been accepted for review, not approved, and it would join this list only if the agency grants assistance. These are shown so the pending application can be read against the agency’s own practice rather than against nothing.',
+  rows: [
+    { project: 'Bradford Allen Hospitality, formerly Browning Hotels', where: '2038 Old Country Road', term: '2023–2027', years: 4, note: 'The closest comparison on the list: a hotel.' },
+    { project: 'Atlantis Marine World Aquarium', where: '431 and 428 East Main Street', term: '2016–2030 and 2017–2027', years: 14, note: 'Downtown, and built by the same developer. The aquarium has held an IDA agreement since 1999, amended repeatedly — most recently in 2025.' },
+    { project: 'Peconic Crossing', where: '11 West Main Street', term: '2018–2028', years: 10, note: 'Downtown apartments.' },
+    { project: '331 East Main, The Shipyard', where: '331 East Main Street', term: '2021–2032', years: 11, note: 'Downtown mixed use.' },
+    { project: 'Restaurant Depot', where: '756 Old Country Road', term: '2024–2034', years: 10, note: 'Commercial.' },
+    { project: 'Island Water Park, Scott’s Pointe', where: 'Middle Country Road, Calverton', term: '2022–2032', years: 10, note: 'Commercial recreation.' },
+    { project: 'Riverhead Apartments, Georgica Green Ventures', where: '221 East Main Street', term: '2020–2050', years: 30, note: 'Affordable housing, which the agency treats differently.' },
+    { project: 'Riverhead Housing LP, River Pointe', where: '821 East Main Street', term: '2024–2054', years: 30, note: 'Affordable housing.' },
+  ],
+  reading:
+    'The pattern is legible without any arithmetic on the hotel: commercial and mixed-use projects downtown have generally received about ten years, affordable housing thirty, and the one existing hotel four. Whatever the agency decides here, that is the range it has been working in.',
+}
+
+// The parking question keeps coming back, and it has a fiscal edge the argument
+// about spaces tends to bury: downtown parking is its own taxing district.
+export const parkingDistrict = {
+  headline: 'The parking agreement did not exist when the hotel was approved',
+  detail:
+    'The hotel site sits inside the Riverhead Parking District, a special taxing district established in 1967 and governed by the Town Board itself sitting as its trustees. Since the 2007 revitalisation zoning the Town has not required downtown residential or hotel developers to provide their own parking; they rely on municipal lots. The master developer agreement refers to a parking agreement, but at the August 4, 2026 approval it had not been negotiated. Town Attorney Erik Howard said it “will be negotiated shortly” and would be incorporated into the approval once complete.',
+  arithmetic:
+    'Martin Sendlewski, who chairs the Town’s own Parking District Advisory Committee, told the June 2026 hearing that the Main Street improvement plan would cut parking between Roanoke and East Avenues from 40 spaces to 21, and that the hotel’s valet area would remove several more. He noted that the First Street lot belongs to Riverhead Parking District No. 1 rather than to the Town generally, and argued that any agreement allocating public spaces to hotel use should come before the district’s trustees. He returned in August to ask how a site plan could be approved before the parking agreement or even its framework existed, with the planned garage “likely years off.”',
+  answer:
+    'Council members defended the approval. Joann Waski called the emergence of a downtown parking problem “a good thing… because it means that what has been happening downtown is working,” and told a resident she could personally assure him downtown businesses would not be harmed. Denise Merrifield said no one had raised parking objections to the science center’s plan for the opposite side of the square, which she called unpersuasive as a standard.',
+}
+
+// Support that never appears as a dollar figure, because it is not paid in cash.
+// Each of these is a public asset committed to a private building under a
+// separate agreement, and none of them has a published price.
+export const inKindSupport = {
+  headline: 'Four public commitments with no price attached',
+  items: [
+    { label: 'Guest parking in public lots', detail: 'Hotel guests use valet service, with cars parked in the public lot behind the Suffolk Theater until the planned garage is built. After that, hotel parking shifts into the garage under an agreement with the Town.' },
+    { label: 'Stormwater onto Town land', detail: 'Stormwater from the hotel is directed to 25 leaching galleys on the adjacent town square property, under an agreement with the Town.' },
+    { label: 'Access across the square', detail: 'The hotel’s lower-level parking is reached from Heidi Behr Way through the town square parcel, under an agreement with the Town.' },
+    { label: 'Maintenance of the public spaces', detail: 'The master developer agreement commits the Town to certain ongoing maintenance obligations for the plaza, playground, walkways and amphitheatre once built.' },
+  ],
+  note:
+    'None of these is improper and all are ordinary in a public-private downtown project. They are listed because the grant table and the developer’s budget are both cash ledgers, and a reader who adds those two up has still not seen this.',
+}
+
+// WHAT ACTUALLY GETS BUILT, AND WHEN. A resident's most practical question is
+// not what the project costs but when the disruption starts and when the thing
+// opens. The Town laid out a six-project schedule at an August 2026 work session,
+// and it is the first consolidated timetable published for the whole effort.
+export const buildSchedule = {
+  headline: 'Six connected projects, running to 2030',
+  asOf: 'August 6, 2026 work session, presented by Planning and Community Development Director Dawn Thomas',
+  lede:
+    'The Town described itself as “transitioning out of the planning role to a construction role.” Six projects are now tied to one schedule: the Town Square itself, the 94-room hotel, an adaptive playground, a riverfront amphitheatre, East Main Street streetscape work, and a structured parking garage.',
+  rows: [
+    { when: 'August 2026', what: 'Hotel construction mobilises', detail: 'The foundation permit was expected within a week or two of the work session, following site plan and special permit approval.' },
+    { when: 'Fall 2026', what: 'Parking garage design begins; East End Arts buildings move', detail: 'The Davis-Corwin building at 133 East Main Street shifts about ten feet east, and both it and the Benjamin House are raised to 13.5 feet to lift them out of the floodplain. Grant funding rather than Town taxpayers pays for this, according to the Town.' },
+    { when: 'Spring 2027', what: 'Town Square construction starts', detail: 'It serves first as staging for the hotel, then takes underground drainage, electric, Wi-Fi, cable and fibre, then pavers and public programming elements.' },
+    { when: 'Summer 2027', what: 'Adaptive playground', detail: 'Opening shortly after the square.' },
+    { when: 'Fall 2027', what: 'East Main Street streetscape', detail: 'Peconic Avenue to East Avenue: narrowing Main Street, widening sidewalks, burying utilities, lighting, landscaping and space for outdoor dining. An extension east toward the aquarium is hoped for but not funded in this phase.' },
+    { when: 'Spring 2028', what: 'Town Square opens', detail: '' },
+    { when: 'Fall or winter 2028', what: 'Hotel opens', detail: 'The developer’s own schedule presented in July 2025 had aimed at June 2027.' },
+    { when: 'Fall 2028 to fall 2030', what: 'Parking garage built', detail: 'The last piece, and the one the hotel’s parking arrangement ultimately depends on.' },
+  ],
+  slippage:
+    'The public half has moved later. In November 2024 the same official said Town Square and playground construction could begin as early as late summer or early autumn 2025; the current schedule places it in spring 2027 with an opening in spring 2028. The hotel, meanwhile, has gone from a June 2027 opening to fall or winter 2028. The Town cautions that the schedule remains subject to funding, weather and materials.',
+  disruption:
+    'Streetscape construction will disrupt Main Street while it runs. The Town is considering a weekend shuttle from Town Hall to downtown businesses, every fifteen minutes, funded initially through the parking district with sponsorships or small fares possible later. Seven public engagement sessions are scheduled between September 2026 and 2030.',
+}
+
+// The garage is the largest single unbuilt piece and the one with the widest
+// range on its price. It also matters to the hotel: until it exists, hotel
+// guests park in a public lot.
+export const garage = {
+  headline: 'The garage: $17 million available, cost unknown until it is bid',
+  available: 17_000_000,
+  design: 2_000_000,
+  spaces: 504,
+  detail:
+    'The Town has about $17 million available for the structured parking garage, roughly $2 million of it for design, but said the total construction cost will not be known until the project goes out to bid. It is currently sized at about 504 spaces; Council Member Denise Merrifield noted the Town’s 1995 downtown vision plan contemplated 589. Size, construction method and circulation remain undetermined, and the Town is weighing whether a modular structure could allow later expansion. It is also applying for funding for a police substation inside it.',
+  why:
+    'The garage is the backstop for every parking commitment made elsewhere in this project. Hotel guests are to park in the public lot behind the Suffolk Theater until it opens, then shift into the garage under an agreement with the Town. On the current schedule that is 2030 — four years of hotel operation, and two years of hotel occupancy, before the structure it depends on exists.',
+}
+
+// The amphitheatre has a grant and a design that has not been settled.
+export const amphitheatre = {
+  headline: 'A $1.4 million grant for something not yet decided',
+  detail:
+    'The Board accepted a $1,400,000 Empire State Development award for the riverfront amphitheatre by resolution 2025-591 in July 2025. As of August 2026 the Town had not settled what it is building: whether the space includes a fixed amphitheatre, a temporary stage, seasonal programming or something else “remains undecided.” The area becomes a flexible riverfront performance and gathering space once the East End Arts buildings are moved and raised.',
+  memorial:
+    'The square may also carry a veterans memorial, which the Town says is aided by the pending acquisition of 111 East Main Street and by funding transferred from a boathouse project that did not go forward.',
+}
+
+// PUBLIC OBJECTION. An earlier version of this page had none, which was a real
+// gap rather than a neutral omission: the record contains sustained, specific,
+// on-the-record criticism, and the answers officials gave to it. Both belong.
+export const publicObjections = {
+  lede:
+    'The money votes have been unanimous, but the hearings have not been quiet. These are the objections actually made on the record, and the answers actually given.',
+  raised: [
+    {
+      who: 'Angela DeVito, South Jamesport — July 2025',
+      what: 'Asked the Board to hold the qualified-and-eligible hearing open thirty days because the documents presented were not available to the public before or at the hearing; they were posted the following day. She also questioned what standard the Town used to judge the finances of J. Petrocelli Riverhead Town Square LLC, the new entity replacing the one originally designated master developer, noting the Board had no information about that LLC’s own finances or development record.',
+    },
+    {
+      who: 'Adele Wallach, Riverhead — August 2025',
+      what: 'Questioned the clause crediting the developer against the purchase price for its 2022 grant-match pledge, and asked whether that pledge had effectively obligated the Town to the qualified-and-eligible designation.',
+    },
+    {
+      who: 'John McAuliff, Riverhead — August 2025 and August 2026',
+      what: 'Asked the Board to pause until September so residents could examine the financials, and questioned whether a five-storey hotel is the best use of the site. A year later he argued the hotel would hurt nearby businesses whose customers already struggle to park.',
+    },
+    {
+      who: 'Kathy McGraw, Northville — June 2026',
+      what: 'Argued the application was being treated as a final site plan while processed as a preliminary one, contrary to the Town’s two-step code. Community Development Administrator Dawn Thomas answered that the Town has long used a single application and a single hearing, followed by approval with conditions and later signoff.',
+    },
+    {
+      who: 'Laura Jens-Smith, Laurel — June and August 2026',
+      what: 'Called for a cost-benefit analysis of the total public investment — land conveyed, easements, parking commitments, infrastructure and future maintenance — and for a statement separating infrastructure costs borne by the developer from those ultimately borne by taxpayers. She asked whether the Town had evaluated the loss of assessed value, property tax and school tax revenue in dropping the condominiums for a hotel-only plan, and argued the approval was premature given the site’s designation as a potential environmental justice area.',
+    },
+    {
+      who: 'Martin Sendlewski, Parking District Advisory Committee chair — June and August 2026',
+      what: 'Questioned approving the site plan before the parking agreement existed, and set out the arithmetic of spaces being lost on Main Street.',
+    },
+  ],
+  answers:
+    'Dawn Thomas told the June 2026 hearing that the cost-benefit analysis Jens-Smith asked for was performed by Perkins Eastman as part of the State Downtown Revitalization Initiative strategic investment plan, that grant funding rather than Town taxpayers is paying to relocate and preserve the East End Arts buildings, and that the hotel itself is not being built with taxpayer money. Town Attorney Erik Howard said the Suffolk County Planning Commission’s environmental justice remarks were comments rather than binding conditions, and that the Board was free to vote.',
+  tone:
+    'The exchanges have not always been temperate. Supervisor Tim Hubbard, voting yes in August 2025, called requests to delay “disingenuous” and speculated about objectors’ party affiliation; Claudette Bianco of Baiting Hollow told him taxpayers “paid for the right to disagree with you,” and he replied “if the shoe fits, wear it.” In June 2026 Council Member Denise Merrifield pressed Jens-Smith to state whether she chairs the Riverhead Democratic Committee, which Jens-Smith declined to do, saying the same standard would then have to apply to board members and Town officials. Joann Waski pointed to the eleven members of the public in the room as evidence that opposition was not widespread.',
+  balance:
+    'Support was also on the record and is not incidental: roughly twenty speakers appeared at the 2025 hearing, the developer submitted nine letters from local businesses and nonprofits — including the Long Island Science Center, whose building the Town later moved to condemn — and business owners including Suffolk Theater’s Bob Castaldi and Riverhead Flower Shop’s Peggy Kneski spoke in favour. Fifteen letters of objection were filed before the August 2025 vote.',
+}
+
 // THE WHOLE SHAPE. Three separate pots pay for this, and the Town's own money is
 // the smallest of them by a wide margin. Setting them side by side is the single
 // most useful thing this page does, because every individual story about the
 // project describes only one.
 export const threeLedgers = {
   lede:
-    'Roughly $72 million is going into the Town Square between grants, private development and Town land assembly. Riverhead’s own accumulated surplus covers about 6% of that.',
+    'About $74.6 million is going into the Town Square between grants, private development and the Town’s own land assembly. Riverhead’s share — every parcel and interest it has bought or taken — is roughly 9% of that, and part of it was borrowed rather than paid from surplus.',
   note:
     'These are not a single budget and should not be read as one. Grants and the developer’s financing pay for different things, on different schedules, and the Town’s figure is land assembly rather than construction. What the comparison shows is scale: the Town’s own cash exposure is small relative to the money moving through the project.',
+  incomplete:
+    'Three ledgers are also not all of it. The Town expects to sell most of the site back to the developer, which returns money; a tax abatement is pending that would forgo money; and several public commitments — parking, stormwater, access, maintenance — carry no price at all. Each has its own section below. Nobody has published a single figure that nets these against one another, and this page does not invent one.',
 }
 
 // The building has been redescribed several times. Rather than pick, show the run.
 export const scopeEvolution = {
   headline: 'The hotel has been four different buildings on paper',
   rows: [
-    { when: 'April 2022', what: 'Four storeys, 84 rooms', extra: 'Plus a two-storey building west of the square, a boat house on the river, and a four-storey riverfront condominium building — all since dropped from the plan.', source: 'RiverheadLOCAL, April 17, 2024' },
+    { when: 'April 19, 2022', what: 'Four storeys, 84 rooms', extra: 'Plus a two-storey building west of the square, a boat house on the river, and a four-storey riverfront condominium building — all since dropped from the plan.', source: 'RiverheadLOCAL, April 17, 2024' },
     { when: 'July 22, 2025', what: '76 hotel rooms and 12 condominium units', extra: '88 keys, which is what the developer’s cost-per-key of $371,283 is calculated on.', source: 'Town of Riverhead, Town Square QE Documents' },
     { when: 'August 4, 2026', what: 'Five storeys, 94 rooms — approved', extra: 'A 69,738 sq ft building on roughly 0.42 acres at 117–127 East Main Street, with retail, a restaurant, a café and nine staff parking spaces on the lower level. Branded as a Tapestry by Hilton. This is the version that holds site plan and special permit approval, granted unanimously by resolution 2026-746.', source: 'RiverheadLOCAL, August 5, 2026; Town Board resolution 2026-746' },
+    { when: 'June 11, 2026', what: 'Five storeys, 94 rooms — condominiums gone', extra: '80 guest rooms and 14 suites, a Tapestry by Hilton, with a roughly 5,100 sq ft restaurant and bar with terrace seating, a coffee shop and retail. The fifth-floor condominiums of the earlier scheme are not in it.', source: 'RiverheadLOCAL, June 11, 2026' },
+    { when: 'June 12, 2026', what: 'About $35.1 million, per the amended IDA filing', extra: 'The developer’s amended application to the Industrial Development Agency puts total project cost near $35.1 million with about 8,800 sq ft of first-floor retail, restaurant and food-hall space — a later and larger figure than the $32.67 million filed with the Town in July 2025.', source: 'RiverheadLOCAL, August 5, 2026' },
     { when: 'September 2, 2026', what: 'Described as 92 rooms', extra: 'Later reporting gives a slightly different count than the approved plan. The approved figure is the one to rely on.', source: 'RiverheadLOCAL, September 2, 2026' },
   ],
 }
@@ -320,8 +627,10 @@ export const fundBalanceImpact = {
       note: 'The July 7 resolution states no amount. $2,725,000 was the full balance outstanding at the close of 2025, so it is the most the paydown could have been, not what it was.',
     },
   ],
+  offsets:
+    'Both draws have money running the other way against them, which is the part the resolutions do not say. The pre-possession lease has the developer paying the Town $17,500 a month to August 2026 and $19,000 a month through the six-month extension, set deliberately at the Town’s own debt service on the land. And if the sale has not closed by March 14, 2027 the developer must remit $2,493,750 — an obligation the agreement makes “absolute and unconditional” — which the Town may apply straight to the debt. Retiring the note out of surplus was not surplus spent and gone; it was surplus advanced against a contracted receipt, and it saved the Town a fifteen-year bond carrying more than $500,000 of interest.',
   verdict:
-    'Even taking the paydown at its ceiling, the two together are about a sixth of the unassigned balance and leave it near twice the top of the Town’s own policy range. This is a real draw on surplus, and it is comfortably affordable. Both things are true, and a page that reported only one of them would be misleading.',
+    'Even taking the paydown at its ceiling, the two together are about a sixth of the unassigned balance and leave it near twice the top of the Town’s own policy range. This is a real draw on surplus, it is comfortably affordable, and most of one of the two draws is contractually due back. All three things are true, and a page that reported only one of them would be misleading.',
   caveat:
     'These are the audited December 31, 2025 balances against the 2026 adopted appropriations. They do not reflect anything that happened to fund balance during 2026, because no report covering 2026 has been filed.',
 }
@@ -329,10 +638,14 @@ export const fundBalanceImpact = {
 export const openQuestions = [
   'How much did the July 7 note paydown actually apply? The resolution title does not say, and no 2026 financial report exists yet.',
   'Will The Place for Learning accept the $1.95 million as full payment, or take it as an advance and litigate for more? That answer sets the real acquisition cost.',
-  'What has the Town itself spent in total — land, demolition, site work, flood mitigation — as opposed to what the developer is spending? The developer’s $32.7 million budget is published; no equivalent consolidated figure for the Town’s own outlay is.',
-  'What are the terms of the master developer agreement? J. Petrocelli was designated master developer in April 2022; as of April 2024 the agreement had not been finalised and its terms had not been publicly discussed. Nothing published since answers it.',
-  'What does the Town receive when the developer buys the land? The developer’s budget books $2,625,000 for land acquisition — money flowing toward the Town — but no public document reviewed here confirms the price or the terms of that conveyance.',
+  'What does the Town actually net on the land sale? The price is $2,625,000, less $660,000 of credits for the developer’s grant-match contributions, less further credits the draft agreement allows for construction management fees and maintenance obligations. Those last two have no published figure, so the net is unknown and lower than $1,965,000.',
+  'What is the 7% construction management fee worth in dollars? It is calculated on the total construction cost of the public plaza, playground, walkways and amphitheatre, and that cost has not been published.',
+  'What will the Town’s maintenance obligation for the public spaces cost each year, and out of which budget line? The agreement commits to it; nothing published sizes it.',
+  'What will the Industrial Development Agency grant, and what is it worth? Sales tax, mortgage recording tax and a property tax abatement are all sought. No hearing has been scheduled, and the school district — which stands to forgo the largest share — has no vote in it.',
+  'What did dropping the twelve condominiums cost the tax base? Owner-occupied units would have been taxable residential property; the question was asked of the Board in June 2026 and has not been answered publicly.',
+  'What has the Town itself spent in total — land, demolition, site work, flood mitigation, outside counsel for the condemnations — as opposed to what the developer is spending? The developer’s budget is published; no equivalent consolidated figure for the Town’s own outlay is. This is the cost-benefit statement residents asked for in June 2026 and did not receive.',
 ]
+
 
 export const sources = [
   {
@@ -379,6 +692,61 @@ export const sources = [
     title: 'Town of Riverhead — Downtown Revitalization Projects',
     url: 'https://www.townofriverheadny.gov/213/Downtown-Revitalization-Projects',
     covers: 'Where the QE documents and presentation are published, alongside the East Main Street Urban Renewal Area Plan and the 2021 Pattern Book.',
+  },
+  {
+    title: 'Town of Riverhead — Pre-Possession and Lease Agreement with J. Petrocelli Riverhead Town Square LLC (2025)',
+    url: 'https://www.townofriverheadny.gov/213/Downtown-Revitalization-Projects',
+    covers: 'The primary document behind the lease section: the $17,500 and $19,000 monthly payments, the rule tying them to bond principal and interest, the $131,250 deposit, the $2,493,750 backstop due March 14, 2027, the fifteen-year bond it was written to avoid, and the demolition, insurance and claw-back terms.',
+  },
+  {
+    title: 'RiverheadLOCAL — Riverhead weighs whether Petrocelli is ‘qualified and eligible’ for town square development (July 24, 2025)',
+    url: 'https://riverheadlocal.com/2025/07/24/riverhead-weighs-whether-petrocelli-is-qualified-and-eligible-for-town-square-development/',
+    covers: 'The draft master developer agreement as released: the $2.625 million price, the $660,000 of grant-match credits, the further credits available for construction management and maintenance, the 5% deposit, the 7% fee, and the objections raised at the hearing.',
+  },
+  {
+    title: 'RiverheadLOCAL — Riverhead approves town square developer agreement (August 6, 2025)',
+    url: 'https://riverheadlocal.com/2025/08/06/town-square-moves-forward-as-riverhead-designates-petrocelli-qualified-and-eligible/',
+    covers: 'The unanimous qualified-and-eligible vote, the sale without competitive bidding, the fifteen letters of objection, and the exchange between Supervisor Hubbard and residents over the decision to proceed.',
+  },
+  {
+    title: 'RiverheadLOCAL — Craft’d sets closing date after Riverhead acquires lease through eminent domain (August 29, 2025)',
+    url: 'https://riverheadlocal.com/2025/08/29/craftd-sets-closing-date-after-riverhead-acquires-lease-through-eminent-domain/',
+    covers: 'The August 27 court order, the lease that ran to November 2033, the $120,000 offer funded on August 5, and the bar’s September 20 closing.',
+  },
+  {
+    title: 'Riverhead News-Review — Craft’d, Riverhead officials at odds over eminent domain (May 2025)',
+    url: 'https://riverheadnewsreview.timesreview.com/2025/05/126450/craftd-riverhead-officials-at-odds-over-eminent-domain/',
+    covers: 'The May 21 hearing, the Town’s HUD enquiry about block grant funds to help relocate the bar, the 2021 StreetSense study recommending a hotel as highest and best use, and the Town Attorney’s statement that urban renewal properties need no request for proposals.',
+  },
+  {
+    title: 'RiverheadLOCAL — Peconic River Hotel plan draws support, questions and opposition at hearing (June 11, 2026)',
+    url: 'https://riverheadlocal.com/2026/06/11/peconic-river-hotel-plan-hearing/',
+    covers: 'The 94-room hotel-only plan, the valet and public-lot parking arrangement, the stormwater and access agreements over Town land, and the call for a full public cost-benefit accounting.',
+  },
+  {
+    title: 'RiverheadLOCAL — Riverhead’s downtown transformation enters construction phase (August 7, 2026)',
+    url: 'https://riverheadlocal.com/2026/08/07/riverheads-downtown-transformation-enters-construction-phase/',
+    covers: 'The six-project construction schedule through 2030, the $17 million available for the parking garage, the 504-space sizing, the slippage against the 2024 timetable, and the undecided amphitheatre.',
+  },
+  {
+    title: 'Town of Riverhead — Industrial Development Agency',
+    url: 'https://www.townofriverheadny.gov/256/Industrial-Development-Agency-IDA',
+    covers: 'The agency’s composition, powers and meeting schedule — 5pm on the first Monday of each month at Town Hall.',
+  },
+  {
+    title: 'Town of Riverhead — Agendas and Minutes',
+    url: 'https://www.townofriverheadny.gov/129/Agendas-Minutes',
+    covers: 'The Town’s own agendas and minutes, where the resolutions cited throughout this page originate.',
+  },
+  {
+    title: 'Riverhead Industrial Development Agency — Projects',
+    url: 'https://www.riverheadida.org/ida-projects',
+    covers: 'The agency’s own list of active and past agreements, with the term of each. The source for the comparison table, and confirmation that the Town Square hotel is not yet among them.',
+  },
+  {
+    title: 'Riverhead Industrial Development Agency — Public Hearing Notices',
+    url: 'https://www.riverheadida.org/ida-public-hearing-notices',
+    covers: 'Where an IDA hearing on the hotel abatement would be noticed. Checked directly: it carried no notice for this project, and its most recent posting of any kind was February 2024.',
   },
   {
     title: 'Riverhead Budget Live — Town Board Votes',
