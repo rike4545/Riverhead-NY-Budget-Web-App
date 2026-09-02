@@ -561,7 +561,7 @@ export const publicObjections = {
     },
     {
       who: 'John McAuliff, Riverhead — August 2025 and August 2026',
-      what: 'Asked the Board to pause until September so residents could examine the financials, and questioned whether a five-storey hotel is the best use of the site. A year later he argued the hotel would hurt nearby businesses whose customers already struggle to park.',
+      what: 'Asked the Board to pause until September so residents could examine the financials, and questioned whether a five-storey hotel is the best use of the site. A year later he argued the hotel would hurt nearby businesses whose customers already struggle to park, and called the design a “five-story box” that would block views of the Peconic River and sunlight to the art galleries next door. The developer’s team answered that the building was designed to suit the neighbourhood and that its upper floors step back to reduce visual impact.',
     },
     {
       who: 'Kathy McGraw, Northville — June 2026',
@@ -570,6 +570,10 @@ export const publicObjections = {
     {
       who: 'Laura Jens-Smith, Laurel — June and August 2026',
       what: 'Called for a cost-benefit analysis of the total public investment — land conveyed, easements, parking commitments, infrastructure and future maintenance — and for a statement separating infrastructure costs borne by the developer from those ultimately borne by taxpayers. She asked whether the Town had evaluated the loss of assessed value, property tax and school tax revenue in dropping the condominiums for a hotel-only plan, and argued the approval was premature given the site’s designation as a potential environmental justice area.',
+    },
+    {
+      who: 'Desmond Wong, Baiting Hollow — June 2026',
+      what: 'Objected that the hotel’s parking arrangement depends on infrastructure that does not exist yet — the First Street garage, which on the Town’s own August 2026 schedule is not finished until 2030. “That is not a parking plan — that is a hope.”',
     },
     {
       who: 'Martin Sendlewski, Parking District Advisory Committee chair — June and August 2026',
@@ -604,7 +608,7 @@ export const scopeEvolution = {
     { when: 'April 19, 2022', what: 'Four storeys, 84 rooms', extra: 'Plus a two-storey building west of the square, a boat house on the river, and a four-storey riverfront condominium building — all since dropped from the plan.', source: 'RiverheadLOCAL, April 17, 2024' },
     { when: 'July 22, 2025', what: '76 hotel rooms and 12 condominium units', extra: '88 keys, which is what the developer’s cost-per-key of $371,283 is calculated on.', source: 'Town of Riverhead, Town Square QE Documents' },
     { when: 'August 4, 2026', what: 'Five storeys, 94 rooms — approved', extra: 'A 69,738 sq ft building on roughly 0.42 acres at 117–127 East Main Street, with retail, a restaurant, a café and nine staff parking spaces on the lower level. Branded as a Tapestry by Hilton. This is the version that holds site plan and special permit approval, granted unanimously by resolution 2026-746.', source: 'RiverheadLOCAL, August 5, 2026; Town Board resolution 2026-746' },
-    { when: 'June 11, 2026', what: 'Five storeys, 94 rooms — condominiums gone', extra: '80 guest rooms and 14 suites, a Tapestry by Hilton, with a roughly 5,100 sq ft restaurant and bar with terrace seating, a coffee shop and retail. The fifth-floor condominiums of the earlier scheme are not in it.', source: 'RiverheadLOCAL, June 11, 2026' },
+    { when: 'June 11, 2026', what: 'Five storeys, 94 rooms — condominiums gone', extra: '80 guest rooms and 14 suites, a Tapestry by Hilton, with a roughly 5,100 sq ft, 116-seat restaurant and bar with terrace seating, a coffee shop and retail, and nine staff parking spaces on the lower level. The fifth-floor condominiums of the earlier scheme are not in it.', source: 'RiverheadLOCAL and Newsday, June 11–12, 2026' },
     { when: 'June 12, 2026', what: 'About $35.1 million, per the amended IDA filing', extra: 'The developer’s amended application to the Industrial Development Agency puts total project cost near $35.1 million with about 8,800 sq ft of first-floor retail, restaurant and food-hall space — a later and larger figure than the $32.67 million filed with the Town in July 2025.', source: 'RiverheadLOCAL, August 5, 2026' },
     { when: 'September 2, 2026', what: 'Described as 92 rooms', extra: 'Later reporting gives a slightly different count than the approved plan. The approved figure is the one to rely on.', source: 'RiverheadLOCAL, September 2, 2026' },
   ],
@@ -759,7 +763,7 @@ export const sources = [
     covers: 'The Town’s own agendas and minutes, where the resolutions cited throughout this page originate.',
   },
   {
-    title: 'Newsday — Riverhead hotel plan advances, but residents debate parking plan (June 2026)',
+    title: 'Newsday — Riverhead hearing on downtown hotel raises questions about parking plan, by Tara Smith (June 12, 2026)',
     url: 'https://www.newsday.com/long-island/towns/riverhead-hotel-parking-downtown-revitalization-slsr2lnl',
     covers: 'The twenty-year PILOT term stated by the developer’s attorney, the jobs estimates, the negotiation to pay for roughly 100 public parking spaces, and that the IDA application is not public — Newsday filed a records request for it.',
   },
