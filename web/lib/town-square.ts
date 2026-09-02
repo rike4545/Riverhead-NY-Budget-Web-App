@@ -353,27 +353,60 @@ export const landAssembly = {
     'Both 2020 resolutions were subject to permissive referendum. Residents could have forced a town-wide vote on the purchase and the borrowing with 594 signatures — 10% of the 11,882 who voted in the 2018 governor’s election — within 30 days. No petition was filed.',
 }
 
-// WHAT COMES BACK. The land assembly above is only half the transaction. The
-// Town bought the site, and it is selling most of it on to the developer. Every
-// story about this project reports the buying; the selling sits in a resolution,
-// a master developer agreement and a lease, and it changes the net figure.
+// WHAT COMES BACK, AND WHAT GOES BACK OUT. Everything in this section is from
+// the Master Developer Agreement itself — 124 pages, signed August 2025, on the
+// Town Clerk's site. It was cited secondhand on this page for a long time. Read
+// directly, it says the sale price is not the sum the Town banks, and that the
+// Town has obligations running the other way that carry real numbers.
 export const landSale = {
   headline: 'The Town is selling most of the site back out',
   resolution: 'Resolution 2025-696, adopted unanimously August 5, 2025 — moved by Rothwell, seconded by Kern',
+  document: 'Master Developer Agreement, Section 3.04, dated August 2025',
   parcels:
-    'Portions of SCTM #0600-129-1 lots 13 and 14 — 121 and 127 East Main Street — together with #0600-128-6-86.1. The resolution also lists lot 15. What the Town is not selling is 117 East Main Street, lot 12, which stays public and becomes part of the square.',
+    'Not whole lots. The “Hotel Property” is four strips: a portion of Lot 14 measuring about 60ʹ × 220ʹ, a portion of Lot 13 at 14ʹ × 200ʹ, a portion of Lot 15 at about 10ʹ × 220ʹ, and a portion of Lot 86.1 at 14ʹ × 20ʹ — roughly 18,500 square feet, which matches the 0.42-acre site in the approved plan. Lot 12, which is 117 East Main Street, and the remaining portions of Lots 13, 14, 15 and 86.1 stay with the Town and become the square itself.',
   price: 2_625_000,
   deposit: 131_250,
-  credit: 660_000,
-  net: 1_965_000,
+  credits: [
+    { label: 'Grant-match funding commitments', amount: 660_000, certain: true,
+      note: 'Section 3.04(a) itemises three commitments the developer made as part of grant applications for the hotel and the square — $360,000, $150,000 and $150,000. To the extent they have been paid to the Town, they are credited against the balance due at closing.' },
+    { label: 'Year one of the Town Square operation and maintenance fee', amount: 150_000, certain: false,
+      note: 'Section 3.04(b): if the Town has substantially completed the square and opened it to the public by closing, the price drops by $150,000 — year one of the ten-year licence under which the Town pays the developer to run and maintain it.' },
+    { label: 'Construction management fees, at the Town’s option', amount: null, certain: false,
+      note: 'The Town “reserves the right at its option” to credit against the balance due whatever is then owed, or about to be owed, to the developer under the three construction management agreements. No figure can be put on this: it is 7% of construction costs that have not been published.' },
+  ],
+  netIfAll: 1_815_000,
+  netNote:
+    'Take the two credits that carry numbers and the Town nets $1,815,000 in cash at closing, plus real property transfer tax costs which the buyer pays on top. Apply any construction management credit and it is less again. The price also already reflects a credit for the portion of Lot 14 the Town keeps, and already includes the cost of the Lot 13 and Lot 15 strips.',
   noBid:
     'Designating J. Petrocelli Riverhead Town Square LLC a “qualified and eligible sponsor” under the State Urban Renewal Law is what allows the sale without competitive bidding. Town Attorney Erik Howard told the Board in May 2025 that as urban renewal properties these parcels do not require a request for proposals. That is a lawful and ordinary route inside an urban renewal area. It is also the reason no other price was ever tested against this one.',
-  creditNote:
-    'The purchase price is not all cash. When the draft master developer agreement was released in July 2025, RiverheadLOCAL reported credits against the price for the developer’s contributions supporting three of the Town’s grant applications — $660,000 in total — and further credits potentially applied for construction management fees and maintenance obligations on the public spaces. A resident, Adele Wallach, asked from the floor before the August 5 vote whether that 2022 pledge had effectively obligated the Town to the designation. The $1,965,000 shown here is the price less the grant-match credits only; the construction-management and maintenance credits have no published figure, so the true net is lower than this by an unknown amount.',
-  managementFee:
-    'The same agreement hires the developer to build the public side of the square — plaza, playground, walkways and amphitheatre — for a construction management fee of 7% of those projects’ total construction costs, and commits the Town to certain maintenance obligations afterwards. Neither can be priced here: the public construction cost the 7% is calculated against has not been published, and neither has the maintenance schedule.',
+  whyCraftd:
+    'Section 3.03 explains the condemnation in one line. Closing cannot proceed until the Town can convey Lot 14 “free of all leases and rights of tenants,” until structures on the Lot 15 strip are relocated, and until the Planning Board approves the lot line alteration that turns the four strips into one lot. The Craft’d leasehold had to go because the Town had promised to deliver the land without it. The buildings come down at the developer’s sole expense.',
   notClosedYet:
-    'As of August 2026 the sale had not closed. The developer exercised a contractual right to push the closing past July 31, 2026; the contract allows an extension of up to six months. Ron Hariri of Aquebogue called the delay “a red flag” about possible financing or investor issues at the August 4 meeting. Until it closes, the price is an expectation rather than a receipt — which is exactly what the lease below exists to manage.',
+    'The agreement requires closing “not later than one year from the date of this Agreement” — August 2025, so August 2026. It has not closed. The developer exercised a contractual right to push past July 31, 2026, and the pre-possession lease below carries a six-month extension to March 14, 2027. Ron Hariri of Aquebogue called the delay “a red flag” about possible financing or investor issues at the August 4 meeting.',
+}
+
+// WHAT THE TOWN PAYS THE DEVELOPER. The page had this backwards. An earlier
+// version listed maintenance of the public spaces among commitments with "no
+// price attached." It has a price, it is settled rather than open, and the money
+// runs from the Town to the developer for ten years.
+export const townPays = {
+  headline: 'The Town pays the developer to build and then to run the public square',
+  items: [
+    {
+      label: 'Town Square Operation & Management Agreement',
+      amount: '$150,000 a year for 10 years — $1,500,000',
+      note: 'Section 3.04(b) and the Article III closing terms. Uniquely among the outstanding documents this fee is already fixed: the parties must complete negotiation of all terms at or prior to closing “with the exception of annual fee set at $150,000.00 per year for 10 year term.” The schedule of what the developer must do for it is Exhibit J. Year one is credited against the purchase price if the square is open to the public by closing.',
+    },
+    {
+      label: 'Three construction management agreements',
+      amount: '7% of total construction costs, uncapped',
+      note: 'Exhibits G, H and I cover the Town Square upper deck and public gathering space, the lower deck and playground, and the East End Arts relocation and amphitheatre. Each is written as a professional services agreement: “Town will pay Consultant the total sum of seven (7%) percent of the total construction costs to be billed for completion of the project,” billed per phase where the design and bid awards are phased, net thirty days. There is no cap and no stated construction cost, so the fee cannot be quantified here — but it is charged on the public half of the project, which the grant table puts at $34.9 million.',
+    },
+  ],
+  offset:
+    'One protection runs the Town’s way. If the developer defaults on the construction management agreements, a fee of $300,000 becomes due to the Town for its use of the staging areas it was licensed to occupy.',
+  note:
+    'These are ordinary arrangements — a municipality hiring the developer already mobilised on the site is usually cheaper than a separate procurement. They are set out because they are Town expenditures on a project the Town’s own communications describe as privately financed, and neither appears in the grant table or the developer’s budget.',
 }
 
 // THE PIECE THAT TIES THE PROJECT TO THE TOWN'S DEBT. This is the most useful
@@ -421,6 +454,8 @@ export const idaAssistance = {
     'When the hearing is noticed it will appear on the Riverhead IDA’s public hearing notices page, linked in the sources below. Judging by what the agency posted for comparable applications, the notice is usually accompanied by the application itself, a Camoin Associates report, a cost-benefit calculator and the authorising resolution — which together are the documents that would let a resident work out what the abatement is worth and who bears it. That hearing is the point at which the public can be heard on this, and it is the only one.',
   projectCost:
     'The amended application estimates total project cost at about $35.1 million — a branded 94-room hotel with roughly 8,800 square feet of first-floor specialty retail, restaurant and food-hall space. That is a later and larger figure than the $32.67 million in the July 2025 development budget shown above.',
+  alreadyPromised:
+    'The Master Developer Agreement does not treat the abatement as an open question. Its recitals state that obtaining a PILOT agreement “is a material requirement of this Agreement,” that the PILOT payment, escalation and term must be “acceptable to Master Developer in its sole, but reasonable, discretion,” and that failing to obtain one on those terms “shall have a material adverse impact on the economics of the transactions contemplated in this Agreement.” The Town signed that in August 2025. The agency that must decide is legally separate from the Town Board and is not bound by it, and no PILOT has been granted — but the Board committed the Town to a deal built on the expectation of one, and wrote in that the developer, not the agency, judges whether the terms are acceptable.',
   whyItMatters:
     'A PILOT does not spend money; it forgoes it. Property tax abated on the hotel is revenue the Town, the county, the fire district and — the largest share by far — the school district do not collect, which means the cost of running them is spread across everybody else’s assessment for the life of the agreement. None of that appears in the grant table or the developer’s budget, and none of it can be quantified until the IDA acts. What is on the record is that the master developer agreement treats IDA approval of financial assistance as integral to the project.',
   whoDecides:
@@ -490,6 +525,8 @@ export const opposition = {
 // about spaces tends to bury: downtown parking is its own taxing district.
 export const parkingDistrict = {
   headline: 'The parking agreement did not exist when the hotel was approved',
+  whatTheAgreementSays:
+    'The Master Developer Agreement sets out the shape of it. On completion of the hotel, the Town — acting through Parking District No. 1 rather than as the Town generally — is to enter a Parking Lot Lease Agreement with the hotel over part of the lot behind the Suffolk Theater. That lease expires when the garage is finished and an agreement for the hotel’s use of part of the garage takes effect, “with pay to reserve and pay to park per parking stall.” The Town also acknowledges in the agreement that, despite the site sitting inside the parking district, designated parking for hotel guests “is integral and necessary” for the use. The terms are to be negotiated by the Town Attorney, approved by Town Board resolution, and folded into the site plan approval — which is what had not happened by August 2026.',
   detail:
     'The hotel site sits inside the Riverhead Parking District, a special taxing district established in 1967 and governed by the Town Board itself sitting as its trustees. Since the 2007 revitalisation zoning the Town has not required downtown residential or hotel developers to provide their own parking; they rely on municipal lots. The master developer agreement refers to a parking agreement, but at the August 4, 2026 approval it had not been negotiated. Town Attorney Erik Howard said it “will be negotiated shortly” and would be incorporated into the approval once complete.',
   arithmetic:
@@ -502,15 +539,15 @@ export const parkingDistrict = {
 // Each of these is a public asset committed to a private building under a
 // separate agreement, and none of them has a published price.
 export const inKindSupport = {
-  headline: 'Four public commitments, none of them priced',
+  headline: 'Public assets committed to the building, none of them priced',
   items: [
-    { label: 'Guest parking in public lots — to be paid for', detail: 'Hotel guests use valet service, with cars parked in the public lot behind the Suffolk Theater until the planned garage is built, then in the garage. This one is not free: the developer’s attorney said in June 2026 that his client was negotiating an agreement with the Town Attorney’s office to pay for roughly 100 spaces in that lot in the meantime. What it will pay has not been published, and the agreement did not exist when the site plan was approved two months later.' },
+    { label: 'Guest parking in public lots — to be paid for', detail: 'Hotel guests use valet service, with cars parked in the public lot behind the Suffolk Theater until the garage is built, then in the garage on a pay-to-reserve and pay-to-park basis. This one is not free: the developer’s attorney said in June 2026 that his client was negotiating to pay for roughly 100 spaces in the interim lot. What it will pay has not been published, and the agreement did not exist when the site plan was approved two months later.' },
+    { label: 'Easements and staging licences over Town land', detail: 'Annexed to the Master Developer Agreement as Exhibits C through F: a non-exclusive licence to stage construction over Lots 12 and 13, an exclusive staging licence over the retained portion of Lot 14, an easement for utilities and drainage under the retained portion of Lot 13, a driveway access easement from Heidi Behr Way across portions of Lots 14 and 23, and an easement for grease traps on Lot 15. Granted for the term of construction rather than sold.' },
     { label: 'Stormwater onto Town land', detail: 'Stormwater from the hotel is directed to 25 leaching galleys on the adjacent town square property, under an agreement with the Town.' },
     { label: 'Access across the square', detail: 'The hotel’s lower-level parking is reached from Heidi Behr Way through the town square parcel, under an agreement with the Town.' },
-    { label: 'Maintenance of the public spaces', detail: 'The master developer agreement commits the Town to certain ongoing maintenance obligations for the plaza, playground, walkways and amphitheatre once built.' },
   ],
   note:
-    'None of these is improper and all are ordinary in a public-private downtown project. One of them is to be paid for. They are listed together because the grant table and the developer’s budget are both cash ledgers, and a reader who adds those two up has still not seen any of this.',
+    'None of these is improper and all are ordinary in a public-private downtown project. The parking is to be paid for. They are listed together because the grant table and the developer’s budget are both cash ledgers, and a reader who adds those two up has still not seen any of this. Maintenance of the square used to sit in this list; it does not belong here, because it has a price and the money runs the other way — see what the Town pays, above.',
 }
 
 // WHAT ACTUALLY GETS BUILT, AND WHEN. A resident's most practical question is
@@ -623,7 +660,7 @@ export const threeLedgers = {
   note:
     'These are not a single budget and should not be read as one. Grants and the developer’s financing pay for different things, on different schedules, and the Town’s figure is land assembly rather than construction. What the comparison shows is scale: the Town’s own cash exposure is small relative to the money moving through the project.',
   incomplete:
-    'Three ledgers are also not all of it. The Town expects to sell most of the site back to the developer, which returns money; a tax abatement is pending that would forgo money; and several public commitments — parking, stormwater, access, maintenance — carry no price at all. Each has its own section below. Nobody has published a single figure that nets these against one another, and this page does not invent one.',
+    'Three ledgers are also not all of it, and the missing pieces run in both directions. The Town expects about $1.8 million net from selling the hotel strips back to the developer. Against that it has agreed to pay the developer $150,000 a year for ten years to run the square, plus 7% of the construction cost of the public works — a rate with no cap and no published base. A twenty-year tax abatement is pending that would forgo revenue nobody has sized. And parking, stormwater and access commitments carry no price at all. Each has its own section below. Nobody has published a single figure that nets these against one another, and this page does not invent one.',
 }
 
 // The building has been redescribed several times. Rather than pick, show the run.
@@ -692,9 +729,9 @@ export const fundBalanceImpact = {
 export const openQuestions = [
   'How much did the July 7 note paydown actually apply? The resolution title does not say, and no 2026 financial report exists yet.',
   'Will The Place for Learning accept the $1.95 million as full payment, or take it as an advance and litigate for more? That answer sets the real acquisition cost.',
-  'What does the Town actually net on the land sale? The price is $2,625,000, less $660,000 of credits for the developer’s grant-match contributions, less further credits the draft agreement allows for construction management fees and maintenance obligations. Those last two have no published figure, so the net is unknown and lower than $1,965,000.',
-  'What is the 7% construction management fee worth in dollars? It is calculated on the total construction cost of the public plaza, playground, walkways and amphitheatre, and that cost has not been published.',
-  'What will the Town’s maintenance obligation for the public spaces cost each year, and out of which budget line? The agreement commits to it; nothing published sizes it.',
+  'What is the 7% construction management fee worth in dollars? The agreement fixes the rate and caps nothing. It is charged on the total construction cost of the public plaza, playground, amphitheatre and East End Arts relocation, and that cost has not been published.',
+  'Out of which budget line does the $150,000 a year for running the square come, and does it start before or after the square opens? The fee is fixed in the agreement; where it sits in the Town’s own accounts is not.',
+  'What will the hotel pay for its roughly 100 interim parking spaces, and what will pay-to-park in the garage cost it? Both agreements were still unnegotiated when the site plan was approved.',
   'What will the Industrial Development Agency grant, and what is it worth? A twenty-year PILOT has been requested, along with sales tax and mortgage recording tax relief. Nobody outside the agency has read the application, no hearing has been scheduled, and the school district — which stands to forgo the largest share — has no vote in it.',
   'What will the developer pay for the roughly 100 public parking spaces it is negotiating to use, and for how long? The agreement did not exist when the site plan was approved.',
   'What did dropping the twelve condominiums cost the tax base? Owner-occupied units would have been taxable residential property; the question was asked of the Board in June 2026 and has not been answered publicly.',
@@ -747,6 +784,11 @@ export const sources = [
     title: 'Town of Riverhead — Downtown Revitalization Projects',
     url: 'https://www.townofriverheadny.gov/213/Downtown-Revitalization-Projects',
     covers: 'Where the QE documents and presentation are published, alongside the East Main Street Urban Renewal Area Plan and the 2021 Pattern Book.',
+  },
+  {
+    title: 'Town of Riverhead — Master Developer Agreement (August 2025, 124pp)',
+    url: 'https://www.townofriverheadny.gov/DocumentCenter/View/1197/Master-Developer-Agreement-PDF',
+    covers: 'The primary document for the sale and for what the Town pays: Section 3.04 on the $2,625,000 price and every credit against it, Section 3.03 on why the Craft’d leasehold had to be cleared, the recital making a PILOT “a material requirement,” the parking lease and pay-to-park structure, the annexed easements and staging licences, and Exhibits G–I fixing the construction management fee at 7% of construction cost. Read directly rather than through reporting.',
   },
   {
     title: 'Town of Riverhead — Pre-Possession and Lease Agreement with J. Petrocelli Riverhead Town Square LLC (2025)',

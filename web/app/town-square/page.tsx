@@ -3,7 +3,7 @@ import PlainCallout from '../../components/PlainCallout'
 import {
   acquisition, amphitheatre, boardRecord, buildSchedule, developmentBudget, garage, idaAssistance,
   idaPrecedent, inKindSupport, landAssembly, landSale, fundBalanceImpact, openQuestions, parkingDistrict,
-  opposition, preposession, project, publicMoney, publicObjections, scopeDiscrepancy, scopeEvolution, sources,
+  opposition, preposession, project, publicMoney, townPays, publicObjections, scopeDiscrepancy, scopeEvolution, sources,
   threeLedgers, timeline, voteSummary, type Milestone,
 } from '../../lib/town-square'
 import { appropriations, policyMinimumPercent, policyUpperPercent, unassignedFundBalance } from '../../lib/reserve-policy'
@@ -215,26 +215,57 @@ export default function TownSquarePage() {
 
       <section style={{ ...card, marginBottom: 18, borderLeft: '6px solid var(--rbl-teal-border)' }}>
         <h2 style={{ marginTop: 0, marginBottom: 4, color: 'var(--rbl-title)', fontSize: 22 }}>{landSale.headline}</h2>
-        <p style={{ color: 'var(--rbl-text-muted)', fontSize: 12.6, margin: '0 0 12px' }}>{landSale.resolution}</p>
+        <p style={{ color: 'var(--rbl-text-muted)', fontSize: 12.6, margin: '0 0 12px' }}>{landSale.resolution}. Terms from the {landSale.document}.</p>
 
-        <div style={{ display: 'grid', gap: 10, gridTemplateColumns: 'repeat(auto-fit, minmax(160px, 1fr))', marginBottom: 12 }}>
-          <Stat label="Sale price" value={usd(landSale.price)} sub="Set in the master developer agreement" />
-          <Stat label="Deposit, 5%" value={usd(landSale.deposit)} sub="Held in escrow, non-interest bearing" />
-          <Stat label="Grant-match credits" value={`− ${usd(landSale.credit)}`} sub="Reported when the draft was released" amber />
-          <Stat label="Net, before further credits" value={usd(landSale.net)} sub="The real net is lower — see below" amber />
+        <div style={{ display: 'grid', gap: 7, marginBottom: 12 }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', gap: 12, padding: '8px 2px' }}>
+            <strong style={{ color: 'var(--rbl-title)', fontSize: 14.4 }}>Purchase price</strong>
+            <strong style={{ color: 'var(--rbl-title)', fontSize: 17 }}>{usd(landSale.price)}</strong>
+          </div>
+          {landSale.credits.map((c) => (
+            <div key={c.label} style={{ background: 'var(--rbl-surface-2)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 10, padding: '10px 13px' }}>
+              <div style={{ display: 'flex', gap: 10, alignItems: 'baseline', flexWrap: 'wrap' }}>
+                <strong style={{ color: 'var(--rbl-title)', fontSize: 14 }}>{c.label}</strong>
+                <span style={{ marginLeft: 'auto', color: 'var(--rbl-warn-strong)', fontWeight: 900, fontSize: 15.5 }}>
+                  {c.amount === null ? 'not published' : `− ${usd(c.amount)}`}
+                </span>
+              </div>
+              <div style={{ color: 'var(--rbl-text-body)', fontSize: 13.2, lineHeight: 1.55, marginTop: 3 }}>{c.note}</div>
+            </div>
+          ))}
+          <div style={{ display: 'flex', justifyContent: 'space-between', gap: 12, borderTop: '2px solid var(--rbl-border-subtle)', paddingTop: 9 }}>
+            <strong style={{ color: 'var(--rbl-title)', fontSize: 14.4 }}>Net cash, before any construction-management credit</strong>
+            <strong style={{ color: 'var(--rbl-title)', fontSize: 17 }}>{usd(landSale.netIfAll)}</strong>
+          </div>
         </div>
-
-        <p style={{ color: 'var(--rbl-text-body)', fontSize: 13.8, lineHeight: 1.6, margin: '0 0 10px' }}>{landSale.parcels}</p>
-        <div style={{ background: 'var(--rbl-warn-bg)', border: '1px solid var(--rbl-warn-border)', borderRadius: 10, padding: '11px 13px', marginBottom: 10 }}>
-          <strong style={{ color: 'var(--rbl-warn-strong)', fontSize: 13.6 }}>The price is not all cash:</strong>{' '}
-          <span style={{ color: 'var(--rbl-warn-strong)', fontSize: 13.6, lineHeight: 1.55 }}>{landSale.creditNote}</span>
-        </div>
+        <p style={{ color: 'var(--rbl-text-body)', fontSize: 13.8, lineHeight: 1.6, margin: '0 0 10px' }}>{landSale.netNote}</p>
+        <p style={{ color: 'var(--rbl-text-body)', fontSize: 13.6, lineHeight: 1.6, margin: '0 0 10px' }}>{landSale.parcels}</p>
         <p style={{ color: 'var(--rbl-text-body)', fontSize: 13.6, lineHeight: 1.6, margin: '0 0 10px' }}>{landSale.noBid}</p>
-        <p style={{ color: 'var(--rbl-text-body)', fontSize: 13.6, lineHeight: 1.6, margin: '0 0 10px' }}>{landSale.managementFee}</p>
+        <div style={{ background: 'var(--rbl-violet-bg)', border: '1px solid var(--rbl-violet-border)', borderRadius: 10, padding: '11px 13px', marginBottom: 10 }}>
+          <strong style={{ color: 'var(--rbl-violet-strong)', fontSize: 13.6 }}>Why the bar had to go:</strong>{' '}
+          <span style={{ color: 'var(--rbl-violet-strong)', fontSize: 13.6, lineHeight: 1.55 }}>{landSale.whyCraftd}</span>
+        </div>
         <div style={{ background: 'var(--rbl-info-bg)', border: '1px solid var(--rbl-info-border)', borderRadius: 10, padding: '11px 13px' }}>
           <strong style={{ color: 'var(--rbl-info-text)', fontSize: 13.6 }}>It has not closed:</strong>{' '}
           <span style={{ color: 'var(--rbl-info-text)', fontSize: 13.6, lineHeight: 1.55 }}>{landSale.notClosedYet}</span>
         </div>
+      </section>
+
+      <section style={{ ...card, marginBottom: 18, borderLeft: '6px solid var(--rbl-warn-border)' }}>
+        <h2 style={{ marginTop: 0, marginBottom: 10, color: 'var(--rbl-title)', fontSize: 22 }}>{townPays.headline}</h2>
+        <div style={{ display: 'grid', gap: 8, marginBottom: 10 }}>
+          {townPays.items.map((i) => (
+            <div key={i.label} style={{ background: 'var(--rbl-surface-2)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 10, padding: '11px 13px' }}>
+              <div style={{ display: 'flex', gap: 10, alignItems: 'baseline', flexWrap: 'wrap' }}>
+                <strong style={{ color: 'var(--rbl-title)', fontSize: 14.2 }}>{i.label}</strong>
+                <span style={{ marginLeft: 'auto', color: 'var(--rbl-warn-strong)', fontWeight: 800, fontSize: 14.6 }}>{i.amount}</span>
+              </div>
+              <div style={{ color: 'var(--rbl-text-body)', fontSize: 13.2, lineHeight: 1.55, marginTop: 3 }}>{i.note}</div>
+            </div>
+          ))}
+        </div>
+        <p style={{ color: 'var(--rbl-text-body)', fontSize: 13.4, lineHeight: 1.6, margin: '0 0 8px' }}>{townPays.offset}</p>
+        <p style={{ color: 'var(--rbl-text-muted)', fontSize: 12.8, lineHeight: 1.6, margin: 0 }}>{townPays.note}</p>
       </section>
 
       <section style={{ ...card, marginBottom: 18, borderLeft: '6px solid var(--rbl-violet)' }}>
@@ -275,6 +306,10 @@ export default function TownSquarePage() {
           <Field term="Who decides" value={idaAssistance.whoDecides} />
           <Field term="The project cost in that filing" value={idaAssistance.projectCost} />
           <Field term="The application is not public" value={idaAssistance.notPublic} />
+        </div>
+        <div style={{ background: 'var(--rbl-violet-bg)', border: '1px solid var(--rbl-violet-border)', borderRadius: 10, padding: '11px 13px', margin: '12px 0 8px' }}>
+          <strong style={{ color: 'var(--rbl-violet-strong)', fontSize: 13.6 }}>The Town already wrote it into the deal:</strong>{' '}
+          <span style={{ color: 'var(--rbl-violet-strong)', fontSize: 13.6, lineHeight: 1.55 }}>{idaAssistance.alreadyPromised}</span>
         </div>
         <div style={{ background: 'var(--rbl-warn-bg)', border: '1px solid var(--rbl-warn-border)', borderRadius: 10, padding: '11px 13px', margin: '12px 0 8px' }}>
           <strong style={{ color: 'var(--rbl-warn-strong)', fontSize: 13.6 }}>Why it belongs on this page:</strong>{' '}
@@ -456,6 +491,7 @@ export default function TownSquarePage() {
       <section style={{ ...card, marginBottom: 18 }}>
         <h2 style={{ marginTop: 0, marginBottom: 8, color: 'var(--rbl-title)', fontSize: 20 }}>{parkingDistrict.headline}</h2>
         <div style={{ display: 'grid', gap: 9 }}>
+          <Field term="What the agreement actually provides" value={parkingDistrict.whatTheAgreementSays} />
           <Field term="Why it is a fiscal question" value={parkingDistrict.detail} />
           <Field term="The arithmetic raised" value={parkingDistrict.arithmetic} />
           <Field term="What the Board said" value={parkingDistrict.answer} />
