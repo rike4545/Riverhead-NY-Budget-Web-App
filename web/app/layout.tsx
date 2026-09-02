@@ -126,6 +126,25 @@ const TREND_CSS = `
 // flash the wrong way round and the page doesn't visibly resize on load.
 const PREFS_INIT = `try{var d=document.documentElement;var t=localStorage.getItem('tc');if(t)d.setAttribute('data-tc',t);var z=localStorage.getItem('rbl-zoom');if(z==='115'||z==='130')d.setAttribute('data-zoom',z)}catch(e){}`
 
+// Google Analytics 4. The measurement ID is not a secret — it ships in the page
+// source of every site that uses one — so it lives here rather than in an env var.
+//
+// The standard snippet is enough for this site and nothing more is needed. GA4
+// sends a page_view automatically on load, and it only misses navigations when a
+// framework swaps pages client-side without one. Nothing here imports next/link:
+// every link in the app, including the whole of SiteNav, is a plain <a href>, so
+// each navigation is a real page load and fires its own page_view. If Link is ever
+// introduced, route changes will stop being counted until a listener is added.
+//
+// Not to be confused with the site's /analytics/ page, which is about the Town's
+// budget, not about visitors.
+const GA_MEASUREMENT_ID = 'G-756F97BXEG'
+
+const GA_INIT = `window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', '${GA_MEASUREMENT_ID}');`
+
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
@@ -134,6 +153,8 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <style dangerouslySetInnerHTML={{ __html: TREND_CSS }} />
         <style dangerouslySetInnerHTML={{ __html: ZOOM_CSS }} />
         <script dangerouslySetInnerHTML={{ __html: PREFS_INIT }} />
+        <script async src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`} />
+        <script dangerouslySetInnerHTML={{ __html: GA_INIT }} />
       </head>
       <body>
         <div id="rbl-shell" style={{ background: 'var(--rbl-page)' }}>{children}</div>
