@@ -60,8 +60,13 @@ export default function TownSquarePage() {
         Two draws on accumulated surplus for one project, which is why they are shown together below.
       </PlainCallout>
 
+      <KeyNumbers />
+      <Contents />
+
+      <PartHeader n="1" id="project" title={`What is being built`} blurb={`The thing itself, and how it changed on paper between 2022 and 2026.`} />
+
       <section style={{ ...card, marginBottom: 18 }}>
-        <h2 style={{ marginTop: 0, marginBottom: 4, color: 'var(--rbl-title)', fontSize: 22 }}>What is being built</h2>
+        <h2 style={{ marginTop: 0, marginBottom: 4, color: 'var(--rbl-title)', fontSize: 22 }}>The project as it stands</h2>
         <p style={{ color: 'var(--rbl-text-body)', fontSize: 15, lineHeight: 1.6, marginTop: 0 }}>{project.what}</p>
         <div style={{ background: 'var(--rbl-surface-2)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 10, padding: '11px 14px' }}>
           <strong style={{ color: 'var(--rbl-title)', fontSize: 13.6 }}>Where it stands</strong>
@@ -69,7 +74,30 @@ export default function TownSquarePage() {
         </div>
       </section>
 
-      {/* Three pots, not one. The Town's own cash is the smallest. */}
+      <section style={{ ...card, marginBottom: 18 }}>
+        <h2 style={{ marginTop: 0, marginBottom: 8, color: 'var(--rbl-title)', fontSize: 20 }}>{scopeEvolution.headline}</h2>
+        <div style={{ background: 'var(--rbl-warn-bg)', border: '1px solid var(--rbl-warn-border)', borderRadius: 10, padding: '11px 13px', marginBottom: 12 }}>
+          <strong style={{ color: 'var(--rbl-warn-strong)', fontSize: 13.6 }}>{scopeDiscrepancy.headline}:</strong>{' '}
+          <span style={{ color: 'var(--rbl-warn-strong)', fontSize: 13.6, lineHeight: 1.55 }}>{scopeDiscrepancy.detail}</span>
+        </div>
+        <Collapse summary={`Show all six versions of the building, 2022 to 2026`}>
+        <div style={{ display: 'grid', gap: 9 }}>
+          {scopeEvolution.rows.map((r) => (
+            <div key={r.when} style={{ background: 'var(--rbl-surface-2)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 10, padding: '11px 13px' }}>
+              <div style={{ display: 'flex', gap: 10, alignItems: 'baseline', flexWrap: 'wrap' }}>
+                <span style={{ color: 'var(--rbl-badge)', fontSize: 11, fontWeight: 900, textTransform: 'uppercase', letterSpacing: 0.4 }}>{r.when}</span>
+                <strong style={{ color: 'var(--rbl-title)', fontSize: 14.6 }}>{r.what}</strong>
+              </div>
+              <div style={{ color: 'var(--rbl-text-body)', fontSize: 13.4, lineHeight: 1.55, marginTop: 3 }}>{r.extra}</div>
+              <div style={{ color: 'var(--rbl-text-muted)', fontSize: 12, marginTop: 3 }}>{r.source}</div>
+            </div>
+          ))}
+        </div>
+        </Collapse>
+      </section>
+
+      <PartHeader n="2" id="money" title={`What it costs the public`} blurb={`The money runs in both directions and no published figure nets it out. This is the long part; each section below stands on its own.`} />
+
       <section style={{ ...card, marginBottom: 18, borderLeft: '6px solid var(--rbl-violet)' }}>
         <h2 style={{ marginTop: 0, marginBottom: 4, color: 'var(--rbl-title)', fontSize: 22 }}>Three ledgers, not one</h2>
         <p style={{ color: 'var(--rbl-text-strong)', fontSize: 15, lineHeight: 1.6, marginTop: 0 }}>{threeLedgers.lede}</p>
@@ -127,54 +155,7 @@ export default function TownSquarePage() {
         </div>
       </section>
 
-      {/* The building keeps changing. */}
-      <section style={{ ...card, marginBottom: 18 }}>
-        <h2 style={{ marginTop: 0, marginBottom: 8, color: 'var(--rbl-title)', fontSize: 20 }}>{scopeEvolution.headline}</h2>
-        <div style={{ background: 'var(--rbl-warn-bg)', border: '1px solid var(--rbl-warn-border)', borderRadius: 10, padding: '11px 13px', marginBottom: 12 }}>
-          <strong style={{ color: 'var(--rbl-warn-strong)', fontSize: 13.6 }}>{scopeDiscrepancy.headline}:</strong>{' '}
-          <span style={{ color: 'var(--rbl-warn-strong)', fontSize: 13.6, lineHeight: 1.55 }}>{scopeDiscrepancy.detail}</span>
-        </div>
-        <div style={{ display: 'grid', gap: 9 }}>
-          {scopeEvolution.rows.map((r) => (
-            <div key={r.when} style={{ background: 'var(--rbl-surface-2)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 10, padding: '11px 13px' }}>
-              <div style={{ display: 'flex', gap: 10, alignItems: 'baseline', flexWrap: 'wrap' }}>
-                <span style={{ color: 'var(--rbl-badge)', fontSize: 11, fontWeight: 900, textTransform: 'uppercase', letterSpacing: 0.4 }}>{r.when}</span>
-                <strong style={{ color: 'var(--rbl-title)', fontSize: 14.6 }}>{r.what}</strong>
-              </div>
-              <div style={{ color: 'var(--rbl-text-body)', fontSize: 13.4, lineHeight: 1.55, marginTop: 3 }}>{r.extra}</div>
-              <div style={{ color: 'var(--rbl-text-muted)', fontSize: 12, marginTop: 3 }}>{r.source}</div>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* How the Board actually voted. */}
-      <section style={{ ...card, marginBottom: 18, borderLeft: '6px solid var(--rbl-danger-border)' }}>
-        <h2 style={{ marginTop: 0, marginBottom: 4, color: 'var(--rbl-title)', fontSize: 22 }}>The money votes were unanimous. The taking was not.</h2>
-        <p style={{ color: 'var(--rbl-text-body)', fontSize: 14.6, lineHeight: 1.6, marginTop: 0 }}>{voteSummary}</p>
-        <div style={{ display: 'grid', gap: 6 }}>
-          {boardRecord.map((v) => (
-            <div key={v.number} style={{
-              display: 'grid', gridTemplateColumns: 'auto 1fr auto', gap: 10, alignItems: 'baseline',
-              background: v.contested ? 'var(--rbl-warn-bg)' : 'var(--rbl-surface-2)',
-              border: `1px solid ${v.contested ? 'var(--rbl-warn-border)' : 'var(--rbl-border-subtle)'}`,
-              borderRadius: 9, padding: '9px 12px',
-            }}>
-              <span style={{ color: 'var(--rbl-text-muted)', fontSize: 11.6, fontWeight: 800, whiteSpace: 'nowrap' }}>{v.number}</span>
-              <div>
-                <div style={{ color: 'var(--rbl-text-strong)', fontSize: 13.4, lineHeight: 1.45 }}>{v.title}</div>
-                <div style={{ color: 'var(--rbl-text-muted)', fontSize: 12 }}>{v.date}{v.dissent ? ` · ${v.dissent}` : ''}</div>
-              </div>
-              <span style={{
-                fontSize: 11, fontWeight: 900, whiteSpace: 'nowrap',
-                color: v.contested ? 'var(--rbl-warn-strong)' : 'var(--rbl-success-strong)',
-              }}>{v.result}</span>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* What the land cost, kept apart from how it was paid for. */}
+      <Rubric>Money out</Rubric>
       <section style={{ ...card, marginBottom: 18 }}>
         <h2 style={{ marginTop: 0, marginBottom: 4, color: 'var(--rbl-title)', fontSize: 22 }}>What the land cost the Town</h2>
         <p style={{ color: 'var(--rbl-text-body)', fontSize: 14.6, lineHeight: 1.6, marginTop: 0 }}>
@@ -213,6 +194,28 @@ export default function TownSquarePage() {
         </div>
       </section>
 
+      <section style={{ ...card, marginBottom: 18, borderLeft: '6px solid var(--rbl-warn-border)' }}>
+        <h2 style={{ marginTop: 0, marginBottom: 10, color: 'var(--rbl-title)', fontSize: 22 }}>{townPays.headline}</h2>
+        <div style={{ display: 'grid', gap: 8, marginBottom: 10 }}>
+          {townPays.items.map((i) => (
+            <div key={i.label} style={{ background: 'var(--rbl-surface-2)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 10, padding: '11px 13px' }}>
+              <div style={{ display: 'flex', gap: 10, alignItems: 'baseline', flexWrap: 'wrap' }}>
+                <strong style={{ color: 'var(--rbl-title)', fontSize: 14.2 }}>{i.label}</strong>
+                <span style={{ marginLeft: 'auto', color: 'var(--rbl-warn-strong)', fontWeight: 800, fontSize: 14.6 }}>{i.amount}</span>
+              </div>
+              <div style={{ color: 'var(--rbl-text-body)', fontSize: 13.2, lineHeight: 1.55, marginTop: 3 }}>{i.note}</div>
+            </div>
+          ))}
+        </div>
+        <div style={{ background: 'var(--rbl-danger-bg)', border: '1px solid var(--rbl-danger-border)', borderRadius: 10, padding: '11px 13px', marginBottom: 10 }}>
+          <strong style={{ color: 'var(--rbl-danger-strong)', fontSize: 13.6 }}>The duties are not published:</strong>{' '}
+          <span style={{ color: 'var(--rbl-danger-strong)', fontSize: 13.6, lineHeight: 1.55 }}>{townPays.exhibitJ}</span>
+        </div>
+        <p style={{ color: 'var(--rbl-text-body)', fontSize: 13.4, lineHeight: 1.6, margin: '0 0 8px' }}>{townPays.offset}</p>
+        <p style={{ color: 'var(--rbl-text-muted)', fontSize: 12.8, lineHeight: 1.6, margin: 0 }}>{townPays.note}</p>
+      </section>
+
+      <Rubric>Money back in</Rubric>
       <section style={{ ...card, marginBottom: 18, borderLeft: '6px solid var(--rbl-teal-border)' }}>
         <h2 style={{ marginTop: 0, marginBottom: 4, color: 'var(--rbl-title)', fontSize: 22 }}>{landSale.headline}</h2>
         <p style={{ color: 'var(--rbl-text-muted)', fontSize: 12.6, margin: '0 0 12px' }}>{landSale.resolution}. Terms from the {landSale.document}.</p>
@@ -251,27 +254,6 @@ export default function TownSquarePage() {
         </div>
       </section>
 
-      <section style={{ ...card, marginBottom: 18, borderLeft: '6px solid var(--rbl-warn-border)' }}>
-        <h2 style={{ marginTop: 0, marginBottom: 10, color: 'var(--rbl-title)', fontSize: 22 }}>{townPays.headline}</h2>
-        <div style={{ display: 'grid', gap: 8, marginBottom: 10 }}>
-          {townPays.items.map((i) => (
-            <div key={i.label} style={{ background: 'var(--rbl-surface-2)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 10, padding: '11px 13px' }}>
-              <div style={{ display: 'flex', gap: 10, alignItems: 'baseline', flexWrap: 'wrap' }}>
-                <strong style={{ color: 'var(--rbl-title)', fontSize: 14.2 }}>{i.label}</strong>
-                <span style={{ marginLeft: 'auto', color: 'var(--rbl-warn-strong)', fontWeight: 800, fontSize: 14.6 }}>{i.amount}</span>
-              </div>
-              <div style={{ color: 'var(--rbl-text-body)', fontSize: 13.2, lineHeight: 1.55, marginTop: 3 }}>{i.note}</div>
-            </div>
-          ))}
-        </div>
-        <div style={{ background: 'var(--rbl-danger-bg)', border: '1px solid var(--rbl-danger-border)', borderRadius: 10, padding: '11px 13px', marginBottom: 10 }}>
-          <strong style={{ color: 'var(--rbl-danger-strong)', fontSize: 13.6 }}>The duties are not published:</strong>{' '}
-          <span style={{ color: 'var(--rbl-danger-strong)', fontSize: 13.6, lineHeight: 1.55 }}>{townPays.exhibitJ}</span>
-        </div>
-        <p style={{ color: 'var(--rbl-text-body)', fontSize: 13.4, lineHeight: 1.6, margin: '0 0 8px' }}>{townPays.offset}</p>
-        <p style={{ color: 'var(--rbl-text-muted)', fontSize: 12.8, lineHeight: 1.6, margin: 0 }}>{townPays.note}</p>
-      </section>
-
       <section style={{ ...card, marginBottom: 18, borderLeft: '6px solid var(--rbl-violet)' }}>
         <h2 style={{ marginTop: 0, marginBottom: 4, color: 'var(--rbl-title)', fontSize: 22 }}>{preposession.headline}</h2>
         <p style={{ color: 'var(--rbl-text-muted)', fontSize: 12.6, margin: '0 0 12px' }}>{preposession.document}</p>
@@ -299,17 +281,13 @@ export default function TownSquarePage() {
         </div>
       </section>
 
+      <Rubric>Money forgone, and money never priced</Rubric>
       <section style={{ ...card, marginBottom: 18, borderLeft: '6px solid var(--rbl-warn-border)' }}>
         <h2 style={{ marginTop: 0, marginBottom: 4, color: 'var(--rbl-title)', fontSize: 22 }}>{idaAssistance.headline}</h2>
         <p style={{ color: 'var(--rbl-text-muted)', fontSize: 12.6, margin: '0 0 12px' }}>{idaAssistance.status}</p>
         <div style={{ display: 'grid', gap: 9 }}>
-          <Field term="What happened" value={idaAssistance.timeline} />
           <Field term="What was asked for" value={idaAssistance.whatWasAsked} />
           <Field term="What was decided" value={idaAssistance.whatWasDecided} />
-          <Field term="What to watch for" value={idaAssistance.whatToWatchFor} />
-          <Field term="Who decides" value={idaAssistance.whoDecides} />
-          <Field term="The project cost in that filing" value={idaAssistance.projectCost} />
-          <Field term="The application is not public" value={idaAssistance.notPublic} />
         </div>
         <div style={{ background: 'var(--rbl-violet-bg)', border: '1px solid var(--rbl-violet-border)', borderRadius: 10, padding: '11px 13px', margin: '12px 0 8px' }}>
           <strong style={{ color: 'var(--rbl-violet-strong)', fontSize: 13.6 }}>The Town already wrote it into the deal:</strong>{' '}
@@ -321,7 +299,19 @@ export default function TownSquarePage() {
         </div>
         <p style={{ color: 'var(--rbl-text-muted)', fontSize: 12.8, lineHeight: 1.6, margin: 0 }}>{idaAssistance.caution}</p>
 
+        <Collapse summary={`Show how the application got here, who decides it, and what to watch for`}>
+          <div style={{ display: 'grid', gap: 9 }}>
+            <Field term="What happened" value={idaAssistance.timeline} />
+            <Field term="The application is not public" value={idaAssistance.notPublic} />
+            <Field term="The project cost in that filing" value={idaAssistance.projectCost} />
+            <Field term="Who decides" value={idaAssistance.whoDecides} />
+            <Field term="What to watch for" value={idaAssistance.whatToWatchFor} />
+          </div>
+        </Collapse>
+
         <h3 style={{ margin: '18px 0 4px', color: 'var(--rbl-title)', fontSize: 17 }}>{idaPrecedent.headline}</h3>
+        <p style={{ color: 'var(--rbl-text-body)', fontSize: 13.4, lineHeight: 1.6, margin: '0 0 6px' }}>{idaPrecedent.reading}</p>
+        <Collapse summary={`Show the eight agreements this agency has granted, with terms`}>
         <p style={{ color: 'var(--rbl-text-muted)', fontSize: 12.8, lineHeight: 1.6, margin: '0 0 10px' }}>{idaPrecedent.note}</p>
         <div style={{ overflowX: 'auto', marginBottom: 10 }}>
           <table style={{ borderCollapse: 'collapse', width: '100%', minWidth: 480, fontSize: 13 }}>
@@ -347,10 +337,11 @@ export default function TownSquarePage() {
             </tbody>
           </table>
         </div>
-        <p style={{ color: 'var(--rbl-text-body)', fontSize: 13.4, lineHeight: 1.6, margin: 0 }}>{idaPrecedent.reading}</p>
+        </Collapse>
 
         <div style={{ background: 'var(--rbl-surface-2)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 12, padding: '14px 16px', marginTop: 18 }}>
           <h3 style={{ margin: '0 0 6px', color: 'var(--rbl-title)', fontSize: 16 }}>{opposition.headline}</h3>
+          <Collapse summary={`Show who is organising against the subsidy, and what they argue`}>
           <p style={{ color: 'var(--rbl-text-body)', fontSize: 13.4, lineHeight: 1.6, margin: '0 0 10px' }}>{opposition.whoRunsIt}</p>
           <div style={{ display: 'grid', gap: 8, marginBottom: 10 }}>
             {opposition.petitions.map((q) => (
@@ -374,6 +365,7 @@ export default function TownSquarePage() {
             <span style={{ color: 'var(--rbl-warn-strong)', fontSize: 13.4, lineHeight: 1.55 }}>{opposition.notRelied}</span>
           </div>
           <p style={{ color: 'var(--rbl-text-muted)', fontSize: 12.8, lineHeight: 1.6, margin: 0 }}>{opposition.why}</p>
+          </Collapse>
         </div>
       </section>
 
@@ -390,8 +382,9 @@ export default function TownSquarePage() {
         <p style={{ color: 'var(--rbl-text-muted)', fontSize: 12.8, lineHeight: 1.6, margin: 0 }}>{inKindSupport.note}</p>
       </section>
 
-      <h2 style={{ color: 'var(--rbl-title)' }}>What it does to the fund balance</h2>
+      <Rubric>The net effect on reserves</Rubric>
       <section style={{ ...card, marginBottom: 18, borderLeft: '6px solid var(--rbl-warn-border)' }}>
+        <h2 style={{ marginTop: 0, marginBottom: 6, color: 'var(--rbl-title)', fontSize: 22 }}>What it does to the fund balance</h2>
         <p style={{ color: 'var(--rbl-text-strong)', fontSize: 15, lineHeight: 1.6, marginTop: 0 }}>{fundBalanceImpact.lede}</p>
 
         <div style={{ display: 'grid', gap: 10, marginBottom: 14 }}>
@@ -432,6 +425,8 @@ export default function TownSquarePage() {
         <p style={{ color: 'var(--rbl-text-muted)', fontSize: 12.6, lineHeight: 1.55, marginTop: 10, marginBottom: 0 }}>{fundBalanceImpact.caveat}</p>
       </section>
 
+      <PartHeader n="3" id="property" title={`The property the Town took`} blurb={`One parcel taken by eminent domain, and what it may finally cost.`} />
+
       <section style={{ ...card, marginBottom: 18 }}>
         <h2 style={{ marginTop: 0, marginBottom: 4, color: 'var(--rbl-title)', fontSize: 22 }}>The taking of {acquisition.parcel}</h2>
         <dl style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(240px,1fr))', gap: 12, margin: '0 0 12px' }}>
@@ -444,15 +439,18 @@ export default function TownSquarePage() {
           <span style={{ color: 'var(--rbl-warn-strong)', fontSize: 14.4, lineHeight: 1.6 }}>{acquisition.notFinal}</span>
         </div>
         <p style={{ color: 'var(--rbl-text-body)', fontSize: 14.2, lineHeight: 1.6, margin: '0 0 12px' }}>{acquisition.whyItMatters}</p>
-        <div style={{ display: 'grid', gap: 9, marginBottom: 12 }}>
-          <Field term="The hearing" value={acquisition.theHearing} />
-          <Field term="Nobody could say what it would cost" value={acquisition.costUnknownAtTheHearing} />
-          <Field term="What public purpose was stated" value={acquisition.publicPurpose} />
-        </div>
+        <Collapse summary={`Show what happened at the three-hour condemnation hearing`}>
+          <div style={{ display: 'grid', gap: 9, marginBottom: 12 }}>
+            <Field term="The hearing" value={acquisition.theHearing} />
+            <Field term="Nobody could say what it would cost" value={acquisition.costUnknownAtTheHearing} />
+            <Field term="What public purpose was stated" value={acquisition.publicPurpose} />
+          </div>
+        </Collapse>
         <p style={{ color: 'var(--rbl-text-body)', fontSize: 13.6, lineHeight: 1.6, margin: 0 }}>{acquisition.contested}</p>
       </section>
 
-      <h2 style={{ color: 'var(--rbl-title)' }}>What gets built, and when</h2>
+      <PartHeader n="4" id="build" title={`When it gets built`} blurb={`Six connected projects on one schedule running to 2030, and the pieces still undecided.`} />
+
       <section style={{ ...card, marginBottom: 18, borderLeft: '6px solid var(--rbl-teal-border)' }}>
         <h3 style={{ marginTop: 0, marginBottom: 4, color: 'var(--rbl-title)', fontSize: 18 }}>{buildSchedule.headline}</h3>
         <p style={{ color: 'var(--rbl-text-muted)', fontSize: 12.6, margin: '0 0 10px' }}>{buildSchedule.asOf}</p>
@@ -494,17 +492,49 @@ export default function TownSquarePage() {
 
       <section style={{ ...card, marginBottom: 18 }}>
         <h2 style={{ marginTop: 0, marginBottom: 8, color: 'var(--rbl-title)', fontSize: 20 }}>{parkingDistrict.headline}</h2>
-        <div style={{ display: 'grid', gap: 9 }}>
-          <Field term="What the agreement actually provides" value={parkingDistrict.whatTheAgreementSays} />
-          <Field term="Why it is a fiscal question" value={parkingDistrict.detail} />
-          <Field term="The arithmetic raised" value={parkingDistrict.arithmetic} />
-          <Field term="What the Board said" value={parkingDistrict.answer} />
-        </div>
+        <Collapse summary={`Show the parking terms, the arithmetic raised, and the Board's answer`}>
+          <div style={{ display: 'grid', gap: 9 }}>
+            <Field term="What the agreement actually provides" value={parkingDistrict.whatTheAgreementSays} />
+            <Field term="Why it is a fiscal question" value={parkingDistrict.detail} />
+            <Field term="The arithmetic raised" value={parkingDistrict.arithmetic} />
+            <Field term="What the Board said" value={parkingDistrict.answer} />
+          </div>
+        </Collapse>
       </section>
 
-      <h2 style={{ color: 'var(--rbl-title)' }}>What residents said, and what they were told</h2>
+      <PartHeader n="5" id="record" title={`The record`} blurb={`How the Board voted, what residents said, how it got here, and what this page still cannot tell you.`} />
+
+      <section style={{ ...card, marginBottom: 18, borderLeft: '6px solid var(--rbl-danger-border)' }}>
+        <h2 style={{ marginTop: 0, marginBottom: 4, color: 'var(--rbl-title)', fontSize: 22 }}>The money votes were unanimous. The taking was not.</h2>
+        <p style={{ color: 'var(--rbl-text-body)', fontSize: 14.6, lineHeight: 1.6, marginTop: 0 }}>{voteSummary}</p>
+        <Collapse summary={`Show every recorded vote, with resolution numbers`}>
+        <div style={{ display: 'grid', gap: 6 }}>
+          {boardRecord.map((v) => (
+            <div key={v.number} style={{
+              display: 'grid', gridTemplateColumns: 'auto 1fr auto', gap: 10, alignItems: 'baseline',
+              background: v.contested ? 'var(--rbl-warn-bg)' : 'var(--rbl-surface-2)',
+              border: `1px solid ${v.contested ? 'var(--rbl-warn-border)' : 'var(--rbl-border-subtle)'}`,
+              borderRadius: 9, padding: '9px 12px',
+            }}>
+              <span style={{ color: 'var(--rbl-text-muted)', fontSize: 11.6, fontWeight: 800, whiteSpace: 'nowrap' }}>{v.number}</span>
+              <div>
+                <div style={{ color: 'var(--rbl-text-strong)', fontSize: 13.4, lineHeight: 1.45 }}>{v.title}</div>
+                <div style={{ color: 'var(--rbl-text-muted)', fontSize: 12 }}>{v.date}{v.dissent ? ` · ${v.dissent}` : ''}</div>
+              </div>
+              <span style={{
+                fontSize: 11, fontWeight: 900, whiteSpace: 'nowrap',
+                color: v.contested ? 'var(--rbl-warn-strong)' : 'var(--rbl-success-strong)',
+              }}>{v.result}</span>
+            </div>
+          ))}
+        </div>
+        </Collapse>
+      </section>
+
       <section style={{ ...card, marginBottom: 18, borderLeft: '6px solid var(--rbl-info-border)' }}>
+        <h2 style={{ marginTop: 0, marginBottom: 6, color: 'var(--rbl-title)', fontSize: 22 }}>What residents said, and what they were told</h2>
         <p style={{ color: 'var(--rbl-text-strong)', fontSize: 15, lineHeight: 1.6, marginTop: 0 }}>{publicObjections.lede}</p>
+        <Collapse summary={`Show what each speaker said, hearing by hearing`}>
         <div style={{ display: 'grid', gap: 8, marginBottom: 12 }}>
           {publicObjections.raised.map((r) => (
             <div key={r.who} style={{ background: 'var(--rbl-surface-2)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 10, padding: '10px 13px' }}>
@@ -513,6 +543,7 @@ export default function TownSquarePage() {
             </div>
           ))}
         </div>
+        </Collapse>
         <div style={{ background: 'var(--rbl-info-bg)', border: '1px solid var(--rbl-info-border)', borderRadius: 10, padding: '11px 13px', marginBottom: 10 }}>
           <strong style={{ color: 'var(--rbl-info-text)', fontSize: 13.6 }}>The Town&apos;s answers:</strong>{' '}
           <span style={{ color: 'var(--rbl-info-text)', fontSize: 13.6, lineHeight: 1.55 }}>{publicObjections.answers}</span>
@@ -521,8 +552,14 @@ export default function TownSquarePage() {
         <p style={{ color: 'var(--rbl-text-muted)', fontSize: 12.8, lineHeight: 1.6, margin: 0 }}>{publicObjections.tone}</p>
       </section>
 
-      <h2 style={{ color: 'var(--rbl-title)' }}>How it got here</h2>
-      <section style={{ display: 'grid', gap: 10, marginBottom: 18 }}>
+      <section style={{ ...card, marginBottom: 18 }}>
+        <h2 style={{ marginTop: 0, marginBottom: 4, color: 'var(--rbl-title)', fontSize: 22 }}>How it got here</h2>
+        <p style={{ color: 'var(--rbl-text-body)', fontSize: 14.2, lineHeight: 1.6, margin: '0 0 4px' }}>
+          Seventeen dated steps from the first two state grants in December 2019 to the schedule published in August
+          2026. Everything here is drawn from a named source.
+        </p>
+        <Collapse summary={`Show the full timeline, December 2019 to August 2026`}>
+      <div style={{ display: 'grid', gap: 10 }}>
         {timeline.map((m) => {
           const k = KIND[m.kind]
           return (
@@ -537,6 +574,8 @@ export default function TownSquarePage() {
             </article>
           )
         })}
+      </div>
+        </Collapse>
       </section>
 
       <section style={{ ...card, marginBottom: 18, borderLeft: '6px solid var(--rbl-danger-border)' }}>
@@ -556,6 +595,7 @@ export default function TownSquarePage() {
 
       <section style={{ ...card }}>
         <h3 style={{ marginTop: 0, color: 'var(--rbl-title)' }}>Sources</h3>
+        <Collapse summary={`Show all sources`}>
         <ul style={{ margin: 0, paddingLeft: 18, display: 'grid', gap: 9 }}>
           {sources.map((s) => (
             <li key={s.url} style={{ color: 'var(--rbl-text-body)', fontSize: 13.8, lineHeight: 1.5 }}>
@@ -565,8 +605,100 @@ export default function TownSquarePage() {
             </li>
           ))}
         </ul>
+        </Collapse>
       </section>
     </PageShell>
+  )
+}
+
+const PARTS = [
+  { id: 'project', n: '1', label: 'What is being built' },
+  { id: 'money', n: '2', label: 'What it costs the public' },
+  { id: 'property', n: '3', label: 'The property the Town took' },
+  { id: 'build', n: '4', label: 'When it gets built' },
+  { id: 'record', n: '5', label: 'The record' },
+]
+
+function KeyNumbers() {
+  const rows = [
+    { v: usd(publicMoney.total), l: 'Grants awarded', s: 'Federal, state and county — the largest pot by far' },
+    { v: usd(developmentBudget.total), l: 'Private development', s: 'The hotel, financed by the developer' },
+    { v: usd(landAssembly.knownTotal), l: 'Land the Town bought', s: 'Six parcels and interests since 2020' },
+    { v: usd(landSale.netIfAll), l: 'Net back from the sale', s: 'After documented credits, before construction-management credits' },
+    { v: '$1,500,000', l: 'Town pays the developer', s: '$150,000 a year for ten years to run the square' },
+    { v: '20 years', l: 'Tax abatement requested', s: 'Undecided. No hearing scheduled' },
+  ]
+  return (
+    <section style={{ ...card, marginBottom: 14, borderLeft: '6px solid var(--rbl-teal-border)' }}>
+      <h2 style={{ marginTop: 0, marginBottom: 2, color: 'var(--rbl-title)', fontSize: 20 }}>The short version, in six numbers</h2>
+      <p style={{ color: 'var(--rbl-text-muted)', fontSize: 12.8, lineHeight: 1.6, margin: '0 0 12px' }}>
+        These are not one budget and should never be added together. They are the separate pots this project moves
+        through, which is the thing most easily got wrong about it.
+      </p>
+      <div style={{ display: 'grid', gap: 10, gridTemplateColumns: 'repeat(auto-fit, minmax(255px, 1fr))' }}>
+        {rows.map((r) => (
+          <div key={r.l} style={{ background: 'var(--rbl-surface-2)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 12, padding: 12 }}>
+            <div style={{ color: 'var(--rbl-title)', fontSize: 20, fontWeight: 900, lineHeight: 1.15 }}>{r.v}</div>
+            <div style={{ color: 'var(--rbl-title)', fontSize: 12.6, fontWeight: 800, marginTop: 3 }}>{r.l}</div>
+            <div style={{ color: 'var(--rbl-text-muted)', fontSize: 12, lineHeight: 1.45, marginTop: 2 }}>{r.s}</div>
+          </div>
+        ))}
+      </div>
+    </section>
+  )
+}
+
+function Contents() {
+  return (
+    <nav aria-label="On this page" style={{ ...card, marginBottom: 22, padding: '14px 18px' }}>
+      <div style={{ color: 'var(--rbl-text-muted)', fontSize: 11, fontWeight: 900, textTransform: 'uppercase', letterSpacing: 0.5, marginBottom: 8 }}>
+        On this page
+      </div>
+      <ol style={{ listStyle: 'none', margin: 0, padding: 0, display: 'flex', flexWrap: 'wrap', gap: '8px 10px' }}>
+        {PARTS.map((p) => (
+          <li key={p.id}>
+            <a
+              href={`#${p.id}`}
+              style={{
+                display: 'inline-flex', alignItems: 'baseline', gap: 6, textDecoration: 'none',
+                background: 'var(--rbl-surface-2)', border: '1px solid var(--rbl-border-subtle)',
+                borderRadius: 999, padding: '6px 13px', color: 'var(--rbl-title)', fontSize: 13.4, fontWeight: 700,
+              }}
+            >
+              <span style={{ color: 'var(--rbl-text-muted)', fontSize: 11.5, fontWeight: 900 }}>{p.n}</span>
+              {p.label}
+            </a>
+          </li>
+        ))}
+      </ol>
+    </nav>
+  )
+}
+
+function PartHeader({ n, id, title, blurb }: { n: string; id: string; title: string; blurb: string }) {
+  return (
+    <header id={id} style={{ scrollMarginTop: 16, margin: '34px 0 14px', borderTop: '2px solid var(--rbl-border-subtle)', paddingTop: 16 }}>
+      <div style={{ color: 'var(--rbl-text-muted)', fontSize: 11, fontWeight: 900, textTransform: 'uppercase', letterSpacing: 1.1 }}>Part {n}</div>
+      <h2 style={{ margin: '3px 0 4px', color: 'var(--rbl-title)', fontSize: 25, lineHeight: 1.2 }}>{title}</h2>
+      <p style={{ margin: 0, color: 'var(--rbl-text-body)', fontSize: 14.2, lineHeight: 1.6, maxWidth: '62ch' }}>{blurb}</p>
+    </header>
+  )
+}
+
+function Rubric({ children }: { children: React.ReactNode }) {
+  return (
+    <div style={{ color: 'var(--rbl-text-muted)', fontSize: 11, fontWeight: 900, textTransform: 'uppercase', letterSpacing: 0.9, margin: '20px 0 8px' }}>
+      {children}
+    </div>
+  )
+}
+
+function Collapse({ summary, children }: { summary: string; children: React.ReactNode }) {
+  return (
+    <details style={{ marginTop: 10 }}>
+      <summary style={{ cursor: 'pointer', color: 'var(--rbl-link)', fontSize: 13.4, fontWeight: 700 }}>{summary}</summary>
+      <div style={{ marginTop: 10 }}>{children}</div>
+    </details>
   )
 }
 
