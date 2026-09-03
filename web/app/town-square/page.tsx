@@ -3,7 +3,7 @@ import PlainCallout from '../../components/PlainCallout'
 import {
   acquisition, amphitheatre, boardRecord, buildSchedule, developmentBudget, garage, idaAssistance,
   idaPrecedent, inKindSupport, landAssembly, landSale, fundBalanceImpact, openQuestions, parkingDistrict,
-  opposition, preposession, project, publicMoney, townPays, publicObjections, scopeDiscrepancy, scopeEvolution, sources,
+  legalQuestions, opposition, preposession, project, publicMoney, townPays, publicObjections, scopeDiscrepancy, scopeEvolution, sources,
   threeLedgers, timeline, voteSummary, type Milestone,
 } from '../../lib/town-square'
 import { appropriations, policyMinimumPercent, policyUpperPercent, unassignedFundBalance } from '../../lib/reserve-policy'
@@ -593,6 +593,55 @@ export default function TownSquarePage() {
         </p>
       </section>
 
+      <PartHeader
+        n="6"
+        id="process"
+        title={`Process questions`}
+        blurb={`Where the Town's own documents sit alongside the statutes they were written under, and what a resident would need to ask to close the gap.`}
+      />
+
+      <section style={{ ...card, marginBottom: 18, borderLeft: '6px solid var(--rbl-warn-border)' }}>
+        <h2 style={{ marginTop: 0, marginBottom: 8, color: 'var(--rbl-title)', fontSize: 22 }}>{legalQuestions.headline}</h2>
+        <div style={{ background: 'var(--rbl-warn-bg)', border: '1px solid var(--rbl-warn-border)', borderRadius: 10, padding: '12px 14px', marginBottom: 12 }}>
+          <strong style={{ color: 'var(--rbl-warn-strong)', fontSize: 13.6 }}>Read this first:</strong>{' '}
+          <span style={{ color: 'var(--rbl-warn-strong)', fontSize: 13.6, lineHeight: 1.55 }}>{legalQuestions.disclaimer}</span>
+        </div>
+        <p style={{ color: 'var(--rbl-text-body)', fontSize: 14, lineHeight: 1.6, margin: '0 0 14px' }}>{legalQuestions.howToRead}</p>
+
+        <div style={{ display: 'grid', gap: 12 }}>
+          {legalQuestions.items.map((q, i) => {
+            const tone = q.weight === 'sharper'
+              ? { fg: 'var(--rbl-danger-strong)', bd: 'var(--rbl-danger-border)', label: 'Sharpest' }
+              : q.weight === 'open'
+                ? { fg: 'var(--rbl-warn-strong)', bd: 'var(--rbl-warn-border)', label: 'Open' }
+                : { fg: 'var(--rbl-text-muted)', bd: 'var(--rbl-border-subtle)', label: 'Judgment call' }
+            return (
+              <div key={q.id} style={{ background: 'var(--rbl-surface-2)', border: `1px solid ${tone.bd}`, borderRadius: 12, padding: '13px 15px' }}>
+                <div style={{ display: 'flex', gap: 10, alignItems: 'baseline', flexWrap: 'wrap', marginBottom: 5 }}>
+                  <span style={{ color: 'var(--rbl-text-muted)', fontSize: 11.5, fontWeight: 900 }}>{i + 1}</span>
+                  <strong style={{ color: 'var(--rbl-title)', fontSize: 15.4, lineHeight: 1.3 }}>{q.question}</strong>
+                  <span style={{ marginLeft: 'auto', color: tone.fg, fontSize: 10.6, fontWeight: 900, textTransform: 'uppercase', letterSpacing: 0.5, border: `1px solid ${tone.bd}`, borderRadius: 999, padding: '2px 8px' }}>
+                    {tone.label}
+                  </span>
+                </div>
+                <dl style={{ display: 'grid', gap: 8, margin: '8px 0 0' }}>
+                  <Field term="What the rule requires" value={q.requirement} />
+                  <Field term="What the agreement says" value={q.document} />
+                  <Field term="What the record shows" value={q.record} />
+                  <Field term="What would settle it" value={q.resolves} />
+                </dl>
+              </div>
+            )
+          })}
+        </div>
+
+        <div style={{ background: 'var(--rbl-info-bg)', border: '1px solid var(--rbl-info-border)', borderRadius: 10, padding: '12px 14px', margin: '14px 0 10px' }}>
+          <strong style={{ color: 'var(--rbl-info-text)', fontSize: 13.6 }}>What cuts the Town&apos;s way:</strong>{' '}
+          <span style={{ color: 'var(--rbl-info-text)', fontSize: 13.6, lineHeight: 1.55 }}>{legalQuestions.forTheTown}</span>
+        </div>
+        <p style={{ color: 'var(--rbl-text-muted)', fontSize: 12.8, lineHeight: 1.6, margin: 0 }}>{legalQuestions.notAFinding}</p>
+      </section>
+
       <section style={{ ...card }}>
         <h3 style={{ marginTop: 0, color: 'var(--rbl-title)' }}>Sources</h3>
         <Collapse summary={`Show all sources`}>
@@ -617,6 +666,7 @@ const PARTS = [
   { id: 'property', n: '3', label: 'The property the Town took' },
   { id: 'build', n: '4', label: 'When it gets built' },
   { id: 'record', n: '5', label: 'The record' },
+  { id: 'process', n: '6', label: 'Process questions' },
 ]
 
 function KeyNumbers() {
