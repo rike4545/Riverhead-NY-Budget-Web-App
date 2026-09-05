@@ -361,7 +361,7 @@ export const landAssembly = {
 export const landSale = {
   headline: 'The Town is selling most of the site back out',
   resolution: 'Resolution 2025-696, adopted unanimously August 5, 2025 — moved by Rothwell, seconded by Kern',
-  document: 'Master Developer Agreement, Section 3.04, dated August 2025',
+  document: 'Master Developer Agreement, Section 3.04, executed August 19, 2025',
   parcels:
     'Not whole lots. The “Hotel Property” is four strips: a portion of Lot 14 measuring about 60ʹ × 220ʹ, a portion of Lot 13 at 14ʹ × 200ʹ, a portion of Lot 15 at about 10ʹ × 220ʹ, and a portion of Lot 86.1 at 14ʹ × 20ʹ — roughly 18,500 square feet, which matches the 0.42-acre site in the approved plan. Lot 12, which is 117 East Main Street, and the remaining portions of Lots 13, 14, 15 and 86.1 stay with the Town and become the square itself.',
   price: 2_625_000,
@@ -395,7 +395,7 @@ export const townPays = {
     {
       label: 'Town Square Operation & Management Agreement',
       amount: '$150,000 a year for 10 years — $1,500,000',
-      note: 'Section 3.04(b) and the Article III closing terms. Uniquely among the outstanding documents this fee is already fixed: the parties must complete negotiation of all terms at or prior to closing “with the exception of annual fee set at $150,000.00 per year for 10 year term.” The schedule of what the developer must do for it is Exhibit J. Year one is credited against the purchase price if the square is open to the public by closing.',
+      note: 'Section 3.04(b) and the Article III closing terms. Uniquely among the outstanding documents this fee is already fixed: the parties must complete negotiation of all terms at or prior to closing “with the exception of annual fee set at $150,000.00 per year for 10 year term.” Year one is credited against the purchase price if the square is open to the public by closing.',
     },
     {
       label: 'Three construction management agreements',
@@ -403,6 +403,8 @@ export const townPays = {
       note: 'Exhibits G, H and I cover the Town Square upper deck and public gathering space, the lower deck and playground, and the East End Arts relocation and amphitheatre. Each is written as a professional services agreement: “Town will pay Consultant the total sum of seven (7%) percent of the total construction costs to be billed for completion of the project,” billed per phase where the design and bid awards are phased, net thirty days. There is no cap and no stated construction cost, so the fee cannot be quantified here — but it is charged on the public half of the project, which the grant table puts at $34.9 million.',
     },
   ],
+  exhibitJ:
+    'What the Town gets for that $1,500,000 is not published. The agreement points to “a list of responsibilities for operation/maintenance attached hereto as Exhibit ‘J’,” which it says will be incorporated into the Operation & Management Agreement. Exhibit J is not in the copy the Town posts. The document runs to 124 pages and ends with the third construction management agreement; Exhibits A through I are all there and J is not. So the fee is fixed and public while the duties bought with it are neither — and the Operation & Management Agreement itself is still to be negotiated at or before closing, which has not happened.',
   offset:
     'One protection runs the Town’s way. If the developer defaults on the construction management agreements, a fee of $300,000 becomes due to the Town for its use of the staging areas it was licensed to occupy.',
   note:
@@ -726,11 +728,143 @@ export const fundBalanceImpact = {
     'These are the audited December 31, 2025 balances against the 2026 adopted appropriations. They do not reflect anything that happened to fund balance during 2026, because no report covering 2026 has been filed.',
 }
 
+// PROCESS QUESTIONS. This is the most sensitive material on the page and it is
+// written to a deliberately narrow standard: state what the statute requires,
+// quote what the document says, say what the public record shows, and name the
+// one document that would settle it. Nothing here is a finding that anyone broke
+// a rule. Several of these turn on records that exist but are not published, and
+// the absence of a document from a filing is not evidence that the step was
+// skipped. Where an earlier draft of this page overstated a concern, the
+// correction is recorded rather than quietly removed.
+export type LegalQuestion = {
+  id: string
+  question: string
+  requirement: string
+  document: string
+  record: string
+  resolves: string
+  weight: 'sharper' | 'open' | 'lighter'
+}
+
+export const legalQuestions = {
+  headline: 'Process questions a resident could put to the Board',
+  disclaimer:
+    'This page is not written by a lawyer and none of what follows is legal advice or an allegation that the Town broke any law. Each item sets a statutory requirement beside the text of the agreement and says what the public record does and does not show. Municipal records that are not published are not thereby missing: most of these would be answered by a document request, and several may already have been done correctly out of public view.',
+  howToRead:
+    'Every item names the one document that would settle it. That is the point of the section — not to reach a verdict, but to make the questions specific enough that they can actually be answered.',
+  items: [
+    {
+      id: 'procurement',
+      question: 'Were the two service contracts procured under the Town’s own procurement policy?',
+      requirement:
+        'General Municipal Law §103(1) requires competitive bidding for “contracts for public work involving an expenditure of more than thirty-five thousand dollars” and for “purchase contracts (including contracts for service work)… more than twenty thousand dollars.” Where bidding is not required, §104-b obliges every town to adopt a policy that prescribes a procedure for “documenting the basis for any determination that competitive bidding is not required by law,” and requires “justification and documentation of any contract awarded to other than the lowest responsible dollar offeror.” The Town’s own Purchasing page commits to both, and says the policy exists to guard “against favoritism.”',
+      document:
+        'The agreement has the Town buying two things from the company it is selling the land to: operation and maintenance of the Town Square at $150,000 a year for ten years, and construction management of the public works at 7% of total construction cost, uncapped, across three agreements styled “Consultant/Professional Services Agreement.” Running a public park is service work; whether it is a professional service is at least arguable.',
+      record:
+        'Urban Renewal Law §507 lets a municipality sell land to a qualified and eligible sponsor without bidding. It does not address buying services. The agreement’s recitals, read in full, recite the Article 15 hearing, resolutions 2022-235 and 2022-325 and the SEQR position. They recite nothing about competitive bidding, an exemption determination, or the procurement policy.',
+      resolves:
+        'The Town’s §104-b determination for these two procurements, if one was made. That is an ordinary public record.',
+      weight: 'sharper' as const,
+    },
+    {
+      id: 'credit',
+      question: 'Does the fee credit put the same party on both sides of the number?',
+      requirement:
+        'A 2002 opinion of the State Comptroller holds that a firm may not be engaged both as construction manager acting on a town’s behalf and as a prime contractor on the same project. The facts here are not those facts, but the structure invites the same question.',
+      document:
+        'Section 3.04(a): “the Town reserves the right at its option to give Master Developer a credit against the balance of the Purchase Price due at Closing for amounts which may be then due or to become due to Master Developer under any of the three Construction Management Agreements.”',
+      record:
+        'The rate is fixed at 7%. The construction cost it is charged on has not been published, and there is no cap. A larger construction management fee therefore means less cash to the Town for the land, and the same company is on both sides of that trade.',
+      resolves:
+        'A published cost estimate for the public works, and a statement of whether the Town intends to exercise the credit.',
+      weight: 'sharper' as const,
+    },
+    {
+      id: 'commissioner',
+      question: 'Did this disposition need state approval, and did it get it?',
+      requirement:
+        'General Municipal Law §507(2)(d)(3) provides that a sale to a qualified and eligible sponsor “shall, in the case of projects aided by a state loan, periodic subsidy or capital grant or in which application has been made for such loan, subsidy or grant, be approved by the commissioner.” §502(11) defines the commissioner as the Commissioner of Housing and Community Renewal.',
+      document:
+        'The recitals make no reference to approval by any state commissioner.',
+      record:
+        'The project holds $4,200,000 from the Downtown Revitalization Initiative, $3,200,000 from Empire State Development, $500,000 from State Parks and $400,000 in Brownfield Opportunity Area funds. On a plain reading those are state capital grants aiding the project. There is a real counter-reading: “state loan, periodic subsidy or capital grant” inside the Urban Renewal article may mean urban renewal aid administered by that same commissioner rather than any state grant at all. Both readings are live and this page cannot resolve which is right.',
+      resolves:
+        'Either an approval on file, or the Town Attorney’s position on why the clause does not apply.',
+      weight: 'open' as const,
+    },
+    {
+      id: 'exhibit-j',
+      question: 'What is the Town buying for $1,500,000?',
+      requirement:
+        'Not a statute — a governance question. A board voting a ten-year obligation should be able to say what it is obliged to receive.',
+      document:
+        'The fee is fixed and explicitly carved out of what remains to be negotiated: all terms are to be settled at or before closing “with the exception of annual fee set at $150,000.00 per year for 10 year term.” The duties are “a list of responsibilities for operation/maintenance attached hereto as Exhibit ‘J’.”',
+      record:
+        'The copy the Town publishes runs to 124 pages and ends with the third construction management agreement. Exhibits A through I are all attached. Exhibit J is not.',
+      resolves: 'Publication of Exhibit J.',
+      weight: 'sharper' as const,
+    },
+    {
+      id: 'parking-district',
+      question: 'Did the parking district act on its own property?',
+      requirement:
+        'A special district holds its own property and its own funds. The Town Board sits as the district’s trustees, but it acts in a separate capacity when it does.',
+      document:
+        'The agreement recites that “the remainder of Lot 23 shall remain the property of the Riverhead Public Parking District No. 1,” grants a driveway access easement across part of Lot 23, and provides that the Town, “by and through Parking District No. 1,” will enter a parking lot lease with the hotel.',
+      record:
+        'The Town plainly knows this distinction: on the same evening as the qualified-and-eligible hearing it held a separate public hearing on transferring 2,784 square feet from the Parking District to the Town for the garage. Martin Sendlewski, who chairs the Town’s own Parking District Advisory Committee, asked in 2026 whether agreements allocating public spaces to the hotel should come before the district trustees.',
+      resolves: 'District-level resolutions authorising the Lot 23 easement and the parking lease.',
+      weight: 'open' as const,
+    },
+    {
+      id: 'fair-value',
+      question: 'What established that $2,625,000 was the right price?',
+      requirement:
+        'The alternative route in §507(2)(c) requires a sponsor to pay “the minimum price or rental fixed by the agency” and to match any higher bid. The route the Town used, §507(2)(d), requires instead that the price and all other essential terms appear in the published notice.',
+      document:
+        'The price is $2,625,000, reduced by $660,000 of grant-match credits and a further $150,000 if the square is open by closing, with construction management fees creditable on top at the Town’s option.',
+      record:
+        'The price and the 7% fee were public nineteen days before the hearing, which is well beyond the ten days the statute requires — an earlier draft of this page suggested otherwise and was wrong. What is still not in the record reviewed here is any appraisal, or any agency determination fixing a minimum price, against which $2,625,000 could be tested.',
+      resolves: 'The Community Development Agency’s determination of the minimum price, and any appraisal behind it.',
+      weight: 'open' as const,
+    },
+    {
+      id: 'parking-agreement',
+      question: 'Can a site plan be approved on a condition that does not exist yet?',
+      requirement:
+        'A condition of approval is normally something the board can read.',
+      document:
+        'The agreement provides that the parking agreement terms “shall be negotiated and prepared by the Office of the Town Attorney with requisite approval by Resolution of the Town Board and incorporated into site plan approval.”',
+      record:
+        'Site plan and special permit approval passed 5-0 on August 4, 2026. The Town Attorney told the meeting the parking agreement “will be negotiated shortly” and would be incorporated once complete.',
+      resolves: 'The executed parking agreement and the resolution approving it.',
+      weight: 'open' as const,
+    },
+    {
+      id: 'pilot',
+      question: 'Should the Town have made a tax break a material requirement of its own contract?',
+      requirement:
+        'A judgment question rather than a legal one. The Industrial Development Agency is a separate public benefit corporation and is not bound by what the Town Board signs.',
+      document:
+        'The recitals state that obtaining a PILOT agreement “is a material requirement of this Agreement,” that its payment, escalation and term must be “acceptable to Master Developer in its sole, but reasonable, discretion,” and that failing to obtain one “shall have a material adverse impact on the economics of the transactions contemplated in this Agreement.”',
+      record:
+        'The Town signed that in August 2025. The agency accepted the application for review on August 3, 2026, has approved nothing, and has scheduled no hearing.',
+      resolves:
+        'Nothing documentary. It is a question about whether the commitment was appropriate to make, which is for residents and the Board.',
+      weight: 'lighter' as const,
+    },
+  ] as LegalQuestion[],
+  forTheTown:
+    'Several things cut the Town’s way and belong in the same frame. The hearing was noticed three weeks ahead, not the statutory ten days, and the price and the 7% construction management fee were reported publicly nineteen days before it — this was disclosed, not buried. Selling urban renewal land to a designated sponsor without competitive bidding is an ordinary and lawful route, and the Town Attorney said so on the record in May 2025. The developer takes the property as is with no warranty including environmental condition, bears the whole cost of demolition, carries $5,000,000 of liability insurance, must post a performance bond, and owes the Town $300,000 if it defaults on the construction management agreements. And §104-b(5) says in terms that “the unintentional failure to fully comply with the provisions of this section shall not be grounds to void action taken or give rise to a cause of action” — so a documentation gap, if there is one, is a transparency problem rather than a legal vulnerability.',
+  notAFinding:
+    'None of this establishes that anything was done improperly. It establishes that a resident reading the Town’s own documents alongside the statutes they were written under is left with specific, answerable questions — and that the answers are not currently published.',
+}
+
 export const openQuestions = [
   'How much did the July 7 note paydown actually apply? The resolution title does not say, and no 2026 financial report exists yet.',
   'Will The Place for Learning accept the $1.95 million as full payment, or take it as an advance and litigate for more? That answer sets the real acquisition cost.',
   'What is the 7% construction management fee worth in dollars? The agreement fixes the rate and caps nothing. It is charged on the total construction cost of the public plaza, playground, amphitheatre and East End Arts relocation, and that cost has not been published.',
-  'Out of which budget line does the $150,000 a year for running the square come, and does it start before or after the square opens? The fee is fixed in the agreement; where it sits in the Town’s own accounts is not.',
+  'What does the Town actually get for $150,000 a year? The duties are Exhibit J to the Master Developer Agreement, and Exhibit J is not attached to the copy the Town publishes. The fee is settled; the obligations bought with it are not public, and the agreement setting them out has still to be negotiated.',
   'What will the hotel pay for its roughly 100 interim parking spaces, and what will pay-to-park in the garage cost it? Both agreements were still unnegotiated when the site plan was approved.',
   'What will the Industrial Development Agency grant, and what is it worth? A twenty-year PILOT has been requested, along with sales tax and mortgage recording tax relief. Nobody outside the agency has read the application, no hearing has been scheduled, and the school district — which stands to forgo the largest share — has no vote in it.',
   'What will the developer pay for the roughly 100 public parking spaces it is negotiating to use, and for how long? The agreement did not exist when the site plan was approved.',
@@ -786,9 +920,9 @@ export const sources = [
     covers: 'Where the QE documents and presentation are published, alongside the East Main Street Urban Renewal Area Plan and the 2021 Pattern Book.',
   },
   {
-    title: 'Town of Riverhead — Master Developer Agreement (August 2025, 124pp)',
+    title: 'Town of Riverhead — Master Developer Agreement (executed August 19, 2025; 124pp)',
     url: 'https://www.townofriverheadny.gov/DocumentCenter/View/1197/Master-Developer-Agreement-PDF',
-    covers: 'The primary document for the sale and for what the Town pays: Section 3.04 on the $2,625,000 price and every credit against it, Section 3.03 on why the Craft’d leasehold had to be cleared, the recital making a PILOT “a material requirement,” the parking lease and pay-to-park structure, the annexed easements and staging licences, and Exhibits G–I fixing the construction management fee at 7% of construction cost. Read directly rather than through reporting.',
+    covers: 'The primary document for the sale and for what the Town pays: Section 3.04 on the $2,625,000 price and every credit against it, Section 3.03 on why the Craft’d leasehold had to be cleared, the recital making a PILOT “a material requirement,” the parking lease and pay-to-park structure, the annexed easements and staging licences, and Exhibits G–I fixing the construction management fee at 7% of construction cost. Read directly rather than through reporting. Exhibits A through I are attached; Exhibit J, the schedule of maintenance duties, is not.',
   },
   {
     title: 'Town of Riverhead — Pre-Possession and Lease Agreement with J. Petrocelli Riverhead Town Square LLC (2025)',
@@ -864,6 +998,31 @@ export const sources = [
     title: 'Riverhead Industrial Development Agency — Projects',
     url: 'https://www.riverheadida.org/ida-projects',
     covers: 'The agency’s own list of active and past agreements, with the term of each. The source for the comparison table, and confirmation that the Town Square hotel is not yet among them.',
+  },
+  {
+    title: 'New York General Municipal Law §507 — Disposition of property (Urban Renewal)',
+    url: 'https://newyork.public.law/laws/n.y._general_municipal_law_section_507',
+    covers: 'The route the Town used: §507(2)(d) permits sale to a qualified and eligible sponsor without auction or sealed bids, provided the price and all essential terms are in the published notice and the governing body approves after a hearing held not less than ten days later. §507(2)(d)(3) adds approval by the commissioner where a project is aided by a state grant.',
+  },
+  {
+    title: 'New York General Municipal Law §104-b — Procurement policies and procedures',
+    url: 'https://newyork.public.law/laws/n.y._general_municipal_law_section_104-b',
+    covers: 'What a town must adopt for procurements not subject to competitive bidding: a documented basis for any determination that bidding is not required, documentation of the method used, and justification for any award to other than the lowest responsible offeror. Subdivision 5 provides that unintentional non-compliance does not void the action.',
+  },
+  {
+    title: 'New York General Municipal Law §103 — Advertising for bids',
+    url: 'https://newyork.public.law/laws/n.y._general_municipal_law_section_103',
+    covers: 'The thresholds: competitive bidding for public work over $35,000 and for purchase contracts, “including contracts for service work,” over $20,000.',
+  },
+  {
+    title: 'Town of Riverhead — Purchasing',
+    url: 'https://www.townofriverheadny.gov/190/Purchasing',
+    covers: 'The Town’s own statement of its procurement standards: bidding under §103, non-bid procurement under §104-b, and a policy meant to guard “against favoritism” and ensure “objective and unbiased competition.”',
+  },
+  {
+    title: 'RiverheadLOCAL — Town Board sets key hearing for advancement of town square project (July 3, 2025)',
+    url: 'https://riverheadlocal.com/2025/07/03/riverhead-town-board-sets-key-hearing-for-advancement-of-town-square-project-july-1-meeting-wrap-up/',
+    covers: 'The hearing was set on July 1 for July 22, and the $2.625 million price and the 7% construction management fee were reported publicly on July 3 — nineteen days ahead. Also records the separate hearing that evening on transferring land from the Parking District to the Town.',
   },
   {
     title: 'Riverhead Industrial Development Agency — Public Hearing Notices',
