@@ -20,13 +20,22 @@
 
 import prediction from '../public/data/budget-2027-prediction.json'
 import { personnelPolicyTotal, operationalTotal, supplementTrimItems } from './spending-reduction-2027'
+import { unassignedFundBalance } from './reserve-policy'
 
+/** The cap gap as prose ("$2.32M"), and what appropriating all of it would cost
+    the unassigned cushion. Both derived, so neither can drift from the model. */
+const capGapAsMillions = `$${(prediction.capGap.gap / 1_000_000).toFixed(2)}M`
+const gapShareOfUnassignedPct = ((prediction.capGap.gap / unassignedFundBalance) * 100).toFixed(1)
+
+// Read live from the projection. Do not annotate these with the current values:
+// the comments here drifted a full model run out of date while the code stayed
+// correct, which is worse than no comment at all.
 export const capGap2027 = {
-  gap: prediction.capGap.gap, // 2,619,382
-  allowedLevy: prediction.capGap.allowedLevy, // 66,650,818
-  predictedLevy: prediction.capGap.predictedLevy, // 69,270,200
-  predictedLevyPct: prediction.capGap.predictedLevyPct, // 6.0
-  capBasePct: prediction.capGap.capBasePct, // 2
+  gap: prediction.capGap.gap,
+  allowedLevy: prediction.capGap.allowedLevy,
+  predictedLevy: prediction.capGap.predictedLevy,
+  predictedLevyPct: prediction.capGap.predictedLevyPct,
+  capBasePct: prediction.capGap.capBasePct,
 }
 
 // The firmest, least-arguable recurring savings: personnel-policy items +
@@ -94,7 +103,7 @@ export const gapClosingPaths: GapPath[] = [
     closes: 'whatever gap remains after the recurring measures above',
     standing: 'one-time',
     politics:
-      "An easy vote — it raises no tax and cuts no service — but it spends one-time money on recurring cost, so it can only bridge a transitional remainder, not the whole gap. Appropriating the full $2.62M would burn ~8.8% of the $29.7M unassigned fund balance — the truly flexible cushion — for something that recurs.",
+      `An easy vote — it raises no tax and cuts no service — but it spends one-time money on recurring cost, so it can only bridge a transitional remainder, not the whole gap. Appropriating the full ${capGapAsMillions} would burn ~${gapShareOfUnassignedPct}% of the $29.7M unassigned fund balance — the truly flexible cushion — for something that recurs.`,
   },
   {
     name: 'If the Board still wants the spending, override the cap — deliberately and in public',

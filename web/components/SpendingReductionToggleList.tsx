@@ -12,6 +12,7 @@ import {
   modeledAutomaticPayrollPressure,
   type SpendingReductionItem,
 } from '../lib/spending-reduction-2027'
+import { capGap2027 } from '../lib/close-the-gap-2027'
 
 const usd = (n: number) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(n)
 const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 20, boxShadow: '0 14px 34px var(--rbl-shadow)' } as const
@@ -78,7 +79,7 @@ export default function SpendingReductionToggleList() {
         <div style={{ color: 'var(--rbl-text-muted)', fontSize: 12.5, marginBottom: 14 }}>
           {(rawCoverage * 100).toFixed(0)}% of the {usd(modeledAutomaticPayrollPressure)} modeled 2027 payroll-pressure gap
           {rawCoverage >= 1 ? ' — fully covered' : ''}
-          {' '}<span style={{ color: 'var(--rbl-text-muted)' }}>(the smaller of the two gaps; the ~$2.62M cap-piercing gap is the one that actually binds)</span>
+          {' '}<span style={{ color: 'var(--rbl-text-muted)' }}>(the smaller of the two gaps; the ~${(capGap2027.gap / 1_000_000).toFixed(2)}M cap-piercing gap is the one that actually binds)</span>
         </div>
 
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(160px,1fr))', gap: 10, marginBottom: 14 }}>
