@@ -125,7 +125,7 @@ export default function SiteNav() {
     // header wraps to two lines (long title + narrow viewport) and this becomes the sole
     // item on its row — plain justify-content: space-between only works with 2+ items on
     // the same row, and without this the mobile panel's `right: 0` anchors to the wrong box.
-    <div ref={navRef} style={{ position: 'relative', marginLeft: 'auto' }}>
+    <div ref={navRef} className="nav-root" style={{ position: 'relative', marginLeft: 'auto' }}>
       {/* Hamburger toggle, mobile only */}
       <button
         onClick={() => setMobileOpen((v) => !v)}
@@ -196,7 +196,12 @@ export default function SiteNav() {
 
       </nav>
 
-      {/* Mobile dropdown: primary links + every group's links, flat */}
+      {/* Mobile dropdown: primary links + every group's links, flat.
+          `right: 0` anchors to this wrapper, which is NOT at the viewport edge — the
+          font-size controls sit to its right inside the header. A 250px panel therefore
+          ran off the left of a phone screen and clipped every label. On mobile the CSS
+          below drops this wrapper out of the positioning flow so the panel resolves
+          against the header instead and can span the full width. */}
       {mobileOpen && (
         <div className="nav-mobile-panel" style={{
           display: 'none', position: 'absolute', top: 'calc(100% + 8px)', right: 0, minWidth: 250, maxHeight: '70vh',
@@ -234,7 +239,18 @@ export default function SiteNav() {
         @media (max-width: 860px) {
           .nav-links { display: none !important; }
           .nav-hamburger { display: inline-block !important; }
-          .nav-mobile-panel { display: grid !important; }
+          /* Hand the panel's containing block to the header, which spans the viewport,
+             so left/right below are measured against the screen and not against the
+             hamburger button. */
+          .nav-root { position: static !important; }
+          .nav-mobile-panel {
+            display: grid !important;
+            left: 12px !important;
+            right: 12px !important;
+            top: calc(100% + 10px) !important;
+            min-width: 0 !important;
+            max-width: none !important;
+          }
         }
       `}</style>
     </div>
