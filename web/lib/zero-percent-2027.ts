@@ -53,8 +53,8 @@ export const trajectory = {
   levyHistory: generalFund.rows
     .filter((r) => r.taxLevy !== null && r.year >= 2021)
     .map((r) => ({ year: r.year, levy: r.taxLevy as number })),
-  gapNote:
-    'There is no 2023 row. The long-run General Fund history behind this site is parsed from the Town’s published adopted budgets and no 2023 figure was extracted, so the change shown against 2024 covers two years rather than one — about 4.9% a year compounded, not 9.97% in a single year. It is labelled that way below rather than left to look like an annual jump.',
+  trendNote:
+    'Read year by year, the levy is accelerating rather than sitting at a high plateau: down 3.10% in 2022, then +4.17%, +5.56% and +9.24%. The 2025 jump is the outlier, not the norm — and it is the trend a zero-percent pledge would have to break, from its steepest point.',
   note:
     'These are rates per $1,000 of assessed value from the Town’s own adopted rate table, not levies. A rate can move differently from the levy because the assessment roll moves too. Both are shown because residents feel the rate and the cap governs the levy.',
 }

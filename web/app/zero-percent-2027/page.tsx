@@ -110,8 +110,8 @@ export default function ZeroPercent2027Page() {
           })}
         </div>
         <div style={{ background: 'var(--rbl-warn-bg)', border: '1px solid var(--rbl-warn-border)', borderRadius: 10, padding: '10px 13px', marginBottom: 8 }}>
-          <strong style={{ color: 'var(--rbl-warn-strong)', fontSize: 13.2 }}>A gap in the record:</strong>{' '}
-          <span style={{ color: 'var(--rbl-warn-strong)', fontSize: 13.2, lineHeight: 1.55 }}>{trajectory.gapNote}</span>
+          <strong style={{ color: 'var(--rbl-warn-strong)', fontSize: 13.2 }}>The direction matters more than any one year:</strong>{' '}
+          <span style={{ color: 'var(--rbl-warn-strong)', fontSize: 13.2, lineHeight: 1.55 }}>{trajectory.trendNote}</span>
         </div>
         <p style={{ color: 'var(--rbl-text-muted)', fontSize: 12.6, lineHeight: 1.6, margin: 0 }}>{trajectory.note}</p>
       </section>
