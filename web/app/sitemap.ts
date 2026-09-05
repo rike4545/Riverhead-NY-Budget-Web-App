@@ -12,7 +12,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/analytics', '/sources', '/scenarios', '/board-elections', '/election-law-case',
     '/community-preservation-fund', '/housing-plan', '/know-your-rights',
     '/official-social-media', '/town-square',
-    '/programs',
+    '/programs', '/zero-percent-2027',
     ...allFundCodes().map((code) => `/funds/${code}`),
   ]
   const now = new Date()
