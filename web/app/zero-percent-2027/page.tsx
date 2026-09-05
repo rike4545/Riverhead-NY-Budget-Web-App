@@ -5,6 +5,7 @@ import {
   generalFund2026, generalFund2027, costGrowth, costGrowthPct,
 } from '../../lib/zero-percent-2027'
 import { capGap2027 } from '../../lib/close-the-gap-2027'
+import { theMiss, biggestMisses, totals as ba2023, whatItMeansForAFreeze, source as baSource } from '../../lib/budget-vs-actual-2023'
 
 const usd = (n: number) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(n)
 const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 20, boxShadow: '0 14px 34px var(--rbl-shadow)' } as const
@@ -159,6 +160,72 @@ export default function ZeroPercent2027Page() {
             </div>
           )
         })}
+      </section>
+
+      <section style={{ ...card, marginBottom: 18, borderLeft: '6px solid var(--rbl-success-border)' }}>
+        <div style={{ color: 'var(--rbl-success-strong)', fontWeight: 900, fontSize: 11.4, textTransform: 'uppercase', letterSpacing: 0.5 }}>What the last closed year shows</div>
+        <h2 style={{ margin: '4px 0 8px', color: 'var(--rbl-title)', fontSize: 21 }}>{whatItMeansForAFreeze.headline}</h2>
+
+        <div style={{ display: 'grid', gap: 10, gridTemplateColumns: 'repeat(auto-fit, minmax(190px, 1fr))', marginBottom: 12 }}>
+          {[
+            { l: '2023 final budget, net change', v: usd(ba2023.netChange.final), sub: 'A planned drawdown' },
+            { l: '2023 actual, net change', v: usd(ba2023.netChange.actual), sub: 'A surplus instead', good: true },
+            { l: 'The swing', v: usd(theMiss.swingFinal), sub: 'Against the Town’s own final budget', amber: true },
+          ].map((x) => (
+            <div key={x.l} style={{ background: 'var(--rbl-surface-2)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 12, padding: 12 }}>
+              <div style={{ color: 'var(--rbl-text-muted)', fontSize: 11.4, fontWeight: 900, textTransform: 'uppercase', letterSpacing: 0.4 }}>{x.l}</div>
+              <strong style={{ fontSize: 19, color: x.amber ? 'var(--rbl-warn-strong)' : x.good ? 'var(--rbl-success-strong)' : 'var(--rbl-title)' }}>{x.v}</strong>
+              <div style={{ color: 'var(--rbl-text-muted)', fontSize: 12 }}>{x.sub}</div>
+            </div>
+          ))}
+        </div>
+
+        <p style={{ color: 'var(--rbl-text-body)', fontSize: 14.2, lineHeight: 1.6, margin: '0 0 10px' }}>{theMiss.detail}</p>
+        <p style={{ color: 'var(--rbl-text-body)', fontSize: 14, lineHeight: 1.6, margin: '0 0 12px' }}>{whatItMeansForAFreeze.detail}</p>
+
+        <div style={{ overflowX: 'auto', marginBottom: 12 }}>
+          <table style={{ borderCollapse: 'collapse', width: '100%', minWidth: 520, fontSize: 13 }}>
+            <thead>
+              <tr>
+                {['Biggest 2023 variances', 'Final budget', 'Actual', 'Variance'].map((h, i) => (
+                  <th key={h} style={{ textAlign: i ? 'right' : 'left', padding: '7px 9px', borderBottom: '2px solid var(--rbl-border-subtle)', color: 'var(--rbl-text-muted)', fontSize: 11.2, textTransform: 'uppercase', letterSpacing: 0.4 }}>{h}</th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {biggestMisses.map((m) => {
+                const v = m.actual - m.final
+                return (
+                  <tr key={m.label}>
+                    <td style={{ padding: '7px 9px', borderBottom: '1px solid var(--rbl-border-subtle)', color: 'var(--rbl-title)', fontWeight: 700 }}>
+                      {m.label}
+                      <div style={{ color: 'var(--rbl-text-muted)', fontSize: 12, fontWeight: 400, lineHeight: 1.45 }}>{m.note}</div>
+                    </td>
+                    <td style={{ padding: '7px 9px', borderBottom: '1px solid var(--rbl-border-subtle)', textAlign: 'right', color: 'var(--rbl-text-body)', whiteSpace: 'nowrap' }}>{usd(m.final)}</td>
+                    <td style={{ padding: '7px 9px', borderBottom: '1px solid var(--rbl-border-subtle)', textAlign: 'right', color: 'var(--rbl-text-body)', whiteSpace: 'nowrap' }}>{usd(m.actual)}</td>
+                    <td style={{ padding: '7px 9px', borderBottom: '1px solid var(--rbl-border-subtle)', textAlign: 'right', color: v > 0 ? 'var(--rbl-success-strong)' : 'var(--rbl-warn-strong)', fontWeight: 800, whiteSpace: 'nowrap' }}>
+                      {v >= 0 ? '+' : '−'}{usd(Math.abs(v))}
+                    </td>
+                  </tr>
+                )
+              })}
+            </tbody>
+          </table>
+        </div>
+
+        <div style={{ background: 'var(--rbl-info-bg)', border: '1px solid var(--rbl-info-border)', borderRadius: 10, padding: '11px 13px', marginBottom: 10 }}>
+          <strong style={{ color: 'var(--rbl-info-text)', fontSize: 13.4 }}>The fair reading:</strong>{' '}
+          <span style={{ color: 'var(--rbl-info-text)', fontSize: 13.4, lineHeight: 1.55 }}>{whatItMeansForAFreeze.theFairReading}</span>
+        </div>
+        <div style={{ background: 'var(--rbl-teal-bg)', border: '1px solid var(--rbl-teal-border)', borderRadius: 10, padding: '11px 13px', marginBottom: 8 }}>
+          <strong style={{ color: 'var(--rbl-teal-strong)', fontSize: 13.4 }}>The question that follows:</strong>{' '}
+          <span style={{ color: 'var(--rbl-teal-strong)', fontSize: 13.4, lineHeight: 1.55 }}>{whatItMeansForAFreeze.theQuestion}</span>
+        </div>
+        <p style={{ color: 'var(--rbl-text-muted)', fontSize: 12.2, lineHeight: 1.6, margin: 0 }}>
+          {baSource.schedule}, from the {baSource.title}. The Annual Financial Report filed with the State shows larger
+          totals for the same year because it folds interfund transfers into revenues and expenditures; adding transfers
+          in of {usd(ba2023.transfersIn.actual)} and out of {usd(Math.abs(ba2023.transfersOut.actual))} reconciles the two exactly.
+        </p>
       </section>
 
       <section style={{ ...card, marginBottom: 18, borderLeft: '6px solid var(--rbl-violet)' }}>
