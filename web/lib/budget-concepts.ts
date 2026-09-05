@@ -10,6 +10,11 @@
 // regardless of population — so the budget deadlines below are the general ones,
 // not the later dates that apply only to Westchester and Monroe County towns.
 
+import prediction from '../public/data/budget-2027-prediction.json'
+
+/** The cap gap, as prose: "$2.32M". Derived so it can't drift from the projection. */
+const capGapM = `$${(prediction.capGap.gap / 1_000_000).toFixed(2)}M`
+
 export type BudgetConcept = {
   id: string
   title: string
@@ -51,7 +56,7 @@ export const budgetConcepts: BudgetConcept[] = [
     plain:
       'New York limits how much a town can raise its property-tax levy each year — the lesser of 2% or the rate of inflation, with adjustments for tax-base growth and certain exclusions. The Board can legally exceed it, but only by adopting an override local law first, in public, with a 60% vote of the governing body. The cap is a guardrail with a documented exit, not a hard ceiling. One step is easy to miss: the Town’s chief fiscal officer must file a tax-cap form with the State Comptroller *before* the budget is adopted, so the levy limit is on record with the State ahead of the vote.',
     riverhead:
-      'Riverhead adopted overrides in 2023, 2024, and 2026, and on current trends the 2027 levy pierces the cap again by about $2.62M. The question worth asking isn’t only whether an override happens, but whether a cap-compliant version of the budget was ever shown alongside it.',
+      `Riverhead adopted overrides in 2023, 2024, and 2026, and on current trends the 2027 levy pierces the cap again by about ${capGapM}. The question worth asking isn’t only whether an override happens, but whether a cap-compliant version of the budget was ever shown alongside it.`,
     ask: 'What would this budget look like under the cap, what specifically does the override fund — and what levy limit did the Town file with the Comptroller before adoption night?',
     cite: 'General Municipal Law §3-c (enacted 2011, effective for fiscal years beginning 2012)',
   },

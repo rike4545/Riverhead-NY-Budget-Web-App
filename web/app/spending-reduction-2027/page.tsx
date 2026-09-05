@@ -4,6 +4,7 @@ import { fullRecurringReductionPackage, modeledAutomaticPayrollPressure } from '
 import { builtFromDocuments } from '../../lib/built-from-documents'
 import { acrossTheBoard2027 as atb } from '../../lib/across-the-board-2027'
 import { capGap2027, firmRecurringTotal, retirementIncentive2027 as ri, gapClosingPaths } from '../../lib/close-the-gap-2027'
+import { personnelPolicyItems } from '../../lib/spending-reduction-2027'
 
 const STANDING: Record<string, { label: string; color: string; bg: string }> = {
   'already agreed': { label: 'Already agreed · 5–0', color: 'var(--rbl-success-strong)', bg: 'var(--rbl-success-bg)' },
@@ -22,13 +23,22 @@ const KIND: Record<string, { color: string; bg: string }> = {
   afr: { color: 'var(--rbl-warn)', bg: 'var(--rbl-warn-bg)' },
 }
 
-const comboLow = Math.round(((ri.projectedSavingsLow + firmRecurringTotal) / capGap2027.gap) * 100)
-const comboHigh = Math.round(((ri.projectedSavingsHigh + firmRecurringTotal) / capGap2027.gap) * 100)
+// The firm package and the retirement incentive OVERLAP: firmRecurringTotal
+// already contains a "targeted retirement + refill" line covering the same
+// mechanism the incentive does. Adding them whole double-counted it and
+// overstated coverage as 112–125%. Netting the overlap out first is the
+// conservative reading, and the one this page shows.
+const retirementRefillOverlap =
+  personnelPolicyItems.find((i) => i.id === 'retirementRefill')?.amount ?? 0
+const combined = (incentive: number) =>
+  Math.round(((incentive + firmRecurringTotal - retirementRefillOverlap) / capGap2027.gap) * 100)
+const comboLow = combined(ri.projectedSavingsLow)
+const comboHigh = combined(ri.projectedSavingsHigh)
 
 export const metadata = {
   title: '2027 Spending Reduction — how the Town can close the tax-cap gap',
   description:
-    'In plain terms: Riverhead’s 2027 budget is projected to pierce the tax cap by about $2.62M. The retirement incentive plus sourced line trims close it — with an interactive package, the politics, and the alternatives explained.',
+    `In plain terms: Riverhead’s 2027 budget is projected to pierce the tax cap by about $${(capGap2027.gap / 1_000_000).toFixed(2)}M. The retirement incentive plus sourced line trims close it — with an interactive package, the politics, and the alternatives explained.`,
 }
 
 export default function SpendingReduction2027Page() {
@@ -60,7 +70,7 @@ export default function SpendingReduction2027Page() {
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(190px,1fr))', gap: 12, margin: '14px 0' }}>
           <Tile label="1 · Retirement incentive" value={`${usd(ri.projectedSavingsLow)}–${usd(ri.projectedSavingsHigh)}`} note="Town projection · already adopted 5–0" green />
           <Tile label="2 · Sourced line trims" value={usd(firmRecurringTotal)} note="Only the firmest — no volatile fuel/energy or capital-timing items" green />
-          <Tile label="Together" value={`${comboLow}–${comboHigh}%`} note={`of the ${usd(capGap2027.gap)} gap — essentially all of it`} accent />
+          <Tile label="Together" value={`${comboLow}–${comboHigh}%`} note={`of the ${usd(capGap2027.gap)} gap, after netting the overlap between the two`} accent />
         </div>
         <p style={{ color: 'var(--rbl-text-strong)', fontSize: 14, lineHeight: 1.6, margin: 0 }}>
           The unanimous retirement incentive plus only the <em>firmest</em> line trims cover essentially the entire
