@@ -87,7 +87,7 @@ export default function CompareExplorer() {
             </p>
           </div>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(250px,1fr))', gap: 12 }}>
-            <DriverList title="Largest increases" rows={drivers.increases} positive />
+            <DriverList title="Largest increases" rows={drivers.increases} />
             <DriverList title="Largest decreases" rows={drivers.decreases} />
           </div>
         </section>
@@ -137,7 +137,7 @@ export default function CompareExplorer() {
   )
 }
 
-function DriverList({ title, rows, positive }: { title: string; rows: Array<{ code: string; name: string; change: number | null }>; positive?: boolean }) {
+function DriverList({ title, rows }: { title: string; rows: Array<{ code: string; name: string; change: number | null }> }) {
   return (
     <div style={{ background: 'var(--rbl-surface-2)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 12, padding: 14 }}>
       <div style={{ fontWeight: 900, marginBottom: 8 }}>{title}</div>
