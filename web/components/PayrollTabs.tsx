@@ -17,13 +17,21 @@ export default function PayrollTabs({
   const [tab, setTab] = useState<'actual' | 'authorized' | 'raises' | 'overtime' | 'separation' | 'steps'>('actual')
   return (
     <div style={{ display: 'grid', gap: 16 }}>
-      <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
-        <Tab active={tab === 'actual'} onClick={() => setTab('actual')} title="Actual Pay" sub="What employees were paid, 2018–2025" />
-        <Tab active={tab === 'authorized'} onClick={() => setTab('authorized')} title="Authorized Salary" sub="What the Board set for 2025 or 2026, vs actual pay" />
-        <Tab active={tab === 'raises'} onClick={() => setTab('raises')} title="Raises 2025 → 2026" sub="Who got a raise, and by how much" />
-        <Tab active={tab === 'overtime'} onClick={() => setTab('overtime')} title="Overtime & Staffing" sub="Which police ranks run overtime instead of headcount" />
-        <Tab active={tab === 'separation'} onClick={() => setTab('separation')} title="Separation Pay" sub="Unused leave the Town owes, and what leaving costs" />
-        <Tab active={tab === 'steps'} onClick={() => setTab('steps')} title="Police Pay Steps" sub="How PBA step increases actually work" />
+      <div style={{ display: 'grid', gap: 8 }}>
+        <div style={{ fontSize: 12, fontWeight: 900, letterSpacing: .7, textTransform: 'uppercase', color: 'var(--rbl-text-muted)' }}>Public record</div>
+        <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+          <Tab active={tab === 'actual'} onClick={() => setTab('actual')} title="Employees & Pay" sub="What employees were actually paid, 2018–2025" />
+          <Tab active={tab === 'authorized'} onClick={() => setTab('authorized')} title="Authorized Salary" sub="Board-set base salary vs. actual pay" />
+          <Tab active={tab === 'raises'} onClick={() => setTab('raises')} title="Raises 2025 → 2026" sub="Who received a raise and by how much" />
+        </div>
+      </div>
+      <div style={{ display: 'grid', gap: 8 }}>
+        <div style={{ fontSize: 12, fontWeight: 900, letterSpacing: .7, textTransform: 'uppercase', color: 'var(--rbl-text-muted)' }}>Analysis</div>
+        <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+          <Tab active={tab === 'overtime'} onClick={() => setTab('overtime')} title="Overtime & Staffing" sub="Overtime pressure and police staffing patterns" />
+          <Tab active={tab === 'separation'} onClick={() => setTab('separation')} title="Separation Pay" sub="Unused leave liabilities and departure costs" />
+          <Tab active={tab === 'steps'} onClick={() => setTab('steps')} title="Police Pay Steps" sub="How PBA step increases work" />
+        </div>
       </div>
       {tab === 'actual' ? <PayrollExplorer />
         : tab === 'authorized' ? <AuthorizedSalary />
