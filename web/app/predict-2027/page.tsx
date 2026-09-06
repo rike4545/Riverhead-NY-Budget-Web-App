@@ -27,6 +27,7 @@ export const metadata = {
 }
 
 const t = p.totals
+const generalFund2027 = p.byFund.find((f) => f.fundCode === 'A01')?.v2027 ?? 0
 const le = p.levyEstimate
 
 export default function Predict2027Page() {
@@ -54,8 +55,8 @@ export default function Predict2027Page() {
 
       {/* Headline numbers — the answer. */}
       <section style={{ ...card, display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(180px,1fr))', gap: 12, marginBottom: 16 }}>
-        <Stat label="2026 adopted (appropriations)" value={usd(t.appropriations2026)} />
-        <Stat label="2027 predicted" value={usd(t.appropriations2027)} accent />
+        <Stat label="2026 adopted — all 19 funds" value={usd(t.appropriations2026)} sub="Appropriations across every operating fund, not the General Fund alone" />
+        <Stat label="2027 predicted — all 19 funds" value={usd(t.appropriations2027)} accent sub={`General Fund alone: ${usd(generalFund2027)}`} />
         <Stat label="Predicted change" value={`+${usd(t.delta)}`} sub={`+${t.pct}% on ${t.lineItems.toLocaleString()} line items`} />
         <Stat label="Implied levy increase" value={`+${le.levyIncreasePct}%`} sub={`${usd(le.levy2026)} → ${usd(le.levy2027)}`} amber />
       </section>

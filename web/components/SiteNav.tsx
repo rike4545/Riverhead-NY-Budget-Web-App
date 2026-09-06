@@ -11,6 +11,7 @@ type Group = { label: string; links: Link[] }
 // A few high-traffic pages stay one click away; everything else is grouped
 // so the header reads as a handful of choices, not a wall of 21 buttons.
 const PRIMARY: Link[] = [
+  ['Answers', `${base}/answers/`],
   ['Explore the Budget', `${base}/explore/`],
   ['Search', `${base}/search/`],
 ]

@@ -7,7 +7,7 @@ const SITE = 'https://rike4545.github.io/Riverhead-NY-Budget-Web-App'
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const routes = [
-    '', '/guide', '/payroll', '/funds', '/compare', '/general-fund',
+    '', '/answers', '/guide', '/payroll', '/funds', '/compare', '/general-fund',
     '/annual-report', '/meetings', '/buyout', '/search', '/downloads', '/gfoa',
     '/analytics', '/sources', '/scenarios', '/board-elections', '/election-law-case',
     '/community-preservation-fund', '/housing-plan', '/know-your-rights',
