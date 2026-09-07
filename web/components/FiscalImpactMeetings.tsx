@@ -36,6 +36,7 @@ export default function FiscalImpactMeetings({ meetings }: { meetings: FiscalMee
   const reserveDraw = m.resolutions.filter((r) => r.realistic.flag === 'reserve-draw')
   const corrections = [...understatedNo, ...reserveDraw]
   const lu = s.largestUnderstatedMarkedNo
+  const base = process.env.NEXT_PUBLIC_BASE_PATH || ''
 
   return (
     <div style={{ display: 'grid', gap: 16 }}>
@@ -51,6 +52,13 @@ export default function FiscalImpactMeetings({ meetings }: { meetings: FiscalMee
             <option key={x.meetingDate} value={x.meetingDate}>{fmtDate(x.meetingDate)}</option>
           ))}
         </select>
+        <a
+          href={`${base}/meetings/`}
+          style={{ color: 'var(--rbl-accent)', fontWeight: 800, fontSize: 13.5, textDecoration: 'none', whiteSpace: 'nowrap' }}
+          title={`Open the Town Board voting record for ${fmtDate(m.meetingDate)}`}
+        >
+          Open voting record →
+        </a>
       </section>
 
       <section style={{ ...card, display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(170px,1fr))', gap: 12 }}>
