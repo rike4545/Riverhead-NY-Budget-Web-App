@@ -8,7 +8,7 @@
     "start": "next start",
     "lint": "next lint",
     "verify": "npm run build && npm run verify:output",
-    "verify:output": "node scripts/verify-build.mjs",
+    "verify:output": "node scripts/verify-build.mjs && node scripts/verify-meeting-record.mjs",
     "verify:authorities": "node scripts/check-authority-sources.mjs"
   },
   "dependencies": {
@@ -22,7 +22,7 @@
   "devDependencies": {
     "@types/node": "^22.7.4",
     "@types/react": "^18.3.5",
-    "@types/react-dom": "^18.3.7",
+    "@types/react-dom": "^18.3.1",
     "autoprefixer": "^10.4.20",
     "eslint": "^9.12.0",
     "eslint-config-next": "^15.5.0",
