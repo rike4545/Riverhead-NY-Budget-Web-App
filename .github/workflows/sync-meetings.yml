@@ -34,11 +34,17 @@ jobs:
           python -m pip install --upgrade pip
           python -m pip install -e .
 
-      - name: Fetch current meeting records and schedule
+      - name: Reconcile current official meeting records
         run: |
+          # Re-check CivicClerk source hashes even after vote-bearing minutes exist.
+          # Any Clerk correction therefore flows back through the parsed record.
           python etl/fetch_meetings.py
           python etl/fetch_upcoming.py
           python etl/parse_meetings.py
+          python etl/reconcile_meeting_sources.py
+          # Fiscal companions depend on the current resolution titles/numbers, so
+          # rebuild them after every official-record reconciliation pass.
+          python etl/parse_fiscal_impact.py
 
       - name: Detect meeting-data changes
         id: meeting_changes
