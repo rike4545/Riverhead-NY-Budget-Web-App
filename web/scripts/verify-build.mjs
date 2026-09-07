@@ -14,7 +14,7 @@ const requiredFiles = [
   'app/page.tsx', 'components/FiscalCommandCenter.tsx', 'components/PayrollTabs.tsx',
   'components/UnifiedSearch.tsx', 'components/DataStatus.tsx', 'components/ProvenanceLine.tsx',
   'lib/all-funds.ts', 'lib/afr.ts', 'lib/payroll.ts', 'lib/salary.ts', 'lib/meetings.ts',
-  'lib/subaccounts.ts', 'lib/budget-history.ts', 'lib/general-fund.ts',
+  'lib/subaccounts.ts', 'lib/budget-history.ts', 'lib/general-fund.ts', 'lib/osc-guidance.ts',
 ]
 
 const requiredOutputs = [
@@ -23,8 +23,8 @@ const requiredOutputs = [
   'out/funds/A01/index.html', 'out/compare/index.html', 'out/general-fund/index.html',
   'out/annual-report/index.html', 'out/meetings/index.html', 'out/search/index.html',
   'out/downloads/index.html', 'out/analytics/index.html', 'out/taxpayer-impact/index.html',
-  'out/predict-2027/index.html', 'out/sitemap.xml', 'out/robots.txt', 'out/data/search/manifest.json',
-  'out/data/payroll/records.json', 'out/data/meta.json',
+  'out/predict-2027/index.html', 'out/sources/index.html', 'out/sitemap.xml', 'out/robots.txt',
+  'out/data/search/manifest.json', 'out/data/payroll/records.json', 'out/data/meta.json',
   'out/downloads/payroll_actual_2018_2025.csv',
 ]
 
@@ -119,5 +119,20 @@ for (const text of ['2% allowable-growth planning proxy', '28.6% of towns', 'fin
   if (!predict2027.includes(text)) fail(`2027 tax-cap framing regressed: missing ${text}`)
 }
 
+// The source library must preserve the authority hierarchy. FASB ASC is useful
+// context for nongovernmental counterparties, but it must never be presented as
+// Riverhead's governing municipal GAAP in place of GASB/OSC.
+const sources = readFileSync(path('out/sources/index.html'), 'utf8')
+for (const text of [
+  'OSC guidance used to interpret Riverhead',
+  'Real Property Tax Cap and Tax Cap Compliance',
+  'Understanding the Budget Process',
+  'FASB Accounting Standards Codification',
+  'nongovernmental entities',
+  'not Riverhead’s governing municipal GAAP',
+]) {
+  if (!sources.includes(text)) fail(`Source-library authority framing regressed: missing ${text}`)
+}
+
 if (process.exitCode) process.exit(process.exitCode)
-console.log('Build verification passed: routes, record floors, snapshot version, freshness contracts, 2027 tax-cap framing, search shards, and payload guardrails are valid.')
+console.log('Build verification passed: routes, record floors, snapshot version, freshness contracts, 2027 tax-cap framing, source authority hierarchy, search shards, and payload guardrails are valid.')
