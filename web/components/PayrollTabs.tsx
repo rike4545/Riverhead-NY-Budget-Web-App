@@ -7,6 +7,7 @@ import SalaryRaises from './SalaryRaises'
 import OvertimeStaffing, { type OvertimeStaffingProps } from './OvertimeStaffing'
 import SeparationPay, { type SeparationPayProps } from './SeparationPay'
 import PoliceStepSchedule from './PoliceStepSchedule'
+import RecordTrail from './RecordTrail'
 
 export default function PayrollTabs({
   overtime, separation,
@@ -54,6 +55,18 @@ export default function PayrollTabs({
           </div>
         </div>
       </div>
+
+      <RecordTrail
+        title="Put payroll in context"
+        intro="Actual pay is only one part of the public record. Check the budget, Board decisions, fiscal impact, and source documents alongside it."
+        items={[
+          { href: '/funds/', label: 'Budget & Funds', text: 'See the accounts and departments that fund Town operations.' },
+          { href: '/meetings/', label: 'Town Board Votes', text: 'Follow the resolutions and recorded decisions behind policy and spending.' },
+          { href: '/fiscal-impact/', label: 'Fiscal Impact', text: 'Review the Town’s fiscal-impact statements in resident-readable form.' },
+          { href: '/campaign-finance/', label: 'Campaign Finance', text: 'Check campaign filings separately from payroll and budget records.' },
+          { href: '/sources/', label: 'Source Library', text: 'Inspect the official documents supporting the payroll datasets.' },
+        ]}
+      />
 
       {tab === 'actual' ? <PayrollExplorer />
         : tab === 'authorized' ? <AuthorizedSalary />
