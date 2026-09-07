@@ -63,6 +63,8 @@ const sections = [
   },
 ] as const
 
+const slug = (value: string) => value.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')
+
 export default function AnalyticsPage() {
   const levyTotal = allOperatingFunds2026.reduce((sum, fund) => sum + fund.taxLevy2026, 0)
   const appropriationTotal = allOperatingFunds2026.reduce((sum, fund) => sum + fund.appropriations2026, 0)
@@ -119,7 +121,7 @@ export default function AnalyticsPage() {
 
 function Metric({ label, value, href, source }: { label: string; value: string; href: string; source: string }) {
   const base = process.env.NEXT_PUBLIC_BASE_PATH || ''
-  return <a href={`${base}${href}`} style={{ ...card, display: 'block', color: 'inherit', textDecoration: 'none' }}><div style={{ color: 'var(--rbl-text-muted)', fontSize: 12, textTransform: 'uppercase', fontWeight: 900 }}>{label}</div><strong style={{ fontSize: 28 }}>{value}</strong><ProvenanceLine status="calculated" source={source} asOf="2026 adopted budget" calculation="Aggregated from cited fund records" /></a>
+  return <a href={`${base}${href}`} style={{ ...card, display: 'block', color: 'inherit', textDecoration: 'none' }}><div style={{ color: 'var(--rbl-text-muted)', fontSize: 12, textTransform: 'uppercase', fontWeight: 900 }}>{label}</div><strong style={{ fontSize: 28 }}>{value}</strong><ProvenanceLine status="calculated" source={source} asOf="2026 adopted budget" calculation="Aggregated from cited fund records" claimId={`analytics-metric-${slug(label)}`} /></a>
 }
 
 function HubSection({ eyebrow, title, text, links }: { eyebrow: string; title: string; text: string; links: readonly (readonly [string, string, string])[] }) {
@@ -129,7 +131,7 @@ function HubSection({ eyebrow, title, text, links }: { eyebrow: string; title: s
 
 function KpiCard({ label, value, explanation, href }: { label: string; value: string; explanation: string; href?: string }) {
   const base = process.env.NEXT_PUBLIC_BASE_PATH || ''
-  const body = <><div style={{ color: 'var(--rbl-link)', fontWeight: 900, fontSize: 12, textTransform: 'uppercase' }}>{label}</div><strong style={{ fontSize: 26 }}>{value}</strong><p style={{ color: 'var(--rbl-text-body)', lineHeight: 1.55 }}>{explanation}</p><ProvenanceLine status="calculated" source="Cited site datasets" asOf="latest indexed records" calculation="Automated indicator" /></>
+  const body = <><div style={{ color: 'var(--rbl-link)', fontWeight: 900, fontSize: 12, textTransform: 'uppercase' }}>{label}</div><strong style={{ fontSize: 26 }}>{value}</strong><p style={{ color: 'var(--rbl-text-body)', lineHeight: 1.55 }}>{explanation}</p><ProvenanceLine status="calculated" source="Cited site datasets" asOf="latest indexed records" calculation="Automated indicator" claimId={`analytics-kpi-${slug(label)}`} /></>
   const style = { border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 14, background: 'var(--rbl-surface-2)', color: 'inherit', textDecoration: 'none', display: 'block' } as const
   return href ? <a href={`${base}${href}`} style={style}>{body}</a> : <article style={style}>{body}</article>
 }
