@@ -7,27 +7,45 @@ const here = dirname(fileURLToPath(import.meta.url))
 const registryPath = join(here, '..', 'lib', 'authority-audit.ts')
 const source = await readFile(registryPath, 'utf8')
 
-// Keep the runtime checker dependency-free: parse the deliberately simple
-// registry objects rather than importing TypeScript into Node.
+// Keep the checker dependency-free: parse the deliberately simple registry
+// rather than requiring a TypeScript runtime in CI.
 const objects = [...source.matchAll(/\{\n\s+id: '([^']+)',\n\s+url: '([^']+)',\n\s+checkedAt: '([^']+)',\n\s+mode: '([^']+)',([\s\S]*?)\n\s+note: '([^']*)',\n\s+\}/g)]
-const records = objects.map((m) => {
-  const expected = m[5].match(/expectedSha256: '([a-f0-9]{64})'/)?.[1]
-  return { id: m[1], url: m[2], checkedAt: m[3], mode: m[4], expectedSha256: expected }
-})
+const records = objects.map((m) => ({
+  id: m[1],
+  url: m[2],
+  checkedAt: m[3],
+  mode: m[4],
+  expectedSha256: m[5].match(/expectedSha256: '([a-f0-9]{64})'/)?.[1],
+}))
 
 if (records.length < 9) {
   console.error(`AUTHORITY CHECK FAILED: parsed only ${records.length} authority records`)
   process.exit(1)
 }
 
+async function fetchWithRetry(url, attempts = 3) {
+  let lastError
+  for (let attempt = 1; attempt <= attempts; attempt += 1) {
+    try {
+      const response = await fetch(url, {
+        redirect: 'follow',
+        signal: AbortSignal.timeout(25_000),
+        headers: { 'user-agent': 'Riverhead-Budget-Live-evidence-check/1.0' },
+      })
+      if (response.ok || (response.status >= 400 && response.status < 500)) return response
+      lastError = new Error(`HTTP ${response.status}`)
+    } catch (error) {
+      lastError = error
+    }
+    if (attempt < attempts) await new Promise((resolve) => setTimeout(resolve, 1500 * attempt))
+  }
+  throw lastError ?? new Error('unknown fetch failure')
+}
+
 let failed = false
 for (const record of records) {
   try {
-    const response = await fetch(record.url, {
-      redirect: 'follow',
-      signal: AbortSignal.timeout(25_000),
-      headers: { 'user-agent': 'Riverhead-Budget-Live-evidence-check/1.0' },
-    })
+    const response = await fetchWithRetry(record.url)
     if (!response.ok) {
       console.error(`AUTHORITY CHECK FAILED: ${record.id} returned HTTP ${response.status}`)
       failed = true
