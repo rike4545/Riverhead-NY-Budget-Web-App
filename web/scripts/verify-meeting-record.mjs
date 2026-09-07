@@ -3,6 +3,7 @@ import { join } from 'node:path'
 
 const root = process.cwd()
 const path = (...parts) => join(root, ...parts)
+const repoPath = (...parts) => join(root, '..', ...parts)
 const fail = (message) => { console.error(`VERIFY FAILED: ${message}`); process.exitCode = 1 }
 
 const required = [
@@ -11,6 +12,12 @@ const required = [
   'out/data/meetings/fiscal-index.json',
 ]
 for (const file of required) if (!existsSync(path(file))) fail(`Meeting record is missing required file: ${file}`)
+
+for (const file of [
+  repoPath('etl/fetch_meetings.py'),
+  repoPath('etl/reconcile_meeting_sources.py'),
+  repoPath('.github/workflows/sync-meetings.yml'),
+]) if (!existsSync(file)) fail(`Meeting reconciliation is missing required file: ${file}`)
 
 if (existsSync(path('out/meetings/index.html'))) {
   const html = readFileSync(path('out/meetings/index.html'), 'utf8')
@@ -43,5 +50,49 @@ if (existsSync(path('out/data/meetings/fiscal-index.json'))) {
   if (!fiscal.meetings.includes('2026-07-07')) fail('Hand-curated July 7 fiscal-impact record is missing from the fiscal index')
 }
 
+// Continuous source reconciliation must remain structural, not a one-time fetch.
+const fetcherPath = repoPath('etl/fetch_meetings.py')
+if (existsSync(fetcherPath)) {
+  const source = readFileSync(fetcherPath, 'utf8')
+  for (const text of [
+    'source-manifest.json',
+    'hashlib.sha256',
+    'revisionCount',
+    'resolutionSources',
+    'officialDocument',
+  ]) if (!source.includes(text) && text !== 'officialDocument') fail(`Meeting source reconciliation regressed: missing ${text}`)
+  if (source.includes('Final minutes (with a vote summary) never change')) fail('Meeting fetcher reverted to freezing vote-bearing minutes')
+}
+
+const reconcilerPath = repoPath('etl/reconcile_meeting_sources.py')
+if (existsSync(reconcilerPath)) {
+  const source = readFileSync(reconcilerPath, 'utf8')
+  for (const text of [
+    'officialDocumentVerified',
+    'officialRecord',
+    'verifiedResolutionCount',
+    'vote-record-parsed-resolution-documents-linked',
+    'official-sources.json',
+  ]) if (!source.includes(text)) fail(`Meeting official-record annotation regressed: missing ${text}`)
+}
+
+const workflowPath = repoPath('.github/workflows/sync-meetings.yml')
+if (existsSync(workflowPath)) {
+  const source = readFileSync(workflowPath, 'utf8')
+  const ordered = [
+    'python etl/fetch_meetings.py',
+    'python etl/parse_meetings.py',
+    'python etl/reconcile_meeting_sources.py',
+    'python etl/parse_fiscal_impact.py',
+  ]
+  let previous = -1
+  for (const command of ordered) {
+    const index = source.indexOf(command)
+    if (index < 0) fail(`Meeting sync no longer runs required command: ${command}`)
+    if (index <= previous) fail(`Meeting sync command order regressed around: ${command}`)
+    previous = index
+  }
+}
+
 if (process.exitCode) process.exit(process.exitCode)
-console.log('Meeting record verification passed: decision-first UX, official-record status, fiscal-impact integration, and fiscal coverage are intact.')
+console.log('Meeting record verification passed: decision-first UX, fiscal-impact integration, and continuous official-source reconciliation are intact.')
