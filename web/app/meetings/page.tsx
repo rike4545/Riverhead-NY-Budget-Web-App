@@ -32,7 +32,7 @@ export default function MeetingsPage() {
         { label: 'Fiscal impact', text: 'where a Town fiscal-impact statement is available, it appears with the resolution and links to the deeper corrected analysis.' },
         { label: 'Evidence state', text: 'a completed meeting can appear before final vote-bearing minutes; the page says exactly which record is available instead of guessing.' },
       ]}>
-        <strong>Minutes should answer a resident&apos;s question, not reproduce a filing cabinet.</strong> Start with the decision, see the vote, inspect the fiscal treatment, then follow the official record when you need the underlying evidence.
+        <strong>Completed is not the same as fully archived.</strong> Minutes should answer a resident&apos;s question, not reproduce a filing cabinet. Start with the decision, see the vote, inspect the fiscal treatment, then follow the official record when you need the underlying evidence.
       </PlainCallout>
 
       <MeetingTimeline />
@@ -40,7 +40,7 @@ export default function MeetingsPage() {
       <section style={{ margin: '30px 0 12px' }}>
         <div style={{ color: 'var(--rbl-badge)', fontSize: 11, fontWeight: 950, letterSpacing: .8, textTransform: 'uppercase' }}>The decision record</div>
         <h2 style={{ margin: '4px 0 6px', color: 'var(--rbl-title)', fontSize: 27 }}>What happened, who voted how, and what did it cost?</h2>
-        <p style={{ color: 'var(--rbl-text-muted)', margin: 0, maxWidth: 820, lineHeight: 1.55 }}>Open the newest meeting or any meeting in the archive. Filter disagreement, failed and tabled items, search by topic, and see matched fiscal-impact statements directly beside the vote.</p>
+        <p style={{ color: 'var(--rbl-text-muted)', margin: 0, maxWidth: 820, lineHeight: 1.55 }}>Open a meeting and inspect the votes, then follow the money. Filter disagreement, failed and tabled items, search by topic, and see matched fiscal-impact statements directly beside the vote.</p>
       </section>
 
       <MeetingRecordExplorer />
