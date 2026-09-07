@@ -47,6 +47,10 @@ for (const record of records) {
   try {
     const response = await fetchWithRetry(record.url)
     if (!response.ok) {
+      if (record.mode === 'status' && ![404, 410].includes(response.status)) {
+        console.warn(`AUTHORITY PORTAL WARNING: ${record.id} returned HTTP ${response.status}; dynamic portal check is non-blocking`)
+        continue
+      }
       console.error(`AUTHORITY CHECK FAILED: ${record.id} returned HTTP ${response.status}`)
       failed = true
       continue
@@ -66,6 +70,10 @@ for (const record of records) {
       console.log(`Authority reachable: ${record.id} HTTP ${response.status} (${body.length} bytes)`)
     }
   } catch (error) {
+    if (record.mode === 'status') {
+      console.warn(`AUTHORITY PORTAL WARNING: ${record.id}: ${error instanceof Error ? error.message : String(error)}`)
+      continue
+    }
     console.error(`AUTHORITY CHECK FAILED: ${record.id}: ${error instanceof Error ? error.message : String(error)}`)
     failed = true
   }
