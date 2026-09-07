@@ -46,14 +46,14 @@ export default function ComparePage() {
 
       <RecordTrail
         title="From a budget change to the bigger picture"
-        intro="Use the same change as a starting point, then check taxes, payroll, funds, and borrowing before drawing a conclusion."
+        intro="Use the same change as a starting point, then check taxes, payroll, funds, borrowing, decisions, and source documents before drawing a conclusion."
         items={[
           { href: '/tax-bill/', label: 'My Taxes', text: 'See the Town tax-rate change separately from planned spending.' },
           { href: '/payroll/', label: 'People & Pay', text: 'Check actual earnings, authorized salaries, raises, and overtime.' },
           { href: '/funds/', label: 'Funds & Accounts', text: 'Drill from a fund into departments and individual budget lines.' },
           { href: '/capital-debt/', label: 'Debt & Capital', text: 'Check capital financing, outstanding debt, and borrowing pressure.' },
-          { href: '/votes/', label: 'Town Board Votes', text: 'Follow the civic record behind budget and policy decisions.' },
-          { href: '/source-library/', label: 'Source Library', text: 'Return to the underlying official documents and source trail.' },
+          { href: '/meetings/', label: 'Town Board Votes', text: 'Follow the civic record behind budget and policy decisions.' },
+          { href: '/sources/', label: 'Source Library', text: 'Return to the underlying official documents and source trail.' },
         ]}
       />
 
