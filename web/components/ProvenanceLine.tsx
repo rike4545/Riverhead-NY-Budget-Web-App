@@ -35,7 +35,7 @@ export default function ProvenanceLine({
   return (
     <div
       id={claimId ? `claim-${claimId}` : undefined}
-      data-provenance="true"
+      data-provenance={claimId ? 'true' : 'summary'}
       data-provenance-status={status}
       data-claim-id={claimId}
       style={{ marginTop: 10, paddingTop: 9, borderTop: '1px solid var(--rbl-border-subtle)', display: 'flex', gap: 10, flexWrap: 'wrap', alignItems: 'center', color: 'var(--rbl-text-muted)', fontSize: 11.5, lineHeight: 1.4 }}
