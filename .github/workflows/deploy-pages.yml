@@ -52,22 +52,26 @@ jobs:
       - name: Parse Peconic Bay CPF financial statements
         run: python etl/parse_cpf.py
 
+      # Build the exact generated search/freshness files that the static export
+      # will publish. The scheduled ETL workflow is the canonical job that
+      # commits these generated files; keeping them out of this deploy commit
+      # avoids a timestamp-only push triggering an endless deploy loop.
       - name: Build sharded search index
         run: python etl/build_search_index.py
 
       - name: Stamp freshness metadata
         run: python etl/write_meta.py
 
-      - name: Commit regenerated source data
+      - name: Commit parsed source data only
         run: |
           set -e
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add web/public/data/financial-reports web/public/data/cpf web/public/data/search web/public/data/meta.json || true
+          git add web/public/data/financial-reports web/public/data/cpf || true
           if git diff --cached --quiet; then
-            echo "No regenerated data changes."
+            echo "No parsed source-data changes."
           else
-            git commit -m "Update parsed Riverhead site data"
+            git commit -m "Update parsed Riverhead financial-report data"
             git pull --rebase origin main
             git push origin HEAD:main
           fi
