@@ -1,6 +1,7 @@
 import PageShell from '../../components/PageShell'
 import CompareExplorer from '../../components/CompareExplorer'
 import PlainCallout from '../../components/PlainCallout'
+import RecordTrail from '../../components/RecordTrail'
 import { budgetHistory } from '../../lib/budget-history'
 
 export const metadata = {
@@ -43,7 +44,20 @@ export default function ComparePage() {
         This page turns a large budget into a simpler question: <strong>what changed, where did it change, and how much?</strong>
       </PlainCallout>
 
-      <section style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(180px,1fr))', gap: 10, marginBottom: 16 }}>
+      <RecordTrail
+        title="From a budget change to the bigger picture"
+        intro="Use the same change as a starting point, then check taxes, payroll, funds, borrowing, decisions, and source documents before drawing a conclusion."
+        items={[
+          { href: '/tax-bill/', label: 'My Taxes', text: 'See the Town tax-rate change separately from planned spending.' },
+          { href: '/payroll/', label: 'People & Pay', text: 'Check actual earnings, authorized salaries, raises, and overtime.' },
+          { href: '/funds/', label: 'Funds & Accounts', text: 'Drill from a fund into departments and individual budget lines.' },
+          { href: '/capital-debt/', label: 'Debt & Capital', text: 'Check capital financing, outstanding debt, and borrowing pressure.' },
+          { href: '/meetings/', label: 'Town Board Votes', text: 'Follow the civic record behind budget and policy decisions.' },
+          { href: '/sources/', label: 'Source Library', text: 'Return to the underlying official documents and source trail.' },
+        ]}
+      />
+
+      <section style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(180px,1fr))', gap: 10, margin: '16px 0' }}>
         <QuickLink href="/tax-bill/" title="My Taxes" text="See the Town tax-rate change separately from spending." />
         <QuickLink href="/payroll/" title="People & Pay" text="See actual pay, authorized salaries, raises and overtime." />
         <QuickLink href="/funds/" title="Funds" text="Open fund-level details and current-year information." />
