@@ -5,6 +5,22 @@ import { dollars } from '../../lib/financial-data'
 
 const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 18, padding: 20, boxShadow: '0 14px 34px var(--rbl-shadow)' } as const
 
+const metricLinks: Record<string, string> = {
+  'Operating funds': '/funds/',
+  Appropriations: '/compare/',
+  'Tax levy': '/tax-bill/',
+  'Fund balance used': '/reserves/',
+}
+
+const kpiLinks: Record<string, string> = {
+  '2025 General Fund surplus (actual)': '/general-fund/',
+  'Town-wide levy growth': '/tax-bill/',
+  'Town-wide appropriation growth': '/compare/',
+  'Actual payroll (2025)': '/payroll/',
+  'Appropriated fund balance used': '/reserves/',
+  'Operating funds indexed': '/funds/',
+}
+
 export default function AnalyticsPage() {
   const levyTotal = allOperatingFunds2026.reduce((sum, fund) => sum + fund.taxLevy2026, 0)
   const appropriationTotal = allOperatingFunds2026.reduce((sum, fund) => sum + fund.appropriations2026, 0)
@@ -13,7 +29,7 @@ export default function AnalyticsPage() {
   return (
     <PageShell
       title="Riverhead Financial Health"
-      subtitle="A plain-English scorecard for the Town’s fiscal position: taxes, spending, savings, debt pressure, and the signals worth watching. Click any indicator to understand what it means and where the number comes from."
+      subtitle="A plain-English scorecard for the Town’s fiscal position: taxes, spending, savings, debt pressure, and the signals worth watching. Follow an indicator to see the underlying records and analysis."
     >
       <section style={{ ...card, marginBottom: 18, borderLeft: '6px solid var(--rbl-page-accent)' }}>
         <div style={{ color: 'var(--rbl-badge)', textTransform: 'uppercase', letterSpacing: 1.2, fontSize: 11, fontWeight: 950 }}>How to read this page</div>
@@ -24,22 +40,18 @@ export default function AnalyticsPage() {
       </section>
 
       <section style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(220px,1fr))', gap: 14, marginBottom: 18 }}>
-        <Metric label="Operating funds" value={String(allOperatingFunds2026.length)} />
-        <Metric label="Appropriations" value={dollars(appropriationTotal)} />
-        <Metric label="Tax levy" value={dollars(levyTotal)} />
-        <Metric label="Fund balance used" value={dollars(reserveUse)} />
+        <Metric label="Operating funds" value={String(allOperatingFunds2026.length)} href={metricLinks['Operating funds']} />
+        <Metric label="Appropriations" value={dollars(appropriationTotal)} href={metricLinks.Appropriations} />
+        <Metric label="Tax levy" value={dollars(levyTotal)} href={metricLinks['Tax levy']} />
+        <Metric label="Fund balance used" value={dollars(reserveUse)} href={metricLinks['Fund balance used']} />
       </section>
 
       <section style={{ ...card, marginBottom: 18 }}>
         <h2 style={{ marginTop: 0 }}>The signals</h2>
-        <p style={{ color: 'var(--rbl-text-muted)' }}>Resident-readable indicators summarize major fiscal patterns while preserving source-backed caution.</p>
+        <p style={{ color: 'var(--rbl-text-muted)' }}>Resident-readable indicators summarize major fiscal patterns. Follow a signal to inspect the related records, calculations, or context.</p>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(240px,1fr))', gap: 12 }}>
           {automatedKpis.map((kpi) => (
-            <article key={kpi.label} style={{ border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 14, background: 'var(--rbl-surface-2)' }}>
-              <div style={{ color: 'var(--rbl-link)', fontWeight: 900, fontSize: 12, textTransform: 'uppercase' }}>{kpi.label}</div>
-              <strong style={{ fontSize: 26 }}>{kpi.value}</strong>
-              <p style={{ color: 'var(--rbl-text-body)', lineHeight: 1.55 }}>{kpi.explanation}</p>
-            </article>
+            <KpiCard key={kpi.label} label={kpi.label} value={kpi.value} explanation={kpi.explanation} href={kpiLinks[kpi.label]} />
           ))}
         </div>
       </section>
@@ -75,13 +87,29 @@ export default function AnalyticsPage() {
   )
 }
 
-function Metric({ label, value }: { label: string; value: string }) {
+function Metric({ label, value, href }: { label: string; value: string; href: string }) {
+  const base = process.env.NEXT_PUBLIC_BASE_PATH || ''
   return (
-    <div style={card}>
+    <a href={`${base}${href}`} aria-label={`${label}: ${value}. Explore this metric.`} style={{ ...card, display: 'block', color: 'inherit', textDecoration: 'none' }}>
       <div style={{ color: 'var(--rbl-text-muted)', fontSize: 12, textTransform: 'uppercase', fontWeight: 900 }}>{label}</div>
       <strong style={{ fontSize: 28 }}>{value}</strong>
-    </div>
+      <div style={{ color: 'var(--rbl-link)', fontSize: 12, fontWeight: 900, marginTop: 8 }}>Explore this metric →</div>
+    </a>
   )
+}
+
+function KpiCard({ label, value, explanation, href }: { label: string; value: string; explanation: string; href?: string }) {
+  const content = (
+    <>
+      <div style={{ color: 'var(--rbl-link)', fontWeight: 900, fontSize: 12, textTransform: 'uppercase' }}>{label}</div>
+      <strong style={{ fontSize: 26 }}>{value}</strong>
+      <p style={{ color: 'var(--rbl-text-body)', lineHeight: 1.55 }}>{explanation}</p>
+      {href && <div style={{ color: 'var(--rbl-link)', fontSize: 12, fontWeight: 900 }}>Explore this signal →</div>}
+    </>
+  )
+
+  const style = { border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 14, background: 'var(--rbl-surface-2)', color: 'inherit', textDecoration: 'none', display: 'block' } as const
+  return href ? <a href={`${process.env.NEXT_PUBLIC_BASE_PATH || ''}${href}`} aria-label={`${label}: ${value}. Explore this signal.`} style={style}>{content}</a> : <article style={style}>{content}</article>
 }
 
 function Action({ href, title, text }: { href: string; title: string; text: string }) {
