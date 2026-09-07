@@ -83,6 +83,7 @@ if (existsSync(path('out/data/meta.json'))) {
     if (ageHours < -1) fail('meta.generatedAt is unexpectedly in the future')
     if (ageHours > 24) fail(`Freshness metadata was not regenerated for this build (${ageHours.toFixed(1)} hours old)`)
   }
+  if (!/^[a-f0-9]{16}$/.test(meta.dataVersion ?? '')) fail('meta.dataVersion is missing or invalid')
 
   const datasets = meta.datasets ?? {}
   if ((datasets.meetings ?? 0) < 20) fail(`Meeting count is implausibly low: ${datasets.meetings ?? 0}`)
@@ -114,4 +115,4 @@ for (const text of ['Payroll Explorer', 'Start Here', 'Current data snapshot']) 
 }
 
 if (process.exitCode) process.exit(process.exitCode)
-console.log('Build verification passed: routes, record floors, freshness contracts, search shards, and payload guardrails are valid.')
+console.log('Build verification passed: routes, record floors, snapshot version, freshness contracts, search shards, and payload guardrails are valid.')
