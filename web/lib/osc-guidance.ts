@@ -37,6 +37,34 @@ export const oscGuidanceSources: OscGuidanceSource[] = [
     ],
   },
   {
+    id: 'tax-cap-formula',
+    topic: 'Property tax cap',
+    title: 'Property Tax Cap Formula',
+    kind: 'pdf',
+    url: 'https://www.osc.ny.gov/files/local-government/property-tax-cap/pdf/formula.pdf',
+    authority: 'NYS Office of the State Comptroller — Local Government and School Accountability',
+    summary:
+      'OSC’s formula sheet shows why the final levy limit is not simply the prior-year levy multiplied by 1.02. The calculation incorporates the prior levy, reserve offsets where applicable, the tax-base-growth factor, PILOT adjustments, the allowable levy growth factor, carryover, transfers of function and statutory exclusions.',
+    usedBy: [
+      { label: 'Tax Cap', href: `${base}/tax-cap/` },
+      { label: '2027 Prediction', href: `${base}/predict-2027/` },
+    ],
+  },
+  {
+    id: 'tax-cap-growth-factors',
+    topic: 'Property tax cap',
+    title: 'Inflation and Allowable Levy Growth Factors',
+    kind: 'pdf',
+    url: 'https://www.osc.ny.gov/files/local-government/property-tax-cap/pdf/inflation-and-allowable-levy-growth-factors.pdf',
+    authority: 'NYS Office of the State Comptroller — Local Government and School Accountability',
+    summary:
+      'OSC’s factor table documents the inflation factor and the capped allowable levy growth factor by fiscal year. For calendar-year 2027 local governments, the inflation factor is 3.13% while the allowable levy growth factor is 1.0200, reflecting the statutory lesser-of-inflation-or-2% rule.',
+    usedBy: [
+      { label: 'Tax Cap', href: `${base}/tax-cap/` },
+      { label: '2027 Prediction', href: `${base}/predict-2027/` },
+    ],
+  },
+  {
     id: 'budget-process',
     topic: 'Budget preparation',
     title: 'Understanding the Budget Process',
