@@ -61,7 +61,7 @@ export default function TaxBillPage() {
           {levyFunds.map((fund) => {
             const share = levyTotal > 0 ? (fund.taxLevy2026 / levyTotal) * 100 : 0
             return (
-              <a key={fund.code} href={`${process.env.NEXT_PUBLIC_BASE_PATH || ''}/funds/${fund.code.toLowerCase()}/`} style={{ color: 'inherit', textDecoration: 'none', display: 'grid', gridTemplateColumns: 'minmax(150px,1.2fr) minmax(110px,.8fr) auto', gap: 12, alignItems: 'center' }}>
+              <a key={fund.code} href={`${process.env.NEXT_PUBLIC_BASE_PATH || ''}/funds/${fund.code}/`} style={{ color: 'inherit', textDecoration: 'none', display: 'grid', gridTemplateColumns: 'minmax(150px,1.2fr) minmax(110px,.8fr) auto', gap: 12, alignItems: 'center' }}>
                 <div>
                   <div style={{ fontWeight: 900, color: 'var(--rbl-title)' }}>{fund.name}</div>
                   <div style={{ color: 'var(--rbl-text-muted)', fontSize: 12 }}>{fund.code} · {fund.description}</div>
