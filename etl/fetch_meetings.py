@@ -12,8 +12,9 @@ CivicClerk as a changing official source:
 * a machine-readable source manifest records CivicClerk file IDs, hashes,
   revision history and discovered resolution numbers.
 
-parse_meetings.py consumes that manifest so the public JSON can say exactly
-which stage of the official record is available without guessing.
+The job still polls twice daily, but the manifest only changes when the
+*official source state* changes. A no-op poll therefore does not create a bot
+commit or redeploy the site.
 """
 
 from __future__ import annotations
@@ -45,12 +46,11 @@ def now_iso() -> str:
 
 
 def http_get(url: str) -> bytes:
-    """GET bytes, with a curl fallback for older local TLS stacks."""
     try:
         import requests
-        r = requests.get(url, timeout=90)
-        r.raise_for_status()
-        return r.content
+        response = requests.get(url, timeout=90)
+        response.raise_for_status()
+        return response.content
     except Exception as exc:
         if not isinstance(exc, (ssl.SSLError, OSError)) and "SSL" not in str(exc):
             raise
@@ -87,8 +87,7 @@ def load_manifest() -> dict:
 
 def extract_text(pdf_bytes: bytes) -> tuple[str, int]:
     reader = pypdf.PdfReader(io.BytesIO(pdf_bytes))
-    text = "\n".join((p.extract_text() or "") for p in reader.pages)
-    return text, len(reader.pages)
+    return "\n".join((page.extract_text() or "") for page in reader.pages), len(reader.pages)
 
 
 def file_label(file: dict) -> str:
@@ -100,15 +99,12 @@ def is_minutes(file: dict) -> bool:
 
 
 def is_resolution_source(file: dict) -> bool:
-    label = " ".join(
-        str(file.get(k) or "") for k in ("type", "name", "fileName", "title")
-    ).lower()
+    label = " ".join(str(file.get(key) or "") for key in ("type", "name", "fileName", "title")).lower()
     return "resolution" in label and "agenda" not in label
 
 
 def safe_slug(value: str) -> str:
-    value = re.sub(r"[^a-z0-9]+", "-", value.lower()).strip("-")
-    return value or "official-record"
+    return re.sub(r"[^a-z0-9]+", "-", value.lower()).strip("-") or "official-record"
 
 
 def stream_url(file_id: int | str) -> str:
@@ -120,13 +116,10 @@ def archived_minutes_path(date: str, sha: str) -> Path:
 
 
 def official_text_path(date: str, file: dict, sha: str) -> Path:
-    fid = file.get("fileId")
-    return OFFICIAL / date / f"{safe_slug(file_label(file))}-{fid}-{sha[:16]}.txt"
+    return OFFICIAL / date / f"{safe_slug(file_label(file))}-{file.get('fileId')}-{sha[:16]}.txt"
 
 
 def public_file_metadata(file: dict) -> dict:
-    # Preserve only stable/useful CivicClerk metadata. Different API revisions
-    # expose slightly different names, so optional fields are copied defensively.
     out = {"fileId": file.get("fileId"), "type": file.get("type")}
     for key in ("name", "fileName", "title", "publishedDate", "modifiedDate", "lastModified"):
         if file.get(key) is not None:
@@ -135,49 +128,57 @@ def public_file_metadata(file: dict) -> dict:
 
 
 def reconcile_minutes(date: str, event_name: str, file: dict, meeting_state: dict) -> tuple[bool, bool]:
-    """Return (changed, has_vote_summary)."""
     fid = file.get("fileId")
     if fid is None:
         return False, False
+
     pdf_bytes = http_get(stream_url(fid))
     sha = hashlib.sha256(pdf_bytes).hexdigest()
     text, pages = extract_text(pdf_bytes)
     has_votes = bool(re.search(r"RESULT\s*:", text))
     dest = DEST / f"{date}-minutes.txt"
-
     previous = meeting_state.get("minutes") or {}
     previous_sha = previous.get("sha256")
     revisions = list(previous.get("revisions") or [])
-    changed = previous_sha != sha or not dest.exists()
 
-    if changed and dest.exists() and previous_sha:
-        archive = archived_minutes_path(date, previous_sha)
-        archive.parent.mkdir(parents=True, exist_ok=True)
-        if not archive.exists():
-            archive.write_text(dest.read_text(encoding="utf-8", errors="ignore"), encoding="utf-8")
-        if not any(r.get("sha256") == previous_sha for r in revisions):
-            revisions.append({
-                "sha256": previous_sha,
-                "archivedTextPath": str(archive.relative_to(ROOT)),
-                "supersededAt": now_iso(),
-            })
-
-    if changed:
-        dest.write_text(text, encoding="utf-8")
-
-    meeting_state["minutes"] = {
+    observed = {
         **public_file_metadata(file),
         "sha256": sha,
         "bytes": len(pdf_bytes),
         "pages": pages,
-        "fetchedAt": now_iso(),
         "textPath": str(dest.relative_to(ROOT)),
         "hasVoteSummary": has_votes,
         "revisionCount": len(revisions),
         "revisions": revisions,
         "sourceUrl": stream_url(fid),
     }
-    verb = "UPDATED" if previous_sha and previous_sha != sha else ("NEW" if changed else "same")
+    comparable_previous = {key: previous.get(key) for key in observed}
+    changed = previous_sha != sha or comparable_previous != observed or not dest.exists()
+
+    if changed and dest.exists() and previous_sha and previous_sha != sha:
+        archive = archived_minutes_path(date, previous_sha)
+        archive.parent.mkdir(parents=True, exist_ok=True)
+        if not archive.exists():
+            archive.write_text(dest.read_text(encoding="utf-8", errors="ignore"), encoding="utf-8")
+        if not any(revision.get("sha256") == previous_sha for revision in revisions):
+            revisions.append({
+                "sha256": previous_sha,
+                "archivedTextPath": str(archive.relative_to(ROOT)),
+                "supersededAt": now_iso(),
+            })
+        observed["revisions"] = revisions
+        observed["revisionCount"] = len(revisions)
+
+    if changed:
+        dest.write_text(text, encoding="utf-8")
+        observed["changedAt"] = now_iso()
+        meeting_state["minutes"] = observed
+    else:
+        # Re-fetch and hash succeeded; preserve the prior record byte-for-byte so
+        # a routine check does not generate a repository change.
+        meeting_state["minutes"] = previous
+
+    verb = "UPDATED" if previous_sha and previous_sha != sha else ("NEW" if not previous_sha else "same")
     print(f"  {verb:<7} {date} minutes ({pages} pages, votes={'yes' if has_votes else 'pending'}) {event_name}")
     return changed, has_votes
 
@@ -186,6 +187,7 @@ def reconcile_resolution_source(date: str, file: dict, meeting_state: dict) -> b
     fid = file.get("fileId")
     if fid is None:
         return False
+
     pdf_bytes = http_get(stream_url(fid))
     sha = hashlib.sha256(pdf_bytes).hexdigest()
     text, pages = extract_text(pdf_bytes)
@@ -198,26 +200,36 @@ def reconcile_resolution_source(date: str, file: dict, meeting_state: dict) -> b
     sources = meeting_state.setdefault("resolutionSources", {})
     key = str(fid)
     previous = sources.get(key) or {}
-    changed = previous.get("sha256") != sha
     history = list(previous.get("history") or [])
-    if changed and previous.get("sha256") and not any(h.get("sha256") == previous.get("sha256") for h in history):
-        history.append({
-            "sha256": previous.get("sha256"),
-            "textPath": previous.get("textPath"),
-            "supersededAt": now_iso(),
-        })
-    sources[key] = {
+    observed = {
         **public_file_metadata(file),
         "sha256": sha,
         "bytes": len(pdf_bytes),
         "pages": pages,
-        "fetchedAt": now_iso(),
         "textPath": str(path.relative_to(ROOT)),
         "resolutionNumbers": numbers,
         "history": history,
         "sourceUrl": stream_url(fid),
+        "current": True,
     }
-    print(f"  {'UPDATED' if previous else 'NEW':<7} {date} {file_label(file)} ({len(numbers)} resolution numbers)") if changed else None
+    comparable_previous = {field: previous.get(field) for field in observed}
+    changed = previous.get("sha256") != sha or comparable_previous != observed
+
+    if changed and previous.get("sha256") and previous.get("sha256") != sha:
+        if not any(item.get("sha256") == previous.get("sha256") for item in history):
+            history.append({
+                "sha256": previous.get("sha256"),
+                "textPath": previous.get("textPath"),
+                "supersededAt": now_iso(),
+            })
+        observed["history"] = history
+
+    if changed:
+        observed["changedAt"] = now_iso()
+        sources[key] = observed
+        print(f"  {'UPDATED' if previous else 'NEW':<7} {date} {file_label(file)} ({len(numbers)} resolution numbers)")
+    else:
+        sources[key] = previous
     return changed
 
 
@@ -225,6 +237,7 @@ def fetch() -> None:
     DEST.mkdir(parents=True, exist_ok=True)
     events = list_events()
     manifest = load_manifest()
+    original = json.dumps(manifest, sort_keys=True, separators=(",", ":"))
     print(f"Town Board events since {SINCE[:10]}: {len(events)}")
 
     changed_files = 0
@@ -241,20 +254,20 @@ def fetch() -> None:
             "startDateTime": event.get("startDateTime"),
         })
 
-        minutes_files = [f for f in files if is_minutes(f)]
+        minutes_files = [file for file in files if is_minutes(file)]
         if minutes_files:
-            # CivicClerk normally exposes one Minutes file. If there are several,
-            # the last published entry is treated as current and its fileId/hash
-            # still makes any replacement auditable.
-            changed, _ = reconcile_minutes(date, event.get("eventName", "Town Board"), minutes_files[-1], meeting_state)
+            meeting_state.pop("minutesPending", None)
+            changed, _ = reconcile_minutes(
+                date, event.get("eventName", "Town Board"), minutes_files[-1], meeting_state
+            )
             changed_files += int(changed)
         elif date <= datetime.now(timezone.utc).strftime("%Y-%m-%d"):
             pending_minutes += 1
             meeting_state["minutesPending"] = True
 
-        resolution_files = [f for f in files if is_resolution_source(f)]
+        resolution_files = [file for file in files if is_resolution_source(file)]
         tracked_resolution_files += len(resolution_files)
-        current_ids = set()
+        current_ids: set[str] = set()
         for file in resolution_files:
             fid = file.get("fileId")
             if fid is None:
@@ -262,13 +275,17 @@ def fetch() -> None:
             current_ids.add(str(fid))
             changed_files += int(reconcile_resolution_source(date, file, meeting_state))
 
-        # Do not delete old source history when CivicClerk removes/replaces a
-        # published file; mark it no longer current so the audit trail remains.
         for fid, source in (meeting_state.get("resolutionSources") or {}).items():
             source["current"] = fid in current_ids
 
-    manifest["generatedAt"] = now_iso()
-    MANIFEST_PATH.write_text(json.dumps(manifest, indent=2, sort_keys=True), encoding="utf-8")
+    candidate = json.dumps(manifest, sort_keys=True, separators=(",", ":"))
+    if candidate != original or not MANIFEST_PATH.exists():
+        manifest["generatedAt"] = now_iso()
+        MANIFEST_PATH.write_text(json.dumps(manifest, indent=2, sort_keys=True), encoding="utf-8")
+        print("  source manifest changed — repository update required")
+    else:
+        print("  source manifest unchanged — no no-op commit will be created")
+
     print(
         f"Done: {changed_files} official-file changes, {pending_minutes} past meetings awaiting minutes, "
         f"{tracked_resolution_files} current resolution-source files tracked"
