@@ -105,6 +105,7 @@ export default function MeetingRecordExplorer() {
           <p style={{ margin: 0, color: 'var(--rbl-text-body)', lineHeight: 1.55 }}>
             The Town has published the meeting docket, but the vote-bearing minutes have not been parsed yet. That means the resolution list is official, while individual outcomes remain pending.
           </p>
+          <OfficialRecordLine meeting={meeting} />
         </section>
         <section style={card}>
           <div style={{ display: 'flex', justifyContent: 'space-between', gap: 10, alignItems: 'baseline', flexWrap: 'wrap' }}>
@@ -112,7 +113,7 @@ export default function MeetingRecordExplorer() {
             <span style={{ color: 'var(--rbl-text-muted)', fontSize: 13 }}>{docket.length} items · votes pending</span>
           </div>
           <div style={{ display: 'grid', gap: 8, marginTop: 12 }}>
-            {docket.map((d) => <div key={`${d.number}-${d.seq}`} style={{ padding: '11px 13px', background: 'var(--rbl-surface-2)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 10 }}><strong style={{ color: 'var(--rbl-link)', fontSize: 12 }}>{d.number}</strong><div style={{ color: 'var(--rbl-title)', fontWeight: 650, marginTop: 2, lineHeight: 1.4 }}>{d.title}</div></div>)}
+            {docket.map((d) => <div key={`${d.number}-${d.seq}`} style={{ padding: '11px 13px', background: 'var(--rbl-surface-2)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 10 }}><div style={{ display: 'flex', gap: 7, alignItems: 'center', flexWrap: 'wrap' }}><strong style={{ color: 'var(--rbl-link)', fontSize: 12 }}>{d.number}</strong>{d.officialDocumentVerified && <VerifiedChip />}</div><div style={{ color: 'var(--rbl-title)', fontWeight: 650, marginTop: 2, lineHeight: 1.4 }}>{d.title}</div></div>)}
           </div>
         </section>
       </div>
@@ -123,6 +124,11 @@ export default function MeetingRecordExplorer() {
   const shortName = (last: string) => meeting.memberTallies?.[last]?.name.split(' ').slice(-1)[0] ?? last
   const adopted = meeting.resolutions.filter((r) => r.adopted).length
   const fiscalCorrections = fiscal?.resolutions.filter((r) => r.realistic.flag === 'understated' || r.realistic.flag === 'reserve-draw').length ?? 0
+  const officialSourceUrl = (r: Resolution) => {
+    const firstId = r.officialDocumentFileIds?.[0]
+    if (firstId == null) return undefined
+    return meeting.officialRecord?.resolutionSources.find((source) => String(source.fileId) === String(firstId))?.sourceUrl
+  }
 
   return (
     <div style={{ display: 'grid', gap: 14 }}>
@@ -131,9 +137,12 @@ export default function MeetingRecordExplorer() {
       <section style={{ ...card, padding: 20 }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', gap: 14, flexWrap: 'wrap', alignItems: 'start' }}>
           <div>
-            <div style={{ color: 'var(--rbl-success-strong)', fontWeight: 900, fontSize: 12, textTransform: 'uppercase', letterSpacing: 0.35 }}>Official vote record available</div>
+            <div style={{ color: 'var(--rbl-success-strong)', fontWeight: 900, fontSize: 12, textTransform: 'uppercase', letterSpacing: 0.35 }}>
+              {meeting.officialRecord?.status === 'vote-record-parsed-resolution-documents-linked' ? 'Official vote record · adopted-resolution documents matched' : 'Official vote record available'}
+            </div>
             <h2 style={{ margin: '4px 0 3px', color: 'var(--rbl-title)' }}>{meeting.date}</h2>
             <div style={{ color: 'var(--rbl-text-muted)', fontSize: 13.5 }}>{meeting.type}{meeting.calledToOrder ? ` · called to order ${meeting.calledToOrder}` : ''}</div>
+            <OfficialRecordLine meeting={meeting} />
           </div>
           <a href={meetingsIndex.source.url} target="_blank" rel="noreferrer" style={{ color: 'var(--rbl-link)', fontWeight: 800, fontSize: 13, textDecoration: 'none' }}>Official minutes &amp; agendas ↗</a>
         </div>
@@ -179,7 +188,7 @@ export default function MeetingRecordExplorer() {
       </section>
 
       <section style={{ display: 'grid', gap: 10 }}>
-        {filtered.map((r) => <DecisionCard key={r.seq} resolution={r} fiscal={r.number ? fiscalByNumber.get(r.number) : undefined} rosterOrder={rosterOrder} shortName={shortName} />)}
+        {filtered.map((r) => <DecisionCard key={r.seq} resolution={r} fiscal={r.number ? fiscalByNumber.get(r.number) : undefined} rosterOrder={rosterOrder} shortName={shortName} officialSourceUrl={officialSourceUrl(r)} />)}
         {filtered.length === 0 && <div style={{ ...card, color: 'var(--rbl-text-muted)' }}>No decisions match this view.</div>}
       </section>
 
@@ -194,17 +203,33 @@ export default function MeetingRecordExplorer() {
       </details>
 
       <p style={{ color: 'var(--rbl-text-muted)', fontSize: 12.5, lineHeight: 1.5, margin: 0 }}>
-        Vote source: {meetingsIndex.source.title} — {meeting.date}. Fiscal-impact labels reproduce the Town&apos;s filed Yes/No treatment and pair it with this project&apos;s independently calculated read; dollar amounts are shown only where they can be tied unambiguously to a resolution.
+        Vote source: {meetingsIndex.source.title} — {meeting.date}. Fiscal-impact labels reproduce the Town&apos;s filed Yes/No treatment and pair it with this project&apos;s independently calculated read; dollar amounts are shown only where they can be tied unambiguously to a resolution. Separately published adopted-resolution documents are marked only when the exact resolution number is found in the current CivicClerk source.
       </p>
     </div>
   )
+}
+
+function OfficialRecordLine({ meeting }: { meeting: Meeting }) {
+  const record = meeting.officialRecord
+  if (!record) return null
+  const version = record.sourceVersionAt ? new Date(record.sourceVersionAt).toLocaleString() : null
+  return <div style={{ display: 'flex', flexWrap: 'wrap', gap: 7, marginTop: 9, color: 'var(--rbl-text-muted)', fontSize: 11.8 }}>
+    <span>{record.verifiedResolutionCount} resolution document{record.verifiedResolutionCount === 1 ? '' : 's'} matched</span>
+    <span>·</span>
+    <span>{record.minutesRevisionCount ? `minutes revised ${record.minutesRevisionCount} time${record.minutesRevisionCount === 1 ? '' : 's'}` : 'no archived minutes revisions'}</span>
+    {version && <><span>·</span><span>source version {version}</span></>}
+  </div>
 }
 
 function MeetingPicker({ slug, changeMeeting }: { slug: string; changeMeeting: (slug: string) => void }) {
   return <section style={{ ...card, display: 'flex', alignItems: 'center', gap: 10, flexWrap: 'wrap', padding: 14 }}><label htmlFor="decision-meeting" style={{ fontWeight: 900, color: 'var(--rbl-title)' }}>Meeting</label><select id="decision-meeting" value={slug} onChange={(e) => changeMeeting(e.target.value)} style={{ flex: '1 1 320px', minWidth: 0, padding: '10px 12px', border: '1px solid var(--rbl-border-strong)', borderRadius: 9, fontWeight: 700, color: 'var(--rbl-title)', background: 'var(--rbl-surface)' }}>{meetingsIndex.meetings.map((m) => <option key={m.slug} value={m.slug}>{m.date} — {m.preliminary ? `${m.docketCount ?? 0} docket items · votes pending` : `${m.total} decisions${m.contested ? ` · ${m.contested} contested` : ''}`}</option>)}</select><span style={{ color: 'var(--rbl-text-muted)', fontSize: 12.5 }}>{meetingsIndex.totals.meetings} meetings · {meetingsIndex.totals.votes.toLocaleString()} votes</span></section>
 }
 
-function DecisionCard({ resolution: r, fiscal, rosterOrder, shortName }: { resolution: Resolution; fiscal?: FiscalResolution; rosterOrder: string[]; shortName: (last: string) => string }) {
+function VerifiedChip() {
+  return <span style={{ background: 'var(--rbl-success-bg)', color: 'var(--rbl-success-strong)', border: '1px solid var(--rbl-success-border)', borderRadius: 999, padding: '2px 7px', fontWeight: 900, fontSize: 10.5 }}>Adopted resolution document matched</span>
+}
+
+function DecisionCard({ resolution: r, fiscal, rosterOrder, shortName, officialSourceUrl }: { resolution: Resolution; fiscal?: FiscalResolution; rosterOrder: string[]; shortName: (last: string) => string; officialSourceUrl?: string }) {
   const voteStyle = r.tag === 'failed' ? { label: 'Failed', fg: 'var(--rbl-danger-strong)', bg: 'var(--rbl-danger-bg)', border: 'var(--rbl-danger)' } : r.tag === 'tabled' ? { label: 'Tabled', fg: 'var(--rbl-text-body)', bg: 'var(--rbl-surface-3)', border: 'var(--rbl-border-strong)' } : r.tag === 'split' ? { label: r.ayesCount != null && r.naysCount != null ? `Passed ${r.ayesCount}–${r.naysCount}` : 'Passed · split vote', fg: 'var(--rbl-warn)', bg: 'var(--rbl-warn-bg)', border: 'var(--rbl-series-gold)' } : { label: 'Passed unanimously', fg: 'var(--rbl-success-strong)', bg: 'var(--rbl-success-bg)', border: 'var(--rbl-success)' }
   const hasVotes = Object.keys(r.votes).length > 0
   const fiscalFlag = fiscal?.realistic.flag
@@ -212,7 +237,7 @@ function DecisionCard({ resolution: r, fiscal, rosterOrder, shortName }: { resol
   return <article style={{ ...card, borderLeft: `5px solid ${voteStyle.border}`, padding: 17 }}>
     <div style={{ display: 'flex', justifyContent: 'space-between', gap: 12, alignItems: 'start', flexWrap: 'wrap' }}>
       <div style={{ flex: '1 1 460px' }}>
-        <div style={{ display: 'flex', gap: 8, alignItems: 'center', flexWrap: 'wrap' }}>{r.number && <strong style={{ color: 'var(--rbl-link)', fontSize: 12.5 }}>{r.number}</strong>}<span style={{ background: voteStyle.bg, color: voteStyle.fg, borderRadius: 999, padding: '3px 9px', fontWeight: 900, fontSize: 11.5 }}>{voteStyle.label}</span></div>
+        <div style={{ display: 'flex', gap: 8, alignItems: 'center', flexWrap: 'wrap' }}>{r.number && <strong style={{ color: 'var(--rbl-link)', fontSize: 12.5 }}>{r.number}</strong>}<span style={{ background: voteStyle.bg, color: voteStyle.fg, borderRadius: 999, padding: '3px 9px', fontWeight: 900, fontSize: 11.5 }}>{voteStyle.label}</span>{r.officialDocumentVerified && <VerifiedChip />}</div>
         <h3 style={{ margin: '6px 0 0', fontSize: 17, lineHeight: 1.35, color: 'var(--rbl-title)' }}>{r.title}</h3>
       </div>
       {fiscal && <span style={{ background: fiscalTone.bg, color: fiscalTone.fg, borderRadius: 999, padding: '4px 10px', fontWeight: 900, fontSize: 11.5 }}>{fiscal.amount ? usd(fiscal.amount) : fiscal.townFiscalImpact === 'Yes' ? 'Town: fiscal impact' : 'Town: no fiscal impact'}</span>}
@@ -226,7 +251,7 @@ function DecisionCard({ resolution: r, fiscal, rosterOrder, shortName }: { resol
       <div style={{ color: 'var(--rbl-text-muted)', fontSize: 12.5, lineHeight: 1.45 }}>{fiscal.realistic.reason}</div>
     </div>}
 
-    {(r.mover || r.seconder) && <div style={{ color: 'var(--rbl-text-muted)', fontSize: 11.8, marginTop: 10 }}>{r.mover ? `Moved by ${r.mover}` : ''}{r.seconder ? ` · seconded by ${r.seconder}` : ''}</div>}
+    {(r.mover || r.seconder || officialSourceUrl) && <div style={{ color: 'var(--rbl-text-muted)', fontSize: 11.8, marginTop: 10, display: 'flex', gap: 8, flexWrap: 'wrap' }}><span>{r.mover ? `Moved by ${r.mover}` : ''}{r.seconder ? ` · seconded by ${r.seconder}` : ''}</span>{officialSourceUrl && <a href={officialSourceUrl} target="_blank" rel="noreferrer" style={{ color: 'var(--rbl-link)', fontWeight: 850, textDecoration: 'none' }}>Official adopted resolution ↗</a>}</div>}
   </article>
 }
 
