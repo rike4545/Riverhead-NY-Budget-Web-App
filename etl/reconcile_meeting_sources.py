@@ -12,6 +12,10 @@ Outputs:
   resolution source contains that exact resolution number;
 * index.json gains compact official-record status fields;
 * official-sources.json exposes a safe aggregate audit view for the website.
+
+``sourceVersionAt`` means the last time the committed CivicClerk source state
+changed. The polling workflow itself runs twice daily but does not create a
+false new data timestamp when every hash is unchanged.
 """
 
 from __future__ import annotations
@@ -39,7 +43,7 @@ def safe_minutes(record: dict | None) -> dict | None:
         key: record.get(key)
         for key in (
             "fileId", "type", "name", "fileName", "title", "sha256", "bytes",
-            "pages", "fetchedAt", "hasVoteSummary", "revisionCount", "sourceUrl",
+            "pages", "changedAt", "hasVoteSummary", "revisionCount", "sourceUrl",
         )
         if record.get(key) is not None
     }
@@ -50,7 +54,7 @@ def safe_resolution_source(record: dict) -> dict:
         key: record.get(key)
         for key in (
             "fileId", "type", "name", "fileName", "title", "sha256", "bytes",
-            "pages", "fetchedAt", "resolutionNumbers", "sourceUrl", "current",
+            "pages", "changedAt", "resolutionNumbers", "sourceUrl", "current",
         )
         if record.get(key) is not None
     }
@@ -58,12 +62,13 @@ def safe_resolution_source(record: dict) -> dict:
 
 def reconcile() -> None:
     manifest = load_json(MANIFEST, {"version": 1, "generatedAt": None, "meetings": {}})
+    source_version_at = manifest.get("generatedAt")
     index_path = OUT / "index.json"
     index = load_json(index_path, {"source": {}, "totals": {}, "meetings": []})
     index_by_slug = {entry.get("slug"): entry for entry in index.get("meetings", [])}
     aggregate = {
         "version": 1,
-        "checkedAt": manifest.get("generatedAt"),
+        "sourceVersionAt": source_version_at,
         "source": "Town of Riverhead CivicClerk published files",
         "meetings": {},
     }
@@ -95,7 +100,9 @@ def reconcile() -> None:
             number = item.get("number")
             matches = verified_map.get(number, []) if number else []
             item["officialDocumentVerified"] = bool(matches)
-            item["officialDocumentFileIds"] = [m.get("fileId") for m in matches if m.get("fileId") is not None]
+            item["officialDocumentFileIds"] = [
+                match.get("fileId") for match in matches if match.get("fileId") is not None
+            ]
             if matches:
                 verified_here += 1
 
@@ -111,7 +118,7 @@ def reconcile() -> None:
         revisions = int((minutes or {}).get("revisionCount") or 0)
         meeting["officialRecord"] = {
             "status": status,
-            "checkedAt": manifest.get("generatedAt"),
+            "sourceVersionAt": source_version_at,
             "minutes": safe_minutes(minutes),
             "minutesRevisionCount": revisions,
             "resolutionSourceCount": len(current_sources),
