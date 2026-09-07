@@ -26,13 +26,12 @@ export default function PayrollPage() {
     >
       <PlainCallout
         tips={[
-          { label: 'Four views', text: 'use the tabs below — "Actual Pay" is what employees were really paid (2018–2025); "Authorized Salary" is the base pay the Board set for 2025; "Raises 2025→2026" shows who got a raise and by how much; "Overtime & Staffing" asks whether a police rank is being staffed by overtime instead of headcount.' },
-          { label: 'Base vs. actual', text: 'authorized salary is the base rate; actual gross pay adds overtime, longevity, and buy-outs — so actual often exceeds the authorized base.' },
-          { label: 'Search & sort', text: 'search a name or title and click a column heading to sort. In Actual Pay, click a name to follow that person across years.' },
+          { label: 'Start with Employees & Pay', text: 'Search a name, title, or department to see what employees were actually paid. Click an employee name to follow that person across years.' },
+          { label: 'Actual vs. authorized', text: 'Actual pay is what appeared in the payroll record. Authorized salary is the base pay the Board set; overtime, longevity, and buy-outs can make actual gross pay higher.' },
+          { label: 'Analysis layers', text: 'Salaries & Raises, Overtime & Staffing, Separation Pay, and Police Pay Steps answer narrower questions after you understand the underlying payroll record.' },
         ]}
       >
-        This page shows <strong>what the Town pays its people</strong> — both what employees were actually paid and what
-        the Board authorized — similar to the statewide SeeThroughNY payroll database, but focused on Riverhead.
+        <strong>Start with the public record.</strong> This page lets you search what Riverhead employees were actually paid, then move into salary, overtime, separation-pay, and police-step analysis. The analytical views are built on the underlying payroll data rather than replacing it.
       </PlainCallout>
       <PayrollTabs
         overtime={{

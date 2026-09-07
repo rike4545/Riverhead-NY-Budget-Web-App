@@ -39,6 +39,14 @@ export default function CompareExplorer() {
   const townTo = budgetHistory.townTotals[String(toYear)]?.appropriations ?? null
   const townChangePct = townFrom && townTo ? ((townTo - townFrom) / townFrom) * 100 : null
 
+  const drivers = useMemo(() => {
+    const comparable = rows.filter((r) => r.change != null && r.change !== 0)
+    return {
+      increases: [...comparable].filter((r) => (r.change ?? 0) > 0).sort((a, b) => (b.change ?? 0) - (a.change ?? 0)).slice(0, 3),
+      decreases: [...comparable].filter((r) => (r.change ?? 0) < 0).sort((a, b) => (a.change ?? 0) - (b.change ?? 0)).slice(0, 3),
+    }
+  }, [rows])
+
   return (
     <div style={{ display: 'grid', gap: 16 }}>
       <section style={{ ...card, display: 'flex', gap: 16, flexWrap: 'wrap', alignItems: 'center' }}>
@@ -68,6 +76,22 @@ export default function CompareExplorer() {
         <Stat label="Change" value={townTo != null && townFrom != null ? usd(townTo - townFrom) : '—'} />
         <Stat label="Percent Change" value={pct(townChangePct)} good={!!townChangePct && townChangePct < 0} />
       </section>
+
+      {fromYear !== toYear && (drivers.increases.length > 0 || drivers.decreases.length > 0) && (
+        <section style={card}>
+          <div style={{ marginBottom: 12 }}>
+            <div style={{ color: 'var(--rbl-accent)', fontSize: 11.5, fontWeight: 900, textTransform: 'uppercase', letterSpacing: .65 }}>What drove the change?</div>
+            <h2 style={{ margin: '3px 0 5px', fontSize: 21 }}>The biggest fund-level increases and decreases</h2>
+            <p style={{ margin: 0, color: 'var(--rbl-text-muted)', fontSize: 13, lineHeight: 1.5 }}>
+              These are the largest changes in appropriations between the two years. They explain where the budget moved; they do not by themselves explain why a department changed.
+            </p>
+          </div>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(250px,1fr))', gap: 12 }}>
+            <DriverList title="Largest increases" rows={drivers.increases} />
+            <DriverList title="Largest decreases" rows={drivers.decreases} />
+          </div>
+        </section>
+      )}
 
       <section style={card}>
         <div style={{ overflowX: 'auto' }}>
@@ -109,6 +133,22 @@ export default function CompareExplorer() {
         Tax-levy history is intentionally omitted here because the Summary-page levy column is not column-stable across
         funds; see each <a href={`${base}/funds/`} style={{ color: 'var(--rbl-accent)', fontWeight: 700 }}>fund page</a> for current-year levy detail.
       </p>
+    </div>
+  )
+}
+
+function DriverList({ title, rows }: { title: string; rows: Array<{ code: string; name: string; change: number | null }> }) {
+  return (
+    <div style={{ background: 'var(--rbl-surface-2)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 12, padding: 14 }}>
+      <div style={{ fontWeight: 900, marginBottom: 8 }}>{title}</div>
+      {rows.length === 0 ? <div style={{ color: 'var(--rbl-text-muted)', fontSize: 13 }}>None in the selected comparison.</div> : rows.map((r) => (
+        <div key={r.code} style={{ display: 'flex', justifyContent: 'space-between', gap: 12, padding: '8px 0', borderTop: '1px solid var(--rbl-border-subtle)' }}>
+          <a href={`${base}/funds/${r.code}/`} style={{ color: 'var(--rbl-title)', fontWeight: 700, textDecoration: 'none', fontSize: 13.5 }}>
+            {r.name}
+          </a>
+          <strong style={{ whiteSpace: 'nowrap', color: changeColor(r.change) }}>{usd(r.change)}</strong>
+        </div>
+      ))}
     </div>
   )
 }
