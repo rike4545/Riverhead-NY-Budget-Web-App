@@ -1,9 +1,39 @@
 {
  "source": {
-  "title": "Town of Riverhead Town Board schedule (CivicClerk)",
+  "title": "Town of Riverhead Town Board schedule and published meeting items",
   "url": "https://www.townofriverheadny.gov/129/Agendas-Minutes"
  },
+ "scheduleSource": {
+  "title": "Town of Riverhead Town Board Meeting Schedule",
+  "url": "https://townofriverheadny.gov/282/Town-Board-Meeting-Schedule"
+ },
  "generatedAt": "2026-09-07",
+ "officialScheduleDates": [
+  "2026-01-06",
+  "2026-01-21",
+  "2026-02-03",
+  "2026-02-18",
+  "2026-03-03",
+  "2026-03-17",
+  "2026-04-07",
+  "2026-04-21",
+  "2026-05-05",
+  "2026-05-20",
+  "2026-06-02",
+  "2026-06-16",
+  "2026-07-07",
+  "2026-07-21",
+  "2026-08-04",
+  "2026-08-18",
+  "2026-09-01",
+  "2026-09-15",
+  "2026-10-06",
+  "2026-10-20",
+  "2026-11-05",
+  "2026-11-17",
+  "2026-12-01",
+  "2026-12-15"
+ ],
  "recent": [
   {
    "slug": "2026-09-01",
@@ -11,11 +41,12 @@
    "startDateTime": "2026-09-01T14:00:00Z",
    "type": "Town Board Meeting",
    "agendaPublished": true,
+   "itemsSource": "official-calendar",
    "docket": [],
    "hearings": [
     "Increase and Improvement of Facilities of Riverhead Ambulance District",
     "Sewer District Extension, 840 Old Country Rd",
-    "SCWA Monroe Balancing Test"
+    "SCWA \"Monroe Balancing Test\""
    ]
   }
  ],
@@ -25,7 +56,8 @@
    "date": "2026-09-15",
    "startDateTime": "2026-09-15T18:00:00Z",
    "type": "Town Board Meeting",
-   "agendaPublished": false,
+   "agendaPublished": true,
+   "itemsSource": "official-calendar",
    "docket": [],
    "hearings": [
     "Amend Chapter 231, Art. XIII, Fireworks and Pyrotechnics",
@@ -39,6 +71,7 @@
    "startDateTime": "2026-10-06T14:00:00Z",
    "type": "Town Board Meeting",
    "agendaPublished": false,
+   "itemsSource": null,
    "docket": [],
    "hearings": []
   },
@@ -48,6 +81,7 @@
    "startDateTime": "2026-10-20T18:00:00Z",
    "type": "Town Board Meeting",
    "agendaPublished": false,
+   "itemsSource": null,
    "docket": [],
    "hearings": []
   },
@@ -57,6 +91,7 @@
    "startDateTime": "2026-11-05T14:00:00Z",
    "type": "Town Board Meeting",
    "agendaPublished": false,
+   "itemsSource": null,
    "docket": [],
    "hearings": []
   },
@@ -66,6 +101,7 @@
    "startDateTime": "2026-11-17T18:00:00Z",
    "type": "Town Board Meeting",
    "agendaPublished": false,
+   "itemsSource": null,
    "docket": [],
    "hearings": []
   },
@@ -75,6 +111,7 @@
    "startDateTime": "2026-12-01T14:00:00Z",
    "type": "Town Board Meeting",
    "agendaPublished": false,
+   "itemsSource": null,
    "docket": [],
    "hearings": []
   },
@@ -84,24 +121,7 @@
    "startDateTime": "2026-12-15T14:00:00Z",
    "type": "Town Board Meeting",
    "agendaPublished": false,
-   "docket": [],
-   "hearings": []
-  },
-  {
-   "slug": "2027-01-05",
-   "date": "2027-01-05",
-   "startDateTime": "2027-01-05T14:00:00Z",
-   "type": "Town Board Meeting",
-   "agendaPublished": false,
-   "docket": [],
-   "hearings": []
-  },
-  {
-   "slug": "2027-01-19",
-   "date": "2027-01-19",
-   "startDateTime": "2027-01-19T18:00:00Z",
-   "type": "Town Board Meeting",
-   "agendaPublished": false,
+   "itemsSource": null,
    "docket": [],
    "hearings": []
   }
