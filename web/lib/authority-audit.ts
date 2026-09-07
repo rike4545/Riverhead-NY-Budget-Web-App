@@ -30,6 +30,7 @@ export const authorityAudit: AuthorityAuditRecord[] = [
     url: 'https://www.osc.ny.gov/files/local-government/property-tax-cap/pdf/formula.pdf',
     checkedAt: '2026-09-07',
     mode: 'sha256',
+    expectedSha256: '7751fe2c8eddb8af2f96945e6615fe473c67ec81cdcc391da6d89f47df6f3081',
     note: 'OSC tax-cap formula publication cited directly by claim-level provenance on the tax-cap page.',
   },
   {
