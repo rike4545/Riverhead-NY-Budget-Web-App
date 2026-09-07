@@ -10,6 +10,7 @@ const base = process.env.NEXT_PUBLIC_BASE_PATH || ''
 const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 18, boxShadow: '0 14px 34px var(--rbl-shadow)' } as const
 const VOTE_COLOR: Record<Vote, string> = { aye: 'var(--rbl-success)', nay: 'var(--rbl-danger)', abstain: 'var(--rbl-series-gold)', absent: 'var(--rbl-border-strong)' }
 const VOTE_LABEL: Record<Vote, string> = { aye: 'Yes', nay: 'No', abstain: 'Abstained', absent: 'Absent' }
+const PENDING_GRACE_DAYS = 7
 const usd = (n: number) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(n)
 
 type Filter = 'all' | 'contested' | 'failed' | 'tabled' | 'fiscal'
@@ -36,17 +37,40 @@ function useOptionalJson<T>(url: string | null) {
   return data
 }
 
+function newYorkTodayKey() {
+  const parts = new Intl.DateTimeFormat('en-US', {
+    timeZone: 'America/New_York', year: 'numeric', month: '2-digit', day: '2-digit',
+  }).formatToParts(new Date())
+  const value = (type: Intl.DateTimeFormatPartTypes) => Number(parts.find((p) => p.type === type)?.value ?? 0)
+  return Date.UTC(value('year'), value('month') - 1, value('day'))
+}
+
+function meetingDayKey(slug: string) {
+  const m = slug.match(/^(\d{4})-(\d{2})-(\d{2})$/)
+  if (!m) return Number.NaN
+  return Date.UTC(Number(m[1]), Number(m[2]) - 1, Number(m[3]))
+}
+
+function voteDetailOmitted(slug: string, nowKey: number | null) {
+  if (!nowKey) return false
+  const meetingKey = meetingDayKey(slug)
+  if (!Number.isFinite(meetingKey)) return false
+  return Math.floor((nowKey - meetingKey) / 86_400_000) > PENDING_GRACE_DAYS
+}
+
 export default function MeetingRecordExplorer() {
   const meetings = meetingsIndex.meetings
   const [slug, setSlug] = useState(meetings[0]?.slug ?? '')
   const [q, setQ] = useState('')
   const [filter, setFilter] = useState<Filter>('all')
+  const [nowKey, setNowKey] = useState<number | null>(null)
   const query = q.trim().toLowerCase()
   const { data: meeting, error } = useFetchJson<Meeting>(meetingUrl(slug))
   const hasFiscal = (fiscalIndex.meetings as string[]).includes(slug)
   const fiscal = useOptionalJson<FiscalMeeting>(hasFiscal ? `${base}/data/meetings/${slug}-fiscal.json` : null)
 
   useEffect(() => {
+    setNowKey(newYorkTodayKey())
     try {
       const params = new URLSearchParams(window.location.search)
       const requestedMeeting = params.get('meeting')
@@ -96,24 +120,41 @@ export default function MeetingRecordExplorer() {
 
   if (meeting.preliminary) {
     const docket = meeting.docket ?? []
+    const omitted = voteDetailOmitted(meeting.slug, nowKey)
     return (
       <div style={{ display: 'grid', gap: 14 }}>
-        <MeetingPicker slug={slug} changeMeeting={changeMeeting} />
-        <section style={{ ...card, borderLeft: '5px solid var(--rbl-warn)' }}>
-          <div style={{ fontSize: 12, fontWeight: 900, textTransform: 'uppercase', color: 'var(--rbl-warn)' }}>Latest record · minutes not final</div>
+        <MeetingPicker slug={slug} changeMeeting={changeMeeting} nowKey={nowKey} />
+        <section style={{ ...card, borderLeft: `5px solid ${omitted ? 'var(--rbl-accent-border)' : 'var(--rbl-warn)'}` }}>
+          <div style={{ fontSize: 12, fontWeight: 900, textTransform: 'uppercase', color: omitted ? 'var(--rbl-accent)' : 'var(--rbl-warn)' }}>
+            {omitted ? 'Official minutes · vote detail omitted' : 'Official minutes/docket · vote record not yet available'}
+          </div>
           <h2 style={{ margin: '4px 0 6px' }}>{meeting.date}</h2>
-          <p style={{ margin: 0, color: 'var(--rbl-text-body)', lineHeight: 1.55 }}>
-            The Town has published the meeting docket, but the vote-bearing minutes have not been parsed yet. That means the resolution list is official, while individual outcomes remain pending.
-          </p>
+          {omitted ? (
+            <p style={{ margin: 0, color: 'var(--rbl-text-body)', lineHeight: 1.55 }}>
+              This meeting occurred and the Town Clerk published official minutes. Those minutes list {docket.length} resolutions but do not state the RESULT, mover/seconder, or individual roll-call votes. The site will not infer an outcome from a resolution title, agenda placement, or recording. If the Clerk later publishes a corrected vote record or separately verifiable adopted-resolution documents, the automatic reconciliation will update this meeting.
+            </p>
+          ) : (
+            <p style={{ margin: 0, color: 'var(--rbl-text-body)', lineHeight: 1.55 }}>
+              This meeting occurred and an official docket/minutes record is available, but an official source stating the individual vote results has not yet been published or parsed. The site does not infer votes while that record is unavailable.
+            </p>
+          )}
           <OfficialRecordLine meeting={meeting} />
         </section>
         <section style={card}>
           <div style={{ display: 'flex', justifyContent: 'space-between', gap: 10, alignItems: 'baseline', flexWrap: 'wrap' }}>
-            <h3 style={{ margin: 0 }}>Resolutions on the docket</h3>
-            <span style={{ color: 'var(--rbl-text-muted)', fontSize: 13 }}>{docket.length} items · votes pending</span>
+            <h3 style={{ margin: 0 }}>{omitted ? 'Resolutions listed in the official minutes' : 'Resolutions on the docket'}</h3>
+            <span style={{ color: 'var(--rbl-text-muted)', fontSize: 13 }}>{docket.length} items · {omitted ? 'individual outcomes not stated' : 'vote record not yet available'}</span>
           </div>
           <div style={{ display: 'grid', gap: 8, marginTop: 12 }}>
-            {docket.map((d) => <div key={`${d.number}-${d.seq}`} style={{ padding: '11px 13px', background: 'var(--rbl-surface-2)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 10 }}><div style={{ display: 'flex', gap: 7, alignItems: 'center', flexWrap: 'wrap' }}><strong style={{ color: 'var(--rbl-link)', fontSize: 12 }}>{d.number}</strong>{d.officialDocumentVerified && <VerifiedChip />}</div><div style={{ color: 'var(--rbl-title)', fontWeight: 650, marginTop: 2, lineHeight: 1.4 }}>{d.title}</div></div>)}
+            {docket.map((d) => (
+              <div key={`${d.number}-${d.seq}`} style={{ padding: '11px 13px', background: 'var(--rbl-surface-2)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 10 }}>
+                <div style={{ display: 'flex', gap: 7, alignItems: 'center', flexWrap: 'wrap' }}>
+                  <strong style={{ color: 'var(--rbl-link)', fontSize: 12 }}>{d.number}</strong>
+                  {d.officialDocumentVerified && <VerifiedChip />}
+                </div>
+                <div style={{ color: 'var(--rbl-title)', fontWeight: 650, marginTop: 2, lineHeight: 1.4 }}>{d.title}</div>
+              </div>
+            ))}
           </div>
         </section>
       </div>
@@ -132,7 +173,7 @@ export default function MeetingRecordExplorer() {
 
   return (
     <div style={{ display: 'grid', gap: 14 }}>
-      <MeetingPicker slug={slug} changeMeeting={changeMeeting} />
+      <MeetingPicker slug={slug} changeMeeting={changeMeeting} nowKey={nowKey} />
 
       <section style={{ ...card, padding: 20 }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', gap: 14, flexWrap: 'wrap', alignItems: 'start' }}>
@@ -221,8 +262,22 @@ function OfficialRecordLine({ meeting }: { meeting: Meeting }) {
   </div>
 }
 
-function MeetingPicker({ slug, changeMeeting }: { slug: string; changeMeeting: (slug: string) => void }) {
-  return <section style={{ ...card, display: 'flex', alignItems: 'center', gap: 10, flexWrap: 'wrap', padding: 14 }}><label htmlFor="decision-meeting" style={{ fontWeight: 900, color: 'var(--rbl-title)' }}>Meeting</label><select id="decision-meeting" value={slug} onChange={(e) => changeMeeting(e.target.value)} style={{ flex: '1 1 320px', minWidth: 0, padding: '10px 12px', border: '1px solid var(--rbl-border-strong)', borderRadius: 9, fontWeight: 700, color: 'var(--rbl-title)', background: 'var(--rbl-surface)' }}>{meetingsIndex.meetings.map((m) => <option key={m.slug} value={m.slug}>{m.date} — {m.preliminary ? `${m.docketCount ?? 0} docket items · votes pending` : `${m.total} decisions${m.contested ? ` · ${m.contested} contested` : ''}`}</option>)}</select><span style={{ color: 'var(--rbl-text-muted)', fontSize: 12.5 }}>{meetingsIndex.totals.meetings} meetings · {meetingsIndex.totals.votes.toLocaleString()} votes</span></section>
+function MeetingPicker({ slug, changeMeeting, nowKey }: { slug: string; changeMeeting: (slug: string) => void; nowKey: number | null }) {
+  return <section style={{ ...card, display: 'flex', alignItems: 'center', gap: 10, flexWrap: 'wrap', padding: 14 }}>
+    <label htmlFor="decision-meeting" style={{ fontWeight: 900, color: 'var(--rbl-title)' }}>Meeting</label>
+    <select id="decision-meeting" value={slug} onChange={(e) => changeMeeting(e.target.value)} style={{ flex: '1 1 320px', minWidth: 0, padding: '10px 12px', border: '1px solid var(--rbl-border-strong)', borderRadius: 9, fontWeight: 700, color: 'var(--rbl-title)', background: 'var(--rbl-surface)' }}>
+      {meetingsIndex.meetings.map((m) => (
+        <option key={m.slug} value={m.slug}>
+          {m.date} — {m.preliminary
+            ? voteDetailOmitted(m.slug, nowKey)
+              ? `${m.docketCount ?? 0} resolutions · vote details omitted from minutes`
+              : `${m.docketCount ?? 0} docket items · vote record not yet available`
+            : `${m.total} decisions${m.contested ? ` · ${m.contested} contested` : ''}`}
+        </option>
+      ))}
+    </select>
+    <span style={{ color: 'var(--rbl-text-muted)', fontSize: 12.5 }}>{meetingsIndex.totals.meetings} meetings · {meetingsIndex.totals.votes.toLocaleString()} votes</span>
+  </section>
 }
 
 function VerifiedChip() {
