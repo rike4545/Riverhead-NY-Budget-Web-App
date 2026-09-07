@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react'
 import meta from '../public/data/meta.json'
 
 const STORAGE_KEY = 'rbl-disclaimer-dismissed'
+const base = process.env.NEXT_PUBLIC_BASE_PATH || ''
 
 function freshness() {
   const when = new Date(meta.generatedAt).getTime()
@@ -30,8 +31,11 @@ export default function DisclaimerBanner() {
         Unofficial · Last refreshed {meta.generatedAtDisplay}
       </span>
       <span style={{ color: state.tone, fontSize: 12, fontWeight: 900 }} title={state.detail}>
-        ● Data status: {state.label}
+        ● Pipeline: {state.label}
       </span>
+      <a href={`${base}/data-quality/`} style={{ color: 'var(--rbl-link)', fontSize: 12, fontWeight: 800, textDecoration: 'none' }}>
+        Dataset freshness →
+      </a>
       {dismissed && (
         <button
           onClick={() => { localStorage.removeItem(STORAGE_KEY); setDismissed(false) }}
@@ -50,7 +54,7 @@ export default function DisclaimerBanner() {
       <div style={{ marginTop: 18, background: 'var(--rbl-note-bg)', border: '1px solid var(--rbl-note-border)', color: 'var(--rbl-note-text)', padding: '12px 40px 12px 13px', borderRadius: 8, fontSize: 14, lineHeight: 1.45, position: 'relative' }}>
         A neighbor made this to make the Town&apos;s finances easier to follow. It isn&apos;t affiliated with or endorsed by the Town of Riverhead, and figures can carry parsing errors — so double-check anything important against the official documents before you rely on it.
         <span style={{ display: 'block', marginTop: 6, fontSize: 12.5, color: 'var(--rbl-note-sub)' }}>
-          {state.detail} New meeting minutes and financial-report documents are fetched and parsed automatically every week when the source material is available.
+          {state.detail} Individual datasets have different publication schedules; use Dataset freshness for the latest budget, meeting, payroll, annual-report, projection, and search status.
         </span>
         <button
           onClick={() => { localStorage.setItem(STORAGE_KEY, '1'); setDismissed(true) }}

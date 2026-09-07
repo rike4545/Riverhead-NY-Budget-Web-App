@@ -3,9 +3,11 @@
 
 The browser gets a small structured-data index first. Document-page records live
 in a separate shard and are loaded only when the user asks for document results
-or AI retrieval needs them.
+or AI retrieval needs them. Each shard carries a content fingerprint so the
+browser can safely cache unchanged shards between deployments.
 """
 
+import hashlib
 import json
 import re
 from pathlib import Path
@@ -43,7 +45,8 @@ def build():
         latest = {}
         for r in payroll["records"]:
             k = r["n"].lower()
-            if k not in latest or r["y"] > latest[k]["y"]: latest[k] = r
+            if k not in latest or r["y"] > latest[k]["y"]:
+                latest[k] = r
         for r in latest.values():
             bits = [b for b in (r.get("t"), r.get("d")) if b]
             entries["payroll"].append({"t":"payroll","n":clean(r["n"],60),"x":f"{' · '.join(bits) or r.get('u') or 'Town employee'} · {r['y']} gross pay","v":r["g"],"u":f"{BASE}/payroll/"})
@@ -55,9 +58,11 @@ def build():
     if meetings_index:
         for m in meetings_index["meetings"]:
             meeting = load(f"meetings/{m['slug']}.json")
-            if not meeting: continue
+            if not meeting:
+                continue
             for r in meeting["resolutions"]:
-                entries["resolution"].append({"t":"resolution","n":clean(r["title"],120),"x":f"{r['number'] or ''} · {r['result']} · {meeting['date']}","u":f"{BASE}/meetings/"})
+                number = r.get("number") or ""
+                entries["resolution"].append({"t":"resolution","n":clean(r["title"],120),"x":f"{number} · {r['result']} · {meeting['date']}","u":f"{BASE}/meetings/?meeting={m['slug']}&q={number}"})
     if sub_index:
         for f in sub_index["funds"]:
             entries["fund"].append({"t":"fund","n":f"{f['code']} — {f['name']}","x":f"{f['departmentCount']} departments · {f['lineItemCount']} line items · 2026 appropriations","v":f["expenditureTotal2026"],"u":f"{BASE}/funds/{f['code']}/"})
@@ -66,18 +71,23 @@ def build():
         records = raw["records"] if isinstance(raw, dict) else raw
         for r in records:
             snippet = clean(r.get("snippet") or r.get("text"), 180)
-            if not snippet: continue
+            if not snippet:
+                continue
             entries["page"].append({"t":"page","n":f"{clean(r.get('document'),70)} — p. {r.get('page')}","x":snippet,"u":r.get("url") or ""})
     OUT.mkdir(parents=True, exist_ok=True)
     manifest = {"version":2,"shards":{},"total":sum(len(v) for v in entries.values())}
     for t, rows in entries.items():
         path = OUT / f"{t}.json"
-        path.write_text(json.dumps({"type":t,"entries":rows},separators=(",",":")))
-        manifest["shards"][t] = {"url":path.name,"count":len(rows),"bytes":path.stat().st_size}
-        print(f"{path.name}: {len(rows):,} entries, {path.stat().st_size/1e6:.2f} MB")
+        payload = json.dumps({"type":t,"entries":rows},separators=(",",":"))
+        path.write_text(payload)
+        raw_bytes = payload.encode()
+        manifest["shards"][t] = {"url":path.name,"count":len(rows),"bytes":len(raw_bytes),"sha256":hashlib.sha256(raw_bytes).hexdigest()[:16]}
+        print(f"{path.name}: {len(rows):,} entries, {len(raw_bytes)/1e6:.2f} MB")
     (OUT / "manifest.json").write_text(json.dumps(manifest,separators=(",",":")))
     legacy = OUT / "unified.json"
-    if legacy.exists(): legacy.unlink()
+    if legacy.exists():
+        legacy.unlink()
     print(f"manifest.json: {manifest['total']:,} total entries")
 
-if __name__ == "__main__": build()
+if __name__ == "__main__":
+    build()

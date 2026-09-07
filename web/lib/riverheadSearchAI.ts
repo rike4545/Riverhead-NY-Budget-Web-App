@@ -64,7 +64,7 @@ function getSearchIndex(entries: Entry[]): SearchIndex {
       else tokenToIds.set(token, [i])
     }
   }
-  const index: SearchIndex = { tokenToIds, vocabulary: [...tokenToIds.keys()] }
+  const index: SearchIndex = { tokenToIds, vocabulary: Array.from(tokenToIds.keys()) }
   indexCache.set(entries, index)
   return index
 }
@@ -86,7 +86,7 @@ export function scoreEntries(entries: Entry[], terms: string[], phrase: string):
   }
 
   const scored: { e: Entry; score: number }[] = []
-  for (const id of candidateIds) {
+  for (const id of Array.from(candidateIds)) {
     const e = entries[id]
     const name = e.n.toLowerCase()
     const ctx = e.x.toLowerCase()

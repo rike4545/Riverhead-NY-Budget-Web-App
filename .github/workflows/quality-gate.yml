@@ -1,0 +1,72 @@
+name: Quality Gate
+
+on:
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build-and-verify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Setup Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+          cache: pip
+
+      - name: Install ETL dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -e .
+
+      - name: Verify ETL imports and syntax
+        run: |
+          python -m compileall -q etl
+          python - <<'PY'
+          import bs4
+          import cryptography
+          import fitz
+          import pandas
+          import pypdf
+          import requests
+          print('ETL dependency and syntax smoke test passed')
+          PY
+
+      - name: Rebuild search and freshness metadata
+        run: |
+          python etl/build_search_index.py
+          python etl/write_meta.py
+
+      - name: Setup Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: 24
+          cache: npm
+          cache-dependency-path: web/package-lock.json
+
+      # package-lock.json predates the current npm/platform optional-dependency
+      # metadata and is not npm-ci clean on Linux. Use the repository's proven
+      # install path here; the gate still blocks on TypeScript/build/data tests.
+      - name: Install web dependencies
+        working-directory: web
+        run: npm install --no-audit --no-fund --package-lock=false
+
+      - name: Typecheck
+        working-directory: web
+        run: npx tsc --noEmit
+
+      - name: Build static export
+        working-directory: web
+        run: npm run build
+
+      - name: Verify routes and generated data
+        working-directory: web
+        run: npm run verify
