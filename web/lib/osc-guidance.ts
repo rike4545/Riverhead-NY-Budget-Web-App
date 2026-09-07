@@ -10,6 +10,15 @@ export type OscGuidanceSource = {
   usedBy: { label: string; href: string }[]
 }
 
+export type RelatedAccountingReference = {
+  id: string
+  title: string
+  url: string
+  authority: string
+  scope: string
+  whyListed: string
+}
+
 const base = process.env.NEXT_PUBLIC_BASE_PATH || ''
 
 export const oscGuidanceSources: OscGuidanceSource[] = [
@@ -128,5 +137,17 @@ export const oscGuidanceSources: OscGuidanceSource[] = [
       { label: 'Town Square', href: `${base}/town-square/` },
       { label: 'Capital & Debt', href: `${base}/capital-debt/` },
     ],
+  },
+]
+
+export const relatedAccountingReferences: RelatedAccountingReference[] = [
+  {
+    id: 'fasb-asc',
+    title: 'FASB Accounting Standards Codification (ASC)',
+    url: 'https://asc.fasb.org/Home',
+    authority: 'Financial Accounting Standards Board',
+    scope: 'Authoritative U.S. GAAP recognized by FASB for nongovernmental entities.',
+    whyListed:
+      'Useful when a Riverhead transaction also involves a private company, nonprofit or other nongovernmental counterparty. It is not the primary accounting authority for the Town of Riverhead itself: state and local governmental financial reporting follows GASB authoritative GAAP, with New York local-government implementation and reporting guidance supplied by OSC.',
   },
 ]
