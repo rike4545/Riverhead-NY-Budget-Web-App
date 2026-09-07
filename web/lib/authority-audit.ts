@@ -26,6 +26,27 @@ export const authorityAudit: AuthorityAuditRecord[] = [
     note: 'Dynamic OSC portal; availability is checked, while individual publications below use content fingerprints.',
   },
   {
+    id: 'tax-cap-formula',
+    url: 'https://www.osc.ny.gov/files/local-government/property-tax-cap/pdf/formula.pdf',
+    checkedAt: '2026-09-07',
+    mode: 'sha256',
+    note: 'OSC tax-cap formula publication cited directly by claim-level provenance on the tax-cap page.',
+  },
+  {
+    id: 'osc-2027-growth-factor',
+    url: 'https://www.osc.ny.gov/press/releases/2026/07/dinapoli-tax-cap-remains-2-percent-2027',
+    checkedAt: '2026-09-07',
+    mode: 'status',
+    note: 'OSC 2027 allowable levy growth factor release cited by tax-cap and 2027 projection claims.',
+  },
+  {
+    id: 'osc-override-trend',
+    url: 'https://www.osc.ny.gov/press/releases/2026/08/dinapoli-growing-number-local-governments-reporting-plans-override-property-tax-cap',
+    checkedAt: '2026-09-07',
+    mode: 'status',
+    note: 'OSC planned-override trend release cited by the 2027 projection page.',
+  },
+  {
     id: 'budget-process',
     url: 'https://www.osc.ny.gov/files/local-government/publications/pdf/understanding-the-budget-process.pdf',
     checkedAt: '2026-09-07',
