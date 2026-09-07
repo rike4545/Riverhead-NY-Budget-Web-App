@@ -2,21 +2,18 @@ import type { MetadataRoute } from 'next'
 import { allFundCodes } from '../lib/subaccounts'
 
 export const dynamic = 'force-static'
-
 const SITE = 'https://rike4545.github.io/Riverhead-NY-Budget-Web-App'
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const routes = [
-    '', '/answers', '/guide', '/payroll', '/funds', '/compare', '/general-fund',
-    '/annual-report', '/meetings', '/buyout', '/search', '/downloads', '/gfoa',
-    '/analytics', '/sources', '/scenarios', '/board-elections', '/election-law-case',
-    '/community-preservation-fund', '/housing-plan', '/know-your-rights',
-    '/official-social-media', '/town-square',
-    '/programs', '/zero-percent-2027',
+    '', '/answers', '/guide', '/what-changed', '/payroll', '/funds', '/compare', '/general-fund',
+    '/annual-report', '/meetings', '/buyout', '/search', '/downloads', '/gfoa', '/analytics', '/sources',
+    '/scenarios', '/board-elections', '/election-law-case', '/community-preservation-fund', '/housing-plan',
+    '/know-your-rights', '/official-social-media', '/town-square', '/programs', '/zero-percent-2027',
     ...allFundCodes().map((code) => `/funds/${code}`),
   ]
   const now = new Date()
-  return routes.map((route) => ({
+  return routes.map(route => ({
     url: `${SITE}${route}/`,
     lastModified: now,
     changeFrequency: 'weekly' as const,

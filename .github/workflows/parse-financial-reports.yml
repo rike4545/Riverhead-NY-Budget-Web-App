@@ -12,7 +12,6 @@ permissions:
 jobs:
   parse:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout
         uses: actions/checkout@v7
@@ -27,76 +26,60 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install -r etl/requirements.txt
+          python -m pip install -e .
+
+      - name: Verify ETL imports
+        run: |
+          python - <<'PY'
+          import bs4
+          import cryptography
+          import fitz
+          import pandas
+          import pypdf
+          import requests
+          print('ETL dependency smoke test passed')
+          PY
 
       - name: Fetch new Town Board meeting minutes (CivicClerk)
         run: python etl/fetch_meetings.py
-
       - name: Fetch upcoming Town Board meeting schedule (CivicClerk)
         run: python etl/fetch_upcoming.py
-
       - name: Parse financial reports
         run: python etl/parse_financial_reports.py
-
       - name: Parse Peconic Bay CPF financial statements
         run: python etl/parse_cpf.py
-
       - name: Parse account-level sub-account detail
         run: python etl/parse_subaccounts.py
-
       - name: Build multi-year fund appropriations history
         run: python etl/parse_budget_history.py
-
       - name: Build long-run General Fund history
         run: python etl/parse_general_fund.py
-
       - name: Parse Annual Financial Report actuals
         run: python etl/parse_afr.py
-
       - name: Re-analyse the budget supplement
         run: python etl/parse_budget_supplement.py
-
-      # Stacks seven supplements into one 2018-2024 actual series per account,
-      # which is what makes cyclical lines and account renumberings visible.
       - name: Build multi-year supplement history
         run: python etl/parse_supplement_history.py
-
       - name: Parse Town Board meeting votes
         run: python etl/parse_meetings.py
-
       - name: Parse agenda-packet Fiscal Impact Statements
         run: python etl/parse_fiscal_impact.py
-
-      # Also derived from the meetings JSON, so it has to follow parse_meetings.
-      # Left out of this workflow until now, which is why its figures drifted a
-      # meeting behind the rest of the votes page.
       - name: Analyse consent-calendar voting pattern
         run: python etl/analyze_consent_calendar.py
-
       - name: Parse 2025 authorized salary schedule
         run: python etl/parse_salary_schedule.py
-
       - name: Build 2025 to 2026 salary raise comparison
         run: python etl/parse_salary_2026.py
-
-      # Payroll must be rebuilt BEFORE the search index and CSV export, which
-      # both read the payroll dataset.
       - name: Rebuild payroll dataset from slim sources
         run: python etl/parse_payroll.py
-
       - name: Rebuild 2027 budget projection
         run: python etl/predict_2027.py
-
-      # Reads the same committed payroll CSVs, so it must follow parse_payroll.
       - name: Rebuild retirement-buyout analysis
         run: python etl/analyze_buyout.py
-
       - name: Build unified search index
         run: python etl/build_search_index.py
-
       - name: Export CSV downloads
         run: python etl/export_csv.py
-
       - name: Stamp data freshness metadata
         run: python etl/write_meta.py
 
@@ -111,22 +94,16 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-
           git add etl/data/meetings web/public/data web/public/downloads || true
-
           if git diff --cached --quiet; then
             echo "No parsed-data changes detected."
             echo "changed=false" >> "$GITHUB_OUTPUT"
             exit 0
           fi
-
           git commit -m "Auto-update parsed financial datasets"
           git push
           echo "changed=true" >> "$GITHUB_OUTPUT"
 
-      # Pushes made with GITHUB_TOKEN do not trigger other workflows, so the
-      # site would stay stale until the next manual push. Dispatch the deploy
-      # explicitly whenever data changed.
       - name: Redeploy the site with fresh data
         if: steps.commit.outputs.changed == 'true'
         env:
