@@ -70,4 +70,4 @@ jobs:
 
       - name: Verify routes, evidence contracts, and generated data
         working-directory: web
-        run: npm run verify
+        run: npm run verify:output

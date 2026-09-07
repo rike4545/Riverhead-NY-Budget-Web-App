@@ -1,4 +1,5 @@
-// Post-build regression gate. Run with `npm run verify` after `npm run build`.
+// Post-build regression gate. `npm run verify` rebuilds first for local/manual use;
+// CI/deploy run `npm run verify:output` after their explicit production build.
 // Checks resident routes, generated data integrity, freshness, evidence contracts,
 // claim-level provenance, and search payload guardrails before deployment.
 
@@ -146,20 +147,19 @@ for (const text of [
 const authorityMarkers = (sources.match(/data-authority-id=/g) ?? []).length
 if (authorityMarkers < 9) fail(`Authority audit metadata coverage collapsed: found ${authorityMarkers}, expected at least 9`)
 
-// Provenance coverage report: warn on analytical pages with no claim metadata.
-// This keeps the unfinished rollout visible while enforcing hard floors on the
-// tax-cap and 2027 pages introduced in this release.
+// Claim-level provenance coverage: only stable data-claim-id markers count.
+// Generic provenance lines remain useful context but do not satisfy this metric.
 const provenancePages = ['analytics', 'what-changed', 'taxpayer-impact', 'predict-2027', 'tax-cap', 'reserves', 'capital-debt', 'town-square', 'buyout']
-let pagesWithProvenance = 0
+let pagesWithClaimProvenance = 0
 for (const route of provenancePages) {
   const file = path(`out/${route}/index.html`)
   if (!existsSync(file)) continue
   const html = readFileSync(file, 'utf8')
-  const count = (html.match(/data-provenance="true"/g) ?? []).length
-  if (count > 0) pagesWithProvenance += 1
+  const claimIds = html.match(/data-claim-id="[^"]+"/g) ?? []
+  if (claimIds.length > 0) pagesWithClaimProvenance += 1
   else warn(`Claim-level provenance rollout pending on /${route}/`)
 }
-if (pagesWithProvenance < 3) fail(`Claim-level provenance coverage is unexpectedly low: ${pagesWithProvenance} analytical pages`)
+if (pagesWithClaimProvenance < 3) fail(`Claim-level provenance coverage is unexpectedly low: ${pagesWithClaimProvenance} analytical pages`)
 
 if (process.exitCode) process.exit(process.exitCode)
-console.log(`Build verification passed: routes, record floors, freshness, evidence contracts, source authority audit, provenance coverage (${pagesWithProvenance}/${provenancePages.length}), search shards, and payload guardrails are valid.`)
+console.log(`Build verification passed: routes, record floors, freshness, evidence contracts, source authority audit, claim-level provenance coverage (${pagesWithClaimProvenance}/${provenancePages.length}), search shards, and payload guardrails are valid.`)
