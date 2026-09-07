@@ -4,10 +4,6 @@ import { useEffect, useState } from 'react'
 
 type Zoom = '100' | '115' | '130'
 
-// Lets a reader scale the whole page's text up. The choice is applied pre-paint
-// by the script in layout.tsx (so the page doesn't visibly resize on load) and
-// persisted so it sticks across visits. This component just mirrors that
-// already-applied state into a button group and updates it on click.
 export default function DisplaySettings() {
   const [zoom, setZoom] = useState<Zoom>('100')
 
@@ -22,44 +18,18 @@ export default function DisplaySettings() {
     try { localStorage.setItem('rbl-zoom', next) } catch { /* ignore */ }
   }
 
-  const pillStyle = {
-    color: 'white', textDecoration: 'none', border: '1px solid rgba(255,255,255,.28)', borderRadius: 6,
-    padding: '9px 11px', fontWeight: 800, background: 'rgba(12,43,72,.35)', fontSize: 13.5, cursor: 'pointer',
-    lineHeight: 1,
-  }
-  const activeStyle = {
-    background: 'var(--rbl-fill-gold)', border: '1px solid var(--rbl-gold-border)', color: 'var(--rbl-on-gold)',
-  }
+  const options: [Zoom, string][] = [['100', 'Default'], ['115', 'Larger'], ['130', 'Largest']]
 
   return (
-    <div role="group" aria-label="Text size" style={{ display: 'inline-flex', gap: 5 }}>
-      <button
-        type="button"
-        onClick={() => chooseZoom('100')}
-        aria-pressed={zoom === '100'}
-        title="Default text size"
-        style={{ ...pillStyle, ...(zoom === '100' ? activeStyle : {}) }}
-      >
-        A
-      </button>
-      <button
-        type="button"
-        onClick={() => chooseZoom('115')}
-        aria-pressed={zoom === '115'}
-        title="Larger text"
-        style={{ ...pillStyle, ...(zoom === '115' ? activeStyle : {}), fontSize: 15.5 }}
-      >
-        A+
-      </button>
-      <button
-        type="button"
-        onClick={() => chooseZoom('130')}
-        aria-pressed={zoom === '130'}
-        title="Largest text"
-        style={{ ...pillStyle, ...(zoom === '130' ? activeStyle : {}), fontSize: 17.5 }}
-      >
-        A++
-      </button>
-    </div>
+    <details style={{ position: 'relative' }}>
+      <summary aria-label="Display settings" title="Display settings" style={{ listStyle: 'none', cursor: 'pointer', color: 'white', border: '1px solid rgba(255,255,255,.20)', borderRadius: 8, padding: '8px 10px', fontWeight: 900, fontSize: 13, lineHeight: 1, background: 'rgba(255,255,255,.08)', userSelect: 'none' }}>Aa</summary>
+      <div style={{ position: 'absolute', right: 0, top: 'calc(100% + 9px)', width: 180, background: 'var(--rbl-surface)', color: 'var(--rbl-text)', border: '1px solid var(--rbl-border)', borderRadius: 12, boxShadow: '0 18px 44px rgba(15,35,55,.18)', padding: 10, zIndex: 60 }}>
+        <div style={{ color: 'var(--rbl-text-muted)', fontSize: 10.5, fontWeight: 900, textTransform: 'uppercase', letterSpacing: .7, padding: '2px 4px 7px' }}>Text size</div>
+        <div role="group" aria-label="Text size" style={{ display: 'grid', gap: 4 }}>
+          {options.map(([value, label]) => <button key={value} type="button" onClick={() => chooseZoom(value)} aria-pressed={zoom === value} style={{ textAlign: 'left', border: 0, borderRadius: 8, padding: '9px 10px', cursor: 'pointer', background: zoom === value ? 'var(--rbl-info-bg)' : 'transparent', color: 'var(--rbl-text-strong)', fontWeight: zoom === value ? 900 : 700 }}>{label}{zoom === value ? ' ✓' : ''}</button>)}
+        </div>
+      </div>
+      <style>{`summary::-webkit-details-marker{display:none}`}</style>
+    </details>
   )
 }

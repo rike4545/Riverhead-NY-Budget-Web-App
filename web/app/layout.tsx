@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import type { ReactNode } from 'react'
+import './site.css'
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://rike4545.github.io/Riverhead-NY-Budget-Web-App'),
@@ -17,12 +18,9 @@ export const metadata: Metadata = {
   },
 }
 
-// Structural color tokens consumed by PageShell, DisclaimerBanner, and every
-// page component. Components reference these names rather than hex literals,
-// so a colour is changed in one place instead of across seventy files.
 const LIGHT_TOKENS = `
-  --rbl-bg:linear-gradient(180deg,#eef3f8 0,#f7f8f5 42%,#ffffff 100%);
-  --rbl-page:#eef3f8;
+  --rbl-bg:#f7f9fb;
+  --rbl-page:#f7f9fb;
   --rbl-surface:#ffffff;
   --rbl-surface-2:#f8fafc;
   --rbl-surface-3:#f1f5f9;
@@ -37,18 +35,18 @@ const LIGHT_TOKENS = `
   --rbl-text-sub:#44576a;
   --rbl-text-muted:#5f6e83;
   --rbl-text-faint:#687787;
-  --rbl-title:#284a69;
+  --rbl-title:#1d405d;
   --rbl-accent:#4a7297;
   --rbl-accent-border:#4a7297;
   --rbl-link:#2563eb;
-  --rbl-badge:#9b6b12;
+  --rbl-badge:#8a6317;
   --rbl-gold:#c99a2e;
   --rbl-gold-border:#c99a2e;
-  --rbl-header-a:#284a69;
-  --rbl-header-b:#4a7297;
+  --rbl-header-a:#1d405d;
+  --rbl-header-b:#365f81;
   --rbl-page-accent:#4a7297;
-  --rbl-shadow:rgba(31,95,143,.10);
-  --rbl-fill-brand:#284a69;
+  --rbl-shadow:rgba(31,74,105,.08);
+  --rbl-fill-brand:#1d405d;
   --rbl-fill-accent:#4a7297;
   --rbl-fill-gold:#c99a2e;
   --rbl-fill-danger:#b91c1c;
@@ -89,8 +87,8 @@ const LIGHT_TOKENS = `
   --rbl-series-teal:#109184;
   --rbl-series-violet:#C2508F;
   --rbl-series-slate:#64748b;
-  --rbl-logo-bg:#f8f5ec;
-  --rbl-logo-fg:#284a69;
+  --rbl-logo-bg:#ffffff;
+  --rbl-logo-fg:#1d405d;
   --rbl-on-gold:#3b2c05;
   --rbl-cta-bg:#38bdf8;
   --rbl-cta-fg:#08263c;
@@ -105,41 +103,20 @@ const THEME_CSS = `
 html,body{background:var(--rbl-page);color:var(--rbl-text)}
 `
 
-// Text zoom: scales the whole page (text, spacing, icons) via CSS `zoom` rather
-// than a root font-size, since ~1,000 fontSize values across the app are hardcoded
-// px, not rem — a root font-size change wouldn't reach them, but `zoom` reflows
-// the real layout (unlike `transform: scale`, which would just clip/overlap).
-// Scoped to #rbl-shell, a wrapper below <body>, so the zoom has a single owner.
 const ZOOM_CSS = `
 html[data-zoom="115"] #rbl-shell{zoom:1.15}
 html[data-zoom="130"] #rbl-shell{zoom:1.3}
 `
 
-// Semantic up/down colors, so a reader can flip the convention: by default an
-// increase is red (the accountant's reading), or green for "up = green".
 const TREND_CSS = `
 :root{--inc:var(--tc-red);--dec:var(--tc-green)}
 :root[data-tc="green-up"]{--inc:var(--tc-green);--dec:var(--tc-red)}
 `
 
-// Apply both saved preferences before first paint, so the up/down colours don't
-// flash the wrong way round and the page doesn't visibly resize on load.
 const PREFS_INIT = `try{var d=document.documentElement;var t=localStorage.getItem('tc');if(t)d.setAttribute('data-tc',t);var z=localStorage.getItem('rbl-zoom');if(z==='115'||z==='130')d.setAttribute('data-zoom',z)}catch(e){}`
 
-// Google Analytics 4. The measurement ID is not a secret — it ships in the page
-// source of every site that uses one — so it lives here rather than in an env var.
-//
-// The standard snippet is enough for this site and nothing more is needed. GA4
-// sends a page_view automatically on load, and it only misses navigations when a
-// framework swaps pages client-side without one. Nothing here imports next/link:
-// every link in the app, including the whole of SiteNav, is a plain <a href>, so
-// each navigation is a real page load and fires its own page_view. If Link is ever
-// introduced, route changes will stop being counted until a listener is added.
-//
-// Not to be confused with the site's /analytics/ page, which is about the Town's
-// budget, not about visitors.
+// Google Analytics remains enabled for aggregate site-usage measurement.
 const GA_MEASUREMENT_ID = 'G-756F97BXEG'
-
 const GA_INIT = `window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());

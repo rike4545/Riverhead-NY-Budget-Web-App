@@ -1,0 +1,9 @@
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;text-rendering:optimizeLegibility;background:var(--rbl-page)}
+body{margin:0;min-width:320px;background:var(--rbl-page);color:var(--rbl-text);-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+button,input,select,textarea{font:inherit}
+a,button{-webkit-tap-highlight-color:transparent}
+a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible,summary:focus-visible{outline:3px solid #38bdf8;outline-offset:3px}
+a{ text-underline-offset:3px }
+::selection{background:#cfe8fb;color:#102f49}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}

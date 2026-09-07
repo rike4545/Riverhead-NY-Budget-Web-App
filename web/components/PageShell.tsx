@@ -1,36 +1,42 @@
-import TrendColors from './TrendColors'
 import SiteNav from './SiteNav'
 import DisplaySettings from './DisplaySettings'
 import DisclaimerBanner from './DisclaimerBanner'
+import ExperienceFooter from './ExperienceFooter'
 
-export default function PageShell({ title, subtitle, children }: { title: string; subtitle: string; children: React.ReactNode }) {
+export default function PageShell({ title, subtitle, children, home = false }: { title: string; subtitle: string; children: React.ReactNode; home?: boolean }) {
   const base = process.env.NEXT_PUBLIC_BASE_PATH || ''
 
   return (
-    <main style={{ minHeight: '100vh', background: 'var(--rbl-bg)', color: 'var(--rbl-text)', fontFamily: 'Inter, Arial, sans-serif' }}>
-      <header style={{ background: 'linear-gradient(135deg,var(--rbl-header-a),var(--rbl-header-b) 62%,var(--rbl-header-a))', color: 'white', borderBottom: '5px solid var(--rbl-gold)', padding: '18px clamp(16px,3vw,28px)', display: 'flex', justifyContent: 'space-between', gap: 20, alignItems: 'center', flexWrap: 'wrap', boxShadow: '0 14px 34px var(--rbl-shadow)', position: 'relative' }}>
-        <a href={`${base}/`} style={{ color: 'white', textDecoration: 'none', display: 'flex', gap: 12, alignItems: 'center', minWidth: 0 }}>
-          <span style={{ width: 48, height: 48, flex: '0 0 auto', borderRadius: 8, display: 'grid', placeItems: 'center', background: 'var(--rbl-logo-bg)', color: 'var(--rbl-logo-fg)', border: '2px solid var(--rbl-gold)', fontWeight: 950 }}>RB</span>
-          <span style={{ minWidth: 0 }}>
-            <strong style={{ fontSize: 'clamp(18px,3vw,22px)' }}>Riverhead Budget Live</strong>
-            <div style={{ color: '#d7e7f4', fontSize: 12 }}>Following the Town&apos;s money, in plain English</div>
-          </span>
-        </a>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 12, flexWrap: 'wrap', marginLeft: 'auto' }}>
-          <SiteNav />
-          <DisplaySettings />
+    <main style={{ minHeight: '100vh', background: 'var(--rbl-bg)', color: 'var(--rbl-text)', fontFamily: 'Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif' }}>
+      <header style={{ background: 'var(--rbl-fill-brand)', color: 'white', borderBottom: '1px solid rgba(255,255,255,.14)', padding: '12px clamp(14px,3vw,26px)', boxShadow: '0 6px 20px rgba(15,35,55,.10)', position: 'relative', zIndex: 20 }}>
+        <div style={{ maxWidth: 1240, margin: '0 auto', display: 'flex', justifyContent: 'space-between', gap: 16, alignItems: 'center' }}>
+          <a href={`${base}/`} style={{ color: 'white', textDecoration: 'none', display: 'flex', gap: 10, alignItems: 'center', minWidth: 0 }}>
+            <span style={{ width: 36, height: 36, flex: '0 0 auto', borderRadius: 9, display: 'grid', placeItems: 'center', background: 'white', color: 'var(--rbl-logo-fg)', fontWeight: 950, fontSize: 13 }}>RB</span>
+            <span style={{ minWidth: 0 }}>
+              <strong style={{ display: 'block', fontSize: 16.5, lineHeight: 1.15 }}>Riverhead Budget Live</strong>
+              <span className="brand-subtitle" style={{ display: 'block', color: '#d7e7f4', fontSize: 11.5, marginTop: 2 }}>Town finances, explained</span>
+            </span>
+          </a>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 9, marginLeft: 'auto', minWidth: 0 }}>
+            <SiteNav />
+            <DisplaySettings />
+          </div>
         </div>
       </header>
-      <section style={{ padding: 'clamp(14px,3vw,30px)', maxWidth: 1380, margin: '0 auto' }}>
-        <div style={{ background: 'var(--rbl-surface)', borderTop: '6px solid var(--rbl-page-accent)', borderRight: '1px solid var(--rbl-border)', borderBottom: '1px solid var(--rbl-border)', borderLeft: '1px solid var(--rbl-border)', borderRadius: 12, padding: 'clamp(18px,3vw,28px)', boxShadow: '0 14px 34px var(--rbl-shadow)', marginBottom: 18 }}>
-          <div style={{ color: 'var(--rbl-badge)', letterSpacing: 2, textTransform: 'uppercase', fontSize: 12, fontWeight: 950 }}>A resident-built project · not the Town&apos;s official site</div>
-          <h1 style={{ fontSize: 'clamp(30px,6vw,42px)', lineHeight: 1.05, margin: '8px 0', color: 'var(--rbl-title)', overflowWrap: 'anywhere' }}>{title}</h1>
-          <p style={{ color: 'var(--rbl-text-sub)', fontSize: 17, lineHeight: 1.55, margin: 0, maxWidth: 980 }}>{subtitle}</p>
-          <DisclaimerBanner />
-          <div style={{ marginTop: 12, display: 'flex', justifyContent: 'flex-end' }}><TrendColors /></div>
-        </div>
+
+      <section style={{ padding: '0 clamp(16px,3vw,28px)', maxWidth: 1240, margin: '0 auto' }}>
+        {!home && (
+          <header style={{ padding: 'clamp(28px,5vw,50px) 0 22px', borderBottom: '1px solid var(--rbl-border-subtle)', marginBottom: 26 }}>
+            <div style={{ color: 'var(--rbl-badge)', letterSpacing: 1.2, textTransform: 'uppercase', fontSize: 11, fontWeight: 950 }}>Independent civic data project</div>
+            <h1 style={{ fontSize: 'clamp(30px,5vw,46px)', lineHeight: 1.04, letterSpacing: '-.025em', margin: '8px 0 10px', color: 'var(--rbl-title)', maxWidth: 900, overflowWrap: 'anywhere' }}>{title}</h1>
+            <p style={{ color: 'var(--rbl-text-sub)', fontSize: 'clamp(15px,2vw,17px)', lineHeight: 1.6, margin: 0, maxWidth: 900 }}>{subtitle}</p>
+            <DisclaimerBanner />
+          </header>
+        )}
         {children}
+        <ExperienceFooter />
       </section>
+      <style>{`@media(max-width:640px){.brand-subtitle{display:none!important}}`}</style>
     </main>
   )
 }
