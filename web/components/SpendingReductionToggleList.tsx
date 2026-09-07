@@ -24,9 +24,12 @@ const CONFIDENCE_STYLE: Record<string, { label: string; color: string; bg: strin
 }
 
 const allItems = [...personnelPolicyItems, ...operationalItems, ...supplementTrimItems]
+const firmLineIds = new Set(supplementTrimItems.filter((i) => i.confidence === 'firm').map((i) => i.id))
 
 export default function SpendingReductionToggleList() {
-  const [deselected, setDeselected] = useState<Set<string>>(new Set())
+  // Start with nothing selected. A candidate is not a recommendation merely because
+  // it appears in the evidence set; the resident should choose what to test.
+  const [deselected, setDeselected] = useState<Set<string>>(new Set(allItems.map((i) => i.id)))
 
   const isSelected = (id: string) => !deselected.has(id)
 
@@ -47,92 +50,83 @@ export default function SpendingReductionToggleList() {
   const supplementSelected = useMemo(() => selectedTotal(supplementTrimItems), [deselected])
   const grandSelected = personnelSelected + operationalSelected + supplementSelected
 
-  // Uncapped ratio — with the supplement trims this now exceeds 100%, which is
-  // the headline: verified trims cover the gap several times over.
-  const rawCoverage = modeledAutomaticPayrollPressure > 0 ? grandSelected / modeledAutomaticPayrollPressure : 0
-  const coverage = Math.min(rawCoverage, 1)
+  const proxyCoverageRaw = capGap2027.gap > 0 ? grandSelected / capGap2027.gap : 0
+  const proxyCoverage = Math.min(proxyCoverageRaw, 1)
+  const proxyResidual = Math.max(0, capGap2027.gap - grandSelected)
+  const payrollCoverage = modeledAutomaticPayrollPressure > 0 ? grandSelected / modeledAutomaticPayrollPressure : 0
+
+  const selectFirmLines = () => setDeselected(new Set(allItems.filter((i) => !firmLineIds.has(i.id)).map((i) => i.id)))
 
   return (
     <div style={{ display: 'grid', gap: 16 }}>
       <section style={card}>
         <div style={{ color: 'var(--rbl-text-muted)', fontSize: 12.5, fontWeight: 900, textTransform: 'uppercase', letterSpacing: 0.4 }}>
-          Your selected package
+          Your test package
         </div>
-        <div style={{ fontSize: 34, fontWeight: 900, color: 'var(--rbl-success)', lineHeight: 1.15, margin: '2px 0 6px' }}>
+        <div style={{ fontSize: 34, fontWeight: 900, color: grandSelected > 0 ? 'var(--rbl-success)' : 'var(--rbl-title)', lineHeight: 1.15, margin: '2px 0 6px' }}>
           {usd(grandSelected)}
         </div>
         <div style={{ color: 'var(--rbl-text-muted)', fontSize: 13.5, marginBottom: 12 }}>
-          out of {usd(fullRecurringReductionPackage)} available
+          selected from {usd(fullRecurringReductionPackage)} of identified candidates — not booked savings
         </div>
 
-        <div style={{ height: 8, borderRadius: 999, background: 'var(--rbl-track)', overflow: 'hidden', marginBottom: 6 }}>
+        <div style={{ height: 9, borderRadius: 999, background: 'var(--rbl-track)', overflow: 'hidden', marginBottom: 7 }}>
           <div
             style={{
               height: '100%',
-              width: `${coverage * 100}%`,
+              width: `${proxyCoverage * 100}%`,
               background: 'var(--rbl-success)',
               borderRadius: 999,
               transition: 'width 0.2s ease',
             }}
           />
         </div>
-        <div style={{ color: 'var(--rbl-text-muted)', fontSize: 12.5, marginBottom: 14 }}>
-          {(rawCoverage * 100).toFixed(0)}% of the {usd(modeledAutomaticPayrollPressure)} modeled 2027 payroll-pressure gap
-          {rawCoverage >= 1 ? ' — fully covered' : ''}
-          {' '}<span style={{ color: 'var(--rbl-text-muted)' }}>(the smaller of the two gaps; the ~${(capGap2027.gap / 1_000_000).toFixed(2)}M cap-piercing gap is the one that actually binds)</span>
+        <div style={{ display: 'flex', justifyContent: 'space-between', gap: 10, flexWrap: 'wrap', color: 'var(--rbl-text-muted)', fontSize: 12.5, marginBottom: 14 }}>
+          <span>{(proxyCoverageRaw * 100).toFixed(0)}% of the {usd(capGap2027.gap)} <strong>2% planning-proxy gap</strong></span>
+          <span>{proxyResidual > 0 ? `${usd(proxyResidual)} residual` : 'Proxy gap covered'}</span>
         </div>
 
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(160px,1fr))', gap: 10, marginBottom: 14 }}>
           <MetricTile label="Personnel & policy" value={personnelSelected} color="var(--rbl-title)" />
-          <MetricTile label="Operational control" value={operationalSelected} color="var(--rbl-warn)" />
+          <MetricTile label="Operational review" value={operationalSelected} color="var(--rbl-warn)" />
           <MetricTile label="Line-item trims" value={supplementSelected} color="var(--rbl-accent)" />
         </div>
 
-        <div style={{ display: 'flex', gap: 8 }}>
-          <button onClick={() => setDeselected(new Set())} style={buttonStyle}>
-            Select all
-          </button>
-          <button onClick={() => setDeselected(new Set(allItems.map((i) => i.id)))} style={buttonStyle}>
-            Clear all
-          </button>
+        <div style={{ background: 'var(--rbl-surface-2)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 10, padding: '10px 12px', color: 'var(--rbl-text-body)', fontSize: 12.8, lineHeight: 1.5, marginBottom: 14 }}>
+          Secondary check: this selection equals <strong>{(payrollCoverage * 100).toFixed(0)}%</strong> of the {usd(modeledAutomaticPayrollPressure)} modeled automatic payroll pressure. That is a cost-driver comparison, not the legal tax-cap test.
+        </div>
+
+        <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+          <button type="button" onClick={selectFirmLines} style={buttonStyle}>Select firm line trims</button>
+          <button type="button" onClick={() => setDeselected(new Set())} style={buttonStyle}>Select all candidates</button>
+          <button type="button" onClick={() => setDeselected(new Set(allItems.map((i) => i.id)))} style={buttonStyle}>Clear</button>
         </div>
       </section>
 
-      <section style={{ background: 'var(--rbl-surface-2)', border: '1px solid var(--rbl-border-subtle)', borderLeft: '6px solid #64748b', borderRadius: 12, padding: '14px 16px' }}>
+      <section style={{ background: 'var(--rbl-surface-2)', border: '1px solid var(--rbl-border-subtle)', borderLeft: '6px solid var(--rbl-border-strong)', borderRadius: 12, padding: '14px 16px' }}>
         <p style={{ margin: 0, color: 'var(--rbl-text-strong)', fontSize: 13.8, lineHeight: 1.55 }}>
-          Union wage growth ($907.9K of modeled PBA/SOA/CSEA pressure) is the single largest driver in the 2027
-          model, but it&apos;s contractually locked and cannot be treated as a spending-reduction lever without a
-          successor labor agreement — it stays on the pressure side of the budget, not here. Every dollar below is
-          traceable to either a named formula input or an actual 2025→2026 account-level change in the Town&apos;s
-          own 2026 Budget Supplement. Click any item to test a package that leaves it out.
-        </p>
-        <p style={{ margin: '10px 0 0', color: 'var(--rbl-text-strong)', fontSize: 13.8, lineHeight: 1.55 }}>
-          PBA and SOA contracts both expire 12/31/2026 (CSEA is already locked through a ratified 2026-2029
-          agreement). New York law routes police/fire bargaining impasses to binding arbitration rather than
-          legislative resolution, and comparable Long Island police contracts have taken 1-3+ years past expiration
-          to settle — so the PBA/SOA figures above will likely remain placeholder estimates through the 2027 budget
-          cycle, with any successor terms applied retroactively once reached.
+          <strong>How to read this builder:</strong> every item below is an identified budget lever or review target, not a promise that the Town can capture the entire amount. Personnel-policy items require actual Board, management, bargaining, retirement or hiring outcomes. Operational items require validation before a budget is reduced. Supplement lines marked moderate or volatile depend on project timing or prices.
         </p>
       </section>
 
       <ItemSection
-        title="Personnel &amp; Policy Savings"
+        title="Personnel & Policy Candidates"
         selectedAmount={personnelSelected}
         fullAmount={personnelPolicyTotal}
         items={personnelPolicyItems}
         isSelected={isSelected}
         onToggle={toggle}
-        footer="Six categories: policy or formula-driven savings that would require Board or contract action to actually capture."
+        footer="Policy or staffing scenarios. These amounts become savings only if the underlying action occurs and the lower spending is actually reflected in the 2027 budget."
       />
 
       <ItemSection
-        title="Operational Growth Controls"
+        title="Operational Review Targets"
         selectedAmount={operationalSelected}
         fullAmount={operationalTotal}
         items={operationalItems}
         isSelected={isSelected}
         onToggle={toggle}
-        footer="Real account-level growth from the 2026 Budget Supplement, flagged for Board scrutiny before being carried forward as a permanent baseline."
+        footer="Account-level growth from the 2026 Budget Supplement flagged for validation before being carried forward. A large increase is a question to investigate, not proof of waste."
       />
 
       {supplementTrimItems.length > 0 && (
@@ -143,7 +137,7 @@ export default function SpendingReductionToggleList() {
           items={supplementTrimItems}
           isSelected={isSelected}
           onToggle={toggle}
-          footer="Every controllable, non-mandated line the 2026 Supplement budgets more than 30% above its trailing actuals — trimmed back to that run-rate. Tagged FIRM (operating / professional services), MODERATE (capital / maintenance that fluctuates), or VOLATILE (price-driven fuel and energy). Mandated costs — pension, workers' comp, insurance, debt service — are excluded, since their growth is obligation, not waste."
+          footer="Controllable, non-mandated lines budgeted above trailing actuals. FIRM = strongest run-rate case; MODERATE = timing-sensitive capital/maintenance; VOLATILE = price-driven fuel or energy. Mandated costs are excluded."
         />
       )}
     </div>
@@ -179,7 +173,7 @@ function ItemSection({
   return (
     <section style={card}>
       <h2 style={{ margin: '0 0 12px', color: 'var(--rbl-title)', fontSize: 17 }}>
-        {title} — {usd(selectedAmount)} of {usd(fullAmount)}
+        {title} — {usd(selectedAmount)} of {usd(fullAmount)} selected
       </h2>
       <div style={{ display: 'grid', gap: 10 }}>
         {items.map((item) => {
@@ -187,6 +181,8 @@ function ItemSection({
           return (
             <button
               key={item.id}
+              type="button"
+              aria-pressed={selected}
               onClick={() => onToggle(item.id)}
               style={{
                 textAlign: 'left',
@@ -195,11 +191,11 @@ function ItemSection({
                 borderRadius: 12,
                 padding: '12px 14px',
                 cursor: 'pointer',
-                opacity: selected ? 1 : 0.6,
+                opacity: selected ? 1 : 0.72,
               }}
             >
-              <div style={{ display: 'flex', justifyContent: 'space-between', gap: 10, alignItems: 'baseline' }}>
-                <span style={{ display: 'flex', alignItems: 'center', gap: 8, fontWeight: 800, color: 'var(--rbl-title)', fontSize: 14.5 }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', gap: 10, alignItems: 'baseline', flexWrap: 'wrap' }}>
+                <span style={{ display: 'flex', alignItems: 'center', gap: 8, fontWeight: 800, color: 'var(--rbl-title)', fontSize: 14.5, minWidth: 0 }}>
                   <span
                     aria-hidden
                     style={{
@@ -245,7 +241,7 @@ const buttonStyle = {
   color: 'var(--rbl-text-strong)',
   fontWeight: 700,
   fontSize: 13,
-  padding: '7px 14px',
+  padding: '8px 13px',
   borderRadius: 8,
   cursor: 'pointer',
 } as const
