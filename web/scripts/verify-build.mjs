@@ -1,7 +1,7 @@
 // Post-build regression gate. `npm run verify` rebuilds first for local/manual use;
 // CI/deploy run `npm run verify:output` after their explicit production build.
 // Checks resident routes, generated data integrity, freshness, evidence contracts,
-// claim-level provenance, and search payload guardrails before deployment.
+// claim-level provenance, meeting status, and search payload guardrails before deployment.
 
 import { existsSync, readFileSync, statSync } from 'node:fs'
 import { join } from 'node:path'
@@ -14,9 +14,10 @@ const warn = (message) => console.warn(`VERIFY WARNING: ${message}`)
 const requiredFiles = [
   'app/page.tsx', 'components/FiscalCommandCenter.tsx', 'components/PayrollTabs.tsx',
   'components/UnifiedSearch.tsx', 'components/DataStatus.tsx', 'components/ProvenanceLine.tsx',
-  'components/AuthorityAuditBadge.tsx', 'lib/authority-audit.ts', 'lib/osc-guidance.ts',
-  'lib/all-funds.ts', 'lib/afr.ts', 'lib/payroll.ts', 'lib/salary.ts', 'lib/meetings.ts',
-  'lib/subaccounts.ts', 'lib/budget-history.ts', 'lib/general-fund.ts',
+  'components/AuthorityAuditBadge.tsx', 'components/MeetingTimeline.tsx',
+  'lib/authority-audit.ts', 'lib/osc-guidance.ts', 'lib/all-funds.ts', 'lib/afr.ts',
+  'lib/payroll.ts', 'lib/salary.ts', 'lib/meetings.ts', 'lib/subaccounts.ts',
+  'lib/budget-history.ts', 'lib/general-fund.ts',
 ]
 
 const requiredOutputs = [
@@ -27,7 +28,8 @@ const requiredOutputs = [
   'out/downloads/index.html', 'out/analytics/index.html', 'out/taxpayer-impact/index.html',
   'out/predict-2027/index.html', 'out/tax-cap/index.html', 'out/sources/index.html',
   'out/sitemap.xml', 'out/robots.txt', 'out/data/search/manifest.json',
-  'out/data/payroll/records.json', 'out/data/meta.json', 'out/downloads/payroll_actual_2018_2025.csv',
+  'out/data/payroll/records.json', 'out/data/meta.json', 'out/data/meetings/upcoming.json',
+  'out/downloads/payroll_actual_2018_2025.csv',
 ]
 
 for (const file of [...requiredFiles, ...requiredOutputs]) {
@@ -60,7 +62,7 @@ if (existsSync(path('out/data/search/manifest.json'))) {
     const payload = JSON.parse(readFileSync(shardPath, 'utf8'))
     const actualCount = Array.isArray(payload.entries) ? payload.entries.length : -1
     if (actualCount !== shard.count) fail(`${type} shard count mismatch: manifest ${shard.count}, actual ${actualCount}`)
-    if (actualBytes !== shard.bytes) fail(`${type} shard byte mismatch: manifest ${shard.bytes}, actual ${actualBytes}`)
+    if (actualBytes !== shard.bytes) fail(`${type} shard byte mismatch: manifest ${shard.bytes}, actual ${actualCount}`)
     count += actualCount
     bytes += actualBytes
     if (type !== 'page') coreBytes += actualBytes
@@ -108,6 +110,23 @@ if (existsSync(path('out/data/meta.json'))) {
 const home = readFileSync(path('out/index.html'), 'utf8')
 for (const text of ['Payroll Explorer', 'Start Here', 'Current data snapshot']) if (!home.includes(text)) fail(`Missing expected home-page content: ${text}`)
 
+// Meeting UX contract: completed and upcoming states must remain distinct.
+const meetingsPage = readFileSync(path('out/meetings/index.html'), 'utf8')
+for (const text of ['Meeting timeline', 'What just happened', 'Open a meeting and inspect the votes', 'Completed is not the same as fully archived']) {
+  if (!meetingsPage.includes(text)) fail(`Meeting experience regressed: missing ${text}`)
+}
+const meetingSchedule = JSON.parse(readFileSync(path('out/data/meetings/upcoming.json'), 'utf8'))
+if (!Array.isArray(meetingSchedule.recent)) fail('Meeting timeline is missing the recent-completed collection')
+if (!Array.isArray(meetingSchedule.meetings)) fail('Meeting timeline is missing the upcoming collection')
+const scheduleGenerated = Date.parse(`${meetingSchedule.generatedAt}T12:00:00Z`)
+if (!Number.isFinite(scheduleGenerated)) fail('Meeting schedule generatedAt is invalid')
+else {
+  const scheduleAgeDays = (Date.now() - scheduleGenerated) / 86_400_000
+  if (scheduleAgeDays > 3) fail(`Meeting schedule is stale (${scheduleAgeDays.toFixed(1)} days old)`)
+}
+const scheduleSlugs = [...(meetingSchedule.recent ?? []), ...(meetingSchedule.meetings ?? [])].map((m) => m.slug)
+if (new Set(scheduleSlugs).size !== scheduleSlugs.length) fail('Meeting timeline contains duplicate meeting slugs')
+
 // 2027 model must keep its legal-limit caveat, statewide override context, and claim provenance.
 const predict2027 = readFileSync(path('out/predict-2027/index.html'), 'utf8')
 for (const text of ['2% allowable-growth planning proxy', '28.6% of towns', 'final legal limit is not simply']) if (!predict2027.includes(text)) fail(`2027 tax-cap framing regressed: missing ${text}`)
@@ -148,7 +167,6 @@ const authorityMarkers = (sources.match(/data-authority-id=/g) ?? []).length
 if (authorityMarkers < 9) fail(`Authority audit metadata coverage collapsed: found ${authorityMarkers}, expected at least 9`)
 
 // Claim-level provenance coverage: only stable data-claim-id markers count.
-// Generic provenance lines remain useful context but do not satisfy this metric.
 const provenancePages = ['analytics', 'what-changed', 'taxpayer-impact', 'predict-2027', 'tax-cap', 'reserves', 'capital-debt', 'town-square', 'buyout']
 let pagesWithClaimProvenance = 0
 for (const route of provenancePages) {
@@ -162,4 +180,4 @@ for (const route of provenancePages) {
 if (pagesWithClaimProvenance < 3) fail(`Claim-level provenance coverage is unexpectedly low: ${pagesWithClaimProvenance} analytical pages`)
 
 if (process.exitCode) process.exit(process.exitCode)
-console.log(`Build verification passed: routes, record floors, freshness, evidence contracts, source authority audit, claim-level provenance coverage (${pagesWithClaimProvenance}/${provenancePages.length}), search shards, and payload guardrails are valid.`)
+console.log(`Build verification passed: routes, record floors, freshness, meeting timeline, evidence contracts, source authority audit, claim-level provenance coverage (${pagesWithClaimProvenance}/${provenancePages.length}), search shards, and payload guardrails are valid.`)

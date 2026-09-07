@@ -1,19 +1,25 @@
 {
  "source": {
-  "title": "Town of Riverhead Town Board \u2014 upcoming meetings (CivicClerk)",
+  "title": "Town of Riverhead Town Board schedule (CivicClerk)",
   "url": "https://www.townofriverheadny.gov/129/Agendas-Minutes"
  },
- "generatedAt": "2026-08-24",
- "meetings": [
+ "generatedAt": "2026-09-07",
+ "recent": [
   {
    "slug": "2026-09-01",
    "date": "2026-09-01",
    "startDateTime": "2026-09-01T14:00:00Z",
    "type": "Town Board Meeting",
-   "agendaPublished": false,
+   "agendaPublished": true,
    "docket": [],
-   "hearings": []
-  },
+   "hearings": [
+    "Increase and Improvement of Facilities of Riverhead Ambulance District",
+    "Sewer District Extension, 840 Old Country Rd",
+    "SCWA Monroe Balancing Test"
+   ]
+  }
+ ],
+ "meetings": [
   {
    "slug": "2026-09-15",
    "date": "2026-09-15",
@@ -21,7 +27,11 @@
    "type": "Town Board Meeting",
    "agendaPublished": false,
    "docket": [],
-   "hearings": []
+   "hearings": [
+    "Amend Chapter 231, Art. XIII, Fireworks and Pyrotechnics",
+    "Amend Chapter 255, Art. II, Special Events",
+    "Amend Chapter 115, Procurement Policy"
+   ]
   },
   {
    "slug": "2026-10-06",
