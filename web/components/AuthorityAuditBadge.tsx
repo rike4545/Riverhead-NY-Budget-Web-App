@@ -9,7 +9,7 @@ export default function AuthorityAuditBadge({ id }: { id: string }) {
     : 'Availability monitored'
 
   return (
-    <div style={{ display: 'flex', gap: 7, flexWrap: 'wrap', alignItems: 'center', color: 'var(--rbl-text-muted)', fontSize: 11.2, lineHeight: 1.4 }}>
+    <div data-authority-id={id} data-authority-checked-at={audit.checkedAt} data-authority-mode={audit.mode} style={{ display: 'flex', gap: 7, flexWrap: 'wrap', alignItems: 'center', color: 'var(--rbl-text-muted)', fontSize: 11.2, lineHeight: 1.4 }}>
       <span style={{ border: '1px solid var(--rbl-border)', borderRadius: 999, padding: '3px 8px', background: 'var(--rbl-surface)', fontWeight: 850 }}>Checked {checked}</span>
       <span>{fingerprint}</span>
     </div>
