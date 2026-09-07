@@ -59,8 +59,8 @@ if (existsSync(fetcherPath)) {
     'hashlib.sha256',
     'revisionCount',
     'resolutionSources',
-    'officialDocument',
-  ]) if (!source.includes(text) && text !== 'officialDocument') fail(`Meeting source reconciliation regressed: missing ${text}`)
+    'source manifest unchanged — no no-op commit will be created',
+  ]) if (!source.includes(text)) fail(`Meeting source reconciliation regressed: missing ${text}`)
   if (source.includes('Final minutes (with a vote summary) never change')) fail('Meeting fetcher reverted to freezing vote-bearing minutes')
 }
 
@@ -92,6 +92,7 @@ if (existsSync(workflowPath)) {
     if (index <= previous) fail(`Meeting sync command order regressed around: ${command}`)
     previous = index
   }
+  if (!source.includes("github.ref == 'refs/heads/main'")) fail('Meeting sync publishing is no longer restricted to main')
 }
 
 if (process.exitCode) process.exit(process.exitCode)
