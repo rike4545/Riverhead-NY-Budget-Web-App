@@ -1,0 +1,111 @@
+1:"$Sreact.fragment"
+7:I[7150,[],""]
+2:T88c,
+:root{
+  --rbl-bg:linear-gradient(180deg,#eef3f8 0,#f7f8f5 42%,#ffffff 100%);
+  --rbl-page:#eef3f8;
+  --rbl-surface:#ffffff;
+  --rbl-surface-2:#f8fafc;
+  --rbl-surface-3:#f1f5f9;
+  --rbl-border:#d8e0e7;
+  --rbl-border-subtle:#e2e8f0;
+  --rbl-border-strong:#cbd5e1;
+  --rbl-track:#e2e8f0;
+  --rbl-track-strong:#cbd5e1;
+  --rbl-text:#1f2933;
+  --rbl-text-strong:#334155;
+  --rbl-text-body:#475569;
+  --rbl-text-sub:#44576a;
+  --rbl-text-muted:#5f6e83;
+  --rbl-text-faint:#687787;
+  --rbl-title:#284a69;
+  --rbl-accent:#4a7297;
+  --rbl-accent-border:#4a7297;
+  --rbl-link:#2563eb;
+  --rbl-badge:#9b6b12;
+  --rbl-gold:#c99a2e;
+  --rbl-gold-border:#c99a2e;
+  --rbl-header-a:#284a69;
+  --rbl-header-b:#4a7297;
+  --rbl-page-accent:#4a7297;
+  --rbl-shadow:rgba(31,95,143,.10);
+  --rbl-fill-brand:#284a69;
+  --rbl-fill-accent:#4a7297;
+  --rbl-fill-gold:#c99a2e;
+  --rbl-fill-danger:#b91c1c;
+  --rbl-fill-success:#15803d;
+  --rbl-fill-warn:#b45309;
+  --rbl-danger:#b91c1c;
+  --rbl-danger-strong:#991b1b;
+  --rbl-danger-bg:#fef2f2;
+  --rbl-danger-border:#fecaca;
+  --rbl-success:#15803d;
+  --rbl-success-strong:#166534;
+  --rbl-success-bg:#f0fdf4;
+  --rbl-success-border:#bbf7d0;
+  --rbl-warn:#b45309;
+  --rbl-warn-strong:#78350f;
+  --rbl-warn-bg:#fff8e6;
+  --rbl-warn-border:#d8b45a;
+  --rbl-info-text:#1f3a52;
+  --rbl-info-bg:#eef6ff;
+  --rbl-info-border:#bcd9f5;
+  --rbl-sky-bg:#f0f9ff;
+  --rbl-sky-border:#bae6fd;
+  --rbl-violet:#7c3aed;
+  --rbl-violet-strong:#5b21b6;
+  --rbl-violet-bg:#f5f3ff;
+  --rbl-violet-border:#ddd6fe;
+  --rbl-teal:#0f766e;
+  --rbl-teal-strong:#115e59;
+  --rbl-teal-bg:#f0fdfa;
+  --rbl-teal-border:#99f6e4;
+  --rbl-note-bg:#fff8e6;
+  --rbl-note-border:#d8b45a;
+  --rbl-note-text:#5f430d;
+  --rbl-note-sub:#8a6a1f;
+  --rbl-series-blue:#2E6FB7;
+  --rbl-series-indigo:#8158CC;
+  --rbl-series-gold:#B98416;
+  --rbl-series-teal:#109184;
+  --rbl-series-violet:#C2508F;
+  --rbl-series-slate:#64748b;
+  --rbl-logo-bg:#f8f5ec;
+  --rbl-logo-fg:#284a69;
+  --rbl-on-gold:#3b2c05;
+  --rbl-cta-bg:#38bdf8;
+  --rbl-cta-fg:#08263c;
+  --rbl-on-series:#ffffff;
+  --tc-red:#b91c1c;
+  --tc-green:#15803d;
+  color-scheme:light;
+}
+html,body{background:var(--rbl-page);color:var(--rbl-text)}
+0:{"P":null,"b":"Z6o8DhwJ4I7fLYHxvhz-3","p":"/Riverhead-NY-Budget-Web-App","c":["","evidence",""],"i":false,"f":[[["",{"children":["evidence",{"children":["__PAGE__",{}]}]},"$undefined","$undefined",true],["",["$","$1","c",{"children":[null,["$","html",null,{"lang":"en","children":[["$","head",null,{"children":[["$","style",null,{"dangerouslySetInnerHTML":{"__html":"$2"}}],["$","style",null,{"dangerouslySetInnerHTML":{"__html":"\n:root{--inc:var(--tc-red);--dec:var(--tc-green)}\n:root[data-tc=\"green-up\"]{--inc:var(--tc-green);--dec:var(--tc-red)}\n"}}],["$","style",null,{"dangerouslySetInnerHTML":{"__html":"\nhtml[data-zoom=\"115\"] #rbl-shell{zoom:1.15}\nhtml[data-zoom=\"130\"] #rbl-shell{zoom:1.3}\n"}}],["$","script",null,{"dangerouslySetInnerHTML":{"__html":"try{var d=document.documentElement;var t=localStorage.getItem('tc');if(t)d.setAttribute('data-tc',t);var z=localStorage.getItem('rbl-zoom');if(z==='115'||z==='130')d.setAttribute('data-zoom',z)}catch(e){}"}}],["$","script",null,{"async":true,"src":"https://www.googletagmanager.com/gtag/js?id=G-756F97BXEG"}],["$","script",null,{"dangerouslySetInnerHTML":{"__html":"window.dataLayer = window.dataLayer || [];\nfunction gtag(){dataLayer.push(arguments);}\ngtag('js', new Date());\ngtag('config', 'G-756F97BXEG');"}}]]}],["$","body",null,{"children":["$","div",null,{"id":"rbl-shell","style":{"background":"var(--rbl-page)"},"children":"$L3"}]}]]}]]}],{"children":["evidence","$L4",{"children":["__PAGE__","$L5",{},null,false]},null,false]},null,false],"$L6",false]],"m":"$undefined","G":["$7",[]],"s":false,"S":true}
+8:I[9766,[],""]
+9:I[8924,[],""]
+a:I[1845,["8950","static/chunks/8950-df654a0751cabd94.js","7890","static/chunks/app/evidence/page-81fa5c09d30ea926.js"],"default"]
+b:I[5687,["8950","static/chunks/8950-df654a0751cabd94.js","7890","static/chunks/app/evidence/page-81fa5c09d30ea926.js"],"default"]
+c:I[5744,["8950","static/chunks/8950-df654a0751cabd94.js","7890","static/chunks/app/evidence/page-81fa5c09d30ea926.js"],"default"]
+d:I[771,["8950","static/chunks/8950-df654a0751cabd94.js","7890","static/chunks/app/evidence/page-81fa5c09d30ea926.js"],"default"]
+15:I[4431,[],"ViewportBoundary"]
+17:I[4431,[],"MetadataBoundary"]
+18:"$Sreact.suspense"
+3:["$","$L8",null,{"parallelRouterKey":"children","error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L9",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":[[["$","title",null,{"children":"404: This page could not be found."}],["$","div",null,{"style":{"fontFamily":"system-ui,\"Segoe UI\",Roboto,Helvetica,Arial,sans-serif,\"Apple Color Emoji\",\"Segoe UI Emoji\"","height":"100vh","textAlign":"center","display":"flex","flexDirection":"column","alignItems":"center","justifyContent":"center"},"children":["$","div",null,{"children":[["$","style",null,{"dangerouslySetInnerHTML":{"__html":"body{color:#000;background:#fff;margin:0}.next-error-h1{border-right:1px solid rgba(0,0,0,.3)}@media (prefers-color-scheme:dark){body{color:#fff;background:#000}.next-error-h1{border-right:1px solid rgba(255,255,255,.3)}}"}}],["$","h1",null,{"className":"next-error-h1","style":{"display":"inline-block","margin":"0 20px 0 0","padding":"0 23px 0 0","fontSize":24,"fontWeight":500,"verticalAlign":"top","lineHeight":"49px"},"children":404}],["$","div",null,{"style":{"display":"inline-block"},"children":["$","h2",null,{"style":{"fontSize":14,"fontWeight":400,"lineHeight":"49px","margin":0},"children":"This page could not be found."}]}]]}]}]],[]],"forbidden":"$undefined","unauthorized":"$undefined"}]
+4:["$","$1","c",{"children":[null,["$","$L8",null,{"parallelRouterKey":"children","error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L9",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","forbidden":"$undefined","unauthorized":"$undefined"}]]}]
+5:["$","$1","c",{"children":[["$","main",null,{"style":{"minHeight":"100vh","background":"var(--rbl-bg)","color":"var(--rbl-text)","fontFamily":"Inter, Arial, sans-serif"},"children":[["$","header",null,{"style":{"background":"linear-gradient(135deg,var(--rbl-header-a),var(--rbl-header-b) 62%,var(--rbl-header-a))","color":"white","borderBottom":"5px solid var(--rbl-gold)","padding":"18px 28px","display":"flex","justifyContent":"space-between","gap":20,"alignItems":"center","flexWrap":"wrap","boxShadow":"0 14px 34px var(--rbl-shadow)","position":"relative"},"children":[["$","a",null,{"href":"/Riverhead-NY-Budget-Web-App/","style":{"color":"white","textDecoration":"none","display":"flex","gap":12,"alignItems":"center"},"children":[["$","span",null,{"style":{"width":48,"height":48,"borderRadius":8,"display":"grid","placeItems":"center","background":"var(--rbl-logo-bg)","color":"var(--rbl-logo-fg)","border":"2px solid var(--rbl-gold)","fontWeight":950},"children":"RB"}],["$","span",null,{"children":[["$","strong",null,{"style":{"fontSize":22},"children":"Riverhead Budget Live"}],["$","div",null,{"style":{"color":"#d7e7f4","fontSize":12},"children":"Following the Town's money, in plain English"}]]}]]}],["$","div",null,{"style":{"display":"flex","alignItems":"center","gap":12,"flexWrap":"wrap","marginLeft":"auto"},"children":[["$","$La",null,{}],["$","$Lb",null,{}]]}]]}],["$","section",null,{"style":{"padding":30,"maxWidth":1380,"margin":"0 auto"},"children":[["$","div",null,{"style":{"background":"var(--rbl-surface)","borderTop":"6px solid var(--rbl-page-accent)","borderRight":"1px solid var(--rbl-border)","borderBottom":"1px solid var(--rbl-border)","borderLeft":"1px solid var(--rbl-border)","borderRadius":12,"padding":28,"boxShadow":"0 14px 34px var(--rbl-shadow)","marginBottom":18},"children":[["$","div",null,{"style":{"color":"var(--rbl-badge)","letterSpacing":2,"textTransform":"uppercase","fontSize":12,"fontWeight":950},"children":"A resident-built project · not the Town's official site"}],["$","h1",null,{"style":{"fontSize":42,"lineHeight":1.05,"margin":"8px 0","color":"var(--rbl-title)"},"children":"Evidence & Sources"}],["$","p",null,{"style":{"color":"var(--rbl-text-sub)","fontSize":17,"lineHeight":1.55,"margin":0,"maxWidth":980},"children":"Use this page to understand what Riverhead Budget Live is reporting, what it calculates, and where to verify the underlying record."}],["$","$Lc",null,{}],["$","div",null,{"style":{"marginTop":12,"display":"flex","justifyContent":"flex-end"},"children":["$","$Ld",null,{}]}]]}],[["$","section",null,{"style":{"background":"var(--rbl-surface)","border":"1px solid var(--rbl-border-subtle)","borderRadius":18,"padding":20,"boxShadow":"0 14px 34px var(--rbl-shadow)","marginBottom":18,"borderLeft":"6px solid var(--rbl-page-accent)"},"children":[["$","div",null,{"style":{"color":"var(--rbl-badge)","fontSize":11,"fontWeight":950,"letterSpacing":1.1,"textTransform":"uppercase"},"children":"Start here"}],["$","h2",null,{"style":{"margin":"5px 0 8px","fontSize":24},"children":"A number should come with a path back to the record."}],["$","p",null,{"style":{"color":"var(--rbl-text-body)","lineHeight":1.65,"margin":0,"maxWidth":920},"children":"This project combines official public records with calculations that make those records easier to understand. The label matters: a Town-reported figure, a calculation made from Town records, and a forward-looking scenario are not the same thing."}]]}],["$","section",null,{"style":{"background":"var(--rbl-surface)","border":"1px solid var(--rbl-border-subtle)","borderRadius":18,"padding":20,"boxShadow":"0 14px 34px var(--rbl-shadow)","marginBottom":18},"children":[["$","h2",null,{"style":{"marginTop":0},"children":"How to read the labels"}],["$","div",null,{"style":{"display":"grid","gridTemplateColumns":"repeat(auto-fit,minmax(240px,1fr))","gap":12},"children":[["$","article",null,{"style":{"background":"var(--rbl-surface-2)","border":"1px solid var(--rbl-border-subtle)","borderRadius":14,"padding":15},"children":[["$","span",null,{"title":"Reported directly in a Town or other cited official record.","aria-label":"Official source. Reported directly in a Town or other cited official record.","style":{"display":"inline-flex","alignItems":"center","gap":6,"padding":"5px 9px","borderRadius":999,"border":"1px solid var(--rbl-border-subtle)","background":"var(--rbl-surface-2)","color":"var(--rbl-text-strong)","fontSize":11.5,"fontWeight":900,"lineHeight":1.2},"children":["$Le","Official source"]}],"$Lf"]}],"$L10","$L11"]}]]}],"$L12","$L13"]]}]]}],null,"$L14"]}]
+6:["$","$1","h",{"children":[null,[["$","$L15",null,{"children":"$L16"}],null],["$","$L17",null,{"children":["$","div",null,{"hidden":true,"children":["$","$18",null,{"fallback":null,"children":"$L19"}]}]}]]}]
+1b:I[4431,[],"OutletBoundary"]
+1d:I[5278,[],"AsyncMetadataOutlet"]
+e:["$","span",null,{"aria-hidden":"true","style":{"width":7,"height":7,"borderRadius":"50%","background":"var(--rbl-success)"}}]
+f:["$","p",null,{"style":{"color":"var(--rbl-text-body)","lineHeight":1.5,"marginBottom":0},"children":"Reported directly in a cited Town or other official public record."}]
+10:["$","article",null,{"style":{"background":"var(--rbl-surface-2)","border":"1px solid var(--rbl-border-subtle)","borderRadius":14,"padding":15},"children":[["$","span",null,{"title":"Computed by the site from cited source records; it is not a separate Town-reported figure.","aria-label":"Calculated from source data. Computed by the site from cited source records; it is not a separate Town-reported figure.","style":{"display":"inline-flex","alignItems":"center","gap":6,"padding":"5px 9px","borderRadius":999,"border":"1px solid var(--rbl-border-subtle)","background":"var(--rbl-surface-2)","color":"var(--rbl-text-strong)","fontSize":11.5,"fontWeight":900,"lineHeight":1.2},"children":[["$","span",null,{"aria-hidden":"true","style":{"width":7,"height":7,"borderRadius":"50%","background":"var(--rbl-accent)"}}],"Calculated from source data"]}],["$","p",null,{"style":{"color":"var(--rbl-text-body)","lineHeight":1.5,"marginBottom":0},"children":"Computed by the site from cited records. The calculation is ours; the underlying records are not."}]]}]
+11:["$","article",null,{"style":{"background":"var(--rbl-surface-2)","border":"1px solid var(--rbl-border-subtle)","borderRadius":14,"padding":15},"children":[["$","span",null,{"title":"A forward-looking estimate or scenario based on stated assumptions.","aria-label":"Projection / scenario. A forward-looking estimate or scenario based on stated assumptions.","style":{"display":"inline-flex","alignItems":"center","gap":6,"padding":"5px 9px","borderRadius":999,"border":"1px solid var(--rbl-border-subtle)","background":"var(--rbl-surface-2)","color":"var(--rbl-text-strong)","fontSize":11.5,"fontWeight":900,"lineHeight":1.2},"children":[["$","span",null,{"aria-hidden":"true","style":{"width":7,"height":7,"borderRadius":"50%","background":"var(--rbl-warn)"}}],"Projection / scenario"]}],["$","p",null,{"style":{"color":"var(--rbl-text-body)","lineHeight":1.5,"marginBottom":0},"children":"Forward-looking or hypothetical. Read the assumptions before treating it as a forecast."}]]}]
+12:["$","section",null,{"aria-labelledby":"record-trail-title","style":{"background":"var(--rbl-surface)","border":"1px solid var(--rbl-border-subtle)","borderRadius":18,"padding":20,"boxShadow":"0 14px 34px var(--rbl-shadow)"},"children":[["$","div",null,{"style":{"color":"var(--rbl-badge)","fontSize":11,"fontWeight":950,"letterSpacing":1.1,"textTransform":"uppercase"},"children":"Evidence path"}],["$","h2",null,{"id":"record-trail-title","style":{"margin":"5px 0 6px","fontSize":22},"children":"Go from a question to the underlying record"}],["$","p",null,{"style":{"color":"var(--rbl-text-muted)","lineHeight":1.55,"margin":"0 0 14px","maxWidth":900},"children":"These are the main evidence paths across the site. Start with the subject that interests you, then move from the summary into the underlying detail."}],["$","div",null,{"style":{"display":"grid","gridTemplateColumns":"repeat(auto-fit,minmax(220px,1fr))","gap":10},"children":[["$","a","/tax-bill/:My Taxes",{"href":"/Riverhead-NY-Budget-Web-App/tax-bill/","style":{"display":"block","color":"inherit","textDecoration":"none","background":"var(--rbl-surface-2)","border":"1px solid var(--rbl-border-subtle)","borderRadius":14,"padding":14},"children":[["$","strong",null,{"style":{"color":"var(--rbl-title)"},"children":["My Taxes"," →"]}],["$","div",null,{"style":{"color":"var(--rbl-text-muted)","fontSize":12.5,"lineHeight":1.45,"marginTop":5},"children":"Published tax rates, the Town-only estimator, and levy allocation by fund."}]]}],["$","a","/compare/:Budget Changes",{"href":"/Riverhead-NY-Budget-Web-App/compare/","style":{"display":"block","color":"inherit","textDecoration":"none","background":"var(--rbl-surface-2)","border":"1px solid var(--rbl-border-subtle)","borderRadius":14,"padding":14},"children":[["$","strong",null,{"style":{"color":"var(--rbl-title)"},"children":["Budget Changes"," →"]}],["$","div",null,{"style":{"color":"var(--rbl-text-muted)","fontSize":12.5,"lineHeight":1.45,"marginTop":5},"children":"Year-over-year appropriations and the funds responsible for the biggest moves."}]]}],["$","a","/funds/:Funds & Accounts",{"href":"/Riverhead-NY-Budget-Web-App/funds/","style":{"display":"block","color":"inherit","textDecoration":"none","background":"var(--rbl-surface-2)","border":"1px solid var(--rbl-border-subtle)","borderRadius":14,"padding":14},"children":[["$","strong",null,{"style":{"color":"var(--rbl-title)"},"children":["Funds & Accounts"," →"]}],["$","div",null,{"style":{"color":"var(--rbl-text-muted)","fontSize":12.5,"lineHeight":1.45,"marginTop":5},"children":"Fund, department, category, and account-level budget records."}]]}],["$","a","/payroll/:People & Pay",{"href":"/Riverhead-NY-Budget-Web-App/payroll/","style":{"display":"block","color":"inherit","textDecoration":"none","background":"var(--rbl-surface-2)","border":"1px solid var(--rbl-border-subtle)","borderRadius":14,"padding":14},"children":[["$","strong",null,{"style":{"color":"var(--rbl-title)"},"children":["People & Pay"," →"]}],["$","div",null,{"style":{"color":"var(--rbl-text-muted)","fontSize":12.5,"lineHeight":1.45,"marginTop":5},"children":"Actual earnings, authorized salaries, raises, and overtime."}]]}],["$","a","/meetings/:Board Votes",{"href":"/Riverhead-NY-Budget-Web-App/meetings/","style":{"display":"block","color":"inherit","textDecoration":"none","background":"var(--rbl-surface-2)","border":"1px solid var(--rbl-border-subtle)","borderRadius":14,"padding":14},"children":[["$","strong",null,{"style":{"color":"var(--rbl-title)"},"children":["Board Votes"," →"]}],["$","div",null,{"style":{"color":"var(--rbl-text-muted)","fontSize":12.5,"lineHeight":1.45,"marginTop":5},"children":"Resolution-by-resolution voting records and meeting context."}]]}],["$","a","/sources/:Source Library",{"href":"/Riverhead-NY-Budget-Web-App/sources/","style":{"display":"block","color":"inherit","textDecoration":"none","background":"var(--rbl-surface-2)","border":"1px solid var(--rbl-border-subtle)","borderRadius":14,"padding":14},"children":[["$","strong",null,{"style":{"color":"var(--rbl-title)"},"children":["Source Library"," →"]}],["$","div",null,{"style":{"color":"var(--rbl-text-muted)","fontSize":12.5,"lineHeight":1.45,"marginTop":5},"children":"The official documents and source trail used by the site."}]]}]]}],["$","div",null,{"style":{"marginTop":14,"paddingTop":12,"borderTop":"1px solid var(--rbl-border-subtle)"},"children":"$L1a"}]]}]
+13:["$","section",null,{"style":{"background":"var(--rbl-surface)","border":"1px solid var(--rbl-border-subtle)","borderRadius":18,"padding":20,"boxShadow":"0 14px 34px var(--rbl-shadow)","marginTop":18},"children":[["$","h2",null,{"style":{"marginTop":0},"children":"Three rules for using the site"}],["$","div",null,{"style":{"display":"grid","gap":10},"children":[["$","div",null,{"style":{"display":"grid","gridTemplateColumns":"34px 1fr","gap":12,"alignItems":"start","borderTop":"1px solid var(--rbl-border-subtle)","paddingTop":12},"children":[["$","span",null,{"style":{"width":32,"height":32,"borderRadius":"50%","display":"grid","placeItems":"center","background":"var(--rbl-fill-accent)","color":"white","fontWeight":950},"children":"1"}],["$","div",null,{"children":[["$","strong",null,{"style":{"color":"var(--rbl-title)"},"children":"Prefer the cited record."}],["$","p",null,{"style":{"color":"var(--rbl-text-muted)","margin":"4px 0 0","lineHeight":1.5},"children":"When a page links to a source document, use that document to verify the underlying figure."}]]}]]}],["$","div",null,{"style":{"display":"grid","gridTemplateColumns":"34px 1fr","gap":12,"alignItems":"start","borderTop":"1px solid var(--rbl-border-subtle)","paddingTop":12},"children":[["$","span",null,{"style":{"width":32,"height":32,"borderRadius":"50%","display":"grid","placeItems":"center","background":"var(--rbl-fill-accent)","color":"white","fontWeight":950},"children":"2"}],["$","div",null,{"children":[["$","strong",null,{"style":{"color":"var(--rbl-title)"},"children":"Separate reporting from calculation."}],["$","p",null,{"style":{"color":"var(--rbl-text-muted)","margin":"4px 0 0","lineHeight":1.5},"children":"A computed percentage, total, comparison, or estimate may be mathematically correct without being a number the Town itself reported."}]]}]]}],["$","div",null,{"style":{"display":"grid","gridTemplateColumns":"34px 1fr","gap":12,"alignItems":"start","borderTop":"1px solid var(--rbl-border-subtle)","paddingTop":12},"children":[["$","span",null,{"style":{"width":32,"height":32,"borderRadius":"50%","display":"grid","placeItems":"center","background":"var(--rbl-fill-accent)","color":"white","fontWeight":950},"children":"3"}],["$","div",null,{"children":[["$","strong",null,{"style":{"color":"var(--rbl-title)"},"children":"Read the scope."}],["$","p",null,{"style":{"color":"var(--rbl-text-muted)","margin":"4px 0 0","lineHeight":1.5},"children":"Town taxes are not the same as the full property-tax bill; appropriations are not the same as actual spending; a scenario is not a prediction."}]]}]]}]]}],["$","a",null,{"href":"/Riverhead-NY-Budget-Web-App/sources/","style":{"display":"inline-block","marginTop":16,"color":"var(--rbl-link)","fontWeight":900,"textDecoration":"none"},"children":"Open the Source Library →"}]]}]
+14:["$","$L1b",null,{"children":["$L1c",["$","$L1d",null,{"promise":"$@1e"}]]}]
+1a:["$","a",null,{"href":"/Riverhead-NY-Budget-Web-App/evidence/","style":{"color":"var(--rbl-link)","fontSize":12.5,"fontWeight":900,"textDecoration":"none"},"children":"Learn how to read the evidence labels →"}]
+16:[["$","meta","0",{"charSet":"utf-8"}],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1"}]]
+1c:null
+1e:{"metadata":[["$","title","0",{"children":"Evidence & Sources — how to verify the numbers — Riverhead Budget Live"}],["$","meta","1",{"name":"description","content":"A plain-English guide to how Riverhead Budget Live labels, calculates, and sources its public financial information."}],["$","meta","2",{"property":"og:title","content":"Riverhead Budget Live"}],["$","meta","3",{"property":"og:description","content":"Where Riverhead’s money comes from and where it goes — budgets, payroll, salaries, and Town Board votes in plain English."}],["$","meta","4",{"property":"og:type","content":"website"}],["$","meta","5",{"name":"twitter:card","content":"summary"}],["$","meta","6",{"name":"twitter:title","content":"Riverhead Budget Live"}],["$","meta","7",{"name":"twitter:description","content":"Where Riverhead’s money comes from and where it goes — budgets, payroll, salaries, and Town Board votes in plain English."}]],"error":null,"digest":"$undefined"}
+19:"$1e:metadata"
