@@ -14,7 +14,9 @@ CivicClerk as a changing official source:
 
 The job still polls twice daily, but the manifest only changes when the
 *official source state* changes. A no-op poll therefore does not create a bot
-commit or redeploy the site.
+commit or redeploy the site. Each meeting also carries its own source-version
+timestamp so a change to one meeting does not make every historical meeting
+look newly updated.
 """
 
 from __future__ import annotations
@@ -43,6 +45,10 @@ RESOLUTION_NUMBER = re.compile(r"\b20\d{2}-\d{3,4}\b")
 
 def now_iso() -> str:
     return datetime.now(timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z")
+
+
+def stable_json(value: dict) -> str:
+    return json.dumps(value, sort_keys=True, separators=(",", ":"))
 
 
 def http_get(url: str) -> bytes:
@@ -174,8 +180,6 @@ def reconcile_minutes(date: str, event_name: str, file: dict, meeting_state: dic
         observed["changedAt"] = now_iso()
         meeting_state["minutes"] = observed
     else:
-        # Re-fetch and hash succeeded; preserve the prior record byte-for-byte so
-        # a routine check does not generate a repository change.
         meeting_state["minutes"] = previous
 
     verb = "UPDATED" if previous_sha and previous_sha != sha else ("NEW" if not previous_sha else "same")
@@ -237,7 +241,7 @@ def fetch() -> None:
     DEST.mkdir(parents=True, exist_ok=True)
     events = list_events()
     manifest = load_manifest()
-    original = json.dumps(manifest, sort_keys=True, separators=(",", ":"))
+    original = stable_json(manifest)
     print(f"Town Board events since {SINCE[:10]}: {len(events)}")
 
     changed_files = 0
@@ -248,6 +252,9 @@ def fetch() -> None:
         date = event["startDateTime"][:10]
         files = event.get("publishedFiles") or []
         meeting_state = manifest["meetings"].setdefault(date, {})
+        meeting_before = stable_json(meeting_state)
+        previous_source_version = meeting_state.get("sourceVersionAt")
+
         meeting_state.update({
             "eventId": event.get("eventId") or event.get("id"),
             "eventName": event.get("eventName"),
@@ -278,7 +285,15 @@ def fetch() -> None:
         for fid, source in (meeting_state.get("resolutionSources") or {}).items():
             source["current"] = fid in current_ids
 
-    candidate = json.dumps(manifest, sort_keys=True, separators=(",", ":"))
+        # Compare the meeting without letting the version timestamp itself cause
+        # a false change. Preserve the old timestamp on a no-op poll.
+        meeting_state["sourceVersionAt"] = previous_source_version
+        if stable_json(meeting_state) != meeting_before:
+            meeting_state["sourceVersionAt"] = now_iso()
+        elif previous_source_version is None:
+            meeting_state.pop("sourceVersionAt", None)
+
+    candidate = stable_json(manifest)
     if candidate != original or not MANIFEST_PATH.exists():
         manifest["generatedAt"] = now_iso()
         MANIFEST_PATH.write_text(json.dumps(manifest, indent=2, sort_keys=True), encoding="utf-8")
