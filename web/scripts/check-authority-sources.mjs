@@ -18,8 +18,8 @@ const records = objects.map((m) => ({
   expectedSha256: m[5].match(/expectedSha256: '([a-f0-9]{64})'/)?.[1],
 }))
 
-if (records.length < 9) {
-  console.error(`AUTHORITY CHECK FAILED: parsed only ${records.length} authority records`)
+if (records.length < 12) {
+  console.error(`AUTHORITY CHECK FAILED: parsed only ${records.length} authority records; expected at least 12 including claim-level sources`)
   process.exit(1)
 }
 
