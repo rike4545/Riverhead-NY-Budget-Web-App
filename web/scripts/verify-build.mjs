@@ -107,9 +107,12 @@ if (existsSync(path('out/data/meta.json'))) {
 const home = readFileSync(path('out/index.html'), 'utf8')
 for (const text of ['Payroll Explorer', 'Start Here', 'Current data snapshot']) if (!home.includes(text)) fail(`Missing expected home-page content: ${text}`)
 
-// 2027 model must keep its legal-limit caveat and statewide override context.
+// 2027 model must keep its legal-limit caveat, statewide override context, and claim provenance.
 const predict2027 = readFileSync(path('out/predict-2027/index.html'), 'utf8')
 for (const text of ['2% allowable-growth planning proxy', '28.6% of towns', 'final legal limit is not simply']) if (!predict2027.includes(text)) fail(`2027 tax-cap framing regressed: missing ${text}`)
+for (const claim of ['claim-2027-model-headline', 'claim-2027-growth-factor', 'claim-override-trend']) {
+  if (!predict2027.includes(claim)) fail(`Missing required 2027 claim provenance marker: ${claim}`)
+}
 
 // Tax-cap page must use the OSC formula vocabulary. A 2% reference may be shown,
 // but never as though it were Riverhead's already-determined final levy limit.
@@ -126,7 +129,7 @@ for (const claim of ['claim-tax-cap-formula', 'claim-override-rule', 'claim-rive
   if (!taxCap.includes(claim)) fail(`Missing required tax-cap claim provenance marker: ${claim}`)
 }
 
-// Source library must preserve authority hierarchy and external audit metadata.
+// Source library must preserve authority hierarchy and machine-readable audit metadata.
 const sources = readFileSync(path('out/sources/index.html'), 'utf8')
 for (const text of [
   'OSC guidance used to interpret Riverhead',
@@ -136,14 +139,16 @@ for (const text of [
   'nongovernmental entities',
   'not Riverhead’s governing municipal GAAP',
   'External authority monitoring',
-  'Checked Sep 7, 2026',
+  'data-authority-checked-at="2026-09-07"',
 ]) {
   if (!sources.includes(text)) fail(`Source-library authority/audit framing regressed: missing ${text}`)
 }
+const authorityMarkers = (sources.match(/data-authority-id=/g) ?? []).length
+if (authorityMarkers < 9) fail(`Authority audit metadata coverage collapsed: found ${authorityMarkers}, expected at least 9`)
 
 // Provenance coverage report: warn on analytical pages with no claim metadata.
-// This does not fail older pages yet, but it makes the remaining rollout visible
-// while the tax-cap page establishes a hard non-regression floor.
+// This keeps the unfinished rollout visible while enforcing hard floors on the
+// tax-cap and 2027 pages introduced in this release.
 const provenancePages = ['analytics', 'what-changed', 'taxpayer-impact', 'predict-2027', 'tax-cap', 'reserves', 'capital-debt', 'town-square', 'buyout']
 let pagesWithProvenance = 0
 for (const route of provenancePages) {
@@ -154,7 +159,7 @@ for (const route of provenancePages) {
   if (count > 0) pagesWithProvenance += 1
   else warn(`Claim-level provenance rollout pending on /${route}/`)
 }
-if (pagesWithProvenance < 2) fail(`Claim-level provenance coverage is unexpectedly low: ${pagesWithProvenance} analytical pages`)
+if (pagesWithProvenance < 3) fail(`Claim-level provenance coverage is unexpectedly low: ${pagesWithProvenance} analytical pages`)
 
 if (process.exitCode) process.exit(process.exitCode)
-console.log(`Build verification passed: routes, record floors, freshness, tax-cap evidence contracts, source authority audit, provenance coverage (${pagesWithProvenance}/${provenancePages.length}), search shards, and payload guardrails are valid.`)
+console.log(`Build verification passed: routes, record floors, freshness, evidence contracts, source authority audit, provenance coverage (${pagesWithProvenance}/${provenancePages.length}), search shards, and payload guardrails are valid.`)
