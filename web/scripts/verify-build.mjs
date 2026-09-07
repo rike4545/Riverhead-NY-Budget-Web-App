@@ -23,7 +23,7 @@ const requiredOutputs = [
   'out/funds/A01/index.html', 'out/compare/index.html', 'out/general-fund/index.html',
   'out/annual-report/index.html', 'out/meetings/index.html', 'out/search/index.html',
   'out/downloads/index.html', 'out/analytics/index.html', 'out/taxpayer-impact/index.html',
-  'out/sitemap.xml', 'out/robots.txt', 'out/data/search/manifest.json',
+  'out/predict-2027/index.html', 'out/sitemap.xml', 'out/robots.txt', 'out/data/search/manifest.json',
   'out/data/payroll/records.json', 'out/data/meta.json',
   'out/downloads/payroll_actual_2018_2025.csv',
 ]
@@ -83,6 +83,7 @@ if (existsSync(path('out/data/meta.json'))) {
     if (ageHours < -1) fail('meta.generatedAt is unexpectedly in the future')
     if (ageHours > 24) fail(`Freshness metadata was not regenerated for this build (${ageHours.toFixed(1)} hours old)`)
   }
+  if (!/^[a-f0-9]{16}$/.test(meta.dataVersion ?? '')) fail('meta.dataVersion is missing or invalid')
 
   const datasets = meta.datasets ?? {}
   if ((datasets.meetings ?? 0) < 20) fail(`Meeting count is implausibly low: ${datasets.meetings ?? 0}`)
@@ -113,5 +114,10 @@ for (const text of ['Payroll Explorer', 'Start Here', 'Current data snapshot']) 
   if (!home.includes(text)) fail(`Missing expected home-page content: ${text}`)
 }
 
+const predict2027 = readFileSync(path('out/predict-2027/index.html'), 'utf8')
+for (const text of ['2% allowable-growth planning proxy', '28.6% of towns', 'final legal limit is not simply']) {
+  if (!predict2027.includes(text)) fail(`2027 tax-cap framing regressed: missing ${text}`)
+}
+
 if (process.exitCode) process.exit(process.exitCode)
-console.log('Build verification passed: routes, record floors, freshness contracts, search shards, and payload guardrails are valid.')
+console.log('Build verification passed: routes, record floors, snapshot version, freshness contracts, 2027 tax-cap framing, search shards, and payload guardrails are valid.')

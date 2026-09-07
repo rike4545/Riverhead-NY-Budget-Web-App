@@ -74,7 +74,11 @@ jobs:
             echo "No parsed source-data changes."
           else
             git commit -m "Update parsed Riverhead financial-report data"
-            git pull --rebase origin main
+            # Search/freshness generation above can leave tracked files modified.
+            # Autostash preserves those build outputs while rebasing any parsed
+            # source-data commit onto the latest main, then restores them for the
+            # static export that follows.
+            git pull --rebase --autostash origin main
             git push origin HEAD:main
           fi
 

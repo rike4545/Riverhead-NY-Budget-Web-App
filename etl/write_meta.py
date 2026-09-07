@@ -5,6 +5,7 @@ Runs after the ETL/search build. The site uses this file for the permanent
 freshness strip, the data-quality page, and automated regression checks.
 """
 
+import hashlib
 import json
 from datetime import datetime, timezone
 from pathlib import Path
@@ -61,6 +62,32 @@ def freshness_from_year(now, year, expected_lag_years, stale_after_lag_years):
     return "stale", f"Latest indexed annual release is {year}; this dataset is more than one release cycle behind."
 
 
+def snapshot_version():
+    """Return a stable content fingerprint for resident-facing core datasets.
+
+    generatedAt changes on every build. This fingerprint changes only when the
+    underlying indexed data changes, so returning visitors are not told that the
+    data changed after an unrelated UI-only deployment.
+    """
+    files = []
+    for directory in ("meetings", "subaccounts", "payroll", "afr", "search"):
+        root = DATA / directory
+        if root.exists():
+            files.extend(root.rglob("*.json"))
+    prediction = DATA / "budget-2027-prediction.json"
+    if prediction.exists():
+        files.append(prediction)
+
+    digest = hashlib.sha256()
+    for file in sorted(set(files), key=lambda p: str(p.relative_to(DATA))):
+        rel = str(file.relative_to(DATA)).replace("\\", "/")
+        digest.update(rel.encode("utf-8"))
+        digest.update(b"\0")
+        digest.update(file.read_bytes())
+        digest.update(b"\0")
+    return digest.hexdigest()[:16]
+
+
 def detail(*, label, as_of, status, cadence, records, freshness, note, policy, source_date=None, **extra):
     value = {
         "label": label,
@@ -113,6 +140,7 @@ def build():
     meta = {
         "generatedAt": generated_iso,
         "generatedAtDisplay": generated_display,
+        "dataVersion": snapshot_version(),
         "datasets": {
             "meetings": meeting_totals.get("meetings", 0),
             "votes": meeting_totals.get("votes", 0),
@@ -191,7 +219,7 @@ def build():
     }
 
     (DATA / "meta.json").write_text(json.dumps(meta, indent=1))
-    print(f"meta.json: generated {generated_iso} | {meta['datasets']}")
+    print(f"meta.json: generated {generated_iso} | version {meta['dataVersion']} | {meta['datasets']}")
     print("freshness:", {k: v["freshness"] for k, v in meta["datasetDetails"].items()})
 
 
