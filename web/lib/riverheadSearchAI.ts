@@ -23,9 +23,6 @@ const TYPE_LABEL: Record<EntryType, string> = {
   page: 'Document page',
 }
 
-// Words too common to help retrieval — dropped before scoring the question so a
-// natural-language query ("how much does the town spend on police overtime?")
-// retrieves on "police"/"overtime"/"town"/"spend", not "how"/"does"/"the".
 const STOPWORDS = new Set([
   'the', 'a', 'an', 'and', 'or', 'of', 'to', 'in', 'on', 'for', 'is', 'are', 'was', 'were',
   'how', 'what', 'why', 'who', 'when', 'where', 'which', 'does', 'do', 'did', 'has', 'have',
@@ -38,12 +35,59 @@ function escapeRe(s: string) {
   return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
 }
 
-// The same coverage-ranked scoring the keyword search uses. Kept here so the AI
-// retrieval and the keyword list rank identically. Terms are pre-lowercased.
+type SearchIndex = {
+  tokenToIds: Map<string, number[]>
+  vocabulary: string[]
+}
+
+// Keep one inverted index per loaded entries array. This changes repeated search
+// from "score all ~16k records on every keystroke" to "score only records whose
+// indexed tokens can satisfy the query", while preserving the existing scorer.
+const indexCache = new WeakMap<Entry[], SearchIndex>()
+
+function tokens(value: string): string[] {
+  return value.toLowerCase().match(/[a-z0-9][a-z0-9'’-]*/g) ?? []
+}
+
+function getSearchIndex(entries: Entry[]): SearchIndex {
+  const cached = indexCache.get(entries)
+  if (cached) return cached
+
+  const tokenToIds = new Map<string, number[]>()
+  for (let i = 0; i < entries.length; i++) {
+    const seen = new Set<string>()
+    for (const token of [...tokens(entries[i].n), ...tokens(entries[i].x)]) {
+      if (seen.has(token)) continue
+      seen.add(token)
+      const ids = tokenToIds.get(token)
+      if (ids) ids.push(i)
+      else tokenToIds.set(token, [i])
+    }
+  }
+  const index: SearchIndex = { tokenToIds, vocabulary: [...tokenToIds.keys()] }
+  indexCache.set(entries, index)
+  return index
+}
+
+// The same coverage-ranked scoring the keyword search uses. Candidate selection
+// is accelerated by the inverted index; ranking semantics stay unchanged.
 export function scoreEntries(entries: Entry[], terms: string[], phrase: string): Entry[] {
   if (terms.length === 0) return []
+  const index = getSearchIndex(entries)
+  const candidateIds = new Set<number>()
+
+  for (const term of terms) {
+    const t = term.toLowerCase()
+    for (const token of index.vocabulary) {
+      if (token.startsWith(t) || token.includes(t)) {
+        for (const id of index.tokenToIds.get(token) ?? []) candidateIds.add(id)
+      }
+    }
+  }
+
   const scored: { e: Entry; score: number }[] = []
-  for (const e of entries) {
+  for (const id of candidateIds) {
+    const e = entries[id]
     const name = e.n.toLowerCase()
     const ctx = e.x.toLowerCase()
     let score = 0
@@ -57,36 +101,29 @@ export function scoreEntries(entries: Entry[], terms: string[], phrase: string):
       else if (ctx.includes(t)) { score += 1; matched++ }
     }
     if (matched === 0) continue
-    score += matched * 8 // coverage dominates: matching more terms always ranks higher
-    if (phrase.length > 3 && name.includes(phrase)) score += 6 // full-phrase bonus
-    score *= e.t === 'page' ? 0.55 : 1 // let structured data win ties over raw doc pages
+    score += matched * 8
+    if (phrase.length > 3 && name.includes(phrase)) score += 6
+    score *= e.t === 'page' ? 0.55 : 1
     scored.push({ e, score })
   }
   scored.sort((a, b) => b.score - a.score)
-  return scored.map((s) => s.e)
+  return scored.map(s => s.e)
 }
 
-// Retrieve the most relevant records for a natural-language question, with
-// stopwords removed so the meaningful words drive the ranking.
 export function retrieveForQuestion(entries: Entry[], question: string, k: number): Entry[] {
   const q = question.toLowerCase()
-  const terms = q.split(/\s+/).filter((t) => t.length >= 3 && !STOPWORDS.has(t))
-  const use = terms.length > 0 ? terms : q.split(/\s+/).filter((t) => t.length >= 2)
+  const terms = q.split(/\s+/).filter(t => t.length >= 3 && !STOPWORDS.has(t))
+  const use = terms.length > 0 ? terms : q.split(/\s+/).filter(t => t.length >= 2)
   return scoreEntries(entries, use, q).slice(0, k)
 }
 
-const usd = (n: number) =>
-  new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(n)
+const usd = (n: number) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(n)
 
-// Format the retrieved records as a numbered grounding block the model must
-// answer from and cite.
 export function groundingBlock(records: Entry[]): string {
-  return records
-    .map((e, i) => {
-      const val = e.v != null ? ` — ${usd(e.v)}` : ''
-      return `[${i + 1}] (${TYPE_LABEL[e.t]}) ${e.n}${val}\n    ${e.x}`
-    })
-    .join('\n')
+  return records.map((e, i) => {
+    const val = e.v != null ? ` — ${usd(e.v)}` : ''
+    return `[${i + 1}] (${TYPE_LABEL[e.t]}) ${e.n}${val}\n    ${e.x}`
+  }).join('\n')
 }
 
 const INSTRUCTIONS = `You are the Riverhead Budget Search Assistant — an unofficial, in-app explainer for the Town of Riverhead, New York, built into a public budget-transparency website.
@@ -109,75 +146,38 @@ Answer style:
 
 export class RiverheadAIError extends Error {}
 
-type AskArgs = {
-  question: string
-  records: Entry[]
-  apiKey: string
-  signal?: AbortSignal
-}
+type AskArgs = { question: string; records: Entry[]; apiKey: string; signal?: AbortSignal }
 
-// Call the OpenAI Responses API directly from the browser with the user's key.
-// OpenAI's API allows browser-origin requests; the key never leaves the user's
-// machine except in their own request to OpenAI.
 export async function askRiverheadSearchAI({ question, records, apiKey, signal }: AskArgs): Promise<string> {
   const key = apiKey.trim()
   if (!key) throw new RiverheadAIError('Add your OpenAI API key to use Ask AI.')
-
-  const input = `Records retrieved for this question:
-
-${groundingBlock(records)}
-
-Resident question:
-${question}
-
-Answer using the records above and cite them by number.`
-
+  const input = `Records retrieved for this question:\n\n${groundingBlock(records)}\n\nResident question:\n${question}\n\nAnswer using the records above and cite them by number.`
   let res: Response
   try {
     res = await fetch('https://api.openai.com/v1/responses', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${key}`,
-      },
-      body: JSON.stringify({
-        model: 'gpt-5-mini',
-        instructions: INSTRUCTIONS,
-        input,
-        max_output_tokens: 800,
-      }),
-      signal,
+      method: 'POST', headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${key}` },
+      body: JSON.stringify({ model: 'gpt-5-mini', instructions: INSTRUCTIONS, input, max_output_tokens: 800 }), signal,
     })
   } catch (e) {
     if ((e as { name?: string }).name === 'AbortError') throw e
     throw new RiverheadAIError('Could not reach OpenAI. Check your connection and try again.')
   }
-
   if (!res.ok) {
     let message = `OpenAI returned HTTP ${res.status}.`
-    try {
-      const body = await res.json()
-      if (body?.error?.message) message = body.error.message as string
-    } catch {
-      /* keep default */
-    }
+    try { const body = await res.json(); if (body?.error?.message) message = body.error.message as string } catch { /* keep default */ }
     if (res.status === 401) message = 'That OpenAI key was rejected (HTTP 401). Check the key and try again.'
     throw new RiverheadAIError(message)
   }
-
   const data = await res.json()
   const text = parseOutputText(data)?.trim()
   if (!text) throw new RiverheadAIError("The AI service returned a response we couldn't read.")
   return text
 }
 
-// The Responses API returns either a convenience `output_text` or a structured
-// `output[].content[]` array of `output_text` blocks.
 function parseOutputText(data: unknown): string | null {
   if (!data || typeof data !== 'object') return null
   const obj = data as Record<string, unknown>
   if (typeof obj.output_text === 'string' && obj.output_text) return obj.output_text
-
   const output = obj.output
   if (!Array.isArray(output)) return null
   const parts: string[] = []
