@@ -2,6 +2,8 @@
 
 import { useState } from 'react'
 import FiscalImpactTable, { type FiscalResolution } from './FiscalImpactTable'
+import RecordTrail from './RecordTrail'
+import DataStatus from './DataStatus'
 
 const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 20, boxShadow: '0 14px 34px var(--rbl-shadow)' } as const
 const usd = (n: number) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(n)
@@ -36,21 +38,32 @@ export default function FiscalImpactMeetings({ meetings }: { meetings: FiscalMee
   const reserveDraw = m.resolutions.filter((r) => r.realistic.flag === 'reserve-draw')
   const corrections = [...understatedNo, ...reserveDraw]
   const lu = s.largestUnderstatedMarkedNo
+  const base = process.env.NEXT_PUBLIC_BASE_PATH || ''
 
   return (
     <div style={{ display: 'grid', gap: 16 }}>
       <section style={{ ...card, display: 'flex', gap: 12, flexWrap: 'wrap', alignItems: 'center' }}>
-        <label htmlFor="meeting" style={{ fontWeight: 800, color: 'var(--rbl-title)' }}>Meeting:</label>
-        <select
-          id="meeting"
-          value={date}
-          onChange={(e) => setDate(e.target.value)}
-          style={{ flex: 1, minWidth: 220, padding: '10px 13px', border: '1px solid var(--rbl-border-strong)', borderRadius: 9, fontSize: 15, fontWeight: 700, color: 'var(--rbl-title)' }}
+        <div style={{ display: 'flex', alignItems: 'center', gap: 10, flexWrap: 'wrap', flex: 1 }}>
+          <label htmlFor="meeting" style={{ fontWeight: 800, color: 'var(--rbl-title)' }}>Meeting:</label>
+          <select
+            id="meeting"
+            value={date}
+            onChange={(e) => setDate(e.target.value)}
+            style={{ flex: 1, minWidth: 220, padding: '10px 13px', border: '1px solid var(--rbl-border-strong)', borderRadius: 9, fontSize: 15, fontWeight: 700, color: 'var(--rbl-title)' }}
+          >
+            {meetings.map((x) => (
+              <option key={x.meetingDate} value={x.meetingDate}>{fmtDate(x.meetingDate)}</option>
+            ))}
+          </select>
+          <DataStatus status="calculated" text="Independent read from the Town's fiscal-impact statement" />
+        </div>
+        <a
+          href={`${base}/meetings/`}
+          style={{ color: 'var(--rbl-accent)', fontWeight: 800, fontSize: 13.5, textDecoration: 'none', whiteSpace: 'nowrap' }}
+          title={`Open the Town Board voting record for ${fmtDate(m.meetingDate)}`}
         >
-          {meetings.map((x) => (
-            <option key={x.meetingDate} value={x.meetingDate}>{fmtDate(x.meetingDate)}</option>
-          ))}
-        </select>
+          Open voting record →
+        </a>
       </section>
 
       <section style={{ ...card, display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(170px,1fr))', gap: 12 }}>
@@ -85,6 +98,17 @@ export default function FiscalImpactMeetings({ meetings }: { meetings: FiscalMee
       )}
 
       <FiscalImpactTable resolutions={m.resolutions} />
+
+      <RecordTrail
+        title="Trace the financial finding"
+        intro="Follow the corrected fiscal-impact read back to the vote, the broader budget record, and the underlying evidence."
+        items={[
+          { href: '/meetings/', label: 'Town Board Votes', text: `See what the Board voted on at ${fmtDate(m.meetingDate)}.` },
+          { href: '/compare/', label: 'Budget Changes', text: 'See how adopted appropriations changed across the budget.' },
+          { href: '/analytics/', label: 'Financial Health', text: 'Put these commitments alongside spending, levy growth, and reserves.' },
+          { href: '/sources/', label: 'Source Library', text: 'Review the public records and source material behind the analysis.' },
+        ]}
+      />
 
       <p style={{ color: 'var(--rbl-text-muted)', fontSize: 13, lineHeight: 1.5 }}>
         Source: {m.source.title}. {m.method} This is an independent read, not the Town’s official position — verify
