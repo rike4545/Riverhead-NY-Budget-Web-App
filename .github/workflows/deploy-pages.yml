@@ -102,7 +102,7 @@ jobs:
         run: |
           npm run build
           touch out/.nojekyll
-          npm run verify
+          npm run verify:output
 
       - name: Trim heavyweight parser outputs
         working-directory: web
