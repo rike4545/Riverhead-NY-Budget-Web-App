@@ -12,6 +12,38 @@ export function meetingUrl(slug: string): string {
 
 export type Vote = 'aye' | 'nay' | 'abstain' | 'absent'
 export type ResolutionTag = 'unanimous' | 'split' | 'failed' | 'tabled'
+export type OfficialRecordStatus =
+  | 'minutes-published'
+  | 'minutes-published-votes-pending'
+  | 'vote-record-parsed'
+  | 'vote-record-parsed-resolution-documents-linked'
+
+export type OfficialSourceFile = {
+  fileId?: number | string
+  type?: string
+  name?: string
+  fileName?: string
+  title?: string
+  sha256?: string
+  bytes?: number
+  pages?: number
+  changedAt?: string
+  sourceUrl?: string
+  hasVoteSummary?: boolean
+  revisionCount?: number
+  resolutionNumbers?: string[]
+  current?: boolean
+}
+
+export type OfficialRecord = {
+  status: OfficialRecordStatus
+  sourceVersionAt?: string | null
+  minutes?: OfficialSourceFile | null
+  minutesRevisionCount: number
+  resolutionSourceCount: number
+  verifiedResolutionCount: number
+  resolutionSources: OfficialSourceFile[]
+}
 
 export type Resolution = {
   seq: number
@@ -25,6 +57,8 @@ export type Resolution = {
   mover: string
   seconder: string
   votes: Record<string, Vote>
+  officialDocumentVerified?: boolean
+  officialDocumentFileIds?: Array<number | string>
 }
 
 export type Party = 'Democrat' | 'Republican' | null
@@ -45,7 +79,13 @@ export type MeetingStats = { total: number; unanimous: number; contested: number
 
 // A resolution on the docket of a preliminary (just-held) meeting, before the
 // Clerk posts the vote-bearing revised minutes.
-export type DocketItem = { seq: number; number: string; title: string }
+export type DocketItem = {
+  seq: number
+  number: string
+  title: string
+  officialDocumentVerified?: boolean
+  officialDocumentFileIds?: Array<number | string>
+}
 
 export type Meeting = {
   slug: string
@@ -58,6 +98,7 @@ export type Meeting = {
   memberTallies?: Record<string, MemberTally>
   preliminary?: boolean
   docket?: DocketItem[]
+  officialRecord?: OfficialRecord
 }
 
 export type MeetingIndexEntry = {
@@ -71,6 +112,10 @@ export type MeetingIndexEntry = {
   tabled: number
   preliminary?: boolean
   docketCount?: number
+  officialRecordStatus?: OfficialRecordStatus
+  minutesRevisionCount?: number
+  verifiedResolutionCount?: number
+  resolutionSourceCount?: number
 }
 
 export type MeetingsIndex = {

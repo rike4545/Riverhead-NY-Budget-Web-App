@@ -1,7 +1,7 @@
 import PageShell from '../../components/PageShell'
 import PlainCallout from '../../components/PlainCallout'
 import MeetingTimeline from '../../components/MeetingTimeline'
-import MeetingVotes from '../../components/MeetingVotes'
+import MeetingRecordExplorer from '../../components/MeetingRecordExplorer'
 import {
   boardRulesSource, executiveSessionTopics, meetingSchedule, orderOfBusiness,
   speakingRules, specialMeetings, votingRules,
@@ -13,8 +13,8 @@ const base = process.env.NEXT_PUBLIC_BASE_PATH || ''
 const panel = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 18 } as const
 
 export const metadata = {
-  title: 'Town Board Votes — who voted for what',
-  description: 'The Riverhead Town Board voting record, meeting by meeting: current meeting status, resolutions, outcomes, movers, seconders and individual member votes.',
+  title: 'Town Board Minutes & Votes — decisions, votes and fiscal impact',
+  description: 'Read Riverhead Town Board meetings as a decision record: resolutions, outcomes, individual votes, official-record status and matched fiscal-impact statements.',
 }
 
 export default function MeetingsPage() {
@@ -24,26 +24,26 @@ export default function MeetingsPage() {
 
   return (
     <PageShell
-      title="Town Board Votes"
-      subtitle={`Start with what just happened, then open the record. The archive currently contains ${t.votes.toLocaleString()} recorded votes across ${t.meetings} meetings from ${oldest.date} through ${newest.date}; newly completed meetings appear above while official vote-bearing minutes are still pending.`}
+      title="Town Board Minutes & Votes"
+      subtitle={`Read what the Board decided, who disagreed, and what the action may mean financially. The archive currently contains ${t.votes.toLocaleString()} recorded votes across ${t.meetings} meetings from ${oldest.date} through ${newest.date}; newly completed meetings appear while official vote-bearing minutes are still pending.`}
     >
       <PlainCallout tips={[
-        { label: 'Latest meeting', text: 'a meeting can be completed before the Clerk publishes the vote-bearing minutes. The page now shows those as two separate states.' },
-        { label: 'Find disagreement', text: 'use Contested to jump past routine unanimous votes and see no votes, abstentions and failed items.' },
-        { label: 'Share a record', text: 'meeting and resolution searches stay in the URL, so a filtered view can be linked directly.' },
+        { label: 'Decision first', text: 'each resolution leads with what happened — passed, split, failed or tabled — before procedural details.' },
+        { label: 'Fiscal impact', text: 'where a Town fiscal-impact statement is available, it appears with the resolution and links to the deeper corrected analysis.' },
+        { label: 'Evidence state', text: 'a completed meeting can appear before final vote-bearing minutes; the page says exactly which record is available instead of guessing.' },
       ]}>
-        <strong>Completed is not the same as fully archived.</strong> The current-status cards use the Town&apos;s schedule; the vote explorer waits for the official meeting record rather than guessing outcomes.
+        <strong>Completed is not the same as fully archived.</strong> Minutes should answer a resident&apos;s question, not reproduce a filing cabinet. Start with the decision, see the vote, inspect the fiscal treatment, then follow the official record when you need the underlying evidence.
       </PlainCallout>
 
       <MeetingTimeline />
 
       <section style={{ margin: '30px 0 12px' }}>
-        <div style={{ color: 'var(--rbl-badge)', fontSize: 11, fontWeight: 950, letterSpacing: .8, textTransform: 'uppercase' }}>The record</div>
-        <h2 style={{ margin: '4px 0 6px', color: 'var(--rbl-title)', fontSize: 27 }}>Open a meeting and inspect the votes</h2>
-        <p style={{ color: 'var(--rbl-text-muted)', margin: 0, maxWidth: 800, lineHeight: 1.55 }}>Choose a meeting, filter to contested or tabled resolutions, search by number or topic, and see how each Board member voted.</p>
+        <div style={{ color: 'var(--rbl-badge)', fontSize: 11, fontWeight: 950, letterSpacing: .8, textTransform: 'uppercase' }}>The decision record</div>
+        <h2 style={{ margin: '4px 0 6px', color: 'var(--rbl-title)', fontSize: 27 }}>What happened, who voted how, and what did it cost?</h2>
+        <p style={{ color: 'var(--rbl-text-muted)', margin: 0, maxWidth: 820, lineHeight: 1.55 }}>Open a meeting and inspect the votes, then follow the money. Filter disagreement, failed and tabled items, search by topic, and see matched fiscal-impact statements directly beside the vote.</p>
       </section>
 
-      <MeetingVotes />
+      <MeetingRecordExplorer />
 
       <section style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(min(300px,100%),1fr))', gap: 12, marginTop: 30 }}>
         <details style={panel}>
@@ -93,8 +93,8 @@ export default function MeetingsPage() {
 
       <section style={{ ...panel, marginTop: 12, display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 14, flexWrap: 'wrap' }}>
         <div>
-          <strong style={{ color: 'var(--rbl-title)' }}>A vote tells you what passed. Fiscal Impact asks what it costs.</strong>
-          <div style={{ color: 'var(--rbl-text-muted)', fontSize: 13, marginTop: 3 }}>Follow money-moving resolutions into the Town&apos;s fiscal-impact statements.</div>
+          <strong style={{ color: 'var(--rbl-title)' }}>Need the full fiscal-impact audit?</strong>
+          <div style={{ color: 'var(--rbl-text-muted)', fontSize: 13, marginTop: 3 }}>The meeting record shows the matched fiscal read in context; the Fiscal Impact page compares the Town&apos;s forms across meetings and explains every correction.</div>
         </div>
         <a href={`${base}/fiscal-impact/`} style={{ color: 'var(--rbl-link)', fontWeight: 850, textDecoration: 'none' }}>Open Fiscal Impact →</a>
       </section>
