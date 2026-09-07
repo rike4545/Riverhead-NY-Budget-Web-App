@@ -57,6 +57,20 @@ export default function TaxBillPage() {
         <p style={{ color: 'var(--rbl-text-muted)', lineHeight: 1.55, maxWidth: 900, margin: 0 }}>
           This is a view of the <strong>tax levy</strong> by fund — not a claim that the Town spends this percentage on a particular service. Funds can also be supported by fees, grants, other revenues, or fund balance.
         </p>
+        <a
+          href={`${process.env.NEXT_PUBLIC_BASE_PATH || ''}/taxpayer-impact/`}
+          style={{
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: 7,
+            marginTop: 12,
+            color: 'var(--rbl-accent)',
+            fontWeight: 850,
+            textDecoration: 'none',
+          }}
+        >
+          Translate the levy into your own Town-tax dollars →
+        </a>
         <div style={{ display: 'grid', gap: 12, marginTop: 16 }}>
           {levyFunds.map((fund) => {
             const share = levyTotal > 0 ? (fund.taxLevy2026 / levyTotal) * 100 : 0
