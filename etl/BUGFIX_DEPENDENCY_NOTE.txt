@@ -1,1 +1,0 @@
-PyMuPDF is installed from etl/requirements.txt for the supplement history parser's fitz import.
