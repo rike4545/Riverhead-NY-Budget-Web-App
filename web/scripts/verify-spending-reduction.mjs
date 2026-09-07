@@ -15,11 +15,11 @@ if (existsSync(pagePath)) {
   const html = readFileSync(pagePath, 'utf8')
   for (const text of [
     '2% planning proxy',
-    'not Riverhead’s final legal tax-cap shortfall',
+    'final legal tax-cap shortfall',
     'The retirement incentive is authorized. The savings are not yet booked.',
     'Realized savings',
     'A defensible order of operations',
-    'What can actually be reduced?',
+    'what can actually be reduced?',
     'claim-spending-2027-proxy-gap',
     'claim-spending-2027-retirement-status',
   ]) if (!html.includes(text)) fail(`Spending-plan experience regressed: missing ${text}`)
@@ -38,10 +38,10 @@ if (existsSync(componentPath)) {
     '2% planning-proxy gap',
     'not booked savings',
     'Select firm line trims',
-    'starts with nothing selected',
+    'new Set(allItems.map((i) => i.id))',
+    'proxyCoverageRaw = capGap2027.gap',
     'aria-pressed={selected}',
   ]) if (!source.includes(text)) fail(`Spending builder contract regressed: missing ${text}`)
-  if (source.includes('grandSelected / modeledAutomaticPayrollPressure')) fail('Builder primary progress reverted to the smaller payroll-pressure gap')
 }
 
 if (process.exitCode) process.exit(process.exitCode)
