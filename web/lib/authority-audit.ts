@@ -34,6 +34,13 @@ export const authorityAudit: AuthorityAuditRecord[] = [
     note: 'OSC tax-cap formula publication cited directly by claim-level provenance on the tax-cap page.',
   },
   {
+    id: 'tax-cap-growth-factors',
+    url: 'https://www.osc.ny.gov/files/local-government/property-tax-cap/pdf/inflation-and-allowable-levy-growth-factors.pdf',
+    checkedAt: '2026-09-07',
+    mode: 'sha256',
+    note: 'OSC table of inflation factors and allowable levy growth factors, including the 2027 calendar-year 3.13% inflation factor and 1.0200 allowable levy growth factor.',
+  },
+  {
     id: 'osc-2027-growth-factor',
     url: 'https://www.osc.ny.gov/press/releases/2026/07/dinapoli-tax-cap-remains-2-percent-2027',
     checkedAt: '2026-09-07',
