@@ -1,7 +1,11 @@
+[build-system]
+requires = ["setuptools>=70"]
+build-backend = "setuptools.build_meta"
+
 [project]
 name = "riverhead-budget-etl"
 version = "0.1.0"
-description = "ETL pipeline for Riverhead Budget Live"
+description = "ETL dependency manifest for Riverhead Budget Live"
 requires-python = ">=3.11"
 dependencies = [
     "beautifulsoup4>=4.12.0",
@@ -11,6 +15,13 @@ dependencies = [
     "requests>=2.32.0",
     "pandas>=2.2.0",
 ]
+
+# This repository contains ETL scripts plus a web app and Supabase assets; it is
+# not distributed as a Python package. Explicitly disable package discovery so
+# `pip install -e .` installs the canonical dependency set without setuptools
+# mistaking those top-level directories for Python packages.
+[tool.setuptools]
+packages = []
 
 [tool.ruff]
 line-length = 100
