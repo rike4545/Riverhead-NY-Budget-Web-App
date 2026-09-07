@@ -1,6 +1,7 @@
 'use client'
 
 import { useMemo, useState } from 'react'
+import type { Meeting } from '../lib/meetings'
 
 const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 18, boxShadow: '0 14px 34px var(--rbl-shadow)' } as const
 const usd = (n: number) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(n)
@@ -12,6 +13,8 @@ export type FiscalResolution = {
   realistic: { verdict: string; reason: string; flag: string }
   vote: { adopted: boolean | null; tag: string | null; ayes: number | null; nays: number | null } | null
 }
+
+type VoteDetailState = 'available' | 'pending' | 'omitted' | 'unindexed'
 
 const FLAG_STYLE: Record<string, { bg: string; fg: string; label: string }> = {
   understated: { bg: 'var(--rbl-danger-bg)', fg: 'var(--rbl-danger-strong)', label: 'Understated' },
@@ -30,16 +33,38 @@ export function isCorrection(r: { realistic: { flag: string }; townFiscalImpact:
   )
 }
 
-export default function FiscalImpactTable({ resolutions }: { resolutions: FiscalResolution[] }) {
+function voteLabel(r: FiscalResolution, state: VoteDetailState) {
+  if (r.vote) {
+    if (r.vote.tag === 'tabled') return 'tabled'
+    if (r.vote.adopted === false) return r.vote.ayes != null ? `failed ${r.vote.ayes}-${r.vote.nays ?? 0}` : 'failed'
+    if (r.vote.adopted === true) return r.vote.ayes != null ? `adopted ${r.vote.ayes}-${r.vote.nays ?? 0}` : 'adopted'
+  }
+  if (state === 'omitted') return 'vote detail omitted'
+  if (state === 'pending') return 'vote record not yet available'
+  if (state === 'unindexed') return 'vote record not indexed'
+  return 'vote result unavailable'
+}
+
+export default function FiscalImpactTable({ resolutions, meetingRecord, voteDetailState = 'unindexed' }: { resolutions: FiscalResolution[]; meetingRecord?: Meeting | null; voteDetailState?: VoteDetailState }) {
   const [q, setQ] = useState('')
   const [view, setView] = useState<'all' | 'corrections' | 'money'>('all')
   const query = q.trim().toLowerCase()
 
+  const officialByNumber = useMemo(() => {
+    const map = new Map<string, { verified: boolean; sourceUrl?: string }>()
+    if (!meetingRecord) return map
+    const sources = meetingRecord.officialRecord?.resolutionSources ?? []
+    const items = [...(meetingRecord.resolutions ?? []), ...(meetingRecord.docket ?? [])]
+    for (const item of items) {
+      if (!item.number) continue
+      const firstId = item.officialDocumentFileIds?.[0]
+      const sourceUrl = firstId == null ? undefined : sources.find((source) => String(source.fileId) === String(firstId))?.sourceUrl
+      map.set(item.number, { verified: !!item.officialDocumentVerified, sourceUrl })
+    }
+    return map
+  }, [meetingRecord])
+
   const rows = useMemo(() => resolutions.filter((r) => {
-    // A correction is either kind of mis-answer: the Town said "no fiscal
-    // impact" on something that moves money, or it said "absorbed by the
-    // existing budget" on something that actually draws down reserves. Only
-    // the first was counted before, which hid every reserve-draw finding.
     if (view === 'corrections' && !isCorrection(r)) return false
     if (view === 'money' && !r.amount) return false
     if (query && !(`${r.number} ${r.title} ${r.category}`.toLowerCase().includes(query))) return false
@@ -70,7 +95,7 @@ export default function FiscalImpactTable({ resolutions }: { resolutions: Fiscal
           <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 13.5 }}>
             <thead>
               <tr style={{ textAlign: 'left', color: 'var(--rbl-text-muted)', borderBottom: '2px solid var(--rbl-border-subtle)' }}>
-                <th style={th}>Res #</th>
+                <th style={th}>Res # / decision</th>
                 <th style={th}>What it does</th>
                 <th style={{ ...th, textAlign: 'center' }}>Town says</th>
                 <th style={{ ...th, textAlign: 'right' }}>Amount</th>
@@ -81,11 +106,14 @@ export default function FiscalImpactTable({ resolutions }: { resolutions: Fiscal
               {rows.map((r) => {
                 const fs = FLAG_STYLE[r.realistic.flag] || FLAG_STYLE.fair
                 const townNo = r.townFiscalImpact === 'No'
+                const official = r.number ? officialByNumber.get(r.number) : undefined
                 return (
-                  <tr key={r.number} style={{ borderBottom: '1px solid var(--rbl-border-subtle)', verticalAlign: 'top' }}>
+                  <tr key={r.number ?? r.seq} style={{ borderBottom: '1px solid var(--rbl-border-subtle)', verticalAlign: 'top' }}>
                     <td style={{ ...td, whiteSpace: 'nowrap' }}>
-                      <div style={{ fontWeight: 800, color: 'var(--rbl-title)' }}>{r.number}</div>
-                      {r.vote && <div style={{ fontSize: 11, color: r.vote.tag === 'tabled' ? 'var(--rbl-warn)' : 'var(--rbl-text-muted)' }}>{r.vote.tag === 'tabled' ? 'tabled' : `adopted ${r.vote.ayes ?? ''}${r.vote.ayes != null ? '-' + (r.vote.nays ?? 0) : ''}`}</div>}
+                      <div style={{ fontWeight: 800, color: 'var(--rbl-title)' }}>{r.number ?? '—'}</div>
+                      <div style={{ fontSize: 11, color: r.vote?.tag === 'tabled' || voteDetailState === 'omitted' ? 'var(--rbl-warn)' : 'var(--rbl-text-muted)', marginTop: 2 }}>{voteLabel(r, voteDetailState)}</div>
+                      {official?.verified && <div style={{ marginTop: 4 }}><span style={{ display: 'inline-block', background: 'var(--rbl-success-bg)', color: 'var(--rbl-success-strong)', border: '1px solid var(--rbl-success-border)', borderRadius: 999, padding: '2px 7px', fontWeight: 900, fontSize: 10.5 }}>Adopted resolution verified</span></div>}
+                      {official?.sourceUrl && <a href={official.sourceUrl} target="_blank" rel="noreferrer" style={{ display: 'inline-block', color: 'var(--rbl-link)', fontWeight: 800, fontSize: 10.8, marginTop: 4, textDecoration: 'none' }}>Official document ↗</a>}
                     </td>
                     <td style={{ ...td, maxWidth: 360 }}>
                       <div style={{ color: 'var(--rbl-text-strong)', lineHeight: 1.4 }}>{r.title}</div>
