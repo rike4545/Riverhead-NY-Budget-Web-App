@@ -2,6 +2,7 @@ import Link from 'next/link'
 import PageShell from '../../components/PageShell'
 import RecordTrail from '../../components/RecordTrail'
 import DataStatus from '../../components/DataStatus'
+import TaxpayerLevyCalculator from '../../components/TaxpayerLevyCalculator'
 import { allOperatingFunds2026 } from '../../lib/all-funds'
 import { dollars } from '../../lib/financial-data'
 
@@ -13,6 +14,12 @@ export default function TaxpayerImpactPage() {
     .sort((a, b) => b.taxLevy2026 - a.taxLevy2026)
 
   const levyTotal = levyFunds.reduce((sum, fund) => sum + fund.taxLevy2026, 0)
+  const calculatorFunds = levyFunds.map((fund) => ({
+    code: fund.code,
+    name: fund.name,
+    share: levyTotal ? fund.taxLevy2026 / levyTotal : 0,
+    description: fund.description,
+  }))
 
   return (
     <PageShell
@@ -38,6 +45,8 @@ export default function TaxpayerImpactPage() {
             <DataStatus status="official" text="Based on the adopted 2026 budget fund schedule" />
           </div>
         </section>
+
+        <TaxpayerLevyCalculator funds={calculatorFunds} />
 
         <section style={{ display: 'grid', gap: 10 }}>
           {levyFunds.map((fund) => {
@@ -65,7 +74,7 @@ export default function TaxpayerImpactPage() {
 
                 <div style={{ display: 'flex', justifyContent: 'space-between', gap: 12, flexWrap: 'wrap', marginTop: 12, alignItems: 'center' }}>
                   <span style={{ color: 'var(--rbl-text-muted)', fontSize: 12.5 }}>
-                    One dollar of the Town levy contains about ${(share).toFixed(4)} assigned to this fund.
+                    About {(share * 100).toFixed(2)} cents of each Town-levy dollar is assigned here.
                   </span>
                   <Link href={detailHref} style={{ color: 'var(--rbl-accent)', fontWeight: 800, fontSize: 13.5, textDecoration: 'none' }}>
                     Open fund record →
