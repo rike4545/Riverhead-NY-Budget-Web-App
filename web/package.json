@@ -8,7 +8,7 @@
     "start": "next start",
     "lint": "next lint",
     "verify": "npm run build && npm run verify:output",
-    "verify:output": "node scripts/verify-build.mjs && node scripts/verify-meeting-record.mjs",
+    "verify:output": "node scripts/verify-build.mjs && node scripts/verify-meeting-record.mjs && node scripts/verify-fiscal-impact.mjs",
     "verify:authorities": "node scripts/check-authority-sources.mjs"
   },
   "dependencies": {
