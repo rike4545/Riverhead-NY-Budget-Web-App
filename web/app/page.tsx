@@ -5,6 +5,7 @@ const base = process.env.NEXT_PUBLIC_BASE_PATH || ''
 
 const questions = [
   ['Why did my property taxes change?', '/tax-bill/'],
+  ['Where does my Town levy go?', '/taxpayer-impact/'],
   ['Where does the Town spend money?', '/answers/#spending'],
   ['Who gets paid the most?', '/payroll/'],
   ['How much does Riverhead owe?', '/capital-debt/'],
