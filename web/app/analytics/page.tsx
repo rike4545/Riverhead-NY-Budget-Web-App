@@ -1,4 +1,5 @@
 import PageShell from '../../components/PageShell'
+import RecordTrail from '../../components/RecordTrail'
 import { analyticsModules, automatedKpis } from '../../lib/analytics-modules'
 import { allOperatingFunds2026, fundBalanceUseSummary } from '../../lib/all-funds'
 import { dollars } from '../../lib/financial-data'
@@ -56,7 +57,20 @@ export default function AnalyticsPage() {
         </div>
       </section>
 
-      <section style={{ ...card, marginBottom: 18 }}>
+      <RecordTrail
+        title="Trace a fiscal signal across the site"
+        intro="Start with the indicator, then compare the related budget, tax, payroll, reserve, debt, and official-record context."
+        items={[
+          { href: '/compare/', label: 'Budget Changes', text: 'See which funds and appropriations moved most.' },
+          { href: '/tax-bill/', label: 'My Taxes', text: 'Translate levy and rate changes into a resident-facing view.' },
+          { href: '/payroll/', label: 'People & Pay', text: 'Check actual payroll, authorized salaries, raises, and overtime.' },
+          { href: '/reserves/', label: 'Savings & Reserves', text: 'See fund-balance use and year-end savings context.' },
+          { href: '/capital-debt/', label: 'Debt & Capital', text: 'Check borrowing and capital-financing pressure.' },
+          { href: '/sources/', label: 'Source Library', text: 'Inspect the official documents behind the analysis.' },
+        ]}
+      />
+
+      <section style={{ ...card, margin: '18px 0' }}>
         <h2 style={{ marginTop: 0 }}>Where to go next</h2>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(230px,1fr))', gap: 12 }}>
           <Action href="/reserves/" title="Savings & reserves" text="See how much fund balance is being used and what that means." />
