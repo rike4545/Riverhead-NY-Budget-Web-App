@@ -8,6 +8,7 @@ const STORAGE_KEY = 'rbl-last-data-snapshot'
 type Meta = {
   generatedAt: string
   generatedAtDisplay: string
+  dataVersion?: string
   datasets: {
     latestMeeting?: string | null
     votes?: number
@@ -23,9 +24,10 @@ export default function UpdateSummary() {
 
   useEffect(() => {
     try {
+      const version = meta.dataVersion || meta.generatedAt
       const previous = localStorage.getItem(STORAGE_KEY)
-      setState(previous && previous !== meta.generatedAt ? 'updated' : previous === meta.generatedAt ? 'same' : 'first')
-      localStorage.setItem(STORAGE_KEY, meta.generatedAt)
+      setState(previous && previous !== version ? 'updated' : previous === version ? 'same' : 'first')
+      localStorage.setItem(STORAGE_KEY, version)
     } catch {
       setState('first')
     }
@@ -33,14 +35,14 @@ export default function UpdateSummary() {
 
   const payroll = meta.datasets.payrollYears?.length ? Math.max(...meta.datasets.payrollYears) : null
   const base = process.env.NEXT_PUBLIC_BASE_PATH || ''
-  const headline = state === 'updated' ? 'Updated since your last visit' : state === 'same' ? 'No newer data snapshot since your last visit' : 'Current data snapshot'
+  const headline = state === 'updated' ? 'Data changed since your last visit' : state === 'same' ? 'No newer data snapshot since your last visit' : 'Current data snapshot'
 
   return (
     <section aria-label="Data update summary" style={{ marginBottom: 18, background: 'var(--rbl-info-bg)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 14, padding: '12px 15px', display: 'flex', justifyContent: 'space-between', gap: 14, flexWrap: 'wrap', alignItems: 'center' }}>
       <div style={{ minWidth: 0 }}>
         <div style={{ color: 'var(--rbl-info-text)', fontSize: 11.5, fontWeight: 950, textTransform: 'uppercase', letterSpacing: .6 }}>{headline}</div>
         <div style={{ color: 'var(--rbl-text-strong)', fontSize: 13.5, lineHeight: 1.5, marginTop: 3 }}>
-          Refreshed {meta.generatedAtDisplay}
+          Pipeline refreshed {meta.generatedAtDisplay}
           {meta.datasets.latestMeeting ? ` · meetings through ${meta.datasets.latestMeeting}` : ''}
           {payroll ? ` · payroll through ${payroll}` : ''}
           {meta.datasets.searchEntries ? ` · ${meta.datasets.searchEntries.toLocaleString()} searchable records` : ''}
