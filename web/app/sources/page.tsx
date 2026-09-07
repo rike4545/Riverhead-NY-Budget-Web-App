@@ -1,7 +1,7 @@
 import PageShell from '../../components/PageShell'
 import { parserDatasetStats, parserExtractionReport } from '../../lib/parser-data'
 import { analyticsModules } from '../../lib/analytics-modules'
-import { oscGuidanceSources } from '../../lib/osc-guidance'
+import { oscGuidanceSources, relatedAccountingReferences } from '../../lib/osc-guidance'
 
 const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border)', borderRadius: 12, padding: 20, boxShadow: '0 10px 24px var(--rbl-shadow)' } as const
 const pill = { borderRadius: 999, padding: '5px 10px', fontSize: 11.5, fontWeight: 900 } as const
@@ -57,11 +57,11 @@ export default function SourcesPage() {
                 <div style={{ color: 'var(--rbl-text-muted)', fontSize: 10.8, fontWeight: 950, textTransform: 'uppercase', letterSpacing: .45, marginBottom: 6 }}>Used by this site</div>
                 <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
                   {source.usedBy.map((link) => (
-                    <a key={`${source.id}-${link.href}-${link.label}`} href={link.href} style={{ ...pill, textDecoration: 'none', background: 'var(--rbl-surface)', color: 'var(--rbl-link)', border: '1px solid var(--rbl-border)' }}>{link.label} →</a>
+                    <a key={`${source.id}-${link.href}-${link.label}`} href={link.href} style={{ ...pill, textDecoration: 'none', background: 'var(--rbl-surface)', color: 'var(--rbl-accent)', border: '1px solid var(--rbl-border)' }}>{link.label} →</a>
                   ))}
                 </div>
               </div>
-              <a href={source.url} target="_blank" rel="noreferrer" style={{ marginTop: 3, textDecoration: 'none', color: 'var(--rbl-link)', fontWeight: 900, fontSize: 13.2 }}>
+              <a href={source.url} target="_blank" rel="noreferrer" style={{ marginTop: 3, textDecoration: 'none', color: 'var(--rbl-accent)', fontWeight: 900, fontSize: 13.2 }}>
                 Open OSC source ↗
               </a>
             </article>
@@ -73,8 +73,27 @@ export default function SourcesPage() {
         <h2 style={{ marginTop: 0, color: 'var(--rbl-title)' }}>How to read the source hierarchy</h2>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(min(220px,100%),1fr))', gap: 10 }}>
           <SourceLevel label="1 · Riverhead record" text="Adopted budgets, AFRs, audits, minutes, payroll files and other Town records establish what Riverhead reported, adopted, paid or voted on." />
-          <SourceLevel label="2 · OSC authority" text="State Comptroller guidance establishes the statewide accounting, tax-cap, budget, procurement and reporting framework used to interpret those records." />
+          <SourceLevel label="2 · GASB / OSC authority" text="GASB authoritative GAAP and State Comptroller guidance establish the governmental accounting, tax-cap, budget, procurement and reporting framework used to interpret those records." />
           <SourceLevel label="3 · Site calculation" text="Comparisons, projections and scenario outputs are this site’s calculations. They should be reproducible from the cited Riverhead records and the stated methodology." />
+        </div>
+      </section>
+
+      <section style={{ ...card, marginBottom: 18, borderLeft: '5px solid var(--rbl-border)' }}>
+        <div style={{ color: 'var(--rbl-text-muted)', fontSize: 11.5, fontWeight: 950, textTransform: 'uppercase', letterSpacing: .6 }}>Related accounting references · different scope</div>
+        <h2 style={{ color: 'var(--rbl-title)', margin: '5px 0 7px' }}>Useful, but not Riverhead’s governing municipal GAAP</h2>
+        <p style={{ color: 'var(--rbl-text-body)', marginTop: 0, lineHeight: 1.6 }}>
+          These references can matter when a Town transaction involves a private or nongovernmental counterparty. They are listed separately so the site does not imply that a nongovernmental accounting standard controls Riverhead&apos;s own financial statements.
+        </p>
+        <div style={{ display: 'grid', gap: 10 }}>
+          {relatedAccountingReferences.map((reference) => (
+            <article key={reference.id} style={{ background: 'var(--rbl-surface-2)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 10, padding: 13 }}>
+              <h3 style={{ margin: '0 0 5px', color: 'var(--rbl-title)', fontSize: 15.5 }}>{reference.title}</h3>
+              <div style={{ color: 'var(--rbl-text-muted)', fontSize: 12.2 }}>{reference.authority}</div>
+              <p style={{ color: 'var(--rbl-text-body)', fontSize: 13.2, lineHeight: 1.55, marginBottom: 6 }}><strong>Scope:</strong> {reference.scope}</p>
+              <p style={{ color: 'var(--rbl-text-body)', fontSize: 13.2, lineHeight: 1.55, margin: '0 0 8px' }}>{reference.whyListed}</p>
+              <a href={reference.url} target="_blank" rel="noreferrer" style={{ color: 'var(--rbl-accent)', fontWeight: 900, textDecoration: 'none', fontSize: 13.2 }}>Open reference ↗</a>
+            </article>
+          ))}
         </div>
       </section>
 
