@@ -10,7 +10,7 @@ const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-bo
 export const metadata = {
   title: 'Fiscal Impact, corrected — Town Board resolutions',
   description:
-    "Riverhead attaches a 'Fiscal Impact Statement' to every resolution. Many are marked 'no fiscal impact' or 'absorbed' on items that plainly move money. This is a meeting-by-meeting corrected read of the Town Board's 2026 resolutions.",
+    "Compare Riverhead's fiscal-impact statements with a realistic financial read, while keeping fiscal treatment separate from final adoption and member vote evidence.",
 }
 
 // Read every generated/curated <date>-fiscal.json at build time, newest first.
@@ -38,8 +38,6 @@ export default function FiscalImpactPage() {
   const meetingCount = meetings.length
   const totalMarkedNo = meetings.reduce((n, m) => n + m.summary.markedNo, 0)
   const totalUnderstatedNo = meetings.reduce((n, m) => n + m.summary.understatedMarkedNo, 0)
-  // The other half of the correction: resolutions the Town DID flag as having
-  // an impact, but described as absorbed by the existing budget.
   const totalReserveDraw = meetings.reduce(
     (n, m) => n + m.resolutions.filter((r) => r.realistic.flag === 'reserve-draw').length,
     0
@@ -48,13 +46,14 @@ export default function FiscalImpactPage() {
   return (
     <PageShell
       title="Fiscal impact, corrected"
-      subtitle="Every Riverhead resolution carries a Town “Fiscal Impact Statement.” Often it’s marked “no fiscal impact” or “absorbed by the existing budget” on items that plainly move money. This is a resolution-by-resolution corrected read of the Town Board’s 2026 meetings — pick a meeting below."
+      subtitle="Read the Town’s fiscal-impact statement next to a realistic financial interpretation — while separately checking whether the resolution was adopted, how members voted, and whether an official adopted-resolution document is available."
     >
       <PlainCallout
         tips={[
           { label: 'What the form is', text: 'a one-page checklist the Town attaches to each resolution: does it have a fiscal impact (yes/no), can it be “absorbed” by the current budget, and what’s the funding source.' },
+          { label: 'What it does not prove', text: 'a fiscal-impact form is not proof that the resolution was finally adopted or that every member voted a particular way. The meeting record and any separately published adopted-resolution document answer those questions.' },
           { label: 'Why correct it', text: 'the checkbox answer is frequently “no” or “absorbed” even when the resolution commits real dollars — a new salary, a union settlement, a capital purchase, a fee change.' },
-          { label: 'How we read it', text: 'the Town’s own Yes/No answer sits next to a plain-English realistic read keyed on the resolution’s category. Dollar figures are shown only for the July 7 meeting, where they were transcribed by hand; other meetings show the answer and category without a guessed amount.' },
+          { label: 'How we read it', text: 'the Town’s own Yes/No answer sits next to a plain-English realistic read keyed on the resolution’s category. Dollar figures are shown only where they can be tied to a source without guessing.' },
         ]}
       >
         Across <strong>{meetingCount}</strong> Town Board meetings in 2026, the Town marked{' '}
@@ -81,7 +80,7 @@ export default function FiscalImpactPage() {
           whose wage terms compound with each future budget. Those recurring commitments — not the one-time purchases —
           are what a resident should track against next year’s tax levy. See how they interact with the{' '}
           <a href={`${base}/buyout/`} style={{ color: 'var(--rbl-accent)', fontWeight: 800 }}>2026 retirement buyout</a> and the{' '}
-          <a href={`${base}/meetings/`} style={{ color: 'var(--rbl-accent)', fontWeight: 800 }}>full voting record</a>.
+          <a href={`${base}/meetings/`} style={{ color: 'var(--rbl-accent)', fontWeight: 800 }}>full meeting decision record</a>.
         </p>
       </section>
     </PageShell>
