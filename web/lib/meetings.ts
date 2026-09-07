@@ -27,7 +27,7 @@ export type OfficialSourceFile = {
   sha256?: string
   bytes?: number
   pages?: number
-  fetchedAt?: string
+  changedAt?: string
   sourceUrl?: string
   hasVoteSummary?: boolean
   revisionCount?: number
@@ -37,7 +37,7 @@ export type OfficialSourceFile = {
 
 export type OfficialRecord = {
   status: OfficialRecordStatus
-  checkedAt?: string | null
+  sourceVersionAt?: string | null
   minutes?: OfficialSourceFile | null
   minutesRevisionCount: number
   resolutionSourceCount: number
