@@ -1,5 +1,6 @@
 import PageShell from '../../components/PageShell'
 import Budget2027Table from '../../components/Budget2027Table'
+import ProvenanceLine from '../../components/ProvenanceLine'
 import p from '../../public/data/budget-2027-prediction.json'
 import {
   boardOptions, leversAvailable, overlapCaveat, calendar, scorecard, release,
@@ -15,7 +16,7 @@ const chip = { fontWeight: 850, fontSize: 12, padding: '4px 10px', borderRadius:
 
 const OSC_2027 = 'https://www.osc.ny.gov/press/releases/2026/07/dinapoli-tax-cap-remains-2-percent-2027'
 const OSC_OVERRIDES = 'https://www.osc.ny.gov/press/releases/2026/08/dinapoli-growing-number-local-governments-reporting-plans-override-property-tax-cap'
-const OSC_CAP = 'https://www.osc.ny.gov/local-government/property-tax-cap/what-real-property-tax-cap'
+const OSC_CAP = 'https://www.osc.ny.gov/local-government/property-tax-cap'
 const RIVERHEAD_2026 = 'https://riverheadlocal.com/2025/11/20/riverhead-town-board-approves-2026-budget-nov-18-meeting-wrap-up/'
 
 export const metadata = {
@@ -56,12 +57,22 @@ export default function Predict2027Page() {
         ))}
       </nav>
 
-      <section style={{ ...card, display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(min(180px,100%),1fr))', gap: 12, marginBottom: 16 }}>
+      <section style={{ ...card, display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(min(180px,100%),1fr))', gap: 12, marginBottom: 4 }}>
         <Stat label="2026 adopted · all operating funds" value={usd(t.appropriations2026)} sub="All 19 operating funds" />
         <Stat label="2027 model · all operating funds" value={usd(t.appropriations2027)} sub={`General Fund: ${usd(generalFund2027)}`} accent />
         <Stat label="Modeled spending growth" value={`+${t.pct}%`} sub={`+${usd(t.delta)} across ${t.lineItems.toLocaleString()} lines`} />
         <Stat label="Modeled levy growth" value={`+${predictedPct}%`} sub={`${usd(le.levy2026)} → ${usd(le.levy2027)}`} amber />
       </section>
+      <div style={{ ...card, padding: '0 14px 12px', marginBottom: 16, borderTop: 0, boxShadow: 'none' }}>
+        <ProvenanceLine
+          claimId="2027-model-headline"
+          status="projected"
+          source="2027 line-item projection built from the adopted 2026 budget"
+          asOf="2026 adopted-budget baseline"
+          calculation={`${t.lineItems.toLocaleString()} indexed line items projected by category assumptions`}
+          evidenceHref={`${base}/sources/`}
+        />
+      </div>
 
       <section id="cap-reality" style={{ ...card, marginBottom: 16, scrollMarginTop: 16, borderLeft: '6px solid var(--rbl-danger)' }}>
         <div style={{ display: 'flex', gap: 12, justifyContent: 'space-between', alignItems: 'baseline', flexWrap: 'wrap' }}>
@@ -104,10 +115,14 @@ export default function Predict2027Page() {
           <Callout title="Decision point" text="If the adopted levy exceeds the final legal limit, the Board can still do so lawfully by enacting an override local law with at least 60% of its voting power before budget adoption." />
         </div>
 
-        <p style={{ color: 'var(--rbl-text-muted)', fontSize: 12.5, lineHeight: 1.5, margin: '12px 0 0' }}>
-          Primary sources: <a href={OSC_2027} target="_blank" rel="noopener noreferrer" style={{ color: 'var(--rbl-link)', fontWeight: 750 }}>OSC — 2027 growth factor ↗</a> ·{' '}
-          <a href={OSC_CAP} target="_blank" rel="noopener noreferrer" style={{ color: 'var(--rbl-link)', fontWeight: 750 }}>OSC — how the tax cap works ↗</a>
-        </p>
+        <ProvenanceLine
+          claimId="2027-growth-factor"
+          status="official"
+          source="NYS OSC — 2027 allowable levy growth factor"
+          sourceHref={OSC_2027}
+          asOf="July 15, 2026"
+          evidenceHref={`${base}/sources/#osc-guidance`}
+        />
       </section>
 
       <section id="state-context" style={{ ...card, marginBottom: 16, scrollMarginTop: 16, borderLeft: '6px solid var(--rbl-gold-border)' }}>
@@ -127,10 +142,15 @@ export default function Predict2027Page() {
             A municipality reporting that it <em>plans</em> to override does not mean it ultimately adopts a levy above the cap. An override can be adopted as procedural protection while officials continue to reduce the budget. For Riverhead, the useful question is therefore not “are overrides unusual?” but “what level of levy is justified, what alternatives were tested, and was any override deliberate and transparent?”
           </span>
         </div>
-        <p style={{ color: 'var(--rbl-text-muted)', fontSize: 12.5, lineHeight: 1.5, margin: '12px 0 0' }}>
-          Sources: <a href={OSC_OVERRIDES} target="_blank" rel="noopener noreferrer" style={{ color: 'var(--rbl-link)', fontWeight: 750 }}>OSC — planned override trend, Aug. 20, 2026 ↗</a> ·{' '}
-          <a href={RIVERHEAD_2026} target="_blank" rel="noopener noreferrer" style={{ color: 'var(--rbl-link)', fontWeight: 750 }}>Riverhead’s adopted 2026 budget ↗</a>
-        </p>
+        <ProvenanceLine
+          claimId="override-trend"
+          status="official"
+          source="NYS OSC — planned tax-cap overrides"
+          sourceHref={OSC_OVERRIDES}
+          asOf="August 20, 2026"
+          evidenceHref={`${base}/sources/#osc-guidance`}
+        />
+        <p style={{ color: 'var(--rbl-text-muted)', fontSize: 12.5, lineHeight: 1.5, margin: '10px 0 0' }}>Riverhead 2026 budget context: <a href={RIVERHEAD_2026} target="_blank" rel="noopener noreferrer" style={{ color: 'var(--rbl-link)', fontWeight: 750 }}>adopted-budget reporting ↗</a></p>
       </section>
 
       <section id="board-choices" style={{ marginBottom: 16, scrollMarginTop: 16 }}>

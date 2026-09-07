@@ -52,12 +52,13 @@ jobs:
           cache: npm
           cache-dependency-path: web/package-lock.json
 
-      # package-lock.json predates the current npm/platform optional-dependency
-      # metadata and is not npm-ci clean on Linux. Use the repository's proven
-      # install path here; the gate still blocks on TypeScript/build/data tests.
       - name: Install web dependencies
         working-directory: web
         run: npm install --no-audit --no-fund --package-lock=false
+
+      - name: Verify external authority sources
+        working-directory: web
+        run: npm run verify:authorities
 
       - name: Typecheck
         working-directory: web
@@ -67,6 +68,6 @@ jobs:
         working-directory: web
         run: npm run build
 
-      - name: Verify routes and generated data
+      - name: Verify routes, evidence contracts, and generated data
         working-directory: web
         run: npm run verify

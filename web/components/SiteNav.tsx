@@ -28,13 +28,16 @@ const GROUPS: Group[] = [
     ['2026 Buyout', `${base}/buyout/`], ['Supervisors & Council History', `${base}/town-history/`], ['Board Elections', `${base}/board-elections/`],
     ['Campaign Finance', `${base}/campaign-finance/`], ['Candidate Watch', `${base}/candidate-watch/`], ['Candidate Proposals: Cost & Benefit', `${base}/candidate-cost-benefit/`],
   ] },
-  { label: 'Research & Evidence', links: [
-    ['Search All Records', `${base}/search/`], ['Source Library', `${base}/sources/`], ['Downloads', `${base}/downloads/`], ['Data Quality & Freshness', `${base}/data-quality/`],
+  { label: 'Research', links: [
+    ['Start Here (Guide)', `${base}/guide/`], ['Search All Records', `${base}/search/`],
     ['2027 Prediction', `${base}/predict-2027/`], ['Scenario Lab', `${base}/scenarios/`], ['2027 Spending Reduction', `${base}/spending-reduction-2027/`],
     ['A Zero-Percent Year', `${base}/zero-percent-2027/`], ['Credit Rating', `${base}/credit-rating/`], ['Outlier Watch', `${base}/outliers/`],
-    ['Budget Accuracy', `${base}/budget-accuracy/`], ['Fiscal Impact', `${base}/fiscal-impact/`], ['Standards (GFOA)', `${base}/gfoa/`],
-    ['Election Law Case', `${base}/election-law-case/`], ['Officials on Social Media', `${base}/official-social-media/`], ['Know Your Rights (ICE)', `${base}/know-your-rights/`],
-    ['Start Here (Guide)', `${base}/guide/`],
+    ['Budget Accuracy', `${base}/budget-accuracy/`], ['Fiscal Impact', `${base}/fiscal-impact/`],
+  ] },
+  { label: 'Evidence', links: [
+    ['Source Library', `${base}/sources/`], ['Downloads', `${base}/downloads/`], ['Data Quality & Freshness', `${base}/data-quality/`],
+    ['Standards (GFOA)', `${base}/gfoa/`], ['Election Law Case', `${base}/election-law-case/`],
+    ['Officials on Social Media', `${base}/official-social-media/`], ['Know Your Rights (ICE)', `${base}/know-your-rights/`],
   ] },
 ]
 
@@ -62,7 +65,7 @@ export default function SiteNav() {
   return (
     <div ref={navRef} className="nav-root" style={{ position: 'relative', marginLeft: 'auto' }}>
       <button onClick={() => setMobileOpen(v => !v)} aria-label="Toggle menu" aria-expanded={mobileOpen} className="nav-hamburger" style={{ display: 'none', color: 'white', background: 'rgba(12,43,72,.5)', border: '1px solid rgba(255,255,255,.3)', borderRadius: 6, padding: '9px 14px', fontWeight: 900, fontSize: 15, cursor: 'pointer' }}>{mobileOpen ? '✕ Close' : '☰ Menu'}</button>
-      <nav className="nav-links" aria-label="Most useful pages and research navigation" style={{ display: 'flex', gap: 7, flexWrap: 'wrap', alignItems: 'center' }}>
+      <nav className="nav-links" aria-label="Most useful pages, research, and evidence navigation" style={{ display: 'flex', gap: 7, flexWrap: 'wrap', alignItems: 'center' }}>
         {MOST_USEFUL.map(([label, href]) => <a key={href} href={href} style={{ ...linkStyle, ...(isActive(href) ? { background: 'var(--rbl-fill-gold)', border: '1px solid var(--rbl-gold-border)', color: 'var(--rbl-on-gold)' } : {}) }}>{label}</a>)}
         {GROUPS.map((g, index) => <div key={g.label} className="nav-group" style={{ position: 'relative' }}>
           <button onClick={() => setOpen(v => v === g.label ? null : g.label)} aria-expanded={open === g.label} style={{ ...linkStyle, cursor: 'pointer', ...(groupIsActive(g) || open === g.label ? { background: 'var(--rbl-fill-gold)', border: '1px solid var(--rbl-gold-border)', color: 'var(--rbl-on-gold)' } : {}) }}>{g.label} ▾</button>

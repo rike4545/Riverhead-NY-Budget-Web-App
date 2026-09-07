@@ -1,6 +1,6 @@
 // Post-build regression gate. Run with `npm run verify` after `npm run build`.
-// Checks resident routes, generated data integrity, dataset freshness contracts,
-// and search payload guardrails before GitHub Pages deployment.
+// Checks resident routes, generated data integrity, freshness, evidence contracts,
+// claim-level provenance, and search payload guardrails before deployment.
 
 import { existsSync, readFileSync, statSync } from 'node:fs'
 import { join } from 'node:path'
@@ -13,8 +13,9 @@ const warn = (message) => console.warn(`VERIFY WARNING: ${message}`)
 const requiredFiles = [
   'app/page.tsx', 'components/FiscalCommandCenter.tsx', 'components/PayrollTabs.tsx',
   'components/UnifiedSearch.tsx', 'components/DataStatus.tsx', 'components/ProvenanceLine.tsx',
+  'components/AuthorityAuditBadge.tsx', 'lib/authority-audit.ts', 'lib/osc-guidance.ts',
   'lib/all-funds.ts', 'lib/afr.ts', 'lib/payroll.ts', 'lib/salary.ts', 'lib/meetings.ts',
-  'lib/subaccounts.ts', 'lib/budget-history.ts', 'lib/general-fund.ts', 'lib/osc-guidance.ts',
+  'lib/subaccounts.ts', 'lib/budget-history.ts', 'lib/general-fund.ts',
 ]
 
 const requiredOutputs = [
@@ -23,17 +24,16 @@ const requiredOutputs = [
   'out/funds/A01/index.html', 'out/compare/index.html', 'out/general-fund/index.html',
   'out/annual-report/index.html', 'out/meetings/index.html', 'out/search/index.html',
   'out/downloads/index.html', 'out/analytics/index.html', 'out/taxpayer-impact/index.html',
-  'out/predict-2027/index.html', 'out/sources/index.html', 'out/sitemap.xml', 'out/robots.txt',
-  'out/data/search/manifest.json', 'out/data/payroll/records.json', 'out/data/meta.json',
-  'out/downloads/payroll_actual_2018_2025.csv',
+  'out/predict-2027/index.html', 'out/tax-cap/index.html', 'out/sources/index.html',
+  'out/sitemap.xml', 'out/robots.txt', 'out/data/search/manifest.json',
+  'out/data/payroll/records.json', 'out/data/meta.json', 'out/downloads/payroll_actual_2018_2025.csv',
 ]
 
 for (const file of [...requiredFiles, ...requiredOutputs]) {
   if (!existsSync(path(file))) fail(`Missing required file: ${file}`)
 }
 
-// Route integrity: every root-relative page href defined in SiteNav must have a
-// corresponding static export. Ignore anchors and external links.
+// Route integrity: every root-relative page href defined in SiteNav must export.
 const nav = readFileSync(path('components/SiteNav.tsx'), 'utf8')
 const routeMatches = [...nav.matchAll(/\$\{base\}(\/[^'"`?#]*\/)/g)].map((m) => m[1])
 for (const route of new Set(routeMatches)) {
@@ -41,8 +41,7 @@ for (const route of new Set(routeMatches)) {
   if (!existsSync(path(output))) fail(`Navigation route has no exported page: ${route}`)
 }
 
-// Search manifest must exactly describe its shards. The legacy monolithic index
-// must stay gone so a future ETL change cannot silently restore the old payload.
+// Search manifest must exactly describe its shards. The legacy monolith stays gone.
 if (existsSync(path('out/data/search/unified.json'))) fail('Legacy unified.json was regenerated; sharded search regression detected')
 if (existsSync(path('out/data/search/manifest.json'))) {
   const manifest = JSON.parse(readFileSync(path('out/data/search/manifest.json'), 'utf8'))
@@ -71,9 +70,7 @@ if (existsSync(path('out/data/search/manifest.json'))) {
   if (bytes > 8_000_000) fail(`Total search shards unexpectedly exceed 8 MB: ${(bytes / 1e6).toFixed(2)} MB`)
 }
 
-// Freshness metadata must be newly generated, complete, and plausible. External
-// source staleness is surfaced as a warning rather than making the whole site
-// unavailable; pipeline-owned search/projection data must be current after CI.
+// Dataset freshness contracts.
 if (existsSync(path('out/data/meta.json'))) {
   const meta = JSON.parse(readFileSync(path('out/data/meta.json'), 'utf8'))
   const generated = Date.parse(meta.generatedAt)
@@ -104,24 +101,35 @@ if (existsSync(path('out/data/meta.json'))) {
     if (!detail.freshnessNote || !detail.freshnessPolicy?.mode) fail(`${key} is missing freshness explanation/policy`)
     if (detail.freshness === 'stale') warn(`${key} source data is stale: ${detail.freshnessNote}`)
   }
-  for (const key of ['projection', 'search']) {
-    if (meta.datasetDetails?.[key]?.freshness !== 'current') fail(`${key} must be current immediately after pipeline regeneration`)
-  }
+  for (const key of ['projection', 'search']) if (meta.datasetDetails?.[key]?.freshness !== 'current') fail(`${key} must be current immediately after pipeline regeneration`)
 }
 
 const home = readFileSync(path('out/index.html'), 'utf8')
-for (const text of ['Payroll Explorer', 'Start Here', 'Current data snapshot']) {
-  if (!home.includes(text)) fail(`Missing expected home-page content: ${text}`)
-}
+for (const text of ['Payroll Explorer', 'Start Here', 'Current data snapshot']) if (!home.includes(text)) fail(`Missing expected home-page content: ${text}`)
 
+// 2027 model must keep its legal-limit caveat, statewide override context, and claim provenance.
 const predict2027 = readFileSync(path('out/predict-2027/index.html'), 'utf8')
-for (const text of ['2% allowable-growth planning proxy', '28.6% of towns', 'final legal limit is not simply']) {
-  if (!predict2027.includes(text)) fail(`2027 tax-cap framing regressed: missing ${text}`)
+for (const text of ['2% allowable-growth planning proxy', '28.6% of towns', 'final legal limit is not simply']) if (!predict2027.includes(text)) fail(`2027 tax-cap framing regressed: missing ${text}`)
+for (const claim of ['claim-2027-model-headline', 'claim-2027-growth-factor', 'claim-override-trend']) {
+  if (!predict2027.includes(claim)) fail(`Missing required 2027 claim provenance marker: ${claim}`)
 }
 
-// The source library must preserve the authority hierarchy. FASB ASC is useful
-// context for nongovernmental counterparties, but it must never be presented as
-// Riverhead's governing municipal GAAP in place of GASB/OSC.
+// Tax-cap page must use the OSC formula vocabulary. A 2% reference may be shown,
+// but never as though it were Riverhead's already-determined final levy limit.
+const taxCap = readFileSync(path('out/tax-cap/index.html'), 'utf8')
+for (const text of ['levy limit is a formula', '2% is one factor', '2% growth reference', 'An override is authorization, not an outcome', '2027 allowable levy growth factor']) {
+  if (!taxCap.includes(text)) fail(`Tax-cap evidence framing regressed: missing ${text}`)
+}
+for (const forbidden of ['General Fund levy growth against the 2% cap', '>2% cap<', 'real ceiling is usually']) {
+  if (taxCap.includes(forbidden)) fail(`Tax-cap shorthand regressed: found ${forbidden}`)
+}
+const taxCapProvenance = (taxCap.match(/data-provenance="true"/g) ?? []).length
+if (taxCapProvenance < 4) fail(`Tax-cap claim-level provenance coverage collapsed: found ${taxCapProvenance}, expected at least 4`)
+for (const claim of ['claim-tax-cap-formula', 'claim-override-rule', 'claim-riverhead-cap-history', 'claim-2027-growth-factor']) {
+  if (!taxCap.includes(claim)) fail(`Missing required tax-cap claim provenance marker: ${claim}`)
+}
+
+// Source library must preserve authority hierarchy and machine-readable audit metadata.
 const sources = readFileSync(path('out/sources/index.html'), 'utf8')
 for (const text of [
   'OSC guidance used to interpret Riverhead',
@@ -130,9 +138,28 @@ for (const text of [
   'FASB Accounting Standards Codification',
   'nongovernmental entities',
   'not Riverhead’s governing municipal GAAP',
+  'External authority monitoring',
+  'data-authority-checked-at="2026-09-07"',
 ]) {
-  if (!sources.includes(text)) fail(`Source-library authority framing regressed: missing ${text}`)
+  if (!sources.includes(text)) fail(`Source-library authority/audit framing regressed: missing ${text}`)
 }
+const authorityMarkers = (sources.match(/data-authority-id=/g) ?? []).length
+if (authorityMarkers < 9) fail(`Authority audit metadata coverage collapsed: found ${authorityMarkers}, expected at least 9`)
+
+// Provenance coverage report: warn on analytical pages with no claim metadata.
+// This keeps the unfinished rollout visible while enforcing hard floors on the
+// tax-cap and 2027 pages introduced in this release.
+const provenancePages = ['analytics', 'what-changed', 'taxpayer-impact', 'predict-2027', 'tax-cap', 'reserves', 'capital-debt', 'town-square', 'buyout']
+let pagesWithProvenance = 0
+for (const route of provenancePages) {
+  const file = path(`out/${route}/index.html`)
+  if (!existsSync(file)) continue
+  const html = readFileSync(file, 'utf8')
+  const count = (html.match(/data-provenance="true"/g) ?? []).length
+  if (count > 0) pagesWithProvenance += 1
+  else warn(`Claim-level provenance rollout pending on /${route}/`)
+}
+if (pagesWithProvenance < 3) fail(`Claim-level provenance coverage is unexpectedly low: ${pagesWithProvenance} analytical pages`)
 
 if (process.exitCode) process.exit(process.exitCode)
-console.log('Build verification passed: routes, record floors, snapshot version, freshness contracts, 2027 tax-cap framing, source authority hierarchy, search shards, and payload guardrails are valid.')
+console.log(`Build verification passed: routes, record floors, freshness, evidence contracts, source authority audit, provenance coverage (${pagesWithProvenance}/${provenancePages.length}), search shards, and payload guardrails are valid.`)
