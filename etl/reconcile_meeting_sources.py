@@ -13,9 +13,10 @@ Outputs:
 * index.json gains compact official-record status fields;
 * official-sources.json exposes a safe aggregate audit view for the website.
 
-``sourceVersionAt`` means the last time the committed CivicClerk source state
-changed. The polling workflow itself runs twice daily but does not create a
-false new data timestamp when every hash is unchanged.
+``sourceVersionAt`` is per meeting: it means the last time that meeting's
+committed CivicClerk source state changed. The polling workflow itself runs
+twice daily but does not create a false new data timestamp when hashes are
+unchanged.
 """
 
 from __future__ import annotations
@@ -62,13 +63,12 @@ def safe_resolution_source(record: dict) -> dict:
 
 def reconcile() -> None:
     manifest = load_json(MANIFEST, {"version": 1, "generatedAt": None, "meetings": {}})
-    source_version_at = manifest.get("generatedAt")
     index_path = OUT / "index.json"
     index = load_json(index_path, {"source": {}, "totals": {}, "meetings": []})
     index_by_slug = {entry.get("slug"): entry for entry in index.get("meetings", [])}
     aggregate = {
         "version": 1,
-        "sourceVersionAt": source_version_at,
+        "sourceVersionAt": manifest.get("generatedAt"),
         "source": "Town of Riverhead CivicClerk published files",
         "meetings": {},
     }
@@ -83,6 +83,7 @@ def reconcile() -> None:
         if not meeting:
             continue
 
+        meeting_source_version = source_state.get("sourceVersionAt") or manifest.get("generatedAt")
         minutes = source_state.get("minutes") or None
         current_sources = [
             safe_resolution_source(record)
@@ -118,7 +119,7 @@ def reconcile() -> None:
         revisions = int((minutes or {}).get("revisionCount") or 0)
         meeting["officialRecord"] = {
             "status": status,
-            "sourceVersionAt": source_version_at,
+            "sourceVersionAt": meeting_source_version,
             "minutes": safe_minutes(minutes),
             "minutesRevisionCount": revisions,
             "resolutionSourceCount": len(current_sources),
@@ -133,11 +134,13 @@ def reconcile() -> None:
             entry["minutesRevisionCount"] = revisions
             entry["verifiedResolutionCount"] = verified_here
             entry["resolutionSourceCount"] = len(current_sources)
+            entry["sourceVersionAt"] = meeting_source_version
 
         aggregate["meetings"][slug] = {
             "eventId": source_state.get("eventId"),
             "eventName": source_state.get("eventName"),
             "startDateTime": source_state.get("startDateTime"),
+            "sourceVersionAt": meeting_source_version,
             "officialRecordStatus": status,
             "minutes": safe_minutes(minutes),
             "resolutionSources": current_sources,
