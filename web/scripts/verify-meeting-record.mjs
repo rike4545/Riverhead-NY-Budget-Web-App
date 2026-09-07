@@ -8,6 +8,7 @@ const fail = (message) => { console.error(`VERIFY FAILED: ${message}`); process.
 
 const required = [
   'components/MeetingRecordExplorer.tsx',
+  'components/MeetingTimeline.tsx',
   'out/meetings/index.html',
   'out/data/meetings/fiscal-index.json',
 ]
@@ -44,15 +45,44 @@ if (existsSync(path('components/MeetingRecordExplorer.tsx'))) {
     'minutes revised',
     'resolution documents matched',
     'officialDocumentVerified',
+    'PENDING_GRACE_DAYS = 7',
+    'voteDetailOmitted',
+    'Official minutes · vote detail omitted',
+    'individual outcomes not stated',
+    'The site will not infer an outcome',
   ]) if (!source.includes(text)) fail(`Meeting explorer contract regressed: missing ${text}`)
   if (!source.includes('fiscal-index.json')) fail('Meeting explorer no longer uses the fiscal-impact meeting index')
   if (!source.includes('${slug}-fiscal.json')) fail('Meeting explorer no longer loads the selected meeting fiscal companion')
+  if (source.includes('detailed votes are still pending')) fail('Historical minute records reverted to indefinite pending-vote wording')
+}
+
+if (existsSync(path('components/MeetingTimeline.tsx'))) {
+  const source = readFileSync(path('components/MeetingTimeline.tsx'), 'utf8')
+  for (const text of [
+    'PENDING_GRACE_DAYS = 7',
+    'Official minutes are published, but they omit individual vote results',
+    'published minutes, and a published individual vote record are separate states',
+    'It will not infer those votes from the agenda, resolution titles, or video',
+  ]) if (!source.includes(text)) fail(`Meeting timeline vote-status framing regressed: missing ${text}`)
+  if (source.includes('detailed votes are still pending')) fail('Meeting timeline reverted to indefinite pending-vote wording')
 }
 
 if (existsSync(path('out/data/meetings/fiscal-index.json'))) {
   const fiscal = JSON.parse(readFileSync(path('out/data/meetings/fiscal-index.json'), 'utf8'))
   if (!Array.isArray(fiscal.meetings) || fiscal.meetings.length < 10) fail(`Fiscal-impact meeting coverage collapsed: ${fiscal.meetings?.length ?? 0} meetings`)
   if (!fiscal.meetings.includes('2026-07-07')) fail('Hand-curated July 7 fiscal-impact record is missing from the fiscal index')
+}
+
+// The July 21 and August 18 Clerk minutes are known examples of completed
+// meetings whose published minutes list resolutions but omit roll-call/result
+// fields. Keep those source records in the archive so the UI can distinguish an
+// omission from a genuinely not-yet-published vote record.
+if (existsSync(path('out/data/meetings/index.json'))) {
+  const index = JSON.parse(readFileSync(path('out/data/meetings/index.json'), 'utf8'))
+  for (const slug of ['2026-07-21', '2026-08-18']) {
+    const meeting = index.meetings?.find((m) => m.slug === slug)
+    if (!meeting?.preliminary || !meeting?.docketCount) fail(`Known vote-detail-omission example disappeared from meeting index: ${slug}`)
+  }
 }
 
 // Continuous source reconciliation must remain structural, not a one-time fetch.
@@ -102,4 +132,4 @@ if (existsSync(workflowPath)) {
 }
 
 if (process.exitCode) process.exit(process.exitCode)
-console.log('Meeting record verification passed: decision-first UX, fiscal-impact integration, official-resolution verification, and continuous source reconciliation are intact.')
+console.log('Meeting record verification passed: decision-first UX, accurate vote-availability states, fiscal-impact integration, official-resolution verification, and continuous source reconciliation are intact.')
