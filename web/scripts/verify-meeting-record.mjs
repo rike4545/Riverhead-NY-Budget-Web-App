@@ -39,6 +39,11 @@ if (existsSync(path('components/MeetingRecordExplorer.tsx'))) {
     'Town filing:',
     'dollar amounts are shown only where they can be tied unambiguously',
     'meetings[0]?.slug',
+    'Adopted resolution document matched',
+    'Official adopted resolution ↗',
+    'minutes revised',
+    'resolution documents matched',
+    'officialDocumentVerified',
   ]) if (!source.includes(text)) fail(`Meeting explorer contract regressed: missing ${text}`)
   if (!source.includes('fiscal-index.json')) fail('Meeting explorer no longer uses the fiscal-impact meeting index')
   if (!source.includes('${slug}-fiscal.json')) fail('Meeting explorer no longer loads the selected meeting fiscal companion')
@@ -73,6 +78,7 @@ if (existsSync(reconcilerPath)) {
     'verifiedResolutionCount',
     'vote-record-parsed-resolution-documents-linked',
     'official-sources.json',
+    'sourceVersionAt',
   ]) if (!source.includes(text)) fail(`Meeting official-record annotation regressed: missing ${text}`)
 }
 
@@ -96,4 +102,4 @@ if (existsSync(workflowPath)) {
 }
 
 if (process.exitCode) process.exit(process.exitCode)
-console.log('Meeting record verification passed: decision-first UX, fiscal-impact integration, and continuous official-source reconciliation are intact.')
+console.log('Meeting record verification passed: decision-first UX, fiscal-impact integration, official-resolution verification, and continuous source reconciliation are intact.')
