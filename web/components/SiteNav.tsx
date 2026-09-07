@@ -22,6 +22,7 @@ const GROUPS: Group[] = [
     label: 'Money',
     links: [
       ['Budget Overview', `${base}/funds/`],
+      ['Where Your Levy Goes', `${base}/taxpayer-impact/`],
       ['Program Budget', `${base}/programs/`],
       ['Budget Compare', `${base}/compare/`],
       ['General Fund', `${base}/general-fund/`],
