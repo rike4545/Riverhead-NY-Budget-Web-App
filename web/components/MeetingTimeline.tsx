@@ -195,7 +195,7 @@ export default function MeetingTimeline() {
       )}
 
       <p style={{ color: 'var(--rbl-text-muted)', fontSize: 11.5, margin: '8px 0 0' }}>
-        Schedule checked {schedule.generatedAt}. Regular meeting dates are reconciled to the Town&apos;s published Board schedule. Listed items come only from a published agenda/agenda packet or an official Town public-hearing notice; the site does not infer agenda items.
+        Schedule checked {schedule.generatedAt}. A completed meeting, published minutes, and a published individual vote record are separate states. Regular meeting dates are reconciled to the Town&apos;s published Board schedule. Listed items come only from a published agenda/agenda packet or an official Town public-hearing notice; the site does not infer agenda items.
         {schedule.scheduleSource?.url && <> <a href={schedule.scheduleSource.url} target="_blank" rel="noreferrer" style={{ color: 'var(--rbl-link)', fontWeight: 800, textDecoration: 'none' }}>Official schedule ↗</a></>}
       </p>
     </section>
