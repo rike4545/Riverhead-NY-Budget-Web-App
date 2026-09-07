@@ -53,6 +53,11 @@ export default function RecordTrail({
           </a>
         ))}
       </div>
+      <div style={{ marginTop: 14, paddingTop: 12, borderTop: '1px solid var(--rbl-border-subtle)' }}>
+        <a href={`${base}/evidence/`} style={{ color: 'var(--rbl-link)', fontSize: 12.5, fontWeight: 900, textDecoration: 'none' }}>
+          Learn how to read the evidence labels →
+        </a>
+      </div>
     </section>
   )
 }
