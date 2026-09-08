@@ -1307,8 +1307,7 @@ i. Total anticipated water usage/demand per day:  __________________________ gal
 ii. Will the proposed action obtain water from an existing public water supply? 9 Yes 9 No 
 If Yes: 
 • Name of district or service area:  _________________________________________________________________________ 
-• Does the existing public water supply have capacity to serve the proposal? 
-9 Yes 9 No 
+• Does the existing public water supply have capacity to serve the proposal? 9 Yes 9 No 
 • Is the project site in the existing district? 9 Yes 9 No 
 • Is expansion of the district needed? 9 Yes 9 No 
 • Do existing lines serve the project site? 9 Yes 9 No 
@@ -2395,8 +2394,7 @@ i. Total anticipated water usage/demand per day:  __________________________ gal
 ii. Will the proposed action obtain water from an existing public water supply? 9 Yes 9 No 
 If Yes: 
 • Name of district or service area:  _________________________________________________________________________ 
-• Does the existing public water supply have capacity to serve the proposal? 
-9 Yes 9 No 
+• Does the existing public water supply have capacity to serve the proposal? 9 Yes 9 No 
 • Is the project site in the existing district? 9 Yes 9 No 
 • Is expansion of the district needed? 9 Yes 9 No 
 • Do existing lines serve the project site? 9 Yes 9 No 
@@ -3467,8 +3465,7 @@ i. Total anticipated water usage/demand per day:  __________________________ gal
 ii. Will the proposed action obtain water from an existing public water supply? 9 Yes 9 No 
 If Yes: 
 • Name of district or service area:  _________________________________________________________________________ 
-• Does the existing public water supply have capacity to serve the proposal? 
-9 Yes 9 No 
+• Does the existing public water supply have capacity to serve the proposal? 9 Yes 9 No 
 • Is the project site in the existing district? 9 Yes 9 No 
 • Is expansion of the district needed? 9 Yes 9 No 
 • Do existing lines serve the project site? 9 Yes 9 No 
