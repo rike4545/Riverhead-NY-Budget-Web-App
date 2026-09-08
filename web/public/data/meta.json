@@ -1,10 +1,11 @@
 {
- "generatedAt": "2026-08-24T09:55:47Z",
- "generatedAtDisplay": "August 24, 2026",
+ "generatedAt": "2026-09-08T01:29:39Z",
+ "generatedAtDisplay": "September 8, 2026",
+ "dataVersion": "14601442d269d7a3",
  "datasets": {
-  "meetings": 43,
+  "meetings": 44,
   "votes": 1770,
-  "latestMeeting": "August 18, 2026",
+  "latestMeeting": "September 1, 2026",
   "budgetLineItems": 1009,
   "payrollYears": [
    2018,
@@ -17,5 +18,96 @@
    2025
   ],
   "searchEntries": 16778
+ },
+ "datasetDetails": {
+  "budget": {
+   "label": "2026 Adopted Budget",
+   "asOf": "2026",
+   "status": "official",
+   "cadence": "Adopted annually; amendments may occur during the year",
+   "records": 1009,
+   "freshness": "current",
+   "freshnessNote": "2026 is the expected annual release for the current cycle.",
+   "freshnessPolicy": {
+    "mode": "year",
+    "expectedLagYears": 0,
+    "staleAfterLagYears": 1
+   }
+  },
+  "meetings": {
+   "label": "Town Board minutes and votes",
+   "asOf": "September 1, 2026",
+   "status": "official",
+   "cadence": "Checked weekly as the Town publishes minutes; meetings are not held every week",
+   "records": 1770,
+   "freshness": "current",
+   "freshnessNote": "Source date is 7 days old, inside the expected window.",
+   "freshnessPolicy": {
+    "mode": "date",
+    "currentDays": 28,
+    "staleDays": 56
+   },
+   "sourceDate": "2026-09-01"
+  },
+  "payroll": {
+   "label": "Actual payroll",
+   "asOf": "2025",
+   "status": "official",
+   "cadence": "Annual published payroll; the prior calendar year is normally the latest complete year",
+   "records": null,
+   "freshness": "current",
+   "freshnessNote": "2025 is the expected annual release for the current cycle.",
+   "freshnessPolicy": {
+    "mode": "year",
+    "expectedLagYears": 1,
+    "staleAfterLagYears": 2
+   }
+  },
+  "annualReport": {
+   "label": "Annual Financial Report",
+   "asOf": "2025",
+   "status": "official",
+   "cadence": "Annual audited / filed financial reporting",
+   "records": null,
+   "freshness": "current",
+   "freshnessNote": "2025 is the expected annual release for the current cycle.",
+   "freshnessPolicy": {
+    "mode": "year",
+    "expectedLagYears": 1,
+    "staleAfterLagYears": 2
+   }
+  },
+  "projection": {
+   "label": "2027 projection model",
+   "asOf": "September 8, 2026",
+   "status": "projected",
+   "cadence": "Regenerated with the ETL pipeline",
+   "records": null,
+   "freshness": "current",
+   "freshnessNote": "Source date is 0 days old, inside the expected window.",
+   "freshnessPolicy": {
+    "mode": "pipeline",
+    "currentDays": 7,
+    "staleDays": 14
+   },
+   "sourceDate": "2026-09-08"
+  },
+  "search": {
+   "label": "Unified search index",
+   "asOf": "September 8, 2026",
+   "status": "calculated",
+   "cadence": "Regenerated with source datasets",
+   "records": 16778,
+   "freshness": "current",
+   "freshnessNote": "Source date is 0 days old, inside the expected window.",
+   "freshnessPolicy": {
+    "mode": "pipeline",
+    "currentDays": 7,
+    "staleDays": 14
+   },
+   "sourceDate": "2026-09-08",
+   "format": "sharded",
+   "bytes": 5040411
+  }
  }
 }

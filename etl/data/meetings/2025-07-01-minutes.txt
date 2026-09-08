@@ -2855,7 +2855,7 @@ accident or other insurable casualty, but is not thereby rendered untenantable i
 Licensee's reasonable judgment, Licensor shall, at its own expense, cause such damage to be repaired, 
 but in no event shall Licensor be responsible for damage to or repair of the ATM  or an y other 
 improvements installed by Licensee.  If by reason of such occurrence the Property or the License Area 
-is rendered untenan table, in Licensee’s reasonable judgment, and if  the License Area and access 
+is rendered untenan table, in Licensee’ s reasonable judgment, and if  the License Area and access 
 thereto is not fully repaired within sixty (60) days after said occurrence  (but in  no event shall 
 Licensor be responsible for damage to or repair of the ATM or any other improvements installed by 
 Licensee in the License Area) , Licensee may give written notice to Licensor that it intends to 
@@ -6221,8 +6221,7 @@ i. Total anticipated water usage/demand per day:  __________________________ gal
 ii. Will the proposed action obtain water from an existing public water supply? 9 Yes 9 No 
 If Yes: 
 • Name of district or service area:  _________________________________________________________________________ 
-• Does the existing public water supply have capacity to serve the proposal? 
-9 Yes 9 No 
+• Does the existing public water supply have capacity to serve the proposal? 9 Yes 9 No 
 • Is the project site in the existing district? 9 Yes 9 No 
 • Is expansion of the district needed? 9 Yes 9 No 
 • Do existing lines serve the project site? 9 Yes 9 No 
@@ -6966,7 +6965,7 @@ Page 2 of 10
 The proposed action may result in the modification or destruction of, or inhibit 
 access to, any unique or unusual land forms on the site (e.g., cliffs, dunes,   NO  YES 
 minerals, fossils, caves).  (See Part 1. E.2.g) 
-If “Yes”, answer questions a - c.  If “No”, move on to Section 3. 
+If “Yes”, answer questions a - c.  If “No”, move on to Section 3.  
 Relevant 
 Part I 
 Question(s) 
@@ -6994,7 +6993,7 @@ ___________________________________________________________________
 3. Impacts on Surface Water
 The proposed action may affect one or more wetlands or other surface water  NO  YES 
  bodies (e.g., streams, rivers, ponds or lakes).  (See Part 1. D.2, E.2.h)  
-If “Yes”, answer questions a - l.  If  “No”, move on to Section 4. 
+If “Yes”, answer questions a - l.  If  “No”, move on to Section 4 . 
 Relevant 
 Part I 
 Question(s) 
@@ -7148,7 +7147,7 @@ ___________________________________________________________________ 9 9
 6. Impacts on Air
  NO   YES The proposed action may include a state regulated air emission source.   
 (See Part 1. D.2.f., D.2.h, D.2.g) 
-If “Yes”, answer questions a - f.  If “No”, move on to Section 7. 
+If “Yes”, answer question s a - f.  If “No”, move on to Section 7. 
 Relevant 
 Part I 
 Question(s) 
@@ -7210,7 +7209,7 @@ __________________________________________________________________
 9 9
 7. Impact on Plants and Animals
 The proposed action may result in a loss of flora or fauna.  (See Part 1. E.2. m.-q.)  NO   YES 
-  If “Yes”, answer questions a - j.  If “No”, move on to Section 8. 
+  If “Yes”, answer questions a - j.  If “No”, move on to Section 8.  
 Relevant 
 Part I 
 Question(s)
@@ -7274,7 +7273,7 @@ __________________________________________________________________
 9 9
 8. Impact on Agricultural Resources
 The proposed action may impact agricultural resources.  (See Part 1. E.3.a. and b.)   NO  YES 
-If “Yes”, answer questions a - h.  If “No”, move on to Section 9. 
+If “Yes”, answer questions a - h.  If “No”, move on to Section 9.  
 Relev ant 
 Part I 
 Question(s) 
@@ -7327,7 +7326,7 @@ Page 6 of 10
 The land use of the proposed action are obviously different from, or are in  NO   YES 
 sharp contrast to, current land use patterns between the proposed project and
 a scenic or aesthetic resource.  (Part 1. E.1.a, E.1.b, E.3.h.)
-  If “Yes”, answer questions a - g.  If “No”, go to Section 10. 
+  If “Yes”, answer questions a - g.  If “No”, go to Section 10.  
 Relevant 
 Part I 
 Question(s) 
@@ -7723,8 +7722,7 @@ supported by existing infrastructure or is distant from existing infrastructure.
 C3, D1c, 
 D1d, D1f, 
 D1d, Elb 
-9 
-9 
+9 9 
 f. The proposed action is located in an area characterized by low density development 
 that will require new or expanded public infrastructure. 
 C4, D2c, D2d 
@@ -7740,7 +7738,7 @@ __________________________________________________________________
 18. Consistency with Community Character 
   The proposed project is inconsistent with the existing community character.   NO   YES 
   (See Part 1. C.2, C.3, D.2, E.3) 
- If “Yes”, answer questions a - g.  If “No”, proceed to Part 3. 
+ If “Yes”, answer questions a - g.  If “No”, proceed to Part 3.  
  Relevant 
 Part I 
 Question(s) 
@@ -7772,8 +7770,7 @@ C2, C3 9 9
 f. Proposed action is inconsistent with the character of the existing natural landscape.  C2, C3 
 E1a, E1b 
 E2g, E2h 
-9 
-9 
+9 9 
 g. Other impacts: ______________________________________________________ 
 __________________________________________________________________ 
  9 9 
@@ -7847,8 +7844,7 @@ For Further Information:
 Contact Person: 
 Address: 
 Telephone Number: 
-E-mail
-:
+E-mail:
 For Ty
 pe 1 Actions and Conditioned Negative Declarations, a copy of this Notice is sent to: 
 Chief Execu
