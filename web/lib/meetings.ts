@@ -151,12 +151,20 @@ export type MemberRecord = {
   titles: string[]
   party: Party
   years: string[]
-  byYear: Record<string, { aye?: number; nay?: number; abstain?: number; absent?: number }>
-  career: { aye?: number; nay?: number; abstain?: number; absent?: number }
+  byYear: Record<string, Partial<Record<Vote, number>>>
+  career: Partial<Record<Vote, number>>
   ayePct: number | null
   moved: number
   seconded: number
   meetingsVoted: number
   dissents: VotedItem[]
   abstentions: VotedItem[]
+}
+
+export type MembersData = {
+  source: { title: string; url: string }
+  note: string
+  partySource: string
+  latestYear: string
+  members: MemberRecord[]
 }
