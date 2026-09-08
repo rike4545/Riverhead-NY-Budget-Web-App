@@ -30,8 +30,8 @@
     "flag": "reserve-draw"
    },
    "vote": {
-    "adopted": null,
-    "tag": null,
+    "adopted": true,
+    "tag": "unanimous",
     "ayes": null,
     "nays": null
    }
@@ -50,8 +50,8 @@
     "flag": "reserve-draw"
    },
    "vote": {
-    "adopted": null,
-    "tag": null,
+    "adopted": true,
+    "tag": "unanimous",
     "ayes": null,
     "nays": null
    }
@@ -70,8 +70,8 @@
     "flag": "neutral"
    },
    "vote": {
-    "adopted": null,
-    "tag": null,
+    "adopted": true,
+    "tag": "unanimous",
     "ayes": null,
     "nays": null
    }
@@ -90,8 +90,8 @@
     "flag": "neutral"
    },
    "vote": {
-    "adopted": null,
-    "tag": null,
+    "adopted": true,
+    "tag": "unanimous",
     "ayes": null,
     "nays": null
    }
@@ -110,8 +110,8 @@
     "flag": "fair"
    },
    "vote": {
-    "adopted": null,
-    "tag": null,
+    "adopted": true,
+    "tag": "unanimous",
     "ayes": null,
     "nays": null
    }
@@ -130,8 +130,8 @@
     "flag": "fair"
    },
    "vote": {
-    "adopted": null,
-    "tag": null,
+    "adopted": true,
+    "tag": "unanimous",
     "ayes": null,
     "nays": null
    }
@@ -150,8 +150,8 @@
     "flag": "reserve-draw"
    },
    "vote": {
-    "adopted": null,
-    "tag": null,
+    "adopted": true,
+    "tag": "unanimous",
     "ayes": null,
     "nays": null
    }
@@ -170,8 +170,8 @@
     "flag": "reserve-draw"
    },
    "vote": {
-    "adopted": null,
-    "tag": null,
+    "adopted": true,
+    "tag": "unanimous",
     "ayes": null,
     "nays": null
    }
@@ -190,8 +190,8 @@
     "flag": "reserve-draw"
    },
    "vote": {
-    "adopted": null,
-    "tag": null,
+    "adopted": true,
+    "tag": "unanimous",
     "ayes": null,
     "nays": null
    }
@@ -210,8 +210,8 @@
     "flag": "understated"
    },
    "vote": {
-    "adopted": null,
-    "tag": null,
+    "adopted": true,
+    "tag": "unanimous",
     "ayes": null,
     "nays": null
    }
@@ -230,8 +230,8 @@
     "flag": "fair"
    },
    "vote": {
-    "adopted": null,
-    "tag": null,
+    "adopted": true,
+    "tag": "unanimous",
     "ayes": null,
     "nays": null
    }
@@ -250,8 +250,8 @@
     "flag": "fair"
    },
    "vote": {
-    "adopted": null,
-    "tag": null,
+    "adopted": true,
+    "tag": "unanimous",
     "ayes": null,
     "nays": null
    }
@@ -270,8 +270,8 @@
     "flag": "saving"
    },
    "vote": {
-    "adopted": null,
-    "tag": null,
+    "adopted": true,
+    "tag": "unanimous",
     "ayes": null,
     "nays": null
    }
@@ -290,8 +290,8 @@
     "flag": "saving"
    },
    "vote": {
-    "adopted": null,
-    "tag": null,
+    "adopted": true,
+    "tag": "unanimous",
     "ayes": null,
     "nays": null
    }
@@ -310,8 +310,8 @@
     "flag": "fair"
    },
    "vote": {
-    "adopted": null,
-    "tag": null,
+    "adopted": true,
+    "tag": "unanimous",
     "ayes": null,
     "nays": null
    }
@@ -330,8 +330,8 @@
     "flag": "fair"
    },
    "vote": {
-    "adopted": null,
-    "tag": null,
+    "adopted": true,
+    "tag": "unanimous",
     "ayes": null,
     "nays": null
    }
@@ -350,8 +350,8 @@
     "flag": "fair"
    },
    "vote": {
-    "adopted": null,
-    "tag": null,
+    "adopted": true,
+    "tag": "unanimous",
     "ayes": null,
     "nays": null
    }
@@ -370,8 +370,8 @@
     "flag": "fair"
    },
    "vote": {
-    "adopted": null,
-    "tag": null,
+    "adopted": true,
+    "tag": "unanimous",
     "ayes": null,
     "nays": null
    }
@@ -390,8 +390,8 @@
     "flag": "fair"
    },
    "vote": {
-    "adopted": null,
-    "tag": null,
+    "adopted": true,
+    "tag": "unanimous",
     "ayes": null,
     "nays": null
    }
@@ -410,8 +410,8 @@
     "flag": "fair"
    },
    "vote": {
-    "adopted": null,
-    "tag": null,
+    "adopted": true,
+    "tag": "unanimous",
     "ayes": null,
     "nays": null
    }
@@ -430,8 +430,8 @@
     "flag": "understated"
    },
    "vote": {
-    "adopted": null,
-    "tag": null,
+    "adopted": true,
+    "tag": "unanimous",
     "ayes": null,
     "nays": null
    }
@@ -450,8 +450,8 @@
     "flag": "fair"
    },
    "vote": {
-    "adopted": null,
-    "tag": null,
+    "adopted": true,
+    "tag": "unanimous",
     "ayes": null,
     "nays": null
    }
@@ -470,8 +470,8 @@
     "flag": "fair"
    },
    "vote": {
-    "adopted": null,
-    "tag": null,
+    "adopted": true,
+    "tag": "unanimous",
     "ayes": null,
     "nays": null
    }
@@ -490,8 +490,8 @@
     "flag": "fair"
    },
    "vote": {
-    "adopted": null,
-    "tag": null,
+    "adopted": true,
+    "tag": "unanimous",
     "ayes": null,
     "nays": null
    }
@@ -510,8 +510,8 @@
     "flag": "fair"
    },
    "vote": {
-    "adopted": null,
-    "tag": null,
+    "adopted": true,
+    "tag": "unanimous",
     "ayes": null,
     "nays": null
    }
@@ -530,8 +530,8 @@
     "flag": "fair"
    },
    "vote": {
-    "adopted": null,
-    "tag": null,
+    "adopted": true,
+    "tag": "unanimous",
     "ayes": null,
     "nays": null
    }
@@ -550,8 +550,8 @@
     "flag": "fair"
    },
    "vote": {
-    "adopted": null,
-    "tag": null,
+    "adopted": true,
+    "tag": "unanimous",
     "ayes": null,
     "nays": null
    }
@@ -570,8 +570,8 @@
     "flag": "fair"
    },
    "vote": {
-    "adopted": null,
-    "tag": null,
+    "adopted": true,
+    "tag": "unanimous",
     "ayes": null,
     "nays": null
    }
@@ -590,8 +590,8 @@
     "flag": "fair"
    },
    "vote": {
-    "adopted": null,
-    "tag": null,
+    "adopted": true,
+    "tag": "unanimous",
     "ayes": null,
     "nays": null
    }
@@ -610,8 +610,8 @@
     "flag": "understated"
    },
    "vote": {
-    "adopted": null,
-    "tag": null,
+    "adopted": true,
+    "tag": "unanimous",
     "ayes": null,
     "nays": null
    }
