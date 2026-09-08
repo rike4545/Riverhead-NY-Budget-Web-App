@@ -1,6 +1,7 @@
 import PageShell from '../../components/PageShell'
 import PlainCallout from '../../components/PlainCallout'
 import MeetingTimeline from '../../components/MeetingTimeline'
+import BudgetProcessMeetingForecast from '../../components/BudgetProcessMeetingForecast'
 import MeetingRecordExplorer from '../../components/MeetingRecordExplorer'
 import {
   boardRulesSource, executiveSessionTopics, meetingSchedule, orderOfBusiness,
@@ -36,6 +37,7 @@ export default function MeetingsPage() {
       </PlainCallout>
 
       <MeetingTimeline />
+      <BudgetProcessMeetingForecast />
 
       <section style={{ margin: '30px 0 12px' }}>
         <div style={{ color: 'var(--rbl-badge)', fontSize: 11, fontWeight: 950, letterSpacing: .8, textTransform: 'uppercase' }}>The decision record</div>
