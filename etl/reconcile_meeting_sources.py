@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 """Attach official-source audit state to parsed Town Board meeting records.
 
-Runs after parse_meetings.py. It does not alter vote interpretation; it joins
-that parsed decision record to the CivicClerk source manifest produced by
-fetch_meetings.py.
+Runs after parse_meetings.py and the agenda-packet vote fallback. It does not
+invent vote interpretation; it joins the parsed decision record to the
+CivicClerk source manifest produced by the fetchers.
 
 Outputs:
 * each <date>.json gains ``officialRecord`` metadata;
@@ -22,12 +22,14 @@ unchanged.
 from __future__ import annotations
 
 import json
+from datetime import date
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 ETL = ROOT / "etl/data/meetings"
 OUT = ROOT / "web/public/data/meetings"
 MANIFEST = ETL / "source-manifest.json"
+PENDING_GRACE_DAYS = 7
 
 
 def load_json(path: Path, fallback):
@@ -37,17 +39,25 @@ def load_json(path: Path, fallback):
         return fallback
 
 
-def safe_minutes(record: dict | None) -> dict | None:
+def safe_source(record: dict | None, extra: tuple[str, ...] = ()) -> dict | None:
     if not record:
         return None
-    return {
-        key: record.get(key)
-        for key in (
-            "fileId", "type", "name", "fileName", "title", "sha256", "bytes",
-            "pages", "changedAt", "hasVoteSummary", "revisionCount", "sourceUrl",
-        )
-        if record.get(key) is not None
-    }
+    keys = (
+        "fileId", "type", "name", "fileName", "title", "sha256", "bytes",
+        "pages", "changedAt", "revisionCount", "sourceUrl", "portalUrl",
+    ) + extra
+    return {key: record.get(key) for key in keys if record.get(key) is not None}
+
+
+def safe_minutes(record: dict | None) -> dict | None:
+    return safe_source(record, ("hasVoteSummary",))
+
+
+def safe_vote_packet(record: dict | None) -> dict | None:
+    return safe_source(
+        record,
+        ("hasVoteBlocks", "voteBlockCount", "resolutionNumbers", "current"),
+    )
 
 
 def safe_resolution_source(record: dict) -> dict:
@@ -55,10 +65,19 @@ def safe_resolution_source(record: dict) -> dict:
         key: record.get(key)
         for key in (
             "fileId", "type", "name", "fileName", "title", "sha256", "bytes",
-            "pages", "changedAt", "resolutionNumbers", "sourceUrl", "current",
+            "pages", "changedAt", "resolutionNumbers", "sourceUrl", "portalUrl", "current",
         )
         if record.get(key) is not None
     }
+
+
+def historical_vote_detail_omitted(slug: str, minutes: dict | None) -> bool:
+    if not minutes:
+        return False
+    try:
+        return (date.today() - date.fromisoformat(slug)).days > PENDING_GRACE_DAYS
+    except ValueError:
+        return False
 
 
 def reconcile() -> None:
@@ -67,13 +86,13 @@ def reconcile() -> None:
     index = load_json(index_path, {"source": {}, "totals": {}, "meetings": []})
     index_by_slug = {entry.get("slug"): entry for entry in index.get("meetings", [])}
     aggregate = {
-        "version": 1,
+        "version": 2,
         "sourceVersionAt": manifest.get("generatedAt"),
         "source": "Town of Riverhead CivicClerk published files",
         "meetings": {},
     }
 
-    annotated = verified_total = revised_total = 0
+    annotated = verified_total = revised_total = agenda_vote_total = 0
 
     for slug, source_state in sorted((manifest.get("meetings") or {}).items()):
         meeting_path = OUT / f"{slug}.json"
@@ -85,6 +104,7 @@ def reconcile() -> None:
 
         meeting_source_version = source_state.get("sourceVersionAt") or manifest.get("generatedAt")
         minutes = source_state.get("minutes") or None
+        vote_packet = source_state.get("votePacket") or None
         current_sources = [
             safe_resolution_source(record)
             for record in (source_state.get("resolutionSources") or {}).values()
@@ -108,7 +128,11 @@ def reconcile() -> None:
                 verified_here += 1
 
         if meeting.get("preliminary"):
-            status = "minutes-published-votes-pending"
+            status = (
+                "minutes-published-vote-detail-omitted"
+                if historical_vote_detail_omitted(slug, minutes)
+                else "minutes-published-votes-pending"
+            )
         elif meeting.get("resolutions"):
             status = "vote-record-parsed"
             if verified_here:
@@ -116,11 +140,24 @@ def reconcile() -> None:
         else:
             status = "minutes-published"
 
+        vote_source_kind = meeting.get("voteSource")
+        if not vote_source_kind and meeting.get("resolutions") and (minutes or {}).get("hasVoteSummary"):
+            vote_source_kind = "minutes"
+        vote_source = None
+        if vote_source_kind == "agenda-packet":
+            vote_source = safe_vote_packet(vote_packet)
+            agenda_vote_total += 1
+        elif vote_source_kind == "minutes":
+            vote_source = safe_minutes(minutes)
+
         revisions = int((minutes or {}).get("revisionCount") or 0)
         meeting["officialRecord"] = {
             "status": status,
             "sourceVersionAt": meeting_source_version,
             "minutes": safe_minutes(minutes),
+            "votePacket": safe_vote_packet(vote_packet),
+            "voteSourceKind": vote_source_kind,
+            "voteSource": vote_source,
             "minutesRevisionCount": revisions,
             "resolutionSourceCount": len(current_sources),
             "verifiedResolutionCount": verified_here,
@@ -131,6 +168,7 @@ def reconcile() -> None:
         entry = index_by_slug.get(slug)
         if entry is not None:
             entry["officialRecordStatus"] = status
+            entry["voteSource"] = vote_source_kind
             entry["minutesRevisionCount"] = revisions
             entry["verifiedResolutionCount"] = verified_here
             entry["resolutionSourceCount"] = len(current_sources)
@@ -143,6 +181,9 @@ def reconcile() -> None:
             "sourceVersionAt": meeting_source_version,
             "officialRecordStatus": status,
             "minutes": safe_minutes(minutes),
+            "votePacket": safe_vote_packet(vote_packet),
+            "voteSourceKind": vote_source_kind,
+            "voteSource": vote_source,
             "resolutionSources": current_sources,
             "verifiedResolutionCount": verified_here,
         }
@@ -154,7 +195,8 @@ def reconcile() -> None:
     (OUT / "official-sources.json").write_text(json.dumps(aggregate, indent=1), encoding="utf-8")
     print(
         f"Official-source reconciliation: {annotated} meetings annotated, "
-        f"{verified_total} resolution-document matches, {revised_total} archived minute revisions"
+        f"{verified_total} resolution-document matches, {revised_total} archived minute revisions, "
+        f"{agenda_vote_total} agenda-packet vote source(s)"
     )
 
 
