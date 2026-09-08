@@ -10,6 +10,7 @@ type TimelineMeeting = {
   startDateTime: string
   type: string
   agendaPublished: boolean
+  itemsSource?: 'published-agenda' | 'official-calendar' | 'published-agenda+official-calendar' | null
   docket: { seq: number; number: string; title: string }[]
   hearings: string[]
 }
@@ -17,6 +18,8 @@ type TimelineMeeting = {
 type TimelineData = {
   generatedAt: string
   source: { title: string; url: string }
+  scheduleSource?: { title: string; url: string }
+  officialScheduleDates?: string[]
   recent?: TimelineMeeting[]
   meetings: TimelineMeeting[]
 }
@@ -65,6 +68,13 @@ function daysSince(slug: string, nowKey: number) {
 function uniqueMeetings(rows: TimelineMeeting[]) {
   const seen = new Set<string>()
   return rows.filter((m) => !seen.has(m.slug) && !!seen.add(m.slug))
+}
+
+function itemSourceLabel(source: TimelineMeeting['itemsSource']) {
+  if (source === 'published-agenda+official-calendar') return 'Published agenda + official hearing notices'
+  if (source === 'published-agenda') return 'Published Town agenda'
+  if (source === 'official-calendar') return 'Official Town hearing notices'
+  return null
 }
 
 export default function MeetingTimeline() {
@@ -138,30 +148,55 @@ export default function MeetingTimeline() {
           <article style={{ ...card, borderLeft: '5px solid var(--rbl-success)' }}>
             <div style={{ color: 'var(--rbl-success-strong)', fontWeight: 950, fontSize: 11.5, textTransform: 'uppercase', letterSpacing: .5 }}>Next Town Board meeting</div>
             <h3 style={{ margin: '5px 0 7px', color: 'var(--rbl-title)', fontSize: 20 }}>{formatMeeting(next.startDateTime)}</h3>
-            {next.hearings.length > 0 ? (
+
+            {next.hearings.length > 0 && (
               <div>
-                <div style={{ color: 'var(--rbl-text-muted)', fontSize: 11.5, fontWeight: 900, textTransform: 'uppercase' }}>Scheduled public hearings</div>
+                <div style={{ color: 'var(--rbl-text-muted)', fontSize: 11.5, fontWeight: 900, textTransform: 'uppercase' }}>Officially noticed public hearings</div>
                 <ul style={{ margin: '5px 0 0', paddingLeft: 18, color: 'var(--rbl-text-strong)', fontSize: 13, lineHeight: 1.45 }}>
                   {next.hearings.map((h) => <li key={h}>{h}</li>)}
                 </ul>
               </div>
-            ) : (
-              <p style={{ color: 'var(--rbl-text-body)', fontSize: 13.5, lineHeight: 1.55, margin: 0 }}>Agenda details will appear here when the Town publishes them.</p>
             )}
-            {next.agendaPublished && next.docket.length > 0 && <p style={{ color: 'var(--rbl-text-strong)', fontSize: 13, marginBottom: 0 }}><strong>{next.docket.length}</strong> resolutions are currently indexed on the docket.</p>}
+
+            {next.docket.length > 0 && (
+              <details style={{ marginTop: 11 }}>
+                <summary style={{ cursor: 'pointer', color: 'var(--rbl-title)', fontWeight: 900, fontSize: 13 }}>
+                  {next.docket.length} published resolution item{next.docket.length === 1 ? '' : 's'}
+                </summary>
+                <ol style={{ margin: '7px 0 0', paddingLeft: 22, color: 'var(--rbl-text-strong)', fontSize: 12.5, lineHeight: 1.45 }}>
+                  {next.docket.map((d) => <li key={d.number}><strong>{d.number}</strong> — {d.title}</li>)}
+                </ol>
+              </details>
+            )}
+
+            {next.hearings.length === 0 && next.docket.length === 0 && (
+              <p style={{ color: 'var(--rbl-text-body)', fontSize: 13.5, lineHeight: 1.55, margin: 0 }}>
+                No agenda items are currently published in the indexed Town sources. The site does not fill this space with inferred or expected items.
+              </p>
+            )}
+
+            {itemSourceLabel(next.itemsSource) && (
+              <div style={{ color: 'var(--rbl-text-muted)', fontSize: 11.5, marginTop: 10 }}>
+                Item source: {itemSourceLabel(next.itemsSource)}.
+              </div>
+            )}
           </article>
         )}
       </div>
 
       {later.length > 0 && (
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, marginTop: 9, alignItems: 'center' }}>
-          <span style={{ color: 'var(--rbl-text-muted)', fontSize: 11.5, fontWeight: 900, textTransform: 'uppercase' }}>Later</span>
-          {later.map((m) => <span key={m.slug} style={{ border: '1px solid var(--rbl-border-subtle)', borderRadius: 999, padding: '5px 10px', color: 'var(--rbl-text-muted)', fontSize: 12 }}>{formatMeeting(m.startDateTime)}</span>)}
+          <span style={{ color: 'var(--rbl-text-muted)', fontSize: 11.5, fontWeight: 900, textTransform: 'uppercase' }}>Later official dates</span>
+          {later.map((m) => {
+            const itemCount = m.docket.length + m.hearings.length
+            return <span key={m.slug} style={{ border: '1px solid var(--rbl-border-subtle)', borderRadius: 999, padding: '5px 10px', color: 'var(--rbl-text-muted)', fontSize: 12 }}>{formatMeeting(m.startDateTime)}{itemCount ? ` · ${itemCount} published item${itemCount === 1 ? '' : 's'}` : ''}</span>
+          })}
         </div>
       )}
 
       <p style={{ color: 'var(--rbl-text-muted)', fontSize: 11.5, margin: '8px 0 0' }}>
-        Schedule checked {schedule.generatedAt}. A completed meeting, published minutes, and a published individual vote record are separate states. When the Clerk&apos;s minutes omit roll-call results, the site says so instead of treating those votes as indefinitely pending.
+        Schedule checked {schedule.generatedAt}. A completed meeting, published minutes, and a published individual vote record are separate states. Regular meeting dates are reconciled to the Town&apos;s published Board schedule. Listed items come only from a published agenda/agenda packet or an official Town public-hearing notice; the site does not infer agenda items.
+        {schedule.scheduleSource?.url && <> <a href={schedule.scheduleSource.url} target="_blank" rel="noreferrer" style={{ color: 'var(--rbl-link)', fontWeight: 800, textDecoration: 'none' }}>Official schedule ↗</a></>}
       </p>
     </section>
   )
