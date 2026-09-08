@@ -39,8 +39,13 @@ jobs:
           # Re-check CivicClerk source hashes even after vote-bearing minutes exist.
           # Any Clerk correction therefore flows back through the parsed record.
           python etl/fetch_meetings.py
+          # Some condensed Minutes PDFs omit roll-call fields even though the
+          # official Agenda Packet has a THE VOTE block at the end of each
+          # resolution. Track those packets as a separate official vote source.
+          python etl/fetch_vote_packets.py
           python etl/fetch_upcoming.py
           python etl/parse_meetings.py
+          python etl/apply_vote_packet_fallback.py
           python etl/reconcile_meeting_sources.py
           # Fiscal companions depend on the current resolution titles/numbers, so
           # rebuild them after every official-record reconciliation pass.

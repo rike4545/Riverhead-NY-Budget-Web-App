@@ -30,6 +30,7 @@ jobs:
       - name: Verify ETL imports and syntax
         run: |
           python -m compileall -q etl
+          python etl/test_vote_packet_parser.py
           python - <<'PY'
           import bs4
           import cryptography
@@ -37,7 +38,7 @@ jobs:
           import pandas
           import pypdf
           import requests
-          print('ETL dependency and syntax smoke test passed')
+          print('ETL dependency, syntax, and vote-packet parser smoke tests passed')
           PY
 
       - name: Rebuild search and freshness metadata
