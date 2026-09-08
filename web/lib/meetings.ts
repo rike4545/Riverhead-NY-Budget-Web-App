@@ -1,6 +1,7 @@
-// Town Board voting record, extracted from meeting minutes by
-// etl/parse_meetings.py. The small index (meeting list + totals) is imported
-// at build time; each meeting's full record is fetched at runtime.
+// Town Board voting record, extracted from official meeting records by
+// etl/parse_meetings.py plus the conservative Agenda Packet vote fallback.
+// The small index (meeting list + totals) is imported at build time; each
+// meeting's full record is fetched at runtime.
 
 import indexJson from '../public/data/meetings/index.json'
 
@@ -15,8 +16,11 @@ export type ResolutionTag = 'unanimous' | 'split' | 'failed' | 'tabled'
 export type OfficialRecordStatus =
   | 'minutes-published'
   | 'minutes-published-votes-pending'
+  | 'minutes-published-vote-detail-omitted'
   | 'vote-record-parsed'
   | 'vote-record-parsed-resolution-documents-linked'
+
+export type VoteSourceKind = 'minutes' | 'agenda-packet'
 
 export type OfficialSourceFile = {
   fileId?: number | string
@@ -29,7 +33,10 @@ export type OfficialSourceFile = {
   pages?: number
   changedAt?: string
   sourceUrl?: string
+  portalUrl?: string
   hasVoteSummary?: boolean
+  hasVoteBlocks?: boolean
+  voteBlockCount?: number
   revisionCount?: number
   resolutionNumbers?: string[]
   current?: boolean
@@ -39,6 +46,9 @@ export type OfficialRecord = {
   status: OfficialRecordStatus
   sourceVersionAt?: string | null
   minutes?: OfficialSourceFile | null
+  votePacket?: OfficialSourceFile | null
+  voteSourceKind?: VoteSourceKind | null
+  voteSource?: OfficialSourceFile | null
   minutesRevisionCount: number
   resolutionSourceCount: number
   verifiedResolutionCount: number
@@ -77,8 +87,9 @@ export type MemberTally = {
 
 export type MeetingStats = { total: number; unanimous: number; contested: number; failed: number; tabled: number }
 
-// A resolution on the docket of a preliminary (just-held) meeting, before the
-// Clerk posts the vote-bearing revised minutes.
+// A resolution on the docket of a just-held meeting before a complete official
+// vote source has been parsed. Older vote-less records can remain docket-only
+// when the published Minutes omit the individual outcome detail.
 export type DocketItem = {
   seq: number
   number: string
@@ -98,6 +109,7 @@ export type Meeting = {
   memberTallies?: Record<string, MemberTally>
   preliminary?: boolean
   docket?: DocketItem[]
+  voteSource?: VoteSourceKind
   officialRecord?: OfficialRecord
 }
 
@@ -112,6 +124,7 @@ export type MeetingIndexEntry = {
   tabled: number
   preliminary?: boolean
   docketCount?: number
+  voteSource?: VoteSourceKind | null
   officialRecordStatus?: OfficialRecordStatus
   minutesRevisionCount?: number
   verifiedResolutionCount?: number
@@ -138,20 +151,12 @@ export type MemberRecord = {
   titles: string[]
   party: Party
   years: string[]
-  byYear: Record<string, Partial<Record<Vote, number>>>
-  career: Partial<Record<Vote, number>>
+  byYear: Record<string, { aye?: number; nay?: number; abstain?: number; absent?: number }>
+  career: { aye?: number; nay?: number; abstain?: number; absent?: number }
   ayePct: number | null
   moved: number
   seconded: number
   meetingsVoted: number
   dissents: VotedItem[]
   abstentions: VotedItem[]
-}
-
-export type MembersData = {
-  source: { title: string; url: string }
-  note: string
-  partySource: string
-  latestYear: string
-  members: MemberRecord[]
 }
