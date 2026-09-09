@@ -674,9 +674,23 @@
    "bytes": 161306,
    "pages": 7,
    "changedAt": "2026-09-08T01:22:41Z",
-   "hasVoteSummary": true,
    "revisionCount": 0,
-   "sourceUrl": "https://riverheadny.api.civicclerk.com/v1/Meetings/GetMeetingFileStream(fileId=10409,plainText=false)"
+   "sourceUrl": "https://riverheadny.api.civicclerk.com/v1/Meetings/GetMeetingFileStream(fileId=10409,plainText=false)",
+   "hasVoteSummary": true
+  },
+  "votePacket": null,
+  "voteSourceKind": "minutes",
+  "voteSource": {
+   "fileId": 10409,
+   "type": "Minutes",
+   "name": "Minutes TBM 12/02/25",
+   "sha256": "d977062b8eb3e663ce12705d80d37b2c7748af38e6f12d8a1a029bf0b3ae3dfb",
+   "bytes": 161306,
+   "pages": 7,
+   "changedAt": "2026-09-08T01:22:41Z",
+   "revisionCount": 0,
+   "sourceUrl": "https://riverheadny.api.civicclerk.com/v1/Meetings/GetMeetingFileStream(fileId=10409,plainText=false)",
+   "hasVoteSummary": true
   },
   "minutesRevisionCount": 0,
   "resolutionSourceCount": 0,

@@ -1127,20 +1127,34 @@
  },
  "officialRecord": {
   "status": "vote-record-parsed",
-  "sourceVersionAt": "2026-09-08T01:22:57Z",
+  "sourceVersionAt": "2026-09-08T16:54:24Z",
   "minutes": {
-   "fileId": 12210,
+   "fileId": 12330,
    "type": "Minutes",
    "name": "Minutes",
-   "sha256": "a650b0b6fe0775245e2a9b0d164af5623b46552a850cc12c4bf574241d2d858b",
-   "bytes": 345826,
+   "sha256": "71ca55a79970a0eafb311352684d63bb34b517bebe64981f98c050050faef31f",
+   "bytes": 345832,
    "pages": 12,
-   "changedAt": "2026-09-08T01:22:57Z",
-   "hasVoteSummary": true,
-   "revisionCount": 0,
-   "sourceUrl": "https://riverheadny.api.civicclerk.com/v1/Meetings/GetMeetingFileStream(fileId=12210,plainText=false)"
+   "changedAt": "2026-09-08T16:54:24Z",
+   "revisionCount": 1,
+   "sourceUrl": "https://riverheadny.api.civicclerk.com/v1/Meetings/GetMeetingFileStream(fileId=12330,plainText=false)",
+   "hasVoteSummary": true
   },
-  "minutesRevisionCount": 0,
+  "votePacket": null,
+  "voteSourceKind": "minutes",
+  "voteSource": {
+   "fileId": 12330,
+   "type": "Minutes",
+   "name": "Minutes",
+   "sha256": "71ca55a79970a0eafb311352684d63bb34b517bebe64981f98c050050faef31f",
+   "bytes": 345832,
+   "pages": 12,
+   "changedAt": "2026-09-08T16:54:24Z",
+   "revisionCount": 1,
+   "sourceUrl": "https://riverheadny.api.civicclerk.com/v1/Meetings/GetMeetingFileStream(fileId=12330,plainText=false)",
+   "hasVoteSummary": true
+  },
+  "minutesRevisionCount": 1,
   "resolutionSourceCount": 0,
   "verifiedResolutionCount": 0,
   "resolutionSources": []
