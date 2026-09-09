@@ -1,0 +1,1 @@
+This static-export route publishes the same tax-rate inputs and positive-levy fund data used by the web My Taxes page for native-client parity. Fiscal constants remain owned by `public/data/tax-bill.json` and `lib/all-funds.ts`; the route only serializes them.
