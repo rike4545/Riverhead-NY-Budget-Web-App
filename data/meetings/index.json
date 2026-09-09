@@ -166,10 +166,10 @@
    "tabled": 0,
    "officialRecordStatus": "vote-record-parsed",
    "voteSource": "minutes",
-   "minutesRevisionCount": 0,
+   "minutesRevisionCount": 1,
    "verifiedResolutionCount": 0,
    "resolutionSourceCount": 0,
-   "sourceVersionAt": "2026-09-08T01:22:47Z"
+   "sourceVersionAt": "2026-09-09T01:27:49Z"
   },
   {
    "slug": "2026-04-07",
