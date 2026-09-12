@@ -195,13 +195,15 @@
    "date": "2026-09-15",
    "startDateTime": "2026-09-15T18:00:00Z",
    "type": "Town Board Meeting",
-   "agendaPublished": false,
-   "itemsSource": "official-calendar",
+   "agendaPublished": true,
+   "itemsSource": "published-agenda",
    "docket": [],
    "hearings": [
     "Amend Chapter 231, Art. XIII, \"Fireworks and Pyrotechnics\"",
     "Amend Chapter 255, Art.II, \"Special Events\"",
-    "Amend Chapter 115, \"Procurement Policy\""
+    "Amend Chapter 115, \"Procurement Policy\"",
+    "Amend Chapter 231, Art XIII, \"Fireworks and",
+    "Amend Chapter 255, Art II, \" Special Events\""
    ]
   },
   {
