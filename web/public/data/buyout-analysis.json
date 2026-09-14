@@ -98,7 +98,121 @@
   "savedShare": 40,
   "policeOfficerEntryStep": 53350
  },
- "policeChain": null,
+ "policeChain": {
+  "officerEntryStep": 53350,
+  "officerTopStep": 150351,
+  "ladder": [
+   {
+    "rank": "Chief",
+    "top": 224030,
+    "count": 1,
+    "isOfficer": false
+   },
+   {
+    "rank": "Captain",
+    "top": 203190,
+    "count": 1,
+    "isOfficer": false
+   },
+   {
+    "rank": "Lieutenant",
+    "top": 198912,
+    "count": 3,
+    "isOfficer": false
+   },
+   {
+    "rank": "Detective Sergeant",
+    "top": 189692,
+    "count": 1,
+    "isOfficer": false
+   },
+   {
+    "rank": "Sergeant",
+    "top": 185027,
+    "count": 7,
+    "isOfficer": false
+   },
+   {
+    "rank": "Detective Grade I",
+    "top": 172530,
+    "count": 3,
+    "isOfficer": false
+   },
+   {
+    "rank": "Detective Grade II",
+    "top": 168204,
+    "count": 1,
+    "isOfficer": false
+   },
+   {
+    "rank": "Detective Grade III",
+    "top": 161311,
+    "count": 4,
+    "isOfficer": false
+   },
+   {
+    "rank": "Police Officer",
+    "top": 150351,
+    "count": 77,
+    "isOfficer": true
+   }
+  ],
+  "officers": {
+   "count": 12,
+   "netSavings": 659585
+  },
+  "ranked": {
+   "count": 12,
+   "perRetiree": 97001,
+   "chainSavings": 1164012,
+   "naiveSavings": 1563959,
+   "correction": 399947,
+   "byRank": [
+    {
+     "title": "Lieutenant  Police-Towns and Village",
+     "count": 3,
+     "rankTop": 198912,
+     "naivePer": 145562,
+     "chainPer": 97001
+    },
+    {
+     "title": "Detective Sergeant",
+     "count": 1,
+     "rankTop": 189692,
+     "naivePer": 136342,
+     "chainPer": 97001
+    },
+    {
+     "title": "Sergeant Police-Towns and Village",
+     "count": 3,
+     "rankTop": 185027,
+     "naivePer": 131677,
+     "chainPer": 97001
+    },
+    {
+     "title": "Detective",
+     "count": 5,
+     "rankTop": 172530,
+     "naivePer": 119180,
+     "chainPer": 97001
+    }
+   ]
+  },
+  "totalNetSavings": 1823597,
+  "example": {
+   "title": "A retiring sergeant",
+   "steps": [
+    "A sergeant retires (top-step sergeant costs the Town about $185,027).",
+    "A top-step police officer (about $150,351) is promoted into the sergeant seat \u2014 that seat stays filled, at a sergeant's cost.",
+    "The officer's now-empty seat is filled by a rookie at the $53,350 entry step."
+   ],
+   "beforeCost": 335378,
+   "afterCost": 238377,
+   "netSaving": 97001,
+   "naiveClaim": 131677
+  },
+  "why": "For ranked police jobs the Town must keep the rank filled, so a retirement doesn't remove that salary \u2014 it triggers a promotion chain. The only seat that actually gets cheaper is the one at the bottom, where a senior officer's departure (via promotion) is backfilled by a rookie. So the real recurring saving from a ranked retirement is a top-step officer (~$150,351) minus a rookie ($53,350) = about $97,001 per retirement \u2014 not the retiree's own rank salary minus a rookie. Rank-and-file officer retirements are the simple case: a rookie directly replaces them. (This is conservative: if the newly promoted people start at lower steps of their higher ranks, the Town saves somewhat more.)"
+ },
  "retireeHealthcare": {
   "opebLiability2023": 152597117,
   "annualBenefitPayments2023": 3552558,
