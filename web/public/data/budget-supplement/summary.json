@@ -1,8 +1,8 @@
 {
- "lineCount": 1995,
- "expenditureLineCount": 1733,
+ "lineCount": 1996,
+ "expenditureLineCount": 1734,
  "revenueLineCount": 262,
- "tentative2026Expenditures": 118614214.0,
+ "tentative2026Expenditures": 121110904.0,
  "byControl": {
   "mandated": {
    "lineCount": 302,
@@ -13,8 +13,8 @@
    "tentative2026": 39725364.0
   },
   "controllable": {
-   "lineCount": 1108,
-   "tentative2026": 29038688.0
+   "lineCount": 1109,
+   "tentative2026": 31535378.0
   }
  },
  "sources": [
