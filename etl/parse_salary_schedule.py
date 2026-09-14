@@ -30,6 +30,23 @@ LABEL = re.compile(r"Attachment:\s+2025\s+.+?\(2025-(\d+)")
 MONEY = re.compile(r"[\d,]+\.\d{2}")
 GRADE = re.compile(r"\b(\d{1,2}/[A-Z0-9]{1,3})\b")
 COMMA_NAME = re.compile(r"^\s*([A-Z][A-Za-z.'’-]+,\s+[A-Z][A-Za-z.'’.\- ]+?)\s{2,}(.*)$")
+# The September 2026 re-extraction of the minutes collapsed every run of spaces
+# to a single space (and moved the "$" to the end of the line), so the column
+# padding COMMA_NAME depends on is gone:
+#     was:  Hubbard, Timothy          Town Supervisor        $     118,919.00
+#     now:  Hubbard, Timothy Town Supervisor 118,919.00$
+# Rows carrying a grade still parse — that path splits on the grade, not on
+# whitespace — but every grade-less row (Elected Officials, Boards, and the
+# stipend/appointed police lines) silently dropped out, taking 168 of 345
+# records with them. This fallback recovers them by treating "Last, First" plus
+# an optional middle initial as the name and the remainder as the title.
+# COMMA_NAME is still tried first so archived, column-aligned copies of the
+# minutes keep parsing exactly as before.
+COMMA_NAME_TIGHT = re.compile(
+    r"^\s*([A-Z][A-Za-z.'’-]+(?:\s+[A-Z][A-Za-z.'’-]+)*,"
+    r"\s+[A-Z][A-Za-z.'’-]+(?:\s+[A-Z]\.?)?)"
+    r"\s+(\S.*)$"
+)
 FIRSTLAST = re.compile(r"^\s*([A-Z][A-Za-z.'’-]+)\s{2,}([A-Z][A-Za-z.'’-]+)\s*$")
 DEPT_HDR = re.compile(r"^\s*([A-Z][A-Z &/’'.-]{3,})\s*$")
 NOISE = re.compile(r"AYES|NAYS|MOVER|SECONDER|RESULT|ABSTAIN|Packet Pg|ANNUAL SALARY|EMPLOYEE\b|GROUP/STEP")
@@ -84,12 +101,22 @@ def parse_row(line):
         title = normalize_title(clean(pre[g.end():]))
         grade = g.group(1)
     else:
-        cm = COMMA_NAME.match(pre)
+        cm = COMMA_NAME.match(pre) or COMMA_NAME_TIGHT.match(pre)
         if cm:
             name, title, grade = clean(cm.group(1)), normalize_title(clean(cm.group(2))), ""
         else:
             return None
     if "," not in name or not title:
+        return None
+    # Without column padding to anchor on, the tight fallback can also match a
+    # sentence that happens to contain a comma and a dollar figure — e.g.
+    # "...RESOLVED, Bergman shall be entitled to a stipend in the sum of $3,000".
+    # Real schedule titles always begin with a capital or a digit, and no real
+    # surname in this document is all-caps, so those two checks reject the prose
+    # without touching any genuine row.
+    if not re.match(r"^[A-Z0-9]", title):
+        return None
+    if name.split(",")[0].strip().isupper():
         return None
     return name, grade, title, round(annual, 2), hourly
 
