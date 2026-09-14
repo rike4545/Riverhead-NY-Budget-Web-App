@@ -19,7 +19,7 @@
    ],
    "moved": 0,
    "seconded": 0,
-   "meetingsVoted": 14,
+   "meetingsVoted": 17,
    "dissents": [
     {
      "slug": "2026-04-07",
@@ -41,6 +41,13 @@
      "number": "2026-406",
      "title": "Authorizes Town Clerk to Publish and Post Notice of Public Hearing to Amend Town Code Chapter 301, Attachment 3 of the Riverhead Town Code Entitled \"Commercial Districts of Dimensional Regulations\"",
      "result": "ADOPTED [4 - 1]"
+    },
+    {
+     "slug": "2026-09-01",
+     "date": "September 1, 2026",
+     "number": "2026-838",
+     "title": "Authorizes the Town Clerk to Publish and Post Notice to Bidders for Installation of Water Mains & Appurtenances \u2013 Summerwind - Riverhead Water District",
+     "result": "Adopted"
     }
    ],
    "abstentions": [
@@ -61,15 +68,15 @@
    ],
    "byYear": {
     "2026": {
-     "aye": 728,
+     "aye": 833,
      "abstain": 2,
-     "nay": 3
+     "nay": 4
     }
    },
    "career": {
-    "aye": 728,
+    "aye": 833,
     "abstain": 2,
-    "nay": 3
+    "nay": 4
    },
    "ayePct": 99.3
   },
@@ -84,9 +91,9 @@
     "2025",
     "2026"
    ],
-   "moved": 439,
-   "seconded": 443,
-   "meetingsVoted": 40,
+   "moved": 465,
+   "seconded": 470,
+   "meetingsVoted": 43,
    "dissents": [
     {
      "slug": "2025-01-07",
@@ -182,16 +189,16 @@
      "abstain": 2
     },
     "2026": {
-     "aye": 732,
+     "aye": 838,
      "abstain": 1
     }
    },
    "career": {
-    "aye": 1757,
+    "aye": 1863,
     "nay": 9,
     "abstain": 3
    },
-   "ayePct": 99.3
+   "ayePct": 99.4
   },
   {
    "key": "Waski",
@@ -204,9 +211,9 @@
     "2025",
     "2026"
    ],
-   "moved": 427,
-   "seconded": 442,
-   "meetingsVoted": 40,
+   "moved": 452,
+   "seconded": 468,
+   "meetingsVoted": 43,
    "dissents": [
     {
      "slug": "2025-01-07",
@@ -230,11 +237,11 @@
      "nay": 2
     },
     "2026": {
-     "aye": 733
+     "aye": 839
     }
    },
    "career": {
-    "aye": 1767,
+    "aye": 1873,
     "nay": 2
    },
    "ayePct": 99.9
@@ -250,9 +257,9 @@
     "2025",
     "2026"
    ],
-   "moved": 458,
-   "seconded": 421,
-   "meetingsVoted": 38,
+   "moved": 485,
+   "seconded": 446,
+   "meetingsVoted": 41,
    "dissents": [
     {
      "slug": "2025-01-07",
@@ -321,19 +328,19 @@
      "absent": 1
     },
     "2026": {
-     "aye": 728,
+     "aye": 834,
      "abstain": 3,
      "nay": 1,
      "absent": 1
     }
    },
    "career": {
-    "aye": 1724,
+    "aye": 1830,
     "nay": 4,
     "abstain": 4,
     "absent": 2
    },
-   "ayePct": 99.5
+   "ayePct": 99.6
   },
   {
    "key": "Kern",
@@ -346,9 +353,9 @@
     "2025",
     "2026"
    ],
-   "moved": 434,
-   "seconded": 454,
-   "meetingsVoted": 38,
+   "moved": 461,
+   "seconded": 482,
+   "meetingsVoted": 41,
    "dissents": [
     {
      "slug": "2025-01-07",
@@ -443,14 +450,14 @@
      "nay": 7
     },
     "2026": {
-     "aye": 727,
+     "aye": 833,
      "nay": 4,
      "absent": 1,
      "abstain": 1
     }
    },
    "career": {
-    "aye": 1728,
+    "aye": 1834,
     "nay": 11,
     "absent": 1,
     "abstain": 1
