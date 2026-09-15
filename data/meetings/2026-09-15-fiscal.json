@@ -1,0 +1,575 @@
+{
+ "slug": "2026-09-15",
+ "meetingDate": "2026-09-15",
+ "source": {
+  "title": "Town of Riverhead Town Board Agenda Packet, 2026-09-15 (Fiscal Impact Statements)",
+  "url": "https://www.townofriverheadny.gov/129/Agendas-Minutes"
+ },
+ "method": "Each resolution's Town 'Fiscal Impact Statement' answer (Yes/No and absorbed vs. detailed) is transcribed as-published from the agenda packet, alongside a plain-English realistic read keyed on the resolution's category. Dollar amounts are not auto-extracted from this packet \u2014 they live in interleaved backup tables that don't reliably tie to a single resolution \u2014 so they are left blank rather than guessed.",
+ "summary": {
+  "total": 37,
+  "markedNo": 22,
+  "markedYes": 15,
+  "understated": 14,
+  "understatedMarkedNo": 3,
+  "identifiedDollarsAtStake": 0,
+  "largestUnderstatedMarkedNo": null
+ },
+ "resolutions": [
+  {
+   "number": null,
+   "seq": 1,
+   "title": "Adopts Sewer District Capital Project #82619 - NYS SECURE Grant",
+   "category": "capital",
+   "townFiscalImpact": "Yes",
+   "townTreatment": "absorbed",
+   "amount": null,
+   "realistic": {
+    "verdict": "Understated \u2014 'absorbed by existing budget'",
+    "reason": "It commits capital or debt-service dollars, typically drawn from reserves, fund balance, or borrowing \u2014 not truly cost-free even if 'absorbed'.",
+    "flag": "reserve-draw"
+   },
+   "vote": null
+  },
+  {
+   "number": null,
+   "seq": 2,
+   "title": "Ambulance District Budget Adjustment for Repairs to the Armory Building",
+   "category": "capital",
+   "townFiscalImpact": "Yes",
+   "townTreatment": "absorbed",
+   "amount": null,
+   "realistic": {
+    "verdict": "Understated \u2014 'absorbed by existing budget'",
+    "reason": "It commits capital or debt-service dollars, typically drawn from reserves, fund balance, or borrowing \u2014 not truly cost-free even if 'absorbed'.",
+    "flag": "reserve-draw"
+   },
+   "vote": null
+  },
+  {
+   "number": null,
+   "seq": 3,
+   "title": "Budget Adoption for Capital Project #12620 Restoration of Wading River",
+   "category": "capital",
+   "townFiscalImpact": "Yes",
+   "townTreatment": "absorbed",
+   "amount": null,
+   "realistic": {
+    "verdict": "Understated \u2014 'absorbed by existing budget'",
+    "reason": "It commits capital or debt-service dollars, typically drawn from reserves, fund balance, or borrowing \u2014 not truly cost-free even if 'absorbed'.",
+    "flag": "reserve-draw"
+   },
+   "vote": null
+  },
+  {
+   "number": null,
+   "seq": 4,
+   "title": "Budget Adjustment for Replacement of HVAC System at George Young",
+   "category": "capital",
+   "townFiscalImpact": "Yes",
+   "townTreatment": "absorbed",
+   "amount": null,
+   "realistic": {
+    "verdict": "Understated \u2014 'absorbed by existing budget'",
+    "reason": "It commits capital or debt-service dollars, typically drawn from reserves, fund balance, or borrowing \u2014 not truly cost-free even if 'absorbed'.",
+    "flag": "reserve-draw"
+   },
+   "vote": null
+  },
+  {
+   "number": null,
+   "seq": 5,
+   "title": "Sets the Fees for the 2026 Fall Recreation Brochure",
+   "category": "fees",
+   "townFiscalImpact": "Yes",
+   "townTreatment": "absorbed",
+   "amount": null,
+   "realistic": {
+    "verdict": "Real, recurring cost",
+    "reason": "A salary, raise, contract, or fee change that commits ongoing money.",
+    "flag": "reserve-draw"
+   },
+   "vote": null
+  },
+  {
+   "number": null,
+   "seq": 6,
+   "title": "Extends Internship for Town Board Councilman Robert Kern",
+   "category": "appointment-volunteer",
+   "townFiscalImpact": "No",
+   "townTreatment": "described",
+   "amount": null,
+   "realistic": {
+    "verdict": "No direct cost",
+    "reason": "Appointment to an unpaid advisory board, committee, or task force \u2014 no salary attached.",
+    "flag": "fair"
+   },
+   "vote": null
+  },
+  {
+   "number": null,
+   "seq": 7,
+   "title": "Appoints an Automotive Equipment Operator to the Highway Department",
+   "category": "personnel",
+   "townFiscalImpact": "Yes",
+   "townTreatment": "absorbed",
+   "amount": null,
+   "realistic": {
+    "verdict": "Real, recurring cost",
+    "reason": "A salary, raise, contract, or fee change that commits ongoing money.",
+    "flag": "reserve-draw"
+   },
+   "vote": null
+  },
+  {
+   "number": null,
+   "seq": 8,
+   "title": "Changes the Status and Sets Salaries of Current Seasonal Employees to",
+   "category": "personnel",
+   "townFiscalImpact": "Yes",
+   "townTreatment": "absorbed",
+   "amount": null,
+   "realistic": {
+    "verdict": "Real, recurring cost",
+    "reason": "A salary, raise, contract, or fee change that commits ongoing money.",
+    "flag": "reserve-draw"
+   },
+   "vote": null
+  },
+  {
+   "number": null,
+   "seq": 9,
+   "title": "Accepts the Retirement of a Police Officer Brogan",
+   "category": "personnel-out",
+   "townFiscalImpact": "No",
+   "townTreatment": "described",
+   "amount": null,
+   "realistic": {
+    "verdict": "Actually a saving",
+    "reason": "A departure reduces payroll \u2014 the opposite of a cost.",
+    "flag": "saving"
+   },
+   "vote": null
+  },
+  {
+   "number": null,
+   "seq": 10,
+   "title": "Accepts the Retirement of a Police Officer_Lipinsky",
+   "category": "personnel-out",
+   "townFiscalImpact": "No",
+   "townTreatment": "described",
+   "amount": null,
+   "realistic": {
+    "verdict": "Actually a saving",
+    "reason": "A departure reduces payroll \u2014 the opposite of a cost.",
+    "flag": "saving"
+   },
+   "vote": null
+  },
+  {
+   "number": null,
+   "seq": 11,
+   "title": "Accepts the Retirement of a Police Detective_Schmidt",
+   "category": "personnel-out",
+   "townFiscalImpact": "No",
+   "townTreatment": "described",
+   "amount": null,
+   "realistic": {
+    "verdict": "Actually a saving",
+    "reason": "A departure reduces payroll \u2014 the opposite of a cost.",
+    "flag": "saving"
+   },
+   "vote": null
+  },
+  {
+   "number": null,
+   "seq": 12,
+   "title": "Accepts the Retirement of An Account Clerk",
+   "category": "personnel-out",
+   "townFiscalImpact": "No",
+   "townTreatment": "described",
+   "amount": null,
+   "realistic": {
+    "verdict": "Actually a saving",
+    "reason": "A departure reduces payroll \u2014 the opposite of a cost.",
+    "flag": "saving"
+   },
+   "vote": null
+  },
+  {
+   "number": null,
+   "seq": 13,
+   "title": "Ratifies the Resignation of a Fire Marshal I",
+   "category": "personnel-out",
+   "townFiscalImpact": "No",
+   "townTreatment": "described",
+   "amount": null,
+   "realistic": {
+    "verdict": "Actually a saving",
+    "reason": "A departure reduces payroll \u2014 the opposite of a cost.",
+    "flag": "saving"
+   },
+   "vote": null
+  },
+  {
+   "number": null,
+   "seq": 14,
+   "title": "Authorizing an Award of Contract to M&J Engineering, D.P.C. Engineering",
+   "category": "contract",
+   "townFiscalImpact": "Yes",
+   "townTreatment": "described",
+   "amount": null,
+   "realistic": {
+    "verdict": "Real, recurring cost",
+    "reason": "A salary, raise, contract, or fee change that commits ongoing money.",
+    "flag": "reserve-draw"
+   },
+   "vote": null
+  },
+  {
+   "number": null,
+   "seq": 15,
+   "title": "Town Of Riverhead Resolution 2026- Order Establishing Extension To",
+   "category": "contract",
+   "townFiscalImpact": "No",
+   "townTreatment": "described",
+   "amount": null,
+   "realistic": {
+    "verdict": "Understated \u2014 the form says 'no fiscal impact'",
+    "reason": "A salary, contract, or fee item marked 'no fiscal impact' typically still moves money.",
+    "flag": "understated"
+   },
+   "vote": null
+  },
+  {
+   "number": null,
+   "seq": 16,
+   "title": "Ratifies Authorization For The Supervisor To Execute Renewal And",
+   "category": "contract",
+   "townFiscalImpact": "Yes",
+   "townTreatment": "absorbed",
+   "amount": null,
+   "realistic": {
+    "verdict": "Real, recurring cost",
+    "reason": "A salary, raise, contract, or fee change that commits ongoing money.",
+    "flag": "reserve-draw"
+   },
+   "vote": null
+  },
+  {
+   "number": null,
+   "seq": 17,
+   "title": "Authorizes Supervisor To Execute An Agreement With NYS Environmental",
+   "category": "contract",
+   "townFiscalImpact": "No",
+   "townTreatment": "described",
+   "amount": null,
+   "realistic": {
+    "verdict": "Understated \u2014 the form says 'no fiscal impact'",
+    "reason": "A salary, contract, or fee item marked 'no fiscal impact' typically still moves money.",
+    "flag": "understated"
+   },
+   "vote": null
+  },
+  {
+   "number": null,
+   "seq": 18,
+   "title": "Authorizes Submission of Letter of Intent and Execution of Contract by the",
+   "category": "contract",
+   "townFiscalImpact": "No",
+   "townTreatment": "described",
+   "amount": null,
+   "realistic": {
+    "verdict": "Understated \u2014 the form says 'no fiscal impact'",
+    "reason": "A salary, contract, or fee item marked 'no fiscal impact' typically still moves money.",
+    "flag": "understated"
+   },
+   "vote": null
+  },
+  {
+   "number": null,
+   "seq": 19,
+   "title": "Authorizes Commencement of Action - 47 Bayside Avenue",
+   "category": "contract",
+   "townFiscalImpact": "Yes",
+   "townTreatment": "absorbed",
+   "amount": null,
+   "realistic": {
+    "verdict": "Real, recurring cost",
+    "reason": "A salary, raise, contract, or fee change that commits ongoing money.",
+    "flag": "reserve-draw"
+   },
+   "vote": null
+  },
+  {
+   "number": null,
+   "seq": 20,
+   "title": "Ratifies Authorization for the Riverhead Police Department to Apply for",
+   "category": "procedural",
+   "townFiscalImpact": "No",
+   "townTreatment": "described",
+   "amount": null,
+   "realistic": {
+    "verdict": "No direct cost",
+    "reason": "A procedural, permit, or administrative action with no direct levy cost identified.",
+    "flag": "fair"
+   },
+   "vote": null
+  },
+  {
+   "number": null,
+   "seq": 21,
+   "title": "Authorize Town Clerk to Publish and Post Public Notice to Consider a Local",
+   "category": "procedural",
+   "townFiscalImpact": "No",
+   "townTreatment": "described",
+   "amount": null,
+   "realistic": {
+    "verdict": "No direct cost",
+    "reason": "A procedural, permit, or administrative action with no direct levy cost identified.",
+    "flag": "fair"
+   },
+   "vote": null
+  },
+  {
+   "number": null,
+   "seq": 22,
+   "title": "Authorizes the Town Clerk to Publish and Post Notice for Public Hearing",
+   "category": "legislative",
+   "townFiscalImpact": "No",
+   "townTreatment": "described",
+   "amount": null,
+   "realistic": {
+    "verdict": "No direct cost",
+    "reason": "A procedural, permit, or administrative action with no direct levy cost identified.",
+    "flag": "fair"
+   },
+   "vote": null
+  },
+  {
+   "number": null,
+   "seq": 23,
+   "title": "Authorizes the Town Clerk to Publish and Post Notice to Bidders for Annual",
+   "category": "procedural",
+   "townFiscalImpact": "No",
+   "townTreatment": "described",
+   "amount": null,
+   "realistic": {
+    "verdict": "No direct cost",
+    "reason": "A procedural, permit, or administrative action with no direct levy cost identified.",
+    "flag": "fair"
+   },
+   "vote": null
+  },
+  {
+   "number": null,
+   "seq": 24,
+   "title": "Authorizes the Town Clerk to Publish and Post Notice to Bidders for Annual",
+   "category": "procedural",
+   "townFiscalImpact": "No",
+   "townTreatment": "described",
+   "amount": null,
+   "realistic": {
+    "verdict": "No direct cost",
+    "reason": "A procedural, permit, or administrative action with no direct levy cost identified.",
+    "flag": "fair"
+   },
+   "vote": null
+  },
+  {
+   "number": null,
+   "seq": 25,
+   "title": "Authorizes the Town Clerk to Publish and Post Notice to Bidders for Annual",
+   "category": "procedural",
+   "townFiscalImpact": "No",
+   "townTreatment": "described",
+   "amount": null,
+   "realistic": {
+    "verdict": "No direct cost",
+    "reason": "A procedural, permit, or administrative action with no direct levy cost identified.",
+    "flag": "fair"
+   },
+   "vote": null
+  },
+  {
+   "number": null,
+   "seq": 26,
+   "title": "Authorizes the Town Clerk to Publish and Post Notice to Bidders for Annual",
+   "category": "procedural",
+   "townFiscalImpact": "No",
+   "townTreatment": "described",
+   "amount": null,
+   "realistic": {
+    "verdict": "No direct cost",
+    "reason": "A procedural, permit, or administrative action with no direct levy cost identified.",
+    "flag": "fair"
+   },
+   "vote": null
+  },
+  {
+   "number": null,
+   "seq": 27,
+   "title": "Authorizes the Town Clerk to Publish and Post Notice to Bidders for Annual",
+   "category": "procedural",
+   "townFiscalImpact": "No",
+   "townTreatment": "described",
+   "amount": null,
+   "realistic": {
+    "verdict": "No direct cost",
+    "reason": "A procedural, permit, or administrative action with no direct levy cost identified.",
+    "flag": "fair"
+   },
+   "vote": null
+  },
+  {
+   "number": null,
+   "seq": 28,
+   "title": "Extends Bid 2024-27 Nunc Pro Tunc for Highway Department Grinding of",
+   "category": "procedural",
+   "townFiscalImpact": "Yes",
+   "townTreatment": "absorbed",
+   "amount": null,
+   "realistic": {
+    "verdict": "Administrative / offsetting",
+    "reason": "A procedural, permit, or administrative action with no direct levy cost identified.",
+    "flag": "fair"
+   },
+   "vote": null
+  },
+  {
+   "number": null,
+   "seq": 29,
+   "title": "Awards Bid for Replacement of HVAC System at George Young Community",
+   "category": "procedural",
+   "townFiscalImpact": "Yes",
+   "townTreatment": "absorbed",
+   "amount": null,
+   "realistic": {
+    "verdict": "Administrative / offsetting",
+    "reason": "A procedural, permit, or administrative action with no direct levy cost identified.",
+    "flag": "fair"
+   },
+   "vote": null
+  },
+  {
+   "number": null,
+   "seq": 30,
+   "title": "Extends Bid 2024-22 for Well and Pump Testing for Riverhead Water District",
+   "category": "procedural",
+   "townFiscalImpact": "Yes",
+   "townTreatment": "absorbed",
+   "amount": null,
+   "realistic": {
+    "verdict": "Administrative / offsetting",
+    "reason": "A procedural, permit, or administrative action with no direct levy cost identified.",
+    "flag": "fair"
+   },
+   "vote": null
+  },
+  {
+   "number": null,
+   "seq": 31,
+   "title": "Extends Bid 2025-24 Nunc Pro Tunc for Fertilizer and Lawn Chemicals",
+   "category": "procedural",
+   "townFiscalImpact": "Yes",
+   "townTreatment": "absorbed",
+   "amount": null,
+   "realistic": {
+    "verdict": "Administrative / offsetting",
+    "reason": "A procedural, permit, or administrative action with no direct levy cost identified.",
+    "flag": "fair"
+   },
+   "vote": null
+  },
+  {
+   "number": null,
+   "seq": 32,
+   "title": "Approves Special Event Chapter 255 Application for DMS Apex Holdings,",
+   "category": "permit",
+   "townFiscalImpact": "No",
+   "townTreatment": "described",
+   "amount": null,
+   "realistic": {
+    "verdict": "No direct cost",
+    "reason": "A procedural, permit, or administrative action with no direct levy cost identified.",
+    "flag": "fair"
+   },
+   "vote": null
+  },
+  {
+   "number": null,
+   "seq": 33,
+   "title": "Authorizes Designated Alcohol Service Vendor To Serve Alcohol At The",
+   "category": "procedural",
+   "townFiscalImpact": "No",
+   "townTreatment": "described",
+   "amount": null,
+   "realistic": {
+    "verdict": "No direct cost",
+    "reason": "A procedural, permit, or administrative action with no direct levy cost identified.",
+    "flag": "fair"
+   },
+   "vote": null
+  },
+  {
+   "number": null,
+   "seq": 34,
+   "title": "Authorizes Designated Alcohol Service Vendors To Serve Alcohol At The",
+   "category": "procedural",
+   "townFiscalImpact": "No",
+   "townTreatment": "described",
+   "amount": null,
+   "realistic": {
+    "verdict": "No direct cost",
+    "reason": "A procedural, permit, or administrative action with no direct levy cost identified.",
+    "flag": "fair"
+   },
+   "vote": null
+  },
+  {
+   "number": null,
+   "seq": 35,
+   "title": "Adopts the Suffolk County 2026 Hazard Mitigation Plan",
+   "category": "procedural",
+   "townFiscalImpact": "No",
+   "townTreatment": "described",
+   "amount": null,
+   "realistic": {
+    "verdict": "No direct cost",
+    "reason": "A procedural, permit, or administrative action with no direct levy cost identified.",
+    "flag": "fair"
+   },
+   "vote": null
+  },
+  {
+   "number": null,
+   "seq": 36,
+   "title": "Pays Bills",
+   "category": "procedural",
+   "townFiscalImpact": "No",
+   "townTreatment": "described",
+   "amount": null,
+   "realistic": {
+    "verdict": "No direct cost",
+    "reason": "A procedural, permit, or administrative action with no direct levy cost identified.",
+    "flag": "fair"
+   },
+   "vote": null
+  },
+  {
+   "number": null,
+   "seq": 37,
+   "title": "Budget Adjustment for 2026 Records Management and Digital Conversion",
+   "category": "capital",
+   "townFiscalImpact": "Yes",
+   "townTreatment": "absorbed",
+   "amount": null,
+   "realistic": {
+    "verdict": "Understated \u2014 'absorbed by existing budget'",
+    "reason": "It commits capital or debt-service dollars, typically drawn from reserves, fund balance, or borrowing \u2014 not truly cost-free even if 'absorbed'.",
+    "flag": "reserve-draw"
+   },
+   "vote": null
+  }
+ ]
+}
