@@ -635,6 +635,19 @@
   }
  ],
  "peersHavePopulation": true,
+ "policeDistrict": {
+  "countyPopulation": 1525680,
+  "eastEndPopulation": 160313,
+  "countyPolicedPopulation": 1365367,
+  "countyPolicedShare": 0.8949,
+  "townsCounted": [
+   "East Hampton town",
+   "Riverhead town",
+   "Shelter Island town",
+   "Southampton town",
+   "Southold town"
+  ]
+ },
  "limits": [
   "Index crime is the FBI's seven-offence definition. It excludes most of what a police department spends its time on \u2014 traffic, quality-of-life calls, mental-health response, overdoses, domestic incidents that do not reach the aggravated-assault threshold.",
   "The counts are self-reported by the agency. A change in reporting practice moves the line without anything changing on the street.",

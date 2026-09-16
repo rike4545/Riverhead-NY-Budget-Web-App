@@ -7,7 +7,7 @@ import {
   agency, crime, spending, joined, indexed, sinceBase, BASE_YEAR, latest,
   composition, peersComparable, peersPartial, adoptedBeyondCrimeData, completeYears, longRun,
   method, sources, dataLimits, workSession, caution, peersHavePopulation,
-  rateComparison, rateCaveat, perResident,
+  rateComparison, rateCaveat, perResident, whyOwnDepartment, policeDistrict,
 } from '../../lib/police-crime'
 
 const base = process.env.NEXT_PUBLIC_BASE_PATH || ''
@@ -117,6 +117,42 @@ export default function PoliceCrimePage() {
         </section>
       </div>
 
+      {/* Why Riverhead has a police budget line at all */}
+      <section style={{ ...card, marginBottom: 18, borderLeft: '6px solid var(--rbl-accent-border)' }}>
+        <h3 style={{ marginTop: 0, color: 'var(--rbl-title)' }}>Why Riverhead has a police budget at all</h3>
+        <p style={{ color: 'var(--rbl-text-body)', fontSize: 14.5, lineHeight: 1.65, margin: '0 0 10px' }}>
+          Riverhead polices itself because it declined to hand the job to the county. After New York passed the{' '}
+          <strong>{whyOwnDepartment.enablingLegislation}</strong> legislation creating Suffolk&apos;s county-executive
+          government, a referendum put a county police force to the towns. The five western towns —{' '}
+          {whyOwnDepartment.joinedCountyDistrict.join(', ')} — voted to join. The five eastern towns —{' '}
+          {whyOwnDepartment.keptOwnDepartment.join(', ')} — kept their own. The Suffolk County Police Department began
+          operating on <strong>{whyOwnDepartment.countyDepartmentBegan}</strong>, and the split has held ever since.
+        </p>
+        <p style={{ color: 'var(--rbl-text-body)', fontSize: 14, lineHeight: 1.65, margin: '0 0 10px' }}>
+          {whyOwnDepartment.whyItMatters}
+        </p>
+        {policeDistrict && (
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(min(180px,100%),1fr))', gap: 10, margin: '0 0 12px' }}>
+            <Figure label="Policed by the county" value={`${(policeDistrict.countyPolicedShare * 100).toFixed(1)}%`} sub={`${num(policeDistrict.countyPolicedPopulation)} of ${num(policeDistrict.countyPopulation)} residents`} />
+            <Figure label="In a town that polices itself" value={num(policeDistrict.eastEndPopulation)} sub={`${policeDistrict.townsCounted.length} East End towns, Shelter Island included`} />
+            <Figure label="Riverhead's share of that" value={`${((perResident?.population ?? 0) / policeDistrict.eastEndPopulation * 100).toFixed(0)}%`} sub={`${num(perResident?.population ?? 0)} residents`} />
+          </div>
+        )}
+        <p style={{ color: 'var(--rbl-text-muted)', fontSize: 12.8, lineHeight: 1.55, margin: '0 0 8px' }}>
+          {whyOwnDepartment.sourcing}
+        </p>
+        <div style={{ display: 'grid', gap: 4 }}>
+          {whyOwnDepartment.sources.map((src) => (
+            <a key={src.url} href={src.url} target="_blank" rel="noreferrer" style={{ color: 'var(--rbl-link)', fontWeight: 700, fontSize: 12.8, textDecoration: 'none' }}>
+              {src.title} ↗
+              <span style={{ marginLeft: 6, color: 'var(--rbl-text-faint)', fontWeight: 600 }}>
+                {src.kind === 'secondary' ? 'secondary' : 'primary, not published machine-readably'}
+              </span>
+            </a>
+          ))}
+        </div>
+      </section>
+
       {/* Peers */}
       <section style={{ ...card, marginBottom: 18 }}>
         {rateComparison && (
@@ -136,7 +172,7 @@ export default function PoliceCrimePage() {
         )}
         <BarRows
           title={`Reported Index Crime across the East End, ${peersComparable[0]?.year ?? ''}`}
-          lede={`The other town departments in Suffolk County that face the same summer population swing. Only agencies reporting a full twelve months are shown — a partial year is not a smaller number, it is an incomplete one.${peersHavePopulation ? '' : ' These are raw counts, not rates.'}`}
+          lede={`Every other town police department in Suffolk County — not a selection of nearby ones, the complete set, because the western towns have no town police department to compare. Only agencies reporting a full twelve months are shown: a partial year is not a smaller number, it is an incomplete one.${peersHavePopulation ? '' : ' These are raw counts, not rates.'}`}
           source={sources[0].title}
           rows={peersComparable.map((p) => ({
             label: p.agency.replace(' Town PD', '').replace(' PD', ''),
@@ -250,6 +286,16 @@ export default function PoliceCrimePage() {
         ]}
       />
     </PageShell>
+  )
+}
+
+function Figure({ label, value, sub }: { label: string; value: string; sub: string }) {
+  return (
+    <div style={{ background: 'var(--rbl-surface-2)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 10, padding: '10px 12px' }}>
+      <div style={{ color: 'var(--rbl-text-muted)', fontSize: 11, fontWeight: 900, textTransform: 'uppercase', letterSpacing: 0.4 }}>{label}</div>
+      <strong style={{ fontSize: 20, color: 'var(--rbl-title)' }}>{value}</strong>
+      <div style={{ color: 'var(--rbl-text-muted)', fontSize: 12.2, marginTop: 2 }}>{sub}</div>
+    </div>
   )
 }
 

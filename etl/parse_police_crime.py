@@ -96,6 +96,21 @@ TOWN_BY_AGENCY = {
 }
 
 
+def county_population() -> int | None:
+    """Suffolk County total, so the East End share is computed and not guessed."""
+    key = os.environ.get("CENSUS_API_KEY")
+    if not key:
+        return None
+    q = urllib.parse.urlencode({
+        "get": "NAME,DP05_0001E", "for": "county:103", "in": "state:36", "key": key,
+    })
+    rows = json.loads(http_get(f"{ACS}?{q}"))
+    try:
+        return int(rows[1][1])
+    except (IndexError, TypeError, ValueError):
+        return None
+
+
 def town_populations() -> tuple[dict[str, int], dict | None]:
     """ACS 5-year population for the East End towns, or ({}, None) with no key."""
     key = os.environ.get("CENSUS_API_KEY")
@@ -194,6 +209,21 @@ def main() -> int:
         })
 
     pops, pop_source = town_populations()
+    county_pop = county_population()
+
+    # How much of Suffolk is policed by the county rather than by its own town.
+    # Every one of the five East End towns is counted, including Shelter Island,
+    # which has no DCJS rows and so never reaches the peer list.
+    east_end_pop = sum(pops.get(t, 0) for t in TOWN_BY_AGENCY.values()) or None
+    police_district = None
+    if county_pop and east_end_pop:
+        police_district = {
+            "countyPopulation": county_pop,
+            "eastEndPopulation": east_end_pop,
+            "countyPolicedPopulation": county_pop - east_end_pop,
+            "countyPolicedShare": round((county_pop - east_end_pop) / county_pop, 4),
+            "townsCounted": sorted(t for t in TOWN_BY_AGENCY.values() if pops.get(t)),
+        }
 
     peers = []
     for agency in PEERS:
@@ -241,6 +271,7 @@ def main() -> int:
         "joined": joined,
         "peersLatest": peers,
         "peersHavePopulation": any(p.get("population") for p in peers),
+        "policeDistrict": police_district,
         "limits": [
             "Index crime is the FBI's seven-offence definition. It excludes most of what a police "
             "department spends its time on — traffic, quality-of-life calls, mental-health response, "

@@ -210,6 +210,74 @@ export const rateComparison = (() => {
 export const rateCaveat =
   'A per-capita crime rate divides by the people who LIVE somewhere. Riverhead’s index crime is about nine-tenths larceny, and larceny is recorded where the retail is, by and against people who may live anywhere on the East End or beyond. A town that hosts the region’s shopping will record more theft per resident than its neighbours whatever its policing, so this rate measures what the department writes down, not how safe a resident is at home.'
 
+/**
+ * Why these four towns and no others.
+ *
+ * Riverhead runs its own police department because it declined to join the
+ * county one. After New York passed the legislation creating Suffolk's county-
+ * executive government in 1958, a referendum put the question of a county
+ * police force to the towns. The five western towns — Babylon, Huntington,
+ * Islip, Smithtown and Brookhaven — voted to join; the five eastern ones —
+ * Riverhead, Southold, Shelter Island, East Hampton and Southampton — kept
+ * their own forces. The Suffolk County Police Department began operating on
+ * January 1, 1960, and the split has held ever since.
+ *
+ * This is not background colour. It is what makes the peer comparison on this
+ * page the COMPLETE set rather than a selection: the five East End towns are
+ * the only towns in Suffolk County that have a town police department at all,
+ * so they are the only ones with a town police appropriation to compare. A
+ * Brookhaven or Islip resident pays for policing through a county police
+ * district tax, not through a town budget line, and there is no equivalent
+ * figure to put beside Riverhead's.
+ */
+export type PoliceDistrict = {
+  countyPopulation: number
+  eastEndPopulation: number
+  countyPolicedPopulation: number
+  countyPolicedShare: number
+  townsCounted: string[]
+}
+
+/** Computed from Census populations, not asserted as a rough fraction. */
+export const policeDistrict = (data as { policeDistrict?: PoliceDistrict | null }).policeDistrict ?? null
+
+export const whyOwnDepartment = {
+  enablingLegislation: 1958,
+  countyDepartmentBegan: 'January 1, 1960',
+  joinedCountyDistrict: ['Babylon', 'Huntington', 'Islip', 'Smithtown', 'Brookhaven'],
+  keptOwnDepartment: ['Riverhead', 'Southold', 'Shelter Island', 'East Hampton', 'Southampton'],
+  get whyItMatters() {
+    const share = policeDistrict
+      ? `${(policeDistrict.countyPolicedShare * 100).toFixed(1)}% of Suffolk’s population`
+      : 'most of Suffolk’s population'
+    return (
+      'Police is the largest single department in Riverhead’s General Fund. That it sits in the town budget at all — ' +
+      `rather than in a county police district tax, as it does for ${share} — is a structural decision taken around 1960 ` +
+      'and never revisited. It is also why this page compares Riverhead only with the other four East End towns: they ' +
+      'are not the nearest neighbours, they are the entire set of Suffolk towns that still have a town police line to compare.'
+    )
+  },
+  sourcing:
+    'Secondary accounts differ on whether the referendum itself fell in 1958 or 1959; they agree on the 1958 enabling legislation and on the department beginning operations January 1, 1960, so this page states those and not a contested referendum date. The record that would settle it is the Suffolk County Charter’s police-district provisions and the referendum return itself, neither of which is published in a machine-readable form.',
+  sources: [
+    {
+      title: 'Suffolk County Police Department — history of the county police district referendum',
+      url: 'https://en.wikipedia.org/wiki/Suffolk_County_Police_Department',
+      kind: 'secondary' as const,
+    },
+    {
+      title: 'RiverheadLOCAL, “Suffolk Closeup: County cops meddling in local politics is a decades-old pattern” (10/24/2015)',
+      url: 'https://riverheadlocal.com/2015/10/24/suffolk-closeup-county-cops-meddling-in-local-politics-is-a-decades-old-pattern/',
+      kind: 'secondary' as const,
+    },
+    {
+      title: 'Suffolk County Charter — police district provisions (the primary record, not published machine-readably)',
+      url: 'https://suffolkcountyny.gov/',
+      kind: 'primary-unpublished' as const,
+    },
+  ],
+}
+
 export const workSession = {
   title: 'Town Board Work Session, September 17, 2026 — agenda item 1, monthly report for the Police Department',
   url: 'https://riverheadny.portal.civicclerk.com/event/6497/files/agenda/12360',
