@@ -6,6 +6,10 @@ import {
   boardOptions, leversAvailable, overlapCaveat, calendar, scorecard, release,
   levy2026, onePercent,
 } from '../../lib/budget-2027-options'
+import {
+  drawCounts, generalFundCommitments2026, committedTotal, openingSurplusAbovePolicy,
+  remainingHeadroomCeiling, reductionPct, effectOnOptions, limits as commitmentLimits, corpus,
+} from '../../lib/fiscal-commitments-2027'
 
 const base = process.env.NEXT_PUBLIC_BASE_PATH || ''
 const usd = (n: number) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(n)
@@ -189,12 +193,112 @@ export default function Predict2027Page() {
           <Stat label="Firm items only" value={usd(leversAvailable.firm)} />
           <Stat label="Retirement incentive" value={`${usd(leversAvailable.incentiveLow)}–${usd(leversAvailable.incentiveHigh)}`} />
           <Stat label="Every 1% of 2026 levy" value={usd(onePercent)} />
+          <Stat label="Surplus above policy, net of 2026 draws" value={usd(remainingHeadroomCeiling)} sub={`${usd(openingSurplusAbovePolicy)} audited, less ${usd(committedTotal)} committed`} />
         </div>
         <p style={{ color: 'var(--rbl-text-body)', fontSize: 13.7, lineHeight: 1.55, margin: '10px 0 0' }}>{overlapCaveat}</p>
         <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', marginTop: 10 }}>
           <a href={`${base}/spending-reduction-2027/`} style={pillLink}>Build a spending package →</a>
           <a href={`${base}/scenarios/`} style={pillLink}>Test scenarios →</a>
           <a href={`${base}/reserves/`} style={pillLink}>Review reserves →</a>
+          <a href="#committed" style={pillLink}>What&apos;s already committed →</a>
+        </div>
+      </section>
+
+      {/* ============ WHAT IS ALREADY SPENT ============
+          The surplus these options lean on is an AUDITED OPENING BALANCE. The Board
+          has been spending against it all year, and a dollar already voted cannot
+          fund a suggested action as well. Netting the documented draws moves the
+          figure by about a third, so presenting the opening balance alone overstated
+          what is available. */}
+      <section id="committed" style={{ ...card, marginBottom: 16, scrollMarginTop: 16, borderLeft: '6px solid var(--rbl-danger)' }}>
+        <h2 style={{ margin: '0 0 4px', color: 'var(--rbl-title)', fontSize: 19 }}>
+          What the Board has already committed from fund balance
+        </h2>
+        <p style={{ color: 'var(--rbl-text-body)', fontSize: 14.2, lineHeight: 1.6, margin: '0 0 14px', maxWidth: 800 }}>
+          The surplus these options draw on is the audited position at <strong>December 31, 2025</strong>. The Board
+          has been spending against it all through 2026. Every adopted resolution that draws on fund balance reduces
+          what is left for the choices above — so the number to plan against is the netted one, not the opening balance.
+        </p>
+
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(min(190px,100%),1fr))', gap: 10, marginBottom: 14 }}>
+          <Stat label="Audited surplus above policy" value={usd(openingSurplusAbovePolicy)} sub="December 31, 2025" />
+          <Stat label="Documented 2026 commitments" value={`− ${usd(committedTotal)}`} sub={`${generalFundCommitments2026.length} General Fund draws on the record`} />
+          <Stat label="Ceiling on what remains" value={usd(remainingHeadroomCeiling)} sub={`${reductionPct.toFixed(0)}% below the opening figure`} />
+        </div>
+
+        <div style={{ overflowX: 'auto', marginBottom: 14 }}>
+          <table style={{ width: '100%', minWidth: 560, borderCollapse: 'collapse', fontSize: 13.6 }}>
+            <thead>
+              <tr style={{ textAlign: 'left', color: 'var(--rbl-text-muted)', borderBottom: '2px solid var(--rbl-border-subtle)' }}>
+                <th style={{ padding: '8px 10px' }}>What</th>
+                <th style={{ padding: '8px 10px', textAlign: 'right' }}>Amount</th>
+                <th style={{ padding: '8px 10px' }}>Certainty</th>
+              </tr>
+            </thead>
+            <tbody>
+              {generalFundCommitments2026.map((c) => (
+                <tr key={c.label} style={{ borderBottom: '1px solid var(--rbl-border-subtle)', verticalAlign: 'top' }}>
+                  <td style={{ padding: '7px 10px', fontWeight: 800, color: 'var(--rbl-title)' }}>
+                    {c.label}
+                    <div style={{ color: 'var(--rbl-text-muted)', fontWeight: 500, fontSize: 12.6, lineHeight: 1.45, marginTop: 3, maxWidth: 460 }}>{c.note}</div>
+                    <div style={{ color: 'var(--rbl-text-faint)', fontWeight: 600, fontSize: 12, marginTop: 3 }}>{c.source}</div>
+                  </td>
+                  <td style={{ padding: '7px 10px', textAlign: 'right', fontWeight: 800, whiteSpace: 'nowrap', color: 'var(--rbl-warn)' }}>{usd(c.amount)}</td>
+                  <td style={{ padding: '7px 10px', whiteSpace: 'nowrap' }}>
+                    <span style={{ fontWeight: 800, fontSize: 12, padding: '3px 10px', borderRadius: 999, whiteSpace: 'nowrap', background: c.certainty === 'authorised' ? 'var(--rbl-warn-bg)' : 'var(--rbl-surface-2)', color: c.certainty === 'authorised' ? 'var(--rbl-warn-strong)' : 'var(--rbl-text-muted)', border: '1px solid var(--rbl-border-subtle)' }}>
+                      {c.certainty === 'authorised' ? 'Authorised' : 'Ceiling'}
+                    </span>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+
+        <div style={{ background: 'var(--rbl-warn-bg)', border: '1px solid var(--rbl-warn-border)', borderRadius: 10, padding: '12px 14px', marginBottom: 12 }}>
+          <strong style={{ color: 'var(--rbl-warn-strong)', fontSize: 14 }}>
+            And {drawCounts.unpriced} more adopted draws carry no published amount
+          </strong>
+          <p style={{ color: 'var(--rbl-text-strong)', fontSize: 13.6, lineHeight: 1.55, margin: '4px 0 0' }}>
+            Across {corpus.resolutions.toLocaleString()} resolutions in {corpus.meetings} meetings, this site reads{' '}
+            <strong>{drawCounts.adopted}</strong> adopted resolutions as drawing on reserves or fund balance. Only{' '}
+            <strong>{drawCounts.priced}</strong> state a dollar figure. The Town&apos;s Fiscal Impact Statements answer
+            Yes/No and &ldquo;absorbed by existing budget&rdquo;; the amounts sit in backup tables that don&apos;t tie
+            cleanly to a single resolution, so this site leaves them blank rather than guessing. The total above is
+            therefore a <strong>floor</strong>, and the remaining headroom a <strong>ceiling</strong>.
+          </p>
+        </div>
+
+        <div style={{ background: 'var(--rbl-info-bg)', border: '1px solid var(--rbl-info-border)', borderRadius: 10, padding: '12px 14px', marginBottom: 12 }}>
+          <strong style={{ color: 'var(--rbl-info-text)', fontSize: 14 }}>{effectOnOptions.headline}</strong>
+          <p style={{ color: 'var(--rbl-info-text)', fontSize: 13.8, lineHeight: 1.6, margin: '5px 0 8px' }}>{effectOnOptions.body}</p>
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: 16, alignItems: 'baseline' }}>
+            <div>
+              <div style={{ color: 'var(--rbl-text-muted)', fontSize: 11, fontWeight: 900, textTransform: 'uppercase', letterSpacing: 0.4 }}>Freeze covered, opening figure</div>
+              <div style={{ fontSize: 19, fontWeight: 800, color: 'var(--rbl-text-muted)', textDecoration: 'line-through' }}>{effectOnOptions.coverageBefore.toFixed(1)}×</div>
+            </div>
+            <div style={{ fontSize: 20, color: 'var(--rbl-text-muted)' }}>→</div>
+            <div>
+              <div style={{ color: 'var(--rbl-warn-strong)', fontSize: 11, fontWeight: 900, textTransform: 'uppercase', letterSpacing: 0.4 }}>After netting the draws</div>
+              <div style={{ fontSize: 22, fontWeight: 900, color: 'var(--rbl-warn)' }}>{effectOnOptions.coverageAfter.toFixed(1)}×</div>
+            </div>
+          </div>
+        </div>
+
+        <div style={{ background: 'var(--rbl-surface-2)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 10, padding: '12px 14px', marginBottom: 12 }}>
+          <strong style={{ color: 'var(--rbl-title)', fontSize: 14 }}>This cuts both ways</strong>
+          <p style={{ color: 'var(--rbl-text-body)', fontSize: 13.6, lineHeight: 1.6, margin: '4px 0 0' }}>{effectOnOptions.caution}</p>
+        </div>
+
+        <div style={{ background: 'var(--rbl-surface-2)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 10, padding: '12px 14px' }}>
+          <strong style={{ color: 'var(--rbl-title)', fontSize: 14 }}>{commitmentLimits.headline}</strong>
+          <ul style={{ margin: '6px 0 0', paddingLeft: 20, color: 'var(--rbl-text-body)', fontSize: 13.5, lineHeight: 1.6 }}>
+            {commitmentLimits.points.map((pt, i) => (<li key={i} style={{ marginBottom: 5 }}>{pt}</li>))}
+          </ul>
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, marginTop: 12 }}>
+            <a href={`${base}/fiscal-impact/`} style={pillLink}>Every resolution, with its fiscal-impact answer →</a>
+            <a href={`${base}/reserves/`} style={pillLink}>Reserves &amp; the policy range →</a>
+          </div>
         </div>
       </section>
 
