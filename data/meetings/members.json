@@ -19,7 +19,7 @@
    ],
    "moved": 0,
    "seconded": 0,
-   "meetingsVoted": 17,
+   "meetingsVoted": 18,
    "dissents": [
     {
      "slug": "2026-04-07",
@@ -68,13 +68,13 @@
    ],
    "byYear": {
     "2026": {
-     "aye": 833,
+     "aye": 870,
      "abstain": 2,
      "nay": 4
     }
    },
    "career": {
-    "aye": 833,
+    "aye": 870,
     "abstain": 2,
     "nay": 4
    },
@@ -91,9 +91,9 @@
     "2025",
     "2026"
    ],
-   "moved": 465,
-   "seconded": 470,
-   "meetingsVoted": 43,
+   "moved": 474,
+   "seconded": 479,
+   "meetingsVoted": 44,
    "dissents": [
     {
      "slug": "2025-01-07",
@@ -189,12 +189,12 @@
      "abstain": 2
     },
     "2026": {
-     "aye": 838,
+     "aye": 875,
      "abstain": 1
     }
    },
    "career": {
-    "aye": 1863,
+    "aye": 1900,
     "nay": 9,
     "abstain": 3
    },
@@ -211,9 +211,9 @@
     "2025",
     "2026"
    ],
-   "moved": 452,
-   "seconded": 468,
-   "meetingsVoted": 43,
+   "moved": 461,
+   "seconded": 477,
+   "meetingsVoted": 44,
    "dissents": [
     {
      "slug": "2025-01-07",
@@ -237,11 +237,11 @@
      "nay": 2
     },
     "2026": {
-     "aye": 839
+     "aye": 876
     }
    },
    "career": {
-    "aye": 1873,
+    "aye": 1910,
     "nay": 2
    },
    "ayePct": 99.9
@@ -257,9 +257,9 @@
     "2025",
     "2026"
    ],
-   "moved": 485,
-   "seconded": 446,
-   "meetingsVoted": 41,
+   "moved": 495,
+   "seconded": 454,
+   "meetingsVoted": 42,
    "dissents": [
     {
      "slug": "2025-01-07",
@@ -328,14 +328,14 @@
      "absent": 1
     },
     "2026": {
-     "aye": 834,
+     "aye": 871,
      "abstain": 3,
      "nay": 1,
      "absent": 1
     }
    },
    "career": {
-    "aye": 1830,
+    "aye": 1867,
     "nay": 4,
     "abstain": 4,
     "absent": 2
@@ -353,9 +353,9 @@
     "2025",
     "2026"
    ],
-   "moved": 461,
-   "seconded": 482,
-   "meetingsVoted": 41,
+   "moved": 470,
+   "seconded": 493,
+   "meetingsVoted": 42,
    "dissents": [
     {
      "slug": "2025-01-07",
@@ -433,6 +433,13 @@
      "number": "2026-404",
      "title": "Authorizes Town Clerk to Publish and Post Public Notice Setting a Public Hearing for the Condemnation of a Parcel for General Municipal Purposes Located at 111 East Main Street, Riverhead, New York, Suffolk County Tax Map # 129-1-11",
      "result": "ADOPTED [3 - 2]"
+    },
+    {
+     "slug": "2026-09-15",
+     "date": "September 15, 2026",
+     "number": "2026-859",
+     "title": "Authorizes Commencement of Action - 47 Bayside Avenue",
+     "result": "Adopted"
     }
    ],
    "abstentions": [
@@ -450,15 +457,15 @@
      "nay": 7
     },
     "2026": {
-     "aye": 833,
-     "nay": 4,
+     "aye": 869,
+     "nay": 5,
      "absent": 1,
      "abstain": 1
     }
    },
    "career": {
-    "aye": 1834,
-    "nay": 11,
+    "aye": 1870,
+    "nay": 12,
     "absent": 1,
     "abstain": 1
    },
