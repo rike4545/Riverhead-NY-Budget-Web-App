@@ -10,8 +10,8 @@
   "total": 40,
   "markedNo": 25,
   "markedYes": 15,
-  "understated": 18,
-  "understatedMarkedNo": 10,
+  "understated": 19,
+  "understatedMarkedNo": 11,
   "identifiedDollarsAtStake": 1912831.72,
   "pricedResolutions": 3,
   "largestUnderstatedMarkedNo": null,
@@ -24,7 +24,7 @@
   {
    "number": "2026-61",
    "seq": 1,
-   "title": "Water District Capital Project 82601 Q\u2019Doba Restaurant 949 Old Country Rd",
+   "title": "Water District Capital Project 82601 Q\u2019Doba Restaurant 949 Old Country Rd Budget Adoption",
    "category": "capital",
    "townFiscalImpact": "Yes",
    "townTreatment": "absorbed",
@@ -57,7 +57,7 @@
       "fund": "EW3",
       "name": "Water \u2013 Infrastructure",
       "amount": 14931.72,
-      "createdHere": false
+      "createdHere": true
      }
     ],
     "fundBalanceAccounts": [],
@@ -67,7 +67,9 @@
     "matchPercent": null,
     "reimbursementBasis": false,
     "splitAcross": 1,
-    "createsAccounts": []
+    "createsAccounts": [
+     "EW3-8-8320-250-000-82601"
+    ]
    },
    "realistic": {
     "verdict": "Capital fund \u2014 no draw on an operating balance",
@@ -85,7 +87,7 @@
   {
    "number": "2026-62",
    "seq": 2,
-   "title": "Water District Capital Project #82424 Budget Adjustment for Electrical",
+   "title": "Water District Capital Project #82424 Budget Adjustment for Electrical Upgrade at Plant No. 7",
    "category": "capital",
    "townFiscalImpact": "Yes",
    "townTreatment": "absorbed",
@@ -227,7 +229,7 @@
   {
    "number": "2026-64",
    "seq": 4,
-   "title": "Approves Sewer District Request for Change Order No. 1 Related to the",
+   "title": "Approves Sewer District Request for Change Order No. 1 Related to the Electrical Contract for the Class A Biosolids Upgrade Project",
    "category": "capital",
    "townFiscalImpact": "No",
    "townTreatment": "described",
@@ -265,7 +267,7 @@
   {
    "number": "2026-65",
    "seq": 5,
-   "title": "Approves Sewer District Request for Change Order No. 2 Related to the",
+   "title": "Approves Sewer District Request for Change Order No. 2 Related to the Contract E - Electrical Construction for the Class A Biosolids Upgrade Project",
    "category": "capital",
    "townFiscalImpact": "No",
    "townTreatment": "described",
@@ -303,8 +305,8 @@
   {
    "number": "2026-66",
    "seq": 6,
-   "title": "Authorizes Sewer District Employees To Attend NYWEA Meeting And",
-   "category": "procedural",
+   "title": "Authorizes Sewer District Employees To Attend NYWEA Meeting And Training Conference",
+   "category": "training",
    "townFiscalImpact": "Yes",
    "townTreatment": "absorbed",
    "amount": null,
@@ -340,9 +342,9 @@
     "createsAccounts": []
    },
    "realistic": {
-    "verdict": "Administrative / offsetting",
-    "reason": "A procedural, permit, or administrative action with no direct levy cost identified.",
-    "flag": "fair",
+    "verdict": "Small real cost \u2014 and the Town says so",
+    "reason": "Registration or tuition plus mileage and travel, charged to a conference or training line. Individually minor; the Town answered honestly here.",
+    "flag": "small-cost",
     "evidence": "category"
    },
    "vote": {
@@ -621,7 +623,7 @@
   {
    "number": "2026-74",
    "seq": 14,
-   "title": "Ratifies Reappointment of Member of the Riverhead Farmland Preservation",
+   "title": "Ratifies Reappointment of Member of the Riverhead Farmland Preservation Committee -Matt Schmitt",
    "category": "personnel",
    "townFiscalImpact": "No",
    "townTreatment": "described",
@@ -659,8 +661,8 @@
   {
    "number": "2026-75",
    "seq": 15,
-   "title": "Amendment To Lease Payment Provision Of Pre-Possession And Lease",
-   "category": "procedural",
+   "title": "Amendment To Lease Payment Provision Of Pre-Possession And Lease Agreement",
+   "category": "contract",
    "townFiscalImpact": "No",
    "townTreatment": "described",
    "amount": null,
@@ -682,9 +684,9 @@
     "createsAccounts": []
    },
    "realistic": {
-    "verdict": "No direct cost",
-    "reason": "A procedural, permit, or administrative action with no direct levy cost identified.",
-    "flag": "fair",
+    "verdict": "Understated \u2014 the form says 'no fiscal impact'",
+    "reason": "A salary, contract, or fee item marked 'no fiscal impact' typically still moves money.",
+    "flag": "understated",
     "evidence": "category"
    },
    "vote": {
@@ -697,7 +699,7 @@
   {
    "number": "2026-76",
    "seq": 16,
-   "title": "Authorizes the Supervisor to Execute a License Agreement with the Town of",
+   "title": "Authorizes the Supervisor to Execute a License Agreement with the Town of Riverhead Community Development Agency (CDA) for USGA Vehicle Parking",
    "category": "permit",
    "townFiscalImpact": "No",
    "townTreatment": "described",
@@ -735,7 +737,7 @@
   {
    "number": "2026-77",
    "seq": 17,
-   "title": "Authorizes the Supervisor to Sign a Memorandum of Agreement and Waiver",
+   "title": "Authorizes the Supervisor to Sign a Memorandum of Agreement and Waiver & Release for Eastern Suffolk BOCES Interns",
    "category": "labor-contract",
    "townFiscalImpact": "No",
    "townTreatment": "described",
@@ -773,7 +775,7 @@
   {
    "number": "2026-78",
    "seq": 18,
-   "title": "Authorizes The Supervisor To Execute Lease Agreement Authorizing The",
+   "title": "Authorizes The Supervisor To Execute Lease Agreement Authorizing The Town To Lease An Automobile From Suffolk County Office For The Aging",
    "category": "contract",
    "townFiscalImpact": "Yes",
    "townTreatment": "absorbed",
@@ -811,7 +813,7 @@
   {
    "number": "2026-79",
    "seq": 19,
-   "title": "Authorize the Supervisor to Execute a License Agreement with United",
+   "title": "Authorize the Supervisor to Execute a License Agreement with United States Golf Association (USGA), SEQRA Classification, Lead Agency and Negative Declaration",
    "category": "permit",
    "townFiscalImpact": "No",
    "townTreatment": "described",
@@ -849,7 +851,7 @@
   {
    "number": "2026-80",
    "seq": 20,
-   "title": "Authorizes Renewal Of A Musical Works License Agreement With The",
+   "title": "Authorizes Renewal Of A Musical Works License Agreement With The American Society Of Composers, Authors And Publishers (ASCAP) 2026",
    "category": "permit",
    "townFiscalImpact": "Yes",
    "townTreatment": "absorbed",
@@ -925,8 +927,8 @@
   {
    "number": "2026-82",
    "seq": 22,
-   "title": "Authorizes Town Clerk to Publish and Post Public Notice to Consider a",
-   "category": "procedural",
+   "title": "Authorizes Town Clerk to Publish and Post Public Notice to Consider a Local Law to Amend Chapter 279 of the Riverhead Town Code Titled \u201cTaxation\u201d, Article VIII \u201cExemption for Volunteer Firefighters and Volunteer Ambulance Workers\u201d",
+   "category": "legislative",
    "townFiscalImpact": "No",
    "townTreatment": "described",
    "amount": null,
@@ -963,7 +965,7 @@
   {
    "number": "2026-83",
    "seq": 23,
-   "title": "Classifies Special Permit Application of Hampton Jitney Battery Energy",
+   "title": "Classifies Special Permit Application of Hampton Jitney Battery Energy Storage System as an Unlisted Action Pursuant to SEQRA and Issues a Negative Declaration, 253 Edwards Avenue, Calverton (SCTM No. 600-117-1-8.6)",
    "category": "permit",
    "townFiscalImpact": "No",
    "townTreatment": "described",
@@ -1001,7 +1003,7 @@
   {
    "number": "2026-84",
    "seq": 24,
-   "title": "Authorizes Town Clerk to Publish and Post Notice for Public Hearing for the",
+   "title": "Authorizes Town Clerk to Publish and Post Notice for Public Hearing for the Special Permit Application Entitled Hampton Jitney Battery Energy Storage System, 253 Edwards Avenue, Calverton (SCTM No. 600-117-1-8.6)",
    "category": "permit",
    "townFiscalImpact": "No",
    "townTreatment": "described",
@@ -1039,8 +1041,8 @@
   {
    "number": "2026-85",
    "seq": 25,
-   "title": "Classifies an Action as Unlisted Pursuant to SEQRA, Assumes Lead",
-   "category": "procedural",
+   "title": "Classifies an Action as Unlisted Pursuant to SEQRA, Assumes Lead Agency, and Issues a Negative Declaration for the Site Plan and Special Permit Applications Entitled 221 Scott Avenue Energy Storage System, 221 Scott Avenue, Calverton NY SCTM No. 600-135.20-1-12",
+   "category": "permit",
    "townFiscalImpact": "No",
    "townTreatment": "described",
    "amount": null,
@@ -1077,8 +1079,8 @@
   {
    "number": "2026-86",
    "seq": 26,
-   "title": "Authorizes Town Clerk to Publish and Post Public Notice of Public Hearing",
-   "category": "legislative",
+   "title": "Authorizes Town Clerk to Publish and Post Public Notice of Public Hearing for the Site Plan and Special Permit Applications Entitled 221 Scott Avenue Energy Storage System 221 Scott Avenue, Calverton NY SCTM NO. 600-135.20-1-12",
+   "category": "permit",
    "townFiscalImpact": "No",
    "townTreatment": "described",
    "amount": null,
@@ -1115,7 +1117,7 @@
   {
    "number": "2026-87",
    "seq": 27,
-   "title": "Authorizes the Town Clerk to Publish and Post Notice to Bidders for",
+   "title": "Authorizes the Town Clerk to Publish and Post Notice to Bidders for Meetinghouse Creek Road Bulkhead Renovation",
    "category": "procedural",
    "townFiscalImpact": "No",
    "townTreatment": "described",
@@ -1153,7 +1155,7 @@
   {
    "number": "2026-88",
    "seq": 28,
-   "title": "Authorizes Town Clerk to Publish and Post Bid for Propane Fuel and",
+   "title": "Authorizes Town Clerk to Publish and Post Bid for Propane Fuel and Equipment Maintenance",
    "category": "procedural",
    "townFiscalImpact": "No",
    "townTreatment": "described",
@@ -1191,7 +1193,7 @@
   {
    "number": "2026-89",
    "seq": 29,
-   "title": "Extends Bid Nunc Pro Tunc for Bid # 2022-35 Traffic Signal Emergency",
+   "title": "Extends Bid Nunc Pro Tunc for Bid # 2022-35 Traffic Signal Emergency Repair and Additional Work As Authorized",
    "category": "procedural",
    "townFiscalImpact": "Yes",
    "townTreatment": "absorbed",
@@ -1243,7 +1245,7 @@
   {
    "number": "2026-90",
    "seq": 30,
-   "title": "Awards Bid for Rehabilitation of Plant No. 7 - Electrical Upgrades- Riverhead",
+   "title": "Awards Bid for Rehabilitation of Plant No. 7 - Electrical Upgrades- Riverhead Water District",
    "category": "capital",
    "townFiscalImpact": "Yes",
    "townTreatment": "absorbed",
@@ -1333,8 +1335,8 @@
   {
    "number": "2026-92",
    "seq": 32,
-   "title": "Resolution For Home Rule Request In Support Of Bill (Senate Bill #S.8378--",
-   "category": "procedural",
+   "title": "Resolution For Home Rule Request In Support Of Bill (Senate Bill #S.8378-- B/Assembly Bill #A.8809--B) For \u201cAn Act To Amend Chapter 495 Of The Laws Of 2011 Relating To The Conveyance Of Land Formerly Used As An Armory To The Town Of Riverhead, County Of Suffolk In Relation To The Use Of Such Property\u201d",
+   "category": "legislative",
    "townFiscalImpact": "No",
    "townTreatment": "described",
    "amount": null,
@@ -1371,7 +1373,7 @@
   {
    "number": "2026-93",
    "seq": 33,
-   "title": "Authorizes the Submission of A Letter of Intent and Grant Application to New",
+   "title": "Authorizes the Submission of A Letter of Intent and Grant Application to New York SEA GRANT for A Study and Plan to Address Flooding Issues on Creek Road and Sound Road in Wading River, NY",
    "category": "grant",
    "townFiscalImpact": "No",
    "townTreatment": "described",
@@ -1409,7 +1411,7 @@
   {
    "number": "2026-94",
    "seq": 34,
-   "title": "Approves Special Event Chapter 255 Application for Chicken Kidz LLC",
+   "title": "Approves Special Event Chapter 255 Application for Chicken Kidz LLC (Consignment Event)",
    "category": "permit",
    "townFiscalImpact": "No",
    "townTreatment": "described",
@@ -1537,7 +1539,7 @@
   {
    "number": "2026-97",
    "seq": 37,
-   "title": "Authorizes the Supervisor to Execute an Agreement with New York State",
+   "title": "Authorizes the Supervisor to Execute an Agreement with New York State Urban Development Corporation d/b/a Empire State Development",
    "category": "contract",
    "townFiscalImpact": "No",
    "townTreatment": "described",
@@ -1575,7 +1577,7 @@
   {
    "number": "2026-98",
    "seq": 38,
-   "title": "Authorize Supervisor to Sign a Consultant/Professional Services Agreement",
+   "title": "Authorize Supervisor to Sign a Consultant/Professional Services Agreement with Joan Mottern",
    "category": "contract",
    "townFiscalImpact": "Yes",
    "townTreatment": "absorbed",
@@ -1651,7 +1653,7 @@
   {
    "number": "2026-100",
    "seq": 40,
-   "title": "Authorize the Supervisor to Execute Agreement with the CSEA, Local 1000,",
+   "title": "Authorize the Supervisor to Execute Agreement with the CSEA, Local 1000, AFSCME, AFL-CIO, Riverhead Unit of the Suffolk Local #852",
    "category": "labor-contract",
    "townFiscalImpact": "No",
    "townTreatment": "described",

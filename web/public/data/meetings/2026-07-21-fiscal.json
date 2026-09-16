@@ -10,8 +10,8 @@
   "total": 30,
   "markedNo": 25,
   "markedYes": 5,
-  "understated": 7,
-  "understatedMarkedNo": 4,
+  "understated": 9,
+  "understatedMarkedNo": 6,
   "identifiedDollarsAtStake": 153200.0,
   "pricedResolutions": 2,
   "largestUnderstatedMarkedNo": null,
@@ -24,7 +24,7 @@
   {
    "number": "2026-686",
    "seq": 1,
-   "title": "Water District Capital Project 82517 Summerwind Farm Subdivision Budget",
+   "title": "Water District Capital Project 82517 Summerwind Farm Subdivision Budget Adjustment",
    "category": "capital",
    "townFiscalImpact": "Yes",
    "townTreatment": "absorbed",
@@ -94,7 +94,7 @@
   {
    "number": "2026-687",
    "seq": 2,
-   "title": "Sewer District Capital Project 82613 Peconic River Hotel 127 E Main St",
+   "title": "Sewer District Capital Project 82613 Peconic River Hotel 127 E Main St Budget Adoption",
    "category": "capital",
    "townFiscalImpact": "Yes",
    "townTreatment": "absorbed",
@@ -127,7 +127,7 @@
       "fund": "ES2",
       "name": "Sewer - Prof Svcs Engineering",
       "amount": 8800.0,
-      "createdHere": false
+      "createdHere": true
      }
     ],
     "fundBalanceAccounts": [],
@@ -137,7 +137,9 @@
     "matchPercent": null,
     "reimbursementBasis": false,
     "splitAcross": 1,
-    "createsAccounts": []
+    "createsAccounts": [
+     "ES2-8-8130-435-000-82613"
+    ]
    },
    "realistic": {
     "verdict": "Capital fund \u2014 no draw on an operating balance",
@@ -193,7 +195,7 @@
   {
    "number": "2026-689",
    "seq": 4,
-   "title": "Ratifies Acceptance of Donation from Various Local Businesses For Annual",
+   "title": "Ratifies Acceptance of Donation from Various Local Businesses For Annual Snapper Tournament",
    "category": "donation",
    "townFiscalImpact": "No",
    "townTreatment": "described",
@@ -231,7 +233,7 @@
   {
    "number": "2026-690",
    "seq": 5,
-   "title": "Authorizes Financial Administrator to Deposit Funds for Road Restoration",
+   "title": "Authorizes Financial Administrator to Deposit Funds for Road Restoration Project",
    "category": "procedural",
    "townFiscalImpact": "No",
    "townTreatment": "described",
@@ -463,7 +465,7 @@
   {
    "number": "2026-695",
    "seq": 10,
-   "title": "Ratifies Appointment Of Recreation Superintendent And Sets Terms And",
+   "title": "Ratifies Appointment Of Recreation Superintendent And Sets Terms And Conditions Of Employment",
    "category": "personnel",
    "townFiscalImpact": "No",
    "townTreatment": "described",
@@ -501,8 +503,8 @@
   {
    "number": "2026-696",
    "seq": 11,
-   "title": "Authorizes the Riverhead Police Department to Apply for DHS FEMA",
-   "category": "procedural",
+   "title": "Authorizes the Riverhead Police Department to Apply for DHS FEMA Funding to Support the Purchase of a High-Speed Rapid Response Patrol Vessel",
+   "category": "capital",
    "townFiscalImpact": "No",
    "townTreatment": "described",
    "amount": null,
@@ -524,9 +526,9 @@
     "createsAccounts": []
    },
    "realistic": {
-    "verdict": "No direct cost",
-    "reason": "A procedural, permit, or administrative action with no direct levy cost identified.",
-    "flag": "fair",
+    "verdict": "Understated \u2014 the form says 'no fiscal impact'",
+    "reason": "A capital or debt item marked 'no fiscal impact' still moves money the Town must fund.",
+    "flag": "understated",
     "evidence": "category"
    },
    "vote": {
@@ -653,7 +655,7 @@
   {
    "number": "2026-700",
    "seq": 15,
-   "title": "Authorizes the Town Clerk to Publish and Post Notice to Bidders for",
+   "title": "Authorizes the Town Clerk to Publish and Post Notice to Bidders for Replacement of HVAC System at George Young Community Center",
    "category": "procedural",
    "townFiscalImpact": "No",
    "townTreatment": "described",
@@ -691,8 +693,8 @@
   {
    "number": "2026-701",
    "seq": 16,
-   "title": "Ratifies Authorization for Town Clerk to Publish and Post Public Notice for",
-   "category": "procedural",
+   "title": "Ratifies Authorization for Town Clerk to Publish and Post Public Notice for Public Hearing for the Purposes of Conducting Monroe Balancing Test for Riverhead Volunteer Ambulance Corps Ambulance Barn 1111 Osborn Avenue, Riverhead, NY SCTM No. 600-108-2-5",
+   "category": "legislative",
    "townFiscalImpact": "No",
    "townTreatment": "described",
    "amount": null,
@@ -729,8 +731,8 @@
   {
    "number": "2026-702",
    "seq": 17,
-   "title": "Adopts Local Law to Amend Chapter 301 Zoning and Land Development to",
-   "category": "legislative",
+   "title": "Adopts Local Law to Amend Chapter 301 Zoning and Land Development to amend the Town\u2019s Site Plan Review Procedure, and to remove fees related to certain land use applications from the Town Code To Allow the Town Board to Establish Fees by Resolution of the Town Board",
+   "category": "appointment-volunteer",
    "townFiscalImpact": "No",
    "townTreatment": "described",
    "amount": null,
@@ -753,7 +755,7 @@
    },
    "realistic": {
     "verdict": "No direct cost",
-    "reason": "A procedural, permit, or administrative action with no direct levy cost identified.",
+    "reason": "Appointment to an unpaid advisory board, committee, or task force \u2014 no salary attached.",
     "flag": "fair",
     "evidence": "category"
    },
@@ -767,7 +769,7 @@
   {
    "number": "2026-703",
    "seq": 18,
-   "title": "Adopts Local Law to Amend Chapter 105 Boards, Commission and",
+   "title": "Adopts Local Law to Amend Chapter 105 Boards, Commission and Councils, Article II Appeals, Board of, \u00a7105-9 Filing Fees",
    "category": "appointment-volunteer",
    "townFiscalImpact": "No",
    "townTreatment": "described",
@@ -805,8 +807,8 @@
   {
    "number": "2026-704",
    "seq": 19,
-   "title": "Adopts Local Law to Amend Chapter 219 Coastal Erosion Hazard Areas,",
-   "category": "legislative",
+   "title": "Adopts Local Law to Amend Chapter 219 Coastal Erosion Hazard Areas, \u00a7219-26 Fees for Permits and Appeals",
+   "category": "fees",
    "townFiscalImpact": "No",
    "townTreatment": "described",
    "amount": null,
@@ -828,9 +830,9 @@
     "createsAccounts": []
    },
    "realistic": {
-    "verdict": "No direct cost",
-    "reason": "A procedural, permit, or administrative action with no direct levy cost identified.",
-    "flag": "fair",
+    "verdict": "Understated \u2014 the form says 'no fiscal impact'",
+    "reason": "A salary, contract, or fee item marked 'no fiscal impact' typically still moves money.",
+    "flag": "understated",
     "evidence": "category"
    },
    "vote": {
@@ -843,8 +845,8 @@
   {
    "number": "2026-705",
    "seq": 20,
-   "title": "Adopts Local Law to Amend Chapter 295 Wetlands, \u00a7295-6 Application for",
-   "category": "legislative",
+   "title": "Adopts Local Law to Amend Chapter 295 Wetlands, \u00a7295-6 Application for Permit and \u00a7295-10 Enforcement; Penalties for Offenses",
+   "category": "permit",
    "townFiscalImpact": "No",
    "townTreatment": "described",
    "amount": null,
@@ -919,7 +921,7 @@
   {
    "number": "2026-707",
    "seq": 22,
-   "title": "Adopts a Local Law to Amend Chapter 289 of the Riverhead Town Code",
+   "title": "Adopts a Local Law to Amend Chapter 289 of the Riverhead Town Code Titled \u201cVehicles, Traffic and Parking Regulations\u201d, Article IV \u201cParking, Standing and Stopping\u201d",
    "category": "legislative",
    "townFiscalImpact": "No",
    "townTreatment": "described",
@@ -957,7 +959,7 @@
   {
    "number": "2026-708",
    "seq": 23,
-   "title": "Adopts a Local Law to Amend Chapter 289-17 of the Riverhead Town Code",
+   "title": "Adopts a Local Law to Amend Chapter 289-17 of the Riverhead Town Code Titled \u201cParking Time Limited\u201d",
    "category": "legislative",
    "townFiscalImpact": "No",
    "townTreatment": "described",
@@ -995,7 +997,7 @@
   {
    "number": "2026-709",
    "seq": 24,
-   "title": "Ratifies Designation of Alcohol Service Vendor To Serve Alcohol At The",
+   "title": "Ratifies Designation of Alcohol Service Vendor To Serve Alcohol At The \u201cPolish Town Street Fair And Festival 2026\u201d",
    "category": "procedural",
    "townFiscalImpact": "No",
    "townTreatment": "described",
@@ -1033,7 +1035,7 @@
   {
    "number": "2026-710",
    "seq": 25,
-   "title": "Approves Special Event Chapter 255 Application for Daniel Cox (Akliral",
+   "title": "Approves Special Event Chapter 255 Application for Daniel Cox (Akliral Property Event)",
    "category": "permit",
    "townFiscalImpact": "No",
    "townTreatment": "described",
@@ -1071,7 +1073,7 @@
   {
    "number": "2026-711",
    "seq": 26,
-   "title": "Approves Special Event Chapter 255 Application for Protection Sports",
+   "title": "Approves Special Event Chapter 255 Application for Protection Sports Association (PSA K9 Competition)",
    "category": "permit",
    "townFiscalImpact": "No",
    "townTreatment": "described",
@@ -1147,7 +1149,7 @@
   {
    "number": "2026-713",
    "seq": 28,
-   "title": "Amends Resolution 2026-673 Approves Fireworks Application for Jamesport",
+   "title": "Amends Resolution 2026-673 Approves Fireworks Application for Jamesport Fire Department (July 18, 2026)",
    "category": "procedural",
    "townFiscalImpact": "No",
    "townTreatment": "described",
@@ -1185,8 +1187,8 @@
   {
    "number": "2026-714",
    "seq": 29,
-   "title": "Authorizes Town Clerk to Publish and Post Public Notice to Consider a",
-   "category": "procedural",
+   "title": "Authorizes Town Clerk to Publish and Post Public Notice to Consider a Local Law to Amend Chapter 207 of the Riverhead Town Code Titled \u201cAnimals\u201d, Article IV \u201cProhibition on Sales of Commercially Bred Dogs, Cats and Rabbits in Pet Stores\u201d",
+   "category": "legislative",
    "townFiscalImpact": "No",
    "townTreatment": "described",
    "amount": null,
@@ -1223,7 +1225,7 @@
   {
    "number": "2026-715",
    "seq": 30,
-   "title": "Resolution To Authorize And Approve Agreement With Riverhead",
+   "title": "Resolution To Authorize And Approve Agreement With Riverhead Ambulance Corp. Subject To Permissive Referendum",
    "category": "contract",
    "townFiscalImpact": "No",
    "townTreatment": "described",

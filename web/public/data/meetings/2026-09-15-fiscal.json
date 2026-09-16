@@ -10,8 +10,8 @@
   "total": 37,
   "markedNo": 22,
   "markedYes": 15,
-  "understated": 14,
-  "understatedMarkedNo": 3,
+  "understated": 18,
+  "understatedMarkedNo": 7,
   "identifiedDollarsAtStake": 1038285.0,
   "pricedResolutions": 5,
   "largestUnderstatedMarkedNo": null,
@@ -24,7 +24,7 @@
   {
    "number": null,
    "seq": 1,
-   "title": "Adopts Sewer District Capital Project #82619 - NYS SECURE Grant",
+   "title": "Adopts Sewer District Capital Project #82619 - NYS SECURE Grant Infrastructure Improvements",
    "category": "capital",
    "townFiscalImpact": "Yes",
    "townTreatment": "absorbed",
@@ -154,7 +154,7 @@
   {
    "number": null,
    "seq": 3,
-   "title": "Budget Adoption for Capital Project #12620 Restoration of Wading River",
+   "title": "Budget Adoption for Capital Project #12620 Restoration of Wading River Duck Ponds",
    "category": "capital",
    "townFiscalImpact": "Yes",
    "townTreatment": "absorbed",
@@ -216,7 +216,7 @@
   {
    "number": null,
    "seq": 4,
-   "title": "Budget Adjustment for Replacement of HVAC System at George Young",
+   "title": "Budget Adjustment for Replacement of HVAC System at George Young Community Center",
    "category": "capital",
    "townFiscalImpact": "Yes",
    "townTreatment": "absorbed",
@@ -387,7 +387,7 @@
   {
    "number": null,
    "seq": 8,
-   "title": "Changes the Status and Sets Salaries of Current Seasonal Employees to",
+   "title": "Changes the Status and Sets Salaries of Current Seasonal Employees to Call-In Employees in the Recreation Department",
    "category": "personnel",
    "townFiscalImpact": "Yes",
    "townTreatment": "absorbed",
@@ -585,7 +585,7 @@
   {
    "number": null,
    "seq": 14,
-   "title": "Authorizing an Award of Contract to M&J Engineering, D.P.C. Engineering",
+   "title": "Authorizing an Award of Contract to M&J Engineering, D.P.C. Engineering Assessment for the Restoration of the Wading River Duck Ponds, Wading River, NY",
    "category": "contract",
    "townFiscalImpact": "Yes",
    "townTreatment": "described",
@@ -618,7 +618,7 @@
   {
    "number": null,
    "seq": 15,
-   "title": "Town Of Riverhead Resolution 2026- Order Establishing Extension To",
+   "title": "Town Of Riverhead Resolution 2026- Order Establishing Extension To Riverhead Sewer District To Serve 840 Old Country Road, Riverhead (SCTM# 0600-82-03-9.1)",
    "category": "contract",
    "townFiscalImpact": "No",
    "townTreatment": "described",
@@ -651,7 +651,7 @@
   {
    "number": null,
    "seq": 16,
-   "title": "Ratifies Authorization For The Supervisor To Execute Renewal And",
+   "title": "Ratifies Authorization For The Supervisor To Execute Renewal And Amendment Agreement For The Riverhead Central School District School Resource Officer Program",
    "category": "contract",
    "townFiscalImpact": "Yes",
    "townTreatment": "absorbed",
@@ -684,7 +684,7 @@
   {
    "number": null,
    "seq": 17,
-   "title": "Authorizes Supervisor To Execute An Agreement With NYS Environmental",
+   "title": "Authorizes Supervisor To Execute An Agreement With NYS Environmental Facilities Corporation (NYSEFC)",
    "category": "contract",
    "townFiscalImpact": "No",
    "townTreatment": "described",
@@ -717,8 +717,8 @@
   {
    "number": null,
    "seq": 18,
-   "title": "Authorizes Submission of Letter of Intent and Execution of Contract by the",
-   "category": "contract",
+   "title": "Authorizes Submission of Letter of Intent and Execution of Contract by the Supervisor for Operation and Maintenance Grant Program to New York State Environmental Facilities Corporation (EFC)",
+   "category": "grant",
    "townFiscalImpact": "No",
    "townTreatment": "described",
    "amount": null,
@@ -740,9 +740,9 @@
     "createsAccounts": []
    },
    "realistic": {
-    "verdict": "Understated \u2014 the form says 'no fiscal impact'",
-    "reason": "A salary, contract, or fee item marked 'no fiscal impact' typically still moves money.",
-    "flag": "understated",
+    "verdict": "Revenue in / offsetting",
+    "reason": "Money flows, but from a grant, donation, or a developer's own escrow \u2014 not the tax levy.",
+    "flag": "neutral",
     "evidence": "category"
    },
    "vote": null
@@ -783,8 +783,8 @@
   {
    "number": null,
    "seq": 20,
-   "title": "Ratifies Authorization for the Riverhead Police Department to Apply for",
-   "category": "procedural",
+   "title": "Ratifies Authorization for the Riverhead Police Department to Apply for Grant Funding through the Department of Justice's Office of Community Oriented Policing Services Technology and Equipment Program",
+   "category": "grant",
    "townFiscalImpact": "No",
    "townTreatment": "described",
    "amount": null,
@@ -806,9 +806,9 @@
     "createsAccounts": []
    },
    "realistic": {
-    "verdict": "No direct cost",
-    "reason": "A procedural, permit, or administrative action with no direct levy cost identified.",
-    "flag": "fair",
+    "verdict": "Revenue in / offsetting",
+    "reason": "Money flows, but from a grant, donation, or a developer's own escrow \u2014 not the tax levy.",
+    "flag": "neutral",
     "evidence": "category"
    },
    "vote": null
@@ -816,40 +816,7 @@
   {
    "number": null,
    "seq": 21,
-   "title": "Authorize Town Clerk to Publish and Post Public Notice to Consider a Local",
-   "category": "procedural",
-   "townFiscalImpact": "No",
-   "townTreatment": "described",
-   "amount": null,
-   "funding": {
-    "source": null,
-    "sources": [],
-    "sourceText": ": : : :",
-    "fundCodes": [],
-    "funds": [],
-    "amount": null,
-    "accounts": [],
-    "fundBalanceAccounts": [],
-    "fundBalanceDraw": null,
-    "drawsFundBalance": false,
-    "matchRequired": null,
-    "matchPercent": null,
-    "reimbursementBasis": false,
-    "splitAcross": 0,
-    "createsAccounts": []
-   },
-   "realistic": {
-    "verdict": "No direct cost",
-    "reason": "A procedural, permit, or administrative action with no direct levy cost identified.",
-    "flag": "fair",
-    "evidence": "category"
-   },
-   "vote": null
-  },
-  {
-   "number": null,
-   "seq": 22,
-   "title": "Authorizes the Town Clerk to Publish and Post Notice for Public Hearing",
+   "title": "Authorize Town Clerk to Publish and Post Public Notice to Consider a Local Law to Amend Chapter 289 of the Riverhead Town Code Titled \u201cVehicles, Traffic and Parking Regulations\u201d, Article II \u201cTraffic Regulations\u201d",
    "category": "legislative",
    "townFiscalImpact": "No",
    "townTreatment": "described",
@@ -881,9 +848,9 @@
   },
   {
    "number": null,
-   "seq": 23,
-   "title": "Authorizes the Town Clerk to Publish and Post Notice to Bidders for Annual",
-   "category": "procedural",
+   "seq": 22,
+   "title": "Authorizes the Town Clerk to Publish and Post Notice for Public Hearing Regarding US HUD Community Development Block Grant (\"CDBG\") 2027 Funds",
+   "category": "grant",
    "townFiscalImpact": "No",
    "townTreatment": "described",
    "amount": null,
@@ -905,9 +872,42 @@
     "createsAccounts": []
    },
    "realistic": {
-    "verdict": "No direct cost",
-    "reason": "A procedural, permit, or administrative action with no direct levy cost identified.",
-    "flag": "fair",
+    "verdict": "Revenue in / offsetting",
+    "reason": "Money flows, but from a grant, donation, or a developer's own escrow \u2014 not the tax levy.",
+    "flag": "neutral",
+    "evidence": "category"
+   },
+   "vote": null
+  },
+  {
+   "number": null,
+   "seq": 23,
+   "title": "Authorizes the Town Clerk to Publish and Post Notice to Bidders for Annual Emergency Maintenance Contract \u2013 Hydraulic Control Valve - Riverhead Water District",
+   "category": "contract",
+   "townFiscalImpact": "No",
+   "townTreatment": "described",
+   "amount": null,
+   "funding": {
+    "source": null,
+    "sources": [],
+    "sourceText": ": : : :",
+    "fundCodes": [],
+    "funds": [],
+    "amount": null,
+    "accounts": [],
+    "fundBalanceAccounts": [],
+    "fundBalanceDraw": null,
+    "drawsFundBalance": false,
+    "matchRequired": null,
+    "matchPercent": null,
+    "reimbursementBasis": false,
+    "splitAcross": 0,
+    "createsAccounts": []
+   },
+   "realistic": {
+    "verdict": "Understated \u2014 the form says 'no fiscal impact'",
+    "reason": "A salary, contract, or fee item marked 'no fiscal impact' typically still moves money.",
+    "flag": "understated",
     "evidence": "category"
    },
    "vote": null
@@ -915,8 +915,8 @@
   {
    "number": null,
    "seq": 24,
-   "title": "Authorizes the Town Clerk to Publish and Post Notice to Bidders for Annual",
-   "category": "procedural",
+   "title": "Authorizes the Town Clerk to Publish and Post Notice to Bidders for Annual Emergency Maintenance Contract \u2013 Distribution System - Riverhead Water District",
+   "category": "contract",
    "townFiscalImpact": "No",
    "townTreatment": "described",
    "amount": null,
@@ -938,9 +938,9 @@
     "createsAccounts": []
    },
    "realistic": {
-    "verdict": "No direct cost",
-    "reason": "A procedural, permit, or administrative action with no direct levy cost identified.",
-    "flag": "fair",
+    "verdict": "Understated \u2014 the form says 'no fiscal impact'",
+    "reason": "A salary, contract, or fee item marked 'no fiscal impact' typically still moves money.",
+    "flag": "understated",
     "evidence": "category"
    },
    "vote": null
@@ -948,8 +948,8 @@
   {
    "number": null,
    "seq": 25,
-   "title": "Authorizes the Town Clerk to Publish and Post Notice to Bidders for Annual",
-   "category": "procedural",
+   "title": "Authorizes the Town Clerk to Publish and Post Notice to Bidders for Annual Emergency Maintenance Contract \u2013 Directional Drilling - Riverhead Water District",
+   "category": "contract",
    "townFiscalImpact": "No",
    "townTreatment": "described",
    "amount": null,
@@ -971,9 +971,9 @@
     "createsAccounts": []
    },
    "realistic": {
-    "verdict": "No direct cost",
-    "reason": "A procedural, permit, or administrative action with no direct levy cost identified.",
-    "flag": "fair",
+    "verdict": "Understated \u2014 the form says 'no fiscal impact'",
+    "reason": "A salary, contract, or fee item marked 'no fiscal impact' typically still moves money.",
+    "flag": "understated",
     "evidence": "category"
    },
    "vote": null
@@ -981,8 +981,8 @@
   {
    "number": null,
    "seq": 26,
-   "title": "Authorizes the Town Clerk to Publish and Post Notice to Bidders for Annual",
-   "category": "procedural",
+   "title": "Authorizes the Town Clerk to Publish and Post Notice to Bidders for Annual Emergency Maintenance Contract \u2013 Electrical - Riverhead Water District",
+   "category": "contract",
    "townFiscalImpact": "No",
    "townTreatment": "described",
    "amount": null,
@@ -1004,9 +1004,9 @@
     "createsAccounts": []
    },
    "realistic": {
-    "verdict": "No direct cost",
-    "reason": "A procedural, permit, or administrative action with no direct levy cost identified.",
-    "flag": "fair",
+    "verdict": "Understated \u2014 the form says 'no fiscal impact'",
+    "reason": "A salary, contract, or fee item marked 'no fiscal impact' typically still moves money.",
+    "flag": "understated",
     "evidence": "category"
    },
    "vote": null
@@ -1014,8 +1014,8 @@
   {
    "number": null,
    "seq": 27,
-   "title": "Authorizes the Town Clerk to Publish and Post Notice to Bidders for Annual",
-   "category": "procedural",
+   "title": "Authorizes the Town Clerk to Publish and Post Notice to Bidders for Annual Emergency Maintenance Contract \u2013 Process Control Systems - Riverhead Water District",
+   "category": "contract",
    "townFiscalImpact": "No",
    "townTreatment": "described",
    "amount": null,
@@ -1037,9 +1037,9 @@
     "createsAccounts": []
    },
    "realistic": {
-    "verdict": "No direct cost",
-    "reason": "A procedural, permit, or administrative action with no direct levy cost identified.",
-    "flag": "fair",
+    "verdict": "Understated \u2014 the form says 'no fiscal impact'",
+    "reason": "A salary, contract, or fee item marked 'no fiscal impact' typically still moves money.",
+    "flag": "understated",
     "evidence": "category"
    },
    "vote": null
@@ -1047,7 +1047,7 @@
   {
    "number": null,
    "seq": 28,
-   "title": "Extends Bid 2024-27 Nunc Pro Tunc for Highway Department Grinding of",
+   "title": "Extends Bid 2024-27 Nunc Pro Tunc for Highway Department Grinding of Yard Waste On-Site at South Side Young's Avenue Yard Waste Facility",
    "category": "procedural",
    "townFiscalImpact": "Yes",
    "townTreatment": "absorbed",
@@ -1094,7 +1094,7 @@
   {
    "number": null,
    "seq": 29,
-   "title": "Awards Bid for Replacement of HVAC System at George Young Community",
+   "title": "Awards Bid for Replacement of HVAC System at George Young Community Center",
    "category": "capital",
    "townFiscalImpact": "Yes",
    "townTreatment": "absorbed",
@@ -1235,7 +1235,7 @@
   {
    "number": null,
    "seq": 32,
-   "title": "Approves Special Event Chapter 255 Application for DMS Apex Holdings,",
+   "title": "Approves Special Event Chapter 255 Application for DMS Apex Holdings, LLC (Skip Barber Advanced Autocross\")",
    "category": "permit",
    "townFiscalImpact": "No",
    "townTreatment": "described",
@@ -1268,7 +1268,7 @@
   {
    "number": null,
    "seq": 33,
-   "title": "Authorizes Designated Alcohol Service Vendor To Serve Alcohol At The",
+   "title": "Authorizes Designated Alcohol Service Vendor To Serve Alcohol At The Riverhead Chamber Of Commerce \u201cConcerts In The Park\u201d",
    "category": "procedural",
    "townFiscalImpact": "No",
    "townTreatment": "described",
@@ -1301,7 +1301,7 @@
   {
    "number": null,
    "seq": 34,
-   "title": "Authorizes Designated Alcohol Service Vendors To Serve Alcohol At The",
+   "title": "Authorizes Designated Alcohol Service Vendors To Serve Alcohol At The \u201cVillage Vibe\u201d",
    "category": "procedural",
    "townFiscalImpact": "No",
    "townTreatment": "described",

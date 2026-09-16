@@ -10,13 +10,13 @@
   "total": 49,
   "markedNo": 35,
   "markedYes": 14,
-  "understated": 9,
-  "understatedMarkedNo": 2,
+  "understated": 10,
+  "understatedMarkedNo": 3,
   "identifiedDollarsAtStake": 2131038.0,
   "pricedResolutions": 4,
   "largestUnderstatedMarkedNo": null,
   "withAccounts": 10,
-  "accountEvidence": 4,
+  "accountEvidence": 3,
   "fundBalanceDraws": 3,
   "fundBalanceDrawTotal": 2007218.0
  },
@@ -280,7 +280,7 @@
   {
    "number": "2026-720",
    "seq": 5,
-   "title": "Accepts A Donation Of Fire Hose Flag From Sherry Davis For Town Hall",
+   "title": "Accepts A Donation Of Fire Hose Flag From Sherry Davis For Town Hall Lobby",
    "category": "donation",
    "townFiscalImpact": "No",
    "townTreatment": "described",
@@ -318,7 +318,7 @@
   {
    "number": "2026-721",
    "seq": 6,
-   "title": "Ratifies Acceptance of Anonymous Donations for The Recreation",
+   "title": "Ratifies Acceptance of Anonymous Donations for The Recreation Department",
    "category": "donation",
    "townFiscalImpact": "Yes",
    "townTreatment": "absorbed",
@@ -381,8 +381,8 @@
   {
    "number": "2026-722",
    "seq": 7,
-   "title": "Authorizes the Purchasing Director and Purchasing Technician to Attend",
-   "category": "procedural",
+   "title": "Authorizes the Purchasing Director and Purchasing Technician to Attend 2026 NYSAMPO Fall Conference",
+   "category": "training",
    "townFiscalImpact": "Yes",
    "townTreatment": "absorbed",
    "amount": null,
@@ -418,9 +418,9 @@
     "createsAccounts": []
    },
    "realistic": {
-    "verdict": "Administrative / offsetting",
-    "reason": "A procedural, permit, or administrative action with no direct levy cost identified.",
-    "flag": "fair",
+    "verdict": "Small real cost \u2014 and the Town says so",
+    "reason": "Registration or tuition plus mileage and travel, charged to a conference or training line. Individually minor; the Town answered honestly here.",
+    "flag": "small-cost",
     "evidence": "category"
    },
    "vote": {
@@ -433,7 +433,7 @@
   {
    "number": "2026-723",
    "seq": 8,
-   "title": "Ratifies Amendment to Resolution #2026-483 Appointing a Temporary Part-",
+   "title": "Ratifies Amendment to Resolution #2026-483 Appointing a Temporary Part- Time Account Clerk to the Water District",
    "category": "personnel",
    "townFiscalImpact": "Yes",
    "townTreatment": "absorbed",
@@ -525,7 +525,7 @@
   {
    "number": "2026-725",
    "seq": 10,
-   "title": "Ratifies the Amendment of Resolution #2026-442 Approving a Leave of",
+   "title": "Ratifies the Amendment of Resolution #2026-442 Approving a Leave of Absence",
    "category": "procedural",
    "townFiscalImpact": "No",
    "townTreatment": "described",
@@ -791,7 +791,7 @@
   {
    "number": "2026-732",
    "seq": 17,
-   "title": "Establishes Committee Membership and Increases Membership for the",
+   "title": "Establishes Committee Membership and Increases Membership for the Wildlife Management Advisory Committee",
    "category": "appointment-volunteer",
    "townFiscalImpact": "No",
    "townTreatment": "described",
@@ -829,7 +829,7 @@
   {
    "number": "2026-733",
    "seq": 18,
-   "title": "Adopts the Town of Riverhead Gender-Based Violence Policy Related to",
+   "title": "Adopts the Town of Riverhead Gender-Based Violence Policy Related to Federal Funding Assistance to Local Government Entities",
    "category": "procedural",
    "townFiscalImpact": "No",
    "townTreatment": "described",
@@ -867,7 +867,7 @@
   {
    "number": "2026-734",
    "seq": 19,
-   "title": "Approves Special Event Chapter 255 Application for Riverhead Polish",
+   "title": "Approves Special Event Chapter 255 Application for Riverhead Polish Independent Club (Polish Festival)",
    "category": "permit",
    "townFiscalImpact": "No",
    "townTreatment": "described",
@@ -905,7 +905,7 @@
   {
    "number": "2026-735",
    "seq": 20,
-   "title": "Approves Special Event Chapter 255 Application for Foodie Fest",
+   "title": "Approves Special Event Chapter 255 Application for Foodie Fest Productions (Foodie Fest II)",
    "category": "permit",
    "townFiscalImpact": "No",
    "townTreatment": "described",
@@ -943,7 +943,7 @@
   {
    "number": "2026-736",
    "seq": 21,
-   "title": "Approves Special Event Chapter 255 Application for Chicken Kidz LLC",
+   "title": "Approves Special Event Chapter 255 Application for Chicken Kidz LLC (Children's Consignment Sale-Chicken Kidz)",
    "category": "permit",
    "townFiscalImpact": "No",
    "townTreatment": "described",
@@ -981,7 +981,7 @@
   {
    "number": "2026-737",
    "seq": 22,
-   "title": "Approves Special Event Chapter 255 Application for New Beginnings",
+   "title": "Approves Special Event Chapter 255 Application for New Beginnings Community Center (Sound Stock Music and Vendor Festival)",
    "category": "permit",
    "townFiscalImpact": "No",
    "townTreatment": "described",
@@ -1019,7 +1019,7 @@
   {
    "number": "2026-738",
    "seq": 23,
-   "title": "Approves Special Event Chapter 255 Application for Hallockville Museum",
+   "title": "Approves Special Event Chapter 255 Application for Hallockville Museum Farm (Country Fair)",
    "category": "permit",
    "townFiscalImpact": "No",
    "townTreatment": "described",
@@ -1055,9 +1055,9 @@
    }
   },
   {
-   "number": "2026-738",
+   "number": "2026-739",
    "seq": 24,
-   "title": "Approves Special Event Chapter 255 Application for Hallockville Museum",
+   "title": "Approves Special Event Chapter 255 Application for Hallockville Museum Farm (Dan's White Party)",
    "category": "permit",
    "townFiscalImpact": "No",
    "townTreatment": "described",
@@ -1095,7 +1095,7 @@
   {
    "number": "2026-740",
    "seq": 25,
-   "title": "Approves Special Event Chapter 255 Application for Fine Fare Supermarket",
+   "title": "Approves Special Event Chapter 255 Application for Fine Fare Supermarket (Customer Appreciation Day)",
    "category": "permit",
    "townFiscalImpact": "No",
    "townTreatment": "described",
@@ -1133,7 +1133,7 @@
   {
    "number": "2026-741",
    "seq": 26,
-   "title": "Approves Special Event Chapter 255 Application for Waterdrinker Farm",
+   "title": "Approves Special Event Chapter 255 Application for Waterdrinker Farm (Garlic Festival)",
    "category": "permit",
    "townFiscalImpact": "No",
    "townTreatment": "described",
@@ -1171,7 +1171,7 @@
   {
    "number": "2026-742",
    "seq": 27,
-   "title": "Ratifies Approval of Special Event Chapter 255 Application for Home Depot",
+   "title": "Ratifies Approval of Special Event Chapter 255 Application for Home Depot (Extension of Plant Sale)",
    "category": "permit",
    "townFiscalImpact": "No",
    "townTreatment": "described",
@@ -1209,7 +1209,7 @@
   {
    "number": "2026-743",
    "seq": 28,
-   "title": "Approves Special Event Chapter 255 Application for The Greater New York",
+   "title": "Approves Special Event Chapter 255 Application for The Greater New York Running Club (Veteran's Day 5K Run Walk)",
    "category": "permit",
    "townFiscalImpact": "No",
    "townTreatment": "described",
@@ -1247,7 +1247,7 @@
   {
    "number": "2026-744",
    "seq": 29,
-   "title": "Approves Special Event Chapter 255 Application for The Darkside",
+   "title": "Approves Special Event Chapter 255 Application for The Darkside Productions (Darkside Haunted House)",
    "category": "permit",
    "townFiscalImpact": "No",
    "townTreatment": "described",
@@ -1285,7 +1285,7 @@
   {
    "number": "2026-745",
    "seq": 30,
-   "title": "Approves Fireworks Permit Application for Riverhead Raceway (August 8,",
+   "title": "Approves Fireworks Permit Application for Riverhead Raceway (August 8, 2026)",
    "category": "permit",
    "townFiscalImpact": "No",
    "townTreatment": "described",
@@ -1323,7 +1323,7 @@
   {
    "number": "2026-746",
    "seq": 31,
-   "title": "Grants Special Permit and Site Plan Approval for the Site Plan and Special",
+   "title": "Grants Special Permit and Site Plan Approval for the Site Plan and Special Permit Applications Entitled PECONIC RIVER HOTEL, 117-217 E. Main Street, Riverhead NY p/o SCTM Nos. 600-129-1 13; 14 & 15 and P/o SCTM NO. 600-128-6-86.1",
    "category": "grant",
    "townFiscalImpact": "No",
    "townTreatment": "described",
@@ -1361,8 +1361,8 @@
   {
    "number": "2026-747",
    "seq": 32,
-   "title": "Assumes Lead Agency, Issues Positive Declaration for Proposed Golf",
-   "category": "procedural",
+   "title": "Assumes Lead Agency, Issues Positive Declaration for Proposed Golf Course Zoning Amendments",
+   "category": "legislative",
    "townFiscalImpact": "No",
    "townTreatment": "described",
    "amount": null,
@@ -1399,7 +1399,7 @@
   {
    "number": "2026-748",
    "seq": 33,
-   "title": "Accepts Draft Scope on Proposed Golf Course Zoning Amendments and",
+   "title": "Accepts Draft Scope on Proposed Golf Course Zoning Amendments and Sets Time Period for Submission of Written Comments on Draft Scope",
    "category": "legislative",
    "townFiscalImpact": "No",
    "townTreatment": "described",
@@ -1437,7 +1437,7 @@
   {
    "number": "2026-749",
    "seq": 34,
-   "title": "Resolution Granting the State of New York Authority to Perform the",
+   "title": "Resolution Granting the State of New York Authority to Perform the Adjustment for the Owner and Agreeing to Maintain Facilities Adjusted Via State-let Contract",
    "category": "grant",
    "townFiscalImpact": "No",
    "townTreatment": "described",
@@ -1475,7 +1475,7 @@
   {
    "number": "2026-750",
    "seq": 35,
-   "title": "Approves the Submission of a Grant Application to the State of New York",
+   "title": "Approves the Submission of a Grant Application to the State of New York Unified Court System for 2026-2027 JCAP Grant",
    "category": "grant",
    "townFiscalImpact": "No",
    "townTreatment": "described",
@@ -1515,7 +1515,7 @@
   {
    "number": "2026-751",
    "seq": 36,
-   "title": "Authorizes the Community Development Department to Apply for ESD/NY",
+   "title": "Authorizes the Community Development Department to Apply for ESD/NY KICKS Funding Through the Consolidated Funding Application",
    "category": "grant",
    "townFiscalImpact": "Yes",
    "townTreatment": "absorbed",
@@ -1555,8 +1555,8 @@
   {
    "number": "2026-752",
    "seq": 37,
-   "title": "Ratifies Authorization for the Community Development Department to Apply",
-   "category": "procedural",
+   "title": "Ratifies Authorization for the Community Development Department to Apply for NYS EFC WIIA Funding to Support the Extension of Water Main #96 (Calverton)",
+   "category": "contract",
    "townFiscalImpact": "Yes",
    "townTreatment": "absorbed",
    "amount": null,
@@ -1578,9 +1578,9 @@
     "createsAccounts": []
    },
    "realistic": {
-    "verdict": "Administrative / offsetting",
-    "reason": "A procedural, permit, or administrative action with no direct levy cost identified.",
-    "flag": "fair",
+    "verdict": "Real, recurring cost",
+    "reason": "A salary, raise, contract, or fee change that commits ongoing money.",
+    "flag": "reserve-draw",
     "evidence": "category"
    },
    "vote": {
@@ -1593,7 +1593,7 @@
   {
    "number": "2026-753",
    "seq": 38,
-   "title": "Order Calling for a Public Hearing to be Held on September 1, 2026 In the",
+   "title": "Order Calling for a Public Hearing to be Held on September 1, 2026 In the Matter of the Increase and Improvement of Facilities of the Riverhead Ambulance District",
    "category": "legislative",
    "townFiscalImpact": "Yes",
    "townTreatment": "described",
@@ -1631,7 +1631,7 @@
   {
    "number": "2026-754",
    "seq": 39,
-   "title": "Authorizes Town Clerk to Publish and Post Notice of Public Hearing to",
+   "title": "Authorizes Town Clerk to Publish and Post Notice of Public Hearing to Consider a Local Law to Amend Town Code Chapter 301, Article XVI Entitled \"Business PB\"",
    "category": "legislative",
    "townFiscalImpact": "No",
    "townTreatment": "described",
@@ -1669,7 +1669,7 @@
   {
    "number": "2026-755",
    "seq": 40,
-   "title": "Adopts a Local Law to Amend Chapter 289 of the Riverhead Town Code",
+   "title": "Adopts a Local Law to Amend Chapter 289 of the Riverhead Town Code Titled \u201cVehicles, Traffic and Parking Regulations\u201d, Article IV \u201cParking, Standing and Stopping\u201d",
    "category": "legislative",
    "townFiscalImpact": "No",
    "townTreatment": "described",
@@ -1707,7 +1707,7 @@
   {
    "number": "2026-756",
    "seq": 41,
-   "title": "Authorizes the Supervisor to Execute a Professional Services Agreement",
+   "title": "Authorizes the Supervisor to Execute a Professional Services Agreement with Sound Engineering, P.C. for Traffic Signal Design Plans at Osborn Avenue and Harrison Avenue",
    "category": "contract",
    "townFiscalImpact": "Yes",
    "townTreatment": "absorbed",
@@ -1757,9 +1757,9 @@
    }
   },
   {
-   "number": "2026-756",
+   "number": "2026-757",
    "seq": 42,
-   "title": "Authorizes the Supervisor to Execute a Professional Services Agreement",
+   "title": "Authorizes the Supervisor to Execute a Professional Services Agreement with Sound Engineering, P.C. for Traffic Signal Design Plans at South Jamesport Avenue and Railroad Avenue",
    "category": "contract",
    "townFiscalImpact": "Yes",
    "townTreatment": "absorbed",
@@ -1811,7 +1811,7 @@
   {
    "number": "2026-758",
    "seq": 43,
-   "title": "Ratifies the Authorization for the Supervisor to Execute a License",
+   "title": "Ratifies the Authorization for the Supervisor to Execute a License Agreement with East Coast Lumberjacks LLC to Utilize the Baseball Field at Police Officers Memorial Park",
    "category": "permit",
    "townFiscalImpact": "No",
    "townTreatment": "described",
@@ -1849,8 +1849,8 @@
   {
    "number": "2026-759",
    "seq": 44,
-   "title": "Ratifies the Authorization for the Supervisor to Execute an Addendum to the",
-   "category": "procedural",
+   "title": "Ratifies the Authorization for the Supervisor to Execute an Addendum to the Short Term Runway Use Agreement For Race Track Not Street 2026 Summer Motorsports Classic",
+   "category": "contract",
    "townFiscalImpact": "No",
    "townTreatment": "described",
    "amount": null,
@@ -1872,9 +1872,9 @@
     "createsAccounts": []
    },
    "realistic": {
-    "verdict": "No direct cost",
-    "reason": "A procedural, permit, or administrative action with no direct levy cost identified.",
-    "flag": "fair",
+    "verdict": "Understated \u2014 the form says 'no fiscal impact'",
+    "reason": "A salary, contract, or fee item marked 'no fiscal impact' typically still moves money.",
+    "flag": "understated",
     "evidence": "category"
    },
    "vote": {
@@ -1887,7 +1887,7 @@
   {
    "number": "2026-760",
    "seq": 45,
-   "title": "Authorizes The Settlement Of Legal Action In The Matter Of United",
+   "title": "Authorizes The Settlement Of Legal Action In The Matter Of United Riverhead Terminal, Inc. Against The Board Of Assessors And The Assessors And The Board Of Assessment Review Of The Town Of Riverhead And The Town Of Riverhead",
    "category": "litigation",
    "townFiscalImpact": "No",
    "townTreatment": "described",
@@ -1963,8 +1963,8 @@
   {
    "number": "2026-762",
    "seq": 47,
-   "title": "Ratifies Budget Adjustment to Temporarily Amend Funding Source for Pay",
-   "category": "capital",
+   "title": "Ratifies Budget Adjustment to Temporarily Amend Funding Source for Pay Down of Town Square BAN",
+   "category": "debt",
    "townFiscalImpact": "Yes",
    "townTreatment": "absorbed",
    "amount": 1996718.0,
@@ -2022,10 +2022,10 @@
     "createsAccounts": []
    },
    "realistic": {
-    "verdict": "Draws fund balance \u2014 stated on the Town's own form",
-    "reason": "Section G charges $1,874,218 to Appropriated Fund Balance in the General Fund. This is not an inference from the title: it is the account the Town wrote down, and every dollar of it is surplus that is no longer available for anything else.",
-    "flag": "reserve-draw",
-    "evidence": "account-code"
+    "verdict": "Creates debt service on future budgets",
+    "reason": "A bond resolution authorises borrowing. Nothing comes out of fund balance when it passes \u2014 the cost arrives as debt service in every budget until the bond matures, paid out of the levy. For a future capital project that is the whole fiscal impact, and it is the part a single-year form is worst at showing.",
+    "flag": "future-debt",
+    "evidence": "category"
    },
    "vote": {
     "adopted": true,
@@ -2075,7 +2075,7 @@
   {
    "number": "2026-764",
    "seq": 49,
-   "title": "Determination that the Improvements for the Riverhead Ambulance Barn",
+   "title": "Determination that the Improvements for the Riverhead Ambulance Barn Located at 1121 Osborn Avenue Riverhead, NY Are, Upon Monroe Balancing Test, Exempt from Formal Site Plan Review and Chapter 301 of the Riverhead Town Code",
    "category": "personnel-out",
    "townFiscalImpact": "No",
    "townTreatment": "described",

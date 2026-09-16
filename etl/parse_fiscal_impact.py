@@ -673,6 +673,28 @@ def classify(title: str, purpose: str) -> str:
 
 
 # ── Packet parsing ──────────────────────────────────────────────────────────
+#
+# The form's title and purpose are single labelled fields that WRAP. The Clerk
+# writes titles longer than the line, and the PDF breaks them, so reading only
+# the first line silently truncated every long one:
+#
+#   "Ratifies the Authorization for the Supervisor to Execute Stipulation with the"
+#
+# — which cuts off exactly the part that says which union. It also cost the
+# classifier every keyword past the first line, since `purpose` feeds the
+# category rules. A field runs until the next lettered heading.
+NEXT_HEADING = re.compile(r"\n\s*[A-Z]\.\s")
+
+
+def _field(block_text: str, label_pat: str) -> str:
+    m = re.search(label_pat, block_text)
+    if not m:
+        return ""
+    rest = block_text[m.end():]
+    end = NEXT_HEADING.search(rest)
+    return " ".join((rest[: end.start()] if end else rest[:400]).split()).strip()
+
+
 def parse_packet(text: str) -> list[dict]:
     blocks = re.split(r"FISCAL IMPACT STATEMENT", text)[1:]
     out = []
@@ -680,10 +702,8 @@ def parse_packet(text: str) -> list[dict]:
         d = re.search(r"Will the Proposed Legislation have a Fiscal Impact:\s*(Yes|No)", b)
         if not d:
             continue
-        tm = re.search(r"Title of Proposed Legislation:\s*(.+)", b)
-        pm = re.search(r"Purpose of Proposed Legislation:\s*(.+)", b)
-        title = (tm.group(1).strip() if tm else "").strip()
-        purpose = (pm.group(1).strip() if pm else "").strip()
+        title = _field(b, r"Title of Proposed Legislation:")
+        purpose = _field(b, r"Purpose of Proposed Legislation:")
         if not title:
             continue
         fiscal_impact = d.group(1)

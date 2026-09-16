@@ -24,7 +24,7 @@
   {
    "number": "2026-222",
    "seq": 1,
-   "title": "Sewer District Capital Project #82210 Budget Adjustment for Biosolids",
+   "title": "Sewer District Capital Project #82210 Budget Adjustment for Biosolids Facility",
    "category": "capital",
    "townFiscalImpact": "Yes",
    "townTreatment": "absorbed",
@@ -167,7 +167,7 @@
   {
    "number": "2026-224",
    "seq": 3,
-   "title": "Adopts Budget Adjustment for Children\u2019s Adaptive Playground Capital",
+   "title": "Adopts Budget Adjustment for Children\u2019s Adaptive Playground Capital Project 72404",
    "category": "capital",
    "townFiscalImpact": "Yes",
    "townTreatment": "absorbed",
@@ -536,7 +536,7 @@
   {
    "number": "2026-231",
    "seq": 11,
-   "title": "Appoints a Call-In Assistant Recreation Leader to the Recreation",
+   "title": "Appoints a Call-In Assistant Recreation Leader to the Recreation Department",
    "category": "personnel",
    "townFiscalImpact": "Yes",
    "townTreatment": "absorbed",
@@ -678,7 +678,7 @@
   {
    "number": "2026-234",
    "seq": 14,
-   "title": "Appoints Douglas Borge to the Town of Riverhead Emerging Technology",
+   "title": "Appoints Douglas Borge to the Town of Riverhead Emerging Technology Committee",
    "category": "personnel",
    "townFiscalImpact": "No",
    "townTreatment": "described",
@@ -1020,7 +1020,7 @@
   {
    "number": "2026-243",
    "seq": 23,
-   "title": "Increase of the Petty Cash Account for the Riverhead Parks and Recreation",
+   "title": "Increase of the Petty Cash Account for the Riverhead Parks and Recreation Department and Assigns the Custody of the Petty Cash Account",
    "category": "procedural",
    "townFiscalImpact": "No",
    "townTreatment": "described",
@@ -1096,7 +1096,7 @@
   {
    "number": "2026-245",
    "seq": 25,
-   "title": "Approves S&D Mini Excavating, Inc. As A Drainlayer For The Riverhead",
+   "title": "Approves S&D Mini Excavating, Inc. As A Drainlayer For The Riverhead Sewer District",
    "category": "procedural",
    "townFiscalImpact": "No",
    "townTreatment": "described",
@@ -1134,7 +1134,7 @@
   {
    "number": "2026-246",
    "seq": 26,
-   "title": "Approves Riverhead Business Improvement District Management",
+   "title": "Approves Riverhead Business Improvement District Management Association\u2019s Request to Extend the Filing Date for Filing of District Tax Exemption",
    "category": "procedural",
    "townFiscalImpact": "No",
    "townTreatment": "described",
@@ -1309,7 +1309,7 @@
   {
    "number": "2026-249",
    "seq": 29,
-   "title": "Awards Bid for Construction of Pre-fabricated Building for the Highway",
+   "title": "Awards Bid for Construction of Pre-fabricated Building for the Highway Department",
    "category": "capital",
    "townFiscalImpact": "Yes",
    "townTreatment": "described",
@@ -1347,8 +1347,8 @@
   {
    "number": "2026-250",
    "seq": 30,
-   "title": "Authorizes the Town Clerk to Publish and Post Notice to Bidders for Twin",
-   "category": "procedural",
+   "title": "Authorizes the Town Clerk to Publish and Post Notice to Bidders for Twin Honda Outboard Motors, or Equal, Plus Additional Related Items and Installation for the Riverhead Police Department",
+   "category": "appointment-volunteer",
    "townFiscalImpact": "No",
    "townTreatment": "described",
    "amount": null,
@@ -1371,7 +1371,7 @@
    },
    "realistic": {
     "verdict": "No direct cost",
-    "reason": "A procedural, permit, or administrative action with no direct levy cost identified.",
+    "reason": "Appointment to an unpaid advisory board, committee, or task force \u2014 no salary attached.",
     "flag": "fair",
     "evidence": "category"
    },
@@ -1385,7 +1385,7 @@
   {
    "number": "2026-251",
    "seq": 31,
-   "title": "Authorizes Town Clerk to Publish and Post Request for Proposals for Buses",
+   "title": "Authorizes Town Clerk to Publish and Post Request for Proposals for Buses for Recreation Summer Day Camp Trips",
    "category": "procedural",
    "townFiscalImpact": "No",
    "townTreatment": "described",
@@ -1423,7 +1423,7 @@
   {
    "number": "2026-252",
    "seq": 32,
-   "title": "Adopts a Local Law Repealing Article 1 of Chapter 105, Titled \u201cAccessory",
+   "title": "Adopts a Local Law Repealing Article 1 of Chapter 105, Titled \u201cAccessory Apartments\u201d of the Riverhead Town Code and Thereupon Enacting a New Part 7, Titled \u201cAccessory Dwelling Unit(s) (ADUs)\u201d of Chapter 217, Titled \u201cBuildings, Building Construction and Improvements and Housing Standards\u201d of the Riverhead Town Code",
    "category": "legislative",
    "townFiscalImpact": "No",
    "townTreatment": "described",
@@ -1461,7 +1461,7 @@
   {
    "number": "2026-253",
    "seq": 33,
-   "title": "Adopts A Local Law Amending Chapter 265 Of The Riverhead Town Code",
+   "title": "Adopts A Local Law Amending Chapter 265 Of The Riverhead Town Code Entitled, \u201cSewers\u201d",
    "category": "legislative",
    "townFiscalImpact": "No",
    "townTreatment": "described",
@@ -1499,7 +1499,7 @@
   {
    "number": "2026-254",
    "seq": 34,
-   "title": "Authorizes the Supervisor to Execute a Non-Binding, Project Scope Letter to",
+   "title": "Authorizes the Supervisor to Execute a Non-Binding, Project Scope Letter to PSEGLI for the redevelopment of 1129 West Main Street, Riverhead, New York, known as the \u201cPerkins Building\u201d",
    "category": "procedural",
    "townFiscalImpact": "No",
    "townTreatment": "described",
@@ -1537,7 +1537,7 @@
   {
    "number": "2026-254",
    "seq": 35,
-   "title": "Authorizes the Supervisor to Execute a Non-Binding, Project Scope Letter to",
+   "title": "Authorizes the Supervisor to Execute a Non-Binding, Project Scope Letter to PSEGLI for the redevelopment of 1129 West Main Street, Riverhead, New York, known as the \u201cPerkins Building\u201d",
    "category": "procedural",
    "townFiscalImpact": "No",
    "townTreatment": "described",
@@ -1575,7 +1575,7 @@
   {
    "number": "2026-255",
    "seq": 36,
-   "title": "Authorizes the Supervisor to Execute an Agreement Authorizing the Town to",
+   "title": "Authorizes the Supervisor to Execute an Agreement Authorizing the Town to Accept Funds from Suffolk County Office for the Aging for the Purpose of Supplementing the Town\u2019s Nutrition Program for the Elderly 2026",
    "category": "contract",
    "townFiscalImpact": "No",
    "townTreatment": "described",
@@ -1613,7 +1613,7 @@
   {
    "number": "2026-256",
    "seq": 37,
-   "title": "Ratifies Execution Of A License Agreement With Research Foundation Of",
+   "title": "Ratifies Execution Of A License Agreement With Research Foundation Of State University Of New York For Installation Of Fish Passage Camera At Grangebel Park",
    "category": "permit",
    "townFiscalImpact": "No",
    "townTreatment": "described",
@@ -1651,7 +1651,7 @@
   {
    "number": "2026-257",
    "seq": 38,
-   "title": "Zenith Building Addition Site Plan Preliminary Approval 301 E. Main Street &",
+   "title": "Zenith Building Addition Site Plan Preliminary Approval 301 E. Main Street & 12 McDermott Ave, Riverhead, NY SCTM Nos. 600-129-4-1 & 600-129-4-5.2",
    "category": "procedural",
    "townFiscalImpact": "No",
    "townTreatment": "described",
@@ -1689,7 +1689,7 @@
   {
    "number": "2026-258",
    "seq": 39,
-   "title": "Ratifies Authorization for Town Attorney to Retain Special Counsel in",
+   "title": "Ratifies Authorization for Town Attorney to Retain Special Counsel in Connection with Litigation Commenced by Suffolk County Water Authority",
    "category": "procedural",
    "townFiscalImpact": "No",
    "townTreatment": "described",
@@ -1727,7 +1727,7 @@
   {
    "number": "2026-259",
    "seq": 40,
-   "title": "Approves ClearRiver Environmental Service Corp. as a Drainlayer for The",
+   "title": "Approves ClearRiver Environmental Service Corp. as a Drainlayer for The Riverhead Sewer District",
    "category": "procedural",
    "townFiscalImpact": "No",
    "townTreatment": "described",
@@ -1765,7 +1765,7 @@
   {
    "number": "2026-260",
    "seq": 41,
-   "title": "Approves Special Event Chapter 255 Application for The Greater Long",
+   "title": "Approves Special Event Chapter 255 Application for The Greater Long Island Running Club (Kings Park 15K)",
    "category": "permit",
    "townFiscalImpact": "No",
    "townTreatment": "described",
@@ -1803,7 +1803,7 @@
   {
    "number": "2026-261",
    "seq": 42,
-   "title": "Approves Special Event Chapter 255 Application for Polish Town Civic",
+   "title": "Approves Special Event Chapter 255 Application for Polish Town Civic Association (Polish Town Street Fair and Festival)",
    "category": "permit",
    "townFiscalImpact": "No",
    "townTreatment": "described",
@@ -1841,7 +1841,7 @@
   {
    "number": "2026-262",
    "seq": 43,
-   "title": "Approves Special Event Chapter 255 Application for Riverhead Rotary",
+   "title": "Approves Special Event Chapter 255 Application for Riverhead Rotary (Garden Festival)",
    "category": "permit",
    "townFiscalImpact": "No",
    "townTreatment": "described",
@@ -1917,8 +1917,8 @@
   {
    "number": "2026-264",
    "seq": 45,
-   "title": "Adopts Final Scope for the Preparation of the DEIS for Duffy MX Motocross",
-   "category": "procedural",
+   "title": "Adopts Final Scope for the Preparation of the DEIS for Duffy MX Motocross Track Special Permit and Site Plan Application 2822 River Rd, Calverton, NY SCTM No. 600-136-1-4",
+   "category": "permit",
    "townFiscalImpact": "No",
    "townTreatment": "described",
    "amount": null,
@@ -1993,7 +1993,7 @@
   {
    "number": "2026-266",
    "seq": 47,
-   "title": "Authorizes the Community Development Department to Apply for",
+   "title": "Authorizes the Community Development Department to Apply for Community Project Funding a/k/a Congressionally Directed Spending (Senate) and Community Project Funding a/k/a Congressionally Directed Spending (House of Representatives) for Economic Development Initiative for Repaving, Draining, Public Works Facilities, Streetscape improvements",
    "category": "grant",
    "townFiscalImpact": "No",
    "townTreatment": "described",
@@ -2029,9 +2029,9 @@
    }
   },
   {
-   "number": "2026-266",
+   "number": "2026-267",
    "seq": 48,
-   "title": "Authorizes the Community Development Department to Apply for",
+   "title": "Authorizes the Community Development Department to Apply for Community Project Funding a/k/a Congressionally Directed Spending (Senate) and Community Project Funding a/k/a Congressionally Directed Spending (House of Representatives) for Police Vehicles",
    "category": "grant",
    "townFiscalImpact": "No",
    "townTreatment": "described",

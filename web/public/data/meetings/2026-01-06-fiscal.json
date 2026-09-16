@@ -10,8 +10,8 @@
   "total": 60,
   "markedNo": 28,
   "markedYes": 32,
-  "understated": 38,
-  "understatedMarkedNo": 10,
+  "understated": 39,
+  "understatedMarkedNo": 11,
   "identifiedDollarsAtStake": 108479.08,
   "pricedResolutions": 3,
   "largestUnderstatedMarkedNo": null,
@@ -522,7 +522,7 @@
   {
    "number": "2026-13",
    "seq": 13,
-   "title": "Appoints a Wastewater Treatment Plant Operator 4A, Internally designated",
+   "title": "Appoints a Wastewater Treatment Plant Operator 4A, Internally designated as Deputy Sewer District Superintendent",
    "category": "personnel",
    "townFiscalImpact": "No",
    "townTreatment": "described",
@@ -612,7 +612,7 @@
   {
    "number": "2026-15",
    "seq": 15,
-   "title": "Amends/Corrects Resolution #2025-981 Appointing Deputy Highway",
+   "title": "Amends/Corrects Resolution #2025-981 Appointing Deputy Highway Superintendent",
    "category": "personnel",
    "townFiscalImpact": "No",
    "townTreatment": "described",
@@ -650,7 +650,7 @@
   {
    "number": "2026-16",
    "seq": 16,
-   "title": "Ratifies the Reclassification of a Maintenance Mechanic III to a Maintenance",
+   "title": "Ratifies the Reclassification of a Maintenance Mechanic III to a Maintenance Mechanic IV (Berry)",
    "category": "personnel",
    "townFiscalImpact": "Yes",
    "townTreatment": "absorbed",
@@ -837,7 +837,7 @@
   {
    "number": "2026-19",
    "seq": 19,
-   "title": "Budget Adjustment for Final Demolition Costs at 39 Pye Lane, Jamesport,",
+   "title": "Budget Adjustment for Final Demolition Costs at 39 Pye Lane, Jamesport, New York",
    "category": "capital",
    "townFiscalImpact": "Yes",
    "townTreatment": "absorbed",
@@ -898,7 +898,7 @@
   {
    "number": "2026-20",
    "seq": 20,
-   "title": "Approves Sewer District Request For Change Order No. 1 Related To The",
+   "title": "Approves Sewer District Request For Change Order No. 1 Related To The Class A Biosolids Upgrade Project",
    "category": "capital",
    "townFiscalImpact": "No",
    "townTreatment": "described",
@@ -936,7 +936,7 @@
   {
    "number": "2026-21",
    "seq": 21,
-   "title": "Approves Sewer District Request For Change Order No. 2 Related To The",
+   "title": "Approves Sewer District Request For Change Order No. 2 Related To The Class A Biosolids Upgrade Project",
    "category": "capital",
    "townFiscalImpact": "No",
    "townTreatment": "described",
@@ -1088,7 +1088,7 @@
   {
    "number": "2026-25",
    "seq": 25,
-   "title": "Authorizes the Attendance at the 2026 Annual Meeting & Training School",
+   "title": "Authorizes the Attendance at the 2026 Annual Meeting & Training School Held by the Association of Towns (February 15 - 18, 2026)",
    "category": "training",
    "townFiscalImpact": "Yes",
    "townTreatment": "absorbed",
@@ -1180,7 +1180,7 @@
   {
    "number": "2026-27",
    "seq": 27,
-   "title": "Ratifies the Authorization for Police Department Employees to Attend a",
+   "title": "Ratifies the Authorization for Police Department Employees to Attend a Training",
    "category": "training",
    "townFiscalImpact": "No",
    "townTreatment": "absorbed",
@@ -1296,7 +1296,7 @@
   {
    "number": "2026-30",
    "seq": 30,
-   "title": "Reappoints Ralph Gazzillo to Serve as Vice-Chairman of the Zoning Board",
+   "title": "Reappoints Ralph Gazzillo to Serve as Vice-Chairman of the Zoning Board of Appeals of the Town of Riverhead",
    "category": "personnel",
    "townFiscalImpact": "Yes",
    "townTreatment": "absorbed",
@@ -1334,7 +1334,7 @@
   {
    "number": "2026-31",
    "seq": 31,
-   "title": "Reappoints Otto Wittmeier to Serve as Chairman of the Zoning Board of",
+   "title": "Reappoints Otto Wittmeier to Serve as Chairman of the Zoning Board of Appeals of the Town of Riverhead",
    "category": "personnel",
    "townFiscalImpact": "Yes",
    "townTreatment": "absorbed",
@@ -1372,7 +1372,7 @@
   {
    "number": "2026-32",
    "seq": 32,
-   "title": "Reappoints Edward Densieski to Serve as Chairman of the Planning Board",
+   "title": "Reappoints Edward Densieski to Serve as Chairman of the Planning Board of the Town of Riverhead",
    "category": "personnel",
    "townFiscalImpact": "Yes",
    "townTreatment": "absorbed",
@@ -1410,7 +1410,7 @@
   {
    "number": "2026-33",
    "seq": 33,
-   "title": "Reappoints John Hogan to Serve as Vice-Chairman of the Planning board of",
+   "title": "Reappoints John Hogan to Serve as Vice-Chairman of the Planning board of the Town of Riverhead",
    "category": "personnel",
    "townFiscalImpact": "Yes",
    "townTreatment": "absorbed",
@@ -1448,7 +1448,7 @@
   {
    "number": "2026-34",
    "seq": 34,
-   "title": "Reappoints Daniel Zaweski as Member to the Zoning Board of Appeals for",
+   "title": "Reappoints Daniel Zaweski as Member to the Zoning Board of Appeals for the Town of Riverhead",
    "category": "personnel",
    "townFiscalImpact": "Yes",
    "townTreatment": "absorbed",
@@ -1486,7 +1486,7 @@
   {
    "number": "2026-35",
    "seq": 35,
-   "title": "Reappoints Joseph Baier as Member to the Town of Riverhead Planning",
+   "title": "Reappoints Joseph Baier as Member to the Town of Riverhead Planning Board",
    "category": "personnel",
    "townFiscalImpact": "Yes",
    "townTreatment": "absorbed",
@@ -1842,7 +1842,7 @@
   {
    "number": "2026-44",
    "seq": 44,
-   "title": "Authorizes the Supervisor to Execute Memorandum of Understanding with",
+   "title": "Authorizes the Supervisor to Execute Memorandum of Understanding with the County of Suffolk and Suffolk County Sheriff Related to Flock Safety Cameras",
    "category": "procedural",
    "townFiscalImpact": "No",
    "townTreatment": "described",
@@ -1880,7 +1880,7 @@
   {
    "number": "2026-45",
    "seq": 45,
-   "title": "Authorizes The Supervisor to Execute A 2026 Musical Works License",
+   "title": "Authorizes The Supervisor to Execute A 2026 Musical Works License Agreement With SESAC",
    "category": "permit",
    "townFiscalImpact": "No",
    "townTreatment": "described",
@@ -1932,7 +1932,7 @@
   {
    "number": "2026-46",
    "seq": 46,
-   "title": "Authorizes Supervisor to Execute an Agreement with Assistant Recreation",
+   "title": "Authorizes Supervisor to Execute an Agreement with Assistant Recreation Superintendent I",
    "category": "contract",
    "townFiscalImpact": "Yes",
    "townTreatment": "absorbed",
@@ -1970,7 +1970,7 @@
   {
    "number": "2026-47",
    "seq": 47,
-   "title": "Authorizes Supervisor to Execute an Agreement with Network & Systems",
+   "title": "Authorizes Supervisor to Execute an Agreement with Network & Systems Administrator",
    "category": "contract",
    "townFiscalImpact": "No",
    "townTreatment": "described",
@@ -2008,8 +2008,8 @@
   {
    "number": "2026-48",
    "seq": 48,
-   "title": "Authorizes the Filing of an Application for New York State Assistance from",
-   "category": "procedural",
+   "title": "Authorizes the Filing of an Application for New York State Assistance from the Household Hazardous Waste (HHW) State Assistance Program and Signing of the Associated State Contract, Under the Appropriate Laws of New York State",
+   "category": "contract",
    "townFiscalImpact": "No",
    "townTreatment": "described",
    "amount": null,
@@ -2031,9 +2031,9 @@
     "createsAccounts": []
    },
    "realistic": {
-    "verdict": "No direct cost",
-    "reason": "A procedural, permit, or administrative action with no direct levy cost identified.",
-    "flag": "fair",
+    "verdict": "Understated \u2014 the form says 'no fiscal impact'",
+    "reason": "A salary, contract, or fee item marked 'no fiscal impact' typically still moves money.",
+    "flag": "understated",
     "evidence": "category"
    },
    "vote": {
@@ -2046,7 +2046,7 @@
   {
    "number": "2026-49",
    "seq": 49,
-   "title": "Authorizes Town Clerk to Post and Public Notice of Public Hearing to",
+   "title": "Authorizes Town Clerk to Post and Public Notice of Public Hearing to Amend Town Code Chapter 301, Article I Entitled \"Title, Purpose, Definitions and Interpretation\"",
    "category": "legislative",
    "townFiscalImpact": "No",
    "townTreatment": "described",
@@ -2084,7 +2084,7 @@
   {
    "number": "2026-50",
    "seq": 50,
-   "title": "Authorizes Town Clerk to Post and Publish Notice of Public Hearing to",
+   "title": "Authorizes Town Clerk to Post and Publish Notice of Public Hearing to Amend Town Code Chapter 301, Article XLII Entitled \"Transfer of Development Rights\"",
    "category": "legislative",
    "townFiscalImpact": "No",
    "townTreatment": "described",
@@ -2122,7 +2122,7 @@
   {
    "number": "2026-51",
    "seq": 51,
-   "title": "Approves Special Event Chapter 255 Application for East End Emerald",
+   "title": "Approves Special Event Chapter 255 Application for East End Emerald Society (Jamesport St. Patrick's Parade)",
    "category": "permit",
    "townFiscalImpact": "No",
    "townTreatment": "described",
@@ -2402,7 +2402,7 @@
   {
    "number": "2026-58",
    "seq": 58,
-   "title": "Acknowledges Appointment of David Cote (Legislative Aide to Town",
+   "title": "Acknowledges Appointment of David Cote (Legislative Aide to Town Supervisor) and Sets Terms and Conditions of Employment",
    "category": "personnel",
    "townFiscalImpact": "Yes",
    "townTreatment": "absorbed",

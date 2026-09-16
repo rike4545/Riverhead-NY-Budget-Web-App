@@ -14,6 +14,11 @@ import {
   whatTheFormOmits, appointmentTiming, retirementAnnualisation, linesWithRepeatedActions,
   bothDirections, limits as annualisationLimits,
 } from '../../lib/annualization-2027'
+import {
+  units as laborUnits, openUnits, headline as laborHeadline,
+  whyItMatters as laborWhyItMatters, limits as laborLimits,
+  triborough, placeholderVsFloor,
+} from '../../lib/labor-contracts-2027'
 
 const base = process.env.NEXT_PUBLIC_BASE_PATH || ''
 const usd = (n: number) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(n)
@@ -285,6 +290,99 @@ export default function Predict2027Page() {
             never netted against the headroom above. Mixing the two would overstate the draw on reserves roughly
             threefold, which is exactly what an earlier version of this page did.
           </p>
+        </div>
+
+        {/* Which unions have a signed 2027 rate and which do not */}
+        <div style={{ background: 'var(--rbl-warn-bg)', border: '1px solid var(--rbl-warn-border)', borderRadius: 10, padding: '12px 14px', marginBottom: 12 }}>
+          <strong style={{ color: 'var(--rbl-warn-strong)', fontSize: 14 }}>
+            Two of the three union contracts run out before the year this page is about
+          </strong>
+          <p style={{ color: 'var(--rbl-text-strong)', fontSize: 13.6, lineHeight: 1.6, margin: '4px 0 10px' }}>{laborHeadline}</p>
+
+          <div style={{ display: 'grid', gap: 8, marginBottom: 10 }}>
+            {laborUnits.map((u) => (
+              <div key={u.unit} style={{ background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 9, padding: '10px 12px' }}>
+                <div style={{ display: 'flex', gap: 8, alignItems: 'baseline', flexWrap: 'wrap' }}>
+                  <strong style={{ color: 'var(--rbl-title)', fontSize: 14 }}>{u.unit}</strong>
+                  <span style={{
+                    ...chip,
+                    background: u.contractual2027 ? 'var(--rbl-success-bg)' : 'var(--rbl-warn-bg)',
+                    color: u.contractual2027 ? 'var(--rbl-success-strong)' : 'var(--rbl-warn-strong)',
+                  }}>
+                    {u.contractual2027 ? '2027 rate is contractual' : '2027 rate is a placeholder'}
+                  </span>
+                  <span style={{ color: 'var(--rbl-text-muted)', fontSize: 12.3 }}>{u.contractTerm}</span>
+                </div>
+                <p style={{ color: 'var(--rbl-text-body)', fontSize: 13.2, lineHeight: 1.55, margin: '5px 0 0' }}>{u.finding}</p>
+                {u.candidates.length > 0 && (
+                  <div style={{ marginTop: 6, color: 'var(--rbl-text-muted)', fontSize: 12.2, lineHeight: 1.5 }}>
+                    {u.candidates.length} agreement{u.candidates.length === 1 ? '' : 's'} before the Board this year, most recently{' '}
+                    <strong>{u.candidates[u.candidates.length - 1].number ?? '—'}</strong> on{' '}
+                    {u.candidates[u.candidates.length - 1].meetingDate}.
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+
+          <p style={{ color: 'var(--rbl-text-body)', fontSize: 13.4, lineHeight: 1.6, margin: '0 0 8px' }}>{laborWhyItMatters}</p>
+
+          {/* An expired contract is not a pay freeze */}
+          <div style={{ background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-strong)', borderRadius: 9, padding: '11px 13px', margin: '0 0 10px' }}>
+            <strong style={{ color: 'var(--rbl-title)', fontSize: 13.8 }}>
+              An expired contract is not a pay freeze — it costs {usd(triborough.stepCost2027)} in 2027
+            </strong>
+            <p style={{ color: 'var(--rbl-text-body)', fontSize: 13.2, lineHeight: 1.6, margin: '5px 0 8px' }}>
+              New York&apos;s Taylor Law makes it an improper practice for a public employer{' '}
+              <a href={triborough.statuteUrl} target="_blank" rel="noreferrer" style={{ color: 'var(--rbl-link)', fontWeight: 700, textDecoration: 'none' }}>
+                &ldquo;{triborough.statuteQuote}&rdquo;
+              </a>{' '}
+              — the Triborough Amendment, {triborough.statute}. {triborough.reading}
+            </p>
+            <div style={{ overflowX: 'auto' }}>
+              <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 12.8 }}>
+                <thead>
+                  <tr style={{ textAlign: 'left', color: 'var(--rbl-text-muted)', borderBottom: '1px solid var(--rbl-border-subtle)' }}>
+                    <th style={th}>Officers moving up a rung</th>
+                    <th style={{ ...th, textAlign: 'right' }}>Each</th>
+                    <th style={{ ...th, textAlign: 'right' }}>Cost</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {triborough.rungs.map((r) => (
+                    <tr key={r.from} style={{ borderBottom: '1px solid var(--rbl-border-subtle)' }}>
+                      <td style={td}>
+                        <strong>{r.officers}</strong> · {r.from} → {r.to}
+                      </td>
+                      <td style={{ ...td, textAlign: 'right' }}>{usd(r.perOfficer)}</td>
+                      <td style={{ ...td, textAlign: 'right', fontWeight: 700 }}>{usd(r.cost)}</td>
+                    </tr>
+                  ))}
+                  <tr>
+                    <td style={{ ...td, color: 'var(--rbl-text-muted)' }}>
+                      <strong>{triborough.officersAtTopStep}</strong> already at top step — no movement, no cost
+                    </td>
+                    <td style={{ ...td, textAlign: 'right', color: 'var(--rbl-text-faint)' }}>—</td>
+                    <td style={{ ...td, textAlign: 'right', color: 'var(--rbl-text-faint)' }}>—</td>
+                  </tr>
+                  <tr style={{ borderTop: '2px solid var(--rbl-border-subtle)' }}>
+                    <td style={{ ...td, fontWeight: 800, color: 'var(--rbl-title)' }}>
+                      {triborough.scope}, {triborough.officersCounted} officers
+                    </td>
+                    <td style={td} />
+                    <td style={{ ...td, textAlign: 'right', fontWeight: 900, color: 'var(--rbl-title)' }}>{usd(triborough.stepCost2027)}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <p style={{ color: 'var(--rbl-text-body)', fontSize: 13.2, lineHeight: 1.6, margin: '8px 0 0' }}>{placeholderVsFloor}</p>
+            <ul style={{ color: 'var(--rbl-text-muted)', fontSize: 12.3, lineHeight: 1.5, paddingLeft: 18, margin: '8px 0 0' }}>
+              {triborough.caveats.map((c, i) => <li key={i}>{c}</li>)}
+            </ul>
+          </div>
+          <ul style={{ color: 'var(--rbl-text-muted)', fontSize: 12.4, lineHeight: 1.5, paddingLeft: 18, margin: 0 }}>
+            {laborLimits.map((l, i) => <li key={i}>{l}</li>)}
+          </ul>
         </div>
 
         {/* Part-year 2026 becomes full-year 2027, in both directions */}

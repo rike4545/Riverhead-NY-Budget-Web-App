@@ -10,8 +10,8 @@
   "total": 52,
   "markedNo": 38,
   "markedYes": 14,
-  "understated": 31,
-  "understatedMarkedNo": 22,
+  "understated": 32,
+  "understatedMarkedNo": 23,
   "identifiedDollarsAtStake": 113613.0,
   "pricedResolutions": 1,
   "largestUnderstatedMarkedNo": null,
@@ -62,7 +62,7 @@
   {
    "number": "2026-361",
    "seq": 2,
-   "title": "Capital Project #12607 Meetinghouse Creek Road Bulkhead Renovation",
+   "title": "Capital Project #12607 Meetinghouse Creek Road Bulkhead Renovation Budget Transfer From Community Benefit Funds",
    "category": "capital",
    "townFiscalImpact": "Yes",
    "townTreatment": "absorbed",
@@ -129,7 +129,7 @@
   {
    "number": "2026-362",
    "seq": 3,
-   "title": "Approves Sewer District Request for Change Order No. 2 Related to the",
+   "title": "Approves Sewer District Request for Change Order No. 2 Related to the Contract P \u2013 Plumbing Construction RDSD 2202 Project",
    "category": "capital",
    "townFiscalImpact": "No",
    "townTreatment": "described",
@@ -165,9 +165,9 @@
    }
   },
   {
-   "number": "2026-362",
+   "number": "2026-363",
    "seq": 4,
-   "title": "Approves Sewer District Request for Change Order No. 2 Related to the",
+   "title": "Approves Sewer District Request for Change Order No. 2 Related to the Contract E \u2013 Electrical Construction RDSD 2202 Project",
    "category": "capital",
    "townFiscalImpact": "No",
    "townTreatment": "described",
@@ -205,7 +205,7 @@
   {
    "number": "2026-364",
    "seq": 5,
-   "title": "Approves Sewer District Request for Change Order No. 3 Related to the",
+   "title": "Approves Sewer District Request for Change Order No. 3 Related to the Contract G- General Construction RDSD 2202 Project",
    "category": "capital",
    "townFiscalImpact": "No",
    "townTreatment": "described",
@@ -243,7 +243,7 @@
   {
    "number": "2026-365",
    "seq": 6,
-   "title": "Ratifies Acceptance of Donation of Portable Toilet and Maintenance to",
+   "title": "Ratifies Acceptance of Donation of Portable Toilet and Maintenance to Sewer District",
    "category": "donation",
    "townFiscalImpact": "No",
    "townTreatment": "described",
@@ -281,7 +281,7 @@
   {
    "number": "2026-366",
    "seq": 7,
-   "title": "Waives Fee for Town Beach Parking Permits Issued to Veterans and",
+   "title": "Waives Fee for Town Beach Parking Permits Issued to Veterans and Volunteer Fire and Ambulance Members Residing Within the Town of Riverhead",
    "category": "permit",
    "townFiscalImpact": "No",
    "townTreatment": "described",
@@ -371,7 +371,7 @@
   {
    "number": "2026-368",
    "seq": 9,
-   "title": "Authorizes Town Justice to Attend NYS Office of Justice Court Support",
+   "title": "Authorizes Town Justice to Attend NYS Office of Justice Court Support Town and Village Judicial Continuing Education Program",
    "category": "procedural",
    "townFiscalImpact": "Yes",
    "townTreatment": "absorbed",
@@ -603,7 +603,7 @@
   {
    "number": "2026-373",
    "seq": 14,
-   "title": "Authorize Rate Increase for Justice Court Interpreters Pursuant to",
+   "title": "Authorize Rate Increase for Justice Court Interpreters Pursuant to Administrative Order",
    "category": "fees",
    "townFiscalImpact": "No",
    "townTreatment": "described",
@@ -693,7 +693,7 @@
   {
    "number": "2026-375",
    "seq": 16,
-   "title": "Changes the Status of Part-time Traffic Control Specialists and/or Part-time",
+   "title": "Changes the Status of Part-time Traffic Control Specialists and/or Part-time Traffic Control Officers",
    "category": "personnel",
    "townFiscalImpact": "Yes",
    "townTreatment": "absorbed",
@@ -1255,7 +1255,7 @@
   {
    "number": "2026-389",
    "seq": 30,
-   "title": "Establishes Committee Membership Terms for the East Creek Advisory",
+   "title": "Establishes Committee Membership Terms for the East Creek Advisory Committee",
    "category": "appointment-volunteer",
    "townFiscalImpact": "No",
    "townTreatment": "described",
@@ -1293,8 +1293,8 @@
   {
    "number": "2026-390",
    "seq": 31,
-   "title": "Authorizes Submission of Letter of Intent and Execution of Contract by the",
-   "category": "contract",
+   "title": "Authorizes Submission of Letter of Intent and Execution of Contract by the Supervisor for Operation and Maintenance Grant Program to New York State Environmental Facilities Corporation (EFC)",
+   "category": "grant",
    "townFiscalImpact": "Yes",
    "townTreatment": "absorbed",
    "amount": null,
@@ -1331,7 +1331,7 @@
   {
    "number": "2026-391",
    "seq": 32,
-   "title": "Authorizes the Community Development Department to Apply for a New",
+   "title": "Authorizes the Community Development Department to Apply for a New York Places for Learning, Activity, and Youth Socialization (NY PLAYS) Grant",
    "category": "grant",
    "townFiscalImpact": "No",
    "townTreatment": "described",
@@ -1371,7 +1371,7 @@
   {
    "number": "2026-392",
    "seq": 33,
-   "title": "Ratifies the Authorization for the Senior Citizen Program Director to Execute",
+   "title": "Ratifies the Authorization for the Senior Citizen Program Director to Execute a Memorandum of Understanding with New York State Commodity Supplemental Food Program for 2026",
    "category": "procedural",
    "townFiscalImpact": "No",
    "townTreatment": "described",
@@ -1447,7 +1447,7 @@
   {
    "number": "2026-394",
    "seq": 35,
-   "title": "Ratifies Authorization for the Supervisor to Execute a Stipulation with an",
+   "title": "Ratifies Authorization for the Supervisor to Execute a Stipulation with an Employee",
    "category": "procedural",
    "townFiscalImpact": "No",
    "townTreatment": "described",
@@ -1485,7 +1485,7 @@
   {
    "number": "2026-395",
    "seq": 36,
-   "title": "Authorizes the Supervisor to Execute an Agreement with the Suffolk County",
+   "title": "Authorizes the Supervisor to Execute an Agreement with the Suffolk County Office for the Aging (2026 Home Maintenance/Repair Program)",
    "category": "contract",
    "townFiscalImpact": "No",
    "townTreatment": "described",
@@ -1523,7 +1523,7 @@
   {
    "number": "2026-396",
    "seq": 37,
-   "title": "Authorizes the Town Supervisor to Enter Into an Agreement With BRYCER,",
+   "title": "Authorizes the Town Supervisor to Enter Into an Agreement With BRYCER, L.P. For Third-Party Fire and Life-Safety Compliance Services",
    "category": "fees",
    "townFiscalImpact": "No",
    "townTreatment": "described",
@@ -1561,7 +1561,7 @@
   {
    "number": "2026-397",
    "seq": 38,
-   "title": "Ratifies Authorization for Supervisor to Sign a Professional Services",
+   "title": "Ratifies Authorization for Supervisor to Sign a Professional Services Agreement with Brandbuilders Media LLC",
    "category": "contract",
    "townFiscalImpact": "Yes",
    "townTreatment": "absorbed",
@@ -1599,8 +1599,8 @@
   {
    "number": "2026-398",
    "seq": 39,
-   "title": "Amends Resolution #2023-834 (Approves 2026 Special Event Application",
-   "category": "permit",
+   "title": "Amends Resolution #2023-834 (Approves 2026 Special Event Application Fee Schedule)",
+   "category": "fees",
    "townFiscalImpact": "No",
    "townTreatment": "described",
    "amount": null,
@@ -1622,9 +1622,9 @@
     "createsAccounts": []
    },
    "realistic": {
-    "verdict": "No direct cost",
-    "reason": "A procedural, permit, or administrative action with no direct levy cost identified.",
-    "flag": "fair",
+    "verdict": "Understated \u2014 the form says 'no fiscal impact'",
+    "reason": "A salary, contract, or fee item marked 'no fiscal impact' typically still moves money.",
+    "flag": "understated",
     "evidence": "category"
    },
    "vote": {
@@ -1637,7 +1637,7 @@
   {
    "number": "2026-399",
    "seq": 40,
-   "title": "Approves Chapter 255 Application for Jamesport Fire Department (Sound to",
+   "title": "Approves Chapter 255 Application for Jamesport Fire Department (Sound to Bay 5K/10K)",
    "category": "procedural",
    "townFiscalImpact": "No",
    "townTreatment": "described",
@@ -1675,7 +1675,7 @@
   {
    "number": "2026-400",
    "seq": 41,
-   "title": "Ratify Authorization for an Appraisal for a Portion of Property Commonly",
+   "title": "Ratify Authorization for an Appraisal for a Portion of Property Commonly Known as Nassau County 4h Camp Located on Sound Avenue, Town of Riverhead and Described as SCTM# 600-41-1-p/o Lot 15",
    "category": "procedural",
    "townFiscalImpact": "No",
    "townTreatment": "described",
@@ -1713,7 +1713,7 @@
   {
    "number": "2026-401",
    "seq": 42,
-   "title": "Grants Special Permit Approval for the Special Permit Application Entitled",
+   "title": "Grants Special Permit Approval for the Special Permit Application Entitled Hampton Jitney Battery Energy Storage System 253 Edwards Avenue, Calverton, NY SCTM No. 600-117-1- 8.6",
    "category": "grant",
    "townFiscalImpact": "No",
    "townTreatment": "described",
@@ -1751,7 +1751,7 @@
   {
    "number": "2026-402",
    "seq": 43,
-   "title": "Grants Special Permit, Preliminary & Final Site Plan Approval for the Site",
+   "title": "Grants Special Permit, Preliminary & Final Site Plan Approval for the Site Plan and Special Permit Applications Entitled 221 Scott Avenue Energy Storage System 221 Scott Avenue, Calverton NY, SCTM NO. 600-135.20-1-12",
    "category": "grant",
    "townFiscalImpact": "No",
    "townTreatment": "described",
@@ -1789,7 +1789,7 @@
   {
    "number": "2026-403",
    "seq": 44,
-   "title": "Town Board Determination Finding Esthetician's Office Use Similar to",
+   "title": "Town Board Determination Finding Esthetician's Office Use Similar to Professional Office",
    "category": "personnel-out",
    "townFiscalImpact": "No",
    "townTreatment": "described",
@@ -1827,8 +1827,8 @@
   {
    "number": "2026-404",
    "seq": 45,
-   "title": "Authorizes Town Clerk to Publish and Post Public Notice Setting a Public",
-   "category": "procedural",
+   "title": "Authorizes Town Clerk to Publish and Post Public Notice Setting a Public Hearing for the Condemnation of a Parcel for General Municipal Purposes Located at 111 East Main Street, Riverhead, New York, Suffolk County Tax Map # 129-1-11",
+   "category": "legislative",
    "townFiscalImpact": "No",
    "townTreatment": "described",
    "amount": null,
@@ -1865,8 +1865,8 @@
   {
    "number": "2026-405",
    "seq": 46,
-   "title": "Ratifies the Authorization of the Town Clerk to Publish and Post Notice of",
-   "category": "procedural",
+   "title": "Ratifies the Authorization of the Town Clerk to Publish and Post Notice of Public Hearing Relating to the Proposed Increase and Improvement of the Riverhead Sewer District Facilities",
+   "category": "legislative",
    "townFiscalImpact": "No",
    "townTreatment": "described",
    "amount": null,
@@ -1903,7 +1903,7 @@
   {
    "number": "2026-406",
    "seq": 47,
-   "title": "Authorizes Town Clerk to Publish and Post Notice of Public Hearing to",
+   "title": "Authorizes Town Clerk to Publish and Post Notice of Public Hearing to Amend Town Code Chapter 301, Attachment 3 of the Riverhead Town Code Entitled \"Commercial Districts of Dimensional Regulations\"",
    "category": "legislative",
    "townFiscalImpact": "No",
    "townTreatment": "described",
@@ -1941,8 +1941,8 @@
   {
    "number": "2026-407",
    "seq": 48,
-   "title": "Authorizes Town Clerk to Publish and Post Public Notice to Consider a",
-   "category": "procedural",
+   "title": "Authorizes Town Clerk to Publish and Post Public Notice to Consider a Local Law to Amend Chapter 293 of the Riverhead Town Code Titled \u201cWaterways and Water-Related Activities\u201d, Article IX \u201cShellfish and Finfish\u201d",
+   "category": "legislative",
    "townFiscalImpact": "No",
    "townTreatment": "described",
    "amount": null,
@@ -1979,7 +1979,7 @@
   {
    "number": "2026-408",
    "seq": 49,
-   "title": "Ratifies Award of Bid for Twin Honda Outboard Motors, or Equal, Plus",
+   "title": "Ratifies Award of Bid for Twin Honda Outboard Motors, or Equal, Plus Additional Related Items and Installation for the Riverhead Police Department",
    "category": "appointment-volunteer",
    "townFiscalImpact": "Yes",
    "townTreatment": "absorbed",
@@ -2083,7 +2083,7 @@
   {
    "number": "2026-410",
    "seq": 51,
-   "title": "Extends Bid for Electric Motor Repair and Replacement, Including",
+   "title": "Extends Bid for Electric Motor Repair and Replacement, Including Emergencies",
    "category": "procedural",
    "townFiscalImpact": "Yes",
    "townTreatment": "absorbed",
