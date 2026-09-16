@@ -34,6 +34,9 @@ const FLAG_STYLE: Record<string, { bg: string; fg: string; label: string }> = {
   // label rather than being folded into the understated count.
   disbursement: { bg: 'var(--rbl-info-bg)', fg: 'var(--rbl-info-text)', label: 'Authorises payment' },
   'small-cost': { bg: 'var(--rbl-surface-3)', fg: 'var(--rbl-text-body)', label: 'Small real cost' },
+  // Borrowing is not a draw on surplus. It is debt service on every future levy
+  // until the bond matures, which a single-year form has no way to show.
+  'future-debt': { bg: 'var(--rbl-warn-bg)', fg: 'var(--rbl-warn-strong)', label: 'Debt on future budgets' },
 }
 
 /** Either kind of correction to the Town's own fiscal-impact answer. */

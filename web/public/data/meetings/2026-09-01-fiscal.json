@@ -10,7 +10,7 @@
   "total": 27,
   "markedNo": 21,
   "markedYes": 6,
-  "understated": 6,
+  "understated": 5,
   "understatedMarkedNo": 2,
   "identifiedDollarsAtStake": 60000.0,
   "pricedResolutions": 1,
@@ -812,9 +812,9 @@
     "createsAccounts": []
    },
    "realistic": {
-    "verdict": "Understated \u2014 'absorbed by existing budget'",
-    "reason": "It commits capital or debt-service dollars, typically drawn from reserves, fund balance, or borrowing \u2014 not truly cost-free even if 'absorbed'.",
-    "flag": "reserve-draw",
+    "verdict": "Creates debt service on future budgets",
+    "reason": "A bond resolution authorises borrowing. Nothing comes out of fund balance when it passes \u2014 the cost arrives as debt service in every budget until the bond matures, paid out of the levy. For a future capital project that is the whole fiscal impact, and it is the part a single-year form is worst at showing.",
+    "flag": "future-debt",
     "evidence": "category"
    },
    "vote": {

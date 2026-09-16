@@ -127,8 +127,32 @@ CATEGORY_RULES: list[tuple[str, list[str]]] = [
 ]
 
 # category → (fiscalImpact-aware) realistic verdict. Some categories flip on Yes/No.
-def realistic_read(category: str, fiscal_impact: str) -> dict:
+# A bond resolution authorises BORROWING. Nothing leaves fund balance when it
+# passes — which is why calling it a reserve draw was wrong. What it creates is
+# debt service on future levies, every year until the bond matures, and that is a
+# larger fact for the 2027 budget than a one-time draw would be. The Ambulance
+# Building Project bond (2026-833) is the live example: a future capital project
+# whose cost lands on taxpayers through the levy, not through surplus.
+BOND_AUTHORISATION = re.compile(
+    r"(bond resolution|authoriz\w*\s+the\s+issuance|serial bonds?|bond anticipation note"
+    r"|\bBAN\b|authoriz\w*\s+.{0,30}\bborrow)",
+    re.I,
+)
+
+
+def realistic_read(category: str, fiscal_impact: str, title: str = "") -> dict:
     yes = fiscal_impact == "Yes"
+    if category == "debt" and BOND_AUTHORISATION.search(title):
+        return {
+            "verdict": "Creates debt service on future budgets",
+            "reason": (
+                "A bond resolution authorises borrowing. Nothing comes out of fund balance when it "
+                "passes — the cost arrives as debt service in every budget until the bond matures, "
+                "paid out of the levy. For a future capital project that is the whole fiscal impact, "
+                "and it is the part a single-year form is worst at showing."
+            ),
+            "flag": "future-debt",
+        }
     if category in ("capital", "debt"):
         if yes:
             return {
@@ -571,7 +595,7 @@ def apply_funding_evidence(realistic: dict, funding: dict, category: str) -> dic
     if not accounts:
         return {**realistic, "evidence": "category"}
 
-    if funding.get("drawsFundBalance"):
+    if funding.get("drawsFundBalance") and realistic.get("flag") != "future-debt":
         funds = funding.get("funds") or []
         where = funds[0] if funds else "a Town fund"
         draw = funding.get("fundBalanceDraw")
@@ -712,7 +736,7 @@ def build_meeting(date: str, packet_text: str) -> dict | None:
         category = classify(p["title"], p["purpose"])
         funding = p.get("funding") or {}
         realistic = apply_funding_evidence(
-            realistic_read(category, p["fiscalImpact"]), funding, category
+            realistic_read(category, p["fiscalImpact"], p["title"]), funding, category
         )
         vote = None
         if matched:
