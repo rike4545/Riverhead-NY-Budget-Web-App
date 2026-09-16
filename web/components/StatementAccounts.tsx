@@ -45,6 +45,12 @@ function consequence(a: ResolvedAccount): { text: string; tone: 'warn' | 'plain'
   if (match.status === 'non-operating') {
     return { text: `${match.fundName} — outside the operating budget, so not a draw on an operating fund's surplus.`, tone: 'plain' }
   }
+  if (match.status === 'unknown') {
+    return {
+      text: 'This code is not in the 2026 adopted-budget extract, so this site cannot say what line it charges.',
+      tone: 'plain',
+    }
+  }
   if (match.status !== 'matched') return null
   if (match.adopted2026 == null) return { text: `${match.fundName} · ${match.department}`, tone: 'plain' }
   if (match.adopted2026 === 0) {

@@ -10,13 +10,13 @@
   "total": 49,
   "markedNo": 35,
   "markedYes": 14,
-  "understated": 10,
+  "understated": 11,
   "understatedMarkedNo": 3,
   "identifiedDollarsAtStake": 2131038.0,
   "pricedResolutions": 4,
   "largestUnderstatedMarkedNo": null,
   "withAccounts": 10,
-  "accountEvidence": 3,
+  "accountEvidence": 4,
   "fundBalanceDraws": 3,
   "fundBalanceDrawTotal": 2007218.0
  },
@@ -2022,10 +2022,10 @@
     "createsAccounts": []
    },
    "realistic": {
-    "verdict": "Creates debt service on future budgets",
-    "reason": "A bond resolution authorises borrowing. Nothing comes out of fund balance when it passes \u2014 the cost arrives as debt service in every budget until the bond matures, paid out of the levy. For a future capital project that is the whole fiscal impact, and it is the part a single-year form is worst at showing.",
-    "flag": "future-debt",
-    "evidence": "category"
+    "verdict": "Draws fund balance \u2014 stated on the Town's own form",
+    "reason": "Section G charges $1,874,218 to Appropriated Fund Balance in the General Fund. This is not an inference from the title: it is the account the Town wrote down, and every dollar of it is surplus that is no longer available for anything else. The title also refers to borrowing, and both are true: surplus is being spent now to retire or service debt. The draw is what leaves the balance sheet today.",
+    "flag": "reserve-draw",
+    "evidence": "account-code"
    },
    "vote": {
     "adopted": true,

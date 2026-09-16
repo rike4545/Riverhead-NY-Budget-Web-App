@@ -107,23 +107,43 @@ export const beforeProgram = all.filter((r) => r.meetingDate < RATIFIED)
 /** Retirements accepted on or after ratification — the participation ceiling. */
 export const inWindow = all.filter((r) => r.meetingDate >= RATIFIED)
 
-export const sworn = inWindow.filter((r) => r.sworn)
-export const civilian = inWindow.filter((r) => !r.sworn)
-export const identified = inWindow.filter((r) => r.pool !== null)
+/**
+ * Confirmed by a published vote record — the only set the headline figures use.
+ *
+ * This site's standing rule, stated on /fiscal-impact/, is that it does not
+ * infer adoption from agenda placement. Four of the window retirements come
+ * from a meeting whose vote record the Clerk has not published, and an earlier
+ * version of this file counted them in the headline anyway: it reported 10
+ * accepted retirements and priced 7 sworn ones, when 6 and 4 were confirmed.
+ * Pending items are reported, separately, and never priced.
+ */
+export const confirmed = inWindow.filter((r) => r.adopted === true)
+export const pending = inWindow.filter((r) => r.adopted !== true)
+
+export const sworn = confirmed.filter((r) => r.sworn)
+export const civilian = confirmed.filter((r) => !r.sworn)
+export const swornPending = pending.filter((r) => r.sworn)
+export const identified = confirmed.filter((r) => r.pool !== null)
 
 /** The Town's own count of who could take it, from the July 7 briefing. */
 export const townEligible = buyout2026.actualEligible
 
 export const uptake = {
-  windowRetirements: inWindow.length,
+  /** Confirmed by a published vote record. */
+  windowRetirements: confirmed.length,
   sworn: sworn.length,
   civilian: civilian.length,
   identifiedByName: identified.length,
   beforeProgram: beforeProgram.length,
   townEligibleTotal: townEligible.total,
   /** Ceiling, not a rate: accepting a retirement is not electing the incentive. */
-  shareOfEligibleCeiling: inWindow.length / townEligible.total,
-  awaitingVoteRecord: inWindow.filter((r) => r.adopted === null).length,
+  shareOfEligibleCeiling: confirmed.length / townEligible.total,
+  /** Filed but not yet confirmed adopted. Reported, never priced. */
+  awaitingVoteRecord: pending.length,
+  swornAwaitingVoteRecord: swornPending.length,
+  /** What the count would be if every pending item is later confirmed. */
+  ifPendingConfirmed: inWindow.length,
+  ifPendingConfirmedSworn: inWindow.filter((r) => r.sworn).length,
 }
 
 // ── Cost ────────────────────────────────────────────────────────────────────
@@ -135,14 +155,30 @@ export const uptake = {
 // the published record does not say how much excess accrual anyone has.
 const CSEA_FLAT = 12_500
 
-export const incentiveCostFloor = {
+/**
+ * NOT a floor, and an earlier version of this file was wrong to call it one.
+ *
+ * The incentive is paid only to someone who elected it, and this module says in
+ * its own header that accepting a retirement does not prove election. Both
+ * cannot be true at once: if none of these retirees elected, the cost is zero.
+ * So the real lower bound IS zero, and the figure below is what the incentive
+ * costs IF every confirmed retirement in the window took it — a scenario, priced
+ * with the Town's own formula, and labelled as one.
+ */
+export const incentiveCostIfAllElected = {
   fromIdentified: identified.reduce((s, r) => s + (r.pool?.estIncentive ?? 0), 0),
-  fromUnidentifiedAtCseaRate: (inWindow.length - identified.length) * CSEA_FLAT,
+  fromUnidentifiedAtCseaRate: (confirmed.length - identified.length) * CSEA_FLAT,
   get total() {
     return this.fromIdentified + this.fromUnidentifiedAtCseaRate
   },
+  /** The defensible lower bound, absent election records. */
+  trueFloor: 0,
+  basis:
+    'Years of service come from the eligible-pool model for a retiree matched by name, and an unmatched one is carried at the flat CSEA rate.',
   excludes:
-    'Up to 30 accrued sick days per sworn retiree, paid at their 2024-2026 average base. The Town publishes no accrual balances, so this site cannot price it. The real cost is higher than the figure above, not lower.',
+    'Up to 30 accrued sick days per sworn retiree, paid at their 2024-2026 average base. The Town publishes no accrual balances, so this site cannot price it — the scenario above is understated to that extent.',
+  whyNotAFloor:
+    'The Town does not publish who elected the incentive, only whose retirement the Board accepted. Without election records the lower bound on incentive cost is zero, and calling this figure a floor would assert participation the record does not show.',
 }
 
 // ── Saving ──────────────────────────────────────────────────────────────────
@@ -159,6 +195,9 @@ export const savingEstimate = {
   perSwornRetirement: chain.ranked.perRetiree,
   swornCount: sworn.length,
   annualFromSworn: sworn.length * chain.ranked.perRetiree,
+  /** If the pending September 15 retirements are later confirmed. */
+  swornCountIfPendingConfirmed: uptake.ifPendingConfirmedSworn,
+  annualIfPendingConfirmed: uptake.ifPendingConfirmedSworn * chain.ranked.perRetiree,
   officerTopStep: chain.officerTopStep,
   officerEntryStep: chain.officerEntryStep,
   /** These retirements are effective July-October 2026, so 2026 catches part of
@@ -180,7 +219,7 @@ export const retiredOutsideModelledPool = inWindow.filter((r) => r.surname !== n
 
 export const limits = [
   'A retirement accepted during the incentive window is not proof the retiree elected the incentive. Somebody can retire on their own terms in the same months. Every count here is a ceiling on participation.',
-  `${uptake.awaitingVoteRecord} of the ${uptake.windowRetirements} window retirements come from a meeting whose vote record the Clerk has not yet published, so they are filed but not confirmed adopted.`,
+  `A further ${uptake.awaitingVoteRecord} retirements (${uptake.swornAwaitingVoteRecord} of them sworn) were filed at a meeting whose vote record the Clerk has not published. They are excluded from every figure here, because this site does not infer adoption from agenda placement. If all are later confirmed the count becomes ${uptake.ifPendingConfirmed} and the annual saving ${savingEstimate.annualIfPendingConfirmed.toLocaleString('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 })}.`,
   'Savings count salary only. Each retiree keeps Town-paid retiree health for life, and a refilled seat then carries both a retiree and an active employee, so the net figure is smaller than the salary arithmetic shows.',
   'The saving assumes every vacated seat is refilled — which is what the Town said it expects. A seat left empty saves more; a seat filled by promotion from outside the modelled chain saves less.',
   'Civilian retirements in the window are carried at the flat CSEA incentive because the resolutions name a title rather than a person, so they cannot be matched to a years-of-service figure.',

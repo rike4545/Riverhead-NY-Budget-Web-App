@@ -595,17 +595,30 @@ def apply_funding_evidence(realistic: dict, funding: dict, category: str) -> dic
     if not accounts:
         return {**realistic, "evidence": "category"}
 
-    if funding.get("drawsFundBalance") and realistic.get("flag") != "future-debt":
+    # The account code wins, including over the bond-title heuristic. Resolution
+    # 2026-762 is the case that proves it: its title says "Pay Down of Town Square
+    # ... BAN", so the heuristic calls it future debt — while its own section G
+    # books $1,874,218 out of A01-9999 Appropriated Fund Balance. Both things are
+    # true, and the one the Town wrote in its ledger is the one that governs. An
+    # earlier guard here had the precedence backwards and suppressed the largest
+    # documented draw in the corpus.
+    if funding.get("drawsFundBalance"):
         funds = funding.get("funds") or []
         where = funds[0] if funds else "a Town fund"
         draw = funding.get("fundBalanceDraw")
         sized = f"{draw:,.0f} " if draw else ""
+        also_debt = realistic.get("flag") == "future-debt"
         return {
             "verdict": "Draws fund balance — stated on the Town's own form",
             "reason": (
                 f"Section G charges ${sized}to Appropriated Fund Balance in the {where}. "
                 "This is not an inference from the title: it is the account the Town wrote down, "
                 "and every dollar of it is surplus that is no longer available for anything else."
+                + (
+                    " The title also refers to borrowing, and both are true: surplus is being spent "
+                    "now to retire or service debt. The draw is what leaves the balance sheet today."
+                    if also_debt else ""
+                )
             ),
             "flag": "reserve-draw",
             "evidence": "account-code",
