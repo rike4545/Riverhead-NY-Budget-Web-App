@@ -3,7 +3,7 @@ import PlainCallout from '../../components/PlainCallout'
 import RecordTrail from '../../components/RecordTrail'
 import {
   resolution, officers, costHistory, perOfficer, positions,
-  fundingPaths, theBind, whatWouldSettleIt, sources,
+  fundingPaths, theBind, whatWouldSettleIt, sources, notLawYet, unenactedPaths, whoElseHasThisArgument,
 } from '../../lib/school-resource-officers'
 
 const base = process.env.NEXT_PUBLIC_BASE_PATH || ''
@@ -124,8 +124,13 @@ export default function SchoolResourceOfficersPage() {
         <h3 style={{ marginTop: 0, color: 'var(--rbl-title)' }}>Every funding route, and who it actually pays</h3>
         <p style={{ color: 'var(--rbl-text-body)', fontSize: 14, lineHeight: 1.6, margin: '0 0 14px' }}>
           Four sources came up in the debate. <strong>{paysTown.length} of the {fundingPaths.length}</strong> would pay the
-          Town. That single fact explains most of the disagreement, and it is checkable against the bills themselves.
+          Town, and <strong>{unenactedPaths.length}</strong> are not law at all. Those two facts explain most of the
+          disagreement, and both are checkable against the bills themselves.
         </p>
+        <div style={{ background: 'var(--rbl-warn-bg)', border: '1px solid var(--rbl-warn-border)', borderRadius: 10, padding: '11px 13px', marginBottom: 14 }}>
+          <strong style={{ color: 'var(--rbl-warn-strong)', fontSize: 13.6 }}>Neither state bill is law</strong>
+          <p style={{ color: 'var(--rbl-text-strong)', fontSize: 13.3, lineHeight: 1.6, margin: '4px 0 0' }}>{notLawYet}</p>
+        </div>
         <div style={{ display: 'grid', gap: 12 }}>
           {fundingPaths.map((f) => (
             <article key={f.name} style={{
@@ -138,6 +143,7 @@ export default function SchoolResourceOfficersPage() {
                   {f.name} ↗
                 </a>
                 <Chip label={f.paysTheTown ? 'Pays the Town' : `Pays the ${f.paysWhom}`} tone={f.paysTheTown ? 'good' : 'plain'} />
+                {!f.enacted && <Chip label="Not law" tone="warn" />}
               </div>
               <div style={{ color: 'var(--rbl-text-muted)', fontSize: 12.3, marginBottom: 6 }}>
                 {f.authority} · {f.status}
@@ -153,6 +159,36 @@ export default function SchoolResourceOfficersPage() {
           <strong style={{ color: 'var(--rbl-title)', fontSize: 14 }}>The bind</strong>
           <p style={{ color: 'var(--rbl-info-text)', fontSize: 13.8, lineHeight: 1.65, margin: '5px 0 0' }}>{theBind}</p>
         </div>
+      </section>
+
+      {/* Who else has this argument at all */}
+      <section style={{ ...card, marginBottom: 18 }}>
+        <h3 style={{ marginTop: 0, color: 'var(--rbl-title)' }}>How other districts handle it — and why most of the county can’t</h3>
+        <p style={{ color: 'var(--rbl-text-body)', fontSize: 14.5, lineHeight: 1.65, margin: '0 0 14px' }}>
+          Most of Suffolk does not have this argument, because most of Suffolk has no town police department to argue
+          about. The county split in 1960 and it still decides who sits at the table.
+        </p>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(min(300px,100%),1fr))', gap: 14 }}>
+          <div style={{ background: 'var(--rbl-surface-2)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 12, padding: '13px 15px' }}>
+            <div style={{ color: 'var(--rbl-title)', fontWeight: 800, fontSize: 14 }}>Policed by the county</div>
+            <div style={{ color: 'var(--rbl-text-muted)', fontSize: 12.4, margin: '3px 0 7px' }}>
+              {whoElseHasThisArgument.countyPoliced.towns.join(', ')}
+            </div>
+            <p style={{ color: 'var(--rbl-text-strong)', fontSize: 13.3, lineHeight: 1.6, margin: '0 0 7px' }}>{whoElseHasThisArgument.countyPoliced.how}</p>
+            <p style={{ color: 'var(--rbl-warn)', fontSize: 13.2, lineHeight: 1.6, margin: 0, fontWeight: 600 }}>{whoElseHasThisArgument.countyPoliced.allocation}</p>
+          </div>
+          <div style={{ background: 'var(--rbl-surface-2)', border: '1px solid var(--rbl-accent-border)', borderRadius: 12, padding: '13px 15px' }}>
+            <div style={{ color: 'var(--rbl-title)', fontWeight: 800, fontSize: 14 }}>Towns that police themselves</div>
+            <div style={{ color: 'var(--rbl-text-muted)', fontSize: 12.4, margin: '3px 0 7px' }}>
+              {whoElseHasThisArgument.ownForce.towns.join(', ')}
+            </div>
+            <p style={{ color: 'var(--rbl-text-strong)', fontSize: 13.3, lineHeight: 1.6, margin: '0 0 7px' }}>{whoElseHasThisArgument.ownForce.how}</p>
+            <p style={{ color: 'var(--rbl-text-body)', fontSize: 13.2, lineHeight: 1.6, margin: 0 }}>{whoElseHasThisArgument.ownForce.allocation}</p>
+          </div>
+        </div>
+        <p style={{ color: 'var(--rbl-text-muted)', fontSize: 12.9, lineHeight: 1.6, margin: '14px 0 0' }}>
+          <strong>What this page cannot tell you yet.</strong> {whoElseHasThisArgument.whatIsNotSourced}
+        </p>
       </section>
 
       <section style={{ ...card, marginBottom: 18 }}>

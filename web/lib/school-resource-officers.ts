@@ -133,6 +133,8 @@ export type FundingPath = {
   status: string
   paysWhom: 'school district' | 'law enforcement agency' | 'states and districts'
   paysTheTown: boolean
+  /** False for a bill that has not been enacted — money that does not exist yet. */
+  enacted: boolean
   what: string
   catch: string
 }
@@ -149,9 +151,10 @@ export const fundingPaths: FundingPath[] = [
     name: 'A703 — grants for school resource officer costs',
     authority: 'New York State Assembly, 2025–2026 session',
     url: 'https://www.nysenate.gov/legislation/bills/2025/A703',
-    status: 'In committee — referred to Education, January 8, 2025',
+    status: 'Not law — in committee, referred to Education January 8, 2025',
     paysWhom: 'school district',
     paysTheTown: false,
+    enacted: false,
     what: 'Would give districts grants equal to 100% of the combined annual salaries paid to school resource officers, and let BOCES contract with local police for them.',
     catch: 'The money goes to the district, not the municipality that employs the officers. A town that supplies the officers and carries the cost receives nothing directly under this bill.',
   },
@@ -159,19 +162,21 @@ export const fundingPaths: FundingPath[] = [
     name: 'S9336 — SRO Training and Implementation Program',
     authority: 'New York State Senate, sponsored by Sen. James Skoufis',
     url: 'https://www.nysenate.gov/legislation/bills/2025/S9336',
-    status: 'In committee — referred to Education, March 3, 2026',
+    status: 'Not law — in committee, referred to Education March 3, 2026',
     paysWhom: 'school district',
     paysTheTown: false,
-    what: 'Creates a certification programme for RETIRED officers serving as SROs and raises their pension earnings cap from $35,000 to $65,000 so they can take the work without losing benefits.',
+    enacted: false,
+    what: 'Would create a certification programme for RETIRED officers serving as SROs and would raise their pension earnings cap from $35,000 to $65,000 so they could take the work without losing benefits. It has passed neither chamber and has not been signed.',
     catch: 'Not a funding bill at all. It makes a different staffing model possible — retired officers hired by the district — rather than paying for the serving officers a town assigns.',
   },
   {
     name: 'Bipartisan Safer Communities Act school-safety money',
     authority: 'U.S. Department of Education',
     url: 'https://www.ed.gov/laws-and-policy/laws-preschool-grade-12-education/bipartisan-safer-communities-act',
-    status: 'Active',
+    status: 'Enacted and operating',
     paysWhom: 'states and districts',
     paysTheTown: false,
+    enacted: true,
     what: 'Stronger Connections grants and two school mental-health programmes, flowing to states and school districts.',
     catch: 'These are school-climate and mental-health programmes. The Department’s own programme list does not carry an SRO salary grant, and none of it is payable to a police department.',
   },
@@ -179,22 +184,64 @@ export const fundingPaths: FundingPath[] = [
     name: 'COPS Hiring Program',
     authority: 'U.S. Department of Justice, Office of Community Oriented Policing Services',
     url: 'https://cops.usdoj.gov/chp',
-    status: 'The FY2026 round closed July 29, 2026',
+    status: 'Enacted — but the FY2026 round closed July 29, 2026',
     paysWhom: 'law enforcement agency',
     paysTheTown: true,
+    enacted: true,
     what: 'Funds law enforcement agencies to hire full-time sworn officers, and explicitly covers school resource officer positions. This is the one route that pays the Town rather than the district.',
     catch: 'It requires a local match of at least 25% of the project cost, and an agency awarded SRO funding must file a signed memorandum of understanding with its school partner within 90 days. The agreement the Board tabled is that memorandum. A grant is also not free money: the match is Town money, and the FY2026 round has closed.',
   },
 ]
 
+/** Money that exists today, as against money a bill would create if enacted. */
+export const enactedPaths = fundingPaths.filter((f) => f.enacted)
+export const unenactedPaths = fundingPaths.filter((f) => !f.enacted)
+
+export const notLawYet =
+  'Neither state bill is law. A703 has sat in the Assembly Education Committee since January 2025 and S9336 in the Senate Education Committee since March 2026; neither has passed a chamber, and neither has been signed. That matters for a budget decision being made now: whatever they would do if enacted, they fund nothing in the 2026–27 school year, and a Board weighing who pays this year cannot count on either.'
+
 export const theBind =
   'Put together, the paths do not contradict each other so much as they miss each other. The two state bills would pay the school district, and both have sat in committee — one since January 2025. The federal school-safety money is district and state money for school climate and mental health, not officer salaries. The single programme that would pay Riverhead directly is the COPS Hiring Program, and it asks for two things the Town does not currently have: a quarter of the cost from its own budget, and a signed agreement with the school district — which is the document that was tabled.'
+
+/**
+ * Who else even has this argument — and why the county has it differently.
+ *
+ * The obvious question is what other districts pay. The structural answer comes
+ * first, because it decides which comparisons are meaningful at all: in the five
+ * western towns, policing is the Suffolk County Police Department's, funded by a
+ * county police district tax levied across the district. A school district there
+ * negotiates with the COUNTY, and its town is not a party — there is no town
+ * police budget for an SRO cost to land on and nothing to allocate per township.
+ *
+ * Riverhead is in the other five. Each East End town employs its own force, so
+ * each one negotiates directly with the districts inside its boundaries. That
+ * makes the other four — Southampton, East Hampton, Southold and Shelter Island
+ * — the only towns in the county facing the same negotiation, exactly as they
+ * are the only ones with a comparable police budget on the crime page.
+ */
+export const whoElseHasThisArgument = {
+  countyPoliced: {
+    towns: ['Babylon', 'Huntington', 'Islip', 'Smithtown', 'Brookhaven'],
+    how: 'Policing is the Suffolk County Police Department\u2019s, paid for by a county police district tax levied across the district rather than by each town.',
+    allocation:
+      'There is no per-township allocation for an SRO. The town is not in the transaction: an agreement runs between the school district and the county, and the town has no police budget for the cost to land on.',
+  },
+  ownForce: {
+    towns: ['Riverhead', 'Southampton', 'East Hampton', 'Southold', 'Shelter Island'],
+    how: 'Each town employs its own police department and negotiates directly with the school districts inside its boundaries.',
+    allocation:
+      'Whatever each town and district agree. That is the negotiation Riverhead is having, and these four are the only towns in Suffolk facing the same one.',
+  },
+  whatIsNotSourced:
+    'What the other four East End towns actually pay is not established here. Neither the county police department nor the county government publishes a school resource officer programme page, a cost-sharing formula, or the agreements themselves, and the individual town\u2019s SRO memoranda are not published either. So this page can say how the two halves of the county are STRUCTURED, which is checkable, and cannot yet say what the neighbours pay, which would need each town\u2019s agreement or budget. Stating a comparison without them would be inventing one.',
+}
 
 export const whatWouldSettleIt = [
   'The agreement itself. The Board tabled the renewal partly because it had not seen the full contract with changes marked; the Town does not publish the SRO memorandum, so neither can a resident.',
   'An SRO line in the adopted budget. The officers are paid out of the Police department, so no budget line shows what the programme costs or what the district reimburses. Every figure on this page comes from press reporting of the Board’s own discussion rather than from the budget.',
   'The overtime terms. Members asked who authorises and pays overtime for games and proms. That is a real cost on a $350,000 programme and the reported figures do not separate it.',
   'The district boundary against the town boundary. One member’s objection is that Town taxpayers outside the school district help fund a district programme. Whether and how much the two differ is a factual question this site has not sourced, and it is the crux of that argument.',
+  'What the other East End towns pay. Southampton, East Hampton, Southold and Shelter Island run their own police and face the same negotiation, so their agreements are the only real benchmark. None of the four publishes one, and neither does the county for the districts it polices.',
 ]
 
 export const sources = [
