@@ -107,6 +107,46 @@ if (existsSync(path('out/data/meta.json'))) {
   for (const key of ['projection', 'search']) if (meta.datasetDetails?.[key]?.freshness !== 'current') fail(`${key} must be current immediately after pipeline regeneration`)
 }
 
+// ETL DATASET SHAPE FLOORS.
+//
+// On September 14, 2026 a re-extraction of the Town Board minutes collapsed the
+// column padding parse_salary_schedule.py splits on. authorized-2025.json fell
+// from 345 records to 177 — the entire Police, Elected Officials and Boards
+// groups — and nothing here noticed. The loss surfaced a week later, and only
+// because an unrelated page stopped type-checking against a downstream null.
+//
+// A bare record count is the weaker guard: the break was GROUP-SHAPED, so the
+// invariant worth asserting is that the groups the Town actually publishes are
+// all still present with a plausible headcount. Both are checked.
+{
+  const salaryPath = path('out/data/salary/authorized-2025.json')
+  if (!existsSync(salaryPath)) fail('Missing required file: out/data/salary/authorized-2025.json')
+  else {
+    const salary = JSON.parse(readFileSync(salaryPath, 'utf8'))
+    const records = Array.isArray(salary.records) ? salary.records : []
+    if (records.length < 300) fail(`Authorized-salary record count collapsed: ${records.length} (expected 300+)`)
+
+    // Every group the January salary resolutions set. Losing one whole group is
+    // the exact shape of the 2026 regression.
+    const counts = new Map()
+    for (const r of records) counts.set(r.group, (counts.get(r.group) ?? 0) + 1)
+    for (const [group, floor] of [['Police', 50], ['General Fund', 100], ['Highway', 20], ['Elected Officials', 5], ['Boards', 10]]) {
+      const n = counts.get(group) ?? 0
+      if (n < floor) fail(`Authorized-salary group "${group}" has ${n} records (expected ${floor}+) — a parser regression drops whole groups`)
+    }
+  }
+
+  // policeChain is derived from the Police salary group. It going null is what
+  // finally broke the build; assert it directly so the cause is named, not the
+  // symptom.
+  const buyoutPath = path('out/data/buyout-analysis.json')
+  if (existsSync(buyoutPath)) {
+    const buyout = JSON.parse(readFileSync(buyoutPath, 'utf8'))
+    if (buyout.policeChain == null) fail('buyout-analysis.policeChain is null — the police rank ladder failed to build, usually because the authorized-salary Police group is empty')
+    else if (!Array.isArray(buyout.policeChain.ladder) || buyout.policeChain.ladder.length < 5) fail(`buyout-analysis.policeChain.ladder has ${buyout.policeChain.ladder?.length ?? 0} ranks (expected 5+)`)
+  }
+}
+
 const home = readFileSync(path('out/index.html'), 'utf8')
 for (const text of ['Payroll Explorer', 'Start Here', 'Current data snapshot']) if (!home.includes(text)) fail(`Missing expected home-page content: ${text}`)
 
