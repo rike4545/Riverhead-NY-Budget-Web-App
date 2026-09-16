@@ -76,6 +76,11 @@ jobs:
         run: python etl/predict_2027.py
       - name: Rebuild retirement-buyout analysis
         run: python etl/analyze_buyout.py
+      - name: Refresh police spending and reported crime
+        # Falls back to raw counts when CENSUS_API_KEY is absent; the page says so.
+        env:
+          CENSUS_API_KEY: ${{ secrets.CENSUS_API_KEY }}
+        run: python etl/parse_police_crime.py
       - name: Build unified search index
         run: python etl/build_search_index.py
       - name: Export CSV downloads
