@@ -4,6 +4,7 @@ import RecordTrail from '../../components/RecordTrail'
 import {
   resolution, officers, costHistory, perOfficer, positions,
   fundingPaths, theBind, whatWouldSettleIt, sources, notLawYet, unenactedPaths, whoElseHasThisArgument,
+  countyProgram, nobodyPublishesTheMoney,
 } from '../../lib/school-resource-officers'
 
 const base = process.env.NEXT_PUBLIC_BASE_PATH || ''
@@ -183,12 +184,77 @@ export default function SchoolResourceOfficersPage() {
               {whoElseHasThisArgument.ownForce.towns.join(', ')}
             </div>
             <p style={{ color: 'var(--rbl-text-strong)', fontSize: 13.3, lineHeight: 1.6, margin: '0 0 7px' }}>{whoElseHasThisArgument.ownForce.how}</p>
-            <p style={{ color: 'var(--rbl-text-body)', fontSize: 13.2, lineHeight: 1.6, margin: 0 }}>{whoElseHasThisArgument.ownForce.allocation}</p>
+            <p style={{ color: 'var(--rbl-text-body)', fontSize: 13.2, lineHeight: 1.6, margin: '0 0 7px' }}>{whoElseHasThisArgument.ownForce.allocation}</p>
+            <p style={{ color: 'var(--rbl-text-muted)', fontSize: 12.6, lineHeight: 1.55, margin: 0 }}>{whoElseHasThisArgument.ownForce.southampton}</p>
           </div>
         </div>
         <p style={{ color: 'var(--rbl-text-muted)', fontSize: 12.9, lineHeight: 1.6, margin: '14px 0 0' }}>
           <strong>What this page cannot tell you yet.</strong> {whoElseHasThisArgument.whatIsNotSourced}
         </p>
+      </section>
+
+      {/* The county runs one — and publishes no money */}
+      <section style={{ ...card, marginBottom: 18 }}>
+        <h3 style={{ marginTop: 0, color: 'var(--rbl-title)' }}>The county runs its own programme, and stops at the district line</h3>
+        <p style={{ color: 'var(--rbl-text-body)', fontSize: 14.5, lineHeight: 1.65, margin: '0 0 12px' }}>
+          Suffolk&apos;s Community Relations Bureau publishes an SRO roster. The department, in its own words,{' '}
+          <a href={countyProgram.url} target="_blank" rel="noreferrer" style={{ color: 'var(--rbl-link)', fontWeight: 700, textDecoration: 'none' }}>
+            “{countyProgram.quote}” ↗
+          </a>{' '}
+          — the police district, which is the five western towns. Riverhead is not in it. That is why the Town cannot
+          simply be served by county SROs the way a Brookhaven or Islip district can, and why it is negotiating over its
+          own officers at all.
+        </p>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(min(180px,100%),1fr))', gap: 10, marginBottom: 12 }}>
+          <Figure label="County SROs" value={String(countyProgram.total)} sub={`${countyProgram.precinctTotal} across ${countyProgram.precincts.length} precincts · ${countyProgram.countywide} countywide`} />
+          <Figure label="Population they cover" value={countyProgram.districtPopulation ? countyProgram.districtPopulation.toLocaleString() : '—'} sub="residents of the police district" />
+          <Figure label="Riverhead SROs" value={String(officers)} sub="for a town of 35,826" />
+        </div>
+        <p style={{ color: 'var(--rbl-text-muted)', fontSize: 12.8, lineHeight: 1.55, margin: '0 0 12px' }}>{countyProgram.scaleCaveat}</p>
+
+        <div style={{ background: 'var(--rbl-surface-2)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 10, padding: '12px 14px', marginBottom: 12 }}>
+          <strong style={{ color: 'var(--rbl-title)', fontSize: 13.8 }}>What the county does count</strong>
+          <div style={{ overflowX: 'auto', margin: '8px 0' }}>
+            <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 12.8 }}>
+              <thead>
+                <tr style={{ textAlign: 'left', color: 'var(--rbl-text-muted)', borderBottom: '1px solid var(--rbl-border-subtle)' }}>
+                  <th style={th}>Period</th>
+                  <th style={{ ...th, textAlign: 'right' }}>SRO arrests</th>
+                  <th style={{ ...th, textAlign: 'right' }}>All SCPD arrests</th>
+                  <th style={{ ...th, textAlign: 'right' }}>Share</th>
+                </tr>
+              </thead>
+              <tbody>
+                {countyProgram.reformReport.arrests.map((a) => (
+                  <tr key={a.period} style={{ borderBottom: '1px solid var(--rbl-border-subtle)' }}>
+                    <td style={td}>{a.period}</td>
+                    <td style={{ ...td, textAlign: 'right', fontWeight: 700 }}>{a.sro}</td>
+                    <td style={{ ...td, textAlign: 'right' }}>{a.allScpd.toLocaleString()}</td>
+                    <td style={{ ...td, textAlign: 'right' }}>{((a.sro / a.allScpd) * 100).toFixed(2)}%</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <p style={{ color: 'var(--rbl-text-body)', fontSize: 13.2, lineHeight: 1.6, margin: 0 }}>{countyProgram.reformReport.reading}</p>
+        </div>
+
+        <div style={{ background: 'var(--rbl-surface-2)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 10, padding: '12px 14px', marginBottom: 12 }}>
+          <strong style={{ color: 'var(--rbl-title)', fontSize: 13.8 }}>What the county put in writing — and what it left out</strong>
+          <p style={{ color: 'var(--rbl-text-strong)', fontSize: 13.3, lineHeight: 1.6, margin: '5px 0 6px' }}>
+            {countyProgram.jobDescription.what} <strong>{countyProgram.jobDescription.notAnMou}</strong> Its first duty is that an
+            officer “{countyProgram.jobDescription.topDuty}”.
+          </p>
+          <p style={{ color: 'var(--rbl-warn)', fontSize: 13.2, lineHeight: 1.6, margin: 0, fontWeight: 600 }}>
+            Silent on: {countyProgram.jobDescription.silentOn} And a COPS Hiring Program award requires a <em>signed
+            memorandum of understanding</em> with the school partner — which both parties have said this document is not.
+          </p>
+        </div>
+
+        <div style={{ background: 'var(--rbl-info-bg)', border: '1px solid var(--rbl-info-border)', borderRadius: 10, padding: '12px 14px' }}>
+          <strong style={{ color: 'var(--rbl-title)', fontSize: 14 }}>Nobody publishes the money</strong>
+          <p style={{ color: 'var(--rbl-info-text)', fontSize: 13.8, lineHeight: 1.65, margin: '5px 0 0' }}>{nobodyPublishesTheMoney}</p>
+        </div>
       </section>
 
       <section style={{ ...card, marginBottom: 18 }}>
@@ -221,6 +287,16 @@ export default function SchoolResourceOfficersPage() {
         ]}
       />
     </PageShell>
+  )
+}
+
+function Figure({ label, value, sub }: { label: string; value: string; sub: string }) {
+  return (
+    <div style={{ background: 'var(--rbl-surface-2)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 10, padding: '10px 12px' }}>
+      <div style={{ color: 'var(--rbl-text-muted)', fontSize: 11, fontWeight: 900, textTransform: 'uppercase', letterSpacing: 0.4 }}>{label}</div>
+      <strong style={{ fontSize: 20, color: 'var(--rbl-title)' }}>{value}</strong>
+      <div style={{ color: 'var(--rbl-text-muted)', fontSize: 12.2, marginTop: 2 }}>{sub}</div>
+    </div>
   )
 }
 
