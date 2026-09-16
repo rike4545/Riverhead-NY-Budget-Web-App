@@ -214,7 +214,14 @@ export function lookupAccount(code: string, createdHere = false): AccountMatch {
   if (isFundBalanceAccount(code) && subAccountIndex.funds.some((f) => f.code === fund)) {
     return { status: 'unbudgeted-fund-balance', code, fund, fundName: name ?? fund }
   }
-  if (name) return { status: 'non-operating', code, fund, fundName: name }
+  // Only a fund that is genuinely outside the operating extract may be called
+  // non-operating. fundName() also answers for every operating fund, so testing
+  // it alone told a reader that an unmatched General Fund code — say the
+  // A01-2705 Gifts and Donations line, which the budget does not carry — sits
+  // outside the operating budget. It does not. It is simply not in the extract,
+  // and "we could not resolve this" is the honest answer.
+  const nonOperating = NON_OPERATING_FUNDS[fund]
+  if (nonOperating) return { status: 'non-operating', code, fund, fundName: nonOperating }
   return { status: 'unknown', code, fund }
 }
 

@@ -5,7 +5,7 @@ import { buyout2026 as b } from '../../lib/buyout-2026'
 import analysis from '../../public/data/buyout-analysis.json'
 import retireeHealthComparison from '../../public/data/retiree-health-comparison.json'
 import {
-  uptake, inWindow, incentiveCostFloor, savingEstimate, retiredOutsideModelledPool,
+  uptake, confirmed, pending, rejected, incentiveCostIfAllElected, savingEstimate, retiredOutsideModelledPool,
   limits as actualLimits,
 } from '../../lib/retirement-actuals-2026'
 
@@ -77,8 +77,8 @@ export default function BuyoutPage() {
           participation rate: accepting a retirement is not proof the retiree elected the incentive.
         </p>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(170px,1fr))', gap: 12, marginBottom: 12 }}>
-          <Stat label="Retirements since ratification" value={String(uptake.windowRetirements)} sub={`${uptake.sworn} sworn police · ${uptake.civilian} civilian`} accent />
-          <Stat label="Incentive cost, floor" value={usd(incentiveCostFloor.total)} sub="excludes sick-day payouts" />
+          <Stat label="Confirmed since ratification" value={String(uptake.windowRetirements)} sub={`${uptake.sworn} sworn police · ${uptake.civilian} civilian${uptake.awaitingVoteRecord > 0 ? ` · ${uptake.awaitingVoteRecord} more filed, vote record pending` : ''}`} accent />
+          <Stat label="Incentive cost if all elected" value={usd(incentiveCostIfAllElected.total)} sub="a scenario — the true floor is $0" />
           <Stat label="Annual payroll saving" value={usd(savingEstimate.annualFromSworn)} sub={`${savingEstimate.swornCount} sworn × ${usd(savingEstimate.perSwornRetirement)} chain-corrected`} />
           <Stat label="First full year of it" value={String(savingEstimate.firstFullYear)} sub="effective dates run July–October 2026" />
         </div>
@@ -105,11 +105,12 @@ export default function BuyoutPage() {
               </tr>
             </thead>
             <tbody>
-              {inWindow.map((r) => (
+              {[...confirmed, ...pending, ...rejected].map((r) => (
                 <tr key={`${r.meetingDate}-${r.number ?? r.title}`} style={{ borderBottom: '1px solid var(--rbl-border-subtle)', verticalAlign: 'top' }}>
                   <td style={{ padding: '9px', whiteSpace: 'nowrap' }}>
                     {r.meetingDate}
                     {r.adopted === null && <div style={{ fontSize: 10.5, color: 'var(--rbl-warn)', fontWeight: 700 }}>vote record pending</div>}
+                    {r.adopted === false && <div style={{ fontSize: 10.5, color: 'var(--rbl-danger-strong)', fontWeight: 700 }}>not adopted</div>}
                   </td>
                   <td style={{ padding: '9px', whiteSpace: 'nowrap', fontWeight: 800, color: 'var(--rbl-title)' }}>{r.number ?? '—'}</td>
                   <td style={{ padding: '9px', color: 'var(--rbl-text-strong)' }}>
