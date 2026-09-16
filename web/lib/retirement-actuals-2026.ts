@@ -118,7 +118,17 @@ export const inWindow = all.filter((r) => r.meetingDate >= RATIFIED)
  * Pending items are reported, separately, and never priced.
  */
 export const confirmed = inWindow.filter((r) => r.adopted === true)
-export const pending = inWindow.filter((r) => r.adopted !== true)
+/** No published vote record yet — outcome unknown, so never priced. */
+export const pending = inWindow.filter((r) => r.adopted === null)
+/**
+ * Decided and NOT adopted. A separate fact from "awaiting a record", and an
+ * earlier version of this file conflated the two by testing `!== true`: a
+ * rejected or tabled retirement would have inflated the awaiting-confirmation
+ * count and the if-confirmed scenario, while the table withheld its pending
+ * badge because that correctly tested for null. Nothing in the corpus is
+ * rejected today; the three sets partition the window so nothing can be.
+ */
+export const rejected = inWindow.filter((r) => r.adopted === false)
 
 export const sworn = confirmed.filter((r) => r.sworn)
 export const civilian = confirmed.filter((r) => !r.sworn)
@@ -141,9 +151,11 @@ export const uptake = {
   /** Filed but not yet confirmed adopted. Reported, never priced. */
   awaitingVoteRecord: pending.length,
   swornAwaitingVoteRecord: swornPending.length,
-  /** What the count would be if every pending item is later confirmed. */
-  ifPendingConfirmed: inWindow.length,
-  ifPendingConfirmedSworn: inWindow.filter((r) => r.sworn).length,
+  /** Decided and not adopted — never counted as awaiting anything. */
+  rejected: rejected.length,
+  /** What the count would be if every item still awaiting a record is confirmed. */
+  ifPendingConfirmed: confirmed.length + pending.length,
+  ifPendingConfirmedSworn: sworn.length + swornPending.length,
 }
 
 // ── Cost ────────────────────────────────────────────────────────────────────

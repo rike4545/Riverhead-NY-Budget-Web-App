@@ -5,7 +5,7 @@ import { buyout2026 as b } from '../../lib/buyout-2026'
 import analysis from '../../public/data/buyout-analysis.json'
 import retireeHealthComparison from '../../public/data/retiree-health-comparison.json'
 import {
-  uptake, confirmed, pending, incentiveCostIfAllElected, savingEstimate, retiredOutsideModelledPool,
+  uptake, confirmed, pending, rejected, incentiveCostIfAllElected, savingEstimate, retiredOutsideModelledPool,
   limits as actualLimits,
 } from '../../lib/retirement-actuals-2026'
 
@@ -105,11 +105,12 @@ export default function BuyoutPage() {
               </tr>
             </thead>
             <tbody>
-              {[...confirmed, ...pending].map((r) => (
+              {[...confirmed, ...pending, ...rejected].map((r) => (
                 <tr key={`${r.meetingDate}-${r.number ?? r.title}`} style={{ borderBottom: '1px solid var(--rbl-border-subtle)', verticalAlign: 'top' }}>
                   <td style={{ padding: '9px', whiteSpace: 'nowrap' }}>
                     {r.meetingDate}
                     {r.adopted === null && <div style={{ fontSize: 10.5, color: 'var(--rbl-warn)', fontWeight: 700 }}>vote record pending</div>}
+                    {r.adopted === false && <div style={{ fontSize: 10.5, color: 'var(--rbl-danger-strong)', fontWeight: 700 }}>not adopted</div>}
                   </td>
                   <td style={{ padding: '9px', whiteSpace: 'nowrap', fontWeight: 800, color: 'var(--rbl-title)' }}>{r.number ?? '—'}</td>
                   <td style={{ padding: '9px', color: 'var(--rbl-text-strong)' }}>
