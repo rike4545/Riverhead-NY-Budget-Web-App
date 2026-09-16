@@ -20,6 +20,9 @@ import { remainingHeadroomCeiling, committedTotal, drawCounts } from './fiscal-c
 import { capGap2027, firmRecurringTotal, retirementIncentive2027 } from './close-the-gap-2027'
 import { personnelPolicyTotal, operationalTotal, supplementTrimTotal, fullRecurringReductionPackage } from './spending-reduction-2027'
 import { generalFund } from './general-fund'
+import { uptake, savingEstimate, incentiveCostFloor } from './retirement-actuals-2026'
+import { retirementAnnualisation } from './annualization-2027'
+import { triborough, openUnits, corpus as laborCorpus } from './labor-contracts-2027'
 
 const gfFund = (prediction.byFund as { fundCode: string; v2026: number; v2027: number; delta: number; pct: number }[])
   .find((f) => f.fundCode === 'A01')!
@@ -97,8 +100,8 @@ export const levers: Lever[] = [
     display: `${retirementIncentive2027.projectedSavingsLow.toLocaleString('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 })} – ${retirementIncentive2027.projectedSavingsHigh.toLocaleString('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 })}`,
     covers: `up to ${Math.round((retirementIncentive2027.projectedSavingsHigh / gfFund.delta) * 100)}% of the $3.5M`,
     kind: 'recurring',
-    detail: `Approved unanimously on ${retirementIncentive2027.approved.split(' — ')[0]} by resolutions ${retirementIncentive2027.resolutions}. ${retirementIncentive2027.eligibleTotal} employees were eligible.`,
-    catch: retirementIncentive2027.note,
+    detail: `Approved unanimously on ${retirementIncentive2027.approved.split(' — ')[0]} by resolutions ${retirementIncentive2027.resolutions}. ${retirementIncentive2027.eligibleTotal} employees were eligible. Both deadlines have now passed and the Board has accepted ${uptake.windowRetirements} retirements since ratification — ${uptake.sworn} sworn, ${uptake.civilian} civilian. Pricing the sworn ones at the promotion-chain rate gives ${savingEstimate.annualFromSworn.toLocaleString('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 })} a year, which lands inside the Town's own estimate by a route that does not depend on it.`,
+    catch: `The projection has become a measurement, and the measurement is narrower than it looks. Accepting a retirement is not proof the retiree elected the incentive, so ${uptake.windowRetirements} is a ceiling on participation. The saving is also not free: the incentive costs at least ${incentiveCostFloor.total.toLocaleString('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 })} before sick-day payouts, and effective dates run July to October, so 2027 is the first budget carrying the whole of it — ${retirementAnnualisation.increment2027Low.toLocaleString('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 })} to ${retirementAnnualisation.increment2027High.toLocaleString('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 })} more than 2026 catches.`,
   },
   {
     name: 'Fund balance above the Town’s own policy ceiling',
@@ -148,10 +151,56 @@ export const whyHarder = {
   ],
   detail:
     'Public safety and employee benefits together are 72.7% of the 2026 General Fund. Suffolk can hold its general fund flat in part because its largest public-safety cost sits in a separate district fund that Riverhead does not pay into and does not control. Riverhead’s police department sits inside the fund a freeze would apply to.',
-  contracts:
-    'The timing compounds it. Both the PBA and SOA agreements expire on December 31, 2026 with no successor public. A zero-percent pledge for 2027 would be made while the Town’s two largest bargaining units are unsettled, which is the year in which a freeze is least within the Board’s control.',
+  get contracts() {
+    return (
+      'The timing compounds it. The ' + openUnits.map((u) => u.unit).join(' and ') + ' agreements expire on December 31, ' +
+      '2026, and this is now a checked fact rather than an assumption: across ' + laborCorpus.resolutions.toLocaleString() +
+      ' resolutions in ' + laborCorpus.meetings + ' meetings, no successor for either has been put to the Board. Their only ' +
+      'items this year are the July 7 retirement-incentive stipulations, which pay people to leave and set no wage rate. A ' +
+      'zero-percent pledge for 2027 would be made while the Town’s two largest bargaining units are unsettled — the year a ' +
+      'freeze is least within the Board’s control.'
+    )
+  },
+  get triboroughFloor() {
+    return (
+      'And an unsettled contract is not a free one. Civil Service Law § 209-a(1)(e) makes it an improper practice to refuse ' +
+      'to continue the terms of an expired agreement, so step movement carries on with no successor and no vote: ' +
+      triborough.stepCost2027.toLocaleString('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }) +
+      ' in 2027 for the Police Officer ladder alone, ' + triborough.officersMoving + ' officers advancing one rung while the ' +
+      triborough.officersAtTopStep + ' already at top step cost nothing. What does not continue is the across-the-board ' +
+      'increase. So the freeze does not begin from a standstill — it begins from a floor the Board cannot vote away, and the ' +
+      '2027 projection’s police line assumes a settlement on top of it.'
+    )
+  },
   sourceNote:
     'Shares are computed from the 848 budget lines behind the 2027 projection, grouped by the first digit of the Uniform System of Accounts function code.',
+}
+
+/**
+ * The two police numbers this year produced, set against each other.
+ *
+ * They are close enough that treating either alone would mislead. Seven sworn
+ * retirements are worth about as much a year as the step movement the Town owes
+ * whether or not it settles a contract — so on the police side, the single
+ * largest block of the General Fund, 2027 looks less like a saving than like
+ * treading water.
+ */
+export const policeOffset = {
+  savingFromRetirements: savingEstimate.annualFromSworn,
+  triboroughStepFloor: triborough.stepCost2027,
+  net: savingEstimate.annualFromSworn - triborough.stepCost2027,
+  get reading() {
+    const net = this.savingFromRetirements - this.triboroughStepFloor
+    const usd = (n: number) => Math.abs(n).toLocaleString('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 })
+    return (
+      `Seven sworn retirements are worth ${usd(this.savingFromRetirements)} a year. Step movement the Town owes with or ` +
+      `without a contract costs ${usd(this.triboroughStepFloor)} in the Police Officer ladder alone. The two nearly cancel: ` +
+      `${usd(net)} ${net >= 0 ? 'to the good' : 'to the bad'} before a single contract is negotiated, and before the ` +
+      'detective, sergeant and superior-officer ladders — which this floor does not include — are counted at all.'
+    )
+  },
+  caveat:
+    'These are not strictly additive. Some of the retiring officers were at top step and so were not going to move anyway, which is already reflected in both figures being computed from the same authorised-salary listings. The point is the order of magnitude, not a net line in a budget.',
 }
 
 export const verdict = {
