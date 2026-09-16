@@ -4,6 +4,10 @@ import BuyoutEligible, { type EligibleEmployee } from '../../components/BuyoutEl
 import { buyout2026 as b } from '../../lib/buyout-2026'
 import analysis from '../../public/data/buyout-analysis.json'
 import retireeHealthComparison from '../../public/data/retiree-health-comparison.json'
+import {
+  uptake, inWindow, incentiveCostFloor, savingEstimate, retiredOutsideModelledPool,
+  limits as actualLimits,
+} from '../../lib/retirement-actuals-2026'
 
 const base = process.env.NEXT_PUBLIC_BASE_PATH || ''
 const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 20, boxShadow: '0 14px 34px var(--rbl-shadow)' } as const
@@ -60,6 +64,84 @@ export default function BuyoutPage() {
           analysis further down this page for how that compares to the payroll-derived upper-bound model. The Town
           declined to give a gross cost estimate until it knows which of the 53 eligible employees actually opt in.
         </p>
+      </section>
+
+      {/* What the resolution record now shows, the deadlines having passed */}
+      <section style={{ ...card, marginBottom: 18, borderLeft: '6px solid var(--rbl-accent-border)' }}>
+        <h3 style={{ marginTop: 0, color: 'var(--rbl-title)' }}>Who actually went</h3>
+        <p style={{ color: 'var(--rbl-text-body)', fontSize: 14.5, lineHeight: 1.6, margin: '0 0 12px' }}>
+          Both deadlines have now passed, and the Board accepts every retirement by its own numbered resolution. Since
+          ratification on July 7 it has accepted <strong>{uptake.windowRetirements}</strong> — against{' '}
+          <strong>{uptake.beforeProgram}</strong> in the six months before it. That is <strong>{Math.round(uptake.shareOfEligibleCeiling * 100)}%</strong>{' '}
+          of the {uptake.townEligibleTotal} employees the Town said were eligible, and it is a <strong>ceiling</strong>, not a
+          participation rate: accepting a retirement is not proof the retiree elected the incentive.
+        </p>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(170px,1fr))', gap: 12, marginBottom: 12 }}>
+          <Stat label="Retirements since ratification" value={String(uptake.windowRetirements)} sub={`${uptake.sworn} sworn police · ${uptake.civilian} civilian`} accent />
+          <Stat label="Incentive cost, floor" value={usd(incentiveCostFloor.total)} sub="excludes sick-day payouts" />
+          <Stat label="Annual payroll saving" value={usd(savingEstimate.annualFromSworn)} sub={`${savingEstimate.swornCount} sworn × ${usd(savingEstimate.perSwornRetirement)} chain-corrected`} />
+          <Stat label="First full year of it" value={String(savingEstimate.firstFullYear)} sub="effective dates run July–October 2026" />
+        </div>
+        <div style={{ background: 'var(--rbl-success-bg)', border: '1px solid var(--rbl-success-border)', borderRadius: 10, padding: '11px 14px', marginBottom: 12 }}>
+          <strong style={{ color: 'var(--rbl-success-strong)', fontSize: 14 }}>This lands inside the Town&apos;s own estimate</strong>
+          <p style={{ color: 'var(--rbl-text-strong)', fontSize: 13.6, lineHeight: 1.55, margin: '4px 0 0' }}>
+            The Financial Administrator put savings at {usd(savingEstimate.townEstimate.low)}–{usd(savingEstimate.townEstimate.high)} depending on
+            uptake. Pricing the sworn retirements the Board has actually accepted, at the promotion-chain figure this page
+            derives elsewhere — a top-step officer ({usd(savingEstimate.officerTopStep)}) replaced at the entry step
+            ({usd(savingEstimate.officerEntryStep)}) — gives {usd(savingEstimate.annualFromSworn)} a year. Two independent
+            routes to the same range. Note what it is not: 2026 catches only part of it, because the effective dates run
+            July to October. <strong>2027 is the first budget that carries the whole saving</strong> — and the first that
+            carries a full year of whatever replaces these seats.
+          </p>
+        </div>
+        <div style={{ overflowX: 'auto' }}>
+          <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 13.5 }}>
+            <thead>
+              <tr style={{ textAlign: 'left', color: 'var(--rbl-text-muted)', borderBottom: '2px solid var(--rbl-border-subtle)' }}>
+                <th style={{ padding: '8px 9px' }}>Meeting</th>
+                <th style={{ padding: '8px 9px' }}>Res #</th>
+                <th style={{ padding: '8px 9px' }}>Position</th>
+                <th style={{ padding: '8px 9px' }}>In the eligible-pool model</th>
+              </tr>
+            </thead>
+            <tbody>
+              {inWindow.map((r) => (
+                <tr key={`${r.meetingDate}-${r.number ?? r.title}`} style={{ borderBottom: '1px solid var(--rbl-border-subtle)', verticalAlign: 'top' }}>
+                  <td style={{ padding: '9px', whiteSpace: 'nowrap' }}>
+                    {r.meetingDate}
+                    {r.adopted === null && <div style={{ fontSize: 10.5, color: 'var(--rbl-warn)', fontWeight: 700 }}>vote record pending</div>}
+                  </td>
+                  <td style={{ padding: '9px', whiteSpace: 'nowrap', fontWeight: 800, color: 'var(--rbl-title)' }}>{r.number ?? '—'}</td>
+                  <td style={{ padding: '9px', color: 'var(--rbl-text-strong)' }}>
+                    {r.title.replace(/^(Accepts|Approves|Ratifies and Accepts)\s+the\s+Retirement\s+of\s+(an?|An|the)\s*/i, '')}
+                    <span style={{ display: 'inline-block', marginLeft: 6, background: r.sworn ? 'var(--rbl-info-bg)' : 'var(--rbl-surface-2)', color: r.sworn ? 'var(--rbl-info-text)' : 'var(--rbl-text-body)', fontSize: 10.5, fontWeight: 800, padding: '1px 7px', borderRadius: 999 }}>
+                      {r.sworn ? 'sworn' : 'civilian'}
+                    </span>
+                  </td>
+                  <td style={{ padding: '9px', color: 'var(--rbl-text-muted)', fontSize: 12.5 }}>
+                    {r.pool
+                      ? `${r.pool.yearsService} years of service · incentive ${usd(r.pool.estIncentive)}`
+                      : r.surname
+                        ? 'named, but not in the modelled pool'
+                        : 'resolution names a title, not a person'}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        {retiredOutsideModelledPool.length > 0 && (
+          <p style={{ color: 'var(--rbl-text-body)', fontSize: 13.4, lineHeight: 1.55, margin: '12px 0 0' }}>
+            <strong>{retiredOutsideModelledPool.length}</strong> named retiree
+            {retiredOutsideModelledPool.length === 1 ? ' does' : 's do'} not appear in the eligible-pool model below, which
+            is worth saying out loud rather than quietly dropping: that pool is built from hire date and union, and real
+            retirement eligibility also turns on age and service credit the Town does not publish. It is an upper bound
+            that still misses people.
+          </p>
+        )}
+        <ul style={{ color: 'var(--rbl-text-muted)', fontSize: 12.8, lineHeight: 1.55, paddingLeft: 18, margin: '12px 0 0' }}>
+          {actualLimits.map((l, i) => <li key={i}>{l}</li>)}
+        </ul>
       </section>
 
       {/* Per-union programs */}
