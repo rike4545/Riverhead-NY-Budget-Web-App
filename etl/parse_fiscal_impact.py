@@ -78,12 +78,26 @@ def list_events() -> list[dict]:
 # Keyword rules → category. Order matters (first match wins).
 CATEGORY_RULES: list[tuple[str, list[str]]] = [
     ("debt", ["bond anticipation", "serial bond", "refunding bond", "bond resolution", " ban ", "bonds"]),
-    ("capital", ["capital project", "budget adjustment", "budget transfer", "transfer of funds", "capital"]),
+    # "purchase", "change order" and the bid-award variants were all missing, so
+    # resolutions like "Authorizes Purchase of Kenworth Tandem Axle Dump Truck",
+    # "Approves Sewer District Request For Change Order No. 1" and "Awards Bid for
+    # Rehabilitation of Plant No. 7" fell through every rule and landed in
+    # "procedural", whose verdict is "No direct cost". The old rule listed
+    # "award bid" but the Town writes "Awards Bid".
+    ("capital", ["capital project", "budget adjustment", "budget transfer", "transfer of funds",
+                 "change order", "purchase of", "purchase and", "authorizes purchase",
+                 "awards bid", "award bid", "bid award", "rehabilitation of", "capital"]),
+    # Settlements and claims pay real money and had no rule at all.
+    ("litigation", ["settlement of", "settle the claim", "authorizes settlement",
+                    "stipulation of settlement", "notice of claim", "tax certiorari"]),
     ("grant", ["grant"]),
     ("donation", ["donation", "donate", "gift of", "accept the gift"]),
     ("labor-contract", ["collective bargaining", "cba", "union", "pba", "csea", "soa", "memorandum of agreement"]),
     ("personnel-out", ["retirement", "resignation", "separation", "terminate", "termination"]),
-    ("personnel", ["appoint", "hire", "salary", "salaries", "promote", "promotion", "provisional", "permanent appointment", "part-time", "full-time", "stipend"]),
+    ("personnel", ["appoint", "hire", "salary", "salaries", "promote", "promotion", "provisional",
+                   "permanent appointment", "part-time", "full-time", "stipend",
+                   "reclassif",  # a reclassification is a pay-grade change
+                   ]),
     ("appointment-volunteer", ["board", "committee", "task force", "council on", "commission"]),
     ("fees", ["fee schedule", "set fees", "fees", "rate", "charge"]),
     ("permit", ["permit", "license", "special event", "road closure", "block party", "mass gathering"]),
@@ -107,6 +121,12 @@ def realistic_read(category: str, fiscal_impact: str) -> dict:
             "verdict": "Understated — the form says 'no fiscal impact'",
             "reason": "A capital or debt item marked 'no fiscal impact' still moves money the Town must fund.",
             "flag": "understated",
+        }
+    if category == "litigation":
+        return {
+            "verdict": "Real cost — a payment the Town owes",
+            "reason": "A settlement or claim is money leaving the Town, usually from the General Fund or an insurance reserve, whatever the form says about absorption.",
+            "flag": "reserve-draw" if yes else "understated",
         }
     if category in ("grant", "donation", "escrow-neutral"):
         return {
@@ -146,6 +166,126 @@ def realistic_read(category: str, fiscal_impact: str) -> dict:
     }
 
 
+# ── Section G: the Town's own statement of who pays ─────────────────────────
+#
+# Every Fiscal Impact Statement carries a "G. Proposed Source of Funding" block,
+# and section E(b) a free-text explanation. Between them the Town names the
+# funding source on 99% of statements, attaches a GL account code on about an
+# eighth, and — crucially — states a dollar amount on about a quarter.
+#
+# This file used to say amounts "live in interleaved backup tables that don't
+# reliably tie to a single resolution, so they are left blank rather than
+# guessed". That is true of the backup tables and wrong about section G, which
+# sits inside the statement for one resolution and names its own figure. Reading
+# it takes priced resolutions from roughly 2% of the corpus to roughly 27%, and
+# replaces title-keyword guesses about which fund is touched with the account
+# prefix the Town wrote down.
+#
+# Account prefixes are the Town's own fund codes, taken from the adopted budget.
+FUND_PREFIXES: dict[str, str] = {
+    "A01": "General Fund", "DA1": "Highway", "EW1": "Water District",
+    "ES1": "Riverhead Sewer District", "ES5": "Riverhead Scavenger Waste",
+    "SR1": "Refuse and Garbage District", "SM1": "Ambulance District",
+    "SL1": "Street Lighting District", "CM4": "Community Preservation Fund",
+    "SW1": "Calverton Sewer District", "CD1": "Community Development",
+    "V01": "Debt Service Fund", "PK1": "Public Parking District",
+    "BID": "Business Improvement District",
+    # Observed in section G and absent from the operating-fund list: capital and
+    # developer-fee funds. They matter because money moving through them is NOT
+    # a draw on any operating fund's balance.
+    "H01": "Capital Projects Fund",
+    "EW3": "Water District — developer fees",
+    "ES2": "Sewer — developer fees",
+    "CM5": "Community Preservation — capital",
+}
+
+# How the money is raised, in the Town's own words. Ordered: the first match
+# wins, so the more specific sources are checked before the general ones.
+FUNDING_RULES: list[tuple[str, list[str]]] = [
+    ("fund-balance", ["fund balance", "unassigned", "retained earnings", "reserve"]),
+    ("grant", ["grant", "pass-through", "pass through", "federal", "state aid", "nys "]),
+    ("donation", ["donation", "donated", "gift"]),
+    ("escrow", ["escrow", "letter of credit", "performance bond", "performance security"]),
+    ("borrowing", ["bond anticipation", "serial bond", "bond proceeds", "ban proceeds", "borrowing"]),
+    ("insurance", ["insurance", "indemnif", "recovery"]),
+    ("fee-revenue", ["fee revenue", "fees collected", "user fee", "permit revenue"]),
+    ("appropriation-transfer", ["appropriation transfer", "budget transfer", "transfer from"]),
+    ("existing-appropriation", ["existing appropriation", "budgeted", "approved town annual budget",
+                                "existing resources", "absorbed"]),
+]
+
+MONEY_RE = re.compile(r"\$\s*([\d,]+(?:\.\d{2})?)")
+# Fund codes run one to three letters then one or two digits: A01 (General
+# Fund), H01 (capital projects), DA1 (Highway), EW3 (water developer fees). An
+# earlier pattern required two letters and missed A01 entirely — the General
+# Fund, which is the one that matters most here.
+ACCOUNT_RE = re.compile(r"\b([A-Z]{1,3}\d{1,2})-[\d\-]{6,}")
+
+
+def _section(block_text: str, start_pat: str, end_pat: str) -> str:
+    """Text between two lettered headings of the statement, or ''."""
+    m = re.search(start_pat, block_text)
+    if not m:
+        return ""
+    rest = block_text[m.end():]
+    e = re.search(end_pat, rest)
+    return (rest[: e.start()] if e else rest[:1200]).strip()
+
+
+# The statement's own printed labels. They must be stripped before any keyword
+# match: "Grant or other Revenue Source:" is pre-printed on every form, so
+# matching it tagged 138 of 143 statements as grant-funded on the first pass.
+# What matters is what the preparer WROTE, not what the form asks.
+FORM_LABELS = re.compile(
+    r"(Grant or other Revenue Source|Appropriation Account to be Charged"
+    r"|Appropriation Transfer \(list account\(s\) and amount\)|Appropriation Transfer"
+    r"|Proposed Source of Funding|The description/explanation of fiscal impact is set forth as follows"
+    r"|total Financial Cost of Funding over|the current fiscal year)",
+    re.I,
+)
+
+
+def funding_from_block(block_text: str) -> dict:
+    """Read the Town's own funding statement: source, accounts, amount.
+
+    Everything here is transcribed or directly derived from the statement. When
+    the Town did not write a figure, the amount stays None — the point of reading
+    section G is to stop guessing, not to guess more precisely.
+    """
+    g = _section(block_text, r"G\.\s*Proposed Source of Funding", r"\n\s*H\.")
+    eb = _section(block_text, r"\(b\)\s*The description/explanation[^:]*:", r"\n\s*F\.")
+    hay = FORM_LABELS.sub(" ", f"{g} {eb}").lower()
+
+    # A statement can name more than one source — one real example funds a
+    # project from bond proceeds AND state aid. Collect every match rather than
+    # taking the first, and keep the first as the headline for display.
+    sources = [name for name, kws in FUNDING_RULES if any(kw in hay for kw in kws)]
+    source = sources[0] if sources else None
+
+    accounts = []
+    funds = []
+    for pref in ACCOUNT_RE.findall(g):
+        if pref not in accounts:
+            accounts.append(pref)
+        fund = FUND_PREFIXES.get(pref)
+        if fund and fund not in funds:
+            funds.append(fund)
+
+    # The largest figure named in section G. Several rows can repeat the same
+    # sum (revenue in, appropriation out); the maximum is the size of the action.
+    amounts = [float(a.replace(",", "")) for a in MONEY_RE.findall(g)]
+    amount = round(max(amounts), 2) if amounts else None
+
+    return {
+        "source": source,
+        "sources": sources,
+        "sourceText": " ".join(FORM_LABELS.sub(" ", eb or g).split())[:240] or None,
+        "fundCodes": accounts,
+        "funds": funds,
+        "amount": amount,
+    }
+
+
 def classify(title: str, purpose: str) -> str:
     hay = f" {title} {purpose} ".lower()
     for category, kws in CATEGORY_RULES:
@@ -177,6 +317,7 @@ def parse_packet(text: str) -> list[dict]:
             "purpose": purpose,
             "fiscalImpact": fiscal_impact,
             "treatment": treatment,
+            "funding": funding_from_block(b),
         })
     return out
 
@@ -224,6 +365,7 @@ def build_meeting(date: str, packet_text: str) -> dict | None:
                 "ayes": matched.get("ayesCount"),
                 "nays": matched.get("naysCount"),
             }
+        funding = p.get("funding") or {}
         resolutions.append({
             "number": matched.get("number") if matched else None,
             "seq": seq,
@@ -231,7 +373,10 @@ def build_meeting(date: str, packet_text: str) -> dict | None:
             "category": category,
             "townFiscalImpact": p["fiscalImpact"],
             "townTreatment": p["treatment"],
-            "amount": None,  # not auto-extracted; see module docstring
+            # Read from the statement's own section G rather than guessed. Still
+            # None when the Town named no figure — most statements do not.
+            "amount": funding.get("amount"),
+            "funding": funding,
             "realistic": realistic,
             "vote": vote,
         })
@@ -262,8 +407,16 @@ def build_meeting(date: str, packet_text: str) -> dict | None:
             "markedYes": marked_yes,
             "understated": understated,
             "understatedMarkedNo": understated_marked_no,
-            "identifiedDollarsAtStake": 0,
-            "largestUnderstatedMarkedNo": None,
+            # Now that section G is read, these are real: the sum of every amount
+            # the Town itself wrote on a statement at this meeting, and the
+            # largest one it wrote while answering "no fiscal impact".
+            "identifiedDollarsAtStake": round(sum(r["amount"] for r in resolutions if r["amount"]), 2),
+            "pricedResolutions": sum(1 for r in resolutions if r["amount"] is not None),
+            "largestUnderstatedMarkedNo": max(
+                (r["amount"] for r in resolutions
+                 if r["amount"] and r["townFiscalImpact"] == "No"),
+                default=None,
+            ),
         },
         "resolutions": resolutions,
     }
