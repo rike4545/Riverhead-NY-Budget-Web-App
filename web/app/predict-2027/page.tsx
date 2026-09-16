@@ -10,6 +10,10 @@ import {
   drawCounts, recurringCostCounts, generalFundCommitments2026, committedTotal, openingSurplusAbovePolicy,
   remainingHeadroomCeiling, reductionPct, effectOnOptions, limits as commitmentLimits, corpus,
 } from '../../lib/fiscal-commitments-2027'
+import {
+  whatTheFormOmits, appointmentTiming, retirementAnnualisation, linesWithRepeatedActions,
+  bothDirections, limits as annualisationLimits,
+} from '../../lib/annualization-2027'
 
 const base = process.env.NEXT_PUBLIC_BASE_PATH || ''
 const usd = (n: number) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(n)
@@ -281,6 +285,85 @@ export default function Predict2027Page() {
             never netted against the headroom above. Mixing the two would overstate the draw on reserves roughly
             threefold, which is exactly what an earlier version of this page did.
           </p>
+        </div>
+
+        {/* Part-year 2026 becomes full-year 2027, in both directions */}
+        <div style={{ background: 'var(--rbl-surface-2)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 10, padding: '12px 14px', marginBottom: 12 }}>
+          <strong style={{ color: 'var(--rbl-title)', fontSize: 14 }}>{bothDirections.headline}</strong>
+          <p style={{ color: 'var(--rbl-text-body)', fontSize: 13.6, lineHeight: 1.6, margin: '4px 0 10px' }}>{bothDirections.body}</p>
+
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(min(200px,100%),1fr))', gap: 10, marginBottom: 10 }}>
+            <div style={{ background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 9, padding: '10px 12px' }}>
+              <div style={{ color: 'var(--rbl-text-muted)', fontSize: 11, fontWeight: 900, textTransform: 'uppercase', letterSpacing: .4 }}>Retirement saving 2027 carries and 2026 does not</div>
+              <strong style={{ fontSize: 19, color: 'var(--rbl-success-strong)' }}>
+                {usd(retirementAnnualisation.increment2027Low)}–{usd(retirementAnnualisation.increment2027High)}
+              </strong>
+              <div style={{ color: 'var(--rbl-text-muted)', fontSize: 12.3, marginTop: 2 }}>
+                of {usd(retirementAnnualisation.fullYearSaving)} a year from {retirementAnnualisation.swornCount} sworn retirements
+              </div>
+            </div>
+            <div style={{ background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 9, padding: '10px 12px' }}>
+              <div style={{ color: 'var(--rbl-text-muted)', fontSize: 11, fontWeight: 900, textTransform: 'uppercase', letterSpacing: .4 }}>Appointments made in the second half of 2026</div>
+              <strong style={{ fontSize: 19, color: 'var(--rbl-title)' }}>{appointmentTiming.secondHalf}</strong>
+              <div style={{ color: 'var(--rbl-text-muted)', fontSize: 12.3, marginTop: 2 }}>
+                of {appointmentTiming.total} — {Math.round(appointmentTiming.firstHalfShare * 100)}% of the year&apos;s hiring was done by June
+              </div>
+            </div>
+          </div>
+
+          <p style={{ color: 'var(--rbl-text-body)', fontSize: 13.4, lineHeight: 1.6, margin: '0 0 10px' }}>
+            {appointmentTiming.reading} {retirementAnnualisation.counterweight}
+          </p>
+
+          <div style={{ background: 'var(--rbl-warn-bg)', border: '1px solid var(--rbl-warn-border)', borderRadius: 9, padding: '10px 12px', marginBottom: 10 }}>
+            <strong style={{ color: 'var(--rbl-warn-strong)', fontSize: 13.4 }}>
+              The form names the budget line and never the salary
+            </strong>
+            <p style={{ color: 'var(--rbl-text-strong)', fontSize: 13.3, lineHeight: 1.55, margin: '4px 0 0' }}>
+              Of <strong>{whatTheFormOmits.personnelResolutions}</strong> personnel resolutions in the 2026 record,{' '}
+              <strong>{whatTheFormOmits.namingAnAccount}</strong> name the appropriation account to be charged and{' '}
+              <strong>{whatTheFormOmits.namingAnAmount}</strong> carry a dollar figure of any kind — <strong>{whatTheFormOmits.namingBoth}</strong>{' '}
+              state an amount against the account they name. A resident can see which line a new hire lands on and not what
+              the line now owes, which is precisely the number that carries into next year. That is why the hire side here
+              is counted in people rather than dollars: pricing it would mean inventing a figure.
+            </p>
+          </div>
+
+          <div style={{ color: 'var(--rbl-text-body)', fontSize: 13.3, lineHeight: 1.6 }}>
+            <strong>Where turnover concentrates.</strong> {linesWithRepeatedActions.length} payroll sub-accounts are named
+            by more than one 2026 personnel resolution. A seat vacated and refilled inside one year can charge the same
+            line for two people&apos;s part-years, so that year&apos;s spending on it is a poor guide to what the next year
+            needs.
+            <div style={{ overflowX: 'auto', marginTop: 8 }}>
+              <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 12.8 }}>
+                <thead>
+                  <tr style={{ textAlign: 'left', color: 'var(--rbl-text-muted)', borderBottom: '1px solid var(--rbl-border-subtle)' }}>
+                    <th style={th}>Budget line</th>
+                    <th style={th}>Department</th>
+                    <th style={{ ...th, textAlign: 'right' }}>2026 actions</th>
+                    <th style={{ ...th, textAlign: 'right' }}>Adopted 2026</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {linesWithRepeatedActions.slice(0, 6).map((l) => (
+                    <tr key={l.code} style={{ borderBottom: '1px solid var(--rbl-border-subtle)' }}>
+                      <td style={td}>
+                        {l.line ?? l.code}
+                        <div style={{ fontSize: 10.5, color: 'var(--rbl-text-faint)', fontFamily: 'ui-monospace, monospace' }}>{l.code}</div>
+                      </td>
+                      <td style={td}>{l.department ?? '—'}</td>
+                      <td style={{ ...td, textAlign: 'right', fontWeight: 800 }}>{l.actions}</td>
+                      <td style={{ ...td, textAlign: 'right' }}>{l.adopted2026 != null ? usd(l.adopted2026) : '—'}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <ul style={{ color: 'var(--rbl-text-muted)', fontSize: 12.4, lineHeight: 1.5, paddingLeft: 18, margin: '10px 0 0' }}>
+            {annualisationLimits.map((l, i) => <li key={i}>{l}</li>)}
+          </ul>
         </div>
 
         <div style={{ background: 'var(--rbl-info-bg)', border: '1px solid var(--rbl-info-border)', borderRadius: 10, padding: '12px 14px', marginBottom: 12 }}>
