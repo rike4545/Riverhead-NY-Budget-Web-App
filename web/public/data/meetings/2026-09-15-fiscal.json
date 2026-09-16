@@ -72,6 +72,7 @@
      }
     ],
     "fundBalanceAccounts": [],
+    "fundBalanceFunds": [],
     "fundBalanceDraw": null,
     "drawsFundBalance": false,
     "matchRequired": null,
@@ -140,6 +141,9 @@
     "fundBalanceAccounts": [
      "SM1-9999-000-00000-0"
     ],
+    "fundBalanceFunds": [
+     "Ambulance District"
+    ],
     "fundBalanceDraw": 45000.0,
     "drawsFundBalance": true,
     "matchRequired": null,
@@ -204,6 +208,9 @@
     ],
     "fundBalanceAccounts": [
      "A01-9999-000-00000-0"
+    ],
+    "fundBalanceFunds": [
+     "General Fund"
     ],
     "fundBalanceDraw": 40000.0,
     "drawsFundBalance": true,
@@ -270,6 +277,9 @@
     "fundBalanceAccounts": [
      "A01-9999-000-00000-0"
     ],
+    "fundBalanceFunds": [
+     "General Fund"
+    ],
     "fundBalanceDraw": 375000.0,
     "drawsFundBalance": true,
     "matchRequired": null,
@@ -308,6 +318,7 @@
     "amount": null,
     "accounts": [],
     "fundBalanceAccounts": [],
+    "fundBalanceFunds": [],
     "fundBalanceDraw": null,
     "drawsFundBalance": false,
     "matchRequired": null,
@@ -346,6 +357,7 @@
     "amount": null,
     "accounts": [],
     "fundBalanceAccounts": [],
+    "fundBalanceFunds": [],
     "fundBalanceDraw": null,
     "drawsFundBalance": false,
     "matchRequired": null,
@@ -383,7 +395,7 @@
      "DA1"
     ],
     "funds": [
-     "Highway"
+     "Highway Fund"
     ],
     "amount": null,
     "accounts": [
@@ -398,6 +410,7 @@
      }
     ],
     "fundBalanceAccounts": [],
+    "fundBalanceFunds": [],
     "fundBalanceDraw": null,
     "drawsFundBalance": false,
     "matchRequired": null,
@@ -436,6 +449,7 @@
     "amount": null,
     "accounts": [],
     "fundBalanceAccounts": [],
+    "fundBalanceFunds": [],
     "fundBalanceDraw": null,
     "drawsFundBalance": false,
     "matchRequired": null,
@@ -474,6 +488,7 @@
     "amount": null,
     "accounts": [],
     "fundBalanceAccounts": [],
+    "fundBalanceFunds": [],
     "fundBalanceDraw": null,
     "drawsFundBalance": false,
     "matchRequired": null,
@@ -512,6 +527,7 @@
     "amount": null,
     "accounts": [],
     "fundBalanceAccounts": [],
+    "fundBalanceFunds": [],
     "fundBalanceDraw": null,
     "drawsFundBalance": false,
     "matchRequired": null,
@@ -550,6 +566,7 @@
     "amount": null,
     "accounts": [],
     "fundBalanceAccounts": [],
+    "fundBalanceFunds": [],
     "fundBalanceDraw": null,
     "drawsFundBalance": false,
     "matchRequired": null,
@@ -588,6 +605,7 @@
     "amount": null,
     "accounts": [],
     "fundBalanceAccounts": [],
+    "fundBalanceFunds": [],
     "fundBalanceDraw": null,
     "drawsFundBalance": false,
     "matchRequired": null,
@@ -626,6 +644,7 @@
     "amount": null,
     "accounts": [],
     "fundBalanceAccounts": [],
+    "fundBalanceFunds": [],
     "fundBalanceDraw": null,
     "drawsFundBalance": false,
     "matchRequired": null,
@@ -664,6 +683,7 @@
     "amount": null,
     "accounts": [],
     "fundBalanceAccounts": [],
+    "fundBalanceFunds": [],
     "fundBalanceDraw": null,
     "drawsFundBalance": false,
     "matchRequired": null,
@@ -702,6 +722,7 @@
     "amount": null,
     "accounts": [],
     "fundBalanceAccounts": [],
+    "fundBalanceFunds": [],
     "fundBalanceDraw": null,
     "drawsFundBalance": false,
     "matchRequired": null,
@@ -740,6 +761,7 @@
     "amount": null,
     "accounts": [],
     "fundBalanceAccounts": [],
+    "fundBalanceFunds": [],
     "fundBalanceDraw": null,
     "drawsFundBalance": false,
     "matchRequired": null,
@@ -778,6 +800,7 @@
     "amount": null,
     "accounts": [],
     "fundBalanceAccounts": [],
+    "fundBalanceFunds": [],
     "fundBalanceDraw": null,
     "drawsFundBalance": false,
     "matchRequired": null,
@@ -816,6 +839,7 @@
     "amount": null,
     "accounts": [],
     "fundBalanceAccounts": [],
+    "fundBalanceFunds": [],
     "fundBalanceDraw": null,
     "drawsFundBalance": false,
     "matchRequired": null,
@@ -854,6 +878,7 @@
     "amount": null,
     "accounts": [],
     "fundBalanceAccounts": [],
+    "fundBalanceFunds": [],
     "fundBalanceDraw": null,
     "drawsFundBalance": false,
     "matchRequired": null,
@@ -892,6 +917,7 @@
     "amount": null,
     "accounts": [],
     "fundBalanceAccounts": [],
+    "fundBalanceFunds": [],
     "fundBalanceDraw": null,
     "drawsFundBalance": false,
     "matchRequired": null,
@@ -930,6 +956,7 @@
     "amount": null,
     "accounts": [],
     "fundBalanceAccounts": [],
+    "fundBalanceFunds": [],
     "fundBalanceDraw": null,
     "drawsFundBalance": false,
     "matchRequired": null,
@@ -968,6 +995,7 @@
     "amount": null,
     "accounts": [],
     "fundBalanceAccounts": [],
+    "fundBalanceFunds": [],
     "fundBalanceDraw": null,
     "drawsFundBalance": false,
     "matchRequired": null,
@@ -1006,6 +1034,7 @@
     "amount": null,
     "accounts": [],
     "fundBalanceAccounts": [],
+    "fundBalanceFunds": [],
     "fundBalanceDraw": null,
     "drawsFundBalance": false,
     "matchRequired": null,
@@ -1044,6 +1073,7 @@
     "amount": null,
     "accounts": [],
     "fundBalanceAccounts": [],
+    "fundBalanceFunds": [],
     "fundBalanceDraw": null,
     "drawsFundBalance": false,
     "matchRequired": null,
@@ -1082,6 +1112,7 @@
     "amount": null,
     "accounts": [],
     "fundBalanceAccounts": [],
+    "fundBalanceFunds": [],
     "fundBalanceDraw": null,
     "drawsFundBalance": false,
     "matchRequired": null,
@@ -1120,6 +1151,7 @@
     "amount": null,
     "accounts": [],
     "fundBalanceAccounts": [],
+    "fundBalanceFunds": [],
     "fundBalanceDraw": null,
     "drawsFundBalance": false,
     "matchRequired": null,
@@ -1158,6 +1190,7 @@
     "amount": null,
     "accounts": [],
     "fundBalanceAccounts": [],
+    "fundBalanceFunds": [],
     "fundBalanceDraw": null,
     "drawsFundBalance": false,
     "matchRequired": null,
@@ -1195,7 +1228,7 @@
      "DA1"
     ],
     "funds": [
-     "Highway"
+     "Highway Fund"
     ],
     "amount": null,
     "accounts": [
@@ -1210,6 +1243,7 @@
      }
     ],
     "fundBalanceAccounts": [],
+    "fundBalanceFunds": [],
     "fundBalanceDraw": null,
     "drawsFundBalance": false,
     "matchRequired": null,
@@ -1262,6 +1296,7 @@
      }
     ],
     "fundBalanceAccounts": [],
+    "fundBalanceFunds": [],
     "fundBalanceDraw": null,
     "drawsFundBalance": false,
     "matchRequired": null,
@@ -1314,6 +1349,7 @@
      }
     ],
     "fundBalanceAccounts": [],
+    "fundBalanceFunds": [],
     "fundBalanceDraw": null,
     "drawsFundBalance": false,
     "matchRequired": null,
@@ -1366,6 +1402,7 @@
      }
     ],
     "fundBalanceAccounts": [],
+    "fundBalanceFunds": [],
     "fundBalanceDraw": null,
     "drawsFundBalance": false,
     "matchRequired": null,
@@ -1404,6 +1441,7 @@
     "amount": null,
     "accounts": [],
     "fundBalanceAccounts": [],
+    "fundBalanceFunds": [],
     "fundBalanceDraw": null,
     "drawsFundBalance": false,
     "matchRequired": null,
@@ -1442,6 +1480,7 @@
     "amount": null,
     "accounts": [],
     "fundBalanceAccounts": [],
+    "fundBalanceFunds": [],
     "fundBalanceDraw": null,
     "drawsFundBalance": false,
     "matchRequired": null,
@@ -1480,6 +1519,7 @@
     "amount": null,
     "accounts": [],
     "fundBalanceAccounts": [],
+    "fundBalanceFunds": [],
     "fundBalanceDraw": null,
     "drawsFundBalance": false,
     "matchRequired": null,
@@ -1518,6 +1558,7 @@
     "amount": null,
     "accounts": [],
     "fundBalanceAccounts": [],
+    "fundBalanceFunds": [],
     "fundBalanceDraw": null,
     "drawsFundBalance": false,
     "matchRequired": null,
@@ -1556,6 +1597,7 @@
     "amount": null,
     "accounts": [],
     "fundBalanceAccounts": [],
+    "fundBalanceFunds": [],
     "fundBalanceDraw": null,
     "drawsFundBalance": false,
     "matchRequired": null,
@@ -1629,6 +1671,9 @@
     ],
     "fundBalanceAccounts": [
      "A01-9999-000-00000-0"
+    ],
+    "fundBalanceFunds": [
+     "General Fund"
     ],
     "fundBalanceDraw": 300000.0,
     "drawsFundBalance": true,

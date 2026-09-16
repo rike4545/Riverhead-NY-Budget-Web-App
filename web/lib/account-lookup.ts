@@ -34,10 +34,19 @@ const NON_OPERATING_FUNDS: Record<string, string> = {
   EW3: 'Water District — developer fees',
   ES2: 'Sewer — developer fees',
   CM5: 'Community Preservation — capital',
-  SW1: 'Calverton Sewer District — capital',
   CD1: 'Community Development',
-  PK1: 'Public Parking District',
-  BID: 'Business Improvement District',
+  // Two sewer funds the 2026 capital statements use that the adopted-budget
+  // extract does not carry. Labelled from the Town's own account descriptions
+  // on the statement rather than given an official title this site cannot cite.
+  ES6: 'Sewer District (ES6)',
+  ES7: 'Sewer District (ES7)',
+  // SW1, PK1 and BID were listed here and are removed. The adopted budget
+  // carries Calverton Sewer District as ES3, Public Parking District as ST1 and
+  // Business Improvement District as CM1 — all of them OPERATING funds in the
+  // extract. Keeping the other codes here would have told a reader that a fund
+  // the Town does budget sits outside the operating budget. None of the three
+  // appears anywhere in the resolution corpus, so nothing is lost by dropping
+  // them and a live mislabel is avoided.
 }
 
 export type AccountRole = 'charge' | 'revenue' | 'transfer' | 'unspecified'

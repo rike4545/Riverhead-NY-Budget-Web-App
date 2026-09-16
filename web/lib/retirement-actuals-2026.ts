@@ -57,6 +57,26 @@ const pool = buyout.eligibleEmployees as PoolMember[]
 // Detective - Henry", "... Police Officer_Lipinsky". The Clerk's separator
 // varies; the surname is always last.
 const NAMED = /(?:Police\s+(?:Officer|Detective|Sergeant))[\s_\-]+(?:[A-Z][a-z]+\s+)?([A-Z][a-z]+)\s*$/
+
+/**
+ * Retirements whose resolution title names only the position.
+ *
+ * The statement's title field carries "Accepts the Retirement of a Senior
+ * Justice Court Clerk" and nothing more, so these could not be matched to the
+ * eligible-pool model by parsing alone. The names below were supplied by the
+ * site's maintainer from the Board's resolution documents, keyed to the
+ * resolution number, and each is verified here against the pool by exact name
+ * before it is used.
+ *
+ * Surname alone would not have sufficed in at least one case: the pool holds
+ * both a Maribeth Vail (Senior Justice Court Clerk, CSEA) and a John H Vail
+ * (Sergeant, SOA), and the position is what separates them.
+ */
+const NAMED_BY_RESOLUTION: Record<string, string> = {
+  '2026-783': 'DeFilippis, Theresa A', // Network and Systems Specialist II
+  '2026-822': 'Vail, Maribeth', // Senior Justice Court Clerk
+  '2026-852': 'Wulffraat, Lisa M', // Account Clerk
+}
 const IS_RETIREMENT = /\bretirement\b/i
 const SWORN = /police\s+(officer|detective|sergeant)/i
 
@@ -70,6 +90,13 @@ export type ActualRetirement = {
   adopted: boolean | null
   /** The modelled eligible-pool member this resolution names, when unambiguous. */
   pool: PoolMember | null
+  /** Matched via the curated map rather than from the resolution title itself. */
+  namedFromDocument?: boolean
+}
+
+/** An exact pool name, for a retiree the resolution title did not name. */
+function matchPoolByFullName(name: string | undefined): PoolMember | null {
+  return name ? pool.find((p) => p.name === name) ?? null : null
 }
 
 function matchPool(surname: string | null, sworn: boolean): PoolMember | null {
@@ -96,7 +123,8 @@ const all: ActualRetirement[] = meetings
           surname,
           sworn,
           adopted: r.vote?.adopted ?? null,
-          pool: matchPool(surname, sworn),
+          pool: matchPool(surname, sworn) ?? matchPoolByFullName(r.number ? NAMED_BY_RESOLUTION[r.number] : undefined),
+          namedFromDocument: r.number != null && NAMED_BY_RESOLUTION[r.number] != null,
         }
       }),
   )
@@ -166,6 +194,11 @@ export const uptake = {
 // carried at the CSEA flat rate. The sick-day component is excluded here because
 // the published record does not say how much excess accrual anyone has.
 const CSEA_FLAT = 12_500
+// PFRS requires 20 years of law-enforcement service to retire, and the police
+// incentive pays $1,000 per year of Town service, so no sworn retiree can carry
+// less than this. An earlier version fell back to the CSEA flat rate for an
+// unmatched sworn officer, which is the wrong formula and understated him.
+const SWORN_MINIMUM = 20_000
 
 /**
  * NOT a floor, and an earlier version of this file was wrong to call it one.
@@ -179,14 +212,22 @@ const CSEA_FLAT = 12_500
  */
 export const incentiveCostIfAllElected = {
   fromIdentified: identified.reduce((s, r) => s + (r.pool?.estIncentive ?? 0), 0),
-  fromUnidentifiedAtCseaRate: (confirmed.length - identified.length) * CSEA_FLAT,
+  fromUnidentifiedCivilianAtCseaRate:
+    confirmed.filter((r) => r.pool === null && !r.sworn).length * CSEA_FLAT,
+  fromUnidentifiedSwornAtMinimum:
+    confirmed.filter((r) => r.pool === null && r.sworn).length * SWORN_MINIMUM,
+  unidentifiedSworn: confirmed.filter((r) => r.pool === null && r.sworn).length,
   get total() {
-    return this.fromIdentified + this.fromUnidentifiedAtCseaRate
+    return (
+      this.fromIdentified +
+      this.fromUnidentifiedCivilianAtCseaRate +
+      this.fromUnidentifiedSwornAtMinimum
+    )
   },
   /** The defensible lower bound, absent election records. */
   trueFloor: 0,
   basis:
-    'Years of service come from the eligible-pool model for a retiree matched by name, and an unmatched one is carried at the flat CSEA rate.',
+    'Years of service come from the eligible-pool model for a retiree matched by name. An unmatched civilian is carried at the flat CSEA rate; an unmatched sworn officer at the $20,000 implied by the 20 years of PFRS-qualifying service the incentive requires, which is a minimum and not an estimate.',
   excludes:
     'Up to 30 accrued sick days per sworn retiree, paid at their 2024-2026 average base. The Town publishes no accrual balances, so this site cannot price it — the scenario above is understated to that extent.',
   whyNotAFloor:

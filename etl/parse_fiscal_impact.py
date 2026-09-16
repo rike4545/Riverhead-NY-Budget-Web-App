@@ -256,7 +256,7 @@ def realistic_read(category: str, fiscal_impact: str, title: str = "") -> dict:
 #
 # Account prefixes are the Town's own fund codes, taken from the adopted budget.
 FUND_PREFIXES: dict[str, str] = {
-    "A01": "General Fund", "DA1": "Highway", "EW1": "Water District",
+    "A01": "General Fund", "DA1": "Highway Fund", "EW1": "Water District",
     "ES1": "Riverhead Sewer District", "ES5": "Riverhead Scavenger Waste",
     "SR1": "Refuse and Garbage District", "SM1": "Ambulance District",
     "SL1": "Street Lighting District", "CM4": "Community Preservation Fund",
@@ -273,6 +273,15 @@ FUND_PREFIXES: dict[str, str] = {
     # The rest of the adopted budget's funds. Without these a real draw reports
     # its fund as unknown: resolution 2026-275 charges Z14 fund balance $30,000
     # and came through with no fund name at all.
+    # Two sewer funds that appear only in capital-project statements and are
+    # absent from the adopted-budget extract. Their official titles are not
+    # published anywhere this site can cite, so they are labelled by what the
+    # Town's own account descriptions on the statement establish — sewer funds —
+    # and nothing more is asserted. Capital project 82210 (Biosolids Facility)
+    # moves money through both: ES7 holds the fund balance and transfers out to
+    # ES2 and ES6.
+    "ES6": "Sewer District (ES6)",
+    "ES7": "Sewer District (ES7)",
     "Z14": "Calverton Parks Community Development Agency",
     "A04": "Police Athletic League", "A06": "Recreation Program Fund",
     "CM1": "Business Improvement District", "CM2": "East Creek Docking Facility",
@@ -477,13 +486,18 @@ def funding_from_block(block_text: str, title: str = "", purpose: str = "") -> d
     if not accounts and g:
         accounts = _accounts_in(g, "unspecified")
 
+    # Every fund gets carried, named or not. Dropping the unnamed ones let a
+    # statement's fund list show the WRONG fund: resolution 2026-473 draws
+    # $800,000 out of ES7 fund balance, and because ES7 had no name the display
+    # attributed the draw to "Sewer — developer fees", which is ES2. An
+    # unrecognised code appears as itself rather than vanishing.
     prefixes: list[str] = []
     funds: list[str] = []
     for a in accounts:
         if a["fund"] not in prefixes:
             prefixes.append(a["fund"])
-        fund = FUND_PREFIXES.get(a["fund"])
-        if fund and fund not in funds:
+        fund = FUND_PREFIXES.get(a["fund"], a["fund"])
+        if fund not in funds:
             funds.append(fund)
 
     # The Town's own journal entry for a fund-balance draw, if it made one.
@@ -534,6 +548,13 @@ def funding_from_block(block_text: str, title: str = "", purpose: str = "") -> d
         # join to the adopted budget's line items in web/lib/account-lookup.ts.
         "accounts": accounts,
         "fundBalanceAccounts": [a["code"] for a in fund_balance],
+        # The fund the draw actually comes out of. Taken from the 9999 account
+        # itself, because a capital statement routinely touches several funds and
+        # the first one named is not necessarily the one being drawn down.
+        "fundBalanceFunds": [
+            FUND_PREFIXES.get(a["fund"], a["fund"])
+            for a in fund_balance
+        ],
         "fundBalanceDraw": round(sum(a["amount"] for a in fund_balance if a["amount"]), 2)
         if any(a["amount"] for a in fund_balance) else None,
         # Documented by account code rather than inferred from the title.
@@ -603,8 +624,8 @@ def apply_funding_evidence(realistic: dict, funding: dict, category: str) -> dic
     # earlier guard here had the precedence backwards and suppressed the largest
     # documented draw in the corpus.
     if funding.get("drawsFundBalance"):
-        funds = funding.get("funds") or []
-        where = funds[0] if funds else "a Town fund"
+        drawn = funding.get("fundBalanceFunds") or funding.get("funds") or []
+        where = " and ".join(drawn) if drawn else "a Town fund"
         draw = funding.get("fundBalanceDraw")
         sized = f"{draw:,.0f} " if draw else ""
         also_debt = realistic.get("flag") == "future-debt"
