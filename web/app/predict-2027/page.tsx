@@ -7,9 +7,18 @@ import {
   levy2026, onePercent,
 } from '../../lib/budget-2027-options'
 import {
-  drawCounts, generalFundCommitments2026, committedTotal, openingSurplusAbovePolicy,
+  drawCounts, recurringCostCounts, generalFundCommitments2026, committedTotal, openingSurplusAbovePolicy,
   remainingHeadroomCeiling, reductionPct, effectOnOptions, limits as commitmentLimits, corpus,
 } from '../../lib/fiscal-commitments-2027'
+import {
+  whatTheFormOmits, appointmentTiming, retirementAnnualisation, linesWithRepeatedActions,
+  bothDirections, limits as annualisationLimits,
+} from '../../lib/annualization-2027'
+import {
+  units as laborUnits, openUnits, headline as laborHeadline,
+  whyItMatters as laborWhyItMatters, limits as laborLimits,
+  triborough, placeholderVsFloor,
+} from '../../lib/labor-contracts-2027'
 
 const base = process.env.NEXT_PUBLIC_BASE_PATH || ''
 const usd = (n: number) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(n)
@@ -261,12 +270,198 @@ export default function Predict2027Page() {
           </strong>
           <p style={{ color: 'var(--rbl-text-strong)', fontSize: 13.6, lineHeight: 1.55, margin: '4px 0 0' }}>
             Across {corpus.resolutions.toLocaleString()} resolutions in {corpus.meetings} meetings, this site reads{' '}
-            <strong>{drawCounts.adopted}</strong> adopted resolutions as drawing on reserves or fund balance. Only{' '}
+            <strong>{drawCounts.adopted}</strong> adopted capital or debt resolutions as drawing on fund balance. Only{' '}
             <strong>{drawCounts.priced}</strong> state a dollar figure. The Town&apos;s Fiscal Impact Statements answer
             Yes/No and &ldquo;absorbed by existing budget&rdquo;; the amounts sit in backup tables that don&apos;t tie
             cleanly to a single resolution, so this site leaves them blank rather than guessing. The total above is
             therefore a <strong>floor</strong>, and the remaining headroom a <strong>ceiling</strong>.
           </p>
+        </div>
+
+        <div style={{ background: 'var(--rbl-surface-2)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 10, padding: '12px 14px', marginBottom: 12 }}>
+          <strong style={{ color: 'var(--rbl-title)', fontSize: 14 }}>
+            A separate {recurringCostCounts.adopted} adopted resolutions commit recurring money
+          </strong>
+          <p style={{ color: 'var(--rbl-text-body)', fontSize: 13.6, lineHeight: 1.6, margin: '4px 0 0' }}>
+            Salaries and appointments ({recurringCostCounts.byCategory.personnel ?? 0}), contracts
+            ({recurringCostCounts.byCategory.contract ?? 0}), fee changes ({recurringCostCounts.byCategory.fees ?? 0})
+            and labour agreements ({recurringCostCounts.byCategory['labor-contract'] ?? 0}). These are a real budget
+            pressure and they land in the <em>levy</em>, not in accumulated surplus — so they are counted here but
+            never netted against the headroom above. Mixing the two would overstate the draw on reserves roughly
+            threefold, which is exactly what an earlier version of this page did.
+          </p>
+        </div>
+
+        {/* Which unions have a signed 2027 rate and which do not */}
+        <div style={{ background: 'var(--rbl-warn-bg)', border: '1px solid var(--rbl-warn-border)', borderRadius: 10, padding: '12px 14px', marginBottom: 12 }}>
+          <strong style={{ color: 'var(--rbl-warn-strong)', fontSize: 14 }}>
+            Two of the three union contracts run out before the year this page is about
+          </strong>
+          <p style={{ color: 'var(--rbl-text-strong)', fontSize: 13.6, lineHeight: 1.6, margin: '4px 0 10px' }}>{laborHeadline}</p>
+
+          <div style={{ display: 'grid', gap: 8, marginBottom: 10 }}>
+            {laborUnits.map((u) => (
+              <div key={u.unit} style={{ background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 9, padding: '10px 12px' }}>
+                <div style={{ display: 'flex', gap: 8, alignItems: 'baseline', flexWrap: 'wrap' }}>
+                  <strong style={{ color: 'var(--rbl-title)', fontSize: 14 }}>{u.unit}</strong>
+                  <span style={{
+                    ...chip,
+                    background: u.contractual2027 ? 'var(--rbl-success-bg)' : 'var(--rbl-warn-bg)',
+                    color: u.contractual2027 ? 'var(--rbl-success-strong)' : 'var(--rbl-warn-strong)',
+                  }}>
+                    {u.contractual2027 ? '2027 rate is contractual' : '2027 rate is a placeholder'}
+                  </span>
+                  <span style={{ color: 'var(--rbl-text-muted)', fontSize: 12.3 }}>{u.contractTerm}</span>
+                </div>
+                <p style={{ color: 'var(--rbl-text-body)', fontSize: 13.2, lineHeight: 1.55, margin: '5px 0 0' }}>{u.finding}</p>
+                {u.candidates.length > 0 && (
+                  <div style={{ marginTop: 6, color: 'var(--rbl-text-muted)', fontSize: 12.2, lineHeight: 1.5 }}>
+                    {u.candidates.length} agreement{u.candidates.length === 1 ? '' : 's'} before the Board this year, most recently{' '}
+                    <strong>{u.candidates[u.candidates.length - 1].number ?? '—'}</strong> on{' '}
+                    {u.candidates[u.candidates.length - 1].meetingDate}.
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+
+          <p style={{ color: 'var(--rbl-text-body)', fontSize: 13.4, lineHeight: 1.6, margin: '0 0 8px' }}>{laborWhyItMatters}</p>
+
+          {/* An expired contract is not a pay freeze */}
+          <div style={{ background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-strong)', borderRadius: 9, padding: '11px 13px', margin: '0 0 10px' }}>
+            <strong style={{ color: 'var(--rbl-title)', fontSize: 13.8 }}>
+              An expired contract is not a pay freeze — it costs {usd(triborough.stepCost2027)} in 2027
+            </strong>
+            <p style={{ color: 'var(--rbl-text-body)', fontSize: 13.2, lineHeight: 1.6, margin: '5px 0 8px' }}>
+              New York&apos;s Taylor Law makes it an improper practice for a public employer{' '}
+              <a href={triborough.statuteUrl} target="_blank" rel="noreferrer" style={{ color: 'var(--rbl-link)', fontWeight: 700, textDecoration: 'none' }}>
+                &ldquo;{triborough.statuteQuote}&rdquo;
+              </a>{' '}
+              — the Triborough Amendment, {triborough.statute}. {triborough.reading}
+            </p>
+            <div style={{ overflowX: 'auto' }}>
+              <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 12.8 }}>
+                <thead>
+                  <tr style={{ textAlign: 'left', color: 'var(--rbl-text-muted)', borderBottom: '1px solid var(--rbl-border-subtle)' }}>
+                    <th style={th}>Officers moving up a rung</th>
+                    <th style={{ ...th, textAlign: 'right' }}>Each</th>
+                    <th style={{ ...th, textAlign: 'right' }}>Cost</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {triborough.rungs.map((r) => (
+                    <tr key={r.from} style={{ borderBottom: '1px solid var(--rbl-border-subtle)' }}>
+                      <td style={td}>
+                        <strong>{r.officers}</strong> · {r.from} → {r.to}
+                      </td>
+                      <td style={{ ...td, textAlign: 'right' }}>{usd(r.perOfficer)}</td>
+                      <td style={{ ...td, textAlign: 'right', fontWeight: 700 }}>{usd(r.cost)}</td>
+                    </tr>
+                  ))}
+                  <tr>
+                    <td style={{ ...td, color: 'var(--rbl-text-muted)' }}>
+                      <strong>{triborough.officersAtTopStep}</strong> already at top step — no movement, no cost
+                    </td>
+                    <td style={{ ...td, textAlign: 'right', color: 'var(--rbl-text-faint)' }}>—</td>
+                    <td style={{ ...td, textAlign: 'right', color: 'var(--rbl-text-faint)' }}>—</td>
+                  </tr>
+                  <tr style={{ borderTop: '2px solid var(--rbl-border-subtle)' }}>
+                    <td style={{ ...td, fontWeight: 800, color: 'var(--rbl-title)' }}>
+                      {triborough.scope}, {triborough.officersCounted} officers
+                    </td>
+                    <td style={td} />
+                    <td style={{ ...td, textAlign: 'right', fontWeight: 900, color: 'var(--rbl-title)' }}>{usd(triborough.stepCost2027)}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <p style={{ color: 'var(--rbl-text-body)', fontSize: 13.2, lineHeight: 1.6, margin: '8px 0 0' }}>{placeholderVsFloor}</p>
+            <ul style={{ color: 'var(--rbl-text-muted)', fontSize: 12.3, lineHeight: 1.5, paddingLeft: 18, margin: '8px 0 0' }}>
+              {triborough.caveats.map((c, i) => <li key={i}>{c}</li>)}
+            </ul>
+          </div>
+          <ul style={{ color: 'var(--rbl-text-muted)', fontSize: 12.4, lineHeight: 1.5, paddingLeft: 18, margin: 0 }}>
+            {laborLimits.map((l, i) => <li key={i}>{l}</li>)}
+          </ul>
+        </div>
+
+        {/* Part-year 2026 becomes full-year 2027, in both directions */}
+        <div style={{ background: 'var(--rbl-surface-2)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 10, padding: '12px 14px', marginBottom: 12 }}>
+          <strong style={{ color: 'var(--rbl-title)', fontSize: 14 }}>{bothDirections.headline}</strong>
+          <p style={{ color: 'var(--rbl-text-body)', fontSize: 13.6, lineHeight: 1.6, margin: '4px 0 10px' }}>{bothDirections.body}</p>
+
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(min(200px,100%),1fr))', gap: 10, marginBottom: 10 }}>
+            <div style={{ background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 9, padding: '10px 12px' }}>
+              <div style={{ color: 'var(--rbl-text-muted)', fontSize: 11, fontWeight: 900, textTransform: 'uppercase', letterSpacing: .4 }}>Retirement saving 2027 carries and 2026 does not</div>
+              <strong style={{ fontSize: 19, color: 'var(--rbl-success-strong)' }}>
+                {usd(retirementAnnualisation.increment2027Low)}–{usd(retirementAnnualisation.increment2027High)}
+              </strong>
+              <div style={{ color: 'var(--rbl-text-muted)', fontSize: 12.3, marginTop: 2 }}>
+                of {usd(retirementAnnualisation.fullYearSaving)} a year from {retirementAnnualisation.swornCount} sworn retirements
+              </div>
+            </div>
+            <div style={{ background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 9, padding: '10px 12px' }}>
+              <div style={{ color: 'var(--rbl-text-muted)', fontSize: 11, fontWeight: 900, textTransform: 'uppercase', letterSpacing: .4 }}>Appointments made in the second half of 2026</div>
+              <strong style={{ fontSize: 19, color: 'var(--rbl-title)' }}>{appointmentTiming.secondHalf}</strong>
+              <div style={{ color: 'var(--rbl-text-muted)', fontSize: 12.3, marginTop: 2 }}>
+                of {appointmentTiming.total} — {Math.round(appointmentTiming.firstHalfShare * 100)}% of the year&apos;s hiring was done by June
+              </div>
+            </div>
+          </div>
+
+          <p style={{ color: 'var(--rbl-text-body)', fontSize: 13.4, lineHeight: 1.6, margin: '0 0 10px' }}>
+            {appointmentTiming.reading} {retirementAnnualisation.counterweight}
+          </p>
+
+          <div style={{ background: 'var(--rbl-warn-bg)', border: '1px solid var(--rbl-warn-border)', borderRadius: 9, padding: '10px 12px', marginBottom: 10 }}>
+            <strong style={{ color: 'var(--rbl-warn-strong)', fontSize: 13.4 }}>
+              The form names the budget line and never the salary
+            </strong>
+            <p style={{ color: 'var(--rbl-text-strong)', fontSize: 13.3, lineHeight: 1.55, margin: '4px 0 0' }}>
+              Of <strong>{whatTheFormOmits.personnelResolutions}</strong> personnel resolutions in the 2026 record,{' '}
+              <strong>{whatTheFormOmits.namingAnAccount}</strong> name the appropriation account to be charged and{' '}
+              <strong>{whatTheFormOmits.namingAnAmount}</strong> carry a dollar figure of any kind — <strong>{whatTheFormOmits.namingBoth}</strong>{' '}
+              state an amount against the account they name. A resident can see which line a new hire lands on and not what
+              the line now owes, which is precisely the number that carries into next year. That is why the hire side here
+              is counted in people rather than dollars: pricing it would mean inventing a figure.
+            </p>
+          </div>
+
+          <div style={{ color: 'var(--rbl-text-body)', fontSize: 13.3, lineHeight: 1.6 }}>
+            <strong>Where turnover concentrates.</strong> {linesWithRepeatedActions.length} payroll sub-accounts are named
+            by more than one 2026 personnel resolution. A seat vacated and refilled inside one year can charge the same
+            line for two people&apos;s part-years, so that year&apos;s spending on it is a poor guide to what the next year
+            needs.
+            <div style={{ overflowX: 'auto', marginTop: 8 }}>
+              <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 12.8 }}>
+                <thead>
+                  <tr style={{ textAlign: 'left', color: 'var(--rbl-text-muted)', borderBottom: '1px solid var(--rbl-border-subtle)' }}>
+                    <th style={th}>Budget line</th>
+                    <th style={th}>Department</th>
+                    <th style={{ ...th, textAlign: 'right' }}>2026 actions</th>
+                    <th style={{ ...th, textAlign: 'right' }}>Adopted 2026</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {linesWithRepeatedActions.slice(0, 6).map((l) => (
+                    <tr key={l.code} style={{ borderBottom: '1px solid var(--rbl-border-subtle)' }}>
+                      <td style={td}>
+                        {l.line ?? l.code}
+                        <div style={{ fontSize: 10.5, color: 'var(--rbl-text-faint)', fontFamily: 'ui-monospace, monospace' }}>{l.code}</div>
+                      </td>
+                      <td style={td}>{l.department ?? '—'}</td>
+                      <td style={{ ...td, textAlign: 'right', fontWeight: 800 }}>{l.actions}</td>
+                      <td style={{ ...td, textAlign: 'right' }}>{l.adopted2026 != null ? usd(l.adopted2026) : '—'}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <ul style={{ color: 'var(--rbl-text-muted)', fontSize: 12.4, lineHeight: 1.5, paddingLeft: 18, margin: '10px 0 0' }}>
+            {annualisationLimits.map((l, i) => <li key={i}>{l}</li>)}
+          </ul>
         </div>
 
         <div style={{ background: 'var(--rbl-info-bg)', border: '1px solid var(--rbl-info-border)', borderRadius: 10, padding: '12px 14px', marginBottom: 12 }}>

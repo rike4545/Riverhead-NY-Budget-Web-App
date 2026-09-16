@@ -2,6 +2,8 @@
 
 import { useMemo, useState } from 'react'
 import type { Meeting } from '../lib/meetings'
+import type { ResolutionFunding } from '../lib/account-lookup'
+import StatementAccounts from './StatementAccounts'
 
 const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 18, boxShadow: '0 14px 34px var(--rbl-shadow)' } as const
 const usd = (n: number) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(n)
@@ -10,7 +12,11 @@ export type FiscalResolution = {
   number: string | null; seq: number; title: string; category: string
   townFiscalImpact: 'Yes' | 'No'; townTreatment: string
   amount: number | null; note?: string | null
-  realistic: { verdict: string; reason: string; flag: string }
+  // Section G of the Town's Fiscal Impact Statement, where the preparer filled
+  // it in. Optional: meetings parsed before the sub-account join shipped have no
+  // funding block, and those rows render exactly as they did before.
+  funding?: ResolutionFunding | null
+  realistic: { verdict: string; reason: string; flag: string; evidence?: 'account-code' | 'category' }
   vote: { adopted: boolean | null; tag: string | null; ayes: number | null; nays: number | null } | null
 }
 
@@ -23,6 +29,14 @@ const FLAG_STYLE: Record<string, { bg: string; fg: string; label: string }> = {
   saving: { bg: 'var(--rbl-success-bg)', fg: 'var(--rbl-success-strong)', label: 'Saving' },
   positive: { bg: 'var(--rbl-success-bg)', fg: 'var(--rbl-success-strong)', label: 'Revenue in' },
   fair: { bg: 'var(--rbl-surface-3)', fg: 'var(--rbl-text-body)', label: 'No direct cost' },
+  // A warrant is where the cash actually leaves. It is not a correction to the
+  // Town's answer — the obligations were committed earlier — so it gets its own
+  // label rather than being folded into the understated count.
+  disbursement: { bg: 'var(--rbl-info-bg)', fg: 'var(--rbl-info-text)', label: 'Authorises payment' },
+  'small-cost': { bg: 'var(--rbl-surface-3)', fg: 'var(--rbl-text-body)', label: 'Small real cost' },
+  // Borrowing is not a draw on surplus. It is debt service on every future levy
+  // until the bond matures, which a single-year form has no way to show.
+  'future-debt': { bg: 'var(--rbl-warn-bg)', fg: 'var(--rbl-warn-strong)', label: 'Debt on future budgets' },
 }
 
 /** Either kind of correction to the Town's own fiscal-impact answer. */
@@ -47,7 +61,7 @@ function voteLabel(r: FiscalResolution, state: VoteDetailState) {
 
 export default function FiscalImpactTable({ resolutions, meetingRecord, voteDetailState = 'unindexed' }: { resolutions: FiscalResolution[]; meetingRecord?: Meeting | null; voteDetailState?: VoteDetailState }) {
   const [q, setQ] = useState('')
-  const [view, setView] = useState<'all' | 'corrections' | 'money'>('all')
+  const [view, setView] = useState<'all' | 'corrections' | 'money' | 'accounts'>('all')
   const query = q.trim().toLowerCase()
 
   const officialByNumber = useMemo(() => {
@@ -67,18 +81,20 @@ export default function FiscalImpactTable({ resolutions, meetingRecord, voteDeta
   const rows = useMemo(() => resolutions.filter((r) => {
     if (view === 'corrections' && !isCorrection(r)) return false
     if (view === 'money' && !r.amount) return false
+    if (view === 'accounts' && !r.funding?.accounts?.length) return false
     if (query && !(`${r.number} ${r.title} ${r.category}`.toLowerCase().includes(query))) return false
     return true
   }), [resolutions, view, query])
 
   const correctionCount = resolutions.filter(isCorrection).length
   const moneyCount = resolutions.filter((r) => r.amount).length
+  const accountCount = resolutions.filter((r) => r.funding?.accounts?.length).length
 
   return (
     <div style={{ display: 'grid', gap: 12 }}>
       <section style={{ ...card, display: 'flex', gap: 10, flexWrap: 'wrap', alignItems: 'center' }}>
         <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
-          {([['all', `All ${resolutions.length}`], ['corrections', `Corrections (${correctionCount})`], ...(moneyCount > 0 ? [['money', `Has a dollar figure (${moneyCount})`] as const] : [])] as const).map(([v, label]) => (
+          {([['all', `All ${resolutions.length}`], ['corrections', `Corrections (${correctionCount})`], ...(moneyCount > 0 ? [['money', `Has a dollar figure (${moneyCount})`] as const] : []), ...(accountCount > 0 ? [['accounts', `Names a budget account (${accountCount})`] as const] : [])] as const).map(([v, label]) => (
             <button key={v} onClick={() => setView(v)} style={{
               padding: '8px 13px', borderRadius: 9, border: '1px solid', cursor: 'pointer', fontWeight: 800, fontSize: 13.5,
               borderColor: view === v ? 'var(--rbl-accent-border)' : 'var(--rbl-border-strong)', background: view === v ? 'var(--rbl-fill-accent)' : 'var(--rbl-surface)', color: view === v ? 'white' : 'var(--rbl-text-strong)',
@@ -118,6 +134,7 @@ export default function FiscalImpactTable({ resolutions, meetingRecord, voteDeta
                     <td style={{ ...td, maxWidth: 360 }}>
                       <div style={{ color: 'var(--rbl-text-strong)', lineHeight: 1.4 }}>{r.title}</div>
                       <span style={{ display: 'inline-block', marginTop: 3, background: 'var(--rbl-surface-2)', color: 'var(--rbl-text-body)', fontSize: 10.5, fontWeight: 800, padding: '1px 7px', borderRadius: 999, textTransform: 'capitalize' }}>{r.category.replace('-', ' ')}</span>
+                      <StatementAccounts funding={r.funding} />
                     </td>
                     <td style={{ ...td, textAlign: 'center', whiteSpace: 'nowrap' }}>
                       <span style={{ background: townNo ? 'var(--rbl-surface-3)' : '#e0f2fe', color: townNo ? 'var(--rbl-text-body)' : 'var(--rbl-info-text)', fontWeight: 800, fontSize: 11.5, padding: '2px 9px', borderRadius: 999 }}>
@@ -130,6 +147,11 @@ export default function FiscalImpactTable({ resolutions, meetingRecord, voteDeta
                     </td>
                     <td style={{ ...td, maxWidth: 340 }}>
                       <span style={{ background: fs.bg, color: fs.fg, fontWeight: 800, fontSize: 11, padding: '2px 9px', borderRadius: 999, whiteSpace: 'nowrap' }}>{fs.label}</span>
+                      {r.realistic.evidence === 'account-code' && (
+                        <span title="Read from the account code the Town wrote in section G, not inferred from the resolution's title." style={{ marginLeft: 5, background: 'var(--rbl-surface-3)', color: 'var(--rbl-text-body)', fontWeight: 800, fontSize: 10, padding: '2px 7px', borderRadius: 999, whiteSpace: 'nowrap' }}>
+                          from the account code
+                        </span>
+                      )}
                       <div style={{ color: 'var(--rbl-text-muted)', fontSize: 12.3, lineHeight: 1.4, marginTop: 4 }}>{r.realistic.reason}</div>
                     </td>
                   </tr>

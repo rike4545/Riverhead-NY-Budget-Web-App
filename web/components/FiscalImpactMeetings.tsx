@@ -23,6 +23,11 @@ export type FiscalMeeting = {
     understatedMarkedNo: number
     identifiedDollarsAtStake: number
     largestUnderstatedMarkedNo: [number, string, string] | null
+    // Added when the sub-account join shipped; absent on meetings parsed before it.
+    withAccounts?: number
+    accountEvidence?: number
+    fundBalanceDraws?: number
+    fundBalanceDrawTotal?: number
   }
   resolutions: FiscalResolution[]
 }
@@ -127,7 +132,22 @@ export default function FiscalImpactMeetings({ meetings }: { meetings: FiscalMee
         <Stat label="…that plainly move money" value={String(understatedNo.length)} sub="marked “no impact”" accent />
         <Stat label="Marked “absorbed”, but draws reserves" value={String(reserveDraw.length)} sub="the other half of the corrections" accent />
         {s.identifiedDollarsAtStake > 0 && <Stat label="Identified dollars in play" value={usd(s.identifiedDollarsAtStake)} sub="cost items we could price" />}
+        {!!s.fundBalanceDrawTotal && s.fundBalanceDrawTotal > 0 && <Stat label="Drawn from fund balance" value={usd(s.fundBalanceDrawTotal)} sub={`${s.fundBalanceDraws ?? 0} resolution${s.fundBalanceDraws === 1 ? '' : 's'} charging Appropriated Fund Balance`} accent />}
       </section>
+
+      {!!s.withAccounts && s.withAccounts > 0 && (
+        <section style={{ ...card, borderLeft: '6px solid var(--rbl-accent-border)' }}>
+          <h3 style={{ marginTop: 0, color: 'var(--rbl-title)' }}>What the Town’s own accounting says</h3>
+          <p style={{ color: 'var(--rbl-text-body)', fontSize: 14.5, lineHeight: 1.6, margin: 0 }}>
+            On <strong>{s.withAccounts}</strong> of this meeting’s <strong>{s.total}</strong> statements the preparer filled in
+            section G with actual chart-of-accounts codes — the appropriation account to be charged, the revenue source, or
+            an appropriation transfer. Those codes are matched below against the line items of the{' '}
+            <a href={`${base}/funds/`} style={{ color: 'var(--rbl-accent)', fontWeight: 800 }}>2026 Adopted Budget</a>, so the
+            question stops being “does this cost money?” and becomes “which budget line, and how much of it?”
+            {!!s.accountEvidence && s.accountEvidence > 0 && <> On <strong>{s.accountEvidence}</strong> of them the account code, not the resolution’s title, decides the read.</>}
+          </p>
+        </section>
+      )}
 
       {lu && <section style={{ ...card, borderLeft: '6px solid var(--rbl-danger)' }}><h3 style={{ marginTop: 0 }}>The clearest example</h3><p style={{ color: 'var(--rbl-text-strong)', fontSize: 15, lineHeight: 1.6, margin: 0 }}>Resolution <strong>{lu[1]}</strong> — “{lu[2]}” — carries a fiscal-impact statement checked <strong>“No,”</strong> yet commits <strong style={{ color: 'var(--rbl-danger)' }}>{usd(lu[0])}</strong>. A six-figure action is exactly the kind of item a fiscal-impact statement exists to flag.</p><a href={`${meetingHref}&q=${encodeURIComponent(lu[1])}`} style={{ display: 'inline-block', marginTop: 10, color: 'var(--rbl-link)', fontWeight: 900, fontSize: 13, textDecoration: 'none' }}>Open resolution {lu[1]} in the meeting record →</a></section>}
 

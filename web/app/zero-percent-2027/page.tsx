@@ -1,7 +1,7 @@
 import PageShell from '../../components/PageShell'
 import PlainCallout from '../../components/PlainCallout'
 import {
-  suffolk, trajectory, theAsk, levers, whyHarder, verdict, sources,
+  suffolk, trajectory, theAsk, levers, whyHarder, verdict, sources, policeOffset,
   generalFund2026, generalFund2027, costGrowth, costGrowthPct,
 } from '../../lib/zero-percent-2027'
 import { capGap2027 } from '../../lib/close-the-gap-2027'
@@ -247,6 +247,21 @@ export default function ZeroPercent2027Page() {
         <div style={{ background: 'var(--rbl-warn-bg)', border: '1px solid var(--rbl-warn-border)', borderRadius: 10, padding: '11px 13px', marginBottom: 8 }}>
           <strong style={{ color: 'var(--rbl-warn-strong)', fontSize: 13.4 }}>And the timing:</strong>{' '}
           <span style={{ color: 'var(--rbl-warn-strong)', fontSize: 13.4, lineHeight: 1.55 }}>{whyHarder.contracts}</span>
+          <p style={{ color: 'var(--rbl-warn-strong)', fontSize: 13.4, lineHeight: 1.55, margin: '8px 0 0' }}>{whyHarder.triboroughFloor}</p>
+        </div>
+
+        {/* The two police numbers this year produced, against each other */}
+        <div style={{ background: 'var(--rbl-surface-2)', border: '1px solid var(--rbl-border-strong)', borderRadius: 10, padding: '12px 14px', marginBottom: 8 }}>
+          <strong style={{ color: 'var(--rbl-title)', fontSize: 13.8 }}>
+            On the police side, 2027 is treading water
+          </strong>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(min(190px,100%),1fr))', gap: 10, margin: '9px 0' }}>
+            <Offset label="Seven sworn retirements" value={usd(policeOffset.savingFromRetirements)} tone="good" sub="a year, promotion-chain rate" />
+            <Offset label="Step movement owed anyway" value={`− ${usd(policeOffset.triboroughStepFloor)}`} tone="bad" sub="Police Officer ladder only" />
+            <Offset label="Net, before any contract" value={usd(policeOffset.net)} tone={policeOffset.net >= 0 ? 'good' : 'bad'} sub="and before the other ladders" />
+          </div>
+          <p style={{ color: 'var(--rbl-text-body)', fontSize: 13.3, lineHeight: 1.6, margin: '0 0 6px' }}>{policeOffset.reading}</p>
+          <p style={{ color: 'var(--rbl-text-muted)', fontSize: 12.4, lineHeight: 1.55, margin: 0 }}>{policeOffset.caveat}</p>
         </div>
         <p style={{ color: 'var(--rbl-text-muted)', fontSize: 12.4, lineHeight: 1.6, margin: 0 }}>{whyHarder.sourceNote}</p>
       </section>
@@ -277,5 +292,15 @@ export default function ZeroPercent2027Page() {
         </ul>
       </section>
     </PageShell>
+  )
+}
+
+function Offset({ label, value, sub, tone }: { label: string; value: string; sub: string; tone: 'good' | 'bad' }) {
+  return (
+    <div style={{ background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 9, padding: '10px 12px' }}>
+      <div style={{ color: 'var(--rbl-text-muted)', fontSize: 11, fontWeight: 900, textTransform: 'uppercase', letterSpacing: 0.4 }}>{label}</div>
+      <strong style={{ fontSize: 19, color: tone === 'good' ? 'var(--rbl-success-strong)' : 'var(--rbl-warn-strong)' }}>{value}</strong>
+      <div style={{ color: 'var(--rbl-text-muted)', fontSize: 12.2, marginTop: 2 }}>{sub}</div>
+    </div>
   )
 }
