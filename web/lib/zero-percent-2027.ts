@@ -16,6 +16,7 @@
 import prediction from '../public/data/budget-2027-prediction.json'
 import taxBill from '../public/data/tax-bill.json'
 import { appropriations, unassignedFundBalance, policyMinimumPercent, policyUpperPercent, targetUpper, surplusAboveUpper } from './reserve-policy'
+import { remainingHeadroomCeiling, committedTotal, drawCounts } from './fiscal-commitments-2027'
 import { capGap2027, firmRecurringTotal, retirementIncentive2027 } from './close-the-gap-2027'
 import { personnelPolicyTotal, operationalTotal, supplementTrimTotal, fullRecurringReductionPackage } from './spending-reduction-2027'
 import { generalFund } from './general-fund'
@@ -101,13 +102,16 @@ export const levers: Lever[] = [
   },
   {
     name: 'Fund balance above the Town’s own policy ceiling',
-    amount: surplusAboveUpper,
-    display: `${surplusAboveUpper.toLocaleString('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 })}`,
-    covers: `${(surplusAboveUpper / gfFund.delta).toFixed(1)}× the $3.5M`,
+    // Netted, not the audited opening balance. The Board has spent against that
+    // balance all through 2026, and a dollar already voted cannot fund a freeze
+    // as well. See lib/fiscal-commitments-2027.ts.
+    amount: remainingHeadroomCeiling,
+    display: `${remainingHeadroomCeiling.toLocaleString('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 })}`,
+    covers: `${(remainingHeadroomCeiling / gfFund.delta).toFixed(1)}× the $3.5M`,
     kind: 'one-time',
     detail: `Unassigned fund balance was ${unassignedFundBalance.toLocaleString('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 })} at December 31, 2025 — ${((unassignedFundBalance / appropriations) * 100).toFixed(1)}% of appropriations against a policy range of ${policyMinimumPercent * 100}–${policyUpperPercent * 100}%. Everything above the ${policyUpperPercent * 100}% ceiling of ${targetUpper.toLocaleString('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 })} could fund a freeze without the Town breaching its own rule. This is the closest Riverhead analogue to the reserves Suffolk leaned on.`,
     catch:
-      'One-time money against recurring cost. On its own it buys roughly four and a half zero-percent years before the balance reaches the policy ceiling — and each of those years hands a larger structural gap to the next budget on a smaller cushion.',
+      `One-time money against recurring cost, and less of it than the audited balance suggests. The ${surplusAboveUpper.toLocaleString('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 })} above the ceiling is the position at December 31, 2025; resolutions adopted during 2026 have already committed ${committedTotal.toLocaleString('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 })} of it, with ${drawCounts.unpriced} further adopted draws carrying no published amount — so the figure shown is a ceiling on what is left, not a balance. Even at that ceiling it buys about three zero-percent years, and each one hands a larger structural gap to the next budget on a smaller cushion.`,
   },
   {
     name: 'Non-property-tax revenue',
