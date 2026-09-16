@@ -78,20 +78,29 @@ def list_events() -> list[dict]:
 # Keyword rules → category. Order matters (first match wins).
 CATEGORY_RULES: list[tuple[str, list[str]]] = [
     ("debt", ["bond anticipation", "serial bond", "refunding bond", "bond resolution", " ban ", "bonds"]),
+    # Donations sit ABOVE capital deliberately. "Accepts Donation from the
+    # Pomeroy Foundation for Purchase of a Historic Marker" matched "purchase of"
+    # and came out as a capital reserve draw, when it is $2,100 in and $2,100
+    # straight back out. Where a resolution names its funding source in the
+    # title, the source decides what it is — not the thing being bought.
+    ("donation", ["donation", "donate", "gift of", "accept the gift"]),
     # "purchase", "change order" and the bid-award variants were all missing, so
     # resolutions like "Authorizes Purchase of Kenworth Tandem Axle Dump Truck",
     # "Approves Sewer District Request For Change Order No. 1" and "Awards Bid for
     # Rehabilitation of Plant No. 7" fell through every rule and landed in
     # "procedural", whose verdict is "No direct cost". The old rule listed
-    # "award bid" but the Town writes "Awards Bid".
-    ("capital", ["capital project", "budget adjustment", "budget transfer", "transfer of funds",
+    # "award bid" but the Town writes "Awards Bid". Bare "capital" went the other
+    # way — too loose. It fired on "capital improvements" inside the purpose text
+    # of a resolution merely authorising a GRANT APPLICATION, which commits
+    # nothing, so the specific phrases carry the signal instead.
+    ("capital", ["capital project", "capital improvement", "capital budget", "capital reserve",
+                 "budget adjustment", "budget transfer", "transfer of funds",
                  "change order", "purchase of", "purchase and", "authorizes purchase",
-                 "awards bid", "award bid", "bid award", "rehabilitation of", "capital"]),
+                 "awards bid", "award bid", "bid award", "rehabilitation of"]),
     # Settlements and claims pay real money and had no rule at all.
     ("litigation", ["settlement of", "settle the claim", "authorizes settlement",
                     "stipulation of settlement", "notice of claim", "tax certiorari"]),
     ("grant", ["grant"]),
-    ("donation", ["donation", "donate", "gift of", "accept the gift"]),
     ("labor-contract", ["collective bargaining", "cba", "union", "pba", "csea", "soa", "memorandum of agreement"]),
     ("personnel-out", ["retirement", "resignation", "separation", "terminate", "termination"]),
     ("personnel", ["appoint", "hire", "salary", "salaries", "promote", "promotion", "provisional",
@@ -104,7 +113,17 @@ CATEGORY_RULES: list[tuple[str, list[str]]] = [
     ("contract", ["contract", "agreement", "professional services", "award bid", "bid award", "renew", "extension"]),
     ("escrow-neutral", ["escrow", "performance bond", "letter of credit", "release of"]),
     ("legislative", ["local law", "introductory", "public hearing", "amend chapter", "zoning"]),
-    ("warrant", ["warrant", "abstract", "audit of claims", "pay bills"]),
+    # Attending a conference is not free: there is a registration fee and there
+    # is mileage, and both are charged to a real appropriation line. Seventeen of
+    # these came through as "procedural / no direct cost" — on several of which
+    # the TOWN ITSELF answered "Yes, this has a fiscal impact". Reading them as
+    # costless was this site under-reporting where the Town over-reported.
+    ("training", ["training", "seminar", "conference", "workshop", "symposium",
+                  "certification course", "annual meeting &", "attendance at"]),
+    # "pay bills" never matched, because the Town writes "Pays Bills". Every one
+    # of the eighteen warrants in the corpus fell through to "procedural".
+    ("warrant", ["warrant", "abstract", "audit of claims", "pay bills", "pays bills",
+                 "payment of bills", "approves claims"]),
 ]
 
 # category → (fiscalImpact-aware) realistic verdict. Some categories flip on Yes/No.
@@ -152,6 +171,36 @@ def realistic_read(category: str, fiscal_impact: str) -> dict:
             "reason": "A salary, contract, or fee item marked 'no fiscal impact' typically still moves money.",
             "flag": "understated",
         }
+    if category == "warrant":
+        return {
+            "verdict": "Authorises payment — the money leaves here",
+            "reason": (
+                "A warrant is the Board signing off on actual disbursement: checks written and funds "
+                "transferred. The obligations were incurred earlier, so this is not new spending — but "
+                "it is the moment the cash goes out, and the resolution that releases it is the one "
+                "place the total is put in front of the Board."
+            ),
+            "flag": "disbursement",
+        }
+    if category == "training":
+        if yes:
+            return {
+                "verdict": "Small real cost — and the Town says so",
+                "reason": (
+                    "Registration or tuition plus mileage and travel, charged to a conference or "
+                    "training line. Individually minor; the Town answered honestly here."
+                ),
+                "flag": "small-cost",
+            }
+        return {
+            "verdict": "Understated — the form says 'no fiscal impact'",
+            "reason": (
+                "Attending a training, seminar or conference carries a registration fee and mileage or "
+                "travel reimbursement. Both are charged to a budget line. On other, near-identical "
+                "attendance resolutions the Town answered \u201cYes\u201d."
+            ),
+            "flag": "understated",
+        }
     if category == "appointment-volunteer":
         return {
             "verdict": "No direct cost",
@@ -197,6 +246,14 @@ FUND_PREFIXES: dict[str, str] = {
     "EW3": "Water District — developer fees",
     "ES2": "Sewer — developer fees",
     "CM5": "Community Preservation — capital",
+    # The rest of the adopted budget's funds. Without these a real draw reports
+    # its fund as unknown: resolution 2026-275 charges Z14 fund balance $30,000
+    # and came through with no fund name at all.
+    "Z14": "Calverton Parks Community Development Agency",
+    "A04": "Police Athletic League", "A06": "Recreation Program Fund",
+    "CM1": "Business Improvement District", "CM2": "East Creek Docking Facility",
+    "ES3": "Calverton Sewer District", "MS1": "Workers Compensation Fund",
+    "MS2": "Risk Retention Fund", "ST1": "Public Parking District",
 }
 
 # How the money is raised, in the Town's own words. Ordered: the first match
@@ -214,12 +271,74 @@ FUNDING_RULES: list[tuple[str, list[str]]] = [
                                 "existing resources", "absorbed"]),
 ]
 
+# A grant is not automatically costless to the Town, and the statement usually
+# says so. Two conditions change what a grant means for the levy:
+#
+#   a MATCH   — the Town must put up its own money alongside the award, so a
+#               "fully grant funded" project still costs the local share.
+#   REIMBURSEMENT — the Town spends first and is paid back later, so it fronts
+#               the cash even when the net cost is zero, and carries the risk
+#               that the claim is reduced or denied.
+#
+# Both are read from what the preparer wrote, and "not stated" stays not stated.
+MATCH_REQUIRED = re.compile(
+    r"(required?\s+\d+\s*%\s*match|\d+\s*%\s*(?:local\s+)?match|match(?:ing)?\s+funds?"
+    r"|matched\s+funding|local\s+share|cost[-\s]?shar|in[-\s]?kind\s+(?:match|contribution))",
+    re.I,
+)
+MATCH_NOT_REQUIRED = re.compile(
+    r"(does\s+not\s+require\s+(?:any\s+)?match|no\s+(?:local\s+)?match(?:\s+is)?\s+(?:required|needed)"
+    r"|match\s*:\s*(?:none|n/?a|0)|without\s+a\s+match)",
+    re.I,
+)
+MATCH_PERCENT = re.compile(r"(\d{1,3}(?:\.\d+)?)\s*%\s*(?:local\s+)?match", re.I)
+REIMBURSEMENT = re.compile(
+    r"(reimburs|paid\s+back|on\s+a\s+reimbursement\s+basis|funds?\s+are\s+recovered"
+    r"|the\s+town\s+(?:will\s+)?front)",
+    re.I,
+)
+
 MONEY_RE = re.compile(r"\$\s*([\d,]+(?:\.\d{2})?)")
 # Fund codes run one to three letters then one or two digits: A01 (General
 # Fund), H01 (capital projects), DA1 (Highway), EW3 (water developer fees). An
 # earlier pattern required two letters and missed A01 entirely — the General
 # Fund, which is the one that matters most here.
 ACCOUNT_RE = re.compile(r"\b([A-Z]{1,3}\d{1,2})-[\d\-]{6,}")
+
+# The whole sub-account, not just its fund prefix. Riverhead uses the NY chart
+# of accounts in two shapes, and the shape alone says which side of the ledger
+# a code sits on:
+#
+#   appropriation  FUND-F-DDDD-OOO-SSS-PPPPP   A01-1-1420-433-000-00000
+#   revenue        FUND-RRRR-SSS-PPPPP-T       A01-9999-000-00000-0
+#
+# All 848 appropriation lines and all 161 revenue lines in the adopted-budget
+# extract follow those two shapes exactly, so the second segment's width (1
+# digit vs. 4) is a reliable discriminator — no keyword guessing needed.
+FULL_ACCOUNT_RE = re.compile(r"\b([A-Z]{1,3}\d{1,2}(?:-[\dA-Z]+){3,5})")
+
+# Revenue object 9999 is "Appropriated Fund Balance" — the Town's own journal
+# entry for taking money out of a fund's accumulated surplus. When it appears in
+# section G the draw is documented, not inferred from the resolution's title.
+FUND_BALANCE_OBJECT = "9999"
+
+# A capital-project resolution opens new sub-accounts under a project number it
+# names in its own title — "Budget Adoption for Capital Project #12620" creates
+# H01-1-1940-435-000-12620. Such a code is absent from the adopted budget
+# because it did not exist when the budget was adopted. That is a different fact
+# from "this site does not recognise the code", and the two must not be shown
+# the same way.
+PROJECT_NO = re.compile(r"(?:capital\s+)?project\s*#?\s*(\d{4,6})", re.I)
+CREATES_ACCOUNT = re.compile(
+    r"(budget\s+adoption|adopts?\s+.{0,40}capital\s+project|establish(?:es|ing)?"
+    r"|creat(?:es|ing)|new\s+capital\s+project|opens?\s+.{0,20}account)",
+    re.I,
+)
+
+# Funds that hold capital projects and developer-paid work. Money moving through
+# them is not a draw on any operating fund's balance, so a capital resolution
+# whose accounts all sit here is not competing with the 2027 options.
+CAPITAL_FUNDS = {"H01", "EW3", "ES2", "CM5", "SW1"}
 
 
 def _section(block_text: str, start_pat: str, end_pat: str) -> str:
@@ -244,8 +363,66 @@ FORM_LABELS = re.compile(
     re.I,
 )
 
+# Section G is not free text — it is three labeled fields, and every one of the
+# 143 statements in the corpus prints all three in this order. Splitting on them
+# is what lets an account be read as "charged", "funded by" or "transferred to"
+# instead of being lumped into one undifferentiated list.
+G_FIELDS: list[tuple[str, str]] = [
+    ("charge", r"Appropriation Account to be Charged\s*:"),
+    ("revenue", r"Grant or other Revenue Source\s*:"),
+    ("transfer", r"Appropriation Transfer[^:\n]*:"),
+]
 
-def funding_from_block(block_text: str) -> dict:
+
+def split_section_g(g: str) -> dict[str, str]:
+    """Section G text split into its three pre-printed fields."""
+    marks = []
+    for role, pat in G_FIELDS:
+        m = re.search(pat, g, re.I)
+        if m:
+            marks.append((m.start(), m.end(), role))
+    marks.sort()
+    out: dict[str, str] = {}
+    for i, (_, end, role) in enumerate(marks):
+        stop = marks[i + 1][0] if i + 1 < len(marks) else len(g)
+        out[role] = g[end:stop].strip()
+    return out
+
+
+def _accounts_in(field_text: str, role: str) -> list[dict]:
+    """Every sub-account named in one field, with the name and amount beside it.
+
+    The form writes each account followed by its own description and its own
+    dollar figure, so the figures can be tied to a specific budget line rather
+    than to the resolution as a whole. Both are optional — an appointment names
+    an account with no amount at all.
+    """
+    hits = list(FULL_ACCOUNT_RE.finditer(field_text))
+    out = []
+    for i, m in enumerate(hits):
+        tail = field_text[m.end(): hits[i + 1].start() if i + 1 < len(hits) else len(field_text)]
+        money = MONEY_RE.search(tail)
+        label = tail[: money.start()] if money else tail
+        label = " ".join(FORM_LABELS.sub(" ", label).split()).strip(" -–—:")
+        code = m.group(1)
+        parts = code.split("-")
+        # An appropriation code that lost its trailing project segment to a PDF
+        # line break: 5 segments where the second is a single function digit.
+        if len(parts) == 5 and len(parts[1]) == 1:
+            code += "-00000"
+        kind = "revenue" if len(parts) > 1 and len(parts[1]) == 4 else "appropriation"
+        out.append({
+            "code": code,
+            "role": role,
+            "kind": kind,
+            "fund": parts[0],
+            "name": label[:80] or None,
+            "amount": round(float(money.group(1).replace(",", "")), 2) if money else None,
+        })
+    return out
+
+
+def funding_from_block(block_text: str, title: str = "", purpose: str = "") -> dict:
     """Read the Town's own funding statement: source, accounts, amount.
 
     Everything here is transcribed or directly derived from the statement. When
@@ -262,28 +439,205 @@ def funding_from_block(block_text: str) -> dict:
     sources = [name for name, kws in FUNDING_RULES if any(kw in hay for kw in kws)]
     source = sources[0] if sources else None
 
-    accounts = []
-    funds = []
-    for pref in ACCOUNT_RE.findall(g):
-        if pref not in accounts:
-            accounts.append(pref)
-        fund = FUND_PREFIXES.get(pref)
+    fields = split_section_g(g)
+    accounts: list[dict] = []
+    seen: set[tuple[str, str]] = set()
+    for role in ("charge", "revenue", "transfer"):
+        for a in _accounts_in(fields.get(role, ""), role):
+            key = (a["code"], a["role"])
+            if key in seen:
+                continue
+            seen.add(key)
+            accounts.append(a)
+    # Any code the field split missed — a statement whose labels did not print.
+    if not accounts and g:
+        accounts = _accounts_in(g, "unspecified")
+
+    prefixes: list[str] = []
+    funds: list[str] = []
+    for a in accounts:
+        if a["fund"] not in prefixes:
+            prefixes.append(a["fund"])
+        fund = FUND_PREFIXES.get(a["fund"])
         if fund and fund not in funds:
             funds.append(fund)
+
+    # The Town's own journal entry for a fund-balance draw, if it made one.
+    fund_balance = [
+        a for a in accounts
+        if a["kind"] == "revenue" and a["code"].split("-")[1] == FUND_BALANCE_OBJECT
+    ]
 
     # The largest figure named in section G. Several rows can repeat the same
     # sum (revenue in, appropriation out); the maximum is the size of the action.
     amounts = [float(a.replace(",", "")) for a in MONEY_RE.findall(g)]
     amount = round(max(amounts), 2) if amounts else None
 
+    # What the grant actually costs the Town. Searched over the full statement
+    # text rather than the truncated display string, because the sentence that
+    # names a match is usually the last one in the explanation.
+    full = FORM_LABELS.sub(" ", f"{g} {eb}")
+    if MATCH_NOT_REQUIRED.search(full):
+        match_required = False
+    elif MATCH_REQUIRED.search(full):
+        match_required = True
+    else:
+        match_required = None
+    pct = MATCH_PERCENT.search(full)
+
+    # Accounts this resolution opens. A project number in the title that also
+    # appears as a code's project segment means the code is being created here.
+    projects = set(PROJECT_NO.findall(f"{title} {purpose}"))
+    creating = bool(projects) and bool(CREATES_ACCOUNT.search(f"{title} {purpose}"))
+    for a in accounts:
+        seg = a["code"].split("-")[-1]
+        a["createdHere"] = creating and (seg in projects or seg.lstrip("0") in projects)
+
+    # One draw can fund many lines. Riverhead does this routinely — resolution
+    # 2026-522 splits a single $72,400 fund-balance draw across nine
+    # appropriation sub-accounts, payroll and FICA and equipment separately. The
+    # split is the interesting part, so it is measured rather than flattened.
+    spend_lines = [a for a in accounts if a["kind"] == "appropriation" and a["amount"]]
+
     return {
         "source": source,
         "sources": sources,
-        "sourceText": " ".join(FORM_LABELS.sub(" ", eb or g).split())[:240] or None,
-        "fundCodes": accounts,
+        "sourceText": " ".join(FORM_LABELS.sub(" ", eb or g).split())[:400] or None,
+        "fundCodes": prefixes,
         "funds": funds,
         "amount": amount,
+        # Full sub-accounts, each tied to the field the Town wrote it in. These
+        # join to the adopted budget's line items in web/lib/account-lookup.ts.
+        "accounts": accounts,
+        "fundBalanceAccounts": [a["code"] for a in fund_balance],
+        "fundBalanceDraw": round(sum(a["amount"] for a in fund_balance if a["amount"]), 2)
+        if any(a["amount"] for a in fund_balance) else None,
+        # Documented by account code rather than inferred from the title.
+        "drawsFundBalance": bool(fund_balance),
+        # A grant with a match is not a free grant, and one paid on a
+        # reimbursement basis is money the Town fronts. null means the statement
+        # did not say, which is not the same as "no".
+        "matchRequired": match_required,
+        "matchPercent": float(pct.group(1)) if pct else None,
+        "reimbursementBasis": bool(REIMBURSEMENT.search(full)),
+        # How many budget lines one action charges, and whether any of them are
+        # being opened by this resolution rather than carried in the budget.
+        "splitAcross": len(spend_lines),
+        "createsAccounts": [a["code"] for a in accounts if a.get("createdHere")],
     }
+
+
+def apply_funding_evidence(realistic: dict, funding: dict, category: str) -> dict:
+    """Let the Town's own account codes overrule a keyword guess.
+
+    The category read is an inference from the resolution's title. Section G,
+    when it names accounts, is the Town's accounting. Where the two disagree the
+    accounting wins, and the read records which one it used.
+    """
+    accounts = funding.get("accounts") or []
+
+    # A GRANT IS NOT AUTOMATICALLY FREE. The category read for a grant is
+    # "Revenue in / offsetting — money flows, but from a grant, not the tax
+    # levy". That is only true when the Town puts up nothing. Where the
+    # statement says a match is required, the local share is levy money and the
+    # page should say so; where it says the money is reimbursed, the Town spends
+    # first and carries the risk that the claim is reduced. This runs before the
+    # accounts check because a grant statement often names no account at all.
+    if funding.get("matchRequired") or funding.get("reimbursementBasis"):
+        if funding.get("matchRequired"):
+            pct = funding.get("matchPercent")
+            share = f"a {pct:g}% local match" if pct else "a local match"
+            return {
+                "verdict": "Grant with a local share — not cost-free",
+                "reason": (
+                    f"The statement says this award requires {share}. The grant covers most of the "
+                    "cost, but the Town's share is its own money, and it comes from the levy or from "
+                    "fund balance like any other spending."
+                ),
+                "flag": "understated" if realistic.get("flag") in ("fair", "neutral") else realistic["flag"],
+                "evidence": "statement-text",
+            }
+        return {
+            "verdict": "Reimbursed — the Town pays first",
+            "reason": (
+                "The statement describes money the Town spends and is paid back for. The net cost may "
+                "well be nothing, but the cash goes out before it comes in, and a claim that is reduced "
+                "or denied leaves the difference with the Town."
+            ),
+            "flag": "neutral",
+            "evidence": "statement-text",
+        }
+
+    if not accounts:
+        return {**realistic, "evidence": "category"}
+
+    if funding.get("drawsFundBalance"):
+        funds = funding.get("funds") or []
+        where = funds[0] if funds else "a Town fund"
+        draw = funding.get("fundBalanceDraw")
+        sized = f"{draw:,.0f} " if draw else ""
+        return {
+            "verdict": "Draws fund balance — stated on the Town's own form",
+            "reason": (
+                f"Section G charges ${sized}to Appropriated Fund Balance in the {where}. "
+                "This is not an inference from the title: it is the account the Town wrote down, "
+                "and every dollar of it is surplus that is no longer available for anything else."
+            ),
+            "flag": "reserve-draw",
+            "evidence": "account-code",
+        }
+
+    # A capital project run entirely through a capital or developer-fee fund does
+    # not touch an operating fund's balance. Borrowing is excluded — bond
+    # proceeds are not a draw today but they are debt service on a future levy.
+    all_capital = all(a["fund"] in CAPITAL_FUNDS for a in accounts)
+    offsetting = {"grant", "donation", "escrow", "fee-revenue"}
+    if (
+        category in ("capital", "debt")
+        and all_capital
+        and "borrowing" not in (funding.get("sources") or [])
+        and (offsetting & set(funding.get("sources") or []) or funding.get("source") is None)
+    ):
+        funds = funding.get("funds") or []
+        where = funds[0] if funds else "a capital fund"
+        return {
+            "verdict": "Capital fund — no draw on an operating balance",
+            "reason": (
+                f"Every account named in section G sits in the {where}. The money moves through a "
+                "capital or developer-paid fund, so it does not reduce the General Fund surplus the "
+                "Town would need for anything else."
+            ),
+            "flag": "neutral",
+            "evidence": "account-code",
+        }
+
+    # Money in and money straight back out, inside one fund, from a source that is
+    # not the Town's own surplus: a donation received and spent, a grant passed
+    # through, a developer's escrow drawn down. The two sides balancing is the
+    # proof — it is what the preparer wrote in section G, not a reading of the
+    # title.
+    revenue_side = round(sum(a["amount"] or 0 for a in accounts if a["kind"] == "revenue"), 2)
+    spend_side = round(sum(a["amount"] or 0 for a in accounts if a["kind"] == "appropriation"), 2)
+    one_fund = len({a["fund"] for a in accounts}) == 1
+    if (
+        revenue_side > 0
+        and revenue_side == spend_side
+        and one_fund
+        and "borrowing" not in (funding.get("sources") or [])
+        and offsetting & set(funding.get("sources") or [])
+    ):
+        return {
+            "verdict": "Offsetting — in and straight back out",
+            "reason": (
+                f"Section G books ${revenue_side:,.0f} in and the same ${spend_side:,.0f} out, "
+                f"both in the {(funding.get('funds') or ['same fund'])[0]}. The money is real but it "
+                "is not the Town's, and it leaves the fund's balance where it started."
+            ),
+            "flag": "neutral",
+            "evidence": "account-code",
+        }
+
+    return {**realistic, "evidence": "category"}
 
 
 def classify(title: str, purpose: str) -> str:
@@ -317,7 +671,7 @@ def parse_packet(text: str) -> list[dict]:
             "purpose": purpose,
             "fiscalImpact": fiscal_impact,
             "treatment": treatment,
-            "funding": funding_from_block(b),
+            "funding": funding_from_block(b, title, purpose),
         })
     return out
 
@@ -356,7 +710,10 @@ def build_meeting(date: str, packet_text: str) -> dict | None:
     for seq, p in enumerate(parsed, start=1):
         matched = match_resolution(p["title"], meeting_res)
         category = classify(p["title"], p["purpose"])
-        realistic = realistic_read(category, p["fiscalImpact"])
+        funding = p.get("funding") or {}
+        realistic = apply_funding_evidence(
+            realistic_read(category, p["fiscalImpact"]), funding, category
+        )
         vote = None
         if matched:
             vote = {
@@ -365,7 +722,6 @@ def build_meeting(date: str, packet_text: str) -> dict | None:
                 "ayes": matched.get("ayesCount"),
                 "nays": matched.get("naysCount"),
             }
-        funding = p.get("funding") or {}
         resolutions.append({
             "number": matched.get("number") if matched else None,
             "seq": seq,
@@ -417,6 +773,19 @@ def build_meeting(date: str, packet_text: str) -> dict | None:
                  if r["amount"] and r["townFiscalImpact"] == "No"),
                 default=None,
             ),
+            # Sub-account coverage: how much of this meeting's read rests on the
+            # Town's own accounting rather than on a keyword match against the
+            # resolution title.
+            "withAccounts": sum(1 for r in resolutions if (r["funding"] or {}).get("accounts")),
+            "accountEvidence": sum(
+                1 for r in resolutions if r["realistic"].get("evidence") == "account-code"
+            ),
+            "fundBalanceDraws": sum(
+                1 for r in resolutions if (r["funding"] or {}).get("drawsFundBalance")
+            ),
+            "fundBalanceDrawTotal": round(sum(
+                (r["funding"] or {}).get("fundBalanceDraw") or 0 for r in resolutions
+            ), 2),
         },
         "resolutions": resolutions,
     }
