@@ -7,7 +7,7 @@ import {
   levy2026, onePercent,
 } from '../../lib/budget-2027-options'
 import {
-  drawCounts, generalFundCommitments2026, committedTotal, openingSurplusAbovePolicy,
+  drawCounts, recurringCostCounts, generalFundCommitments2026, committedTotal, openingSurplusAbovePolicy,
   remainingHeadroomCeiling, reductionPct, effectOnOptions, limits as commitmentLimits, corpus,
 } from '../../lib/fiscal-commitments-2027'
 
@@ -261,11 +261,25 @@ export default function Predict2027Page() {
           </strong>
           <p style={{ color: 'var(--rbl-text-strong)', fontSize: 13.6, lineHeight: 1.55, margin: '4px 0 0' }}>
             Across {corpus.resolutions.toLocaleString()} resolutions in {corpus.meetings} meetings, this site reads{' '}
-            <strong>{drawCounts.adopted}</strong> adopted resolutions as drawing on reserves or fund balance. Only{' '}
+            <strong>{drawCounts.adopted}</strong> adopted capital or debt resolutions as drawing on fund balance. Only{' '}
             <strong>{drawCounts.priced}</strong> state a dollar figure. The Town&apos;s Fiscal Impact Statements answer
             Yes/No and &ldquo;absorbed by existing budget&rdquo;; the amounts sit in backup tables that don&apos;t tie
             cleanly to a single resolution, so this site leaves them blank rather than guessing. The total above is
             therefore a <strong>floor</strong>, and the remaining headroom a <strong>ceiling</strong>.
+          </p>
+        </div>
+
+        <div style={{ background: 'var(--rbl-surface-2)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 10, padding: '12px 14px', marginBottom: 12 }}>
+          <strong style={{ color: 'var(--rbl-title)', fontSize: 14 }}>
+            A separate {recurringCostCounts.adopted} adopted resolutions commit recurring money
+          </strong>
+          <p style={{ color: 'var(--rbl-text-body)', fontSize: 13.6, lineHeight: 1.6, margin: '4px 0 0' }}>
+            Salaries and appointments ({recurringCostCounts.byCategory.personnel ?? 0}), contracts
+            ({recurringCostCounts.byCategory.contract ?? 0}), fee changes ({recurringCostCounts.byCategory.fees ?? 0})
+            and labour agreements ({recurringCostCounts.byCategory['labor-contract'] ?? 0}). These are a real budget
+            pressure and they land in the <em>levy</em>, not in accumulated surplus — so they are counted here but
+            never netted against the headroom above. Mixing the two would overstate the draw on reserves roughly
+            threefold, which is exactly what an earlier version of this page did.
           </p>
         </div>
 

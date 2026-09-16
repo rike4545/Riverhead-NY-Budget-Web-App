@@ -54,8 +54,28 @@ export const corpus = {
 
 const allRes = meetings.flatMap((m) => m.resolutions.map((r) => ({ ...r, meetingDate: m.meetingDate })))
 const isAdopted = (r: { vote: { adopted: boolean | null } }) => r.vote?.adopted === true
-const reserveDraws = allRes.filter((r) => r.realistic?.flag === 'reserve-draw')
+
+// THE ETL's "reserve-draw" FLAG CONFLATES TWO DIFFERENT THINGS, and only one of
+// them touches fund balance. etl/parse_fiscal_impact.py assigns the flag from the
+// resolution's CATEGORY and the Yes/No box alone — it never reads an amount — and
+// it applies the same flag to capital/debt items and to personnel, contract, fees
+// and labor-contract items. For that second group its own verdict text reads
+// "Real, recurring cost", which is right: a salary appointment is recurring
+// operating cost funded by the LEVY, not a draw against accumulated surplus. The
+// flag contradicts the verdict.
+//
+// Across the corpus that is not a rounding issue: of the adopted resolutions
+// carrying the flag, roughly a third are capital or debt and the rest are
+// recurring cost. Counting all of them as fund-balance draws overstates the draw
+// on surplus about threefold, so this file splits them and only the capital/debt
+// side is allowed anywhere near the headroom arithmetic.
+const FUND_BALANCE_CATEGORIES = new Set(['capital', 'debt'])
+
+const flagged = allRes.filter((r) => r.realistic?.flag === 'reserve-draw')
+const reserveDraws = flagged.filter((r) => FUND_BALANCE_CATEGORIES.has(r.category))
+const recurringCosts = flagged.filter((r) => !FUND_BALANCE_CATEGORIES.has(r.category))
 const adoptedDraws = reserveDraws.filter(isAdopted)
+const adoptedRecurring = recurringCosts.filter(isAdopted)
 
 // Fund attribution for the UNPRICED draws is inferred from the resolution title,
 // which is the only signal the packet gives. It is good enough to say "most of
@@ -77,7 +97,25 @@ export const drawCounts = {
   adoptedLikelyGeneralFund: adoptedDraws.filter((r) => inferredFund(r.title) === null).length,
   adoptedOtherFunds: adoptedDraws.filter((r) => inferredFund(r.title) !== null).length,
   note:
-    'A resolution is counted here when the Town answered its own Fiscal Impact Statement in a way this site reads as a draw on reserves or fund balance, AND the record shows it was adopted. Fund attribution for the unpriced ones is inferred from the resolution title — the only signal the agenda packet offers — so it is used to characterise the mix, never to produce a dollar figure.',
+    'A resolution is counted here when it is a CAPITAL or DEBT item the Town answered "Yes" on its own Fiscal Impact Statement, and the record shows it was adopted. Fund attribution for the unpriced ones is inferred from the resolution title — the only signal the agenda packet offers — so it is used to characterise the mix, never to produce a dollar figure.',
+}
+
+/**
+ * The other half of the ETL's flag: adopted resolutions that commit RECURRING
+ * operating money — salaries, contracts, fee changes. These are a real budget
+ * pressure and they belong on this site, but they are funded by the levy and do
+ * not reduce accumulated surplus, so they are reported separately and never
+ * netted against headroom.
+ */
+export const recurringCostCounts = {
+  adopted: adoptedRecurring.length,
+  byCategory: Object.fromEntries(
+    Array.from(new Set(adoptedRecurring.map((r) => r.category)))
+      .map((c) => [c, adoptedRecurring.filter((r) => r.category === c).length])
+      .sort((a, b) => (b[1] as number) - (a[1] as number)),
+  ) as Record<string, number>,
+  note:
+    'etl/parse_fiscal_impact.py tags these "reserve-draw" alongside capital and debt items, but its own verdict for them reads "Real, recurring cost". They are levy-funded operating commitments, not draws on surplus, so this page counts them apart from the fund-balance arithmetic. The underlying flag is worth renaming in the ETL.',
 }
 
 export type Commitment = {
@@ -89,9 +127,17 @@ export type Commitment = {
   note: string
 }
 
-// The priced General Fund draws. Each one was read individually rather than
-// swept up by a keyword rule, because the packet mixes funds freely and a wrong
+// The priced General Fund draws. Each one was read individually rather than swept
+// up by a keyword rule, because the packet mixes funds freely and a wrong
 // attribution here would move the headline number.
+//
+// Two entries were removed after the first pass. The Engineering intern
+// appointments ($8,000) are personnel and the LVF Landscape Architects addendum
+// ($76,500) is a professional-services contract: both commit recurring operating
+// money funded by the levy, neither draws down accumulated surplus. They had been
+// included only because the ETL tags them with the same "reserve-draw" flag it
+// gives capital and debt items. Nothing belongs in this list unless it is capital,
+// debt, or a draw the record explicitly states comes from fund balance.
 export const generalFundCommitments2026: Commitment[] = [
   ...fundBalanceImpact.draws.map((d) => ({
     label: d.label,
@@ -110,28 +156,12 @@ export const generalFundCommitments2026: Commitment[] = [
     note: 'Purchase plus budget adjustment. A General Fund department, so this lands on the same balance the 2027 options draw against.',
   },
   {
-    label: 'LVF Landscape Architects agreement addendum',
-    amount: 76_500,
-    certainty: 'authorised',
-    fund: 'General Fund',
-    source: 'Resolution 2026-677, July 21, 2026',
-    note: 'Professional services addendum with a stated amount.',
-  },
-  {
     label: 'East Creek Boat Launch repairs',
     amount: 60_000,
     certainty: 'authorised',
     fund: 'General Fund',
     source: 'Resolution 2026-639, July 7, 2026',
     note: 'Ratified budget adjustment. The Town runs a separate East Creek Docking Facility fund, but the resolution does not name it, so this is counted against the General Fund — the conservative reading for a page about General Fund headroom.',
-  },
-  {
-    label: 'Two Student Intern II appointments (Engineering)',
-    amount: 8_000,
-    certainty: 'authorised',
-    fund: 'General Fund',
-    source: 'Resolutions 2026-648 and 2026-649, July 7, 2026',
-    note: '$4,000 each.',
   },
 ]
 
