@@ -20,19 +20,19 @@
       "id": "budget-supplement/lines",
       "web": "budget-supplement/lines.json",
       "ios": "supplement-lines.json",
-      "sha256": "3c4a340f4f2bb0d47d6279854814823befc7896a657c8a5471e615f89bf84334"
+      "sha256": "a9858c417af411da177924a7c54557dfc4cdc34491b43e8c3639a70d215dfe81"
     },
     {
       "id": "budget-supplement/outliers",
       "web": "budget-supplement/outliers.json",
       "ios": "supplement-outliers.json",
-      "sha256": "b5592c4823838384099f9386588b0e8145e1c05f372682fc18aa194961fc14e4"
+      "sha256": "3ced32f947aa5d1f551fe2d30b60ff76e6238b68086bc217f3df3fcb7190dbdc"
     },
     {
       "id": "budget-supplement/reductions",
       "web": "budget-supplement/reductions.json",
       "ios": "reductions.json",
-      "sha256": "ee52b0f899172dd87ee1627f2feb03c842f291b642349464885cfaca051cc33e"
+      "sha256": "c1592d4be428eb91e93e61e783719025fea970b21db01b54b8fca50aec92c8f2"
     },
     {
       "id": "payroll/records",
