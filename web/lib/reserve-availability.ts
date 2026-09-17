@@ -115,7 +115,40 @@ export const deploymentLedger: DeploymentLedgerRow[] = (() => {
   })
 })()
 
+/**
+ * The plan split at the point the money runs out.
+ *
+ * Derived from the ledger rather than hard-coded to a position, so if a draw
+ * lands, an option is repriced, or 2026 results change the ceiling, the split
+ * moves on its own instead of going stale. When everything fits, unfunded is
+ * empty and the page renders the plan as one list.
+ *
+ * Note the split is by running balance in PUBLISHED ORDER, not by picking the
+ * cheapest items that fit. Reordering to maximise how many get funded would be
+ * this site ranking the Town's priorities, which is not its job.
+ */
+export const fundedOptions = deploymentLedger.filter((r) => r.coveredInFull)
+export const unfundedOptions = deploymentLedger.filter((r) => !r.coveredInFull)
+
+export const fundedTotal = fundedOptions.reduce((s, o) => s + o.amount, 0)
+export const unfundedTotal = unfundedOptions.reduce((s, o) => s + o.amount, 0)
+/** What is still unallocated once every option the ceiling covers is funded. */
+export const leftoverAfterFunded = deployableAbove288Ceiling - fundedTotal
+/** How much of the first option that does not fit the leftover would cover. */
+export const partialCoverageOfNext =
+  unfundedOptions.length > 0 && unfundedOptions[0].amount > 0
+    ? leftoverAfterFunded / unfundedOptions[0].amount
+    : null
+
 export const deploymentPlanTotal = deploymentOptions.reduce((s, o) => s + o.amount, 0)
+/**
+ * The reserve percentage that would fund the published plan in full.
+ *
+ * The other side of the trade, stated so the page does not present dropping an
+ * option as the only way out: holding less back frees the difference.
+ */
+export const targetForFullPlan =
+  appropriations > 0 ? (unassignedCeiling - deploymentPlanTotal) / appropriations : targetReservePercent
 export const deploymentPlanShortfall = Math.max(0, deploymentPlanTotal - deployableAbove288Ceiling)
 export const deploymentPlanFits = deploymentPlanShortfall === 0
 /** The first option the netted pool cannot cover in full, if any. */
@@ -137,11 +170,8 @@ export const availabilityReading =
   `one-time money a plan can responsibly assume.`
 
 export const planReading = deploymentPlanFits
-  ? `The plan totals ${usd(deploymentPlanTotal)} and still fits the ${usd(deployableAbove288Ceiling)} available above the ${pct(targetReservePercent)} target.`
-  : `The plan was published against the opening balance, where it fit with ${usd(Math.max(0, unassignedFundBalance - targetUnassignedAt288) - deploymentPlanTotal)} to spare. ` +
-    `Against what is left it does not: ${usd(deploymentPlanTotal)} of options against ${usd(deployableAbove288Ceiling)} available, ` +
-    `a shortfall of ${usd(deploymentPlanShortfall)}. The options are listed in published order with the balance after each, ` +
-    `rather than reordered or trimmed, because choosing which to drop is the Board's call and not this site's.`
+  ? `The plan totals ${usd(deploymentPlanTotal)} and fits the ${usd(deployableAbove288Ceiling)} available above the ${pct(targetReservePercent)} target.`
+  : `For scale: against the reported opening balance the plan fit with ${usd(Math.max(0, unassignedCeiling + committedThisYear - targetUnassignedAt288) - deploymentPlanTotal)} to spare, which is the version published before 2026's votes were netted.`
 
 /**
  * The peer scenarios, re-measured against money that still exists.
