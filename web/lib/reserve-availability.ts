@@ -101,9 +101,23 @@ export const deployableAbove288Ceiling = Math.max(0, unassignedCeiling - targetU
  * at. Reordering or dropping entries would be this site choosing the Town's
  * priorities, which is not its job.
  */
+/**
+ * Does this option pay for something that recurs?
+ *
+ * Read from the option's own description rather than asserted, so the claim
+ * stays tied to the text it is about. It matters because the caveat at the top
+ * of /reserves/ says one-time money suits debt paydown and capital rather than
+ * permanent new spending — an option funding posts is in tension with the
+ * page's own rule, and that is worth saying next to the option instead of in a
+ * loose paragraph that would be pointing at the wrong row the moment the split
+ * moved.
+ */
+const RECURRING_IN_DETAIL = /\bpositions?\b|\bposts?\b|\bstaffing\b|\bsalar(?:y|ies)\b/i
+
 export type DeploymentLedgerRow = DeploymentOption & {
   remainingAfter: number
   coveredInFull: boolean
+  fundsRecurringCost: boolean
 }
 
 export const deploymentLedger: DeploymentLedgerRow[] = (() => {
@@ -111,13 +125,108 @@ export const deploymentLedger: DeploymentLedgerRow[] = (() => {
   return deploymentOptions.map((o) => {
     const coveredInFull = running >= o.amount
     running -= o.amount
-    return { ...o, remainingAfter: running, coveredInFull }
+    return { ...o, remainingAfter: running, coveredInFull, fundsRecurringCost: RECURRING_IN_DETAIL.test(o.detail) }
   })
 })()
 
+/**
+ * The plan split at the point the money runs out.
+ *
+ * Derived from the ledger rather than hard-coded to a position, so if a draw
+ * lands, an option is repriced, or 2026 results change the ceiling, the split
+ * moves on its own instead of going stale. When everything fits, unfunded is
+ * empty and the page renders the plan as one list.
+ *
+ * Note the split is by running balance in PUBLISHED ORDER, not by picking the
+ * cheapest items that fit. Reordering to maximise how many get funded would be
+ * this site ranking the Town's priorities, which is not its job.
+ */
+export const fundedOptions = deploymentLedger.filter((r) => r.coveredInFull)
+export const unfundedOptions = deploymentLedger.filter((r) => !r.coveredInFull)
+
+export const fundedTotal = fundedOptions.reduce((s, o) => s + o.amount, 0)
+export const unfundedTotal = unfundedOptions.reduce((s, o) => s + o.amount, 0)
+/** What is still unallocated once every option the ceiling covers is funded. */
+export const leftoverAfterFunded = deployableAbove288Ceiling - fundedTotal
+/** How much of the first option that does not fit the leftover would cover. */
+export const partialCoverageOfNext =
+  unfundedOptions.length > 0 && unfundedOptions[0].amount > 0
+    ? leftoverAfterFunded / unfundedOptions[0].amount
+    : null
+
 export const deploymentPlanTotal = deploymentOptions.reduce((s, o) => s + o.amount, 0)
+/**
+ * The reserve percentage that would fund the published plan in full.
+ *
+ * The other side of the trade, stated so the page does not present dropping an
+ * option as the only way out: holding less back frees the difference.
+ */
+export const targetForFullPlan =
+  appropriations > 0 ? (unassignedCeiling - deploymentPlanTotal) / appropriations : targetReservePercent
 export const deploymentPlanShortfall = Math.max(0, deploymentPlanTotal - deployableAbove288Ceiling)
 export const deploymentPlanFits = deploymentPlanShortfall === 0
+
+/**
+ * Which options are even large enough to absorb the shortfall on their own.
+ *
+ * The obvious question once a plan does not fit is what to trim, and the
+ * answer is constrained before anyone reaches a preference: an option smaller
+ * than the gap cannot close it however completely it is cut. Stating that
+ * first keeps the discussion off the four small items, where it would
+ * otherwise start.
+ */
+/**
+ * What kind of thing a trim to this option would be.
+ *
+ * Keyed by the option's own number rather than sniffed from its prose: these
+ * are judgments about what each line buys, and a regex guessing at them would
+ * be worse than saying nothing. An option without an entry simply renders no
+ * note, and one that is removed takes its note with it — which is the property
+ * the loose paragraph this replaces did not have.
+ */
+const TRIM_CHARACTER: Record<number, string> = {
+  1: 'Closes a stated imbalance, so a part payment leaves it open.',
+  2: 'Buys down future interest, so a trim costs more later than the figure here shows.',
+  3: 'Buys down future interest, so a trim costs more later than the figure here shows.',
+  4: 'A part payment toward a liability its own entry calls larger than the whole deployable surplus, so a trim changes how much is set aside and nothing else.',
+}
+
+export type AbsorptionRow = DeploymentOption & {
+  canAbsorbAlone: boolean
+  /** Share of this option that would have to go, if it is big enough. */
+  trimFraction: number | null
+  remainsAfterTrim: number | null
+  fundsRecurringCost: boolean
+  /** What a trim here would mean, where this page has something to say. */
+  trimCharacter: string | null
+}
+
+export const absorptionOptions: AbsorptionRow[] = deploymentLedger.map((o) => {
+  const canAbsorbAlone = deploymentPlanShortfall > 0 && o.amount >= deploymentPlanShortfall
+  return {
+    ...o,
+    canAbsorbAlone,
+    trimFraction: canAbsorbAlone ? deploymentPlanShortfall / o.amount : null,
+    remainsAfterTrim: canAbsorbAlone ? o.amount - deploymentPlanShortfall : null,
+    trimCharacter: TRIM_CHARACTER[o.number] ?? null,
+  }
+})
+
+/**
+ * Every option too small to close the gap by itself — and whether several of
+ * them together would.
+ *
+ * Both halves are reported because one without the other misleads. "No single
+ * small item can absorb this" is true and invites the conclusion that only the
+ * large items are candidates, which is false: here the four smallest come to
+ * $266,283 against a $163,366 gap, so combinations of them do close it.
+ */
+export const tooSmallToAbsorb = absorptionOptions.filter((o) => !o.canAbsorbAlone)
+export const tooSmallCombined = tooSmallToAbsorb.reduce((s, o) => s + o.amount, 0)
+export const smallOnesTogetherCover =
+  deploymentPlanShortfall > 0 && tooSmallCombined >= deploymentPlanShortfall
+export const spareIfAllSmallDropped = tooSmallCombined - deploymentPlanShortfall
+
 /** The first option the netted pool cannot cover in full, if any. */
 export const firstUnfundedOption = deploymentLedger.filter((r) => !r.coveredInFull)[0] ?? null
 
@@ -137,11 +246,8 @@ export const availabilityReading =
   `one-time money a plan can responsibly assume.`
 
 export const planReading = deploymentPlanFits
-  ? `The plan totals ${usd(deploymentPlanTotal)} and still fits the ${usd(deployableAbove288Ceiling)} available above the ${pct(targetReservePercent)} target.`
-  : `The plan was published against the opening balance, where it fit with ${usd(Math.max(0, unassignedFundBalance - targetUnassignedAt288) - deploymentPlanTotal)} to spare. ` +
-    `Against what is left it does not: ${usd(deploymentPlanTotal)} of options against ${usd(deployableAbove288Ceiling)} available, ` +
-    `a shortfall of ${usd(deploymentPlanShortfall)}. The options are listed in published order with the balance after each, ` +
-    `rather than reordered or trimmed, because choosing which to drop is the Board's call and not this site's.`
+  ? `The plan totals ${usd(deploymentPlanTotal)} and fits the ${usd(deployableAbove288Ceiling)} available above the ${pct(targetReservePercent)} target.`
+  : `For scale: against the reported opening balance the plan fit with ${usd(Math.max(0, unassignedCeiling + committedThisYear - targetUnassignedAt288) - deploymentPlanTotal)} to spare, which is the version published before 2026's votes were netted.`
 
 /**
  * The peer scenarios, re-measured against money that still exists.

@@ -40,6 +40,16 @@ import {
   deploymentPlanFits,
   deploymentPlanShortfall,
   deploymentPlanTotal,
+  absorptionOptions,
+  fundedOptions,
+  leftoverAfterFunded,
+  partialCoverageOfNext,
+  smallOnesTogetherCover,
+  spareIfAllSmallDropped,
+  tooSmallCombined,
+  tooSmallToAbsorb,
+  targetForFullPlan,
+  unfundedOptions,
   openingPercentOfAppropriations,
   peerAlignmentScenariosNet,
   planReading,
@@ -281,6 +291,21 @@ export default function ReservesPage() {
           serious bills are paid. It is priced below against the <em>ceiling on what is left</em>, not the
           reported opening figure it was first written against.
         </p>
+        {!deploymentPlanFits && (
+          <p style={{ color: 'var(--rbl-text-body)', fontSize: 14, lineHeight: 1.6, marginTop: 0 }}>
+            <strong>
+              The reset still works;{' '}
+              {unfundedOptions.length === 1
+                ? 'the last item on the list no longer does.'
+                : `the last ${unfundedOptions.length} items on the list no longer do.`}
+            </strong>{' '}
+            Holding the {pct(targetReservePercent)} target leaves {dollars(deployableAbove288Ceiling)} to deploy, which
+            funds {fundedOptions.length} of the {fundedOptions.length + unfundedOptions.length} published options in
+            full and falls {dollars(deploymentPlanShortfall)} short of{' '}
+            {unfundedOptions.length === 1 ? 'the last' : `the remaining ${unfundedOptions.length}`}. What does not fit
+            is shown below the plan rather than dropped from it.
+          </p>
+        )}
         <div style={{ display: 'flex', justifyContent: 'space-between', gap: 12, fontSize: 14.5 }}>
           <span>Ceiling on what is left (net of 2026 votes)</span>
           <strong>{dollars(unassignedCeiling)}</strong>
@@ -301,7 +326,7 @@ export default function ReservesPage() {
         <hr style={{ border: 'none', borderTop: '1px solid var(--rbl-border-subtle)', margin: '14px 0' }} />
 
         <div style={{ display: 'grid', gap: 14 }}>
-          {deploymentLedger.map((option) => (
+          {fundedOptions.map((option) => (
             <div key={option.number} style={{ display: 'flex', gap: 10, opacity: option.coveredInFull ? 1 : 0.92 }}>
               <div
                 style={{
@@ -337,13 +362,90 @@ export default function ReservesPage() {
 
         <hr style={{ border: 'none', borderTop: '1px solid var(--rbl-border-subtle)', margin: '14px 0' }} />
         <div style={{ display: 'flex', justifyContent: 'space-between', gap: 12, fontWeight: 800 }}>
-          <span>{deploymentPlanFits ? 'Still available after these deployments' : 'Short of funding the full plan'}</span>
-          <span style={{ color: deploymentPlanFits ? 'var(--rbl-success)' : 'var(--rbl-warn)' }}>
-            {deploymentPlanFits
-              ? dollars(deployableAbove288Ceiling - deploymentPlanTotal)
-              : `− ${dollars(deploymentPlanShortfall)}`}
-          </span>
+          <span>{deploymentPlanFits ? 'Still available after these deployments' : 'Unallocated after the funded items'}</span>
+          <span style={{ color: 'var(--rbl-success)' }}>{dollars(leftoverAfterFunded)}</span>
         </div>
+
+        {unfundedOptions.length > 0 && (
+          <div style={{ background: 'var(--rbl-warn-bg)', border: '1px solid var(--rbl-warn-border)', borderRadius: 10, padding: '12px 14px', marginTop: 14 }}>
+            <strong style={{ color: 'var(--rbl-warn-strong)', fontSize: 14 }}>
+              What no longer fits, and why it is still listed
+            </strong>
+            {unfundedOptions.map((option) => (
+              <div key={option.number} style={{ marginTop: 8 }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', gap: 10 }}>
+                  <strong style={{ fontSize: 14 }}>
+                    {option.number}. {option.title}
+                  </strong>
+                  <span style={{ color: 'var(--rbl-warn-strong)', fontWeight: 800, fontSize: 13, whiteSpace: 'nowrap' }}>
+                    {dollars(option.amount)}
+                  </span>
+                </div>
+                <p style={{ color: 'var(--rbl-text-body)', fontSize: 13, margin: '2px 0 0', lineHeight: 1.5 }}>{option.detail}</p>
+                {option.fundsRecurringCost && (
+                  <p style={{ color: 'var(--rbl-warn-strong)', fontSize: 12.8, margin: '4px 0 0', lineHeight: 1.5 }}>
+                    This one funds <em>posts</em>, which recur. The rule at the top of this page is that one-time money
+                    suits debt paydown and capital rather than permanent new spending — so on the page&apos;s own
+                    reading it sits awkwardly here whether or not the money were there.
+                  </p>
+                )}
+              </div>
+            ))}
+            <p style={{ color: 'var(--rbl-text-body)', fontSize: 13.2, lineHeight: 1.6, margin: '10px 0 0' }}>
+              The {dollars(leftoverAfterFunded)} left over covers{' '}
+              {partialCoverageOfNext === null ? 'none' : `${Math.round(partialCoverageOfNext * 100)}%`} of it. Closing
+              the {dollars(deploymentPlanShortfall)} gap the other way would mean holding a{' '}
+              {pct(targetForFullPlan)} reserve instead of {pct(targetReservePercent)}.
+            </p>
+            <div style={{ marginTop: 12 }}>
+              <strong style={{ color: 'var(--rbl-warn-strong)', fontSize: 13.4 }}>
+                Or absorb it elsewhere: what each option would have to give up
+              </strong>
+              <div style={{ display: 'grid', gap: 7, marginTop: 7 }}>
+                {absorptionOptions.map((o) => (
+                  <div key={o.number} style={{ borderTop: '1px solid var(--rbl-warn-border)', paddingTop: 6 }}>
+                    <div style={{ fontSize: 13, color: 'var(--rbl-text)', lineHeight: 1.4 }}>
+                      {o.number}. {o.title}
+                    </div>
+                    <div style={{ fontSize: 12.6, marginTop: 2, display: 'flex', flexWrap: 'wrap', gap: '0 8px' }}>
+                      <span style={{ color: 'var(--rbl-text-muted)' }}>{dollars(o.amount)}</span>
+                      {o.canAbsorbAlone ? (
+                        <>
+                          <span style={{ color: 'var(--rbl-warn-strong)', fontWeight: 800 }}>
+                            trim {((o.trimFraction as number) * 100).toFixed(1)}%
+                          </span>
+                          <span style={{ color: 'var(--rbl-text-muted)' }}>
+                            &rarr; {dollars(o.remainsAfterTrim as number)} remains
+                          </span>
+                        </>
+                      ) : (
+                        <span style={{ color: 'var(--rbl-text-muted)', fontStyle: 'italic' }}>smaller than the gap</span>
+                      )}
+                    </div>
+                    {o.canAbsorbAlone && o.trimCharacter && (
+                      <div style={{ fontSize: 12.3, marginTop: 2, color: 'var(--rbl-text-muted)', lineHeight: 1.45 }}>
+                        {o.trimCharacter}
+                      </div>
+                    )}
+                  </div>
+                ))}
+              </div>
+              <p style={{ color: 'var(--rbl-text-body)', fontSize: 13, lineHeight: 1.6, margin: '8px 0 0' }}>
+                {tooSmallToAbsorb.length} of the options are smaller than the gap, so none of them can close it alone.
+                That is not the same as saying they are not candidates:{' '}
+                {smallOnesTogetherCover
+                  ? `together they come to ${dollars(tooSmallCombined)}, so dropping them covers it with ${dollars(spareIfAllSmallDropped)} to spare.`
+                  : `together they come to only ${dollars(tooSmallCombined)}, which still leaves ${dollars(deploymentPlanShortfall - tooSmallCombined)} outstanding.`}
+              </p>
+              <p style={{ color: 'var(--rbl-text-body)', fontSize: 13, lineHeight: 1.6, margin: '6px 0 0' }}>
+                A trim is not the same act in every row, which is why each carries its own note above. Which to drop,
+                trim or fund another way is the Board&apos;s call; this page shows the arithmetic and the principle, not
+                a decision.
+              </p>
+            </div>
+          </div>
+        )}
+
         <p style={{ color: 'var(--rbl-text-muted)', fontSize: 12.8, lineHeight: 1.55, margin: '10px 0 0' }}>{planReading}</p>
       </section>
 
