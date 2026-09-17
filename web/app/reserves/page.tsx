@@ -40,9 +40,14 @@ import {
   deploymentPlanFits,
   deploymentPlanShortfall,
   deploymentPlanTotal,
+  absorptionOptions,
   fundedOptions,
   leftoverAfterFunded,
   partialCoverageOfNext,
+  smallOnesTogetherCover,
+  spareIfAllSmallDropped,
+  tooSmallCombined,
+  tooSmallToAbsorb,
   targetForFullPlan,
   unfundedOptions,
   openingPercentOfAppropriations,
@@ -371,6 +376,13 @@ export default function ReservesPage() {
                   </span>
                 </div>
                 <p style={{ color: 'var(--rbl-text-body)', fontSize: 13, margin: '2px 0 0', lineHeight: 1.5 }}>{option.detail}</p>
+                {option.fundsRecurringCost && (
+                  <p style={{ color: 'var(--rbl-warn-strong)', fontSize: 12.8, margin: '4px 0 0', lineHeight: 1.5 }}>
+                    This one funds <em>posts</em>, which recur. The rule at the top of this page is that one-time money
+                    suits debt paydown and capital rather than permanent new spending — so on the page&apos;s own
+                    reading it sits awkwardly here whether or not the money were there.
+                  </p>
+                )}
               </div>
             ))}
             <p style={{ color: 'var(--rbl-text-body)', fontSize: 13.2, lineHeight: 1.6, margin: '10px 0 0' }}>
@@ -379,14 +391,50 @@ export default function ReservesPage() {
               the {dollars(deploymentPlanShortfall)} gap the other way would mean holding a{' '}
               {pct(targetForFullPlan)} reserve instead of {pct(targetReservePercent)}.
             </p>
-            <p style={{ color: 'var(--rbl-text-body)', fontSize: 13.2, lineHeight: 1.6, margin: '8px 0 0' }}>
-              Worth noting before that trade is made: this item funds <em>positions</em> — a Town Clerk post, two police
-              posts, added code enforcement. Those are recurring costs, and the rule at the top of this page is that
-              one-time money suits debt paydown and capital rather than permanent new spending. On that reading it is
-              the item least suited to reserve funding regardless of whether the money were there. Which to drop, trim
-              or fund another way is the Board&apos;s call; this page shows the arithmetic and the principle, not a
-              decision.
-            </p>
+            <div style={{ marginTop: 12 }}>
+              <strong style={{ color: 'var(--rbl-warn-strong)', fontSize: 13.4 }}>
+                Or absorb it elsewhere: what each option would have to give up
+              </strong>
+              <div style={{ display: 'grid', gap: 7, marginTop: 7 }}>
+                {absorptionOptions.map((o) => (
+                  <div key={o.number} style={{ borderTop: '1px solid var(--rbl-warn-border)', paddingTop: 6 }}>
+                    <div style={{ fontSize: 13, color: 'var(--rbl-text)', lineHeight: 1.4 }}>
+                      {o.number}. {o.title}
+                    </div>
+                    <div style={{ fontSize: 12.6, marginTop: 2, display: 'flex', flexWrap: 'wrap', gap: '0 8px' }}>
+                      <span style={{ color: 'var(--rbl-text-muted)' }}>{dollars(o.amount)}</span>
+                      {o.canAbsorbAlone ? (
+                        <>
+                          <span style={{ color: 'var(--rbl-warn-strong)', fontWeight: 800 }}>
+                            trim {((o.trimFraction as number) * 100).toFixed(1)}%
+                          </span>
+                          <span style={{ color: 'var(--rbl-text-muted)' }}>
+                            &rarr; {dollars(o.remainsAfterTrim as number)} remains
+                          </span>
+                        </>
+                      ) : (
+                        <span style={{ color: 'var(--rbl-text-muted)', fontStyle: 'italic' }}>smaller than the gap</span>
+                      )}
+                    </div>
+                  </div>
+                ))}
+              </div>
+              <p style={{ color: 'var(--rbl-text-body)', fontSize: 13, lineHeight: 1.6, margin: '8px 0 0' }}>
+                {tooSmallToAbsorb.length} of the options are smaller than the gap, so none of them can close it alone.
+                That is not the same as saying they are not candidates:{' '}
+                {smallOnesTogetherCover
+                  ? `together they come to ${dollars(tooSmallCombined)}, so dropping them covers it with ${dollars(spareIfAllSmallDropped)} to spare.`
+                  : `together they come to only ${dollars(tooSmallCombined)}, which still leaves ${dollars(deploymentPlanShortfall - tooSmallCombined)} outstanding.`}
+              </p>
+              <p style={{ color: 'var(--rbl-text-body)', fontSize: 13, lineHeight: 1.6, margin: '6px 0 0' }}>
+                A trim is not the same thing in every row. The accrued-leave line is a part payment toward a liability
+                its own entry calls larger than the whole deployable surplus, so taking 8.9% off it changes how much is
+                set aside and nothing else. The two BAN lines reduce future interest, so trimming them costs more later
+                than the figure shown. And option 1 closes a <em>stated</em> imbalance, which a part payment leaves
+                open. Which to drop, trim or fund another way is the Board&apos;s call; this page shows the arithmetic
+                and the principle, not a decision.
+              </p>
+            </div>
           </div>
         )}
 

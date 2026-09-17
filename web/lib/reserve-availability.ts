@@ -101,9 +101,23 @@ export const deployableAbove288Ceiling = Math.max(0, unassignedCeiling - targetU
  * at. Reordering or dropping entries would be this site choosing the Town's
  * priorities, which is not its job.
  */
+/**
+ * Does this option pay for something that recurs?
+ *
+ * Read from the option's own description rather than asserted, so the claim
+ * stays tied to the text it is about. It matters because the caveat at the top
+ * of /reserves/ says one-time money suits debt paydown and capital rather than
+ * permanent new spending — an option funding posts is in tension with the
+ * page's own rule, and that is worth saying next to the option instead of in a
+ * loose paragraph that would be pointing at the wrong row the moment the split
+ * moved.
+ */
+const RECURRING_IN_DETAIL = /\bpositions?\b|\bposts?\b|\bstaffing\b|\bsalar(?:y|ies)\b/i
+
 export type DeploymentLedgerRow = DeploymentOption & {
   remainingAfter: number
   coveredInFull: boolean
+  fundsRecurringCost: boolean
 }
 
 export const deploymentLedger: DeploymentLedgerRow[] = (() => {
@@ -111,7 +125,7 @@ export const deploymentLedger: DeploymentLedgerRow[] = (() => {
   return deploymentOptions.map((o) => {
     const coveredInFull = running >= o.amount
     running -= o.amount
-    return { ...o, remainingAfter: running, coveredInFull }
+    return { ...o, remainingAfter: running, coveredInFull, fundsRecurringCost: RECURRING_IN_DETAIL.test(o.detail) }
   })
 })()
 
@@ -151,6 +165,49 @@ export const targetForFullPlan =
   appropriations > 0 ? (unassignedCeiling - deploymentPlanTotal) / appropriations : targetReservePercent
 export const deploymentPlanShortfall = Math.max(0, deploymentPlanTotal - deployableAbove288Ceiling)
 export const deploymentPlanFits = deploymentPlanShortfall === 0
+
+/**
+ * Which options are even large enough to absorb the shortfall on their own.
+ *
+ * The obvious question once a plan does not fit is what to trim, and the
+ * answer is constrained before anyone reaches a preference: an option smaller
+ * than the gap cannot close it however completely it is cut. Stating that
+ * first keeps the discussion off the four small items, where it would
+ * otherwise start.
+ */
+export type AbsorptionRow = DeploymentOption & {
+  canAbsorbAlone: boolean
+  /** Share of this option that would have to go, if it is big enough. */
+  trimFraction: number | null
+  remainsAfterTrim: number | null
+  fundsRecurringCost: boolean
+}
+
+export const absorptionOptions: AbsorptionRow[] = deploymentLedger.map((o) => {
+  const canAbsorbAlone = deploymentPlanShortfall > 0 && o.amount >= deploymentPlanShortfall
+  return {
+    ...o,
+    canAbsorbAlone,
+    trimFraction: canAbsorbAlone ? deploymentPlanShortfall / o.amount : null,
+    remainsAfterTrim: canAbsorbAlone ? o.amount - deploymentPlanShortfall : null,
+  }
+})
+
+/**
+ * Every option too small to close the gap by itself — and whether several of
+ * them together would.
+ *
+ * Both halves are reported because one without the other misleads. "No single
+ * small item can absorb this" is true and invites the conclusion that only the
+ * large items are candidates, which is false: here the four smallest come to
+ * $266,283 against a $163,366 gap, so combinations of them do close it.
+ */
+export const tooSmallToAbsorb = absorptionOptions.filter((o) => !o.canAbsorbAlone)
+export const tooSmallCombined = tooSmallToAbsorb.reduce((s, o) => s + o.amount, 0)
+export const smallOnesTogetherCover =
+  deploymentPlanShortfall > 0 && tooSmallCombined >= deploymentPlanShortfall
+export const spareIfAllSmallDropped = tooSmallCombined - deploymentPlanShortfall
+
 /** The first option the netted pool cannot cover in full, if any. */
 export const firstUnfundedOption = deploymentLedger.filter((r) => !r.coveredInFull)[0] ?? null
 
