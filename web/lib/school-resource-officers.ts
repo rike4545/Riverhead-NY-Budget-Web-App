@@ -118,7 +118,7 @@ export const positions = [
   {
     who: 'Denise Merrifield, Councilwoman',
     quote: 'this is actually taxation without representation',
-    on: 'Town taxpayers who live outside the school district helping to fund a school district programme',
+    on: 'Town taxpayers who live outside the school district helping to fund a school district program',
   },
   {
     who: 'Ken Rothwell, Councilman',
@@ -167,7 +167,7 @@ export const fundingPaths: FundingPath[] = [
     paysWhom: 'school district',
     paysTheTown: false,
     enacted: false,
-    what: 'Would create a certification programme for RETIRED officers serving as SROs and would raise their pension earnings cap from $35,000 to $65,000 so they could take the work without losing benefits. It has passed neither chamber and has not been signed.',
+    what: 'Would create a certification program for RETIRED officers serving as SROs and would raise their pension earnings cap from $35,000 to $65,000 so they could take the work without losing benefits. It has passed neither chamber and has not been signed.',
     catch: 'Not a funding bill at all. It makes a different staffing model possible — retired officers hired by the district — rather than paying for the serving officers a town assigns.',
   },
   {
@@ -178,8 +178,8 @@ export const fundingPaths: FundingPath[] = [
     paysWhom: 'states and districts',
     paysTheTown: false,
     enacted: true,
-    what: 'Stronger Connections grants and two school mental-health programmes, flowing to states and school districts.',
-    catch: 'These are school-climate and mental-health programmes. The Department’s own programme list does not carry an SRO salary grant, and none of it is payable to a police department.',
+    what: 'Stronger Connections grants and two school mental-health programs, flowing to states and school districts.',
+    catch: 'These are school-climate and mental-health programs. The Department’s own program list does not carry an SRO salary grant, and none of it is payable to a police department.',
   },
   {
     name: 'COPS Hiring Program',
@@ -215,7 +215,7 @@ export const nobodyPublishesTheMoney =
   'Across the whole county, on both sides of the 1960 line, the cost of school resource officers is not a public number. Suffolk publishes who its eighteen officers are and nothing about what they cost or whether any district reimburses it. The document it agreed with the superintendents is, by both parties\u2019 own account, not a memorandum of understanding, and carries no payment terms. None of the four other East End towns publishes its agreement. Riverhead is the one place where the money is being argued over in public with figures attached — which reads like dysfunction and is nearer the opposite.'
 
 export const theBind =
-  'Put together, the paths do not contradict each other so much as they miss each other. The two state bills would pay the school district, and both have sat in committee — one since January 2025. The federal school-safety money is district and state money for school climate and mental health, not officer salaries. The single programme that would pay Riverhead directly is the COPS Hiring Program, and it asks for two things the Town does not currently have: a quarter of the cost from its own budget, and a signed agreement with the school district — which is the document that was tabled.'
+  'Put together, the paths do not contradict each other so much as they miss each other. The two state bills would pay the school district, and both have sat in committee — one since January 2025. The federal school-safety money is district and state money for school climate and mental health, not officer salaries. The single program that would pay Riverhead directly is the COPS Hiring Program, and it asks for two things the Town does not currently have: a quarter of the cost from its own budget, and a signed agreement with the school district — which is the document that was tabled.'
 
 /**
  * Who else even has this argument — and why the county has it differently.
@@ -243,7 +243,7 @@ export const whoElseHasThisArgument = {
   ownForce: {
     towns: ['Riverhead', 'Southampton', 'East Hampton', 'Southold', 'Shelter Island'],
     southampton:
-      'Southampton publishes a programme page saying its SROs are “coordinated with several participating school districts within the Township”. It names no district, no officer count and no money — and the plural matters: a town holding several districts is negotiating something structurally different from Riverhead, which has one.',
+      'Southampton publishes a program page saying its SROs are “coordinated with several participating school districts within the Township”. It names no district, no officer count and no money — and the plural matters: a town holding several districts is negotiating something structurally different from Riverhead, which has one.',
     how: 'Each town employs its own police department and negotiates directly with the school districts inside its boundaries.',
     allocation:
       'Whatever each town and district agree. That is the negotiation Riverhead is having, and these four are the only towns in Suffolk facing the same one.',
@@ -253,7 +253,7 @@ export const whoElseHasThisArgument = {
 }
 
 /**
- * The county's own SRO programme — and the phrase that settles the structure.
+ * The county's own SRO program — and the phrase that settles the structure.
  *
  * The Community Relations Bureau publishes a roster: officers assigned "as
  * School Resource Officers (SROs) THROUGHOUT THE POLICE DISTRICT". The police
@@ -261,7 +261,7 @@ export const whoElseHasThisArgument = {
  * Town cannot simply have county SROs the way a Brookhaven or Islip district
  * can, and why it is negotiating over its own officers at all.
  *
- * The roster is the county saying, in its own words, that this programme stops
+ * The roster is the county saying, in its own words, that this program stops
  * at the district line.
  */
 export const countyProgram = {
@@ -287,7 +287,7 @@ export const countyProgram = {
   namesNoDistrict: true,
   publishesNoFunding: true,
   reading:
-    'The county runs a visible programme and publishes who is in it. What it does not publish is what any of it costs, who pays, or whether a district reimburses anything — there is no cost-sharing formula, no agreement and no budget figure on the page. So the opacity Riverhead residents run into is not peculiar to Riverhead: a resident inside the police district cannot see what their school resource officers cost either.',
+    'The county runs a visible program and publishes who is in it. What it does not publish is what any of it costs, who pays, or whether a district reimburses anything — there is no cost-sharing formula, no agreement and no budget figure on the page. So the opacity Riverhead residents run into is not peculiar to Riverhead: a resident inside the police district cannot see what their school resource officers cost either.',
   /**
    * What the county and its superintendents actually put in writing — and did
    * not. In 2023 the department and the Suffolk County Schools Superintendents
@@ -308,12 +308,12 @@ export const countyProgram = {
     who: 'Kenneth Bossert, president of the Suffolk County Schools Superintendents Association',
   },
   /**
-   * What the county DOES measure the programme by.
+   * What the county DOES measure the program by.
    *
    * Its police-reform report publishes an SRO arrest series and the share of
    * all SCPD arrests those represent — 18 SRO arrests in 2018, 5 in 2019, none
    * in the 2020 year-to-date, against 34,807 total arrests in 2018. It counts
-   * the programme in arrests, and at no point in dollars. Note the headcount
+   * the program in arrests, and at no point in dollars. Note the headcount
    * there is 17 (12 precinct, 5 countywide) against the 18 on the current
    * roster; the report is from the 2020-21 police-reform review and the roster
    * is live, so both are given with their source rather than reconciled.
@@ -329,19 +329,19 @@ export const countyProgram = {
       { period: '2020, to Aug 31', sro: 0, allScpd: 12_991 },
     ],
     reading:
-      'The county reports this programme in arrests — a handful a year, never as much as a tenth of one per cent of all SCPD arrests — and never in cost. What a resident can find out about their school resource officers is how often one arrested somebody, not what the programme is worth paying for.',
+      'The county reports this program in arrests — a handful a year, never as much as a tenth of one per cent of all SCPD arrests — and never in cost. What a resident can find out about their school resource officers is how often one arrested somebody, not what the program is worth paying for.',
   },
   scaleCaveat:
-    'The two counts are not a ratio worth computing. SROs serve students, not residents, and neither the county nor the Town publishes the enrolment each programme covers — so the figures below show scale, and a per-pupil comparison would need numbers that are not published.',
+    'The two counts are not a ratio worth computing. SROs serve students, not residents, and neither the county nor the Town publishes the enrolment each program covers — so the figures below show scale, and a per-pupil comparison would need numbers that are not published.',
 }
 
 export const whatWouldSettleIt = [
   'The agreement itself. The Board tabled the renewal partly because it had not seen the full contract with changes marked; the Town does not publish the SRO memorandum, so neither can a resident.',
-  'An SRO line in the adopted budget. The officers are paid out of the Police department, so no budget line shows what the programme costs or what the district reimburses. Every figure on this page comes from press reporting of the Board’s own discussion rather than from the budget.',
-  'The overtime terms. Members asked who authorises and pays overtime for games and proms. That is a real cost on a $350,000 programme and the reported figures do not separate it.',
-  'The district boundary against the town boundary. One member’s objection is that Town taxpayers outside the school district help fund a district programme. Whether and how much the two differ is a factual question this site has not sourced, and it is the crux of that argument.',
-  'What the other East End towns pay. Southampton, East Hampton, Southold and Shelter Island run their own police and face the same negotiation, so their agreements are the only real benchmark. Southampton publishes a programme page with no financial terms; none of the four publishes an agreement. Its own page points a resident at a FOIL request, which is the answer to how you would get this.',
-  'What the county\u2019s own programme costs. Suffolk publishes its SRO roster but no funding terms at all — no cost share, no agreement, no budget line. Whether districts inside the police district reimburse anything is unanswerable from the public record, which makes the natural comparison unavailable to everyone, not only to Riverhead.',
+  'An SRO line in the adopted budget. The officers are paid out of the Police department, so no budget line shows what the program costs or what the district reimburses. Every figure on this page comes from press reporting of the Board’s own discussion rather than from the budget.',
+  'The overtime terms. Members asked who authorizes and pays overtime for games and proms. That is a real cost on a $350,000 program and the reported figures do not separate it.',
+  'The district boundary against the town boundary. One member’s objection is that Town taxpayers outside the school district help fund a district program. Whether and how much the two differ is a factual question this site has not sourced, and it is the crux of that argument.',
+  'What the other East End towns pay. Southampton, East Hampton, Southold and Shelter Island run their own police and face the same negotiation, so their agreements are the only real benchmark. Southampton publishes a program page with no financial terms; none of the four publishes an agreement. Its own page points a resident at a FOIL request, which is the answer to how you would get this.',
+  'What the county\u2019s own program costs. Suffolk publishes its SRO roster but no funding terms at all — no cost share, no agreement, no budget line. Whether districts inside the police district reimburse anything is unanswerable from the public record, which makes the natural comparison unavailable to everyone, not only to Riverhead.',
 ]
 
 export const sources = [
@@ -373,7 +373,7 @@ export const sources = [
   {
     title: 'U.S. Department of Education — Bipartisan Safer Communities Act',
     url: 'https://www.ed.gov/laws-and-policy/laws-preschool-grade-12-education/bipartisan-safer-communities-act',
-    covers: 'Stronger Connections and the school mental-health programmes.',
+    covers: 'Stronger Connections and the school mental-health programs.',
   },
   {
     title: 'U.S. DOJ COPS Office — COPS Hiring Program',
@@ -381,7 +381,7 @@ export const sources = [
     covers: 'Eligibility for law enforcement agencies, SRO positions, the 25% local match and the school MOU requirement.',
   },
   {
-    title: 'Suffolk County Police Department, Community Relations Bureau — School Resource Officer (SRO) programme',
+    title: 'Suffolk County Police Department, Community Relations Bureau — School Resource Officer (SRO) program',
     url: 'https://scpdcrb.suffolkcountyny.gov/School-Resource-Officer-SRO',
     covers: 'The county roster, the assignment of SROs “throughout the police district”, and the absence of any published funding terms.',
   },
@@ -393,12 +393,12 @@ export const sources = [
   {
     title: 'Suffolk County police-reform review — School Resource Officer Statistics',
     url: 'https://suffolkcountyny.gov/Portals/0/formsdocs/police%20reform/School%20Resource%20Officer%20Statistics.pdf',
-    covers: 'The 17-officer programme as reported in the reform review, and the SRO arrest series for 2018 to August 2020 — the only quantities the county publishes about the programme.',
+    covers: 'The 17-officer program as reported in the reform review, and the SRO arrest series for 2018 to August 2020 — the only quantities the county publishes about the program.',
   },
   {
     title: 'Town of Southampton — School Resource Officer',
     url: 'https://www.southamptontownny.gov/1760/School-Resource-Officer',
-    covers: 'The nearest comparable programme: several participating districts within the township, and no published financial terms.',
+    covers: 'The nearest comparable program: several participating districts within the township, and no published financial terms.',
   },
   {
     title: 'New York State Education Department — school safety plans',

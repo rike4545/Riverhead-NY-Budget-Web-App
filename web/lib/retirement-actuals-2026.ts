@@ -11,7 +11,7 @@
 // WHAT THIS IS AND IS NOT. A retirement accepted inside the incentive window is
 // not proof that the retiree elected the incentive: a person may retire on their
 // own terms in the same months. So the count here is an UPPER BOUND on
-// participation, and it is labelled that way everywhere it appears. What it is
+// participation, and it is labeled that way everywhere it appears. What it is
 // not is a guess — every entry is a numbered resolution with a date.
 //
 // The saving is not the retiree's salary. For a ranked police job the Town must
@@ -88,7 +88,7 @@ export type ActualRetirement = {
   surname: string | null
   sworn: boolean
   adopted: boolean | null
-  /** The modelled eligible-pool member this resolution names, when unambiguous. */
+  /** The modeled eligible-pool member this resolution names, when unambiguous. */
   pool: PoolMember | null
   /** Matched via the curated map rather than from the resolution title itself. */
   namedFromDocument?: boolean
@@ -208,7 +208,7 @@ const SWORN_MINIMUM = 20_000
  * cannot be true at once: if none of these retirees elected, the cost is zero.
  * So the real lower bound IS zero, and the figure below is what the incentive
  * costs IF every confirmed retirement in the window took it — a scenario, priced
- * with the Town's own formula, and labelled as one.
+ * with the Town's own formula, and labeled as one.
  */
 export const incentiveCostIfAllElected = {
   fromIdentified: identified.reduce((s, r) => s + (r.pool?.estIncentive ?? 0), 0),
@@ -262,21 +262,21 @@ export const savingEstimate = {
 }
 
 /**
- * Named in a retirement resolution during the window, absent from the modelled
+ * Named in a retirement resolution during the window, absent from the modeled
  * eligible pool. Not a matching failure — the pool is built from hire date and
  * union, and real PFRS eligibility also turns on age and service credit the Town
  * does not publish. Someone retiring here is evidence the model's pool, though
  * already an upper bound at 78 against the Town's own 53, still misses people.
  */
-export const retiredOutsideModelledPool = inWindow.filter((r) => r.surname !== null && r.pool === null)
+export const retiredOutsideModeledPool = inWindow.filter((r) => r.surname !== null && r.pool === null)
 
 export const limits = [
   'A retirement accepted during the incentive window is not proof the retiree elected the incentive. Somebody can retire on their own terms in the same months. Every count here is a ceiling on participation.',
   `A further ${uptake.awaitingVoteRecord} retirements (${uptake.swornAwaitingVoteRecord} of them sworn) were filed at a meeting whose vote record the Clerk has not published. They are excluded from every figure here, because this site does not infer adoption from agenda placement. If all are later confirmed the count becomes ${uptake.ifPendingConfirmed} and the annual saving ${savingEstimate.annualIfPendingConfirmed.toLocaleString('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 })}.`,
   'Savings count salary only. Each retiree keeps Town-paid retiree health for life, and a refilled seat then carries both a retiree and an active employee, so the net figure is smaller than the salary arithmetic shows.',
-  'The saving assumes every vacated seat is refilled — which is what the Town said it expects. A seat left empty saves more; a seat filled by promotion from outside the modelled chain saves less.',
+  'The saving assumes every vacated seat is refilled — which is what the Town said it expects. A seat left empty saves more; a seat filled by promotion from outside the modeled chain saves less.',
   'Civilian retirements in the window are carried at the flat CSEA incentive because the resolutions name a title rather than a person, so they cannot be matched to a years-of-service figure.',
-  `${retiredOutsideModelledPool.length > 0 ? `${retiredOutsideModelledPool.length} named retiree${retiredOutsideModelledPool.length === 1 ? ' is' : 's are'} absent from this site's modelled eligible pool` : 'Every named retiree appears in the modelled eligible pool'}. That pool is built from hire date and union; actual retirement eligibility also turns on age and service credit the Town does not publish, so it is neither a superset nor a subset of who could really go.`,
+  `${retiredOutsideModeledPool.length > 0 ? `${retiredOutsideModeledPool.length} named retiree${retiredOutsideModeledPool.length === 1 ? ' is' : 's are'} absent from this site's modeled eligible pool` : 'Every named retiree appears in the modeled eligible pool'}. That pool is built from hire date and union; actual retirement eligibility also turns on age and service credit the Town does not publish, so it is neither a superset nor a subset of who could really go.`,
 ]
 
 export const sources = [

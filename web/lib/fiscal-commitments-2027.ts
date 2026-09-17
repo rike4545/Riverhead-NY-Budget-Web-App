@@ -16,7 +16,7 @@
 // WHAT THIS IS NOT. It is not a running fund-balance ledger. The Town has filed
 // no report covering 2026, so the true closing position is unknown and will stay
 // unknown until one exists. Everything here is "the audited opening position,
-// less what the record shows was committed" — an upper bound, and labelled as one
+// less what the record shows was committed" — an upper bound, and labeled as one
 // everywhere it appears.
 //
 // FUND MATTERS. The surplus in question is GENERAL FUND unassigned balance. A
@@ -138,11 +138,11 @@ export type Commitment = {
   /**
    * documented — the Town wrote the figure against its own 9999 Appropriated
    *              Fund Balance account on the statement.
-   * authorised — read from the resolution, which stated the amount in prose.
+   * authorized — read from the resolution, which stated the amount in prose.
    * ceiling    — the resolution states no amount and this is the most it could
    *              have been. Always an over-statement of what was actually drawn.
    */
-  certainty: 'documented' | 'authorised' | 'ceiling'
+  certainty: 'documented' | 'authorized' | 'ceiling'
   fund: 'General Fund'
   source: string
   note: string
@@ -226,7 +226,7 @@ export const generalFundCommitments2026: Commitment[] = [
     .map((d) => ({
       label: d.label,
       amount: d.amount,
-      certainty: d.certainty as 'authorised' | 'ceiling',
+      certainty: d.certainty as 'authorized' | 'ceiling',
       fund: 'General Fund' as const,
       source: 'Town Square — fund-balance impact',
       note: d.note,
@@ -234,7 +234,7 @@ export const generalFundCommitments2026: Commitment[] = [
   {
     label: 'Meals on Wheels truck (Seniors Department)',
     amount: 80_000,
-    certainty: 'authorised',
+    certainty: 'authorized',
     fund: 'General Fund',
     source: 'Resolution 2026-645, July 7, 2026',
     note: 'Purchase plus budget adjustment. A General Fund department, so this lands on the same balance the 2027 options draw against.',
@@ -242,7 +242,7 @@ export const generalFundCommitments2026: Commitment[] = [
   {
     label: 'East Creek Boat Launch repairs',
     amount: 60_000,
-    certainty: 'authorised',
+    certainty: 'authorized',
     fund: 'General Fund',
     source: 'Resolution 2026-639, July 7, 2026',
     note: 'Ratified budget adjustment. The Town runs a separate East Creek Docking Facility fund, but the resolution does not name it, so this is counted against the General Fund — the conservative reading for a page about General Fund headroom.',
@@ -253,8 +253,8 @@ export const committedTotal = generalFundCommitments2026.reduce((s, c) => s + c.
 export const committedDocumented = generalFundCommitments2026
   .filter((c) => c.certainty === 'documented')
   .reduce((s, c) => s + c.amount, 0)
-export const committedAuthorised = generalFundCommitments2026
-  .filter((c) => c.certainty === 'authorised')
+export const committedAuthorized = generalFundCommitments2026
+  .filter((c) => c.certainty === 'authorized')
   .reduce((s, c) => s + c.amount, 0)
 export const committedAtCeiling = generalFundCommitments2026
   .filter((c) => c.certainty === 'ceiling')

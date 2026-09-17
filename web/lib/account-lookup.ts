@@ -36,7 +36,7 @@ const NON_OPERATING_FUNDS: Record<string, string> = {
   CM5: 'Community Preservation — capital',
   CD1: 'Community Development',
   // Two sewer funds the 2026 capital statements use that the adopted-budget
-  // extract does not carry. Labelled from the Town's own account descriptions
+  // extract does not carry. Labeled from the Town's own account descriptions
   // on the statement rather than given an official title this site cannot cite.
   ES6: 'Sewer District (ES6)',
   ES7: 'Sewer District (ES7)',
@@ -115,7 +115,7 @@ export type AccountMatch =
   | { status: 'not-in-adopted-budget'; code: string; fund: string; fundName: string }
   /** A valid code in a fund the operating-budget extract does not cover. */
   | { status: 'non-operating'; code: string; fund: string; fundName: string }
-  /** Shape recognised, fund unknown to this site. */
+  /** Shape recognized, fund unknown to this site. */
   | { status: 'unknown'; code: string; fund: string }
 
 type Row = {

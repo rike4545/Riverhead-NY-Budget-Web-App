@@ -55,9 +55,9 @@ export default function SiteNav() {
   }, [])
   useEffect(() => { setOpen(null); setMobileOpen(false) }, [pathname])
 
-  const normalise = (p: string) => (p.endsWith('/') ? p : `${p}/`)
-  const routeOf = (href: string) => normalise(base && href.startsWith(base) ? href.slice(base.length) || '/' : href)
-  const isActive = (href: string) => !!pathname && routeOf(href) === normalise(pathname)
+  const normalize = (p: string) => (p.endsWith('/') ? p : `${p}/`)
+  const routeOf = (href: string) => normalize(base && href.startsWith(base) ? href.slice(base.length) || '/' : href)
+  const isActive = (href: string) => !!pathname && routeOf(href) === normalize(pathname)
   const groupIsActive = (g: Group) => g.links.some(([, href]) => isActive(href))
 
   return (

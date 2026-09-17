@@ -255,8 +255,8 @@ export default function Predict2027Page() {
                   </td>
                   <td style={{ padding: '7px 10px', textAlign: 'right', fontWeight: 800, whiteSpace: 'nowrap', color: 'var(--rbl-warn)' }}>{usd(c.amount)}</td>
                   <td style={{ padding: '7px 10px', whiteSpace: 'nowrap' }}>
-                    <span style={{ fontWeight: 800, fontSize: 12, padding: '3px 10px', borderRadius: 999, whiteSpace: 'nowrap', background: c.certainty === 'authorised' ? 'var(--rbl-warn-bg)' : 'var(--rbl-surface-2)', color: c.certainty === 'authorised' ? 'var(--rbl-warn-strong)' : 'var(--rbl-text-muted)', border: '1px solid var(--rbl-border-subtle)' }}>
-                      {c.certainty === 'authorised' ? 'Authorised' : 'Ceiling'}
+                    <span style={{ fontWeight: 800, fontSize: 12, padding: '3px 10px', borderRadius: 999, whiteSpace: 'nowrap', background: c.certainty === 'authorized' ? 'var(--rbl-warn-bg)' : 'var(--rbl-surface-2)', color: c.certainty === 'authorized' ? 'var(--rbl-warn-strong)' : 'var(--rbl-text-muted)', border: '1px solid var(--rbl-border-subtle)' }}>
+                      {c.certainty === 'authorized' ? 'Authorized' : 'Ceiling'}
                     </span>
                   </td>
                 </tr>
@@ -323,7 +323,7 @@ export default function Predict2027Page() {
           {supersessions.map((sup) => (
             <p key={sup.label} style={{ color: 'var(--rbl-text-body)', fontSize: 13.2, lineHeight: 1.6, margin: '10px 0 0' }}>
               <strong>Reading the account codes changed this figure.</strong> “{sup.label}” was carried here at{' '}
-              <strong>{usd(sup.was)}</strong> — a ceiling, because the resolution that authorised it stated no amount, so
+              <strong>{usd(sup.was)}</strong> — a ceiling, because the resolution that authorized it stated no amount, so
               the most it could have been was the whole balance outstanding. The Town later booked{' '}
               <strong>{usd(sup.by)}</strong> against its own Appropriated Fund Balance account for that paydown. The
               ceiling overstated the draw by <strong>{usd(Math.abs(sup.by - sup.was))}</strong>, and the documented figure

@@ -5,7 +5,7 @@ import { buyout2026 as b } from '../../lib/buyout-2026'
 import analysis from '../../public/data/buyout-analysis.json'
 import retireeHealthComparison from '../../public/data/retiree-health-comparison.json'
 import {
-  uptake, confirmed, pending, rejected, incentiveCostIfAllElected, savingEstimate, retiredOutsideModelledPool,
+  uptake, confirmed, pending, rejected, incentiveCostIfAllElected, savingEstimate, retiredOutsideModeledPool,
   limits as actualLimits,
 } from '../../lib/retirement-actuals-2026'
 
@@ -131,10 +131,10 @@ export default function BuyoutPage() {
             </tbody>
           </table>
         </div>
-        {retiredOutsideModelledPool.length > 0 && (
+        {retiredOutsideModeledPool.length > 0 && (
           <p style={{ color: 'var(--rbl-text-body)', fontSize: 13.4, lineHeight: 1.55, margin: '12px 0 0' }}>
-            <strong>{retiredOutsideModelledPool.length}</strong> named retiree
-            {retiredOutsideModelledPool.length === 1 ? ' does' : 's do'} not appear in the eligible-pool model below, which
+            <strong>{retiredOutsideModeledPool.length}</strong> named retiree
+            {retiredOutsideModeledPool.length === 1 ? ' does' : 's do'} not appear in the eligible-pool model below, which
             is worth saying out loud rather than quietly dropping: that pool is built from hire date and union, and real
             retirement eligibility also turns on age and service credit the Town does not publish. It is an upper bound
             that still misses people.

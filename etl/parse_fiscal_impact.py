@@ -91,7 +91,7 @@ CATEGORY_RULES: list[tuple[str, list[str]]] = [
     # "procedural", whose verdict is "No direct cost". The old rule listed
     # "award bid" but the Town writes "Awards Bid". Bare "capital" went the other
     # way — too loose. It fired on "capital improvements" inside the purpose text
-    # of a resolution merely authorising a GRANT APPLICATION, which commits
+    # of a resolution merely authorizing a GRANT APPLICATION, which commits
     # nothing, so the specific phrases carry the signal instead.
     ("capital", ["capital project", "capital improvement", "capital budget", "capital reserve",
                  "budget adjustment", "budget transfer", "transfer of funds",
@@ -127,7 +127,7 @@ CATEGORY_RULES: list[tuple[str, list[str]]] = [
 ]
 
 # category → (fiscalImpact-aware) realistic verdict. Some categories flip on Yes/No.
-# A bond resolution authorises BORROWING. Nothing leaves fund balance when it
+# A bond resolution authorizes BORROWING. Nothing leaves fund balance when it
 # passes — which is why calling it a reserve draw was wrong. What it creates is
 # debt service on future levies, every year until the bond matures, and that is a
 # larger fact for the 2027 budget than a one-time draw would be. The Ambulance
@@ -146,7 +146,7 @@ def realistic_read(category: str, fiscal_impact: str, title: str = "") -> dict:
         return {
             "verdict": "Creates debt service on future budgets",
             "reason": (
-                "A bond resolution authorises borrowing. Nothing comes out of fund balance when it "
+                "A bond resolution authorizes borrowing. Nothing comes out of fund balance when it "
                 "passes — the cost arrives as debt service in every budget until the bond matures, "
                 "paid out of the levy. For a future capital project that is the whole fiscal impact, "
                 "and it is the part a single-year form is worst at showing."
@@ -197,7 +197,7 @@ def realistic_read(category: str, fiscal_impact: str, title: str = "") -> dict:
         }
     if category == "warrant":
         return {
-            "verdict": "Authorises payment — the money leaves here",
+            "verdict": "Authorizes payment — the money leaves here",
             "reason": (
                 "A warrant is the Board signing off on actual disbursement: checks written and funds "
                 "transferred. The obligations were incurred earlier, so this is not new spending — but "
@@ -275,7 +275,7 @@ FUND_PREFIXES: dict[str, str] = {
     # and came through with no fund name at all.
     # Two sewer funds that appear only in capital-project statements and are
     # absent from the adopted-budget extract. Their official titles are not
-    # published anywhere this site can cite, so they are labelled by what the
+    # published anywhere this site can cite, so they are labeled by what the
     # Town's own account descriptions on the statement establish — sewer funds —
     # and nothing more is asserted. Capital project 82210 (Biosolids Facility)
     # moves money through both: ES7 holds the fund balance and transfers out to
@@ -353,7 +353,7 @@ ACCOUNT_RE = re.compile(r"\b([A-Z]{1,3}\d{1,2})-[\d\-]{6,}")
 # 075-00000". Without this the first of those truncated to EW1-8-8320-402 and
 # leaked its tail into the account NAME, and the second broke before the
 # three-segment minimum and was dropped from the statement altogether. Captured
-# whitespace is stripped, so the code is normalised back to its real form.
+# whitespace is stripped, so the code is normalized back to its real form.
 FULL_ACCOUNT_RE = re.compile(r"\b([A-Z]{1,3}\d{1,2}(?:-\s*[\dA-Z]+){3,5})")
 
 # Revenue object 9999 is "Appropriated Fund Balance" — the Town's own journal
@@ -365,7 +365,7 @@ FUND_BALANCE_OBJECT = "9999"
 # names in its own title — "Budget Adoption for Capital Project #12620" creates
 # H01-1-1940-435-000-12620. Such a code is absent from the adopted budget
 # because it did not exist when the budget was adopted. That is a different fact
-# from "this site does not recognise the code", and the two must not be shown
+# from "this site does not recognize the code", and the two must not be shown
 # the same way.
 PROJECT_NO = re.compile(r"(?:capital\s+)?project\s*#?\s*(\d{4,6})", re.I)
 CREATES_ACCOUNT = re.compile(
@@ -496,7 +496,7 @@ def funding_from_block(block_text: str, title: str = "", purpose: str = "") -> d
     # statement's fund list show the WRONG fund: resolution 2026-473 draws
     # $800,000 out of ES7 fund balance, and because ES7 had no name the display
     # attributed the draw to "Sewer — developer fees", which is ES2. An
-    # unrecognised code appears as itself rather than vanishing.
+    # unrecognized code appears as itself rather than vanishing.
     prefixes: list[str] = []
     funds: list[str] = []
     for a in accounts:
@@ -746,7 +746,7 @@ def classify(title: str, purpose: str) -> str:
 
 # ── Packet parsing ──────────────────────────────────────────────────────────
 #
-# The form's title and purpose are single labelled fields that WRAP. The Clerk
+# The form's title and purpose are single labeled fields that WRAP. The Clerk
 # writes titles longer than the line, and the PDF breaks them, so reading only
 # the first line silently truncated every long one:
 #

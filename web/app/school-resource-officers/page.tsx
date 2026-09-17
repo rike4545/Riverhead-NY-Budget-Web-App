@@ -27,17 +27,17 @@ export default function SchoolResourceOfficersPage() {
   return (
     <PageShell
       title="Who pays for the school resource officers"
-      subtitle="Two police officers work in Riverhead Central School District buildings. On September 15 the Town Board tabled the agreement that renews them — not because anyone wants the programme to end, but because nobody can agree whose taxpayers should carry it."
+      subtitle="Two police officers work in Riverhead Central School District buildings. On September 15 the Town Board tabled the agreement that renews them — not because anyone wants the program to end, but because nobody can agree whose taxpayers should carry it."
     >
       <PlainCallout
         tips={[
           { label: 'What an SRO is', text: 'a sworn Riverhead police officer assigned to work inside school buildings. They are Town employees on the Town payroll, not school district staff.' },
-          { label: 'What was tabled', text: 'a one-year renewal through June 30, 2027. Tabling it does not end the programme — the officers are still working — it declines to sign this version of the deal.' },
-          { label: 'Why it is hard', text: 'the officers are paid out of the Police department, so no budget line anywhere shows what the programme costs or what the district pays back.' },
+          { label: 'What was tabled', text: 'a one-year renewal through June 30, 2027. Tabling it does not end the program — the officers are still working — it declines to sign this version of the deal.' },
+          { label: 'Why it is hard', text: 'the officers are paid out of the Police department, so no budget line anywhere shows what the program costs or what the district pays back.' },
           { label: 'Where the numbers come from', text: 'press reporting of the Board’s own discussion. The Town publishes no SRO line and does not publish the agreement, so these are the only figures in the public record.' },
         ]}
       >
-        The programme runs about <strong>{usd(costHistory[1].total)}</strong> a year for <strong>{officers}</strong> officers —
+        The program runs about <strong>{usd(costHistory[1].total)}</strong> a year for <strong>{officers}</strong> officers —
         roughly <strong>{usd(perOfficer)}</strong> each. The school district’s share has gone from{' '}
         <strong>{Math.round((first.district / first.total) * 100)}%</strong> to a proposed{' '}
         <strong>{Math.round((latest.district / latest.total) * 100)}%</strong>, and the argument is about the rest.
@@ -73,7 +73,7 @@ export default function SchoolResourceOfficersPage() {
             <thead>
               <tr style={{ textAlign: 'left', color: 'var(--rbl-text-muted)', borderBottom: '2px solid var(--rbl-border-subtle)' }}>
                 <th style={th}>School year</th>
-                <th style={{ ...th, textAlign: 'right' }}>Programme cost</th>
+                <th style={{ ...th, textAlign: 'right' }}>Program cost</th>
                 <th style={{ ...th, textAlign: 'right' }}>School district</th>
                 <th style={{ ...th, textAlign: 'right' }}>Town</th>
                 <th style={{ ...th, textAlign: 'right' }}>Town share</th>
@@ -98,7 +98,7 @@ export default function SchoolResourceOfficersPage() {
           </table>
         </div>
         <p style={{ color: 'var(--rbl-text-muted)', fontSize: 12.8, lineHeight: 1.55, margin: '12px 0 0' }}>
-          Figures as reported, and approximate. For scale, a top-step Riverhead police officer is authorised at{' '}
+          Figures as reported, and approximate. For scale, a top-step Riverhead police officer is authorized at{' '}
           <a href={`${base}/payroll/`} style={{ color: 'var(--rbl-link)', fontWeight: 700 }}>$152,901</a> for 2026 —
           so {usd(perOfficer)} an officer is roughly salary plus the benefits and overtime that ride on it.
         </p>
@@ -195,7 +195,7 @@ export default function SchoolResourceOfficersPage() {
 
       {/* The county runs one — and publishes no money */}
       <section style={{ ...card, marginBottom: 18 }}>
-        <h3 style={{ marginTop: 0, color: 'var(--rbl-title)' }}>The county runs its own programme, and stops at the district line</h3>
+        <h3 style={{ marginTop: 0, color: 'var(--rbl-title)' }}>The county runs its own program, and stops at the district line</h3>
         <p style={{ color: 'var(--rbl-text-body)', fontSize: 14.5, lineHeight: 1.65, margin: '0 0 12px' }}>
           Suffolk&apos;s Community Relations Bureau publishes an SRO roster. The department, in its own words,{' '}
           <a href={countyProgram.url} target="_blank" rel="noreferrer" style={{ color: 'var(--rbl-link)', fontWeight: 700, textDecoration: 'none' }}>
@@ -281,7 +281,7 @@ export default function SchoolResourceOfficersPage() {
         intro="The officers are paid out of the Police department, so the SRO question is a General Fund question."
         items={[
           { href: '/police-crime/', label: 'Police Spending & Crime', text: 'What the department costs and what it reports, next to the East End towns that also police themselves.' },
-          { href: '/funds/A01/', label: 'General Fund detail', text: 'Every Police line item in the adopted budget — none of which is labelled SRO.' },
+          { href: '/funds/A01/', label: 'General Fund detail', text: 'Every Police line item in the adopted budget — none of which is labeled SRO.' },
           { href: '/meetings/?meeting=2026-09-15', label: 'Town Board Record', text: 'The September 15 meeting where the renewal was tabled.' },
           { href: '/predict-2027/', label: '2027 Prediction', text: 'How police payroll lands on next year’s levy.' },
         ]}
