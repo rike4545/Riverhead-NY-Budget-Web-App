@@ -62,16 +62,19 @@ export default function BuyoutPage() {
         <p style={{ color: 'var(--rbl-text-body)', fontSize: 14, lineHeight: 1.55, margin: 0 }}>
           The Town has now confirmed the actual eligible headcount and its own savings estimate — see the cost-and-savings
           analysis further down this page for how that compares to the payroll-derived upper-bound model. The Town
-          declined to give a gross cost estimate until it knows which of the 53 eligible employees actually opt in.
+          declined to give a gross cost estimate until it knew which of the 53 eligible employees opted in. The
+          September 1, 2026 election deadline has since passed, so that set is now fixed, and the section below reads
+          the running answer off the Board&apos;s own resolutions.
         </p>
       </section>
 
-      {/* What the resolution record now shows, the deadlines having passed */}
+      {/* What the resolution record shows so far: the election deadline has passed, the effective-date deadline has not */}
       <section style={{ ...card, marginBottom: 18, borderLeft: '6px solid var(--rbl-accent-border)' }}>
         <h3 style={{ marginTop: 0, color: 'var(--rbl-title)' }}>Who actually went</h3>
         <p style={{ color: 'var(--rbl-text-body)', fontSize: 14.5, lineHeight: 1.6, margin: '0 0 12px' }}>
-          Both deadlines have now passed, and the Board accepts every retirement by its own numbered resolution. Since
-          ratification on July 7 it has accepted <strong>{uptake.windowRetirements}</strong> — against{' '}
+          The September 1, 2026 election deadline has passed, so nobody new can opt in, but retirements may still take
+          effect through October 1 — so this count is current, not final. The Board accepts every retirement by its own
+          numbered resolution. Since ratification on July 7 it has accepted <strong>{uptake.windowRetirements}</strong> — against{' '}
           <strong>{uptake.beforeProgram}</strong> in the six months before it. That is <strong>{Math.round(uptake.shareOfEligibleCeiling * 100)}%</strong>{' '}
           of the {uptake.townEligibleTotal} employees the Town said were eligible, and it is a <strong>ceiling</strong>, not a
           participation rate: accepting a retirement is not proof the retiree elected the incentive.
@@ -224,7 +227,13 @@ export default function BuyoutPage() {
       <Detail title="Cost & yearly savings by how many take the buyout">
       <section style={{ ...card, marginBottom: 14 }}>
         <h3 style={{ marginTop: 0 }}>Cost and yearly savings by how many take the buyout</h3>
-        <p style={{ color: 'var(--rbl-text-muted)', fontSize: 13.5, marginTop: 0 }}>Participation won&apos;t be known until the September 1, 2026 deadline. Yearly savings depend on whether each vacated job is refilled at the same cost, refilled cheaper (a new hire starts at a lower step), or held open.</p>
+        <p style={{ color: 'var(--rbl-text-muted)', fontSize: 13.5, marginTop: 0 }}>
+          These are the scenarios modeled before the deadline, kept because they show how the arithmetic moves with uptake.
+          For what has actually happened so far, see <strong>Who actually went</strong> above: the Board has confirmed{' '}
+          {uptake.windowRetirements} retirements since ratification, with the October 1, 2026 effective-date deadline
+          still ahead. Yearly savings still depend on whether each vacated
+          job is refilled at the same cost, refilled cheaper (a new hire starts at a lower step), or held open.
+        </p>
         <div style={{ overflowX: 'auto' }}>
           <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 13.5 }}>
             <thead>
@@ -491,6 +500,14 @@ export default function BuyoutPage() {
         <h3 style={{ marginTop: 0 }}>How this estimate was built &amp; its limits</h3>
         <ul style={{ color: 'var(--rbl-text-body)', fontSize: 14, lineHeight: 1.55, paddingLeft: 18, margin: 0 }}>
           {analysis.assumptions.map((a, i) => <li key={i}>{a}</li>)}
+          <li style={{ color: 'var(--rbl-warn)', fontWeight: 600 }}>
+            Superseded in part: the assumption above that participation is unknown until the September 1, 2026 election
+            deadline was written before that deadline passed. The Board has since confirmed {uptake.windowRetirements}{' '}
+            retirements — {uptake.sworn} sworn, {uptake.civilian} civilian — read off the resolution record rather than
+            modeled. That count is not final: the incentive allows an effective retirement date as late as October 1,
+            2026, so resolutions accepted between now and then still add to it. The uptake scenarios are kept as
+            published because they show the shape of the arithmetic across the full range.
+          </li>
         </ul>
       </section>
       </Detail>
