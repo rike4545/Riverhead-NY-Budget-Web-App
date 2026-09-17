@@ -33,6 +33,91 @@ export const minimumRequired = Math.max(0, appropriations * policyMinimumPercent
 export const targetUpper = Math.max(0, appropriations * policyUpperPercent)
 export const surplusAboveUpper = unassignedFundBalance - targetUpper
 
+/**
+ * The five GASB fund-balance classifications, which the AFR reports and this
+ * site had been reducing to one number.
+ *
+ * GASB Statement 54 splits a governmental fund's balance by how hard it is to
+ * spend, from money that cannot be spent at all to money spendable on anything.
+ * Every figure on this page that talks about "surplus" means the last tier,
+ * Unassigned — and a reader is entitled to see that it is one of five, and how
+ * large the other four are.
+ *
+ * Definitions are the standard ones, written plainly. The numbers are the
+ * Town's own audited AFR, three years of them.
+ */
+export type FundBalanceTier = {
+  name: string
+  what: string
+  spendable: 'no' | 'constrained' | 'yes'
+  values: Record<string, number>
+}
+
+const TIER_MEANING: Record<string, { what: string; spendable: FundBalanceTier['spendable'] }> = {
+  Nonspendable: {
+    what: 'Cannot be spent — either not in spendable form, like inventory or prepaid items, or legally required to stay intact, like the principal of an endowment.',
+    spendable: 'no',
+  },
+  Restricted: {
+    what: 'Constrained by someone outside the Town: a creditor, a grantor, another government, or a law or constitutional provision.',
+    spendable: 'constrained',
+  },
+  Committed: {
+    what: 'Constrained by the Town Board itself, by formal action. It takes the same kind of action to undo, which is what separates this from Assigned.',
+    spendable: 'constrained',
+  },
+  Assigned: {
+    what: 'Intended for a particular use by the Board or an official it delegates to, but not formally restricted or committed. The intent can be changed without a vote.',
+    spendable: 'constrained',
+  },
+  Unassigned: {
+    what: 'The residual in the General Fund — spendable on any lawful purpose. This is the tier every reserve-policy percentage on this page is measured against.',
+    spendable: 'yes',
+  },
+}
+
+export const fundBalanceTiers: FundBalanceTier[] = generalFundAfr.fundBalanceClasses.map((c) => ({
+  name: c.class,
+  what: TIER_MEANING[c.class]?.what ?? '',
+  spendable: TIER_MEANING[c.class]?.spendable ?? 'constrained',
+  values: c.values as Record<string, number>,
+}))
+
+export const fundBalanceYears = Object.keys(fundBalanceTiers[0]?.values ?? {}).sort()
+export const latestFundBalanceYear = fundBalanceYears[fundBalanceYears.length - 1]
+export const earliestFundBalanceYear = fundBalanceYears[0]
+
+const tierTotal = (year: string) =>
+  fundBalanceTiers.reduce((sum, t) => sum + (t.values[year] ?? 0), 0)
+
+export const totalFundBalance = tierTotal(latestFundBalanceYear)
+export const constrainedFundBalance = totalFundBalance - unassignedFundBalance
+
+/**
+ * Where the growth went. Between the first and last audited year here, the
+ * unconstrained tier is the one that moved — which is why a policy written
+ * against Unassigned is the right place to measure, and why the total is a
+ * misleading headline on its own.
+ */
+export const fundBalanceTrend = fundBalanceTiers.map((t) => {
+  const from = t.values[earliestFundBalanceYear] ?? 0
+  const to = t.values[latestFundBalanceYear] ?? 0
+  return {
+    name: t.name,
+    from,
+    to,
+    change: to - from,
+    pct: from > 0 ? ((to - from) / from) * 100 : null,
+  }
+})
+
+export const fundBalanceReading =
+  `Of ${totalFundBalance.toLocaleString('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 })} in total General Fund balance at the close of ${latestFundBalanceYear}, ` +
+  `${unassignedFundBalance.toLocaleString('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 })} is Unassigned — spendable on anything lawful — and ` +
+  `${constrainedFundBalance.toLocaleString('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 })} sits in the four constrained tiers. ` +
+  'Every percentage on this page measures the Unassigned tier, which is the correct denominator for a reserve policy and is not the same as the balance sheet total.'
+
+
 export const targetUnassignedAt288 = appropriations * targetReservePercent
 export const deployableAbove288 = Math.max(0, unassignedFundBalance - targetUnassignedAt288)
 
