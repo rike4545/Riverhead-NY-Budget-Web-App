@@ -293,11 +293,17 @@ export default function ReservesPage() {
         </p>
         {!deploymentPlanFits && (
           <p style={{ color: 'var(--rbl-text-body)', fontSize: 14, lineHeight: 1.6, marginTop: 0 }}>
-            <strong>The reset still works; the last item on the list no longer does.</strong> Holding the{' '}
-            {pct(targetReservePercent)} target leaves {dollars(deployableAbove288Ceiling)} to deploy, which funds{' '}
-            {fundedOptions.length} of the {fundedOptions.length + unfundedOptions.length} published options in full and
-            falls {dollars(deploymentPlanShortfall)} short of the last. What does not fit is shown below the plan rather
-            than dropped from it.
+            <strong>
+              The reset still works;{' '}
+              {unfundedOptions.length === 1
+                ? 'the last item on the list no longer does.'
+                : `the last ${unfundedOptions.length} items on the list no longer do.`}
+            </strong>{' '}
+            Holding the {pct(targetReservePercent)} target leaves {dollars(deployableAbove288Ceiling)} to deploy, which
+            funds {fundedOptions.length} of the {fundedOptions.length + unfundedOptions.length} published options in
+            full and falls {dollars(deploymentPlanShortfall)} short of{' '}
+            {unfundedOptions.length === 1 ? 'the last' : `the remaining ${unfundedOptions.length}`}. What does not fit
+            is shown below the plan rather than dropped from it.
           </p>
         )}
         <div style={{ display: 'flex', justifyContent: 'space-between', gap: 12, fontSize: 14.5 }}>
@@ -416,6 +422,11 @@ export default function ReservesPage() {
                         <span style={{ color: 'var(--rbl-text-muted)', fontStyle: 'italic' }}>smaller than the gap</span>
                       )}
                     </div>
+                    {o.canAbsorbAlone && o.trimCharacter && (
+                      <div style={{ fontSize: 12.3, marginTop: 2, color: 'var(--rbl-text-muted)', lineHeight: 1.45 }}>
+                        {o.trimCharacter}
+                      </div>
+                    )}
                   </div>
                 ))}
               </div>
@@ -427,12 +438,9 @@ export default function ReservesPage() {
                   : `together they come to only ${dollars(tooSmallCombined)}, which still leaves ${dollars(deploymentPlanShortfall - tooSmallCombined)} outstanding.`}
               </p>
               <p style={{ color: 'var(--rbl-text-body)', fontSize: 13, lineHeight: 1.6, margin: '6px 0 0' }}>
-                A trim is not the same thing in every row. The accrued-leave line is a part payment toward a liability
-                its own entry calls larger than the whole deployable surplus, so taking 8.9% off it changes how much is
-                set aside and nothing else. The two BAN lines reduce future interest, so trimming them costs more later
-                than the figure shown. And option 1 closes a <em>stated</em> imbalance, which a part payment leaves
-                open. Which to drop, trim or fund another way is the Board&apos;s call; this page shows the arithmetic
-                and the principle, not a decision.
+                A trim is not the same act in every row, which is why each carries its own note above. Which to drop,
+                trim or fund another way is the Board&apos;s call; this page shows the arithmetic and the principle, not
+                a decision.
               </p>
             </div>
           </div>

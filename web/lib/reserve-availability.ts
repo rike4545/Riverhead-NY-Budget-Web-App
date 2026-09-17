@@ -175,12 +175,30 @@ export const deploymentPlanFits = deploymentPlanShortfall === 0
  * first keeps the discussion off the four small items, where it would
  * otherwise start.
  */
+/**
+ * What kind of thing a trim to this option would be.
+ *
+ * Keyed by the option's own number rather than sniffed from its prose: these
+ * are judgments about what each line buys, and a regex guessing at them would
+ * be worse than saying nothing. An option without an entry simply renders no
+ * note, and one that is removed takes its note with it — which is the property
+ * the loose paragraph this replaces did not have.
+ */
+const TRIM_CHARACTER: Record<number, string> = {
+  1: 'Closes a stated imbalance, so a part payment leaves it open.',
+  2: 'Buys down future interest, so a trim costs more later than the figure here shows.',
+  3: 'Buys down future interest, so a trim costs more later than the figure here shows.',
+  4: 'A part payment toward a liability its own entry calls larger than the whole deployable surplus, so a trim changes how much is set aside and nothing else.',
+}
+
 export type AbsorptionRow = DeploymentOption & {
   canAbsorbAlone: boolean
   /** Share of this option that would have to go, if it is big enough. */
   trimFraction: number | null
   remainsAfterTrim: number | null
   fundsRecurringCost: boolean
+  /** What a trim here would mean, where this page has something to say. */
+  trimCharacter: string | null
 }
 
 export const absorptionOptions: AbsorptionRow[] = deploymentLedger.map((o) => {
@@ -190,6 +208,7 @@ export const absorptionOptions: AbsorptionRow[] = deploymentLedger.map((o) => {
     canAbsorbAlone,
     trimFraction: canAbsorbAlone ? deploymentPlanShortfall / o.amount : null,
     remainsAfterTrim: canAbsorbAlone ? o.amount - deploymentPlanShortfall : null,
+    trimCharacter: TRIM_CHARACTER[o.number] ?? null,
   }
 })
 
