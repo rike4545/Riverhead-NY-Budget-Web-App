@@ -11,7 +11,6 @@ import {
   communityBlockGrants,
   constrainedFundBalance,
   deployableAbove288,
-  deploymentOptions,
   earliestFundBalanceYear,
   fundBalanceHealth,
   fundBalanceReading,
@@ -19,11 +18,8 @@ import {
   fundBalanceTrend,
   fundBalanceYears,
   latestFundBalanceYear,
-  peerAlignmentScenarios,
   peerBenchmarks,
-  percentOfAppropriations,
   policyMinimumPercent,
-  remainingAfterDeploymentOptions,
   surplusAboveUpper,
   targetReservePercent,
   targetUnassignedAt288,
@@ -31,14 +27,32 @@ import {
   totalFundBalance,
   unassignedFundBalance,
 } from '../../lib/reserve-policy'
+import {
+  availabilityReading,
+  ceilingPercentOfAppropriations,
+  surplusAboveUpperCeiling,
+  unassignedCeiling,
+  committedAuthorized,
+  committedDocumented,
+  committedThisYear,
+  deployableAbove288Ceiling,
+  deploymentLedger,
+  deploymentPlanFits,
+  deploymentPlanShortfall,
+  deploymentPlanTotal,
+  openingPercentOfAppropriations,
+  peerAlignmentScenariosNet,
+  planReading,
+} from '../../lib/reserve-availability'
 
+const base = process.env.NEXT_PUBLIC_BASE_PATH || ''
 const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 20, boxShadow: '0 14px 34px var(--rbl-shadow)' } as const
 const pct = (v: number, digits = 1) => `${(v * 100).toFixed(digits)}%`
 
 export const metadata = {
   title: 'Reserves & fund balance policy — how much cushion is enough?',
   description:
-    "The five GASB classifications of Riverhead's General Fund balance, how its savings stack up against its own reserve rules, a one-time deployment plan for the surplus above target, and how the Town's posture compares to neighboring towns.",
+    "The five GASB classifications of Riverhead's General Fund balance, how its savings stack up against its own reserve rules after netting what 2026 has already committed, a one-time deployment plan for the ceiling on what is left, and how the Town's posture compares to neighboring towns.",
 }
 
 const healthColor: Record<string, string> = { healthy: 'var(--rbl-success)', watch: 'var(--rbl-warn)', atRisk: 'var(--rbl-danger)' }
@@ -56,7 +70,12 @@ const healthNote: Record<string, string> = {
 }
 
 export default function ReservesPage() {
-  const pctOfApprop = percentOfAppropriations(unassignedFundBalance, appropriations)
+  // Compliance is tested against the ceiling on what is left, not the opening
+  // balance. The opening figure stays beside it, labeled, because it is what the
+  // Town reported and the source for everything else — but a policy check
+  // against money already voted away is a check against a number that is gone.
+  // Both clear the floor comfortably, so the verdict does not turn on the choice.
+  const pctOfApprop = ceilingPercentOfAppropriations
   const health = fundBalanceHealth(pctOfApprop, policyMinimumPercent)
 
   return (
@@ -69,11 +88,15 @@ export default function ReservesPage() {
           { label: 'Unassigned fund balance', text: 'the "rainy-day" savings with no strings attached — the actual FY2025 year-end figure from the Town\u2019s Annual Financial Report, not a mid-year estimate. It is one of five classifications; the other four are shown below.' },
           { label: "Policy floor", text: `Riverhead's own policy sets a 15% minimum and 20% upper target of General Fund appropriations.` },
           { label: 'One-time vs. recurring', text: 'anything above the operating target is one-time money — good for debt paydown or capital, not for permanent new spending.' },
+          { label: 'Opening vs. available', text: 'the figure the Town reported for December 31, 2025 — its own filing, not an independent audit. The Board has voted against it all year, so what is left is the smaller number, and it is the one every plan here is priced against.' },
         ]}
       >
         The General Fund ended FY2025 with <strong>{dollars(unassignedFundBalance)}</strong> in unassigned reserves —{' '}
-        <strong>{pct(pctOfApprop)}</strong> of the {dollars(appropriations)} 2026 General Fund budget, well above the
-        Town&apos;s 15% policy floor.
+        <strong>{pct(openingPercentOfAppropriations)}</strong> of the {dollars(appropriations)} 2026 General Fund
+        budget. The Board has since committed <strong>{dollars(committedThisYear)}</strong> of it by resolution, which puts
+        a ceiling of <strong>{dollars(unassignedCeiling)}</strong> on what is left — <strong>{pct(pctOfApprop)}</strong>,
+        still well above the Town&apos;s 15% policy floor. A ceiling, not a balance: there is no 2026 financial report.
+        Every plan below is priced against that second figure rather than the opening one.
       </PlainCallout>
 
       <section style={{ ...card, marginBottom: 16 }}>
@@ -93,9 +116,17 @@ export default function ReservesPage() {
             {healthLabel[health]}
           </span>
         </div>
-        <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 14.5, marginTop: 10 }}>
-          <span>Unassigned fund balance (FY2025 actual)</span>
-          <strong>{dollars(unassignedFundBalance)}</strong>
+        <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 13.5, marginTop: 10, color: 'var(--rbl-text-muted)' }}>
+          <span>Unassigned fund balance (FY2025 reported)</span>
+          <span>{dollars(unassignedFundBalance)}</span>
+        </div>
+        <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 13.5, marginTop: 4, color: 'var(--rbl-text-muted)' }}>
+          <span>Less committed by 2026 resolutions</span>
+          <span style={{ color: 'var(--rbl-warn)' }}>&minus; {dollars(committedThisYear)}</span>
+        </div>
+        <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 14.5, marginTop: 6 }}>
+          <strong>Ceiling on what is left</strong>
+          <strong>{dollars(unassignedCeiling)}</strong>
         </div>
         <div style={{ background: 'var(--rbl-track)', borderRadius: 999, height: 8, overflow: 'hidden', marginTop: 8 }}>
           <div
@@ -119,8 +150,12 @@ export default function ReservesPage() {
           <span>{dollars(targetUpper)}</span>
         </div>
         <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 13.5, color: 'var(--rbl-text-muted)', marginTop: 4 }}>
-          <span>Surplus above upper target</span>
-          <span style={{ color: surplusAboveUpper >= 0 ? 'var(--rbl-success)' : 'var(--rbl-warn)', fontWeight: 700 }}>{dollars(surplusAboveUpper)}</span>
+          <span>Surplus above upper target, at the reported opening</span>
+          <span>{dollars(surplusAboveUpper)}</span>
+        </div>
+        <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 13.5, color: 'var(--rbl-text-muted)', marginTop: 4 }}>
+          <span>Surplus above upper target, net of 2026 votes</span>
+          <span style={{ color: surplusAboveUpperCeiling >= 0 ? 'var(--rbl-success)' : 'var(--rbl-warn)', fontWeight: 700 }}>{dollars(surplusAboveUpperCeiling)}</span>
         </div>
       </section>
 
@@ -128,7 +163,7 @@ export default function ReservesPage() {
         <h3 style={{ marginTop: 0, color: 'var(--rbl-title)' }}>The five classifications of fund balance</h3>
         <p style={{ color: 'var(--rbl-text-body)', fontSize: 14.5, marginTop: 0 }}>
           Every percentage above measures one tier. GASB Statement 54 splits a fund&apos;s balance into five, ordered by
-          how hard the money is to spend — and the Town&apos;s audited report files all five. {fundBalanceReading}
+          how hard the money is to spend — and the Town&apos;s own annual report files all five. {fundBalanceReading}
         </p>
 
         <div style={{ display: 'grid', gap: 16 }}>
@@ -206,37 +241,75 @@ export default function ReservesPage() {
         </p>
       </section>
 
+      <section style={{ ...card, marginBottom: 16, borderLeft: '6px solid var(--rbl-accent-border)' }}>
+        <h3 style={{ marginTop: 0, color: 'var(--rbl-title)' }}>What 2026 has already committed</h3>
+        <p style={{ color: 'var(--rbl-text-body)', fontSize: 14.5, lineHeight: 1.6, marginTop: 0 }}>
+          {availabilityReading}
+        </p>
+        <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 14.5 }}>
+          <span>Reported unassigned balance, December 31, 2025</span>
+          <strong>{dollars(unassignedFundBalance)}</strong>
+        </div>
+        <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 14.5, marginTop: 6 }}>
+          <span>Committed by 2026 resolutions</span>
+          <strong style={{ color: 'var(--rbl-warn)' }}>&minus; {dollars(committedThisYear)}</strong>
+        </div>
+        <hr style={{ border: 'none', borderTop: '1px solid var(--rbl-border-subtle)', margin: '10px 0' }} />
+        <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 15.5 }}>
+          <strong>Ceiling on what is left</strong>
+          <strong style={{ color: 'var(--rbl-accent)' }}>{dollars(unassignedCeiling)}</strong>
+        </div>
+        <p style={{ color: 'var(--rbl-text-muted)', fontSize: 12.8, lineHeight: 1.55, marginTop: 12 }}>
+          Why a ceiling rather than a balance. These are authorizations, not cash out the door — a budget adjustment
+          permits spending, and what was consumed appears in the next financial report. Several adopted draws state no
+          amount at all, so the committed side is itself a floor and the remainder could be lower. And fund balance
+          moves for reasons no resolution records: revenue beating budget and departments underspending together swung
+          the General Fund <strong>$8.6 million to the good</strong> in 2023, so it could equally be higher. The true
+          current balance is unknown until the Town files a 2026 report. It is netted here anyway, because a dollar the
+          Board has already voted cannot fund a suggestion on this page as well.{' '}
+          <a href={`${base}/predict-2027/`} style={{ color: 'var(--rbl-link)' }}>
+            The ledger on /predict-2027/
+          </a>{' '}
+          lists every draw, largest first, with the basis for each.
+        </p>
+      </section>
+
       <section style={{ ...card, marginBottom: 16 }}>
         <h3 style={{ marginTop: 0, color: 'var(--rbl-title)' }}>28.8% Reserve Reset</h3>
         <p style={{ color: 'var(--rbl-text-body)', fontSize: 14.5, marginTop: 0 }}>
           A one-time-money plan: keep a strong cushion, use the rest on purpose, and show what still fits after the
-          serious bills are paid.
+          serious bills are paid. It is priced below against the <em>ceiling on what is left</em>, not the
+          reported opening figure it was first written against.
         </p>
-        <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 14.5 }}>
-          <span>Current unassigned balance</span>
-          <strong>{dollars(unassignedFundBalance)}</strong>
+        <div style={{ display: 'flex', justifyContent: 'space-between', gap: 12, fontSize: 14.5 }}>
+          <span>Ceiling on what is left (net of 2026 votes)</span>
+          <strong>{dollars(unassignedCeiling)}</strong>
         </div>
         <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 14.5, marginTop: 6 }}>
           <span>{pct(targetReservePercent)} target balance</span>
           <strong>{dollars(targetUnassignedAt288)}</strong>
         </div>
-        <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 15, marginTop: 6 }}>
-          <span>Available for one-time deployment</span>
-          <strong style={{ color: 'var(--rbl-accent)' }}>{dollars(deployableAbove288)}</strong>
+        <div style={{ display: 'flex', justifyContent: 'space-between', gap: 12, fontSize: 15, marginTop: 6 }}>
+          <span>Ceiling on one-time deployment</span>
+          <strong style={{ color: 'var(--rbl-accent)' }}>{dollars(deployableAbove288Ceiling)}</strong>
+        </div>
+        <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 12.5, marginTop: 4, color: 'var(--rbl-text-muted)' }}>
+          <span>Same figure before netting 2026&apos;s votes</span>
+          <span>{dollars(deployableAbove288)}</span>
         </div>
 
         <hr style={{ border: 'none', borderTop: '1px solid var(--rbl-border-subtle)', margin: '14px 0' }} />
 
         <div style={{ display: 'grid', gap: 14 }}>
-          {deploymentOptions.map((option) => (
-            <div key={option.number} style={{ display: 'flex', gap: 10 }}>
+          {deploymentLedger.map((option) => (
+            <div key={option.number} style={{ display: 'flex', gap: 10, opacity: option.coveredInFull ? 1 : 0.92 }}>
               <div
                 style={{
                   width: 26,
                   height: 26,
                   borderRadius: '50%',
-                  background: '#4a729722',
-                  color: 'var(--rbl-accent)',
+                  background: option.coveredInFull ? '#4a729722' : 'var(--rbl-warn-bg)',
+                  color: option.coveredInFull ? 'var(--rbl-accent)' : 'var(--rbl-warn-strong)',
                   display: 'grid',
                   placeItems: 'center',
                   fontSize: 12,
@@ -252,16 +325,26 @@ export default function ReservesPage() {
                   <span style={{ color: 'var(--rbl-badge)', fontWeight: 800, fontSize: 13, whiteSpace: 'nowrap' }}>{dollars(option.amount)}</span>
                 </div>
                 <p style={{ color: 'var(--rbl-text-muted)', fontSize: 13, margin: '2px 0 0' }}>{option.detail}</p>
+                <div style={{ fontSize: 12.3, marginTop: 3, color: option.coveredInFull ? 'var(--rbl-text-faint)' : 'var(--rbl-warn-strong)', fontWeight: option.coveredInFull ? 500 : 700 }}>
+                  {option.coveredInFull
+                    ? `${dollars(option.remainingAfter)} left after this one`
+                    : `Runs out here — ${dollars(Math.abs(option.remainingAfter))} short of funding this in full`}
+                </div>
               </div>
             </div>
           ))}
         </div>
 
         <hr style={{ border: 'none', borderTop: '1px solid var(--rbl-border-subtle)', margin: '14px 0' }} />
-        <div style={{ display: 'flex', justifyContent: 'space-between', fontWeight: 800 }}>
-          <span>Still available after these deployments</span>
-          <span style={{ color: 'var(--rbl-success)' }}>{dollars(remainingAfterDeploymentOptions)}</span>
+        <div style={{ display: 'flex', justifyContent: 'space-between', gap: 12, fontWeight: 800 }}>
+          <span>{deploymentPlanFits ? 'Still available after these deployments' : 'Short of funding the full plan'}</span>
+          <span style={{ color: deploymentPlanFits ? 'var(--rbl-success)' : 'var(--rbl-warn)' }}>
+            {deploymentPlanFits
+              ? dollars(deployableAbove288Ceiling - deploymentPlanTotal)
+              : `− ${dollars(deploymentPlanShortfall)}`}
+          </span>
         </div>
+        <p style={{ color: 'var(--rbl-text-muted)', fontSize: 12.8, lineHeight: 1.55, margin: '10px 0 0' }}>{planReading}</p>
       </section>
 
       <section style={{ ...card, marginBottom: 16 }}>
@@ -359,10 +442,11 @@ export default function ReservesPage() {
         <h3 style={{ marginTop: 0, color: 'var(--rbl-title)' }}>What if Riverhead matched its peers?</h3>
         <p style={{ color: 'var(--rbl-text-body)', fontSize: 14.5, marginTop: 0 }}>
           How much one-time room Riverhead would have if it matched a neighboring town&apos;s reserve levels — or the
-          average of them all.
+          average of them all. Measured against the {dollars(unassignedCeiling)} ceiling rather than the opening
+          balance, since the targets are a share of appropriations and 2026&apos;s votes do not move them.
         </p>
         <div style={{ display: 'grid', gap: 14 }}>
-          {peerAlignmentScenarios.map((peer) => (
+          {peerAlignmentScenariosNet.map((peer) => (
             <div key={peer.label}>
               <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                 <strong style={{ fontSize: 14 }}>{peer.label}</strong>
@@ -395,10 +479,12 @@ export default function ReservesPage() {
       <section style={{ ...card }}>
         <h3 style={{ marginTop: 0, color: 'var(--rbl-title)' }}>What if the Town uses some savings?</h3>
         <p style={{ color: 'var(--rbl-text-body)', fontSize: 14.5, marginTop: 0 }}>
-          See how using reserves for tax relief or a project would affect the cushion.
+          See how using reserves for tax relief or a project would affect the cushion. The slider starts from the{' '}
+          {dollars(unassignedCeiling)} ceiling on what is left, not the reported opening balance, so it cannot offer
+          money the Board has already voted.
         </p>
         <ReserveDrawdownSlider
-          unassignedFundBalance={unassignedFundBalance}
+          unassignedFundBalance={unassignedCeiling}
           appropriations={appropriations}
           policyMinimumPercent={policyMinimumPercent}
         />
@@ -407,9 +493,16 @@ export default function ReservesPage() {
 
       <p style={{ color: 'var(--rbl-text-muted)', fontSize: 13, lineHeight: 1.55, marginTop: 16 }}>
         Sources: 2025 Annual Financial Report (all five fund-balance classifications, three years each, including the
-        actual unassigned balance), 2026 Adopted Budget (General Fund appropriations and one-time deployment figures).
-        Classification definitions follow GASB Statement 54. Peer-town figures from each town&apos;s own 2026 adopted
-        budget or policy document where available.
+        actual unassigned balance), 2026 Adopted Budget (General Fund appropriations and one-time deployment figures),
+        and the Town Board resolution record for the {dollars(committedThisYear)} committed during 2026. That total is
+        mixed in provenance and should not be read as one source: {dollars(committedDocumented)} was read from Section G
+        of the Fiscal Impact Statements, where the Town names its own Appropriated Fund Balance account, and{' '}
+        {dollars(committedAuthorized)} comes from separately sourced resolutions and the Town Square record whose
+        statements name no account code. Both are itemized on{' '}
+        <a href={`${base}/predict-2027/`} style={{ color: 'var(--rbl-link)' }}>/predict-2027/</a>, each row labeled with
+        its basis. Classification
+        definitions follow GASB Statement 54. Peer-town figures from each town&apos;s own 2026 adopted budget or policy
+        document where available.
       </p>
     </PageShell>
   )
