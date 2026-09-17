@@ -164,8 +164,35 @@ export const inWindow = all.filter(
  * Accepted after the window closed. Reported, never priced: on the record this
  * site can see, an ordinary retirement and a late incentive ratification look
  * identical, so neither is claimed.
+ *
+ * Adoption is filtered here for the same reason it is filtered for inWindow,
+ * and leaving it out was the same mistake twice: /buyout/ says the Board "has
+ * accepted" these, which is a claim about a vote, and this site does not infer
+ * adoption from agenda placement. A post-window retirement with a null or false
+ * vote would have been reported as accepted.
  */
-export const afterWindow = all.filter((r) => r.meetingDate > WINDOW_CLOSES)
+export const afterWindow = all.filter(
+  (r) => r.meetingDate > WINDOW_CLOSES && r.adopted === true,
+)
+/** Filed after the window with no published vote record yet. */
+export const afterWindowPending = all.filter(
+  (r) => r.meetingDate > WINDOW_CLOSES && r.adopted === null,
+)
+
+/**
+ * Has the record itself moved past the acceptance cutoff?
+ *
+ * Whether the count can still grow is a fact about the published record, not
+ * about today's date, and deriving it from the clock would go stale in a static
+ * export the moment a deploy lagged. Once the Board has met past WINDOW_CLOSES
+ * and that meeting is in the corpus, no later acceptance can join the window,
+ * so the count is as final as this site can know.
+ */
+export const latestMeetingInCorpus = meetings
+  .map((m) => m.meetingDate)
+  .sort()
+  .slice(-1)[0]
+export const windowSettled = latestMeetingInCorpus > WINDOW_CLOSES
 
 /**
  * Confirmed by a published vote record — the only set the headline figures use.
@@ -217,6 +244,8 @@ export const uptake = {
   ifPendingConfirmed: confirmed.length + pending.length,
   /** Accepted after the window closed — outside the program, never priced. */
   acceptedAfterWindow: afterWindow.length,
+  /** Filed after the window, vote record not published. Never counted as accepted. */
+  afterWindowAwaitingRecord: afterWindowPending.length,
   ifPendingConfirmedSworn: sworn.length + swornPending.length,
 }
 

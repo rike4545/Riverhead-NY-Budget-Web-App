@@ -6,7 +6,7 @@ import analysis from '../../public/data/buyout-analysis.json'
 import retireeHealthComparison from '../../public/data/retiree-health-comparison.json'
 import {
   uptake, confirmed, pending, rejected, incentiveCostIfAllElected, savingEstimate, retiredOutsideModeledPool,
-  limits as actualLimits,
+  limits as actualLimits, windowSettled,
 } from '../../lib/retirement-actuals-2026'
 
 const base = process.env.NEXT_PUBLIC_BASE_PATH || ''
@@ -72,8 +72,11 @@ export default function BuyoutPage() {
       <section style={{ ...card, marginBottom: 18, borderLeft: '6px solid var(--rbl-accent-border)' }}>
         <h3 style={{ marginTop: 0, color: 'var(--rbl-title)' }}>Who actually went</h3>
         <p style={{ color: 'var(--rbl-text-body)', fontSize: 14.5, lineHeight: 1.6, margin: '0 0 12px' }}>
-          The September 1, 2026 election deadline has passed, so nobody new can opt in, but retirements may still take
-          effect through October 1 — so this count is current, not final. The Board accepts every retirement by its own
+          The September 1, 2026 election deadline has passed, so nobody new can opt in.{' '}
+          {windowSettled
+            ? `The last effective retirement date was October 1, and the Board has since met past the October 20 cutoff this page uses for late acceptances, so the count below is as final as the published record can make it.`
+            : `Retirements could still take effect through October 1, and the Board can accept one after it takes effect, so this count is current rather than final — acceptances are counted through the October 20 meeting.`}{' '}
+          The Board accepts every retirement by its own
           numbered resolution. Since ratification on July 7 it has accepted <strong>{uptake.windowRetirements}</strong> — against{' '}
           <strong>{uptake.beforeProgram}</strong> in the six months before it. That is <strong>{Math.round(uptake.shareOfEligibleCeiling * 100)}%</strong>{' '}
           of the {uptake.townEligibleTotal} employees the Town said were eligible, and it is a <strong>ceiling</strong>, not a
@@ -85,13 +88,24 @@ export default function BuyoutPage() {
           <Stat label="Annual payroll saving" value={usd(savingEstimate.annualFromSworn)} sub={`${savingEstimate.swornCount} sworn × ${usd(savingEstimate.perSwornRetirement)} chain-corrected`} />
           <Stat label="First full year of it" value={String(savingEstimate.firstFullYear)} sub="effective dates run July–October 2026" />
         </div>
-        {uptake.acceptedAfterWindow > 0 && (
+        {(uptake.acceptedAfterWindow > 0 || uptake.afterWindowAwaitingRecord > 0) && (
           <p style={{ color: 'var(--rbl-text-body)', fontSize: 13.4, lineHeight: 1.55, margin: '0 0 12px' }}>
-            The Board has accepted <strong>{uptake.acceptedAfterWindow}</strong> further retirement
-            {uptake.acceptedAfterWindow === 1 ? '' : 's'} since the incentive window closed. They are not counted above
-            and not priced: the incentive required an effective date no later than October 1, 2026, and the resolutions
-            name a title rather than an effective date, so on the published record an ordinary retirement and a late
-            ratification of an incentive one look identical. Neither is claimed.
+            {uptake.acceptedAfterWindow > 0 && (
+              <>
+                The Board has accepted <strong>{uptake.acceptedAfterWindow}</strong> further retirement
+                {uptake.acceptedAfterWindow === 1 ? '' : 's'} since the incentive window closed on October 20, 2026.{' '}
+              </>
+            )}
+            {uptake.afterWindowAwaitingRecord > 0 && (
+              <>
+                A further <strong>{uptake.afterWindowAwaitingRecord}</strong> post-window retirement
+                {uptake.afterWindowAwaitingRecord === 1 ? ' is' : 's are'} on the agenda with no published vote record,
+                so {uptake.afterWindowAwaitingRecord === 1 ? 'it is' : 'they are'} not described as accepted.{' '}
+              </>
+            )}
+            Neither counted above nor priced: the incentive required an effective date no later than October 1,
+            2026, and the resolutions name a title rather than an effective date, so on the published record an ordinary
+            retirement and a late ratification of an incentive one look identical. Neither is claimed.
           </p>
         )}
         <div style={{ background: 'var(--rbl-success-bg)', border: '1px solid var(--rbl-success-border)', borderRadius: 10, padding: '11px 14px', marginBottom: 12 }}>
@@ -513,8 +527,11 @@ export default function BuyoutPage() {
             Superseded in part: the assumption above that participation is unknown until the September 1, 2026 election
             deadline was written before that deadline passed. The Board has since confirmed {uptake.windowRetirements}{' '}
             retirements — {uptake.sworn} sworn, {uptake.civilian} civilian — read off the resolution record rather than
-            modeled. That count is not final: the incentive allows an effective retirement date as late as October 1,
-            2026, so resolutions accepted between now and then still add to it. The uptake scenarios are kept as
+            modeled.{' '}
+            {windowSettled
+              ? `The Board has since met past the October 20, 2026 cutoff this page uses for late acceptances, so no further resolution can join that count.`
+              : `That count is not final: the incentive allows an effective retirement date as late as October 1, 2026, and because the Board can accept a retirement after it takes effect, acceptances are counted through the October 20, 2026 meeting. A resolution adopted before then still adds to it.`}{' '}
+            The uptake scenarios are kept as
             published because they show the shape of the arithmetic across the full range.
           </li>
         </ul>
