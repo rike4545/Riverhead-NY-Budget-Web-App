@@ -186,7 +186,7 @@ export const boardOptions: BoardOption[] = [
     changePct: Number((((levyPredicted / levy2026) - 1) * 100).toFixed(1)),
     mustFind: 0,
     legal:
-      'Requires a local law authorising the override, passed by 60% of the Board — three of five votes — and ' +
+      'Requires a local law authorizing the override, passed by 60% of the Board — three of five votes — and ' +
       'adopted BEFORE the budget itself.',
     legalTone: 'override',
     whatItTakes:

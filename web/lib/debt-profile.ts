@@ -260,13 +260,13 @@ export const sinceBalanceSheet = {
     {
       date: 'March 18, 2025',
       what: 'Bond resolution 2025-273 — appropriating $2,350,000',
-      why: 'A new borrowing authorisation. Authorised is not issued; it joins the authorised-but-unissued balance until bonds are actually sold.',
+      why: 'A new borrowing authorization. Authorized is not issued; it joins the authorized-but-unissued balance until bonds are actually sold.',
       source: 'Town Board meeting of March 18, 2025 — adopted unanimously.',
     },
     {
       date: 'October 7, 2025',
-      what: 'Bond resolution 2025-856 — authorising issuance and appropriating $6,500,000',
-      why: 'A second, larger authorisation in the same year.',
+      what: 'Bond resolution 2025-856 — authorizing issuance and appropriating $6,500,000',
+      why: 'A second, larger authorization in the same year.',
       source: 'Town Board meeting of October 7, 2025 — adopted unanimously.',
     },
     {

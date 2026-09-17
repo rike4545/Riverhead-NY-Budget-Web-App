@@ -8,7 +8,7 @@
 //
 // WHAT THIS TRACKS THAT MATTERS FISCALLY. Two separate draws on the General Fund
 // balance are being made for one project: the July 2026 vote to pay down the
-// project's bond anticipation note, and the September 2026 authorisation to pay
+// project's bond anticipation note, and the September 2026 authorization to pay
 // $1.95 million for 111 East Main Street out of fund balance. Neither is a
 // borrowing. Both spend accumulated surplus, which is the thing the reserve
 // policy exists to govern, so both belong in the same frame.
@@ -84,7 +84,7 @@ export const timeline: Milestone[] = [
     kind: 'money',
     what: 'The Board approves the developer agreement and the land sale',
     detail:
-      'Resolution 2025-696 declared J. Petrocelli Riverhead Town Square LLC a qualified and eligible sponsor under the State Urban Renewal Law, which lets the Town sell it the land — including the standing building at 127 East Main Street — for $2,625,000 without competitive bidding. The same action authorised the master developer agreement, under which the Town pays the company a construction management fee of 7% of the cost of building the public plaza, playground, walkways and amphitheatre, and takes on certain maintenance obligations for them. Adopted unanimously, moved by Rothwell and seconded by Kern, after fifteen letters of objection and a run of critical public comment.',
+      'Resolution 2025-696 declared J. Petrocelli Riverhead Town Square LLC a qualified and eligible sponsor under the State Urban Renewal Law, which lets the Town sell it the land — including the standing building at 127 East Main Street — for $2,625,000 without competitive bidding. The same action authorized the master developer agreement, under which the Town pays the company a construction management fee of 7% of the cost of building the public plaza, playground, walkways and amphitheatre, and takes on certain maintenance obligations for them. Adopted unanimously, moved by Rothwell and seconded by Kern, after fifteen letters of objection and a run of critical public comment.',
     source: 'Town Board resolution 2025-696; RiverheadLOCAL, August 6, 2025',
   },
   {
@@ -170,9 +170,9 @@ export const timeline: Milestone[] = [
   {
     date: 'September 1, 2026',
     kind: 'money',
-    what: 'The Board authorises a $1.95 million offer, payable from fund balance',
+    what: 'The Board authorizes a $1.95 million offer, payable from fund balance',
     detail:
-      'A unanimous vote approving the Town’s appraisal at $1,950,000 and authorising its attorneys to transmit that offer to The Place for Learning, with the sum to be paid out of the General Fund balance. The resolution also authorises the town financial administrator to establish a budget for the expenditure.',
+      'A unanimous vote approving the Town’s appraisal at $1,950,000 and authorizing its attorneys to transmit that offer to The Place for Learning, with the sum to be paid out of the General Fund balance. The resolution also authorizes the town financial administrator to establish a budget for the expenditure.',
     source: 'RiverheadLOCAL, September 2, 2026',
   },
 ]
@@ -246,7 +246,7 @@ export const boardRecord: BoardVote[] = [
   },
   {
     date: 'August 5, 2025', number: '2025-696',
-    title: 'Designates J. Petrocelli Riverhead Town Square LLC a qualified and eligible sponsor and authorises the master developer agreement — the vote that permits the $2,625,000 land sale without competitive bidding',
+    title: 'Designates J. Petrocelli Riverhead Town Square LLC a qualified and eligible sponsor and authorizes the master developer agreement — the vote that permits the $2,625,000 land sale without competitive bidding',
     result: 'Adopted unanimously', contested: false,
   },
   {
@@ -266,7 +266,7 @@ export const boardRecord: BoardVote[] = [
   },
   {
     date: 'April 7, 2026', number: '2026-327',
-    title: 'Affirms the prior authorisation to acquire 111 East Main Street',
+    title: 'Affirms the prior authorization to acquire 111 East Main Street',
     result: 'Adopted 3–2', contested: true, dissent: 'Supervisor Halpin and Councilman Kern voted no.',
   },
   {
@@ -335,18 +335,18 @@ export const publicMoney = {
 export const landAssembly = {
   seller: 'Riverhead Enterprises, for the 2020–21 purchases',
   parcels: [
-    { address: '117 East Main Street', amount: 1_250_000, when: 'Authorised August 2020, title May 2021', fate: 'Demolished, to become the square.' },
-    { address: '121 East Main Street', amount: 950_000, when: 'Authorised August 2020, title May 2021', fate: 'Demolished, to become the square.' },
+    { address: '117 East Main Street', amount: 1_250_000, when: 'Authorized August 2020, title May 2021', fate: 'Demolished, to become the square.' },
+    { address: '121 East Main Street', amount: 950_000, when: 'Authorized August 2020, title May 2021', fate: 'Demolished, to become the square.' },
     { address: '127 East Main Street', amount: 2_650_000, when: 'Option August 2020, title May 2021', fate: 'Kept and standing. Houses the Chamber of Commerce and the Business Improvement District, and formerly the Craft’d bar. Part of the hotel site.' },
     { address: 'Six-month purchase option on 127', amount: 50_000, when: 'August 2020', fate: 'Paid to hold the third parcel while appraisals and environmental work were done.' },
     { address: 'Craft’d leasehold at 127 East Main Street', amount: 170_000, when: 'Court order August 27, 2025; settled September 3, 2025', fate: 'Bought out from SNR Bar 25 Corp so the building could be demolished. The bar closed on September 20, 2025.' },
-    { address: '111 East Main Street', amount: 1_950_000, when: 'Authorised September 2026', fate: 'Taken by eminent domain from The Place for Learning. The offer is a floor, not a ceiling.' },
+    { address: '111 East Main Street', amount: 1_950_000, when: 'Authorized September 2026', fate: 'Taken by eminent domain from The Place for Learning. The offer is a floor, not a ceiling.' },
   ],
   knownTotal: 7_020_000,
   whatStaysPublic:
     'Of the three buildings bought in 2020–21, 117 East Main Street — tax lot 12 — is not part of the sale to the developer. It stays in public hands and becomes part of the square. What is being sold on is 121 and 127, plus an adjoining parcel.',
   financing:
-    'The Board authorised $5,500,000 of bonding in August 2020 to cover the purchase price, site work and demolition. The $2,800,000 bond anticipation note issued in August 2021 is part of that authorisation rather than money on top of it. The 2026 taking, by contrast, is being paid from fund balance.',
+    'The Board authorized $5,500,000 of bonding in August 2020 to cover the purchase price, site work and demolition. The $2,800,000 bond anticipation note issued in August 2021 is part of that authorization rather than money on top of it. The 2026 taking, by contrast, is being paid from fund balance.',
   missing:
     'The settlement figure is known — $170,000, with the company to vacate by September 30, 2025 and the Town to pay by October 15. The Board had funded a $120,000 offer six weeks earlier and topped it up on September 16. The full settlement agreement was not attached to the resolution released to the press, so the terms beyond those dates and that number are not public.',
   referendum:
@@ -370,7 +370,7 @@ export const landSale = {
     { label: 'Grant-match funding commitments', amount: 660_000, certain: true,
       note: 'Section 3.04(a) itemises three commitments the developer made as part of grant applications for the hotel and the square — $360,000, $150,000 and $150,000. To the extent they have been paid to the Town, they are credited against the balance due at closing.' },
     { label: 'Year one of the Town Square operation and maintenance fee', amount: 150_000, certain: false,
-      note: 'Section 3.04(b): if the Town has substantially completed the square and opened it to the public by closing, the price drops by $150,000 — year one of the ten-year licence under which the Town pays the developer to run and maintain it.' },
+      note: 'Section 3.04(b): if the Town has substantially completed the square and opened it to the public by closing, the price drops by $150,000 — year one of the ten-year license under which the Town pays the developer to run and maintain it.' },
     { label: 'Construction management fees, at the Town’s option', amount: null, certain: false,
       note: 'The Town “reserves the right at its option” to credit against the balance due whatever is then owed, or about to be owed, to the developer under the three construction management agreements. No figure can be put on this: it is 7% of construction costs that have not been published.' },
   ],
@@ -451,9 +451,9 @@ export const idaAssistance = {
   notPublic:
     'The application itself is not public. Newsday reported in June 2026 that it had filed a Freedom of Information Law request to obtain it. So the twenty-year figure above rests on what the developer’s attorney said in a public meeting rather than on a document anyone outside the agency has read.',
   whatWasDecided:
-    'Nothing yet. The IDA resolution accepts the amended application for review and authorises Chairman James Farley to engage Camoin Associates to prepare an absorption and impact study at the applicant’s expense. A public hearing must be held before the agency decides, and none has been noticed: the agency’s own public hearing notices page carried nothing for this project when this page was written, its most recent posting of any kind dating to February 2024.',
+    'Nothing yet. The IDA resolution accepts the amended application for review and authorizes Chairman James Farley to engage Camoin Associates to prepare an absorption and impact study at the applicant’s expense. A public hearing must be held before the agency decides, and none has been noticed: the agency’s own public hearing notices page carried nothing for this project when this page was written, its most recent posting of any kind dating to February 2024.',
   whatToWatchFor:
-    'When the hearing is noticed it will appear on the Riverhead IDA’s public hearing notices page, linked in the sources below. Judging by what the agency posted for comparable applications, the notice is usually accompanied by the application itself, a Camoin Associates report, a cost-benefit calculator and the authorising resolution — which together are the documents that would let a resident work out what the abatement is worth and who bears it. That hearing is the point at which the public can be heard on this, and it is the only one.',
+    'When the hearing is noticed it will appear on the Riverhead IDA’s public hearing notices page, linked in the sources below. Judging by what the agency posted for comparable applications, the notice is usually accompanied by the application itself, a Camoin Associates report, a cost-benefit calculator and the authorizing resolution — which together are the documents that would let a resident work out what the abatement is worth and who bears it. That hearing is the point at which the public can be heard on this, and it is the only one.',
   projectCost:
     'The amended application estimates total project cost at about $35.1 million — a branded 94-room hotel with roughly 8,800 square feet of first-floor specialty retail, restaurant and food-hall space. That is a later and larger figure than the $32.67 million in the July 2025 development budget shown above.',
   alreadyPromised:
@@ -489,15 +489,15 @@ export const idaPrecedent = {
     'The pattern is legible without any arithmetic on the hotel: commercial and mixed-use projects downtown have generally received about ten years, affordable housing thirty, and the one existing hotel four. The request on the table is for twenty. That is roughly double what this agency has given comparable downtown commercial projects and five times what it gave the other hotel, and it is the single most checkable thing a resident can carry into the hearing. It is not a reason the request should be refused — the agency weighs jobs, investment and blight, not precedent alone — but it is the question the agency will have to answer.',
 }
 
-// ORGANISED OPPOSITION, reported with its actual size and its actual author.
+// ORGANIZED OPPOSITION, reported with its actual size and its actual author.
 // Two petitions, a blog and a recurring speaker at the podium look like four
 // sources of opposition. They are one Riverhead resident, and a reader sizing
 // the opposition should know that. It cuts both ways: it is one person, and he
 // has been at this for years and has gathered real signatures.
 export const opposition = {
-  headline: 'The organised opposition, and who is behind it',
+  headline: 'The organized opposition, and who is behind it',
   whoRunsIt:
-    'The petitions and the Riverhead Watch blog are the work of John McAuliff, a Riverhead resident and non-profit executive director who has blogged since 2006. He is the same John McAuliff who has spoken against the project at Town Board hearings in July and August 2025 and again in June and August 2026, quoted elsewhere on this page. Naming him is not a mark against the arguments — a resident who shows up for years and organises is doing exactly what residents are supposed to do. It is here because “a petition,” “a blog” and “a speaker at the podium” read as three independent currents of opposition when they are one, and a reader weighing how much opposition exists should have that.',
+    'The petitions and the Riverhead Watch blog are the work of John McAuliff, a Riverhead resident and non-profit executive director who has blogged since 2006. He is the same John McAuliff who has spoken against the project at Town Board hearings in July and August 2025 and again in June and August 2026, quoted elsewhere on this page. Naming him is not a mark against the arguments — a resident who shows up for years and organizes is doing exactly what residents are supposed to do. It is here because “a petition,” “a blog” and “a speaker at the podium” read as three independent currents of opposition when they are one, and a reader weighing how much opposition exists should have that.',
   petitions: [
     {
       title: 'No Hotel/Condo in Riverhead Town Square',
@@ -544,7 +544,7 @@ export const inKindSupport = {
   headline: 'Public assets committed to the building, none of them priced',
   items: [
     { label: 'Guest parking in public lots — to be paid for', detail: 'Hotel guests use valet service, with cars parked in the public lot behind the Suffolk Theater until the garage is built, then in the garage on a pay-to-reserve and pay-to-park basis. This one is not free: the developer’s attorney said in June 2026 that his client was negotiating to pay for roughly 100 spaces in the interim lot. What it will pay has not been published, and the agreement did not exist when the site plan was approved two months later.' },
-    { label: 'Easements and staging licences over Town land', detail: 'Annexed to the Master Developer Agreement as Exhibits C through F: a non-exclusive licence to stage construction over Lots 12 and 13, an exclusive staging licence over the retained portion of Lot 14, an easement for utilities and drainage under the retained portion of Lot 13, a driveway access easement from Heidi Behr Way across portions of Lots 14 and 23, and an easement for grease traps on Lot 15. Granted for the term of construction rather than sold.' },
+    { label: 'Easements and staging licenses over Town land', detail: 'Annexed to the Master Developer Agreement as Exhibits C through F: a non-exclusive license to stage construction over Lots 12 and 13, an exclusive staging license over the retained portion of Lot 14, an easement for utilities and drainage under the retained portion of Lot 13, a driveway access easement from Heidi Behr Way across portions of Lots 14 and 23, and an easement for grease traps on Lot 15. Granted for the term of construction rather than sold.' },
     { label: 'Stormwater onto Town land', detail: 'Stormwater from the hotel is directed to 25 leaching galleys on the adjacent town square property, under an agreement with the Town.' },
     { label: 'Access across the square', detail: 'The hotel’s lower-level parking is reached from Heidi Behr Way through the town square parcel, under an agreement with the Town.' },
   ],
@@ -691,7 +691,7 @@ export const acquisition = {
   whyItMatters:
     'The parcel borders the Town Square site on its west side and officials have called it integral to the plan. Board members have repeatedly cited the lack of progress on redeveloping the building as their reason for condemning it — the science center had not begun its first phase and held no building permits, and its representatives cancelled a scheduled Town Board update in March 2026 as a roughly $1 million grant tied to the project neared its deadline.',
   theHearing:
-    'The EDPL hearing on May 20, 2026 ran nearly three hours and was contentious enough that reporting described the line between public testimony and board debate as blurred, with members rebutting critics from the dais. The Town’s case was put by Community Development Director Dawn Thomas: the building is “vacant, deteriorated, substandard and blighted,” the science center’s 2020 proposal for a roughly 24,000 square foot facility with a planetarium had repeatedly shrunk despite years of extensions, and at an April work session it emerged that the organisation “was experiencing financial difficulties and could not promise that the funding was available.” Environmental consultant Jeff Seeman added the flood argument: the square, the hotel and the East End Arts campus are being designed as one integrated flood mitigation system, and “one parcel would cause the other parcels to continue to flood unless they’re all systemically raised.” Council Member Joann Waski put the Town’s position in a line: “This is not about the science center. This is about 111 East Main Street.”',
+    'The EDPL hearing on May 20, 2026 ran nearly three hours and was contentious enough that reporting described the line between public testimony and board debate as blurred, with members rebutting critics from the dais. The Town’s case was put by Community Development Director Dawn Thomas: the building is “vacant, deteriorated, substandard and blighted,” the science center’s 2020 proposal for a roughly 24,000 square foot facility with a planetarium had repeatedly shrunk despite years of extensions, and at an April work session it emerged that the organization “was experiencing financial difficulties and could not promise that the funding was available.” Environmental consultant Jeff Seeman added the flood argument: the square, the hotel and the East End Arts campus are being designed as one integrated flood mitigation system, and “one parcel would cause the other parcels to continue to flood unless they’re all systemically raised.” Council Member Joann Waski put the Town’s position in a line: “This is not about the science center. This is about 111 East Main Street.”',
   costUnknownAtTheHearing:
     'Asked at that hearing what the eminent domain process would cost, Town Attorney Erik Howard answered: “I don’t know. We don’t have an appraisal on the property yet.” No estimate was given for acquisition, appraisal, outside counsel, court costs or anything else. Claudette Bianco of Baiting Hollow told the Board she heard little concern from it about the cost to taxpayers, saying she was neither for the taking nor against it. The $1.95 million figure arrived three months later, and covers the offer alone.',
   publicPurpose:
@@ -710,8 +710,8 @@ export const fundBalanceImpact = {
     {
       label: 'Acquisition offer for 111 East Main Street',
       amount: 1_950_000,
-      certainty: 'authorised' as const,
-      note: 'Authorised September 1, 2026, explicitly from the General Fund balance. Could rise if the owner pursues more in court. Board members said at the May hearing that the money could later be restored to fund balance if the Town eventually sold the property on for redevelopment — the same structure used for the hotel parcels, but with no buyer, no price and no agreement behind it.',
+      certainty: 'authorized' as const,
+      note: 'Authorized September 1, 2026, explicitly from the General Fund balance. Could rise if the owner pursues more in court. Board members said at the May hearing that the money could later be restored to fund balance if the Town eventually sold the property on for redevelopment — the same structure used for the hotel parcels, but with no buyer, no price and no agreement behind it.',
     },
     {
       label: 'Town Square note paydown',
@@ -813,7 +813,7 @@ export const legalQuestions = {
         'The agreement recites that “the remainder of Lot 23 shall remain the property of the Riverhead Public Parking District No. 1,” grants a driveway access easement across part of Lot 23, and provides that the Town, “by and through Parking District No. 1,” will enter a parking lot lease with the hotel.',
       record:
         'The Town plainly knows this distinction: on the same evening as the qualified-and-eligible hearing it held a separate public hearing on transferring 2,784 square feet from the Parking District to the Town for the garage. Martin Sendlewski, who chairs the Town’s own Parking District Advisory Committee, asked in 2026 whether agreements allocating public spaces to the hotel should come before the district trustees.',
-      resolves: 'District-level resolutions authorising the Lot 23 easement and the parking lease.',
+      resolves: 'District-level resolutions authorizing the Lot 23 easement and the parking lease.',
       weight: 'open' as const,
     },
     {
@@ -922,7 +922,7 @@ export const sources = [
   {
     title: 'Town of Riverhead — Master Developer Agreement (executed August 19, 2025; 124pp)',
     url: 'https://www.townofriverheadny.gov/DocumentCenter/View/1197/Master-Developer-Agreement-PDF',
-    covers: 'The primary document for the sale and for what the Town pays: Section 3.04 on the $2,625,000 price and every credit against it, Section 3.03 on why the Craft’d leasehold had to be cleared, the recital making a PILOT “a material requirement,” the parking lease and pay-to-park structure, the annexed easements and staging licences, and Exhibits G–I fixing the construction management fee at 7% of construction cost. Read directly rather than through reporting. Exhibits A through I are attached; Exhibit J, the schedule of maintenance duties, is not.',
+    covers: 'The primary document for the sale and for what the Town pays: Section 3.04 on the $2,625,000 price and every credit against it, Section 3.03 on why the Craft’d leasehold had to be cleared, the recital making a PILOT “a material requirement,” the parking lease and pay-to-park structure, the annexed easements and staging licenses, and Exhibits G–I fixing the construction management fee at 7% of construction cost. Read directly rather than through reporting. Exhibits A through I are attached; Exhibit J, the schedule of maintenance duties, is not.',
   },
   {
     title: 'Town of Riverhead — Pre-Possession and Lease Agreement with J. Petrocelli Riverhead Town Square LLC (2025)',

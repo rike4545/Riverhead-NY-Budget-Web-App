@@ -21,7 +21,7 @@
 //
 // The constitutional rights themselves are federal and apply in Riverhead
 // exactly as they do in the city. Every phone number below was read off the
-// publishing organisation's own website rather than a search result.
+// publishing organization's own website rather than a search result.
 
 export type RightsSection = {
   setting: string
@@ -125,7 +125,7 @@ export type HelpResource = {
   scope: string
 }
 
-// Every number here was read from the organisation's own website.
+// Every number here was read from the organization's own website.
 export const help: HelpResource[] = [
   {
     name: 'New Americans Hotline — New York State Office for New Americans',
@@ -284,7 +284,7 @@ export const regionalResponses: TownResponse[] = [
 // The model law behind most of this, and the county next door deciding what to do.
 export const regionalContext = {
   modelLaw:
-    'Most of the East End activity traces to one draft. OLA of Eastern Long Island — Organización Latino Americana — circulated a Public Safety and Accountability Local Law in February 2026, written by former State Assemblyman Fred Thiele, and invited every municipality with its own police department to adapt it. East Hampton Village went furthest, adding a rule blocking federal access to its licence-plate-reader data. Southold ended up with a resolution instead. Southampton has not adopted a version.',
+    'Most of the East End activity traces to one draft. OLA of Eastern Long Island — Organización Latino Americana — circulated a Public Safety and Accountability Local Law in February 2026, written by former State Assemblyman Fred Thiele, and invited every municipality with its own police department to adapt it. East Hampton Village went furthest, adding a rule blocking federal access to its license-plate-reader data. Southold ended up with a resolution instead. Southampton has not adopted a version.',
   nassau:
     'The same question is live west of here. Nassau County, which had signed an agreement deputising county police for federal immigration work, has been weighing its options against the new state law that bars exactly those arrangements.',
   nassauSource: {

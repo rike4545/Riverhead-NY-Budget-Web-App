@@ -168,5 +168,5 @@ export const limits = [
   'The hire side is reported in headcount, not dollars. The Fiscal Impact Statement names the account an appointment charges and never the salary, so pricing it would mean inventing a figure.',
   'Appointment month is the meeting that approved or ratified the appointment, which is close to but not the same as the start date. Several resolutions ratify an appointment already made.',
   'Repeated actions on one payroll line are a signal of turnover, not proof of it: a line can be named twice for two different seats in the same department.',
-  'Nothing here covers contractual step movement or an across-the-board raise. Those are separate 2027 pressures and are modelled elsewhere on this site.',
+  'Nothing here covers contractual step movement or an across-the-board raise. Those are separate 2027 pressures and are modeled elsewhere on this site.',
 ]

@@ -126,7 +126,7 @@ export default function BuyoutPage() {
                     {r.pool
                       ? `${r.pool.yearsService} years of service · incentive ${usd(r.pool.estIncentive)}`
                       : r.surname
-                        ? 'named, but not in the modelled pool'
+                        ? 'named, but not in the modeled pool'
                         : 'resolution names a title, not a person'}
                   </td>
                 </tr>

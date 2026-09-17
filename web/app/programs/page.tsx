@@ -53,7 +53,7 @@ export default function ProgramsPage() {
           { label: 'Net is what general revenue covers', text: 'property and sales taxes, mortgage tax, PILOTs and state aid. A program with a high cost and high recovery may ask less of you than a cheaper one that charges nobody.' },
         ]}
       >
-        A budget organised by <strong>fund</strong> answers an accountant&apos;s question. This page reorganises the
+        A budget organized by <strong>fund</strong> answers an accountant&apos;s question. This page reorganizes the
         same dollars by <strong>what the Town does with them</strong> — and the classification isn&apos;t ours. New
         York&apos;s Uniform System of Accounts already assigns every municipal dollar to a function, and Riverhead
         codes to it on both the spending and the revenue side. We regrouped; we didn&apos;t reclassify.

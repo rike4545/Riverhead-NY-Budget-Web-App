@@ -1,6 +1,6 @@
 // The question layer.
 //
-// WHY THIS EXISTS. Every other page on this site is organised around a dataset
+// WHY THIS EXISTS. Every other page on this site is organized around a dataset
 // or a tool — the General Fund, the AFR, subaccounts, the debt schedule. That is
 // how the data is shaped, and it is how someone who already knows municipal
 // finance would go looking. It is not how a resident arrives. A resident arrives
@@ -282,7 +282,7 @@ export const topics: AnswerTopic[] = [
       },
       {
         q: 'What is the Town Square project costing taxpayers?',
-        a: 'The land sale, the credits against it, what the Town pays the developer, the parking arrangement and the votes that authorised each piece — read from the master developer agreement itself, not from coverage of it.',
+        a: 'The land sale, the credits against it, what the Town pays the developer, the parking arrangement and the votes that authorized each piece — read from the master developer agreement itself, not from coverage of it.',
         href: `${base}/town-square/`,
         cta: 'The whole deal, in order',
       },

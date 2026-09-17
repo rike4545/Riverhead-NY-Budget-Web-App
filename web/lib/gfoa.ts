@@ -4,11 +4,11 @@
 // What changed in 2026: mandatory criteria were eliminated in favour of a
 // points scale. Nine Content categories carry 150 points between them and five
 // Material Type categories carry 50, for 200 possible; more than 100 earns the
-// award, and GFOA additionally recognises outstanding presentation within a
+// award, and GFOA additionally recognizes outstanding presentation within a
 // category. An applicant may submit materials against any subset of categories
 // — there is no requirement to cover them all. Content criteria are framed as
 // questions a member of the public would ask about the budget; Material Type
-// criteria are about the tools used to communicate it, their organisation and
+// criteria are about the tools used to communicate it, their organization and
 // layout, and whether they meet generally accepted accessibility standards.
 //
 // TWO HONEST LIMITS ON WHAT FOLLOWS.
@@ -16,7 +16,7 @@
 // First, eligibility. The award is granted to governments that submit their own
 // budget communications. This site is the work of a resident, not the Town, so
 // it cannot apply and these scores are not GFOA scores. The criteria are used
-// here as the recognised yardstick for whether budget information has been
+// here as the recognized yardstick for whether budget information has been
 // presented well, and the numbers below are a self-assessment — our own reading
 // of our own work, which is exactly the reading most likely to be generous.
 //
@@ -164,7 +164,7 @@ export const gfoaCategories: GfoaCategory[] = [
     kind: 'material', name: 'Budget Website or Dashboard', points: 10,
     question: 'Is the budget site easy to reach, interactive with drill-down, accessible on mobile and to disabled users, and updated more than once a year?',
     howWeAddress:
-      'This is the whole site: grouped navigation, on-page anchors, a search index across line items and documents, and charts that carry text labels and tooltips rather than relying on colour. Audited for heading order, landmarks, labelled controls and contrast.',
+      'This is the whole site: grouped navigation, on-page anchors, a search index across line items and documents, and charts that carry text labels and tooltips rather than relying on colour. Audited for heading order, landmarks, labeled controls and contrast.',
     status: 'strong', selfScore: 9,
     link: `${base}/`, linkLabel: 'Dashboard',
   },

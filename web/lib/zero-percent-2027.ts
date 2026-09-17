@@ -200,7 +200,7 @@ export const policeOffset = {
     )
   },
   caveat:
-    'These are not strictly additive. Some of the retiring officers were at top step and so were not going to move anyway, which is already reflected in both figures being computed from the same authorised-salary listings. The point is the order of magnitude, not a net line in a budget.',
+    'These are not strictly additive. Some of the retiring officers were at top step and so were not going to move anyway, which is already reflected in both figures being computed from the same authorized-salary listings. The point is the order of magnitude, not a net line in a budget.',
 }
 
 export const verdict = {

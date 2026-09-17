@@ -341,7 +341,7 @@ export default function TownSquarePage() {
 
         <div style={{ background: 'var(--rbl-surface-2)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 12, padding: '14px 16px', marginTop: 18 }}>
           <h3 style={{ margin: '0 0 6px', color: 'var(--rbl-title)', fontSize: 16 }}>{opposition.headline}</h3>
-          <Collapse summary={`Show who is organising against the subsidy, and what they argue`}>
+          <Collapse summary={`Show who is organizing against the subsidy, and what they argue`}>
           <p style={{ color: 'var(--rbl-text-body)', fontSize: 13.4, lineHeight: 1.6, margin: '0 0 10px' }}>{opposition.whoRunsIt}</p>
           <div style={{ display: 'grid', gap: 8, marginBottom: 10 }}>
             {opposition.petitions.map((q) => (
@@ -394,11 +394,11 @@ export default function TownSquarePage() {
                 <strong style={{ color: 'var(--rbl-title)', fontSize: 15 }}>{d.label}</strong>
                 <span style={{
                   fontSize: 10.5, fontWeight: 900, letterSpacing: 0.4, textTransform: 'uppercase', padding: '2px 7px', borderRadius: 5,
-                  background: d.certainty === 'authorised' ? 'var(--rbl-success-bg)' : 'var(--rbl-warn-bg)',
-                  color: d.certainty === 'authorised' ? 'var(--rbl-success-strong)' : 'var(--rbl-warn-strong)',
-                  border: `1px solid ${d.certainty === 'authorised' ? 'var(--rbl-success-border)' : 'var(--rbl-warn-border)'}`,
+                  background: d.certainty === 'authorized' ? 'var(--rbl-success-bg)' : 'var(--rbl-warn-bg)',
+                  color: d.certainty === 'authorized' ? 'var(--rbl-success-strong)' : 'var(--rbl-warn-strong)',
+                  border: `1px solid ${d.certainty === 'authorized' ? 'var(--rbl-success-border)' : 'var(--rbl-warn-border)'}`,
                 }}>
-                  {d.certainty === 'authorised' ? 'Authorised amount' : 'Ceiling, not a known amount'}
+                  {d.certainty === 'authorized' ? 'Authorized amount' : 'Ceiling, not a known amount'}
                 </span>
                 <span style={{ marginLeft: 'auto', color: 'var(--rbl-title)', fontSize: 20, fontWeight: 900 }}>{usd(d.amount)}</span>
               </div>

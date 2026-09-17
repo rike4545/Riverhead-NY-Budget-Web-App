@@ -260,7 +260,7 @@ def rate_for(line):
     the object in segment 4: 9710-600 is serial-bond principal, 9710-700 is its
     interest. 9730 (bond anticipation notes) is deliberately left on the category
     rate — both of Riverhead's BANs matured during 2026 and what replaces them is
-    a Board decision, not a schedule. That uncertainty is reported, not modelled.
+    a Board decision, not a schedule. That uncertainty is reported, not modeled.
     """
     parts = line["account"].split("-")
     if len(parts) > 3 and parts[2] == "9710":
@@ -452,7 +452,7 @@ def build():
         },
         "watchList": [
             {"item": "The $19.25M Town Hall BAN has to become bonds by February 2028",
-             "effect": "adds cost, not yet modelled",
+             "effect": "adds cost, not yet modeled",
              "detail": "State law gives a capital bond anticipation note five years from its original "
                        "issue date to convert to long-term debt. This one was issued February 21, 2023. "
                        "Converting it would add a new annual debt-service line — on a 15-to-20-year "
