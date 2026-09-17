@@ -40,6 +40,30 @@ const meetings: Meeting[] = (fiscalIndex.meetings as string[]).map(
 export const RATIFIED = '2026-07-07'
 /** Latest effective retirement date the incentive allows. */
 export const LAST_EFFECTIVE = '2026-10-01'
+/**
+ * Last meeting date at which an acceptance can still be an incentive retirement.
+ *
+ * The window needs an upper bound and did not have one. Every figure here was
+ * derived from `meetingDate >= RATIFIED` with nothing on the other side, which
+ * is correct only while the corpus stops before the program does. It does not
+ * stop: sync-meetings runs twice daily and commits new meetings on its own, so
+ * once meetings past October 1 arrive, every ordinary retirement the Board
+ * accepts would have been counted as a possible incentive taker, inflating
+ * uptake, incentive cost and annual savings indefinitely with nobody in the
+ * loop to notice.
+ *
+ * The right test is the retiree's EFFECTIVE date, and the record does not carry
+ * it — "Accepts the Retirement of a Police Officer Brogan" is the whole title.
+ * So this bounds on the acceptance date instead, and allows for the Board
+ * accepting a retirement after it takes effect: the Town's official calendar
+ * puts the two regular meetings after October 1 on October 6 and October 20,
+ * and a retirement effective by October 1 should have been accepted by the
+ * second of them. Anything later is reported as outside the window rather than
+ * priced, which is the conservative direction — it can undercount a very late
+ * ratification, where the alternative overcounts every ordinary retirement
+ * forever.
+ */
+export const WINDOW_CLOSES = '2026-10-20'
 
 type PoolMember = {
   name: string
@@ -132,8 +156,16 @@ const all: ActualRetirement[] = meetings
 
 /** Retirements accepted before the Board ratified the program — not takers. */
 export const beforeProgram = all.filter((r) => r.meetingDate < RATIFIED)
-/** Retirements accepted on or after ratification — the participation ceiling. */
-export const inWindow = all.filter((r) => r.meetingDate >= RATIFIED)
+/** Retirements accepted inside the incentive window — the participation ceiling. */
+export const inWindow = all.filter(
+  (r) => r.meetingDate >= RATIFIED && r.meetingDate <= WINDOW_CLOSES,
+)
+/**
+ * Accepted after the window closed. Reported, never priced: on the record this
+ * site can see, an ordinary retirement and a late incentive ratification look
+ * identical, so neither is claimed.
+ */
+export const afterWindow = all.filter((r) => r.meetingDate > WINDOW_CLOSES)
 
 /**
  * Confirmed by a published vote record — the only set the headline figures use.
@@ -183,6 +215,8 @@ export const uptake = {
   rejected: rejected.length,
   /** What the count would be if every item still awaiting a record is confirmed. */
   ifPendingConfirmed: confirmed.length + pending.length,
+  /** Accepted after the window closed — outside the program, never priced. */
+  acceptedAfterWindow: afterWindow.length,
   ifPendingConfirmedSworn: sworn.length + swornPending.length,
 }
 

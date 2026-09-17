@@ -85,6 +85,15 @@ export default function BuyoutPage() {
           <Stat label="Annual payroll saving" value={usd(savingEstimate.annualFromSworn)} sub={`${savingEstimate.swornCount} sworn × ${usd(savingEstimate.perSwornRetirement)} chain-corrected`} />
           <Stat label="First full year of it" value={String(savingEstimate.firstFullYear)} sub="effective dates run July–October 2026" />
         </div>
+        {uptake.acceptedAfterWindow > 0 && (
+          <p style={{ color: 'var(--rbl-text-body)', fontSize: 13.4, lineHeight: 1.55, margin: '0 0 12px' }}>
+            The Board has accepted <strong>{uptake.acceptedAfterWindow}</strong> further retirement
+            {uptake.acceptedAfterWindow === 1 ? '' : 's'} since the incentive window closed. They are not counted above
+            and not priced: the incentive required an effective date no later than October 1, 2026, and the resolutions
+            name a title rather than an effective date, so on the published record an ordinary retirement and a late
+            ratification of an incentive one look identical. Neither is claimed.
+          </p>
+        )}
         <div style={{ background: 'var(--rbl-success-bg)', border: '1px solid var(--rbl-success-border)', borderRadius: 10, padding: '11px 14px', marginBottom: 12 }}>
           <strong style={{ color: 'var(--rbl-success-strong)', fontSize: 14 }}>This lands inside the Town&apos;s own estimate</strong>
           <p style={{ color: 'var(--rbl-text-strong)', fontSize: 13.6, lineHeight: 1.55, margin: '4px 0 0' }}>
