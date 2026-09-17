@@ -74,6 +74,8 @@ export type ResolutionFunding = {
   amount: number | null
   accounts?: StatementAccount[]
   fundBalanceAccounts?: string[]
+  /** The fund each 9999 account belongs to — the fund actually being drawn down. */
+  fundBalanceFunds?: string[]
   fundBalanceDraw?: number | null
   drawsFundBalance?: boolean
   /** Grant terms, read from the statement. null means the statement did not say. */

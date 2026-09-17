@@ -9,6 +9,7 @@ import {
 import {
   drawCounts, recurringCostCounts, generalFundCommitments2026, committedTotal, openingSurplusAbovePolicy,
   remainingHeadroomCeiling, reductionPct, effectOnOptions, limits as commitmentLimits, corpus,
+  headroomLedger, supersessions, documentedChangedTotalBy, committedDocumented, committedAtCeiling,
 } from '../../lib/fiscal-commitments-2027'
 import {
   whatTheFormOmits, appointmentTiming, retirementAnnualisation, linesWithRepeatedActions,
@@ -262,6 +263,80 @@ export default function Predict2027Page() {
               ))}
             </tbody>
           </table>
+        </div>
+
+        {/* The running ledger — what each vote left behind */}
+        <div style={{ background: 'var(--rbl-surface-2)', border: '1px solid var(--rbl-border-strong)', borderRadius: 10, padding: '12px 14px', marginBottom: 12 }}>
+          <strong style={{ color: 'var(--rbl-title)', fontSize: 14 }}>
+            What each vote left behind
+          </strong>
+          <p style={{ color: 'var(--rbl-text-body)', fontSize: 13.5, lineHeight: 1.6, margin: '4px 0 10px' }}>
+            A pair of totals says the surplus fell. This says which votes spent it. Every row is a General Fund draw,
+            largest first, against the audited opening position — and <strong>{usd(committedDocumented)}</strong> of it is
+            now the Town&apos;s own figure, booked against its A01-9999 Appropriated Fund Balance account rather than read
+            from prose or bounded by this site.
+          </p>
+          <div style={{ overflowX: 'auto' }}>
+            <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 13 }}>
+              <thead>
+                <tr style={{ textAlign: 'left', color: 'var(--rbl-text-muted)', borderBottom: '2px solid var(--rbl-border-subtle)' }}>
+                  <th style={th}>Draw</th>
+                  <th style={{ ...th, textAlign: 'center' }}>Basis</th>
+                  <th style={{ ...th, textAlign: 'right' }}>Amount</th>
+                  <th style={{ ...th, textAlign: 'right' }}>Left above policy</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr style={{ borderBottom: '1px solid var(--rbl-border-subtle)' }}>
+                  <td style={{ ...td, fontWeight: 800, color: 'var(--rbl-title)' }} colSpan={3}>
+                    Audited position at December 31, 2025
+                  </td>
+                  <td style={{ ...td, textAlign: 'right', fontWeight: 900, color: 'var(--rbl-title)' }}>{usd(headroomLedger.opening)}</td>
+                </tr>
+                {headroomLedger.rows.map((r) => (
+                  <tr key={r.label} style={{ borderBottom: '1px solid var(--rbl-border-subtle)', verticalAlign: 'top' }}>
+                    <td style={td}>
+                      <div style={{ color: 'var(--rbl-text-strong)' }}>{r.label}</div>
+                      <div style={{ fontSize: 11, color: 'var(--rbl-text-faint)' }}>{r.source}</div>
+                    </td>
+                    <td style={{ ...td, textAlign: 'center', whiteSpace: 'nowrap' }}>
+                      <span style={{
+                        ...chip,
+                        fontSize: 10.5,
+                        background: r.certainty === 'documented' ? 'var(--rbl-success-bg)' : r.certainty === 'ceiling' ? 'var(--rbl-warn-bg)' : 'var(--rbl-surface-3)',
+                        color: r.certainty === 'documented' ? 'var(--rbl-success-strong)' : r.certainty === 'ceiling' ? 'var(--rbl-warn-strong)' : 'var(--rbl-text-body)',
+                      }}>{r.certainty}</span>
+                    </td>
+                    <td style={{ ...td, textAlign: 'right', fontWeight: 700 }}>− {usd(r.amount)}</td>
+                    <td style={{ ...td, textAlign: 'right' }}>{usd(r.remainingAfter)}</td>
+                  </tr>
+                ))}
+                <tr>
+                  <td style={{ ...td, fontWeight: 800, color: 'var(--rbl-title)' }} colSpan={3}>
+                    Ceiling on what remains
+                  </td>
+                  <td style={{ ...td, textAlign: 'right', fontWeight: 900, color: 'var(--rbl-warn)' }}>{usd(headroomLedger.closing)}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          {supersessions.map((sup) => (
+            <p key={sup.label} style={{ color: 'var(--rbl-text-body)', fontSize: 13.2, lineHeight: 1.6, margin: '10px 0 0' }}>
+              <strong>Reading the account codes changed this figure.</strong> “{sup.label}” was carried here at{' '}
+              <strong>{usd(sup.was)}</strong> — a ceiling, because the resolution that authorised it stated no amount, so
+              the most it could have been was the whole balance outstanding. The Town later booked{' '}
+              <strong>{usd(sup.by)}</strong> against its own Appropriated Fund Balance account for that paydown. The
+              ceiling overstated the draw by <strong>{usd(Math.abs(sup.by - sup.was))}</strong>, and the documented figure
+              replaces it.
+            </p>
+          ))}
+          <p style={{ color: 'var(--rbl-text-muted)', fontSize: 12.5, lineHeight: 1.55, margin: '8px 0 0' }}>
+            Net of that correction and of the draws the account codes surfaced for the first time, the committed total
+            moved by {documentedChangedTotalBy < 0 ? '−' : '+'}{usd(Math.abs(documentedChangedTotalBy))} on the
+            supersession alone. {committedAtCeiling === 0
+              ? 'No row in this table is now a ceiling: every dollar is either the Town’s own booked figure or an amount a resolution stated.'
+              : `${usd(committedAtCeiling)} of the total is still carried at a ceiling.`}
+          </p>
         </div>
 
         <div style={{ background: 'var(--rbl-warn-bg)', border: '1px solid var(--rbl-warn-border)', borderRadius: 10, padding: '12px 14px', marginBottom: 12 }}>
