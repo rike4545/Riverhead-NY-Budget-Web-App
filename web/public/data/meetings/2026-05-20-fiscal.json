@@ -10,13 +10,13 @@
   "total": 57,
   "markedNo": 38,
   "markedYes": 19,
-  "understated": 30,
+  "understated": 24,
   "understatedMarkedNo": 16,
   "identifiedDollarsAtStake": 1416142.0,
   "pricedResolutions": 4,
   "largestUnderstatedMarkedNo": null,
   "withAccounts": 12,
-  "accountEvidence": 4,
+  "accountEvidence": 10,
   "fundBalanceDraws": 3,
   "fundBalanceDrawTotal": 952400.0
  },
@@ -57,6 +57,7 @@
       "fund": "SM1",
       "name": "Appropriated Fund Balance",
       "amount": 80000.0,
+      "fundBalanceClass": null,
       "createdHere": false
      },
      {
@@ -72,7 +73,13 @@
     "fundBalanceAccounts": [
      "SM1-9999-000-00000-0"
     ],
+    "fundBalanceFunds": [
+     "Ambulance District"
+    ],
     "fundBalanceDraw": 80000.0,
+    "fundBalanceClasses": [
+     null
+    ],
     "drawsFundBalance": true,
     "matchRequired": null,
     "matchPercent": null,
@@ -110,7 +117,9 @@
     "amount": null,
     "accounts": [],
     "fundBalanceAccounts": [],
+    "fundBalanceFunds": [],
     "fundBalanceDraw": null,
+    "fundBalanceClasses": [],
     "drawsFundBalance": false,
     "matchRequired": null,
     "matchPercent": null,
@@ -148,7 +157,9 @@
     "amount": null,
     "accounts": [],
     "fundBalanceAccounts": [],
+    "fundBalanceFunds": [],
     "fundBalanceDraw": null,
+    "fundBalanceClasses": [],
     "drawsFundBalance": false,
     "matchRequired": null,
     "matchPercent": null,
@@ -192,7 +203,9 @@
      "ES7"
     ],
     "funds": [
-     "Sewer \u2014 developer fees"
+     "Sewer \u2014 developer fees",
+     "Sewer District (ES6)",
+     "Sewer District (ES7)"
     ],
     "amount": 1230420.0,
     "accounts": [
@@ -239,6 +252,7 @@
       "fund": "ES7",
       "name": "Appropriated Fund Balance",
       "amount": 800000.0,
+      "fundBalanceClass": null,
       "createdHere": false
      },
      {
@@ -312,12 +326,36 @@
       "name": "Transfer to Other Funds \u2013 ES6",
       "amount": 400000.0,
       "createdHere": false
+     },
+     {
+      "code": "ES2-5710-000-82210-8",
+      "role": "transfer",
+      "kind": "revenue",
+      "fund": "ES2",
+      "name": "Bond Proceeds",
+      "amount": 400000.0,
+      "createdHere": false
+     },
+     {
+      "code": "ES6-5710-000-82210-8",
+      "role": "transfer",
+      "kind": "revenue",
+      "fund": "ES6",
+      "name": "Bond Proceeds",
+      "amount": 400000.0,
+      "createdHere": false
      }
     ],
     "fundBalanceAccounts": [
      "ES7-9999-000-00000-0"
     ],
+    "fundBalanceFunds": [
+     "Sewer District (ES7)"
+    ],
     "fundBalanceDraw": 800000.0,
+    "fundBalanceClasses": [
+     null
+    ],
     "drawsFundBalance": true,
     "matchRequired": null,
     "matchPercent": null,
@@ -327,7 +365,7 @@
    },
    "realistic": {
     "verdict": "Draws fund balance \u2014 stated on the Town's own form",
-    "reason": "Section G charges $800,000 to Appropriated Fund Balance in the Sewer \u2014 developer fees. This is not an inference from the title: it is the account the Town wrote down, and every dollar of it is surplus that is no longer available for anything else.",
+    "reason": "Section G charges $800,000 to Appropriated Fund Balance in the Sewer District (ES7). This is not an inference from the title: it is the account the Town wrote down, and every dollar of it is surplus that is no longer available for anything else.",
     "flag": "reserve-draw",
     "evidence": "account-code"
    },
@@ -378,7 +416,9 @@
      }
     ],
     "fundBalanceAccounts": [],
+    "fundBalanceFunds": [],
     "fundBalanceDraw": null,
+    "fundBalanceClasses": [],
     "drawsFundBalance": false,
     "matchRequired": null,
     "matchPercent": null,
@@ -418,7 +458,9 @@
     "amount": null,
     "accounts": [],
     "fundBalanceAccounts": [],
+    "fundBalanceFunds": [],
     "fundBalanceDraw": null,
+    "fundBalanceClasses": [],
     "drawsFundBalance": false,
     "matchRequired": null,
     "matchPercent": null,
@@ -456,7 +498,9 @@
     "amount": null,
     "accounts": [],
     "fundBalanceAccounts": [],
+    "fundBalanceFunds": [],
     "fundBalanceDraw": null,
+    "fundBalanceClasses": [],
     "drawsFundBalance": false,
     "matchRequired": null,
     "matchPercent": null,
@@ -493,7 +537,7 @@
      "DA1"
     ],
     "funds": [
-     "Highway"
+     "Highway Fund"
     ],
     "amount": null,
     "accounts": [
@@ -508,7 +552,9 @@
      }
     ],
     "fundBalanceAccounts": [],
+    "fundBalanceFunds": [],
     "fundBalanceDraw": null,
+    "fundBalanceClasses": [],
     "drawsFundBalance": false,
     "matchRequired": null,
     "matchPercent": null,
@@ -548,7 +594,9 @@
     "amount": null,
     "accounts": [],
     "fundBalanceAccounts": [],
+    "fundBalanceFunds": [],
     "fundBalanceDraw": null,
+    "fundBalanceClasses": [],
     "drawsFundBalance": false,
     "matchRequired": null,
     "matchPercent": null,
@@ -586,7 +634,9 @@
     "amount": null,
     "accounts": [],
     "fundBalanceAccounts": [],
+    "fundBalanceFunds": [],
     "fundBalanceDraw": null,
+    "fundBalanceClasses": [],
     "drawsFundBalance": false,
     "matchRequired": null,
     "matchPercent": null,
@@ -624,7 +674,9 @@
     "amount": null,
     "accounts": [],
     "fundBalanceAccounts": [],
+    "fundBalanceFunds": [],
     "fundBalanceDraw": null,
+    "fundBalanceClasses": [],
     "drawsFundBalance": false,
     "matchRequired": null,
     "matchPercent": null,
@@ -676,7 +728,9 @@
      }
     ],
     "fundBalanceAccounts": [],
+    "fundBalanceFunds": [],
     "fundBalanceDraw": null,
+    "fundBalanceClasses": [],
     "drawsFundBalance": false,
     "matchRequired": null,
     "matchPercent": null,
@@ -685,10 +739,10 @@
     "createsAccounts": []
    },
    "realistic": {
-    "verdict": "Real, recurring cost",
-    "reason": "A salary, raise, contract, or fee change that commits ongoing money.",
-    "flag": "reserve-draw",
-    "evidence": "category"
+    "verdict": "Real, recurring cost \u2014 funded by the levy",
+    "reason": "Section G charges this to an appropriation account (Pump Boat Operator) and names no fund-balance account. It is ongoing operating money the tax levy carries, not a draw on accumulated surplus \u2014 a distinction the form itself does not draw.",
+    "flag": "recurring",
+    "evidence": "account-code"
    },
    "vote": {
     "adopted": true,
@@ -714,7 +768,9 @@
     "amount": null,
     "accounts": [],
     "fundBalanceAccounts": [],
+    "fundBalanceFunds": [],
     "fundBalanceDraw": null,
+    "fundBalanceClasses": [],
     "drawsFundBalance": false,
     "matchRequired": null,
     "matchPercent": null,
@@ -766,7 +822,9 @@
      }
     ],
     "fundBalanceAccounts": [],
+    "fundBalanceFunds": [],
     "fundBalanceDraw": null,
+    "fundBalanceClasses": [],
     "drawsFundBalance": false,
     "matchRequired": null,
     "matchPercent": null,
@@ -775,10 +833,10 @@
     "createsAccounts": []
    },
    "realistic": {
-    "verdict": "Real, recurring cost",
-    "reason": "A salary, raise, contract, or fee change that commits ongoing money.",
-    "flag": "reserve-draw",
-    "evidence": "category"
+    "verdict": "Real, recurring cost \u2014 funded by the levy",
+    "reason": "Section G charges this to an appropriation account (Water - F/T) and names no fund-balance account. It is ongoing operating money the tax levy carries, not a draw on accumulated surplus \u2014 a distinction the form itself does not draw.",
+    "flag": "recurring",
+    "evidence": "account-code"
    },
    "vote": {
     "adopted": true,
@@ -818,7 +876,9 @@
      }
     ],
     "fundBalanceAccounts": [],
+    "fundBalanceFunds": [],
     "fundBalanceDraw": null,
+    "fundBalanceClasses": [],
     "drawsFundBalance": false,
     "matchRequired": null,
     "matchPercent": null,
@@ -827,10 +887,10 @@
     "createsAccounts": []
    },
    "realistic": {
-    "verdict": "Real, recurring cost",
-    "reason": "A salary, raise, contract, or fee change that commits ongoing money.",
-    "flag": "reserve-draw",
-    "evidence": "category"
+    "verdict": "Real, recurring cost \u2014 funded by the levy",
+    "reason": "Section G charges this to an appropriation account (Police Dept - Non Union) and names no fund-balance account. It is ongoing operating money the tax levy carries, not a draw on accumulated surplus \u2014 a distinction the form itself does not draw.",
+    "flag": "recurring",
+    "evidence": "account-code"
    },
    "vote": {
     "adopted": true,
@@ -870,7 +930,9 @@
      }
     ],
     "fundBalanceAccounts": [],
+    "fundBalanceFunds": [],
     "fundBalanceDraw": null,
+    "fundBalanceClasses": [],
     "drawsFundBalance": false,
     "matchRequired": null,
     "matchPercent": null,
@@ -879,10 +941,10 @@
     "createsAccounts": []
    },
    "realistic": {
-    "verdict": "Real, recurring cost",
-    "reason": "A salary, raise, contract, or fee change that commits ongoing money.",
-    "flag": "reserve-draw",
-    "evidence": "category"
+    "verdict": "Real, recurring cost \u2014 funded by the levy",
+    "reason": "Section G charges this to an appropriation account (Water - F/T) and names no fund-balance account. It is ongoing operating money the tax levy carries, not a draw on accumulated surplus \u2014 a distinction the form itself does not draw.",
+    "flag": "recurring",
+    "evidence": "account-code"
    },
    "vote": {
     "adopted": true,
@@ -908,7 +970,9 @@
     "amount": null,
     "accounts": [],
     "fundBalanceAccounts": [],
+    "fundBalanceFunds": [],
     "fundBalanceDraw": null,
+    "fundBalanceClasses": [],
     "drawsFundBalance": false,
     "matchRequired": null,
     "matchPercent": null,
@@ -960,7 +1024,9 @@
      }
     ],
     "fundBalanceAccounts": [],
+    "fundBalanceFunds": [],
     "fundBalanceDraw": null,
+    "fundBalanceClasses": [],
     "drawsFundBalance": false,
     "matchRequired": null,
     "matchPercent": null,
@@ -969,10 +1035,10 @@
     "createsAccounts": []
    },
    "realistic": {
-    "verdict": "Real, recurring cost",
-    "reason": "A salary, raise, contract, or fee change that commits ongoing money.",
-    "flag": "reserve-draw",
-    "evidence": "category"
+    "verdict": "Real, recurring cost \u2014 funded by the levy",
+    "reason": "Section G charges this to an appropriation account (Juvenile Aid Bureau - F/T) and names no fund-balance account. It is ongoing operating money the tax levy carries, not a draw on accumulated surplus \u2014 a distinction the form itself does not draw.",
+    "flag": "recurring",
+    "evidence": "account-code"
    },
    "vote": {
     "adopted": true,
@@ -998,7 +1064,9 @@
     "amount": null,
     "accounts": [],
     "fundBalanceAccounts": [],
+    "fundBalanceFunds": [],
     "fundBalanceDraw": null,
+    "fundBalanceClasses": [],
     "drawsFundBalance": false,
     "matchRequired": null,
     "matchPercent": null,
@@ -1036,7 +1104,9 @@
     "amount": null,
     "accounts": [],
     "fundBalanceAccounts": [],
+    "fundBalanceFunds": [],
     "fundBalanceDraw": null,
+    "fundBalanceClasses": [],
     "drawsFundBalance": false,
     "matchRequired": null,
     "matchPercent": null,
@@ -1074,7 +1144,9 @@
     "amount": null,
     "accounts": [],
     "fundBalanceAccounts": [],
+    "fundBalanceFunds": [],
     "fundBalanceDraw": null,
+    "fundBalanceClasses": [],
     "drawsFundBalance": false,
     "matchRequired": null,
     "matchPercent": null,
@@ -1112,7 +1184,9 @@
     "amount": null,
     "accounts": [],
     "fundBalanceAccounts": [],
+    "fundBalanceFunds": [],
     "fundBalanceDraw": null,
+    "fundBalanceClasses": [],
     "drawsFundBalance": false,
     "matchRequired": null,
     "matchPercent": null,
@@ -1150,7 +1224,9 @@
     "amount": null,
     "accounts": [],
     "fundBalanceAccounts": [],
+    "fundBalanceFunds": [],
     "fundBalanceDraw": null,
+    "fundBalanceClasses": [],
     "drawsFundBalance": false,
     "matchRequired": null,
     "matchPercent": null,
@@ -1188,7 +1264,9 @@
     "amount": null,
     "accounts": [],
     "fundBalanceAccounts": [],
+    "fundBalanceFunds": [],
     "fundBalanceDraw": null,
+    "fundBalanceClasses": [],
     "drawsFundBalance": false,
     "matchRequired": null,
     "matchPercent": null,
@@ -1226,7 +1304,9 @@
     "amount": null,
     "accounts": [],
     "fundBalanceAccounts": [],
+    "fundBalanceFunds": [],
     "fundBalanceDraw": null,
+    "fundBalanceClasses": [],
     "drawsFundBalance": false,
     "matchRequired": null,
     "matchPercent": null,
@@ -1264,7 +1344,9 @@
     "amount": null,
     "accounts": [],
     "fundBalanceAccounts": [],
+    "fundBalanceFunds": [],
     "fundBalanceDraw": null,
+    "fundBalanceClasses": [],
     "drawsFundBalance": false,
     "matchRequired": null,
     "matchPercent": null,
@@ -1302,7 +1384,9 @@
     "amount": null,
     "accounts": [],
     "fundBalanceAccounts": [],
+    "fundBalanceFunds": [],
     "fundBalanceDraw": null,
+    "fundBalanceClasses": [],
     "drawsFundBalance": false,
     "matchRequired": null,
     "matchPercent": null,
@@ -1340,7 +1424,9 @@
     "amount": null,
     "accounts": [],
     "fundBalanceAccounts": [],
+    "fundBalanceFunds": [],
     "fundBalanceDraw": null,
+    "fundBalanceClasses": [],
     "drawsFundBalance": false,
     "matchRequired": null,
     "matchPercent": null,
@@ -1378,7 +1464,9 @@
     "amount": null,
     "accounts": [],
     "fundBalanceAccounts": [],
+    "fundBalanceFunds": [],
     "fundBalanceDraw": null,
+    "fundBalanceClasses": [],
     "drawsFundBalance": false,
     "matchRequired": null,
     "matchPercent": null,
@@ -1430,7 +1518,9 @@
      }
     ],
     "fundBalanceAccounts": [],
+    "fundBalanceFunds": [],
     "fundBalanceDraw": null,
+    "fundBalanceClasses": [],
     "drawsFundBalance": false,
     "matchRequired": null,
     "matchPercent": null,
@@ -1468,7 +1558,9 @@
     "amount": null,
     "accounts": [],
     "fundBalanceAccounts": [],
+    "fundBalanceFunds": [],
     "fundBalanceDraw": null,
+    "fundBalanceClasses": [],
     "drawsFundBalance": false,
     "matchRequired": null,
     "matchPercent": null,
@@ -1506,7 +1598,9 @@
     "amount": null,
     "accounts": [],
     "fundBalanceAccounts": [],
+    "fundBalanceFunds": [],
     "fundBalanceDraw": null,
+    "fundBalanceClasses": [],
     "drawsFundBalance": false,
     "matchRequired": null,
     "matchPercent": null,
@@ -1544,7 +1638,9 @@
     "amount": null,
     "accounts": [],
     "fundBalanceAccounts": [],
+    "fundBalanceFunds": [],
     "fundBalanceDraw": null,
+    "fundBalanceClasses": [],
     "drawsFundBalance": false,
     "matchRequired": null,
     "matchPercent": null,
@@ -1582,7 +1678,9 @@
     "amount": null,
     "accounts": [],
     "fundBalanceAccounts": [],
+    "fundBalanceFunds": [],
     "fundBalanceDraw": null,
+    "fundBalanceClasses": [],
     "drawsFundBalance": false,
     "matchRequired": null,
     "matchPercent": null,
@@ -1622,7 +1720,9 @@
     "amount": null,
     "accounts": [],
     "fundBalanceAccounts": [],
+    "fundBalanceFunds": [],
     "fundBalanceDraw": null,
+    "fundBalanceClasses": [],
     "drawsFundBalance": false,
     "matchRequired": null,
     "matchPercent": null,
@@ -1660,7 +1760,9 @@
     "amount": null,
     "accounts": [],
     "fundBalanceAccounts": [],
+    "fundBalanceFunds": [],
     "fundBalanceDraw": null,
+    "fundBalanceClasses": [],
     "drawsFundBalance": false,
     "matchRequired": null,
     "matchPercent": null,
@@ -1698,7 +1800,9 @@
     "amount": null,
     "accounts": [],
     "fundBalanceAccounts": [],
+    "fundBalanceFunds": [],
     "fundBalanceDraw": null,
+    "fundBalanceClasses": [],
     "drawsFundBalance": false,
     "matchRequired": null,
     "matchPercent": null,
@@ -1736,7 +1840,9 @@
     "amount": null,
     "accounts": [],
     "fundBalanceAccounts": [],
+    "fundBalanceFunds": [],
     "fundBalanceDraw": null,
+    "fundBalanceClasses": [],
     "drawsFundBalance": false,
     "matchRequired": null,
     "matchPercent": null,
@@ -1774,7 +1880,9 @@
     "amount": null,
     "accounts": [],
     "fundBalanceAccounts": [],
+    "fundBalanceFunds": [],
     "fundBalanceDraw": null,
+    "fundBalanceClasses": [],
     "drawsFundBalance": false,
     "matchRequired": null,
     "matchPercent": null,
@@ -1812,7 +1920,9 @@
     "amount": null,
     "accounts": [],
     "fundBalanceAccounts": [],
+    "fundBalanceFunds": [],
     "fundBalanceDraw": null,
+    "fundBalanceClasses": [],
     "drawsFundBalance": false,
     "matchRequired": null,
     "matchPercent": null,
@@ -1850,7 +1960,9 @@
     "amount": null,
     "accounts": [],
     "fundBalanceAccounts": [],
+    "fundBalanceFunds": [],
     "fundBalanceDraw": null,
+    "fundBalanceClasses": [],
     "drawsFundBalance": false,
     "matchRequired": null,
     "matchPercent": null,
@@ -1888,7 +2000,9 @@
     "amount": null,
     "accounts": [],
     "fundBalanceAccounts": [],
+    "fundBalanceFunds": [],
     "fundBalanceDraw": null,
+    "fundBalanceClasses": [],
     "drawsFundBalance": false,
     "matchRequired": null,
     "matchPercent": null,
@@ -1926,7 +2040,9 @@
     "amount": null,
     "accounts": [],
     "fundBalanceAccounts": [],
+    "fundBalanceFunds": [],
     "fundBalanceDraw": null,
+    "fundBalanceClasses": [],
     "drawsFundBalance": false,
     "matchRequired": null,
     "matchPercent": null,
@@ -1964,7 +2080,9 @@
     "amount": null,
     "accounts": [],
     "fundBalanceAccounts": [],
+    "fundBalanceFunds": [],
     "fundBalanceDraw": null,
+    "fundBalanceClasses": [],
     "drawsFundBalance": false,
     "matchRequired": null,
     "matchPercent": null,
@@ -2002,7 +2120,9 @@
     "amount": null,
     "accounts": [],
     "fundBalanceAccounts": [],
+    "fundBalanceFunds": [],
     "fundBalanceDraw": null,
+    "fundBalanceClasses": [],
     "drawsFundBalance": false,
     "matchRequired": null,
     "matchPercent": null,
@@ -2040,7 +2160,9 @@
     "amount": null,
     "accounts": [],
     "fundBalanceAccounts": [],
+    "fundBalanceFunds": [],
     "fundBalanceDraw": null,
+    "fundBalanceClasses": [],
     "drawsFundBalance": false,
     "matchRequired": null,
     "matchPercent": null,
@@ -2078,7 +2200,9 @@
     "amount": null,
     "accounts": [],
     "fundBalanceAccounts": [],
+    "fundBalanceFunds": [],
     "fundBalanceDraw": null,
+    "fundBalanceClasses": [],
     "drawsFundBalance": false,
     "matchRequired": null,
     "matchPercent": null,
@@ -2116,7 +2240,9 @@
     "amount": null,
     "accounts": [],
     "fundBalanceAccounts": [],
+    "fundBalanceFunds": [],
     "fundBalanceDraw": null,
+    "fundBalanceClasses": [],
     "drawsFundBalance": false,
     "matchRequired": null,
     "matchPercent": null,
@@ -2154,7 +2280,9 @@
     "amount": null,
     "accounts": [],
     "fundBalanceAccounts": [],
+    "fundBalanceFunds": [],
     "fundBalanceDraw": null,
+    "fundBalanceClasses": [],
     "drawsFundBalance": false,
     "matchRequired": null,
     "matchPercent": null,
@@ -2192,7 +2320,9 @@
     "amount": null,
     "accounts": [],
     "fundBalanceAccounts": [],
+    "fundBalanceFunds": [],
     "fundBalanceDraw": null,
+    "fundBalanceClasses": [],
     "drawsFundBalance": false,
     "matchRequired": null,
     "matchPercent": null,
@@ -2230,7 +2360,9 @@
     "amount": null,
     "accounts": [],
     "fundBalanceAccounts": [],
+    "fundBalanceFunds": [],
     "fundBalanceDraw": null,
+    "fundBalanceClasses": [],
     "drawsFundBalance": false,
     "matchRequired": null,
     "matchPercent": null,
@@ -2268,7 +2400,9 @@
     "amount": null,
     "accounts": [],
     "fundBalanceAccounts": [],
+    "fundBalanceFunds": [],
     "fundBalanceDraw": null,
+    "fundBalanceClasses": [],
     "drawsFundBalance": false,
     "matchRequired": null,
     "matchPercent": null,
@@ -2277,7 +2411,7 @@
     "createsAccounts": []
    },
    "realistic": {
-    "verdict": "Authorises payment \u2014 the money leaves here",
+    "verdict": "Authorizes payment \u2014 the money leaves here",
     "reason": "A warrant is the Board signing off on actual disbursement: checks written and funds transferred. The obligations were incurred earlier, so this is not new spending \u2014 but it is the moment the cash goes out, and the resolution that releases it is the one place the total is put in front of the Board.",
     "flag": "disbursement",
     "evidence": "category"
@@ -2318,6 +2452,7 @@
       "fund": "A01",
       "name": "Fund Balance",
       "amount": 72400.0,
+      "fundBalanceClass": null,
       "createdHere": false
      },
      {
@@ -2405,7 +2540,13 @@
     "fundBalanceAccounts": [
      "A01-9999-000-00000-0"
     ],
+    "fundBalanceFunds": [
+     "General Fund"
+    ],
     "fundBalanceDraw": 72400.0,
+    "fundBalanceClasses": [
+     null
+    ],
     "drawsFundBalance": true,
     "matchRequired": null,
     "matchPercent": null,
@@ -2443,7 +2584,9 @@
     "amount": null,
     "accounts": [],
     "fundBalanceAccounts": [],
+    "fundBalanceFunds": [],
     "fundBalanceDraw": null,
+    "fundBalanceClasses": [],
     "drawsFundBalance": false,
     "matchRequired": null,
     "matchPercent": null,
@@ -2495,7 +2638,9 @@
      }
     ],
     "fundBalanceAccounts": [],
+    "fundBalanceFunds": [],
     "fundBalanceDraw": null,
+    "fundBalanceClasses": [],
     "drawsFundBalance": false,
     "matchRequired": null,
     "matchPercent": null,
@@ -2504,10 +2649,10 @@
     "createsAccounts": []
    },
    "realistic": {
-    "verdict": "Real, recurring cost",
-    "reason": "A salary, raise, contract, or fee change that commits ongoing money.",
-    "flag": "reserve-draw",
-    "evidence": "category"
+    "verdict": "Real, recurring cost \u2014 funded by the levy",
+    "reason": "Section G charges this to an appropriation account (Code Enforcement - P/T) and names no fund-balance account. It is ongoing operating money the tax levy carries, not a draw on accumulated surplus \u2014 a distinction the form itself does not draw.",
+    "flag": "recurring",
+    "evidence": "account-code"
    },
    "vote": null
   },
@@ -2528,7 +2673,9 @@
     "amount": null,
     "accounts": [],
     "fundBalanceAccounts": [],
+    "fundBalanceFunds": [],
     "fundBalanceDraw": null,
+    "fundBalanceClasses": [],
     "drawsFundBalance": false,
     "matchRequired": null,
     "matchPercent": null,
@@ -2566,7 +2713,9 @@
     "amount": null,
     "accounts": [],
     "fundBalanceAccounts": [],
+    "fundBalanceFunds": [],
     "fundBalanceDraw": null,
+    "fundBalanceClasses": [],
     "drawsFundBalance": false,
     "matchRequired": null,
     "matchPercent": null,

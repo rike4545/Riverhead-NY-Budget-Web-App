@@ -95,7 +95,7 @@ export const buyout2026: Buyout2026 = {
     },
   ],
   caveats: [
-    'The total cost depends on how many eligible employees actually elect to retire, which is not known until the September 1, 2026 election deadline passes.',
+    'The total cost depends on how many eligible employees actually elected to retire. The election deadline — September 1, 2026 — has passed, so the set of people who opted in is now fixed, but the latest effective retirement date is October 1, 2026, so the Board may still be accepting resolutions. See “Who actually went” above: that count is current as of the last published meeting, not final, and it is a ceiling on participation, because accepting a retirement is not proof the retiree elected the incentive.',
     'The ratification resolutions themselves state no direct fiscal impact; the incentive payouts and any replacement-hiring decisions are handled through the operating budget.',
     'Retirement-benefit eligibility (ERS tier / PFRS 20-year) is set by New York State, not the Town; the incentive only adds the lump-sum payments described above.',
   ],

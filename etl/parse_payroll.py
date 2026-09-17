@@ -441,7 +441,7 @@ PAY_CLASS_UNION_MIN_SHARE = 0.95
 
 def union_from_pay_class(rows):
     """Fill a blank union from the row's own Pay Class, where that pay class maps
-    to one union with near-unanimity among labelled records. Mutates rows."""
+    to one union with near-unanimity among labeled records. Mutates rows."""
     observed = {}
     for r in rows:
         pc = (r.get("pay_class") or "").strip()
@@ -469,7 +469,7 @@ def union_from_pay_class(rows):
         filled += 1
 
     for pc, (u, share, total) in sorted(mapping.items()):
-        print(f"  pay class {pc!r} -> {u} ({share*100:.1f}% of {total} labelled)")
+        print(f"  pay class {pc!r} -> {u} ({share*100:.1f}% of {total} labeled)")
     print(f"Union derived from pay class: {filled} records filled "
           f"({len(observed) - len(mapping)} pay classes too mixed to use)")
     return filled

@@ -16,7 +16,7 @@
 // WHAT THIS IS NOT. It is not a running fund-balance ledger. The Town has filed
 // no report covering 2026, so the true closing position is unknown and will stay
 // unknown until one exists. Everything here is "the audited opening position,
-// less what the record shows was committed" — an upper bound, and labelled as one
+// less what the record shows was committed" — an upper bound, and labeled as one
 // everywhere it appears.
 //
 // FUND MATTERS. The surplus in question is GENERAL FUND unassigned balance. A
@@ -28,6 +28,7 @@ import fiscalIndex from '../public/data/meetings/fiscal-index.json'
 import { surplusAboveUpper, unassignedFundBalance, targetUpper, policyUpperPercent } from './reserve-policy'
 import { fundBalanceImpact } from './town-square'
 import prediction from '../public/data/budget-2027-prediction.json'
+import type { ResolutionFunding } from './account-lookup'
 
 type FiscalRes = {
   number: string
@@ -36,6 +37,8 @@ type FiscalRes = {
   amount: number | null
   realistic: { flag: string; verdict: string; reason: string }
   vote: { adopted: boolean | null }
+  /** Section G, where the preparer filled it in. Added with the sub-account join. */
+  funding?: ResolutionFunding | null
 }
 type FiscalMeeting = { slug: string; meetingDate: string; resolutions: FiscalRes[] }
 
@@ -71,9 +74,20 @@ const isAdopted = (r: { vote: { adopted: boolean | null } }) => r.vote?.adopted 
 // side is allowed anywhere near the headroom arithmetic.
 const FUND_BALANCE_CATEGORIES = new Set(['capital', 'debt'])
 
+// The ETL now settles most of this itself. Where a statement charges only
+// appropriation accounts and names no 9999, a personnel or contract item is
+// flagged "recurring" rather than "reserve-draw" — because a highway operator's
+// salary line is levy-funded payroll, not a reach for accumulated surplus. What
+// still arrives as "reserve-draw" on a non-capital category is an item whose
+// statement named no accounts at all, so the category split below is still
+// needed as the fallback for those.
 const flagged = allRes.filter((r) => r.realistic?.flag === 'reserve-draw')
 const reserveDraws = flagged.filter((r) => FUND_BALANCE_CATEGORIES.has(r.category))
-const recurringCosts = flagged.filter((r) => !FUND_BALANCE_CATEGORIES.has(r.category))
+const recurringCosts = allRes.filter(
+  (r) =>
+    r.realistic?.flag === 'recurring' ||
+    (r.realistic?.flag === 'reserve-draw' && !FUND_BALANCE_CATEGORIES.has(r.category)),
+)
 const adoptedDraws = reserveDraws.filter(isAdopted)
 const adoptedRecurring = recurringCosts.filter(isAdopted)
 
@@ -115,16 +129,102 @@ export const recurringCostCounts = {
       .sort((a, b) => (b[1] as number) - (a[1] as number)),
   ) as Record<string, number>,
   note:
-    'etl/parse_fiscal_impact.py tags these "reserve-draw" alongside capital and debt items, but its own verdict for them reads "Real, recurring cost". They are levy-funded operating commitments, not draws on surplus, so this page counts them apart from the fund-balance arithmetic. The underlying flag is worth renaming in the ETL.',
+    'Levy-funded operating commitments, not draws on surplus, so they are counted apart from the fund-balance arithmetic. Most now carry their own "recurring" flag from the ETL, decided by the accounts: a statement that charges an appropriation line and names no Appropriated Fund Balance account is payroll or contract money the levy carries. The remainder still arrive flagged "reserve-draw" because their statements named no accounts at all, and are separated here by category as before.',
 }
 
 export type Commitment = {
   label: string
   amount: number
-  certainty: 'authorised' | 'ceiling'
+  /**
+   * documented — the Town wrote the figure against its own 9999 Appropriated
+   *              Fund Balance account on the statement.
+   * authorized — read from the resolution, which stated the amount in prose.
+   * ceiling    — the resolution states no amount and this is the most it could
+   *              have been. Always an over-statement of what was actually drawn.
+   */
+  certainty: 'documented' | 'authorized' | 'ceiling'
   fund: 'General Fund'
   source: string
   note: string
+  /** Set when this entry replaced a curated one. */
+  supersedes?: { label: string; was: number; by: number }
+}
+
+// ── Documented draws, from the Town's own Appropriated Fund Balance account ──
+//
+// Every adopted resolution whose section G charges A01-9999 is a General Fund
+// draw the Town wrote down itself. These take precedence over anything read
+// from prose, because they carry a figure the Town booked rather than one this
+// site inferred or bounded.
+type DrawRow = { number: string | null; title: string; amount: number }
+
+/**
+ * Not every General Fund draw comes out of the tier this page measures.
+ *
+ * The headroom arithmetic below starts from surplusAboveUpper, which is
+ * UNASSIGNED fund balance less the policy target. GASB 54 splits the balance
+ * into five tiers, and the Town sometimes names the tier on the account itself:
+ * resolution 2026-361 charges "Assigned Unappropriated Fund Balance - CBF",
+ * moving $113,613 of Community Benefit Funds into a bulkhead project. That is a
+ * real draw on a real balance, but it is not the unassigned cushion, so netting
+ * it against unassigned headroom would report the cushion shrinking when the
+ * cushion has not moved.
+ *
+ * A draw that names no tier is kept. The object code alone does not distinguish
+ * them, and the overwhelming default is an unassigned draw; excluding the
+ * unnamed ones would understate commitments far more than including them
+ * overstates any single tier.
+ */
+const isUnassignedDraw = (r: FiscalRes) =>
+  (r.funding?.fundBalanceClasses ?? []).every((c) => c === null || c === 'Unassigned')
+
+const generalFundBalanceDraws = allRes.filter(
+  (r) =>
+    isAdopted(r) &&
+    r.funding?.drawsFundBalance === true &&
+    (r.funding.fundBalanceFunds ?? []).indexOf('General Fund') !== -1 &&
+    (r.funding.fundBalanceDraw ?? 0) > 0,
+)
+
+const documentedGeneralFundDraws: DrawRow[] = generalFundBalanceDraws
+  .filter(isUnassignedDraw)
+  .map((r) => ({ number: r.number, title: r.title, amount: r.funding!.fundBalanceDraw as number }))
+  .sort((a, b) => b.amount - a.amount)
+
+/**
+ * Draws on a General Fund tier other than Unassigned — reported, never netted.
+ * Kept visible rather than filtered away in silence, because "it did not touch
+ * the cushion" is a finding about the money, not a reason to hide the vote.
+ */
+export const otherTierGeneralFundDraws = generalFundBalanceDraws
+  .filter((r) => !isUnassignedDraw(r))
+  .map((r) => ({
+    number: r.number,
+    title: r.title,
+    amount: r.funding!.fundBalanceDraw as number,
+    tiers: Array.from(
+      new Set((r.funding!.fundBalanceClasses ?? []).filter((c): c is string => !!c)),
+    ),
+  }))
+  .sort((a, b) => b.amount - a.amount)
+
+export const otherTierDrawTotal = otherTierGeneralFundDraws.reduce((s, d) => s + d.amount, 0)
+
+/**
+ * A curated entry a documented draw replaces.
+ *
+ * The Town Square case is why this exists. The curated entry carried the
+ * paydown at a $2,725,000 CEILING, with a note saying the July 7 resolution
+ * stated no amount and that this was the most it could have been. Resolution
+ * 2026-762 then ratified the budget adjustment for that paydown and booked
+ * $1,874,218 against A01-9999 — so the question the note called unanswerable is
+ * answered, and the ceiling overstated the draw by $850,782.
+ *
+ * The match is declared here by resolution number rather than inferred from
+ * text, so it is visible, checkable and reversible.
+ */
+const SUPERSEDES: Record<string, string> = {
+  '2026-762': 'Town Square note paydown',
 }
 
 // The priced General Fund draws. Each one was read individually rather than swept
@@ -138,19 +238,44 @@ export type Commitment = {
 // included only because the ETL tags them with the same "reserve-draw" flag it
 // gives capital and debt items. Nothing belongs in this list unless it is capital,
 // debt, or a draw the record explicitly states comes from fund balance.
+const supersededLabels = Object.keys(SUPERSEDES).map((n) => SUPERSEDES[n])
+
 export const generalFundCommitments2026: Commitment[] = [
-  ...fundBalanceImpact.draws.map((d) => ({
-    label: d.label,
-    amount: d.amount,
-    certainty: d.certainty as 'authorised' | 'ceiling',
-    fund: 'General Fund' as const,
-    source: 'Town Square — fund-balance impact',
-    note: d.note,
-  })),
+  // Documented first — the Town's own booked figures.
+  ...documentedGeneralFundDraws.map((d) => {
+    const replacedLabel = d.number ? SUPERSEDES[d.number] : undefined
+    const replaced = replacedLabel
+      ? fundBalanceImpact.draws.filter((x) => x.label === replacedLabel)[0]
+      : undefined
+    return {
+      label: replacedLabel ?? d.title,
+      amount: d.amount,
+      certainty: 'documented' as const,
+      fund: 'General Fund' as const,
+      source: `Resolution ${d.number ?? '—'}, section G · A01-9999 Appropriated Fund Balance`,
+      note: replaced
+        ? `Booked against the Town's own Appropriated Fund Balance account. This replaces a ${replaced.amount.toLocaleString('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 })} ceiling carried here before, which existed only because the earlier resolution stated no amount.`
+        : 'Booked against the Town\u2019s own Appropriated Fund Balance account on the fiscal-impact statement, so the figure is the Town\u2019s rather than this site\u2019s.',
+      ...(replaced
+        ? { supersedes: { label: replacedLabel as string, was: replaced.amount, by: d.amount } }
+        : {}),
+    }
+  }),
+  // Curated entries the account codes do not cover, minus anything superseded.
+  ...fundBalanceImpact.draws
+    .filter((d) => supersededLabels.indexOf(d.label) === -1)
+    .map((d) => ({
+      label: d.label,
+      amount: d.amount,
+      certainty: d.certainty as 'authorized' | 'ceiling',
+      fund: 'General Fund' as const,
+      source: 'Town Square — fund-balance impact',
+      note: d.note,
+    })),
   {
     label: 'Meals on Wheels truck (Seniors Department)',
     amount: 80_000,
-    certainty: 'authorised',
+    certainty: 'authorized',
     fund: 'General Fund',
     source: 'Resolution 2026-645, July 7, 2026',
     note: 'Purchase plus budget adjustment. A General Fund department, so this lands on the same balance the 2027 options draw against.',
@@ -158,7 +283,7 @@ export const generalFundCommitments2026: Commitment[] = [
   {
     label: 'East Creek Boat Launch repairs',
     amount: 60_000,
-    certainty: 'authorised',
+    certainty: 'authorized',
     fund: 'General Fund',
     source: 'Resolution 2026-639, July 7, 2026',
     note: 'Ratified budget adjustment. The Town runs a separate East Creek Docking Facility fund, but the resolution does not name it, so this is counted against the General Fund — the conservative reading for a page about General Fund headroom.',
@@ -166,10 +291,41 @@ export const generalFundCommitments2026: Commitment[] = [
 ]
 
 export const committedTotal = generalFundCommitments2026.reduce((s, c) => s + c.amount, 0)
-export const committedAuthorised = generalFundCommitments2026
-  .filter((c) => c.certainty === 'authorised')
+export const committedDocumented = generalFundCommitments2026
+  .filter((c) => c.certainty === 'documented')
   .reduce((s, c) => s + c.amount, 0)
-export const committedAtCeiling = committedTotal - committedAuthorised
+export const committedAuthorized = generalFundCommitments2026
+  .filter((c) => c.certainty === 'authorized')
+  .reduce((s, c) => s + c.amount, 0)
+export const committedAtCeiling = generalFundCommitments2026
+  .filter((c) => c.certainty === 'ceiling')
+  .reduce((s, c) => s + c.amount, 0)
+
+/**
+ * The running ledger — what the opening position becomes, draw by draw.
+ *
+ * This is the answer to "how is the change shown". A pair of totals tells a
+ * reader the surplus fell; a ledger tells them which votes spent it and what
+ * was left after each one.
+ */
+export const headroomLedger = (() => {
+  let running = surplusAboveUpper
+  const rows = generalFundCommitments2026
+    .slice()
+    .sort((a, b) => b.amount - a.amount)
+    .map((c) => {
+      running -= c.amount
+      return { ...c, remainingAfter: running }
+    })
+  return { opening: surplusAboveUpper, rows, closing: running }
+})()
+
+/** What reading the account codes did to the published figure. */
+export const supersessions = generalFundCommitments2026
+  .filter((c) => c.supersedes)
+  .map((c) => c.supersedes!)
+
+export const documentedChangedTotalBy = supersessions.reduce((s, x) => s + (x.by - x.was), 0)
 
 /** The audited opening position, before anything 2026 did to it. */
 export const openingSurplusAbovePolicy = surplusAboveUpper

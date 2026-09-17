@@ -2,15 +2,23 @@ import PageShell from '../../components/PageShell'
 import PlainCallout from '../../components/PlainCallout'
 import ReserveDrawdownSlider from '../../components/ReserveDrawdownSlider'
 import { dollars } from '../../lib/financial-data'
+import { afr2025 } from '../../lib/afr'
 import {
   appropriations,
   authorizedReserves,
   authorizedReservesNote,
   authorizedReservesSource,
   communityBlockGrants,
+  constrainedFundBalance,
   deployableAbove288,
   deploymentOptions,
+  earliestFundBalanceYear,
   fundBalanceHealth,
+  fundBalanceReading,
+  fundBalanceTiers,
+  fundBalanceTrend,
+  fundBalanceYears,
+  latestFundBalanceYear,
   peerAlignmentScenarios,
   peerBenchmarks,
   percentOfAppropriations,
@@ -20,6 +28,7 @@ import {
   targetReservePercent,
   targetUnassignedAt288,
   targetUpper,
+  totalFundBalance,
   unassignedFundBalance,
 } from '../../lib/reserve-policy'
 
@@ -29,11 +38,17 @@ const pct = (v: number, digits = 1) => `${(v * 100).toFixed(digits)}%`
 export const metadata = {
   title: 'Reserves & fund balance policy — how much cushion is enough?',
   description:
-    "How Riverhead's savings stack up against its own reserve rules, a one-time deployment plan for the surplus above target, and how the Town's posture compares to neighboring towns.",
+    "The five GASB classifications of Riverhead's General Fund balance, how its savings stack up against its own reserve rules, a one-time deployment plan for the surplus above target, and how the Town's posture compares to neighboring towns.",
 }
 
 const healthColor: Record<string, string> = { healthy: 'var(--rbl-success)', watch: 'var(--rbl-warn)', atRisk: 'var(--rbl-danger)' }
 const healthLabel: Record<string, string> = { healthy: 'Healthy', watch: 'Watch', atRisk: 'At risk' }
+const spendableTone: Record<string, { label: string; color: string; bg: string; border: string }> = {
+  no: { label: 'Cannot be spent', color: 'var(--rbl-text-muted)', bg: 'var(--rbl-surface-3)', border: 'var(--rbl-border-strong)' },
+  constrained: { label: 'Strings attached', color: 'var(--rbl-accent)', bg: 'var(--rbl-info-bg)', border: 'var(--rbl-info-border)' },
+  yes: { label: 'Spendable on anything lawful', color: 'var(--rbl-success)', bg: 'var(--rbl-success-bg)', border: 'var(--rbl-success-border)' },
+}
+
 const healthNote: Record<string, string> = {
   healthy: "The savings cushion is above the Town's minimum policy target — a good sign.",
   watch: 'Reserves are near the policy minimum. Watch for further draw-downs.',
@@ -51,7 +66,7 @@ export default function ReservesPage() {
     >
       <PlainCallout
         tips={[
-          { label: 'Unassigned fund balance', text: 'the "rainy-day" savings with no strings attached — the actual FY2025 year-end figure from the Town\u2019s Annual Financial Report, not a mid-year estimate.' },
+          { label: 'Unassigned fund balance', text: 'the "rainy-day" savings with no strings attached — the actual FY2025 year-end figure from the Town\u2019s Annual Financial Report, not a mid-year estimate. It is one of five classifications; the other four are shown below.' },
           { label: "Policy floor", text: `Riverhead's own policy sets a 15% minimum and 20% upper target of General Fund appropriations.` },
           { label: 'One-time vs. recurring', text: 'anything above the operating target is one-time money — good for debt paydown or capital, not for permanent new spending.' },
         ]}
@@ -107,6 +122,88 @@ export default function ReservesPage() {
           <span>Surplus above upper target</span>
           <span style={{ color: surplusAboveUpper >= 0 ? 'var(--rbl-success)' : 'var(--rbl-warn)', fontWeight: 700 }}>{dollars(surplusAboveUpper)}</span>
         </div>
+      </section>
+
+      <section style={{ ...card, marginBottom: 16 }}>
+        <h3 style={{ marginTop: 0, color: 'var(--rbl-title)' }}>The five classifications of fund balance</h3>
+        <p style={{ color: 'var(--rbl-text-body)', fontSize: 14.5, marginTop: 0 }}>
+          Every percentage above measures one tier. GASB Statement 54 splits a fund&apos;s balance into five, ordered by
+          how hard the money is to spend — and the Town&apos;s audited report files all five. {fundBalanceReading}
+        </p>
+
+        <div style={{ display: 'grid', gap: 16 }}>
+          {fundBalanceTiers.map((tier) => {
+            const latest = tier.values[latestFundBalanceYear] ?? 0
+            const trend = fundBalanceTrend.find((t) => t.name === tier.name)
+            const tone = spendableTone[tier.spendable]
+            const share = totalFundBalance > 0 ? latest / totalFundBalance : 0
+            return (
+              <div key={tier.name} style={{ borderLeft: `3px solid ${tone.color}`, paddingLeft: 12 }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', gap: 10, flexWrap: 'wrap' }}>
+                  <span style={{ display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}>
+                    <strong style={{ fontSize: 15, color: 'var(--rbl-text)' }}>{tier.name}</strong>
+                    <span
+                      style={{
+                        background: tone.bg,
+                        color: tone.color,
+                        border: `1px solid ${tone.border}`,
+                        borderRadius: 999,
+                        padding: '1px 9px',
+                        fontSize: 11.5,
+                        fontWeight: 800,
+                      }}
+                    >
+                      {tone.label}
+                    </span>
+                  </span>
+                  <strong style={{ fontSize: 15 }}>{dollars(latest)}</strong>
+                </div>
+
+                <div style={{ background: 'var(--rbl-track)', borderRadius: 999, height: 6, overflow: 'hidden', marginTop: 7 }}>
+                  <div style={{ width: `${Math.max(share * 100, share > 0 ? 0.6 : 0)}%`, height: '100%', background: tone.color, borderRadius: 999 }} />
+                </div>
+                <div style={{ fontSize: 12, color: 'var(--rbl-text-muted)', marginTop: 3 }}>
+                  {pct(share)} of the {latestFundBalanceYear} General Fund balance
+                </div>
+
+                <p style={{ color: 'var(--rbl-text-body)', fontSize: 13.5, lineHeight: 1.5, margin: '7px 0 0' }}>{tier.what}</p>
+
+                {trend ? (
+                  <div style={{ fontSize: 12.5, color: 'var(--rbl-text-muted)', marginTop: 5 }}>
+                    {earliestFundBalanceYear}: {dollars(trend.from)} → {latestFundBalanceYear}: {dollars(trend.to)}{' '}
+                    <span style={{ color: trend.change === 0 ? 'var(--rbl-text-muted)' : trend.change > 0 ? 'var(--rbl-success)' : 'var(--rbl-warn)', fontWeight: 700 }}>
+                      {trend.change >= 0 ? '+' : '−'}
+                      {dollars(Math.abs(trend.change))}
+                      {trend.pct === null ? ' (new)' : ` (${trend.pct >= 0 ? '+' : '−'}${Math.abs(trend.pct).toFixed(0)}%)`}
+                    </span>
+                  </div>
+                ) : null}
+              </div>
+            )
+          })}
+        </div>
+
+        <hr style={{ border: 'none', borderTop: '1px solid var(--rbl-border-subtle)', margin: '14px 0' }} />
+        <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 14.5 }}>
+          <strong>Total General Fund balance ({latestFundBalanceYear})</strong>
+          <strong>{dollars(totalFundBalance)}</strong>
+        </div>
+        <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 13.5, color: 'var(--rbl-text-muted)', marginTop: 4 }}>
+          <span>Of which constrained (the four tiers above Unassigned)</span>
+          <span>{dollars(constrainedFundBalance)}</span>
+        </div>
+
+        <p style={{ color: 'var(--rbl-text-muted)', fontSize: 12.5, marginTop: 12, lineHeight: 1.55 }}>
+          Why this matters for the numbers on this page: a reserve policy is written against{' '}
+          <strong>Unassigned</strong>, so that is the figure the compliance test uses. Quoting the{' '}
+          {dollars(totalFundBalance)} balance-sheet total instead would overstate the spendable cushion by{' '}
+          {dollars(constrainedFundBalance)}. Classifications and definitions follow GASB Statement 54; the dollar
+          figures are the Town&apos;s own{' '}
+          <a href={afr2025.source.url} target="_blank" rel="noopener noreferrer" style={{ color: 'var(--rbl-link)' }}>
+            {afr2025.source.title}
+          </a>
+          , which reports {fundBalanceYears.length} years side by side.
+        </p>
       </section>
 
       <section style={{ ...card, marginBottom: 16 }}>
@@ -309,8 +406,9 @@ export default function ReservesPage() {
       </Detail>
 
       <p style={{ color: 'var(--rbl-text-muted)', fontSize: 13, lineHeight: 1.55, marginTop: 16 }}>
-        Sources: 2025 Annual Financial Report (actual unassigned fund balance), 2026 Adopted Budget (General Fund
-        appropriations and one-time deployment figures). Peer-town figures from each town&apos;s own 2026 adopted
+        Sources: 2025 Annual Financial Report (all five fund-balance classifications, three years each, including the
+        actual unassigned balance), 2026 Adopted Budget (General Fund appropriations and one-time deployment figures).
+        Classification definitions follow GASB Statement 54. Peer-town figures from each town&apos;s own 2026 adopted
         budget or policy document where available.
       </p>
     </PageShell>

@@ -56,7 +56,7 @@ const url =
 
 const body = await get(url)
 if (!body.startsWith('[')) {
-  const title = body.match(/<title>([^<]*)<\/title>/)?.[1] ?? 'unrecognised response'
+  const title = body.match(/<title>([^<]*)<\/title>/)?.[1] ?? 'unrecognized response'
   console.error(`Census API rejected the request: ${title}`)
   console.error('A new key must be activated from the confirmation email before it will work.')
   process.exit(1)

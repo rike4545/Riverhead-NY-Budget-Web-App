@@ -91,7 +91,7 @@ CATEGORY_RULES: list[tuple[str, list[str]]] = [
     # "procedural", whose verdict is "No direct cost". The old rule listed
     # "award bid" but the Town writes "Awards Bid". Bare "capital" went the other
     # way — too loose. It fired on "capital improvements" inside the purpose text
-    # of a resolution merely authorising a GRANT APPLICATION, which commits
+    # of a resolution merely authorizing a GRANT APPLICATION, which commits
     # nothing, so the specific phrases carry the signal instead.
     ("capital", ["capital project", "capital improvement", "capital budget", "capital reserve",
                  "budget adjustment", "budget transfer", "transfer of funds",
@@ -127,13 +127,13 @@ CATEGORY_RULES: list[tuple[str, list[str]]] = [
 ]
 
 # category → (fiscalImpact-aware) realistic verdict. Some categories flip on Yes/No.
-# A bond resolution authorises BORROWING. Nothing leaves fund balance when it
+# A bond resolution authorizes BORROWING. Nothing leaves fund balance when it
 # passes — which is why calling it a reserve draw was wrong. What it creates is
 # debt service on future levies, every year until the bond matures, and that is a
 # larger fact for the 2027 budget than a one-time draw would be. The Ambulance
 # Building Project bond (2026-833) is the live example: a future capital project
 # whose cost lands on taxpayers through the levy, not through surplus.
-BOND_AUTHORISATION = re.compile(
+BOND_AUTHORIZATION = re.compile(
     r"(bond resolution|authoriz\w*\s+the\s+issuance|serial bonds?|bond anticipation note"
     r"|\bBAN\b|authoriz\w*\s+.{0,30}\bborrow)",
     re.I,
@@ -142,11 +142,11 @@ BOND_AUTHORISATION = re.compile(
 
 def realistic_read(category: str, fiscal_impact: str, title: str = "") -> dict:
     yes = fiscal_impact == "Yes"
-    if category == "debt" and BOND_AUTHORISATION.search(title):
+    if category == "debt" and BOND_AUTHORIZATION.search(title):
         return {
             "verdict": "Creates debt service on future budgets",
             "reason": (
-                "A bond resolution authorises borrowing. Nothing comes out of fund balance when it "
+                "A bond resolution authorizes borrowing. Nothing comes out of fund balance when it "
                 "passes — the cost arrives as debt service in every budget until the bond matures, "
                 "paid out of the levy. For a future capital project that is the whole fiscal impact, "
                 "and it is the part a single-year form is worst at showing."
@@ -197,7 +197,7 @@ def realistic_read(category: str, fiscal_impact: str, title: str = "") -> dict:
         }
     if category == "warrant":
         return {
-            "verdict": "Authorises payment — the money leaves here",
+            "verdict": "Authorizes payment — the money leaves here",
             "reason": (
                 "A warrant is the Board signing off on actual disbursement: checks written and funds "
                 "transferred. The obligations were incurred earlier, so this is not new spending — but "
@@ -256,7 +256,7 @@ def realistic_read(category: str, fiscal_impact: str, title: str = "") -> dict:
 #
 # Account prefixes are the Town's own fund codes, taken from the adopted budget.
 FUND_PREFIXES: dict[str, str] = {
-    "A01": "General Fund", "DA1": "Highway", "EW1": "Water District",
+    "A01": "General Fund", "DA1": "Highway Fund", "EW1": "Water District",
     "ES1": "Riverhead Sewer District", "ES5": "Riverhead Scavenger Waste",
     "SR1": "Refuse and Garbage District", "SM1": "Ambulance District",
     "SL1": "Street Lighting District", "CM4": "Community Preservation Fund",
@@ -273,6 +273,15 @@ FUND_PREFIXES: dict[str, str] = {
     # The rest of the adopted budget's funds. Without these a real draw reports
     # its fund as unknown: resolution 2026-275 charges Z14 fund balance $30,000
     # and came through with no fund name at all.
+    # Two sewer funds that appear only in capital-project statements and are
+    # absent from the adopted-budget extract. Their official titles are not
+    # published anywhere this site can cite, so they are labeled by what the
+    # Town's own account descriptions on the statement establish — sewer funds —
+    # and nothing more is asserted. Capital project 82210 (Biosolids Facility)
+    # moves money through both: ES7 holds the fund balance and transfers out to
+    # ES2 and ES6.
+    "ES6": "Sewer District (ES6)",
+    "ES7": "Sewer District (ES7)",
     "Z14": "Calverton Parks Community Development Agency",
     "A04": "Police Athletic League", "A06": "Recreation Program Fund",
     "CM1": "Business Improvement District", "CM2": "East Creek Docking Facility",
@@ -339,18 +348,58 @@ ACCOUNT_RE = re.compile(r"\b([A-Z]{1,3}\d{1,2})-[\d\-]{6,}")
 # All 848 appropriation lines and all 161 revenue lines in the adopted-budget
 # extract follow those two shapes exactly, so the second segment's width (1
 # digit vs. 4) is a reliable discriminator — no keyword guessing needed.
-FULL_ACCOUNT_RE = re.compile(r"\b([A-Z]{1,3}\d{1,2}(?:-[\dA-Z]+){3,5})")
+# The separator tolerates whitespace because the PDF wraps long codes AFTER the
+# hyphen: the packets carry "EW1-8-8320-402- 000-00000" and "ES5-8- 8189-426-
+# 075-00000". Without this the first of those truncated to EW1-8-8320-402 and
+# leaked its tail into the account NAME, and the second broke before the
+# three-segment minimum and was dropped from the statement altogether. Captured
+# whitespace is stripped, so the code is normalized back to its real form.
+FULL_ACCOUNT_RE = re.compile(r"\b([A-Z]{1,3}\d{1,2}(?:-\s*[\dA-Z]+){3,5})")
 
 # Revenue object 9999 is "Appropriated Fund Balance" — the Town's own journal
 # entry for taking money out of a fund's accumulated surplus. When it appears in
 # section G the draw is documented, not inferred from the resolution's title.
 FUND_BALANCE_OBJECT = "9999"
 
+# GASB Statement 54 splits a fund's balance into five classifications by how
+# hard the money is to spend, and the Town sometimes names the classification in
+# the account's own description: resolution 2026-361 charges "Assigned
+# Unappropriated Fund Balance - CBF". That word is load-bearing. A reserve
+# policy, and every headroom figure on this site, is measured against the
+# UNASSIGNED tier, so netting an Assigned draw against it reports a cushion
+# shrinking when the cushion has not moved. Where the Town states a tier it is
+# carried through; where it says nothing the tier is left null rather than
+# assumed, because the object code alone does not distinguish them.
+FUND_BALANCE_CLASS = re.compile(
+    r"\b(nonspendable|non-spendable|restricted|committed|assigned|unassigned)\b", re.I
+)
+FUND_BALANCE_CLASS_NAMES = {
+    "nonspendable": "Nonspendable",
+    "non-spendable": "Nonspendable",
+    "restricted": "Restricted",
+    "committed": "Committed",
+    "assigned": "Assigned",
+    "unassigned": "Unassigned",
+}
+
+
+def fund_balance_class(name: str | None) -> str | None:
+    """The GASB 54 tier the Town named on this account, if it named one.
+
+    "Unassigned" must be tested before "Assigned" would match inside it, which
+    the alternation handles by word boundary rather than by order.
+    """
+    if not name:
+        return None
+    m = FUND_BALANCE_CLASS.search(name)
+    return FUND_BALANCE_CLASS_NAMES[m.group(1).lower()] if m else None
+
+
 # A capital-project resolution opens new sub-accounts under a project number it
 # names in its own title — "Budget Adoption for Capital Project #12620" creates
 # H01-1-1940-435-000-12620. Such a code is absent from the adopted budget
 # because it did not exist when the budget was adopted. That is a different fact
-# from "this site does not recognise the code", and the two must not be shown
+# from "this site does not recognize the code", and the two must not be shown
 # the same way.
 PROJECT_NO = re.compile(r"(?:capital\s+)?project\s*#?\s*(\d{4,6})", re.I)
 CREATES_ACCOUNT = re.compile(
@@ -428,7 +477,7 @@ def _accounts_in(field_text: str, role: str) -> list[dict]:
         money = MONEY_RE.search(tail)
         label = tail[: money.start()] if money else tail
         label = " ".join(FORM_LABELS.sub(" ", label).split()).strip(" -–—:")
-        code = m.group(1)
+        code = re.sub(r"\s+", "", m.group(1))
         parts = code.split("-")
         # An appropriation code that lost its trailing project segment to a PDF
         # line break: 5 segments where the second is a single function digit.
@@ -465,10 +514,18 @@ def funding_from_block(block_text: str, title: str = "", purpose: str = "") -> d
 
     fields = split_section_g(g)
     accounts: list[dict] = []
-    seen: set[tuple[str, str]] = set()
+    # A code printed twice in the same field is a restatement and is dropped.
+    # A code printed twice carrying DIFFERENT money is two lines, and dropping
+    # the second loses real dollars: resolution 2026-361 charges
+    # A01-9999-000-00000-0 twice, $5,000 for Nextera Community Health &
+    # Wellness and $108,613 for Nextera Easement Phase 1. Keying on the code and
+    # role alone kept only the $5,000 and reported that as the whole draw, when
+    # the statement's own transfer line reads $113,613. The name and amount are
+    # what make a line distinct, so they belong in the key.
+    seen: set[tuple[str, str, str, float | None]] = set()
     for role in ("charge", "revenue", "transfer"):
         for a in _accounts_in(fields.get(role, ""), role):
-            key = (a["code"], a["role"])
+            key = (a["code"], a["role"], a["name"] or "", a["amount"])
             if key in seen:
                 continue
             seen.add(key)
@@ -477,13 +534,18 @@ def funding_from_block(block_text: str, title: str = "", purpose: str = "") -> d
     if not accounts and g:
         accounts = _accounts_in(g, "unspecified")
 
+    # Every fund gets carried, named or not. Dropping the unnamed ones let a
+    # statement's fund list show the WRONG fund: resolution 2026-473 draws
+    # $800,000 out of ES7 fund balance, and because ES7 had no name the display
+    # attributed the draw to "Sewer — developer fees", which is ES2. An
+    # unrecognized code appears as itself rather than vanishing.
     prefixes: list[str] = []
     funds: list[str] = []
     for a in accounts:
         if a["fund"] not in prefixes:
             prefixes.append(a["fund"])
-        fund = FUND_PREFIXES.get(a["fund"])
-        if fund and fund not in funds:
+        fund = FUND_PREFIXES.get(a["fund"], a["fund"])
+        if fund not in funds:
             funds.append(fund)
 
     # The Town's own journal entry for a fund-balance draw, if it made one.
@@ -491,6 +553,8 @@ def funding_from_block(block_text: str, title: str = "", purpose: str = "") -> d
         a for a in accounts
         if a["kind"] == "revenue" and a["code"].split("-")[1] == FUND_BALANCE_OBJECT
     ]
+    for a in fund_balance:
+        a["fundBalanceClass"] = fund_balance_class(a["name"])
 
     # The largest figure named in section G. Several rows can repeat the same
     # sum (revenue in, appropriation out); the maximum is the size of the action.
@@ -534,8 +598,18 @@ def funding_from_block(block_text: str, title: str = "", purpose: str = "") -> d
         # join to the adopted budget's line items in web/lib/account-lookup.ts.
         "accounts": accounts,
         "fundBalanceAccounts": [a["code"] for a in fund_balance],
+        # The fund the draw actually comes out of. Taken from the 9999 account
+        # itself, because a capital statement routinely touches several funds and
+        # the first one named is not necessarily the one being drawn down.
+        "fundBalanceFunds": [
+            FUND_PREFIXES.get(a["fund"], a["fund"])
+            for a in fund_balance
+        ],
         "fundBalanceDraw": round(sum(a["amount"] for a in fund_balance if a["amount"]), 2)
         if any(a["amount"] for a in fund_balance) else None,
+        # The GASB 54 tier each draw names, parallel to fundBalanceAccounts.
+        # null where the Town named none — not a guess that it is Unassigned.
+        "fundBalanceClasses": [a.get("fundBalanceClass") for a in fund_balance],
         # Documented by account code rather than inferred from the title.
         "drawsFundBalance": bool(fund_balance),
         # A grant with a match is not a free grant, and one paid on a
@@ -603,8 +677,8 @@ def apply_funding_evidence(realistic: dict, funding: dict, category: str) -> dic
     # earlier guard here had the precedence backwards and suppressed the largest
     # documented draw in the corpus.
     if funding.get("drawsFundBalance"):
-        funds = funding.get("funds") or []
-        where = funds[0] if funds else "a Town fund"
+        drawn = funding.get("fundBalanceFunds") or funding.get("funds") or []
+        where = " and ".join(drawn) if drawn else "a Town fund"
         draw = funding.get("fundBalanceDraw")
         sized = f"{draw:,.0f} " if draw else ""
         also_debt = realistic.get("flag") == "future-debt"
@@ -648,6 +722,38 @@ def apply_funding_evidence(realistic: dict, funding: dict, category: str) -> dic
             "evidence": "account-code",
         }
 
+    # A PAYROLL LINE IS NOT A RESERVE. The category read gives personnel,
+    # contract, fees and labour-contract items the "reserve-draw" flag, whose
+    # label reads "Draws reserves" — while its own verdict for them says "Real,
+    # recurring cost". Both cannot be right, and the accounts settle it: an
+    # appointment charged to DA1-5-5110-101-NON-00000, Repair - Personal
+    # Services in the Highway Fund, is levy-funded payroll. It is a real and
+    # recurring cost and it draws no reserve at all.
+    #
+    # So where the statement names only appropriation accounts and no 9999, a
+    # recurring item is reported as what it is. Capital and debt are untouched:
+    # those genuinely do reach for reserves, borrowing or fund balance.
+    RECURRING = ("personnel", "labor-contract", "fees", "contract")
+    charges_only = accounts and all(a["kind"] == "appropriation" for a in accounts)
+    if (
+        realistic.get("flag") == "reserve-draw"
+        and category in RECURRING
+        and charges_only
+        and not funding.get("drawsFundBalance")
+    ):
+        lines = [a["name"] for a in accounts if a.get("name")]
+        where = f" ({lines[0]})" if lines else ""
+        return {
+            "verdict": "Real, recurring cost — funded by the levy",
+            "reason": (
+                f"Section G charges this to an appropriation account{where} and names no fund-balance "
+                "account. It is ongoing operating money the tax levy carries, not a draw on accumulated "
+                "surplus — a distinction the form itself does not draw."
+            ),
+            "flag": "recurring",
+            "evidence": "account-code",
+        }
+
     # Money in and money straight back out, inside one fund, from a source that is
     # not the Town's own surplus: a donation received and spent, a grant passed
     # through, a developer's escrow drawn down. The two sides balancing is the
@@ -687,7 +793,7 @@ def classify(title: str, purpose: str) -> str:
 
 # ── Packet parsing ──────────────────────────────────────────────────────────
 #
-# The form's title and purpose are single labelled fields that WRAP. The Clerk
+# The form's title and purpose are single labeled fields that WRAP. The Clerk
 # writes titles longer than the line, and the PDF breaks them, so reading only
 # the first line silently truncated every long one:
 #

@@ -24,7 +24,7 @@ const GROUPS: Group[] = [
   ] },
   { label: 'Government', links: [
     ['Resident Answers', `${base}/answers/`], ['Workforce by Title', `${base}/workforce-by-title/`], ['Officials & Pensions', `${base}/officials/`],
-    ['2026 Buyout', `${base}/buyout/`], ['Police Spending & Crime', `${base}/police-crime/`], ['Supervisors & Council History', `${base}/town-history/`], ['Board Elections', `${base}/board-elections/`],
+    ['2026 Buyout', `${base}/buyout/`], ['Police Spending & Crime', `${base}/police-crime/`], ['School Resource Officers', `${base}/school-resource-officers/`], ['Supervisors & Council History', `${base}/town-history/`], ['Board Elections', `${base}/board-elections/`],
     ['Campaign Finance', `${base}/campaign-finance/`], ['Candidate Watch', `${base}/candidate-watch/`], ['Candidate Proposals', `${base}/candidate-cost-benefit/`],
   ] },
   { label: 'Research', links: [
@@ -55,9 +55,9 @@ export default function SiteNav() {
   }, [])
   useEffect(() => { setOpen(null); setMobileOpen(false) }, [pathname])
 
-  const normalise = (p: string) => (p.endsWith('/') ? p : `${p}/`)
-  const routeOf = (href: string) => normalise(base && href.startsWith(base) ? href.slice(base.length) || '/' : href)
-  const isActive = (href: string) => !!pathname && routeOf(href) === normalise(pathname)
+  const normalize = (p: string) => (p.endsWith('/') ? p : `${p}/`)
+  const routeOf = (href: string) => normalize(base && href.startsWith(base) ? href.slice(base.length) || '/' : href)
+  const isActive = (href: string) => !!pathname && routeOf(href) === normalize(pathname)
   const groupIsActive = (g: Group) => g.links.some(([, href]) => isActive(href))
 
   return (

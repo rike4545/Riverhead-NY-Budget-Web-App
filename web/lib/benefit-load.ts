@@ -77,7 +77,7 @@ export const BENEFIT_LOAD_BASIS: Record<keyof typeof BENEFIT_LOAD, string> = {
 export const pensionOnlyLoad = policeRetirement / policeWages // ≈ 26.0%
 
 export const explainer =
-  'Riverhead’s police pension bill is measured, not modelled: the Comptroller reports Police and Fire Retirement as its own account, and all of it belongs to sworn staff — ' +
+  'Riverhead’s police pension bill is measured, not modeled: the Comptroller reports Police and Fire Retirement as its own account, and all of it belongs to sworn staff — ' +
   'that alone is ' + Math.round(pensionOnlyLoad * 1000) / 10 + '% of police wages before a single other benefit. ' +
   'Health insurance, Social Security, workers’ compensation and the smaller accounts are shared across all General Fund employees and have to be divided up. ' +
   'FICA and workers’ comp scale with payroll dollars, so they follow wages. Health insurance does not — it is bought per person — and that single choice is what the range below represents.'

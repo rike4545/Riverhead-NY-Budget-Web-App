@@ -13,7 +13,7 @@ export type LineSeries = {
  * Multi-series line chart over an ordered category axis.
  *
  * Categories rather than a numeric x-scale, because this site's series are
- * labelled periods — "2019", "2031–2035" — not evenly spaced numbers. Points
+ * labeled periods — "2019", "2031–2035" — not evenly spaced numbers. Points
  * are placed by index, so an irregular band sits beside a single year without
  * distorting the spacing.
  *

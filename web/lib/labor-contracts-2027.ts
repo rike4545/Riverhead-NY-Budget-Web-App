@@ -139,7 +139,7 @@ export const units: UnitStatus[] = [
 //   itself, and that is what a successor negotiates. Until one is signed the
 //   2026 rates stand.
 //
-// The step cost is computed from the Board's own authorised-salary listings:
+// The step cost is computed from the Board's own authorized-salary listings:
 // where each officer sat after the 2026 move, advanced one rung at 2026 rates.
 const STEP_ORDER = [
   'Academy',
@@ -190,7 +190,7 @@ export const triborough = (() => {
       'The Police Officer ladder only. Detectives, sergeants and the superior-officer unit move on their own schedules, which this figure does not include, so the real Triborough cost is higher.',
       'Officers at the top step — the largest single group — get nothing from step movement. The cost is concentrated in the officers still climbing.',
       'Seven sworn retirements were accepted between July and October 2026, several of them top-step. Those seats change the roster this is computed from, and the two effects have to be read together rather than added up.',
-      'Step placement is inferred from where each officer landed in the 2025-to-2026 authorised-salary comparison. The Town does not publish a step roster.',
+      'Step placement is inferred from where each officer landed in the 2025-to-2026 authorized-salary comparison. The Town does not publish a step roster.',
     ],
   }
 })()

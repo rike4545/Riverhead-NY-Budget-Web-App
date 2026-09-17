@@ -34,10 +34,19 @@ const NON_OPERATING_FUNDS: Record<string, string> = {
   EW3: 'Water District — developer fees',
   ES2: 'Sewer — developer fees',
   CM5: 'Community Preservation — capital',
-  SW1: 'Calverton Sewer District — capital',
   CD1: 'Community Development',
-  PK1: 'Public Parking District',
-  BID: 'Business Improvement District',
+  // Two sewer funds the 2026 capital statements use that the adopted-budget
+  // extract does not carry. Labeled from the Town's own account descriptions
+  // on the statement rather than given an official title this site cannot cite.
+  ES6: 'Sewer District (ES6)',
+  ES7: 'Sewer District (ES7)',
+  // SW1, PK1 and BID were listed here and are removed. The adopted budget
+  // carries Calverton Sewer District as ES3, Public Parking District as ST1 and
+  // Business Improvement District as CM1 — all of them OPERATING funds in the
+  // extract. Keeping the other codes here would have told a reader that a fund
+  // the Town does budget sits outside the operating budget. None of the three
+  // appears anywhere in the resolution corpus, so nothing is lost by dropping
+  // them and a live mislabel is avoided.
 }
 
 export type AccountRole = 'charge' | 'revenue' | 'transfer' | 'unspecified'
@@ -65,7 +74,14 @@ export type ResolutionFunding = {
   amount: number | null
   accounts?: StatementAccount[]
   fundBalanceAccounts?: string[]
+  /** The fund each 9999 account belongs to — the fund actually being drawn down. */
+  fundBalanceFunds?: string[]
   fundBalanceDraw?: number | null
+  /**
+   * The GASB 54 tier each 9999 account names, parallel to fundBalanceAccounts.
+   * null where the Town named none, which is not the same as Unassigned.
+   */
+  fundBalanceClasses?: (string | null)[]
   drawsFundBalance?: boolean
   /** Grant terms, read from the statement. null means the statement did not say. */
   matchRequired?: boolean | null
@@ -89,14 +105,22 @@ export type AccountMatch =
       category: string | null
       adopted2026: number | null
       adopted2025: number | null
+      /** Set when the budget spells this line differently from the statement. */
+      normalizedFrom?: string
     }
   /** A fund-balance draw from a fund whose adopted budget appropriated none. */
   | { status: 'unbudgeted-fund-balance'; code: string; fund: string; fundName: string }
   /** An account this resolution opens, so it cannot be in the adopted budget. */
   | { status: 'new-account'; code: string; fund: string; fundName: string; project: string }
+  /**
+   * A well-formed code, in a fund the adopted budget does cover, naming a line
+   * the budget does not carry. That is a fact about the budget rather than a
+   * failure here: the Town charged an account it had not appropriated.
+   */
+  | { status: 'not-in-adopted-budget'; code: string; fund: string; fundName: string }
   /** A valid code in a fund the operating-budget extract does not cover. */
   | { status: 'non-operating'; code: string; fund: string; fundName: string }
-  /** Shape recognised, fund unknown to this site. */
+  /** Shape recognized, fund unknown to this site. */
   | { status: 'unknown'; code: string; fund: string }
 
 type Row = {
@@ -111,6 +135,12 @@ type Row = {
 }
 
 let index: Map<string, Row> | null = null
+let prefixIndex: Map<string, string[]> | null = null
+
+/** First four segments — fund, function, department, object. */
+function prefixOf(code: string): string {
+  return code.split('-').slice(0, 4).join('-')
+}
 
 function buildIndex(): Map<string, Row> {
   const map = new Map<string, Row>()
@@ -150,6 +180,29 @@ function buildIndex(): Map<string, Row> {
 function accountIndex(): Map<string, Row> {
   if (!index) index = buildIndex()
   return index
+}
+
+/**
+ * First-four-segments index, for the Town's own spelling variants.
+ *
+ * Riverhead writes the sub-segment two ways for the same line: the budget
+ * carries A01-3-3625-102-000-00000 (Code - Personal Services PT) and a
+ * resolution charges A01-3-3625-102-NON-00000, NON for non-uniformed. Same
+ * line, different convention. Where exactly one budget account shares the first
+ * four segments, that is the line; where several do, the sub-segment is
+ * carrying real meaning and guessing would be wrong.
+ */
+function accountPrefixIndex(): Map<string, string[]> {
+  if (!prefixIndex) {
+    prefixIndex = new Map()
+    for (const code of Array.from(accountIndex().keys())) {
+      const p = prefixOf(code)
+      const list = prefixIndex.get(p)
+      if (list) list.push(code)
+      else prefixIndex.set(p, [code])
+    }
+  }
+  return prefixIndex
 }
 
 /** Fund code of a sub-account, e.g. "A01" from "A01-1-1420-433-000-00000". */
@@ -204,6 +257,26 @@ export function lookupAccount(code: string, createdHere = false): AccountMatch {
       adopted2025: row.adopted2025,
     }
   }
+
+  // The Town's own spelling variant of a line the budget does carry.
+  const siblings = accountPrefixIndex().get(prefixOf(code))
+  if (siblings && siblings.length === 1) {
+    const only = accountIndex().get(siblings[0])!
+    return {
+      status: 'matched',
+      code: siblings[0],
+      kind: only.kind,
+      fund: only.fund,
+      fundName: only.fundName,
+      department: only.department,
+      lineName: only.lineName,
+      category: only.category,
+      adopted2026: only.adopted2026,
+      adopted2025: only.adopted2025,
+      normalizedFrom: code,
+    }
+  }
+
   const name = fundName(fund)
   // An account the resolution itself opens is absent from the adopted budget by
   // definition, not because anything failed to resolve. Saying so is the point:
@@ -222,6 +295,15 @@ export function lookupAccount(code: string, createdHere = false): AccountMatch {
   // and "we could not resolve this" is the honest answer.
   const nonOperating = NON_OPERATING_FUNDS[fund]
   if (nonOperating) return { status: 'non-operating', code, fund, fundName: nonOperating }
+
+  // Well formed, in a fund the budget covers, and absent from it. The Town
+  // charged a line it had not appropriated — worth saying, not worth calling a
+  // lookup failure. A code of the wrong shape is a different thing entirely.
+  const segments = code.split('-').length
+  const inBudgetedFund = subAccountIndex.funds.some((f) => f.code === fund)
+  if (inBudgetedFund && (segments === 5 || segments === 6)) {
+    return { status: 'not-in-adopted-budget', code, fund, fundName: name ?? fund }
+  }
   return { status: 'unknown', code, fund }
 }
 

@@ -45,14 +45,37 @@ function consequence(a: ResolvedAccount): { text: string; tone: 'warn' | 'plain'
   if (match.status === 'non-operating') {
     return { text: `${match.fundName} — outside the operating budget, so not a draw on an operating fund's surplus.`, tone: 'plain' }
   }
+  if (match.status === 'not-in-adopted-budget') {
+    // Which side of the ledger decides whether this is remarkable. Revenue the
+    // budget does not carry is ordinary — you cannot appropriate a donation you
+    // have not been given. An APPROPRIATION the budget does not carry is the
+    // Town spending on a line it never voted money for, which is the finding.
+    if (a.kind === 'revenue') {
+      return {
+        text: `${match.fundName} — money coming in on a line the adopted budget does not carry, which is usual for a donation or an unbudgeted grant.`,
+        tone: 'plain',
+      }
+    }
+    return {
+      text: `${match.fundName} — spending charged to a line the 2026 adopted budget does not carry. The Town did not appropriate this account.`,
+      tone: 'warn',
+    }
+  }
   if (match.status === 'unknown') {
     return {
-      text: 'This code is not in the 2026 adopted-budget extract, so this site cannot say what line it charges.',
+      text: 'This code does not match either chart-of-accounts shape, so this site cannot say what line it charges.',
       tone: 'plain',
     }
   }
   if (match.status !== 'matched') return null
   if (match.adopted2026 == null) return { text: `${match.fundName} · ${match.department}`, tone: 'plain' }
+  if (match.normalizedFrom) {
+    const pct = share != null ? `${Math.round(share * 100)}% of ` : ''
+    return {
+      text: `Statement writes ${match.normalizedFrom}; the budget spells the same line ${match.code} — ${pct}its ${usd(match.adopted2026)}.`,
+      tone: share != null && share >= 0.25 ? 'warn' : 'plain',
+    }
+  }
   if (match.adopted2026 === 0) {
     return {
       text: `${match.lineName} was funded at $0 in the adopted budget.`,

@@ -27,7 +27,7 @@
 //
 //   2. Overhead inside single-purpose funds. Insurance and depreciation booked
 //      to function 1 inside a sewer or water fund are not "general government"
-//      in any sense a resident would recognise — they are the cost of running
+//      in any sense a resident would recognize — they are the cost of running
 //      that utility. In a fund that does one thing, function-1 spending follows
 //      that fund's service. This moves $5.4M. The General Fund and the two
 //      internal-service funds are left alone, because their overhead really is

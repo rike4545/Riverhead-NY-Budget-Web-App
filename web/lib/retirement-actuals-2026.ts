@@ -11,7 +11,7 @@
 // WHAT THIS IS AND IS NOT. A retirement accepted inside the incentive window is
 // not proof that the retiree elected the incentive: a person may retire on their
 // own terms in the same months. So the count here is an UPPER BOUND on
-// participation, and it is labelled that way everywhere it appears. What it is
+// participation, and it is labeled that way everywhere it appears. What it is
 // not is a guess — every entry is a numbered resolution with a date.
 //
 // The saving is not the retiree's salary. For a ranked police job the Town must
@@ -40,6 +40,30 @@ const meetings: Meeting[] = (fiscalIndex.meetings as string[]).map(
 export const RATIFIED = '2026-07-07'
 /** Latest effective retirement date the incentive allows. */
 export const LAST_EFFECTIVE = '2026-10-01'
+/**
+ * Last meeting date at which an acceptance can still be an incentive retirement.
+ *
+ * The window needs an upper bound and did not have one. Every figure here was
+ * derived from `meetingDate >= RATIFIED` with nothing on the other side, which
+ * is correct only while the corpus stops before the program does. It does not
+ * stop: sync-meetings runs twice daily and commits new meetings on its own, so
+ * once meetings past October 1 arrive, every ordinary retirement the Board
+ * accepts would have been counted as a possible incentive taker, inflating
+ * uptake, incentive cost and annual savings indefinitely with nobody in the
+ * loop to notice.
+ *
+ * The right test is the retiree's EFFECTIVE date, and the record does not carry
+ * it — "Accepts the Retirement of a Police Officer Brogan" is the whole title.
+ * So this bounds on the acceptance date instead, and allows for the Board
+ * accepting a retirement after it takes effect: the Town's official calendar
+ * puts the two regular meetings after October 1 on October 6 and October 20,
+ * and a retirement effective by October 1 should have been accepted by the
+ * second of them. Anything later is reported as outside the window rather than
+ * priced, which is the conservative direction — it can undercount a very late
+ * ratification, where the alternative overcounts every ordinary retirement
+ * forever.
+ */
+export const WINDOW_CLOSES = '2026-10-20'
 
 type PoolMember = {
   name: string
@@ -57,6 +81,26 @@ const pool = buyout.eligibleEmployees as PoolMember[]
 // Detective - Henry", "... Police Officer_Lipinsky". The Clerk's separator
 // varies; the surname is always last.
 const NAMED = /(?:Police\s+(?:Officer|Detective|Sergeant))[\s_\-]+(?:[A-Z][a-z]+\s+)?([A-Z][a-z]+)\s*$/
+
+/**
+ * Retirements whose resolution title names only the position.
+ *
+ * The statement's title field carries "Accepts the Retirement of a Senior
+ * Justice Court Clerk" and nothing more, so these could not be matched to the
+ * eligible-pool model by parsing alone. The names below were supplied by the
+ * site's maintainer from the Board's resolution documents, keyed to the
+ * resolution number, and each is verified here against the pool by exact name
+ * before it is used.
+ *
+ * Surname alone would not have sufficed in at least one case: the pool holds
+ * both a Maribeth Vail (Senior Justice Court Clerk, CSEA) and a John H Vail
+ * (Sergeant, SOA), and the position is what separates them.
+ */
+const NAMED_BY_RESOLUTION: Record<string, string> = {
+  '2026-783': 'DeFilippis, Theresa A', // Network and Systems Specialist II
+  '2026-822': 'Vail, Maribeth', // Senior Justice Court Clerk
+  '2026-852': 'Wulffraat, Lisa M', // Account Clerk
+}
 const IS_RETIREMENT = /\bretirement\b/i
 const SWORN = /police\s+(officer|detective|sergeant)/i
 
@@ -68,8 +112,15 @@ export type ActualRetirement = {
   surname: string | null
   sworn: boolean
   adopted: boolean | null
-  /** The modelled eligible-pool member this resolution names, when unambiguous. */
+  /** The modeled eligible-pool member this resolution names, when unambiguous. */
   pool: PoolMember | null
+  /** Matched via the curated map rather than from the resolution title itself. */
+  namedFromDocument?: boolean
+}
+
+/** An exact pool name, for a retiree the resolution title did not name. */
+function matchPoolByFullName(name: string | undefined): PoolMember | null {
+  return name ? pool.find((p) => p.name === name) ?? null : null
 }
 
 function matchPool(surname: string | null, sworn: boolean): PoolMember | null {
@@ -96,7 +147,8 @@ const all: ActualRetirement[] = meetings
           surname,
           sworn,
           adopted: r.vote?.adopted ?? null,
-          pool: matchPool(surname, sworn),
+          pool: matchPool(surname, sworn) ?? matchPoolByFullName(r.number ? NAMED_BY_RESOLUTION[r.number] : undefined),
+          namedFromDocument: r.number != null && NAMED_BY_RESOLUTION[r.number] != null,
         }
       }),
   )
@@ -104,8 +156,43 @@ const all: ActualRetirement[] = meetings
 
 /** Retirements accepted before the Board ratified the program — not takers. */
 export const beforeProgram = all.filter((r) => r.meetingDate < RATIFIED)
-/** Retirements accepted on or after ratification — the participation ceiling. */
-export const inWindow = all.filter((r) => r.meetingDate >= RATIFIED)
+/** Retirements accepted inside the incentive window — the participation ceiling. */
+export const inWindow = all.filter(
+  (r) => r.meetingDate >= RATIFIED && r.meetingDate <= WINDOW_CLOSES,
+)
+/**
+ * Accepted after the window closed. Reported, never priced: on the record this
+ * site can see, an ordinary retirement and a late incentive ratification look
+ * identical, so neither is claimed.
+ *
+ * Adoption is filtered here for the same reason it is filtered for inWindow,
+ * and leaving it out was the same mistake twice: /buyout/ says the Board "has
+ * accepted" these, which is a claim about a vote, and this site does not infer
+ * adoption from agenda placement. A post-window retirement with a null or false
+ * vote would have been reported as accepted.
+ */
+export const afterWindow = all.filter(
+  (r) => r.meetingDate > WINDOW_CLOSES && r.adopted === true,
+)
+/** Filed after the window with no published vote record yet. */
+export const afterWindowPending = all.filter(
+  (r) => r.meetingDate > WINDOW_CLOSES && r.adopted === null,
+)
+
+/**
+ * Has the record itself moved past the acceptance cutoff?
+ *
+ * Whether the count can still grow is a fact about the published record, not
+ * about today's date, and deriving it from the clock would go stale in a static
+ * export the moment a deploy lagged. Once the Board has met past WINDOW_CLOSES
+ * and that meeting is in the corpus, no later acceptance can join the window,
+ * so the count is as final as this site can know.
+ */
+export const latestMeetingInCorpus = meetings
+  .map((m) => m.meetingDate)
+  .sort()
+  .slice(-1)[0]
+export const windowSettled = latestMeetingInCorpus > WINDOW_CLOSES
 
 /**
  * Confirmed by a published vote record — the only set the headline figures use.
@@ -155,6 +242,10 @@ export const uptake = {
   rejected: rejected.length,
   /** What the count would be if every item still awaiting a record is confirmed. */
   ifPendingConfirmed: confirmed.length + pending.length,
+  /** Accepted after the window closed — outside the program, never priced. */
+  acceptedAfterWindow: afterWindow.length,
+  /** Filed after the window, vote record not published. Never counted as accepted. */
+  afterWindowAwaitingRecord: afterWindowPending.length,
   ifPendingConfirmedSworn: sworn.length + swornPending.length,
 }
 
@@ -166,6 +257,11 @@ export const uptake = {
 // carried at the CSEA flat rate. The sick-day component is excluded here because
 // the published record does not say how much excess accrual anyone has.
 const CSEA_FLAT = 12_500
+// PFRS requires 20 years of law-enforcement service to retire, and the police
+// incentive pays $1,000 per year of Town service, so no sworn retiree can carry
+// less than this. An earlier version fell back to the CSEA flat rate for an
+// unmatched sworn officer, which is the wrong formula and understated him.
+const SWORN_MINIMUM = 20_000
 
 /**
  * NOT a floor, and an earlier version of this file was wrong to call it one.
@@ -175,18 +271,26 @@ const CSEA_FLAT = 12_500
  * cannot be true at once: if none of these retirees elected, the cost is zero.
  * So the real lower bound IS zero, and the figure below is what the incentive
  * costs IF every confirmed retirement in the window took it — a scenario, priced
- * with the Town's own formula, and labelled as one.
+ * with the Town's own formula, and labeled as one.
  */
 export const incentiveCostIfAllElected = {
   fromIdentified: identified.reduce((s, r) => s + (r.pool?.estIncentive ?? 0), 0),
-  fromUnidentifiedAtCseaRate: (confirmed.length - identified.length) * CSEA_FLAT,
+  fromUnidentifiedCivilianAtCseaRate:
+    confirmed.filter((r) => r.pool === null && !r.sworn).length * CSEA_FLAT,
+  fromUnidentifiedSwornAtMinimum:
+    confirmed.filter((r) => r.pool === null && r.sworn).length * SWORN_MINIMUM,
+  unidentifiedSworn: confirmed.filter((r) => r.pool === null && r.sworn).length,
   get total() {
-    return this.fromIdentified + this.fromUnidentifiedAtCseaRate
+    return (
+      this.fromIdentified +
+      this.fromUnidentifiedCivilianAtCseaRate +
+      this.fromUnidentifiedSwornAtMinimum
+    )
   },
   /** The defensible lower bound, absent election records. */
   trueFloor: 0,
   basis:
-    'Years of service come from the eligible-pool model for a retiree matched by name, and an unmatched one is carried at the flat CSEA rate.',
+    'Years of service come from the eligible-pool model for a retiree matched by name. An unmatched civilian is carried at the flat CSEA rate; an unmatched sworn officer at the $20,000 implied by the 20 years of PFRS-qualifying service the incentive requires, which is a minimum and not an estimate.',
   excludes:
     'Up to 30 accrued sick days per sworn retiree, paid at their 2024-2026 average base. The Town publishes no accrual balances, so this site cannot price it — the scenario above is understated to that extent.',
   whyNotAFloor:
@@ -221,21 +325,21 @@ export const savingEstimate = {
 }
 
 /**
- * Named in a retirement resolution during the window, absent from the modelled
+ * Named in a retirement resolution during the window, absent from the modeled
  * eligible pool. Not a matching failure — the pool is built from hire date and
  * union, and real PFRS eligibility also turns on age and service credit the Town
  * does not publish. Someone retiring here is evidence the model's pool, though
  * already an upper bound at 78 against the Town's own 53, still misses people.
  */
-export const retiredOutsideModelledPool = inWindow.filter((r) => r.surname !== null && r.pool === null)
+export const retiredOutsideModeledPool = inWindow.filter((r) => r.surname !== null && r.pool === null)
 
 export const limits = [
   'A retirement accepted during the incentive window is not proof the retiree elected the incentive. Somebody can retire on their own terms in the same months. Every count here is a ceiling on participation.',
   `A further ${uptake.awaitingVoteRecord} retirements (${uptake.swornAwaitingVoteRecord} of them sworn) were filed at a meeting whose vote record the Clerk has not published. They are excluded from every figure here, because this site does not infer adoption from agenda placement. If all are later confirmed the count becomes ${uptake.ifPendingConfirmed} and the annual saving ${savingEstimate.annualIfPendingConfirmed.toLocaleString('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 })}.`,
   'Savings count salary only. Each retiree keeps Town-paid retiree health for life, and a refilled seat then carries both a retiree and an active employee, so the net figure is smaller than the salary arithmetic shows.',
-  'The saving assumes every vacated seat is refilled — which is what the Town said it expects. A seat left empty saves more; a seat filled by promotion from outside the modelled chain saves less.',
+  'The saving assumes every vacated seat is refilled — which is what the Town said it expects. A seat left empty saves more; a seat filled by promotion from outside the modeled chain saves less.',
   'Civilian retirements in the window are carried at the flat CSEA incentive because the resolutions name a title rather than a person, so they cannot be matched to a years-of-service figure.',
-  `${retiredOutsideModelledPool.length > 0 ? `${retiredOutsideModelledPool.length} named retiree${retiredOutsideModelledPool.length === 1 ? ' is' : 's are'} absent from this site's modelled eligible pool` : 'Every named retiree appears in the modelled eligible pool'}. That pool is built from hire date and union; actual retirement eligibility also turns on age and service credit the Town does not publish, so it is neither a superset nor a subset of who could really go.`,
+  `${retiredOutsideModeledPool.length > 0 ? `${retiredOutsideModeledPool.length} named retiree${retiredOutsideModeledPool.length === 1 ? ' is' : 's are'} absent from this site's modeled eligible pool` : 'Every named retiree appears in the modeled eligible pool'}. That pool is built from hire date and union; actual retirement eligibility also turns on age and service credit the Town does not publish, so it is neither a superset nor a subset of who could really go.`,
 ]
 
 export const sources = [

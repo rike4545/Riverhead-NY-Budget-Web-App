@@ -219,5 +219,82 @@ for (const route of provenancePages) {
 }
 if (pagesWithClaimProvenance < 3) fail(`Claim-level provenance coverage is unexpectedly low: ${pagesWithClaimProvenance} analytical pages`)
 
+// ── Fund-balance ledger: catch a curated entry a new resolution has superseded ──
+//
+// The documented side of the ledger updates itself: the twice-daily meeting sync
+// reparses the packets, commits the fiscal JSONs, and the deploy rebuilds. The
+// CURATED side does not. lib/town-square.ts holds hand-written draws, and
+// lib/fiscal-commitments-2027.ts holds a hardcoded SUPERSEDES map saying which
+// of them a documented resolution replaces.
+//
+// That map is the fragile part. The Town Square paydown sat at a $2,725,000
+// ceiling until resolution 2026-762 booked $1,874,218 for the same paydown
+// against A01-9999 — and nothing would have noticed the overlap automatically.
+// The next one would double-count in silence.
+//
+// So: whenever a documented General Fund draw's title shares a distinctive word
+// with a curated entry's label, and the map does not already record it, say so.
+// A warning rather than a failure, because a shared word is a prompt to look,
+// not proof of an overlap.
+const STOPWORDS = new Set(['budget', 'adjustment', 'transfer', 'for', 'the', 'of', 'and', 'to', 'at',
+  'ratifies', 'adopts', 'authorizes', 'approves', 'capital', 'project', 'from', 'fund', 'funds',
+  'town', 'a', 'an', 'in', 'on', 'with', 'by', 'repairs', 'replacement', 'new', 'other',
+  'management', 'department', 'agreement', 'agreements', 'services', 'program', 'fees', 'cost',
+  'costs', 'total', 'annual', 'monthly', 'grant', 'federal', 'state', 'county', '2024', '2025',
+  '2026', '2027'])
+const distinctive = (text) => new Set(
+  String(text).toLowerCase().split(/[^a-z0-9]+/).filter((w) => w.length > 3 && !STOPWORDS.has(w)),
+)
+
+try {
+  const commitmentsSrc = readFileSync(path('lib/fiscal-commitments-2027.ts'), 'utf8')
+  const supersedes = new Set(
+    Array.from(commitmentsSrc.matchAll(/'(\d{4}-\d+)':\s*'([^']+)'/g)).map((m) => m[2]),
+  )
+  // Only the labels that actually feed the ledger — the fundBalanceImpact.draws
+  // block. town-square.ts carries dozens of other `label:` fields (rents,
+  // construction agreements, grants) that are not fund-balance draws, and
+  // matching against those buried the real signal in false positives.
+  const curatedSrc = readFileSync(path('lib/town-square.ts'), 'utf8')
+  const drawsStart = curatedSrc.indexOf('export const fundBalanceImpact')
+  const drawsBlock = drawsStart === -1
+    ? ''
+    : curatedSrc.slice(drawsStart, curatedSrc.indexOf('offsets:', drawsStart))
+  const curatedLabels = Array.from(drawsBlock.matchAll(/label:\s*'([^']+)'/g)).map((m) => m[1])
+    .filter((l) => !supersedes.has(l))
+  if (curatedLabels.length === 0 && drawsStart !== -1) {
+    warn('Fund-balance ledger overlap check found no curated draw labels — the town-square.ts shape may have changed.')
+  }
+
+  const meetingDir = path('public/data/meetings')
+  const index = JSON.parse(readFileSync(join(meetingDir, 'fiscal-index.json'), 'utf8'))
+  let collisions = 0
+  for (const slug of index.meetings) {
+    const file = join(meetingDir, `${slug}-fiscal.json`)
+    if (!existsSync(file)) continue
+    for (const r of JSON.parse(readFileSync(file, 'utf8')).resolutions ?? []) {
+      const f = r.funding
+      if (!f?.drawsFundBalance || r.vote?.adopted !== true) continue
+      if (!(f.fundBalanceFunds ?? []).includes('General Fund')) continue
+      if (supersedes.has(r.title)) continue
+      const words = distinctive(r.title)
+      for (const label of curatedLabels) {
+        const shared = Array.from(distinctive(label)).filter((w) => words.has(w))
+        if (shared.length > 0) {
+          collisions += 1
+          warn(
+            `Fund-balance ledger may double-count: documented draw ${r.number} shares "${shared.join(', ')}" ` +
+            `with the curated entry "${label}". Check whether it supersedes that entry and add it to SUPERSEDES ` +
+            `in lib/fiscal-commitments-2027.ts if so.`,
+          )
+        }
+      }
+    }
+  }
+  if (collisions === 0) console.log('Fund-balance ledger: no documented draw overlaps an un-superseded curated entry.')
+} catch (error) {
+  warn(`Fund-balance ledger overlap check could not run: ${error.message}`)
+}
+
 if (process.exitCode) process.exit(process.exitCode)
 console.log(`Build verification passed: routes, record floors, freshness, meeting timeline, evidence contracts, source authority audit, claim-level provenance coverage (${pagesWithClaimProvenance}/${provenancePages.length}), search shards, and payload guardrails are valid.`)
