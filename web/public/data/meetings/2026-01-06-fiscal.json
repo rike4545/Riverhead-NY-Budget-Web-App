@@ -1946,7 +1946,16 @@
       "role": "charge",
       "kind": "appropriation",
       "fund": "A01",
-      "name": "and A01- 6-6772-415-000-00000",
+      "name": "and",
+      "amount": null,
+      "createdHere": false
+     },
+     {
+      "code": "A01-6-6772-415-000-00000",
+      "role": "charge",
+      "kind": "appropriation",
+      "fund": "A01",
+      "name": null,
       "amount": null,
       "createdHere": false
      }

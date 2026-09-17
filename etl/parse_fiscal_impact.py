@@ -348,7 +348,13 @@ ACCOUNT_RE = re.compile(r"\b([A-Z]{1,3}\d{1,2})-[\d\-]{6,}")
 # All 848 appropriation lines and all 161 revenue lines in the adopted-budget
 # extract follow those two shapes exactly, so the second segment's width (1
 # digit vs. 4) is a reliable discriminator — no keyword guessing needed.
-FULL_ACCOUNT_RE = re.compile(r"\b([A-Z]{1,3}\d{1,2}(?:-[\dA-Z]+){3,5})")
+# The separator tolerates whitespace because the PDF wraps long codes AFTER the
+# hyphen: the packets carry "EW1-8-8320-402- 000-00000" and "ES5-8- 8189-426-
+# 075-00000". Without this the first of those truncated to EW1-8-8320-402 and
+# leaked its tail into the account NAME, and the second broke before the
+# three-segment minimum and was dropped from the statement altogether. Captured
+# whitespace is stripped, so the code is normalised back to its real form.
+FULL_ACCOUNT_RE = re.compile(r"\b([A-Z]{1,3}\d{1,2}(?:-\s*[\dA-Z]+){3,5})")
 
 # Revenue object 9999 is "Appropriated Fund Balance" — the Town's own journal
 # entry for taking money out of a fund's accumulated surplus. When it appears in
@@ -437,7 +443,7 @@ def _accounts_in(field_text: str, role: str) -> list[dict]:
         money = MONEY_RE.search(tail)
         label = tail[: money.start()] if money else tail
         label = " ".join(FORM_LABELS.sub(" ", label).split()).strip(" -–—:")
-        code = m.group(1)
+        code = re.sub(r"\s+", "", m.group(1))
         parts = code.split("-")
         # An appropriation code that lost its trailing project segment to a PDF
         # line break: 5 segments where the second is a single function digit.

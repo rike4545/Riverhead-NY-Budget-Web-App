@@ -2623,12 +2623,14 @@
     "fundCodes": [
      "EW1",
      "DA1",
-     "A01"
+     "A01",
+     "ES5"
     ],
     "funds": [
      "Water District",
      "Highway Fund",
-     "General Fund"
+     "General Fund",
+     "Riverhead Scavenger Waste"
     ],
     "amount": null,
     "accounts": [
@@ -2642,11 +2644,11 @@
       "createdHere": false
      },
      {
-      "code": "DA1-5-5110-426",
+      "code": "DA1-5-5110-426-000-000000",
       "role": "charge",
       "kind": "appropriation",
       "fund": "DA1",
-      "name": "000-000000;",
+      "name": ";",
       "amount": null,
       "createdHere": false
      },
@@ -2655,7 +2657,16 @@
       "role": "charge",
       "kind": "appropriation",
       "fund": "A01",
-      "name": "; ES5-8- 8189-426-075-00000",
+      "name": ";",
+      "amount": null,
+      "createdHere": false
+     },
+     {
+      "code": "ES5-8-8189-426-075-00000",
+      "role": "charge",
+      "kind": "appropriation",
+      "fund": "ES5",
+      "name": null,
       "amount": null,
       "createdHere": false
      }
