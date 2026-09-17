@@ -74,9 +74,20 @@ const isAdopted = (r: { vote: { adopted: boolean | null } }) => r.vote?.adopted 
 // side is allowed anywhere near the headroom arithmetic.
 const FUND_BALANCE_CATEGORIES = new Set(['capital', 'debt'])
 
+// The ETL now settles most of this itself. Where a statement charges only
+// appropriation accounts and names no 9999, a personnel or contract item is
+// flagged "recurring" rather than "reserve-draw" — because a highway operator's
+// salary line is levy-funded payroll, not a reach for accumulated surplus. What
+// still arrives as "reserve-draw" on a non-capital category is an item whose
+// statement named no accounts at all, so the category split below is still
+// needed as the fallback for those.
 const flagged = allRes.filter((r) => r.realistic?.flag === 'reserve-draw')
 const reserveDraws = flagged.filter((r) => FUND_BALANCE_CATEGORIES.has(r.category))
-const recurringCosts = flagged.filter((r) => !FUND_BALANCE_CATEGORIES.has(r.category))
+const recurringCosts = allRes.filter(
+  (r) =>
+    r.realistic?.flag === 'recurring' ||
+    (r.realistic?.flag === 'reserve-draw' && !FUND_BALANCE_CATEGORIES.has(r.category)),
+)
 const adoptedDraws = reserveDraws.filter(isAdopted)
 const adoptedRecurring = recurringCosts.filter(isAdopted)
 
@@ -118,7 +129,7 @@ export const recurringCostCounts = {
       .sort((a, b) => (b[1] as number) - (a[1] as number)),
   ) as Record<string, number>,
   note:
-    'etl/parse_fiscal_impact.py tags these "reserve-draw" alongside capital and debt items, but its own verdict for them reads "Real, recurring cost". They are levy-funded operating commitments, not draws on surplus, so this page counts them apart from the fund-balance arithmetic. The underlying flag is worth renaming in the ETL.',
+    'Levy-funded operating commitments, not draws on surplus, so they are counted apart from the fund-balance arithmetic. Most now carry their own "recurring" flag from the ETL, decided by the accounts: a statement that charges an appropriation line and names no Appropriated Fund Balance account is payroll or contract money the levy carries. The remainder still arrive flagged "reserve-draw" because their statements named no accounts at all, and are separated here by category as before.',
 }
 
 export type Commitment = {

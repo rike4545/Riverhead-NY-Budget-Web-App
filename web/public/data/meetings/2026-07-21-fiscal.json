@@ -10,13 +10,13 @@
   "total": 30,
   "markedNo": 25,
   "markedYes": 5,
-  "understated": 9,
+  "understated": 6,
   "understatedMarkedNo": 6,
   "identifiedDollarsAtStake": 153200.0,
   "pricedResolutions": 2,
   "largestUnderstatedMarkedNo": null,
   "withAccounts": 5,
-  "accountEvidence": 2,
+  "accountEvidence": 5,
   "fundBalanceDraws": 0,
   "fundBalanceDrawTotal": 0
  },
@@ -353,10 +353,10 @@
     "createsAccounts": []
    },
    "realistic": {
-    "verdict": "Real, recurring cost",
-    "reason": "A salary, raise, contract, or fee change that commits ongoing money.",
-    "flag": "reserve-draw",
-    "evidence": "category"
+    "verdict": "Real, recurring cost \u2014 funded by the levy",
+    "reason": "Section G charges this to an appropriation account and names no fund-balance account. It is ongoing operating money the tax levy carries, not a draw on accumulated surplus \u2014 a distinction the form itself does not draw.",
+    "flag": "recurring",
+    "evidence": "account-code"
    },
    "vote": {
     "adopted": true,
@@ -406,10 +406,10 @@
     "createsAccounts": []
    },
    "realistic": {
-    "verdict": "Real, recurring cost",
-    "reason": "A salary, raise, contract, or fee change that commits ongoing money.",
-    "flag": "reserve-draw",
-    "evidence": "category"
+    "verdict": "Real, recurring cost \u2014 funded by the levy",
+    "reason": "Section G charges this to an appropriation account (Building & Grounds - F/T) and names no fund-balance account. It is ongoing operating money the tax levy carries, not a draw on accumulated surplus \u2014 a distinction the form itself does not draw.",
+    "flag": "recurring",
+    "evidence": "account-code"
    },
    "vote": {
     "adopted": true,
@@ -459,10 +459,10 @@
     "createsAccounts": []
    },
    "realistic": {
-    "verdict": "Real, recurring cost",
-    "reason": "A salary, raise, contract, or fee change that commits ongoing money.",
-    "flag": "reserve-draw",
-    "evidence": "category"
+    "verdict": "Real, recurring cost \u2014 funded by the levy",
+    "reason": "Section G charges this to an appropriation account (Water - F/T) and names no fund-balance account. It is ongoing operating money the tax levy carries, not a draw on accumulated surplus \u2014 a distinction the form itself does not draw.",
+    "flag": "recurring",
+    "evidence": "account-code"
    },
    "vote": {
     "adopted": true,

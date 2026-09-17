@@ -675,6 +675,38 @@ def apply_funding_evidence(realistic: dict, funding: dict, category: str) -> dic
             "evidence": "account-code",
         }
 
+    # A PAYROLL LINE IS NOT A RESERVE. The category read gives personnel,
+    # contract, fees and labour-contract items the "reserve-draw" flag, whose
+    # label reads "Draws reserves" — while its own verdict for them says "Real,
+    # recurring cost". Both cannot be right, and the accounts settle it: an
+    # appointment charged to DA1-5-5110-101-NON-00000, Repair - Personal
+    # Services in the Highway Fund, is levy-funded payroll. It is a real and
+    # recurring cost and it draws no reserve at all.
+    #
+    # So where the statement names only appropriation accounts and no 9999, a
+    # recurring item is reported as what it is. Capital and debt are untouched:
+    # those genuinely do reach for reserves, borrowing or fund balance.
+    RECURRING = ("personnel", "labor-contract", "fees", "contract")
+    charges_only = accounts and all(a["kind"] == "appropriation" for a in accounts)
+    if (
+        realistic.get("flag") == "reserve-draw"
+        and category in RECURRING
+        and charges_only
+        and not funding.get("drawsFundBalance")
+    ):
+        lines = [a["name"] for a in accounts if a.get("name")]
+        where = f" ({lines[0]})" if lines else ""
+        return {
+            "verdict": "Real, recurring cost — funded by the levy",
+            "reason": (
+                f"Section G charges this to an appropriation account{where} and names no fund-balance "
+                "account. It is ongoing operating money the tax levy carries, not a draw on accumulated "
+                "surplus — a distinction the form itself does not draw."
+            ),
+            "flag": "recurring",
+            "evidence": "account-code",
+        }
+
     # Money in and money straight back out, inside one fund, from a source that is
     # not the Town's own surplus: a donation received and spent, a grant passed
     # through, a developer's escrow drawn down. The two sides balancing is the

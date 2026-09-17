@@ -25,6 +25,10 @@ type VoteDetailState = 'available' | 'pending' | 'omitted' | 'unindexed'
 const FLAG_STYLE: Record<string, { bg: string; fg: string; label: string }> = {
   understated: { bg: 'var(--rbl-danger-bg)', fg: 'var(--rbl-danger-strong)', label: 'Understated' },
   'reserve-draw': { bg: 'var(--rbl-warn-bg)', fg: 'var(--rbl-warn)', label: 'Draws reserves' },
+  // Levy-funded operating money. Real and recurring, but it reaches for no
+  // reserve — which is what "Draws reserves" wrongly said about a highway
+  // operator's salary line before the account codes settled it.
+  recurring: { bg: 'var(--rbl-surface-3)', fg: 'var(--rbl-text-body)', label: 'Recurring levy cost' },
   neutral: { bg: 'var(--rbl-info-bg)', fg: 'var(--rbl-info-text)', label: 'Net-neutral' },
   saving: { bg: 'var(--rbl-success-bg)', fg: 'var(--rbl-success-strong)', label: 'Saving' },
   positive: { bg: 'var(--rbl-success-bg)', fg: 'var(--rbl-success-strong)', label: 'Revenue in' },
@@ -43,7 +47,8 @@ const FLAG_STYLE: Record<string, { bg: string; fg: string; label: string }> = {
 export function isCorrection(r: { realistic: { flag: string }; townFiscalImpact: string }) {
   return (
     (r.realistic.flag === 'understated' && r.townFiscalImpact === 'No') ||
-    r.realistic.flag === 'reserve-draw'
+    r.realistic.flag === 'reserve-draw' ||
+    (r.realistic.flag === 'recurring' && r.townFiscalImpact === 'No')
   )
 }
 
