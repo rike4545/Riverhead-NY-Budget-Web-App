@@ -133,7 +133,7 @@ CATEGORY_RULES: list[tuple[str, list[str]]] = [
 # larger fact for the 2027 budget than a one-time draw would be. The Ambulance
 # Building Project bond (2026-833) is the live example: a future capital project
 # whose cost lands on taxpayers through the levy, not through surplus.
-BOND_AUTHORISATION = re.compile(
+BOND_AUTHORIZATION = re.compile(
     r"(bond resolution|authoriz\w*\s+the\s+issuance|serial bonds?|bond anticipation note"
     r"|\bBAN\b|authoriz\w*\s+.{0,30}\bborrow)",
     re.I,
@@ -142,7 +142,7 @@ BOND_AUTHORISATION = re.compile(
 
 def realistic_read(category: str, fiscal_impact: str, title: str = "") -> dict:
     yes = fiscal_impact == "Yes"
-    if category == "debt" and BOND_AUTHORISATION.search(title):
+    if category == "debt" and BOND_AUTHORIZATION.search(title):
         return {
             "verdict": "Creates debt service on future budgets",
             "reason": (
@@ -361,6 +361,40 @@ FULL_ACCOUNT_RE = re.compile(r"\b([A-Z]{1,3}\d{1,2}(?:-\s*[\dA-Z]+){3,5})")
 # section G the draw is documented, not inferred from the resolution's title.
 FUND_BALANCE_OBJECT = "9999"
 
+# GASB Statement 54 splits a fund's balance into five classifications by how
+# hard the money is to spend, and the Town sometimes names the classification in
+# the account's own description: resolution 2026-361 charges "Assigned
+# Unappropriated Fund Balance - CBF". That word is load-bearing. A reserve
+# policy, and every headroom figure on this site, is measured against the
+# UNASSIGNED tier, so netting an Assigned draw against it reports a cushion
+# shrinking when the cushion has not moved. Where the Town states a tier it is
+# carried through; where it says nothing the tier is left null rather than
+# assumed, because the object code alone does not distinguish them.
+FUND_BALANCE_CLASS = re.compile(
+    r"\b(nonspendable|non-spendable|restricted|committed|assigned|unassigned)\b", re.I
+)
+FUND_BALANCE_CLASS_NAMES = {
+    "nonspendable": "Nonspendable",
+    "non-spendable": "Nonspendable",
+    "restricted": "Restricted",
+    "committed": "Committed",
+    "assigned": "Assigned",
+    "unassigned": "Unassigned",
+}
+
+
+def fund_balance_class(name: str | None) -> str | None:
+    """The GASB 54 tier the Town named on this account, if it named one.
+
+    "Unassigned" must be tested before "Assigned" would match inside it, which
+    the alternation handles by word boundary rather than by order.
+    """
+    if not name:
+        return None
+    m = FUND_BALANCE_CLASS.search(name)
+    return FUND_BALANCE_CLASS_NAMES[m.group(1).lower()] if m else None
+
+
 # A capital-project resolution opens new sub-accounts under a project number it
 # names in its own title — "Budget Adoption for Capital Project #12620" creates
 # H01-1-1940-435-000-12620. Such a code is absent from the adopted budget
@@ -480,10 +514,18 @@ def funding_from_block(block_text: str, title: str = "", purpose: str = "") -> d
 
     fields = split_section_g(g)
     accounts: list[dict] = []
-    seen: set[tuple[str, str]] = set()
+    # A code printed twice in the same field is a restatement and is dropped.
+    # A code printed twice carrying DIFFERENT money is two lines, and dropping
+    # the second loses real dollars: resolution 2026-361 charges
+    # A01-9999-000-00000-0 twice, $5,000 for Nextera Community Health &
+    # Wellness and $108,613 for Nextera Easement Phase 1. Keying on the code and
+    # role alone kept only the $5,000 and reported that as the whole draw, when
+    # the statement's own transfer line reads $113,613. The name and amount are
+    # what make a line distinct, so they belong in the key.
+    seen: set[tuple[str, str, str, float | None]] = set()
     for role in ("charge", "revenue", "transfer"):
         for a in _accounts_in(fields.get(role, ""), role):
-            key = (a["code"], a["role"])
+            key = (a["code"], a["role"], a["name"] or "", a["amount"])
             if key in seen:
                 continue
             seen.add(key)
@@ -511,6 +553,8 @@ def funding_from_block(block_text: str, title: str = "", purpose: str = "") -> d
         a for a in accounts
         if a["kind"] == "revenue" and a["code"].split("-")[1] == FUND_BALANCE_OBJECT
     ]
+    for a in fund_balance:
+        a["fundBalanceClass"] = fund_balance_class(a["name"])
 
     # The largest figure named in section G. Several rows can repeat the same
     # sum (revenue in, appropriation out); the maximum is the size of the action.
@@ -563,6 +607,9 @@ def funding_from_block(block_text: str, title: str = "", purpose: str = "") -> d
         ],
         "fundBalanceDraw": round(sum(a["amount"] for a in fund_balance if a["amount"]), 2)
         if any(a["amount"] for a in fund_balance) else None,
+        # The GASB 54 tier each draw names, parallel to fundBalanceAccounts.
+        # null where the Town named none — not a guess that it is Unassigned.
+        "fundBalanceClasses": [a.get("fundBalanceClass") for a in fund_balance],
         # Documented by account code rather than inferred from the title.
         "drawsFundBalance": bool(fund_balance),
         # A grant with a match is not a free grant, and one paid on a

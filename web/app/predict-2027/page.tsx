@@ -10,6 +10,7 @@ import {
   drawCounts, recurringCostCounts, generalFundCommitments2026, committedTotal, openingSurplusAbovePolicy,
   remainingHeadroomCeiling, reductionPct, effectOnOptions, limits as commitmentLimits, corpus,
   headroomLedger, supersessions, documentedChangedTotalBy, committedDocumented, committedAtCeiling,
+  otherTierGeneralFundDraws,
 } from '../../lib/fiscal-commitments-2027'
 import {
   whatTheFormOmits, appointmentTiming, retirementAnnualisation, linesWithRepeatedActions,
@@ -27,6 +28,16 @@ const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-bo
 const th = { padding: '8px 10px' } as const
 const td = { padding: '8px 10px' } as const
 const chip = { fontWeight: 850, fontSize: 12, padding: '4px 10px', borderRadius: 999 } as const
+
+// Three kinds of certainty, so three badges. A two-way test here rendered every
+// account-derived row as "Ceiling" — the opposite of what it is, and flatly
+// contradicted by the copy under this table calling those figures the Town's
+// own booked amounts. The ledger below already distinguished all three.
+const certaintyTone: Record<string, { label: string; bg: string; color: string }> = {
+  documented: { label: 'Documented', bg: 'var(--rbl-success-bg)', color: 'var(--rbl-success-strong)' },
+  authorized: { label: 'Authorized', bg: 'var(--rbl-warn-bg)', color: 'var(--rbl-warn-strong)' },
+  ceiling: { label: 'Ceiling', bg: 'var(--rbl-surface-2)', color: 'var(--rbl-text-muted)' },
+}
 
 const OSC_2027 = 'https://www.osc.ny.gov/press/releases/2026/07/dinapoli-tax-cap-remains-2-percent-2027'
 const OSC_OVERRIDES = 'https://www.osc.ny.gov/press/releases/2026/08/dinapoli-growing-number-local-governments-reporting-plans-override-property-tax-cap'
@@ -255,8 +266,8 @@ export default function Predict2027Page() {
                   </td>
                   <td style={{ padding: '7px 10px', textAlign: 'right', fontWeight: 800, whiteSpace: 'nowrap', color: 'var(--rbl-warn)' }}>{usd(c.amount)}</td>
                   <td style={{ padding: '7px 10px', whiteSpace: 'nowrap' }}>
-                    <span style={{ fontWeight: 800, fontSize: 12, padding: '3px 10px', borderRadius: 999, whiteSpace: 'nowrap', background: c.certainty === 'authorized' ? 'var(--rbl-warn-bg)' : 'var(--rbl-surface-2)', color: c.certainty === 'authorized' ? 'var(--rbl-warn-strong)' : 'var(--rbl-text-muted)', border: '1px solid var(--rbl-border-subtle)' }}>
-                      {c.certainty === 'authorized' ? 'Authorized' : 'Ceiling'}
+                    <span style={{ fontWeight: 800, fontSize: 12, padding: '3px 10px', borderRadius: 999, whiteSpace: 'nowrap', background: certaintyTone[c.certainty].bg, color: certaintyTone[c.certainty].color, border: '1px solid var(--rbl-border-subtle)' }}>
+                      {certaintyTone[c.certainty].label}
                     </span>
                   </td>
                 </tr>
@@ -330,6 +341,27 @@ export default function Predict2027Page() {
               replaces it.
             </p>
           ))}
+          {otherTierGeneralFundDraws.length > 0 && (
+            <div style={{ background: 'var(--rbl-info-bg)', border: '1px solid var(--rbl-info-border)', borderRadius: 10, padding: '11px 14px', margin: '10px 0 0' }}>
+              <strong style={{ color: 'var(--rbl-info-text)', fontSize: 13.5 }}>
+                Drawn from the General Fund, but not from the cushion this page measures
+              </strong>
+              <p style={{ color: 'var(--rbl-text-body)', fontSize: 13.2, lineHeight: 1.6, margin: '4px 0 0' }}>
+                Every figure above is measured against <strong>unassigned</strong> fund balance, which is one of the{' '}
+                <a href={`${base}/reserves/`} style={{ color: 'var(--rbl-link)' }}>five GASB classifications</a>. These
+                votes draw on a different tier, so they are shown but never netted against the headroom — subtracting
+                them would report the cushion shrinking when the cushion has not moved.
+              </p>
+              <ul style={{ color: 'var(--rbl-text-body)', fontSize: 13, lineHeight: 1.55, margin: '6px 0 0', paddingLeft: 18 }}>
+                {otherTierGeneralFundDraws.map((d) => (
+                  <li key={d.number ?? d.title}>
+                    <strong>{usd(d.amount)}</strong> — {d.title} (resolution {d.number ?? '—'};{' '}
+                    {d.tiers.join(', ')} fund balance, per the account&apos;s own description).
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
           <p style={{ color: 'var(--rbl-text-muted)', fontSize: 12.5, lineHeight: 1.55, margin: '8px 0 0' }}>
             Net of that correction and of the draws the account codes surfaced for the first time, the committed total
             moved by {documentedChangedTotalBy < 0 ? '−' : '+'}{usd(Math.abs(documentedChangedTotalBy))} on the

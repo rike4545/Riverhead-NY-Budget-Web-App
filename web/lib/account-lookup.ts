@@ -77,6 +77,11 @@ export type ResolutionFunding = {
   /** The fund each 9999 account belongs to — the fund actually being drawn down. */
   fundBalanceFunds?: string[]
   fundBalanceDraw?: number | null
+  /**
+   * The GASB 54 tier each 9999 account names, parallel to fundBalanceAccounts.
+   * null where the Town named none, which is not the same as Unassigned.
+   */
+  fundBalanceClasses?: (string | null)[]
   drawsFundBalance?: boolean
   /** Grant terms, read from the statement. null means the statement did not say. */
   matchRequired?: boolean | null

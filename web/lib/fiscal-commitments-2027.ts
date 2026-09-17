@@ -158,16 +158,57 @@ export type Commitment = {
 // site inferred or bounded.
 type DrawRow = { number: string | null; title: string; amount: number }
 
-const documentedGeneralFundDraws: DrawRow[] = allRes
-  .filter(
-    (r) =>
-      isAdopted(r) &&
-      r.funding?.drawsFundBalance === true &&
-      (r.funding.fundBalanceFunds ?? []).indexOf('General Fund') !== -1 &&
-      (r.funding.fundBalanceDraw ?? 0) > 0,
-  )
+/**
+ * Not every General Fund draw comes out of the tier this page measures.
+ *
+ * The headroom arithmetic below starts from surplusAboveUpper, which is
+ * UNASSIGNED fund balance less the policy target. GASB 54 splits the balance
+ * into five tiers, and the Town sometimes names the tier on the account itself:
+ * resolution 2026-361 charges "Assigned Unappropriated Fund Balance - CBF",
+ * moving $113,613 of Community Benefit Funds into a bulkhead project. That is a
+ * real draw on a real balance, but it is not the unassigned cushion, so netting
+ * it against unassigned headroom would report the cushion shrinking when the
+ * cushion has not moved.
+ *
+ * A draw that names no tier is kept. The object code alone does not distinguish
+ * them, and the overwhelming default is an unassigned draw; excluding the
+ * unnamed ones would understate commitments far more than including them
+ * overstates any single tier.
+ */
+const isUnassignedDraw = (r: FiscalRes) =>
+  (r.funding?.fundBalanceClasses ?? []).every((c) => c === null || c === 'Unassigned')
+
+const generalFundBalanceDraws = allRes.filter(
+  (r) =>
+    isAdopted(r) &&
+    r.funding?.drawsFundBalance === true &&
+    (r.funding.fundBalanceFunds ?? []).indexOf('General Fund') !== -1 &&
+    (r.funding.fundBalanceDraw ?? 0) > 0,
+)
+
+const documentedGeneralFundDraws: DrawRow[] = generalFundBalanceDraws
+  .filter(isUnassignedDraw)
   .map((r) => ({ number: r.number, title: r.title, amount: r.funding!.fundBalanceDraw as number }))
   .sort((a, b) => b.amount - a.amount)
+
+/**
+ * Draws on a General Fund tier other than Unassigned — reported, never netted.
+ * Kept visible rather than filtered away in silence, because "it did not touch
+ * the cushion" is a finding about the money, not a reason to hide the vote.
+ */
+export const otherTierGeneralFundDraws = generalFundBalanceDraws
+  .filter((r) => !isUnassignedDraw(r))
+  .map((r) => ({
+    number: r.number,
+    title: r.title,
+    amount: r.funding!.fundBalanceDraw as number,
+    tiers: Array.from(
+      new Set((r.funding!.fundBalanceClasses ?? []).filter((c): c is string => !!c)),
+    ),
+  }))
+  .sort((a, b) => b.amount - a.amount)
+
+export const otherTierDrawTotal = otherTierGeneralFundDraws.reduce((s, d) => s + d.amount, 0)
 
 /**
  * A curated entry a documented draw replaces.
