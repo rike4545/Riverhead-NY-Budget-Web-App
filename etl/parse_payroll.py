@@ -615,6 +615,71 @@ def build():
             "latest": counts[str(title_years[-1])] if title_years else 0,
             "first": first, "last": last, "delta": last - first,
         })
+    # Staff by department, and the titles inside each -- the "staff per
+    # department" view on the same page.
+    #
+    # Restricted to the years the Town actually reports a department. Every
+    # department value before 2022 in this dataset was carried back from a later
+    # year by carry_forward_static_fields, and a headcount is a count of people,
+    # not a place to fold in an inference: including those years would publish a
+    # 2018 department roster the Town never did.
+    #
+    # A title is not owned by one department. Police Officer appears across the
+    # squads, COPE, Detectives, K-9 and Headquarters; Account Clerk across ten
+    # departments. So the same title is listed under each department it appears
+    # in, and it is the department counts, not the sum of title counts, that add
+    # up to the workforce.
+    dept_years = sorted({
+        r["year"] for r in all_rows
+        if (r["department"] or "").strip() and "d" not in (r.get("_inferred") or "")
+    })
+    dept_people, dept_title_people = {}, {}
+    for r in all_rows:
+        if r["year"] not in dept_years:
+            continue
+        dep = (r["department"] or "").strip()
+        if not dep:
+            continue
+        dept_people.setdefault(dep, {}).setdefault(r["year"], set()).add(r["name"])
+        title = (r["title"] or "").strip()
+        if title:
+            dept_title_people.setdefault(dep, {}).setdefault(title, {}).setdefault(r["year"], set()).add(r["name"])
+
+    def _dept_series(year_map):
+        counts = {str(y): len(year_map.get(y, set())) for y in dept_years}
+        nonzero = [counts[str(y)] for y in dept_years if counts[str(y)]]
+        first, last = (nonzero[0], nonzero[-1]) if nonzero else (0, 0)
+        latest = counts[str(dept_years[-1])] if dept_years else 0
+        return counts, first, last, latest
+
+    departments_out = []
+    for dep, year_map in dept_people.items():
+        counts, first, last, latest = _dept_series(year_map)
+        titles_in = []
+        for title, tmap in dept_title_people.get(dep, {}).items():
+            tcounts, _, _, tlatest = _dept_series(tmap)
+            titles_in.append({"title": title, "counts": tcounts, "latest": tlatest})
+        titles_in.sort(key=lambda x: (-x["latest"], x["title"]))
+        # A handful of people each year carry a department but no title at all
+        # (3 of 574 in 2025). Their department still counts them, so the titles
+        # listed under it can come up short of its staff count. Carry the
+        # shortfall explicitly rather than leave the arithmetic looking broken.
+        untitled = {
+            str(y): counts[str(y)] - sum(t["counts"][str(y)] for t in titles_in)
+            for y in dept_years
+        }
+        departments_out.append({
+            "department": dep,
+            "counts": counts,
+            "latest": latest,
+            "first": first,
+            "last": last,
+            "delta": last - first,
+            "untitled": untitled,
+            "titles": titles_in,
+        })
+    departments_out.sort(key=lambda x: (-x["latest"], x["department"]))
+
     # Per-title 2026 authorized wage, from the Board's January salary resolutions.
     # The department rosters print an ANNUAL SALARY column and an HOURLY column,
     # but the Town fills the hourly one in only for part-time and per-hour staff
@@ -695,8 +760,12 @@ def build():
         "note": "Distinct employees paid under each civil-service title, by year. Titles are available 2022 onward; seasonal and part-time roles (lifeguards, recreation aides, beach attendants) inflate summer headcounts.",
         "source": {"title": "Town of Riverhead Gross Earnings reports", "url": "https://www.townofriverheadny.gov/206/Financial-Reports"},
         "titles": titles_out,
+        "departmentYears": dept_years,
+        "departmentNote": "Staff counted in each department the Town's payroll export names, by year. These are the payroll's own department codes rather than an organization chart: the Police Department appears as its squads, COPE, Detectives, K-9 and Headquarters instead of as one line. A title can sit in several departments, so the department counts are what add up to the workforce, not the sum of the titles listed under them. Departments start in 2022 because every earlier department value in this dataset was carried back from a later year rather than reported.",
+        "departments": departments_out,
     }, separators=(",", ":")))
     print(f"Titles by year: {len(titles_out)} titles across {title_years}")
+    print(f"Departments by year: {len(departments_out)} departments across {dept_years}")
 
     print(f"Payroll records: {len(records)} across years {[y['year'] for y in years_summary]}")
     for y in years_summary:
