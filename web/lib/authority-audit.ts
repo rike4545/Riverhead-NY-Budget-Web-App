@@ -16,6 +16,12 @@ export type AuthorityAuditRecord = {
  * to substantive guidance. `sha256` is used for stable publication files. The
  * SHA-256 values below were observed by the Quality Gate on September 7, 2026
  * and reviewed as the initial baselines for future change detection.
+ *
+ * A fingerprint is only moved after someone reads the new document and confirms
+ * it still supports what the site says about it; `checkedAt` is that reading,
+ * not the last time bytes were compared, and residents see it on the page. A
+ * publisher re-saving a file changes the fingerprint without changing the
+ * guidance, so the note records which of the two happened.
  */
 export const authorityAudit: AuthorityAuditRecord[] = [
   {
@@ -98,10 +104,10 @@ export const authorityAudit: AuthorityAuditRecord[] = [
   {
     id: 'gasb-87',
     url: 'https://www.osc.ny.gov/files/local-government/publications/pdf/accounting-and-financial-reporting-for-leases-required-by-gasb-87.pdf',
-    checkedAt: '2026-09-07',
+    checkedAt: '2026-09-18',
     mode: 'sha256',
-    expectedSha256: '4bfda9129dd8a9cf32fa0ecd452b4a059b21c7cbb6cac004456320994b12a56b',
-    note: 'OSC accounting bulletin implementing GASB 87 lease guidance.',
+    expectedSha256: 'be14fbe0ea96e862d067cc4b0719b721d966cb84e36d2c5acd2128001344e4d1',
+    note: 'OSC accounting bulletin implementing GASB 87 lease guidance. Rebaselined 2026-09-18 after OSC re-saved the file on September 17, 2026: the bulletin is still the December 2022 update, and the lease-liability, present-value and remeasurement guidance the summary describes was re-read and is unchanged.',
   },
   {
     id: 'fasb-asc',
