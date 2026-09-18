@@ -267,6 +267,47 @@ def event_item(e):
     }
 
 
+def dedupe_by_slug(items):
+    """Collapse events that share a date, keeping the one that is a Board meeting.
+
+    The slug is the date alone, and CivicClerk can carry two events on one day:
+    2026-09-24 arrives as both a "Special Town Board Meeting" and a generic
+    "One Time Event" at the same hour. Emitting both put two entries with the
+    same slug into upcoming.json, which verify-build rejects outright — it reads
+    a duplicate slug as a corrupted timeline, and it is right to, because every
+    consumer of this file keys on the slug.
+
+    Preference goes to an item whose type names a Board meeting, since that is
+    the one a resident is looking for; ties fall to the earlier start. Nothing
+    published is discarded: hearings and docket entries from the dropped item
+    are merged into the survivor, so a hearing noticed against the generic event
+    still reaches the page.
+    """
+    by_slug = {}
+    order = []
+    for item in items:
+        slug = item["slug"]
+        if slug not in by_slug:
+            by_slug[slug] = item
+            order.append(slug)
+            continue
+        kept = by_slug[slug]
+        if _is_board_meeting(item) and not _is_board_meeting(kept):
+            kept, item = item, kept
+            by_slug[slug] = kept
+        for field in ("hearings", "docket"):
+            merged = list(kept.get(field) or [])
+            for entry in item.get(field) or []:
+                if entry not in merged:
+                    merged.append(entry)
+            kept[field] = merged
+    return [by_slug[s] for s in order]
+
+
+def _is_board_meeting(item):
+    return "board meeting" in clean(item.get("type", "")).lower()
+
+
 def build():
     OUT.mkdir(parents=True, exist_ok=True)
     now = datetime.now(NY)
@@ -287,6 +328,8 @@ def build():
             meetings.append(item)
 
     recent = list(reversed(recent[-6:]))
+    recent = dedupe_by_slug(recent)
+    meetings = dedupe_by_slug(meetings)
 
     payload = {
         "source": {
