@@ -62,6 +62,10 @@ export default function WorkforceByDepartment() {
   const totalLatest = useMemo(() => departments.reduce((s, d) => s + d.latest, 0), [])
   const maxLatest = useMemo(() => Math.max(...departments.map((d) => d.latest), 1), [])
   const biggest = useMemo(() => [...departments].sort((a, b) => b.delta - a.delta)[0], [])
+  // Departments that carried staff earlier in the window but none in the latest
+  // year. They stay in the list, which is why it can run longer than the
+  // latest-year count in the stats above.
+  const retired = useMemo(() => departments.filter((d) => d.latest === 0).length, [])
 
   return (
     <div>
@@ -89,8 +93,16 @@ export default function WorkforceByDepartment() {
           </select>
         </div>
 
+        {/* The list spans every department staffed in any year, so it runs one
+            longer than the latest-year count in the stat above — P/T Police was
+            staffed through 2024 and not in 2025. Saying the span here is
+            cheaper than leaving a reader to reconcile 66 against 65. */}
         <div style={{ color: 'var(--rbl-text-body)', fontWeight: 700, marginBottom: 8, fontSize: 14 }}>
           Showing {rows.length.toLocaleString()} of {departments.length.toLocaleString()} departments
+          <span style={{ fontWeight: 400, color: 'var(--rbl-text-muted)' }}>
+            {' '}— every department staffed in any year {years[0]}–{latestYear}
+            {retired > 0 && `, which is ${retired} more than the ${latestYear} count above`}
+          </span>
           {query && ' · departments matching a title are opened'}
         </div>
 
