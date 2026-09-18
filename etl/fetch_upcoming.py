@@ -267,6 +267,50 @@ def event_item(e):
     }
 
 
+ITEM_SOURCE_COMPONENTS = ("published-agenda", "official-calendar")
+
+
+def _is_board_meeting(item):
+    return "board meeting" in clean(item.get("type", "")).lower()
+
+
+def _start_key(item):
+    # Missing start times sort last so they never displace a dated event.
+    return item.get("startDateTime") or "9999"
+
+
+def _prefers(candidate, kept):
+    """True when candidate should be the surviving row for a date."""
+    candidate_board, kept_board = _is_board_meeting(candidate), _is_board_meeting(kept)
+    if candidate_board != kept_board:
+        return candidate_board
+    return _start_key(candidate) < _start_key(kept)
+
+
+def _merge_items(kept, other):
+    for field in ("hearings", "docket"):
+        merged = list(kept.get(field) or [])
+        for entry in other.get(field) or []:
+            if entry not in merged:
+                merged.append(entry)
+        kept[field] = merged
+
+
+def _merge_provenance(kept, other):
+    """Carry the dropped row's sourcing onto the survivor that inherits its items.
+
+    A survivor that absorbs a docket must also absorb the reason that docket is
+    publishable, or verify-meeting-schedule rejects it: a docket requires
+    agendaPublished and an itemsSource naming a published agenda. itemsSource is
+    rebuilt as the union of both rows' components in canonical order, so it stays
+    one of the four values the verifier allows.
+    """
+    kept["agendaPublished"] = bool(kept.get("agendaPublished")) or bool(other.get("agendaPublished"))
+    sources = (kept.get("itemsSource") or "", other.get("itemsSource") or "")
+    components = [c for c in ITEM_SOURCE_COMPONENTS if any(c in s for s in sources)]
+    kept["itemsSource"] = "+".join(components) or None
+
+
 def dedupe_by_slug(items):
     """Collapse events that share a date, keeping the one that is a Board meeting.
 
@@ -279,33 +323,24 @@ def dedupe_by_slug(items):
 
     Preference goes to an item whose type names a Board meeting, since that is
     the one a resident is looking for; ties fall to the earlier start. Nothing
-    published is discarded: hearings and docket entries from the dropped item
-    are merged into the survivor, so a hearing noticed against the generic event
-    still reaches the page.
+    published is discarded: hearings, docket entries and the provenance that
+    makes them publishable are merged into the survivor, so a hearing noticed
+    against the generic event still reaches the page.
     """
     by_slug = {}
     order = []
     for item in items:
-        slug = item["slug"]
-        if slug not in by_slug:
-            by_slug[slug] = item
-            order.append(slug)
+        kept = by_slug.get(item["slug"])
+        if kept is None:
+            by_slug[item["slug"]] = item
+            order.append(item["slug"])
             continue
-        kept = by_slug[slug]
-        if _is_board_meeting(item) and not _is_board_meeting(kept):
+        if _prefers(item, kept):
             kept, item = item, kept
-            by_slug[slug] = kept
-        for field in ("hearings", "docket"):
-            merged = list(kept.get(field) or [])
-            for entry in item.get(field) or []:
-                if entry not in merged:
-                    merged.append(entry)
-            kept[field] = merged
+            by_slug[kept["slug"]] = kept
+        _merge_items(kept, item)
+        _merge_provenance(kept, item)
     return [by_slug[s] for s in order]
-
-
-def _is_board_meeting(item):
-    return "board meeting" in clean(item.get("type", "")).lower()
 
 
 def build():
@@ -314,6 +349,7 @@ def build():
     recent, meetings = [], []
     regular_dates = published_regular_meeting_dates()
 
+    eligible = []
     for e in list_schedule():
         item = event_item(e)
         # A normal "Town Board Meeting" must appear on the Town's published
@@ -321,6 +357,13 @@ def build():
         # special/emergency meetings remain eligible through CivicClerk.
         if regular_dates and clean(item["type"]).lower() == "town board meeting" and item["date"] not in regular_dates:
             continue
+        eligible.append(item)
+
+    # Collapse same-date events before splitting the timeline, not after. Two
+    # events on one date can straddle `now` — one already held, one still to
+    # come — and deduping each half separately would leave one survivor in each
+    # while verify-build checks slug uniqueness across recent + meetings together.
+    for item in dedupe_by_slug(eligible):
         local_dt = event_local_datetime(item["startDateTime"])
         if local_dt and local_dt < now:
             recent.append(item)
@@ -328,8 +371,6 @@ def build():
             meetings.append(item)
 
     recent = list(reversed(recent[-6:]))
-    recent = dedupe_by_slug(recent)
-    meetings = dedupe_by_slug(meetings)
 
     payload = {
         "source": {
