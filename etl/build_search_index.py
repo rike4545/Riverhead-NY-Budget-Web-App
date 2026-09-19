@@ -49,7 +49,51 @@ def build():
                 latest[k] = r
         for r in latest.values():
             bits = [b for b in (r.get("t"), r.get("d")) if b]
-            entries["payroll"].append({"t":"payroll","n":clean(r["n"],60),"x":f"{' · '.join(bits) or r.get('u') or 'Town employee'} · {r['y']} gross pay","v":r["g"],"u":f"{BASE}/payroll/"})
+            # Overtime was absent from this index entirely -- zero of 16,921
+            # entries contained the word -- while the Town paid $1.4M of it in
+            # 2025 and the site's own example question asks about police
+            # overtime. It is actual paid money, it is the single largest
+            # discretionary swing in the payroll, and a resident could not find
+            # any of it. Carried in the context so the figure is searchable and
+            # visible, not just the gross.
+            overtime = r.get("o") or 0
+            ot_text = f" · ${overtime:,.0f} overtime" if overtime > 0 else ""
+            entries["payroll"].append({"t":"payroll","n":clean(r["n"],60),"x":f"{' · '.join(bits) or r.get('u') or 'Town employee'} · {r['y']} gross pay{ot_text}","v":r["g"],"u":f"{BASE}/payroll/"})
+
+        # Department overtime totals, as records in their own right.
+        #
+        # Per-person overtime alone does not answer "how much does the Town
+        # spend on police overtime", because nothing in this index ranks or
+        # sums. These aggregates do, and they are the reason the site's own
+        # suggested question previously returned 24 police budget lines and not
+        # one overtime figure. Latest year only, so the number is current.
+        latest_year = max((r["y"] for r in payroll["records"]), default=None)
+        if latest_year is not None:
+            dept_ot, dept_n = {}, {}
+            for r in payroll["records"]:
+                if r["y"] != latest_year or not (r.get("o") or 0) > 0:
+                    continue
+                dept = (r.get("d") or "").strip() or "Unassigned department"
+                dept_ot[dept] = dept_ot.get(dept, 0.0) + r["o"]
+                dept_n[dept] = dept_n.get(dept, 0) + 1
+            town_ot = sum(dept_ot.values())
+            for dept, total in sorted(dept_ot.items(), key=lambda kv: -kv[1]):
+                share = f"{100 * total / town_ot:.1f}% of Town overtime" if town_ot else "share unavailable"
+                entries["payroll"].append({
+                    "t": "payroll",
+                    "n": clean(f"Overtime — {dept} ({latest_year})", 90),
+                    "x": f"{dept_n[dept]} employees paid overtime · {share} · {latest_year} actual paid overtime",
+                    "v": round(total, 2),
+                    "u": f"{BASE}/payroll/",
+                })
+            if town_ot:
+                entries["payroll"].append({
+                    "t": "payroll",
+                    "n": f"Overtime — all departments ({latest_year})",
+                    "x": f"{sum(dept_n.values())} employees across {len(dept_ot)} departments · {latest_year} actual paid overtime, Town-wide",
+                    "v": round(town_ot, 2),
+                    "u": f"{BASE}/payroll/",
+                })
     sal = load("salary/authorized-2026.json")
     if sal:
         for r in sal["records"]:
