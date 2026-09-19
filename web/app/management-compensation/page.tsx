@@ -117,7 +117,7 @@ export default function ManagementCompensationPage() {
         <h3 style={{ marginTop: 0, color: 'var(--rbl-title)' }}>What a contribution is worth</h3>
         <p style={{ color: 'var(--rbl-text-body)', fontSize: 14.5, lineHeight: 1.6, marginTop: 0 }}>
           Using the NYSHIP Empire Plan participating-agency individual rate of{' '}
-          <strong>{usd(nyshipIndividualMonthly)}</strong> a month as a floor:
+          <strong>{usd(nyshipIndividualMonthly)}</strong> a month, at full enrollment:
         </p>
         <div style={{ display: 'flex', justifyContent: 'space-between', gap: 12, fontSize: 14.5 }}>
           <span>Restoring the 25% contribution on these four positions</span>
@@ -128,11 +128,14 @@ export default function ManagementCompensationPage() {
           <strong>{usd(twentyPercentAcross22)}/yr</strong>
         </div>
         <p style={{ color: 'var(--rbl-text-muted)', fontSize: 12.8, lineHeight: 1.55, margin: '10px 0 0' }}>
-          Both are floors, not estimates. The individual rate is the cheapest tier, and the resolution covers dental
-          and vision on top of medical. The second figure is the same one this site&apos;s 2027 reduction analysis
-          uses, imported rather than recomputed so the two pages cannot drift apart &mdash; and the direction is worth
-          noticing: the Town is being asked to consider introducing a contribution for twenty-two positions, having
-          removed one from four.
+          Neither is a floor, and the reason cuts both ways. The individual rate is the cheapest enrollment tier and
+          the resolution covers dental and vision on top of medical, so a position that is enrolled is understated
+          here. But a position that waives Town coverage &mdash; on a spouse&apos;s plan, say &mdash; costs the Town
+          nothing and is still counted. Read both as what the policy is worth if every position is enrolled; the Town
+          publishes no enrollment by position, so neither correction can be made. The second figure takes its premium,
+          position count and rate from this site&apos;s 2027 reduction analysis by import, so the two pages cannot
+          quote different numbers &mdash; and the direction is worth noticing: the Town is being asked to consider
+          introducing a contribution for twenty-two positions, having removed one from four.
         </p>
       </section>
 

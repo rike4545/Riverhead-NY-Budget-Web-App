@@ -20,6 +20,12 @@
 // about visibility: the Town's published material does not let a resident see
 // these two decisions together, and this page is the attempt to do that.
 
+import {
+  nyshipPlanPrimeIndividualMonthlyPremium,
+  modeledEligibleHealthcarePositions,
+  healthcareContributionRate,
+} from './spending-reduction-2027'
+
 export type NamedPosition = {
   title: string
   holder: string | null
@@ -111,13 +117,31 @@ export const appointmentResolutions = [
 ]
 
 /**
- * What a contribution is worth, using the same rate the site's 2027 reduction
- * analysis uses so the two pages cannot quote different numbers.
+ * What a contribution is worth.
+ *
+ * The premium, the eligible-position count and the contribution rate come from
+ * the 2027 reduction analysis by import. The first version of this file said
+ * exactly that in its comment and on the page while holding its own copy of the
+ * literal, so the guarantee was decorative: changing the rate over there would
+ * have left this page quoting the old one, which is the drift the claim
+ * promised to prevent.
+ *
+ * Neither total is a floor. The individual rate is the cheapest enrollment tier
+ * and the resolution covers dental and vision beyond medical, so an enrolled
+ * position is understated here — but a position that waives Town coverage costs
+ * the Town nothing and is still counted. These are what the policy is worth at
+ * full enrollment, and the Town does not publish enrollment by position.
  */
-export const nyshipIndividualMonthly = 1_611.46
+export const nyshipIndividualMonthly = nyshipPlanPrimeIndividualMonthlyPremium
 const annualPremium = nyshipIndividualMonthly * 12
-export const restoring25PercentOnFour = annualPremium * 4 * 0.25
-export const twentyPercentAcross22 = annualPremium * 22 * 0.2
+/** The share Resolution 2025-984 removed, restored across the titles it names. */
+export const contributionRemovedByResolution984 = 0.25
+export const restoring25PercentOnFour =
+  annualPremium * affectedPositions.length * contributionRemovedByResolution984
+export const twentyPercentAcross22 =
+  annualPremium * modeledEligibleHealthcarePositions * healthcareContributionRate
+export const eligiblePositionsModeled = modeledEligibleHealthcarePositions
+export const contributionRateModeled = healthcareContributionRate
 
 /** The January 2023 round, for the pattern and for the contrast with CSEA. */
 export const raises2023 = {
@@ -136,7 +160,7 @@ export const raises2023 = {
 }
 
 export const limits = [
-  'Enrolment tier is unknown. The premium figure used here is the NYSHIP Empire Plan participating-agency INDIVIDUAL rate. Any of these positions holding family coverage would carry a materially larger premium, so every benefit figure on this page is a floor rather than an estimate.',
+  'Enrollment is unknown, in both directions. The premium used here is the NYSHIP Empire Plan participating-agency INDIVIDUAL rate, the cheapest tier, so a position holding family coverage carries a materially larger premium than is modelled. But a position that waives Town coverage — on a spouse\u2019s plan, say — costs the Town nothing and is still counted here as though enrolled. The benefit figures are therefore what the policy is worth at full enrollment, not a floor: the Town publishes no enrollment by position, so neither correction can be made.',
   'The resolution covers dental and vision as well as medical. Only the medical premium is modelled, which understates the change again.',
   'Whether the 2026 salary increases are merit increases is not stated anywhere this site can read. A reclassification, added duties or a market adjustment would each explain them without contradicting the resolution, and none of those would appear in the schedule either.',
   'All three positions with a schedule line are coded to "Senior Citizen Programs Nutrition" in 2025 and "Eisep Program" in 2026. That is an unusual department for Supervisor’s-office staff. It is consistent across both years, so the year-over-year comparison is like for like, but the coding itself is not explained in the source.',

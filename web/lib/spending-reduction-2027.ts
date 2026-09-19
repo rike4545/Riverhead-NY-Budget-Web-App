@@ -19,11 +19,17 @@ export type SpendingReductionItem = {
 }
 
 // 20% healthcare-premium-contribution policy: 22 eligible senior-staff/elected positions, using the
-// NYSHIP Empire Plan participating-agency individual premium rate as a conservative per-position floor.
-const nyshipPlanPrimeIndividualMonthlyPremium = 1_611.46
-const modeledEligibleHealthcarePositions = 22
+// NYSHIP Empire Plan participating-agency individual premium rate as a conservative per-position rate.
+//
+// Exported because /management-compensation/ prices the same policy and must
+// quote the same numbers. It previously restated the premium as its own literal
+// while telling readers the figure was imported, which is the drift that claim
+// was supposed to rule out. One definition, imported, is what makes it true.
+export const nyshipPlanPrimeIndividualMonthlyPremium = 1_611.46
+export const modeledEligibleHealthcarePositions = 22
+export const healthcareContributionRate = 0.2
 const healthcareContributionSavings =
-  modeledEligibleHealthcarePositions * (nyshipPlanPrimeIndividualMonthlyPremium * 12) * 0.2
+  modeledEligibleHealthcarePositions * (nyshipPlanPrimeIndividualMonthlyPremium * 12) * healthcareContributionRate
 
 const policeUniformOTActual2024 = 1_401_354.0
 const policeUniformOTBudget2024 = 1_000_000.0
@@ -47,7 +53,7 @@ export const personnelPolicyItems: SpendingReductionItem[] = [
     id: 'healthcare',
     title: '20% healthcare premium contribution',
     amount: healthcareContributionSavings,
-    source: `22 eligible senior-staff/elected positions × NYSHIP Empire Plan participating-agency individual premium ($${nyshipPlanPrimeIndividualMonthlyPremium.toFixed(2)}/mo) × 20%`,
+    source: `${modeledEligibleHealthcarePositions} eligible senior-staff/elected positions × NYSHIP Empire Plan participating-agency individual premium ($${nyshipPlanPrimeIndividualMonthlyPremium.toFixed(2)}/mo) × ${healthcareContributionRate * 100}%`,
     rationale: 'Requires a policy adoption for exempt and elected positions; represented staff would need successor bargaining.',
   },
   {
