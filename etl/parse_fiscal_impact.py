@@ -39,7 +39,23 @@ ROOT = Path(__file__).resolve().parent.parent
 MEETINGS = ROOT / "web/public/data/meetings"
 API = "https://riverheadny.api.civicclerk.com/v1"
 SINCE = "2026-01-01T00:00:00Z"
-# Hand-curated files with human-transcribed dollar amounts — never overwritten.
+# Meetings whose dollar amounts were transcribed by hand because the parser
+# could not recover them from the packet.
+#
+# These used to be skipped outright, which froze them at whatever the parser
+# could do on the day they were written -- and for 2026-07-07 that was nothing
+# at all. It was the only meeting in the corpus with no funding section on any
+# resolution, 0 of 53 against 100% everywhere else, so three fund-balance votes
+# sat mis-attributed: the East Creek boat launch counted against the General
+# Fund when the statement charges CM2, the Meals on Wheels truck netted whole
+# against the unassigned cushion when $48,128.53 of it is Assigned, and the
+# Town Square bond paydown carried a note saying the resolution "states no
+# amount" when it states two.
+#
+# So they are parsed like any other meeting and the hand work is layered back
+# on top: a hand-transcribed amount always wins over a parsed one, and a
+# resolution the parser drops is kept. What the parse adds -- the account codes,
+# which no hand file here carries -- comes through. Re-running is idempotent.
 PROTECTED = {"2026-07-07"}
 
 MONEY = re.compile(r"\$[\d,]+(?:\.\d{2})?")
@@ -961,6 +977,59 @@ def agenda_packet_file_id(event: dict) -> int | None:
     return None
 
 
+
+def merge_hand_curated(date: str, parsed: dict) -> dict:
+    """Layer a hand-curated file's dollar amounts back onto a fresh parse.
+
+    The hand work and the parse each know something the other does not. The
+    hand file carries amounts a human read out of the packet -- 2026-641's
+    $2,625,000 Town Square BAN paydown, among thirteen others the parser
+    returns as None or reads differently. The parse carries the section G
+    account codes, which say which FUND and which GASB tier the money comes
+    from, and no hand file here has them at all.
+
+    So neither replaces the other. A hand amount always wins; a parsed amount
+    fills a hand blank; a resolution only the hand file has is kept; and the
+    parsed funding section is attached either way. The hand summary is kept
+    because it was computed from the hand amounts.
+    """
+    path = MEETINGS / f"{date}-fiscal.json"
+    if not path.exists():
+        return parsed
+    hand = json.loads(path.read_text(encoding="utf-8"))
+    hand_by_num = {r["number"]: r for r in hand.get("resolutions", []) if r.get("number")}
+    parsed_by_num = {r["number"]: r for r in parsed.get("resolutions", []) if r.get("number")}
+
+    kept_amounts = 0
+    filled_amounts = 0
+    out = []
+    for res in hand.get("resolutions", []):
+        merged = dict(res)
+        p = parsed_by_num.get(res.get("number"))
+        if p is not None:
+            if p.get("funding"):
+                merged["funding"] = p["funding"]
+            if merged.get("amount") is None and p.get("amount") is not None:
+                merged["amount"] = p["amount"]
+                filled_amounts += 1
+            elif merged.get("amount") is not None and p.get("amount") != merged.get("amount"):
+                kept_amounts += 1
+        out.append(merged)
+
+    dropped = [n for n in parsed_by_num if n not in hand_by_num]
+    for number in dropped:
+        out.append(parsed_by_num[number])
+
+    result = dict(hand)
+    result["resolutions"] = out
+    with_funding = sum(1 for r in out if r.get("funding"))
+    print(
+        f"  {date}: hand-curated merge — {with_funding}/{len(out)} now carry funding, "
+        f"{kept_amounts} hand amounts kept over a differing parse, {filled_amounts} blanks filled, "
+        f"{len(dropped)} parsed-only added"
+    )
+    return result
+
 def main() -> int:
     force = "--force" in sys.argv
     events = list_events()
@@ -969,11 +1038,6 @@ def main() -> int:
 
     for e in events:
         date = e["startDateTime"][:10]
-        if date in PROTECTED and not force:
-            print(f"  {date}: protected hand-curated file — skipped")
-            if (MEETINGS / f"{date}-fiscal.json").exists():
-                generated.append(date)
-            continue
         fid = agenda_packet_file_id(e)
         if not fid:
             continue
@@ -988,6 +1052,8 @@ def main() -> int:
         if not meeting:
             print(f"  {date}: no fiscal-impact statements found — skipped")
             continue
+        if date in PROTECTED:
+            meeting = merge_hand_curated(date, meeting)
         (MEETINGS / f"{date}-fiscal.json").write_text(json.dumps(meeting, indent=1), encoding="utf-8")
         generated.append(date)
         s = meeting["summary"]
