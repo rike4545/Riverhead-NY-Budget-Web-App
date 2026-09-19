@@ -615,6 +615,110 @@ def build():
             "latest": counts[str(title_years[-1])] if title_years else 0,
             "first": first, "last": last, "delta": last - first,
         })
+    # Arrivals and departures behind each net change -- "is this hiring, or
+    # replacement?", which a net figure cannot answer.
+    #
+    # A net +16 can be 90 arrivals against 74 departures, and the two readings
+    # mean very different things to a resident. So each year is decomposed four
+    # ways, and the crucial split is between leaving the Town and merely being
+    # relabelled: Heavy Equipment Operator fell 15 to 6 while Construction Equip
+    # Operator rose, and eight of those people never left -- they were retitled.
+    # Reported as "moved" rather than "separated", that stops reading as
+    # turnover.
+    #
+    # Identity is the payroll file number where the roster supplies one, falling
+    # back to the normalized name. That is not cosmetic: three people in this
+    # dataset appear under two surnames, and on names alone each would count as
+    # a departure plus a hire every time. No name here carries two file numbers
+    # and nobody has one in some years and not others, so the two keys never
+    # split a person.
+    #
+    # Only reported years count, and only those whose predecessor is also
+    # reported -- comparing a reported year against a carried-back one would
+    # manufacture arrivals out of an inference.
+    def _identity(row):
+        return file_numbers.get(name_key(row["name"])) or name_key(row["name"])
+
+    # Staff the Town does not put on a regular schedule, taken from its own pay
+    # class rather than from a pay threshold this project invented. The classes
+    # are NON-TIME, the Part Time variants and Recreation PT Seasonal, and the
+    # separation they produce is not marginal: 199 such people in 2025 at a
+    # median of $3,863 against 375 regular staff at a median of $79,294, with
+    # only three earning over $40,000 (two Council Members and one clerk).
+    #
+    # This matters because counting them as hires makes summer staffing look
+    # like turnover. Recreation is 126 casual to 6 regular, and treating all of
+    # them alike reported 123 hired and 104 gone across 2022-2025 when the
+    # permanent department saw one hire and one departure. Lifeguards returning
+    # each June are not a workforce churning.
+    #
+    # The group is not only seasonal: appointed board members paid a stipend are
+    # NON-TIME too, since they file no time card. The page says so rather than
+    # calling all of them seasonal.
+    _CASUAL_CLASS = re.compile(r"non-time|part.?time|seasonal", re.I)
+
+    def _is_casual(row):
+        return bool(_CASUAL_CLASS.search(row.get("pay_class") or ""))
+
+    def _reported_years(field, code):
+        return sorted({
+            r["year"] for r in all_rows
+            if (r[field] or "").strip() and code not in (r.get("_inferred") or "")
+        })
+
+    def _churn_series(field, code):
+        """Arrivals and departures among regular staff only (see _is_casual)."""
+        years = _reported_years(field, code)
+        comparable = [y for y in years if y - 1 in years]
+        regular = [r for r in all_rows if not _is_casual(r)]
+        on_payroll = {y: {_identity(r) for r in regular if r["year"] == y} for y in years}
+        grouped = {
+            y: {_identity(r): (r[field] or "").strip() for r in regular if r["year"] == y}
+            for y in years
+        }
+        out = {}
+        for y in comparable:
+            cur, prev = grouped[y], grouped[y - 1]
+            per_group = {}
+            for person, group in cur.items():
+                if not group or prev.get(person) == group:
+                    continue
+                slot = 0 if person not in on_payroll[y - 1] else 1
+                per_group.setdefault(group, [0, 0, 0, 0])[slot] += 1
+            for person, group in prev.items():
+                if not group or cur.get(person) == group:
+                    continue
+                slot = 2 if person not in on_payroll[y] else 3
+                per_group.setdefault(group, [0, 0, 0, 0])[slot] += 1
+            out[y] = per_group
+        return comparable, out
+
+    title_churn_years, title_churn = _churn_series("title", "t")
+    dept_churn_years, dept_churn = _churn_series("department", "d")
+
+    def _churn_for(group, years, table):
+        return {str(y): table[y].get(group, [0, 0, 0, 0]) for y in years}
+
+    title_casual = {}
+    for r in all_rows:
+        t = (r["title"] or "").strip()
+        if t and _is_casual(r):
+            title_casual.setdefault(t, {}).setdefault(r["year"], set()).add(r["name"])
+    for row in titles_out:
+        row["churn"] = _churn_for(row["title"], title_churn_years, title_churn)
+        row["casual"] = {
+            str(y): len(title_casual.get(row["title"], {}).get(y, set())) for y in title_years
+        }
+
+    townwide_churn = {}
+    _payroll_years = sorted({r["year"] for r in all_rows})
+    for y in _payroll_years:
+        if y - 1 not in _payroll_years:
+            continue
+        now = {_identity(r) for r in all_rows if r["year"] == y and not _is_casual(r)}
+        before = {_identity(r) for r in all_rows if r["year"] == y - 1 and not _is_casual(r)}
+        townwide_churn[str(y)] = [len(now - before), 0, len(before - now), 0]
+
     # Staff by department, and the titles inside each -- the "staff per
     # department" view on the same page.
     #
@@ -633,7 +737,7 @@ def build():
         r["year"] for r in all_rows
         if (r["department"] or "").strip() and "d" not in (r.get("_inferred") or "")
     })
-    dept_people, dept_title_people = {}, {}
+    dept_people, dept_title_people, dept_casual = {}, {}, {}
     for r in all_rows:
         if r["year"] not in dept_years:
             continue
@@ -641,6 +745,8 @@ def build():
         if not dep:
             continue
         dept_people.setdefault(dep, {}).setdefault(r["year"], set()).add(r["name"])
+        if _is_casual(r):
+            dept_casual.setdefault(dep, {}).setdefault(r["year"], set()).add(r["name"])
         title = (r["title"] or "").strip()
         if title:
             dept_title_people.setdefault(dep, {}).setdefault(title, {}).setdefault(r["year"], set()).add(r["name"])
@@ -670,6 +776,8 @@ def build():
         }
         departments_out.append({
             "department": dep,
+            "churn": _churn_for(dep, dept_churn_years, dept_churn),
+            "casual": {str(y): len(dept_casual.get(dep, {}).get(y, set())) for y in dept_years},
             "counts": counts,
             "latest": latest,
             "first": first,
@@ -760,6 +868,10 @@ def build():
         "note": "Distinct employees paid under each civil-service title, by year. Titles are available 2022 onward; seasonal and part-time roles (lifeguards, recreation aides, beach attendants) inflate summer headcounts.",
         "source": {"title": "Town of Riverhead Gross Earnings reports", "url": "https://www.townofriverheadny.gov/206/Financial-Reports"},
         "titles": titles_out,
+        "churnYears": [y for y in dept_churn_years],
+        "titleChurnYears": [y for y in title_churn_years],
+        "townwideChurn": townwide_churn,
+        "churnNote": "Arrivals and departures behind each net change, counted for regular staff only. \"Hired\" and \"left\" mean the person was not on the Town payroll at all in the other year; \"moved\" means they kept working for the Town under a different title or department, which a net count would otherwise read as turnover. People are matched on payroll file number where the roster supplies one, so the three employees who appear under two surnames are not double-counted. Only years the Town reports are compared. Staff the Town places in its NON-TIME, Part Time or Seasonal pay classes are excluded from these flows and counted separately: lifeguards and recreation aides returning each summer are not a workforce turning over, and including them reported Recreation as hiring 123 people and losing 104 when its six permanent staff saw one of each. That group is not only seasonal — appointed board members paid a stipend file no time card either, so they fall in the same classes.",
         "departmentYears": dept_years,
         "departmentNote": "Staff counted in each department the Town's payroll export names, by year. These are the payroll's own department codes rather than an organization chart: the Police Department appears as its squads, COPE, Detectives, K-9 and Headquarters instead of as one line. A title can sit in several departments, so the department counts are what add up to the workforce, not the sum of the titles listed under them. Departments start in 2022 because every earlier department value in this dataset was carried back from a later year rather than reported.",
         "departments": departments_out,

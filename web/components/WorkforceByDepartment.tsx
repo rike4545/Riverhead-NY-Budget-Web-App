@@ -2,10 +2,13 @@
 
 import { useMemo, useState } from 'react'
 import titlesData from '../public/data/payroll/titles-by-year.json'
+import { ChurnLine, CasualNote, churnTotals, type Churn } from './WorkforceChurn'
 
 type DeptTitle = { title: string; counts: Record<string, number>; latest: number }
 type DeptRow = {
   department: string
+  churn?: Churn
+  casual?: Record<string, number>
   counts: Record<string, number>
   latest: number
   first: number
@@ -17,6 +20,8 @@ type DeptRow = {
 
 const data = titlesData as unknown as {
   departmentYears: number[]
+  churnYears: number[]
+  churnNote: string
   departmentNote: string
   source: { title: string; url: string }
   departments: DeptRow[]
@@ -24,6 +29,7 @@ const data = titlesData as unknown as {
 const years = data.departmentYears
 const latestYear = years[years.length - 1]
 const departments = data.departments
+const churnYears = data.churnYears ?? []
 
 const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 20, boxShadow: '0 14px 34px var(--rbl-shadow)' } as const
 const th = { padding: '8px 10px', textAlign: 'right' as const, whiteSpace: 'nowrap' as const }
@@ -61,7 +67,15 @@ export default function WorkforceByDepartment() {
 
   const totalLatest = useMemo(() => departments.reduce((s, d) => s + d.latest, 0), [])
   const maxLatest = useMemo(() => Math.max(...departments.map((d) => d.latest), 1), [])
-  const biggest = useMemo(() => [...departments].sort((a, b) => b.delta - a.delta)[0], [])
+  // Summed across every department, these are the flows the net change nets out.
+  const [townHired, townMovedIn, townLeft] = useMemo(() => {
+    const t = [0, 0, 0, 0]
+    for (const d of departments) {
+      const c = churnTotals(d.churn, churnYears)
+      for (let i = 0; i < 4; i++) t[i] += c[i]
+    }
+    return t
+  }, [])
   // Departments that carried staff earlier in the window but none in the latest
   // year. They stay in the list, which is why it can run longer than the
   // latest-year count in the stats above.
@@ -73,7 +87,7 @@ export default function WorkforceByDepartment() {
         <Stat label={`Departments (${latestYear})`} value={String(departments.filter((d) => d.latest > 0).length)} />
         <Stat label={`Staff placed (${latestYear})`} value={totalLatest.toLocaleString()} accent />
         <Stat label="Years reported" value={`${years[0]}–${latestYear}`} />
-        <Stat label="Biggest gain" value={biggest ? `+${biggest.delta} ${biggest.department}` : '—'} sub="net staff added" green />
+        <Stat label={`Regular staff hired ${churnYears[0] - 1}–${latestYear}`} value={townHired.toLocaleString()} sub={`${townLeft.toLocaleString()} left the Town; seasonal and part-time excluded`} green />
       </section>
 
       <section style={{ ...card }}>
@@ -128,7 +142,7 @@ export default function WorkforceByDepartment() {
         </div>
 
         <p style={{ color: 'var(--rbl-text-muted)', fontSize: 12, marginTop: 12, marginBottom: 0, lineHeight: 1.5 }}>
-          {data.departmentNote} Counts are distinct employees paid in that department that year, so they add up to
+          {data.departmentNote} {data.churnNote} Counts are distinct employees paid in that department that year, so they add up to
           the Town&apos;s payroll headcount — {totalLatest.toLocaleString()} in {latestYear}. The titles listed under
           a department do not, for two reasons: the same title can sit in several departments, and a few people each
           year carry a department but no title at all. Where that happens the shortfall is shown on its own{' '}
@@ -160,6 +174,8 @@ function FragmentRow({ d, isOpen, maxLatest, query, onToggle }: { d: DeptRow; is
             {d.titles.length} {d.titles.length === 1 ? 'title' : 'titles'}
             {!isOpen && d.titles.length > 0 && ` · ${d.titles.slice(0, 3).map((t) => t.title).join(', ')}${d.titles.length > 3 ? '…' : ''}`}
           </div>
+          <CasualNote casual={d.casual} total={d.latest} year={latestYear} />
+          <ChurnLine churn={d.churn} years={churnYears} />
         </td>
         {years.map((y) => {
           const v = d.counts[String(y)] ?? 0
