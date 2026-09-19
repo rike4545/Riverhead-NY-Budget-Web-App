@@ -2,12 +2,13 @@
 
 import { useMemo, useState } from 'react'
 import titlesData from '../public/data/payroll/titles-by-year.json'
-import { ChurnLine, churnTotals, type Churn } from './WorkforceChurn'
+import { ChurnLine, CasualNote, churnTotals, type Churn } from './WorkforceChurn'
 
 type DeptTitle = { title: string; counts: Record<string, number>; latest: number }
 type DeptRow = {
   department: string
   churn?: Churn
+  casual?: Record<string, number>
   counts: Record<string, number>
   latest: number
   first: number
@@ -86,7 +87,7 @@ export default function WorkforceByDepartment() {
         <Stat label={`Departments (${latestYear})`} value={String(departments.filter((d) => d.latest > 0).length)} />
         <Stat label={`Staff placed (${latestYear})`} value={totalLatest.toLocaleString()} accent />
         <Stat label="Years reported" value={`${years[0]}–${latestYear}`} />
-        <Stat label={`Hired ${churnYears[0] - 1}–${latestYear}`} value={townHired.toLocaleString()} sub={`${townLeft.toLocaleString()} left over the same years`} green />
+        <Stat label={`Regular staff hired ${churnYears[0] - 1}–${latestYear}`} value={townHired.toLocaleString()} sub={`${townLeft.toLocaleString()} left the Town; seasonal and part-time excluded`} green />
       </section>
 
       <section style={{ ...card }}>
@@ -173,6 +174,7 @@ function FragmentRow({ d, isOpen, maxLatest, query, onToggle }: { d: DeptRow; is
             {d.titles.length} {d.titles.length === 1 ? 'title' : 'titles'}
             {!isOpen && d.titles.length > 0 && ` · ${d.titles.slice(0, 3).map((t) => t.title).join(', ')}${d.titles.length > 3 ? '…' : ''}`}
           </div>
+          <CasualNote casual={d.casual} total={d.latest} year={latestYear} />
           <ChurnLine churn={d.churn} years={churnYears} />
         </td>
         {years.map((y) => {

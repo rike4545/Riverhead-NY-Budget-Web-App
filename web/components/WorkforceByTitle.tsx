@@ -2,7 +2,7 @@
 
 import { useMemo, useState } from 'react'
 import titlesData from '../public/data/payroll/titles-by-year.json'
-import { ChurnLine, type Churn } from './WorkforceChurn'
+import { ChurnLine, CasualNote, type Churn } from './WorkforceChurn'
 
 type Wage = {
   n: number
@@ -22,6 +22,7 @@ type TitleRow = {
   last: number
   delta: number
   churn?: Churn
+  casual?: Record<string, number>
   wage2026?: Wage
 }
 
@@ -104,6 +105,7 @@ export default function WorkforceByTitle() {
                   <td style={{ padding: '7px 10px', color: 'var(--rbl-title)', fontWeight: 700 }}>
                     {t.title}
                     <Spark counts={t.counts} max={maxLatest} />
+                    <CasualNote casual={t.casual} total={t.latest} year={latestYear} />
                     <ChurnLine churn={t.churn} years={titleChurnYears} />
                     {t.wage2026 && <WageLine w={t.wage2026} />}
                   </td>
