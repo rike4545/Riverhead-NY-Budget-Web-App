@@ -77,7 +77,8 @@ export const budgetedUseUnexplained =
  * the figure is the Town's, booked against its Appropriated Fund Balance
  * account. A CURATED commitment was read from the record because the account
  * codes do not cover it — the largest, the East Main Street acquisition offer,
- * is an authorized ceiling rather than money booked against 9999 at all.
+ * was authorized by vote rather than booked against 9999, and the record notes
+ * it could rise if the property owner litigates, so it is not a ceiling either.
  *
  * Presenting the sum as "spent from fund balance by resolution" would assert of
  * the curated entries something the record does not say.
