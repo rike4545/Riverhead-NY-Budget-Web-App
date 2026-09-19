@@ -18,7 +18,7 @@ const GROUPS: Group[] = [
     ['Where Your Levy Goes', `${base}/taxpayer-impact/`], ['What Changed', `${base}/what-changed/`], ['Financial Health', `${base}/analytics/`],
     ['Budget Overview', `${base}/funds/`], ['Program Budget', `${base}/programs/`], ['Budget Compare', `${base}/compare/`],
     ['General Fund', `${base}/general-fund/`], ['Annual Report', `${base}/annual-report/`], ['Tax Cap', `${base}/tax-cap/`],
-    ['Reserves & Fund Balance', `${base}/reserves/`], ['Capital & Debt', `${base}/capital-debt/`], ['Town Square', `${base}/town-square/`],
+    ['Reserves & Fund Balance', `${base}/reserves/`], ['Where the Surplus Went', `${base}/fund-balance-draws/`], ['Capital & Debt', `${base}/capital-debt/`], ['Town Square', `${base}/town-square/`],
     ['Road Spending', `${base}/road-spending/`], ['Community Preservation Fund', `${base}/community-preservation-fund/`],
     ['Community Housing Plan', `${base}/housing-plan/`], ['Community', `${base}/community/`],
   ] },
