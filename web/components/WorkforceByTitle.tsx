@@ -2,6 +2,7 @@
 
 import { useMemo, useState } from 'react'
 import titlesData from '../public/data/payroll/titles-by-year.json'
+import { ChurnLine, type Churn } from './WorkforceChurn'
 
 type Wage = {
   n: number
@@ -20,6 +21,7 @@ type TitleRow = {
   first: number
   last: number
   delta: number
+  churn?: Churn
   wage2026?: Wage
 }
 
@@ -29,7 +31,8 @@ const hrRange = (lo: number, hi: number) =>
 const yrRange = (lo: number, hi: number) =>
   lo === hi ? `$${lo.toLocaleString()}/yr` : `$${lo.toLocaleString()}–$${hi.toLocaleString()}/yr`
 
-const data = titlesData as { years: number[]; note: string; source: { title: string; url: string }; titles: TitleRow[] }
+const data = titlesData as unknown as { years: number[]; note: string; titleChurnYears?: number[]; churnNote?: string; source: { title: string; url: string }; titles: TitleRow[] }
+const titleChurnYears = data.titleChurnYears ?? []
 const years = data.years
 const latestYear = years[years.length - 1]
 
@@ -101,6 +104,7 @@ export default function WorkforceByTitle() {
                   <td style={{ padding: '7px 10px', color: 'var(--rbl-title)', fontWeight: 700 }}>
                     {t.title}
                     <Spark counts={t.counts} max={maxLatest} />
+                    <ChurnLine churn={t.churn} years={titleChurnYears} />
                     {t.wage2026 && <WageLine w={t.wage2026} />}
                   </td>
                   {years.map((y) => {
@@ -117,7 +121,7 @@ export default function WorkforceByTitle() {
         </div>
 
         <p style={{ color: 'var(--rbl-text-muted)', fontSize: 12, marginTop: 12, marginBottom: 0, lineHeight: 1.5 }}>
-          {data.note} Counts are distinct employees paid under each title that year. The teal
+          {data.note} {data.churnNote} Those arrival and departure figures cover {titleChurnYears.length > 0 ? `${titleChurnYears[0] - 1}\u2013${titleChurnYears[titleChurnYears.length - 1]}` : ''}, the years the Town reports a title, so they are a shorter span than the {years[0]}\u2192{latestYear} change beside them and will not add up to it. Counts are distinct employees paid under each title that year. The teal
           &ldquo;2026 authorized rate&rdquo; line is what the Town Board&apos;s January 2026 salary resolutions
           actually print for that title, available for {data.titles.filter((t) => t.wage2026).length} of the titles.
           Those rosters have an ANNUAL SALARY column and an HOURLY column, but the Town fills the hourly one in only

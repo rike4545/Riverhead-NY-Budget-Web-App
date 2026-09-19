@@ -615,6 +615,79 @@ def build():
             "latest": counts[str(title_years[-1])] if title_years else 0,
             "first": first, "last": last, "delta": last - first,
         })
+    # Arrivals and departures behind each net change -- "is this hiring, or
+    # replacement?", which a net figure cannot answer.
+    #
+    # A net +16 can be 90 arrivals against 74 departures, and the two readings
+    # mean very different things to a resident. So each year is decomposed four
+    # ways, and the crucial split is between leaving the Town and merely being
+    # relabelled: Heavy Equipment Operator fell 15 to 6 while Construction Equip
+    # Operator rose, and eight of those people never left -- they were retitled.
+    # Reported as "moved" rather than "separated", that stops reading as
+    # turnover.
+    #
+    # Identity is the payroll file number where the roster supplies one, falling
+    # back to the normalized name. That is not cosmetic: three people in this
+    # dataset appear under two surnames, and on names alone each would count as
+    # a departure plus a hire every time. No name here carries two file numbers
+    # and nobody has one in some years and not others, so the two keys never
+    # split a person.
+    #
+    # Only reported years count, and only those whose predecessor is also
+    # reported -- comparing a reported year against a carried-back one would
+    # manufacture arrivals out of an inference.
+    def _identity(row):
+        return file_numbers.get(name_key(row["name"])) or name_key(row["name"])
+
+    def _reported_years(field, code):
+        return sorted({
+            r["year"] for r in all_rows
+            if (r[field] or "").strip() and code not in (r.get("_inferred") or "")
+        })
+
+    def _churn_series(field, code):
+        years = _reported_years(field, code)
+        comparable = [y for y in years if y - 1 in years]
+        on_payroll = {y: {_identity(r) for r in all_rows if r["year"] == y} for y in years}
+        grouped = {
+            y: {_identity(r): (r[field] or "").strip() for r in all_rows if r["year"] == y}
+            for y in years
+        }
+        out = {}
+        for y in comparable:
+            cur, prev = grouped[y], grouped[y - 1]
+            per_group = {}
+            for person, group in cur.items():
+                if not group or prev.get(person) == group:
+                    continue
+                slot = 0 if person not in on_payroll[y - 1] else 1
+                per_group.setdefault(group, [0, 0, 0, 0])[slot] += 1
+            for person, group in prev.items():
+                if not group or cur.get(person) == group:
+                    continue
+                slot = 2 if person not in on_payroll[y] else 3
+                per_group.setdefault(group, [0, 0, 0, 0])[slot] += 1
+            out[y] = per_group
+        return comparable, out
+
+    title_churn_years, title_churn = _churn_series("title", "t")
+    dept_churn_years, dept_churn = _churn_series("department", "d")
+
+    def _churn_for(group, years, table):
+        return {str(y): table[y].get(group, [0, 0, 0, 0]) for y in years}
+
+    for row in titles_out:
+        row["churn"] = _churn_for(row["title"], title_churn_years, title_churn)
+
+    townwide_churn = {}
+    _payroll_years = sorted({r["year"] for r in all_rows})
+    for y in _payroll_years:
+        if y - 1 not in _payroll_years:
+            continue
+        now = {_identity(r) for r in all_rows if r["year"] == y}
+        before = {_identity(r) for r in all_rows if r["year"] == y - 1}
+        townwide_churn[str(y)] = [len(now - before), 0, len(before - now), 0]
+
     # Staff by department, and the titles inside each -- the "staff per
     # department" view on the same page.
     #
@@ -670,6 +743,7 @@ def build():
         }
         departments_out.append({
             "department": dep,
+            "churn": _churn_for(dep, dept_churn_years, dept_churn),
             "counts": counts,
             "latest": latest,
             "first": first,
@@ -760,6 +834,10 @@ def build():
         "note": "Distinct employees paid under each civil-service title, by year. Titles are available 2022 onward; seasonal and part-time roles (lifeguards, recreation aides, beach attendants) inflate summer headcounts.",
         "source": {"title": "Town of Riverhead Gross Earnings reports", "url": "https://www.townofriverheadny.gov/206/Financial-Reports"},
         "titles": titles_out,
+        "churnYears": [y for y in dept_churn_years],
+        "titleChurnYears": [y for y in title_churn_years],
+        "townwideChurn": townwide_churn,
+        "churnNote": "Arrivals and departures behind each net change. \"Hired\" and \"left\" mean the person was not on the Town payroll at all in the other year; \"moved\" means they kept working for the Town under a different title or department, which a net count would otherwise read as turnover. People are matched on payroll file number where the roster supplies one, so the three employees who appear under two surnames are not double-counted. Only years the Town reports are compared.",
         "departmentYears": dept_years,
         "departmentNote": "Staff counted in each department the Town's payroll export names, by year. These are the payroll's own department codes rather than an organization chart: the Police Department appears as its squads, COPE, Detectives, K-9 and Headquarters instead of as one line. A title can sit in several departments, so the department counts are what add up to the workforce, not the sum of the titles listed under them. Departments start in 2022 because every earlier department value in this dataset was carried back from a later year rather than reported.",
         "departments": departments_out,

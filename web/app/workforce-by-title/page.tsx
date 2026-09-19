@@ -20,6 +20,7 @@ export default function WorkforceByTitlePage() {
           { label: 'What a row shows', text: 'the number of distinct employees paid under that title each year, and the net change from 2022 to 2025.' },
           { label: 'Seasonal spikes', text: 'part-time and seasonal roles — lifeguards, recreation aides, beach attendants — run high because everyone paid during the summer counts for that year.' },
           { label: 'Why it starts in 2022', text: 'the Town’s gross-earnings exports only carry job titles from 2022 onward; earlier years have pay but no title.' },
+          { label: 'Hired vs. moved', text: 'a net change hides its two sides. “Hired” and “left” mean the person was not on the Town payroll at all in the other year; “moved” means they stayed and were retitled or reassigned.' },
         ]}
       >
         This is the staffing side of the payroll data: not what people are paid, but <strong>how many hold each job</strong>{' '}
@@ -41,6 +42,17 @@ export default function WorkforceByTitlePage() {
         Police Department arrives as its squads, COPE, Detectives, K-9 and Headquarters rather than as one line, so
         read them as cost centers. A title can appear in several departments at once: in 2025 a{' '}
         <strong>Police Officer</strong> is paid out of nine of them, and an <strong>Account Clerk</strong> out of ten.
+      </p>
+      <p style={{ color: 'var(--rbl-text-body)', fontSize: 14.5, lineHeight: 1.6, marginTop: 0, marginBottom: 14 }}>
+        <strong>A net change is not a hiring figure</strong>, so each row also shows the two flows underneath it.
+        Recreation&apos;s net gain is the residue of well over a hundred people arriving and nearly as many leaving;
+        the Town as a whole turns over roughly a sixth of its payroll every year while its headcount barely moves.
+        The distinction that matters most is <em>left</em> versus <em>moved</em>: when{' '}
+        <strong>Heavy Equipment Operator</strong> fell from 15 to 9 in 2024, nobody was let go and nobody was hired
+        — eight of those people were retitled and kept working for the Town. A net column alone would have read that
+        as staff losses. Whether a post is genuinely new or is backfilling a vacancy is a further question this
+        payroll data cannot settle; that would need the Town&apos;s authorized position schedule, which this site
+        does not yet parse.
       </p>
 
       <WorkforceByDepartment />
