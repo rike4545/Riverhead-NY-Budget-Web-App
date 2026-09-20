@@ -1,32 +1,69 @@
 #!/usr/bin/env python3
-"""Extract the 2025 authorized salary schedule from the January 7, 2025 Town
-Board minutes.
+"""Extract the Board-authorized salary schedules from the January organizational
+meeting minutes, for every year the Town has published them here.
 
-Resolutions 2025-8 through 2025-18 set salaries for the year, and the minutes
-embed the full schedules as attachments: every employee's name, grade/step,
-title, and annual salary, grouped by fund (General Fund, Police, Highway, Water,
-etc.). This is the Board-*authorized* salary, to compare against actual pay.
+Each January the Board adopts a run of resolutions that set salaries for the
+year, and the minutes embed the full schedules as attachments: every employee's
+name, grade/step, title, and annual salary, grouped by fund (General Fund,
+Police, Highway, Water, etc.). This is the Board-*authorized* salary, to compare
+against actual pay.
 
-Input:  etl/data/meetings/2025-01-07-minutes.txt
-Output: web/public/data/salary/authorized-2025.json
+The resolution numbering is NOT stable across years, which is why the group map
+is per-year rather than shared. 2022 and 2023 run 1-8 with Boards at 7 and Water
+at 8; 2024 runs 1-8 with those two swapped; 2025 starts at 8 and adds three
+seasonal/call-in schedules that the earlier years do not publish separately.
+Getting this wrong silently mislabels whole funds rather than failing, so each
+year's map is written out rather than derived.
+
+Input:  etl/data/meetings/<date>-minutes.txt
+Output: web/public/data/salary/authorized-<year>.json
 """
 
 import json
 import re
+import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-SRC = ROOT / "etl/data/meetings/2025-01-07-minutes.txt"
 OUT = ROOT / "web/public/data/salary"
 
-GROUP_NAMES = {
-    "8": "Elected Officials", "9": "General Fund", "10": "Boards", "11": "Police",
-    "12": "Highway", "13": "Sewer / Scavenger Waste", "14": "Street Lighting",
-    "15": "Water District", "16": "Recreation (Seasonal)", "17": "Recreation (Call-In)",
-    "18": "Call-In Personnel",
+# year -> (minutes file, {resolution suffix: schedule group})
+YEARS = {
+    2022: ("2022-01-04-minutes.txt", {
+        "1": "Elected Officials", "2": "General Fund", "3": "Highway", "4": "Police",
+        "5": "Sewer / Scavenger Waste", "6": "Street Lighting", "7": "Boards",
+        "8": "Water District",
+    }),
+    2023: ("2023-01-04-minutes.txt", {
+        "1": "Elected Officials", "2": "General Fund", "3": "Highway", "4": "Police",
+        "5": "Sewer / Scavenger Waste", "6": "Street Lighting", "7": "Boards",
+        "8": "Water District",
+    }),
+    2024: ("2024-01-03-minutes.txt", {
+        "1": "Elected Officials", "2": "General Fund", "3": "Highway", "4": "Police",
+        "5": "Sewer / Scavenger Waste", "6": "Street Lighting", "7": "Water District",
+        "8": "Boards",
+    }),
+    2025: ("2025-01-07-minutes.txt", {
+        "8": "Elected Officials", "9": "General Fund", "10": "Boards", "11": "Police",
+        "12": "Highway", "13": "Sewer / Scavenger Waste", "14": "Street Lighting",
+        "15": "Water District", "16": "Recreation (Seasonal)", "17": "Recreation (Call-In)",
+        "18": "Call-In Personnel",
+    }),
 }
 
-LABEL = re.compile(r"Attachment:\s+2025\s+.+?\(2025-(\d+)")
+SOURCE_DATES = {
+    2022: "Jan 4, 2022", 2023: "Jan 4, 2023", 2024: "Jan 3, 2024", 2025: "Jan 7, 2025",
+}
+
+
+# The attachment label sits at the foot of every schedule page and carries the
+# resolution it belongs to. The prefix varies ("2023 Sewer Only" but also
+# "Copy of 2023 Sewer Only"), so only the parenthesised resolution is matched.
+def label_re(year):
+    return re.compile(r"Attachment:\s+.+?\((?:%d)-(\d+)" % year)
+
+
 MONEY = re.compile(r"[\d,]+\.\d{2}")
 GRADE = re.compile(r"\b(\d{1,2}/[A-Z0-9]{1,3})\b")
 COMMA_NAME = re.compile(r"^\s*([A-Z][A-Za-z.'’-]+,\s+[A-Z][A-Za-z.'’.\- ]+?)\s{2,}(.*)$")
@@ -48,7 +85,6 @@ COMMA_NAME_TIGHT = re.compile(
     r"\s+(\S.*)$"
 )
 FIRSTLAST = re.compile(r"^\s*([A-Z][A-Za-z.'’-]+)\s{2,}([A-Z][A-Za-z.'’-]+)\s*$")
-DEPT_HDR = re.compile(r"^\s*([A-Z][A-Z &/’'.-]{3,})\s*$")
 NOISE = re.compile(r"AYES|NAYS|MOVER|SECONDER|RESULT|ABSTAIN|Packet Pg|ANNUAL SALARY|EMPLOYEE\b|GROUP/STEP")
 
 
@@ -65,15 +101,34 @@ TITLE_CORRECTIONS = {
 }
 
 
+# PDF letter-spacing sometimes splits the last letter off a word, so the 2025
+# schedule prints "Town Buildin g & Planning" and "Spanish Speakin g". A lone
+# letter that is not a real one-letter word is rejoined to the word before it.
+# Only "a" and "I" are real one-letter words, and neither appears mid-title in
+# this source. The TRUNCATION in the same title ("Adminstrat") is left alone:
+# repairing a split is undoing a rendering artifact, whereas restoring a
+# truncated word would be supplying text the document does not contain.
+SPLIT_LETTER = re.compile(r"\b([A-Za-z]{3,})\s+([b-hj-z])\b")
+
+
 def normalize_title(title):
     for wrong, right in TITLE_CORRECTIONS.items():
         title = title.replace(wrong, right)
-    return title
+    return SPLIT_LETTER.sub(r"\1\2", title)
+
+
+# The Sewer/Scavenger schedule prints a fund-allocation column ("100/", "50/50")
+# between the name and the grade, and a couple of General Fund rows carry a bare
+# split figure there. Both land on the end of the captured name -- "Berry, Justin
+# 100/", "Moore, Tammy 2" -- so a trailing token made only of digits, slashes and
+# percent signs is dropped. Real name suffixes ("Seal Jr.", "Baier, Joseph H")
+# contain letters and are untouched.
+ALLOCATION_TAIL = re.compile(r"\s+[\d/%.]+$")
 
 
 def normalize_name(name):
     """Normalize to 'Last, First'. Highway/Sewer print 'First Last'."""
-    name = clean(name)
+    name = ALLOCATION_TAIL.sub("", clean(name))
     if "," in name:
         return name
     parts = name.split()
@@ -132,27 +187,39 @@ def match_key(name):
     return (last, first)
 
 
-def enrich_with_actual(records):
+def enrich_with_actual(records, year):
     payroll = ROOT / "web/public/data/payroll/records.json"
     if not payroll.exists():
         return
     data = json.loads(payroll.read_text())
-    latest = max((r["y"] for r in data["records"]), default=None)
+    years = {r["y"] for r in data["records"]}
+    # Compare a schedule against the pay actually recorded in ITS OWN year. The
+    # earlier schedules exist precisely to be read against their own year, and
+    # silently pairing a 2022 schedule with 2025 pay would invent raises.
+    target = year if year in years else max(years, default=None)
+    if target is None:
+        return
     actual = {}
     for r in data["records"]:
-        if r["y"] == latest:
+        if r["y"] == target:
             actual[match_key(r["n"])] = r
     for rec in records:
         a = actual.get(match_key(rec["name"]))
         if a:
-            rec["actualYear"] = latest
+            rec["actualYear"] = target
             rec["actualRegular"] = a["r"]
             rec["actualOvertime"] = a["o"]
             rec["actualGross"] = a["g"]
 
 
-def build():
-    lines = SRC.read_text(encoding="utf-8", errors="ignore").split("\n")
+def build(year):
+    src_name, group_names = YEARS[year]
+    src = ROOT / "etl/data/meetings" / src_name
+    if not src.exists():
+        print(f"  {year}: source missing ({src_name}) - skipped")
+        return None
+    LABEL = label_re(year)
+    lines = src.read_text(encoding="utf-8", errors="ignore").split("\n")
 
     # Pre-compute, for each line index, the resolution number of the next
     # attachment label at or below it (labels sit at the bottom of each page).
@@ -165,16 +232,11 @@ def build():
         next_group[i] = cur
 
     records = []
-    dept = ""
     for i, raw in enumerate(lines):
         line = raw.rstrip()
         if not line:
             continue
         if not MONEY.search(line):
-            # department subheaders are all-caps lines without digits
-            dh = DEPT_HDR.match(line)
-            if dh and not any(ch.isdigit() for ch in line) and not NOISE.search(line):
-                dept = clean(dh.group(1)).title()
             continue
         if NOISE.search(line):
             continue
@@ -189,9 +251,19 @@ def build():
             "name": name,
             "grade": grade,
             "title": title,
-            "department": dept,
-            "group": GROUP_NAMES.get(gnum, "Other"),
-            "resolution": f"2025-{gnum}" if gnum else None,
+            # Deliberately not recovered. The schedules print the department as a
+            # left-column label spanning its rows, and the text extraction hoists
+            # those labels into a block at the foot of the page, losing which rows
+            # each one covered. Reading the nearest all-caps line instead put 169
+            # of 2025's 349 records in "Of Proposed Riverhead Town Board
+            # Legislation" -- a fiscal impact statement heading -- and filed the
+            # Town Attorney under Senior Citizen Programs Nutrition. A page then
+            # read that artifact as a fact about how the Town codes its staff.
+            # Recovering it properly needs positional extraction, so until then
+            # the field is empty rather than confidently wrong.
+            "department": None,
+            "group": group_names.get(gnum, "Other"),
+            "resolution": f"{year}-{gnum}" if gnum else None,
             "annual": annual,
             "hourly": hourly,
             "isStipend": title.lower() == "stipend",
@@ -210,7 +282,7 @@ def build():
 
     # Enrich with the most recent ACTUAL pay per employee (from the payroll
     # dataset) so authorized-vs-actual is available without client-side matching.
-    enrich_with_actual(uniq)
+    enrich_with_actual(uniq, year)
 
     by_group = {}
     for r in uniq:
@@ -219,23 +291,35 @@ def build():
         by_group[r["group"]]["authorized"] += r["annual"]
 
     OUT.mkdir(parents=True, exist_ok=True)
+    res_lo, res_hi = min(group_names, key=int), max(group_names, key=int)
+    # Name the schedules that actually produced rows, and name the ones that did
+    # not. Several schedules are adopted by resolution every year but carry no
+    # dollar figures this parser can read -- Sewer/Scavenger lists fund-allocation
+    # percentages, and the seasonal and call-in schedules are hourly rate cards.
+    # Listing every configured group as though it were present would claim
+    # coverage the file does not have.
+    present = sorted({r["group"] for r in uniq})
+    absent = sorted(set(group_names.values()) - set(present))
     payload = {
-        "source": {"title": "2025 Salary Resolutions (Town Board minutes, Jan 7, 2025)",
+        "source": {"title": f"{year} Salary Resolutions (Town Board minutes, {SOURCE_DATES[year]})",
                    "url": "https://www.townofriverheadny.gov/AgendaCenter"},
-        "year": 2025,
-        "note": "Board-authorized annual salaries set by resolutions 2025-8 through 2025-18 "
-                "(Elected Officials, General Fund, Boards, Police, Highway, Water, Street Lighting). "
-                "This is authorized pay, not actual pay. The Sewer/Scavenger schedule lists fund-allocation "
-                "percentages rather than dollar amounts, and purely seasonal/hourly call-in staff are not included.",
+        "year": year,
+        "note": f"Board-authorized annual salaries set by resolutions {year}-{res_lo} through "
+                f"{year}-{res_hi}. Schedules carried here: {', '.join(present)}."
+                + (f" Adopted but carrying no annual dollar figures this parser reads, so absent"
+                   f" from the totals: {', '.join(absent)}." if absent else "")
+                + " This is authorized pay, not actual pay, and it is the schedule as adopted in"
+                  " January: a mid-year salary resolution changes what a position is paid without"
+                  " changing this file.",
         "count": len(uniq),
         "totalAuthorized": round(sum(r["annual"] for r in uniq if not r["isStipend"]), 2),
         "byGroup": [{"group": g, **{k: round(v, 2) for k, v in d.items()}} for g, d in
                     sorted(by_group.items(), key=lambda kv: kv[1]["authorized"], reverse=True)],
         "records": uniq,
     }
-    (OUT / "authorized-2025.json").write_text(json.dumps(payload, separators=(",", ":")))
+    (OUT / f"authorized-{year}.json").write_text(json.dumps(payload, separators=(",", ":")))
 
-    print(f"Authorized salary records: {len(uniq)}  (total base ${payload['totalAuthorized']:,.0f})")
+    print(f"{year}: {len(uniq)} records  (total base ${payload['totalAuthorized']:,.0f})")
     for g in payload["byGroup"]:
         print(f"  {g['group']:<26} n={g['headcount']:>4}  ${g['authorized']:,.0f}")
     top = sorted([r for r in uniq if not r["isStipend"]], key=lambda r: r["annual"], reverse=True)[:8]
@@ -245,4 +329,6 @@ def build():
 
 
 if __name__ == "__main__":
-    build()
+    wanted = [int(a) for a in sys.argv[1:]] or sorted(YEARS)
+    for y in wanted:
+        build(y)

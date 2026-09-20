@@ -1,5 +1,6 @@
 import PageShell from '../../components/PageShell'
 import PlainCallout from '../../components/PlainCallout'
+import ManagementSalaryHistory from '../../components/ManagementSalaryHistory'
 import {
   affectedPositions, salaryMoves, resolution984, appointmentResolutions,
   nyshipIndividualMonthly, restoring25PercentOnFour, twentyPercentAcross22,
@@ -142,8 +143,17 @@ export default function ManagementCompensationPage() {
       <section style={{ ...card, marginBottom: 16 }}>
         <h3 style={{ marginTop: 0, color: 'var(--rbl-title)' }}>This is not the first round</h3>
         <p style={{ color: 'var(--rbl-text-body)', fontSize: 14.5, lineHeight: 1.6, marginTop: 0 }}>
-          On January 5, 2023 the Board approved increases for <strong>{raises2023.count}</strong> salaried employees
-          totalling roughly <strong>{usd(raises2023.approxTotal)}</strong>.
+          On January 4, 2023 the Board adopted the year&apos;s salary schedules and then, at the same meeting,
+          adopted <strong>{raises2023.count}</strong> further resolutions paying named individuals above them.
+          The {raises2023.pricedCount} that can be priced against the adopted schedule come to{' '}
+          <strong>{usd(raises2023.pricedTotal)}</strong>.
+        </p>
+        <p style={{ color: 'var(--rbl-text-body)', fontSize: 14.5, lineHeight: 1.6, marginTop: 0 }}>
+          Two instruments were used, and the difference is the point. Most of the fourteen moved someone to a named
+          grade and step on a published schedule — a position on a grid anyone can look up. The{' '}
+          <strong>{raises2023.offScheduleCount} below</strong> did not: each granted a percentage or a flat sum{' '}
+          <em>in addition to</em> the schedule, so the schedule no longer states what the position is paid.
+          Together they come to <strong>{usd(raises2023.offScheduleTotal)}</strong>.
         </p>
         <div style={{ display: 'grid', gap: 8, marginBottom: 12 }}>
           {raises2023.named.map((r) => (
@@ -151,9 +161,14 @@ export default function ManagementCompensationPage() {
               <span>
                 <strong>{r.name}</strong>
                 <span style={{ color: 'var(--rbl-text-muted)' }}> · {r.title}</span>
+                {!r.unanimous && (
+                  <span style={{ color: 'var(--rbl-warn-strong)', fontWeight: 700 }}> · adopted 4–1</span>
+                )}
               </span>
               <span style={{ whiteSpace: 'nowrap', color: 'var(--rbl-text-muted)' }}>
-                {usd(r.from)} → {usd(r.to)} <strong style={{ color: 'var(--rbl-warn-strong)' }}>{r.pct}%</strong>
+                {usd(r.from)} → {usd(r.to)}{' '}
+                <strong style={{ color: 'var(--rbl-warn-strong)' }}>{r.mechanism}</strong>{' '}
+                <span style={{ fontSize: 12 }}>({r.resolution})</span>
               </span>
             </div>
           ))}
@@ -161,6 +176,8 @@ export default function ManagementCompensationPage() {
         <p style={{ color: 'var(--rbl-text-body)', fontSize: 13.6, lineHeight: 1.6, margin: 0 }}>{raises2023.alreadyBudgeted}</p>
         <p style={{ color: 'var(--rbl-text-body)', fontSize: 13.6, lineHeight: 1.6, margin: '8px 0 0' }}>{raises2023.csea}</p>
       </section>
+
+      <ManagementSalaryHistory />
 
       <section style={{ ...card, marginBottom: 16 }}>
         <h3 style={{ marginTop: 0, color: 'var(--rbl-title)' }}>What this page cannot tell you</h3>
