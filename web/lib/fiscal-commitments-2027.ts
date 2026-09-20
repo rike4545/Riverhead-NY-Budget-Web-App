@@ -272,22 +272,22 @@ export const generalFundCommitments2026: Commitment[] = [
       source: 'Town Square — fund-balance impact',
       note: d.note,
     })),
-  {
-    label: 'Meals on Wheels truck (Seniors Department)',
-    amount: 80_000,
-    certainty: 'authorized',
-    fund: 'General Fund',
-    source: 'Resolution 2026-645, July 7, 2026',
-    note: 'Purchase plus budget adjustment. A General Fund department, so this lands on the same balance the 2027 options draw against.',
-  },
-  {
-    label: 'East Creek Boat Launch repairs',
-    amount: 60_000,
-    certainty: 'authorized',
-    fund: 'General Fund',
-    source: 'Resolution 2026-639, July 7, 2026',
-    note: 'Ratified budget adjustment. The Town runs a separate East Creek Docking Facility fund, but the resolution does not name it, so this is counted against the General Fund — the conservative reading for a page about General Fund headroom.',
-  },
+  // Two entries stood here, both from July 7, 2026, and both were guesses made
+  // because that meeting's fiscal companion carried no account codes at all --
+  // 0 of 53 resolutions, against 100% at every other meeting, because the file
+  // was hand-curated and the ETL skipped it rather than parsing it. It is now
+  // parsed and merged, so the statements speak for themselves and the guesses
+  // are gone.
+  //
+  // The Meals on Wheels truck (2026-645, $80,000) is now read from its own
+  // accounts and arrives through documentedGeneralFundDraws. Leaving the hand
+  // entry here would have counted it twice.
+  //
+  // The East Creek boat launch (2026-639, $60,000) is not a General Fund draw.
+  // Its note here said the Town "runs a separate East Creek Docking Facility
+  // fund, but the resolution does not name it" -- the resolution names it
+  // twice, charging CM2-9999-000-00000-0 and CM2-7-7230-230-000-00000. CM2 is
+  // that fund. It never belonged in General Fund headroom.
 ]
 
 export const committedTotal = generalFundCommitments2026.reduce((s, c) => s + c.amount, 0)
