@@ -143,28 +143,55 @@ export const twentyPercentAcross22 =
 export const eligiblePositionsModeled = modeledEligibleHealthcarePositions
 export const contributionRateModeled = healthcareContributionRate
 
-/** The January 2023 round, for the pattern and for the contrast with CSEA. */
+/**
+ * The January 2023 round, now read from the Town's own minutes.
+ *
+ * This block used to be sourced from contemporaneous local reporting, and the
+ * page said so. The minutes of January 4, 2023 are now parsed, and they correct
+ * the secondhand account in three ways rather than merely confirming it.
+ *
+ * The count was 14 resolutions, not 11. The reported total of roughly $48,000
+ * was close: the eleven that can be priced against the adopted schedule come to
+ * $48,713.
+ *
+ * Drew Dillingham's award was a flat $7,500 (Resolution 2023-21), not the 5.5%
+ * recorded here before. The dollar figure was right and the mechanism was not,
+ * which matters because a percentage compounds against a base and a flat sum
+ * does not.
+ *
+ * The 5% increase was Resolution 2023-20, and it went to Assistant Town Engineer
+ * Kenneth Testa -- requested by Dillingham on his behalf. This page had
+ * attributed it to Dillingham. It was also one of two awards that did not carry
+ * the Board unanimously.
+ *
+ * The full fourteen, with mechanism and vote, are in management-salary-history.
+ */
 export const raises2023 = {
-  date: '2023-01-05',
-  count: 11,
-  approxTotal: 48_000,
+  date: '2023-01-04',
+  count: 14,
+  pricedCount: 11,
+  pricedTotal: 48_713.41,
+  offScheduleCount: 5,
+  offScheduleTotal: 28_928.04,
   named: [
-    { name: 'Jefferson Murphree', title: 'Building and Planning Administrator', from: 133_753.48, to: 137_766.08, pct: 3 },
-    { name: 'Ray Coyne', title: 'Recreation Superintendent', from: 114_685.18, to: 119_272.59, pct: 4 },
-    { name: 'Drew Dillingham', title: 'Town Engineer', from: 136_163.89, to: 143_663.89, pct: 5.5 },
+    { name: 'Jefferson Murphree', title: 'Town Building & Planning Administrator', from: 133_753.48, to: 137_766.08, mechanism: '3%', resolution: '2023-14', unanimous: true },
+    { name: 'Raymond Coyne', title: 'Superintendent of Recreation', from: 114_685.18, to: 119_272.59, mechanism: '4%', resolution: '2023-15', unanimous: true },
+    { name: 'Kenneth Testa', title: 'Assistant Town Engineer', from: 106_560.58, to: 111_888.61, mechanism: '5%', resolution: '2023-20', unanimous: false },
+    { name: 'Drew Dillingham', title: 'Town Engineer', from: 136_163.89, to: 143_663.89, mechanism: '$7,500', resolution: '2023-21', unanimous: true },
+    { name: 'Carol Sclafani', title: 'Legislative Secretary', from: 45_844.39, to: 53_344.39, mechanism: '$7,500', resolution: '2023-10', unanimous: false },
   ],
   alreadyBudgeted:
     'The Financial Administrator of the day said the increases were already carried in the 2023 adopted budget.',
   csea:
-    'The CSEA agreement covering January 1, 2019 through December 31, 2022 had expired and successor negotiations were, in the union’s description, far apart. The CSEA president objected publicly that members had taken low wages in good faith while management received larger amounts.',
+    'The CSEA agreement covering January 1, 2019 through December 31, 2022 had expired and successor negotiations were, in the union\u2019s description, far apart. The CSEA president objected publicly that members had taken low wages in good faith while management received larger amounts.',
 }
 
 export const limits = [
   'Enrollment is unknown, in both directions. The premium used here is the NYSHIP Empire Plan participating-agency INDIVIDUAL rate, the cheapest tier, so a position holding family coverage carries a materially larger premium than is modelled. But a position that waives Town coverage — on a spouse\u2019s plan, say — costs the Town nothing and is still counted here as though enrolled. The benefit figures are therefore what the policy is worth at full enrollment, not a floor: the Town publishes no enrollment by position, so neither correction can be made.',
   'The resolution covers dental and vision as well as medical. Only the medical premium is modelled, which understates the change again.',
   'Whether the 2026 salary increases are merit increases is not stated anywhere this site can read. A reclassification, added duties or a market adjustment would each explain them without contradicting the resolution, and none of those would appear in the schedule either.',
-  'All three positions with a schedule line are coded to "Senior Citizen Programs Nutrition" in 2025 and "Eisep Program" in 2026. That is an unusual department for Supervisor’s-office staff. It is consistent across both years, so the year-over-year comparison is like for like, but the coding itself is not explained in the source.',
-  'The 2023 figures come from contemporaneous local reporting, not from a Town document this site has parsed.',
+  'An earlier version of this page reported that these positions are coded to an unusual department — "Senior Citizen Programs Nutrition" in 2025, "Eisep Program" in 2026 — and invited the reader to make something of it. That was not the Town’s coding. The salary schedules print a department as a left-column label spanning its rows, the text extraction hoists those labels to the foot of the page, and the parser was pairing each row with whichever label happened to follow it. It filed 169 of 2025’s 349 records under a fiscal impact statement heading. The field is no longer published, and no department is claimed for any position here.',
+  'The 2023 figures were previously taken from contemporaneous local reporting. They now come from the Town Board minutes of January 4, 2023, which corrected the count, one mechanism and one attribution — see the January rounds section.',
 ]
 
 export const sources = [
@@ -172,5 +199,7 @@ export const sources = [
   { title: '2026 salary schedule', detail: 'Town Board agenda packet, January 6, 2026 — the source behind this site’s authorized-salary extract.' },
   { title: '2025 salary resolutions', detail: 'Town Board minutes, January 7, 2025 (Resolution 2025-9).' },
   { title: 'TB Resolutions 2026-58, 2026-59 and 2026-60', detail: 'January 6, 2026 organizational meeting. Each carries a fiscal impact statement answering "yes."' },
-  { title: 'RiverheadLOCAL, January 5, 2023', detail: 'Reporting on raises for eleven salaried employees during the CSEA contract gap.' },
+  { title: 'Town Board minutes, January 4, 2023', detail: 'Resolutions 2023-1 through 2023-8 set the year\u2019s salary schedules; 2023-9 through 2023-22 raise fourteen individuals above them.' },
+  { title: 'Town Board minutes, January 4 2022, January 3 2024 and January 7 2025', detail: 'The adopted salary schedules behind the four-year management series.' },
+  { title: 'RiverheadLOCAL, January 5, 2023', detail: 'Contemporaneous reporting on the same round, and the source of the CSEA response quoted here.' },
 ]
