@@ -3,7 +3,7 @@
   "parsed_at": "2026-07-31T00:48:42.463564+00:00",
   "document_count": 132,
   "audit_document_count": 41,
-  "failure_count": 1,
+  "failure_count": 0,
   "page_record_count": 14287,
   "citation_count": 14287,
   "line_item_candidate_count": 114918,
@@ -1593,11 +1593,5 @@
       "parsed_at": "2026-07-31T00:48:42.463564+00:00"
     }
   ],
-  "failures": [
-    {
-      "title": "Applications & Forms View applications, reports, permits, etc.",
-      "url": "https://www.townofriverheadny.gov/DocumentCenter",
-      "error": "not a PDF response: text/html; charset=utf-8"
-    }
-  ]
+  "failures": []
 }
