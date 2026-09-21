@@ -1,10 +1,10 @@
 {
- "generatedAt": "2026-09-20T16:40:13Z",
- "generatedAtDisplay": "September 20, 2026",
- "dataVersion": "a5bbb2a029cfac62",
+ "generatedAt": "2026-09-21T15:52:23Z",
+ "generatedAtDisplay": "September 21, 2026",
+ "dataVersion": "6ad5ef1226b2d94c",
  "datasets": {
   "meetings": 47,
-  "votes": 2054,
+  "votes": 1941,
   "latestMeeting": "September 15, 2026",
   "budgetLineItems": 1009,
   "payrollYears": [
@@ -17,7 +17,7 @@
    2024,
    2025
   ],
-  "searchEntries": 17098
+  "searchEntries": 16985
  },
  "datasetDetails": {
   "budget": {
@@ -39,9 +39,9 @@
    "asOf": "September 15, 2026",
    "status": "official",
    "cadence": "Checked weekly as the Town publishes minutes; meetings are not held every week",
-   "records": 2054,
+   "records": 1941,
    "freshness": "current",
-   "freshnessNote": "Source date is 5 days old, inside the expected window.",
+   "freshnessNote": "Source date is 6 days old, inside the expected window.",
    "freshnessPolicy": {
     "mode": "date",
     "currentDays": 28,
@@ -79,7 +79,7 @@
   },
   "projection": {
    "label": "2027 projection model",
-   "asOf": "September 20, 2026",
+   "asOf": "September 21, 2026",
    "status": "projected",
    "cadence": "Regenerated with the ETL pipeline",
    "records": null,
@@ -90,14 +90,14 @@
     "currentDays": 7,
     "staleDays": 14
    },
-   "sourceDate": "2026-09-20"
+   "sourceDate": "2026-09-21"
   },
   "search": {
    "label": "Unified search index",
-   "asOf": "September 20, 2026",
+   "asOf": "September 21, 2026",
    "status": "calculated",
    "cadence": "Regenerated with source datasets",
-   "records": 17098,
+   "records": 16985,
    "freshness": "current",
    "freshnessNote": "Source date is 0 days old, inside the expected window.",
    "freshnessPolicy": {
@@ -105,9 +105,9 @@
     "currentDays": 7,
     "staleDays": 14
    },
-   "sourceDate": "2026-09-20",
+   "sourceDate": "2026-09-21",
    "format": "sharded",
-   "bytes": 5114723
+   "bytes": 5090436
   }
  }
 }
