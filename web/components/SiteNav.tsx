@@ -26,9 +26,10 @@ const GROUPS: Group[] = [
     ['Resident Answers', `${base}/answers/`], ['Workforce by Title', `${base}/workforce-by-title/`], ['Officials & Pensions', `${base}/officials/`], ['Management Pay', `${base}/management-compensation/`],
     ['2026 Buyout', `${base}/buyout/`], ['Police Spending & Crime', `${base}/police-crime/`], ['School Resource Officers', `${base}/school-resource-officers/`], ['Supervisors & Council History', `${base}/town-history/`], ['Board Elections', `${base}/board-elections/`],
     ['Campaign Finance', `${base}/campaign-finance/`], ['Candidate Watch', `${base}/candidate-watch/`], ['Candidate Proposals', `${base}/candidate-cost-benefit/`],
+    ['Supervisor’s Promises', `${base}/supervisor-promises/`],
   ] },
   { label: 'Research', links: [
-    ['Start Here', `${base}/guide/`], ['2027 Prediction', `${base}/predict-2027/`], ['Scenario Lab', `${base}/scenarios/`],
+    ['Start Here', `${base}/guide/`], ['2027 Prediction', `${base}/predict-2027/`], ['2027 Tentative Budget', `${base}/tentative-2027/`], ['Scenario Lab', `${base}/scenarios/`],
     ['2027 Spending Reduction', `${base}/spending-reduction-2027/`], ['A Zero-Percent Year', `${base}/zero-percent-2027/`],
     ['Credit Rating', `${base}/credit-rating/`], ['Outlier Watch', `${base}/outliers/`], ['Budget Accuracy', `${base}/budget-accuracy/`], ['Fiscal Impact', `${base}/fiscal-impact/`],
   ] },

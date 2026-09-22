@@ -37,7 +37,7 @@ NAYS: Kern
 
 FISCAL IMPACT STATEMENT
 """
-        parsed = parse_vote_packet(packet, docket, {"Halpin": "Democrat", "Kern": "Republican"})
+        parsed = parse_vote_packet(packet, docket, {"Halpin": "Unaffiliated", "Kern": "Republican"})
 
         self.assertTrue(parsed["complete"])
         self.assertEqual(parsed["voteBlockCount"], 2)

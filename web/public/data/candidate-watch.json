@@ -19,7 +19,7 @@
    "office": "Town Supervisor",
    "candidates": [
     {
-     "name": "Jerome (Jerry) Halpin", "party": "D", "incumbent": true, "active": true,
+     "name": "Jerome (Jerry) Halpin", "party": "D", "partyLabel": "Democratic line · not enrolled in a party", "incumbent": true, "active": true,
      "website": "https://www.votejerryhalpin.com/",
      "socialMedia": [{ "platform": "Facebook", "url": "https://www.facebook.com/p/Vote-Jerry-Halpin-61573816546076/" }],
      "background": "Co-founder and former lead pastor of North Shore Christian Church in Riverhead for about 22 years. Defeated incumbent Tim Hubbard by 37 votes in November 2025, running on opposition to the 2025 budget's 7.89% tax increase.",

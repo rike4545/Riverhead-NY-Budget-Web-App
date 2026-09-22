@@ -66,8 +66,9 @@ export const retirementIncentive2027 = {
     "The savings figure is the Town's own projection; the final number depends on how many of the 53 eligible employees actually elect to retire by the September 1, 2026 deadline, and on how each vacated post is refilled.",
 }
 
-// How each lever fares on a divided board (1 Democratic Supervisor + a 4-member
-// Republican Council majority). "standing" describes political durability, not
+// How each lever fares on a divided board (a Supervisor elected on the
+// Democratic line and enrolled in no party, and a 4-member Republican Council
+// majority). "standing" describes political durability, not
 // dollars.
 export type GapPath = {
   name: string
@@ -82,7 +83,7 @@ export const gapClosingPaths: GapPath[] = [
     closes: '$500K–$800K recurring (Town projection)',
     standing: 'already agreed',
     politics:
-      "The three union incentives passed 5–0 on July 7, 2026. Refilling the vacated posts at a lower step is the one salary saving both the Democratic Supervisor and the Republican majority have already endorsed — no new fight to have.",
+      "The three union incentives passed 5–0 on July 7, 2026. Refilling the vacated posts at a lower step is the one salary saving both the Supervisor and the Republican majority have already endorsed — no new fight to have.",
   },
   {
     name: 'Stack the sourced, audit-driven line trims',

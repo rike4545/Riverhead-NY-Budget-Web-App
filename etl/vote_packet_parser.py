@@ -10,6 +10,8 @@ reported but is not promoted to a complete meeting record.
 from __future__ import annotations
 
 import re
+
+from parse_meetings import KNOWN_OFFICE  # one source for office fallbacks
 from collections import Counter, OrderedDict
 
 VOTE_HEADER = re.compile(r"^\s*THE\s+VOTE\s*$", re.I | re.M)
@@ -145,7 +147,10 @@ def build_roster(raw: str, fields_list: list[dict], member_party: dict[str, str]
     for last in lasts:
         roster[last] = {
             "name": full_by_last.get(last, last),
-            "title": titles.get(last, "Councilmember"),
+            # Same fallback as parse_meetings.build_roster: without it the
+            # agenda-packet path listed the Supervisor as a council member at the
+            # July 21, Aug. 18 and Sept. 15, 2026 meetings.
+            "title": titles.get(last) or KNOWN_OFFICE.get(last, "Councilmember"),
             "party": (member_party or {}).get(last),
         }
     return roster

@@ -214,8 +214,11 @@ function Chip({ label, value, color, strong }: { label: string; value: number; c
   return <span style={{ background: 'var(--rbl-surface-2)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 999, padding: '5px 12px', fontSize: 13, fontWeight: strong ? 900 : 700, color: strong ? color : 'var(--rbl-text-strong)' }}><span style={{ display: 'inline-block', width: 9, height: 9, borderRadius: 9, background: color, marginRight: 6 }} />{label}: {value.toLocaleString()}</span>
 }
 
+// Neutral for anything that is not D or R. The chip used to give every
+// non-Democrat the Republican red background, which would have painted an
+// unaffiliated member as a Republican.
 function partyColor(party: string | null) { return party === 'Democrat' ? '#1d4ed8' : party === 'Republican' ? 'var(--rbl-danger)' : 'var(--rbl-series-slate)' }
-function PartyChip({ party, small }: { party: string | null; small?: boolean }) { if (!party) return null; const c = partyColor(party); const label = small ? party[0] : party; return <span title={party} style={{ display: 'inline-block', background: party === 'Democrat' ? 'var(--rbl-info-bg)' : 'var(--rbl-danger-bg)', color: c, fontWeight: 800, fontSize: small ? 10.5 : 12, padding: small ? '1px 7px' : '2px 9px', borderRadius: 999, verticalAlign: 'middle', letterSpacing: 0.3 }}>{label}</span> }
+function PartyChip({ party, small }: { party: string | null; small?: boolean }) { if (!party) return null; const c = partyColor(party); const label = small ? party[0] : party; return <span title={party === 'Unaffiliated' ? 'Not enrolled in a political party' : party} style={{ display: 'inline-block', background: party === 'Democrat' ? 'var(--rbl-info-bg)' : party === 'Republican' ? 'var(--rbl-danger-bg)' : 'var(--rbl-surface-3)', color: c, fontWeight: 800, fontSize: small ? 10.5 : 12, padding: small ? '1px 7px' : '2px 9px', borderRadius: 999, verticalAlign: 'middle', letterSpacing: 0.3 }}>{label}</span> }
 const th = { padding: '8px 10px' } as const
 const td = { padding: '8px 10px' } as const
 function Stat({ label, value, amber, red }: { label: string; value: string; amber?: boolean; red?: boolean }) { return <div style={{ background: 'var(--rbl-surface-2)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 12, padding: 12 }}><div style={{ color: 'var(--rbl-text-muted)', fontSize: 11.5, textTransform: 'uppercase', fontWeight: 900, letterSpacing: 0.4 }}>{label}</div><strong style={{ fontSize: 22, color: red ? 'var(--rbl-danger)' : amber ? 'var(--rbl-warn)' : 'var(--rbl-title)' }}>{value}</strong></div> }

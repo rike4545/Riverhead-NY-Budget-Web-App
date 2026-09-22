@@ -129,7 +129,7 @@ export default function SpendingReduction2027Page() {
 
       <Detail title="Will it pass a divided board? The politics">
         <p style={{ color: 'var(--rbl-text-strong)', fontSize: 14, lineHeight: 1.6, margin: '0 0 4px' }}>
-          Closing the gap has to pass a <strong>Democratic Supervisor with a four-member Republican Council majority</strong>.
+          Closing the gap has to pass a <strong>Supervisor elected on the Democratic line, who is enrolled in no party, and a four-member Republican Council majority</strong>.
           Under NY Town Law the Supervisor prepares the budget and the Council adopts it, so a durable plan needs both.
           These levers are ordered by how well each survives that split — least partisan first.
         </p>

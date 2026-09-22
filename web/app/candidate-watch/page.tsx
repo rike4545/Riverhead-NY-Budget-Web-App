@@ -23,7 +23,8 @@ type Candidate = {
 }
 
 // Spell out the party codes and give each a color, so a reader never has to
-// decode "R/C" or a bare letter.
+// decode "R/C" or a bare letter. The code is the ballot line; a candidate whose
+// enrollment differs from it carries its own partyLabel, which wins.
 const PARTY: Record<string, { name: string; color: string; tint: string }> = {
   D: { name: 'Democrat', color: 'var(--rbl-info-text)', tint: 'var(--rbl-info-bg)' },
   R: { name: 'Republican', color: 'var(--rbl-danger)', tint: 'var(--rbl-danger-bg)' },
@@ -70,7 +71,7 @@ export default function CandidateWatchPage() {
                         {c.incumbent ? 'Incumbent' : 'Challenger'}
                       </span>
                       <span style={{ background: p.tint, color: p.color, fontWeight: 800, fontSize: 12, padding: '3px 11px', borderRadius: 999 }}>
-                        {p.name}
+                        {(c as { partyLabel?: string }).partyLabel ?? p.name}
                       </span>
                     </div>
                     <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', marginTop: 12 }}>
