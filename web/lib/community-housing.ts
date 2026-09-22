@@ -17,9 +17,11 @@
 //   REPORTED — from news coverage or a town's own web pages, not confirmed
 //              against the primary record here.
 //   VERIFIED — traceable to a document this site already parses. Riverhead's
-//              transfer-tax revenue is the only category that qualifies: it
-//              comes from the Town's audited CPF financial statements via
-//              etl/parse_cpf.py, not from any of the sources above.
+//              transfer-tax revenue qualifies: it comes from the Town's
+//              audited CPF financial statements via etl/parse_cpf.py, not from
+//              any of the sources above. So does the 2026 accessory dwelling
+//              unit law, which is in the Town Board record parse_meetings.py
+//              reads.
 //
 // The dollar estimate of what Riverhead has forgone is arithmetic on VERIFIED
 // revenue — but it is still an estimate, and the caveats in `estimateCaveats`
@@ -279,6 +281,14 @@ export const riverheadTimeline: TimelineEvent[] = [
     detail:
       'The board unanimously approves zoning changes for Northville Commons — the Family Community Life Center\'s affordable housing and community-center project with Georgica Green Ventures — and a separate downtown-area project wins a $1M state grant. Supervisor Hubbard, on Northville Commons: "This is something that I\'ve supported from day one… We\'re losing too many young people [who are] moving off Long Island, [because they] can\'t afford to live here."',
     confidence: 'REPORTED',
+    tone: 'progress',
+  },
+  {
+    date: 'March 17, 2026',
+    what: 'A new accessory dwelling unit law',
+    detail:
+      'The Board repeals the Town Code\'s accessory-apartment article and enacts a new accessory dwelling unit (ADU) law in its place, unanimously (Resolution 2026-252; hearing set by Resolution 2026-153). It is a zoning and building rule, not a community housing plan under § 64-k, and it carries no dedicated revenue.',
+    confidence: 'VERIFIED',
     tone: 'progress',
   },
   {

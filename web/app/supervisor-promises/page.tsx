@@ -1,6 +1,6 @@
 import PageShell from '../../components/PageShell'
 import {
-  SUPERVISOR, ELECTION, context, tests, commitments, claims, STATUS_LABEL, prudence, released,
+  SUPERVISOR, ELECTION, context, tests, commitments, claims, STATUS_LABEL, prudence, released, levers,
   type ClaimStatus,
 } from '../../lib/supervisor-promises'
 
@@ -152,6 +152,39 @@ export default function SupervisorPromisesPage() {
         </div>
       </section>
 
+      <section id="levers" style={{ ...card, marginBottom: 16 }}>
+        <h3 style={{ marginTop: 0, color: 'var(--rbl-title)' }}>Other levers, and where each stands</h3>
+        <p style={{ color: 'var(--rbl-text-body)', fontSize: 14.5, lineHeight: 1.6, marginTop: 0 }}>
+          Five levers a Supervisor can reach for, set against the record since January: who can act, what has happened so
+          far, and what each is worth. Only the first appears among his campaign’s own claims. None is scored. Most need a
+          Board majority, and the Supervisor is one of five votes.
+        </p>
+        <div style={{ display: 'grid', gap: 14 }}>
+          {levers.map((l) => {
+            const t = l.testId ? tests.find((x) => x.id === l.testId) : undefined
+            return (
+              <article key={l.id} id={`lever-${l.id}`} data-lever={l.id} style={{ border: '1px solid var(--rbl-border-subtle)', borderRadius: 12, padding: 14 }}>
+                <div style={{ color: 'var(--rbl-title)', fontWeight: 800, fontSize: 14.5 }}>{l.lever}</div>
+                <div style={{ color: 'var(--rbl-text-muted)', fontSize: 12.8, marginTop: 3 }}>Who can act: {l.whoActs}</div>
+                <ul style={{ margin: '8px 0 0', paddingLeft: 18, color: 'var(--rbl-text-body)', fontSize: 13.8, lineHeight: 1.6 }}>
+                  {l.record.map((r, i) => <li key={i}>{r}</li>)}
+                </ul>
+                {l.worth && (
+                  <p style={{ color: 'var(--rbl-text-body)', fontSize: 13.5, lineHeight: 1.6, margin: '8px 0 0' }}>
+                    <strong style={{ color: 'var(--rbl-title)' }}>What it is worth:</strong> {l.worth}
+                  </p>
+                )}
+                <div style={{ color: 'var(--rbl-text-body)', fontSize: 13, marginTop: 6 }}>
+                  {t && <>Measured on the 2027 Tentative: <a href={`#test-${t.id}`} style={{ color: 'var(--rbl-accent)' }}>{t.question}</a>{l.link && ' · '}</>}
+                  {l.link && <a href={`${base}${l.link.path}`} style={{ color: 'var(--rbl-accent)' }}>{l.link.label}</a>}
+                </div>
+                <div style={{ color: 'var(--rbl-text-muted)', fontSize: 12, marginTop: 6 }}>Records: {l.sources.join('; ')}</div>
+              </article>
+            )
+          })}
+        </div>
+      </section>
+
       <section style={{ ...card, marginBottom: 16, borderLeft: '5px solid var(--rbl-warn)' }}>
         <h3 style={{ marginTop: 0, color: 'var(--rbl-title)' }}>{prudence.question}</h3>
         <p style={{ color: 'var(--rbl-text-body)', fontSize: 14.5, lineHeight: 1.6, marginTop: 0 }}>{prudence.framing}</p>
@@ -161,8 +194,10 @@ export default function SupervisorPromisesPage() {
         <p style={{ color: 'var(--rbl-text-body)', fontSize: 14, lineHeight: 1.6, marginBottom: 0 }}>
           The evidence is the table above: <a href="#test-cap" style={{ color: 'var(--rbl-accent)' }}>the levy against the cap</a>,{' '}
           <a href="#test-ran-against" style={{ color: 'var(--rbl-accent)' }}>against the increase he ran on</a>,{' '}
-          <a href="#test-one-time" style={{ color: 'var(--rbl-accent)' }}>the use of one-time money</a>, and{' '}
-          <a href="#test-requests" style={{ color: 'var(--rbl-accent)' }}>what departments asked for</a>.
+          <a href="#test-one-time" style={{ color: 'var(--rbl-accent)' }}>the use of one-time money</a>,{' '}
+          <a href="#test-requests" style={{ color: 'var(--rbl-accent)' }}>what departments asked for</a> and{' '}
+          <a href="#test-office" style={{ color: 'var(--rbl-accent)' }}>his own office’s payroll</a>, and{' '}
+          <a href="#levers" style={{ color: 'var(--rbl-accent)' }}>where each of the other levers stands</a>.
         </p>
       </section>
 
