@@ -51,6 +51,16 @@ jobs:
       - name: Parse all financial-report PDFs safely
         run: python etl/run_ingestion_safe.py
 
+      # Discovery above picks up a new Tentative, Preliminary or Supplement the
+      # same day the Town posts it. These two read what it just parsed -- no
+      # downloads -- so the budget-stage comparison and the department-request
+      # view update on this deploy rather than waiting for the Monday ETL.
+      - name: Build budget-stage comparison
+        run: python etl/parse_budget_stages.py
+
+      - name: Build department request vs Tentative
+        run: python etl/parse_budget_requests.py
+
       - name: Parse Peconic Bay CPF financial statements
         run: python etl/parse_cpf.py
 
@@ -69,7 +79,11 @@ jobs:
           set -e
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add web/public/data/financial-reports web/public/data/cpf || true
+          # The two stage files are derived from the parsed documents and are
+          # deterministic, so committing them alongside cannot cause churn.
+          git add web/public/data/financial-reports web/public/data/cpf \
+            web/public/data/history/budget-stages.json \
+            web/public/data/budget-supplement/requests-by-year.json || true
           if git diff --cached --quiet; then
             echo "No parsed source-data changes."
           else

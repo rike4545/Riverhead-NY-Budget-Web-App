@@ -4,6 +4,12 @@ on:
   workflow_dispatch:
   schedule:
     - cron: '0 9 * * 1'
+    # Budget season. Town Law has the Tentative filed by Sept 30, presented by
+    # Oct 5, heard by the Thursday after the election and adopted by Nov 20 --
+    # every document in the cycle lands between September and November. Twice
+    # daily (5 a.m. and 6 p.m. Eastern) so a same-day posting is caught that
+    # evening. Both times sit clear of the meeting sync at 12:30 and 23:30 UTC.
+    - cron: '0 9,22 * 9-11 *'
 
 permissions:
   contents: write
@@ -52,6 +58,10 @@ jobs:
         run: python etl/parse_subaccounts.py
       - name: Build multi-year fund appropriations history
         run: python etl/parse_budget_history.py
+      - name: Build budget-stage comparison
+        run: python etl/parse_budget_stages.py
+      - name: Build department request vs Tentative
+        run: python etl/parse_budget_requests.py
       - name: Build long-run General Fund history
         run: python etl/parse_general_fund.py
       - name: Parse Annual Financial Report actuals

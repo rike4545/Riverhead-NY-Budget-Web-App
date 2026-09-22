@@ -46,7 +46,23 @@ def slugify(value: str) -> str:
 
 
 def category(title: str) -> str:
+    """The document's place in the budget cycle, from the Town's own title.
+
+    Town Law sections 106-109 make these three different documents, not three
+    drafts of one: the Tentative is the budget officer's recommendation, the
+    Preliminary is that plus whatever the Board changes and is what the public
+    hearing is held on, and only the Adopted budget appropriates anything.
+
+    Checked before the stages: a supplement is the line-item companion to a
+    Tentative, and "Proposed Changes to Preliminary Budget" is a list of
+    amendments rather than a budget. Both used to fall through to a stage or to
+    "other", so the 2020 amendment list was counted as a Preliminary budget.
+    """
     t = title.lower()
+    if 'supplement' in t:
+        return 'budget_supplement'
+    if 'proposed changes' in t or 'amendments to' in t:
+        return 'budget_changes'
     if 'adopted budget' in t or 'final budget' in t:
         return 'adopted_budget'
     if 'tentative budget' in t:
@@ -157,12 +173,23 @@ def main() -> int:
 
     links = discover()
     print(f'discovered {len(links)} candidate financial-report PDFs')
+    seen_hashes: dict[str, str] = {}
 
     for link in links:
         try:
             pdf = download(link)
-            reader = PdfReader(str(pdf))
             doc_hash = sha256(pdf)
+            # The Town's page sometimes links one file twice under two titles
+            # ("2026 Preliminary Budget" and "2026 Preliminary Budget (PDF)" are
+            # byte-identical). Parsing both put every page in search twice.
+            if doc_hash in seen_hashes:
+                print(f'skipped {link.title}: same file as {seen_hashes[doc_hash]}')
+                stale = DOCS / f'{link.slug}.json'
+                if stale.exists():
+                    stale.unlink()
+                continue
+            seen_hashes[doc_hash] = link.title
+            reader = PdfReader(str(pdf))
             doc_ts = prev_parsed_at.get((link.slug, doc_hash), parsed_at)
             doc_timestamps.append(doc_ts)
             pages = []
