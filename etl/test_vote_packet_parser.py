@@ -78,5 +78,42 @@ NAYS: None
         self.assertEqual(parsed["resolutions"], [])
 
 
+    def test_blank_vote_block_is_not_promoted(self):
+        # The July 24, 2025 packet: the Clerk's THE VOTE template was never
+        # filled in. parse_result reads the bare "APPROVE:" as a failure, so
+        # promoting this would publish a defeat that no vote produced.
+        docket = [{"seq": 1, "number": "2025-643", "title": "Authorizes Funding Application (CFA) - Pro Housing"}]
+        packet = """
+2025-643 Authorizes Funding Application to New York State
+THE VOTE
+RESULT: APPROVE:
+MOVER: Councilman Kenneth Rothwell
+SECONDER: Councilman Robert Kern
+AYES: None
+NAYS: None
+"""
+        parsed = parse_vote_packet(packet, docket, {"Rothwell": "Republican", "Kern": "Republican"})
+        self.assertFalse(parsed["complete"])
+        self.assertEqual(parsed["unrecordedCount"], 1)
+        self.assertEqual(parsed["resolutions"], [])
+
+    def test_explicit_unanimous_without_names_is_still_recorded(self):
+        # The guard above must not over-reach: a result that states its own
+        # outcome is a recorded vote even when no AYES are printed.
+        docket = [{"seq": 1, "number": "2026-900", "title": "Routine Item"}]
+        packet = """
+2026-900 Routine Item
+THE VOTE
+RESULT: ADOPTED [UNANIMOUS]
+MOVER: Councilman Kenneth Rothwell
+SECONDER: Councilman Robert Kern
+AYES: None
+NAYS: None
+"""
+        parsed = parse_vote_packet(packet, docket, {"Rothwell": "Republican", "Kern": "Republican"})
+        self.assertTrue(parsed["complete"])
+        self.assertEqual(parsed["unrecordedCount"], 0)
+        self.assertEqual(parsed["resolutions"][0]["tag"], "unanimous")
+
 if __name__ == "__main__":
     unittest.main()

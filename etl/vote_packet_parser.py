@@ -46,6 +46,11 @@ def clean_person(name: str) -> str:
     return clean(value.strip(" ,;"))
 
 
+# An outcome the Clerk actually wrote down. "NOT ADOPTED" contains ADOPTED and
+# is matched, which is fine: it is a recorded outcome either way.
+RECOGNISED_RESULT = re.compile(r"ADOPTED|DEFEATED|FAILED|TABLED|WITHDRAWN|POSTPON|UNANIMOUS|\[\d+\s*(?:TO|-|\u2013)\s*\d+\]")
+
+
 def parse_result(text: str) -> tuple[bool, int | None, int | None, str]:
     up = text.upper()
     count = re.search(r"\[(\d+)\s*(?:TO|-|–)\s*(\d+)\]", up)
@@ -209,6 +214,7 @@ def parse_vote_packet(
     fields_list = [vote["fields"] for _, vote in assigned]
     roster = build_roster(raw, fields_list, member_party)
     resolutions: list[dict] = []
+    unrecorded = 0
 
     for item, vote in assigned:
         fields = vote["fields"]
@@ -223,6 +229,17 @@ def parse_vote_packet(
 
         if tag == "split" and not nays_m and not abstain_m and not nays:
             tag = "unanimous"
+
+        # A THE VOTE block the Clerk never filled in -- "RESULT: APPROVE:",
+        # "AYES: None", "NAYS: None" -- records no vote. parse_result reads any
+        # result it does not recognise as "failed", so without this check the
+        # July 24, 2025 packet would have published a Pro-Housing grant
+        # application as defeated when the record shows no vote at all.
+        # A block counts as recorded if it states a recognised outcome OR
+        # names a voter; one with neither makes the packet incomplete, and an
+        # incomplete packet is never promoted.
+        if not (RECOGNISED_RESULT.search(fields["RESULT"].upper()) or ayes_m or nays_m or abstain_m or absent_m):
+            unrecorded += 1
 
         votes: dict[str, str] = {}
         if not (tag == "tabled" and not (ayes_m or nays_m)):
@@ -257,7 +274,7 @@ def parse_vote_packet(
     resolutions.sort(key=lambda item: item.get("seq") or 0)
     expected = [item.get("number") for item in sorted(docket, key=lambda item: item.get("seq", 0))]
     actual = [item.get("number") for item in resolutions]
-    complete = len(resolutions) == len(docket) and actual == expected
+    complete = len(resolutions) == len(docket) and actual == expected and unrecorded == 0
 
     return {
         "resolutions": resolutions if complete else [],
@@ -265,5 +282,6 @@ def parse_vote_packet(
         "complete": complete,
         "voteBlockCount": len(parsed),
         "mappedCount": len(resolutions),
+        "unrecordedCount": unrecorded,
         "expectedCount": len(docket),
     }
