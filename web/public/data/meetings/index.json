@@ -4,10 +4,10 @@
   "url": "https://www.townofriverheadny.gov/129/Agendas-Minutes"
  },
  "totals": {
-  "meetings": 47,
-  "votes": 2054,
-  "contested": 43,
-  "failed": 3,
+  "meetings": 49,
+  "votes": 2085,
+  "contested": 44,
+  "failed": 4,
   "tabled": 11
  },
  "meetings": [
@@ -74,6 +74,22 @@
    "verifiedResolutionCount": 0,
    "resolutionSourceCount": 0,
    "sourceVersionAt": "2026-09-08T16:54:24Z"
+  },
+  {
+   "slug": "2026-07-21",
+   "date": "July 21, 2026",
+   "type": "Regular Meeting",
+   "total": 30,
+   "unanimous": 30,
+   "contested": 0,
+   "failed": 0,
+   "tabled": 0,
+   "voteSource": "agenda-packet",
+   "officialRecordStatus": "vote-record-parsed",
+   "minutesRevisionCount": 1,
+   "verifiedResolutionCount": 0,
+   "resolutionSourceCount": 0,
+   "sourceVersionAt": "2026-09-08T16:56:04Z"
   },
   {
    "slug": "2026-07-07",
@@ -474,6 +490,22 @@
    "verifiedResolutionCount": 0,
    "resolutionSourceCount": 0,
    "sourceVersionAt": "2026-09-08T01:22:36Z"
+  },
+  {
+   "slug": "2025-07-24",
+   "date": "July 24, 2025",
+   "type": "Special Meeting",
+   "total": 1,
+   "unanimous": 0,
+   "contested": 1,
+   "failed": 1,
+   "tabled": 0,
+   "voteSource": "agenda-packet",
+   "officialRecordStatus": "vote-record-parsed",
+   "minutesRevisionCount": 0,
+   "verifiedResolutionCount": 0,
+   "resolutionSourceCount": 0,
+   "sourceVersionAt": "2026-09-08T16:54:29Z"
   },
   {
    "slug": "2025-07-15",
