@@ -36,8 +36,16 @@ OUT = ROOT / "web/public/data/meetings"
 # Political party affiliation by last name. Curated and source-cited — parties
 # are not stated in the minutes, so they are maintained here from election
 # results reporting. If a future member shares a last name, disambiguate.
+# A ballot line is not a party enrollment, and for one member they differ.
+# Halpin ran on the Democratic line -- the Riverhead Town Democratic Committee
+# nominated him unanimously in February 2026 (Riverhead News-Review) -- but is
+# "not registered to any political party" (RiverheadLOCAL, Nov. 25, 2025) and
+# says so himself: "I am not a Republican, and I am not a Democrat"
+# (votejerryhalpin.com/about). This was "Democrat", which described the line as
+# though it were the man. The four Republicans are enrolled on the line they ran
+# on, so for them the two readings agree.
 MEMBER_PARTY = {
-    "Halpin": "Democrat",       # Supervisor 2026; ran/endorsed on the Democratic line
+    "Halpin": "Unaffiliated",   # Supervisor 2026; not enrolled; Democratic-line nominee
     "Hubbard": "Republican",    # Supervisor 2025; Republican incumbent
     "Rothwell": "Republican",   # Republican councilman; 2026 GOP supervisor nominee
     "Kern": "Republican",       # Republican councilman
@@ -46,6 +54,15 @@ MEMBER_PARTY = {
 }
 PARTY_SOURCE = ("Party affiliation is from local election-results reporting (RiverheadLOCAL, "
                 "Riverhead News-Review), not the meeting minutes.")
+
+# The office a member holds, for use only when a meeting's minutes never print
+# it. Without this the roster falls back to "Councilmember", and four 2026
+# meetings (June 16, July 21, Aug. 18, Sept. 15) listed the Supervisor as a
+# council member. Halpin has held no other seat, so the fallback is exact; a
+# member who has held two offices must not be added here without a date.
+KNOWN_OFFICE = {
+    "Halpin": "Supervisor",
+}
 
 FOOTER = re.compile(r"For more information visit our website|www\.townofriverheadn?y?\.gov|Page \d+ of \d+")
 FIELD_RE = re.compile(r"^\s*(RESULT|MOVER|SECONDER|AYES|NAYS|ABSTAIN|ABSTAINED|ABSENT|RECUSED)\s*:\s*(.*)$", re.M)
@@ -143,9 +160,10 @@ def build_roster(raw, resolutions_fields):
 
     roster = OrderedDict()
     # Supervisor first, then vote-line order
-    lasts.sort(key=lambda l: (titles.get(l) != "Supervisor",))
+    lasts.sort(key=lambda l: ((titles.get(l) or KNOWN_OFFICE.get(l)) != "Supervisor",))
     for last in lasts:
-        roster[last] = {"name": full_by_last.get(last, last), "title": titles.get(last, "Councilmember")}
+        roster[last] = {"name": full_by_last.get(last, last),
+                        "title": titles.get(last) or KNOWN_OFFICE.get(last, "Councilmember")}
     return roster
 
 

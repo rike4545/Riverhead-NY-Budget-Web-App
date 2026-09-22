@@ -50,7 +50,7 @@ export default function BudgetAccuracyPage() {
         <h3 style={{ marginTop: 0, color: 'var(--rbl-title)' }}>Lines that go quiet, then cost real money</h3>
         <p style={{ color: 'var(--rbl-text-body)', fontSize: 14.5, lineHeight: 1.6, marginTop: 0 }}>
           These sit at or near zero for years, so any single-year comparison reads them as dead. Then the bill arrives.
-          Across {underBudgeted.length} such lines the 2026 budget is <strong>{usd(underBudgetedShortfall)}</strong> short
+          Across {underBudgeted.length} such lines the 2026 Tentative is <strong>{usd(underBudgetedShortfall)}</strong> short
           of what they have actually cost in the years they happened.
         </p>
         <div style={{ overflowX: 'auto' }}>
@@ -60,7 +60,7 @@ export default function BudgetAccuracyPage() {
                 <th style={{ padding: '8px 10px' }}>Line</th>
                 <th style={{ padding: '8px 10px' }}>{actualYears[0]}–{actualYears[actualYears.length - 1]} actuals</th>
                 <th style={{ padding: '8px 10px', textAlign: 'right' }}>Costs when it happens</th>
-                <th style={{ padding: '8px 10px', textAlign: 'right' }}>2026 budget</th>
+                <th style={{ padding: '8px 10px', textAlign: 'right' }}>2026 tentative</th>
               </tr>
             </thead>
             <tbody>
@@ -104,7 +104,7 @@ export default function BudgetAccuracyPage() {
                 </div>
                 <div style={{ margin: '6px 0' }}><Spark series={c.series} /></div>
                 <div style={{ color: 'var(--rbl-text-body)', fontSize: 13 }}>
-                  Costs about <strong>{usd(c.spikeAverage)}</strong> when it lands. The 2026 budget carries{' '}
+                  Costs about <strong>{usd(c.spikeAverage)}</strong> when it lands. The 2026 Tentative carries{' '}
                   <strong style={{ color: c.tentative2026 === 0 ? 'var(--rbl-danger)' : 'var(--rbl-title)' }}>{usd(c.tentative2026)}</strong>.
                 </div>
               </div>

@@ -7,8 +7,8 @@
   {
    "last": "Halpin",
    "name": "Jerry Halpin",
-   "title": "Councilmember",
-   "party": "Democrat"
+   "title": "Supervisor",
+   "party": "Unaffiliated"
   },
   {
    "last": "Rothwell",
@@ -825,7 +825,7 @@
  "memberTallies": {
   "Halpin": {
    "name": "Jerry Halpin",
-   "title": "Councilmember",
+   "title": "Supervisor",
    "aye": 37,
    "nay": 0,
    "abstain": 0,

@@ -71,7 +71,10 @@ export type Resolution = {
   officialDocumentFileIds?: Array<number | string>
 }
 
-export type Party = 'Democrat' | 'Republican' | null
+// 'Unaffiliated': not enrolled in a party. Supervisor Halpin runs on the
+// Democratic line but is not a registered Democrat; see MEMBER_PARTY in
+// etl/parse_meetings.py for the sources.
+export type Party = 'Democrat' | 'Republican' | 'Unaffiliated' | null
 export type RosterMember = { last: string; name: string; title: string; party: Party }
 
 export type MemberTally = {

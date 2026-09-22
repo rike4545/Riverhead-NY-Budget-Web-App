@@ -12,7 +12,7 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
-from parse_meetings import MEMBER_PARTY, build_member_records
+from parse_meetings import KNOWN_OFFICE, MEMBER_PARTY, build_member_records
 from vote_packet_parser import parse_vote_packet
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -62,6 +62,36 @@ def compute_stats_and_tallies(meeting: dict) -> None:
         "tabled": tabled,
     }
     meeting["memberTallies"] = tallies
+
+
+def refresh_curated(meeting: dict) -> bool:
+    """Re-apply the curated party and office to a meeting's roster and tallies.
+
+    An upgraded meeting has its docket removed, so every later run skips it --
+    which froze its roster at whatever the parser knew that day. A correction to
+    MEMBER_PARTY or KNOWN_OFFICE then reached new meetings and never the old
+    ones: July 21, 2026 still called the Supervisor a Democrat and a council
+    member after both were fixed at the source.
+
+    Touches only those two curated fields. A detected title is kept; only the
+    "Councilmember" default gives way to a known office. Returns whether
+    anything changed, so an unchanged file is not rewritten.
+    """
+    changed = False
+    tallies = meeting.get("memberTallies") or {}
+    for member in meeting.get("roster") or []:
+        last = member.get("last")
+        party = MEMBER_PARTY.get(last)
+        office = KNOWN_OFFICE.get(last)
+        rows = [member] + ([tallies[last]] if last in tallies else [])
+        for row in rows:
+            if party and "party" in row and row["party"] != party:
+                row["party"] = party
+                changed = True
+            if office and row.get("title") in (None, "", "Councilmember") and row.get("title") != office:
+                row["title"] = office
+                changed = True
+    return changed
 
 
 def main() -> int:
@@ -123,6 +153,22 @@ def main() -> int:
             f"{meeting['stats']['total']} resolution vote blocks parsed"
         )
 
+    # Curated fields reach every meeting file, not only the ones upgraded this
+    # run -- and not only indexed ones: a packet-sourced meeting can fall out of
+    # the index while its file, and its votes, remain on disk.
+    refreshed = 0
+    for meeting_path in sorted(OUT.glob("20[0-9][0-9]-[0-9][0-9]-[0-9][0-9]*.json")):
+        if meeting_path.stem.endswith(("-fiscal", "-packet")):
+            continue
+        meeting = json.loads(meeting_path.read_text(encoding="utf-8"))
+        if not isinstance(meeting, dict) or "roster" not in meeting:
+            continue
+        if refresh_curated(meeting):
+            meeting_path.write_text(json.dumps(meeting, indent=1), encoding="utf-8")
+            refreshed += 1
+    if refreshed:
+        print(f"curated party/office refreshed on {refreshed} meeting(s)")
+
     index["totals"] = {
         "meetings": len(entries),
         "votes": sum(int(entry.get("total") or 0) for entry in entries),
@@ -133,7 +179,7 @@ def main() -> int:
     entries.sort(key=lambda entry: entry.get("slug", ""), reverse=True)
     index_path.write_text(json.dumps(index, indent=1), encoding="utf-8")
 
-    if upgraded:
+    if upgraded or refreshed:
         build_member_records([entry for entry in entries if not entry.get("preliminary")])
     print(f"Vote-packet fallback: {upgraded} meeting(s) upgraded")
     return 0

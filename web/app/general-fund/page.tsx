@@ -3,6 +3,7 @@ import LineChart from '../../components/charts/LineChart'
 import PlainCallout from '../../components/PlainCallout'
 import { generalFund } from '../../lib/general-fund'
 import { dollars } from '../../lib/financial-data'
+import { fundTentativeToAdopted } from '../../lib/budget-stages'
 
 const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 20, boxShadow: '0 14px 34px var(--rbl-shadow)' } as const
 
@@ -17,6 +18,16 @@ export const metadata = {
 export default function GeneralFundPage() {
   const rows = generalFund.rows
   const g = generalFund.growth
+  // Not every year is an adopted figure. The Town never posted an adopted 2018
+  // budget, so 2018 is the Tentative, and a Tentative is a proposal rather than
+  // an appropriation (Town Law s.109). Read from the data so a future
+  // substitution is labelled too, not just this one.
+  const tentativeYears = rows.filter((r) => /tentative/i.test(r.status)).map((r) => r.year)
+  // How far the General Fund has moved from Tentative to Adopted in the years
+  // where both were published -- the evidence for letting a Tentative stand in.
+  const gfStages = fundTentativeToAdopted('A01')
+  const gfUnchanged = gfStages.filter((x) => x.delta === 0).length
+  const gfLargestMove = Math.max(0, ...gfStages.map((x) => Math.abs(x.pct)))
 
   const series = [
     { label: 'Appropriations (spending)', color: COLORS.appropriations, values: rows.map((r) => r.appropriations ?? null) },
@@ -55,7 +66,7 @@ export default function GeneralFundPage() {
           series={series}
           format={(n) => `$${(n / 1e6).toFixed(0)}M`}
           height={340}
-          source="Adopted budget figures for each year — the plan approved, not the year-end actual."
+          source={`Adopted budget figures for each year — the plan approved, not the year-end actual${tentativeYears.length ? `. ${tentativeYears.join(', ')} ${tentativeYears.length === 1 ? 'is' : 'are'} the Tentative budget, the only version the Town posted` : ''}.`}
         />
       </section>
 
@@ -79,7 +90,15 @@ export default function GeneralFundPage() {
                 const levyChange = prev && r.taxLevy ? ((r.taxLevy - prev) / prev) * 100 : null
                 return (
                   <tr key={r.year} style={{ borderBottom: '1px solid var(--rbl-border-subtle)' }}>
-                    <td style={{ ...td, fontWeight: 700 }}>{r.year}</td>
+                    <td style={{ ...td, fontWeight: 700 }}>
+                      {r.year}
+                      {/tentative/i.test(r.status) && (
+                        <span
+                          title="The Town never posted an adopted budget for this year; this row is the Tentative, a proposal rather than an appropriation."
+                          style={{ marginLeft: 6, fontSize: 11, fontWeight: 800, color: 'var(--rbl-warn-strong)', textTransform: 'uppercase', letterSpacing: 0.3 }}
+                        >Tentative</span>
+                      )}
+                    </td>
                     <td style={{ ...td, textAlign: 'right', fontWeight: 700 }}>{r.appropriations != null ? dollars(r.appropriations) : '—'}</td>
                     <td style={{ ...td, textAlign: 'right', color: 'var(--rbl-text-muted)' }}>{r.estimatedRevenues != null ? dollars(r.estimatedRevenues) : '—'}</td>
                     <td style={{ ...td, textAlign: 'right', color: 'var(--rbl-text-muted)' }}>{r.appropriatedFundBalance != null ? dollars(r.appropriatedFundBalance) : '—'}</td>
@@ -98,6 +117,18 @@ export default function GeneralFundPage() {
       <p style={{ color: 'var(--rbl-text-muted)', fontSize: 13, lineHeight: 1.5, marginTop: 14 }}>
         Source: {generalFund.source.title}. {generalFund.note} These are adopted (budgeted) figures, not year-end actuals.
         Gap years had no parsed adopted budget available.
+        {tentativeYears.length > 0 && (
+          <>
+            {' '}{tentativeYears.join(', ')} {tentativeYears.length === 1 ? 'is' : 'are'} the exception: the Town never posted an adopted
+            budget for {tentativeYears.length === 1 ? 'that year' : 'those years'}, so the Tentative stands in.
+            {gfStages.length > 0 && (
+              <>
+                {' '}In the {gfStages.length} years where both exist, {gfStages[0].year} to {gfStages[gfStages.length - 1].year}, the adopted
+                General Fund matched its Tentative exactly in {gfUnchanged}, and the largest move in any year was {gfLargestMove.toFixed(2)}%.
+              </>
+            )}
+          </>
+        )}
       </p>
     </PageShell>
   )

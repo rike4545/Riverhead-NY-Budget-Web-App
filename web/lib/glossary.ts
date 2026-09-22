@@ -88,13 +88,25 @@ export const glossary: Record<string, GlossaryEntry> = {
     term: 'Interfund / Transfers',
     plain: "Money moved from one of the Town's funds to another.",
   },
+  // The three stages are separate documents under Town Law ss.106-109, not
+  // drafts of one. This entry used to merge Tentative and Preliminary as
+  // "earlier draft versions", which hid that the Preliminary is the Board's own
+  // document and the one the budget defaults to.
   'adopted-budget': {
     term: 'Adopted Budget',
-    plain: 'The final budget approved by the Town Board. This is the official plan for the year.',
+    plain: 'The budget the Town Board adopts by resolution, no later than November 20 (Town Law §109). It is the only version that appropriates money — the legal authority to spend. The Town sometimes titles it the Final Budget.',
   },
   'tentative-budget': {
-    term: 'Tentative / Preliminary Budget',
-    plain: 'Earlier draft versions of the budget, before the Town Board approves the final (adopted) one.',
+    term: 'Tentative Budget',
+    plain: 'The budget officer’s recommended budget, filed with the Town Clerk by September 30 and presented to the Town Board by October 5 (Town Law §106). It is a proposal and authorizes no spending. It usually comes with a Budget Supplement showing what each department asked for.',
+  },
+  'preliminary-budget': {
+    term: 'Preliminary Budget',
+    plain: 'The Tentative Budget plus any changes the Town Board makes to it (Town Law §106(4)). The required public hearing is held on this version, by the Thursday after the general election (§108). If the Board fails to adopt a budget by November 20, the Preliminary becomes the budget (§109(3)).',
+  },
+  'budget-supplement': {
+    term: 'Budget Supplement',
+    plain: 'The account-by-account detail published alongside the Tentative Budget. For every line it shows the actual from two years back, last year’s adopted amount and spending to June 30, what the department requested, and what the Tentative recommends.',
   },
   'debt-service': {
     term: 'Debt Service',
