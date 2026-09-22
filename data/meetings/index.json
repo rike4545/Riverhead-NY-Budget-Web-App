@@ -4,10 +4,10 @@
   "url": "https://www.townofriverheadny.gov/129/Agendas-Minutes"
  },
  "totals": {
-  "meetings": 45,
-  "votes": 1913,
-  "contested": 36,
-  "failed": 2,
+  "meetings": 49,
+  "votes": 2084,
+  "contested": 43,
+  "failed": 3,
   "tabled": 11
  },
  "meetings": [
@@ -492,6 +492,24 @@
    "sourceVersionAt": "2026-09-08T01:22:36Z"
   },
   {
+   "slug": "2025-07-24",
+   "date": "July 24, 2025",
+   "type": "Special Meeting",
+   "total": 0,
+   "unanimous": 0,
+   "contested": 0,
+   "failed": 0,
+   "tabled": 0,
+   "preliminary": true,
+   "docketCount": 1,
+   "officialRecordStatus": "minutes-published-vote-detail-omitted",
+   "voteSource": null,
+   "minutesRevisionCount": 0,
+   "verifiedResolutionCount": 0,
+   "resolutionSourceCount": 0,
+   "sourceVersionAt": "2026-09-08T16:54:29Z"
+  },
+  {
    "slug": "2025-07-15",
    "date": "July 15, 2025",
    "type": "Regular Meeting",
@@ -730,6 +748,36 @@
    "verifiedResolutionCount": 0,
    "resolutionSourceCount": 0,
    "sourceVersionAt": "2026-09-08T01:20:09Z"
+  },
+  {
+   "slug": "2024-01-03",
+   "date": "January 3, 2024",
+   "type": "Regular Meeting",
+   "total": 73,
+   "unanimous": 70,
+   "contested": 3,
+   "failed": 0,
+   "tabled": 0
+  },
+  {
+   "slug": "2023-01-04",
+   "date": "January 4, 2023",
+   "type": "Regular Meeting",
+   "total": 43,
+   "unanimous": 40,
+   "contested": 3,
+   "failed": 1,
+   "tabled": 0
+  },
+  {
+   "slug": "2022-01-04",
+   "date": "January 4, 2022",
+   "type": "Regular Meeting",
+   "total": 55,
+   "unanimous": 54,
+   "contested": 1,
+   "failed": 0,
+   "tabled": 0
   }
  ]
 }

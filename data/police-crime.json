@@ -8,11 +8,6 @@
    "dashboard": "https://mypublicdashboard.ny.gov/t/OJRP_PUBLIC/views/NYSIndexCrimesbyAgency/LandingPage"
   },
   {
-   "title": "U.S. Census Bureau, American Community Survey 2023 5-Year Estimates (DP05)",
-   "url": "https://data.census.gov/",
-   "note": "Town populations, used to turn peer crime counts into rates per 10,000 residents."
-  },
-  {
    "title": "Town of Riverhead 2026 Adopted Budget, account-level Police appropriations",
    "url": "https://www.townofriverheadny.gov/DocumentCenter/View/2967/2026-Adopted-Budget",
    "note": "Summed from the Police department's line items, which carry adopted history by year."
@@ -596,8 +591,8 @@
    "violent": 37,
    "property": 918,
    "monthsReported": 12,
-   "population": 35826,
-   "per10k": 266.6,
+   "population": null,
+   "per10k": null,
    "isRiverhead": true
   },
   {
@@ -607,8 +602,8 @@
    "violent": 34,
    "property": 427,
    "monthsReported": 12,
-   "population": 69002,
-   "per10k": 66.8,
+   "population": null,
+   "per10k": null,
    "isRiverhead": false
   },
   {
@@ -618,8 +613,8 @@
    "violent": 13,
    "property": 206,
    "monthsReported": 12,
-   "population": 23801,
-   "per10k": 92.0,
+   "population": null,
+   "per10k": null,
    "isRiverhead": false
   },
   {
@@ -629,25 +624,13 @@
    "violent": 3,
    "property": 63,
    "monthsReported": 9,
-   "population": 28405,
-   "per10k": 23.2,
+   "population": null,
+   "per10k": null,
    "isRiverhead": false
   }
  ],
- "peersHavePopulation": true,
- "policeDistrict": {
-  "countyPopulation": 1525680,
-  "eastEndPopulation": 160313,
-  "countyPolicedPopulation": 1365367,
-  "countyPolicedShare": 0.8949,
-  "townsCounted": [
-   "East Hampton town",
-   "Riverhead town",
-   "Shelter Island town",
-   "Southampton town",
-   "Southold town"
-  ]
- },
+ "peersHavePopulation": false,
+ "policeDistrict": null,
  "limits": [
   "Index crime is the FBI's seven-offence definition. It excludes most of what a police department spends its time on \u2014 traffic, quality-of-life calls, mental-health response, overdoses, domestic incidents that do not reach the aggravated-assault threshold.",
   "The counts are self-reported by the agency. A change in reporting practice moves the line without anything changing on the street.",
