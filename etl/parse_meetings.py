@@ -332,7 +332,17 @@ def build():
                 recent = date.fromisoformat(slug) >= date.today() - timedelta(days=PRELIMINARY_MAX_AGE_DAYS)
             except ValueError:
                 recent = False
-            docket = extract_docket(path.read_text(encoding="utf-8", errors="ignore")) if recent else []
+            # The age cutoff exists to drop meetings that are genuinely vote-less.
+            # A meeting whose condensed Minutes omit the roll call but whose
+            # official Agenda Packet is on file is not one of those: its votes
+            # are recovered by apply_vote_packet_fallback.py, which needs this
+            # docket to do it. Without the exemption every packet-sourced
+            # meeting fell out of the index 60 days after it was held. July 21,
+            # 2026 went first, on Sept. 20, and verify-meeting-record.mjs has
+            # failed every deploy since -- the live site stopped updating.
+            has_packet = (SRC_DIR / f"{slug}-vote-packet.txt").exists()
+            docket = (extract_docket(path.read_text(encoding="utf-8", errors="ignore"))
+                      if recent or has_packet else [])
             if docket:
                 meeting_out = {
                     "slug": slug, "date": meeting["date"], "type": meeting["type"],
