@@ -63,6 +63,11 @@ SPLIT_DECIMAL = re.compile(r"(\.\d)\s(\d)(?![\d,])")
 # parse_supplement_history.py normalises the same characters.
 NORMALISE = str.maketrans({"\u00a0": " ", "\u2010": "-", "\u2011": "-", "\u2012": "-", "\u2013": "-", "\u2014": "-"})
 TOP_N = 25  # lines listed per direction per year; totals always cover every line
+# The Supervisor's own office: General Fund function 1220, personal services
+# (object codes 1xx). It is the payroll a Supervisor controls most directly, and
+# the line a cut to the office's salaries would show in. Summed per column, so
+# each year carries last year's adopted figure beside this year's Tentative.
+SUPERVISOR_OFFICE = "A01-1-1220-1"
 
 
 def parse_supplement(doc_path: Path):
@@ -128,6 +133,7 @@ def year_summary(year: int, rows: list) -> dict:
 
     slim = lambda r: {k: r[k] for k in ("account", "name", "fund", "request", "tentative", "adopted", "actual")}
     moved = [r for r in exp if r["tentative"] != r["request"]]
+    office = [r for r in exp if r["account"].startswith(SUPERVISOR_OFFICE)]
     return {
         "year": year,
         # Positions in the cycle, so a reader of any year sees what each figure is.
@@ -142,6 +148,10 @@ def year_summary(year: int, rows: list) -> dict:
                         if r["tentative"] < r["request"]],
         "largestRaises": [slim(r) for r in sorted(moved, key=lambda r: r["request"] - r["tentative"])[:TOP_N]
                           if r["tentative"] > r["request"]],
+        "supervisorOffice": {
+            "lines": len(office),
+            **{k: round(sum(r[k] for r in office), 2) for k in ("actual", "adopted", "ytd", "request", "tentative")},
+        },
     }
 
 

@@ -25,6 +25,12 @@
 import { stageDoc } from './budget-stages'
 import { projection, requestHistory, stability, unchangedYears } from './tentative-2027'
 import requestsJson from '../public/data/budget-supplement/requests-by-year.json'
+import { affectedPositions, restoring25PercentOnFour, nyshipIndividualMonthly, eligiblePositionsModeled, resolution984 } from './management-compensation'
+import { policyMinimumPercent, policyUpperPercent } from './reserve-policy'
+import {
+  openingUnassigned, openingPercentOfAppropriations, committedThisYear, surplusAboveUpperCeiling,
+} from './reserve-availability'
+import { forgoneLow, forgoneHigh, forgoneThroughYear, statute as housingStatute } from './community-housing'
 
 export const SUPERVISOR = 'Jerry Halpin'
 export const ELECTION = 'November 3, 2026'
@@ -96,8 +102,26 @@ const tentative2027 = stageDoc(2027, 'tentative')
 const adopted2026 = stageDoc(2026, 'adopted')
 export const released = tentative2027 !== null
 
-type RequestYear = { expenditure: { request: number; tentative: number; delta: number }; reconciliation: { complete: boolean } }
-const req2027 = (requestsJson as unknown as { byYear: Record<string, RequestYear> }).byYear['2027']
+// The Supervisor's own office, General Fund function 1220, personal services.
+// parse_budget_requests.py sums it from each Budget Supplement, so a year's
+// `adopted` is last year's budget and `tentative` is this year's proposal.
+type Office = { lines: number; actual: number; adopted: number; ytd: number; request: number; tentative: number }
+type RequestYear = {
+  expenditure: { request: number; tentative: number; delta: number }
+  reconciliation: { complete: boolean }
+  supervisorOffice?: Office
+}
+const requestYears = (requestsJson as unknown as { byYear: Record<string, RequestYear> }).byYear
+const req2027 = requestYears['2027']
+const office2027 = req2027?.reconciliation.complete ? req2027.supervisorOffice ?? null : null
+// Tentatives before his, from Supplements that add up to their own Tentative.
+const officeHistory = requestHistory
+  .filter((r) => r.year < 2027 && requestYears[String(r.year)]?.supervisorOffice)
+  .map((r) => ({ year: r.year, preparedUnder: r.preparedUnder, tentative: requestYears[String(r.year)].supervisorOffice!.tentative }))
+// The 2026 figure: the 2027 Supplement's own "adopted" column once it is
+// published, and until then the 2026 Tentative, which was adopted unchanged.
+const office2026Budget = office2027?.adopted ?? requestYears['2026']?.supervisorOffice?.tentative ?? null
+const CLAIMED_OFFICE_CUT = 40_000
 
 // ── The tests the 2027 Tentative can answer ──────────────────────────────────
 export type Test = {
@@ -110,6 +134,7 @@ export type Test = {
 }
 
 const pct = (n: number | null, d = 2) => (n === null ? null : `${n > 0 ? '+' : n < 0 ? '−' : ''}${Math.abs(n).toFixed(d)}%`)
+const pctPlain = (n: number, d = 1) => `${(n * 100).toFixed(d)}%`
 const usd = (n: number) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(n)
 const signed = (n: number) => `${n > 0 ? '+' : n < 0 ? '−' : ''}${usd(Math.abs(n))}`
 
@@ -171,6 +196,24 @@ export const tests: Test[] = [
     value: gfRevenue2027 !== null ? `${usd(gfRevenue2027)} (${pct(growth(gfRevenue2026, gfRevenue2027))})` : null,
     benchmark: gfRevenue2026 !== null ? `2026 adopted: ${usd(gfRevenue2026)}.` : '2026 adopted figure unavailable.',
     note: 'Economic development is a multi-year lever; a single budget shows little of it either way.',
+  },
+  {
+    id: 'office',
+    question: 'Did the payroll for his own office go down?',
+    measure: 'Supervisor’s office personal services (General Fund, function 1220), 2027 Tentative against the 2026 budget',
+    value: office2027 ? `${usd(office2027.tentative)} (${signed(office2027.tentative - office2027.adopted)})` : null,
+    benchmark: [
+      office2026Budget !== null ? `2026 budget: ${usd(office2026Budget)}.` : null,
+      officeHistory.length ? `Earlier Tentatives: ${officeHistory.map((o) => `${o.year} ${usd(o.tentative)} (${o.preparedUnder})`).join('; ')}.` : null,
+    ].filter(Boolean).join(' '),
+    note: [
+      office2026Budget !== null
+        ? `His campaign site says he cut $40,000 from the office’s salaries, which would be about ${Math.round((CLAIMED_OFFICE_CUT / office2026Budget) * 100)}% of this line.`
+        : null,
+      office2027 && office2027.ytd > 0
+        ? `The Supplement’s first-half figure for 2026 is ${usd(office2027.ytd)}, a pace of about ${usd(office2027.ytd * 2)} a year.`
+        : null,
+    ].filter(Boolean).join(' ') || undefined,
   },
 ]
 
@@ -267,7 +310,7 @@ export const claims: Claim[] = [
     claim: 'Cut $40,000 from the salaries in the Supervisor’s Office.',
     status: 'partly',
     finding:
-      'His own salary was set at $110,000 at the January 6, 2026 organizational meeting, $8,919 below the $118,919 budgeted for the office and paid to his predecessor in 2025. Whether the office as a whole fell by $40,000 cannot be checked: the adopted salary schedule does not say which positions belong to the Supervisor’s office, or which were eliminated. Individual changes to appointed positions in the office are on the Management Compensation page.',
+      'His own salary was set at $110,000 at the January 6, 2026 organizational meeting, $8,919 below the $118,919 budgeted for the position and paid to his predecessor in 2025. Whether the office as a whole fell by $40,000 cannot be checked yet: the salary schedule does not say which positions belong to the office. What it does show is that the two senior appointees he kept were paid more in 2026 than in 2025, and that a Legislative Aide was added. The 2027 Tentative will show what he proposes for the office’s payroll line; see “Did the payroll for his own office go down?” above.',
     records: ['2025 and 2026 authorized salary schedules (January organizational meetings)', '2025 Town payroll'],
   },
   {
@@ -307,6 +350,100 @@ export const claims: Claim[] = [
     status: 'outside',
     finding: 'These are land-use, economic-development and administrative matters. This site reads budgets, fiscal impact statements and votes, and does not assess them.',
     records: [],
+  },
+]
+
+// ── Other levers, and where each stands ──────────────────────────────────────
+//
+// Ways a Supervisor could act on the tax burden or on how the Town is run.
+// Only the first appears among his campaign's own claims. Each is set against the
+// record since he took office: who can pull it, what has happened so far and
+// what it is worth. None is scored. Most need a Board majority, and the
+// Supervisor is one of five votes.
+export type Lever = {
+  id: string
+  lever: string
+  whoActs: string
+  record: string[]
+  worth: string | null
+  testId?: string // a measure in `tests` that the 2027 Tentative fills in
+  link?: { label: string; path: string }
+  sources: string[]
+}
+
+const byTitle = (t: string) => affectedPositions.find((p) => p.title === t)
+const deputy = byTitle('Deputy Town Supervisor')
+const chief = byTitle('Chief of Staff / Town Budget Officer')
+const aide = byTitle('Secretary (Supervisor’s Office)')
+const raise = (p: typeof deputy) =>
+  p && p.salary2025 && p.salary2026 ? `${usd(p.salary2026)} (up ${(((p.salary2026 - p.salary2025) / p.salary2025) * 100).toFixed(1)}% from 2025)` : null
+const annualPremium = nyshipIndividualMonthly * 12
+const fifteenPercentAcrossModeled = annualPremium * eligiblePositionsModeled * 0.15
+const round100 = (n: number) => Math.round(n / 100) * 100
+
+export const levers: Lever[] = [
+  {
+    id: 'office-payroll',
+    lever: 'Reduce the payroll of the Supervisor’s own office',
+    whoActs: 'The Supervisor proposes the office’s budget line as budget officer; the Board sets salaries by resolution.',
+    record: [
+      'His own salary was set at $110,000, $8,919 below the $118,919 budgeted for the position.',
+      `The 2026 salary schedule, adopted unanimously at his first meeting on January 6, raised the Deputy Supervisor to ${raise(deputy)} and the Town Budget Officer to ${raise(chief)}, and added a Legislative Aide at ${aide?.salary2026 ? usd(aide.salary2026) : 'a new salary'} (Resolution 2026-58).`,
+    ],
+    worth: office2026Budget !== null ? `The office’s personal-services line is ${usd(office2026Budget)} in the 2026 budget.` : null,
+    testId: 'office',
+    link: { label: 'Management Pay', path: '/management-compensation/' },
+    sources: ['Authorized salary schedules, 2025 and 2026', 'TB Resolutions 2026-58, 2026-59, 2026-60', 'Budget Supplements, 2024–2026'],
+  },
+  {
+    id: 'appointees',
+    lever: 'Appoint his own senior staff',
+    whoActs: 'The Supervisor appoints the Deputy Supervisor and his confidential staff; the Board acknowledges each appointment.',
+    record: [
+      'He kept both senior appointees of his predecessors: the Deputy Supervisor, in that post since at least 2022 under Supervisors Aguiar and Hubbard, and the Town Budget Officer, in that post since 2023, who is also his Chief of Staff (Resolutions 2026-59 and 2026-60).',
+      'His one new appointment is a Legislative Aide (Resolution 2026-58).',
+      'Keeping them brings continuity to a one-year term, since both held their posts through the last three budgets. It also means his first Tentative comes from the same office that produced his predecessors’.',
+    ],
+    worth: null,
+    sources: ['Authorized salary schedules, 2022–2026', 'TB Resolutions 2026-58, 2026-59, 2026-60'],
+  },
+  {
+    id: 'health-share',
+    lever: 'Require employees to pay at least 15% of their health premiums',
+    whoActs: 'The Board, by resolution, for elected officials and managers outside a union. For union members the share is set by contract; the PBA and SOA contracts expire at the end of 2026, so their successors are the opening.',
+    record: [
+      `On ${new Date(resolution984.adopted + 'T12:00:00').toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}, before he took office, the Board moved four appointed titles, including the Deputy Supervisor and the Chief of Staff, from paying 25% of their medical, dental and vision premiums to paying nothing, “in lieu of merit increases” (Resolution ${resolution984.number}, unanimous). The 2026 salary schedule then raised both.`,
+      'No resolution adopted in 2026 sets or restores an employee contribution.',
+    ],
+    worth: `About ${usd(round100(fifteenPercentAcrossModeled))} a year at 15% across the ${eligiblePositionsModeled} senior-staff and elected positions this site models, and about ${usd(round100(restoring25PercentOnFour))} for restoring 25% on the four titles alone. Both use the lowest (individual) NYSHIP rate at full enrollment. A 15% share for union members would save more, by an amount that depends on what each contract charges now, which the budget does not print.`,
+    link: { label: 'Management Pay', path: '/management-compensation/' },
+    sources: [`TB Resolution ${resolution984.number}, Dec. 16, 2025`, 'NYSHIP Empire Plan participating-agency rate'],
+  },
+  {
+    id: 'fund-balance-policy',
+    lever: 'Adopt a new fund balance policy',
+    whoActs: 'The Board, by resolution. The Supervisor can propose one, and as budget officer decides how much of the balance each Tentative spends.',
+    record: [
+      `The Town’s policy sets a floor of ${pctPlain(policyMinimumPercent, 0)} of General Fund appropriations and an upper target of ${pctPlain(policyUpperPercent, 0)}.`,
+      `The audited unassigned General Fund balance at the end of 2025 was ${usd(openingUnassigned)}, ${pctPlain(openingPercentOfAppropriations)} of the 2026 General Fund budget, more than twice the upper target. Resolutions adopted in 2026 have committed ${usd(committedThisYear)} of it.`,
+      'No resolution adopted in 2026 adopts or amends the policy.',
+    ],
+    worth: `At most ${usd(surplusAboveUpperCeiling)} above the upper target after this year’s commitments. It is one-time money: it can retire debt, fund capital or soften a single year’s levy, but it cannot carry a recurring cost for long.`,
+    testId: 'one-time',
+    link: { label: 'Reserves & Fund Balance', path: '/reserves/' },
+    sources: ['2025 Annual Financial Report', '2026 Adopted Budget', 'TB resolutions, 2026'],
+  },
+  {
+    id: 'housing',
+    lever: 'Adopt a housing policy',
+    whoActs: `The Board adopts local laws and a community housing plan. A community housing fund also needs a townwide referendum (${housingStatute.citation}).`,
+    record: [
+      'In March the Board replaced the Town Code’s accessory-apartment law with a new accessory dwelling unit (ADU) law (Resolution 2026-252, unanimous).',
+      'Riverhead remains the only one of the five Peconic Bay towns without a community housing plan or fund. No resolution adopted in 2026 starts either.',
+    ],
+    worth: `A 0.5% housing transfer tax would have raised an estimated ${usd(round100(forgoneLow))} to ${usd(round100(forgoneHigh))} from 2023 through ${forgoneThroughYear}, from the Town’s own audited transfer-tax revenue.`,
+    link: { label: 'Community Housing Plan', path: '/housing-plan/' },
+    sources: ['TB Resolutions 2026-153 and 2026-252', `${housingStatute.citation}`, 'Peconic Bay CPF financial statements'],
   },
 ]
 
