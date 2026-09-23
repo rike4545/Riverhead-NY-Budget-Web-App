@@ -1,5 +1,6 @@
-// Long-run General Fund history (adopted figures), 2005-2025.
-// Built by etl/parse_general_fund.py.
+// Long-run General Fund history (adopted figures), 2005 onward. Built by
+// etl/parse_general_fund.py: a spreadsheet for 2005-2025, and each later year
+// from the Town's own Summary page as it is adopted.
 
 import gfJson from '../public/data/history/general-fund.json'
 

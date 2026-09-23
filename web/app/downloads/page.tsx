@@ -1,5 +1,7 @@
 import PageShell from '../../components/PageShell'
 import PlainCallout from '../../components/PlainCallout'
+import { generalFund } from '../../lib/general-fund'
+import { budgetHistory } from '../../lib/budget-history'
 
 const base = process.env.NEXT_PUBLIC_BASE_PATH || ''
 const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 18, boxShadow: '0 14px 34px var(--rbl-shadow)' } as const
@@ -61,16 +63,17 @@ const datasets = [
   },
   {
     file: 'fund_appropriations_2020_2026.csv',
-    title: 'Fund appropriations, 2020–2026',
+    title: `Fund appropriations, ${budgetHistory.years[0]}–${budgetHistory.years[budgetHistory.years.length - 1]}`,
     rows: '19 funds',
     desc: 'Total adopted spending for every operating fund, each year.',
     json: `${base}/data/history/fund-appropriations.json`,
   },
   {
+    // The file name stays as published; its rows follow the data.
     file: 'general_fund_2005_2025.csv',
-    title: 'General Fund history, 2005–2025',
-    rows: '17 years',
-    desc: 'Two decades of the main fund: appropriations, revenues, fund-balance use, and tax levy.',
+    title: `General Fund history, ${generalFund.growth.firstYear}–${generalFund.growth.lastYear}`,
+    rows: `${generalFund.rows.length} years`,
+    desc: 'The main fund over two decades: appropriations, revenues, fund-balance use, and tax levy.',
     json: `${base}/data/history/general-fund.json`,
   },
   {

@@ -1,7 +1,7 @@
 import PageShell from '../../components/PageShell'
 import PlainCallout from '../../components/PlainCallout'
 import {
-  roadSpending, towns, riverhead, medianPerMile, maxPerMile, riverheadRank,
+  roadSpending, towns, riverhead, medianPerMile, maxPerMile, riverheadRank, ordinal, wagesShare,
   shareOfMedian, gapToMedianAnnual, riverheadMixTotal, RIVERHEAD,
 } from '../../lib/road-spending'
 
@@ -32,7 +32,7 @@ export default function RoadSpendingPage() {
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(190px,1fr))', gap: 12 }}>
           <Stat label="Riverhead, per maintained mile" value={usd(riverhead.perMile)} accent />
           <Stat label="Suffolk town median" value={usd(medianPerMile)} />
-          <Stat label="Rank among the 10 towns" value={`${riverheadRank}th of 10`} />
+          <Stat label="Rank among the 10 towns" value={riverheadRank === towns.length ? `Lowest of ${towns.length}` : `${ordinal(riverheadRank)} of ${towns.length}`} />
           <Stat label="Miles Riverhead maintains" value={riverhead.miles.toFixed(0)} />
         </div>
         <p style={{ color: 'var(--rbl-text-strong)', fontSize: 15.5, lineHeight: 1.7, margin: '16px 0 0' }}>
@@ -92,7 +92,7 @@ export default function RoadSpendingPage() {
           ))}
         </div>
         <p style={{ color: 'var(--rbl-text-body)', fontSize: 14.5, lineHeight: 1.65, margin: '14px 0 0' }}>
-          Just under three fifths of it is wages. That is normal for a highway department and it is also why a
+          About {Math.round(wagesShare * 100)}% of it is wages. That is normal for a highway department and it is also why a
           per-mile figure moves more with staffing decisions than with how much asphalt got laid.
         </p>
       </section>

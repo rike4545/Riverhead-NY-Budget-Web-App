@@ -12,9 +12,9 @@ const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-bo
 const COLORS = { appropriations: 'var(--rbl-series-blue)', taxLevy: 'var(--rbl-series-gold)', estimatedRevenues: 'var(--rbl-series-teal)', appropriatedFundBalance: 'var(--rbl-series-violet)' }
 
 export const metadata = {
-  title: 'General Fund — 20-year history',
+  title: 'General Fund history',
   description:
-    'Two decades of the Town of Riverhead General Fund (2005–2025): appropriations, tax levy, and revenues charted year by year from the adopted budgets.',
+    `The Town of Riverhead General Fund, ${generalFund.growth.firstYear}–${generalFund.growth.lastYear}: appropriations, tax levy, and revenues charted year by year from the adopted budgets.`,
 }
 
 export default function GeneralFundPage() {
@@ -39,7 +39,7 @@ export default function GeneralFundPage() {
 
   return (
     <PageShell
-      title="General Fund — 20-Year History"
+      title={`General Fund History, ${g.firstYear}–${g.lastYear}`}
       subtitle={`How the Town's principal operating fund has grown from ${g.firstYear} to ${g.lastYear}: appropriations, tax levy, estimated revenues, and reserve use, straight from the adopted budgets.`}
     >
       <PlainCallout
@@ -49,7 +49,7 @@ export default function GeneralFundPage() {
           { label: 'Adopted figures', text: 'these are the budgeted plans approved each year, not the final year-end actuals.' },
         ]}
       >
-        This page shows <strong>20 years of the General Fund</strong> — the main town budget — so you can see how spending
+        This page shows <strong>the General Fund from {g.firstYear} to {g.lastYear}</strong> — the main town budget — so you can see how spending
         and the property-tax bill have changed over time.
       </PlainCallout>
 
