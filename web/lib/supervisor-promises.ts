@@ -461,9 +461,24 @@ export const claims: Claim[] = [
   },
   {
     claim: 'Closed the $450,000 shortfall in the 2026 budget left by the previous supervisor.',
-    status: 'unverifiable',
-    finding: 'No resolution or budget document this site reads identifies a $450,000 shortfall or its closing. That is not evidence against the claim; it is outside what can be checked here.',
-    records: [],
+    status: 'partly',
+    finding:
+      'The Town’s records show one shortfall in the 2026 budget adopted under his predecessor, and it was closed: the Ambulance District’s payment to the Riverhead Volunteer Ambulance Corps (RVAC). The Board’s own resolutions say that “several expenditure lines in the Adopted Budget were inaccurate” and that RVAC’s contract, which entitles it to the previous year’s payment plus the tax-cap increase, required more than the budget provided. The two corrections added $199,322 to RVAC’s line: $119,322 moved from other ambulance lines and $80,000 from the district’s fund balance. That is less than half of $450,000, and it sits in the Ambulance District’s budget, not the General Fund. No resolution, budget document or audit this site reads identifies the rest; every 2026 agenda packet through September 15 was searched for corrections to the adopted budget. The year’s other budget changes pay for needs that arose during the year, such as “unanticipated” legal work and road salt after the winter storms, or for new initiatives, and none says the adopted budget was short. Separately, the 2025 audit reports deficits of $692,688 in the Recreation Program Fund and $73,185 in the Police Athletic League Fund at the end of 2025, which it expects to be eliminated in 2026; whether they were will show in the 2026 audit.',
+    votes: [
+      { resolution: '2026-156', date: 'Feb. 18, 2026', action: 'Move $100,000 within the 2026 Ambulance District budget to the RVAC line, because “several expenditure lines in the Adopted Budget were inaccurate”', result: 'Adopted, unanimous', halpin: 'Aye', mover: 'Kern' },
+      { resolution: '2026-470', date: 'May 20, 2026', action: 'Add $99,322 to the RVAC line “in accordance with the contract,” $80,000 of it from the district’s fund balance', result: 'Adopted 4–0, Kern absent', halpin: 'Aye', mover: 'Rothwell', ayes: 'Halpin, Rothwell, Merrifield, Waski' },
+    ],
+    records: [
+      'TB Resolutions 2026-156 (Feb. 18, 2026) and 2026-470 (May 20, 2026)',
+      'TB Resolution 2025-944, the 2026 Ambulance District budget (Nov. 18, 2025), and 2023-932, the RVAC agreement',
+      '2025 audited financial statements (TB Resolution 2026-834, Sept. 1, 2026)',
+      'Every 2026 agenda packet through Sept. 15, 2026',
+    ],
+    documents: [
+      { label: 'Agenda packet, Resolution 2026-156 (p. 98)', url: 'https://riverheadny.api.civicclerk.com/v1/Meetings/GetMeetingFileStream(fileId=11718,plainText=false)', date: 'Feb. 18, 2026' },
+      { label: 'Agenda packet, Resolution 2026-470 (p. 91)', url: 'https://riverheadny.api.civicclerk.com/v1/Meetings/GetMeetingFileStream(fileId=11919,plainText=false)', date: 'May 20, 2026' },
+      { label: 'Agenda packet, 2025 audited financial statements (deficit note, p. 149)', url: 'https://riverheadny.api.civicclerk.com/v1/Meetings/GetMeetingFileStream(fileId=12303,plainText=false)', date: 'Sept. 1, 2026' },
+    ],
   },
   {
     claim: 'Supported the sale of the Vail-Leavitt Music Hall property to continue as an arts venue.',
