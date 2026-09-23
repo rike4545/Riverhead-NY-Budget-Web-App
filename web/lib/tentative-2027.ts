@@ -179,6 +179,18 @@ const requests = requestsJson as unknown as { completeYears: number[]; byYear: R
  * September of the year before, so the 2025 Tentative is Supervisor Hubbard's
  * first and the 2027 Tentative is Supervisor Halpin's first.
  */
+/**
+ * The Supervisor's own account of the job, on the Town's Supervisor's Office
+ * page: "Chief Executive Officer, Police Commissioner, Chief Financial Officer
+ * and Chairperson of the Town Board", responsible for "accounting, budgeting,
+ * payroll and personnel". The same page lists the Chief of Staff as Budget
+ * Officer, the appointee s.103(2) allows.
+ */
+export const SUPERVISOR_ROLE_SOURCE = {
+  label: 'Town of Riverhead, Supervisor’s Office',
+  url: 'https://www.townofriverheadny.gov/245/Supervisors-Office',
+}
+
 export const PREPARED_UNDER: Record<number, string> = {
   2024: 'Supervisor Yvette Aguiar',
   2025: 'Supervisor Tim Hubbard',
