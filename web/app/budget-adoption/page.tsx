@@ -1,5 +1,6 @@
 import PageShell from '../../components/PageShell'
 import PlainCallout from '../../components/PlainCallout'
+import { released2027, changePhrase } from '../../lib/tentative-2027'
 import {
   RECORD, ERAS, REASONS, OUTLOOK, LIMITS, AUDIT_SOURCE, PARTY_SOURCE, counts, eraStats, book, netChange,
   overrideState, OVERRIDE_LABEL, OUTCOME_LABEL, TIMING_LABEL, type YearRecord,
@@ -132,7 +133,19 @@ export default function BudgetAdoptionPage() {
               <tr data-year={OUTLOOK.year} style={{ borderBottom: '1px solid var(--rbl-border-subtle)' }}>
                 <td style={{ ...td, fontWeight: 800 }}>{OUTLOOK.year}</td>
                 <td style={td}>{OUTLOOK.supervisor} <span style={{ color: 'var(--rbl-text-muted)' }}>({OUTLOOK.partyLabel})</span></td>
-                <td style={{ ...td, color: 'var(--rbl-text-muted)' }} colSpan={4}>Tentative due this month; see <a href="#outlook" style={link}>what the record suggests</a>.</td>
+                {released2027 ? (
+                  <>
+                    <td style={td} data-change>
+                      Tentative out: {usd(released2027.appropriations)}, levy {changePhrase(released2027.levyPct)} 2026.{' '}
+                      <a href={`${base}/tentative-${OUTLOOK.year}/`} style={link}>Compare</a>
+                    </td>
+                    <td style={{ ...td, color: 'var(--rbl-text-muted)' }} colSpan={3}>
+                      Board changes, the hearing and adoption are still to come; see <a href="#outlook" style={link}>what the record suggests</a>.
+                    </td>
+                  </>
+                ) : (
+                  <td style={{ ...td, color: 'var(--rbl-text-muted)' }} colSpan={4}>Tentative due September 30; see <a href="#outlook" style={link}>what the record suggests</a>.</td>
+                )}
               </tr>
             </tbody>
           </table>
@@ -187,7 +200,7 @@ export default function BudgetAdoptionPage() {
       <section id="outlook" style={{ ...card, marginBottom: 16 }}>
         <h3 style={{ marginTop: 0, color: 'var(--rbl-title)' }}>What it means for {OUTLOOK.year}</h3>
         <p style={{ ...body, marginTop: 0 }}>
-          {OUTLOOK.supervisor} prepares the {OUTLOOK.year} Tentative for a Board of four Republicans ({OUTLOOK.board.join(', ')}). The record has two
+          {OUTLOOK.supervisor} {released2027 ? 'prepared' : 'prepares'} the {OUTLOOK.year} Tentative for a Board of four Republicans ({OUTLOOK.board.join(', ')}). The record has two
           stretches when the Board majority and the Supervisor were not aligned. From 2007 to 2009 the Board rewrote Cardinale’s Tentatives
           upward, adopted them over his no, and once let the budget take effect without a vote. In 2019 and 2020 a Board with a
           Republican majority left Jens-Smith’s first budget unadopted and amended her second after she lost. A 4–1 majority can do any

@@ -1,6 +1,8 @@
 import PageShell from '../../components/PageShell'
 import Budget2027Table from '../../components/Budget2027Table'
 import ProvenanceLine from '../../components/ProvenanceLine'
+import TentativeReleased from '../../components/TentativeReleased'
+import { released2027, levySentence } from '../../lib/tentative-2027'
 import p from '../../public/data/budget-2027-prediction.json'
 import {
   boardOptions, leversAvailable, overlapCaveat, calendar, scorecard, release,
@@ -68,6 +70,11 @@ export default function Predict2027Page() {
         <strong>Read the levy number as a baseline, not a filed tax-cap calculation.</strong>{' '}
         {p.disclaimer} The 2027 allowable levy growth factor for calendar-year local governments is officially 2%, but Riverhead’s final legal levy limit also depends on the full State Comptroller formula.
       </div>
+
+      <TentativeReleased>
+        The forecast on this page is left as it was before the Tentative came out, so the two can be compared; the{' '}
+        <a href="#scorecard" style={{ color: 'var(--rbl-link)', fontWeight: 800 }}>scorecard</a> lines them up.
+      </TentativeReleased>
 
       <nav aria-label="On this page" style={{ display: 'flex', flexWrap: 'wrap', gap: 8, marginBottom: 16 }}>
         {[
@@ -612,6 +619,9 @@ export default function Predict2027Page() {
             <li key={step.when} style={{ background: 'var(--rbl-surface-2)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 10, padding: '10px 13px' }}>
               <strong style={{ color: 'var(--rbl-title)', fontSize: 13.8 }}>{step.when}</strong>
               {step.law && <span style={{ marginLeft: 8, color: 'var(--rbl-text-muted)', fontSize: 12 }}>{step.law}</span>}
+              {step.done && (
+                <a href={`${base}/tentative-2027/`} data-step-done style={{ ...chip, marginLeft: 8, background: 'var(--rbl-success-bg)', color: 'var(--rbl-success-strong)', textDecoration: 'none', fontSize: 11 }}>Done: the Tentative is out →</a>
+              )}
               <div style={{ color: 'var(--rbl-text-body)', fontSize: 13.4, lineHeight: 1.5, marginTop: 3 }}>{step.what}</div>
             </li>
           ))}
@@ -626,11 +636,18 @@ export default function Predict2027Page() {
             {release.status === 'awaiting' ? `Tentative budget due ${release.dueBy}` : 'Tentative budget filed'}
           </span>
         </div>
-        <p style={{ color: 'var(--rbl-text-body)', fontSize: 14, lineHeight: 1.55 }}>The right-hand side stays empty until the Town files its tentative budget. That prevents the model from being rewritten after the fact.</p>
+        {release.status === 'awaiting' ? (
+          <p style={{ color: 'var(--rbl-text-body)', fontSize: 14, lineHeight: 1.55 }}>The right-hand side stays empty until the Town files its tentative budget. That prevents the model from being rewritten after the fact.</p>
+        ) : (
+          <p style={{ color: 'var(--rbl-text-body)', fontSize: 14, lineHeight: 1.55 }}>
+            The right-hand side is read from the Tentative the Town published. The projection beside it is the one made before, unchanged,
+            so the model is not rewritten after the fact. <a href={`${base}/tentative-2027/`} style={{ color: 'var(--rbl-link)', fontWeight: 800 }}>Fund by fund →</a>
+          </p>
+        )}
         <div style={{ overflowX: 'auto' }}>
           <table style={{ width: '100%', minWidth: 620, borderCollapse: 'collapse', fontSize: 13.3 }}>
             <thead><tr style={{ textAlign: 'left', color: 'var(--rbl-text-muted)', borderBottom: '2px solid var(--rbl-border-subtle)' }}><th style={th}>Metric</th><th style={th}>Basis</th><th style={{ ...th, textAlign: 'right' }}>Projection</th><th style={{ ...th, textAlign: 'right' }}>As filed</th></tr></thead>
-            <tbody>{scorecard.map((r) => <tr key={r.metric} style={{ borderBottom: '1px solid var(--rbl-border-subtle)' }}><td style={{ ...td, fontWeight: 750, color: 'var(--rbl-title)' }}>{r.metric}</td><td style={{ ...td, color: 'var(--rbl-text-muted)' }}>{r.basis}</td><td style={{ ...td, textAlign: 'right', fontWeight: 700 }}>{r.ourEstimate !== null ? usd(r.ourEstimate) : (r.estimateLabel ?? '—')}</td><td style={{ ...td, textAlign: 'right', color: 'var(--rbl-text-faint)' }}>{r.actual !== null ? usd(r.actual) : 'Not yet filed'}</td></tr>)}</tbody>
+            <tbody>{scorecard.map((r) => <tr key={r.metric} style={{ borderBottom: '1px solid var(--rbl-border-subtle)' }}><td style={{ ...td, fontWeight: 750, color: 'var(--rbl-title)' }}>{r.metric}</td><td style={{ ...td, color: 'var(--rbl-text-muted)' }}>{r.basis}</td><td style={{ ...td, textAlign: 'right', fontWeight: 700 }}>{r.ourEstimate !== null ? usd(r.ourEstimate) : (r.estimateLabel ?? '—')}</td><td data-filed style={{ ...td, textAlign: 'right', ...(r.actual !== null || r.actualLabel ? { fontWeight: 700, color: 'var(--rbl-title)' } : { color: 'var(--rbl-text-faint)' }) }}>{r.actual !== null ? usd(r.actual) : (r.actualLabel ?? 'Not yet filed')}</td></tr>)}</tbody>
           </table>
         </div>
       </section>
@@ -638,7 +655,11 @@ export default function Predict2027Page() {
       <section style={{ ...card, marginBottom: 16, borderLeft: '6px solid var(--rbl-gold-border)' }}>
         <h2 style={{ margin: '0 0 5px', color: 'var(--rbl-title)', fontSize: 18 }}>What could still move the model</h2>
         <div style={{ display: 'grid', gap: 8 }}>
-          {p.watchList.map((w) => (
+          {p.watchList.map((w) => (w.id === 'tentative' && released2027 ? {
+            item: 'The Town’s own 2027 Tentative Budget is out',
+            effect: 'now the number to measure',
+            detail: `${levySentence(released2027)} This projection is left as it was, as the yardstick for it.`,
+          } : w)).map((w) => (
             <div key={w.item} style={{ background: 'var(--rbl-surface-2)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 10, padding: '10px 13px' }}>
               <div style={{ display: 'flex', gap: 8, justifyContent: 'space-between', flexWrap: 'wrap' }}><strong style={{ color: 'var(--rbl-title)' }}>{w.item}</strong><span style={{ color: 'var(--rbl-warn)', fontSize: 11.5, fontWeight: 850 }}>{w.effect}</span></div>
               <div style={{ color: 'var(--rbl-text-body)', fontSize: 13.3, lineHeight: 1.5, marginTop: 3 }}>{w.detail}</div>

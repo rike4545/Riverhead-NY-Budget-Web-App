@@ -11,6 +11,7 @@ import buyout from '../../public/data/buyout-analysis.json'
 import { debtProfile, opebLiability } from '../../lib/debt-profile'
 import { medianPerMile, riverhead as riverheadRoads, riverheadRank, towns as roadTowns } from '../../lib/road-spending'
 import prediction from '../../public/data/budget-2027-prediction.json'
+import { released2027, changePhrase, gapPhrase } from '../../lib/tentative-2027'
 
 const base = process.env.NEXT_PUBLIC_BASE_PATH || ''
 const usd0 = (n: number) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(n)
@@ -109,9 +110,14 @@ const stops: Stop[] = [
   },
   {
     n: 12, kicker: 'What is coming', title: 'Next year is already tight', accent: 'var(--rbl-warn)',
-    body: <>Carried forward on contracts the Town has already signed, the 2027 levy grows about <b>{prediction.capGap.predictedLevyPct}%</b> — past what the tax cap allows by roughly <b>{usd0(prediction.capGap.gap)}</b>. Add the retiree-health promise the Town has not funded, and the picture is that today&apos;s decisions are mostly next year&apos;s obligations. Debt service, at least, falls from here.</>,
-    stats: [{ label: '2027 gap above the cap', value: M(prediction.capGap.gap) }, { label: 'Unfunded retiree health', value: M(opebLiability.latestGovernmental) }],
-    href: `${base}/predict-2027/`, cta: 'See the 2027 projection',
+    body: <>Carried forward on contracts the Town has already signed, the 2027 levy grows about <b>{prediction.capGap.predictedLevyPct}%</b> — past what the tax cap allows by roughly <b>{usd0(prediction.capGap.gap)}</b>. Add the retiree-health promise the Town has not funded, and the picture is that today&apos;s decisions are mostly next year&apos;s obligations. Debt service, at least, falls from here.
+      {released2027 && <> The Town’s own 2027 Tentative is now out: it proposes a levy <b>{changePhrase(released2027.levyPct)} 2026</b>, {gapPhrase(released2027.levyVsReference)} a 2% increase.</>}</>,
+    stats: [
+      { label: '2027 gap above the cap', value: M(prediction.capGap.gap) },
+      ...(released2027 && released2027.levyPct !== null ? [{ label: '2027 Tentative levy change', value: `${released2027.levyPct > 0 ? '+' : ''}${released2027.levyPct.toFixed(1)}%` }] : []),
+      { label: 'Unfunded retiree health', value: M(opebLiability.latestGovernmental) },
+    ],
+    href: released2027 ? `${base}/tentative-2027/` : `${base}/predict-2027/`, cta: released2027 ? 'The Tentative against the forecast' : 'See the 2027 projection',
   },
   {
     n: 13, kicker: 'Go deeper', title: 'Search it, or take the raw data', accent: 'var(--rbl-series-teal)',

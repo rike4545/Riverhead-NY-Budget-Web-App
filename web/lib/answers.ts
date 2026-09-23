@@ -30,6 +30,7 @@ import {
 } from './reserve-policy'
 import { whyHarder } from './zero-percent-2027'
 import { boardOptions, levyPredicted, levy2026 } from './budget-2027-options'
+import { released2027 as tentative2027, levySentence } from './tentative-2027'
 
 const base = process.env.NEXT_PUBLIC_BASE_PATH || ''
 
@@ -230,12 +231,19 @@ export const topics: AnswerTopic[] = [
     title: 'What happens next year',
     blurb: 'The 2027 budget: the projection, the choices, and the deadline.',
     answers: [
-      {
-        q: 'Will my taxes go up again in 2027?',
-        a: `If current trends carry forward with no policy change, the town-wide levy rises from ${usd(levy2026)} to ${usd(levyPredicted)} — ${prediction.levyEstimate.levyIncreasePct}%, which would pierce the state tax cap by ${usd(prediction.capGap.gap)}. That is a projection, not the Town's budget.`,
-        href: `${base}/predict-2027/`,
-        cta: 'How the projection is built',
-      },
+      tentative2027
+        ? {
+            q: 'Will my taxes go up again in 2027?',
+            a: `The Town's 2027 Tentative Budget is out. ${levySentence(tentative2027)} It is a proposal: the Board can change it before adopting a budget by November 20.`,
+            href: `${base}/tentative-2027/`,
+            cta: 'The Tentative against the forecast',
+          }
+        : {
+            q: 'Will my taxes go up again in 2027?',
+            a: `If current trends carry forward with no policy change, the town-wide levy rises from ${usd(levy2026)} to ${usd(levyPredicted)} — ${prediction.levyEstimate.levyIncreasePct}%, which would pierce the state tax cap by ${usd(prediction.capGap.gap)}. That is a projection, not the Town's budget.`,
+            href: `${base}/predict-2027/`,
+            cta: 'How the projection is built',
+          },
       {
         q: "What are the Town Board's options for my 2027 taxes?",
         a: `There are ${boardOptions.length}: hold the levy flat, cut it, raise it inside the cap, raise it above the cap, or a hybrid of savings and reserves. Each has a levy number, a dollar amount the Board would have to find, and a different legal requirement — only going above the cap needs an override vote.`,
@@ -244,13 +252,17 @@ export const topics: AnswerTopic[] = [
       },
       {
         q: 'Could Riverhead just freeze taxes, like Suffolk County did?',
-        a: `It is arithmetically possible and harder than it sounds. A flat levy has to absorb ${usd(prediction.byFund.find((f) => f.fundCode === 'A01')!.delta)} of projected General Fund cost growth, and unlike Suffolk, Riverhead's police department sits inside the very fund a freeze would apply to.`,
+        a: `It is arithmetically possible and harder than it sounds. A flat levy has to absorb ${usd(prediction.byFund.find((f) => f.fundCode === 'A01')!.delta)} of projected General Fund cost growth, and unlike Suffolk, Riverhead's police department sits inside the very fund a freeze would apply to.${
+          tentative2027?.generalFund?.levyOverPrior != null && tentative2027.generalFund.levyOverPrior > 0
+            ? ` The 2027 Tentative raises the General Fund levy by ${usd(tentative2027.generalFund.levyOverPrior)}, so that is what a freeze would now have to find.`
+            : ''
+        }`,
         href: `${base}/zero-percent-2027/`,
         cta: 'What a zero-percent year takes',
       },
       {
         q: 'When does the Board actually decide, and can I say anything?',
-        a: 'The Supervisor files a tentative budget by September 30. The public hearing falls on or before the Thursday after the November election, and the Board must adopt by November 20. The hearing is the formal moment residents are heard.',
+        a: `${tentative2027 ? 'The 2027 Tentative is out, so the Board’s part has begun. ' : ''}The Supervisor files a tentative budget by September 30. The public hearing falls on or before the Thursday after the November election, and the Board must adopt by November 20. The hearing is the formal moment residents are heard.`,
         href: `${base}/predict-2027/#the-clock`,
         cta: 'The statutory calendar',
       },

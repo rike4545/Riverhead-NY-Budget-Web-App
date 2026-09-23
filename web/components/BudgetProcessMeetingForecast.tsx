@@ -1,4 +1,7 @@
 import scheduleJson from '../public/data/meetings/upcoming.json'
+import { released2027 } from '../lib/tentative-2027'
+
+const base = process.env.NEXT_PUBLIC_BASE_PATH || ''
 
 type TimelineMeeting = {
   slug: string
@@ -88,6 +91,15 @@ export default function BudgetProcessMeetingForecast() {
         </div>
       </div>
 
+      {released2027 ? (
+      <div data-tentative-released style={{ background: 'var(--rbl-success-bg)', border: '1px solid var(--rbl-success-border)', borderRadius: 13, padding: 13, marginBottom: 10 }}>
+        <strong style={{ color: 'var(--rbl-success-strong)' }}>The 2027 Tentative Budget is out.</strong>
+        <div style={{ color: 'var(--rbl-text-body)', fontSize: 13, lineHeight: 1.5, marginTop: 4 }}>
+          The Town has published it. The meetings below are where the Board can change it, hear the public on it and adopt it.{' '}
+          <a href={`${base}/tentative-2027/`} style={link}>The Tentative against the forecast →</a>
+        </div>
+      </div>
+      ) : (
       <div style={{ background: 'var(--rbl-warn-bg)', border: '1px solid var(--rbl-warn-border)', borderRadius: 13, padding: 13, marginBottom: 10 }}>
         <strong style={{ color: 'var(--rbl-warn-strong)' }}>Watch for an additional meeting on or before October 5.</strong>
         <div style={{ color: 'var(--rbl-text-body)', fontSize: 13, lineHeight: 1.5, marginTop: 4 }}>
@@ -96,6 +108,7 @@ export default function BudgetProcessMeetingForecast() {
           <a href="https://www.nysenate.gov/legislation/laws/TWN/106" target="_blank" rel="noreferrer" style={link}>§106 ↗</a>
         </div>
       </div>
+      )}
 
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(min(260px,100%),1fr))', gap: 10 }}>
         {forecasts.map((f) => {

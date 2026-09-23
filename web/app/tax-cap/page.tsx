@@ -1,5 +1,7 @@
 import PageShell from '../../components/PageShell'
 import PlainCallout from '../../components/PlainCallout'
+import TentativeReleased from '../../components/TentativeReleased'
+import { released2027, gapPhrase } from '../../lib/tentative-2027'
 import ProvenanceLine from '../../components/ProvenanceLine'
 import ColumnChart from '../../components/charts/ColumnChart'
 import StatusStrip from '../../components/charts/StatusStrip'
@@ -54,6 +56,10 @@ export default function TaxCapPage() {
       >
         For calendar-year local governments, OSC set the <strong>2027 allowable levy growth factor at 2%</strong>. Riverhead’s final 2027 levy limit still depends on the rest of the statutory formula and should be updated here when the Town files it.
       </PlainCallout>
+
+      <TentativeReleased>
+        The levy limit the Town files with the State Comptroller is not printed in the Tentative, so 2% is a yardstick here, not the legal limit.
+      </TentativeReleased>
 
       <section style={{ ...card, marginBottom: 16, borderLeft: '6px solid var(--rbl-info-border)' }}>
         <div style={{ color: 'var(--rbl-info-text)', fontWeight: 950, fontSize: 11.5, textTransform: 'uppercase', letterSpacing: .6 }}>What the law actually calculates</div>
@@ -145,6 +151,13 @@ export default function TaxCapPage() {
       <section style={{ ...card, marginBottom: 16, borderLeft: '6px solid var(--rbl-gold-border)' }}>
         <h2 style={{ marginTop: 0, fontSize: 20 }}>2027: what is known now</h2>
         <p style={{ color: 'var(--rbl-text-strong)', lineHeight: 1.6 }}>OSC set the 2027 allowable levy growth factor at <strong>2%</strong> for calendar-year local governments because its inflation factor was 3.13%. That does not determine Riverhead’s final filed limit on its own.</p>
+        {released2027 && (
+          <p data-tentative-levy style={{ color: 'var(--rbl-text-strong)', lineHeight: 1.6 }}>
+            The Town’s 2027 Tentative proposes a levy of <strong>{usd(released2027.levy)}</strong>, {gapPhrase(released2027.levyVsReference)} a 2% increase
+            on 2026. Whether that is within the legal limit depends on the figure the Town files, which the budget does not print.{' '}
+            <a href={`${base}/tentative-2027/`} style={{ color: 'var(--rbl-link)', fontWeight: 800 }}>The Tentative against the forecast →</a>
+          </p>
+        )}
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}><a href={`${base}/predict-2027/`} style={pillLink}>Open 2027 scenarios →</a><a href={OSC_2027} target="_blank" rel="noreferrer" style={pillLink}>OSC 2027 announcement ↗</a><a href={`${base}/sources/#osc-guidance`} style={pillLink}>Authority sources →</a></div>
         <ProvenanceLine claimId="2027-growth-factor" status="official" source="NYS OSC — 2027 allowable levy growth factor" sourceHref={OSC_2027} asOf="July 15, 2026" evidenceHref={`${base}/sources/#osc-guidance`} />
       </section>
