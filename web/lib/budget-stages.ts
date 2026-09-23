@@ -22,10 +22,21 @@ export type FundRow = {
   levy: number | null
 }
 
+/** The budget officer's opening letter, as far as its text can be read. Tentatives only. */
+export type BudgetMessage = {
+  readablePages: number[]
+  /** Opening pages with no machine-readable text: blank, or a scanned image. Never read as blank. */
+  unreadablePages: number[]
+  taxCapSentences: string[]
+  dated: string | null
+  levyLimitPage: number | null
+}
+
 export type StageDoc = {
-  source: { title: string; url: string; slug: string }
+  source: { title: string; url: string; slug: string; parsedAt?: string | null }
   funds: Record<string, FundRow>
   totals: { funds: number; appropriations: number; levy: number; fundBalance: number; fundsWithoutLevyColumn: string[] }
+  message?: BudgetMessage
 }
 
 export type Transition = {

@@ -53,6 +53,21 @@ TOKEN = re.compile(r"\(?\d{1,3}(?:,\d{3})+\)?|\(?\d+\)?|[" + DASHES + r"]")
 FUND_ROW = re.compile(r"^([A-Z]{1,2}\d{1,2})\s+(.*)$")
 FIRST_FIGURE = re.compile(r"\d{1,3}(?:,\d{3})+")
 
+# The budget officer's letter that opens a Tentative. Every Tentative since 2022
+# carries one, addressed to the Town Clerk and the Board, and it is the only
+# place the document explains itself in words -- including where the levy
+# stands against the tax cap. Some years it is text; the 2025 and 2026 letters
+# are scanned images with no machine-readable text at all. So a page without
+# text is reported as unreadable, never as blank, and nothing is inferred from
+# it: the site's reading of a scanned letter is recorded by hand, in
+# web/lib/tentative-transparency.ts.
+MONTHS = "January|February|March|April|May|June|July|August|September|October|November|December"
+DATED = re.compile(rf"\b(?:{MONTHS})\s+\d{{1,2}},\s+\d{{4}}\b")
+SENTENCE = re.compile(r"(?<=[.!?])\s+(?=[A-Z\u201c\"(])")  # "3.31%" never splits
+TAX_CAP = re.compile(r"\btax\s+cap\b", re.I)
+LEVY_LIMIT = re.compile(r"\b(?:tax\s+levy\s+limit|levy\s+limit|allowable\s+levy)\b", re.I)
+PROSE_WORDS = 60  # a letter page; the contents page and fund tables carry far fewer words of prose
+
 
 def value(tok: str) -> int:
     if tok in DASHES:
@@ -89,6 +104,29 @@ def summary(doc_path: Path) -> dict:
                 "levy": vals[3] if len(vals) == 4 else None,
             }
     return funds
+
+
+def message(doc_path: Path) -> dict:
+    """What a Tentative's opening pages say, where they can be read at all."""
+    doc = json.loads(doc_path.read_text(encoding="utf-8"))
+    pages = doc.get("pages", [])
+    opening = []
+    for p in pages[1:8]:  # after the cover, up to the table of contents
+        if "TABLE OF CONTENTS" in (p.get("text") or "").upper():
+            break
+        opening.append(p)
+    readable = [p for p in opening if len(re.findall(r"[A-Za-z]{3,}", p.get("text") or "")) >= PROSE_WORDS]
+    prose = " ".join(re.sub(r"\s+", " ", p["text"]).strip() for p in readable)
+    sentences = [x.strip() for x in SENTENCE.split(prose) if TAX_CAP.search(x)]
+    dated = DATED.search(prose)
+    limit = next((p["page"] for p in pages if LEVY_LIMIT.search(p.get("text") or "")), None)
+    return {
+        "readablePages": [p["page"] for p in readable],
+        "unreadablePages": [p["page"] for p in opening if not (p.get("text") or "").strip()],
+        "taxCapSentences": sentences[:3],
+        "dated": dated.group(0) if dated else None,
+        "levyLimitPage": limit,
+    }
 
 
 def totals(funds: dict) -> dict:
@@ -153,11 +191,17 @@ def build() -> dict:
         funds = summary(path)
         if not funds:
             continue
-        years.setdefault(str(year), {})[stage] = {
-            "source": {"title": d["title"], "url": d["url"], "slug": d["slug"]},
+        entry = {
+            # parsed_at is content-addressed: it is set when this exact file is
+            # first parsed and moves only if the Town replaces it, so for a new
+            # document it bounds when the file became public, to within a run.
+            "source": {"title": d["title"], "url": d["url"], "slug": d["slug"], "parsedAt": d.get("parsed_at")},
             "funds": funds,
             "totals": totals(funds),
         }
+        if stage == "tentative":
+            entry["message"] = message(path)
+        years.setdefault(str(year), {})[stage] = entry
         documents.append({"year": year, "stage": stage, "title": d["title"], "url": d["url"]})
 
     transitions = []
