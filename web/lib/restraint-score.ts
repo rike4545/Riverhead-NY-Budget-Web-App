@@ -64,7 +64,7 @@ export const criteria: Criterion[] = [
   {
     id: 'levy-reference',
     promise: '“As close to the tax cap as possible”',
-    test: `Town-wide levy growth at or under ${REFERENCE}%`,
+    test: `Town-wide tax levy grows ${REFERENCE}% or less`,
     measure: (y) => {
       const g = growth(townWide(stageDoc(y - 1, 'adopted')), townWide(stageDoc(y, 'tentative')))
       return g === null ? NONE : { met: g <= REFERENCE, value: pct(g) }
@@ -83,7 +83,7 @@ export const criteria: Criterion[] = [
   {
     id: 'spending',
     promise: '“A tight lid on spending”',
-    test: `Appropriations growth, all funds, at or under ${REFERENCE}%`,
+    test: `Total spending, all funds, grows ${REFERENCE}% or less`,
     measure: (y) => {
       const t = stageDoc(y, 'tentative')
       const g = growth(stageDoc(y - 1, 'adopted')?.totals.appropriations ?? null, t?.totals.appropriations ?? null)
@@ -93,7 +93,7 @@ export const criteria: Criterion[] = [
   {
     id: 'one-time',
     promise: '“Every dollar we can save or retain”',
-    test: 'No larger General Fund draw on fund balance than the year before',
+    test: 'Uses no more General Fund savings than the year before',
     measure: (y) => {
       const now = stageDoc(y, 'tentative')?.funds.A01?.fundBalance
       const before = stageDoc(y - 1, 'adopted')?.funds.A01?.fundBalance
