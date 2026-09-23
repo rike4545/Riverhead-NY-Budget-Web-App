@@ -144,7 +144,7 @@ const requests = requestsJson as unknown as { completeYears: number[]; byYear: R
  * September of the year before, so the 2025 Tentative is Supervisor Hubbard's
  * first and the 2027 Tentative is Supervisor Halpin's first.
  */
-const PREPARED_UNDER: Record<number, string> = {
+export const PREPARED_UNDER: Record<number, string> = {
   2024: 'Supervisor Yvette Aguiar',
   2025: 'Supervisor Tim Hubbard',
   2026: 'Supervisor Tim Hubbard',

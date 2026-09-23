@@ -3,11 +3,27 @@ import {
   SUPERVISOR, ELECTION, context, tests, commitments, claims, STATUS_LABEL, prudence, released, levers,
   type ClaimStatus,
 } from '../../lib/supervisor-promises'
+import { checks, YEARS as T_YEARS, preparedUnder, firstFound2027, beyondTheDocument, type CheckState } from '../../lib/tentative-transparency'
+import { criteria, scores, revenueGrowth, RULE } from '../../lib/restraint-score'
 
 const base = process.env.NEXT_PUBLIC_BASE_PATH || ''
 const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 20, boxShadow: '0 14px 34px var(--rbl-shadow)' } as const
 const th = { padding: '8px 10px', textAlign: 'left' as const, color: 'var(--rbl-text-muted)', fontSize: 11.5, textTransform: 'uppercase' as const, fontWeight: 900, letterSpacing: 0.4 }
 const td = { padding: '8px 10px', verticalAlign: 'top' as const }
+
+const STATE_COLOR: Record<CheckState, string> = {
+  yes: 'var(--rbl-success-strong)',
+  no: 'var(--rbl-warn-strong)',
+  none: 'var(--rbl-text-muted)',
+  pending: 'var(--rbl-text-muted)',
+}
+const surname = (who: string | null) => (who ? who.split(' ').slice(-1)[0] : '—')
+const yearHead = (y: number, who: string | null) => (
+  <th key={y} style={{ ...th, textAlign: 'left', minWidth: 118 }}>
+    {y}<div style={{ fontWeight: 600, textTransform: 'none', letterSpacing: 0 }}>{surname(who)}</div>
+  </th>
+)
+const pctSigned = (n: number) => `${n > 0 ? '+' : n < 0 ? '−' : ''}${Math.abs(n).toFixed(2)}%`
 
 const STATUS_STYLE: Record<ClaimStatus, { bg: string; fg: string }> = {
   supported: { bg: 'var(--rbl-success-bg, var(--rbl-surface-3))', fg: 'var(--rbl-success-strong)' },
@@ -185,6 +201,111 @@ export default function SupervisorPromisesPage() {
         </div>
       </section>
 
+      <section id="transparency" style={{ ...card, marginBottom: 16 }}>
+        <h3 style={{ marginTop: 0, color: 'var(--rbl-title)' }}>Transparency: what each Tentative shows</h3>
+        <p style={{ color: 'var(--rbl-text-body)', fontSize: 14.5, lineHeight: 1.6, marginTop: 0 }}>
+          Transparency is not a plank in either candidate’s platform as Candidate Watch records them, and his campaign page
+          uses the word “accountability” once, without a specific commitment. What the record can measure is the part the
+          budget officer controls: what goes into the Tentative itself. The same six checks are applied to each Tentative,
+          so his first one is read against the three before it. Where a letter is a scanned image, the site read it by hand;
+          the quotes are exact.
+        </p>
+        <div style={{ overflowX: 'auto' }}>
+          <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 13 }}>
+            <thead><tr style={{ borderBottom: '2px solid var(--rbl-border-subtle)' }}>
+              <th style={th}>Check</th>{T_YEARS.map((y) => yearHead(y, preparedUnder(y)))}
+            </tr></thead>
+            <tbody>
+              {checks.map((c) => (
+                <tr key={c.id} id={`transparency-${c.id}`} style={{ borderBottom: '1px solid var(--rbl-border-subtle)' }}>
+                  <td style={{ ...td, minWidth: 220 }}>
+                    <div style={{ fontWeight: 800, color: 'var(--rbl-title)' }}>{c.label}</div>
+                    <div style={{ color: 'var(--rbl-text-muted)', fontSize: 12, marginTop: 2 }}>{c.why}</div>
+                  </td>
+                  {T_YEARS.map((y) => {
+                    const cell = c.cells[y]
+                    return (
+                      <td key={y} data-state={cell.state} style={td}>
+                        <span style={{ fontWeight: 800, color: STATE_COLOR[cell.state] }}>{cell.text}</span>
+                        {cell.quote && <div style={{ color: 'var(--rbl-text-body)', fontSize: 12, marginTop: 3 }}>“{cell.quote}”</div>}
+                      </td>
+                    )
+                  })}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        {firstFound2027 && (
+          <p style={{ color: 'var(--rbl-text-body)', fontSize: 13.5, marginBottom: 0 }}>
+            This site first found the 2027 Tentative on the Town’s website on {firstFound2027}.
+          </p>
+        )}
+        <h4 style={{ color: 'var(--rbl-title)', margin: '14px 0 6px' }}>Outside the budget document</h4>
+        <ul style={{ margin: 0, paddingLeft: 18, color: 'var(--rbl-text-body)', fontSize: 13.5, lineHeight: 1.6 }}>
+          {beyondTheDocument.map((b, i) => <li key={i}>{b}</li>)}
+        </ul>
+        <p style={{ color: 'var(--rbl-text-muted)', fontSize: 12.5, marginBottom: 0 }}>
+          Votes the minutes omit: <a href={`${base}/meetings/`} style={{ color: 'var(--rbl-accent)' }}>Meetings</a>.
+        </p>
+      </section>
+
+      <section id="score" style={{ ...card, marginBottom: 16 }}>
+        <h3 style={{ marginTop: 0, color: 'var(--rbl-title)' }}>The scoring rule: restraint, scored the same way every year</h3>
+        <p style={{ color: 'var(--rbl-text-body)', fontSize: 14.5, lineHeight: 1.6, marginTop: 0 }}>
+          This is the site’s own scoring rule, fixed on {RULE.fixed}, before the 2027 Tentative was presented, so it
+          could not be tuned to the result. It scores restraint, which is what he promised, and scores every Tentative with
+          complete data the same way, so his first budget has a baseline. It is analysis, not a fact: a Tentative can fail
+          every criterion and still be the prudent one in a year of new contracts or storm damage.
+        </p>
+        <div style={{ overflowX: 'auto' }}>
+          <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 13 }}>
+            <thead><tr style={{ borderBottom: '2px solid var(--rbl-border-subtle)' }}>
+              <th style={th}>Criterion</th>{scores.map((s) => yearHead(s.year, s.preparedUnder))}
+            </tr></thead>
+            <tbody>
+              {criteria.map((c) => (
+                <tr key={c.id} id={`score-${c.id}`} style={{ borderBottom: '1px solid var(--rbl-border-subtle)' }}>
+                  <td style={{ ...td, minWidth: 220 }}>
+                    <div style={{ fontWeight: 800, color: 'var(--rbl-title)' }}>{c.test}</div>
+                    <div style={{ color: 'var(--rbl-text-muted)', fontSize: 12, marginTop: 2 }}>Tests: {c.promise}</div>
+                  </td>
+                  {scores.map((s) => {
+                    const r = s.results[c.id]
+                    const state = r.met === null ? 'pending' : r.met ? 'yes' : 'no'
+                    return (
+                      <td key={s.year} data-met={state} style={td}>
+                        {r.met === null
+                          ? <span style={{ color: 'var(--rbl-text-muted)' }}>{s.released ? 'Not yet measurable' : 'Sept 24'}</span>
+                          : <><span style={{ fontWeight: 800, color: STATE_COLOR[state] }}>{r.met ? 'Met' : 'Not met'}</span><div style={{ fontSize: 12, color: 'var(--rbl-text-body)' }}>{r.value}</div></>}
+                      </td>
+                    )
+                  })}
+                </tr>
+              ))}
+              <tr style={{ borderTop: '2px solid var(--rbl-border-subtle)' }}>
+                <td style={{ ...td, fontWeight: 900, color: 'var(--rbl-title)' }}>Score</td>
+                {scores.map((s) => (
+                  <td key={s.year} data-score={s.year} style={{ ...td, fontWeight: 900, fontSize: 15, color: 'var(--rbl-title)' }}>
+                    {s.measured ? `${s.met} of ${s.measured}` : 'Sept 24'}
+                  </td>
+                ))}
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p style={{ color: 'var(--rbl-text-body)', fontSize: 13, lineHeight: 1.6, marginBottom: 0 }}>
+          Reported, not scored: General Fund revenue growth other than the levy,{' '}
+          {revenueGrowth.filter((r) => r.value !== null).map((r) => `${r.year} ${pctSigned(r.value as number)}`).join(', ')}.
+          A Tentative can raise its revenue estimates to hold the levy down, so scoring revenue would reward optimism.
+        </p>
+        <p style={{ color: 'var(--rbl-text-muted)', fontSize: 12.5, lineHeight: 1.55, marginBottom: 0 }}>
+          The 2% line is the reference the site uses everywhere. It is stricter than the legal levy limit, which the Town does
+          not print (<a href={`${base}/tax-cap/`} style={{ color: 'var(--rbl-accent)' }}>Tax Cap</a>). Every other threshold is
+          “no worse than the year before.” Any change to these criteria will be dated here, with the earlier scores kept.
+        </p>
+      </section>
+
       <section style={{ ...card, marginBottom: 16, borderLeft: '5px solid var(--rbl-warn)' }}>
         <h3 style={{ marginTop: 0, color: 'var(--rbl-title)' }}>{prudence.question}</h3>
         <p style={{ color: 'var(--rbl-text-body)', fontSize: 14.5, lineHeight: 1.6, marginTop: 0 }}>{prudence.framing}</p>
@@ -197,7 +318,8 @@ export default function SupervisorPromisesPage() {
           <a href="#test-one-time" style={{ color: 'var(--rbl-accent)' }}>the use of one-time money</a>,{' '}
           <a href="#test-requests" style={{ color: 'var(--rbl-accent)' }}>what departments asked for</a> and{' '}
           <a href="#test-office" style={{ color: 'var(--rbl-accent)' }}>his own office’s payroll</a>, and{' '}
-          <a href="#levers" style={{ color: 'var(--rbl-accent)' }}>where each of the other levers stands</a>.
+          <a href="#levers" style={{ color: 'var(--rbl-accent)' }}>where each of the other levers stands</a>. The site’s own
+          measure of it is <a href="#score" style={{ color: 'var(--rbl-accent)' }}>the scoring rule</a>.
         </p>
       </section>
 
