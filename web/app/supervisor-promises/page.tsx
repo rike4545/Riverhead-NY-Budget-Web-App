@@ -1,4 +1,5 @@
 import PageShell from '../../components/PageShell'
+import PlainCallout from '../../components/PlainCallout'
 import {
   SUPERVISOR, ELECTION, context, tests, commitments, claims, STATUS_LABEL, prudence, released, levers,
   type ClaimStatus,
@@ -26,6 +27,18 @@ const yearHead = (y: number, who: string | null) => (
 )
 const pctSigned = (n: number) => `${n > 0 ? '+' : n < 0 ? '−' : ''}${Math.abs(n).toFixed(2)}%`
 
+// How many claims land in each rating, for the plain-English summary up top.
+const NUMBER_WORDS = ['no', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine']
+const countOf = (status: ClaimStatus) => claims.filter((c) => c.status === status).length
+const inWords = (n: number) => NUMBER_WORDS[n] ?? String(n)
+const tally = [
+  countOf('supported') ? `${inWords(countOf('supported'))} ${countOf('supported') === 1 ? 'holds' : 'hold'} up` : null,
+  countOf('partly') ? `${inWords(countOf('partly'))} ${countOf('partly') === 1 ? 'holds' : 'hold'} up in part` : null,
+  countOf('unverifiable') ? `${inWords(countOf('unverifiable'))} can’t be checked from the records we use` : null,
+  countOf('outside') ? `${inWords(countOf('outside'))} ${countOf('outside') === 1 ? 'isn’t a budget question' : 'aren’t budget questions'}` : null,
+].filter(Boolean) as string[]
+const tallyText = tally.length > 1 ? `${tally.slice(0, -1).join(', ')} and ${tally[tally.length - 1]}` : tally.join('')
+
 const STATUS_STYLE: Record<ClaimStatus, { bg: string; fg: string }> = {
   supported: { bg: 'var(--rbl-success-bg, var(--rbl-surface-3))', fg: 'var(--rbl-success-strong)' },
   partly: { bg: 'var(--rbl-warn-bg)', fg: 'var(--rbl-warn-strong)' },
@@ -36,47 +49,62 @@ const STATUS_STYLE: Record<ClaimStatus, { bg: string; fg: string }> = {
 export const metadata = {
   title: 'The Supervisor’s promises and the record',
   description:
-    'Supervisor Jerry Halpin’s own commitments and claims, checked against the Town of Riverhead’s own records — resolutions, roll calls and budgets — and the tests the 2027 Tentative Budget will answer.',
+    'What Supervisor Jerry Halpin promised and what he says he has done, checked against the Town of Riverhead’s own votes, budgets and resolutions, plus the tests his 2027 budget will answer.',
 }
 
 export default function SupervisorPromisesPage() {
   return (
     <PageShell
       title="The Supervisor’s promises and the record"
-      subtitle={`What Supervisor ${SUPERVISOR} said he would do and says he has done, checked against records the Town itself publishes — and the tests his first budget, the 2027 Tentative, will answer.`}
+      subtitle={`What Supervisor ${SUPERVISOR} said he would do, what he says he has done, and what the Town’s own records show.`}
     >
+      <PlainCallout
+        tips={[
+          { label: 'Tentative budget', text: 'the Supervisor’s proposed budget for next year. The Town Board can change it before adopting the final budget by November 20.' },
+          { label: 'Levy', text: 'the total amount the Town raises from property taxes.' },
+          { label: 'Tax cap', text: 'the State’s limit on how much the levy can grow each year, usually about 2%. The Board can vote to go over it.' },
+          { label: 'Fund balance', text: 'money left over from past years: the Town’s savings. Spending it helps one year’s taxes, but then it’s gone.' },
+          { label: 'Roll call', text: 'how each of the five Town Board members voted.' },
+        ]}
+      >
+        {SUPERVISOR} became Town Supervisor in January 2026 and is on the ballot again on {ELECTION}. This page checks
+        what he promised and what he says he has done against the Town’s own records. Of the claims on his campaign
+        site, {tallyText}. The biggest test is still ahead: his first budget, for 2027, which fills in below as soon as the
+        Town publishes it.
+      </PlainCallout>
+
       <section style={{ ...card, marginBottom: 16, borderLeft: '5px solid var(--rbl-accent)' }}>
-        <strong style={{ color: 'var(--rbl-title)' }}>What this page is, and is not.</strong>
+        <strong style={{ color: 'var(--rbl-title)' }}>How this page works</strong>
         <p style={{ color: 'var(--rbl-text-body)', fontSize: 14.5, lineHeight: 1.6, margin: '6px 0 0' }}>
-          It is not an endorsement or an opposition, and it does not judge character or intent. It sets the Supervisor’s own
-          published words beside the Town’s own records. It never calls a statement false: where the record contradicts part
-          of a claim it says which part, and where the record cannot settle a claim it says that. He is on the {ELECTION} ballot;
-          his opponent has no record as Supervisor to check, so both platforms are weighed evenly on{' '}
+          This page doesn’t endorse or oppose anyone, and it doesn’t judge anyone’s character or motives. It puts the
+          Supervisor’s own words next to the Town’s own records. We never call a claim false. If the records back up only
+          part of a claim, we say which part; if they can’t settle it, we say so. His opponent hasn’t served as Supervisor,
+          so there’s no record of his to check here; both candidates’ plans are compared side by side on{' '}
           <a href={`${base}/candidate-cost-benefit/`} style={{ color: 'var(--rbl-accent)', fontWeight: 700 }}>Candidate Proposals</a>.
-          Every vote below shows the full roll call.
+          Every vote on this page shows how all five Board members voted.
         </p>
       </section>
 
       <section style={{ ...card, marginBottom: 16 }}>
-        <h3 style={{ marginTop: 0, color: 'var(--rbl-title)' }}>Context</h3>
+        <h3 style={{ marginTop: 0, color: 'var(--rbl-title)' }}>Background</h3>
         <ul style={{ margin: 0, paddingLeft: 18, color: 'var(--rbl-text-body)', fontSize: 14, lineHeight: 1.65 }}>
           {context.map((c, i) => <li key={i}>{c}</li>)}
         </ul>
       </section>
 
       <section style={{ ...card, marginBottom: 16 }}>
-        <h3 style={{ marginTop: 0, color: 'var(--rbl-title)' }}>Put to the test: the 2027 Tentative</h3>
+        <h3 style={{ marginTop: 0, color: 'var(--rbl-title)' }}>The big test: his 2027 budget proposal</h3>
         <p style={{ color: 'var(--rbl-text-body)', fontSize: 14.5, lineHeight: 1.6, marginTop: 0 }}>
-          The 2027 Tentative is the first budget prepared under him; the 2026 budget was his predecessor’s.{' '}
+          The 2027 Tentative budget is the first one he prepared. The 2026 budget was his predecessor’s.{' '}
           {released
-            ? 'These are computed from the Tentative as published.'
-            : 'Each of these fills in on its own when the Town publishes the Tentative, presented September 24. Nothing here is written in by hand beforehand.'}{' '}
-          Figures and method: <a href={`${base}/tentative-2027/`} style={{ color: 'var(--rbl-accent)' }}>The 2027 Tentative Budget</a>.
+            ? 'These numbers come straight from the proposal as published.'
+            : 'Each row fills in by itself when the Town publishes the proposal on September 24. Nothing is typed in by hand ahead of time.'}{' '}
+          Full figures and how we got them: <a href={`${base}/tentative-2027/`} style={{ color: 'var(--rbl-accent)' }}>The 2027 Tentative Budget</a>.
         </p>
         <div style={{ overflowX: 'auto' }}>
           <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 13 }}>
             <thead><tr style={{ borderBottom: '2px solid var(--rbl-border-subtle)' }}>
-              <th style={th}>Question</th><th style={th}>Measure</th><th style={{ ...th, textAlign: 'right' }}>2027 Tentative</th><th style={th}>Against</th>
+              <th style={th}>Question</th><th style={th}>How we measure it</th><th style={{ ...th, textAlign: 'right' }}>2027 proposal</th><th style={th}>Compared with</th>
             </tr></thead>
             <tbody>
               {tests.map((t) => (
@@ -93,7 +121,7 @@ export default function SupervisorPromisesPage() {
       </section>
 
       <section style={{ ...card, marginBottom: 16 }}>
-        <h3 style={{ marginTop: 0, color: 'var(--rbl-title)' }}>What he committed to</h3>
+        <h3 style={{ marginTop: 0, color: 'var(--rbl-title)' }}>What he promised</h3>
         <div style={{ display: 'grid', gap: 12 }}>
           {commitments.map((c, i) => (
             <div key={i} style={{ borderLeft: '3px solid var(--rbl-border-strong)', paddingLeft: 12 }}>
@@ -105,7 +133,7 @@ export default function SupervisorPromisesPage() {
               </div>
               <div style={{ color: 'var(--rbl-text-body)', fontSize: 13, marginTop: 4 }}>
                 {c.testedBy.length > 0 && (
-                  <>Tested by: {c.testedBy.map((id, j) => {
+                  <>Checked by: {c.testedBy.map((id, j) => {
                     const t = tests.find((x) => x.id === id)
                     return <span key={id}>{j > 0 && ' · '}<a href={`#test-${id}`} style={{ color: 'var(--rbl-accent)' }}>{t?.question ?? id}</a></span>
                   })}</>
@@ -119,10 +147,10 @@ export default function SupervisorPromisesPage() {
       </section>
 
       <section style={{ ...card, marginBottom: 16 }}>
-        <h3 style={{ marginTop: 0, color: 'var(--rbl-title)' }}>What he says he has done, checked</h3>
+        <h3 style={{ marginTop: 0, color: 'var(--rbl-title)' }}>What he says he’s done, and what the records show</h3>
         <p style={{ color: 'var(--rbl-text-body)', fontSize: 14.5, lineHeight: 1.6, marginTop: 0 }}>
-          Each claim is from his campaign site. The Supervisor casts one vote of five, so where a vote decided the matter
-          the roll call is shown, and the outcome belongs to whoever carried it.
+          Each claim comes from his campaign website. The Supervisor is one of five votes on the Town Board, so where a
+          vote decided something, we show how everyone voted, and the result belongs to the members who carried it.
         </p>
         <div style={{ display: 'grid', gap: 16 }}>
           {claims.map((c, i) => {
@@ -133,12 +161,15 @@ export default function SupervisorPromisesPage() {
                   <div style={{ color: 'var(--rbl-title)', fontWeight: 800, fontSize: 14.5, flex: '1 1 320px' }}>“{c.claim}”</div>
                   <span data-status={c.status} style={{ background: st.bg, color: st.fg, fontWeight: 800, fontSize: 12, padding: '3px 10px', borderRadius: 999, whiteSpace: 'nowrap' }}>{STATUS_LABEL[c.status]}</span>
                 </div>
-                <p style={{ color: 'var(--rbl-text-body)', fontSize: 13.8, lineHeight: 1.6, margin: '8px 0 0' }}>{c.finding}</p>
+                <p data-summary style={{ color: 'var(--rbl-title)', fontSize: 14.2, lineHeight: 1.55, margin: '8px 0 0', fontWeight: 700 }}>
+                  <span style={{ color: 'var(--rbl-text-muted)', fontWeight: 800 }}>In short: </span>{c.summary}
+                </p>
+                <p style={{ color: 'var(--rbl-text-body)', fontSize: 13.8, lineHeight: 1.6, margin: '6px 0 0' }}>{c.finding}</p>
                 {c.votes && c.votes.length > 0 && (
                   <div style={{ overflowX: 'auto', marginTop: 8 }}>
                     <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 12.5 }}>
                       <thead><tr style={{ borderBottom: '1px solid var(--rbl-border-subtle)' }}>
-                        <th style={th}>Resolution</th><th style={th}>Action</th><th style={th}>Result</th><th style={th}>Supervisor</th><th style={th}>Roll call</th>
+                        <th style={th}>Resolution</th><th style={th}>What it did</th><th style={th}>Result</th><th style={th}>Halpin</th><th style={th}>How they voted</th>
                       </tr></thead>
                       <tbody>
                         {c.votes.map((v) => (
@@ -146,13 +177,13 @@ export default function SupervisorPromisesPage() {
                             <td style={{ ...td, whiteSpace: 'nowrap', fontWeight: 700 }}>{v.resolution}<div style={{ color: 'var(--rbl-text-muted)', fontWeight: 400 }}>{v.date}</div></td>
                             <td style={td}>{v.action}</td>
                             <td style={{ ...td, whiteSpace: 'nowrap' }}>{v.result}</td>
-                            <td style={{ ...td, fontWeight: 800 }}>{v.halpin}</td>
+                            <td style={{ ...td, fontWeight: 800 }}>{v.halpin === 'Aye' ? 'Yes' : v.halpin}</td>
                             <td style={{ ...td, color: 'var(--rbl-text-body)' }}>
-                              <div style={{ color: 'var(--rbl-text-muted)' }}>Moved: {v.mover}</div>
-                              {v.ayes && <div>Aye: {v.ayes}</div>}
+                              <div style={{ color: 'var(--rbl-text-muted)' }}>Moved by {v.mover}</div>
+                              {v.ayes && <div>Yes: {v.ayes}</div>}
                               {v.nays && <div>No: {v.nays}</div>}
                               {v.abstain && <div>Abstained: {v.abstain}</div>}
-                              {!v.ayes && !v.nays && !v.abstain && <span>All five aye</span>}
+                              {!v.ayes && !v.nays && !v.abstain && <span>All five voted yes</span>}
                             </td>
                           </tr>
                         ))}
@@ -196,11 +227,11 @@ export default function SupervisorPromisesPage() {
                   </div>
                 )}
                 {c.records.length > 0 && (
-                  <div style={{ color: 'var(--rbl-text-muted)', fontSize: 12, marginTop: 6 }}>Records: {c.records.join('; ')}</div>
+                  <div style={{ color: 'var(--rbl-text-muted)', fontSize: 12, marginTop: 6 }}>Sources: {c.records.join('; ')}</div>
                 )}
                 {c.documents && c.documents.length > 0 && (
                   <div style={{ color: 'var(--rbl-text-muted)', fontSize: 12, marginTop: 4 }}>
-                    Documents: {c.documents.map((s, j) => (
+                    Read the documents: {c.documents.map((s, j) => (
                       <span key={s.url}>{j > 0 && '; '}<a href={s.url} style={{ color: 'var(--rbl-accent)' }}>{s.label}</a>, {s.date}</span>
                     ))}
                   </div>
@@ -212,11 +243,11 @@ export default function SupervisorPromisesPage() {
       </section>
 
       <section id="levers" style={{ ...card, marginBottom: 16 }}>
-        <h3 style={{ marginTop: 0, color: 'var(--rbl-title)' }}>Other levers, and where each stands</h3>
+        <h3 style={{ marginTop: 0, color: 'var(--rbl-title)' }}>Other things a Supervisor can do, and where each stands</h3>
         <p style={{ color: 'var(--rbl-text-body)', fontSize: 14.5, lineHeight: 1.6, marginTop: 0 }}>
-          Five levers a Supervisor can reach for, set against the record since January: who can act, what has happened so
-          far, and what each is worth. Only the first appears among his campaign’s own claims. None is scored. Most need a
-          Board majority, and the Supervisor is one of five votes.
+          Here are five other ways a Supervisor could act on taxes or on how the Town is run. For each: who decides, what
+          has happened since January and what it’s worth. Only the first is one of his campaign claims. We don’t score these.
+          Most need a Board majority, and the Supervisor has one vote of five.
         </p>
         <div style={{ display: 'grid', gap: 14 }}>
           {levers.map((l) => {
@@ -224,20 +255,20 @@ export default function SupervisorPromisesPage() {
             return (
               <article key={l.id} id={`lever-${l.id}`} data-lever={l.id} style={{ border: '1px solid var(--rbl-border-subtle)', borderRadius: 12, padding: 14 }}>
                 <div style={{ color: 'var(--rbl-title)', fontWeight: 800, fontSize: 14.5 }}>{l.lever}</div>
-                <div style={{ color: 'var(--rbl-text-muted)', fontSize: 12.8, marginTop: 3 }}>Who can act: {l.whoActs}</div>
+                <div style={{ color: 'var(--rbl-text-muted)', fontSize: 12.8, marginTop: 3 }}>Who decides: {l.whoActs}</div>
                 <ul style={{ margin: '8px 0 0', paddingLeft: 18, color: 'var(--rbl-text-body)', fontSize: 13.8, lineHeight: 1.6 }}>
                   {l.record.map((r, i) => <li key={i}>{r}</li>)}
                 </ul>
                 {l.worth && (
                   <p style={{ color: 'var(--rbl-text-body)', fontSize: 13.5, lineHeight: 1.6, margin: '8px 0 0' }}>
-                    <strong style={{ color: 'var(--rbl-title)' }}>What it is worth:</strong> {l.worth}
+                    <strong style={{ color: 'var(--rbl-title)' }}>What it’s worth:</strong> {l.worth}
                   </p>
                 )}
                 <div style={{ color: 'var(--rbl-text-body)', fontSize: 13, marginTop: 6 }}>
-                  {t && <>Measured on the 2027 Tentative: <a href={`#test-${t.id}`} style={{ color: 'var(--rbl-accent)' }}>{t.question}</a>{l.link && ' · '}</>}
+                  {t && <>Watch for it in the 2027 budget: <a href={`#test-${t.id}`} style={{ color: 'var(--rbl-accent)' }}>{t.question}</a>{l.link && ' · '}</>}
                   {l.link && <a href={`${base}${l.link.path}`} style={{ color: 'var(--rbl-accent)' }}>{l.link.label}</a>}
                 </div>
-                <div style={{ color: 'var(--rbl-text-muted)', fontSize: 12, marginTop: 6 }}>Records: {l.sources.join('; ')}</div>
+                <div style={{ color: 'var(--rbl-text-muted)', fontSize: 12, marginTop: 6 }}>Sources: {l.sources.join('; ')}</div>
               </article>
             )
           })}
@@ -245,18 +276,18 @@ export default function SupervisorPromisesPage() {
       </section>
 
       <section id="transparency" style={{ ...card, marginBottom: 16 }}>
-        <h3 style={{ marginTop: 0, color: 'var(--rbl-title)' }}>Transparency: what each Tentative shows</h3>
+        <h3 style={{ marginTop: 0, color: 'var(--rbl-title)' }}>How open is each budget proposal?</h3>
         <p style={{ color: 'var(--rbl-text-body)', fontSize: 14.5, lineHeight: 1.6, marginTop: 0 }}>
-          Transparency is not a plank in either candidate’s platform as Candidate Watch records them, and his campaign page
-          uses the word “accountability” once, without a specific commitment. What the record can measure is the part the
-          budget officer controls: what goes into the Tentative itself. The same six checks are applied to each Tentative,
-          so his first one is read against the three before it. Where a letter is a scanned image, the site read it by hand;
-          the quotes are exact.
+          Neither candidate lists transparency as a campaign promise on Candidate Watch, and his campaign page uses the word
+          “accountability” once, without a specific pledge. What we can measure is the part the budget officer controls:
+          what goes into the budget proposal itself. We run the same six checks on every year’s proposal, so his first one
+          can be compared with the three before it. Where a letter was a scanned image, we read it by hand; the quotes are
+          exact.
         </p>
         <div style={{ overflowX: 'auto' }}>
           <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 13 }}>
             <thead><tr style={{ borderBottom: '2px solid var(--rbl-border-subtle)' }}>
-              <th style={th}>Check</th>{T_YEARS.map((y) => yearHead(y, preparedUnder(y)))}
+              <th style={th}>What we check</th>{T_YEARS.map((y) => yearHead(y, preparedUnder(y)))}
             </tr></thead>
             <tbody>
               {checks.map((c) => (
@@ -281,37 +312,37 @@ export default function SupervisorPromisesPage() {
         </div>
         {firstFound2027 && (
           <p style={{ color: 'var(--rbl-text-body)', fontSize: 13.5, marginBottom: 0 }}>
-            This site first found the 2027 Tentative on the Town’s website on {firstFound2027}.
+            We first found the 2027 proposal on the Town’s website on {firstFound2027}.
           </p>
         )}
-        <h4 style={{ color: 'var(--rbl-title)', margin: '14px 0 6px' }}>Outside the budget document</h4>
+        <h4 style={{ color: 'var(--rbl-title)', margin: '14px 0 6px' }}>Beyond the budget itself</h4>
         <ul style={{ margin: 0, paddingLeft: 18, color: 'var(--rbl-text-body)', fontSize: 13.5, lineHeight: 1.6 }}>
           {beyondTheDocument.map((b, i) => <li key={i}>{b}</li>)}
         </ul>
         <p style={{ color: 'var(--rbl-text-muted)', fontSize: 12.5, marginBottom: 0 }}>
-          Votes the minutes omit: <a href={`${base}/meetings/`} style={{ color: 'var(--rbl-accent)' }}>Meetings</a>.
+          Votes missing from the minutes are tracked on the <a href={`${base}/meetings/`} style={{ color: 'var(--rbl-accent)' }}>Meetings</a> page.
         </p>
       </section>
 
       <section id="score" style={{ ...card, marginBottom: 16 }}>
-        <h3 style={{ marginTop: 0, color: 'var(--rbl-title)' }}>The scoring rule: restraint, scored the same way every year</h3>
+        <h3 style={{ marginTop: 0, color: 'var(--rbl-title)' }}>Our scorecard: restraint, scored the same way every year</h3>
         <p style={{ color: 'var(--rbl-text-body)', fontSize: 14.5, lineHeight: 1.6, marginTop: 0 }}>
-          This is the site’s own scoring rule, fixed on {RULE.fixed}, before the 2027 Tentative was presented, so it
-          could not be tuned to the result. It scores restraint, which is what he promised, and scores every Tentative with
-          complete data the same way, so his first budget has a baseline. It is analysis, not a fact: a Tentative can fail
-          every criterion and still be the prudent one in a year of new contracts or storm damage.
+          We set this scorecard on {RULE.fixed}, before the 2027 proposal came out, so it couldn’t be adjusted to fit the
+          result. It measures restraint, which is what he promised, and scores every year’s proposal the same way, so his
+          first one has something to compare against. It’s our analysis, not a fact: a budget can miss every mark and still
+          be the sensible one in a year of new contracts or storm damage.
         </p>
         <div style={{ overflowX: 'auto' }}>
           <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 13 }}>
             <thead><tr style={{ borderBottom: '2px solid var(--rbl-border-subtle)' }}>
-              <th style={th}>Criterion</th>{scores.map((s) => yearHead(s.year, s.preparedUnder))}
+              <th style={th}>What we check</th>{scores.map((s) => yearHead(s.year, s.preparedUnder))}
             </tr></thead>
             <tbody>
               {criteria.map((c) => (
                 <tr key={c.id} id={`score-${c.id}`} style={{ borderBottom: '1px solid var(--rbl-border-subtle)' }}>
                   <td style={{ ...td, minWidth: 220 }}>
                     <div style={{ fontWeight: 800, color: 'var(--rbl-title)' }}>{c.test}</div>
-                    <div style={{ color: 'var(--rbl-text-muted)', fontSize: 12, marginTop: 2 }}>Tests: {c.promise}</div>
+                    <div style={{ color: 'var(--rbl-text-muted)', fontSize: 12, marginTop: 2 }}>His promise: {c.promise}</div>
                   </td>
                   {scores.map((s) => {
                     const r = s.results[c.id]
@@ -338,14 +369,14 @@ export default function SupervisorPromisesPage() {
           </table>
         </div>
         <p style={{ color: 'var(--rbl-text-body)', fontSize: 13, lineHeight: 1.6, marginBottom: 0 }}>
-          Reported, not scored: General Fund revenue growth other than the levy,{' '}
+          Shown but not scored: growth in General Fund revenue other than property taxes,{' '}
           {revenueGrowth.filter((r) => r.value !== null).map((r) => `${r.year} ${pctSigned(r.value as number)}`).join(', ')}.
-          A Tentative can raise its revenue estimates to hold the levy down, so scoring revenue would reward optimism.
+          A budget can hold taxes down by assuming more revenue, so scoring it would reward optimism.
         </p>
         <p style={{ color: 'var(--rbl-text-muted)', fontSize: 12.5, lineHeight: 1.55, marginBottom: 0 }}>
-          The 2% line is the reference the site uses everywhere. It is stricter than the legal levy limit, which the Town does
-          not print (<a href={`${base}/tax-cap/`} style={{ color: 'var(--rbl-accent)' }}>Tax Cap</a>). Every other threshold is
-          “no worse than the year before.” Any change to these criteria will be dated here, with the earlier scores kept.
+          We use a 2% line everywhere on this site. It’s stricter than the legal limit, which the Town doesn’t publish (see{' '}
+          <a href={`${base}/tax-cap/`} style={{ color: 'var(--rbl-accent)' }}>Tax Cap</a>). Every other mark is “no worse
+          than the year before.” If we ever change these rules, we’ll date the change here and keep the earlier scores.
         </p>
       </section>
 
@@ -356,27 +387,27 @@ export default function SupervisorPromisesPage() {
           {prudence.considerations.map((c, i) => <li key={i} style={{ marginBottom: 6 }}>{c}</li>)}
         </ul>
         <p style={{ color: 'var(--rbl-text-body)', fontSize: 14, lineHeight: 1.6, marginBottom: 0 }}>
-          The evidence is the table above: <a href="#test-cap" style={{ color: 'var(--rbl-accent)' }}>the levy against the cap</a>,{' '}
+          The evidence is in the tables above: <a href="#test-cap" style={{ color: 'var(--rbl-accent)' }}>taxes against the cap</a>,{' '}
           <a href="#test-ran-against" style={{ color: 'var(--rbl-accent)' }}>against the increase he ran on</a>,{' '}
-          <a href="#test-one-time" style={{ color: 'var(--rbl-accent)' }}>the use of one-time money</a>,{' '}
+          <a href="#test-one-time" style={{ color: 'var(--rbl-accent)' }}>the use of savings</a>,{' '}
           <a href="#test-requests" style={{ color: 'var(--rbl-accent)' }}>what departments asked for</a> and{' '}
-          <a href="#test-office" style={{ color: 'var(--rbl-accent)' }}>his own office’s payroll</a>, and{' '}
-          <a href="#levers" style={{ color: 'var(--rbl-accent)' }}>where each of the other levers stands</a>. The site’s own
-          measure of it is <a href="#score" style={{ color: 'var(--rbl-accent)' }}>the scoring rule</a>.
+          <a href="#test-office" style={{ color: 'var(--rbl-accent)' }}>his own office’s payroll</a>, plus{' '}
+          <a href="#levers" style={{ color: 'var(--rbl-accent)' }}>where each of the other options stands</a>. Our own
+          measure is <a href="#score" style={{ color: 'var(--rbl-accent)' }}>the scorecard</a>.
         </p>
       </section>
 
       <section style={{ ...card, marginBottom: 16 }}>
-        <h3 style={{ marginTop: 0, color: 'var(--rbl-title)' }}>How claims are marked</h3>
+        <h3 style={{ marginTop: 0, color: 'var(--rbl-title)' }}>How we rate claims</h3>
         <ul style={{ margin: 0, paddingLeft: 18, color: 'var(--rbl-text-body)', fontSize: 13.8, lineHeight: 1.6 }}>
-          <li><strong>{STATUS_LABEL.supported}</strong> — the Town’s records show what the claim says.</li>
-          <li><strong>{STATUS_LABEL.partly}</strong> — the records show part of it; the finding says which part.</li>
-          <li><strong>{STATUS_LABEL.unverifiable}</strong> — the records this site reads neither confirm nor contradict it. That is not evidence against the claim.</li>
-          <li><strong>{STATUS_LABEL.outside}</strong> — not a budget or voting matter, so not assessed here.</li>
+          <li><strong>{STATUS_LABEL.supported}</strong>: the Town’s records show what the claim says.</li>
+          <li><strong>{STATUS_LABEL.partly}</strong>: the records back up part of it, and the finding says which part.</li>
+          <li><strong>{STATUS_LABEL.unverifiable}</strong>: the records we check neither confirm nor contradict it. That isn’t evidence against the claim.</li>
+          <li><strong>{STATUS_LABEL.outside}</strong>: not a budget or voting matter, so we don’t rate it.</li>
         </ul>
         <p style={{ color: 'var(--rbl-text-muted)', fontSize: 12.8, lineHeight: 1.55, marginBottom: 0 }}>
-          Items marked “as reported” are someone else’s account of his campaign, not his own words; each names whose account
-          it is. Roll calls are from the Town Board minutes and, where the minutes omit them, the official Agenda Packet.
+          Items marked “as reported” are someone else’s description of his campaign, not his own words, and each says whose
+          it is. Votes come from the Town Board minutes, or from the official agenda packet when the minutes leave them out.
         </p>
       </section>
     </PageShell>

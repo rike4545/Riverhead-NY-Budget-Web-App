@@ -49,7 +49,7 @@ const supplementYears = new Set((requestsJson as unknown as { years: number[] })
 // inception"). Only a sentence with position wording counts as stating it.
 const POSITION = /\b(over|above|under|below|within|beneath|exceed\w*|pierc\w*|less than|more than)\b/i
 const WAITING: Cell = { state: 'pending', text: 'Sept 24' }
-const TO_READ: Cell = { state: 'pending', text: 'Scanned or blank pages; waiting to be read' }
+const TO_READ: Cell = { state: 'pending', text: 'Scanned or blank pages, not read yet' }
 
 function letter(year: number) {
   const t = stageDoc(year, 'tentative')
@@ -77,8 +77,8 @@ const byYear = (f: (y: number) => Cell) => Object.fromEntries(YEARS.map((y) => [
 export const checks: Check[] = [
   {
     id: 'message',
-    label: 'Opens with a budget message from the budget officer',
-    why: 'The only place a Tentative explains its choices in words.',
+    label: 'Starts with a letter explaining the budget',
+    why: 'The only place a budget proposal explains its choices in plain words.',
     cells: byYear((y) => {
       const l = letter(y)
       if (!l) return WAITING
@@ -90,21 +90,21 @@ export const checks: Check[] = [
   },
   {
     id: 'tax-cap',
-    label: 'Says where the levy stands against the tax cap',
-    why: 'The number residents most need. Outside the letter, the budget documents do not state it.',
+    label: 'Says how the tax increase compares with the tax cap',
+    why: 'The number residents most need. Outside the letter, the budget documents don’t say it.',
     cells: byYear((y) => {
       const l = letter(y)
       if (!l) return WAITING
       if (l.unread) return TO_READ
       if (l.taxCap) return { state: 'yes', text: 'Yes', quote: l.taxCap }
-      if (l.mentionsCap) return { state: 'no', text: 'Mentions the cap, not where the levy stands', quote: l.mentionsCap }
-      return { state: 'no', text: l.readable || l.hand ? 'Not in the message' : 'No message' }
+      if (l.mentionsCap) return { state: 'no', text: 'Mentions the cap, but not where taxes stand against it', quote: l.mentionsCap }
+      return { state: 'no', text: l.readable || l.hand ? 'Not in the letter' : 'No letter' }
     }),
   },
   {
     id: 'levy-limit',
-    label: 'Prints the levy limit itself',
-    why: 'The dollar figure the Town files with the State Comptroller. Without it a reader cannot check a claim about the cap.',
+    label: 'Prints the legal tax limit itself',
+    why: 'The dollar figure the Town files with the State Comptroller. Without it, readers can’t check a claim about the cap.',
     cells: byYear((y) => {
       const l = letter(y)
       if (!l) return WAITING
@@ -113,21 +113,21 @@ export const checks: Check[] = [
   },
   {
     id: 'searchable',
-    label: 'The message is searchable text',
-    why: 'A scanned page cannot be searched or read aloud by a screen reader.',
+    label: 'The letter is searchable text',
+    why: 'A scanned page can’t be searched or read aloud by a screen reader.',
     cells: byYear((y) => {
       const l = letter(y)
       if (!l) return WAITING
       if (l.readable) return { state: 'yes', text: 'Yes' }
       if (l.hand) return { state: 'no', text: 'No, scanned images' }
       if (l.unread) return { state: 'no', text: 'No readable text' }
-      return { state: 'none', text: 'No message' }
+      return { state: 'none', text: 'No letter' }
     }),
   },
   {
     id: 'requests',
     label: 'Publishes what departments asked for',
-    why: 'The Budget Supplement is the only public record of the requests the Tentative cut or raised.',
+    why: 'The Budget Supplement is the only public record of what departments requested, and what the proposal cut or raised.',
     cells: byYear((y) => {
       if (supplementYears.has(y)) return { state: 'yes', text: 'Yes' }
       return letter(y) ? { state: 'no', text: 'Not yet published' } : WAITING
@@ -135,13 +135,13 @@ export const checks: Check[] = [
   },
   {
     id: 'dated',
-    label: 'The letter is dated by the Sept 30 filing deadline',
-    why: 'Town Law §106(2) requires the Tentative to be filed with the Town Clerk by September 30.',
+    label: 'The letter is dated by the September 30 deadline',
+    why: 'State law (Town Law §106(2)) requires the proposal to be filed with the Town Clerk by September 30.',
     cells: byYear((y) => {
       const l = letter(y)
       if (!l) return WAITING
       if (l.unread) return TO_READ
-      if (!l.readable && !l.hand) return { state: 'none', text: 'No message' }
+      if (!l.readable && !l.hand) return { state: 'none', text: 'No letter' }
       if (!l.dated) return { state: 'none', text: 'Undated' }
       const onTime = new Date(l.dated) <= new Date(`September 30, ${y - 1}`)
       return { state: onTime ? 'yes' : 'no', text: onTime ? `Yes, ${l.dated}` : `No, ${l.dated}` }
@@ -157,6 +157,6 @@ export const firstFound2027 = (() => {
 
 /** Outside the budget document, and not the budget officer's alone. */
 export const beyondTheDocument = [
-  'Fiscal impact statements. The three July resolutions that ratified the retirement incentive were filed as having no fiscal impact. The Financial Administrator said they were added to the agenda late and not updated to reflect her savings estimate (RiverheadLOCAL, July 9, 2026).',
-  'Meeting minutes. Minutes that leave out roll calls are the Town Clerk’s record, and the Town Clerk is elected separately. The Meetings page tracks each omission and recovers the votes from the official Agenda Packet.',
+  'Fiscal impact forms. The three July resolutions that approved the retirement incentive were filed as having no fiscal impact. The Financial Administrator said they were added to the agenda late and never updated with her savings estimate (RiverheadLOCAL, July 9, 2026).',
+  'Meeting minutes. When the minutes leave out how members voted, that’s the Town Clerk’s record, and the Town Clerk is elected separately. The Meetings page tracks each gap and fills in the votes from the official agenda packet.',
 ]
