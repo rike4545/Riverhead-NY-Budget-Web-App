@@ -1,5 +1,7 @@
 import PageShell from '../../components/PageShell'
 import PlainCallout from '../../components/PlainCallout'
+import TentativeReleased from '../../components/TentativeReleased'
+import { released2027 } from '../../lib/tentative-2027'
 import {
   suffolk, trajectory, theAsk, levers, whyHarder, verdict, sources, policeOffset,
   generalFund2026, generalFund2027, costGrowth, costGrowthPct,
@@ -8,6 +10,8 @@ import { capGap2027 } from '../../lib/close-the-gap-2027'
 import { theMiss, biggestMisses, totals as ba2023, whatItMeansForAFreeze, source as baSource } from '../../lib/budget-vs-actual-2023'
 
 const usd = (n: number) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(n)
+// What the Tentative raises the General Fund levy by: what a zero-percent year would now have to find.
+const gfRise = released2027?.generalFund?.levyOverPrior ?? null
 const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 20, boxShadow: '0 14px 34px var(--rbl-shadow)' } as const
 
 const KIND: Record<string, { label: string; fg: string; bg: string; bd: string }> = {
@@ -40,6 +44,12 @@ export default function ZeroPercent2027Page() {
         get under the tax cap. Riverhead has the reserves to do it for a year. Doing it durably is a different question,
         and this page separates the two.
       </PlainCallout>
+
+      <TentativeReleased>
+        {gfRise !== null && (gfRise > 0
+          ? <>For the General Fund alone it raises the levy by {usd(gfRise)}, so a zero-percent General Fund year would now mean finding that much in it. The figures below are the forecast’s.</>
+          : <>It holds the General Fund levy flat or lower: the zero-percent year this page describes.</>)}
+      </TentativeReleased>
 
       <section style={{ ...card, marginBottom: 18, borderLeft: '6px solid var(--rbl-info-border)' }}>
         <h2 style={{ marginTop: 0, marginBottom: 6, color: 'var(--rbl-title)', fontSize: 21 }}>What Suffolk actually pledged</h2>

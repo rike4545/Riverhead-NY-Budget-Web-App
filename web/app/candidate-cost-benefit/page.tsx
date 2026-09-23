@@ -1,5 +1,7 @@
 import PageShell from '../../components/PageShell'
 import PlainCallout from '../../components/PlainCallout'
+import TentativeReleased from '../../components/TentativeReleased'
+import { PREPARED_UNDER, SUPERVISOR_ROLE_SOURCE, YEAR } from '../../lib/tentative-2027'
 import { candidates2026, supervisorRace2026 as race, synthesis, neutralView, type Plank, type Candidate } from '../../lib/candidates-2026'
 
 const base = process.env.NEXT_PUBLIC_BASE_PATH || ''
@@ -26,6 +28,14 @@ export default function CandidateCostBenefitPage() {
         For each candidate&apos;s own words, see{' '}
         <a href={`${base}/candidate-watch/`} style={{ color: 'var(--rbl-accent)', fontWeight: 800 }}>Candidate Watch</a>.
       </PlainCallout>
+
+      <TentativeReleased>
+        It is {PREPARED_UNDER[YEAR]}’s proposal: the{' '}
+        <a href={SUPERVISOR_ROLE_SOURCE.url} target="_blank" rel="noreferrer" style={{ color: 'var(--rbl-link)', fontWeight: 800 }}>Supervisor’s Office page</a>{' '}
+        describes the Supervisor as the Town’s “Chief Financial Officer,” responsible for “accounting, budgeting, payroll and
+        personnel.” The Board can change it before adopting a budget by November 20. The costs and benefits below are still
+        measured against the forecast.
+      </TentativeReleased>
 
       {candidates2026.map((c) => (
         <CandidateBlock key={c.name} c={c} />

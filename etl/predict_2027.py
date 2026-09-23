@@ -473,7 +473,10 @@ def build():
                        "do not describe. A stipulation may be a full successor agreement or a narrow side "
                        "deal. Until the terms are public the placeholder stands, but it should be treated "
                        "as less reliable than it was."},
-            {"item": "The Town's own 2027 tentative budget is due September 30, 2026",
+            # The id lets the page replace this item with the Tentative itself
+            # once it is parsed, since this file is not rebuilt by that deploy.
+            {"id": "tentative",
+             "item": "The Town's own 2027 tentative budget is due September 30, 2026",
              "effect": "supersedes this entirely",
              "detail": "New York Town Law requires the Supervisor to file a tentative budget with the Town "
                        "Clerk by September 30. Once it is filed, this projection becomes a yardstick to "

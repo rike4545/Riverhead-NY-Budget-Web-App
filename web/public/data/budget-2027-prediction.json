@@ -670,6 +670,7 @@
    "detail": "The Personal Services rate below assumes PBA and SOA are between contracts with no successor public, and uses each unit's trailing average raise as a placeholder. Resolutions 2026-679 (SOA) and 2026-680 (PBA) ratified stipulations that the titles do not describe. A stipulation may be a full successor agreement or a narrow side deal. Until the terms are public the placeholder stands, but it should be treated as less reliable than it was."
   },
   {
+   "id": "tentative",
    "item": "The Town's own 2027 tentative budget is due September 30, 2026",
    "effect": "supersedes this entirely",
    "detail": "New York Town Law requires the Supervisor to file a tentative budget with the Town Clerk by September 30. Once it is filed, this projection becomes a yardstick to measure it against rather than an estimate of it."

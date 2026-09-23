@@ -1,5 +1,6 @@
 import PageShell from '../../components/PageShell'
 import PlainCallout from '../../components/PlainCallout'
+import TentativeReleased from '../../components/TentativeReleased'
 import CapBalancer from '../../components/CapBalancer'
 import p from '../../public/data/budget-2027-prediction.json'
 
@@ -35,6 +36,7 @@ const grounded = [
 export default function ScenariosPage() {
   return (
     <PageShell title="What-if scenarios" subtitle="Play out choices the Town could make — starting with the big one for next year: can it fund services without blowing past the tax cap? These are illustrations for thinking, not Town policy.">
+      <TentativeReleased>The sliders below still start from the forecast.</TentativeReleased>
       <PlainCallout title="Start with the 2027 squeeze">
         Our line-by-line model predicts 2027 spending rises about <strong>{p.totals.pct}%</strong>, which pushes the tax
         levy roughly <strong>{cg.predictedLevyPct}%</strong> — over the ~{cg.capBasePct}% cap by about <strong>{usd(cg.gap)}</strong>.

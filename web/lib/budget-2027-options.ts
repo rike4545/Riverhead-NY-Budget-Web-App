@@ -23,6 +23,7 @@ import prediction from '../public/data/budget-2027-prediction.json'
 import { fullRecurringReductionPackage, personnelPolicyItems } from './spending-reduction-2027'
 import { firmRecurringTotal, retirementIncentive2027 } from './close-the-gap-2027'
 import { surplusAboveUpper } from './reserve-policy'
+import { released2027 } from './tentative-2027'
 
 const le = prediction.levyEstimate
 const cg = prediction.capGap
@@ -263,6 +264,8 @@ export const calendar = {
       when: 'On or before September 30, 2026',
       what: 'The Supervisor, as budget officer, files the tentative budget with the Town Clerk.',
       law: 'Town Law §106(2)',
+      // Read from the Tentative itself, not from the date: done once it is parsed.
+      done: released2027 !== null,
     },
     {
       when: 'Early October',
@@ -296,22 +299,27 @@ export const calendar = {
     'That sequencing is the step Riverhead missed every year from 2018 through 2022.',
 }
 
-// The scorecard. `actual` stays null until the tentative budget is filed; the page
-// renders an explicit awaiting state rather than a zero or a blank.
+// The scorecard. `actual` is read from the Tentative once it is parsed, and stays
+// null until then; the page renders an explicit awaiting state rather than a zero
+// or a blank. The projection column never changes after the fact.
 export type ScorecardRow = {
   metric: string
   basis: string
   ourEstimate: number | null
   estimateLabel?: string
   actual: number | null
+  /** Shown in place of a dollar figure where the filed value is not one. */
+  actualLabel?: string
   note: string
 }
+
+const filed = released2027
 
 const generalFund2027 =
   prediction.byFund.find((f) => f.fundCode === 'A01')?.v2027 ?? 0
 
 export const release = {
-  status: 'awaiting' as 'awaiting' | 'filed',
+  status: (filed ? 'filed' : 'awaiting') as 'awaiting' | 'filed',
   dueBy: 'September 30, 2026',
   whatToLookFor: [
     'The levy line first, not the appropriations total. Appropriations can rise while the levy holds if non-tax revenue or fund balance is carrying the difference.',
@@ -326,7 +334,7 @@ export const scorecard: ScorecardRow[] = [
     metric: 'Town-wide tax levy',
     basis: 'All funds',
     ourEstimate: levyPredicted,
-    actual: null,
+    actual: filed ? filed.levy : null,
     note: 'Our projection carries current trends forward with no policy change. The distance between this and the filed number is the size of the choice the administration made.',
   },
   {
@@ -335,20 +343,21 @@ export const scorecard: ScorecardRow[] = [
     ourEstimate: null,
     estimateLabel: `+${le.levyIncreasePct}%`,
     actual: null,
+    actualLabel: filed && filed.levyPct !== null ? `${filed.levyPct > 0 ? '+' : ''}${filed.levyPct.toFixed(1)}%` : undefined,
     note: 'Compare against the four options above — which one did the filed budget actually land on?',
   },
   {
     metric: 'Total appropriations',
     basis: 'All operating funds',
     ourEstimate: prediction.totals.appropriations2027,
-    actual: null,
+    actual: filed ? filed.appropriations : null,
     note: `Our line-by-line projection across ${prediction.totals.lineItems.toLocaleString()} lines.`,
   },
   {
     metric: 'General Fund appropriations',
     basis: 'A01 only',
     ourEstimate: generalFund2027,
-    actual: null,
+    actual: filed?.generalFund ? filed.generalFund.appropriations : null,
     note: 'The fund carrying the police department and most employee benefits — where the cost pressure actually sits.',
   },
   {
@@ -356,7 +365,7 @@ export const scorecard: ScorecardRow[] = [
     basis: 'All funds',
     ourEstimate: null,
     estimateLabel: 'Not forecast',
-    actual: null,
+    actual: filed ? filed.fundBalance : null,
     note: 'We do not project this — it is a policy choice, not a trend. It is the number telling you whether a low levy was funded by savings or by surplus.',
   },
   {
@@ -365,6 +374,8 @@ export const scorecard: ScorecardRow[] = [
     ourEstimate: null,
     estimateLabel: 'Projection pierces the cap',
     actual: null,
+    // Not part of any budget document: the Board adopts it as a local law.
+    actualLabel: filed ? 'Not in the budget; watch the agendas' : undefined,
     note: 'Required before the budget if the levy exceeds the cap. Its presence or absence is a fact, not an estimate.',
   },
 ]

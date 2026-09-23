@@ -205,18 +205,22 @@ def build() -> dict:
             continue
         path = REPORTS / (d.get("json") or f"documents/{d['slug']}.json")
         if path.exists():
-            docs.setdefault(int(d["year"]), (d, path))
+            docs.setdefault(int(d["year"]), []).append((d, path))
 
     stages = json.loads(STAGES.read_text(encoding="utf-8")) if STAGES.exists() else {"years": {}}
     by_year: dict = {}
-    for year, (d, path) in sorted(docs.items()):
-        rows = []
-        for account, desc, v, section in parse_supplement(path):
-            rows.append({
-                "account": account, "name": desc, "fund": account.split("-", 1)[0], "section": section,
-                "actual": v[0], "adopted": v[1], "ytd": v[2], "request": v[3], "tentative": v[4],
-            })
-        if not rows:
+    for year, found in sorted(docs.items()):
+        # The first file titled as a Supplement that has account lines in it,
+        # so a cover sheet or an errata page posted beside it cannot stand in.
+        for d, path in found:
+            rows = [
+                {"account": account, "name": desc, "fund": account.split("-", 1)[0], "section": section,
+                 "actual": v[0], "adopted": v[1], "ytd": v[2], "request": v[3], "tentative": v[4]}
+                for account, desc, v, section in parse_supplement(path)
+            ]
+            if rows:
+                break
+        else:
             continue
         s = year_summary(year, rows)
         s["source"] = {"title": d["title"], "url": d["url"]}

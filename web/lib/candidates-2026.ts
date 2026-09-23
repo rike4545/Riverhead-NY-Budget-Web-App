@@ -17,6 +17,7 @@
 // hardcoded as "~$2.62M" against an older run of the model; the projection has
 // since moved and the prose had not.
 import prediction from '../public/data/budget-2027-prediction.json'
+import { released2027, changePhrase, gapPhrase } from './tentative-2027'
 
 /** The cap gap, as prose: "$2.32M". Tracks budget-2027-prediction.json. */
 const capGapM = `$${(prediction.capGap.gap / 1_000_000).toFixed(2)}M`
@@ -199,6 +200,9 @@ export const neutralView = {
     '2025 adopted budget: ~7.89% tax-levy increase.',
     'Tax-cap overrides adopted in 2023, 2024, and 2026.',
     `2027 projection: the levy again pierces the ~2% cap, by about ${capGapM}, on current trends.`,
+    ...(released2027
+      ? [`2027 Tentative: a levy ${changePhrase(released2027.levyPct)} 2026, ${gapPhrase(released2027.levyVsReference)} a 2% increase. The Board can still change it.`]
+      : []),
   ],
   principles: [
     {

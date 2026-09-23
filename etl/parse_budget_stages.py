@@ -183,13 +183,20 @@ def build() -> dict:
         if not path.exists():
             continue
         seen_hashes.add(d.get("sha256"))
-        chosen.setdefault((year, stage), (d, path))
+        chosen.setdefault((year, stage), []).append((d, path))
 
     years: dict = {}
     documents = []
-    for (year, stage), (d, path) in sorted(chosen.items()):
-        funds = summary(path)
-        if not funds:
+    for (year, stage), found in sorted(chosen.items()):
+        # The first file under a stage's title whose Summary page can be read.
+        # A budget message or a presentation posted beside the budget carries
+        # the same title words and no Summary; taken first, it would leave the
+        # budget itself unread.
+        for d, path in found:
+            funds = summary(path)
+            if funds:
+                break
+        else:
             continue
         entry = {
             # parsed_at is content-addressed: it is set when this exact file is

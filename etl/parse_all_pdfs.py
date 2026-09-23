@@ -57,6 +57,11 @@ def category(title: str) -> str:
     Tentative, and "Proposed Changes to Preliminary Budget" is a list of
     amendments rather than a budget. Both used to fall through to a stage or to
     "other", so the 2020 amendment list was counted as a Preliminary budget.
+
+    The Tentative and Preliminary match on both words anywhere in the title.
+    Every year on file is titled "2026 Tentative Budget (PDF)", but the
+    release watcher sees a new budget only through this function, so a title
+    worded otherwise ("2027 Tentative Operating Budget") must still count.
     """
     t = title.lower()
     if 'supplement' in t:
@@ -65,9 +70,9 @@ def category(title: str) -> str:
         return 'budget_changes'
     if 'adopted budget' in t or 'final budget' in t:
         return 'adopted_budget'
-    if 'tentative budget' in t:
+    if 'tentative' in t and 'budget' in t:
         return 'tentative_budget'
-    if 'preliminary budget' in t:
+    if 'preliminary' in t and 'budget' in t:
         return 'preliminary_budget'
     if 'annual financial report' in t:
         return 'annual_financial_report'

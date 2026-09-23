@@ -1,4 +1,6 @@
 import PageShell from '../../components/PageShell'
+import TentativeReleased from '../../components/TentativeReleased'
+import { released2027 } from '../../lib/tentative-2027'
 import SpendingReductionToggleList from '../../components/SpendingReductionToggleList'
 import { fullRecurringReductionPackage, modeledAutomaticPayrollPressure } from '../../lib/spending-reduction-2027'
 import { builtFromDocuments } from '../../lib/built-from-documents'
@@ -45,13 +47,19 @@ export default function SpendingReduction2027Page() {
   return (
     <PageShell
       title="2027 Spending Reduction"
-      subtitle="Riverhead’s 2027 budget is on track to pierce the state tax cap. Here’s the plainest way to close the gap — start with the three-number plan, then dig in as far as you like."
+      subtitle={`${released2027 ? 'This site’s forecast had Riverhead’s 2027 budget piercing the state tax cap.' : 'Riverhead’s 2027 budget is on track to pierce the state tax cap.'} Here’s the plainest way to close the gap — start with the three-number plan, then dig in as far as you like.`}
     >
+      <TentativeReleased>
+        {released2027 && (released2027.levyVsReference > 0
+          ? <>Against the same 2% line this page uses, that leaves {usd(released2027.levyVsReference)} to find, not the {usd(capGap2027.gap)} forecast below.</>
+          : <>So it already holds the levy to a 2% increase or less. The savings below are measured against the forecast.</>)}
+      </TentativeReleased>
+
       {/* THE PROBLEM — one clear framing, one number. */}
       <section style={{ ...card, borderLeft: '6px solid var(--rbl-danger)' }}>
         <div style={{ color: 'var(--rbl-danger)', fontWeight: 900, fontSize: 12, textTransform: 'uppercase', letterSpacing: 0.5 }}>The problem</div>
         <h2 style={{ margin: '4px 0 8px', color: 'var(--rbl-title)', fontSize: 21 }}>
-          The 2027 budget is on track to blow past the tax cap by about {usd(capGap2027.gap)}
+          {released2027 ? 'Before the Tentative, the forecast had the 2027 budget past the tax cap by about' : 'The 2027 budget is on track to blow past the tax cap by about'} {usd(capGap2027.gap)}
         </h2>
         <p style={{ color: 'var(--rbl-text-strong)', fontSize: 15, lineHeight: 1.6, margin: 0 }}>
           On current trends the tax levy would rise about {capGap2027.predictedLevyPct}% — but New York&apos;s cap

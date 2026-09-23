@@ -1,9 +1,12 @@
 import PageShell from '../components/PageShell'
 import UpdateSummary from '../components/UpdateSummary'
+import TentativeReleased from '../components/TentativeReleased'
+import { released2027 } from '../lib/tentative-2027'
 
 const base = process.env.NEXT_PUBLIC_BASE_PATH || ''
 
 const popular = [
+  ...(released2027 ? [['What does the 2027 Tentative propose?', '/tentative-2027/']] : []),
   ['Why did my property taxes change?', '/tax-bill/'],
   ['What changed from 2025 to 2026?', '/what-changed/'],
   ['Who gets paid the most?', '/payroll/'],
@@ -41,6 +44,8 @@ export default function Page() {
             {popular.map(([label, href]) => <a key={href} href={`${base}${href}`} style={{ color: 'var(--rbl-link)', fontSize: 12.5, fontWeight: 750, textDecoration: 'none' }}>{label}</a>)}
           </div>
         </section>
+
+        <TentativeReleased />
 
         <UpdateSummary />
 

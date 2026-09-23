@@ -1,6 +1,8 @@
 import PageShell from '../../components/PageShell'
 import LineChart from '../../components/charts/LineChart'
 import PlainCallout from '../../components/PlainCallout'
+import TentativeReleased from '../../components/TentativeReleased'
+import { released2027, changePhrase } from '../../lib/tentative-2027'
 import { generalFund } from '../../lib/general-fund'
 import { dollars } from '../../lib/financial-data'
 import { fundTentativeToAdopted } from '../../lib/budget-stages'
@@ -50,6 +52,17 @@ export default function GeneralFundPage() {
         This page shows <strong>20 years of the General Fund</strong> — the main town budget — so you can see how spending
         and the property-tax bill have changed over time.
       </PlainCallout>
+
+      <TentativeReleased>
+        {released2027?.generalFund && (
+          <>
+            For the General Fund it proposes {dollars(released2027.generalFund.appropriations)} of spending
+            {released2027.generalFund.levy !== null && <> and a levy of {dollars(released2027.generalFund.levy)}, {changePhrase(released2027.generalFund.levyPct)} 2026</>}
+            {released2027.generalFund.fundBalance !== null && <>, using {dollars(released2027.generalFund.fundBalance)} of reserves</>}.
+            The history below is adopted budgets only, so 2027 joins it once a budget is adopted.
+          </>
+        )}
+      </TentativeReleased>
 
       <section style={{ ...card, display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(180px,1fr))', gap: 12, marginBottom: 18 }}>
         <Stat label={`Appropriations ${g.firstYear}`} value={dollars(rows[0].appropriations ?? 0)} />

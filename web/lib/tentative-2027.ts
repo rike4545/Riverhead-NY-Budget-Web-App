@@ -94,6 +94,9 @@ export function headline(t: StageDoc | null = tentative) {
     appropriationsPct: pct(appropriations, priorApprop),
     appropriationsVsProjection: appropriations - projection.appropriations2027,
     levy,
+    priorLevy,
+    /** What holding the levy flat would take: the Tentative's increase over the prior levy. */
+    levyOverPrior: levy - priorLevy,
     levyPct: pct(levy, priorLevy),
     levyVsProjection: levy - projection.levy2027,
     levyVsReference: levy - projection.referenceLevy,
@@ -105,12 +108,44 @@ export function headline(t: StageDoc | null = tentative) {
           levy: gf.levy,
           fundBalance: gf.fundBalance,
           levyPct: gfPrior?.levy ? pct(gf.levy ?? 0, gfPrior.levy) : null,
+          levyOverPrior: gf.levy !== null && gfPrior?.levy ? gf.levy - gfPrior.levy : null,
           fundBalancePrior: gfPrior?.fundBalance ?? null,
         }
       : null,
     fundsWithoutLevyColumn: t.totals.fundsWithoutLevyColumn,
     source: t.source,
   }
+}
+
+// ── For the pages built on the projection ─────────────────────────────────────
+// Every page that quotes the projection says the same thing about the Tentative
+// once it is out, in the same words, so the figures below are the only ones
+// those pages use. Null until then, and each page shows its projection alone.
+
+/** The Tentative's headline figures, or null until it is parsed. */
+export const released2027 = headline()
+
+const dollars = (n: number) => `$${Math.round(Math.abs(n)).toLocaleString('en-US')}`
+
+/** "$1,306,879 more than", "$1,306,879 less than", or "the same as". */
+export function gapPhrase(n: number): string {
+  if (Math.round(n) === 0) return 'the same as'
+  return `${dollars(n)} ${n > 0 ? 'more' : 'less'} than`
+}
+
+/** "up 3.2% from", "down 0.4% from", or "unchanged from". */
+export function changePhrase(p: number | null): string {
+  if (p === null || Math.abs(p) < 0.05) return 'unchanged from'
+  return `${p > 0 ? 'up' : 'down'} ${Math.abs(p).toFixed(1)}% from`
+}
+
+/** One sentence on the Tentative's levy against 2026, a 2% rise and the projection. */
+export function levySentence(h: NonNullable<ReturnType<typeof headline>>): string {
+  return (
+    `It proposes a town-wide tax levy of ${dollars(h.levy)}, ${changePhrase(h.levyPct)} ${PRIOR}. ` +
+    `That is ${gapPhrase(h.levyVsReference)} a ${projection.referencePct}% increase ` +
+    `and ${gapPhrase(h.levyVsProjection)} this site’s forecast of ${dollars(projection.levy2027)}.`
+  )
 }
 
 // ── How far a Tentative has moved before adoption ─────────────────────────────
@@ -144,6 +179,18 @@ const requests = requestsJson as unknown as { completeYears: number[]; byYear: R
  * September of the year before, so the 2025 Tentative is Supervisor Hubbard's
  * first and the 2027 Tentative is Supervisor Halpin's first.
  */
+/**
+ * The Supervisor's own account of the job, on the Town's Supervisor's Office
+ * page: "Chief Executive Officer, Police Commissioner, Chief Financial Officer
+ * and Chairperson of the Town Board", responsible for "accounting, budgeting,
+ * payroll and personnel". The same page lists the Chief of Staff as Budget
+ * Officer, the appointee s.103(2) allows.
+ */
+export const SUPERVISOR_ROLE_SOURCE = {
+  label: 'Town of Riverhead, Supervisor’s Office',
+  url: 'https://www.townofriverheadny.gov/245/Supervisors-Office',
+}
+
 export const PREPARED_UNDER: Record<number, string> = {
   2024: 'Supervisor Yvette Aguiar',
   2025: 'Supervisor Tim Hubbard',
