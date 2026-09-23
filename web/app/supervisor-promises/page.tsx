@@ -10,6 +10,7 @@ const base = process.env.NEXT_PUBLIC_BASE_PATH || ''
 const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 20, boxShadow: '0 14px 34px var(--rbl-shadow)' } as const
 const th = { padding: '8px 10px', textAlign: 'left' as const, color: 'var(--rbl-text-muted)', fontSize: 11.5, textTransform: 'uppercase' as const, fontWeight: 900, letterSpacing: 0.4 }
 const td = { padding: '8px 10px', verticalAlign: 'top' as const }
+const usd = (n: number) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(n)
 
 const STATE_COLOR: Record<CheckState, string> = {
   yes: 'var(--rbl-success-strong)',
@@ -127,7 +128,7 @@ export default function SupervisorPromisesPage() {
           {claims.map((c, i) => {
             const st = STATUS_STYLE[c.status]
             return (
-              <article key={i} style={{ border: '1px solid var(--rbl-border-subtle)', borderRadius: 12, padding: 14 }}>
+              <article key={i} style={{ border: '1px solid var(--rbl-border-subtle)', borderRadius: 12, padding: 14, minWidth: 0 }}>
                 <div style={{ display: 'flex', gap: 10, alignItems: 'flex-start', justifyContent: 'space-between', flexWrap: 'wrap' }}>
                   <div style={{ color: 'var(--rbl-title)', fontWeight: 800, fontSize: 14.5, flex: '1 1 320px' }}>“{c.claim}”</div>
                   <span data-status={c.status} style={{ background: st.bg, color: st.fg, fontWeight: 800, fontSize: 12, padding: '3px 10px', borderRadius: 999, whiteSpace: 'nowrap' }}>{STATUS_LABEL[c.status]}</span>
@@ -159,8 +160,50 @@ export default function SupervisorPromisesPage() {
                     </table>
                   </div>
                 )}
+                {c.roster && (
+                  <div data-roster style={{ marginTop: 8 }}>
+                    <div style={{ color: 'var(--rbl-text-muted)', fontSize: 12, marginBottom: 4 }}>{c.roster.caption}</div>
+                    <div style={{ overflowX: 'auto' }}>
+                    <table aria-label={c.roster.caption} style={{ width: '100%', minWidth: 520, borderCollapse: 'collapse', fontSize: 12.5 }}>
+                      <thead><tr style={{ borderBottom: '1px solid var(--rbl-border-subtle)' }}>
+                        <th style={th}>Position</th><th style={{ ...th, textAlign: 'right' }}>2025</th><th style={{ ...th, textAlign: 'right' }}>2026</th><th style={{ ...th, textAlign: 'right' }}>Change</th>
+                      </tr></thead>
+                      <tbody>
+                        {c.roster.rows.map((r) => {
+                          const d = r.y2026 - r.y2025
+                          const strong = r.kind === 'subtotal' || r.kind === 'total'
+                          return (
+                            <tr key={r.label} data-row={r.kind} style={{ borderBottom: '1px solid var(--rbl-border-subtle)', fontWeight: strong ? 800 : 400, fontStyle: r.kind === 'estimate' ? 'italic' : undefined, background: r.kind === 'total' ? 'var(--rbl-surface-2)' : undefined }}>
+                              <td style={td}>{r.label}{r.mark && <sup>{r.mark}</sup>}</td>
+                              <td style={{ ...td, textAlign: 'right', whiteSpace: 'nowrap' }}>
+                                {r.holder2025 && <div style={{ color: 'var(--rbl-text-muted)' }}>{r.holder2025}</div>}{usd(r.y2025)}
+                              </td>
+                              <td style={{ ...td, textAlign: 'right', whiteSpace: 'nowrap' }}>
+                                {r.holder2026 && <div style={{ color: 'var(--rbl-text-muted)' }}>{r.holder2026}</div>}{usd(r.y2026)}
+                              </td>
+                              <td style={{ ...td, textAlign: 'right', whiteSpace: 'nowrap' }}>
+                                {Math.abs(d) < 0.5 ? 'No change' : `${d > 0 ? '+' : '−'}${usd(Math.abs(d))}${r.y2025 > 0 ? ` · ${d > 0 ? '+' : '−'}${Math.abs((d / r.y2025) * 100).toFixed(1)}%` : ''}`}
+                              </td>
+                            </tr>
+                          )
+                        })}
+                      </tbody>
+                    </table>
+                    </div>
+                    {c.roster.notes.map((n, j) => (
+                      <p key={j} style={{ color: 'var(--rbl-text-muted)', fontSize: 12, lineHeight: 1.5, margin: '6px 0 0' }}>{n}</p>
+                    ))}
+                  </div>
+                )}
                 {c.records.length > 0 && (
                   <div style={{ color: 'var(--rbl-text-muted)', fontSize: 12, marginTop: 6 }}>Records: {c.records.join('; ')}</div>
+                )}
+                {c.documents && c.documents.length > 0 && (
+                  <div style={{ color: 'var(--rbl-text-muted)', fontSize: 12, marginTop: 4 }}>
+                    Documents: {c.documents.map((s, j) => (
+                      <span key={s.url}>{j > 0 && '; '}<a href={s.url} style={{ color: 'var(--rbl-accent)' }}>{s.label}</a>, {s.date}</span>
+                    ))}
+                  </div>
                 )}
               </article>
             )

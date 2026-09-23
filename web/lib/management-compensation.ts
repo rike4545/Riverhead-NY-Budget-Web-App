@@ -11,8 +11,9 @@
 // their medical, dental and vision premiums to having those premiums fully
 // employer paid, and gave its reason as being "in lieu of merit increases."
 // Three weeks later the 2026 salary schedule raised two of those same
-// positions. Both actions were taken in public, unanimously, and both are in
-// the record. Neither is visible from the other.
+// positions, by the rate it gave the other positions paid off the union grid.
+// Both actions were taken in public, unanimously, and both are in the record.
+// Neither is visible from the other.
 //
 // WHAT THIS PAGE IS NOT. It is not an allegation that anyone acted improperly.
 // Every action here was adopted in open session by a recorded vote, and the
@@ -25,6 +26,7 @@ import {
   modeledEligibleHealthcarePositions,
   healthcareContributionRate,
 } from './spending-reduction-2027'
+import { staff as officeStaff, raise2025, deputyRate, sameRateCount } from './supervisor-office'
 
 export type NamedPosition = {
   title: string
@@ -38,35 +40,47 @@ export type NamedPosition = {
 
 /**
  * The four titles Resolution 2025-984 names, matched to the salary schedule
- * where a match exists. Two of them do not appear in the published schedule
- * under these names, which is reported rather than filled in.
+ * where a match exists. The three in the Supervisor's office are read from the
+ * schedules by supervisor-office.ts, which also carries the 2025 raise the
+ * January schedule does not show. The fourth does not appear in the published
+ * schedule under its name, which is reported rather than filled in.
  */
+const seat = (title: string) => {
+  const s = officeStaff.find((x) => x.title === title)
+  if (!s) throw new Error(`management-compensation: no "${title}" in the Supervisor’s Office section`)
+  return s
+}
+const whole = (n: number | null) => (n === null ? null : Math.round(n))
+const budgetOfficer = seat(raise2025.title)
+const deputy = seat('Deputy Town Supervisor')
+const secretary = seat('Secretary')
+
 export const affectedPositions: NamedPosition[] = [
   {
     title: 'Chief of Staff / Town Budget Officer',
-    holder: 'Burkowsky, Debi',
-    salary2025: 72_570,
-    salary2026: 80_567,
-    actual2025: 77_345,
+    holder: budgetOfficer.holder2026,
+    salary2025: whole(budgetOfficer.salary2025),
+    salary2026: whole(budgetOfficer.salary2026),
+    actual2025: whole(budgetOfficer.paid2025),
     note:
-      'Resolution 2025-984 names "Chief of Staff or Budget Officer" as one title. Resolution 2026-59 confirms the same person holds the Chief of Staff appointment, so the schedule line and the resolution describe one position.',
+      `Resolution 2025-984 names "Chief of Staff or Budget Officer" as one title. Resolution 2026-59 confirms the same person holds the Chief of Staff appointment, so the schedule line and the resolution describe one position. The 2025 schedule prints $${Math.round(budgetOfficer.schedule2025).toLocaleString('en-US')}; Resolution ${raise2025.resolution}, adopted with it on ${raise2025.adopted} at Supervisor Hubbard’s request, added ${raise2025.rate * 100}% from January 1, and the 2025 figure here includes it.`,
   },
   {
     title: 'Deputy Town Supervisor',
-    holder: 'Higgins, Devon',
-    salary2025: 102_180,
-    salary2026: 105_527,
-    actual2025: 101_623,
+    holder: deputy.holder2026,
+    salary2025: whole(deputy.salary2025),
+    salary2026: whole(deputy.salary2026),
+    actual2025: whole(deputy.paid2025),
     note: 'Appointment acknowledged by Resolution 2026-60 on January 6, 2026.',
   },
   {
     title: 'Secretary (Supervisor’s Office)',
-    holder: 'Cote, David',
-    salary2025: null,
-    salary2026: 59_740,
-    actual2025: null,
+    holder: secretary.holder2025 === secretary.holder2026 ? secretary.holder2026 : `${secretary.holder2026} (2025: ${secretary.holder2025})`,
+    salary2025: whole(secretary.salary2025),
+    salary2026: whole(secretary.salary2026),
+    actual2025: whole(secretary.paid2025),
     note:
-      'New in the 2026 schedule. Resolution 2026-58 acknowledges the appointment of David Cote as Legislative Aide to the Town Supervisor and sets terms and conditions, so the schedule title and the resolution title differ.',
+      'The same post appears under the Supervisor’s Office in both schedules; it changed hands at the same salary. Resolution 2026-58 acknowledges the new holder’s appointment as Legislative Aide to the Town Supervisor, and its fiscal impact statement names the post Secretary to Town Supervisor, so the schedule title and the resolution title describe one position.',
   },
   {
     title: 'Town Board Coordinator',
@@ -80,6 +94,13 @@ export const affectedPositions: NamedPosition[] = [
 ]
 
 const pctChange = (from: number, to: number) => ((to - from) / from) * 100
+
+/**
+ * The rate on both raised lines, and how many other positions paid off the
+ * union grid received exactly the same in the 2026 schedules.
+ */
+export const scheduleRate = deputyRate
+export const scheduleRateCount = sameRateCount
 
 export const salaryMoves = affectedPositions
   .filter((p) => p.salary2025 !== null && p.salary2026 !== null)
@@ -189,15 +210,17 @@ export const raises2023 = {
 export const limits = [
   'Enrollment is unknown, in both directions. The premium used here is the NYSHIP Empire Plan participating-agency INDIVIDUAL rate, the cheapest tier, so a position holding family coverage carries a materially larger premium than is modelled. But a position that waives Town coverage — on a spouse\u2019s plan, say — costs the Town nothing and is still counted here as though enrolled. The benefit figures are therefore what the policy is worth at full enrollment, not a floor: the Town publishes no enrollment by position, so neither correction can be made.',
   'The resolution covers dental and vision as well as medical. Only the medical premium is modelled, which understates the change again.',
-  'Whether the 2026 salary increases are merit increases is not stated anywhere this site can read. A reclassification, added duties or a market adjustment would each explain them without contradicting the resolution, and none of those would appear in the schedule either.',
-  'An earlier version of this page reported that these positions are coded to an unusual department — "Senior Citizen Programs Nutrition" in 2025, "Eisep Program" in 2026 — and invited the reader to make something of it. That was not the Town’s coding. The salary schedules print a department as a left-column label spanning its rows, the text extraction hoists those labels to the foot of the page, and the parser was pairing each row with whichever label happened to follow it. It filed 169 of 2025’s 349 records under a fiscal impact statement heading. The field is no longer published, and no department is claimed for any position here.',
+  `Whether the 2026 salary increases are merit increases is not stated anywhere this site can read. Both were ${scheduleRate === null ? 'the same rate' : `${(scheduleRate * 100).toFixed(3)}%`}, the rate the same schedules gave ${scheduleRateCount} other positions paid off the union grid, which points to the year’s general increase rather than an award to these two. No resolution setting that rate apart from the schedules is in the records this site reads.`,
+  'An earlier version of this page compared the two January schedules alone and reported the Chief of Staff’s 2026 increase as 11.0%. Most of that was Resolution 2025-64, a 7.5% raise adopted a year earlier with the 2025 schedule; measured from her salary after it, the 2026 increase was 3.3%.',
+  'An earlier version of this page reported that these positions are coded to an unusual department — "Senior Citizen Programs Nutrition" in 2025, "Eisep Program" in 2026 — and invited the reader to make something of it. Neither was the Town’s coding. The 2025 schedule, read from the minutes, prints each department as a left-column label that the text extraction hoists to the foot of the page, and the parser paired each row with whichever label followed it; it filed 169 of 2025’s 349 records under a fiscal impact statement heading, so no 2025 department is published. The 2026 schedule, read from the agenda packet, prints each heading above its rows, but the parser skipped “SUPERVISOR’S OFFICE” for its typographic apostrophe and filed the office’s three staff under the heading before it. That is fixed, and the 2026 schedule’s own grouping is what places these three positions in the Supervisor’s office.',
   'The 2023 figures were previously taken from contemporaneous local reporting. They now come from the Town Board minutes of January 4, 2023, which corrected the count, one mechanism and one attribution — see the January rounds section.',
 ]
 
 export const sources = [
   { title: 'TB Resolution 2025-984, Sets Health Insurance Contribution Rates for Select Positions', detail: 'Adopted December 16, 2025, unanimously.' },
-  { title: '2026 salary schedule', detail: 'Town Board agenda packet, January 6, 2026 — the source behind this site’s authorized-salary extract.' },
+  { title: '2026 salary schedule', detail: 'Town Board agenda packet, January 6, 2026 — the attachment to Resolution 2026-2, which groups the general employees by department, and the source behind this site’s authorized-salary extract.' },
   { title: '2025 salary resolutions', detail: 'Town Board minutes, January 7, 2025 (Resolution 2025-9).' },
+  { title: 'TB Resolution 2025-64, Approves Salary Increase for Chief of Staff', detail: 'Adopted January 7, 2025, unanimously: 7.5% from January 1, 2025, at the Supervisor’s request, on top of the 2025 schedule.' },
   { title: 'TB Resolutions 2026-58, 2026-59 and 2026-60', detail: 'January 6, 2026 organizational meeting. Each carries a fiscal impact statement answering "yes."' },
   { title: 'Town Board minutes, January 4, 2023', detail: 'Resolutions 2023-1 through 2023-8 set the year\u2019s salary schedules; 2023-9 through 2023-22 raise fourteen individuals above them.' },
   { title: 'Town Board minutes, January 4 2022, January 3 2024 and January 7 2025', detail: 'The adopted salary schedules behind the four-year management series.' },
