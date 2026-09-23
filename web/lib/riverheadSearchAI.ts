@@ -11,6 +11,8 @@
 // the model as grounding. The model is instructed to answer from those records
 // and cite them by number, so every AI answer is traceable to a real record.
 
+import { rankEntries } from './search-rank'
+
 export type EntryType = 'line-item' | 'payroll' | 'salary' | 'resolution' | 'fund' | 'page'
 export type Entry = { t: EntryType; n: string; x: string; u: string; v?: number | null }
 
@@ -31,90 +33,28 @@ const STOPWORDS = new Set([
   'me', 'my', 'i', 'we', 'our', 'you', 'your', 'they', 'them', 'their', 'town', 'riverhead',
 ])
 
-function escapeRe(s: string) {
-  return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
-}
+// Ranking lives in search-rank.ts: BM25 with exact matches first, a mild
+// recency and importance preference, and MMR diversity, adapted from
+// OpenClaw's memory search. These two wrappers keep the names the search page
+// and the AI layer already call.
 
-type SearchIndex = {
-  tokenToIds: Map<string, number[]>
-  vocabulary: string[]
-}
-
-// Keep one inverted index per loaded entries array. This changes repeated search
-// from "score all ~16k records on every keystroke" to "score only records whose
-// indexed tokens can satisfy the query", while preserving the existing scorer.
-const indexCache = new WeakMap<Entry[], SearchIndex>()
-
-function tokens(value: string): string[] {
-  return value.toLowerCase().match(/[a-z0-9][a-z0-9'’-]*/g) ?? []
-}
-
-function getSearchIndex(entries: Entry[]): SearchIndex {
-  const cached = indexCache.get(entries)
-  if (cached) return cached
-
-  const tokenToIds = new Map<string, number[]>()
-  for (let i = 0; i < entries.length; i++) {
-    const seen = new Set<string>()
-    for (const token of [...tokens(entries[i].n), ...tokens(entries[i].x)]) {
-      if (seen.has(token)) continue
-      seen.add(token)
-      const ids = tokenToIds.get(token)
-      if (ids) ids.push(i)
-      else tokenToIds.set(token, [i])
-    }
-  }
-  const index: SearchIndex = { tokenToIds, vocabulary: Array.from(tokenToIds.keys()) }
-  indexCache.set(entries, index)
-  return index
-}
-
-// The same coverage-ranked scoring the keyword search uses. Candidate selection
-// is accelerated by the inverted index; ranking semantics stay unchanged.
+/** Every matching record, best first. `terms` is kept for callers; the ranker tokenises `phrase` itself. */
 export function scoreEntries(entries: Entry[], terms: string[], phrase: string): Entry[] {
-  if (terms.length === 0) return []
-  const index = getSearchIndex(entries)
-  const candidateIds = new Set<number>()
-
-  for (const term of terms) {
-    const t = term.toLowerCase()
-    for (const token of index.vocabulary) {
-      if (token.startsWith(t) || token.includes(t)) {
-        for (const id of index.tokenToIds.get(token) ?? []) candidateIds.add(id)
-      }
-    }
-  }
-
-  const scored: { e: Entry; score: number }[] = []
-  for (const id of Array.from(candidateIds)) {
-    const e = entries[id]
-    const name = e.n.toLowerCase()
-    const ctx = e.x.toLowerCase()
-    let score = 0
-    let matched = 0
-    for (const t of terms) {
-      const wb = new RegExp(`\\b${escapeRe(t)}`, 'i')
-      if (name.startsWith(t)) { score += 6; matched++ }
-      else if (wb.test(name)) { score += 4; matched++ }
-      else if (name.includes(t)) { score += 3; matched++ }
-      else if (wb.test(ctx)) { score += 2; matched++ }
-      else if (ctx.includes(t)) { score += 1; matched++ }
-    }
-    if (matched === 0) continue
-    score += matched * 8
-    if (phrase.length > 3 && name.includes(phrase)) score += 6
-    score *= e.t === 'page' ? 0.55 : 1
-    scored.push({ e, score })
-  }
-  scored.sort((a, b) => b.score - a.score)
-  return scored.map(s => s.e)
+  const query = phrase.trim() || terms.join(' ')
+  return query ? rankEntries(entries, query) : []
 }
 
+/**
+ * The records the AI answer is grounded on. Question words that carry no
+ * signal ("how much does the Town...") are dropped first, and the diversity
+ * pass runs over a pool several times larger than `k`, so the model gets k
+ * different records rather than k copies of the same one.
+ */
 export function retrieveForQuestion(entries: Entry[], question: string, k: number): Entry[] {
-  const q = question.toLowerCase()
-  const terms = q.split(/\s+/).filter(t => t.length >= 3 && !STOPWORDS.has(t))
-  const use = terms.length > 0 ? terms : q.split(/\s+/).filter(t => t.length >= 2)
-  return scoreEntries(entries, use, q).slice(0, k)
+  const words = question.toLowerCase().match(/[a-z0-9][a-z0-9'’-]*/g) ?? []
+  const content = words.filter((t) => t.length >= 3 && !STOPWORDS.has(t))
+  const query = (content.length ? content : words.filter((t) => t.length >= 2)).join(' ')
+  return query ? rankEntries(entries, query, Math.max(60, k * 5)).slice(0, k) : []
 }
 
 const usd = (n: number) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(n)
