@@ -33,7 +33,8 @@ export default function MeetingsPage() {
         { label: 'Fiscal impact', text: 'where a Town fiscal-impact statement is available, it appears with the resolution and links to the deeper corrected analysis.' },
         { label: 'Evidence state', text: 'a completed meeting can appear before final vote-bearing minutes; the page says exactly which record is available instead of guessing.' },
       ]}>
-        <strong>Completed is not the same as fully archived.</strong> Minutes should answer a resident&apos;s question, not reproduce a filing cabinet. Start with the decision, see the vote, inspect the fiscal treatment, then follow the official record when you need the underlying evidence.
+        <strong>Completed is not the same as fully archived.</strong> Minutes should answer a resident&apos;s question, not reproduce a filing cabinet. Start with the decision, see the vote, inspect the fiscal treatment, then follow the official record when you need the underlying evidence.{' '}
+        What the Board must do in public, and how its rules compare: <a href={`${base}/open-meetings/`} style={{ color: 'var(--rbl-accent)', fontWeight: 800 }}>the Open Meetings Law in Riverhead</a>.
       </PlainCallout>
 
       <MeetingTimeline />

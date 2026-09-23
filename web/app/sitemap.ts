@@ -9,7 +9,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '', '/answers', '/guide', '/what-changed', '/payroll', '/funds', '/compare', '/general-fund',
     '/annual-report', '/meetings', '/buyout', '/search', '/downloads', '/gfoa', '/analytics', '/sources',
     '/data-quality', '/scenarios', '/board-elections', '/election-law-case', '/community-preservation-fund', '/housing-plan',
-    '/know-your-rights', '/official-social-media', '/town-square', '/programs', '/zero-percent-2027', '/budget-adoption',
+    '/know-your-rights', '/official-social-media', '/town-square', '/programs', '/zero-percent-2027', '/budget-adoption', '/open-meetings',
     ...allFundCodes().map((code) => `/funds/${code}`),
   ]
   const now = new Date()
