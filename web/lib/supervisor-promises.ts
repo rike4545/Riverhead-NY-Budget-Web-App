@@ -497,10 +497,27 @@ export const claims: Claim[] = [
   },
   {
     claim: 'Supported the sale of the Vail-Leavitt Music Hall property to continue as an arts venue.',
-    status: 'unverifiable',
-    summary: 'The sale happened, but the vote that approved it isn’t in the records we check.',
-    finding: 'The sale went through (Resolution 2026-642 uses $92,059 of the proceeds), but the vote that approved the sale isn’t in the records we check.',
-    records: ['TB Resolution 2026-642'],
+    status: 'supported',
+    summary: 'Yes, though the sale was decided before he took office. The 2025 Board chose the Jazz Loft and signed the contract; the sale closed in March 2026 with him as Supervisor, and he backed it publicly.',
+    finding:
+      'The Town Board chose the buyer in 2025, under Supervisor Hubbard, before Halpin was on the Board. In April it voted 3–2 to negotiate a sale to the Jazz Loft (Resolution 2025-374). After an October hearing where the Jazz Loft presented its plan to restore the hall as a performing arts center, the Board voted 4–1 in November to name it the “qualified and eligible sponsor” to buy and redevelop the hall (2025-939). Supervisor Hubbard signed the contract on December 16, 2025; RiverheadLOCAL reported the price as $150,000. The sale closed on March 17, 2026. His office’s press release that day quotes him: “It’s an honor for me to be in the position to see the conclusion of this deal, but today’s closing is the culmination of several years of dedication and hard work put in by the Town Board, previous Supervisors Tim Hubbard and Yvette Aguiar, and The Jazz Loft.” In July he voted with the rest of the Board to put $92,059 of the sale’s proceeds toward paying off bonds (2026-642). So he supported the sale and completed it, but the decisions to sell, and to whom, were made before he took office.',
+    votes: [
+      { resolution: '2025-374', date: 'Apr. 15, 2025', action: 'Tell the Town Attorney to negotiate a sale of the hall to the Jazz Loft', result: 'Adopted 3–2', halpin: 'Not on the Board yet', mover: 'Merrifield', ayes: 'Hubbard, Merrifield, Waski', nays: 'Rothwell, Kern' },
+      { resolution: '2025-939', date: 'Nov. 18, 2025', action: 'Name the Jazz Loft the qualified and eligible sponsor to buy and redevelop the hall', result: 'Adopted 4–1', halpin: 'Not on the Board yet', mover: 'Merrifield', ayes: 'Hubbard, Rothwell, Merrifield, Waski', nays: 'Kern' },
+      { resolution: '2026-642', date: 'July 7, 2026', action: 'Put $92,059 of the sale’s proceeds, with $7.2 million from the preservation fund, toward paying off the 2018 Series B bonds', result: 'Adopted 5–0', halpin: 'Aye', mover: 'Merrifield', ayes: 'Halpin, Rothwell, Kern, Merrifield, Waski' },
+    ],
+    records: [
+      'TB Resolutions 2025-374 (Apr. 15, 2025), 2025-939 (Nov. 18, 2025) and 2026-642 (July 7, 2026)',
+      'Town Board hearing minutes, Oct. 16, 2025, and meeting minutes, Dec. 16, 2025 (the contract signing)',
+      'Town of Riverhead press release, Mar. 17, 2026',
+    ],
+    documents: [
+      { label: 'Town press release: “Riverhead Completes Sale of the Vail-Leavitt Music Hall to The Jazz Loft”', url: 'https://www.townofriverheadny.gov/DocumentCenter/View/3407/3-17-26-Town-of-Riverhead-completes-sale-of-the-Vail-Leavitt-Music-Hall-to-The-Jazz-Loft', date: 'Mar. 17, 2026' },
+      { label: 'Town Board minutes, Resolution 2025-374', url: 'https://riverheadny.api.civicclerk.com/v1/Meetings/GetMeetingFileStream(fileId=3948,plainText=false)', date: 'Apr. 15, 2025' },
+      { label: 'Town Board minutes, Resolution 2025-939', url: 'https://riverheadny.api.civicclerk.com/v1/Meetings/GetMeetingFileStream(fileId=10384,plainText=false)', date: 'Nov. 18, 2025' },
+      { label: 'RiverheadLOCAL: “Riverhead signs contract to sell the Vail-Leavitt Music Hall”', url: 'https://riverheadlocal.com/2025/12/16/riverhead-signs-contract-to-sell-the-vail-leavitt-music-hall/', date: 'Dec. 16, 2025' },
+      { label: 'RiverheadLOCAL: “Riverhead closes sale of Vail-Leavitt Music Hall to The Jazz Loft”', url: 'https://riverheadlocal.com/2026/03/17/riverhead-closes-sale-of-vail-leavitt-music-hall-to-the-jazz-loft/', date: 'Mar. 17, 2026' },
+    ],
   },
   {
     claim: 'Working with Empire State Development on EPCAL; preserving the 4-H property; rejecting the Sound Avenue agritourism resort; preserving the East End Arts building; electronic permitting; an employee-fraud case.',
