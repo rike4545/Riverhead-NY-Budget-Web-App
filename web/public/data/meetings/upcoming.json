@@ -239,7 +239,7 @@
    "date": "2026-09-24",
    "startDateTime": "2026-09-24T10:00:00Z",
    "type": "Special Town Board Meeting",
-   "agendaPublished": false,
+   "agendaPublished": true,
    "itemsSource": null,
    "docket": [],
    "hearings": []
