@@ -51,8 +51,9 @@ export default function Tentative2027Page() {
         ) : (
           <>
             The Town Clerk presents the {YEAR} Tentative on <strong>September 24</strong>. This page compares it with the
-            projection below automatically once the Town posts the document — the site checks for it every deploy and twice
-            daily through November. Until then it shows the projection, and the record of how far past Tentatives moved.
+            projection below automatically once the Town posts the document — the site checks the Town’s Financial Reports
+            page for it every 15 minutes from September 24 through October 6 and parses it as soon as it appears. Until then
+            it shows the projection, and the record of how far past Tentatives moved.
           </>
         )}
       </PlainCallout>
