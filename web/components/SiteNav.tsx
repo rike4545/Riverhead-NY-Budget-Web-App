@@ -29,7 +29,7 @@ const GROUPS: Group[] = [
     ['Supervisor’s Promises', `${base}/supervisor-promises/`],
   ] },
   { label: 'Research', links: [
-    ['Start Here', `${base}/guide/`], ['2027 Prediction', `${base}/predict-2027/`], ['2027 Tentative Budget', `${base}/tentative-2027/`], ['Scenario Lab', `${base}/scenarios/`],
+    ['Start Here', `${base}/guide/`], ['2027 Prediction', `${base}/predict-2027/`], ['2027 Tentative Budget', `${base}/tentative-2027/`], ['How Budgets Get Adopted', `${base}/budget-adoption/`], ['Scenario Lab', `${base}/scenarios/`],
     ['2027 Spending Reduction', `${base}/spending-reduction-2027/`], ['A Zero-Percent Year', `${base}/zero-percent-2027/`],
     ['Credit Rating', `${base}/credit-rating/`], ['Outlier Watch', `${base}/outliers/`], ['Budget Accuracy', `${base}/budget-accuracy/`], ['Fiscal Impact', `${base}/fiscal-impact/`],
   ] },

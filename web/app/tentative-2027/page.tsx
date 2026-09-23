@@ -138,7 +138,8 @@ export default function Tentative2027Page() {
           Rarely, on the record so far. In <strong>{unchangedYears.length} of the {stability.length}</strong> years where the Town
           published both, the adopted budget matched its Tentative at every fund: nothing moved in the Board’s review, and
           nothing moved after the public hearing. So the document presented on Sept 24 has, in practice, been very close to
-          the budget the Town ends up with.
+          the budget the Town ends up with. The full record back to 2005, including the years the Board never voted to adopt,
+          is on <a href={`${base}/budget-adoption/`} style={{ color: 'var(--rbl-accent)' }}>How Riverhead adopts its budget</a>.
         </p>
         <div style={{ overflowX: 'auto' }}>
           <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 13 }}>

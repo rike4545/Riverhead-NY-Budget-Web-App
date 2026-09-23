@@ -60,6 +60,8 @@ jobs:
         run: python etl/parse_budget_history.py
       - name: Build budget-stage comparison
         run: python etl/parse_budget_stages.py
+      - name: Build budget adoption history (stage columns, 2005 on)
+        run: python etl/parse_budget_adoption.py
       - name: Build department request vs Tentative
         run: python etl/parse_budget_requests.py
       - name: Build long-run General Fund history
