@@ -2,7 +2,7 @@ import PageShell from '../../components/PageShell'
 import PlainCallout from '../../components/PlainCallout'
 import ManagementSalaryHistory from '../../components/ManagementSalaryHistory'
 import {
-  affectedPositions, salaryMoves, resolution984, appointmentResolutions,
+  affectedPositions, resolution984, appointmentResolutions, scheduleRate, scheduleRateCount,
   nyshipIndividualMonthly, restoring25PercentOnFour, twentyPercentAcross22,
   raises2023, limits, sources,
 } from '../../lib/management-compensation'
@@ -19,8 +19,6 @@ export const metadata = {
 }
 
 export default function ManagementCompensationPage() {
-  const biggest = salaryMoves[0]
-
   return (
     <PageShell
       title="Management pay, and the part that never reaches the salary schedule"
@@ -37,7 +35,9 @@ export default function ManagementCompensationPage() {
         <strong>100% employer paid</strong> for four appointed titles, up from the{' '}
         <strong>25%</strong> those employees had been contributing — giving as its reason that the change was made{' '}
         <strong>&ldquo;in lieu of merit increases.&rdquo;</strong> On January 6, 2026 the Board adopted a salary
-        schedule raising the Chief of Staff and Budget Officer by <strong>{biggest.pct.toFixed(1)}%</strong>.
+        schedule raising the Deputy Supervisor and the Chief of Staff by{' '}
+        <strong>{scheduleRate === null ? 'the same rate' : `${(scheduleRate * 100).toFixed(3)}%`}</strong> each, the
+        rate it gave {scheduleRateCount} other positions paid off the union grid.
       </PlainCallout>
 
       <section style={{ ...card, marginBottom: 16, borderLeft: '6px solid var(--rbl-accent-border)' }}>
@@ -92,7 +92,7 @@ export default function ManagementCompensationPage() {
                     <td style={{ ...td, textAlign: 'right', whiteSpace: 'nowrap' }}>{p.salary2025 === null ? '—' : usd(p.salary2025)}</td>
                     <td style={{ ...td, textAlign: 'right', whiteSpace: 'nowrap' }}>{p.salary2026 === null ? '—' : usd(p.salary2026)}</td>
                     <td style={{ ...td, textAlign: 'right', whiteSpace: 'nowrap', fontWeight: 800, color: d && d > 0 ? 'var(--rbl-warn-strong)' : 'var(--rbl-text-muted)' }}>
-                      {d === null ? '—' : `+${usd(d)} · ${(((d) / (p.salary2025 as number)) * 100).toFixed(1)}%`}
+                      {d === null ? '—' : d === 0 ? 'No change' : `+${usd(d)} · ${(((d) / (p.salary2025 as number)) * 100).toFixed(1)}%`}
                     </td>
                   </tr>
                 )
@@ -108,9 +108,11 @@ export default function ManagementCompensationPage() {
         <p style={{ color: 'var(--rbl-text-body)', fontSize: 13.6, lineHeight: 1.6, margin: '8px 0 0' }}>
           This is the whole finding, and it is worth stating carefully. A benefit was granted expressly{' '}
           <em>in place of</em> merit increases, and salary increases followed three weeks later for two of the same
-          positions. That is not proof the two contradict each other &mdash; a reclassification or added duties would
-          explain a raise without being a merit increase, and none of those appear on a schedule either. It does mean
-          the record as published supports the question, and nothing in the Town&apos;s material answers it.
+          positions. Both increases were the rate the same schedules gave {scheduleRateCount} other positions paid off
+          the union grid, from the Chief Accountant to the Town Justices, which reads as the year&apos;s general
+          increase rather than a merit award, so the schedule does not contradict the resolution&apos;s wording. What
+          the record shows is the two channels side by side: the general increase, and on top of it a benefit that no
+          salary line reports.
         </p>
       </section>
 

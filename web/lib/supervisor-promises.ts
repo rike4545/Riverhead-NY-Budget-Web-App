@@ -25,7 +25,13 @@
 import { stageDoc } from './budget-stages'
 import { projection, requestHistory, stability, unchangedYears } from './tentative-2027'
 import requestsJson from '../public/data/budget-supplement/requests-by-year.json'
-import { affectedPositions, restoring25PercentOnFour, nyshipIndividualMonthly, eligiblePositionsModeled, resolution984 } from './management-compensation'
+import {
+  restoring25PercentOnFour, nyshipIndividualMonthly, eligiblePositionsModeled, resolution984, contributionRemovedByResolution984,
+} from './management-compensation'
+import {
+  OFFICE_HEADING, staff as officeStaff, supervisor as officeSupervisor, totals as officeTotals,
+  deputyRate, sameRateCount, raise2025, documents as officeDocuments,
+} from './supervisor-office'
 import { policyMinimumPercent, policyUpperPercent } from './reserve-policy'
 import {
   openingUnassigned, openingPercentOfAppropriations, committedThisYear, surplusAboveUpperCeiling,
@@ -105,7 +111,8 @@ export const released = tentative2027 !== null
 // The Supervisor's own office, General Fund function 1220, personal services.
 // parse_budget_requests.py sums it from each Budget Supplement, so a year's
 // `adopted` is last year's budget and `tentative` is this year's proposal.
-type Office = { lines: number; actual: number; adopted: number; ytd: number; request: number; tentative: number }
+type OfficeLine = { account: string; name: string; actual: number; adopted: number; ytd: number; request: number; tentative: number }
+type Office = { lines: number; actual: number; adopted: number; ytd: number; request: number; tentative: number; detail?: OfficeLine[] }
 type RequestYear = {
   expenditure: { request: number; tentative: number; delta: number }
   reconciliation: { complete: boolean }
@@ -122,6 +129,18 @@ const officeHistory = requestHistory
 // published, and until then the 2026 Tentative, which was adopted unchanged.
 const office2026Budget = office2027?.adopted ?? requestYears['2026']?.supervisorOffice?.tentative ?? null
 const CLAIMED_OFFICE_CUT = 40_000
+// One line of function 1220 -- object 101 is full-time salaries, 102 part-time
+// -- read the same way: the 2027 Supplement's "adopted" column once it is in,
+// the 2026 Tentative until then. 2025's comes from the 2026 Supplement.
+const officeLine = (object: string, year: 2025 | 2026): number | null => {
+  const find = (o: Office | null | undefined) => o?.detail?.find((l) => l.account.startsWith(`A01-1-1220-${object}-`))
+  const o2026 = requestYears['2026']?.supervisorOffice
+  if (year === 2025) return find(o2026)?.adopted ?? null
+  return office2027 ? find(office2027)?.adopted ?? null : find(o2026)?.tentative ?? null
+}
+const fullTime2025 = officeLine('101', 2025)
+const fullTime2026 = officeLine('101', 2026)
+const partTime2026 = officeLine('102', 2026)
 
 // ── The tests the 2027 Tentative can answer ──────────────────────────────────
 export type Test = {
@@ -276,12 +295,112 @@ export const STATUS_LABEL: Record<ClaimStatus, string> = {
 }
 
 export type Vote = { resolution: string; date: string; action: string; result: string; halpin: string; mover: string; ayes?: string; nays?: string; abstain?: string }
+export type RosterRow = {
+  kind: 'seat' | 'subtotal' | 'total' | 'estimate'
+  label: string
+  holder2025?: string
+  holder2026?: string
+  y2025: number
+  y2026: number
+  mark?: string // ties the row to a note
+}
+export type Roster = { caption: string; rows: RosterRow[]; notes: string[] }
 export type Claim = {
   claim: string
   status: ClaimStatus
   finding: string
   votes?: Vote[]
+  roster?: Roster
   records: string[]
+  documents?: Source[]
+}
+
+// ── The Supervisor's Office, seat by seat ────────────────────────────────────
+//
+// Who is in the office is the 2026 schedule's own grouping; see
+// supervisor-office.ts for how 2025 is matched to it and for the one raise the
+// 2025 schedule does not show.
+const seatOf = (title: string) => officeStaff.find((s) => s.title === title)
+const budgetOfficer = seatOf(raise2025.title)
+const secretary = seatOf('Secretary')
+const rateOf = (s: typeof budgetOfficer) => (s ? s.salary2026 / s.salary2025 - 1 : null)
+const boRate = rateOf(budgetOfficer)
+// The finding says the two appointees he kept got the same rate. If a re-parse
+// ever breaks that, fail the build rather than print it.
+if (deputyRate === null || boRate === null || Math.abs(boRate - deputyRate) > 5e-5) {
+  throw new Error('supervisor-promises: the Budget Officer’s 2026 rate no longer matches the Deputy Supervisor’s; revisit the office finding')
+}
+const ratePct = `${(deputyRate * 100).toFixed(3)}%`
+const officeChange = officeTotals.office2026 - officeTotals.office2025
+const staffChange = officeTotals.staff2026 - officeTotals.staff2025
+const ownCut = officeSupervisor.salary2025 - officeSupervisor.salary2026
+const below = (line: number | null, total: number) => (line !== null ? line - total : null)
+const headroom2025 = below(fullTime2025, officeTotals.office2025)
+const headroom2026 = below(fullTime2026, officeTotals.office2026)
+const belowBudget = below(office2026Budget, officeTotals.office2026)
+// Salaries are not all of the office's pay. Resolution 2025-984 names three of
+// its titles -- "Secretary (Supervisor's Office), Chief of Staff or Budget
+// Officer, Deputy Supervisor" -- with the Town Board Coordinator, and moved
+// their 25% share of medical, dental and vision premiums to the Town from
+// January 1, 2026, "in lieu of merit increases". Its fiscal impact statement
+// charges the Town's health insurance line (A01-9-9060-810), so neither the
+// schedule nor the office's 1220 line shows it. Priced the way the health-share
+// lever prices it: the individual NYSHIP medical rate, as if each is enrolled.
+const TITLES_IN_984 = ['Secretary', 'Town Budget Officer', 'Deputy Town Supervisor']
+const coveredSeats = officeStaff.filter((s) => TITLES_IN_984.indexOf(s.title) >= 0).length
+const premiumShare = nyshipIndividualMonthly * 12 * contributionRemovedByResolution984 * coveredSeats
+const withPremium2026 = officeTotals.office2026 + premiumShare
+const withPremiumChange = withPremium2026 - officeTotals.office2025
+const about = (n: number) => usd(Math.round(n / 100) * 100)
+const article = (t: string) => (/^[AEIOU]/.test(t) ? `an ${t}` : `a ${t}`)
+const listed = (xs: string[]) => (xs.length < 2 ? xs.join('') : `${xs.slice(0, -1).join(', ')} and ${xs[xs.length - 1]}`)
+const moreOrLess = (n: number) => `${usd(Math.abs(n))} ${n < 0 ? 'less' : 'more'}`
+const higherOrLower = (n: number) => `${usd(Math.abs(n))} ${n < 0 ? 'lower' : 'higher'}`
+const word = (n: number) => ['no', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine'][n] ?? String(n)
+
+const officeFinding = [
+  `The salary schedule adopted at his first meeting lists the office’s staff under its own heading, ${OFFICE_HEADING}: ${listed(officeStaff.map((s) => article(s.title)))} (Resolution 2026-2). The 2025 schedule has the same ${word(officeStaff.length)} titles.`,
+  `With his own salary, the office’s salaries come to ${usd(officeTotals.office2026)} for 2026 against ${usd(officeTotals.office2025)} for 2025: ${moreOrLess(officeChange)}, not ${usd(CLAIMED_OFFICE_CUT)}.`,
+  `His own is ${higherOrLower(-ownCut)}: ${usd(officeSupervisor.salary2026)}, against the ${usd(officeSupervisor.salary2025)} budgeted for the post and paid to his predecessor.`,
+  `The staff’s are ${higherOrLower(staffChange)}: the two appointees he kept each received ${ratePct}, the rate the same schedules gave ${sameRateCount} other positions paid off the union grid, and his appointee took the Secretary’s post ${secretary && secretary.salary2026 === secretary.salary2025 ? 'at its 2025 salary' : `at ${usd(secretary?.salary2026 ?? 0)}`}.`,
+  coveredSeats > 0
+    ? `Salaries are not all of it. Resolution ${resolution984.number}, adopted on December 16, 2025, before he took office, at the suggestion of the Supervisor of the day and “in lieu of merit increases,” made health premiums fully employer paid from January 1 for ${coveredSeats === officeStaff.length ? `all ${word(coveredSeats)} staff titles` : `${word(coveredSeats)} of the staff titles`}, which had paid 25%. At the lowest (individual) NYSHIP rate that is about ${about(premiumShare)} a year if all are enrolled, charged to the Town’s health insurance line rather than the office’s; counted in, the office costs about ${about(Math.abs(withPremiumChange))} ${withPremiumChange > 0 ? 'more' : 'less'} than in 2025. His Legislative Aide’s agreement carries the same 100% employer-paid coverage (Resolution 2026-58).`
+    : null,
+  headroom2026 !== null && belowBudget !== null && office2026Budget !== null
+    ? `Against the 2026 budget, adopted before he took office, the salaries are ${usd(headroom2026)} below the office’s full-time salary line${headroom2025 !== null ? `, which also pays earnings beyond base salary (the 2025 salaries were ${usd(headroom2025)} below 2025’s),` : ''} and ${usd(belowBudget)} below its whole personal-services budget of ${usd(office2026Budget)}${partTime2026 ? `, which includes ${usd(partTime2026)} for part-time help the schedule lists no one for` : ''}. Only that last comparison reaches ${usd(CLAIMED_OFFICE_CUT)}.`
+    : null,
+  'The 2027 Tentative will show what he proposes for the office’s payroll line; see “Did the payroll for his own office go down?” above.',
+].filter(Boolean).join(' ')
+
+const officeRoster: Roster = {
+  caption: `As set each January: the schedule’s ${OFFICE_HEADING} section, and the Supervisor from the Elected Officials schedule.`,
+  rows: [
+    ...officeStaff.map((s): RosterRow => ({
+      kind: 'seat', label: s.title, holder2025: s.holder2025, holder2026: s.holder2026, y2025: s.salary2025, y2026: s.salary2026,
+      mark: s.title === raise2025.title ? '*' : s.title === 'Secretary' ? '†' : undefined,
+    })),
+    { kind: 'subtotal', label: `Staff (${OFFICE_HEADING})`, y2025: officeTotals.staff2025, y2026: officeTotals.staff2026 },
+    { kind: 'seat', label: officeSupervisor.title, holder2025: officeSupervisor.holder2025, holder2026: officeSupervisor.holder2026, y2025: officeSupervisor.salary2025, y2026: officeSupervisor.salary2026 },
+    { kind: 'total', label: 'The office’s salaries', y2025: officeTotals.office2025, y2026: officeTotals.office2026 },
+    ...(coveredSeats > 0
+      ? [
+          { kind: 'estimate', label: `Premium share the Town took on (Resolution ${resolution984.number})`, y2025: 0, y2026: premiumShare, mark: '‡' } as RosterRow,
+          { kind: 'total', label: 'Salaries and premium share', y2025: officeTotals.office2025, y2026: withPremium2026 } as RosterRow,
+        ]
+      : []),
+  ],
+  notes: [
+    budgetOfficer
+      ? `* The 2025 schedule prints ${usd(budgetOfficer.schedule2025)}. Resolution ${raise2025.resolution}, adopted with it on ${raise2025.adopted} at Supervisor Hubbard’s request, added ${raise2025.rate * 100}% from January 1. Without it the 2025 total is ${usd(officeTotals.office2025Schedule)}, and 2026 is ${moreOrLess(officeTotals.office2026 - officeTotals.office2025Schedule)}.`
+      : null,
+    secretary
+      ? '† Resolution 2026-58 acknowledges the appointment as Legislative Aide to the Town Supervisor. Its fiscal impact statement names the post Secretary to Town Supervisor and charges it to the office’s full-time salary line.'
+      : null,
+    coveredSeats > 0
+      ? `‡ Resolution ${resolution984.number} made medical, dental and vision premiums 100% employer paid from ${resolution984.effective} for the Secretary (Supervisor’s Office), the Chief of Staff or Budget Officer and the Deputy Supervisor, who had paid 25%. Estimated at the NYSHIP Empire Plan individual rate for medical alone (${usd(nyshipIndividualMonthly)} a month) as if all ${word(coveredSeats)} are enrolled: family coverage, dental and vision would make it larger, and a waiver of coverage would make it nothing. The Town does not publish enrollment. The cost is charged to the Town’s health insurance line (A01-9-9060), not the office’s.`
+      : null,
+    officeTotals.paid2025 !== null ? `The 2025 payroll paid the four 2025 holders ${usd(officeTotals.paid2025)} in regular earnings.` : null,
+  ].filter((n): n is string => n !== null),
 }
 
 export const claims: Claim[] = [
@@ -309,9 +428,16 @@ export const claims: Claim[] = [
   {
     claim: 'Cut $40,000 from the salaries in the Supervisor’s Office.',
     status: 'partly',
-    finding:
-      'His own salary was set at $110,000 at the January 6, 2026 organizational meeting, $8,919 below the $118,919 budgeted for the position and paid to his predecessor in 2025. Whether the office as a whole fell by $40,000 cannot be checked yet: the salary schedule does not say which positions belong to the office. What it does show is that the two senior appointees he kept were paid more in 2026 than in 2025, and that a Legislative Aide was added. The 2027 Tentative will show what he proposes for the office’s payroll line; see “Did the payroll for his own office go down?” above.',
-    records: ['2025 and 2026 authorized salary schedules (January organizational meetings)', '2025 Town payroll'],
+    finding: officeFinding,
+    roster: officeRoster,
+    records: [
+      'TB Resolutions 2026-1, 2026-2 and 2026-58, Jan. 6, 2026',
+      'TB Resolutions 2025-8, 2025-9 and 2025-64, Jan. 7, 2025',
+      'TB Resolution 2025-984, Dec. 16, 2025, and its fiscal impact statement',
+      '2025 Town payroll',
+      '2025 and 2026 Budget Supplements, function 1220',
+    ],
+    documents: [officeDocuments.schedule2026, officeDocuments.packet2026, officeDocuments.packet2025Dec, officeDocuments.minutes2025],
   },
   {
     claim: 'Offered a retirement incentive to PBA, SOA and CSEA workers, expected to reduce 2027 taxes.',
@@ -371,12 +497,7 @@ export type Lever = {
   sources: string[]
 }
 
-const byTitle = (t: string) => affectedPositions.find((p) => p.title === t)
-const deputy = byTitle('Deputy Town Supervisor')
-const chief = byTitle('Chief of Staff / Town Budget Officer')
-const aide = byTitle('Secretary (Supervisor’s Office)')
-const raise = (p: typeof deputy) =>
-  p && p.salary2025 && p.salary2026 ? `${usd(p.salary2026)} (up ${(((p.salary2026 - p.salary2025) / p.salary2025) * 100).toFixed(1)}% from 2025)` : null
+const deputySeat = seatOf('Deputy Town Supervisor')
 const annualPremium = nyshipIndividualMonthly * 12
 const fifteenPercentAcrossModeled = annualPremium * eligiblePositionsModeled * 0.15
 const round100 = (n: number) => Math.round(n / 100) * 100
@@ -387,32 +508,38 @@ export const levers: Lever[] = [
     lever: 'Reduce the payroll of the Supervisor’s own office',
     whoActs: 'The Supervisor proposes the office’s budget line as budget officer; the Board sets salaries by resolution.',
     record: [
-      'His own salary was set at $110,000, $8,919 below the $118,919 budgeted for the position.',
-      `The 2026 salary schedule, adopted unanimously at his first meeting on January 6, raised the Deputy Supervisor to ${raise(deputy)} and the Town Budget Officer to ${raise(chief)}, and added a Legislative Aide at ${aide?.salary2026 ? usd(aide.salary2026) : 'a new salary'} (Resolution 2026-58).`,
+      `His own salary was set at ${usd(officeSupervisor.salary2026)}, ${usd(ownCut)} below the ${usd(officeSupervisor.salary2025)} budgeted for the position.`,
+      `The 2026 salary schedule, adopted unanimously at his first meeting on January 6, lists the same ${word(officeStaff.length)} staff titles under ${OFFICE_HEADING} as 2025. It raised the Deputy Supervisor${deputySeat ? ` to ${usd(deputySeat.salary2026)}` : ''} and the Town Budget Officer${budgetOfficer ? ` to ${usd(budgetOfficer.salary2026)}` : ''}, ${ratePct} each${secretary ? `, and kept the Secretary’s post, filled by his Legislative Aide (Resolution 2026-58), at ${usd(secretary.salary2026)}` : ''}.`,
+      `With his own salary, the office’s salaries are ${usd(officeTotals.office2026)}, ${moreOrLess(officeChange)} than in 2025.`,
+      ...(coveredSeats > 0
+        ? [`From January 1, Resolution ${resolution984.number} also moved the staff’s 25% share of health premiums to the Town, about ${about(premiumShare)} a year at the individual rate if all are enrolled. It is charged to the Town’s health insurance line, so it never appears in the office’s budget line; counted in, the office costs about ${about(Math.abs(withPremiumChange))} ${withPremiumChange > 0 ? 'more' : 'less'} than in 2025.`]
+        : []),
     ],
-    worth: office2026Budget !== null ? `The office’s personal-services line is ${usd(office2026Budget)} in the 2026 budget.` : null,
+    worth: office2026Budget !== null
+      ? `The office’s personal-services line is ${usd(office2026Budget)} in the 2026 budget${fullTime2026 !== null ? `, ${usd(fullTime2026)} of it for full-time salaries` : ''}.`
+      : null,
     testId: 'office',
     link: { label: 'Management Pay', path: '/management-compensation/' },
-    sources: ['Authorized salary schedules, 2025 and 2026', 'TB Resolutions 2026-58, 2026-59, 2026-60', 'Budget Supplements, 2024–2026'],
+    sources: ['Authorized salary schedules, 2025 and 2026', 'TB Resolutions 2025-64, 2025-984, 2026-1, 2026-2 and 2026-58', 'Budget Supplements, 2024–2026'],
   },
   {
     id: 'appointees',
     lever: 'Appoint his own senior staff',
     whoActs: 'The Supervisor appoints the Deputy Supervisor and his confidential staff; the Board acknowledges each appointment.',
     record: [
-      'He kept both senior appointees of his predecessors: the Deputy Supervisor, in that post since at least 2022 under Supervisors Aguiar and Hubbard, and the Town Budget Officer, in that post since 2023, who is also his Chief of Staff (Resolutions 2026-59 and 2026-60).',
-      'His one new appointment is a Legislative Aide (Resolution 2026-58).',
-      'Keeping them brings continuity to a one-year term, since both held their posts through the last three budgets. It also means his first Tentative comes from the same office that produced his predecessors’.',
+      'He kept both senior appointees of his predecessors: the Deputy Supervisor, in that post since 2020 under Supervisors Aguiar and Hubbard (terms set by Resolution 2020-130), and the Town Budget Officer, who is also his Chief of Staff, in that post since July 2022 (terms set by Resolution 2022-491). The Board acknowledged both on January 6 (Resolutions 2026-59 and 2026-60).',
+      `His one new appointment is a Legislative Aide (Resolution 2026-58), who fills the office’s Secretary post: the 2026 schedule lists the same ${word(officeStaff.length)} staff titles under ${OFFICE_HEADING} as 2025, so the office did not grow.`,
+      'Keeping them brings continuity to a one-year term, since both held their posts through the last four budgets. It also means his first Tentative comes from the same office that produced his predecessors’.',
     ],
     worth: null,
-    sources: ['Authorized salary schedules, 2022–2026', 'TB Resolutions 2026-58, 2026-59, 2026-60'],
+    sources: ['Authorized salary schedules, 2022–2026', '2020–2025 Town payroll', 'TB Resolutions 2024-35 and 2024-36 (citing 2020-130 and 2022-491)', 'TB Resolutions 2026-58, 2026-59, 2026-60'],
   },
   {
     id: 'health-share',
     lever: 'Require employees to pay at least 15% of their health premiums',
     whoActs: 'The Board, by resolution, for elected officials and managers outside a union. For union members the share is set by contract; the PBA and SOA contracts expire at the end of 2026, so their successors are the opening.',
     record: [
-      `On ${new Date(resolution984.adopted + 'T12:00:00').toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}, before he took office, the Board moved four appointed titles, including the Deputy Supervisor and the Chief of Staff, from paying 25% of their medical, dental and vision premiums to paying nothing, “in lieu of merit increases” (Resolution ${resolution984.number}, unanimous). The 2026 salary schedule then raised both.`,
+      `On ${new Date(resolution984.adopted + 'T12:00:00').toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}, before he took office, the Board moved four appointed titles, including the Deputy Supervisor and the Chief of Staff, from paying 25% of their medical, dental and vision premiums to paying nothing, “in lieu of merit increases” (Resolution ${resolution984.number}, unanimous). The 2026 salary schedule then raised both, by the ${ratePct} it gave ${sameRateCount} other positions paid off the union grid.`,
       'No resolution adopted in 2026 sets or restores an employee contribution.',
     ],
     worth: `About ${usd(round100(fifteenPercentAcrossModeled))} a year at 15% across the ${eligiblePositionsModeled} senior-staff and elected positions this site models, and about ${usd(round100(restoring25PercentOnFour))} for restoring 25% on the four titles alone. Both use the lowest (individual) NYSHIP rate at full enrollment. A 15% share for union members would save more, by an amount that depends on what each contract charges now, which the budget does not print.`,

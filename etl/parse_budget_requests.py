@@ -151,6 +151,15 @@ def year_summary(year: int, rows: list) -> dict:
         "supervisorOffice": {
             "lines": len(office),
             **{k: round(sum(r[k] for r in office), 2) for k in ("actual", "adopted", "ytd", "request", "tentative")},
+            # The function also carries part-time and buy-back lines, so a
+            # comparison with the salaries the Board sets needs the full-time
+            # line (object 101) on its own. Lines with nothing in any column
+            # are left out.
+            "detail": [
+                {"account": r["account"], "name": r["name"],
+                 **{k: r[k] for k in ("actual", "adopted", "ytd", "request", "tentative")}}
+                for r in office if any(r[k] for k in ("actual", "adopted", "ytd", "request", "tentative"))
+            ],
         },
     }
 

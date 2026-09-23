@@ -103,7 +103,7 @@ name,grade,title,department,group,annual_salary,is_stipend
 "Montella, Michael",,Principal Accountant,Finance,General Fund,108438.75,False
 "Zaleski, Michael",,Superintendent of Hwys,,Elected Officials,107967.0,False
 "Charters, Matthew",10/7,Senior Planner,Planning,General Fund,106435.96,False
-"Higgins, Devon",,Deputy Town Supervisor,Eisep Program,General Fund,105526.77,False
+"Higgins, Devon",,Deputy Town Supervisor,Supervisor’s Office,General Fund,105526.77,False
 "Muller, Robert",8/11,Sr. Building Inspector,Building,General Fund,104849.4,False
 "Dahlem, John",,Police Officer,Police Officers,Police,104400.27,False
 "Fitzgerald, Kieran",,Police Officer,Police Officers,Police,104400.27,False
@@ -114,7 +114,7 @@ name,grade,title,department,group,annual_salary,is_stipend
 "Williams, Brandon",,Police Officer,Police Officers,Police,104400.27,False
 "Yeager, Blaze",,Police Officer,Police Officers,Police,104400.27,False
 "Peeker, Melissa",,Payroll Supervisor,Finance,General Fund,101209.5,False
-"Burgess, Sarah",6/15,Justice Court Director,Justice  Court,General Fund,100444.9,False
+"Burgess, Sarah",6/15,Justice Court Director,Justice Court,General Fund,100444.9,False
 "Zebrowski, David",9/6A,Building Maintenance Manager,Buildings & Grounds,General Fund,99041.58,False
 "Baldinucci, Teresa",,Senior Purchasing Agent,Purchasing,General Fund,98124.68,False
 "Trojanowski, Heather",9/6,Planner,Planning,General Fund,97652.28,False
@@ -146,10 +146,10 @@ name,grade,title,department,group,annual_salary,is_stipend
 "Sullivan, Matthew",,Police Officer,Police Officers,Police,88233.47,False
 "Waski, Andrew",,Police Officer,Police Officers,Police,88233.47,False
 "Seebeck, Catherine",7/6A,Paralegal,Town Attorney,General Fund,87238.43,False
-"Curtis, Michael",12/19,Auto Mechanic IV,Legislative,General Fund,87163.32,False
-"Bates, Richard",12/19,Highway Labor Crew Leader,Transportation Administration,Highway,87163.32,False
-"Fogal, Arthur",12/19,Highway Labor Crew Leader,Transportation Administration,Highway,87163.32,False
-"Nagy, Kenneth",12/19,Highway Labor Crew Leader,Transportation Administration,Highway,87163.32,False
+"Curtis, Michael",12/19,Auto Mechanic IV,Municipal Garage Employees,General Fund,87163.32,False
+"Bates, Richard",12/19,Highway Labor Crew Leader,,Highway,87163.32,False
+"Fogal, Arthur",12/19,Highway Labor Crew Leader,,Highway,87163.32,False
+"Nagy, Kenneth",12/19,Highway Labor Crew Leader,,Highway,87163.32,False
 "Maccagli, Elizabeth",4/15,Youth Counselor,Juvenile Aid Bureau,General Fund,85899.36,False
 "Keating, Liam",6/8A,Fire Marshal I,Town Attorney,General Fund,85813.25,False
 "Godzieba, Benjamin",14/16,Water District Maintenance Crew Leader,Water District,Water District,85008.16,False
@@ -161,7 +161,7 @@ name,grade,title,department,group,annual_salary,is_stipend
 "Triebwasser, Anna",6/6A,GIS Technician III,Information Technology,General Fund,81311.2,False
 "Schandel, Ashley",,Assistant Superintendent of Recreatiob,Recreation,General Fund,81000.0,False
 "Elco, Melissa",3/17A,Public Safety Dispatcher III,Police Civilian,General Fund,80606.16,False
-"Burkowsky, Debi",,Town Budget Officer,Eisep Program,General Fund,80567.22,False
+"Burkowsky, Debi",,Town Budget Officer,Supervisor’s Office,General Fund,80567.22,False
 "Buyukdeniz, Deborah",1/19,Public Safety Dispatcher I,Police Civilian,General Fund,79994.68,False
 "Chester, Erin",1/19,Public Safety Dispatcher I,Police Civilian,General Fund,79994.68,False
 "Newman, Tanya",1/19,Public Safety Dispatcher I,Police Civilian,General Fund,79994.68,False
@@ -174,40 +174,40 @@ name,grade,title,department,group,annual_salary,is_stipend
 "Wulffraat, Lisa",15/13A,Account Clerk,Assessors,General Fund,76832.03,False
 "Schwarz, Christopher",6/4A,Electrical Inspector,Building,General Fund,76809.16,False
 "Strange, Doris",11/18,Account Clerk,Recreation,General Fund,76364.19,False
-"Arteaga, David",9/14A,Construction Equipment Operator,Transportation Administration,Highway,76126.82,False
-"Lescenski, Christopher",9/14A,Construction Equipment Operator,Transportation Administration,Highway,76126.82,False
-"Bugge, Christopher",9/14,Construction Equipment Operator,Transportation Administration,Highway,75370.61,False
-"Coach, Elrod",9/14,Construction Equipment Operator,Transportation Administration,Highway,75370.61,False
-"Hayes, Jarrod",9/14,Construction Equip Operator,Transportation Administration,Highway,75370.61,False
-"Moreno, Joseph",9/14,Construction Equipment Operator,Transportation Administration,Highway,75370.61,False
-"Fink, Keith",12/11A,Maintenance Mechanic IV HWY,Transportation Administration,Highway,75231.82,False
+"Arteaga, David",9/14A,Construction Equipment Operator,,Highway,76126.82,False
+"Lescenski, Christopher",9/14A,Construction Equipment Operator,,Highway,76126.82,False
+"Bugge, Christopher",9/14,Construction Equipment Operator,,Highway,75370.61,False
+"Coach, Elrod",9/14,Construction Equipment Operator,,Highway,75370.61,False
+"Hayes, Jarrod",9/14,Construction Equip Operator,,Highway,75370.61,False
+"Moreno, Joseph",9/14,Construction Equipment Operator,,Highway,75370.61,False
+"Fink, Keith",12/11A,Maintenance Mechanic IV HWY,,Highway,75231.82,False
 "Halpin, Robin",11/17,Senior Account Clerk,Water District,Water District,74957.3,False
-"D'Amara, Neil",9/13A,Construction Equipment Operator,Transportation Administration,Highway,74614.41,False
-"Pipczynski, James",7/15,Heavy Equipment Operator,Transportation Administration,Highway,74150.7,False
-"Rogers, Thomas",9/13,Auto Mechanic III,Legislative,General Fund,73858.21,False
-"Tedesco, Robert",9/13,Heavy Equipment Operator,Transportation Administration,Highway,73858.21,False
-"Witt, Jeffrey",9/13,Construction Equipment Operator,Transportation Administration,Highway,73858.21,False
+"D'Amara, Neil",9/13A,Construction Equipment Operator,,Highway,74614.41,False
+"Pipczynski, James",7/15,Heavy Equipment Operator,,Highway,74150.7,False
+"Rogers, Thomas",9/13,Auto Mechanic III,Municipal Garage Employees,General Fund,73858.21,False
+"Tedesco, Robert",9/13,Heavy Equipment Operator,,Highway,73858.21,False
+"Witt, Jeffrey",9/13,Construction Equipment Operator,,Highway,73858.21,False
 "Kornafel, Cheryl",9/19,Account Clerk,Police Civilian,General Fund,73638.68,False
 "Account, Senior",,Clerk,Rs/Sca/Cs,New in 2026,73550.41,False
 "Popino, Donald",6/P,Harbormaster I,Harbormaster,New in 2026,73432.62,False
 "Palmer, Jordan",6/P,Fire Marshal I,Town Attorney,New in 2026,73432.62,False
 "Keller, Elizabeth",4/8A,Community Development Program Analyst,Economic Development,General Fund,73430.8,False
-"Vail, Maribeth",12/14A,Senior Justice Court Clerk,Justice  Court,General Fund,73425.63,False
+"Vail, Maribeth",12/14A,Senior Justice Court Clerk,Justice Court,General Fund,73425.63,False
 "Vance, Thomas",8/13A,Maintenance Mechanic III,Buildings & Grounds,General Fund,73231.25,False
-"McKay, Margaret",9/18,Account Clerk,Transportation Administration,Highway,72304.84,False
+"McKay, Margaret",9/18,Account Clerk,,Highway,72304.84,False
 "Meyer, Gina",,Police Officer,Police Officers,New in 2026,72066.67,False
 "Romer, Krista",,Police Officer,Police Officers,Police,72066.67,False
 "Waski, Ryan",,Police Officer,Police Officers,Police,72066.67,False
 "Wnorowski, Sebastian",,Police Officer,Police Officers,Police,72066.67,False
 "Jaeger, Billie Jo",9/17A,Account Clerk,Police Civilian,General Fund,71637.92,False
-"Osman, David",9/11A,Construction Equipment Operator,Transportation Administration,Highway,71589.6,False
+"Osman, David",9/11A,Construction Equipment Operator,,Highway,71589.6,False
 "Wulffraat, Nicholas",15/7,Water Treatment Plant Operator Type II B,Water District,Water District,71363.33,False
 "Soto, Ivan",5/4,Ordinance Inspector-Spanish Speaking,Town Attorney,General Fund,70249.89,False
 "Harden, Jordan",3/10,Assistant Recreation Program Coordinator,Recreation,General Fund,69765.69,False
 "MacIntosh, George",12/8,Maintenance Mechanic IV,Buildings & Grounds,General Fund,69663.78,False
 "Cain, Victoria",3/15A,Water Meter Reader,Water District,Water District,69592.26,False
 "Fleming, William",2/11,Public Safety Dispatcher II,Police Civilian,General Fund,69584.75,False
-"Turpin, Eric",6/12A,Automotive Equipment Operator,Registrar Of Vital Statistics,General Fund,69362.62,False
+"Turpin, Eric",6/12A,Automotive Equipment Operator,Sanitation Department & Yard Waste Program,General Fund,69362.62,False
 "Ruales, Hernan",5/3A,Ordinance Inspector- Spanish Speaking,Town Attorney,General Fund,69205.54,False
 "Neff, Christopher",12/7A,Maintenance Mechanic IV,Buildings & Grounds,General Fund,68868.35,False
 "Albee, Keith",15/5A,Water Treatment Plant Operator Type II B,Water District,Water District,68859.34,False
@@ -215,38 +215,38 @@ name,grade,title,department,group,annual_salary,is_stipend
 "Rocco, Travis",15/5A,Water Treatment Plant Operator IIB,Water District,Water District,68859.34,False
 "Rambo, Kevin",8/10A,Maintenance Mechanic III,Buildings & Grounds,General Fund,68807.67,False
 "Rebecca, Adams-Korn",4/6,Cultural Affairs Supervisor,Recreation,General Fund,68635.2,False
-"Schwarz, Brian",9/9A,Auto Mechanic III,Legislative,General Fund,68564.79,False
+"Schwarz, Brian",9/9A,Auto Mechanic III,Municipal Garage Employees,General Fund,68564.79,False
 "Westwood, Karen",1/18,Senior Citizens Program Supervisor,Senior Citizen Programs Administration,General Fund,68328.33,False
-"Richards, Lisa",,Deputy Tax Receiver,Eisep Program,General Fund,68267.43,False
+"Richards, Lisa",,Deputy Tax Receiver,Tax Receiver’s Office,General Fund,68267.43,False
 "Jones, Jeremy",5/P,Building Plans Examiner,Building,New in 2026,68161.2,False
 "Coome, Melissa",9/14A,Account Clerk,Water District,Water District,67636.4,False
-"Shaw, Eric",7/10A,Heavy Equipment Operator,Transportation Administration,Highway,67624.9,False
+"Shaw, Eric",7/10A,Heavy Equipment Operator,,Highway,67624.9,False
 "Clifford, Shannon",2/12A,Administrative Assistant,Engineering,General Fund,67145.41,False
-"Ritter, Jaime",9/14,Account Clerk,Legislative,General Fund,66969.48,False
+"Ritter, Jaime",9/14,Account Clerk,Municipal Garage Employees,General Fund,66969.48,False
 "Eibs-Stankaitis, Jessica",1/10,Public Safety Dispatcher I,Police Civilian,General Fund,66918.72,False
 "May, Nicholas",15/4,Water Treatment Plant Operator IIB,Water District,Water District,66355.35,False
 "Lopez, Patricia",1/9A,Public Safety Dispatcher I,Police Civilian,General Fund,66192.28,False
 "Linnen, Brian",7/9A,Custodial Worker III,Buildings & Grounds,General Fund,66174.72,False
 "Stoddard, John",7/9A,Maintenance Mechanic II,Buildings & Grounds,General Fund,66174.72,False
-"Greenwood, Frank",7/9A,Heavy Equipment Operator,Transportation Administration,Highway,66174.72,False
+"Greenwood, Frank",7/9A,Heavy Equipment Operator,,Highway,66174.72,False
 "Gregorovius, Eva",4/4A,Purchasing Technician,Purchasing,General Fund,65757.84,False
 "Miller, Brittany",3/7A,Budget Assistant,Finance,General Fund,65416.51,False
 "Dinizio, Melanie",4/4,Principal Account Clerk,Finance,General Fund,64798.72,False
 "Hulse, Pamla",4/4,Code Compliance Coordinator,Town Attorney,General Fund,64798.72,False
-"Sheppard, Joseph",7/8A,Heavy Equipment Operator,Transportation Administration,Highway,64724.55,False
+"Sheppard, Joseph",7/8A,Heavy Equipment Operator,,Highway,64724.55,False
 "Moore, Tammy",11/9A,Principal Office Assistant,Police Civilian,General Fund,64405.63,False
-"Vance, Scott",6/9,Automotive Equipment Operator,Transportation Administration,Highway,64353.28,False
+"Vance, Scott",6/9,Automotive Equipment Operator,,Highway,64353.28,False
 "Fund, General",,5-A01,Pays Bills,New in 2026,63884.34,False
-"Enaya, Mahmoud",8/7,Auto Mechanic II,Legislative,New in 2026,63646.82,False
-"Davis, Keith",6/8A,Automotive Equipment Operator,Transportation Administration,Highway,63637.66,False
+"Enaya, Mahmoud",8/7,Auto Mechanic II,Municipal Garage Employees,New in 2026,63646.82,False
+"Davis, Keith",6/8A,Automotive Equipment Operator,,Highway,63637.66,False
 "Baird, Kim",1/7A,Public Safety Dispatcher I,Police Civilian,General Fund,63286.51,False
 "Trt, Wastewater",,Plnt Operator Trainee,Rs/Sca/Cs,New in 2026,63271.37,False
 "Behr, Cheryl",9/11,Account Clerk,Juvenile Aid Bureau,General Fund,62967.96,False
 "Bowe, Howard",3/10A,Groundskeeper I,Buildings & Grounds,General Fund,62868.95,False
-"Waskowiak, Lauren",12/7,Senior Justice Court Clerk,Justice  Court,General Fund,62549.29,False
+"Waskowiak, Lauren",12/7,Senior Justice Court Clerk,Justice Court,General Fund,62549.29,False
 "Gabriele, Patrick",1/6A,Public Safety Dispatcher I,Police Civilian,General Fund,61833.63,False
 "Sinclair, Tara",1/6A,Public Safety Dispatcher I,Police Civilian,General Fund,61833.63,False
-"Kaiser, Louis",6/7,Automotive Equipment Operator,Transportation Administration,Highway,61490.8,False
+"Kaiser, Louis",6/7,Automotive Equipment Operator,,Highway,61490.8,False
 "Pressgrove, Andrew",8/5,Maintenance Mechanic III,Gf/Stlt,Street Lighting,60697.76,False
 "Acevedo, Camille",1/5A,Public Safety Dispatcher I,Police Civilian,New in 2026,60380.75,False
 "Felice, Olivia",1/5A,Public Safety Dispatcher I,Police Civilian,New in 2026,60380.75,False
@@ -254,41 +254,41 @@ name,grade,title,department,group,annual_salary,is_stipend
 "Wicklund, Hunter",1/5A,Public Safety Dispatcher I,Police Civilian,New in 2026,60380.75,False
 "Visek, Jonathan",7/5A,Maintenance Mechanic II,Water District,Water District,60374.01,False
 "Hazzard, Rebecca",9/9,Senior Assessment Clerk,Assessors,General Fund,60300.28,False
-"Vankurin, Rachel",9/9,Account Clerk,Eisep Program,General Fund,60300.28,False
+"Vankurin, Rachel",9/9,Account Clerk,Tax Receiver’s Office,General Fund,60300.28,False
 "Hodun, Heather",11/6A,Principal Office Assistant,Building,General Fund,60184.96,False
-"Stettner, Robert",6/6,Automotive Equipment Operator,Transportation Administration,Highway,60059.56,False
-"Wandolowski, William",6/6,Automotive Equipment Operator,Transportation Administration,Highway,60059.56,False
+"Stettner, Robert",6/6,Automotive Equipment Operator,,Highway,60059.56,False
+"Wandolowski, William",6/6,Automotive Equipment Operator,,Highway,60059.56,False
 "Boulier, Stamintina",,Legislative Secretary,Legislative,New in 2026,59829.12,False
-"Cote, David",,Secretary,Eisep Program,New in 2026,59740.45,False
+"Cote, David",,Secretary,Supervisor’s Office,New in 2026,59740.45,False
 "Falisi, Robert",7/5,Maintenance Mechanic II,Buildings & Grounds,General Fund,59648.92,False
-"Bakowski, Parker",6/5A,Automotive Equipment Operator,Transportation Administration,Highway,59343.94,False
-"Liles, Charles",6/5A,Automotive Equipment Operator,Transportation Administration,Highway,59343.94,False
-"Mammina, Nicholas",6/5A,Automotive Equipment Operator,Transportation Administration,Highway,59343.94,False
-"McWilliams, Ryan",6/5A,Automotive Equipment Operator,Transportation Administration,Highway,59343.94,False
-"Muir, Michael",6/5A,Automotive Equipment Operator,Transportation Administration,Highway,59343.94,False
-"Wignington, James",6/5A,Automotive Equipment Operator,Transportation Administration,Highway,59343.94,False
+"Bakowski, Parker",6/5A,Automotive Equipment Operator,,Highway,59343.94,False
+"Liles, Charles",6/5A,Automotive Equipment Operator,,Highway,59343.94,False
+"Mammina, Nicholas",6/5A,Automotive Equipment Operator,,Highway,59343.94,False
+"McWilliams, Ryan",6/5A,Automotive Equipment Operator,,Highway,59343.94,False
+"Muir, Michael",6/5A,Automotive Equipment Operator,,Highway,59343.94,False
+"Wignington, James",6/5A,Automotive Equipment Operator,,Highway,59343.94,False
 "Blackmore, Andrew",7/4A,Maintenance Mechanic II,Buildings & Grounds,General Fund,58923.83,False
 "Colon, Michael",7/4A,Maintenance Mechanic II,Buildings & Grounds,General Fund,58923.83,False
-"Mabanta, Kristen",11/5A,Justice Court Clerk,Justice  Court,General Fund,58778.07,False
+"Mabanta, Kristen",11/5A,Justice Court Clerk,Justice Court,General Fund,58778.07,False
 "Treatment, Wastewater",,Plant Operator Trainee,Rs/Sca/Cs,New in 2026,58734.15,False
 "Calderon, Christopher",9/P,Water Treatment Plant Operator Trainee,Water District,New in 2026,58734.15,False
 "LaRocco, Paul",9/P,Water Treatment Plant Operator Trainee,Water District,New in 2026,58734.15,False
 "LeCann, Vanessa",,Deputy Town Clerk,Town Clerk,General Fund,58661.49,False
-"Guerra, Joseph",6/5,Automotive Equipment Operator,Transportation Administration,New in 2026,58628.32,False
-"Deon, Ryan",6/5,Automotive Equipment Operator,Transportation Administration,New in 2026,58628.32,False
-"Franks, Matthew",6/5,Automotive Equipment Operator,Transportation Administration,New in 2026,58628.32,False
-"McGarrity, Brian",6/5,Automotive Equipment Operator,Transportation Administration,New in 2026,58628.32,False
-"Sostre, Steven",6/5,Automotive Equipment Operator,Transportation Administration,New in 2026,58628.32,False
-"Urbinati, Frank",6/5,Automotive Equipment Operator,Transportation Administration,New in 2026,58628.32,False
+"Guerra, Joseph",6/5,Automotive Equipment Operator,,New in 2026,58628.32,False
+"Deon, Ryan",6/5,Automotive Equipment Operator,,New in 2026,58628.32,False
+"Franks, Matthew",6/5,Automotive Equipment Operator,,New in 2026,58628.32,False
+"McGarrity, Brian",6/5,Automotive Equipment Operator,,New in 2026,58628.32,False
+"Sostre, Steven",6/5,Automotive Equipment Operator,,New in 2026,58628.32,False
+"Urbinati, Frank",6/5,Automotive Equipment Operator,,New in 2026,58628.32,False
 "Mechanic, Maintenance",,II,Rs/Sca/Cs,New in 2026,58198.74,False
-"Avelar Gonzalez, Yenci",11/4A,Justice Court Clerk- Spanish Speaking,Justice  Court,General Fund,57371.18,False
-"Biancospino, Kathleen",11/4A,Justice Court Clerk,Justice  Court,General Fund,57371.18,False
-"Sostre, Angelo",6/4,Automotive Equipment Operator,Registrar Of Vital Statistics,General Fund,57197.08,False
-"Stark, John",6/4,Automotive Equipment Operator,Registrar Of Vital Statistics,General Fund,57197.08,False
+"Avelar Gonzalez, Yenci",11/4A,Justice Court Clerk- Spanish Speaking,Justice Court,General Fund,57371.18,False
+"Biancospino, Kathleen",11/4A,Justice Court Clerk,Justice Court,General Fund,57371.18,False
+"Sostre, Angelo",6/4,Automotive Equipment Operator,Sanitation Department & Yard Waste Program,General Fund,57197.08,False
+"Stark, John",6/4,Automotive Equipment Operator,Sanitation Department & Yard Waste Program,General Fund,57197.08,False
 "Henderson, Damion",3/6,Custodial Worker II,Buildings & Grounds,General Fund,56817.98,False
 "Falci, Javier",7/P,Maintenance Mechanic II,Buildings & Grounds,New in 2026,56748.57,False
 "Horl, Dennis",7/P,Maintenance Mechanic II,Water District,New in 2026,56748.57,False
-"Chabla, Jennifer",11/4,Justice Court Clerk- Spanish Speaking,Justice  Court,General Fund,56667.73,False
+"Chabla, Jennifer",11/4,Justice Court Clerk- Spanish Speaking,Justice Court,General Fund,56667.73,False
 "Piccione, Kenda",8/7A,Senior Office Assistant,Engineering,General Fund,56593.18,False
 "Klein, Charles",4/13,Senior Cook,Senior Citizen Programs Nutrition,General Fund,56108.19,False
 "Curven, Austin",4/4A,Maintenance Mechanic I,Seniors Helping Seniors Program,General Fund,55834.88,False
@@ -344,8 +344,8 @@ name,grade,title,department,group,annual_salary,is_stipend
 "Ariizumi, Hideaki",,Board Member,Architectural Review Board,Boards,3000.0,False
 "Barth, Judy",,Board Member,Architectural Review Board,Boards,3000.0,False
 "Carrick, Megan",,Board Member,Architectural Review Board,Boards,3000.0,False
-"Developer, EW3-2130-000-82520-8",,Fees,From                 To,New in 2026,3000.0,False
-"Water, EW3-8-8320-435-000-82520",,– Prof Svcs – Engineering,From                 To,New in 2026,3000.0,False
+"Developer, EW3-2130-000-82520-8",,Fees,From To,New in 2026,3000.0,False
+"Water, EW3-8-8320-435-000-82520",,– Prof Svcs – Engineering,From To,New in 2026,3000.0,False
 "Projects, Capital",,X-H01,Pays Bills,New in 2026,2926.67,False
 "District, Ambulance",,5-SM1,Pays Bills,New in 2026,2718.75,False
 "McCabe Sr.,",,Sean M. Member-Chair,Conservation Advisory Council,New in 2026,1940.0,False

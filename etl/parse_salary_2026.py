@@ -22,12 +22,38 @@ OUT = ROOT / "web/public/data/salary"
 MONEY = re.compile(r"[\d,]+\.\d{2}")
 GRADE = re.compile(r"\b(\d{1,2}/[A-Z0-9]{1,3})\b")
 COMMA_NAME = re.compile(r"^([A-Z][A-Za-z.'-]+,\s+[A-Z][A-Za-z.'-]+)\s+(.*)$")
-DEPT_HDR = re.compile(r"^[A-Z][A-Z '&/.-]{4,40}$")
 NOISE = re.compile(r"ANNUAL SALARY|EMPLOYEE|FISCAL IMPACT|THE VOTE|ADOPTED|TOWN OF RIVERHEAD|RESOLUTION|WHEREAS|NOTICE")
+# Department headings in the schedule attached to Resolution 2026-2. Four of them
+# used to fail the test, and each one's staff were filed under the heading above
+# it: SUPERVISOR’S OFFICE and TAX RECEIVER’S OFFICE print a typographic
+# apostrophe (so the Supervisor's staff became "Eisep Program"), SANITATION
+# DEPARTMENT & YARD WASTE PROGRAM runs to 42 characters, and MUNICIPAL GARAGE
+# EMPLOYEES ends in a word NOISE drops. Only a line that *starts* with EMPLOYEE
+# is the column header, so the heading test anchors that word. 42 characters is
+# the longest real heading; the fiscal impact statement's "OF PROPOSED RIVERHEAD
+# TOWN BOARD LEGISLATION" is 44 and must not pass.
+DEPT_HDR = re.compile(r"^[A-Z][A-Z '&/.-]{4,41}$")
+HDR_NOISE = re.compile(r"ANNUAL SALARY|^EMPLOYEE\b|FISCAL IMPACT|LEGISLATION|THE VOTE|ADOPTED|TOWN OF RIVERHEAD|RESOLUTION|WHEREAS|NOTICE")
+# Each salary resolution carries its own schedule, and only the general-employee
+# one (2026-2) prints department headings. Without a reset, the Highway schedule
+# inherited the last heading above it and filed 36 highway workers under
+# Transportation Administration.
+RESOLUTION_START = re.compile(r"^TB Resolution \d{4}-\d+")
 
 
 def clean(s):
     return re.sub(r"\s+", " ", s).strip(" .$")
+
+
+def is_heading(line):
+    plain = line.replace("’", "'")
+    return bool(DEPT_HDR.match(plain)) and not any(c.isdigit() for c in plain) and not HDR_NOISE.search(plain)
+
+
+def dept_name(line):
+    """'SUPERVISOR’S OFFICE' -> 'Supervisor’s Office'. str.title() alone gives
+    'Supervisor’S Office', and 'JUSTICE  COURT' prints with two spaces."""
+    return re.sub(r"[’']S\b", "’s", " ".join(line.split()).title())
 
 
 # Misspellings in the Town's own salary-schedule source documents, confirmed against
@@ -152,8 +178,11 @@ def parse_2026():
         line = raw.strip()
         if not line:
             continue
-        if DEPT_HDR.match(line) and not any(c.isdigit() for c in line) and not NOISE.search(line):
-            dept = line.title()
+        if RESOLUTION_START.match(line):
+            dept = ""
+            continue
+        if is_heading(line):
+            dept = dept_name(line)
             continue
         if NOISE.search(line):
             continue
