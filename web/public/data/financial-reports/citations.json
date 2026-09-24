@@ -1,6 +1,716 @@
 {
-  "parsed_at": "2026-07-31T00:48:42.463564+00:00",
+  "parsed_at": "2026-09-24T14:07:38.767814+00:00",
   "records": [
+    {
+      "id": "2027-2027-tentative-budget-pdf-p1",
+      "document": "2027 Tentative Budget (PDF)",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3928/2027-Tentative-Budget-PDF",
+      "page": 1,
+      "snippet": "2027 Tentative Budget Jerome Halpin Town Supervisor Kenneth Rothwell Robert Kern Town Council Town Council Denise Merrifield Joann Waski Town Council Town Council",
+      "confidence": "medium",
+      "sha256": "019650dc38bc6589aba79b74d9d789371021f2442fc522d16ef27358da430b2f",
+      "parsed_at": "2026-09-24T14:07:38.767814+00:00"
+    },
+    {
+      "id": "2027-2027-tentative-budget-pdf-p2",
+      "document": "2027 Tentative Budget (PDF)",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3928/2027-Tentative-Budget-PDF",
+      "page": 2,
+      "snippet": "",
+      "confidence": "low",
+      "sha256": "019650dc38bc6589aba79b74d9d789371021f2442fc522d16ef27358da430b2f",
+      "parsed_at": "2026-09-24T14:07:38.767814+00:00"
+    },
+    {
+      "id": "2027-2027-tentative-budget-pdf-p3",
+      "document": "2027 Tentative Budget (PDF)",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3928/2027-Tentative-Budget-PDF",
+      "page": 3,
+      "snippet": "",
+      "confidence": "low",
+      "sha256": "019650dc38bc6589aba79b74d9d789371021f2442fc522d16ef27358da430b2f",
+      "parsed_at": "2026-09-24T14:07:38.767814+00:00"
+    },
+    {
+      "id": "2027-2027-tentative-budget-pdf-p4",
+      "document": "2027 Tentative Budget (PDF)",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3928/2027-Tentative-Budget-PDF",
+      "page": 4,
+      "snippet": "TOWN OF RIVERHEAD NEW YORK 2027 TENTATIVE BUDGET TABLE OF CONTENTS Fund TITLE PAGE Fund Description 1 Summary Page 3 Fund Balances 4 Salaries of Elected Officials 5 A01 General Fund 6 A04 Police Athletic League 21 A06 Recreation Program Fund 22 CM1 Business Improvement District 24 CM2 East Creek Docking Facility 25 CM4 Community Preservation Fund 26 DA1 Highway Fund 27 ES1 Riverhead Sewer District 29 ES3 Calverton Sewer District 31 ES5 Scavenger Waste District 33 EW1 Water District 35 MS1 Worker",
+      "confidence": "medium",
+      "sha256": "019650dc38bc6589aba79b74d9d789371021f2442fc522d16ef27358da430b2f",
+      "parsed_at": "2026-09-24T14:07:38.767814+00:00"
+    },
+    {
+      "id": "2027-2027-tentative-budget-pdf-p5",
+      "document": "2027 Tentative Budget (PDF)",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3928/2027-Tentative-Budget-PDF",
+      "page": 5,
+      "snippet": "TOWN OF RIVERHEAD NEW YORK 2027 TENTATIVE BUDGET TABLE OF CONTENTS Fund TITLE PAGE A01 General Fund 45 A04 Police Athletic League 47 A06 Recreation Program Fund 48 CM1 Business Improvement District 49 CM2 East Creek Docking Facility 50 CM4 Community Preservation Fund 51 DA1 Highway Fund 52 ES1 Riverhead Sewer District 53 ES3 Calverton Sewer District 54 ES5 Scavenger Waste District 55 EW1 Water District 56 MS1 Workers Compensation Fund 57 MS2 Risk Retention Fund 58 SL1 Street Lighting District 59",
+      "confidence": "medium",
+      "sha256": "019650dc38bc6589aba79b74d9d789371021f2442fc522d16ef27358da430b2f",
+      "parsed_at": "2026-09-24T14:07:38.767814+00:00"
+    },
+    {
+      "id": "2027-2027-tentative-budget-pdf-p6",
+      "document": "2027 Tentative Budget (PDF)",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3928/2027-Tentative-Budget-PDF",
+      "page": 6,
+      "snippet": "Fund Description 1 A01 General Fund The principal operating fund and includes all operations not required to be reflected in other funds. A04 Police Athletic League This fund is used to separate and distinguish donations received from the community to support the operations of the town-wide youth sports program known as PAL. A06 Recreation Program Fund This fund includes the operations of recreation programs that are self- sustained and do not require property taxes for their support. CM1 Busine",
+      "confidence": "medium",
+      "sha256": "019650dc38bc6589aba79b74d9d789371021f2442fc522d16ef27358da430b2f",
+      "parsed_at": "2026-09-24T14:07:38.767814+00:00"
+    },
+    {
+      "id": "2027-2027-tentative-budget-pdf-p7",
+      "document": "2027 Tentative Budget (PDF)",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3928/2027-Tentative-Budget-PDF",
+      "page": 7,
+      "snippet": "Fund Description 2 MS2 Risk Retention Fund This fund is used to account for the excess insurance and administration of the Town's Liability Self Insurance Program. SL1 Street Lighting District This special revenue fund includes all operations relating to the repair and maintenance of both traffic and street lights within the boundaries of the Town. SM1 Ambulance District This special revenue fund includes the operations relating to the Town Ambulance serving the entire Town excluding the portion",
+      "confidence": "medium",
+      "sha256": "019650dc38bc6589aba79b74d9d789371021f2442fc522d16ef27358da430b2f",
+      "parsed_at": "2026-09-24T14:07:38.767814+00:00"
+    },
+    {
+      "id": "2027-2027-tentative-budget-pdf-p8",
+      "document": "2027 Tentative Budget (PDF)",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3928/2027-Tentative-Budget-PDF",
+      "page": 8,
+      "snippet": "TOWN OF RIVERHEAD NEW YORK 2027 TENTATIVE BUDGET SUMMARY Fund Code Fund 2027 Appropriations 2027 Estimated Revenues 2027 Appropriated Fund Balance 2027 Tax Levy A01 General Fund 72,014,362$ 16,727,412$ 950,000$ 54,336,950$ A04 Police Athletic League 84,090 84,090 - - A06 Recreation Program Fund 472,195 472,195 - - CM1 Business Improvement District 144,136 - - 144,136 CM2 East Creek Docking Facility 288,100 288,100 - - CM4 Community Preservation Fund 2,979,300 2,979,300 - - DA1 Highway Fund 8,286",
+      "confidence": "high",
+      "sha256": "019650dc38bc6589aba79b74d9d789371021f2442fc522d16ef27358da430b2f",
+      "parsed_at": "2026-09-24T14:07:38.767814+00:00"
+    },
+    {
+      "id": "2027-2027-tentative-budget-pdf-p9",
+      "document": "2027 Tentative Budget (PDF)",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3928/2027-Tentative-Budget-PDF",
+      "page": 9,
+      "snippet": "TOWN OF RIVERHEAD NEW YORK 2027 TENTATIVE BUDGET FUND BALANCES Code Fund 2027 Appropriations Audited Fund Balance 12/31/25 2025 Application of Fund Balance Estimated Fund Balance 12/31/26 A01 General Fund 72,014,362$ 28,403,924$ -$ 28,403,924$ A A04 Police Athletic League 84,090 - - A06 Recreation Program Fund 472,195 - - CM1 Business Improvement District 144,136 - - CM2 East Creek Docking Facility 288,100 - - CM4 Community Preservation Fund 2,979,300 26,200,442 - 26,200,442 B DA1 Highway Fund 8",
+      "confidence": "high",
+      "sha256": "019650dc38bc6589aba79b74d9d789371021f2442fc522d16ef27358da430b2f",
+      "parsed_at": "2026-09-24T14:07:38.767814+00:00"
+    },
+    {
+      "id": "2027-2027-tentative-budget-pdf-p10",
+      "document": "2027 Tentative Budget (PDF)",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3928/2027-Tentative-Budget-PDF",
+      "page": 10,
+      "snippet": "TOWN OF RIVERHEAD NEW YORK 2027 TENTATIVE BUDGET SALARIES OF ELECTED OFFICIALS Title 2026 Salary 2027 Proposed Salary 2026 Fringe Benefit 2027 Proposed Fringe Benefit Town Supervisor (a) 118,919$ 118,919$ 9,974$ 10,321$ Town Council (4) 50,558$ 50,558$ 5,984$ 6,193$ Town Justices (2) 96,872$ 96,872$ 5,984$ 6,193$ Tax Receiver 96,085$ 96,085$ 5,984$ 6,193$ Assessor Chair 110,663$ 110,663$ 5,984$ 6,193$ Assessors (2) 96,085$ 96,085$ 5,984$ 6,193$ Town Clerk 96,085$ 96,085$ 5,984$ 6,193$ Town Clerk",
+      "confidence": "high",
+      "sha256": "019650dc38bc6589aba79b74d9d789371021f2442fc522d16ef27358da430b2f",
+      "parsed_at": "2026-09-24T14:07:38.767814+00:00"
+    },
+    {
+      "id": "2027-2027-tentative-budget-pdf-p11",
+      "document": "2027 Tentative Budget (PDF)",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3928/2027-Tentative-Budget-PDF",
+      "page": 11,
+      "snippet": "TOWN OF RIVERHEAD NEW YORK 2027 TENTATIVE BUDGET EXPENDITURES Account Number Account Description Adopted Budget 2026 Dept Requested Budget 2027 Tentative Budget 2027 A01-1-1010-000-000-00000 Twn Brd - Legislature - Town Board A01-1-1010-100-000-00000 Legislature - Town Board-PERSONAL SVC A01-1-1010-101-NON-00000 Twn Brd - Personal Services 286,746.00 289,096.00 289,096.00 A01-1-1010-154-000-00000 Twn Brd - Pers Svcs Health Ins Buy Back 3,555.00 4,500.00 4,500.00 Personal Services Subtotal 290,30",
+      "confidence": "high",
+      "sha256": "019650dc38bc6589aba79b74d9d789371021f2442fc522d16ef27358da430b2f",
+      "parsed_at": "2026-09-24T14:07:38.767814+00:00"
+    },
+    {
+      "id": "2027-2027-tentative-budget-pdf-p12",
+      "document": "2027 Tentative Budget (PDF)",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3928/2027-Tentative-Budget-PDF",
+      "page": 12,
+      "snippet": "TOWN OF RIVERHEAD NEW YORK 2027 TENTATIVE BUDGET EXPENDITURES Account Number Account Description Adopted Budget 2026 Dept Requested Budget 2027 Tentative Budget 2027 A01-1-1310-416-000-00000 Acct - Supplies - Office 4,000.00 4,000.00 4,000.00 A01-1-1310-436-210-00000 Acct - Prof Svcs - Other 159,300.00 125,000.00 125,000.00 A01-1-1310-442-000-00000 Acct - Prof Edu & Training 3,500.00 3,500.00 3,500.00 A01-1-1310-443-000-00000 Acct - Travel & Lodging 1,500.00 0.00 0.00 Contractual Subtotal 168,30",
+      "confidence": "high",
+      "sha256": "019650dc38bc6589aba79b74d9d789371021f2442fc522d16ef27358da430b2f",
+      "parsed_at": "2026-09-24T14:07:38.767814+00:00"
+    },
+    {
+      "id": "2027-2027-tentative-budget-pdf-p13",
+      "document": "2027 Tentative Budget (PDF)",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3928/2027-Tentative-Budget-PDF",
+      "page": 13,
+      "snippet": "TOWN OF RIVERHEAD NEW YORK 2027 TENTATIVE BUDGET EXPENDITURES Account Number Account Description Adopted Budget 2026 Dept Requested Budget 2027 Tentative Budget 2027 A01-1-1355-240-000-00000 Assmnt - Equipment 2,000.00 2,000.00 2,000.00 Equipment Subtotal 2,000.00 2,000.00 2,000.00 A01-1-1355-400-000-00000 Assessment-CONTRACTUAL A01-1-1355-405-000-00000 Assmnt -R&M - Vehicles 2,000.00 2,000.00 2,000.00 A01-1-1355-416-000-00000 Assmnt -Supplies - Office 5,000.00 5,000.00 5,000.00 A01-1-1355-422-0",
+      "confidence": "high",
+      "sha256": "019650dc38bc6589aba79b74d9d789371021f2442fc522d16ef27358da430b2f",
+      "parsed_at": "2026-09-24T14:07:38.767814+00:00"
+    },
+    {
+      "id": "2027-2027-tentative-budget-pdf-p14",
+      "document": "2027 Tentative Budget (PDF)",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3928/2027-Tentative-Budget-PDF",
+      "page": 14,
+      "snippet": "TOWN OF RIVERHEAD NEW YORK 2027 TENTATIVE BUDGET EXPENDITURES Account Number Account Description Adopted Budget 2026 Dept Requested Budget 2027 Tentative Budget 2027 A01-1-1420-436-210-00000 Atty - Prof Svcs - Other 25,000.00 25,000.00 25,000.00 A01-1-1420-442-000-00000 Atty - Prof Edu & Training 17,000.00 20,000.00 20,000.00 Contractual Subtotal 443,750.00 446,750.00 446,750.00 1420 Total 1,429,097.00 1,525,886.00 1,521,407.00 A01-1-1430-000-000-00000 Pers - Personnel Officer A01-1-1430-100-000",
+      "confidence": "high",
+      "sha256": "019650dc38bc6589aba79b74d9d789371021f2442fc522d16ef27358da430b2f",
+      "parsed_at": "2026-09-24T14:07:38.767814+00:00"
+    },
+    {
+      "id": "2027-2027-tentative-budget-pdf-p15",
+      "document": "2027 Tentative Budget (PDF)",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3928/2027-Tentative-Budget-PDF",
+      "page": 15,
+      "snippet": "TOWN OF RIVERHEAD NEW YORK 2027 TENTATIVE BUDGET EXPENDITURES Account Number Account Description Adopted Budget 2026 Dept Requested Budget 2027 Tentative Budget 2027 A01-1-1620-405-000-00000 Town Hall - R&M - Vehicles 5,000.00 5,000.00 5,000.00 A01-1-1620-415-000-00000 Town Hall - Supplies 29,500.00 29,500.00 29,500.00 A01-1-1620-421-000-00000 Town Hall - Postage 6,265.00 6,265.00 6,265.00 A01-1-1620-426-000-00000 Town Hall Fuel - Gasoline & Diesel 2,000.00 2,000.00 2,000.00 A01-1-1620-462-000-0",
+      "confidence": "high",
+      "sha256": "019650dc38bc6589aba79b74d9d789371021f2442fc522d16ef27358da430b2f",
+      "parsed_at": "2026-09-24T14:07:38.767814+00:00"
+    },
+    {
+      "id": "2027-2027-tentative-budget-pdf-p16",
+      "document": "2027 Tentative Budget (PDF)",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3928/2027-Tentative-Budget-PDF",
+      "page": 16,
+      "snippet": "TOWN OF RIVERHEAD NEW YORK 2027 TENTATIVE BUDGET EXPENDITURES Account Number Account Description Adopted Budget 2026 Dept Requested Budget 2027 Tentative Budget 2027 A01-1-1680-100-000-00000 Information Technology-PERSONAL SVC A01-1-1680-101-NON-00000 I.T. - Personal Services 580,090.00 570,342.00 570,342.00 A01-1-1680-111-NON-00000 I.T. - Personal Services OT 2,500.00 2,500.00 2,500.00 A01-1-1680-112-NON-00000 I.T. - Pers Svcs Longevity 9,883.00 0.00 0.00 A01-1-1680-123-000-00000 I.T. - Pers Sv",
+      "confidence": "high",
+      "sha256": "019650dc38bc6589aba79b74d9d789371021f2442fc522d16ef27358da430b2f",
+      "parsed_at": "2026-09-24T14:07:38.767814+00:00"
+    },
+    {
+      "id": "2027-2027-tentative-budget-pdf-p17",
+      "document": "2027 Tentative Budget (PDF)",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3928/2027-Tentative-Budget-PDF",
+      "page": 17,
+      "snippet": "TOWN OF RIVERHEAD NEW YORK 2027 TENTATIVE BUDGET EXPENDITURES Account Number Account Description Adopted Budget 2026 Dept Requested Budget 2027 Tentative Budget 2027 Contractual Subtotal 85,000.00 128,000.00 128,000.00 1950 Total 85,000.00 128,000.00 128,000.00 A01-1-1989-000-000-00000 Other Gen Govt - Other General Government A01-1-1989-110-000-00000 Other Genrl Gov't - Pers Svcs Severance 74,444.00 124,444.00 74,444.00 Personal Services Subtotal 74,444.00 124,444.00 74,444.00 A01-1-1989-442-00",
+      "confidence": "high",
+      "sha256": "019650dc38bc6589aba79b74d9d789371021f2442fc522d16ef27358da430b2f",
+      "parsed_at": "2026-09-24T14:07:38.767814+00:00"
+    },
+    {
+      "id": "2027-2027-tentative-budget-pdf-p18",
+      "document": "2027 Tentative Budget (PDF)",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3928/2027-Tentative-Budget-PDF",
+      "page": 18,
+      "snippet": "TOWN OF RIVERHEAD NEW YORK 2027 TENTATIVE BUDGET EXPENDITURES Account Number Account Description Adopted Budget 2026 Dept Requested Budget 2027 Tentative Budget 2027 A01-3-3120-415-360-00000 Police - Supplies - Police Gen 3,850.00 4,200.00 4,200.00 A01-3-3120-415-361-00000 Police - Supplies - Ammunition 8,000.00 8,000.00 8,000.00 A01-3-3120-415-362-00000 Police - Supplies - Flashlight Batt 900.00 900.00 900.00 A01-3-3120-415-363-00000 Police - Supplies - Flares 4,000.00 6,200.00 6,200.00 A01-3-3",
+      "confidence": "high",
+      "sha256": "019650dc38bc6589aba79b74d9d789371021f2442fc522d16ef27358da430b2f",
+      "parsed_at": "2026-09-24T14:07:38.767814+00:00"
+    },
+    {
+      "id": "2027-2027-tentative-budget-pdf-p19",
+      "document": "2027 Tentative Budget (PDF)",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3928/2027-Tentative-Budget-PDF",
+      "page": 19,
+      "snippet": "TOWN OF RIVERHEAD NEW YORK 2027 TENTATIVE BUDGET EXPENDITURES Account Number Account Description Adopted Budget 2026 Dept Requested Budget 2027 Tentative Budget 2027 A01-3-3125-000-000-00000 Juv Aid - Juvenile Aid Bureau A01-3-3125-100-000-00000 Juvenile Aid Bureau-PERSONAL SVC A01-3-3125-101-NON-00000 Juvenile Aid Bu Personal Services 145,868.00 132,662.00 132,662.00 A01-3-3125-111-NON-00000 Juv Aid -Pers Svcs Non Uniform OT 1,000.00 1,000.00 1,000.00 A01-3-3125-112-NON-00000 Juv Aid -Pers Svcs",
+      "confidence": "high",
+      "sha256": "019650dc38bc6589aba79b74d9d789371021f2442fc522d16ef27358da430b2f",
+      "parsed_at": "2026-09-24T14:07:38.767814+00:00"
+    },
+    {
+      "id": "2027-2027-tentative-budget-pdf-p20",
+      "document": "2027 Tentative Budget (PDF)",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3928/2027-Tentative-Budget-PDF",
+      "page": 20,
+      "snippet": "TOWN OF RIVERHEAD NEW YORK 2027 TENTATIVE BUDGET EXPENDITURES Account Number Account Description Adopted Budget 2026 Dept Requested Budget 2027 Tentative Budget 2027 A01-3-3620-111-NON-00000 Safe Insp - Personal Services OT 10,000.00 10,000.00 11,666.00 A01-3-3620-112-NON-00000 Safe Insp - Pers Svcs Longevity 0.00 3,651.00 3,513.00 A01-3-3620-123-000-00000 Safe Insp - Pers Svcs Cleaning Allow 2,800.00 3,200.00 3,200.00 A01-3-3620-154-000-00000 Safe Insp- Pers Svcs Health Ins Buy Back 7,945.00 15",
+      "confidence": "high",
+      "sha256": "019650dc38bc6589aba79b74d9d789371021f2442fc522d16ef27358da430b2f",
+      "parsed_at": "2026-09-24T14:07:38.767814+00:00"
+    },
+    {
+      "id": "2027-2027-tentative-budget-pdf-p21",
+      "document": "2027 Tentative Budget (PDF)",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3928/2027-Tentative-Budget-PDF",
+      "page": 21,
+      "snippet": "TOWN OF RIVERHEAD NEW YORK 2027 TENTATIVE BUDGET EXPENDITURES Account Number Account Description Adopted Budget 2026 Dept Requested Budget 2027 Tentative Budget 2027 Contractual Subtotal 7,500.00 7,500.00 7,500.00 4210 Total 7,500.00 7,500.00 7,500.00 A01-5-5010-000-000-00000 Hwy Adm - Highway Administration A01-5-5010-100-000-00000 Highway Administration-PERSONAL SVC A01-5-5010-101-NON-00000 Hwy Adm - Personal Services 295,689.00 265,184.00 265,184.00 A01-5-5010-111-NON-00000 Hwy Adm - Personal",
+      "confidence": "high",
+      "sha256": "019650dc38bc6589aba79b74d9d789371021f2442fc522d16ef27358da430b2f",
+      "parsed_at": "2026-09-24T14:07:38.767814+00:00"
+    },
+    {
+      "id": "2027-2027-tentative-budget-pdf-p22",
+      "document": "2027 Tentative Budget (PDF)",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3928/2027-Tentative-Budget-PDF",
+      "page": 22,
+      "snippet": "TOWN OF RIVERHEAD NEW YORK 2027 TENTATIVE BUDGET EXPENDITURES Account Number Account Description Adopted Budget 2026 Dept Requested Budget 2027 Tentative Budget 2027 A01-7-7020-100-000-00000 Recreation Administration-PERSONAL SVC A01-7-7020-101-NON-00000 Rec Adm - Personal Services 542,828.00 526,895.00 513,612.00 A01-7-7020-111-NON-00000 Rec Adm - Personal Services OT 5,450.00 5,000.00 5,000.00 A01-7-7020-112-NON-00000 Rec Adm - Pers Svcs Longevity 21,935.00 18,181.00 17,917.00 A01-7-7020-123-0",
+      "confidence": "high",
+      "sha256": "019650dc38bc6589aba79b74d9d789371021f2442fc522d16ef27358da430b2f",
+      "parsed_at": "2026-09-24T14:07:38.767814+00:00"
+    },
+    {
+      "id": "2027-2027-tentative-budget-pdf-p23",
+      "document": "2027 Tentative Budget (PDF)",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3928/2027-Tentative-Budget-PDF",
+      "page": 23,
+      "snippet": "TOWN OF RIVERHEAD NEW YORK 2027 TENTATIVE BUDGET EXPENDITURES Account Number Account Description Adopted Budget 2026 Dept Requested Budget 2027 Tentative Budget 2027 Equipment Subtotal 22,500.00 22,500.00 22,500.00 A01-7-7180-400-000-00000 Beaches-CONTRACTUAL A01-7-7180-415-000-00000 Beach - Supplies 5,000.00 5,000.00 5,000.00 A01-7-7180-424-000-00000 Beach - Printing 15,000.00 15,000.00 15,000.00 A01-7-7180-475-000-00000 Beach - Utl - Communications/WIFI 6,700.00 6,700.00 6,700.00 Contractual S",
+      "confidence": "high",
+      "sha256": "019650dc38bc6589aba79b74d9d789371021f2442fc522d16ef27358da430b2f",
+      "parsed_at": "2026-09-24T14:07:38.767814+00:00"
+    },
+    {
+      "id": "2027-2027-tentative-budget-pdf-p24",
+      "document": "2027 Tentative Budget (PDF)",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3928/2027-Tentative-Budget-PDF",
+      "page": 24,
+      "snippet": "TOWN OF RIVERHEAD NEW YORK 2027 TENTATIVE BUDGET EXPENDITURES Account Number Account Description Adopted Budget 2026 Dept Requested Budget 2027 Tentative Budget 2027 A01-8-8010-100-000-00000 Zoning Board of Appeals-PERSONAL SVC A01-8-8010-102-000-00000 Zone - Pers Svcs Part Time 38,400.00 38,400.00 38,400.00 Personal Services Subtotal 38,400.00 38,400.00 38,400.00 A01-8-8010-400-000-00000 Zoning Board of Appeals-CONTRACTUAL A01-8-8010-433-000-00000 Zone - Prof Svcs - Legal 8,200.00 8,200.00 8,20",
+      "confidence": "high",
+      "sha256": "019650dc38bc6589aba79b74d9d789371021f2442fc522d16ef27358da430b2f",
+      "parsed_at": "2026-09-24T14:07:38.767814+00:00"
+    },
+    {
+      "id": "2027-2027-tentative-budget-pdf-p25",
+      "document": "2027 Tentative Budget (PDF)",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3928/2027-Tentative-Budget-PDF",
+      "page": 25,
+      "snippet": "TOWN OF RIVERHEAD NEW YORK 2027 TENTATIVE BUDGET EXPENDITURES Account Number Account Description Adopted Budget 2026 Dept Requested Budget 2027 Tentative Budget 2027 A01-8-8160-482-100-00000 Refuse -Waste Disposal - Leaf Grinding 86,200.00 97,400.00 97,400.00 A01-8-8160-482-WST-00000 Refuse - Hazardous Waste Disposal 50,000.00 60,000.00 60,000.00 Contractual Subtotal 285,900.00 298,100.00 298,100.00 8160 Total 481,427.00 701,279.00 621,960.00 A01-8-8686-000-000-00000 CDA - Community Development ",
+      "confidence": "high",
+      "sha256": "019650dc38bc6589aba79b74d9d789371021f2442fc522d16ef27358da430b2f",
+      "parsed_at": "2026-09-24T14:07:38.767814+00:00"
+    },
+    {
+      "id": "2027-2027-tentative-budget-pdf-p26",
+      "document": "2027 Tentative Budget (PDF)",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3928/2027-Tentative-Budget-PDF",
+      "page": 26,
+      "snippet": "TOWN OF RIVERHEAD NEW YORK 2027 TENTATIVE BUDGET EXPENDITURES Account Number Account Description Adopted Budget 2026 Dept Requested Budget 2027 Tentative Budget 2027 A04-3-3120-000-000-00000 Police - Police A04-3-3120-200-000-00000 Police-EQUIP & CAP OUTLAY A04-3-3120-240-000-00000 Police - Equipment 1,120.00 1,120.00 1,120.00 Equipment Subtotal 1,120.00 1,120.00 1,120.00 A04-3-3120-400-000-00000 Police-CONTRACTUAL A04-3-3120-417-000-00000 Police - Supplies - Program 6,600.00 6,600.00 6,600.00 A",
+      "confidence": "high",
+      "sha256": "019650dc38bc6589aba79b74d9d789371021f2442fc522d16ef27358da430b2f",
+      "parsed_at": "2026-09-24T14:07:38.767814+00:00"
+    },
+    {
+      "id": "2027-2027-tentative-budget-pdf-p27",
+      "document": "2027 Tentative Budget (PDF)",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3928/2027-Tentative-Budget-PDF",
+      "page": 27,
+      "snippet": "TOWN OF RIVERHEAD NEW YORK 2027 TENTATIVE BUDGET EXPENDITURES Account Number Account Description Adopted Budget 2026 Dept Requested Budget 2027 Tentative Budget 2027 A06-7-7020-000-000-00000 Rec Adm - Recreation Administration A06-7-7020-400-000-00000 Recreation Administration-CONTRACTUAL A06-7-7020-440-000-00000 Rec Adm - Public Relations 8,000.00 0.00 0.00 A06-7-7020-490-000-00000 Rec Adm - Miscellaneous 2,000.00 0.00 0.00 Contractual Subtotal 10,000.00 0.00 0.00 7020 Total 10,000.00 0.00 0.00",
+      "confidence": "high",
+      "sha256": "019650dc38bc6589aba79b74d9d789371021f2442fc522d16ef27358da430b2f",
+      "parsed_at": "2026-09-24T14:07:38.767814+00:00"
+    },
+    {
+      "id": "2027-2027-tentative-budget-pdf-p28",
+      "document": "2027 Tentative Budget (PDF)",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3928/2027-Tentative-Budget-PDF",
+      "page": 28,
+      "snippet": "TOWN OF RIVERHEAD NEW YORK 2027 TENTATIVE BUDGET EXPENDITURES Account Number Account Description Adopted Budget 2026 Dept Requested Budget 2027 Tentative Budget 2027 A06-9-9000-000-000-00000 Benefits A06-9-9010-801-NON-00000 Ret -NYS Retirement Non-Uni Pers 23,216.00 24,748.00 22,338.00 A06-9-9030-805-NON-00000 FICA - FICA Non-Uni Personnel 13,060.00 12,295.00 12,295.00 Benefits Subtotal 36,276.00 37,043.00 34,633.00 9000 Total 36,276.00 37,043.00 34,633.00 A06-9-9990-000-000-00000 Fund Balance ",
+      "confidence": "high",
+      "sha256": "019650dc38bc6589aba79b74d9d789371021f2442fc522d16ef27358da430b2f",
+      "parsed_at": "2026-09-24T14:07:38.767814+00:00"
+    },
+    {
+      "id": "2027-2027-tentative-budget-pdf-p29",
+      "document": "2027 Tentative Budget (PDF)",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3928/2027-Tentative-Budget-PDF",
+      "page": 29,
+      "snippet": "TOWN OF RIVERHEAD NEW YORK 2027 TENTATIVE BUDGET EXPENDITURES Account Number Account Description Adopted Budget 2026 Dept Requested Budget 2027 Tentative Budget 2027 CM1-1-1910-000-000-00000 Unall Ins - Unallocated Insurance CM1-1-1910-400-000-00000 Unallocated Insurance-CONTRACTUAL CM1-1-1910-487-000-00000 Gen Liab - Insurance Premium 2,100.00 1,625.00 1,625.00 CM1-1-1910-488-000-00000 Gen Liab - Claim Payments 800.00 600.00 600.00 Contractual Subtotal 2,900.00 2,225.00 2,225.00 1910 Total 2,90",
+      "confidence": "high",
+      "sha256": "019650dc38bc6589aba79b74d9d789371021f2442fc522d16ef27358da430b2f",
+      "parsed_at": "2026-09-24T14:07:38.767814+00:00"
+    },
+    {
+      "id": "2027-2027-tentative-budget-pdf-p30",
+      "document": "2027 Tentative Budget (PDF)",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3928/2027-Tentative-Budget-PDF",
+      "page": 30,
+      "snippet": "TOWN OF RIVERHEAD NEW YORK 2027 TENTATIVE BUDGET EXPENDITURES Account Number Account Description Adopted Budget 2026 Dept Requested Budget 2027 Tentative Budget 2027 CM2-1-1910-000-000-00000 Unall Ins - Unallocated Insurance CM2-1-1910-400-000-00000 Unallocated Insurance-CONTRACTUAL CM2-1-1910-487-000-00000 Unall Ins - Self Insurance Payments 28,500.00 29,641.00 29,641.00 CM2-1-1910-488-000-00000 Gen Liab - Claim Payments 1,300.00 1,200.00 1,200.00 Contractual Subtotal 29,800.00 30,841.00 30,841",
+      "confidence": "high",
+      "sha256": "019650dc38bc6589aba79b74d9d789371021f2442fc522d16ef27358da430b2f",
+      "parsed_at": "2026-09-24T14:07:38.767814+00:00"
+    },
+    {
+      "id": "2027-2027-tentative-budget-pdf-p31",
+      "document": "2027 Tentative Budget (PDF)",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3928/2027-Tentative-Budget-PDF",
+      "page": 31,
+      "snippet": "TOWN OF RIVERHEAD NEW YORK 2027 TENTATIVE BUDGET EXPENDITURES Account Number Account Description Adopted Budget 2026 Dept Requested Budget 2027 Tentative Budget 2027 CM4-1-1320-000-000-00000 Auditor - Auditor CM4-1-1320-400-000-00000 Auditor-CONTRACTUAL CM4-1-1320-436-000-00000 Prof Svcs - Consultants 20,000.00 20,000.00 20,000.00 Contractual Subtotal 20,000.00 20,000.00 20,000.00 1320 Total 20,000.00 20,000.00 20,000.00 CM4-9-9901-000-000-00000 Trf - Transfers to Other Funds CM4-9-9901-900-V01-",
+      "confidence": "high",
+      "sha256": "019650dc38bc6589aba79b74d9d789371021f2442fc522d16ef27358da430b2f",
+      "parsed_at": "2026-09-24T14:07:38.767814+00:00"
+    },
+    {
+      "id": "2027-2027-tentative-budget-pdf-p32",
+      "document": "2027 Tentative Budget (PDF)",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3928/2027-Tentative-Budget-PDF",
+      "page": 32,
+      "snippet": "TOWN OF RIVERHEAD NEW YORK 2027 TENTATIVE BUDGET EXPENDITURES Account Number Account Description Adopted Budget 2026 Dept Requested Budget 2027 Tentative Budget 2027 DA1-1-1910-000-000-00000 Unall Ins - Unallocated Insurance DA1-1-1910-400-000-00000 Unallocated Insurance-CONTRACTUAL DA1-1-1910-487-000-00000 Gen Liab - Insurance Premium 86,200.00 89,282.00 89,282.00 DA1-1-1910-488-000-00000 Gen Liab - Claim Payments 32,800.00 32,600.00 32,600.00 Contractual Subtotal 119,000.00 121,882.00 121,882.",
+      "confidence": "high",
+      "sha256": "019650dc38bc6589aba79b74d9d789371021f2442fc522d16ef27358da430b2f",
+      "parsed_at": "2026-09-24T14:07:38.767814+00:00"
+    },
+    {
+      "id": "2027-2027-tentative-budget-pdf-p33",
+      "document": "2027 Tentative Budget (PDF)",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3928/2027-Tentative-Budget-PDF",
+      "page": 33,
+      "snippet": "TOWN OF RIVERHEAD NEW YORK 2027 TENTATIVE BUDGET EXPENDITURES Account Number Account Description Adopted Budget 2026 Dept Requested Budget 2027 Tentative Budget 2027 DA1-5-5142-111-NON-00000 Snow - Personal Services OT 75,000.00 75,000.00 75,000.00 Personal Services Subtotal 75,000.00 75,000.00 75,000.00 DA1-5-5142-400-000-00000 Snow - Contractual 225,000.00 400,000.00 400,000.00 Contractual Subtotal 225,000.00 400,000.00 400,000.00 5142 Total 300,000.00 475,000.00 475,000.00 DA1-9-9000-000-000-",
+      "confidence": "high",
+      "sha256": "019650dc38bc6589aba79b74d9d789371021f2442fc522d16ef27358da430b2f",
+      "parsed_at": "2026-09-24T14:07:38.767814+00:00"
+    },
+    {
+      "id": "2027-2027-tentative-budget-pdf-p34",
+      "document": "2027 Tentative Budget (PDF)",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3928/2027-Tentative-Budget-PDF",
+      "page": 34,
+      "snippet": "TOWN OF RIVERHEAD NEW YORK 2027 TENTATIVE BUDGET EXPENDITURES Account Number Account Description Adopted Budget 2026 Dept Requested Budget 2027 Tentative Budget 2027 ES1-1-1910-000-000-00000 Unall Ins - Unallocated Insurance ES1-1-1910-400-000-00000 Unallocated Insurance-CONTRACTUAL ES1-1-1910-487-000-00000 Gen Liab - Insurance Premium 86,500.00 91,802.00 91,802.00 ES1-1-1910-488-000-00000 Gen Liab - Claim Payments 32,900.00 33,600.00 33,600.00 Contractual Subtotal 119,400.00 125,402.00 125,402.",
+      "confidence": "high",
+      "sha256": "019650dc38bc6589aba79b74d9d789371021f2442fc522d16ef27358da430b2f",
+      "parsed_at": "2026-09-24T14:07:38.767814+00:00"
+    },
+    {
+      "id": "2027-2027-tentative-budget-pdf-p35",
+      "document": "2027 Tentative Budget (PDF)",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3928/2027-Tentative-Budget-PDF",
+      "page": 35,
+      "snippet": "TOWN OF RIVERHEAD NEW YORK 2027 TENTATIVE BUDGET EXPENDITURES Account Number Account Description Adopted Budget 2026 Dept Requested Budget 2027 Tentative Budget 2027 ES1-8-8130-435-000-00000 Sewer Trmt - Prof Svcs - Engineering 65,000.00 75,000.00 75,000.00 ES1-8-8130-436-208-00000 Sewer Trmt - Prof Svcs - Lab Fees 33,000.00 40,000.00 40,000.00 ES1-8-8130-442-000-00000 Sewer Trmt - Prof Edu & Training 6,000.00 6,000.00 6,000.00 ES1-8-8130-462-000-00000 Sewer Trmt - Rents & Leases - Equipment 0.0",
+      "confidence": "high",
+      "sha256": "019650dc38bc6589aba79b74d9d789371021f2442fc522d16ef27358da430b2f",
+      "parsed_at": "2026-09-24T14:07:38.767814+00:00"
+    },
+    {
+      "id": "2027-2027-tentative-budget-pdf-p36",
+      "document": "2027 Tentative Budget (PDF)",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3928/2027-Tentative-Budget-PDF",
+      "page": 36,
+      "snippet": "TOWN OF RIVERHEAD NEW YORK 2027 TENTATIVE BUDGET EXPENDITURES Account Number Account Description Adopted Budget 2026 Dept Requested Budget 2027 Tentative Budget 2027 ES3-1-1910-000-000-00000 Unall Ins - Unallocated Insurance ES3-1-1910-400-000-00000 Unallocated Insurance-CONTRACTUAL ES3-1-1910-487-000-00000 Gen Liab - Insurance Premium 15,600.00 16,780.00 16,780.00 ES3-1-1910-488-000-00000 Gen Liab - Claim Payments 5,900.00 6,100.00 6,100.00 Contractual Subtotal 21,500.00 22,880.00 22,880.00 191",
+      "confidence": "high",
+      "sha256": "019650dc38bc6589aba79b74d9d789371021f2442fc522d16ef27358da430b2f",
+      "parsed_at": "2026-09-24T14:07:38.767814+00:00"
+    },
+    {
+      "id": "2027-2027-tentative-budget-pdf-p37",
+      "document": "2027 Tentative Budget (PDF)",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3928/2027-Tentative-Budget-PDF",
+      "page": 37,
+      "snippet": "TOWN OF RIVERHEAD NEW YORK 2027 TENTATIVE BUDGET EXPENDITURES Account Number Account Description Adopted Budget 2026 Dept Requested Budget 2027 Tentative Budget 2027 ES3-9-9040-888-000-00000 WC - Claim Payments 13,100.00 13,100.00 13,100.00 ES3-9-9060-810-NON-00000 Hosp - Hosp, Den & Opt Ins Non-Uni Pers 29,378.00 30,415.00 30,415.00 Benefits Subtotal 86,282.00 96,214.00 92,633.00 9000 Total 86,282.00 96,214.00 92,633.00 ES3-9-9710-000-000-00000 Bond Pmt - Serial Bond Payments ES3-9-9710-600-000",
+      "confidence": "high",
+      "sha256": "019650dc38bc6589aba79b74d9d789371021f2442fc522d16ef27358da430b2f",
+      "parsed_at": "2026-09-24T14:07:38.767814+00:00"
+    },
+    {
+      "id": "2027-2027-tentative-budget-pdf-p38",
+      "document": "2027 Tentative Budget (PDF)",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3928/2027-Tentative-Budget-PDF",
+      "page": 38,
+      "snippet": "TOWN OF RIVERHEAD NEW YORK 2027 TENTATIVE BUDGET EXPENDITURES Account Number Account Description Adopted Budget 2026 Dept Requested Budget 2027 Tentative Budget 2027 ES5-1-1910-000-000-00000 Unall Ins - Unallocated Insurance ES5-1-1910-400-000-00000 Unallocated Insurance-CONTRACTUAL ES5-1-1910-487-000-00000 Gen Liab - Insurance Premium 23,100.00 25,164.00 25,164.00 ES5-1-1910-488-000-00000 Gen Liab - Claim Payments 8,800.00 9,200.00 9,200.00 Contractual Subtotal 31,900.00 34,364.00 34,364.00 191",
+      "confidence": "high",
+      "sha256": "019650dc38bc6589aba79b74d9d789371021f2442fc522d16ef27358da430b2f",
+      "parsed_at": "2026-09-24T14:07:38.767814+00:00"
+    },
+    {
+      "id": "2027-2027-tentative-budget-pdf-p39",
+      "document": "2027 Tentative Budget (PDF)",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3928/2027-Tentative-Budget-PDF",
+      "page": 39,
+      "snippet": "TOWN OF RIVERHEAD NEW YORK 2027 TENTATIVE BUDGET EXPENDITURES Account Number Account Description Adopted Budget 2026 Dept Requested Budget 2027 Tentative Budget 2027 ES5-9-9000-000-000-00000 Benefits ES5-9-9010-801-NON-00000 Ret -NYS Retirement Non-Uni Pers 68,309.00 78,273.00 68,013.00 ES5-9-9030-805-NON-00000 FICA - FICA Non-Uni Personnel 28,399.00 28,548.00 28,397.00 ES5-9-9040-887-000-00000 WC - Insurance Premuim 5,900.00 6,366.00 6,366.00 ES5-9-9040-888-000-00000 WC - Claim Payments 13,100.",
+      "confidence": "high",
+      "sha256": "019650dc38bc6589aba79b74d9d789371021f2442fc522d16ef27358da430b2f",
+      "parsed_at": "2026-09-24T14:07:38.767814+00:00"
+    },
+    {
+      "id": "2027-2027-tentative-budget-pdf-p40",
+      "document": "2027 Tentative Budget (PDF)",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3928/2027-Tentative-Budget-PDF",
+      "page": 40,
+      "snippet": "TOWN OF RIVERHEAD NEW YORK 2027 TENTATIVE BUDGET EXPENDITURES Account Number Account Description Adopted Budget 2026 Dept Requested Budget 2027 Tentative Budget 2027 EW1-1-1910-000-000-00000 Unall Ins - Unallocated Insurance EW1-1-1910-400-000-00000 Unallocated Insurance-CONTRACTUAL EW1-1-1910-487-000-00000 Gen Liab - Insurance Premium 119,000.00 124,113.00 124,113.00 EW1-1-1910-488-000-00000 Gen Liab - Claim Payments 45,400.00 45,400.00 45,400.00 Contractual Subtotal 164,400.00 169,513.00 169,5",
+      "confidence": "high",
+      "sha256": "019650dc38bc6589aba79b74d9d789371021f2442fc522d16ef27358da430b2f",
+      "parsed_at": "2026-09-24T14:07:38.767814+00:00"
+    },
+    {
+      "id": "2027-2027-tentative-budget-pdf-p41",
+      "document": "2027 Tentative Budget (PDF)",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3928/2027-Tentative-Budget-PDF",
+      "page": 41,
+      "snippet": "TOWN OF RIVERHEAD NEW YORK 2027 TENTATIVE BUDGET EXPENDITURES Account Number Account Description Adopted Budget 2026 Dept Requested Budget 2027 Tentative Budget 2027 EW1-8-8320-490-000-00000 Water - Miscellaneous 7,000.00 7,000.00 7,000.00 Contractual Subtotal 2,741,700.00 2,801,100.00 2,801,100.00 8320 Total 3,491,700.00 3,551,100.00 3,551,100.00 EW1-9-9000-000-000-00000 Benefits EW1-9-9010-801-NON-00000 Ret -NYS Retirement Non-Uni Pers 287,427.00 350,222.00 309,230.00 EW1-9-9030-805-NON-00000 ",
+      "confidence": "high",
+      "sha256": "019650dc38bc6589aba79b74d9d789371021f2442fc522d16ef27358da430b2f",
+      "parsed_at": "2026-09-24T14:07:38.767814+00:00"
+    },
+    {
+      "id": "2027-2027-tentative-budget-pdf-p42",
+      "document": "2027 Tentative Budget (PDF)",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3928/2027-Tentative-Budget-PDF",
+      "page": 42,
+      "snippet": "TOWN OF RIVERHEAD NEW YORK 2027 TENTATIVE BUDGET EXPENDITURES Account Number Account Description Adopted Budget 2026 Dept Requested Budget 2027 Tentative Budget 2027 MS1-1-1710-488-000-00000 Workers Comp - Claim Payments 1,050,000.00 1,050,000.00 1,050,000.00 Contractual Subtotal 1,050,000.00 1,050,000.00 1,050,000.00 1710 Total 1,050,000.00 1,050,000.00 1,050,000.00 MS1 Total 1,050,000.00 1,050,000.00 1,050,000.00 37",
+      "confidence": "high",
+      "sha256": "019650dc38bc6589aba79b74d9d789371021f2442fc522d16ef27358da430b2f",
+      "parsed_at": "2026-09-24T14:07:38.767814+00:00"
+    },
+    {
+      "id": "2027-2027-tentative-budget-pdf-p43",
+      "document": "2027 Tentative Budget (PDF)",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3928/2027-Tentative-Budget-PDF",
+      "page": 43,
+      "snippet": "TOWN OF RIVERHEAD NEW YORK 2027 TENTATIVE BUDGET EXPENDITURES Account Number Account Description Adopted Budget 2026 Dept Requested Budget 2027 Tentative Budget 2027 MS2-1-1930-487-000-00000 Risk Retention - Self Insurance Payments 450,000.00 450,000.00 450,000.00 Contractual Subtotal 450,000.00 450,000.00 450,000.00 1930 Total 450,000.00 450,000.00 450,000.00 MS2 Total 450,000.00 450,000.00 450,000.00 38",
+      "confidence": "high",
+      "sha256": "019650dc38bc6589aba79b74d9d789371021f2442fc522d16ef27358da430b2f",
+      "parsed_at": "2026-09-24T14:07:38.767814+00:00"
+    },
+    {
+      "id": "2027-2027-tentative-budget-pdf-p44",
+      "document": "2027 Tentative Budget (PDF)",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3928/2027-Tentative-Budget-PDF",
+      "page": 44,
+      "snippet": "TOWN OF RIVERHEAD NEW YORK 2027 TENTATIVE BUDGET EXPENDITURES Account Number Account Description Adopted Budget 2026 Dept Requested Budget 2027 Tentative Budget 2027 SL1-1-1910-000-000-00000 Unall Ins - Unallocated Insurance SL1-1-1910-400-000-00000 Unallocated Insurance-CONTRACTUAL SL1-1-1910-487-000-00000 Gen Liab - Insurance Premium 10,700.00 10,446.00 10,446.00 SL1-1-1910-488-000-00000 Gen Liab - Claim Payments 4,000.00 3,800.00 3,800.00 Contractual Subtotal 14,700.00 14,246.00 14,246.00 191",
+      "confidence": "high",
+      "sha256": "019650dc38bc6589aba79b74d9d789371021f2442fc522d16ef27358da430b2f",
+      "parsed_at": "2026-09-24T14:07:38.767814+00:00"
+    },
+    {
+      "id": "2027-2027-tentative-budget-pdf-p45",
+      "document": "2027 Tentative Budget (PDF)",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3928/2027-Tentative-Budget-PDF",
+      "page": 45,
+      "snippet": "TOWN OF RIVERHEAD NEW YORK 2027 TENTATIVE BUDGET EXPENDITURES Account Number Account Description Adopted Budget 2026 Dept Requested Budget 2027 Tentative Budget 2027 SM1-1-1910-000-000-00000 Unall Ins - Unallocated Insurance SM1-1-1910-400-000-00000 Unallocated Insurance-CONTRACTUAL SM1-1-1910-487-000-00000 Gen Liab - Insurance Premium 50,400.00 26,932.00 26,932.00 SM1-1-1910-488-000-00000 Gen Liab - Claim Payments 19,200.00 9,800.00 9,800.00 Contractual Subtotal 69,600.00 36,732.00 36,732.00 19",
+      "confidence": "high",
+      "sha256": "019650dc38bc6589aba79b74d9d789371021f2442fc522d16ef27358da430b2f",
+      "parsed_at": "2026-09-24T14:07:38.767814+00:00"
+    },
+    {
+      "id": "2027-2027-tentative-budget-pdf-p46",
+      "document": "2027 Tentative Budget (PDF)",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3928/2027-Tentative-Budget-PDF",
+      "page": 46,
+      "snippet": "TOWN OF RIVERHEAD NEW YORK 2027 TENTATIVE BUDGET EXPENDITURES Account Number Account Description Adopted Budget 2026 Dept Requested Budget 2027 Tentative Budget 2027 SR1-1-1910-000-000-00000 Unall Ins - Unallocated Insurance SR1-1-1910-400-000-00000 Unallocated Insurance-CONTRACTUAL SR1-1-1910-487-000-00000 Gen Liab - Insurance Premium 57,700.00 59,240.00 59,240.00 SR1-1-1910-488-000-00000 Gen Liab - Claim Payments 22,000.00 21,700.00 21,700.00 Contractual Subtotal 79,700.00 80,940.00 80,940.00 ",
+      "confidence": "high",
+      "sha256": "019650dc38bc6589aba79b74d9d789371021f2442fc522d16ef27358da430b2f",
+      "parsed_at": "2026-09-24T14:07:38.767814+00:00"
+    },
+    {
+      "id": "2027-2027-tentative-budget-pdf-p47",
+      "document": "2027 Tentative Budget (PDF)",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3928/2027-Tentative-Budget-PDF",
+      "page": 47,
+      "snippet": "TOWN OF RIVERHEAD NEW YORK 2027 TENTATIVE BUDGET EXPENDITURES Account Number Account Description Adopted Budget 2026 Dept Requested Budget 2027 Tentative Budget 2027 ST1-1-1910-000-000-00000 Unall Ins - Unallocated Insurance ST1-1-1910-400-000-00000 Unallocated Insurance-CONTRACTUAL ST1-1-1910-487-000-00000 Gen Liab - Insurance Premium 2,300.00 2,335.00 2,335.00 ST1-1-1910-488-000-00000 Gen Liab - Claim Payments 900.00 900.00 900.00 Contractual Subtotal 3,200.00 3,235.00 3,235.00 1910 Total 3,20",
+      "confidence": "high",
+      "sha256": "019650dc38bc6589aba79b74d9d789371021f2442fc522d16ef27358da430b2f",
+      "parsed_at": "2026-09-24T14:07:38.767814+00:00"
+    },
+    {
+      "id": "2027-2027-tentative-budget-pdf-p48",
+      "document": "2027 Tentative Budget (PDF)",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3928/2027-Tentative-Budget-PDF",
+      "page": 48,
+      "snippet": "TOWN OF RIVERHEAD NEW YORK 2027 TENTATIVE BUDGET EXPENDITURES Account Number Account Description Adopted Budget 2026 Dept Requested Budget 2027 Tentative Budget 2027 V01-9-9710-600-000-00000 Bond Pmt - Debt Principal 3,784,600.00 969,939.00 969,939.00 Debt Principal Total 3,784,600.00 969,939.00 969,939.00 V01-9-9710-700-000-00000 Bond Pmt - Interest Expense 844,800.00 66,819.00 66,819.00 Debt Interest Total 844,800.00 66,819.00 66,819.00 9710 Total 4,629,400.00 1,036,758.00 1,036,758.00 V01-9-9",
+      "confidence": "high",
+      "sha256": "019650dc38bc6589aba79b74d9d789371021f2442fc522d16ef27358da430b2f",
+      "parsed_at": "2026-09-24T14:07:38.767814+00:00"
+    },
+    {
+      "id": "2027-2027-tentative-budget-pdf-p49",
+      "document": "2027 Tentative Budget (PDF)",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3928/2027-Tentative-Budget-PDF",
+      "page": 49,
+      "snippet": "TOWN OF RIVERHEAD NEW YORK 2027 TENTATIVE BUDGET EXPENDITURES Account Number Account Description Adopted Budget 2026 Dept Requested Budget 2027 Tentative Budget 2027 Z14-1-1910-000-000-00000 Unall Ins - Unallocated Insurance Z14-1-1910-400-000-00000 Unallocated Insurance-CONTRACTUAL Z14-1-1910-487-000-00000 Gen Liab - Insurance Premium 21,200.00 22,461.00 22,461.00 Z14-1-1910-488-000-00000 Gen Liab - Claim Payments 200.00 200.00 200.00 Contractual Subtotal 21,400.00 22,661.00 22,661.00 1910 Tota",
+      "confidence": "high",
+      "sha256": "019650dc38bc6589aba79b74d9d789371021f2442fc522d16ef27358da430b2f",
+      "parsed_at": "2026-09-24T14:07:38.767814+00:00"
+    },
+    {
+      "id": "2027-2027-tentative-budget-pdf-p50",
+      "document": "2027 Tentative Budget (PDF)",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3928/2027-Tentative-Budget-PDF",
+      "page": 50,
+      "snippet": "TOWN OF RIVERHEAD NEW YORK 2027 TENTATIVE BUDGET REVENUES Account Number Account Description Adopted Budget 2026 Dept Requested Budget 2027 Tentative Budget 2027 A01-1001-001-00000-A Property Taxes 52,864,609.00 56,466,900.00 54,336,950.00 A01-1081-000-00000-B PILOT Programs 2,285,000.00 2,703,162.00 2,703,162.00 A01-1090-010-00000-B Interest & Penalties 65,000.00 65,000.00 65,000.00 A01-1116-000-00000-C Tax on Adult-Use Cannabis 400,000.00 800,000.00 600,000.00 A01-1120-000-00000-C Sales Tax 2,",
+      "confidence": "high",
+      "sha256": "019650dc38bc6589aba79b74d9d789371021f2442fc522d16ef27358da430b2f",
+      "parsed_at": "2026-09-24T14:07:38.767814+00:00"
+    },
+    {
+      "id": "2027-2027-tentative-budget-pdf-p51",
+      "document": "2027 Tentative Budget (PDF)",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3928/2027-Tentative-Budget-PDF",
+      "page": 51,
+      "snippet": "TOWN OF RIVERHEAD NEW YORK 2027 TENTATIVE BUDGET REVENUES Account Number Account Description Adopted Budget 2026 Dept Requested Budget 2027 Tentative Budget 2027 A01-2410-360-00000-1 Rental Income - Veterans Mem Park 60,000.00 60,000.00 60,000.00 A01-2414-380-00000-1 Showmobile Rental 500.00 500.00 500.00 A01-2530-000-00000-1 Games of Chance 200.00 200.00 200.00 A01-2590-400-00000-1 Yard Sale Permits 1,500.00 1,500.00 1,500.00 A01-2590-401-00000-1 Yard Waste Permits 35,000.00 35,000.00 35,000.00",
+      "confidence": "high",
+      "sha256": "019650dc38bc6589aba79b74d9d789371021f2442fc522d16ef27358da430b2f",
+      "parsed_at": "2026-09-24T14:07:38.767814+00:00"
+    },
+    {
+      "id": "2027-2027-tentative-budget-pdf-p52",
+      "document": "2027 Tentative Budget (PDF)",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3928/2027-Tentative-Budget-PDF",
+      "page": 52,
+      "snippet": "TOWN OF RIVERHEAD NEW YORK 2027 TENTATIVE BUDGET REVENUES Account Number Account Description Adopted Budget 2026 Dept Requested Budget 2027 Tentative Budget 2027 A04-2025-246-00000-7 In-Town Soccer Registration Fees 15,060.00 15,660.00 15,660.00 A04-2025-250-00000-7 Football Registration 38,430.00 38,430.00 38,430.00 A04-2025-251-00000-7 Lacrosse Registration 28,000.00 30,000.00 30,000.00 A04 Total 81,490.00 84,090.00 84,090.00 47",
+      "confidence": "high",
+      "sha256": "019650dc38bc6589aba79b74d9d789371021f2442fc522d16ef27358da430b2f",
+      "parsed_at": "2026-09-24T14:07:38.767814+00:00"
+    },
+    {
+      "id": "2027-2027-tentative-budget-pdf-p53",
+      "document": "2027 Tentative Budget (PDF)",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3928/2027-Tentative-Budget-PDF",
+      "page": 53,
+      "snippet": "TOWN OF RIVERHEAD NEW YORK 2027 TENTATIVE BUDGET REVENUES Account Number Account Description Adopted Budget 2026 Dept Requested Budget 2027 Tentative Budget 2027 A06-2025-230-00000-7 Non-League Sports Fees 20,000.00 0.00 0.00 A06-2025-234-00000-7 Bus Trip Fees 25,000.00 25,000.00 25,000.00 A06-2025-235-00000-7 Field Rental Fee 75,000.00 0.00 0.00 A06-2025-241-00000-7 Sr. Citizen Club Lunch 9,500.00 0.00 0.00 A06-2025-242-00000-7 Other Youth Program Fees 320,000.00 0.00 0.00 A06-2025-244-00000-7 ",
+      "confidence": "high",
+      "sha256": "019650dc38bc6589aba79b74d9d789371021f2442fc522d16ef27358da430b2f",
+      "parsed_at": "2026-09-24T14:07:38.767814+00:00"
+    },
+    {
+      "id": "2027-2027-tentative-budget-pdf-p54",
+      "document": "2027 Tentative Budget (PDF)",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3928/2027-Tentative-Budget-PDF",
+      "page": 54,
+      "snippet": "TOWN OF RIVERHEAD NEW YORK 2027 TENTATIVE BUDGET REVENUES Account Number Account Description Adopted Budget 2026 Dept Requested Budget 2027 Tentative Budget 2027 CM1-1001-001-00000-A Property Taxes 144,136.00 144,136.00 144,136.00 CM1 Total 144,136.00 144,136.00 144,136.00 49",
+      "confidence": "high",
+      "sha256": "019650dc38bc6589aba79b74d9d789371021f2442fc522d16ef27358da430b2f",
+      "parsed_at": "2026-09-24T14:07:38.767814+00:00"
+    },
+    {
+      "id": "2027-2027-tentative-budget-pdf-p55",
+      "document": "2027 Tentative Budget (PDF)",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3928/2027-Tentative-Budget-PDF",
+      "page": 55,
+      "snippet": "TOWN OF RIVERHEAD NEW YORK 2027 TENTATIVE BUDGET REVENUES Account Number Account Description Adopted Budget 2026 Dept Requested Budget 2027 Tentative Budget 2027 CM2-2401-000-00000-G Interest and Earnings 100.00 100.00 100.00 CM2-2410-000-00000-7 Rental Income 280,000.00 280,000.00 280,000.00 CM2-2410-352-00000-1 Rental Income - Utilities 8,000.00 8,000.00 8,000.00 CM2 Total 288,100.00 288,100.00 288,100.00 50",
+      "confidence": "high",
+      "sha256": "019650dc38bc6589aba79b74d9d789371021f2442fc522d16ef27358da430b2f",
+      "parsed_at": "2026-09-24T14:07:38.767814+00:00"
+    },
+    {
+      "id": "2027-2027-tentative-budget-pdf-p56",
+      "document": "2027 Tentative Budget (PDF)",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3928/2027-Tentative-Budget-PDF",
+      "page": 56,
+      "snippet": "TOWN OF RIVERHEAD NEW YORK 2027 TENTATIVE BUDGET REVENUES Account Number Account Description Adopted Budget 2026 Dept Requested Budget 2027 Tentative Budget 2027 CM4-1189-000-00000-C Other Non Property Taxes 2,979,300.00 2,979,300.00 2,979,300.00 CM4 Total 2,979,300.00 2,979,300.00 2,979,300.00 51",
+      "confidence": "high",
+      "sha256": "019650dc38bc6589aba79b74d9d789371021f2442fc522d16ef27358da430b2f",
+      "parsed_at": "2026-09-24T14:07:38.767814+00:00"
+    },
+    {
+      "id": "2027-2027-tentative-budget-pdf-p57",
+      "document": "2027 Tentative Budget (PDF)",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3928/2027-Tentative-Budget-PDF",
+      "page": 57,
+      "snippet": "TOWN OF RIVERHEAD NEW YORK 2027 TENTATIVE BUDGET REVENUES Account Number Account Description Adopted Budget 2026 Dept Requested Budget 2027 Tentative Budget 2027 DA1-1001-001-00000-A Property Taxes 7,420,550.00 7,876,573.00 7,627,242.00 DA1-1081-000-00000-B PILOT Programs 242,100.00 252,200.00 252,200.00 DA1-1789-000-00000-5 Other Transportation Dept Income 5,000.00 5,000.00 5,000.00 DA1-2401-000-00000-G Interest and Earnings 5,000.00 5,000.00 155,000.00 DA1-2560-000-00000-5 Street Opening Permi",
+      "confidence": "high",
+      "sha256": "019650dc38bc6589aba79b74d9d789371021f2442fc522d16ef27358da430b2f",
+      "parsed_at": "2026-09-24T14:07:38.767814+00:00"
+    },
+    {
+      "id": "2027-2027-tentative-budget-pdf-p58",
+      "document": "2027 Tentative Budget (PDF)",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3928/2027-Tentative-Budget-PDF",
+      "page": 58,
+      "snippet": "TOWN OF RIVERHEAD NEW YORK 2027 TENTATIVE BUDGET REVENUES Account Number Account Description Adopted Budget 2026 Dept Requested Budget 2027 Tentative Budget 2027 ES1-1001-001-00000-A Property Taxes 566,309.00 582,083.00 582,083.00 ES1-1081-100-00000-3 PILOT - LIPA 1,700.00 1,900.00 1,900.00 ES1-1120-000-00000-C Non Property Tax Distr by County 146,688.00 146,688.00 146,688.00 ES1-2120-000-00000-8 Sewer Rents 4,838,525.00 5,067,392.00 5,046,567.00 ES1-2122-000-00000-8 Sewer Charges 4,000.00 4,000",
+      "confidence": "high",
+      "sha256": "019650dc38bc6589aba79b74d9d789371021f2442fc522d16ef27358da430b2f",
+      "parsed_at": "2026-09-24T14:07:38.767814+00:00"
+    },
+    {
+      "id": "2027-2027-tentative-budget-pdf-p59",
+      "document": "2027 Tentative Budget (PDF)",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3928/2027-Tentative-Budget-PDF",
+      "page": 59,
+      "snippet": "TOWN OF RIVERHEAD NEW YORK 2027 TENTATIVE BUDGET REVENUES Account Number Account Description Adopted Budget 2026 Dept Requested Budget 2027 Tentative Budget 2027 ES3-1001-001-00000-A Property Taxes 3,200.00 3,289.00 3,289.00 ES3-2120-000-00000-8 Sewer Rents 839,757.00 895,637.00 888,641.00 ES3-2401-000-00000-G Interest and Earnings 400.00 400.00 400.00 ES3-9999-000-00000-0 Appropriated Fund Balance (Budget Prep) 645,000.00 645,000.00 645,000.00 ES3 Total 1,488,357.00 1,544,326.00 1,537,330.00 54",
+      "confidence": "high",
+      "sha256": "019650dc38bc6589aba79b74d9d789371021f2442fc522d16ef27358da430b2f",
+      "parsed_at": "2026-09-24T14:07:38.767814+00:00"
+    },
+    {
+      "id": "2027-2027-tentative-budget-pdf-p60",
+      "document": "2027 Tentative Budget (PDF)",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3928/2027-Tentative-Budget-PDF",
+      "page": 60,
+      "snippet": "TOWN OF RIVERHEAD NEW YORK 2027 TENTATIVE BUDGET REVENUES Account Number Account Description Adopted Budget 2026 Dept Requested Budget 2027 Tentative Budget 2027 ES5-2122-000-00000-8 Sewer Charges 2,121,888.00 2,307,385.00 2,294,997.00 ES5-2122-100-00000-8 Scavenger Waste Permits 10,000.00 10,000.00 10,000.00 ES5-2401-000-00000-G Interest and Earnings 100.00 100.00 100.00 ES5-9999-000-00000-0 Appropriated Fund Balance (Budget Prep) 100,000.00 100,000.00 100,000.00 ES5 Total 2,231,988.00 2,417,48",
+      "confidence": "high",
+      "sha256": "019650dc38bc6589aba79b74d9d789371021f2442fc522d16ef27358da430b2f",
+      "parsed_at": "2026-09-24T14:07:38.767814+00:00"
+    },
+    {
+      "id": "2027-2027-tentative-budget-pdf-p61",
+      "document": "2027 Tentative Budget (PDF)",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3928/2027-Tentative-Budget-PDF",
+      "page": 61,
+      "snippet": "TOWN OF RIVERHEAD NEW YORK 2027 TENTATIVE BUDGET REVENUES Account Number Account Description Adopted Budget 2026 Dept Requested Budget 2027 Tentative Budget 2027 EW1-1001-001-00000-A Property Taxes 1,542,478.00 1,585,442.00 1,585,442.00 EW1-1081-100-00000-B PILOT - LIPA 11,200.00 11,700.00 11,700.00 EW1-2140-000-00000-8 Metered Water Sales 5,804,577.00 6,118,177.00 6,078,826.00 EW1-2140-100-00000-8 Fire Service Payment 0.00 85,000.00 85,000.00 EW1-2144-000-00000-8 Water Service Charges 100,000.0",
+      "confidence": "high",
+      "sha256": "019650dc38bc6589aba79b74d9d789371021f2442fc522d16ef27358da430b2f",
+      "parsed_at": "2026-09-24T14:07:38.767814+00:00"
+    },
+    {
+      "id": "2027-2027-tentative-budget-pdf-p62",
+      "document": "2027 Tentative Budget (PDF)",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3928/2027-Tentative-Budget-PDF",
+      "page": 62,
+      "snippet": "TOWN OF RIVERHEAD NEW YORK 2027 TENTATIVE BUDGET REVENUES Account Number Account Description Adopted Budget 2026 Dept Requested Budget 2027 Tentative Budget 2027 MS1-5031-A01-00000-K Interfund Transfers - A01 1,050,000.00 1,050,000.00 1,050,000.00 MS1 Total 1,050,000.00 1,050,000.00 1,050,000.00 57",
+      "confidence": "high",
+      "sha256": "019650dc38bc6589aba79b74d9d789371021f2442fc522d16ef27358da430b2f",
+      "parsed_at": "2026-09-24T14:07:38.767814+00:00"
+    },
+    {
+      "id": "2027-2027-tentative-budget-pdf-p63",
+      "document": "2027 Tentative Budget (PDF)",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3928/2027-Tentative-Budget-PDF",
+      "page": 63,
+      "snippet": "TOWN OF RIVERHEAD NEW YORK 2027 TENTATIVE BUDGET REVENUES Account Number Account Description Adopted Budget 2026 Dept Requested Budget 2027 Tentative Budget 2027 MS2-5031-A01-00000-K Interfund Transfers - A01 450,000.00 450,000.00 450,000.00 MS2 Total 450,000.00 450,000.00 450,000.00 58",
+      "confidence": "high",
+      "sha256": "019650dc38bc6589aba79b74d9d789371021f2442fc522d16ef27358da430b2f",
+      "parsed_at": "2026-09-24T14:07:38.767814+00:00"
+    },
+    {
+      "id": "2027-2027-tentative-budget-pdf-p64",
+      "document": "2027 Tentative Budget (PDF)",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3928/2027-Tentative-Budget-PDF",
+      "page": 64,
+      "snippet": "TOWN OF RIVERHEAD NEW YORK 2027 TENTATIVE BUDGET REVENUES Account Number Account Description Adopted Budget 2026 Dept Requested Budget 2027 Tentative Budget 2027 SL1-1001-001-00000-A Property Taxes 893,133.00 918,010.00 918,010.00 SL1-1081-100-00000-B PILOT - LIPA 33,100.00 34,500.00 34,500.00 SL1-2401-000-00000-G Interest and Earnings 300.00 300.00 300.00 SL1 Total 926,533.00 952,810.00 952,810.00 59",
+      "confidence": "high",
+      "sha256": "019650dc38bc6589aba79b74d9d789371021f2442fc522d16ef27358da430b2f",
+      "parsed_at": "2026-09-24T14:07:38.767814+00:00"
+    },
+    {
+      "id": "2027-2027-tentative-budget-pdf-p65",
+      "document": "2027 Tentative Budget (PDF)",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3928/2027-Tentative-Budget-PDF",
+      "page": 65,
+      "snippet": "TOWN OF RIVERHEAD NEW YORK 2027 TENTATIVE BUDGET REVENUES Account Number Account Description Adopted Budget 2026 Dept Requested Budget 2027 Tentative Budget 2027 SM1-1001-001-00000-A Property Taxes 1,704,224.00 1,751,693.00 1,751,693.00 SM1-1081-100-00000-B PILOT - LIPA 43,300.00 45,100.00 45,100.00 SM1-1640-000-00000-4 Ambulance Charges - Medical Billing 640,000.00 514,000.00 514,000.00 SM1-2401-000-00000-G Interest and Earnings 1,300.00 1,300.00 1,300.00 SM1 Total 2,388,824.00 2,312,093.00 2,3",
+      "confidence": "high",
+      "sha256": "019650dc38bc6589aba79b74d9d789371021f2442fc522d16ef27358da430b2f",
+      "parsed_at": "2026-09-24T14:07:38.767814+00:00"
+    },
+    {
+      "id": "2027-2027-tentative-budget-pdf-p66",
+      "document": "2027 Tentative Budget (PDF)",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3928/2027-Tentative-Budget-PDF",
+      "page": 66,
+      "snippet": "TOWN OF RIVERHEAD NEW YORK 2027 TENTATIVE BUDGET REVENUES Account Number Account Description Adopted Budget 2026 Dept Requested Budget 2027 Tentative Budget 2027 SR1-1001-001-00000-A Property Taxes 5,254,540.00 5,302,990.00 5,302,990.00 SR1 Total 5,254,540.00 5,302,990.00 5,302,990.00 61",
+      "confidence": "high",
+      "sha256": "019650dc38bc6589aba79b74d9d789371021f2442fc522d16ef27358da430b2f",
+      "parsed_at": "2026-09-24T14:07:38.767814+00:00"
+    },
+    {
+      "id": "2027-2027-tentative-budget-pdf-p67",
+      "document": "2027 Tentative Budget (PDF)",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3928/2027-Tentative-Budget-PDF",
+      "page": 67,
+      "snippet": "TOWN OF RIVERHEAD NEW YORK 2027 TENTATIVE BUDGET REVENUES Account Number Account Description Adopted Budget 2026 Dept Requested Budget 2027 Tentative Budget 2027 ST1-1001-001-00000-A Property Taxes 205,300.00 211,018.00 211,018.00 ST1-1081-100-00000-B PILOT - LIPA 1,800.00 1,920.00 1,920.00 ST1 Total 207,100.00 212,938.00 212,938.00 62",
+      "confidence": "high",
+      "sha256": "019650dc38bc6589aba79b74d9d789371021f2442fc522d16ef27358da430b2f",
+      "parsed_at": "2026-09-24T14:07:38.767814+00:00"
+    },
+    {
+      "id": "2027-2027-tentative-budget-pdf-p68",
+      "document": "2027 Tentative Budget (PDF)",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3928/2027-Tentative-Budget-PDF",
+      "page": 68,
+      "snippet": "TOWN OF RIVERHEAD NEW YORK 2027 TENTATIVE BUDGET REVENUES Account Number Account Description Adopted Budget 2026 Dept Requested Budget 2027 Tentative Budget 2027 V01-5031-A01-00000-K Interfund Transfers - A01 3,054,850.00 2,048,119.00 2,048,119.00 V01-5031-CM2-00000-K Interfund Transfers - CM2 102,000.00 97,731.00 97,731.00 V01-5031-CM4-00000-K Interfund Transfers - CM4 2,959,300.00 0.00 0.00 V01-5031-DA1-00000-K Interfund Transfers - DA1 245,700.00 48,865.00 48,865.00 V01-5031-SM1-00000-K Inter",
+      "confidence": "high",
+      "sha256": "019650dc38bc6589aba79b74d9d789371021f2442fc522d16ef27358da430b2f",
+      "parsed_at": "2026-09-24T14:07:38.767814+00:00"
+    },
+    {
+      "id": "2027-2027-tentative-budget-pdf-p69",
+      "document": "2027 Tentative Budget (PDF)",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3928/2027-Tentative-Budget-PDF",
+      "page": 69,
+      "snippet": "TOWN OF RIVERHEAD NEW YORK 2027 TENTATIVE BUDGET REVENUES Account Number Account Description Adopted Budget 2026 Dept Requested Budget 2027 Tentative Budget 2027 Z14-2410-355-00000-8 Rental of Town Property 44,100.00 75,261.00 75,261.00 Z14 Total 44,100.00 75,261.00 75,261.00 64",
+      "confidence": "high",
+      "sha256": "019650dc38bc6589aba79b74d9d789371021f2442fc522d16ef27358da430b2f",
+      "parsed_at": "2026-09-24T14:07:38.767814+00:00"
+    },
+    {
+      "id": "2027-2027-tentative-budget-pdf-p70",
+      "document": "2027 Tentative Budget (PDF)",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3928/2027-Tentative-Budget-PDF",
+      "page": 70,
+      "snippet": "Assessor's Report - 2026 - Current Year File S495 Exemption Impact Report Town Detail Report NYS - Real Property System County of Suffolk Town of Riverhead SWIS Code - 473000 Total Assessed Value Uniform Percentage RPS221/V04/L001 Date/Time - 9/17/2026 10:14:20 1,136,208,305 7.73 Equalized Total Assessed Value 14,698,684,411 Number of Exemptions Total Equalized Value of Exemptions Percent of Value Exempted Exemption Code Exemption Name Statutory Authority 8 698,577 0.0012100 NYS - GENERALLY RPTL",
+      "confidence": "high",
+      "sha256": "019650dc38bc6589aba79b74d9d789371021f2442fc522d16ef27358da430b2f",
+      "parsed_at": "2026-09-24T14:07:38.767814+00:00"
+    },
+    {
+      "id": "2027-2027-tentative-budget-pdf-p71",
+      "document": "2027 Tentative Budget (PDF)",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3928/2027-Tentative-Budget-PDF",
+      "page": 71,
+      "snippet": "Assessor's Report - 2026 - Current Year File S495 Exemption Impact Report Town Detail Report NYS - Real Property System County of Suffolk Town of Riverhead SWIS Code - 473000 Total Assessed Value Uniform Percentage RPS221/V04/L001 Date/Time - 9/17/2026 10:14:20 1,136,208,305 7.73 Equalized Total Assessed Value 14,698,684,411 Number of Exemptions Total Equalized Value of Exemptions Percent of Value Exempted Exemption Code Exemption Name Statutory Authority 17 6,206,753 0.0441700 AGRICULTURAL BUIL",
+      "confidence": "high",
+      "sha256": "019650dc38bc6589aba79b74d9d789371021f2442fc522d16ef27358da430b2f",
+      "parsed_at": "2026-09-24T14:07:38.767814+00:00"
+    },
     {
       "id": "2026-2026-tentative-budget-pdf-p1",
       "document": "2026 Tentative Budget (PDF)",
