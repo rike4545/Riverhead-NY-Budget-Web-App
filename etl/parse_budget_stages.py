@@ -24,6 +24,13 @@ against the figure, and some names carry doubled spaces. A row with only three
 figures cannot say which column is missing, so its levy is left unknown rather
 than guessed, and it is excluded from levy comparisons on both sides.
 
+Under the fund rows every budget since 2005 also prints three "Total Town Wide"
+rows -- appropriations, tax levy and tax rate per $1,000 of assessed value, each
+beside the year before. They cover the General Fund, Highway and Street
+Lighting, the funds levied on every parcel in town; the special districts are
+outside them. They are kept as printed, so a page can say "the town-wide levy"
+and mean the Town's own figure rather than a sum of all nineteen funds.
+
 Reads the documents parse_all_pdfs.py has already committed, so it downloads
 nothing and is cheap enough to run inside every deploy.
 
@@ -68,6 +75,11 @@ TAX_CAP = re.compile(r"\btax\s+cap\b", re.I)
 LEVY_LIMIT = re.compile(r"\b(?:tax\s+levy\s+limit|levy\s+limit|allowable\s+levy)\b", re.I)
 PROSE_WORDS = 60  # a letter page; the contents page and fund tables carry far fewer words of prose
 
+TOWN_WIDE_ROW = re.compile(r"^total\s+town\s+wide\b(.*)$", re.I)
+RATE_HEADER = re.compile(r"rate\s*/\s*\$?1,?000", re.I)
+MONEY = re.compile(r"\(?\d{1,3}(?:,\d{3})+(?:\.\d{2})?\)?")
+RATE = re.compile(r"\(?\d+\.\d{3}\)?")
+
 
 def value(tok: str) -> int:
     if tok in DASHES:
@@ -104,6 +116,56 @@ def summary(doc_path: Path) -> dict:
                 "levy": vals[3] if len(vals) == 4 else None,
             }
     return funds
+
+
+def town_wide(doc_path: Path) -> dict | None:
+    """The Summary's three "Total Town Wide" rows, as printed, or None.
+
+    The two dollar rows are appropriations and levy in either order (the 2005-08
+    books print the levy first), and a levy can never exceed its appropriations,
+    so the larger is appropriations. The rate row is the one in thousandths, and
+    the fund rows above it in the same table give each fund's own rate, where the
+    fund codes are the current ones (2019 on).
+    """
+    doc = json.loads(doc_path.read_text(encoding="utf-8"))
+    money: list = []
+    rates: list = []
+    fund_rates: dict = {}
+    in_rates = False
+    for page in doc.get("pages", []):
+        for raw in (page.get("text") or "").split("\n"):
+            line = raw.replace("\xa0", " ").strip()
+            if RATE_HEADER.search(line):
+                in_rates = True
+                continue
+            m = TOWN_WIDE_ROW.match(line)
+            if m:
+                rest = m.group(1).replace("$", " ")
+                figures = MONEY.findall(rest)
+                if len(figures) >= 2:
+                    money.append([round(float(f.strip("()").replace(",", ""))) for f in figures[:2]])
+                    continue
+                figures = RATE.findall(rest)
+                if len(figures) >= 2:
+                    rates.append([float(f.strip("()")) for f in figures[:2]])
+                    in_rates = False
+                continue
+            row = FUND_ROW.match(line) if in_rates else None
+            if row and not MONEY.search(row.group(2)):
+                figures = RATE.findall(row.group(2).replace("$", " "))
+                if len(figures) >= 2:
+                    fund_rates.setdefault(row.group(1), {"rate": float(figures[0].strip("()")), "priorRate": float(figures[1].strip("()"))})
+    if len(money) < 2 or not rates:
+        return None
+    approp, levy = sorted(money[:2], key=lambda row: row[0], reverse=True)
+    out = {
+        "appropriations": approp[0], "priorAppropriations": approp[1],
+        "levy": levy[0], "priorLevy": levy[1],
+        "rate": rates[0][0], "priorRate": rates[0][1],
+    }
+    if fund_rates:
+        out["fundRates"] = fund_rates
+    return out
 
 
 def message(doc_path: Path) -> dict:
@@ -206,6 +268,9 @@ def build() -> dict:
             "funds": funds,
             "totals": totals(funds),
         }
+        tw = town_wide(path)
+        if tw:
+            entry["townWide"] = tw
         if stage == "tentative":
             entry["message"] = message(path)
         years.setdefault(str(year), {})[stage] = entry

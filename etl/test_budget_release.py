@@ -86,6 +86,46 @@ class FirstReadableFileTests(unittest.TestCase):
 
 
 
+class TownWideTests(unittest.TestCase):
+    """The Summary's own "Total Town Wide" rows, read as printed."""
+
+    def read(self, slug):
+        return parse_budget_stages.town_wide(REPORTS / "documents" / f"{slug}.json")
+
+    def test_the_2027_tentative(self):
+        self.assertEqual(self.read("2027-2027-tentative-budget-pdf"), {
+            "appropriations": 81253214, "priorAppropriations": 77958942,
+            "levy": 62882202, "priorLevy": 61178292,
+            "rate": 73.224, "priorRate": 71.598,
+            "fundRates": {
+                "A01": {"rate": 63.347, "priorRate": 61.948},
+                "DA1": {"rate": 8.894, "priorRate": 8.695},
+                "SL1": {"rate": 0.983, "priorRate": 0.955},
+            },
+        })
+
+    def test_a_book_that_prints_the_levy_first(self):
+        tw = self.read("2005-2005-adopted-budget-pdf")
+        self.assertEqual((tw["appropriations"], tw["levy"], tw["rate"]), (36125853, 26613843, 34.984))
+
+    def test_they_are_the_general_fund_highway_and_street_lighting(self):
+        index = json.loads((REPORTS / "index.json").read_text(encoding="utf-8"))["documents"]
+        checked = 0
+        for d in index:
+            if category(d.get("title") or "") not in parse_budget_stages.STAGE_OF or (d.get("year") or 0) < 2019:
+                continue
+            path = REPORTS / d["json"]
+            funds, tw = parse_budget_stages.summary(path), parse_budget_stages.town_wide(path)
+            if not funds or not tw:
+                continue
+            three = [funds[c] for c in ("A01", "DA1", "SL1")]
+            self.assertEqual(tw["appropriations"], sum(f["appropriations"] for f in three), d["title"])
+            self.assertEqual(tw["levy"], sum(f["levy"] for f in three), d["title"])
+            self.assertEqual(round(sum(r["rate"] for r in tw["fundRates"].values()), 3), tw["rate"], d["title"])
+            checked += 1
+        self.assertGreaterEqual(checked, 14)
+
+
 class GeneralFundHistoryTests(unittest.TestCase):
     """A newly adopted budget joins the General Fund history with no edit, and a
     year where the spreadsheet and the Summary page disagree stops the build."""

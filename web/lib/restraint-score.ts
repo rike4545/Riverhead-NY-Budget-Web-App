@@ -25,7 +25,7 @@
 //
 // Any change to the criteria will be dated here, with the earlier scores kept.
 
-import { stageDoc, type StageDoc } from './budget-stages'
+import { stageDoc, operatingAppropriations, type StageDoc } from './budget-stages'
 import { PREPARED_UNDER } from './tentative-2027'
 import requestsJson from '../public/data/budget-supplement/requests-by-year.json'
 
@@ -140,3 +140,24 @@ export const revenueGrowth = YEARS.map((y) => ({
   year: y,
   value: growth(stageDoc(y - 1, 'adopted')?.funds.A01?.revenues ?? null, stageDoc(y, 'tentative')?.funds.A01?.revenues ?? null),
 }))
+
+/**
+ * Years where the spending mark and spending without transfers disagree.
+ * The mark counts all funds, as fixed on RULE.fixed. Three of those funds (debt
+ * service, workers' compensation, risk retention) are paid for entirely by the
+ * others, so smaller debt payments can meet the mark while spending rises.
+ * Reported beside the score, not in it: changing the mark after seeing a
+ * result is what fixing it in advance was meant to prevent.
+ */
+export const spendingCaveats = YEARS.flatMap((y) => {
+  const before = stageDoc(y - 1, 'adopted')
+  const now = stageDoc(y, 'tentative')
+  const allFunds = growth(before?.totals.appropriations ?? null, now?.totals.appropriations ?? null)
+  const opBefore = operatingAppropriations(before)
+  const opNow = operatingAppropriations(now)
+  const operating = growth(opBefore, opNow)
+  if (!before || !now || allFunds === null || operating === null || opBefore === null || opNow === null) return []
+  if ((allFunds <= REFERENCE) === (operating <= REFERENCE)) return []
+  const transferFundedChange = (now.totals.appropriations - opNow) - (before.totals.appropriations - opBefore)
+  return [{ year: y, allFunds, operating, transferFundedChange }]
+})

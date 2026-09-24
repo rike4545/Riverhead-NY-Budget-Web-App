@@ -5,9 +5,10 @@
 // Tentative -- Supervisor Halpin's first -- is read against the three before it.
 // Where a Tentative's text can be read, every check comes from
 // etl/parse_budget_stages.py. Where the opening letter is a scanned image, as
-// the 2025 and 2026 letters are, its text cannot be searched, so the site's
-// reading is recorded below by hand with the pages it came from. A 2027 letter
-// that turns out to be a scan shows as waiting to be read, never as missing.
+// the 2025, 2026 and 2027 letters are, its text cannot be searched, so the
+// site's reading is recorded by hand in tentative-letters.ts with the pages it
+// came from. A letter that is a scan and not yet read shows as waiting to be
+// read, never as missing.
 //
 // Transparency is not a plank in either candidate's platform as Candidate Watch
 // records them, and his campaign page uses "accountability" once, without a
@@ -16,28 +17,11 @@
 
 import { stageDoc } from './budget-stages'
 import { PREPARED_UNDER } from './tentative-2027'
+import { READ_BY_HAND } from './tentative-letters'
 import requestsJson from '../public/data/budget-supplement/requests-by-year.json'
 
 export const YEARS = [2024, 2025, 2026, 2027] as const
 export const preparedUnder = (y: number) => PREPARED_UNDER[y] ?? null
-
-/**
- * The letters that are scanned images, read from the Town's own PDFs. The
- * quotes are exact. Neither letter prints a date except where given, and
- * neither prints the levy limit.
- */
-const READ_BY_HAND: Record<number, { pages: string; taxCap: string | null; dated: string | null }> = {
-  2025: {
-    pages: 'pp. 2–3',
-    taxCap: 'The Town-wide 2025 Budget is 4.14% over the tax cap, due in large part to increases to insurance premiums and retirement systems contributions.',
-    dated: null,
-  },
-  2026: {
-    pages: 'pp. 2–3',
-    taxCap: 'The 2026 town-wide budget is 4.63% over the tax cap.',
-    dated: 'September 29, 2025',
-  },
-}
 
 export type CheckState = 'yes' | 'no' | 'none' | 'pending'
 export type Cell = { state: CheckState; text: string; quote?: string }
@@ -108,7 +92,9 @@ export const checks: Check[] = [
     cells: byYear((y) => {
       const l = letter(y)
       if (!l) return WAITING
-      return l.levyLimitPage ? { state: 'yes', text: `Yes, p. ${l.levyLimitPage}` } : { state: 'no', text: 'No' }
+      if (l.levyLimitPage) return { state: 'yes', text: `Yes, p. ${l.levyLimitPage}` }
+      if (l.hand?.statedLimitPct) return { state: 'no', text: `Not in dollars. The letter gives it as ${l.hand.statedLimitPct}%` }
+      return { state: 'no', text: 'No' }
     }),
   },
   {

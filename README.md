@@ -47,8 +47,18 @@ https://github.com/rike4545/Riverhead-NY-Budget-Android-App
 
 ### 📑 The 2027 budget, as soon as the Town posts it
 The Supervisor's 2027 Tentative Budget was presented on September 24: $121.0
-million of appropriations and a $67.2 million town-wide levy, up 2.8% from
-2026. The site parsed it at 10:07 AM and had it live by 10:29 AM.
+million of appropriations across all 19 funds, and a $62.9 million town-wide
+levy (General Fund, Highway and Street Lighting), up 2.79% from 2026. With the
+special districts the levy is $67.2 million. The Supervisor's letter in the
+budget says every taxing district is within the Town's 2.79% tax cap limit.
+The site parsed it at 10:07 AM and had it live by 10:29 AM.
+
+The letter is a scanned image, so the site records what it says by hand and
+checks each figure it can against the budget's Summary: the 2.79% limit
+against every district's levy, the $116.9 million "town operating" total and
+the General Fund's use of fund balance. The Summary can't show the retirement
+incentive, so its $819,000 saving and count of ten retirees are set beside the
+Board's own resolutions on the Buyout page instead.
 
 When the Tentative is parsed, the pages that forecast 2027 switch to the
 Town's own figures on their own, with no hand edits: the prediction

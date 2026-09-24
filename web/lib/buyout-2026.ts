@@ -3,6 +3,8 @@
 // July 7, 2026 Town Board agenda packet (resolutions 2026-678, 2026-679,
 // 2026-680). This is the adopted program language, not a hypothetical model.
 
+import { LETTER_2027 } from './tentative-letters'
+
 export type BuyoutProgram = {
   unit: string
   unitFull: string
@@ -100,3 +102,25 @@ export const buyout2026: Buyout2026 = {
     'Retirement-benefit eligibility (ERS tier / PFRS 20-year) is set by New York State, not the Town; the incentive only adds the lump-sum payments described above.',
   ],
 }
+
+/**
+ * Who took it, and what the 2027 budget counts, from Supervisor Halpin's letter
+ * in the 2027 Tentative (pp. 2-3, a scanned page read by hand). The letter
+ * gives the count by union and a net 2027 General Fund saving; it does not give
+ * the one-time cost of the incentive payments, which fall in 2026.
+ */
+export const outcome = (() => {
+  const r = LETTER_2027.retirementIncentive
+  return {
+    took: { csea: r.csea, pba: r.pba, soa: r.soa, total: r.csea + r.pba + r.soa },
+    /** Net General Fund saving budgeted for 2027. */
+    savings2027: r.savings,
+    salariesAndPayrollTaxes: r.salariesAndPayrollTaxes,
+    retirementContributions: r.retirementContributions,
+    retireeHealthOffset: r.retireeHealthOffset,
+    source: {
+      title: 'Supervisor Halpin’s letter, 2027 Tentative Budget, pp. 2–3 (Sept. 24, 2026)',
+      url: LETTER_2027.source.url,
+    },
+  }
+})()

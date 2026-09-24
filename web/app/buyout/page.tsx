@@ -1,7 +1,8 @@
 import PageShell from '../../components/PageShell'
 import PlainCallout from '../../components/PlainCallout'
 import BuyoutEligible, { type EligibleEmployee } from '../../components/BuyoutEligible'
-import { buyout2026 as b } from '../../lib/buyout-2026'
+import { buyout2026 as b, outcome } from '../../lib/buyout-2026'
+import { released2027 } from '../../lib/tentative-2027'
 import analysis from '../../public/data/buyout-analysis.json'
 import retireeHealthComparison from '../../public/data/retiree-health-comparison.json'
 import {
@@ -68,6 +69,8 @@ export default function BuyoutPage() {
         </p>
       </section>
 
+      {released2027 && <OutcomeSection />}
+
       {/* What the resolution record shows so far: the election deadline has passed, the effective-date deadline has not */}
       <section style={{ ...card, marginBottom: 18, borderLeft: '6px solid var(--rbl-accent-border)' }}>
         <h3 style={{ marginTop: 0, color: 'var(--rbl-title)' }}>Who actually went</h3>
@@ -108,18 +111,36 @@ export default function BuyoutPage() {
             retirement and a late ratification of an incentive one look identical. Neither is claimed.
           </p>
         )}
-        <div style={{ background: 'var(--rbl-success-bg)', border: '1px solid var(--rbl-success-border)', borderRadius: 10, padding: '11px 14px', marginBottom: 12 }}>
-          <strong style={{ color: 'var(--rbl-success-strong)', fontSize: 14 }}>This lands inside the Town&apos;s own estimate</strong>
-          <p style={{ color: 'var(--rbl-text-strong)', fontSize: 13.6, lineHeight: 1.55, margin: '4px 0 0' }}>
-            The Financial Administrator put savings at {usd(savingEstimate.townEstimate.low)}–{usd(savingEstimate.townEstimate.high)} depending on
-            uptake. Pricing the sworn retirements the Board has actually accepted, at the promotion-chain figure this page
-            derives elsewhere — a top-step officer ({usd(savingEstimate.officerTopStep)}) replaced at the entry step
-            ({usd(savingEstimate.officerEntryStep)}) — gives {usd(savingEstimate.annualFromSworn)} a year. Two independent
-            routes to the same range. Note what it is not: 2026 catches only part of it, because the effective dates run
-            July to October. <strong>2027 is the first budget that carries the whole saving</strong> — and the first that
-            carries a full year of whatever replaces these seats.
-          </p>
-        </div>
+        {savingEstimate.annualFromSworn >= savingEstimate.townEstimate.low && savingEstimate.annualFromSworn <= savingEstimate.townEstimate.high ? (
+          <div style={{ background: 'var(--rbl-success-bg)', border: '1px solid var(--rbl-success-border)', borderRadius: 10, padding: '11px 14px', marginBottom: 12 }}>
+            <strong style={{ color: 'var(--rbl-success-strong)', fontSize: 14 }}>This lands inside the Town&apos;s own estimate</strong>
+            <p style={{ color: 'var(--rbl-text-strong)', fontSize: 13.6, lineHeight: 1.55, margin: '4px 0 0' }}>
+              The Financial Administrator put savings at {usd(savingEstimate.townEstimate.low)}–{usd(savingEstimate.townEstimate.high)} depending on
+              uptake. Pricing the sworn retirements the Board has actually accepted, at the promotion-chain figure this page
+              derives elsewhere — a top-step officer ({usd(savingEstimate.officerTopStep)}) replaced at the entry step
+              ({usd(savingEstimate.officerEntryStep)}) — gives {usd(savingEstimate.annualFromSworn)} a year. Two independent
+              routes to the same range. Note what it is not: 2026 catches only part of it, because the effective dates run
+              July to October. <strong>2027 is the first budget that carries the whole saving</strong> — and the first that
+              carries a full year of whatever replaces these seats.
+            </p>
+          </div>
+        ) : (
+          <div data-short-of-estimate style={{ background: 'var(--rbl-warn-bg)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 10, padding: '11px 14px', marginBottom: 12 }}>
+            <strong style={{ color: 'var(--rbl-warn)', fontSize: 14 }}>Short of the Town&apos;s estimate, on the published votes alone</strong>
+            <p style={{ color: 'var(--rbl-text-strong)', fontSize: 13.6, lineHeight: 1.55, margin: '4px 0 0' }}>
+              The Financial Administrator put savings at {usd(savingEstimate.townEstimate.low)}–{usd(savingEstimate.townEstimate.high)} depending on
+              uptake. The retirements with a published vote record so far are worth {usd(savingEstimate.annualFromSworn)} a year at the
+              promotion-chain figure this page derives elsewhere: a top-step officer ({usd(savingEstimate.officerTopStep)}) replaced at the
+              entry step ({usd(savingEstimate.officerEntryStep)}).
+              {uptake.awaitingVoteRecord > 0 && (
+                <> If the {uptake.awaitingVoteRecord} still waiting for a vote record are confirmed, it becomes{' '}
+                {usd(savingEstimate.annualIfPendingConfirmed)}
+                {savingEstimate.annualIfPendingConfirmed >= savingEstimate.townEstimate.low && savingEstimate.annualIfPendingConfirmed <= savingEstimate.townEstimate.high ? ', inside that range' : ''}.</>
+              )}{' '}
+              <strong>2027 is the first budget that carries the whole saving</strong>, because the effective dates run July to October.
+            </p>
+          </div>
+        )}
         <div style={{ overflowX: 'auto' }}>
           <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 13.5 }}>
             <thead>
@@ -622,5 +643,47 @@ function Stat({ label, value, sub, accent }: { label: string; value: string; sub
       <strong style={{ fontSize: 20, color: 'var(--rbl-title)' }}>{value}</strong>
       {sub && <div style={{ color: 'var(--rbl-text-muted)', fontSize: 12.5, marginTop: 2 }}>{sub}</div>}
     </div>
+  )
+}
+
+// What the Town itself says happened, from the Supervisor's letter in the 2027
+// Tentative. Set beside this page's own count from the Board's resolutions, which
+// it can confirm or contradict; the letter names no one.
+function OutcomeSection() {
+  const t = outcome.took
+  const gross = outcome.salariesAndPayrollTaxes + outcome.retirementContributions
+  const recordTotal = uptake.ifPendingConfirmed
+  const recordSworn = uptake.ifPendingConfirmedSworn
+  const matches = recordTotal === t.total && recordSworn === t.pba + t.soa && recordTotal - recordSworn === t.csea
+  const words = ['no', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten', 'eleven', 'twelve']
+  const say = (n: number) => words[n] ?? String(n)
+  const vsEstimate = outcome.savings2027 > b.estimatedSavings.high ? 'just above' : outcome.savings2027 < b.estimatedSavings.low ? 'below' : 'inside'
+  return (
+    <section data-incentive-outcome style={{ ...card, marginBottom: 18, borderLeft: '6px solid var(--rbl-success-strong)' }}>
+      <h3 style={{ marginTop: 0, color: 'var(--rbl-title)' }}>What the Town says: {say(t.total)} took it</h3>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(170px,1fr))', gap: 12, marginBottom: 10 }}>
+        <Stat label="Took the incentive" value={String(t.total)} sub={`${t.csea} CSEA · ${t.pba} PBA · ${t.soa} SOA`} accent />
+        <Stat label="2027 General Fund saving" value={usd(outcome.savings2027)} sub="after higher retiree health insurance" />
+        <Stat label="Before retiree health" value={usd(gross)} sub={`${usd(outcome.salariesAndPayrollTaxes)} salaries and payroll taxes · ${usd(outcome.retirementContributions)} State retirement`} />
+      </div>
+      <p style={{ color: 'var(--rbl-text-body)', fontSize: 14, lineHeight: 1.6, margin: '0 0 8px' }}>
+        Supervisor Halpin’s letter in the 2027 Tentative Budget, dated September 24, 2026, gives the Town’s own count:{' '}
+        {say(t.csea)} CSEA members and {say(t.pba)} PBA members took the incentive{t.soa === 0 ? ', and no SOA members' : ''}. It budgets{' '}
+        <strong>{usd(outcome.savings2027)}</strong> of General Fund savings for 2027: {usd(outcome.salariesAndPayrollTaxes)} less in
+        salaries and payroll taxes and {usd(outcome.retirementContributions)} less in State retirement contributions, partly offset by
+        higher retiree health insurance, about {usd(outcome.retireeHealthOffset)} by the letter’s own figures. Unlike the salary-only
+        figures further down this page, that nets out retiree health. It is {vsEstimate} the {usd(b.estimatedSavings.low)}–{usd(b.estimatedSavings.high)}{' '}
+        the Financial Administrator estimated in July.
+      </p>
+      <p style={{ color: 'var(--rbl-text-body)', fontSize: 14, lineHeight: 1.6, margin: 0 }}>
+        {matches
+          ? `It matches this site’s count from the Board’s resolutions: ${recordTotal} retirements filed since ratification, ${recordSworn} of them sworn police and ${recordTotal - recordSworn} civilian${uptake.awaitingVoteRecord > 0 ? `, though ${uptake.awaitingVoteRecord} still have no published vote record` : ''}.`
+          : `This site’s count from the Board’s resolutions is ${recordTotal} retirements filed since ratification, ${recordSworn} of them sworn police, so the two don’t line up exactly: a retirement in the window need not be an incentive one.`}{' '}
+        The letter doesn’t say who took it, or give the one-time cost of the incentive payments, which fall in 2026.
+      </p>
+      <p style={{ color: 'var(--rbl-text-muted)', fontSize: 12.5, margin: '8px 0 0' }}>
+        Source: <a href={outcome.source.url} style={{ color: 'var(--rbl-accent)' }}>{outcome.source.title}</a>. The letter is a scanned image, read by hand.
+      </p>
+    </section>
   )
 }

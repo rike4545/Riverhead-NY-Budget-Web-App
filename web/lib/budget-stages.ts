@@ -11,6 +11,7 @@
 // figure here is read, not recomputed from something else on the site.
 
 import stagesJson from '../public/data/history/budget-stages.json'
+import { TOWN_WIDE_FUNDS, TRANSFER_FUNDED } from './fund-groups'
 
 export type Stage = 'tentative' | 'preliminary' | 'adopted'
 
@@ -32,10 +33,28 @@ export type BudgetMessage = {
   levyLimitPage: number | null
 }
 
+/**
+ * The Summary's own "Total Town Wide" rows, as printed, each beside the year
+ * before: the General Fund, Highway and Street Lighting, which are levied on
+ * every parcel in town. The special districts are outside them.
+ */
+export type TownWide = {
+  appropriations: number
+  priorAppropriations: number
+  levy: number
+  priorLevy: number
+  /** Dollars per $1,000 of assessed value. */
+  rate: number
+  priorRate: number
+  /** Each fund's own rate from the same table, where it prints current fund codes (2019 on). */
+  fundRates?: Record<string, { rate: number; priorRate: number }>
+}
+
 export type StageDoc = {
   source: { title: string; url: string; slug: string; parsedAt?: string | null }
   funds: Record<string, FundRow>
   totals: { funds: number; appropriations: number; levy: number; fundBalance: number; fundsWithoutLevyColumn: string[] }
+  townWide?: TownWide
   message?: BudgetMessage
 }
 
@@ -63,6 +82,16 @@ export const budgetStages = stagesJson as unknown as StagesFile
 
 export function stageDoc(year: number, stage: Stage): StageDoc | null {
   return budgetStages.years[String(year)]?.[stage] ?? null
+}
+
+export { TOWN_WIDE_FUNDS, TRANSFER_FUNDED }
+
+/** All appropriations except the funds paid for by the others (fund-groups.ts), or null if a fund row is missing. */
+export function operatingAppropriations(d: StageDoc | null): number | null {
+  if (!d) return null
+  const rows = Object.entries(d.funds)
+  if (!TRANSFER_FUNDED.every((code) => d.funds[code])) return null
+  return rows.filter(([code]) => !(TRANSFER_FUNDED as readonly string[]).includes(code)).reduce((sum, [, f]) => sum + f.appropriations, 0)
 }
 
 export const STAGE_LABEL: Record<Stage, string> = {

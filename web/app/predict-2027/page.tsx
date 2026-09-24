@@ -2,7 +2,7 @@ import PageShell from '../../components/PageShell'
 import Budget2027Table from '../../components/Budget2027Table'
 import ProvenanceLine from '../../components/ProvenanceLine'
 import TentativeReleased from '../../components/TentativeReleased'
-import { released2027, levySentence } from '../../lib/tentative-2027'
+import { released2027, levySentence, statedLimitPct } from '../../lib/tentative-2027'
 import p from '../../public/data/budget-2027-prediction.json'
 import {
   boardOptions, leversAvailable, overlapCaveat, calendar, scorecard, release,
@@ -136,14 +136,23 @@ export default function Predict2027Page() {
               <CapRow label="Hold 2026 levy flat" levy={levy2026} pct={0} gap={le.levy2027 - levy2026} note="A true zero-levy-growth year. Requires the largest offsetting package." />
               <CapRow label="2% allowable-growth planning proxy" levy={p.capGap.allowedLevy} pct={2} gap={p.capGap.gap} note="Useful benchmark. Not the final Riverhead-specific OSC limit." />
               <CapRow label="2% proxy + known PFRS exclusion estimate" levy={exclusionProxyLevy} pct={Number((((exclusionProxyLevy / levy2026) - 1) * 100).toFixed(2))} gap={exclusionProxyGap} note={`Adds this model’s ${usd(knownPensionExclusion)} estimate for the known PFRS exclusion only; tax-base growth and other formula items remain unfilled.`} />
+              {statedLimitPct !== null && (
+                <CapRow
+                  label={`${statedLimitPct}%, the limit the Supervisor’s letter gives`}
+                  levy={Math.round(levy2026 * (1 + statedLimitPct / 100))}
+                  pct={statedLimitPct}
+                  gap={le.levy2027 - Math.round(levy2026 * (1 + statedLimitPct / 100))}
+                  note={`From the 2027 Tentative’s opening letter, applied here to the 2026 levy across all funds. The letter gives no dollar figure, and the Tentative itself proposes ${released2027 ? usd(released2027.levy) : 'less'}.`}
+                />
+              )}
               <CapRow label="Current model baseline" levy={le.levy2027} pct={predictedPct} gap={0} note="What the levy could look like if modeled spending and non-levy revenue assumptions hold without offsetting action." danger />
             </tbody>
           </table>
         </div>
 
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(min(245px,100%),1fr))', gap: 10, marginTop: 14 }}>
-          <Callout title="Known today" text="The statewide 2027 allowable levy growth factor is 2%. The model also identifies a PFRS exclusion estimate tied to retirement-rate growth above the statutory threshold." />
-          <Callout title="Not known yet" text="Riverhead’s final filed tax-cap limit, including its tax-base-growth factor, carryover, PILOT adjustments and final exclusion amounts." />
+          <Callout title="Known today" text={`The statewide 2027 allowable levy growth factor is 2%. The model also identifies a PFRS exclusion estimate tied to retirement-rate growth above the statutory threshold.${statedLimitPct !== null ? ` The Supervisor’s letter in the 2027 Tentative puts Riverhead’s limit at ${statedLimitPct}%.` : ''}`} />
+          <Callout title="Not known yet" text={statedLimitPct !== null ? `How the Town reached ${statedLimitPct}%: the tax-base-growth factor, carryover, PILOT adjustments and exclusions behind it, and the limit in dollars. Those come with the Town’s filing with the State Comptroller.` : 'Riverhead’s final filed tax-cap limit, including its tax-base-growth factor, carryover, PILOT adjustments and final exclusion amounts.'} />
           <Callout title="Decision point" text="If the adopted levy exceeds the final legal limit, the Board can still do so lawfully by enacting an override local law with at least 60% of its voting power before budget adoption." />
         </div>
 

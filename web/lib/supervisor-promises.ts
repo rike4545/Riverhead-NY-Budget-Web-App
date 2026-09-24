@@ -22,8 +22,9 @@
 // in a party. An outcome is attributed to whoever the roll call shows carried
 // it, not to the office.
 
-import { stageDoc } from './budget-stages'
-import { projection, requestHistory, stability, unchangedYears } from './tentative-2027'
+import { stageDoc, operatingAppropriations, TRANSFER_FUNDED } from './budget-stages'
+import { projection, requestHistory, stability, unchangedYears, statedLimitPct } from './tentative-2027'
+import { outcome as incentiveOutcome } from './buyout-2026'
 import requestsJson from '../public/data/budget-supplement/requests-by-year.json'
 import {
   restoring25PercentOnFour, nyshipIndividualMonthly, eligiblePositionsModeled, resolution984, contributionRemovedByResolution984,
@@ -161,8 +162,22 @@ const gfFundBalance2027 = tentative2027?.funds.A01?.fundBalance ?? null
 const gfFundBalance2026 = adopted2026?.funds.A01?.fundBalance ?? null
 const approp2027 = tentative2027?.totals.appropriations ?? null
 const approp2026 = adopted2026?.totals.appropriations ?? projection.appropriations2026
+// Spending not counting the Debt Service, Workers' Compensation and Risk
+// Retention funds, which the other funds pay for; the projection counted the
+// same way, so the two compare like for like.
+const transferFunded = (code: string) => (TRANSFER_FUNDED as readonly string[]).includes(code)
+const operating2027 = operatingAppropriations(tentative2027)
+const operating2026 = operatingAppropriations(adopted2026)
+const projectedOperating = projection.byFund.filter((f) => !transferFunded(f.fundCode))
+const projectedOperatingGrowth = growth(
+  projectedOperating.reduce((sum, f) => sum + f.v2026, 0),
+  projectedOperating.reduce((sum, f) => sum + f.v2027, 0),
+)
 const revenue = (d: typeof tentative2027, f: string) => d?.funds[f]?.revenues ?? null
 const gfRevenue2027 = revenue(tentative2027, 'A01')
+/** A count at the start of a sentence. */
+const spelledOut = (n: number) => ['None', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten', 'Eleven', 'Twelve'][n] ?? String(n)
+const gfLevyGrowth2027 = growth(adopted2026?.funds.A01?.levy ?? null, tentative2027?.funds.A01?.levy ?? null)
 const gfRevenue2026 = revenue(adopted2026, 'A01')
 
 export const tests: Test[] = [
@@ -171,7 +186,9 @@ export const tests: Test[] = [
     question: 'Did town-wide property taxes stay close to the tax cap?',
     measure: 'How much the town-wide levy grows in the 2027 proposal (General Fund, Highway and Street Lighting)',
     value: pct(townWide.growth2027),
-    benchmark: `A ${projection.referencePct}% reference line. The exact legal limit uses a longer formula that the Town files with the State but doesn’t publish.`,
+    benchmark: statedLimitPct !== null
+      ? `The limit his letter in the proposal gives: ${statedLimitPct}%. It comes from a longer formula than a flat ${projection.referencePct}%, and the Town files the calculation with the State without publishing it.`
+      : `A ${projection.referencePct}% reference line. The exact legal limit uses a longer formula that the Town files with the State but doesn’t publish.`,
     note: 'He promised “as close to the tax cap as possible,” not “under it,” so this table measures it without grading it.',
   },
   {
@@ -184,9 +201,12 @@ export const tests: Test[] = [
   {
     id: 'spending',
     question: 'Did he keep a tight lid on spending?',
-    measure: 'How much total spending grows, all funds, compared with the 2026 budget',
-    value: approp2027 !== null ? pct(growth(approp2026, approp2027)) : null,
-    benchmark: `Our projection: ${pct(projection.appropriationsPct)}. Growth isn’t the whole story; see what departments asked for, below.`,
+    measure: 'How much spending grows compared with the 2026 budget, not counting money moved between funds',
+    value: operating2027 !== null && operating2026 !== null ? pct(growth(operating2026, operating2027)) : null,
+    benchmark: `Our projection, counted the same way: ${pct(projectedOperatingGrowth)}. Growth isn’t the whole story; see what departments asked for, below.`,
+    note: approp2027 !== null
+      ? `Counting all 19 funds, spending ${approp2027 < approp2026 ? 'falls' : 'rises'} ${pct(growth(approp2026, approp2027))?.replace(/^[+−]/, '')}. The difference is the Debt Service Fund and the two self-insurance funds, which are paid for entirely by transfers from the other funds, so counting them counts the same dollars twice. His letter leaves them out too.`
+      : undefined,
   },
   {
     id: 'requests',
@@ -454,15 +474,22 @@ export const claims: Claim[] = [
   {
     claim: 'Offered a retirement incentive to PBA, SOA and CSEA workers, expected to reduce 2027 taxes.',
     status: 'supported',
-    summary: 'Yes, the incentive was offered and approved 5–0. The tax savings are the Town’s estimate until we know how many people take it.',
-    finding:
-      'The 2026 Voluntary Retirement Incentive is open to 53 employees: 29 in the CSEA union, 18 police officers (PBA) and 6 police supervisors (SOA). The Town estimates it will save $500,000 to $800,000. Retirements are due by October 1, and the Town expects to refill every job that opens up. The savings stay an estimate until we know how many people take it.',
+    summary: released
+      ? `Yes, the incentive was offered and approved 5–0. ${spelledOut(incentiveOutcome.took.total)} employees took it, and his 2027 proposal counts ${usd(incentiveOutcome.savings2027)} of General Fund savings from it.`
+      : 'Yes, the incentive was offered and approved 5–0. The tax savings are the Town’s estimate until we know how many people take it.',
+    finding: released
+      ? `The 2026 Voluntary Retirement Incentive was open to 53 employees: 29 in the CSEA union, 18 police officers (PBA) and 6 police supervisors (SOA). In July the Town estimated it would save $500,000 to $800,000. His letter in the 2027 proposal says ${incentiveOutcome.took.csea} CSEA members and ${incentiveOutcome.took.pba} PBA members took it, and it budgets ${usd(incentiveOutcome.savings2027)} of General Fund savings for 2027: ${usd(incentiveOutcome.salariesAndPayrollTaxes)} less in salaries and payroll taxes and ${usd(incentiveOutcome.retirementContributions)} less in State retirement contributions, partly offset by higher retiree health insurance. The Town expects to refill every job that opens up.${gfLevyGrowth2027 !== null ? ` The General Fund levy in the proposal rises ${gfLevyGrowth2027.toFixed(2)}%.` : ''}`
+      : 'The 2026 Voluntary Retirement Incentive is open to 53 employees: 29 in the CSEA union, 18 police officers (PBA) and 6 police supervisors (SOA). The Town estimates it will save $500,000 to $800,000. Retirements are due by October 1, and the Town expects to refill every job that opens up. The savings stay an estimate until we know how many people take it.',
     votes: [
       { resolution: '2026-678', date: 'July 7, 2026', action: 'Approve the incentive agreement with CSEA', result: 'Adopted, unanimous', halpin: 'Aye', mover: 'Merrifield' },
       { resolution: '2026-679', date: 'July 7, 2026', action: 'Approve the incentive agreement with the SOA', result: 'Adopted, unanimous', halpin: 'Aye', mover: 'Waski' },
       { resolution: '2026-680', date: 'July 7, 2026', action: 'Approve the incentive agreement with the PBA', result: 'Adopted, unanimous', halpin: 'Aye', mover: 'Rothwell' },
     ],
-    records: ['TB Resolutions 2026-678, 2026-679 and 2026-680, July 7, 2026', 'RiverheadLOCAL, July 9, 2026, quoting the Financial Administrator'],
+    records: [
+      'TB Resolutions 2026-678, 2026-679 and 2026-680, July 7, 2026',
+      'RiverheadLOCAL, July 9, 2026, quoting the Financial Administrator',
+      ...(released ? [incentiveOutcome.source.title] : []),
+    ],
   },
   {
     claim: 'Repaired bulkheads and beach stairs without impacting the budget — none of it in the 2026 budget.',
