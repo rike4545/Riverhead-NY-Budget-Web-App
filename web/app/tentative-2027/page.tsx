@@ -252,7 +252,7 @@ function MoveList({ title, rows }: { title: string; rows: { account: string; nam
           {rows.map((r) => (
             <tr key={r.account} style={{ borderBottom: '1px solid var(--rbl-border-subtle)' }}>
               <td style={td}>{r.name}<div style={{ color: 'var(--rbl-text-muted)', fontSize: 11 }}>{r.account}</div></td>
-              <td style={num}>{usd(r.request)} → {usd(r.tentative)}</td>
+              <td style={{ ...num, whiteSpace: 'normal' }}>{usd(r.request)} → {usd(r.tentative)}</td>
               <td style={{ ...num, fontWeight: 800 }}>{signed(r.tentative - r.request)}</td>
             </tr>
           ))}

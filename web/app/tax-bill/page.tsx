@@ -75,12 +75,12 @@ export default function TaxBillPage() {
           {levyFunds.map((fund) => {
             const share = levyTotal > 0 ? (fund.taxLevy2026 / levyTotal) * 100 : 0
             return (
-              <a key={fund.code} href={`${process.env.NEXT_PUBLIC_BASE_PATH || ''}/funds/${fund.code}/`} style={{ color: 'inherit', textDecoration: 'none', display: 'grid', gridTemplateColumns: 'minmax(150px,1.2fr) minmax(110px,.8fr) auto', gap: 12, alignItems: 'center' }}>
-                <div>
+              <a key={fund.code} href={`${process.env.NEXT_PUBLIC_BASE_PATH || ''}/funds/${fund.code}/`} style={{ color: 'inherit', textDecoration: 'none', display: 'flex', flexWrap: 'wrap', gap: 12, alignItems: 'center' }}>
+                <div style={{ flex: '1.2 1 240px' }}>
                   <div style={{ fontWeight: 900, color: 'var(--rbl-title)' }}>{fund.name}</div>
                   <div style={{ color: 'var(--rbl-text-muted)', fontSize: 12 }}>{fund.code} · {fund.description}</div>
                 </div>
-                <div style={{ minWidth: 0 }}>
+                <div style={{ flex: '.8 1 160px', minWidth: 0 }}>
                   <div style={{ height: 9, background: 'var(--rbl-surface-2)', borderRadius: 999, overflow: 'hidden', border: '1px solid var(--rbl-border-subtle)' }}>
                     <div style={{ width: `${Math.max(0, Math.min(100, share))}%`, height: '100%', background: 'var(--rbl-fill-accent)', borderRadius: 999 }} />
                   </div>

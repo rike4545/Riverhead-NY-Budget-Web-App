@@ -96,7 +96,7 @@ export default function FiscalImpactTable({ resolutions, meetingRecord, voteDeta
   const accountCount = resolutions.filter((r) => r.funding?.accounts?.length).length
 
   return (
-    <div style={{ display: 'grid', gap: 12 }}>
+    <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0,1fr)', gap: 12 }}>
       <section style={{ ...card, display: 'flex', gap: 10, flexWrap: 'wrap', alignItems: 'center' }}>
         <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
           {([['all', `All ${resolutions.length}`], ['corrections', `Corrections (${correctionCount})`], ...(moneyCount > 0 ? [['money', `Has a dollar figure (${moneyCount})`] as const] : []), ...(accountCount > 0 ? [['accounts', `Names a budget account (${accountCount})`] as const] : [])] as const).map(([v, label]) => (

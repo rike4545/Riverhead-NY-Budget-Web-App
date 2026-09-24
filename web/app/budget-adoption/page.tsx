@@ -158,7 +158,7 @@ export default function BudgetAdoptionPage() {
         </p>
       </section>
 
-      <section style={{ marginBottom: 16, display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(260px,1fr))', gap: 12 }}>
+      <section style={{ marginBottom: 16, display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(min(260px,100%),1fr))', gap: 12 }}>
         {ERAS.map((e) => {
           const s = eraStats(e)
           return (

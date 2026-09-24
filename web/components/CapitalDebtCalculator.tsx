@@ -19,8 +19,8 @@ export default function CapitalDebtCalculator() {
   )
 
   return (
-    <div style={{ display: 'grid', gridTemplateColumns: 'minmax(280px,1fr) minmax(320px,1.3fr)', gap: 16 }}>
-      <div style={{ ...card, display: 'grid', gap: 16, alignContent: 'start' }}>
+    <div style={{ display: 'flex', flexWrap: 'wrap', gap: 16 }}>
+      <div style={{ ...card, flex: '1 1 280px', minWidth: 0, display: 'grid', gap: 16, alignContent: 'start' }}>
         <Field label="Project cost" value={usd(projectCost)} hint="A hypothetical capital project — a road program, a facility, equipment.">
           <input type="range" min={500_000} max={30_000_000} step={100_000} value={projectCost} onChange={(e) => setProjectCost(Number(e.target.value))} style={slider} />
         </Field>
@@ -38,8 +38,8 @@ export default function CapitalDebtCalculator() {
         </Field>
       </div>
 
-      <div style={{ display: 'grid', gap: 16 }}>
-        <section style={{ ...card, display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14 }}>
+      <div style={{ flex: '1.3 1 364px', minWidth: 0, display: 'grid', gridTemplateColumns: 'minmax(0,1fr)', gap: 16 }}>
+        <section style={{ ...card, display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(min(160px,100%),1fr))', gap: 14 }}>
           <PathCard
             title="Bond now"
             sub={`Issue a ${bondYears}-year bond immediately`}

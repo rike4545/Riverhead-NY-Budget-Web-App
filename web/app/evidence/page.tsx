@@ -33,7 +33,7 @@ export default function EvidencePage() {
 
       <section style={{ ...card, marginBottom: 18 }}>
         <h2 style={{ marginTop: 0 }}>How to read the labels</h2>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(240px,1fr))', gap: 12 }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(min(240px,100%),1fr))', gap: 12 }}>
           <EvidenceCard status="official" title="Official source" text="Reported directly in a cited Town or other official public record." />
           <EvidenceCard status="calculated" title="Calculated from source data" text="Computed by the site from cited records. The calculation is ours; the underlying records are not." />
           <EvidenceCard status="projected" title="Projection / scenario" text="Forward-looking or hypothetical. Read the assumptions before treating it as a forecast." />

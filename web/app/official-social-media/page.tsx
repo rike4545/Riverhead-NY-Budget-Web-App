@@ -67,7 +67,7 @@ export default function OfficialSocialMediaPage() {
 
       {/* The two elements. */}
       <h2 style={{ color: 'var(--rbl-title)' }}>Both halves have to be true</h2>
-      <section style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(310px,1fr))', gap: 14, marginBottom: 18 }}>
+      <section style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(min(310px,100%),1fr))', gap: 14, marginBottom: 18 }}>
         {elements.map((e) => (
           <div key={e.n} style={{ ...card }}>
             <div style={{ display: 'flex', gap: 10, alignItems: 'baseline' }}>
@@ -84,7 +84,7 @@ export default function OfficialSocialMediaPage() {
       <section style={{ ...card, marginBottom: 18 }}>
         <h2 style={{ marginTop: 0, marginBottom: 4, color: 'var(--rbl-title)', fontSize: 22 }}>{labelRule.headline}</h2>
         <p style={{ color: 'var(--rbl-text-body)', fontSize: 14.5, lineHeight: 1.6, marginTop: 0 }}>{labelRule.body}</p>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(290px,1fr))', gap: 12 }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(min(290px,100%),1fr))', gap: 12 }}>
           <div style={{ background: 'var(--rbl-success-bg)', border: '1px solid var(--rbl-success-border)', borderRadius: 10, padding: '11px 13px' }}>
             <strong style={{ color: 'var(--rbl-success-strong)', fontSize: 13.6 }}>Marked personal → presumed personal</strong>
             <div style={{ color: 'var(--rbl-success-strong)', fontSize: 13, lineHeight: 1.55, marginTop: 4, fontStyle: 'italic' }}>“{labelRule.personalQuote}”</div>

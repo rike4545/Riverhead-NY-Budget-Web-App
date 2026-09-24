@@ -40,7 +40,7 @@ export default function KnowYourRightsPage() {
       </PlainCallout>
 
       {/* The three settings — home, work, public. */}
-      <section style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(320px,1fr))', gap: 14, marginBottom: 18 }}>
+      <section style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(min(320px,100%),1fr))', gap: 14, marginBottom: 18 }}>
         {rights.map((r) => (
           <div key={r.setting} style={{ ...card, borderLeft: '6px solid var(--rbl-accent-border)' }}>
             <h3 style={{ marginTop: 0, marginBottom: 6, color: 'var(--rbl-title)', fontSize: 18 }}>{r.setting}</h3>
@@ -143,7 +143,7 @@ export default function KnowYourRightsPage() {
           Every number here was read off the organization&apos;s own website, and every one of them serves Suffolk
           County or the whole state.
         </p>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(300px,1fr))', gap: 12 }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(min(300px,100%),1fr))', gap: 12 }}>
           {help.map((h) => (
             <div key={h.name} style={{ background: 'var(--rbl-surface-2)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 12, padding: 14 }}>
               <div style={{ color: 'var(--rbl-text-muted)', fontSize: 11, textTransform: 'uppercase', fontWeight: 900, letterSpacing: 0.4 }}>{h.scope}</div>

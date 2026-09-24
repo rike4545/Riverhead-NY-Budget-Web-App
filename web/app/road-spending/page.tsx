@@ -52,14 +52,14 @@ export default function RoadSpendingPage() {
           {towns.map((t) => {
             const me = t.town === RIVERHEAD
             return (
-              <div key={t.town} style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+              <div key={t.town} style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 10 }}>
                 <span style={{ width: 108, fontSize: 13.5, fontWeight: me ? 900 : 600, color: me ? 'var(--rbl-title)' : 'var(--rbl-text-body)' }}>
                   {t.town}
                 </span>
-                <div style={{ flex: 1, background: 'var(--rbl-surface-3)', borderRadius: 6, height: 24, overflow: 'hidden', position: 'relative' }}>
+                <div style={{ flex: '1 1 120px', background: 'var(--rbl-surface-3)', borderRadius: 6, height: 24, overflow: 'hidden', position: 'relative' }}>
                   <div style={{ width: `${(t.perMile / maxPerMile) * 100}%`, background: me ? 'var(--rbl-fill-warn)' : 'var(--rbl-text-faint)', height: '100%', borderRadius: 6 }} />
                 </div>
-                <span style={{ width: 74, textAlign: 'right', fontSize: 13.5, fontWeight: me ? 900 : 700, color: me ? 'var(--rbl-warn)' : 'var(--rbl-text-strong)' }}>
+                <span style={{ width: 74, marginLeft: 'auto', textAlign: 'right', fontSize: 13.5, fontWeight: me ? 900 : 700, color: me ? 'var(--rbl-warn)' : 'var(--rbl-text-strong)' }}>
                   {usd(t.perMile)}
                 </span>
                 <span style={{ width: 62, textAlign: 'right', fontSize: 12, color: 'var(--rbl-text-faint)' }}>
@@ -79,9 +79,9 @@ export default function RoadSpendingPage() {
         <h2 style={{ margin: '0 0 10px', color: 'var(--rbl-title)', fontSize: 19 }}>What Riverhead’s highway money goes to</h2>
         <div style={{ display: 'grid', gap: 8 }}>
           {roadSpending.riverheadMix.map((m) => (
-            <div key={m.object} style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+            <div key={m.object} style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 10 }}>
               <span style={{ width: 190, fontSize: 13.5, color: 'var(--rbl-text-body)', fontWeight: 600 }}>{m.object}</span>
-              <div style={{ flex: 1, background: 'var(--rbl-surface-3)', borderRadius: 6, height: 20, overflow: 'hidden' }}>
+              <div style={{ flex: '1 1 120px', background: 'var(--rbl-surface-3)', borderRadius: 6, height: 20, overflow: 'hidden' }}>
                 <div style={{ width: `${(m.amount / riverheadMixTotal) * 100}%`, background: 'var(--rbl-fill-warn)', height: '100%', borderRadius: 6 }} />
               </div>
               <span style={{ width: 86, textAlign: 'right', fontSize: 13.5, fontWeight: 800, color: 'var(--rbl-text-strong)' }}>{usd(m.amount)}</span>

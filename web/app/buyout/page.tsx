@@ -173,7 +173,7 @@ export default function BuyoutPage() {
 
       {/* Per-union programs */}
       <h2 style={{ color: 'var(--rbl-title)' }}>What each retiree receives</h2>
-      <section style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(300px,1fr))', gap: 14, marginBottom: 18 }}>
+      <section style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(min(300px,100%),1fr))', gap: 14, marginBottom: 18 }}>
         {b.programs.map((p) => (
           <article key={p.unit} style={{ ...card, borderTop: '5px solid var(--rbl-gold-border)' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', gap: 10, alignItems: 'baseline' }}>
@@ -194,7 +194,7 @@ export default function BuyoutPage() {
       </section>
 
       {/* Eligibility + terms */}
-      <section style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(300px,1fr))', gap: 14, marginBottom: 18 }}>
+      <section style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(min(300px,100%),1fr))', gap: 14, marginBottom: 18 }}>
         <div style={card}>
           <h3 style={{ marginTop: 0 }}>Who is eligible</h3>
           <p style={{ color: 'var(--rbl-text-muted)', fontSize: 13.5, marginTop: 0 }}>An employee must meet all of these:</p>

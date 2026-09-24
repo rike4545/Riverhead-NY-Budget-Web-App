@@ -12,7 +12,7 @@ import {
 
 const usd = (n: number) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(n)
 const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 18, boxShadow: '0 14px 34px var(--rbl-shadow)' } as const
-const sel = { padding: '9px 11px', border: '1px solid var(--rbl-border-strong)', borderRadius: 9, fontSize: 14, fontWeight: 700 } as const
+const sel = { maxWidth: '100%', padding: '9px 11px', border: '1px solid var(--rbl-border-strong)', borderRadius: 9, fontSize: 14, fontWeight: 700 } as const
 
 type SortKey = 'gross' | 'overtime' | 'regular' | 'name'
 
@@ -89,7 +89,7 @@ export default function PayrollExplorer() {
   const otTrend = payrollYears.map((y) => yearSummary(y)?.totalOvertime ?? null)
 
   return (
-    <div style={{ display: 'grid', gap: 16 }}>
+    <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0,1fr)', gap: 16 }}>
       {/* Summary cards */}
       <section style={{ ...card, display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(160px,1fr))', gap: 12 }}>
         <Stat
@@ -251,7 +251,7 @@ export default function PayrollExplorer() {
 
       {/* Leaders for a specific year */}
       {summary && (
-        <section style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(320px,1fr))', gap: 14 }}>
+        <section style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(min(320px,100%),1fr))', gap: 14 }}>
           <LeaderCard title={`Top Earners (${summary.year})`} rows={summary.topEarners.map((e) => ({ name: e.name, sub: e.title || e.department, value: e.gross }))} onPick={(n) => { setQ(n); setYear('all') }} />
           <LeaderCard title={`Overtime Leaders (${summary.year})`} rows={summary.overtimeLeaders.map((e) => ({ name: e.name, sub: e.title || e.department, value: e.overtime }))} onPick={(n) => { setQ(n); setYear('all') }} amber />
         </section>
@@ -317,8 +317,8 @@ function TrendBlock({ label, values, years, stroke }: { label: string; values: (
   const last = [...values].reverse().find((v) => v != null) ?? 0
   const pct = first ? ((last - first) / first) * 100 : 0
   return (
-    <div style={{ display: 'flex', gap: 14, alignItems: 'center' }}>
-      <div>
+    <div style={{ display: 'flex', flexWrap: 'wrap', gap: 14, alignItems: 'center' }}>
+      <div style={{ flex: '1 1 150px' }}>
         <div style={{ color: 'var(--rbl-text-muted)', fontSize: 11.5, textTransform: 'uppercase', fontWeight: 900, letterSpacing: 0.3 }}>{label}</div>
         <strong style={{ fontSize: 18, color: 'var(--rbl-title)' }}>{usd(last)}</strong>
         <span style={{ marginLeft: 8, fontWeight: 800, fontSize: 13, color: pct >= 0 ? 'var(--inc)' : 'var(--dec)' }}>

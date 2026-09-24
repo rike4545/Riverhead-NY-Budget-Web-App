@@ -13,11 +13,11 @@ export default function PageShell({ title, subtitle, children, home = false }: {
           <a href={`${base}/`} style={{ color: 'white', textDecoration: 'none', display: 'flex', gap: 10, alignItems: 'center', minWidth: 0 }}>
             <span style={{ width: 36, height: 36, flex: '0 0 auto', borderRadius: 9, display: 'grid', placeItems: 'center', background: 'white', color: 'var(--rbl-logo-fg)', fontWeight: 950, fontSize: 13 }}>RB</span>
             <span style={{ minWidth: 0 }}>
-              <strong style={{ display: 'block', fontSize: 16.5, lineHeight: 1.15 }}>Riverhead Budget Live</strong>
+              <strong className="brand-name" style={{ display: 'block', fontSize: 16.5, lineHeight: 1.15 }}>Riverhead Budget Live</strong>
               <span className="brand-subtitle" style={{ display: 'block', color: '#d7e7f4', fontSize: 11.5, marginTop: 2 }}>Town finances, explained</span>
             </span>
           </a>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 9, marginLeft: 'auto', minWidth: 0 }}>
+          <div className="header-tools" style={{ display: 'flex', alignItems: 'center', gap: 9, marginLeft: 'auto', minWidth: 0 }}>
             <SiteNav />
             <DisplaySettings />
           </div>
@@ -36,7 +36,8 @@ export default function PageShell({ title, subtitle, children, home = false }: {
         {children}
         <ExperienceFooter />
       </section>
-      <style>{`@media(max-width:640px){.brand-subtitle{display:none!important}}`}</style>
+      {/* Below the full-nav breakpoint the tools are just Menu and Aa: keep them whole and let the name wrap. */}
+      <style>{`@media(max-width:640px){.brand-subtitle{display:none!important}}@media(max-width:1120px){.header-tools{flex-shrink:0}}@media(max-width:380px){.brand-name{font-size:15px!important}}`}</style>
     </main>
   )
 }

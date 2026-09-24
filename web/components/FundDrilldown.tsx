@@ -53,7 +53,7 @@ export default function FundDrilldown({ fund }: { fund: FundDetail }) {
   const history = appropriationsByYear(fund.code).filter((p) => p.value != null)
 
   return (
-    <div style={{ display: 'grid', gap: 16 }}>
+    <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0,1fr)', gap: 16 }}>
       <section style={{ ...card, display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(170px,1fr))', gap: 12 }}>
         <Stat label="2026 Appropriations" value={usd(fund.expenditureTotal2026)} accent />
         <Stat label="2026 Est. Revenues" value={usd(fund.revenueTotal2026)} />
@@ -112,7 +112,7 @@ export default function FundDrilldown({ fund }: { fund: FundDetail }) {
       ]} />
 
       {view === 'expenditures' ? (
-        <section style={{ display: 'grid', gap: 12 }}>
+        <section style={{ display: 'grid', gridTemplateColumns: 'minmax(0,1fr)', gap: 12 }}>
           {filteredDepts.map((dept) => (
             <DepartmentCard key={dept.code} dept={dept} expanded={!!q} fundExp={fund.expenditureTotal2026} />
           ))}

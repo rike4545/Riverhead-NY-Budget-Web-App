@@ -152,11 +152,11 @@ export default function CreditRatingPage() {
             .map((t) => {
               const barPct = Math.max(6, (1 - t.moodyNotchesBelowAaa / 10) * 100)
               return (
-                <div key={t.town} style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+                <div key={t.town} style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 10 }}>
                   <span style={{ width: 118, fontSize: 13.5, fontWeight: t.isRiverhead ? 900 : 600, color: t.isRiverhead ? 'var(--rbl-title)' : 'var(--rbl-text-body)' }}>
                     {t.town}
                   </span>
-                  <div style={{ flex: 1, background: 'var(--rbl-surface-3)', borderRadius: 6, height: 24, overflow: 'hidden', position: 'relative' }}>
+                  <div style={{ flex: '1 1 140px', background: 'var(--rbl-surface-3)', borderRadius: 6, height: 24, overflow: 'hidden', position: 'relative' }}>
                     {t.moodyRating && (
                       <div style={{ width: `${barPct}%`, background: t.isRiverhead ? 'var(--rbl-fill-warn)' : 'var(--rbl-text-faint)', height: '100%', borderRadius: 6 }} />
                     )}

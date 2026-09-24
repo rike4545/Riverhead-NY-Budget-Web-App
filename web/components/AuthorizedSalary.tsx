@@ -47,7 +47,7 @@ export default function AuthorizedSalary() {
   const totalAuth = useMemo(() => rows.filter((r) => !r.isStipend).reduce((s, r) => s + r.annual, 0), [rows])
 
   return (
-    <div style={{ display: 'grid', gap: 16 }}>
+    <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0,1fr)', gap: 16 }}>
       <section style={{ ...card, display: 'flex', gap: 8, alignItems: 'center', flexWrap: 'wrap' }}>
         <span style={{ fontWeight: 800, color: 'var(--rbl-text-strong)' }}>Salary year:</span>
         {([2025, 2026] as const).map((y) => (

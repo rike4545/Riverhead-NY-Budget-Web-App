@@ -122,7 +122,7 @@ export default function MeetingRecordExplorer() {
     const docket = meeting.docket ?? []
     const omitted = voteDetailOmitted(meeting.slug, nowKey)
     return (
-      <div style={{ display: 'grid', gap: 14 }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0,1fr)', gap: 14 }}>
         <MeetingPicker slug={slug} changeMeeting={changeMeeting} nowKey={nowKey} />
         <section style={{ ...card, borderLeft: `5px solid ${omitted ? 'var(--rbl-accent-border)' : 'var(--rbl-warn)'}` }}>
           <div style={{ fontSize: 12, fontWeight: 900, textTransform: 'uppercase', color: omitted ? 'var(--rbl-accent)' : 'var(--rbl-warn)' }}>
@@ -172,7 +172,7 @@ export default function MeetingRecordExplorer() {
   }
 
   return (
-    <div style={{ display: 'grid', gap: 14 }}>
+    <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0,1fr)', gap: 14 }}>
       <MeetingPicker slug={slug} changeMeeting={changeMeeting} nowKey={nowKey} />
 
       <section style={{ ...card, padding: 20 }}>
@@ -228,7 +228,7 @@ export default function MeetingRecordExplorer() {
         <div style={{ color: 'var(--rbl-text-muted)', fontSize: 12.5 }}>{filtered.length} of {meeting.stats.total} decisions shown</div>
       </section>
 
-      <section style={{ display: 'grid', gap: 10 }}>
+      <section style={{ display: 'grid', gridTemplateColumns: 'minmax(0,1fr)', gap: 10 }}>
         {filtered.map((r) => <DecisionCard key={r.seq} resolution={r} fiscal={r.number ? fiscalByNumber.get(r.number) : undefined} rosterOrder={rosterOrder} shortName={shortName} officialSourceUrl={officialSourceUrl(r)} />)}
         {filtered.length === 0 && <div style={{ ...card, color: 'var(--rbl-text-muted)' }}>No decisions match this view.</div>}
       </section>
