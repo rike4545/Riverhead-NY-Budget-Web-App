@@ -1,0 +1,81 @@
+// The site's own pages, as search results. Search used to cover only records
+// (budget lines, pay, votes, funds, document pages), so a search for "reserves",
+// "buyout" or "tax cap" could not return the page written to answer it:
+// "reserves" found nothing at all, "pension" found employee suspensions, and
+// "ICE" found police budget lines and a donation of ice-cream cakes.
+//
+// `summary` is shown under the title. `keywords` are matched but never shown:
+// the words a resident is likely to type for what the page covers, including
+// the ones the page itself doesn't use. scripts/verify-search.mjs fails the
+// build if a page in the site menu is missing here. The search page itself is
+// left out: it is where the reader already is.
+
+export type SitePage = { path: string; title: string; summary: string; keywords: string }
+
+export const SITE_PAGES: SitePage[] = [
+  // Always in the menu
+  { path: '/tax-bill/', title: 'My Tax Bill', summary: "Estimate the Town's portion of your property-tax bill from your assessed value and the Town's published 2026 rate table.", keywords: 'my taxes tax bill property tax estimate assessed value assessment tax rate per $1,000 STAR exemption homeowner how much do I pay' },
+  { path: '/payroll/', title: 'Payroll Explorer', summary: 'Actual employee pay 2018–2025 (base, overtime, gross), Board-authorized salaries for 2025 and 2026, and every raise between them.', keywords: 'payroll pay salaries salary wages earnings employees staff overtime raises gross pay top earners highest paid separation pay police pay steps PBA CSEA SeeThroughNY' },
+  { path: '/meetings/', title: 'Town Board Votes', summary: "Town Board meetings as a decision record: each resolution's outcome, each member's vote, and the matching fiscal-impact statement.", keywords: 'town board votes voting record resolutions meetings minutes agenda decisions how members voted roll call public comment meeting schedule' },
+
+  // Explore
+  { path: '/taxpayer-impact/', title: 'Where Your Levy Goes', summary: 'How the 2026 Town tax levy divides among the funds, and what that means in your own tax dollars.', keywords: 'levy tax levy where my taxes go tax dollars allocation by fund' },
+  { path: '/what-changed/', title: 'What Changed: 2025 → 2026', summary: 'The 2026 adopted budget against 2025: what changed most, and what not to confuse.', keywords: 'what changed changes year over year 2025 2026 difference increase decrease' },
+  { path: '/analytics/', title: 'Financial Health', summary: 'Levy growth, spending, reserves and other fiscal indicators side by side, with the signals worth watching.', keywords: 'financial health fiscal stress indicators analytics condition signals' },
+  { path: '/funds/', title: 'Budget Overview: Funds & Line Items', summary: 'Every operating fund, down through department and spending category to 848 account lines in the 2026 adopted budget.', keywords: 'budget overview funds departments line items accounts spending by category general fund highway fund sewer water ambulance' },
+  { path: '/programs/', title: 'Program Budget', summary: 'The 2026 budget regrouped into the services the Town performs, with pension and health costs included and fees earned back.', keywords: 'program budget services cost per household per person public safety transportation culture recreation home community services' },
+  { path: '/compare/', title: 'Budget Compare', summary: 'Adopted appropriations for every fund, 2020–2026, sortable by the biggest movers.', keywords: 'compare budgets year over year appropriations 2020 2021 2022 2023 2024 2025 2026 growth biggest increases' },
+  { path: '/general-fund/', title: 'General Fund History', summary: 'General Fund appropriations, tax levy and revenues, year by year since 2005, from the adopted budgets.', keywords: 'general fund history A01 20 years long run trend appropriations levy revenues' },
+  { path: '/annual-report/', title: '2025 Annual Report: Actual Results', summary: 'What actually happened with the money in 2025: plan against actual, surplus and savings, for all 14 funds.', keywords: 'annual report annual financial report AFR actual results year end surplus deficit plan vs actual audit' },
+  { path: '/tax-cap/', title: 'The Tax Cap & Overrides', summary: "How the State's levy limit is actually calculated, what an override does, and Riverhead's audited compliance record.", keywords: 'tax cap levy limit 2 percent two percent property tax cap override piercing the cap compliance local law' },
+  { path: '/reserves/', title: 'Reserves & Fund Balance', summary: "The five classifications of fund balance, the Town's own reserve rules, and what a one-time use of savings could look like.", keywords: 'reserves fund balance savings rainy day unassigned assigned restricted committed GASB 54 reserve policy cushion surplus' },
+  { path: '/fund-balance-draws/', title: 'Where the Surplus Went', summary: 'Every 2026 resolution that spent fund balance, beyond what the adopted budget appropriated up front.', keywords: 'surplus fund balance draws appropriated fund balance spending savings budget adjustments resolutions' },
+  { path: '/capital-debt/', title: 'Capital & Debt', summary: 'Every bond and Bond Anticipation Note outstanding at the close of 2025, the repayment schedule, and a BAN-or-bond calculator.', keywords: 'debt bonds borrowing BAN bond anticipation notes serial bonds EFC capital projects debt service interest repayment OPEB retiree health liability' },
+  { path: '/town-square/', title: 'Town Square', summary: 'What the Town is building downtown and what it is spending: the land, the lease, the pending IDA abatement and the schedule.', keywords: 'town square downtown riverfront hotel developer lease IDA tax abatement PILOT condemnation eminent domain main street' },
+  { path: '/road-spending/', title: 'Road Spending per Mile', summary: 'What Riverhead spends maintaining each mile of its own roads, against every other Suffolk town.', keywords: 'roads road spending paving potholes highway department per mile road maintenance resurfacing' },
+  { path: '/community-preservation-fund/', title: 'Community Preservation Fund', summary: "The Peconic Bay CPF's 2% transfer-tax revenue history, what it still owes, and whether the rate is still enough.", keywords: 'CPF community preservation fund peconic bay transfer tax open space farmland preservation land preservation' },
+  { path: '/housing-plan/', title: 'Community Housing Plan', summary: 'The one Peconic Bay requirement Riverhead has not met: the housing plan that would allow a 0.5% transfer tax for housing.', keywords: 'housing plan affordable housing community housing fund workforce housing peconic bay 0.5 percent transfer tax Shelter Island' },
+  { path: '/community/', title: 'Community & Tax Base', summary: 'Population, the assessed and market value of the tax base, the largest taxpayers, and assessment disputes.', keywords: 'community population tax base largest taxpayers assessments assessor grievances tax certiorari market value' },
+
+  // Government
+  { path: '/answers/', title: 'Resident Answers', summary: 'Plain answers to the questions residents ask, each with the figure and a link to the page that proves it.', keywords: 'answers questions FAQ why did my taxes go up how much does the town spend' },
+  { path: '/workforce-by-title/', title: 'Workforce by Title', summary: 'How many employees hold each civil-service title and work in each department, 2022–2025.', keywords: 'workforce headcount staffing job titles civil service titles departments employees count' },
+  { path: '/officials/', title: 'Officials & Pensions', summary: 'Elected officials who also collect a New York State public pension while in office.', keywords: 'pension pensions retirement double dipping elected officials state retirement system' },
+  { path: '/management-compensation/', title: 'Management Pay', summary: 'Four appointed positions moved to fully employer-paid health premiums, and the 2026 raises that followed for two of them.', keywords: 'management pay compensation health insurance premiums merit increases appointed positions benefits' },
+  { path: '/buyout/', title: '2026 Early Retirement Buyout', summary: 'The final CSEA, PBA and SOA retirement-incentive terms: who is eligible, what each retiree receives, and what it costs.', keywords: 'buyout early retirement retirement incentive VRIP voluntary retirement incentive program CSEA PBA SOA savings' },
+  { path: '/police-crime/', title: 'Police Spending & Crime', summary: "What the Town appropriates for police, next to the Index crime its department reports to the State.", keywords: 'police spending police budget police department cost crime index crime public safety DCJS' },
+  { path: '/school-resource-officers/', title: 'School Resource Officers', summary: 'Who pays for the officers in Riverhead schools, and every funding route that has been proposed.', keywords: 'school resource officer SRO school safety police in schools school district agreement' },
+  { path: '/town-history/', title: 'Supervisors & Council History', summary: "Who has held Riverhead's Supervisor and Town Council seats since 2004.", keywords: 'history past supervisors former council members town board members list' },
+  { path: '/board-elections/', title: 'Board Elections', summary: 'The vote counts that elected each current Town Board member, and what the job legally requires.', keywords: 'elections election results vote count town board election term limits qualifications' },
+  { path: '/campaign-finance/', title: 'Campaign Finance', summary: "Every current and recent Board member's campaign committee, live from New York State data, with a Town Employee Donors cross-check.", keywords: 'campaign finance donations contributions donors fundraising committees BOE filings town employee donors' },
+  { path: '/candidate-watch/', title: 'Candidate Watch', summary: 'Who is running for Town office in November 2026, with links and stated platforms.', keywords: 'candidates 2026 election running for office supervisor race platforms' },
+  { path: '/candidate-cost-benefit/', title: 'Candidate Proposals', summary: 'A cost–benefit look at each stated plank in the 2026 Supervisor race.', keywords: 'candidate proposals platforms cost benefit campaign plans supervisor race Halpin Rothwell' },
+  { path: '/supervisor-promises/', title: "The Supervisor's Promises", summary: "What Supervisor Jerry Halpin promised and says he has done, checked against the Town's own votes, budgets and resolutions.", keywords: 'Halpin promises campaign promises supervisor commitments claims fact check Vail-Leavitt music hall shortfall scorecard 2027 budget test' },
+  { path: '/open-meetings/', title: 'The Open Meetings Law in Riverhead', summary: "What the law requires of the Town Board and the Town's other boards, how the Board's own rules compare, and what the records show.", keywords: 'open meetings law OML public officers law notice executive session closed session minutes remote attendance videoconference public comment transparency' },
+
+  // Research
+  { path: '/guide/', title: 'Start Here', summary: 'A plain-English guide to every tool on the site, a 30-second budget primer, and a glossary.', keywords: 'start here guide how to use glossary primer budget terms explained' },
+  { path: '/predict-2027/', title: '2027 Budget Prediction', summary: "A line-by-line 2027 projection with tax-cap scenarios, the Board's choices, and a scorecard against the Town's budget.", keywords: '2027 prediction projection forecast next year budget model tax cap scenarios scorecard' },
+  { path: '/tentative-2027/', title: '2027 Tentative Budget', summary: "The Town's 2027 Tentative Budget against this site's projection, fund by fund.", keywords: 'tentative budget 2027 proposed budget supervisor budget 2027 budget department requests' },
+  { path: '/budget-adoption/', title: 'How Budgets Get Adopted', summary: 'Every budget since 2005: what the Board changed in each Tentative, before or after the hearing, and whether it voted to adopt.', keywords: 'budget adoption how the budget is adopted tentative preliminary adopted public hearing budget process Town Law 106 107 108 109' },
+  { path: '/scenarios/', title: 'Scenario Lab', summary: 'Close the gap between projected 2027 spending and the tax cap with your own mix of trims, savings, revenue and reserves.', keywords: 'scenarios what if balance the budget interactive simulator cap gap' },
+  { path: '/spending-reduction-2027/', title: '2027 Spending Reduction', summary: 'How the retirement incentive plus sourced line trims could close the projected tax-cap gap.', keywords: 'spending reduction cuts savings trims cap gap 2027' },
+  { path: '/zero-percent-2027/', title: 'A Zero-Percent Year', summary: "What it would take for Riverhead to match Suffolk County's no-increase pledge for 2027.", keywords: 'zero percent no tax increase freeze Suffolk County pledge 2027' },
+  { path: '/credit-rating/', title: 'Credit Rating', summary: "Riverhead's Moody's Aa2 against Brookhaven's AAA and the other Suffolk towns, and what moves a rating.", keywords: "credit rating bond rating Moody's Aa2 S&P AAA Fitch Brookhaven OPEB" },
+  { path: '/outliers/', title: 'Outlier Watch', summary: 'Year-over-year budget swings of at least 20% and $100,000 across all 19 funds.', keywords: 'outliers unusual changes swings spikes red flags anomalies' },
+  { path: '/budget-accuracy/', title: 'Budget Accuracy', summary: 'Where adopted amounts and actual spending drift far enough apart that the budget stops being a plan.', keywords: 'budget accuracy variance actual vs budget overspending underspending' },
+  { path: '/fiscal-impact/', title: 'Fiscal Impact', summary: "Each resolution's Fiscal Impact Statement next to a realistic read of what it costs.", keywords: 'fiscal impact statement cost of resolutions no fiscal impact budget impact' },
+
+  // Evidence
+  { path: '/sources/', title: 'Source Library', summary: 'Every parsed Town document, with its fingerprint and a link to the original, and the State guidance used to read them.', keywords: 'sources documents PDFs source library original records OSC guidance' },
+  { path: '/downloads/', title: 'Downloads', summary: 'CSV files for budgets, payroll, salaries, votes and annual-report results.', keywords: 'downloads CSV data export spreadsheet JSON' },
+  { path: '/data-quality/', title: 'Data Quality & Freshness', summary: 'Which figures are official and which are calculated, how current each source is, and what each deploy checks.', keywords: 'data quality freshness last updated methodology checks' },
+  { path: '/gfoa/', title: 'Standards (GFOA)', summary: "This site scored against the GFOA Distinguished Budget Presentation criteria.", keywords: 'GFOA standards distinguished budget presentation award criteria' },
+  { path: '/election-law-case/', title: 'Election Law Case', summary: "What the Town spent on outside counsel fighting New York's even-year election law, and how the case ended.", keywords: 'even year election law lawsuit legal fees outside counsel hotel banquet case dismissed' },
+  { path: '/official-social-media/', title: 'Officials on Social Media', summary: "When an official's social media account counts as government speech, and what that means for blocking residents.", keywords: 'social media facebook blocking blocked first amendment Lindke v Freed officials accounts' },
+  { path: '/know-your-rights/', title: 'Know Your Rights (ICE)', summary: 'Your rights if immigration agents come to your home, workplace or car, New York’s 2026 protections, and who to call.', keywords: 'ICE immigration immigrants federal agents deportation warrant rights hotline' },
+
+  // Not in the menu
+  { path: '/explore/', title: 'Explore the Budget', summary: 'A guided, plain-English tour of the Town budget: what it is, where the money comes from, where it goes, and who decides.', keywords: 'explore tour how the budget works overview walkthrough' },
+  { path: '/evidence/', title: 'Evidence & Sources', summary: 'How the site labels, calculates and sources its figures, and how to trace a number back to the record.', keywords: 'evidence verify methodology labels sources how to check' },
+]

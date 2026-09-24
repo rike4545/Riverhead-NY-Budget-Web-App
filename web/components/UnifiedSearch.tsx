@@ -4,15 +4,17 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import {
   type Entry,
   type EntryType,
-  scoreEntries,
+  siteEntries,
   retrieveForQuestion,
   askRiverheadSearchAI,
   RiverheadAIError,
 } from '../lib/riverheadSearchAI'
+import { searchEntries } from '../lib/search-rank'
 
 const base = process.env.NEXT_PUBLIC_BASE_PATH || ''
 const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 18, boxShadow: '0 14px 34px var(--rbl-shadow)' } as const
 const TYPE_META: Record<EntryType, { label: string; bg: string; fg: string }> = {
+  site: { label: 'Page on this site', bg: 'var(--rbl-info-bg)', fg: 'var(--rbl-accent)' },
   fund: { label: 'Fund', bg: 'var(--rbl-info-bg)', fg: 'var(--rbl-info-text)' },
   'line-item': { label: 'Budget line', bg: 'var(--rbl-success-bg)', fg: 'var(--rbl-success-strong)' },
   payroll: { label: 'Payroll', bg: 'var(--rbl-warn-bg)', fg: 'var(--rbl-warn)' },
@@ -22,12 +24,21 @@ const TYPE_META: Record<EntryType, { label: string; bg: string; fg: string }> = 
 }
 const TYPE_ORDER: EntryType[] = ['fund', 'line-item', 'salary', 'payroll', 'resolution', 'page']
 const usd = (n: number) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(n)
-const EXAMPLES = ['police overtime', 'Hegermiller', 'sewer district', 'Island Water Park', 'paving', 'Petrocelli']
+const EXAMPLES = ['police overtime', 'Hegermiller', 'reserves', 'tax cap', 'Island Water Park', 'September 15']
 const AI_EXAMPLES = ['How much does the Town spend on police overtime?', 'What is the 2026 General Fund appropriation for the Highway department?', 'Which recent Town Board votes involved the Petrocelli project?', 'Who are the highest-paid employees on the payroll?']
 const KEY_STORAGE = 'riverhead-openai-key'
 const AI_RECORD_COUNT = 24
+// Fewer structured matches than this and the document pages load too.
+const FEW_RECORDS = 5
 
 type SearchManifest = { version: number; shards: Partial<Record<EntryType, { url: string; count: number; bytes: number }>>; total: number }
+// The page shard names each document once; each page points at its document.
+type PageRow = { d: number; p: number; x: string; k?: string }
+type PageShard = { docs: { n: string; u: string }[]; entries: PageRow[] }
+const expandPages = (data: PageShard): Entry[] => data.entries.map((r) => {
+  const doc = data.docs[r.d] ?? { n: 'Document', u: '' }
+  return { t: 'page', n: `${doc.n} — p. ${r.p}`, x: r.x, k: r.k, u: doc.u }
+})
 type SearchDataset = { entries: Entry[]; source: 'sharded' | 'legacy'; loadedTypes: Set<EntryType> }
 
 function escapeRe(s: string) { return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') }
@@ -43,6 +54,13 @@ function snippet(text: string, terms: string[]): string {
   if (idx < 0) return `${text.slice(0, 200)}…`
   const start = Math.max(0, idx - 70); const end = Math.min(text.length, idx + 110)
   return `${start > 0 ? '…' : ''}${text.slice(start, end).trim()}${end < text.length ? '…' : ''}`
+}
+/** Matched words a document page carries in its text but not in the snippet shown. */
+function alsoOnPage(e: Entry, marks: string[]): string[] {
+  if (!e.k) return []
+  const words = new Set(e.k.split(' '))
+  const shown = `${e.n} ${e.x}`.toLowerCase()
+  return marks.filter((m) => words.has(m) && !shown.includes(m)).slice(0, 5)
 }
 function renderAnswer(text: string): React.ReactNode {
   const parts = text.split(/(\[\d+\])/g)
@@ -83,7 +101,7 @@ export default function UnifiedSearch() {
       const res = await fetch(`${base}/data/search/${shard.url}`)
       if (!res.ok) throw new Error(`Search shard ${type} returned HTTP ${res.status}`)
       const data = await res.json()
-      return (data.entries ?? []) as Entry[]
+      return Array.isArray(data.docs) ? expandPages(data as PageShard) : (data.entries ?? []) as Entry[]
     })().catch((err) => { delete shardPromises.current[type]; throw err })
     shardPromises.current[type] = promise
     return promise
@@ -98,13 +116,13 @@ export default function UnifiedSearch() {
         const manifest = await manifestRes.json() as SearchManifest
         const coreTypes: EntryType[] = ['line-item', 'payroll', 'salary', 'resolution', 'fund']
         const arrays = await Promise.all(coreTypes.map((type) => loadShard(type, manifest)))
-        const coreEntries = arrays.flat()
+        const coreEntries = siteEntries().concat(arrays.flat())
         const result: SearchDataset = { entries: coreEntries, source: 'sharded', loadedTypes: new Set(coreTypes.filter((_, i) => arrays[i].length > 0)) }
         setEntries(coreEntries); setStatus('ready'); return result
       }
       const legacyRes = await fetch(`${base}/data/search/unified.json`)
       if (!legacyRes.ok) throw new Error(`Search index returned HTTP ${legacyRes.status}`)
-      const legacy = await legacyRes.json(); const legacyEntries = (legacy.entries ?? []) as Entry[]
+      const legacy = await legacyRes.json(); const legacyEntries = siteEntries().concat((legacy.entries ?? []) as Entry[])
       const result: SearchDataset = { entries: legacyEntries, source: 'legacy', loadedTypes: new Set(TYPE_ORDER) }
       setEntries(legacyEntries); setStatus('ready'); return result
     })().catch((err) => { setStatus('error'); datasetPromise.current = null; throw err })
@@ -136,10 +154,16 @@ export default function UnifiedSearch() {
   useEffect(() => { const id = setTimeout(() => setDebounced(q), 140); return () => clearTimeout(id) }, [q])
 
   const terms = useMemo(() => debounced.toLowerCase().split(/\s+/).filter((t) => t.length >= 2), [debounced])
-  const allScored = useMemo(() => !entries || mode !== 'find' || terms.length === 0 ? [] : scoreEntries(entries, terms, debounced.toLowerCase()), [entries, terms, debounced, mode])
+  const outcome = useMemo(() => !entries || mode !== 'find' || terms.length === 0 ? null : searchEntries(entries, debounced), [entries, terms, debounced, mode])
+  // The site's own pages are shown on their own, above the records.
+  const allScored = useMemo(() => outcome ? outcome.results.filter((e) => e.t !== 'site') : [], [outcome])
+  const sites = outcome?.sites ?? []
+  const corrections = outcome?.corrections ?? []
+  // Highlight what matched: "salaries" marks "salary", a corrected word its correction.
+  const marks = useMemo(() => outcome?.highlight.length ? outcome.highlight : terms, [outcome, terms])
   useEffect(() => {
     if (mode !== 'find' || terms.length === 0 || !entries || status !== 'ready') return
-    if (allScored.length > 0 || entries.some((e) => e.t === 'page')) return
+    if (allScored.length >= FEW_RECORDS || entries.some((e) => e.t === 'page')) return
     loadPageShard().catch(() => {})
   }, [mode, terms, entries, status, allScored.length, loadPageShard])
   const typeCounts = useMemo(() => { const c = {} as Record<EntryType, number>; for (const e of allScored) c[e.t] = (c[e.t] ?? 0) + 1; return c }, [allScored])
@@ -174,7 +198,8 @@ export default function UnifiedSearch() {
       <section style={{ ...card, borderTop: '5px solid var(--rbl-gold-border)' }}>
         {mode === 'find' ? <input value={q} onFocus={ensureIndex} onChange={(e) => { setQ(e.target.value); setLimit(50) }} placeholder="Try: police overtime · Hegermiller · sewer · Island Water Park · paving…" style={{ width: '100%', padding: 14, borderRadius: 10, border: '1px solid var(--rbl-border)', fontSize: 16, boxSizing: 'border-box' }} aria-label="Search all Riverhead budget data" /> : <div style={{ display: 'grid', gap: 10 }}><textarea value={q} onFocus={ensureIndex} onChange={(e) => setQ(e.target.value)} onKeyDown={(e) => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); runAsk() } }} placeholder="Ask a question about Riverhead's budget, pay, funds, or Town Board votes…" rows={2} style={{ width: '100%', padding: 14, borderRadius: 10, border: '1px solid var(--rbl-border)', fontSize: 16, boxSizing: 'border-box', resize: 'vertical', fontFamily: 'inherit' }} aria-label="Ask the Riverhead budget AI a question" /><div style={{ display: 'flex', gap: 10, alignItems: 'center', flexWrap: 'wrap' }}><button onClick={runAsk} disabled={q.trim().length < 3 || aiState === 'thinking'} style={{ padding: '10px 20px', borderRadius: 10, border: 'none', fontWeight: 800, fontSize: 14, cursor: q.trim().length < 3 || aiState === 'thinking' ? 'default' : 'pointer', background: q.trim().length < 3 || aiState === 'thinking' ? 'var(--rbl-text-faint)' : 'var(--rbl-fill-accent)', color: 'white' }}>{aiState === 'thinking' ? 'Thinking…' : 'Ask AI'}</button><span style={{ color: hasKey ? 'var(--rbl-success-strong)' : 'var(--rbl-warn)', fontSize: 12.5, fontWeight: 700 }}>{hasKey ? '● Live AI ready (your key)' : '○ Add your OpenAI key to enable AI answers'}</span><button onClick={() => setShowKeyPanel((v) => !v)} style={{ marginLeft: 'auto', background: 'none', border: 'none', color: 'var(--rbl-accent)', fontWeight: 800, fontSize: 12.5, cursor: 'pointer' }}>{showKeyPanel ? 'Hide key setup' : hasKey ? 'Manage key' : 'Set up AI'}</button></div></div>}
         {mode === 'find' && status === 'ready' && hasQuery && <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', marginTop: 12 }}>{TYPE_ORDER.filter((t) => t === 'page' ? true : typeCounts[t]).map((t) => { const on = types.has(t); const count = typeCounts[t] ?? 0; const meta = TYPE_META[t]; return <button key={t} onClick={() => toggleType(t)} style={{ padding: '6px 12px', borderRadius: 999, fontWeight: 800, fontSize: 12.5, cursor: 'pointer', border: `1px solid ${on ? meta.fg : 'var(--rbl-border-strong)'}`, background: on ? meta.bg : 'var(--rbl-surface)', color: on ? meta.fg : 'var(--rbl-text-body)', opacity: t === 'page' && !documentsLoaded ? 0.85 : 1 }}>{meta.label} {count > 0 ? <span style={{ opacity: 0.7 }}>{count.toLocaleString()}</span> : <span style={{ opacity: 0.7 }}>load</span>}</button> })}{types.size > 0 && <button onClick={() => setTypes(new Set())} style={{ padding: '6px 12px', borderRadius: 999, fontWeight: 800, fontSize: 12.5, cursor: 'pointer', border: 'none', background: 'none', color: 'var(--rbl-accent)' }}>show all</button>}</div>}
-        {mode === 'find' && <p style={{ color: 'var(--rbl-text-muted)', fontSize: 13, margin: '10px 0 0' }}>{status === 'loading' && 'Loading the structured search index…'}{status === 'error' && 'Could not load the search index — check your connection and try again.'}{status === 'idle' && 'Searches everything on this site: budget line items, employee pay, authorized salaries, Town Board votes, funds, and document pages.'}{status === 'ready' && !hasQuery && 'Type at least two letters to search budget lines, payroll, salaries, Board votes, funds, and documents.'}{status === 'ready' && hasQuery && (searching ? 'Searching…' : `${results.length.toLocaleString()} result${results.length === 1 ? '' : 's'}${types.size > 0 ? ` in ${Array.from(types).map((t) => TYPE_META[t].label).join(', ')}` : ''}${documentsLoaded ? '' : ' · documents load on demand'}`)}</p>}
+        {mode === 'find' && <p style={{ color: 'var(--rbl-text-muted)', fontSize: 13, margin: '10px 0 0' }}>{status === 'loading' && 'Loading the structured search index…'}{status === 'error' && 'Could not load the search index — check your connection and try again.'}{status === 'idle' && 'Searches everything on this site: budget line items, employee pay, authorized salaries, Town Board votes, funds, and document pages.'}{status === 'ready' && !hasQuery && 'Type at least two letters to search budget lines, payroll, salaries, Board votes, funds, and documents.'}{status === 'ready' && hasQuery && (searching ? 'Searching…' : `${results.length.toLocaleString()} record${results.length === 1 ? '' : 's'}${types.size > 0 ? ` in ${Array.from(types).map((t) => TYPE_META[t].label).join(', ')}` : ''}${documentsLoaded ? '' : ' · documents load on demand'}`)}</p>}
+        {mode === 'find' && status === 'ready' && hasQuery && !searching && corrections.length > 0 && <p style={{ color: 'var(--rbl-text-strong)', fontSize: 13.5, margin: '6px 0 0' }}>Showing results for {corrections.map((c, i) => <span key={c.from}>{i > 0 ? ', ' : ''}<strong>{c.to}</strong></span>)} <span style={{ color: 'var(--rbl-text-muted)' }}>(nothing matched {corrections.map((c) => `“${c.from}”`).join(', ')})</span></p>}
         {mode === 'ask' && aiState === 'idle' && <p style={{ color: 'var(--rbl-text-muted)', fontSize: 13, margin: '10px 0 0' }}>AI reads the same 16,000+ records the search covers, answers in plain language, and cites the exact records it used. Always verify against official Town documents.</p>}
       </section>
 
@@ -185,9 +210,11 @@ export default function UnifiedSearch() {
       {mode === 'ask' && aiState === 'idle' && <section style={card}><div style={{ fontWeight: 800, color: 'var(--rbl-title)', marginBottom: 8 }}>Try asking</div><div style={{ display: 'grid', gap: 8 }}>{AI_EXAMPLES.map((ex) => <button key={ex} onClick={() => setQ(ex)} style={{ textAlign: 'left', padding: '10px 14px', borderRadius: 10, border: '1px solid var(--rbl-border-subtle)', background: 'var(--rbl-surface-2)', color: 'var(--rbl-text-strong)', fontSize: 14, fontWeight: 600, cursor: 'pointer' }}>{ex}</button>)}</div></section>}
 
       {mode === 'find' && status === 'ready' && hasQuery && !searching && allScored.length === 0 && !documentsLoaded && <section style={card}><div style={{ fontWeight: 800, color: 'var(--rbl-title)', marginBottom: 6 }}>Searching document pages…</div><p style={{ color: 'var(--rbl-text-muted)', fontSize: 14, margin: 0 }}>No structured record matched yet, so the document archive is being searched.</p></section>}
-      {mode === 'find' && status === 'ready' && hasQuery && !searching && allScored.length === 0 && documentsLoaded && <section style={card}><div style={{ fontWeight: 800, color: 'var(--rbl-title)', marginBottom: 6 }}>No matches for “{debounced}”.</div><p style={{ color: 'var(--rbl-text-muted)', fontSize: 14, margin: '0 0 10px' }}>None of those words appear anywhere in the indexed records. Try a single last name, a department, or a project name — for example:</p><div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>{EXAMPLES.map((ex) => <button key={ex} onClick={() => { setQ(ex); setLimit(50) }} style={{ padding: '6px 12px', borderRadius: 999, border: '1px solid var(--rbl-border-strong)', background: 'var(--rbl-surface)', color: 'var(--rbl-accent)', fontWeight: 700, fontSize: 13, cursor: 'pointer' }}>{ex}</button>)}</div></section>}
+      {mode === 'find' && status === 'ready' && hasQuery && !searching && sites.length > 0 && types.size === 0 && <section aria-label="Pages on this site" style={{ ...card, padding: 14, borderLeft: '5px solid var(--rbl-accent-border)' }}><div style={{ color: 'var(--rbl-accent)', fontWeight: 900, fontSize: 11.5, textTransform: 'uppercase', letterSpacing: 0.5 }}>{sites.length === 1 ? 'Page on this site' : 'Pages on this site'}</div><div style={{ display: 'grid', gap: 10, marginTop: 8 }}>{sites.map((e) => <a key={e.u} href={`${base}${e.u}`} style={{ textDecoration: 'none', color: 'inherit', display: 'block' }}><div style={{ fontWeight: 800, color: 'var(--rbl-link)', lineHeight: 1.35 }}>{highlight(e.n, marks)} →</div><div style={{ color: 'var(--rbl-text-muted)', fontSize: 13, marginTop: 2, lineHeight: 1.45 }}>{highlight(e.x, marks)}</div></a>)}</div></section>}
 
-      {mode === 'find' && <section style={{ display: 'grid', gap: 10 }}>{results.slice(0, limit).map((e, i) => { const meta = TYPE_META[e.t]; const external = e.u.startsWith('http'); const href = e.u ? (external ? e.u : `${base}${e.u}`) : undefined; const ctx = e.t === 'page' ? snippet(e.x, terms) : e.x; return <a key={`${e.t}-${e.n}-${i}`} href={href} target={external ? '_blank' : undefined} rel={external ? 'noreferrer' : undefined} style={{ ...card, padding: 14, textDecoration: 'none', color: 'inherit', display: 'block' }}><div style={{ display: 'flex', justifyContent: 'space-between', gap: 12, alignItems: 'start', flexWrap: 'wrap' }}><div style={{ minWidth: 0, flex: '1 1 320px' }}><span style={{ background: meta.bg, color: meta.fg, fontWeight: 800, fontSize: 11, padding: '2px 9px', borderRadius: 999, textTransform: 'uppercase', letterSpacing: 0.4 }}>{meta.label}</span><div style={{ fontWeight: 700, color: 'var(--rbl-title)', marginTop: 6, lineHeight: 1.35 }}>{highlight(e.n, terms)}</div><div style={{ color: 'var(--rbl-text-muted)', fontSize: 13, marginTop: 3, lineHeight: 1.45 }}>{highlight(ctx, terms)}</div></div>{e.v != null && <strong style={{ color: 'var(--rbl-title)', whiteSpace: 'nowrap' }}>{usd(e.v)}</strong>}</div></a> })}{results.length > limit && <div style={{ textAlign: 'center' }}><button onClick={() => setLimit((l) => l + 100)} style={{ padding: '10px 18px', borderRadius: 10, border: '1px solid var(--rbl-accent-border)', background: 'var(--rbl-fill-accent)', color: 'white', fontWeight: 800, cursor: 'pointer' }}>Show more ({(results.length - limit).toLocaleString()} remaining)</button></div>}</section>}
+      {mode === 'find' && status === 'ready' && hasQuery && !searching && allScored.length === 0 && documentsLoaded && sites.length === 0 && <section style={card}><div style={{ fontWeight: 800, color: 'var(--rbl-title)', marginBottom: 6 }}>No matches for “{debounced}”.</div><p style={{ color: 'var(--rbl-text-muted)', fontSize: 14, margin: '0 0 10px' }}>None of those words appear anywhere in the indexed records. Try a single last name, a department, or a project name — for example:</p><div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>{EXAMPLES.map((ex) => <button key={ex} onClick={() => { setQ(ex); setLimit(50) }} style={{ padding: '6px 12px', borderRadius: 999, border: '1px solid var(--rbl-border-strong)', background: 'var(--rbl-surface)', color: 'var(--rbl-accent)', fontWeight: 700, fontSize: 13, cursor: 'pointer' }}>{ex}</button>)}</div></section>}
+
+      {mode === 'find' && <section style={{ display: 'grid', gap: 10 }}>{results.slice(0, limit).map((e, i) => { const meta = TYPE_META[e.t]; const external = e.u.startsWith('http'); const href = e.u ? (external ? e.u : `${base}${e.u}`) : undefined; const ctx = e.t === 'page' ? snippet(e.x, marks) : e.x; const also = e.t === 'page' ? alsoOnPage(e, marks) : []; return <a key={`${e.t}-${e.n}-${i}`} href={href} target={external ? '_blank' : undefined} rel={external ? 'noreferrer' : undefined} style={{ ...card, padding: 14, textDecoration: 'none', color: 'inherit', display: 'block' }}><div style={{ display: 'flex', justifyContent: 'space-between', gap: 12, alignItems: 'start', flexWrap: 'wrap' }}><div style={{ minWidth: 0, flex: '1 1 320px' }}><span style={{ background: meta.bg, color: meta.fg, fontWeight: 800, fontSize: 11, padding: '2px 9px', borderRadius: 999, textTransform: 'uppercase', letterSpacing: 0.4 }}>{meta.label}</span><div style={{ fontWeight: 700, color: 'var(--rbl-title)', marginTop: 6, lineHeight: 1.35 }}>{highlight(e.n, marks)}</div><div style={{ color: 'var(--rbl-text-muted)', fontSize: 13, marginTop: 3, lineHeight: 1.45 }}>{highlight(ctx, marks)}</div>{also.length > 0 && <div style={{ color: 'var(--rbl-text-muted)', fontSize: 12.5, marginTop: 4 }}>Also on this page: {highlight(also.join(', '), marks)}</div>}</div>{e.v != null && <strong style={{ color: 'var(--rbl-title)', whiteSpace: 'nowrap' }}>{usd(e.v)}</strong>}</div></a> })}{results.length > limit && <div style={{ textAlign: 'center' }}><button onClick={() => setLimit((l) => l + 100)} style={{ padding: '10px 18px', borderRadius: 10, border: '1px solid var(--rbl-accent-border)', background: 'var(--rbl-fill-accent)', color: 'white', fontWeight: 800, cursor: 'pointer' }}>Show more ({(results.length - limit).toLocaleString()} remaining)</button></div>}</section>}
     </div>
   )
 }

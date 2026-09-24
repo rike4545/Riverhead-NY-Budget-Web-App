@@ -12,11 +12,17 @@
 // and cite them by number, so every AI answer is traceable to a real record.
 
 import { rankEntries } from './search-rank'
+import { SITE_PAGES } from './site-pages'
 
-export type EntryType = 'line-item' | 'payroll' | 'salary' | 'resolution' | 'fund' | 'page'
-export type Entry = { t: EntryType; n: string; x: string; u: string; v?: number | null }
+export type EntryType = 'line-item' | 'payroll' | 'salary' | 'resolution' | 'fund' | 'page' | 'site'
+/** `k` holds words a record is found by but does not show: a document page's text, a site page's keywords. */
+export type Entry = { t: EntryType; n: string; x: string; u: string; k?: string; v?: number | null }
+
+/** The site's own pages as search entries. */
+export const siteEntries = (): Entry[] => SITE_PAGES.map((p) => ({ t: 'site', n: p.title, x: p.summary, k: p.keywords, u: p.path }))
 
 const TYPE_LABEL: Record<EntryType, string> = {
+  site: 'Page on this site',
   fund: 'Fund',
   'line-item': 'Budget line',
   payroll: 'Payroll (actual pay)',
