@@ -19,7 +19,11 @@ OUT = ROOT / 'web' / 'public' / 'data' / 'financial-reports'
 DOCS = OUT / 'documents'
 CACHE = ROOT / '.cache' / 'financial-reports'
 MONEY = re.compile(r'\$?\(?\d{1,3}(?:,\d{3})+(?:\.\d{2})?\)?')
-YEAR = re.compile(r'\b(20\d{2})\b')
+# A four-digit year from 2000 on, not inside a longer number. Not \b: the Town
+# posted the 2027 Budget Supplement as "_2027 Budget Supplement", and an
+# underscore is a word character, so \b2027 never matched. The Supplement was
+# filed with no year, where nothing that reads a year's Supplement looks.
+YEAR = re.compile(r'(?<!\d)(20\d{2})(?!\d)')
 ACCOUNT = re.compile(r'\b[A-Z]{1,3}\d{0,3}(?:[.-]\d{1,5}){1,4}\b')
 HEADERS = {
     'User-Agent': 'Mozilla/5.0 RiverheadBudgetLive/1.0 (+public budget transparency parser)',
@@ -39,6 +43,11 @@ DIRECT_PDFS: list[Link] = [
     Link('2024 Audited Basic Financial Statements', 'https://www.townofriverheadny.gov/DocumentCenter/View/2858/2024-Audited-Basic-Financial-Statements-PDF', 2024, 'audit', '2024-audited-basic-financial-statements'),
     Link('2026 Adopted Budget', 'https://www.townofriverheadny.gov/DocumentCenter/View/2967/2026-Adopted-Budget', 2026, 'adopted_budget', '2026-adopted-budget'),
 ]
+
+
+def year_of(title: str) -> int | None:
+    m = YEAR.search(title)
+    return int(m.group(1)) if m else None
 
 
 def slugify(value: str) -> str:
@@ -113,8 +122,7 @@ def discover() -> list[Link]:
             if key in seen:
                 continue
             seen.add(key)
-            m = YEAR.search(title)
-            year = int(m.group(1)) if m else None
+            year = year_of(title)
             links.append(Link(title, url, year, category(title), slugify(f'{year or "unknown"}-{title}')))
     except Exception as exc:
         print(f'financial reports index unavailable; using direct PDF fallbacks: {exc}')
@@ -159,14 +167,23 @@ def main() -> int:
     # wall-clock timestamp rewrote every document/record every run, and
     # concurrent ETL runs then collided on a rebase across all ~137 documents.
     prev_parsed_at: dict = {}
+    # The same, by address. A document whose slug changes (a year read from its
+    # title for the first time) keeps the time it was first found, and its file
+    # under the old slug is removed rather than left beside the new one.
+    prev_by_url: dict = {}
+    prev_slug: dict = {}
     prev_index_path = OUT / 'index.json'
     if prev_index_path.exists():
         try:
             prev_index = json.loads(prev_index_path.read_text(encoding='utf-8'))
             for d in prev_index.get('documents', []):
-                slug, sha, ts = d.get('slug'), d.get('sha256'), d.get('parsed_at')
+                slug, sha, ts, url = d.get('slug'), d.get('sha256'), d.get('parsed_at'), (d.get('url') or '').split('?')[0]
                 if slug and sha and ts:
                     prev_parsed_at[(slug, sha)] = ts
+                    if url:
+                        prev_by_url[(url, sha)] = ts
+                if slug and url:
+                    prev_slug[url] = slug
         except Exception:
             pass
     doc_timestamps: list = []
@@ -195,7 +212,7 @@ def main() -> int:
                 continue
             seen_hashes[doc_hash] = link.title
             reader = PdfReader(str(pdf))
-            doc_ts = prev_parsed_at.get((link.slug, doc_hash), parsed_at)
+            doc_ts = prev_parsed_at.get((link.slug, doc_hash)) or prev_by_url.get((link.url.split('?')[0], doc_hash), parsed_at)
             doc_timestamps.append(doc_ts)
             pages = []
             money_count = 0
@@ -221,6 +238,9 @@ def main() -> int:
                     line_candidates.append({'id': f'{link.slug}-p{page_no}-l{line_no}', 'document': link.title, 'slug': link.slug, 'year': link.year, 'category': link.category, 'page': page_no, 'line_number': line_no, 'raw_text': line, 'account_code_candidate': code.group(0) if code else None, 'amounts': vals, 'confidence': 'medium' if code else 'low', 'source_url': link.url, 'parsed_at': doc_ts})
             payload = {**asdict(link), 'sha256': doc_hash, 'page_count': len(pages), 'money_value_count': money_count, 'pages': pages, 'parsed_at': doc_ts}
             (DOCS / f'{link.slug}.json').write_text(json.dumps(payload, indent=2), encoding='utf-8')
+            renamed = prev_slug.get(link.url.split('?')[0])
+            if renamed and renamed != link.slug:
+                (DOCS / f'{renamed}.json').unlink(missing_ok=True)
             docs.append({'title': link.title, 'url': link.url, 'year': link.year, 'category': link.category, 'slug': link.slug, 'json': f'documents/{link.slug}.json', 'page_count': len(pages), 'money_value_count': money_count, 'sha256': doc_hash, 'parsed_at': doc_ts})
             print(f'parsed {link.title} ({len(pages)} pages, {money_count} money values)')
         except Exception as exc:

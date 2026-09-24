@@ -15,7 +15,7 @@ from pathlib import Path
 import parse_budget_requests
 import parse_budget_stages
 import parse_general_fund
-from parse_all_pdfs import category
+from parse_all_pdfs import category, year_of
 
 REPORTS = Path(__file__).resolve().parent.parent / "web/public/data/financial-reports"
 
@@ -30,6 +30,15 @@ class TitleTests(unittest.TestCase):
         for title in ("2027 Tentative Operating Budget", "Tentative Budget 2027", "2027 Budget - Tentative"):
             self.assertEqual(category(title), "tentative_budget", title)
         self.assertEqual(category("2027 Budget, Preliminary"), "preliminary_budget")
+
+    def test_a_year_after_an_underscore(self):
+        # The Town posted the 2027 Supplement as "_2027 Budget Supplement".
+        self.assertEqual(year_of("_2027 Budget Supplement"), 2027)
+        self.assertEqual(category("_2027 Budget Supplement"), "budget_supplement")
+        self.assertEqual(year_of("2027 Tentative Budget (PDF)"), 2027)
+        self.assertEqual(year_of("FY2026 Adopted Budget"), 2026)
+        self.assertIsNone(year_of("Resolution 120270"))
+        self.assertIsNone(year_of("Financial Reports"))
 
     def test_companions_are_not_the_budget(self):
         self.assertEqual(category("2027 Tentative Budget Supplement (PDF)"), "budget_supplement")
