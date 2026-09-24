@@ -1,17 +1,36 @@
 // Fund balance / reserve policy analysis: compliance status, a one-time deployment
 // plan, and peer-town benchmarking. Ported from the iOS app's FundBalanceDashboardView
-// for web/app parity, but computed from the site's real data pipeline (the AFR-sourced
-// actual 2025 Unassigned balance, and the 2026 Adopted Budget appropriations) rather than
+// for web/app parity, but computed from the site's real data pipeline (the audited
+// 2025 Unassigned balance, and the 2026 Adopted Budget appropriations) rather than
 // duplicating those figures as fresh constants.
 
 import { allOperatingFunds2026 } from './all-funds'
 import { generalFundAfr } from './afr'
+import { AUDITED_GENERAL_FUND, AUDITED_YEARS, FUND_BALANCE_CLASSES, type FundBalanceClass } from './audits'
 
 const generalFund2026 = allOperatingFunds2026.find((f) => f.code === 'A01')!
 
 export const appropriations = generalFund2026.appropriations2026 // 69,113,159
-export const unassignedFundBalance =
-  generalFundAfr.fundBalanceClasses.find((c) => c.class === 'Unassigned')!.values['2025'] // 29,671,084.17, actual FY2025 AFR
+
+/** The year-end every reserve figure on the site measures. */
+export const RESERVE_YEAR = 2025
+
+// Each year's balance by tier comes from the independent audit where there is
+// one, and from the Town's unaudited Annual Financial Report where there is
+// not yet. lib/audits.ts explains why the two differ.
+const afrTier = (name: FundBalanceClass) =>
+  (generalFundAfr.fundBalanceClasses.find((c) => c.class === name)?.values ?? {}) as Record<string, number>
+const tierYears = Object.keys(afrTier('Unassigned')).concat(AUDITED_YEARS.map(String)).filter((y, i, all) => all.indexOf(y) === i).sort()
+const tierValues = (name: FundBalanceClass): Record<string, number> =>
+  Object.fromEntries(tierYears.map((y) => [y, AUDITED_GENERAL_FUND[Number(y)]?.classes[name] ?? afrTier(name)[y]]))
+
+/** Whether a year's figures are the audit's or, until the audit is out, the Annual Financial Report's. */
+export const fundBalanceSource = (year: number | string): 'audit' | 'afr' => (AUDITED_GENERAL_FUND[Number(year)] ? 'audit' : 'afr')
+export const reserveYearAudited = fundBalanceSource(RESERVE_YEAR) === 'audit'
+
+export const unassignedFundBalance = tierValues('Unassigned')[String(RESERVE_YEAR)] // 28,829,513, audited
+/** The same balance as the Town's unaudited Annual Financial Report filed it: 29,671,084.17. */
+export const unassignedFundBalanceAfr = afrTier('Unassigned')[String(RESERVE_YEAR)]
 
 export const policyMinimumPercent = 0.15
 export const policyUpperPercent = 0.2
@@ -44,7 +63,8 @@ export const surplusAboveUpper = unassignedFundBalance - targetUpper
  * large the other four are.
  *
  * Definitions are the standard ones, written plainly. The numbers are the
- * Town's own audited AFR, three years of them.
+ * independent audits' for every year that has one, and the Annual Financial
+ * Report's for a year that does not yet.
  */
 export type FundBalanceTier = {
   name: string
@@ -53,7 +73,7 @@ export type FundBalanceTier = {
   values: Record<string, number>
 }
 
-const TIER_MEANING: Record<string, { what: string; spendable: FundBalanceTier['spendable'] }> = {
+const TIER_MEANING: Record<FundBalanceClass, { what: string; spendable: FundBalanceTier['spendable'] }> = {
   Nonspendable: {
     what: 'Cannot be spent — either not in spendable form, like inventory or prepaid items, or legally required to stay intact, like the principal of an endowment.',
     spendable: 'no',
@@ -76,11 +96,11 @@ const TIER_MEANING: Record<string, { what: string; spendable: FundBalanceTier['s
   },
 }
 
-export const fundBalanceTiers: FundBalanceTier[] = generalFundAfr.fundBalanceClasses.map((c) => ({
-  name: c.class,
-  what: TIER_MEANING[c.class]?.what ?? '',
-  spendable: TIER_MEANING[c.class]?.spendable ?? 'constrained',
-  values: c.values as Record<string, number>,
+export const fundBalanceTiers: FundBalanceTier[] = FUND_BALANCE_CLASSES.map((name) => ({
+  name,
+  what: TIER_MEANING[name].what,
+  spendable: TIER_MEANING[name].spendable,
+  values: tierValues(name),
 }))
 
 export const fundBalanceYears = Object.keys(fundBalanceTiers[0]?.values ?? {}).sort()
@@ -94,7 +114,7 @@ export const totalFundBalance = tierTotal(latestFundBalanceYear)
 export const constrainedFundBalance = totalFundBalance - unassignedFundBalance
 
 /**
- * Where the growth went. Between the first and last audited year here, the
+ * Where the growth went. Between the first and last year here, the
  * unconstrained tier is the one that moved — which is why a policy written
  * against Unassigned is the right place to measure, and why the total is a
  * misleading headline on its own.

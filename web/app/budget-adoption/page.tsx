@@ -3,7 +3,7 @@ import PlainCallout from '../../components/PlainCallout'
 import { released2027, changePhrase } from '../../lib/tentative-2027'
 import {
   RECORD, ERAS, REASONS, OUTLOOK, LIMITS, AUDIT_SOURCE, PARTY_SOURCE, counts, eraStats, book, netChange,
-  overrideState, OVERRIDE_LABEL, OUTCOME_LABEL, TIMING_LABEL, type YearRecord,
+  overrideState, OVERRIDE_LABEL, OUTCOME_LABEL, TIMING_LABEL, countWord, overLimitRecord, overrideStreak, type YearRecord,
 } from '../../lib/budget-adoption'
 
 const base = process.env.NEXT_PUBLIC_BASE_PATH || ''
@@ -142,7 +142,14 @@ export default function BudgetAdoptionPage() {
                         : <>, levy {changePhrase(released2027.levyPct)} 2026.</>}{' '}
                       <a href={`${base}/tentative-${OUTLOOK.year}/`} style={link}>Compare</a>
                     </td>
-                    <td style={{ ...td, color: 'var(--rbl-text-muted)' }} colSpan={3}>
+                    <td style={{ ...td, color: 'var(--rbl-text-muted)' }} colSpan={3} data-cap-streak>
+                      {overLimitRecord.allOver && released2027.withinStatedLimit ? (
+                        <>
+                          Adopted as proposed, it would be the first budget under the levy limit since the audited record
+                          begins in {overLimitRecord.from}: all {countWord(overLimitRecord.count)} from {overLimitRecord.from} through{' '}
+                          {overLimitRecord.to} were over it, the last {countWord(overrideStreak.length)} with an override law.{' '}
+                        </>
+                      ) : null}
                       Board changes, the hearing and adoption are still to come; see <a href="#outlook" style={link}>what the record suggests</a>.
                     </td>
                   </>

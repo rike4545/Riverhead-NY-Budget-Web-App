@@ -7,3 +7,5 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
 a{ text-underline-offset:3px }
 ::selection{background:#cfe8fb;color:#102f49}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
+/* A table that becomes one labeled block per row on a phone, so no column is scrolled out of view. Each cell after the first carries data-label. */
+@media(max-width:560px){.rbl-stack thead{display:none}.rbl-stack,.rbl-stack tbody,.rbl-stack tr{display:block;width:100%}.rbl-stack tr{padding:8px 0}.rbl-stack td{display:flex;justify-content:space-between;align-items:baseline;gap:12px;padding:2px 0!important;text-align:right!important}.rbl-stack td::before{content:attr(data-label);color:var(--rbl-text-muted);font-weight:600;text-align:left}.rbl-stack td:first-child{font-weight:800}.rbl-stack td:first-child::before{content:none}}

@@ -2,8 +2,8 @@
 // already taken this year. A ceiling, never a balance — see unassignedCeiling.
 //
 // WHY THIS EXISTS. /reserves/ priced its entire deployment plan against
-// unassignedFundBalance — $29,671,084, the AUDITED POSITION AT DECEMBER 31,
-// 2025. That is an opening balance, not an availability. The Board has been
+// unassignedFundBalance — the POSITION AT DECEMBER 31, 2025, now the audited
+// $28,829,513. That is an opening balance, not an availability. The Board has been
 // drawing against it all through 2026, and a dollar already voted cannot fund a
 // suggested action as well.
 //
@@ -28,7 +28,9 @@ import {
   targetReservePercent,
   targetUnassignedAt288,
   targetUpper,
+  reserveYearAudited,
   unassignedFundBalance,
+  unassignedFundBalanceAfr,
   type DeploymentOption,
 } from './reserve-policy'
 import {
@@ -51,7 +53,7 @@ export { committedDocumented, committedAuthorized }
 /** The 2026 General Fund commitments netted here, from the resolution record. */
 export const committedThisYear = committedTotal
 
-/** The reported opening balance, kept named so the page cannot confuse the two. */
+/** The opening balance at December 31, 2025, kept named so the page cannot confuse the two. */
 export const openingUnassigned = unassignedFundBalance
 
 /**
@@ -235,8 +237,13 @@ const usd = (n: number) =>
 const pct = (n: number) => `${(n * 100).toFixed(1)}%`
 
 export const availabilityReading =
-  `The ${usd(openingUnassigned)} above is what the Town reported at December 31, 2025 — its own filing with the ` +
-  `State Comptroller, not an independent audit. Through the meetings published so far the Board has committed ` +
+  (reserveYearAudited
+    ? `The ${usd(openingUnassigned)} above is the audited balance at December 31, 2025, from the independent audit the ` +
+      `Board accepted on September 1, 2026. The Town's own unaudited filing with the State Comptroller had put it ` +
+      `${usd(unassignedFundBalanceAfr - openingUnassigned)} higher, at ${usd(unassignedFundBalanceAfr)}. `
+    : `The ${usd(openingUnassigned)} above is what the Town reported at December 31, 2025 — its own filing with the ` +
+      `State Comptroller, not an independent audit. `) +
+  `Through the meetings published so far the Board has committed ` +
   `${usd(committedThisYear)} of it, which puts a ceiling of ${usd(unassignedCeiling)} on what is left: ` +
   `${pct(ceilingPercentOfAppropriations)} of appropriations rather than ${pct(openingPercentOfAppropriations)}. ` +
   `A ceiling and not a balance — there is no 2026 financial report, several adopted draws state no amount so the ` +
@@ -247,7 +254,7 @@ export const availabilityReading =
 
 export const planReading = deploymentPlanFits
   ? `The plan totals ${usd(deploymentPlanTotal)} and fits the ${usd(deployableAbove288Ceiling)} available above the ${pct(targetReservePercent)} target.`
-  : `For scale: against the reported opening balance the plan fit with ${usd(Math.max(0, unassignedCeiling + committedThisYear - targetUnassignedAt288) - deploymentPlanTotal)} to spare, which is the version published before 2026's votes were netted.`
+  : `For scale: against the opening balance the plan fit with ${usd(Math.max(0, unassignedCeiling + committedThisYear - targetUnassignedAt288) - deploymentPlanTotal)} to spare, which is the version published before 2026's votes were netted.`
 
 /**
  * The peer scenarios, re-measured against money that still exists.

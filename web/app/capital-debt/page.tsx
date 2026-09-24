@@ -58,7 +58,7 @@ export default function CapitalDebtPage() {
         <Stat label="Bonds outstanding" value={usd(debtProfile.totalBondedDebt)} sub={`${bonds.length} issues`} />
         <Stat label="Bond Anticipation Notes" value={usd(debtProfile.bondAnticipationNotes)} sub={`${bans.length} notes, both matured in 2026`} accent />
         <Stat label="Authorized, not yet issued" value={usd(debtProfile.debtLimit.bondsAuthorizedUnissued)} sub={`Board-approved, as of ${debtProfile.debtLimit.asOf}`} />
-        <Stat label="Debt limit used" value={`${debtProfile.debtLimit.debtLimitExhaustedPct}%`} sub={`of ~${usd(debtProfile.debtLimit.constitutionalDebtLimit)}, as of ${debtProfile.debtLimit.asOf}`} />
+        <Stat label="Debt limit used" value={`${debtProfile.debtLimit.debtLimitExhaustedPct}%`} sub={`of ${debtProfile.debtLimit.limitStated ? '' : '~'}${usd(debtProfile.debtLimit.constitutionalDebtLimit)}, as of ${debtProfile.debtLimit.asOf}`} />
         <Stat label="Credit rating" value={debtProfile.moodyRating} sub={`Moody's, ${debtProfile.moodyRatingAsOf}`} />
       </section>
 
@@ -114,7 +114,7 @@ export default function CapitalDebtPage() {
 
               <div style={{ color: 'var(--rbl-text-muted)', fontSize: 12.4, marginTop: 10 }}>
                 {ACTIVITY_LABEL[d.activity]}
-                {d.split && ` — ${usd(d.split.governmental)} governmental, ${usd(d.split.businessType)} water/sewer at ${debtProfile.debtLimit.asOf}.`}
+                {d.split && ` — ${usd(d.split.governmental)} governmental, ${usd(d.split.businessType)} water/sewer at ${debtProfile.splitAsOf}.`}
               </div>
 
               {d.note && (
@@ -286,19 +286,24 @@ export default function CapitalDebtPage() {
         <h3 style={{ marginTop: 0, color: 'var(--rbl-title)', fontSize: 16 }}>Where these figures come from</h3>
         <p style={{ color: 'var(--rbl-text-body)', fontSize: 13.4, lineHeight: 1.6, marginTop: 0 }}>
           Balances, issue and maturity dates, and the repayment schedule: <strong>{debtProfile.source.title}</strong>,{' '}
-          {debtProfile.source.detail}. Interest rates, formal issue names, the governmental/water-sewer split, the
-          authorized-but-unissued balance and the debt-limit percentage: <strong>{debtProfile.auditSource.title}</strong>,{' '}
-          {debtProfile.auditSource.detail} — the newest independent audit, one year older than the balances.
+          {debtProfile.source.detail}. Interest rates, formal issue names and the governmental/water-sewer split:{' '}
+          <strong>{debtProfile.auditSource.title}</strong>, {debtProfile.auditSource.detail}, one year older than the
+          balances. The authorized-but-unissued balance and the debt limit:{' '}
+          <a href={debtProfile.debtLimit.source.url} target="_blank" rel="noopener noreferrer" style={{ color: 'var(--rbl-link)', fontWeight: 700 }}>
+            {debtProfile.debtLimit.source.title}
+          </a>
+          , {debtProfile.debtLimit.source.detail}. The 2025 audit also confirms the bond and note totals above.
         </p>
         <p style={{ color: 'var(--rbl-text-body)', fontSize: 13.4, lineHeight: 1.6 }}>
           Only governmental debt counts toward the constitutional limit; water and sewer district debt is excluded by
-          statute. The Town reported {usd(debtProfile.debtLimit.debtSubjectToLimit)} subject to the limit at{' '}
-          {debtProfile.debtLimit.asOf} — {debtProfile.debtLimit.debtLimitExhaustedPct}% of it. The prior audit
-          reported {debtProfile.debtLimit.priorYear.debtLimitExhaustedPct}% at {debtProfile.debtLimit.priorYear.asOf},
-          but the two are not comparable: the earlier figure counted bonds only, while the later one counts the two
-          BANs as well. Almost none of the difference is new borrowing. The constitutional limit itself is not printed
-          as a dollar figure in the 2024 audit — the ~{usd(debtProfile.debtLimit.constitutionalDebtLimit)} shown here
-          is implied by dividing the debt subject to the limit by the percentage the audit reports.
+          statute. The audit reports {usd(debtProfile.debtLimit.debtSubjectToLimit)} subject to the limit at{' '}
+          {debtProfile.debtLimit.asOf}: {debtProfile.debtLimit.debtLimitExhaustedPct}% of a{' '}
+          {usd(debtProfile.debtLimit.constitutionalDebtLimit)} limit. A year earlier it was{' '}
+          {debtProfile.debtLimit.priorYear.debtLimitExhaustedPct}% ({usd(debtProfile.debtLimit.priorYear.debtSubjectToLimit)}),
+          counted the same way, so the decline is real: less debt, against a limit that grows with property values. The
+          2024 figure&apos;s own jump from {debtProfile.debtLimit.basisChange.debtLimitExhaustedPct}% at{' '}
+          {debtProfile.debtLimit.basisChange.asOf} was not new borrowing: the earlier audit counted bonds only, the
+          later one the two BANs as well.
         </p>
         <p style={{ color: 'var(--rbl-text-muted)', fontSize: 12.5, marginBottom: 0 }}>
           Verify against the official filings before relying on any of it. Read the source:{' '}

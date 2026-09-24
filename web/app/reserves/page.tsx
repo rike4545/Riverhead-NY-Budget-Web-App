@@ -2,7 +2,8 @@ import PageShell from '../../components/PageShell'
 import PlainCallout from '../../components/PlainCallout'
 import ReserveDrawdownSlider from '../../components/ReserveDrawdownSlider'
 import { dollars } from '../../lib/financial-data'
-import { afr2025 } from '../../lib/afr'
+import { AUDITED_GENERAL_FUND, AUDIT_2025, auditVsReport } from '../../lib/audits'
+import { generalFundAfr } from '../../lib/afr'
 import {
   appropriations,
   authorizedReserves,
@@ -20,6 +21,8 @@ import {
   latestFundBalanceYear,
   peerBenchmarks,
   policyMinimumPercent,
+  RESERVE_YEAR,
+  reserveYearAudited,
   surplusAboveUpper,
   targetReservePercent,
   targetUnassignedAt288,
@@ -81,12 +84,20 @@ const healthNote: Record<string, string> = {
 
 export default function ReservesPage() {
   // Compliance is tested against the ceiling on what is left, not the opening
-  // balance. The opening figure stays beside it, labeled, because it is what the
-  // Town reported and the source for everything else — but a policy check
+  // balance. The opening figure stays beside it, labeled, because it is the
+  // audited year-end and the source for everything else — but a policy check
   // against money already voted away is a check against a number that is gone.
   // Both clear the floor comfortably, so the verdict does not turn on the choice.
   const pctOfApprop = ceilingPercentOfAppropriations
   const health = fundBalanceHealth(pctOfApprop, policyMinimumPercent)
+  const comparison = auditVsReport(RESERVE_YEAR, Object.fromEntries([
+    ...generalFundAfr.fundBalanceClasses.map((c) => [c.class, c.values[String(RESERVE_YEAR)]]),
+    ['Total', generalFundAfr.fundBalance?.[String(RESERVE_YEAR)] ?? 0],
+  ]))
+  const row = (name: string) => comparison?.rows.find((r) => r.name === name)
+  const auditNote = comparison
+    ? { reported: row('Unassigned')!.reported, audited: row('Unassigned')!.audited, totalReported: row('Total')!.reported, totalAudited: row('Total')!.audited }
+    : null
 
   return (
     <PageShell
@@ -95,10 +106,12 @@ export default function ReservesPage() {
     >
       <PlainCallout
         tips={[
-          { label: 'Unassigned fund balance', text: 'the "rainy-day" savings with no strings attached — the actual FY2025 year-end figure from the Town\u2019s Annual Financial Report, not a mid-year estimate. It is one of five classifications; the other four are shown below.' },
+          { label: 'Unassigned fund balance', text: reserveYearAudited
+            ? 'the "rainy-day" savings with no strings attached — the FY2025 year-end figure from the independent audit the Town Board accepted on September 1, 2026, not a mid-year estimate. It is one of five classifications; the other four are shown below.'
+            : 'the "rainy-day" savings with no strings attached — the FY2025 year-end figure from the Town\u2019s Annual Financial Report, not a mid-year estimate. It is one of five classifications; the other four are shown below.' },
           { label: "Policy floor", text: `Riverhead's own policy sets a 15% minimum and 20% upper target of General Fund appropriations.` },
           { label: 'One-time vs. recurring', text: 'anything above the operating target is one-time money — good for debt paydown or capital, not for permanent new spending.' },
-          { label: 'Opening vs. available', text: 'the figure the Town reported for December 31, 2025 — its own filing, not an independent audit. The Board has voted against it all year, so what is left is the smaller number, and it is the one every plan here is priced against.' },
+          { label: 'Opening vs. available', text: `the ${reserveYearAudited ? 'audited' : 'reported'} figure for December 31, 2025. The Board has voted against it all year, so what is left is the smaller number, and it is the one every plan here is priced against.` },
         ]}
       >
         The General Fund ended FY2025 with <strong>{dollars(unassignedFundBalance)}</strong> in unassigned reserves —{' '}
@@ -127,7 +140,7 @@ export default function ReservesPage() {
           </span>
         </div>
         <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 13.5, marginTop: 10, color: 'var(--rbl-text-muted)' }}>
-          <span>Unassigned fund balance (FY2025 reported)</span>
+          <span>Unassigned fund balance (FY2025, {reserveYearAudited ? 'audited' : 'reported'})</span>
           <span>{dollars(unassignedFundBalance)}</span>
         </div>
         <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 13.5, marginTop: 4, color: 'var(--rbl-text-muted)' }}>
@@ -160,7 +173,7 @@ export default function ReservesPage() {
           <span>{dollars(targetUpper)}</span>
         </div>
         <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 13.5, color: 'var(--rbl-text-muted)', marginTop: 4 }}>
-          <span>Surplus above upper target, at the reported opening</span>
+          <span>Surplus above upper target, at the opening balance</span>
           <span>{dollars(surplusAboveUpper)}</span>
         </div>
         <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 13.5, color: 'var(--rbl-text-muted)', marginTop: 4 }}>
@@ -173,7 +186,7 @@ export default function ReservesPage() {
         <h3 style={{ marginTop: 0, color: 'var(--rbl-title)' }}>The five classifications of fund balance</h3>
         <p style={{ color: 'var(--rbl-text-body)', fontSize: 14.5, marginTop: 0 }}>
           Every percentage above measures one tier. GASB Statement 54 splits a fund&apos;s balance into five, ordered by
-          how hard the money is to spend — and the Town&apos;s own annual report files all five. {fundBalanceReading}
+          how hard the money is to spend — and the Town&apos;s audit reports all five. {fundBalanceReading}
         </p>
 
         <div style={{ display: 'grid', gap: 16 }}>
@@ -243,12 +256,39 @@ export default function ReservesPage() {
           <strong>Unassigned</strong>, so that is the figure the compliance test uses. Quoting the{' '}
           {dollars(totalFundBalance)} balance-sheet total instead would overstate the spendable cushion by{' '}
           {dollars(constrainedFundBalance)}. Classifications and definitions follow GASB Statement 54; the dollar
-          figures are the Town&apos;s own{' '}
-          <a href={afr2025.source.url} target="_blank" rel="noopener noreferrer" style={{ color: 'var(--rbl-link)' }}>
-            {afr2025.source.title}
-          </a>
-          , which reports {fundBalanceYears.length} years side by side.
+          figures for {fundBalanceYears.join(', ')} are the independent audits&apos;:{' '}
+          {fundBalanceYears.map((y, i) => {
+            const a = AUDITED_GENERAL_FUND[Number(y)]
+            return (
+              <span key={y}>
+                {i > 0 ? ', ' : ''}
+                {a ? (
+                  <a href={a.source.url} target="_blank" rel="noopener noreferrer" style={{ color: 'var(--rbl-link)' }}>
+                    {y}
+                  </a>
+                ) : (
+                  `${y} (Annual Financial Report, not yet audited)`
+                )}
+              </span>
+            )
+          })}
+          .
         </p>
+        {auditNote ? (
+          <div data-audit-vs-report style={{ background: 'var(--rbl-surface-2)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 12, padding: '12px 14px', marginTop: 12, fontSize: 13.5, lineHeight: 1.55, color: 'var(--rbl-text-body)' }}>
+            <strong style={{ color: 'var(--rbl-title)' }}>Why this is lower than the figure this site used to show.</strong>{' '}
+            Until the audit came out, the site used the Town&apos;s own Annual Financial Report, which is unaudited. That
+            report put {RESERVE_YEAR}&apos;s unassigned balance at {dollars(auditNote.reported)}. The audit, accepted by the
+            Town Board on {AUDIT_2025.accepted.date} (Resolution {AUDIT_2025.accepted.resolution}), puts it at{' '}
+            <strong>{dollars(auditNote.audited)}</strong>, {dollars(auditNote.reported - auditNote.audited)} less. Most of
+            the gap is money the audit counts as Assigned and the report did not: open purchase orders, and{' '}
+            {dollars(AUDITED_GENERAL_FUND[RESERVE_YEAR].assigned.miscellaneousDesignations)} set aside for the Teen Center,
+            Senior Day Care, Stotzky Park and community-benefit funds. The rest is year-end adjustments, which leave the
+            audited total {dollars(auditNote.totalReported - auditNote.totalAudited)} below the report&apos;s.{' '}
+            <a href={`${base}/annual-report/`} style={{ color: 'var(--rbl-link)' }}>The Annual Report page</a> sets the two
+            side by side, tier by tier.
+          </div>
+        ) : null}
       </section>
 
       <section style={{ ...card, marginBottom: 16, borderLeft: '6px solid var(--rbl-accent-border)' }}>
@@ -257,7 +297,7 @@ export default function ReservesPage() {
           {availabilityReading}
         </p>
         <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 14.5 }}>
-          <span>Reported unassigned balance, December 31, 2025</span>
+          <span>{reserveYearAudited ? 'Audited' : 'Reported'} unassigned balance, December 31, 2025</span>
           <strong>{dollars(unassignedFundBalance)}</strong>
         </div>
         <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 14.5, marginTop: 6 }}>
@@ -289,7 +329,7 @@ export default function ReservesPage() {
         <p style={{ color: 'var(--rbl-text-body)', fontSize: 14.5, marginTop: 0 }}>
           A one-time-money plan: keep a strong cushion, use the rest on purpose, and show what still fits after the
           serious bills are paid. It is priced below against the <em>ceiling on what is left</em>, not the
-          reported opening figure it was first written against.
+          opening figure it was first written against.
         </p>
         {!deploymentPlanFits && (
           <p style={{ color: 'var(--rbl-text-body)', fontSize: 14, lineHeight: 1.6, marginTop: 0 }}>
@@ -582,7 +622,7 @@ export default function ReservesPage() {
         <h3 style={{ marginTop: 0, color: 'var(--rbl-title)' }}>What if the Town uses some savings?</h3>
         <p style={{ color: 'var(--rbl-text-body)', fontSize: 14.5, marginTop: 0 }}>
           See how using reserves for tax relief or a project would affect the cushion. The slider starts from the{' '}
-          {dollars(unassignedCeiling)} ceiling on what is left, not the reported opening balance, so it cannot offer
+          {dollars(unassignedCeiling)} ceiling on what is left, not the opening balance, so it cannot offer
           money the Board has already voted.
         </p>
         <ReserveDrawdownSlider
@@ -594,8 +634,12 @@ export default function ReservesPage() {
       </Detail>
 
       <p style={{ color: 'var(--rbl-text-muted)', fontSize: 13, lineHeight: 1.55, marginTop: 16 }}>
-        Sources: 2025 Annual Financial Report (all five fund-balance classifications, three years each, including the
-        actual unassigned balance), 2026 Adopted Budget (General Fund appropriations and one-time deployment figures),
+        Sources: the Town&apos;s audited financial statements for 2023, 2024 and 2025 (all five fund-balance
+        classifications, including the unassigned balance; the 2025 audit is in the{' '}
+        <a href={AUDIT_2025.source.url} target="_blank" rel="noopener noreferrer" style={{ color: 'var(--rbl-link)' }}>
+          September 1, 2026 agenda packet
+        </a>
+        , {AUDIT_2025.source.pages}), 2026 Adopted Budget (General Fund appropriations and one-time deployment figures),
         and the Town Board resolution record for the {dollars(committedThisYear)} committed during 2026. That total is
         mixed in provenance and should not be read as one source: {dollars(committedDocumented)} was read from Section G
         of the Fiscal Impact Statements, where the Town names its own Appropriated Fund Balance account, and{' '}

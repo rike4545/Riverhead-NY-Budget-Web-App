@@ -5,7 +5,7 @@ import { allOperatingFunds2026 } from '../../lib/all-funds'
 import community from '../../public/data/community.json'
 import payrollSummary from '../../public/data/payroll/summary.json'
 import meetingsIndex from '../../public/data/meetings/index.json'
-import afr2025 from '../../public/data/afr/2025.json'
+import { AUDIT_2025 } from '../../lib/audits'
 import buyout from '../../public/data/buyout-analysis.json'
 
 import { debtProfile, opebLiability } from '../../lib/debt-profile'
@@ -32,9 +32,9 @@ const approp = allOperatingFunds2026.reduce((s, f) => s + f.appropriations2026, 
 const levy = allOperatingFunds2026.reduce((s, f) => s + f.taxLevy2026, 0)
 const fundCount = allOperatingFunds2026.length
 const pay = payrollSummary.yearSummaries[payrollSummary.yearSummaries.length - 1]
-const gf = afr2025.funds.find((f) => f.code === 'A')!
-const gfBalance = (gf.fundBalance?.['2025'] as number) ?? 0
-const gfSurplus = (gf.surplus?.['2025'] as number) ?? 0
+// The General Fund's 2025 result is the audit's (lib/audits.ts), not the unaudited report's.
+const gfBalance = AUDIT_2025.generalFund.ending
+const gfSurplus = AUDIT_2025.generalFund.netChange
 const votes = meetingsIndex.totals
 
 type Stop = {
@@ -75,7 +75,7 @@ const stops: Stop[] = [
   },
   {
     n: 6, kicker: 'The cushion', title: 'What the Town has in savings', accent: 'var(--rbl-series-blue)',
-    body: <>A town keeps reserves (“fund balance”) for emergencies and to steady the tax rate. The General Fund ended 2025 with <b>{usd0(gfBalance)}</b> in fund balance and ran a <b>{usd0(gfSurplus)}</b> surplus for the year. The Town&apos;s own policy sets a 15% floor and a 20% target against General Fund spending; the balance is currently well above both. How much of that cushion the Town leans on each year is one of the clearest signs of fiscal health.</>,
+    body: <>A town keeps reserves (“fund balance”) for emergencies and to steady the tax rate. By the independent audit, the General Fund ended 2025 with <b>{usd0(gfBalance)}</b> in fund balance, after adding <b>{usd0(gfSurplus)}</b> during the year. The Town&apos;s own policy sets a 15% floor and a 20% target against General Fund spending; the balance is currently well above both. How much of that cushion the Town leans on each year is one of the clearest signs of fiscal health.</>,
     stats: [{ label: 'General Fund savings', value: M(gfBalance) }, { label: '2025 surplus', value: M(gfSurplus) }],
     href: `${base}/annual-report/`, cta: 'See what actually happened',
   },

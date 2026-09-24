@@ -14,6 +14,15 @@
 // best available reconstruction from public coverage, not a certified
 // transcript.
 
+import { AUDIT_2025 } from './audits'
+import { appropriations, percentOfAppropriations, reserveYearAudited, unassignedFundBalance } from './reserve-policy'
+
+/** Unassigned General Fund balance at the end of 2025 as a share of 2026 appropriations, e.g. "41.7%". */
+const reserveShare = `${(percentOfAppropriations(unassignedFundBalance, appropriations) * 100).toFixed(1)}%`
+const reserveShareSource = reserveYearAudited
+  ? `That figure is from the independent audit of 2025, which the Town Board accepted on ${AUDIT_2025.accepted.date}.`
+  : "That figure comes from the Town's 2025 Annual Financial Report, its own filing with the State Comptroller, which is not audited."
+
 export const riverheadCurrent = {
   agency: "Moody's Investors Service",
   rating: 'Aa2',
@@ -149,7 +158,7 @@ export const ratingCriteria: CriteriaFactor[] = [
     approxWeight: '~30%',
     whatItMeans: 'Fund balance as a share of revenue, and — agencies say this explicitly — whether that level is expected to hold, not just its snapshot value.',
     riverheadRead:
-      "Riverhead's clearest strength: unassigned General Fund balance was about 42.9% of 2026 appropriations at the end of 2025 — above Brookhaven's own ~38.8% posture. (That figure comes from the Town's 2025 Annual Financial Report, its own filing with the State Comptroller; the newest independent audit is 2024.) This has not translated into a rating edge, which suggests other factors are the binding constraint.",
+      `Riverhead's clearest strength: unassigned General Fund balance was about ${reserveShare} of 2026 appropriations at the end of 2025 — above Brookhaven's own ~38.8% posture. (${reserveShareSource}) This has not translated into a rating edge, which suggests other factors are the binding constraint.`,
   },
   {
     factor: 'Management / formal policies',
@@ -163,7 +172,7 @@ export const ratingCriteria: CriteriaFactor[] = [
     approxWeight: '~20–30%',
     whatItMeans: 'Debt burden relative to the tax base and revenue, how fast principal amortizes, and pension/OPEB liabilities.',
     riverheadRead:
-      "Split picture: bonded debt is a genuine strength — the 2024 audit puts debt subject to the constitutional limit at 6.74% of it, and the Town issued no new debt at all during 2025, retiring $6.36M of principal instead. But OPEB (retiree health) is a documented drag — Moody's named \"elevated OPEB liability\" explicitly in the 2021 upgrade language, and at $129.5M (governmental activities, Dec. 31, 2025) it is still the largest single thing the Town owes, bigger than all bonds, notes, pension and leave liabilities combined.",
+      "Split picture: bonded debt is a genuine strength — the 2025 audit puts debt subject to the constitutional limit at 5.48% of it, down from 6.74% a year earlier, and the Town issued no new debt at all during 2025, retiring $6.36M of principal instead. But OPEB (retiree health) is a documented drag — Moody's named \"elevated OPEB liability\" explicitly in the 2021 upgrade language, and at $129.5M (governmental activities, Dec. 31, 2025) it is still the largest single thing the Town owes, bigger than all bonds, notes, pension and leave liabilities combined.",
   },
 ]
 
@@ -177,9 +186,9 @@ export const levers: Lever[] = [
   {
     title: 'Reserve what the law actually allows, and press the State on OPEB',
     detail:
-      "Riverhead's retiree-health liability — the specific factor Moody's flagged as a drag in 2021 — stood at $129.5M on the governmental-activities basis at the end of 2025, and none of it is funded. The direction is worth stating precisely: that figure fell sharply in 2024 and rose again in 2025, but almost all of that movement is the GASB 75 discount rate moving from 4.00% to 4.28%, not the Town setting money aside. What a New York town cannot do is fix this with a trust. The Comptroller's reserve-fund guide enumerates every reserve a town may create, and there is no OPEB reserve on that list — the guide does not use the word once. Money a board \"sets aside\" for retiree health is legally just unrestricted fund balance: spendable on anything, and worth nothing under GASB 75, which only lets a plan use a higher discount rate when assets are held in an irrevocable trust the State has not authorized. The honest agenda is therefore two-part: fund the reserves that are authorized (§6-p for accrued leave, §6-r for pension-contribution volatility), and press for the enabling legislation that would let towns pre-fund OPEB at all.",
+      "Riverhead's retiree-health liability — the specific factor Moody's flagged as a drag in 2021 — stood at $129.5M on the governmental-activities basis at the end of 2025, and none of it is funded. The direction is worth stating precisely: that figure fell sharply in 2024, almost all of it the GASB 75 discount rate moving from 4.00% to 4.28%, and rose again in 2025 even though the rate rose further, to 4.43%. None of it was the Town setting money aside. What a New York town cannot do is fix this with a trust. The Comptroller's reserve-fund guide enumerates every reserve a town may create, and there is no OPEB reserve on that list — the guide does not use the word once. Money a board \"sets aside\" for retiree health is legally just unrestricted fund balance: spendable on anything, and worth nothing under GASB 75, which only lets a plan use a higher discount rate when assets are held in an irrevocable trust the State has not authorized. The honest agenda is therefore two-part: fund the reserves that are authorized (§6-p for accrued leave, §6-r for pension-contribution volatility), and press for the enabling legislation that would let towns pre-fund OPEB at all.",
     evidence:
-      "OPEB liability $129,479,192 governmental activities at Dec. 31, 2025 (2025 Annual Financial Report, Schedule W acct. 683); newest audited all-activities total $132,417,187 at Dec. 31, 2024. The per-resident peer ranking below is computed on the older $152.6M (2023) figure, which was the number in the Empire Center tool when this comparison was built — Riverhead ranked 4th-highest of 10 Suffolk towns at $13,726/resident.",
+      "OPEB liability $129,479,192 governmental activities at Dec. 31, 2025 (2025 Annual Financial Report, Schedule W acct. 683); audited all-activities total $142,758,111 at Dec. 31, 2025, up $10,340,924 in the year (2025 audited financial statements, accepted Sept. 1, 2026). The per-resident peer ranking below is computed on the older $152.6M (2023) figure, which was the number in the Empire Center tool when this comparison was built — Riverhead ranked 4th-highest of 10 Suffolk towns at $13,726/resident.",
   },
   {
     title: 'Close the last structural gaps with recurring revenue, not one-time transfers',
@@ -190,8 +199,10 @@ export const levers: Lever[] = [
   {
     title: 'Put the reserve policy in writing, and put it where a rating analyst looks',
     detail:
-      "Riverhead's own 15% minimum / 20% upper reserve policy already exists in practice, and the Town is running well above it (42.9%). The Comptroller's reserve-funds guide is specific about what a written policy has to do, and it is more than naming a percentage: it should say why the money is being set aside, the board's financial objectives, optimal funding levels, and the conditions under which the assets will be used — plus how a drawn-down reserve gets replenished. The same guide warns that reserves \"should not be merely a 'parking lot' for excess cash or fund balance,\" which is the harder question for a town holding 42.9%. It also asks boards to review existing reserves periodically, set a ceiling on what accumulates, and reduce or close any reserve whose purpose has been met. Answering those in a standing resolution, disclosed in the AFR's Management's Discussion & Analysis, is what Brookhaven's S&P rationale is crediting when it praises \"comprehensive formal financial management policies.\"",
-    evidence: "Riverhead's current unassigned fund balance: 42.9% of 2026 General Fund appropriations, vs. Brookhaven's ~38.8% and Smithtown's ~39.9%. Policy criteria and the 'parking lot' caution: NYS Comptroller, \"Reserve Funds\" (Local Government Management Guide), Board Direction and Oversight. That guide also notes that when a transfer of surplus into a reserve is not already in the adopted budget, a board resolution is generally required, and it should state the amount and name the reserve being credited.",
+      `Riverhead's own 15% minimum / 20% upper reserve policy already exists in practice, and the Town is running well above it (${reserveShare}).`
+      + " The Comptroller's reserve-funds guide is specific about what a written policy has to do, and it is more than naming a percentage: it should say why the money is being set aside, the board's financial objectives, optimal funding levels, and the conditions under which the assets will be used — plus how a drawn-down reserve gets replenished. The same guide warns that reserves \"should not be merely a 'parking lot' for excess cash or fund balance,\" which is the harder question for a town holding " + reserveShare + ". It also asks boards to review existing reserves periodically, set a ceiling on what accumulates, and reduce or close any reserve whose purpose has been met. Answering those in a standing resolution, disclosed in the AFR's Management's Discussion & Analysis, is what Brookhaven's S&P rationale is crediting when it praises \"comprehensive formal financial management policies.\"",
+    evidence: `Riverhead's current unassigned fund balance: ${reserveShare} of 2026 General Fund appropriations, vs. Brookhaven's ~38.8% and Smithtown's ~39.9%.`
+      + " Policy criteria and the 'parking lot' caution: NYS Comptroller, \"Reserve Funds\" (Local Government Management Guide), Board Direction and Oversight. That guide also notes that when a transfer of surplus into a reserve is not already in the adopted budget, a board resolution is generally required, and it should state the amount and name the reserve being credited.",
   },
   {
     title: 'Keep growing the tax base beyond Tanger and Route 58',
@@ -240,8 +251,10 @@ export const opebLevers: Lever[] = [
   {
     title: 'Put the surplus into the reserves that are authorized',
     detail:
-      "Riverhead already holds more in reserves (42.9% of budget) than its own peer comparisons suggest it needs, and that one-time money cannot legally go into an OPEB trust. It can go into reserves the statute does authorize, two of which map directly onto costs the Town is already carrying. An Employee Benefit Accrued Liability Reserve (§6-p) pays out accumulated sick, vacation and holiday leave when employees separate — Riverhead's accrued-leave liability is $11.6M and rising, and the 2026 retirement incentive converts part of it to cash inside a single budget year. A Retirement Contribution Reserve (§6-r) absorbs pension-contribution swings; the Town's net pension liability moved from $21.4M to $27.3M in one year on investment returns alone. Neither needs a referendum — a board resolution creates them.",
-    evidence: "Unassigned fund balance 42.9% of 2026 General Fund appropriations, above every peer town in this site's comparison. Accrued leave $11,608,615 and net pension liability $27,346,801 at Dec. 31, 2025 (2025 Annual Financial Report, Schedule W accts. 687 and 638). Reserve authority: GML §6-p and §6-r, both created by board resolution without referendum.",
+      `Riverhead already holds more in reserves (${reserveShare} of budget) than its own peer comparisons suggest it needs,`
+      + " and that one-time money cannot legally go into an OPEB trust. It can go into reserves the statute does authorize, two of which map directly onto costs the Town is already carrying. An Employee Benefit Accrued Liability Reserve (§6-p) pays out accumulated sick, vacation and holiday leave when employees separate — Riverhead's accrued-leave liability is $11.6M and rising, and the 2026 retirement incentive converts part of it to cash inside a single budget year. A Retirement Contribution Reserve (§6-r) absorbs pension-contribution swings; the Town's net pension liability moved from $21.4M to $27.3M in one year on investment returns alone. Neither needs a referendum — a board resolution creates them.",
+    evidence: `Unassigned fund balance ${reserveShare} of 2026 General Fund appropriations, above every peer town in this site's comparison.`
+      + " Accrued leave $11,608,615 and net pension liability $27,346,801 at Dec. 31, 2025 (2025 Annual Financial Report, Schedule W accts. 687 and 638). Reserve authority: GML §6-p and §6-r, both created by board resolution without referendum.",
   },
 ]
 

@@ -4,6 +4,8 @@ import TentativeReleased from '../../components/TentativeReleased'
 import { statedLimitPct } from '../../lib/tentative-2027'
 import CapBalancer from '../../components/CapBalancer'
 import p from '../../public/data/budget-2027-prediction.json'
+import { AUDIT_2025 } from '../../lib/audits'
+import { debtProfile } from '../../lib/debt-profile'
 
 const base = process.env.NEXT_PUBLIC_BASE_PATH || ''
 const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 20, boxShadow: '0 14px 34px var(--rbl-shadow)' } as const
@@ -19,7 +21,7 @@ const cg = p.capGap
 const grounded = [
   {
     kicker: 'Using a one-time surplus', title: 'What should the Town do with a surplus?',
-    body: <>The General Fund ended 2025 with a <strong>{usd(5003327)}</strong> surplus and about <strong>$33.4M</strong> in reserves. A windfall can hold taxes down for a year, top up the rainy-day fund, or fix up parks and replace vehicles — but one-time money spent on recurring costs just reopens the hole next year.</>,
+    body: <>The audit has the General Fund adding <strong>{usd(AUDIT_2025.generalFund.netChange)}</strong> to its balance in 2025, ending the year with about <strong>${(AUDIT_2025.generalFund.ending / 1e6).toFixed(1)}M</strong>. A windfall can hold taxes down for a year, top up the rainy-day fund, or fix up parks and replace vehicles — but one-time money spent on recurring costs just reopens the hole next year.</>,
     href: `${base}/annual-report/`, cta: 'See the actual results',
   },
   {
@@ -29,7 +31,7 @@ const grounded = [
   },
   {
     kicker: 'Debt & big projects', title: 'How much is the Town borrowing against the future?',
-    body: <>Riverhead has used budget adjustments to pay down the Town Square bond-anticipation note and a 2018 refunding bond, and its debt sits at <strong>6.74%</strong> of the legal limit. Neither resolution states an amount, so the paydowns cannot be sized from the record. But debt service and big capital projects compete directly with the operating budget for the same tax dollars.</>,
+    body: <>Riverhead has used budget adjustments to pay down the Town Square bond-anticipation note and a 2018 refunding bond, and its debt sits at <strong>{debtProfile.debtLimit.debtLimitExhaustedPct}%</strong> of the legal limit. Neither resolution states an amount, so the paydowns cannot be sized from the record. But debt service and big capital projects compete directly with the operating budget for the same tax dollars.</>,
     href: `${base}/town-square/`, cta: 'Follow the Town Square money',
   },
 ]

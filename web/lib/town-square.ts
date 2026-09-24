@@ -702,7 +702,7 @@ export const acquisition = {
 
 // The fiscal question a resident actually has: does this dent the reserves?
 // Figures come from the site's existing pipeline rather than fresh constants —
-// the 2025 AFR's audited Unassigned balance and the 2026 Adopted appropriations.
+// the audited 2025 Unassigned balance and the 2026 Adopted appropriations.
 export const fundBalanceImpact = {
   lede:
     'Both draws come out of accumulated surplus rather than new borrowing, which puts them squarely inside what the Town’s reserve policy governs.',
@@ -723,7 +723,7 @@ export const fundBalanceImpact = {
   offsets:
     'Both draws have money running the other way against them, though only one of them is contracted. That is the part the resolutions do not say. The pre-possession lease has the developer paying the Town $17,500 a month to August 2026 and $19,000 a month through the six-month extension, set deliberately at the Town’s own debt service on the land. And if the sale has not closed by March 14, 2027 the developer must remit $2,493,750 — an obligation the agreement makes “absolute and unconditional” — which the Town may apply straight to the debt. Retiring the note out of surplus was not surplus spent and gone; it was surplus advanced against a contracted receipt, and it saved the Town a fifteen-year bond carrying more than $500,000 of interest. The 111 East Main Street draw is different in kind: the Board has said that money could come back if the parcel is sold on for redevelopment, but unlike the hotel parcels there is no buyer, no price and no signed agreement — only an intention.',
   verdict:
-    'Even taking the paydown at its ceiling, the two together are about a sixth of the unassigned balance and leave it near twice the top of the Town’s own policy range. This is a real draw on surplus, it is comfortably affordable, and most of one of the two draws is contractually due back. All three things are true, and a page that reported only one of them would be misleading.',
+    'Even taking the paydown at its ceiling, the two together are about a sixth of the unassigned balance and leave it well above the top of the Town’s own policy range. This is a real draw on surplus, it is comfortably affordable, and most of one of the two draws is contractually due back. All three things are true, and a page that reported only one of them would be misleading.',
   caveat:
     'These are the audited December 31, 2025 balances against the 2026 adopted appropriations. They do not reflect anything that happened to fund balance during 2026, because no report covering 2026 has been filed.',
 }

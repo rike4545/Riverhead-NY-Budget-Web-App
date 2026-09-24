@@ -34,6 +34,11 @@ const WORDS = ['no', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eig
 const ri = L.retirementIncentive
 if (!ri.quote.toLowerCase().includes(`${WORDS[ri.csea]} csea`) || !ri.quote.toLowerCase().includes(`${WORDS[ri.pba]} pba`)) fail('The retirement counts do not match the words of the letter')
 if (ri.retireeHealthOffset <= 0) fail('The retirement saving is larger than the savings it is made of')
+if (ri.atMeeting.retireeHealth !== ri.retireeHealthOffset) fail(`The Financial Administrator's retiree-health figure ${usd(ri.atMeeting.retireeHealth)} is not the letter's difference ${usd(ri.retireeHealthOffset)}`)
+const positions = L.staffing.reported.positions.match(/(?:\ba\b|\ban\b|\btwo\b)/g) ?? []
+const positionCount = positions.reduce((n, w) => n + (w === 'two' ? 2 : 1), 0)
+if (positionCount !== L.staffing.newFullTime + L.staffing.newPartTime) fail(`The reported position list names ${positionCount} positions, not the letter's ${L.staffing.newFullTime} full-time and ${L.staffing.newPartTime} part-time`)
+if (!L.staffing.reported.steps.includes(`${L.staffing.meritRaises} employees`) || !L.staffing.reported.steps.includes(`${L.staffing.stepMoves} would`)) fail('The reported step moves do not match the letter’s counts')
 for (const word of ['seventy-six', 'sixty-four', 'nine promotional', 'six new full-time', 'two new part-time']) {
   if (!L.staffing.quote.includes(word)) fail(`The staffing quote is missing "${word}"`)
 }

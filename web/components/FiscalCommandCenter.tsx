@@ -128,7 +128,7 @@ export default function FiscalCommandCenter() {
               href={`${base}/annual-report/`}
               tag="New · Actual results"
               title="2025 Annual Report"
-              body="What actually happened in 2025: the General Fund ran a $5.0M surplus and savings grew to $33.4M. Budget-vs-actual, revenues and spending by category, and every fund."
+              body="What actually happened in 2025: the audit has the General Fund adding $4.9M and ending the year with $33.3M. Budget-vs-actual, revenues and spending by category, and every fund."
             />
             <FeatureCard
               href={`${base}/meetings/`}
