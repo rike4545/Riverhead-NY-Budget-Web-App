@@ -1,10 +1,10 @@
 {
- "generatedAt": "2026-09-24T14:53:18Z",
+ "generatedAt": "2026-09-24T17:41:51Z",
  "generatedAtDisplay": "September 24, 2026",
- "dataVersion": "2ffc9be77e620ca7",
+ "dataVersion": "80fac048e8247ec5",
  "datasets": {
   "meetings": 49,
-  "votes": 1941,
+  "votes": 2084,
   "latestMeeting": "September 15, 2026",
   "budgetLineItems": 1009,
   "payrollYears": [
@@ -17,7 +17,7 @@
    2024,
    2025
   ],
-  "searchEntries": 17130
+  "searchEntries": 17190
  },
  "datasetDetails": {
   "budget": {
@@ -39,7 +39,7 @@
    "asOf": "September 15, 2026",
    "status": "official",
    "cadence": "Checked weekly as the Town publishes minutes; meetings are not held every week",
-   "records": 1941,
+   "records": 2084,
    "freshness": "current",
    "freshnessNote": "Source date is 9 days old, inside the expected window.",
    "freshnessPolicy": {
@@ -97,7 +97,7 @@
    "asOf": "September 24, 2026",
    "status": "calculated",
    "cadence": "Regenerated with source datasets",
-   "records": 17130,
+   "records": 17190,
    "freshness": "current",
    "freshnessNote": "Source date is 0 days old, inside the expected window.",
    "freshnessPolicy": {
@@ -107,7 +107,7 @@
    },
    "sourceDate": "2026-09-24",
    "format": "sharded",
-   "bytes": 5696882
+   "bytes": 5735915
   }
  }
 }
