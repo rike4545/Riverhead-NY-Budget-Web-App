@@ -12,6 +12,7 @@ import tempfile
 import unittest
 from pathlib import Path
 
+import parse_all_pdfs
 import parse_budget_requests
 import parse_budget_stages
 import parse_general_fund
@@ -93,6 +94,27 @@ class FirstReadableFileTests(unittest.TestCase):
         self.assertEqual(year["source"]["title"], "2027 Budget Supplement (PDF)")
         self.assertTrue(year["reconciliation"]["complete"])
 
+
+
+class UnreachableIndexTests(unittest.TestCase):
+    """With the Financial Reports page unreachable, the last good parse is kept."""
+
+    def test_the_fallbacks_do_not_replace_a_full_parse(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            out = Path(tmp)
+            (out / "documents").mkdir()
+            docs = [{"title": f"Doc {i}", "url": f"https://example.invalid/{i}", "slug": f"doc-{i}",
+                     "sha256": str(i), "parsed_at": "2026-01-01"} for i in range(10)]
+            index = json.dumps({"documents": docs})
+            (out / "index.json").write_text(index, encoding="utf-8")
+            saved = (parse_all_pdfs.OUT, parse_all_pdfs.DOCS, parse_all_pdfs.discover)
+            parse_all_pdfs.OUT, parse_all_pdfs.DOCS = out, out / "documents"
+            parse_all_pdfs.discover = lambda: list(parse_all_pdfs.DIRECT_PDFS)
+            try:
+                self.assertEqual(parse_all_pdfs.main(), 1)
+            finally:
+                parse_all_pdfs.OUT, parse_all_pdfs.DOCS, parse_all_pdfs.discover = saved
+            self.assertEqual((out / "index.json").read_text(encoding="utf-8"), index)
 
 
 class TownWideTests(unittest.TestCase):

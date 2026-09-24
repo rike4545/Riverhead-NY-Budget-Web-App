@@ -169,7 +169,7 @@ def main() -> int:
     prev_parsed_at: dict = {}
     # The same, by address. A document whose slug changes (a year read from its
     # title for the first time) keeps the time it was first found, and its file
-    # under the old slug is removed rather than left beside the new one.
+    # under the old "unknown-" slug is removed rather than left beside the new one.
     prev_by_url: dict = {}
     prev_slug: dict = {}
     prev_index_path = OUT / 'index.json'
@@ -195,6 +195,13 @@ def main() -> int:
 
     links = discover()
     print(f'discovered {len(links)} candidate financial-report PDFs')
+    # With the index page unreachable only the built-in fallbacks are left.
+    # Writing those over a full parse would drop every other document from the
+    # site, and from everything built on it, and the deploy would commit that.
+    # So keep the last good parse; run_ingestion_safe.py carries on without it.
+    if len(links) <= len(DIRECT_PDFS) and len(prev_parsed_at) > len(DIRECT_PDFS):
+        print(f'keeping the previous parse of {len(prev_parsed_at)} documents: the financial reports index could not be read')
+        return 1
     seen_hashes: dict[str, str] = {}
 
     for link in links:
@@ -238,8 +245,11 @@ def main() -> int:
                     line_candidates.append({'id': f'{link.slug}-p{page_no}-l{line_no}', 'document': link.title, 'slug': link.slug, 'year': link.year, 'category': link.category, 'page': page_no, 'line_number': line_no, 'raw_text': line, 'account_code_candidate': code.group(0) if code else None, 'amounts': vals, 'confidence': 'medium' if code else 'low', 'source_url': link.url, 'parsed_at': doc_ts})
             payload = {**asdict(link), 'sha256': doc_hash, 'page_count': len(pages), 'money_value_count': money_count, 'pages': pages, 'parsed_at': doc_ts}
             (DOCS / f'{link.slug}.json').write_text(json.dumps(payload, indent=2), encoding='utf-8')
+            # Only a document filed before with no year: when the index page is
+            # unreachable the fallback links carry older slugs for documents
+            # that are filed under dated ones, and those files must survive.
             renamed = prev_slug.get(link.url.split('?')[0])
-            if renamed and renamed != link.slug:
+            if renamed and renamed != link.slug and renamed.startswith('unknown-'):
                 (DOCS / f'{renamed}.json').unlink(missing_ok=True)
             docs.append({'title': link.title, 'url': link.url, 'year': link.year, 'category': link.category, 'slug': link.slug, 'json': f'documents/{link.slug}.json', 'page_count': len(pages), 'money_value_count': money_count, 'sha256': doc_hash, 'parsed_at': doc_ts})
             print(f'parsed {link.title} ({len(pages)} pages, {money_count} money values)')
