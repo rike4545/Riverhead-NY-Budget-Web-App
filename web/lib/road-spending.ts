@@ -50,6 +50,21 @@ export const gapToMedianAnnual = Math.round((medianPerMile - riverhead.perMile) 
 
 export const riverheadMixTotal = data.riverheadMix.reduce((s, m) => s + m.amount, 0)
 
+/** Personal services' share of Riverhead's highway spending. */
+export const wagesShare = (data.riverheadMix.find((m) => m.object === 'Personal Services')?.amount ?? 0) / riverheadMixTotal
+
+export function ordinal(n: number): string {
+  const teen = n % 100 >= 11 && n % 100 <= 13
+  const suffix: Record<number, string> = { 1: 'st', 2: 'nd', 3: 'rd' }
+  return `${n}${teen ? 'th' : suffix[n % 10] ?? 'th'}`
+}
+
+/** "the lowest of the 10", "the highest of the 10", or "9th of the 10". The rank moves with each year's data. */
+export const riverheadRankPhrase =
+  riverheadRank === towns.length ? `the lowest of the ${towns.length}`
+    : riverheadRank === 1 ? `the highest of the ${towns.length}`
+      : `${ordinal(riverheadRank)} of the ${towns.length}`
+
 export const headline =
   `Riverhead spends about $${Math.round(riverhead.perMile).toLocaleString()} a year per mile of road it maintains — ` +
-  `${riverheadRank}th of the 10 Suffolk towns, and roughly ${Math.round((1 - shareOfMedian) * 100)}% below the county median.`
+  `${riverheadRankPhrase} Suffolk towns, and roughly ${Math.round((1 - shareOfMedian) * 100)}% below the county median.`

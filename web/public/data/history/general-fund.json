@@ -3,12 +3,12 @@
   "title": "Town of Riverhead Adopted Budgets (General Fund)",
   "url": "https://www.townofriverheadny.gov/206/Financial-Reports"
  },
- "note": "Adopted General Fund figures by year. Some early years are unavailable; the series shows every year with a parsed adopted budget.",
+ "note": "Adopted General Fund figures by year. Some early years are unavailable; the series shows every year with a parsed adopted budget, and adds each new one from the Town\u2019s own Summary page when it is adopted. Corrected to the Town\u2019s Summary page, which the following year\u2019s budget repeats: 2021.",
  "growth": {
   "firstYear": 2005,
-  "lastYear": 2025,
-  "appropriationsChangePct": 110.3,
-  "taxLevyChangePct": 125.6
+  "lastYear": 2026,
+  "appropriationsChangePct": 124.1,
+  "taxLevyChangePct": 145.2
  },
  "rows": [
   {
@@ -130,11 +130,11 @@
   },
   {
    "year": 2021,
-   "appropriations": 52007600,
-   "estimatedRevenues": 10223100,
+   "appropriations": 51050700,
+   "estimatedRevenues": 9352300,
    "appropriatedFundBalance": 0,
-   "taxLevy": 41784500,
-   "source": "2021AdoptedBudget958090915113020AM.pdf",
+   "taxLevy": 41698400,
+   "source": "2021 Adopted Budget (PDF)",
    "status": "Adopted"
   },
   {
@@ -171,6 +171,15 @@
    "appropriatedFundBalance": 1750000,
    "taxLevy": 48639479,
    "source": "2025AdoptedBudget1518015509112024PM.pdf",
+   "status": "Adopted"
+  },
+  {
+   "year": 2026,
+   "appropriations": 69113159,
+   "estimatedRevenues": 14998550,
+   "appropriatedFundBalance": 1250000,
+   "taxLevy": 52864609,
+   "source": "2026 Adopted Budget",
    "status": "Adopted"
   }
  ]

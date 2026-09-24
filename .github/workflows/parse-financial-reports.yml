@@ -65,6 +65,7 @@ jobs:
       - name: Build department request vs Tentative
         run: python etl/parse_budget_requests.py
       - name: Build long-run General Fund history
+        continue-on-error: true
         run: python etl/parse_general_fund.py
       - name: Parse Annual Financial Report actuals
         run: python etl/parse_afr.py
@@ -93,6 +94,11 @@ jobs:
         env:
           CENSUS_API_KEY: ${{ secrets.CENSUS_API_KEY }}
         run: python etl/parse_police_crime.py
+      # Road spending per mile: the Comptroller's newest town filings and the
+      # DOT's newest Local Highway Inventory. A failed download leaves the
+      # published file unchanged.
+      - name: Refresh road spending per mile
+        run: python etl/parse_road_spending.py
       - name: Build unified search index
         run: python etl/build_search_index.py
       - name: Export CSV downloads

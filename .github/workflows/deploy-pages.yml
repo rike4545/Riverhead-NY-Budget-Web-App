@@ -58,6 +58,13 @@ jobs:
       - name: Build budget-stage comparison
         run: python etl/parse_budget_stages.py
 
+      # A disagreement between the spreadsheet and a Summary page stops this
+      # script before it writes, so the published history stays as it was; the
+      # deploy itself must not fail on it.
+      - name: Add newly adopted years to the General Fund history
+        continue-on-error: true
+        run: python etl/parse_general_fund.py
+
       - name: Build budget adoption history (stage columns, 2005 on)
         run: python etl/parse_budget_adoption.py
 
@@ -86,6 +93,7 @@ jobs:
           # deterministic, so committing them alongside cannot cause churn.
           git add web/public/data/financial-reports web/public/data/cpf \
             web/public/data/history/budget-stages.json \
+            web/public/data/history/general-fund.json \
             web/public/data/budget-supplement/requests-by-year.json || true
           if git diff --cached --quiet; then
             echo "No parsed source-data changes."
