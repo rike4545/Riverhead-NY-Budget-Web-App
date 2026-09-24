@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-24T00:19:32Z",
+  "generatedAt": "2026-09-24T01:43:04Z",
   "meetings": {
     "2025-01-07": {
       "eventId": 1314,
@@ -1424,8 +1424,26 @@
       "eventId": 6769,
       "eventName": "Special Town Board Meeting",
       "minutesPending": true,
-      "sourceVersionAt": "2026-09-24T00:19:32Z",
-      "startDateTime": "2026-09-24T10:00:00Z"
+      "sourceVersionAt": "2026-09-24T01:43:04Z",
+      "startDateTime": "2026-09-24T10:00:00Z",
+      "votePacket": {
+        "bytes": 409386,
+        "changedAt": "2026-09-24T01:43:04Z",
+        "current": true,
+        "fileId": 12385,
+        "hasVoteBlocks": false,
+        "name": "Agenda Packet",
+        "pages": 2,
+        "portalUrl": "https://riverheadny.portal.civicclerk.com/event/6769/files/agenda/12385",
+        "resolutionNumbers": [],
+        "revisionCount": 0,
+        "revisions": [],
+        "sha256": "44a68c2d4b4407e95b15c7669b505961adc4c33bb3bb185bb30c860c2a7c6eee",
+        "sourceUrl": "https://riverheadny.api.civicclerk.com/v1/Meetings/GetMeetingFileStream(fileId=12385,plainText=false)",
+        "textPath": "etl/data/meetings/2026-09-24-vote-packet.txt",
+        "type": "Agenda Packet",
+        "voteBlockCount": 0
+      }
     }
   },
   "version": 1
