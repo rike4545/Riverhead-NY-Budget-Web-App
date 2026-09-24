@@ -1,10 +1,10 @@
 {
- "generatedAt": "2026-09-24T17:42:20Z",
+ "generatedAt": "2026-09-24T17:47:35Z",
  "generatedAtDisplay": "September 24, 2026",
- "dataVersion": "15c0eb66305df5cf",
+ "dataVersion": "0d8b2f69e561211f",
  "datasets": {
   "meetings": 49,
-  "votes": 1941,
+  "votes": 2084,
   "latestMeeting": "September 15, 2026",
   "budgetLineItems": 1009,
   "payrollYears": [
@@ -39,7 +39,7 @@
    "asOf": "September 15, 2026",
    "status": "official",
    "cadence": "Checked weekly as the Town publishes minutes; meetings are not held every week",
-   "records": 1941,
+   "records": 2084,
    "freshness": "current",
    "freshnessNote": "Source date is 9 days old, inside the expected window.",
    "freshnessPolicy": {
@@ -107,7 +107,7 @@
    },
    "sourceDate": "2026-09-24",
    "format": "sharded",
-   "bytes": 5738793
+   "bytes": 5735862
   }
  }
 }
