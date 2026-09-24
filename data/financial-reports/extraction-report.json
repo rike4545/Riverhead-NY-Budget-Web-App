@@ -9,6 +9,18 @@
   "line_item_candidate_count": 116094,
   "documents": [
     {
+      "title": "_2027 Budget Supplement",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3929/_2027-Budget-Supplement",
+      "year": 2027,
+      "category": "budget_supplement",
+      "slug": "2027-2027-budget-supplement",
+      "json": "documents/2027-2027-budget-supplement.json",
+      "page_count": 60,
+      "money_value_count": 4829,
+      "sha256": "298aeb9226d29840d7035b3915c7d861e313dd0bc3299fbabfc1f4ba9096218b",
+      "parsed_at": "2026-09-24T17:01:37.498133+00:00"
+    },
+    {
       "title": "2027 Tentative Budget (PDF)",
       "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3928/2027-Tentative-Budget-PDF",
       "year": 2027,
@@ -1591,18 +1603,6 @@
       "money_value_count": 26017,
       "sha256": "3f63a7ac3c2fde21c720e6a8ac33b61b68f6770af3e50865ae1f54c84f189f2f",
       "parsed_at": "2026-07-31T00:48:42.463564+00:00"
-    },
-    {
-      "title": "_2027 Budget Supplement",
-      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3929/_2027-Budget-Supplement",
-      "year": null,
-      "category": "budget_supplement",
-      "slug": "unknown-2027-budget-supplement",
-      "json": "documents/unknown-2027-budget-supplement.json",
-      "page_count": 60,
-      "money_value_count": 4829,
-      "sha256": "298aeb9226d29840d7035b3915c7d861e313dd0bc3299fbabfc1f4ba9096218b",
-      "parsed_at": "2026-09-24T17:01:37.498133+00:00"
     }
   ],
   "failures": []
