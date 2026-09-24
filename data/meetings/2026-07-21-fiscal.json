@@ -87,8 +87,8 @@
     "evidence": "account-code"
    },
    "vote": {
-    "adopted": null,
-    "tag": null,
+    "adopted": true,
+    "tag": "unanimous",
     "ayes": null,
     "nays": null
    }
@@ -152,8 +152,8 @@
     "evidence": "account-code"
    },
    "vote": {
-    "adopted": null,
-    "tag": null,
+    "adopted": true,
+    "tag": "unanimous",
     "ayes": null,
     "nays": null
    }
@@ -192,8 +192,8 @@
     "evidence": "category"
    },
    "vote": {
-    "adopted": null,
-    "tag": null,
+    "adopted": true,
+    "tag": "unanimous",
     "ayes": null,
     "nays": null
    }
@@ -232,8 +232,8 @@
     "evidence": "category"
    },
    "vote": {
-    "adopted": null,
-    "tag": null,
+    "adopted": true,
+    "tag": "unanimous",
     "ayes": null,
     "nays": null
    }
@@ -272,8 +272,8 @@
     "evidence": "category"
    },
    "vote": {
-    "adopted": null,
-    "tag": null,
+    "adopted": true,
+    "tag": "unanimous",
     "ayes": null,
     "nays": null
    }
@@ -312,8 +312,8 @@
     "evidence": "category"
    },
    "vote": {
-    "adopted": null,
-    "tag": null,
+    "adopted": true,
+    "tag": "unanimous",
     "ayes": null,
     "nays": null
    }
@@ -366,8 +366,8 @@
     "evidence": "account-code"
    },
    "vote": {
-    "adopted": null,
-    "tag": null,
+    "adopted": true,
+    "tag": "unanimous",
     "ayes": null,
     "nays": null
    }
@@ -420,8 +420,8 @@
     "evidence": "account-code"
    },
    "vote": {
-    "adopted": null,
-    "tag": null,
+    "adopted": true,
+    "tag": "unanimous",
     "ayes": null,
     "nays": null
    }
@@ -474,8 +474,8 @@
     "evidence": "account-code"
    },
    "vote": {
-    "adopted": null,
-    "tag": null,
+    "adopted": true,
+    "tag": "unanimous",
     "ayes": null,
     "nays": null
    }
@@ -514,8 +514,8 @@
     "evidence": "category"
    },
    "vote": {
-    "adopted": null,
-    "tag": null,
+    "adopted": true,
+    "tag": "unanimous",
     "ayes": null,
     "nays": null
    }
@@ -554,8 +554,8 @@
     "evidence": "category"
    },
    "vote": {
-    "adopted": null,
-    "tag": null,
+    "adopted": true,
+    "tag": "unanimous",
     "ayes": null,
     "nays": null
    }
@@ -594,8 +594,8 @@
     "evidence": "category"
    },
    "vote": {
-    "adopted": null,
-    "tag": null,
+    "adopted": true,
+    "tag": "unanimous",
     "ayes": null,
     "nays": null
    }
@@ -634,8 +634,8 @@
     "evidence": "category"
    },
    "vote": {
-    "adopted": null,
-    "tag": null,
+    "adopted": true,
+    "tag": "unanimous",
     "ayes": null,
     "nays": null
    }
@@ -674,8 +674,8 @@
     "evidence": "category"
    },
    "vote": {
-    "adopted": null,
-    "tag": null,
+    "adopted": true,
+    "tag": "unanimous",
     "ayes": null,
     "nays": null
    }
@@ -714,8 +714,8 @@
     "evidence": "category"
    },
    "vote": {
-    "adopted": null,
-    "tag": null,
+    "adopted": true,
+    "tag": "unanimous",
     "ayes": null,
     "nays": null
    }
@@ -754,8 +754,8 @@
     "evidence": "category"
    },
    "vote": {
-    "adopted": null,
-    "tag": null,
+    "adopted": true,
+    "tag": "unanimous",
     "ayes": null,
     "nays": null
    }
@@ -794,8 +794,8 @@
     "evidence": "category"
    },
    "vote": {
-    "adopted": null,
-    "tag": null,
+    "adopted": true,
+    "tag": "unanimous",
     "ayes": null,
     "nays": null
    }
@@ -834,8 +834,8 @@
     "evidence": "category"
    },
    "vote": {
-    "adopted": null,
-    "tag": null,
+    "adopted": true,
+    "tag": "unanimous",
     "ayes": null,
     "nays": null
    }
@@ -874,8 +874,8 @@
     "evidence": "category"
    },
    "vote": {
-    "adopted": null,
-    "tag": null,
+    "adopted": true,
+    "tag": "unanimous",
     "ayes": null,
     "nays": null
    }
@@ -914,8 +914,8 @@
     "evidence": "category"
    },
    "vote": {
-    "adopted": null,
-    "tag": null,
+    "adopted": true,
+    "tag": "unanimous",
     "ayes": null,
     "nays": null
    }
@@ -954,8 +954,8 @@
     "evidence": "category"
    },
    "vote": {
-    "adopted": null,
-    "tag": null,
+    "adopted": true,
+    "tag": "unanimous",
     "ayes": null,
     "nays": null
    }
@@ -994,8 +994,8 @@
     "evidence": "category"
    },
    "vote": {
-    "adopted": null,
-    "tag": null,
+    "adopted": true,
+    "tag": "unanimous",
     "ayes": null,
     "nays": null
    }
@@ -1034,8 +1034,8 @@
     "evidence": "category"
    },
    "vote": {
-    "adopted": null,
-    "tag": null,
+    "adopted": true,
+    "tag": "unanimous",
     "ayes": null,
     "nays": null
    }
@@ -1074,8 +1074,8 @@
     "evidence": "category"
    },
    "vote": {
-    "adopted": null,
-    "tag": null,
+    "adopted": true,
+    "tag": "unanimous",
     "ayes": null,
     "nays": null
    }
@@ -1114,8 +1114,8 @@
     "evidence": "category"
    },
    "vote": {
-    "adopted": null,
-    "tag": null,
+    "adopted": true,
+    "tag": "unanimous",
     "ayes": null,
     "nays": null
    }
@@ -1154,8 +1154,8 @@
     "evidence": "category"
    },
    "vote": {
-    "adopted": null,
-    "tag": null,
+    "adopted": true,
+    "tag": "unanimous",
     "ayes": null,
     "nays": null
    }
@@ -1194,8 +1194,8 @@
     "evidence": "category"
    },
    "vote": {
-    "adopted": null,
-    "tag": null,
+    "adopted": true,
+    "tag": "unanimous",
     "ayes": null,
     "nays": null
    }
@@ -1234,8 +1234,8 @@
     "evidence": "category"
    },
    "vote": {
-    "adopted": null,
-    "tag": null,
+    "adopted": true,
+    "tag": "unanimous",
     "ayes": null,
     "nays": null
    }
@@ -1274,8 +1274,8 @@
     "evidence": "category"
    },
    "vote": {
-    "adopted": null,
-    "tag": null,
+    "adopted": true,
+    "tag": "unanimous",
     "ayes": null,
     "nays": null
    }
@@ -1314,8 +1314,8 @@
     "evidence": "category"
    },
    "vote": {
-    "adopted": null,
-    "tag": null,
+    "adopted": true,
+    "tag": "unanimous",
     "ayes": null,
     "nays": null
    }
