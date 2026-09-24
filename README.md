@@ -46,11 +46,9 @@ https://github.com/rike4545/Riverhead-NY-Budget-Android-App
 # What's New — September 2026
 
 ### 📑 The 2027 budget, as soon as the Town posts it
-The Supervisor's 2027 Tentative Budget is presented on September 24. From
-then through October 6, a watcher checks the Town's Financial Reports page
-every 15 minutes. When a new budget document appears, the watcher starts a
-deploy that parses it and republishes the site. The watcher runs again every
-30 minutes from November 1 to 21, for the Preliminary and Adopted budgets.
+The Supervisor's 2027 Tentative Budget was presented on September 24: $121.0
+million of appropriations and a $67.2 million town-wide levy, up 2.8% from
+2026. The site parsed it at 10:07 AM and had it live by 10:29 AM.
 
 When the Tentative is parsed, the pages that forecast 2027 switch to the
 Town's own figures on their own, with no hand edits: the prediction
@@ -58,6 +56,13 @@ scorecard, the adoption history, the scenario and tax-cap pages, the
 candidate pages and the home page.
 **[2027 Tentative Budget](https://rike4545.github.io/Riverhead-NY-Budget-Web-App/tentative-2027/)**
 sets the Tentative against this site's projection, fund by fund.
+
+Through October 6 a watcher checks the Town's Financial Reports page every
+15 minutes. When a new budget document appears, it starts a deploy that
+parses it and republishes the site. It runs again every 30 minutes from
+November 1 to 21, for the Preliminary and Adopted budgets. GitHub runs
+scheduled jobs late or skips them when it is busy, so a posting can take
+longer to appear than the schedule suggests.
 
 ### 🧮 How Budgets Get Adopted — `/budget-adoption`
 Every Riverhead budget since 2005: what the Town Board changed in each
@@ -76,6 +81,17 @@ other boards, and how the Board's own rules compare. It covers notice,
 documents posted a day ahead, executive sessions, minutes and remote
 attendance, plus what residents can do. It includes what this site's own
 meeting records show, such as minutes on file and minutes still outstanding.
+
+### Also this month
+- **Search** (`/search`) opens with the page on this site that explains a
+  topic, searches the full text of the Town's documents, and reads a
+  misspelled name as the nearest one.
+- **Payroll** (`/payroll`) tables sort by any column, either way.
+- **Every page fits a phone screen**, down to 320 pixels wide, without
+  sideways scrolling.
+- **General Fund history** (`/general-fund`) now runs through 2026, and
+  **Road Spending** (`/road-spending`) uses fiscal 2025 spending and 2025
+  road mileage. Both add new years on their own.
 
 ### Also added this month
 - **Where the Surplus Went** (`/fund-balance-draws`): every 2026 resolution
@@ -124,9 +140,9 @@ Rather than forcing residents to manually review hundreds of pages of PDFs and s
 The four links at the front of the site menu:
 
 - **My Taxes** (`/tax-bill`): the Town's portion of your property-tax bill, estimated from assessed value and the Town's published 2026 rate table.
-- **Payroll** (`/payroll`): actual employee pay 2018–2025 (base, overtime, gross), Board-authorized salaries for 2025 and 2026, and every raise between them. Separate tabs cover overtime and staffing, separation pay and police pay steps.
+- **Payroll** (`/payroll`): actual employee pay 2018–2025 (base, overtime, gross), Board-authorized salaries for 2025 and 2026, and every raise between them. Separate tabs cover overtime and staffing, separation pay and police pay steps. Every table sorts by any column.
 - **Board Votes** (`/meetings`): Town Board meetings as a decision record. Each resolution shows its outcome, each member's vote, whether the official record is on file, and the matching fiscal-impact statement.
-- **Search** (`/search`): about 16,900 records: budget lines, payroll, authorized salaries, Town Board votes, funds and more than 12,500 pages of financial documents. See **Search** below.
+- **Search** (`/search`): about 17,200 records: the site's own pages, budget lines, payroll, authorized salaries, Town Board votes, funds and more than 12,500 pages of financial documents. See **Search** below.
 
 ## Explore
 - **Where Your Levy Goes** (`/taxpayer-impact`): how the 2026 Town tax levy divides among the funds.
@@ -192,9 +208,22 @@ the numbers are labeled and sourced (`/evidence`).
 
 ## Search
 
-The search covers about 16,900 records: 848 budget lines, 1,228 employee pay
-records, 362 authorized salaries, 1,941 Town Board votes, 19 funds and more
-than 12,500 pages of financial documents.
+The search covers about 17,200 records: the site's own 54 pages, 848 budget
+lines, 1,228 employee pay records, 362 authorized salaries, about 2,080 Town
+Board votes, 19 funds and more than 12,500 pages of financial documents.
+
+- A topic ("reserves", "tax cap", "buyout") opens with the page on this site
+  that explains it, above the records.
+- Document pages are searched by their full text, not just their first
+  lines.
+- A misspelled word that matches nothing is read as the nearest word in the
+  index, and the page says so. Plurals match their singular.
+- A date ("September 15") finds that meeting's votes. A job title finds the
+  people who hold it.
+- Votes say who voted no or abstained, and 2026 salaries say who got a raise
+  or a promotion.
+- `web/scripts/verify-search.mjs` runs these searches on every build, and
+  fails if a page in the site menu can't be found as a page.
 
 There is also an optional AI answer mode. The site has no server, so there is
 nowhere safe to keep a shared API key. Instead, a reader pastes their own
@@ -284,8 +313,8 @@ The site keeps itself current. Five GitHub Actions workflows do the work
 
 | Workflow | When | What it does |
 | --- | --- | --- |
-| **Deploy GitHub Pages** (`deploy-pages.yml`) | Every push to `main`, and on demand | Re-parses every financial-report PDF, rebuilds the budget-stage, adoption, department-request and CPF datasets, the search index and the freshness stamp, then commits any data that changed. It then typechecks, builds, verifies the output and deploys. |
-| **Parse Financial Reports** (`parse-financial-reports.yml`) | Mondays 09:00; daily at 09:00 and 22:00 in September–November | The full pipeline: meetings, financial reports, line items, budget history and stages, General Fund history, AFR actuals, Supplements, votes and fiscal impact, salaries and payroll, the 2027 projection, the buyout, police and crime, search, CSVs and freshness. Commits the results and redeploys. |
+| **Deploy GitHub Pages** (`deploy-pages.yml`) | Every push to `main`, and on demand | Re-parses every financial-report PDF, rebuilds the budget-stage, General Fund history, adoption, department-request and CPF datasets, the search index and the freshness stamp, then commits any data that changed. It then typechecks, builds, verifies the output and deploys. |
+| **Parse Financial Reports** (`parse-financial-reports.yml`) | Mondays 09:00; daily at 09:00 and 22:00 in September–November | The full pipeline: meetings, financial reports, line items, budget history and stages, General Fund history, AFR actuals, Supplements, votes and fiscal impact, salaries and payroll, the 2027 projection, the buyout, police and crime, road spending, search, CSVs and freshness. Commits the results and redeploys. |
 | **Sync Town Board Meetings** (`sync-meetings.yml`) | Twice a day, 12:30 and 23:30 | Re-checks CivicClerk minutes and agenda packets and the upcoming-meeting schedule. Re-parses votes, falls back to the agenda packet when the minutes omit them, and reconciles each meeting against its official sources. Redeploys when anything changed. |
 | **Watch for budget releases** (`watch-budget-release.yml`) | Every 15 minutes, Sept 24–Oct 6; every 30 minutes, Nov 1–21 | Checks the Town's Financial Reports page for a budget document the site hasn't parsed yet, and starts a deploy the moment one appears. The check itself downloads nothing. It skips while a deploy is already running and limits how often it can start one. |
 | **Quality Gate** (`quality-gate.yml`) | Every pull request | Checks ETL syntax, runs the parser and budget-release tests, rebuilds search and freshness data, and checks every external authority link. Then it typechecks, builds and verifies the output. |
@@ -302,7 +331,7 @@ Every page shows when its data was last refreshed.
 | `parse_budget_stages.py` | Fund-level figures for every Tentative, Preliminary and Adopted budget the Town has published |
 | `parse_budget_adoption.py` | What the Board changed in each Tentative before adopting it, 2005 on |
 | `parse_budget_requests.py` | What each department asked for, against what the budget officer recommended |
-| `parse_general_fund.py` | The long-run General Fund history |
+| `parse_general_fund.py` | The long-run General Fund history, adding each newly adopted year from the budget-stage data |
 | `parse_budget_supplement.py` / `parse_supplement_history.py` | Every Budget Supplement line, classified, with its multi-year history |
 | `parse_afr.py` | Actual year-end results for all 14 AFR funds |
 | `parse_cpf.py` | Peconic Bay Community Preservation Fund results |
@@ -316,6 +345,7 @@ Every page shows when its data was last refreshed.
 | `predict_2027.py` | The line-by-line 2027 projection |
 | `analyze_buyout.py` | Cost and likely savings of the 2026 retirement incentive |
 | `parse_police_crime.py` | Police spending next to reported Index crime |
+| `parse_road_spending.py` | Highway spending per maintained mile for the ten Suffolk towns, from State Comptroller filings and NYSDOT's road inventory |
 | `build_search_index.py` | The sharded search index |
 | `export_csv.py` | The CSV downloads |
 | `write_meta.py` | The sitewide data-freshness stamp |
