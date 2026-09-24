@@ -2,6 +2,606 @@
   "parsed_at": "2026-09-24T17:01:37.498133+00:00",
   "records": [
     {
+      "id": "2027-2027-budget-supplement-p1",
+      "document": "_2027 Budget Supplement",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3929/_2027-Budget-Supplement",
+      "page": 1,
+      "snippet": "Account Number Account Description 2025 Actuals 2026 Adopted Budget 2026 YTD as of 6/30/26 2027 Department Request 2027 Tentative Budget A01-1-1010-000-000-00000 Twn Brd - Legislature - Town Board 0.00 0.00 0.00 0.00 0.00 A01-1-1010-100-000-00000 Legislature - Town Board-PERSONAL SVC 0.00 0.00 0.00 0.00 0.00 A01-1-1010-101-NON-00000 Twn Brd - Personal Services 273,900.65 286,746.00 141,652.58 289,096.00 289,096.00 A01-1-1010-112-NON-00000 Twn Brd - Personal Services - Longevity 0.00 0.00 0.00 0.",
+      "confidence": "high",
+      "sha256": "298aeb9226d29840d7035b3915c7d861e313dd0bc3299fbabfc1f4ba9096218b",
+      "parsed_at": "2026-09-24T17:01:37.498133+00:00"
+    },
+    {
+      "id": "2027-2027-budget-supplement-p2",
+      "document": "_2027 Budget Supplement",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3929/_2027-Budget-Supplement",
+      "page": 2,
+      "snippet": "Account Number Account Description 2025 Actuals 2026 Adopted Budget 2026 YTD as of 6/30/26 2027 Department Request 2027 Tentative Budget A01-1-1110-464-000-00000 Just Crt - Rents & Leases - Cell Phones 616.50 0.00 -8.42 0.00 0.00 1110 Total 849,730.59 907,513.00 428,926.78 996,742.00 973,962.00 A01-1-1220-000-000-00000 Super - Town Supervisor 0.00 0.00 0.00 0.00 0.00 A01-1-1220-100-000-00000 Town Supervisor-PERSONAL SVC 0.00 0.00 0.00 0.00 0.00 A01-1-1220-101-NON-00000 Super - Personal Services ",
+      "confidence": "high",
+      "sha256": "298aeb9226d29840d7035b3915c7d861e313dd0bc3299fbabfc1f4ba9096218b",
+      "parsed_at": "2026-09-24T17:01:37.498133+00:00"
+    },
+    {
+      "id": "2027-2027-budget-supplement-p3",
+      "document": "_2027 Budget Supplement",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3929/_2027-Budget-Supplement",
+      "page": 3,
+      "snippet": "Account Number Account Description 2025 Actuals 2026 Adopted Budget 2026 YTD as of 6/30/26 2027 Department Request 2027 Tentative Budget A01-1-1310-443-000-00000 Acct - Travel & Lodging 0.00 1,500.00 0.00 0.00 0.00 A01-1-1310-490-000-00000 Acct - Miscellaneous 0.00 0.00 0.00 0.00 0.00 1310 Total 778,576.45 977,942.00 369,986.60 1,000,781.00 997,378.00 A01-1-1320-000-000-00000 Auditor - Auditor 0.00 0.00 0.00 0.00 0.00 A01-1-1320-400-000-00000 Auditor-CONTRACTUAL 0.00 0.00 0.00 0.00 0.00 A01-1-13",
+      "confidence": "high",
+      "sha256": "298aeb9226d29840d7035b3915c7d861e313dd0bc3299fbabfc1f4ba9096218b",
+      "parsed_at": "2026-09-24T17:01:37.498133+00:00"
+    },
+    {
+      "id": "2027-2027-budget-supplement-p4",
+      "document": "_2027 Budget Supplement",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3929/_2027-Budget-Supplement",
+      "page": 4,
+      "snippet": "Account Number Account Description 2025 Actuals 2026 Adopted Budget 2026 YTD as of 6/30/26 2027 Department Request 2027 Tentative Budget A01-1-1345-416-000-00000 Purch - Supplies - Office 758.39 450.00 284.79 425.00 425.00 A01-1-1345-421-000-00000 Central Purchas Postage 39,987.89 49,220.00 20,943.48 44,000.00 44,000.00 A01-1-1345-422-000-00000 Central Purchas Dues & Subscrip 445.00 345.00 0.00 445.00 445.00 A01-1-1345-442-000-00000 Central Purchas Professional Ed 547.00 800.00 294.00 665.00 665",
+      "confidence": "high",
+      "sha256": "298aeb9226d29840d7035b3915c7d861e313dd0bc3299fbabfc1f4ba9096218b",
+      "parsed_at": "2026-09-24T17:01:37.498133+00:00"
+    },
+    {
+      "id": "2027-2027-budget-supplement-p5",
+      "document": "_2027 Budget Supplement",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3929/_2027-Budget-Supplement",
+      "page": 5,
+      "snippet": "Account Number Account Description 2025 Actuals 2026 Adopted Budget 2026 YTD as of 6/30/26 2027 Department Request 2027 Tentative Budget A01-1-1410-152-000-00000 Clerk - Pers Svcs Sick Buyback 0.00 0.00 0.00 0.00 0.00 A01-1-1410-154-000-00000 Clerk - Pers Svcs Health Ins Buy Back 0.00 0.00 0.00 0.00 0.00 A01-1-1410-154-NON-00000 Clerk - Pers Svcs Health Ins Buy Back 0.00 0.00 0.00 0.00 0.00 A01-1-1410-200-000-00000 Town Clerk-EQUIP & CAP OUTLAY 0.00 0.00 0.00 0.00 0.00 A01-1-1410-240-000-00000 C",
+      "confidence": "high",
+      "sha256": "298aeb9226d29840d7035b3915c7d861e313dd0bc3299fbabfc1f4ba9096218b",
+      "parsed_at": "2026-09-24T17:01:37.498133+00:00"
+    },
+    {
+      "id": "2027-2027-budget-supplement-p6",
+      "document": "_2027 Budget Supplement",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3929/_2027-Budget-Supplement",
+      "page": 6,
+      "snippet": "Account Number Account Description 2025 Actuals 2026 Adopted Budget 2026 YTD as of 6/30/26 2027 Department Request 2027 Tentative Budget A01-1-1430-100-000-00000 Personnel Officer-PERSONAL SVC 0.00 0.00 0.00 0.00 0.00 A01-1-1430-101-NON-00000 Pers - Personal Services 162,191.63 167,584.00 75,196.15 173,921.00 173,921.00 A01-1-1430-102-000-00000 Personnel - Pers Svcs Part Time 0.00 0.00 0.00 19,200.00 19,200.00 A01-1-1430-111-NON-00000 Pers - Personal Services OT 0.00 0.00 0.00 0.00 0.00 A01-1-14",
+      "confidence": "high",
+      "sha256": "298aeb9226d29840d7035b3915c7d861e313dd0bc3299fbabfc1f4ba9096218b",
+      "parsed_at": "2026-09-24T17:01:37.498133+00:00"
+    },
+    {
+      "id": "2027-2027-budget-supplement-p7",
+      "document": "_2027 Budget Supplement",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3929/_2027-Budget-Supplement",
+      "page": 7,
+      "snippet": "Account Number Account Description 2025 Actuals 2026 Adopted Budget 2026 YTD as of 6/30/26 2027 Department Request 2027 Tentative Budget A01-1-1440-426-000-00000 Eng Fuel - Gasoline & Diesel 1,497.18 2,000.00 826.69 2,000.00 2,000.00 A01-1-1440-436-000-00000 Eng - Prof Svcs - Consultants 5,150.00 15,000.00 0.00 15,000.00 15,000.00 A01-1-1440-436-100-00000 Eng - Prof Svcs - SWPPP Consultants 0.00 0.00 0.00 0.00 0.00 A01-1-1440-442-000-00000 Eng - Prof Edu & Training 300.00 1,000.00 0.00 1,000.00 ",
+      "confidence": "high",
+      "sha256": "298aeb9226d29840d7035b3915c7d861e313dd0bc3299fbabfc1f4ba9096218b",
+      "parsed_at": "2026-09-24T17:01:37.498133+00:00"
+    },
+    {
+      "id": "2027-2027-budget-supplement-p8",
+      "document": "_2027 Budget Supplement",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3929/_2027-Budget-Supplement",
+      "page": 8,
+      "snippet": "Account Number Account Description 2025 Actuals 2026 Adopted Budget 2026 YTD as of 6/30/26 2027 Department Request 2027 Tentative Budget A01-1-1620-436-210-00000 Town Hall Opera Prof Svcs - Other 0.00 0.00 0.00 0.00 0.00 A01-1-1620-462-000-00000 Town Hall - Rents & Leases - Equip 0.00 4,000.00 0.00 4,000.00 4,000.00 A01-1-1620-470-THS-00000 Town Hall - Utl - Town Square Properties 2,495.97 5,000.00 0.00 0.00 0.00 A01-1-1620-471-000-00000 Town Hall - Utl - Telephone 24,882.73 50,000.00 14,123.74 ",
+      "confidence": "high",
+      "sha256": "298aeb9226d29840d7035b3915c7d861e313dd0bc3299fbabfc1f4ba9096218b",
+      "parsed_at": "2026-09-24T17:01:37.498133+00:00"
+    },
+    {
+      "id": "2027-2027-budget-supplement-p9",
+      "document": "_2027 Budget Supplement",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3929/_2027-Budget-Supplement",
+      "page": 9,
+      "snippet": "Account Number Account Description 2025 Actuals 2026 Adopted Budget 2026 YTD as of 6/30/26 2027 Department Request 2027 Tentative Budget A01-1-1625-404-CBF-00000 B & G R&M -Grounds - Comm Benefit Funds 0.00 0.00 0.00 0.00 0.00 A01-1-1625-405-000-00000 B&G - R&M - Vehicles 32,469.46 52,000.00 17,355.14 52,000.00 49,000.00 A01-1-1625-406-000-00000 B&G - R&M - Road Resurfacing & Patching 0.00 12,500.00 0.00 12,500.00 12,500.00 A01-1-1625-415-000-00000 B&G - Supplies 22,999.50 25,000.00 8,288.86 25,",
+      "confidence": "high",
+      "sha256": "298aeb9226d29840d7035b3915c7d861e313dd0bc3299fbabfc1f4ba9096218b",
+      "parsed_at": "2026-09-24T17:01:37.498133+00:00"
+    },
+    {
+      "id": "2027-2027-budget-supplement-p10",
+      "document": "_2027 Budget Supplement",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3929/_2027-Budget-Supplement",
+      "page": 10,
+      "snippet": "Account Number Account Description 2025 Actuals 2026 Adopted Budget 2026 YTD as of 6/30/26 2027 Department Request 2027 Tentative Budget A01-1-1680-430-ARP-00000 I.T. - License Support & Maintenance-ARP 0.00 0.00 0.00 0.00 0.00 A01-1-1680-431-000-00000 I.T. - Equip Maint Contracts 0.00 0.00 0.00 0.00 0.00 A01-1-1680-436-210-00000 I.T. - Prof Svcs - Other 112,346.42 173,800.00 39,263.64 130,600.00 130,600.00 A01-1-1680-442-000-00000 I.T. - Prof Edu & Training 0.00 0.00 0.00 3,000.00 3,000.00 1680",
+      "confidence": "high",
+      "sha256": "298aeb9226d29840d7035b3915c7d861e313dd0bc3299fbabfc1f4ba9096218b",
+      "parsed_at": "2026-09-24T17:01:37.498133+00:00"
+    },
+    {
+      "id": "2027-2027-budget-supplement-p11",
+      "document": "_2027 Budget Supplement",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3929/_2027-Budget-Supplement",
+      "page": 11,
+      "snippet": "Account Number Account Description 2025 Actuals 2026 Adopted Budget 2026 YTD as of 6/30/26 2027 Department Request 2027 Tentative Budget A01-1-1940-210-000-00000 Purchase of Land 0.00 0.00 0.00 0.00 0.00 1940 Total 0.00 0.00 0.00 0.00 0.00 A01-1-1950-000-000-00000 Taxes & Asses. - Taxes & Asses. On Prop 0.00 0.00 0.00 0.00 0.00 A01-1-1950-400-000-00000 Taxes & Asses. On Property-CONTRACTUAL 0.00 0.00 0.00 0.00 0.00 A01-1-1950-481-000-00000 Taxes & Asses. - Taxes on Town Property 121,672.39 85,00",
+      "confidence": "high",
+      "sha256": "298aeb9226d29840d7035b3915c7d861e313dd0bc3299fbabfc1f4ba9096218b",
+      "parsed_at": "2026-09-24T17:01:37.498133+00:00"
+    },
+    {
+      "id": "2027-2027-budget-supplement-p12",
+      "document": "_2027 Budget Supplement",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3929/_2027-Budget-Supplement",
+      "page": 12,
+      "snippet": "Account Number Account Description 2025 Actuals 2026 Adopted Budget 2026 YTD as of 6/30/26 2027 Department Request 2027 Tentative Budget A01-3-3120-171-000-00000 Police - Pers Svcs Sick Bonus 6,250.00 10,000.00 3,250.00 10,000.00 10,000.00 A01-3-3120-200-000-00000 Police-EQUIP & CAP OUTLAY 0.00 0.00 0.00 0.00 0.00 A01-3-3120-240-000-00000 Police - Equipment 90,066.36 70,190.00 11,819.20 72,997.00 72,997.00 A01-3-3120-240-100-00000 Police - Equipment - CAD System 0.00 0.00 0.00 0.00 0.00 A01-3-31",
+      "confidence": "high",
+      "sha256": "298aeb9226d29840d7035b3915c7d861e313dd0bc3299fbabfc1f4ba9096218b",
+      "parsed_at": "2026-09-24T17:01:37.498133+00:00"
+    },
+    {
+      "id": "2027-2027-budget-supplement-p13",
+      "document": "_2027 Budget Supplement",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3929/_2027-Budget-Supplement",
+      "page": 13,
+      "snippet": "Account Number Account Description 2025 Actuals 2026 Adopted Budget 2026 YTD as of 6/30/26 2027 Department Request 2027 Tentative Budget A01-3-3120-415-368-00000 Police - Supplies - Photographic 1,014.39 1,455.00 0.00 1,455.00 1,455.00 A01-3-3120-415-369-00000 Police - Supplies - K-9 Expenses 6,286.33 10,000.00 3,385.20 10,000.00 10,000.00 A01-3-3120-415-372-00000 Police - Supplies - First Aid 5,865.20 5,000.00 2,573.99 5,000.00 5,000.00 A01-3-3120-415-373-00000 Police - Supplies - Drone Maint. ",
+      "confidence": "high",
+      "sha256": "298aeb9226d29840d7035b3915c7d861e313dd0bc3299fbabfc1f4ba9096218b",
+      "parsed_at": "2026-09-24T17:01:37.498133+00:00"
+    },
+    {
+      "id": "2027-2027-budget-supplement-p14",
+      "document": "_2027 Budget Supplement",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3929/_2027-Budget-Supplement",
+      "page": 14,
+      "snippet": "Account Number Account Description 2025 Actuals 2026 Adopted Budget 2026 YTD as of 6/30/26 2027 Department Request 2027 Tentative Budget A01-3-3122-154-000-00000 Bay Con - Pers Svcs Health Ins Buyback 0.00 0.00 0.00 1,905.00 1,905.00 A01-3-3122-200-000-00000 Bay Constable-EQUIP & CAP OUTLAY 0.00 0.00 0.00 0.00 0.00 A01-3-3122-240-000-00000 Bay Con -Equipment 2,553.31 4,500.00 2,344.43 7,500.00 7,500.00 A01-3-3122-240-302-00000 Bay Con -Equip - Radios & Scanners 0.00 0.00 0.00 0.00 0.00 A01-3-312",
+      "confidence": "high",
+      "sha256": "298aeb9226d29840d7035b3915c7d861e313dd0bc3299fbabfc1f4ba9096218b",
+      "parsed_at": "2026-09-24T17:01:37.498133+00:00"
+    },
+    {
+      "id": "2027-2027-budget-supplement-p15",
+      "document": "_2027 Budget Supplement",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3929/_2027-Budget-Supplement",
+      "page": 15,
+      "snippet": "Account Number Account Description 2025 Actuals 2026 Adopted Budget 2026 YTD as of 6/30/26 2027 Department Request 2027 Tentative Budget A01-3-3126-240-000-00000 Youth Court - Equipment 0.00 0.00 0.00 0.00 0.00 A01-3-3126-400-000-00000 Youth Court Department-CONTRACTUAL 0.00 0.00 0.00 0.00 0.00 A01-3-3126-416-000-00000 Yth Crt - Supplies - Office 151.17 775.00 82.94 775.00 775.00 A01-3-3126-433-000-00000 Yth Crt - Profess Svcs - Legal 0.00 2,600.00 0.00 2,600.00 2,600.00 A01-3-3126-443-000-00000",
+      "confidence": "high",
+      "sha256": "298aeb9226d29840d7035b3915c7d861e313dd0bc3299fbabfc1f4ba9096218b",
+      "parsed_at": "2026-09-24T17:01:37.498133+00:00"
+    },
+    {
+      "id": "2027-2027-budget-supplement-p16",
+      "document": "_2027 Budget Supplement",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3929/_2027-Budget-Supplement",
+      "page": 16,
+      "snippet": "Account Number Account Description 2025 Actuals 2026 Adopted Budget 2026 YTD as of 6/30/26 2027 Department Request 2027 Tentative Budget A01-3-3510-400-000-00000 Control of Dogs-CONTRACTUAL 0.00 0.00 0.00 0.00 0.00 A01-3-3510-436-204-00000 Dogs - Prof Svcs - Other Animal Shelter 320,177.04 332,900.00 191,926.49 345,100.00 345,100.00 3510 Total 320,177.04 332,900.00 191,926.49 345,100.00 345,100.00 A01-3-3620-000-000-00000 Safe Insp - Building (Safety Inspection) 0.00 0.00 0.00 0.00 0.00 A01-3-36",
+      "confidence": "high",
+      "sha256": "298aeb9226d29840d7035b3915c7d861e313dd0bc3299fbabfc1f4ba9096218b",
+      "parsed_at": "2026-09-24T17:01:37.498133+00:00"
+    },
+    {
+      "id": "2027-2027-budget-supplement-p17",
+      "document": "_2027 Budget Supplement",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3929/_2027-Budget-Supplement",
+      "page": 17,
+      "snippet": "Account Number Account Description 2025 Actuals 2026 Adopted Budget 2026 YTD as of 6/30/26 2027 Department Request 2027 Tentative Budget A01-3-3625-154-000-00000 Code - Health Ins Buy Back 3,785.00 6,570.00 0.00 4,755.00 4,755.00 A01-3-3625-154-NON-00000 Code - Health Ins Buy Back 0.00 0.00 0.00 0.00 0.00 A01-3-3625-200-000-00000 Code Enforcement-EQUIP & CAP OUTLAY 0.00 0.00 0.00 0.00 0.00 A01-3-3625-240-000-00000 Code - Equipment 1,034.58 10,500.00 5,760.96 10,500.00 10,500.00 A01-3-3625-280-00",
+      "confidence": "high",
+      "sha256": "298aeb9226d29840d7035b3915c7d861e313dd0bc3299fbabfc1f4ba9096218b",
+      "parsed_at": "2026-09-24T17:01:37.498133+00:00"
+    },
+    {
+      "id": "2027-2027-budget-supplement-p18",
+      "document": "_2027 Budget Supplement",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3929/_2027-Budget-Supplement",
+      "page": 18,
+      "snippet": "Account Number Account Description 2025 Actuals 2026 Adopted Budget 2026 YTD as of 6/30/26 2027 Department Request 2027 Tentative Budget A01-5-5010-100-000-00000 Highway Administration-PERSONAL SVC 0.00 0.00 0.00 0.00 0.00 A01-5-5010-101-NON-00000 Hwy Adm - Personal Services 362,026.81 295,689.00 152,619.79 265,184.00 265,184.00 A01-5-5010-111-NON-00000 Hwy Adm - Personal Services OT 1,865.10 2,000.00 609.40 2,000.00 2,000.00 A01-5-5010-112-NON-00000 Hwy Adm - Pers Svcs Longevity 12,217.26 12,72",
+      "confidence": "high",
+      "sha256": "298aeb9226d29840d7035b3915c7d861e313dd0bc3299fbabfc1f4ba9096218b",
+      "parsed_at": "2026-09-24T17:01:37.498133+00:00"
+    },
+    {
+      "id": "2027-2027-budget-supplement-p19",
+      "document": "_2027 Budget Supplement",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3929/_2027-Budget-Supplement",
+      "page": 19,
+      "snippet": "Account Number Account Description 2025 Actuals 2026 Adopted Budget 2026 YTD as of 6/30/26 2027 Department Request 2027 Tentative Budget A01-6-6772-153-000-00000 Aging - Pers Svcs Mgmt Buy Back 5,122.51 6,000.00 0.00 6,000.00 6,000.00 A01-6-6772-154-000-00000 Aging - Pers Svcs Health Ins Buy Back 3,855.00 3,810.00 1,905.00 7,255.00 7,255.00 A01-6-6772-154-NON-00000 Aging - Pers Svcs Health Ins Buy Back 0.00 0.00 0.00 0.00 0.00 A01-6-6772-200-000-00000 Programs for the Aging-EQUIP & CAP OUTLA 0.0",
+      "confidence": "high",
+      "sha256": "298aeb9226d29840d7035b3915c7d861e313dd0bc3299fbabfc1f4ba9096218b",
+      "parsed_at": "2026-09-24T17:01:37.498133+00:00"
+    },
+    {
+      "id": "2027-2027-budget-supplement-p20",
+      "document": "_2027 Budget Supplement",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3929/_2027-Budget-Supplement",
+      "page": 20,
+      "snippet": "Account Number Account Description 2025 Actuals 2026 Adopted Budget 2026 YTD as of 6/30/26 2027 Department Request 2027 Tentative Budget A01-7-7020-415-000-00000 Rec Adm - Supplies 2,793.54 5,500.00 1,712.64 5,500.00 5,500.00 A01-7-7020-421-000-00000 Rec Adm - Postage 6,000.00 9,500.00 0.00 9,500.00 9,500.00 A01-7-7020-422-000-00000 Rec Adm - Dues & Subscriptions 2,342.47 2,000.00 1,243.00 2,000.00 2,000.00 A01-7-7020-424-000-00000 Rec Adm - Printing 8,191.75 10,500.00 6,974.00 10,500.00 10,500.",
+      "confidence": "high",
+      "sha256": "298aeb9226d29840d7035b3915c7d861e313dd0bc3299fbabfc1f4ba9096218b",
+      "parsed_at": "2026-09-24T17:01:37.498133+00:00"
+    },
+    {
+      "id": "2027-2027-budget-supplement-p21",
+      "document": "_2027 Budget Supplement",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3929/_2027-Budget-Supplement",
+      "page": 21,
+      "snippet": "Account Number Account Description 2025 Actuals 2026 Adopted Budget 2026 YTD as of 6/30/26 2027 Department Request 2027 Tentative Budget A01-7-7180-220-000-00000 Beaches - Buildings 0.00 0.00 0.00 0.00 0.00 A01-7-7180-230-000-00000 Beach - Improvements 13,660.00 20,000.00 5,320.00 20,000.00 20,000.00 A01-7-7180-240-000-00000 Beach - Equipment 0.00 2,500.00 0.00 2,500.00 2,500.00 A01-7-7180-400-000-00000 Beaches-CONTRACTUAL 0.00 0.00 0.00 0.00 0.00 A01-7-7180-401-000-00000 Beach - R&M 0.00 0.00 0",
+      "confidence": "high",
+      "sha256": "298aeb9226d29840d7035b3915c7d861e313dd0bc3299fbabfc1f4ba9096218b",
+      "parsed_at": "2026-09-24T17:01:37.498133+00:00"
+    },
+    {
+      "id": "2027-2027-budget-supplement-p22",
+      "document": "_2027 Budget Supplement",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3929/_2027-Budget-Supplement",
+      "page": 22,
+      "snippet": "Account Number Account Description 2025 Actuals 2026 Adopted Budget 2026 YTD as of 6/30/26 2027 Department Request 2027 Tentative Budget A01-7-7510-102-000-00000 Town Historian - Personal Services 0.00 10,200.00 4,322.45 10,200.00 10,200.00 A01-7-7510-102-NON-00000 Hist - Personal Services Part Time 0.00 0.00 0.00 0.00 0.00 A01-7-7510-200-000-00000 Town Historian-EQUIP & CAP OUTLAY 0.00 0.00 0.00 0.00 0.00 A01-7-7510-240-000-00000 Hist - Equipment 0.00 0.00 0.00 0.00 0.00 A01-7-7510-400-000-0000",
+      "confidence": "high",
+      "sha256": "298aeb9226d29840d7035b3915c7d861e313dd0bc3299fbabfc1f4ba9096218b",
+      "parsed_at": "2026-09-24T17:01:37.498133+00:00"
+    },
+    {
+      "id": "2027-2027-budget-supplement-p23",
+      "document": "_2027 Budget Supplement",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3929/_2027-Budget-Supplement",
+      "page": 23,
+      "snippet": "Account Number Account Description 2025 Actuals 2026 Adopted Budget 2026 YTD as of 6/30/26 2027 Department Request 2027 Tentative Budget A01-7-7620-400-000-00000 Adult Recreation-CONTRACTUAL 0.00 0.00 0.00 0.00 0.00 A01-7-7620-463-000-00000 Adlt Rec - Rents & Leases - Vehicles 0.00 0.00 0.00 0.00 0.00 7620 Total 0.00 0.00 0.00 0.00 0.00 A01-7-7988-000-000-00000 InterGen - Intergenerational Program 0.00 0.00 0.00 0.00 0.00 A01-7-7988-100-000-00000 InterGen - PERSONAL SVC 0.00 0.00 0.00 0.00 0.00 ",
+      "confidence": "high",
+      "sha256": "298aeb9226d29840d7035b3915c7d861e313dd0bc3299fbabfc1f4ba9096218b",
+      "parsed_at": "2026-09-24T17:01:37.498133+00:00"
+    },
+    {
+      "id": "2027-2027-budget-supplement-p24",
+      "document": "_2027 Budget Supplement",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3929/_2027-Budget-Supplement",
+      "page": 24,
+      "snippet": "Account Number Account Description 2025 Actuals 2026 Adopted Budget 2026 YTD as of 6/30/26 2027 Department Request 2027 Tentative Budget A01-8-8020-154-NON-00000 Plan - Pers Svcs Health Insurance BB 0.00 0.00 0.00 0.00 0.00 A01-8-8020-200-000-00000 Planning - EQUIP & CAP OUTLAY 0.00 0.00 0.00 0.00 0.00 A01-8-8020-240-000-00000 Planning - Equipment 0.00 0.00 0.00 0.00 0.00 A01-8-8020-400-000-00000 Planning Department-CONTRACTUAL 0.00 0.00 0.00 0.00 0.00 A01-8-8020-416-000-00000 Plan - Supplies - ",
+      "confidence": "high",
+      "sha256": "298aeb9226d29840d7035b3915c7d861e313dd0bc3299fbabfc1f4ba9096218b",
+      "parsed_at": "2026-09-24T17:01:37.498133+00:00"
+    },
+    {
+      "id": "2027-2027-budget-supplement-p25",
+      "document": "_2027 Budget Supplement",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3929/_2027-Budget-Supplement",
+      "page": 25,
+      "snippet": "Account Number Account Description 2025 Actuals 2026 Adopted Budget 2026 YTD as of 6/30/26 2027 Department Request 2027 Tentative Budget A01-8-8160-402-000-00000 Refuse -R&M - Landfill 61,513.11 70,000.00 3,315.40 70,000.00 70,000.00 A01-8-8160-405-000-00000 Refuse -R&M - Vehicles 9,554.83 20,000.00 2,384.96 15,000.00 15,000.00 A01-8-8160-425-000-00000 Refuse -Uniforms 1,628.02 2,000.00 1,755.54 2,000.00 2,000.00 A01-8-8160-426-000-00000 Refuse Fuel - Gasoline & Diesel 8,393.12 19,000.00 4,826.9",
+      "confidence": "high",
+      "sha256": "298aeb9226d29840d7035b3915c7d861e313dd0bc3299fbabfc1f4ba9096218b",
+      "parsed_at": "2026-09-24T17:01:37.498133+00:00"
+    },
+    {
+      "id": "2027-2027-budget-supplement-p26",
+      "document": "_2027 Budget Supplement",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3929/_2027-Budget-Supplement",
+      "page": 26,
+      "snippet": "Account Number Account Description 2025 Actuals 2026 Adopted Budget 2026 YTD as of 6/30/26 2027 Department Request 2027 Tentative Budget A01-8-8686-450-000-00000 CDA - Special Events 30,000.00 43,200.00 0.00 40,443.00 15,000.00 A01-8-8686-464-000-00000 CDA -Rents & Leases - Cell Phones 0.00 0.00 0.00 0.00 0.00 A01-8-8686-471-000-00000 CDA -Utl - Telephone 700.00 700.00 700.00 700.00 700.00 A01-8-8686-472-000-00000 CDA - Utl - Town Square 0.00 0.00 0.00 0.00 0.00 A01-8-8686-487-000-00000 Gen Liab",
+      "confidence": "high",
+      "sha256": "298aeb9226d29840d7035b3915c7d861e313dd0bc3299fbabfc1f4ba9096218b",
+      "parsed_at": "2026-09-24T17:01:37.498133+00:00"
+    },
+    {
+      "id": "2027-2027-budget-supplement-p27",
+      "document": "_2027 Budget Supplement",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3929/_2027-Budget-Supplement",
+      "page": 27,
+      "snippet": "Account Number Account Description 2025 Actuals 2026 Adopted Budget 2026 YTD as of 6/30/26 2027 Department Request 2027 Tentative Budget A01-9-9050-400-000-00000 Unemployment Insurance-CONTRACTUAL 0.00 0.00 0.00 0.00 0.00 A01-9-9050-818-000-00000 Unemp - Self Insurance Payments - Unemp 13,895.32 30,000.00 18,742.53 30,000.00 30,000.00 9050 Total 13,895.32 30,000.00 18,742.53 30,000.00 30,000.00 A01-9-9055-000-000-00000 Fringe -Miscellaneous Fringe Benefits 0.00 0.00 0.00 0.00 0.00 A01-9-9055-400",
+      "confidence": "high",
+      "sha256": "298aeb9226d29840d7035b3915c7d861e313dd0bc3299fbabfc1f4ba9096218b",
+      "parsed_at": "2026-09-24T17:01:37.498133+00:00"
+    },
+    {
+      "id": "2027-2027-budget-supplement-p28",
+      "document": "_2027 Budget Supplement",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3929/_2027-Budget-Supplement",
+      "page": 28,
+      "snippet": "Account Number Account Description 2025 Actuals 2026 Adopted Budget 2026 YTD as of 6/30/26 2027 Department Request 2027 Tentative Budget A01-9-9901-900-SM1-00000 Transfers to Other Funds - SM1 0.00 0.00 0.00 0.00 0.00 A01-9-9901-900-V01-00000 Trf - Interfund Trf - Gen Fund Debt Svc 2,596,775.14 3,054,850.00 1,338,214.77 2,048,119.00 2,048,119.00 A01-9-9901-900-Z14-00000 Transfers to Other Funds - Z14 0.00 0.00 0.00 0.00 0.00 9901 Total 3,821,463.38 3,274,950.00 1,392,714.77 2,268,219.00 2,268,21",
+      "confidence": "high",
+      "sha256": "298aeb9226d29840d7035b3915c7d861e313dd0bc3299fbabfc1f4ba9096218b",
+      "parsed_at": "2026-09-24T17:01:37.498133+00:00"
+    },
+    {
+      "id": "2027-2027-budget-supplement-p29",
+      "document": "_2027 Budget Supplement",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3929/_2027-Budget-Supplement",
+      "page": 29,
+      "snippet": "Account Number Account Description 2025 Actuals 2026 Adopted Budget 2026 YTD as of 6/30/26 2027 Department Request 2027 Tentative Budget A04-7-7314-400-000-00000 Lacrosse Program-CONTRACTUAL 0.00 0.00 0.00 0.00 0.00 A04-7-7314-417-000-00000 Lax - Supplies - Program 3,438.48 6,765.00 5,393.49 7,365.00 7,365.00 A04-7-7314-425-000-00000 Lax - Uniforms 4,985.80 10,700.00 5,913.19 11,600.00 11,600.00 A04-7-7314-455-215-00000 Lax - Lacrosse Referee Exp 3,440.00 7,260.00 3,492.50 7,760.00 7,760.00 A04-",
+      "confidence": "high",
+      "sha256": "298aeb9226d29840d7035b3915c7d861e313dd0bc3299fbabfc1f4ba9096218b",
+      "parsed_at": "2026-09-24T17:01:37.498133+00:00"
+    },
+    {
+      "id": "2027-2027-budget-supplement-p30",
+      "document": "_2027 Budget Supplement",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3929/_2027-Budget-Supplement",
+      "page": 30,
+      "snippet": "Account Number Account Description 2025 Actuals 2026 Adopted Budget 2026 YTD as of 6/30/26 2027 Department Request 2027 Tentative Budget A06-7-7310-200-000-00000 Youth Programs-EQUIP & CAP OUTLAY 0.00 0.00 0.00 0.00 0.00 A06-7-7310-240-000-00000 Yth Prg - Equipment 0.00 0.00 0.00 0.00 0.00 A06-7-7310-400-000-00000 Youth Programs-CONTRACTUAL 0.00 0.00 0.00 0.00 0.00 A06-7-7310-415-000-00000 Yth Prg - Supplies 8,577.24 12,500.00 1,299.78 12,500.00 12,500.00 A06-7-7310-436-210-00000 Yth Prg - Prof ",
+      "confidence": "high",
+      "sha256": "298aeb9226d29840d7035b3915c7d861e313dd0bc3299fbabfc1f4ba9096218b",
+      "parsed_at": "2026-09-24T17:01:37.498133+00:00"
+    },
+    {
+      "id": "2027-2027-budget-supplement-p31",
+      "document": "_2027 Budget Supplement",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3929/_2027-Budget-Supplement",
+      "page": 31,
+      "snippet": "Account Number Account Description 2025 Actuals 2026 Adopted Budget 2026 YTD as of 6/30/26 2027 Department Request 2027 Tentative Budget A06-7-7624-415-000-00000 Rec InstSupplies 0.00 0.00 0.00 0.00 0.00 A06-7-7624-436-210-00000 Rec Inst Prof Svcs - Other 36,631.17 65,000.00 15,325.89 65,000.00 65,000.00 7624 Total 36,631.17 65,000.00 15,325.89 65,000.00 65,000.00 A06-7-7625-000-000-00000 Softball - Softball Programs 0.00 0.00 0.00 0.00 0.00 A06-7-7625-100-000-00000 Softball Programs-PERSONAL SV",
+      "confidence": "high",
+      "sha256": "298aeb9226d29840d7035b3915c7d861e313dd0bc3299fbabfc1f4ba9096218b",
+      "parsed_at": "2026-09-24T17:01:37.498133+00:00"
+    },
+    {
+      "id": "2027-2027-budget-supplement-p32",
+      "document": "_2027 Budget Supplement",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3929/_2027-Budget-Supplement",
+      "page": 32,
+      "snippet": "Account Number Account Description 2025 Actuals 2026 Adopted Budget 2026 YTD as of 6/30/26 2027 Department Request 2027 Tentative Budget A06-9-9990-000-000-00000 Fund Balance Contribution 0.00 80,024.00 0.00 76,952.00 79,362.00 9990 Total 0.00 80,024.00 0.00 76,952.00 79,362.00 CM1-1-1910-000-000-00000 Unall Ins - Unallocated Insurance 0.00 0.00 0.00 0.00 0.00 CM1-1-1910-400-000-00000 Unallocated Insurance-CONTRACTUAL 0.00 0.00 0.00 0.00 0.00 CM1-1-1910-487-000-00000 Gen Liab - Insurance Premium",
+      "confidence": "high",
+      "sha256": "298aeb9226d29840d7035b3915c7d861e313dd0bc3299fbabfc1f4ba9096218b",
+      "parsed_at": "2026-09-24T17:01:37.498133+00:00"
+    },
+    {
+      "id": "2027-2027-budget-supplement-p33",
+      "document": "_2027 Budget Supplement",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3929/_2027-Budget-Supplement",
+      "page": 33,
+      "snippet": "Account Number Account Description 2025 Actuals 2026 Adopted Budget 2026 YTD as of 6/30/26 2027 Department Request 2027 Tentative Budget CM2-7-7230-474-000-00000 Docs - Utl - Water 1,058.10 1,200.00 124.60 1,200.00 1,200.00 CM2-7-7230-475-000-00000 Docs - Utl - WiFi 3,796.90 4,200.00 2,069.40 4,200.00 4,200.00 CM2-7-7230-495-000-00000 Docs - Administrative Charges 54,600.00 25,400.00 0.00 26,200.00 26,200.00 7230 Total 137,174.50 102,613.00 42,361.29 101,004.00 103,039.00 CM2-9-9010-000-000-0000",
+      "confidence": "high",
+      "sha256": "298aeb9226d29840d7035b3915c7d861e313dd0bc3299fbabfc1f4ba9096218b",
+      "parsed_at": "2026-09-24T17:01:37.498133+00:00"
+    },
+    {
+      "id": "2027-2027-budget-supplement-p34",
+      "document": "_2027 Budget Supplement",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3929/_2027-Budget-Supplement",
+      "page": 34,
+      "snippet": "Account Number Account Description 2025 Actuals 2026 Adopted Budget 2026 YTD as of 6/30/26 2027 Department Request 2027 Tentative Budget CM4-1-1420-490-000-00000 Miscellaneous 0.00 0.00 0.00 0.00 0.00 1420 Total 0.00 0.00 0.00 0.00 0.00 CM4-1-1940-210-000-00000 Purchase of Land 75,000.00 0.00 0.00 0.00 0.00 1940 Total 75,000.00 0.00 0.00 0.00 0.00 CM4-9-9901-000-000-00000 Trf - Transfers to Other Funds 0.00 0.00 0.00 0.00 0.00 CM4-9-9901-400-000-00000 Transfers to Other Funds-CONTRACTUAL 0.00 0.",
+      "confidence": "high",
+      "sha256": "298aeb9226d29840d7035b3915c7d861e313dd0bc3299fbabfc1f4ba9096218b",
+      "parsed_at": "2026-09-24T17:01:37.498133+00:00"
+    },
+    {
+      "id": "2027-2027-budget-supplement-p35",
+      "document": "_2027 Budget Supplement",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3929/_2027-Budget-Supplement",
+      "page": 35,
+      "snippet": "Account Number Account Description 2025 Actuals 2026 Adopted Budget 2026 YTD as of 6/30/26 2027 Department Request 2027 Tentative Budget DA1-5-5130-400-000-00000 Machinery-CONTRACTUAL 0.00 0.00 0.00 0.00 0.00 DA1-5-5130-403-000-00000 Mach -R&M - Equipment 446,379.93 491,590.00 270,771.12 500,000.00 500,000.00 DA1-5-5130-426-000-00000 Mach Fuel - Gasoline & Diesel 0.00 0.00 0.00 0.00 0.00 DA1-5-5130-462-000-00000 Rental - Equipment 0.00 0.00 0.00 0.00 0.00 5130 Total 1,511,671.96 728,090.00 904,2",
+      "confidence": "high",
+      "sha256": "298aeb9226d29840d7035b3915c7d861e313dd0bc3299fbabfc1f4ba9096218b",
+      "parsed_at": "2026-09-24T17:01:37.498133+00:00"
+    },
+    {
+      "id": "2027-2027-budget-supplement-p36",
+      "document": "_2027 Budget Supplement",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3929/_2027-Budget-Supplement",
+      "page": 36,
+      "snippet": "Account Number Account Description 2025 Actuals 2026 Adopted Budget 2026 YTD as of 6/30/26 2027 Department Request 2027 Tentative Budget 9030 Total 187,832.32 204,973.00 84,655.13 219,022.00 222,501.00 DA1-9-9040-000-000-00000 WC - Workers' Compensation 0.00 0.00 0.00 0.00 0.00 DA1-9-9040-400-000-00000 Workers' Compensation -CONTRACTUAL 0.00 0.00 0.00 0.00 0.00 DA1-9-9040-887-000-00000 WC - Insurance Premuim 148,678.79 168,200.00 155,871.22 182,142.00 182,142.00 DA1-9-9040-888-000-00000 WC - Cla",
+      "confidence": "high",
+      "sha256": "298aeb9226d29840d7035b3915c7d861e313dd0bc3299fbabfc1f4ba9096218b",
+      "parsed_at": "2026-09-24T17:01:37.498133+00:00"
+    },
+    {
+      "id": "2027-2027-budget-supplement-p37",
+      "document": "_2027 Budget Supplement",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3929/_2027-Budget-Supplement",
+      "page": 37,
+      "snippet": "Account Number Account Description 2025 Actuals 2026 Adopted Budget 2026 YTD as of 6/30/26 2027 Department Request 2027 Tentative Budget ES1-1-1995-400-000-00000 Loss on Disposal of Fixed Assets 0.00 0.00 0.00 0.00 0.00 1995 Total 0.00 0.00 0.00 0.00 0.00 ES1-8-8110-000-000-00000 Sewer Adm - Sewer Administration 0.00 0.00 0.00 0.00 0.00 ES1-8-8110-100-000-00000 Sewer Administration-PERSONAL SVC 0.00 0.00 0.00 0.00 0.00 ES1-8-8110-101-NON-00000 Sewer Adm - Personal Services 832,737.83 749,817.00 ",
+      "confidence": "high",
+      "sha256": "298aeb9226d29840d7035b3915c7d861e313dd0bc3299fbabfc1f4ba9096218b",
+      "parsed_at": "2026-09-24T17:01:37.498133+00:00"
+    },
+    {
+      "id": "2027-2027-budget-supplement-p38",
+      "document": "_2027 Budget Supplement",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3929/_2027-Budget-Supplement",
+      "page": 38,
+      "snippet": "Account Number Account Description 2025 Actuals 2026 Adopted Budget 2026 YTD as of 6/30/26 2027 Department Request 2027 Tentative Budget ES1-8-8130-415-000-00000 Sewer Trmt - Chlorine & Chemical Expense 113,465.23 140,000.00 39,856.86 145,000.00 145,000.00 ES1-8-8130-415-100-00000 Sewer Trmt - Plant Supplies 5,957.04 11,000.00 1,104.32 12,000.00 12,000.00 ES1-8-8130-415-372-00000 Sewer Trmt - Supplies - First Aid 398.71 500.00 29.82 500.00 500.00 ES1-8-8130-415-500-00000 Sewer Treatment - Lab Su",
+      "confidence": "high",
+      "sha256": "298aeb9226d29840d7035b3915c7d861e313dd0bc3299fbabfc1f4ba9096218b",
+      "parsed_at": "2026-09-24T17:01:37.498133+00:00"
+    },
+    {
+      "id": "2027-2027-budget-supplement-p39",
+      "document": "_2027 Budget Supplement",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3929/_2027-Budget-Supplement",
+      "page": 39,
+      "snippet": "Account Number Account Description 2025 Actuals 2026 Adopted Budget 2026 YTD as of 6/30/26 2027 Department Request 2027 Tentative Budget ES1-9-9040-887-000-00000 WC - Insurance Premuim 13,857.77 15,700.00 14,528.08 16,977.00 16,977.00 ES1-9-9040-888-000-00000 WC - Claim Payments 3,300.00 34,800.00 10,000.00 34,800.00 34,800.00 9040 Total 17,157.77 50,500.00 24,528.08 51,777.00 51,777.00 ES1-9-9055-000-000-00000 Fringe -Miscellaneous Fringe Benefits 0.00 0.00 0.00 0.00 0.00 ES1-9-9055-400-000-000",
+      "confidence": "high",
+      "sha256": "298aeb9226d29840d7035b3915c7d861e313dd0bc3299fbabfc1f4ba9096218b",
+      "parsed_at": "2026-09-24T17:01:37.498133+00:00"
+    },
+    {
+      "id": "2027-2027-budget-supplement-p40",
+      "document": "_2027 Budget Supplement",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3929/_2027-Budget-Supplement",
+      "page": 40,
+      "snippet": "Account Number Account Description 2025 Actuals 2026 Adopted Budget 2026 YTD as of 6/30/26 2027 Department Request 2027 Tentative Budget ES3-8-8130-101-NON-00000 Sewer Trmt - Personal Services 242,786.61 158,039.00 73,982.97 177,589.00 177,589.00 ES3-8-8130-111-000-00000 Sewer Trmt - Personal Services OT 0.00 0.00 0.00 0.00 0.00 ES3-8-8130-111-NON-00000 Sewer Treatment - NON Overtime 1,126.90 4,388.00 140.12 4,388.00 4,388.00 ES3-8-8130-112-NON-00000 Sewer Trmt - Pers Svcs Longevity 0.00 2,231.0",
+      "confidence": "high",
+      "sha256": "298aeb9226d29840d7035b3915c7d861e313dd0bc3299fbabfc1f4ba9096218b",
+      "parsed_at": "2026-09-24T17:01:37.498133+00:00"
+    },
+    {
+      "id": "2027-2027-budget-supplement-p41",
+      "document": "_2027 Budget Supplement",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3929/_2027-Budget-Supplement",
+      "page": 41,
+      "snippet": "Account Number Account Description 2025 Actuals 2026 Adopted Budget 2026 YTD as of 6/30/26 2027 Department Request 2027 Tentative Budget ES3-8-8130-482-000-00000 Sewer Trmt - Waste Disposal 62,145.55 29,800.00 6,643.24 40,000.00 40,000.00 ES3-8-8130-490-000-00000 Sewer Trmt - Miscellaneous 0.00 0.00 0.00 1,000.00 1,000.00 8130 Total 480,161.93 405,943.00 137,413.89 478,554.00 475,139.00 ES3-9-9010-000-000-00000 Ret -Retirement 0.00 0.00 0.00 0.00 0.00 ES3-9-9010-400-000-00000 Retirement-CONTRACT",
+      "confidence": "high",
+      "sha256": "298aeb9226d29840d7035b3915c7d861e313dd0bc3299fbabfc1f4ba9096218b",
+      "parsed_at": "2026-09-24T17:01:37.498133+00:00"
+    },
+    {
+      "id": "2027-2027-budget-supplement-p42",
+      "document": "_2027 Budget Supplement",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3929/_2027-Budget-Supplement",
+      "page": 42,
+      "snippet": "Account Number Account Description 2025 Actuals 2026 Adopted Budget 2026 YTD as of 6/30/26 2027 Department Request 2027 Tentative Budget 1910 Total 28,262.58 31,900.00 30,638.44 34,364.00 34,364.00 ES5-1-1994-000-000-00000 Depr - Depreciation 0.00 0.00 0.00 0.00 0.00 ES5-1-1994-400-000-00000 Depreciation-CONTRACTUAL 0.00 0.00 0.00 0.00 0.00 ES5-1-1994-492-000-00000 Depr - Depreciation 41,383.43 100,000.00 0.00 100,000.00 100,000.00 1994 Total 41,383.43 100,000.00 0.00 100,000.00 100,000.00 ES5-1",
+      "confidence": "high",
+      "sha256": "298aeb9226d29840d7035b3915c7d861e313dd0bc3299fbabfc1f4ba9096218b",
+      "parsed_at": "2026-09-24T17:01:37.498133+00:00"
+    },
+    {
+      "id": "2027-2027-budget-supplement-p43",
+      "document": "_2027 Budget Supplement",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3929/_2027-Budget-Supplement",
+      "page": 43,
+      "snippet": "Account Number Account Description 2025 Actuals 2026 Adopted Budget 2026 YTD as of 6/30/26 2027 Department Request 2027 Tentative Budget ES5-8-8189-426-000-00000 Scavenger Waste Fuel 0.00 0.00 0.00 0.00 0.00 ES5-8-8189-426-050-00000 Scav Waste Fuel - Gasoline & Diesel 542.86 2,000.00 298.28 2,000.00 2,000.00 ES5-8-8189-426-075-00000 Scav Waste Fuel - Plant Fuel 802.59 1,700.00 459.48 1,700.00 1,700.00 ES5-8-8189-431-000-00000 Scav Waste - Alarm Contract 417.00 500.00 312.75 800.00 800.00 ES5-8-8",
+      "confidence": "high",
+      "sha256": "298aeb9226d29840d7035b3915c7d861e313dd0bc3299fbabfc1f4ba9096218b",
+      "parsed_at": "2026-09-24T17:01:37.498133+00:00"
+    },
+    {
+      "id": "2027-2027-budget-supplement-p44",
+      "document": "_2027 Budget Supplement",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3929/_2027-Budget-Supplement",
+      "page": 44,
+      "snippet": "Account Number Account Description 2025 Actuals 2026 Adopted Budget 2026 YTD as of 6/30/26 2027 Department Request 2027 Tentative Budget ES5-9-9710-000-000-00000 Bond Pmt - Serial Bond Payments 0.00 0.00 0.00 0.00 0.00 ES5-9-9710-400-000-00000 Serial Bond Payments-CONTRACTUAL 0.00 0.00 0.00 0.00 0.00 ES5-9-9710-600-000-00000 Bond Pmt - Debt Principal 0.00 0.00 0.00 0.00 0.00 ES5-9-9710-700-000-00000 Bond Pmt - Interest Expense 0.00 0.00 0.00 0.00 0.00 9710 Total 0.00 0.00 0.00 0.00 0.00 ES5-9-99",
+      "confidence": "high",
+      "sha256": "298aeb9226d29840d7035b3915c7d861e313dd0bc3299fbabfc1f4ba9096218b",
+      "parsed_at": "2026-09-24T17:01:37.498133+00:00"
+    },
+    {
+      "id": "2027-2027-budget-supplement-p45",
+      "document": "_2027 Budget Supplement",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3929/_2027-Budget-Supplement",
+      "page": 45,
+      "snippet": "Account Number Account Description 2025 Actuals 2026 Adopted Budget 2026 YTD as of 6/30/26 2027 Department Request 2027 Tentative Budget EW1-8-8310-154-000-00000 Water AdmPers Svcs Health Ins Buy Back 9,020.00 9,215.00 0.00 15,915.00 15,915.00 EW1-8-8310-154-NON-00000 Water AdmPers Svcs Health Ins Buy Back 0.00 0.00 0.00 0.00 0.00 EW1-8-8310-200-000-00000 Water Admin - EQUIP & CAP OUTLAY 0.00 0.00 0.00 0.00 0.00 EW1-8-8310-240-000-00000 Water Admin - Equipment 0.00 0.00 0.00 0.00 0.00 EW1-8-8310",
+      "confidence": "high",
+      "sha256": "298aeb9226d29840d7035b3915c7d861e313dd0bc3299fbabfc1f4ba9096218b",
+      "parsed_at": "2026-09-24T17:01:37.498133+00:00"
+    },
+    {
+      "id": "2027-2027-budget-supplement-p46",
+      "document": "_2027 Budget Supplement",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3929/_2027-Budget-Supplement",
+      "page": 46,
+      "snippet": "Account Number Account Description 2025 Actuals 2026 Adopted Budget 2026 YTD as of 6/30/26 2027 Department Request 2027 Tentative Budget EW1-9-9010-000-000-00000 Ret -Retirement 0.00 0.00 0.00 0.00 0.00 EW1-9-9010-400-000-00000 Retirement-CONTRACTUAL 0.00 0.00 0.00 0.00 0.00 EW1-9-9010-801-NON-00000 Ret -NYS Retirement Non-Uni Pers 248,546.00 287,427.00 0.00 350,222.00 309,230.00 EW1-9-9010-810-NON-00000 Pension Expense - NPL -26,430.00 0.00 0.00 0.00 0.00 9010 Total 222,116.00 287,427.00 0.00 3",
+      "confidence": "high",
+      "sha256": "298aeb9226d29840d7035b3915c7d861e313dd0bc3299fbabfc1f4ba9096218b",
+      "parsed_at": "2026-09-24T17:01:37.498133+00:00"
+    },
+    {
+      "id": "2027-2027-budget-supplement-p47",
+      "document": "_2027 Budget Supplement",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3929/_2027-Budget-Supplement",
+      "page": 47,
+      "snippet": "Account Number Account Description 2025 Actuals 2026 Adopted Budget 2026 YTD as of 6/30/26 2027 Department Request 2027 Tentative Budget 9990 Total 0.00 0.00 0.00 0.00 0.00 MS1-1-1710-488-000-00000 Workers Comp - Claim Payments 319,767.34 1,050,000.00 418,570.32 1,050,000.00 1,050,000.00 1710 Total 319,767.34 1,050,000.00 418,570.32 1,050,000.00 1,050,000.00 MS2-1-1930-487-000-00000 Risk Retention - Self Insurance Payments 533,866.69 450,000.00 318,266.32 450,000.00 450,000.00 1930 Total 533,866",
+      "confidence": "high",
+      "sha256": "298aeb9226d29840d7035b3915c7d861e313dd0bc3299fbabfc1f4ba9096218b",
+      "parsed_at": "2026-09-24T17:01:37.498133+00:00"
+    },
+    {
+      "id": "2027-2027-budget-supplement-p48",
+      "document": "_2027 Budget Supplement",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3929/_2027-Budget-Supplement",
+      "page": 48,
+      "snippet": "Account Number Account Description 2025 Actuals 2026 Adopted Budget 2026 YTD as of 6/30/26 2027 Department Request 2027 Tentative Budget 5182 Total 668,880.91 748,298.00 317,685.72 759,406.00 766,922.00 SL1-9-9010-000-000-00000 Ret -Retirement 0.00 0.00 0.00 0.00 0.00 SL1-9-9010-400-000-00000 Retirement-CONTRACTUAL 0.00 0.00 0.00 0.00 0.00 SL1-9-9010-801-NON-00000 Ret -NYS Retirement Non-Uni Pers 34,043.00 46,365.00 0.00 56,542.00 49,123.00 9010 Total 34,043.00 46,365.00 0.00 56,542.00 49,123.00",
+      "confidence": "high",
+      "sha256": "298aeb9226d29840d7035b3915c7d861e313dd0bc3299fbabfc1f4ba9096218b",
+      "parsed_at": "2026-09-24T17:01:37.498133+00:00"
+    },
+    {
+      "id": "2027-2027-budget-supplement-p49",
+      "document": "_2027 Budget Supplement",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3929/_2027-Budget-Supplement",
+      "page": 49,
+      "snippet": "Account Number Account Description 2025 Actuals 2026 Adopted Budget 2026 YTD as of 6/30/26 2027 Department Request 2027 Tentative Budget SM1-4-4540-240-000-00000 Amb - Equipment 220,000.00 0.00 0.00 0.00 0.00 SM1-4-4540-240-CBF-00000 Ambulance - Equip CBF 0.00 0.00 0.00 0.00 0.00 SM1-4-4540-280-000-00000 Amb - Vehicles 59,806.98 105,000.00 0.00 85,000.00 85,000.00 SM1-4-4540-400-000-00000 Ambulance-CONTRACTUAL 0.00 0.00 0.00 0.00 0.00 SM1-4-4540-402-000-00000 Amb - R&M - Buildings 8,119.92 25,00",
+      "confidence": "high",
+      "sha256": "298aeb9226d29840d7035b3915c7d861e313dd0bc3299fbabfc1f4ba9096218b",
+      "parsed_at": "2026-09-24T17:01:37.498133+00:00"
+    },
+    {
+      "id": "2027-2027-budget-supplement-p50",
+      "document": "_2027 Budget Supplement",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3929/_2027-Budget-Supplement",
+      "page": 50,
+      "snippet": "Account Number Account Description 2025 Actuals 2026 Adopted Budget 2026 YTD as of 6/30/26 2027 Department Request 2027 Tentative Budget SR1-8-8160-400-000-00000 Refuse - Contractual 341,200.00 385,400.00 0.00 412,300.00 412,300.00 SR1-8-8160-405-000-00000 Refuse - R&M - Vehicles 738.62 6,000.00 748.06 6,000.00 6,000.00 SR1-8-8160-425-000-00000 Refuse - Uniforms 0.00 0.00 0.00 0.00 0.00 SR1-8-8160-426-000-00000 Refuse Fuel - Gasoline & Diesel 1,281.85 4,500.00 979.22 4,500.00 4,500.00 SR1-8-8160",
+      "confidence": "high",
+      "sha256": "298aeb9226d29840d7035b3915c7d861e313dd0bc3299fbabfc1f4ba9096218b",
+      "parsed_at": "2026-09-24T17:01:37.498133+00:00"
+    },
+    {
+      "id": "2027-2027-budget-supplement-p51",
+      "document": "_2027 Budget Supplement",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3929/_2027-Budget-Supplement",
+      "page": 51,
+      "snippet": "Account Number Account Description 2025 Actuals 2026 Adopted Budget 2026 YTD as of 6/30/26 2027 Department Request 2027 Tentative Budget 9990 Total 0.00 0.00 0.00 0.00 0.00 ST1-1-1910-000-000-00000 Unall Ins - Unallocated Insurance 0.00 0.00 0.00 0.00 0.00 ST1-1-1910-400-000-00000 Unallocated Insurance-CONTRACTUAL 0.00 0.00 0.00 0.00 0.00 ST1-1-1910-487-000-00000 Gen Liab - Insurance Premium 1,947.50 2,300.00 2,133.58 2,335.00 2,335.00 ST1-1-1910-488-000-00000 Gen Liab - Claim Payments 900.00 90",
+      "confidence": "high",
+      "sha256": "298aeb9226d29840d7035b3915c7d861e313dd0bc3299fbabfc1f4ba9096218b",
+      "parsed_at": "2026-09-24T17:01:37.498133+00:00"
+    },
+    {
+      "id": "2027-2027-budget-supplement-p52",
+      "document": "_2027 Budget Supplement",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3929/_2027-Budget-Supplement",
+      "page": 52,
+      "snippet": "Account Number Account Description 2025 Actuals 2026 Adopted Budget 2026 YTD as of 6/30/26 2027 Department Request 2027 Tentative Budget Z14-1-1910-000-000-00000 Unall Ins - Unallocated Insurance 0.00 0.00 0.00 0.00 0.00 Z14-1-1910-400-000-00000 Unallocated Insurance-CONTRACTUAL 0.00 0.00 0.00 0.00 0.00 Z14-1-1910-487-000-00000 Gen Liab - Insurance Premium 20,416.82 21,200.00 20,897.65 22,461.00 22,461.00 Z14-1-1910-488-000-00000 Gen Liab - Claim Payments 200.00 200.00 200.00 200.00 200.00 1910 ",
+      "confidence": "high",
+      "sha256": "298aeb9226d29840d7035b3915c7d861e313dd0bc3299fbabfc1f4ba9096218b",
+      "parsed_at": "2026-09-24T17:01:37.498133+00:00"
+    },
+    {
+      "id": "2027-2027-budget-supplement-p53",
+      "document": "_2027 Budget Supplement",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3929/_2027-Budget-Supplement",
+      "page": 53,
+      "snippet": "Account Number Account Description 2025 Actuals 2026 Adopted Budget 2026 YTD as of 6/30/26 2027 Department Request 2027 Tentative Budget A01-1001-001-00000-A Property Taxes 48,639,479.10 52,864,609.00 52,864,608.96 56,466,900.00 54,336,950.00 A01-1001-002-00000-A Property Taxes - Chapter 217/251 86,091.98 0.00 15,000.00 0.00 0.00 A01-1081-000-00000-B PILOT Programs 2,632,369.67 2,285,000.00 1,338,459.01 2,703,162.00 2,703,162.00 A01-1090-010-00000-B Interest & Penalties 73,136.69 65,000.00 0.00 ",
+      "confidence": "high",
+      "sha256": "298aeb9226d29840d7035b3915c7d861e313dd0bc3299fbabfc1f4ba9096218b",
+      "parsed_at": "2026-09-24T17:01:37.498133+00:00"
+    },
+    {
+      "id": "2027-2027-budget-supplement-p54",
+      "document": "_2027 Budget Supplement",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3929/_2027-Budget-Supplement",
+      "page": 54,
+      "snippet": "Account Number Account Description 2025 Actuals 2026 Adopted Budget 2026 YTD as of 6/30/26 2027 Department Request 2027 Tentative Budget A01-1560-176-00000-3 Electrical Inspection Fees 121,658.00 110,000.00 36,720.00 110,000.00 110,000.00 A01-1560-177-00000-3 Fire Inspection Fees 282,564.43 300,000.00 173,446.34 350,000.00 350,000.00 A01-1560-178-00000-3 Fire Inspection - Expedite Fees 43,950.00 20,000.00 18,340.00 20,000.00 20,000.00 A01-1560-180-00000-3 Mortgage in Default Registration Fee 2,3",
+      "confidence": "high",
+      "sha256": "298aeb9226d29840d7035b3915c7d861e313dd0bc3299fbabfc1f4ba9096218b",
+      "parsed_at": "2026-09-24T17:01:37.498133+00:00"
+    },
+    {
+      "id": "2027-2027-budget-supplement-p55",
+      "document": "_2027 Budget Supplement",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3929/_2027-Budget-Supplement",
+      "page": 55,
+      "snippet": "Account Number Account Description 2025 Actuals 2026 Adopted Budget 2026 YTD as of 6/30/26 2027 Department Request 2027 Tentative Budget A01-2401-000-00000-G Interest and Earnings 1,491,222.41 50,000.00 636,132.37 600,000.00 750,000.00 A01-2401-100-00000-G Interest and Earnings - Leases 38,570.11 0.00 0.00 0.00 0.00 A01-2410-351-00000-1 Floating Dock License Fee 4,800.00 500.00 2,000.00 500.00 500.00 A01-2410-352-00000-1 Rental Income - Wireless 0.00 64,900.00 34,149.48 64,900.00 64,900.00 A01-2",
+      "confidence": "high",
+      "sha256": "298aeb9226d29840d7035b3915c7d861e313dd0bc3299fbabfc1f4ba9096218b",
+      "parsed_at": "2026-09-24T17:01:37.498133+00:00"
+    },
+    {
+      "id": "2027-2027-budget-supplement-p56",
+      "document": "_2027 Budget Supplement",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3929/_2027-Budget-Supplement",
+      "page": 56,
+      "snippet": "Account Number Account Description 2025 Actuals 2026 Adopted Budget 2026 YTD as of 6/30/26 2027 Department Request 2027 Tentative Budget A01-2706-529-00000-7 County Aid - JAB 57,106.00 5,000.00 29,487.18 5,000.00 5,000.00 A01-2706-530-00000-3 County DWI Enforcement 25,000.00 25,000.00 24,456.45 25,000.00 25,000.00 A01-2706-531-00000-J Other Local Grants 0.00 0.00 0.00 0.00 0.00 A01-2706-532-00000-3 Suffolk County - AAA Transport 0.00 0.00 2,555.00 0.00 0.00 A01-2715-000-00000-I Proceeds of Seize",
+      "confidence": "high",
+      "sha256": "298aeb9226d29840d7035b3915c7d861e313dd0bc3299fbabfc1f4ba9096218b",
+      "parsed_at": "2026-09-24T17:01:37.498133+00:00"
+    },
+    {
+      "id": "2027-2027-budget-supplement-p57",
+      "document": "_2027 Budget Supplement",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3929/_2027-Budget-Supplement",
+      "page": 57,
+      "snippet": "Account Number Account Description 2025 Actuals 2026 Adopted Budget 2026 YTD as of 6/30/26 2027 Department Request 2027 Tentative Budget A01-5031-Z18-00000-K Interfund Transfers - Z18 18,662.68 0.00 0.00 0.00 0.00 A01-9999-000-00000-0 APPROPRIATED FUND BALANCE (BUDGET PREP) 0.00 1,250,000.00 0.00 750,000.00 950,000.00 A01 Total 67,927,176.89 69,113,159.00 58,654,812.96 73,944,312.00 72,014,362.00 A04-2025-246-00000-7 In-Town Soccer Registration Fees 7,638.00 15,060.00 0.00 15,660.00 15,660.00 A0",
+      "confidence": "high",
+      "sha256": "298aeb9226d29840d7035b3915c7d861e313dd0bc3299fbabfc1f4ba9096218b",
+      "parsed_at": "2026-09-24T17:01:37.498133+00:00"
+    },
+    {
+      "id": "2027-2027-budget-supplement-p58",
+      "document": "_2027 Budget Supplement",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3929/_2027-Budget-Supplement",
+      "page": 58,
+      "snippet": "Account Number Account Description 2025 Actuals 2026 Adopted Budget 2026 YTD as of 6/30/26 2027 Department Request 2027 Tentative Budget CM2-2410-352-00000-1 Rental Income - Utilities 0.00 8,000.00 11,455.00 8,000.00 8,000.00 CM2-9999-000-00000-0 Appropriated Fund Balance (Budget Prep O 0.00 0.00 0.00 0.00 0.00 CM2 Total 299,275.33 288,100.00 280,429.41 288,100.00 288,100.00 CM4-1189-000-00000-C Other Non Property Taxes 7,033,230.27 2,979,300.00 2,232,161.75 2,979,300.00 2,979,300.00 CM4-2401-00",
+      "confidence": "high",
+      "sha256": "298aeb9226d29840d7035b3915c7d861e313dd0bc3299fbabfc1f4ba9096218b",
+      "parsed_at": "2026-09-24T17:01:37.498133+00:00"
+    },
+    {
+      "id": "2027-2027-budget-supplement-p59",
+      "document": "_2027 Budget Supplement",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3929/_2027-Budget-Supplement",
+      "page": 59,
+      "snippet": "Account Number Account Description 2025 Actuals 2026 Adopted Budget 2026 YTD as of 6/30/26 2027 Department Request 2027 Tentative Budget ES5-2401-000-00000-G Interest and Earnings 51,175.67 100.00 35,105.90 100.00 100.00 ES5-9999-000-00000-0 Appropriated Fund Balance (Budget Prep O 0.00 100,000.00 0.00 100,000.00 100,000.00 ES5 Total 2,074,796.92 2,231,988.00 864,092.15 2,417,485.00 2,405,097.00 EW1-1001-001-00000-A Property Taxes 1,501,399.99 1,542,478.00 1,542,478.01 1,585,442.00 1,585,442.00 ",
+      "confidence": "high",
+      "sha256": "298aeb9226d29840d7035b3915c7d861e313dd0bc3299fbabfc1f4ba9096218b",
+      "parsed_at": "2026-09-24T17:01:37.498133+00:00"
+    },
+    {
+      "id": "2027-2027-budget-supplement-p60",
+      "document": "_2027 Budget Supplement",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3929/_2027-Budget-Supplement",
+      "page": 60,
+      "snippet": "Account Number Account Description 2025 Actuals 2026 Adopted Budget 2026 YTD as of 6/30/26 2027 Department Request 2027 Tentative Budget SR1-3089-000-00000-8 State Aid, Recycling Coordinator 0.00 0.00 0.00 0.00 0.00 SR1-9999-000-00000-0 APPROPRIATED FUND BALANCE (BUDGET PREP) 0.00 0.00 0.00 0.00 0.00 SR1 Total 5,267,940.12 5,254,540.00 5,299,956.34 5,302,990.00 5,302,990.00 ST1-1001-001-00000-A Property Taxes 199,800.03 205,300.00 205,300.00 211,018.00 211,018.00 ST1-1081-100-00000-B PILOT - LIP",
+      "confidence": "high",
+      "sha256": "298aeb9226d29840d7035b3915c7d861e313dd0bc3299fbabfc1f4ba9096218b",
+      "parsed_at": "2026-09-24T17:01:37.498133+00:00"
+    },
+    {
       "id": "2027-2027-tentative-budget-pdf-p1",
       "document": "2027 Tentative Budget (PDF)",
       "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3928/2027-Tentative-Budget-PDF",
@@ -142900,606 +143500,6 @@
       "confidence": "high",
       "sha256": "3f63a7ac3c2fde21c720e6a8ac33b61b68f6770af3e50865ae1f54c84f189f2f",
       "parsed_at": "2026-07-31T00:48:42.463564+00:00"
-    },
-    {
-      "id": "unknown-2027-budget-supplement-p1",
-      "document": "_2027 Budget Supplement",
-      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3929/_2027-Budget-Supplement",
-      "page": 1,
-      "snippet": "Account Number Account Description 2025 Actuals 2026 Adopted Budget 2026 YTD as of 6/30/26 2027 Department Request 2027 Tentative Budget A01-1-1010-000-000-00000 Twn Brd - Legislature - Town Board 0.00 0.00 0.00 0.00 0.00 A01-1-1010-100-000-00000 Legislature - Town Board-PERSONAL SVC 0.00 0.00 0.00 0.00 0.00 A01-1-1010-101-NON-00000 Twn Brd - Personal Services 273,900.65 286,746.00 141,652.58 289,096.00 289,096.00 A01-1-1010-112-NON-00000 Twn Brd - Personal Services - Longevity 0.00 0.00 0.00 0.",
-      "confidence": "high",
-      "sha256": "298aeb9226d29840d7035b3915c7d861e313dd0bc3299fbabfc1f4ba9096218b",
-      "parsed_at": "2026-09-24T17:01:37.498133+00:00"
-    },
-    {
-      "id": "unknown-2027-budget-supplement-p2",
-      "document": "_2027 Budget Supplement",
-      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3929/_2027-Budget-Supplement",
-      "page": 2,
-      "snippet": "Account Number Account Description 2025 Actuals 2026 Adopted Budget 2026 YTD as of 6/30/26 2027 Department Request 2027 Tentative Budget A01-1-1110-464-000-00000 Just Crt - Rents & Leases - Cell Phones 616.50 0.00 -8.42 0.00 0.00 1110 Total 849,730.59 907,513.00 428,926.78 996,742.00 973,962.00 A01-1-1220-000-000-00000 Super - Town Supervisor 0.00 0.00 0.00 0.00 0.00 A01-1-1220-100-000-00000 Town Supervisor-PERSONAL SVC 0.00 0.00 0.00 0.00 0.00 A01-1-1220-101-NON-00000 Super - Personal Services ",
-      "confidence": "high",
-      "sha256": "298aeb9226d29840d7035b3915c7d861e313dd0bc3299fbabfc1f4ba9096218b",
-      "parsed_at": "2026-09-24T17:01:37.498133+00:00"
-    },
-    {
-      "id": "unknown-2027-budget-supplement-p3",
-      "document": "_2027 Budget Supplement",
-      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3929/_2027-Budget-Supplement",
-      "page": 3,
-      "snippet": "Account Number Account Description 2025 Actuals 2026 Adopted Budget 2026 YTD as of 6/30/26 2027 Department Request 2027 Tentative Budget A01-1-1310-443-000-00000 Acct - Travel & Lodging 0.00 1,500.00 0.00 0.00 0.00 A01-1-1310-490-000-00000 Acct - Miscellaneous 0.00 0.00 0.00 0.00 0.00 1310 Total 778,576.45 977,942.00 369,986.60 1,000,781.00 997,378.00 A01-1-1320-000-000-00000 Auditor - Auditor 0.00 0.00 0.00 0.00 0.00 A01-1-1320-400-000-00000 Auditor-CONTRACTUAL 0.00 0.00 0.00 0.00 0.00 A01-1-13",
-      "confidence": "high",
-      "sha256": "298aeb9226d29840d7035b3915c7d861e313dd0bc3299fbabfc1f4ba9096218b",
-      "parsed_at": "2026-09-24T17:01:37.498133+00:00"
-    },
-    {
-      "id": "unknown-2027-budget-supplement-p4",
-      "document": "_2027 Budget Supplement",
-      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3929/_2027-Budget-Supplement",
-      "page": 4,
-      "snippet": "Account Number Account Description 2025 Actuals 2026 Adopted Budget 2026 YTD as of 6/30/26 2027 Department Request 2027 Tentative Budget A01-1-1345-416-000-00000 Purch - Supplies - Office 758.39 450.00 284.79 425.00 425.00 A01-1-1345-421-000-00000 Central Purchas Postage 39,987.89 49,220.00 20,943.48 44,000.00 44,000.00 A01-1-1345-422-000-00000 Central Purchas Dues & Subscrip 445.00 345.00 0.00 445.00 445.00 A01-1-1345-442-000-00000 Central Purchas Professional Ed 547.00 800.00 294.00 665.00 665",
-      "confidence": "high",
-      "sha256": "298aeb9226d29840d7035b3915c7d861e313dd0bc3299fbabfc1f4ba9096218b",
-      "parsed_at": "2026-09-24T17:01:37.498133+00:00"
-    },
-    {
-      "id": "unknown-2027-budget-supplement-p5",
-      "document": "_2027 Budget Supplement",
-      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3929/_2027-Budget-Supplement",
-      "page": 5,
-      "snippet": "Account Number Account Description 2025 Actuals 2026 Adopted Budget 2026 YTD as of 6/30/26 2027 Department Request 2027 Tentative Budget A01-1-1410-152-000-00000 Clerk - Pers Svcs Sick Buyback 0.00 0.00 0.00 0.00 0.00 A01-1-1410-154-000-00000 Clerk - Pers Svcs Health Ins Buy Back 0.00 0.00 0.00 0.00 0.00 A01-1-1410-154-NON-00000 Clerk - Pers Svcs Health Ins Buy Back 0.00 0.00 0.00 0.00 0.00 A01-1-1410-200-000-00000 Town Clerk-EQUIP & CAP OUTLAY 0.00 0.00 0.00 0.00 0.00 A01-1-1410-240-000-00000 C",
-      "confidence": "high",
-      "sha256": "298aeb9226d29840d7035b3915c7d861e313dd0bc3299fbabfc1f4ba9096218b",
-      "parsed_at": "2026-09-24T17:01:37.498133+00:00"
-    },
-    {
-      "id": "unknown-2027-budget-supplement-p6",
-      "document": "_2027 Budget Supplement",
-      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3929/_2027-Budget-Supplement",
-      "page": 6,
-      "snippet": "Account Number Account Description 2025 Actuals 2026 Adopted Budget 2026 YTD as of 6/30/26 2027 Department Request 2027 Tentative Budget A01-1-1430-100-000-00000 Personnel Officer-PERSONAL SVC 0.00 0.00 0.00 0.00 0.00 A01-1-1430-101-NON-00000 Pers - Personal Services 162,191.63 167,584.00 75,196.15 173,921.00 173,921.00 A01-1-1430-102-000-00000 Personnel - Pers Svcs Part Time 0.00 0.00 0.00 19,200.00 19,200.00 A01-1-1430-111-NON-00000 Pers - Personal Services OT 0.00 0.00 0.00 0.00 0.00 A01-1-14",
-      "confidence": "high",
-      "sha256": "298aeb9226d29840d7035b3915c7d861e313dd0bc3299fbabfc1f4ba9096218b",
-      "parsed_at": "2026-09-24T17:01:37.498133+00:00"
-    },
-    {
-      "id": "unknown-2027-budget-supplement-p7",
-      "document": "_2027 Budget Supplement",
-      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3929/_2027-Budget-Supplement",
-      "page": 7,
-      "snippet": "Account Number Account Description 2025 Actuals 2026 Adopted Budget 2026 YTD as of 6/30/26 2027 Department Request 2027 Tentative Budget A01-1-1440-426-000-00000 Eng Fuel - Gasoline & Diesel 1,497.18 2,000.00 826.69 2,000.00 2,000.00 A01-1-1440-436-000-00000 Eng - Prof Svcs - Consultants 5,150.00 15,000.00 0.00 15,000.00 15,000.00 A01-1-1440-436-100-00000 Eng - Prof Svcs - SWPPP Consultants 0.00 0.00 0.00 0.00 0.00 A01-1-1440-442-000-00000 Eng - Prof Edu & Training 300.00 1,000.00 0.00 1,000.00 ",
-      "confidence": "high",
-      "sha256": "298aeb9226d29840d7035b3915c7d861e313dd0bc3299fbabfc1f4ba9096218b",
-      "parsed_at": "2026-09-24T17:01:37.498133+00:00"
-    },
-    {
-      "id": "unknown-2027-budget-supplement-p8",
-      "document": "_2027 Budget Supplement",
-      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3929/_2027-Budget-Supplement",
-      "page": 8,
-      "snippet": "Account Number Account Description 2025 Actuals 2026 Adopted Budget 2026 YTD as of 6/30/26 2027 Department Request 2027 Tentative Budget A01-1-1620-436-210-00000 Town Hall Opera Prof Svcs - Other 0.00 0.00 0.00 0.00 0.00 A01-1-1620-462-000-00000 Town Hall - Rents & Leases - Equip 0.00 4,000.00 0.00 4,000.00 4,000.00 A01-1-1620-470-THS-00000 Town Hall - Utl - Town Square Properties 2,495.97 5,000.00 0.00 0.00 0.00 A01-1-1620-471-000-00000 Town Hall - Utl - Telephone 24,882.73 50,000.00 14,123.74 ",
-      "confidence": "high",
-      "sha256": "298aeb9226d29840d7035b3915c7d861e313dd0bc3299fbabfc1f4ba9096218b",
-      "parsed_at": "2026-09-24T17:01:37.498133+00:00"
-    },
-    {
-      "id": "unknown-2027-budget-supplement-p9",
-      "document": "_2027 Budget Supplement",
-      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3929/_2027-Budget-Supplement",
-      "page": 9,
-      "snippet": "Account Number Account Description 2025 Actuals 2026 Adopted Budget 2026 YTD as of 6/30/26 2027 Department Request 2027 Tentative Budget A01-1-1625-404-CBF-00000 B & G R&M -Grounds - Comm Benefit Funds 0.00 0.00 0.00 0.00 0.00 A01-1-1625-405-000-00000 B&G - R&M - Vehicles 32,469.46 52,000.00 17,355.14 52,000.00 49,000.00 A01-1-1625-406-000-00000 B&G - R&M - Road Resurfacing & Patching 0.00 12,500.00 0.00 12,500.00 12,500.00 A01-1-1625-415-000-00000 B&G - Supplies 22,999.50 25,000.00 8,288.86 25,",
-      "confidence": "high",
-      "sha256": "298aeb9226d29840d7035b3915c7d861e313dd0bc3299fbabfc1f4ba9096218b",
-      "parsed_at": "2026-09-24T17:01:37.498133+00:00"
-    },
-    {
-      "id": "unknown-2027-budget-supplement-p10",
-      "document": "_2027 Budget Supplement",
-      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3929/_2027-Budget-Supplement",
-      "page": 10,
-      "snippet": "Account Number Account Description 2025 Actuals 2026 Adopted Budget 2026 YTD as of 6/30/26 2027 Department Request 2027 Tentative Budget A01-1-1680-430-ARP-00000 I.T. - License Support & Maintenance-ARP 0.00 0.00 0.00 0.00 0.00 A01-1-1680-431-000-00000 I.T. - Equip Maint Contracts 0.00 0.00 0.00 0.00 0.00 A01-1-1680-436-210-00000 I.T. - Prof Svcs - Other 112,346.42 173,800.00 39,263.64 130,600.00 130,600.00 A01-1-1680-442-000-00000 I.T. - Prof Edu & Training 0.00 0.00 0.00 3,000.00 3,000.00 1680",
-      "confidence": "high",
-      "sha256": "298aeb9226d29840d7035b3915c7d861e313dd0bc3299fbabfc1f4ba9096218b",
-      "parsed_at": "2026-09-24T17:01:37.498133+00:00"
-    },
-    {
-      "id": "unknown-2027-budget-supplement-p11",
-      "document": "_2027 Budget Supplement",
-      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3929/_2027-Budget-Supplement",
-      "page": 11,
-      "snippet": "Account Number Account Description 2025 Actuals 2026 Adopted Budget 2026 YTD as of 6/30/26 2027 Department Request 2027 Tentative Budget A01-1-1940-210-000-00000 Purchase of Land 0.00 0.00 0.00 0.00 0.00 1940 Total 0.00 0.00 0.00 0.00 0.00 A01-1-1950-000-000-00000 Taxes & Asses. - Taxes & Asses. On Prop 0.00 0.00 0.00 0.00 0.00 A01-1-1950-400-000-00000 Taxes & Asses. On Property-CONTRACTUAL 0.00 0.00 0.00 0.00 0.00 A01-1-1950-481-000-00000 Taxes & Asses. - Taxes on Town Property 121,672.39 85,00",
-      "confidence": "high",
-      "sha256": "298aeb9226d29840d7035b3915c7d861e313dd0bc3299fbabfc1f4ba9096218b",
-      "parsed_at": "2026-09-24T17:01:37.498133+00:00"
-    },
-    {
-      "id": "unknown-2027-budget-supplement-p12",
-      "document": "_2027 Budget Supplement",
-      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3929/_2027-Budget-Supplement",
-      "page": 12,
-      "snippet": "Account Number Account Description 2025 Actuals 2026 Adopted Budget 2026 YTD as of 6/30/26 2027 Department Request 2027 Tentative Budget A01-3-3120-171-000-00000 Police - Pers Svcs Sick Bonus 6,250.00 10,000.00 3,250.00 10,000.00 10,000.00 A01-3-3120-200-000-00000 Police-EQUIP & CAP OUTLAY 0.00 0.00 0.00 0.00 0.00 A01-3-3120-240-000-00000 Police - Equipment 90,066.36 70,190.00 11,819.20 72,997.00 72,997.00 A01-3-3120-240-100-00000 Police - Equipment - CAD System 0.00 0.00 0.00 0.00 0.00 A01-3-31",
-      "confidence": "high",
-      "sha256": "298aeb9226d29840d7035b3915c7d861e313dd0bc3299fbabfc1f4ba9096218b",
-      "parsed_at": "2026-09-24T17:01:37.498133+00:00"
-    },
-    {
-      "id": "unknown-2027-budget-supplement-p13",
-      "document": "_2027 Budget Supplement",
-      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3929/_2027-Budget-Supplement",
-      "page": 13,
-      "snippet": "Account Number Account Description 2025 Actuals 2026 Adopted Budget 2026 YTD as of 6/30/26 2027 Department Request 2027 Tentative Budget A01-3-3120-415-368-00000 Police - Supplies - Photographic 1,014.39 1,455.00 0.00 1,455.00 1,455.00 A01-3-3120-415-369-00000 Police - Supplies - K-9 Expenses 6,286.33 10,000.00 3,385.20 10,000.00 10,000.00 A01-3-3120-415-372-00000 Police - Supplies - First Aid 5,865.20 5,000.00 2,573.99 5,000.00 5,000.00 A01-3-3120-415-373-00000 Police - Supplies - Drone Maint. ",
-      "confidence": "high",
-      "sha256": "298aeb9226d29840d7035b3915c7d861e313dd0bc3299fbabfc1f4ba9096218b",
-      "parsed_at": "2026-09-24T17:01:37.498133+00:00"
-    },
-    {
-      "id": "unknown-2027-budget-supplement-p14",
-      "document": "_2027 Budget Supplement",
-      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3929/_2027-Budget-Supplement",
-      "page": 14,
-      "snippet": "Account Number Account Description 2025 Actuals 2026 Adopted Budget 2026 YTD as of 6/30/26 2027 Department Request 2027 Tentative Budget A01-3-3122-154-000-00000 Bay Con - Pers Svcs Health Ins Buyback 0.00 0.00 0.00 1,905.00 1,905.00 A01-3-3122-200-000-00000 Bay Constable-EQUIP & CAP OUTLAY 0.00 0.00 0.00 0.00 0.00 A01-3-3122-240-000-00000 Bay Con -Equipment 2,553.31 4,500.00 2,344.43 7,500.00 7,500.00 A01-3-3122-240-302-00000 Bay Con -Equip - Radios & Scanners 0.00 0.00 0.00 0.00 0.00 A01-3-312",
-      "confidence": "high",
-      "sha256": "298aeb9226d29840d7035b3915c7d861e313dd0bc3299fbabfc1f4ba9096218b",
-      "parsed_at": "2026-09-24T17:01:37.498133+00:00"
-    },
-    {
-      "id": "unknown-2027-budget-supplement-p15",
-      "document": "_2027 Budget Supplement",
-      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3929/_2027-Budget-Supplement",
-      "page": 15,
-      "snippet": "Account Number Account Description 2025 Actuals 2026 Adopted Budget 2026 YTD as of 6/30/26 2027 Department Request 2027 Tentative Budget A01-3-3126-240-000-00000 Youth Court - Equipment 0.00 0.00 0.00 0.00 0.00 A01-3-3126-400-000-00000 Youth Court Department-CONTRACTUAL 0.00 0.00 0.00 0.00 0.00 A01-3-3126-416-000-00000 Yth Crt - Supplies - Office 151.17 775.00 82.94 775.00 775.00 A01-3-3126-433-000-00000 Yth Crt - Profess Svcs - Legal 0.00 2,600.00 0.00 2,600.00 2,600.00 A01-3-3126-443-000-00000",
-      "confidence": "high",
-      "sha256": "298aeb9226d29840d7035b3915c7d861e313dd0bc3299fbabfc1f4ba9096218b",
-      "parsed_at": "2026-09-24T17:01:37.498133+00:00"
-    },
-    {
-      "id": "unknown-2027-budget-supplement-p16",
-      "document": "_2027 Budget Supplement",
-      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3929/_2027-Budget-Supplement",
-      "page": 16,
-      "snippet": "Account Number Account Description 2025 Actuals 2026 Adopted Budget 2026 YTD as of 6/30/26 2027 Department Request 2027 Tentative Budget A01-3-3510-400-000-00000 Control of Dogs-CONTRACTUAL 0.00 0.00 0.00 0.00 0.00 A01-3-3510-436-204-00000 Dogs - Prof Svcs - Other Animal Shelter 320,177.04 332,900.00 191,926.49 345,100.00 345,100.00 3510 Total 320,177.04 332,900.00 191,926.49 345,100.00 345,100.00 A01-3-3620-000-000-00000 Safe Insp - Building (Safety Inspection) 0.00 0.00 0.00 0.00 0.00 A01-3-36",
-      "confidence": "high",
-      "sha256": "298aeb9226d29840d7035b3915c7d861e313dd0bc3299fbabfc1f4ba9096218b",
-      "parsed_at": "2026-09-24T17:01:37.498133+00:00"
-    },
-    {
-      "id": "unknown-2027-budget-supplement-p17",
-      "document": "_2027 Budget Supplement",
-      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3929/_2027-Budget-Supplement",
-      "page": 17,
-      "snippet": "Account Number Account Description 2025 Actuals 2026 Adopted Budget 2026 YTD as of 6/30/26 2027 Department Request 2027 Tentative Budget A01-3-3625-154-000-00000 Code - Health Ins Buy Back 3,785.00 6,570.00 0.00 4,755.00 4,755.00 A01-3-3625-154-NON-00000 Code - Health Ins Buy Back 0.00 0.00 0.00 0.00 0.00 A01-3-3625-200-000-00000 Code Enforcement-EQUIP & CAP OUTLAY 0.00 0.00 0.00 0.00 0.00 A01-3-3625-240-000-00000 Code - Equipment 1,034.58 10,500.00 5,760.96 10,500.00 10,500.00 A01-3-3625-280-00",
-      "confidence": "high",
-      "sha256": "298aeb9226d29840d7035b3915c7d861e313dd0bc3299fbabfc1f4ba9096218b",
-      "parsed_at": "2026-09-24T17:01:37.498133+00:00"
-    },
-    {
-      "id": "unknown-2027-budget-supplement-p18",
-      "document": "_2027 Budget Supplement",
-      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3929/_2027-Budget-Supplement",
-      "page": 18,
-      "snippet": "Account Number Account Description 2025 Actuals 2026 Adopted Budget 2026 YTD as of 6/30/26 2027 Department Request 2027 Tentative Budget A01-5-5010-100-000-00000 Highway Administration-PERSONAL SVC 0.00 0.00 0.00 0.00 0.00 A01-5-5010-101-NON-00000 Hwy Adm - Personal Services 362,026.81 295,689.00 152,619.79 265,184.00 265,184.00 A01-5-5010-111-NON-00000 Hwy Adm - Personal Services OT 1,865.10 2,000.00 609.40 2,000.00 2,000.00 A01-5-5010-112-NON-00000 Hwy Adm - Pers Svcs Longevity 12,217.26 12,72",
-      "confidence": "high",
-      "sha256": "298aeb9226d29840d7035b3915c7d861e313dd0bc3299fbabfc1f4ba9096218b",
-      "parsed_at": "2026-09-24T17:01:37.498133+00:00"
-    },
-    {
-      "id": "unknown-2027-budget-supplement-p19",
-      "document": "_2027 Budget Supplement",
-      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3929/_2027-Budget-Supplement",
-      "page": 19,
-      "snippet": "Account Number Account Description 2025 Actuals 2026 Adopted Budget 2026 YTD as of 6/30/26 2027 Department Request 2027 Tentative Budget A01-6-6772-153-000-00000 Aging - Pers Svcs Mgmt Buy Back 5,122.51 6,000.00 0.00 6,000.00 6,000.00 A01-6-6772-154-000-00000 Aging - Pers Svcs Health Ins Buy Back 3,855.00 3,810.00 1,905.00 7,255.00 7,255.00 A01-6-6772-154-NON-00000 Aging - Pers Svcs Health Ins Buy Back 0.00 0.00 0.00 0.00 0.00 A01-6-6772-200-000-00000 Programs for the Aging-EQUIP & CAP OUTLA 0.0",
-      "confidence": "high",
-      "sha256": "298aeb9226d29840d7035b3915c7d861e313dd0bc3299fbabfc1f4ba9096218b",
-      "parsed_at": "2026-09-24T17:01:37.498133+00:00"
-    },
-    {
-      "id": "unknown-2027-budget-supplement-p20",
-      "document": "_2027 Budget Supplement",
-      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3929/_2027-Budget-Supplement",
-      "page": 20,
-      "snippet": "Account Number Account Description 2025 Actuals 2026 Adopted Budget 2026 YTD as of 6/30/26 2027 Department Request 2027 Tentative Budget A01-7-7020-415-000-00000 Rec Adm - Supplies 2,793.54 5,500.00 1,712.64 5,500.00 5,500.00 A01-7-7020-421-000-00000 Rec Adm - Postage 6,000.00 9,500.00 0.00 9,500.00 9,500.00 A01-7-7020-422-000-00000 Rec Adm - Dues & Subscriptions 2,342.47 2,000.00 1,243.00 2,000.00 2,000.00 A01-7-7020-424-000-00000 Rec Adm - Printing 8,191.75 10,500.00 6,974.00 10,500.00 10,500.",
-      "confidence": "high",
-      "sha256": "298aeb9226d29840d7035b3915c7d861e313dd0bc3299fbabfc1f4ba9096218b",
-      "parsed_at": "2026-09-24T17:01:37.498133+00:00"
-    },
-    {
-      "id": "unknown-2027-budget-supplement-p21",
-      "document": "_2027 Budget Supplement",
-      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3929/_2027-Budget-Supplement",
-      "page": 21,
-      "snippet": "Account Number Account Description 2025 Actuals 2026 Adopted Budget 2026 YTD as of 6/30/26 2027 Department Request 2027 Tentative Budget A01-7-7180-220-000-00000 Beaches - Buildings 0.00 0.00 0.00 0.00 0.00 A01-7-7180-230-000-00000 Beach - Improvements 13,660.00 20,000.00 5,320.00 20,000.00 20,000.00 A01-7-7180-240-000-00000 Beach - Equipment 0.00 2,500.00 0.00 2,500.00 2,500.00 A01-7-7180-400-000-00000 Beaches-CONTRACTUAL 0.00 0.00 0.00 0.00 0.00 A01-7-7180-401-000-00000 Beach - R&M 0.00 0.00 0",
-      "confidence": "high",
-      "sha256": "298aeb9226d29840d7035b3915c7d861e313dd0bc3299fbabfc1f4ba9096218b",
-      "parsed_at": "2026-09-24T17:01:37.498133+00:00"
-    },
-    {
-      "id": "unknown-2027-budget-supplement-p22",
-      "document": "_2027 Budget Supplement",
-      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3929/_2027-Budget-Supplement",
-      "page": 22,
-      "snippet": "Account Number Account Description 2025 Actuals 2026 Adopted Budget 2026 YTD as of 6/30/26 2027 Department Request 2027 Tentative Budget A01-7-7510-102-000-00000 Town Historian - Personal Services 0.00 10,200.00 4,322.45 10,200.00 10,200.00 A01-7-7510-102-NON-00000 Hist - Personal Services Part Time 0.00 0.00 0.00 0.00 0.00 A01-7-7510-200-000-00000 Town Historian-EQUIP & CAP OUTLAY 0.00 0.00 0.00 0.00 0.00 A01-7-7510-240-000-00000 Hist - Equipment 0.00 0.00 0.00 0.00 0.00 A01-7-7510-400-000-0000",
-      "confidence": "high",
-      "sha256": "298aeb9226d29840d7035b3915c7d861e313dd0bc3299fbabfc1f4ba9096218b",
-      "parsed_at": "2026-09-24T17:01:37.498133+00:00"
-    },
-    {
-      "id": "unknown-2027-budget-supplement-p23",
-      "document": "_2027 Budget Supplement",
-      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3929/_2027-Budget-Supplement",
-      "page": 23,
-      "snippet": "Account Number Account Description 2025 Actuals 2026 Adopted Budget 2026 YTD as of 6/30/26 2027 Department Request 2027 Tentative Budget A01-7-7620-400-000-00000 Adult Recreation-CONTRACTUAL 0.00 0.00 0.00 0.00 0.00 A01-7-7620-463-000-00000 Adlt Rec - Rents & Leases - Vehicles 0.00 0.00 0.00 0.00 0.00 7620 Total 0.00 0.00 0.00 0.00 0.00 A01-7-7988-000-000-00000 InterGen - Intergenerational Program 0.00 0.00 0.00 0.00 0.00 A01-7-7988-100-000-00000 InterGen - PERSONAL SVC 0.00 0.00 0.00 0.00 0.00 ",
-      "confidence": "high",
-      "sha256": "298aeb9226d29840d7035b3915c7d861e313dd0bc3299fbabfc1f4ba9096218b",
-      "parsed_at": "2026-09-24T17:01:37.498133+00:00"
-    },
-    {
-      "id": "unknown-2027-budget-supplement-p24",
-      "document": "_2027 Budget Supplement",
-      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3929/_2027-Budget-Supplement",
-      "page": 24,
-      "snippet": "Account Number Account Description 2025 Actuals 2026 Adopted Budget 2026 YTD as of 6/30/26 2027 Department Request 2027 Tentative Budget A01-8-8020-154-NON-00000 Plan - Pers Svcs Health Insurance BB 0.00 0.00 0.00 0.00 0.00 A01-8-8020-200-000-00000 Planning - EQUIP & CAP OUTLAY 0.00 0.00 0.00 0.00 0.00 A01-8-8020-240-000-00000 Planning - Equipment 0.00 0.00 0.00 0.00 0.00 A01-8-8020-400-000-00000 Planning Department-CONTRACTUAL 0.00 0.00 0.00 0.00 0.00 A01-8-8020-416-000-00000 Plan - Supplies - ",
-      "confidence": "high",
-      "sha256": "298aeb9226d29840d7035b3915c7d861e313dd0bc3299fbabfc1f4ba9096218b",
-      "parsed_at": "2026-09-24T17:01:37.498133+00:00"
-    },
-    {
-      "id": "unknown-2027-budget-supplement-p25",
-      "document": "_2027 Budget Supplement",
-      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3929/_2027-Budget-Supplement",
-      "page": 25,
-      "snippet": "Account Number Account Description 2025 Actuals 2026 Adopted Budget 2026 YTD as of 6/30/26 2027 Department Request 2027 Tentative Budget A01-8-8160-402-000-00000 Refuse -R&M - Landfill 61,513.11 70,000.00 3,315.40 70,000.00 70,000.00 A01-8-8160-405-000-00000 Refuse -R&M - Vehicles 9,554.83 20,000.00 2,384.96 15,000.00 15,000.00 A01-8-8160-425-000-00000 Refuse -Uniforms 1,628.02 2,000.00 1,755.54 2,000.00 2,000.00 A01-8-8160-426-000-00000 Refuse Fuel - Gasoline & Diesel 8,393.12 19,000.00 4,826.9",
-      "confidence": "high",
-      "sha256": "298aeb9226d29840d7035b3915c7d861e313dd0bc3299fbabfc1f4ba9096218b",
-      "parsed_at": "2026-09-24T17:01:37.498133+00:00"
-    },
-    {
-      "id": "unknown-2027-budget-supplement-p26",
-      "document": "_2027 Budget Supplement",
-      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3929/_2027-Budget-Supplement",
-      "page": 26,
-      "snippet": "Account Number Account Description 2025 Actuals 2026 Adopted Budget 2026 YTD as of 6/30/26 2027 Department Request 2027 Tentative Budget A01-8-8686-450-000-00000 CDA - Special Events 30,000.00 43,200.00 0.00 40,443.00 15,000.00 A01-8-8686-464-000-00000 CDA -Rents & Leases - Cell Phones 0.00 0.00 0.00 0.00 0.00 A01-8-8686-471-000-00000 CDA -Utl - Telephone 700.00 700.00 700.00 700.00 700.00 A01-8-8686-472-000-00000 CDA - Utl - Town Square 0.00 0.00 0.00 0.00 0.00 A01-8-8686-487-000-00000 Gen Liab",
-      "confidence": "high",
-      "sha256": "298aeb9226d29840d7035b3915c7d861e313dd0bc3299fbabfc1f4ba9096218b",
-      "parsed_at": "2026-09-24T17:01:37.498133+00:00"
-    },
-    {
-      "id": "unknown-2027-budget-supplement-p27",
-      "document": "_2027 Budget Supplement",
-      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3929/_2027-Budget-Supplement",
-      "page": 27,
-      "snippet": "Account Number Account Description 2025 Actuals 2026 Adopted Budget 2026 YTD as of 6/30/26 2027 Department Request 2027 Tentative Budget A01-9-9050-400-000-00000 Unemployment Insurance-CONTRACTUAL 0.00 0.00 0.00 0.00 0.00 A01-9-9050-818-000-00000 Unemp - Self Insurance Payments - Unemp 13,895.32 30,000.00 18,742.53 30,000.00 30,000.00 9050 Total 13,895.32 30,000.00 18,742.53 30,000.00 30,000.00 A01-9-9055-000-000-00000 Fringe -Miscellaneous Fringe Benefits 0.00 0.00 0.00 0.00 0.00 A01-9-9055-400",
-      "confidence": "high",
-      "sha256": "298aeb9226d29840d7035b3915c7d861e313dd0bc3299fbabfc1f4ba9096218b",
-      "parsed_at": "2026-09-24T17:01:37.498133+00:00"
-    },
-    {
-      "id": "unknown-2027-budget-supplement-p28",
-      "document": "_2027 Budget Supplement",
-      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3929/_2027-Budget-Supplement",
-      "page": 28,
-      "snippet": "Account Number Account Description 2025 Actuals 2026 Adopted Budget 2026 YTD as of 6/30/26 2027 Department Request 2027 Tentative Budget A01-9-9901-900-SM1-00000 Transfers to Other Funds - SM1 0.00 0.00 0.00 0.00 0.00 A01-9-9901-900-V01-00000 Trf - Interfund Trf - Gen Fund Debt Svc 2,596,775.14 3,054,850.00 1,338,214.77 2,048,119.00 2,048,119.00 A01-9-9901-900-Z14-00000 Transfers to Other Funds - Z14 0.00 0.00 0.00 0.00 0.00 9901 Total 3,821,463.38 3,274,950.00 1,392,714.77 2,268,219.00 2,268,21",
-      "confidence": "high",
-      "sha256": "298aeb9226d29840d7035b3915c7d861e313dd0bc3299fbabfc1f4ba9096218b",
-      "parsed_at": "2026-09-24T17:01:37.498133+00:00"
-    },
-    {
-      "id": "unknown-2027-budget-supplement-p29",
-      "document": "_2027 Budget Supplement",
-      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3929/_2027-Budget-Supplement",
-      "page": 29,
-      "snippet": "Account Number Account Description 2025 Actuals 2026 Adopted Budget 2026 YTD as of 6/30/26 2027 Department Request 2027 Tentative Budget A04-7-7314-400-000-00000 Lacrosse Program-CONTRACTUAL 0.00 0.00 0.00 0.00 0.00 A04-7-7314-417-000-00000 Lax - Supplies - Program 3,438.48 6,765.00 5,393.49 7,365.00 7,365.00 A04-7-7314-425-000-00000 Lax - Uniforms 4,985.80 10,700.00 5,913.19 11,600.00 11,600.00 A04-7-7314-455-215-00000 Lax - Lacrosse Referee Exp 3,440.00 7,260.00 3,492.50 7,760.00 7,760.00 A04-",
-      "confidence": "high",
-      "sha256": "298aeb9226d29840d7035b3915c7d861e313dd0bc3299fbabfc1f4ba9096218b",
-      "parsed_at": "2026-09-24T17:01:37.498133+00:00"
-    },
-    {
-      "id": "unknown-2027-budget-supplement-p30",
-      "document": "_2027 Budget Supplement",
-      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3929/_2027-Budget-Supplement",
-      "page": 30,
-      "snippet": "Account Number Account Description 2025 Actuals 2026 Adopted Budget 2026 YTD as of 6/30/26 2027 Department Request 2027 Tentative Budget A06-7-7310-200-000-00000 Youth Programs-EQUIP & CAP OUTLAY 0.00 0.00 0.00 0.00 0.00 A06-7-7310-240-000-00000 Yth Prg - Equipment 0.00 0.00 0.00 0.00 0.00 A06-7-7310-400-000-00000 Youth Programs-CONTRACTUAL 0.00 0.00 0.00 0.00 0.00 A06-7-7310-415-000-00000 Yth Prg - Supplies 8,577.24 12,500.00 1,299.78 12,500.00 12,500.00 A06-7-7310-436-210-00000 Yth Prg - Prof ",
-      "confidence": "high",
-      "sha256": "298aeb9226d29840d7035b3915c7d861e313dd0bc3299fbabfc1f4ba9096218b",
-      "parsed_at": "2026-09-24T17:01:37.498133+00:00"
-    },
-    {
-      "id": "unknown-2027-budget-supplement-p31",
-      "document": "_2027 Budget Supplement",
-      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3929/_2027-Budget-Supplement",
-      "page": 31,
-      "snippet": "Account Number Account Description 2025 Actuals 2026 Adopted Budget 2026 YTD as of 6/30/26 2027 Department Request 2027 Tentative Budget A06-7-7624-415-000-00000 Rec InstSupplies 0.00 0.00 0.00 0.00 0.00 A06-7-7624-436-210-00000 Rec Inst Prof Svcs - Other 36,631.17 65,000.00 15,325.89 65,000.00 65,000.00 7624 Total 36,631.17 65,000.00 15,325.89 65,000.00 65,000.00 A06-7-7625-000-000-00000 Softball - Softball Programs 0.00 0.00 0.00 0.00 0.00 A06-7-7625-100-000-00000 Softball Programs-PERSONAL SV",
-      "confidence": "high",
-      "sha256": "298aeb9226d29840d7035b3915c7d861e313dd0bc3299fbabfc1f4ba9096218b",
-      "parsed_at": "2026-09-24T17:01:37.498133+00:00"
-    },
-    {
-      "id": "unknown-2027-budget-supplement-p32",
-      "document": "_2027 Budget Supplement",
-      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3929/_2027-Budget-Supplement",
-      "page": 32,
-      "snippet": "Account Number Account Description 2025 Actuals 2026 Adopted Budget 2026 YTD as of 6/30/26 2027 Department Request 2027 Tentative Budget A06-9-9990-000-000-00000 Fund Balance Contribution 0.00 80,024.00 0.00 76,952.00 79,362.00 9990 Total 0.00 80,024.00 0.00 76,952.00 79,362.00 CM1-1-1910-000-000-00000 Unall Ins - Unallocated Insurance 0.00 0.00 0.00 0.00 0.00 CM1-1-1910-400-000-00000 Unallocated Insurance-CONTRACTUAL 0.00 0.00 0.00 0.00 0.00 CM1-1-1910-487-000-00000 Gen Liab - Insurance Premium",
-      "confidence": "high",
-      "sha256": "298aeb9226d29840d7035b3915c7d861e313dd0bc3299fbabfc1f4ba9096218b",
-      "parsed_at": "2026-09-24T17:01:37.498133+00:00"
-    },
-    {
-      "id": "unknown-2027-budget-supplement-p33",
-      "document": "_2027 Budget Supplement",
-      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3929/_2027-Budget-Supplement",
-      "page": 33,
-      "snippet": "Account Number Account Description 2025 Actuals 2026 Adopted Budget 2026 YTD as of 6/30/26 2027 Department Request 2027 Tentative Budget CM2-7-7230-474-000-00000 Docs - Utl - Water 1,058.10 1,200.00 124.60 1,200.00 1,200.00 CM2-7-7230-475-000-00000 Docs - Utl - WiFi 3,796.90 4,200.00 2,069.40 4,200.00 4,200.00 CM2-7-7230-495-000-00000 Docs - Administrative Charges 54,600.00 25,400.00 0.00 26,200.00 26,200.00 7230 Total 137,174.50 102,613.00 42,361.29 101,004.00 103,039.00 CM2-9-9010-000-000-0000",
-      "confidence": "high",
-      "sha256": "298aeb9226d29840d7035b3915c7d861e313dd0bc3299fbabfc1f4ba9096218b",
-      "parsed_at": "2026-09-24T17:01:37.498133+00:00"
-    },
-    {
-      "id": "unknown-2027-budget-supplement-p34",
-      "document": "_2027 Budget Supplement",
-      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3929/_2027-Budget-Supplement",
-      "page": 34,
-      "snippet": "Account Number Account Description 2025 Actuals 2026 Adopted Budget 2026 YTD as of 6/30/26 2027 Department Request 2027 Tentative Budget CM4-1-1420-490-000-00000 Miscellaneous 0.00 0.00 0.00 0.00 0.00 1420 Total 0.00 0.00 0.00 0.00 0.00 CM4-1-1940-210-000-00000 Purchase of Land 75,000.00 0.00 0.00 0.00 0.00 1940 Total 75,000.00 0.00 0.00 0.00 0.00 CM4-9-9901-000-000-00000 Trf - Transfers to Other Funds 0.00 0.00 0.00 0.00 0.00 CM4-9-9901-400-000-00000 Transfers to Other Funds-CONTRACTUAL 0.00 0.",
-      "confidence": "high",
-      "sha256": "298aeb9226d29840d7035b3915c7d861e313dd0bc3299fbabfc1f4ba9096218b",
-      "parsed_at": "2026-09-24T17:01:37.498133+00:00"
-    },
-    {
-      "id": "unknown-2027-budget-supplement-p35",
-      "document": "_2027 Budget Supplement",
-      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3929/_2027-Budget-Supplement",
-      "page": 35,
-      "snippet": "Account Number Account Description 2025 Actuals 2026 Adopted Budget 2026 YTD as of 6/30/26 2027 Department Request 2027 Tentative Budget DA1-5-5130-400-000-00000 Machinery-CONTRACTUAL 0.00 0.00 0.00 0.00 0.00 DA1-5-5130-403-000-00000 Mach -R&M - Equipment 446,379.93 491,590.00 270,771.12 500,000.00 500,000.00 DA1-5-5130-426-000-00000 Mach Fuel - Gasoline & Diesel 0.00 0.00 0.00 0.00 0.00 DA1-5-5130-462-000-00000 Rental - Equipment 0.00 0.00 0.00 0.00 0.00 5130 Total 1,511,671.96 728,090.00 904,2",
-      "confidence": "high",
-      "sha256": "298aeb9226d29840d7035b3915c7d861e313dd0bc3299fbabfc1f4ba9096218b",
-      "parsed_at": "2026-09-24T17:01:37.498133+00:00"
-    },
-    {
-      "id": "unknown-2027-budget-supplement-p36",
-      "document": "_2027 Budget Supplement",
-      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3929/_2027-Budget-Supplement",
-      "page": 36,
-      "snippet": "Account Number Account Description 2025 Actuals 2026 Adopted Budget 2026 YTD as of 6/30/26 2027 Department Request 2027 Tentative Budget 9030 Total 187,832.32 204,973.00 84,655.13 219,022.00 222,501.00 DA1-9-9040-000-000-00000 WC - Workers' Compensation 0.00 0.00 0.00 0.00 0.00 DA1-9-9040-400-000-00000 Workers' Compensation -CONTRACTUAL 0.00 0.00 0.00 0.00 0.00 DA1-9-9040-887-000-00000 WC - Insurance Premuim 148,678.79 168,200.00 155,871.22 182,142.00 182,142.00 DA1-9-9040-888-000-00000 WC - Cla",
-      "confidence": "high",
-      "sha256": "298aeb9226d29840d7035b3915c7d861e313dd0bc3299fbabfc1f4ba9096218b",
-      "parsed_at": "2026-09-24T17:01:37.498133+00:00"
-    },
-    {
-      "id": "unknown-2027-budget-supplement-p37",
-      "document": "_2027 Budget Supplement",
-      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3929/_2027-Budget-Supplement",
-      "page": 37,
-      "snippet": "Account Number Account Description 2025 Actuals 2026 Adopted Budget 2026 YTD as of 6/30/26 2027 Department Request 2027 Tentative Budget ES1-1-1995-400-000-00000 Loss on Disposal of Fixed Assets 0.00 0.00 0.00 0.00 0.00 1995 Total 0.00 0.00 0.00 0.00 0.00 ES1-8-8110-000-000-00000 Sewer Adm - Sewer Administration 0.00 0.00 0.00 0.00 0.00 ES1-8-8110-100-000-00000 Sewer Administration-PERSONAL SVC 0.00 0.00 0.00 0.00 0.00 ES1-8-8110-101-NON-00000 Sewer Adm - Personal Services 832,737.83 749,817.00 ",
-      "confidence": "high",
-      "sha256": "298aeb9226d29840d7035b3915c7d861e313dd0bc3299fbabfc1f4ba9096218b",
-      "parsed_at": "2026-09-24T17:01:37.498133+00:00"
-    },
-    {
-      "id": "unknown-2027-budget-supplement-p38",
-      "document": "_2027 Budget Supplement",
-      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3929/_2027-Budget-Supplement",
-      "page": 38,
-      "snippet": "Account Number Account Description 2025 Actuals 2026 Adopted Budget 2026 YTD as of 6/30/26 2027 Department Request 2027 Tentative Budget ES1-8-8130-415-000-00000 Sewer Trmt - Chlorine & Chemical Expense 113,465.23 140,000.00 39,856.86 145,000.00 145,000.00 ES1-8-8130-415-100-00000 Sewer Trmt - Plant Supplies 5,957.04 11,000.00 1,104.32 12,000.00 12,000.00 ES1-8-8130-415-372-00000 Sewer Trmt - Supplies - First Aid 398.71 500.00 29.82 500.00 500.00 ES1-8-8130-415-500-00000 Sewer Treatment - Lab Su",
-      "confidence": "high",
-      "sha256": "298aeb9226d29840d7035b3915c7d861e313dd0bc3299fbabfc1f4ba9096218b",
-      "parsed_at": "2026-09-24T17:01:37.498133+00:00"
-    },
-    {
-      "id": "unknown-2027-budget-supplement-p39",
-      "document": "_2027 Budget Supplement",
-      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3929/_2027-Budget-Supplement",
-      "page": 39,
-      "snippet": "Account Number Account Description 2025 Actuals 2026 Adopted Budget 2026 YTD as of 6/30/26 2027 Department Request 2027 Tentative Budget ES1-9-9040-887-000-00000 WC - Insurance Premuim 13,857.77 15,700.00 14,528.08 16,977.00 16,977.00 ES1-9-9040-888-000-00000 WC - Claim Payments 3,300.00 34,800.00 10,000.00 34,800.00 34,800.00 9040 Total 17,157.77 50,500.00 24,528.08 51,777.00 51,777.00 ES1-9-9055-000-000-00000 Fringe -Miscellaneous Fringe Benefits 0.00 0.00 0.00 0.00 0.00 ES1-9-9055-400-000-000",
-      "confidence": "high",
-      "sha256": "298aeb9226d29840d7035b3915c7d861e313dd0bc3299fbabfc1f4ba9096218b",
-      "parsed_at": "2026-09-24T17:01:37.498133+00:00"
-    },
-    {
-      "id": "unknown-2027-budget-supplement-p40",
-      "document": "_2027 Budget Supplement",
-      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3929/_2027-Budget-Supplement",
-      "page": 40,
-      "snippet": "Account Number Account Description 2025 Actuals 2026 Adopted Budget 2026 YTD as of 6/30/26 2027 Department Request 2027 Tentative Budget ES3-8-8130-101-NON-00000 Sewer Trmt - Personal Services 242,786.61 158,039.00 73,982.97 177,589.00 177,589.00 ES3-8-8130-111-000-00000 Sewer Trmt - Personal Services OT 0.00 0.00 0.00 0.00 0.00 ES3-8-8130-111-NON-00000 Sewer Treatment - NON Overtime 1,126.90 4,388.00 140.12 4,388.00 4,388.00 ES3-8-8130-112-NON-00000 Sewer Trmt - Pers Svcs Longevity 0.00 2,231.0",
-      "confidence": "high",
-      "sha256": "298aeb9226d29840d7035b3915c7d861e313dd0bc3299fbabfc1f4ba9096218b",
-      "parsed_at": "2026-09-24T17:01:37.498133+00:00"
-    },
-    {
-      "id": "unknown-2027-budget-supplement-p41",
-      "document": "_2027 Budget Supplement",
-      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3929/_2027-Budget-Supplement",
-      "page": 41,
-      "snippet": "Account Number Account Description 2025 Actuals 2026 Adopted Budget 2026 YTD as of 6/30/26 2027 Department Request 2027 Tentative Budget ES3-8-8130-482-000-00000 Sewer Trmt - Waste Disposal 62,145.55 29,800.00 6,643.24 40,000.00 40,000.00 ES3-8-8130-490-000-00000 Sewer Trmt - Miscellaneous 0.00 0.00 0.00 1,000.00 1,000.00 8130 Total 480,161.93 405,943.00 137,413.89 478,554.00 475,139.00 ES3-9-9010-000-000-00000 Ret -Retirement 0.00 0.00 0.00 0.00 0.00 ES3-9-9010-400-000-00000 Retirement-CONTRACT",
-      "confidence": "high",
-      "sha256": "298aeb9226d29840d7035b3915c7d861e313dd0bc3299fbabfc1f4ba9096218b",
-      "parsed_at": "2026-09-24T17:01:37.498133+00:00"
-    },
-    {
-      "id": "unknown-2027-budget-supplement-p42",
-      "document": "_2027 Budget Supplement",
-      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3929/_2027-Budget-Supplement",
-      "page": 42,
-      "snippet": "Account Number Account Description 2025 Actuals 2026 Adopted Budget 2026 YTD as of 6/30/26 2027 Department Request 2027 Tentative Budget 1910 Total 28,262.58 31,900.00 30,638.44 34,364.00 34,364.00 ES5-1-1994-000-000-00000 Depr - Depreciation 0.00 0.00 0.00 0.00 0.00 ES5-1-1994-400-000-00000 Depreciation-CONTRACTUAL 0.00 0.00 0.00 0.00 0.00 ES5-1-1994-492-000-00000 Depr - Depreciation 41,383.43 100,000.00 0.00 100,000.00 100,000.00 1994 Total 41,383.43 100,000.00 0.00 100,000.00 100,000.00 ES5-1",
-      "confidence": "high",
-      "sha256": "298aeb9226d29840d7035b3915c7d861e313dd0bc3299fbabfc1f4ba9096218b",
-      "parsed_at": "2026-09-24T17:01:37.498133+00:00"
-    },
-    {
-      "id": "unknown-2027-budget-supplement-p43",
-      "document": "_2027 Budget Supplement",
-      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3929/_2027-Budget-Supplement",
-      "page": 43,
-      "snippet": "Account Number Account Description 2025 Actuals 2026 Adopted Budget 2026 YTD as of 6/30/26 2027 Department Request 2027 Tentative Budget ES5-8-8189-426-000-00000 Scavenger Waste Fuel 0.00 0.00 0.00 0.00 0.00 ES5-8-8189-426-050-00000 Scav Waste Fuel - Gasoline & Diesel 542.86 2,000.00 298.28 2,000.00 2,000.00 ES5-8-8189-426-075-00000 Scav Waste Fuel - Plant Fuel 802.59 1,700.00 459.48 1,700.00 1,700.00 ES5-8-8189-431-000-00000 Scav Waste - Alarm Contract 417.00 500.00 312.75 800.00 800.00 ES5-8-8",
-      "confidence": "high",
-      "sha256": "298aeb9226d29840d7035b3915c7d861e313dd0bc3299fbabfc1f4ba9096218b",
-      "parsed_at": "2026-09-24T17:01:37.498133+00:00"
-    },
-    {
-      "id": "unknown-2027-budget-supplement-p44",
-      "document": "_2027 Budget Supplement",
-      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3929/_2027-Budget-Supplement",
-      "page": 44,
-      "snippet": "Account Number Account Description 2025 Actuals 2026 Adopted Budget 2026 YTD as of 6/30/26 2027 Department Request 2027 Tentative Budget ES5-9-9710-000-000-00000 Bond Pmt - Serial Bond Payments 0.00 0.00 0.00 0.00 0.00 ES5-9-9710-400-000-00000 Serial Bond Payments-CONTRACTUAL 0.00 0.00 0.00 0.00 0.00 ES5-9-9710-600-000-00000 Bond Pmt - Debt Principal 0.00 0.00 0.00 0.00 0.00 ES5-9-9710-700-000-00000 Bond Pmt - Interest Expense 0.00 0.00 0.00 0.00 0.00 9710 Total 0.00 0.00 0.00 0.00 0.00 ES5-9-99",
-      "confidence": "high",
-      "sha256": "298aeb9226d29840d7035b3915c7d861e313dd0bc3299fbabfc1f4ba9096218b",
-      "parsed_at": "2026-09-24T17:01:37.498133+00:00"
-    },
-    {
-      "id": "unknown-2027-budget-supplement-p45",
-      "document": "_2027 Budget Supplement",
-      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3929/_2027-Budget-Supplement",
-      "page": 45,
-      "snippet": "Account Number Account Description 2025 Actuals 2026 Adopted Budget 2026 YTD as of 6/30/26 2027 Department Request 2027 Tentative Budget EW1-8-8310-154-000-00000 Water AdmPers Svcs Health Ins Buy Back 9,020.00 9,215.00 0.00 15,915.00 15,915.00 EW1-8-8310-154-NON-00000 Water AdmPers Svcs Health Ins Buy Back 0.00 0.00 0.00 0.00 0.00 EW1-8-8310-200-000-00000 Water Admin - EQUIP & CAP OUTLAY 0.00 0.00 0.00 0.00 0.00 EW1-8-8310-240-000-00000 Water Admin - Equipment 0.00 0.00 0.00 0.00 0.00 EW1-8-8310",
-      "confidence": "high",
-      "sha256": "298aeb9226d29840d7035b3915c7d861e313dd0bc3299fbabfc1f4ba9096218b",
-      "parsed_at": "2026-09-24T17:01:37.498133+00:00"
-    },
-    {
-      "id": "unknown-2027-budget-supplement-p46",
-      "document": "_2027 Budget Supplement",
-      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3929/_2027-Budget-Supplement",
-      "page": 46,
-      "snippet": "Account Number Account Description 2025 Actuals 2026 Adopted Budget 2026 YTD as of 6/30/26 2027 Department Request 2027 Tentative Budget EW1-9-9010-000-000-00000 Ret -Retirement 0.00 0.00 0.00 0.00 0.00 EW1-9-9010-400-000-00000 Retirement-CONTRACTUAL 0.00 0.00 0.00 0.00 0.00 EW1-9-9010-801-NON-00000 Ret -NYS Retirement Non-Uni Pers 248,546.00 287,427.00 0.00 350,222.00 309,230.00 EW1-9-9010-810-NON-00000 Pension Expense - NPL -26,430.00 0.00 0.00 0.00 0.00 9010 Total 222,116.00 287,427.00 0.00 3",
-      "confidence": "high",
-      "sha256": "298aeb9226d29840d7035b3915c7d861e313dd0bc3299fbabfc1f4ba9096218b",
-      "parsed_at": "2026-09-24T17:01:37.498133+00:00"
-    },
-    {
-      "id": "unknown-2027-budget-supplement-p47",
-      "document": "_2027 Budget Supplement",
-      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3929/_2027-Budget-Supplement",
-      "page": 47,
-      "snippet": "Account Number Account Description 2025 Actuals 2026 Adopted Budget 2026 YTD as of 6/30/26 2027 Department Request 2027 Tentative Budget 9990 Total 0.00 0.00 0.00 0.00 0.00 MS1-1-1710-488-000-00000 Workers Comp - Claim Payments 319,767.34 1,050,000.00 418,570.32 1,050,000.00 1,050,000.00 1710 Total 319,767.34 1,050,000.00 418,570.32 1,050,000.00 1,050,000.00 MS2-1-1930-487-000-00000 Risk Retention - Self Insurance Payments 533,866.69 450,000.00 318,266.32 450,000.00 450,000.00 1930 Total 533,866",
-      "confidence": "high",
-      "sha256": "298aeb9226d29840d7035b3915c7d861e313dd0bc3299fbabfc1f4ba9096218b",
-      "parsed_at": "2026-09-24T17:01:37.498133+00:00"
-    },
-    {
-      "id": "unknown-2027-budget-supplement-p48",
-      "document": "_2027 Budget Supplement",
-      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3929/_2027-Budget-Supplement",
-      "page": 48,
-      "snippet": "Account Number Account Description 2025 Actuals 2026 Adopted Budget 2026 YTD as of 6/30/26 2027 Department Request 2027 Tentative Budget 5182 Total 668,880.91 748,298.00 317,685.72 759,406.00 766,922.00 SL1-9-9010-000-000-00000 Ret -Retirement 0.00 0.00 0.00 0.00 0.00 SL1-9-9010-400-000-00000 Retirement-CONTRACTUAL 0.00 0.00 0.00 0.00 0.00 SL1-9-9010-801-NON-00000 Ret -NYS Retirement Non-Uni Pers 34,043.00 46,365.00 0.00 56,542.00 49,123.00 9010 Total 34,043.00 46,365.00 0.00 56,542.00 49,123.00",
-      "confidence": "high",
-      "sha256": "298aeb9226d29840d7035b3915c7d861e313dd0bc3299fbabfc1f4ba9096218b",
-      "parsed_at": "2026-09-24T17:01:37.498133+00:00"
-    },
-    {
-      "id": "unknown-2027-budget-supplement-p49",
-      "document": "_2027 Budget Supplement",
-      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3929/_2027-Budget-Supplement",
-      "page": 49,
-      "snippet": "Account Number Account Description 2025 Actuals 2026 Adopted Budget 2026 YTD as of 6/30/26 2027 Department Request 2027 Tentative Budget SM1-4-4540-240-000-00000 Amb - Equipment 220,000.00 0.00 0.00 0.00 0.00 SM1-4-4540-240-CBF-00000 Ambulance - Equip CBF 0.00 0.00 0.00 0.00 0.00 SM1-4-4540-280-000-00000 Amb - Vehicles 59,806.98 105,000.00 0.00 85,000.00 85,000.00 SM1-4-4540-400-000-00000 Ambulance-CONTRACTUAL 0.00 0.00 0.00 0.00 0.00 SM1-4-4540-402-000-00000 Amb - R&M - Buildings 8,119.92 25,00",
-      "confidence": "high",
-      "sha256": "298aeb9226d29840d7035b3915c7d861e313dd0bc3299fbabfc1f4ba9096218b",
-      "parsed_at": "2026-09-24T17:01:37.498133+00:00"
-    },
-    {
-      "id": "unknown-2027-budget-supplement-p50",
-      "document": "_2027 Budget Supplement",
-      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3929/_2027-Budget-Supplement",
-      "page": 50,
-      "snippet": "Account Number Account Description 2025 Actuals 2026 Adopted Budget 2026 YTD as of 6/30/26 2027 Department Request 2027 Tentative Budget SR1-8-8160-400-000-00000 Refuse - Contractual 341,200.00 385,400.00 0.00 412,300.00 412,300.00 SR1-8-8160-405-000-00000 Refuse - R&M - Vehicles 738.62 6,000.00 748.06 6,000.00 6,000.00 SR1-8-8160-425-000-00000 Refuse - Uniforms 0.00 0.00 0.00 0.00 0.00 SR1-8-8160-426-000-00000 Refuse Fuel - Gasoline & Diesel 1,281.85 4,500.00 979.22 4,500.00 4,500.00 SR1-8-8160",
-      "confidence": "high",
-      "sha256": "298aeb9226d29840d7035b3915c7d861e313dd0bc3299fbabfc1f4ba9096218b",
-      "parsed_at": "2026-09-24T17:01:37.498133+00:00"
-    },
-    {
-      "id": "unknown-2027-budget-supplement-p51",
-      "document": "_2027 Budget Supplement",
-      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3929/_2027-Budget-Supplement",
-      "page": 51,
-      "snippet": "Account Number Account Description 2025 Actuals 2026 Adopted Budget 2026 YTD as of 6/30/26 2027 Department Request 2027 Tentative Budget 9990 Total 0.00 0.00 0.00 0.00 0.00 ST1-1-1910-000-000-00000 Unall Ins - Unallocated Insurance 0.00 0.00 0.00 0.00 0.00 ST1-1-1910-400-000-00000 Unallocated Insurance-CONTRACTUAL 0.00 0.00 0.00 0.00 0.00 ST1-1-1910-487-000-00000 Gen Liab - Insurance Premium 1,947.50 2,300.00 2,133.58 2,335.00 2,335.00 ST1-1-1910-488-000-00000 Gen Liab - Claim Payments 900.00 90",
-      "confidence": "high",
-      "sha256": "298aeb9226d29840d7035b3915c7d861e313dd0bc3299fbabfc1f4ba9096218b",
-      "parsed_at": "2026-09-24T17:01:37.498133+00:00"
-    },
-    {
-      "id": "unknown-2027-budget-supplement-p52",
-      "document": "_2027 Budget Supplement",
-      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3929/_2027-Budget-Supplement",
-      "page": 52,
-      "snippet": "Account Number Account Description 2025 Actuals 2026 Adopted Budget 2026 YTD as of 6/30/26 2027 Department Request 2027 Tentative Budget Z14-1-1910-000-000-00000 Unall Ins - Unallocated Insurance 0.00 0.00 0.00 0.00 0.00 Z14-1-1910-400-000-00000 Unallocated Insurance-CONTRACTUAL 0.00 0.00 0.00 0.00 0.00 Z14-1-1910-487-000-00000 Gen Liab - Insurance Premium 20,416.82 21,200.00 20,897.65 22,461.00 22,461.00 Z14-1-1910-488-000-00000 Gen Liab - Claim Payments 200.00 200.00 200.00 200.00 200.00 1910 ",
-      "confidence": "high",
-      "sha256": "298aeb9226d29840d7035b3915c7d861e313dd0bc3299fbabfc1f4ba9096218b",
-      "parsed_at": "2026-09-24T17:01:37.498133+00:00"
-    },
-    {
-      "id": "unknown-2027-budget-supplement-p53",
-      "document": "_2027 Budget Supplement",
-      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3929/_2027-Budget-Supplement",
-      "page": 53,
-      "snippet": "Account Number Account Description 2025 Actuals 2026 Adopted Budget 2026 YTD as of 6/30/26 2027 Department Request 2027 Tentative Budget A01-1001-001-00000-A Property Taxes 48,639,479.10 52,864,609.00 52,864,608.96 56,466,900.00 54,336,950.00 A01-1001-002-00000-A Property Taxes - Chapter 217/251 86,091.98 0.00 15,000.00 0.00 0.00 A01-1081-000-00000-B PILOT Programs 2,632,369.67 2,285,000.00 1,338,459.01 2,703,162.00 2,703,162.00 A01-1090-010-00000-B Interest & Penalties 73,136.69 65,000.00 0.00 ",
-      "confidence": "high",
-      "sha256": "298aeb9226d29840d7035b3915c7d861e313dd0bc3299fbabfc1f4ba9096218b",
-      "parsed_at": "2026-09-24T17:01:37.498133+00:00"
-    },
-    {
-      "id": "unknown-2027-budget-supplement-p54",
-      "document": "_2027 Budget Supplement",
-      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3929/_2027-Budget-Supplement",
-      "page": 54,
-      "snippet": "Account Number Account Description 2025 Actuals 2026 Adopted Budget 2026 YTD as of 6/30/26 2027 Department Request 2027 Tentative Budget A01-1560-176-00000-3 Electrical Inspection Fees 121,658.00 110,000.00 36,720.00 110,000.00 110,000.00 A01-1560-177-00000-3 Fire Inspection Fees 282,564.43 300,000.00 173,446.34 350,000.00 350,000.00 A01-1560-178-00000-3 Fire Inspection - Expedite Fees 43,950.00 20,000.00 18,340.00 20,000.00 20,000.00 A01-1560-180-00000-3 Mortgage in Default Registration Fee 2,3",
-      "confidence": "high",
-      "sha256": "298aeb9226d29840d7035b3915c7d861e313dd0bc3299fbabfc1f4ba9096218b",
-      "parsed_at": "2026-09-24T17:01:37.498133+00:00"
-    },
-    {
-      "id": "unknown-2027-budget-supplement-p55",
-      "document": "_2027 Budget Supplement",
-      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3929/_2027-Budget-Supplement",
-      "page": 55,
-      "snippet": "Account Number Account Description 2025 Actuals 2026 Adopted Budget 2026 YTD as of 6/30/26 2027 Department Request 2027 Tentative Budget A01-2401-000-00000-G Interest and Earnings 1,491,222.41 50,000.00 636,132.37 600,000.00 750,000.00 A01-2401-100-00000-G Interest and Earnings - Leases 38,570.11 0.00 0.00 0.00 0.00 A01-2410-351-00000-1 Floating Dock License Fee 4,800.00 500.00 2,000.00 500.00 500.00 A01-2410-352-00000-1 Rental Income - Wireless 0.00 64,900.00 34,149.48 64,900.00 64,900.00 A01-2",
-      "confidence": "high",
-      "sha256": "298aeb9226d29840d7035b3915c7d861e313dd0bc3299fbabfc1f4ba9096218b",
-      "parsed_at": "2026-09-24T17:01:37.498133+00:00"
-    },
-    {
-      "id": "unknown-2027-budget-supplement-p56",
-      "document": "_2027 Budget Supplement",
-      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3929/_2027-Budget-Supplement",
-      "page": 56,
-      "snippet": "Account Number Account Description 2025 Actuals 2026 Adopted Budget 2026 YTD as of 6/30/26 2027 Department Request 2027 Tentative Budget A01-2706-529-00000-7 County Aid - JAB 57,106.00 5,000.00 29,487.18 5,000.00 5,000.00 A01-2706-530-00000-3 County DWI Enforcement 25,000.00 25,000.00 24,456.45 25,000.00 25,000.00 A01-2706-531-00000-J Other Local Grants 0.00 0.00 0.00 0.00 0.00 A01-2706-532-00000-3 Suffolk County - AAA Transport 0.00 0.00 2,555.00 0.00 0.00 A01-2715-000-00000-I Proceeds of Seize",
-      "confidence": "high",
-      "sha256": "298aeb9226d29840d7035b3915c7d861e313dd0bc3299fbabfc1f4ba9096218b",
-      "parsed_at": "2026-09-24T17:01:37.498133+00:00"
-    },
-    {
-      "id": "unknown-2027-budget-supplement-p57",
-      "document": "_2027 Budget Supplement",
-      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3929/_2027-Budget-Supplement",
-      "page": 57,
-      "snippet": "Account Number Account Description 2025 Actuals 2026 Adopted Budget 2026 YTD as of 6/30/26 2027 Department Request 2027 Tentative Budget A01-5031-Z18-00000-K Interfund Transfers - Z18 18,662.68 0.00 0.00 0.00 0.00 A01-9999-000-00000-0 APPROPRIATED FUND BALANCE (BUDGET PREP) 0.00 1,250,000.00 0.00 750,000.00 950,000.00 A01 Total 67,927,176.89 69,113,159.00 58,654,812.96 73,944,312.00 72,014,362.00 A04-2025-246-00000-7 In-Town Soccer Registration Fees 7,638.00 15,060.00 0.00 15,660.00 15,660.00 A0",
-      "confidence": "high",
-      "sha256": "298aeb9226d29840d7035b3915c7d861e313dd0bc3299fbabfc1f4ba9096218b",
-      "parsed_at": "2026-09-24T17:01:37.498133+00:00"
-    },
-    {
-      "id": "unknown-2027-budget-supplement-p58",
-      "document": "_2027 Budget Supplement",
-      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3929/_2027-Budget-Supplement",
-      "page": 58,
-      "snippet": "Account Number Account Description 2025 Actuals 2026 Adopted Budget 2026 YTD as of 6/30/26 2027 Department Request 2027 Tentative Budget CM2-2410-352-00000-1 Rental Income - Utilities 0.00 8,000.00 11,455.00 8,000.00 8,000.00 CM2-9999-000-00000-0 Appropriated Fund Balance (Budget Prep O 0.00 0.00 0.00 0.00 0.00 CM2 Total 299,275.33 288,100.00 280,429.41 288,100.00 288,100.00 CM4-1189-000-00000-C Other Non Property Taxes 7,033,230.27 2,979,300.00 2,232,161.75 2,979,300.00 2,979,300.00 CM4-2401-00",
-      "confidence": "high",
-      "sha256": "298aeb9226d29840d7035b3915c7d861e313dd0bc3299fbabfc1f4ba9096218b",
-      "parsed_at": "2026-09-24T17:01:37.498133+00:00"
-    },
-    {
-      "id": "unknown-2027-budget-supplement-p59",
-      "document": "_2027 Budget Supplement",
-      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3929/_2027-Budget-Supplement",
-      "page": 59,
-      "snippet": "Account Number Account Description 2025 Actuals 2026 Adopted Budget 2026 YTD as of 6/30/26 2027 Department Request 2027 Tentative Budget ES5-2401-000-00000-G Interest and Earnings 51,175.67 100.00 35,105.90 100.00 100.00 ES5-9999-000-00000-0 Appropriated Fund Balance (Budget Prep O 0.00 100,000.00 0.00 100,000.00 100,000.00 ES5 Total 2,074,796.92 2,231,988.00 864,092.15 2,417,485.00 2,405,097.00 EW1-1001-001-00000-A Property Taxes 1,501,399.99 1,542,478.00 1,542,478.01 1,585,442.00 1,585,442.00 ",
-      "confidence": "high",
-      "sha256": "298aeb9226d29840d7035b3915c7d861e313dd0bc3299fbabfc1f4ba9096218b",
-      "parsed_at": "2026-09-24T17:01:37.498133+00:00"
-    },
-    {
-      "id": "unknown-2027-budget-supplement-p60",
-      "document": "_2027 Budget Supplement",
-      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3929/_2027-Budget-Supplement",
-      "page": 60,
-      "snippet": "Account Number Account Description 2025 Actuals 2026 Adopted Budget 2026 YTD as of 6/30/26 2027 Department Request 2027 Tentative Budget SR1-3089-000-00000-8 State Aid, Recycling Coordinator 0.00 0.00 0.00 0.00 0.00 SR1-9999-000-00000-0 APPROPRIATED FUND BALANCE (BUDGET PREP) 0.00 0.00 0.00 0.00 0.00 SR1 Total 5,267,940.12 5,254,540.00 5,299,956.34 5,302,990.00 5,302,990.00 ST1-1001-001-00000-A Property Taxes 199,800.03 205,300.00 205,300.00 211,018.00 211,018.00 ST1-1081-100-00000-B PILOT - LIP",
-      "confidence": "high",
-      "sha256": "298aeb9226d29840d7035b3915c7d861e313dd0bc3299fbabfc1f4ba9096218b",
-      "parsed_at": "2026-09-24T17:01:37.498133+00:00"
     }
   ]
 }

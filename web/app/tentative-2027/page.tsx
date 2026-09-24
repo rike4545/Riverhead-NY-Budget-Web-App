@@ -1,9 +1,12 @@
 import PageShell from '../../components/PageShell'
 import PlainCallout from '../../components/PlainCallout'
 import {
-  YEAR, PRIOR, projection, released, tentative, fundComparison, headline,
+  YEAR, PRIOR, projection, released, tentative, adoptedPrior, fundComparison, headline, spendingSentence,
   stability, unchangedYears, requestHistory, supplement2027, limits,
 } from '../../lib/tentative-2027'
+import { READ_BY_HAND, LETTER_2027 } from '../../lib/tentative-letters'
+import { buyout2026 } from '../../lib/buyout-2026'
+import taxBill from '../../public/data/tax-bill.json'
 
 const base = process.env.NEXT_PUBLIC_BASE_PATH || ''
 const usd = (n: number) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(n)
@@ -72,16 +75,34 @@ export default function Tentative2027Page() {
         <Stat label={`${PRIOR} adopted, all funds`} value={usd(projection.appropriations2026)} sub={`levy ${usd(projection.levy2026)}`} />
         <Stat label={`${YEAR} projection`} value={usd(projection.appropriations2027)} sub={`${pctf(projection.appropriationsPct)} · levy ${pctf(projection.levyPct)}`} />
         {h ? (
-          <Stat label={`${YEAR} Tentative`} value={usd(h.appropriations)} sub={`${pctf(h.appropriationsPct)} · levy ${pctf(h.levyPct)}`} accent />
+          <Stat label={`${YEAR} Tentative, all funds`} value={usd(h.appropriations)} sub={`${pctf(h.appropriationsPct)} · levy ${pctf(h.levyPct)}`} accent />
         ) : (
           <Stat label={`${YEAR} Tentative`} value="Sept 24" sub="not yet published" muted />
         )}
-        <Stat
-          label={`Levy against a ${projection.referencePct}% reference`}
-          value={h ? signed(h.levyVsReference) : signed(projection.referenceGap)}
-          sub={h ? 'Tentative levy, above (+) or below (−)' : 'the projection, above the reference'}
-          warn={(h ? h.levyVsReference : projection.referenceGap) > 0}
-        />
+        {h?.townWide ? (
+          <Stat
+            label="Town-wide levy"
+            value={usd(h.townWide.levy)}
+            sub={`${pctf(h.townWide.levyPct, 2)} · tax rate $${h.townWide.rate.toFixed(3)} per $1,000 (${pctf(h.townWide.ratePct, 2)})`}
+          />
+        ) : (
+          <Stat
+            label={`Levy against a ${projection.referencePct}% reference`}
+            value={h ? signed(h.levyVsReference) : signed(projection.referenceGap)}
+            sub={h ? 'Tentative levy, above (+) or below (−)' : 'the projection, above the reference'}
+            warn={(h ? h.levyVsReference : projection.referenceGap) > 0}
+          />
+        )}
+        {h && h.statedLimitPct !== null && (
+          <Stat
+            label="Tax cap limit, per the Supervisor"
+            value={`${h.statedLimitPct}%`}
+            sub={h.withinStatedLimit
+              ? 'no district’s levy rises by more'
+              : h.steepestDistrict ? `the ${h.steepestDistrict.name}’s levy rises ${h.steepestDistrict.pct.toFixed(2)}%` : undefined}
+            warn={h.withinStatedLimit === false}
+          />
+        )}
       </section>
 
       {h && (
@@ -97,6 +118,15 @@ export default function Tentative2027Page() {
               </>
             )}
           </p>
+          {h.operating && (
+            <p data-spending style={{ color: 'var(--rbl-text-body)', fontSize: 14.5, lineHeight: 1.6, marginTop: 0 }}>
+              {spendingSentence(h)}
+              {h.debtService && h.debtService.appropriations < h.debtService.prior && (
+                <> Counting that fund makes a smaller debt payment look like a spending cut, so the first figure is the one
+                that says how much more the Town plans to spend.</>
+              )}
+            </p>
+          )}
           <div style={{ overflowX: 'auto' }}>
             <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 13 }}>
               <thead><tr style={{ borderBottom: '2px solid var(--rbl-border-subtle)' }}>
@@ -131,6 +161,8 @@ export default function Tentative2027Page() {
           </p>
         </section>
       )}
+
+      {h && READ_BY_HAND[YEAR] && <LetterSection h={h} />}
 
       <section style={{ ...card, marginBottom: 16 }}>
         <h3 style={{ marginTop: 0, color: 'var(--rbl-title)' }}>Will the Tentative change before adoption?</h3>
@@ -261,3 +293,114 @@ function MoveList({ title, rows }: { title: string; rows: { account: string; nam
     </div>
   )
 }
+
+type Headline = NonNullable<ReturnType<typeof headline>>
+
+const cents = (n: number) => `$${n.toFixed(2)}`
+const pct2 = (n: number | null) => (n === null ? '—' : `${n.toFixed(2)}%`)
+const joinNames = (names: string[]) => names.length < 3 ? names.join(' and ') : `${names.slice(0, -1).join(', ')} and ${names[names.length - 1]}`
+
+// The Supervisor's letter, claim by claim, beside what the budget's own Summary
+// shows. The letter is a scanned image read by hand (lib/tentative-letters.ts);
+// everything on the right-hand side is computed from the parsed Summary, so a
+// claim that stops matching says so instead of repeating the letter.
+function LetterSection({ h }: { h: Headline }) {
+  const letter = READ_BY_HAND[YEAR]
+  const L = LETTER_2027
+  const gf = tentative?.funds.A01 ?? null
+  const gfPrior = adoptedPrior?.funds.A01 ?? null
+  const eq = taxBill.equalization
+  const assessed = L.generalFund.exampleValue * (eq.residentialAssessmentRatio / 100)
+  const perYear = (rise: number) => (assessed * rise) / 1000
+  const gfRate = h.townWide?.generalFundRate ?? null
+  const flat = h.districts.filter((d) => Math.abs(d.pct) < 0.005)
+  const ri = L.retirementIncentive
+  const noSupplement = supplement2027.state === 'absent'
+  const notInSummary = `The Summary shows funds, not salary lines, so it can’t confirm this${noSupplement ? '. The Budget Supplement, which prints the lines, isn’t posted yet' : ''}.`
+
+  const rows: { says: string; shows: string; href?: { path: string; label: string } }[] = []
+
+  if (letter.taxCap && h.statedLimitPct !== null) {
+    rows.push({
+      says: letter.taxCap,
+      shows: [
+        h.withinStatedLimit
+          ? `None of the ${h.districts.length} levies in the Summary rises by more than ${h.statedLimitPct}%. The town-wide levy rises ${pct2(h.townWide?.levyPct ?? null)} and the total with the special districts ${pct2(h.levyPct)}${flat.length ? `; the ${joinNames(flat.map((d) => d.name))} levy is unchanged` : ''}.`
+          : `The ${h.steepestDistrict?.name}’s levy rises ${h.steepestDistrict?.pct.toFixed(2)}%, more than the ${h.statedLimitPct}% the letter gives.`,
+        `How the Town reached ${h.statedLimitPct}% isn’t published. The State’s growth factor for ${YEAR} is ${projection.referencePct}%; the formula also adjusts for tax-base growth, PILOT payments, carryover and exclusions, and the Town files the result with the State Comptroller.`,
+        'If the letter’s limit is right, the proposal as written needs no override vote. The Board would need one only to adopt a levy above it.',
+      ].join(' '),
+      href: { path: '/tax-cap/', label: 'How the tax cap works' },
+    })
+  }
+
+  if (h.operating) {
+    const matches = h.operating.appropriations === L.operating.total && h.operating.delta === L.operating.growth
+    rows.push({
+      says: L.operating.quote,
+      shows: matches
+        ? `Matches the Summary to the dollar, a rise of ${h.operating.pct?.toFixed(1)}%. It is every fund except the Debt Service, Workers’ Compensation and Risk Retention funds, which the other funds pay for. Counting those too, the total is ${usd(h.appropriations)}, ${h.appropriationsPct !== null && h.appropriationsPct < 0 ? 'down' : 'up'} ${Math.abs(h.appropriationsPct ?? 0).toFixed(1)}%.`
+        : `Counted the same way, the Summary gives ${usd(h.operating.appropriations)}, ${signed(h.operating.delta)} from ${PRIOR}.`,
+    })
+  }
+
+  if (gf && gfPrior) {
+    const added = gf.appropriations - gfPrior.appropriations
+    const perDay = gfRate ? perYear(gfRate.rate - gfRate.priorRate) / 365 : null
+    const townWidePerDay = h.townWide ? perYear(h.townWide.rate - h.townWide.priorRate) / 365 : null
+    rows.push({
+      says: L.generalFund.quote,
+      shows: [
+        `General Fund appropriations rise ${usd(added)} (${pctf((added / gfPrior.appropriations) * 100)}), to ${usd(gf.appropriations)}.`,
+        gfRate && perDay !== null && townWidePerDay !== null && h.townWide
+          ? `At the ${eq.residentialAssessmentRatio}% residential assessment ratio on the Town’s ${eq.asOfYear}–${String(eq.asOfYear + 1).slice(2)} tax rate sheet, an ${usd(L.generalFund.exampleValue)} home is assessed at about ${usd(assessed)}. The General Fund rate rises $${(gfRate.rate - gfRate.priorRate).toFixed(3)} per $1,000, about ${usd(perYear(gfRate.rate - gfRate.priorRate))} a year or ${cents(perDay)} a day; the whole town-wide rate rises $${(h.townWide.rate - h.townWide.priorRate).toFixed(3)}, about ${usd(perYear(h.townWide.rate - h.townWide.priorRate))} a year or ${cents(townWidePerDay)} a day. The letter doesn’t say what ratio it used.`
+          : '',
+      ].join(' ').trim(),
+    })
+  }
+
+  if (gf?.fundBalance != null && gfPrior?.fundBalance != null) {
+    const drop = gfPrior.fundBalance - gf.fundBalance
+    rows.push({
+      says: L.fundBalance.quote,
+      shows: `${drop === L.fundBalance.reduction ? 'Matches' : 'The Summary differs'}: the General Fund uses ${usd(gf.fundBalance)} of its savings (fund balance), against ${usd(gfPrior.fundBalance)} for ${PRIOR}.`,
+    })
+  }
+
+  rows.push({
+    says: `${ri.savingsQuote} ${ri.quote} …`,
+    shows: `${notInSummary} By the letter’s own figures the saving before retiree health insurance is ${usd(ri.salariesAndPayrollTaxes + ri.retirementContributions)}: ${usd(ri.salariesAndPayrollTaxes)} in salaries and payroll taxes and ${usd(ri.retirementContributions)} in State retirement contributions. The difference, about ${usd(ri.retireeHealthOffset)}, is the added retiree health insurance. The ${ri.csea + ri.pba + ri.soa} who took it were among ${buyout2026.actualEligible.total} eligible employees, and the Town’s July estimate of the saving was ${usd(buyout2026.estimatedSavings.low)} to ${usd(buyout2026.estimatedSavings.high)}.`,
+    href: { path: '/buyout/', label: 'The retirement incentive' },
+  })
+
+  rows.push({ says: L.staffing.quote, shows: notInSummary })
+
+  return (
+    <section data-letter style={{ ...card, marginBottom: 16 }}>
+      <h3 style={{ marginTop: 0, color: 'var(--rbl-title)' }}>What the Supervisor’s letter says</h3>
+      <p style={{ color: 'var(--rbl-text-body)', fontSize: 14.5, lineHeight: 1.6, marginTop: 0 }}>
+        The Tentative opens with a letter from Supervisor {L.signedBy.split(',')[0]}{letter.dated ? <>, dated {letter.dated}</> : null}. Its pages
+        are scanned images, so this site read them by hand; the quotes are exact. Each claim is set beside what the budget’s
+        own Summary shows.
+      </p>
+      <blockquote style={{ margin: '0 0 14px', padding: '10px 14px', borderLeft: '4px solid var(--rbl-accent-border)', background: 'var(--rbl-surface-2)', borderRadius: 8, color: 'var(--rbl-text-strong)', fontSize: 14.5, lineHeight: 1.55 }}>
+        “{L.goal}”
+      </blockquote>
+      <div style={{ display: 'grid', gap: 12 }}>
+        {rows.map((r, i) => (
+          <article key={i} style={{ border: '1px solid var(--rbl-border-subtle)', borderRadius: 12, padding: 12, minWidth: 0 }}>
+            <div style={{ color: 'var(--rbl-title)', fontSize: 14, lineHeight: 1.5, fontWeight: 700 }}>“{r.says}”</div>
+            <p style={{ color: 'var(--rbl-text-body)', fontSize: 13.8, lineHeight: 1.6, margin: '6px 0 0' }}>
+              <span style={{ color: 'var(--rbl-text-muted)', fontWeight: 800 }}>What the budget shows: </span>{r.shows}
+              {r.href && <> <a href={`${base}${r.href.path}`} style={{ color: 'var(--rbl-accent)', fontWeight: 700, whiteSpace: 'nowrap' }}>{r.href.label} →</a></>}
+            </p>
+          </article>
+        ))}
+      </div>
+      <p style={{ color: 'var(--rbl-text-muted)', fontSize: 12.5, marginBottom: 0 }}>
+        Source: <a href={L.source.url} style={{ color: 'var(--rbl-accent)' }}>{L.source.title}</a>, {L.source.pages} (the letter) and the Summary page.
+      </p>
+    </section>
+  )
+}
+

@@ -23,6 +23,13 @@ import { generalFund } from './general-fund'
 import { uptake, savingEstimate, incentiveCostIfAllElected } from './retirement-actuals-2026'
 import { retirementAnnualisation } from './annualization-2027'
 import { triborough, openUnits, corpus as laborCorpus } from './labor-contracts-2027'
+import { released2027 } from './tentative-2027'
+import { outcome as incentiveOutcome } from './buyout-2026'
+
+const money = (n: number) => n.toLocaleString('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 })
+/** The incentive saving the 2027 Tentative budgets, once it is out; null before. */
+const incentiveBudgeted = released2027 ? incentiveOutcome.savings2027 : null
+const gfLevyRise2027 = released2027?.generalFund?.levyOverPrior ?? null
 
 const gfFund = (prediction.byFund as { fundCode: string; v2026: number; v2027: number; delta: number; pct: number }[])
   .find((f) => f.fundCode === 'A01')!
@@ -69,7 +76,7 @@ export const theAsk = {
   detail:
     'The Town’s own 2027 projection puts General Fund appropriations at $72,627,474 against $69,113,159 adopted for 2026 — a rise of $3,514,315, or 5.1%. Holding the levy flat does not make that cost disappear; it means every dollar of it has to come from somewhere that is not the property tax.',
   versusCap:
-    'For scale, simply getting under the 2% cap needs $2,316,256. A freeze is about 52% harder than cap compliance, and the page on closing the cap gap is the shallower version of this same problem.',
+    'For scale, holding the levy to a 2% increase needs $2,316,256. A freeze is about 52% harder than that, and the page on closing the cap gap is the shallower version of this same problem.',
   precision:
     'One honest caveat about the number. $3,514,315 is projected growth in General Fund appropriations, which is what a flat levy must offset. It is not itself a levy figure: the Town does not publish a General Fund levy separately from the town-wide levy in the material behind this site, so the appropriations change is used as the closest available proxy.',
 }
@@ -96,12 +103,22 @@ export const levers: Lever[] = [
   },
   {
     name: 'The retirement incentive, already adopted',
-    amount: retirementIncentive2027.projectedSavingsHigh,
-    display: `${retirementIncentive2027.projectedSavingsLow.toLocaleString('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 })} – ${retirementIncentive2027.projectedSavingsHigh.toLocaleString('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 })}`,
-    covers: `up to ${Math.round((retirementIncentive2027.projectedSavingsHigh / gfFund.delta) * 100)}% of the $3.5M`,
+    // Once the Tentative is out, the saving is the one it budgets, from the
+    // Supervisor's letter, and it is already inside the proposal's General Fund.
+    amount: incentiveBudgeted ?? retirementIncentive2027.projectedSavingsHigh,
+    display: incentiveBudgeted !== null
+      ? money(incentiveBudgeted)
+      : `${money(retirementIncentive2027.projectedSavingsLow)} – ${money(retirementIncentive2027.projectedSavingsHigh)}`,
+    covers: incentiveBudgeted !== null
+      ? `${Math.round((incentiveBudgeted / gfFund.delta) * 100)}% of the $3.5M`
+      : `up to ${Math.round((retirementIncentive2027.projectedSavingsHigh / gfFund.delta) * 100)}% of the $3.5M`,
     kind: 'recurring',
-    detail: `Approved unanimously on ${retirementIncentive2027.approved.split(' — ')[0]} by resolutions ${retirementIncentive2027.resolutions}. ${retirementIncentive2027.eligibleTotal} employees were eligible. Both deadlines have now passed and the Board has confirmed ${uptake.windowRetirements} retirements since ratification — ${uptake.sworn} sworn, ${uptake.civilian} civilian. Pricing the sworn ones at the promotion-chain rate gives ${savingEstimate.annualFromSworn.toLocaleString('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 })} a year, which lands inside the Town's own estimate by a route that does not depend on it.`,
-    catch: `The projection has become a measurement, and the measurement is narrower than it looks. Accepting a retirement is not proof the retiree elected the incentive, so ${uptake.windowRetirements} is a ceiling on participation. The saving is also not free: if every confirmed retiree elected the incentive it costs ${incentiveCostIfAllElected.total.toLocaleString('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 })} before sick-day payouts — a scenario, since the Town publishes no election records, and effective dates run July to October, so 2027 is the first budget carrying the whole of it — ${retirementAnnualisation.increment2027Low.toLocaleString('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 })} to ${retirementAnnualisation.increment2027High.toLocaleString('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 })} more than 2026 catches.`,
+    detail: incentiveBudgeted !== null
+      ? `Approved unanimously on ${retirementIncentive2027.approved.split(' — ')[0]} by resolutions ${retirementIncentive2027.resolutions}. ${retirementIncentive2027.eligibleTotal} employees were eligible. The Supervisor’s letter in the 2027 Tentative says ${incentiveOutcome.took.total} took it (${incentiveOutcome.took.csea} CSEA, ${incentiveOutcome.took.pba} PBA) and budgets ${money(incentiveBudgeted)} of General Fund savings for 2027, after higher retiree health insurance. The Board’s resolutions show ${uptake.ifPendingConfirmed} retirements filed since ratification, ${uptake.windowRetirements === uptake.ifPendingConfirmed ? 'all' : uptake.windowRetirements} of them with a published vote record.`
+      : `Approved unanimously on ${retirementIncentive2027.approved.split(' — ')[0]} by resolutions ${retirementIncentive2027.resolutions}. ${retirementIncentive2027.eligibleTotal} employees were eligible. Both deadlines have now passed and the Board has confirmed ${uptake.windowRetirements} retirements since ratification — ${uptake.sworn} sworn, ${uptake.civilian} civilian. Pricing the sworn ones at the promotion-chain rate gives ${savingEstimate.annualFromSworn.toLocaleString('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 })} a year${savingEstimate.annualFromSworn >= retirementIncentive2027.projectedSavingsLow && savingEstimate.annualFromSworn <= retirementIncentive2027.projectedSavingsHigh ? ", which lands inside the Town's own estimate by a route that does not depend on it" : ", short of the Town's own estimate on the published votes alone"}.`,
+    catch: incentiveBudgeted !== null
+      ? `It is already inside the 2027 Tentative’s General Fund, so it can’t also pay for a zero-percent General Fund levy on top of it${gfLevyRise2027 !== null && gfLevyRise2027 > 0 ? `: the proposal still raises that levy by ${money(gfLevyRise2027)}` : ''}. The one-time incentive payments fall in 2026, and the letter doesn’t give their cost.`
+      : `The projection has become a measurement, and the measurement is narrower than it looks. Accepting a retirement is not proof the retiree elected the incentive, so ${uptake.windowRetirements} is a ceiling on participation. The saving is also not free: if every confirmed retiree elected the incentive it costs ${incentiveCostIfAllElected.total.toLocaleString('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 })} before sick-day payouts — a scenario, since the Town publishes no election records, and effective dates run July to October, so 2027 is the first budget carrying the whole of it — ${retirementAnnualisation.increment2027Low.toLocaleString('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 })} to ${retirementAnnualisation.increment2027High.toLocaleString('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 })} more than 2026 catches.`,
   },
   {
     name: 'Fund balance above the Town’s own policy ceiling',

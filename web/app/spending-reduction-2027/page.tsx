@@ -1,6 +1,7 @@
 import PageShell from '../../components/PageShell'
 import TentativeReleased from '../../components/TentativeReleased'
-import { released2027 } from '../../lib/tentative-2027'
+import { released2027, statedLimitPct } from '../../lib/tentative-2027'
+import { outcome } from '../../lib/buyout-2026'
 import SpendingReductionToggleList from '../../components/SpendingReductionToggleList'
 import { fullRecurringReductionPackage, modeledAutomaticPayrollPressure } from '../../lib/spending-reduction-2027'
 import { builtFromDocuments } from '../../lib/built-from-documents'
@@ -34,13 +35,16 @@ const retirementRefillOverlap =
   personnelPolicyItems.find((i) => i.id === 'retirementRefill')?.amount ?? 0
 const combined = (incentive: number) =>
   Math.round(((incentive + firmRecurringTotal - retirementRefillOverlap) / capGap2027.gap) * 100)
-const comboLow = combined(ri.projectedSavingsLow)
-const comboHigh = combined(ri.projectedSavingsHigh)
+// Once the Tentative is out, the incentive is the saving it budgets, not the July range.
+const budgeted = released2027 ? outcome.savings2027 : null
+const comboLow = combined(budgeted ?? ri.projectedSavingsLow)
+const comboHigh = combined(budgeted ?? ri.projectedSavingsHigh)
 
 export const metadata = {
   title: '2027 Spending Reduction — how the Town can close the tax-cap gap',
-  description:
-    `In plain terms: Riverhead’s 2027 budget is projected to pierce the tax cap by about $${(capGap2027.gap / 1_000_000).toFixed(2)}M. The retirement incentive plus sourced line trims close it — with an interactive package, the politics, and the alternatives explained.`,
+  description: released2027
+    ? `Before the Tentative, this site’s forecast had Riverhead’s 2027 levy about $${(capGap2027.gap / 1_000_000).toFixed(2)}M above a 2% increase. How the retirement incentive and sourced line trims could close that gap, with an interactive package, the politics, and the alternatives explained.`
+    : `In plain terms: Riverhead’s 2027 budget is projected to pierce the tax cap by about $${(capGap2027.gap / 1_000_000).toFixed(2)}M. The retirement incentive plus sourced line trims close it — with an interactive package, the politics, and the alternatives explained.`,
 }
 
 export default function SpendingReduction2027Page() {
@@ -50,23 +54,35 @@ export default function SpendingReduction2027Page() {
       subtitle={`${released2027 ? 'This site’s forecast had Riverhead’s 2027 budget piercing the state tax cap.' : 'Riverhead’s 2027 budget is on track to pierce the state tax cap.'} Here’s the plainest way to close the gap — start with the three-number plan, then dig in as far as you like.`}
     >
       <TentativeReleased>
-        {released2027 && (released2027.levyVsReference > 0
-          ? <>Against the same 2% line this page uses, that leaves {usd(released2027.levyVsReference)} to find, not the {usd(capGap2027.gap)} forecast below.</>
-          : <>So it already holds the levy to a 2% increase or less. The savings below are measured against the forecast.</>)}
+        {released2027 && (statedLimitPct !== null
+          ? <>So by the Town’s own account there is no cap gap left to close. The {usd(capGap2027.gap)} below is the forecast’s distance from a 2% increase, and the savings are measured against it.</>
+          : released2027.levyVsReference > 0
+            ? <>Against the same 2% line this page uses, that leaves {usd(released2027.levyVsReference)} to find, not the {usd(capGap2027.gap)} forecast below.</>
+            : <>So it already holds the levy to a 2% increase or less. The savings below are measured against the forecast.</>)}
       </TentativeReleased>
 
       {/* THE PROBLEM — one clear framing, one number. */}
       <section style={{ ...card, borderLeft: '6px solid var(--rbl-danger)' }}>
         <div style={{ color: 'var(--rbl-danger)', fontWeight: 900, fontSize: 12, textTransform: 'uppercase', letterSpacing: 0.5 }}>The problem</div>
         <h2 style={{ margin: '4px 0 8px', color: 'var(--rbl-title)', fontSize: 21 }}>
-          {released2027 ? 'Before the Tentative, the forecast had the 2027 budget past the tax cap by about' : 'The 2027 budget is on track to blow past the tax cap by about'} {usd(capGap2027.gap)}
+          {released2027 ? `Before the Tentative, the forecast had the 2027 levy past a ${capGap2027.capBasePct}% increase by about` : 'The 2027 budget is on track to blow past the tax cap by about'} {usd(capGap2027.gap)}
         </h2>
-        <p style={{ color: 'var(--rbl-text-strong)', fontSize: 15, lineHeight: 1.6, margin: 0 }}>
-          On current trends the tax levy would rise about {capGap2027.predictedLevyPct}% — but New York&apos;s cap
-          allows only about {capGap2027.capBasePct}%. To stay under the cap, the Town has to find roughly{' '}
-          <strong>{usd(capGap2027.gap)}</strong>. The good news: it can be done with real, recurring savings — no
-          reserve raid, no cap override. Here&apos;s how.
-        </p>
+        {released2027 ? (
+          <p style={{ color: 'var(--rbl-text-strong)', fontSize: 15, lineHeight: 1.6, margin: 0 }}>
+            On current trends the forecast had the tax levy rising about {capGap2027.predictedLevyPct}%. Holding it to a{' '}
+            {capGap2027.capBasePct}% increase, the State&apos;s growth factor, meant finding roughly{' '}
+            <strong>{usd(capGap2027.gap)}</strong>
+            {statedLimitPct !== null && <>. The Supervisor has since put the Town&apos;s actual limit at {statedLimitPct}%, which leaves more room than {capGap2027.capBasePct}%</>}.
+            The plan below shows the gap could be closed with real, recurring savings, with no reserve raid and no cap override.
+          </p>
+        ) : (
+          <p style={{ color: 'var(--rbl-text-strong)', fontSize: 15, lineHeight: 1.6, margin: 0 }}>
+            On current trends the tax levy would rise about {capGap2027.predictedLevyPct}% — but New York&apos;s cap
+            allows only about {capGap2027.capBasePct}%. To stay under the cap, the Town has to find roughly{' '}
+            <strong>{usd(capGap2027.gap)}</strong>. The good news: it can be done with real, recurring savings — no
+            reserve raid, no cap override. Here&apos;s how.
+          </p>
+        )}
       </section>
 
       {/* THE ANSWER — the plan in three numbers. */}
@@ -76,9 +92,14 @@ export default function SpendingReduction2027Page() {
           Two things the Town has largely in hand already add up to the whole gap:
         </p>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(190px,1fr))', gap: 12, margin: '14px 0' }}>
-          <Tile label="1 · Retirement incentive" value={`${usd(ri.projectedSavingsLow)}–${usd(ri.projectedSavingsHigh)}`} note="Town projection · already adopted 5–0" green />
+          <Tile
+            label="1 · Retirement incentive"
+            value={budgeted !== null ? usd(budgeted) : `${usd(ri.projectedSavingsLow)}–${usd(ri.projectedSavingsHigh)}`}
+            note={budgeted !== null ? `Budgeted for 2027 · ${outcome.took.total} employees took it` : 'Town projection · already adopted 5–0'}
+            green
+          />
           <Tile label="2 · Sourced line trims" value={usd(firmRecurringTotal)} note="Only the firmest — no volatile fuel/energy or capital-timing items" green />
-          <Tile label="Together" value={`${comboLow}–${comboHigh}%`} note={`of the ${usd(capGap2027.gap)} gap, after netting the overlap between the two`} accent />
+          <Tile label="Together" value={comboLow === comboHigh ? `${comboLow}%` : `${comboLow}–${comboHigh}%`} note={`of the ${usd(capGap2027.gap)} gap, after netting the overlap between the two`} accent />
         </div>
         <p style={{ color: 'var(--rbl-text-strong)', fontSize: 14, lineHeight: 1.6, margin: 0 }}>
           The unanimous retirement incentive plus only the <em>firmest</em> line trims cover essentially the entire
@@ -92,8 +113,14 @@ export default function SpendingReduction2027Page() {
           <h3 style={{ margin: '0 0 6px', color: 'var(--rbl-title)', fontSize: 16 }}>1 · The retirement incentive</h3>
           <p style={{ color: 'var(--rbl-text-strong)', fontSize: 14, lineHeight: 1.55, margin: '0 0 10px' }}>
             On July 7, 2026 the Board unanimously approved three voluntary retirement incentives ({ri.eligibleTotal}{' '}
-            eligible). The Town projects <strong>{usd(ri.projectedSavingsLow)}–{usd(ri.projectedSavingsHigh)}</strong>{' '}
+            eligible). The Town projected <strong>{usd(ri.projectedSavingsLow)}–{usd(ri.projectedSavingsHigh)}</strong>{' '}
             in savings over {ri.savingsWindow} — recurring payroll relief, exactly the kind of pressure the gap is made of.
+            {budgeted !== null && (
+              <>
+                {' '}{['No', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten', 'Eleven', 'Twelve'][outcome.took.total] ?? outcome.took.total} employees took it ({outcome.took.csea} CSEA, {outcome.took.pba} PBA), and the 2027 Tentative
+                budgets <strong>{usd(budgeted)}</strong> of General Fund savings from it, after higher retiree health insurance.
+              </>
+            )}
           </p>
           <div style={{ display: 'grid', gap: 6 }}>
             {ri.eligible.map((u) => (
@@ -105,6 +132,7 @@ export default function SpendingReduction2027Page() {
           </div>
           <p style={{ color: 'var(--rbl-text-muted)', fontSize: 11.5, marginTop: 10, marginBottom: 0 }}>
             Elect by {ri.electionDeadline}, retire by {ri.retireBy}. Resolutions {ri.resolutions}. Projection: RiverheadLOCAL, July 9, 2026.
+            {budgeted !== null && <> Outcome: {outcome.source.title}.</>}
           </p>
         </section>
 
@@ -216,8 +244,8 @@ export default function SpendingReduction2027Page() {
 
       <Detail title="Why you'll see two different “gap” numbers">
         <p style={{ color: 'var(--rbl-text-strong)', fontSize: 14, lineHeight: 1.6, margin: 0 }}>
-          The number on this page is the <strong>cap-piercing gap</strong> ({usd(capGap2027.gap)}) — how far the levy
-          overshoots the 2% cap, and the one that forces a decision. You&apos;ll also see a smaller{' '}
+          The number on this page is the <strong>cap-piercing gap</strong> ({usd(capGap2027.gap)}) — how far the forecast
+          levy overshoots a 2% increase, and the one that forces a decision. You&apos;ll also see a smaller{' '}
           <strong>payroll-pressure gap</strong> ({usd(modeledAutomaticPayrollPressure)}) — just the automatic wage
           growth needed to keep the same staff. The interactive package is measured against that smaller one, which is
           why it can read &ldquo;fully covered&rdquo; there while the bigger cap gap is the real target.
@@ -227,7 +255,7 @@ export default function SpendingReduction2027Page() {
       <Detail title="In real terms: inflation and buying power">
         <p style={{ color: 'var(--rbl-text-strong)', fontSize: 14, lineHeight: 1.6, margin: 0 }}>
           Most of the payroll-pressure gap isn&apos;t new programs — it&apos;s automatic cost-of-living growth (the model
-          uses a 2.5% COLA). Meanwhile the tax cap limits levy growth to the <em>lesser</em> of 2% or inflation, so
+          uses a 2.5% COLA). Meanwhile the tax cap&apos;s growth factor is the <em>lesser</em> of 2% or inflation, so
           contracted costs rise about as fast as the revenue the Town is allowed to raise. Because prices keep rising, a
           line that merely holds flat in dollars is already a real cut in what it buys — so read this package in
           recurring, real terms: keeping recurring costs within recurring revenue, not a one-time patch.

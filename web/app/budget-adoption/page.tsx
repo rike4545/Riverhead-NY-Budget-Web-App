@@ -136,7 +136,10 @@ export default function BudgetAdoptionPage() {
                 {released2027 ? (
                   <>
                     <td style={td} data-change>
-                      Tentative out: {usd(released2027.appropriations)}, levy {changePhrase(released2027.levyPct)} 2026.{' '}
+                      Tentative out: {usd(released2027.appropriations)}
+                      {released2027.townWide
+                        ? <>; town-wide levy {changePhrase(released2027.townWide.levyPct, 2)} 2026{released2027.statedLimitPct !== null && released2027.withinStatedLimit ? `, within the ${released2027.statedLimitPct}% tax cap limit the Supervisor’s letter gives` : ''}.</>
+                        : <>, levy {changePhrase(released2027.levyPct)} 2026.</>}{' '}
                       <a href={`${base}/tentative-${OUTLOOK.year}/`} style={link}>Compare</a>
                     </td>
                     <td style={{ ...td, color: 'var(--rbl-text-muted)' }} colSpan={3}>

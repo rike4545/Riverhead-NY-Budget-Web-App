@@ -5,7 +5,8 @@ import {
   type ClaimStatus,
 } from '../../lib/supervisor-promises'
 import { checks, YEARS as T_YEARS, preparedUnder, firstFound2027, beyondTheDocument, type CheckState } from '../../lib/tentative-transparency'
-import { criteria, scores, revenueGrowth, RULE } from '../../lib/restraint-score'
+import { criteria, scores, revenueGrowth, spendingCaveats, RULE } from '../../lib/restraint-score'
+import { statedLimitPct } from '../../lib/tentative-2027'
 
 const base = process.env.NEXT_PUBLIC_BASE_PATH || ''
 const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 20, boxShadow: '0 14px 34px var(--rbl-shadow)' } as const
@@ -62,15 +63,17 @@ export default function SupervisorPromisesPage() {
         tips={[
           { label: 'Tentative budget', text: 'the Supervisor’s proposed budget for next year. The Town Board can change it before adopting the final budget by November 20.' },
           { label: 'Levy', text: 'the total amount the Town raises from property taxes.' },
-          { label: 'Tax cap', text: 'the State’s limit on how much the levy can grow each year, usually about 2%. The Board can vote to go over it.' },
+          { label: 'Tax cap', text: statedLimitPct !== null ? `the State’s limit on how much the levy can grow each year. It starts from 2% and adjusts for things like new construction; his 2027 budget letter puts Riverhead’s limit at ${statedLimitPct}%. The Board can vote to go over it.` : 'the State’s limit on how much the levy can grow each year, usually about 2%. The Board can vote to go over it.' },
           { label: 'Fund balance', text: 'money left over from past years: the Town’s savings. Spending it helps one year’s taxes, but then it’s gone.' },
           { label: 'Roll call', text: 'how each of the five Town Board members voted.' },
         ]}
       >
         {SUPERVISOR} became Town Supervisor in January 2026 and is on the ballot again on {ELECTION}. This page checks
         what he promised and what he says he has done against the Town’s own records. Of the claims on his campaign
-        site, {tallyText}. The biggest test is still ahead: his first budget, for 2027, which fills in below as soon as the
-        Town publishes it.
+        site, {tallyText}.{' '}
+        {released
+          ? 'The biggest test is his first budget, the 2027 proposal the Town published on September 24. The tables below read it.'
+          : 'The biggest test is still ahead: his first budget, for 2027, which fills in below as soon as the Town publishes it.'}
       </PlainCallout>
 
       <section style={{ ...card, marginBottom: 16, borderLeft: '5px solid var(--rbl-accent)' }}>
@@ -368,13 +371,23 @@ export default function SupervisorPromisesPage() {
             </tbody>
           </table>
         </div>
+        {spendingCaveats.map((c) => (
+          <p key={c.year} data-spending-caveat={c.year} style={{ color: 'var(--rbl-text-body)', fontSize: 13, lineHeight: 1.6, marginBottom: 0 }}>
+            <strong style={{ color: 'var(--rbl-title)' }}>Read {c.year}’s spending mark with care.</strong> Counting all funds, as the mark
+            does, spending {c.allFunds < 0 ? 'falls' : 'grows'} {Math.abs(c.allFunds).toFixed(2)}%. That is because the Debt Service,
+            Workers’ Compensation and Risk Retention funds, which the other funds pay for, {c.transferFundedChange < 0 ? 'fall' : 'rise'} by{' '}
+            {usd(Math.abs(c.transferFundedChange))}. Without them, spending {c.operating < 0 ? 'falls' : 'grows'} {Math.abs(c.operating).toFixed(2)}%.
+            We’ve left the mark as it was set on {RULE.fixed} rather than change it after seeing the result.
+          </p>
+        ))}
         <p style={{ color: 'var(--rbl-text-body)', fontSize: 13, lineHeight: 1.6, marginBottom: 0 }}>
           Shown but not scored: growth in General Fund revenue other than property taxes,{' '}
           {revenueGrowth.filter((r) => r.value !== null).map((r) => `${r.year} ${pctSigned(r.value as number)}`).join(', ')}.
           A budget can hold taxes down by assuming more revenue, so scoring it would reward optimism.
         </p>
         <p style={{ color: 'var(--rbl-text-muted)', fontSize: 12.5, lineHeight: 1.55, marginBottom: 0 }}>
-          We use a 2% line everywhere on this site. It’s stricter than the legal limit, which the Town doesn’t publish (see{' '}
+          We use a 2% line everywhere on this site. It’s stricter than the legal limit
+          {statedLimitPct !== null ? `, which his letter puts at ${statedLimitPct}% for 2027; the Town doesn’t publish how that is calculated` : ', which the Town doesn’t publish'} (see{' '}
           <a href={`${base}/tax-cap/`} style={{ color: 'var(--rbl-accent)' }}>Tax Cap</a>). Every other mark is “no worse
           than the year before.” If we ever change these rules, we’ll date the change here and keep the earlier scores.
         </p>

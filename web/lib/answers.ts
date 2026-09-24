@@ -240,7 +240,7 @@ export const topics: AnswerTopic[] = [
           }
         : {
             q: 'Will my taxes go up again in 2027?',
-            a: `If current trends carry forward with no policy change, the town-wide levy rises from ${usd(levy2026)} to ${usd(levyPredicted)} — ${prediction.levyEstimate.levyIncreasePct}%, which would pierce the state tax cap by ${usd(prediction.capGap.gap)}. That is a projection, not the Town's budget.`,
+            a: `If current trends carry forward with no policy change, the levy across all funds rises from ${usd(levy2026)} to ${usd(levyPredicted)} — ${prediction.levyEstimate.levyIncreasePct}%, about ${usd(prediction.capGap.gap)} more than a 2% increase. That is a projection, not the Town's budget.`,
             href: `${base}/predict-2027/`,
             cta: 'How the projection is built',
           },

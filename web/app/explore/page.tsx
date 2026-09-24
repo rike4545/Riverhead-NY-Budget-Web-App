@@ -110,11 +110,14 @@ const stops: Stop[] = [
   },
   {
     n: 12, kicker: 'What is coming', title: 'Next year is already tight', accent: 'var(--rbl-warn)',
-    body: <>Carried forward on contracts the Town has already signed, the 2027 levy grows about <b>{prediction.capGap.predictedLevyPct}%</b> — past what the tax cap allows by roughly <b>{usd0(prediction.capGap.gap)}</b>. Add the retiree-health promise the Town has not funded, and the picture is that today&apos;s decisions are mostly next year&apos;s obligations. Debt service, at least, falls from here.
-      {released2027 && <> The Town’s own 2027 Tentative is now out: it proposes a levy <b>{changePhrase(released2027.levyPct)} 2026</b>, {gapPhrase(released2027.levyVsReference)} a 2% increase.</>}</>,
+    body: <>Carried forward on contracts the Town has already signed, this site’s forecast had the 2027 levy growing about <b>{prediction.capGap.predictedLevyPct}%</b>, roughly <b>{usd0(prediction.capGap.gap)}</b> more than a 2% increase. Add the retiree-health promise the Town has not funded, and the picture is that today&apos;s decisions are mostly next year&apos;s obligations. Debt service, at least, falls from here.
+      {released2027 && (released2027.townWide && released2027.statedLimitPct !== null
+        ? <> The Town’s own 2027 Tentative is now out: it proposes a town-wide levy <b>{changePhrase(released2027.townWide.levyPct, 2)} 2026</b>, which the Supervisor’s letter says is within the Town’s <b>{released2027.statedLimitPct}%</b> tax cap limit.</>
+        : <> The Town’s own 2027 Tentative is now out: it proposes a levy <b>{changePhrase(released2027.levyPct)} 2026</b>, {gapPhrase(released2027.levyVsReference)} a 2% increase.</>)}</>,
     stats: [
-      { label: '2027 gap above the cap', value: M(prediction.capGap.gap) },
-      ...(released2027 && released2027.levyPct !== null ? [{ label: '2027 Tentative levy change', value: `${released2027.levyPct > 0 ? '+' : ''}${released2027.levyPct.toFixed(1)}%` }] : []),
+      { label: '2027 forecast above a 2% rise', value: M(prediction.capGap.gap) },
+      ...(released2027 && released2027.townWide?.levyPct != null ? [{ label: '2027 Tentative town-wide levy', value: `${released2027.townWide.levyPct > 0 ? '+' : ''}${released2027.townWide.levyPct.toFixed(2)}%` }]
+        : released2027 && released2027.levyPct !== null ? [{ label: '2027 Tentative levy change', value: `${released2027.levyPct > 0 ? '+' : ''}${released2027.levyPct.toFixed(1)}%` }] : []),
       { label: 'Unfunded retiree health', value: M(opebLiability.latestGovernmental) },
     ],
     href: released2027 ? `${base}/tentative-2027/` : `${base}/predict-2027/`, cta: released2027 ? 'The Tentative against the forecast' : 'See the 2027 projection',

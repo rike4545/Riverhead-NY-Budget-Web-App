@@ -1,7 +1,7 @@
 import PageShell from '../../components/PageShell'
 import PlainCallout from '../../components/PlainCallout'
 import TentativeReleased from '../../components/TentativeReleased'
-import { released2027, gapPhrase } from '../../lib/tentative-2027'
+import { released2027, gapPhrase, statedLimitPct } from '../../lib/tentative-2027'
 import ProvenanceLine from '../../components/ProvenanceLine'
 import ColumnChart from '../../components/charts/ColumnChart'
 import StatusStrip from '../../components/charts/StatusStrip'
@@ -41,6 +41,17 @@ const formulaSteps = [
 
 export default function TaxCapPage() {
   const d = data
+  // The 2027 proposal joins the record as a proposal, once the letter giving its limit has been read.
+  const proposal = released2027 && released2027.statedLimitPct !== null
+    ? {
+        year: '2027',
+        status: 'proposed',
+        label: released2027.withinStatedLimit
+          ? `Proposed: within the ${released2027.statedLimitPct}% limit the Supervisor’s letter gives. Not adopted yet`
+          : `Proposed: the Supervisor’s letter gives a ${released2027.statedLimitPct}% limit, and not every district is within it. Not adopted yet`,
+      }
+    : null
+  const statusRows = proposal ? [...d.capStatus, proposal] : d.capStatus
 
   return (
     <PageShell
@@ -54,11 +65,16 @@ export default function TaxCapPage() {
           { label: 'Override means authority', text: 'a 60% local-law vote lets the Board adopt above the calculated limit, but does not require it to do so.' },
         ]}
       >
-        For calendar-year local governments, OSC set the <strong>2027 allowable levy growth factor at 2%</strong>. Riverhead’s final 2027 levy limit still depends on the rest of the statutory formula and should be updated here when the Town files it.
+        For calendar-year local governments, OSC set the <strong>2027 allowable levy growth factor at 2%</strong>. Riverhead’s final 2027 levy limit depends on the rest of the statutory formula.
+        {statedLimitPct !== null
+          ? <> The Supervisor’s letter in the 2027 Tentative puts it at <strong>{statedLimitPct}%</strong>; the calculation behind that figure comes with the Town’s filing with the State Comptroller.</>
+          : ' It should be updated here when the Town files it.'}
       </PlainCallout>
 
       <TentativeReleased>
-        The levy limit the Town files with the State Comptroller is not printed in the Tentative, so 2% is a yardstick here, not the legal limit.
+        {statedLimitPct !== null
+          ? 'No table in the budget prints the limit, and the letter gives no dollar figure or calculation for it. Those are in the filing the Town makes with the State Comptroller.'
+          : 'The levy limit the Town files with the State Comptroller is not printed in the Tentative, so 2% is a yardstick here, not the legal limit.'}
       </TentativeReleased>
 
       <section style={{ ...card, marginBottom: 16, borderLeft: '6px solid var(--rbl-info-border)' }}>
@@ -109,14 +125,14 @@ export default function TaxCapPage() {
 
       <section style={{ ...card, marginBottom: 16 }}>
         <StatusStrip
-          title="Nine budget years of override/compliance status"
+          title={`Nine budget years of override/compliance status${proposal ? ', and the 2027 proposal' : ''}`}
           lede="This timeline describes whether the record shows an above-limit levy and whether the required override local law was used. It is not derived from the General Fund chart below."
-          years={d.capStatus.map((c) => ({ year: c.year, status: c.status, detail: `${c.year}: ${c.label}` }))}
+          years={statusRows.map((c) => ({ year: c.year, status: c.status, detail: `${c.year}: ${c.label}` }))}
           tones={STATUS_TONES}
           source="Town audited financial statements and adopted override local laws."
         />
         <div style={{ display: 'grid', gap: 8, marginTop: 16 }}>
-          {d.capStatus.map((c) => {
+          {statusRows.map((c) => {
             const st = STATUS_STYLE[c.status]
             return <div key={c.year} style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '9px 14px', borderRadius: 10, background: st.bg }}><span style={{ width: 10, height: 10, borderRadius: 999, background: st.dot, flexShrink: 0 }} /><span style={{ fontWeight: 900, color: 'var(--rbl-title)', minWidth: 46 }}>{c.year}</span><span style={{ color: st.fg, fontWeight: 700, fontSize: 14 }}>{c.label}</span></div>
           })}
@@ -153,8 +169,22 @@ export default function TaxCapPage() {
         <p style={{ color: 'var(--rbl-text-strong)', lineHeight: 1.6 }}>OSC set the 2027 allowable levy growth factor at <strong>2%</strong> for calendar-year local governments because its inflation factor was 3.13%. That does not determine Riverhead’s final filed limit on its own.</p>
         {released2027 && (
           <p data-tentative-levy style={{ color: 'var(--rbl-text-strong)', lineHeight: 1.6 }}>
-            The Town’s 2027 Tentative proposes a levy of <strong>{usd(released2027.levy)}</strong>, {gapPhrase(released2027.levyVsReference)} a 2% increase
-            on 2026. Whether that is within the legal limit depends on the figure the Town files, which the budget does not print.{' '}
+            {released2027.statedLimitPct !== null && released2027.townWide ? (
+              <>
+                The Town’s 2027 Tentative proposes a town-wide levy of <strong>{usd(released2027.townWide.levy)}</strong>, up{' '}
+                {released2027.townWide.levyPct?.toFixed(2)}%, and {usd(released2027.levy)} with the special districts, up{' '}
+                {released2027.levyPct?.toFixed(2)}%. The Supervisor’s letter says every taxing district is{' '}
+                <strong>within the tax cap limit of {released2027.statedLimitPct}%</strong>
+                {released2027.withinStatedLimit ? ', and no district’s levy in the budget rises by more than that' : ', but not every district’s levy in the budget is'}.
+                The letter doesn’t give the limit in dollars or show how it was reached; that is in the Town’s filing with the
+                State Comptroller. If the {released2027.statedLimitPct}% is right, the proposal as written needs no override vote.{' '}
+              </>
+            ) : (
+              <>
+                The Town’s 2027 Tentative proposes a levy of <strong>{usd(released2027.levy)}</strong>, {gapPhrase(released2027.levyVsReference)} a 2% increase
+                on 2026. Whether that is within the legal limit depends on the figure the Town files, which the budget does not print.{' '}
+              </>
+            )}
             <a href={`${base}/tentative-2027/`} style={{ color: 'var(--rbl-link)', fontWeight: 800 }}>The Tentative against the forecast →</a>
           </p>
         )}

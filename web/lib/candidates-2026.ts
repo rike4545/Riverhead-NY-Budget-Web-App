@@ -69,7 +69,7 @@ export const candidates2026: Candidate[] = [
       {
         proposal: 'Keep a tight lid on Town spending.',
         benefit:
-          `Directly attacks the ~${capGapM} by which the 2027 levy is projected to pierce the 2% tax cap. The app already identifies ~$2.1M in firm, individually-sourced recurring trims — so “hold the line” is not an empty slogan here; the line items exist.`,
+          `Directly attacks the ~${capGapM} by which this site’s forecast had the 2027 levy above a 2% increase. The app already identifies ~$2.1M in firm, individually-sourced recurring trims — so “hold the line” is not an empty slogan here; the line items exist.`,
         cost:
           'Most of the budget base is personnel and mandated costs (pension, debt service, insurance) a spending freeze can’t touch. Real restraint means audits, held vacancies, and deferred equipment/capital — each of which trades a dollar saved for a service or a delayed repair.',
         tradeoff:
@@ -123,7 +123,7 @@ export const candidates2026: Candidate[] = [
         benefit:
           'Direct, immediately felt relief for every property owner, and the Town has a large cushion to work from: a $33.4M General Fund balance, of which $29.7M is unassigned and actually available.',
         cost:
-          `An actual levy cut (versus merely holding growth) widens the ~${capGapM} cap gap rather than closing it — the reduction has to be found on top of the gap. Funding a cut from reserves spends one-time money on a recurring obligation and can’t be repeated.`,
+          `An actual levy cut (versus merely holding growth) widens the ~${capGapM} gap to a 2% increase rather than closing it — the reduction has to be found on top of the gap. Funding a cut from reserves spends one-time money on a recurring obligation and can’t be repeated.`,
         tradeoff:
           'The NY tax cap already caps levy growth at ~2%; the fiscal distance between “hold at the cap” and “actually lower” is large, and this plank must be squared with the new-spending planks below.',
         anchor: { label: 'The cap gap and the fund-balance cushion', href: '/spending-reduction-2027/' },
@@ -178,7 +178,7 @@ export const candidates2026: Candidate[] = [
 export const synthesis = {
   common: [
     'Both run on tax-base growth over levy increases, and both promise spending restraint — on fiscal strategy they are more alike than different.',
-    `Both face the same unnamed constraint: the ~${capGapM} by which the 2027 levy is projected to pierce the tax cap, and the PBA/SOA contracts expiring 12/31/2026 that settle by binding arbitration.`,
+    `Both face the same unnamed constraint: the ~${capGapM} by which this site’s forecast had the 2027 levy above a 2% increase, and the PBA/SOA contracts expiring 12/31/2026 that settle by binding arbitration.`,
   ],
   divergence: [
     'The incumbent’s platform is mostly “hold and grow” — restraint plus development — which maps onto the identified trims but is slow on the revenue side.',
@@ -186,7 +186,7 @@ export const synthesis = {
     'Both share the development-versus-open-space tension; neither has reconciled it in dollar terms.',
   ],
   unnamedCost:
-    `Neither platform, as stated, closes the ~${capGapM} cap gap on paper. That is the honest scorecard: the ideas are directionally sound, but the arithmetic to hit the cap still has to be shown — which is exactly what the 2027 spending-reduction page lets a resident test lever by lever.`,
+    `Neither platform, as stated, closes the ~${capGapM} gap to a 2% increase on paper. That is the honest scorecard: the ideas are directionally sound, but the arithmetic to get there still has to be shown — which is exactly what the 2027 spending-reduction page lets a resident test lever by lever.`,
 }
 
 // A view that belongs to neither campaign: how a neutral fiscal observer — and a
@@ -199,9 +199,11 @@ export const neutralView = {
   history: [
     '2025 adopted budget: ~7.89% tax-levy increase.',
     'Tax-cap overrides adopted in 2023, 2024, and 2026.',
-    `2027 projection: the levy again pierces the ~2% cap, by about ${capGapM}, on current trends.`,
+    `2027 projection: on current trends, the levy rises about ${capGapM} more than a 2% increase.`,
     ...(released2027
-      ? [`2027 Tentative: a levy ${changePhrase(released2027.levyPct)} 2026, ${gapPhrase(released2027.levyVsReference)} a 2% increase. The Board can still change it.`]
+      ? [released2027.townWide && released2027.statedLimitPct !== null
+          ? `2027 Tentative: a town-wide levy ${changePhrase(released2027.townWide.levyPct, 2)} 2026, which the Supervisor’s letter says is within the Town’s ${released2027.statedLimitPct}% tax cap limit. The Board can still change it.`
+          : `2027 Tentative: a levy ${changePhrase(released2027.levyPct)} 2026, ${gapPhrase(released2027.levyVsReference)} a 2% increase. The Board can still change it.`]
       : []),
   ],
   principles: [

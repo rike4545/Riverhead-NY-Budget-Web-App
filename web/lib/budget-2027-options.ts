@@ -23,7 +23,7 @@ import prediction from '../public/data/budget-2027-prediction.json'
 import { fullRecurringReductionPackage, personnelPolicyItems } from './spending-reduction-2027'
 import { firmRecurringTotal, retirementIncentive2027 } from './close-the-gap-2027'
 import { surplusAboveUpper } from './reserve-policy'
-import { released2027 } from './tentative-2027'
+import { released2027, statedLimitPct } from './tentative-2027'
 
 const le = prediction.levyEstimate
 const cg = prediction.capGap
@@ -331,8 +331,8 @@ export const release = {
 
 export const scorecard: ScorecardRow[] = [
   {
-    metric: 'Town-wide tax levy',
-    basis: 'All funds',
+    metric: 'Tax levy',
+    basis: 'All funds, special districts included',
     ourEstimate: levyPredicted,
     actual: filed ? filed.levy : null,
     note: 'Our projection carries current trends forward with no policy change. The distance between this and the filed number is the size of the choice the administration made.',
@@ -375,7 +375,11 @@ export const scorecard: ScorecardRow[] = [
     estimateLabel: 'Projection pierces the cap',
     actual: null,
     // Not part of any budget document: the Board adopts it as a local law.
-    actualLabel: filed ? 'Not in the budget; watch the agendas' : undefined,
+    actualLabel: filed
+      ? statedLimitPct !== null
+        ? `None needed if the letter’s ${statedLimitPct}% limit is right; watch the agendas`
+        : 'Not in the budget; watch the agendas'
+      : undefined,
     note: 'Required before the budget if the levy exceeds the cap. Its presence or absence is a fact, not an estimate.',
   },
 ]

@@ -41,7 +41,7 @@ export default function ZeroPercent2027Page() {
       >
         A zero-percent General Fund year for 2027 would have to absorb <strong>{usd(costGrowth)}</strong> of
         projected cost growth — about <strong>52% more</strong> than the {usd(capGap2027.gap)} it would take simply to
-        get under the tax cap. Riverhead has the reserves to do it for a year. Doing it durably is a different question,
+        hold the levy to a 2% increase. Riverhead has the reserves to do it for a year. Doing it durably is a different question,
         and this page separates the two.
       </PlainCallout>
 
