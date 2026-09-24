@@ -19,7 +19,7 @@ export default function PayrollTabs({
   }
 
   return (
-    <div style={{ display: 'grid', gap: 16 }}>
+    <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0,1fr)', gap: 16 }}>
       <section style={{
         background: 'linear-gradient(110deg,#102c46,var(--rbl-fill-accent))', color: 'white', borderRadius: 18,
         padding: '22px 24px', boxShadow: '0 16px 36px var(--rbl-shadow)',

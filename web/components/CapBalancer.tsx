@@ -24,7 +24,7 @@ export default function CapBalancer({ levy2026, predictedLevy, allowedLevy, appr
 
   return (
     <div style={{ background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 20, boxShadow: '0 14px 34px var(--rbl-shadow)' }}>
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(260px,1fr))', gap: 20 }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(min(260px,100%),1fr))', gap: 20 }}>
         {/* Controls */}
         <div style={{ display: 'grid', gap: 16 }}>
           <Slider label="Trim spending" value={cutPct} min={0} max={5} step={0.1} onChange={setCutPct}

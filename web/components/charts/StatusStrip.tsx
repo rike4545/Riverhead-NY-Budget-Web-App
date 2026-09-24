@@ -31,7 +31,7 @@ export default function StatusStrip({
       source={source}
       legend={used.map((k) => ({ label: `${tones[k].glyph}  ${tones[k].label}`, color: tones[k].color }))}
     >
-      <div style={{ display: 'grid', gridTemplateColumns: `repeat(${years.length}, minmax(0,1fr))`, gap: 6 }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(46px,1fr))', gap: 6 }}>
         {years.map((y) => {
           const t = tones[y.status]
           return (

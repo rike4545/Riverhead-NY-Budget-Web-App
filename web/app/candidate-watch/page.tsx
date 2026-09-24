@@ -59,7 +59,7 @@ export default function CandidateWatchPage() {
             </span>
           </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(300px,1fr))', gap: 14, alignItems: 'start' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(min(300px,100%),1fr))', gap: 14, alignItems: 'start' }}>
             {race.candidates.map((c) => {
               const p = PARTY[c.party] ?? { name: c.party, color: 'var(--rbl-text-muted)', tint: 'var(--rbl-surface-3)' }
               return (

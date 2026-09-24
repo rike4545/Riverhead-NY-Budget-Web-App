@@ -56,7 +56,7 @@ export default function PoliceStepSchedule() {
   })
 
   return (
-    <div style={{ display: 'grid', gap: 16 }}>
+    <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0,1fr)', gap: 16 }}>
       <PlainCallout
         tips={[
           { label: 'Two separate raises', text: 'every year the WHOLE schedule gets an across-the-board % increase (the PBA contract rate) — and separately, each officer with under 6 years of service moves up one step on that new schedule.' },

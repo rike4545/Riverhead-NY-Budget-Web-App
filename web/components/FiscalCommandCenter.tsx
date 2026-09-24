@@ -99,7 +99,7 @@ export default function FiscalCommandCenter() {
             })}
           </section>
 
-          <section style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(260px,1fr))', gap: 14, marginTop: 18 }}>
+          <section style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(min(260px,100%),1fr))', gap: 14, marginTop: 18 }}>
             <FeatureCard
               href={`${base}/payroll/`}
               tag="New · SeeThroughNY-style"
@@ -141,7 +141,7 @@ export default function FiscalCommandCenter() {
           <section id="insights" style={{ ...shell, scrollMarginTop: 24, marginTop: 18, padding: 24 }}>
             <h2 style={{ margin: 0 }}>What&apos;s worth knowing</h2>
             <p style={{ color: muted }}>The handful of things that actually moved — what changed, why it matters to you, and what we&apos;re still double-checking.</p>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(280px,1fr))', gap: 14, marginTop: 16 }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(min(280px,100%),1fr))', gap: 14, marginTop: 16 }}>
               {narrativeInsights.map((insight) => (
                 <article key={insight.title} style={{ border: '1px solid var(--rbl-border-subtle)', borderRadius: 18, padding: 16, background: 'var(--rbl-surface)' }}>
                   <div style={{ color: 'var(--rbl-page-accent)', fontSize: 12, fontWeight: 950, textTransform: 'uppercase' }}>{insight.status}</div>
@@ -223,7 +223,7 @@ export default function FiscalCommandCenter() {
               </span>
             </div>
             <p style={{ color: muted }}><strong>{retirementProgramAssessment.classification}:</strong> {retirementProgramAssessment.explanation}</p>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(260px,1fr))', gap: 14 }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(min(260px,100%),1fr))', gap: 14 }}>
               {retirementRiskFactors.map((risk) => (
                 <article key={risk.title} style={{ border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 14, background: 'var(--rbl-surface)' }}>
                   <div style={{ color: risk.riskLevel === 'High' ? 'var(--rbl-danger)' : 'var(--rbl-warn)', fontWeight: 950 }}>{risk.riskLevel}</div>

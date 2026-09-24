@@ -48,7 +48,7 @@ export default function CompareExplorer() {
   }, [rows])
 
   return (
-    <div style={{ display: 'grid', gap: 16 }}>
+    <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0,1fr)', gap: 16 }}>
       <section style={{ ...card, display: 'flex', gap: 16, flexWrap: 'wrap', alignItems: 'center' }}>
         <label style={{ fontWeight: 800, color: 'var(--rbl-text-strong)' }}>
           Compare&nbsp;
@@ -86,7 +86,7 @@ export default function CompareExplorer() {
               These are the largest changes in appropriations between the two years. They explain where the budget moved; they do not by themselves explain why a department changed.
             </p>
           </div>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(250px,1fr))', gap: 12 }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(min(250px,100%),1fr))', gap: 12 }}>
             <DriverList title="Largest increases" rows={drivers.increases} />
             <DriverList title="Largest decreases" rows={drivers.decreases} />
           </div>

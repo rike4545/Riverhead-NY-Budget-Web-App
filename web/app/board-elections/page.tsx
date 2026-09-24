@@ -236,7 +236,7 @@ export default function BoardElectionsPage() {
       </section>
 
       <p style={{ color: 'var(--rbl-text-muted)', fontSize: 12.5, lineHeight: 1.55, marginTop: 16 }}>{data.note}</p>
-      <p style={{ color: 'var(--rbl-text-muted)', fontSize: 12.5, lineHeight: 1.55, marginTop: 8 }}>
+      <p style={{ color: 'var(--rbl-text-muted)', fontSize: 12.5, lineHeight: 1.55, marginTop: 8, overflowWrap: 'anywhere' }}>
         Sources: {data.sources.join(' · ')}
       </p>
     </PageShell>

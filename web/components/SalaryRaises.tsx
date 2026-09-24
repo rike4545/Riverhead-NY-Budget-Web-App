@@ -47,7 +47,7 @@ export default function SalaryRaises() {
   if (loadError) return <LoadingCard label="Could not load the raise data — check your connection and reload." />
 
   return (
-    <div style={{ display: 'grid', gap: 16 }}>
+    <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0,1fr)', gap: 16 }}>
       <section style={{ ...card, display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(150px,1fr))', gap: 12 }}>
         <Stat label="Got a raise" value={`${summary.raised}`} sub={`of ${summary.matched} matched`} />
         <Stat label="Typical raise" value={summary.medianRaisePct != null ? `${summary.medianRaisePct}%` : '—'} sub="median" accent />
@@ -64,12 +64,12 @@ export default function SalaryRaises() {
             const max = summary.topRaises[0].raise || 1
             return (
               <div key={r.name}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', gap: 10, fontSize: 13.5 }}>
+                <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', gap: '2px 10px', fontSize: 13.5 }}>
                   <span style={{ color: 'var(--rbl-title)', fontWeight: 700 }}>
                     {r.name} <span style={{ color: 'var(--rbl-text-muted)', fontWeight: 600 }}>· {r.title2026}</span>
                     {r.promoted && <span style={{ marginLeft: 6, background: 'var(--rbl-violet-bg)', color: 'var(--rbl-violet)', fontSize: 11, fontWeight: 800, padding: '1px 7px', borderRadius: 999 }}>promotion</span>}
                   </span>
-                  <strong style={{ whiteSpace: 'nowrap' }}>{usd(r.annual2025)} → {usd(r.annual2026)} <span style={{ color: 'var(--rbl-warn)' }}>(+{usd(r.raise)})</span></strong>
+                  <strong style={{ marginLeft: 'auto', textAlign: 'right' }}>{usd(r.annual2025)} → {usd(r.annual2026)} <span style={{ color: 'var(--rbl-warn)', whiteSpace: 'nowrap' }}>(+{usd(r.raise)})</span></strong>
                 </div>
                 <div style={{ height: 7, background: 'var(--rbl-surface-3)', borderRadius: 7, marginTop: 3 }}>
                   <div style={{ width: `${(r.raise / max) * 100}%`, height: '100%', borderRadius: 7, background: r.promoted ? 'var(--rbl-series-violet)' : 'var(--rbl-fill-gold)' }} />

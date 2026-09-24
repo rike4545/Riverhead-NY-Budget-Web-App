@@ -85,14 +85,14 @@ export default function AnalyticsPage() {
         <Metric label="Fund balance used" value={dollars(reserveUse)} href="/reserves/" source="2026 Adopted Budget" />
       </section>
 
-      <section style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(280px,1fr))', gap: 14, marginBottom: 18 }}>
+      <section style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(min(280px,100%),1fr))', gap: 14, marginBottom: 18 }}>
         {sections.map((s) => <HubSection key={s.title} {...s} />)}
       </section>
 
       <section style={{ ...card, marginBottom: 18 }}>
         <h2 style={{ marginTop: 0, marginBottom: 4 }}>Signals worth watching</h2>
         <p style={{ color: 'var(--rbl-text-muted)', marginTop: 0 }}>These are calculated indicators. Use them to decide where to look next, not as standalone judgments.</p>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(240px,1fr))', gap: 12, marginTop: 14 }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(min(240px,100%),1fr))', gap: 12, marginTop: 14 }}>
           {automatedKpis.map((kpi) => <KpiCard key={kpi.label} label={kpi.label} value={kpi.value} explanation={kpi.explanation} href={kpiLinks[kpi.label]} />)}
         </div>
       </section>

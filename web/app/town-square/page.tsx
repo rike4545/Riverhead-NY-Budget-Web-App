@@ -429,7 +429,7 @@ export default function TownSquarePage() {
 
       <section style={{ ...card, marginBottom: 18 }}>
         <h2 style={{ marginTop: 0, marginBottom: 4, color: 'var(--rbl-title)', fontSize: 22 }}>The taking of {acquisition.parcel}</h2>
-        <dl style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(240px,1fr))', gap: 12, margin: '0 0 12px' }}>
+        <dl style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(min(240px,100%),1fr))', gap: 12, margin: '0 0 12px' }}>
           <Field term="Owner" value={acquisition.owner} />
           <Field term="Mortgage holders" value={acquisition.mortgageHolders} />
           <Field term="Town's offer" value={`${usd(acquisition.offer)} — ${acquisition.basis}`} />
@@ -473,10 +473,10 @@ export default function TownSquarePage() {
         <p style={{ color: 'var(--rbl-text-body)', fontSize: 13.6, lineHeight: 1.6, margin: 0 }}>{buildSchedule.disruption}</p>
       </section>
 
-      <div style={{ display: 'grid', gap: 14, gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', marginBottom: 18 }}>
+      <div style={{ display: 'grid', gap: 14, gridTemplateColumns: 'repeat(auto-fit, minmax(min(300px,100%), 1fr))', marginBottom: 18 }}>
         <section style={{ ...card }}>
           <h3 style={{ marginTop: 0, marginBottom: 8, color: 'var(--rbl-title)', fontSize: 17 }}>{garage.headline}</h3>
-          <div style={{ display: 'grid', gap: 10, gridTemplateColumns: 'repeat(auto-fit, minmax(120px, 1fr))', marginBottom: 10 }}>
+          <div style={{ display: 'grid', gap: 10, gridTemplateColumns: 'repeat(auto-fit, minmax(140px, 1fr))', marginBottom: 10 }}>
             <Stat label="Available" value={usd(garage.available)} sub="Of which about $2M for design" />
             <Stat label="Spaces, current sizing" value={garage.spaces.toLocaleString('en-US')} sub="1995 plan contemplated 589" />
           </div>
@@ -511,18 +511,18 @@ export default function TownSquarePage() {
         <div style={{ display: 'grid', gap: 6 }}>
           {boardRecord.map((v) => (
             <div key={v.number} style={{
-              display: 'grid', gridTemplateColumns: 'auto 1fr auto', gap: 10, alignItems: 'baseline',
+              display: 'flex', flexWrap: 'wrap', gap: 10, alignItems: 'baseline',
               background: v.contested ? 'var(--rbl-warn-bg)' : 'var(--rbl-surface-2)',
               border: `1px solid ${v.contested ? 'var(--rbl-warn-border)' : 'var(--rbl-border-subtle)'}`,
               borderRadius: 9, padding: '9px 12px',
             }}>
               <span style={{ color: 'var(--rbl-text-muted)', fontSize: 11.6, fontWeight: 800, whiteSpace: 'nowrap' }}>{v.number}</span>
-              <div>
+              <div style={{ flex: '1 1 200px', minWidth: 0 }}>
                 <div style={{ color: 'var(--rbl-text-strong)', fontSize: 13.4, lineHeight: 1.45 }}>{v.title}</div>
                 <div style={{ color: 'var(--rbl-text-muted)', fontSize: 12 }}>{v.date}{v.dissent ? ` · ${v.dissent}` : ''}</div>
               </div>
               <span style={{
-                fontSize: 11, fontWeight: 900, whiteSpace: 'nowrap',
+                marginLeft: 'auto', fontSize: 11, fontWeight: 900, whiteSpace: 'nowrap',
                 color: v.contested ? 'var(--rbl-warn-strong)' : 'var(--rbl-success-strong)',
               }}>{v.result}</span>
             </div>
@@ -685,7 +685,7 @@ function KeyNumbers() {
         These are not one budget and should never be added together. They are the separate pots this project moves
         through, which is the thing most easily got wrong about it.
       </p>
-      <div style={{ display: 'grid', gap: 10, gridTemplateColumns: 'repeat(auto-fit, minmax(255px, 1fr))' }}>
+      <div style={{ display: 'grid', gap: 10, gridTemplateColumns: 'repeat(auto-fit, minmax(min(255px,100%), 1fr))' }}>
         {rows.map((r) => (
           <div key={r.l} style={{ background: 'var(--rbl-surface-2)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 12, padding: 12 }}>
             <div style={{ color: 'var(--rbl-title)', fontSize: 20, fontWeight: 900, lineHeight: 1.15 }}>{r.v}</div>

@@ -196,7 +196,7 @@ function ProgramCard({ p }: { p: Program }) {
 
       <p style={{ color: 'var(--rbl-text-body)', fontSize: 14.8, lineHeight: 1.62, margin: '14px 0 0' }}>{p.narrative}</p>
 
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(260px,1fr))', gap: 14, marginTop: 14, borderTop: '1px solid var(--rbl-border-subtle)', paddingTop: 14 }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(min(260px,100%),1fr))', gap: 14, marginTop: 14, borderTop: '1px solid var(--rbl-border-subtle)', paddingTop: 14 }}>
         <div>
           <h4 style={{ color: 'var(--rbl-title)', fontSize: 14, margin: '0 0 6px' }}>What it buys</h4>
           <ul style={{ color: 'var(--rbl-text-body)', fontSize: 13.2, lineHeight: 1.5, margin: 0, paddingLeft: 18 }}>

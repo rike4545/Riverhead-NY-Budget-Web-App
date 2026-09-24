@@ -17,7 +17,7 @@ export default function OutlierWatch({ outliers, yearTransitions }: { outliers: 
   )
 
   return (
-    <div style={{ display: 'grid', gap: 12 }}>
+    <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0,1fr)', gap: 12 }}>
       <section style={{ ...card, display: 'flex', gap: 6, flexWrap: 'wrap' }}>
         <button onClick={() => setTransition('all')} style={{
           padding: '8px 13px', borderRadius: 9, border: '1px solid', cursor: 'pointer', fontWeight: 800, fontSize: 13.5,

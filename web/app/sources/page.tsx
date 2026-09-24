@@ -121,7 +121,7 @@ export default function SourcesPage() {
               <div style={{ background: 'var(--rbl-surface-2)', color: 'var(--rbl-title)', borderRadius: 8, padding: '10px 14px', fontWeight: 900, height: 'fit-content' }}>{report.year ?? 'Year pending'}</div>
             </div>
             <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap', marginTop: 12 }}><span style={{ background: 'var(--rbl-surface-2)', color: 'var(--rbl-title)', border: '1px solid var(--rbl-border)', borderRadius: 999, padding: '8px 12px', fontWeight: 800 }}>{statusFor(report)}</span><span style={{ background: 'var(--rbl-warn-bg)', color: 'var(--rbl-warn-strong)', border: '1px solid var(--rbl-warn-border)', borderRadius: 999, padding: '8px 12px', fontWeight: 800 }}>{report.page_count} pages</span><span style={{ background: 'var(--rbl-surface-2)', color: 'var(--rbl-text-body)', border: '1px solid var(--rbl-border)', borderRadius: 999, padding: '8px 12px', fontWeight: 800 }}>{report.money_value_count} money values</span></div>
-            <p style={{ color: 'var(--rbl-text-body)', fontSize: 13 }}>Parsed: {new Date(report.parsed_at).toLocaleString()} • SHA-256: {report.sha256 || 'pending'}</p>
+            <p style={{ color: 'var(--rbl-text-body)', fontSize: 13, overflowWrap: 'anywhere' }}>Parsed: {new Date(report.parsed_at).toLocaleString()} • SHA-256: {report.sha256 || 'pending'}</p>
             <a href={report.url} target="_blank" rel="noreferrer" style={{ display: 'inline-block', marginTop: 8, textDecoration: 'none', background: 'var(--rbl-fill-brand)', color: 'white', padding: '12px 18px', borderRadius: 8, fontWeight: 900 }}>Open Riverhead source</a>
           </article>
         ))}

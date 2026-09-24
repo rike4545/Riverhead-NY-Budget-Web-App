@@ -43,7 +43,7 @@ export default function WhatChangedPage() {
           </a>)}
         </section>
 
-        <section style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(300px,1fr))', gap: 14 }}>
+        <section style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(min(300px,100%),1fr))', gap: 14 }}>
           <article style={{ background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 14, padding: 18 }}>
             <h2 style={{ margin: 0, fontSize: 20 }}>What changed most?</h2>
             <p style={{ color: 'var(--rbl-text-sub)', lineHeight: 1.6 }}>The adopted operating budget rose <strong>{dollars(c.dollarChange)}</strong> ({c.percentChange.toFixed(2)}%). The Town-wide property-tax levy rose <strong>{dollars(c.taxLevyDollarChange)}</strong> ({c.taxLevyPercentChange.toFixed(2)}%).</p>

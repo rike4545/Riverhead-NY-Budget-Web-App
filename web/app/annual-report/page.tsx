@@ -74,7 +74,7 @@ export default function AnnualReportPage() {
       )}
 
       {/* Revenue + expenditure categories */}
-      <section style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(340px,1fr))', gap: 16, marginBottom: 18 }}>
+      <section style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(min(340px,100%),1fr))', gap: 16, marginBottom: 18 }}>
         <CategoryCard title="Where the money came from" subtitle="General Fund revenues, 2025" rows={gf.revenueCategories.map((c) => ({ name: c.category, v2025: c.values['2025'], v2024: c.values['2024'] }))} color="var(--rbl-series-teal)" />
         <CategoryCard title="Where the money went" subtitle="General Fund spending, 2025" rows={gf.expenditureCategories.map((c) => ({ name: c.category, v2025: c.values['2025'], v2024: c.values['2024'] }))} color="var(--rbl-series-blue)" />
       </section>

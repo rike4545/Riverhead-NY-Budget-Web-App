@@ -66,7 +66,7 @@ export default function SeparationPay(p: SeparationPayProps) {
   const maxLiability = Math.max(...p.liability.series.map((s) => s.amount))
 
   return (
-    <div style={{ display: 'grid', gap: 16 }}>
+    <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0,1fr)', gap: 16 }}>
       {/* Frame: the thing people suspect, and where the money actually is */}
       <section style={{ background: 'var(--rbl-info-bg)', border: '1px solid var(--rbl-info-border)', borderLeft: '6px solid var(--rbl-accent-border)', borderRadius: 14, padding: '16px 18px' }}>
         <strong style={{ color: 'var(--rbl-title)', fontSize: 16 }}>Where end-of-career money actually shows up</strong>

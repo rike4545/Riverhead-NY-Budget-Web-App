@@ -300,7 +300,7 @@ export default function HousingPlanPage() {
           The 2022 decision had reasons behind it, and they are not frivolous. Here they are next to the case for
           taking the question back up — so a resident can weigh both rather than be handed one.
         </p>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(300px,1fr))', gap: 14 }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(min(300px,100%),1fr))', gap: 14 }}>
           <div>
             <h4 style={{ color: 'var(--rbl-danger)', fontSize: 15, margin: '0 0 8px' }}>Reasons the Town gave, and real costs</h4>
             <div style={{ display: 'grid', gap: 8 }}>

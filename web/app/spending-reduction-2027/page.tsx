@@ -87,7 +87,7 @@ export default function SpendingReduction2027Page() {
       </section>
 
       {/* WHAT THE TWO BUILDING BLOCKS ARE — two short cards. */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(280px,1fr))', gap: 16, marginTop: 16 }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(min(280px,100%),1fr))', gap: 16, marginTop: 16 }}>
         <section style={{ ...card }}>
           <h3 style={{ margin: '0 0 6px', color: 'var(--rbl-title)', fontSize: 16 }}>1 · The retirement incentive</h3>
           <p style={{ color: 'var(--rbl-text-strong)', fontSize: 14, lineHeight: 1.55, margin: '0 0 10px' }}>

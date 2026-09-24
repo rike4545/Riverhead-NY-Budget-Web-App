@@ -102,7 +102,7 @@ export default function FiscalImpactMeetings({ meetings }: { meetings: FiscalMee
   const statusTone = evidence.kind === 'available' ? 'var(--rbl-success)' : evidence.kind === 'omitted' ? 'var(--rbl-warn)' : 'var(--rbl-accent-border)'
 
   return (
-    <div style={{ display: 'grid', gap: 16 }}>
+    <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0,1fr)', gap: 16 }}>
       <section style={{ ...card, display: 'flex', gap: 12, flexWrap: 'wrap', alignItems: 'center' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 10, flexWrap: 'wrap', flex: 1 }}>
           <label htmlFor="meeting" style={{ fontWeight: 800, color: 'var(--rbl-title)' }}>Meeting:</label>

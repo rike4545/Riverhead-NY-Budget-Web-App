@@ -75,7 +75,7 @@ export default function OvertimeStaffing(p: OvertimeStaffingProps) {
   const [load, setLoad] = useState<'low' | 'mid' | 'high'>('mid')
 
   return (
-    <div style={{ display: 'grid', gap: 16 }}>
+    <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0,1fr)', gap: 16 }}>
       {/* How to read this */}
       <section style={{ background: 'var(--rbl-info-bg)', border: '1px solid var(--rbl-info-border)', borderLeft: '6px solid var(--rbl-accent-border)', borderRadius: 14, padding: '16px 18px' }}>
         <strong style={{ color: 'var(--rbl-title)', fontSize: 16 }}>The question this answers</strong>
