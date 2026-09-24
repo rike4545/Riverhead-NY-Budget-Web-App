@@ -1,6 +1,7 @@
 'use client'
 
 import { useMemo, useState } from 'react'
+import { SortHeader, SortSelect, compareValues, useSort, type Sort } from './TableSort'
 import { useFetchJson, LoadingCard } from './useFetchJson'
 import { SALARY_COMPARISON_URL, type SalaryComparison, type RaiseRecord } from '../lib/salary'
 
@@ -9,7 +10,15 @@ const usd = (n: number | null | undefined) =>
 const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 18, boxShadow: '0 14px 34px var(--rbl-shadow)' } as const
 const sel = { padding: '9px 11px', border: '1px solid var(--rbl-border-strong)', borderRadius: 9, fontSize: 14, fontWeight: 700 } as const
 
-type SortKey = 'raise' | 'raisePct' | 'annual2026' | 'name'
+type SortKey = 'name' | 'annual2025' | 'annual2026' | 'raise' | 'raisePct'
+const TEXT_KEYS: readonly SortKey[] = ['name']
+const SORT_LABELS: Record<SortKey, string> = { name: 'Employee', annual2025: '2025 salary', annual2026: '2026 salary', raise: 'Raise $', raisePct: 'Raise %' }
+const SORT_PRESETS: { label: string; sort: Sort<SortKey> }[] = [
+  { label: 'Sort: Raise $', sort: { key: 'raise', dir: 'desc' } },
+  { label: 'Sort: Raise %', sort: { key: 'raisePct', dir: 'desc' } },
+  { label: 'Sort: 2026 salary', sort: { key: 'annual2026', dir: 'desc' } },
+  { label: 'Sort: Name (A–Z)', sort: { key: 'name', dir: 'asc' } },
+]
 
 const EMPTY_SUMMARY = {
   count2026: 0, matched: 0, raised: 0, promotions: 0,
@@ -23,7 +32,7 @@ export default function SalaryRaises() {
   const records = useMemo(() => comparison?.records ?? [], [comparison])
   const [q, setQ] = useState('')
   const [only, setOnly] = useState<'all' | 'raised' | 'promotions'>('raised')
-  const [sortKey, setSortKey] = useState<SortKey>('raise')
+  const [sort, sortBy, setSort] = useSort<SortKey>({ key: 'raise', dir: 'desc' }, TEXT_KEYS)
   const [limit, setLimit] = useState(60)
   const yq = q.trim().toLowerCase()
 
@@ -34,14 +43,10 @@ export default function SalaryRaises() {
       if (yq && !(`${r.name} ${r.title2026}`.toLowerCase().includes(yq))) return false
       return true
     })
-    list.sort((a, b) => {
-      if (sortKey === 'name') return a.name.localeCompare(b.name)
-      if (sortKey === 'annual2026') return b.annual2026 - a.annual2026
-      if (sortKey === 'raisePct') return (b.raisePct ?? -999) - (a.raisePct ?? -999)
-      return (b.raise ?? -1e9) - (a.raise ?? -1e9)
-    })
+    // Someone with no 2025 salary to compare has no raise, and sorts last.
+    list.sort((a, b) => compareValues(a[sort.key], b[sort.key], sort.dir) || a.name.localeCompare(b.name))
     return list
-  }, [records, only, yq, sortKey])
+  }, [records, only, yq, sort])
 
   if (!comparison && !loadError) return <LoadingCard label="Loading the raise comparison…" />
   if (loadError) return <LoadingCard label="Could not load the raise data — check your connection and reload." />
@@ -90,12 +95,7 @@ export default function SalaryRaises() {
             }}>{f === 'raised' ? `Raises (${summary.raised})` : f === 'promotions' ? `Promotions (${summary.promotions})` : `All 2026 (${summary.count2026})`}</button>
           ))}
         </div>
-        <select value={sortKey} onChange={(e) => setSortKey(e.target.value as SortKey)} style={sel}>
-          <option value="raise">Sort: Raise $</option>
-          <option value="raisePct">Sort: Raise %</option>
-          <option value="annual2026">Sort: 2026 salary</option>
-          <option value="name">Sort: Name (A–Z)</option>
-        </select>
+        <SortSelect sort={sort} presets={SORT_PRESETS} labels={SORT_LABELS} textKeys={TEXT_KEYS} onChange={setSort} style={sel} />
         <input value={q} onChange={(e) => { setQ(e.target.value); setLimit(60) }} placeholder="Search name or title…"
           style={{ flex: 1, minWidth: 200, padding: '10px 13px', border: '1px solid var(--rbl-border-strong)', borderRadius: 9, fontSize: 15 }} />
       </section>
@@ -107,11 +107,11 @@ export default function SalaryRaises() {
           <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 13.5 }}>
             <thead>
               <tr style={{ textAlign: 'left', color: 'var(--rbl-text-muted)', borderBottom: '2px solid var(--rbl-border-subtle)' }}>
-                <th style={th}>Employee / Position</th>
-                <th style={{ ...th, textAlign: 'right' }}>2025</th>
-                <th style={{ ...th, textAlign: 'right' }}>2026</th>
-                <th style={{ ...th, textAlign: 'right' }}>Raise</th>
-                <th style={{ ...th, textAlign: 'right' }}>%</th>
+                <SortHeader label="Employee / Position" column="name" sort={sort} onSort={sortBy} text />
+                <SortHeader label="2025" column="annual2025" sort={sort} onSort={sortBy} align="right" />
+                <SortHeader label="2026" column="annual2026" sort={sort} onSort={sortBy} align="right" />
+                <SortHeader label="Raise" column="raise" sort={sort} onSort={sortBy} align="right" />
+                <SortHeader label="%" column="raisePct" sort={sort} onSort={sortBy} align="right" />
               </tr>
             </thead>
             <tbody>

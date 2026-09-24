@@ -2,7 +2,7 @@
 
 import { Fragment, useMemo, useState } from 'react'
 import Sparkline from './Sparkline'
-import InfoTip from './InfoTip'
+import { SortHeader, SortSelect, compareValues, useSort, type Sort } from './TableSort'
 import { ColumnGuide } from './PlainCallout'
 import { useFetchJson } from './useFetchJson'
 import {
@@ -14,7 +14,18 @@ const usd = (n: number) => new Intl.NumberFormat('en-US', { style: 'currency', c
 const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 18, boxShadow: '0 14px 34px var(--rbl-shadow)' } as const
 const sel = { maxWidth: '100%', padding: '9px 11px', border: '1px solid var(--rbl-border-strong)', borderRadius: 9, fontSize: 14, fontWeight: 700 } as const
 
-type SortKey = 'gross' | 'overtime' | 'regular' | 'name'
+type SortKey = 'year' | 'name' | 'title' | 'department' | 'union' | 'regular' | 'overtime' | 'other' | 'gross'
+const TEXT_KEYS: readonly SortKey[] = ['name', 'title', 'department', 'union']
+const SORT_LABELS: Record<SortKey, string> = {
+  year: 'Year', name: 'Employee', title: 'Title', department: 'Department', union: 'Group',
+  regular: 'Regular pay', overtime: 'Overtime', other: 'Other pay', gross: 'Gross pay',
+}
+const SORT_PRESETS: { label: string; sort: Sort<SortKey> }[] = [
+  { label: 'Sort: Gross pay', sort: { key: 'gross', dir: 'desc' } },
+  { label: 'Sort: Overtime', sort: { key: 'overtime', dir: 'desc' } },
+  { label: 'Sort: Regular pay', sort: { key: 'regular', dir: 'desc' } },
+  { label: 'Sort: Name (A–Z)', sort: { key: 'name', dir: 'asc' } },
+]
 
 export default function PayrollExplorer() {
   const latest = payrollYears[payrollYears.length - 1]
@@ -22,7 +33,7 @@ export default function PayrollExplorer() {
   const [q, setQ] = useState('')
   const [union, setUnion] = useState('all')
   const [dept, setDept] = useState('all')
-  const [sortKey, setSortKey] = useState<SortKey>('gross')
+  const [sort, sortBy, setSort] = useSort<SortKey>({ key: 'gross', dir: 'desc' }, TEXT_KEYS)
   const [limit, setLimit] = useState(100)
   const [expanded, setExpanded] = useState<string | null>(null)
 
@@ -61,12 +72,9 @@ export default function PayrollExplorer() {
       }
       return true
     })
-    rows.sort((a, b) => {
-      if (sortKey === 'name') return a.name.localeCompare(b.name)
-      return (b[sortKey] as number) - (a[sortKey] as number)
-    })
+    rows.sort((a, b) => compareValues(a[sort.key], b[sort.key], sort.dir) || a.name.localeCompare(b.name) || b.year - a.year)
     return rows
-  }, [payrollRecords, year, union, dept, yq, sortKey])
+  }, [payrollRecords, year, union, dept, yq, sort])
 
   const totals = useMemo(() => {
     // filtered has one row per employee PER YEAR. "Current" headcount means people
@@ -141,12 +149,7 @@ export default function PayrollExplorer() {
             {departments.map((d) => <option key={d} value={d}>{d}</option>)}
           </select>
         )}
-        <select value={sortKey} onChange={(e) => setSortKey(e.target.value as SortKey)} style={sel}>
-          <option value="gross">Sort: Gross pay</option>
-          <option value="overtime">Sort: Overtime</option>
-          <option value="regular">Sort: Regular pay</option>
-          <option value="name">Sort: Name (A–Z)</option>
-        </select>
+        <SortSelect sort={sort} presets={SORT_PRESETS} labels={SORT_LABELS} textKeys={TEXT_KEYS} onChange={setSort} style={sel} />
         <input
           value={q}
           onChange={(e) => { setQ(e.target.value); setLimit(100) }}
@@ -180,26 +183,25 @@ export default function PayrollExplorer() {
           <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 13.5 }}>
             <thead>
               <tr style={{ textAlign: 'left', color: 'var(--rbl-text-muted)', borderBottom: '2px solid var(--rbl-border-subtle)' }}>
-                {year === 'all' && <th style={th}>Yr</th>}
-                <th style={th}>Employee</th>
-                <th style={th}>Title</th>
-                <th style={th}>Department</th>
-                <th style={th}>Group</th>
-                <SortTh
-                  label="Regular" active={sortKey === 'regular'} onClick={() => setSortKey('regular')}
+                {year === 'all' && <SortHeader label="Yr" column="year" sort={sort} onSort={sortBy} />}
+                <SortHeader label="Employee" column="name" sort={sort} onSort={sortBy} text />
+                <SortHeader label="Title" column="title" sort={sort} onSort={sortBy} text />
+                <SortHeader label="Department" column="department" sort={sort} onSort={sortBy} text />
+                <SortHeader label="Group" column="union" sort={sort} onSort={sortBy} text />
+                <SortHeader
+                  label="Regular" column="regular" sort={sort} onSort={sortBy} align="right"
                   tip={{ heading: 'Regular (base pay)', body: 'Base salary or wages for normal scheduled hours — before overtime and before any of the additions in “Other pay.”' }}
                 />
-                <SortTh
-                  label="Overtime" active={sortKey === 'overtime'} onClick={() => setSortKey('overtime')}
+                <SortHeader
+                  label="Overtime" column="overtime" sort={sort} onSort={sortBy} align="right"
                   tip={{ heading: 'Overtime', body: 'Pay for hours worked beyond the normal schedule, at the contractual premium rate (generally 1.5× the straight-time rate).' }}
                 />
-                <th style={{ ...th, textAlign: 'right' }}>
-                  <InfoTip label={<span style={{ fontWeight: 800, color: 'var(--rbl-text-muted)' }}>Other pay</span>} heading="Other pay — what’s in it" align="right">
-                    <OtherPayTip rows={filtered} />
-                  </InfoTip>
-                </th>
-                <SortTh
-                  label="Gross Pay" active={sortKey === 'gross'} onClick={() => setSortKey('gross')}
+                <SortHeader
+                  label="Other pay" column="other" sort={sort} onSort={sortBy} align="right"
+                  tip={{ heading: 'Other pay — what’s in it', body: <OtherPayTip rows={filtered} /> }}
+                />
+                <SortHeader
+                  label="Gross Pay" column="gross" sort={sort} onSort={sortBy} align="right"
                   tip={{ heading: 'Gross Pay', body: 'Base pay + overtime + other pay — the total actually paid out for the year, before taxes and deductions. This is what the Town spent on that person, not their take-home.' }}
                 />
                 <th style={th} aria-label="expand" />
@@ -417,28 +419,6 @@ function Inferred({ value, inferred }: { value: string; inferred: boolean }) {
 const th = { padding: '8px 9px' } as const
 const td = { padding: '7px 9px' } as const
 const nameBtn = { background: 'none', border: 'none', color: 'var(--rbl-title)', fontWeight: 700, cursor: 'pointer', padding: 0, font: 'inherit', textAlign: 'left' as const }
-
-function SortTh({
-  label, active, onClick, tip,
-}: { label: string; active: boolean; onClick: () => void; tip?: { heading: string; body: React.ReactNode } }) {
-  const button = (
-    <button onClick={onClick} style={{ background: 'none', border: 'none', cursor: 'pointer', fontWeight: 800, color: active ? 'var(--rbl-accent)' : 'var(--rbl-text-muted)', font: 'inherit' }}>
-      {label}{active ? ' ▾' : ''}
-    </button>
-  )
-  return (
-    <th style={{ ...th, textAlign: 'right' }}>
-      {tip ? (
-        // The sort button and the tooltip trigger are siblings, not nested — a
-        // button inside a button is invalid, and the tip's own click handler
-        // stops propagation so opening it never triggers a re-sort.
-        <span style={{ display: 'inline-flex', alignItems: 'center', gap: 3 }}>
-          <InfoTip label={button} heading={tip.heading} align="right">{tip.body}</InfoTip>
-        </span>
-      ) : button}
-    </th>
-  )
-}
 
 function Stat({ label, value, sub, accent, amber }: { label: string; value: string; sub?: string; accent?: boolean; amber?: boolean }) {
   return (

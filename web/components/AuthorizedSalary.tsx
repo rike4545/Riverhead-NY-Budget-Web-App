@@ -1,6 +1,7 @@
 'use client'
 
 import { useMemo, useState } from 'react'
+import { SortHeader, SortSelect, compareValues, useSort, type Sort } from './TableSort'
 import { useFetchJson, LoadingCard } from './useFetchJson'
 import { authorizedSalaryUrl, actualYearFor, matchedCountFor, type AuthorizedSalary as AuthorizedSalaryData, type SalaryRecord } from '../lib/salary'
 
@@ -9,13 +10,21 @@ const usd = (n: number | null | undefined) =>
 const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 18, boxShadow: '0 14px 34px var(--rbl-shadow)' } as const
 const sel = { padding: '9px 11px', border: '1px solid var(--rbl-border-strong)', borderRadius: 9, fontSize: 14, fontWeight: 700 } as const
 
-type SortKey = 'annual' | 'actualGross' | 'gap' | 'name'
+type SortKey = 'name' | 'group' | 'annual' | 'actualGross' | 'gap'
+const TEXT_KEYS: readonly SortKey[] = ['name', 'group']
+const SORT_LABELS: Record<SortKey, string> = { name: 'Employee', group: 'Group', annual: 'Authorized salary', actualGross: 'Actual pay', gap: 'Actual over authorized' }
+const SORT_PRESETS: { label: string; sort: Sort<SortKey> }[] = [
+  { label: 'Sort: Authorized salary', sort: { key: 'annual', dir: 'desc' } },
+  { label: 'Sort: Actual pay', sort: { key: 'actualGross', dir: 'desc' } },
+  { label: 'Sort: Actual over authorized', sort: { key: 'gap', dir: 'desc' } },
+  { label: 'Sort: Name (A–Z)', sort: { key: 'name', dir: 'asc' } },
+]
 
 export default function AuthorizedSalary() {
   const [year, setYear] = useState<2025 | 2026>(2025)
   const [q, setQ] = useState('')
   const [group, setGroup] = useState('all')
-  const [sortKey, setSortKey] = useState<SortKey>('annual')
+  const [sort, sortBy, setSort] = useSort<SortKey>({ key: 'annual', dir: 'desc' }, TEXT_KEYS)
   const [limit, setLimit] = useState(100)
   const yq = q.trim().toLowerCase()
 
@@ -34,15 +43,11 @@ export default function AuthorizedSalary() {
       if (yq && !(`${r.name} ${r.title}`.toLowerCase().includes(yq))) return false
       return true
     })
-    const gap = (r: SalaryRecord) => (r.actualGross != null ? r.actualGross - r.annual : -Infinity)
-    list.sort((a, b) => {
-      if (sortKey === 'name') return a.name.localeCompare(b.name)
-      if (sortKey === 'gap') return gap(b) - gap(a)
-      if (sortKey === 'actualGross') return (b.actualGross ?? -1) - (a.actualGross ?? -1)
-      return b.annual - a.annual
-    })
+    // No actual pay on record (someone new) sorts last, whichever way.
+    const value = (r: SalaryRecord) => (sort.key === 'gap' ? (r.actualGross != null ? r.actualGross - r.annual : null) : r[sort.key])
+    list.sort((a, b) => compareValues(value(a), value(b), sort.dir) || a.name.localeCompare(b.name))
     return list
-  }, [data, group, yq, sortKey])
+  }, [data, group, yq, sort])
 
   const totalAuth = useMemo(() => rows.filter((r) => !r.isStipend).reduce((s, r) => s + r.annual, 0), [rows])
 
@@ -99,12 +104,7 @@ export default function AuthorizedSalary() {
           <option value="all">All groups</option>
           {groups.map((g) => <option key={g.group} value={g.group}>{g.group}</option>)}
         </select>
-        <select value={sortKey} onChange={(e) => setSortKey(e.target.value as SortKey)} style={sel}>
-          <option value="annual">Sort: Authorized salary</option>
-          <option value="actualGross">Sort: Actual pay</option>
-          <option value="gap">Sort: Actual over authorized</option>
-          <option value="name">Sort: Name (A–Z)</option>
-        </select>
+        <SortSelect sort={sort} presets={SORT_PRESETS} labels={SORT_LABELS} textKeys={TEXT_KEYS} onChange={setSort} style={sel} />
         <input value={q} onChange={(e) => { setQ(e.target.value); setLimit(100) }} placeholder="Search name or title…"
           style={{ flex: 1, minWidth: 220, padding: '10px 13px', border: '1px solid var(--rbl-border-strong)', borderRadius: 9, fontSize: 15 }} />
       </section>
@@ -118,11 +118,11 @@ export default function AuthorizedSalary() {
           <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 13.5 }}>
             <thead>
               <tr style={{ textAlign: 'left', color: 'var(--rbl-text-muted)', borderBottom: '2px solid var(--rbl-border-subtle)' }}>
-                <th style={th}>Employee / Position</th>
-                <th style={th}>Group</th>
-                <th style={{ ...th, textAlign: 'right' }}>Authorized 2025</th>
-                <th style={{ ...th, textAlign: 'right' }}>Actual {actualYear ?? ''}</th>
-                <th style={{ ...th, textAlign: 'right' }}>Actual − Authorized</th>
+                <SortHeader label="Employee / Position" column="name" sort={sort} onSort={sortBy} text />
+                <SortHeader label="Group" column="group" sort={sort} onSort={sortBy} text />
+                <SortHeader label={`Authorized ${year}`} column="annual" sort={sort} onSort={sortBy} align="right" />
+                <SortHeader label={`Actual ${actualYear ?? ''}`} column="actualGross" sort={sort} onSort={sortBy} align="right" />
+                <SortHeader label="Actual − Authorized" column="gap" sort={sort} onSort={sortBy} align="right" />
               </tr>
             </thead>
             <tbody>
