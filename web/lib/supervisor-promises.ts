@@ -398,7 +398,9 @@ const officeFinding = [
   headroom2026 !== null && belowBudget !== null && office2026Budget !== null
     ? `Compared with the 2026 budget, which was passed before he took office, the salaries are ${usd(headroom2026)} under the office’s full-time salary budget and ${usd(belowBudget)} under its whole payroll budget of ${usd(office2026Budget)}.${headroom2025 !== null ? ` The full-time budget also covers pay beyond base salaries; in 2025 the salaries came in ${usd(headroom2025)} under it.` : ''}${partTime2026 ? ` The larger budget includes ${usd(partTime2026)} for part-time help, and no one is on the pay list for it.` : ''} Only that last comparison reaches ${usd(CLAIMED_OFFICE_CUT)}.`
     : null,
-  'Money an office doesn’t spend isn’t a tax cut: whatever is left at the end of the year goes back into the Town’s savings. His 2027 proposal will show what he plans for the office; see “Did his own office’s payroll go down?” above.',
+  office2027 && office2026Budget !== null
+    ? `Money an office doesn’t spend isn’t a tax cut: whatever is left at the end of the year goes back into the Town’s savings. His 2027 proposal budgets ${usd(office2027.tentative)} for the office’s payroll, ${usd(Math.abs(office2027.tentative - office2026Budget))} ${office2027.tentative <= office2026Budget ? 'less' : 'more'} than the 2026 budget; see “Did his own office’s payroll go down?” above.`
+    : 'Money an office doesn’t spend isn’t a tax cut: whatever is left at the end of the year goes back into the Town’s savings. His 2027 proposal will show what he plans for the office; see “Did his own office’s payroll go down?” above.',
 ].filter(Boolean).join(' ')
 
 const officeRoster: Roster = {

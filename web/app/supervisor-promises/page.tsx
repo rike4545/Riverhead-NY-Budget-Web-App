@@ -70,8 +70,10 @@ export default function SupervisorPromisesPage() {
       >
         {SUPERVISOR} became Town Supervisor in January 2026 and is on the ballot again on {ELECTION}. This page checks
         what he promised and what he says he has done against the Town’s own records. Of the claims on his campaign
-        site, {tallyText}. The biggest test is still ahead: his first budget, for 2027, which fills in below as soon as the
-        Town publishes it.
+        site, {tallyText}.{' '}
+        {released
+          ? 'The biggest test is his first budget, the 2027 proposal the Town published on September 24. The tables below read it.'
+          : 'The biggest test is still ahead: his first budget, for 2027, which fills in below as soon as the Town publishes it.'}
       </PlainCallout>
 
       <section style={{ ...card, marginBottom: 16, borderLeft: '5px solid var(--rbl-accent)' }}>
