@@ -202,7 +202,7 @@ def main() -> int:
     if len(links) <= len(DIRECT_PDFS) and len(prev_parsed_at) > len(DIRECT_PDFS):
         print(f'keeping the previous parse of {len(prev_parsed_at)} documents: the financial reports index could not be read')
         return 1
-    seen_hashes: dict[str, str] = {}
+    seen_hashes: dict[str, tuple[str, str]] = {}
 
     for link in links:
         try:
@@ -212,12 +212,17 @@ def main() -> int:
             # ("2026 Preliminary Budget" and "2026 Preliminary Budget (PDF)" are
             # byte-identical). Parsing both put every page in search twice.
             if doc_hash in seen_hashes:
-                print(f'skipped {link.title}: same file as {seen_hashes[doc_hash]}')
-                stale = DOCS / f'{link.slug}.json'
-                if stale.exists():
-                    stale.unlink()
+                kept_title, kept_slug = seen_hashes[doc_hash]
+                print(f'skipped {link.title}: same file as {kept_title}')
+                # Only a file under a different name is stale. The Town also
+                # links one document at two addresses under one title ("…/2835/
+                # 2026-Preliminary-Budget" and "…-PDF"); both get the same slug,
+                # and deleting "the duplicate's" file deleted the one just
+                # written, so the index listed documents that were not there.
+                if link.slug != kept_slug:
+                    (DOCS / f'{link.slug}.json').unlink(missing_ok=True)
                 continue
-            seen_hashes[doc_hash] = link.title
+            seen_hashes[doc_hash] = (link.title, link.slug)
             reader = PdfReader(str(pdf))
             doc_ts = prev_parsed_at.get((link.slug, doc_hash)) or prev_by_url.get((link.url.split('?')[0], doc_hash), parsed_at)
             doc_timestamps.append(doc_ts)

@@ -8,6 +8,8 @@ import { builtFromDocuments } from '../../lib/built-from-documents'
 import { acrossTheBoard2027 as atb } from '../../lib/across-the-board-2027'
 import { capGap2027, firmRecurringTotal, retirementIncentive2027 as ri, gapClosingPaths } from '../../lib/close-the-gap-2027'
 import { personnelPolicyItems } from '../../lib/spending-reduction-2027'
+import { tentativeTrims as tt } from '../../lib/tentative-trims'
+import { supplementSource } from '../../lib/supplement'
 
 const STANDING: Record<string, { label: string; color: string; bg: string }> = {
   'already agreed': { label: 'Already agreed · 5–0', color: 'var(--rbl-success-strong)', bg: 'var(--rbl-success-bg)' },
@@ -151,6 +153,52 @@ export default function SpendingReduction2027Page() {
         </section>
       </div>
 
+      {/* THE SAME TEST ON THE NEW TENTATIVE — the package above predates it. */}
+      <section style={{ ...card, marginTop: 16, borderLeft: '6px solid var(--rbl-info-border)' }}>
+        <h3 style={{ margin: '0 0 6px', color: 'var(--rbl-title)', fontSize: 16 }}>The same test on the {tt.year} Tentative</h3>
+        <p style={{ color: 'var(--rbl-text-strong)', fontSize: 14, lineHeight: 1.6, margin: '0 0 10px' }}>
+          The line trims above were found in the 2026 Tentative, before the {tt.year} budget existed. Run the same test on the{' '}
+          {tt.year} Tentative&apos;s own lines — controllable lines budgeted more than 30% above what they have been running — and it
+          finds <strong>{tt.items.length}</strong> lines holding <strong>{usd(tt.total)}</strong> more than recent spending supports:{' '}
+          {usd(tt.byConfidence.firm)} firm, {usd(tt.byConfidence.moderate)} in capital or maintenance that fluctuates, and{' '}
+          {usd(tt.byConfidence.volatile)} in fuel and energy. These are questions for the Board before it adopts the budget, not
+          a replacement for the package above.
+        </p>
+        <div style={{ overflowX: 'auto' }}>
+          <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 13, minWidth: 620 }}>
+            <thead>
+              <tr style={{ textAlign: 'left', color: 'var(--rbl-text-muted)', fontSize: 11, textTransform: 'uppercase', letterSpacing: 0.4 }}>
+                <th style={{ padding: '6px 8px' }}>Line</th>
+                <th style={{ padding: '6px 8px', textAlign: 'right' }}>{tt.columns.actual} actual</th>
+                <th style={{ padding: '6px 8px', textAlign: 'right' }}>Jan–Jun {tt.columns.ytd}</th>
+                <th style={{ padding: '6px 8px', textAlign: 'right' }}>{tt.year} Tentative</th>
+                <th style={{ padding: '6px 8px', textAlign: 'right' }}>Above run-rate</th>
+              </tr>
+            </thead>
+            <tbody>
+              {tt.items.slice(0, 12).map((r) => (
+                <tr key={r.account} style={{ borderTop: '1px solid var(--rbl-border-subtle)' }}>
+                  <td style={{ padding: '7px 8px' }}>
+                    <strong style={{ color: 'var(--rbl-title)' }}>{r.name}</strong>
+                    <div style={{ color: 'var(--rbl-text-muted)', fontSize: 11.5 }}>{r.fundName} · {r.confidence}{r.page ? ` · p. ${r.page}` : ''}</div>
+                  </td>
+                  <td style={{ padding: '7px 8px', textAlign: 'right', whiteSpace: 'nowrap' }}>{usd(r.actual ?? 0)}</td>
+                  <td style={{ padding: '7px 8px', textAlign: 'right', whiteSpace: 'nowrap' }}>{usd(r.ytd ?? 0)}</td>
+                  <td style={{ padding: '7px 8px', textAlign: 'right', whiteSpace: 'nowrap' }}>{usd(r.tentative ?? 0)}</td>
+                  <td style={{ padding: '7px 8px', textAlign: 'right', whiteSpace: 'nowrap', fontWeight: 800, color: 'var(--rbl-title)' }}>{usd(r.target)}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <p style={{ color: 'var(--rbl-text-muted)', fontSize: 12.5, lineHeight: 1.55, margin: '10px 0 0' }}>
+          {tt.items.length > 12 ? <>The twelve largest of {tt.items.length}; every one is listed on <a href={`${process.env.NEXT_PUBLIC_BASE_PATH || ''}/budget-accuracy/`} style={{ color: 'var(--rbl-link)' }}>Budget Accuracy</a>. </> : null}
+          {tt.method} Some lines are paid back by the departments that use them: the General Fund&apos;s central fuel account is
+          charged back to every department, so trimming it moves the cost rather than removing it.
+          {supplementSource ? <> Source: <a href={supplementSource.url} style={{ color: 'var(--rbl-link)' }}>{supplementSource.title}</a>.</> : null}
+        </p>
+      </section>
+
       {/* GO DEEPER — everything else, progressively disclosed. */}
       <h2 style={{ margin: '26px 0 4px', color: 'var(--rbl-title)', fontSize: 18 }}>Go deeper</h2>
       <p style={{ color: 'var(--rbl-text-muted)', fontSize: 13.5, margin: '0 0 8px' }}>Optional detail — open only what you want.</p>
@@ -218,7 +266,7 @@ export default function SpendingReduction2027Page() {
             <thead>
               <tr style={{ textAlign: 'left', color: 'var(--rbl-text-muted)', borderBottom: '2px solid var(--rbl-border-subtle)' }}>
                 <th style={{ padding: '6px 8px' }}>Fund / department</th>
-                <th style={{ padding: '6px 8px', textAlign: 'right' }}>2026 tentative</th>
+                <th style={{ padding: '6px 8px', textAlign: 'right' }}>{atb.year} Tentative</th>
                 <th style={{ padding: '6px 8px', textAlign: 'right' }}>2.5% of all</th>
                 <th style={{ padding: '6px 8px', textAlign: 'right' }}>2.5% of controllable</th>
               </tr>

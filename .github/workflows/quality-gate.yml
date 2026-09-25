@@ -33,6 +33,7 @@ jobs:
           python etl/test_vote_packet_parser.py
           python etl/test_budget_release.py
           python etl/test_road_spending.py
+          python etl/test_supplement_history.py
           python - <<'PY'
           import bs4
           import cryptography

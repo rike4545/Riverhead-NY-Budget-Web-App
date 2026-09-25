@@ -1,5 +1,6 @@
 import PageShell from '../../components/PageShell'
 import PlainCallout from '../../components/PlainCallout'
+import SupplementFindings from '../../components/SupplementFindings'
 import {
   YEAR, PRIOR, projection, released, tentative, adoptedPrior, fundComparison, headline, spendingSentence,
   stability, unchangedYears, requestHistory, supplement2027, limits,
@@ -238,6 +239,8 @@ export default function Tentative2027Page() {
           </details>
         )}
       </section>
+
+      <SupplementFindings />
 
       <section style={{ ...card, marginBottom: 16 }}>
         <h3 style={{ marginTop: 0, color: 'var(--rbl-title)' }}>The {YEAR} calendar</h3>

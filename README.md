@@ -231,7 +231,8 @@ The four links at the front of the site menu:
 - **A Zero-Percent Year** (`/zero-percent-2027`): what matching Suffolk County's pledge would take.
 - **Credit Rating** (`/credit-rating`): Riverhead's Aa2 against Brookhaven's AAA and the other Suffolk towns.
 - **Outlier Watch** (`/outliers`): year-over-year swings of at least 20% and $100,000 across all 19 funds.
-- **Budget Accuracy** (`/budget-accuracy`): where adopted amounts and actual spending drift apart.
+- **Budget Accuracy** (`/budget-accuracy`): where adopted amounts and actual spending drift apart: researched flags read from the Supplements, lines over budget three years running, lines never used, and every outlier in the newest Supplement.
+- **Where Revenue Comes From** (`/revenue`): every revenue stream, 2018 to the 2027 Tentative, estimate against what came in, in every fund.
 - **Fiscal Impact** (`/fiscal-impact`): each resolution's Fiscal Impact Statement next to a realistic financial read.
 
 ## Evidence
@@ -374,7 +375,7 @@ Every page shows when its data was last refreshed.
 | `parse_budget_adoption.py` | What the Board changed in each Tentative before adopting it, 2005 on |
 | `parse_budget_requests.py` | What each department asked for, against what the budget officer recommended |
 | `parse_general_fund.py` | The long-run General Fund history, adding each newly adopted year from the budget-stage data |
-| `parse_budget_supplement.py` / `parse_supplement_history.py` | Every Budget Supplement line, classified, with its multi-year history |
+| `parse_budget_supplement.py` / `parse_supplement_history.py` | Every Budget Supplement line, classified, with its multi-year history. The history script reads all eight committed Supplements (2020–2027) for every fund, expenditure and revenue, and writes the newest Supplement's lines, outliers and run-rate trims; `scripts/verify-supplement.mjs` checks its figures against a second reading of the same PDFs |
 | `parse_afr.py` | Actual year-end results for all 14 AFR funds |
 | `parse_cpf.py` | Peconic Bay Community Preservation Fund results |
 | `fetch_meetings.py` / `fetch_upcoming.py` / `fetch_vote_packets.py` | Meeting minutes, the upcoming schedule, and agenda packets when the minutes omit votes |
