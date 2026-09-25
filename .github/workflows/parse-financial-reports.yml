@@ -46,10 +46,6 @@ jobs:
           print('ETL dependency smoke test passed')
           PY
 
-      - name: Fetch new Town Board meeting minutes (CivicClerk)
-        run: python etl/fetch_meetings.py
-      - name: Fetch upcoming Town Board meeting schedule (CivicClerk)
-        run: python etl/fetch_upcoming.py
       - name: Parse financial reports
         run: python etl/parse_financial_reports.py
       - name: Parse Peconic Bay CPF financial statements
@@ -73,10 +69,15 @@ jobs:
         run: python etl/parse_budget_supplement.py
       - name: Build multi-year supplement history
         run: python etl/parse_supplement_history.py
-      - name: Parse Town Board meeting votes
-        run: python etl/parse_meetings.py
-      - name: Parse agenda-packet Fiscal Impact Statements
-        run: python etl/parse_fiscal_impact.py
+      # The meeting sync fetches the CivicClerk sources; this job rebuilds the
+      # records from the ones already stored, with the same sequence, so the two
+      # cannot disagree. It used to fetch the Minutes and run only the parser,
+      # which published every meeting whose votes come from its Agenda Packet
+      # as a bare agenda, twice a day.
+      - name: Rebuild Town Board meeting records from the stored sources
+        run: python etl/refresh_meeting_records.py --offline
+      - name: Check meeting records against their official sources
+        run: python etl/test_meeting_records.py
       - name: Analyse consent-calendar voting pattern
         run: python etl/analyze_consent_calendar.py
       - name: Parse 2025 authorized salary schedule

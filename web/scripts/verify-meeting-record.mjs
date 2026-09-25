@@ -157,25 +157,45 @@ if (existsSync(voteFallbackPath)) {
   ]) if (!source.includes(text)) fail(`Agenda-packet vote fallback safety contract regressed: missing ${text}`)
 }
 
-const workflowPath = repoPath('.github/workflows/sync-meetings.yml')
-if (existsSync(workflowPath)) {
-  const source = readFileSync(workflowPath, 'utf8')
+// The meeting pipeline is one script that every workflow runs, so its steps are
+// checked there, in order; each workflow must run the script and then the
+// check that no meeting with Agenda Packet votes is left as a docket.
+const refreshPath = repoPath('etl/refresh_meeting_records.py')
+if (existsSync(refreshPath)) {
+  const source = readFileSync(refreshPath, 'utf8')
   const ordered = [
-    'python etl/fetch_meetings.py',
-    'python etl/fetch_vote_packets.py',
-    'python etl/parse_meetings.py',
-    'python etl/apply_vote_packet_fallback.py',
-    'python etl/reconcile_meeting_sources.py',
-    'python etl/parse_fiscal_impact.py',
+    '"fetch_meetings.py"',
+    '"fetch_vote_packets.py"',
+    '"parse_meetings.py"',
+    '"apply_vote_packet_fallback.py"',
+    '"reconcile_meeting_sources.py"',
+    '"parse_fiscal_impact.py"',
   ]
   let previous = -1
-  for (const command of ordered) {
-    const index = source.indexOf(command)
-    if (index < 0) fail(`Meeting sync no longer runs required command: ${command}`)
-    if (index <= previous) fail(`Meeting sync command order regressed around: ${command}`)
+  for (const step of ordered) {
+    const index = source.indexOf(step)
+    if (index < 0) fail(`Meeting pipeline no longer runs required step: ${step}`)
+    if (index <= previous) fail(`Meeting pipeline step order regressed around: ${step}`)
     previous = index
   }
-  if (!source.includes("github.ref == 'refs/heads/main'")) fail('Meeting sync publishing is no longer restricted to main')
+} else fail('etl/refresh_meeting_records.py, the one meeting pipeline, is missing')
+
+for (const [name, command] of [
+  ['sync-meetings.yml', 'python etl/refresh_meeting_records.py\n'],
+  ['parse-financial-reports.yml', 'python etl/refresh_meeting_records.py --offline'],
+]) {
+  const path = repoPath(`.github/workflows/${name}`)
+  if (!existsSync(path)) continue
+  const source = readFileSync(path, 'utf8')
+  const refresh = source.indexOf(command)
+  const check = source.indexOf('python etl/test_meeting_records.py')
+  if (refresh < 0) fail(`${name} no longer runs the meeting pipeline as \`${command.trim()}\``)
+  if (check < refresh) fail(`${name} does not check the meeting records after rebuilding them`)
+}
+
+const workflowPath = repoPath('.github/workflows/sync-meetings.yml')
+if (existsSync(workflowPath) && !readFileSync(workflowPath, 'utf8').includes("github.ref == 'refs/heads/main'")) {
+  fail('Meeting sync publishing is no longer restricted to main')
 }
 
 if (process.exitCode) process.exit(process.exitCode)
