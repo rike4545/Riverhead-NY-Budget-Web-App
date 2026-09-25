@@ -11,6 +11,8 @@ __pycache__/
 *.pyc
 .venv/
 venv/
+# PDFs the ETL downloads; the ones it keeps are copied into etl/data/
+.cache/
 
 # OS
 .DS_Store
