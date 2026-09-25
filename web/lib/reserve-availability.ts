@@ -22,7 +22,6 @@
 import {
   appropriations,
   deploymentOptions,
-  peerAlignmentScenarios,
   percentOfAppropriations,
   policyMinimumPercent,
   targetReservePercent,
@@ -33,6 +32,7 @@ import {
   unassignedFundBalanceAfr,
   type DeploymentOption,
 } from './reserve-policy'
+import { GFOA_GUIDANCE, nameList, PEER_POLICIES, RIVERHEAD_POLICY, policyMinimumTop } from './fund-balance-policies'
 import {
   committedAuthorized,
   committedDocumented,
@@ -257,18 +257,38 @@ export const planReading = deploymentPlanFits
   : `For scale: against the opening balance the plan fit with ${usd(Math.max(0, unassignedCeiling + committedThisYear - targetUnassignedAt288) - deploymentPlanTotal)} to spare, which is the version published before 2026's votes were netted.`
 
 /**
- * The peer scenarios, re-measured against money that still exists.
+ * Each nearby town's written minimum, applied to Riverhead: what it would
+ * require of the 2026 General Fund budget, and how much of the ceiling on what
+ * is left sits above it.
  *
- * "If Riverhead matched Brookhaven, how much one-time room would that create?"
- * is a question about the balance today, not the one on December 31. The
- * targets themselves are unchanged — they are a percentage of appropriations,
- * which 2026's votes do not move — so only the capacity figure is recomputed.
+ * Measured on the unassigned balance alone, net of 2026's votes — the
+ * strictest measure, so the room is never overstated. Most of these rules
+ * count more than unassigned money (Riverhead's own counts the total), and a
+ * range is taken at its top. Towns whose rules require the same share are one
+ * row.
  */
-export const peerAlignmentScenariosNet = peerAlignmentScenarios.map((p) => ({
-  ...p,
-  deploymentCapacity: unassignedCeiling - p.targetBalance,
-  deploymentCapacityAtOpening: p.deploymentCapacity,
-}))
+export type RuleScenario = { percent: number; towns: string[]; label: string; required: number; above: number }
+
+export const ruleScenarios: RuleScenario[] = (() => {
+  const byPercent = new Map<string, { percent: number; towns: string[] }>()
+  for (const p of [RIVERHEAD_POLICY, ...PEER_POLICIES, GFOA_GUIDANCE]) {
+    const percent = policyMinimumTop(p)
+    const key = percent.toFixed(4)
+    const name = p.guidance ? 'GFOA guidance (two months)' : typeof p.minimum === 'number' ? p.town : `${p.town} (top of its range)`
+    const row = byPercent.get(key) ?? { percent, towns: [] }
+    row.towns.push(name)
+    byPercent.set(key, row)
+  }
+  return Array.from(byPercent.values())
+    .sort((a, b) => b.percent - a.percent)
+    .map(({ percent, towns }) => {
+      const required = appropriations * percent
+      return { percent, towns, label: nameList(towns), required, above: unassignedCeiling - required }
+    })
+})()
+
+/** The strictest nearby rule, and what sits above it. */
+export const strictestRule = ruleScenarios.find((r) => !r.towns.some((t) => t.startsWith('GFOA')))!
 
 /** Kept for the callout: the policy floor is unchanged by any of this. */
 export { minimumRequired, targetUnassignedAt288, targetReservePercent, appropriations, policyMinimumPercent }

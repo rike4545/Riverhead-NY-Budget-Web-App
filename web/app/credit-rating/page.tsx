@@ -2,6 +2,7 @@ import PageShell from '../../components/PageShell'
 import PlainCallout from '../../components/PlainCallout'
 import { debtProfile } from '../../lib/debt-profile'
 import { appropriations, percentOfAppropriations, unassignedFundBalance } from '../../lib/reserve-policy'
+import { brookhavenNarrowPercent } from '../../lib/fund-balance-policies'
 import {
   riverheadCurrent,
   riverheadRatingHistory,
@@ -73,7 +74,7 @@ export default function CreditRatingPage() {
         <Stat label="Riverhead — Moody's" value={riverheadCurrent.rating} sub={`affirmed ${riverheadCurrent.affirmedDate}`} />
         <Stat label="Brookhaven — Moody's" value={brookhaven.moodyRating} sub={`${brookhaven.consecutiveMoodyAaaYears}th consecutive year`} accent />
         <Stat label="Brookhaven — S&P" value={brookhaven.spRating} sub={`outlook: ${brookhaven.outlook}`} accent />
-        <Stat label="Riverhead reserve strength" value={pct(riverheadPct)} sub="of 2026 General Fund budget — above Brookhaven's own ~38.8%" />
+        <Stat label="Riverhead reserve strength" value={pct(riverheadPct)} sub={`of 2026 General Fund budget — above Brookhaven's ${pct(brookhavenNarrowPercent)}`} />
         <Stat label="Riverhead OPEB rank" value={`${opebRankOfTen} of 10`} sub="highest per-resident retiree-health liability, Suffolk towns" />
       </section>
 
@@ -81,7 +82,7 @@ export default function CreditRatingPage() {
         <h3 style={{ marginTop: 0, color: 'var(--rbl-title)' }}>The puzzle this page is about</h3>
         <p style={{ color: 'var(--rbl-text-strong)', fontSize: 15, lineHeight: 1.65, margin: 0 }}>
           Riverhead&apos;s reserve cushion — {pct(riverheadPct)} of its General Fund budget — is already{' '}
-          <strong>above</strong> Brookhaven&apos;s own posture (~38.8%), and its debt burden is minimal: just{' '}
+          <strong>above</strong> Brookhaven&apos;s {pct(brookhavenNarrowPercent)} on the same measure, and its debt burden is minimal: just{' '}
           <strong>{debtProfile.debtLimit.debtLimitExhaustedPct}%</strong> of its legal debt limit used. On paper, the two
           headline numbers rating agencies talk about most — reserves and debt — both favor Riverhead. So why does
           Brookhaven sit at the top of the scale while Riverhead sits two notches below it? The rating criteria section
