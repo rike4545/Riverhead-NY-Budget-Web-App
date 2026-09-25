@@ -3,13 +3,21 @@ import PlainCallout from '../../components/PlainCallout'
 import BudgetAccuracyOutliers from '../../components/BudgetAccuracyOutliers'
 import {
   curatedFlags, overBudget, chronicOverrun, noBudget,
-  recoverablePool, outlierNote, detectedCount, severityLabel,
-  dueIn2027, underBudgeted, renumbered, actualYears,
-  accountsTracked, historyNote, underBudgetedShortfall,
+  recoverablePool, outlierNote, outlierColumns, detectedCount, severityLabel,
+  dueInBudgetYear, underBudgeted, chronicUnderBudget, chronicGap, unused, unusedTotal, unusedGeneralFund,
+  renumbered, historyActualYears, historyBudgetYear, supplementCount,
+  historyNote, underBudgetedShortfall, variance, flagYears, flagCorrections,
 } from '../../lib/budget-accuracy'
+import { supplementSource } from '../../lib/supplement'
 
 const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 20, boxShadow: '0 14px 34px var(--rbl-shadow)' } as const
 const usd = (n: number) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(n)
+const money = (n: number | null) => (n === null ? '—' : usd(n))
+const th = { padding: '8px 10px' } as const
+const thr = { padding: '8px 10px', textAlign: 'right' } as const
+const td = { padding: '9px 10px' } as const
+const tdr = { padding: '9px 10px', textAlign: 'right', whiteSpace: 'nowrap' } as const
+const headRow = { textAlign: 'left', color: 'var(--rbl-text-muted)', fontSize: 11, textTransform: 'uppercase', letterSpacing: 0.4 } as const
 
 const SEV_COLOR: Record<string, string> = {
   critical: 'var(--rbl-danger)',
@@ -17,10 +25,14 @@ const SEV_COLOR: Record<string, string> = {
   explain: 'var(--rbl-badge)',
 }
 
+const FIRST = historyActualYears[0]
+const LAST = historyActualYears[historyActualYears.length - 1]
+const LAST3 = historyActualYears.slice(-3)
+
 export const metadata = {
   title: 'Budget Accuracy — where the plan and the spending diverge',
   description:
-    'Riverhead budget lines where the adopted amount and the money actually spent are far enough apart that the budget stops being a plan: 11 researched flags plus every outlier detected across ~1,700 expenditure lines.',
+    `Riverhead budget lines where the adopted amount and the money actually spent are far enough apart that the budget stops being a plan: ${curatedFlags.length} researched flags, ${chronicUnderBudget.length} lines over budget three years running, ${unused.length} lines never used, and every outlier in the ${historyBudgetYear} Budget Supplement.`,
 }
 
 export default function BudgetAccuracyPage() {
@@ -29,7 +41,7 @@ export default function BudgetAccuracyPage() {
   return (
     <PageShell
       title="Budget accuracy"
-      subtitle={`A budget is a promise about what things will cost. These are the lines where that promise and the actual spending drift far enough apart to be worth asking about — ${curatedFlags.length} researched by hand, plus ${detectedCount} more found automatically across roughly 1,700 expenditure lines.`}
+      subtitle={`A budget is a promise about what things will cost. These are the lines where that promise and the actual spending drift far enough apart to be worth asking about — ${curatedFlags.length} researched by hand, plus ${detectedCount} found automatically in the ${historyBudgetYear} Budget Supplement and more across ${supplementCount} years of Supplements.`}
     >
       <PlainCallout
         tips={[
@@ -38,46 +50,87 @@ export default function BudgetAccuracyPage() {
           { label: 'What is excluded', text: 'mandated costs — pension, workers’ compensation, insurance, debt service, payroll taxes — and revenue lines. Their variance is obligation or timing, not discretion.' },
         ]}
       >
-        Of the {curatedFlags.length} researched lines below, <strong>{critical}</strong> are cases where the adopted budget
-        repeats a figure the previous year&apos;s actual spending had already blown past. Separately, the Town&apos;s own
-        supplement yields <strong>{usd(recoverablePool)}</strong> budgeted above the trailing run-rate on controllable lines.
+        Of the {curatedFlags.length} researched lines below, <strong>{critical}</strong> ran over budget in both {flagYears.first} and{' '}
+        {flagYears.second} and are budgeted below what they cost again in the {flagYears.tentative} Tentative. Across every fund,{' '}
+        <strong>{chronicUnderBudget.length}</strong> lines were over budget in each of the last three years, and{' '}
+        <strong>{unused.length}</strong> have been budgeted year after year with nothing spent. Separately, the {historyBudgetYear} Supplement
+        budgets <strong>{usd(recoverablePool)}</strong> above the trailing run-rate on controllable lines.
       </PlainCallout>
 
-      <h2 style={{ color: 'var(--rbl-title)' }}>The seven-year view</h2>
+      <h2 style={{ color: 'var(--rbl-title)' }}>The {historyActualYears.length}-year view</h2>
       <p style={{ color: 'var(--rbl-text-muted)', fontSize: 14, marginTop: 0, lineHeight: 1.6 }}>{historyNote}</p>
+
+      {chronicUnderBudget.length > 0 && (
+        <section style={{ ...card, marginBottom: 14, borderLeft: '6px solid var(--rbl-danger)' }}>
+          <h3 style={{ marginTop: 0, color: 'var(--rbl-title)' }}>Over budget three years running, and budgeted low again</h3>
+          <p style={{ color: 'var(--rbl-text-body)', fontSize: 14.5, lineHeight: 1.6, marginTop: 0 }}>
+            These lines cost more than their budget in each of {LAST3.join(', ')}. A line can only spend past its budget if money
+            is moved to it from other lines during the year, so the adopted budget never shows what these cost. The{' '}
+            {historyBudgetYear} Tentative budgets them <strong>{usd(chronicGap)}</strong> below their three-year average.
+          </p>
+          <div style={{ overflowX: 'auto' }}>
+            <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 13.5, minWidth: 640 }}>
+              <thead>
+                <tr style={headRow}>
+                  <th style={th}>Line</th>
+                  {LAST3.map((y) => <th key={y} style={thr}>{y}: spent / budget</th>)}
+                  <th style={thr}>{historyBudgetYear} Tentative</th>
+                </tr>
+              </thead>
+              <tbody>
+                {chronicUnderBudget.map((r) => (
+                  <tr key={r.account} style={{ borderTop: '1px solid var(--rbl-border-subtle)' }}>
+                    <td style={td}>
+                      <strong style={{ color: 'var(--rbl-title)' }}>{r.name}</strong>
+                      <div style={{ color: 'var(--rbl-text-muted)', fontSize: 11.5, marginTop: 2 }}>{r.account}{r.page ? ` · p. ${r.page}` : ''}</div>
+                    </td>
+                    {LAST3.map((y) => (
+                      <td key={y} style={tdr}>
+                        <strong style={{ color: 'var(--rbl-title)' }}>{usd(r.actual[String(y)])}</strong>
+                        <div style={{ color: 'var(--rbl-text-muted)', fontSize: 11.5 }}>{usd(r.adoptedByYear[String(y)])}</div>
+                      </td>
+                    ))}
+                    <td style={{ ...tdr, fontWeight: 800, color: 'var(--rbl-danger)' }}>{usd(r.tentative)}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </section>
+      )}
 
       <section style={{ ...card, marginBottom: 14, borderLeft: '6px solid var(--rbl-warn-border)' }}>
         <h3 style={{ marginTop: 0, color: 'var(--rbl-title)' }}>Lines that go quiet, then cost real money</h3>
         <p style={{ color: 'var(--rbl-text-body)', fontSize: 14.5, lineHeight: 1.6, marginTop: 0 }}>
           These sit at or near zero for years, so any single-year comparison reads them as dead. Then the bill arrives.
-          Across {underBudgeted.length} such lines the 2026 Tentative is <strong>{usd(underBudgetedShortfall)}</strong> short
+          Across {underBudgeted.length} such lines the {historyBudgetYear} Tentative is <strong>{usd(underBudgetedShortfall)}</strong> short
           of what they have actually cost in the years they happened.
         </p>
         <div style={{ overflowX: 'auto' }}>
           <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 13.5, minWidth: 620 }}>
             <thead>
-              <tr style={{ textAlign: 'left', color: 'var(--rbl-text-muted)', fontSize: 11, textTransform: 'uppercase', letterSpacing: 0.4 }}>
-                <th style={{ padding: '8px 10px' }}>Line</th>
-                <th style={{ padding: '8px 10px' }}>{actualYears[0]}–{actualYears[actualYears.length - 1]} actuals</th>
-                <th style={{ padding: '8px 10px', textAlign: 'right' }}>Costs when it happens</th>
-                <th style={{ padding: '8px 10px', textAlign: 'right' }}>2026 tentative</th>
+              <tr style={headRow}>
+                <th style={th}>Line</th>
+                <th style={th}>{FIRST}–{LAST} actuals</th>
+                <th style={thr}>Costs when it happens</th>
+                <th style={thr}>{historyBudgetYear} Tentative</th>
               </tr>
             </thead>
             <tbody>
               {underBudgeted.map((r) => (
                 <tr key={r.account} style={{ borderTop: '1px solid var(--rbl-border-subtle)' }}>
-                  <td style={{ padding: '9px 10px' }}>
+                  <td style={td}>
                     <strong style={{ color: 'var(--rbl-title)' }}>{r.name}</strong>
                     <div style={{ color: 'var(--rbl-text-muted)', fontSize: 11.5, marginTop: 2 }}>
-                      quiet in {r.quietYears} of {Object.keys(r.series).length} years
+                      {r.account} · quiet in {r.quietYears} of {Object.keys(r.series).length} years
                     </div>
                   </td>
-                  <td style={{ padding: '9px 10px' }}>
+                  <td style={td}>
                     <Spark series={r.series} />
                   </td>
-                  <td style={{ padding: '9px 10px', textAlign: 'right', fontWeight: 800, color: 'var(--rbl-title)', whiteSpace: 'nowrap' }}>{usd(r.averageWhenActive)}</td>
-                  <td style={{ padding: '9px 10px', textAlign: 'right', whiteSpace: 'nowrap', color: r.tentative2026 === 0 ? 'var(--rbl-danger)' : 'var(--rbl-text-body)' }}>
-                    {usd(r.tentative2026)}
+                  <td style={{ ...tdr, fontWeight: 800, color: 'var(--rbl-title)' }}>{usd(r.averageWhenActive)}</td>
+                  <td style={{ ...tdr, color: r.tentative === 0 ? 'var(--rbl-danger)' : 'var(--rbl-text-body)' }}>
+                    {usd(r.tentative)}
                   </td>
                 </tr>
               ))}
@@ -86,15 +139,52 @@ export default function BudgetAccuracyPage() {
         </div>
       </section>
 
-      {dueIn2027.length > 0 && (
+      {unused.length > 0 && (
         <section style={{ ...card, marginBottom: 14 }}>
-          <h3 style={{ marginTop: 0, color: 'var(--rbl-title)' }}>On a cycle, and due again in 2027</h3>
+          <h3 style={{ marginTop: 0, color: 'var(--rbl-title)' }}>Budgeted every year, never used</h3>
+          <p style={{ color: 'var(--rbl-text-body)', fontSize: 14.5, lineHeight: 1.6, marginTop: 0 }}>
+            {unused.length} lines were budgeted in {historyBudgetYear - 2}, {historyBudgetYear - 1} and the {historyBudgetYear} Tentative with
+            nothing spent in {LAST3.join(', ')} or the first half of {historyBudgetYear - 1}. They hold <strong>{usd(unusedTotal)}</strong> in the
+            Tentative, {usd(unusedGeneralFund)} of it in the General Fund. Some are a cushion for a rare expense, such as severance, and the
+            Board may want to keep those; it should know they have gone unused. Debt payments, reserves and contingencies are left out.
+          </p>
+          <div style={{ overflowX: 'auto' }}>
+            <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 13.5, minWidth: 560 }}>
+              <thead>
+                <tr style={headRow}>
+                  <th style={th}>Line</th>
+                  <th style={thr}>{historyBudgetYear - 2} budget</th>
+                  <th style={thr}>{historyBudgetYear - 1} budget</th>
+                  <th style={thr}>{historyBudgetYear} Tentative</th>
+                </tr>
+              </thead>
+              <tbody>
+                {unused.map((r) => (
+                  <tr key={r.account} style={{ borderTop: '1px solid var(--rbl-border-subtle)' }}>
+                    <td style={td}>
+                      <strong style={{ color: 'var(--rbl-title)' }}>{r.name}</strong>
+                      <div style={{ color: 'var(--rbl-text-muted)', fontSize: 11.5, marginTop: 2 }}>{r.account}{r.page ? ` · p. ${r.page}` : ''}</div>
+                    </td>
+                    <td style={tdr}>{usd(r.adoptedPrior)}</td>
+                    <td style={tdr}>{usd(r.adopted)}</td>
+                    <td style={{ ...tdr, fontWeight: 800, color: 'var(--rbl-title)' }}>{usd(r.tentative)}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </section>
+      )}
+
+      {dueInBudgetYear.length > 0 && (
+        <section style={{ ...card, marginBottom: 14 }}>
+          <h3 style={{ marginTop: 0, color: 'var(--rbl-title)' }}>On a cycle, and due again in {historyBudgetYear}</h3>
           <p style={{ color: 'var(--rbl-text-body)', fontSize: 14.5, lineHeight: 1.6, marginTop: 0 }}>
             Spending here repeats on a regular interval rather than every year. The last spike and the interval say the
-            next one lands in 2027, which is the budget being written now.
+            next one lands in {historyBudgetYear}, the budget now before the Board.
           </p>
           <div style={{ display: 'grid', gap: 10 }}>
-            {dueIn2027.map((c) => (
+            {dueInBudgetYear.map((c) => (
               <div key={c.account} style={{ border: '1px solid var(--rbl-border-subtle)', borderRadius: 10, padding: '11px 13px', background: 'var(--rbl-warn-bg)' }}>
                 <div style={{ display: 'flex', alignItems: 'baseline', gap: 8, flexWrap: 'wrap' }}>
                   <strong style={{ color: 'var(--rbl-title)', fontSize: 15 }}>{c.name}</strong>
@@ -104,8 +194,8 @@ export default function BudgetAccuracyPage() {
                 </div>
                 <div style={{ margin: '6px 0' }}><Spark series={c.series} /></div>
                 <div style={{ color: 'var(--rbl-text-body)', fontSize: 13 }}>
-                  Costs about <strong>{usd(c.spikeAverage)}</strong> when it lands. The 2026 Tentative carries{' '}
-                  <strong style={{ color: c.tentative2026 === 0 ? 'var(--rbl-danger)' : 'var(--rbl-title)' }}>{usd(c.tentative2026)}</strong>.
+                  Costs about <strong>{usd(c.spikeAverage)}</strong> when it lands. The {historyBudgetYear} Tentative carries{' '}
+                  <strong style={{ color: c.tentative === 0 ? 'var(--rbl-danger)' : 'var(--rbl-title)' }}>{usd(c.tentative)}</strong>.
                 </div>
               </div>
             ))}
@@ -133,10 +223,11 @@ export default function BudgetAccuracyPage() {
 
       <h2 style={{ color: 'var(--rbl-title)' }}>Researched flags</h2>
       <p style={{ color: 'var(--rbl-text-muted)', fontSize: 14, marginTop: 0 }}>
-        Each carries a specific question for the Finance Department, not just a number.
+        Each carries a specific question for the Finance Department, not just a number. The figures are read from the
+        Town&apos;s Budget Supplements for each account named.
       </p>
 
-      <section style={{ display: 'grid', gap: 12, marginBottom: 22 }}>
+      <section style={{ display: 'grid', gap: 12, marginBottom: 14 }}>
         {curatedFlags.map((f) => (
           <div key={f.rank} style={{ ...card, borderLeft: `6px solid ${SEV_COLOR[f.severity] ?? 'var(--rbl-border-subtle)'}` }}>
             <div style={{ display: 'flex', alignItems: 'baseline', gap: 10, flexWrap: 'wrap' }}>
@@ -146,12 +237,19 @@ export default function BudgetAccuracyPage() {
                 {severityLabel[f.severity]}
               </span>
             </div>
+            <div style={{ color: 'var(--rbl-text-muted)', fontSize: 11.5, marginTop: 3 }}>
+              {f.accounts.length === 1 ? f.accounts[0] : `${f.accounts.length} accounts: ${f.accounts[0].split('-').slice(0, 3).join('-')}-…`}
+            </div>
 
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(120px,1fr))', gap: 8, margin: '11px 0' }}>
-              <Fig label="2024 budget" value={f.budget2024} />
-              <Fig label="2024 actual" value={f.actual2024} strong />
-              <Fig label="Variance" value={f.variance} strong />
-              <Fig label="2026 adopted" value={f.adopted2026} />
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(118px,1fr))', gap: 8, margin: '11px 0' }}>
+              {f.years.map((y) => (
+                <div key={y.year} style={{ display: 'contents' }}>
+                  <Fig label={`${y.year} budget`} value={money(y.budget)} />
+                  <Fig label={`${y.year} actual`} value={money(y.actual)} strong note={variance(y)} />
+                </div>
+              ))}
+              <Fig label={`${flagYears.adopted} adopted`} value={money(f.adopted)} />
+              <Fig label={`${flagYears.tentative} Tentative`} value={money(f.tentative)} strong />
             </div>
 
             {f.plainEnglish && (
@@ -165,6 +263,11 @@ export default function BudgetAccuracyPage() {
         ))}
       </section>
 
+      <section style={{ ...card, marginBottom: 22, background: 'var(--rbl-info-bg)' }}>
+        <h3 style={{ margin: '0 0 6px', color: 'var(--rbl-title)', fontSize: 15.5 }}>Corrected</h3>
+        <p style={{ color: 'var(--rbl-text-body)', fontSize: 14, lineHeight: 1.6, margin: 0 }}>{flagCorrections.note}</p>
+      </section>
+
       <h2 style={{ color: 'var(--rbl-title)' }}>Found automatically</h2>
       <p style={{ color: 'var(--rbl-text-muted)', fontSize: 14, marginTop: 0, lineHeight: 1.6 }}>{outlierNote}</p>
 
@@ -173,25 +276,29 @@ export default function BudgetAccuracyPage() {
         chronicOverrun={chronicOverrun}
         noBudget={noBudget}
         recoverablePool={recoverablePool}
+        columns={outlierColumns}
       />
 
       <section style={{ ...card, marginTop: 18 }}>
         <p style={{ color: 'var(--rbl-text-muted)', fontSize: 13, lineHeight: 1.6, margin: 0 }}>
-          Researched flags compare the 2024 actual against the 2024 budget and the 2026 adopted amount for the same line.
-          The automatic set comes from the Town&apos;s 2026 Budget Supplement, parsed weekly. Neither is an allegation of
-          waste — a line can miss because costs genuinely rose. The question each raises is whether the budgeted figure was
-          ever realistic.
+          Researched flags show each line&apos;s budget and actual for {flagYears.first} and {flagYears.second}, the {flagYears.adopted} adopted
+          amount and the {flagYears.tentative} Tentative. The automatic set comes from the Town&apos;s {historyBudgetYear} Budget
+          Supplement{supplementSource ? <> (<a href={supplementSource.url} style={{ color: 'var(--rbl-link)' }}>PDF</a>)</> : null}; the multi-year
+          view stacks every Supplement since {historyActualYears[0] + 2}. Actuals are the Town&apos;s books before each year&apos;s audit. None of
+          this is an allegation of waste — a line can miss because costs genuinely rose. The question each raises is whether the budgeted
+          figure was ever realistic.
         </p>
       </section>
     </PageShell>
   )
 }
 
-function Fig({ label, value, strong }: { label: string; value: string; strong?: boolean }) {
+function Fig({ label, value, strong, note }: { label: string; value: string; strong?: boolean; note?: string }) {
   return (
     <div>
       <div style={{ color: 'var(--rbl-text-muted)', fontSize: 10.5, fontWeight: 800, letterSpacing: 0.4, textTransform: 'uppercase' }}>{label}</div>
       <div style={{ color: strong ? 'var(--rbl-title)' : 'var(--rbl-text-body)', fontSize: 15, fontWeight: strong ? 800 : 600 }}>{value || '—'}</div>
+      {note && <div style={{ color: 'var(--rbl-text-muted)', fontSize: 11.5, fontWeight: 700 }}>{note}</div>}
     </div>
   )
 }

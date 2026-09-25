@@ -32,8 +32,13 @@ const healthcareContributionSavings =
   modeledEligibleHealthcarePositions * (nyshipPlanPrimeIndividualMonthlyPremium * 12) * healthcareContributionRate
 
 const policeUniformOTActual2024 = 1_401_354.0
-const policeUniformOTBudget2024 = 1_000_000.0
-const policeUniformOTVariance = policeUniformOTActual2024 - policeUniformOTBudget2024
+// The budgets beside that actual. The 2024 budget was $700,011; $1,000,000 is
+// 2025's, which the 2026 Supplement prints next to the 2024 actual and this
+// line once labeled as 2024's. Typed here because a client component imports
+// this file and the Supplement data would ship with it; scripts/verify-
+// supplement.mjs checks both against the Supplements.
+export const policeUniformOTBudget2024 = 700_011.0
+export const policeUniformOTBudget2025 = 1_000_000.0
 
 // Peer benchmark: Southampton's 2026 adopted Town Police OT (account 6101) is $1,476,854 for
 // 113 officers — $13,069.50/officer. Applied to Riverhead's ~100 officers, that implies a
@@ -60,7 +65,7 @@ export const personnelPolicyItems: SpendingReductionItem[] = [
     id: 'overtime',
     title: 'Police Uniform OT recovery target',
     amount: overtimeControlSavings,
-    source: `2024 actual ($${Math.round(policeUniformOTActual2024).toLocaleString()}) vs. $${Math.round(policeUniformOTBudget2024).toLocaleString()} budget — a $${Math.round(policeUniformOTVariance).toLocaleString()} variance`,
+    source: `2024 actual ($${Math.round(policeUniformOTActual2024).toLocaleString()}) against a 2024 budget of $${Math.round(policeUniformOTBudget2024).toLocaleString()}; the line has been budgeted at $${Math.round(policeUniformOTBudget2025).toLocaleString()} since 2025`,
     rationale: "Southampton's 2026 adopted Police OT is $13,069.50/officer for 113 officers; at that regional rate Riverhead's ~100 officers would need about $1,306,950 — meaning most of the variance is likely real coverage need, not scheduling waste. Zero OT isn't realistic, so this targets only the residual above that peer benchmark.",
   },
   {

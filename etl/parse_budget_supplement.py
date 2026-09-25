@@ -81,6 +81,23 @@ def fund_of(account: str) -> str:
     return account.split("-", 1)[0].strip()
 
 
+# How firm a trim toward the run-rate is. Module level so the current-year
+# analysis in parse_supplement_history.py tags lines the same way.
+VOLATILE = ("fuel", "gasoline", "diesel", "utl -", "utility", "electric",
+            "natural gas", "heating", " water")
+CAPITAL = ("improvement", "equipment", "purchase of land", "vehicle",
+           "machinery", "mach -", "resurfac", "paving", "r&m", "construction")
+
+
+def confidence(name: str) -> str:
+    n = name.lower()
+    if any(k in n for k in VOLATILE):
+        return "volatile"      # price-driven; trim is real but not guaranteed
+    if any(k in n for k in CAPITAL):
+        return "moderate"      # capital/maintenance; fluctuates year to year
+    return "firm"              # operating/professional services over-budgeted
+
+
 def parse_pdf(path: Path):
     """Yield (account, description, [5 floats], section) for each data row."""
     from pypdf import PdfReader
@@ -258,19 +275,6 @@ def build():
         "CM2": "Ambulance", "CM1": "Ambulance", "SR1": "Refuse", "SM1": "Sewer",
         "Z14": "Economic Development", "V01": "Debt Service", "ST1": "Street",
     }
-    VOLATILE = ("fuel", "gasoline", "diesel", "utl -", "utility", "electric",
-                "natural gas", "heating", " water")
-    CAPITAL = ("improvement", "equipment", "purchase of land", "vehicle",
-               "machinery", "mach -", "resurfac", "paving", "r&m", "construction")
-
-    def confidence(name: str) -> str:
-        n = name.lower()
-        if any(k in n for k in VOLATILE):
-            return "volatile"      # price-driven; trim is real but not guaranteed
-        if any(k in n for k in CAPITAL):
-            return "moderate"      # capital/maintenance; fluctuates year to year
-        return "firm"              # operating/professional services over-budgeted
-
     reductions = []
     for x in ob:
         reductions.append({
