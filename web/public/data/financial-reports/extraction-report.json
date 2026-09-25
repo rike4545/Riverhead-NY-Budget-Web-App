@@ -1,6 +1,6 @@
 {
   "source_index": "https://www.townofriverheadny.gov/206/Financial-Reports",
-  "parsed_at": "2026-09-24T17:01:37.498133+00:00",
+  "parsed_at": "2026-09-25T00:22:41.199963+00:00",
   "document_count": 133,
   "audit_document_count": 41,
   "failure_count": 0,
@@ -8,18 +8,6 @@
   "citation_count": 14350,
   "line_item_candidate_count": 116094,
   "documents": [
-    {
-      "title": "_2027 Budget Supplement",
-      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3929/_2027-Budget-Supplement",
-      "year": 2027,
-      "category": "budget_supplement",
-      "slug": "2027-2027-budget-supplement",
-      "json": "documents/2027-2027-budget-supplement.json",
-      "page_count": 60,
-      "money_value_count": 4829,
-      "sha256": "298aeb9226d29840d7035b3915c7d861e313dd0bc3299fbabfc1f4ba9096218b",
-      "parsed_at": "2026-09-24T17:01:37.498133+00:00"
-    },
     {
       "title": "2027 Tentative Budget (PDF)",
       "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3928/2027-Tentative-Budget-PDF",
@@ -31,6 +19,18 @@
       "money_value_count": 3891,
       "sha256": "019650dc38bc6589aba79b74d9d789371021f2442fc522d16ef27358da430b2f",
       "parsed_at": "2026-09-24T14:07:38.767814+00:00"
+    },
+    {
+      "title": "2027 Budget Supplement (PDF)",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3929/2027-Budget-Supplement-PDF",
+      "year": 2027,
+      "category": "budget_supplement",
+      "slug": "2027-2027-budget-supplement-pdf",
+      "json": "documents/2027-2027-budget-supplement-pdf.json",
+      "page_count": 60,
+      "money_value_count": 4829,
+      "sha256": "298aeb9226d29840d7035b3915c7d861e313dd0bc3299fbabfc1f4ba9096218b",
+      "parsed_at": "2026-09-25T00:22:41.199963+00:00"
     },
     {
       "title": "2026 Tentative Budget (PDF)",
@@ -46,7 +46,7 @@
     },
     {
       "title": "2026 Preliminary Budget (PDF)",
-      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/2835/2026-Preliminary-Budget-PDF",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/2835/2026-Preliminary-Budget",
       "year": 2026,
       "category": "preliminary_budget",
       "slug": "2026-2026-preliminary-budget-pdf",
@@ -69,12 +69,12 @@
       "parsed_at": "2026-07-31T00:48:42.463564+00:00"
     },
     {
-      "title": "2026 Adopted Budget",
+      "title": "2026 Adopted Budget (PDF)",
       "url": "https://www.townofriverheadny.gov/DocumentCenter/View/2967/2026-Adopted-Budget",
       "year": 2026,
       "category": "adopted_budget",
-      "slug": "2026-2026-adopted-budget",
-      "json": "documents/2026-2026-adopted-budget.json",
+      "slug": "2026-2026-adopted-budget-pdf",
+      "json": "documents/2026-2026-adopted-budget-pdf.json",
       "page_count": 66,
       "money_value_count": 6363,
       "sha256": "225eb7f7d340f879544124d73e584d6afa975249ac59b5d3b97044cc903f2ab8",
@@ -93,52 +93,52 @@
       "parsed_at": "2026-07-31T00:48:42.463564+00:00"
     },
     {
-      "title": "2025 Riverhead Community Development Agency Schedule of Cash and Investments",
-      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3638/2025-Riverhead-Community-Development-Agency-Schedule-of-Cash-and-Investments",
+      "title": "2025 Riverhead Community Development Agency Schedule of Cash and Investments (PDF)",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3638/2025-Riverhead-Community-Development-Agency-Schedule-of-Cash-and-Investments-PDF",
       "year": 2025,
       "category": "other",
-      "slug": "2025-2025-riverhead-community-development-agency-schedule-of-cash-and-investments",
-      "json": "documents/2025-2025-riverhead-community-development-agency-schedule-of-cash-and-investments.json",
+      "slug": "2025-2025-riverhead-community-development-agency-schedule-of-cash-and-investments-pdf",
+      "json": "documents/2025-2025-riverhead-community-development-agency-schedule-of-cash-and-investments-pdf.json",
       "page_count": 10,
       "money_value_count": 8,
       "sha256": "b1c176da3edaa8859a8c302e01f133e083c3b9757f3fd54a94ee6b11b24b9f63",
-      "parsed_at": "2026-07-31T00:48:42.463564+00:00"
+      "parsed_at": "2026-09-25T00:22:41.199963+00:00"
     },
     {
-      "title": "2025 Riverhead Community Development Agency Basic Financial Statements",
-      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3636/2025-Riverhead-Community-Development-Agency-Basic-Financial-Statements",
+      "title": "2025 Riverhead Community Development Agency Basic Financial Statements (PDF)",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3636/2025-Riverhead-Community-Development-Agency-Basic-Financial-Statements-PDF",
       "year": 2025,
       "category": "other",
-      "slug": "2025-2025-riverhead-community-development-agency-basic-financial-statements",
-      "json": "documents/2025-2025-riverhead-community-development-agency-basic-financial-statements.json",
+      "slug": "2025-2025-riverhead-community-development-agency-basic-financial-statements-pdf",
+      "json": "documents/2025-2025-riverhead-community-development-agency-basic-financial-statements-pdf.json",
       "page_count": 31,
       "money_value_count": 227,
       "sha256": "100a25c575ae3e8f49be9f04887d3f88c57766bcb330410604664cd140166ea8",
-      "parsed_at": "2026-07-31T00:48:42.463564+00:00"
+      "parsed_at": "2026-09-25T00:22:41.199963+00:00"
     },
     {
-      "title": "2025 Peconic Bay Community Preservation Fund Audited Financial Statements",
-      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3591/2025-Peconic-Bay-Community-Preservation-Fund-Audited-Financial-Statements",
+      "title": "2025 Peconic Bay Community Preservation Fund Audited Financial Statements (PDF)",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3591/2025-Peconic-Bay-Community-Preservation-Fund-Audited-Financial-Statements-PDF",
       "year": 2025,
       "category": "audit",
-      "slug": "2025-2025-peconic-bay-community-preservation-fund-audited-financial-statements",
-      "json": "documents/2025-2025-peconic-bay-community-preservation-fund-audited-financial-statements.json",
+      "slug": "2025-2025-peconic-bay-community-preservation-fund-audited-financial-statements-pdf",
+      "json": "documents/2025-2025-peconic-bay-community-preservation-fund-audited-financial-statements-pdf.json",
       "page_count": 16,
       "money_value_count": 46,
       "sha256": "9b5c8a9df7f8e319d641a98b00d2d0663f23fcf4261bcc37503900053aae8be1",
-      "parsed_at": "2026-07-31T00:48:42.463564+00:00"
+      "parsed_at": "2026-09-25T00:22:41.199963+00:00"
     },
     {
-      "title": "2025 Justice Court Statement of Cash Receipts and Cash Disbursements",
-      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3739/2025-Justice-Court-Statement-of-Cash-Receipts-and-Cash-Disbursements",
+      "title": "2025 Justice Court Statement of Cash Receipts and Cash Disbursements (PDF)",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3739/2025-Justice-Court-Statement-of-Cash-Receipts-and-Cash-Disbursements-PDF",
       "year": 2025,
       "category": "justice_court",
-      "slug": "2025-2025-justice-court-statement-of-cash-receipts-and-cash-disbursements",
-      "json": "documents/2025-2025-justice-court-statement-of-cash-receipts-and-cash-disbursements.json",
+      "slug": "2025-2025-justice-court-statement-of-cash-receipts-and-cash-disbursements-pdf",
+      "json": "documents/2025-2025-justice-court-statement-of-cash-receipts-and-cash-disbursements-pdf.json",
       "page_count": 7,
       "money_value_count": 18,
       "sha256": "8a1c2cf9c18125c791e65c49cc6637d4a3e044e8def904d6a1b8bc7c13476023",
-      "parsed_at": "2026-07-31T00:48:42.463564+00:00"
+      "parsed_at": "2026-09-25T00:22:41.199963+00:00"
     },
     {
       "title": "2025 Budget Supplement (PDF)",
@@ -153,16 +153,16 @@
       "parsed_at": "2026-07-31T00:48:42.463564+00:00"
     },
     {
-      "title": "2025 Annual Financial Report",
-      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3513/2025-Annual-Financial-Report",
+      "title": "2025 Annual Financial Report (PDF)",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3513/2025-Annual-Financial-Report-PDF",
       "year": 2025,
       "category": "annual_financial_report",
-      "slug": "2025-2025-annual-financial-report",
-      "json": "documents/2025-2025-annual-financial-report.json",
+      "slug": "2025-2025-annual-financial-report-pdf",
+      "json": "documents/2025-2025-annual-financial-report-pdf.json",
       "page_count": 155,
       "money_value_count": 3420,
       "sha256": "e02dc652bd4ca5185125d3893acdd288c1071eb56adb73d09aa7e575592ae7c5",
-      "parsed_at": "2026-07-31T00:48:42.463564+00:00"
+      "parsed_at": "2026-09-25T00:22:41.199963+00:00"
     },
     {
       "title": "2025 Adopted Budget (PDF)",
@@ -333,16 +333,16 @@
       "parsed_at": "2026-07-31T00:48:42.463564+00:00"
     },
     {
-      "title": "2023 Adopted Budget",
-      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/2865/2023-Adopted-Budget",
+      "title": "2023 Adopted Budget (PDF)",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/2865/2023-Adopted-Budget-PDF",
       "year": 2023,
       "category": "adopted_budget",
-      "slug": "2023-2023-adopted-budget",
-      "json": "documents/2023-2023-adopted-budget.json",
+      "slug": "2023-2023-adopted-budget-pdf",
+      "json": "documents/2023-2023-adopted-budget-pdf.json",
       "page_count": 76,
       "money_value_count": 6508,
       "sha256": "e95d9a99d8e9e9d9cb16a74e221677f15c5d97019b6d60c7c7b722b349095dcb",
-      "parsed_at": "2026-07-31T00:48:42.463564+00:00"
+      "parsed_at": "2026-09-25T00:22:41.199963+00:00"
     },
     {
       "title": "2022 Tentative Budget (PDF)",
