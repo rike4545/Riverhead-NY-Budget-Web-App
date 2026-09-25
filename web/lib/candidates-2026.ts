@@ -9,7 +9,7 @@
 // Platforms are transcribed from CandidateWatchData (iOS CandidateWatchView),
 // which sourced them from each campaign's own website/social media plus local
 // news coverage. Fiscal anchors (the cap gap, the retirement buyout, police OT,
-// the $33.4M General Fund balance of which $29.7M is unassigned, the Peconic Bay
+// the audited General Fund balance and its unassigned share, the Peconic Bay
 // CPF) are the same figures used elsewhere in the app.
 //
 // The cap gap is DERIVED from the projection rather than written in, so these
@@ -18,6 +18,12 @@
 // since moved and the prose had not.
 import prediction from '../public/data/budget-2027-prediction.json'
 import { released2027, changePhrase, gapPhrase } from './tentative-2027'
+import { AUDITED_GENERAL_FUND } from './audits'
+import { countWord, overrideStreak, yearsPhrase } from './budget-adoption'
+
+// The General Fund's balance at the end of 2025, as audited, e.g. "$33.3M" and "$28.8M".
+const gfBalance = `$${(AUDITED_GENERAL_FUND[2025].total / 1e6).toFixed(1)}M`
+const gfUnassigned = `$${(AUDITED_GENERAL_FUND[2025].classes.Unassigned / 1e6).toFixed(1)}M`
 
 /** The cap gap, as prose: "$2.32M". Tracks budget-2027-prediction.json. */
 const capGapM = `$${(prediction.capGap.gap / 1_000_000).toFixed(2)}M`
@@ -101,7 +107,7 @@ export const candidates2026: Candidate[] = [
         benefit:
           'Frames the goal as recurring balance rather than one-time patches — the fiscally honest target, and consistent with staying under the tax cap year over year.',
         cost:
-          '“Stable” is an outcome, not a mechanism: it still requires either the trims or the new revenue above. If neither fully lands, the only lever left is fund balance — $29.7M of the $33.4M General Fund balance is unassigned and actually flexible — and that is one-time money that can’t fund a recurring gap twice.',
+          `“Stable” is an outcome, not a mechanism: it still requires either the trims or the new revenue above. If neither fully lands, the only lever left is fund balance — ${gfUnassigned} of the ${gfBalance} General Fund balance is unassigned and actually flexible — and that is one-time money that can’t fund a recurring gap twice.`,
         tradeoff:
           'Protecting specific groups from tax increases can mean shifting cost to fees or districts, which are less visible but still land on the same households.',
         anchor: { label: 'What it means for your tax bill', href: '/my-tax-bill/' },
@@ -121,7 +127,7 @@ export const candidates2026: Candidate[] = [
       {
         proposal: 'Lower the cost of taxes — the campaign’s stated top issue.',
         benefit:
-          'Direct, immediately felt relief for every property owner, and the Town has a large cushion to work from: a $33.4M General Fund balance, of which $29.7M is unassigned and actually available.',
+          `Direct, immediately felt relief for every property owner, and the Town has a large cushion to work from: a ${gfBalance} General Fund balance, of which ${gfUnassigned} is unassigned and actually available.`,
         cost:
           `An actual levy cut (versus merely holding growth) widens the ~${capGapM} gap to a 2% increase rather than closing it — the reduction has to be found on top of the gap. Funding a cut from reserves spends one-time money on a recurring obligation and can’t be repeated.`,
         tradeoff:
@@ -195,10 +201,10 @@ export const synthesis = {
 // practices (GFOA/OSC), framed as considerations, not endorsements.
 export const neutralView = {
   intro:
-    'Set the campaigns aside. Riverhead has leaned on above-cap levy increases and cap overrides in several recent years — a 7.89% levy increase in the 2025 budget, and adopted overrides in 2023, 2024, and 2026. When a town has to override the cap that often, the issue is usually structural, not a single bad year: recurring costs are outgrowing recurring revenue, and the gap is being closed late, at adoption, rather than planned for. Here is how that is normally addressed, independent of who wins.',
+    `Set the campaigns aside. Riverhead has overridden the tax cap for ${countWord(overrideStreak.length)} budgets in a row, ${yearsPhrase(overrideStreak)}, including a 7.89% levy increase in 2025. When a town has to override the cap that often, the issue is usually structural, not a single bad year: recurring costs are outgrowing recurring revenue, and the gap is being closed late, at adoption, rather than planned for. Here is how that is normally addressed, independent of who wins.`,
   history: [
     '2025 adopted budget: ~7.89% tax-levy increase.',
-    'Tax-cap overrides adopted in 2023, 2024, and 2026.',
+    `Tax-cap override laws adopted for the ${yearsPhrase(overrideStreak)} budgets.`,
     `2027 projection: on current trends, the levy rises about ${capGapM} more than a 2% increase.`,
     ...(released2027
       ? [released2027.townWide && released2027.statedLimitPct !== null
@@ -220,7 +226,7 @@ export const neutralView = {
     {
       title: 'Set — and respect — a fund-balance target',
       detail:
-        'The $33.4M General Fund balance — $29.7M of it unassigned — is a genuine strength; GFOA guidance is to hold at least ~two months of operating expenditures. That cushion is for emergencies and cash flow, not for buying down recurring costs. Naming the target keeps reserves from being spent down quietly year after year.',
+        `The ${gfBalance} General Fund balance — ${gfUnassigned} of it unassigned — is a genuine strength; GFOA guidance is to hold at least ~two months of operating expenditures. That cushion is for emergencies and cash flow, not for buying down recurring costs. Naming the target keeps reserves from being spent down quietly year after year.`,
     },
     {
       title: 'Treat a cap override as an exception, decided in the open',

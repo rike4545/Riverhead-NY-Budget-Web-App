@@ -369,11 +369,14 @@ function LetterSection({ h }: { h: Headline }) {
 
   rows.push({
     says: `${ri.savingsQuote} ${ri.quote} …`,
-    shows: `${notInSummary} By the letter’s own figures the saving before retiree health insurance is ${usd(ri.salariesAndPayrollTaxes + ri.retirementContributions)}: ${usd(ri.salariesAndPayrollTaxes)} in salaries and payroll taxes and ${usd(ri.retirementContributions)} in State retirement contributions. The difference, about ${usd(ri.retireeHealthOffset)}, is the added retiree health insurance. The ${ri.csea + ri.pba + ri.soa} who took it were among ${buyout2026.actualEligible.total} eligible employees, and the Town’s July estimate of the saving was ${usd(buyout2026.estimatedSavings.low)} to ${usd(buyout2026.estimatedSavings.high)}.`,
+    shows: `${notInSummary} By the letter’s own figures the saving before retiree health insurance is ${usd(ri.salariesAndPayrollTaxes + ri.retirementContributions)}: ${usd(ri.salariesAndPayrollTaxes)} in salaries and payroll taxes and ${usd(ri.retirementContributions)} in State retirement contributions. The difference, ${usd(ri.retireeHealthOffset)}, is the added retiree health insurance, the figure ${ri.atMeeting.who} gave at the September 24 meeting; she said replacements for the retirees are also budgeted for 2027 (${L.meetingReport.title.split(':')[0]}). The ${ri.csea + ri.pba + ri.soa} who took it were among ${buyout2026.actualEligible.total} eligible employees, and the Town’s July estimate of the saving was ${usd(buyout2026.estimatedSavings.low)} to ${usd(buyout2026.estimatedSavings.high)}.`,
     href: { path: '/buyout/', label: 'The retirement incentive' },
   })
 
-  rows.push({ says: L.staffing.quote, shows: notInSummary })
+  rows.push({
+    says: L.staffing.quote,
+    shows: `${notInSummary} As the ${L.meetingReport.title.split(':')[0]} reported the meeting, 64 of the 76 merit raises are two extra steps on the salary schedule, on top of contractual raises, and the eight new positions are a maintenance mechanic, two buildings and grounds staff, an automotive equipment operator, a building inspector, a purchasing clerk, an office assistant and a fire marshal.`,
+  })
 
   return (
     <section data-letter style={{ ...card, marginBottom: 16 }}>

@@ -81,6 +81,16 @@ export const LETTER_2027 = {
     retirementContributions: 341_000,
     /** The letter says the gross saving "was partially offset by an increase in retirement health insurance" and gives no figure; this is the difference. */
     retireeHealthOffset: 746_000 + 341_000 - 819_000,
+    /**
+     * What the Financial Administrator said at the September 24 special
+     * meeting, as the Riverhead News-Review reported it. Her retiree-health
+     * figure is the letter's difference, which verify-tentative-letter checks.
+     */
+    atMeeting: {
+      who: 'Financial Administrator Jeannette DiPaola',
+      retireeHealth: 268_000,
+      replacementsQuote: 'Replacement positions to fill the retirees’ spots are also budgeted for next year, Ms. DiPaola said.',
+    },
   },
   staffing: {
     quote: 'In total, seventy-six merit raises (including the sixty-four above), nine promotional raises, six new full-time positions, as well as two new part-time positions, are budgeted for while remaining under the 2.79% tax cap.',
@@ -90,5 +100,15 @@ export const LETTER_2027 = {
     promotions: 9,
     newFullTime: 6,
     newPartTime: 2,
+    /** The rest, as the Riverhead News-Review reported the meeting. The Summary and the letter give neither. */
+    reported: {
+      steps: 'Of the 76 employees receiving merit raises, 64 would move up two additional steps on the salary schedule in 2027, Mr. Halpin said.',
+      positions: 'The new positions in the 2027 tentative budget include a maintenance mechanic, two buildings and grounds staff, an automotive equipment operator, a building inspector, a purchasing clerk, an office assistant, and a fire marshal.',
+    },
+  },
+  /** The Riverhead News-Review's report of the September 24 special meeting at which the Tentative was presented. */
+  meetingReport: {
+    title: 'Riverhead News-Review, Sept. 24, 2026: “Halpin’s Riverhead budget would end four-year streak of tax cap overrides”',
+    url: 'https://riverheadnewsreview.timesreview.com/2026/09/138214/halpins-riverhead-budget-would-end-four-year-streak-of-tax-cap-overrides/',
   },
 } as const

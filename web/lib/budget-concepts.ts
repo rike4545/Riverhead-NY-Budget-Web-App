@@ -11,6 +11,14 @@
 // not the later dates that apply only to Westchester and Monroe County towns.
 
 import prediction from '../public/data/budget-2027-prediction.json'
+import { AUDITED_GENERAL_FUND } from './audits'
+import { unassignedFundBalanceAfr } from './reserve-policy'
+import { overrideStreak, yearsPhrase } from './budget-adoption'
+import { released2027, changePhrase } from './tentative-2027'
+
+const gf25 = AUDITED_GENERAL_FUND[2025]
+const usd0 = (n: number) => n.toLocaleString('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 })
+const millions = (n: number) => `$${(n / 1e6).toFixed(1)}M`
 
 /** The cap gap, as prose: "$2.32M". Derived so it can't drift from the projection. */
 const capGapM = `$${(prediction.capGap.gap / 1_000_000).toFixed(2)}M`
@@ -36,7 +44,7 @@ export const budgetConcepts: BudgetConcept[] = [
     plain:
       'Accounting rules sort a fund’s balance into five tiers by how tied-up the money is: Nonspendable (can’t be spent at all — inventory, prepaids), Restricted (locked by outside law or grant terms), Committed (set aside by the Board’s own formal action), Assigned (earmarked by intent), and Unassigned (genuinely flexible). Only that last tier is the true cushion. Town Law still uses the older phrase “unappropriated unreserved fund balance” — total assets minus liabilities, deferred revenues, encumbrances, amounts already appropriated into next year’s budget, and amounts reserved by law — which GASB 54 replaced in the financial statements themselves.',
     riverhead:
-      'Riverhead’s 2025 General Fund balance was $33,407,251 in total — but $2,012,534 of it is nonspendable, $17,924 restricted, $42,435 committed, and $1,663,273 assigned. The actually-flexible unassigned balance is $29,671,084. Quoting the $33.4M total as “the cushion” overstates available money by about $3.7M.',
+      `By the independent audit, Riverhead’s 2025 General Fund balance was ${usd0(gf25.total)} in total — but ${usd0(gf25.classes.Nonspendable)} of it is nonspendable, ${usd0(gf25.classes.Restricted)} restricted, ${usd0(gf25.classes.Committed)} committed, and ${usd0(gf25.classes.Assigned)} assigned. The actually-flexible unassigned balance is ${usd0(gf25.classes.Unassigned)}. Quoting the ${millions(gf25.total)} total as “the cushion” overstates available money by about ${millions(gf25.total - gf25.classes.Unassigned)}. Which tier a dollar lands in is itself a judgment: the Town’s own unaudited Annual Financial Report counted less as assigned and so put the unassigned balance ${usd0(unassignedFundBalanceAfr - gf25.classes.Unassigned)} higher.`,
     ask: 'When someone cites a fund-balance number, ask which tiers it includes, how much is unassigned — and whether the Town has adopted a written fund-balance policy, which OSC recommends every local government adopt and review annually.',
     cite: 'Town Law §103; GASB Statement No. 54',
   },
@@ -56,7 +64,7 @@ export const budgetConcepts: BudgetConcept[] = [
     plain:
       'New York limits how much a town can raise its property-tax levy each year — the lesser of 2% or the rate of inflation, with adjustments for tax-base growth and certain exclusions. The Board can legally exceed it, but only by adopting an override local law first, in public, with a 60% vote of the governing body. The cap is a guardrail with a documented exit, not a hard ceiling. One step is easy to miss: the Town’s chief fiscal officer must file a tax-cap form with the State Comptroller *before* the budget is adopted, so the levy limit is on record with the State ahead of the vote.',
     riverhead:
-      `Riverhead adopted overrides in 2023, 2024, and 2026, and on current trends the 2027 levy pierces the cap again by about ${capGapM}. The question worth asking isn’t only whether an override happens, but whether a cap-compliant version of the budget was ever shown alongside it.`,
+      `Riverhead adopted override laws for the ${yearsPhrase(overrideStreak)} budgets. ${released2027?.townWide && released2027.statedLimitPct !== null && released2027.withinStatedLimit ? `In the 2027 Tentative the town-wide levy is ${changePhrase(released2027.townWide.levyPct, 2)} 2026, which the Supervisor’s letter says is within the ${released2027.statedLimitPct}% limit; the Board can still change it before adopting.` : `On current trends the 2027 levy pierces the cap again by about ${capGapM}.`} The question worth asking isn’t only whether an override happens, but whether a cap-compliant version of the budget was ever shown alongside it.`,
     ask: 'What would this budget look like under the cap, what specifically does the override fund — and what levy limit did the Town file with the Comptroller before adoption night?',
     cite: 'General Municipal Law §3-c (enacted 2011, effective for fiscal years beginning 2012)',
   },

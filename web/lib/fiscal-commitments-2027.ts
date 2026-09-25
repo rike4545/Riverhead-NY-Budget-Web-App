@@ -2,7 +2,7 @@
 // for the 2027 choices.
 //
 // WHY THIS EXISTS. /predict-2027/ offers the Board's options and prices several
-// of them against "surplus above policy" — $15.8M sitting above the top of the
+// of them against "surplus above policy" — about $15.0M sitting above the top of the
 // Town's own reserve range. That figure is the audited position at DECEMBER 31,
 // 2025. It is not what is available now. Every resolution adopted during 2026
 // that draws on fund balance has already spent part of it, and a suggested

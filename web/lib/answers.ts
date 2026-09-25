@@ -26,7 +26,7 @@ import { yearSummaries } from './payroll'
 import { debtProfile } from './debt-profile'
 import { riverheadCurrent } from './credit-rating'
 import {
-  unassignedFundBalance, appropriations, policyMinimumPercent, policyUpperPercent,
+  unassignedFundBalance, appropriations, policyMinimumPercent, policyUpperPercent, reserveYearAudited,
 } from './reserve-policy'
 import { whyHarder } from './zero-percent-2027'
 import { boardOptions, levyPredicted, levy2026 } from './budget-2027-options'
@@ -213,7 +213,7 @@ export const topics: AnswerTopic[] = [
     answers: [
       {
         q: 'Does the Town have savings?',
-        a: `${usd(unassignedFundBalance)} in unassigned General Fund balance — ${fbPct.toFixed(1)}% of appropriations, against the Town's own policy of ${(policyMinimumPercent * 100).toFixed(0)}–${(policyUpperPercent * 100).toFixed(0)}%.`,
+        a: `${usd(unassignedFundBalance)} in unassigned General Fund balance at the end of 2025${reserveYearAudited ? ', as audited' : ''} — ${fbPct.toFixed(1)}% of appropriations, against the Town's own policy of ${(policyMinimumPercent * 100).toFixed(0)}–${(policyUpperPercent * 100).toFixed(0)}%.`,
         href: `${base}/reserves/`,
         cta: 'Reserves and the policy',
       },

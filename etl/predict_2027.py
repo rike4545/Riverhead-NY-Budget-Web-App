@@ -27,6 +27,19 @@ PAYROLL_SUMMARY = ROOT / "web/public/data/payroll/summary.json"
 PAYROLL_RECORDS = ROOT / "web/public/data/payroll/records.json"
 OUT_SUMMARY = ROOT / "web/public/data/budget-2027-prediction.json"
 OUT_LINES = ROOT / "web/public/data/budget-2027-lines.json"
+TAX_CAP = ROOT / "web/public/data/tax-cap.json"
+
+# The unassigned General Fund balance at the end of 2025, as the independent audit
+# reports it: the spendable cushion. web/lib/audits.ts carries the same figure, and
+# web/scripts/verify-audits.mjs checks it against the page of the audit it is on.
+UNASSIGNED_2025_AUDITED = 28_829_513
+
+
+def override_budgets():
+    """Budget years the Town Board adopted a tax-cap override law for, from the cap record."""
+    status = json.loads(TAX_CAP.read_text())["capStatus"]
+    years = [int(c["year"]) for c in status if c["status"] == "over-with-law"]
+    return ", ".join(map(str, years[:-1])) + " and " + str(years[-1]) if len(years) > 1 else "".join(map(str, years))
 
 # CSEA Article 15(2) (Wages), fully executed 2026-2029 CBA: each year is a % step increase
 # PLUS a flat, non-recurring dollar amount added to every step — and that dollar amount
@@ -339,7 +352,7 @@ def build():
     allowed_levy = round(LEVY_2026 * (1 + cap_base_pct))
     gap = levy_2027 - allowed_levy
     approp_cut_for_1pct = round(approp_2027 / 100)
-    reserve_share = round(gap / 33407251 * 100, 1)  # GF fund balance from the 2025 AFR
+    reserve_share = round(gap / UNASSIGNED_2025_AUDITED * 100, 1)
     pension_exclusion = pension_exclusion_estimate()
     cap_gap = {
         "piercesCap": gap > 0,
@@ -367,8 +380,8 @@ def build():
              "detail": "State aid, mortgage tax, fees, and interest earnings offset the levy dollar-for-dollar. Every "
                        "extra $1M of non-tax revenue is $1M less that has to come from the cap-busting levy."},
             {"lever": "Use reserves (one-time)",
-             "detail": f"Appropriating about ${gap:,} more of the ${33407251:,} General Fund balance would erase the gap "
-                       f"outright — but it's roughly {reserve_share}% of the cushion, spends one-time money on recurring "
+             "detail": f"Appropriating about ${gap:,} more of the ${UNASSIGNED_2025_AUDITED:,} unassigned General Fund balance "
+                       f"would erase the gap outright — but it's roughly {reserve_share}% of that cushion, spends one-time money on recurring "
                        "cost, and can't be repeated forever."},
             {"lever": "Claim the cap's legal exclusions",
              "detail": f"The cap formula excludes pension-cost growth above a 2-percentage-point rise in the "
@@ -381,8 +394,9 @@ def build():
                        f"opposite of the 2018–2022 error, when the ceiling was miscalculated the other way."},
             {"lever": "Or override it — but on purpose",
              "detail": "If the Board decides the services are worth it, it can pierce the cap the right way: adopt the "
-                       "override local law first, in public, with the 60% vote on the record — as it did in 2023, 2024, "
-                       "and 2026. The cap can be exceeded legally; it just has to be a deliberate, disclosed choice."},
+                       "override local law first, in public, with the 60% vote on the record — as it did for the "
+                       f"{override_budgets()} budgets. The cap can be exceeded legally; it just has to be a deliberate, "
+                       "disclosed choice."},
         ],
     }
 

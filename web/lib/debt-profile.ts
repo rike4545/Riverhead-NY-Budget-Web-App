@@ -8,15 +8,23 @@
 //     for every balance below. Its Debt Records table lists each issue by
 //     purpose, issue date, maturity date, and ending balance.
 //   • The 2024 Audited Basic Financial Statements (Note 3.E Indebtedness,
-//     p.60-62) is the newest independent audit. The AFR does not print
-//     interest rates or formal issue names; the audit does, and it also splits
-//     each issue between governmental and business-type activities — which is
-//     what decides whether an issue counts against the constitutional debt
-//     limit. Rates and issue names below therefore carry a date one year older
-//     than the balances beside them.
+//     p.60-62). The AFR does not print interest rates or formal issue names;
+//     the audit does, and it also splits each issue between governmental and
+//     business-type activities — which is what decides whether an issue counts
+//     against the constitutional debt limit. Rates, issue names and splits
+//     below therefore carry a date one year older than the balances beside
+//     them.
+//
+// The 2025 audit, accepted September 1, 2026, confirms the totals: $38,423,858
+// of bonds and $21,975,000 of notes (packet p. 114). Its debt-limit figures
+// replace the 2024 audit's in debtLimit below; see lib/audits.ts.
 //
 // Where the two documents disagree, both readings are kept and the conflict is
 // stated rather than resolved silently — see the EFC 2024 note.
+
+import { AUDIT_2025 } from './audits'
+
+const limit2025 = AUDIT_2025.debtLimit
 
 export type DebtActivity = 'governmental' | 'business-type' | 'split'
 
@@ -185,6 +193,8 @@ export const debtProfile = {
     title: 'Town of Riverhead 2024 Audited Basic Financial Statements',
     detail: 'Note 3.E Indebtedness, p.60-62',
   },
+  /** When the governmental / water-sewer splits were measured: the 2024 audit. */
+  splitAsOf: 'December 31, 2024',
   totalBondedDebt: 38_423_858, // excl. BANs, all activities combined
   bondAnticipationNotes: 21_975_000, // ending balance, all activities
   // What the Town retired during 2025, from the same Debt Summary.
@@ -197,23 +207,28 @@ export const debtProfile = {
   // lib/credit-rating.ts for the full rating history and sourcing detail.
   moodyRatingAsOf: 'affirmed February 2024',
   debtLimit: {
-    asOf: 'December 31, 2024',
+    asOf: 'December 31, 2025',
     source: {
-      title: 'Town of Riverhead 2024 Audited Basic Financial Statements',
-      detail: 'Note 3.E Indebtedness, p.62',
+      title: '2025 audited financial statements (Sept. 1, 2026 agenda packet)',
+      detail: 'Note 3.E Indebtedness, packet p. 157; MD&A, packet p. 114',
+      url: AUDIT_2025.source.url,
     },
-    governmentalBonds: 16_281_792,
-    businessTypeBonds: 16_033_208, // water — excluded from the constitutional debt limit by statute
-    efcBonds: 11_644_898, // sewer, also business-type and also excluded
-    bondsAuthorizedUnissued: 49_924_917, // approved by the Board but not yet issued as long-term bonds
-    constitutionalDebtLimit: 579_848_545, // implied: debt subject to the limit ÷ the audit's 6.74%
-    debtSubjectToLimit: 39_081_792, // governmental bonds + BANs
-    debtLimitExhaustedPct: 6.74,
-    // The prior audit put this at 3.78%. Almost none of the jump is new
-    // borrowing: the 2023 audit's aggregate ($41,280,000) counted bonds only,
-    // while the 2024 audit's ($66,759,898) counts the two BANs as well. The
-    // basis changed, so the two percentages are not a trend.
-    priorYear: { asOf: 'December 31, 2023', debtLimitExhaustedPct: 3.78, bondsAuthorizedUnissued: 57_059_509 },
+    governmentalBonds: limit2025.governmentalBonds,
+    businessTypeBonds: limit2025.waterBonds, // water — excluded from the constitutional debt limit by statute
+    efcBonds: limit2025.efcBonds, // sewer, also business-type and also excluded
+    bondsAuthorizedUnissued: limit2025.authorizedUnissued, // approved by the Board but not yet issued as long-term bonds
+    constitutionalDebtLimit: limit2025.limit, // printed in the 2025 MD&A; the 2024 audit gave only a percentage
+    limitStated: true,
+    debtSubjectToLimit: limit2025.subjectToLimit, // governmental bonds + BANs
+    debtLimitExhaustedPct: limit2025.pct,
+    // Same basis as the 2024 audit (bonds plus the BANs), so unlike the
+    // 2023-to-2024 change this one is a trend: $4.6M less debt subject to the
+    // limit, against a limit that grew with full valuation.
+    priorYear: { asOf: 'December 31, 2024', debtLimitExhaustedPct: 6.74, bondsAuthorizedUnissued: 49_924_917, debtSubjectToLimit: 39_081_792 },
+    // The 2024 audit's 6.74% itself replaced the 2023 audit's 3.78%, but almost
+    // none of that jump was new borrowing: the 2023 figure counted bonds only
+    // and the 2024 figure counts the two BANs as well.
+    basisChange: { asOf: 'December 31, 2023', debtLimitExhaustedPct: 3.78 },
   },
   // Future principal & interest on all bonds already on the books (all
   // activities combined), year by year, from the 2025 AFR's Bond Repayment
@@ -407,10 +422,10 @@ export const opebLiability = {
     {
       asOf: 'December 31, 2025',
       governmental: 129_479_192,
-      businessType: null,
-      total: null,
-      discountRate: null,
-      note: 'The 2025 audited statements are not out yet, so only the AFR\'s governmental share is available. On the prior two years the enterprise funds added about $12.2M, so the eventual 2025 total should land near $142M.',
+      businessType: 13_278_920,
+      total: 142_758_111,
+      discountRate: 4.43,
+      note: 'From the 2025 audited statements, accepted by the Town Board on September 1, 2026 (Resolution 2026-834). The audit gives the governmental share as $129,479,191, a dollar under Schedule W. The liability rose $10,340,924 even though the discount rate rose: $6,560,857 of service cost, $5,859,243 of interest and $4,951,072 of experience worse than assumed, less $4,159,676 of benefits paid and $2,870,572 from changed assumptions.',
     },
   ],
   // Why the numbers move the way they do. This matters: read on the
@@ -420,9 +435,12 @@ export const opebLiability = {
   // retiree-health payments at a municipal-bond index rate, and that rate
   // went from 4.00% to 4.28% between the two valuations. A higher discount
   // rate mechanically shrinks the reported liability without one dollar
-  // being set aside or one benefit changing.
+  // being set aside or one benefit changing. In 2025 the rate rose again, to
+  // 4.43%, and the liability grew anyway: the audit's own breakdown (packet
+  // p. 168) shows the cost of another year of service and interest, plus
+  // experience worse than assumed, outweighing it.
   whyItMoves:
-    'This liability is an actuarial estimate, not a bill. Most of the year-to-year movement comes from the discount rate GASB 75 requires an unfunded plan to use — the S&P Municipal Bond 20-Year High Grade index. It rose from 4.00% at the 2023 valuation to 4.28% at the 2024 one, which is the bulk of why the reported liability dropped that year. Nothing was pre-funded and no benefit was reduced. Read the direction of this number as a rate story first and a policy story second.',
+    'This liability is an actuarial estimate, not a bill. The discount rate GASB 75 requires an unfunded plan to use — the S&P Municipal Bond 20-Year High Grade index — can swamp everything else. It rose from 4.00% at the 2023 valuation to 4.28% at the 2024 one, which is the bulk of why the reported liability dropped that year. In 2025 it rose again, to 4.43%, and the liability still grew $10.3M to $142.8M: the audit counts $6.6M of service cost, $5.9M of interest and $5.0M of experience worse than assumed, less $4.2M of benefits paid and $2.9M from changed assumptions. Nothing was pre-funded and no benefit was reduced in either year.',
   latestGovernmental: 129_479_192,
-  latestAuditedTotal: { amount: 132_417_187, asOf: 'December 31, 2024' },
+  latestAuditedTotal: { amount: 142_758_111, asOf: 'December 31, 2025' },
 }
