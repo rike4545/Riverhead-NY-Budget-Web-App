@@ -16,9 +16,12 @@
 
 import { AUDIT_2025 } from './audits'
 import { appropriations, percentOfAppropriations, reserveYearAudited, unassignedFundBalance } from './reserve-policy'
+import { brookhavenNarrowPercent } from './fund-balance-policies'
 
 /** Unassigned General Fund balance at the end of 2025 as a share of 2026 appropriations, e.g. "41.7%". */
 const reserveShare = `${(percentOfAppropriations(unassignedFundBalance, appropriations) * 100).toFixed(1)}%`
+/** Brookhaven's unappropriated, unreserved balance over its 2026 budget: the measure closest to Riverhead's unassigned share. */
+const brookhavenShare = `${(brookhavenNarrowPercent * 100).toFixed(1)}%`
 const reserveShareSource = reserveYearAudited
   ? `That figure is from the independent audit of 2025, which the Town Board accepted on ${AUDIT_2025.accepted.date}.`
   : "That figure comes from the Town's 2025 Annual Financial Report, its own filing with the State Comptroller, which is not audited."
@@ -158,7 +161,7 @@ export const ratingCriteria: CriteriaFactor[] = [
     approxWeight: '~30%',
     whatItMeans: 'Fund balance as a share of revenue, and — agencies say this explicitly — whether that level is expected to hold, not just its snapshot value.',
     riverheadRead:
-      `Riverhead's clearest strength: unassigned General Fund balance was about ${reserveShare} of 2026 appropriations at the end of 2025 — above Brookhaven's own ~38.8% posture. (${reserveShareSource}) This has not translated into a rating edge, which suggests other factors are the binding constraint.`,
+      `Riverhead's clearest strength: unassigned General Fund balance was about ${reserveShare} of 2026 appropriations at the end of 2025 — above the ${brookhavenShare} Brookhaven's 2026 budget shows on the same measure (its unappropriated, unreserved balance). (${reserveShareSource}) This has not translated into a rating edge, which suggests other factors are the binding constraint.`,
   },
   {
     factor: 'Management / formal policies',
@@ -201,7 +204,7 @@ export const levers: Lever[] = [
     detail:
       `Riverhead's written policy, Resolution 918 of 2011, sets a 15% floor and names three uses for money above it: reducing the next year's property taxes, one-time capital costs, and natural emergencies. It sets no ceiling, and the Town is running well above the floor (${reserveShare}).`
       + " The Comptroller's reserve-funds guide is specific about what a written policy has to do, and it is more than naming a percentage: it should say why the money is being set aside, the board's financial objectives, optimal funding levels, and the conditions under which the assets will be used — plus how a drawn-down reserve gets replenished. The same guide warns that reserves \"should not be merely a 'parking lot' for excess cash or fund balance,\" which is the harder question for a town holding " + reserveShare + ". It also asks boards to review existing reserves periodically, set a ceiling on what accumulates, and reduce or close any reserve whose purpose has been met. Updating the 2011 resolution to answer those, and disclosing it in the AFR's Management's Discussion & Analysis, is what Brookhaven's S&P rationale is crediting when it praises \"comprehensive formal financial management policies.\"",
-    evidence: `Riverhead's current unassigned fund balance: ${reserveShare} of 2026 General Fund appropriations, vs. Brookhaven's ~38.8% and Smithtown's ~39.9%.`
+    evidence: `Riverhead's current unassigned fund balance: ${reserveShare} of 2026 General Fund appropriations, vs. ${brookhavenShare} for Brookhaven's unappropriated, unreserved balance in its 2026 budget.`
       + " Policy criteria and the 'parking lot' caution: NYS Comptroller, \"Reserve Funds\" (Local Government Management Guide), Board Direction and Oversight. That guide also notes that when a transfer of surplus into a reserve is not already in the adopted budget, a board resolution is generally required, and it should state the amount and name the reserve being credited.",
   },
   {

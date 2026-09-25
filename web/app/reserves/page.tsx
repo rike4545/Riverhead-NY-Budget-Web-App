@@ -21,7 +21,10 @@ import {
   FUND_BALANCE_POLICY,
   latestFundBalanceYear,
   minimumRequired,
-  peerBenchmarks,
+  peerHoldings,
+  peerHoldingsAverage,
+  peerHoldingsReading,
+  peerHoldingsTowns,
   policyMeasurePercent,
   policyMinimumPercent,
   RESERVE_YEAR,
@@ -56,9 +59,21 @@ import {
   targetForFullPlan,
   unfundedOptions,
   openingPercentOfAppropriations,
-  peerAlignmentScenariosNet,
   planReading,
+  ruleScenarios,
+  strictestRule,
 } from '../../lib/reserve-availability'
+import {
+  brookhavenNarrowPercent,
+  GFOA_GUIDANCE,
+  minimumLabel,
+  nameList,
+  PEER_BALANCES,
+  PEER_POLICIES,
+  policyComparisonReading,
+  RIVERHEAD_POLICY,
+  type WrittenPolicy,
+} from '../../lib/fund-balance-policies'
 
 const base = process.env.NEXT_PUBLIC_BASE_PATH || ''
 const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 20, boxShadow: '0 14px 34px var(--rbl-shadow)' } as const
@@ -67,7 +82,7 @@ const pct = (v: number, digits = 1) => `${(v * 100).toFixed(digits)}%`
 export const metadata = {
   title: 'Reserves & fund balance policy — how much cushion is enough?',
   description:
-    "The five GASB classifications of Riverhead's General Fund balance, how its savings stack up against its own reserve rules after netting what 2026 has already committed, a one-time deployment plan for the ceiling on what is left, and how the Town's posture compares to neighboring towns.",
+    "The five GASB classifications of Riverhead's General Fund balance, how its savings stack up against its own reserve rules after netting what 2026 has already committed, a one-time deployment plan for the ceiling on what is left, and how the Town's written rule and savings compare with neighboring towns'.",
 }
 
 const healthColor: Record<string, string> = { healthy: 'var(--rbl-success)', watch: 'var(--rbl-warn)', atRisk: 'var(--rbl-danger)' }
@@ -209,6 +224,19 @@ export default function ReservesPage() {
           it. It also says &ldquo;{FUND_BALANCE_POLICY.reviewText.charAt(0).toLowerCase() + FUND_BALANCE_POLICY.reviewText.slice(1)}&rdquo; It has
           not been revised since 2011.
         </p>
+        <p style={{ color: 'var(--rbl-text-body)', fontSize: 14.5, lineHeight: 1.6, margin: '0 0 10px' }}>
+          If spending would take the balance below the floor, all it asks for is a vote: &ldquo;{FUND_BALANCE_POLICY.belowFloorText}&rdquo;
+        </p>
+        <p data-dropped-rebuild style={{ color: 'var(--rbl-text-body)', fontSize: 14.5, lineHeight: 1.6, margin: '0 0 10px' }}>
+          The 2006 policy went on: &ldquo;{FUND_BALANCE_POLICY.droppedRebuildText}&rdquo; The 2011 rewrite{' '}
+          <strong>dropped that sentence</strong>, so the policy in force sets no way back to the floor.
+        </p>
+        <p style={{ color: 'var(--rbl-text-muted)', fontSize: 13.4, lineHeight: 1.55, margin: '0 0 10px' }}>
+          What the 2011 rewrite added, for GASB 54: money is committed only by a Board resolution, passed by a simple
+          majority before the year ends; when a budget uses fund balance, the Financial Administrator records it as
+          assigned; restricted money is spent first and unassigned money last; and the Financial Administrator must
+          report projected revenue shortfalls to the Board &ldquo;on, at a minimum, an annual basis.&rdquo;
+        </p>
         <div style={{ display: 'grid', gap: 6, marginBottom: 10 }}>
           {FUND_BALANCE_POLICY.history.map((h) => (
             <div key={h.resolution} style={{ fontSize: 13.4, lineHeight: 1.5, color: 'var(--rbl-text-body)' }}>
@@ -232,6 +260,21 @@ export default function ReservesPage() {
             </span>
           ))}
           .
+        </p>
+      </section>
+
+      <section data-peer-policies style={{ ...card, marginBottom: 16 }}>
+        <h3 style={{ marginTop: 0, color: 'var(--rbl-title)' }}>How nearby towns write their rules</h3>
+        <p style={{ color: 'var(--rbl-text-body)', fontSize: 14.5, lineHeight: 1.6, marginTop: 0 }}>{policyComparisonReading}</p>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 260px), 1fr))', gap: 12 }}>
+          {[RIVERHEAD_POLICY, ...PEER_POLICIES, GFOA_GUIDANCE].map((p) => <PolicyCard key={p.town} p={p} />)}
+        </div>
+        <p style={{ color: 'var(--rbl-text-muted)', fontSize: 12.8, lineHeight: 1.55, margin: '12px 0 0' }}>
+          Each town counts different money: Riverhead and East Hampton the total balance, Brookhaven all but
+          inventory-type items, Smithtown all unrestricted money, Southampton a set-aside reserve plus unallocated money,
+          and Southold and Huntington only money free to spend. So the percentages are not a like-for-like ranking. Each
+          rule comes from the town&apos;s newest audit, budget or policy document, linked on its card, and every quoted
+          phrase is checked against that document when the site is built.
         </p>
       </section>
 
@@ -605,70 +648,88 @@ export default function ReservesPage() {
 
       </Detail>
 
-      <Detail title="How the Town's floor and this plan compare nearby">
-      <section style={{ ...card, marginBottom: 16 }}>
-        <h3 style={{ marginTop: 0, color: 'var(--rbl-title)' }}>How the Town&apos;s floor and this plan compare nearby</h3>
+      <Detail title="What nearby towns hold">
+      <section data-peer-holdings style={{ ...card, marginBottom: 16 }}>
+        <h3 style={{ marginTop: 0, color: 'var(--rbl-title)' }}>What nearby towns hold</h3>
         <p style={{ color: 'var(--rbl-text-body)', fontSize: 14.5, marginTop: 0 }}>
-          Riverhead&apos;s own policy sets only a 15% floor, a little below Southampton&apos;s 17%. This site&apos;s
-          28.8% plan lands below what Brookhaven and Smithtown hold today.
+          Every town on one measure: the total General Fund balance at the end of 2025 against the 2026 General Fund
+          budget. It is the only measure all three neighbors&apos; budgets report, so Riverhead appears here on its
+          audited total, not the stricter unassigned figure the rest of this page tests. {peerHoldingsReading}
         </p>
         <div style={{ display: 'grid', gap: 12 }}>
-          {peerBenchmarks.map((peer) => (
+          {peerHoldings.map((peer) => (
             <div key={peer.town}>
-              <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', gap: 10 }}>
                 <strong style={{ fontSize: 14 }}>{peer.town}</strong>
                 <span style={{ color: peer.own ? 'var(--rbl-accent)' : 'var(--rbl-badge)', fontWeight: 800 }}>{pct(peer.percent)}</span>
               </div>
-              <p style={{ color: 'var(--rbl-text-muted)', fontSize: 13, margin: '2px 0 0' }}>{peer.detail}</p>
+              <p style={{ color: 'var(--rbl-text-muted)', fontSize: 13, margin: '2px 0 0' }}>
+                {dollars(peer.total)} against a 2026 budget of {dollars(peer.budget)}. {peer.detail}
+                {peer.source ? (
+                  <>
+                    {' '}
+                    <a href={peer.source.url} target="_blank" rel="noopener noreferrer" style={{ color: 'var(--rbl-link)', overflowWrap: 'anywhere' }}>{peer.source.label}</a>.
+                  </>
+                ) : null}
+              </p>
             </div>
           ))}
+          <div style={{ display: 'flex', justifyContent: 'space-between', gap: 10, borderTop: '1px solid var(--rbl-border-subtle)', paddingTop: 10 }}>
+            <strong style={{ fontSize: 14 }}>Average of {nameList(peerHoldingsTowns)}</strong>
+            <span style={{ color: 'var(--rbl-badge)', fontWeight: 800 }}>{pct(peerHoldingsAverage)}</span>
+          </div>
         </div>
         <hr style={{ border: 'none', borderTop: '1px solid var(--rbl-border-subtle)', margin: '12px 0' }} />
-        <p style={{ color: 'var(--rbl-text-muted)', fontSize: 12.5 }}>
-          Benchmark note: GFOA guidance commonly points to at least two months of regular operating spending or
-          revenue in unrestricted fund balance, about 16.7% to 17% — which is why Southampton&apos;s 17% policy reads
-          more like a minimum floor than a default target.
+        <p style={{ color: 'var(--rbl-text-muted)', fontSize: 12.8, lineHeight: 1.55, margin: '0 0 8px' }}>
+          On the narrower measure, Brookhaven&apos;s budget shows {dollars(PEER_BALANCES.find((b) => b.town === 'Brookhaven')!.narrower!.amount)} unappropriated and
+          unreserved, {pct(brookhavenNarrowPercent)} of its budget. Riverhead&apos;s unassigned balance, the closest
+          match, was {pct(openingPercentOfAppropriations)} at the end of 2025.
+        </p>
+        <p data-peer-correction style={{ color: 'var(--rbl-text-muted)', fontSize: 12.5, lineHeight: 1.55, margin: 0 }}>
+          <strong>Correction.</strong> Until September 2026 this list mixed measures: Brookhaven&apos;s narrower 38.8%
+          beside other towns&apos; totals, Smithtown&apos;s total divided by its 2025 revenue (39.9%) rather than its 2026
+          budget, and a &ldquo;peer average&rdquo; of 38.0% that also counted Southampton&apos;s 17% policy minimum.
+          Written rules are now compared in their own section above.
         </p>
       </section>
-
       </Detail>
 
-      <Detail title="What if Riverhead matched its peers?">
-      <section style={{ ...card, marginBottom: 16 }}>
-        <h3 style={{ marginTop: 0, color: 'var(--rbl-title)' }}>What if Riverhead matched its peers?</h3>
+      <Detail title="What if Riverhead used a neighbor's rule?">
+      <section data-rule-scenarios style={{ ...card, marginBottom: 16 }}>
+        <h3 style={{ marginTop: 0, color: 'var(--rbl-title)' }}>What if Riverhead used a neighbor&apos;s rule?</h3>
         <p style={{ color: 'var(--rbl-text-body)', fontSize: 14.5, marginTop: 0 }}>
-          How much one-time room Riverhead would have if it matched a neighboring town&apos;s reserve levels — or the
-          average of them all. Measured against the {dollars(unassignedCeiling)} ceiling rather than the opening
-          balance, since the targets are a share of appropriations and 2026&apos;s votes do not move them.
+          Each nearby town&apos;s minimum, applied to Riverhead&apos;s {dollars(appropriations)} General Fund budget, and
+          how much of the {dollars(unassignedCeiling)} left after 2026&apos;s votes sits above it. Measured on
+          unassigned money alone, the strictest measure, so the room is never overstated; Smithtown&apos;s range is
+          taken at its top.
         </p>
         <div style={{ display: 'grid', gap: 14 }}>
-          {peerAlignmentScenariosNet.map((peer) => (
-            <div key={peer.label}>
-              <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                <strong style={{ fontSize: 14 }}>{peer.label}</strong>
-                <span style={{ color: 'var(--rbl-badge)', fontWeight: 800 }}>{pct(peer.percent)}</span>
+          {ruleScenarios.map((r) => (
+            <div key={r.label}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', gap: 10 }}>
+                <strong style={{ fontSize: 14 }}>{r.label}</strong>
+                <span style={{ color: 'var(--rbl-badge)', fontWeight: 800 }}>{pct(r.percent)}</span>
               </div>
-              <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 12.5, color: 'var(--rbl-text-muted)', marginTop: 2 }}>
-                <span>Target balance</span>
-                <span>{dollars(peer.targetBalance)}</span>
+              <div style={{ display: 'flex', justifyContent: 'space-between', gap: 10, fontSize: 12.5, color: 'var(--rbl-text-muted)', marginTop: 2 }}>
+                <span>The rule requires</span>
+                <span>{dollars(r.required)}</span>
               </div>
-              <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 12.5, color: peer.deploymentCapacity >= 0 ? 'var(--rbl-success)' : 'var(--rbl-warn)', marginTop: 2 }}>
-                <span>{peer.deploymentCapacity >= 0 ? 'One-time room created' : 'Additional reserve needed'}</span>
-                <span>{dollars(Math.abs(peer.deploymentCapacity))}</span>
+              <div style={{ display: 'flex', justifyContent: 'space-between', gap: 10, fontSize: 12.5, color: r.above >= 0 ? 'var(--rbl-success)' : 'var(--rbl-warn)', marginTop: 2 }}>
+                <span>{r.above >= 0 ? 'Above it, net of 2026 votes' : 'Short of it, net of 2026 votes'}</span>
+                <span>{dollars(Math.abs(r.above))}</span>
               </div>
-              <p style={{ color: 'var(--rbl-text-muted)', fontSize: 13, margin: '4px 0 0' }}>{peer.detail}</p>
             </div>
           ))}
         </div>
         <hr style={{ border: 'none', borderTop: '1px solid var(--rbl-border-subtle)', margin: '12px 0' }} />
         <p style={{ color: 'var(--rbl-text-muted)', fontSize: 12.5 }}>
-          This site&apos;s reading: treat 17% like a GFOA-style minimum floor, not the automatic target. East Hampton&apos;s
-          56.2% reads like a high-cushion outlier. For Riverhead, a practical operating range is still roughly 25% to
-          32%, with 28.8% as a strong middle path that leaves room for debt reduction and one-time public
-          improvements.
+          None of these rules sets a ceiling. Even the highest, {strictestRule.label}&apos;s {pct(strictestRule.percent, 0)},
+          leaves {dollars(strictestRule.above)} above it.{' '}
+          {targetReservePercent > ruleScenarios[0].percent
+            ? `This site’s ${pct(targetReservePercent)} plan keeps back more than any of these rules requires.`
+            : `This site’s ${pct(targetReservePercent)} plan keeps back less than ${ruleScenarios[0].label}’s rule requires.`}
         </p>
       </section>
-
       </Detail>
 
       <Detail title="Try it: what if the Town uses some savings?">
@@ -702,10 +763,54 @@ export default function ReservesPage() {
         statements name no account code. Both are itemized on{' '}
         <a href={`${base}/predict-2027/`} style={{ color: 'var(--rbl-link)' }}>/predict-2027/</a>, each row labeled with
         its basis. Classification
-        definitions follow GASB Statement 54. Peer-town figures from each town&apos;s own 2026 adopted budget or policy
-        document where available.
+        definitions follow GASB Statement 54. Neighboring towns&apos; rules come from each town&apos;s newest audit, budget or
+        policy document, and their balances from their 2026 budgets; each is linked where it appears.
       </p>
     </PageShell>
+  )
+}
+
+function PolicyCard({ p }: { p: WrittenPolicy }) {
+  const row = (label: string, text: string | null | undefined) => (
+    <div style={{ fontSize: 13.2, lineHeight: 1.5, marginTop: 6 }}>
+      <span style={{ color: 'var(--rbl-text-muted)', fontWeight: 700 }}>{label}: </span>
+      {text ? (
+        <span style={{ color: 'var(--rbl-text-body)' }}>{text}</span>
+      ) : (
+        <span style={{ color: 'var(--rbl-text-muted)', fontStyle: 'italic' }}>Not addressed in the published text.</span>
+      )}
+    </div>
+  )
+  return (
+    <div
+      data-policy-town={p.town}
+      style={{
+        border: `1px ${p.guidance ? 'dashed' : 'solid'} ${p.own ? 'var(--rbl-accent-border)' : 'var(--rbl-border-subtle)'}`,
+        borderRadius: 12,
+        padding: '12px 14px',
+        background: p.own ? 'var(--rbl-info-bg)' : 'var(--rbl-surface)',
+        minWidth: 0,
+      }}
+    >
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', gap: 10 }}>
+        <strong style={{ fontSize: 15, color: 'var(--rbl-title)' }}>{p.town}</strong>
+        <span style={{ fontWeight: 800, color: p.own ? 'var(--rbl-accent)' : 'var(--rbl-badge)', whiteSpace: 'nowrap' }}>
+          {p.guidance ? 'Two months' : minimumLabel(p)}
+        </span>
+      </div>
+      <div style={{ color: 'var(--rbl-text-muted)', fontSize: 12.5, marginTop: 2 }}>{p.form}</div>
+      {row('Minimum', p.minimumText)}
+      {row('Counts', p.counts)}
+      {row('If it falls below', p.ifBelow)}
+      {row('Money above it', p.aboveMinimum)}
+      {p.otherFunds ? row('Other funds', p.otherFunds) : null}
+      {p.note ? <div style={{ color: 'var(--rbl-text-muted)', fontSize: 12.5, marginTop: 6 }}>{p.note}</div> : null}
+      <div style={{ fontSize: 12.3, marginTop: 8 }}>
+        <a href={p.source.url} target="_blank" rel="noopener noreferrer" style={{ color: 'var(--rbl-link)', overflowWrap: 'anywhere' }}>
+          {p.source.label}
+        </a>
+      </div>
+    </div>
   )
 }
 

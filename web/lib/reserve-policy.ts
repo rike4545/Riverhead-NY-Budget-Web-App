@@ -7,6 +7,7 @@
 import { allOperatingFunds2026 } from './all-funds'
 import { generalFundAfr } from './afr'
 import { AUDITED_GENERAL_FUND, AUDITED_YEARS, FUND_BALANCE_CLASSES, type FundBalanceClass } from './audits'
+import { countWord, FUND_BALANCE_POLICY, nameList, PEER_BALANCES } from './fund-balance-policies'
 
 const generalFund2026 = allOperatingFunds2026.find((f) => f.code === 'A01')!
 
@@ -32,46 +33,10 @@ export const unassignedFundBalance = tierValues('Unassigned')[String(RESERVE_YEA
 /** The same balance as the Town's unaudited Annual Financial Report filed it: 29,671,084.17. */
 export const unassignedFundBalanceAfr = afrTier('Unassigned')[String(RESERVE_YEAR)]
 
-// THE TOWN'S POLICY, AS ADOPTED. Resolution 918 of December 20, 2011 is the
-// policy in force. It amends Resolution 1101 of December 5, 2006 for GASB 54
-// and keeps its two operative parts word for word: a 15% floor on the General
-// Fund's TOTAL balance, including reserves, and three permitted uses for money
-// above that floor. Neither version sets a ceiling or any other percentage.
-// This site used to describe "a 15% minimum and 20% upper target"; no Town
-// record says 20% except the 2006 policy's note that the balance at the end of
-// 2005 was "in excess of 20%" — a description, not a target. A search of every
-// Board agenda from 2007 through September 2026, and every set of minutes from
-// 2012, found no later resolution changing the policy.
-const civic = (fileId: number) =>
-  `https://riverheadny.api.civicclerk.com/v1/Meetings/GetMeetingFileStream(fileId=${fileId},plainText=false)`
-
-export const FUND_BALANCE_POLICY = {
-  resolution: '2011-918',
-  adopted: 'December 20, 2011',
-  vote: '5–0',
-  floorPercent: 0.15,
-  floorText:
-    'The Town Board will make all reasonable efforts to maintain a total fund balance including reserves in its General Fund at the end of each fiscal year equal to no less than 15% of its total operating budget.',
-  usesIntro: 'Fund balance in the General Fund above 15% may be appropriated for the following purposes:',
-  uses: [
-    'To reduce the subsequent year’s property taxes.',
-    'For one-time capital expenditures.',
-    'For emergencies caused by natural occurrences such as hurricanes or blizzards.',
-  ],
-  reviewText: 'Fund balances and adequate reserves should be managed and reviewed on a regular basis.',
-  history: [
-    { date: 'December 5, 2006', resolution: '2006-1101', outcome: 'Adopted 4–0', note: 'The first policy: the same 15% floor and the same three uses for money above it.' },
-    { date: 'November 15, 2011', resolution: '2011-833', outcome: 'Tabled 5–0', note: 'A rewrite for GASB 54, tabled after public comment. It proposed a 10% unrestricted minimum and let the Financial Administrator assign fund balance.' },
-    { date: 'December 20, 2011', resolution: '2011-918', outcome: 'Adopted 5–0', note: 'Amends the 2006 policy for GASB 54, keeping its 15% floor and three uses. The policy in force.' },
-  ],
-  sources: [
-    { label: 'Resolution 918 and the policy text (Dec. 20, 2011 agenda packet, pp. 16–21)', url: civic(7270) },
-    { label: 'Minutes, Dec. 20, 2011 (adopted 5–0, pp. 1357–1358)', url: civic(7271) },
-    { label: 'Minutes, Nov. 15, 2011 (Resolution 833 tabled, pp. 1190–1191)', url: civic(6773) },
-    { label: 'Resolution 1101 and the 2006 policy (Dec. 5, 2006 agenda packet, pp. 72–74)', url: civic(7064) },
-    { label: 'Minutes, Dec. 5, 2006 (adopted 4–0, pp. 47–48)', url: civic(7065) },
-  ],
-} as const
+// The Town's policy, Resolution 918 of 2011, and the written rules of nearby
+// towns live in lib/fund-balance-policies.ts, which has no imports so the
+// build can check every quote in it against its source.
+export { FUND_BALANCE_POLICY } from './fund-balance-policies'
 
 export const policyMinimumPercent = FUND_BALANCE_POLICY.floorPercent
 /** This site's modeled reserve for its one-time plan below — not a Town target. The Town sets only the 15% floor. */
@@ -295,97 +260,46 @@ export const remainingAfterDeploymentOptions = Math.max(
   deployableAbove288 - deploymentOptions.reduce((sum, o) => sum + o.amount, 0)
 )
 
-export type PeerBenchmark = {
+// ── What nearby towns hold ──────────────────────────────────────────────────
+// Every town on one measure: the total General Fund balance at the end of 2025
+// over the 2026 General Fund budget. It is the only measure all three
+// neighbors' budgets report, so Riverhead appears on its audited total, not the
+// stricter unassigned figure the rest of this page tests. The average counts
+// the neighbors' balances and nothing else.
+export type PeerHolding = {
   town: string
+  total: number
+  budget: number
   percent: number
   detail: string
-  /** Riverhead's own rows — the Town's policy and this site's plan — kept out of the peer average. */
   own?: boolean
+  source?: { label: string; url: string }
 }
 
-export const peerBenchmarks: PeerBenchmark[] = [
+export const peerHoldings: PeerHolding[] = [
+  ...PEER_BALANCES.map((b) => ({ town: b.town, total: b.total, budget: b.budget, percent: b.total / b.budget, detail: b.detail, source: b.source })),
   {
-    town: 'Riverhead policy floor',
-    percent: policyMinimumPercent,
-    detail:
-      'Resolution 918 of 2011: at least 15% of the budget, counted on the total balance including reserves. It sets no ceiling.',
+    town: 'Riverhead',
+    total: totalFundBalance,
+    budget: appropriations,
+    percent: policyMeasurePercent,
+    detail: `Audited total at the end of ${latestFundBalanceYear}, reserves included.`,
     own: true,
   },
-  {
-    town: 'This site’s plan',
-    percent: targetReservePercent,
-    detail: 'The 28.8% of the General Fund budget that the one-time plan above keeps back. A model, not a Town target.',
-    own: true,
-  },
-  {
-    town: 'Brookhaven',
-    percent: 60023184 / 154611894,
-    detail:
-      "Brookhaven's 2026 adopted General Town Wide unreserved fund balance is about $60.0M against about $154.6M of budgeted expenditures, or roughly 38.8%.",
-  },
-  {
-    town: 'Smithtown',
-    percent: 24099593 / 60384813,
-    detail:
-      "Smithtown's 2026 tentative General Fund projected fund balance is about $24.1M against roughly $60.4M of projected annual scale, or about 39.9%.",
-  },
-  {
-    town: 'East Hampton',
-    percent: (29709031 + 19034693) / 86782601,
-    detail:
-      "East Hampton's 2026 adopted General Fund projection totals about $48.7M across whole-town and part-town balances against roughly $86.8M of General Fund appropriations, or about 56.2%.",
-  },
-  {
-    town: 'Southampton policy',
-    percent: 0.17,
-    detail:
-      "Southampton's 2026 adopted financial policy sets a general-fund reserve structure of 10% restricted plus at least 7% unallocated, for a 17% benchmark.",
-  },
-]
+].sort((a, b) => b.percent - a.percent)
 
-export type PeerAlignmentScenario = {
-  label: string
-  percent: number
-  targetBalance: number
-  deploymentCapacity: number
-  detail: string
-}
-
-function scenario(label: string, percent: number, detail: string): PeerAlignmentScenario {
-  const targetBalance = appropriations * percent
-  return { label, percent, targetBalance, deploymentCapacity: unassignedFundBalance - targetBalance, detail }
-}
-
-const peersOnly = peerBenchmarks.filter((p) => !p.own)
-const allPeerAverage = peersOnly.reduce((sum, p) => sum + p.percent, 0) / peersOnly.length
-
-export const peerAlignmentScenarios: PeerAlignmentScenario[] = [
-  scenario(
-    'Match Brookhaven',
-    60023184 / 154611894,
-    'A Brookhaven-style posture would still leave Riverhead with a large cushion and only modest one-time deployment capacity.'
-  ),
-  scenario(
-    'Match Smithtown',
-    24099593 / 60384813,
-    "A Smithtown-style posture lands close to Brookhaven and still preserves most of Riverhead's current reserve strength."
-  ),
-  scenario(
-    'Match East Hampton',
-    (29709031 + 19034693) / 86782601,
-    'An East Hampton-style posture would require Riverhead to hold more back than it has now, so it reads as a high-reserve outlier rather than a practical deployment target.'
-  ),
-  scenario(
-    'Match Southampton policy',
-    0.17,
-    "A Southampton-style policy floor would release a very large amount of one-time money, but it is much leaner than Riverhead's current posture and likely too aggressive as a first reset."
-  ),
-  scenario(
-    'Match average of peers',
-    allPeerAverage,
-    'The simple average of Brookhaven, Smithtown, East Hampton and Southampton is about 38.0%: above this site’s 28.8% plan and more than twice the Town’s 15% floor.'
-  ),
-]
+const neighborHoldings = peerHoldings.filter((p) => !p.own)
+/** The simple average of the neighbors' shares — balances only, all on the same measure. */
+export const peerHoldingsAverage = neighborHoldings.reduce((sum, p) => sum + p.percent, 0) / neighborHoldings.length
+export const peerHoldingsTowns = neighborHoldings.map((p) => p.town)
+const riverheadHolding = peerHoldings.find((p) => p.own)!
+/** Where Riverhead falls among the neighbors on this measure, in words. */
+export const peerHoldingsReading = (() => {
+  const more = neighborHoldings.filter((p) => p.percent > riverheadHolding.percent).map((p) => p.town)
+  const less = neighborHoldings.filter((p) => p.percent < riverheadHolding.percent).map((p) => p.town)
+  const sides = [more.length ? `less than ${nameList(more)}` : '', less.length ? `more than ${nameList(less)}` : ''].filter(Boolean)
+  return `On it, Riverhead holds ${sides.join(' and ')}, and ${riverheadHolding.percent < peerHoldingsAverage ? 'less' : 'more'} than the ${countWord(neighborHoldings.length).toLowerCase()} neighbors’ average.`
+})()
 
 // ---------------------------------------------------------------------------
 // Every deployment option above SPENDS the one-time money. New York also lets a
