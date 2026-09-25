@@ -3,6 +3,7 @@ import PlainCallout from '../../components/PlainCallout'
 import BuyoutEligible, { type EligibleEmployee } from '../../components/BuyoutEligible'
 import { buyout2026 as b, outcome } from '../../lib/buyout-2026'
 import { released2027 } from '../../lib/tentative-2027'
+import { LETTER_2027 } from '../../lib/tentative-letters'
 import analysis from '../../public/data/buyout-analysis.json'
 import retireeHealthComparison from '../../public/data/retiree-health-comparison.json'
 import {
@@ -671,7 +672,9 @@ function OutcomeSection() {
         {say(t.csea)} CSEA members and {say(t.pba)} PBA members took the incentive{t.soa === 0 ? ', and no SOA members' : ''}. It budgets{' '}
         <strong>{usd(outcome.savings2027)}</strong> of General Fund savings for 2027: {usd(outcome.salariesAndPayrollTaxes)} less in
         salaries and payroll taxes and {usd(outcome.retirementContributions)} less in State retirement contributions, partly offset by
-        higher retiree health insurance, about {usd(outcome.retireeHealthOffset)} by the letter’s own figures. Unlike the salary-only
+        higher retiree health insurance: {usd(outcome.retireeHealthOffset)}, the difference in the letter&apos;s figures and the amount
+        the Financial Administrator gave at the September 24 meeting, where she also said replacements for the retirees are
+        budgeted for 2027 (Riverhead News-Review). Unlike the salary-only
         figures further down this page, that nets out retiree health. It is {vsEstimate} the {usd(b.estimatedSavings.low)}–{usd(b.estimatedSavings.high)}{' '}
         the Financial Administrator estimated in July.
       </p>
@@ -683,6 +686,8 @@ function OutcomeSection() {
       </p>
       <p style={{ color: 'var(--rbl-text-muted)', fontSize: 12.5, margin: '8px 0 0' }}>
         Source: <a href={outcome.source.url} style={{ color: 'var(--rbl-accent)' }}>{outcome.source.title}</a>. The letter is a scanned image, read by hand.
+        The Financial Administrator&apos;s figures at the meeting:{' '}
+        <a href={LETTER_2027.meetingReport.url} style={{ color: 'var(--rbl-accent)' }}>{LETTER_2027.meetingReport.title}</a>.
       </p>
     </section>
   )

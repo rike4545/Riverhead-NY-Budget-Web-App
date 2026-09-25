@@ -387,6 +387,42 @@ const capStatus = (taxCapJson as unknown as { capStatus: CapStatus[] }).capStatu
 
 export type OverrideState = 'not-applicable' | 'adopted' | 'missed' | 'none-found'
 
+/**
+ * The budgets in the current unbroken run of tax-cap override laws, oldest
+ * first: the latest budget adopted with one and each year before it back to
+ * the first without. Pages that name the recent overrides read it from here, so
+ * they cannot disagree with the record.
+ */
+export const overrideStreak: number[] = (() => {
+  const withOverride = new Set(RECORD.filter((r) => r.override).map((r) => r.year))
+  const run: number[] = []
+  for (let y = Math.max(...RECORD.filter((r) => r.override).map((r) => r.year)); withOverride.has(y); y--) run.unshift(y)
+  return run
+})()
+
+/**
+ * The audited record of budgets against the levy limit, which starts in 2018:
+ * how many years it covers and whether every one of them was over the limit.
+ */
+export const overLimitRecord = (() => {
+  const years = capStatus.map((c) => Number(c.year))
+  return {
+    from: Math.min(...years),
+    to: Math.max(...years),
+    count: capStatus.length,
+    allOver: capStatus.every((c) => c.status.startsWith('over-')),
+    withLaw: capStatus.filter((c) => c.status === 'over-with-law').length,
+  }
+})()
+
+/** A count as a word in running text: "four budgets", "all nine". */
+export const countWord = (n: number) =>
+  ['no', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten', 'eleven', 'twelve'][n] ?? String(n)
+
+/** "2023, 2024, 2025 and 2026". */
+export const yearsPhrase = (years: number[]) =>
+  years.length <= 1 ? years.join('') : `${years.slice(0, -1).join(', ')} and ${years[years.length - 1]}`
+
 /** The tax cap applies from 2012. From 2018 the audited record says whether the override step was missed. */
 export function overrideState(r: YearRecord): OverrideState {
   if (r.year < 2012) return 'not-applicable'

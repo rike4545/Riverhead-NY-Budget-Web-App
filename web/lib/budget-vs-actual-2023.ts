@@ -21,6 +21,11 @@
 // of $1,461,602 and transfers out of $3,758,526 and the two tie exactly. Both
 // are right; they are answering slightly different questions.
 
+import { appropriations, percentOfAppropriations, unassignedFundBalance } from './reserve-policy'
+
+/** Unassigned General Fund balance at the end of 2025 as a share of 2026 appropriations. */
+const reserveShare = `${(percentOfAppropriations(unassignedFundBalance, appropriations) * 100).toFixed(1)}%`
+
 export type BudgetActualRow = {
   label: string
   original: number
@@ -96,7 +101,7 @@ export const whatItMeansForAFreeze = {
   detail:
     'The cost of holding the General Fund levy flat in 2027 is about $3,514,315. In 2023 the Town beat its own final revenue budget by $4,358,819 and under-spent its appropriations by $3,496,912 after encumbrances. Either number on its own would have covered a freeze of that size. Neither was used that way, because neither was known until the year was over — the money surfaced as surplus and went to fund balance.',
   theFairReading:
-    'This is not proof of padding. Budgeting revenue conservatively and appropriating generously is ordinary municipal practice and the State Comptroller broadly prefers it to the reverse; an interest-rate spike in particular is not something a budget adopted the previous autumn can be expected to catch. But a pattern this large is also the reason the Town holds unassigned fund balance at 42.9% of appropriations against its own 15–20% policy. The surplus is not an accident of one year.',
+    `This is not proof of padding. Budgeting revenue conservatively and appropriating generously is ordinary municipal practice and the State Comptroller broadly prefers it to the reverse; an interest-rate spike in particular is not something a budget adopted the previous autumn can be expected to catch. But a pattern this large is also the reason the Town holds unassigned fund balance at ${reserveShare} of appropriations against its own 15–20% policy. The surplus is not an accident of one year.`,
   theQuestion:
     'So the real question a resident can put to the Board is narrower and more answerable than “can we afford zero percent.” It is: if the budget has been beating itself by several million a year, how much of that is now predictable enough to be budgeted for at the front end — where it would hold the levy down — rather than discovered at the back end, where it becomes surplus?',
 }

@@ -3,6 +3,7 @@ import DataStatus from '../../components/DataStatus'
 import RecordTrail from '../../components/RecordTrail'
 import { dollars, townWideComparison2026, adoptedBudget2026Summary } from '../../lib/financial-data'
 import taxBill from '../../public/data/tax-bill.json'
+import { stageDoc } from '../../lib/budget-stages'
 
 const base = process.env.NEXT_PUBLIC_BASE_PATH || ''
 const pct = (n: number) => `${n >= 0 ? '+' : ''}${n.toFixed(2)}%`
@@ -16,11 +17,18 @@ export default function WhatChangedPage() {
   const totalTaxRatePct = ((rates26.totalTownWide / rates.totalTownWide) - 1) * 100
   const general = adoptedBudget2026Summary.find(r => r.fundCode === 'A01')!
   const total = adoptedBudget2026Summary.find(r => r.fundCode === 'TOTAL')!
+  // News reports of the 2026 rate increase quote the Tentative's rate. The
+  // adopted budget raised the same levy at a slightly higher rate, so the two
+  // percentages differ; say which is which rather than leave a reader to guess.
+  const tentativeTw = stageDoc(2026, 'tentative')?.townWide
+  const tentativeRateNote = tentativeTw?.rate && tentativeTw.priorRate && tentativeTw.rate !== rates26.totalTownWide
+    ? ` News reports of a ${((tentativeTw.rate / tentativeTw.priorRate - 1) * 100).toFixed(2)}% rise quote the Tentative’s $${tentativeTw.rate.toFixed(3)}; the adopted budget raised the same levy at $${rates26.totalTownWide.toFixed(3)}, a rate figured on a slightly smaller assessed value.`
+    : ''
 
   const metrics = [
     { label: 'Town-wide appropriations', value: dollars(c.appropriations2026), change: `${delta(c.dollarChange)} · ${pct(c.percentChange)}`, href: '/compare/', note: 'The 2026 adopted operating budget increased versus 2025.' },
     { label: 'Town-wide tax levy', value: dollars(c.taxLevy2026), change: `${delta(c.taxLevyDollarChange)} · ${pct(c.taxLevyPercentChange)}`, href: '/tax-bill/', note: 'The levy is the property-tax amount raised Town-wide.' },
-    { label: 'Town-wide rate', value: `$${rates26.totalTownWide.toFixed(3)} / $1,000`, change: `+${totalTaxRateChange.toFixed(3)} · ${pct(totalTaxRatePct)}`, href: '/tax-bill/', note: 'This is the Town rate, not the full school/county/fire/library bill.' },
+    { label: 'Town-wide rate', value: `$${rates26.totalTownWide.toFixed(3)} / $1,000`, change: `+${totalTaxRateChange.toFixed(3)} · ${pct(totalTaxRatePct)}`, href: '/tax-bill/', note: `This is the Town rate, not the full school/county/fire/library bill.${tentativeRateNote}` },
     { label: 'General Fund', value: dollars(general.appropriations2026), change: '2026 adopted', href: '/general-fund/', note: 'The main operating fund for Town services.' },
     { label: 'Appropriated fund balance', value: dollars(total.appropriatedFundBalance2026), change: '2026 adopted', href: '/reserves/', note: 'One-time fund balance included in the adopted operating budget.' },
   ]

@@ -1,6 +1,6 @@
 import { allOperatingFunds2026, fundBalanceUseSummary } from './all-funds'
 import { dollars, townWideComparison2026 } from './financial-data'
-import { generalFundAfr } from './afr'
+import { AUDIT_2025 } from './audits'
 // NOTE: import the small payroll summary directly — pulling in lib/payroll.ts
 // would drag the full 500KB records file into every page that shows KPIs.
 import payrollSummary from '../public/data/payroll/summary.json'
@@ -38,9 +38,9 @@ export const analyticsModules: AnalyticsModule[] = [
   {
     name: 'Cross-Document Financial Reconciliation',
     status: 'active',
-    description: 'Extracted budget line items reconcile to the dollar against the official Summary page for all 19 funds; 2025 actual results (AFR) are compared against the adopted plan town-wide and on every fund page; 2024 audited fund balances are cross-checked.',
-    sourceBasis: '2026 adopted budget, 2025 Annual Financial Report, and the 2024 audited statements.',
-    nextStep: 'Reconcile against the audited 2025 basic financial statements when the Town publishes them.',
+    description: 'Extracted budget line items reconcile to the dollar against the official Summary page for all 19 funds; 2025 actual results (AFR) are compared against the adopted plan town-wide and on every fund page; the General Fund’s balance is reconciled tier by tier against the 2023, 2024 and 2025 audits, and every audited figure is checked against the page it was read from.',
+    sourceBasis: '2026 adopted budget, 2025 Annual Financial Report, and the 2023–2025 audited statements.',
+    nextStep: 'Read the rest of the 2025 audit’s fund statements, beyond the General Fund, into the fund pages.',
   },
   {
     name: 'Multi-Year Fiscal Trend Analysis',
@@ -60,15 +60,15 @@ export const analyticsModules: AnalyticsModule[] = [
     name: 'Automated Fiscal Indicators',
     status: 'active',
     description: 'Resident-facing indicators track the actual 2025 General Fund surplus, levy and appropriation growth, payroll and overtime totals, reserve use, and fund-balance reliance.',
-    sourceBasis: '2026 adopted budget summary, 2025 AFR actuals, 2024 audited fund balances, and payroll totals.',
+    sourceBasis: '2026 adopted budget summary, 2025 AFR actuals, the 2025 audited fund balances, and payroll totals.',
     nextStep: 'Add an anomaly watchlist that flags budget lines breaking from their own history and category peers.',
   },
   {
     name: 'Reserve and Fund Balance Monitoring',
     status: 'active',
-    description: 'Tracks appropriated fund-balance use in the budget and the actual year-end picture: the General Fund’s savings grew to $33.4M in 2025, broken down by how freely each classification can be spent.',
-    sourceBasis: '2026 adopted budget fund-balance schedule and 2025 AFR fund-balance classifications.',
-    nextStep: 'Trend reserve levels across multiple AFR years as they are filed.',
+    description: 'Tracks appropriated fund-balance use in the budget and the actual year-end picture: the audit has the General Fund’s balance at $33.3M at the end of 2025, broken down by how freely each classification can be spent.',
+    sourceBasis: '2026 adopted budget fund-balance schedule and the audited fund-balance classifications for 2023–2025.',
+    nextStep: 'Trend reserve levels across more audited years as they are published.',
   },
   {
     name: 'Tax Levy and Stabilization Views',
@@ -108,14 +108,14 @@ export const analyticsModules: AnalyticsModule[] = [
 ]
 
 const latestPayrollYear = payrollSummary.yearSummaries[payrollSummary.yearSummaries.length - 1]
-const gfSurplus2025 = generalFundAfr.surplus?.['2025'] ?? 0
-const gfFundBalance2025 = generalFundAfr.fundBalance?.['2025'] ?? 0
+const gfSurplus2025 = AUDIT_2025.generalFund.netChange
+const gfFundBalance2025 = AUDIT_2025.generalFund.ending
 
 export const automatedKpis = [
   {
     label: '2025 General Fund surplus (actual)',
     value: dollars(gfSurplus2025),
-    explanation: `The General Fund actually took in ${dollars(gfSurplus2025)} more than it spent in 2025, growing savings to ${dollars(gfFundBalance2025)} (2025 Annual Financial Report).`,
+    explanation: `After transfers to and from other funds, the General Fund added ${dollars(gfSurplus2025)} to its balance in 2025, which reached ${dollars(gfFundBalance2025)} (2025 audited financial statements).`,
   },
   {
     label: 'Town-wide levy growth',

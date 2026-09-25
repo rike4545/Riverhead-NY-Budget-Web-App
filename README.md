@@ -51,14 +51,20 @@ million of appropriations across all 19 funds, and a $62.9 million town-wide
 levy (General Fund, Highway and Street Lighting), up 2.79% from 2026. With the
 special districts the levy is $67.2 million. The Supervisor's letter in the
 budget says every taxing district is within the Town's 2.79% tax cap limit.
-The site parsed it at 10:07 AM and had it live by 10:29 AM.
+The site parsed it at 10:07 AM and had it live by 10:29 AM. Adopted as
+proposed, it would be the first budget under the levy limit in the audited
+record, which begins in 2018. Every budget from 2018 through 2026 was over
+the limit: five with no override law, then four with one.
 
 The letter is a scanned image, so the site records what it says by hand and
 checks each figure it can against the budget's Summary: the 2.79% limit
 against every district's levy, the $116.9 million "town operating" total and
 the General Fund's use of fund balance. The Summary can't show the retirement
 incentive, so its $819,000 saving and count of ten retirees are set beside the
-Board's own resolutions on the Buyout page instead.
+Board's own resolutions on the Buyout page instead. At the meeting the
+Financial Administrator put the retiree health cost that offsets the saving at
+$268,000, the difference in the letter's own figures, and said replacements
+for the retirees are budgeted (Riverhead News-Review).
 
 When the Tentative is parsed, the pages that forecast 2027 switch to the
 Town's own figures on their own, with no hand edits: the prediction
@@ -73,6 +79,32 @@ parses it and republishes the site. It runs again every 30 minutes from
 November 1 to 21, for the Preliminary and Adopted budgets. GitHub runs
 scheduled jobs late or skips them when it is busy, so a posting can take
 longer to appear than the schedule suggests.
+
+### 🔎 The 2025 audit, in place of the Town's own report
+The Town Board accepted the independent audit of 2025 on September 1
+(Resolution 2026-834). It is not on the Town's Financial Reports page yet;
+it is attached to that meeting's agenda packet, and the site now reads it
+from there. The audit puts the General Fund's unassigned balance at
+$28,829,513, $841,571 below the Town's own unaudited Annual Financial
+Report. The report counts less as Assigned: open purchase orders, and money
+set aside for the Teen Center, Senior Day Care, Stotzky Park and community
+benefits. Every reserve figure now measures the audited balance: 41.7% of
+2026 General Fund appropriations, not 42.9%. The
+**[2025 Annual Report](https://rike4545.github.io/Riverhead-NY-Budget-Web-App/annual-report/)**
+sets the two side by side, tier by tier.
+
+The audit also shows:
+- The General Fund added $4,899,127 in 2025 and ended the year at
+  $33,303,051. Revenue grew 7.5% and spending 5.6%.
+- Retiree health (OPEB) grew $10.3 million to $142.8 million.
+- Debt was 5.48% of the legal limit, down from 6.74%.
+- The Recreation Program and PAL funds ended 2023, 2024 and 2025 in deficit.
+  Each audit said the deficit would be gone the following year; each year
+  it grew. Their fund pages show the record.
+
+Every audited figure is typed in by hand, so `verify-audits.mjs` checks each
+one against the text of the page it came from, and fails the build if a
+reserve page shows the unaudited figure without saying so.
 
 ### 🧮 How Budgets Get Adopted — `/budget-adoption`
 Every Riverhead budget since 2005: what the Town Board changed in each

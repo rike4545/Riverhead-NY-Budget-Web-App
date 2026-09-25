@@ -21,6 +21,7 @@
 import prediction from '../public/data/budget-2027-prediction.json'
 import { personnelPolicyTotal, operationalTotal, supplementTrimItems } from './spending-reduction-2027'
 import { unassignedFundBalance } from './reserve-policy'
+import { overrideStreak, yearsPhrase } from './budget-adoption'
 
 /** The cap gap as prose ("$2.32M"), and what appropriating all of it would cost
     the unassigned cushion. Both derived, so neither can drift from the model. */
@@ -104,14 +105,14 @@ export const gapClosingPaths: GapPath[] = [
     closes: 'whatever gap remains after the recurring measures above',
     standing: 'one-time',
     politics:
-      `An easy vote — it raises no tax and cuts no service — but it spends one-time money on recurring cost, so it can only bridge a transitional remainder, not the whole gap. Appropriating the full ${capGapAsMillions} would burn ~${gapShareOfUnassignedPct}% of the $29.7M unassigned fund balance — the truly flexible cushion — for something that recurs.`,
+      `An easy vote — it raises no tax and cuts no service — but it spends one-time money on recurring cost, so it can only bridge a transitional remainder, not the whole gap. Appropriating the full ${capGapAsMillions} would burn ~${gapShareOfUnassignedPct}% of the ${`$${(unassignedFundBalance / 1e6).toFixed(1)}M`} unassigned fund balance — the truly flexible cushion — for something that recurs.`,
   },
   {
     name: 'If the Board still wants the spending, override the cap — deliberately and in public',
     closes: 'the full gap, by raising the legal ceiling',
     standing: 'deliberate',
     politics:
-      'The cap can be exceeded legally: adopt the override local law first, in the open, with the 60% vote on the record — as Riverhead did in 2023, 2024, and 2026. The problem to avoid is piercing the cap by accident; a disclosed, on-purpose override is a legitimate choice, not a violation.',
+      `The cap can be exceeded legally: adopt the override local law first, in the open, with the 60% vote on the record — as Riverhead did for the ${yearsPhrase(overrideStreak)} budgets. The problem to avoid is piercing the cap by accident; a disclosed, on-purpose override is a legitimate choice, not a violation.`,
   },
   {
     name: 'The blunt shortcut: an across-the-board 2.5% cut',
