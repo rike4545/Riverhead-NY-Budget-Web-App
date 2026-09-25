@@ -111,7 +111,7 @@ export default function FundBalanceDrawsPage() {
         <section style={{ ...card, marginBottom: 16, borderLeft: '5px solid var(--rbl-warn)' }}>
           <h3 style={{ marginTop: 0, color: 'var(--rbl-title)' }}>Reported, but not counted against the cushion</h3>
           <p style={{ color: 'var(--rbl-text-body)', fontSize: 14.5, lineHeight: 1.6, marginTop: 0 }}>
-            GASB Statement 54 splits fund balance into five tiers, and the reserve policy measures only the
+            GASB Statement 54 splits fund balance into five tiers, and this site measures the cushion on the
             unassigned one. {otherTierGeneralFundDraws.length === 1 ? 'This draw names' : 'These draws name'} a
             different tier on the account itself, so netting {otherTierGeneralFundDraws.length === 1 ? 'it' : 'them'}{' '}
             against the unassigned cushion would report the cushion shrinking when it has not moved. Real money and a

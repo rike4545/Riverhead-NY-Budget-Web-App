@@ -22,7 +22,7 @@
 import prediction from '../public/data/budget-2027-prediction.json'
 import { fullRecurringReductionPackage, personnelPolicyItems } from './spending-reduction-2027'
 import { firmRecurringTotal, retirementIncentive2027 } from './close-the-gap-2027'
-import { surplusAboveUpper } from './reserve-policy'
+import { surplusAboveFloor } from './reserve-policy'
 import { released2027, statedLimitPct } from './tentative-2027'
 
 const le = prediction.levyEstimate
@@ -247,12 +247,13 @@ export const leversAvailable = {
   firm: firmTotal,
   incentiveLow,
   incentiveHigh,
-  surplusAbovePolicy: surplusAboveUpper,
+  surplusAbovePolicy: surplusAboveFloor,
   note:
     'These are identified levers, not a forecast that the Board will use them. The savings package is this ' +
     'site’s own catalogue of line trims and policy items, each with a confidence rating; "firm" counts only the ' +
     'items rated firm. The retirement incentive is the Town’s own projection of a program it has already ' +
-    'adopted. The surplus figure is what sits above the top of the Town’s own reserve policy — real money, but ' +
+    'adopted. The surplus figure is the unassigned balance above the 15% floor in the Town’s fund balance ' +
+    'policy (Resolution 918 of 2011), which lists cutting the next year’s taxes as one use for it — real money, but ' +
     'one-time money.',
 }
 

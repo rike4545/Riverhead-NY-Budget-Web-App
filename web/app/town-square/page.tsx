@@ -6,7 +6,7 @@ import {
   legalQuestions, opposition, preposession, project, publicMoney, townPays, publicObjections, scopeDiscrepancy, scopeEvolution, sources,
   threeLedgers, timeline, voteSummary, type Milestone,
 } from '../../lib/town-square'
-import { appropriations, policyMinimumPercent, policyUpperPercent, unassignedFundBalance } from '../../lib/reserve-policy'
+import { appropriations, minimumRequired, policyMinimumPercent, unassignedFundBalance } from '../../lib/reserve-policy'
 
 const base = process.env.NEXT_PUBLIC_BASE_PATH || ''
 const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 20, boxShadow: '0 14px 34px var(--rbl-shadow)' } as const
@@ -39,7 +39,6 @@ export default function TownSquarePage() {
   // known amount, and the page says so wherever the number appears.
   const totalDraw = fundBalanceImpact.draws.reduce((s, d) => s + d.amount, 0)
   const after = unassignedFundBalance - totalDraw
-  const upperBound = appropriations * policyUpperPercent
 
   return (
     <PageShell
@@ -411,7 +410,7 @@ export default function TownSquarePage() {
           <Stat label="Unassigned, 12/31/2025" value={usd(unassignedFundBalance)} sub={`${pct(unassignedFundBalance)} of appropriations`} />
           <Stat label="Both draws, at most" value={usd(totalDraw)} sub={`${((totalDraw / unassignedFundBalance) * 100).toFixed(1)}% of the balance`} amber />
           <Stat label="Left afterwards" value={usd(after)} sub={`${pct(after)} of appropriations`} />
-          <Stat label="Policy range" value={`${policyMinimumPercent * 100}–${policyUpperPercent * 100}%`} sub={`upper bound is ${usd(upperBound)}`} />
+          <Stat label="Policy floor" value={`${policyMinimumPercent * 100}%`} sub={`${usd(minimumRequired)}; no ceiling (Res. 918 of 2011)`} />
         </div>
 
         <div style={{ background: 'var(--rbl-info-bg)', border: '1px solid var(--rbl-info-border)', borderRadius: 10, padding: '12px 14px' }}>

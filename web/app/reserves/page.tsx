@@ -18,22 +18,24 @@ import {
   fundBalanceTiers,
   fundBalanceTrend,
   fundBalanceYears,
+  FUND_BALANCE_POLICY,
   latestFundBalanceYear,
+  minimumRequired,
   peerBenchmarks,
+  policyMeasurePercent,
   policyMinimumPercent,
   RESERVE_YEAR,
   reserveYearAudited,
-  surplusAboveUpper,
+  surplusAboveFloor,
   targetReservePercent,
   targetUnassignedAt288,
-  targetUpper,
   totalFundBalance,
   unassignedFundBalance,
 } from '../../lib/reserve-policy'
 import {
   availabilityReading,
   ceilingPercentOfAppropriations,
-  surplusAboveUpperCeiling,
+  surplusAboveFloorCeiling,
   unassignedCeiling,
   committedAuthorized,
   committedDocumented,
@@ -77,7 +79,7 @@ const spendableTone: Record<string, { label: string; color: string; bg: string; 
 }
 
 const healthNote: Record<string, string> = {
-  healthy: "The savings cushion is above the Town's minimum policy target — a good sign.",
+  healthy: "The savings cushion is above the 15% floor in the Town's policy — a good sign.",
   watch: 'Reserves are near the policy minimum. Watch for further draw-downs.',
   atRisk: 'Reserves are below the policy minimum. Ask the Town about its plan to replenish.',
 }
@@ -109,8 +111,8 @@ export default function ReservesPage() {
           { label: 'Unassigned fund balance', text: reserveYearAudited
             ? 'the "rainy-day" savings with no strings attached — the FY2025 year-end figure from the independent audit the Town Board accepted on September 1, 2026, not a mid-year estimate. It is one of five classifications; the other four are shown below.'
             : 'the "rainy-day" savings with no strings attached — the FY2025 year-end figure from the Town\u2019s Annual Financial Report, not a mid-year estimate. It is one of five classifications; the other four are shown below.' },
-          { label: "Policy floor", text: `Riverhead's own policy sets a 15% minimum and 20% upper target of General Fund appropriations.` },
-          { label: 'One-time vs. recurring', text: 'anything above the operating target is one-time money — good for debt paydown or capital, not for permanent new spending.' },
+          { label: 'Policy floor', text: `Riverhead's policy, Resolution 918 of 2011, sets a 15% floor and no ceiling. It says money above the floor may be used to cut the next year's property taxes, for one-time capital costs, or for natural emergencies.` },
+          { label: 'One-time vs. recurring', text: 'money above the floor is one-time money — good for debt paydown, capital or one year of tax relief, not for permanent new spending.' },
           { label: 'Opening vs. available', text: `the ${reserveYearAudited ? 'audited' : 'reported'} figure for December 31, 2025. The Board has voted against it all year, so what is left is the smaller number, and it is the one every plan here is priced against.` },
         ]}
       >
@@ -168,18 +170,69 @@ export default function ReservesPage() {
         <p style={{ color: healthColor[health], fontSize: 14, fontWeight: 700, marginTop: 10 }}>{healthNote[health]}</p>
 
         <hr style={{ border: 'none', borderTop: '1px solid var(--rbl-border-subtle)', margin: '14px 0' }} />
-        <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 13.5, color: 'var(--rbl-text-muted)' }}>
-          <span>Policy upper target (20%)</span>
-          <span>{dollars(targetUpper)}</span>
+        <div style={{ display: 'flex', justifyContent: 'space-between', gap: 12, fontSize: 13.5, color: 'var(--rbl-text-muted)' }}>
+          <span>Policy floor: 15% of the 2026 budget</span>
+          <span>{dollars(minimumRequired)}</span>
         </div>
-        <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 13.5, color: 'var(--rbl-text-muted)', marginTop: 4 }}>
-          <span>Surplus above upper target, at the opening balance</span>
-          <span>{dollars(surplusAboveUpper)}</span>
+        <div style={{ display: 'flex', justifyContent: 'space-between', gap: 12, fontSize: 13.5, color: 'var(--rbl-text-muted)', marginTop: 4 }}>
+          <span>Unassigned balance above the floor, at the opening balance</span>
+          <span>{dollars(surplusAboveFloor)}</span>
         </div>
-        <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 13.5, color: 'var(--rbl-text-muted)', marginTop: 4 }}>
-          <span>Surplus above upper target, net of 2026 votes</span>
-          <span style={{ color: surplusAboveUpperCeiling >= 0 ? 'var(--rbl-success)' : 'var(--rbl-warn)', fontWeight: 700 }}>{dollars(surplusAboveUpperCeiling)}</span>
+        <div style={{ display: 'flex', justifyContent: 'space-between', gap: 12, fontSize: 13.5, color: 'var(--rbl-text-muted)', marginTop: 4 }}>
+          <span>Unassigned balance above the floor, net of 2026 votes</span>
+          <span style={{ color: surplusAboveFloorCeiling >= 0 ? 'var(--rbl-success)' : 'var(--rbl-warn)', fontWeight: 700 }}>{dollars(surplusAboveFloorCeiling)}</span>
         </div>
+        <p style={{ color: 'var(--rbl-text-muted)', fontSize: 12.5, lineHeight: 1.55, margin: '10px 0 0' }}>
+          The policy sets no ceiling, so nothing here is &ldquo;over the limit.&rdquo; It counts the General Fund&apos;s
+          total balance, including reserves: {dollars(totalFundBalance)}, or {pct(policyMeasurePercent)} of the budget, at
+          the end of {latestFundBalanceYear}. This page tests the unassigned part alone, which is stricter.
+        </p>
+      </section>
+
+      <section data-fund-balance-policy style={{ ...card, marginBottom: 16, borderLeft: '6px solid var(--rbl-accent-border)' }}>
+        <h3 style={{ marginTop: 0, color: 'var(--rbl-title)' }}>What the Town&apos;s fund balance policy says</h3>
+        <p style={{ color: 'var(--rbl-text-body)', fontSize: 14.5, lineHeight: 1.6, marginTop: 0 }}>
+          The policy in force is <strong>Resolution {FUND_BALANCE_POLICY.resolution.replace('2011-', '')} of 2011</strong>,
+          adopted {FUND_BALANCE_POLICY.vote} on {FUND_BALANCE_POLICY.adopted}. Its floor, in its own words:
+        </p>
+        <blockquote style={{ margin: '0 0 10px', padding: '8px 14px', borderLeft: '3px solid var(--rbl-border-strong)', color: 'var(--rbl-text-body)', fontSize: 14, lineHeight: 1.55, background: 'var(--rbl-surface-2)', borderRadius: 8 }}>
+          &ldquo;{FUND_BALANCE_POLICY.floorText}&rdquo;
+        </blockquote>
+        <p style={{ color: 'var(--rbl-text-body)', fontSize: 14.5, lineHeight: 1.6, margin: '0 0 6px' }}>
+          And what money above the floor is for: &ldquo;{FUND_BALANCE_POLICY.usesIntro}&rdquo;
+        </p>
+        <ul style={{ margin: '0 0 10px', paddingLeft: 22, color: 'var(--rbl-text-body)', fontSize: 14.2, lineHeight: 1.6 }}>
+          {FUND_BALANCE_POLICY.uses.map((u) => <li key={u}>&ldquo;{u}&rdquo;</li>)}
+        </ul>
+        <p style={{ color: 'var(--rbl-text-body)', fontSize: 14.5, lineHeight: 1.6, margin: '0 0 10px' }}>
+          It sets <strong>no ceiling</strong> and does not require the money above the floor to be used, only permits
+          it. It also says &ldquo;{FUND_BALANCE_POLICY.reviewText.charAt(0).toLowerCase() + FUND_BALANCE_POLICY.reviewText.slice(1)}&rdquo; It has
+          not been revised since 2011.
+        </p>
+        <div style={{ display: 'grid', gap: 6, marginBottom: 10 }}>
+          {FUND_BALANCE_POLICY.history.map((h) => (
+            <div key={h.resolution} style={{ fontSize: 13.4, lineHeight: 1.5, color: 'var(--rbl-text-body)' }}>
+              <strong style={{ color: 'var(--rbl-title)' }}>{h.date}, Resolution {h.resolution}:</strong> {h.outcome}. {h.note}
+            </div>
+          ))}
+        </div>
+        <p data-policy-correction style={{ color: 'var(--rbl-text-muted)', fontSize: 12.8, lineHeight: 1.55, margin: '0 0 8px' }}>
+          <strong>Correction.</strong> Until September 2026 this site described the policy as &ldquo;a 15% minimum and
+          20% upper target.&rdquo; No Town record sets a 20% target. The only 20% in either policy is the 2006
+          version&apos;s note that the balance at the end of 2005 was &ldquo;in excess of 20%.&rdquo; The figures on this
+          site that were measured against 20% now use the 15% floor. A search of every Board agenda from 2007 through
+          September 2026, and every set of minutes from 2012, found no later resolution changing the policy.
+        </p>
+        <p style={{ color: 'var(--rbl-text-muted)', fontSize: 12.5, lineHeight: 1.55, margin: 0 }}>
+          Sources:{' '}
+          {FUND_BALANCE_POLICY.sources.map((src, i) => (
+            <span key={src.url}>
+              {i > 0 ? '; ' : ''}
+              <a href={src.url} target="_blank" rel="noopener noreferrer" style={{ color: 'var(--rbl-link)' }}>{src.label}</a>
+            </span>
+          ))}
+          .
+        </p>
       </section>
 
       <section style={{ ...card, marginBottom: 16 }}>
@@ -252,8 +305,8 @@ export default function ReservesPage() {
         </div>
 
         <p style={{ color: 'var(--rbl-text-muted)', fontSize: 12.5, marginTop: 12, lineHeight: 1.55 }}>
-          Why this matters for the numbers on this page: a reserve policy is written against{' '}
-          <strong>Unassigned</strong>, so that is the figure the compliance test uses. Quoting the{' '}
+          Why this matters for the numbers on this page: the Town&apos;s policy counts the total, but only{' '}
+          <strong>Unassigned</strong> is free for any use, so that is the figure this page&apos;s test uses. Quoting the{' '}
           {dollars(totalFundBalance)} balance-sheet total instead would overstate the spendable cushion by{' '}
           {dollars(constrainedFundBalance)}. Classifications and definitions follow GASB Statement 54; the dollar
           figures for {fundBalanceYears.join(', ')} are the independent audits&apos;:{' '}
@@ -327,8 +380,9 @@ export default function ReservesPage() {
       <section style={{ ...card, marginBottom: 16 }}>
         <h3 style={{ marginTop: 0, color: 'var(--rbl-title)' }}>28.8% Reserve Reset</h3>
         <p style={{ color: 'var(--rbl-text-body)', fontSize: 14.5, marginTop: 0 }}>
-          A one-time-money plan: keep a strong cushion, use the rest on purpose, and show what still fits after the
-          serious bills are paid. It is priced below against the <em>ceiling on what is left</em>, not the
+          A one-time-money plan modeled by this site, not the Town: keep a {pct(targetReservePercent)} cushion, nearly
+          twice the Town&apos;s 15% floor, use the rest on purpose, and show what still fits after the serious bills are
+          paid. It is priced below against the <em>ceiling on what is left</em>, not the
           opening figure it was first written against.
         </p>
         {!deploymentPlanFits && (
@@ -339,7 +393,7 @@ export default function ReservesPage() {
                 ? 'the last item on the list no longer does.'
                 : `the last ${unfundedOptions.length} items on the list no longer do.`}
             </strong>{' '}
-            Holding the {pct(targetReservePercent)} target leaves {dollars(deployableAbove288Ceiling)} to deploy, which
+            Holding the plan&apos;s {pct(targetReservePercent)} reserve leaves {dollars(deployableAbove288Ceiling)} to deploy, which
             funds {fundedOptions.length} of the {fundedOptions.length + unfundedOptions.length} published options in
             full and falls {dollars(deploymentPlanShortfall)} short of{' '}
             {unfundedOptions.length === 1 ? 'the last' : `the remaining ${unfundedOptions.length}`}. What does not fit
@@ -351,7 +405,7 @@ export default function ReservesPage() {
           <strong>{dollars(unassignedCeiling)}</strong>
         </div>
         <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 14.5, marginTop: 6 }}>
-          <span>{pct(targetReservePercent)} target balance</span>
+          <span>The plan&apos;s {pct(targetReservePercent)} reserve</span>
           <strong>{dollars(targetUnassignedAt288)}</strong>
         </div>
         <div style={{ display: 'flex', justifyContent: 'space-between', gap: 12, fontSize: 15, marginTop: 6 }}>
@@ -551,19 +605,19 @@ export default function ReservesPage() {
 
       </Detail>
 
-      <Detail title="How Riverhead's 28.8% target compares nearby">
+      <Detail title="How the Town's floor and this plan compare nearby">
       <section style={{ ...card, marginBottom: 16 }}>
-        <h3 style={{ marginTop: 0, color: 'var(--rbl-title)' }}>How 28.8% compares nearby</h3>
+        <h3 style={{ marginTop: 0, color: 'var(--rbl-title)' }}>How the Town&apos;s floor and this plan compare nearby</h3>
         <p style={{ color: 'var(--rbl-text-body)', fontSize: 14.5, marginTop: 0 }}>
-          Riverhead&apos;s target lands below what Brookhaven and Smithtown are doing today, but above
-          Southampton&apos;s official policy.
+          Riverhead&apos;s own policy sets only a 15% floor, a little below Southampton&apos;s 17%. This site&apos;s
+          28.8% plan lands below what Brookhaven and Smithtown hold today.
         </p>
         <div style={{ display: 'grid', gap: 12 }}>
           {peerBenchmarks.map((peer) => (
             <div key={peer.town}>
               <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                 <strong style={{ fontSize: 14 }}>{peer.town}</strong>
-                <span style={{ color: peer.town === 'Riverhead target' ? 'var(--rbl-accent)' : 'var(--rbl-badge)', fontWeight: 800 }}>{pct(peer.percent)}</span>
+                <span style={{ color: peer.own ? 'var(--rbl-accent)' : 'var(--rbl-badge)', fontWeight: 800 }}>{pct(peer.percent)}</span>
               </div>
               <p style={{ color: 'var(--rbl-text-muted)', fontSize: 13, margin: '2px 0 0' }}>{peer.detail}</p>
             </div>
@@ -608,7 +662,7 @@ export default function ReservesPage() {
         </div>
         <hr style={{ border: 'none', borderTop: '1px solid var(--rbl-border-subtle)', margin: '12px 0' }} />
         <p style={{ color: 'var(--rbl-text-muted)', fontSize: 12.5 }}>
-          Ideal guidance: treat 17% like a GFOA-style minimum floor, not the automatic target. East Hampton&apos;s
+          This site&apos;s reading: treat 17% like a GFOA-style minimum floor, not the automatic target. East Hampton&apos;s
           56.2% reads like a high-cushion outlier. For Riverhead, a practical operating range is still roughly 25% to
           32%, with 28.8% as a strong middle path that leaves room for debt reduction and one-time public
           improvements.
@@ -640,6 +694,7 @@ export default function ReservesPage() {
           September 1, 2026 agenda packet
         </a>
         , {AUDIT_2025.source.pages}), 2026 Adopted Budget (General Fund appropriations and one-time deployment figures),
+        the Town&apos;s fund balance policy (Resolution {FUND_BALANCE_POLICY.resolution.replace('2011-', '')} of 2011, linked above),
         and the Town Board resolution record for the {dollars(committedThisYear)} committed during 2026. That total is
         mixed in provenance and should not be read as one source: {dollars(committedDocumented)} was read from Section G
         of the Fiscal Impact Statements, where the Town names its own Appropriated Fund Balance account, and{' '}

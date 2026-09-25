@@ -245,7 +245,7 @@ export const neutralView = {
     },
   ],
   citizen:
-    'As a resident, the highest-leverage moves are unglamorous: show up at the budget hearings and the cap-override hearing before the vote (not after); ask for the multi-year forecast and a written fund-balance policy; and push back specifically when one-time money is used to fund a recurring cost. The tools on this site — the upcoming-meetings schedule, the tax-cap history, and the lever-by-lever spending-reduction page — exist so those questions can be asked with the Town’s own numbers in hand.',
+    'As a resident, the highest-leverage moves are unglamorous: show up at the budget hearings and the cap-override hearing before the vote (not after); ask for the multi-year forecast and an updated fund-balance policy with a ceiling, since the 2011 one sets only a 15% floor; and push back specifically when one-time money is used to fund a recurring cost. The tools on this site — the upcoming-meetings schedule, the tax-cap history, and the lever-by-lever spending-reduction page — exist so those questions can be asked with the Town’s own numbers in hand.',
   sources:
     'Framing follows Government Finance Officers Association (GFOA) best practices and NY State Comptroller (OSC) fiscal-stress guidance. Local figures are from the Town’s adopted budgets and this app’s parsed datasets.',
 }

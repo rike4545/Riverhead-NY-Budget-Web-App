@@ -15,7 +15,7 @@
 
 import prediction from '../public/data/budget-2027-prediction.json'
 import taxBill from '../public/data/tax-bill.json'
-import { appropriations, unassignedFundBalance, policyMinimumPercent, policyUpperPercent, targetUpper, surplusAboveUpper } from './reserve-policy'
+import { appropriations, unassignedFundBalance, policyMinimumPercent, minimumRequired, surplusAboveFloor } from './reserve-policy'
 import { remainingHeadroomCeiling, committedTotal, drawCounts } from './fiscal-commitments-2027'
 import { capGap2027, firmRecurringTotal, retirementIncentive2027 } from './close-the-gap-2027'
 import { personnelPolicyTotal, operationalTotal, supplementTrimTotal, fullRecurringReductionPackage } from './spending-reduction-2027'
@@ -27,6 +27,7 @@ import { released2027 } from './tentative-2027'
 import { outcome as incentiveOutcome } from './buyout-2026'
 
 const money = (n: number) => n.toLocaleString('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 })
+const countWord = (n: number) => ['no', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten'][n] ?? String(n)
 /** The incentive saving the 2027 Tentative budgets, once it is out; null before. */
 const incentiveBudgeted = released2027 ? incentiveOutcome.savings2027 : null
 const gfLevyRise2027 = released2027?.generalFund?.levyOverPrior ?? null
@@ -121,7 +122,7 @@ export const levers: Lever[] = [
       : `The projection has become a measurement, and the measurement is narrower than it looks. Accepting a retirement is not proof the retiree elected the incentive, so ${uptake.windowRetirements} is a ceiling on participation. The saving is also not free: if every confirmed retiree elected the incentive it costs ${incentiveCostIfAllElected.total.toLocaleString('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 })} before sick-day payouts — a scenario, since the Town publishes no election records, and effective dates run July to October, so 2027 is the first budget carrying the whole of it — ${retirementAnnualisation.increment2027Low.toLocaleString('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 })} to ${retirementAnnualisation.increment2027High.toLocaleString('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 })} more than 2026 catches.`,
   },
   {
-    name: 'Fund balance above the Town’s own policy ceiling',
+    name: 'Fund balance above the Town’s 15% policy floor',
     // Netted, not the audited opening balance. The Board has spent against that
     // balance all through 2026, and a dollar already voted cannot fund a freeze
     // as well. See lib/fiscal-commitments-2027.ts.
@@ -129,9 +130,9 @@ export const levers: Lever[] = [
     display: `${remainingHeadroomCeiling.toLocaleString('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 })}`,
     covers: `${(remainingHeadroomCeiling / gfFund.delta).toFixed(1)}× the $3.5M`,
     kind: 'one-time',
-    detail: `Unassigned fund balance was ${unassignedFundBalance.toLocaleString('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 })} at December 31, 2025 — ${((unassignedFundBalance / appropriations) * 100).toFixed(1)}% of appropriations against a policy range of ${policyMinimumPercent * 100}–${policyUpperPercent * 100}%. Everything above the ${policyUpperPercent * 100}% ceiling of ${targetUpper.toLocaleString('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 })} could fund a freeze without the Town breaching its own rule. This is the closest Riverhead analogue to the reserves Suffolk leaned on.`,
+    detail: `Unassigned fund balance was ${money(unassignedFundBalance)} at December 31, 2025 — ${((unassignedFundBalance / appropriations) * 100).toFixed(1)}% of appropriations. The Town’s fund balance policy, Resolution 918 of 2011, sets a floor of ${policyMinimumPercent * 100}% (${money(minimumRequired)}) and no ceiling, and the first use it lists for money above the floor is “to reduce the subsequent year’s property taxes.” A freeze paid from that money is the use the policy names. This is the closest Riverhead analogue to the reserves Suffolk leaned on.`,
     catch:
-      `One-time money against recurring cost, and less of it than the audited balance suggests. The ${surplusAboveUpper.toLocaleString('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 })} above the ceiling is the position at December 31, 2025; resolutions adopted during 2026 have already committed ${committedTotal.toLocaleString('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 })} of it, with ${drawCounts.unpriced} further adopted draws carrying no published amount — so the figure shown is a ceiling on what is left, not a balance. Even at that ceiling it buys about three zero-percent years, and each one hands a larger structural gap to the next budget on a smaller cushion.`,
+      `One-time money against recurring cost, and less of it than the audited balance suggests. The ${money(surplusAboveFloor)} above the floor is the position at December 31, 2025; resolutions adopted during 2026 have already committed ${money(committedTotal)} of it, with ${drawCounts.unpriced} further adopted draws carrying no published amount — so the figure shown is a ceiling on what is left, not a balance. Even at that ceiling it pays for about ${countWord(Math.floor(remainingHeadroomCeiling / gfFund.delta))} zero-percent years, and each one hands a larger structural gap to the next budget on a smaller cushion.`,
   },
   {
     name: 'Non-property-tax revenue',
@@ -222,7 +223,7 @@ export const policeOffset = {
 
 export const verdict = {
   oneYear:
-    'For a single year, yes, and comfortably. The fund balance above the Town’s own policy ceiling covers the cost growth more than four times over, so a 2027 freeze could be adopted without breaching the reserve policy and without cutting a service.',
+    `For a single year, yes, and comfortably. Even after netting what 2026 has already committed, the unassigned balance above the Town’s 15% policy floor covers the cost growth ${(remainingHeadroomCeiling / gfFund.delta).toFixed(1)} times over, so a 2027 freeze could be adopted without breaching the reserve policy and without cutting a service. The policy itself lists reducing the next year’s property taxes as a use for that money.`,
   durable:
     'For a durable freeze, it is much tighter. The recurring levers — the full savings package plus the retirement incentive — do reach the number, but only by taking nearly all of the package including its least firm items, and by settling two police contracts inside a flat envelope.',
   theRealPoint:
@@ -253,6 +254,6 @@ export const sources = [
   {
     title: 'Riverhead Budget Live — Reserves and Fund Balance',
     url: 'https://rike4545.github.io/Riverhead-NY-Budget-Web-App/reserves/',
-    covers: 'The audited December 31, 2025 unassigned balance and the Town’s own 15–20% policy range.',
+    covers: 'The audited December 31, 2025 unassigned balance and the Town’s fund balance policy (Resolution 918 of 2011: a 15% floor, no ceiling).',
   },
 ]

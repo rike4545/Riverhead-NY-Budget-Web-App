@@ -33,9 +33,9 @@ import {
   OFFICE_HEADING, staff as officeStaff, supervisor as officeSupervisor, totals as officeTotals,
   deputyRate, sameRateCount, raise2025, documents as officeDocuments,
 } from './supervisor-office'
-import { policyMinimumPercent, policyUpperPercent } from './reserve-policy'
+import { policyMinimumPercent } from './reserve-policy'
 import {
-  openingUnassigned, openingPercentOfAppropriations, committedThisYear, surplusAboveUpperCeiling,
+  openingUnassigned, openingPercentOfAppropriations, committedThisYear, surplusAboveFloorCeiling,
 } from './reserve-availability'
 import { forgoneLow, forgoneHigh, forgoneThroughYear, statute as housingStatute } from './community-housing'
 
@@ -626,17 +626,17 @@ export const levers: Lever[] = [
   },
   {
     id: 'fund-balance-policy',
-    lever: 'Set a new rule for the Town’s savings',
+    lever: 'Update the rule for the Town’s savings',
     whoActs: 'The Board decides, by resolution. The Supervisor can propose one, and as budget officer he decides how much savings each budget proposal uses.',
     record: [
-      `The Town’s current rule says General Fund savings should be at least ${pctPlain(policyMinimumPercent, 0)} of the General Fund budget, with an upper target of ${pctPlain(policyUpperPercent, 0)}.`,
-      `At the end of 2025 the audit found ${usd(openingUnassigned)} in General Fund savings not set aside for anything. That’s ${pctPlain(openingPercentOfAppropriations)} of the 2026 General Fund budget, more than twice the upper target. Resolutions passed in 2026 have committed ${usd(committedThisYear)} of it.`,
-      'No resolution passed in 2026 adopts or changes the rule.',
+      `The Town’s rule is Resolution 918 of 2011, which updated one from 2006. It says General Fund savings should be at least ${pctPlain(policyMinimumPercent, 0)} of the budget, and that money above that may be used to reduce the next year’s property taxes, for one-time capital costs, or for emergencies like hurricanes. It sets no ceiling.`,
+      `At the end of 2025 the audit found ${usd(openingUnassigned)} in General Fund savings not set aside for anything. That’s ${pctPlain(openingPercentOfAppropriations)} of the 2026 General Fund budget, ${(openingPercentOfAppropriations / policyMinimumPercent).toFixed(1)} times the floor. Resolutions passed in 2026 have committed ${usd(committedThisYear)} of it.`,
+      'No resolution since 2011 has changed the rule, including in 2026.',
     ],
-    worth: `At most ${usd(surplusAboveUpperCeiling)} above the upper target after this year’s commitments. It’s one-time money: it can pay off debt, pay for building projects or soften one year’s taxes, but it can’t cover an ongoing cost for long.`,
+    worth: `At most ${usd(surplusAboveFloorCeiling)} above the 15% floor after this year’s commitments. It’s one-time money: it can pay off debt, pay for building projects or soften one year’s taxes, but it can’t cover an ongoing cost for long.`,
     testId: 'one-time',
     link: { label: 'Reserves & Fund Balance', path: '/reserves/' },
-    sources: ['2025 Annual Financial Report', '2026 Adopted Budget', 'TB resolutions, 2026'],
+    sources: ['TB Resolution 918, Dec. 20, 2011 (the policy)', '2025 audited financial statements', '2026 Adopted Budget', 'TB resolutions, 2026'],
   },
   {
     id: 'housing',

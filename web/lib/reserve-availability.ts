@@ -14,7 +14,7 @@
 // carrying a deployment plan and a drawdown slider.
 //
 // WHY A THIRD MODULE. fiscal-commitments-2027 already imports reserve-policy
-// for surplusAboveUpper, so reserve-policy cannot import it back without a
+// for surplusAboveFloor, so reserve-policy cannot import it back without a
 // cycle. The dependency runs one way into this file and out of neither of them:
 // reserve-policy stays the reported-and-policy layer, fiscal-commitments-2027
 // stays the resolution layer, and the netting lives here.
@@ -27,7 +27,7 @@ import {
   policyMinimumPercent,
   targetReservePercent,
   targetUnassignedAt288,
-  targetUpper,
+  minimumRequired,
   reserveYearAudited,
   unassignedFundBalance,
   unassignedFundBalanceAfr,
@@ -83,14 +83,14 @@ export const ceilingPercentOfAppropriations = percentOfAppropriations(unassigned
 export const ceilingStillAbovePolicyFloor = ceilingPercentOfAppropriations >= policyMinimumPercent
 
 /**
- * Surplus above the 20% upper target, netted. Identical by construction to
- * remainingHeadroomCeiling on /predict-2027/, and imported rather than
- * recomputed so the two pages cannot drift into quoting different numbers for
- * the same quantity — which is exactly what they were doing.
+ * Unassigned balance above the 15% policy floor, netted. Identical by
+ * construction to remainingHeadroomCeiling on /predict-2027/, and imported
+ * rather than recomputed so the two pages cannot drift into quoting different
+ * numbers for the same quantity — which is exactly what they were doing.
  */
-export const surplusAboveUpperCeiling = remainingHeadroomCeiling
+export const surplusAboveFloorCeiling = remainingHeadroomCeiling
 
-/** One-time money above the 28.8% target, after 2026's votes. */
+/** One-time money above this site's 28.8% plan reserve, after 2026's votes. */
 export const deployableAbove288Ceiling = Math.max(0, unassignedCeiling - targetUnassignedAt288)
 
 /**
@@ -253,7 +253,7 @@ export const availabilityReading =
   `one-time money a plan can responsibly assume.`
 
 export const planReading = deploymentPlanFits
-  ? `The plan totals ${usd(deploymentPlanTotal)} and fits the ${usd(deployableAbove288Ceiling)} available above the ${pct(targetReservePercent)} target.`
+  ? `The plan totals ${usd(deploymentPlanTotal)} and fits the ${usd(deployableAbove288Ceiling)} available above its ${pct(targetReservePercent)} reserve.`
   : `For scale: against the opening balance the plan fit with ${usd(Math.max(0, unassignedCeiling + committedThisYear - targetUnassignedAt288) - deploymentPlanTotal)} to spare, which is the version published before 2026's votes were netted.`
 
 /**
@@ -270,5 +270,5 @@ export const peerAlignmentScenariosNet = peerAlignmentScenarios.map((p) => ({
   deploymentCapacityAtOpening: p.deploymentCapacity,
 }))
 
-/** Kept for the callout: the upper target is unchanged by any of this. */
-export { targetUpper, targetUnassignedAt288, targetReservePercent, appropriations, policyMinimumPercent }
+/** Kept for the callout: the policy floor is unchanged by any of this. */
+export { minimumRequired, targetUnassignedAt288, targetReservePercent, appropriations, policyMinimumPercent }

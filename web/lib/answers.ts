@@ -26,7 +26,7 @@ import { yearSummaries } from './payroll'
 import { debtProfile } from './debt-profile'
 import { riverheadCurrent } from './credit-rating'
 import {
-  unassignedFundBalance, appropriations, policyMinimumPercent, policyUpperPercent, reserveYearAudited,
+  unassignedFundBalance, appropriations, policyMinimumPercent, reserveYearAudited,
 } from './reserve-policy'
 import { whyHarder } from './zero-percent-2027'
 import { boardOptions, levyPredicted, levy2026 } from './budget-2027-options'
@@ -213,13 +213,13 @@ export const topics: AnswerTopic[] = [
     answers: [
       {
         q: 'Does the Town have savings?',
-        a: `${usd(unassignedFundBalance)} in unassigned General Fund balance at the end of 2025${reserveYearAudited ? ', as audited' : ''} — ${fbPct.toFixed(1)}% of appropriations, against the Town's own policy of ${(policyMinimumPercent * 100).toFixed(0)}–${(policyUpperPercent * 100).toFixed(0)}%.`,
+        a: `${usd(unassignedFundBalance)} in unassigned General Fund balance at the end of 2025${reserveYearAudited ? ', as audited' : ''} — ${fbPct.toFixed(1)}% of appropriations, against the ${(policyMinimumPercent * 100).toFixed(0)}% floor in the Town's fund balance policy (Resolution 918 of 2011), which sets no ceiling.`,
         href: `${base}/reserves/`,
         cta: 'Reserves and the policy',
       },
       {
         q: 'Is holding that much savings good or bad?',
-        a: `Both readings are legitimate and the page gives you each. A large cushion protects the credit rating and absorbs a bad year; it is also money collected from taxpayers and not spent, sitting at more than double the top of the Town's own stated target.`,
+        a: `Both readings are legitimate and the page gives you each. A large cushion protects the credit rating and absorbs a bad year; it is also money collected from taxpayers and not spent, sitting at ${(fbPct / (policyMinimumPercent * 100)).toFixed(1)} times the floor in the Town's own policy — which lists cutting the next year's property taxes as one use for money above it.`,
         href: `${base}/reserves/`,
         cta: 'The argument on both sides',
       },
