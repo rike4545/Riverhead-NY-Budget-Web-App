@@ -230,7 +230,7 @@ export default function Predict2027Page() {
           <Stat label="Firm items only" value={usd(leversAvailable.firm)} />
           <Stat label="Retirement incentive" value={`${usd(leversAvailable.incentiveLow)}–${usd(leversAvailable.incentiveHigh)}`} />
           <Stat label="Every 1% of 2026 levy" value={usd(onePercent)} />
-          <Stat label="Surplus above policy, net of 2026 draws" value={usd(remainingHeadroomCeiling)} sub={`${usd(openingSurplusAbovePolicy)} audited, less ${usd(committedTotal)} committed`} />
+          <Stat label="Above the 15% policy floor, net of 2026 draws" value={usd(remainingHeadroomCeiling)} sub={`${usd(openingSurplusAbovePolicy)} audited, less ${usd(committedTotal)} committed`} />
         </div>
         <p style={{ color: 'var(--rbl-text-body)', fontSize: 13.7, lineHeight: 1.55, margin: '10px 0 0' }}>{overlapCaveat}</p>
         <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', marginTop: 10 }}>
@@ -245,7 +245,7 @@ export default function Predict2027Page() {
           The surplus these options lean on is an AUDITED OPENING BALANCE. The Board
           has been spending against it all year, and a dollar already voted cannot
           fund a suggested action as well. Netting the documented draws moves the
-          figure by about a third, so presenting the opening balance alone overstated
+          figure by about a quarter, so presenting the opening balance alone overstated
           what is available. */}
       <section id="committed" style={{ ...card, marginBottom: 16, scrollMarginTop: 16, borderLeft: '6px solid var(--rbl-danger)' }}>
         <h2 style={{ margin: '0 0 4px', color: 'var(--rbl-title)', fontSize: 19 }}>
@@ -258,7 +258,7 @@ export default function Predict2027Page() {
         </p>
 
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(min(190px,100%),1fr))', gap: 10, marginBottom: 14 }}>
-          <Stat label="Audited surplus above policy" value={usd(openingSurplusAbovePolicy)} sub="December 31, 2025" />
+          <Stat label="Audited balance above the 15% floor" value={usd(openingSurplusAbovePolicy)} sub="December 31, 2025" />
           <Stat label="Documented 2026 commitments" value={`− ${usd(committedTotal)}`} sub={`${generalFundCommitments2026.length} General Fund draws on the record`} />
           <Stat label="Ceiling on what remains" value={usd(remainingHeadroomCeiling)} sub={`${reductionPct.toFixed(0)}% below the opening figure`} />
         </div>
@@ -310,7 +310,7 @@ export default function Predict2027Page() {
                   <th style={th}>Draw</th>
                   <th style={{ ...th, textAlign: 'center' }}>Basis</th>
                   <th style={{ ...th, textAlign: 'right' }}>Amount</th>
-                  <th style={{ ...th, textAlign: 'right' }}>Left above policy</th>
+                  <th style={{ ...th, textAlign: 'right' }}>Left above the floor</th>
                 </tr>
               </thead>
               <tbody>
@@ -615,7 +615,7 @@ export default function Predict2027Page() {
           </ul>
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, marginTop: 12 }}>
             <a href={`${base}/fiscal-impact/`} style={pillLink}>Every resolution, with its fiscal-impact answer →</a>
-            <a href={`${base}/reserves/`} style={pillLink}>Reserves &amp; the policy range →</a>
+            <a href={`${base}/reserves/`} style={pillLink}>Reserves &amp; the fund balance policy →</a>
           </div>
         </div>
       </section>

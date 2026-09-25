@@ -165,7 +165,7 @@ export const ratingCriteria: CriteriaFactor[] = [
     approxWeight: '~10–20%',
     whatItMeans: 'Whether budgeting, multi-year planning, and reserve policy are written, followed, and disclosed — not just practiced informally.',
     riverheadRead:
-      "Brookhaven's S&P rationale explicitly credits \"comprehensive formal financial management policies.\" Worth confirming Riverhead's own 15%/20% reserve policy is a standing Town Board resolution, prominently disclosed in the AFR's MD&A the way a rating analyst would look for it.",
+      "Brookhaven's S&P rationale explicitly credits \"comprehensive formal financial management policies.\" Riverhead's reserve policy is a standing Town Board resolution — Resolution 918 of 2011, which updated one from 2006 — but it sets only a 15% floor, with no ceiling, and the audits describe it without citing it by number. It has not been revised since 2011.",
   },
   {
     factor: 'Debt & long-term liabilities',
@@ -197,10 +197,10 @@ export const levers: Lever[] = [
     evidence: "2026 adopted budget General Fund mismatch: $74,283 (see the Reserves & Fund Balance page, deployment option #1).",
   },
   {
-    title: 'Put the reserve policy in writing, and put it where a rating analyst looks',
+    title: 'Update the reserve policy, and put it where a rating analyst looks',
     detail:
-      `Riverhead's own 15% minimum / 20% upper reserve policy already exists in practice, and the Town is running well above it (${reserveShare}).`
-      + " The Comptroller's reserve-funds guide is specific about what a written policy has to do, and it is more than naming a percentage: it should say why the money is being set aside, the board's financial objectives, optimal funding levels, and the conditions under which the assets will be used — plus how a drawn-down reserve gets replenished. The same guide warns that reserves \"should not be merely a 'parking lot' for excess cash or fund balance,\" which is the harder question for a town holding " + reserveShare + ". It also asks boards to review existing reserves periodically, set a ceiling on what accumulates, and reduce or close any reserve whose purpose has been met. Answering those in a standing resolution, disclosed in the AFR's Management's Discussion & Analysis, is what Brookhaven's S&P rationale is crediting when it praises \"comprehensive formal financial management policies.\"",
+      `Riverhead's written policy, Resolution 918 of 2011, sets a 15% floor and names three uses for money above it: reducing the next year's property taxes, one-time capital costs, and natural emergencies. It sets no ceiling, and the Town is running well above the floor (${reserveShare}).`
+      + " The Comptroller's reserve-funds guide is specific about what a written policy has to do, and it is more than naming a percentage: it should say why the money is being set aside, the board's financial objectives, optimal funding levels, and the conditions under which the assets will be used — plus how a drawn-down reserve gets replenished. The same guide warns that reserves \"should not be merely a 'parking lot' for excess cash or fund balance,\" which is the harder question for a town holding " + reserveShare + ". It also asks boards to review existing reserves periodically, set a ceiling on what accumulates, and reduce or close any reserve whose purpose has been met. Updating the 2011 resolution to answer those, and disclosing it in the AFR's Management's Discussion & Analysis, is what Brookhaven's S&P rationale is crediting when it praises \"comprehensive formal financial management policies.\"",
     evidence: `Riverhead's current unassigned fund balance: ${reserveShare} of 2026 General Fund appropriations, vs. Brookhaven's ~38.8% and Smithtown's ~39.9%.`
       + " Policy criteria and the 'parking lot' caution: NYS Comptroller, \"Reserve Funds\" (Local Government Management Guide), Board Direction and Oversight. That guide also notes that when a transfer of surplus into a reserve is not already in the adopted budget, a board resolution is generally required, and it should state the amount and name the reserve being credited.",
   },

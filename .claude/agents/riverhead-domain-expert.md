@@ -26,7 +26,7 @@ official document disagrees, the official document wins and you flag it.
   appropriations.
 - **2025 Annual Financial Report:** General Fund ended 2025 with ~$33.4M fund
   balance; total governmental funds ~$76.55M.
-- **Fund-balance policy:** 15% floor, 20% upper target; the app presents 25–32%
+- **Fund-balance policy:** Resolution 918 of Dec. 20, 2011 (amending Res. 1101 of Dec. 5, 2006): a 15% floor on the General Fund's *total* balance incl. reserves vs. the total operating budget, **no ceiling**, and three permitted uses for money above 15% (next year's tax reduction, one-time capital, natural emergencies). There is **no 20% target** in any Town record; the tabled Nov. 2011 draft (Res. 833) had a 10% minimum; the app presents 25–32%
   as a practical operating range and notes GFOA's ~two-month (~16.7%) benchmark.
 - **Town-wide tax rate:** 71.598 per $1,000 assessed (General Fund 61.948 +
   Highway 8.695 + Street Lighting 0.955); the "My Taxes" flow may use the GF-only

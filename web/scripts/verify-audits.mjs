@@ -116,4 +116,32 @@ for (const file of walk(path('out'))) {
   }
 }
 
-if (!process.exitCode) console.log(`Audit verification passed: ${AUDITED_YEARS.join(', ')} General Fund audits, ${figures} figures on their cited pages, the reserve share (${auditedPct}) on the reserve pages, and ${afrMentions} labeled mention(s) of the unaudited figure.`)
+// ── The fund balance policy ──────────────────────────────────────────────────
+// The policy in force is Resolution 918 of 2011: a 15% floor, no ceiling, and
+// three permitted uses for money above the floor. This site once described "a
+// 15% minimum and 20% upper target"; no Town record sets 20%. The build fails if
+// that description comes back anywhere outside the correction note that quotes
+// it, and /reserves/ must cite the resolution, quote the policy and link the
+// Town's own record of each vote.
+const STALE_POLICY = [/upper target/i, /15\s*[–-]\s*20\s*%/, /20% (upper|target|ceiling)/i, /policy range/i, /policy ceiling/i, /upper reserve policy/i]
+let policyPages = 0
+for (const file of walk(path('out'))) {
+  const raw = readFileSync(file, 'utf8').replace(/<p data-policy-correction[\s\S]*?<\/p>/g, ' ')
+  const text = raw.replace(/<script[\s\S]*?<\/script>/g, ' ').replace(/<[^>]+>/g, '')
+    .replace(/&#x27;|&#39;|&rsquo;/g, '’').replace(/&amp;/g, '&').replace(/\s+/g, ' ')
+  for (const re of STALE_POLICY) {
+    const m = text.match(re)
+    if (m) fail(`${file.slice(path('out').length)} still describes a 20% policy target or range: “…${text.slice(Math.max(0, m.index - 70), m.index + 50)}…”`)
+  }
+  if (text.includes('Resolution 918')) policyPages++
+}
+const reserves = html('/reserves/')
+for (const phrase of ['Resolution 918 of 2011', 'To reduce the subsequent year’s property taxes', 'no ceiling', 'Resolution 2006-1101', 'Adopted 4–0', 'Tabled 5–0', 'Adopted 5–0']) {
+  if (!reserves.includes(phrase)) fail(`/reserves/ does not show the fund balance policy’s “${phrase}”`)
+}
+const reservesRaw = existsSync(path('out/reserves/index.html')) ? readFileSync(path('out/reserves/index.html'), 'utf8') : ''
+for (const fileId of [7270, 7271, 6773, 7064, 7065]) {
+  if (!reservesRaw.includes(`fileId=${fileId},plainText=false`)) fail(`/reserves/ does not link the policy record (CivicClerk file ${fileId})`)
+}
+
+if (!process.exitCode) console.log(`Audit verification passed: ${AUDITED_YEARS.join(', ')} General Fund audits, ${figures} figures on their cited pages, the reserve share (${auditedPct}) on the reserve pages, ${afrMentions} labeled mention(s) of the unaudited figure, and the fund balance policy (Resolution 918 of 2011) on ${policyPages} pages with no 20% target anywhere.`)

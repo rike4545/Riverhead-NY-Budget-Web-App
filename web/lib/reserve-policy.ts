@@ -32,8 +32,49 @@ export const unassignedFundBalance = tierValues('Unassigned')[String(RESERVE_YEA
 /** The same balance as the Town's unaudited Annual Financial Report filed it: 29,671,084.17. */
 export const unassignedFundBalanceAfr = afrTier('Unassigned')[String(RESERVE_YEAR)]
 
-export const policyMinimumPercent = 0.15
-export const policyUpperPercent = 0.2
+// THE TOWN'S POLICY, AS ADOPTED. Resolution 918 of December 20, 2011 is the
+// policy in force. It amends Resolution 1101 of December 5, 2006 for GASB 54
+// and keeps its two operative parts word for word: a 15% floor on the General
+// Fund's TOTAL balance, including reserves, and three permitted uses for money
+// above that floor. Neither version sets a ceiling or any other percentage.
+// This site used to describe "a 15% minimum and 20% upper target"; no Town
+// record says 20% except the 2006 policy's note that the balance at the end of
+// 2005 was "in excess of 20%" — a description, not a target. A search of every
+// Board agenda from 2007 through September 2026, and every set of minutes from
+// 2012, found no later resolution changing the policy.
+const civic = (fileId: number) =>
+  `https://riverheadny.api.civicclerk.com/v1/Meetings/GetMeetingFileStream(fileId=${fileId},plainText=false)`
+
+export const FUND_BALANCE_POLICY = {
+  resolution: '2011-918',
+  adopted: 'December 20, 2011',
+  vote: '5–0',
+  floorPercent: 0.15,
+  floorText:
+    'The Town Board will make all reasonable efforts to maintain a total fund balance including reserves in its General Fund at the end of each fiscal year equal to no less than 15% of its total operating budget.',
+  usesIntro: 'Fund balance in the General Fund above 15% may be appropriated for the following purposes:',
+  uses: [
+    'To reduce the subsequent year’s property taxes.',
+    'For one-time capital expenditures.',
+    'For emergencies caused by natural occurrences such as hurricanes or blizzards.',
+  ],
+  reviewText: 'Fund balances and adequate reserves should be managed and reviewed on a regular basis.',
+  history: [
+    { date: 'December 5, 2006', resolution: '2006-1101', outcome: 'Adopted 4–0', note: 'The first policy: the same 15% floor and the same three uses for money above it.' },
+    { date: 'November 15, 2011', resolution: '2011-833', outcome: 'Tabled 5–0', note: 'A rewrite for GASB 54, tabled after public comment. It proposed a 10% unrestricted minimum and let the Financial Administrator assign fund balance.' },
+    { date: 'December 20, 2011', resolution: '2011-918', outcome: 'Adopted 5–0', note: 'Amends the 2006 policy for GASB 54, keeping its 15% floor and three uses. The policy in force.' },
+  ],
+  sources: [
+    { label: 'Resolution 918 and the policy text (Dec. 20, 2011 agenda packet, pp. 16–21)', url: civic(7270) },
+    { label: 'Minutes, Dec. 20, 2011 (adopted 5–0, pp. 1357–1358)', url: civic(7271) },
+    { label: 'Minutes, Nov. 15, 2011 (Resolution 833 tabled, pp. 1190–1191)', url: civic(6773) },
+    { label: 'Resolution 1101 and the 2006 policy (Dec. 5, 2006 agenda packet, pp. 72–74)', url: civic(7064) },
+    { label: 'Minutes, Dec. 5, 2006 (adopted 4–0, pp. 47–48)', url: civic(7065) },
+  ],
+} as const
+
+export const policyMinimumPercent = FUND_BALANCE_POLICY.floorPercent
+/** This site's modeled reserve for its one-time plan below — not a Town target. The Town sets only the 15% floor. */
 export const targetReservePercent = 0.288
 
 export type FundBalanceHealth = 'healthy' | 'watch' | 'atRisk'
@@ -48,9 +89,16 @@ export function fundBalanceHealth(pct: number, minPercent: number): FundBalanceH
   return 'atRisk'
 }
 
+/** The policy's floor in dollars: 15% of the 2026 General Fund budget. */
 export const minimumRequired = Math.max(0, appropriations * policyMinimumPercent)
-export const targetUpper = Math.max(0, appropriations * policyUpperPercent)
-export const surplusAboveUpper = unassignedFundBalance - targetUpper
+/**
+ * Unassigned balance above the 15% floor — the money the policy says may be
+ * used to cut the next year's taxes, for one-time capital or for storms.
+ *
+ * Measured on the unassigned balance, which is stricter than the policy's own
+ * test (the total, including reserves) and so never overstates what is free.
+ */
+export const surplusAboveFloor = unassignedFundBalance - minimumRequired
 
 /**
  * The five GASB fund-balance classifications, which the AFR reports and this
@@ -91,7 +139,7 @@ const TIER_MEANING: Record<FundBalanceClass, { what: string; spendable: FundBala
     spendable: 'constrained',
   },
   Unassigned: {
-    what: 'The residual in the General Fund — spendable on any lawful purpose. This is the tier every reserve-policy percentage on this page is measured against.',
+    what: 'The residual in the General Fund — spendable on any lawful purpose. This is the tier every reserve percentage on this page is measured against.',
     spendable: 'yes',
   },
 }
@@ -112,12 +160,14 @@ const tierTotal = (year: string) =>
 
 export const totalFundBalance = tierTotal(latestFundBalanceYear)
 export const constrainedFundBalance = totalFundBalance - unassignedFundBalance
+/** The Town policy's own measure: the total General Fund balance, including reserves, against the budget. */
+export const policyMeasurePercent = appropriations > 0 ? totalFundBalance / appropriations : 0
 
 /**
  * Where the growth went. Between the first and last year here, the
- * unconstrained tier is the one that moved — which is why a policy written
- * against Unassigned is the right place to measure, and why the total is a
- * misleading headline on its own.
+ * unconstrained tier is the one that moved — which is why this site measures
+ * the cushion on Unassigned, and why the total is a misleading headline on its
+ * own even though the Town's policy is written against it.
  */
 export const fundBalanceTrend = fundBalanceTiers.map((t) => {
   const from = t.values[earliestFundBalanceYear] ?? 0
@@ -135,7 +185,7 @@ export const fundBalanceReading =
   `Of ${totalFundBalance.toLocaleString('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 })} in total General Fund balance at the close of ${latestFundBalanceYear}, ` +
   `${unassignedFundBalance.toLocaleString('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 })} is Unassigned — spendable on anything lawful — and ` +
   `${constrainedFundBalance.toLocaleString('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 })} sits in the four constrained tiers. ` +
-  'Every percentage on this page measures the Unassigned tier, which is the correct denominator for a reserve policy and is not the same as the balance sheet total.'
+  'Every percentage on this page measures the Unassigned tier, the only money free for any use. The Town’s own policy measures the total, including reserves, so this page’s test is the stricter one.'
 
 
 export const targetUnassignedAt288 = appropriations * targetReservePercent
@@ -249,13 +299,23 @@ export type PeerBenchmark = {
   town: string
   percent: number
   detail: string
+  /** Riverhead's own rows — the Town's policy and this site's plan — kept out of the peer average. */
+  own?: boolean
 }
 
 export const peerBenchmarks: PeerBenchmark[] = [
   {
-    town: 'Riverhead target',
+    town: 'Riverhead policy floor',
+    percent: policyMinimumPercent,
+    detail:
+      'Resolution 918 of 2011: at least 15% of the budget, counted on the total balance including reserves. It sets no ceiling.',
+    own: true,
+  },
+  {
+    town: 'This site’s plan',
     percent: targetReservePercent,
-    detail: 'Modeled target for this plan: 28.8% of the General Fund budget after one-time deployment.',
+    detail: 'The 28.8% of the General Fund budget that the one-time plan above keeps back. A model, not a Town target.',
+    own: true,
   },
   {
     town: 'Brookhaven',
@@ -296,7 +356,8 @@ function scenario(label: string, percent: number, detail: string): PeerAlignment
   return { label, percent, targetBalance, deploymentCapacity: unassignedFundBalance - targetBalance, detail }
 }
 
-const allPeerAverage = peerBenchmarks.filter((p) => p.town !== 'Riverhead target').reduce((sum, p) => sum + p.percent, 0) / 4
+const peersOnly = peerBenchmarks.filter((p) => !p.own)
+const allPeerAverage = peersOnly.reduce((sum, p) => sum + p.percent, 0) / peersOnly.length
 
 export const peerAlignmentScenarios: PeerAlignmentScenario[] = [
   scenario(
@@ -322,7 +383,7 @@ export const peerAlignmentScenarios: PeerAlignmentScenario[] = [
   scenario(
     'Match average of peers',
     allPeerAverage,
-    'Using the simple average of Brookhaven, Smithtown, East Hampton, and Southampton lands Riverhead near 38.0%, still notably above the current 28.8% target.'
+    'The simple average of Brookhaven, Smithtown, East Hampton and Southampton is about 38.0%: above this site’s 28.8% plan and more than twice the Town’s 15% floor.'
   ),
 ]
 

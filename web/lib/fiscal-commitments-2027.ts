@@ -2,11 +2,12 @@
 // for the 2027 choices.
 //
 // WHY THIS EXISTS. /predict-2027/ offers the Board's options and prices several
-// of them against "surplus above policy" — about $15.0M sitting above the top of the
-// Town's own reserve range. That figure is the audited position at DECEMBER 31,
-// 2025. It is not what is available now. Every resolution adopted during 2026
-// that draws on fund balance has already spent part of it, and a suggested
-// action cannot be funded twice.
+// of them against the surplus above the Town's policy floor — the unassigned
+// balance above 15% of the budget, which Resolution 918 of 2011 says may be used
+// to cut the next year's taxes, for one-time capital or for storms. That figure
+// is the audited position at DECEMBER 31, 2025. It is not what is available
+// now. Every resolution adopted during 2026 that draws on fund balance has
+// already spent part of it, and a suggested action cannot be funded twice.
 //
 // This library nets the documented 2026 draws against the audited opening
 // position so the options page states a CEILING on what remains rather than an
@@ -25,7 +26,8 @@
 // the rest are reported separately rather than silently summed.
 
 import fiscalIndex from '../public/data/meetings/fiscal-index.json'
-import { surplusAboveUpper, unassignedFundBalance, targetUpper, policyUpperPercent } from './reserve-policy'
+import { surplusAboveFloor } from './reserve-policy'
+import { AUDIT_2025 } from './audits'
 import { fundBalanceImpact } from './town-square'
 import prediction from '../public/data/budget-2027-prediction.json'
 import type { ResolutionFunding } from './account-lookup'
@@ -161,8 +163,8 @@ type DrawRow = { number: string | null; title: string; amount: number }
 /**
  * Not every General Fund draw comes out of the tier this page measures.
  *
- * The headroom arithmetic below starts from surplusAboveUpper, which is
- * UNASSIGNED fund balance less the policy target. GASB 54 splits the balance
+ * The headroom arithmetic below starts from surplusAboveFloor, which is
+ * UNASSIGNED fund balance less the policy's 15% floor. GASB 54 splits the balance
  * into five tiers, and the Town sometimes names the tier on the account itself:
  * resolution 2026-361 charges "Assigned Unappropriated Fund Balance - CBF",
  * moving $113,613 of Community Benefit Funds into a bulkhead project. That is a
@@ -309,7 +311,7 @@ export const committedAtCeiling = generalFundCommitments2026
  * was left after each one.
  */
 export const headroomLedger = (() => {
-  let running = surplusAboveUpper
+  let running = surplusAboveFloor
   const rows = generalFundCommitments2026
     .slice()
     .sort((a, b) => b.amount - a.amount)
@@ -317,7 +319,7 @@ export const headroomLedger = (() => {
       running -= c.amount
       return { ...c, remainingAfter: running }
     })
-  return { opening: surplusAboveUpper, rows, closing: running }
+  return { opening: surplusAboveFloor, rows, closing: running }
 })()
 
 /** What reading the account codes did to the published figure. */
@@ -327,8 +329,8 @@ export const supersessions = generalFundCommitments2026
 
 export const documentedChangedTotalBy = supersessions.reduce((s, x) => s + (x.by - x.was), 0)
 
-/** The audited opening position, before anything 2026 did to it. */
-export const openingSurplusAbovePolicy = surplusAboveUpper
+/** The audited opening position above the 15% policy floor, before anything 2026 did to it. */
+export const openingSurplusAbovePolicy = surplusAboveFloor
 /** What can still be true after the documented draws. A ceiling, not a balance. */
 export const remainingHeadroomCeiling = openingSurplusAbovePolicy - committedTotal
 export const reductionPct = (committedTotal / openingSurplusAbovePolicy) * 100
@@ -344,7 +346,7 @@ export const effectOnOptions = {
   coverageBefore: openingSurplusAbovePolicy / zeroYearMustFind,
   coverageAfter: remainingHeadroomCeiling / zeroYearMustFind,
   body:
-    `The options page prices a zero-percent year against the surplus sitting above the Town’s own policy ceiling. On the audited opening position that surplus covers the freeze several times over, which makes a reserve-funded freeze look almost costless. Netting only the draws already on the record cuts it by roughly a third — and ${drawCounts.unpriced} further adopted draws carry no published amount, so the real figure is lower again. The freeze is still affordable out of surplus. It is not as comfortably affordable as an un-netted number implies, and the difference is the whole point of reading the resolutions.`,
+    `The options page prices a zero-percent year against the surplus above the Town’s 15% policy floor, the money its fund balance policy says may be used to reduce the next year’s property taxes. On the audited opening position that surplus covers the freeze several times over, which makes a reserve-funded freeze look almost costless. Netting only the draws already on the record cuts it by ${Math.round(reductionPct)}% — and ${drawCounts.unpriced} further adopted draws carry no published amount, so the real figure is lower again. The freeze is still affordable out of surplus. It is not as comfortably affordable as an un-netted number implies, and the difference is the whole point of reading the resolutions.`,
   caution:
     'This cuts both ways and the page should not pretend otherwise. The Town Square paydown is carried here at its ceiling because the resolution states no amount, and a large part of it is contractually due back — the developer owes $2,493,750 by March 14, 2027 under an obligation the agreement calls “absolute and unconditional.” Money advanced against a contracted receipt is not the same as money spent. Treating every draw as permanently gone would overstate the problem exactly as ignoring them understates it.',
 }
@@ -366,8 +368,13 @@ export const sources = [
     covers: `Every resolution's own fiscal-impact answer, transcribed as published across ${corpus.meetings} meetings from ${corpus.earliest} to ${corpus.latest}.`,
   },
   {
-    title: 'Town of Riverhead 2024 Audited Basic Financial Statements',
-    url: 'https://www.townofriverheadny.gov/206/Financial-Reports',
-    covers: 'The December 31, 2025 unassigned General Fund balance and the appropriations the policy percentages are measured against.',
+    title: AUDIT_2025.source.title,
+    url: AUDIT_2025.source.url,
+    covers: 'The December 31, 2025 unassigned General Fund balance, from the independent audit the Board accepted on September 1, 2026.',
+  },
+  {
+    title: 'Town Board Resolution 918 of 2011 — the Town’s fund balance policy',
+    url: 'https://riverheadny.api.civicclerk.com/v1/Meetings/GetMeetingFileStream(fileId=7270,plainText=false)',
+    covers: 'The 15% floor the surplus is measured above, and the three uses the policy allows for money above it.',
   },
 ]

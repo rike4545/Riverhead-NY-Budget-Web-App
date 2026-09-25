@@ -75,7 +75,7 @@ const stops: Stop[] = [
   },
   {
     n: 6, kicker: 'The cushion', title: 'What the Town has in savings', accent: 'var(--rbl-series-blue)',
-    body: <>A town keeps reserves (“fund balance”) for emergencies and to steady the tax rate. By the independent audit, the General Fund ended 2025 with <b>{usd0(gfBalance)}</b> in fund balance, after adding <b>{usd0(gfSurplus)}</b> during the year. The Town&apos;s own policy sets a 15% floor and a 20% target against General Fund spending; the balance is currently well above both. How much of that cushion the Town leans on each year is one of the clearest signs of fiscal health.</>,
+    body: <>A town keeps reserves (“fund balance”) for emergencies and to steady the tax rate. By the independent audit, the General Fund ended 2025 with <b>{usd0(gfBalance)}</b> in fund balance, after adding <b>{usd0(gfSurplus)}</b> during the year. The Town&apos;s own policy, Resolution 918 of 2011, sets a 15% floor and no ceiling, and says money above the floor may be used to cut the next year&apos;s property taxes, for one-time capital costs, or for storms; the balance is currently well above the floor. How much of that cushion the Town leans on each year is one of the clearest signs of fiscal health.</>,
     stats: [{ label: 'General Fund savings', value: M(gfBalance) }, { label: '2025 surplus', value: M(gfSurplus) }],
     href: `${base}/annual-report/`, cta: 'See what actually happened',
   },
