@@ -1,10 +1,14 @@
 {
-  "$comment": "Canonical datasets the web app's ETL produces and the native apps consume. The web repo is the source of truth: etl/ writes web/public/data, this manifest names what travels, and scripts/sync-shared-data.mjs moves and verifies it. Regenerate hashes with `node scripts/sync-shared-data.mjs --refresh`.",
+  "$comment": "Canonical datasets the web app ETL produces and the native apps consume. The web repo is the source of truth. Use web/scripts/sync-shared-data.mjs with --consumer ios|android and --root <checkout> to sync or --check to detect drift.",
   "canonicalRoot": "web/public/data",
   "consumers": {
     "ios": {
       "repo": "rike4545/Riverhead-NY-Budget-iOS-App",
       "root": "Riverhead NY Budget App"
+    },
+    "android": {
+      "repo": "rike4545/Riverhead-NY-Budget-Android-App",
+      "root": "app/src/main/assets/data"
     }
   },
   "directories": [
@@ -12,7 +16,8 @@
       "web": "meetings",
       "ios": "MeetingsData",
       "pattern": "*.json",
-      "note": "Every Town Board meeting, its fiscal-impact companion, and the index/roster files. Mirrored wholesale because a new meeting must not require editing this manifest."
+      "note": "Every Town Board meeting, its fiscal-impact companion, and the index/roster files. Mirrored wholesale because a new meeting must not require editing this manifest.",
+      "android": "meetings"
     }
   ],
   "files": [
@@ -20,31 +25,36 @@
       "id": "budget-supplement/lines",
       "web": "budget-supplement/lines.json",
       "ios": "supplement-lines.json",
-      "sha256": "a9858c417af411da177924a7c54557dfc4cdc34491b43e8c3639a70d215dfe81"
+      "sha256": "a9858c417af411da177924a7c54557dfc4cdc34491b43e8c3639a70d215dfe81",
+      "android": "budget-supplement/lines.json"
     },
     {
       "id": "budget-supplement/outliers",
       "web": "budget-supplement/outliers.json",
       "ios": "supplement-outliers.json",
-      "sha256": "3ced32f947aa5d1f551fe2d30b60ff76e6238b68086bc217f3df3fcb7190dbdc"
+      "sha256": "3ced32f947aa5d1f551fe2d30b60ff76e6238b68086bc217f3df3fcb7190dbdc",
+      "android": "budget-supplement/outliers.json"
     },
     {
       "id": "budget-supplement/reductions",
       "web": "budget-supplement/reductions.json",
       "ios": "reductions.json",
-      "sha256": "c1592d4be428eb91e93e61e783719025fea970b21db01b54b8fca50aec92c8f2"
+      "sha256": "c1592d4be428eb91e93e61e783719025fea970b21db01b54b8fca50aec92c8f2",
+      "android": "budget-supplement/reductions.json"
     },
     {
       "id": "payroll/records",
       "web": "payroll/records.json",
       "ios": "payroll-records.json",
-      "sha256": "01a97e37864cdc2ca33658946dcd406b0d03fd3f2a10022448107a4f4c81373a"
+      "sha256": "01a97e37864cdc2ca33658946dcd406b0d03fd3f2a10022448107a4f4c81373a",
+      "android": "payroll/records.json"
     },
     {
       "id": "payroll/titles-by-year",
       "web": "payroll/titles-by-year.json",
       "ios": "titles-by-year.json",
-      "sha256": "0317a969dda32d0172fe51cc32a945b501bc7502f90fb18c38b38eb1d3201fdd"
+      "sha256": "0317a969dda32d0172fe51cc32a945b501bc7502f90fb18c38b38eb1d3201fdd",
+      "android": "payroll/titles-by-year.json"
     }
   ]
 }
