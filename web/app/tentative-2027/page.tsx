@@ -7,6 +7,7 @@ import {
 } from '../../lib/tentative-2027'
 import { READ_BY_HAND, LETTER_2027 } from '../../lib/tentative-letters'
 import { buyout2026 } from '../../lib/buyout-2026'
+import { AUDITED_GENERAL_FUND, AUDITED_OPERATIONS } from '../../lib/audits'
 import taxBill from '../../public/data/tax-bill.json'
 
 const base = process.env.NEXT_PUBLIC_BASE_PATH || ''
@@ -414,13 +415,15 @@ function LetterSection({ h }: { h: Headline }) {
 
 
 
-// Snapshot verified against BLS releases and the Town's 2025 AFR on Sept 28, 2026.
+// Inflation snapshot: Sept 28, 2026. Reserve figures use the site's audited data.
 // Keep the observation period explicit: these are not live inflation readings.
 function InflationAndReserves({ h }: { h: Headline }) {
   const tw = h.townWide
-  const assigned = 1663273.34
-  const unassigned = 29671084.17
-  const uses = 66007499.29
+  const audit = AUDITED_GENERAL_FUND[2025]
+  const assigned = audit.classes.Assigned
+  const unassigned = audit.classes.Unassigned
+  const operations = AUDITED_OPERATIONS[2025]
+  const uses = operations.expenditures + operations.transfersOut
   const scenarios = tw ? [
     { label: 'Tentative', levy: tw.levy },
     ...[2, 1, 0].map(rate => ({ label: rate + '% increase', levy: Math.round(tw.priorLevy * (1 + rate / 100)) })),
@@ -439,10 +442,11 @@ function InflationAndReserves({ h }: { h: Headline }) {
       <p style={body}>Sources: <a href="https://www.bls.gov/news.release/archives/cpi_09112026.htm">BLS national August release</a> and <a href="https://www.bls.gov/regions/northeast/news-release/2026/consumerpriceindex_newyork_20260911.htm">BLS New York metro August release</a>, both September 11, 2026.</p>
 
       <h3 style={{ color: 'var(--rbl-title)' }}>What the reserve figures actually measure</h3>
-      <p style={body}>At December 31, 2025, the General Fund balance sheet reported about $33.41 million in total fund balance. Assigned balance was {usd(assigned)} and unassigned balance was {usd(unassigned)}. Together, {usd(assigned + unassigned)} equals {((assigned + unassigned) / uses * 100).toFixed(1)}% of 2025 expenditures and other uses ({usd(uses)}). Unassigned alone equals {(unassigned / uses * 100).toFixed(1)}%. This denominator includes transfers; it is not an exact measure of regular operating expenditures.</p>
-      <p style={body}>These are historical accounting balances, not a current cash surplus available for 2027. Assigned funds include $1.25 million already appropriated for 2026. The Town must reconcile 2026 results, existing appropriations, commitments and cash-flow needs before identifying any additional amount available.</p>
+      <p style={body}>At December 31, 2025, the audited General Fund balance was {usd(audit.total)}: assigned balance was {usd(assigned)} and unassigned balance was {usd(unassigned)}. Together, {usd(assigned + unassigned)} equals {((assigned + unassigned) / uses * 100).toFixed(1)}% of audited 2025 expenditures and transfers out ({usd(uses)}). Unassigned alone equals {(unassigned / uses * 100).toFixed(1)}%. This denominator includes transfers; it is not an exact measure of regular operating expenditures.</p>
+      <p style={body}>The unaudited Annual Financial Report reported $29,671,084 unassigned, compared with the audit’s {usd(unassigned)}. This analysis uses the audited figures, consistent with the site’s <a href={`${base}/annual-report/`}>Annual Report comparison</a>.</p>
+      <p style={body}>These are historical accounting balances, not a current cash surplus available for 2027. Assigned funds include {usd(audit.assigned.subsequentYearsBudget)} already appropriated for 2026. The Town must reconcile 2026 results, existing appropriations, commitments and cash-flow needs before identifying any additional amount available.</p>
       {h.generalFund?.fundBalance != null && <p style={body}>The 2027 Tentative already proposes using <strong>{usd(h.generalFund.fundBalance)}</strong> of General Fund balance. Any further draw would be additional to that proposal.</p>}
-      <p style={body}>Source: <a href="https://townofriverheadny.gov/DocumentCenter/View/3513/2025-Annual-Financial-Report">2025 Annual Financial Report</a>, printed pages 6–7 (balance sheet) and 22 (expenditures and other uses).</p>
+      <p style={body}>Source: <a href={audit.source.url}>{audit.source.title}</a>, packet page {audit.source.page} (fund balance; printed page {audit.source.printedPage}) and packet page {operations.page} (operations). Comparison: <a href="https://townofriverheadny.gov/DocumentCenter/View/3513/2025-Annual-Financial-Report">unaudited 2025 Annual Financial Report</a>, printed page 7.</p>
       <p style={body}><a href="https://www.gfoa.org/materials/fund-balance-guidelines-for-the-general-fund">GFOA guidance</a> sets a minimum of two months of regular General Fund operating revenues or expenditures, approximately 16.7%, subject to local risks. It is a floor, not a ceiling or a finding that everything above it is excess. A reserve policy should justify the target, permitted uses and replenishment plan.</p>
 
       {tw && <>
