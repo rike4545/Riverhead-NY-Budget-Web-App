@@ -132,7 +132,30 @@ jobs:
             exit 0
           fi
           git commit -m "Auto-update parsed financial datasets"
-          git push
+
+          # main may have advanced while the ETL job was running. Rebase the
+          # generated-data commit onto the latest remote tip instead of
+          # force-pushing and potentially overwriting another workflow/user.
+          pushed=false
+          for attempt in 1 2 3; do
+            echo "Push attempt $attempt: syncing with origin/main..."
+            git fetch origin main
+            git rebase origin/main
+
+            if git push origin HEAD:main; then
+              pushed=true
+              break
+            fi
+
+            echo "main advanced again before the push; retrying."
+            sleep $((attempt * 2))
+          done
+
+          if [ "$pushed" != "true" ]; then
+            echo "::error::Unable to push regenerated datasets after 3 attempts."
+            exit 1
+          fi
+
           echo "changed=true" >> "$GITHUB_OUTPUT"
 
       - name: Redeploy the site with fresh data
