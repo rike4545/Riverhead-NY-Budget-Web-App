@@ -1,6 +1,6 @@
 {
   "source_index": "https://www.townofriverheadny.gov/206/Financial-Reports",
-  "parsed_at": "2026-09-25T00:22:41.199963+00:00",
+  "parsed_at": "2026-09-29T18:26:11.923275+00:00",
   "document_count": 133,
   "audit_document_count": 41,
   "failure_count": 0,
@@ -10,15 +10,15 @@
   "documents": [
     {
       "title": "2027 Tentative Budget (PDF)",
-      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3928/2027-Tentative-Budget-PDF",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3973/2027-Tentative-Budget-PDF",
       "year": 2027,
       "category": "tentative_budget",
       "slug": "2027-2027-tentative-budget-pdf",
       "json": "documents/2027-2027-tentative-budget-pdf.json",
       "page_count": 71,
       "money_value_count": 3891,
-      "sha256": "019650dc38bc6589aba79b74d9d789371021f2442fc522d16ef27358da430b2f",
-      "parsed_at": "2026-09-24T14:07:38.767814+00:00"
+      "sha256": "00a52107b25463d8293b5408fd428ce33310bd373b0432096511e825203c6b06",
+      "parsed_at": "2026-09-29T18:26:11.923275+00:00"
     },
     {
       "title": "2027 Budget Supplement (PDF)",
