@@ -1,9 +1,10 @@
 'use client'
 
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { SortHeader, SortSelect, compareValues, useSort, type Sort } from './TableSort'
 import { useFetchJson, LoadingCard } from './useFetchJson'
 import { authorizedSalaryUrl, actualYearFor, matchedCountFor, type AuthorizedSalary as AuthorizedSalaryData, type SalaryRecord } from '../lib/salary'
+import type { PayrollLink } from '../lib/payroll-link'
 
 const usd = (n: number | null | undefined) =>
   n == null ? '—' : new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(n)
@@ -20,7 +21,7 @@ const SORT_PRESETS: { label: string; sort: Sort<SortKey> }[] = [
   { label: 'Sort: Name (A–Z)', sort: { key: 'name', dir: 'asc' } },
 ]
 
-export default function AuthorizedSalary() {
+export default function AuthorizedSalary({ link }: { link?: PayrollLink }) {
   const [year, setYear] = useState<2025 | 2026>(2025)
   const [q, setQ] = useState('')
   const [group, setGroup] = useState('all')
@@ -48,6 +49,24 @@ export default function AuthorizedSalary() {
     list.sort((a, b) => compareValues(value(a), value(b), sort.dir) || a.name.localeCompare(b.name))
     return list
   }, [data, group, yq, sort])
+
+  // A link from search fills in its year and name, then scrolls the search box
+  // into sight once that year's salaries have loaded and the page stops moving.
+  const controls = useRef<HTMLElement>(null)
+  const [arriving, setArriving] = useState(false)
+  useEffect(() => {
+    if (!link) return
+    if (link.year === 2025 || link.year === 2026) setYear(link.year)
+    setQ(link.q ?? '')
+    setGroup('all')
+    setLimit(100)
+    setArriving(true)
+  }, [link])
+  useEffect(() => {
+    if (!arriving || !fetched) return
+    setArriving(false)
+    requestAnimationFrame(() => controls.current?.scrollIntoView({ block: 'start' }))
+  }, [arriving, fetched])
 
   const totalAuth = useMemo(() => rows.filter((r) => !r.isStipend).reduce((s, r) => s + r.annual, 0), [rows])
 
@@ -99,7 +118,7 @@ export default function AuthorizedSalary() {
       </section>
 
       {/* controls */}
-      <section style={{ ...card, display: 'flex', gap: 10, flexWrap: 'wrap', alignItems: 'center' }}>
+      <section ref={controls} style={{ ...card, display: 'flex', gap: 10, flexWrap: 'wrap', alignItems: 'center', scrollMarginTop: 18 }}>
         <select value={group} onChange={(e) => { setGroup(e.target.value); setLimit(100) }} style={sel}>
           <option value="all">All groups</option>
           {groups.map((g) => <option key={g.group} value={g.group}>{g.group}</option>)}

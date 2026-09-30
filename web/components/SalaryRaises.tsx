@@ -1,9 +1,10 @@
 'use client'
 
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { SortHeader, SortSelect, compareValues, useSort, type Sort } from './TableSort'
 import { useFetchJson, LoadingCard } from './useFetchJson'
 import { SALARY_COMPARISON_URL, type SalaryComparison, type RaiseRecord } from '../lib/salary'
+import type { PayrollLink } from '../lib/payroll-link'
 
 const usd = (n: number | null | undefined) =>
   n == null ? '—' : new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(n)
@@ -25,7 +26,7 @@ const EMPTY_SUMMARY = {
   totalRaise: 0, avgRaise: 0, medianRaisePct: null, topRaises: [],
 }
 
-export default function SalaryRaises() {
+export default function SalaryRaises({ link }: { link?: PayrollLink }) {
   // Fetched at runtime (not bundled).
   const { data: comparison, error: loadError } = useFetchJson<SalaryComparison>(SALARY_COMPARISON_URL)
   const summary = comparison?.summary ?? EMPTY_SUMMARY
@@ -47,6 +48,23 @@ export default function SalaryRaises() {
     list.sort((a, b) => compareValues(a[sort.key], b[sort.key], sort.dir) || a.name.localeCompare(b.name))
     return list
   }, [records, only, yq, sort])
+
+  // A link from search lists everyone and searches to its name, then scrolls
+  // the search box into sight once the comparison has loaded.
+  const controls = useRef<HTMLElement>(null)
+  const [arriving, setArriving] = useState(false)
+  useEffect(() => {
+    if (!link) return
+    setQ(link.q ?? '')
+    if (link.only) setOnly(link.only)
+    setLimit(60)
+    setArriving(true)
+  }, [link])
+  useEffect(() => {
+    if (!arriving || !comparison) return
+    setArriving(false)
+    requestAnimationFrame(() => controls.current?.scrollIntoView({ block: 'start' }))
+  }, [arriving, comparison])
 
   if (!comparison && !loadError) return <LoadingCard label="Loading the raise comparison…" />
   if (loadError) return <LoadingCard label="Could not load the raise data — check your connection and reload." />
@@ -86,7 +104,7 @@ export default function SalaryRaises() {
       </section>
 
       {/* Controls */}
-      <section style={{ ...card, display: 'flex', gap: 10, flexWrap: 'wrap', alignItems: 'center' }}>
+      <section ref={controls} style={{ ...card, display: 'flex', gap: 10, flexWrap: 'wrap', alignItems: 'center', scrollMarginTop: 18 }}>
         <div style={{ display: 'flex', gap: 6 }}>
           {(['raised', 'promotions', 'all'] as const).map((f) => (
             <button key={f} onClick={() => { setOnly(f); setLimit(60) }} style={{

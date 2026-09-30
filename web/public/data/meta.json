@@ -1,7 +1,7 @@
 {
- "generatedAt": "2026-09-30T18:13:35Z",
+ "generatedAt": "2026-09-30T18:17:04Z",
  "generatedAtDisplay": "September 30, 2026",
- "dataVersion": "f536712d259899f8",
+ "dataVersion": "5026db81348938eb",
  "datasets": {
   "meetings": 49,
   "votes": 2084,
@@ -107,7 +107,7 @@
    },
    "sourceDate": "2026-09-30",
    "format": "sharded",
-   "bytes": 5735910
+   "bytes": 5832240
   }
  }
 }

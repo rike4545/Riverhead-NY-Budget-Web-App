@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import PayrollExplorer from './PayrollExplorer'
 import AuthorizedSalary from './AuthorizedSalary'
 import SalaryRaises from './SalaryRaises'
@@ -8,15 +8,34 @@ import OvertimeStaffing, { type OvertimeStaffingProps } from './OvertimeStaffing
 import SeparationPay, { type SeparationPayProps } from './SeparationPay'
 import PoliceStepSchedule from './PoliceStepSchedule'
 import RecordTrail from './RecordTrail'
+import { readPayrollLink, type PayrollLink, type PayrollTab } from '../lib/payroll-link'
 
 export default function PayrollTabs({
   overtime, separation,
 }: { overtime: OvertimeStaffingProps; separation: SeparationPayProps }) {
-  const [tab, setTab] = useState<'actual' | 'authorized' | 'raises' | 'overtime' | 'separation' | 'steps'>('actual')
-  const choose = (next: typeof tab) => {
+  const [tab, setTab] = useState<PayrollTab>('actual')
+  // A link from search names one view: a tab and, inside it, a search, year,
+  // department or row. It is applied once, on arrival; choosing a tab drops it.
+  const [link, setLink] = useState<PayrollLink | null>(null)
+  useEffect(() => {
+    const named = readPayrollLink(window.location.search)
+    if (!named) return
+    setLink(named)
+    setTab(named.tab)
+    // The record tabs scroll to their own search box once their data loads.
+    if (named.tab !== 'actual' && named.tab !== 'authorized' && named.tab !== 'raises') {
+      requestAnimationFrame(() => document.getElementById('payroll-data')?.scrollIntoView({ block: 'start' }))
+    }
+  }, [])
+  const pick = (next: PayrollTab) => {
+    setLink(null)
     setTab(next)
+  }
+  const choose = (next: PayrollTab) => {
+    pick(next)
     requestAnimationFrame(() => document.getElementById('payroll-data')?.scrollIntoView({ behavior: 'smooth', block: 'start' }))
   }
+  const linked = link?.tab === tab ? link : undefined
 
   return (
     <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0,1fr)', gap: 16 }}>
@@ -41,17 +60,17 @@ export default function PayrollTabs({
         <div style={{ display: 'grid', gap: 8 }}>
           <div style={{ fontSize: 12, fontWeight: 900, letterSpacing: .7, textTransform: 'uppercase', color: 'var(--rbl-text-muted)' }}>Payroll records</div>
           <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
-            <Tab active={tab === 'actual'} onClick={() => setTab('actual')} title="Employees & Pay" sub="Actual earnings, 2018–2025" />
-            <Tab active={tab === 'authorized'} onClick={() => setTab('authorized')} title="Authorized Salary" sub="Board-set base pay" />
-            <Tab active={tab === 'raises'} onClick={() => setTab('raises')} title="Raises 2025 → 2026" sub="Who received a raise" />
+            <Tab active={tab === 'actual'} onClick={() => pick('actual')} title="Employees & Pay" sub="Actual earnings, 2018–2025" />
+            <Tab active={tab === 'authorized'} onClick={() => pick('authorized')} title="Authorized Salary" sub="Board-set base pay" />
+            <Tab active={tab === 'raises'} onClick={() => pick('raises')} title="Raises 2025 → 2026" sub="Who received a raise" />
           </div>
         </div>
         <div style={{ display: 'grid', gap: 8, marginTop: 14 }}>
           <div style={{ fontSize: 12, fontWeight: 900, letterSpacing: .7, textTransform: 'uppercase', color: 'var(--rbl-text-muted)' }}>Analysis</div>
           <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
-            <Tab active={tab === 'overtime'} onClick={() => setTab('overtime')} title="Overtime & Staffing" sub="Overtime pressure and police staffing patterns" />
-            <Tab active={tab === 'separation'} onClick={() => setTab('separation')} title="Separation Pay" sub="Unused leave liabilities and departure costs" />
-            <Tab active={tab === 'steps'} onClick={() => setTab('steps')} title="Police Pay Steps" sub="How PBA step increases work" />
+            <Tab active={tab === 'overtime'} onClick={() => pick('overtime')} title="Overtime & Staffing" sub="Overtime pressure and police staffing patterns" />
+            <Tab active={tab === 'separation'} onClick={() => pick('separation')} title="Separation Pay" sub="Unused leave liabilities and departure costs" />
+            <Tab active={tab === 'steps'} onClick={() => pick('steps')} title="Police Pay Steps" sub="How PBA step increases work" />
           </div>
         </div>
       </div>
@@ -68,9 +87,9 @@ export default function PayrollTabs({
         ]}
       />
 
-      {tab === 'actual' ? <PayrollExplorer />
-        : tab === 'authorized' ? <AuthorizedSalary />
-        : tab === 'raises' ? <SalaryRaises />
+      {tab === 'actual' ? <PayrollExplorer link={linked} />
+        : tab === 'authorized' ? <AuthorizedSalary link={linked} />
+        : tab === 'raises' ? <SalaryRaises link={linked} />
         : tab === 'overtime' ? <OvertimeStaffing {...overtime} />
         : tab === 'separation' ? <SeparationPay {...separation} />
         : <PoliceStepSchedule />}

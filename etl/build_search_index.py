@@ -12,6 +12,7 @@ import json
 import re
 from collections import Counter, defaultdict
 from pathlib import Path
+from urllib.parse import urlencode
 
 ROOT = Path(__file__).resolve().parent.parent
 DATA = ROOT / "web/public/data"
@@ -28,6 +29,16 @@ def clean(s, limit=None):
 def load(path):
     p = DATA / path
     return json.loads(p.read_text()) if p.exists() else None
+
+
+def payroll_link(**view):
+    """A link that opens one view of the Payroll page: a tab, a search, a year,
+    a department, a sort or a row to open. web/lib/payroll-link.ts reads it.
+
+    Every payroll and salary result used to link to the top of /payroll/, which
+    opens on the latest year with an empty search box: a resident who clicked
+    a name had to find the person again. The link now carries the view."""
+    return f"{BASE}/payroll/?{urlencode({k: v for k, v in view.items() if v not in (None, '')})}"
 
 
 # Document pages. Each record used to be searchable only by the first 180
@@ -112,12 +123,13 @@ def build():
                     entries["line-item"].append({"t":"line-item","n":clean(it["name"],90),"x":f"{it['account']} · {dept['name']} · {fund['name']}","v":it.get("adopted2026"),"u":f"{BASE}/funds/{fund['code']}/"})
     payroll = load("payroll/records.json")
     if payroll:
-        latest = {}
+        latest, first = {}, {}
         for r in payroll["records"]:
             k = r["n"].lower()
             if k not in latest or r["y"] > latest[k]["y"]:
                 latest[k] = r
-        for r in latest.values():
+            first[k] = min(first.get(k, r["y"]), r["y"])
+        for k, r in latest.items():
             bits = [b for b in (r.get("t"), r.get("d")) if b]
             # Overtime was absent from this index entirely -- zero of 16,921
             # entries contained the word -- while the Town paid $1.4M of it in
@@ -128,7 +140,10 @@ def build():
             # visible, not just the gross.
             overtime = r.get("o") or 0
             ot_text = f" · ${overtime:,.0f} overtime" if overtime > 0 else ""
-            entries["payroll"].append({"t":"payroll","n":clean(r["n"],60),"x":f"{' · '.join(bits) or r.get('u') or 'Town employee'} · {r['y']} gross pay{ot_text}","v":r["g"],"u":f"{BASE}/payroll/"})
+            # The link opens this person's pay for every year, newest first,
+            # with the latest year's breakdown open. "y" is the years on record,
+            # shown on the result and not searched.
+            entries["payroll"].append({"t":"payroll","n":clean(r["n"],60),"x":f"{' · '.join(bits) or r.get('u') or 'Town employee'} · {r['y']} gross pay{ot_text}","v":r["g"],"u":payroll_link(q=r["n"], year="all", sort="year", open=r["y"]),"y":[first[k], r["y"]]})
 
         # Department overtime totals, as records in their own right.
         #
@@ -154,7 +169,8 @@ def build():
                     "n": clean(f"Overtime — {dept} ({latest_year})", 90),
                     "x": f"{dept_n[dept]} employees paid overtime · {share} · {latest_year} actual paid overtime",
                     "v": round(total, 2),
-                    "u": f"{BASE}/payroll/",
+                    # Who in the department was paid it, most overtime first.
+                    "u": payroll_link(year=latest_year, dept=dept if dept != "Unassigned department" else None, sort="overtime"),
                 })
             if town_ot:
                 entries["payroll"].append({
@@ -162,7 +178,7 @@ def build():
                     "n": f"Overtime — all departments ({latest_year})",
                     "x": f"{sum(dept_n.values())} employees across {len(dept_ot)} departments · {latest_year} actual paid overtime, Town-wide",
                     "v": round(town_ot, 2),
-                    "u": f"{BASE}/payroll/",
+                    "u": payroll_link(year=latest_year, sort="overtime"),
                 })
     sal = load("salary/authorized-2026.json")
     # The 2025 to 2026 comparison, so a search for "raises" or "promoted"
@@ -172,12 +188,17 @@ def build():
         for r in sal["records"]:
             change = ""
             c = comparison.get(r["name"])
-            if c and c.get("comparable") and c.get("raise"):
+            compared = bool(c and c.get("comparable") and c.get("raise"))
+            if compared:
                 amount = c["raise"]
                 change = f" · ${abs(amount):,.0f} {'raise' if amount > 0 else 'cut'} from 2025 ({c.get('raisePct', 0):+.1f}%)"
                 if c.get("promoted") and c.get("title2025"):
                     change += f" · promoted from {c['title2025']}"
-            entries["salary"].append({"t":"salary","n":clean(r["name"],60),"x":f"{r['title']} · {r['group']} · 2026 authorized salary{change}","v":r["annual"],"u":f"{BASE}/payroll/"})
+            # A result that reports a raise or cut opens the 2025-to-2026
+            # comparison; the rest open the 2026 salary list. Either way the
+            # search box holds the name.
+            link = payroll_link(tab="raises", only="all", q=r["name"]) if compared else payroll_link(tab="authorized", year=2026, q=r["name"])
+            entries["salary"].append({"t":"salary","n":clean(r["name"],60),"x":f"{r['title']} · {r['group']} · 2026 authorized salary{change}","v":r["annual"],"u":link})
     meetings_index = load("meetings/index.json")
     if meetings_index:
         for m in meetings_index["meetings"]:

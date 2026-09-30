@@ -15,8 +15,11 @@ import { rankEntries } from './search-rank'
 import { SITE_PAGES } from './site-pages'
 
 export type EntryType = 'line-item' | 'payroll' | 'salary' | 'resolution' | 'fund' | 'page' | 'site'
-/** `k` holds words a record is found by but does not show: a document page's text, a site page's keywords. */
-export type Entry = { t: EntryType; n: string; x: string; u: string; k?: string; v?: number | null }
+/**
+ * `k` holds words a record is found by but does not show: a document page's text, a site page's keywords.
+ * `y` is the first and last year a payroll person was paid, shown on the result and not searched.
+ */
+export type Entry = { t: EntryType; n: string; x: string; u: string; k?: string; v?: number | null; y?: [number, number] }
 
 /** The site's own pages as search entries. */
 export const siteEntries = (): Entry[] => SITE_PAGES.map((p) => ({ t: 'site', n: p.title, x: p.summary, k: p.keywords, u: p.path }))

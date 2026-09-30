@@ -10,6 +10,7 @@ import {
   RiverheadAIError,
 } from '../lib/riverheadSearchAI'
 import { searchEntries } from '../lib/search-rank'
+import { readPayrollLink } from '../lib/payroll-link'
 
 const base = process.env.NEXT_PUBLIC_BASE_PATH || ''
 const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 18, boxShadow: '0 14px 34px var(--rbl-shadow)' } as const
@@ -61,6 +62,17 @@ function alsoOnPage(e: Entry, marks: string[]): string[] {
   const words = new Set(e.k.split(' '))
   const shown = `${e.n} ${e.x}`.toLowerCase()
   return marks.filter((m) => words.has(m) && !shown.includes(m)).slice(0, 5)
+}
+/** Where a payroll or salary result goes, said on the result so a click is not a guess. */
+function opensTo(e: Entry): string | null {
+  if (e.t !== 'payroll' && e.t !== 'salary') return null
+  const [path, query = ''] = e.u.split('?')
+  const link = path === '/payroll/' ? readPayrollLink(query) : null
+  if (!link) return null
+  if (link.tab === 'raises') return 'See the 2025 → 2026 change'
+  if (link.tab === 'authorized') return `See the ${link.year ?? 2025} authorized salary list`
+  if (link.q) return e.y && e.y[0] !== e.y[1] ? `See pay for each year, ${e.y[0]}–${e.y[1]}` : 'See the pay breakdown'
+  return 'See who was paid this overtime'
 }
 function renderAnswer(text: string): React.ReactNode {
   const parts = text.split(/(\[\d+\])/g)
@@ -214,7 +226,7 @@ export default function UnifiedSearch() {
 
       {mode === 'find' && status === 'ready' && hasQuery && !searching && allScored.length === 0 && documentsLoaded && sites.length === 0 && <section style={card}><div style={{ fontWeight: 800, color: 'var(--rbl-title)', marginBottom: 6 }}>No matches for “{debounced}”.</div><p style={{ color: 'var(--rbl-text-muted)', fontSize: 14, margin: '0 0 10px' }}>None of those words appear anywhere in the indexed records. Try a single last name, a department, or a project name — for example:</p><div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>{EXAMPLES.map((ex) => <button key={ex} onClick={() => { setQ(ex); setLimit(50) }} style={{ padding: '6px 12px', borderRadius: 999, border: '1px solid var(--rbl-border-strong)', background: 'var(--rbl-surface)', color: 'var(--rbl-accent)', fontWeight: 700, fontSize: 13, cursor: 'pointer' }}>{ex}</button>)}</div></section>}
 
-      {mode === 'find' && <section style={{ display: 'grid', gap: 10 }}>{results.slice(0, limit).map((e, i) => { const meta = TYPE_META[e.t]; const external = e.u.startsWith('http'); const href = e.u ? (external ? e.u : `${base}${e.u}`) : undefined; const ctx = e.t === 'page' ? snippet(e.x, marks) : e.x; const also = e.t === 'page' ? alsoOnPage(e, marks) : []; return <a key={`${e.t}-${e.n}-${i}`} href={href} target={external ? '_blank' : undefined} rel={external ? 'noreferrer' : undefined} style={{ ...card, padding: 14, textDecoration: 'none', color: 'inherit', display: 'block' }}><div style={{ display: 'flex', justifyContent: 'space-between', gap: 12, alignItems: 'start', flexWrap: 'wrap' }}><div style={{ minWidth: 0, flex: '1 1 320px' }}><span style={{ background: meta.bg, color: meta.fg, fontWeight: 800, fontSize: 11, padding: '2px 9px', borderRadius: 999, textTransform: 'uppercase', letterSpacing: 0.4 }}>{meta.label}</span><div style={{ fontWeight: 700, color: 'var(--rbl-title)', marginTop: 6, lineHeight: 1.35 }}>{highlight(e.n, marks)}</div><div style={{ color: 'var(--rbl-text-muted)', fontSize: 13, marginTop: 3, lineHeight: 1.45 }}>{highlight(ctx, marks)}</div>{also.length > 0 && <div style={{ color: 'var(--rbl-text-muted)', fontSize: 12.5, marginTop: 4 }}>Also on this page: {highlight(also.join(', '), marks)}</div>}</div>{e.v != null && <strong style={{ color: 'var(--rbl-title)', whiteSpace: 'nowrap' }}>{usd(e.v)}</strong>}</div></a> })}{results.length > limit && <div style={{ textAlign: 'center' }}><button onClick={() => setLimit((l) => l + 100)} style={{ padding: '10px 18px', borderRadius: 10, border: '1px solid var(--rbl-accent-border)', background: 'var(--rbl-fill-accent)', color: 'white', fontWeight: 800, cursor: 'pointer' }}>Show more ({(results.length - limit).toLocaleString()} remaining)</button></div>}</section>}
+      {mode === 'find' && <section style={{ display: 'grid', gap: 10 }}>{results.slice(0, limit).map((e, i) => { const meta = TYPE_META[e.t]; const external = e.u.startsWith('http'); const href = e.u ? (external ? e.u : `${base}${e.u}`) : undefined; const ctx = e.t === 'page' ? snippet(e.x, marks) : e.x; const also = e.t === 'page' ? alsoOnPage(e, marks) : []; const opens = opensTo(e); return <a key={`${e.t}-${e.n}-${i}`} href={href} target={external ? '_blank' : undefined} rel={external ? 'noreferrer' : undefined} style={{ ...card, padding: 14, textDecoration: 'none', color: 'inherit', display: 'block' }}><div style={{ display: 'flex', justifyContent: 'space-between', gap: 12, alignItems: 'start', flexWrap: 'wrap' }}><div style={{ minWidth: 0, flex: '1 1 320px' }}><span style={{ background: meta.bg, color: meta.fg, fontWeight: 800, fontSize: 11, padding: '2px 9px', borderRadius: 999, textTransform: 'uppercase', letterSpacing: 0.4 }}>{meta.label}</span><div style={{ fontWeight: 700, color: 'var(--rbl-title)', marginTop: 6, lineHeight: 1.35 }}>{highlight(e.n, marks)}</div><div style={{ color: 'var(--rbl-text-muted)', fontSize: 13, marginTop: 3, lineHeight: 1.45 }}>{highlight(ctx, marks)}</div>{also.length > 0 && <div style={{ color: 'var(--rbl-text-muted)', fontSize: 12.5, marginTop: 4 }}>Also on this page: {highlight(also.join(', '), marks)}</div>}{opens && <div style={{ color: 'var(--rbl-link)', fontSize: 12.5, fontWeight: 700, marginTop: 6 }}>{opens} →</div>}</div>{e.v != null && <strong style={{ color: 'var(--rbl-title)', whiteSpace: 'nowrap' }}>{usd(e.v)}</strong>}</div></a> })}{results.length > limit && <div style={{ textAlign: 'center' }}><button onClick={() => setLimit((l) => l + 100)} style={{ padding: '10px 18px', borderRadius: 10, border: '1px solid var(--rbl-accent-border)', background: 'var(--rbl-fill-accent)', color: 'white', fontWeight: 800, cursor: 'pointer' }}>Show more ({(results.length - limit).toLocaleString()} remaining)</button></div>}</section>}
     </div>
   )
 }
