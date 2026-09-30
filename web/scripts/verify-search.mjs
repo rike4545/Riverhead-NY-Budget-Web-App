@@ -3,12 +3,15 @@
 // that found nothing ("reserves", "buyout"), a plural that missed its
 // singular, a misspelling, a hyphenated name, a meeting date, and a word that
 // matched the start of a surname. Also checks that every page in the site menu
-// can be found as a page, so a new page cannot be left out of search.
+// can be found as a page, so a new page cannot be left out of search, and
+// that every payroll and salary result opens a view of the Payroll page with
+// the record in it.
 
 import { existsSync, readFileSync } from 'node:fs'
 import { join } from 'node:path'
 import { searchEntries } from '../lib/search-rank.ts'
 import { SITE_PAGES } from '../lib/site-pages.ts'
+import { readPayrollLink } from '../lib/payroll-link.ts'
 
 const root = process.cwd()
 const path = (...parts) => join(root, ...parts)
@@ -79,4 +82,37 @@ const payYears = core.filter((e) => e.t === 'payroll').map((e) => Number((e.x.ma
 const payYear = Math.max(...payYears)
 if (earners.some((e) => !e.x.includes(`${payYear} gross pay`))) fail(`"highest paid employees" should rank ${payYear} pay, not an earlier year's`)
 
-if (!process.exitCode) console.log(`Search verification passed: ${SITE_PAGES.length} site pages, ${all.length.toLocaleString()} records, typo, plural, date, role and topic searches.`)
+// Every payroll and salary result opens its own view of the Payroll page --
+// the person, the 2025-to-2026 comparison or the department it is about --
+// and that view has rows in it. They all used to open the top of the page, on
+// the latest year with an empty search box, so a resident found the record
+// twice. Each filter below is the one the tab applies (PayrollExplorer,
+// AuthorizedSalary and SalaryRaises in components/).
+const payrollRows = JSON.parse(readFileSync(path('out/data/payroll/records.json'), 'utf8')).records
+const payLatest = Math.max(...payrollRows.map((r) => r.y))
+const salaryRows = { 2025: 'authorized-2025', 2026: 'authorized-2026' }
+for (const [year, file] of Object.entries(salaryRows)) salaryRows[year] = JSON.parse(readFileSync(path(`out/data/salary/${file}.json`), 'utf8')).records
+const raiseRows = JSON.parse(readFileSync(path('out/data/salary/comparison-2025-2026.json'), 'utf8')).records
+const contains = (hay, q) => hay.toLowerCase().includes(q.toLowerCase())
+let opened = 0
+for (const e of core.filter((r) => r.t === 'payroll' || r.t === 'salary')) {
+  const [where, query = ''] = e.u.split('?')
+  const link = where === '/payroll/' ? readPayrollLink(query) : null
+  if (!link) { fail(`${e.t} result "${e.n}" opens ${e.u}, not one view of the Payroll page`); continue }
+  let rows = []
+  if (link.tab === 'actual') {
+    const year = link.year ?? payLatest
+    rows = payrollRows.filter((r) => (year === 'all' || r.y === year) && (!link.dept || r.d === link.dept) && (!link.q || contains(`${r.n} ${r.t} ${r.d}`, link.q)))
+    if (link.open && !rows.some((r) => r.y === link.open)) fail(`"${e.n}" opens its ${link.open} pay breakdown, which its view does not list`)
+    if (link.q && !(e.y?.[1] === link.open && e.y[0] <= e.y[1])) fail(`"${e.n}" should carry the years it was paid, ending ${link.open}`)
+  } else if (link.tab === 'authorized') {
+    rows = salaryRows[link.year === 2026 ? 2026 : 2025].filter((r) => !link.q || contains(`${r.name} ${r.title}`, link.q))
+  } else if (link.tab === 'raises') {
+    const only = link.only ?? 'raised'
+    rows = raiseRows.filter((r) => (only !== 'raised' || (r.comparable && (r.raise ?? 0) > 1)) && (only !== 'promotions' || r.promoted) && (!link.q || contains(`${r.name} ${r.title2026}`, link.q)))
+  }
+  if (rows.length) opened++
+  else fail(`${e.t} result "${e.n}" opens ${e.u}, which lists no one`)
+}
+
+if (!process.exitCode) console.log(`Search verification passed: ${SITE_PAGES.length} site pages, ${all.length.toLocaleString()} records, typo, plural, date, role and topic searches, and ${opened.toLocaleString()} payroll and salary results that each open their own record.`)

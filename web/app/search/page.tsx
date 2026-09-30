@@ -19,7 +19,7 @@ export default function SearchPage() {
           { label: 'Try a name or a place', text: 'an employee ("Hegermiller"), a Board member ("Kern"), or a place ("Island Water Park"). A misspelling finds the closest name.' },
           { label: 'Try a topic', text: '"reserves", "tax cap" or "buyout". The page on this site that explains it comes first, then the records.' },
           { label: 'Try a meeting date', text: '"September 15" lists what the Board took up that day.' },
-          { label: 'Filter by kind', text: 'use the colored chips to narrow results to budget lines, payroll, votes, and so on. Document results open the official PDF.' },
+          { label: 'Filter by kind', text: 'use the colored chips to narrow results to budget lines, payroll, votes, and so on. Document results open the official PDF. Payroll results open that person’s pay for every year, with the breakdown.' },
         ]}
       >
         This page searches <strong>everything on the site at once</strong> — the structured data we&apos;ve extracted and

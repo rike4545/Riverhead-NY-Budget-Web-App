@@ -1,6 +1,6 @@
 'use client'
 
-import { Fragment, useMemo, useState } from 'react'
+import { Fragment, useEffect, useMemo, useRef, useState } from 'react'
 import Sparkline from './Sparkline'
 import { SortHeader, SortSelect, compareValues, useSort, type Sort } from './TableSort'
 import { ColumnGuide } from './PlainCallout'
@@ -9,6 +9,7 @@ import {
   PAYROLL_RECORDS_URL, mapRawRecords, payrollYears, yearSummaries, yearSummary, unionLabel, payrollSource, payrollNote,
   type PayrollRecordRaw, type PayrollRecord,
 } from '../lib/payroll'
+import type { PayrollLink } from '../lib/payroll-link'
 
 const usd = (n: number) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(n)
 const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 18, boxShadow: '0 14px 34px var(--rbl-shadow)' } as const
@@ -27,7 +28,9 @@ const SORT_PRESETS: { label: string; sort: Sort<SortKey> }[] = [
   { label: 'Sort: Name (A–Z)', sort: { key: 'name', dir: 'asc' } },
 ]
 
-export default function PayrollExplorer() {
+const rowKey = (r: PayrollRecord, i: number) => `${r.name}-${r.year}-${i}`
+
+export default function PayrollExplorer({ link }: { link?: PayrollLink }) {
   const latest = payrollYears[payrollYears.length - 1]
   const [year, setYear] = useState<number | 'all'>(latest)
   const [q, setQ] = useState('')
@@ -93,6 +96,28 @@ export default function PayrollExplorer() {
     }
   }, [filtered, year, latest])
 
+  // A link from search opens one view: its search, year, department and sort
+  // now, then -- once the records have loaded -- the row it names, with the
+  // search box scrolled into sight above it.
+  const controls = useRef<HTMLElement>(null)
+  const [arriving, setArriving] = useState<PayrollLink | null>(null)
+  useEffect(() => {
+    if (!link) return
+    setQ(link.q ?? '')
+    if (link.year === 'all' || (typeof link.year === 'number' && payrollYears.includes(link.year))) setYear(link.year)
+    if (link.dept) setDept(link.dept)
+    if (link.sort) setSort({ key: link.sort, dir: link.sort === 'name' ? 'asc' : 'desc' })
+    setLimit(100)
+    setArriving(link)
+  }, [link, setSort])
+  useEffect(() => {
+    if (!arriving || !rawData) return
+    const i = arriving.open == null ? -1 : filtered.findIndex((r) => r.year === arriving.open)
+    setExpanded(i >= 0 && i < limit ? rowKey(filtered[i], i) : null)
+    setArriving(null)
+    requestAnimationFrame(() => controls.current?.scrollIntoView({ block: 'start' }))
+  }, [arriving, rawData, filtered, limit])
+
   const grossTrend = payrollYears.map((y) => yearSummary(y)?.totalGross ?? null)
   const otTrend = payrollYears.map((y) => yearSummary(y)?.totalOvertime ?? null)
 
@@ -134,7 +159,7 @@ export default function PayrollExplorer() {
       </section>
 
       {/* Controls */}
-      <section style={{ ...card, display: 'flex', gap: 10, flexWrap: 'wrap', alignItems: 'center' }}>
+      <section ref={controls} style={{ ...card, display: 'flex', gap: 10, flexWrap: 'wrap', alignItems: 'center', scrollMarginTop: 18 }}>
         <select value={String(year)} onChange={(e) => { setYear(e.target.value === 'all' ? 'all' : Number(e.target.value)); setLimit(100) }} style={sel}>
           <option value="all">All years</option>
           {[...payrollYears].reverse().map((y) => <option key={y} value={y}>{y}</option>)}
@@ -209,7 +234,7 @@ export default function PayrollExplorer() {
             </thead>
             <tbody>
               {filtered.slice(0, limit).map((r, i) => {
-                const key = `${r.name}-${r.year}-${i}`
+                const key = rowKey(r, i)
                 const open = expanded === key
                 const cols = (year === 'all' ? 6 : 5) + 4
                 return (
