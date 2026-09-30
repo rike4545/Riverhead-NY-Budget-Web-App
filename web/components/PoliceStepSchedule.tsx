@@ -170,7 +170,7 @@ export default function PoliceStepSchedule() {
           </table>
         </div>
         <p style={{ color: 'var(--rbl-text-body)', fontSize: 13, marginTop: 10, marginBottom: 0, lineHeight: 1.5 }}>
-          Every single group — from Academy rookies to 32 officers already at the top step — landed exactly{' '}
+          Every single group — from Academy rookies to {realRaiseExamples.find((r) => r.fromStep === r.toStep)?.officerCount} officers already at the top step — landed exactly{' '}
           <strong>$2,550 above</strong> what the base Article XXXVI step schedule alone predicts for 2026. That&apos;s too
           precise and too universal to be a coincidence, but it isn&apos;t itemized anywhere in the salary article we have —
           it&apos;s likely a holiday-pay or other stipend the Board&apos;s authorized-salary listing folds into

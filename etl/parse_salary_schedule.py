@@ -79,11 +79,22 @@ COMMA_NAME = re.compile(r"^\s*([A-Z][A-Za-z.'’-]+,\s+[A-Z][A-Za-z.'’.\- ]+?)
 # an optional middle initial as the name and the remainder as the title.
 # COMMA_NAME is still tried first so archived, column-aligned copies of the
 # minutes keep parsing exactly as before.
+#
+# A suffix can also follow the comma -- "Anderson, Jr., Richard Detective
+# Grade II" -- and that row matched neither pattern, so it was dropped from
+# every year's schedule. SUFFIX_AFTER_COMMA then moves the suffix onto the
+# surname, the way "Seal Jr., John" prints it.
+SUFFIX = r"(?:Jr|Sr|II|III|IV)\.?"
 COMMA_NAME_TIGHT = re.compile(
     r"^\s*([A-Z][A-Za-z.'’-]+(?:\s+[A-Z][A-Za-z.'’-]+)*,"
+    rf"(?:\s+{SUFFIX},)?"
     r"\s+[A-Z][A-Za-z.'’-]+(?:\s+[A-Z]\.?)?)"
     r"\s+(\S.*)$"
 )
+SUFFIX_AFTER_COMMA = re.compile(rf"^([^,]+),\s+({SUFFIX}),\s+")
+# Matching drops the suffix: the schedules print "Seal Jr., John" and the
+# payroll prints "Seal, John W".
+SUFFIX_TAIL = re.compile(r"\s+(?:jr|sr|ii|iii|iv)\.?$")
 FIRSTLAST = re.compile(r"^\s*([A-Z][A-Za-z.'’-]+)\s{2,}([A-Z][A-Za-z.'’-]+)\s*$")
 NOISE = re.compile(r"AYES|NAYS|MOVER|SECONDER|RESULT|ABSTAIN|Packet Pg|ANNUAL SALARY|EMPLOYEE\b|GROUP/STEP")
 
@@ -128,7 +139,7 @@ ALLOCATION_TAIL = re.compile(r"\s+[\d/%.]+$")
 
 def normalize_name(name):
     """Normalize to 'Last, First'. Highway/Sewer print 'First Last'."""
-    name = ALLOCATION_TAIL.sub("", clean(name))
+    name = SUFFIX_AFTER_COMMA.sub(r"\1 \2, ", ALLOCATION_TAIL.sub("", clean(name)))
     if "," in name:
         return name
     parts = name.split()
@@ -158,7 +169,7 @@ def parse_row(line):
     else:
         cm = COMMA_NAME.match(pre) or COMMA_NAME_TIGHT.match(pre)
         if cm:
-            name, title, grade = clean(cm.group(1)), normalize_title(clean(cm.group(2))), ""
+            name, title, grade = SUFFIX_AFTER_COMMA.sub(r"\1 \2, ", clean(cm.group(1))), normalize_title(clean(cm.group(2))), ""
         else:
             return None
     if "," not in name or not title:
@@ -182,7 +193,7 @@ def match_key(name):
     parts = n.split(",")
     if len(parts) != 2:
         return (n, "")
-    last = parts[0].strip()
+    last = SUFFIX_TAIL.sub("", parts[0].strip())
     first = parts[1].strip().split(" ")[0] if parts[1].strip() else ""
     return (last, first)
 

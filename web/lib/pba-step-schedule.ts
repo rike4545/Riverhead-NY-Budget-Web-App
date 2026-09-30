@@ -76,15 +76,21 @@ export const realRaiseExamples: RealRaiseExample[] = [
   { fromStep: '1st Year Officer', toStep: '2nd Year Officer', actual2025: 67_821.14, actual2026: 88_233.47, contractStep2026: 85_683.47, addOn: 2_550.00, officerCount: 7, exampleName: 'Buczynski, Julia' },
   { fromStep: '2nd Year Officer', toStep: '3rd Year Officer', actual2025: 83_593.63, actual2026: 104_400.27, contractStep2026: 101_850.27, addOn: 2_550.00, officerCount: 8, exampleName: 'Dahlem, John' },
   { fromStep: '3rd Year Officer', toStep: '4th Year Officer', actual2025: 99_366.11, actual2026: 120_567.07, contractStep2026: 118_017.06, addOn: 2_550.01, officerCount: 5, exampleName: 'Boden, Bryan' },
-  { fromStep: '4th Year Officer', toStep: '5th Year Officer', actual2025: 115_138.60, actual2026: 136_733.86, contractStep2026: 134_183.86, addOn: 2_550.00, officerCount: 15, exampleName: 'Ady, Stephan' },
+  { fromStep: '4th Year Officer', toStep: '5th Year Officer', actual2025: 115_138.60, actual2026: 136_733.86, contractStep2026: 134_183.86, addOn: 2_550.00, officerCount: 16, exampleName: 'Ady, Stephan' },
   { fromStep: '5th Year Officer', toStep: '6th Year Officer (top step)', actual2025: 130_911.08, actual2026: 152_900.66, contractStep2026: 150_350.66, addOn: 2_550.00, officerCount: 2, exampleName: 'Anderson, Peter' },
-  { fromStep: '6th Year Officer (top step)', toStep: '6th Year Officer (top step)', actual2025: 146_683.57, actual2026: 152_900.66, contractStep2026: 150_350.66, addOn: 2_550.00, officerCount: 32, exampleName: 'Bianco, William' },
+  { fromStep: '6th Year Officer (top step)', toStep: '6th Year Officer (top step)', actual2025: 146_683.57, actual2026: 152_900.66, contractStep2026: 150_350.66, addOn: 2_550.00, officerCount: 33, exampleName: 'Bianco, William' },
 ]
+
+// The counts above are rechecked against the comparison by scripts/verify-build.mjs.
+// Two officers the 2026 parser misread ("Seal Jr., John", "Perez Avalos, Nelson")
+// were missing from them until September 30, 2026.
+const stayedAtTop = realRaiseExamples.find((r) => r.fromStep === r.toStep)!
+const reachedTop = realRaiseExamples.find((r) => r.toStep === stayedAtTop.toStep && r.fromStep !== r.toStep)!
 
 export const realRaiseSource = {
   title: 'Town of Riverhead Board-authorized salary listings for 2025 and 2026 (January 2026 agenda packet)',
   note: 'Filtered to employees whose title is exactly "Police Officer" in both years, grouped ' +
-    'by identical 2025->2026 dollar pairs. The 32 officers already at the 2025 top step and the ' +
-    '2 officers who moved from 5th to 6th Year Officer land at the exact same 2026 figure, since ' +
+    `by identical 2025->2026 dollar pairs. The ${stayedAtTop.officerCount} officers already at the 2025 top step and the ` +
+    `${reachedTop.officerCount} officers who moved from 5th to 6th Year Officer land at the exact same 2026 figure, since ` +
     'both groups are at (or reach) the ceiling.',
 }

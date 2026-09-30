@@ -17,14 +17,13 @@ name,grade,title,department,group,annual_salary,is_stipend
 "Henry, Michael",,Detective Grade I,Detectives,Police,175080.43,False
 "Mauceri, Charles",,Detective Grade I,Detectives,Police,175080.43,False
 "Schmidt, Michael",,Detective Grade I,Detectives,Police,175080.43,False
-"Anderson, Jr.,",,Richard Detective Grade I,Detectives,New in 2026,175080.43,False
+"Anderson Jr., Richard",,Detective Grade I,Detectives,Police,175080.43,False
 "Freeborn, Richard",,Detective Grade I,Detectives,Police,175080.43,False
 "Dillingham, Drew",,Town Engineer,Engineering,General Fund,174073.23,False
 "Prudenti, Annemarie",,Deputy Town Attorney,Town Attorney,General Fund,171435.81,False
 "DiPaola, Jeanette",,Chief Accountant,Finance,General Fund,171023.4,False
 "Hogan, Daniel",,Detective Grade II,Detectives,Police,170754.31,False
 "Dist, Wastewater",,Super,Rs/Sca/Cs,New in 2026,167305.5,False
-"Fund, Highway",,5-DA1,Pays Bills,New in 2026,166755.03,False
 "Carrieri, Michael",,Detective Grade III,Detectives,Police,163860.84,False
 "Evans, Sean",,Detective Grade III,Detectives,Police,163860.84,False
 "Perez, Byron",,Detective Grade III,Detectives,Police,163860.84,False
@@ -57,7 +56,7 @@ name,grade,title,department,group,annual_salary,is_stipend
 "Nava, Eduardo",,Police Officer,Police Officers,Police,152900.66,False
 "Neknez, Matthew",,Police Officer,Police Officers,Police,152900.66,False
 "Oswald, Cameron",,Police Officer,Police Officers,Police,152900.66,False
-"Seal Jr.,",,John Police Officer,Police Officers,New in 2026,152900.66,False
+"Seal Jr., John",,Police Officer,Police Officers,Police,152900.66,False
 "Sproston, Robert",,Police Officer,Police Officers,Police,152900.66,False
 "Stasiukiewiczi, Allison",,Police Officer,Police Officers,New in 2026,152900.66,False
 "Stasiukiewicz, Cole",,Police Officer,Police Officers,Police,152900.66,False
@@ -80,7 +79,7 @@ name,grade,title,department,group,annual_salary,is_stipend
 "Montefusco, Cole",,Police Officer,Police Officers,Police,136733.86,False
 "Monti, Thomas",,Police Officer,Police Officers,Police,136733.86,False
 "Neknez, Katerina",,Police Officer,Police Officers,Police,136733.86,False
-"Perez Avalos,",,Nelson Police Officer,Police Officers,New in 2026,136733.86,False
+"Perez Avalos, Nelson",,Police Officer,Police Officers,Police,136733.86,False
 "Selock, Joanna",,Police Officer,Police Officers,Police,136733.86,False
 "Staker, Matthew",,Police Officer,Police Officers,Police,136733.86,False
 "Thomas, Kevin",,Police Officer,Police Officers,Police,136733.86,False
@@ -236,7 +235,6 @@ name,grade,title,department,group,annual_salary,is_stipend
 "Sheppard, Joseph",7/8A,Heavy Equipment Operator,,Highway,64724.55,False
 "Moore, Tammy",11/9A,Principal Office Assistant,Police Civilian,General Fund,64405.63,False
 "Vance, Scott",6/9,Automotive Equipment Operator,,Highway,64353.28,False
-"Fund, General",,5-A01,Pays Bills,New in 2026,63884.34,False
 "Enaya, Mahmoud",8/7,Auto Mechanic II,Municipal Garage Employees,New in 2026,63646.82,False
 "Davis, Keith",6/8A,Automotive Equipment Operator,,Highway,63637.66,False
 "Baird, Kim",1/7A,Public Safety Dispatcher I,Police Civilian,General Fund,63286.51,False
@@ -314,14 +312,10 @@ name,grade,title,department,group,annual_salary,is_stipend
 "Giordano, Nancy",2/6A,Cook,Senior Citizen Programs Nutrition,General Fund,45535.24,False
 "Prevette, Dominique",4/P,Office Assistant,Building,New in 2026,44853.07,False
 "Sullivan, Maria",4/P,Office Assistant,Building,New in 2026,44853.07,False
-"District, Water",,Capital Projects X-EW3,Pays Bills,New in 2026,40104.06,False
-"Sewer, Riverhead",,Capital Projects X-ES2,Pays Bills,New in 2026,26291.25,False
-"Scavenger, Riverhead",,Waste District 5-ES5,Pays Bills,New in 2026,25825.15,False
-"Waste, Scavenger",,Capital Projects X-ES6,Pays Bills,New in 2026,24161.25,False
 "Thomas, Dawn",,Stipend,Economic Development,General Fund,20000.0,True
 "Densieski, Edward",,Member-Chair,Planning Board,Boards,14400.0,False
 "Hogan, John",,Member-Vice Chair,Planning Board,Boards,11750.0,False
-"Baier, Joseph",,H. Member,Planning Board,Boards,10800.0,False
+"Baier, Joseph H",,Member,Planning Board,Boards,10800.0,False
 "Zilnicki, Kenneth",,Member,Planning Board,Boards,10800.0,False
 "Nunnaro, George",,Member,Planning Board,Boards,10800.0,False
 "Case, Georgette",,Town Historian,Historian,General Fund,10200.0,False
@@ -330,12 +324,8 @@ name,grade,title,department,group,annual_salary,is_stipend
 "Barnes, Leroy",,Member,Zoning Board Of Appeals,Boards,7200.0,False
 "Porchia, John",,Member,Zoning Board Of Appeals,New in 2026,7200.0,False
 "Zaweski, Daniel",,Member,Zoning Board Of Appeals,Boards,7200.0,False
-"Lighting, Street",,District 5-SL1,Pays Bills,New in 2026,6735.24,False
 "Frost, Edward",,Emergency Services Coordinator,Police Officers,Police,6000.0,False
 "Wooten, James",,Registrar of Vital Statistics,,Elected Officials,5000.0,False
-"Consortium, CDBG",,Account X-CD4,Pays Bills,New in 2026,5000.0,False
-"Program, Recreation",,Fund 5-A06,Pays Bills,New in 2026,3471.12,False
-"Sewer, Calverton",,District 5-ES3,Pays Bills,New in 2026,3256.16,False
 "DeFilippis, Theresa",,Stipend,Information Technology,General Fund,3000.0,True
 "Merker, William",,License Stipend,Gf/Stlt,Street Lighting,3000.0,False
 "Smith, James",,License Stipend,Gf/Stlt,Street Lighting,3000.0,False
@@ -346,18 +336,13 @@ name,grade,title,department,group,annual_salary,is_stipend
 "Carrick, Megan",,Board Member,Architectural Review Board,Boards,3000.0,False
 "Developer, EW3-2130-000-82520-8",,Fees,From To,New in 2026,3000.0,False
 "Water, EW3-8-8320-435-000-82520",,– Prof Svcs – Engineering,From To,New in 2026,3000.0,False
-"Projects, Capital",,X-H01,Pays Bills,New in 2026,2926.67,False
-"District, Ambulance",,5-SM1,Pays Bills,New in 2026,2718.75,False
-"McCabe Sr.,",,Sean M. Member-Chair,Conservation Advisory Council,New in 2026,1940.0,False
-"Parking, Public",,District 5-ST1,Pays Bills,New in 2026,1638.12,False
+"McCabe Sr., Sean M",,Member-Chair,Conservation Advisory Council,Boards,1940.0,False
 "Kujawski, Robert",,Member-Vice Chair,Conservation Advisory Council,Boards,1540.0,False
 "Reichel, Michael",,Member,Conservation Advisory Council,Boards,1540.0,False
 "Fox, Robert",,Member,Conservation Advisory Council,Boards,1540.0,False
 "Lewin, Duane",,Member,Conservation Advisory Council,Boards,1540.0,False
 "Thomas, Charles",,Member,Conservation Advisory Council,Boards,1540.0,False
 "Woodhull, George",,Member,Conservation Advisory Council,Boards,1540.0,False
-"Creek, East",,Docking Facility Fund 5-CM2,Pays Bills,New in 2026,1515.26,False
-"Of, Total",,All Funds:,Pays Bills,New in 2026,1450.83,False
 "Acevedo, Marjorie",,Member,Assessment Review Board,Boards,1200.0,False
 "Hogan, Jeanne",,Member,Assessment Review Board,Boards,1200.0,False
 "Mills, Brian",,Member,Assessment Review Board,Boards,1200.0,False
