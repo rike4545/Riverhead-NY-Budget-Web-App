@@ -23,7 +23,7 @@ const GROUPS: Group[] = [
     ['Community Housing Plan', `${base}/housing-plan/`], ['Community', `${base}/community/`],
   ] },
   { label: 'Government', links: [
-    ['Resident Answers', `${base}/answers/`], ['Workforce by Title', `${base}/workforce-by-title/`], ['Officials & Pensions', `${base}/officials/`], ['Management Pay', `${base}/management-compensation/`],
+    ['Resident Answers', `${base}/answers/`], ['Workforce by Title', `${base}/workforce-by-title/`], ['Officials & Pensions', `${base}/officials/`], ['Management Pay', `${base}/management-compensation/`], ['Fringe Benefits', `${base}/fringe-benefits/`],
     ['2026 Buyout', `${base}/buyout/`], ['Police Spending & Crime', `${base}/police-crime/`], ['School Resource Officers', `${base}/school-resource-officers/`], ['Supervisors & Council History', `${base}/town-history/`], ['Board Elections', `${base}/board-elections/`],
     ['Campaign Finance', `${base}/campaign-finance/`], ['Candidate Watch', `${base}/candidate-watch/`], ['Candidate Proposals', `${base}/candidate-cost-benefit/`],
     ['Supervisor’s Promises', `${base}/supervisor-promises/`], ['Open Meetings Law', `${base}/open-meetings/`],
