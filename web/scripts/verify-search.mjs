@@ -48,6 +48,7 @@ const firstSite = (q) => searchEntries(core, q).sites[0]?.u
 for (const [q, want] of [
   ['reserves', '/reserves/'], ['buyout', '/buyout/'], ['open meetings', '/open-meetings/'], ['tax cap', '/tax-cap/'],
   ['ICE', '/know-your-rights/'], ['Vail-Leavitt', '/supervisor-promises/'], ['early retirement', '/buyout/'],
+  ['EMMA', '/capital-debt/'], ['CUSIP', '/capital-debt/'],
 ]) {
   const got = firstSite(q)
   if (got !== want) fail(`"${q}" should offer ${want} first, offered ${got ?? 'no page'}`)
