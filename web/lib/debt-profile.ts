@@ -21,6 +21,12 @@
 //
 // Where the two documents disagree, both readings are kept and the conflict is
 // stated rather than resolved silently — see the EFC 2024 note.
+//
+// EMMA, the Municipal Securities Rulemaking Board's public record of municipal
+// bonds, is linked (debtProfile.emma) and never copied: its terms of use forbid
+// automated or systematic copying, and every figure here comes from the Town's
+// own filings. No Town document in this repository gives CUSIP numbers, so the
+// page names none.
 
 import { AUDIT_2025 } from './audits'
 
@@ -200,6 +206,11 @@ export const debtProfile = {
   // What the Town retired during 2025, from the same Debt Summary.
   principalPaid2025: { bonds: 5_536_040, bans: 825_000 },
   issuedDuring2025: 0,
+  /** Linked only; see the note at the top of this file. */
+  emma: {
+    title: 'Town of Riverhead on EMMA, the Municipal Securities Rulemaking Board’s public record of municipal bonds',
+    url: 'https://emma.msrb.org/IssuerHomePage/Issuer?id=1A04650B5AEC10AB97E261AF773C0AA3&type=G',
+  },
   moodyRating: 'Aa2',
   // Aa2 was first assigned in an upgrade dated July 23, 2021 (from Aa3) and has
   // since been affirmed, most recently in a Feb. 16, 2024 rating action tied to

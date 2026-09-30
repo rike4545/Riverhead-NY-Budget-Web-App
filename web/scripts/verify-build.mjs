@@ -5,6 +5,7 @@
 
 import { existsSync, readFileSync, statSync } from 'node:fs'
 import { join } from 'node:path'
+import { realRaiseExamples } from '../lib/pba-step-schedule.ts'
 
 const root = process.cwd()
 const path = (...parts) => join(root, ...parts)
@@ -133,6 +134,25 @@ if (existsSync(path('out/data/meta.json'))) {
     for (const [group, floor] of [['Police', 50], ['General Fund', 100], ['Highway', 20], ['Elected Officials', 5], ['Boards', 10]]) {
       const n = counts.get(group) ?? 0
       if (n < floor) fail(`Authorized-salary group "${group}" has ${n} records (expected ${floor}+) — a parser regression drops whole groups`)
+    }
+  }
+
+  // The Police Pay Steps tab types the 2025-to-2026 Police Officer raise groups
+  // by hand (lib/pba-step-schedule.ts), and the 2027 step-cost estimate is
+  // built on their counts. Recount them from the comparison they came from:
+  // the September 30, 2026 fix to names like "Seal Jr., John" found two more
+  // officers, and nothing would have noticed the counts going stale.
+  const comparisonPath = path('out/data/salary/comparison-2025-2026.json')
+  if (existsSync(comparisonPath)) {
+    const groups = new Map()
+    for (const r of JSON.parse(readFileSync(comparisonPath, 'utf8')).records) {
+      if (r.title2025 !== 'Police Officer' || r.title2026 !== 'Police Officer') continue
+      const pair = `${r.annual2025}|${r.annual2026}`
+      groups.set(pair, (groups.get(pair) ?? 0) + 1)
+    }
+    for (const e of realRaiseExamples) {
+      const n = groups.get(`${e.actual2025}|${e.actual2026}`) ?? 0
+      if (n !== e.officerCount) fail(`Police Pay Steps counts ${e.officerCount} officers moving ${e.fromStep} -> ${e.toStep}; the salary comparison has ${n}`)
     }
   }
 

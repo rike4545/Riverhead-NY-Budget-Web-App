@@ -21,7 +21,26 @@ OUT = ROOT / "web/public/data/salary"
 
 MONEY = re.compile(r"[\d,]+\.\d{2}")
 GRADE = re.compile(r"\b(\d{1,2}/[A-Z0-9]{1,3})\b")
-COMMA_NAME = re.compile(r"^([A-Z][A-Za-z.'-]+,\s+[A-Z][A-Za-z.'-]+)\s+(.*)$")
+# A schedule name is "Last, First" with an optional middle initial. The surname
+# can run to two words or carry a suffix ("Perez Avalos, Nelson", "Seal Jr.,
+# John", "McCabe Sr., Sean M."), and the suffix can instead follow the comma
+# ("Anderson, Jr., Richard"). The old pattern took one word on each side of the
+# comma, so those rows fell through to the "First Last" fallback, which filed
+# the first name under the title -- "Seal Jr.," the "John Police Officer" --
+# and, with the name unmatched, counted each of them "New in 2026" and left
+# them out of the raise comparison. A middle initial went the same way:
+# "Baier, Joseph" the "H. Member".
+SUFFIX = r"(?:Jr|Sr|II|III|IV)\.?"
+COMMA_NAME = re.compile(
+    r"^([A-Z][A-Za-z.'’-]+(?:\s+[A-Z][A-Za-z.'’-]+)*),"
+    rf"(?:\s+({SUFFIX}),)?"
+    r"\s+([A-Z][A-Za-z.'’-]+(?:\s+[A-Z]\.?)?)"
+    r"\s+(\S.*)$"
+)
+SUFFIX_AFTER_COMMA = re.compile(rf"^([^,]+),\s+({SUFFIX}),\s+")
+# Matching drops the suffix: the schedules print "Seal Jr., John" and the
+# payroll prints "Seal, John W".
+SUFFIX_TAIL = re.compile(r"\s+(?:jr|sr|ii|iii|iv)\.?$")
 NOISE = re.compile(r"ANNUAL SALARY|EMPLOYEE|FISCAL IMPACT|THE VOTE|ADOPTED|TOWN OF RIVERHEAD|RESOLUTION|WHEREAS|NOTICE")
 # Department headings in the schedule attached to Resolution 2026-2. Four of them
 # used to fail the test, and each one's staff were filed under the heading above
@@ -72,8 +91,10 @@ def normalize_title(title):
 
 
 def normalize_name(name):
-    """Normalize to 'Last, First'. Some sections print 'First Last'."""
-    name = clean(name)
+    """Normalize to 'Last, First'. Some sections print 'First Last', and a
+    suffix after the comma moves to the surname: 'Anderson, Jr., Richard' ->
+    'Anderson Jr., Richard', as 'Seal Jr., John' prints it."""
+    name = SUFFIX_AFTER_COMMA.sub(r"\1 \2, ", clean(name))
     if "," in name:
         return name
     parts = name.split()
@@ -88,7 +109,11 @@ def parse_row_2026(line):
     """Handle both 'Last, First [grade] Title $ salary' and 'First Last [grade]
     Title $ salary'. Returns (name, grade, title, annual) or None."""
     nums = MONEY.findall(line)
-    if not nums:
+    # A schedule row carries one salary (or an hourly rate and a salary). The
+    # packet's check register totals each fund in four columns, and its
+    # "Recreation Program Fund 5-A06 3,471.12 ..." row read as a person named
+    # "Program, Recreation".
+    if not nums or len(nums) > 2:
         return None
     first = MONEY.search(line)
     pre = line[:first.start()]
@@ -103,7 +128,9 @@ def parse_row_2026(line):
     else:
         cm = COMMA_NAME.match(pre.strip())
         if cm:
-            name, title = clean(cm.group(1)), normalize_title(clean(cm.group(2)))
+            surname, suffix, given, rest = cm.groups()
+            name = clean(f"{surname} {suffix}, {given}" if suffix else f"{surname}, {given}")
+            title = normalize_title(clean(rest))
         else:
             toks = pre.split()
             if len(toks) >= 3 and toks[0][:1].isupper() and toks[1][:1].isupper():
@@ -117,7 +144,8 @@ def parse_row_2026(line):
 
 def key(name):
     p = name.lower().split(",")
-    return (p[0].strip(), p[1].strip().split(" ")[0]) if len(p) == 2 else (p[0].strip(), "")
+    last = SUFFIX_TAIL.sub("", p[0].strip())
+    return (last, p[1].strip().split(" ")[0]) if len(p) == 2 else (last, "")
 
 
 def enrich_with_actual(records):

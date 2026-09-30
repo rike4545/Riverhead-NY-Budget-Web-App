@@ -69,6 +69,16 @@ export default function CapitalDebtPage() {
         formal issue names come from the last independent audit, a year earlier — the Annual Financial Report
         doesn&apos;t print them. Sorted largest balance first.
       </p>
+      <p style={{ color: 'var(--rbl-text-body)', fontSize: 14.5, lineHeight: 1.6, marginTop: 0, maxWidth: 900 }}>
+        Bonds and notes the Town sells to investors are also recorded on{' '}
+        <a href={debtProfile.emma.url} target="_blank" rel="noopener noreferrer" style={{ color: 'var(--rbl-link)', fontWeight: 700 }}>
+          EMMA ↗
+        </a>
+        , the public record the Municipal Securities Rulemaking Board keeps for investors: the official statement for
+        each sale, with every maturity, its interest rate and CUSIP number; the reports the Town files for bondholders
+        each year; and recent trade prices. The Environmental Facilities Corporation bonds are the State agency&apos;s
+        own, so they are listed under it, not the Town.
+      </p>
 
       <section style={{ display: 'grid', gap: 12, marginBottom: 18 }}>
         {debtIssues.map((d) => {
@@ -293,6 +303,11 @@ export default function CapitalDebtPage() {
             {debtProfile.debtLimit.source.title}
           </a>
           , {debtProfile.debtLimit.source.detail}. The 2025 audit also confirms the bond and note totals above.
+          Official statements, the Town&apos;s filings for bondholders, and trades:{' '}
+          <a href={debtProfile.emma.url} target="_blank" rel="noopener noreferrer" style={{ color: 'var(--rbl-link)', fontWeight: 700 }}>
+            {debtProfile.emma.title}
+          </a>
+          . It is linked, not copied: EMMA&apos;s terms of use forbid systematically copying it, and no figure on this page comes from it.
         </p>
         <p style={{ color: 'var(--rbl-text-body)', fontSize: 13.4, lineHeight: 1.6 }}>
           Only governmental debt counts toward the constitutional limit; water and sewer district debt is excluded by
