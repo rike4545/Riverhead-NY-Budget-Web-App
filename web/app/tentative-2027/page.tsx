@@ -7,6 +7,7 @@ import {
 } from '../../lib/tentative-2027'
 import { READ_BY_HAND, LETTER_2027 } from '../../lib/tentative-letters'
 import { buyout2026 } from '../../lib/buyout-2026'
+import { AUDITED_GENERAL_FUND, AUDITED_OPERATIONS } from '../../lib/audits'
 import taxBill from '../../public/data/tax-bill.json'
 
 const base = process.env.NEXT_PUBLIC_BASE_PATH || ''
@@ -162,6 +163,8 @@ export default function Tentative2027Page() {
           </p>
         </section>
       )}
+
+      {h && <InflationAndReserves h={h} />}
 
       {h && READ_BY_HAND[YEAR] && <LetterSection h={h} />}
 
@@ -410,3 +413,62 @@ function LetterSection({ h }: { h: Headline }) {
   )
 }
 
+
+
+// Inflation snapshot: Sept 28, 2026. Reserve figures use the site's audited data.
+// Keep the observation period explicit: these are not live inflation readings.
+function InflationAndReserves({ h }: { h: Headline }) {
+  const tw = h.townWide
+  const audit = AUDITED_GENERAL_FUND[2025]
+  const assigned = audit.classes.Assigned
+  const unassigned = audit.classes.Unassigned
+  const operations = AUDITED_OPERATIONS[2025]
+  const uses = operations.expenditures + operations.transfersOut
+  const scenarios = tw ? [
+    { label: 'Tentative', levy: tw.levy },
+    ...[2, 1, 0].map(rate => ({ label: rate + '% increase', levy: Math.round(tw.priorLevy * (1 + rate / 100)) })),
+  ] : []
+  const body = { color: 'var(--rbl-text-body)', fontSize: 14, lineHeight: 1.65 }
+  return (
+    <section id="inflation-and-fund-balance" aria-labelledby="inflation-heading" style={{ ...card, marginBottom: 16 }}>
+      <h2 id="inflation-heading" style={{ marginTop: 0, color: 'var(--rbl-title)' }}>Inflation vs. tax levy vs. fund balance</h2>
+      <p style={body}>Snapshot checked September 28, 2026. CPI measures changes in consumer prices; the inflation rate is the percentage change in that index. It provides context for household costs, but is not a municipal spending target or the Town’s legal tax-cap calculation.</p>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(190px,1fr))', gap: 16 }}>
+        <Stat label="U.S. inflation" value="3.4%" sub="CPI-U, August 2025–August 2026; not seasonally adjusted" />
+        <Stat label="NY metro inflation" value="4.3%" sub="CPI-U, August 2025–August 2026; includes Suffolk County" />
+        {tw && <Stat label="Proposed town-wide levy growth" value={pctf(tw.levyPct, 2)} sub="2027 Tentative vs. 2026 adopted; a different period from CPI" />}
+      </div>
+      <p style={body}>U.S. CPI-U was 334.980 and the regional index was 362.328 (1982–84 = 100). The U.S. monthly increase was 0.4%, seasonally adjusted. Index levels are not inflation percentages or a comparison of living costs between places. Below-inflation levy growth alone does not establish that a budget is prudent: payroll, benefits, debt and service needs must be examined separately.</p>
+      <p style={body}>Sources: <a href="https://www.bls.gov/news.release/archives/cpi_09112026.htm">BLS national August release</a> and <a href="https://www.bls.gov/regions/northeast/news-release/2026/consumerpriceindex_newyork_20260911.htm">BLS New York metro August release</a>, both September 11, 2026.</p>
+
+      <h3 style={{ color: 'var(--rbl-title)' }}>What the reserve figures actually measure</h3>
+      <p style={body}>At December 31, 2025, the audited General Fund balance was {usd(audit.total)}: assigned balance was {usd(assigned)} and unassigned balance was {usd(unassigned)}. Together, {usd(assigned + unassigned)} equals {((assigned + unassigned) / uses * 100).toFixed(1)}% of audited 2025 expenditures and transfers out ({usd(uses)}). Unassigned alone equals {(unassigned / uses * 100).toFixed(1)}%. This denominator includes transfers; it is not an exact measure of regular operating expenditures.</p>
+      <p style={body}>The unaudited Annual Financial Report reported $29,671,084 unassigned, compared with the audit’s {usd(unassigned)}. This analysis uses the audited figures, consistent with the site’s <a href={`${base}/annual-report/`}>Annual Report comparison</a>.</p>
+      <p style={body}>These are historical accounting balances, not a current cash surplus available for 2027. Assigned funds include {usd(audit.assigned.subsequentYearsBudget)} already appropriated for 2026. The Town must reconcile 2026 results, existing appropriations, commitments and cash-flow needs before identifying any additional amount available.</p>
+      {h.generalFund?.fundBalance != null && <p style={body}>The 2027 Tentative already proposes using <strong>{usd(h.generalFund.fundBalance)}</strong> of General Fund balance. Any further draw would be additional to that proposal.</p>}
+      <p style={body}>Source: <a href={audit.source.url}>{audit.source.title}</a>, packet page {audit.source.page} (fund balance; printed page {audit.source.printedPage}) and packet page {operations.page} (operations). Comparison: <a href="https://townofriverheadny.gov/DocumentCenter/View/3513/2025-Annual-Financial-Report">unaudited 2025 Annual Financial Report</a>, printed page 7.</p>
+      <p style={body}><a href="https://www.gfoa.org/materials/fund-balance-guidelines-for-the-general-fund">GFOA guidance</a> sets a minimum of two months of regular General Fund operating revenues or expenditures, approximately 16.7%, subject to local risks. It is a floor, not a ceiling or a finding that everything above it is excess. A reserve policy should justify the target, permitted uses and replenishment plan.</p>
+
+      {tw && <>
+        <h3 style={{ color: 'var(--rbl-title)' }}>Could the town-wide levy increase be smaller?</h3>
+        <p style={body}>Freezing the levy at {usd(tw.priorLevy)} would require <strong>{usd(tw.levy - tw.priorLevy)}</strong> less levy funding than the Tentative. These scenarios hold proposed spending and all other financing constant. The difference must be met with spending reductions, supportable additional revenues, legally available fund balance, or a combination.</p>
+        <div role="region" aria-label="Town-wide levy scenarios" tabIndex={0} style={{ overflowX: 'auto' }}>
+          <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 13 }}>
+            <caption style={{ textAlign: 'left', marginBottom: 8 }}>Illustrative alternatives for General Fund, Highway and Street Lighting combined</caption>
+            <thead><tr><th scope="col" style={th}>Scenario</th><th scope="col" style={th}>Town-wide levy</th><th scope="col" style={th}>Funding to replace vs. Tentative</th></tr></thead>
+            <tbody>{scenarios.map(s => <tr key={s.label} style={{ borderTop: '1px solid var(--rbl-border-subtle)' }}>
+              <th scope="row" style={{ ...td, textAlign: 'left' }}>{s.label}</th><td style={num}>{usd(s.levy)}</td><td style={num}>{signed(tw.levy - s.levy)}</td>
+            </tr>)}</tbody>
+          </table>
+        </div>
+        <p style={body}>Positive replacement amounts require other financing or cuts; negative amounts mean the scenario raises more than the Tentative. These are aggregate levy scenarios, not household tax-bill estimates. Special districts are excluded. A freeze does not guarantee every property’s bill stays flat. Each fund needs its own financing analysis; this table does not assume General Fund reserves can pay other funds’ obligations.</p>
+        <p style={body}>Budget source: <a href={h.source.url}>{h.source.title}</a>, Summary page. Scenario levies equal the printed prior town-wide levy multiplied by 1 plus the chosen percentage, rounded to whole dollars.</p>
+      </>}
+
+      <h3 style={{ color: 'var(--rbl-title)' }}>Which approach is most prudent?</h3>
+      <p style={body}><strong>Our assessment:</strong> recurring costs should have sustainable recurring financing. A modest levy increase is more defensible where it closes an ongoing gap. A limited reserve draw is more defensible for one-time costs or a temporary bridge with a credible exit plan. A smaller increase combined with a targeted draw merits evaluation if projected reserves remain above a justified policy target.</p>
+      <p style={body}>A zero-increase budget is not automatically irresponsible, and a below-inflation increase is not automatically necessary. Before choosing, publish a fund-by-fund 2026 closing-balance forecast, the recurring operating gap, one-time 2027 costs, and a multiyear forecast under each option, including lower interest earnings after a reserve draw.</p>
+      <p style={body}>Policy reference: <a href="https://www.osc.ny.gov/files/local-government/academy/pdf/developing-an-effective-fund-balance-policy-110525.pdf">New York State Comptroller: Developing an Effective Fund Balance Policy</a>. The available figures do not establish an optimal levy increase or a safe additional draw.</p>
+    </section>
+  )
+}
