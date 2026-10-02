@@ -55,8 +55,8 @@ function TranscriptViewer({ path, video }: { path: string; video?: string }) {
   return (
     <div style={{ border: '1px solid var(--rbl-border-subtle)', borderRadius: 12, padding: 12, background: 'var(--rbl-surface-2)' }}>
       <p style={{ margin: '0 0 8px', color: 'var(--rbl-text-muted)', fontSize: 12.5, lineHeight: 1.5 }}>
-        {mediaSources.ours.note} Made with Whisper {data.model} from the Town&apos;s {Math.round(data.durationSec / 60)}-minute
-        recording. Click a time to open the video there.
+        {mediaSources.ours.note} This one: Whisper {data.model}, {Math.round(data.durationSec / 60)} minutes of the
+        Town&apos;s recording. Click a time to open the video there.
       </p>
       <input value={q} onChange={(e) => setQ(e.target.value)} placeholder="Find a word in the transcript…"
         style={{ width: '100%', boxSizing: 'border-box', padding: '8px 11px', border: '1px solid var(--rbl-border-strong)', borderRadius: 9, fontSize: 14, marginBottom: 8 }} />

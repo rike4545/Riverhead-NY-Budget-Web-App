@@ -22,6 +22,8 @@ if (existsSync(path('components/FiscalImpactMeetings.tsx'))) {
     'data-fiscal-record-status',
     'meetingUrl(m.slug)',
     'by itself it does not prove that the resolution was adopted',
+    'Stated in the resolution, answered “No”',
+    "a.role === 'cost' && a.amount === sc?.amount",
   ]) if (!source.includes(text)) fail(`Fiscal meeting evidence state regressed: missing ${text}`)
 }
 

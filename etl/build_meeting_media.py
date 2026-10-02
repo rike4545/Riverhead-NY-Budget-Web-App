@@ -138,7 +138,8 @@ def main() -> int:
             "ours": {
                 "title": "This site's machine transcripts",
                 "note": "Made here with OpenAI's open-source Whisper model from the Town's videos. Unofficial: "
-                        "names and figures can be misheard. Vote times are where the resolution number is read out.",
+                        "names and figures can be misheard. A vote link opens where the resolution is read out, "
+                        "just before its roll call.",
             },
         },
         "meetings": dict(sorted(meetings.items(), reverse=True)),

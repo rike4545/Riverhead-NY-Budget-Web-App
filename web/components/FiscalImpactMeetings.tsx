@@ -31,6 +31,7 @@ export type FiscalMeeting = {
     // Added with the read of each resolution's own text.
     statedCostResolutions?: number
     statedCostMarkedNo?: number
+    largestStatedCostMarkedNo?: { number: string | null; amount: number } | null
   }
   resolutions: FiscalResolution[]
 }
@@ -98,6 +99,11 @@ export default function FiscalImpactMeetings({ meetings }: { meetings: FiscalMee
   const reserveDraw = m.resolutions.filter((r) => r.realistic.flag === 'reserve-draw')
   const corrections = [...understatedNo, ...reserveDraw]
   const lu = s.largestUnderstatedMarkedNo
+  // Where the Town wrote no amount, the largest cost the resolution's own text
+  // states while its statement answers "No", with the words that state it.
+  const sc = s.largestStatedCostMarkedNo
+  const scRes = sc?.number ? m.resolutions.find((r) => r.number === sc.number) : undefined
+  const scQuote = scRes?.statedAmounts?.find((a) => a.role === 'cost' && a.amount === sc?.amount)?.quote
   const base = process.env.NEXT_PUBLIC_BASE_PATH || ''
   const meetingHref = `${base}/meetings/?meeting=${encodeURIComponent(m.slug)}`
   const evidence = recordState(m.slug, m.meetingDate, meetingRecord)
@@ -154,6 +160,8 @@ export default function FiscalImpactMeetings({ meetings }: { meetings: FiscalMee
       )}
 
       {lu && <section style={{ ...card, borderLeft: '6px solid var(--rbl-danger)' }}><h3 style={{ marginTop: 0 }}>The clearest example</h3><p style={{ color: 'var(--rbl-text-strong)', fontSize: 15, lineHeight: 1.6, margin: 0 }}>Resolution <strong>{lu[1]}</strong> — “{lu[2]}” — carries a fiscal-impact statement checked <strong>“No,”</strong> yet commits <strong style={{ color: 'var(--rbl-danger)' }}>{usd(lu[0])}</strong>. A six-figure action is exactly the kind of item a fiscal-impact statement exists to flag.</p><a href={`${meetingHref}&q=${encodeURIComponent(lu[1])}`} style={{ display: 'inline-block', marginTop: 10, color: 'var(--rbl-link)', fontWeight: 900, fontSize: 13, textDecoration: 'none' }}>Open resolution {lu[1]} in the meeting record →</a></section>}
+
+      {!lu && sc?.number && scRes && <section style={{ ...card, borderLeft: '6px solid var(--rbl-warn)' }}><h3 style={{ marginTop: 0 }}>Stated in the resolution, answered “No”</h3><p style={{ color: 'var(--rbl-text-strong)', fontSize: 15, lineHeight: 1.6, margin: 0 }}>Resolution <strong>{sc.number}</strong> — “{scRes.title}” — answers <strong>“No”</strong> on its fiscal-impact statement, but its own text states a cost of <strong style={{ color: 'var(--rbl-danger)' }}>{usd(sc.amount)}</strong>{scQuote ? <>: <q>{scQuote}</q></> : '.'}</p><a href={`${meetingHref}&q=${encodeURIComponent(sc.number)}`} style={{ display: 'inline-block', marginTop: 10, color: 'var(--rbl-link)', fontWeight: 900, fontSize: 13, textDecoration: 'none' }}>Open resolution {sc.number} in the meeting record →</a></section>}
 
       {corrections.length > 0 && <p style={{ color: 'var(--rbl-text-body)', fontSize: 14.5, lineHeight: 1.55, margin: 0 }}>Of the <strong>{s.total}</strong> resolutions, <strong>{corrections.length}</strong> get a different answer here than the Town gave. <strong>{understatedNo.length}</strong> were marked <strong>no fiscal impact</strong> yet commit or change real money. Another <strong>{reserveDraw.length}</strong> the Town did flag as having an impact, but called <strong>absorbed by the existing budget</strong> — on a realistic read those draw on reserves, fund balance or borrowing, which is not the same as costing nothing.</p>}
 
