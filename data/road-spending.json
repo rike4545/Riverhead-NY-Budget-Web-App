@@ -4,7 +4,7 @@
  "intro": "Every Suffolk County town files the same annual report to the State Comptroller using the same chart of accounts, so their road spending can be compared line for line. Divide it by the road miles each town actually maintains and you get a per-mile figure that is fair across towns of very different sizes.",
  "spending": {
   "source": "NYS Office of the State Comptroller, Financial Data for Local Governments",
-  "detail": "Annual financial report filings, fiscal year ending December 31, 2025; expenditures where Level 2 category = 'Highways'. Data snapshot dated August 31, 2026.",
+  "detail": "Annual financial report filings, fiscal year ending December 31, 2025; expenditures where Level 2 category = 'Highways'. Data snapshot dated September 30, 2026.",
   "url": "https://www.osc.ny.gov/local-government/data"
  },
  "mileage": {
