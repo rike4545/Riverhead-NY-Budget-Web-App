@@ -16,7 +16,13 @@ import re
 import unittest
 from pathlib import Path
 
-from parse_fiscal_impact import parse_packet, stated_amounts, stated_cost
+from parse_fiscal_impact import (
+    mark_program_totals,
+    parse_packet,
+    stated_amounts,
+    stated_cost,
+    statement_below_table,
+)
 
 ROOT = Path(__file__).resolve().parent.parent
 MEETINGS = ROOT / "web/public/data/meetings"
@@ -71,6 +77,29 @@ class StatedAmounts(unittest.TestCase):
                 "and shall be levied and assessed against the premises")
         self.assertEqual(roles(text), [(15000.0, "context"), (7677.64, "revenue")])
         self.assertIsNone(stated_cost(stated_amounts(text)))
+
+    def test_a_grant_programs_size_is_not_money_in(self):
+        # 2026-773: the program's $54 million, then the Town's $13,045 request.
+        text = ("WHEREAS, the Police Department has identified a GTSC grant opportunity that would provide funding "
+                "in the amount up to $54,000,000.00 for a public safety education program; and\n"
+                "RESOLVED, that the Police Department is authorized to submit an application to the grant program "
+                "to apply for funding in the amount of $13,045.00; and")
+        self.assertEqual([(a["amount"], a["role"]) for a in mark_program_totals(stated_amounts(text))],
+                         [(54000000.0, "program"), (13045.0, "revenue")])
+        # 2026-643: a $2,000 gift, of which the Board places $1,000, is still money in.
+        gift = ("WHEREAS, the second being a monetary donation in the amount of $2,000 in memory of a resident; and\n"
+                "RESOLVED, the Financial Administrator has the authority to accept and place $1,000 in funds into the "
+                "Gifts and Donations account")
+        self.assertEqual([(a["amount"], a["role"]) for a in mark_program_totals(stated_amounts(gift))],
+                         [(2000.0, "revenue"), (1000.0, "revenue")])
+
+    def test_statement_below_its_own_table(self):
+        table = [{"amount": 280000.0, "role": "budget-line", "clause": "table", "quote": ""}]
+        self.assertEqual(statement_below_table({"amount": 150000.0}, table), {"statement": 150000.0, "table": 280000.0})
+        self.assertIsNone(statement_below_table({"amount": 280000.0}, table))
+        # Two $1,000 donations on a $2,000 statement: a sum, not a mismatch.
+        self.assertIsNone(statement_below_table({"amount": 2000.0}, [{**table[0], "amount": 1000.0}]))
+        self.assertIsNone(statement_below_table({"amount": None}, table))
 
     def test_thousands_and_millions(self):
         self.assertEqual([a["amount"] for a in stated_amounts("WHEREAS, the request is $549K and $1.545M; and")],
@@ -139,6 +168,10 @@ class Datasets(unittest.TestCase):
     def test_known_reads(self):
         self.assertIsNone(self.load("2026-03-17")["2026-255"]["statedCost"])  # County money in
         self.assertIsNone(self.load("2026-05-20")["2026-471"]["statedCost"])  # an earlier estimate
+        legal = self.load("2026-08-18")["2026-765"]
+        self.assertEqual(legal["statementBelowTable"], {"statement": 150000.0, "table": 280000.0})
+        gtsc = {a["amount"]: a["role"] for a in self.load("2026-08-18")["2026-773"]["statedAmounts"]}
+        self.assertEqual((gtsc[54000000.0], gtsc[13045.0]), ("program", "revenue"))
         vactor = self.load("2026-08-18")["2026-767"]
         self.assertEqual((vactor["statedCost"], vactor["townFiscalImpact"]), (650000.0, "No"))
 

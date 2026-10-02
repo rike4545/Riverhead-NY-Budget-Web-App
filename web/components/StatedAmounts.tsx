@@ -5,7 +5,7 @@
 
 export type StatedAmount = {
   amount: number
-  role: 'cost' | 'rate' | 'fee' | 'revenue' | 'fund-balance' | 'budget-line' | 'debt' | 'security' | 'context' | 'petty-cash' | 'other'
+  role: 'cost' | 'rate' | 'fee' | 'revenue' | 'program' | 'fund-balance' | 'budget-line' | 'debt' | 'security' | 'context' | 'petty-cash' | 'other'
   clause: 'whereas' | 'resolved' | 'table' | 'heading'
   quote: string
 }
@@ -18,6 +18,7 @@ export const ROLE_LABEL: Record<StatedAmount['role'], string> = {
   rate: 'pay or unit rate',
   fee: 'fee',
   revenue: 'money in',
+  program: 'grant program total',
   'fund-balance': 'fund balance',
   'budget-line': 'budget line',
   debt: 'borrowing',
@@ -28,7 +29,7 @@ export const ROLE_LABEL: Record<StatedAmount['role'], string> = {
 }
 
 // Costs first, then what else moves money, then background.
-const ORDER: StatedAmount['role'][] = ['cost', 'budget-line', 'fund-balance', 'debt', 'rate', 'revenue', 'fee', 'security', 'petty-cash', 'other', 'context']
+const ORDER: StatedAmount['role'][] = ['cost', 'budget-line', 'fund-balance', 'debt', 'rate', 'revenue', 'fee', 'security', 'petty-cash', 'other', 'program', 'context']
 
 export default function StatedAmounts({ amounts }: { amounts?: StatedAmount[] | null }) {
   if (!amounts?.length) return null

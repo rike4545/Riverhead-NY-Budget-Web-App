@@ -23,6 +23,8 @@ export type FiscalResolution = {
   // reason as funding.
   statedAmounts?: StatedAmount[]
   statedCost?: number | null
+  // Section G naming less than the resolution's own budget table moves.
+  statementBelowTable?: { statement: number; table: number } | null
   realistic: { verdict: string; reason: string; flag: string; evidence?: 'account-code' | 'category' }
   vote: { adopted: boolean | null; tag: string | null; ayes: number | null; nays: number | null } | null
 }
@@ -170,6 +172,11 @@ export default function FiscalImpactTable({ resolutions, meetingRecord, voteDeta
                           {usd(r.statedCost)}<div style={{ fontSize: 10.5, fontWeight: 600, color: 'var(--rbl-text-muted)' }}>stated in resolution</div>
                         </span>
                       ) : <span style={{ color: 'var(--rbl-text-faint)', fontWeight: 500 }}>—</span>}
+                      {r.statementBelowTable && (
+                        <div title={`Section G of the statement names ${usd(r.statementBelowTable.statement)}; the budget adjustment the resolution orders moves ${usd(r.statementBelowTable.table)}.`} style={{ marginTop: 3, fontSize: 10.5, fontWeight: 800, color: 'var(--rbl-danger-strong)', whiteSpace: 'normal', maxWidth: 130, marginLeft: 'auto' }}>
+                          but the resolution’s table moves {usd(r.statementBelowTable.table)}
+                        </div>
+                      )}
                     </td>
                     <td style={{ ...td, maxWidth: 340 }}>
                       <span style={{ background: fs.bg, color: fs.fg, fontWeight: 800, fontSize: 11, padding: '2px 9px', borderRadius: 999, whiteSpace: 'nowrap' }}>{fs.label}</span>

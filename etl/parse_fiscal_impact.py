@@ -951,6 +951,40 @@ def stated_amounts(body: str) -> list[dict]:
 GRANT_APPLICATION = re.compile(r"\bappl(?:y|ies|ication)\b.*\b(?:grant|funding|funds)\b|\b(?:grant|funding)\b.*\bapplication\b", re.I)
 
 
+# How a recital describes a program on offer, as opposed to money the Town has.
+PROGRAM_OFFER = re.compile(r"opportunit|offers?\s+funding|available\s+(?:through|statewide)", re.I)
+
+
+def mark_program_totals(amounts: list[dict]) -> list[dict]:
+    """A grant program's size, recited before what the Town applies for, is not
+    money coming in: "a GTSC grant opportunity that would provide funding in
+    the amount up to $54,000,000.00", then "apply for funding in the amount of
+    $13,045.00" (2026-773). A recital figure that describes a program on offer
+    and is larger than the money the Board resolves to seek is the program's.
+    A donation is not a program, though the Board may place only part of it
+    (2026-643: a $2,000 gift, $1,000 placed)."""
+    sought = [a["amount"] for a in amounts if a["role"] == "revenue" and a["clause"] == "resolved"]
+    if not sought:
+        return amounts
+    return [{**a, "role": "program"}
+            if a["role"] == "revenue" and a["clause"] == "whereas" and a["amount"] > max(sought)
+            and PROGRAM_OFFER.search(a["quote"]) else a
+            for a in amounts]
+
+
+def statement_below_table(funding: dict | None, amounts: list[dict]) -> dict | None:
+    """Section G names less than the budget adjustment the resolution orders:
+    2026-765's statement says $150,000, while its table moves $280,000 out of
+    Appropriated Fund Balance. A section G figure larger than every table line
+    is often their sum (two $1,000 donations, 2026-643), so only a smaller one
+    that matches no line is flagged."""
+    g = (funding or {}).get("amount")
+    table = [a["amount"] for a in amounts if a["role"] == "budget-line"]
+    if not g or not table or g >= max(table) or any(abs(g - t) < 0.5 for t in table):
+        return None
+    return {"statement": g, "table": max(table)}
+
+
 def stated_cost(amounts: list[dict]) -> float | None:
     """The largest figure the resolution states as the Town paying out.
 
@@ -1002,6 +1036,7 @@ def parse_packet(text: str) -> list[dict]:
         amounts = stated_amounts(body)
         if GRANT_APPLICATION.search(title):
             amounts = [{**a, "role": "revenue"} if a["role"] == "cost" else a for a in amounts]
+        amounts = mark_program_totals(amounts)
         out.append({
             "title": title,
             "purpose": purpose,
@@ -1087,6 +1122,8 @@ def build_meeting(date: str, packet_text: str) -> dict | None:
             # Town paying out.
             "statedAmounts": p.get("statedAmounts") or [],
             "statedCost": p.get("statedCost"),
+            # Section G naming less than the resolution's own budget table moves.
+            "statementBelowTable": statement_below_table(funding, p.get("statedAmounts") or []),
             "realistic": realistic,
             "vote": vote,
         })
@@ -1112,7 +1149,8 @@ def build_meeting(date: str, packet_text: str) -> dict | None:
             "each labelled by its wording (a cost, a pay rate, a fee paid to the Town, a grant, a fund-balance "
             "transfer, a budget-adjustment line or background); insurance limits an applicant must carry are left "
             "out. The stated cost is the largest figure that reads as the Town paying out, taking what the Board "
-            "resolves over the recitals."
+            "resolves over the recitals. Where section G names less than the resolution's own budget table moves, "
+            "both figures are shown."
         ),
         "summary": {
             "total": len(resolutions),
@@ -1146,6 +1184,7 @@ def build_meeting(date: str, packet_text: str) -> dict | None:
             # Resolutions whose own text states a cost, and those of them the Town
             # answered "No" fiscal impact on.
             "statedCostResolutions": sum(1 for r in resolutions if r["statedCost"]),
+            "statementBelowTable": sum(1 for r in resolutions if r["statementBelowTable"]),
             "statedCostMarkedNo": sum(
                 1 for r in resolutions if r["statedCost"] and r["townFiscalImpact"] == "No"
             ),
@@ -1198,7 +1237,7 @@ def merge_hand_curated(date: str, parsed: dict) -> dict:
         if p is not None:
             if p.get("funding"):
                 merged["funding"] = p["funding"]
-            for key in ("numberSource", "statedAmounts", "statedCost"):
+            for key in ("numberSource", "statedAmounts", "statedCost", "statementBelowTable"):
                 merged[key] = p.get(key)
             if merged.get("amount") is None and p.get("amount") is not None:
                 merged["amount"] = p["amount"]

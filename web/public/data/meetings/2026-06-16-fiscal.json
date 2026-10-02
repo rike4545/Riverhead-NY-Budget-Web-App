@@ -5,7 +5,7 @@
   "title": "Town of Riverhead Town Board Agenda Packet, 2026-06-16 (Fiscal Impact Statements)",
   "url": "https://www.townofriverheadny.gov/129/Agendas-Minutes"
  },
- "method": "Each resolution's Town 'Fiscal Impact Statement' answer (Yes/No and absorbed vs. detailed) is transcribed as-published from the agenda packet, alongside a plain-English realistic read keyed on the resolution's category. The amount comes from section G of the statement, where the preparer wrote one. Separately, every dollar figure the resolution's own text states is listed and quoted, each labelled by its wording (a cost, a pay rate, a fee paid to the Town, a grant, a fund-balance transfer, a budget-adjustment line or background); insurance limits an applicant must carry are left out. The stated cost is the largest figure that reads as the Town paying out, taking what the Board resolves over the recitals.",
+ "method": "Each resolution's Town 'Fiscal Impact Statement' answer (Yes/No and absorbed vs. detailed) is transcribed as-published from the agenda packet, alongside a plain-English realistic read keyed on the resolution's category. The amount comes from section G of the statement, where the preparer wrote one. Separately, every dollar figure the resolution's own text states is listed and quoted, each labelled by its wording (a cost, a pay rate, a fee paid to the Town, a grant, a fund-balance transfer, a budget-adjustment line or background); insurance limits an applicant must carry are left out. The stated cost is the largest figure that reads as the Town paying out, taking what the Board resolves over the recitals. Where section G names less than the resolution's own budget table moves, both figures are shown.",
  "summary": {
   "total": 66,
   "markedNo": 55,
@@ -20,6 +20,7 @@
   "fundBalanceDraws": 0,
   "fundBalanceDrawTotal": 0,
   "statedCostResolutions": 1,
+  "statementBelowTable": 0,
   "statedCostMarkedNo": 0,
   "largestStatedCostMarkedNo": null
  },
@@ -109,6 +110,7 @@
     }
    ],
    "statedCost": null,
+   "statementBelowTable": null,
    "realistic": {
     "verdict": "Understated \u2014 the form says 'no fiscal impact'",
     "reason": "A capital or debt item marked 'no fiscal impact' still moves money the Town must fund.",
@@ -165,6 +167,7 @@
     }
    ],
    "statedCost": null,
+   "statementBelowTable": null,
    "realistic": {
     "verdict": "Understated \u2014 the form says 'no fiscal impact'",
     "reason": "A capital or debt item marked 'no fiscal impact' still moves money the Town must fund.",
@@ -245,6 +248,7 @@
     }
    ],
    "statedCost": null,
+   "statementBelowTable": null,
    "realistic": {
     "verdict": "Understated \u2014 the form says 'no fiscal impact'",
     "reason": "A capital or debt item marked 'no fiscal impact' still moves money the Town must fund.",
@@ -307,6 +311,7 @@
     }
    ],
    "statedCost": null,
+   "statementBelowTable": null,
    "realistic": {
     "verdict": "Understated \u2014 the form says 'no fiscal impact'",
     "reason": "A capital or debt item marked 'no fiscal impact' still moves money the Town must fund.",
@@ -369,6 +374,7 @@
     }
    ],
    "statedCost": null,
+   "statementBelowTable": null,
    "realistic": {
     "verdict": "Understated \u2014 the form says 'no fiscal impact'",
     "reason": "A capital or debt item marked 'no fiscal impact' still moves money the Town must fund.",
@@ -431,6 +437,7 @@
     }
    ],
    "statedCost": null,
+   "statementBelowTable": null,
    "realistic": {
     "verdict": "Understated \u2014 the form says 'no fiscal impact'",
     "reason": "A capital or debt item marked 'no fiscal impact' still moves money the Town must fund.",
@@ -493,6 +500,7 @@
     }
    ],
    "statedCost": null,
+   "statementBelowTable": null,
    "realistic": {
     "verdict": "Understated \u2014 the form says 'no fiscal impact'",
     "reason": "A capital or debt item marked 'no fiscal impact' still moves money the Town must fund.",
@@ -555,6 +563,7 @@
     }
    ],
    "statedCost": null,
+   "statementBelowTable": null,
    "realistic": {
     "verdict": "Understated \u2014 the form says 'no fiscal impact'",
     "reason": "A capital or debt item marked 'no fiscal impact' still moves money the Town must fund.",
@@ -611,6 +620,7 @@
     }
    ],
    "statedCost": null,
+   "statementBelowTable": null,
    "realistic": {
     "verdict": "Understated \u2014 the form says 'no fiscal impact'",
     "reason": "A capital or debt item marked 'no fiscal impact' still moves money the Town must fund.",
@@ -673,6 +683,7 @@
     }
    ],
    "statedCost": null,
+   "statementBelowTable": null,
    "realistic": {
     "verdict": "Understated \u2014 the form says 'no fiscal impact'",
     "reason": "A capital or debt item marked 'no fiscal impact' still moves money the Town must fund.",
@@ -735,6 +746,7 @@
     }
    ],
    "statedCost": null,
+   "statementBelowTable": null,
    "realistic": {
     "verdict": "Understated \u2014 the form says 'no fiscal impact'",
     "reason": "A capital or debt item marked 'no fiscal impact' still moves money the Town must fund.",
@@ -797,6 +809,7 @@
     }
    ],
    "statedCost": null,
+   "statementBelowTable": null,
    "realistic": {
     "verdict": "Understated \u2014 the form says 'no fiscal impact'",
     "reason": "A capital or debt item marked 'no fiscal impact' still moves money the Town must fund.",
@@ -859,6 +872,7 @@
     }
    ],
    "statedCost": null,
+   "statementBelowTable": null,
    "realistic": {
     "verdict": "Understated \u2014 the form says 'no fiscal impact'",
     "reason": "A capital or debt item marked 'no fiscal impact' still moves money the Town must fund.",
@@ -927,6 +941,7 @@
     }
    ],
    "statedCost": null,
+   "statementBelowTable": null,
    "realistic": {
     "verdict": "Understated \u2014 the form says 'no fiscal impact'",
     "reason": "A capital or debt item marked 'no fiscal impact' still moves money the Town must fund.",
@@ -1019,6 +1034,7 @@
     }
    ],
    "statedCost": null,
+   "statementBelowTable": null,
    "realistic": {
     "verdict": "Understated \u2014 the form says 'no fiscal impact'",
     "reason": "A capital or debt item marked 'no fiscal impact' still moves money the Town must fund.",
@@ -1075,6 +1091,7 @@
     }
    ],
    "statedCost": null,
+   "statementBelowTable": null,
    "realistic": {
     "verdict": "Understated \u2014 the form says 'no fiscal impact'",
     "reason": "A capital or debt item marked 'no fiscal impact' still moves money the Town must fund.",
@@ -1143,6 +1160,7 @@
     }
    ],
    "statedCost": null,
+   "statementBelowTable": null,
    "realistic": {
     "verdict": "Understated \u2014 the form says 'no fiscal impact'",
     "reason": "A capital or debt item marked 'no fiscal impact' still moves money the Town must fund.",
@@ -1186,6 +1204,7 @@
    },
    "statedAmounts": [],
    "statedCost": null,
+   "statementBelowTable": null,
    "realistic": {
     "verdict": "Understated \u2014 the form says 'no fiscal impact'",
     "reason": "A capital or debt item marked 'no fiscal impact' still moves money the Town must fund.",
@@ -1229,6 +1248,7 @@
    },
    "statedAmounts": [],
    "statedCost": null,
+   "statementBelowTable": null,
    "realistic": {
     "verdict": "Understated \u2014 the form says 'no fiscal impact'",
     "reason": "A capital or debt item marked 'no fiscal impact' still moves money the Town must fund.",
@@ -1272,6 +1292,7 @@
    },
    "statedAmounts": [],
    "statedCost": null,
+   "statementBelowTable": null,
    "realistic": {
     "verdict": "Understated \u2014 the form says 'no fiscal impact'",
     "reason": "A capital or debt item marked 'no fiscal impact' still moves money the Town must fund.",
@@ -1315,6 +1336,7 @@
    },
    "statedAmounts": [],
    "statedCost": null,
+   "statementBelowTable": null,
    "realistic": {
     "verdict": "Understated \u2014 the form says 'no fiscal impact'",
     "reason": "A capital or debt item marked 'no fiscal impact' still moves money the Town must fund.",
@@ -1358,6 +1380,7 @@
    },
    "statedAmounts": [],
    "statedCost": null,
+   "statementBelowTable": null,
    "realistic": {
     "verdict": "Understated \u2014 the form says 'no fiscal impact'",
     "reason": "A capital or debt item marked 'no fiscal impact' still moves money the Town must fund.",
@@ -1414,6 +1437,7 @@
     }
    ],
    "statedCost": null,
+   "statementBelowTable": null,
    "realistic": {
     "verdict": "Understated \u2014 the form says 'no fiscal impact'",
     "reason": "A capital or debt item marked 'no fiscal impact' still moves money the Town must fund.",
@@ -1470,6 +1494,7 @@
     }
    ],
    "statedCost": null,
+   "statementBelowTable": null,
    "realistic": {
     "verdict": "Understated \u2014 the form says 'no fiscal impact'",
     "reason": "A capital or debt item marked 'no fiscal impact' still moves money the Town must fund.",
@@ -1513,6 +1538,7 @@
    },
    "statedAmounts": [],
    "statedCost": null,
+   "statementBelowTable": null,
    "realistic": {
     "verdict": "Understated \u2014 the form says 'no fiscal impact'",
     "reason": "A capital or debt item marked 'no fiscal impact' still moves money the Town must fund.",
@@ -1556,6 +1582,7 @@
    },
    "statedAmounts": [],
    "statedCost": null,
+   "statementBelowTable": null,
    "realistic": {
     "verdict": "Understated \u2014 the form says 'no fiscal impact'",
     "reason": "A capital or debt item marked 'no fiscal impact' still moves money the Town must fund.",
@@ -1599,6 +1626,7 @@
    },
    "statedAmounts": [],
    "statedCost": null,
+   "statementBelowTable": null,
    "realistic": {
     "verdict": "Understated \u2014 the form says 'no fiscal impact'",
     "reason": "A capital or debt item marked 'no fiscal impact' still moves money the Town must fund.",
@@ -1642,6 +1670,7 @@
    },
    "statedAmounts": [],
    "statedCost": null,
+   "statementBelowTable": null,
    "realistic": {
     "verdict": "Understated \u2014 the form says 'no fiscal impact'",
     "reason": "A capital or debt item marked 'no fiscal impact' still moves money the Town must fund.",
@@ -1685,6 +1714,7 @@
    },
    "statedAmounts": [],
    "statedCost": null,
+   "statementBelowTable": null,
    "realistic": {
     "verdict": "Understated \u2014 the form says 'no fiscal impact'",
     "reason": "A capital or debt item marked 'no fiscal impact' still moves money the Town must fund.",
@@ -1741,6 +1771,7 @@
     }
    ],
    "statedCost": null,
+   "statementBelowTable": null,
    "realistic": {
     "verdict": "Understated \u2014 the form says 'no fiscal impact'",
     "reason": "A capital or debt item marked 'no fiscal impact' still moves money the Town must fund.",
@@ -1797,6 +1828,7 @@
     }
    ],
    "statedCost": null,
+   "statementBelowTable": null,
    "realistic": {
     "verdict": "Understated \u2014 the form says 'no fiscal impact'",
     "reason": "A capital or debt item marked 'no fiscal impact' still moves money the Town must fund.",
@@ -1853,6 +1885,7 @@
     }
    ],
    "statedCost": null,
+   "statementBelowTable": null,
    "realistic": {
     "verdict": "Understated \u2014 the form says 'no fiscal impact'",
     "reason": "A capital or debt item marked 'no fiscal impact' still moves money the Town must fund.",
@@ -1896,6 +1929,7 @@
    },
    "statedAmounts": [],
    "statedCost": null,
+   "statementBelowTable": null,
    "realistic": {
     "verdict": "Understated \u2014 'absorbed by existing budget'",
     "reason": "It commits capital or debt-service dollars, typically drawn from reserves, fund balance, or borrowing \u2014 not truly cost-free even if 'absorbed'.",
@@ -1939,6 +1973,7 @@
    },
    "statedAmounts": [],
    "statedCost": null,
+   "statementBelowTable": null,
    "realistic": {
     "verdict": "No direct cost",
     "reason": "A procedural, permit, or administrative action with no direct levy cost identified.",
@@ -1982,6 +2017,7 @@
    },
    "statedAmounts": [],
    "statedCost": null,
+   "statementBelowTable": null,
    "realistic": {
     "verdict": "No direct cost",
     "reason": "Appointment to an unpaid advisory board, committee, or task force \u2014 no salary attached.",
@@ -2025,6 +2061,7 @@
    },
    "statedAmounts": [],
    "statedCost": null,
+   "statementBelowTable": null,
    "realistic": {
     "verdict": "Understated \u2014 the form says 'no fiscal impact'",
     "reason": "A salary, contract, or fee item marked 'no fiscal impact' typically still moves money.",
@@ -2084,6 +2121,7 @@
    },
    "statedAmounts": [],
    "statedCost": null,
+   "statementBelowTable": null,
    "realistic": {
     "verdict": "Real, recurring cost \u2014 funded by the levy",
     "reason": "Section G charges this to an appropriation account (Grant or other Revenue Source: Appropriation Transfer (list account(s) and amoun) and names no fund-balance account. It is ongoing operating money the tax levy carries, not a draw on accumulated surplus \u2014 a distinction the form itself does not draw.",
@@ -2127,6 +2165,7 @@
    },
    "statedAmounts": [],
    "statedCost": null,
+   "statementBelowTable": null,
    "realistic": {
     "verdict": "Real, recurring cost",
     "reason": "A salary, raise, contract, or fee change that commits ongoing money.",
@@ -2170,6 +2209,7 @@
    },
    "statedAmounts": [],
    "statedCost": null,
+   "statementBelowTable": null,
    "realistic": {
     "verdict": "Understated \u2014 the form says 'no fiscal impact'",
     "reason": "A salary, contract, or fee item marked 'no fiscal impact' typically still moves money.",
@@ -2234,6 +2274,7 @@
     }
    ],
    "statedCost": null,
+   "statementBelowTable": null,
    "realistic": {
     "verdict": "Real, recurring cost \u2014 funded by the levy",
     "reason": "Section G charges this to an appropriation account (Highway - F/T) and names no fund-balance account. It is ongoing operating money the tax levy carries, not a draw on accumulated surplus \u2014 a distinction the form itself does not draw.",
@@ -2298,6 +2339,7 @@
     }
    ],
    "statedCost": null,
+   "statementBelowTable": null,
    "realistic": {
     "verdict": "Real, recurring cost \u2014 funded by the levy",
     "reason": "Section G charges this to an appropriation account (Water - F/T) and names no fund-balance account. It is ongoing operating money the tax levy carries, not a draw on accumulated surplus \u2014 a distinction the form itself does not draw.",
@@ -2380,6 +2422,7 @@
     }
    ],
    "statedCost": 4500.0,
+   "statementBelowTable": null,
    "realistic": {
     "verdict": "Real, recurring cost \u2014 funded by the levy",
     "reason": "Section G charges this to an appropriation account (Atty-Personal Svcs - Part-Time) and names no fund-balance account. It is ongoing operating money the tax levy carries, not a draw on accumulated surplus \u2014 a distinction the form itself does not draw.",
@@ -2436,6 +2479,7 @@
     }
    ],
    "statedCost": null,
+   "statementBelowTable": null,
    "realistic": {
     "verdict": "Real, recurring cost",
     "reason": "A salary, raise, contract, or fee change that commits ongoing money.",
@@ -2500,6 +2544,7 @@
     }
    ],
    "statedCost": null,
+   "statementBelowTable": null,
    "realistic": {
     "verdict": "Real, recurring cost \u2014 funded by the levy",
     "reason": "Section G charges this to an appropriation account (Highway - F/T) and names no fund-balance account. It is ongoing operating money the tax levy carries, not a draw on accumulated surplus \u2014 a distinction the form itself does not draw.",
@@ -2543,6 +2588,7 @@
    },
    "statedAmounts": [],
    "statedCost": null,
+   "statementBelowTable": null,
    "realistic": {
     "verdict": "Administrative / offsetting",
     "reason": "A procedural, permit, or administrative action with no direct levy cost identified.",
@@ -2600,6 +2646,7 @@
    },
    "statedAmounts": [],
    "statedCost": null,
+   "statementBelowTable": null,
    "realistic": {
     "verdict": "Administrative / offsetting",
     "reason": "A procedural, permit, or administrative action with no direct levy cost identified.",
@@ -2656,6 +2703,7 @@
     }
    ],
    "statedCost": null,
+   "statementBelowTable": null,
    "realistic": {
     "verdict": "No direct cost",
     "reason": "A procedural, permit, or administrative action with no direct levy cost identified.",
@@ -2706,6 +2754,7 @@
     }
    ],
    "statedCost": null,
+   "statementBelowTable": null,
    "realistic": {
     "verdict": "No direct cost",
     "reason": "A procedural, permit, or administrative action with no direct levy cost identified.",
@@ -2756,6 +2805,7 @@
     }
    ],
    "statedCost": null,
+   "statementBelowTable": null,
    "realistic": {
     "verdict": "No direct cost",
     "reason": "A procedural, permit, or administrative action with no direct levy cost identified.",
@@ -2799,6 +2849,7 @@
    },
    "statedAmounts": [],
    "statedCost": null,
+   "statementBelowTable": null,
    "realistic": {
     "verdict": "No direct cost",
     "reason": "A procedural, permit, or administrative action with no direct levy cost identified.",
@@ -2855,6 +2906,7 @@
     }
    ],
    "statedCost": null,
+   "statementBelowTable": null,
    "realistic": {
     "verdict": "No direct cost",
     "reason": "A procedural, permit, or administrative action with no direct levy cost identified.",
@@ -2898,6 +2950,7 @@
    },
    "statedAmounts": [],
    "statedCost": null,
+   "statementBelowTable": null,
    "realistic": {
     "verdict": "No direct cost",
     "reason": "A procedural, permit, or administrative action with no direct levy cost identified.",
@@ -2948,6 +3001,7 @@
     }
    ],
    "statedCost": null,
+   "statementBelowTable": null,
    "realistic": {
     "verdict": "Grant with a local share \u2014 not cost-free",
     "reason": "The statement says this award requires a local match. The grant covers most of the cost, but the Town's share is its own money, and it comes from the levy or from fund balance like any other spending.",
@@ -2991,6 +3045,7 @@
    },
    "statedAmounts": [],
    "statedCost": null,
+   "statementBelowTable": null,
    "realistic": {
     "verdict": "No direct cost",
     "reason": "A procedural, permit, or administrative action with no direct levy cost identified.",
@@ -3034,6 +3089,7 @@
    },
    "statedAmounts": [],
    "statedCost": null,
+   "statementBelowTable": null,
    "realistic": {
     "verdict": "No direct cost",
     "reason": "A procedural, permit, or administrative action with no direct levy cost identified.",
@@ -3077,6 +3133,7 @@
    },
    "statedAmounts": [],
    "statedCost": null,
+   "statementBelowTable": null,
    "realistic": {
     "verdict": "No direct cost",
     "reason": "A procedural, permit, or administrative action with no direct levy cost identified.",
@@ -3134,6 +3191,7 @@
    },
    "statedAmounts": [],
    "statedCost": null,
+   "statementBelowTable": null,
    "realistic": {
     "verdict": "Real, recurring cost \u2014 funded by the levy",
     "reason": "Section G charges this to an appropriation account (Atty - Prof Svcs - Legal) and names no fund-balance account. It is ongoing operating money the tax levy carries, not a draw on accumulated surplus \u2014 a distinction the form itself does not draw.",
@@ -3177,6 +3235,7 @@
    },
    "statedAmounts": [],
    "statedCost": null,
+   "statementBelowTable": null,
    "realistic": {
     "verdict": "Understated \u2014 the form says 'no fiscal impact'",
     "reason": "A salary, contract, or fee item marked 'no fiscal impact' typically still moves money.",
@@ -3220,6 +3279,7 @@
    },
    "statedAmounts": [],
    "statedCost": null,
+   "statementBelowTable": null,
    "realistic": {
     "verdict": "Understated \u2014 the form says 'no fiscal impact'",
     "reason": "A salary, contract, or fee item marked 'no fiscal impact' typically still moves money.",
@@ -3270,6 +3330,7 @@
     }
    ],
    "statedCost": null,
+   "statementBelowTable": null,
    "realistic": {
     "verdict": "Understated \u2014 the form says 'no fiscal impact'",
     "reason": "A salary, contract, or fee item marked 'no fiscal impact' typically still moves money.",
@@ -3313,6 +3374,7 @@
    },
    "statedAmounts": [],
    "statedCost": null,
+   "statementBelowTable": null,
    "realistic": {
     "verdict": "No direct cost",
     "reason": "A procedural, permit, or administrative action with no direct levy cost identified.",
@@ -3356,6 +3418,7 @@
    },
    "statedAmounts": [],
    "statedCost": null,
+   "statementBelowTable": null,
    "realistic": {
     "verdict": "Understated \u2014 the form says 'no fiscal impact'",
     "reason": "A salary, contract, or fee item marked 'no fiscal impact' typically still moves money.",
@@ -3399,6 +3462,7 @@
    },
    "statedAmounts": [],
    "statedCost": null,
+   "statementBelowTable": null,
    "realistic": {
     "verdict": "No direct cost",
     "reason": "A procedural, permit, or administrative action with no direct levy cost identified.",
@@ -3442,6 +3506,7 @@
    },
    "statedAmounts": [],
    "statedCost": null,
+   "statementBelowTable": null,
    "realistic": {
     "verdict": "No direct cost",
     "reason": "A procedural, permit, or administrative action with no direct levy cost identified.",
@@ -3485,6 +3550,7 @@
    },
    "statedAmounts": [],
    "statedCost": null,
+   "statementBelowTable": null,
    "realistic": {
     "verdict": "Authorizes payment \u2014 the money leaves here",
     "reason": "A warrant is the Board signing off on actual disbursement: checks written and funds transferred. The obligations were incurred earlier, so this is not new spending \u2014 but it is the moment the cash goes out, and the resolution that releases it is the one place the total is put in front of the Board.",
@@ -3528,6 +3594,7 @@
    },
    "statedAmounts": [],
    "statedCost": null,
+   "statementBelowTable": null,
    "realistic": {
     "verdict": "Revenue in / offsetting",
     "reason": "Money flows, but from a grant, donation, or a developer's own escrow \u2014 not the tax levy.",

@@ -5,7 +5,7 @@
   "title": "Town of Riverhead Town Board Agenda Packet, 2026-05-20 (Fiscal Impact Statements)",
   "url": "https://www.townofriverheadny.gov/129/Agendas-Minutes"
  },
- "method": "Each resolution's Town 'Fiscal Impact Statement' answer (Yes/No and absorbed vs. detailed) is transcribed as-published from the agenda packet, alongside a plain-English realistic read keyed on the resolution's category. The amount comes from section G of the statement, where the preparer wrote one. Separately, every dollar figure the resolution's own text states is listed and quoted, each labelled by its wording (a cost, a pay rate, a fee paid to the Town, a grant, a fund-balance transfer, a budget-adjustment line or background); insurance limits an applicant must carry are left out. The stated cost is the largest figure that reads as the Town paying out, taking what the Board resolves over the recitals.",
+ "method": "Each resolution's Town 'Fiscal Impact Statement' answer (Yes/No and absorbed vs. detailed) is transcribed as-published from the agenda packet, alongside a plain-English realistic read keyed on the resolution's category. The amount comes from section G of the statement, where the preparer wrote one. Separately, every dollar figure the resolution's own text states is listed and quoted, each labelled by its wording (a cost, a pay rate, a fee paid to the Town, a grant, a fund-balance transfer, a budget-adjustment line or background); insurance limits an applicant must carry are left out. The stated cost is the largest figure that reads as the Town paying out, taking what the Board resolves over the recitals. Where section G names less than the resolution's own budget table moves, both figures are shown.",
  "summary": {
   "total": 57,
   "markedNo": 38,
@@ -20,6 +20,7 @@
   "fundBalanceDraws": 3,
   "fundBalanceDrawTotal": 952400.0,
   "statedCostResolutions": 4,
+  "statementBelowTable": 0,
   "statedCostMarkedNo": 0,
   "largestStatedCostMarkedNo": null
  },
@@ -112,6 +113,7 @@
     }
    ],
    "statedCost": null,
+   "statementBelowTable": null,
    "realistic": {
     "verdict": "Draws fund balance \u2014 stated on the Town's own form",
     "reason": "Section G charges $80,000 to Appropriated Fund Balance in the Ambulance District. This is not an inference from the title: it is the account the Town wrote down, and every dollar of it is surplus that is no longer available for anything else.",
@@ -180,6 +182,7 @@
     }
    ],
    "statedCost": null,
+   "statementBelowTable": null,
    "realistic": {
     "verdict": "Understated \u2014 the form says 'no fiscal impact'",
     "reason": "A capital or debt item marked 'no fiscal impact' still moves money the Town must fund.",
@@ -248,6 +251,7 @@
     }
    ],
    "statedCost": null,
+   "statementBelowTable": null,
    "realistic": {
     "verdict": "Administrative / offsetting",
     "reason": "A procedural, permit, or administrative action with no direct levy cost identified.",
@@ -514,6 +518,7 @@
     }
    ],
    "statedCost": 2460840.0,
+   "statementBelowTable": null,
    "realistic": {
     "verdict": "Draws fund balance \u2014 stated on the Town's own form",
     "reason": "Section G charges $800,000 to Appropriated Fund Balance in the Sewer District (ES7). This is not an inference from the title: it is the account the Town wrote down, and every dollar of it is surplus that is no longer available for anything else.",
@@ -595,6 +600,7 @@
     }
    ],
    "statedCost": null,
+   "statementBelowTable": null,
    "realistic": {
     "verdict": "Capital fund \u2014 no draw on an operating balance",
     "reason": "Every account named in section G sits in the Sewer \u2014 developer fees. The money moves through a capital or developer-paid fund, so it does not reduce the General Fund surplus the Town would need for anything else.",
@@ -638,6 +644,7 @@
    },
    "statedAmounts": [],
    "statedCost": null,
+   "statementBelowTable": null,
    "realistic": {
     "verdict": "No direct cost",
     "reason": "A procedural, permit, or administrative action with no direct levy cost identified.",
@@ -681,6 +688,7 @@
    },
    "statedAmounts": [],
    "statedCost": null,
+   "statementBelowTable": null,
    "realistic": {
     "verdict": "No direct cost",
     "reason": "A procedural, permit, or administrative action with no direct levy cost identified.",
@@ -745,6 +753,7 @@
     }
    ],
    "statedCost": 181981.0,
+   "statementBelowTable": null,
    "realistic": {
     "verdict": "Understated \u2014 'absorbed by existing budget'",
     "reason": "It commits capital or debt-service dollars, typically drawn from reserves, fund balance, or borrowing \u2014 not truly cost-free even if 'absorbed'.",
@@ -797,6 +806,7 @@
     }
    ],
    "statedCost": 1329.0,
+   "statementBelowTable": null,
    "realistic": {
     "verdict": "Small real cost \u2014 and the Town says so",
     "reason": "Registration or tuition plus mileage and travel, charged to a conference or training line. Individually minor; the Town answered honestly here.",
@@ -840,6 +850,7 @@
    },
    "statedAmounts": [],
    "statedCost": null,
+   "statementBelowTable": null,
    "realistic": {
     "verdict": "Understated \u2014 the form says 'no fiscal impact'",
     "reason": "Attending a training, seminar or conference carries a registration fee and mileage or travel reimbursement. Both are charged to a budget line. On other, near-identical attendance resolutions the Town answered \u201cYes\u201d.",
@@ -883,6 +894,7 @@
    },
    "statedAmounts": [],
    "statedCost": null,
+   "statementBelowTable": null,
    "realistic": {
     "verdict": "Real, recurring cost",
     "reason": "A salary, raise, contract, or fee change that commits ongoing money.",
@@ -947,6 +959,7 @@
     }
    ],
    "statedCost": null,
+   "statementBelowTable": null,
    "realistic": {
     "verdict": "Real, recurring cost \u2014 funded by the levy",
     "reason": "Section G charges this to an appropriation account (Pump Boat Operator) and names no fund-balance account. It is ongoing operating money the tax levy carries, not a draw on accumulated surplus \u2014 a distinction the form itself does not draw.",
@@ -997,6 +1010,7 @@
     }
    ],
    "statedCost": null,
+   "statementBelowTable": null,
    "realistic": {
     "verdict": "Understated \u2014 the form says 'no fiscal impact'",
     "reason": "A salary, contract, or fee item marked 'no fiscal impact' typically still moves money.",
@@ -1061,6 +1075,7 @@
     }
    ],
    "statedCost": null,
+   "statementBelowTable": null,
    "realistic": {
     "verdict": "Real, recurring cost \u2014 funded by the levy",
     "reason": "Section G charges this to an appropriation account (Water - F/T) and names no fund-balance account. It is ongoing operating money the tax levy carries, not a draw on accumulated surplus \u2014 a distinction the form itself does not draw.",
@@ -1125,6 +1140,7 @@
     }
    ],
    "statedCost": null,
+   "statementBelowTable": null,
    "realistic": {
     "verdict": "Real, recurring cost \u2014 funded by the levy",
     "reason": "Section G charges this to an appropriation account (Police Dept - Non Union) and names no fund-balance account. It is ongoing operating money the tax levy carries, not a draw on accumulated surplus \u2014 a distinction the form itself does not draw.",
@@ -1189,6 +1205,7 @@
     }
    ],
    "statedCost": null,
+   "statementBelowTable": null,
    "realistic": {
     "verdict": "Real, recurring cost \u2014 funded by the levy",
     "reason": "Section G charges this to an appropriation account (Water - F/T) and names no fund-balance account. It is ongoing operating money the tax levy carries, not a draw on accumulated surplus \u2014 a distinction the form itself does not draw.",
@@ -1257,6 +1274,7 @@
     }
    ],
    "statedCost": 3100.0,
+   "statementBelowTable": null,
    "realistic": {
     "verdict": "Real, recurring cost",
     "reason": "A salary, raise, contract, or fee change that commits ongoing money.",
@@ -1321,6 +1339,7 @@
     }
    ],
    "statedCost": null,
+   "statementBelowTable": null,
    "realistic": {
     "verdict": "Real, recurring cost \u2014 funded by the levy",
     "reason": "Section G charges this to an appropriation account (Juvenile Aid Bureau - F/T) and names no fund-balance account. It is ongoing operating money the tax levy carries, not a draw on accumulated surplus \u2014 a distinction the form itself does not draw.",
@@ -1364,6 +1383,7 @@
    },
    "statedAmounts": [],
    "statedCost": null,
+   "statementBelowTable": null,
    "realistic": {
     "verdict": "Actually a saving",
     "reason": "A departure reduces payroll \u2014 the opposite of a cost.",
@@ -1407,6 +1427,7 @@
    },
    "statedAmounts": [],
    "statedCost": null,
+   "statementBelowTable": null,
    "realistic": {
     "verdict": "Actually a saving",
     "reason": "A departure reduces payroll \u2014 the opposite of a cost.",
@@ -1450,6 +1471,7 @@
    },
    "statedAmounts": [],
    "statedCost": null,
+   "statementBelowTable": null,
    "realistic": {
     "verdict": "Actually a saving",
     "reason": "A departure reduces payroll \u2014 the opposite of a cost.",
@@ -1493,6 +1515,7 @@
    },
    "statedAmounts": [],
    "statedCost": null,
+   "statementBelowTable": null,
    "realistic": {
     "verdict": "Understated \u2014 the form says 'no fiscal impact'",
     "reason": "A salary, contract, or fee item marked 'no fiscal impact' typically still moves money.",
@@ -1536,6 +1559,7 @@
    },
    "statedAmounts": [],
    "statedCost": null,
+   "statementBelowTable": null,
    "realistic": {
     "verdict": "Understated \u2014 the form says 'no fiscal impact'",
     "reason": "A salary, contract, or fee item marked 'no fiscal impact' typically still moves money.",
@@ -1579,6 +1603,7 @@
    },
    "statedAmounts": [],
    "statedCost": null,
+   "statementBelowTable": null,
    "realistic": {
     "verdict": "Understated \u2014 the form says 'no fiscal impact'",
     "reason": "A salary, contract, or fee item marked 'no fiscal impact' typically still moves money.",
@@ -1622,6 +1647,7 @@
    },
    "statedAmounts": [],
    "statedCost": null,
+   "statementBelowTable": null,
    "realistic": {
     "verdict": "Understated \u2014 the form says 'no fiscal impact'",
     "reason": "A salary, contract, or fee item marked 'no fiscal impact' typically still moves money.",
@@ -1665,6 +1691,7 @@
    },
    "statedAmounts": [],
    "statedCost": null,
+   "statementBelowTable": null,
    "realistic": {
     "verdict": "Understated \u2014 the form says 'no fiscal impact'",
     "reason": "A salary, contract, or fee item marked 'no fiscal impact' typically still moves money.",
@@ -1708,6 +1735,7 @@
    },
    "statedAmounts": [],
    "statedCost": null,
+   "statementBelowTable": null,
    "realistic": {
     "verdict": "Understated \u2014 the form says 'no fiscal impact'",
     "reason": "A salary, contract, or fee item marked 'no fiscal impact' typically still moves money.",
@@ -1751,6 +1779,7 @@
    },
    "statedAmounts": [],
    "statedCost": null,
+   "statementBelowTable": null,
    "realistic": {
     "verdict": "Understated \u2014 the form says 'no fiscal impact'",
     "reason": "A salary, contract, or fee item marked 'no fiscal impact' typically still moves money.",
@@ -1794,6 +1823,7 @@
    },
    "statedAmounts": [],
    "statedCost": null,
+   "statementBelowTable": null,
    "realistic": {
     "verdict": "Understated \u2014 the form says 'no fiscal impact'",
     "reason": "A salary, contract, or fee item marked 'no fiscal impact' typically still moves money.",
@@ -1851,6 +1881,7 @@
    },
    "statedAmounts": [],
    "statedCost": null,
+   "statementBelowTable": null,
    "realistic": {
     "verdict": "Administrative / offsetting",
     "reason": "A procedural, permit, or administrative action with no direct levy cost identified.",
@@ -1894,6 +1925,7 @@
    },
    "statedAmounts": [],
    "statedCost": null,
+   "statementBelowTable": null,
    "realistic": {
     "verdict": "Understated \u2014 the form says 'no fiscal impact'",
     "reason": "A salary, contract, or fee item marked 'no fiscal impact' typically still moves money.",
@@ -1937,6 +1969,7 @@
    },
    "statedAmounts": [],
    "statedCost": null,
+   "statementBelowTable": null,
    "realistic": {
     "verdict": "No direct cost",
     "reason": "A procedural, permit, or administrative action with no direct levy cost identified.",
@@ -1980,6 +2013,7 @@
    },
    "statedAmounts": [],
    "statedCost": null,
+   "statementBelowTable": null,
    "realistic": {
     "verdict": "No direct cost",
     "reason": "A procedural, permit, or administrative action with no direct levy cost identified.",
@@ -2023,6 +2057,7 @@
    },
    "statedAmounts": [],
    "statedCost": null,
+   "statementBelowTable": null,
    "realistic": {
     "verdict": "No direct cost",
     "reason": "A procedural, permit, or administrative action with no direct levy cost identified.",
@@ -2081,6 +2116,7 @@
     }
    ],
    "statedCost": null,
+   "statementBelowTable": null,
    "realistic": {
     "verdict": "Revenue in / offsetting",
     "reason": "Money flows, but from a grant, donation, or a developer's own escrow \u2014 not the tax levy.",
@@ -2124,6 +2160,7 @@
    },
    "statedAmounts": [],
    "statedCost": null,
+   "statementBelowTable": null,
    "realistic": {
     "verdict": "Revenue in / offsetting",
     "reason": "Money flows, but from a grant, donation, or a developer's own escrow \u2014 not the tax levy.",
@@ -2167,6 +2204,7 @@
    },
    "statedAmounts": [],
    "statedCost": null,
+   "statementBelowTable": null,
    "realistic": {
     "verdict": "No direct cost",
     "reason": "A procedural, permit, or administrative action with no direct levy cost identified.",
@@ -2223,6 +2261,7 @@
     }
    ],
    "statedCost": null,
+   "statementBelowTable": null,
    "realistic": {
     "verdict": "No direct cost",
     "reason": "A procedural, permit, or administrative action with no direct levy cost identified.",
@@ -2279,6 +2318,7 @@
     }
    ],
    "statedCost": null,
+   "statementBelowTable": null,
    "realistic": {
     "verdict": "No direct cost",
     "reason": "A procedural, permit, or administrative action with no direct levy cost identified.",
@@ -2335,6 +2375,7 @@
     }
    ],
    "statedCost": null,
+   "statementBelowTable": null,
    "realistic": {
     "verdict": "No direct cost",
     "reason": "A procedural, permit, or administrative action with no direct levy cost identified.",
@@ -2391,6 +2432,7 @@
     }
    ],
    "statedCost": null,
+   "statementBelowTable": null,
    "realistic": {
     "verdict": "No direct cost",
     "reason": "A procedural, permit, or administrative action with no direct levy cost identified.",
@@ -2447,6 +2489,7 @@
     }
    ],
    "statedCost": null,
+   "statementBelowTable": null,
    "realistic": {
     "verdict": "No direct cost",
     "reason": "A procedural, permit, or administrative action with no direct levy cost identified.",
@@ -2497,6 +2540,7 @@
     }
    ],
    "statedCost": null,
+   "statementBelowTable": null,
    "realistic": {
     "verdict": "No direct cost",
     "reason": "A procedural, permit, or administrative action with no direct levy cost identified.",
@@ -2547,6 +2591,7 @@
     }
    ],
    "statedCost": null,
+   "statementBelowTable": null,
    "realistic": {
     "verdict": "No direct cost",
     "reason": "A procedural, permit, or administrative action with no direct levy cost identified.",
@@ -2590,6 +2635,7 @@
    },
    "statedAmounts": [],
    "statedCost": null,
+   "statementBelowTable": null,
    "realistic": {
     "verdict": "No direct cost",
     "reason": "A procedural, permit, or administrative action with no direct levy cost identified.",
@@ -2633,6 +2679,7 @@
    },
    "statedAmounts": [],
    "statedCost": null,
+   "statementBelowTable": null,
    "realistic": {
     "verdict": "No direct cost",
     "reason": "A procedural, permit, or administrative action with no direct levy cost identified.",
@@ -2676,6 +2723,7 @@
    },
    "statedAmounts": [],
    "statedCost": null,
+   "statementBelowTable": null,
    "realistic": {
     "verdict": "No direct cost",
     "reason": "A procedural, permit, or administrative action with no direct levy cost identified.",
@@ -2719,6 +2767,7 @@
    },
    "statedAmounts": [],
    "statedCost": null,
+   "statementBelowTable": null,
    "realistic": {
     "verdict": "Understated \u2014 the form says 'no fiscal impact'",
     "reason": "A salary, contract, or fee item marked 'no fiscal impact' typically still moves money.",
@@ -2769,6 +2818,7 @@
     }
    ],
    "statedCost": null,
+   "statementBelowTable": null,
    "realistic": {
     "verdict": "Real, recurring cost",
     "reason": "A salary, raise, contract, or fee change that commits ongoing money.",
@@ -2812,6 +2862,7 @@
    },
    "statedAmounts": [],
    "statedCost": null,
+   "statementBelowTable": null,
    "realistic": {
     "verdict": "Understated \u2014 the form says 'no fiscal impact'",
     "reason": "A salary, contract, or fee item marked 'no fiscal impact' typically still moves money.",
@@ -2855,6 +2906,7 @@
    },
    "statedAmounts": [],
    "statedCost": null,
+   "statementBelowTable": null,
    "realistic": {
     "verdict": "No direct cost",
     "reason": "A procedural, permit, or administrative action with no direct levy cost identified.",
@@ -2898,6 +2950,7 @@
    },
    "statedAmounts": [],
    "statedCost": null,
+   "statementBelowTable": null,
    "realistic": {
     "verdict": "Authorizes payment \u2014 the money leaves here",
     "reason": "A warrant is the Board signing off on actual disbursement: checks written and funds transferred. The obligations were incurred earlier, so this is not new spending \u2014 but it is the moment the cash goes out, and the resolution that releases it is the one place the total is put in front of the Board.",
@@ -3106,6 +3159,7 @@
     }
    ],
    "statedCost": null,
+   "statementBelowTable": null,
    "realistic": {
     "verdict": "Draws fund balance \u2014 stated on the Town's own form",
     "reason": "Section G charges $72,400 to Appropriated Fund Balance in the General Fund. This is not an inference from the title: it is the account the Town wrote down, and every dollar of it is surplus that is no longer available for anything else.",
@@ -3149,6 +3203,7 @@
    },
    "statedAmounts": [],
    "statedCost": null,
+   "statementBelowTable": null,
    "realistic": {
     "verdict": "Real cost \u2014 a payment the Town owes",
     "reason": "A settlement or claim is money leaving the Town, usually from the General Fund or an insurance reserve, whatever the form says about absorption.",
@@ -3213,6 +3268,7 @@
     }
    ],
    "statedCost": null,
+   "statementBelowTable": null,
    "realistic": {
     "verdict": "Real, recurring cost \u2014 funded by the levy",
     "reason": "Section G charges this to an appropriation account (Code Enforcement - P/T) and names no fund-balance account. It is ongoing operating money the tax levy carries, not a draw on accumulated surplus \u2014 a distinction the form itself does not draw.",
@@ -3251,6 +3307,7 @@
    },
    "statedAmounts": [],
    "statedCost": null,
+   "statementBelowTable": null,
    "realistic": {
     "verdict": "Understated \u2014 the form says 'no fiscal impact'",
     "reason": "A salary, contract, or fee item marked 'no fiscal impact' typically still moves money.",
@@ -3294,6 +3351,7 @@
    },
    "statedAmounts": [],
    "statedCost": null,
+   "statementBelowTable": null,
    "realistic": {
     "verdict": "Understated \u2014 the form says 'no fiscal impact'",
     "reason": "A salary, contract, or fee item marked 'no fiscal impact' typically still moves money.",

@@ -67,6 +67,7 @@ if (existsSync(path('components/StatedAmounts.tsx'))) {
     "revenue: 'money in'",
     "security: 'developer security'",
     "context: 'background'",
+    "program: 'grant program total'",
     '<q>{a.quote}</q>',
   ]) if (!source.includes(text)) fail(`Stated-amount labels regressed: missing ${text}`)
 } else fail('Fiscal-impact evidence contract is missing required file: components/StatedAmounts.tsx')
@@ -78,6 +79,7 @@ if (existsSync(path('components/FiscalImpactTable.tsx'))) {
     "if (view === 'stated' && !r.statedCost) return false",
     'but the resolution states a {usd(r.statedCost)} cost',
     'stated in resolution',
+    'but the resolution’s table moves {usd(r.statementBelowTable.table)}',
     'voteLink(meetingRecord.slug, r.number)',
   ]) if (!source.includes(text)) fail(`Fiscal table no longer shows what the resolution states: missing ${text}`)
 }
