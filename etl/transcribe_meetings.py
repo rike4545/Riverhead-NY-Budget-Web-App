@@ -72,21 +72,49 @@ def initial_prompt(meeting: dict) -> str:
     return f"Riverhead Town Board meeting. {names}. Resolution {first}.".replace("  ", " ")
 
 
+SAMPLE_RATE = 16000
+# faster-whisper builds the spectrogram of all the audio it is given at once:
+# about 14 GB for the September 1, 2026 meeting, more than a 16 GB runner can
+# spare. So a meeting goes through in passes of about 20 minutes, each cut at
+# the quietest half second near its end, where no one is mid-word.
+PASS_SECONDS = 20 * 60
+
+
+def cut_points(audio, every: int = PASS_SECONDS, search: int = 60) -> list[int]:
+    """Sample offsets splitting the audio into passes, each cut where it is quietest."""
+    import numpy as np
+
+    half = SAMPLE_RATE // 2
+    cuts, n = [0], len(audio)
+    while n - cuts[-1] > (every + search) * SAMPLE_RATE:
+        lo = cuts[-1] + (every - search) * SAMPLE_RATE
+        window = np.asarray(audio[lo:lo + 2 * search * SAMPLE_RATE], dtype=np.float32)
+        frames = window[: len(window) // half * half].reshape(-1, half)
+        quietest = int(np.argmin((frames ** 2).mean(axis=1)))
+        cuts.append(lo + quietest * half + half // 2)
+    cuts.append(n)
+    return cuts
+
+
 def transcribe(video: Path, prompt: str, model_name: str) -> tuple[list[list], float, float]:
     from faster_whisper import WhisperModel, decode_audio
 
-    audio = decode_audio(str(video), sampling_rate=16000)
-    duration = len(audio) / 16000
+    audio = decode_audio(str(video), sampling_rate=SAMPLE_RATE)
+    duration = len(audio) / SAMPLE_RATE
     model = WhisperModel(model_name, device="cpu", compute_type="int8", cpu_threads=os.cpu_count() or 4)
     started = time.time()
-    # condition_on_previous_text=False keeps one misheard passage from repeating
-    # itself through the rest of a three-hour meeting; the VAD filter skips the
-    # silence before the gavel and during recesses.
-    segments, _info = model.transcribe(
-        audio, language="en", initial_prompt=prompt, vad_filter=True, beam_size=1,
-        condition_on_previous_text=False,
-    )
-    rows = [[round(s.start, 1), round(s.end, 1), s.text.strip()] for s in segments if s.text.strip()]
+    rows: list[list] = []
+    cuts = cut_points(audio)
+    for a, b in zip(cuts, cuts[1:]):
+        # condition_on_previous_text=False keeps one misheard passage from
+        # repeating itself through the rest of a long meeting; the VAD filter
+        # skips the silence before the gavel and during recesses.
+        segments, _info = model.transcribe(
+            audio[a:b], language="en", initial_prompt=prompt, vad_filter=True, beam_size=1,
+            condition_on_previous_text=False,
+        )
+        offset = a / SAMPLE_RATE
+        rows += [[round(s.start + offset, 1), round(s.end + offset, 1), s.text.strip()] for s in segments if s.text.strip()]
     return rows, duration, time.time() - started
 
 

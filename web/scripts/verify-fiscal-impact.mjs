@@ -105,21 +105,22 @@ if (existsSync(fiscalIndexPath)) {
   const index = JSON.parse(readFileSync(fiscalIndexPath, 'utf8'))
   let stated = 0
   for (const entry of index.meetings ?? []) {
-    const file = join(meetingsDir, `${entry.slug}-fiscal.json`)
-    if (!existsSync(file)) continue
+    const slug = typeof entry === 'string' ? entry : entry.slug
+    const file = join(meetingsDir, `${slug}-fiscal.json`)
+    if (!existsSync(file)) { fail(`fiscal-index.json lists ${slug}, which has no fiscal file`); continue }
     const raw = readFileSync(file, 'utf8')
-    if (raw.includes('=== PAGE')) fail(`${entry.slug}: page markers leaked into the fiscal data`)
+    if (raw.includes('=== PAGE')) fail(`${slug}: page markers leaked into the fiscal data`)
     const data = JSON.parse(raw)
     const numbers = (data.resolutions ?? []).filter((r) => r.numberSource === 'printed').map((r) => r.number)
     const dupes = numbers.filter((n, i) => numbers.indexOf(n) !== i)
-    if (dupes.length) fail(`${entry.slug}: printed resolution numbers repeat: ${[...new Set(dupes)].join(', ')}`)
+    if (dupes.length) fail(`${slug}: printed resolution numbers repeat: ${[...new Set(dupes)].join(', ')}`)
     for (const r of data.resolutions ?? []) {
       for (const a of r.statedAmounts ?? []) {
-        if (!figures(a.quote ?? '').some((f) => Math.abs(f - a.amount) < 0.005)) fail(`${entry.slug} ${r.number}: quote for ${a.amount} does not carry the figure`)
+        if (!figures(a.quote ?? '').some((f) => Math.abs(f - a.amount) < 0.005)) fail(`${slug} ${r.number}: quote for ${a.amount} does not carry the figure`)
       }
       if (r.statedCost != null) {
         stated += 1
-        if (!(r.statedAmounts ?? []).some((a) => a.role === 'cost' && a.amount === r.statedCost)) fail(`${entry.slug} ${r.number}: stated cost ${r.statedCost} is not one of the costs quoted`)
+        if (!(r.statedAmounts ?? []).some((a) => a.role === 'cost' && a.amount === r.statedCost)) fail(`${slug} ${r.number}: stated cost ${r.statedCost} is not one of the costs quoted`)
       }
     }
   }

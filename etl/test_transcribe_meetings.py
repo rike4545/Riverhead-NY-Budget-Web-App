@@ -16,7 +16,7 @@ import unittest
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from transcribe_meetings import number_pattern, vote_times  # noqa: E402
+from transcribe_meetings import SAMPLE_RATE, cut_points, number_pattern, vote_times  # noqa: E402
 
 ROOT = Path(__file__).resolve().parent.parent
 
@@ -87,6 +87,29 @@ class VoteTimes(unittest.TestCase):
         segments.sort()
         votes = vote_times(segments, res)
         self.assertEqual((votes.get("2026-11"), votes.get("2026-12")), (100, 130))
+
+
+class Passes(unittest.TestCase):
+    def test_long_audio_is_cut_where_it_is_quiet(self):
+        import numpy as np
+
+        # Five minutes of "speech" in passes of about a minute, with a pause
+        # near each minute mark.
+        rng = np.random.default_rng(0)
+        audio = rng.uniform(-0.5, 0.5, SAMPLE_RATE * 300).astype(np.float32)
+        for quiet in (66, 118, 183, 247):
+            audio[quiet * SAMPLE_RATE:(quiet + 1) * SAMPLE_RATE] = 0
+        cuts = cut_points(audio, every=60, search=10)
+        self.assertEqual(cuts[0], 0)
+        self.assertEqual(cuts[-1], len(audio))
+        self.assertEqual(len(cuts), 6)
+        for cut, quiet in zip(cuts[1:-1], (66, 118, 183, 247)):
+            self.assertTrue(quiet <= cut / SAMPLE_RATE <= quiet + 1, f"cut at {cut / SAMPLE_RATE:.2f}s, pause at {quiet}s")
+
+    def test_short_audio_is_one_pass(self):
+        import numpy as np
+
+        self.assertEqual(cut_points(np.zeros(SAMPLE_RATE * 65, dtype=np.float32), every=60, search=10), [0, SAMPLE_RATE * 65])
 
 
 class Datasets(unittest.TestCase):
