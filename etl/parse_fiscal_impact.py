@@ -1067,6 +1067,42 @@ def match_resolution(title: str, meeting_resolutions: list[dict]) -> dict | None
     return None
 
 
+def largest_understated_marked_no(resolutions: list[dict]) -> list | None:
+    """[amount, number, title] of the largest amount the Town wrote on a
+    statement while answering "no fiscal impact": the shape the hand-curated
+    2026-07-07 file uses and /fiscal-impact/ reads."""
+    best = max((r for r in resolutions if r.get("amount") and r.get("townFiscalImpact") == "No"),
+               key=lambda r: r["amount"], default=None)
+    return [best["amount"], best.get("number"), best.get("title")] if best else None
+
+
+def derived_summary(resolutions: list[dict]) -> dict:
+    """The summary figures read from each statement's section G and each
+    resolution's own text, as opposed to its amounts and Yes/No reads.
+
+    A hand-curated meeting keeps the counts and amounts a person computed, but
+    these come from the parse attached to every merged resolution, so they are
+    recomputed for it too; kept from the hand file, they would be missing."""
+    funding = [r.get("funding") or {} for r in resolutions]
+    stated_no = [r for r in resolutions if r.get("statedCost") and r.get("townFiscalImpact") == "No"]
+    largest = max(stated_no, key=lambda r: r["statedCost"], default=None)
+    return {
+        # Sub-account coverage: how much of this meeting's read rests on the
+        # Town's own accounting rather than on a keyword match against the
+        # resolution title.
+        "withAccounts": sum(1 for f in funding if f.get("accounts")),
+        "accountEvidence": sum(1 for r in resolutions if (r.get("realistic") or {}).get("evidence") == "account-code"),
+        "fundBalanceDraws": sum(1 for f in funding if f.get("drawsFundBalance")),
+        "fundBalanceDrawTotal": round(sum(f.get("fundBalanceDraw") or 0 for f in funding), 2),
+        # Resolutions whose own text states a cost, and those of them the Town
+        # answered "No" fiscal impact on.
+        "statedCostResolutions": sum(1 for r in resolutions if r.get("statedCost")),
+        "statementBelowTable": sum(1 for r in resolutions if r.get("statementBelowTable")),
+        "statedCostMarkedNo": len(stated_no),
+        "largestStatedCostMarkedNo": {"number": largest.get("number"), "amount": largest["statedCost"]} if largest else None,
+    }
+
+
 def build_meeting(date: str, packet_text: str) -> dict | None:
     meeting_path = MEETINGS / f"{date}.json"
     meeting = json.loads(meeting_path.read_text()) if meeting_path.exists() else {"resolutions": []}
@@ -1163,36 +1199,8 @@ def build_meeting(date: str, packet_text: str) -> dict | None:
             # largest one it wrote while answering "no fiscal impact".
             "identifiedDollarsAtStake": round(sum(r["amount"] for r in resolutions if r["amount"]), 2),
             "pricedResolutions": sum(1 for r in resolutions if r["amount"] is not None),
-            "largestUnderstatedMarkedNo": max(
-                (r["amount"] for r in resolutions
-                 if r["amount"] and r["townFiscalImpact"] == "No"),
-                default=None,
-            ),
-            # Sub-account coverage: how much of this meeting's read rests on the
-            # Town's own accounting rather than on a keyword match against the
-            # resolution title.
-            "withAccounts": sum(1 for r in resolutions if (r["funding"] or {}).get("accounts")),
-            "accountEvidence": sum(
-                1 for r in resolutions if r["realistic"].get("evidence") == "account-code"
-            ),
-            "fundBalanceDraws": sum(
-                1 for r in resolutions if (r["funding"] or {}).get("drawsFundBalance")
-            ),
-            "fundBalanceDrawTotal": round(sum(
-                (r["funding"] or {}).get("fundBalanceDraw") or 0 for r in resolutions
-            ), 2),
-            # Resolutions whose own text states a cost, and those of them the Town
-            # answered "No" fiscal impact on.
-            "statedCostResolutions": sum(1 for r in resolutions if r["statedCost"]),
-            "statementBelowTable": sum(1 for r in resolutions if r["statementBelowTable"]),
-            "statedCostMarkedNo": sum(
-                1 for r in resolutions if r["statedCost"] and r["townFiscalImpact"] == "No"
-            ),
-            "largestStatedCostMarkedNo": max(
-                ({"number": r["number"], "amount": r["statedCost"]} for r in resolutions
-                 if r["statedCost"] and r["townFiscalImpact"] == "No"),
-                key=lambda x: x["amount"], default=None,
-            ),
+            "largestUnderstatedMarkedNo": largest_understated_marked_no(resolutions),
+            **derived_summary(resolutions),
         },
         "resolutions": resolutions,
     }
@@ -1218,8 +1226,10 @@ def merge_hand_curated(date: str, parsed: dict) -> dict:
 
     So neither replaces the other. A hand amount always wins; a parsed amount
     fills a hand blank; a resolution only the hand file has is kept; and the
-    parsed funding section is attached either way. The hand summary is kept
-    because it was computed from the hand amounts.
+    parsed funding section is attached either way. The hand summary's counts
+    and amount totals are kept, because they were computed from the hand reads
+    and amounts; the figures derived from the parse (account coverage,
+    fund-balance draws, stated costs) are recomputed from the merged list.
     """
     path = MEETINGS / f"{date}-fiscal.json"
     if not path.exists():
@@ -1252,6 +1262,10 @@ def merge_hand_curated(date: str, parsed: dict) -> dict:
 
     result = dict(hand)
     result["resolutions"] = out
+    # The hand summary's counts and amount totals were computed from the hand
+    # reads and amounts, so they stay; the figures read from section G and the
+    # resolutions' own text are recomputed from the merged list.
+    result["summary"] = {**(hand.get("summary") or {}), **derived_summary(out)}
     with_funding = sum(1 for r in out if r.get("funding"))
     print(
         f"  {date}: hand-curated merge — {with_funding}/{len(out)} now carry funding, "

@@ -13,11 +13,17 @@ figure that reads as the Town paying out counts toward the stated cost.
 
 import json
 import re
+import tempfile
 import unittest
 from pathlib import Path
+from unittest import mock
 
+import parse_fiscal_impact
 from parse_fiscal_impact import (
+    derived_summary,
+    largest_understated_marked_no,
     mark_program_totals,
+    merge_hand_curated,
     parse_packet,
     stated_amounts,
     stated_cost,
@@ -143,6 +149,44 @@ class PrintedNumbers(unittest.TestCase):
         self.assertEqual(parsed[0]["statedAmounts"][0]["role"], "rate")
 
 
+class Summaries(unittest.TestCase):
+    def test_a_hand_curated_meeting_keeps_its_amounts_and_counts_the_parse(self):
+        # 2026-07-07: the hand file's totals were computed from hand amounts,
+        # but its statements' account codes and stated costs come from the parse.
+        hand = {
+            "summary": {"total": 2, "markedNo": 1, "identifiedDollarsAtStake": 2852683,
+                        "largestUnderstatedMarkedNo": [227683, "2026-634", "Water Capital Project"]},
+            "resolutions": [
+                {"number": "2026-634", "title": "Water Capital Project", "amount": 227683, "townFiscalImpact": "No",
+                 "realistic": {"flag": "understated"}},
+                {"number": "2026-641", "title": "Town Square BAN paydown", "amount": 2625000, "townFiscalImpact": "Yes",
+                 "realistic": {"flag": "reserve-draw"}},
+            ],
+        }
+        parsed = {"resolutions": [
+            {"number": "2026-634", "amount": None, "statedAmounts": [], "statedCost": None, "statementBelowTable": None,
+             "funding": {"accounts": [{}], "drawsFundBalance": True, "fundBalanceDraw": 227683.0}},
+            {"number": "2026-641", "amount": None, "statedCost": 660000.0, "statementBelowTable": None,
+             "statedAmounts": [{"amount": 660000.0, "role": "cost", "clause": "resolved", "quote": "$660,000"}],
+             "funding": {"accounts": [{}]}},
+        ]}
+        with tempfile.TemporaryDirectory() as tmp, mock.patch.object(parse_fiscal_impact, "MEETINGS", Path(tmp)):
+            (Path(tmp) / "2026-07-07-fiscal.json").write_text(json.dumps(hand), encoding="utf-8")
+            s = merge_hand_curated("2026-07-07", parsed)["summary"]
+        self.assertEqual((s["total"], s["markedNo"], s["identifiedDollarsAtStake"]), (2, 1, 2852683))
+        self.assertEqual(s["largestUnderstatedMarkedNo"], [227683, "2026-634", "Water Capital Project"])
+        self.assertEqual((s["withAccounts"], s["fundBalanceDraws"], s["fundBalanceDrawTotal"]), (2, 1, 227683.0))
+        self.assertEqual((s["statedCostResolutions"], s["statedCostMarkedNo"], s["largestStatedCostMarkedNo"]), (1, 0, None))
+
+    def test_largest_amount_marked_no_is_amount_number_and_title(self):
+        # The shape /fiscal-impact/ reads for "The clearest example".
+        rs = [{"number": "2026-1", "title": "A", "amount": 500.0, "townFiscalImpact": "No"},
+              {"number": "2026-2", "title": "B", "amount": 900.0, "townFiscalImpact": "No"},
+              {"number": "2026-3", "title": "C", "amount": 5000.0, "townFiscalImpact": "Yes"}]
+        self.assertEqual(largest_understated_marked_no(rs), [900.0, "2026-2", "B"])
+        self.assertIsNone(largest_understated_marked_no(rs[2:]))
+
+
 class Datasets(unittest.TestCase):
     def load(self, date: str) -> dict:
         return {r["number"]: r for r in json.loads((MEETINGS / f"{date}-fiscal.json").read_text())["resolutions"]}
@@ -164,6 +208,15 @@ class Datasets(unittest.TestCase):
                     digits = re.sub(r"\D", "", a["quote"])
                     whole = str(int(a["amount"])) if a["amount"] < 1000 else f"{int(a['amount']):,}".split(",")[0]
                     self.assertIn(whole, digits, f"{path.name} {r['number']}: {a}")
+
+    def test_every_summary_counts_its_own_resolutions(self):
+        for path in sorted(MEETINGS.glob("2026-*-fiscal.json")):
+            data = json.loads(path.read_text(encoding="utf-8"))
+            expected = derived_summary(data["resolutions"])
+            with self.subTest(path.name):
+                self.assertEqual({k: data["summary"].get(k) for k in expected}, expected)
+                lu = data["summary"].get("largestUnderstatedMarkedNo")
+                self.assertTrue(lu is None or (isinstance(lu, list) and len(lu) == 3), lu)
 
     def test_known_reads(self):
         self.assertIsNone(self.load("2026-03-17")["2026-255"]["statedCost"])  # County money in
