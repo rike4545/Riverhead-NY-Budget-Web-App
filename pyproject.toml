@@ -16,6 +16,12 @@ dependencies = [
     "pandas>=2.2.0",
 ]
 
+[project.optional-dependencies]
+# Only the meeting-transcription workflow needs these (etl/transcribe_meetings.py).
+transcribe = [
+    "faster-whisper==1.2.1",
+]
+
 # This repository contains ETL scripts plus a web app and Supabase assets; it is
 # not distributed as a Python package. Explicitly disable package discovery so
 # `pip install -e .` installs the canonical dependency set without setuptools

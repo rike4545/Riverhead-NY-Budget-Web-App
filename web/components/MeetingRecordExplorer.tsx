@@ -5,6 +5,8 @@ import { LoadingCard, useFetchJson } from './useFetchJson'
 import { meetingsIndex, meetingUrl, type Meeting, type Resolution, type Vote } from '../lib/meetings'
 import fiscalIndex from '../public/data/meetings/fiscal-index.json'
 import type { FiscalResolution } from './FiscalImpactTable'
+import MeetingMediaLinks from './MeetingMediaLinks'
+import { voteLink } from '../lib/meeting-media'
 
 const base = process.env.NEXT_PUBLIC_BASE_PATH || ''
 const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 18, boxShadow: '0 14px 34px var(--rbl-shadow)' } as const
@@ -139,6 +141,7 @@ export default function MeetingRecordExplorer() {
             </p>
           )}
           <OfficialRecordLine meeting={meeting} />
+          <MeetingMediaLinks slug={meeting.slug} />
         </section>
         <section style={card}>
           <div style={{ display: 'flex', justifyContent: 'space-between', gap: 10, alignItems: 'baseline', flexWrap: 'wrap' }}>
@@ -153,6 +156,7 @@ export default function MeetingRecordExplorer() {
                   {d.officialDocumentVerified && <VerifiedChip />}
                 </div>
                 <div style={{ color: 'var(--rbl-title)', fontWeight: 650, marginTop: 2, lineHeight: 1.4 }}>{d.title}</div>
+                <WatchLink slug={meeting.slug} number={d.number} />
               </div>
             ))}
           </div>
@@ -184,6 +188,7 @@ export default function MeetingRecordExplorer() {
             <h2 style={{ margin: '4px 0 3px', color: 'var(--rbl-title)' }}>{meeting.date}</h2>
             <div style={{ color: 'var(--rbl-text-muted)', fontSize: 13.5 }}>{meeting.type}{meeting.calledToOrder ? ` · called to order ${meeting.calledToOrder}` : ''}</div>
             <OfficialRecordLine meeting={meeting} />
+            <MeetingMediaLinks slug={meeting.slug} />
           </div>
           <a href={meetingsIndex.source.url} target="_blank" rel="noreferrer" style={{ color: 'var(--rbl-link)', fontWeight: 800, fontSize: 13, textDecoration: 'none' }}>Official minutes &amp; agendas ↗</a>
         </div>
@@ -229,7 +234,7 @@ export default function MeetingRecordExplorer() {
       </section>
 
       <section style={{ display: 'grid', gridTemplateColumns: 'minmax(0,1fr)', gap: 10 }}>
-        {filtered.map((r) => <DecisionCard key={r.seq} resolution={r} fiscal={r.number ? fiscalByNumber.get(r.number) : undefined} rosterOrder={rosterOrder} shortName={shortName} officialSourceUrl={officialSourceUrl(r)} />)}
+        {filtered.map((r) => <DecisionCard key={r.seq} resolution={r} fiscal={r.number ? fiscalByNumber.get(r.number) : undefined} rosterOrder={rosterOrder} shortName={shortName} officialSourceUrl={officialSourceUrl(r)} watch={voteLink(meeting.slug, r.number)} />)}
         {filtered.length === 0 && <div style={{ ...card, color: 'var(--rbl-text-muted)' }}>No decisions match this view.</div>}
       </section>
 
@@ -284,7 +289,13 @@ function VerifiedChip() {
   return <span style={{ background: 'var(--rbl-success-bg)', color: 'var(--rbl-success-strong)', border: '1px solid var(--rbl-success-border)', borderRadius: 999, padding: '2px 7px', fontWeight: 900, fontSize: 10.5 }}>Adopted resolution document matched</span>
 }
 
-function DecisionCard({ resolution: r, fiscal, rosterOrder, shortName, officialSourceUrl }: { resolution: Resolution; fiscal?: FiscalResolution; rosterOrder: string[]; shortName: (last: string) => string; officialSourceUrl?: string }) {
+function WatchLink({ slug, number }: { slug: string; number?: string | null }) {
+  const watch = voteLink(slug, number)
+  if (!watch) return null
+  return <a href={watch.href} target="_blank" rel="noreferrer" title={watch.title} style={{ display: 'inline-block', marginTop: 4, color: 'var(--rbl-link)', fontWeight: 800, fontSize: 11.8, textDecoration: 'none' }}>{watch.label}</a>
+}
+
+function DecisionCard({ resolution: r, fiscal, rosterOrder, shortName, officialSourceUrl, watch }: { resolution: Resolution; fiscal?: FiscalResolution; rosterOrder: string[]; shortName: (last: string) => string; officialSourceUrl?: string; watch?: { href: string; label: string; title: string } | null }) {
   const voteStyle = r.tag === 'failed' ? { label: 'Failed', fg: 'var(--rbl-danger-strong)', bg: 'var(--rbl-danger-bg)', border: 'var(--rbl-danger)' } : r.tag === 'tabled' ? { label: 'Tabled', fg: 'var(--rbl-text-body)', bg: 'var(--rbl-surface-3)', border: 'var(--rbl-border-strong)' } : r.tag === 'split' ? { label: r.ayesCount != null && r.naysCount != null ? `Passed ${r.ayesCount}–${r.naysCount}` : 'Passed · split vote', fg: 'var(--rbl-warn)', bg: 'var(--rbl-warn-bg)', border: 'var(--rbl-series-gold)' } : { label: 'Passed unanimously', fg: 'var(--rbl-success-strong)', bg: 'var(--rbl-success-bg)', border: 'var(--rbl-success)' }
   const hasVotes = Object.keys(r.votes).length > 0
   const fiscalFlag = fiscal?.realistic.flag
@@ -306,7 +317,7 @@ function DecisionCard({ resolution: r, fiscal, rosterOrder, shortName, officialS
       <div style={{ color: 'var(--rbl-text-muted)', fontSize: 12.5, lineHeight: 1.45 }}>{fiscal.realistic.reason}</div>
     </div>}
 
-    {(r.mover || r.seconder || officialSourceUrl) && <div style={{ color: 'var(--rbl-text-muted)', fontSize: 11.8, marginTop: 10, display: 'flex', gap: 8, flexWrap: 'wrap' }}><span>{r.mover ? `Moved by ${r.mover}` : ''}{r.seconder ? ` · seconded by ${r.seconder}` : ''}</span>{officialSourceUrl && <a href={officialSourceUrl} target="_blank" rel="noreferrer" style={{ color: 'var(--rbl-link)', fontWeight: 850, textDecoration: 'none' }}>Official adopted resolution ↗</a>}</div>}
+    {(r.mover || r.seconder || officialSourceUrl || watch) && <div style={{ color: 'var(--rbl-text-muted)', fontSize: 11.8, marginTop: 10, display: 'flex', gap: 8, flexWrap: 'wrap' }}><span>{r.mover ? `Moved by ${r.mover}` : ''}{r.seconder ? ` · seconded by ${r.seconder}` : ''}</span>{officialSourceUrl && <a href={officialSourceUrl} target="_blank" rel="noreferrer" style={{ color: 'var(--rbl-link)', fontWeight: 850, textDecoration: 'none' }}>Official adopted resolution ↗</a>}{watch && <a href={watch.href} target="_blank" rel="noreferrer" title={watch.title} style={{ color: 'var(--rbl-link)', fontWeight: 850, textDecoration: 'none' }}>{watch.label}</a>}</div>}
   </article>
 }
 

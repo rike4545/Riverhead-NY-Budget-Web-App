@@ -15,6 +15,8 @@ CivicClerk sources in a fixed order:
 6. reconcile_meeting_sources.py   reconcile against the official sources
 7. parse_fiscal_impact.py         rebuild the Fiscal Impact companions, which
                                   depend on the current resolution titles
+8. build_meeting_media.py         link each meeting to the Town's video and to
+                                  its transcripts (skipped with --offline)
 
 Stopping after step 4 publishes every packet-sourced meeting as a bare agenda.
 In September 2026 the financial-reports workflow did exactly that twice a day,
@@ -23,8 +25,8 @@ sync put them back. Both workflows now run this script, so neither can run part
 of the sequence, and etl/test_meeting_records.py fails if any workflow calls
 these steps on its own.
 
---offline skips the three fetches and rebuilds from the sources already stored
-in etl/data/meetings.
+--offline skips the three fetches and the media links, and rebuilds from the
+sources already stored in etl/data/meetings.
 """
 
 from __future__ import annotations
@@ -42,10 +44,14 @@ BUILD_STEPS = (
     "reconcile_meeting_sources.py",
     "parse_fiscal_impact.py",
 )
+# Links, not records: the video and transcript links can be rebuilt on their own
+# (the transcription workflow does), so they sit outside BUILD_STEPS.
+LINK_STEPS = ("build_meeting_media.py",)
 
 
 def main(argv: list[str]) -> int:
-    steps = (() if "--offline" in argv else FETCH_STEPS) + BUILD_STEPS
+    offline = "--offline" in argv
+    steps = (() if offline else FETCH_STEPS) + BUILD_STEPS + (() if offline else LINK_STEPS)
     for step in steps:
         print(f"== {step}", flush=True)
         result = subprocess.run([sys.executable, str(ROOT / "etl" / step)], cwd=ROOT)

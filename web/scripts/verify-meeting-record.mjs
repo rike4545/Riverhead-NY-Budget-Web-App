@@ -198,5 +198,50 @@ if (existsSync(workflowPath) && !readFileSync(workflowPath, 'utf8').includes("gi
   fail('Meeting sync publishing is no longer restricted to main')
 }
 
+// Video and transcripts: each source labelled, links that open, vote times
+// that name a resolution of their own meeting.
+for (const [file, texts] of [
+  ['components/MeetingMediaLinks.tsx', ['Watch the meeting (Town video)', 'Volunteer transcript (riverheadtranscripts.org)', 'this site&apos;s machine transcript', 'mediaSources.ours.note']],
+  ['lib/meeting-media.ts', ['Watch this vote', 'In the volunteer transcript', 'Not an official record.', '#decision-${number}']],
+  ['components/MeetingRecordExplorer.tsx', ['<MeetingMediaLinks slug={meeting.slug} />', 'watch={voteLink(meeting.slug, r.number)}']],
+]) {
+  if (!existsSync(path(file))) { fail(`Meeting media is missing required file: ${file}`); continue }
+  const source = readFileSync(path(file), 'utf8')
+  for (const text of texts) if (!source.includes(text)) fail(`Meeting media regressed in ${file}: missing ${text}`)
+}
+
+const mediaPath = path('out/data/meetings/media.json')
+if (!existsSync(mediaPath)) fail('Meeting record is missing required file: out/data/meetings/media.json')
+else {
+  const media = JSON.parse(readFileSync(mediaPath, 'utf8'))
+  for (const key of ['video', 'transcripts', 'ours']) if (!media.sources?.[key]?.note) fail(`media.json no longer says what the ${key} source is`)
+  let videos = 0
+  for (const [date, entry] of Object.entries(media.meetings ?? {})) {
+    if (entry.video) {
+      videos += 1
+      if (!/^https:\/\/[^/]+\/.+\.mp4$/.test(entry.video)) fail(`${date}: video is not a full https link to an MP4: ${entry.video}`)
+    }
+    if (entry.transcript && !entry.transcript.startsWith('https://riverheadtranscripts.org/meetings/town-board/')) fail(`${date}: unexpected transcript link ${entry.transcript}`)
+    if (entry.ours) {
+      const file = path('out', entry.ours.path)
+      if (!existsSync(file)) { fail(`${date}: this site's transcript ${entry.ours.path} is not in the export`); continue }
+      const meetingFile = path('out/data/meetings', `${date}.json`)
+      if (!existsSync(meetingFile)) continue
+      const meeting = JSON.parse(readFileSync(meetingFile, 'utf8'))
+      const numbers = new Set((meeting.resolutions ?? meeting.docket ?? []).map((r) => r.number).filter(Boolean))
+      for (const n of Object.keys(entry.ours.votes ?? {})) if (!numbers.has(n)) fail(`${date}: vote time for ${n}, which is not a resolution of that meeting`)
+    }
+  }
+  if (videos === 0) fail('media.json links no meeting videos')
+}
+
+const transcribePath = repoPath('.github/workflows/transcribe-meetings.yml')
+if (!existsSync(transcribePath)) fail('Meeting transcription workflow is missing')
+else {
+  const source = readFileSync(transcribePath, 'utf8')
+  if (!source.includes("github.ref == 'refs/heads/main'")) fail('Transcript publishing is no longer restricted to main')
+  if (!source.includes('python etl/test_transcribe_meetings.py')) fail('Transcription workflow no longer checks the transcripts before publishing')
+}
+
 if (process.exitCode) process.exit(process.exitCode)
 console.log('Meeting record verification passed: decision-first UX, accurate vote-availability states, official agenda-packet fallback, fiscal-impact integration, official-resolution verification, and continuous source reconciliation are intact.')

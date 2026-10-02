@@ -57,5 +57,74 @@ if (existsSync(path('out/fiscal-impact/index.html'))) {
   ]) if (!html.includes(text)) fail(`Fiscal-impact export framing regressed: missing ${text}`)
 }
 
+// What each resolution's own text states, beside the Town's answer.
+if (existsSync(path('components/StatedAmounts.tsx'))) {
+  const source = readFileSync(path('components/StatedAmounts.tsx'), 'utf8')
+  for (const text of [
+    'The resolution states:',
+    "revenue: 'money in'",
+    "security: 'developer security'",
+    "context: 'background'",
+    '<q>{a.quote}</q>',
+  ]) if (!source.includes(text)) fail(`Stated-amount labels regressed: missing ${text}`)
+} else fail('Fiscal-impact evidence contract is missing required file: components/StatedAmounts.tsx')
+
+if (existsSync(path('components/FiscalImpactTable.tsx'))) {
+  const source = readFileSync(path('components/FiscalImpactTable.tsx'), 'utf8')
+  for (const text of [
+    '<StatedAmounts amounts={r.statedAmounts} />',
+    "if (view === 'stated' && !r.statedCost) return false",
+    'but the resolution states a {usd(r.statedCost)} cost',
+    'stated in resolution',
+    'voteLink(meetingRecord.slug, r.number)',
+  ]) if (!source.includes(text)) fail(`Fiscal table no longer shows what the resolution states: missing ${text}`)
+}
+
+if (existsSync(path('app/fiscal-impact/page.tsx'))) {
+  const source = readFileSync(path('app/fiscal-impact/page.tsx'), 'utf8')
+  for (const text of [
+    "label: 'What the resolution states'",
+    'Insurance an applicant must carry is left out',
+    'Only a figure that reads as the Town paying out counts as a stated cost',
+  ]) if (!source.includes(text)) fail(`Fiscal-impact page no longer explains stated amounts: missing ${text}`)
+}
+
+if (existsSync(path('out/fiscal-impact/index.html'))) {
+  const html = readFileSync(path('out/fiscal-impact/index.html'), 'utf8')
+  if (!html.includes('What the resolution states')) fail('Fiscal-impact export no longer explains stated amounts')
+}
+
+// The data behind it: one statement per printed resolution number, quotes
+// that carry their figure, and a stated cost that is one of the costs quoted.
+const MONEY = /\$\s*(\d[\d,]*(?:\.\d+)?)(?![\d,])\s*([KM]\b|million\b|thousand\b)?/gi
+const SCALE = { k: 1e3, thousand: 1e3, m: 1e6, million: 1e6 }
+const figures = (quote) => [...quote.matchAll(MONEY)].map(([, n, s]) => Number(n.replace(/,/g, '')) * (s ? SCALE[s.toLowerCase()] : 1))
+const meetingsDir = path('public/data/meetings')
+const fiscalIndexPath = path('public/data/meetings/fiscal-index.json')
+if (existsSync(fiscalIndexPath)) {
+  const index = JSON.parse(readFileSync(fiscalIndexPath, 'utf8'))
+  let stated = 0
+  for (const entry of index.meetings ?? []) {
+    const file = join(meetingsDir, `${entry.slug}-fiscal.json`)
+    if (!existsSync(file)) continue
+    const raw = readFileSync(file, 'utf8')
+    if (raw.includes('=== PAGE')) fail(`${entry.slug}: page markers leaked into the fiscal data`)
+    const data = JSON.parse(raw)
+    const numbers = (data.resolutions ?? []).filter((r) => r.numberSource === 'printed').map((r) => r.number)
+    const dupes = numbers.filter((n, i) => numbers.indexOf(n) !== i)
+    if (dupes.length) fail(`${entry.slug}: printed resolution numbers repeat: ${[...new Set(dupes)].join(', ')}`)
+    for (const r of data.resolutions ?? []) {
+      for (const a of r.statedAmounts ?? []) {
+        if (!figures(a.quote ?? '').some((f) => Math.abs(f - a.amount) < 0.005)) fail(`${entry.slug} ${r.number}: quote for ${a.amount} does not carry the figure`)
+      }
+      if (r.statedCost != null) {
+        stated += 1
+        if (!(r.statedAmounts ?? []).some((a) => a.role === 'cost' && a.amount === r.statedCost)) fail(`${entry.slug} ${r.number}: stated cost ${r.statedCost} is not one of the costs quoted`)
+      }
+    }
+  }
+  if (stated === 0) fail('No resolution carries a stated cost; the stated-amount read did not run')
+}
+
 if (process.exitCode) process.exit(process.exitCode)
-console.log('Fiscal-impact verification passed: fiscal treatment, vote evidence, and adopted-resolution verification remain distinct.')
+console.log('Fiscal-impact verification passed: fiscal treatment, vote evidence, adopted-resolution verification, and what each resolution states remain distinct.')

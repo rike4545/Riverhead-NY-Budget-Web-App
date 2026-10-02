@@ -28,6 +28,9 @@ export type FiscalMeeting = {
     accountEvidence?: number
     fundBalanceDraws?: number
     fundBalanceDrawTotal?: number
+    // Added with the read of each resolution's own text.
+    statedCostResolutions?: number
+    statedCostMarkedNo?: number
   }
   resolutions: FiscalResolution[]
 }
@@ -132,6 +135,7 @@ export default function FiscalImpactMeetings({ meetings }: { meetings: FiscalMee
         <Stat label="…that plainly move money" value={String(understatedNo.length)} sub="marked “no impact”" accent />
         <Stat label="Marked “absorbed”, but draws reserves" value={String(reserveDraw.length)} sub="the other half of the corrections" accent />
         {s.identifiedDollarsAtStake > 0 && <Stat label="Identified dollars in play" value={usd(s.identifiedDollarsAtStake)} sub="cost items we could price" />}
+        {!!s.statedCostResolutions && <Stat label="State a cost in their own text" value={String(s.statedCostResolutions)} sub={s.statedCostMarkedNo ? `${s.statedCostMarkedNo} of them marked “no impact”` : 'none marked “no impact”'} accent={!!s.statedCostMarkedNo} />}
         {!!s.fundBalanceDrawTotal && s.fundBalanceDrawTotal > 0 && <Stat label="Drawn from fund balance" value={usd(s.fundBalanceDrawTotal)} sub={`${s.fundBalanceDraws ?? 0} resolution${s.fundBalanceDraws === 1 ? '' : 's'} charging Appropriated Fund Balance`} accent />}
       </section>
 
