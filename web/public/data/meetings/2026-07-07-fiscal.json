@@ -17,7 +17,15 @@
    227683,
    "2026-634",
    "Water Capital Project #81851 \u2013 USGS Test Wells Closure"
-  ]
+  ],
+  "withAccounts": 17,
+  "accountEvidence": 0,
+  "fundBalanceDraws": 5,
+  "fundBalanceDrawTotal": 7624309.0,
+  "statedCostResolutions": 3,
+  "statementBelowTable": 0,
+  "statedCostMarkedNo": 0,
+  "largestStatedCostMarkedNo": null
  },
  "resolutions": [
   {

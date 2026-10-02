@@ -118,7 +118,20 @@ if (existsSync(fiscalIndexPath)) {
     const numbers = (data.resolutions ?? []).filter((r) => r.numberSource === 'printed').map((r) => r.number)
     const dupes = numbers.filter((n, i) => numbers.indexOf(n) !== i)
     if (dupes.length) fail(`${slug}: printed resolution numbers repeat: ${[...new Set(dupes)].join(', ')}`)
-    for (const r of data.resolutions ?? []) {
+    // The summary drives the meeting's stat tiles and callouts, so it must
+    // count this meeting's own resolutions -- a hand-curated meeting included.
+    const rs = data.resolutions ?? []
+    const counted = {
+      statedCostResolutions: rs.filter((r) => r.statedCost).length,
+      statementBelowTable: rs.filter((r) => r.statementBelowTable).length,
+      withAccounts: rs.filter((r) => (r.funding?.accounts ?? []).length > 0).length,
+    }
+    for (const [key, n] of Object.entries(counted)) {
+      if (data.summary?.[key] !== n) fail(`${slug}: summary.${key} is ${data.summary?.[key]}, but ${n} of its resolutions qualify`)
+    }
+    const lu = data.summary?.largestUnderstatedMarkedNo
+    if (lu != null && !(Array.isArray(lu) && lu.length === 3)) fail(`${slug}: summary.largestUnderstatedMarkedNo is not [amount, number, title]`)
+    for (const r of rs) {
       for (const a of r.statedAmounts ?? []) {
         if (!figures(a.quote ?? '').some((f) => Math.abs(f - a.amount) < 0.005)) fail(`${slug} ${r.number}: quote for ${a.amount} does not carry the figure`)
       }
