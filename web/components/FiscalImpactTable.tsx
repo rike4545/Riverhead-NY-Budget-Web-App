@@ -4,6 +4,8 @@ import { useMemo, useState } from 'react'
 import type { Meeting } from '../lib/meetings'
 import type { ResolutionFunding } from '../lib/account-lookup'
 import StatementAccounts from './StatementAccounts'
+import StatedAmounts, { type StatedAmount } from './StatedAmounts'
+import { voteLink } from '../lib/meeting-media'
 
 const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 18, boxShadow: '0 14px 34px var(--rbl-shadow)' } as const
 const usd = (n: number) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(n)
@@ -16,6 +18,13 @@ export type FiscalResolution = {
   // it in. Optional: meetings parsed before the sub-account join shipped have no
   // funding block, and those rows render exactly as they did before.
   funding?: ResolutionFunding | null
+  // Every dollar figure the resolution's own text states, quoted and labelled,
+  // and the largest that reads as the Town paying out. Optional for the same
+  // reason as funding.
+  statedAmounts?: StatedAmount[]
+  statedCost?: number | null
+  // Section G naming less than the resolution's own budget table moves.
+  statementBelowTable?: { statement: number; table: number } | null
   realistic: { verdict: string; reason: string; flag: string; evidence?: 'account-code' | 'category' }
   vote: { adopted: boolean | null; tag: string | null; ayes: number | null; nays: number | null } | null
 }
@@ -66,7 +75,7 @@ function voteLabel(r: FiscalResolution, state: VoteDetailState) {
 
 export default function FiscalImpactTable({ resolutions, meetingRecord, voteDetailState = 'unindexed' }: { resolutions: FiscalResolution[]; meetingRecord?: Meeting | null; voteDetailState?: VoteDetailState }) {
   const [q, setQ] = useState('')
-  const [view, setView] = useState<'all' | 'corrections' | 'money' | 'accounts'>('all')
+  const [view, setView] = useState<'all' | 'corrections' | 'money' | 'stated' | 'accounts'>('all')
   const query = q.trim().toLowerCase()
 
   const officialByNumber = useMemo(() => {
@@ -86,6 +95,7 @@ export default function FiscalImpactTable({ resolutions, meetingRecord, voteDeta
   const rows = useMemo(() => resolutions.filter((r) => {
     if (view === 'corrections' && !isCorrection(r)) return false
     if (view === 'money' && !r.amount) return false
+    if (view === 'stated' && !r.statedCost) return false
     if (view === 'accounts' && !r.funding?.accounts?.length) return false
     if (query && !(`${r.number} ${r.title} ${r.category}`.toLowerCase().includes(query))) return false
     return true
@@ -93,13 +103,14 @@ export default function FiscalImpactTable({ resolutions, meetingRecord, voteDeta
 
   const correctionCount = resolutions.filter(isCorrection).length
   const moneyCount = resolutions.filter((r) => r.amount).length
+  const statedCount = resolutions.filter((r) => r.statedCost).length
   const accountCount = resolutions.filter((r) => r.funding?.accounts?.length).length
 
   return (
     <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0,1fr)', gap: 12 }}>
       <section style={{ ...card, display: 'flex', gap: 10, flexWrap: 'wrap', alignItems: 'center' }}>
         <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
-          {([['all', `All ${resolutions.length}`], ['corrections', `Corrections (${correctionCount})`], ...(moneyCount > 0 ? [['money', `Has a dollar figure (${moneyCount})`] as const] : []), ...(accountCount > 0 ? [['accounts', `Names a budget account (${accountCount})`] as const] : [])] as const).map(([v, label]) => (
+          {([['all', `All ${resolutions.length}`], ['corrections', `Corrections (${correctionCount})`], ...(moneyCount > 0 ? [['money', `Has a dollar figure (${moneyCount})`] as const] : []), ...(statedCount > 0 ? [['stated', `Resolution states a cost (${statedCount})`] as const] : []), ...(accountCount > 0 ? [['accounts', `Names a budget account (${accountCount})`] as const] : [])] as const).map(([v, label]) => (
             <button key={v} onClick={() => setView(v)} style={{
               padding: '8px 13px', borderRadius: 9, border: '1px solid', cursor: 'pointer', fontWeight: 800, fontSize: 13.5,
               borderColor: view === v ? 'var(--rbl-accent-border)' : 'var(--rbl-border-strong)', background: view === v ? 'var(--rbl-fill-accent)' : 'var(--rbl-surface)', color: view === v ? 'white' : 'var(--rbl-text-strong)',
@@ -128,6 +139,7 @@ export default function FiscalImpactTable({ resolutions, meetingRecord, voteDeta
                 const fs = FLAG_STYLE[r.realistic.flag] || FLAG_STYLE.fair
                 const townNo = r.townFiscalImpact === 'No'
                 const official = r.number ? officialByNumber.get(r.number) : undefined
+                const watch = meetingRecord ? voteLink(meetingRecord.slug, r.number) : null
                 return (
                   <tr key={r.number ?? r.seq} style={{ borderBottom: '1px solid var(--rbl-border-subtle)', verticalAlign: 'top' }}>
                     <td style={{ ...td, whiteSpace: 'nowrap' }}>
@@ -135,20 +147,36 @@ export default function FiscalImpactTable({ resolutions, meetingRecord, voteDeta
                       <div style={{ fontSize: 11, color: r.vote?.tag === 'tabled' || voteDetailState === 'omitted' ? 'var(--rbl-warn)' : 'var(--rbl-text-muted)', marginTop: 2 }}>{voteLabel(r, voteDetailState)}</div>
                       {official?.verified && <div style={{ marginTop: 4 }}><span style={{ display: 'inline-block', background: 'var(--rbl-success-bg)', color: 'var(--rbl-success-strong)', border: '1px solid var(--rbl-success-border)', borderRadius: 999, padding: '2px 7px', fontWeight: 900, fontSize: 10.5 }}>Adopted resolution verified</span></div>}
                       {official?.sourceUrl && <a href={official.sourceUrl} target="_blank" rel="noreferrer" style={{ display: 'inline-block', color: 'var(--rbl-link)', fontWeight: 800, fontSize: 10.8, marginTop: 4, textDecoration: 'none' }}>Official document ↗</a>}
+                      {watch && <div><a href={watch.href} target="_blank" rel="noreferrer" title={watch.title} style={{ display: 'inline-block', color: 'var(--rbl-link)', fontWeight: 800, fontSize: 10.8, marginTop: 4, textDecoration: 'none' }}>{watch.label}</a></div>}
                     </td>
                     <td style={{ ...td, maxWidth: 360 }}>
                       <div style={{ color: 'var(--rbl-text-strong)', lineHeight: 1.4 }}>{r.title}</div>
                       <span style={{ display: 'inline-block', marginTop: 3, background: 'var(--rbl-surface-2)', color: 'var(--rbl-text-body)', fontSize: 10.5, fontWeight: 800, padding: '1px 7px', borderRadius: 999, textTransform: 'capitalize' }}>{r.category.replace('-', ' ')}</span>
                       <StatementAccounts funding={r.funding} />
+                      <StatedAmounts amounts={r.statedAmounts} />
                     </td>
                     <td style={{ ...td, textAlign: 'center', whiteSpace: 'nowrap' }}>
                       <span style={{ background: townNo ? 'var(--rbl-surface-3)' : '#e0f2fe', color: townNo ? 'var(--rbl-text-body)' : 'var(--rbl-info-text)', fontWeight: 800, fontSize: 11.5, padding: '2px 9px', borderRadius: 999 }}>
                         {townNo ? 'No impact' : 'Impact'}
                       </span>
                       <div style={{ fontSize: 10.5, color: 'var(--rbl-text-muted)', marginTop: 2 }}>{r.townTreatment === 'absorbed' ? 'absorbed' : ''}</div>
+                      {townNo && !!r.statedCost && (
+                        <div title="The statement answers no fiscal impact; the resolution's own text names a cost." style={{ marginTop: 4, fontSize: 10.5, fontWeight: 800, color: 'var(--rbl-danger-strong)', whiteSpace: 'normal', maxWidth: 120 }}>
+                          but the resolution states a {usd(r.statedCost)} cost
+                        </div>
+                      )}
                     </td>
                     <td style={{ ...td, textAlign: 'right', whiteSpace: 'nowrap', fontWeight: 700, color: 'var(--rbl-title)' }}>
-                      {r.amount ? usd(r.amount) : <span style={{ color: 'var(--rbl-text-faint)', fontWeight: 500 }}>—</span>}
+                      {r.amount ? usd(r.amount) : r.statedCost ? (
+                        <span title="No figure on the statement; this is the cost the resolution's own text states.">
+                          {usd(r.statedCost)}<div style={{ fontSize: 10.5, fontWeight: 600, color: 'var(--rbl-text-muted)' }}>stated in resolution</div>
+                        </span>
+                      ) : <span style={{ color: 'var(--rbl-text-faint)', fontWeight: 500 }}>—</span>}
+                      {r.statementBelowTable && (
+                        <div title={`Section G of the statement names ${usd(r.statementBelowTable.statement)}; the budget adjustment the resolution orders moves ${usd(r.statementBelowTable.table)}.`} style={{ marginTop: 3, fontSize: 10.5, fontWeight: 800, color: 'var(--rbl-danger-strong)', whiteSpace: 'normal', maxWidth: 130, marginLeft: 'auto' }}>
+                          but the resolution’s table moves {usd(r.statementBelowTable.table)}
+                        </div>
+                      )}
                     </td>
                     <td style={{ ...td, maxWidth: 340 }}>
                       <span style={{ background: fs.bg, color: fs.fg, fontWeight: 800, fontSize: 11, padding: '2px 9px', borderRadius: 999, whiteSpace: 'nowrap' }}>{fs.label}</span>

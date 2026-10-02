@@ -36,6 +36,8 @@ jobs:
           python etl/test_supplement_history.py
           python etl/test_meeting_records.py
           python etl/test_salary_names.py
+          python etl/test_fiscal_impact.py
+          python etl/test_transcribe_meetings.py
           python - <<'PY'
           import bs4
           import cryptography

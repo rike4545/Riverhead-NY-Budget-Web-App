@@ -821,6 +821,183 @@ def classify(title: str, purpose: str) -> str:
 NEXT_HEADING = re.compile(r"\n\s*[A-Z]\.\s")
 
 
+# ── Amounts the resolution itself states ──────────────────────────────────
+#
+# The Fiscal Impact Statement is the Town's answer about money. The resolution
+# printed just above it is what the Board votes on, and it often names the
+# money outright: "a 2026 or newer VACTOR truck with an estimated/projected
+# cost of $650,000.00" (2026-767) sits above a statement that answers "No"
+# fiscal impact. In the 2026 packets, 268 statements carry no amount in
+# section G while the resolution above them states a dollar figure, and the
+# Town answered "No" on 160 of those.
+#
+# A dollar sign is not a cost, though. Every special-event approval states the
+# $1,000,000 / $2,000,000 of insurance the applicant must carry, and the
+# application fee the applicant paid the Town. So each figure is labelled by
+# the words around it and quoted as printed, and only a figure that reads as
+# the Town paying out counts toward the resolution's stated cost.
+
+RES_HEADER = re.compile(r"TB Resolution\s+(\d{4}-\d{1,4})")
+# Running heads and stamps a packet prints between pages of one resolution.
+PACKET_NOISE = re.compile(
+    r"^\s*(?:Page \d+ of \d+|\d{1,2}/\d{1,2}/\d{4}\s+[IVXL]+\.\s*\d+\.?"
+    r"|ADOPTED|TABLED|DEFEATED|FAILED|WITHDRAWN|TOWN OF RIVERHEAD)\s*$",
+    re.M,
+)
+# "$549K" and "$1.545M" are written that way in grant resolutions (2026-211);
+# without the suffix the second read as one dollar.
+STATED_MONEY = re.compile(r"\$\s*(\d[\d,]*(?:\.\d+)?)(?![\d,])\s*([KM]\b|million\b|thousand\b)?", re.I)
+MONEY_SCALE = {"k": 1_000, "thousand": 1_000, "m": 1_000_000, "million": 1_000_000}
+CLAUSE_WORD = re.compile(r"\b(WHEREAS|RESOLVED)\b")
+
+# First match wins, tried against the words from the start of the figure's
+# clause up to the figure and the few words after it. The order is the point:
+# every label that says the money is NOT the Town paying out is tried before
+# "cost", because a figure can carry cost words and still run the other way.
+# "...to accept funds from Suffolk County Office for the Aging ... in an amount
+# not to exceed $408,211.00" (2026-255) reads "not to exceed" and is money IN.
+STATED_ROLES: list[tuple[str, re.Pattern]] = [
+    # Coverage a third party must carry. Not money the Town pays or receives.
+    ("insurance", re.compile(r"insur|polic(?:y|ies)\s+limit|per\s+occurrence|aggregate|additional\s+insured", re.I)),
+    # A developer's security the Town holds or releases.
+    ("security", re.compile(
+        r"performance\s+(?:bond|security|guarantee)|letter\s+of\s+credit|maintenance\s+bond|escrow|surety"
+        r"|security\s+deposit|cash\s+bond|restoration\s+bond", re.I)),
+    # Money coming to the Town: a grant, aid, a reimbursement, funds accepted.
+    ("revenue", re.compile(
+        r"accept(?:s|ing)?\s+(?:the\s+)?(?:funds|monies|payment|grant|donation)|funds\s+from|reimburs"
+        r"|\bgrants?\b|state\s+aid|federal\s+aid|apply\s+for|seeking\s+(?:to\s+apply|funding)"
+        r"|funding\s+in\s+the\s+(?:estimated\s+)?amount|forfeiture|donat|\bgift|defray"
+        # A check "payable to the Town" (2026-690); a cleanup cost "levied and
+        # assessed" back onto the property it was spent on (2026-471).
+        r"|payable\s+to\s+the\s+town|submit(?:ted)?\s+a\s+check|levied\s+and\s+assessed|assessed\s+against"
+        r"|received\s+(?:a\s+)?check|private\s+match|state\s+funds|will\s+provide|made\s+available|allocation", re.I)),
+    ("rate", re.compile(
+        r"hourly|per\s+hour|an\s+hour|rate\s+of\s+pay|pay\s+rate|salary|salaries|per\s+annum|annual\s+rate"
+        r"|stipend|wage|per\s+(?:unit|month|day|week|diem|linear|dwelling|notice|inspection|gallon|quarter)", re.I)),
+    # A fee, rent or charge. Usually paid TO the Town (application, permit,
+    # dockage, license, key-money fees); never counted as a Town cost.
+    ("fee", re.compile(r"\bfees?\b|dockage|key\s+money|surcharge|\brent\b|license\s+agreement|consideration", re.I)),
+    # Borrowing: real money, owed through future levies rather than paid now.
+    ("debt", re.compile(
+        r"\bbonds?\b|bond\s+anticipation|\bnotes?\b|borrow|maximum\s+estimated\s+cost|estimated\s+maximum\s+cost", re.I)),
+    ("fund-balance", re.compile(r"fund\s+balance", re.I)),
+    # A figure describing something already done -- a project "considered
+    # complete at a cost of $127,646.68", money "unspent" and "returned", a
+    # contract awarded "by Resolution 2025-...", an estimate for which "a budget
+    # transfer was authorized" a year earlier (2026-471) -- is background, not
+    # what this resolution commits.
+    ("context", re.compile(
+        r"\bcomplete[d]?\b|unspent|\breturned?\b|leaving|previously|(?:by|under|pursuant\s+to)\s+"
+        r"(?:Town\s+Board\s+)?Resolution|adopted\s+on|decommission|appraisal\s+of|appraised\s+value"
+        r"|transferred\s+back|subsequent\s+to|(?:was|were|had\s+been)\s+(?:previously\s+)?"
+        r"(?:authorized|approved|awarded)", re.I)),
+    ("petty-cash", re.compile(r"petty\s+cash", re.I)),
+    ("cost", re.compile(
+        r"not\s+to\s+exceed|at\s+a\s+cost|total\s+cost|cost\s+of|purchase|payment\s+of|authorizes?\s+payment"
+        r"|change\s+order|award(?:s|ed)?\s+(?:the\s+)?(?:bid|contract)|lowest\s+(?:responsible\s+)?bidder"
+        r"|contract\s+(?:price|amount|sum)|in\s+the\s+amount\s+of|the\s+sum\s+of|lump\s+sum|compensation"
+        r"|retainer|consult", re.I)),
+]
+
+
+def _quote(body: str, start: int, end: int) -> str:
+    """The words around a figure, whitespace collapsed, cut at word boundaries."""
+    a, b = max(0, start - 110), min(len(body), end + 40)
+    snippet = " ".join(body[a:b].split())
+    if a > 0 and " " in snippet:
+        snippet = "…" + snippet.split(" ", 1)[1]
+    if b < len(body) and " " in snippet:
+        snippet = snippet.rsplit(" ", 1)[0] + "…"
+    return snippet
+
+
+def stated_amounts(body: str) -> list[dict]:
+    """Every dollar figure a resolution's own text states, labelled and quoted.
+
+    `clause` is where it sits: "whereas" (the recitals), "resolved" (what the
+    Board orders) or "table" (a budget-adjustment line naming an account).
+    """
+    body = PACKET_NOISE.sub("", body)
+    clauses = [(m.start(), m.group(1).lower()) for m in CLAUSE_WORD.finditer(body)]
+    out: list[dict] = []
+    seen: set[tuple[float, str]] = set()
+    for m in STATED_MONEY.finditer(body):
+        scale = MONEY_SCALE.get((m.group(2) or "").lower(), 1)
+        amount = round(float(m.group(1).replace(",", "").rstrip(".")) * scale, 2)
+        if amount < 1:
+            continue
+        prior = [c for c in clauses if c[0] < m.start()]
+        clause_start, clause = prior[-1] if prior else (0, "heading")
+        line_start = body.rfind("\n", 0, m.start()) + 1
+        if FULL_ACCOUNT_RE.search(body[line_start:m.start()]):
+            role, clause = "budget-line", "table"
+        else:
+            before = body[max(clause_start, m.start() - 240):m.start()]
+            tail = body[m.end():m.end() + 80]
+            stop = re.search(r";|\.\s", tail)
+            window = f"{before} {tail[:stop.start()] if stop else tail}"
+            role = next((name for name, pat in STATED_ROLES if pat.search(window)), "other")
+        if role == "insurance" or (amount, role) in seen:
+            continue
+        seen.add((amount, role))
+        out.append({"amount": amount, "role": role, "clause": clause, "quote": _quote(body, m.start(), m.end())})
+    return out
+
+
+# A resolution applying for a grant lists what the grant would pay for --
+# "for the purchase of equipment in the amount of $1.545M" (2026-211) -- which
+# is funding requested, not the Town spending.
+GRANT_APPLICATION = re.compile(r"\bappl(?:y|ies|ication)\b.*\b(?:grant|funding|funds)\b|\b(?:grant|funding)\b.*\bapplication\b", re.I)
+
+
+# How a recital describes a program on offer, as opposed to money the Town has.
+PROGRAM_OFFER = re.compile(r"opportunit|offers?\s+funding|available\s+(?:through|statewide)", re.I)
+
+
+def mark_program_totals(amounts: list[dict]) -> list[dict]:
+    """A grant program's size, recited before what the Town applies for, is not
+    money coming in: "a GTSC grant opportunity that would provide funding in
+    the amount up to $54,000,000.00", then "apply for funding in the amount of
+    $13,045.00" (2026-773). A recital figure that describes a program on offer
+    and is larger than the money the Board resolves to seek is the program's.
+    A donation is not a program, though the Board may place only part of it
+    (2026-643: a $2,000 gift, $1,000 placed)."""
+    sought = [a["amount"] for a in amounts if a["role"] == "revenue" and a["clause"] == "resolved"]
+    if not sought:
+        return amounts
+    return [{**a, "role": "program"}
+            if a["role"] == "revenue" and a["clause"] == "whereas" and a["amount"] > max(sought)
+            and PROGRAM_OFFER.search(a["quote"]) else a
+            for a in amounts]
+
+
+def statement_below_table(funding: dict | None, amounts: list[dict]) -> dict | None:
+    """Section G names less than the budget adjustment the resolution orders:
+    2026-765's statement says $150,000, while its table moves $280,000 out of
+    Appropriated Fund Balance. A section G figure larger than every table line
+    is often their sum (two $1,000 donations, 2026-643), so only a smaller one
+    that matches no line is flagged."""
+    g = (funding or {}).get("amount")
+    table = [a["amount"] for a in amounts if a["role"] == "budget-line"]
+    if not g or not table or g >= max(table) or any(abs(g - t) < 0.5 for t in table):
+        return None
+    return {"statement": g, "table": max(table)}
+
+
+def stated_cost(amounts: list[dict]) -> float | None:
+    """The largest figure the resolution states as the Town paying out.
+
+    What the Board orders (a RESOLVED clause) outranks the recitals: a recital
+    can list every bid received, while the resolved clause names the one
+    awarded.
+    """
+    costs = [a for a in amounts if a["role"] == "cost"]
+    operative = [a["amount"] for a in costs if a["clause"] == "resolved"]
+    pool = operative or [a["amount"] for a in costs]
+    return max(pool) if pool else None
+
+
 def _field(block_text: str, label_pat: str) -> str:
     m = re.search(label_pat, block_text)
     if not m:
@@ -831,9 +1008,20 @@ def _field(block_text: str, label_pat: str) -> str:
 
 
 def parse_packet(text: str) -> list[dict]:
-    blocks = re.split(r"FISCAL IMPACT STATEMENT", text)[1:]
+    marker = "FISCAL IMPACT STATEMENT"
+    starts = [m.start() for m in re.finditer(marker, text)]
+    headers = [(m.start(), m.end(), m.group(1)) for m in RES_HEADER.finditer(text)]
     out = []
-    for b in blocks:
+    for i, start in enumerate(starts):
+        b = text[start + len(marker): starts[i + 1] if i + 1 < len(starts) else len(text)]
+        # The resolution a statement belongs to is the one printed just above it,
+        # after the previous statement. Matching on title instead put two
+        # back-to-back "Appoints a Call-In Park Attendant" statements on the
+        # first of the pair (2026-229 for 2026-230) and found nothing at all for
+        # one 2026-05-20 statement.
+        floor = starts[i - 1] if i else 0
+        header = next((h for h in reversed(headers) if floor <= h[0] < start), None)
+        body = text[header[1]:start].split("THE VOTE")[0] if header else ""
         d = re.search(r"Will the Proposed Legislation have a Fiscal Impact:\s*(Yes|No)", b)
         if not d:
             continue
@@ -845,12 +1033,19 @@ def parse_packet(text: str) -> list[dict]:
         # Treatment: (a) absorbed if initials follow the (a) line; else described.
         absorbed = bool(re.search(r"\(a\)\s*\nDetail/Initials:\s*[A-Za-z]", b))
         treatment = "absorbed" if absorbed else "described"
+        amounts = stated_amounts(body)
+        if GRANT_APPLICATION.search(title):
+            amounts = [{**a, "role": "revenue"} if a["role"] == "cost" else a for a in amounts]
+        amounts = mark_program_totals(amounts)
         out.append({
             "title": title,
             "purpose": purpose,
             "fiscalImpact": fiscal_impact,
             "treatment": treatment,
             "funding": funding_from_block(b, title, purpose),
+            "printedNumber": header[2] if header else None,
+            "statedAmounts": amounts,
+            "statedCost": stated_cost(amounts),
         })
     return out
 
@@ -885,9 +1080,15 @@ def build_meeting(date: str, packet_text: str) -> dict | None:
     if not parsed:
         return None
 
+    by_number = {r.get("number"): r for r in meeting_res if r.get("number")}
     resolutions = []
     for seq, p in enumerate(parsed, start=1):
-        matched = match_resolution(p["title"], meeting_res)
+        printed = p.get("printedNumber")
+        matched = by_number.get(printed) if printed else None
+        number_source = "printed" if matched else None
+        if matched is None:
+            matched = match_resolution(p["title"], meeting_res)
+            number_source = "title" if matched else None
         category = classify(p["title"], p["purpose"])
         funding = p.get("funding") or {}
         realistic = apply_funding_evidence(
@@ -901,8 +1102,12 @@ def build_meeting(date: str, packet_text: str) -> dict | None:
                 "ayes": matched.get("ayesCount"),
                 "nays": matched.get("naysCount"),
             }
+        number = matched.get("number") if matched else printed
+        if number and number_source is None:
+            number_source = "printed"
         resolutions.append({
-            "number": matched.get("number") if matched else None,
+            "number": number,
+            "numberSource": number_source,
             "seq": seq,
             "title": p["title"],
             "category": category,
@@ -912,6 +1117,13 @@ def build_meeting(date: str, packet_text: str) -> dict | None:
             # None when the Town named no figure — most statements do not.
             "amount": funding.get("amount"),
             "funding": funding,
+            # What the resolution's own text states, beside the Town's answer
+            # on the statement. statedCost is null when no figure reads as the
+            # Town paying out.
+            "statedAmounts": p.get("statedAmounts") or [],
+            "statedCost": p.get("statedCost"),
+            # Section G naming less than the resolution's own budget table moves.
+            "statementBelowTable": statement_below_table(funding, p.get("statedAmounts") or []),
             "realistic": realistic,
             "vote": vote,
         })
@@ -932,9 +1144,13 @@ def build_meeting(date: str, packet_text: str) -> dict | None:
         "method": (
             "Each resolution's Town 'Fiscal Impact Statement' answer (Yes/No and absorbed vs. detailed) is "
             "transcribed as-published from the agenda packet, alongside a plain-English realistic read keyed on "
-            "the resolution's category. Dollar amounts are not auto-extracted from this packet — they live in "
-            "interleaved backup tables that don't reliably tie to a single resolution — so they are left blank "
-            "rather than guessed."
+            "the resolution's category. The amount comes from section G of the statement, where the preparer "
+            "wrote one. Separately, every dollar figure the resolution's own text states is listed and quoted, "
+            "each labelled by its wording (a cost, a pay rate, a fee paid to the Town, a grant, a fund-balance "
+            "transfer, a budget-adjustment line or background); insurance limits an applicant must carry are left "
+            "out. The stated cost is the largest figure that reads as the Town paying out, taking what the Board "
+            "resolves over the recitals. Where section G names less than the resolution's own budget table moves, "
+            "both figures are shown."
         ),
         "summary": {
             "total": len(resolutions),
@@ -965,6 +1181,18 @@ def build_meeting(date: str, packet_text: str) -> dict | None:
             "fundBalanceDrawTotal": round(sum(
                 (r["funding"] or {}).get("fundBalanceDraw") or 0 for r in resolutions
             ), 2),
+            # Resolutions whose own text states a cost, and those of them the Town
+            # answered "No" fiscal impact on.
+            "statedCostResolutions": sum(1 for r in resolutions if r["statedCost"]),
+            "statementBelowTable": sum(1 for r in resolutions if r["statementBelowTable"]),
+            "statedCostMarkedNo": sum(
+                1 for r in resolutions if r["statedCost"] and r["townFiscalImpact"] == "No"
+            ),
+            "largestStatedCostMarkedNo": max(
+                ({"number": r["number"], "amount": r["statedCost"]} for r in resolutions
+                 if r["statedCost"] and r["townFiscalImpact"] == "No"),
+                key=lambda x: x["amount"], default=None,
+            ),
         },
         "resolutions": resolutions,
     }
@@ -1009,6 +1237,8 @@ def merge_hand_curated(date: str, parsed: dict) -> dict:
         if p is not None:
             if p.get("funding"):
                 merged["funding"] = p["funding"]
+            for key in ("numberSource", "statedAmounts", "statedCost", "statementBelowTable"):
+                merged[key] = p.get(key)
             if merged.get("amount") is None and p.get("amount") is not None:
                 merged["amount"] = p["amount"]
                 filled_amounts += 1
@@ -1032,6 +1262,10 @@ def merge_hand_curated(date: str, parsed: dict) -> dict:
 
 def main() -> int:
     force = "--force" in sys.argv
+    # --packet-dir DIR reads each packet's extracted text from DIR/<date>.txt
+    # when it is there instead of downloading the PDF again, so the parse can be
+    # re-run and checked without fetching every packet each time.
+    packet_dir = Path(sys.argv[sys.argv.index("--packet-dir") + 1]) if "--packet-dir" in sys.argv else None
     events = list_events()
     print(f"Town Board events since {SINCE[:10]}: {len(events)}")
     generated: list[str] = []
@@ -1041,10 +1275,14 @@ def main() -> int:
         fid = agenda_packet_file_id(e)
         if not fid:
             continue
+        cached = packet_dir / f"{date}.txt" if packet_dir else None
         try:
-            pdf = http_get(f"{API}/Meetings/GetMeetingFileStream(fileId={fid},plainText=false)")
-            reader = pypdf.PdfReader(io.BytesIO(pdf))
-            text = "\n".join((p.extract_text() or "") for p in reader.pages)
+            if cached and cached.exists():
+                text = cached.read_text(encoding="utf-8")
+            else:
+                pdf = http_get(f"{API}/Meetings/GetMeetingFileStream(fileId={fid},plainText=false)")
+                reader = pypdf.PdfReader(io.BytesIO(pdf))
+                text = "\n".join((p.extract_text() or "") for p in reader.pages)
         except Exception as exc:
             print(f"  {date}: packet fetch/parse failed ({exc}) — skipped")
             continue

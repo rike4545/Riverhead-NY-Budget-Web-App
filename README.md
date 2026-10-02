@@ -183,7 +183,7 @@ The four links at the front of the site menu:
 
 - **My Taxes** (`/tax-bill`): the Town's portion of your property-tax bill, estimated from assessed value and the Town's published 2026 rate table.
 - **Payroll** (`/payroll`): actual employee pay 2018–2025 (base, overtime, gross), Board-authorized salaries for 2025 and 2026, and every raise between them. Separate tabs cover overtime and staffing, separation pay and police pay steps. Every table sorts by any column.
-- **Board Votes** (`/meetings`): Town Board meetings as a decision record. Each resolution shows its outcome, each member's vote, whether the official record is on file, and the matching fiscal-impact statement.
+- **Board Votes** (`/meetings`): Town Board meetings as a decision record. Each resolution shows its outcome, each member's vote, whether the official record is on file, and the matching fiscal-impact statement. Each meeting links to the Town's video and to the volunteer transcript at riverheadtranscripts.org. Where this site has transcribed the video, each vote links to the moment the resolution is read out, and the transcript can be searched on the page.
 - **Search** (`/search`): about 17,200 records: the site's own pages, budget lines, payroll, authorized salaries, Town Board votes, funds and more than 12,500 pages of financial documents. See **Search** below.
 
 ## Explore
@@ -233,7 +233,7 @@ The four links at the front of the site menu:
 - **Outlier Watch** (`/outliers`): year-over-year swings of at least 20% and $100,000 across all 19 funds.
 - **Budget Accuracy** (`/budget-accuracy`): where adopted amounts and actual spending drift apart: researched flags read from the Supplements, lines over budget three years running, lines never used, and every outlier in the newest Supplement.
 - **Where Revenue Comes From** (`/revenue`): every revenue stream, 2018 to the 2027 Tentative, estimate against what came in, in every fund.
-- **Fiscal Impact** (`/fiscal-impact`): each resolution's Fiscal Impact Statement next to a realistic financial read.
+- **Fiscal Impact** (`/fiscal-impact`): each resolution's Fiscal Impact Statement next to a realistic financial read, and every dollar figure the resolution's own text states, quoted and labelled (a cost, a fee, money coming in, a budget line, borrowing, a developer's security). Each statement is matched to its resolution by the number printed above it.
 
 ## Evidence
 - **Source Library** (`/sources`): every parsed Town document, with its fingerprint and a link to the original.
@@ -303,7 +303,14 @@ This project uses publicly available Town records and New York State data, inclu
   Supplements, Annual Financial Reports and audited financial statements.
 - **Town Board meeting records** from the Town's CivicClerk portal: minutes,
   agendas and agenda packets, including each resolution's Fiscal Impact
-  Statement.
+  Statement, and the Town's video of each meeting.
+- **Riverhead Town Meeting Transcripts** (https://riverheadtranscripts.org/), a
+  volunteer project that transcribes the Town's videos with OpenAI Whisper. The
+  site links to its pages and copies nothing from them; it reads the index page
+  only to learn which meetings have a page.
+- **This site's own transcripts**, made from the Town's videos with the
+  open-source Whisper model (faster-whisper, `small.en`). Like the volunteer
+  transcripts they are unofficial: names and figures can be misheard.
 - **New York State Board of Elections** campaign-finance disclosure data (data.ny.gov)
 - **Office of the State Comptroller** Financial Data for Local Governments
 - **NYSDOT** Local Highway Inventory road mileage
@@ -351,14 +358,15 @@ docs/               Architecture, parser, and intelligence documentation
 
 ## The automated data pipeline
 
-The site keeps itself current. Five GitHub Actions workflows do the work
+The site keeps itself current. Six GitHub Actions workflows do the work
 (times are UTC):
 
 | Workflow | When | What it does |
 | --- | --- | --- |
 | **Deploy GitHub Pages** (`deploy-pages.yml`) | Every push to `main`, and on demand | Re-parses every financial-report PDF, rebuilds the budget-stage, General Fund history, adoption, department-request and CPF datasets, the search index and the freshness stamp, then commits any data that changed. It then typechecks, builds, verifies the output and deploys. |
 | **Parse Financial Reports** (`parse-financial-reports.yml`) | Mondays 09:00; daily at 09:00 and 22:00 in September–November | The full pipeline: meetings, financial reports, line items, budget history and stages, General Fund history, AFR actuals, Supplements, votes and fiscal impact, salaries and payroll, the 2027 projection, the buyout, police and crime, road spending, search, CSVs and freshness. Commits the results and redeploys. |
-| **Sync Town Board Meetings** (`sync-meetings.yml`) | Twice a day, 12:30 and 23:30 | Re-checks CivicClerk minutes and agenda packets and the upcoming-meeting schedule. Re-parses votes, falls back to the agenda packet when the minutes omit them, and reconciles each meeting against its official sources. Redeploys when anything changed. |
+| **Sync Town Board Meetings** (`sync-meetings.yml`) | Twice a day, 12:30 and 23:30 | Re-checks CivicClerk minutes and agenda packets and the upcoming-meeting schedule. Re-parses votes, falls back to the agenda packet when the minutes omit them, and reconciles each meeting against its official sources. Refreshes each meeting's video and transcript links. Redeploys when anything changed. |
+| **Transcribe Town Board Meetings** (`transcribe-meetings.yml`) | Daily at 14:07, and on demand | Transcribes up to three meeting videos a run, newest first, with faster-whisper on the runner's CPU (about 15 minutes for a two-hour meeting). It finds the moment each resolution is read out, and finds them again in saved transcripts when a meeting's record changes. It checks the results, commits them and redeploys. |
 | **Watch for budget releases** (`watch-budget-release.yml`) | Every 15 minutes, Sept 24–Oct 6; every 30 minutes, Nov 1–21 | Checks the Town's Financial Reports page for a budget document the site hasn't parsed yet, and starts a deploy the moment one appears. The check itself downloads nothing. It skips while a deploy is already running and limits how often it can start one. |
 | **Quality Gate** (`quality-gate.yml`) | Every pull request | Checks ETL syntax, runs the parser and budget-release tests, rebuilds search and freshness data, and checks every external authority link. Then it typechecks, builds and verifies the output. |
 
@@ -380,7 +388,9 @@ Every page shows when its data was last refreshed.
 | `parse_cpf.py` | Peconic Bay Community Preservation Fund results |
 | `fetch_meetings.py` / `fetch_upcoming.py` / `fetch_vote_packets.py` | Meeting minutes, the upcoming schedule, and agenda packets when the minutes omit votes |
 | `parse_meetings.py` / `apply_vote_packet_fallback.py` / `reconcile_meeting_sources.py` | The voting record, every resolution and vote, checked against its official sources |
-| `parse_fiscal_impact.py` | Each meeting's Fiscal Impact Statements and a corrected read |
+| `parse_fiscal_impact.py` | Each meeting's Fiscal Impact Statements and a corrected read, matched to resolutions by printed number, with the dollar figures each resolution states |
+| `build_meeting_media.py` | Each meeting's video, its riverheadtranscripts.org page and this site's transcript, with vote times (`media.json`) |
+| `transcribe_meetings.py` | This site's Whisper transcript of a meeting video, and the moment each resolution is read out |
 | `analyze_consent_calendar.py` | The Board's unanimous-vote rate and other voting patterns |
 | `parse_salary_schedule.py` / `parse_salary_2026.py` | Board-authorized salaries for 2025 and 2026, and the raise comparison |
 | `parse_payroll.py` | Per-employee actual pay 2018–2025 (from slimmed CSVs in `etl/data/`) |
