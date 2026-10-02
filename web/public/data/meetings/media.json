@@ -12,7 +12,7 @@
   },
   "ours": {
    "title": "This site's machine transcripts",
-   "note": "Made here with OpenAI's open-source Whisper model from the Town's videos. Unofficial: names and figures can be misheard. Vote times are where the resolution number is read out."
+   "note": "Made here with OpenAI's open-source Whisper model from the Town's videos. Unofficial: names and figures can be misheard. A vote link opens where the resolution is read out, just before its roll call."
   }
  },
  "meetings": {
@@ -78,7 +78,40 @@
    "name": "Town Board Meeting",
    "portal": "https://riverheadny.portal.civicclerk.com/event/6442",
    "video": "https://cpmedia.azureedge.net/riverheadny/3d2a132895.mp4",
-   "transcript": "https://riverheadtranscripts.org/meetings/town-board/2026-09-01_6442.html"
+   "transcript": "https://riverheadtranscripts.org/meetings/town-board/2026-09-01_6442.html",
+   "ours": {
+    "path": "/data/transcripts/2026-09-01.json",
+    "model": "small.en",
+    "votes": {
+     "2026-814": 10865.4,
+     "2026-815": 10904.3,
+     "2026-816": 10918.4,
+     "2026-817": 10931.5,
+     "2026-818": 10945.0,
+     "2026-819": 10962.0,
+     "2026-820": 10980.0,
+     "2026-821": 11014.3,
+     "2026-822": 11058.7,
+     "2026-823": 11086.9,
+     "2026-824": 11108.1,
+     "2026-825": 11127.0,
+     "2026-826": 11140.8,
+     "2026-827": 11161.4,
+     "2026-828": 11191.8,
+     "2026-829": 11207.6,
+     "2026-830": 11234.5,
+     "2026-831": 11258.0,
+     "2026-832": 11372.8,
+     "2026-833": 11413.2,
+     "2026-834": 11429.1,
+     "2026-835": 11440.1,
+     "2026-836": 11490.9,
+     "2026-837": 11516.5,
+     "2026-838": 11534.1,
+     "2026-839": 11569.9,
+     "2026-840": 11594.3
+    }
+   }
   },
   "2026-08-18": {
    "eventId": 6454,

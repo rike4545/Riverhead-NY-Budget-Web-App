@@ -23,6 +23,7 @@ misheard; the meeting record and the Town's own minutes remain the source.
 
 Usage:
   python etl/transcribe_meetings.py [--max 2] [--date 2026-09-15 [--video FILE]] [--model small.en] [--force]
+  python etl/transcribe_meetings.py --revote [--date 2026-09-15]   # find the votes again, no transcribing
 
 Output: web/public/data/transcripts/<date>.json
 """
@@ -122,6 +123,8 @@ STOPWORDS = frozenset("the and for from with this that its are was into upon".sp
 # A window that sounds like a resolution being read out or voted on. Whisper
 # sometimes hears "the resolution is adopted" as "the solution is adopted".
 READ_OUT = re.compile(r"\b(?:re)?solutions?\b|\badopted\b", re.I)
+# What follows a resolution being read out, and not a speaker citing one.
+VOTE_CUE = re.compile(r"so\s+moved|\bsecond(?:ed)?\b|vote,?\s+please|roll\s+call|\badopted\b|\bmotion\b", re.I)
 
 
 def words(text: str) -> list[str]:
@@ -143,9 +146,11 @@ def overlap(keys: list[str], text: str) -> float:
 
 def number_pattern(number: str) -> re.Pattern:
     """'2026-843' read out as "Resolution 843", "resolution number 843",
-    "Resolution 2026-843" or "our first resolution is number one which is 843"."""
-    tail = number.split("-")[-1]
-    return re.compile(rf"\bresolutions?\b(?:\W+[a-z]+){{0,5}}?\W+(?:\d{{4}}\s*[-–]?\s*)?{tail}\b", re.I)
+    "Resolution 2026-843" or "our first resolution is number one which is 843".
+    Whisper sometimes writes the number as a decimal or in pieces: "Resolution
+    number 8.15" (2026-815), "8 15"."""
+    digits = r"[.\s]?".join(number.split("-")[-1])
+    return re.compile(rf"\bresolutions?\b(?:\W+[a-z]+){{0,5}}?\W+(?:\d{{4}}\s*[-–]?\s*)?{digits}\b", re.I)
 
 
 def vote_times(segments: list[list], resolutions: list[dict]) -> dict[str, float]:
@@ -156,10 +161,12 @@ def vote_times(segments: list[list], resolutions: list[dict]) -> dict[str, float
        the one whose readings are followed by their titles. So a speaker who
        cites a resolution in the comment period, or a debate that names it
        again, does not move its vote.
-    2. A resolution taken out of agenda order is kept if its number is read
-       out in one place only.
-    3. A number Whisper mishears ("resolution h64") or spells out ("eight
+    2. A number Whisper mishears ("resolution h64") or spells out ("eight
        forty two") is found by its title, between the votes on either side.
+    3. A resolution taken out of agenda order is kept if its number is read
+       out in one place only, within the run of votes. A mention before the
+       first reading is a speaker in the comment period (2026-815 was cited
+       there 16 minutes before its vote), not the vote.
     """
     numbers = [r["number"] for r in resolutions if r.get("number")]
     keys = {r["number"]: title_words(r.get("title") or "") for r in resolutions if r.get("number")}
@@ -188,16 +195,22 @@ def vote_times(segments: list[list], resolutions: list[dict]) -> dict[str, float
             best = max((st for st in states if st[0] <= t), key=lambda st: st[1])
             grown.append((t, best[1] + 1 + 0.5 * title_heard, {**best[2], n: t}))
         states = prune(states + grown)
-    in_order = dict(max(states, key=lambda st: st[1])[2])
+    chain = sorted(max(states, key=lambda st: st[1])[2].items(), key=lambda kv: kv[1])
+
+    # A chain can still start with a citation in the comment period (or end
+    # with one after the votes) when the real reading was misheard: a pick ten
+    # minutes or more from its neighbour with no motion or roll call after it.
+    def vote_follows(t: float) -> bool:
+        return bool(VOTE_CUE.search(" ".join(x for t0, x in zip(starts, text) if t <= t0 <= t + 90)))
+
+    while len(chain) > 1 and chain[1][1] - chain[0][1] > 600 and not vote_follows(chain[0][1]):
+        chain.pop(0)
+    while len(chain) > 1 and chain[-1][1] - chain[-2][1] > 600 and not vote_follows(chain[-1][1]):
+        chain.pop()
+    in_order = dict(chain)
     found = dict(in_order)
 
-    # 2. Out of order, but unambiguous.
-    for n in numbers:
-        times = [t for t, _ in mentions[n]]
-        if n not in found and times and max(times) - min(times) < 30:
-            found[n] = times[0]
-
-    # 3. By title, between the neighbouring votes found in order.
+    # 2. By title, between the neighbouring votes found in order.
     for i, n in enumerate(numbers):
         if n in found or not keys[n]:
             continue
@@ -213,6 +226,15 @@ def vote_times(segments: list[list], resolutions: list[dict]) -> dict[str, float
                   for k in range(len(text)) if lo < starts[k] < hi and READ_OUT.search(" ".join(text[k:k + 2]))]
         if scored and max(scored)[0] >= 0.5:
             found[n] = in_order[n] = -max(scored)[2]
+
+    # 3. Out of order, but unambiguous. Two windows overlap on every segment,
+    # so one reading can show up twice a segment apart.
+    if in_order:
+        first, last = min(in_order.values()), max(in_order.values())
+        for n in numbers:
+            times = [t for t, _ in mentions[n]]
+            if n not in found and times and max(times) - min(times) < 30 and first <= times[0] <= last + 900:
+                found[n] = times[0]
     return {n: found[n] for n in numbers if n in found}
 
 
@@ -226,6 +248,23 @@ def prune(states: list[tuple[float, float, dict]]) -> list[tuple[float, float, d
     return kept
 
 
+def revote(only_date: str | None) -> int:
+    """Find the votes again in saved transcripts: after the matching improves,
+    or once a meeting's resolutions are final."""
+    for path in sorted(OUT.glob("*.json")):
+        if only_date and path.stem != only_date:
+            continue
+        t = json.loads(path.read_text(encoding="utf-8"))
+        meeting = json.loads((MEETINGS / f"{t['date']}.json").read_text(encoding="utf-8"))
+        resolutions = [r for r in (meeting.get("resolutions") or meeting.get("docket") or []) if r.get("number")]
+        votes = vote_times(t["segments"], resolutions)
+        note = "" if votes == t.get("votes") else " (changed)"
+        t["votes"] = votes
+        path.write_text(json.dumps(t, separators=(",", ":")) + "\n", encoding="utf-8")
+        print(f"{t['date']}: {len(votes)} of {len(resolutions)} votes located{note}")
+    return 0
+
+
 def download(url: str, dest: Path) -> None:
     subprocess.run(["curl", "-sf", "--retry", "3", "--max-time", "3600", "-o", str(dest), url], check=True)
 
@@ -236,6 +275,8 @@ def main() -> int:
     model_name = arg("--model", DEFAULT_MODEL)
     limit = int(arg("--max", "2"))
     force = "--force" in sys.argv
+    if "--revote" in sys.argv:
+        return revote(only_date)
     todo = candidates(only_date, force)[:limit]
     if not todo:
         print("Nothing to transcribe.")

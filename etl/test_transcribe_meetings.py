@@ -37,12 +37,14 @@ class NumberPattern(unittest.TestCase):
     def test_ways_a_number_is_read(self):
         pat = number_pattern("2026-841")
         for said in ("Resolution 841. Adopts", "resolution number 841", "Resolution 2026-841",
-                     "Resolution No. 841", "Okay, our first resolution is number one which is 841."):
+                     "Resolution No. 841", "Okay, our first resolution is number one which is 841.",
+                     "Resolution number 8.41 adopts", "resolution 8 41"):
             self.assertRegex(said, pat)
 
     def test_other_numbers_do_not_match(self):
         pat = number_pattern("2026-841")
-        for said in ("Resolution 8410", "resolution 1841", "Resolution 840. 841 people", "extends bid 2024-841"):
+        for said in ("Resolution 8410", "resolution 1841", "Resolution 840. 841 people", "extends bid 2024-841",
+                     "Resolution 8, 41 people"):
             self.assertNotRegex(said, pat)
 
 
@@ -80,6 +82,35 @@ class VoteTimes(unittest.TestCase):
         self.assertEqual(vote_times(once, res), {"2026-1": 10, "2026-2": 90, "2026-3": 20})
         twice = once + [seg(400, "as I said about resolution 2 earlier")]
         self.assertNotIn("2026-2", vote_times(twice, res))
+
+    def test_a_citation_in_public_comment_is_not_the_vote(self):
+        # September 1: a speaker cited 2026-815 by number sixteen minutes before
+        # it was read out as "Resolution number 8.15".
+        res = [{"number": "2026-814", "title": "Ratifies Budget Adjustment for Air Conditioning Units"},
+               {"number": "2026-815", "title": "Authorization For An Appraisal"},
+               {"number": "2026-816", "title": "Police Department Vehicle Transfer to Code Enforcement"}]
+        segments = [
+            seg(9924, "Hi, speaking on Resolution 815, the authorization for an appraisal."),
+            seg(10865, "Alright, sir. Resolution number one, which is 814."),
+            seg(10872, "Ratifies budget adjustment for air conditioning units. So moved. Second."),
+            seg(10902, "Resolution is adopted."),
+            seg(10904, "Resolution number 8.15 authorization for an appraisal so moved second vote"),
+            seg(10918, "resolution is adopted resolution 816 police department vehicle transfer to code enforcement."),
+        ]
+        self.assertEqual(vote_times(segments, res), {"2026-814": 10865, "2026-815": 10904, "2026-816": 10918})
+        # Misheard altogether, it is found by its title between its neighbours,
+        # still not at the citation.
+        segments[4] = seg(10904, "Resolution number eight fifteen authorization for an appraisal so moved second vote")
+        self.assertEqual(vote_times(segments, res)["2026-815"], 10904)
+
+    def test_a_chain_does_not_start_at_a_citation(self):
+        res = RESOLUTIONS[:2]
+        segments = [
+            seg(100, "I'm speaking on resolution 841, the sewer district project."),
+            seg(1300, "resolution number one which is h41 adopts sewer district capital project so moved second"),
+            seg(1330, "resolution 842 ambulance district budget adjustment for repairs so moved"),
+        ]
+        self.assertEqual(vote_times(segments, res), {"2026-841": 1300, "2026-842": 1330})
 
     def test_a_later_mention_does_not_drag_the_rest_with_it(self):
         res = [{"number": f"2026-{n}", "title": t} for n, t in ((10, "Alpha"), (11, "Beta"), (12, "Gamma"))]
