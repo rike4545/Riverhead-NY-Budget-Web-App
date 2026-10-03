@@ -20,6 +20,7 @@ from unittest import mock
 
 import parse_fiscal_impact
 from parse_fiscal_impact import (
+    count_summary,
     derived_summary,
     largest_understated_marked_no,
     mark_program_totals,
@@ -82,6 +83,12 @@ class StatedAmounts(unittest.TestCase):
                 "RESOLVED, that the cost and expenses are hereby reported to the Assessor in the sum of $7,677.64 "
                 "and shall be levied and assessed against the premises")
         self.assertEqual(roles(text), [(15000.0, "context"), (7677.64, "revenue")])
+        self.assertIsNone(stated_cost(stated_amounts(text)))
+
+    def test_proceeds_an_earlier_contract_earmarks_are_background(self):
+        text = ("WHEREAS, the sale is expected to close with a sales price of $2,625,000.00. Of the gross proceeds, "
+                "$660,000.00 is contractually designated to various Town Square projects; and")
+        self.assertIn((660000.0, "context"), roles(text))
         self.assertIsNone(stated_cost(stated_amounts(text)))
 
     def test_a_grant_programs_size_is_not_money_in(self):
@@ -153,8 +160,10 @@ class Summaries(unittest.TestCase):
     def test_a_hand_curated_meeting_keeps_its_amounts_and_counts_the_parse(self):
         # 2026-07-07: the hand file's totals were computed from hand amounts,
         # but its statements' account codes and stated costs come from the parse.
+        # The stored total is stale, as July 7's was: it is recomputed from the
+        # hand amounts on the resolutions read as understated or drawing reserves.
         hand = {
-            "summary": {"total": 2, "markedNo": 1, "identifiedDollarsAtStake": 2852683,
+            "summary": {"total": 2, "markedNo": 1, "identifiedDollarsAtStake": 1,
                         "largestUnderstatedMarkedNo": [227683, "2026-634", "Water Capital Project"]},
             "resolutions": [
                 {"number": "2026-634", "title": "Water Capital Project", "amount": 227683, "townFiscalImpact": "No",
@@ -179,10 +188,14 @@ class Summaries(unittest.TestCase):
         self.assertEqual((s["statedCostResolutions"], s["statedCostMarkedNo"], s["largestStatedCostMarkedNo"]), (1, 0, None))
 
     def test_largest_amount_marked_no_is_amount_number_and_title(self):
-        # The shape /fiscal-impact/ reads for "The clearest example".
-        rs = [{"number": "2026-1", "title": "A", "amount": 500.0, "townFiscalImpact": "No"},
-              {"number": "2026-2", "title": "B", "amount": 900.0, "townFiscalImpact": "No"},
-              {"number": "2026-3", "title": "C", "amount": 5000.0, "townFiscalImpact": "Yes"}]
+        # The shape /fiscal-impact/ reads for "The clearest example", taken only
+        # from resolutions read as understated: July 7's $205,000 letter-of-credit
+        # release was answered "No" too, and rightly.
+        understated, neutral = {"flag": "understated"}, {"flag": "neutral"}
+        rs = [{"number": "2026-1", "title": "A", "amount": 500.0, "townFiscalImpact": "No", "realistic": understated},
+              {"number": "2026-2", "title": "B", "amount": 900.0, "townFiscalImpact": "No", "realistic": understated},
+              {"number": "2026-3", "title": "C", "amount": 5000.0, "townFiscalImpact": "Yes", "realistic": understated},
+              {"number": "2026-4", "title": "D", "amount": 205000.0, "townFiscalImpact": "No", "realistic": neutral}]
         self.assertEqual(largest_understated_marked_no(rs), [900.0, "2026-2", "B"])
         self.assertIsNone(largest_understated_marked_no(rs[2:]))
 
@@ -212,11 +225,33 @@ class Datasets(unittest.TestCase):
     def test_every_summary_counts_its_own_resolutions(self):
         for path in sorted(MEETINGS.glob("2026-*-fiscal.json")):
             data = json.loads(path.read_text(encoding="utf-8"))
-            expected = derived_summary(data["resolutions"])
+            expected = {**count_summary(data["resolutions"]), **derived_summary(data["resolutions"])}
             with self.subTest(path.name):
                 self.assertEqual({k: data["summary"].get(k) for k in expected}, expected)
                 lu = data["summary"].get("largestUnderstatedMarkedNo")
                 self.assertTrue(lu is None or (isinstance(lu, list) and len(lu) == 3), lu)
+
+    def test_july_7_hand_amounts_follow_the_statements(self):
+        # Where the statement's section G names a figure, the hand amount is that
+        # figure, or the file says why not.
+        for r in json.loads((MEETINGS / "2026-07-07-fiscal.json").read_text(encoding="utf-8"))["resolutions"]:
+            g = (r.get("funding") or {}).get("amount")
+            if r.get("amount") is not None and g is not None and abs(r["amount"] - g) > 0.5:
+                with self.subTest(r["number"]):
+                    self.assertTrue(r.get("amountNote"), f"{r['number']}: {r['amount']} against section G's {g}")
+
+    def test_july_7_corrections(self):
+        july = self.load("2026-07-07")
+        amounts = {n: july[n]["amount"] for n in ("2026-637", "2026-640", "2026-641", "2026-655", "2026-678", "2026-681", "2026-682")}
+        self.assertEqual(amounts, {"2026-637": 45322.29, "2026-640": 3575000.0, "2026-641": None, "2026-655": 113497.14,
+                                   "2026-678": None, "2026-681": 112000.0, "2026-682": 205000.0})
+        # A project closed with its unspent $227,683 returned commits nothing.
+        self.assertEqual((july["2026-634"]["amount"], july["2026-634"]["realistic"]["flag"]), (227683, "fair"))
+        data = json.loads((MEETINGS / "2026-07-07-fiscal.json").read_text(encoding="utf-8"))
+        corrections = [r["amount"] for r in data["resolutions"]
+                       if r.get("amount") and r["realistic"]["flag"] in ("understated", "reserve-draw")]
+        self.assertEqual(data["summary"]["identifiedDollarsAtStake"], round(sum(corrections), 2))
+        self.assertEqual(data["summary"]["largestUnderstatedMarkedNo"][:2], [113497.14, "2026-655"])
 
     def test_known_reads(self):
         self.assertIsNone(self.load("2026-03-17")["2026-255"]["statedCost"])  # County money in

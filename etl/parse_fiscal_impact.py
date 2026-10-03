@@ -891,7 +891,10 @@ STATED_ROLES: list[tuple[str, re.Pattern]] = [
         r"\bcomplete[d]?\b|unspent|\breturned?\b|leaving|previously|(?:by|under|pursuant\s+to)\s+"
         r"(?:Town\s+Board\s+)?Resolution|adopted\s+on|decommission|appraisal\s+of|appraised\s+value"
         r"|transferred\s+back|subsequent\s+to|(?:was|were|had\s+been)\s+(?:previously\s+)?"
-        r"(?:authorized|approved|awarded)", re.I)),
+        r"(?:authorized|approved|awarded)"
+        # Proceeds an earlier contract already earmarks (2026-641: "$660,000.00 is
+        # contractually designated to various Town Square projects").
+        r"|contractually\s+designated", re.I)),
     ("petty-cash", re.compile(r"petty\s+cash", re.I)),
     ("cost", re.compile(
         r"not\s+to\s+exceed|at\s+a\s+cost|total\s+cost|cost\s+of|purchase|payment\s+of|authorizes?\s+payment"
@@ -1067,11 +1070,26 @@ def match_resolution(title: str, meeting_resolutions: list[dict]) -> dict | None
     return None
 
 
+def count_summary(resolutions: list[dict]) -> dict:
+    """The Town's Yes/No answers and this read's corrections, counted."""
+    flag = [(r.get("realistic") or {}).get("flag") for r in resolutions]
+    answer = [r.get("townFiscalImpact") for r in resolutions]
+    return {
+        "total": len(resolutions),
+        "markedNo": answer.count("No"),
+        "markedYes": answer.count("Yes"),
+        "understated": sum(f in ("understated", "reserve-draw") for f in flag),
+        "understatedMarkedNo": sum(a == "No" and f == "understated" for a, f in zip(answer, flag)),
+    }
+
+
 def largest_understated_marked_no(resolutions: list[dict]) -> list | None:
-    """[amount, number, title] of the largest amount the Town wrote on a
-    statement while answering "no fiscal impact": the shape the hand-curated
-    2026-07-07 file uses and /fiscal-impact/ reads."""
-    best = max((r for r in resolutions if r.get("amount") and r.get("townFiscalImpact") == "No"),
+    """[amount, number, title] of the largest amount on a resolution the Town
+    answered "no fiscal impact" and this read calls understated: the shape the
+    hand-curated 2026-07-07 file uses and /fiscal-impact/ reads. A "No" on a
+    developer's security release is not understated, however large."""
+    best = max((r for r in resolutions if r.get("amount") and r.get("townFiscalImpact") == "No"
+                and (r.get("realistic") or {}).get("flag") == "understated"),
                key=lambda r: r["amount"], default=None)
     return [best["amount"], best.get("number"), best.get("title")] if best else None
 
@@ -1164,12 +1182,6 @@ def build_meeting(date: str, packet_text: str) -> dict | None:
             "vote": vote,
         })
 
-    marked_no = sum(1 for r in resolutions if r["townFiscalImpact"] == "No")
-    marked_yes = sum(1 for r in resolutions if r["townFiscalImpact"] == "Yes")
-    understated = sum(1 for r in resolutions if r["realistic"]["flag"] in ("understated", "reserve-draw"))
-    understated_marked_no = sum(
-        1 for r in resolutions if r["townFiscalImpact"] == "No" and r["realistic"]["flag"] == "understated"
-    )
     return {
         "slug": date,
         "meetingDate": date,
@@ -1189,11 +1201,7 @@ def build_meeting(date: str, packet_text: str) -> dict | None:
             "both figures are shown."
         ),
         "summary": {
-            "total": len(resolutions),
-            "markedNo": marked_no,
-            "markedYes": marked_yes,
-            "understated": understated,
-            "understatedMarkedNo": understated_marked_no,
+            **count_summary(resolutions),
             # Now that section G is read, these are real: the sum of every amount
             # the Town itself wrote on a statement at this meeting, and the
             # largest one it wrote while answering "no fiscal impact".
@@ -1226,10 +1234,9 @@ def merge_hand_curated(date: str, parsed: dict) -> dict:
 
     So neither replaces the other. A hand amount always wins; a parsed amount
     fills a hand blank; a resolution only the hand file has is kept; and the
-    parsed funding section is attached either way. The hand summary's counts
-    and amount totals are kept, because they were computed from the hand reads
-    and amounts; the figures derived from the parse (account coverage,
-    fund-balance draws, stated costs) are recomputed from the merged list.
+    parsed funding section is attached either way. The summary is computed
+    from the merged resolutions, with the hand file's own definition of
+    dollars in play (see below).
     """
     path = MEETINGS / f"{date}-fiscal.json"
     if not path.exists():
@@ -1262,10 +1269,22 @@ def merge_hand_curated(date: str, parsed: dict) -> dict:
 
     result = dict(hand)
     result["resolutions"] = out
-    # The hand summary's counts and amount totals were computed from the hand
-    # reads and amounts, so they stay; the figures read from section G and the
-    # resolutions' own text are recomputed from the merged list.
-    result["summary"] = {**(hand.get("summary") or {}), **derived_summary(out)}
+    # Every summary figure is recomputed from the merged list, so it cannot
+    # drift from the hand amounts again: 2026-642's $7,212,941 was added to the
+    # hand file in September and never reached its stored total. The hand
+    # file's definition of dollars in play is kept -- the amounts on the
+    # resolutions it reads as understated or drawing reserves -- which
+    # reproduces the $3,622,209 it was built with.
+    corrections = [r for r in out if r.get("amount")
+                   and (r.get("realistic") or {}).get("flag") in ("understated", "reserve-draw")]
+    result["summary"] = {
+        **(hand.get("summary") or {}),
+        **count_summary(out),
+        "identifiedDollarsAtStake": round(sum(r["amount"] for r in corrections), 2),
+        "pricedResolutions": sum(1 for r in out if r.get("amount") is not None),
+        "largestUnderstatedMarkedNo": largest_understated_marked_no(out),
+        **derived_summary(out),
+    }
     with_funding = sum(1 for r in out if r.get("funding"))
     print(
         f"  {date}: hand-curated merge — {with_funding}/{len(out)} now carry funding, "

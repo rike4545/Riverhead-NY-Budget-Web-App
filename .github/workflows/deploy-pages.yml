@@ -145,3 +145,10 @@ jobs:
           branch: gh-pages
           clean: true
           force: false
+
+      # GitHub publishes gh-pages a minute or two after the push above. Wait
+      # for this build to be live, then check that key pages and data files
+      # load, so a deploy that breaks the live site turns this run red.
+      - name: Check the live site
+        working-directory: web
+        run: node scripts/check-live.mjs

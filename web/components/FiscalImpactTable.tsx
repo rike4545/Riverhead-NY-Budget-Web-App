@@ -25,6 +25,9 @@ export type FiscalResolution = {
   statedCost?: number | null
   // Section G naming less than the resolution's own budget table moves.
   statementBelowTable?: { statement: number; table: number } | null
+  // Why a hand-curated amount differs from the statement's figure, or is left
+  // blank; a blank with a note shows the note, not the stated-cost fallback.
+  amountNote?: string | null
   realistic: { verdict: string; reason: string; flag: string; evidence?: 'account-code' | 'category' }
   vote: { adopted: boolean | null; tag: string | null; ayes: number | null; nays: number | null } | null
 }
@@ -167,11 +170,12 @@ export default function FiscalImpactTable({ resolutions, meetingRecord, voteDeta
                       )}
                     </td>
                     <td style={{ ...td, textAlign: 'right', whiteSpace: 'nowrap', fontWeight: 700, color: 'var(--rbl-title)' }}>
-                      {r.amount ? usd(r.amount) : r.statedCost ? (
+                      {r.amount ? usd(r.amount) : r.statedCost && !r.amountNote ? (
                         <span title="No figure on the statement; this is the cost the resolution's own text states.">
                           {usd(r.statedCost)}<div style={{ fontSize: 10.5, fontWeight: 600, color: 'var(--rbl-text-muted)' }}>stated in resolution</div>
                         </span>
                       ) : <span style={{ color: 'var(--rbl-text-faint)', fontWeight: 500 }}>—</span>}
+                      {r.amountNote && <div style={{ marginTop: 3, fontSize: 10.5, fontWeight: 600, color: 'var(--rbl-text-muted)', whiteSpace: 'normal', maxWidth: 160, marginLeft: 'auto' }}>{r.amountNote}</div>}
                       {r.statementBelowTable && (
                         <div title={`Section G of the statement names ${usd(r.statementBelowTable.statement)}; the budget adjustment the resolution orders moves ${usd(r.statementBelowTable.table)}.`} style={{ marginTop: 3, fontSize: 10.5, fontWeight: 800, color: 'var(--rbl-danger-strong)', whiteSpace: 'normal', maxWidth: 130, marginLeft: 'auto' }}>
                           but the resolution’s table moves {usd(r.statementBelowTable.table)}
