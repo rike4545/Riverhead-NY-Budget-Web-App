@@ -12,23 +12,14 @@ one to **Needs the owner** to hold it.
 
 ## Ready
 
-1. **Capital-project closeouts read as "Understated".** All 32 closeouts on
-   June 16, 2026 (2026-566 to 2026-597) are read as understated "No"
-   statements. Closing a project and returning its unspent money commits
-   nothing new, and those reads inflate the meeting's 39 understated
-   statements and the page's 2026 headline count. Check each against its
-   packet with `data-auditor`. Keep "understated" only where a closeout
-   covers an overrun or draws fund balance. Fix the read rule in
-   `etl/parse_fiscal_impact.py` with a test, and regenerate from freshly
-   downloaded packets. July 7's 2026-634 was the same case, fixed by hand.
-2. **Audit one meeting a run with `data-auditor`**, newest first, starting
+1. **Audit one meeting a run with `data-auditor`**, newest first, starting
    with September 15, 2026. Fix what it finds with packet evidence, one
    meeting per pull request.
-3. **Run `silent-failure-hunter` over `etl/`**, and fix its top finding with
+2. **Run `silent-failure-hunter` over `etl/`**, and fix its top finding with
    a test that would have caught it.
-4. **Run `comment-analyzer` over `etl/parse_fiscal_impact.py` and
+3. **Run `comment-analyzer` over `etl/parse_fiscal_impact.py` and
    `README.md`**, and fix the stale claims it can show.
-5. **2026-486's stated amount.** "S-Power agreed to pay the sum of
+4. **2026-486's stated amount.** "S-Power agreed to pay the sum of
    $150,000.00, of which $91,165.00 remains" is labelled a cost. Check the
    packet: it may be money coming in or background.
 
@@ -45,3 +36,11 @@ one to **Needs the owner** to hold it.
 
 - 2026-10-03: July 7's hand-curated amounts corrected against the packet
   (pull request #89).
+- 2026-10-03: Capital-project closeouts no longer read as "Understated".
+  All 32 on June 16 (2026-566 to 2026-597) were checked against the packet:
+  each returns its unspent balance, had it moved by an earlier resolution, or
+  has none left, and none covers an overrun. A resolution whose RESOLVED
+  clause closes a capital project, with no deficit, appropriated fund balance
+  or move to another project in its text, now reads "No direct cost" when
+  the Town answered "No". June 16 went from 39 understated "No" statements
+  to 7.

@@ -255,6 +255,57 @@ def realistic_read(category: str, fiscal_impact: str, title: str = "") -> dict:
     }
 
 
+# ── Capital-project closeouts ────────────────────────────────────────────────
+# Closing a finished capital project commits no new money. The category read
+# calls every capital item the Town marks "no fiscal impact" understated, and
+# all 32 closeouts on June 16, 2026 (2026-566 to 2026-597) came out that way,
+# though each returns its unspent balance to the fund or the developer that
+# paid it in, had it moved by an earlier resolution, or has none left. The
+# Board's own RESOLVED clause is the evidence: "authorizes the Finance
+# Department to close Capital Project #12101". A closeout that covers an
+# overrun, draws appropriated fund balance or moves its balance on to another
+# project does commit money, so any of those keeps the category read.
+CLOSES_PROJECT = re.compile(r"\bclose(?:-?out)?\s+(?:[A-Za-z]+\s+){0,3}Capital\s+Project\s*(?:#|No\.?)?\s*(\d+)", re.I)
+PROJECT_NUMBER = re.compile(r"Capital\s+Project\s*(?:#|No\.?)?\s*(\d+)", re.I)
+NEW_MONEY = re.compile(
+    r"deficit|over-?runs?\b|shortfall|over-?expend|insufficient"
+    # Not "Assigned Unappropriated Fund Balance", where 2026-569 RETURNS money.
+    r"|(?<!un)appropriated\s+fund\s+balance|from\s+(?:the\s+)?(?:\w+\s+){0,3}fund\s+balance",
+    re.I,
+)
+
+
+def closes_project(body: str) -> bool:
+    """True when the Board resolves to close a capital project and nothing in
+    the resolution puts money into it or moves its balance to another project."""
+    start = body.find("RESOLVED")
+    resolved = body[start:] if start >= 0 else ""
+    closing = CLOSES_PROJECT.search(resolved)
+    if not closing or NEW_MONEY.search(body):
+        return False
+    return set(PROJECT_NUMBER.findall(resolved)) <= {closing.group(1)}
+
+
+def closeout_read(realistic: dict, fiscal_impact: str) -> dict:
+    """The read for a resolution that closes a finished capital project.
+
+    Only a "No" that the category read called understated is corrected. Where
+    the Town answered "Yes", or section G's accounts decided the read, it stands.
+    """
+    if fiscal_impact != "No" or realistic.get("flag") != "understated" or realistic.get("evidence") != "category":
+        return realistic
+    return {
+        "verdict": "No new cost — the project is closed",
+        "reason": (
+            "The Board closes a finished capital project. That commits no new money: whatever was "
+            "left unspent is returned, or an earlier resolution already moved it. The Town's "
+            "'no fiscal impact' is fair."
+        ),
+        "flag": "fair",
+        "evidence": "resolution-text",
+    }
+
+
 # ── Section G: the Town's own statement of who pays ─────────────────────────
 #
 # Every Fiscal Impact Statement carries a "G. Proposed Source of Funding" block,
@@ -1049,6 +1100,7 @@ def parse_packet(text: str) -> list[dict]:
             "printedNumber": header[2] if header else None,
             "statedAmounts": amounts,
             "statedCost": stated_cost(amounts),
+            "closesProject": closes_project(body),
         })
     return out
 
@@ -1148,6 +1200,8 @@ def build_meeting(date: str, packet_text: str) -> dict | None:
         realistic = apply_funding_evidence(
             realistic_read(category, p["fiscalImpact"], p["title"]), funding, category
         )
+        if p.get("closesProject"):
+            realistic = closeout_read(realistic, p["fiscalImpact"])
         vote = None
         if matched:
             vote = {

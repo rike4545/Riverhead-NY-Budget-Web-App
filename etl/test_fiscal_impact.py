@@ -20,6 +20,9 @@ from unittest import mock
 
 import parse_fiscal_impact
 from parse_fiscal_impact import (
+    build_meeting,
+    closeout_read,
+    closes_project,
     count_summary,
     derived_summary,
     largest_understated_marked_no,
@@ -156,6 +159,72 @@ class PrintedNumbers(unittest.TestCase):
         self.assertEqual(parsed[0]["statedAmounts"][0]["role"], "rate")
 
 
+CLOSEOUT_PACKET = """TB Resolution 2026-578
+CAPITAL PROJECT #72406 PARKING LOT AT VETERAN'S MEMORIAL PARK CLOSURE
+WHEREAS, the Town Engineer has determined this project to be complete, with unspent funds of $182.61 that can be returned to the General Fund. Now, therefore be it
+RESOLVED, that the Town Board authorizes the Finance Department to close Capital Project #72406; and be it further
+THE VOTE
+RESULT: Adopted
+FISCAL IMPACT STATEMENT
+D. Will the Proposed Legislation have a Fiscal Impact: No
+B. Title of Proposed Legislation: Capital Project #72406 Parking Lot At Veteran's Memorial Park Closure
+C. Purpose of Proposed Legislation: closure
+"""
+
+
+class Closeouts(unittest.TestCase):
+    # Closing a finished project and returning what is left commits nothing new;
+    # these are the June 16, 2026 closeouts' own words.
+    def test_returning_unspent_money_is_a_closeout(self):
+        self.assertTrue(closes_project(
+            "WHEREAS, Town Board Resolution 2020-400 authorized the issuance of $5,500,000.00 bonds with an "
+            "additional $497,855.57 of funding borrowed from the General Fund; and\n"
+            "WHEREAS, the unspent funds of $2,144.43 remaining from this project can now be returned to the "
+            "General Fund and the project can be closed. Now, therefore be it\n"
+            "RESOLVED, that the Town Board authorizes the Finance Department to close Capital Project #12101; and\n"
+            "H01-5031-A01-12101-K Transfers from Other Funds-A01 $2,144.43"))
+        self.assertTrue(closes_project(
+            "WHEREAS, the unspent funds of $17,972.55 can now be returned to the Restricted Fund Balance. Now, therefore be it\n"
+            "RESOLVED, that the Town Board authorizes the Finance Department to close Capital Project #52311; and\n"
+            "A01-9999-000-00000-0 Assigned Unappropriated Fund Balance – CBF $17,972.55"))
+        self.assertTrue(closes_project(
+            "RESOLVED, that the Town Board authorize the Finance Department to close Sewer District Capital "
+            "Project #82227 and return the unspent funds to the Riverhead Sewer District; and"))
+
+    def test_a_closeout_that_puts_money_in_is_not(self):
+        self.assertFalse(closes_project(
+            "WHEREAS, the project was completed with a deficit of $12,000.00. Now, therefore be it\n"
+            "RESOLVED, that the Town Board authorizes the Finance Department to close Capital Project #12345; and"))
+        self.assertFalse(closes_project(
+            "RESOLVED, that the Town Board authorizes the Finance Department to close Capital Project #12345; and\n"
+            "A01-9999 Appropriated Fund Balance $12,000.00"))
+        self.assertFalse(closes_project(
+            "RESOLVED, that the Town Board authorizes the Finance Department to close Capital Project #12345 "
+            "and transfer the remaining $50,000.00 to Capital Project #12399; and"))
+
+    def test_only_the_board_closing_a_project_counts(self):
+        # 2026-270's recital says the project "can now be closed", but the Board
+        # resolves only a budget adjustment.
+        self.assertFalse(closes_project(
+            "WHEREAS, Capital Project #44038 is considered complete and can now be closed; and\n"
+            "RESOLVED, the Supervisor is authorized to establish the following budget adjustment: "
+            "H01-6-6497-230-000-44038 Community Development Street Light Install $25,000.00"))
+        self.assertFalse(closes_project("RESOLVED, that the Town Board approves the road closure of Main Street; and"))
+
+    def test_the_read_corrects_only_a_category_guess_on_a_no(self):
+        guess = {"verdict": "Understated", "reason": "", "flag": "understated", "evidence": "category"}
+        self.assertEqual(closeout_read(guess, "No")["flag"], "fair")
+        self.assertEqual(closeout_read(guess, "Yes"), guess)
+        accounts = {**guess, "evidence": "account-code"}
+        self.assertEqual(closeout_read(accounts, "No"), accounts)
+
+    def test_a_closeout_in_a_packet(self):
+        meeting = build_meeting("2099-01-01", CLOSEOUT_PACKET)
+        r = meeting["resolutions"][0]
+        self.assertEqual((r["number"], r["realistic"]["flag"], r["realistic"]["evidence"]), ("2026-578", "fair", "resolution-text"))
+        self.assertEqual(meeting["summary"]["understatedMarkedNo"], 0)
+
+
 class Summaries(unittest.TestCase):
     def test_a_hand_curated_meeting_keeps_its_amounts_and_counts_the_parse(self):
         # 2026-07-07: the hand file's totals were computed from hand amounts,
@@ -252,6 +321,11 @@ class Datasets(unittest.TestCase):
                        if r.get("amount") and r["realistic"]["flag"] in ("understated", "reserve-draw")]
         self.assertEqual(data["summary"]["identifiedDollarsAtStake"], round(sum(corrections), 2))
         self.assertEqual(data["summary"]["largestUnderstatedMarkedNo"][:2], [113497.14, "2026-655"])
+
+    def test_june_16_closeouts_commit_nothing_new(self):
+        june = self.load("2026-06-16")
+        reads = {(june[f"2026-{n}"]["realistic"]["flag"], june[f"2026-{n}"]["realistic"].get("evidence")) for n in range(566, 598)}
+        self.assertEqual(reads, {("fair", "resolution-text")})
 
     def test_known_reads(self):
         self.assertIsNone(self.load("2026-03-17")["2026-255"]["statedCost"])  # County money in
