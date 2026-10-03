@@ -43,10 +43,10 @@ one to **Needs the owner** to hold it.
   clause closes a capital project, with no deficit, appropriated fund balance
   or move to another project in its text, now reads "No direct cost" when
   the Town answered "No". June 16 went from 39 understated "No" statements
-  to 7.
+  to 7 (pull request #90).
 - 2026-10-03: The one-off script that first wrote July 7's file
   (`etl/parse_agenda_packet.py`) is retired: rerunning it restored amounts the
   packet contradicts, and the merge kept them. 2026-641 is now described the
   same way everywhere: the Town Square note paid from rent and the sale of 127
   East Main Street, with fund balance only from 2026-762's interim switch on
-  August 4.
+  August 4 (pull request #90).
