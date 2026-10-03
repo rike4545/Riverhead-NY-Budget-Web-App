@@ -216,6 +216,24 @@ class Closeouts(unittest.TestCase):
         self.assertFalse(closes_project(
             close + "FROM TO A01-9999-000-00000-0 Assigned Unappropriated Fund Balance – CBF $113,613.00"))
 
+    def test_only_table_rows_are_read_as_draws(self):
+        close = "RESOLVED, that the Town Board authorizes the Finance Department to close Capital Project #12345; and be it further\n"
+        table = "RESOLVED, that the Supervisor is authorized to establish the following budget adjustments;\nFROM TO\n"
+        # A recital of how the project was first funded is history.
+        self.assertTrue(closes_project(
+            "WHEREAS, the project was established using General Fund Balance in the amount of $100,000 under "
+            "Resolution 2020-1; and\nWHEREAS, the project is complete and can now be closed. Now, therefore be it\n" + close))
+        # A row with no account code keeps its whole label, so a return to an
+        # unappropriated balance is still read as one, even as the table's first row.
+        self.assertTrue(closes_project(
+            "WHEREAS, the remaining $100 can be returned to that balance. Now, therefore be it\n" + close + table +
+            "Assigned Unappropriated Fund Balance $100.00\nH01-7-7110-230-000-12345 Parks - Improvements $100.00\n"
+            "And be it further"))
+        # A bare "Fund Balance" row with no code is still a draw.
+        self.assertFalse(closes_project(
+            close + table + "Fund Balance $5,000.00\nH01-7-7110-230-000-12345 Parks - Improvements $5,000.00\n"
+            "And be it further"))
+
     def test_only_the_board_closing_a_project_counts(self):
         # 2026-270's recital says the project "can now be closed", but the Board
         # resolves only a budget adjustment.
