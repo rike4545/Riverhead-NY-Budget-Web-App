@@ -18,7 +18,8 @@ const usd0 = (n: number) => new Intl.NumberFormat('en-US', { style: 'currency', 
 const M = (n: number) => `$${(n / 1e6).toFixed(1)}M`
 
 const totalApprop = allOperatingFunds2026.reduce((sum, f) => sum + f.appropriations2026, 0)
-// GFOA's Value category asks for the total cost per person for all services.
+// GFOA's Value category asks "How much does the government cost?" (lib/gfoa.ts);
+// this tour answers it per resident, across every operating fund.
 const perResident = totalApprop / community.population.estimate2024
 
 export const metadata = {

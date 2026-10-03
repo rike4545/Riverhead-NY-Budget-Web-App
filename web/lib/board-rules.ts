@@ -1,11 +1,11 @@
 // The Town Board's own Rules of Procedure, reduced to the parts a resident
 // needs in order to be heard.
 //
-// The rules matter here for a specific reason: GFOA's budget-presentation
-// criteria ask "when can the public engage in the budget process?" and "what
-// methods are used to collect feedback?" Those questions are answered by this
-// document, not by the budget. The two public-comment windows below, and the
-// fact that a public hearing carries no time limit, are the practical answer.
+// The rules matter here for a specific reason: GFOA's revised budget-award
+// criteria ask, under Budget Process, "When can the public participate?"
+// (lib/gfoa.ts, checked against GFOA's page). That question is answered by
+// this document, not by the budget. The two public-comment windows below, and
+// the fact that a public hearing carries no time limit, are the practical answer.
 //
 // Source: Rules of the Town Board of the Town of Riverhead (Rules I–XII).
 
