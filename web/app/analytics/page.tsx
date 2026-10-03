@@ -33,7 +33,7 @@ const sections = [
     title: 'What changed',
     text: 'Separate the size of the change from the reason for it, then follow the biggest movers back to the underlying budget records.',
     links: [
-      ['/what-changed/', '2025 → 2026', 'Resident summary of the biggest changes.'],
+      ['/what-changed/', '2026 → 2027 Tentative', 'Resident summary of the biggest changes.'],
       ['/compare/', 'Line-by-line compare', 'Sort funds, departments, and accounts by what moved most.'],
       ['/budget-accuracy/', 'Budget accuracy', 'Compare prior plans with actual results.'],
       ['/outliers/', 'Outlier watch', 'Find unusually large changes worth a closer read.'],
@@ -98,7 +98,7 @@ export default function AnalyticsPage() {
       </section>
 
       <RecordTrail title="Trace a fiscal signal across the site" intro="Move from the headline indicator to the budget, taxes, payroll, reserves, debt, Board vote, and original source." items={[
-        { href: '/what-changed/', label: 'What Changed', text: 'See the resident-level 2025 → 2026 change summary.' },
+        { href: '/what-changed/', label: 'What Changed', text: 'See the resident-level summary of the 2027 Tentative against 2026.' },
         { href: '/taxpayer-impact/', label: 'Where Your Levy Goes', text: 'Translate the levy into fund-level allocation.' },
         { href: '/meetings/', label: 'Town Board Votes', text: 'See which decisions were actually adopted.' },
         { href: '/data-quality/', label: 'Data Quality', text: 'Check source-specific freshness and automated verification.' },

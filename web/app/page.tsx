@@ -8,7 +8,7 @@ const base = process.env.NEXT_PUBLIC_BASE_PATH || ''
 const popular = [
   ...(released2027 ? [['What does the 2027 Tentative propose?', '/tentative-2027/']] : []),
   ['Why did my property taxes change?', '/tax-bill/'],
-  ['What changed from 2025 to 2026?', '/what-changed/'],
+  ['What changes in the 2027 Tentative?', '/what-changed/'],
   ['Who gets paid the most?', '/payroll/'],
   ['What could happen in 2027?', '/predict-2027/'],
 ]
