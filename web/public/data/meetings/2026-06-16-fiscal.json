@@ -10,8 +10,8 @@
   "total": 66,
   "markedNo": 55,
   "markedYes": 11,
-  "understated": 42,
-  "understatedMarkedNo": 39,
+  "understated": 10,
+  "understatedMarkedNo": 7,
   "identifiedDollarsAtStake": 0,
   "pricedResolutions": 0,
   "largestUnderstatedMarkedNo": null,
@@ -112,10 +112,10 @@
    "statedCost": null,
    "statementBelowTable": null,
    "realistic": {
-    "verdict": "Understated \u2014 the form says 'no fiscal impact'",
-    "reason": "A capital or debt item marked 'no fiscal impact' still moves money the Town must fund.",
-    "flag": "understated",
-    "evidence": "category"
+    "verdict": "No new cost \u2014 the project is closed",
+    "reason": "The Board closes a finished capital project. That commits no new money: whatever was left unspent is returned, or an earlier resolution already moved it. The Town's 'no fiscal impact' is fair.",
+    "flag": "fair",
+    "evidence": "resolution-text"
    },
    "vote": {
     "adopted": true,
@@ -169,10 +169,10 @@
    "statedCost": null,
    "statementBelowTable": null,
    "realistic": {
-    "verdict": "Understated \u2014 the form says 'no fiscal impact'",
-    "reason": "A capital or debt item marked 'no fiscal impact' still moves money the Town must fund.",
-    "flag": "understated",
-    "evidence": "category"
+    "verdict": "No new cost \u2014 the project is closed",
+    "reason": "The Board closes a finished capital project. That commits no new money: whatever was left unspent is returned, or an earlier resolution already moved it. The Town's 'no fiscal impact' is fair.",
+    "flag": "fair",
+    "evidence": "resolution-text"
    },
    "vote": {
     "adopted": true,
@@ -250,10 +250,10 @@
    "statedCost": null,
    "statementBelowTable": null,
    "realistic": {
-    "verdict": "Understated \u2014 the form says 'no fiscal impact'",
-    "reason": "A capital or debt item marked 'no fiscal impact' still moves money the Town must fund.",
-    "flag": "understated",
-    "evidence": "category"
+    "verdict": "No new cost \u2014 the project is closed",
+    "reason": "The Board closes a finished capital project. That commits no new money: whatever was left unspent is returned, or an earlier resolution already moved it. The Town's 'no fiscal impact' is fair.",
+    "flag": "fair",
+    "evidence": "resolution-text"
    },
    "vote": {
     "adopted": true,
@@ -313,10 +313,10 @@
    "statedCost": null,
    "statementBelowTable": null,
    "realistic": {
-    "verdict": "Understated \u2014 the form says 'no fiscal impact'",
-    "reason": "A capital or debt item marked 'no fiscal impact' still moves money the Town must fund.",
-    "flag": "understated",
-    "evidence": "category"
+    "verdict": "No new cost \u2014 the project is closed",
+    "reason": "The Board closes a finished capital project. That commits no new money: whatever was left unspent is returned, or an earlier resolution already moved it. The Town's 'no fiscal impact' is fair.",
+    "flag": "fair",
+    "evidence": "resolution-text"
    },
    "vote": {
     "adopted": true,
@@ -376,10 +376,10 @@
    "statedCost": null,
    "statementBelowTable": null,
    "realistic": {
-    "verdict": "Understated \u2014 the form says 'no fiscal impact'",
-    "reason": "A capital or debt item marked 'no fiscal impact' still moves money the Town must fund.",
-    "flag": "understated",
-    "evidence": "category"
+    "verdict": "No new cost \u2014 the project is closed",
+    "reason": "The Board closes a finished capital project. That commits no new money: whatever was left unspent is returned, or an earlier resolution already moved it. The Town's 'no fiscal impact' is fair.",
+    "flag": "fair",
+    "evidence": "resolution-text"
    },
    "vote": {
     "adopted": true,
@@ -439,10 +439,10 @@
    "statedCost": null,
    "statementBelowTable": null,
    "realistic": {
-    "verdict": "Understated \u2014 the form says 'no fiscal impact'",
-    "reason": "A capital or debt item marked 'no fiscal impact' still moves money the Town must fund.",
-    "flag": "understated",
-    "evidence": "category"
+    "verdict": "No new cost \u2014 the project is closed",
+    "reason": "The Board closes a finished capital project. That commits no new money: whatever was left unspent is returned, or an earlier resolution already moved it. The Town's 'no fiscal impact' is fair.",
+    "flag": "fair",
+    "evidence": "resolution-text"
    },
    "vote": {
     "adopted": true,
@@ -502,10 +502,10 @@
    "statedCost": null,
    "statementBelowTable": null,
    "realistic": {
-    "verdict": "Understated \u2014 the form says 'no fiscal impact'",
-    "reason": "A capital or debt item marked 'no fiscal impact' still moves money the Town must fund.",
-    "flag": "understated",
-    "evidence": "category"
+    "verdict": "No new cost \u2014 the project is closed",
+    "reason": "The Board closes a finished capital project. That commits no new money: whatever was left unspent is returned, or an earlier resolution already moved it. The Town's 'no fiscal impact' is fair.",
+    "flag": "fair",
+    "evidence": "resolution-text"
    },
    "vote": {
     "adopted": true,
@@ -565,10 +565,10 @@
    "statedCost": null,
    "statementBelowTable": null,
    "realistic": {
-    "verdict": "Understated \u2014 the form says 'no fiscal impact'",
-    "reason": "A capital or debt item marked 'no fiscal impact' still moves money the Town must fund.",
-    "flag": "understated",
-    "evidence": "category"
+    "verdict": "No new cost \u2014 the project is closed",
+    "reason": "The Board closes a finished capital project. That commits no new money: whatever was left unspent is returned, or an earlier resolution already moved it. The Town's 'no fiscal impact' is fair.",
+    "flag": "fair",
+    "evidence": "resolution-text"
    },
    "vote": {
     "adopted": true,
@@ -622,10 +622,10 @@
    "statedCost": null,
    "statementBelowTable": null,
    "realistic": {
-    "verdict": "Understated \u2014 the form says 'no fiscal impact'",
-    "reason": "A capital or debt item marked 'no fiscal impact' still moves money the Town must fund.",
-    "flag": "understated",
-    "evidence": "category"
+    "verdict": "No new cost \u2014 the project is closed",
+    "reason": "The Board closes a finished capital project. That commits no new money: whatever was left unspent is returned, or an earlier resolution already moved it. The Town's 'no fiscal impact' is fair.",
+    "flag": "fair",
+    "evidence": "resolution-text"
    },
    "vote": {
     "adopted": true,
@@ -685,10 +685,10 @@
    "statedCost": null,
    "statementBelowTable": null,
    "realistic": {
-    "verdict": "Understated \u2014 the form says 'no fiscal impact'",
-    "reason": "A capital or debt item marked 'no fiscal impact' still moves money the Town must fund.",
-    "flag": "understated",
-    "evidence": "category"
+    "verdict": "No new cost \u2014 the project is closed",
+    "reason": "The Board closes a finished capital project. That commits no new money: whatever was left unspent is returned, or an earlier resolution already moved it. The Town's 'no fiscal impact' is fair.",
+    "flag": "fair",
+    "evidence": "resolution-text"
    },
    "vote": {
     "adopted": true,
@@ -748,10 +748,10 @@
    "statedCost": null,
    "statementBelowTable": null,
    "realistic": {
-    "verdict": "Understated \u2014 the form says 'no fiscal impact'",
-    "reason": "A capital or debt item marked 'no fiscal impact' still moves money the Town must fund.",
-    "flag": "understated",
-    "evidence": "category"
+    "verdict": "No new cost \u2014 the project is closed",
+    "reason": "The Board closes a finished capital project. That commits no new money: whatever was left unspent is returned, or an earlier resolution already moved it. The Town's 'no fiscal impact' is fair.",
+    "flag": "fair",
+    "evidence": "resolution-text"
    },
    "vote": {
     "adopted": true,
@@ -811,10 +811,10 @@
    "statedCost": null,
    "statementBelowTable": null,
    "realistic": {
-    "verdict": "Understated \u2014 the form says 'no fiscal impact'",
-    "reason": "A capital or debt item marked 'no fiscal impact' still moves money the Town must fund.",
-    "flag": "understated",
-    "evidence": "category"
+    "verdict": "No new cost \u2014 the project is closed",
+    "reason": "The Board closes a finished capital project. That commits no new money: whatever was left unspent is returned, or an earlier resolution already moved it. The Town's 'no fiscal impact' is fair.",
+    "flag": "fair",
+    "evidence": "resolution-text"
    },
    "vote": {
     "adopted": true,
@@ -874,10 +874,10 @@
    "statedCost": null,
    "statementBelowTable": null,
    "realistic": {
-    "verdict": "Understated \u2014 the form says 'no fiscal impact'",
-    "reason": "A capital or debt item marked 'no fiscal impact' still moves money the Town must fund.",
-    "flag": "understated",
-    "evidence": "category"
+    "verdict": "No new cost \u2014 the project is closed",
+    "reason": "The Board closes a finished capital project. That commits no new money: whatever was left unspent is returned, or an earlier resolution already moved it. The Town's 'no fiscal impact' is fair.",
+    "flag": "fair",
+    "evidence": "resolution-text"
    },
    "vote": {
     "adopted": true,
@@ -943,10 +943,10 @@
    "statedCost": null,
    "statementBelowTable": null,
    "realistic": {
-    "verdict": "Understated \u2014 the form says 'no fiscal impact'",
-    "reason": "A capital or debt item marked 'no fiscal impact' still moves money the Town must fund.",
-    "flag": "understated",
-    "evidence": "category"
+    "verdict": "No new cost \u2014 the project is closed",
+    "reason": "The Board closes a finished capital project. That commits no new money: whatever was left unspent is returned, or an earlier resolution already moved it. The Town's 'no fiscal impact' is fair.",
+    "flag": "fair",
+    "evidence": "resolution-text"
    },
    "vote": {
     "adopted": true,
@@ -1036,10 +1036,10 @@
    "statedCost": null,
    "statementBelowTable": null,
    "realistic": {
-    "verdict": "Understated \u2014 the form says 'no fiscal impact'",
-    "reason": "A capital or debt item marked 'no fiscal impact' still moves money the Town must fund.",
-    "flag": "understated",
-    "evidence": "category"
+    "verdict": "No new cost \u2014 the project is closed",
+    "reason": "The Board closes a finished capital project. That commits no new money: whatever was left unspent is returned, or an earlier resolution already moved it. The Town's 'no fiscal impact' is fair.",
+    "flag": "fair",
+    "evidence": "resolution-text"
    },
    "vote": {
     "adopted": true,
@@ -1093,10 +1093,10 @@
    "statedCost": null,
    "statementBelowTable": null,
    "realistic": {
-    "verdict": "Understated \u2014 the form says 'no fiscal impact'",
-    "reason": "A capital or debt item marked 'no fiscal impact' still moves money the Town must fund.",
-    "flag": "understated",
-    "evidence": "category"
+    "verdict": "No new cost \u2014 the project is closed",
+    "reason": "The Board closes a finished capital project. That commits no new money: whatever was left unspent is returned, or an earlier resolution already moved it. The Town's 'no fiscal impact' is fair.",
+    "flag": "fair",
+    "evidence": "resolution-text"
    },
    "vote": {
     "adopted": true,
@@ -1162,10 +1162,10 @@
    "statedCost": null,
    "statementBelowTable": null,
    "realistic": {
-    "verdict": "Understated \u2014 the form says 'no fiscal impact'",
-    "reason": "A capital or debt item marked 'no fiscal impact' still moves money the Town must fund.",
-    "flag": "understated",
-    "evidence": "category"
+    "verdict": "No new cost \u2014 the project is closed",
+    "reason": "The Board closes a finished capital project. That commits no new money: whatever was left unspent is returned, or an earlier resolution already moved it. The Town's 'no fiscal impact' is fair.",
+    "flag": "fair",
+    "evidence": "resolution-text"
    },
    "vote": {
     "adopted": true,
@@ -1206,10 +1206,10 @@
    "statedCost": null,
    "statementBelowTable": null,
    "realistic": {
-    "verdict": "Understated \u2014 the form says 'no fiscal impact'",
-    "reason": "A capital or debt item marked 'no fiscal impact' still moves money the Town must fund.",
-    "flag": "understated",
-    "evidence": "category"
+    "verdict": "No new cost \u2014 the project is closed",
+    "reason": "The Board closes a finished capital project. That commits no new money: whatever was left unspent is returned, or an earlier resolution already moved it. The Town's 'no fiscal impact' is fair.",
+    "flag": "fair",
+    "evidence": "resolution-text"
    },
    "vote": {
     "adopted": true,
@@ -1250,10 +1250,10 @@
    "statedCost": null,
    "statementBelowTable": null,
    "realistic": {
-    "verdict": "Understated \u2014 the form says 'no fiscal impact'",
-    "reason": "A capital or debt item marked 'no fiscal impact' still moves money the Town must fund.",
-    "flag": "understated",
-    "evidence": "category"
+    "verdict": "No new cost \u2014 the project is closed",
+    "reason": "The Board closes a finished capital project. That commits no new money: whatever was left unspent is returned, or an earlier resolution already moved it. The Town's 'no fiscal impact' is fair.",
+    "flag": "fair",
+    "evidence": "resolution-text"
    },
    "vote": {
     "adopted": true,
@@ -1294,10 +1294,10 @@
    "statedCost": null,
    "statementBelowTable": null,
    "realistic": {
-    "verdict": "Understated \u2014 the form says 'no fiscal impact'",
-    "reason": "A capital or debt item marked 'no fiscal impact' still moves money the Town must fund.",
-    "flag": "understated",
-    "evidence": "category"
+    "verdict": "No new cost \u2014 the project is closed",
+    "reason": "The Board closes a finished capital project. That commits no new money: whatever was left unspent is returned, or an earlier resolution already moved it. The Town's 'no fiscal impact' is fair.",
+    "flag": "fair",
+    "evidence": "resolution-text"
    },
    "vote": {
     "adopted": true,
@@ -1338,10 +1338,10 @@
    "statedCost": null,
    "statementBelowTable": null,
    "realistic": {
-    "verdict": "Understated \u2014 the form says 'no fiscal impact'",
-    "reason": "A capital or debt item marked 'no fiscal impact' still moves money the Town must fund.",
-    "flag": "understated",
-    "evidence": "category"
+    "verdict": "No new cost \u2014 the project is closed",
+    "reason": "The Board closes a finished capital project. That commits no new money: whatever was left unspent is returned, or an earlier resolution already moved it. The Town's 'no fiscal impact' is fair.",
+    "flag": "fair",
+    "evidence": "resolution-text"
    },
    "vote": {
     "adopted": true,
@@ -1382,10 +1382,10 @@
    "statedCost": null,
    "statementBelowTable": null,
    "realistic": {
-    "verdict": "Understated \u2014 the form says 'no fiscal impact'",
-    "reason": "A capital or debt item marked 'no fiscal impact' still moves money the Town must fund.",
-    "flag": "understated",
-    "evidence": "category"
+    "verdict": "No new cost \u2014 the project is closed",
+    "reason": "The Board closes a finished capital project. That commits no new money: whatever was left unspent is returned, or an earlier resolution already moved it. The Town's 'no fiscal impact' is fair.",
+    "flag": "fair",
+    "evidence": "resolution-text"
    },
    "vote": {
     "adopted": true,
@@ -1439,10 +1439,10 @@
    "statedCost": null,
    "statementBelowTable": null,
    "realistic": {
-    "verdict": "Understated \u2014 the form says 'no fiscal impact'",
-    "reason": "A capital or debt item marked 'no fiscal impact' still moves money the Town must fund.",
-    "flag": "understated",
-    "evidence": "category"
+    "verdict": "No new cost \u2014 the project is closed",
+    "reason": "The Board closes a finished capital project. That commits no new money: whatever was left unspent is returned, or an earlier resolution already moved it. The Town's 'no fiscal impact' is fair.",
+    "flag": "fair",
+    "evidence": "resolution-text"
    },
    "vote": {
     "adopted": true,
@@ -1496,10 +1496,10 @@
    "statedCost": null,
    "statementBelowTable": null,
    "realistic": {
-    "verdict": "Understated \u2014 the form says 'no fiscal impact'",
-    "reason": "A capital or debt item marked 'no fiscal impact' still moves money the Town must fund.",
-    "flag": "understated",
-    "evidence": "category"
+    "verdict": "No new cost \u2014 the project is closed",
+    "reason": "The Board closes a finished capital project. That commits no new money: whatever was left unspent is returned, or an earlier resolution already moved it. The Town's 'no fiscal impact' is fair.",
+    "flag": "fair",
+    "evidence": "resolution-text"
    },
    "vote": {
     "adopted": true,
@@ -1540,10 +1540,10 @@
    "statedCost": null,
    "statementBelowTable": null,
    "realistic": {
-    "verdict": "Understated \u2014 the form says 'no fiscal impact'",
-    "reason": "A capital or debt item marked 'no fiscal impact' still moves money the Town must fund.",
-    "flag": "understated",
-    "evidence": "category"
+    "verdict": "No new cost \u2014 the project is closed",
+    "reason": "The Board closes a finished capital project. That commits no new money: whatever was left unspent is returned, or an earlier resolution already moved it. The Town's 'no fiscal impact' is fair.",
+    "flag": "fair",
+    "evidence": "resolution-text"
    },
    "vote": {
     "adopted": true,
@@ -1584,10 +1584,10 @@
    "statedCost": null,
    "statementBelowTable": null,
    "realistic": {
-    "verdict": "Understated \u2014 the form says 'no fiscal impact'",
-    "reason": "A capital or debt item marked 'no fiscal impact' still moves money the Town must fund.",
-    "flag": "understated",
-    "evidence": "category"
+    "verdict": "No new cost \u2014 the project is closed",
+    "reason": "The Board closes a finished capital project. That commits no new money: whatever was left unspent is returned, or an earlier resolution already moved it. The Town's 'no fiscal impact' is fair.",
+    "flag": "fair",
+    "evidence": "resolution-text"
    },
    "vote": {
     "adopted": true,
@@ -1628,10 +1628,10 @@
    "statedCost": null,
    "statementBelowTable": null,
    "realistic": {
-    "verdict": "Understated \u2014 the form says 'no fiscal impact'",
-    "reason": "A capital or debt item marked 'no fiscal impact' still moves money the Town must fund.",
-    "flag": "understated",
-    "evidence": "category"
+    "verdict": "No new cost \u2014 the project is closed",
+    "reason": "The Board closes a finished capital project. That commits no new money: whatever was left unspent is returned, or an earlier resolution already moved it. The Town's 'no fiscal impact' is fair.",
+    "flag": "fair",
+    "evidence": "resolution-text"
    },
    "vote": {
     "adopted": true,
@@ -1672,10 +1672,10 @@
    "statedCost": null,
    "statementBelowTable": null,
    "realistic": {
-    "verdict": "Understated \u2014 the form says 'no fiscal impact'",
-    "reason": "A capital or debt item marked 'no fiscal impact' still moves money the Town must fund.",
-    "flag": "understated",
-    "evidence": "category"
+    "verdict": "No new cost \u2014 the project is closed",
+    "reason": "The Board closes a finished capital project. That commits no new money: whatever was left unspent is returned, or an earlier resolution already moved it. The Town's 'no fiscal impact' is fair.",
+    "flag": "fair",
+    "evidence": "resolution-text"
    },
    "vote": {
     "adopted": true,
@@ -1716,10 +1716,10 @@
    "statedCost": null,
    "statementBelowTable": null,
    "realistic": {
-    "verdict": "Understated \u2014 the form says 'no fiscal impact'",
-    "reason": "A capital or debt item marked 'no fiscal impact' still moves money the Town must fund.",
-    "flag": "understated",
-    "evidence": "category"
+    "verdict": "No new cost \u2014 the project is closed",
+    "reason": "The Board closes a finished capital project. That commits no new money: whatever was left unspent is returned, or an earlier resolution already moved it. The Town's 'no fiscal impact' is fair.",
+    "flag": "fair",
+    "evidence": "resolution-text"
    },
    "vote": {
     "adopted": true,
@@ -1773,10 +1773,10 @@
    "statedCost": null,
    "statementBelowTable": null,
    "realistic": {
-    "verdict": "Understated \u2014 the form says 'no fiscal impact'",
-    "reason": "A capital or debt item marked 'no fiscal impact' still moves money the Town must fund.",
-    "flag": "understated",
-    "evidence": "category"
+    "verdict": "No new cost \u2014 the project is closed",
+    "reason": "The Board closes a finished capital project. That commits no new money: whatever was left unspent is returned, or an earlier resolution already moved it. The Town's 'no fiscal impact' is fair.",
+    "flag": "fair",
+    "evidence": "resolution-text"
    },
    "vote": {
     "adopted": true,
@@ -1830,10 +1830,10 @@
    "statedCost": null,
    "statementBelowTable": null,
    "realistic": {
-    "verdict": "Understated \u2014 the form says 'no fiscal impact'",
-    "reason": "A capital or debt item marked 'no fiscal impact' still moves money the Town must fund.",
-    "flag": "understated",
-    "evidence": "category"
+    "verdict": "No new cost \u2014 the project is closed",
+    "reason": "The Board closes a finished capital project. That commits no new money: whatever was left unspent is returned, or an earlier resolution already moved it. The Town's 'no fiscal impact' is fair.",
+    "flag": "fair",
+    "evidence": "resolution-text"
    },
    "vote": {
     "adopted": true,
@@ -1887,10 +1887,10 @@
    "statedCost": null,
    "statementBelowTable": null,
    "realistic": {
-    "verdict": "Understated \u2014 the form says 'no fiscal impact'",
-    "reason": "A capital or debt item marked 'no fiscal impact' still moves money the Town must fund.",
-    "flag": "understated",
-    "evidence": "category"
+    "verdict": "No new cost \u2014 the project is closed",
+    "reason": "The Board closes a finished capital project. That commits no new money: whatever was left unspent is returned, or an earlier resolution already moved it. The Town's 'no fiscal impact' is fair.",
+    "flag": "fair",
+    "evidence": "resolution-text"
    },
    "vote": {
     "adopted": true,
