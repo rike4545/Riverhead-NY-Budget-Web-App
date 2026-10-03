@@ -12,16 +12,64 @@ one to **Needs the owner** to hold it.
 
 ## Ready
 
-1. **Audit one meeting a run with `data-auditor`**, newest first, starting
+The `gfoa-practice-expert` items (1 to 6) come from reading GFOA's budgeting
+guide and best practices against the site on 2026-10-03. The agent's file
+holds the guidance and the checks.
+
+1. **`/gfoa/`'s program year.** `web/lib/gfoa.ts` says GFOA's criteria were
+   "revised for the 2026 program year", and that its sources were
+   "unreachable", so the categories were transcribed. GFOA's page
+   (https://www.gfoa.org/budget-award-2026-criteria) is titled "Revised
+   Criteria (2026)" but sits under "Program Changes (Effective 1/1/2027)". The
+   award page (https://www.gfoa.org/budget-award) still links criteria for
+   "Budgets with a Fiscal Year Beginning 1/1/25 or later". Settle which set
+   applies to a 2026 budget and which to 2027. Then check the categories and
+   points against the page, and fix the page and comment.
+2. **Structural balance is never tested.** GFOA's rule is "recurring revenues
+   are greater than or equal to recurring expenditures in the adopted budget".
+   The General Fund plans $1,250,000 of fund balance in the 2026 adopted
+   budget and $950,000 in the 2027 Tentative. That is sound under the rule
+   only if it pays for one-time spending. Show what the Budget Supplements
+   and budget documents let the site show, and say what the Town would have
+   to publish for the rest.
+3. **"Recorded as a revenue line."** `/fund-balance-draws/` says appropriated
+   fund balance "is recorded as a revenue line" in the New York chart of
+   accounts. Check that against the Comptroller's chart (`web/lib/osc-guidance.ts`).
+   It is a financing source, not revenue, whatever format the Town's account
+   codes use.
+4. **The balance above the policy floor.** GFOA says amounts above a formal
+   policy "may reflect a structural trend, in which case governments should
+   consider a policy as to how this would be addressed". It also encourages
+   "explanation of large changes in fund balance". Check that `/reserves/`
+   says this beside the audited figures and the deployment options.
+5. **The long-term outlook.** GFOA recommends a plan for "all key funds and
+   government operations at least five years into the future".
+   `/predict-2027/` looks one year ahead. Look in the Source Library for any
+   multi-year plan the Town has published; don't assume there is none. Then
+   add the benchmark where the site discusses the outlook.
+6. **Then sweep the site with `gfoa-practice-expert`**, one group of pages a
+   run, in the order of its map ("Where the site applies them now"),
+   starting with fund balance.
+7. **Audit one meeting a run with `data-auditor`**, newest first, starting
    with September 15, 2026. Fix what it finds with packet evidence, one
    meeting per pull request.
-2. **Run `silent-failure-hunter` over `etl/`**, and fix its top finding with
+8. **Run `silent-failure-hunter` over `etl/`**, and fix its top finding with
    a test that would have caught it.
-3. **Run `comment-analyzer` over `etl/parse_fiscal_impact.py` and
+9. **Run `comment-analyzer` over `etl/parse_fiscal_impact.py` and
    `README.md`**, and fix the stale claims it can show.
-4. **2026-486's stated amount.** "S-Power agreed to pay the sum of
-   $150,000.00, of which $91,165.00 remains" is labelled a cost. Check the
-   packet: it may be money coming in or background.
+10. **2026-486's stated amount.** "S-Power agreed to pay the sum of
+    $150,000.00, of which $91,165.00 remains" is labelled a cost. Check the
+    packet: it may be money coming in or background.
+11. **`riverhead-domain-expert`'s "canonical facts" are out of date.**
+    - Its unassigned balance is the unaudited $29,671,084 (42.9%). The audit
+      the Board accepted on September 1, 2026 gives $28,829,513
+      (`web/lib/audits.ts`).
+    - It gives the 2025 adopted General Fund as $64,895,000; the budget data
+      has $64,852,829.
+    - Its "~$33.4M" General Fund balance predates the audit.
+
+    Update the facts from the data files, or replace the list with the files
+    that hold them.
 
 ## Needs the owner
 

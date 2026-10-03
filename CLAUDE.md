@@ -92,6 +92,7 @@ python3 etl/build_search_index.py && python3 etl/write_meta.py
 | --- | --- |
 | `riverhead-domain-expert` | check a figure's accuracy and framing, and write resident-facing copy |
 | `web-ml-expert` | change the site's search or any in-browser ML |
+| `gfoa-practice-expert` | apply GFOA budgeting practice and governmental accounting across pages: fund-balance measures, structural balance, one-time money, the long-term outlook, and how figures are explained |
 | `data-auditor` | check one meeting's published fiscal figures against its agenda packet |
 | `silent-failure-hunter` | review ETL, workflow or verify-script changes for failures that pass quietly |
 | `comment-analyzer` | check comments, docstrings and README claims against the code and the data |
