@@ -10,13 +10,13 @@
   "total": 53,
   "markedNo": 31,
   "markedYes": 22,
-  "understated": 29,
-  "understatedMarkedNo": 11,
-  "identifiedDollarsAtStake": 3622209,
+  "understated": 26,
+  "understatedMarkedNo": 10,
+  "identifiedDollarsAtStake": 7843796.14,
   "largestUnderstatedMarkedNo": [
-   227683,
-   "2026-634",
-   "Water Capital Project #81851 \u2013 USGS Test Wells Closure"
+   113497.14,
+   "2026-655",
+   "Appoints Maintenance Mechanic II's to the Engineering Department"
   ],
   "withAccounts": 17,
   "accountEvidence": 0,
@@ -25,7 +25,8 @@
   "statedCostResolutions": 3,
   "statementBelowTable": 0,
   "statedCostMarkedNo": 0,
-  "largestStatedCostMarkedNo": null
+  "largestStatedCostMarkedNo": null,
+  "pricedResolutions": 18
  },
  "resolutions": [
   {
@@ -121,9 +122,9 @@
    "amount": 227683,
    "note": "Closure of the USGS test wells \u2014 a real capital cost, yet the form marks 'no fiscal impact.'",
    "realistic": {
-    "verdict": "Understated \u2014 the form says 'no fiscal impact'",
-    "reason": "Understated \u2014 but it commits capital dollars (~$227,683), typically drawn from reserves, fund balance, or borrowing.",
-    "flag": "understated"
+    "verdict": "No new cost \u2014 the project is closed",
+    "reason": "Closes Capital Project #81851 and takes the $227,683 left unspent out of its budget, against the bond proceeds that paid for it. That releases money rather than committing it, so the Town's 'no fiscal impact' is fair.",
+    "flag": "fair"
    },
    "vote": {
     "adopted": true,
@@ -361,12 +362,12 @@
    "category": "capital",
    "townFiscalImpact": "Yes",
    "townTreatment": "absorbed",
-   "amount": 118919,
+   "amount": 45322.29,
    "note": "EWR 2025\u201326 highway capital project adjustment.",
    "realistic": {
-    "verdict": "Understated \u2014 'absorbed by existing budget'",
-    "reason": "Understated \u2014 but it commits capital dollars (~$118,919), typically drawn from reserves, fund balance, or borrowing.",
-    "flag": "reserve-draw"
+    "verdict": "Capital fund \u2014 no draw on an operating balance",
+    "reason": "Moves $45,322.29 between two lines of Capital Project #52513, which State Extreme Winter Recovery funds pay for. Every account named sits in the Capital Projects Fund, so nothing comes out of an operating fund's surplus.",
+    "flag": "neutral"
    },
    "vote": {
     "adopted": true,
@@ -621,7 +622,7 @@
    "category": "grant",
    "townFiscalImpact": "Yes",
    "townTreatment": "absorbed",
-   "amount": 2275000,
+   "amount": 3575000.0,
    "note": "Suffolk County Water Authority federal pass-through grant \u2014 offsetting outside revenue.",
    "realistic": {
     "verdict": "Revenue in / offsetting",
@@ -715,12 +716,12 @@
    "category": "debt",
    "townFiscalImpact": "Yes",
    "townTreatment": "absorbed",
-   "amount": 2625000,
+   "amount": null,
    "note": "Uses fund balance to pay down the Town Square bond anticipation note.",
    "realistic": {
-    "verdict": "Understated \u2014 'absorbed by existing budget'",
-    "reason": "Understated \u2014 but it spends fund balance (~$2,625,000) to retire debt \u2014 a real use of reserves.",
-    "flag": "reserve-draw"
+    "verdict": "Sale proceeds retire debt",
+    "reason": "Pays down the Town Square BAN with the net proceeds of the $2,625,000 sale of 127 East Main Street, after $660,000 committed to Town Square projects, plus the site's rent. One-time money retiring debt, not a draw on fund balance; the resolution does not total the paydown.",
+    "flag": "neutral"
    },
    "vote": {
     "adopted": true,
@@ -763,7 +764,7 @@
     },
     {
      "amount": 660000.0,
-     "role": "cost",
+     "role": "context",
      "clause": "whereas",
      "quote": "\u2026for real property taxes and anticipated utilities, not to exceed $25,000.00. Of the gross proceeds, $660,000.00 is contractually designated to various\u2026"
     },
@@ -780,8 +781,9 @@
      "quote": "\u2026rental income from the Pre-possession and Lease Agreement of at least $32,000.00 but not to exceed $57,000.00, as well as the remaining net\u2026"
     }
    ],
-   "statedCost": 660000.0,
-   "statementBelowTable": null
+   "statedCost": 25000.0,
+   "statementBelowTable": null,
+   "amountNote": "No amount: the resolution does not total the paydown, which is the net proceeds of the $2,625,000 sale plus $32,000 to $57,000 of rent."
   },
   {
    "number": "2026-642",
@@ -996,7 +998,8 @@
     }
    ],
    "statedCost": null,
-   "statementBelowTable": null
+   "statementBelowTable": null,
+   "amountNote": "A $2,000 gift: $1,000 placed now (the statement's figure) and $1,000 set aside for a future capital project."
   },
   {
    "number": "2026-644",
@@ -1731,11 +1734,11 @@
    "category": "personnel",
    "townFiscalImpact": "No",
    "townTreatment": "absorbed",
-   "amount": 56749,
+   "amount": 113497.14,
    "note": "Maintenance Mechanic II \u2014 recurring salary each, yet marked 'no fiscal impact.'",
    "realistic": {
     "verdict": "Understated \u2014 the form says 'no fiscal impact'",
-    "reason": "Understated \u2014 but it adds recurring or seasonal payroll (~$56,749/yr) that continues in future budgets.",
+    "reason": "Understated \u2014 but it adds recurring payroll (~$113,497/yr: two Maintenance Mechanic IIs at $56,748.57 each) that continues in future budgets.",
     "flag": "understated"
    },
    "vote": {
@@ -2826,11 +2829,11 @@
    "category": "labor-contract",
    "townFiscalImpact": "No",
    "townTreatment": "described",
-   "amount": 76500,
+   "amount": null,
    "note": "CSEA stipulation \u2014 a labor settlement with real cost, yet marked 'no fiscal impact.'",
    "realistic": {
     "verdict": "Understated \u2014 the form says 'no fiscal impact'",
-    "reason": "Understated \u2014 but a union stipulation carries real, often recurring, labor cost (~$76,500).",
+    "reason": "Understated \u2014 but a union stipulation carries real, often recurring, labor cost, which the resolution does not state.",
     "flag": "understated"
    },
    "vote": {
@@ -2958,7 +2961,7 @@
    "category": "escrow-neutral",
    "townFiscalImpact": "No",
    "townTreatment": "described",
-   "amount": 283000,
+   "amount": 112000.0,
    "note": "Release of a developer's performance security \u2014 not Town money.",
    "realistic": {
     "verdict": "Net-neutral to taxpayers",
@@ -3033,7 +3036,7 @@
    "category": "escrow-neutral",
    "townFiscalImpact": "No",
    "townTreatment": "described",
-   "amount": 501000,
+   "amount": 205000.0,
    "note": "Release of a developer's letter of credit \u2014 not Town money.",
    "realistic": {
     "verdict": "Net-neutral to taxpayers",
