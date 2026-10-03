@@ -320,6 +320,56 @@ try {
   warn(`Fund-balance ledger overlap check could not run: ${error.message}`)
 }
 
+// ── Adopted table above section G: keep the declared list in step ───────────
+//
+// lib/fiscal-commitments-2027.ts counts a draw at the budget table the Board
+// adopted, rather than at section G's smaller figure, only for resolutions
+// declared in ADOPTED_TABLE after someone read the packet (2026-765: $280,000
+// adopted, $150,000 in section G). A new gap still shows on the pages, counted
+// at section G's figure, and a declaration its record no longer matches falls
+// back to section G. Neither is wrong on the page, and both need a person to
+// read the packet, so say so here.
+try {
+  const src = readFileSync(path('lib/fiscal-commitments-2027.ts'), 'utf8')
+  const start = src.indexOf('const ADOPTED_TABLE')
+  const declared = new Map(
+    Array.from((start === -1 ? '' : src.slice(start, src.indexOf('\n\n', start)))
+      .matchAll(/'(\d{4}-\d+)':\s*\{\s*statement:\s*([\d_.]+),\s*table:\s*([\d_.]+)/g))
+      .map((m) => [m[1], { statement: Number(m[2].replace(/_/g, '')), table: Number(m[3].replace(/_/g, '')) }]),
+  )
+  if (start !== -1 && declared.size === 0) {
+    warn('Adopted-table check could not read ADOPTED_TABLE in lib/fiscal-commitments-2027.ts — the map shape may have changed.')
+  }
+  const meetingDir = path('public/data/meetings')
+  const index = JSON.parse(readFileSync(join(meetingDir, 'fiscal-index.json'), 'utf8'))
+  const found = new Set()
+  let gaps = 0
+  for (const slug of index.meetings) {
+    const file = join(meetingDir, `${slug}-fiscal.json`)
+    if (!existsSync(file)) continue
+    for (const r of JSON.parse(readFileSync(file, 'utf8')).resolutions ?? []) {
+      if (!r.funding?.drawsFundBalance || r.vote?.adopted !== true) continue
+      const gap = r.statementBelowTable
+      const d = declared.get(r.number)
+      if (d) found.add(r.number)
+      if (gap) gaps += 1
+      if (gap && !d) {
+        warn(`Fund-balance draw ${r.number} (${slug}): section G says $${gap.statement.toLocaleString()}, below the $${gap.table.toLocaleString()} on its own budget table. ` +
+          'The pages count section G until the packet is read; if the adopted table is the draw, declare it in ADOPTED_TABLE in lib/fiscal-commitments-2027.ts.')
+      } else if (d && (!gap || gap.statement !== d.statement || gap.table !== d.table || r.funding.fundBalanceDraw !== d.statement)) {
+        warn(`ADOPTED_TABLE declares ${r.number} at $${d.table.toLocaleString()} over section G's $${d.statement.toLocaleString()}, but its record no longer shows that gap, ` +
+          'so the pages fall back to section G. Re-read the packet and update or remove the entry.')
+      }
+    }
+  }
+  for (const n of declared.keys()) {
+    if (!found.has(n)) warn(`ADOPTED_TABLE declares ${n}, which is not an adopted fund-balance draw in the meeting record.`)
+  }
+  console.log(`Adopted-table check: ${gaps} adopted draw${gaps === 1 ? '' : 's'} with section G below the table, ${declared.size} declared.`)
+} catch (error) {
+  warn(`Adopted-table check could not run: ${error.message}`)
+}
+
 // ── Evidence links: a card's figures must appear on the page it opens ─────────
 //
 // The Financial Health cards and signals, and What Changed's tiles, each link to
