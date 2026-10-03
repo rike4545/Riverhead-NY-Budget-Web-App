@@ -10,17 +10,20 @@ commit money. This script transcribes the Town's own answer for each resolution
 and pairs it with a plain-English "realistic" read keyed on the resolution's
 category.
 
-Amounts: the per-resolution dollar figures live in interleaved backup tables
-that do not reliably tie to a single resolution in the extracted text, so this
-script leaves `amount` null rather than guess (matching the documented method of
-the hand-curated 2026-07-07 file). The Town's Yes/No/treatment answers, by
-contrast, parse deterministically and are transcribed as-published.
+Amounts: `amount` is the figure the preparer wrote in section G of the
+statement, and stays null where section G names none rather than being guessed
+from the backup tables. The Town's Yes/No/treatment answers parse
+deterministically and are transcribed as-published.
 
 Output: web/public/data/meetings/<date>-fiscal.json per meeting, plus a
 fiscal-index.json listing the meetings that have a corrected read.
 
-Idempotent and non-destructive: a date that already has a hand-curated fiscal
-file (currently 2026-07-07) is left untouched unless --force is passed.
+A date in PROTECTED (currently 2026-07-07) has a hand-curated file, and every
+run merges into it rather than replacing it: its amounts, notes and reads are
+kept, the parse attaches section G and the stated amounts, and the summary is
+recomputed (merge_hand_curated). That file is edited by hand, with the packet's
+own words as evidence; the one-off script that first wrote it is retired,
+because rerunning it restored amounts the packet contradicts.
 """
 from __future__ import annotations
 
@@ -1280,9 +1283,9 @@ def merge_hand_curated(date: str, parsed: dict) -> dict:
     """Layer a hand-curated file's dollar amounts back onto a fresh parse.
 
     The hand work and the parse each know something the other does not. The
-    hand file carries amounts a human read out of the packet -- 2026-641's
-    $2,625,000 Town Square BAN paydown, among thirteen others the parser
-    returns as None or reads differently. The parse carries the section G
+    hand file carries amounts a human read out of the packet -- 2026-655's
+    $113,497.14 for two appointments, among nine the parser returns as None or
+    reads differently. The parse carries the section G
     account codes, which say which FUND and which GASB tier the money comes
     from, and no hand file here has them at all.
 
@@ -1348,7 +1351,6 @@ def merge_hand_curated(date: str, parsed: dict) -> dict:
     return result
 
 def main() -> int:
-    force = "--force" in sys.argv
     # --packet-dir DIR reads each packet's extracted text from DIR/<date>.txt
     # when it is there instead of downloading the PDF again, so the parse can be
     # re-run and checked without fetching every packet each time.

@@ -322,6 +322,16 @@ class Datasets(unittest.TestCase):
         self.assertEqual(data["summary"]["identifiedDollarsAtStake"], round(sum(corrections), 2))
         self.assertEqual(data["summary"]["largestUnderstatedMarkedNo"][:2], [113497.14, "2026-655"])
 
+    def test_the_town_square_paydown_split(self):
+        # July 7's 2026-641 planned the paydown from rent and the sale of 127 East
+        # Main Street; August 4's 2026-762 paid it from fund balance until the sale
+        # closes. The retired July 7 generator had 2026-641 "Uses fund balance".
+        planned = self.load("2026-07-07")["2026-641"]
+        self.assertEqual((planned["realistic"]["flag"], planned["funding"]["drawsFundBalance"]), ("neutral", False))
+        self.assertIn("net proceeds", planned["note"])
+        interim = self.load("2026-08-04")["2026-762"]["funding"]
+        self.assertEqual((interim["drawsFundBalance"], interim["fundBalanceDraw"]), (True, 1874218.0))
+
     def test_june_16_closeouts_commit_nothing_new(self):
         june = self.load("2026-06-16")
         reads = {(june[f"2026-{n}"]["realistic"]["flag"], june[f"2026-{n}"]["realistic"].get("evidence")) for n in range(566, 598)}

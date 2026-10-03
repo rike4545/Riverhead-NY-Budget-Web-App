@@ -35,7 +35,7 @@ cd web && npx tsc --noEmit && npm run verify
 python3 etl/refresh_meeting_records.py
 
 # Fiscal-impact data, from freshly downloaded agenda packets
-python3 etl/parse_fiscal_impact.py --force
+python3 etl/parse_fiscal_impact.py
 
 # After meeting data changes
 python3 etl/build_search_index.py && python3 etl/write_meta.py
@@ -57,11 +57,13 @@ python3 etl/build_search_index.py && python3 etl/write_meta.py
 - Every figure traces to an official record. Quote it rather than infer it,
   and leave a figure blank rather than guess, saying why.
 - Fiscal-impact data is rebuilt from freshly downloaded packets
-  (`parse_fiscal_impact.py --force`). A `--packet-dir` cache is for previews
+  (`parse_fiscal_impact.py`). A `--packet-dir` cache is for previews
   only: its text differs slightly, so never commit data built from it.
 - `web/public/data/meetings/2026-07-07-fiscal.json` is hand-curated. Change a
-  resolution in it only with the packet's own words as evidence; the parser
-  computes its summary.
+  resolution in it only with the packet's own words as evidence, and edit the
+  file itself: no script generates it, and the parser merges into it and
+  computes its summary. A resolution described elsewhere on the site (the
+  Town Square, debt and 2027 pages) must be corrected there too.
 - Keep unofficial material labelled. Machine transcripts can mishear names
   and figures.
 - Frame findings as likely concerns for residents, never as legal or audit

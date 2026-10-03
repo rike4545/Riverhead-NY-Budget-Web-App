@@ -35,8 +35,8 @@ export const metadata = {
 }
 
 export default function TownSquarePage() {
-  // Both draws against the audited balance. The note paydown is a ceiling, not a
-  // known amount, and the page says so wherever the number appears.
+  // Both draws against the audited balance: the offer as authorized, and the
+  // note paydown as resolution 2026-762 booked it against fund balance.
   const totalDraw = fundBalanceImpact.draws.reduce((s, d) => s + d.amount, 0)
   const after = unassignedFundBalance - totalDraw
 
@@ -55,7 +55,8 @@ export default function TownSquarePage() {
         On <strong>September 1, 2026</strong> the Town Board voted unanimously to offer{' '}
         <strong>{usd(acquisition.offer)}</strong> for 111 East Main Street — the building intended for the Long
         Island Science Center — and to pay for it <strong>out of the General Fund balance</strong>. That follows a
-        court vesting order on August 26 and a July vote to pay down the project&apos;s note, also from fund balance.
+        court vesting order on August 26 and an August 4 vote paying down the project&apos;s note from fund balance
+        until the hotel-site sale closes.
         Two draws on accumulated surplus for one project, which is why they are shown together below.
       </PlainCallout>
 
@@ -393,11 +394,11 @@ export default function TownSquarePage() {
                 <strong style={{ color: 'var(--rbl-title)', fontSize: 15 }}>{d.label}</strong>
                 <span style={{
                   fontSize: 10.5, fontWeight: 900, letterSpacing: 0.4, textTransform: 'uppercase', padding: '2px 7px', borderRadius: 5,
-                  background: d.certainty === 'authorized' ? 'var(--rbl-success-bg)' : 'var(--rbl-warn-bg)',
-                  color: d.certainty === 'authorized' ? 'var(--rbl-success-strong)' : 'var(--rbl-warn-strong)',
-                  border: `1px solid ${d.certainty === 'authorized' ? 'var(--rbl-success-border)' : 'var(--rbl-warn-border)'}`,
+                  ...(String(d.certainty) === 'ceiling'
+                    ? { background: 'var(--rbl-warn-bg)', color: 'var(--rbl-warn-strong)', border: '1px solid var(--rbl-warn-border)' }
+                    : { background: 'var(--rbl-success-bg)', color: 'var(--rbl-success-strong)', border: '1px solid var(--rbl-success-border)' }),
                 }}>
-                  {d.certainty === 'authorized' ? 'Authorized amount' : 'Ceiling, not a known amount'}
+                  {d.certainty === 'authorized' ? 'Authorized amount' : d.certainty === 'documented' ? 'Booked by the Town' : 'Ceiling, not a known amount'}
                 </span>
                 <span style={{ marginLeft: 'auto', color: 'var(--rbl-title)', fontSize: 20, fontWeight: 900 }}>{usd(d.amount)}</span>
               </div>
@@ -408,7 +409,7 @@ export default function TownSquarePage() {
 
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(190px,1fr))', gap: 12, marginBottom: 12 }}>
           <Stat label="Unassigned, 12/31/2025" value={usd(unassignedFundBalance)} sub={`${pct(unassignedFundBalance)} of appropriations`} />
-          <Stat label="Both draws, at most" value={usd(totalDraw)} sub={`${((totalDraw / unassignedFundBalance) * 100).toFixed(1)}% of the balance`} amber />
+          <Stat label="Both draws" value={usd(totalDraw)} sub={`${((totalDraw / unassignedFundBalance) * 100).toFixed(1)}% of the balance`} amber />
           <Stat label="Left afterwards" value={usd(after)} sub={`${pct(after)} of appropriations`} />
           <Stat label="Policy floor" value={`${policyMinimumPercent * 100}%`} sub={`${usd(minimumRequired)}; no ceiling (Res. 918 of 2011)`} />
         </div>
