@@ -2,7 +2,7 @@ import PageShell from '../../components/PageShell'
 import LineChart from '../../components/charts/LineChart'
 import PlainCallout from '../../components/PlainCallout'
 import TentativeReleased from '../../components/TentativeReleased'
-import { released2027, changePhrase } from '../../lib/tentative-2027'
+import { released2027, adoptedPrior, changePhrase } from '../../lib/tentative-2027'
 import { generalFund } from '../../lib/general-fund'
 import { dollars } from '../../lib/financial-data'
 import { fundTentativeToAdopted } from '../../lib/budget-stages'
@@ -20,6 +20,8 @@ export const metadata = {
 export default function GeneralFundPage() {
   const rows = generalFund.rows
   const g = generalFund.growth
+  // 2026 adopted General Fund appropriations, to state the Tentative's change.
+  const gfPrior2026 = adoptedPrior?.funds.A01?.appropriations ?? null
   // Not every year is an adopted figure. The Town never posted an adopted 2018
   // budget, so 2018 is the Tentative, and a Tentative is a proposal rather than
   // an appropriation (Town Law s.109). Read from the data so a future
@@ -57,6 +59,7 @@ export default function GeneralFundPage() {
         {released2027?.generalFund && (
           <>
             For the General Fund it proposes {dollars(released2027.generalFund.appropriations)} of spending
+            {gfPrior2026 !== null && <>, {released2027.generalFund.appropriations >= gfPrior2026 ? 'up' : 'down'} {dollars(Math.abs(released2027.generalFund.appropriations - gfPrior2026))} or {(Math.abs(released2027.generalFund.appropriations - gfPrior2026) / gfPrior2026 * 100).toFixed(2)}% from 2026’s {dollars(gfPrior2026)},</>}
             {released2027.generalFund.levy !== null && <> and a levy of {dollars(released2027.generalFund.levy)}, {changePhrase(released2027.generalFund.levyPct)} 2026</>}
             {released2027.generalFund.fundBalance !== null && <>, using {dollars(released2027.generalFund.fundBalance)} of reserves</>}.
             The history below is adopted budgets only, so 2027 joins it once a budget is adopted.

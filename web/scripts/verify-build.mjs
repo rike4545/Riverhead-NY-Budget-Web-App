@@ -320,5 +320,43 @@ try {
   warn(`Fund-balance ledger overlap check could not run: ${error.message}`)
 }
 
+// ── Evidence links: a card's figures must appear on the page it opens ─────────
+//
+// The Financial Health cards and signals, and What Changed's tiles, each link to
+// the page meant to substantiate them. When /what-changed/ moved to the 2027
+// Tentative, links citing 2025 -> 2026 adopted figures went on opening it, and
+// tiles pointed at pages that never print their figures. Nothing noticed. So
+// every link on these pages whose text carries a dollar figure or a percentage
+// must lead to a built page that prints each of those figures.
+const EVIDENCE_PAGES = ['analytics', 'what-changed']
+const BASE_PATH = '/Riverhead-NY-Budget-Web-App'
+// React separates adjacent text with empty comments ("4.20<!-- -->%"), which
+// render as nothing, so they are dropped rather than read as a space.
+const htmlText = (html) => html
+  .replace(/<!--[\s\S]*?-->/g, '').replace(/<script[\s\S]*?<\/script>/g, ' ').replace(/<[^>]+>/g, ' ')
+  .replace(/&nbsp;|&#160;/g, ' ').replace(/&#x27;|&#39;/g, "'").replace(/&quot;/g, '"')
+  .replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&amp;/g, '&')
+  .replace(/\$\s+(?=\d)/g, '$').replace(/\s+/g, ' ')
+const FIGURE = /\$\d[\d,]*(?:\.\d+)?|\d+(?:\.\d+)?%/g
+let evidenceLinks = 0
+for (const page of EVIDENCE_PAGES) {
+  const file = path('out', page, 'index.html')
+  if (!existsSync(file)) { fail(`Evidence-link check: out/${page}/index.html is missing`); continue }
+  for (const [, href, inner] of readFileSync(file, 'utf8').matchAll(/<a\b[^>]*\bhref="([^"]+)"[^>]*>([\s\S]*?)<\/a>/g)) {
+    const figures = Array.from(new Set(htmlText(inner).match(FIGURE) ?? []))
+    if (!figures.length || /^https?:/.test(href)) continue
+    let route = href.startsWith(BASE_PATH) ? href.slice(BASE_PATH.length) : href
+    route = route.split(/[?#]/)[0].replace(/^\/+|\/+$/g, '')
+    const target = path('out', route, 'index.html')
+    if (!existsSync(target)) { fail(`Evidence-link check: /${page}/ links to ${href}, which is not a built page`); continue }
+    const text = htmlText(readFileSync(target, 'utf8'))
+    const missing = figures.filter((f) => !text.includes(f))
+    evidenceLinks += 1
+    if (missing.length) fail(`Evidence-link check: /${page}/ links "${htmlText(inner).trim().slice(0, 60)}" to ${href}, which does not show ${missing.join(', ')}`)
+  }
+}
+if (evidenceLinks === 0) fail('Evidence-link check found no figure-bearing links on /analytics/ or /what-changed/; the card markup may have changed.')
+else console.log(`Evidence links: ${evidenceLinks} figure-bearing links on /analytics/ and /what-changed/ open pages that show their figures.`)
+
 if (process.exitCode) process.exit(process.exitCode)
 console.log(`Build verification passed: routes, record floors, freshness, meeting timeline, evidence contracts, source authority audit, claim-level provenance coverage (${pagesWithClaimProvenance}/${provenancePages.length}), search shards, and payload guardrails are valid.`)

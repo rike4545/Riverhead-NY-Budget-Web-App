@@ -8,11 +8,12 @@ import { dollars } from '../../lib/financial-data'
 const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 18, padding: 20, boxShadow: '0 14px 34px var(--rbl-shadow)' } as const
 
 const kpiLinks: Record<string, string> = {
-  '2025 General Fund surplus (actual)': '/general-fund/',
-  'Town-wide levy growth': '/tax-bill/',
-  'Town-wide appropriation growth': '/what-changed/',
+  '2025 General Fund surplus (actual)': '/annual-report/',
+  // The adopted 2025 -> 2026 figures these signals are computed from.
+  'Town-wide levy growth': '/what-changed/#adopted-2025-2026',
+  'Town-wide appropriation growth': '/what-changed/#adopted-2025-2026',
   'Actual payroll (2025)': '/payroll/',
-  'Appropriated fund balance used': '/reserves/',
+  'Appropriated fund balance used': '/what-changed/#adopted-2025-2026',
   'Operating funds indexed': '/funds/',
 }
 
@@ -80,9 +81,9 @@ export default function AnalyticsPage() {
 
       <section style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(220px,1fr))', gap: 14, marginBottom: 18 }}>
         <Metric label="Operating funds" value={String(allOperatingFunds2026.length)} href="/funds/" source="2026 Adopted Budget" />
-        <Metric label="Appropriations" value={dollars(appropriationTotal)} href="/what-changed/" source="2026 Adopted Budget" />
+        <Metric label="Appropriations" value={dollars(appropriationTotal)} href="/what-changed/#adopted-2025-2026" source="2026 Adopted Budget" />
         <Metric label="Tax levy" value={dollars(levyTotal)} href="/taxpayer-impact/" source="2026 Adopted Budget" />
-        <Metric label="Fund balance used" value={dollars(reserveUse)} href="/reserves/" source="2026 Adopted Budget" />
+        <Metric label="Fund balance used" value={dollars(reserveUse)} href="/what-changed/#adopted-2025-2026" source="2026 Adopted Budget" />
       </section>
 
       <section style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(min(280px,100%),1fr))', gap: 14, marginBottom: 18 }}>
