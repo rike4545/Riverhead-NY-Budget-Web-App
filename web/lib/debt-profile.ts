@@ -304,24 +304,30 @@ export const sinceBalanceSheet = {
     {
       date: 'July 7, 2026',
       what: 'Resolution 2026-641 — budget adjustment to pay down the Town Square BAN',
-      why: 'The Board voted unanimously to use fund balance to pay the note down rather than roll it over again.',
+      why: 'The Board voted unanimously to pay the note down with rent from the hotel site and the remaining net proceeds of its $2,625,000 sale. The resolution names no fund balance and states no total.',
       source: 'Town Board meeting of July 7, 2026 — adopted unanimously.',
     },
     {
       date: 'July 7, 2026',
       what: 'Resolution 2026-642 — budget adjustment to pay down the 2018 Series B bond refunding',
-      why: 'Booked as present-value debt-service savings — retiring principal early to avoid the interest that would have accrued on it.',
+      why: 'Paid with $7,212,941 of Community Preservation Fund balance and $92,059 from the sale of the Vail-Leavitt Music Hall, on or before August 1, 2026 — retiring principal early to avoid the interest that would have accrued on it.',
       source: 'Town Board meeting of July 7, 2026 — adopted unanimously.',
+    },
+    {
+      date: 'August 4, 2026',
+      what: 'Resolution 2026-762 — fund balance pays the Town Square BAN until the sale closes',
+      why: 'The developer took a six-month extension, delaying the sale, so the Board ratified paying the note with $1,874,218 of General Fund appropriated fund balance and $122,500 of rent. The resolution says the fund balance will be reimbursed once the sale is complete.',
+      source: 'Town Board meeting of August 4, 2026 — adopted unanimously.',
     },
     {
       date: 'August 14, 2026',
       what: 'The Town Square BAN reached its maturity date',
-      why: 'Five years to the day after the original August 2021 issue — but five was not the deadline. Chapter 157 of the Laws of 2020 lets a capital BAN originally issued in calendar years 2015 through 2021 be renewed for up to seven years rather than five, and this note was issued in August 2021, inside that window. The Town could have rolled it to 2028. It chose to retire it instead, using the proceeds of the Petrocelli parcel sale.',
+      why: 'Five years to the day after the original August 2021 issue — but five was not the deadline. Chapter 157 of the Laws of 2020 lets a capital BAN originally issued in calendar years 2015 through 2021 be renewed for up to seven years rather than five, and this note was issued in August 2021, inside that window. The Town could have rolled it to 2028. It chose to retire it instead, paying from fund balance that the Petrocelli parcel sale is to repay (resolution 2026-762).',
       source: '2025 Annual Financial Report, Statement of Indebtedness Debt Records.',
     },
   ],
   caveat:
-    'The amounts of the two July 2026 pay-downs are not in the resolution titles, and no financial report covering 2026 has been filed yet. So the balances on this page are the audited December 31, 2025 figures — the true figures today are lower by whatever those pay-downs came to.',
+    'The budget adjustments name the money moved: $7,305,000 toward the 2018 refunding bonds (resolution 2026-642) and $1,996,718 to debt service for the Town Square note (resolution 2026-762). But no financial report covering 2026 has been filed yet, so the balances on this page are the audited December 31, 2025 figures, and the true figures today are lower by whatever was paid.',
 }
 
 export const debtProfileTotals = {

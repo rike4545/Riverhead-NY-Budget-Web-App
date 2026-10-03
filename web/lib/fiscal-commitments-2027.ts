@@ -213,20 +213,22 @@ export const otherTierGeneralFundDraws = generalFundBalanceDraws
 export const otherTierDrawTotal = otherTierGeneralFundDraws.reduce((s, d) => s + d.amount, 0)
 
 /**
- * A curated entry a documented draw replaces.
+ * A curated entry a documented draw replaces, and the ceiling it carried.
  *
  * The Town Square case is why this exists. The curated entry carried the
  * paydown at a $2,725,000 CEILING, with a note saying the July 7 resolution
  * stated no amount and that this was the most it could have been. Resolution
  * 2026-762 then ratified the budget adjustment for that paydown and booked
  * $1,874,218 against A01-9999 — so the question the note called unanswerable is
- * answered, and the ceiling overstated the draw by $850,782.
+ * answered, and the ceiling overstated the draw by $850,782. The Town Square
+ * page now carries the booked figure itself, so the old ceiling is kept here,
+ * where the correction is reported.
  *
  * The match is declared here by resolution number rather than inferred from
  * text, so it is visible, checkable and reversible.
  */
-const SUPERSEDES: Record<string, string> = {
-  '2026-762': 'Town Square note paydown',
+const SUPERSEDES: Record<string, { label: string; ceiling: number }> = {
+  '2026-762': { label: 'Town Square note paydown', ceiling: 2_725_000 },
 }
 
 // The priced General Fund draws. Each one was read individually rather than swept
@@ -240,26 +242,23 @@ const SUPERSEDES: Record<string, string> = {
 // included only because the ETL tags them with the same "reserve-draw" flag it
 // gives capital and debt items. Nothing belongs in this list unless it is capital,
 // debt, or a draw the record explicitly states comes from fund balance.
-const supersededLabels = Object.keys(SUPERSEDES).map((n) => SUPERSEDES[n])
+const supersededLabels = Object.keys(SUPERSEDES).map((n) => SUPERSEDES[n].label)
 
 export const generalFundCommitments2026: Commitment[] = [
   // Documented first — the Town's own booked figures.
   ...documentedGeneralFundDraws.map((d) => {
-    const replacedLabel = d.number ? SUPERSEDES[d.number] : undefined
-    const replaced = replacedLabel
-      ? fundBalanceImpact.draws.filter((x) => x.label === replacedLabel)[0]
-      : undefined
+    const replaced = d.number ? SUPERSEDES[d.number] : undefined
     return {
-      label: replacedLabel ?? d.title,
+      label: replaced?.label ?? d.title,
       amount: d.amount,
       certainty: 'documented' as const,
       fund: 'General Fund' as const,
       source: `Resolution ${d.number ?? '—'}, section G · A01-9999 Appropriated Fund Balance`,
       note: replaced
-        ? `Booked against the Town's own Appropriated Fund Balance account. This replaces a ${replaced.amount.toLocaleString('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 })} ceiling carried here before, which existed only because the earlier resolution stated no amount.`
+        ? `Booked against the Town's own Appropriated Fund Balance account. This replaces a ${replaced.ceiling.toLocaleString('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 })} ceiling carried here before, set when the July 7 resolution, which states no amount, was taken to be the draw.`
         : 'Booked against the Town\u2019s own Appropriated Fund Balance account on the fiscal-impact statement, so the figure is the Town\u2019s rather than this site\u2019s.',
       ...(replaced
-        ? { supersedes: { label: replacedLabel as string, was: replaced.amount, by: d.amount } }
+        ? { supersedes: { label: replaced.label, was: replaced.ceiling, by: d.amount } }
         : {}),
     }
   }),
@@ -269,7 +268,7 @@ export const generalFundCommitments2026: Commitment[] = [
     .map((d) => ({
       label: d.label,
       amount: d.amount,
-      certainty: d.certainty as 'authorized' | 'ceiling',
+      certainty: d.certainty,
       fund: 'General Fund' as const,
       source: 'Town Square — fund-balance impact',
       note: d.note,
@@ -348,7 +347,7 @@ export const effectOnOptions = {
   body:
     `The options page prices a zero-percent year against the surplus above the Town’s 15% policy floor, the money its fund balance policy says may be used to reduce the next year’s property taxes. On the audited opening position that surplus covers the freeze several times over, which makes a reserve-funded freeze look almost costless. Netting only the draws already on the record cuts it by ${Math.round(reductionPct)}% — and ${drawCounts.unpriced} further adopted draws carry no published amount, so the real figure is lower again. The freeze is still affordable out of surplus. It is not as comfortably affordable as an un-netted number implies, and the difference is the whole point of reading the resolutions.`,
   caution:
-    'This cuts both ways and the page should not pretend otherwise. The Town Square paydown is carried here at its ceiling because the resolution states no amount, and a large part of it is contractually due back — the developer owes $2,493,750 by March 14, 2027 under an obligation the agreement calls “absolute and unconditional.” Money advanced against a contracted receipt is not the same as money spent. Treating every draw as permanently gone would overstate the problem exactly as ignoring them understates it.',
+    'This cuts both ways and the page should not pretend otherwise. The Town Square paydown is carried here at the $1,874,218 the Town booked against fund balance, and it is due back: resolution 2026-762 says the fund balance will be reimbursed once the sale closes, and the developer owes $2,493,750 by March 14, 2027 under an obligation the agreement calls “absolute and unconditional.” Money advanced against a contracted receipt is not the same as money spent. Treating every draw as permanently gone would overstate the problem exactly as ignoring them understates it.',
 }
 
 export const limits = {

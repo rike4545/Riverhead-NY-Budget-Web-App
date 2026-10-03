@@ -138,17 +138,17 @@ export const timeline: Milestone[] = [
   {
     date: 'July 7, 2026',
     kind: 'money',
-    what: 'The Board votes to pay down the Town Square note with fund balance',
+    what: 'The Board votes to pay down the Town Square note from the hotel-site sale',
     detail:
-      'Resolution 2026-641, adopted unanimously — a budget adjustment using fund balance to pay the note down rather than roll it over again. The resolution title states no amount, and no financial report covering 2026 has been filed, so how much was applied is not on the public record.',
-    source: 'Town Board meeting of July 7, 2026',
+      'Resolution 2026-641, adopted unanimously: a budget adjustment to pay down the note, due August 14, with $32,000 to $57,000 of rent from the pre-possession lease and the remaining net proceeds of the $2,625,000 sale of 127 East Main Street, of which $660,000 is contractually designated to Town Square projects. It names no fund balance and states no total.',
+    source: 'Town Board resolution 2026-641, July 7, 2026',
   },
   {
     date: 'August 4, 2026',
     kind: 'build',
     what: 'The Peconic River Hotel wins site plan and special permit approval',
     detail:
-      'A unanimous 5-0 vote on resolution 2026-746, for a five-storey, 94-room Tapestry by Hilton at 117–127 East Main Street — 69,738 square feet on about 0.42 acres, with retail, a restaurant, a café and nine staff parking spaces below. The same meeting ratified a budget adjustment temporarily amending the funding source for the note paydown, resolution 2026-762.',
+      'A unanimous 5-0 vote on resolution 2026-746, for a five-storey, 94-room Tapestry by Hilton at 117–127 East Main Street — 69,738 square feet on about 0.42 acres, with retail, a restaurant, a café and nine staff parking spaces below. The same meeting ratified resolution 2026-762. The developer had used its right to six more months of site work, delaying the sale, so in the interim the note would be paid with $1,874,218 of General Fund appropriated fund balance and $122,500 of rent, and the fund balance “will be reimbursed” once the sale is complete.',
     source: 'RiverheadLOCAL, August 5, 2026; Town Board resolutions 2026-746 and 2026-762',
   },
   {
@@ -715,15 +715,15 @@ export const fundBalanceImpact = {
     },
     {
       label: 'Town Square note paydown',
-      amount: 2_725_000,
-      certainty: 'ceiling' as const,
-      note: 'The July 7 resolution states no amount. $2,725,000 was the full balance outstanding at the close of 2025, so it is the most the paydown could have been, not what it was.',
+      amount: 1_874_218,
+      certainty: 'documented' as const,
+      note: 'Booked by resolution 2026-762 of August 4, 2026 against the General Fund’s Appropriated Fund Balance, beside $122,500 of rent. The July plan, resolution 2026-641, was rent and the net proceeds of the 127 East Main Street sale. The developer’s six-month extension delayed the sale, and the fund balance is to be reimbursed once it closes.',
     },
   ],
   offsets:
-    'Both draws have money running the other way against them, though only one of them is contracted. That is the part the resolutions do not say. The pre-possession lease has the developer paying the Town $17,500 a month to August 2026 and $19,000 a month through the six-month extension, set deliberately at the Town’s own debt service on the land. And if the sale has not closed by March 14, 2027 the developer must remit $2,493,750 — an obligation the agreement makes “absolute and unconditional” — which the Town may apply straight to the debt. Retiring the note out of surplus was not surplus spent and gone; it was surplus advanced against a contracted receipt, and it saved the Town a fifteen-year bond carrying more than $500,000 of interest. The 111 East Main Street draw is different in kind: the Board has said that money could come back if the parcel is sold on for redevelopment, but unlike the hotel parcels there is no buyer, no price and no signed agreement — only an intention.',
+    'Both draws have money running the other way against them, though only one of them is contracted. The pre-possession lease has the developer paying the Town $17,500 a month to August 2026 and $19,000 a month through the six-month extension, set deliberately at the Town’s own debt service on the land. And if the sale has not closed by March 14, 2027 the developer must remit $2,493,750 — an obligation the agreement makes “absolute and unconditional” — which the Town may apply straight to the debt. Resolution 2026-762 itself says the fund balance “will be reimbursed for the amount utilized” once the sale is complete. Retiring the note out of surplus was not surplus spent and gone; it was surplus advanced against a contracted receipt, and it saved the Town a fifteen-year bond carrying more than $500,000 of interest. The 111 East Main Street draw is different in kind: the Board has said that money could come back if the parcel is sold on for redevelopment, but unlike the hotel parcels there is no buyer, no price and no signed agreement — only an intention.',
   verdict:
-    'Even taking the paydown at its ceiling, the two together are about a sixth of the unassigned balance and leave it well above the 15% floor in the Town’s own fund balance policy. This is a real draw on surplus, it is comfortably affordable, and most of one of the two draws is contractually due back. All three things are true, and a page that reported only one of them would be misleading.',
+    'Together the two draws leave the unassigned balance well above the 15% floor in the Town’s own fund balance policy. This is a real draw on surplus, it is comfortably affordable, and one of the two draws is due back: the resolution that made it says the fund balance will be reimbursed from the sale. All three things are true, and a page that reported only one of them would be misleading.',
   caveat:
     'These are the audited December 31, 2025 balances against the 2026 adopted appropriations. They do not reflect anything that happened to fund balance during 2026, because no report covering 2026 has been filed.',
 }
@@ -861,7 +861,7 @@ export const legalQuestions = {
 }
 
 export const openQuestions = [
-  'How much did the July 7 note paydown actually apply? The resolution title does not say, and no 2026 financial report exists yet.',
+  'How much of the note was paid down, and when is the fund balance repaid? Resolution 2026-762 moved $1,996,718 to debt service for it, $1,874,218 of that from fund balance to be reimbursed from the sale, but no 2026 financial report exists yet to show either.',
   'Will The Place for Learning accept the $1.95 million as full payment, or take it as an advance and litigate for more? That answer sets the real acquisition cost.',
   'What is the 7% construction management fee worth in dollars? The agreement fixes the rate and caps nothing. It is charged on the total construction cost of the public plaza, playground, amphitheatre and East End Arts relocation, and that cost has not been published.',
   'What does the Town actually get for $150,000 a year? The duties are Exhibit J to the Master Developer Agreement, and Exhibit J is not attached to the copy the Town publishes. The fee is settled; the obligations bought with it are not public, and the agreement setting them out has still to be negotiated.',
@@ -1032,6 +1032,6 @@ export const sources = [
   {
     title: 'Riverhead Budget Live — Town Board Votes',
     url: 'https://rike4545.github.io/Riverhead-NY-Budget-Web-App/meetings/',
-    covers: 'Resolution 2026-641 of July 7, 2026, the vote to pay the note down with fund balance.',
+    covers: 'Resolution 2026-641 of July 7, 2026, the vote to pay the note down from the sale, and 2026-762 of August 4, 2026, which paid it from fund balance until the sale closes.',
   },
 ]

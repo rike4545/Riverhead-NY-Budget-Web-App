@@ -28,7 +28,7 @@ export type FiscalResolution = {
   // Why a hand-curated amount differs from the statement's figure, or is left
   // blank; a blank with a note shows the note, not the stated-cost fallback.
   amountNote?: string | null
-  realistic: { verdict: string; reason: string; flag: string; evidence?: 'account-code' | 'category' }
+  realistic: { verdict: string; reason: string; flag: string; evidence?: 'account-code' | 'category' | 'statement-text' | 'resolution-text' }
   vote: { adopted: boolean | null; tag: string | null; ayes: number | null; nays: number | null } | null
 }
 
@@ -53,6 +53,12 @@ const FLAG_STYLE: Record<string, { bg: string; fg: string; label: string }> = {
   // Borrowing is not a draw on surplus. It is debt service on every future levy
   // until the bond matures, which a single-year form has no way to show.
   'future-debt': { bg: 'var(--rbl-warn-bg)', fg: 'var(--rbl-warn-strong)', label: 'Debt on future budgets' },
+}
+
+// A read that rests on more than the resolution's category says what it rests on.
+const EVIDENCE_BADGE: Record<string, { label: string; title: string }> = {
+  'account-code': { label: 'from the account code', title: "Read from the account code the Town wrote in section G, not inferred from the resolution's title." },
+  'resolution-text': { label: 'from the resolution', title: 'Read from what the resolution itself orders, closing a finished capital project, not inferred from its title.' },
 }
 
 /** Either kind of correction to the Town's own fiscal-impact answer. */
@@ -140,6 +146,7 @@ export default function FiscalImpactTable({ resolutions, meetingRecord, voteDeta
             <tbody>
               {rows.map((r) => {
                 const fs = FLAG_STYLE[r.realistic.flag] || FLAG_STYLE.fair
+                const eb = r.realistic.evidence ? EVIDENCE_BADGE[r.realistic.evidence] : undefined
                 const townNo = r.townFiscalImpact === 'No'
                 const official = r.number ? officialByNumber.get(r.number) : undefined
                 const watch = meetingRecord ? voteLink(meetingRecord.slug, r.number) : null
@@ -184,9 +191,9 @@ export default function FiscalImpactTable({ resolutions, meetingRecord, voteDeta
                     </td>
                     <td style={{ ...td, maxWidth: 340 }}>
                       <span style={{ background: fs.bg, color: fs.fg, fontWeight: 800, fontSize: 11, padding: '2px 9px', borderRadius: 999, whiteSpace: 'nowrap' }}>{fs.label}</span>
-                      {r.realistic.evidence === 'account-code' && (
-                        <span title="Read from the account code the Town wrote in section G, not inferred from the resolution's title." style={{ marginLeft: 5, background: 'var(--rbl-surface-3)', color: 'var(--rbl-text-body)', fontWeight: 800, fontSize: 10, padding: '2px 7px', borderRadius: 999, whiteSpace: 'nowrap' }}>
-                          from the account code
+                      {eb && (
+                        <span title={eb.title} style={{ marginLeft: 5, background: 'var(--rbl-surface-3)', color: 'var(--rbl-text-body)', fontWeight: 800, fontSize: 10, padding: '2px 7px', borderRadius: 999, whiteSpace: 'nowrap' }}>
+                          {eb.label}
                         </span>
                       )}
                       <div style={{ color: 'var(--rbl-text-muted)', fontSize: 12.3, lineHeight: 1.4, marginTop: 4 }}>{r.realistic.reason}</div>

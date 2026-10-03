@@ -268,9 +268,13 @@ const distinctive = (text) => new Set(
 
 try {
   const commitmentsSrc = readFileSync(path('lib/fiscal-commitments-2027.ts'), 'utf8')
+  // Entries read either as '2026-762': 'label' or as '2026-762': { label: 'label', ... }.
   const supersedes = new Set(
-    Array.from(commitmentsSrc.matchAll(/'(\d{4}-\d+)':\s*'([^']+)'/g)).map((m) => m[2]),
+    Array.from(commitmentsSrc.matchAll(/'(\d{4}-\d+)':\s*(?:\{\s*label:\s*)?'([^']+)'/g)).map((m) => m[2]),
   )
+  if (supersedes.size === 0 && commitmentsSrc.includes('const SUPERSEDES')) {
+    warn('Fund-balance ledger overlap check could not read SUPERSEDES in lib/fiscal-commitments-2027.ts — the map shape may have changed.')
+  }
   // Only the labels that actually feed the ledger — the fundBalanceImpact.draws
   // block. town-square.ts carries dozens of other `label:` fields (rents,
   // construction agreements, grants) that are not fund-balance draws, and

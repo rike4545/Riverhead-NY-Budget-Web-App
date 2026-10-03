@@ -10,17 +10,20 @@ commit money. This script transcribes the Town's own answer for each resolution
 and pairs it with a plain-English "realistic" read keyed on the resolution's
 category.
 
-Amounts: the per-resolution dollar figures live in interleaved backup tables
-that do not reliably tie to a single resolution in the extracted text, so this
-script leaves `amount` null rather than guess (matching the documented method of
-the hand-curated 2026-07-07 file). The Town's Yes/No/treatment answers, by
-contrast, parse deterministically and are transcribed as-published.
+Amounts: `amount` is the figure the preparer wrote in section G of the
+statement, and stays null where section G names none rather than being guessed
+from the backup tables. The Town's Yes/No/treatment answers parse
+deterministically and are transcribed as-published.
 
 Output: web/public/data/meetings/<date>-fiscal.json per meeting, plus a
 fiscal-index.json listing the meetings that have a corrected read.
 
-Idempotent and non-destructive: a date that already has a hand-curated fiscal
-file (currently 2026-07-07) is left untouched unless --force is passed.
+A date in PROTECTED (currently 2026-07-07) has a hand-curated file, and every
+run merges into it rather than replacing it: its amounts, notes and reads are
+kept, the parse attaches section G and the stated amounts, and the summary is
+recomputed (merge_hand_curated). That file is edited by hand, with the packet's
+own words as evidence; the one-off script that first wrote it is retired,
+because rerunning it restored amounts the packet contradicts.
 """
 from __future__ import annotations
 
@@ -252,6 +255,57 @@ def realistic_read(category: str, fiscal_impact: str, title: str = "") -> dict:
         "verdict": "No direct cost" if not yes else "Administrative / offsetting",
         "reason": "A procedural, permit, or administrative action with no direct levy cost identified.",
         "flag": "fair",
+    }
+
+
+# ── Capital-project closeouts ────────────────────────────────────────────────
+# Closing a finished capital project commits no new money. The category read
+# calls every capital item the Town marks "no fiscal impact" understated, and
+# all 32 closeouts on June 16, 2026 (2026-566 to 2026-597) came out that way,
+# though each returns its unspent balance to the fund or the developer that
+# paid it in, had it moved by an earlier resolution, or has none left. The
+# Board's own RESOLVED clause is the evidence: "authorizes the Finance
+# Department to close Capital Project #12101". A closeout that covers an
+# overrun, draws appropriated fund balance or moves its balance on to another
+# project does commit money, so any of those keeps the category read.
+CLOSES_PROJECT = re.compile(r"\bclose(?:-?out)?\s+(?:[A-Za-z]+\s+){0,3}Capital\s+Project\s*(?:#|No\.?)?\s*(\d+)", re.I)
+PROJECT_NUMBER = re.compile(r"Capital\s+Project\s*(?:#|No\.?)?\s*(\d+)", re.I)
+NEW_MONEY = re.compile(
+    r"deficit|over-?runs?\b|shortfall|over-?expend|insufficient"
+    # Not "Assigned Unappropriated Fund Balance", where 2026-569 RETURNS money.
+    r"|(?<!un)appropriated\s+fund\s+balance|from\s+(?:the\s+)?(?:\w+\s+){0,3}fund\s+balance",
+    re.I,
+)
+
+
+def closes_project(body: str) -> bool:
+    """True when the Board resolves to close a capital project and nothing in
+    the resolution puts money into it or moves its balance to another project."""
+    start = body.find("RESOLVED")
+    resolved = body[start:] if start >= 0 else ""
+    closing = CLOSES_PROJECT.search(resolved)
+    if not closing or NEW_MONEY.search(body):
+        return False
+    return set(PROJECT_NUMBER.findall(resolved)) <= {closing.group(1)}
+
+
+def closeout_read(realistic: dict, fiscal_impact: str) -> dict:
+    """The read for a resolution that closes a finished capital project.
+
+    Only a "No" that the category read called understated is corrected. Where
+    the Town answered "Yes", or section G's accounts decided the read, it stands.
+    """
+    if fiscal_impact != "No" or realistic.get("flag") != "understated" or realistic.get("evidence") != "category":
+        return realistic
+    return {
+        "verdict": "No new cost — the project is closed",
+        "reason": (
+            "The Board closes a finished capital project. That commits no new money: whatever was "
+            "left unspent is returned, or an earlier resolution already moved it. The Town's "
+            "'no fiscal impact' is fair."
+        ),
+        "flag": "fair",
+        "evidence": "resolution-text",
     }
 
 
@@ -1049,6 +1103,7 @@ def parse_packet(text: str) -> list[dict]:
             "printedNumber": header[2] if header else None,
             "statedAmounts": amounts,
             "statedCost": stated_cost(amounts),
+            "closesProject": closes_project(body),
         })
     return out
 
@@ -1148,6 +1203,8 @@ def build_meeting(date: str, packet_text: str) -> dict | None:
         realistic = apply_funding_evidence(
             realistic_read(category, p["fiscalImpact"], p["title"]), funding, category
         )
+        if p.get("closesProject"):
+            realistic = closeout_read(realistic, p["fiscalImpact"])
         vote = None
         if matched:
             vote = {
@@ -1226,9 +1283,9 @@ def merge_hand_curated(date: str, parsed: dict) -> dict:
     """Layer a hand-curated file's dollar amounts back onto a fresh parse.
 
     The hand work and the parse each know something the other does not. The
-    hand file carries amounts a human read out of the packet -- 2026-641's
-    $2,625,000 Town Square BAN paydown, among thirteen others the parser
-    returns as None or reads differently. The parse carries the section G
+    hand file carries amounts a human read out of the packet -- 2026-655's
+    $113,497.14 for two appointments, among nine the parser returns as None or
+    reads differently. The parse carries the section G
     account codes, which say which FUND and which GASB tier the money comes
     from, and no hand file here has them at all.
 
@@ -1294,7 +1351,6 @@ def merge_hand_curated(date: str, parsed: dict) -> dict:
     return result
 
 def main() -> int:
-    force = "--force" in sys.argv
     # --packet-dir DIR reads each packet's extracted text from DIR/<date>.txt
     # when it is there instead of downloading the PDF again, so the parse can be
     # re-run and checked without fetching every packet each time.
