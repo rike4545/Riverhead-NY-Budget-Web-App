@@ -1,47 +1,56 @@
 import PageShell from '../../components/PageShell'
 import DataStatus from '../../components/DataStatus'
 import RecordTrail from '../../components/RecordTrail'
-import { dollars, townWideComparison2026, adoptedBudget2026Summary } from '../../lib/financial-data'
-import taxBill from '../../public/data/tax-bill.json'
-import { stageDoc } from '../../lib/budget-stages'
+import { dollars } from '../../lib/financial-data'
+import { released2027, adoptedPrior, levySentence, spendingSentence, stability, unchangedYears, PRIOR, YEAR } from '../../lib/tentative-2027'
+import { READ_BY_HAND } from '../../lib/tentative-letters'
+
+// The budget on the table: the 2027 Tentative against the 2026 adopted budget.
+// Every figure is the Summary's own, read by etl/parse_budget_stages.py and
+// framed by lib/tentative-2027.ts, so this page and /tentative-2027/ cannot
+// disagree. Until the Tentative is parsed, the page says so.
 
 const base = process.env.NEXT_PUBLIC_BASE_PATH || ''
-const pct = (n: number) => `${n >= 0 ? '+' : ''}${n.toFixed(2)}%`
+const pct = (n: number | null) => (n === null ? '' : `${n >= 0 ? '+' : ''}${n.toFixed(2)}%`)
 const delta = (n: number) => `${n >= 0 ? '+' : ''}${dollars(n)}`
+const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 14, padding: 18 }
+const title = `What Changed: ${PRIOR} → ${YEAR} Tentative`
+const subtitle = `The resident version of the year-over-year story: what the Supervisor’s ${YEAR} Tentative Budget changes from the ${PRIOR} adopted budget, with a direct path to the underlying records.`
 
 export default function WhatChangedPage() {
-  const c = townWideComparison2026
-  const rates = taxBill.rates2025
-  const rates26 = taxBill.rates2026
-  const totalTaxRateChange = rates26.totalTownWide - rates.totalTownWide
-  const totalTaxRatePct = ((rates26.totalTownWide / rates.totalTownWide) - 1) * 100
-  const general = adoptedBudget2026Summary.find(r => r.fundCode === 'A01')!
-  const total = adoptedBudget2026Summary.find(r => r.fundCode === 'TOTAL')!
-  // News reports of the 2026 rate increase quote the Tentative's rate. The
-  // adopted budget raised the same levy at a slightly higher rate, so the two
-  // percentages differ; say which is which rather than leave a reader to guess.
-  const tentativeTw = stageDoc(2026, 'tentative')?.townWide
-  const tentativeRateNote = tentativeTw?.rate && tentativeTw.priorRate && tentativeTw.rate !== rates26.totalTownWide
-    ? ` News reports of a ${((tentativeTw.rate / tentativeTw.priorRate - 1) * 100).toFixed(2)}% rise quote the Tentative’s $${tentativeTw.rate.toFixed(3)}; the adopted budget raised the same levy at $${rates26.totalTownWide.toFixed(3)}, a rate figured on a slightly smaller assessed value.`
-    : ''
+  const h = released2027
+  const tw = h?.townWide
+  const gf = h?.generalFund
+  const gfPrior = adoptedPrior?.funds.A01?.appropriations ?? null
+  if (!h || !tw || !gf || gfPrior === null) {
+    return (
+      <PageShell title={title} subtitle={subtitle}>
+        <p style={{ color: 'var(--rbl-text-sub)', lineHeight: 1.6 }}>The {YEAR} Tentative Budget has not been read yet. <a href={`${base}/tentative-2027/`} style={{ color: 'var(--rbl-accent)', fontWeight: 900 }}>See where it stands →</a></p>
+      </PageShell>
+    )
+  }
+
+  const gfChange = gf.appropriations - gfPrior
+  // How far past Tentatives moved before adoption, so the figures read as a proposal.
+  const biggest = stability.reduce((a, b) => (Math.abs(b.appropriationsDelta) > Math.abs(a.appropriationsDelta) ? b : a), stability[0])
 
   const metrics = [
-    { label: 'Town-wide appropriations', value: dollars(c.appropriations2026), change: `${delta(c.dollarChange)} · ${pct(c.percentChange)}`, href: '/compare/', note: 'The 2026 adopted operating budget increased versus 2025.' },
-    { label: 'Town-wide tax levy', value: dollars(c.taxLevy2026), change: `${delta(c.taxLevyDollarChange)} · ${pct(c.taxLevyPercentChange)}`, href: '/tax-bill/', note: 'The levy is the property-tax amount raised Town-wide.' },
-    { label: 'Town-wide rate', value: `$${rates26.totalTownWide.toFixed(3)} / $1,000`, change: `+${totalTaxRateChange.toFixed(3)} · ${pct(totalTaxRatePct)}`, href: '/tax-bill/', note: `This is the Town rate, not the full school/county/fire/library bill.${tentativeRateNote}` },
-    { label: 'General Fund', value: dollars(general.appropriations2026), change: '2026 adopted', href: '/general-fund/', note: 'The main operating fund for Town services.' },
-    { label: 'Appropriated fund balance', value: dollars(total.appropriatedFundBalance2026), change: '2026 adopted', href: '/reserves/', note: 'One-time fund balance included in the adopted operating budget.' },
+    { label: 'Town-wide appropriations', value: dollars(tw.appropriations), change: `${delta(tw.appropriations - tw.priorAppropriations)} · ${pct(tw.appropriationsPct)}`, href: '/tentative-2027/', note: `General Fund, Highway and Street Lighting, the Tentative’s own “Total Town Wide” row. ${PRIOR} adopted: ${dollars(tw.priorAppropriations)}.` },
+    { label: 'Town-wide tax levy', value: dollars(tw.levy), change: `${delta(tw.levy - tw.priorLevy)} · ${pct(tw.levyPct)}`, href: '/tax-cap/', note: `The property tax those three funds raise on every parcel. With the special districts, the levy is ${dollars(h.levy)}.` },
+    { label: 'Town-wide rate', value: `$${tw.rate.toFixed(3)} / $1,000`, change: `${tw.rate >= tw.priorRate ? '+' : ''}${(tw.rate - tw.priorRate).toFixed(3)} · ${pct(tw.ratePct)}`, href: '/tentative-2027/', note: 'The Town rate per $1,000 of assessed value, not the full school, county, fire and library bill.' },
+    { label: 'General Fund', value: dollars(gf.appropriations), change: `${delta(gfChange)} · ${pct((gfChange / gfPrior) * 100)}`, href: '/general-fund/', note: 'The main operating fund for Town services.' },
+    { label: 'Appropriated fund balance', value: dollars(h.fundBalance), change: h.fundBalancePrior !== null ? `${delta(h.fundBalance - h.fundBalancePrior)} vs ${PRIOR}` : `${YEAR} Tentative`, href: '/reserves/', note: `One-time reserves used to balance the budget, across all funds. The General Fund’s share is ${dollars(gf.fundBalance ?? 0)}, against ${dollars(gf.fundBalancePrior ?? 0)} in ${PRIOR}.` },
   ]
 
   return (
-    <PageShell title="What Changed: 2025 → 2026" subtitle="The resident version of the year-over-year story: the biggest budget, tax and financial changes, with a direct path to the underlying records.">
+    <PageShell title={title} subtitle={subtitle}>
       <main style={{ display: 'grid', gap: 16 }}>
         <section style={{ background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 20, boxShadow: '0 10px 26px var(--rbl-shadow)' }}>
-          <DataStatus status="calculated" text="Calculated from published 2025/2026 budget and tax-rate records" />
-          <p style={{ margin: '10px 0 0', color: 'var(--rbl-text-sub)', lineHeight: 1.6, maxWidth: 930 }}>This page answers the first resident question — <strong>what actually moved?</strong> — then lets you drill into the underlying records.</p>
+          <DataStatus status="calculated" text={`Calculated from the ${YEAR} Tentative and ${PRIOR} Adopted budgets`} />
+          <p style={{ margin: '10px 0 0', color: 'var(--rbl-text-sub)', lineHeight: 1.6, maxWidth: 930 }}>This page answers the first resident question — <strong>what is about to move?</strong> — for the budget now on the table, then lets you drill into the underlying records. The Tentative is the Supervisor’s proposal. The Town Board can change it before adopting a budget, which it must do by November 20.</p>
         </section>
 
-        <section aria-label="2025 to 2026 changes" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(230px,1fr))', gap: 12 }}>
+        <section aria-label={`${PRIOR} to ${YEAR} Tentative changes`} style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(230px,1fr))', gap: 12 }}>
           {metrics.map(m => <a key={m.label} href={`${base}${m.href}`} style={{ color: 'inherit', textDecoration: 'none', background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 14, padding: 17, boxShadow: '0 8px 22px var(--rbl-shadow)' }}>
             <div style={{ color: 'var(--rbl-text-muted)', fontSize: 11.5, fontWeight: 900, textTransform: 'uppercase', letterSpacing: .7 }}>{m.label}</div>
             <div style={{ fontSize: 25, fontWeight: 950, marginTop: 6 }}>{m.value}</div>
@@ -52,13 +61,20 @@ export default function WhatChangedPage() {
         </section>
 
         <section style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(min(300px,100%),1fr))', gap: 14 }}>
-          <article style={{ background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 14, padding: 18 }}>
-            <h2 style={{ margin: 0, fontSize: 20 }}>What changed most?</h2>
-            <p style={{ color: 'var(--rbl-text-sub)', lineHeight: 1.6 }}>The adopted operating budget rose <strong>{dollars(c.dollarChange)}</strong> ({c.percentChange.toFixed(2)}%). The Town-wide property-tax levy rose <strong>{dollars(c.taxLevyDollarChange)}</strong> ({c.taxLevyPercentChange.toFixed(2)}%).</p>
-            <a href={`${base}/compare/`} style={{ color: 'var(--rbl-accent)', fontWeight: 900 }}>Sort every fund and line item by change →</a>
+          <article style={card}>
+            <h2 style={{ margin: 0, fontSize: 20 }}>What changes most?</h2>
+            <p style={{ color: 'var(--rbl-text-sub)', lineHeight: 1.6 }}>The Tentative raises town-wide appropriations <strong>{dollars(tw.appropriations - tw.priorAppropriations)}</strong> ({pct(tw.appropriationsPct)}) and the town-wide property-tax levy <strong>{dollars(tw.levy - tw.priorLevy)}</strong> ({pct(tw.levyPct)}).</p>
+            <p style={{ color: 'var(--rbl-text-sub)', lineHeight: 1.6 }}>{spendingSentence(h)}</p>
+            <a href={`${base}/tentative-2027/`} style={{ color: 'var(--rbl-accent)', fontWeight: 900 }}>See every fund in the Tentative →</a>
           </article>
-          <article style={{ background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 14, padding: 18 }}>
+          <article style={card}>
+            <h2 style={{ margin: 0, fontSize: 20 }}>Is it within the tax cap?</h2>
+            <p style={{ color: 'var(--rbl-text-sub)', lineHeight: 1.6 }}>{levySentence(h)}</p>
+            <a href={`${base}/tax-cap/`} style={{ color: 'var(--rbl-accent)', fontWeight: 900 }}>How the tax cap works →</a>
+          </article>
+          <article style={card}>
             <h2 style={{ margin: 0, fontSize: 20 }}>What should I be careful not to confuse?</h2>
+            <p style={{ color: 'var(--rbl-text-sub)', lineHeight: 1.6 }}>A Tentative is a proposal, not the budget. In {unchangedYears.length} of the last {stability.length} years the adopted budget matched it fund for fund; the most it moved was {dollars(Math.abs(biggest.appropriationsDelta))} of appropriations, in {biggest.year}.</p>
             <p style={{ color: 'var(--rbl-text-sub)', lineHeight: 1.6, marginBottom: 0 }}>Appropriations are spending authority, not proof that cash was spent. The Town levy is only the Town&apos;s property-tax share. And the Town rate shown here is not your complete property-tax bill.</p>
           </article>
         </section>
@@ -66,13 +82,14 @@ export default function WhatChangedPage() {
         <section style={{ background: 'var(--rbl-surface-2)', borderRadius: 14, padding: 18 }}>
           <h2 style={{ margin: 0, fontSize: 19 }}>Where the story goes next</h2>
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: 10, marginTop: 12 }}>
-            {[['Why did my taxes change?', '/tax-bill/'], ['Where your levy goes', '/taxpayer-impact/'], ['What changed line by line', '/compare/'], ['What could happen in 2027', '/predict-2027/'], ['How the Board voted', '/meetings/']].map(([label, href]) => <a key={href} href={`${base}${href}`} style={{ textDecoration: 'none', color: 'var(--rbl-title)', border: '1px solid var(--rbl-border)', background: 'var(--rbl-surface)', borderRadius: 999, padding: '8px 12px', fontWeight: 800, fontSize: 13 }}>{label} →</a>)}
+            {[['The 2027 Tentative in full', '/tentative-2027/'], ['How the tax cap works', '/tax-cap/'], ['How this site’s forecast compared', '/predict-2027/'], ['Why did my taxes change?', '/tax-bill/'], ['What changed line by line, 2025 → 2026', '/compare/'], ['How the Board voted', '/meetings/']].map(([label, href]) => <a key={href} href={`${base}${href}`} style={{ textDecoration: 'none', color: 'var(--rbl-title)', border: '1px solid var(--rbl-border)', background: 'var(--rbl-surface)', borderRadius: 999, padding: '8px 12px', fontWeight: 800, fontSize: 13 }}>{label} →</a>)}
           </div>
         </section>
 
         <RecordTrail title="Primary records" items={[
-          { label: '2026 Adopted Budget', text: c.source.title, href: '/compare/' },
-          { label: 'Town tax-rate data', text: 'Published 2025 and 2026 Town rates used for the comparison.', href: '/tax-bill/' },
+          { label: `${YEAR} Tentative Budget`, text: `${h.source.title}: the Summary’s fund totals and its “Total Town Wide” rows.`, href: '/tentative-2027/' },
+          { label: `${PRIOR} Adopted Budget`, text: 'The same Summary rows as adopted, for the comparison.', href: '/compare/' },
+          { label: 'Supervisor’s budget letter', text: `${READ_BY_HAND[YEAR]?.dated ? `Dated ${READ_BY_HAND[YEAR]?.dated}; it` : 'It'} gives the tax cap limit${h.statedLimitPct !== null ? ` of ${h.statedLimitPct}%` : ''}.`, href: '/tentative-2027/' },
         ]} />
       </main>
     </PageShell>
