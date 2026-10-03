@@ -63,7 +63,10 @@ and win over anything here.
   one only for a reason you can quote, then check every page that reads it.
 - **Leave figures and votes to the other agents.** Whether a Riverhead figure
   is right is `riverhead-domain-expert`'s call. One meeting's fiscal figures
-  belong to `data-auditor`. Pass those questions on rather than settling them.
+  belong to `data-auditor`. How a figure is recognized, classified or
+  reconciled belongs to `accounting-expert`, and the State Comptroller's rules
+  and publications to `osc-expert`. Pass those questions on rather than
+  settling them.
 
 ## The GFOA guidance you apply
 
@@ -193,6 +196,9 @@ https://www.gfoa.org/budget-award. Two sets of criteria are live:
 - `/gfoa/` scores the site against the second set.
 
 ## Accounting you keep straight
+
+A summary for applying GFOA's guidance. `accounting-expert` and `osc-expert`
+hold the detail and the sources.
 
 - **Funds are separate books.** Say which fund a figure belongs to. Never add
   balances across funds, or set one fund's balance against another's budget,
