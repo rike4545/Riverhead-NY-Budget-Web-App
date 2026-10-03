@@ -120,7 +120,7 @@
    "townFiscalImpact": "No",
    "townTreatment": "described",
    "amount": 227683,
-   "note": "Closure of the USGS test wells \u2014 a real capital cost, yet the form marks 'no fiscal impact.'",
+   "note": "Closes the USGS test wells capital project and takes the $227,683 left unspent out of its budget.",
    "realistic": {
     "verdict": "No new cost \u2014 the project is closed",
     "reason": "Closes Capital Project #81851 and takes the $227,683 left unspent out of its budget, against the bond proceeds that paid for it. That releases money rather than committing it, so the Town's 'no fiscal impact' is fair.",
@@ -717,7 +717,7 @@
    "townFiscalImpact": "Yes",
    "townTreatment": "absorbed",
    "amount": null,
-   "note": "Uses fund balance to pay down the Town Square bond anticipation note.",
+   "note": "Pays down the Town Square bond anticipation note with rent from the pre-possession lease and the net proceeds of the 127 East Main Street sale. When the sale was delayed, 2026-762 (August 4) paid it from fund balance in the interim.",
    "realistic": {
     "verdict": "Sale proceeds retire debt",
     "reason": "Pays down the Town Square BAN with the net proceeds of the $2,625,000 sale of 127 East Main Street, after $660,000 committed to Town Square projects, plus the site's rent. One-time money retiring debt, not a draw on fund balance; the resolution does not total the paydown.",
@@ -793,7 +793,7 @@
    "townFiscalImpact": "Yes",
    "townTreatment": "absorbed",
    "amount": 7212941.0,
-   "note": "Pays down the 2018 Series B refunding \u2014 booked as present-value debt-service savings.",
+   "note": "Pays down the 2018 Series B refunding bonds with $7,212,941 of Community Preservation Fund balance and $92,059 from the sale of the Vail-Leavitt Music Hall.",
    "realistic": {
     "verdict": "Understated \u2014 'absorbed by existing budget'",
     "reason": "Understated \u2014 but it spends fund balance to retire debt \u2014 a real use of reserves.",
@@ -1735,7 +1735,7 @@
    "townFiscalImpact": "No",
    "townTreatment": "absorbed",
    "amount": 113497.14,
-   "note": "Maintenance Mechanic II \u2014 recurring salary each, yet marked 'no fiscal impact.'",
+   "note": "Appoints two Maintenance Mechanic IIs at $56,748.57 each: recurring salaries, marked 'no fiscal impact.'",
    "realistic": {
     "verdict": "Understated \u2014 the form says 'no fiscal impact'",
     "reason": "Understated \u2014 but it adds recurring payroll (~$113,497/yr: two Maintenance Mechanic IIs at $56,748.57 each) that continues in future budgets.",
