@@ -276,15 +276,31 @@ NEW_MONEY = re.compile(
     r"|(?<!un)appropriated\s+fund\s+balance|from\s+(?:the\s+)?(?:\w+\s+){0,3}fund\s+balance",
     re.I,
 )
+# A fund-balance account on a budget-table line: its 9999 object code, or a "Fund
+# Balance" label just before the line's dollar figure. The Town's labels include a
+# bare "Fund Balance" (CM4-9999-000-00000-0 on 2026-642), "Assigned Fund Balance"
+# and "Ambulance District Fund Balance", so "Appropriated" cannot be required.
+FUND_BALANCE_LINE = re.compile(r"\b[A-Z0-9]{2,4}-9999-[\d-]+\s+[^$]{0,90}\$|\bfund\s+balance\b[^$]{0,40}\$", re.I)
+RETURNED_TO_FUND_BALANCE = re.compile(r"\breturned\s+to\s+(?:the\s+)?(?:\w+\s+){0,3}fund\s+balance", re.I)
 
 
 def closes_project(body: str) -> bool:
     """True when the Board resolves to close a capital project and nothing in
-    the resolution puts money into it or moves its balance to another project."""
+    the resolution puts money into it or moves its balance to another project.
+
+    A fund-balance account in the resolution's table counts as money going in,
+    whatever its label, unless every such account is an unappropriated balance
+    and the resolution says the leftover is "returned to" a fund balance, as
+    2026-569 and 2026-577 return Community Benefit Funds. The same "Assigned
+    Unappropriated Fund Balance" label is a draw on 2026-361."""
     start = body.find("RESOLVED")
     resolved = body[start:] if start >= 0 else ""
     closing = CLOSES_PROJECT.search(resolved)
     if not closing or NEW_MONEY.search(body):
+        return False
+    lines = [m.group(0) for m in FUND_BALANCE_LINE.finditer(body)]
+    returned = RETURNED_TO_FUND_BALANCE.search(body) and all(re.search(r"unappropriated", l, re.I) for l in lines)
+    if lines and not returned:
         return False
     return set(PROJECT_NUMBER.findall(resolved)) <= {closing.group(1)}
 
