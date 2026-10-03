@@ -202,6 +202,20 @@ class Closeouts(unittest.TestCase):
             "RESOLVED, that the Town Board authorizes the Finance Department to close Capital Project #12345 "
             "and transfer the remaining $50,000.00 to Capital Project #12399; and"))
 
+    def test_a_fund_balance_account_is_money_in_whatever_its_label(self):
+        # Section G blank, and the table names the account only as "Fund Balance",
+        # as 2026-642's statement names CM4-9999-000-00000-0.
+        close = "RESOLVED, that the Town Board authorizes the Finance Department to close Capital Project #12345; and\n"
+        for line in ("CM4-9999-000-00000-0 Fund Balance $ 7,212,941.00",
+                     "EA1-9999-000-00000-0 Ambulance District Fund Balance $25,000.00",
+                     "A01-9999-000-00000-0 – Assigned Fund Balance $4,000.00"):
+            with self.subTest(line):
+                self.assertFalse(closes_project(close + "RESOLVED, the following budget adjustment: FROM TO " + line))
+        # An unappropriated balance is a draw too (2026-361) unless the money is
+        # said to be returned to it.
+        self.assertFalse(closes_project(
+            close + "FROM TO A01-9999-000-00000-0 Assigned Unappropriated Fund Balance – CBF $113,613.00"))
+
     def test_only_the_board_closing_a_project_counts(self):
         # 2026-270's recital says the project "can now be closed", but the Board
         # resolves only a budget adjustment.
