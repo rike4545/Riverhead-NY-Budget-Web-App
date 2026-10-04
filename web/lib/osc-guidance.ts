@@ -107,6 +107,7 @@ export const oscGuidanceSources: OscGuidanceSource[] = [
       { label: 'Budget Overview', href: `${base}/funds/` },
       { label: 'Annual Report', href: `${base}/annual-report/` },
       { label: 'Reserves & Fund Balance', href: `${base}/reserves/` },
+      { label: 'Where the surplus went', href: `${base}/fund-balance-draws/` },
     ],
   },
   {

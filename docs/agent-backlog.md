@@ -12,8 +12,8 @@ one to **Needs the owner** to hold it.
 
 ## Ready
 
-Items 1 to 11 were found on 2026-10-03 while writing the three practice
-agents. Each agent's file holds its sources and checks.
+Items 1 to 13 were found on 2026-10-03 and 2026-10-04 while writing the
+three practice agents and checking the fund-balance ledger. Each agent's file holds its sources and checks.
 
 **`gfoa-practice-expert`**
 
@@ -41,13 +41,6 @@ agents. Each agent's file holds its sources and checks.
 
 **`osc-expert`**
 
-5. **"Recorded as a revenue line."** `/fund-balance-draws/` says appropriated
-   fund balance "is recorded as a revenue line" in the New York chart of
-   accounts. The Comptroller's manual for towns (April 2024, p. 28) lists "510
-   Estimated Revenues" and "599 Appropriated Fund Balance" as separate
-   budgetary accounts; the adopted budget debits both and credits "960
-   Appropriations". Correct the page, and say the Town's own codes put it at a
-   revenue-shaped number (A01-9999).
 6. **The Town's fiscal stress result isn't on the site.**
    `lib/budget-concepts.ts` tells residents to ask for "the Town's current OSC
    fiscal-stress score". OSC's *Fiscal Stress Monitoring System –
@@ -73,37 +66,68 @@ agents. Each agent's file holds its sources and checks.
    Town's response, and decide where the other two belong. Add each to
    `web/lib/osc-guidance.ts` and to the registry in
    `web/lib/authority-audit.ts`.
+9. **Name the ES7 fund in the Town's words.** Resolution 2026-473 says "the
+   Riverhead Sewer Denitrification Reserve Fund Balance be used for $800,000".
+   `/fund-balance-draws/` shows the fund as "Sewer District (ES7)", a
+   placeholder in `web/lib/account-lookup.ts`. Use the resolution's name, and
+   say it is a reserve, which is restricted fund balance.
 
 **`accounting-expert`**
 
-9. **Get ready for GASB 103's budget variances.** From its 2026 statements
+10. **Get ready for GASB 103's budget variances.** From its 2026 statements
    (fiscal years beginning after June 15, 2025), the Town must present
    "variances between original and final budget amounts" and "variances
    between final budget and actual amounts", and explain significant ones in
    notes to required supplementary information. Make sure `/budget-accuracy/`
    labels which of its figures are budget basis and which GAAP, so the
    Town's own explanations can be added when the 2026 audit is out.
-10. **Trace the accrued-leave figures.** `web/lib/reserve-policy.ts` says
+11. **Trace the accrued-leave figures.** `web/lib/reserve-policy.ts` says
     accrued leave "grew from $9,773,700 to $11,608,615 during 2025". Find the
     statement and page each figure comes from, and its basis
     (government-wide, measured under GASB 101). Label them so on the site,
     and check they aren't set against fund balance.
-11. **Then sweep the site with `accounting-expert`**, one library a run,
+12. **Fund-balance rows that section G leaves out.** The parser now reads
+    the 9999 rows of each adopted budget table (`tableFundBalance`). It counts
+    a row only in a fund whose section G names a fund-balance source, because
+    the table's FROM and TO columns don't survive text extraction. Seven
+    adopted tables name a 9999 account that section G doesn't, so none of
+    them is counted:
+    - 2026-284, 2026-285 and 2026-286 (April 7): two Highway Department dump
+      trucks and a chassis with a sander, each with a row "DA1-9999-000-00000-0
+      - Appropriated Fund Balance": $399,625.00, $256,395.00 and $248,270.00.
+      Section G names only the equipment line, DA1-5-5130-240-000-00000.
+    - 2026-767 (August 18): "ES7-9999-000-00000-0 Appropriated Fund Balance
+      $650,000.00" into equipment lines in ES1, ES3 and ES5. The statement
+      answers "No" and leaves section G blank. The table also moves one fund's
+      balance straight into three other funds' lines with no transfer
+      accounts.
+    - 2026-471 (May 20): A01-9999 $7,677.64 into "A01-1001-002-00000-A
+      Property Taxes-Chap 217/251", a revenue line, not an appropriation.
+    - 2026-569 and 2026-577 (June 16): closeouts returning $17,972.55 and
+      $1,500.00 to the Community Benefit Funds balance. These are TO rows, not
+      draws.
+
+    Decide the direction of each row from its own table: the row order, the
+    explicit "From" and "To" lines on 2026-284, and FROM totals that must equal
+    TO totals. Then count the draws, with tests. Counting 2026-284, 2026-285,
+    2026-286 and 2026-767 would add $1,554,290 to the other-funds total on
+    `/fund-balance-draws/`.
+13. **Then sweep the site with `accounting-expert`**, one library a run,
     starting with the consumers of `web/lib/audits.ts`.
 
 **Other items**
 
-12. **Audit one meeting a run with `data-auditor`**, newest first, starting
+14. **Audit one meeting a run with `data-auditor`**, newest first, starting
     with September 15, 2026. Fix what it finds with packet evidence, one
     meeting per pull request.
-13. **Run `silent-failure-hunter` over `etl/`**, and fix its top finding with
+15. **Run `silent-failure-hunter` over `etl/`**, and fix its top finding with
     a test that would have caught it.
-14. **Run `comment-analyzer` over `etl/parse_fiscal_impact.py` and
+16. **Run `comment-analyzer` over `etl/parse_fiscal_impact.py` and
     `README.md`**, and fix the stale claims it can show.
-15. **2026-486's stated amount.** "S-Power agreed to pay the sum of
+17. **2026-486's stated amount.** "S-Power agreed to pay the sum of
     $150,000.00, of which $91,165.00 remains" is labelled a cost. Check the
     packet: it may be money coming in or background.
-16. **`riverhead-domain-expert`'s "canonical facts" are out of date.**
+18. **`riverhead-domain-expert`'s "canonical facts" are out of date.**
     - Its unassigned balance is the unaudited $29,671,084 (42.9%). The audit
       the Board accepted on September 1, 2026 gives $28,829,513
       (`web/lib/audits.ts`).
@@ -113,7 +137,7 @@ agents. Each agent's file holds its sources and checks.
 
     Update the facts from the data files, or replace the list with the files
     that hold them.
-17. **Recheck GFOA's award criteria when its online application opens.** GFOA
+19. **Recheck GFOA's award criteria when its online application opens.** GFOA
     expects it in January 2027. On 2026-10-03 its criteria page and its draft
     application form (dated October 1, 2026) disagreed: the page gives
     Department Budget the same four questions as Program / Services Budget,
@@ -150,6 +174,45 @@ agents. Each agent's file holds its sources and checks.
   concern for residents rather than a GFOA determination?
 
 ## Done
+
+- 2026-10-04: `/fund-balance-draws/` no longer says appropriated fund balance
+  "is recorded as a revenue line", or that a draw "credits A01-9999 and debits
+  whatever is being bought". The Comptroller's *Accounting and Reporting
+  Manual* (April 2024) keeps "599 Appropriated Fund Balance" as a budget
+  account apart from "510 Estimated Revenues" (p. 28). Entry 3b (p. 50),
+  "To record the appropriation of fund balance to increase existing or to meet
+  additional appropriations", debits A599 and credits A960 Appropriations. The
+  page now says so, notes that the Town's own codes give the account a
+  revenue-shaped number (A01-9999), and lists the manual among its sources
+  (Ready item 5, pull request #94).
+- 2026-10-04: 2026-765 is counted from the budget table the Board adopted,
+  everywhere.
+  - Its section G charges A01-9999 $150,000. The table it adopts moves
+    "A01-9999-000-00000-0 Appropriated Fund Balance $280,000". The $280,000
+    had been typed into `ADOPTED_TABLE` in `web/lib/fiscal-commitments-2027.ts`,
+    so only the ledger pages used it. `/fiscal-impact/`, its verdict and the
+    August 18 totals still said $150,000.
+  - `etl/parse_fiscal_impact.py` now records each table's 9999 rows
+    (`tableFundBalance`). Where one puts a different figure on a fund's draw
+    than section G, the table's figure is used (`adopted_draws`), and section
+    G's is shown beside it. `ADOPTED_TABLE` is gone.
+  - The build compares section G with the vote for every draw. 2026-765 is
+    the only one that differs.
+  - The accounts panel on `/fiscal-impact/` said the General Fund's 2026
+    adopted budget "appropriated no fund balance". Its summary (p. 3) planned
+    $1,250,000, and the Water District's $1,850,000. The line-item extract
+    simply has no 9999 lines. The panel now gives the planned figure from
+    `web/lib/all-funds.ts`.
+- 2026-10-04: `/fund-balance-draws/` splits other-fund draws by fund.
+  - A resolution drawing on two non-General funds had been listed under each
+    with their combined amount, overstating both subtotals, and a fund named
+    without an amount could look priced. Each fund now carries only its own
+    lines, and votes are counted by resolution.
+  - `scripts/verify-fund-balance-lines.mjs` tests the split on made-up
+    multi-fund statements. It also recomputes the page's General Fund and
+    other-fund totals from the source lines, so a line counted twice fails
+    the build.
+  - All 23 adopted draws were checked against their packets (Ready item 12).
 
 - 2026-10-03: `/gfoa/` now says GFOA's revised criteria take effect on
   January 1, 2027 (either set during 2027, only the revised set from 2028), so

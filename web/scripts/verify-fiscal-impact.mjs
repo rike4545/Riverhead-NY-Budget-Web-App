@@ -1,5 +1,6 @@
 import { existsSync, readFileSync } from 'node:fs'
 import { join } from 'node:path'
+import { drawsByFund, tableCorrects } from '../lib/fund-balance-lines.ts'
 
 const root = process.cwd()
 const path = (...parts) => join(root, ...parts)
@@ -59,6 +60,14 @@ if (existsSync(path('out/fiscal-impact/index.html'))) {
   ]) if (!html.includes(text)) fail(`Fiscal-impact export framing regressed: missing ${text}`)
 }
 
+// The accounts panel's line-item extract carries no 9999 line for any fund, so
+// whether a fund planned to use fund balance must come from its adopted budget
+// summary: the General Fund planned $1,250,000 (lib/all-funds.ts).
+if (existsSync(path('components/StatementAccounts.tsx'))) {
+  const source = readFileSync(path('components/StatementAccounts.tsx'), 'utf8')
+  if (!source.includes('match.plannedFundBalance')) fail('Statement accounts no longer check what the adopted budget planned before saying a fund appropriated no fund balance')
+}
+
 // What each resolution's own text states, beside the Town's answer.
 if (existsSync(path('components/StatedAmounts.tsx'))) {
   const source = readFileSync(path('components/StatedAmounts.tsx'), 'utf8')
@@ -80,6 +89,8 @@ if (existsSync(path('components/FiscalImpactTable.tsx'))) {
     'but the resolution states a {usd(r.statedCost)} cost',
     'stated in resolution',
     'but the resolution’s table moves {usd(r.statementBelowTable.table)}',
+    'drawsByFund(r.funding, r.tableFundBalance).filter(tableCorrects)',
+    'as adopted; the statement says',
     'voteLink(meetingRecord.slug, r.number)',
   ]) if (!source.includes(text)) fail(`Fiscal table no longer shows what the resolution states: missing ${text}`)
 }
@@ -108,6 +119,7 @@ const fiscalIndexPath = path('public/data/meetings/fiscal-index.json')
 if (existsSync(fiscalIndexPath)) {
   const index = JSON.parse(readFileSync(fiscalIndexPath, 'utf8'))
   let stated = 0
+  let corrected = 0
   for (const entry of index.meetings ?? []) {
     const slug = typeof entry === 'string' ? entry : entry.slug
     const file = join(meetingsDir, `${slug}-fiscal.json`)
@@ -139,9 +151,23 @@ if (existsSync(fiscalIndexPath)) {
         stated += 1
         if (!(r.statedAmounts ?? []).some((a) => a.role === 'cost' && a.amount === r.statedCost)) fail(`${slug} ${r.number}: stated cost ${r.statedCost} is not one of the costs quoted`)
       }
+      // The adopted table's 9999 rows: each quotes its own account and figure,
+      // and where one corrects section G the amount shown is the table's.
+      for (const t of r.tableFundBalance ?? []) {
+        if (!t.row?.startsWith(t.code) || !figures(t.row).some((f) => Math.abs(f - t.amount) < 0.005)) {
+          fail(`${slug} ${r.number}: table row "${t.row}" does not carry ${t.code} and its figure ${t.amount}`)
+        }
+      }
+      const corrections = drawsByFund(r.funding, r.tableFundBalance).filter(tableCorrects)
+      if (corrections.length) {
+        const want = (r.funding?.amount ?? 0) + corrections.reduce((n, d) => n + d.table - (d.statement ?? 0), 0)
+        if (Math.abs((r.amount ?? 0) - want) > 0.005) fail(`${slug} ${r.number}: amount ${r.amount} is not section G's ${r.funding?.amount} moved to the adopted table (${want})`)
+        corrected += 1
+      }
     }
   }
   if (stated === 0) fail('No resolution carries a stated cost; the stated-amount read did not run')
+  if (corrected === 0) fail('No draw is counted at its adopted table; 2026-765 should be ($280,000 adopted, $150,000 in section G)')
 }
 
 if (process.exitCode) process.exit(process.exitCode)

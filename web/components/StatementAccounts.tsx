@@ -31,8 +31,14 @@ const ROLE_LABEL: Record<string, string> = {
 function consequence(a: ResolvedAccount): { text: string; tone: 'warn' | 'plain' } | null {
   const { match, share, amount } = a
   if (match.status === 'unbudgeted-fund-balance') {
+    // The line items carry no 9999 line for any fund, so whether the fund
+    // planned to use fund balance comes from its adopted budget summary.
     return {
-      text: `The ${match.fundName}'s 2026 adopted budget appropriated no fund balance. This draw was not in it.`,
+      text: match.plannedFundBalance
+        ? `The ${match.fundName}'s 2026 adopted budget planned ${usd(match.plannedFundBalance)} of fund balance. This draw was not part of it.`
+        : match.plannedFundBalance === 0
+          ? `The ${match.fundName}'s 2026 adopted budget appropriated no fund balance. This draw was not in it.`
+          : `This draw was not in the ${match.fundName}'s 2026 adopted budget.`,
       tone: 'warn',
     }
   }

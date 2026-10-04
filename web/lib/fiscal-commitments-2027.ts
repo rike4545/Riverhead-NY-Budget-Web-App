@@ -30,7 +30,8 @@ import { surplusAboveFloor } from './reserve-policy'
 import { AUDIT_2025 } from './audits'
 import { fundBalanceImpact } from './town-square'
 import prediction from '../public/data/budget-2027-prediction.json'
-import { FUND_BALANCE_OBJECT, type ResolutionFunding } from './account-lookup'
+import type { ResolutionFunding } from './account-lookup'
+import { drawsByFund, tableCorrects, type FundDraw, type TableLine } from './fund-balance-lines'
 
 type FiscalRes = {
   number: string
@@ -43,6 +44,8 @@ type FiscalRes = {
   funding?: ResolutionFunding | null
   /** Set by the ETL when section G names less than the resolution's own budget table. */
   statementBelowTable?: { statement: number; table: number } | null
+  /** The 9999 rows of the resolution's own budget table, read by the ETL. */
+  tableFundBalance?: TableLine[] | null
 }
 type FiscalMeeting = { slug: string; meetingDate: string; resolutions: FiscalRes[] }
 
@@ -156,11 +159,13 @@ export type Commitment = {
   /** Set when this entry replaced a curated one. */
   supersedes?: { label: string; was: number; by: number }
   /**
-   * Set when section G names less than the resolution's own budget table.
-   * `counted` says which figure the amount is: the adopted table, once checked
-   * against the packet (ADOPTED_TABLE below), or section G until then.
+   * Set when section G and the resolution's own budget table disagree.
+   * `counted` says which figure the amount is: the adopted table, where the ETL
+   * read its 9999 row (`line`, as printed), or section G, where the ETL flagged
+   * a larger table but read no 9999 row for this fund. `statement` is null
+   * when section G names the account without an amount.
    */
-  tableGap?: { statement: number; table: number; counted: 'table' | 'statement'; line?: string }
+  tableGap?: { statement: number | null; table: number; counted: 'table' | 'statement'; line?: string }
   /** What the resolution says about repaying the draw, quoted. */
   repayment?: string
 }
@@ -171,13 +176,16 @@ export type Commitment = {
 // draw the Town wrote down itself. These take precedence over anything read
 // from prose, because they carry a figure the Town booked rather than one this
 // site inferred or bounded. The amount is section G's, except where the budget
-// table the Board adopted moves more (ADOPTED_TABLE).
+// table the Board adopted puts a different figure on the account (tableGap).
 type DrawRow = { number: string | null; title: string; amount: number; tableGap?: Commitment['tableGap'] }
 
 const usd0 = (n: number) => n.toLocaleString('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 })
 
 /**
- * Where the Board adopted a larger draw than section G records.
+ * A draw split by fund: one entry per fund its statement draws on, each with
+ * only that fund's own lines (lib/fund-balance-lines.ts). The ETL's
+ * fundBalanceDraw adds every 9999 line together, whatever its fund, so it is
+ * not used here.
  *
  * Section G is the preparer's summary of the funding; the budget table in the
  * RESOLVED clause is what the Board voted. They nearly always agree, and in
@@ -185,67 +193,32 @@ const usd0 = (n: number) => n.toLocaleString('en-US', { style: 'currency', curre
  * charges A01-9999 $150,000, while the resolution establishes "the following
  * budget adjustments", moving "A01-9999-000-00000-0 Appropriated Fund Balance
  * $280,000" into the Town Attorney's legal-fees line. The vote is the
- * appropriation, so the ledger counts $280,000 and says what section G shows.
- *
- * Declared by number after reading the packet, like SUPERSEDES below, and
- * applied only while the parsed record still shows the same gap, so a
- * corrected statement falls back to section G. A gap not declared here is
- * still shown wherever the draw appears, counted at section G's figure until
- * someone reads the table. verify-build.mjs warns about both cases.
+ * appropriation, so a fund's draw is the table's figure wherever the ETL read
+ * a 9999 row for that fund (tableFundBalance), and the row says what section
+ * G shows.
  */
-const ADOPTED_TABLE: Record<string, { statement: number; table: number; line: string }> = {
-  '2026-765': { statement: 150_000, table: 280_000, line: 'A01-9999-000-00000-0 Appropriated Fund Balance $280,000' },
-}
-
-const tableGap = (r: FiscalRes): Commitment['tableGap'] => {
-  const gap = r.statementBelowTable
-  if (!gap) return undefined
-  const declared = ADOPTED_TABLE[r.number]
-  const checked = !!declared && declared.statement === gap.statement && declared.table === gap.table &&
-    r.funding?.fundBalanceDraw === gap.statement
-  return checked
-    ? { statement: gap.statement, table: gap.table, counted: 'table', line: declared.line }
-    : { statement: gap.statement, table: gap.table, counted: 'statement' }
-}
+const fundDraws = (r: FiscalRes) => drawsByFund(r.funding, r.tableFundBalance)
 
 /**
- * A statement's own fund-balance lines, picked as the ETL picks them (revenue
- * accounts on object 9999), each with the fund it draws on. The ETL's
- * fundBalanceDraw adds every such line together, whatever its fund, so a
- * statement drawing on two funds is split here rather than counted whole on
- * both sides of the page.
+ * Where section G and the adopted table disagree on one fund's draw. Where the
+ * ETL flagged section G below the table (statementBelowTable) but read no 9999
+ * row for the fund, the draw stays at section G's figure and says so;
+ * verify-build.mjs warns about it.
  */
-const fundBalanceLines = (r: FiscalRes) => {
-  const names = r.funding?.fundBalanceFunds ?? []
-  const tiers = r.funding?.fundBalanceClasses ?? []
-  return (r.funding?.accounts ?? [])
-    .filter((a) => a.kind === 'revenue' && a.code.split('-')[1] === FUND_BALANCE_OBJECT)
-    .map((a, i) => ({ ...a, fundName: names[i] ?? a.fund, tier: tiers[i] ?? null }))
+const tableGap = (r: FiscalRes, d: FundDraw | undefined): Commitment['tableGap'] => {
+  if (!d) return undefined
+  if (tableCorrects(d)) return { statement: d.statement, table: d.table as number, counted: 'table', line: d.rows.join('; ') }
+  const flagged = r.statementBelowTable
+  return flagged && d.table === null ? { statement: flagged.statement, table: flagged.table, counted: 'statement' } : undefined
 }
-const inGeneralFund = (a: { fundName: string }) => a.fundName === 'General Fund'
-
-/**
- * What a draw takes from the General Fund's balance, or from the other funds',
- * or null where its statement names the account without an amount. Section G's
- * figure, or the adopted table's where ADOPTED_TABLE checks it; that table is
- * declared for the whole resolution, so it stands only when every line is on
- * the one side.
- */
-const drawAmount = (r: FiscalRes, generalFund: boolean): number | null => {
-  const all = fundBalanceLines(r)
-  const side = all.filter((a) => inGeneralFund(a) === generalFund)
-  const priced = side.filter((a) => a.amount != null)
-  if (!priced.length) return null
-  const gap = tableGap(r)
-  if (gap?.counted === 'table' && side.length === all.length) return gap.table
-  return Math.round(priced.reduce((s, a) => s + (a.amount as number), 0) * 100) / 100
-}
+const GENERAL_FUND = 'General Fund'
+const generalFundDraw = (r: FiscalRes) => fundDraws(r).find((d) => d.fund === GENERAL_FUND)
 
 /** How a draw's section G and adopted table compare, in a sentence for its row. */
 export const gapNote = (gap: NonNullable<Commitment['tableGap']>) =>
   gap.counted === 'table'
-    ? `The budget table the Board adopted moves “${gap.line}”; section G of the fiscal impact statement says ${usd0(gap.statement)}. The vote is the appropriation, so the table’s figure is counted.`
-    : `Section G says ${usd0(gap.statement)}, less than the ${usd0(gap.table)} on the resolution’s own budget table. Counted at section G’s figure until the table is checked against the packet.`
+    ? `The budget table the Board adopted moves “${gap.line}”; section G of the fiscal impact statement ${gap.statement === null ? 'names the account without an amount' : `says ${usd0(gap.statement)}`}. The vote is the appropriation, so the table’s figure is counted.`
+    : `Section G says ${usd0(gap.statement ?? 0)}, less than the ${usd0(gap.table)} on the resolution’s own budget table. Counted at section G’s figure until the table is checked against the packet.`
 
 /**
  * Not every General Fund draw comes out of the tier this page measures.
@@ -264,7 +237,7 @@ export const gapNote = (gap: NonNullable<Commitment['tableGap']>) =>
  * unnamed ones would understate commitments far more than including them
  * overstates any single tier.
  */
-const generalFundTiers = (r: FiscalRes) => fundBalanceLines(r).filter(inGeneralFund).map((a) => a.tier)
+const generalFundTiers = (r: FiscalRes) => generalFundDraw(r)?.tiers ?? []
 const isUnassignedDraw = (r: FiscalRes) =>
   generalFundTiers(r).every((c) => c === null || c === 'Unassigned')
 
@@ -272,12 +245,12 @@ const generalFundBalanceDraws = allRes.filter(
   (r) =>
     isAdopted(r) &&
     r.funding?.drawsFundBalance === true &&
-    (drawAmount(r, true) ?? 0) > 0,
+    (generalFundDraw(r)?.amount ?? 0) > 0,
 )
 
 const documentedGeneralFundDraws: DrawRow[] = generalFundBalanceDraws
   .filter(isUnassignedDraw)
-  .map((r) => ({ number: r.number, title: r.title, amount: drawAmount(r, true) as number, tableGap: tableGap(r) }))
+  .map((r) => ({ number: r.number, title: r.title, amount: generalFundDraw(r)!.amount as number, tableGap: tableGap(r, generalFundDraw(r)) }))
   .sort((a, b) => b.amount - a.amount)
 
 /**
@@ -290,8 +263,8 @@ export const otherTierGeneralFundDraws = generalFundBalanceDraws
   .map((r) => ({
     number: r.number,
     title: r.title,
-    amount: drawAmount(r, true) as number,
-    tableGap: tableGap(r),
+    amount: generalFundDraw(r)!.amount as number,
+    tableGap: tableGap(r, generalFundDraw(r)),
     tiers: Array.from(new Set(generalFundTiers(r).filter((c): c is string => !!c))),
   }))
   .sort((a, b) => b.amount - a.amount)
@@ -309,21 +282,41 @@ export const otherTierDrawTotal = otherTierGeneralFundDraws.reduce((s, d) => s +
  * mislead by leaving them out, so /fund-balance-draws/ lists them by fund and
  * totals them apart. A statement naming the account without an amount is
  * listed without one, not counted as nothing.
+ *
+ * One entry per resolution per fund, each carrying only that fund's lines. A
+ * resolution drawing on two districts appears under each with its own amount,
+ * so no fund's subtotal carries another fund's money, and a fund named without
+ * an amount stays unpriced even when the other fund's line has one.
  */
 export const otherFundDraws = allRes
-  .filter((r) => isAdopted(r) && r.funding?.drawsFundBalance === true && fundBalanceLines(r).some((a) => !inGeneralFund(a)))
-  .map((r) => ({
-    number: r.number,
-    title: r.title,
-    meetingDate: r.meetingDate,
-    funds: Array.from(new Set(fundBalanceLines(r).filter((a) => !inGeneralFund(a)).map((a) => a.fundName))),
-    amount: drawAmount(r, false),
-    tableGap: tableGap(r),
-  }))
+  .filter((r) => isAdopted(r) && r.funding?.drawsFundBalance === true)
+  .flatMap((r) =>
+    fundDraws(r)
+      .filter((d) => d.fund !== GENERAL_FUND)
+      .map((d) => ({
+        number: r.number,
+        title: r.title,
+        meetingDate: r.meetingDate,
+        fund: d.fund,
+        amount: d.amount,
+        unpricedLines: d.unpricedLines,
+        tableGap: tableGap(r, d),
+      })),
+  )
   .sort((a, b) => (b.amount ?? -1) - (a.amount ?? -1))
 
 export const otherFundDrawTotal = otherFundDraws.reduce((s, d) => s + (d.amount ?? 0), 0)
-export const otherFundDrawsUnpriced = otherFundDraws.filter((d) => d.amount === null)
+/** Entries with a fund-balance line that states no amount: the whole fund's draw, or part of it. */
+export const otherFundDrawsUnpriced = otherFundDraws.filter((d) => d.unpricedLines > 0)
+
+/** Resolutions, not fund entries: one vote can draw on several funds. */
+const votes = (rows: { number: string | null; title: string }[]) => new Set(rows.map((d) => d.number ?? d.title)).size
+export const otherFundVotes = {
+  /** Votes with at least one other-fund amount counted. */
+  priced: votes(otherFundDraws.filter((d) => d.amount !== null)),
+  /** Votes naming an other-fund balance account without an amount. */
+  unpriced: votes(otherFundDrawsUnpriced),
+}
 
 /**
  * A curated entry a documented draw replaces, and the ceiling it carried.

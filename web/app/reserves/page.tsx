@@ -763,7 +763,7 @@ export default function ReservesPage() {
         {countedFromAdoptedTable.length > 0 && (
           <>
             {' '}(or, for {countedFromAdoptedTable.map((c) => c.number).join(', ')}, from
-            the budget table the Board adopted, which moves more than Section G names)
+            the budget table the Board adopted, where it differs from Section G)
           </>
         )}, and{' '}
         {dollars(committedAuthorized)} comes from separately sourced resolutions and the Town Square record whose

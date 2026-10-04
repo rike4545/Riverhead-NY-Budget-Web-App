@@ -7,7 +7,7 @@ import {
   chargedToFundBalanceTotal, chargedToFundBalanceCount,
   budgetedUseByFund, budgetedUseTotal, budgetedUseFrom, generalFundBudgetedUse, generalFundUseThisYear,
   townWideBudgetedUse, budgetedUseUnexplained, plannedUse2027,
-  otherFundDraws, otherFundDrawTotal, otherFundDrawsUnpriced, otherFundsByFund, otherFundsPriced, gapNote,
+  otherFundDraws, otherFundDrawTotal, otherFundDrawsUnpriced, otherFundsByFund, otherFundsPriced, otherFundVotes, gapNote,
   coverage, limits, sources, type Commitment,
 } from '../../lib/fund-balance-draws'
 
@@ -36,7 +36,7 @@ export default function FundBalanceDrawsPage() {
         tips={[
           { label: 'Fund balance', text: 'accumulated surplus — money left over from prior years. It is a balance, not an income stream: spending it is a one-time act that cannot be repeated without rebuilding it first.' },
           { label: 'Appropriated, not spent', text: 'these votes create the authority to spend. Whether the money was then obligated or paid out is a separate question, and not one this site can answer.' },
-          { label: 'Object code 9999', text: 'in the New York chart of accounts, appropriated fund balance is recorded as a revenue line. A General Fund draw credits A01-9999 and debits whatever is being bought.' },
+          { label: 'Object code 9999', text: 'the Town numbers its Appropriated Fund Balance accounts like revenue lines (A01-9999 in the General Fund), but the money is not new revenue. The State Comptroller\u2019s accounting manual keeps it as a budget account of its own, 599 Appropriated Fund Balance. A resolution that draws on it adds the same amount to the fund balance the budget uses and to what the budget may spend: a debit to 599 and a credit to 960 Appropriations.' },
         ]}
       >
         The Town uses surplus through <strong>two separate channels</strong>, and only the first appears in the
@@ -56,7 +56,7 @@ export default function FundBalanceDrawsPage() {
         <Stat label="Charged by resolution" value={usd(chargedToFundBalanceTotal)} sub={`${chargedToFundBalanceCount} adopted votes hitting A01-9999`} accent />
         <Stat label="Combined, General Fund" value={usd(generalFundUseThisYear)} sub="see the caveat below" />
         {otherFundDraws.length > 0 && (
-          <Stat label="Other funds, by resolution" value={usd(otherFundDrawTotal)} sub={`${otherFundDraws.length - otherFundDrawsUnpriced.length} votes in ${otherFundsPriced} funds, kept apart${otherFundDrawsUnpriced.length ? `; ${otherFundDrawsUnpriced.length} more with no amount` : ''}`} />
+          <Stat label="Other funds, by resolution" value={usd(otherFundDrawTotal)} sub={`${otherFundVotes.priced} votes in ${otherFundsPriced} funds, kept apart${otherFundVotes.unpriced ? `; ${otherFundVotes.unpriced} ${otherFundVotes.unpriced === 1 ? 'vote names' : 'votes name'} an account with no amount` : ''}`} />
         )}
         <Stat label="Record coverage" value={`${coverage.accountSharePct.toFixed(0)}%`} sub={`${coverage.resolutionsWithAccounts} of ${coverage.resolutionsWithStatement.toLocaleString()} statements itemise accounts`} warn />
       </section>
@@ -125,7 +125,7 @@ export default function FundBalanceDrawsPage() {
           the Town&apos;s, not this site&apos;s: taken from section G of the fiscal impact statement rather than
           inferred from the resolution text
           {documentedDraws.some((c) => c.tableGap?.counted === 'table')
-            ? ', except where the budget table the Board adopted moves more than section G names. There the table is counted, because the vote is the appropriation.'
+            ? ', except where the budget table the Board adopted puts a different figure on the account. There the table is counted, because the vote is the appropriation.'
             : '.'}
         </p>
         <DrawTable rows={documentedDraws} total={documentedTotal} totalLabel="Charged to A01-9999" />
@@ -168,7 +168,7 @@ export default function FundBalanceDrawsPage() {
               </li>
             ))}
           </ul>
-          <p style={{ color: 'var(--rbl-text-muted)', fontSize: 12.8, marginBottom: 0, marginTop: 10 }}>
+          <p data-ledger="other-tier" data-ledger-total={otherTierDrawTotal} style={{ color: 'var(--rbl-text-muted)', fontSize: 12.8, marginBottom: 0, marginTop: 10 }}>
             Total not netted: <strong>{usd(otherTierDrawTotal)}</strong>
           </p>
         </section>
@@ -191,18 +191,23 @@ export default function FundBalanceDrawsPage() {
               <tbody>
                 {otherFundsByFund.map((g) => (
                   <Fragment key={g.fund}>
-                    <tr style={{ borderBottom: '1px solid var(--rbl-border-subtle)', background: 'var(--rbl-surface-2)' }}>
+                    <tr data-other-fund={g.fund} data-other-fund-total={g.total ?? ''} style={{ borderBottom: '1px solid var(--rbl-border-subtle)', background: 'var(--rbl-surface-2)' }}>
                       <td style={{ ...td, fontWeight: 800, color: 'var(--rbl-title)' }}>{g.fund}</td>
                       <td style={{ ...num, color: g.total === null ? 'var(--rbl-warn)' : undefined }}>{g.total === null ? 'Not stated' : usd(g.total)}</td>
                     </tr>
                     {g.draws.map((d) => (
-                      <tr key={`${g.fund}-${d.number ?? d.title}`} style={{ borderBottom: '1px solid var(--rbl-border-subtle)' }}>
+                      <tr key={`${g.fund}-${d.number ?? d.title}`} data-other-fund-row={g.fund} data-amount={d.amount ?? ''} style={{ borderBottom: '1px solid var(--rbl-border-subtle)' }}>
                         <td style={{ ...td, paddingLeft: 22 }}>
                           <div style={{ color: 'var(--rbl-text-strong)' }}>{d.title}</div>
                           <div style={{ color: 'var(--rbl-text-muted)', fontSize: 12, marginTop: 2 }}>
                             Resolution {d.number ?? '—'}, {shortDate(d.meetingDate)}
                           </div>
                           {d.tableGap && <div style={{ color: 'var(--rbl-warn)', fontSize: 12, marginTop: 2 }}>{gapNote(d.tableGap)}</div>}
+                          {d.amount !== null && d.unpricedLines > 0 && (
+                            <div style={{ color: 'var(--rbl-warn)', fontSize: 12, marginTop: 2 }}>
+                              Plus {d.unpricedLines === 1 ? 'a line' : `${d.unpricedLines} lines`} in this fund with no amount, not counted.
+                            </div>
+                          )}
                         </td>
                         <td style={{ ...num, fontWeight: 400, color: d.amount === null ? 'var(--rbl-warn)' : undefined }}>
                           {d.amount === null ? 'Not stated' : usd(d.amount)}
@@ -211,15 +216,17 @@ export default function FundBalanceDrawsPage() {
                     ))}
                   </Fragment>
                 ))}
-                <tr><td style={{ ...td, fontWeight: 800 }}>Other funds, by resolution</td><td style={num}>{usd(otherFundDrawTotal)}</td></tr>
+                <tr data-other-funds-total={otherFundDrawTotal}><td style={{ ...td, fontWeight: 800 }}>Other funds, by resolution</td><td style={num}>{usd(otherFundDrawTotal)}</td></tr>
               </tbody>
             </table>
           </div>
           {otherFundDrawsUnpriced.length > 0 && (
             <p style={{ color: 'var(--rbl-text-muted)', fontSize: 12.8, lineHeight: 1.55, marginBottom: 0, marginTop: 10 }}>
-              {otherFundDrawsUnpriced.map((d) => `Resolution ${d.number ?? '—'}`).join(', ')}{' '}
-              {otherFundDrawsUnpriced.length === 1 ? 'names its' : 'name their'} fund balance account without an
-              amount, so {otherFundDrawsUnpriced.length === 1 ? 'it is' : 'they are'} listed and not counted.
+              {otherFundDrawsUnpriced.map((d) => d.amount === null
+                ? `Resolution ${d.number ?? '—'} names a fund balance account in ${d.fund} without an amount.`
+                : `Resolution ${d.number ?? '—'} names ${d.unpricedLines === 1 ? 'a fund balance line' : `${d.unpricedLines} fund balance lines`} in ${d.fund} without an amount, beside lines that state one.`,
+              ).join(' ')}{' '}
+              Lines without an amount are listed but not counted.
             </p>
           )}
         </section>
@@ -286,7 +293,7 @@ function DrawTable({ rows, total, totalLabel }: { rows: Commitment[]; total: num
               <td style={num}>{usd(c.amount)}</td>
             </tr>
           ))}
-          <tr><td style={{ ...td, fontWeight: 800 }}>{totalLabel}</td><td style={num}>{usd(total)}</td></tr>
+          <tr data-ledger={totalLabel} data-ledger-total={total}><td style={{ ...td, fontWeight: 800 }}>{totalLabel}</td><td style={num}>{usd(total)}</td></tr>
         </tbody>
       </table>
     </div>
