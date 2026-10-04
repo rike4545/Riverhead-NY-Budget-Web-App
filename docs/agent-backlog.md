@@ -41,13 +41,6 @@ three practice agents and checking the fund-balance ledger. Each agent's file ho
 
 **`osc-expert`**
 
-5. **"Recorded as a revenue line."** `/fund-balance-draws/` says appropriated
-   fund balance "is recorded as a revenue line" in the New York chart of
-   accounts. The Comptroller's manual for towns (April 2024, p. 28) lists "510
-   Estimated Revenues" and "599 Appropriated Fund Balance" as separate
-   budgetary accounts; the adopted budget debits both and credits "960
-   Appropriations". Correct the page, and say the Town's own codes put it at a
-   revenue-shaped number (A01-9999).
 6. **The Town's fiscal stress result isn't on the site.**
    `lib/budget-concepts.ts` tells residents to ask for "the Town's current OSC
    fiscal-stress score". OSC's *Fiscal Stress Monitoring System –
@@ -182,6 +175,16 @@ three practice agents and checking the fund-balance ledger. Each agent's file ho
 
 ## Done
 
+- 2026-10-04: `/fund-balance-draws/` no longer says appropriated fund balance
+  "is recorded as a revenue line", or that a draw "credits A01-9999 and debits
+  whatever is being bought". The Comptroller's *Accounting and Reporting
+  Manual* (April 2024) keeps "599 Appropriated Fund Balance" as a budget
+  account apart from "510 Estimated Revenues" (p. 28). Entry 3b (p. 50),
+  "To record the appropriation of fund balance to increase existing or to meet
+  additional appropriations", debits A599 and credits A960 Appropriations. The
+  page now says so, notes that the Town's own codes give the account a
+  revenue-shaped number (A01-9999), and lists the manual among its sources
+  (Ready item 5, pull request #94).
 - 2026-10-04: 2026-765 is counted from the budget table the Board adopted,
   everywhere.
   - Its section G charges A01-9999 $150,000. The table it adopts moves

@@ -36,7 +36,7 @@ export default function FundBalanceDrawsPage() {
         tips={[
           { label: 'Fund balance', text: 'accumulated surplus — money left over from prior years. It is a balance, not an income stream: spending it is a one-time act that cannot be repeated without rebuilding it first.' },
           { label: 'Appropriated, not spent', text: 'these votes create the authority to spend. Whether the money was then obligated or paid out is a separate question, and not one this site can answer.' },
-          { label: 'Object code 9999', text: 'in the New York chart of accounts, appropriated fund balance is recorded as a revenue line. A General Fund draw credits A01-9999 and debits whatever is being bought.' },
+          { label: 'Object code 9999', text: 'the Town numbers its Appropriated Fund Balance accounts like revenue lines (A01-9999 in the General Fund), but the money is not new revenue. The State Comptroller\u2019s accounting manual keeps it as a budget account of its own, 599 Appropriated Fund Balance. A resolution that draws on it adds the same amount to the fund balance the budget uses and to what the budget may spend: a debit to 599 and a credit to 960 Appropriations.' },
         ]}
       >
         The Town uses surplus through <strong>two separate channels</strong>, and only the first appears in the

@@ -221,4 +221,9 @@ export const sources = [
   ...(released2027
     ? [{ title: released2027.source.title.replace(/\s*\(PDF\)$/, ''), detail: 'Appropriated fund balance planned for 2027, by fund', url: released2027.source.url }]
     : []),
+  {
+    title: 'State Comptroller, Accounting and Reporting Manual (April 2024)',
+    detail: 'Budget accounts 510, 599 and 960, p. 28; "the appropriation of fund balance to increase existing or to meet additional appropriations", entry 3b, p. 50',
+    url: 'https://www.osc.ny.gov/files/local-government/publications/pdf/arm.pdf',
+  },
 ]
