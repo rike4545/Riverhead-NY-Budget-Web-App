@@ -97,6 +97,26 @@ def cut_points(audio, every: int = PASS_SECONDS, search: int = 60) -> list[int]:
     return cuts
 
 
+def pass_rows(segments, start: float, end: float) -> list[list]:
+    """One pass's segments on the meeting's clock, as [start, end, text].
+
+    A pass can only describe the audio it was given, but Whisper sometimes runs
+    on past the end of it. On August 4, 2026 the pass ending near 3,571.8
+    seconds carried on in one-second steps (3572.6, 3573.6, 3574.6 ...) into
+    audio the next pass then transcribed from 3571.8, so the transcript ran
+    backwards at the seam. A segment that starts at or after the pass's end
+    is dropped, and one that runs past it is cut off there.
+    """
+    rows = []
+    for s in segments:
+        text = s.text.strip()
+        at = s.start + start
+        if not text or at >= end:
+            continue
+        rows.append([round(at, 1), round(min(s.end + start, end), 1), text])
+    return rows
+
+
 def transcribe(video: Path, prompt: str, model_name: str) -> tuple[list[list], float, float]:
     from faster_whisper import WhisperModel, decode_audio
 
@@ -114,8 +134,7 @@ def transcribe(video: Path, prompt: str, model_name: str) -> tuple[list[list], f
             audio[a:b], language="en", initial_prompt=prompt, vad_filter=True, beam_size=1,
             condition_on_previous_text=False,
         )
-        offset = a / SAMPLE_RATE
-        rows += [[round(s.start + offset, 1), round(s.end + offset, 1), s.text.strip()] for s in segments if s.text.strip()]
+        rows += pass_rows(segments, a / SAMPLE_RATE, b / SAMPLE_RATE)
     return rows, duration, time.time() - started
 
 

@@ -13,10 +13,11 @@ from __future__ import annotations
 import json
 import sys
 import unittest
+from collections import namedtuple
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from transcribe_meetings import SAMPLE_RATE, cut_points, number_pattern, vote_times  # noqa: E402
+from transcribe_meetings import SAMPLE_RATE, cut_points, number_pattern, pass_rows, vote_times  # noqa: E402
 
 ROOT = Path(__file__).resolve().parent.parent
 
@@ -141,6 +142,24 @@ class Passes(unittest.TestCase):
         import numpy as np
 
         self.assertEqual(cut_points(np.zeros(SAMPLE_RATE * 65, dtype=np.float32), every=60, search=10), [0, SAMPLE_RATE * 65])
+
+
+class Seams(unittest.TestCase):
+    Seg = namedtuple("Seg", "start end text")
+
+    def test_a_pass_keeps_only_its_own_audio(self):
+        # The August 4, 2026 seam: the pass ends at 3571.8 seconds and Whisper
+        # carried on in one-second steps past it.
+        segments = [self.Seg(0.4, 3.9, " Good evening. "), self.Seg(58.6, 60.4, "the last words"),
+                    self.Seg(60.8, 61.8, "Thank you."), self.Seg(61.8, 62.8, "Thank you."), self.Seg(59.0, 59.5, "  ")]
+        self.assertEqual(pass_rows(segments, 3511.8, 3571.8),
+                         [[3512.2, 3515.7, "Good evening."], [3570.4, 3571.8, "the last words"]])
+
+    def test_passes_join_in_order(self):
+        first = pass_rows([self.Seg(50.0, 59.9, "a"), self.Seg(60.6, 61.6, "made up")], 0.0, 60.0)
+        second = pass_rows([self.Seg(0.2, 3.0, "b")], 60.0, 120.0)
+        starts = [r[0] for r in first + second]
+        self.assertEqual((starts, starts == sorted(starts)), ([50.0, 60.2], True))
 
 
 class Datasets(unittest.TestCase):
