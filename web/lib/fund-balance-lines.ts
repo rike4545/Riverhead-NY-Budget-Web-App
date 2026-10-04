@@ -92,3 +92,20 @@ export function drawsByFund(funding: FundBalanceFunding, table: TableLine[] | nu
 
 /** True when the adopted table puts a different figure on this fund's draw than section G. */
 export const tableCorrects = (d: FundDraw) => d.table !== null && d.table !== d.statement
+
+/**
+ * Section G's figure for the action once the adopted table corrects a draw, as
+ * etl/parse_fiscal_impact.py works it out (corrected_amount). A 9999 line
+ * section G priced is part of that figure, so the table moves it by the
+ * difference (2026-765: $150,000 to $280,000). A line section G left blank
+ * never was: the action's cost is already in its other lines, so the table's
+ * figure stands beside them, not on top, and the larger is the action.
+ */
+export function correctedAmount(amount: number | null | undefined, corrected: FundDraw[]): number | null {
+  if (!corrected.length) return amount ?? null
+  const moved = (amount ?? 0) + corrected
+    .filter((d) => d.statement !== null)
+    .reduce((n, d) => n + (d.table as number) - (d.statement as number), 0)
+  const blank = corrected.filter((d) => d.statement === null).reduce((n, d) => n + (d.table as number), 0)
+  return cents(Math.max(moved, blank))
+}

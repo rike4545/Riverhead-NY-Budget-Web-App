@@ -175,6 +175,14 @@ three practice agents and checking the fund-balance ledger. Each agent's file ho
 
 ## Done
 
+- 2026-10-04: A fund-balance line section G leaves blank no longer doubles a
+  resolution's amount when the adopted table prices it. The amount was moved
+  by the table's figure less section G's, with a blank counted as $0, so a
+  $25,000 appropriation whose blank 9999 line the table prices at $25,000
+  read $50,000. A blank line's table figure now stands beside section G's
+  other figures, and the larger is the amount (`corrected_amount`, and
+  `correctedAmount` in `web/lib/fund-balance-lines.ts`). No published figure
+  changes: 2026-765, the one correction so far, was priced.
 - 2026-10-04: `/fund-balance-draws/` no longer says appropriated fund balance
   "is recorded as a revenue line", or that a draw "credits A01-9999 and debits
   whatever is being bought". The Comptroller's *Accounting and Reporting

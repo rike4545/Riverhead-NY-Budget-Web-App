@@ -1,6 +1,6 @@
 import { existsSync, readFileSync } from 'node:fs'
 import { join } from 'node:path'
-import { drawsByFund, tableCorrects } from '../lib/fund-balance-lines.ts'
+import { correctedAmount, drawsByFund, tableCorrects } from '../lib/fund-balance-lines.ts'
 
 const root = process.cwd()
 const path = (...parts) => join(root, ...parts)
@@ -160,8 +160,11 @@ if (existsSync(fiscalIndexPath)) {
       }
       const corrections = drawsByFund(r.funding, r.tableFundBalance).filter(tableCorrects)
       if (corrections.length) {
-        const want = (r.funding?.amount ?? 0) + corrections.reduce((n, d) => n + d.table - (d.statement ?? 0), 0)
-        if (Math.abs((r.amount ?? 0) - want) > 0.005) fail(`${slug} ${r.number}: amount ${r.amount} is not section G's ${r.funding?.amount} moved to the adopted table (${want})`)
+        // The parser's corrected_amount and lib/fund-balance-lines.ts's
+        // correctedAmount must agree: a priced 9999 line moves section G's
+        // figure by the difference, a blank one is replaced, not added.
+        const want = correctedAmount(r.funding?.amount, corrections)
+        if (Math.abs((r.amount ?? 0) - (want ?? 0)) > 0.005) fail(`${slug} ${r.number}: amount ${r.amount} is not what the adopted table makes of section G's ${r.funding?.amount} (${want})`)
         corrected += 1
       }
     }

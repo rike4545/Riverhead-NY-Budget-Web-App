@@ -799,8 +799,12 @@ def apply_funding_evidence(realistic: dict, funding: dict, category: str, draws:
             voted = sum(d["table"] for d in corrected)
             stated = [d["statement"] for d in corrected]
             total = sum(d["amount"] or 0 for d in draws)
-            g_says = (f"section G of the statement names ${sum(s or 0 for s in stated):,.0f}"
-                      if any(s is not None for s in stated) else "section G of the statement names no amount")
+            priced = [s for s in stated if s is not None]
+            g_says = (
+                "section G of the statement names that account without an amount" if not priced
+                else f"section G of the statement names ${sum(priced):,.0f}" if len(priced) == len(stated)
+                else f"section G of the statement names ${sum(priced):,.0f} and leaves the rest without an amount"
+            )
             lead = (
                 f"The budget table the Board adopted moves ${voted:,.0f} out of Appropriated Fund Balance "
                 f"in the {where}; {g_says}. The vote is the appropriation, so the draw is ${total:,.0f}. "
@@ -1189,6 +1193,24 @@ def table_corrections(draws: list[dict]) -> list[dict]:
     return [d for d in draws if d["table"] is not None and d["table"] != d["statement"]]
 
 
+def corrected_amount(amount: float | None, corrected: list[dict]) -> float | None:
+    """Section G's figure for the action, once the adopted table corrects a draw.
+
+    A 9999 line section G priced is part of that figure, so the table moves it
+    by the difference: 2026-765's $150,000 becomes the $280,000 voted. A line
+    section G left blank never was part of it. The action's cost is already in
+    section G's other lines, so the table's figure stands beside them rather
+    than on top: a $25,000 appropriation drawn from a blank 9999 line the table
+    prices at $25,000 stays $25,000, not $50,000. The larger of the two is the
+    size of the action, as section G's largest figure is.
+    """
+    if not corrected:
+        return amount
+    moved = (amount or 0) + sum(d["table"] - d["statement"] for d in corrected if d["statement"] is not None)
+    blank = sum(d["table"] for d in corrected if d["statement"] is None)
+    return round(max(moved, blank), 2)
+
+
 def stated_cost(amounts: list[dict]) -> float | None:
     """The largest figure the resolution states as the Town paying out.
 
@@ -1361,12 +1383,9 @@ def build_meeting(date: str, packet_text: str) -> dict | None:
         realistic = apply_funding_evidence(
             realistic_read(category, p["fiscalImpact"], p["title"]), funding, category, draws
         )
-        # Section G's figure, moved by whatever the adopted table changes on a
-        # fund's 9999 account.
-        amount = funding.get("amount")
-        corrected = table_corrections(draws)
-        if corrected:
-            amount = round((amount or 0) + sum(d["table"] - (d["statement"] or 0) for d in corrected), 2)
+        # Section G's figure, corrected where the adopted table puts a
+        # different one on a fund's 9999 account.
+        amount = corrected_amount(funding.get("amount"), table_corrections(draws))
         if p.get("closesProject"):
             realistic = closeout_read(realistic, p["fiscalImpact"])
         vote = None
@@ -1390,9 +1409,9 @@ def build_meeting(date: str, packet_text: str) -> dict | None:
             "townTreatment": p["treatment"],
             # Read from the statement's own section G rather than guessed, except
             # where the budget table the Board adopted puts a different figure on
-            # a fund's 9999 account: then it moves by the difference, so
-            # 2026-765 reads the $280,000 voted, not section G's $150,000. Still
-            # None when the Town named no figure — most statements do not.
+            # a fund's 9999 account (corrected_amount): 2026-765 reads the
+            # $280,000 voted, not section G's $150,000. Still None when the Town
+            # named no figure — most statements do not.
             "amount": amount,
             "funding": funding,
             # What the resolution's own text states, beside the Town's answer
