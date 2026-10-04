@@ -23,8 +23,10 @@
 
 import { subAccountIndex, getFundDetail, allFundCodes } from './subaccounts'
 
-/** Revenue object 9999 is the Town's journal entry for "Appropriated Fund Balance". */
-export const FUND_BALANCE_OBJECT = '9999'
+// Revenue object 9999 is the Town's journal entry for "Appropriated Fund
+// Balance". Defined once, in lib/fund-balance-lines.ts.
+import { FUND_BALANCE_OBJECT } from './fund-balance-lines'
+export { FUND_BALANCE_OBJECT }
 
 // Funds that appear in section G but not in the operating-budget extract,
 // because they are not operating funds. Money moving through them is real, but
