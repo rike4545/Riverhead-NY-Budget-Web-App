@@ -30,7 +30,8 @@ import { surplusAboveFloor } from './reserve-policy'
 import { AUDIT_2025 } from './audits'
 import { fundBalanceImpact } from './town-square'
 import prediction from '../public/data/budget-2027-prediction.json'
-import { FUND_BALANCE_OBJECT, type ResolutionFunding } from './account-lookup'
+import type { ResolutionFunding } from './account-lookup'
+import { drawsByFund } from './fund-balance-lines'
 
 type FiscalRes = {
   number: string
@@ -209,37 +210,18 @@ const tableGap = (r: FiscalRes): Commitment['tableGap'] => {
 }
 
 /**
- * A statement's own fund-balance lines, picked as the ETL picks them (revenue
- * accounts on object 9999), each with the fund it draws on. The ETL's
- * fundBalanceDraw adds every such line together, whatever its fund, so a
- * statement drawing on two funds is split here rather than counted whole on
- * both sides of the page.
+ * A draw split by fund: one entry per fund its statement draws on, each with
+ * only that fund's own lines (lib/fund-balance-lines.ts). The ETL's
+ * fundBalanceDraw adds every 9999 line together, whatever its fund, so it is
+ * not used here. A table figure declared in ADOPTED_TABLE stands only when the
+ * whole draw is in one fund.
  */
-const fundBalanceLines = (r: FiscalRes) => {
-  const names = r.funding?.fundBalanceFunds ?? []
-  const tiers = r.funding?.fundBalanceClasses ?? []
-  return (r.funding?.accounts ?? [])
-    .filter((a) => a.kind === 'revenue' && a.code.split('-')[1] === FUND_BALANCE_OBJECT)
-    .map((a, i) => ({ ...a, fundName: names[i] ?? a.fund, tier: tiers[i] ?? null }))
-}
-const inGeneralFund = (a: { fundName: string }) => a.fundName === 'General Fund'
-
-/**
- * What a draw takes from the General Fund's balance, or from the other funds',
- * or null where its statement names the account without an amount. Section G's
- * figure, or the adopted table's where ADOPTED_TABLE checks it; that table is
- * declared for the whole resolution, so it stands only when every line is on
- * the one side.
- */
-const drawAmount = (r: FiscalRes, generalFund: boolean): number | null => {
-  const all = fundBalanceLines(r)
-  const side = all.filter((a) => inGeneralFund(a) === generalFund)
-  const priced = side.filter((a) => a.amount != null)
-  if (!priced.length) return null
+const fundDraws = (r: FiscalRes) => {
   const gap = tableGap(r)
-  if (gap?.counted === 'table' && side.length === all.length) return gap.table
-  return Math.round(priced.reduce((s, a) => s + (a.amount as number), 0) * 100) / 100
+  return drawsByFund(r.funding, gap?.counted === 'table' ? gap.table : null)
 }
+const GENERAL_FUND = 'General Fund'
+const generalFundDraw = (r: FiscalRes) => fundDraws(r).find((d) => d.fund === GENERAL_FUND)
 
 /** How a draw's section G and adopted table compare, in a sentence for its row. */
 export const gapNote = (gap: NonNullable<Commitment['tableGap']>) =>
@@ -264,7 +246,7 @@ export const gapNote = (gap: NonNullable<Commitment['tableGap']>) =>
  * unnamed ones would understate commitments far more than including them
  * overstates any single tier.
  */
-const generalFundTiers = (r: FiscalRes) => fundBalanceLines(r).filter(inGeneralFund).map((a) => a.tier)
+const generalFundTiers = (r: FiscalRes) => generalFundDraw(r)?.tiers ?? []
 const isUnassignedDraw = (r: FiscalRes) =>
   generalFundTiers(r).every((c) => c === null || c === 'Unassigned')
 
@@ -272,12 +254,12 @@ const generalFundBalanceDraws = allRes.filter(
   (r) =>
     isAdopted(r) &&
     r.funding?.drawsFundBalance === true &&
-    (drawAmount(r, true) ?? 0) > 0,
+    (generalFundDraw(r)?.amount ?? 0) > 0,
 )
 
 const documentedGeneralFundDraws: DrawRow[] = generalFundBalanceDraws
   .filter(isUnassignedDraw)
-  .map((r) => ({ number: r.number, title: r.title, amount: drawAmount(r, true) as number, tableGap: tableGap(r) }))
+  .map((r) => ({ number: r.number, title: r.title, amount: generalFundDraw(r)!.amount as number, tableGap: tableGap(r) }))
   .sort((a, b) => b.amount - a.amount)
 
 /**
@@ -290,7 +272,7 @@ export const otherTierGeneralFundDraws = generalFundBalanceDraws
   .map((r) => ({
     number: r.number,
     title: r.title,
-    amount: drawAmount(r, true) as number,
+    amount: generalFundDraw(r)!.amount as number,
     tableGap: tableGap(r),
     tiers: Array.from(new Set(generalFundTiers(r).filter((c): c is string => !!c))),
   }))
@@ -309,21 +291,41 @@ export const otherTierDrawTotal = otherTierGeneralFundDraws.reduce((s, d) => s +
  * mislead by leaving them out, so /fund-balance-draws/ lists them by fund and
  * totals them apart. A statement naming the account without an amount is
  * listed without one, not counted as nothing.
+ *
+ * One entry per resolution per fund, each carrying only that fund's lines. A
+ * resolution drawing on two districts appears under each with its own amount,
+ * so no fund's subtotal carries another fund's money, and a fund named without
+ * an amount stays unpriced even when the other fund's line has one.
  */
 export const otherFundDraws = allRes
-  .filter((r) => isAdopted(r) && r.funding?.drawsFundBalance === true && fundBalanceLines(r).some((a) => !inGeneralFund(a)))
-  .map((r) => ({
-    number: r.number,
-    title: r.title,
-    meetingDate: r.meetingDate,
-    funds: Array.from(new Set(fundBalanceLines(r).filter((a) => !inGeneralFund(a)).map((a) => a.fundName))),
-    amount: drawAmount(r, false),
-    tableGap: tableGap(r),
-  }))
+  .filter((r) => isAdopted(r) && r.funding?.drawsFundBalance === true)
+  .flatMap((r) =>
+    fundDraws(r)
+      .filter((d) => d.fund !== GENERAL_FUND)
+      .map((d) => ({
+        number: r.number,
+        title: r.title,
+        meetingDate: r.meetingDate,
+        fund: d.fund,
+        amount: d.amount,
+        unpricedLines: d.unpricedLines,
+        tableGap: tableGap(r),
+      })),
+  )
   .sort((a, b) => (b.amount ?? -1) - (a.amount ?? -1))
 
 export const otherFundDrawTotal = otherFundDraws.reduce((s, d) => s + (d.amount ?? 0), 0)
-export const otherFundDrawsUnpriced = otherFundDraws.filter((d) => d.amount === null)
+/** Entries with a fund-balance line that states no amount: the whole fund's draw, or part of it. */
+export const otherFundDrawsUnpriced = otherFundDraws.filter((d) => d.unpricedLines > 0)
+
+/** Resolutions, not fund entries: one vote can draw on several funds. */
+const votes = (rows: { number: string | null; title: string }[]) => new Set(rows.map((d) => d.number ?? d.title)).size
+export const otherFundVotes = {
+  /** Votes with at least one other-fund amount counted. */
+  priced: votes(otherFundDraws.filter((d) => d.amount !== null)),
+  /** Votes naming an other-fund balance account without an amount. */
+  unpriced: votes(otherFundDrawsUnpriced),
+}
 
 /**
  * A curated entry a documented draw replaces, and the ceiling it carried.

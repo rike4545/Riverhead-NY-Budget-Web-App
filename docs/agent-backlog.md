@@ -12,8 +12,8 @@ one to **Needs the owner** to hold it.
 
 ## Ready
 
-Items 1 to 11 were found on 2026-10-03 while writing the three practice
-agents. Each agent's file holds its sources and checks.
+Items 1 to 13 were found on 2026-10-03 and 2026-10-04 while writing the
+three practice agents and checking the fund-balance ledger. Each agent's file holds its sources and checks.
 
 **`gfoa-practice-expert`**
 
@@ -73,37 +73,54 @@ agents. Each agent's file holds its sources and checks.
    Town's response, and decide where the other two belong. Add each to
    `web/lib/osc-guidance.ts` and to the registry in
    `web/lib/authority-audit.ts`.
+9. **Name the ES7 fund in the Town's words.** Resolution 2026-473 says "the
+   Riverhead Sewer Denitrification Reserve Fund Balance be used for $800,000".
+   `/fund-balance-draws/` shows the fund as "Sewer District (ES7)", a
+   placeholder in `web/lib/account-lookup.ts`. Use the resolution's name, and
+   say it is a reserve, which is restricted fund balance.
 
 **`accounting-expert`**
 
-9. **Get ready for GASB 103's budget variances.** From its 2026 statements
+10. **Get ready for GASB 103's budget variances.** From its 2026 statements
    (fiscal years beginning after June 15, 2025), the Town must present
    "variances between original and final budget amounts" and "variances
    between final budget and actual amounts", and explain significant ones in
    notes to required supplementary information. Make sure `/budget-accuracy/`
    labels which of its figures are budget basis and which GAAP, so the
    Town's own explanations can be added when the 2026 audit is out.
-10. **Trace the accrued-leave figures.** `web/lib/reserve-policy.ts` says
+11. **Trace the accrued-leave figures.** `web/lib/reserve-policy.ts` says
     accrued leave "grew from $9,773,700 to $11,608,615 during 2025". Find the
     statement and page each figure comes from, and its basis
     (government-wide, measured under GASB 101). Label them so on the site,
     and check they aren't set against fund balance.
-11. **Then sweep the site with `accounting-expert`**, one library a run,
+12. **Check every draw against the vote automatically.** On 2026-10-04 all
+    23 adopted fund-balance draws were checked by hand against their packets.
+    - Every entry balances: the 9999 and other source lines equal the
+      appropriations they fund. 2026-470 and 2026-473 move money between
+      appropriations or funds too.
+    - Every 9999 amount in section G matches the budget table the Board
+      adopted, except 2026-765, which is declared in `ADOPTED_TABLE`.
+
+    Today the parser keeps the adopted table only as a gap flag
+    (`statementBelowTable`). Make it record each resolution's adopted-table
+    9999 lines, by account, so the build compares section G with the vote for
+    every draw.
+13. **Then sweep the site with `accounting-expert`**, one library a run,
     starting with the consumers of `web/lib/audits.ts`.
 
 **Other items**
 
-12. **Audit one meeting a run with `data-auditor`**, newest first, starting
+14. **Audit one meeting a run with `data-auditor`**, newest first, starting
     with September 15, 2026. Fix what it finds with packet evidence, one
     meeting per pull request.
-13. **Run `silent-failure-hunter` over `etl/`**, and fix its top finding with
+15. **Run `silent-failure-hunter` over `etl/`**, and fix its top finding with
     a test that would have caught it.
-14. **Run `comment-analyzer` over `etl/parse_fiscal_impact.py` and
+16. **Run `comment-analyzer` over `etl/parse_fiscal_impact.py` and
     `README.md`**, and fix the stale claims it can show.
-15. **2026-486's stated amount.** "S-Power agreed to pay the sum of
+17. **2026-486's stated amount.** "S-Power agreed to pay the sum of
     $150,000.00, of which $91,165.00 remains" is labelled a cost. Check the
     packet: it may be money coming in or background.
-16. **`riverhead-domain-expert`'s "canonical facts" are out of date.**
+18. **`riverhead-domain-expert`'s "canonical facts" are out of date.**
     - Its unassigned balance is the unaudited $29,671,084 (42.9%). The audit
       the Board accepted on September 1, 2026 gives $28,829,513
       (`web/lib/audits.ts`).
@@ -113,7 +130,7 @@ agents. Each agent's file holds its sources and checks.
 
     Update the facts from the data files, or replace the list with the files
     that hold them.
-17. **Recheck GFOA's award criteria when its online application opens.** GFOA
+19. **Recheck GFOA's award criteria when its online application opens.** GFOA
     expects it in January 2027. On 2026-10-03 its criteria page and its draft
     application form (dated October 1, 2026) disagreed: the page gives
     Department Budget the same four questions as Program / Services Budget,
@@ -150,6 +167,17 @@ agents. Each agent's file holds its sources and checks.
   concern for residents rather than a GFOA determination?
 
 ## Done
+
+- 2026-10-04: `/fund-balance-draws/` splits other-fund draws by fund.
+  - A resolution drawing on two non-General funds had been listed under each
+    with their combined amount, overstating both subtotals, and a fund named
+    without an amount could look priced. Each fund now carries only its own
+    lines, and votes are counted by resolution.
+  - `scripts/verify-fund-balance-lines.mjs` tests the split on made-up
+    multi-fund statements. It also recomputes the page's General Fund and
+    other-fund totals from the source lines, so a line counted twice fails
+    the build.
+  - All 23 adopted draws were checked against their packets (Ready item 12).
 
 - 2026-10-03: `/gfoa/` now says GFOA's revised criteria take effect on
   January 1, 2027 (either set during 2027, only the revised set from 2028), so
