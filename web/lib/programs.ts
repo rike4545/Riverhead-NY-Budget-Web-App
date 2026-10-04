@@ -43,6 +43,7 @@
 import census from '../public/data/census-acs.json'
 import community from '../public/data/community.json'
 import payrollSummary from '../public/data/payroll/summary.json'
+import { GFOA_QUOTES } from './gfoa'
 import { allFundCodes, getFundDetail, type FundDetail } from './subaccounts'
 
 export type ProgramKey = '1' | '3' | '4' | '5' | '6' | '7' | '8'
@@ -449,8 +450,9 @@ method.push({
 
 export const notCovered = {
   title: 'What this page still cannot tell you',
+  // GFOA's question is quoted from lib/gfoa.ts, where the build checks it against GFOA's page.
   body:
-    'GFOA also asks what each program is trying to achieve — response times, permits issued, tons collected, program participation — and whether it hit those targets. The Town publishes no performance measures, so there is nothing to report. Cost and revenue are answered here; service-level goals are not, and no amount of rearranging the budget will produce them.',
+    `GFOA’s criteria for a program budget also ask “${GFOA_QUOTES.programGoals.text}” For a town, that would mean targets such as response times, permits issued, tons collected or program participation. The Town publishes no performance measures, so there is nothing to report. Cost and revenue are answered here; service-level goals are not, and no amount of rearranging the budget will produce them.`,
 }
 
 export const source = {

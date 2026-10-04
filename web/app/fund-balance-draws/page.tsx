@@ -1,23 +1,29 @@
+import { Fragment } from 'react'
 import PageShell from '../../components/PageShell'
 import PlainCallout from '../../components/PlainCallout'
 import {
   documentedDraws, documentedTotal, curatedCommitments, curatedTotal,
   otherTierGeneralFundDraws, otherTierDrawTotal,
   chargedToFundBalanceTotal, chargedToFundBalanceCount,
-  budgetedUseByFund, budgetedUseTotal, generalFundBudgetedUse, generalFundUseThisYear,
-  townWideBudgetedUse, budgetedUseUnexplained, coverage, limits, sources,
+  budgetedUseByFund, budgetedUseTotal, budgetedUseFrom, generalFundBudgetedUse, generalFundUseThisYear,
+  townWideBudgetedUse, budgetedUseUnexplained, plannedUse2027,
+  otherFundDraws, otherFundDrawTotal, otherFundDrawsUnpriced, otherFundsByFund, otherFundsPriced, gapNote,
+  coverage, limits, sources, type Commitment,
 } from '../../lib/fund-balance-draws'
+
+const base = process.env.NEXT_PUBLIC_BASE_PATH || ''
 
 const usd = (n: number) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(n)
 const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 20, boxShadow: '0 14px 34px var(--rbl-shadow)' } as const
 const th = { padding: '8px 10px', textAlign: 'left' as const, color: 'var(--rbl-text-muted)', fontSize: 11.5, textTransform: 'uppercase' as const, fontWeight: 900, letterSpacing: 0.4 }
 const td = { padding: '9px 10px', verticalAlign: 'top' as const }
 const num = { ...td, textAlign: 'right' as const, whiteSpace: 'nowrap' as const, fontWeight: 800 }
+const shortDate = (iso: string) => new Date(`${iso}T00:00:00Z`).toLocaleDateString('en-US', { timeZone: 'UTC', month: 'short', day: 'numeric' })
 
 export const metadata = {
   title: 'Where the surplus went — every 2026 resolution that spent fund balance',
   description:
-    'Riverhead uses accumulated surplus through two channels: the adopted budget appropriates it up front, and individual Town Board resolutions appropriate more during the year. This page lists every 2026 resolution that charged the Appropriated Fund Balance account, what it funded, and how much of the record it can see.',
+    'Riverhead uses accumulated surplus through two channels: the adopted budget appropriates it up front, and individual Town Board resolutions appropriate more during the year. This page lists every 2026 resolution that charged an Appropriated Fund Balance account, in the General Fund and in the other funds, what it funded, and how much of the record it can see.',
 }
 
 export default function FundBalanceDrawsPage() {
@@ -37,12 +43,21 @@ export default function FundBalanceDrawsPage() {
         budget a resident can read. The 2026 adopted budget planned to use{' '}
         <strong>{usd(generalFundBudgetedUse)}</strong> of General Fund balance. Resolutions adopted during the year
         have charged <strong>{usd(chargedToFundBalanceTotal)}</strong> more to that account.
+        {otherFundDraws.length > 0 && (
+          <>
+            {' '}Other funds drew <strong>{usd(otherFundDrawTotal)}</strong> from their own balances by resolution,
+            listed separately below because that money does not pay for General Fund services.
+          </>
+        )}
       </PlainCallout>
 
       <section style={{ ...card, display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(170px,1fr))', gap: 12, marginTop: 16, marginBottom: 16 }}>
         <Stat label="Budgeted up front" value={usd(generalFundBudgetedUse)} sub="General Fund, 2026 adopted budget" />
         <Stat label="Charged by resolution" value={usd(chargedToFundBalanceTotal)} sub={`${chargedToFundBalanceCount} adopted votes hitting A01-9999`} accent />
         <Stat label="Combined, General Fund" value={usd(generalFundUseThisYear)} sub="see the caveat below" />
+        {otherFundDraws.length > 0 && (
+          <Stat label="Other funds, by resolution" value={usd(otherFundDrawTotal)} sub={`${otherFundDraws.length - otherFundDrawsUnpriced.length} votes in ${otherFundsPriced} funds, kept apart${otherFundDrawsUnpriced.length ? `; ${otherFundDrawsUnpriced.length} more with no amount` : ''}`} />
+        )}
         <Stat label="Record coverage" value={`${coverage.accountSharePct.toFixed(0)}%`} sub={`${coverage.resolutionsWithAccounts} of ${coverage.resolutionsWithStatement.toLocaleString()} statements itemise accounts`} warn />
       </section>
 
@@ -71,12 +86,34 @@ export default function FundBalanceDrawsPage() {
             </tbody>
           </table>
         </div>
+        {townWideBudgetedUse != null && budgetedUseUnexplained === 0 && (
+          <p style={{ color: 'var(--rbl-text-muted)', fontSize: 12.8, lineHeight: 1.55, marginBottom: 0, marginTop: 10 }}>
+            These {budgetedUseByFund.length} funds come to the Town&apos;s own printed total of{' '}
+            <strong>{usd(townWideBudgetedUse)}</strong>. The other {budgetedUseFrom.funds - budgetedUseByFund.length} of
+            the {budgetedUseFrom.funds} funds in the budget plan to use none.
+          </p>
+        )}
         {townWideBudgetedUse != null && budgetedUseUnexplained !== null && budgetedUseUnexplained !== 0 && (
           <p style={{ color: 'var(--rbl-warn)', fontSize: 12.8, lineHeight: 1.55, marginBottom: 0, marginTop: 10 }}>
-            The Town&apos;s own town-wide line reports <strong>{usd(townWideBudgetedUse)}</strong>, which is{' '}
+            The Town&apos;s own total line reports <strong>{usd(townWideBudgetedUse)}</strong>, which is{' '}
             <strong>{usd(Math.abs(budgetedUseUnexplained))}</strong>{' '}
             {budgetedUseUnexplained > 0 ? 'more' : 'less'} than the funds itemised above come to. The difference is
-            reported rather than reconciled: the funds carrying it are not broken out in the summary this site reads.
+            reported rather than reconciled:{' '}
+            {budgetedUseFrom.rows === 'hand'
+              ? 'the parsed budget Summary was unavailable, so only the funds entered by hand are itemised.'
+              : 'a fund row may not have been read from the Summary, or the printed total may not equal its own rows.'}
+          </p>
+        )}
+        {plannedUse2027 && plannedUse2027.generalFund !== null && (
+          <p style={{ color: 'var(--rbl-text-body)', fontSize: 13.5, lineHeight: 1.6, marginBottom: 0, marginTop: 10 }}>
+            <strong>For 2027</strong>, the Tentative budget, a proposal the Board has not yet adopted, plans{' '}
+            <strong>{usd(plannedUse2027.generalFund)}</strong> of General Fund balance
+            {plannedUse2027.generalFundPrior !== null && plannedUse2027.generalFundPrior !== plannedUse2027.generalFund && (
+              <>, {usd(Math.abs(plannedUse2027.generalFund - plannedUse2027.generalFundPrior))}{' '}
+              {plannedUse2027.generalFund < plannedUse2027.generalFundPrior ? 'less' : 'more'} than 2026</>
+            )}
+            , and <strong>{usd(plannedUse2027.allFunds)}</strong> across all funds.{' '}
+            <a href={`${base}/tentative-2027/`} style={{ color: 'var(--rbl-accent)', fontWeight: 700 }}>See the 2027 Tentative</a>.
           </p>
         )}
       </section>
@@ -84,9 +121,12 @@ export default function FundBalanceDrawsPage() {
       <section style={{ ...card, marginBottom: 16 }}>
         <h3 style={{ marginTop: 0, color: 'var(--rbl-title)' }}>Channel two: resolutions adopted during the year</h3>
         <p style={{ color: 'var(--rbl-text-body)', fontSize: 14.5, lineHeight: 1.6, marginTop: 0 }}>
-          Each of these charged the General Fund&apos;s Appropriated Fund Balance account on its own fiscal impact
-          statement. The amounts are the Town&apos;s, not this site&apos;s — taken from section G of the statement
-          rather than inferred from the resolution text.
+          Each of these charged the General Fund&apos;s Appropriated Fund Balance account, A01-9999. The amounts are
+          the Town&apos;s, not this site&apos;s: taken from section G of the fiscal impact statement rather than
+          inferred from the resolution text
+          {documentedDraws.some((c) => c.tableGap?.counted === 'table')
+            ? ', except where the budget table the Board adopted moves more than section G names. There the table is counted, because the vote is the appropriation.'
+            : '.'}
         </p>
         <DrawTable rows={documentedDraws} total={documentedTotal} totalLabel="Charged to A01-9999" />
       </section>
@@ -124,12 +164,64 @@ export default function FundBalanceDrawsPage() {
                 <span style={{ color: 'var(--rbl-text-muted)' }}>
                   (Resolution {d.number ?? '—'}, {d.tiers.join(', ')})
                 </span>
+                {d.tableGap && <div style={{ color: 'var(--rbl-warn)', fontSize: 12, marginTop: 2 }}>{gapNote(d.tableGap)}</div>}
               </li>
             ))}
           </ul>
           <p style={{ color: 'var(--rbl-text-muted)', fontSize: 12.8, marginBottom: 0, marginTop: 10 }}>
             Total not netted: <strong>{usd(otherTierDrawTotal)}</strong>
           </p>
+        </section>
+      )}
+
+      {otherFundDraws.length > 0 && (
+        <section style={{ ...card, marginBottom: 16 }}>
+          <h3 style={{ marginTop: 0, color: 'var(--rbl-title)' }}>Other funds drawing on their own balances</h3>
+          <p style={{ color: 'var(--rbl-text-body)', fontSize: 14.5, lineHeight: 1.6, marginTop: 0 }}>
+            The special districts and the other funds each keep their own fund balance, built from their own revenue,
+            and spend it through their own 9999 account the same way. These {otherFundsByFund.length} funds did so by
+            resolution this year. Each balance is kept for its own fund&apos;s purposes, so none of this money is added
+            to the General Fund figures above or netted against the cushion the 2027 options are priced on.
+          </p>
+          <div style={{ overflowX: 'auto' }}>
+            <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 13.5 }}>
+              <thead><tr style={{ borderBottom: '2px solid var(--rbl-border-subtle)' }}>
+                <th style={th}>Fund, and what it funded</th><th style={{ ...th, textAlign: 'right' }}>Amount</th>
+              </tr></thead>
+              <tbody>
+                {otherFundsByFund.map((g) => (
+                  <Fragment key={g.fund}>
+                    <tr style={{ borderBottom: '1px solid var(--rbl-border-subtle)', background: 'var(--rbl-surface-2)' }}>
+                      <td style={{ ...td, fontWeight: 800, color: 'var(--rbl-title)' }}>{g.fund}</td>
+                      <td style={{ ...num, color: g.total === null ? 'var(--rbl-warn)' : undefined }}>{g.total === null ? 'Not stated' : usd(g.total)}</td>
+                    </tr>
+                    {g.draws.map((d) => (
+                      <tr key={`${g.fund}-${d.number ?? d.title}`} style={{ borderBottom: '1px solid var(--rbl-border-subtle)' }}>
+                        <td style={{ ...td, paddingLeft: 22 }}>
+                          <div style={{ color: 'var(--rbl-text-strong)' }}>{d.title}</div>
+                          <div style={{ color: 'var(--rbl-text-muted)', fontSize: 12, marginTop: 2 }}>
+                            Resolution {d.number ?? '—'}, {shortDate(d.meetingDate)}
+                          </div>
+                          {d.tableGap && <div style={{ color: 'var(--rbl-warn)', fontSize: 12, marginTop: 2 }}>{gapNote(d.tableGap)}</div>}
+                        </td>
+                        <td style={{ ...num, fontWeight: 400, color: d.amount === null ? 'var(--rbl-warn)' : undefined }}>
+                          {d.amount === null ? 'Not stated' : usd(d.amount)}
+                        </td>
+                      </tr>
+                    ))}
+                  </Fragment>
+                ))}
+                <tr><td style={{ ...td, fontWeight: 800 }}>Other funds, by resolution</td><td style={num}>{usd(otherFundDrawTotal)}</td></tr>
+              </tbody>
+            </table>
+          </div>
+          {otherFundDrawsUnpriced.length > 0 && (
+            <p style={{ color: 'var(--rbl-text-muted)', fontSize: 12.8, lineHeight: 1.55, marginBottom: 0, marginTop: 10 }}>
+              {otherFundDrawsUnpriced.map((d) => `Resolution ${d.number ?? '—'}`).join(', ')}{' '}
+              {otherFundDrawsUnpriced.length === 1 ? 'names its' : 'name their'} fund balance account without an
+              amount, so {otherFundDrawsUnpriced.length === 1 ? 'it is' : 'they are'} listed and not counted.
+            </p>
+          )}
         </section>
       )}
 
@@ -155,7 +247,7 @@ export default function FundBalanceDrawsPage() {
   )
 }
 
-function DrawTable({ rows, total, totalLabel }: { rows: { label: string; amount: number; source: string; certainty: string; supersedes?: { label: string; was: number; by: number } }[]; total: number; totalLabel: string }) {
+function DrawTable({ rows, total, totalLabel }: { rows: Commitment[]; total: number; totalLabel: string }) {
   return (
     <div style={{ overflowX: 'auto' }}>
       <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 13.5 }}>
@@ -168,6 +260,9 @@ function DrawTable({ rows, total, totalLabel }: { rows: { label: string; amount:
               <td style={td}>
                 <div style={{ fontWeight: 700, color: 'var(--rbl-title)' }}>{c.label}</div>
                 <div style={{ color: 'var(--rbl-text-muted)', fontSize: 12, marginTop: 2 }}>{c.source}</div>
+                {c.tableGap && (
+                  <div style={{ color: 'var(--rbl-warn)', fontSize: 12, marginTop: 2 }}>{gapNote(c.tableGap)}</div>
+                )}
                 {c.certainty === 'ceiling' && (
                   <div style={{ color: 'var(--rbl-warn)', fontSize: 12, marginTop: 2 }}>
                     A ceiling: the most this vote could cost, not a figure the Town has booked.
@@ -183,6 +278,9 @@ function DrawTable({ rows, total, totalLabel }: { rows: { label: string; amount:
                     Replaces a {usd(c.supersedes.was)} ceiling carried before the Town published a figure — lower by{' '}
                     {usd(c.supersedes.was - c.supersedes.by)}.
                   </div>
+                )}
+                {c.repayment && (
+                  <div style={{ color: 'var(--rbl-text-muted)', fontSize: 12, marginTop: 2 }}>{c.repayment}</div>
                 )}
               </td>
               <td style={num}>{usd(c.amount)}</td>

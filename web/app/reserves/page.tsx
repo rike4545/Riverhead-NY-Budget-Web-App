@@ -43,6 +43,7 @@ import {
   committedAuthorized,
   committedDocumented,
   committedThisYear,
+  countedFromAdoptedTable,
   deployableAbove288Ceiling,
   deploymentLedger,
   deploymentPlanFits,
@@ -758,7 +759,13 @@ export default function ReservesPage() {
         the Town&apos;s fund balance policy (Resolution {FUND_BALANCE_POLICY.resolution.replace('2011-', '')} of 2011, linked above),
         and the Town Board resolution record for the {dollars(committedThisYear)} committed during 2026. That total is
         mixed in provenance and should not be read as one source: {dollars(committedDocumented)} was read from Section G
-        of the Fiscal Impact Statements, where the Town names its own Appropriated Fund Balance account, and{' '}
+        of the Fiscal Impact Statements, where the Town names its own Appropriated Fund Balance account
+        {countedFromAdoptedTable.length > 0 && (
+          <>
+            {' '}(or, for {countedFromAdoptedTable.map((c) => c.number).join(', ')}, from
+            the budget table the Board adopted, which moves more than Section G names)
+          </>
+        )}, and{' '}
         {dollars(committedAuthorized)} comes from separately sourced resolutions and the Town Square record whose
         statements name no account code. Both are itemized on{' '}
         <a href={`${base}/predict-2027/`} style={{ color: 'var(--rbl-link)' }}>/predict-2027/</a>, each row labeled with

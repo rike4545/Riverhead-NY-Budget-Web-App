@@ -12,16 +12,118 @@ one to **Needs the owner** to hold it.
 
 ## Ready
 
-1. **Audit one meeting a run with `data-auditor`**, newest first, starting
-   with September 15, 2026. Fix what it finds with packet evidence, one
-   meeting per pull request.
-2. **Run `silent-failure-hunter` over `etl/`**, and fix its top finding with
-   a test that would have caught it.
-3. **Run `comment-analyzer` over `etl/parse_fiscal_impact.py` and
-   `README.md`**, and fix the stale claims it can show.
-4. **2026-486's stated amount.** "S-Power agreed to pay the sum of
-   $150,000.00, of which $91,165.00 remains" is labelled a cost. Check the
-   packet: it may be money coming in or background.
+Items 1 to 11 were found on 2026-10-03 while writing the three practice
+agents. Each agent's file holds its sources and checks.
+
+**`gfoa-practice-expert`**
+
+1. **Structural balance is never tested.** GFOA's rule is "recurring revenues
+   are greater than or equal to recurring expenditures in the adopted budget".
+   The General Fund plans $1,250,000 of fund balance in the 2026 adopted
+   budget and $950,000 in the 2027 Tentative. That is sound under the rule
+   only if it pays for one-time spending. Show what the Budget Supplements
+   and budget documents let the site show, and say what the Town would have
+   to publish for the rest.
+2. **The balance above the policy floor.** GFOA says amounts above a formal
+   policy "may reflect a structural trend, in which case governments should
+   consider a policy as to how this would be addressed". It also encourages
+   "explanation of large changes in fund balance". Check that `/reserves/`
+   says this beside the audited figures and the deployment options. Do it
+   with item 7, the State's "reasonable amount" rule.
+3. **The long-term outlook.** GFOA recommends a plan for "all key funds and
+   government operations at least five years into the future".
+   `/predict-2027/` looks one year ahead. Look in the Source Library for any
+   multi-year plan the Town has published; don't assume there is none. Then
+   add the benchmark where the site discusses the outlook.
+4. **Then sweep the site with `gfoa-practice-expert`**, one group of pages a
+   run, in the order of its map ("Where the site applies them now"),
+   starting with fund balance.
+
+**`osc-expert`**
+
+5. **"Recorded as a revenue line."** `/fund-balance-draws/` says appropriated
+   fund balance "is recorded as a revenue line" in the New York chart of
+   accounts. The Comptroller's manual for towns (April 2024, p. 28) lists "510
+   Estimated Revenues" and "599 Appropriated Fund Balance" as separate
+   budgetary accounts; the adopted budget debits both and credits "960
+   Appropriations". Correct the page, and say the Town's own codes put it at a
+   revenue-shaped number (A01-9999).
+6. **The Town's fiscal stress result isn't on the site.**
+   `lib/budget-concepts.ts` tells residents to ask for "the Town's current OSC
+   fiscal-stress score". OSC's *Fiscal Stress Monitoring System –
+   Municipalities: Fiscal Year 2025 Results* (September 2026) scored 1,354
+   municipalities and designated 22. Riverhead is named neither among them nor
+   among the late filers in its appendix. Confirm the Town's designation and
+   scores, for 2025 and earlier years, in OSC's data. Then show them where the
+   site discusses fiscal health, such as `/analytics/` and `/credit-rating/`.
+7. **The "reasonable amount" rule.** The Comptroller's manual (p. 24) says
+   towns may carry over a "reasonable amount" of fund balance (Chapter 528 of
+   the Laws of 2000), measured on unrestricted fund balance since GASB 54.
+   Check whether `/reserves/` explains it beside the balance above the floor.
+   Do it with item 2.
+8. **OSC's audits of the Town aren't cited anywhere.**
+   - *Peconic Bay Community Preservation Funds* (P7-23-25, February 23,
+     2024). It found nine collections totaling $5.3 million "not deposited
+     within 10 days, as required by Town Law Section 29". The Town disagreed
+     with parts but "initiated corrective action".
+   - *Adequacy of 2021 Budgets* (S9-21-13, June 4, 2021).
+   - *Allocation of Administrative Costs* (2012M-247, March 1, 2013).
+
+   Read each. Cite P7-23-25 on `/community-preservation-fund/`, with the
+   Town's response, and decide where the other two belong. Add each to
+   `web/lib/osc-guidance.ts` and to the registry in
+   `web/lib/authority-audit.ts`.
+
+**`accounting-expert`**
+
+9. **Get ready for GASB 103's budget variances.** From its 2026 statements
+   (fiscal years beginning after June 15, 2025), the Town must present
+   "variances between original and final budget amounts" and "variances
+   between final budget and actual amounts", and explain significant ones in
+   notes to required supplementary information. Make sure `/budget-accuracy/`
+   labels which of its figures are budget basis and which GAAP, so the
+   Town's own explanations can be added when the 2026 audit is out.
+10. **Trace the accrued-leave figures.** `web/lib/reserve-policy.ts` says
+    accrued leave "grew from $9,773,700 to $11,608,615 during 2025". Find the
+    statement and page each figure comes from, and its basis
+    (government-wide, measured under GASB 101). Label them so on the site,
+    and check they aren't set against fund balance.
+11. **Then sweep the site with `accounting-expert`**, one library a run,
+    starting with the consumers of `web/lib/audits.ts`.
+
+**Other items**
+
+12. **Audit one meeting a run with `data-auditor`**, newest first, starting
+    with September 15, 2026. Fix what it finds with packet evidence, one
+    meeting per pull request.
+13. **Run `silent-failure-hunter` over `etl/`**, and fix its top finding with
+    a test that would have caught it.
+14. **Run `comment-analyzer` over `etl/parse_fiscal_impact.py` and
+    `README.md`**, and fix the stale claims it can show.
+15. **2026-486's stated amount.** "S-Power agreed to pay the sum of
+    $150,000.00, of which $91,165.00 remains" is labelled a cost. Check the
+    packet: it may be money coming in or background.
+16. **`riverhead-domain-expert`'s "canonical facts" are out of date.**
+    - Its unassigned balance is the unaudited $29,671,084 (42.9%). The audit
+      the Board accepted on September 1, 2026 gives $28,829,513
+      (`web/lib/audits.ts`).
+    - It gives the 2025 adopted General Fund as $64,895,000; the budget data
+      has $64,852,829.
+    - Its "~$33.4M" General Fund balance predates the audit.
+
+    Update the facts from the data files, or replace the list with the files
+    that hold them.
+17. **Recheck GFOA's award criteria when its online application opens.** GFOA
+    expects it in January 2027. On 2026-10-03 its criteria page and its draft
+    application form (dated October 1, 2026) disagreed: the page gives
+    Department Budget the same four questions as Program / Services Budget,
+    while the form asks them of each department; the form names three
+    categories differently ("Budget-in-Brief / Newsletter", "Budget Website /
+    Dashboard", "Other / Media Campaign (social media, etc.)"); and it gives
+    the 0 to 5 score "per question", where the scoring page gives it per
+    category. Fetch the pages again, update
+    `etl/data/policies/gfoa-budget-award.json` and `web/lib/gfoa.ts` together,
+    and let `verify-gfoa-criteria.mjs` show what moved.
 
 ## Needs the owner
 
@@ -31,9 +133,31 @@ one to **Needs the owner** to hold it.
   of July 21's. July 7 counts only amounts on resolutions read as understated
   or drawing reserves. The tile says "cost items we could price". Should
   every meeting use July 7's definition?
+- **`/gfoa/`'s self-scores against GFOA's own scale.** GFOA's scoring page
+  (https://www.gfoa.org/eval-process-2026) gives each category a score from 0
+  to 5 (0 to 2 for completeness, 0 to 3 for quality), divides it by 5 and
+  multiplies by the category's points. Nine of the site's 14 self-scores could
+  not come from that: Value and Long-Term Outlook at 15 of 20, for example,
+  where GFOA's steps run 12 or 16. The page now says so instead of claiming
+  GFOA has no rubric. Re-score on GFOA's scale, or keep the site's own
+  judgment with that caveat? If re-scoring, also reread the Department Budget
+  gap note ("no accountability-for-results reporting"), which was written
+  against a question GFOA's page does not ask.
+- **The Town's own budget against the criteria it would have faced.** A 2026
+  budget submitted on time would have been judged against GFOA's existing
+  criteria, which mark 15 of their 25 "Mandatory". Should `/gfoa/` (or another
+  page) read the Town's own 2026 budget book against them, as a likely
+  concern for residents rather than a GFOA determination?
 
 ## Done
 
+- 2026-10-03: `/gfoa/` now says GFOA's revised criteria take effect on
+  January 1, 2027 (either set during 2027, only the revised set from 2028), so
+  a 2026 budget submitted on time would have been judged against the existing
+  criteria. Its category names, points and primary questions now match GFOA's
+  page word for word, and `web/scripts/verify-gfoa-criteria.mjs` checks them
+  and every GFOA quote against the saved pages in
+  `etl/data/policies/gfoa-budget-award.json`.
 - 2026-10-03: July 7's hand-curated amounts corrected against the packet
   (pull request #89).
 - 2026-10-03: Capital-project closeouts no longer read as "Understated".

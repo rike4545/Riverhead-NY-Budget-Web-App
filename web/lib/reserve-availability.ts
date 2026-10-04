@@ -37,6 +37,7 @@ import {
   committedAuthorized,
   committedDocumented,
   committedTotal,
+  countedFromAdoptedTable,
   remainingHeadroomCeiling,
 } from './fiscal-commitments-2027'
 
@@ -44,12 +45,14 @@ import {
  * The 2026 General Fund commitments netted here.
  *
  * Split by provenance because the total is not one source: the documented part
- * is read from Section G, where the Town names its own 9999 account; the rest
- * is separately sourced resolutions whose statements name no account code.
+ * is the Town's own 9999 account lines, read from Section G or, where the
+ * budget table the Board adopted moves more, from that table
+ * (countedFromAdoptedTable); the rest is separately sourced resolutions whose
+ * statements name no account code.
  * Attributing all of it to the Fiscal Impact Statements would overstate how
  * much of this figure the Town itself wrote down.
  */
-export { committedDocumented, committedAuthorized }
+export { committedDocumented, committedAuthorized, countedFromAdoptedTable }
 /** The 2026 General Fund commitments netted here, from the resolution record. */
 export const committedThisYear = committedTotal
 

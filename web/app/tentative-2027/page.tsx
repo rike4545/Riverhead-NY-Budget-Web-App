@@ -76,7 +76,15 @@ export default function Tentative2027Page() {
         <Stat label={`${PRIOR} adopted, all funds`} value={usd(projection.appropriations2026)} sub={`levy ${usd(projection.levy2026)}`} />
         <Stat label={`${YEAR} projection`} value={usd(projection.appropriations2027)} sub={`${pctf(projection.appropriationsPct)} · levy ${pctf(projection.levyPct)}`} />
         {h ? (
-          <Stat label={`${YEAR} Tentative, all funds`} value={usd(h.appropriations)} sub={`${pctf(h.appropriationsPct)} · levy ${pctf(h.levyPct)}`} accent />
+          <>
+            <Stat label={`${YEAR} Tentative, all funds`} value={usd(h.appropriations)} sub={`${pctf(h.appropriationsPct)} · levy ${pctf(h.levyPct)}`} accent />
+            {h.townWide && (
+              <Stat label="Town-wide appropriations" value={usd(h.townWide.appropriations)} sub={`${signed(h.townWide.appropriations - h.townWide.priorAppropriations)} (${pctf(h.townWide.appropriationsPct, 2)}) from ${usd(h.townWide.priorAppropriations)} in ${PRIOR}`} />
+            )}
+            {h.fundBalancePrior !== null && h.generalFund && (
+              <Stat label="Appropriated fund balance" value={usd(h.fundBalance)} sub={`${signed(h.fundBalance - h.fundBalancePrior)} from ${usd(h.fundBalancePrior)} in ${PRIOR} · General Fund ${usd(h.generalFund.fundBalance ?? 0)}, from ${usd(h.generalFund.fundBalancePrior ?? 0)}`} />
+            )}
+          </>
         ) : (
           <Stat label={`${YEAR} Tentative`} value="Sept 24" sub="not yet published" muted />
         )}
@@ -84,7 +92,7 @@ export default function Tentative2027Page() {
           <Stat
             label="Town-wide levy"
             value={usd(h.townWide.levy)}
-            sub={`${pctf(h.townWide.levyPct, 2)} · tax rate $${h.townWide.rate.toFixed(3)} per $1,000 (${pctf(h.townWide.ratePct, 2)})`}
+            sub={`${signed(h.townWide.levy - h.townWide.priorLevy)} (${pctf(h.townWide.levyPct, 2)}) · tax rate $${h.townWide.rate.toFixed(3)} per $1,000 (${pctf(h.townWide.ratePct, 2)})`}
           />
         ) : (
           <Stat
