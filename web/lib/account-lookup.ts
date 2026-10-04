@@ -22,6 +22,7 @@
 // Every line in the adopted-budget extract follows one of those two exactly.
 
 import { subAccountIndex, getFundDetail, allFundCodes } from './subaccounts'
+import { allOperatingFunds2026 } from './all-funds'
 
 // Revenue object 9999 is the Town's journal entry for "Appropriated Fund
 // Balance". Defined once, in lib/fund-balance-lines.ts.
@@ -110,8 +111,15 @@ export type AccountMatch =
       /** Set when the budget spells this line differently from the statement. */
       normalizedFrom?: string
     }
-  /** A fund-balance draw from a fund whose adopted budget appropriated none. */
-  | { status: 'unbudgeted-fund-balance'; code: string; fund: string; fundName: string }
+  /**
+   * A fund-balance draw the adopted budget's line items do not carry. The
+   * line-item extract lists no 9999 line for any fund, so this says only that
+   * the draw was not in the budget as adopted. What the fund's adopted budget
+   * did plan to use is on its summary page: `plannedFundBalance`, from
+   * lib/all-funds.ts ($1,250,000 for the General Fund), 0 where it planned
+   * none, null where the summary does not cover the fund.
+   */
+  | { status: 'unbudgeted-fund-balance'; code: string; fund: string; fundName: string; plannedFundBalance: number | null }
   /** An account this resolution opens, so it cannot be in the adopted budget. */
   | { status: 'new-account'; code: string; fund: string; fundName: string; project: string }
   /**
@@ -239,8 +247,10 @@ export function fundName(fund: string): string | null {
  *
  * A code that does not resolve is not necessarily a parsing failure, and the
  * distinction matters: a capital-fund code has no operating budget line by
- * design, while a fund-balance code that fails to resolve means the fund
- * appropriated no fund balance at adoption and is drawing on it anyway.
+ * design, while a fund-balance code that fails to resolve is a draw the budget
+ * as adopted did not include. It does not mean the fund planned no fund
+ * balance: the extract carries no 9999 lines, and the General Fund's adopted
+ * budget planned $1,250,000 (2026 Adopted Budget, Summary p. 3).
  */
 export function lookupAccount(code: string, createdHere = false): AccountMatch {
   const fund = fundOf(code)
@@ -287,7 +297,8 @@ export function lookupAccount(code: string, createdHere = false): AccountMatch {
     return { status: 'new-account', code, fund, fundName: name ?? fund, project: projectOf(code) }
   }
   if (isFundBalanceAccount(code) && subAccountIndex.funds.some((f) => f.code === fund)) {
-    return { status: 'unbudgeted-fund-balance', code, fund, fundName: name ?? fund }
+    const planned = allOperatingFunds2026.find((f) => f.code === fund)?.appropriatedFundBalance2026 ?? null
+    return { status: 'unbudgeted-fund-balance', code, fund, fundName: name ?? fund, plannedFundBalance: planned }
   }
   // Only a fund that is genuinely outside the operating extract may be called
   // non-operating. fundName() also answers for every operating fund, so testing

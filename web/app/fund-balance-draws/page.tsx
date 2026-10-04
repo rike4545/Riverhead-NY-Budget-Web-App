@@ -125,7 +125,7 @@ export default function FundBalanceDrawsPage() {
           the Town&apos;s, not this site&apos;s: taken from section G of the fiscal impact statement rather than
           inferred from the resolution text
           {documentedDraws.some((c) => c.tableGap?.counted === 'table')
-            ? ', except where the budget table the Board adopted moves more than section G names. There the table is counted, because the vote is the appropriation.'
+            ? ', except where the budget table the Board adopted puts a different figure on the account. There the table is counted, because the vote is the appropriation.'
             : '.'}
         </p>
         <DrawTable rows={documentedDraws} total={documentedTotal} totalLabel="Charged to A01-9999" />

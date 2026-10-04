@@ -7,6 +7,12 @@
 // subtotal, and a fund named without an amount would look priced because another
 // fund's line was.
 //
+// Section G is the preparer's summary. The budget table in the RESOLVED clause
+// is what the Board adopts, and where it puts a different figure on a fund's
+// 9999 account, the table's figure is the draw: 2026-765's section G says
+// $150,000, its table $280,000. etl/parse_fiscal_impact.py reads those rows
+// (tableFundBalance) and applies the same rule (adopted_draws).
+//
 // No imports, so scripts/verify-fund-balance-lines.mjs can load this file
 // directly and test it on cases the published data does not contain yet.
 
@@ -24,6 +30,14 @@ export type FundBalanceFunding = {
   fundBalanceClasses?: (string | null)[]
 } | null | undefined
 
+/**
+ * A 9999 row of the budget table the resolution orders (tableFundBalance).
+ * The table's columns do not survive text extraction, so a row does not say
+ * whether it is FROM or TO. It counts only in a fund whose section G names a
+ * fund-balance source, which settles the direction.
+ */
+export type TableLine = { code: string; fund: string; amount: number; row: string }
+
 export type FundBalanceLine = Account & { fundName: string; tier: string | null }
 
 /** The statement's fund-balance lines, picked as the ETL picks them: revenue accounts on object 9999. */
@@ -37,34 +51,44 @@ export function fundBalanceLines(funding: FundBalanceFunding): FundBalanceLine[]
 
 export type FundDraw = {
   fund: string
-  /** This fund's own lines added up, or null when none of them states an amount. */
+  /** The draw: the adopted table's figure where it has one for this fund, section G's otherwise. */
   amount: number | null
-  /** How many of this fund's lines state no amount. */
+  /** This fund's section G lines added up, or null when none of them states an amount. */
+  statement: number | null
+  /** This fund's rows in the adopted table added up, or null when the table names none. */
+  table: number | null
+  /** Those rows as printed, for quoting. */
+  rows: string[]
+  /** How many of this fund's section G lines state no amount, where the table does not price the fund. */
   unpricedLines: number
   /** The tier each of this fund's lines names. */
   tiers: (string | null)[]
 }
 
-/**
- * One entry per fund the statement draws on, each with only its own lines.
- *
- * `table` is a figure declared for a whole resolution: the budget table the
- * Board adopted, where it moves more than section G (ADOPTED_TABLE in
- * fiscal-commitments-2027.ts). It stands only when every line is in one fund.
- * Otherwise nothing says which fund's line it corrects, so each fund keeps
- * section G's figures.
- */
-export function drawsByFund(funding: FundBalanceFunding, table: number | null = null): FundDraw[] {
+const cents = (n: number) => Math.round(n * 100) / 100
+
+/** One entry per fund the statement draws on, each with only its own lines. */
+export function drawsByFund(funding: FundBalanceFunding, table: TableLine[] | null | undefined = []): FundDraw[] {
   const lines = fundBalanceLines(funding)
   const funds = Array.from(new Set(lines.map((l) => l.fundName)))
   return funds.map((fund) => {
     const own = lines.filter((l) => l.fundName === fund)
     const priced = own.filter((l) => l.amount != null)
-    const amount = table != null && funds.length === 1
-      ? table
-      : priced.length
-        ? Math.round(priced.reduce((s, l) => s + (l.amount as number), 0) * 100) / 100
-        : null
-    return { fund, amount, unpricedLines: own.length - priced.length, tiers: own.map((l) => l.tier) }
+    const codes = new Set(own.map((l) => l.fund))
+    const voted = (table ?? []).filter((t) => codes.has(t.fund))
+    const statement = priced.length ? cents(priced.reduce((s, l) => s + (l.amount as number), 0)) : null
+    const tableSum = voted.length ? cents(voted.reduce((s, t) => s + t.amount, 0)) : null
+    return {
+      fund,
+      amount: tableSum ?? statement,
+      statement,
+      table: tableSum,
+      rows: voted.map((t) => t.row),
+      unpricedLines: tableSum === null ? own.length - priced.length : 0,
+      tiers: own.map((l) => l.tier),
+    }
   })
 }
+
+/** True when the adopted table puts a different figure on this fund's draw than section G. */
+export const tableCorrects = (d: FundDraw) => d.table !== null && d.table !== d.statement

@@ -6,6 +6,7 @@ import type { ResolutionFunding } from '../lib/account-lookup'
 import StatementAccounts from './StatementAccounts'
 import StatedAmounts, { type StatedAmount } from './StatedAmounts'
 import { voteLink } from '../lib/meeting-media'
+import { drawsByFund, tableCorrects, type TableLine } from '../lib/fund-balance-lines'
 
 const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 18, boxShadow: '0 14px 34px var(--rbl-shadow)' } as const
 const usd = (n: number) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(n)
@@ -25,6 +26,10 @@ export type FiscalResolution = {
   statedCost?: number | null
   // Section G naming less than the resolution's own budget table moves.
   statementBelowTable?: { statement: number; table: number } | null
+  // The 9999 rows of that table. Where one puts a different figure on a
+  // fund's draw than section G, the amount is the table's: the vote is the
+  // appropriation (2026-765: $280,000 voted, $150,000 in section G).
+  tableFundBalance?: TableLine[] | null
   // Why a hand-curated amount differs from the statement's figure, or is left
   // blank; a blank with a note shows the note, not the stated-cost fallback.
   amountNote?: string | null
@@ -150,6 +155,8 @@ export default function FiscalImpactTable({ resolutions, meetingRecord, voteDeta
                 const townNo = r.townFiscalImpact === 'No'
                 const official = r.number ? officialByNumber.get(r.number) : undefined
                 const watch = meetingRecord ? voteLink(meetingRecord.slug, r.number) : null
+                const voted = drawsByFund(r.funding, r.tableFundBalance).filter(tableCorrects)
+                const votedStatement = voted.some((d) => d.statement !== null) ? voted.reduce((n, d) => n + (d.statement ?? 0), 0) : null
                 return (
                   <tr key={r.number ?? r.seq} style={{ borderBottom: '1px solid var(--rbl-border-subtle)', verticalAlign: 'top' }}>
                     <td style={{ ...td, whiteSpace: 'nowrap' }}>
@@ -183,7 +190,11 @@ export default function FiscalImpactTable({ resolutions, meetingRecord, voteDeta
                         </span>
                       ) : <span style={{ color: 'var(--rbl-text-faint)', fontWeight: 500 }}>—</span>}
                       {r.amountNote && <div style={{ marginTop: 3, fontSize: 10.5, fontWeight: 600, color: 'var(--rbl-text-muted)', whiteSpace: 'normal', maxWidth: 160, marginLeft: 'auto' }}>{r.amountNote}</div>}
-                      {r.statementBelowTable && (
+                      {voted.length > 0 ? (
+                        <div data-table-corrects={r.number ?? ''} title={`The budget table the Board adopted moves ${voted.map((d) => d.rows.join('; ')).join('; ')}. Section G of the statement ${votedStatement === null ? 'names no amount' : `names ${usd(votedStatement)}`}. The vote is the appropriation, so the table’s figure is shown.`} style={{ marginTop: 3, fontSize: 10.5, fontWeight: 800, color: 'var(--rbl-danger-strong)', whiteSpace: 'normal', maxWidth: 130, marginLeft: 'auto' }}>
+                          as adopted; the statement says {votedStatement === null ? 'no amount' : usd(votedStatement)}
+                        </div>
+                      ) : r.statementBelowTable && (
                         <div title={`Section G of the statement names ${usd(r.statementBelowTable.statement)}; the budget adjustment the resolution orders moves ${usd(r.statementBelowTable.table)}.`} style={{ marginTop: 3, fontSize: 10.5, fontWeight: 800, color: 'var(--rbl-danger-strong)', whiteSpace: 'normal', maxWidth: 130, marginLeft: 'auto' }}>
                           but the resolution’s table moves {usd(r.statementBelowTable.table)}
                         </div>

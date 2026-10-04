@@ -93,18 +93,32 @@ three practice agents and checking the fund-balance ledger. Each agent's file ho
     statement and page each figure comes from, and its basis
     (government-wide, measured under GASB 101). Label them so on the site,
     and check they aren't set against fund balance.
-12. **Check every draw against the vote automatically.** On 2026-10-04 all
-    23 adopted fund-balance draws were checked by hand against their packets.
-    - Every entry balances: the 9999 and other source lines equal the
-      appropriations they fund. 2026-470 and 2026-473 move money between
-      appropriations or funds too.
-    - Every 9999 amount in section G matches the budget table the Board
-      adopted, except 2026-765, which is declared in `ADOPTED_TABLE`.
+12. **Fund-balance rows that section G leaves out.** The parser now reads
+    the 9999 rows of each adopted budget table (`tableFundBalance`). It counts
+    a row only in a fund whose section G names a fund-balance source, because
+    the table's FROM and TO columns don't survive text extraction. Seven
+    adopted tables name a 9999 account that section G doesn't, so none of
+    them is counted:
+    - 2026-284, 2026-285 and 2026-286 (April 7): two Highway Department dump
+      trucks and a chassis with a sander, each with a row "DA1-9999-000-00000-0
+      - Appropriated Fund Balance": $399,625.00, $256,395.00 and $248,270.00.
+      Section G names only the equipment line, DA1-5-5130-240-000-00000.
+    - 2026-767 (August 18): "ES7-9999-000-00000-0 Appropriated Fund Balance
+      $650,000.00" into equipment lines in ES1, ES3 and ES5. The statement
+      answers "No" and leaves section G blank. The table also moves one fund's
+      balance straight into three other funds' lines with no transfer
+      accounts.
+    - 2026-471 (May 20): A01-9999 $7,677.64 into "A01-1001-002-00000-A
+      Property Taxes-Chap 217/251", a revenue line, not an appropriation.
+    - 2026-569 and 2026-577 (June 16): closeouts returning $17,972.55 and
+      $1,500.00 to the Community Benefit Funds balance. These are TO rows, not
+      draws.
 
-    Today the parser keeps the adopted table only as a gap flag
-    (`statementBelowTable`). Make it record each resolution's adopted-table
-    9999 lines, by account, so the build compares section G with the vote for
-    every draw.
+    Decide the direction of each row from its own table: the row order, the
+    explicit "From" and "To" lines on 2026-284, and FROM totals that must equal
+    TO totals. Then count the draws, with tests. Counting 2026-284, 2026-285,
+    2026-286 and 2026-767 would add $1,554,290 to the other-funds total on
+    `/fund-balance-draws/`.
 13. **Then sweep the site with `accounting-expert`**, one library a run,
     starting with the consumers of `web/lib/audits.ts`.
 
@@ -168,6 +182,24 @@ three practice agents and checking the fund-balance ledger. Each agent's file ho
 
 ## Done
 
+- 2026-10-04: 2026-765 is counted from the budget table the Board adopted,
+  everywhere.
+  - Its section G charges A01-9999 $150,000. The table it adopts moves
+    "A01-9999-000-00000-0 Appropriated Fund Balance $280,000". The $280,000
+    had been typed into `ADOPTED_TABLE` in `web/lib/fiscal-commitments-2027.ts`,
+    so only the ledger pages used it. `/fiscal-impact/`, its verdict and the
+    August 18 totals still said $150,000.
+  - `etl/parse_fiscal_impact.py` now records each table's 9999 rows
+    (`tableFundBalance`). Where one puts a different figure on a fund's draw
+    than section G, the table's figure is used (`adopted_draws`), and section
+    G's is shown beside it. `ADOPTED_TABLE` is gone.
+  - The build compares section G with the vote for every draw. 2026-765 is
+    the only one that differs.
+  - The accounts panel on `/fiscal-impact/` said the General Fund's 2026
+    adopted budget "appropriated no fund balance". Its summary (p. 3) planned
+    $1,250,000, and the Water District's $1,850,000. The line-item extract
+    simply has no 9999 lines. The panel now gives the planned figure from
+    `web/lib/all-funds.ts`.
 - 2026-10-04: `/fund-balance-draws/` splits other-fund draws by fund.
   - A resolution drawing on two non-General funds had been listed under each
     with their combined amount, overstating both subtotals, and a fund named

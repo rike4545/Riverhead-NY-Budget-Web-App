@@ -2,15 +2,19 @@
 // twice, on /fund-balance-draws/ and in the data behind it.
 //
 // lib/fund-balance-lines.ts turns a statement's 9999 lines (Appropriated Fund
-// Balance) into one entry per fund. This script:
+// Balance) into one entry per fund, at the figure on the budget table the
+// Board adopted wherever the ETL read that fund's 9999 row (2026-765: $280,000
+// adopted, $150,000 in section G). This script:
 //   1. tests that split on made-up statements the published data does not
 //      contain yet: two districts in one resolution, a fund named without an
-//      amount beside one with an amount;
+//      amount beside one with an amount, a table that corrects one fund;
 //   2. checks every adopted draw in the published data: each resolution is
-//      counted once, and its per-fund entries add up to its own 9999 lines;
+//      counted once, and its per-fund entries add up to its adopted lines;
 //   3. recomputes the built page's totals from the source lines,
 //      independently of the page's code. A line counted twice, on the General
-//      Fund side or the other-funds side, fails here.
+//      Fund side or the other-funds side, fails here;
+//   4. checks each meeting's "Drawn from fund balance" total, which the ETL
+//      computes, against the same lines.
 import { existsSync, readFileSync } from 'node:fs'
 import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
@@ -22,10 +26,36 @@ const fail = (message) => { console.error(`VERIFY FAILED: ${message}`); failures
 const cents = (n) => Math.round(n * 100)
 const GENERAL_FUND = 'General Fund'
 
+/**
+ * The draw by fund, worked out here without lib/fund-balance-lines.ts: section
+ * G's 9999 lines grouped by fund, each group replaced by the adopted table's
+ * rows in the same fund where the ETL read any. null where nothing is priced.
+ */
+function adoptedByFund(r) {
+  const names = r.funding?.fundBalanceFunds ?? []
+  const groups = new Map()
+  ;(r.funding?.accounts ?? [])
+    .filter((a) => a.kind === 'revenue' && a.code.split('-')[1] === '9999')
+    .forEach((a, i) => {
+      const fund = names[i] ?? a.fund
+      const g = groups.get(fund) ?? { codes: new Set(), amounts: [] }
+      g.codes.add(a.fund)
+      if (a.amount != null) g.amounts.push(a.amount)
+      groups.set(fund, g)
+    })
+  return new Map(Array.from(groups, ([fund, g]) => {
+    const rows = (r.tableFundBalance ?? []).filter((t) => g.codes.has(t.fund)).map((t) => t.amount)
+    const used = rows.length ? rows : g.amounts
+    return [fund, used.length ? used.reduce((s, n) => s + n, 0) : null]
+  }))
+}
+
 // ── 1. The split, on made-up statements ──────────────────────────────────────
 const line = (code, amount, kind = 'revenue') => ({ code, kind, fund: code.split('-')[0], amount })
 /** A statement whose 9999 lines draw on the named funds, in order. */
 const statement = (lines, funds) => ({ accounts: lines, fundBalanceFunds: funds, fundBalanceClasses: funds.map(() => null) })
+/** A 9999 row of the adopted budget table, as the ETL writes it. */
+const row = (code, amount) => ({ code, fund: code.split('-')[0], amount, row: `${code} Appropriated Fund Balance $${amount.toLocaleString('en-US')}` })
 const shape = (entries) => entries.map(({ fund, amount, unpricedLines }) => ({ fund, amount, unpricedLines }))
 
 const cases = [
@@ -60,27 +90,44 @@ const cases = [
     want: [{ fund: GENERAL_FUND, amount: 1874218, unpricedLines: 0 }],
   },
   {
-    name: 'an adopted-table figure stands when the draw is in one fund',
-    funding: statement([line('A01-9999-000-00000-0', 150000)], [GENERAL_FUND]),
-    table: 280000,
+    name: 'the adopted table outranks section G (2026-765)',
+    funding: statement([line('A01-9999-000-00000-0', 150000), line('A01-1-1420-433-000-00000', 150000, 'appropriation')], [GENERAL_FUND]),
+    table: [row('A01-9999-000-00000-0', 280000)],
     want: [{ fund: GENERAL_FUND, amount: 280000, unpricedLines: 0 }],
   },
   {
-    name: 'an adopted-table figure is ignored when the draw spans funds',
+    name: 'a table corrects only the fund it names',
     funding: statement([line('A01-9999-000-00000-0', 100), line('DA1-9999-000-00000-0', 50)], [GENERAL_FUND, 'Highway Fund']),
-    table: 999,
-    want: [{ fund: GENERAL_FUND, amount: 100, unpricedLines: 0 }, { fund: 'Highway Fund', amount: 50, unpricedLines: 0 }],
+    table: [row('A01-9999-000-00000-0', 120)],
+    want: [{ fund: GENERAL_FUND, amount: 120, unpricedLines: 0 }, { fund: 'Highway Fund', amount: 50, unpricedLines: 0 }],
   },
-  { name: 'no section G', funding: null, want: [] },
+  {
+    name: 'a table row in a fund section G does not draw on is not counted',
+    funding: statement([line('DA1-9999-000-00000-0', 171284.25)], ['Highway Fund']),
+    table: [row('DA1-9999-000-00000-0', 171284.25), row('A01-9999-000-00000-0', 17972.55)],
+    want: [{ fund: 'Highway Fund', amount: 171284.25, unpricedLines: 0 }],
+  },
+  {
+    name: 'the table prices a line section G names without an amount',
+    funding: statement([line('CM5-9999-000-00000-8', null)], ['Community Preservation — capital']),
+    table: [row('CM5-9999-000-00000-8', 25000)],
+    want: [{ fund: 'Community Preservation — capital', amount: 25000, unpricedLines: 0 }],
+  },
+  {
+    name: 'two table rows in one fund add up',
+    funding: statement([line('A01-9999-000-00000-0', 5000), line('A01-9999-000-00000-0', 108613)], [GENERAL_FUND, GENERAL_FUND]),
+    table: [row('A01-9999-000-00000-0', 5000), row('A01-9999-000-00000-0', 108613)],
+    want: [{ fund: GENERAL_FUND, amount: 113613, unpricedLines: 0 }],
+  },
+  { name: 'no section G', funding: null, table: [row('ES7-9999-000-00000-0', 650000)], want: [] },
 ]
 for (const c of cases) {
-  const got = shape(drawsByFund(c.funding, c.table ?? null))
+  const entries = drawsByFund(c.funding, c.table ?? [])
+  const got = shape(entries)
   if (JSON.stringify(got) !== JSON.stringify(c.want)) fail(`split, ${c.name}: got ${JSON.stringify(got)}, want ${JSON.stringify(c.want)}`)
-  if (c.table == null) {
-    const lines = cents(fundBalanceLines(c.funding).reduce((s, l) => s + (l.amount ?? 0), 0))
-    const entries = cents(got.reduce((s, e) => s + (e.amount ?? 0), 0))
-    if (lines !== entries) fail(`split, ${c.name}: entries add to ${entries / 100}, its lines to ${lines / 100}`)
-  }
+  const want = cents(Array.from(adoptedByFund({ funding: c.funding, tableFundBalance: c.table }).values()).reduce((s, n) => s + (n ?? 0), 0))
+  const sum = cents(entries.reduce((s, e) => s + (e.amount ?? 0), 0))
+  if (want !== sum) fail(`split, ${c.name}: entries add to ${sum / 100}, its adopted lines to ${want / 100}`)
 }
 
 // ── 2. Every adopted draw in the published data ──────────────────────────────
@@ -99,39 +146,31 @@ for (const { slug, r } of draws) {
   if (counted.has(key)) fail(`resolution ${key} is an adopted draw in both ${counted.get(key)} and ${slug}`)
   counted.set(key, slug)
   const lines = fundBalanceLines(r.funding)
-  const entries = drawsByFund(r.funding)
+  const entries = drawsByFund(r.funding, r.tableFundBalance)
   const funds = entries.map((e) => e.fund)
   if (new Set(funds).size !== funds.length) fail(`${r.number}: a fund appears twice in its split`)
   if (new Set(lines.map((l) => l.fundName)).size !== entries.length) fail(`${r.number}: ${entries.length} entries for ${new Set(lines.map((l) => l.fundName)).size} funds`)
-  const lineTotal = cents(lines.reduce((s, l) => s + (l.amount ?? 0), 0))
-  const entryTotal = cents(entries.reduce((s, e) => s + (e.amount ?? 0), 0))
-  if (lineTotal !== entryTotal) fail(`${r.number}: its entries add to ${entryTotal / 100}, its 9999 lines to ${lineTotal / 100}`)
+  const adopted = adoptedByFund(r)
+  for (const e of entries) {
+    if ((e.amount === null ? null : cents(e.amount)) !== (adopted.get(e.fund) == null ? null : cents(adopted.get(e.fund)))) {
+      fail(`${r.number}: ${e.fund} is counted at ${e.amount}, its adopted lines add to ${adopted.get(e.fund)}`)
+    }
+  }
+  for (const t of r.tableFundBalance ?? []) {
+    if (!t.row.startsWith(t.code) || !t.row.replace(/[\s,]/g, '').includes(String(t.amount).replace(/\.0+$/, ''))) {
+      fail(`${r.number}: table row "${t.row}" does not carry its account ${t.code} and figure ${t.amount}`)
+    }
+  }
 }
 
 // ── 3. The built page, against the source lines ──────────────────────────────
-// The adopted-table figures declared in lib/fiscal-commitments-2027.ts replace
-// section G for the General Fund (2026-765). Read them as verify-build does,
-// and apply each only where the record still shows the same gap.
-const src = readFileSync(join(web, 'lib/fiscal-commitments-2027.ts'), 'utf8')
-const start = src.indexOf('const ADOPTED_TABLE')
-const declared = new Map(
-  Array.from((start === -1 ? '' : src.slice(start, src.indexOf('\n\n', start)))
-    .matchAll(/'(\d{4}-\d+)':\s*\{\s*statement:\s*([\d_.]+),\s*table:\s*([\d_.]+)/g))
-    .map((m) => [m[1], { statement: Number(m[2].replace(/_/g, '')), table: Number(m[3].replace(/_/g, '')) }]),
-)
-if (start !== -1 && declared.size === 0) fail('could not read ADOPTED_TABLE in lib/fiscal-commitments-2027.ts')
-
 let generalFund = 0
 let otherFunds = 0
 for (const { r } of draws) {
-  const lines = fundBalanceLines(r.funding)
-  const gf = lines.filter((l) => l.fundName === GENERAL_FUND).reduce((s, l) => s + (l.amount ?? 0), 0)
-  const d = declared.get(r.number)
-  const gap = r.statementBelowTable
-  const tableApplies = d && gap && gap.statement === d.statement && gap.table === d.table &&
-    r.funding.fundBalanceDraw === d.statement && lines.every((l) => l.fundName === GENERAL_FUND)
-  generalFund += tableApplies ? d.table : gf
-  otherFunds += lines.filter((l) => l.fundName !== GENERAL_FUND).reduce((s, l) => s + (l.amount ?? 0), 0)
+  for (const [fund, amount] of adoptedByFund(r)) {
+    if (fund === GENERAL_FUND) generalFund += amount ?? 0
+    else otherFunds += amount ?? 0
+  }
 }
 
 const pageFile = join(web, 'out/fund-balance-draws/index.html')
@@ -176,5 +215,19 @@ if (!existsSync(pageFile)) {
     )
   }
 }
+
+// ── 4. Each meeting's "Drawn from fund balance", against the same lines ──────
+// etl/parse_fiscal_impact.py computes the total /fiscal-impact/ shows for each
+// meeting (adopted_draws). It must count every draw as section 3 does.
+let meetingTotals = 0
+for (const slug of index.meetings) {
+  const data = JSON.parse(readFileSync(join(meetingDir, `${slug}-fiscal.json`), 'utf8'))
+  const want = (data.resolutions ?? []).reduce(
+    (s, r) => s + Array.from(adoptedByFund(r).values()).reduce((n, a) => n + (a ?? 0), 0), 0)
+  const got = data.summary?.fundBalanceDrawTotal ?? 0
+  if (cents(got) !== cents(want)) fail(`${slug}: summary.fundBalanceDrawTotal is ${got}, its draws at the adopted figures add to ${want}`)
+  else meetingTotals += 1
+}
+if (!failures) console.log(`Fund-balance lines: ${meetingTotals} meeting totals count each draw at its adopted figure.`)
 
 if (failures) process.exit(1)

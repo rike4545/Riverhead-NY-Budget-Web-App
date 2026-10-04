@@ -20,6 +20,7 @@ from unittest import mock
 
 import parse_fiscal_impact
 from parse_fiscal_impact import (
+    adopted_draws,
     build_meeting,
     closeout_read,
     closes_project,
@@ -32,6 +33,7 @@ from parse_fiscal_impact import (
     stated_amounts,
     stated_cost,
     statement_below_table,
+    table_fund_balance,
 )
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -257,6 +259,115 @@ class Closeouts(unittest.TestCase):
         self.assertEqual(meeting["summary"]["understatedMarkedNo"], 0)
 
 
+# 2026-765 as the August 18, 2026 packet prints it: the adopted table moves
+# $280,000 out of fund balance, while section G says $150,000.
+LEGAL_FEES_PACKET = """TB Resolution 2026-765
+BUDGET TRANSFER FOR 2026 LEGAL FEES
+WHEREAS, the Office of the Town Attorney is requesting a budget transfer for legal fees for 2026. Now, therefore be it
+RESOLVED, that the Supervisor be, and is hereby authorized to establish the following
+budget adjustments;
+ FROM          TO
+A01-9999-000-00000-0 Appropriated Fund Balance            $280,000
+A01-1-1420-433-000-00000 Atty-Prof Svc-Legal                       $280,000
+And be it further,
+RESOLVED, that the Town Clerk is hereby authorized to forward a copy of this resolution
+THE VOTE
+RESULT: Adopted
+FISCAL IMPACT STATEMENT
+B.     Title of Proposed Legislation: Budget Transfer for 2026 Legal Fees
+C.     Purpose of Proposed Legislation: Budget Transfer for 2026 Legal Fees
+D.     Will the Proposed Legislation have a Fiscal Impact: Yes
+ (a)
+Detail/Initials:  MB
+G.     Proposed Source of Funding:
+Appropriation Account to be Charged:
+Grant or other Revenue Source: A01-9999-000-00000-0 Appropriated Fund Balance
+$150,000
+Appropriation Transfer (list account(s) and amount): A01-1-1420-433-000-00000 Atty-Prof Svc-Legal
+$150,000
+H. Typed Name & Title of Preparer
+"""
+
+
+def g_lines(*lines: tuple[str, float | None], funds: list[str]) -> dict:
+    """A section G naming these 9999 lines, drawn on the named funds."""
+    return {"accounts": [{"code": c, "kind": "revenue", "fund": c.split("-")[0], "amount": a} for c, a in lines],
+            "fundBalanceFunds": funds}
+
+
+def t_rows(*rows: tuple[str, float]) -> list[dict]:
+    return [{"code": c, "fund": c.split("-")[0], "amount": a, "row": f"{c} Appropriated Fund Balance ${a:,.2f}"} for c, a in rows]
+
+
+class AdoptedTable(unittest.TestCase):
+    def test_the_tables_fund_balance_rows(self):
+        rows = table_fund_balance(LEGAL_FEES_PACKET.split("THE VOTE")[0])
+        self.assertEqual(rows, [{"code": "A01-9999-000-00000-0", "fund": "A01", "name": "Appropriated Fund Balance",
+                                 "amount": 280000.0, "row": "A01-9999-000-00000-0 Appropriated Fund Balance $280,000"}])
+
+    def test_wrapped_labels_and_spaced_dollar_signs(self):
+        # 2026-361's labels wrap before the figure; 2026-284 prints "$ 399,625.00".
+        cbf = table_fund_balance(
+            "RESOLVED, the following budget adjustments;\nFROM TO\n"
+            "A01-9999-000-00000-0 Assigned Unappropriated Fund Balance \n   – CBF - Nextera Community Health & Wellness      $5,000 \n"
+            "A01-9999-000-00000-0 Assigned Unappropriated Fund \n  Balance – CBF - Nextera Easement Phase 1     $108,613 \n"
+            "H01-5-5110-250-CBF-52311 Infrastructure $113,613\nAnd be it further")
+        self.assertEqual([(r["name"], r["amount"]) for r in cbf], [
+            ("Assigned Unappropriated Fund Balance – CBF - Nextera Community Health & Wellness", 5000.0),
+            ("Assigned Unappropriated Fund Balance – CBF - Nextera Easement Phase 1", 108613.0)])
+        truck = table_fund_balance("RESOLVED that the Supervisor be authorized to establish the following budget adjustments;\n"
+                                   "From \nDA1-9999-000-00000-0 - Appropriated Fund Balance    $ 399,625.00 \n \nTo \n"
+                                   "  DA1-5-5130-240-000-00000 – Machinery-Equipment   $ 399,625.00;")
+        self.assertEqual([(r["fund"], r["name"], r["amount"], r["row"]) for r in truck], [
+            ("DA1", "Appropriated Fund Balance", 399625.0, "DA1-9999-000-00000-0 - Appropriated Fund Balance $ 399,625.00")])
+
+    def test_only_the_resolved_clauses_and_only_a_rows_own_figure(self):
+        # A recital is history, and an account printed without a figure takes no
+        # other row's: the next figure here belongs to the appropriation line.
+        self.assertEqual(table_fund_balance(
+            "WHEREAS, A01-9999-000-00000-0 Appropriated Fund Balance funded $50,000 in 2025; and\n"
+            "RESOLVED, that the Board appropriates A01-9999-000-00000-0 Appropriated Fund Balance\n"
+            "A01-1-1420-433-000-00000 Atty-Prof Svc-Legal $10,000"), [])
+        self.assertEqual(table_fund_balance("WHEREAS, there is no table. Now, therefore"), [])
+
+    def test_the_table_outranks_section_g_in_the_fund_it_names(self):
+        # 2026-765: the vote is the appropriation.
+        self.assertEqual(adopted_draws(g_lines(("A01-9999-000-00000-0", 150000.0), funds=["General Fund"]),
+                                       t_rows(("A01-9999-000-00000-0", 280000.0))),
+                         [{"fund": "General Fund", "statement": 150000.0, "table": 280000.0, "amount": 280000.0,
+                           "rows": ["A01-9999-000-00000-0 Appropriated Fund Balance $280,000.00"]}])
+        # A table row in a fund section G does not draw on is not counted, and a
+        # fund the table does not name keeps section G's figure.
+        two = adopted_draws(g_lines(("A01-9999-000-00000-0", 100.0), ("DA1-9999-000-00000-0", 50.0),
+                                    funds=["General Fund", "Highway Fund"]),
+                            t_rows(("A01-9999-000-00000-0", 120.0), ("ES7-9999-000-00000-0", 650000.0)))
+        self.assertEqual([(d["fund"], d["statement"], d["table"], d["amount"]) for d in two],
+                         [("General Fund", 100.0, 120.0, 120.0), ("Highway Fund", 50.0, None, 50.0)])
+        # No section G draw, nothing counted, whatever the table names.
+        self.assertEqual(adopted_draws({}, t_rows(("A01-9999-000-00000-0", 17972.55))), [])
+        # Section G names the account without a figure; the table prices it.
+        self.assertEqual(adopted_draws(g_lines(("CM5-9999-000-00000-8", None), funds=["Community Preservation — capital"]),
+                                       t_rows(("CM5-9999-000-00000-8", 25000.0)))[0]["amount"], 25000.0)
+
+    def test_the_legal_fees_transfer_counts_what_the_board_adopted(self):
+        meeting = build_meeting("2099-01-01", LEGAL_FEES_PACKET)
+        r = meeting["resolutions"][0]
+        self.assertEqual((r["number"], r["funding"]["fundBalanceDraw"], r["amount"]), ("2026-765", 150000.0, 280000.0))
+        self.assertEqual(r["statementBelowTable"], {"statement": 150000.0, "table": 280000.0})
+        self.assertEqual([t["row"] for t in r["tableFundBalance"]], ["A01-9999-000-00000-0 Appropriated Fund Balance $280,000"])
+        self.assertTrue(r["realistic"]["reason"].startswith(
+            "The budget table the Board adopted moves $280,000 out of Appropriated Fund Balance in the General Fund; "
+            "section G of the statement names $150,000. The vote is the appropriation, so the draw is $280,000."))
+        self.assertEqual((meeting["summary"]["fundBalanceDrawTotal"], meeting["summary"]["identifiedDollarsAtStake"]),
+                         (280000.0, 280000.0))
+
+    def test_a_matching_table_changes_nothing(self):
+        same = LEGAL_FEES_PACKET.replace("$280,000", "$150,000")
+        r = build_meeting("2099-01-01", same)["resolutions"][0]
+        self.assertEqual((r["amount"], r["statementBelowTable"]), (150000.0, None))
+        self.assertTrue(r["realistic"]["reason"].startswith("Section G charges $150,000 to Appropriated Fund Balance in the General Fund."))
+
+
 class Summaries(unittest.TestCase):
     def test_a_hand_curated_meeting_keeps_its_amounts_and_counts_the_parse(self):
         # 2026-07-07: the hand file's totals were computed from hand amounts,
@@ -364,6 +475,27 @@ class Datasets(unittest.TestCase):
         interim = self.load("2026-08-04")["2026-762"]["funding"]
         self.assertEqual((interim["drawsFundBalance"], interim["fundBalanceDraw"]), (True, 1874218.0))
 
+    def test_every_draw_against_the_adopted_table(self):
+        corrected, table_only = {}, set()
+        for path in sorted(MEETINGS.glob("2026-*-fiscal.json")):
+            for r in json.loads(path.read_text())["resolutions"]:
+                draws = adopted_draws(r.get("funding"), r.get("tableFundBalance"))
+                for d in draws:
+                    if d["table"] is not None and d["table"] != d["statement"]:
+                        corrected[r["number"]] = (d["statement"], d["table"])
+                drawn = {a["fund"] for a in (r.get("funding") or {}).get("accounts") or []
+                         if a.get("kind") == "revenue" and a["code"].split("-")[1:2] == ["9999"]}
+                if any(t["fund"] not in drawn for t in r.get("tableFundBalance") or []):
+                    table_only.add(r["number"])
+        # A new disagreement between a statement and the vote is counted at the
+        # table automatically, so read the packet before adding it here.
+        self.assertEqual(corrected, {"2026-765": (150000.0, 280000.0)})
+        # Rows section G does not confirm as draws, kept but not counted
+        # (docs/agent-backlog.md): Highway truck purchases, the ES7 Vactor
+        # truck, a Chapter 251 cleanup and two closeouts returning Community
+        # Benefit Funds. Later meetings may add more.
+        self.assertLessEqual({"2026-284", "2026-285", "2026-286", "2026-471", "2026-569", "2026-577", "2026-767"}, table_only)
+
     def test_june_16_closeouts_commit_nothing_new(self):
         june = self.load("2026-06-16")
         reads = {(june[f"2026-{n}"]["realistic"]["flag"], june[f"2026-{n}"]["realistic"].get("evidence")) for n in range(566, 598)}
@@ -374,6 +506,9 @@ class Datasets(unittest.TestCase):
         self.assertIsNone(self.load("2026-05-20")["2026-471"]["statedCost"])  # an earlier estimate
         legal = self.load("2026-08-18")["2026-765"]
         self.assertEqual(legal["statementBelowTable"], {"statement": 150000.0, "table": 280000.0})
+        # Counted at the $280,000 the Board adopted; section G's $150,000 is kept.
+        self.assertEqual((legal["amount"], legal["funding"]["fundBalanceDraw"]), (280000.0, 150000.0))
+        self.assertEqual([t["row"] for t in legal["tableFundBalance"]], ["A01-9999-000-00000-0 Appropriated Fund Balance $280,000"])
         gtsc = {a["amount"]: a["role"] for a in self.load("2026-08-18")["2026-773"]["statedAmounts"]}
         self.assertEqual((gtsc[54000000.0], gtsc[13045.0]), ("program", "revenue"))
         vactor = self.load("2026-08-18")["2026-767"]

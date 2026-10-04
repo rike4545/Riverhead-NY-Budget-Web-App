@@ -733,12 +733,14 @@ def funding_from_block(block_text: str, title: str = "", purpose: str = "") -> d
     }
 
 
-def apply_funding_evidence(realistic: dict, funding: dict, category: str) -> dict:
+def apply_funding_evidence(realistic: dict, funding: dict, category: str, draws: list[dict] | None = None) -> dict:
     """Let the Town's own account codes overrule a keyword guess.
 
     The category read is an inference from the resolution's title. Section G,
     when it names accounts, is the Town's accounting. Where the two disagree the
-    accounting wins, and the read records which one it used.
+    accounting wins, and the read records which one it used. `draws` is the
+    fund-balance draw by fund (adopted_draws), where the budget table the Board
+    adopted can correct section G's figure.
     """
     accounts = funding.get("accounts") or []
 
@@ -790,11 +792,26 @@ def apply_funding_evidence(realistic: dict, funding: dict, category: str) -> dic
         draw = funding.get("fundBalanceDraw")
         sized = f"{draw:,.0f} " if draw else ""
         also_debt = realistic.get("flag") == "future-debt"
+        # Where the budget table the Board adopted puts a different figure on
+        # the account, the read leads with the vote and quotes section G.
+        corrected = table_corrections(draws or [])
+        if corrected:
+            voted = sum(d["table"] for d in corrected)
+            stated = [d["statement"] for d in corrected]
+            total = sum(d["amount"] or 0 for d in draws)
+            g_says = (f"section G of the statement names ${sum(s or 0 for s in stated):,.0f}"
+                      if any(s is not None for s in stated) else "section G of the statement names no amount")
+            lead = (
+                f"The budget table the Board adopted moves ${voted:,.0f} out of Appropriated Fund Balance "
+                f"in the {where}; {g_says}. The vote is the appropriation, so the draw is ${total:,.0f}. "
+            )
+        else:
+            lead = f"Section G charges ${sized}to Appropriated Fund Balance in the {where}. "
         return {
             "verdict": "Draws fund balance — stated on the Town's own form",
             "reason": (
-                f"Section G charges ${sized}to Appropriated Fund Balance in the {where}. "
-                "This is not an inference from the title: it is the account the Town wrote down, "
+                lead
+                + "This is not an inference from the title: it is the account the Town wrote down, "
                 "and every dollar of it is surplus that is no longer available for anything else."
                 + (
                     " The title also refers to borrowing, and both are true: surplus is being spent "
@@ -1080,6 +1097,98 @@ def statement_below_table(funding: dict | None, amounts: list[dict]) -> dict | N
     return {"statement": g, "table": max(table)}
 
 
+# ── The adopted table's fund-balance lines ──────────────────────────────────
+# Section G is the preparer's summary of the funding. The budget table in the
+# RESOLVED clause is what the Board adopts. Where the two put different figures
+# on the same fund's 9999 account, the table's figure is the draw, because the
+# vote is the appropriation. They agree on every adopted draw in the corpus but
+# 2026-765: its section G charges A01-9999 $150,000, while its table moves
+# "A01-9999-000-00000-0 Appropriated Fund Balance $280,000" into the Town
+# Attorney's legal-fees line.
+#
+# The table's FROM and TO columns do not survive text extraction, so a row
+# cannot say which side it is on: 2026-569 returns $17,972.55 TO an A01-9999
+# account. A row is counted only in a fund whose section G names a
+# fund-balance source, which settles the direction. The others are kept so a
+# person can read them.
+
+
+def table_fund_balance(body: str) -> list[dict]:
+    """Every 9999 account the resolution's RESOLVED clauses name, with the
+    first dollar figure after it and the row as printed, whitespace collapsed.
+
+    A row runs from the account code to its figure, wrapped labels included
+    ("A01-9999-000-00000-0 Assigned Unappropriated Fund Balance – CBF -
+    Nextera Easement Phase 1 $108,613", 2026-361). It ends at the next account
+    code or clause, so an account printed without a figure takes no one else's.
+    """
+    body = PACKET_NOISE.sub("", body)
+    start = body.find("RESOLVED")
+    if start < 0:
+        return []
+    resolved = body[start:]
+    hits = list(FULL_ACCOUNT_RE.finditer(resolved))
+    out = []
+    for i, m in enumerate(hits):
+        code = re.sub(r"\s+", "", m.group(1))
+        parts = code.split("-")
+        if len(parts) < 2 or parts[1] != FUND_BALANCE_OBJECT:
+            continue
+        tail = resolved[m.end(): hits[i + 1].start() if i + 1 < len(hits) else len(resolved)]
+        end = TABLE_END.search(tail)
+        money = MONEY_RE.search(tail[: end.start()] if end else tail)
+        if not money:
+            continue
+        name = " ".join(tail[: money.start()].split()).strip(" -–—:")
+        out.append({
+            "code": code,
+            "fund": parts[0],
+            "name": name[:120] or None,
+            "amount": round(float(money.group(1).replace(",", "")), 2),
+            "row": " ".join(f"{code} {tail[: money.end()]}".split()),
+        })
+    return out
+
+
+def adopted_draws(funding: dict | None, table: list[dict] | None) -> list[dict]:
+    """Each fund section G draws on, with section G's figure and the table's.
+
+    One entry per fund, as web/lib/fund-balance-lines.ts splits them:
+    `statement` adds up section G's 9999 lines in the fund (None when none
+    states an amount), `table` adds up the adopted table's 9999 rows in the
+    same fund (None when it names none), and `amount` is the draw, the table's
+    figure where there is one and section G's otherwise. A table row in a fund
+    section G does not draw on is not counted (see above).
+    """
+    funding = funding or {}
+    names = funding.get("fundBalanceFunds") or []
+    lines = [a for a in funding.get("accounts") or []
+             if a.get("kind") == "revenue" and a["code"].split("-")[1:2] == [FUND_BALANCE_OBJECT]]
+    groups: dict[str, list[dict]] = {}
+    for i, a in enumerate(lines):
+        groups.setdefault(names[i] if i < len(names) else a["fund"], []).append(a)
+    out = []
+    for fund, own in groups.items():
+        codes = {a["fund"] for a in own}
+        priced = [a["amount"] for a in own if a.get("amount") is not None]
+        rows = [t for t in table or [] if t["fund"] in codes]
+        statement = round(sum(priced), 2) if priced else None
+        voted = round(sum(t["amount"] for t in rows), 2) if rows else None
+        out.append({
+            "fund": fund,
+            "statement": statement,
+            "table": voted,
+            "amount": voted if voted is not None else statement,
+            "rows": [t["row"] for t in rows],
+        })
+    return out
+
+
+def table_corrections(draws: list[dict]) -> list[dict]:
+    """The funds where the adopted table's figure differs from section G's."""
+    return [d for d in draws if d["table"] is not None and d["table"] != d["statement"]]
+
+
 def stated_cost(amounts: list[dict]) -> float | None:
     """The largest figure the resolution states as the Town paying out.
 
@@ -1142,6 +1251,7 @@ def parse_packet(text: str) -> list[dict]:
             "statedAmounts": amounts,
             "statedCost": stated_cost(amounts),
             "closesProject": closes_project(body),
+            "tableFundBalance": table_fund_balance(body),
         })
     return out
 
@@ -1204,7 +1314,15 @@ def derived_summary(resolutions: list[dict]) -> dict:
         "withAccounts": sum(1 for f in funding if f.get("accounts")),
         "accountEvidence": sum(1 for r in resolutions if (r.get("realistic") or {}).get("evidence") == "account-code"),
         "fundBalanceDraws": sum(1 for f in funding if f.get("drawsFundBalance")),
-        "fundBalanceDrawTotal": round(sum(f.get("fundBalanceDraw") or 0 for f in funding), 2),
+        # At the figure the Board adopted: section G's draws, moved to the
+        # budget table's figure where it puts a different one on a fund's 9999
+        # account (2026-765).
+        "fundBalanceDrawTotal": round(
+            sum(f.get("fundBalanceDraw") or 0 for f in funding)
+            + sum(d["table"] - (d["statement"] or 0)
+                  for r in resolutions
+                  for d in table_corrections(adopted_draws(r.get("funding"), r.get("tableFundBalance")))),
+            2),
         # Resolutions whose own text states a cost, and those of them the Town
         # answered "No" fiscal impact on.
         "statedCostResolutions": sum(1 for r in resolutions if r.get("statedCost")),
@@ -1238,9 +1356,17 @@ def build_meeting(date: str, packet_text: str) -> dict | None:
             number_source = "title" if matched else None
         category = classify(p["title"], p["purpose"])
         funding = p.get("funding") or {}
+        table_fb = p.get("tableFundBalance") or []
+        draws = adopted_draws(funding, table_fb)
         realistic = apply_funding_evidence(
-            realistic_read(category, p["fiscalImpact"], p["title"]), funding, category
+            realistic_read(category, p["fiscalImpact"], p["title"]), funding, category, draws
         )
+        # Section G's figure, moved by whatever the adopted table changes on a
+        # fund's 9999 account.
+        amount = funding.get("amount")
+        corrected = table_corrections(draws)
+        if corrected:
+            amount = round((amount or 0) + sum(d["table"] - (d["statement"] or 0) for d in corrected), 2)
         if p.get("closesProject"):
             realistic = closeout_read(realistic, p["fiscalImpact"])
         vote = None
@@ -1262,9 +1388,12 @@ def build_meeting(date: str, packet_text: str) -> dict | None:
             "category": category,
             "townFiscalImpact": p["fiscalImpact"],
             "townTreatment": p["treatment"],
-            # Read from the statement's own section G rather than guessed. Still
+            # Read from the statement's own section G rather than guessed, except
+            # where the budget table the Board adopted puts a different figure on
+            # a fund's 9999 account: then it moves by the difference, so
+            # 2026-765 reads the $280,000 voted, not section G's $150,000. Still
             # None when the Town named no figure — most statements do not.
-            "amount": funding.get("amount"),
+            "amount": amount,
             "funding": funding,
             # What the resolution's own text states, beside the Town's answer
             # on the statement. statedCost is null when no figure reads as the
@@ -1273,6 +1402,8 @@ def build_meeting(date: str, packet_text: str) -> dict | None:
             "statedCost": p.get("statedCost"),
             # Section G naming less than the resolution's own budget table moves.
             "statementBelowTable": statement_below_table(funding, p.get("statedAmounts") or []),
+            # The 9999 rows of that table, kept only where there are any.
+            **({"tableFundBalance": table_fb} if table_fb else {}),
             "realistic": realistic,
             "vote": vote,
         })
@@ -1288,7 +1419,9 @@ def build_meeting(date: str, packet_text: str) -> dict | None:
             "Each resolution's Town 'Fiscal Impact Statement' answer (Yes/No and absorbed vs. detailed) is "
             "transcribed as-published from the agenda packet, alongside a plain-English realistic read keyed on "
             "the resolution's category. The amount comes from section G of the statement, where the preparer "
-            "wrote one. Separately, every dollar figure the resolution's own text states is listed and quoted, "
+            "wrote one. Where the budget table the Board adopted puts a different figure on a fund's Appropriated "
+            "Fund Balance account, the table's figure is used, because the vote is the appropriation, and section "
+            "G's is shown beside it. Separately, every dollar figure the resolution's own text states is listed and quoted, "
             "each labelled by its wording (a cost, a pay rate, a fee paid to the Town, a grant, a fund-balance "
             "transfer, a budget-adjustment line or background); insurance limits an applicant must carry are left "
             "out. The stated cost is the largest figure that reads as the Town paying out, taking what the Board "
@@ -1351,6 +1484,10 @@ def merge_hand_curated(date: str, parsed: dict) -> dict:
                 merged["funding"] = p["funding"]
             for key in ("numberSource", "statedAmounts", "statedCost", "statementBelowTable"):
                 merged[key] = p.get(key)
+            if p.get("tableFundBalance"):
+                merged["tableFundBalance"] = p["tableFundBalance"]
+            else:
+                merged.pop("tableFundBalance", None)
             if merged.get("amount") is None and p.get("amount") is not None:
                 merged["amount"] = p["amount"]
                 filled_amounts += 1
