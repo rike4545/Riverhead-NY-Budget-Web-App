@@ -175,6 +175,12 @@ three practice agents and checking the fund-balance ledger. Each agent's file ho
 
 ## Done
 
+- 2026-10-05: Adopted the 25 skills from addyosmani/agent-skills (commit
+  1401c8b, MIT License) into `.claude/skills/`, with the checklists they link
+  to in `.claude/references/`. They are unchanged copies. `CLAUDE.md` says
+  this file's rules win where a skill disagrees: `ci-cd-and-automation`
+  recommends auto-merging, `shipping-and-launch` walks through deploying, and
+  `git-workflow-and-versioning` suggests `git reset --hard` to recover.
 - 2026-10-05: The data workflows no longer fail when another run pushes first.
   Both of Parse Financial Reports' schedules matched Monday 09:00 UTC, so two
   runs started 35 seconds apart; the second run's rebase stopped on

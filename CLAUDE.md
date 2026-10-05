@@ -101,3 +101,16 @@ python3 etl/build_search_index.py && python3 etl/write_meta.py
 
 The last three report findings; they do not edit. They are adapted from
 agents in affaan-m/ECC (MIT License).
+
+## Skills
+
+`.claude/skills/` holds 25 general engineering skills copied unchanged from
+addyosmani/agent-skills at commit 1401c8b (MIT License, kept in
+`.claude/skills/LICENSE-agent-skills`). They cover specs, planning,
+incremental implementation, test-driven development, debugging, code review,
+simplification, security, performance and documentation. The checklists they
+link to are in `.claude/references/`.
+
+They are general practice. Where a skill conflicts with this file, this file
+wins: never merge, auto-merge, push to `main` or deploy; open draft pull
+requests; and keep every figure traced to an official record.
