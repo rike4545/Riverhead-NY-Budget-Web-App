@@ -24,6 +24,7 @@ from parse_fiscal_impact import (
     build_meeting,
     closeout_read,
     closes_project,
+    corrected_amount,
     count_summary,
     derived_summary,
     largest_understated_marked_no,
@@ -360,6 +361,37 @@ class AdoptedTable(unittest.TestCase):
             "section G of the statement names $150,000. The vote is the appropriation, so the draw is $280,000."))
         self.assertEqual((meeting["summary"]["fundBalanceDrawTotal"], meeting["summary"]["identifiedDollarsAtStake"]),
                          (280000.0, 280000.0))
+
+    def test_a_priced_line_moves_the_amount_and_a_blank_one_is_replaced(self):
+        def fix(amount, *funds):
+            return corrected_amount(amount, [{"statement": s, "table": t} for s, t in funds])
+        self.assertEqual(fix(150000.0, (150000.0, 280000.0)), 280000.0)    # 2026-765
+        self.assertEqual(fix(300000.0, (300000.0, 280000.0)), 280000.0)    # a table below section G
+        # $80,000 of fund balance and $19,322 from another line fund $99,322; the
+        # table's $90,000 moves the whole action by the difference.
+        self.assertEqual(fix(99322.0, (80000.0, 90000.0)), 109322.0)
+        # Section G prices the $25,000 appropriation and leaves its 9999 line
+        # blank. The table pricing that line is the same money, not more of it.
+        self.assertEqual(fix(25000.0, (None, 25000.0)), 25000.0)
+        self.assertEqual(fix(25000.0, (None, 30000.0)), 30000.0)
+        self.assertEqual(fix(None, (None, 25000.0)), 25000.0)
+        self.assertEqual(fix(25000.0), 25000.0)
+
+    def test_a_blank_fund_balance_line_priced_by_the_table(self):
+        blank = LEGAL_FEES_PACKET.replace("$280,000", "$25,000").replace(
+            "Appropriation Account to be Charged:\nGrant or other Revenue Source: A01-9999-000-00000-0 Appropriated Fund Balance\n$150,000\n"
+            "Appropriation Transfer (list account(s) and amount): A01-1-1420-433-000-00000 Atty-Prof Svc-Legal\n$150,000",
+            "Appropriation Account to be Charged: A01-1-1420-433-000-00000 Atty-Prof Svc-Legal\n$25,000\n"
+            "Grant or other Revenue Source: A01-9999-000-00000-0 Appropriated Fund Balance\n"
+            "Appropriation Transfer (list account(s) and amount):")
+        self.assertNotEqual(blank, LEGAL_FEES_PACKET.replace("$280,000", "$25,000"), "the section G text to replace has changed")
+        meeting = build_meeting("2099-01-01", blank)
+        r = meeting["resolutions"][0]
+        self.assertEqual((r["funding"]["amount"], r["funding"]["fundBalanceDraw"], r["funding"]["drawsFundBalance"]), (25000.0, None, True))
+        self.assertEqual(r["amount"], 25000.0)
+        self.assertEqual((meeting["summary"]["fundBalanceDrawTotal"], meeting["summary"]["identifiedDollarsAtStake"]), (25000.0, 25000.0))
+        self.assertIn("section G of the statement names that account without an amount", r["realistic"]["reason"])
+        self.assertIn("so the draw is $25,000.", r["realistic"]["reason"])
 
     def test_a_matching_table_changes_nothing(self):
         same = LEGAL_FEES_PACKET.replace("$280,000", "$150,000")

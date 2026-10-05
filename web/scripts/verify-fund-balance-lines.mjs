@@ -18,7 +18,7 @@
 import { existsSync, readFileSync } from 'node:fs'
 import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
-import { drawsByFund, fundBalanceLines } from '../lib/fund-balance-lines.ts'
+import { correctedAmount, drawsByFund, fundBalanceLines } from '../lib/fund-balance-lines.ts'
 
 const web = join(dirname(fileURLToPath(import.meta.url)), '..')
 let failures = 0
@@ -129,6 +129,19 @@ for (const c of cases) {
   const sum = cents(entries.reduce((s, e) => s + (e.amount ?? 0), 0))
   if (want !== sum) fail(`split, ${c.name}: entries add to ${sum / 100}, its adopted lines to ${want / 100}`)
 }
+
+// The resolution's amount once a table corrects its draw. A priced 9999 line
+// moves section G's figure by the difference; a blank one is the same money as
+// section G's other lines, so its table figure replaces rather than adds.
+const fix = (amount, ...funds) => correctedAmount(amount, funds.map(([statement, table]) => ({ statement, table })))
+for (const [name, got, want] of [
+  ['2026-765', fix(150000, [150000, 280000]), 280000],
+  ['a table below section G', fix(300000, [300000, 280000]), 280000],
+  ['a draw beside another source', fix(99322, [80000, 90000]), 109322],
+  ['a blank 9999 line priced at section G\'s figure', fix(25000, [null, 25000]), 25000],
+  ['a blank 9999 line priced above it', fix(25000, [null, 30000]), 30000],
+  ['no correction', fix(25000), 25000],
+]) if (got !== want) fail(`corrected amount, ${name}: got ${got}, want ${want}`)
 
 // ── 2. Every adopted draw in the published data ──────────────────────────────
 const meetingDir = join(web, 'public/data/meetings')

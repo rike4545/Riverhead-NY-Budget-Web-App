@@ -156,7 +156,12 @@ export default function FiscalImpactTable({ resolutions, meetingRecord, voteDeta
                 const official = r.number ? officialByNumber.get(r.number) : undefined
                 const watch = meetingRecord ? voteLink(meetingRecord.slug, r.number) : null
                 const voted = drawsByFund(r.funding, r.tableFundBalance).filter(tableCorrects)
-                const votedStatement = voted.some((d) => d.statement !== null) ? voted.reduce((n, d) => n + (d.statement ?? 0), 0) : null
+                // A 9999 line section G priced differently from the table, and
+                // one it left blank, which the table prices.
+                const votedPriced = voted.filter((d) => d.statement !== null)
+                const votedBlank = voted.filter((d) => d.statement === null)
+                const statedSum = votedPriced.reduce((n, d) => n + (d.statement as number), 0)
+                const blankSum = votedBlank.reduce((n, d) => n + (d.table as number), 0)
                 return (
                   <tr key={r.number ?? r.seq} style={{ borderBottom: '1px solid var(--rbl-border-subtle)', verticalAlign: 'top' }}>
                     <td style={{ ...td, whiteSpace: 'nowrap' }}>
@@ -191,8 +196,10 @@ export default function FiscalImpactTable({ resolutions, meetingRecord, voteDeta
                       ) : <span style={{ color: 'var(--rbl-text-faint)', fontWeight: 500 }}>—</span>}
                       {r.amountNote && <div style={{ marginTop: 3, fontSize: 10.5, fontWeight: 600, color: 'var(--rbl-text-muted)', whiteSpace: 'normal', maxWidth: 160, marginLeft: 'auto' }}>{r.amountNote}</div>}
                       {voted.length > 0 ? (
-                        <div data-table-corrects={r.number ?? ''} title={`The budget table the Board adopted moves ${voted.map((d) => d.rows.join('; ')).join('; ')}. Section G of the statement ${votedStatement === null ? 'names no amount' : `names ${usd(votedStatement)}`}. The vote is the appropriation, so the table’s figure is shown.`} style={{ marginTop: 3, fontSize: 10.5, fontWeight: 800, color: 'var(--rbl-danger-strong)', whiteSpace: 'normal', maxWidth: 130, marginLeft: 'auto' }}>
-                          as adopted; the statement says {votedStatement === null ? 'no amount' : usd(votedStatement)}
+                        <div data-table-corrects={r.number ?? ''} title={`The budget table the Board adopted moves ${voted.map((d) => d.rows.join('; ')).join('; ')}. ${votedPriced.length ? `Section G of the statement names ${usd(statedSum)} for that fund balance. ` : ''}${votedBlank.length ? 'Section G names the fund-balance account without an amount. ' : ''}The vote is the appropriation, so the amount follows the table.`} style={{ marginTop: 3, fontSize: 10.5, fontWeight: 800, color: 'var(--rbl-danger-strong)', whiteSpace: 'normal', maxWidth: 130, marginLeft: 'auto' }}>
+                          {votedPriced.length > 0 && <>as adopted; the statement says {usd(statedSum)}</>}
+                          {votedPriced.length > 0 && votedBlank.length > 0 && '; '}
+                          {votedBlank.length > 0 && <>the statement leaves the fund-balance line blank; the adopted table gives {usd(blankSum)}</>}
                         </div>
                       ) : r.statementBelowTable && (
                         <div title={`Section G of the statement names ${usd(r.statementBelowTable.statement)}; the budget adjustment the resolution orders moves ${usd(r.statementBelowTable.table)}.`} style={{ marginTop: 3, fontSize: 10.5, fontWeight: 800, color: 'var(--rbl-danger-strong)', whiteSpace: 'normal', maxWidth: 130, marginLeft: 'auto' }}>
