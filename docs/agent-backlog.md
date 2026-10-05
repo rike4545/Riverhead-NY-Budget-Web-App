@@ -175,6 +175,17 @@ three practice agents and checking the fund-balance ledger. Each agent's file ho
 
 ## Done
 
+- 2026-10-05: The data workflows no longer fail when another run pushes first.
+  Both of Parse Financial Reports' schedules matched Monday 09:00 UTC, so two
+  runs started 35 seconds apart; the second run's rebase stopped on
+  `web/public/data/meta.json` and its push failed. The workflow now runs one
+  at a time (a concurrency group), its weekly schedule skips September to
+  November, which the twice-daily one covers, and it and the meeting sync push
+  through `.github/scripts/push-data.sh`. That script takes main's copy of a
+  derived file that conflicts (the freshness stamp, the search index, the CSV
+  downloads, the shared-data manifest), rebuilds them all on top of main, and
+  fails with the file named only when two runs changed the same source data.
+  `etl/test_push_data.py` replays the race and checks the schedules.
 - 2026-10-04: A fund-balance line section G leaves blank no longer doubles a
   resolution's amount when the adopted table prices it. The amount was moved
   by the table's figure less section G's, with a blank counted as $0, so a
