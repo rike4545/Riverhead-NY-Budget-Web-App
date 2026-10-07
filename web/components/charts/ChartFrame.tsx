@@ -22,7 +22,8 @@ export default function ChartFrame({
         )}
       </figcaption>
 
-      <div style={{ marginTop: 12 }}>{children}</div>
+      {/* rbl-chart is a size container: the charts inside switch to their phone drawing by its width (site.css). */}
+      <div className="rbl-chart" style={{ marginTop: 12 }}>{children}</div>
 
       {legend && legend.length > 0 && (
         <ul style={{ display: 'flex', flexWrap: 'wrap', gap: '6px 16px', listStyle: 'none', padding: 0, margin: '12px 0 0' }}>
