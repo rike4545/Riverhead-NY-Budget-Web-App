@@ -8,7 +8,7 @@ import type { PayrollLink } from '../lib/payroll-link'
 
 const usd = (n: number | null | undefined) =>
   n == null ? '—' : new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(n)
-const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 18, boxShadow: '0 14px 34px var(--rbl-shadow)' } as const
+const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 18 } as const
 const sel = { padding: '9px 11px', border: '1px solid var(--rbl-border-strong)', borderRadius: 9, fontSize: 14, fontWeight: 700 } as const
 
 type SortKey = 'name' | 'group' | 'annual' | 'actualGross' | 'gap'
@@ -194,7 +194,7 @@ const td = { padding: '7px 9px' } as const
 function Stat({ label, value, accent }: { label: string; value: string; accent?: boolean }) {
   return (
     <div style={{ background: accent ? 'var(--rbl-info-bg)' : 'var(--rbl-surface-2)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 12, padding: 12 }}>
-      <div style={{ color: 'var(--rbl-text-muted)', fontSize: 11.5, textTransform: 'uppercase', fontWeight: 900, letterSpacing: 0.4 }}>{label}</div>
+      <div style={{ color: 'var(--rbl-text-muted)', fontSize: 13.5, fontWeight: 700 }}>{label}</div>
       <strong style={{ fontSize: 19, color: 'var(--rbl-title)' }}>{value}</strong>
     </div>
   )

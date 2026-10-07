@@ -1,11 +1,25 @@
 *{box-sizing:border-box}
-html{scroll-behavior:smooth;text-rendering:optimizeLegibility;background:var(--rbl-page)}
-body{margin:0;min-width:320px;background:var(--rbl-page);color:var(--rbl-text);-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+html{scroll-behavior:smooth;text-rendering:optimizeLegibility;background:var(--rbl-page);scrollbar-color:var(--rbl-scrollbar) var(--rbl-page)}
+/* Source Sans 3 has a small x-height (0.478 em). The page sizes were set against system fonts, so the face is scaled to a 0.52 x-height: the same apparent size, the new letterforms. */
+body{margin:0;min-width:320px;background:var(--rbl-page);color:var(--rbl-text);font-family:var(--rbl-font-sans),ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;font-size-adjust:.52;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
 button,input,select,textarea{font:inherit}
 a,button{-webkit-tap-highlight-color:transparent}
-a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible,summary:focus-visible{outline:3px solid #38bdf8;outline-offset:3px}
-a{ text-underline-offset:3px }
-::selection{background:#cfe8fb;color:#102f49}
-@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
+input,textarea{caret-color:var(--rbl-focus)}
+/* One focus ring for the whole site, in the link blue; controls on the navy masthead carry rbl-on-dark and get the light ring. */
+:focus-visible{outline:3px solid var(--rbl-focus);outline-offset:2px}
+.rbl-on-dark:focus-visible{outline-color:var(--rbl-focus-on-dark)}
+a{text-underline-offset:.2em;text-decoration-thickness:from-font}
+::selection{background:var(--rbl-selection);color:var(--rbl-selection-text)}
+/* Reading type: balanced headings, no stranded last words, and a measure a reader can follow. */
+h1,h2,h3,h4{text-wrap:balance}
+p,li,dd,figcaption,blockquote{text-wrap:pretty}
+p,blockquote{max-width:72ch}
+table{font-variant-numeric:tabular-nums}
+:where(div,section,nav,ul,ol,table,pre){scrollbar-width:thin}
+/* Skip link: off screen until a keyboard user reaches it. */
+.rbl-skip{position:absolute;left:12px;top:-60px;z-index:100;background:var(--rbl-surface);color:var(--rbl-title);font-weight:700;padding:10px 14px;border-radius:8px;border:1px solid var(--rbl-border)}
+.rbl-skip:focus{top:12px}
+/* Reduced motion keeps colour and opacity changes, which carry state, and drops movement. */
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation-duration:1ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition-property:color,background-color,border-color,opacity,box-shadow!important}}
 /* A table that becomes one labeled block per row on a phone, so no column is scrolled out of view. Each cell after the first carries data-label. */
 @media(max-width:560px){.rbl-stack thead{display:none}.rbl-stack,.rbl-stack tbody,.rbl-stack tr{display:block;width:100%}.rbl-stack tr{padding:8px 0}.rbl-stack td{display:flex;justify-content:space-between;align-items:baseline;gap:12px;padding:2px 0!important;text-align:right!important}.rbl-stack td::before{content:attr(data-label);color:var(--rbl-text-muted);font-weight:600;text-align:left}.rbl-stack td:first-child{font-weight:800}.rbl-stack td:first-child::before{content:none}}

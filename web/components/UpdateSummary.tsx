@@ -40,7 +40,7 @@ export default function UpdateSummary() {
   return (
     <section aria-label="Data update summary" style={{ marginBottom: 22, padding: '12px 0', borderTop: '1px solid var(--rbl-border-subtle)', borderBottom: '1px solid var(--rbl-border-subtle)', display: 'flex', justifyContent: 'space-between', gap: 14, flexWrap: 'wrap', alignItems: 'center' }}>
       <div style={{ minWidth: 0 }}>
-        <div style={{ color: 'var(--rbl-text-muted)', fontSize: 10.5, fontWeight: 950, textTransform: 'uppercase', letterSpacing: .7 }}>{headline}</div>
+        <div style={{ color: 'var(--rbl-text-muted)', fontSize: 13, fontWeight: 700 }}>{headline}</div>
         <div style={{ color: 'var(--rbl-text-strong)', fontSize: 12.8, lineHeight: 1.5, marginTop: 3 }}>
           Refreshed {meta.generatedAtDisplay}
           {meta.datasets.latestMeeting ? ` · meetings through ${meta.datasets.latestMeeting}` : ''}

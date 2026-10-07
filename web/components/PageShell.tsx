@@ -7,14 +7,15 @@ export default function PageShell({ title, subtitle, children, home = false }: {
   const base = process.env.NEXT_PUBLIC_BASE_PATH || ''
 
   return (
-    <main style={{ minHeight: '100vh', background: 'var(--rbl-bg)', color: 'var(--rbl-text)', fontFamily: 'Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif' }}>
-      <header style={{ background: 'var(--rbl-fill-brand)', color: 'white', borderBottom: '1px solid rgba(255,255,255,.14)', padding: '12px clamp(14px,3vw,26px)', boxShadow: '0 6px 20px rgba(15,35,55,.10)', position: 'relative', zIndex: 20 }}>
+    <div style={{ minHeight: '100vh', background: 'var(--rbl-bg)', color: 'var(--rbl-text)' }}>
+      <a href="#main" className="rbl-skip">Skip to content</a>
+      <header style={{ background: 'var(--rbl-fill-brand)', color: 'white', padding: '12px clamp(14px,3vw,26px)', position: 'relative', zIndex: 20 }}>
         <div style={{ maxWidth: 1240, margin: '0 auto', display: 'flex', justifyContent: 'space-between', gap: 16, alignItems: 'center' }}>
-          <a href={`${base}/`} style={{ color: 'white', textDecoration: 'none', display: 'flex', gap: 10, alignItems: 'center', minWidth: 0 }}>
-            <span style={{ width: 36, height: 36, flex: '0 0 auto', borderRadius: 9, display: 'grid', placeItems: 'center', background: 'white', color: 'var(--rbl-logo-fg)', fontWeight: 950, fontSize: 13 }}>RB</span>
+          <a href={`${base}/`} className="rbl-on-dark" style={{ color: 'white', textDecoration: 'none', display: 'flex', gap: 10, alignItems: 'center', minWidth: 0, borderRadius: 8 }}>
+            <span aria-hidden="true" style={{ width: 36, height: 36, flex: '0 0 auto', borderRadius: 9, display: 'grid', placeItems: 'center', background: 'white', color: 'var(--rbl-logo-fg)', fontWeight: 800, fontSize: 14 }}>RB</span>
             <span style={{ minWidth: 0 }}>
-              <strong className="brand-name" style={{ display: 'block', fontSize: 16.5, lineHeight: 1.15 }}>Riverhead Budget Live</strong>
-              <span className="brand-subtitle" style={{ display: 'block', color: '#d7e7f4', fontSize: 11.5, marginTop: 2 }}>Town finances, explained</span>
+              <strong className="brand-name" style={{ display: 'block', fontSize: 17.5, fontWeight: 700, lineHeight: 1.15 }}>Riverhead Budget Live</strong>
+              <span className="brand-subtitle" style={{ display: 'block', color: '#d7e7f4', fontSize: 13, marginTop: 1 }}>Town finances, explained</span>
             </span>
           </a>
           <div className="header-tools" style={{ display: 'flex', alignItems: 'center', gap: 9, marginLeft: 'auto', minWidth: 0 }}>
@@ -24,20 +25,21 @@ export default function PageShell({ title, subtitle, children, home = false }: {
         </div>
       </header>
 
-      <section style={{ padding: '0 clamp(16px,3vw,28px)', maxWidth: 1240, margin: '0 auto' }}>
-        {!home && (
-          <header style={{ padding: 'clamp(28px,5vw,50px) 0 22px', borderBottom: '1px solid var(--rbl-border-subtle)', marginBottom: 26 }}>
-            <div style={{ color: 'var(--rbl-badge)', letterSpacing: 1.2, textTransform: 'uppercase', fontSize: 11, fontWeight: 950 }}>Independent civic data project</div>
-            <h1 style={{ fontSize: 'clamp(30px,5vw,46px)', lineHeight: 1.04, letterSpacing: '-.025em', margin: '8px 0 10px', color: 'var(--rbl-title)', maxWidth: 900, overflowWrap: 'anywhere' }}>{title}</h1>
-            <p style={{ color: 'var(--rbl-text-sub)', fontSize: 'clamp(15px,2vw,17px)', lineHeight: 1.6, margin: 0, maxWidth: 900 }}>{subtitle}</p>
-            <DisclaimerBanner />
-          </header>
-        )}
-        {children}
+      <div style={{ padding: '0 clamp(16px,3vw,28px)', maxWidth: 1240, margin: '0 auto' }}>
+        <main id="main">
+          {!home && (
+            <header style={{ padding: 'clamp(30px,5vw,52px) 0 22px', borderBottom: '1px solid var(--rbl-border-subtle)', marginBottom: 28 }}>
+              <h1 style={{ fontSize: 'clamp(31px,4.6vw,46px)', fontWeight: 700, lineHeight: 1.08, letterSpacing: '-.02em', margin: '0 0 12px', color: 'var(--rbl-title)', maxWidth: 900, overflowWrap: 'anywhere' }}>{title}</h1>
+              <p style={{ color: 'var(--rbl-text-sub)', fontSize: 'clamp(16.5px,2vw,19px)', lineHeight: 1.55, margin: 0, maxWidth: '64ch' }}>{subtitle}</p>
+              <DisclaimerBanner />
+            </header>
+          )}
+          {children}
+        </main>
         <ExperienceFooter />
-      </section>
+      </div>
       {/* Below the full-nav breakpoint the tools are just Menu and Aa: keep them whole and let the name wrap. */}
-      <style>{`@media(max-width:640px){.brand-subtitle{display:none!important}}@media(max-width:1120px){.header-tools{flex-shrink:0}}@media(max-width:380px){.brand-name{font-size:15px!important}}`}</style>
-    </main>
+      <style>{`@media(max-width:640px){.brand-subtitle{display:none!important}}@media(max-width:1120px){.header-tools{flex-shrink:0}}@media(max-width:380px){.brand-name{font-size:15.5px!important}}`}</style>
+    </div>
   )
 }

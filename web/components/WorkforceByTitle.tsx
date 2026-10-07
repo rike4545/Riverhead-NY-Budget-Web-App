@@ -37,7 +37,7 @@ const titleChurnYears = data.titleChurnYears ?? []
 const years = data.years
 const latestYear = years[years.length - 1]
 
-const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 20, boxShadow: '0 14px 34px var(--rbl-shadow)' } as const
+const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 20 } as const
 const th = { padding: '8px 10px', textAlign: 'right' as const, whiteSpace: 'nowrap' as const }
 const td = { padding: '7px 10px', textAlign: 'right' as const }
 
@@ -196,7 +196,7 @@ function topDelta(titles: TitleRow[], dir: 'gain' | 'loss') {
 function Stat({ label, value, sub, accent, green }: { label: string; value: string; sub?: string; accent?: boolean; green?: boolean }) {
   return (
     <div style={{ background: green ? 'var(--rbl-success-bg)' : accent ? 'var(--rbl-info-bg)' : 'var(--rbl-surface-2)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 12, padding: 12 }}>
-      <div style={{ color: 'var(--rbl-text-muted)', fontSize: 11.5, textTransform: 'uppercase', fontWeight: 900, letterSpacing: 0.4 }}>{label}</div>
+      <div style={{ color: 'var(--rbl-text-muted)', fontSize: 13.5, fontWeight: 700 }}>{label}</div>
       <strong style={{ fontSize: 18, color: green ? 'var(--rbl-success-strong)' : accent ? 'var(--rbl-info-text)' : 'var(--rbl-title)', display: 'block', marginTop: 2, lineHeight: 1.2 }}>{value}</strong>
       {sub && <div style={{ color: 'var(--rbl-text-muted)', fontSize: 12, marginTop: 2 }}>{sub}</div>}
     </div>

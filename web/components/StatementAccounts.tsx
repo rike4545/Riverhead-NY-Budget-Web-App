@@ -103,7 +103,7 @@ export default function StatementAccounts({ funding }: { funding?: ResolutionFun
 
   return (
     <div style={{ marginTop: 8, borderLeft: '3px solid var(--rbl-border-strong)', paddingLeft: 9 }}>
-      <div style={{ fontSize: 10, fontWeight: 900, letterSpacing: 0.4, textTransform: 'uppercase', color: 'var(--rbl-text-muted)', marginBottom: 4 }}>
+      <div style={{ fontSize: 13, fontWeight: 700, color: 'var(--rbl-text-muted)', marginBottom: 4 }}>
         Accounts on the Town’s own statement
       </div>
       {grant && <GrantTerms text={grant} funding={funding} inline />}

@@ -3,7 +3,7 @@
 import { useMemo, useState } from 'react'
 import type { Outlier } from '../lib/budget-accuracy'
 
-const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 20, boxShadow: '0 14px 34px var(--rbl-shadow)' } as const
+const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 20 } as const
 const usd = (n: number) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(n)
 
 type Tab = 'overBudget' | 'chronicOverrun' | 'noBudget'
@@ -83,7 +83,7 @@ export default function BudgetAccuracyOutliers({
       <div style={{ overflowX: 'auto' }}>
         <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 13.5, minWidth: 680 }}>
           <thead>
-            <tr style={{ textAlign: 'left', color: 'var(--rbl-text-muted)', fontSize: 11, textTransform: 'uppercase', letterSpacing: 0.4 }}>
+            <tr style={{ textAlign: 'left', color: 'var(--rbl-text-muted)', fontSize: 13 }}>
               <th style={{ padding: '8px 10px' }}>Line</th>
               <th style={{ padding: '8px 10px', textAlign: 'right' }}>{columns.actual} actual</th>
               <th style={{ padding: '8px 10px', textAlign: 'right' }}>Jan–Jun {columns.ytd}</th>

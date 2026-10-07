@@ -77,7 +77,7 @@ import {
 } from '../../lib/fund-balance-policies'
 
 const base = process.env.NEXT_PUBLIC_BASE_PATH || ''
-const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 20, boxShadow: '0 14px 34px var(--rbl-shadow)' } as const
+const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 20 } as const
 const pct = (v: number, digits = 1) => `${(v * 100).toFixed(digits)}%`
 
 export const metadata = {
@@ -205,7 +205,7 @@ export default function ReservesPage() {
         </p>
       </section>
 
-      <section data-fund-balance-policy style={{ ...card, marginBottom: 16, borderLeft: '6px solid var(--rbl-accent-border)' }}>
+      <section data-fund-balance-policy style={{ ...card, marginBottom: 16 }}>
         <h3 style={{ marginTop: 0, color: 'var(--rbl-title)' }}>What the Town&apos;s fund balance policy says</h3>
         <p style={{ color: 'var(--rbl-text-body)', fontSize: 14.5, lineHeight: 1.6, marginTop: 0 }}>
           The policy in force is <strong>Resolution {FUND_BALANCE_POLICY.resolution.replace('2011-', '')} of 2011</strong>,
@@ -388,7 +388,7 @@ export default function ReservesPage() {
         ) : null}
       </section>
 
-      <section style={{ ...card, marginBottom: 16, borderLeft: '6px solid var(--rbl-accent-border)' }}>
+      <section style={{ ...card, marginBottom: 16 }}>
         <h3 style={{ marginTop: 0, color: 'var(--rbl-title)' }}>What 2026 has already committed</h3>
         <p style={{ color: 'var(--rbl-text-body)', fontSize: 14.5, lineHeight: 1.6, marginTop: 0 }}>
           {availabilityReading}

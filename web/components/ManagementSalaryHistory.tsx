@@ -14,11 +14,11 @@ const usd = (n: number) =>
   new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(n)
 const card = {
   background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)',
-  borderRadius: 16, padding: 20, boxShadow: '0 14px 34px var(--rbl-shadow)',
+  borderRadius: 16, padding: 20, 
 } as const
 const th = {
   padding: '8px 10px', textAlign: 'left' as const, color: 'var(--rbl-text-muted)',
-  fontSize: 11.5, textTransform: 'uppercase' as const, fontWeight: 900, letterSpacing: 0.4,
+  fontSize: 13.5 as const, fontWeight: 700, 
 }
 const td = { padding: '8px 10px', verticalAlign: 'top' as const }
 const num = { ...td, textAlign: 'right' as const, whiteSpace: 'nowrap' as const, fontWeight: 700 }
@@ -118,7 +118,7 @@ export default function ManagementSalaryHistory() {
         </p>
       </section>
 
-      <section style={{ ...card, marginBottom: 16, borderLeft: '5px solid var(--rbl-warn)' }}>
+      <section style={{ ...card, marginBottom: 16, borderColor: 'var(--rbl-warn-border)' }}>
         <h3 style={{ marginTop: 0, color: 'var(--rbl-title)' }}>Why the schedule is not the answer on its own</h3>
         <p style={{ color: 'var(--rbl-text-body)', fontSize: 14.5, lineHeight: 1.6, marginTop: 0 }}>
           Every figure above is the schedule <em>as adopted in January</em>. On January 4, 2023 the Board adopted the
@@ -187,7 +187,7 @@ export default function ManagementSalaryHistory() {
 function Stat({ label, value, sub, accent }: { label: string; value: string; sub?: string; accent?: boolean }) {
   return (
     <div>
-      <div style={{ color: 'var(--rbl-text-muted)', fontSize: 11.5, textTransform: 'uppercase', fontWeight: 900, letterSpacing: 0.4 }}>{label}</div>
+      <div style={{ color: 'var(--rbl-text-muted)', fontSize: 13.5, fontWeight: 700 }}>{label}</div>
       <div style={{ fontSize: 26, fontWeight: 900, color: accent ? 'var(--rbl-warn-strong)' : 'var(--rbl-title)', lineHeight: 1.2 }}>{value}</div>
       {sub && <div style={{ color: 'var(--rbl-text-muted)', fontSize: 12, lineHeight: 1.45 }}>{sub}</div>}
     </div>

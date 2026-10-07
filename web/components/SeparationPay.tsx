@@ -60,7 +60,7 @@ const NON_UNION_LABELS: Record<string, string> = {
 }
 const groupLabel = (code: string, unionLabels: Record<string, string>) =>
   unionLabels[code] ?? NON_UNION_LABELS[code] ?? code
-const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 20, boxShadow: '0 14px 34px var(--rbl-shadow)' } as const
+const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 20 } as const
 
 export default function SeparationPay(p: SeparationPayProps) {
   const maxLiability = Math.max(...p.liability.series.map((s) => s.amount))
@@ -68,7 +68,7 @@ export default function SeparationPay(p: SeparationPayProps) {
   return (
     <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0,1fr)', gap: 16 }}>
       {/* Frame: the thing people suspect, and where the money actually is */}
-      <section style={{ background: 'var(--rbl-info-bg)', border: '1px solid var(--rbl-info-border)', borderLeft: '6px solid var(--rbl-accent-border)', borderRadius: 14, padding: '16px 18px' }}>
+      <section style={{ background: 'var(--rbl-info-bg)', border: '1px solid var(--rbl-info-border)', borderRadius: 14, padding: '16px 18px' }}>
         <strong style={{ color: 'var(--rbl-title)', fontSize: 16 }}>Where end-of-career money actually shows up</strong>
         <p style={{ color: 'var(--rbl-info-text)', fontSize: 14.5, lineHeight: 1.65, margin: '6px 0 0' }}>
           A common suspicion about municipal payroll is that people run up overtime late in a career to lift a pension.
@@ -81,8 +81,8 @@ export default function SeparationPay(p: SeparationPayProps) {
       </section>
 
       {/* The audited liability — the sourced half */}
-      <section style={{ ...card, borderLeft: '6px solid var(--rbl-danger)' }}>
-        <div style={{ color: 'var(--rbl-danger)', fontWeight: 900, fontSize: 12, textTransform: 'uppercase', letterSpacing: 0.5 }}>
+      <section style={{ ...card, borderColor: 'var(--rbl-danger-border)' }}>
+        <div style={{ color: 'var(--rbl-danger)', fontWeight: 700, fontSize: 13.5 }}>
           What the Town says it owes
         </div>
         <h3 style={{ margin: '5px 0 4px', color: 'var(--rbl-title)', fontSize: 20 }}>
@@ -116,7 +116,7 @@ export default function SeparationPay(p: SeparationPayProps) {
       </section>
 
       {/* The cash side, from payroll */}
-      <section style={{ ...card, borderLeft: '6px solid var(--rbl-warn)' }}>
+      <section style={{ ...card, borderColor: 'var(--rbl-warn-border)' }}>
         <h3 style={{ margin: '0 0 4px', color: 'var(--rbl-title)', fontSize: 20 }}>What separations actually paid out</h3>
         <p style={{ color: 'var(--rbl-text-muted)', fontSize: 14, lineHeight: 1.6, margin: '0 0 14px', maxWidth: 900 }}>
           For everyone with at least three years on the payroll who stopped appearing before {2025}, comparing their
@@ -175,13 +175,13 @@ export default function SeparationPay(p: SeparationPayProps) {
       </section>
 
       {/* Why now */}
-      <section style={{ ...card, borderLeft: '6px solid var(--rbl-violet)', background: 'var(--rbl-violet-bg)' }}>
+      <section style={{ ...card, background: 'var(--rbl-violet-bg)' }}>
         <h3 style={{ margin: '0 0 6px', color: 'var(--rbl-violet-strong)', fontSize: 17 }}>Why this matters in 2026 specifically</h3>
         <p style={{ color: 'var(--rbl-violet-strong)', fontSize: 14.5, lineHeight: 1.65, margin: 0 }}>{p.whyItMattersNow}</p>
       </section>
 
       {/* What would settle it */}
-      <section style={{ ...card, borderLeft: '6px solid var(--rbl-teal)' }}>
+      <section style={{ ...card }}>
         <h3 style={{ margin: '0 0 8px', color: 'var(--rbl-title)', fontSize: 17 }}>What would settle this</h3>
         <p style={{ color: 'var(--rbl-text-strong)', fontSize: 14.5, lineHeight: 1.65, margin: '0 0 8px' }}>
           <strong>The document:</strong> {p.whatWouldSettleIt.document} — {p.whatWouldSettleIt.line}.
@@ -210,14 +210,14 @@ export default function SeparationPay(p: SeparationPayProps) {
 function Stat({ label, value, accent }: { label: string; value: string; accent?: boolean }) {
   return (
     <div style={{ background: accent ? 'var(--rbl-warn-bg)' : 'var(--rbl-surface-2)', border: `1px solid ${accent ? 'var(--rbl-warn-border)' : 'var(--rbl-border-subtle)'}`, borderRadius: 10, padding: '10px 13px' }}>
-      <div style={{ color: 'var(--rbl-text-muted)', fontSize: 11, fontWeight: 800, textTransform: 'uppercase', letterSpacing: 0.4, lineHeight: 1.35 }}>{label}</div>
+      <div style={{ color: 'var(--rbl-text-muted)', fontSize: 13, fontWeight: 700, lineHeight: 1.35 }}>{label}</div>
       <div style={{ color: accent ? 'var(--rbl-warn)' : 'var(--rbl-title)', fontSize: 20, fontWeight: 950, marginTop: 3 }}>{value}</div>
     </div>
   )
 }
 
 function Th({ children, align }: { children: React.ReactNode; align: 'left' | 'right' }) {
-  return <th style={{ textAlign: align, padding: '9px 11px', color: 'var(--rbl-text-muted)', fontSize: 11.5, fontWeight: 800, textTransform: 'uppercase', letterSpacing: 0.4 }}>{children}</th>
+  return <th style={{ textAlign: align, padding: '9px 11px', color: 'var(--rbl-text-muted)', fontSize: 13.5, fontWeight: 700 }}>{children}</th>
 }
 function Td({ children, align }: { children: React.ReactNode; align: 'left' | 'right' }) {
   return <td style={{ textAlign: align, padding: '10px 11px', color: 'var(--rbl-text-strong)' }}>{children}</td>

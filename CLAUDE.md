@@ -86,6 +86,14 @@ python3 etl/build_search_index.py && python3 etl/write_meta.py
   and no jargon without a gloss.
 - Commit messages and pull requests say what changed and why, in prose.
 
+### Design
+
+- `DESIGN.md` is the design brief: one typeface (Source Sans 3), sentence
+  case, flat cards, status in the box rather than a side stripe, no kicker
+  labels above headings, lucide icons and no emoji. Follow it on new pages.
+- `npm run verify` fails on an emoji in the source, an uppercase label, a
+  thick side stripe or a missing typeface (`web/scripts/verify-design.mjs`).
+
 ## Agents
 
 | Agent | Use it to |

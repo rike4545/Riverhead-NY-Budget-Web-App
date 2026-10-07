@@ -5,7 +5,7 @@ import PlainCallout from '../../components/PlainCallout'
 import FiscalImpactMeetings, { type FiscalMeeting } from '../../components/FiscalImpactMeetings'
 
 const base = process.env.NEXT_PUBLIC_BASE_PATH || ''
-const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 20, boxShadow: '0 14px 34px var(--rbl-shadow)' } as const
+const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 20 } as const
 
 export const metadata = {
   title: 'Fiscal Impact, corrected — Town Board resolutions',

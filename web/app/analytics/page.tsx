@@ -5,7 +5,7 @@ import { analyticsModules, automatedKpis } from '../../lib/analytics-modules'
 import { allOperatingFunds2026, fundBalanceUseSummary } from '../../lib/all-funds'
 import { dollars } from '../../lib/financial-data'
 
-const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 18, padding: 20, boxShadow: '0 14px 34px var(--rbl-shadow)' } as const
+const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 18, padding: 20 } as const
 
 const kpiLinks: Record<string, string> = {
   '2025 General Fund surplus (actual)': '/annual-report/',
@@ -19,7 +19,6 @@ const kpiLinks: Record<string, string> = {
 
 const sections = [
   {
-    eyebrow: 'Where we are now',
     title: 'Current position',
     text: 'Start with the adopted budget, reserves, debt, and actual payroll before drawing conclusions about fiscal health.',
     links: [
@@ -30,7 +29,6 @@ const sections = [
     ],
   },
   {
-    eyebrow: 'What moved',
     title: 'What changed',
     text: 'Separate the size of the change from the reason for it, then follow the biggest movers back to the underlying budget records.',
     links: [
@@ -41,7 +39,6 @@ const sections = [
     ],
   },
   {
-    eyebrow: 'Forward looking',
     title: 'What could happen next',
     text: 'Keep projections distinct from adopted policy. These tools show possible 2027 paths and the assumptions behind them.',
     links: [
@@ -52,7 +49,6 @@ const sections = [
     ],
   },
   {
-    eyebrow: 'Decision layer',
     title: 'What the Board can do',
     text: 'Translate the financial position into actual choices: levy, reserves, spending, staffing, borrowing, and votes.',
     links: [
@@ -73,8 +69,7 @@ export default function AnalyticsPage() {
 
   return (
     <PageShell title="Riverhead Financial Health" subtitle="One place to understand where the Town is now, what changed, what could happen next, and the choices the Town Board actually controls.">
-      <section style={{ ...card, marginBottom: 18, borderLeft: '6px solid var(--rbl-page-accent)' }}>
-        <div style={{ color: 'var(--rbl-badge)', textTransform: 'uppercase', letterSpacing: 1.2, fontSize: 11, fontWeight: 950 }}>How to use this page</div>
+      <section style={{ ...card, marginBottom: 18 }}>
         <h2 style={{ margin: '5px 0 7px', fontSize: 24 }}>Financial health is a chain of evidence, not one score.</h2>
         <p style={{ color: 'var(--rbl-text-body)', lineHeight: 1.65, margin: 0, maxWidth: 920 }}>Start with official current-year figures, then examine changes, then projections, then policy choices. That sequence keeps adopted numbers, calculations, and scenarios from being mistaken for one another.</p>
       </section>
@@ -122,17 +117,17 @@ export default function AnalyticsPage() {
 
 function Metric({ label, value, href, source }: { label: string; value: string; href: string; source: string }) {
   const base = process.env.NEXT_PUBLIC_BASE_PATH || ''
-  return <a href={`${base}${href}`} style={{ ...card, display: 'block', color: 'inherit', textDecoration: 'none' }}><div style={{ color: 'var(--rbl-text-muted)', fontSize: 12, textTransform: 'uppercase', fontWeight: 900 }}>{label}</div><strong style={{ fontSize: 28 }}>{value}</strong><ProvenanceLine status="calculated" source={source} asOf="2026 adopted budget" calculation="Aggregated from cited fund records" claimId={`analytics-metric-${slug(label)}`} /></a>
+  return <a href={`${base}${href}`} style={{ ...card, display: 'block', color: 'inherit', textDecoration: 'none' }}><div style={{ color: 'var(--rbl-text-muted)', fontSize: 13.5, fontWeight: 700 }}>{label}</div><strong style={{ fontSize: 28 }}>{value}</strong><ProvenanceLine status="calculated" source={source} asOf="2026 adopted budget" calculation="Aggregated from cited fund records" claimId={`analytics-metric-${slug(label)}`} /></a>
 }
 
-function HubSection({ eyebrow, title, text, links }: { eyebrow: string; title: string; text: string; links: readonly (readonly [string, string, string])[] }) {
+function HubSection({ title, text, links }: { title: string; text: string; links: readonly (readonly [string, string, string])[] }) {
   const base = process.env.NEXT_PUBLIC_BASE_PATH || ''
-  return <section style={card}><div style={{ color: 'var(--rbl-badge)', textTransform: 'uppercase', letterSpacing: .7, fontSize: 11, fontWeight: 950 }}>{eyebrow}</div><h2 style={{ margin: '5px 0 6px', fontSize: 21 }}>{title}</h2><p style={{ color: 'var(--rbl-text-muted)', fontSize: 13.5, lineHeight: 1.5 }}>{text}</p><div style={{ display: 'grid', gap: 8, marginTop: 12 }}>{links.map(([href, label, desc]) => <a key={href} href={`${base}${href}`} style={{ textDecoration: 'none', color: 'inherit', background: 'var(--rbl-surface-2)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 11, padding: 11 }}><strong style={{ color: 'var(--rbl-title)', fontSize: 13.5 }}>{label} →</strong><div style={{ color: 'var(--rbl-text-muted)', fontSize: 12.3, lineHeight: 1.4, marginTop: 3 }}>{desc}</div></a>)}</div></section>
+  return <section style={card}><h2 style={{ margin: '0 0 6px', fontSize: 21 }}>{title}</h2><p style={{ color: 'var(--rbl-text-muted)', fontSize: 15, lineHeight: 1.5 }}>{text}</p><div style={{ display: 'grid', gap: 8, marginTop: 12 }}>{links.map(([href, label, desc]) => <a key={href} href={`${base}${href}`} style={{ textDecoration: 'none', color: 'inherit', background: 'var(--rbl-surface-2)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 11, padding: 11 }}><strong style={{ color: 'var(--rbl-title)', fontSize: 15 }}>{label} →</strong><div style={{ color: 'var(--rbl-text-muted)', fontSize: 14, lineHeight: 1.4, marginTop: 3 }}>{desc}</div></a>)}</div></section>
 }
 
 function KpiCard({ label, value, explanation, href }: { label: string; value: string; explanation: string; href?: string }) {
   const base = process.env.NEXT_PUBLIC_BASE_PATH || ''
-  const body = <><div style={{ color: 'var(--rbl-link)', fontWeight: 900, fontSize: 12, textTransform: 'uppercase' }}>{label}</div><strong style={{ fontSize: 26 }}>{value}</strong><p style={{ color: 'var(--rbl-text-body)', lineHeight: 1.55 }}>{explanation}</p><ProvenanceLine status="calculated" source="Cited site datasets" asOf="latest indexed records" calculation="Automated indicator" claimId={`analytics-kpi-${slug(label)}`} /></>
+  const body = <><div style={{ color: 'var(--rbl-link)', fontWeight: 700, fontSize: 13.5 }}>{label}</div><strong style={{ fontSize: 26 }}>{value}</strong><p style={{ color: 'var(--rbl-text-body)', lineHeight: 1.55 }}>{explanation}</p><ProvenanceLine status="calculated" source="Cited site datasets" asOf="latest indexed records" calculation="Automated indicator" claimId={`analytics-kpi-${slug(label)}`} /></>
   const style = { border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 14, background: 'var(--rbl-surface-2)', color: 'inherit', textDecoration: 'none', display: 'block' } as const
   return href ? <a href={`${base}${href}`} style={style}>{body}</a> : <article style={style}>{body}</article>
 }

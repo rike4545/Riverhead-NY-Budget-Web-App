@@ -2,7 +2,7 @@ import PageShell from '../../components/PageShell'
 import { topics, answerCount, limits, method } from '../../lib/answers'
 
 const base = process.env.NEXT_PUBLIC_BASE_PATH || ''
-const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 20, boxShadow: '0 14px 34px var(--rbl-shadow)' } as const
+const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 20 } as const
 
 export const metadata = {
   title: 'What do you want to know about Riverhead’s money?',
@@ -16,8 +16,7 @@ export default function AnswersPage() {
       title="What do you want to know?"
       subtitle={`${answerCount} questions residents actually ask, each answered with a real number and a link to the page that shows the work. Nothing here is new analysis — it is the same figures the rest of the site publishes, arranged the way you would ask for them.`}
     >
-      <section style={{ background: 'linear-gradient(100deg,#0f2942,var(--rbl-fill-accent))', color: 'white', borderRadius: 16, padding: '20px 22px', marginBottom: 18, boxShadow: '0 14px 34px var(--rbl-shadow)' }}>
-        <div style={{ fontSize: 11.5, fontWeight: 950, letterSpacing: 0.7, textTransform: 'uppercase', color: '#9fd0ef' }}>Ask Riverhead</div>
+      <section style={{ background: 'var(--rbl-fill-brand)', color: 'white', borderRadius: 16, padding: '20px 22px', marginBottom: 18 }}>
         <h2 style={{ fontSize: 23, margin: '4px 0 6px' }}>Start with the question, not the spreadsheet.</h2>
         <p style={{ margin: '0 0 14px', color: '#cbdcec', lineHeight: 1.5, maxWidth: 760 }}>
           If your question is already answered below, jump straight to it. If you need a specific record, use Search Everything — it searches the underlying budget, payroll, votes, funds, and financial documents.
@@ -38,7 +37,7 @@ export default function AnswersPage() {
       <nav aria-label="Topics" style={{ display: 'flex', flexWrap: 'wrap', gap: 8, marginBottom: 18 }}>
         {topics.map((t) => (
           <a key={t.id} href={`#${t.id}`} style={{ background: 'var(--rbl-surface-2)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 999, padding: '7px 14px', color: 'var(--rbl-link)', fontWeight: 700, fontSize: 13.5, textDecoration: 'none' }}>
-            <span aria-hidden="true">{t.icon}</span> {t.title}
+            {t.title}
           </a>
         ))}
         <a href="#limits" style={{ background: 'var(--rbl-warn-bg)', border: '1px solid var(--rbl-warn-border)', borderRadius: 999, padding: '7px 14px', color: 'var(--rbl-warn-strong)', fontWeight: 700, fontSize: 13.5, textDecoration: 'none' }}>What this site can’t answer</a>
@@ -46,7 +45,7 @@ export default function AnswersPage() {
 
       {topics.map((t) => (
         <section key={t.id} id={t.id} style={{ marginBottom: 26, scrollMarginTop: 16 }}>
-          <h2 style={{ margin: '0 0 2px', color: 'var(--rbl-title)', fontSize: 21 }}><span aria-hidden="true" style={{ marginRight: 8 }}>{t.icon}</span>{t.title}</h2>
+          <h2 style={{ margin: '0 0 2px', color: 'var(--rbl-title)', fontSize: 21 }}>{t.title}</h2>
           <p style={{ color: 'var(--rbl-text-muted)', fontSize: 13.8, margin: '0 0 12px' }}>{t.blurb}</p>
           <div style={{ display: 'grid', gap: 10 }}>
             {t.answers.map((a) => (
@@ -60,7 +59,7 @@ export default function AnswersPage() {
         </section>
       ))}
 
-      <section id="limits" style={{ ...card, marginBottom: 20, scrollMarginTop: 16, borderLeft: '6px solid var(--rbl-warn)' }}>
+      <section id="limits" style={{ ...card, marginBottom: 20, scrollMarginTop: 16, borderColor: 'var(--rbl-warn-border)' }}>
         <h2 style={{ margin: '0 0 4px', color: 'var(--rbl-title)', fontSize: 20 }}>What this site can’t answer</h2>
         <p style={{ color: 'var(--rbl-text-body)', fontSize: 14.2, lineHeight: 1.6, margin: '0 0 14px', maxWidth: 760 }}>Just as useful as knowing what is here. These are the questions people arrive with that this site genuinely does not answer — with a pointer to who does, where one exists.</p>
         <div style={{ display: 'grid', gap: 10 }}>

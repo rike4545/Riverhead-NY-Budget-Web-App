@@ -12,7 +12,7 @@ import {
 import type { PayrollLink } from '../lib/payroll-link'
 
 const usd = (n: number) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(n)
-const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 18, boxShadow: '0 14px 34px var(--rbl-shadow)' } as const
+const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 18 } as const
 const sel = { maxWidth: '100%', padding: '9px 11px', border: '1px solid var(--rbl-border-strong)', borderRadius: 9, fontSize: 14, fontWeight: 700 } as const
 
 type SortKey = 'year' | 'name' | 'title' | 'department' | 'union' | 'regular' | 'overtime' | 'other' | 'gross'
@@ -346,7 +346,7 @@ function TrendBlock({ label, values, years, stroke }: { label: string; values: (
   return (
     <div style={{ display: 'flex', flexWrap: 'wrap', gap: 14, alignItems: 'center' }}>
       <div style={{ flex: '1 1 150px' }}>
-        <div style={{ color: 'var(--rbl-text-muted)', fontSize: 11.5, textTransform: 'uppercase', fontWeight: 900, letterSpacing: 0.3 }}>{label}</div>
+        <div style={{ color: 'var(--rbl-text-muted)', fontSize: 13.5, fontWeight: 700 }}>{label}</div>
         <strong style={{ fontSize: 18, color: 'var(--rbl-title)' }}>{usd(last)}</strong>
         <span style={{ marginLeft: 8, fontWeight: 800, fontSize: 13, color: pct >= 0 ? 'var(--inc)' : 'var(--dec)' }}>
           {pct >= 0 ? '▲' : '▼'} {Math.abs(pct).toFixed(0)}% since {years[0]}
@@ -448,7 +448,7 @@ const nameBtn = { background: 'none', border: 'none', color: 'var(--rbl-title)',
 function Stat({ label, value, sub, accent, amber }: { label: string; value: string; sub?: string; accent?: boolean; amber?: boolean }) {
   return (
     <div style={{ background: amber ? 'var(--rbl-warn-bg)' : accent ? 'var(--rbl-info-bg)' : 'var(--rbl-surface-2)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 12, padding: 12 }}>
-      <div style={{ color: 'var(--rbl-text-muted)', fontSize: 11.5, textTransform: 'uppercase', fontWeight: 900, letterSpacing: 0.4 }}>{label}</div>
+      <div style={{ color: 'var(--rbl-text-muted)', fontSize: 13.5, fontWeight: 700 }}>{label}</div>
       <strong style={{ fontSize: 19, color: amber ? 'var(--rbl-warn)' : 'var(--rbl-title)' }}>{value}</strong>
       {sub && <div style={{ color: 'var(--rbl-text-muted)', fontSize: 11.5, marginTop: 2 }}>{sub}</div>}
     </div>

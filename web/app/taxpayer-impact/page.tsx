@@ -56,7 +56,7 @@ export default function TaxpayerImpactPage() {
               <article key={fund.code} style={card}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', gap: 16, flexWrap: 'wrap', alignItems: 'start' }}>
                   <div style={{ minWidth: 220, flex: 1 }}>
-                    <div style={{ color: 'var(--rbl-link)', fontSize: 12, fontWeight: 900, textTransform: 'uppercase', letterSpacing: 0.35 }}>{fund.code}</div>
+                    <div style={{ color: 'var(--rbl-link)', fontSize: 13.5, fontWeight: 700 }}>{fund.code}</div>
                     <h3 style={{ margin: '3px 0 6px' }}>{fund.name}</h3>
                     <p style={{ color: 'var(--rbl-text-body)', lineHeight: 1.5, margin: 0 }}>{fund.description}</p>
                   </div>
@@ -109,7 +109,7 @@ export default function TaxpayerImpactPage() {
 function Stat({ label, value, sub }: { label: string; value: string; sub: string }) {
   return (
     <section style={{ ...card, background: 'var(--rbl-surface-2)' }}>
-      <div style={{ color: 'var(--rbl-text-muted)', fontSize: 11.5, textTransform: 'uppercase', fontWeight: 900, letterSpacing: 0.4 }}>{label}</div>
+      <div style={{ color: 'var(--rbl-text-muted)', fontSize: 13.5, fontWeight: 700 }}>{label}</div>
       <strong style={{ display: 'block', marginTop: 2, fontSize: 24, color: 'var(--rbl-title)' }}>{value}</strong>
       <span style={{ color: 'var(--rbl-text-muted)', fontSize: 12.5 }}>{sub}</span>
     </section>
@@ -121,5 +121,5 @@ const card = {
   border: '1px solid var(--rbl-border-subtle)',
   borderRadius: 16,
   padding: 18,
-  boxShadow: '0 14px 34px var(--rbl-shadow)',
+  
 } as const

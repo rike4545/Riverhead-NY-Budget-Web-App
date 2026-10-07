@@ -83,5 +83,5 @@ const card = {
   border: '1px solid var(--rbl-border-subtle)',
   borderRadius: 16,
   padding: 18,
-  boxShadow: '0 14px 34px var(--rbl-shadow)',
+  
 } as const

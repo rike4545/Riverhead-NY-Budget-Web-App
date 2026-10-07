@@ -5,7 +5,7 @@ import { cpfDebt, cpfDebtPayoffProposal, cpfHistory, cpfMechanics, cpfTotalReven
 import { forgoneHigh, forgoneLow, forgoneThroughYear, fourTownTotal, HOUSING_FUND_RATE, statute } from '../../lib/community-housing'
 
 const base = process.env.NEXT_PUBLIC_BASE_PATH || ''
-const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 20, boxShadow: '0 14px 34px var(--rbl-shadow)' } as const
+const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 20 } as const
 const usd = (n: number) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(n)
 const pct = (v: number, digits = 1) => `${(v * 100).toFixed(digits)}%`
 
@@ -109,10 +109,10 @@ export default function CommunityPreservationFundPage() {
         </section>
       )}
 
-      <section style={{ ...card, marginBottom: 16, background: 'var(--rbl-success-bg)', border: '1px solid var(--rbl-success-border)', borderLeft: '8px solid var(--rbl-success)' }}>
+      <section style={{ ...card, marginBottom: 16, background: 'var(--rbl-success-bg)', border: '1px solid var(--rbl-success-border)', borderColor: 'var(--rbl-success-border)' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 10, flexWrap: 'wrap' }}>
           <h3 style={{ margin: 0, color: 'var(--rbl-success-strong)' }}>Adopted: paying off the remaining preservation debt 5 years early</h3>
-          <span style={{ background: 'var(--rbl-fill-success)', color: 'white', fontWeight: 800, fontSize: 11, padding: '3px 10px', borderRadius: 999, textTransform: 'uppercase', letterSpacing: 0.4 }}>Adopted {cpfDebtPayoffProposal.adoptedDate}</span>
+          <span style={{ background: 'var(--rbl-fill-success)', color: 'white', fontWeight: 700, fontSize: 13, padding: '3px 10px', borderRadius: 999 }}>Adopted {cpfDebtPayoffProposal.adoptedDate}</span>
         </div>
         <p style={{ color: 'var(--rbl-success-strong)', fontSize: 14.5, lineHeight: 1.65 }}>
           On {cpfDebtPayoffProposal.adoptedDate} the Town Board voted{' '}
@@ -125,9 +125,9 @@ export default function CommunityPreservationFundPage() {
           saving an estimated <strong>{usd(cpfDebtPayoffProposal.interestSaved)}</strong> in future interest.
         </p>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(160px,1fr))', gap: 12, margin: '4px 0 12px' }}>
-          <div><div style={{ color: 'var(--rbl-success-strong)', fontSize: 12, fontWeight: 800, textTransform: 'uppercase' }}>CPF balance, end 2025</div><strong style={{ fontSize: 20, color: 'var(--rbl-success-strong)' }}>{usd(cpfDebtPayoffProposal.fundBalanceEnd2025)}</strong></div>
-          <div><div style={{ color: 'var(--rbl-success-strong)', fontSize: 12, fontWeight: 800, textTransform: 'uppercase' }}>Balance after paydown</div><strong style={{ fontSize: 20, color: 'var(--rbl-success-strong)' }}>~{usd(cpfDebtPayoffProposal.projectedFundBalanceAfter)}</strong></div>
-          <div><div style={{ color: 'var(--rbl-success-strong)', fontSize: 12, fontWeight: 800, textTransform: 'uppercase' }}>Interest saved</div><strong style={{ fontSize: 20, color: 'var(--rbl-success-strong)' }}>~{usd(cpfDebtPayoffProposal.interestSaved)}</strong></div>
+          <div><div style={{ color: 'var(--rbl-success-strong)', fontSize: 13.5, fontWeight: 700 }}>CPF balance, end 2025</div><strong style={{ fontSize: 20, color: 'var(--rbl-success-strong)' }}>{usd(cpfDebtPayoffProposal.fundBalanceEnd2025)}</strong></div>
+          <div><div style={{ color: 'var(--rbl-success-strong)', fontSize: 13.5, fontWeight: 700 }}>Balance after paydown</div><strong style={{ fontSize: 20, color: 'var(--rbl-success-strong)' }}>~{usd(cpfDebtPayoffProposal.projectedFundBalanceAfter)}</strong></div>
+          <div><div style={{ color: 'var(--rbl-success-strong)', fontSize: 13.5, fontWeight: 700 }}>Interest saved</div><strong style={{ fontSize: 20, color: 'var(--rbl-success-strong)' }}>~{usd(cpfDebtPayoffProposal.interestSaved)}</strong></div>
         </div>
         <p style={{ color: 'var(--rbl-success-strong)', fontSize: 13, lineHeight: 1.6, marginBottom: 0 }}>
           The vote (a budget adjustment to pay down the 2018 Series B refunding bonds) draws the CPF balance down to
@@ -141,7 +141,7 @@ export default function CommunityPreservationFundPage() {
         </p>
       </section>
 
-      <section style={{ ...card, marginBottom: 16, borderLeft: '8px solid var(--rbl-accent-border)' }}>
+      <section style={{ ...card, marginBottom: 16 }}>
         <h3 style={{ marginTop: 0, color: 'var(--rbl-title)' }}>Is the current rate still enough?</h3>
         <p style={{ color: 'var(--rbl-text-strong)', fontSize: 14.5, lineHeight: 1.65 }}>
           There is no acute crisis in these numbers: the fund balance has grown every year shown here
@@ -172,7 +172,7 @@ export default function CommunityPreservationFundPage() {
         </p>
       </section>
 
-      <section style={{ ...card, marginBottom: 16, borderLeft: '8px solid var(--rbl-gold-border)' }}>
+      <section style={{ ...card, marginBottom: 16 }}>
         <h3 style={{ marginTop: 0, color: 'var(--rbl-title)' }}>The other half-percent: the housing fund Riverhead didn&apos;t adopt</h3>
         <p style={{ color: 'var(--rbl-text-strong)', fontSize: 14.5, lineHeight: 1.65 }}>
           The same state law that created this fund was extended in {statute.enactedYear} to allow a second,

@@ -17,7 +17,7 @@ import {
 } from '../../lib/credit-rating'
 import retireeHealthComparison from '../../public/data/retiree-health-comparison.json'
 
-const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 20, boxShadow: '0 14px 34px var(--rbl-shadow)' } as const
+const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 20 } as const
 const usd = (n: number) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(n)
 const pct = (v: number, digits = 1) => `${(v * 100).toFixed(digits)}%`
 
@@ -197,7 +197,7 @@ export default function CreditRatingPage() {
       </section>
 
       <h2 style={{ color: 'var(--rbl-title)' }}>Five concrete ways to move the needle</h2>
-      <section style={{ ...card, marginBottom: 16, borderLeft: '6px solid var(--rbl-teal)' }}>
+      <section style={{ ...card, marginBottom: 16 }}>
         <div style={{ display: 'grid', gap: 16 }}>
           {levers.map((l, i) => (
             <div key={l.title} style={{ display: 'flex', gap: 12 }}>
@@ -257,7 +257,7 @@ export default function CreditRatingPage() {
       </section>
 
       <h2 style={{ color: 'var(--rbl-title)' }}>How to actually reduce or fund the OPEB liability</h2>
-      <section style={{ ...card, marginBottom: 16, borderLeft: '6px solid #9333ea' }}>
+      <section style={{ ...card, marginBottom: 16 }}>
         <p style={{ color: 'var(--rbl-text-body)', fontSize: 14, lineHeight: 1.6, marginTop: 0 }}>
           Two different things: <strong>funding</strong> the liability (how it gets paid for) versus{' '}
           <strong>shrinking</strong> it (how big it gets in the first place). Current retirees&apos; and current
@@ -311,7 +311,7 @@ export default function CreditRatingPage() {
 function Stat({ label, value, sub, accent }: { label: string; value: string; sub?: string; accent?: boolean }) {
   return (
     <div style={{ background: accent ? 'var(--rbl-info-bg)' : 'var(--rbl-surface-2)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 12, padding: 12 }}>
-      <div style={{ color: 'var(--rbl-text-muted)', fontSize: 11.5, textTransform: 'uppercase', fontWeight: 900, letterSpacing: 0.4 }}>{label}</div>
+      <div style={{ color: 'var(--rbl-text-muted)', fontSize: 13.5, fontWeight: 700 }}>{label}</div>
       <strong style={{ fontSize: 20, color: 'var(--rbl-title)' }}>{value}</strong>
       {sub && <div style={{ color: 'var(--rbl-text-muted)', fontSize: 12.5, marginTop: 2 }}>{sub}</div>}
     </div>

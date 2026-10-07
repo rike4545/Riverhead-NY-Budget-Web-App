@@ -6,7 +6,7 @@ import {
   gfoaCategories, gfoaSummary, type GfoaCategory,
 } from '../../lib/gfoa'
 
-const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 20, boxShadow: '0 14px 34px var(--rbl-shadow)' } as const
+const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 20 } as const
 const body = { color: 'var(--rbl-text-body)', fontSize: 14.5, lineHeight: 1.6 } as const
 const link = { color: 'var(--rbl-accent)', fontWeight: 700 } as const
 
@@ -74,7 +74,7 @@ export default function GfoaPage() {
         </p>
       </section>
 
-      <section style={{ ...card, marginBottom: 18, borderLeft: '8px solid var(--rbl-gold-border)', background: 'var(--rbl-warn-bg)' }}>
+      <section style={{ ...card, marginBottom: 18, background: 'var(--rbl-warn-bg)' }}>
         <h3 style={{ marginTop: 0, color: 'var(--rbl-title)', fontSize: 17 }}>Two things to know before reading the score</h3>
         <p style={body}>
           <strong>This site cannot win this award.</strong> Only governments may apply: under the revised rules, state
@@ -131,7 +131,7 @@ function CategoryRow({ c }: { c: GfoaCategory }) {
   const s = STATUS_META[c.status]
   const pct = Math.round((c.selfScore / c.points) * 100)
   return (
-    <article data-gfoa-category={c.name} data-gfoa-points={c.points} style={{ ...card, padding: 16, borderLeft: `5px solid ${s.fg}` }}>
+    <article data-gfoa-category={c.name} data-gfoa-points={c.points} style={{ ...card, padding: 16, borderColor: s.fg }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', gap: 12, flexWrap: 'wrap', alignItems: 'baseline' }}>
         <div style={{ fontWeight: 800, color: 'var(--rbl-title)' }}>{c.name}</div>
         <div style={{ display: 'flex', gap: 8, alignItems: 'baseline', flexWrap: 'wrap' }}>
@@ -161,7 +161,7 @@ function CategoryRow({ c }: { c: GfoaCategory }) {
 function Stat({ label, value, color, accent }: { label: string; value: string; color?: string; accent?: boolean }) {
   return (
     <div style={{ background: 'var(--rbl-surface-2)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 12, padding: 12 }}>
-      <div style={{ color: 'var(--rbl-text-muted)', fontSize: 11.5, textTransform: 'uppercase', fontWeight: 900, letterSpacing: 0.4 }}>{label}</div>
+      <div style={{ color: 'var(--rbl-text-muted)', fontSize: 13.5, fontWeight: 700 }}>{label}</div>
       <strong style={{ fontSize: accent ? 26 : 22, color: color ?? 'var(--rbl-title)' }}>{value}</strong>
     </div>
   )

@@ -12,7 +12,7 @@ const card = {
   border: '1px solid var(--rbl-border-subtle)',
   borderRadius: 18,
   padding: 20,
-  boxShadow: '0 14px 34px var(--rbl-shadow)',
+  
 } as const
 
 const base = process.env.NEXT_PUBLIC_BASE_PATH || ''
@@ -23,8 +23,7 @@ export default function EvidencePage() {
       title="Evidence & Sources"
       subtitle="Use this page to understand what Riverhead Budget Live is reporting, what it calculates, and where to verify the underlying record."
     >
-      <section style={{ ...card, marginBottom: 18, borderLeft: '6px solid var(--rbl-page-accent)' }}>
-        <div style={{ color: 'var(--rbl-badge)', fontSize: 11, fontWeight: 950, letterSpacing: 1.1, textTransform: 'uppercase' }}>Start here</div>
+      <section style={{ ...card, marginBottom: 18 }}>
         <h2 style={{ margin: '5px 0 8px', fontSize: 24 }}>A number should come with a path back to the record.</h2>
         <p style={{ color: 'var(--rbl-text-body)', lineHeight: 1.65, margin: 0, maxWidth: 920 }}>
           This project combines official public records with calculations that make those records easier to understand. The label matters: a Town-reported figure, a calculation made from Town records, and a forward-looking scenario are not the same thing.

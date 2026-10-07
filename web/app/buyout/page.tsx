@@ -12,7 +12,7 @@ import {
 } from '../../lib/retirement-actuals-2026'
 
 const base = process.env.NEXT_PUBLIC_BASE_PATH || ''
-const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 20, boxShadow: '0 14px 34px var(--rbl-shadow)' } as const
+const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 20 } as const
 const usd = (n: number) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(n)
 
 export const metadata = {
@@ -55,7 +55,7 @@ export default function BuyoutPage() {
       </section>
 
       {/* Actual ratified numbers */}
-      <section style={{ ...card, marginBottom: 18, borderLeft: '6px solid var(--rbl-success-strong)' }}>
+      <section style={{ ...card, marginBottom: 18, borderColor: 'var(--rbl-success-border)' }}>
         <h3 style={{ marginTop: 0, color: 'var(--rbl-title)' }}>The real numbers, now that it&apos;s ratified</h3>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(170px,1fr))', gap: 12, marginBottom: 10 }}>
           <Stat label="Actually eligible" value={String(b.actualEligible.total)} sub={`${b.actualEligible.csea} CSEA · ${b.actualEligible.pba} PBA · ${b.actualEligible.soa} SOA`} accent />
@@ -73,7 +73,7 @@ export default function BuyoutPage() {
       {released2027 && <OutcomeSection />}
 
       {/* What the resolution record shows so far: the election deadline has passed, the effective-date deadline has not */}
-      <section style={{ ...card, marginBottom: 18, borderLeft: '6px solid var(--rbl-accent-border)' }}>
+      <section style={{ ...card, marginBottom: 18 }}>
         <h3 style={{ marginTop: 0, color: 'var(--rbl-title)' }}>Who actually went</h3>
         <p style={{ color: 'var(--rbl-text-body)', fontSize: 14.5, lineHeight: 1.6, margin: '0 0 12px' }}>
           The September 1, 2026 election deadline has passed, so nobody new can opt in.{' '}
@@ -197,7 +197,7 @@ export default function BuyoutPage() {
       <h2 style={{ color: 'var(--rbl-title)' }}>What each retiree receives</h2>
       <section style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(min(300px,100%),1fr))', gap: 14, marginBottom: 18 }}>
         {b.programs.map((p) => (
-          <article key={p.unit} style={{ ...card, borderTop: '5px solid var(--rbl-gold-border)' }}>
+          <article key={p.unit} style={{ ...card }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', gap: 10, alignItems: 'baseline' }}>
               <h3 style={{ margin: 0, color: 'var(--rbl-title)' }}>{p.unit}</h3>
               <a href={`${base}/meetings/`} title="Ratifying resolution" style={{ color: 'var(--rbl-link)', fontWeight: 900, fontSize: 12, textDecoration: 'none' }}>{p.resolution} →</a>
@@ -312,7 +312,7 @@ export default function BuyoutPage() {
       </section>
 
       {analysis.realisticBackfill && (
-        <section style={{ ...card, marginBottom: 18, borderLeft: '6px solid var(--rbl-success)' }}>
+        <section style={{ ...card, marginBottom: 18, borderColor: 'var(--rbl-success-border)' }}>
           <h3 style={{ marginTop: 0 }}>A more realistic backfill (using the actual salary steps)</h3>
           <p style={{ color: 'var(--rbl-text-body)', fontSize: 14.5, lineHeight: 1.55, marginTop: 0 }}>
             The 20% figure above is a round number. Using the Town&apos;s actual salary schedule — where each job has a
@@ -349,7 +349,7 @@ export default function BuyoutPage() {
 
       <Detail title="Police: where the saving really lands (the promotion chain)">
       {analysis.policeChain && (
-        <section id="police-chain" style={{ ...card, marginBottom: 18, borderLeft: '6px solid var(--rbl-fill-brand)' }}>
+        <section id="police-chain" style={{ ...card, marginBottom: 18 }}>
           <h3 style={{ marginTop: 0 }}>Police: where the saving really lands (the promotion chain)</h3>
           <p style={{ color: 'var(--rbl-text-strong)', fontSize: 14.5, lineHeight: 1.6, marginTop: 0 }}>
             A ranked officer can&apos;t be replaced by a rookie of the same rank — the Town still needs a sergeant, a
@@ -368,13 +368,13 @@ export default function BuyoutPage() {
             </ol>
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: 18, alignItems: 'baseline' }}>
               <div>
-                <div style={{ color: 'var(--rbl-text-muted)', fontSize: 11.5, fontWeight: 800, textTransform: 'uppercase', letterSpacing: 0.3 }}>A simple model would claim</div>
+                <div style={{ color: 'var(--rbl-text-muted)', fontSize: 13.5, fontWeight: 700 }}>A simple model would claim</div>
                 <div style={{ fontSize: 19, fontWeight: 800, color: 'var(--rbl-text-muted)', textDecoration: 'line-through' }}>{usd(analysis.policeChain.example.naiveClaim)}/yr</div>
                 <div style={{ color: 'var(--rbl-text-muted)', fontSize: 12 }}>sergeant&apos;s pay − rookie</div>
               </div>
               <div style={{ fontSize: 22, color: 'var(--rbl-text-muted)' }}>→</div>
               <div>
-                <div style={{ color: 'var(--rbl-success-strong)', fontSize: 11.5, fontWeight: 800, textTransform: 'uppercase', letterSpacing: 0.3 }}>Realistic recurring saving</div>
+                <div style={{ color: 'var(--rbl-success-strong)', fontSize: 13.5, fontWeight: 700 }}>Realistic recurring saving</div>
                 <div style={{ fontSize: 22, fontWeight: 900, color: 'var(--rbl-success)' }}>{usd(analysis.policeChain.example.netSaving)}/yr</div>
                 <div style={{ color: 'var(--rbl-success-strong)', fontSize: 12 }}>top-step officer − rookie</div>
               </div>
@@ -447,7 +447,7 @@ export default function BuyoutPage() {
 
       <Detail title="Retiree healthcare — the recurring cost the salary numbers miss">
       {analysis.retireeHealthcare && (
-        <section style={{ ...card, marginBottom: 18, borderLeft: '6px solid var(--rbl-warn)' }}>
+        <section style={{ ...card, marginBottom: 18, borderColor: 'var(--rbl-warn-border)' }}>
           <h3 style={{ marginTop: 0 }}>What about retiree healthcare?</h3>
           <p style={{ color: 'var(--rbl-text-strong)', fontSize: 14.5, lineHeight: 1.6, marginTop: 0 }}>
             The savings figures above count <strong>salary only</strong> — they do <strong>not</strong> subtract
@@ -481,7 +481,7 @@ export default function BuyoutPage() {
         </section>
       )}
 
-      <section style={{ ...card, marginBottom: 18, borderLeft: '6px solid var(--rbl-teal)' }}>
+      <section style={{ ...card, marginBottom: 18 }}>
         <h3 style={{ marginTop: 0 }}>{retireeHealthComparison.title}</h3>
         <p style={{ color: 'var(--rbl-text-strong)', fontSize: 14.5, lineHeight: 1.6, marginTop: 0 }}>{retireeHealthComparison.intro}</p>
 
@@ -640,7 +640,7 @@ function Detail({ title, children }: { title: string; children: React.ReactNode 
 function Stat({ label, value, sub, accent }: { label: string; value: string; sub?: string; accent?: boolean }) {
   return (
     <div style={{ background: accent ? 'var(--rbl-info-bg)' : 'var(--rbl-surface-2)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 12, padding: 12 }}>
-      <div style={{ color: 'var(--rbl-text-muted)', fontSize: 11.5, textTransform: 'uppercase', fontWeight: 900, letterSpacing: 0.4 }}>{label}</div>
+      <div style={{ color: 'var(--rbl-text-muted)', fontSize: 13.5, fontWeight: 700 }}>{label}</div>
       <strong style={{ fontSize: 20, color: 'var(--rbl-title)' }}>{value}</strong>
       {sub && <div style={{ color: 'var(--rbl-text-muted)', fontSize: 12.5, marginTop: 2 }}>{sub}</div>}
     </div>
@@ -660,7 +660,7 @@ function OutcomeSection() {
   const say = (n: number) => words[n] ?? String(n)
   const vsEstimate = outcome.savings2027 > b.estimatedSavings.high ? 'just above' : outcome.savings2027 < b.estimatedSavings.low ? 'below' : 'inside'
   return (
-    <section data-incentive-outcome style={{ ...card, marginBottom: 18, borderLeft: '6px solid var(--rbl-success-strong)' }}>
+    <section data-incentive-outcome style={{ ...card, marginBottom: 18, borderColor: 'var(--rbl-success-border)' }}>
       <h3 style={{ marginTop: 0, color: 'var(--rbl-title)' }}>What the Town says: {say(t.total)} took it</h3>
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(170px,1fr))', gap: 12, marginBottom: 10 }}>
         <Stat label="Took the incentive" value={String(t.total)} sub={`${t.csea} CSEA · ${t.pba} PBA · ${t.soa} SOA`} accent />

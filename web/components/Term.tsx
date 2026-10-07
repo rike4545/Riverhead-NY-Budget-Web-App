@@ -34,7 +34,7 @@ export default function Term({ id, children }: { id: string; children?: React.Re
             style={{
               position: 'absolute', zIndex: 50, top: '130%', left: 0, width: 'max-content', maxWidth: 300,
               background: '#0f2740', color: 'var(--rbl-surface-3)', padding: '10px 12px', borderRadius: 10,
-              boxShadow: '0 16px 40px var(--rbl-shadow)', fontSize: 13.5, fontWeight: 500, lineHeight: 1.45,
+              fontSize: 13.5, fontWeight: 500, lineHeight: 1.45,
               textTransform: 'none', letterSpacing: 0, whiteSpace: 'normal', textAlign: 'left',
             }}
           >

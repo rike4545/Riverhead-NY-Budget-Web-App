@@ -5,7 +5,7 @@ import { PREPARED_UNDER, SUPERVISOR_ROLE_SOURCE, YEAR } from '../../lib/tentativ
 import { candidates2026, supervisorRace2026 as race, synthesis, neutralView, type Plank, type Candidate } from '../../lib/candidates-2026'
 
 const base = process.env.NEXT_PUBLIC_BASE_PATH || ''
-const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 20, boxShadow: '0 14px 34px var(--rbl-shadow)' } as const
+const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 20 } as const
 const PARTY: Record<string, { color: string; tint: string }> = {
   D: { color: 'var(--rbl-info-text)', tint: 'var(--rbl-info-bg)' },
   'R/C': { color: 'var(--rbl-danger)', tint: 'var(--rbl-danger-bg)' },
@@ -42,7 +42,7 @@ export default function CandidateCostBenefitPage() {
       ))}
 
       {/* Synthesis */}
-      <section style={{ ...card, marginTop: 16, borderLeft: '6px solid var(--rbl-fill-brand)' }}>
+      <section style={{ ...card, marginTop: 16 }}>
         <h2 style={{ margin: '0 0 8px', color: 'var(--rbl-title)', fontSize: 18 }}>Where the two platforms actually converge — and diverge</h2>
         <SubList title="What they share" items={synthesis.common} color="var(--rbl-success-strong)" />
         <SubList title="Where they differ" items={synthesis.divergence} color="#b45309" />
@@ -53,7 +53,7 @@ export default function CandidateCostBenefitPage() {
       </section>
 
       {/* Beyond the campaigns — neutral fiscal view */}
-      <section style={{ ...card, marginTop: 16, borderLeft: '6px solid var(--rbl-teal)' }}>
+      <section style={{ ...card, marginTop: 16 }}>
         <h2 style={{ margin: '0 0 6px', color: 'var(--rbl-title)', fontSize: 18 }}>Beyond the campaigns: a neutral fiscal view</h2>
         <p style={{ color: 'var(--rbl-text-strong)', fontSize: 14.5, lineHeight: 1.6, margin: '0 0 12px' }}>{neutralView.intro}</p>
 
@@ -88,7 +88,7 @@ export default function CandidateCostBenefitPage() {
 function CandidateBlock({ c }: { c: Candidate }) {
   const p = PARTY[c.party] ?? { color: 'var(--rbl-text-strong)', tint: 'var(--rbl-track)' }
   return (
-    <section style={{ ...card, marginTop: 16, borderTop: `4px solid ${p.color}` }}>
+    <section style={{ ...card, marginTop: 16, borderColor: p.color }}>
       <div style={{ display: 'flex', alignItems: 'baseline', gap: 10, flexWrap: 'wrap' }}>
         <h2 style={{ margin: 0, color: 'var(--rbl-title)', fontSize: 19 }}>{c.name}</h2>
         <span style={{ background: p.tint, color: p.color, borderRadius: 999, padding: '3px 10px', fontSize: 12, fontWeight: 800 }}>{c.partyLabel}</span>

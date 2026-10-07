@@ -7,7 +7,7 @@ import { generalFund } from '../../lib/general-fund'
 import { dollars } from '../../lib/financial-data'
 import { fundTentativeToAdopted } from '../../lib/budget-stages'
 
-const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 20, boxShadow: '0 14px 34px var(--rbl-shadow)' } as const
+const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 20 } as const
 
 const COLORS = { appropriations: 'var(--rbl-series-blue)', taxLevy: 'var(--rbl-series-gold)', estimatedRevenues: 'var(--rbl-series-teal)', appropriatedFundBalance: 'var(--rbl-series-violet)' }
 
@@ -111,7 +111,7 @@ export default function GeneralFundPage() {
                       {/tentative/i.test(r.status) && (
                         <span
                           title="The Town never posted an adopted budget for this year; this row is the Tentative, a proposal rather than an appropriation."
-                          style={{ marginLeft: 6, fontSize: 11, fontWeight: 800, color: 'var(--rbl-warn-strong)', textTransform: 'uppercase', letterSpacing: 0.3 }}
+                          style={{ marginLeft: 6, fontSize: 13, fontWeight: 700, color: 'var(--rbl-warn-strong)' }}
                         >Tentative</span>
                       )}
                     </td>
@@ -156,7 +156,7 @@ const td = { padding: '7px 10px' } as const
 function Stat({ label, value, accent, good }: { label: string; value: string; accent?: boolean; good?: boolean }) {
   return (
     <div style={{ background: accent ? 'var(--rbl-info-bg)' : 'var(--rbl-surface-2)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 12, padding: 12 }}>
-      <div style={{ color: 'var(--rbl-text-muted)', fontSize: 11.5, textTransform: 'uppercase', fontWeight: 900, letterSpacing: 0.4 }}>{label}</div>
+      <div style={{ color: 'var(--rbl-text-muted)', fontSize: 13.5, fontWeight: 700 }}>{label}</div>
       <strong style={{ fontSize: 19, color: good === false ? 'var(--rbl-danger)' : 'var(--rbl-title)' }}>{value}</strong>
     </div>
   )

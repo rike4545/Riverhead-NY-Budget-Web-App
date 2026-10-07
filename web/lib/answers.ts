@@ -80,7 +80,6 @@ export type Answer = {
 
 export type AnswerTopic = {
   id: string
-  icon: string
   title: string
   blurb: string
   answers: Answer[]
@@ -89,7 +88,6 @@ export type AnswerTopic = {
 export const topics: AnswerTopic[] = [
   {
     id: 'my-taxes',
-    icon: '🏠',
     title: 'My taxes',
     blurb: 'What you pay the Town, why it changed, and what it is not.',
     answers: [
@@ -121,7 +119,6 @@ export const topics: AnswerTopic[] = [
   },
   {
     id: 'spending',
-    icon: '💰',
     title: 'What the Town spends',
     blurb: 'The size of the budget, what dominates it, and what moved.',
     answers: [
@@ -147,7 +144,6 @@ export const topics: AnswerTopic[] = [
   },
   {
     id: 'people',
-    icon: '👥',
     title: 'Who works here and what they earn',
     blurb: 'Headcount, pay, overtime — the published payroll, not estimates.',
     answers: [
@@ -181,7 +177,6 @@ export const topics: AnswerTopic[] = [
   },
   {
     id: 'debt',
-    icon: '🏗️',
     title: 'Borrowing and debt',
     blurb: 'What the Town owes, what it owes it for, and what it costs to carry.',
     answers: [
@@ -207,7 +202,6 @@ export const topics: AnswerTopic[] = [
   },
   {
     id: 'health',
-    icon: '📈',
     title: 'Is the Town in good shape?',
     blurb: 'Savings, cushion, and whether the position is improving.',
     answers: [
@@ -227,7 +221,6 @@ export const topics: AnswerTopic[] = [
   },
   {
     id: 'next-year',
-    icon: '🗓️',
     title: 'What happens next year',
     blurb: 'The 2027 budget: the projection, the choices, and the deadline.',
     answers: [
@@ -270,7 +263,6 @@ export const topics: AnswerTopic[] = [
   },
   {
     id: 'board',
-    icon: '🏛️',
     title: 'The Town Board',
     blurb: 'Who decides, how they voted, and who funds them.',
     answers: [

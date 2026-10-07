@@ -4,7 +4,7 @@ import { generalFund } from '../../lib/general-fund'
 import { budgetHistory } from '../../lib/budget-history'
 
 const base = process.env.NEXT_PUBLIC_BASE_PATH || ''
-const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 18, boxShadow: '0 14px 34px var(--rbl-shadow)' } as const
+const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 18 } as const
 
 export const metadata = {
   title: 'Data Downloads — budgets, payroll & votes as CSV',

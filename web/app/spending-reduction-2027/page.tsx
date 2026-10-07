@@ -21,7 +21,7 @@ const STANDING: Record<string, { label: string; color: string; bg: string }> = {
 }
 
 const usd = (n: number) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(n)
-const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 20, boxShadow: '0 14px 34px var(--rbl-shadow)' } as const
+const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 20 } as const
 const KIND: Record<string, { color: string; bg: string }> = {
   budget: { color: 'var(--rbl-info-text)', bg: 'var(--rbl-info-bg)' },
   supplement: { color: 'var(--rbl-success-strong)', bg: 'var(--rbl-success-bg)' },
@@ -64,8 +64,7 @@ export default function SpendingReduction2027Page() {
       </TentativeReleased>
 
       {/* THE PROBLEM — one clear framing, one number. */}
-      <section style={{ ...card, borderLeft: '6px solid var(--rbl-danger)' }}>
-        <div style={{ color: 'var(--rbl-danger)', fontWeight: 900, fontSize: 12, textTransform: 'uppercase', letterSpacing: 0.5 }}>The problem</div>
+      <section style={{ ...card, borderColor: 'var(--rbl-danger-border)' }}>
         <h2 style={{ margin: '4px 0 8px', color: 'var(--rbl-title)', fontSize: 21 }}>
           {released2027 ? `Before the Tentative, the forecast had the 2027 levy past a ${capGap2027.capBasePct}% increase by about` : 'The 2027 budget is on track to blow past the tax cap by about'} {usd(capGap2027.gap)}
         </h2>
@@ -88,7 +87,7 @@ export default function SpendingReduction2027Page() {
       </section>
 
       {/* THE ANSWER — the plan in three numbers. */}
-      <section style={{ ...card, marginTop: 16, borderLeft: '6px solid var(--rbl-success)' }}>
+      <section style={{ ...card, marginTop: 16, borderColor: 'var(--rbl-success-border)' }}>
         <h2 style={{ margin: '0 0 6px', color: 'var(--rbl-title)', fontSize: 19 }}>The plan, in three numbers</h2>
         <p style={{ color: 'var(--rbl-text-strong)', fontSize: 14.5, lineHeight: 1.6, margin: 0 }}>
           Two things the Town has largely in hand already add up to the whole gap:
@@ -154,7 +153,7 @@ export default function SpendingReduction2027Page() {
       </div>
 
       {/* THE SAME TEST ON THE NEW TENTATIVE — the package above predates it. */}
-      <section style={{ ...card, marginTop: 16, borderLeft: '6px solid var(--rbl-info-border)' }}>
+      <section style={{ ...card, marginTop: 16 }}>
         <h3 style={{ margin: '0 0 6px', color: 'var(--rbl-title)', fontSize: 16 }}>The same test on the {tt.year} Tentative</h3>
         <p style={{ color: 'var(--rbl-text-strong)', fontSize: 14, lineHeight: 1.6, margin: '0 0 10px' }}>
           The line trims above were found in the 2026 Tentative, before the {tt.year} budget existed. Run the same test on the{' '}
@@ -167,7 +166,7 @@ export default function SpendingReduction2027Page() {
         <div style={{ overflowX: 'auto' }}>
           <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 13, minWidth: 620 }}>
             <thead>
-              <tr style={{ textAlign: 'left', color: 'var(--rbl-text-muted)', fontSize: 11, textTransform: 'uppercase', letterSpacing: 0.4 }}>
+              <tr style={{ textAlign: 'left', color: 'var(--rbl-text-muted)', fontSize: 13 }}>
                 <th style={{ padding: '6px 8px' }}>Line</th>
                 <th style={{ padding: '6px 8px', textAlign: 'right' }}>{tt.columns.actual} actual</th>
                 <th style={{ padding: '6px 8px', textAlign: 'right' }}>Jan–Jun {tt.columns.ytd}</th>
@@ -351,7 +350,7 @@ function Tile({ label, value, note, green, accent }: { label: string; value: str
   const valueColor = accent ? 'var(--rbl-info-text)' : green ? 'var(--rbl-success-strong)' : 'var(--rbl-title)'
   return (
     <div style={{ background: bg, border: '1px solid var(--rbl-border-subtle)', borderRadius: 12, padding: 14 }}>
-      <div style={{ color: 'var(--rbl-text-body)', fontSize: 11.5, textTransform: 'uppercase', fontWeight: 900, letterSpacing: 0.4 }}>{label}</div>
+      <div style={{ color: 'var(--rbl-text-body)', fontSize: 13.5, fontWeight: 700 }}>{label}</div>
       <div style={{ fontSize: 22, fontWeight: 900, color: valueColor, margin: '2px 0' }}>{value}</div>
       {note && <div style={{ color: 'var(--rbl-text-muted)', fontSize: 12, lineHeight: 1.4 }}>{note}</div>}
     </div>

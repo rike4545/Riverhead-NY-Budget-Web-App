@@ -14,14 +14,14 @@ function freshness() {
 export default function DisclaimerBanner() {
   const state = freshness()
   return (
-    <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginTop: 12, flexWrap: 'wrap', color: 'var(--rbl-text-muted)', fontSize: 12.5 }}>
+    <div style={{ display: 'flex', alignItems: 'center', gap: '4px 10px', marginTop: 14, flexWrap: 'wrap', color: 'var(--rbl-text-muted)', fontSize: 14 }}>
       <span>Independent project</span>
       <span aria-hidden="true">·</span>
       <span>Updated {meta.generatedAtDisplay}</span>
       <span aria-hidden="true">·</span>
-      <span style={{ color: state.tone, fontWeight: 900 }}>● {state.label}</span>
+      <span style={{ color: state.tone, fontWeight: 600, display: 'inline-flex', alignItems: 'center', gap: 6 }}><span aria-hidden="true" style={{ width: 8, height: 8, borderRadius: 999, background: 'currentColor' }} />{state.label}</span>
       <span aria-hidden="true">·</span>
-      <a href={`${base}/data-quality/`} style={{ color: 'var(--rbl-link)', fontWeight: 800, textDecoration: 'none' }}>Check data freshness →</a>
+      <a href={`${base}/data-quality/`} style={{ color: 'var(--rbl-link)', fontWeight: 600, textDecoration: 'none' }}>Check data freshness →</a>
     </div>
   )
 }

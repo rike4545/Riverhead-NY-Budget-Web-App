@@ -13,7 +13,7 @@ const link = { color: 'var(--rbl-link)' } as const
 const usd = (n: number) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(n)
 const usd0 = (n: number) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(n)
 const pct = (n: number) => `${(n * 100).toFixed(2)}%`
-const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 20, boxShadow: '0 14px 34px var(--rbl-shadow)' } as const
+const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 20 } as const
 const th = { padding: '8px 10px' } as const
 const td = { padding: '9px 10px' } as const
 const body = { color: 'var(--rbl-text-body)', fontSize: 14.5, lineHeight: 1.6 } as const
@@ -204,7 +204,7 @@ export default function FringeBenefitsPage() {
         </p>
       </section>
 
-      <section style={{ ...card, marginBottom: 16, borderLeft: '6px solid var(--rbl-accent-border)' }}>
+      <section style={{ ...card, marginBottom: 16 }}>
         <h3 style={{ marginTop: 0, color: 'var(--rbl-title)' }}>July 2026: left out of the newest contract</h3>
         <p style={{ ...body, marginTop: 0 }}>
           The draft contract for the new {RECREATION_2026.office}, {RECREATION_2026.appointee}, in the July 16, 2026

@@ -14,8 +14,8 @@ import {
 const base = process.env.NEXT_PUBLIC_BASE_PATH || ''
 
 const usd = (n: number) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(n)
-const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 20, boxShadow: '0 14px 34px var(--rbl-shadow)' } as const
-const th = { padding: '8px 10px', textAlign: 'left' as const, color: 'var(--rbl-text-muted)', fontSize: 11.5, textTransform: 'uppercase' as const, fontWeight: 900, letterSpacing: 0.4 }
+const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 20 } as const
+const th = { padding: '8px 10px', textAlign: 'left' as const, color: 'var(--rbl-text-muted)', fontSize: 13.5 as const, fontWeight: 700 }
 const td = { padding: '9px 10px', verticalAlign: 'top' as const }
 const num = { ...td, textAlign: 'right' as const, whiteSpace: 'nowrap' as const, fontWeight: 800 }
 const shortDate = (iso: string) => new Date(`${iso}T00:00:00Z`).toLocaleDateString('en-US', { timeZone: 'UTC', month: 'short', day: 'numeric' })
@@ -148,7 +148,7 @@ export default function FundBalanceDrawsPage() {
       )}
 
       {otherTierGeneralFundDraws.length > 0 && (
-        <section style={{ ...card, marginBottom: 16, borderLeft: '5px solid var(--rbl-warn)' }}>
+        <section style={{ ...card, marginBottom: 16, borderColor: 'var(--rbl-warn-border)' }}>
           <h3 style={{ marginTop: 0, color: 'var(--rbl-title)' }}>Reported, but not counted against the cushion</h3>
           <p style={{ color: 'var(--rbl-text-body)', fontSize: 14.5, lineHeight: 1.6, marginTop: 0 }}>
             GASB Statement 54 splits fund balance into five tiers, and this site measures the cushion on the
@@ -303,7 +303,7 @@ function DrawTable({ rows, total, totalLabel }: { rows: Commitment[]; total: num
 function Stat({ label, value, sub, accent, warn }: { label: string; value: string; sub?: string; accent?: boolean; warn?: boolean }) {
   return (
     <div style={{ background: warn ? 'var(--rbl-warn-bg)' : accent ? 'var(--rbl-info-bg)' : 'var(--rbl-surface-2)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 12, padding: 12 }}>
-      <div style={{ color: 'var(--rbl-text-muted)', fontSize: 11.5, textTransform: 'uppercase', fontWeight: 900, letterSpacing: 0.4 }}>{label}</div>
+      <div style={{ color: 'var(--rbl-text-muted)', fontSize: 13.5, fontWeight: 700 }}>{label}</div>
       <strong style={{ fontSize: 19, color: warn ? 'var(--rbl-warn)' : accent ? 'var(--rbl-info-text)' : 'var(--rbl-title)', display: 'block', marginTop: 2, lineHeight: 1.2 }}>{value}</strong>
       {sub && <div style={{ color: 'var(--rbl-text-muted)', fontSize: 12, marginTop: 3, lineHeight: 1.4 }}>{sub}</div>}
     </div>

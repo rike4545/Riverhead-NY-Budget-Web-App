@@ -5,7 +5,7 @@ import {
   stateLaw, warrantNote, type TownResponse,
 } from '../../lib/know-your-rights'
 
-const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 20, boxShadow: '0 14px 34px var(--rbl-shadow)' } as const
+const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 20 } as const
 
 const STATUS: Record<TownResponse['status'], { label: string; bg: string; fg: string; border: string; glyph: string }> = {
   adopted: { label: 'Adopted a protocol', bg: 'var(--rbl-success-bg)', fg: 'var(--rbl-success-strong)', border: 'var(--rbl-success-border)', glyph: '✓' },
@@ -42,7 +42,7 @@ export default function KnowYourRightsPage() {
       {/* The three settings — home, work, public. */}
       <section style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(min(320px,100%),1fr))', gap: 14, marginBottom: 18 }}>
         {rights.map((r) => (
-          <div key={r.setting} style={{ ...card, borderLeft: '6px solid var(--rbl-accent-border)' }}>
+          <div key={r.setting} style={{ ...card }}>
             <h3 style={{ marginTop: 0, marginBottom: 6, color: 'var(--rbl-title)', fontSize: 18 }}>{r.setting}</h3>
             <p style={{ color: 'var(--rbl-text-strong)', fontSize: 14.5, lineHeight: 1.55, marginTop: 0, fontWeight: 600 }}>{r.lede}</p>
             <ul style={{ color: 'var(--rbl-text-body)', fontSize: 13.8, lineHeight: 1.55, margin: 0, paddingLeft: 18, display: 'grid', gap: 6 }}>
@@ -53,7 +53,7 @@ export default function KnowYourRightsPage() {
       </section>
 
       {/* The judicial-vs-administrative warrant distinction, which is the hinge of the whole page. */}
-      <section style={{ ...card, marginBottom: 18, background: 'var(--rbl-warn-bg)', border: '1px solid var(--rbl-warn-border)', borderLeft: '6px solid var(--rbl-gold-border)' }}>
+      <section style={{ ...card, marginBottom: 18, background: 'var(--rbl-warn-bg)', border: '1px solid var(--rbl-warn-border)' }}>
         <h3 style={{ marginTop: 0, color: 'var(--rbl-note-text)' }}>{warrantNote.title}</h3>
         <p style={{ color: 'var(--rbl-note-text)', fontSize: 15, lineHeight: 1.6, margin: 0 }}>{warrantNote.body}</p>
       </section>
@@ -91,11 +91,11 @@ export default function KnowYourRightsPage() {
           {regionalResponses.map((t) => {
             const st = STATUS[t.status]
             return (
-              <article key={t.town} style={{ background: 'var(--rbl-surface-2)', border: `1px solid ${st.border}`, borderLeft: `6px solid ${st.border}`, borderRadius: 12, padding: 16 }}>
+              <article key={t.town} style={{ background: 'var(--rbl-surface-2)', border: `1px solid ${st.border}`, borderRadius: 12, padding: 16 }}>
                 <div style={{ display: 'flex', gap: 10, alignItems: 'baseline', flexWrap: 'wrap' }}>
                   <strong style={{ color: 'var(--rbl-title)', fontSize: 20 }}>{t.town}</strong>
                   <span style={{
-                    fontSize: 11, fontWeight: 900, letterSpacing: 0.4, textTransform: 'uppercase',
+                    fontSize: 13, fontWeight: 700, 
                     padding: '3px 9px', borderRadius: 5, background: st.bg, color: st.fg, border: `1px solid ${st.border}`,
                   }}>
                     <span aria-hidden style={{ marginRight: 5 }}>{st.glyph}</span>{st.label}
@@ -137,7 +137,7 @@ export default function KnowYourRightsPage() {
       </section>
 
       {/* Help — the part that has to be right for Suffolk County. */}
-      <section style={{ ...card, marginBottom: 18, borderLeft: '6px solid var(--rbl-teal)' }}>
+      <section style={{ ...card, marginBottom: 18 }}>
         <h2 style={{ marginTop: 0, marginBottom: 4, color: 'var(--rbl-title)', fontSize: 24 }}>Who to call from Riverhead</h2>
         <p style={{ color: 'var(--rbl-text-strong)', fontSize: 15, lineHeight: 1.6, marginTop: 0 }}>
           Every number here was read off the organization&apos;s own website, and every one of them serves Suffolk
@@ -146,7 +146,7 @@ export default function KnowYourRightsPage() {
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(min(300px,100%),1fr))', gap: 12 }}>
           {help.map((h) => (
             <div key={h.name} style={{ background: 'var(--rbl-surface-2)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 12, padding: 14 }}>
-              <div style={{ color: 'var(--rbl-text-muted)', fontSize: 11, textTransform: 'uppercase', fontWeight: 900, letterSpacing: 0.4 }}>{h.scope}</div>
+              <div style={{ color: 'var(--rbl-text-muted)', fontSize: 13, fontWeight: 700 }}>{h.scope}</div>
               <strong style={{ color: 'var(--rbl-title)', fontSize: 15, display: 'block', margin: '3px 0 4px' }}>{h.name}</strong>
               {h.phone && (
                 <div style={{ margin: '4px 0' }}>

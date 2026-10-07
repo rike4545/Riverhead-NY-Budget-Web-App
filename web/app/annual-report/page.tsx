@@ -7,7 +7,7 @@ import { AUDITED_GENERAL_FUND, AUDITED_OPERATIONS, AUDIT_2025, auditedGrowth, au
 import { generalFund } from '../../lib/general-fund'
 
 const base = process.env.NEXT_PUBLIC_BASE_PATH || ''
-const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 20, boxShadow: '0 14px 34px var(--rbl-shadow)' } as const
+const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 20 } as const
 const th = { padding: '8px 10px' } as const
 const td = { padding: '7px 10px' } as const
 
@@ -72,7 +72,7 @@ export default function AnnualReportPage() {
 
       {/* Headline stats: the audit */}
       <section data-audited-result style={{ ...card, marginBottom: 18 }}>
-        <div style={{ color: 'var(--rbl-badge)', fontSize: 11.5, fontWeight: 900, letterSpacing: 0.5, textTransform: 'uppercase', marginBottom: 10 }}>
+        <div style={{ color: 'var(--rbl-badge)', fontSize: 13.5, fontWeight: 700, marginBottom: 10 }}>
           General Fund, audited
         </div>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(190px,1fr))', gap: 12 }}>
@@ -257,7 +257,7 @@ export default function AnnualReportPage() {
 function Stat({ label, value, sub, accent, good }: { label: React.ReactNode; value: string; sub?: string; accent?: boolean; good?: boolean }) {
   return (
     <div style={{ background: accent ? 'var(--rbl-success-bg)' : 'var(--rbl-surface-2)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 12, padding: 14 }}>
-      <div style={{ color: 'var(--rbl-text-muted)', fontSize: 11.5, textTransform: 'uppercase', fontWeight: 900, letterSpacing: 0.4 }}>{label}</div>
+      <div style={{ color: 'var(--rbl-text-muted)', fontSize: 13.5, fontWeight: 700 }}>{label}</div>
       <strong style={{ fontSize: 20, color: good ? 'var(--rbl-success)' : 'var(--rbl-title)' }}>{value}</strong>
       {sub && <div style={{ color: 'var(--rbl-text-muted)', fontSize: 12.5, marginTop: 2 }}>{sub}</div>}
     </div>

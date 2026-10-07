@@ -2,7 +2,7 @@ import PageShell from '../../components/PageShell'
 import data from '../../public/data/candidate-watch.json'
 
 const base = process.env.NEXT_PUBLIC_BASE_PATH || ''
-const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 20, boxShadow: '0 14px 34px var(--rbl-shadow)' } as const
+const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 20 } as const
 
 export const metadata = {
   title: '2026 Town Campaign Candidate Watch',
@@ -41,7 +41,7 @@ export default function CandidateWatchPage() {
       title="2026 Candidate Watch"
       subtitle="Who's on the ballot for Riverhead Town office this November — with each candidate's campaign links and, in their own words, what they're running on."
     >
-      <div style={{ ...card, marginBottom: 18, borderLeft: '6px solid var(--rbl-teal)', background: 'var(--rbl-teal-bg)' }}>
+      <div style={{ ...card, marginBottom: 18, background: 'var(--rbl-teal-bg)' }}>
         <strong style={{ color: 'var(--rbl-teal)' }}>Want the numbers behind the promises?</strong>{' '}
         <span style={{ color: 'var(--rbl-teal-strong)', fontSize: 14.5, lineHeight: 1.6 }}>
           This page is each candidate in their own words. For an even-handed cost–benefit look at every plank — plus a
@@ -63,7 +63,7 @@ export default function CandidateWatchPage() {
             {race.candidates.map((c) => {
               const p = PARTY[c.party] ?? { name: c.party, color: 'var(--rbl-text-muted)', tint: 'var(--rbl-surface-3)' }
               return (
-                <article key={c.name} style={{ ...card, borderTop: `6px solid ${p.color}`, padding: 0, overflow: 'hidden' }}>
+                <article key={c.name} style={{ ...card, borderColor: p.color, padding: 0, overflow: 'hidden' }}>
                   <div style={{ padding: '18px 20px 14px' }}>
                     <div style={{ fontSize: 21, fontWeight: 900, color: 'var(--rbl-title)', lineHeight: 1.2 }}>{c.name}</div>
                     <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', marginTop: 8 }}>
@@ -117,7 +117,7 @@ export default function CandidateWatchPage() {
         </div>
       </section>
 
-      <div style={{ background: 'var(--rbl-warn-bg)', border: '1px solid var(--rbl-warn-border)', borderLeft: '6px solid var(--rbl-warn)', borderRadius: 12, padding: '14px 16px', color: 'var(--rbl-warn-strong)', fontSize: 14, lineHeight: 1.6 }}>
+      <div style={{ background: 'var(--rbl-warn-bg)', border: '1px solid var(--rbl-warn-border)', borderColor: 'var(--rbl-warn-border)', borderRadius: 12, padding: '14px 16px', color: 'var(--rbl-warn-strong)', fontSize: 14, lineHeight: 1.6 }}>
         <strong>Only the Supervisor seat is on this ballot.</strong> {data.noRaceNote}
       </div>
     </PageShell>
@@ -127,7 +127,7 @@ export default function CandidateWatchPage() {
 function DateItem({ label, value, highlight }: { label: string; value: string; highlight?: boolean }) {
   return (
     <div style={{ background: highlight ? 'var(--rbl-surface-2)' : 'var(--rbl-surface-2)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 10, padding: 12 }}>
-      <div style={{ color: 'var(--rbl-text-muted)', fontSize: 11.5, textTransform: 'uppercase', fontWeight: 800, letterSpacing: 0.3 }}>{label}</div>
+      <div style={{ color: 'var(--rbl-text-muted)', fontSize: 13.5, fontWeight: 700 }}>{label}</div>
       <div style={{ color: 'var(--rbl-title)', fontWeight: 800, marginTop: 3 }}>{value}</div>
     </div>
   )

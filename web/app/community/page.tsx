@@ -2,7 +2,7 @@ import PageShell from '../../components/PageShell'
 import PlainCallout from '../../components/PlainCallout'
 import data from '../../public/data/community.json'
 
-const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 20, boxShadow: '0 14px 34px var(--rbl-shadow)' } as const
+const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 20 } as const
 const usd0 = (n: number) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(n)
 const bn = (n: number) => `$${(n / 1e9).toFixed(2)}B`
 
@@ -83,7 +83,7 @@ export default function CommunityPage() {
         </div>
       </section>
 
-      <section style={{ ...card, marginBottom: 16, borderLeft: '6px solid var(--rbl-warn)' }}>
+      <section style={{ ...card, marginBottom: 16, borderColor: 'var(--rbl-warn-border)' }}>
         <h3 style={{ marginTop: 0 }}>{d.assessmentStress.headline}</h3>
         <ul style={{ color: 'var(--rbl-text-strong)', fontSize: 14.5, lineHeight: 1.6, paddingLeft: 18, margin: 0 }}>
           {d.assessmentStress.points.map((p, i) => <li key={i}>{p}</li>)}
@@ -102,7 +102,7 @@ export default function CommunityPage() {
 function Stat({ label, value, sub, accent }: { label: string; value: string; sub?: string; accent?: boolean }) {
   return (
     <div style={{ background: accent ? 'var(--rbl-info-bg)' : 'var(--rbl-surface-2)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 12, padding: 12 }}>
-      <div style={{ color: 'var(--rbl-text-muted)', fontSize: 11.5, textTransform: 'uppercase', fontWeight: 900, letterSpacing: 0.4 }}>{label}</div>
+      <div style={{ color: 'var(--rbl-text-muted)', fontSize: 13.5, fontWeight: 700 }}>{label}</div>
       <strong style={{ fontSize: 20, color: 'var(--rbl-title)' }}>{value}</strong>
       {sub && <div style={{ color: 'var(--rbl-text-muted)', fontSize: 12.5, marginTop: 2 }}>{sub}</div>}
     </div>

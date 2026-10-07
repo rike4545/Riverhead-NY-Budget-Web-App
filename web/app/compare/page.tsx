@@ -2,35 +2,50 @@ import PageShell from '../../components/PageShell'
 import CompareExplorer from '../../components/CompareExplorer'
 import PlainCallout from '../../components/PlainCallout'
 import RecordTrail from '../../components/RecordTrail'
-import { budgetHistory } from '../../lib/budget-history'
+import { budgetHistory, budgetColumns, proposalColumn, columnTotal, columnOperating } from '../../lib/budget-history'
+import { LETTER_2027 } from '../../lib/tentative-letters'
 
 export const metadata = {
   title: 'What Changed in Riverhead’s Budget? — Budget Compare',
   description:
-    'See what changed in Riverhead’s adopted budget, which funds moved the most, and how spending changed across years.',
+    'See what changed in Riverhead’s budget, which funds moved the most, and how the 2027 Tentative compares with the 2026 adopted budget.',
 }
 
 export default function ComparePage() {
   const years = budgetHistory.years
-  const fromYear = years[years.length - 2]
-  const toYear = years[years.length - 1]
-  const from = budgetHistory.townTotals[String(fromYear)]?.appropriations ?? null
-  const to = budgetHistory.townTotals[String(toYear)]?.appropriations ?? null
-  const change = from != null && to != null ? to - from : null
-  const pct = from != null && change != null ? (change / from) * 100 : null
+  const lastAdopted = budgetColumns.find((c) => c.key === String(years[years.length - 1]))!
+  const priorAdopted = budgetColumns.find((c) => c.key === String(years[years.length - 2]))!
+  // While next year's budget is only a proposal, it is the comparison residents are asking about.
+  const from = proposalColumn ? lastAdopted : priorAdopted
+  const to = proposalColumn ?? lastAdopted
+  const opFrom = columnOperating(from)
+  const opTo = columnOperating(to)
+  const allFrom = columnTotal(from)
+  const allTo = columnTotal(to)
+  const opChange = opFrom != null && opTo != null ? opTo - opFrom : null
+  const opPct = opFrom && opChange != null ? (opChange / opFrom) * 100 : null
+  const allChange = allTo - allFrom
+  const debt = (c: typeof from) => c.appropriations.V01 ?? null
+  const debtChange = debt(to) != null && debt(from) != null ? debt(to)! - debt(from)! : null
+  // The Supervisor's letter counts the same way; say so only where its two figures match this page's.
+  const matchesLetter = to.year === LETTER_2027.year && to.stage === 'tentative' && opTo === LETTER_2027.operating.total && opChange === LETTER_2027.operating.growth
 
   return (
     <PageShell
       title="What Changed in Riverhead’s Budget?"
-      subtitle={`Start with the big picture, then see which funds changed the most. Compare adopted appropriations from ${years[0]} through ${years[years.length - 1]} and follow the evidence into the underlying records.`}
+      subtitle={`Start with the big picture, then see which funds changed the most. Compare adopted appropriations from ${years[0]} through ${years[years.length - 1]}${proposalColumn ? `, and the ${proposalColumn.label} as proposed,` : ''} and follow the evidence into the underlying records.`}
     >
-      <section style={{ background: 'linear-gradient(135deg, var(--rbl-info-bg), var(--rbl-surface))', border: '1px solid var(--rbl-border-subtle)', borderRadius: 18, padding: 22, marginBottom: 16 }}>
-        <div style={{ color: 'var(--rbl-accent)', fontSize: 11.5, fontWeight: 950, textTransform: 'uppercase', letterSpacing: 0.6 }}>The short answer</div>
-        <h2 style={{ margin: '6px 0 7px', fontSize: 24, lineHeight: 1.2 }}>
-          Town-wide planned spending {change != null && change >= 0 ? 'increased' : 'changed'} {change != null ? usd(change) : '—'} from {fromYear} to {toYear}.
+      <section style={{ marginBottom: 22 }}>
+        <h2 style={{ margin: '0 0 8px', fontSize: 'clamp(22px,2.6vw,27px)', fontWeight: 700, lineHeight: 1.25, color: 'var(--rbl-title)', maxWidth: '40ch' }}>
+          {opChange != null
+            ? <>{to.stage === 'adopted' ? `Planned spending ${opChange >= 0 ? 'rose' : 'fell'} ${usd(Math.abs(opChange))} from ${from.label} to ${to.label}` : `The ${to.label} proposes ${usd(opTo!)} of spending, ${usd(Math.abs(opChange))} ${opChange >= 0 ? 'more' : 'less'} than ${from.label}’s adopted budget`} ({opPct! >= 0 ? '+' : ''}{opPct!.toFixed(1)}%).</>
+            : <>Planned spending changed {usd(allChange)} from {from.label} to {to.label}.</>}
         </h2>
-        <p style={{ margin: 0, color: 'var(--rbl-text-sub)', lineHeight: 1.55 }}>
-          That is {pct != null ? `${pct >= 0 ? '+' : ''}${pct.toFixed(1)}%` : '—'} overall. The important next question is <strong>where did that change happen?</strong> The comparison below ranks the funds responsible for the largest dollar and percentage moves.
+        <p style={{ margin: 0, color: 'var(--rbl-text-strong)', fontSize: 17, lineHeight: 1.6 }}>
+          {opChange != null && <>That leaves out the three funds the others pay for: debt service, workers’ compensation and risk retention. </>}
+          {opChange != null && <>Counting every fund, as the budget’s Summary page does, the total goes from {usd(allFrom)} to {usd(allTo)}, {allChange >= 0 ? 'up' : 'down'} {usd(Math.abs(allChange))}{debtChange != null && Math.abs(debtChange) > Math.abs(allChange) ? `, because debt service ${debtChange < 0 ? 'falls' : 'rises'} ${usd(Math.abs(debtChange))}` : ''}. </>}
+          {matchesLetter && <>The Supervisor’s letter gives the same figure: “{LETTER_2027.operating.quote}” </>}
+          The comparison below ranks the funds responsible for the largest moves.
         </p>
       </section>
 

@@ -26,7 +26,7 @@ import {
 
 const base = process.env.NEXT_PUBLIC_BASE_PATH || ''
 const usd = (n: number) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(n)
-const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 20, boxShadow: '0 14px 34px var(--rbl-shadow)' } as const
+const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 20 } as const
 const th = { padding: '8px 10px' } as const
 const td = { padding: '8px 10px' } as const
 const chip = { fontWeight: 850, fontSize: 12, padding: '4px 10px', borderRadius: 999 } as const
@@ -66,7 +66,7 @@ export default function Predict2027Page() {
       title="2027 budget outlook — what the model says, and what the tax cap really means"
       subtitle="A line-by-line projection of Riverhead’s next budget, separated from the legal tax-cap calculation and the Town Board choices that follow from it. This is an independent model, not the Town’s tentative budget."
     >
-      <div style={{ background: 'var(--rbl-warn-bg)', border: '1px solid var(--rbl-warn-border)', borderLeft: '6px solid var(--rbl-warn)', borderRadius: 12, padding: '14px 16px', marginBottom: 16, color: 'var(--rbl-warn-strong)', fontSize: 14.5, lineHeight: 1.55 }}>
+      <div style={{ background: 'var(--rbl-warn-bg)', border: '1px solid var(--rbl-warn-border)', borderColor: 'var(--rbl-warn-border)', borderRadius: 12, padding: '14px 16px', marginBottom: 16, color: 'var(--rbl-warn-strong)', fontSize: 14.5, lineHeight: 1.55 }}>
         <strong>Read the levy number as a baseline, not a filed tax-cap calculation.</strong>{' '}
         {p.disclaimer} The 2027 allowable levy growth factor for calendar-year local governments is officially 2%, but Riverhead’s final legal levy limit also depends on the full State Comptroller formula.
       </div>
@@ -106,10 +106,9 @@ export default function Predict2027Page() {
         />
       </div>
 
-      <section id="cap-reality" style={{ ...card, marginBottom: 16, scrollMarginTop: 16, borderLeft: '6px solid var(--rbl-danger)' }}>
+      <section id="cap-reality" style={{ ...card, marginBottom: 16, scrollMarginTop: 16, borderColor: 'var(--rbl-danger-border)' }}>
         <div style={{ display: 'flex', gap: 12, justifyContent: 'space-between', alignItems: 'baseline', flexWrap: 'wrap' }}>
           <div>
-            <div style={{ color: 'var(--rbl-danger-strong)', fontSize: 11.5, fontWeight: 950, textTransform: 'uppercase', letterSpacing: .5 }}>The tax-cap question</div>
             <h2 style={{ margin: '4px 0 0', color: 'var(--rbl-title)', fontSize: 20 }}>The model is above the 2% planning proxy — but the final legal limit is not simply “last year × 1.02.”</h2>
           </div>
           <span style={{ ...chip, background: 'var(--rbl-danger-bg)', color: 'var(--rbl-danger-strong)', border: '1px solid var(--rbl-danger-border)', fontSize: 13 }}>
@@ -166,8 +165,7 @@ export default function Predict2027Page() {
         />
       </section>
 
-      <section id="state-context" style={{ ...card, marginBottom: 16, scrollMarginTop: 16, borderLeft: '6px solid var(--rbl-gold-border)' }}>
-        <div style={{ color: 'var(--rbl-warn)', fontSize: 11.5, fontWeight: 950, textTransform: 'uppercase', letterSpacing: .5 }}>Why this matters now</div>
+      <section id="state-context" style={{ ...card, marginBottom: 16, scrollMarginTop: 16 }}>
         <h2 style={{ margin: '4px 0 8px', color: 'var(--rbl-title)', fontSize: 20 }}>Overrides are becoming more common as local costs outpace the cap.</h2>
         <p style={{ color: 'var(--rbl-text-strong)', fontSize: 14.5, lineHeight: 1.6, margin: '0 0 12px' }}>
           The statewide trend highlighted in recent reporting is real: the State Comptroller says <strong>28.6% of towns</strong> reported plans to override for fiscal year 2026, up from <strong>16.6% in 2022</strong>. Villages were at 35.5% and cities at 45%. OSC ties the trend to rising costs and slower recurring-revenue growth.
@@ -203,7 +201,7 @@ export default function Predict2027Page() {
           {boardOptions.map((o) => {
             const proxy = o.id === 'at-cap' || o.id === 'hybrid'
             return (
-              <article key={o.id} style={{ ...card, padding: 16, borderLeft: `5px solid ${o.legalTone === 'override' ? 'var(--rbl-danger)' : proxy ? 'var(--rbl-warn)' : 'var(--rbl-accent-border)'}` }}>
+              <article key={o.id} style={{ ...card, padding: 16, borderColor: o.legalTone === 'override' ? 'var(--rbl-danger)' : proxy ? 'var(--rbl-warn)' : 'var(--rbl-accent-border)' }}>
                 <div style={{ display: 'flex', gap: 10, justifyContent: 'space-between', alignItems: 'baseline', flexWrap: 'wrap' }}>
                   <strong style={{ color: 'var(--rbl-title)', fontSize: 16 }}>{proxy && o.id === 'at-cap' ? 'A 2% planning-proxy increase' : o.name}</strong>
                   <span style={{ ...chip, background: o.legalTone === 'override' ? 'var(--rbl-danger-bg)' : 'var(--rbl-surface-2)', color: o.legalTone === 'override' ? 'var(--rbl-danger-strong)' : 'var(--rbl-title)', border: '1px solid var(--rbl-border-subtle)' }}>
@@ -247,7 +245,7 @@ export default function Predict2027Page() {
           fund a suggested action as well. Netting the documented draws moves the
           figure by about a quarter, so presenting the opening balance alone overstated
           what is available. */}
-      <section id="committed" style={{ ...card, marginBottom: 16, scrollMarginTop: 16, borderLeft: '6px solid var(--rbl-danger)' }}>
+      <section id="committed" style={{ ...card, marginBottom: 16, scrollMarginTop: 16, borderColor: 'var(--rbl-danger-border)' }}>
         <h2 style={{ margin: '0 0 4px', color: 'var(--rbl-title)', fontSize: 19 }}>
           What the Board has already committed from fund balance
         </h2>
@@ -515,7 +513,7 @@ export default function Predict2027Page() {
 
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(min(200px,100%),1fr))', gap: 10, marginBottom: 10 }}>
             <div style={{ background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 9, padding: '10px 12px' }}>
-              <div style={{ color: 'var(--rbl-text-muted)', fontSize: 11, fontWeight: 900, textTransform: 'uppercase', letterSpacing: .4 }}>Retirement saving 2027 carries and 2026 does not</div>
+              <div style={{ color: 'var(--rbl-text-muted)', fontSize: 13, fontWeight: 700 }}>Retirement saving 2027 carries and 2026 does not</div>
               <strong style={{ fontSize: 19, color: 'var(--rbl-success-strong)' }}>
                 {usd(retirementAnnualisation.increment2027Low)}–{usd(retirementAnnualisation.increment2027High)}
               </strong>
@@ -524,7 +522,7 @@ export default function Predict2027Page() {
               </div>
             </div>
             <div style={{ background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 9, padding: '10px 12px' }}>
-              <div style={{ color: 'var(--rbl-text-muted)', fontSize: 11, fontWeight: 900, textTransform: 'uppercase', letterSpacing: .4 }}>Appointments made in the second half of 2026</div>
+              <div style={{ color: 'var(--rbl-text-muted)', fontSize: 13, fontWeight: 700 }}>Appointments made in the second half of 2026</div>
               <strong style={{ fontSize: 19, color: 'var(--rbl-title)' }}>{appointmentTiming.secondHalf}</strong>
               <div style={{ color: 'var(--rbl-text-muted)', fontSize: 12.3, marginTop: 2 }}>
                 of {appointmentTiming.total} — {Math.round(appointmentTiming.firstHalfShare * 100)}% of the year&apos;s hiring was done by June
@@ -592,12 +590,12 @@ export default function Predict2027Page() {
           <p style={{ color: 'var(--rbl-info-text)', fontSize: 13.8, lineHeight: 1.6, margin: '5px 0 8px' }}>{effectOnOptions.body}</p>
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: 16, alignItems: 'baseline' }}>
             <div>
-              <div style={{ color: 'var(--rbl-text-muted)', fontSize: 11, fontWeight: 900, textTransform: 'uppercase', letterSpacing: 0.4 }}>Freeze covered, opening figure</div>
+              <div style={{ color: 'var(--rbl-text-muted)', fontSize: 13, fontWeight: 700 }}>Freeze covered, opening figure</div>
               <div style={{ fontSize: 19, fontWeight: 800, color: 'var(--rbl-text-muted)', textDecoration: 'line-through' }}>{effectOnOptions.coverageBefore.toFixed(1)}×</div>
             </div>
             <div style={{ fontSize: 20, color: 'var(--rbl-text-muted)' }}>→</div>
             <div>
-              <div style={{ color: 'var(--rbl-warn-strong)', fontSize: 11, fontWeight: 900, textTransform: 'uppercase', letterSpacing: 0.4 }}>After netting the draws</div>
+              <div style={{ color: 'var(--rbl-warn-strong)', fontSize: 13, fontWeight: 700 }}>After netting the draws</div>
               <div style={{ fontSize: 22, fontWeight: 900, color: 'var(--rbl-warn)' }}>{effectOnOptions.coverageAfter.toFixed(1)}×</div>
             </div>
           </div>
@@ -620,7 +618,7 @@ export default function Predict2027Page() {
         </div>
       </section>
 
-      <section id="budget-clock" style={{ ...card, marginBottom: 16, scrollMarginTop: 16, borderLeft: '6px solid var(--rbl-violet-border)' }}>
+      <section id="budget-clock" style={{ ...card, marginBottom: 16, scrollMarginTop: 16 }}>
         <h2 style={{ margin: '0 0 4px', color: 'var(--rbl-title)', fontSize: 18 }}>{calendar.headline}</h2>
         <p style={{ color: 'var(--rbl-text-body)', fontSize: 14, lineHeight: 1.55, margin: '0 0 12px' }}>The projection becomes testable as the Town moves through the statutory budget calendar.</p>
         <ol style={{ listStyle: 'none', padding: 0, margin: 0, display: 'grid', gap: 8 }}>
@@ -638,7 +636,7 @@ export default function Predict2027Page() {
         <p style={{ color: 'var(--rbl-text-muted)', fontSize: 12.8, lineHeight: 1.5, margin: '10px 0 0' }}>{calendar.overrideNote}</p>
       </section>
 
-      <section id="scorecard" style={{ ...card, marginBottom: 16, scrollMarginTop: 16, borderLeft: '6px solid var(--rbl-teal-border)' }}>
+      <section id="scorecard" style={{ ...card, marginBottom: 16, scrollMarginTop: 16 }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', gap: 10, alignItems: 'baseline', flexWrap: 'wrap' }}>
           <h2 style={{ margin: 0, color: 'var(--rbl-title)', fontSize: 18 }}>Scorecard — projection vs. what the Town actually files</h2>
           <span style={{ ...chip, background: release.status === 'awaiting' ? 'var(--rbl-warn-bg)' : 'var(--rbl-success-bg)', color: release.status === 'awaiting' ? 'var(--rbl-warn-strong)' : 'var(--rbl-success-strong)', border: '1px solid var(--rbl-border-subtle)' }}>
@@ -661,7 +659,7 @@ export default function Predict2027Page() {
         </div>
       </section>
 
-      <section style={{ ...card, marginBottom: 16, borderLeft: '6px solid var(--rbl-gold-border)' }}>
+      <section style={{ ...card, marginBottom: 16 }}>
         <h2 style={{ margin: '0 0 5px', color: 'var(--rbl-title)', fontSize: 18 }}>What could still move the model</h2>
         <div style={{ display: 'grid', gap: 8 }}>
           {p.watchList.map((w) => (w.id === 'tentative' && released2027 ? {
@@ -721,11 +719,11 @@ function Detail({ title, children }: { title: string; children: React.ReactNode 
 }
 
 function MiniStat({ label, value }: { label: string; value: string }) {
-  return <div style={{ background: 'var(--rbl-surface-2)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 10, padding: 10 }}><div style={{ color: 'var(--rbl-text-muted)', fontSize: 10.8, fontWeight: 900, textTransform: 'uppercase', letterSpacing: .35 }}>{label}</div><div style={{ color: 'var(--rbl-title)', fontSize: 13.5, fontWeight: 800, marginTop: 2 }}>{value}</div></div>
+  return <div style={{ background: 'var(--rbl-surface-2)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 10, padding: 10 }}><div style={{ color: 'var(--rbl-text-muted)', fontSize: 13, fontWeight: 700 }}>{label}</div><div style={{ color: 'var(--rbl-title)', fontSize: 13.5, fontWeight: 800, marginTop: 2 }}>{value}</div></div>
 }
 
 function Stat({ label, value, sub, accent, amber }: { label: string; value: string; sub?: string; accent?: boolean; amber?: boolean }) {
-  return <div style={{ background: amber ? 'var(--rbl-warn-bg)' : accent ? 'var(--rbl-info-bg)' : 'var(--rbl-surface-2)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 12, padding: 12 }}><div style={{ color: 'var(--rbl-text-muted)', fontSize: 11.2, textTransform: 'uppercase', fontWeight: 900, letterSpacing: .4 }}>{label}</div><strong style={{ fontSize: 20, color: amber ? 'var(--rbl-warn)' : 'var(--rbl-title)' }}>{value}</strong>{sub && <div style={{ color: 'var(--rbl-text-muted)', fontSize: 12.3, marginTop: 2 }}>{sub}</div>}</div>
+  return <div style={{ background: amber ? 'var(--rbl-warn-bg)' : accent ? 'var(--rbl-info-bg)' : 'var(--rbl-surface-2)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 12, padding: 12 }}><div style={{ color: 'var(--rbl-text-muted)', fontSize: 13.5, fontWeight: 700 }}>{label}</div><strong style={{ fontSize: 20, color: amber ? 'var(--rbl-warn)' : 'var(--rbl-title)' }}>{value}</strong>{sub && <div style={{ color: 'var(--rbl-text-muted)', fontSize: 12.3, marginTop: 2 }}>{sub}</div>}</div>
 }
 
 const pillLink = { background: 'var(--rbl-surface-2)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 999, padding: '6px 12px', color: 'var(--rbl-link)', fontWeight: 750, fontSize: 12.8, textDecoration: 'none' } as const

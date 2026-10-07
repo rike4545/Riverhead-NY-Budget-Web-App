@@ -14,7 +14,7 @@ const base = process.env.NEXT_PUBLIC_BASE_PATH || ''
 const usd = (n: number) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(n)
 const num = (n: number) => new Intl.NumberFormat('en-US', { maximumFractionDigits: 0 }).format(n)
 const pct = (n: number | null) => (n == null ? '—' : `${n >= 0 ? '+' : ''}${n.toFixed(0)}%`)
-const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 20, boxShadow: '0 14px 34px var(--rbl-shadow)' } as const
+const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 20 } as const
 
 const SPEND = 'var(--rbl-series-blue)'
 const CRIME = 'var(--rbl-series-gold)'
@@ -57,7 +57,7 @@ export default function PoliceCrimePage() {
         )}
       </PlainCallout>
 
-      <section style={{ ...card, marginBottom: 18, borderLeft: '6px solid var(--rbl-warn)' }}>
+      <section style={{ ...card, marginBottom: 18, borderColor: 'var(--rbl-warn-border)' }}>
         <h3 style={{ marginTop: 0, color: 'var(--rbl-title)' }}>Read this before the charts</h3>
         <p style={{ color: 'var(--rbl-text-body)', fontSize: 14.5, lineHeight: 1.65, margin: 0 }}>{caution}</p>
       </section>
@@ -118,7 +118,7 @@ export default function PoliceCrimePage() {
       </div>
 
       {/* Why Riverhead has a police budget line at all */}
-      <section style={{ ...card, marginBottom: 18, borderLeft: '6px solid var(--rbl-accent-border)' }}>
+      <section style={{ ...card, marginBottom: 18 }}>
         <h3 style={{ marginTop: 0, color: 'var(--rbl-title)' }}>Why Riverhead has a police budget at all</h3>
         <p style={{ color: 'var(--rbl-text-body)', fontSize: 14.5, lineHeight: 1.65, margin: '0 0 10px' }}>
           Riverhead polices itself because it declined to hand the job to the county. After New York passed the{' '}
@@ -292,7 +292,7 @@ export default function PoliceCrimePage() {
 function Figure({ label, value, sub }: { label: string; value: string; sub: string }) {
   return (
     <div style={{ background: 'var(--rbl-surface-2)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 10, padding: '10px 12px' }}>
-      <div style={{ color: 'var(--rbl-text-muted)', fontSize: 11, fontWeight: 900, textTransform: 'uppercase', letterSpacing: 0.4 }}>{label}</div>
+      <div style={{ color: 'var(--rbl-text-muted)', fontSize: 13, fontWeight: 700 }}>{label}</div>
       <strong style={{ fontSize: 20, color: 'var(--rbl-title)' }}>{value}</strong>
       <div style={{ color: 'var(--rbl-text-muted)', fontSize: 12.2, marginTop: 2 }}>{sub}</div>
     </div>

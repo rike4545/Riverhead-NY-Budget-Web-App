@@ -12,7 +12,7 @@ import { theMiss, biggestMisses, totals as ba2023, whatItMeansForAFreeze, source
 const usd = (n: number) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(n)
 // What the Tentative raises the General Fund levy by: what a zero-percent year would now have to find.
 const gfRise = released2027?.generalFund?.levyOverPrior ?? null
-const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 20, boxShadow: '0 14px 34px var(--rbl-shadow)' } as const
+const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 20 } as const
 
 const KIND: Record<string, { label: string; fg: string; bg: string; bd: string }> = {
   recurring: { label: 'Recurring', fg: 'var(--rbl-success-strong)', bg: 'var(--rbl-success-bg)', bd: 'var(--rbl-success-border)' },
@@ -51,7 +51,7 @@ export default function ZeroPercent2027Page() {
           : <>It holds the General Fund levy flat or lower: the zero-percent year this page describes.</>)}
       </TentativeReleased>
 
-      <section style={{ ...card, marginBottom: 18, borderLeft: '6px solid var(--rbl-info-border)' }}>
+      <section style={{ ...card, marginBottom: 18 }}>
         <h2 style={{ marginTop: 0, marginBottom: 6, color: 'var(--rbl-title)', fontSize: 21 }}>What Suffolk actually pledged</h2>
         <blockquote style={{ margin: '0 0 10px', padding: '10px 14px', borderLeft: '3px solid var(--rbl-info-border)', background: 'var(--rbl-info-bg)', borderRadius: 8, color: 'var(--rbl-info-text)', fontSize: 14.2, lineHeight: 1.6 }}>
           {suffolk.pledge}
@@ -72,7 +72,7 @@ export default function ZeroPercent2027Page() {
             <thead>
               <tr>
                 {['Tax rate per $1,000', '2025', '2026', 'Change'].map((h, i) => (
-                  <th key={h} style={{ textAlign: i ? 'right' : 'left', padding: '7px 9px', borderBottom: '2px solid var(--rbl-border-subtle)', color: 'var(--rbl-text-muted)', fontSize: 11.4, textTransform: 'uppercase', letterSpacing: 0.4 }}>{h}</th>
+                  <th key={h} style={{ textAlign: i ? 'right' : 'left', padding: '7px 9px', borderBottom: '2px solid var(--rbl-border-subtle)', color: 'var(--rbl-text-muted)', fontSize: 13.5 }}>{h}</th>
                 ))}
               </tr>
             </thead>
@@ -127,7 +127,7 @@ export default function ZeroPercent2027Page() {
         <p style={{ color: 'var(--rbl-text-muted)', fontSize: 12.6, lineHeight: 1.6, margin: 0 }}>{trajectory.note}</p>
       </section>
 
-      <section style={{ ...card, marginBottom: 18, borderLeft: '6px solid var(--rbl-danger-border)' }}>
+      <section style={{ ...card, marginBottom: 18, borderColor: 'var(--rbl-danger-border)' }}>
         <h2 style={{ marginTop: 0, marginBottom: 8, color: 'var(--rbl-title)', fontSize: 21 }}>{theAsk.headline}</h2>
         <div style={{ display: 'grid', gap: 10, gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', marginBottom: 12 }}>
           {[
@@ -137,7 +137,7 @@ export default function ZeroPercent2027Page() {
             { l: 'As a percentage', v: `+${costGrowthPct.toFixed(1)}%`, amber: true },
           ].map((s) => (
             <div key={s.l} style={{ background: 'var(--rbl-surface-2)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 12, padding: 12 }}>
-              <div style={{ color: 'var(--rbl-text-muted)', fontSize: 11.4, fontWeight: 900, textTransform: 'uppercase', letterSpacing: 0.4 }}>{s.l}</div>
+              <div style={{ color: 'var(--rbl-text-muted)', fontSize: 13.5, fontWeight: 700 }}>{s.l}</div>
               <strong style={{ fontSize: 19, color: s.amber ? 'var(--rbl-warn-strong)' : 'var(--rbl-title)' }}>{s.v}</strong>
             </div>
           ))}
@@ -155,10 +155,10 @@ export default function ZeroPercent2027Page() {
         {levers.map((l) => {
           const k = KIND[l.kind]
           return (
-            <div key={l.name} style={{ ...card, borderLeft: `6px solid ${k.bd}` }}>
+            <div key={l.name} style={{ ...card, borderColor: k.bd }}>
               <div style={{ display: 'flex', gap: 10, alignItems: 'baseline', flexWrap: 'wrap', marginBottom: 4 }}>
                 <strong style={{ color: 'var(--rbl-title)', fontSize: 16.4 }}>{l.name}</strong>
-                <span style={{ color: k.fg, background: k.bg, border: `1px solid ${k.bd}`, borderRadius: 999, padding: '2px 9px', fontSize: 10.6, fontWeight: 900, textTransform: 'uppercase', letterSpacing: 0.5 }}>{k.label}</span>
+                <span style={{ color: k.fg, background: k.bg, border: `1px solid ${k.bd}`, borderRadius: 999, padding: '2px 9px', fontSize: 13, fontWeight: 700 }}>{k.label}</span>
                 <span style={{ marginLeft: 'auto', color: 'var(--rbl-title)', fontWeight: 900, fontSize: 17 }}>{l.display}</span>
               </div>
               <div style={{ color: 'var(--rbl-text-muted)', fontSize: 12.4, marginBottom: 6 }}>Covers {l.covers}</div>
@@ -172,8 +172,7 @@ export default function ZeroPercent2027Page() {
         })}
       </section>
 
-      <section style={{ ...card, marginBottom: 18, borderLeft: '6px solid var(--rbl-success-border)' }}>
-        <div style={{ color: 'var(--rbl-success-strong)', fontWeight: 900, fontSize: 11.4, textTransform: 'uppercase', letterSpacing: 0.5 }}>What the last closed year shows</div>
+      <section style={{ ...card, marginBottom: 18, borderColor: 'var(--rbl-success-border)' }}>
         <h2 style={{ margin: '4px 0 8px', color: 'var(--rbl-title)', fontSize: 21 }}>{whatItMeansForAFreeze.headline}</h2>
 
         <div style={{ display: 'grid', gap: 10, gridTemplateColumns: 'repeat(auto-fit, minmax(190px, 1fr))', marginBottom: 12 }}>
@@ -183,7 +182,7 @@ export default function ZeroPercent2027Page() {
             { l: 'The swing', v: usd(theMiss.swingFinal), sub: 'Against the Town’s own final budget', amber: true },
           ].map((x) => (
             <div key={x.l} style={{ background: 'var(--rbl-surface-2)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 12, padding: 12 }}>
-              <div style={{ color: 'var(--rbl-text-muted)', fontSize: 11.4, fontWeight: 900, textTransform: 'uppercase', letterSpacing: 0.4 }}>{x.l}</div>
+              <div style={{ color: 'var(--rbl-text-muted)', fontSize: 13.5, fontWeight: 700 }}>{x.l}</div>
               <strong style={{ fontSize: 19, color: x.amber ? 'var(--rbl-warn-strong)' : x.good ? 'var(--rbl-success-strong)' : 'var(--rbl-title)' }}>{x.v}</strong>
               <div style={{ color: 'var(--rbl-text-muted)', fontSize: 12 }}>{x.sub}</div>
             </div>
@@ -198,7 +197,7 @@ export default function ZeroPercent2027Page() {
             <thead>
               <tr>
                 {['Biggest 2023 variances', 'Final budget', 'Actual', 'Variance'].map((h, i) => (
-                  <th key={h} style={{ textAlign: i ? 'right' : 'left', padding: '7px 9px', borderBottom: '2px solid var(--rbl-border-subtle)', color: 'var(--rbl-text-muted)', fontSize: 11.2, textTransform: 'uppercase', letterSpacing: 0.4 }}>{h}</th>
+                  <th key={h} style={{ textAlign: i ? 'right' : 'left', padding: '7px 9px', borderBottom: '2px solid var(--rbl-border-subtle)', color: 'var(--rbl-text-muted)', fontSize: 13.5 }}>{h}</th>
                 ))}
               </tr>
             </thead>
@@ -238,7 +237,7 @@ export default function ZeroPercent2027Page() {
         </p>
       </section>
 
-      <section style={{ ...card, marginBottom: 18, borderLeft: '6px solid var(--rbl-violet)' }}>
+      <section style={{ ...card, marginBottom: 18 }}>
         <h2 style={{ marginTop: 0, marginBottom: 8, color: 'var(--rbl-title)', fontSize: 21 }}>{whyHarder.headline}</h2>
         <div style={{ display: 'grid', gap: 6, marginBottom: 12 }}>
           {whyHarder.shares.map((s) => (
@@ -276,12 +275,12 @@ export default function ZeroPercent2027Page() {
         <p style={{ color: 'var(--rbl-text-muted)', fontSize: 12.4, lineHeight: 1.6, margin: 0 }}>{whyHarder.sourceNote}</p>
       </section>
 
-      <section style={{ ...card, marginBottom: 18, borderLeft: '6px solid var(--rbl-teal-border)' }}>
+      <section style={{ ...card, marginBottom: 18 }}>
         <h2 style={{ marginTop: 0, marginBottom: 8, color: 'var(--rbl-title)', fontSize: 21 }}>So — could Riverhead do it?</h2>
         <div style={{ display: 'grid', gap: 9, marginBottom: 10 }}>
-          <div><dt style={{ color: 'var(--rbl-success-strong)', fontSize: 11, fontWeight: 900, textTransform: 'uppercase', letterSpacing: 0.4 }}>For one year</dt>
+          <div><dt style={{ color: 'var(--rbl-success-strong)', fontSize: 13, fontWeight: 700 }}>For one year</dt>
             <dd style={{ margin: '2px 0 0', color: 'var(--rbl-text-body)', fontSize: 14, lineHeight: 1.6 }}>{verdict.oneYear}</dd></div>
-          <div><dt style={{ color: 'var(--rbl-warn-strong)', fontSize: 11, fontWeight: 900, textTransform: 'uppercase', letterSpacing: 0.4 }}>Durably</dt>
+          <div><dt style={{ color: 'var(--rbl-warn-strong)', fontSize: 13, fontWeight: 700 }}>Durably</dt>
             <dd style={{ margin: '2px 0 0', color: 'var(--rbl-text-body)', fontSize: 14, lineHeight: 1.6 }}>{verdict.durable}</dd></div>
         </div>
         <div style={{ background: 'var(--rbl-teal-bg)', border: '1px solid var(--rbl-teal-border)', borderRadius: 10, padding: '12px 14px' }}>
@@ -308,7 +307,7 @@ export default function ZeroPercent2027Page() {
 function Offset({ label, value, sub, tone }: { label: string; value: string; sub: string; tone: 'good' | 'bad' }) {
   return (
     <div style={{ background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 9, padding: '10px 12px' }}>
-      <div style={{ color: 'var(--rbl-text-muted)', fontSize: 11, fontWeight: 900, textTransform: 'uppercase', letterSpacing: 0.4 }}>{label}</div>
+      <div style={{ color: 'var(--rbl-text-muted)', fontSize: 13, fontWeight: 700 }}>{label}</div>
       <strong style={{ fontSize: 19, color: tone === 'good' ? 'var(--rbl-success-strong)' : 'var(--rbl-warn-strong)' }}>{value}</strong>
       <div style={{ color: 'var(--rbl-text-muted)', fontSize: 12.2, marginTop: 2 }}>{sub}</div>
     </div>

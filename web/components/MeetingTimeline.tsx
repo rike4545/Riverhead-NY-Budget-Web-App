@@ -102,7 +102,6 @@ export default function MeetingTimeline() {
     <section aria-label="Meeting timeline" style={{ marginBottom: 20 }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', gap: 12, alignItems: 'end', flexWrap: 'wrap', marginBottom: 10 }}>
         <div>
-          <div style={{ color: 'var(--rbl-badge)', fontSize: 11, fontWeight: 950, letterSpacing: .8, textTransform: 'uppercase' }}>Meeting timeline</div>
           <h2 style={{ margin: '3px 0 0', color: 'var(--rbl-title)', fontSize: 23 }}>What just happened — and what comes next</h2>
         </div>
         <a href={schedule.source.url} target="_blank" rel="noreferrer" style={{ color: 'var(--rbl-link)', fontWeight: 800, fontSize: 12.5, textDecoration: 'none' }}>Official meeting portal ↗</a>
@@ -110,15 +109,15 @@ export default function MeetingTimeline() {
 
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(min(300px,100%),1fr))', gap: 12 }}>
         {pendingCompleted ? (
-          <article style={{ ...card, borderLeft: '5px solid var(--rbl-warn)' }}>
-            <div style={{ color: 'var(--rbl-warn-strong)', fontWeight: 950, fontSize: 11.5, textTransform: 'uppercase', letterSpacing: .5 }}>Latest meeting · completed</div>
-            <h3 style={{ margin: '5px 0 7px', color: 'var(--rbl-title)', fontSize: 20 }}>{formatMeeting(pendingCompleted.startDateTime)}</h3>
+          <article style={{ ...card, borderColor: 'var(--rbl-warn-border)' }}>
+            <h3 style={{ margin: 0, color: 'var(--rbl-title)', fontSize: 17 }}>Latest meeting <span style={{ color: 'var(--rbl-warn-strong)', fontWeight: 600 }}>· completed</span></h3>
+            <div style={{ margin: '2px 0 8px', color: 'var(--rbl-text)', fontSize: 21, fontWeight: 600 }}>{formatMeeting(pendingCompleted.startDateTime)}</div>
             <p style={{ color: 'var(--rbl-text-body)', fontSize: 13.5, lineHeight: 1.55, margin: 0 }}>
               The meeting has ended. The site has not yet received an official source that states the individual vote results. It will not infer those votes from the agenda, resolution titles, or video.
             </p>
             {pendingCompleted.hearings.length > 0 && (
               <div style={{ marginTop: 10 }}>
-                <div style={{ color: 'var(--rbl-text-muted)', fontSize: 11.5, fontWeight: 900, textTransform: 'uppercase' }}>Public hearings held</div>
+                <div style={{ color: 'var(--rbl-text-muted)', fontSize: 13.5, fontWeight: 700 }}>Public hearings held</div>
                 <ul style={{ margin: '5px 0 0', paddingLeft: 18, color: 'var(--rbl-text-strong)', fontSize: 13, lineHeight: 1.45 }}>
                   {pendingCompleted.hearings.map((h) => <li key={h}>{h}</li>)}
                 </ul>
@@ -130,9 +129,9 @@ export default function MeetingTimeline() {
             </div>
           </article>
         ) : newestRecorded ? (
-          <article style={{ ...card, borderLeft: '5px solid var(--rbl-accent-border)' }}>
-            <div style={{ color: 'var(--rbl-accent)', fontWeight: 950, fontSize: 11.5, textTransform: 'uppercase', letterSpacing: .5 }}>Latest meeting record</div>
-            <h3 style={{ margin: '5px 0 7px', color: 'var(--rbl-title)', fontSize: 20 }}>{newestRecorded.date}</h3>
+          <article style={{ ...card }}>
+            <h3 style={{ margin: 0, color: 'var(--rbl-title)', fontSize: 17 }}>Latest meeting record</h3>
+            <div style={{ margin: '2px 0 8px', color: 'var(--rbl-text)', fontSize: 21, fontWeight: 600 }}>{newestRecorded.date}</div>
             <p style={{ color: 'var(--rbl-text-body)', fontSize: 13.5, margin: 0 }}>
               {newestRecorded.preliminary
                 ? newestRecordedIsOldOmission
@@ -145,13 +144,13 @@ export default function MeetingTimeline() {
         ) : null}
 
         {next && (
-          <article style={{ ...card, borderLeft: '5px solid var(--rbl-success)' }}>
-            <div style={{ color: 'var(--rbl-success-strong)', fontWeight: 950, fontSize: 11.5, textTransform: 'uppercase', letterSpacing: .5 }}>Next Town Board meeting</div>
-            <h3 style={{ margin: '5px 0 7px', color: 'var(--rbl-title)', fontSize: 20 }}>{formatMeeting(next.startDateTime)}</h3>
+          <article style={{ ...card, borderColor: 'var(--rbl-success-border)' }}>
+            <h3 style={{ margin: 0, color: 'var(--rbl-title)', fontSize: 17 }}>Next Town Board meeting</h3>
+            <div style={{ margin: '2px 0 8px', color: 'var(--rbl-text)', fontSize: 21, fontWeight: 600 }}>{formatMeeting(next.startDateTime)}</div>
 
             {next.hearings.length > 0 && (
               <div>
-                <div style={{ color: 'var(--rbl-text-muted)', fontSize: 11.5, fontWeight: 900, textTransform: 'uppercase' }}>Officially noticed public hearings</div>
+                <div style={{ color: 'var(--rbl-text-muted)', fontSize: 13.5, fontWeight: 700 }}>Officially noticed public hearings</div>
                 <ul style={{ margin: '5px 0 0', paddingLeft: 18, color: 'var(--rbl-text-strong)', fontSize: 13, lineHeight: 1.45 }}>
                   {next.hearings.map((h) => <li key={h}>{h}</li>)}
                 </ul>
@@ -186,7 +185,7 @@ export default function MeetingTimeline() {
 
       {later.length > 0 && (
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, marginTop: 9, alignItems: 'center' }}>
-          <span style={{ color: 'var(--rbl-text-muted)', fontSize: 11.5, fontWeight: 900, textTransform: 'uppercase' }}>Later official dates</span>
+          <span style={{ color: 'var(--rbl-text-muted)', fontSize: 13.5, fontWeight: 700 }}>Later official dates</span>
           {later.map((m) => {
             const itemCount = m.docket.length + m.hearings.length
             return <span key={m.slug} style={{ border: '1px solid var(--rbl-border-subtle)', borderRadius: 999, padding: '5px 10px', color: 'var(--rbl-text-muted)', fontSize: 12 }}>{formatMeeting(m.startDateTime)}{itemCount ? ` · ${itemCount} published item${itemCount === 1 ? '' : 's'}` : ''}</span>

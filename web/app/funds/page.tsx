@@ -7,7 +7,7 @@ import { dollars } from '../../lib/financial-data'
 import { subAccountIndex, townwideSubAccountTotals, townwideCategoryTotals } from '../../lib/subaccounts'
 
 const base = process.env.NEXT_PUBLIC_BASE_PATH || ''
-const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 18, padding: 20, boxShadow: '0 14px 34px var(--rbl-shadow)' } as const
+const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 18, padding: 20 } as const
 
 const CATEGORY_COLOR: Record<string, string> = {
   'Personal Services': 'var(--rbl-series-blue)',
@@ -78,7 +78,7 @@ export default function FundsPage() {
             <a key={fund.code} href={`${base}/funds/${fund.code}/`} style={{ ...card, textDecoration: 'none', color: 'inherit', display: 'block' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', gap: 16, alignItems: 'start', flexWrap: 'wrap' }}>
                 <div>
-                  <div style={{ color: 'var(--rbl-link)', fontWeight: 900, fontSize: 12, textTransform: 'uppercase' }}>{fund.code}</div>
+                  <div style={{ color: 'var(--rbl-link)', fontWeight: 700, fontSize: 13.5 }}>{fund.code}</div>
                   <h2 style={{ margin: '6px 0' }}>{fund.name}</h2>
                   <p style={{ color: 'var(--rbl-text-body)', maxWidth: 920 }}>{fund.description}</p>
                 </div>
@@ -116,7 +116,7 @@ export default function FundsPage() {
 function Mini({ label, value }: { label: ReactNode; value: string }) {
   return (
     <div style={{ background: 'var(--rbl-surface-2)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 14, padding: 14 }}>
-      <div style={{ color: 'var(--rbl-text-muted)', fontSize: 12, textTransform: 'uppercase', fontWeight: 900 }}>{label}</div>
+      <div style={{ color: 'var(--rbl-text-muted)', fontSize: 13.5, fontWeight: 700 }}>{label}</div>
       <strong style={{ fontSize: 20 }}>{value}</strong>
     </div>
   )
@@ -125,7 +125,7 @@ function Mini({ label, value }: { label: ReactNode; value: string }) {
 function Stat({ label, value, good }: { label: ReactNode; value: string; good?: boolean }) {
   return (
     <div style={{ background: 'var(--rbl-surface-2)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 12, padding: 12 }}>
-      <div style={{ color: 'var(--rbl-text-muted)', fontSize: 11.5, textTransform: 'uppercase', fontWeight: 900, letterSpacing: 0.4 }}>{label}</div>
+      <div style={{ color: 'var(--rbl-text-muted)', fontSize: 13.5, fontWeight: 700 }}>{label}</div>
       <strong style={{ fontSize: 20, color: good ? 'var(--rbl-success)' : 'var(--rbl-title)' }}>{value}</strong>
     </div>
   )

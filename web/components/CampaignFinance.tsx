@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import { AlertTriangle, CircleCheck, CircleDollarSign, Search } from 'lucide-react'
 import {
   buildCandidateSummary,
   CANDIDATE_SELF_NAMES,
@@ -16,7 +17,7 @@ import {
 } from '../lib/campaign-finance'
 
 const usd = (n: number) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(n)
-const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 18, boxShadow: '0 14px 34px var(--rbl-shadow)' } as const
+const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 18 } as const
 
 function dateOnly(value: string | null): string | null {
   return value ? value.slice(0, 10) : null
@@ -138,7 +139,7 @@ export default function CampaignFinance({
           const perResident = currentCycleRaised != null ? currentCycleRaised / RIVERHEAD_POPULATION_ESTIMATE_2024 : null
 
           return (
-            <article key={official.name} style={{ ...card, borderLeft: `6px solid ${official.currentlyServing ? 'var(--rbl-accent-border)' : 'var(--rbl-text-muted)'}` }}>
+            <article key={official.name} style={{ ...card, borderColor: official.currentlyServing ? 'var(--rbl-accent-border)' : 'var(--rbl-text-muted)' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', gap: 12, flexWrap: 'wrap' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
                   {official.photoUrl && (
@@ -208,7 +209,7 @@ export default function CampaignFinance({
                 </div>
               )}
 
-              <div style={{ fontSize: 11, fontWeight: 800, color: 'var(--rbl-text-muted)', textTransform: 'uppercase', letterSpacing: 0.4, marginTop: 12 }}>
+              <div style={{ fontSize: 13, fontWeight: 700, color: 'var(--rbl-text-muted)', marginTop: 12 }}>
                 Lifetime totals ({startYear}–{endYear})
               </div>
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))', gap: 10, marginTop: 6 }}>
@@ -218,7 +219,7 @@ export default function CampaignFinance({
                 <Stat label="Last reported" value={lastReported ?? '—'} />
               </div>
 
-              <div style={{ fontSize: 11, fontWeight: 800, color: 'var(--rbl-text-muted)', textTransform: 'uppercase', letterSpacing: 0.4, marginTop: 14 }}>
+              <div style={{ fontSize: 13, fontWeight: 700, color: 'var(--rbl-text-muted)', marginTop: 14 }}>
                 {endYear} election cycle
               </div>
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))', gap: 10, marginTop: 6 }}>
@@ -248,7 +249,7 @@ export default function CampaignFinance({
 
               {live && live.contributorTypeBreakdown.length > 0 && (
                 <div style={{ marginTop: 12, borderTop: '1px solid var(--rbl-border-subtle)', paddingTop: 10 }}>
-                  <div style={{ fontSize: 12, fontWeight: 800, color: 'var(--rbl-title)', textTransform: 'uppercase', letterSpacing: 0.4, marginBottom: 6 }}>
+                  <div style={{ fontSize: 13.5, fontWeight: 700, color: 'var(--rbl-title)', marginBottom: 6 }}>
                     Who&rsquo;s giving
                   </div>
                   <div style={{ display: 'grid', gap: 4 }}>
@@ -267,7 +268,7 @@ export default function CampaignFinance({
               {live && live.historicalByYear.length > 0 && <YearBreakdownList years={live.historicalByYear} />}
 
               <div style={{ marginTop: 12, borderTop: '1px solid var(--rbl-border-subtle)', paddingTop: 10 }}>
-                <div style={{ fontSize: 12, fontWeight: 800, color: 'var(--rbl-title)', textTransform: 'uppercase', letterSpacing: 0.4 }}>
+                <div style={{ fontSize: 13.5, fontWeight: 700, color: 'var(--rbl-title)' }}>
                   {endYear} filing activity
                 </div>
                 {latestYear ? (
@@ -398,13 +399,13 @@ function PartyCommitteesSection({
             const lastReported = dateOnly(live ? live.lastReported : official.seedLastReported)
 
             return (
-              <article key={official.name} style={{ background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 18, boxShadow: '0 14px 34px var(--rbl-shadow)', borderLeft: '6px solid #7c6fa0' }}>
+              <article key={official.name} style={{ background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 18 }}>
                 <div>
                   <strong style={{ fontSize: 16, color: 'var(--rbl-text-body)' }}>{official.name}</strong>
                   <div style={{ color: 'var(--rbl-text-muted)', fontSize: 13 }}>{official.office}</div>
                 </div>
 
-                <div style={{ fontSize: 11, fontWeight: 800, color: 'var(--rbl-text-muted)', textTransform: 'uppercase', letterSpacing: 0.4, marginTop: 12 }}>
+                <div style={{ fontSize: 13, fontWeight: 700, color: 'var(--rbl-text-muted)', marginTop: 12 }}>
                   Lifetime totals ({startYear}–{endYear})
                 </div>
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))', gap: 10, marginTop: 6 }}>
@@ -480,7 +481,7 @@ function FormerOfficialsSection({
             const lastReported = dateOnly(live ? live.lastReported : official.seedLastReported)
 
             return (
-              <article key={official.name} style={{ background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 18, boxShadow: '0 14px 34px var(--rbl-shadow)', borderLeft: '6px solid #9ca3af' }}>
+              <article key={official.name} style={{ background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 18 }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', gap: 12, flexWrap: 'wrap' }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
                     {official.photoUrl && (
@@ -503,7 +504,7 @@ function FormerOfficialsSection({
                   </div>
                 )}
 
-                <div style={{ fontSize: 11, fontWeight: 800, color: 'var(--rbl-text-muted)', textTransform: 'uppercase', letterSpacing: 0.4, marginTop: 12 }}>
+                <div style={{ fontSize: 13, fontWeight: 700, color: 'var(--rbl-text-muted)', marginTop: 12 }}>
                   Lifetime totals ({startYear}–{endYear})
                 </div>
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))', gap: 10, marginTop: 6 }}>
@@ -515,7 +516,7 @@ function FormerOfficialsSection({
 
                 {live && live.contributorTypeBreakdown.length > 0 && (
                   <div style={{ marginTop: 12, borderTop: '1px solid var(--rbl-border-subtle)', paddingTop: 10 }}>
-                    <div style={{ fontSize: 12, fontWeight: 800, color: 'var(--rbl-text-body)', textTransform: 'uppercase', letterSpacing: 0.4, marginBottom: 6 }}>Who&rsquo;s giving</div>
+                    <div style={{ fontSize: 13.5, fontWeight: 700, color: 'var(--rbl-text-body)', marginBottom: 6 }}>Who&rsquo;s giving</div>
                     <div style={{ display: 'grid', gap: 4 }}>
                       {live.contributorTypeBreakdown.map((bucket) => (
                         <div key={bucket.type} style={{ display: 'flex', justifyContent: 'space-between', fontSize: 13, color: 'var(--rbl-text-strong)' }}>
@@ -551,7 +552,7 @@ function CampaignFilingsList({ filings, endYear, hasFetched }: { filings: Filing
   if (!filings || filings.length === 0) {
     return (
       <div style={{ marginTop: 12, borderTop: '1px solid var(--rbl-border-subtle)', paddingTop: 10 }}>
-        <div style={{ fontSize: 12, fontWeight: 800, color: 'var(--rbl-title)', textTransform: 'uppercase', letterSpacing: 0.4 }}>Campaign filings</div>
+        <div style={{ fontSize: 13.5, fontWeight: 700, color: 'var(--rbl-title)' }}>Campaign filings</div>
         <div style={{ color: 'var(--rbl-text-muted)', fontSize: 13, marginTop: 4 }}>No filings found for this committee in this range.</div>
       </div>
     )
@@ -562,7 +563,7 @@ function CampaignFilingsList({ filings, endYear, hasFetched }: { filings: Filing
 
   return (
     <div style={{ marginTop: 12, borderTop: '1px solid var(--rbl-border-subtle)', paddingTop: 10 }}>
-      <div style={{ fontSize: 12, fontWeight: 800, color: 'var(--rbl-title)', textTransform: 'uppercase', letterSpacing: 0.4, marginBottom: 6 }}>Campaign filings</div>
+      <div style={{ fontSize: 13.5, fontWeight: 700, color: 'var(--rbl-title)', marginBottom: 6 }}>Campaign filings</div>
       <div style={{ display: 'grid', gap: 10 }}>
         {groups.map((g) => (
           <div key={g.bucket}>
@@ -601,7 +602,7 @@ function CampaignFilingsList({ filings, endYear, hasFetched }: { filings: Filing
 function YearBreakdownList({ years }: { years: YearBreakdown[] }) {
   return (
     <div style={{ marginTop: 12, borderTop: '1px solid var(--rbl-border-subtle)', paddingTop: 10 }}>
-      <div style={{ fontSize: 12, fontWeight: 800, color: 'var(--rbl-title)', textTransform: 'uppercase', letterSpacing: 0.4, marginBottom: 6 }}>
+      <div style={{ fontSize: 13.5, fontWeight: 700, color: 'var(--rbl-title)', marginBottom: 6 }}>
         Direct contributions by year
       </div>
       <div style={{ display: 'grid', gap: 4 }}>
@@ -704,7 +705,7 @@ function EthicsAnalysisPanel({
             <span style={{ fontWeight: 700, color: 'var(--rbl-warn-strong)' }}>
               Combined {watchLabel} entity exposure
             </span>
-            <span style={{ fontWeight: 800, color: 'var(--rbl-warn)', fontSize: 11 }}>⚠ COMBINED TOTAL EXCEEDS $1,000</span>
+            <span style={{ fontWeight: 700, color: 'var(--rbl-warn)', fontSize: 13, display: 'inline-flex', alignItems: 'center', gap: 4 }}><AlertTriangle size={14} strokeWidth={2.25} aria-hidden="true" />Combined total exceeds $1,000</span>
           </div>
           <div style={{ fontSize: 10, color: 'var(--rbl-warn-strong)', marginTop: 2, lineHeight: 1.4 }}>
             {usd(combinedTotal)} total across {groups.length} {watchLabel}-linked entities or individuals — no single entity reached the $1,000 per-person threshold of § 113-4(B)(1)(f) individually,
@@ -723,7 +724,7 @@ function EthicsAnalysisPanel({
               <span style={{ fontWeight: 700, color: 'var(--rbl-danger-strong)' }}>
                 {donor} <span style={{ fontWeight: 400, color: 'var(--rbl-text-muted)' }}>({year} election)</span>
               </span>
-              <span style={{ fontWeight: 800, color: 'var(--rbl-danger)', fontSize: 11 }}>⚠ THRESHOLD EXCEEDED</span>
+              <span style={{ fontWeight: 700, color: 'var(--rbl-danger)', fontSize: 13, display: 'inline-flex', alignItems: 'center', gap: 4 }}><AlertTriangle size={14} strokeWidth={2.25} aria-hidden="true" />Threshold exceeded</span>
             </div>
             <div style={{ fontSize: 10, color: 'var(--rbl-danger-strong)', marginTop: 2, lineHeight: 1.4 }}>
               {usd(groupTotal)} received in aggregate — exceeds the $1,000 per-campaign limit of § 113-4(B)(1)(f).
@@ -810,7 +811,7 @@ function PetroCelliWatch({
           marginBottom: 6,
         }}
       >
-        <span>{hasHits ? '⚠️' : clear ? '✅' : '🔍'}</span>
+        {hasHits ? <AlertTriangle size={16} strokeWidth={2.25} aria-hidden="true" /> : clear ? <CircleCheck size={16} strokeWidth={2.25} aria-hidden="true" /> : <Search size={16} strokeWidth={2.25} aria-hidden="true" />}
         <span>Petrocelli Project-Interest Watch</span>
       </div>
 
@@ -931,7 +932,7 @@ function ScottPointeWatch({
           marginBottom: 6,
         }}
       >
-        <span>{hasHits ? '⚠️' : clear ? '✅' : '🔍'}</span>
+        {hasHits ? <AlertTriangle size={16} strokeWidth={2.25} aria-hidden="true" /> : clear ? <CircleCheck size={16} strokeWidth={2.25} aria-hidden="true" /> : <Search size={16} strokeWidth={2.25} aria-hidden="true" />}
         <span>Scott&rsquo;s Pointe / Island Water Park Watch</span>
       </div>
 
@@ -1153,7 +1154,7 @@ function CandidateFamilyWatch({
           marginBottom: 6,
         }}
       >
-        <span>{hasHits ? '💰' : clear ? '✅' : '🔍'}</span>
+        {hasHits ? <CircleDollarSign size={16} strokeWidth={2.25} aria-hidden="true" /> : clear ? <CircleCheck size={16} strokeWidth={2.25} aria-hidden="true" /> : <Search size={16} strokeWidth={2.25} aria-hidden="true" />}
         <span>Candidate &amp; Family Financing Watch</span>
       </div>
 
@@ -1291,7 +1292,7 @@ function CandidateFamilyWatch({
                                 All family members <span style={{ fontWeight: 400, color: 'var(--rbl-text-muted)' }}>({year} election)</span>
                               </span>
                               <span style={{ fontWeight: 800, color: labelColor, fontSize: 11 }}>
-                                {over ? '⚠ OVER AGGREGATE CAP' : atLimit ? 'AT CAP' : `${usd(remaining)} remaining`}
+                                {over ? 'Over aggregate cap' : atLimit ? 'At cap' : `${usd(remaining)} remaining`}
                               </span>
                             </div>
                             <div style={{ height: 6, background: 'var(--rbl-sky-bg)', borderRadius: 3, margin: '4px 0', overflow: 'hidden' }}>
@@ -1344,7 +1345,7 @@ function CandidateFamilyWatch({
                           {donor} <span style={{ fontWeight: 400, color: 'var(--rbl-text-muted)' }}>({year} election)</span>
                         </span>
                         <span style={{ fontWeight: 800, color: labelColor, fontSize: 11 }}>
-                          {over ? '⚠ OVER LIMIT' : atLimit ? 'AT LIMIT' : `${usd(remaining)} remaining`}
+                          {over ? 'Over limit' : atLimit ? 'At limit' : `${usd(remaining)} remaining`}
                         </span>
                       </div>
                       <div style={{ height: 6, background: 'var(--rbl-sky-bg)', borderRadius: 3, margin: '4px 0', overflow: 'hidden' }}>
@@ -1384,7 +1385,7 @@ function CandidateFamilyWatch({
 function Stat({ label, value }: { label: string; value: string }) {
   return (
     <div style={{ background: 'var(--rbl-surface-2)', borderRadius: 10, padding: 10 }}>
-      <div style={{ color: 'var(--rbl-text-muted)', fontSize: 11, textTransform: 'uppercase', fontWeight: 800 }}>{label}</div>
+      <div style={{ color: 'var(--rbl-text-muted)', fontSize: 13, fontWeight: 700 }}>{label}</div>
       <div style={{ fontWeight: 800, marginTop: 2, color: 'var(--rbl-title)' }}>{value}</div>
     </div>
   )

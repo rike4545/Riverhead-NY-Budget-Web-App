@@ -6,7 +6,7 @@ import RecordTrail from './RecordTrail'
 import DataStatus from './DataStatus'
 import { meetingUrl, meetingsIndex, type Meeting } from '../lib/meetings'
 
-const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 20, boxShadow: '0 14px 34px var(--rbl-shadow)' } as const
+const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 20 } as const
 const usd = (n: number) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(n)
 const VOTE_GRACE_DAYS = 7
 
@@ -123,8 +123,8 @@ export default function FiscalImpactMeetings({ meetings }: { meetings: FiscalMee
         <a href={meetingHref} style={{ color: 'var(--rbl-accent)', fontWeight: 800, fontSize: 13.5, textDecoration: 'none', whiteSpace: 'nowrap' }} title={`Open the Town Board voting record for ${fmtDate(m.meetingDate)}`}>Open this meeting’s record →</a>
       </section>
 
-      <section style={{ ...card, borderLeft: `5px solid ${statusTone}` }} data-fiscal-record-status={evidence.kind}>
-        <div style={{ color: evidence.kind === 'omitted' ? 'var(--rbl-warn)' : 'var(--rbl-text-muted)', fontWeight: 950, fontSize: 11.5, textTransform: 'uppercase', letterSpacing: .45 }}>Decision-record status</div>
+      <section style={{ ...card, borderColor: statusTone }} data-fiscal-record-status={evidence.kind}>
+        <div style={{ color: evidence.kind === 'omitted' ? 'var(--rbl-warn)' : 'var(--rbl-text-muted)', fontWeight: 700, fontSize: 13.5 }}>Decision-record status</div>
         <h3 style={{ margin: '4px 0 5px', color: 'var(--rbl-title)' }}>{evidence.title}</h3>
         <p style={{ margin: 0, color: 'var(--rbl-text-body)', fontSize: 13.5, lineHeight: 1.55 }}>{evidence.detail}</p>
         <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', marginTop: 10, color: 'var(--rbl-text-muted)', fontSize: 12 }}>
@@ -146,7 +146,7 @@ export default function FiscalImpactMeetings({ meetings }: { meetings: FiscalMee
       </section>
 
       {!!s.withAccounts && s.withAccounts > 0 && (
-        <section style={{ ...card, borderLeft: '6px solid var(--rbl-accent-border)' }}>
+        <section style={{ ...card }}>
           <h3 style={{ marginTop: 0, color: 'var(--rbl-title)' }}>What the Town’s own accounting says</h3>
           <p style={{ color: 'var(--rbl-text-body)', fontSize: 14.5, lineHeight: 1.6, margin: 0 }}>
             On <strong>{s.withAccounts}</strong> of this meeting’s <strong>{s.total}</strong> statements the preparer filled in
@@ -159,9 +159,9 @@ export default function FiscalImpactMeetings({ meetings }: { meetings: FiscalMee
         </section>
       )}
 
-      {lu && <section style={{ ...card, borderLeft: '6px solid var(--rbl-danger)' }}><h3 style={{ marginTop: 0 }}>The clearest example</h3><p style={{ color: 'var(--rbl-text-strong)', fontSize: 15, lineHeight: 1.6, margin: 0 }}>Resolution <strong>{lu[1]}</strong> — “{lu[2]}” — carries a fiscal-impact statement checked <strong>“No,”</strong> yet commits <strong style={{ color: 'var(--rbl-danger)' }}>{usd(lu[0])}</strong>. {lu[0] >= 100000 ? 'A six-figure action' : 'That'} is exactly the kind of item a fiscal-impact statement exists to flag.</p><a href={`${meetingHref}&q=${encodeURIComponent(lu[1])}`} style={{ display: 'inline-block', marginTop: 10, color: 'var(--rbl-link)', fontWeight: 900, fontSize: 13, textDecoration: 'none' }}>Open resolution {lu[1]} in the meeting record →</a></section>}
+      {lu && <section style={{ ...card, borderColor: 'var(--rbl-danger-border)' }}><h3 style={{ marginTop: 0 }}>The clearest example</h3><p style={{ color: 'var(--rbl-text-strong)', fontSize: 15, lineHeight: 1.6, margin: 0 }}>Resolution <strong>{lu[1]}</strong> — “{lu[2]}” — carries a fiscal-impact statement checked <strong>“No,”</strong> yet commits <strong style={{ color: 'var(--rbl-danger)' }}>{usd(lu[0])}</strong>. {lu[0] >= 100000 ? 'A six-figure action' : 'That'} is exactly the kind of item a fiscal-impact statement exists to flag.</p><a href={`${meetingHref}&q=${encodeURIComponent(lu[1])}`} style={{ display: 'inline-block', marginTop: 10, color: 'var(--rbl-link)', fontWeight: 900, fontSize: 13, textDecoration: 'none' }}>Open resolution {lu[1]} in the meeting record →</a></section>}
 
-      {!lu && sc?.number && scRes && <section style={{ ...card, borderLeft: '6px solid var(--rbl-warn)' }}><h3 style={{ marginTop: 0 }}>Stated in the resolution, answered “No”</h3><p style={{ color: 'var(--rbl-text-strong)', fontSize: 15, lineHeight: 1.6, margin: 0 }}>Resolution <strong>{sc.number}</strong> — “{scRes.title}” — answers <strong>“No”</strong> on its fiscal-impact statement, but its own text states a cost of <strong style={{ color: 'var(--rbl-danger)' }}>{usd(sc.amount)}</strong>{scQuote ? <>: <q>{scQuote}</q></> : '.'}</p><a href={`${meetingHref}&q=${encodeURIComponent(sc.number)}`} style={{ display: 'inline-block', marginTop: 10, color: 'var(--rbl-link)', fontWeight: 900, fontSize: 13, textDecoration: 'none' }}>Open resolution {sc.number} in the meeting record →</a></section>}
+      {!lu && sc?.number && scRes && <section style={{ ...card, borderColor: 'var(--rbl-warn-border)' }}><h3 style={{ marginTop: 0 }}>Stated in the resolution, answered “No”</h3><p style={{ color: 'var(--rbl-text-strong)', fontSize: 15, lineHeight: 1.6, margin: 0 }}>Resolution <strong>{sc.number}</strong> — “{scRes.title}” — answers <strong>“No”</strong> on its fiscal-impact statement, but its own text states a cost of <strong style={{ color: 'var(--rbl-danger)' }}>{usd(sc.amount)}</strong>{scQuote ? <>: <q>{scQuote}</q></> : '.'}</p><a href={`${meetingHref}&q=${encodeURIComponent(sc.number)}`} style={{ display: 'inline-block', marginTop: 10, color: 'var(--rbl-link)', fontWeight: 900, fontSize: 13, textDecoration: 'none' }}>Open resolution {sc.number} in the meeting record →</a></section>}
 
       {corrections.length > 0 && <p style={{ color: 'var(--rbl-text-body)', fontSize: 14.5, lineHeight: 1.55, margin: 0 }}>Of the <strong>{s.total}</strong> resolutions, <strong>{corrections.length}</strong> get a different answer here than the Town gave. <strong>{understatedNo.length}</strong> were marked <strong>no fiscal impact</strong> yet commit or change real money. Another <strong>{reserveDraw.length}</strong> the Town did flag as having an impact, but called <strong>absorbed by the existing budget</strong> — on a realistic read those draw on reserves, fund balance or borrowing, which is not the same as costing nothing.</p>}
 
@@ -180,5 +180,5 @@ export default function FiscalImpactMeetings({ meetings }: { meetings: FiscalMee
 }
 
 function Stat({ label, value, sub, accent }: { label: string; value: string; sub?: string; accent?: boolean }) {
-  return <div style={{ background: accent ? 'var(--rbl-danger-bg)' : 'var(--rbl-surface-2)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 12, padding: 12 }}><div style={{ color: 'var(--rbl-text-muted)', fontSize: 11.5, textTransform: 'uppercase', fontWeight: 900, letterSpacing: 0.4 }}>{label}</div><strong style={{ fontSize: 22, color: accent ? 'var(--rbl-danger-strong)' : 'var(--rbl-title)' }}>{value}</strong>{sub && <div style={{ color: 'var(--rbl-text-muted)', fontSize: 12.5, marginTop: 2 }}>{sub}</div>}</div>
+  return <div style={{ background: accent ? 'var(--rbl-danger-bg)' : 'var(--rbl-surface-2)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 12, padding: 12 }}><div style={{ color: 'var(--rbl-text-muted)', fontSize: 13.5, fontWeight: 700 }}>{label}</div><strong style={{ fontSize: 22, color: accent ? 'var(--rbl-danger-strong)' : 'var(--rbl-title)' }}>{value}</strong>{sub && <div style={{ color: 'var(--rbl-text-muted)', fontSize: 12.5, marginTop: 2 }}>{sub}</div>}</div>
 }

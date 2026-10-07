@@ -6,7 +6,7 @@ import {
 } from '../../lib/official-social-media'
 
 const base = process.env.NEXT_PUBLIC_BASE_PATH || ''
-const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 20, boxShadow: '0 14px 34px var(--rbl-shadow)' } as const
+const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 20 } as const
 
 export const metadata = {
   title: 'Personal vs. official social media — when a block becomes a First Amendment problem',
@@ -47,8 +47,8 @@ export default function OfficialSocialMediaPage() {
       </PlainCallout>
 
       {/* The ruling. */}
-      <section style={{ ...card, marginBottom: 18, borderLeft: '6px solid var(--rbl-accent-border)' }}>
-        <div style={{ color: 'var(--rbl-badge)', fontSize: 11.5, fontWeight: 900, letterSpacing: 0.5, textTransform: 'uppercase' }}>
+      <section style={{ ...card, marginBottom: 18 }}>
+        <div style={{ color: 'var(--rbl-badge)', fontSize: 13.5, fontWeight: 700 }}>
           {ruling.court} · {ruling.decided}
         </div>
         <h2 style={{ margin: '4px 0 2px', color: 'var(--rbl-title)', fontSize: 25 }}>{ruling.case}</h2>
@@ -101,7 +101,7 @@ export default function OfficialSocialMediaPage() {
       </section>
 
       {/* Blocking vs deleting. */}
-      <section style={{ ...card, marginBottom: 18, borderLeft: '6px solid var(--rbl-gold-border)' }}>
+      <section style={{ ...card, marginBottom: 18 }}>
         <h2 style={{ marginTop: 0, marginBottom: 4, color: 'var(--rbl-title)', fontSize: 22 }}>{blockingVsDeleting.headline}</h2>
         <p style={{ color: 'var(--rbl-text-body)', fontSize: 14.5, lineHeight: 1.6, marginTop: 0 }}>{blockingVsDeleting.body}</p>
         <Quote>{blockingVsDeleting.quote}</Quote>
@@ -117,7 +117,7 @@ export default function OfficialSocialMediaPage() {
           {townAccounts.accounts.map((a) => (
             <a key={a.url} href={a.url} target="_blank" rel="noopener noreferrer"
                style={{ background: 'var(--rbl-surface-2)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 10, padding: '11px 13px', textDecoration: 'none', display: 'block' }}>
-              <div style={{ color: 'var(--rbl-text-muted)', fontSize: 11, fontWeight: 900, textTransform: 'uppercase', letterSpacing: 0.4 }}>{a.platform}</div>
+              <div style={{ color: 'var(--rbl-text-muted)', fontSize: 13, fontWeight: 700 }}>{a.platform}</div>
               <div style={{ color: 'var(--rbl-link)', fontWeight: 700, fontSize: 13.4, wordBreak: 'break-all' }}>{a.handle} ↗</div>
             </a>
           ))}
@@ -151,7 +151,7 @@ export default function OfficialSocialMediaPage() {
       </section>
 
       {/* What a resident can do. */}
-      <section style={{ ...card, marginBottom: 18, borderLeft: '6px solid var(--rbl-teal)' }}>
+      <section style={{ ...card, marginBottom: 18 }}>
         <h2 style={{ marginTop: 0, marginBottom: 8, color: 'var(--rbl-title)', fontSize: 22 }}>If you think you were blocked for what you said</h2>
         <ol style={{ margin: 0, paddingLeft: 0, listStyle: 'none', display: 'grid', gap: 8 }}>
           {whatToDo.map((w, i) => (

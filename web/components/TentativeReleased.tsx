@@ -14,7 +14,7 @@ export default function TentativeReleased({ children }: { children?: ReactNode }
     <aside
       data-tentative-released
       style={{
-        background: 'var(--rbl-success-bg)', border: '1px solid var(--rbl-success-border)', borderLeft: '6px solid var(--rbl-success)',
+        background: 'var(--rbl-success-bg)', border: '1px solid var(--rbl-success-border)', borderColor: 'var(--rbl-success-border)',
         borderRadius: 14, padding: '14px 18px', marginBottom: 18, color: 'var(--rbl-text-body)', fontSize: 15, lineHeight: 1.55,
       }}
     >

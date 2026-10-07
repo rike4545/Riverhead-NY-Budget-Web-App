@@ -1,7 +1,7 @@
 import { findings, debtFinding, findingsYears } from '../lib/supplement-findings'
 import { supplementSource } from '../lib/supplement'
 
-const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 20, boxShadow: '0 14px 34px var(--rbl-shadow)' } as const
+const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 20 } as const
 const usd = (n: number) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(n)
 
 /** What the Tentative's line-by-line Supplement shows beyond its totals. */

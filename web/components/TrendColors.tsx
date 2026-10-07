@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import { ArrowUp } from 'lucide-react'
 
 // A small control that lets a reader choose how increases are colored.
 // Accountants read red as an increase (a cost going up); many people read
@@ -29,18 +30,18 @@ export default function TrendColors() {
         style={{
           display: 'inline-flex', alignItems: 'center', gap: 6, cursor: 'pointer',
           border: `1.5px solid ${active ? color : 'var(--rbl-text-faint)'}`, background: active ? color : 'var(--rbl-surface)',
-          color: active ? 'white' : 'var(--rbl-text-body)', fontWeight: 800, fontSize: 12.5,
+          color: active ? 'white' : 'var(--rbl-text-body)', fontWeight: 600, fontSize: 14,
           padding: '5px 10px', borderRadius: 8,
         }}
       >
-        <span style={{ fontSize: 11 }}>▲</span> {m === 'red-up' ? 'Red' : 'Green'}
+        <ArrowUp aria-hidden="true" size={14} strokeWidth={2.5} /> {m === 'red-up' ? 'Red' : 'Green'}
       </button>
     )
   }
 
   return (
     <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}>
-      <span style={{ color: 'var(--rbl-text-muted)', fontSize: 12.5, fontWeight: 700 }}>Color an increase:</span>
+      <span style={{ color: 'var(--rbl-text-muted)', fontSize: 14, fontWeight: 600 }}>Color an increase:</span>
       <div style={{ display: 'inline-flex', gap: 6 }}>
         {swatch('red-up', 'var(--rbl-fill-danger)')}
         {swatch('green-up', 'var(--rbl-fill-success)')}

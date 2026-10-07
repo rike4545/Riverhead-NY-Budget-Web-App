@@ -11,8 +11,8 @@ const usd = (n: number) => new Intl.NumberFormat('en-US', { style: 'currency', c
 const signed = (n: number) => `${n > 0 ? '+' : n < 0 ? '−' : ''}${usd(Math.abs(n))}`
 const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec']
 const day = (iso: string) => { const [y, m, d] = iso.split('-').map(Number); return `${MONTHS[m - 1]} ${d}, ${y}` }
-const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 20, boxShadow: '0 14px 34px var(--rbl-shadow)' } as const
-const th = { padding: '8px 10px', textAlign: 'left' as const, color: 'var(--rbl-text-muted)', fontSize: 11.5, textTransform: 'uppercase' as const, fontWeight: 900, letterSpacing: 0.4 }
+const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 20 } as const
+const th = { padding: '8px 10px', textAlign: 'left' as const, color: 'var(--rbl-text-muted)', fontSize: 13.5 as const, fontWeight: 700 }
 const td = { padding: '8px 10px', verticalAlign: 'top' as const }
 const num = { ...td, textAlign: 'right' as const, whiteSpace: 'nowrap' as const }
 const link = { color: 'var(--rbl-accent)' }
@@ -173,7 +173,7 @@ export default function BudgetAdoptionPage() {
           const s = eraStats(e)
           return (
             <div key={e.from} data-era={`${e.from}-${e.to}`} style={card}>
-              <div style={{ color: 'var(--rbl-badge)', fontWeight: 900, fontSize: 11.5, textTransform: 'uppercase', letterSpacing: 0.5 }}>{e.from}–{e.to}</div>
+              <div style={{ color: 'var(--rbl-badge)', fontWeight: 700, fontSize: 13.5 }}>{e.from}–{e.to}</div>
               <h3 style={{ margin: '4px 0 8px', color: 'var(--rbl-title)', fontSize: 17 }}>{e.title}</h3>
               <p style={{ ...body, fontSize: 14, margin: '0 0 10px' }}>{e.text}</p>
               <div style={muted}>
@@ -189,7 +189,7 @@ export default function BudgetAdoptionPage() {
         {RECORD.map((r) => <YearDetail key={r.year} r={r} />)}
       </section>
 
-      <section id="reasons" style={{ ...card, marginBottom: 16, borderLeft: '5px solid var(--rbl-accent)' }}>
+      <section id="reasons" style={{ ...card, marginBottom: 16 }}>
         <h3 style={{ marginTop: 0, color: 'var(--rbl-title)' }}>Why the Board stopped following the sequence — possible reasons</h3>
         <p style={{ ...body, marginTop: 0 }}>
           These are inferences from the record, not findings. Each lists the years it rests on; none is stated as a motive by anyone in the minutes.
@@ -318,7 +318,7 @@ function YearDetail({ r }: { r: YearRecord }) {
 function Stat({ label, value, sub, warn }: { label: string; value: string; sub?: string; warn?: boolean }) {
   return (
     <div>
-      <div style={{ color: 'var(--rbl-text-muted)', fontSize: 11.5, textTransform: 'uppercase', fontWeight: 900, letterSpacing: 0.4 }}>{label}</div>
+      <div style={{ color: 'var(--rbl-text-muted)', fontSize: 13.5, fontWeight: 700 }}>{label}</div>
       <div style={{ fontSize: 24, fontWeight: 900, lineHeight: 1.2, color: warn ? 'var(--rbl-warn-strong)' : 'var(--rbl-title)' }}>{value}</div>
       {sub && <div style={{ color: 'var(--rbl-text-muted)', fontSize: 12, lineHeight: 1.45 }}>{sub}</div>}
     </div>

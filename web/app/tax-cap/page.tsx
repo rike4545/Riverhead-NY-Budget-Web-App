@@ -11,7 +11,7 @@ const base = process.env.NEXT_PUBLIC_BASE_PATH || ''
 const OSC_CAP = 'https://www.osc.ny.gov/local-government/property-tax-cap'
 const OSC_FORMULA = 'https://www.osc.ny.gov/files/local-government/property-tax-cap/pdf/formula.pdf'
 const OSC_2027 = 'https://www.osc.ny.gov/press/releases/2026/07/dinapoli-tax-cap-remains-2-percent-2027'
-const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 20, boxShadow: '0 14px 34px var(--rbl-shadow)' } as const
+const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 20 } as const
 const usd = (n: number) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(n)
 
 export const metadata = {
@@ -77,14 +77,13 @@ export default function TaxCapPage() {
           : 'The levy limit the Town files with the State Comptroller is not printed in the Tentative, so 2% is a yardstick here, not the legal limit.'}
       </TentativeReleased>
 
-      <section style={{ ...card, marginBottom: 16, borderLeft: '6px solid var(--rbl-info-border)' }}>
-        <div style={{ color: 'var(--rbl-info-text)', fontWeight: 950, fontSize: 11.5, textTransform: 'uppercase', letterSpacing: .6 }}>What the law actually calculates</div>
+      <section style={{ ...card, marginBottom: 16 }}>
         <h2 style={{ margin: '5px 0 8px', color: 'var(--rbl-title)', fontSize: 21 }}>The levy limit is a formula, not “last year × 1.02.”</h2>
         <p style={{ color: 'var(--rbl-text-strong)', lineHeight: 1.65, marginTop: 0 }}>{d.capBasics.limit}</p>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(min(210px,100%),1fr))', gap: 10, marginTop: 14 }}>
           {formulaSteps.map(([number, title, text]) => (
             <article key={number} style={{ background: 'var(--rbl-surface-2)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 12, padding: 13 }}>
-              <div style={{ color: 'var(--rbl-badge)', fontWeight: 950, fontSize: 11 }}>STEP {number}</div>
+              <div style={{ color: 'var(--rbl-badge)', fontWeight: 700, fontSize: 13.5 }}>Step {number}</div>
               <strong style={{ color: 'var(--rbl-title)', fontSize: 14.5 }}>{title}</strong>
               <p style={{ color: 'var(--rbl-text-body)', fontSize: 12.8, lineHeight: 1.5, marginBottom: 0 }}>{text}</p>
             </article>
@@ -111,8 +110,7 @@ export default function TaxCapPage() {
         <ProvenanceLine claimId="override-rule" status="official" source="NYS OSC tax-cap guidance" sourceHref={OSC_CAP} asOf="current guidance" evidenceHref={`${base}/sources/#osc-guidance`} />
       </section>
 
-      <section style={{ ...card, marginBottom: 16, borderLeft: '6px solid var(--rbl-danger)' }}>
-        <div style={{ color: 'var(--rbl-danger-strong)', fontWeight: 950, fontSize: 11.5, textTransform: 'uppercase', letterSpacing: .6 }}>Riverhead historical finding</div>
+      <section style={{ ...card, marginBottom: 16, borderColor: 'var(--rbl-danger-border)' }}>
         <h2 style={{ margin: '5px 0 8px', color: 'var(--rbl-title)', fontSize: 20 }}>The auditor reported a multi-year compliance failure.</h2>
         <p style={{ color: 'var(--rbl-text-strong)', fontSize: 15, lineHeight: 1.6, marginTop: 0 }}>{d.finding.headline} {d.finding.cause}</p>
         <blockquote style={{ margin: '0 0 12px', padding: '12px 16px', background: 'var(--rbl-danger-bg)', borderLeft: '4px solid var(--rbl-danger-border)', borderRadius: 8, color: 'var(--rbl-danger-strong)', fontSize: 14, lineHeight: 1.55, fontStyle: 'italic' }}>
@@ -141,7 +139,7 @@ export default function TaxCapPage() {
 
       <h2 style={{ color: 'var(--rbl-title)' }}>What this means for residents</h2>
       <section style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(min(250px,100%),1fr))', gap: 14, marginBottom: 16 }}>
-        {d.implications.map((im) => <article key={im.title} style={{ ...card, borderTop: '5px solid var(--rbl-accent-border)' }}><h3 style={{ marginTop: 0, color: 'var(--rbl-title)', fontSize: 16 }}>{im.title}</h3><p style={{ color: 'var(--rbl-text-body)', fontSize: 14, lineHeight: 1.55, margin: 0 }}>{im.text}</p></article>)}
+        {d.implications.map((im) => <article key={im.title} style={{ ...card }}><h3 style={{ marginTop: 0, color: 'var(--rbl-title)', fontSize: 16 }}>{im.title}</h3><p style={{ color: 'var(--rbl-text-body)', fontSize: 14, lineHeight: 1.55, margin: 0 }}>{im.text}</p></article>)}
       </section>
 
       <section style={{ ...card, marginBottom: 16 }}>
@@ -164,7 +162,7 @@ export default function TaxCapPage() {
         <ProvenanceLine claimId="general-fund-growth-context" status="calculated" source="Published General Fund levy series" asOf="latest indexed historical series" calculation="Year-over-year General Fund levy change; not the statutory levy-limit calculation" evidenceHref={`${base}/sources/`} />
       </section>
 
-      <section style={{ ...card, marginBottom: 16, borderLeft: '6px solid var(--rbl-gold-border)' }}>
+      <section style={{ ...card, marginBottom: 16 }}>
         <h2 style={{ marginTop: 0, fontSize: 20 }}>2027: what is known now</h2>
         <p style={{ color: 'var(--rbl-text-strong)', lineHeight: 1.6 }}>OSC set the 2027 allowable levy growth factor at <strong>2%</strong> for calendar-year local governments because its inflation factor was 3.13%. That does not determine Riverhead’s final filed limit on its own.</p>
         {released2027 && (
@@ -188,7 +186,7 @@ export default function TaxCapPage() {
             <a href={`${base}/tentative-2027/`} style={{ color: 'var(--rbl-link)', fontWeight: 800 }}>The Tentative against the forecast →</a>
           </p>
         )}
-        <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}><a href={`${base}/predict-2027/`} style={pillLink}>Open 2027 scenarios →</a><a href={OSC_2027} target="_blank" rel="noreferrer" style={pillLink}>OSC 2027 announcement ↗</a><a href={`${base}/sources/#osc-guidance`} style={pillLink}>Authority sources →</a></div>
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}><a href={`${base}/tax-cap-letter/`} style={pillLink}>The supervisors’ October letter, checked →</a><a href={`${base}/predict-2027/`} style={pillLink}>Open 2027 scenarios →</a><a href={OSC_2027} target="_blank" rel="noreferrer" style={pillLink}>OSC 2027 announcement ↗</a><a href={`${base}/sources/#osc-guidance`} style={pillLink}>Authority sources →</a></div>
         <ProvenanceLine claimId="2027-growth-factor" status="official" source="NYS OSC — 2027 allowable levy growth factor" sourceHref={OSC_2027} asOf="July 15, 2026" evidenceHref={`${base}/sources/#osc-guidance`} />
       </section>
     </PageShell>
