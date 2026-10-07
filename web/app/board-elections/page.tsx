@@ -9,7 +9,7 @@ import {
 
 const base = process.env.NEXT_PUBLIC_BASE_PATH || ''
 
-const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 18, boxShadow: '0 14px 34px var(--rbl-shadow)' } as const
+const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 18 } as const
 
 export const metadata = {
   title: 'How the current Town Board was elected',
@@ -54,7 +54,7 @@ export default function BoardElectionsPage() {
 
       <div style={{ display: 'grid', gap: 12, marginTop: 4 }}>
         {members.map((m) => (
-          <section key={m.name} style={{ ...card, borderLeft: '6px solid var(--rbl-accent-border)' }}>
+          <section key={m.name} style={{ ...card }}>
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, alignItems: 'baseline', justifyContent: 'space-between' }}>
               <div>
                 <span style={{ fontSize: 18, fontWeight: 900, color: 'var(--rbl-title)' }}>{m.name}</span>
@@ -92,7 +92,7 @@ export default function BoardElectionsPage() {
 
       <div style={{ display: 'grid', gap: 12 }}>
         {(data.priorElections as PriorElection[]).map((el) => (
-          <section key={el.year} style={{ ...card, borderLeft: '6px solid var(--rbl-border-strong)' }}>
+          <section key={el.year} style={{ ...card }}>
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, alignItems: 'baseline', justifyContent: 'space-between' }}>
               <span style={{ fontSize: 18, fontWeight: 900, color: 'var(--rbl-title)' }}>{el.year} General Election</span>
               <span style={{ color: 'var(--rbl-text-muted)', fontSize: 12.5, fontWeight: 700 }}>{el.turnoutNote}</span>
@@ -134,14 +134,14 @@ export default function BoardElectionsPage() {
         for the Supervisor and every Council member alike, since the qualifications are identical.
       </p>
 
-      <section style={{ ...card, borderLeft: '6px solid var(--rbl-accent-border)' }}>
+      <section style={{ ...card }}>
         <div style={{ display: 'grid', gap: 10 }}>
           {electedRequirements.map((r) => <ReqRow key={r.label} r={r} />)}
         </div>
       </section>
 
       {/* What "elector" means — the phrase every residency rule hangs on */}
-      <section style={{ ...card, marginTop: 14, borderLeft: '6px solid var(--rbl-teal)', background: 'var(--rbl-teal-bg)' }}>
+      <section style={{ ...card, marginTop: 14, background: 'var(--rbl-teal-bg)' }}>
         <h3 style={{ margin: '0 0 5px', color: 'var(--rbl-teal)', fontSize: 18 }}>{elector.title}</h3>
         <p style={{ color: 'var(--rbl-teal-strong)', fontSize: 14.5, lineHeight: 1.65, margin: '0 0 12px' }}>{elector.lede}</p>
         <div style={{ display: 'grid', gap: 9 }}>
@@ -157,7 +157,7 @@ export default function BoardElectionsPage() {
         <div style={{ color: 'var(--rbl-teal)', fontSize: 12, fontWeight: 700, marginTop: 7 }}>{elector.sources}</div>
       </section>
 
-      <section style={{ ...card, marginTop: 14, borderLeft: '6px solid var(--rbl-warn)', background: 'var(--rbl-warn-bg)' }}>
+      <section style={{ ...card, marginTop: 14, borderColor: 'var(--rbl-warn-border)', background: 'var(--rbl-warn-bg)' }}>
         <h3 style={{ margin: '0 0 8px', color: 'var(--rbl-warn)', fontSize: 18 }}>{notRequired.title}</h3>
         <ul style={{ margin: '0 0 10px', paddingLeft: 0, listStyle: 'none', display: 'grid', gap: 7 }}>
           {notRequired.items.map((i) => (
@@ -170,7 +170,7 @@ export default function BoardElectionsPage() {
         <p style={{ color: 'var(--rbl-warn-strong)', fontSize: 14.5, lineHeight: 1.65, margin: 0 }}>{notRequired.closing}</p>
       </section>
 
-      <section style={{ ...card, marginTop: 14, borderLeft: '6px solid var(--rbl-success)' }}>
+      <section style={{ ...card, marginTop: 14, borderColor: 'var(--rbl-success-border)' }}>
         <h3 style={{ margin: '0 0 4px', color: 'var(--rbl-title)', fontSize: 18 }}>{termLimitNote.title}</h3>
         <div style={{ color: 'var(--rbl-text-muted)', fontSize: 12.5, fontWeight: 700, marginBottom: 9 }}>
           Adopted {termLimitNote.adopted} · {termLimitNote.law}
@@ -181,7 +181,7 @@ export default function BoardElectionsPage() {
       </section>
 
       {/* Which offices are elected, and the choices behind that */}
-      <section style={{ ...card, marginTop: 14, borderLeft: '6px solid var(--rbl-accent-border)' }}>
+      <section style={{ ...card, marginTop: 14 }}>
         <h3 style={{ margin: '0 0 5px', color: 'var(--rbl-title)', fontSize: 18 }}>{electedOffices.title}</h3>
         <p style={{ color: 'var(--rbl-text-strong)', fontSize: 14.5, lineHeight: 1.65, margin: '0 0 11px' }}>{electedOffices.lede}</p>
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: 7, marginBottom: 13 }}>
@@ -202,7 +202,7 @@ export default function BoardElectionsPage() {
       </section>
 
       {/* Odd-year local law vs. the upheld even-year state law */}
-      <section style={{ ...card, marginTop: 14, borderLeft: '6px solid var(--rbl-danger)', background: 'var(--rbl-danger-bg)' }}>
+      <section style={{ ...card, marginTop: 14, borderColor: 'var(--rbl-danger-border)', background: 'var(--rbl-danger-bg)' }}>
         <h3 style={{ margin: '0 0 8px', color: 'var(--rbl-danger)', fontSize: 18 }}>{oddYearElections.title}</h3>
         {oddYearElections.body.map((para, i) => (
           <p key={i} style={{ color: 'var(--rbl-danger-strong)', fontSize: 14.5, lineHeight: 1.65, margin: i === 0 ? 0 : '10px 0 0' }}>{para}</p>
@@ -212,7 +212,7 @@ export default function BoardElectionsPage() {
         </a>
       </section>
 
-      <section style={{ ...card, marginTop: 14, borderLeft: '6px solid var(--rbl-violet)' }}>
+      <section style={{ ...card, marginTop: 14 }}>
         <h3 style={{ margin: '0 0 6px', color: 'var(--rbl-title)', fontSize: 18 }}>{appointedStaff.title}</h3>
         <p style={{ color: 'var(--rbl-text-strong)', fontSize: 14.5, lineHeight: 1.65, margin: '0 0 12px' }}>{appointedStaff.lede}</p>
         <div style={{ display: 'grid', gap: 10 }}>
@@ -247,7 +247,7 @@ function ReqRow({ r }: { r: Requirement }) {
   return (
     <div style={{ background: 'var(--rbl-surface-2)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 12, padding: '12px 14px' }}>
       <div style={{ display: 'flex', gap: 10, alignItems: 'baseline', flexWrap: 'wrap' }}>
-        <span style={{ color: 'var(--rbl-text-muted)', fontSize: 11.5, fontWeight: 800, textTransform: 'uppercase', letterSpacing: 0.4, minWidth: 118 }}>
+        <span style={{ color: 'var(--rbl-text-muted)', fontSize: 13.5, fontWeight: 700, minWidth: 118 }}>
           {r.label}
         </span>
         <strong style={{ color: 'var(--rbl-title)', fontSize: 16 }}>{r.value}</strong>
@@ -261,7 +261,7 @@ function ReqRow({ r }: { r: Requirement }) {
 function Stat({ label, value, accent }: { label: string; value: string; accent?: boolean }) {
   return (
     <div>
-      <div style={{ color: 'var(--rbl-text-muted)', fontSize: 12, textTransform: 'uppercase', fontWeight: 900 }}>{label}</div>
+      <div style={{ color: 'var(--rbl-text-muted)', fontSize: 13.5, fontWeight: 700 }}>{label}</div>
       <strong style={{ fontSize: 28, color: accent ? 'var(--rbl-accent)' : 'var(--rbl-title)' }}>{value}</strong>
     </div>
   )

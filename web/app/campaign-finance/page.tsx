@@ -18,7 +18,7 @@ export default function CampaignFinancePage() {
     <PageShell title={data.title} subtitle={data.intro}>
       {deadline && deadline.label !== 'General Election Day' && (
         <div style={{
-          background: 'var(--rbl-warn-bg)', border: '1px solid var(--rbl-gold-border)', borderLeft: '6px solid var(--rbl-gold-border)',
+          background: 'var(--rbl-warn-bg)', border: '1px solid var(--rbl-gold-border)', 
           borderRadius: 12, padding: '12px 16px', marginBottom: 16, fontSize: 14, color: 'var(--rbl-warn-strong)',
         }}>
           <strong>Next filing deadline: {deadline.label}</strong> — due {deadline.date} ({deadline.periodNote}).

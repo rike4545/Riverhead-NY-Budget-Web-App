@@ -9,7 +9,7 @@ import MeetingMediaLinks from './MeetingMediaLinks'
 import { voteLink } from '../lib/meeting-media'
 
 const base = process.env.NEXT_PUBLIC_BASE_PATH || ''
-const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 18, boxShadow: '0 14px 34px var(--rbl-shadow)' } as const
+const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 18 } as const
 const VOTE_COLOR: Record<Vote, string> = { aye: 'var(--rbl-success)', nay: 'var(--rbl-danger)', abstain: 'var(--rbl-series-gold)', absent: 'var(--rbl-border-strong)' }
 const VOTE_LABEL: Record<Vote, string> = { aye: 'Yes', nay: 'No', abstain: 'Abstained', absent: 'Absent' }
 const PENDING_GRACE_DAYS = 7
@@ -126,8 +126,8 @@ export default function MeetingRecordExplorer() {
     return (
       <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0,1fr)', gap: 14 }}>
         <MeetingPicker slug={slug} changeMeeting={changeMeeting} nowKey={nowKey} />
-        <section style={{ ...card, borderLeft: `5px solid ${omitted ? 'var(--rbl-accent-border)' : 'var(--rbl-warn)'}` }}>
-          <div style={{ fontSize: 12, fontWeight: 900, textTransform: 'uppercase', color: omitted ? 'var(--rbl-accent)' : 'var(--rbl-warn)' }}>
+        <section style={{ ...card, borderColor: omitted ? 'var(--rbl-accent-border)' : 'var(--rbl-warn)' }}>
+          <div style={{ fontSize: 13.5, fontWeight: 700, color: omitted ? 'var(--rbl-accent)' : 'var(--rbl-warn)' }}>
             {omitted ? 'Official minutes · vote detail omitted' : 'Official minutes/docket · vote record not yet available'}
           </div>
           <h2 style={{ margin: '4px 0 6px' }}>{meeting.date}</h2>
@@ -182,7 +182,7 @@ export default function MeetingRecordExplorer() {
       <section style={{ ...card, padding: 20 }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', gap: 14, flexWrap: 'wrap', alignItems: 'start' }}>
           <div>
-            <div style={{ color: 'var(--rbl-success-strong)', fontWeight: 900, fontSize: 12, textTransform: 'uppercase', letterSpacing: 0.35 }}>
+            <div style={{ color: 'var(--rbl-success-strong)', fontWeight: 700, fontSize: 13.5 }}>
               {meeting.officialRecord?.status === 'vote-record-parsed-resolution-documents-linked' ? 'Official vote record · adopted-resolution documents matched' : 'Official vote record available'}
             </div>
             <h2 style={{ margin: '4px 0 3px', color: 'var(--rbl-title)' }}>{meeting.date}</h2>
@@ -204,10 +204,10 @@ export default function MeetingRecordExplorer() {
       </section>
 
       {fiscal && (
-        <section style={{ ...card, borderLeft: '5px solid var(--rbl-series-gold)' }}>
+        <section style={{ ...card }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', gap: 12, flexWrap: 'wrap', alignItems: 'start' }}>
             <div>
-              <div style={{ color: 'var(--rbl-warn)', fontWeight: 900, fontSize: 12, textTransform: 'uppercase' }}>Fiscal impact companion</div>
+              <div style={{ color: 'var(--rbl-warn)', fontWeight: 700, fontSize: 13.5 }}>Fiscal impact companion</div>
               <h3 style={{ margin: '4px 0 4px' }}>What the vote may mean financially</h3>
               <p style={{ margin: 0, color: 'var(--rbl-text-body)', lineHeight: 1.5, fontSize: 14 }}>
                 The Town filed fiscal-impact statements for {fiscal.summary.total} resolutions. {fiscalCorrections > 0 ? `${fiscalCorrections} deserve a closer read because the stated treatment may understate money moving through the budget, reserves, or contracts.` : 'No corrections are flagged in the current read.'}
@@ -300,7 +300,7 @@ function DecisionCard({ resolution: r, fiscal, rosterOrder, shortName, officialS
   const hasVotes = Object.keys(r.votes).length > 0
   const fiscalFlag = fiscal?.realistic.flag
   const fiscalTone = fiscalFlag === 'understated' ? { fg: 'var(--rbl-danger-strong)', bg: 'var(--rbl-danger-bg)' } : fiscalFlag === 'reserve-draw' ? { fg: 'var(--rbl-warn)', bg: 'var(--rbl-warn-bg)' } : { fg: 'var(--rbl-text-body)', bg: 'var(--rbl-surface-2)' }
-  return <article style={{ ...card, borderLeft: `5px solid ${voteStyle.border}`, padding: 17 }}>
+  return <article style={{ ...card, borderColor: voteStyle.border, padding: 17 }}>
     <div style={{ display: 'flex', justifyContent: 'space-between', gap: 12, alignItems: 'start', flexWrap: 'wrap' }}>
       <div style={{ flex: '1 1 460px' }}>
         <div style={{ display: 'flex', gap: 8, alignItems: 'center', flexWrap: 'wrap' }}>{r.number && <strong style={{ color: 'var(--rbl-link)', fontSize: 12.5 }}>{r.number}</strong>}<span style={{ background: voteStyle.bg, color: voteStyle.fg, borderRadius: 999, padding: '3px 9px', fontWeight: 900, fontSize: 11.5 }}>{voteStyle.label}</span>{r.officialDocumentVerified && <VerifiedChip />}</div>
@@ -322,7 +322,7 @@ function DecisionCard({ resolution: r, fiscal, rosterOrder, shortName, officialS
 }
 
 function FilterButton({ active, onClick, children }: { active: boolean; onClick: () => void; children: React.ReactNode }) { return <button onClick={onClick} style={{ border: '1px solid', borderColor: active ? 'var(--rbl-accent-border)' : 'var(--rbl-border-strong)', background: active ? 'var(--rbl-fill-accent)' : 'var(--rbl-surface)', color: active ? 'white' : 'var(--rbl-text-strong)', borderRadius: 999, padding: '7px 11px', fontWeight: 850, fontSize: 12.5, cursor: 'pointer' }}>{children}</button> }
-function Stat({ label, value, sub, tone }: { label: string; value: number; sub: string; tone?: 'warn' | 'danger' }) { return <div style={{ background: 'var(--rbl-surface-2)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 11, padding: 11 }}><div style={{ color: 'var(--rbl-text-muted)', fontSize: 10.5, fontWeight: 900, textTransform: 'uppercase', letterSpacing: 0.35 }}>{label}</div><div style={{ fontSize: 21, fontWeight: 900, color: tone === 'danger' ? 'var(--rbl-danger)' : tone === 'warn' ? 'var(--rbl-warn)' : 'var(--rbl-title)' }}>{value.toLocaleString()}</div><div style={{ color: 'var(--rbl-text-muted)', fontSize: 11.5 }}>{sub}</div></div> }
+function Stat({ label, value, sub, tone }: { label: string; value: number; sub: string; tone?: 'warn' | 'danger' }) { return <div style={{ background: 'var(--rbl-surface-2)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 11, padding: 11 }}><div style={{ color: 'var(--rbl-text-muted)', fontSize: 13, fontWeight: 700 }}>{label}</div><div style={{ fontSize: 21, fontWeight: 900, color: tone === 'danger' ? 'var(--rbl-danger)' : tone === 'warn' ? 'var(--rbl-warn)' : 'var(--rbl-title)' }}>{value.toLocaleString()}</div><div style={{ color: 'var(--rbl-text-muted)', fontSize: 11.5 }}>{sub}</div></div> }
 const th = { padding: '8px 9px' } as const
 const td = { padding: '8px 9px' } as const
 const num = { ...td, textAlign: 'right' as const }

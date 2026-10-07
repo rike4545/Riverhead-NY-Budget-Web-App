@@ -5,7 +5,7 @@ import { fetchEmployeeDonorMatches, type EmployeeDonorMatch } from '../lib/emplo
 import type { CampaignOfficial } from '../lib/campaign-finance'
 
 const usd = (n: number) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(n)
-const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 18, boxShadow: '0 14px 34px var(--rbl-shadow)' } as const
+const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 18 } as const
 const th = { padding: '8px 10px', fontWeight: 800, fontSize: 12 } as const
 const td = { padding: '8px 10px' } as const
 
@@ -231,7 +231,7 @@ function CollapsedGroup({ label, suffix, children }: { label: string; suffix: st
 function Stat({ label, value }: { label: string; value: string }) {
   return (
     <div style={{ background: 'var(--rbl-surface-2)', borderRadius: 10, padding: 10 }}>
-      <div style={{ color: 'var(--rbl-text-muted)', fontSize: 11, textTransform: 'uppercase', fontWeight: 800 }}>{label}</div>
+      <div style={{ color: 'var(--rbl-text-muted)', fontSize: 13, fontWeight: 700 }}>{label}</div>
       <div style={{ fontWeight: 800, marginTop: 2, color: 'var(--rbl-title)' }}>{value}</div>
     </div>
   )

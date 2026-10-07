@@ -107,7 +107,7 @@ export default function InfoTip({
           style={{
             position: 'fixed', top: pos.top, left: pos.left, width: WIDTH, zIndex: 60,
             background: '#0f2740', color: '#e6eef6', padding: '11px 13px', borderRadius: 10,
-            boxShadow: '0 18px 44px var(--rbl-shadow)', fontSize: 13, fontWeight: 400,
+            fontSize: 13, fontWeight: 400,
             lineHeight: 1.5, textAlign: 'left', textTransform: 'none', letterSpacing: 0,
             whiteSpace: 'normal', pointerEvents: 'none',
             // Matches the page's own text-zoom level (see DisplaySettings.tsx) — this

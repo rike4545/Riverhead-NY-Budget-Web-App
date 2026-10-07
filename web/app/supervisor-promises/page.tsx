@@ -9,8 +9,8 @@ import { criteria, scores, revenueGrowth, spendingCaveats, RULE } from '../../li
 import { statedLimitPct } from '../../lib/tentative-2027'
 
 const base = process.env.NEXT_PUBLIC_BASE_PATH || ''
-const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 20, boxShadow: '0 14px 34px var(--rbl-shadow)' } as const
-const th = { padding: '8px 10px', textAlign: 'left' as const, color: 'var(--rbl-text-muted)', fontSize: 11.5, textTransform: 'uppercase' as const, fontWeight: 900, letterSpacing: 0.4 }
+const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 20 } as const
+const th = { padding: '8px 10px', textAlign: 'left' as const, color: 'var(--rbl-text-muted)', fontSize: 13.5 as const, fontWeight: 700 }
 const td = { padding: '8px 10px', verticalAlign: 'top' as const }
 const usd = (n: number) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(n)
 
@@ -76,7 +76,7 @@ export default function SupervisorPromisesPage() {
           : 'The biggest test is still ahead: his first budget, for 2027, which fills in below as soon as the Town publishes it.'}
       </PlainCallout>
 
-      <section style={{ ...card, marginBottom: 16, borderLeft: '5px solid var(--rbl-accent)' }}>
+      <section style={{ ...card, marginBottom: 16 }}>
         <strong style={{ color: 'var(--rbl-title)' }}>How this page works</strong>
         <p style={{ color: 'var(--rbl-text-body)', fontSize: 14.5, lineHeight: 1.6, margin: '6px 0 0' }}>
           This page doesn’t endorse or oppose anyone, and it doesn’t judge anyone’s character or motives. It puts the
@@ -393,7 +393,7 @@ export default function SupervisorPromisesPage() {
         </p>
       </section>
 
-      <section style={{ ...card, marginBottom: 16, borderLeft: '5px solid var(--rbl-warn)' }}>
+      <section style={{ ...card, marginBottom: 16, borderColor: 'var(--rbl-warn-border)' }}>
         <h3 style={{ marginTop: 0, color: 'var(--rbl-title)' }}>{prudence.question}</h3>
         <p style={{ color: 'var(--rbl-text-body)', fontSize: 14.5, lineHeight: 1.6, marginTop: 0 }}>{prudence.framing}</p>
         <ul style={{ margin: 0, paddingLeft: 18, color: 'var(--rbl-text-body)', fontSize: 14, lineHeight: 1.65 }}>

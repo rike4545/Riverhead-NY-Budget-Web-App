@@ -140,7 +140,7 @@ export default function ExplorePage() {
         {stops.map((s) => (
           <section key={s.n} id={`stop-${s.n}`} style={{
             scrollMarginTop: 20, background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16,
-            padding: 20, boxShadow: '0 14px 34px var(--rbl-shadow)', borderLeft: `6px solid ${s.accent}`,
+            padding: 20, borderColor: s.accent,
             display: 'grid', gridTemplateColumns: '52px 1fr', gap: 16, alignItems: 'start',
           }}>
             <div aria-hidden style={{
@@ -148,14 +148,14 @@ export default function ExplorePage() {
               display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 900, fontSize: 20,
             }}>{s.n}</div>
             <div>
-              <div style={{ color: 'var(--rbl-text-muted)', fontWeight: 900, fontSize: 12, textTransform: 'uppercase', letterSpacing: 0.6 }}>{s.kicker}</div>
+              <div style={{ color: 'var(--rbl-text-muted)', fontWeight: 700, fontSize: 13.5 }}>{s.kicker}</div>
               <h2 style={{ margin: '2px 0 8px', color: 'var(--rbl-title)', fontSize: 21 }}>{s.title}</h2>
               <p style={{ color: 'var(--rbl-text-strong)', fontSize: 15.5, lineHeight: 1.6, margin: 0 }}>{s.body}</p>
               {s.stats && (
                 <div style={{ display: 'flex', flexWrap: 'wrap', gap: 10, margin: '12px 0 4px' }}>
                   {s.stats.map((st) => (
                     <div key={st.label} style={{ background: 'var(--rbl-surface-2)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 10, padding: '8px 14px' }}>
-                      <div style={{ color: 'var(--rbl-text-muted)', fontSize: 11, textTransform: 'uppercase', fontWeight: 800, letterSpacing: 0.3 }}>{st.label}</div>
+                      <div style={{ color: 'var(--rbl-text-muted)', fontSize: 13, fontWeight: 700 }}>{st.label}</div>
                       <strong style={{ fontSize: 20, color: 'var(--rbl-title)' }}>{st.value}</strong>
                     </div>
                   ))}

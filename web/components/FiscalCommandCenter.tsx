@@ -25,7 +25,7 @@ const sectionAnchors = [
 
 // Matches the standard card style used on every other page (see e.g. funds/page.tsx)
 // so the home page reads as part of the same site.
-const shell = { background: 'var(--rbl-surface)', borderTop: '1px solid var(--rbl-border-subtle)', borderRight: '1px solid var(--rbl-border-subtle)', borderBottom: '1px solid var(--rbl-border-subtle)', borderLeft: '1px solid var(--rbl-border-subtle)', borderRadius: 16, boxShadow: '0 14px 34px var(--rbl-shadow)' } as const
+const shell = { background: 'var(--rbl-surface)', borderTop: '1px solid var(--rbl-border-subtle)', borderRight: '1px solid var(--rbl-border-subtle)', borderBottom: '1px solid var(--rbl-border-subtle)', borderLeft: '1px solid var(--rbl-border-subtle)', borderRadius: 16 } as const
 const muted = 'var(--rbl-text-muted)'
 
 // Map each KPI to an accent color: green = good news, amber = cost pressure, blue = informational
@@ -66,7 +66,7 @@ export default function FiscalCommandCenter() {
   return (
     <div id="top">
       <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', alignItems: 'center' }}>
-        <span style={{ color: 'var(--rbl-text-muted)', fontWeight: 800, fontSize: 12.5, textTransform: 'uppercase', letterSpacing: 0.5 }}>On this page:</span>
+        <span style={{ color: 'var(--rbl-text-muted)', fontWeight: 700, fontSize: 12.5 }}>On this page:</span>
         {sectionAnchors.map(([label, href]) => (
           <a key={href} href={href} style={{ color: 'var(--rbl-accent)', textDecoration: 'none', border: '1px solid var(--rbl-border)', background: 'var(--rbl-surface)', borderRadius: 999, padding: '6px 12px', fontWeight: 800, fontSize: 12.5 }}>{label}</a>
         ))}
@@ -83,15 +83,11 @@ export default function FiscalCommandCenter() {
               return (
                 <article key={kpi.label} style={{
                   background: 'var(--rbl-surface)',
-                  borderTop: '1px solid var(--rbl-border-subtle)',
-                  borderRight: '1px solid var(--rbl-border-subtle)',
-                  borderBottom: '1px solid var(--rbl-border-subtle)',
-                  borderLeft: `4px solid ${accent.border}`,
+                  border: '1px solid var(--rbl-border-subtle)',
                   borderRadius: 16,
-                  boxShadow: '0 14px 34px var(--rbl-shadow)',
                   padding: 18,
                 }}>
-                  <div style={{ color: accent.label, textTransform: 'uppercase', fontSize: 11, fontWeight: 950, letterSpacing: 0.4 }}>{kpi.label}</div>
+                  <div style={{ color: accent.label, fontSize: 13, fontWeight: 700 }}>{kpi.label}</div>
                   <div style={{ fontSize: 32, fontWeight: 950, marginTop: 8, color: 'var(--rbl-text)' }}>{kpi.value}</div>
                   <p style={{ color: muted, fontSize: 13, lineHeight: 1.4, margin: 0, marginTop: 6 }}>{kpi.explanation}</p>
                 </article>
@@ -144,7 +140,7 @@ export default function FiscalCommandCenter() {
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(min(280px,100%),1fr))', gap: 14, marginTop: 16 }}>
               {narrativeInsights.map((insight) => (
                 <article key={insight.title} style={{ border: '1px solid var(--rbl-border-subtle)', borderRadius: 18, padding: 16, background: 'var(--rbl-surface)' }}>
-                  <div style={{ color: 'var(--rbl-page-accent)', fontSize: 12, fontWeight: 950, textTransform: 'uppercase' }}>{insight.status}</div>
+                  <div style={{ color: 'var(--rbl-page-accent)', fontSize: 13.5, fontWeight: 700 }}>{insight.status}</div>
                   <h3 style={{ margin: '8px 0', color: 'var(--rbl-title)' }}>{insight.title}</h3>
                   <div style={{ fontSize: 26, fontWeight: 950, color: 'var(--rbl-text)' }}>{insight.value}</div>
                   <p style={{ color: 'var(--rbl-text-sub)' }}>{insight.explanation}</p>
@@ -266,17 +262,17 @@ export default function FiscalCommandCenter() {
             `}</style>
           </section>
 
-          <section id="about" style={{ ...shell, scrollMarginTop: 24, marginTop: 18, padding: 24, borderLeft: '8px solid var(--rbl-page-accent)' }}>
+          <section id="about" style={{ ...shell, scrollMarginTop: 24, marginTop: 18, padding: 24 }}>
             <h2 style={{ marginTop: 0, color: 'var(--rbl-title)' }}>About Riverhead Budget Live</h2>
             <p>Riverhead Budget Live is an independent, non-partisan, non-profit project. Our mission is to make Riverhead a better place to live and work by promoting public-policy reforms grounded in the fiscally responsible ideals of effective and accountable government.</p>
           </section>
 
-          <section id="how-to-use" style={{ ...shell, scrollMarginTop: 24, marginTop: 18, padding: 24, borderLeft: '8px solid var(--rbl-success)' }}>
+          <section id="how-to-use" style={{ ...shell, scrollMarginTop: 24, marginTop: 18, padding: 24 }}>
             <h2 style={{ marginTop: 0, color: 'var(--rbl-title)' }}>How to use this site</h2>
             <p>Use this site to share, analyze, and compare data from governmental entities throughout Riverhead. The information on this website comes from official government sources, but the author cannot guarantee data accuracy or completeness.</p>
           </section>
 
-          <section id="disclaimers" style={{ ...shell, scrollMarginTop: 24, marginTop: 18, padding: 24, borderLeft: '8px solid var(--rbl-danger)' }}>
+          <section id="disclaimers" style={{ ...shell, scrollMarginTop: 24, marginTop: 18, padding: 24, borderColor: 'var(--rbl-danger-border)' }}>
             <h2 style={{ marginTop: 0, color: 'var(--rbl-danger)' }}>The fine print</h2>
             <p>This website is an independent public-information and fiscal-analysis project. It is not an official Town of Riverhead website and is not affiliated with, endorsed by, sponsored by, or operated by the Town of Riverhead or any Town department, political subdivision, political party or political organization or candidate.</p>
             <p>The figures are pulled automatically from public source documents, so the author cannot guarantee they are accurate or complete. A number can be misread, mislabeled, or lag behind the latest filing — a scanning glitch, a stray column, or a report that hadn&apos;t caught up yet.</p>
@@ -290,7 +286,7 @@ export default function FiscalCommandCenter() {
 function Mini({ label, value }: { label: string; value: string }) {
   return (
     <div style={{ background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 14 }}>
-      <div style={{ color: muted, fontSize: 12, textTransform: 'uppercase', fontWeight: 950 }}>{label}</div>
+      <div style={{ color: muted, fontSize: 13.5, fontWeight: 700 }}>{label}</div>
       <strong style={{ fontSize: 20 }}>{value}</strong>
     </div>
   )
@@ -298,8 +294,8 @@ function Mini({ label, value }: { label: string; value: string }) {
 
 function FeatureCard({ href, tag, title, body }: { href: string; tag: string; title: string; body: string }) {
   return (
-    <a href={href} style={{ ...shell, padding: 20, textDecoration: 'none', color: 'inherit', display: 'block', borderTop: '5px solid var(--rbl-gold)' }}>
-      <div style={{ color: 'var(--rbl-accent)', fontSize: 11, fontWeight: 950, textTransform: 'uppercase', letterSpacing: 1 }}>{tag}</div>
+    <a href={href} style={{ ...shell, padding: 20, textDecoration: 'none', color: 'inherit', display: 'block' }}>
+      <div style={{ color: 'var(--rbl-accent)', fontSize: 13, fontWeight: 700 }}>{tag}</div>
       <h3 style={{ margin: '8px 0 6px', fontSize: 22, color: 'var(--rbl-title)' }}>{title}</h3>
       <p style={{ color: muted, fontSize: 14, lineHeight: 1.5, margin: 0 }}>{body}</p>
       <div style={{ color: 'var(--rbl-page-accent)', fontWeight: 900, marginTop: 12 }}>Open →</div>

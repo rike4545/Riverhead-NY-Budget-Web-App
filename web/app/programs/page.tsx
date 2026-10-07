@@ -8,7 +8,7 @@ import {
 } from '../../lib/programs'
 
 const base = process.env.NEXT_PUBLIC_BASE_PATH || ''
-const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 20, boxShadow: '0 14px 34px var(--rbl-shadow)' } as const
+const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 20 } as const
 
 const usd = (n: number) => `$${Math.round(n).toLocaleString('en-US')}`
 
@@ -88,12 +88,12 @@ export default function ProgramsPage() {
       </div>
 
       {/* The honest limit of the exercise. */}
-      <section style={{ ...card, marginBottom: 18, background: 'var(--rbl-warn-bg)', border: '1px solid var(--rbl-warn-border)', borderLeft: '6px solid var(--rbl-gold-border)' }}>
+      <section style={{ ...card, marginBottom: 18, background: 'var(--rbl-warn-bg)', border: '1px solid var(--rbl-warn-border)' }}>
         <h3 style={{ marginTop: 0, color: 'var(--rbl-note-text)' }}>{notCovered.title}</h3>
         <p style={{ color: 'var(--rbl-note-text)', fontSize: 15, lineHeight: 1.6, margin: 0 }}>{notCovered.body}</p>
       </section>
 
-      <section style={{ ...card, marginBottom: 18, borderLeft: '6px solid var(--rbl-accent-border)' }}>
+      <section style={{ ...card, marginBottom: 18 }}>
         <h2 style={{ marginTop: 0, marginBottom: 4, color: 'var(--rbl-title)', fontSize: 24 }}>What it costs per person, and per household</h2>
         <p style={{ color: 'var(--rbl-text-strong)', fontSize: 15, lineHeight: 1.6, marginTop: 0 }}>
           Riverhead has <strong>{population.toLocaleString()}</strong> residents living in{' '}
@@ -164,10 +164,10 @@ export default function ProgramsPage() {
 function ProgramCard({ p }: { p: Program }) {
   const tone = TONES[p.key]
   return (
-    <section style={{ ...card, borderLeft: `6px solid ${tone}` }}>
+    <section style={{ ...card, borderColor: tone }}>
       <div style={{ display: 'flex', gap: 14, alignItems: 'baseline', flexWrap: 'wrap' }}>
         <h2 style={{ margin: 0, color: 'var(--rbl-title)', fontSize: 23 }}>{p.name}</h2>
-        <span style={{ color: 'var(--rbl-text-muted)', fontSize: 12.5, fontWeight: 800, textTransform: 'uppercase', letterSpacing: 0.4 }}>
+        <span style={{ color: 'var(--rbl-text-muted)', fontSize: 12.5, fontWeight: 700 }}>
           NY function {p.key}000s · {p.departments.length} departments
         </span>
       </div>
@@ -241,7 +241,7 @@ function Stat({ label, value, note, accent, teal, gold }: {
 }) {
   return (
     <div style={{ background: accent ? 'var(--rbl-info-bg)' : gold ? 'var(--rbl-warn-bg)' : 'var(--rbl-surface-2)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 12, padding: 12 }}>
-      <div style={{ color: 'var(--rbl-text-muted)', fontSize: 11, textTransform: 'uppercase', fontWeight: 900, letterSpacing: 0.4 }}>{label}</div>
+      <div style={{ color: 'var(--rbl-text-muted)', fontSize: 13, fontWeight: 700 }}>{label}</div>
       <strong style={{ fontSize: 21, color: teal ? 'var(--rbl-teal-strong)' : gold ? 'var(--rbl-note-text)' : 'var(--rbl-title)', display: 'block', lineHeight: 1.2 }}>{value}</strong>
       {note && <div style={{ color: 'var(--rbl-text-muted)', fontSize: 11.5, lineHeight: 1.35, marginTop: 2 }}>{note}</div>}
     </div>

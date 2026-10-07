@@ -8,7 +8,7 @@ import {
 } from '../../lib/revenue'
 import { supplementSource } from '../../lib/supplement'
 
-const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 20, boxShadow: '0 14px 34px var(--rbl-shadow)' } as const
+const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 20 } as const
 const usd = (n: number) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(n)
 const millions = (n: number) => `$${(n / 1_000_000).toFixed(2)}M`
 const signed = (n: number) => `${n >= 0 ? '+' : '−'}${usd(Math.abs(n))}`
@@ -16,7 +16,7 @@ const th = { padding: '8px 10px' } as const
 const thr = { padding: '8px 10px', textAlign: 'right' } as const
 const td = { padding: '8px 10px' } as const
 const tdr = { padding: '8px 10px', textAlign: 'right', whiteSpace: 'nowrap' } as const
-const headRow = { textAlign: 'left', color: 'var(--rbl-text-muted)', fontSize: 11, textTransform: 'uppercase', letterSpacing: 0.4 } as const
+const headRow = { textAlign: 'left', color: 'var(--rbl-text-muted)', fontSize: 13 } as const
 const rowLine = { borderTop: '1px solid var(--rbl-border-subtle)' } as const
 
 const YEAR = revenueBudgetYear
@@ -80,7 +80,7 @@ export default function RevenuePage() {
       <section style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(min(210px,100%),1fr))', gap: 12, margin: '16px 0' }}>
         {parts.map((p) => (
           <div key={p.label} style={{ ...card, padding: 16 }}>
-            <div style={{ color: 'var(--rbl-text-muted)', fontSize: 11.5, fontWeight: 800, textTransform: 'uppercase', letterSpacing: 0.4 }}>{p.label}</div>
+            <div style={{ color: 'var(--rbl-text-muted)', fontSize: 13.5, fontWeight: 700 }}>{p.label}</div>
             <div style={{ color: 'var(--rbl-title)', fontSize: 24, fontWeight: 900, margin: '4px 0' }}>{millions(p.amount)}</div>
             <div style={{ color: 'var(--rbl-text-body)', fontSize: 13 }}>{Math.round((p.amount / gfTotal) * 100)}% of the {YEAR} General Fund · {p.note}</div>
           </div>
@@ -173,7 +173,7 @@ export default function RevenuePage() {
       </section>
 
       {underEstimated.length > 0 && (
-        <section style={{ ...card, marginBottom: 16, borderLeft: '6px solid var(--rbl-warn-border)' }}>
+        <section style={{ ...card, marginBottom: 16, borderColor: 'var(--rbl-warn-border)' }}>
           <h2 style={{ marginTop: 0, color: 'var(--rbl-title)', fontSize: 20 }}>Estimated low, year after year</h2>
           <p style={{ color: 'var(--rbl-text-body)', fontSize: 14.5, lineHeight: 1.6, marginTop: 0 }}>
             Every fund. Each of these brought in at least a quarter more than its estimate in each of{' '}

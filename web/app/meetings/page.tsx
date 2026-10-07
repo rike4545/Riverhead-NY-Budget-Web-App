@@ -41,9 +41,8 @@ export default function MeetingsPage() {
       <BudgetProcessMeetingForecast />
 
       <section style={{ margin: '30px 0 12px' }}>
-        <div style={{ color: 'var(--rbl-badge)', fontSize: 11, fontWeight: 950, letterSpacing: .8, textTransform: 'uppercase' }}>The decision record</div>
         <h2 style={{ margin: '4px 0 6px', color: 'var(--rbl-title)', fontSize: 27 }}>What happened, who voted how, and what did it cost?</h2>
-        <p style={{ color: 'var(--rbl-text-muted)', margin: 0, maxWidth: 820, lineHeight: 1.55 }}>Open a meeting and inspect the votes, then follow the money. Filter disagreement, failed and tabled items, search by topic, and see matched fiscal-impact statements directly beside the vote.</p>
+        <p style={{ color: 'var(--rbl-text-muted)', margin: 0, maxWidth: 820, lineHeight: 1.55 }}>The decision record, meeting by meeting. Open a meeting and inspect the votes, then follow the money. Filter disagreement, failed and tabled items, search by topic, and see matched fiscal-impact statements directly beside the vote.</p>
       </section>
 
       <MeetingRecordExplorer />
@@ -106,7 +105,7 @@ export default function MeetingsPage() {
 }
 
 function MiniStat({ label, value }: { label: string; value: string }) {
-  return <div style={{ background: 'var(--rbl-surface-2)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 10, padding: 10 }}><div style={{ color: 'var(--rbl-text-muted)', fontSize: 10.5, fontWeight: 900, textTransform: 'uppercase' }}>{label}</div><strong style={{ color: 'var(--rbl-title)', fontSize: 20 }}>{value}</strong></div>
+  return <div style={{ background: 'var(--rbl-surface-2)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 10, padding: 10 }}><div style={{ color: 'var(--rbl-text-muted)', fontSize: 13, fontWeight: 700 }}>{label}</div><strong style={{ color: 'var(--rbl-title)', fontSize: 20 }}>{value}</strong></div>
 }
 
 const summaryStyle = { cursor: 'pointer', color: 'var(--rbl-title)', fontWeight: 900, fontSize: 17, listStylePosition: 'outside' as const }

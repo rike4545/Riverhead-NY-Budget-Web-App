@@ -24,7 +24,7 @@ export default function TaxBillPage() {
     <PageShell title={data.title} subtitle={data.intro}>
       <section style={{ background: 'var(--rbl-info-bg)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 18, marginBottom: 16 }}>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 12, flexWrap: 'wrap' }}>
-          <div style={{ color: 'var(--rbl-accent)', fontSize: 11.5, fontWeight: 950, textTransform: 'uppercase', letterSpacing: 0.5 }}>What changed</div>
+          <div style={{ color: 'var(--rbl-accent)', fontSize: 13.5, fontWeight: 700 }}>What changed</div>
           <DataStatus status="calculated" text="Rate change calculated from published rates" />
         </div>
         <h2 style={{ margin: '5px 0 6px', fontSize: 22 }}>The Town-wide rate rose from {data.rates2025.totalTownWide.toFixed(3)} to {data.rates2026.totalTownWide.toFixed(3)} per $1,000.</h2>
@@ -48,9 +48,9 @@ export default function TaxBillPage() {
 
       <TaxBillEstimator rates2026={data.rates2026} rates2025={data.rates2025} residentialAssessmentRatio={data.equalization.residentialAssessmentRatio} />
 
-      <section style={{ background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 18, padding: 20, marginTop: 18, boxShadow: '0 14px 34px var(--rbl-shadow)' }}>
+      <section style={{ background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 18, padding: 20, marginTop: 18 }}>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 12, flexWrap: 'wrap' }}>
-          <div style={{ color: 'var(--rbl-badge)', fontSize: 11, fontWeight: 950, letterSpacing: 1.1, textTransform: 'uppercase' }}>Where the Town levy goes</div>
+          <div style={{ color: 'var(--rbl-badge)', fontSize: 13, fontWeight: 700 }}>Where the Town levy goes</div>
           <DataStatus status="calculated" text="Calculated from published fund levy fields" />
         </div>
         <h2 style={{ margin: '5px 0 6px', fontSize: 22 }}>How the 2026 Town-wide property-tax levy is allocated</h2>

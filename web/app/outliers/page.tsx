@@ -4,7 +4,7 @@ import OutlierWatch from '../../components/OutlierWatch'
 import { outliers, yearTransitions, allYoyChanges, PCT_THRESHOLD, DOLLAR_THRESHOLD } from '../../lib/outlier-watch'
 
 const base = process.env.NEXT_PUBLIC_BASE_PATH || ''
-const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 20, boxShadow: '0 14px 34px var(--rbl-shadow)' } as const
+const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 20 } as const
 const usd = (n: number) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(n)
 
 export const metadata = {
@@ -51,7 +51,7 @@ export default function OutlierWatchPage() {
 function Stat({ label, value, sub, accent }: { label: string; value: string; sub?: string; accent?: boolean }) {
   return (
     <div>
-      <div style={{ color: 'var(--rbl-text-muted)', fontSize: 12.5, fontWeight: 700, textTransform: 'uppercase', letterSpacing: 0.3 }}>{label}</div>
+      <div style={{ color: 'var(--rbl-text-muted)', fontSize: 12.5, fontWeight: 700 }}>{label}</div>
       <div style={{ color: accent ? 'var(--rbl-danger)' : 'var(--rbl-title)', fontSize: 26, fontWeight: 900, lineHeight: 1.2 }}>{value}</div>
       {sub && <div style={{ color: 'var(--rbl-text-muted)', fontSize: 12.5 }}>{sub}</div>}
     </div>

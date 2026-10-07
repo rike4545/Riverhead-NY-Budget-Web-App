@@ -8,7 +8,7 @@ import StatedAmounts, { type StatedAmount } from './StatedAmounts'
 import { voteLink } from '../lib/meeting-media'
 import { drawsByFund, tableCorrects, type TableLine } from '../lib/fund-balance-lines'
 
-const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 18, boxShadow: '0 14px 34px var(--rbl-shadow)' } as const
+const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 18 } as const
 const usd = (n: number) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(n)
 
 export type FiscalResolution = {

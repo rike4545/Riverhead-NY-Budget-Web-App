@@ -31,10 +31,10 @@ export default function WhatChangedPage() {
   if (!h || !tw || !gf || gfPrior === null) {
     return (
       <PageShell title={title} subtitle={subtitle}>
-        <main style={{ display: 'grid', gap: 16 }}>
+        <div style={{ display: 'grid', gap: 16 }}>
           <p style={{ color: 'var(--rbl-text-sub)', lineHeight: 1.6 }}>The {YEAR} Tentative Budget has not been read yet. <a href={`${base}/tentative-2027/`} style={{ color: 'var(--rbl-accent)', fontWeight: 900 }}>See where it stands →</a></p>
           <AdoptedChange />
-        </main>
+        </div>
       </PageShell>
     )
   }
@@ -53,15 +53,15 @@ export default function WhatChangedPage() {
 
   return (
     <PageShell title={title} subtitle={subtitle}>
-      <main style={{ display: 'grid', gap: 16 }}>
-        <section style={{ background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 20, boxShadow: '0 10px 26px var(--rbl-shadow)' }}>
+      <div style={{ display: 'grid', gap: 16 }}>
+        <section style={{ background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 20 }}>
           <DataStatus status="calculated" text={`Calculated from the ${YEAR} Tentative and ${PRIOR} Adopted budgets`} />
           <p style={{ margin: '10px 0 0', color: 'var(--rbl-text-sub)', lineHeight: 1.6, maxWidth: 930 }}>This page answers the first resident question — <strong>what is about to move?</strong> — for the budget now on the table, then lets you drill into the underlying records. The Tentative is the Supervisor’s proposal. The Town Board can change it before adopting a budget, which it must do by November 20.</p>
         </section>
 
         <section aria-label={`${PRIOR} to ${YEAR} Tentative changes`} style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(230px,1fr))', gap: 12 }}>
-          {metrics.map(m => <a key={m.label} href={`${base}${m.href}`} style={{ color: 'inherit', textDecoration: 'none', background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 14, padding: 17, boxShadow: '0 8px 22px var(--rbl-shadow)' }}>
-            <div style={{ color: 'var(--rbl-text-muted)', fontSize: 11.5, fontWeight: 900, textTransform: 'uppercase', letterSpacing: .7 }}>{m.label}</div>
+          {metrics.map(m => <a key={m.label} href={`${base}${m.href}`} style={{ color: 'inherit', textDecoration: 'none', background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 14, padding: 17 }}>
+            <div style={{ color: 'var(--rbl-text-muted)', fontSize: 13.5, fontWeight: 700 }}>{m.label}</div>
             <div style={{ fontSize: 25, fontWeight: 950, marginTop: 6 }}>{m.value}</div>
             <div style={{ color: 'var(--rbl-accent)', fontWeight: 900, fontSize: 13, marginTop: 4 }}>{m.change}</div>
             <div style={{ color: 'var(--rbl-text-sub)', fontSize: 13, lineHeight: 1.45, marginTop: 8 }}>{m.note}</div>
@@ -102,7 +102,7 @@ export default function WhatChangedPage() {
           { label: `${PRIOR} Adopted Budget`, text: 'The same Summary rows as adopted, for the comparison.', href: '/compare/' },
           { label: 'Supervisor’s budget letter', text: `${READ_BY_HAND[YEAR]?.dated ? `Dated ${READ_BY_HAND[YEAR]?.dated}; it` : 'It'} gives the tax cap limit${h.statedLimitPct !== null ? ` of ${h.statedLimitPct}%` : ''}.`, href: '/tentative-2027/' },
         ]} />
-      </main>
+      </div>
     </PageShell>
   )
 }

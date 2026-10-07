@@ -8,7 +8,7 @@ import { AUDIT_2025 } from '../../lib/audits'
 import { debtProfile } from '../../lib/debt-profile'
 
 const base = process.env.NEXT_PUBLIC_BASE_PATH || ''
-const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 20, boxShadow: '0 14px 34px var(--rbl-shadow)' } as const
+const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 20 } as const
 const usd = (n: number) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(n)
 
 export const metadata = {
@@ -74,8 +74,8 @@ export default function ScenariosPage() {
       <h2 style={{ color: 'var(--rbl-title)' }}>Other things the Town could weigh</h2>
       <section style={{ display: 'grid', gap: 14 }}>
         {grounded.map((g) => (
-          <article key={g.title} style={{ ...card, borderLeft: '6px solid var(--rbl-accent-border)' }}>
-            <div style={{ color: 'var(--rbl-link)', fontWeight: 900, fontSize: 12, textTransform: 'uppercase', letterSpacing: 0.4 }}>{g.kicker}</div>
+          <article key={g.title} style={{ ...card }}>
+            <div style={{ color: 'var(--rbl-link)', fontWeight: 700, fontSize: 13.5 }}>{g.kicker}</div>
             <h3 style={{ margin: '4px 0 8px', color: 'var(--rbl-title)' }}>{g.title}</h3>
             <p style={{ color: 'var(--rbl-text-strong)', fontSize: 14.5, lineHeight: 1.6, margin: '0 0 10px' }}>{g.body}</p>
             <a href={g.href} style={{ color: 'var(--rbl-accent)', fontWeight: 800, fontSize: 14, textDecoration: 'none' }}>{g.cta} →</a>

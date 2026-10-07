@@ -6,7 +6,7 @@ import { useFetchJson } from './useFetchJson'
 const base = process.env.NEXT_PUBLIC_BASE_PATH || ''
 const LINES_URL = `${base}/data/budget-2027-lines.json`
 const usd = (n: number | null) => n == null ? '—' : new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(n)
-const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 18, boxShadow: '0 14px 34px var(--rbl-shadow)' } as const
+const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 18 } as const
 const sel = { padding: '9px 11px', border: '1px solid var(--rbl-border-strong)', borderRadius: 9, fontSize: 14, fontWeight: 700 } as const
 
 type Line = {

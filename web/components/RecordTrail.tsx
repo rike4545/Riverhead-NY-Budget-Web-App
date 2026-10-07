@@ -21,13 +21,10 @@ export default function RecordTrail({
         border: '1px solid var(--rbl-border-subtle)',
         borderRadius: 18,
         padding: 20,
-        boxShadow: '0 14px 34px var(--rbl-shadow)',
+        
       }}
     >
-      <div style={{ color: 'var(--rbl-badge)', fontSize: 11, fontWeight: 950, letterSpacing: 1.1, textTransform: 'uppercase' }}>
-        Evidence path
-      </div>
-      <h2 id="record-trail-title" style={{ margin: '5px 0 6px', fontSize: 22 }}>
+      <h2 id="record-trail-title" style={{ margin: '0 0 6px', fontSize: 22 }}>
         {title}
       </h2>
       <p style={{ color: 'var(--rbl-text-muted)', lineHeight: 1.55, margin: '0 0 14px', maxWidth: 900 }}>

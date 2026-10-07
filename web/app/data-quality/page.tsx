@@ -5,7 +5,7 @@ import PageShell from '../../components/PageShell'
 import DataStatus from '../../components/DataStatus'
 import metaJson from '../../public/data/meta.json'
 
-const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 18, boxShadow: '0 14px 34px var(--rbl-shadow)' } as const
+const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 18 } as const
 
 type Freshness = 'current' | 'delayed' | 'stale' | 'unknown'
 type Policy =
@@ -75,8 +75,8 @@ export default function DataQualityPage() {
 
   return (
     <PageShell title="Data Quality & Freshness" subtitle="A transparent status page for the datasets behind Riverhead Budget Live: what is official, what is calculated, how current each source is, and what the deployment checks automatically.">
-      <section style={{ ...card, marginBottom: 18, borderLeft: `6px solid ${freshnessTone[pipeline.state]}` }}>
-        <div style={{ color: freshnessTone[pipeline.state], fontWeight: 950, textTransform: 'uppercase', letterSpacing: .6, fontSize: 12 }}>● Pipeline status: {freshnessLabel[pipeline.state]}</div>
+      <section style={{ ...card, marginBottom: 18, borderColor: freshnessTone[pipeline.state] }}>
+        <div style={{ color: freshnessTone[pipeline.state], fontWeight: 700, fontSize: 13.5, display: 'flex', alignItems: 'center', gap: 6 }}><span aria-hidden="true" style={{ width: 8, height: 8, borderRadius: 999, background: 'currentColor' }} />Pipeline status: {freshnessLabel[pipeline.state]}</div>
         <h2 style={{ margin: '6px 0 5px' }}>Last pipeline snapshot: {meta.generatedAtDisplay}</h2>
         <p style={{ margin: 0, color: 'var(--rbl-text-body)', lineHeight: 1.55 }}>{pipeline.note}</p>
       </section>
@@ -85,7 +85,7 @@ export default function DataQualityPage() {
         {Object.entries(details).map(([key, d]) => {
           const f = liveFreshness(d, now)
           return (
-            <article key={key} style={{ ...card, borderTop: `4px solid ${freshnessTone[f.state]}` }}>
+            <article key={key} style={{ ...card, borderColor: freshnessTone[f.state] }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', gap: 8, flexWrap: 'wrap', alignItems: 'center' }}>
                 <strong style={{ color: 'var(--rbl-title)', fontSize: 16 }}>{d.label}</strong>
                 <DataStatus status={d.status} />

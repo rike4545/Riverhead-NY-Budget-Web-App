@@ -9,7 +9,7 @@ import {
 import { appropriations, minimumRequired, policyMinimumPercent, unassignedFundBalance } from '../../lib/reserve-policy'
 
 const base = process.env.NEXT_PUBLIC_BASE_PATH || ''
-const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 20, boxShadow: '0 14px 34px var(--rbl-shadow)' } as const
+const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 20 } as const
 const usd = (n: number) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(n)
 const pct = (n: number) => `${((n / appropriations) * 100).toFixed(1)}%`
 
@@ -85,7 +85,7 @@ export default function TownSquarePage() {
           {scopeEvolution.rows.map((r) => (
             <div key={r.when} style={{ background: 'var(--rbl-surface-2)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 10, padding: '11px 13px' }}>
               <div style={{ display: 'flex', gap: 10, alignItems: 'baseline', flexWrap: 'wrap' }}>
-                <span style={{ color: 'var(--rbl-badge)', fontSize: 11, fontWeight: 900, textTransform: 'uppercase', letterSpacing: 0.4 }}>{r.when}</span>
+                <span style={{ color: 'var(--rbl-badge)', fontSize: 13, fontWeight: 700 }}>{r.when}</span>
                 <strong style={{ color: 'var(--rbl-title)', fontSize: 14.6 }}>{r.what}</strong>
               </div>
               <div style={{ color: 'var(--rbl-text-body)', fontSize: 13.4, lineHeight: 1.55, marginTop: 3 }}>{r.extra}</div>
@@ -98,7 +98,7 @@ export default function TownSquarePage() {
 
       <PartHeader n="2" id="money" title={`What it costs the public`} blurb={`The money runs in both directions and no published figure nets it out. This is the long part; each section below stands on its own.`} />
 
-      <section style={{ ...card, marginBottom: 18, borderLeft: '6px solid var(--rbl-violet)' }}>
+      <section style={{ ...card, marginBottom: 18 }}>
         <h2 style={{ marginTop: 0, marginBottom: 4, color: 'var(--rbl-title)', fontSize: 22 }}>Three ledgers, not one</h2>
         <p style={{ color: 'var(--rbl-text-strong)', fontSize: 15, lineHeight: 1.6, marginTop: 0 }}>{threeLedgers.lede}</p>
 
@@ -194,7 +194,7 @@ export default function TownSquarePage() {
         </div>
       </section>
 
-      <section style={{ ...card, marginBottom: 18, borderLeft: '6px solid var(--rbl-warn-border)' }}>
+      <section style={{ ...card, marginBottom: 18, borderColor: 'var(--rbl-warn-border)' }}>
         <h2 style={{ marginTop: 0, marginBottom: 10, color: 'var(--rbl-title)', fontSize: 22 }}>{townPays.headline}</h2>
         <div style={{ display: 'grid', gap: 8, marginBottom: 10 }}>
           {townPays.items.map((i) => (
@@ -216,7 +216,7 @@ export default function TownSquarePage() {
       </section>
 
       <Rubric>Money back in</Rubric>
-      <section style={{ ...card, marginBottom: 18, borderLeft: '6px solid var(--rbl-teal-border)' }}>
+      <section style={{ ...card, marginBottom: 18 }}>
         <h2 style={{ marginTop: 0, marginBottom: 4, color: 'var(--rbl-title)', fontSize: 22 }}>{landSale.headline}</h2>
         <p style={{ color: 'var(--rbl-text-muted)', fontSize: 12.6, margin: '0 0 12px' }}>{landSale.resolution}. Terms from the {landSale.document}.</p>
 
@@ -254,7 +254,7 @@ export default function TownSquarePage() {
         </div>
       </section>
 
-      <section style={{ ...card, marginBottom: 18, borderLeft: '6px solid var(--rbl-violet)' }}>
+      <section style={{ ...card, marginBottom: 18 }}>
         <h2 style={{ marginTop: 0, marginBottom: 4, color: 'var(--rbl-title)', fontSize: 22 }}>{preposession.headline}</h2>
         <p style={{ color: 'var(--rbl-text-muted)', fontSize: 12.6, margin: '0 0 12px' }}>{preposession.document}</p>
         <p style={{ color: 'var(--rbl-text-strong)', fontSize: 14.6, lineHeight: 1.6, marginTop: 0 }}>{preposession.purpose}</p>
@@ -282,7 +282,7 @@ export default function TownSquarePage() {
       </section>
 
       <Rubric>Money forgone, and money never priced</Rubric>
-      <section style={{ ...card, marginBottom: 18, borderLeft: '6px solid var(--rbl-warn-border)' }}>
+      <section style={{ ...card, marginBottom: 18, borderColor: 'var(--rbl-warn-border)' }}>
         <h2 style={{ marginTop: 0, marginBottom: 4, color: 'var(--rbl-title)', fontSize: 22 }}>{idaAssistance.headline}</h2>
         <p style={{ color: 'var(--rbl-text-muted)', fontSize: 12.6, margin: '0 0 12px' }}>{idaAssistance.status}</p>
         <div style={{ display: 'grid', gap: 9 }}>
@@ -318,7 +318,7 @@ export default function TownSquarePage() {
             <thead>
               <tr>
                 {['Project', 'Where', 'Term', 'Years'].map((h) => (
-                  <th key={h} style={{ textAlign: h === 'Years' ? 'right' : 'left', padding: '7px 9px', borderBottom: '2px solid var(--rbl-border-subtle)', color: 'var(--rbl-text-muted)', fontSize: 11.8, textTransform: 'uppercase', letterSpacing: 0.4 }}>{h}</th>
+                  <th key={h} style={{ textAlign: h === 'Years' ? 'right' : 'left', padding: '7px 9px', borderBottom: '2px solid var(--rbl-border-subtle)', color: 'var(--rbl-text-muted)', fontSize: 13.5 }}>{h}</th>
                 ))}
               </tr>
             </thead>
@@ -383,7 +383,7 @@ export default function TownSquarePage() {
       </section>
 
       <Rubric>The net effect on reserves</Rubric>
-      <section style={{ ...card, marginBottom: 18, borderLeft: '6px solid var(--rbl-warn-border)' }}>
+      <section style={{ ...card, marginBottom: 18, borderColor: 'var(--rbl-warn-border)' }}>
         <h2 style={{ marginTop: 0, marginBottom: 6, color: 'var(--rbl-title)', fontSize: 22 }}>What it does to the fund balance</h2>
         <p style={{ color: 'var(--rbl-text-strong)', fontSize: 15, lineHeight: 1.6, marginTop: 0 }}>{fundBalanceImpact.lede}</p>
 
@@ -393,7 +393,7 @@ export default function TownSquarePage() {
               <div style={{ display: 'flex', gap: 10, alignItems: 'baseline', flexWrap: 'wrap' }}>
                 <strong style={{ color: 'var(--rbl-title)', fontSize: 15 }}>{d.label}</strong>
                 <span style={{
-                  fontSize: 10.5, fontWeight: 900, letterSpacing: 0.4, textTransform: 'uppercase', padding: '2px 7px', borderRadius: 5,
+                  fontSize: 13, fontWeight: 700, padding: '2px 7px', borderRadius: 5,
                   ...(String(d.certainty) === 'ceiling'
                     ? { background: 'var(--rbl-warn-bg)', color: 'var(--rbl-warn-strong)', border: '1px solid var(--rbl-warn-border)' }
                     : { background: 'var(--rbl-success-bg)', color: 'var(--rbl-success-strong)', border: '1px solid var(--rbl-success-border)' }),
@@ -451,7 +451,7 @@ export default function TownSquarePage() {
 
       <PartHeader n="4" id="build" title={`When it gets built`} blurb={`Six connected projects on one schedule running to 2030, and the pieces still undecided.`} />
 
-      <section style={{ ...card, marginBottom: 18, borderLeft: '6px solid var(--rbl-teal-border)' }}>
+      <section style={{ ...card, marginBottom: 18 }}>
         <h3 style={{ marginTop: 0, marginBottom: 4, color: 'var(--rbl-title)', fontSize: 18 }}>{buildSchedule.headline}</h3>
         <p style={{ color: 'var(--rbl-text-muted)', fontSize: 12.6, margin: '0 0 10px' }}>{buildSchedule.asOf}</p>
         <p style={{ color: 'var(--rbl-text-strong)', fontSize: 14.6, lineHeight: 1.6, marginTop: 0 }}>{buildSchedule.lede}</p>
@@ -504,7 +504,7 @@ export default function TownSquarePage() {
 
       <PartHeader n="5" id="record" title={`The record`} blurb={`How the Board voted, what residents said, how it got here, and what this page still cannot tell you.`} />
 
-      <section style={{ ...card, marginBottom: 18, borderLeft: '6px solid var(--rbl-danger-border)' }}>
+      <section style={{ ...card, marginBottom: 18, borderColor: 'var(--rbl-danger-border)' }}>
         <h2 style={{ marginTop: 0, marginBottom: 4, color: 'var(--rbl-title)', fontSize: 22 }}>The money votes were unanimous. The taking was not.</h2>
         <p style={{ color: 'var(--rbl-text-body)', fontSize: 14.6, lineHeight: 1.6, marginTop: 0 }}>{voteSummary}</p>
         <Collapse summary={`Show every recorded vote, with resolution numbers`}>
@@ -531,7 +531,7 @@ export default function TownSquarePage() {
         </Collapse>
       </section>
 
-      <section style={{ ...card, marginBottom: 18, borderLeft: '6px solid var(--rbl-info-border)' }}>
+      <section style={{ ...card, marginBottom: 18 }}>
         <h2 style={{ marginTop: 0, marginBottom: 6, color: 'var(--rbl-title)', fontSize: 22 }}>What residents said, and what they were told</h2>
         <p style={{ color: 'var(--rbl-text-strong)', fontSize: 15, lineHeight: 1.6, marginTop: 0 }}>{publicObjections.lede}</p>
         <Collapse summary={`Show what each speaker said, hearing by hearing`}>
@@ -563,10 +563,10 @@ export default function TownSquarePage() {
         {timeline.map((m) => {
           const k = KIND[m.kind]
           return (
-            <article key={`${m.date}-${m.what}`} style={{ ...card, padding: 16, borderLeft: `6px solid ${k.border}` }}>
+            <article key={`${m.date}-${m.what}`} style={{ ...card, padding: 16, borderColor: k.border }}>
               <div style={{ display: 'flex', gap: 10, alignItems: 'baseline', flexWrap: 'wrap' }}>
-                <span style={{ color: 'var(--rbl-badge)', fontSize: 11.5, fontWeight: 900, letterSpacing: 0.4, textTransform: 'uppercase' }}>{m.date}</span>
-                <span style={{ fontSize: 10.5, fontWeight: 900, letterSpacing: 0.4, textTransform: 'uppercase', padding: '2px 7px', borderRadius: 5, background: k.bg, color: k.color, border: `1px solid ${k.border}` }}>{k.label}</span>
+                <span style={{ color: 'var(--rbl-badge)', fontSize: 13.5, fontWeight: 700 }}>{m.date}</span>
+                <span style={{ fontSize: 13, fontWeight: 700, padding: '2px 7px', borderRadius: 5, background: k.bg, color: k.color, border: `1px solid ${k.border}` }}>{k.label}</span>
               </div>
               <strong style={{ color: 'var(--rbl-title)', fontSize: 15.5, display: 'block', margin: '3px 0 3px' }}>{m.what}</strong>
               <div style={{ color: 'var(--rbl-text-body)', fontSize: 13.8, lineHeight: 1.6 }}>{m.detail}</div>
@@ -578,7 +578,7 @@ export default function TownSquarePage() {
         </Collapse>
       </section>
 
-      <section style={{ ...card, marginBottom: 18, borderLeft: '6px solid var(--rbl-danger-border)' }}>
+      <section style={{ ...card, marginBottom: 18, borderColor: 'var(--rbl-danger-border)' }}>
         <h2 style={{ marginTop: 0, marginBottom: 6, color: 'var(--rbl-title)', fontSize: 22 }}>What this page cannot tell you</h2>
         <ul style={{ margin: 0, paddingLeft: 18, display: 'grid', gap: 8 }}>
           {openQuestions.map((q) => (
@@ -600,7 +600,7 @@ export default function TownSquarePage() {
         blurb={`Where the Town's own documents sit alongside the statutes they were written under, and what a resident would need to ask to close the gap.`}
       />
 
-      <section style={{ ...card, marginBottom: 18, borderLeft: '6px solid var(--rbl-warn-border)' }}>
+      <section style={{ ...card, marginBottom: 18, borderColor: 'var(--rbl-warn-border)' }}>
         <h2 style={{ marginTop: 0, marginBottom: 8, color: 'var(--rbl-title)', fontSize: 22 }}>{legalQuestions.headline}</h2>
         <div style={{ background: 'var(--rbl-warn-bg)', border: '1px solid var(--rbl-warn-border)', borderRadius: 10, padding: '12px 14px', marginBottom: 12 }}>
           <strong style={{ color: 'var(--rbl-warn-strong)', fontSize: 13.6 }}>Read this first:</strong>{' '}
@@ -620,7 +620,7 @@ export default function TownSquarePage() {
                 <div style={{ display: 'flex', gap: 10, alignItems: 'baseline', flexWrap: 'wrap', marginBottom: 5 }}>
                   <span style={{ color: 'var(--rbl-text-muted)', fontSize: 11.5, fontWeight: 900 }}>{i + 1}</span>
                   <strong style={{ color: 'var(--rbl-title)', fontSize: 15.4, lineHeight: 1.3 }}>{q.question}</strong>
-                  <span style={{ marginLeft: 'auto', color: tone.fg, fontSize: 10.6, fontWeight: 900, textTransform: 'uppercase', letterSpacing: 0.5, border: `1px solid ${tone.bd}`, borderRadius: 999, padding: '2px 8px' }}>
+                  <span style={{ marginLeft: 'auto', color: tone.fg, fontSize: 13, fontWeight: 700, border: `1px solid ${tone.bd}`, borderRadius: 999, padding: '2px 8px' }}>
                     {tone.label}
                   </span>
                 </div>
@@ -679,7 +679,7 @@ function KeyNumbers() {
     { v: '20 years', l: 'Tax abatement requested', s: 'Undecided. No hearing scheduled' },
   ]
   return (
-    <section style={{ ...card, marginBottom: 14, borderLeft: '6px solid var(--rbl-teal-border)' }}>
+    <section style={{ ...card, marginBottom: 14 }}>
       <h2 style={{ marginTop: 0, marginBottom: 2, color: 'var(--rbl-title)', fontSize: 20 }}>The short version, in six numbers</h2>
       <p style={{ color: 'var(--rbl-text-muted)', fontSize: 12.8, lineHeight: 1.6, margin: '0 0 12px' }}>
         These are not one budget and should never be added together. They are the separate pots this project moves
@@ -701,7 +701,7 @@ function KeyNumbers() {
 function Contents() {
   return (
     <nav aria-label="On this page" style={{ ...card, marginBottom: 22, padding: '14px 18px' }}>
-      <div style={{ color: 'var(--rbl-text-muted)', fontSize: 11, fontWeight: 900, textTransform: 'uppercase', letterSpacing: 0.5, marginBottom: 8 }}>
+      <div style={{ color: 'var(--rbl-text-muted)', fontSize: 13, fontWeight: 700, marginBottom: 8 }}>
         On this page
       </div>
       <ol style={{ listStyle: 'none', margin: 0, padding: 0, display: 'flex', flexWrap: 'wrap', gap: '8px 10px' }}>
@@ -728,7 +728,7 @@ function Contents() {
 function PartHeader({ n, id, title, blurb }: { n: string; id: string; title: string; blurb: string }) {
   return (
     <header id={id} style={{ scrollMarginTop: 16, margin: '34px 0 14px', borderTop: '2px solid var(--rbl-border-subtle)', paddingTop: 16 }}>
-      <div style={{ color: 'var(--rbl-text-muted)', fontSize: 11, fontWeight: 900, textTransform: 'uppercase', letterSpacing: 1.1 }}>Part {n}</div>
+      <div style={{ color: 'var(--rbl-text-muted)', fontSize: 13, fontWeight: 700 }}>Part {n}</div>
       <h2 style={{ margin: '3px 0 4px', color: 'var(--rbl-title)', fontSize: 25, lineHeight: 1.2 }}>{title}</h2>
       <p style={{ margin: 0, color: 'var(--rbl-text-body)', fontSize: 14.2, lineHeight: 1.6, maxWidth: '62ch' }}>{blurb}</p>
     </header>
@@ -737,7 +737,7 @@ function PartHeader({ n, id, title, blurb }: { n: string; id: string; title: str
 
 function Rubric({ children }: { children: React.ReactNode }) {
   return (
-    <div style={{ color: 'var(--rbl-text-muted)', fontSize: 11, fontWeight: 900, textTransform: 'uppercase', letterSpacing: 0.9, margin: '20px 0 8px' }}>
+    <div style={{ color: 'var(--rbl-text-muted)', fontSize: 13, fontWeight: 700, margin: '20px 0 8px' }}>
       {children}
     </div>
   )
@@ -760,7 +760,7 @@ function Ledger({ tone, label, amount, note }: { tone: 'info' | 'violet' | 'warn
   }[tone]
   return (
     <div style={{ background: t.bg, border: `1px solid ${t.bd}`, borderRadius: 12, padding: 14 }}>
-      <div style={{ color: t.fg, fontSize: 11, fontWeight: 900, textTransform: 'uppercase', letterSpacing: 0.4 }}>{label}</div>
+      <div style={{ color: t.fg, fontSize: 13, fontWeight: 700 }}>{label}</div>
       <div style={{ color: 'var(--rbl-title)', fontSize: 21, fontWeight: 900, margin: '2px 0 4px' }}>{amount}</div>
       <div style={{ color: t.fg, fontSize: 13.2, lineHeight: 1.5 }}>{note}</div>
     </div>
@@ -770,7 +770,7 @@ function Ledger({ tone, label, amount, note }: { tone: 'info' | 'violet' | 'warn
 function Field({ term, value }: { term: string; value: string }) {
   return (
     <div>
-      <dt style={{ color: 'var(--rbl-text-muted)', fontSize: 10.8, fontWeight: 900, textTransform: 'uppercase', letterSpacing: 0.4 }}>{term}</dt>
+      <dt style={{ color: 'var(--rbl-text-muted)', fontSize: 13, fontWeight: 700 }}>{term}</dt>
       <dd style={{ margin: '2px 0 0', color: 'var(--rbl-text-body)', fontSize: 13.8, lineHeight: 1.55 }}>{value}</dd>
     </div>
   )
@@ -779,7 +779,7 @@ function Field({ term, value }: { term: string; value: string }) {
 function Stat({ label, value, sub, amber }: { label: string; value: string; sub?: string; amber?: boolean }) {
   return (
     <div style={{ background: 'var(--rbl-surface-2)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 12, padding: 12 }}>
-      <div style={{ color: 'var(--rbl-text-muted)', fontSize: 11.5, textTransform: 'uppercase', fontWeight: 900, letterSpacing: 0.4 }}>{label}</div>
+      <div style={{ color: 'var(--rbl-text-muted)', fontSize: 13.5, fontWeight: 700 }}>{label}</div>
       <strong style={{ fontSize: 20, color: amber ? 'var(--rbl-warn)' : 'var(--rbl-title)' }}>{value}</strong>
       {sub && <div style={{ color: 'var(--rbl-text-muted)', fontSize: 12.4 }}>{sub}</div>}
     </div>

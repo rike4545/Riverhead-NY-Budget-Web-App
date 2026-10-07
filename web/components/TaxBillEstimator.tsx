@@ -4,7 +4,7 @@ import { useState } from 'react'
 import { assessedFromMarketValue, estimateTaxBill, type TaxRates } from '../lib/tax-bill'
 
 const usd = (n: number) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(n)
-const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 20, boxShadow: '0 14px 34px var(--rbl-shadow)' } as const
+const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 20 } as const
 
 export default function TaxBillEstimator({
   rates2026,
@@ -145,7 +145,7 @@ function Field({ label, value, hint, children }: { label: string; value: string;
 function Mini({ label, value }: { label: string; value: string }) {
   return (
     <div style={{ background: 'var(--rbl-surface-2)', borderRadius: 10, padding: 10 }}>
-      <div style={{ color: 'var(--rbl-text-muted)', fontSize: 11, textTransform: 'uppercase', fontWeight: 800 }}>{label}</div>
+      <div style={{ color: 'var(--rbl-text-muted)', fontSize: 13, fontWeight: 700 }}>{label}</div>
       <div style={{ fontWeight: 800, marginTop: 2, color: 'var(--rbl-title)' }}>{value}</div>
     </div>
   )

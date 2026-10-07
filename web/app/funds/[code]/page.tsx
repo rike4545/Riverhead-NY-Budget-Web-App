@@ -79,7 +79,7 @@ function ActualsStrip({ code }: { code: string }) {
   if (rev == null && exp == null) return null
 
   return (
-    <section style={{ background: 'var(--rbl-success-bg)', border: '1px solid var(--rbl-success-border)', borderLeft: '6px solid var(--rbl-success)', borderRadius: 14, padding: '14px 18px', marginBottom: 16 }}>
+    <section style={{ background: 'var(--rbl-success-bg)', border: '1px solid var(--rbl-success-border)', borderColor: 'var(--rbl-success-border)', borderRadius: 14, padding: '14px 18px', marginBottom: 16 }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', gap: 12, flexWrap: 'wrap', alignItems: 'baseline' }}>
         <strong style={{ color: 'var(--rbl-success-strong)', fontSize: 15 }}>
           What actually happened in 2025 {shared ? `(${fund.name} group)` : ''}
@@ -134,7 +134,7 @@ function AuditedDeficitNote({ code }: { code: string }) {
   const allBalanced = budgets.length > 0 && budgets.every((b) => b.revenues === b.appropriations)
   const gf = AUDITED_GENERAL_FUND[latest.year]
   return (
-    <section data-audited-deficit style={{ background: 'var(--rbl-warn-bg)', border: '1px solid var(--rbl-warn-border)', borderLeft: '6px solid var(--rbl-warn)', borderRadius: 14, padding: '14px 18px', marginBottom: 16 }}>
+    <section data-audited-deficit style={{ background: 'var(--rbl-warn-bg)', border: '1px solid var(--rbl-warn-border)', borderColor: 'var(--rbl-warn-border)', borderRadius: 14, padding: '14px 18px', marginBottom: 16 }}>
       <strong style={{ color: 'var(--rbl-warn-strong)', fontSize: 15 }}>
         In deficit at the end of every audited year: {dollars(latest[key])} at the end of {latest.year}
       </strong>
@@ -200,7 +200,7 @@ function AuditedDeficitNote({ code }: { code: string }) {
 function FundContextNote({ code }: { code: string }) {
   if (code.toUpperCase() !== 'SM1') return null
   return (
-    <section style={{ background: 'var(--rbl-warn-bg)', border: '1px solid var(--rbl-warn-border)', borderLeft: '6px solid var(--rbl-warn)', borderRadius: 14, padding: '14px 18px', marginBottom: 16 }}>
+    <section style={{ background: 'var(--rbl-warn-bg)', border: '1px solid var(--rbl-warn-border)', borderColor: 'var(--rbl-warn-border)', borderRadius: 14, padding: '14px 18px', marginBottom: 16 }}>
       <strong style={{ color: 'var(--rbl-warn-strong)', fontSize: 15 }}>Why this fund is under pressure</strong>
       <p style={{ color: 'var(--rbl-warn-strong)', fontSize: 13.8, lineHeight: 1.55, margin: '8px 0 0' }}>
         The Riverhead Volunteer Ambulance Corps (RVAC) is a private nonprofit that serves this district under
@@ -282,7 +282,7 @@ const rvacTd = { padding: '5px 8px', color: 'var(--rbl-warn-strong)' } as const
 function ActualStat({ label, value, strong, negative }: { label: string; value: string; strong?: boolean; negative?: boolean }) {
   return (
     <div style={{ background: 'var(--rbl-surface)', border: '1px solid #d1fae5', borderRadius: 10, padding: '9px 12px' }}>
-      <div style={{ color: 'var(--rbl-success-strong)', fontSize: 11, textTransform: 'uppercase', fontWeight: 900, letterSpacing: 0.4 }}>{label}</div>
+      <div style={{ color: 'var(--rbl-success-strong)', fontSize: 13, fontWeight: 700 }}>{label}</div>
       <strong style={{ fontSize: 16.5, color: negative ? 'var(--rbl-danger)' : strong ? 'var(--rbl-success)' : 'var(--rbl-success-strong)' }}>{value}</strong>
     </div>
   )

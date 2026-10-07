@@ -69,7 +69,7 @@ export type OvertimeStaffingProps = {
 
 const usd = (n: number) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(n)
 const pct = (n: number, d = 1) => `${(n * 100).toFixed(d)}%`
-const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 20, boxShadow: '0 14px 34px var(--rbl-shadow)' } as const
+const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 20 } as const
 
 export default function OvertimeStaffing(p: OvertimeStaffingProps) {
   const [load, setLoad] = useState<'low' | 'mid' | 'high'>('mid')
@@ -77,7 +77,7 @@ export default function OvertimeStaffing(p: OvertimeStaffingProps) {
   return (
     <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0,1fr)', gap: 16 }}>
       {/* How to read this */}
-      <section style={{ background: 'var(--rbl-info-bg)', border: '1px solid var(--rbl-info-border)', borderLeft: '6px solid var(--rbl-accent-border)', borderRadius: 14, padding: '16px 18px' }}>
+      <section style={{ background: 'var(--rbl-info-bg)', border: '1px solid var(--rbl-info-border)', borderRadius: 14, padding: '16px 18px' }}>
         <strong style={{ color: 'var(--rbl-title)', fontSize: 16 }}>The question this answers</strong>
         <p style={{ color: 'var(--rbl-info-text)', fontSize: 14.5, lineHeight: 1.6, margin: '6px 0 0' }}>
           Overtime is paid at <strong>{p.otPremium}×</strong> the normal rate. So {usd(150_000)} of overtime buys about{' '}
@@ -88,7 +88,7 @@ export default function OvertimeStaffing(p: OvertimeStaffingProps) {
       </section>
 
       {/* The individual test that finds nothing — stated first, on purpose */}
-      <section style={{ ...card, borderLeft: '6px solid var(--rbl-success)', background: 'var(--rbl-success-bg)' }}>
+      <section style={{ ...card, borderColor: 'var(--rbl-success-border)', background: 'var(--rbl-success-bg)' }}>
         <h3 style={{ margin: '0 0 6px', color: 'var(--rbl-success-strong)', fontSize: 17 }}>
           First, what this is <em>not</em>: there is no runaway-individual overtime problem
         </h3>
@@ -130,7 +130,7 @@ export default function OvertimeStaffing(p: OvertimeStaffingProps) {
       </section>
 
       {/* Benefit-load control */}
-      <section style={{ ...card, borderLeft: '6px solid var(--rbl-warn)', background: 'var(--rbl-warn-bg)' }}>
+      <section style={{ ...card, borderColor: 'var(--rbl-warn-border)', background: 'var(--rbl-warn-bg)' }}>
         <h3 style={{ margin: '0 0 6px', color: 'var(--rbl-warn)', fontSize: 16 }}>
           What a hire costs beyond salary — from Riverhead&apos;s own filing
         </h3>
@@ -203,7 +203,7 @@ function RankCard({
   const saving = c ? c.overtimeCost - hire : 0
 
   return (
-    <section style={{ ...card, borderLeft: '6px solid var(--rbl-warn)' }}>
+    <section style={{ ...card, borderColor: 'var(--rbl-warn-border)' }}>
       <div style={{ display: 'flex', gap: 12, alignItems: 'baseline', flexWrap: 'wrap' }}>
         <h4 style={{ margin: 0, color: 'var(--rbl-title)', fontSize: 18 }}>{t.title}</h4>
         <span style={{ background: 'var(--rbl-violet-bg)', color: 'var(--rbl-violet-strong)', border: '1px solid var(--rbl-violet-border)', borderRadius: 999, padding: '3px 10px', fontSize: 11.5, fontWeight: 800 }}>
@@ -223,7 +223,7 @@ function RankCard({
 
       {/* Year-by-year bars */}
       <div style={{ margin: '0 0 14px' }}>
-        <div style={{ color: 'var(--rbl-text-muted)', fontSize: 11.5, fontWeight: 800, textTransform: 'uppercase', letterSpacing: 0.4, marginBottom: 7 }}>
+        <div style={{ color: 'var(--rbl-text-muted)', fontSize: 13.5, fontWeight: 700, marginBottom: 7 }}>
           Positions&apos; worth of overtime hours, by year
         </div>
         <div style={{ display: 'grid', gap: 5 }}>
@@ -249,12 +249,12 @@ function RankCard({
           </div>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(210px,1fr))', gap: 10 }}>
             <div style={{ background: 'var(--rbl-surface)', border: '1px solid var(--rbl-danger-border)', borderRadius: 10, padding: '11px 13px' }}>
-              <div style={{ color: 'var(--rbl-danger)', fontSize: 11.5, fontWeight: 800, textTransform: 'uppercase', letterSpacing: 0.4 }}>With overtime</div>
+              <div style={{ color: 'var(--rbl-danger)', fontSize: 13.5, fontWeight: 700 }}>With overtime</div>
               <div style={{ color: 'var(--rbl-danger)', fontSize: 21, fontWeight: 950, margin: '3px 0' }}>{usd(c.overtimeCost)}</div>
               <div style={{ color: 'var(--rbl-danger-strong)', fontSize: 12.5 }}>Average base {usd(c.avgBase)} × 1.5</div>
             </div>
             <div style={{ background: 'var(--rbl-surface)', border: '1px solid var(--rbl-success-border)', borderRadius: 10, padding: '11px 13px' }}>
-              <div style={{ color: 'var(--rbl-success-strong)', fontSize: 11.5, fontWeight: 800, textTransform: 'uppercase', letterSpacing: 0.4 }}>
+              <div style={{ color: 'var(--rbl-success-strong)', fontSize: 13.5, fontWeight: 700 }}>
                 {c.isEntryRank ? 'With an entry-step hire' : 'With a promotion + backfill'}
               </div>
               <div style={{ color: 'var(--rbl-success-strong)', fontSize: 21, fontWeight: 950, margin: '3px 0' }}>{usd(hire)}</div>
@@ -291,7 +291,7 @@ function RankCard({
 function Stat({ label, value, accent }: { label: string; value: string; accent?: boolean }) {
   return (
     <div style={{ background: accent ? 'var(--rbl-warn-bg)' : 'var(--rbl-surface-2)', border: `1px solid ${accent ? 'var(--rbl-warn-border)' : 'var(--rbl-border-subtle)'}`, borderRadius: 10, padding: '10px 13px' }}>
-      <div style={{ color: 'var(--rbl-text-muted)', fontSize: 11, fontWeight: 800, textTransform: 'uppercase', letterSpacing: 0.4, lineHeight: 1.35 }}>{label}</div>
+      <div style={{ color: 'var(--rbl-text-muted)', fontSize: 13, fontWeight: 700, lineHeight: 1.35 }}>{label}</div>
       <div style={{ color: accent ? 'var(--rbl-warn)' : 'var(--rbl-title)', fontSize: 21, fontWeight: 950, marginTop: 3 }}>{value}</div>
     </div>
   )

@@ -40,10 +40,9 @@ export default function PayrollTabs({
   return (
     <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0,1fr)', gap: 16 }}>
       <section style={{
-        background: 'linear-gradient(110deg,#102c46,var(--rbl-fill-accent))', color: 'white', borderRadius: 18,
-        padding: '22px 24px', boxShadow: '0 16px 36px var(--rbl-shadow)',
+        background: 'var(--rbl-fill-brand)', color: 'white', borderRadius: 18,
+        padding: '22px 24px', 
       }} aria-labelledby="payroll-question-title">
-        <div style={{ fontSize: 11.5, fontWeight: 950, letterSpacing: 1, textTransform: 'uppercase', color: '#a9d4ee' }}>Start with the question</div>
         <h2 id="payroll-question-title" style={{ margin: '5px 0 7px', fontSize: 25, lineHeight: 1.2 }}>What do you want to know about Town payroll?</h2>
         <p style={{ margin: 0, color: '#d3e2ee', lineHeight: 1.55, maxWidth: 800 }}>
           Keep two numbers separate: <strong>authorized salary</strong> is the Board-set base rate; <strong>actual pay</strong> is what an employee received, including overtime and other compensation.
@@ -58,7 +57,7 @@ export default function PayrollTabs({
 
       <div id="payroll-data" style={{ scrollMarginTop: 18 }}>
         <div style={{ display: 'grid', gap: 8 }}>
-          <div style={{ fontSize: 12, fontWeight: 900, letterSpacing: .7, textTransform: 'uppercase', color: 'var(--rbl-text-muted)' }}>Payroll records</div>
+          <div style={{ fontSize: 13.5, fontWeight: 700, color: 'var(--rbl-text-muted)' }}>Payroll records</div>
           <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
             <Tab active={tab === 'actual'} onClick={() => pick('actual')} title="Employees & Pay" sub="Actual earnings, 2018–2025" />
             <Tab active={tab === 'authorized'} onClick={() => pick('authorized')} title="Authorized Salary" sub="Board-set base pay" />
@@ -66,7 +65,7 @@ export default function PayrollTabs({
           </div>
         </div>
         <div style={{ display: 'grid', gap: 8, marginTop: 14 }}>
-          <div style={{ fontSize: 12, fontWeight: 900, letterSpacing: .7, textTransform: 'uppercase', color: 'var(--rbl-text-muted)' }}>Analysis</div>
+          <div style={{ fontSize: 13.5, fontWeight: 700, color: 'var(--rbl-text-muted)' }}>Analysis</div>
           <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
             <Tab active={tab === 'overtime'} onClick={() => pick('overtime')} title="Overtime & Staffing" sub="Overtime pressure and police staffing patterns" />
             <Tab active={tab === 'separation'} onClick={() => pick('separation')} title="Separation Pay" sub="Unused leave liabilities and departure costs" />

@@ -2,7 +2,7 @@ import PageShell from '../../components/PageShell'
 import PlainCallout from '../../components/PlainCallout'
 import data from '../../public/data/town-history.json'
 
-const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 18, boxShadow: '0 14px 34px var(--rbl-shadow)' } as const
+const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 18 } as const
 
 export const metadata = {
   title: 'Supervisors & Council Members, 2004–2026',
@@ -31,7 +31,7 @@ export default function TownHistoryPage() {
 
   return (
     <PageShell title={data.title} subtitle={data.intro}>
-      <div style={{ background: 'var(--rbl-info-bg)', border: '1px solid var(--rbl-info-border)', borderLeft: '6px solid var(--rbl-accent-border)', borderRadius: 12, padding: '14px 16px', marginBottom: 16, color: 'var(--rbl-info-text)', fontSize: 14.5, lineHeight: 1.6 }}>
+      <div style={{ background: 'var(--rbl-info-bg)', border: '1px solid var(--rbl-info-border)', borderRadius: 12, padding: '14px 16px', marginBottom: 16, color: 'var(--rbl-info-text)', fontSize: 14.5, lineHeight: 1.6 }}>
         <strong>This isn&apos;t a complete historical record.</strong> {data.scopeNote}
       </div>
 
@@ -60,7 +60,7 @@ export default function TownHistoryPage() {
 function PersonCard({ p }: { p: Person }) {
   const current = p.termEnd === null
   return (
-    <section style={{ ...card, borderLeft: `6px solid ${current ? 'var(--rbl-accent-border)' : 'var(--rbl-border)'}` }}>
+    <section style={{ ...card, borderColor: current ? 'var(--rbl-accent-border)' : 'var(--rbl-border)' }}>
       <div style={{ display: 'flex', flexWrap: 'wrap', gap: 10, alignItems: 'baseline', justifyContent: 'space-between' }}>
         <div>
           <span style={{ fontSize: 18, fontWeight: 900, color: 'var(--rbl-title)' }}>{p.name}</span>

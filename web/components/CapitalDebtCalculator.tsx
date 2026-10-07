@@ -4,7 +4,7 @@ import { useMemo, useState } from 'react'
 import { compareFinancing } from '../lib/capital-financing'
 
 const usd = (n: number) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(n)
-const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 20, boxShadow: '0 14px 34px var(--rbl-shadow)' } as const
+const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 20 } as const
 
 export default function CapitalDebtCalculator() {
   const [projectCost, setProjectCost] = useState(5_000_000)
@@ -60,8 +60,8 @@ export default function CapitalDebtCalculator() {
           />
         </section>
 
-        <section style={{ ...card, borderLeft: `6px solid ${cmp.banPremium >= 0 ? 'var(--rbl-danger)' : 'var(--rbl-success)'}` }}>
-          <div style={{ color: 'var(--rbl-text-muted)', fontSize: 12.5, fontWeight: 800, textTransform: 'uppercase', letterSpacing: 0.3 }}>
+        <section style={{ ...card, borderColor: cmp.banPremium >= 0 ? 'var(--rbl-danger)' : 'var(--rbl-success)' }}>
+          <div style={{ color: 'var(--rbl-text-muted)', fontSize: 12.5, fontWeight: 700 }}>
             Cost of financing through a BAN first
           </div>
           <div style={{ fontSize: 26, fontWeight: 900, color: cmp.banPremium >= 0 ? 'var(--rbl-danger)' : 'var(--rbl-success-strong)', marginTop: 2 }}>
@@ -112,7 +112,7 @@ function PathCard({
 function Mini({ label, value }: { label: string; value: string }) {
   return (
     <div style={{ background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 10, padding: 10 }}>
-      <div style={{ color: 'var(--rbl-text-muted)', fontSize: 11, textTransform: 'uppercase', fontWeight: 800 }}>{label}</div>
+      <div style={{ color: 'var(--rbl-text-muted)', fontSize: 13, fontWeight: 700 }}>{label}</div>
       <div style={{ fontWeight: 800, marginTop: 2, color: 'var(--rbl-title)' }}>{value}</div>
     </div>
   )

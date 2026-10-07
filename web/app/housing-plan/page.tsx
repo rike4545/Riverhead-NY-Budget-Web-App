@@ -25,7 +25,7 @@ import {
 } from '../../lib/community-housing'
 
 const base = process.env.NEXT_PUBLIC_BASE_PATH || ''
-const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 20, boxShadow: '0 14px 34px var(--rbl-shadow)' } as const
+const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 20 } as const
 const usd = (n: number) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(n)
 const millions = (n: number) => `$${(n / 1e6).toFixed(2)}M`
 
@@ -82,7 +82,7 @@ export default function HousingPlanPage() {
       </section>
 
       {/* ------------------------------------------------------------------ */}
-      <section style={{ ...card, marginBottom: 16, borderLeft: '8px solid var(--rbl-accent-border)' }}>
+      <section style={{ ...card, marginBottom: 16 }}>
         <h3 style={{ marginTop: 0, color: 'var(--rbl-title)' }}>What the law actually requires</h3>
         <p style={{ color: 'var(--rbl-text-body)', fontSize: 14.5, marginTop: 0, lineHeight: 1.6 }}>
           The {statute.name} ({statute.citation}, enacted {statute.enactedYear} and amended {statute.amendedYear})
@@ -195,7 +195,7 @@ export default function HousingPlanPage() {
         </p>
       </section>
 
-      <section style={{ ...card, marginBottom: 16, background: 'var(--rbl-sky-bg)', border: '1px solid var(--rbl-sky-border)', borderLeft: '8px solid #0284c7' }}>
+      <section style={{ ...card, marginBottom: 16, background: 'var(--rbl-sky-bg)', border: '1px solid var(--rbl-sky-border)' }}>
         <h3 style={{ marginTop: 0, color: 'var(--rbl-info-text)' }}>The Shelter Island model, step by step</h3>
         <p style={{ color: 'var(--rbl-info-text)', fontSize: 14.5, lineHeight: 1.65, marginTop: 0 }}>
           Shelter Island is the smallest of the five towns by population, and it still ran the full sequence — a
@@ -229,7 +229,7 @@ export default function HousingPlanPage() {
       </section>
 
       {/* ------------------------------------------------------------------ */}
-      <section style={{ ...card, marginBottom: 16, borderLeft: '8px solid var(--rbl-gold-border)' }}>
+      <section style={{ ...card, marginBottom: 16 }}>
         <h3 style={{ marginTop: 0, color: 'var(--rbl-title)' }}>What the same tax would have raised in Riverhead</h3>
         <p style={{ color: 'var(--rbl-text-body)', fontSize: 14.5, marginTop: 0, lineHeight: 1.6 }}>
           This is the one part of the page built from Riverhead&apos;s own audited numbers rather than news coverage.
@@ -385,13 +385,13 @@ export default function HousingPlanPage() {
   )
 }
 
-const th = { padding: '10px 12px', fontSize: 12.5, fontWeight: 800, color: 'var(--rbl-text-body)', textTransform: 'uppercase' as const, letterSpacing: 0.3 }
+const th = { padding: '10px 12px', fontSize: 12.5, fontWeight: 700, color: 'var(--rbl-text-body)' as const }
 const td = { padding: '10px 12px', color: 'var(--rbl-text-strong)', verticalAlign: 'top' as const, lineHeight: 1.5 }
 
 function Stat({ label, value, sub, accent }: { label: string; value: string; sub?: string; accent?: boolean }) {
   return (
     <div>
-      <div style={{ color: 'var(--rbl-text-muted)', fontSize: 12.5, fontWeight: 700, textTransform: 'uppercase', letterSpacing: 0.3 }}>{label}</div>
+      <div style={{ color: 'var(--rbl-text-muted)', fontSize: 12.5, fontWeight: 700 }}>{label}</div>
       <div style={{ color: accent ? 'var(--rbl-danger)' : 'var(--rbl-title)', fontSize: 26, fontWeight: 900, lineHeight: 1.2 }}>{value}</div>
       {sub && <div style={{ color: 'var(--rbl-text-muted)', fontSize: 12.5 }}>{sub}</div>}
     </div>

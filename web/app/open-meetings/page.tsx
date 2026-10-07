@@ -10,8 +10,8 @@ import {
 const base = process.env.NEXT_PUBLIC_BASE_PATH || ''
 const MONTHS = ['Jan.', 'Feb.', 'March', 'April', 'May', 'June', 'July', 'Aug.', 'Sept.', 'Oct.', 'Nov.', 'Dec.']
 const day = (iso: string) => { const [y, m, d] = iso.split('-').map(Number); return `${MONTHS[m - 1]} ${d}, ${y}` }
-const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 20, boxShadow: '0 14px 34px var(--rbl-shadow)' } as const
-const th = { padding: '8px 10px', textAlign: 'left' as const, color: 'var(--rbl-text-muted)', fontSize: 11.5, textTransform: 'uppercase' as const, fontWeight: 900, letterSpacing: 0.4 }
+const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 20 } as const
+const th = { padding: '8px 10px', textAlign: 'left' as const, color: 'var(--rbl-text-muted)', fontSize: 13.5 as const, fontWeight: 700 }
 const td = { padding: '8px 10px', verticalAlign: 'top' as const }
 const link = { color: 'var(--rbl-accent)' }
 const body = { color: 'var(--rbl-text-body)', fontSize: 14.5, lineHeight: 1.6 } as const
@@ -223,7 +223,7 @@ export default function OpenMeetingsPage() {
 function Stat({ label: l, value, sub }: { label: string; value: string; sub?: string }) {
   return (
     <div style={{ background: 'var(--rbl-surface-2)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 12, padding: 12, minWidth: 0 }}>
-      <div style={{ color: 'var(--rbl-text-muted)', fontSize: 11.2, textTransform: 'uppercase', fontWeight: 900, letterSpacing: 0.4 }}>{l}</div>
+      <div style={{ color: 'var(--rbl-text-muted)', fontSize: 13.5, fontWeight: 700 }}>{l}</div>
       <strong style={{ fontSize: 19, color: 'var(--rbl-title)' }}>{value}</strong>
       {sub && <div style={{ color: 'var(--rbl-text-muted)', fontSize: 12.3, marginTop: 2 }}>{sub}</div>}
     </div>

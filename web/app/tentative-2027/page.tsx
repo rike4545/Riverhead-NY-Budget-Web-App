@@ -13,8 +13,8 @@ const base = process.env.NEXT_PUBLIC_BASE_PATH || ''
 const usd = (n: number) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(n)
 const signed = (n: number) => `${n > 0 ? '+' : n < 0 ? '−' : ''}${usd(Math.abs(n))}`
 const pctf = (n: number | null, d = 1) => (n === null ? '—' : `${n > 0 ? '+' : n < 0 ? '−' : ''}${Math.abs(n).toFixed(d)}%`)
-const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 20, boxShadow: '0 14px 34px var(--rbl-shadow)' } as const
-const th = { padding: '8px 10px', textAlign: 'left' as const, color: 'var(--rbl-text-muted)', fontSize: 11.5, textTransform: 'uppercase' as const, fontWeight: 900, letterSpacing: 0.4 }
+const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 20 } as const
+const th = { padding: '8px 10px', textAlign: 'left' as const, color: 'var(--rbl-text-muted)', fontSize: 13.5 as const, fontWeight: 700 }
 const td = { padding: '8px 10px', verticalAlign: 'top' as const }
 const num = { ...td, textAlign: 'right' as const, whiteSpace: 'nowrap' as const }
 
@@ -63,7 +63,7 @@ export default function Tentative2027Page() {
       </PlainCallout>
 
       {!released && (
-        <section style={{ ...card, marginTop: 16, marginBottom: 16, borderLeft: '5px solid var(--rbl-warn)' }}>
+        <section style={{ ...card, marginTop: 16, marginBottom: 16, borderColor: 'var(--rbl-warn-border)' }}>
           <strong style={{ color: 'var(--rbl-title)' }}>Waiting for the {YEAR} Tentative.</strong>{' '}
           <span style={{ color: 'var(--rbl-text-body)' }}>
             Nothing on this page describes the {YEAR} Tentative until the Town publishes it. The comparison fills in on its
@@ -278,7 +278,7 @@ export default function Tentative2027Page() {
 function Stat({ label, value, sub, accent, warn, muted }: { label: string; value: string; sub?: string; accent?: boolean; warn?: boolean; muted?: boolean }) {
   return (
     <div>
-      <div style={{ color: 'var(--rbl-text-muted)', fontSize: 11.5, textTransform: 'uppercase', fontWeight: 900, letterSpacing: 0.4 }}>{label}</div>
+      <div style={{ color: 'var(--rbl-text-muted)', fontSize: 13.5, fontWeight: 700 }}>{label}</div>
       <div style={{ fontSize: 24, fontWeight: 900, lineHeight: 1.2, color: muted ? 'var(--rbl-text-muted)' : warn ? 'var(--rbl-warn-strong)' : accent ? 'var(--rbl-accent)' : 'var(--rbl-title)' }}>{value}</div>
       {sub && <div style={{ color: 'var(--rbl-text-muted)', fontSize: 12, lineHeight: 1.45 }}>{sub}</div>}
     </div>

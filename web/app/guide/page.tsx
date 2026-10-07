@@ -3,54 +3,47 @@ import Glossary from '../../components/Glossary'
 import { budgetConcepts, OSC_TOWN_GUIDE } from '../../lib/budget-concepts'
 
 const base = process.env.NEXT_PUBLIC_BASE_PATH || ''
-const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 20, boxShadow: '0 14px 34px var(--rbl-shadow)' } as const
+const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 20 } as const
 
 const tools = [
   {
     href: `${base}/payroll/`,
-    emoji: '💰',
     title: 'Payroll Explorer',
     answers: 'How much was each Town employee actually paid, and how much of that was overtime?',
     how: 'Type a name in the search box, or filter by year, union, or department. Click any column heading (like "Gross Pay") to sort. Click a name to follow that person across years.',
   },
   {
     href: `${base}/funds/`,
-    emoji: '🏛️',
     title: 'Funds & Sub-Accounts',
     answers: 'Where does the money go? Every fund broken down to departments and individual spending lines.',
     how: 'Pick a fund to open its page, then expand a department to see each spending line. Use the search box to find a specific account by name or number.',
   },
   {
     href: `${base}/compare/`,
-    emoji: '📊',
     title: 'Budget Compare',
     answers: 'Which parts of the budget grew the most, and by how much, over recent years?',
     how: 'Choose any two years and a way to sort (biggest dollar change, biggest percent change, or largest fund). Each row shows a mini trend line.',
   },
   {
     href: `${base}/general-fund/`,
-    emoji: '📈',
     title: 'General Fund History',
     answers: 'How has the main town budget and the property-tax bill changed over the last 20 years?',
     how: 'Read the chart from left (2005) to right (today). The table below shows the exact numbers for every year, including how much the property-tax levy changed.',
   },
   {
     href: `${base}/annual-report/`,
-    emoji: '🧾',
     title: '2025 Annual Report',
     answers: 'What actually happened with the money last year, compared with the plan?',
     how: 'See whether the Town ended the year with a surplus or deficit, where the money really came from and went, and how each fund did.',
   },
   {
     href: `${base}/meetings/`,
-    emoji: '🗳️',
     title: 'Town Board Votes',
     answers: 'What did the Town Board decide, and did every member agree?',
     how: 'Browse each resolution with its result and who voted how. Use the filter buttons to jump straight to the contested or failed votes.',
   },
   {
     href: `${base}/search/`,
-    emoji: '🔎',
     title: 'Search Records',
     answers: 'Where in the official documents does a specific number or topic appear?',
     how: 'Type a keyword or dollar figure to find the exact page in the Town’s budgets and financial reports.',
@@ -83,14 +76,11 @@ export default function GuidePage() {
       <h2 style={{ color: 'var(--rbl-title)' }}>The tools, in plain words</h2>
       <section style={{ display: 'grid', gap: 14, marginBottom: 26 }}>
         {tools.map((t) => (
-          <a key={t.href} href={t.href} style={{ ...card, textDecoration: 'none', color: 'inherit', display: 'block', borderLeft: '5px solid var(--rbl-gold-border)' }}>
-            <div style={{ display: 'flex', gap: 12, alignItems: 'baseline', flexWrap: 'wrap' }}>
-              <span style={{ fontSize: 22 }} aria-hidden>{t.emoji}</span>
-              <h3 style={{ margin: 0, color: 'var(--rbl-title)', fontSize: 20 }}>{t.title}</h3>
-            </div>
+          <a key={t.href} href={t.href} style={{ ...card, textDecoration: 'none', color: 'inherit', display: 'block' }}>
+            <h3 style={{ margin: 0, color: 'var(--rbl-title)', fontSize: 21 }}>{t.title}</h3>
             <p style={{ color: 'var(--rbl-info-text)', fontSize: 15.5, lineHeight: 1.5, margin: '10px 0 6px' }}><strong>Answers:</strong> {t.answers}</p>
             <p style={{ color: 'var(--rbl-text-body)', fontSize: 14.5, lineHeight: 1.5, margin: 0 }}><strong>How to use it:</strong> {t.how}</p>
-            <div style={{ color: 'var(--rbl-accent)', fontWeight: 800, marginTop: 12 }}>Open {t.title} →</div>
+            <div style={{ color: 'var(--rbl-link)', fontWeight: 600, marginTop: 12 }}>Open {t.title} →</div>
           </a>
         ))}
       </section>

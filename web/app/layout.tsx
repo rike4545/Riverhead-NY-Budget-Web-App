@@ -1,6 +1,21 @@
 import type { Metadata } from 'next'
 import type { ReactNode } from 'react'
+import localFont from 'next/font/local'
 import './site.css'
+
+// Source Sans 3, self-hosted: the Latin subset of the variable font, upright and
+// italic (SIL Open Font License, app/fonts/OFL.txt). Its figures are tabular by
+// default, so columns of numbers line up. next/font preloads it and sizes the
+// fallback to its metrics, so the page does not jump when it arrives.
+const sourceSans = localFont({
+  src: [
+    { path: './fonts/source-sans-3-latin-wght-normal.woff2', weight: '200 900', style: 'normal' },
+    { path: './fonts/source-sans-3-latin-wght-italic.woff2', weight: '200 900', style: 'italic' },
+  ],
+  variable: '--rbl-font-sans',
+  display: 'swap',
+  fallback: ['ui-sans-serif', 'system-ui', '-apple-system', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', 'sans-serif'],
+})
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://rike4545.github.io/Riverhead-NY-Budget-Web-App'),
@@ -93,6 +108,11 @@ const LIGHT_TOKENS = `
   --rbl-cta-bg:#38bdf8;
   --rbl-cta-fg:#08263c;
   --rbl-on-series:#ffffff;
+  --rbl-focus:#2563eb;
+  --rbl-focus-on-dark:#38bdf8;
+  --rbl-selection:#cfe8fb;
+  --rbl-selection-text:#102f49;
+  --rbl-scrollbar:#a9b8c7;
   --tc-red:#b91c1c;
   --tc-green:#15803d;
   color-scheme:light;
@@ -124,7 +144,7 @@ gtag('config', '${GA_MEASUREMENT_ID}');`
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="en" className={sourceSans.variable}>
       <head>
         <style dangerouslySetInnerHTML={{ __html: THEME_CSS }} />
         <style dangerouslySetInnerHTML={{ __html: TREND_CSS }} />

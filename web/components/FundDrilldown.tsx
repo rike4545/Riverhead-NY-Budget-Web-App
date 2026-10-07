@@ -9,7 +9,7 @@ import { appropriationsByYear } from '../lib/budget-history'
 const usd = (n: number | null | undefined) =>
   n == null ? '—' : new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(n)
 
-const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 18, boxShadow: '0 14px 34px var(--rbl-shadow)' } as const
+const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 18 } as const
 
 const CATEGORY_COLOR: Record<string, string> = {
   'Personal Services': 'var(--rbl-series-blue)',
@@ -69,7 +69,7 @@ export default function FundDrilldown({ fund }: { fund: FundDetail }) {
       {history.length >= 2 && (
         <section style={{ ...card, display: 'flex', gap: 18, alignItems: 'center', flexWrap: 'wrap', justifyContent: 'space-between' }}>
           <div>
-            <div style={{ color: 'var(--rbl-text-muted)', fontSize: 12, textTransform: 'uppercase', fontWeight: 900, letterSpacing: 0.4 }}>
+            <div style={{ color: 'var(--rbl-text-muted)', fontSize: 13.5, fontWeight: 700 }}>
               Appropriations history {history[0].year}–{history[history.length - 1].year}
             </div>
             <div style={{ display: 'flex', gap: 14, flexWrap: 'wrap', marginTop: 8 }}>
@@ -223,7 +223,7 @@ function LineTable({ rows }: { rows: Row[] }) {
 function Stat({ label, value, accent, good }: { label: string; value: string; accent?: boolean; good?: boolean }) {
   return (
     <div style={{ background: accent ? 'var(--rbl-info-bg)' : 'var(--rbl-surface-2)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 12, padding: 12 }}>
-      <div style={{ color: 'var(--rbl-text-muted)', fontSize: 11.5, textTransform: 'uppercase', fontWeight: 900, letterSpacing: 0.4 }}>{label}</div>
+      <div style={{ color: 'var(--rbl-text-muted)', fontSize: 13.5, fontWeight: 700 }}>{label}</div>
       <strong style={{ fontSize: 19, color: good ? 'var(--rbl-success)' : 'var(--rbl-title)' }}>{value}</strong>
     </div>
   )

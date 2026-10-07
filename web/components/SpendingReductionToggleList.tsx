@@ -15,7 +15,7 @@ import {
 import { capGap2027 } from '../lib/close-the-gap-2027'
 
 const usd = (n: number) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(n)
-const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 20, boxShadow: '0 14px 34px var(--rbl-shadow)' } as const
+const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 20 } as const
 
 const CONFIDENCE_STYLE: Record<string, { label: string; color: string; bg: string }> = {
   firm: { label: 'FIRM', color: 'var(--rbl-success-strong)', bg: 'var(--rbl-success-border)' },
@@ -55,7 +55,7 @@ export default function SpendingReductionToggleList() {
   return (
     <div style={{ display: 'grid', gap: 16 }}>
       <section style={card}>
-        <div style={{ color: 'var(--rbl-text-muted)', fontSize: 12.5, fontWeight: 900, textTransform: 'uppercase', letterSpacing: 0.4 }}>
+        <div style={{ color: 'var(--rbl-text-muted)', fontSize: 12.5, fontWeight: 700 }}>
           Your selected package
         </div>
         <div style={{ fontSize: 34, fontWeight: 900, color: 'var(--rbl-success)', lineHeight: 1.15, margin: '2px 0 6px' }}>
@@ -98,7 +98,7 @@ export default function SpendingReductionToggleList() {
         </div>
       </section>
 
-      <section style={{ background: 'var(--rbl-surface-2)', border: '1px solid var(--rbl-border-subtle)', borderLeft: '6px solid #64748b', borderRadius: 12, padding: '14px 16px' }}>
+      <section style={{ background: 'var(--rbl-surface-2)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 12, padding: '14px 16px' }}>
         <p style={{ margin: 0, color: 'var(--rbl-text-strong)', fontSize: 13.8, lineHeight: 1.55 }}>
           Union wage growth ($907.9K of modeled PBA/SOA/CSEA pressure) is the single largest driver in the 2027
           model, but it&apos;s contractually locked and cannot be treated as a spending-reduction lever without a
@@ -153,7 +153,7 @@ export default function SpendingReductionToggleList() {
 function MetricTile({ label, value, color }: { label: string; value: number; color: string }) {
   return (
     <div style={{ background: `${color}14`, borderRadius: 10, padding: 10 }}>
-      <div style={{ color: 'var(--rbl-text-muted)', fontSize: 11.5, fontWeight: 800, textTransform: 'uppercase', letterSpacing: 0.3 }}>{label}</div>
+      <div style={{ color: 'var(--rbl-text-muted)', fontSize: 13.5, fontWeight: 700 }}>{label}</div>
       <div style={{ color, fontSize: 18, fontWeight: 900 }}>{usd(value)}</div>
     </div>
   )

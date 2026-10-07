@@ -23,7 +23,7 @@ export default function CapBalancer({ levy2026, predictedLevy, allowedLevy, appr
   const col = under ? good : bad
 
   return (
-    <div style={{ background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 20, boxShadow: '0 14px 34px var(--rbl-shadow)' }}>
+    <div style={{ background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 20 }}>
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(min(260px,100%),1fr))', gap: 20 }}>
         {/* Controls */}
         <div style={{ display: 'grid', gap: 16 }}>
@@ -39,7 +39,7 @@ export default function CapBalancer({ levy2026, predictedLevy, allowedLevy, appr
 
         {/* Result */}
         <div style={{ background: under ? 'var(--rbl-success-bg)' : 'var(--rbl-danger-bg)', border: `1px solid ${under ? 'var(--rbl-success-border)' : 'var(--rbl-danger-border)'}`, borderRadius: 14, padding: 18, display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-          <div style={{ color: 'var(--rbl-text-muted)', fontSize: 12, fontWeight: 900, textTransform: 'uppercase', letterSpacing: 0.5 }}>Resulting 2027 levy</div>
+          <div style={{ color: 'var(--rbl-text-muted)', fontSize: 13.5, fontWeight: 700 }}>Resulting 2027 levy</div>
           <div style={{ fontSize: 34, fontWeight: 900, color: 'var(--rbl-title)', lineHeight: 1.1, margin: '2px 0 6px' }}>{usd(newLevy)}</div>
           <div style={{ fontSize: 18, fontWeight: 800, color: col }}>{newPct >= 0 ? '+' : ''}{newPct.toFixed(1)}% vs 2026</div>
           <div style={{ marginTop: 12, padding: '10px 12px', borderRadius: 10, background: col, color: 'white', fontWeight: 800, fontSize: 14.5 }}>

@@ -8,7 +8,7 @@ import {
   type DebtIssue,
 } from '../../lib/debt-profile'
 
-const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 20, boxShadow: '0 14px 34px var(--rbl-shadow)' } as const
+const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 20 } as const
 const usd = (n: number) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(n)
 
 // "2023-02-21" → "Feb 21, 2023". Parsed at noon UTC so the date never slips a
@@ -86,11 +86,11 @@ export default function CapitalDebtPage() {
           return (
             <article key={`${d.purpose}-${d.issued}`} style={{
               ...card, padding: 18,
-              borderLeft: `6px solid ${isBan ? 'var(--rbl-warn-border)' : 'var(--rbl-accent-border)'}`,
+              borderColor: isBan ? 'var(--rbl-warn-border)' : 'var(--rbl-accent-border)',
             }}>
               <div style={{ display: 'flex', gap: 10, alignItems: 'baseline', flexWrap: 'wrap', marginBottom: 4 }}>
                 <span style={{
-                  fontSize: 10.5, fontWeight: 900, letterSpacing: 0.5, textTransform: 'uppercase',
+                  fontSize: 13, fontWeight: 700, 
                   padding: '2px 7px', borderRadius: 5,
                   background: isBan ? 'var(--rbl-warn-bg)' : 'var(--rbl-info-bg)',
                   color: isBan ? 'var(--rbl-warn-strong)' : 'var(--rbl-info-text)',
@@ -136,7 +136,7 @@ export default function CapitalDebtPage() {
       </section>
 
       {/* Both notes matured during 2026 — the balance sheet alone would hide that. */}
-      <section style={{ ...card, marginBottom: 18, background: 'var(--rbl-warn-bg)', border: '1px solid var(--rbl-warn-border)', borderLeft: '6px solid var(--rbl-gold-border)' }}>
+      <section style={{ ...card, marginBottom: 18, background: 'var(--rbl-warn-bg)', border: '1px solid var(--rbl-warn-border)' }}>
         <h2 style={{ marginTop: 0, marginBottom: 4, color: 'var(--rbl-note-text)', fontSize: 22 }}>What has happened since</h2>
         <p style={{ color: 'var(--rbl-note-text)', fontSize: 14.8, lineHeight: 1.6, marginTop: 0 }}>
           The balances above are a photograph taken on {debtProfile.asOf}. Both bond anticipation notes reached their
@@ -146,7 +146,7 @@ export default function CapitalDebtPage() {
         <ol style={{ margin: 0, paddingLeft: 0, listStyle: 'none', display: 'grid', gap: 10 }}>
           {sinceBalanceSheet.events.map((e) => (
             <li key={`${e.date}-${e.what}`} style={{ background: 'var(--rbl-surface)', border: '1px solid var(--rbl-warn-border)', borderRadius: 10, padding: '11px 14px' }}>
-              <div style={{ color: 'var(--rbl-badge)', fontSize: 11.5, fontWeight: 900, letterSpacing: 0.4, textTransform: 'uppercase' }}>{e.date}</div>
+              <div style={{ color: 'var(--rbl-badge)', fontSize: 13.5, fontWeight: 700 }}>{e.date}</div>
               <strong style={{ color: 'var(--rbl-title)', fontSize: 14.8, display: 'block', margin: '2px 0 3px' }}>{e.what}</strong>
               <div style={{ color: 'var(--rbl-text-body)', fontSize: 13.5, lineHeight: 1.55 }}>{e.why}</div>
               <div style={{ color: 'var(--rbl-text-muted)', fontSize: 12, marginTop: 4 }}>{e.source}</div>
@@ -171,7 +171,7 @@ export default function CapitalDebtPage() {
         <div style={{ overflowX: 'auto' }}>
           <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 14, minWidth: 560 }}>
             <thead>
-              <tr style={{ textAlign: 'left', color: 'var(--rbl-text-muted)', fontSize: 12, textTransform: 'uppercase', letterSpacing: 0.4 }}>
+              <tr style={{ textAlign: 'left', color: 'var(--rbl-text-muted)', fontSize: 13.5 }}>
                 <th style={{ padding: '8px 10px' }}>What the Town owes</th>
                 <th style={{ padding: '8px 10px', textAlign: 'right' }}>Dec 31, 2025</th>
                 <th style={{ padding: '8px 10px', textAlign: 'right' }}>Dec 31, 2024</th>
@@ -208,7 +208,7 @@ export default function CapitalDebtPage() {
         </p>
       </section>
 
-      <section style={{ ...card, marginBottom: 18, borderLeft: '6px solid var(--rbl-gold-border)' }}>
+      <section style={{ ...card, marginBottom: 18 }}>
         <h3 style={{ marginTop: 0, marginBottom: 6, color: 'var(--rbl-title)', fontSize: 18 }}>
           Why the retiree-health number jumps around
         </h3>
@@ -218,7 +218,7 @@ export default function CapitalDebtPage() {
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(160px,1fr))', gap: 10, marginTop: 12 }}>
           {opebLiability.series.map((y) => (
             <div key={y.asOf} style={{ background: 'var(--rbl-warn-bg)', border: '1px solid var(--rbl-warn-border)', borderRadius: 10, padding: '10px 12px' }}>
-              <div style={{ color: 'var(--rbl-badge)', fontSize: 11.5, fontWeight: 900, letterSpacing: 0.4, textTransform: 'uppercase' }}>{y.asOf}</div>
+              <div style={{ color: 'var(--rbl-badge)', fontSize: 13.5, fontWeight: 700 }}>{y.asOf}</div>
               <div style={{ color: 'var(--rbl-title)', fontSize: 19, fontWeight: 900, marginTop: 3 }}>{usd(y.governmental)}</div>
               <div style={{ color: 'var(--rbl-text-muted)', fontSize: 12.4, lineHeight: 1.5, marginTop: 2 }}>
                 {y.discountRate != null ? `Discount rate ${y.discountRate.toFixed(2)}%` : 'Discount rate not yet published'}
@@ -334,7 +334,7 @@ export default function CapitalDebtPage() {
 function Field({ term, value }: { term: string; value: string }) {
   return (
     <div>
-      <dt style={{ color: 'var(--rbl-text-muted)', fontSize: 10.8, fontWeight: 900, textTransform: 'uppercase', letterSpacing: 0.4 }}>{term}</dt>
+      <dt style={{ color: 'var(--rbl-text-muted)', fontSize: 13, fontWeight: 700 }}>{term}</dt>
       <dd style={{ margin: '1px 0 0', color: 'var(--rbl-text-strong)', fontSize: 13.4, fontWeight: 700 }}>{value}</dd>
     </div>
   )
@@ -343,7 +343,7 @@ function Field({ term, value }: { term: string; value: string }) {
 function Stat({ label, value, sub, accent }: { label: string; value: string; sub?: string; accent?: boolean }) {
   return (
     <div>
-      <div style={{ color: 'var(--rbl-text-muted)', fontSize: 12.5, fontWeight: 700, textTransform: 'uppercase', letterSpacing: 0.3 }}>{label}</div>
+      <div style={{ color: 'var(--rbl-text-muted)', fontSize: 12.5, fontWeight: 700 }}>{label}</div>
       <div style={{ color: accent ? 'var(--rbl-warn)' : 'var(--rbl-title)', fontSize: 22, fontWeight: 900, lineHeight: 1.2 }}>{value}</div>
       {sub && <div style={{ color: 'var(--rbl-text-muted)', fontSize: 12.5 }}>{sub}</div>}
     </div>

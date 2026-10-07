@@ -83,7 +83,7 @@ export default function BudgetProcessMeetingForecast() {
     <section aria-label="2027 budget process meeting forecast" style={{ margin: '22px 0 28px' }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', gap: 12, flexWrap: 'wrap', alignItems: 'end', marginBottom: 10 }}>
         <div>
-          <div style={{ color: 'var(--rbl-badge)', fontSize: 11, fontWeight: 950, letterSpacing: .8, textTransform: 'uppercase' }}>2027 budget process · forecast</div>
+          <div style={{ color: 'var(--rbl-badge)', fontSize: 13, fontWeight: 700 }}>2027 budget process · forecast</div>
           <h2 style={{ margin: '3px 0 4px', color: 'var(--rbl-title)', fontSize: 23 }}>Which Town Board meetings are likely to carry the budget?</h2>
           <p style={{ margin: 0, color: 'var(--rbl-text-muted)', maxWidth: 850, fontSize: 13.5, lineHeight: 1.5 }}>
             These are predictions derived from New York Town Law deadlines and Riverhead&apos;s published meeting dates. They are intentionally separate from the official agenda-item list above. A prediction becomes an actual item only when the Town publishes it.

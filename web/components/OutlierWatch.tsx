@@ -3,7 +3,7 @@
 import { useMemo, useState } from 'react'
 import type { FundYoyChange } from '../lib/outlier-watch'
 
-const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 18, boxShadow: '0 14px 34px var(--rbl-shadow)' } as const
+const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 18 } as const
 const usd = (n: number) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(n)
 const th = { padding: '8px 10px', fontWeight: 800, fontSize: 12 } as const
 const td = { padding: '8px 10px' } as const

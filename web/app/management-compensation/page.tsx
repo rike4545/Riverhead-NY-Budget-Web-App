@@ -8,7 +8,7 @@ import {
 } from '../../lib/management-compensation'
 
 const usd = (n: number) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(n)
-const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 20, boxShadow: '0 14px 34px var(--rbl-shadow)' } as const
+const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 20 } as const
 const th = { padding: '8px 10px' } as const
 const td = { padding: '9px 10px' } as const
 
@@ -40,7 +40,7 @@ export default function ManagementCompensationPage() {
         rate it gave {scheduleRateCount} other positions paid off the union grid.
       </PlainCallout>
 
-      <section style={{ ...card, marginBottom: 16, borderLeft: '6px solid var(--rbl-accent-border)' }}>
+      <section style={{ ...card, marginBottom: 16 }}>
         <h3 style={{ marginTop: 0, color: 'var(--rbl-title)' }}>What the resolution did</h3>
         <p style={{ color: 'var(--rbl-text-body)', fontSize: 14.5, lineHeight: 1.6, marginTop: 0 }}>
           <strong>Resolution {resolution984.number}</strong>, {resolution984.title}, adopted{' '}

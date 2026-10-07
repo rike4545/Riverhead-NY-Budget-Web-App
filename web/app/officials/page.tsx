@@ -2,7 +2,7 @@ import PageShell from '../../components/PageShell'
 import PlainCallout from '../../components/PlainCallout'
 import data from '../../public/data/officials-pensions.json'
 
-const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 18, boxShadow: '0 14px 34px var(--rbl-shadow)' } as const
+const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 18 } as const
 
 export const metadata = {
   title: 'Elected officials who also collect a public pension',
@@ -26,7 +26,7 @@ export default function OfficialsPage() {
 
   return (
     <PageShell title={data.title} subtitle={data.intro}>
-      <div style={{ background: 'var(--rbl-info-bg)', border: '1px solid var(--rbl-info-border)', borderLeft: '6px solid var(--rbl-accent-border)', borderRadius: 12, padding: '14px 16px', marginBottom: 16, color: 'var(--rbl-info-text)', fontSize: 14.5, lineHeight: 1.6 }}>
+      <div style={{ background: 'var(--rbl-info-bg)', border: '1px solid var(--rbl-info-border)', borderRadius: 12, padding: '14px 16px', marginBottom: 16, color: 'var(--rbl-info-text)', fontSize: 14.5, lineHeight: 1.6 }}>
         <strong>It’s legal — this is disclosure, not an accusation.</strong> {data.legalNote}
       </div>
 
@@ -46,7 +46,7 @@ export default function OfficialsPage() {
         {officials.map((o) => {
           const s = STYLE[o.status] ?? STYLE.review
           return (
-            <section key={o.name} style={{ ...card, borderLeft: `6px solid ${s.border}` }}>
+            <section key={o.name} style={{ ...card, borderColor: s.border }}>
               <div style={{ display: 'flex', flexWrap: 'wrap', gap: 10, alignItems: 'baseline', justifyContent: 'space-between' }}>
                 <div>
                   <span style={{ fontSize: 18, fontWeight: 900, color: 'var(--rbl-title)' }}>{o.name}</span>
@@ -66,8 +66,8 @@ export default function OfficialsPage() {
         })}
       </div>
 
-      <section style={{ ...card, marginTop: 16, borderLeft: '6px solid var(--rbl-violet)' }}>
-        <div style={{ color: 'var(--rbl-violet)', fontWeight: 900, fontSize: 12, textTransform: 'uppercase', letterSpacing: 0.4 }}>Coming up</div>
+      <section style={{ ...card, marginTop: 16 }}>
+        <div style={{ color: 'var(--rbl-violet)', fontWeight: 700, fontSize: 13.5 }}>Coming up</div>
         <h3 style={{ margin: '4px 0 8px', color: 'var(--rbl-title)' }}>The 2026 Town Supervisor race</h3>
         <p style={{ color: 'var(--rbl-text-strong)', fontSize: 14.5, lineHeight: 1.6, margin: 0 }}>
           Riverhead&apos;s next Supervisor election is in <strong>November 2026</strong>: Republican councilman
@@ -89,7 +89,7 @@ export default function OfficialsPage() {
 function Stat({ label, value, accent }: { label: string; value: string; accent?: boolean }) {
   return (
     <div style={{ background: accent ? 'var(--rbl-warn-bg)' : 'var(--rbl-surface-2)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 12, padding: 12 }}>
-      <div style={{ color: 'var(--rbl-text-muted)', fontSize: 11.5, textTransform: 'uppercase', fontWeight: 900, letterSpacing: 0.4 }}>{label}</div>
+      <div style={{ color: 'var(--rbl-text-muted)', fontSize: 13.5, fontWeight: 700 }}>{label}</div>
       <strong style={{ fontSize: 26, color: accent ? 'var(--rbl-warn)' : 'var(--rbl-title)' }}>{value}</strong>
     </div>
   )

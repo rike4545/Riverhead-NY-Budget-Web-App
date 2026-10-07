@@ -5,7 +5,7 @@ import {
   shareOfMedian, gapToMedianAnnual, riverheadMixTotal, RIVERHEAD,
 } from '../../lib/road-spending'
 
-const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 20, boxShadow: '0 14px 34px var(--rbl-shadow)' } as const
+const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 20 } as const
 const usd = (n: number) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(n)
 
 export const metadata = {
@@ -28,7 +28,7 @@ export default function RoadSpendingPage() {
       </PlainCallout>
 
       {/* Headline */}
-      <section style={{ ...card, borderLeft: '6px solid var(--rbl-accent-border)' }}>
+      <section style={{ ...card }}>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(190px,1fr))', gap: 12 }}>
           <Stat label="Riverhead, per maintained mile" value={usd(riverhead.perMile)} accent />
           <Stat label="Suffolk town median" value={usd(medianPerMile)} />
@@ -75,7 +75,7 @@ export default function RoadSpendingPage() {
       </section>
 
       {/* What Riverhead's money buys */}
-      <section style={{ ...card, marginTop: 16, borderLeft: '6px solid var(--rbl-warn)' }}>
+      <section style={{ ...card, marginTop: 16, borderColor: 'var(--rbl-warn-border)' }}>
         <h2 style={{ margin: '0 0 10px', color: 'var(--rbl-title)', fontSize: 19 }}>What Riverhead’s highway money goes to</h2>
         <div style={{ display: 'grid', gap: 8 }}>
           {roadSpending.riverheadMix.map((m) => (
@@ -98,7 +98,7 @@ export default function RoadSpendingPage() {
       </section>
 
       {/* The honest reading */}
-      <section style={{ ...card, marginTop: 16, borderLeft: '6px solid var(--rbl-teal)', background: 'var(--rbl-teal-bg)' }}>
+      <section style={{ ...card, marginTop: 16, background: 'var(--rbl-teal-bg)' }}>
         <h2 style={{ margin: '0 0 8px', color: 'var(--rbl-teal)', fontSize: 19 }}>What this does and doesn’t tell you</h2>
         <p style={{ color: 'var(--rbl-teal-strong)', fontSize: 15, lineHeight: 1.7, margin: 0 }}>
           Spending less per mile than your neighbours is not a result — it is a question. It can mean a lean, efficient
@@ -142,7 +142,7 @@ function SourceLine({ label, s }: { label: string; s: { source: string; detail: 
 function Stat({ label, value, accent }: { label: string; value: string; accent?: boolean }) {
   return (
     <div style={{ background: accent ? 'var(--rbl-warn-bg)' : 'var(--rbl-surface-2)', border: `1px solid ${accent ? 'var(--rbl-warn-border)' : 'var(--rbl-border-subtle)'}`, borderRadius: 12, padding: '12px 14px' }}>
-      <div style={{ color: 'var(--rbl-text-muted)', fontSize: 11, fontWeight: 800, textTransform: 'uppercase', letterSpacing: 0.4, lineHeight: 1.35 }}>{label}</div>
+      <div style={{ color: 'var(--rbl-text-muted)', fontSize: 13, fontWeight: 700, lineHeight: 1.35 }}>{label}</div>
       <div style={{ color: accent ? 'var(--rbl-warn)' : 'var(--rbl-title)', fontSize: 24, fontWeight: 950, marginTop: 3 }}>{value}</div>
     </div>
   )

@@ -2,7 +2,7 @@ import PageShell from '../../components/PageShell'
 import PlainCallout from '../../components/PlainCallout'
 import { electionLawCase as c } from '../../lib/election-law-case'
 
-const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 20, boxShadow: '0 14px 34px var(--rbl-shadow)' } as const
+const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 20 } as const
 const usd = (n: number) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(n)
 const usd2 = (n: number) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 2 }).format(n)
 
@@ -31,7 +31,7 @@ export default function ElectionLawCasePage() {
       </section>
 
       {/* Outcome — the headline accountability fact. */}
-      <section style={{ ...card, marginBottom: 16, borderLeft: '8px solid var(--rbl-danger)' }}>
+      <section style={{ ...card, marginBottom: 16, borderColor: 'var(--rbl-danger-border)' }}>
         <h3 style={{ marginTop: 0, color: 'var(--rbl-warn-strong)' }}>How it ended</h3>
         <p style={{ color: 'var(--rbl-text-strong)', fontSize: 14.5, lineHeight: 1.65, margin: '0 0 10px' }}>
           {c.outcome.court} {c.outcome.ruling}
@@ -42,7 +42,7 @@ export default function ElectionLawCasePage() {
       </section>
 
       {/* Can the Town claw it back? NY legal levers. */}
-      <section style={{ ...card, marginBottom: 16, borderLeft: '6px solid var(--rbl-accent-border)' }}>
+      <section style={{ ...card, marginBottom: 16 }}>
         <h3 style={{ marginTop: 0, color: 'var(--rbl-title)' }}>Can the Town refuse or claw back any of it?</h3>
         <p style={{ color: 'var(--rbl-text-strong)', fontSize: 14.5, lineHeight: 1.6, margin: '0 0 10px' }}>{c.recovery.intro}</p>
         <div style={{ display: 'grid', gap: 10 }}>
@@ -105,14 +105,14 @@ export default function ElectionLawCasePage() {
         </div>
       </section>
 
-      <section style={{ ...card, marginBottom: 16, borderLeft: '6px solid var(--rbl-warn)' }}>
+      <section style={{ ...card, marginBottom: 16, borderColor: 'var(--rbl-warn-border)' }}>
         <h3 style={{ marginTop: 0, color: 'var(--rbl-warn-strong)' }}>What&apos;s still unknown</h3>
         <ul style={{ color: 'var(--rbl-text-strong)', fontSize: 14, lineHeight: 1.55, margin: 0, paddingLeft: 18, display: 'grid', gap: 6 }}>
           {c.unknowns.map((u) => <li key={u}>{u}</li>)}
         </ul>
       </section>
 
-      <section style={{ ...card, marginBottom: 16, borderLeft: '6px solid var(--rbl-accent-border)' }}>
+      <section style={{ ...card, marginBottom: 16 }}>
         <h3 style={{ marginTop: 0, color: 'var(--rbl-title)' }}>Questions worth asking</h3>
         <ul style={{ color: 'var(--rbl-text-strong)', fontSize: 14, lineHeight: 1.55, margin: 0, paddingLeft: 18, display: 'grid', gap: 6 }}>
           {c.questionsToAsk.map((q) => <li key={q}>{q}</li>)}
@@ -135,7 +135,7 @@ export default function ElectionLawCasePage() {
 function Stat({ label, value, sub, accent, red }: { label: string; value: string; sub: string; accent?: boolean; red?: boolean }) {
   return (
     <div style={{ background: accent ? 'var(--rbl-info-bg)' : 'var(--rbl-surface-2)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 12, padding: 12 }}>
-      <div style={{ color: 'var(--rbl-text-muted)', fontSize: 11.5, textTransform: 'uppercase', fontWeight: 900, letterSpacing: 0.4 }}>{label}</div>
+      <div style={{ color: 'var(--rbl-text-muted)', fontSize: 13.5, fontWeight: 700 }}>{label}</div>
       <strong style={{ fontSize: 22, color: red ? 'var(--rbl-danger)' : 'var(--rbl-title)' }}>{value}</strong>
       <div style={{ color: 'var(--rbl-text-muted)', fontSize: 12, marginTop: 2 }}>{sub}</div>
     </div>

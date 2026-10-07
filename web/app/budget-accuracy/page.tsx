@@ -10,14 +10,14 @@ import {
 } from '../../lib/budget-accuracy'
 import { supplementSource } from '../../lib/supplement'
 
-const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 20, boxShadow: '0 14px 34px var(--rbl-shadow)' } as const
+const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 20 } as const
 const usd = (n: number) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(n)
 const money = (n: number | null) => (n === null ? '—' : usd(n))
 const th = { padding: '8px 10px' } as const
 const thr = { padding: '8px 10px', textAlign: 'right' } as const
 const td = { padding: '9px 10px' } as const
 const tdr = { padding: '9px 10px', textAlign: 'right', whiteSpace: 'nowrap' } as const
-const headRow = { textAlign: 'left', color: 'var(--rbl-text-muted)', fontSize: 11, textTransform: 'uppercase', letterSpacing: 0.4 } as const
+const headRow = { textAlign: 'left', color: 'var(--rbl-text-muted)', fontSize: 13 } as const
 
 const SEV_COLOR: Record<string, string> = {
   critical: 'var(--rbl-danger)',
@@ -61,7 +61,7 @@ export default function BudgetAccuracyPage() {
       <p style={{ color: 'var(--rbl-text-muted)', fontSize: 14, marginTop: 0, lineHeight: 1.6 }}>{historyNote}</p>
 
       {chronicUnderBudget.length > 0 && (
-        <section style={{ ...card, marginBottom: 14, borderLeft: '6px solid var(--rbl-danger)' }}>
+        <section style={{ ...card, marginBottom: 14, borderColor: 'var(--rbl-danger-border)' }}>
           <h3 style={{ marginTop: 0, color: 'var(--rbl-title)' }}>Over budget three years running, and budgeted low again</h3>
           <p style={{ color: 'var(--rbl-text-body)', fontSize: 14.5, lineHeight: 1.6, marginTop: 0 }}>
             These lines cost more than their budget in each of {LAST3.join(', ')}. A line can only spend past its budget if money
@@ -99,7 +99,7 @@ export default function BudgetAccuracyPage() {
         </section>
       )}
 
-      <section style={{ ...card, marginBottom: 14, borderLeft: '6px solid var(--rbl-warn-border)' }}>
+      <section style={{ ...card, marginBottom: 14, borderColor: 'var(--rbl-warn-border)' }}>
         <h3 style={{ marginTop: 0, color: 'var(--rbl-title)' }}>Lines that go quiet, then cost real money</h3>
         <p style={{ color: 'var(--rbl-text-body)', fontSize: 14.5, lineHeight: 1.6, marginTop: 0 }}>
           These sit at or near zero for years, so any single-year comparison reads them as dead. Then the bill arrives.
@@ -229,11 +229,11 @@ export default function BudgetAccuracyPage() {
 
       <section style={{ display: 'grid', gap: 12, marginBottom: 14 }}>
         {curatedFlags.map((f) => (
-          <div key={f.rank} style={{ ...card, borderLeft: `6px solid ${SEV_COLOR[f.severity] ?? 'var(--rbl-border-subtle)'}` }}>
+          <div key={f.rank} style={{ ...card, borderColor: SEV_COLOR[f.severity] ?? 'var(--rbl-border-subtle)' }}>
             <div style={{ display: 'flex', alignItems: 'baseline', gap: 10, flexWrap: 'wrap' }}>
               <span style={{ color: 'var(--rbl-text-muted)', fontWeight: 900, fontSize: 12 }}>#{f.rank}</span>
               <strong style={{ color: 'var(--rbl-title)', fontSize: 16.5 }}>{f.title}</strong>
-              <span style={{ marginLeft: 'auto', color: SEV_COLOR[f.severity], fontWeight: 800, fontSize: 11.5, letterSpacing: 0.4, textTransform: 'uppercase' }}>
+              <span style={{ marginLeft: 'auto', color: SEV_COLOR[f.severity], fontWeight: 700, fontSize: 13.5 }}>
                 {severityLabel[f.severity]}
               </span>
             </div>
@@ -296,7 +296,7 @@ export default function BudgetAccuracyPage() {
 function Fig({ label, value, strong, note }: { label: string; value: string; strong?: boolean; note?: string }) {
   return (
     <div>
-      <div style={{ color: 'var(--rbl-text-muted)', fontSize: 10.5, fontWeight: 800, letterSpacing: 0.4, textTransform: 'uppercase' }}>{label}</div>
+      <div style={{ color: 'var(--rbl-text-muted)', fontSize: 13, fontWeight: 700 }}>{label}</div>
       <div style={{ color: strong ? 'var(--rbl-title)' : 'var(--rbl-text-body)', fontSize: 15, fontWeight: strong ? 800 : 600 }}>{value || '—'}</div>
       {note && <div style={{ color: 'var(--rbl-text-muted)', fontSize: 11.5, fontWeight: 700 }}>{note}</div>}
     </div>
