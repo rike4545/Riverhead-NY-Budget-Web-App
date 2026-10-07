@@ -113,8 +113,21 @@ if (existsSync(path('out/data/meetings/index.json')) && existsSync(path('out/dat
       && source?.voteSource?.voteBlockCount >= meeting.total
     )
 
-    if (!remainsOmission && !upgradedFromOfficialPacket) {
-      fail(`Vote-detail-omission fixture is neither preserved nor backed by a complete official Agenda Packet: ${slug}`)
+    // The Town has since published minutes that carry the votes. That ends the
+    // omission from the best source there is, provided the minutes account for
+    // every vote the agenda packet recorded.
+    const upgradedFromOfficialMinutes = Boolean(
+      meeting.voteSource === 'minutes'
+      && meeting.total > 0
+      && String(meeting.officialRecordStatus ?? '').startsWith('vote-record-parsed')
+      && source?.voteSourceKind === 'minutes'
+      && source?.voteSource?.type === 'Minutes'
+      && source?.voteSource?.hasVoteSummary
+      && (!packet?.hasVoteBlocks || packet.voteBlockCount === meeting.total)
+    )
+
+    if (!remainsOmission && !upgradedFromOfficialPacket && !upgradedFromOfficialMinutes) {
+      fail(`Vote-detail-omission fixture is neither preserved nor backed by complete official minutes or a complete official Agenda Packet: ${slug}`)
     }
   }
 }
