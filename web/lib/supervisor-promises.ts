@@ -38,12 +38,13 @@ import {
   openingUnassigned, openingPercentOfAppropriations, committedThisYear, surplusAboveFloorCeiling,
 } from './reserve-availability'
 import { forgoneLow, forgoneHigh, forgoneThroughYear, statute as housingStatute } from './community-housing'
+import { cpfDebtPayoffProposal as cpfPayoff } from './cpf'
 
 export const SUPERVISOR = 'Jerry Halpin'
 export const ELECTION = 'November 3, 2026'
 
 export type Source = { label: string; url: string; date: string }
-const SITE: Source = { label: 'votejerryhalpin.com/about', url: 'https://www.votejerryhalpin.com/about', date: 'accessed Sept. 2026' }
+const SITE: Source = { label: 'votejerryhalpin.com/about', url: 'https://www.votejerryhalpin.com/about', date: 'read Oct. 8, 2026' }
 const NEWS_REVIEW: Source = {
   label: 'Riverhead News-Review, “Jerry Halpin gets supervisor nomination from Riverhead Democrats”',
   url: 'https://riverheadnewsreview.timesreview.com/2026/02/131898/jerry-halpin-gets-supervisor-nomination-from-riverhead-democrats/',
@@ -179,6 +180,10 @@ const gfRevenue2027 = revenue(tentative2027, 'A01')
 const spelledOut = (n: number) => ['None', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten', 'Eleven', 'Twelve'][n] ?? String(n)
 const gfLevyGrowth2027 = growth(adopted2026?.funds.A01?.levy ?? null, tentative2027?.funds.A01?.levy ?? null)
 const gfRevenue2026 = revenue(adopted2026, 'A01')
+// The retirement incentive's 2027 saving, as a share of the levies it would otherwise have raised.
+const shareOf = (part: number, whole: number | null | undefined) => (whole ? ((part / whole) * 100).toFixed(1) : null)
+const incentiveShareOfLevy = released ? shareOf(incentiveOutcome.savings2027, townWide.y2027Tentative) : null
+const incentiveShareOfGfLevy = released ? shareOf(incentiveOutcome.savings2027, tentative2027?.funds.A01?.levy) : null
 
 export const tests: Test[] = [
   {
@@ -438,11 +443,12 @@ export const claims: Claim[] = [
   {
     claim: 'Paid off $7 million in CPF debt, saving taxpayers $600,000 in interest.',
     status: 'supported',
-    summary: 'Yes. The Board voted 5–0 to pay off the bonds early with money the preservation fund already had.',
+    summary: `Yes. The Board voted 5–0 to pay off the bonds early with money the preservation fund already had. The resolution states no interest figure; the Town’s estimate, as RiverheadLOCAL reported it, was about ${usd(cpfPayoff.interestSaved)}. The saving stays in the preservation fund, which pays its own debt from the real estate transfer tax, so it doesn’t lower property tax bills.`,
     finding:
-      'Resolution 2026-642 used $7,212,941 the Community Preservation Fund had on hand, plus $92,059 from the sale of the Vail-Leavitt Music Hall, to pay off the 2018 Series B bonds by August 1. It passed 5–0. The resolution doesn’t state the $600,000 in interest savings, so we haven’t checked that number.',
+      `Resolution 2026-642 used $7,212,941 the Community Preservation Fund had on hand, plus $92,059 from the sale of the Vail-Leavitt Music Hall, to pay off the 2018 Series B bonds by August 1. It passed 5–0. The resolution doesn’t state the interest saved. Before the vote, RiverheadLOCAL reported the Town’s estimate as about ${usd(cpfPayoff.interestSaved)}, a little more than the campaign’s $600,000. The bonds paid 4% to 5% and would otherwise have been repaid through ${cpfPayoff.originalFinalMaturityYear}. Two things the campaign’s wording leaves out. The preservation fund pays its debt from the 2% tax on real estate sales, not from property taxes, so the interest it no longer pays stays in that fund rather than coming off anyone’s tax bill. And the $7.2 million was money the fund could otherwise spend on preserving land: RiverheadLOCAL put the fund’s balance at about ${usd(cpfPayoff.fundBalanceEnd2025)} at the end of 2025 and about ${usd(cpfPayoff.projectedFundBalanceAfter)} after the payoff.`,
     votes: [{ resolution: '2026-642', date: 'July 7, 2026', action: 'Pay off the 2018 Series B bonds early', result: 'Adopted 5–0', halpin: 'Aye', mover: 'Merrifield', ayes: 'Halpin, Rothwell, Kern, Merrifield, Waski' }],
-    records: ['TB Resolution 2026-642, July 7, 2026'],
+    records: ['TB Resolution 2026-642, July 7, 2026', `${cpfPayoff.source.title}`, '2025 Annual Financial Report, Statement of Indebtedness (the bonds’ final maturity), and the 2024 audited financial statements, Note 3.E (their rates)'],
+    documents: [{ label: cpfPayoff.source.title, url: cpfPayoff.source.url, date: 'July 1, 2026' }],
   },
   {
     claim: 'Voted against using eminent domain to acquire the Long Island Science Center property — a move that could cost taxpayers millions.',
@@ -474,13 +480,15 @@ export const claims: Claim[] = [
     documents: [officeDocuments.schedule2026, officeDocuments.packet2026, officeDocuments.packet2025Dec, officeDocuments.minutes2025],
   },
   {
-    claim: 'Offered a retirement incentive to PBA, SOA and CSEA workers, expected to reduce 2027 taxes.',
-    status: 'supported',
-    summary: released
+    claim: 'Offered a retirement incentive to PBA, SOA and CSEA workers, expected to reduce 2027 taxes by approximately 1%.',
+    status: released && incentiveShareOfLevy !== null ? 'partly' : 'supported',
+    summary: released && incentiveShareOfLevy !== null
+      ? `Partly. The incentive was offered and approved 5–0. ${spelledOut(incentiveOutcome.took.total)} employees took it, and his 2027 proposal counts ${usd(incentiveOutcome.savings2027)} of General Fund savings from it, about ${incentiveShareOfLevy}% of the proposed town-wide levy, so “approximately 1%” is fair. But the proposal still raises the town-wide levy ${pct(townWide.growth2027)}, about as much as the tax cap allows. The saving keeps the increase from being larger; it doesn’t bring taxes down.`
+      : released
       ? `Yes, the incentive was offered and approved 5–0. ${spelledOut(incentiveOutcome.took.total)} employees took it, and his 2027 proposal counts ${usd(incentiveOutcome.savings2027)} of General Fund savings from it.`
       : 'Yes, the incentive was offered and approved 5–0. The tax savings are the Town’s estimate until we know how many people take it.',
     finding: released
-      ? `The 2026 Voluntary Retirement Incentive was open to 53 employees: 29 in the CSEA union, 18 police officers (PBA) and 6 police supervisors (SOA). In July the Town estimated it would save $500,000 to $800,000. His letter in the 2027 proposal says ${incentiveOutcome.took.csea} CSEA members and ${incentiveOutcome.took.pba} PBA members took it, and it budgets ${usd(incentiveOutcome.savings2027)} of General Fund savings for 2027: ${usd(incentiveOutcome.salariesAndPayrollTaxes)} less in salaries and payroll taxes and ${usd(incentiveOutcome.retirementContributions)} less in State retirement contributions, partly offset by higher retiree health insurance. The Town expects to refill every job that opens up.${gfLevyGrowth2027 !== null ? ` The General Fund levy in the proposal rises ${gfLevyGrowth2027.toFixed(2)}%.` : ''}`
+      ? `The 2026 Voluntary Retirement Incentive was open to 53 employees: 29 in the CSEA union, 18 police officers (PBA) and 6 police supervisors (SOA). In July the Town estimated it would save $500,000 to $800,000. His letter in the 2027 proposal says ${incentiveOutcome.took.csea} CSEA members and ${incentiveOutcome.took.pba} PBA members took it, and it budgets ${usd(incentiveOutcome.savings2027)} of General Fund savings for 2027: ${usd(incentiveOutcome.salariesAndPayrollTaxes)} less in salaries and payroll taxes and ${usd(incentiveOutcome.retirementContributions)} less in State retirement contributions, partly offset by higher retiree health insurance. The Town expects to refill every job that opens up.${incentiveShareOfLevy !== null && townWide.y2027Tentative !== null ? ` The saving is ${incentiveShareOfLevy}% of the proposed town-wide levy of ${usd(townWide.y2027Tentative)}${incentiveShareOfGfLevy !== null ? ` and ${incentiveShareOfGfLevy}% of the General Fund’s` : ''}.` : ''}${gfLevyGrowth2027 !== null ? ` Even so, the General Fund levy in the proposal rises ${gfLevyGrowth2027.toFixed(2)}%${townWide.growth2027 !== null ? ` and the town-wide levy ${pct(townWide.growth2027)}` : ''}${statedLimitPct !== null ? `, against the ${statedLimitPct}% the cap allows this year` : ''}.` : ''} The incentive’s own payments, $12,500 to each CSEA member and $1,000 per year of service plus up to 30 sick days to each police officer, fall in 2026; the three resolutions state no cost for them.`
       : 'The 2026 Voluntary Retirement Incentive is open to 53 employees: 29 in the CSEA union, 18 police officers (PBA) and 6 police supervisors (SOA). The Town estimates it will save $500,000 to $800,000. Retirements are due by October 1, and the Town expects to refill every job that opens up. The savings stay an estimate until we know how many people take it.',
     votes: [
       { resolution: '2026-678', date: 'July 7, 2026', action: 'Approve the incentive agreement with CSEA', result: 'Adopted, unanimous', halpin: 'Aye', mover: 'Merrifield' },
@@ -494,11 +502,19 @@ export const claims: Claim[] = [
     ],
   },
   {
+    claim: 'These items were not part of the 2026 budget, and we completed them without going over budget.',
+    status: 'partly',
+    summary: 'Partly. They weren’t in the 2026 budget, as he says. But the bond payoff didn’t fit inside it: the Board added $7.3 million from savings to the 2026 budget to pay for it.',
+    finding:
+      'The sentence follows his office pay cut, the bond payoff and the retirement incentive. None of the three was in the 2026 budget, which was adopted before he took office. The bond payoff came from savings: Resolution 2026-642 added $7,212,941 from the Community Preservation Fund’s savings and $92,059 from the Vail-Leavitt Music Hall sale to the 2026 budget and spent them on the bonds. A budget change like that is legal and common, but it means the money came from savings rather than from room inside the adopted budget. The retirement incentive’s one-time payments fall in 2026. The three resolutions approving it state no cost, and we found no budget change for the payments, so the records don’t show how they were covered. A later item on his list follows the same pattern: the electronic permitting system, below, is to be “paid from the Town’s General Fund balance.”',
+    records: ['TB Resolution 2026-642, July 7, 2026, and its fiscal impact statement', 'TB Resolutions 2026-678, 2026-679 and 2026-680, July 7, 2026', 'TB Resolution 2026-909, Oct. 6, 2026'],
+  },
+  {
     claim: 'Repaired bulkheads and beach stairs without impacting the budget — none of it in the 2026 budget.',
     status: 'partly',
-    summary: 'Partly. The bulkhead was paid for with money already set aside, not new taxes. The beach stairs aren’t in the records we check.',
+    summary: 'Partly. The bulkhead was paid for with money already set aside, not new taxes. We found no record of the beach stairs.',
     finding:
-      'The bulkhead is in the records. Resolution 2026-361 paid for the Meetinghouse Creek Road bulkhead with $113,613 the Town had already set aside from community-benefit payments. It wasn’t in the 2026 budget and didn’t raise taxes, but it is still Town money. The beach stairs aren’t in the records we check.',
+      'The bulkhead is in the records. Resolution 2026-361 paid for the Meetinghouse Creek Road bulkhead with $113,613 the Town had already set aside from community-benefit payments. It wasn’t in the 2026 budget and didn’t raise taxes, but it is still Town money. We found no resolution or agenda item about beach stairs in any 2026 meeting through October 6. Small repairs don’t always need a Board vote, so that doesn’t mean they weren’t done; it means the records can’t confirm it.',
     votes: [{ resolution: '2026-361', date: 'Apr. 21, 2026', action: 'Pay for the Meetinghouse Creek Road bulkhead from money set aside', result: 'Adopted, unanimous', halpin: 'Aye', mover: 'Kern' }],
     records: ['TB Resolution 2026-361, fiscal impact statement'],
   },
@@ -507,7 +523,7 @@ export const claims: Claim[] = [
     status: 'partly',
     summary: 'Partly. The records show one inherited shortfall, about $199,000 in the ambulance budget, and it was fixed. We found nothing showing the rest of the $450,000.',
     finding:
-      'The records show one shortfall in the 2026 budget passed under his predecessor, and it was fixed: the Ambulance District’s payment to the Riverhead Volunteer Ambulance Corps (RVAC). The Board’s own resolutions say “several expenditure lines in the Adopted Budget were inaccurate,” and that RVAC’s contract (last year’s payment plus the tax-cap increase) needed more than the budget provided. Two fixes added $199,322 to RVAC’s line: $119,322 moved from other ambulance lines and $80,000 from the district’s savings. That’s less than half of $450,000, and it’s in the ambulance budget, not the General Fund. We searched every 2026 agenda packet through September 15 and found nothing else correcting the budget. The year’s other budget changes pay for needs that came up during the year, such as “unanticipated” legal work and road salt after the winter storms, or for new projects. Separately, the 2025 audit reports shortfalls of $692,688 in the Recreation Program Fund and $73,185 in the Police Athletic League Fund at the end of 2025, which it expects to be closed in 2026. The 2023 and 2024 audits said the same about the following year, and both deficits grew each time. The 2026 audit will show whether they were.',
+      'The records show one shortfall in the 2026 budget passed under his predecessor, and it was fixed: the Ambulance District’s payment to the Riverhead Volunteer Ambulance Corps (RVAC). The Board’s own resolutions say “several expenditure lines in the Adopted Budget were inaccurate,” and that RVAC’s contract (last year’s payment plus the tax-cap increase) needed more than the budget provided. Two fixes added $199,322 to RVAC’s line: $119,322 moved from other ambulance lines and $80,000 from the district’s savings. That’s less than half of $450,000, and it’s in the ambulance budget, not the General Fund. We searched every 2026 agenda packet through October 6 and found nothing else correcting the budget. The year’s other budget changes pay for needs that came up during the year, such as “unanticipated” legal work and road salt after the winter storms, or for new projects. Separately, the 2025 audit reports shortfalls of $692,688 in the Recreation Program Fund and $73,185 in the Police Athletic League Fund at the end of 2025, which it expects to be closed in 2026. The 2023 and 2024 audits said the same about the following year, and both deficits grew each time. The 2026 audit will show whether they were.',
     votes: [
       { resolution: '2026-156', date: 'Feb. 18, 2026', action: 'Move $100,000 within the ambulance budget to RVAC’s line, because “several expenditure lines in the Adopted Budget were inaccurate”', result: 'Adopted, unanimous', halpin: 'Aye', mover: 'Kern' },
       { resolution: '2026-470', date: 'May 20, 2026', action: 'Add $99,322 to RVAC’s line “in accordance with the contract,” $80,000 of it from the district’s savings', result: 'Adopted 4–0, Kern absent', halpin: 'Aye', mover: 'Rothwell', ayes: 'Halpin, Rothwell, Merrifield, Waski' },
@@ -516,13 +532,23 @@ export const claims: Claim[] = [
       'TB Resolutions 2026-156 (Feb. 18, 2026) and 2026-470 (May 20, 2026)',
       'TB Resolution 2025-944, the 2026 Ambulance District budget (Nov. 18, 2025), and 2023-932, the RVAC agreement',
       '2025 audited financial statements (TB Resolution 2026-834, Sept. 1, 2026)',
-      'Every 2026 agenda packet through Sept. 15, 2026',
+      'Every 2026 agenda packet through Oct. 6, 2026',
     ],
     documents: [
       { label: 'Agenda packet, Resolution 2026-156 (p. 98)', url: 'https://riverheadny.api.civicclerk.com/v1/Meetings/GetMeetingFileStream(fileId=11718,plainText=false)', date: 'Feb. 18, 2026' },
       { label: 'Agenda packet, Resolution 2026-470 (p. 91)', url: 'https://riverheadny.api.civicclerk.com/v1/Meetings/GetMeetingFileStream(fileId=11919,plainText=false)', date: 'May 20, 2026' },
       { label: 'Agenda packet, 2025 audited financial statements (deficit note, p. 149)', url: 'https://riverheadny.api.civicclerk.com/v1/Meetings/GetMeetingFileStream(fileId=12303,plainText=false)', date: 'Sept. 1, 2026' },
     ],
+  },
+  {
+    claim: 'Identified funds to begin introducing electronic permitting in the Building Department.',
+    status: 'supported',
+    summary: 'Yes, and the funds are the General Fund’s savings. On October 6 the Board voted 5–0 to hire a company to build an online permitting system, paid from the General Fund balance. The resolution doesn’t say what it costs.',
+    finding:
+      'Resolution 2026-909 authorizes him to sign a professional services agreement with GovPilot LLC, doing business as Spatial Data Logic, to create “an online electronic permitting system for the Building, Planning, and Fire Marshal Departments.” It says “the monies due will be paid from the Town’s General Fund balance.” Its fiscal impact statement names the General Fund but gives no amount, and the agreement in the agenda packet is a scanned image with no text we can read, so the cost isn’t in the records we check. Neither says whether the system carries a yearly fee. If it does, that fee will need a place in future budgets rather than in savings.',
+    votes: [{ resolution: '2026-909', date: 'Oct. 6, 2026', action: 'Hire GovPilot (Spatial Data Logic) for an online permitting system, paid from General Fund savings', result: 'Adopted, unanimous', halpin: 'Aye', mover: 'Waski' }],
+    records: ['TB Resolution 2026-909, Oct. 6, 2026, and its fiscal impact statement'],
+    documents: [{ label: 'Agenda packet, Resolution 2026-909 (p. 111)', url: 'https://riverheadny.api.civicclerk.com/v1/Meetings/GetMeetingFileStream(fileId=12442,plainText=false)', date: 'Oct. 6, 2026' }],
   },
   {
     claim: 'Supported the sale of the Vail-Leavitt Music Hall property to continue as an arts venue.',
@@ -549,11 +575,16 @@ export const claims: Claim[] = [
     ],
   },
   {
-    claim: 'Working with Empire State Development on EPCAL; preserving the 4-H property; rejecting the Sound Avenue agritourism resort; preserving the East End Arts building; electronic permitting; an employee-fraud case.',
+    claim: 'Working with Empire State Development on EPCAL; preserving the 4-H property; rejecting the Sound Avenue agritourism resort; preserving the East End Arts building; an employee-fraud case.',
     status: 'outside',
-    summary: 'These aren’t budget or voting questions, so we don’t rate them.',
-    finding: 'These are land-use, economic-development and management matters. This site checks budgets, fiscal impact forms and votes, so we leave them out.',
-    records: [],
+    summary: 'These are land-use, development and personnel matters, so we don’t rate them. Two of them have a vote on record.',
+    finding:
+      'On the 4-H property, the Board voted 5–0 on April 21 to ratify an appraisal of part of the Nassau County 4-H Camp on Sound Avenue (Resolution 2026-400). An appraisal comes before any purchase; it isn’t one. On the East End Arts buildings, moving them and raising them out of the floodplain is part of the Town Square master developer agreement, signed in August 2025 before he took office, and the Town says grants pay for it. In July the Board voted 5–0 to add to the landscape architects’ agreement for the buildings (2026-677). We found no 2026 resolution about Empire State Development and EPCAL, a Sound Avenue resort or an employee-fraud case. A Supervisor’s talks with a State agency, a planning matter or a personnel case often never come to a Board vote, so the records can neither confirm nor contradict these.',
+    votes: [
+      { resolution: '2026-400', date: 'Apr. 21, 2026', action: 'Ratify an appraisal of part of the Nassau County 4-H Camp on Sound Avenue', result: 'Adopted, unanimous', halpin: 'Aye', mover: 'Rothwell' },
+      { resolution: '2026-677', date: 'July 7, 2026', action: 'Add to the landscape architects’ agreement for the East End Arts buildings', result: 'Adopted, unanimous', halpin: 'Aye', mover: 'Kern' },
+    ],
+    records: ['TB Resolutions 2026-400 (Apr. 21, 2026) and 2026-677 (July 7, 2026)', 'Master Developer Agreement, executed Aug. 19, 2025, Exhibit I', 'Every 2026 Town Board meeting through Oct. 6, 2026'],
   },
 ]
 
