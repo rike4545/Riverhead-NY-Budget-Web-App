@@ -112,6 +112,7 @@ const LIGHT_TOKENS = `
   --rbl-focus-on-dark:#38bdf8;
   --rbl-selection:#cfe8fb;
   --rbl-selection-text:#102f49;
+  --rbl-mark:#fde68a;
   --rbl-scrollbar:#a9b8c7;
   --tc-red:#b91c1c;
   --tc-green:#15803d;

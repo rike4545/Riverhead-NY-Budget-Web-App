@@ -82,3 +82,6 @@ export const SITE_PAGES: SitePage[] = [
   { path: '/explore/', title: 'Explore the Budget', summary: 'A guided, plain-English tour of the Town budget: what it is, where the money comes from, where it goes, and who decides.', keywords: 'explore tour how the budget works overview walkthrough' },
   { path: '/evidence/', title: 'Evidence & Sources', summary: 'How the site labels, calculates and sources its figures, and how to trace a number back to the record.', keywords: 'evidence verify methodology labels sources how to check' },
 ]
+
+/** The pages as search records, searched and ranked beside the index's own records. */
+export const siteEntries = () => SITE_PAGES.map((p) => ({ t: 'site' as const, n: p.title, x: p.summary, k: p.keywords, u: p.path }))

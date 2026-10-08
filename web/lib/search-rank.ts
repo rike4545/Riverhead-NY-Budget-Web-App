@@ -62,6 +62,12 @@
 //   - A date ("september 15", "9/15") finds that meeting's votes.
 //   - "Highest paid" ranks the latest payroll year, not a retiree's final
 //     year of pay.
+//   - "Health" and "medical" match "Hosp", which is how the Town names its
+//     health insurance lines ("Hosp, Den & Opt Ins", account 9060). "Health
+//     insurance" found only the small buy-back lines, not the premiums.
+//
+// Ask AI ranks the same records for a question written as a sentence; see
+// rankForQuestion at the end of this file.
 
 export type RankEntry = { t: string; n: string; x: string; k?: string; v?: number | null }
 
@@ -94,7 +100,7 @@ const SYNONYMS: Record<string, string[]> = {
   administration: ['adm', 'admin'], adm: ['administration'], admin: ['administration'],
   maintenance: ['maint'], maint: ['maintenance'],
   equipment: ['equip'], equip: ['equipment'],
-  insurance: ['ins'], hospital: ['hosp'], hosp: ['hospital'],
+  insurance: ['ins'], hospital: ['hosp'], hosp: ['hospital'], health: ['hosp'], medical: ['hosp'],
   transfer: ['trf'], transfers: ['trf'], trf: ['transfer'],
   department: ['dept'], dept: ['department'],
 }
@@ -587,4 +593,60 @@ export function searchEntries<T extends RankEntry>(entries: T[], raw: string, po
 /** Every match, best first, with the top of the list diversified. */
 export function rankEntries<T extends RankEntry>(entries: T[], raw: string, pool = 60): T[] {
   return searchEntries(entries, raw, pool).results
+}
+
+// ---- Questions, for Ask AI ---------------------------------------------------
+//
+// Ask AI gives the model the records that best match a resident's question, a
+// sentence rather than a few words. Before ranking:
+//   - Question words go, and so do words every record shares: every record
+//     here is the Town of Riverhead's.
+//   - A number stays, however short. "September 15" used to lose its 15 as too
+//     short a word, so the question found September's votes in general rather
+//     than that meeting's.
+//   - "Make", "earn" and "paid" become "pay", the word pay records carry. "How
+//     much does the Supervisor make?" found resolutions that "make" a finding,
+//     not the Supervisor's pay.
+// After ranking, the site's Resident Answers that answer most of the question
+// go first, up to three. Each states a figure the site derives from the
+// records, with the page that shows the work, and some of them could not
+// otherwise get a place: "who is the highest paid?" fills every place with pay
+// records. An answer goes first only when its own question or topic shares a
+// word with the resident's question: one that merely mentions the Supervisor
+// in passing ("Who represents me?") is not an answer to "How much does the
+// Supervisor make?", and one about the Town's total spending is not an answer
+// about police overtime.
+
+const QUESTION_STOP = new Set(Array.from(STOP).concat([
+  'could', 'would', 'should', 'will', 'these', 'those', 'been', 'into', 'over', 'per', 'i', 'you', 'your', 'they',
+  'them', 'their', 'town', 'riverhead', 'tell', 'show', 'explain', 'please', 'know', 'want', 'recent', 'recently',
+]))
+const PAY_WORDS = new Set(['make', 'makes', 'made', 'earn', 'earns', 'earned', 'paid'])
+const ANSWER_TYPE = 'answer'
+const ANSWER_MIN_COVERAGE = 0.7
+const ANSWER_LIMIT = 3
+
+/** A resident's question as the ranker's query: its content words, numbers kept, pay verbs as "pay". */
+export function questionQuery(question: string): string {
+  const words = queryWords(question)
+  const content = words.map((t) => (PAY_WORDS.has(t) ? 'pay' : t)).filter((t) => /\d/.test(t) || (t.length >= 3 && !QUESTION_STOP.has(t)))
+  return (content.length ? content : words.filter((t) => t.length >= 2)).join(' ')
+}
+
+/**
+ * The k records the model reads for a question, best first: up to three
+ * Resident Answers that answer most of it, then the rest as the search ranks
+ * them. The diversity pass runs over a pool several times larger than k, so
+ * the model gets k different records rather than k copies of one.
+ */
+export function rankForQuestion<T extends RankEntry>(entries: T[], question: string, k: number): T[] {
+  const query = questionQuery(question)
+  if (!query) return []
+  const { results, coverage } = searchEntries(entries, query, Math.max(60, k * 5))
+  const asked = new Set(queryTerms(query).map(stem))
+  const answers = results
+    .filter((e) => e.t === ANSWER_TYPE && (coverage.get(e) ?? 0) >= ANSWER_MIN_COVERAGE && indexTokens(`${e.n} ${e.k ?? ''}`).some((t) => asked.has(stem(t))))
+    .slice(0, ANSWER_LIMIT)
+  const first = new Set(answers)
+  return answers.concat(results.filter((e) => !first.has(e))).slice(0, k)
 }
