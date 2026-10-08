@@ -1,6 +1,7 @@
 'use client'
 
 import { useMemo, useState } from 'react'
+import { ChevronDown, ChevronRight } from 'lucide-react'
 import titlesData from '../public/data/payroll/titles-by-year.json'
 import { ChurnLine, CasualNote, churnTotals, type Churn } from './WorkforceChurn'
 
@@ -28,6 +29,8 @@ const data = titlesData as unknown as {
 }
 const years = data.departmentYears
 const latestYear = years[years.length - 1]
+// On a phone only the first and latest years show; each row's bars keep the rest.
+const narrowHide = (y: number) => (y !== years[0] && y !== latestYear ? 'rbl-narrow-hide' : undefined)
 const departments = data.departments
 const churnYears = data.churnYears ?? []
 
@@ -125,7 +128,7 @@ export default function WorkforceByDepartment() {
             <thead>
               <tr style={{ color: 'var(--rbl-text-muted)', borderBottom: '2px solid var(--rbl-border-subtle)' }}>
                 <th style={{ padding: '8px 10px', textAlign: 'left' }}>Department</th>
-                {years.map((y) => <th key={y} style={th}>{y}</th>)}
+                {years.map((y) => <th key={y} className={narrowHide(y)} style={th}>{y}</th>)}
                 <th style={th}>Change<br /><span style={{ fontWeight: 400, fontSize: 11 }}>{years[0]}→{latestYear}</span></th>
               </tr>
             </thead>
@@ -147,7 +150,7 @@ export default function WorkforceByDepartment() {
           a department do not, for two reasons: the same title can sit in several departments, and a few people each
           year carry a department but no title at all. Where that happens the shortfall is shown on its own{' '}
           <em>no title recorded</em> line rather than left to look like an arithmetic error. Source:{' '}
-          <a href={data.source.url} target="_blank" rel="noreferrer" style={{ color: 'var(--rbl-accent)', fontWeight: 700 }}>{data.source.title} ↗</a>
+          <a href={data.source.url} target="_blank" rel="noreferrer" style={{ color: 'var(--rbl-link)', fontWeight: 600 }}>{data.source.title}</a>
         </p>
       </section>
     </div>
@@ -166,7 +169,7 @@ function FragmentRow({ d, isOpen, maxLatest, query, onToggle }: { d: DeptRow; is
             aria-expanded={isOpen}
             style={{ background: 'none', border: 'none', padding: 0, textAlign: 'left', cursor: 'pointer', color: 'var(--rbl-title)', fontWeight: 700, fontSize: 13.5, fontFamily: 'inherit' }}
           >
-            <span style={{ color: 'var(--rbl-text-muted)', marginRight: 6, display: 'inline-block', width: 10 }}>{isOpen ? '▾' : '▸'}</span>
+            <span aria-hidden style={{ color: 'var(--rbl-text-muted)', marginRight: 4, display: 'inline-flex', verticalAlign: '-2px' }}>{isOpen ? <ChevronDown size={14} /> : <ChevronRight size={14} />}</span>
             {d.department}
           </button>
           <Spark counts={d.counts} max={maxLatest} />
@@ -179,10 +182,10 @@ function FragmentRow({ d, isOpen, maxLatest, query, onToggle }: { d: DeptRow; is
         </td>
         {years.map((y) => {
           const v = d.counts[String(y)] ?? 0
-          return <td key={y} style={{ ...td, color: v ? 'var(--rbl-text-strong)' : 'var(--rbl-text-faint)', fontWeight: y === latestYear ? 800 : 400 }}>{v || '—'}</td>
+          return <td key={y} className={narrowHide(y)} style={{ ...td, color: v ? 'var(--rbl-text-strong)' : 'var(--rbl-text-faint)', fontWeight: y === latestYear ? 700 : 400 }}>{v || '—'}</td>
         })}
-        <td style={{ ...td, fontWeight: 800, whiteSpace: 'nowrap', color: d.delta > 0 ? 'var(--rbl-success)' : d.delta < 0 ? 'var(--rbl-danger)' : 'var(--rbl-text-muted)' }}>
-          {d.delta > 0 ? '▲ +' : d.delta < 0 ? '▼ ' : '– '}{d.delta !== 0 ? Math.abs(d.delta) : ''}
+        <td style={{ ...td, fontWeight: 700, whiteSpace: 'nowrap', color: d.delta > 0 ? 'var(--rbl-success)' : d.delta < 0 ? 'var(--rbl-danger)' : 'var(--rbl-text-muted)' }}>
+          {d.delta > 0 ? `+${d.delta}` : d.delta < 0 ? `−${Math.abs(d.delta)}` : '—'}
         </td>
       </tr>
 
@@ -195,7 +198,7 @@ function FragmentRow({ d, isOpen, maxLatest, query, onToggle }: { d: DeptRow; is
                   <th style={{ padding: '6px 8px', textAlign: 'left', fontWeight: 700, fontSize: 13.5 }}>
                     Titles in {d.department}
                   </th>
-                  {years.map((y) => <th key={y} style={{ ...th, fontSize: 11.5 }}>{y}</th>)}
+                  {years.map((y) => <th key={y} className={narrowHide(y)} style={{ ...th, fontSize: 11.5 }}>{y}</th>)}
                   <th style={{ ...th, fontSize: 11.5 }} />
                 </tr>
               </thead>
@@ -204,10 +207,10 @@ function FragmentRow({ d, isOpen, maxLatest, query, onToggle }: { d: DeptRow; is
                   const hit = query.length > 0 && t.title.toLowerCase().includes(query)
                   return (
                     <tr key={t.title} style={{ borderTop: '1px solid var(--rbl-border-subtle)' }}>
-                      <td style={{ padding: '6px 8px', color: hit ? 'var(--rbl-accent)' : 'var(--rbl-text-strong)', fontWeight: hit ? 800 : 600 }}>{t.title}</td>
+                      <td style={{ padding: '6px 8px', color: hit ? 'var(--rbl-accent)' : 'var(--rbl-text-strong)', fontWeight: hit ? 700 : 600 }}>{t.title}</td>
                       {years.map((y) => {
                         const v = t.counts[String(y)] ?? 0
-                        return <td key={y} style={{ ...td, padding: '6px 8px', color: v ? 'var(--rbl-text-body)' : 'var(--rbl-text-faint)', fontWeight: y === latestYear ? 700 : 400 }}>{v || '—'}</td>
+                        return <td key={y} className={narrowHide(y)} style={{ ...td, padding: '6px 8px', color: v ? 'var(--rbl-text-body)' : 'var(--rbl-text-faint)', fontWeight: y === latestYear ? 700 : 400 }}>{v || '—'}</td>
                       })}
                       <td style={{ ...td, padding: '6px 8px' }} />
                     </tr>
@@ -218,7 +221,7 @@ function FragmentRow({ d, isOpen, maxLatest, query, onToggle }: { d: DeptRow; is
                     <td style={{ padding: '6px 8px', color: 'var(--rbl-text-muted)', fontStyle: 'italic' }}>no title recorded</td>
                     {years.map((y) => {
                       const v = d.untitled[String(y)] ?? 0
-                      return <td key={y} style={{ ...td, padding: '6px 8px', color: v ? 'var(--rbl-text-muted)' : 'var(--rbl-text-faint)' }}>{v || '—'}</td>
+                      return <td key={y} className={narrowHide(y)} style={{ ...td, padding: '6px 8px', color: v ? 'var(--rbl-text-muted)' : 'var(--rbl-text-faint)' }}>{v || '—'}</td>
                     })}
                     <td style={{ ...td, padding: '6px 8px' }} />
                   </tr>

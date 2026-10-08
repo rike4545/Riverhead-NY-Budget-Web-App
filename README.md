@@ -207,7 +207,7 @@ The four links at the front of the site menu:
 
 ## Government
 - **Resident Answers** (`/answers`): plain answers to the questions residents ask, each with the figure and a link to the page that proves it.
-- **Workforce by Title** (`/workforce-by-title`): headcount by civil-service title and department, 2022–2025.
+- **Workforce by Title** (`/workforce-by-title`): an organization chart of every office and department with the job titles each paid in the latest year, then headcount by civil-service title and department, 2022–2025.
 - **Officials & Pensions** (`/officials`): elected officials who also collect a New York State public pension.
 - **Management Pay** (`/management-compensation`): the health-premium change for four appointed positions, and the 2026 raises that followed for two of them.
 - **2026 Buyout** (`/buyout`): the final CSEA, PBA and SOA retirement-incentive terms, eligibility and likely savings.
