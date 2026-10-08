@@ -21,5 +21,10 @@ table{font-variant-numeric:tabular-nums}
 .rbl-skip:focus{top:12px}
 /* Reduced motion keeps colour and opacity changes, which carry state, and drops movement. */
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation-duration:1ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition-property:color,background-color,border-color,opacity,box-shadow!important}}
+/* Charts are drawn twice (components/charts): the desktop drawing, and when the chart is narrower than 560px (a phone, or a half-width column) a phone drawing with its own proportions and type. */
+.rbl-chart{container-type:inline-size}
+.rbl-chart-wide{display:block}
+.rbl-chart-narrow{display:none}
+@container (max-width:560px){.rbl-chart-wide{display:none}.rbl-chart-narrow{display:block}}
 /* A table that becomes one labeled block per row on a phone, so no column is scrolled out of view. Each cell after the first carries data-label. */
 @media(max-width:560px){.rbl-stack thead{display:none}.rbl-stack,.rbl-stack tbody,.rbl-stack tr{display:block;width:100%}.rbl-stack tr{padding:8px 0}.rbl-stack td{display:flex;justify-content:space-between;align-items:baseline;gap:12px;padding:2px 0!important;text-align:right!important}.rbl-stack td::before{content:attr(data-label);color:var(--rbl-text-muted);font-weight:600;text-align:left}.rbl-stack td:first-child{font-weight:800}.rbl-stack td:first-child::before{content:none}}
