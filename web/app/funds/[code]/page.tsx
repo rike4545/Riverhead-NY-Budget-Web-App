@@ -7,6 +7,7 @@ import { afrGroupForBudgetFund } from '../../../lib/afr'
 import { AUDITED_GENERAL_FUND, AUDITED_OPERATIONS, AUDIT_2025, deficitHistory } from '../../../lib/audits'
 import { stageDoc } from '../../../lib/budget-stages'
 import { dollars } from '../../../lib/financial-data'
+import { fundYears, lineSource, TENTATIVE_YEAR, withTentative } from '../../../lib/funds-2027'
 
 export function generateStaticParams() {
   return allFundCodes().map((code) => ({ code }))
@@ -18,7 +19,7 @@ export async function generateMetadata({ params }: { params: Promise<{ code: str
   if (!fund) return { title: 'Fund not found' }
   return {
     title: `${fund.name} (${fund.code}) — budget drilldown`,
-    description: `Every department and account line item in the Town of Riverhead ${fund.name}: 2026 appropriations, revenues, and multi-year trends back to 2020.`,
+    description: `Every department and account line item in the Town of Riverhead ${fund.name}: 2026 appropriations and revenues, what the ${TENTATIVE_YEAR} Tentative Budget proposes for each line, and trends back to 2020.`,
   }
 }
 
@@ -47,7 +48,7 @@ export default async function FundDetailPage({ params }: { params: Promise<{ cod
       <PlainCallout
         tips={[
           { label: 'Departments', text: 'group the spending. Click one to expand it and see its individual spending lines.' },
-          { label: 'The columns', text: 'show what was budgeted in 2024, 2025, and 2026, the change, and a mini trend line back to 2020.' },
+          { label: 'The columns', text: lineSource ? `show what was budgeted in 2025 and 2026, what the ${TENTATIVE_YEAR} Tentative proposes, the change from 2026, and a trend line back to 2020. The Tentative is the Supervisor’s proposal; the Board can change it before it adopts a budget by November 20.` : 'show what was budgeted in 2024, 2025, and 2026, the change, and a mini trend line back to 2020.' },
           { label: 'Categories', text: 'Personal Services = salaries, Contractual = vendor/operating costs, Equipment = one-time purchases, Benefits = health/retirement.' },
         ]}
       >
@@ -57,7 +58,7 @@ export default async function FundDetailPage({ params }: { params: Promise<{ cod
       <ActualsStrip code={fund.code} />
       <AuditedDeficitNote code={fund.code} />
       <FundContextNote code={fund.code} />
-      <FundDrilldown fund={fund} />
+      <FundDrilldown fund={withTentative(fund)} proposed={fundYears(fund.code).tentative} lineSource={lineSource} />
     </PageShell>
   )
 }
