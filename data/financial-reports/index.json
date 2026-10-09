@@ -6,7 +6,7 @@
   "failure_count": 0,
   "page_record_count": 14350,
   "citation_count": 14350,
-  "line_item_candidate_count": 116094,
+  "line_item_candidate_count": 116090,
   "documents": [
     {
       "title": "2027 Tentative Budget (PDF)",
@@ -112,7 +112,7 @@
       "slug": "2025-2025-riverhead-community-development-agency-basic-financial-statements-pdf",
       "json": "documents/2025-2025-riverhead-community-development-agency-basic-financial-statements-pdf.json",
       "page_count": 31,
-      "money_value_count": 227,
+      "money_value_count": 226,
       "sha256": "100a25c575ae3e8f49be9f04887d3f88c57766bcb330410604664cd140166ea8",
       "parsed_at": "2026-09-25T00:22:41.199963+00:00"
     },
@@ -1420,7 +1420,7 @@
       "slug": "2008-2008-annual-financial-report-update-pdf",
       "json": "documents/2008-2008-annual-financial-report-update-pdf.json",
       "page_count": 173,
-      "money_value_count": 3071,
+      "money_value_count": 3063,
       "sha256": "c65786464131c13173cdd9a2ef50696ab4c5781fc7901d5e8c032c448b3ea7e0",
       "parsed_at": "2026-07-31T00:48:42.463564+00:00"
     },
