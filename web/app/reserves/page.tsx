@@ -20,7 +20,7 @@ import {
   unassignedFundBalance,
 } from '../../lib/reserve-policy'
 
-const card = { background: 'white', border: '1px solid #e2e8f0', borderRadius: 16, padding: 20, boxShadow: '0 14px 34px rgba(15,23,42,.05)' } as const
+const card = { background: 'white', border: '1px solid #e2e8f0', borderRadius: 16, padding: 20, boxShadow: '0 1px 3px rgba(15,23,42,.04)' } as const
 const pct = (v: number, digits = 1) => `${(v * 100).toFixed(digits)}%`
 
 export const metadata = {
@@ -59,7 +59,7 @@ export default function ReservesPage() {
       </PlainCallout>
 
       <section style={{ ...card, marginBottom: 16 }}>
-        <h3 style={{ marginTop: 0, color: '#284a69' }}>Policy compliance at a glance</h3>
+        <h3 style={{ marginTop: 0, color: '#13293f' }}>Policy compliance at a glance</h3>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           <strong>General Fund</strong>
           <span
@@ -107,7 +107,7 @@ export default function ReservesPage() {
       </section>
 
       <section style={{ ...card, marginBottom: 16 }}>
-        <h3 style={{ marginTop: 0, color: '#284a69' }}>28.8% Reserve Reset</h3>
+        <h3 style={{ marginTop: 0, color: '#13293f' }}>28.8% Reserve Reset</h3>
         <p style={{ color: '#475569', fontSize: 14.5, marginTop: 0 }}>
           A one-time-money plan: keep a strong cushion, use the rest on purpose, and show what still fits after the
           serious bills are paid.
@@ -122,7 +122,7 @@ export default function ReservesPage() {
         </div>
         <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 15, marginTop: 6 }}>
           <span>Available for one-time deployment</span>
-          <strong style={{ color: '#4a7297' }}>{dollars(deployableAbove288)}</strong>
+          <strong style={{ color: '#2f6690' }}>{dollars(deployableAbove288)}</strong>
         </div>
 
         <hr style={{ border: 'none', borderTop: '1px solid #e2e8f0', margin: '14px 0' }} />
@@ -136,7 +136,7 @@ export default function ReservesPage() {
                   height: 26,
                   borderRadius: '50%',
                   background: '#4a729722',
-                  color: '#4a7297',
+                  color: '#2f6690',
                   display: 'grid',
                   placeItems: 'center',
                   fontSize: 12,
@@ -164,12 +164,12 @@ export default function ReservesPage() {
         </div>
       </section>
 
-      <h2 style={{ margin: '26px 0 4px', color: '#284a69', fontSize: 18 }}>Go deeper</h2>
+      <h2 style={{ margin: '26px 0 4px', color: '#13293f', fontSize: 18 }}>Go deeper</h2>
       <p style={{ color: '#64748b', fontSize: 13.5, margin: '0 0 8px' }}>The breakdown, peer comparisons, and a draw-down tool — open only what you want.</p>
 
       <Detail title="Community block grants — who would get funded">
       <section style={{ ...card, marginBottom: 16 }}>
-        <h3 style={{ marginTop: 0, color: '#284a69' }}>Community block grants — who would get funded</h3>
+        <h3 style={{ marginTop: 0, color: '#13293f' }}>Community block grants — who would get funded</h3>
         <p style={{ color: '#475569', fontSize: 14.5, marginTop: 0 }}>
           The breakdown behind deployment option #5 above: four nonprofits serving Riverhead and the East End. These
           amounts are this site&apos;s own illustrative sizing, not an official Town budget line or commitment.
@@ -191,7 +191,7 @@ export default function ReservesPage() {
 
       <Detail title="How Riverhead's 28.8% target compares nearby">
       <section style={{ ...card, marginBottom: 16 }}>
-        <h3 style={{ marginTop: 0, color: '#284a69' }}>How 28.8% compares nearby</h3>
+        <h3 style={{ marginTop: 0, color: '#13293f' }}>How 28.8% compares nearby</h3>
         <p style={{ color: '#475569', fontSize: 14.5, marginTop: 0 }}>
           Riverhead&apos;s target lands below what Brookhaven and Smithtown are doing today, but above
           Southampton&apos;s official policy.
@@ -201,7 +201,7 @@ export default function ReservesPage() {
             <div key={peer.town}>
               <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                 <strong style={{ fontSize: 14 }}>{peer.town}</strong>
-                <span style={{ color: peer.town === 'Riverhead target' ? '#4a7297' : '#9b6b12', fontWeight: 800 }}>{pct(peer.percent)}</span>
+                <span style={{ color: peer.town === 'Riverhead target' ? '#2f6690' : '#9b6b12', fontWeight: 800 }}>{pct(peer.percent)}</span>
               </div>
               <p style={{ color: '#64748b', fontSize: 13, margin: '2px 0 0' }}>{peer.detail}</p>
             </div>
@@ -219,7 +219,7 @@ export default function ReservesPage() {
 
       <Detail title="What if Riverhead matched its peers?">
       <section style={{ ...card, marginBottom: 16 }}>
-        <h3 style={{ marginTop: 0, color: '#284a69' }}>What if Riverhead matched its peers?</h3>
+        <h3 style={{ marginTop: 0, color: '#13293f' }}>What if Riverhead matched its peers?</h3>
         <p style={{ color: '#475569', fontSize: 14.5, marginTop: 0 }}>
           How much one-time room Riverhead would have if it matched a neighboring town&apos;s reserve levels — or the
           average of them all.
@@ -256,7 +256,7 @@ export default function ReservesPage() {
 
       <Detail title="Try it: what if the Town uses some savings?">
       <section style={{ ...card }}>
-        <h3 style={{ marginTop: 0, color: '#284a69' }}>What if the Town uses some savings?</h3>
+        <h3 style={{ marginTop: 0, color: '#13293f' }}>What if the Town uses some savings?</h3>
         <p style={{ color: '#475569', fontSize: 14.5, marginTop: 0 }}>
           See how using reserves for tax relief or a project would affect the cushion.
         </p>
@@ -280,7 +280,7 @@ export default function ReservesPage() {
 function Detail({ title, children }: { title: string; children: React.ReactNode }) {
   return (
     <details style={{ ...card, padding: 0, marginBottom: 12, overflow: 'hidden' }}>
-      <summary style={{ cursor: 'pointer', listStyle: 'none', padding: '15px 18px', fontWeight: 800, color: '#284a69', fontSize: 15.5, display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 12 }}>
+      <summary style={{ cursor: 'pointer', listStyle: 'none', padding: '15px 18px', fontWeight: 800, color: '#13293f', fontSize: 15.5, display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 12 }}>
         <span>{title}</span>
         <span aria-hidden style={{ color: '#6b7280', fontSize: 13, fontWeight: 700 }}>Open ▾</span>
       </summary>

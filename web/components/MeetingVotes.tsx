@@ -7,7 +7,7 @@ import {
   type Meeting, type Resolution, type Vote, type MembersData, type MemberRecord, type VotedItem,
 } from '../lib/meetings'
 
-const card = { background: 'white', border: '1px solid #e2e8f0', borderRadius: 16, padding: 18, boxShadow: '0 14px 34px rgba(15,23,42,.05)' } as const
+const card = { background: 'white', border: '1px solid #e2e8f0', borderRadius: 16, padding: 18, boxShadow: '0 1px 3px rgba(15,23,42,.04)' } as const
 
 const VOTE_COLOR: Record<Vote, string> = { aye: '#15803d', nay: '#b91c1c', abstain: '#c99a2e', absent: '#cbd5e1' }
 const VOTE_LABEL: Record<Vote, string> = { aye: 'Yes', nay: 'No', abstain: 'Abstained', absent: 'Absent' }
@@ -122,7 +122,7 @@ export default function MeetingVotes() {
                     return (
                       <tr key={last} style={{ borderBottom: '1px solid #f1f5f9' }}>
                         <td style={td}>
-                          <strong style={{ color: '#284a69' }}>{t.name}</strong>{' '}
+                          <strong style={{ color: '#13293f' }}>{t.name}</strong>{' '}
                           <PartyChip party={party} small />{' '}
                           <span style={{ color: '#6b7280', fontSize: 12.5 }}>{t.title}</span>
                         </td>
@@ -146,7 +146,7 @@ export default function MeetingVotes() {
               {(['all', 'contested', 'tabled'] as const).map((f) => (
                 <button key={f} onClick={() => setFilter(f)} style={{
                   padding: '8px 13px', borderRadius: 9, border: '1px solid', cursor: 'pointer', fontWeight: 800, fontSize: 13.5,
-                  borderColor: filter === f ? '#4a7297' : '#cbd5e1', background: filter === f ? '#4a7297' : 'white', color: filter === f ? 'white' : '#334155',
+                  borderColor: filter === f ? '#2f6690' : '#cbd5e1', background: filter === f ? '#2f6690' : 'white', color: filter === f ? 'white' : '#334155',
                 }}>
                   {f === 'all' ? `All (${meeting.stats.total})` : f === 'contested' ? `Contested (${meeting.stats.contested})` : `Tabled (${meeting.stats.tabled})`}
                 </button>
@@ -202,7 +202,7 @@ function PreliminaryPanel({ meeting }: { meeting: Meeting }) {
           {docket.map((d) => (
             <div key={d.number + d.seq} style={{ background: '#f8fafc', border: '1px solid #e2e8f0', borderRadius: 10, padding: '10px 13px' }}>
               <span style={{ color: '#2563eb', fontWeight: 900, fontSize: 12 }}>{d.number}</span>
-              <div style={{ fontWeight: 600, color: '#284a69', marginTop: 2, lineHeight: 1.4, fontSize: 14 }}>{d.title}</div>
+              <div style={{ fontWeight: 600, color: '#13293f', marginTop: 2, lineHeight: 1.4, fontSize: 14 }}>{d.title}</div>
             </div>
           ))}
           {docket.length === 0 && <p style={{ color: '#64748b' }}>No resolutions were listed in the preliminary minutes.</p>}
@@ -230,7 +230,7 @@ function ResolutionRow({ r, shortName, rosterOrder }: { r: Resolution; shortName
       <div style={{ display: 'flex', justifyContent: 'space-between', gap: 14, flexWrap: 'wrap', alignItems: 'start' }}>
         <div style={{ maxWidth: 780 }}>
           {r.number && <span style={{ color: '#2563eb', fontWeight: 900, fontSize: 12 }}>{r.number}</span>}
-          <div style={{ fontWeight: 700, color: '#284a69', marginTop: 2, lineHeight: 1.4 }}>{r.title}</div>
+          <div style={{ fontWeight: 700, color: '#13293f', marginTop: 2, lineHeight: 1.4 }}>{r.title}</div>
           <div style={{ color: '#64748b', fontSize: 12.5, marginTop: 4 }}>
             {r.mover ? `Moved by ${r.mover}` : ''}{r.seconder ? ` · seconded by ${r.seconder}` : ''}
           </div>
@@ -262,8 +262,8 @@ function ViewToggle({ view, setView }: { view: 'meetings' | 'members'; setView: 
       {([['meetings', 'By meeting', 'Every vote, one meeting at a time'], ['members', 'By member', 'Each member’s career record, dissents & abstentions']] as const).map(([v, title, sub]) => (
         <button key={v} onClick={() => setView(v)} style={{
           flex: '1 1 240px', textAlign: 'left', cursor: 'pointer', borderRadius: 12, padding: '12px 16px',
-          border: '1px solid', borderColor: view === v ? '#4a7297' : '#cbd5e1',
-          background: view === v ? '#4a7297' : 'white', color: view === v ? 'white' : '#334155',
+          border: '1px solid', borderColor: view === v ? '#2f6690' : '#cbd5e1',
+          background: view === v ? '#2f6690' : 'white', color: view === v ? 'white' : '#334155',
           boxShadow: view === v ? '0 10px 24px rgba(31,95,143,.22)' : 'none',
         }}>
           <div style={{ fontWeight: 900, fontSize: 16 }}>{title}</div>
@@ -299,7 +299,7 @@ function MemberCard({ m, current, openMeeting }: { m: MemberRecord; current: boo
       <div style={{ display: 'flex', justifyContent: 'space-between', gap: 14, flexWrap: 'wrap', alignItems: 'baseline' }}>
         <div>
           <div style={{ display: 'flex', gap: 8, alignItems: 'center', flexWrap: 'wrap' }}>
-            <h3 style={{ margin: 0, fontSize: 20, color: '#284a69' }}>{m.name}</h3>
+            <h3 style={{ margin: 0, fontSize: 20, color: '#13293f' }}>{m.name}</h3>
             <PartyChip party={m.party} />
             {!current && <span style={{ background: '#f1f5f9', color: '#475569', fontWeight: 800, fontSize: 11, padding: '2px 9px', borderRadius: 999, textTransform: 'uppercase', letterSpacing: 0.4 }}>Former member</span>}
           </div>
@@ -309,7 +309,7 @@ function MemberCard({ m, current, openMeeting }: { m: MemberRecord; current: boo
         </div>
         {m.ayePct != null && (
           <div style={{ textAlign: 'right' }}>
-            <strong style={{ fontSize: 22, color: '#284a69' }}>{m.ayePct}%</strong>
+            <strong style={{ fontSize: 22, color: '#13293f' }}>{m.ayePct}%</strong>
             <div style={{ color: '#64748b', fontSize: 12 }}>votes yes</div>
           </div>
         )}
@@ -320,8 +320,8 @@ function MemberCard({ m, current, openMeeting }: { m: MemberRecord; current: boo
         <Chip label="No" value={c.nay ?? 0} color="#b91c1c" strong={(c.nay ?? 0) > 0} />
         <Chip label="Abstained" value={c.abstain ?? 0} color="#b45309" strong={(c.abstain ?? 0) > 0} />
         <Chip label="Absent" value={c.absent ?? 0} color="#64748b" />
-        <Chip label="Moved" value={m.moved} color="#4a7297" />
-        <Chip label="Seconded" value={m.seconded} color="#4a7297" />
+        <Chip label="Moved" value={m.moved} color="#2f6690" />
+        <Chip label="Seconded" value={m.seconded} color="#2f6690" />
       </div>
 
       {m.dissents.length > 0 && (
@@ -347,7 +347,7 @@ function VotedList({ label, items, openMeeting, color }: { label: string; items:
             title="Open this meeting's contested votes"
             style={{ textAlign: 'left', background: '#f8fafc', border: '1px solid #e2e8f0', borderRadius: 10, padding: '9px 12px', cursor: 'pointer' }}>
             <span style={{ color: '#6b7280', fontWeight: 800, fontSize: 12 }}>{it.date}{it.number ? ` · ${it.number}` : ''}</span>
-            <span style={{ display: 'block', color: '#284a69', fontWeight: 600, fontSize: 13.5, lineHeight: 1.4 }}>{it.title}</span>
+            <span style={{ display: 'block', color: '#13293f', fontWeight: 600, fontSize: 13.5, lineHeight: 1.4 }}>{it.title}</span>
           </button>
         ))}
       </div>
@@ -388,7 +388,7 @@ function Stat({ label, value, amber, red }: { label: string; value: string; ambe
   return (
     <div style={{ background: '#f8fafc', border: '1px solid #e2e8f0', borderRadius: 12, padding: 12 }}>
       <div style={{ color: '#64748b', fontSize: 11.5, textTransform: 'uppercase', fontWeight: 900, letterSpacing: 0.4 }}>{label}</div>
-      <strong style={{ fontSize: 22, color: red ? '#b91c1c' : amber ? '#b45309' : '#284a69' }}>{value}</strong>
+      <strong style={{ fontSize: 22, color: red ? '#b91c1c' : amber ? '#b45309' : '#13293f' }}>{value}</strong>
     </div>
   )
 }

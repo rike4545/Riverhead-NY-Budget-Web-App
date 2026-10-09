@@ -3,7 +3,7 @@ import { analyticsModules, automatedKpis } from '../../lib/analytics-modules'
 import { allOperatingFunds2026, fundBalanceUseSummary } from '../../lib/all-funds'
 import { dollars } from '../../lib/financial-data'
 
-const card = { background: 'white', border: '1px solid #e2e8f0', borderRadius: 18, padding: 20, boxShadow: '0 14px 34px rgba(15,23,42,.05)' } as const
+const card = { background: 'white', border: '1px solid #e2e8f0', borderRadius: 18, padding: 20, boxShadow: '0 1px 3px rgba(15,23,42,.04)' } as const
 
 export default function AnalyticsPage() {
   const levyTotal = allOperatingFunds2026.reduce((sum, fund) => sum + fund.taxLevy2026, 0)

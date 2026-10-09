@@ -3,7 +3,7 @@ import PlainCallout from '../../components/PlainCallout'
 import CapitalDebtCalculator from '../../components/CapitalDebtCalculator'
 import { debtProfile, debtProfileTotals } from '../../lib/debt-profile'
 
-const card = { background: 'white', border: '1px solid #e2e8f0', borderRadius: 16, padding: 20, boxShadow: '0 14px 34px rgba(15,23,42,.05)' } as const
+const card = { background: 'white', border: '1px solid #e2e8f0', borderRadius: 16, padding: 20, boxShadow: '0 1px 3px rgba(15,23,42,.04)' } as const
 const usd = (n: number) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(n)
 
 export const metadata = {
@@ -42,7 +42,7 @@ export default function CapitalDebtPage() {
         <Stat label="Credit rating" value={debtProfile.moodyRating} sub={`Moody's, ${debtProfile.moodyRatingAsOf}`} />
       </section>
 
-      <h2 style={{ color: '#284a69' }}>What's already on the books</h2>
+      <h2 style={{ color: '#13293f' }}>What's already on the books</h2>
       <section style={{ ...card, marginBottom: 18 }}>
         <p style={{ color: '#64748b', fontSize: 13.5, marginTop: 0 }}>
           Future principal and interest on all of the Town's bonds (governmental and business-type activities
@@ -56,26 +56,26 @@ export default function CapitalDebtPage() {
               <div key={r.period} style={{ display: 'grid', gridTemplateColumns: '90px 1fr auto', gap: 10, alignItems: 'center' }}>
                 <span style={{ color: '#475569', fontWeight: 700, fontSize: 13 }}>{r.period}</span>
                 <div style={{ display: 'flex', height: 18, borderRadius: 5, overflow: 'hidden', background: '#f1f5f9', width: `${(total / maxAmort) * 100}%`, minWidth: 40 }}>
-                  <div style={{ width: `${(r.principal / total) * 100}%`, background: '#4a7297' }} title={`Principal: ${usd(r.principal)}`} />
+                  <div style={{ width: `${(r.principal / total) * 100}%`, background: '#2f6690' }} title={`Principal: ${usd(r.principal)}`} />
                   <div style={{ width: `${(r.interest / total) * 100}%`, background: '#c99a2e' }} title={`Interest: ${usd(r.interest)}`} />
                 </div>
-                <span style={{ fontWeight: 800, color: '#284a69', fontSize: 13, textAlign: 'right' }}>{usd(total)}</span>
+                <span style={{ fontWeight: 800, color: '#13293f', fontSize: 13, textAlign: 'right' }}>{usd(total)}</span>
               </div>
             )
           })}
           <div style={{ display: 'grid', gridTemplateColumns: '90px 1fr auto', gap: 10, borderTop: '2px solid #e2e8f0', paddingTop: 8, marginTop: 2 }}>
-            <span style={{ fontWeight: 900, color: '#284a69', fontSize: 13 }}>Total</span>
+            <span style={{ fontWeight: 900, color: '#13293f', fontSize: 13 }}>Total</span>
             <span />
-            <span style={{ fontWeight: 900, color: '#284a69', fontSize: 13, textAlign: 'right' }}>{usd(debtProfileTotals.principal + debtProfileTotals.interest)}</span>
+            <span style={{ fontWeight: 900, color: '#13293f', fontSize: 13, textAlign: 'right' }}>{usd(debtProfileTotals.principal + debtProfileTotals.interest)}</span>
           </div>
         </div>
         <div style={{ display: 'flex', gap: 14, marginTop: 12, fontSize: 12, color: '#64748b' }}>
-          <span><span style={{ display: 'inline-block', width: 10, height: 10, borderRadius: 3, background: '#4a7297', marginRight: 5 }} />Principal</span>
+          <span><span style={{ display: 'inline-block', width: 10, height: 10, borderRadius: 3, background: '#2f6690', marginRight: 5 }} />Principal</span>
           <span><span style={{ display: 'inline-block', width: 10, height: 10, borderRadius: 3, background: '#c99a2e', marginRight: 5 }} />Interest</span>
         </div>
       </section>
 
-      <h2 style={{ color: '#284a69' }}>Try a hypothetical project</h2>
+      <h2 style={{ color: '#13293f' }}>Try a hypothetical project</h2>
       <p style={{ color: '#64748b', fontSize: 13.5, marginTop: 0, marginBottom: 12 }}>
         The rate fields below are assumptions you set — not a quoted Town borrowing rate. Nobody, including the Town,
         knows what a future bond or BAN would price at until it's actually sold; this shows the mechanics of the
@@ -100,7 +100,7 @@ function Stat({ label, value, sub, accent }: { label: string; value: string; sub
   return (
     <div>
       <div style={{ color: '#64748b', fontSize: 12.5, fontWeight: 700, textTransform: 'uppercase', letterSpacing: 0.3 }}>{label}</div>
-      <div style={{ color: accent ? '#b45309' : '#284a69', fontSize: 22, fontWeight: 900, lineHeight: 1.2 }}>{value}</div>
+      <div style={{ color: accent ? '#b45309' : '#13293f', fontSize: 22, fontWeight: 900, lineHeight: 1.2 }}>{value}</div>
       {sub && <div style={{ color: '#6b7280', fontSize: 12.5 }}>{sub}</div>}
     </div>
   )

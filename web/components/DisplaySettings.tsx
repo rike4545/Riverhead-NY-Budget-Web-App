@@ -33,11 +33,11 @@ export default function DisplaySettings() {
   }
 
   const pillStyle = {
-    color: 'white', textDecoration: 'none', border: '1px solid rgba(255,255,255,.28)', borderRadius: 6,
-    padding: '9px 11px', fontWeight: 800, background: 'rgba(12,43,72,.35)', fontSize: 13.5, cursor: 'pointer',
+    color: 'rgba(255,255,255,.88)', textDecoration: 'none', border: '1px solid rgba(255,255,255,.22)', borderRadius: 7,
+    padding: '7px 10px', fontWeight: 700, background: 'transparent', fontSize: 13, cursor: 'pointer',
     lineHeight: 1,
   }
-  const activeStyle = { background: '#c99a2e', border: '1px solid #c99a2e', color: '#284a69' }
+  const activeStyle = { background: '#c99a2e', border: '1px solid #c99a2e', color: '#13293f' }
 
   return (
     <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}>

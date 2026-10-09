@@ -71,17 +71,17 @@ const THEME_CSS = `
   --rbl-text:#1f2933;
   --rbl-text-muted:#64748b;
   --rbl-text-sub:#44576a;
-  --rbl-title:#284a69;
+  --rbl-title:#13293f;
   --rbl-badge:#9b6b12;
-  --rbl-header-a:#284a69;
-  --rbl-header-b:#4a7297;
-  --rbl-page-accent:#4a7297;
+  --rbl-header-a:#13293f;
+  --rbl-header-b:#2f6690;
+  --rbl-page-accent:#2f6690;
   --rbl-gold:#c99a2e;
   --rbl-note-bg:#fff8e6;
   --rbl-note-border:#d8b45a;
   --rbl-note-text:#5f430d;
   --rbl-note-sub:#8a6a1f;
-  --rbl-shadow:rgba(31,95,143,.10);
+  --rbl-shadow:rgba(15,23,42,.04);
 }`
 
 export default function RootLayout({ children }: { children: ReactNode }) {

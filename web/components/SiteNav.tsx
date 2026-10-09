@@ -72,8 +72,9 @@ const GROUPS: Group[] = [
 ]
 
 const linkStyle = {
-  color: 'white', textDecoration: 'none', border: '1px solid rgba(255,255,255,.28)', borderRadius: 6,
-  padding: '9px 13px', fontWeight: 800, background: 'rgba(12,43,72,.35)', fontSize: 14.5, whiteSpace: 'nowrap' as const,
+  color: 'rgba(255,255,255,.88)', textDecoration: 'none', border: '1px solid transparent', borderRadius: 7,
+  padding: '8px 12px', fontWeight: 650, background: 'transparent', fontSize: 14, whiteSpace: 'nowrap' as const,
+  transition: 'background .12s, color .12s',
 }
 
 export default function SiteNav() {
@@ -117,8 +118,8 @@ export default function SiteNav() {
         aria-expanded={mobileOpen}
         className="nav-hamburger"
         style={{
-          display: 'none', color: 'white', background: 'rgba(12,43,72,.5)', border: '1px solid rgba(255,255,255,.3)',
-          borderRadius: 6, padding: '9px 14px', fontWeight: 900, fontSize: 15, cursor: 'pointer',
+          display: 'none', color: 'white', background: 'rgba(255,255,255,.1)', border: '1px solid rgba(255,255,255,.25)',
+          borderRadius: 7, padding: '8px 14px', fontWeight: 700, fontSize: 14, cursor: 'pointer',
         }}
       >
         {mobileOpen ? '✕ Close' : '☰ Menu'}
@@ -126,7 +127,7 @@ export default function SiteNav() {
 
       <nav className="nav-links" style={{ display: 'flex', gap: 8, flexWrap: 'wrap', alignItems: 'center' }}>
         {PRIMARY.map(([label, href]) => (
-          <a key={href} href={href} style={{ ...linkStyle, ...(pathname && href.endsWith(pathname) ? { background: '#c99a2e', border: '1px solid #c99a2e', color: '#284a69' } : {}) }}>
+          <a key={href} href={href} style={{ ...linkStyle, ...(pathname && href.endsWith(pathname) ? { background: '#c99a2e', border: '1px solid #c99a2e', color: '#13293f' } : {}) }}>
             {label}
           </a>
         ))}
@@ -141,7 +142,7 @@ export default function SiteNav() {
               aria-expanded={open === g.label}
               style={{
                 ...linkStyle, cursor: 'pointer',
-                ...(groupIsActive(g) || open === g.label ? { background: '#c99a2e', border: '1px solid #c99a2e', color: '#284a69' } : {}),
+                ...(groupIsActive(g) || open === g.label ? { background: '#c99a2e', border: '1px solid #c99a2e', color: '#13293f' } : {}),
               }}
             >
               {g.label} ▾
@@ -163,7 +164,7 @@ export default function SiteNav() {
                   const active = !!(pathname && href.endsWith(pathname))
                   return (
                   <a key={href} href={href} className="nav-dropdown-link" style={{
-                    color: active ? '#284a69' : '#33475a', textDecoration: 'none',
+                    color: active ? '#13293f' : '#33475a', textDecoration: 'none',
                     fontWeight: active ? 900 : 600, fontSize: 13.5, padding: '8px 10px',
                     borderRadius: 7, background: active ? '#fdf3da' : 'transparent',
                     borderLeft: active ? '3px solid #c99a2e' : '3px solid transparent',
@@ -188,7 +189,7 @@ export default function SiteNav() {
           boxShadow: '0 18px 40px rgba(15,23,42,.2)', padding: 10, zIndex: 50,
         }}>
           {PRIMARY.map(([label, href]) => (
-            <a key={href} href={href} style={{ display: 'block', color: '#284a69', textDecoration: 'none', fontWeight: 900, fontSize: 14.5, padding: '9px 10px', borderRadius: 7 }}>{label}</a>
+            <a key={href} href={href} style={{ display: 'block', color: '#13293f', textDecoration: 'none', fontWeight: 900, fontSize: 14.5, padding: '9px 10px', borderRadius: 7 }}>{label}</a>
           ))}
           {GROUPS.map((g) => (
             <div key={g.label} style={{ marginTop: 8 }}>
@@ -213,7 +214,12 @@ export default function SiteNav() {
         }
         .nav-dropdown-link:hover {
           background: #f0f6ff !important;
-          color: #284a69 !important;
+          color: #13293f !important;
+        }
+        .nav-links > a:hover,
+        .nav-links > .nav-group > button:hover {
+          background: rgba(255,255,255,.12) !important;
+          color: #fff !important;
         }
         @media (max-width: 860px) {
           .nav-links { display: none !important; }

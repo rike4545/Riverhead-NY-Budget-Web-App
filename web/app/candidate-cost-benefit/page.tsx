@@ -3,7 +3,7 @@ import PlainCallout from '../../components/PlainCallout'
 import { candidates2026, supervisorRace2026 as race, synthesis, neutralView, type Plank, type Candidate } from '../../lib/candidates-2026'
 
 const base = process.env.NEXT_PUBLIC_BASE_PATH || ''
-const card = { background: 'white', border: '1px solid #e2e8f0', borderRadius: 16, padding: 20, boxShadow: '0 14px 34px rgba(15,23,42,.05)' } as const
+const card = { background: 'white', border: '1px solid #e2e8f0', borderRadius: 16, padding: 20, boxShadow: '0 1px 3px rgba(15,23,42,.04)' } as const
 const PARTY: Record<string, { color: string; tint: string }> = {
   D: { color: '#1e40af', tint: '#dbeafe' },
   'R/C': { color: '#b91c1c', tint: '#fee2e2' },
@@ -24,7 +24,7 @@ export default function CandidateCostBenefitPage() {
       <PlainCallout title="How to read this">
         {race.disclaimer} {race.ballotNote}{' '}
         For each candidate&apos;s own words, see{' '}
-        <a href={`${base}/candidate-watch/`} style={{ color: '#4a7297', fontWeight: 800 }}>Candidate Watch</a>.
+        <a href={`${base}/candidate-watch/`} style={{ color: '#2f6690', fontWeight: 800 }}>Candidate Watch</a>.
       </PlainCallout>
 
       {candidates2026.map((c) => (
@@ -32,8 +32,8 @@ export default function CandidateCostBenefitPage() {
       ))}
 
       {/* Synthesis */}
-      <section style={{ ...card, marginTop: 16, borderLeft: '6px solid #284a69' }}>
-        <h2 style={{ margin: '0 0 8px', color: '#284a69', fontSize: 18 }}>Where the two platforms actually converge — and diverge</h2>
+      <section style={{ ...card, marginTop: 16, borderLeft: '6px solid #13293f' }}>
+        <h2 style={{ margin: '0 0 8px', color: '#13293f', fontSize: 18 }}>Where the two platforms actually converge — and diverge</h2>
         <SubList title="What they share" items={synthesis.common} color="#166534" />
         <SubList title="Where they differ" items={synthesis.divergence} color="#b45309" />
         <div style={{ background: '#eef2ff', border: '1px solid #c7d2fe', borderRadius: 10, padding: '12px 14px', marginTop: 12 }}>
@@ -44,7 +44,7 @@ export default function CandidateCostBenefitPage() {
 
       {/* Beyond the campaigns — neutral fiscal view */}
       <section style={{ ...card, marginTop: 16, borderLeft: '6px solid #0d9488' }}>
-        <h2 style={{ margin: '0 0 6px', color: '#284a69', fontSize: 18 }}>Beyond the campaigns: a neutral fiscal view</h2>
+        <h2 style={{ margin: '0 0 6px', color: '#13293f', fontSize: 18 }}>Beyond the campaigns: a neutral fiscal view</h2>
         <p style={{ color: '#334155', fontSize: 14.5, lineHeight: 1.6, margin: '0 0 12px' }}>{neutralView.intro}</p>
 
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, marginBottom: 14 }}>
@@ -58,7 +58,7 @@ export default function CandidateCostBenefitPage() {
             <div key={p.title} style={{ background: '#f8fafc', border: '1px solid #e2e8f0', borderRadius: 12, padding: '12px 14px' }}>
               <div style={{ display: 'flex', gap: 10, alignItems: 'baseline' }}>
                 <span style={{ color: '#0d9488', fontWeight: 900, fontSize: 13 }}>{i + 1}</span>
-                <strong style={{ color: '#284a69', fontSize: 14.5 }}>{p.title}</strong>
+                <strong style={{ color: '#13293f', fontSize: 14.5 }}>{p.title}</strong>
               </div>
               <div style={{ color: '#475569', fontSize: 13.8, lineHeight: 1.55, marginTop: 4 }}>{p.detail}</div>
             </div>
@@ -80,10 +80,10 @@ function CandidateBlock({ c }: { c: Candidate }) {
   return (
     <section style={{ ...card, marginTop: 16, borderTop: `4px solid ${p.color}` }}>
       <div style={{ display: 'flex', alignItems: 'baseline', gap: 10, flexWrap: 'wrap' }}>
-        <h2 style={{ margin: 0, color: '#284a69', fontSize: 19 }}>{c.name}</h2>
+        <h2 style={{ margin: 0, color: '#13293f', fontSize: 19 }}>{c.name}</h2>
         <span style={{ background: p.tint, color: p.color, borderRadius: 999, padding: '3px 10px', fontSize: 12, fontWeight: 800 }}>{c.partyLabel}</span>
         <span style={{ background: '#f1f5f9', color: '#475569', borderRadius: 999, padding: '3px 10px', fontSize: 12, fontWeight: 700 }}>{c.incumbent ? 'Incumbent' : 'Challenger'}</span>
-        {c.site && <a href={c.site} target="_blank" rel="noreferrer" style={{ color: '#4a7297', fontWeight: 700, fontSize: 13 }}>Campaign site ↗</a>}
+        {c.site && <a href={c.site} target="_blank" rel="noreferrer" style={{ color: '#2f6690', fontWeight: 700, fontSize: 13 }}>Campaign site ↗</a>}
       </div>
       <p style={{ color: '#64748b', fontSize: 13.5, lineHeight: 1.55, margin: '6px 0 4px' }}>{c.background}</p>
 
@@ -110,7 +110,7 @@ function PlankCard({ pl, n }: { pl: Plank; n: number }) {
         <Line label="Tradeoff" color="#b45309" bg="#fef3c7" text={pl.tradeoff} />
       </div>
       {pl.anchor && (
-        <a href={`${base}${pl.anchor.href}`} style={{ display: 'inline-block', marginTop: 10, color: '#4a7297', fontWeight: 700, fontSize: 13 }}>
+        <a href={`${base}${pl.anchor.href}`} style={{ display: 'inline-block', marginTop: 10, color: '#2f6690', fontWeight: 700, fontSize: 13 }}>
           See the numbers: {pl.anchor.label} →
         </a>
       )}

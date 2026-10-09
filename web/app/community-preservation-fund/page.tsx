@@ -3,7 +3,7 @@ import PlainCallout from '../../components/PlainCallout'
 import { cpfDebt, cpfDebtPayoffProposal, cpfHistory, cpfMechanics, cpfTotalRevenue, revenueSwing } from '../../lib/cpf'
 
 const base = process.env.NEXT_PUBLIC_BASE_PATH || ''
-const card = { background: 'white', border: '1px solid #e2e8f0', borderRadius: 16, padding: 20, boxShadow: '0 14px 34px rgba(15,23,42,.05)' } as const
+const card = { background: 'white', border: '1px solid #e2e8f0', borderRadius: 16, padding: 20, boxShadow: '0 1px 3px rgba(15,23,42,.04)' } as const
 const usd = (n: number) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(n)
 const pct = (v: number, digits = 1) => `${(v * 100).toFixed(digits)}%`
 
@@ -49,7 +49,7 @@ export default function CommunityPreservationFundPage() {
       </PlainCallout>
 
       <section style={{ ...card, marginBottom: 16 }}>
-        <h3 style={{ marginTop: 0, color: '#284a69' }}>Transfer-tax revenue, every audited year with usable data</h3>
+        <h3 style={{ marginTop: 0, color: '#13293f' }}>Transfer-tax revenue, every audited year with usable data</h3>
         <p style={{ color: '#475569', fontSize: 14.5, marginTop: 0 }}>
           Every figure below is the transfer-tax line from that year&apos;s CPF financial statement — not a
           projection. Older years aren&apos;t shown because their source PDFs are scanned images with no extractable
@@ -60,14 +60,14 @@ export default function CommunityPreservationFundPage() {
             <div key={y.year}>
               <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 14 }}>
                 <strong>{y.year}</strong>
-                <span style={{ fontWeight: 800, color: '#4a7297' }}>{usd(y.transferTaxRevenue)}</span>
+                <span style={{ fontWeight: 800, color: '#2f6690' }}>{usd(y.transferTaxRevenue)}</span>
               </div>
               <div style={{ background: '#e2e8f0', borderRadius: 999, height: 10, overflow: 'hidden', marginTop: 4 }}>
                 <div
                   style={{
                     width: `${(y.transferTaxRevenue / maxRevenue) * 100}%`,
                     height: '100%',
-                    background: '#4a7297',
+                    background: '#2f6690',
                     borderRadius: 999,
                   }}
                 />
@@ -98,7 +98,7 @@ export default function CommunityPreservationFundPage() {
 
       {cpfDebt && (
         <section style={{ ...card, marginBottom: 16 }}>
-          <h3 style={{ marginTop: 0, color: '#284a69' }}>What the fund still owes</h3>
+          <h3 style={{ marginTop: 0, color: '#13293f' }}>What the fund still owes</h3>
           <p style={{ color: '#475569', fontSize: 14.5, marginTop: 0 }}>
             {cpfDebt.description} The fund transfers money to the Town&apos;s debt service fund each year to pay this
             down — that transfer competes with land-purchase capacity for the same revenue.
@@ -154,8 +154,8 @@ export default function CommunityPreservationFundPage() {
         </p>
       </section>
 
-      <section style={{ ...card, marginBottom: 16, borderLeft: '8px solid #4a7297' }}>
-        <h3 style={{ marginTop: 0, color: '#284a69' }}>Is the current rate still enough?</h3>
+      <section style={{ ...card, marginBottom: 16, borderLeft: '8px solid #2f6690' }}>
+        <h3 style={{ marginTop: 0, color: '#13293f' }}>Is the current rate still enough?</h3>
         <p style={{ color: '#334155', fontSize: 14.5, lineHeight: 1.65 }}>
           There is no acute crisis in these numbers: the fund balance has grown every year shown here
           {cpfDebt && ' and the outstanding debt is shrinking each year'}. The real question is about reliability, not
@@ -189,7 +189,7 @@ export default function CommunityPreservationFundPage() {
         Sources: Town of Riverhead Peconic Bay Community Preservation Fund financial statements —{' '}
         {sources.map((s, i) => (
           <span key={s.sourceUrl}>
-            <a href={s.sourceUrl} target="_blank" rel="noreferrer" style={{ color: '#4a7297', fontWeight: 700 }}>
+            <a href={s.sourceUrl} target="_blank" rel="noreferrer" style={{ color: '#2f6690', fontWeight: 700 }}>
               {s.sourceTitle}
             </a>
             {i < sources.length - 1 ? ', ' : '.'}

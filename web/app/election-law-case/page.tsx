@@ -2,7 +2,7 @@ import PageShell from '../../components/PageShell'
 import PlainCallout from '../../components/PlainCallout'
 import { electionLawCase as c } from '../../lib/election-law-case'
 
-const card = { background: 'white', border: '1px solid #e2e8f0', borderRadius: 16, padding: 20, boxShadow: '0 14px 34px rgba(15,23,42,.05)' } as const
+const card = { background: 'white', border: '1px solid #e2e8f0', borderRadius: 16, padding: 20, boxShadow: '0 1px 3px rgba(15,23,42,.04)' } as const
 const usd = (n: number) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(n)
 const usd2 = (n: number) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 2 }).format(n)
 
@@ -42,13 +42,13 @@ export default function ElectionLawCasePage() {
       </section>
 
       {/* Can the Town claw it back? NY legal levers. */}
-      <section style={{ ...card, marginBottom: 16, borderLeft: '6px solid #4a7297' }}>
-        <h3 style={{ marginTop: 0, color: '#284a69' }}>Can the Town refuse or claw back any of it?</h3>
+      <section style={{ ...card, marginBottom: 16, borderLeft: '6px solid #2f6690' }}>
+        <h3 style={{ marginTop: 0, color: '#13293f' }}>Can the Town refuse or claw back any of it?</h3>
         <p style={{ color: '#334155', fontSize: 14.5, lineHeight: 1.6, margin: '0 0 10px' }}>{c.recovery.intro}</p>
         <div style={{ display: 'grid', gap: 10 }}>
           {c.recovery.levers.map((l) => (
             <div key={l.title} style={{ background: '#f8fafc', border: '1px solid #e2e8f0', borderRadius: 10, padding: '11px 14px' }}>
-              <div style={{ fontWeight: 800, color: '#284a69', fontSize: 14 }}>{l.title}</div>
+              <div style={{ fontWeight: 800, color: '#13293f', fontSize: 14 }}>{l.title}</div>
               <div style={{ color: '#334155', fontSize: 13.5, lineHeight: 1.55, marginTop: 3 }}>{l.text}</div>
             </div>
           ))}
@@ -58,7 +58,7 @@ export default function ElectionLawCasePage() {
           Legal references:{' '}
           {c.recovery.lawSources.map((s, i) => (
             <span key={s.url}>
-              <a href={s.url} target="_blank" rel="noreferrer" style={{ color: '#4a7297', fontWeight: 700 }}>{s.title}</a>
+              <a href={s.url} target="_blank" rel="noreferrer" style={{ color: '#2f6690', fontWeight: 700 }}>{s.title}</a>
               {i < c.recovery.lawSources.length - 1 ? ' · ' : '.'}
             </span>
           ))}
@@ -67,12 +67,12 @@ export default function ElectionLawCasePage() {
 
       {/* Itemized travel / banquet charges. */}
       <section style={{ ...card, marginBottom: 16 }}>
-        <h3 style={{ marginTop: 0, color: '#284a69' }}>Hotel and banquet charges billed to the case</h3>
+        <h3 style={{ marginTop: 0, color: '#13293f' }}>Hotel and banquet charges billed to the case</h3>
         <div style={{ display: 'grid', gap: 12 }}>
           {c.expenses.map((e) => (
             <div key={e.venue} style={{ background: '#f8fafc', border: '1px solid #e2e8f0', borderRadius: 10, padding: '12px 14px' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', gap: 12, alignItems: 'baseline', flexWrap: 'wrap' }}>
-                <span style={{ fontWeight: 800, color: '#284a69', fontSize: 15 }}>{e.venue}</span>
+                <span style={{ fontWeight: 800, color: '#13293f', fontSize: 15 }}>{e.venue}</span>
                 <span style={{ fontWeight: 900, color: '#b91c1c', fontSize: 16 }}>{e.amountPrefix}{usd(e.amount)}</span>
               </div>
               <div style={{ color: '#64748b', fontSize: 12.5, fontWeight: 700, margin: '2px 0 4px' }}>{e.when} · {e.perUnit}</div>
@@ -84,21 +84,21 @@ export default function ElectionLawCasePage() {
 
       {/* Benchmark against public travel rules — scale, not a disallowance. */}
       <section style={{ ...card, marginBottom: 16, background: '#f8fafc' }}>
-        <h3 style={{ marginTop: 0, color: '#284a69' }}>How that compares to public travel rules</h3>
+        <h3 style={{ marginTop: 0, color: '#13293f' }}>How that compares to public travel rules</h3>
         <p style={{ color: '#334155', fontSize: 14, lineHeight: 1.6, margin: 0 }}>{c.travelBenchmarkNote}</p>
       </section>
 
       <section style={{ ...card, marginBottom: 16 }}>
-        <h3 style={{ marginTop: 0, color: '#284a69' }}>What the case was about</h3>
+        <h3 style={{ marginTop: 0, color: '#13293f' }}>What the case was about</h3>
         <p style={{ color: '#334155', fontSize: 14.5, lineHeight: 1.6, margin: 0 }}>{c.whatItWasAbout}</p>
       </section>
 
       <section style={{ ...card, marginBottom: 16 }}>
-        <h3 style={{ marginTop: 0, color: '#284a69' }}>Timeline</h3>
+        <h3 style={{ marginTop: 0, color: '#13293f' }}>Timeline</h3>
         <div style={{ display: 'grid', gap: 12 }}>
           {c.timeline.map((t) => (
             <div key={t.date} style={{ display: 'grid', gridTemplateColumns: '150px 1fr', gap: 12, alignItems: 'baseline' }}>
-              <span style={{ color: '#4a7297', fontWeight: 800, fontSize: 13 }}>{t.date}</span>
+              <span style={{ color: '#2f6690', fontWeight: 800, fontSize: 13 }}>{t.date}</span>
               <span style={{ color: '#334155', fontSize: 14, lineHeight: 1.5 }}>{t.text}</span>
             </div>
           ))}
@@ -112,8 +112,8 @@ export default function ElectionLawCasePage() {
         </ul>
       </section>
 
-      <section style={{ ...card, marginBottom: 16, borderLeft: '6px solid #4a7297' }}>
-        <h3 style={{ marginTop: 0, color: '#284a69' }}>Questions worth asking</h3>
+      <section style={{ ...card, marginBottom: 16, borderLeft: '6px solid #2f6690' }}>
+        <h3 style={{ marginTop: 0, color: '#13293f' }}>Questions worth asking</h3>
         <ul style={{ color: '#334155', fontSize: 14, lineHeight: 1.55, margin: 0, paddingLeft: 18, display: 'grid', gap: 6 }}>
           {c.questionsToAsk.map((q) => <li key={q}>{q}</li>)}
         </ul>
@@ -123,7 +123,7 @@ export default function ElectionLawCasePage() {
         Sources:{' '}
         {c.sources.map((s, i) => (
           <span key={s.url}>
-            <a href={s.url} target="_blank" rel="noreferrer" style={{ color: '#4a7297', fontWeight: 700 }}>{s.title}</a>
+            <a href={s.url} target="_blank" rel="noreferrer" style={{ color: '#2f6690', fontWeight: 700 }}>{s.title}</a>
             {i < c.sources.length - 1 ? ' · ' : '.'}
           </span>
         ))}
@@ -136,7 +136,7 @@ function Stat({ label, value, sub, accent, red }: { label: string; value: string
   return (
     <div style={{ background: accent ? '#dbeafe' : '#f8fafc', border: '1px solid #e2e8f0', borderRadius: 12, padding: 12 }}>
       <div style={{ color: '#64748b', fontSize: 11.5, textTransform: 'uppercase', fontWeight: 900, letterSpacing: 0.4 }}>{label}</div>
-      <strong style={{ fontSize: 22, color: red ? '#b91c1c' : '#284a69' }}>{value}</strong>
+      <strong style={{ fontSize: 22, color: red ? '#b91c1c' : '#13293f' }}>{value}</strong>
       <div style={{ color: '#6b7280', fontSize: 12, marginTop: 2 }}>{sub}</div>
     </div>
   )

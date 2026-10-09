@@ -2,7 +2,7 @@ import PageShell from '../../components/PageShell'
 import PlainCallout from '../../components/PlainCallout'
 import data from '../../public/data/community.json'
 
-const card = { background: 'white', border: '1px solid #e2e8f0', borderRadius: 16, padding: 20, boxShadow: '0 14px 34px rgba(15,23,42,.05)' } as const
+const card = { background: 'white', border: '1px solid #e2e8f0', borderRadius: 16, padding: 20, boxShadow: '0 1px 3px rgba(15,23,42,.04)' } as const
 const usd0 = (n: number) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(n)
 const bn = (n: number) => `$${(n / 1e9).toFixed(2)}B`
 
@@ -48,7 +48,7 @@ export default function CommunityPage() {
         </ul>
       </section>
 
-      <h2 style={{ color: '#284a69' }}>Businesses & industries</h2>
+      <h2 style={{ color: '#13293f' }}>Businesses & industries</h2>
       <section style={{ ...card, marginBottom: 16 }}>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(180px,1fr))', gap: 12, marginBottom: 14 }}>
           <Stat label="Employer businesses" value={d.businesses.totalEmployerFirms.toLocaleString()} sub={`All employer firms, ${d.businesses.totalEmployerFirmsYear}`} accent />
@@ -59,7 +59,7 @@ export default function CommunityPage() {
           {d.businesses.topIndustriesByEmployment2024.map((ind, i) => (
             <div key={ind.industry} style={{ display: 'flex', gap: 12, alignItems: 'baseline', padding: '9px 12px', background: i === 0 ? '#eff6ff' : '#f8fafc', border: `1px solid ${i === 0 ? '#bfdbfe' : '#e2e8f0'}`, borderRadius: 10 }}>
               <span style={{ fontWeight: 900, color: i === 0 ? '#1e3a8a' : '#6b7280', minWidth: 20 }}>{i + 1}</span>
-              <div style={{ flex: 1, fontWeight: 700, color: '#284a69' }}>{ind.industry}</div>
+              <div style={{ flex: 1, fontWeight: 700, color: '#13293f' }}>{ind.industry}</div>
               <div style={{ color: '#64748b', fontSize: 13.5 }}>{ind.employees.toLocaleString()} employees</div>
             </div>
           ))}
@@ -67,7 +67,7 @@ export default function CommunityPage() {
         <p style={{ color: '#64748b', fontSize: 13, marginTop: 0, marginBottom: 0, lineHeight: 1.5 }}>{d.businesses.note} Source: {d.businesses.totalEmployerFirmsSource}</p>
       </section>
 
-      <h2 style={{ color: '#284a69' }}>Largest taxpayers</h2>
+      <h2 style={{ color: '#13293f' }}>Largest taxpayers</h2>
       <section style={{ ...card, marginBottom: 16 }}>
         <p style={{ color: '#64748b', fontSize: 13, marginTop: 0, lineHeight: 1.5 }}>{d.largestTaxpayers.note}</p>
         <div style={{ display: 'grid', gap: 8 }}>
@@ -75,7 +75,7 @@ export default function CommunityPage() {
             <div key={i} style={{ display: 'flex', gap: 12, alignItems: 'baseline', padding: '9px 12px', background: i === 0 ? '#eff6ff' : '#f8fafc', border: `1px solid ${i === 0 ? '#bfdbfe' : '#e2e8f0'}`, borderRadius: 10 }}>
               <span style={{ fontWeight: 900, color: i === 0 ? '#1e3a8a' : '#6b7280', minWidth: 20 }}>{i + 1}</span>
               <div>
-                <div style={{ fontWeight: 800, color: '#284a69' }}>{t.name}{i === 0 && <span style={{ marginLeft: 8, background: '#1e3a8a', color: 'white', fontSize: 10.5, fontWeight: 900, padding: '2px 8px', borderRadius: 999 }}>largest</span>}</div>
+                <div style={{ fontWeight: 800, color: '#13293f' }}>{t.name}{i === 0 && <span style={{ marginLeft: 8, background: '#1e3a8a', color: 'white', fontSize: 10.5, fontWeight: 900, padding: '2px 8px', borderRadius: 999 }}>largest</span>}</div>
                 <div style={{ color: '#64748b', fontSize: 13, lineHeight: 1.45 }}>{t.note}</div>
               </div>
             </div>
@@ -103,7 +103,7 @@ function Stat({ label, value, sub, accent }: { label: string; value: string; sub
   return (
     <div style={{ background: accent ? '#dbeafe' : '#f8fafc', border: '1px solid #e2e8f0', borderRadius: 12, padding: 12 }}>
       <div style={{ color: '#64748b', fontSize: 11.5, textTransform: 'uppercase', fontWeight: 900, letterSpacing: 0.4 }}>{label}</div>
-      <strong style={{ fontSize: 20, color: '#284a69' }}>{value}</strong>
+      <strong style={{ fontSize: 20, color: '#13293f' }}>{value}</strong>
       {sub && <div style={{ color: '#64748b', fontSize: 12.5, marginTop: 2 }}>{sub}</div>}
     </div>
   )

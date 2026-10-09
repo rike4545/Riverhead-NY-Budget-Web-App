@@ -3,7 +3,7 @@
 import { useMemo, useState } from 'react'
 import type { FundYoyChange } from '../lib/outlier-watch'
 
-const card = { background: 'white', border: '1px solid #e2e8f0', borderRadius: 16, padding: 18, boxShadow: '0 14px 34px rgba(15,23,42,.05)' } as const
+const card = { background: 'white', border: '1px solid #e2e8f0', borderRadius: 16, padding: 18, boxShadow: '0 1px 3px rgba(15,23,42,.04)' } as const
 const usd = (n: number) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(n)
 const th = { padding: '8px 10px', fontWeight: 800, fontSize: 12 } as const
 const td = { padding: '8px 10px' } as const
@@ -21,14 +21,14 @@ export default function OutlierWatch({ outliers, yearTransitions }: { outliers: 
       <section style={{ ...card, display: 'flex', gap: 6, flexWrap: 'wrap' }}>
         <button onClick={() => setTransition('all')} style={{
           padding: '8px 13px', borderRadius: 9, border: '1px solid', cursor: 'pointer', fontWeight: 800, fontSize: 13.5,
-          borderColor: transition === 'all' ? '#4a7297' : '#cbd5e1', background: transition === 'all' ? '#4a7297' : 'white', color: transition === 'all' ? 'white' : '#334155',
+          borderColor: transition === 'all' ? '#2f6690' : '#cbd5e1', background: transition === 'all' ? '#2f6690' : 'white', color: transition === 'all' ? 'white' : '#334155',
         }}>All years ({outliers.length})</button>
         {yearTransitions.map((t) => {
           const count = outliers.filter((o) => `${o.fromYear}→${o.toYear}` === t).length
           return (
             <button key={t} onClick={() => setTransition(t)} disabled={count === 0} style={{
               padding: '8px 13px', borderRadius: 9, border: '1px solid', cursor: count === 0 ? 'default' : 'pointer', fontWeight: 800, fontSize: 13.5,
-              borderColor: transition === t ? '#4a7297' : '#cbd5e1', background: transition === t ? '#4a7297' : 'white',
+              borderColor: transition === t ? '#2f6690' : '#cbd5e1', background: transition === t ? '#2f6690' : 'white',
               color: transition === t ? 'white' : count === 0 ? '#6b7280' : '#334155',
             }}>{t} ({count})</button>
           )
@@ -52,7 +52,7 @@ export default function OutlierWatch({ outliers, yearTransitions }: { outliers: 
             <tbody>
               {rows.map((o) => (
                 <tr key={`${o.code}-${o.fromYear}`} style={{ borderBottom: '1px solid #f1f5f9' }}>
-                  <td style={{ ...td, fontWeight: 800, color: '#284a69' }}>{o.name}<div style={{ fontWeight: 600, color: '#6b7280', fontSize: 11.5 }}>{o.code}</div></td>
+                  <td style={{ ...td, fontWeight: 800, color: '#13293f' }}>{o.name}<div style={{ fontWeight: 600, color: '#6b7280', fontSize: 11.5 }}>{o.code}</div></td>
                   <td style={td}>{o.fromYear} → {o.toYear}</td>
                   <td style={{ ...td, textAlign: 'right' }}>{usd(o.prior)}</td>
                   <td style={{ ...td, textAlign: 'right' }}>{usd(o.current)}</td>

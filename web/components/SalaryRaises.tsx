@@ -6,7 +6,7 @@ import { SALARY_COMPARISON_URL, type SalaryComparison, type RaiseRecord } from '
 
 const usd = (n: number | null | undefined) =>
   n == null ? '—' : new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(n)
-const card = { background: 'white', border: '1px solid #e2e8f0', borderRadius: 16, padding: 18, boxShadow: '0 14px 34px rgba(15,23,42,.05)' } as const
+const card = { background: 'white', border: '1px solid #e2e8f0', borderRadius: 16, padding: 18, boxShadow: '0 1px 3px rgba(15,23,42,.04)' } as const
 const sel = { padding: '9px 11px', border: '1px solid #cbd5e1', borderRadius: 9, fontSize: 14, fontWeight: 700 } as const
 
 type SortKey = 'raise' | 'raisePct' | 'annual2026' | 'name'
@@ -65,7 +65,7 @@ export default function SalaryRaises() {
             return (
               <div key={r.name}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', gap: 10, fontSize: 13.5 }}>
-                  <span style={{ color: '#284a69', fontWeight: 700 }}>
+                  <span style={{ color: '#13293f', fontWeight: 700 }}>
                     {r.name} <span style={{ color: '#6b7280', fontWeight: 600 }}>· {r.title2026}</span>
                     {r.promoted && <span style={{ marginLeft: 6, background: '#ede9fe', color: '#6d28d9', fontSize: 11, fontWeight: 800, padding: '1px 7px', borderRadius: 999 }}>promotion</span>}
                   </span>
@@ -86,7 +86,7 @@ export default function SalaryRaises() {
           {(['raised', 'promotions', 'all'] as const).map((f) => (
             <button key={f} onClick={() => { setOnly(f); setLimit(60) }} style={{
               padding: '8px 13px', borderRadius: 9, border: '1px solid', cursor: 'pointer', fontWeight: 800, fontSize: 13.5,
-              borderColor: only === f ? '#4a7297' : '#cbd5e1', background: only === f ? '#4a7297' : 'white', color: only === f ? 'white' : '#334155',
+              borderColor: only === f ? '#2f6690' : '#cbd5e1', background: only === f ? '#2f6690' : 'white', color: only === f ? 'white' : '#334155',
             }}>{f === 'raised' ? `Raises (${summary.raised})` : f === 'promotions' ? `Promotions (${summary.promotions})` : `All 2026 (${summary.count2026})`}</button>
           ))}
         </div>
@@ -118,7 +118,7 @@ export default function SalaryRaises() {
               {rows.slice(0, limit).map((r, i) => (
                 <tr key={`${r.name}-${i}`} style={{ borderBottom: '1px solid #f1f5f9' }}>
                   <td style={td}>
-                    <strong style={{ color: '#284a69' }}>{r.name}</strong>
+                    <strong style={{ color: '#13293f' }}>{r.name}</strong>
                     {r.promoted && <span style={{ marginLeft: 6, background: '#ede9fe', color: '#6d28d9', fontSize: 11, fontWeight: 800, padding: '1px 7px', borderRadius: 999 }}>promotion</span>}
                     <div style={{ color: '#64748b', fontSize: 12.5 }}>
                       {r.title2026}{r.promoted && r.title2025 ? ` (was ${r.title2025})` : ''} · {r.group}
@@ -139,7 +139,7 @@ export default function SalaryRaises() {
         </div>
         {limit < rows.length && (
           <div style={{ textAlign: 'center', marginTop: 14 }}>
-            <button onClick={() => setLimit((l) => l + 100)} style={{ padding: '10px 18px', borderRadius: 10, border: '1px solid #4a7297', background: '#4a7297', color: 'white', fontWeight: 800, cursor: 'pointer' }}>Show more</button>
+            <button onClick={() => setLimit((l) => l + 100)} style={{ padding: '10px 18px', borderRadius: 10, border: '1px solid #2f6690', background: '#2f6690', color: 'white', fontWeight: 800, cursor: 'pointer' }}>Show more</button>
           </div>
         )}
       </section>
@@ -160,7 +160,7 @@ function Stat({ label, value, sub, accent }: { label: string; value: string; sub
   return (
     <div style={{ background: accent ? '#dcfce7' : '#f8fafc', border: '1px solid #e2e8f0', borderRadius: 12, padding: 12 }}>
       <div style={{ color: '#64748b', fontSize: 11.5, textTransform: 'uppercase', fontWeight: 900, letterSpacing: 0.4 }}>{label}</div>
-      <strong style={{ fontSize: 19, color: '#284a69' }}>{value}</strong>
+      <strong style={{ fontSize: 19, color: '#13293f' }}>{value}</strong>
       {sub && <div style={{ color: '#64748b', fontSize: 12, marginTop: 1 }}>{sub}</div>}
     </div>
   )

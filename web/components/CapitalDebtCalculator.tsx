@@ -4,7 +4,7 @@ import { useMemo, useState } from 'react'
 import { compareFinancing } from '../lib/capital-financing'
 
 const usd = (n: number) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(n)
-const card = { background: 'white', border: '1px solid #e2e8f0', borderRadius: 16, padding: 20, boxShadow: '0 14px 34px rgba(15,23,42,.05)' } as const
+const card = { background: 'white', border: '1px solid #e2e8f0', borderRadius: 16, padding: 20, boxShadow: '0 1px 3px rgba(15,23,42,.04)' } as const
 
 export default function CapitalDebtCalculator() {
   const [projectCost, setProjectCost] = useState(5_000_000)
@@ -88,7 +88,7 @@ function PathCard({
 }) {
   return (
     <div style={{ background: '#f8fafc', border: '1px solid #e2e8f0', borderRadius: 12, padding: 14 }}>
-      <div style={{ fontWeight: 900, color: '#284a69', fontSize: 15 }}>{title}</div>
+      <div style={{ fontWeight: 900, color: '#13293f', fontSize: 15 }}>{title}</div>
       <div style={{ color: '#64748b', fontSize: 12, marginBottom: 10 }}>{sub}</div>
       <Mini label="Total interest" value={usd(totalInterest)} />
       <div style={{ height: 8 }} />
@@ -113,7 +113,7 @@ function Mini({ label, value }: { label: string; value: string }) {
   return (
     <div style={{ background: 'white', border: '1px solid #e2e8f0', borderRadius: 10, padding: 10 }}>
       <div style={{ color: '#64748b', fontSize: 11, textTransform: 'uppercase', fontWeight: 800 }}>{label}</div>
-      <div style={{ fontWeight: 800, marginTop: 2, color: '#284a69' }}>{value}</div>
+      <div style={{ fontWeight: 800, marginTop: 2, color: '#13293f' }}>{value}</div>
     </div>
   )
 }
@@ -122,8 +122,8 @@ function Field({ label, value, hint, children }: { label: string; value: string;
   return (
     <div>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline' }}>
-        <span style={{ fontWeight: 800, color: '#284a69', fontSize: 14.5 }}>{label}</span>
-        <span style={{ fontWeight: 800, color: '#4a7297', fontSize: 14 }}>{value}</span>
+        <span style={{ fontWeight: 800, color: '#13293f', fontSize: 14.5 }}>{label}</span>
+        <span style={{ fontWeight: 800, color: '#2f6690', fontSize: 14 }}>{value}</span>
       </div>
       {children}
       <div style={{ color: '#6b7280', fontSize: 12, lineHeight: 1.4, marginTop: 4 }}>{hint}</div>
@@ -131,4 +131,4 @@ function Field({ label, value, hint, children }: { label: string; value: string;
   )
 }
 
-const slider = { width: '100%', accentColor: '#4a7297' } as const
+const slider = { width: '100%', accentColor: '#2f6690' } as const

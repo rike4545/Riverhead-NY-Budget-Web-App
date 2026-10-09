@@ -16,7 +16,7 @@ import {
 } from '../../lib/credit-rating'
 import retireeHealthComparison from '../../public/data/retiree-health-comparison.json'
 
-const card = { background: 'white', border: '1px solid #e2e8f0', borderRadius: 16, padding: 20, boxShadow: '0 14px 34px rgba(15,23,42,.05)' } as const
+const card = { background: 'white', border: '1px solid #e2e8f0', borderRadius: 16, padding: 20, boxShadow: '0 1px 3px rgba(15,23,42,.04)' } as const
 const usd = (n: number) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(n)
 const pct = (v: number, digits = 1) => `${(v * 100).toFixed(digits)}%`
 
@@ -78,7 +78,7 @@ export default function CreditRatingPage() {
       </section>
 
       <section style={{ ...card, marginBottom: 16 }}>
-        <h3 style={{ marginTop: 0, color: '#284a69' }}>The puzzle this page is about</h3>
+        <h3 style={{ marginTop: 0, color: '#13293f' }}>The puzzle this page is about</h3>
         <p style={{ color: '#334155', fontSize: 15, lineHeight: 1.65, margin: 0 }}>
           Riverhead&apos;s reserve cushion — {pct(riverheadPct)} of its General Fund budget — is already{' '}
           <strong>above</strong> Brookhaven&apos;s own posture (~38.8%), and its debt burden is minimal: just{' '}
@@ -89,13 +89,13 @@ export default function CreditRatingPage() {
         </p>
       </section>
 
-      <h2 style={{ color: '#284a69' }}>Riverhead&apos;s rating history</h2>
+      <h2 style={{ color: '#13293f' }}>Riverhead&apos;s rating history</h2>
       <section style={{ ...card, marginBottom: 16 }}>
         <div style={{ display: 'grid', gap: 14 }}>
           {riverheadRatingHistory.map((e) => (
             <div key={e.date} style={{ borderTop: '1px solid #e2e8f0', paddingTop: 12 }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap', gap: 8 }}>
-                <strong style={{ color: '#284a69', fontSize: 14.5 }}>{e.date} — {e.action}: {e.rating}</strong>
+                <strong style={{ color: '#13293f', fontSize: 14.5 }}>{e.date} — {e.action}: {e.rating}</strong>
                 {confidenceBadge(e.confidence)}
               </div>
               {e.quote && (
@@ -112,10 +112,10 @@ export default function CreditRatingPage() {
         </p>
       </section>
 
-      <h2 style={{ color: '#284a69' }}>Brookhaven&apos;s AAA</h2>
+      <h2 style={{ color: '#13293f' }}>Brookhaven&apos;s AAA</h2>
       <section style={{ ...card, marginBottom: 16 }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap', gap: 8, marginBottom: 6 }}>
-          <strong style={{ color: '#284a69', fontSize: 14.5 }}>
+          <strong style={{ color: '#13293f', fontSize: 14.5 }}>
             Moody&apos;s Aaa ({brookhaven.consecutiveMoodyAaaYears} consecutive years) and S&amp;P AAA, {brookhaven.asOf}
           </strong>
           {confidenceBadge(brookhaven.confidence)}
@@ -138,7 +138,7 @@ export default function CreditRatingPage() {
         </div>
       </section>
 
-      <h2 style={{ color: '#284a69' }}>How Riverhead compares to its Suffolk neighbors</h2>
+      <h2 style={{ color: '#13293f' }}>How Riverhead compares to its Suffolk neighbors</h2>
       <section style={{ ...card, marginBottom: 16 }}>
         <p style={{ color: '#64748b', fontSize: 13.5, marginTop: 0 }}>
           Moody&apos;s scale only, so every bar is the same agency&apos;s opinion. Towns with a separate S&amp;P or
@@ -153,7 +153,7 @@ export default function CreditRatingPage() {
               const barPct = Math.max(6, (1 - t.moodyNotchesBelowAaa / 10) * 100)
               return (
                 <div key={t.town} style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-                  <span style={{ width: 118, fontSize: 13.5, fontWeight: t.isRiverhead ? 900 : 600, color: t.isRiverhead ? '#284a69' : '#475569' }}>
+                  <span style={{ width: 118, fontSize: 13.5, fontWeight: t.isRiverhead ? 900 : 600, color: t.isRiverhead ? '#13293f' : '#475569' }}>
                     {t.town}
                   </span>
                   <div style={{ flex: 1, background: '#f1f5f9', borderRadius: 6, height: 24, overflow: 'hidden', position: 'relative' }}>
@@ -175,7 +175,7 @@ export default function CreditRatingPage() {
         </p>
       </section>
 
-      <h2 style={{ color: '#284a69' }}>What the rating criteria actually weigh</h2>
+      <h2 style={{ color: '#13293f' }}>What the rating criteria actually weigh</h2>
       <section style={{ ...card, marginBottom: 16 }}>
         <p style={{ color: '#64748b', fontSize: 13.5, marginTop: 0 }}>
           Approximate weights synthesized from secondary summaries of Moody&apos;s and S&amp;P&apos;s published
@@ -185,7 +185,7 @@ export default function CreditRatingPage() {
           {ratingCriteria.map((c) => (
             <div key={c.factor} style={{ borderTop: '1px solid #e2e8f0', paddingTop: 12 }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', gap: 10 }}>
-                <strong style={{ color: '#284a69', fontSize: 14.5 }}>{c.factor}</strong>
+                <strong style={{ color: '#13293f', fontSize: 14.5 }}>{c.factor}</strong>
                 <span style={{ color: '#9b6b12', fontWeight: 800, fontSize: 13, whiteSpace: 'nowrap' }}>{c.approxWeight}</span>
               </div>
               <p style={{ color: '#64748b', fontSize: 13, margin: '3px 0 6px' }}>{c.whatItMeans}</p>
@@ -195,7 +195,7 @@ export default function CreditRatingPage() {
         </div>
       </section>
 
-      <h2 style={{ color: '#284a69' }}>Five concrete ways to move the needle</h2>
+      <h2 style={{ color: '#13293f' }}>Five concrete ways to move the needle</h2>
       <section style={{ ...card, marginBottom: 16, borderLeft: '6px solid #0f766e' }}>
         <div style={{ display: 'grid', gap: 16 }}>
           {levers.map((l, i) => (
@@ -209,7 +209,7 @@ export default function CreditRatingPage() {
                 {i + 1}
               </div>
               <div>
-                <strong style={{ fontSize: 14.5, color: '#284a69' }}>{l.title}</strong>
+                <strong style={{ fontSize: 14.5, color: '#13293f' }}>{l.title}</strong>
                 <p style={{ color: '#334155', fontSize: 13.5, lineHeight: 1.6, margin: '4px 0 6px' }}>{l.detail}</p>
                 <p style={{ color: '#64748b', fontSize: 12, margin: 0, fontStyle: 'italic' }}>{l.evidence}</p>
               </div>
@@ -219,7 +219,7 @@ export default function CreditRatingPage() {
       </section>
 
       <section style={{ ...card, marginBottom: 16 }}>
-        <h3 style={{ marginTop: 0, color: '#284a69' }}>OPEB in context: where Riverhead's per-resident liability ranks</h3>
+        <h3 style={{ marginTop: 0, color: '#13293f' }}>OPEB in context: where Riverhead's per-resident liability ranks</h3>
         <p style={{ color: '#475569', fontSize: 14, lineHeight: 1.6, marginTop: 0 }}>
           Riverhead&apos;s retiree-health liability is <strong>{usd(riverheadOpebPerResident)} per resident</strong> — the{' '}
           {opebRankOfTen}th-highest of the 10 Suffolk towns in the Empire Center&apos;s comparison, and well above
@@ -242,7 +242,7 @@ export default function CreditRatingPage() {
                 .sort((a: any, b: any) => b.perResident - a.perResident)
                 .map((t: any) => (
                   <tr key={t.name} style={{ borderBottom: '1px solid #f1f5f9', background: t.isRiverhead ? '#f0fdfa' : undefined, fontWeight: t.isRiverhead ? 800 : 400 }}>
-                    <td style={{ padding: '6px 9px', color: t.isRiverhead ? '#0f766e' : '#284a69' }}>{t.name}{t.isRiverhead ? ' ← this site' : ''}</td>
+                    <td style={{ padding: '6px 9px', color: t.isRiverhead ? '#0f766e' : '#13293f' }}>{t.name}{t.isRiverhead ? ' ← this site' : ''}</td>
                     <td style={{ padding: '6px 9px', textAlign: 'right', color: t.isRiverhead ? '#0f766e' : '#334155' }}>{usd(t.perResident)}</td>
                   </tr>
                 ))}
@@ -255,7 +255,7 @@ export default function CreditRatingPage() {
         </p>
       </section>
 
-      <h2 style={{ color: '#284a69' }}>How to actually reduce or fund the OPEB liability</h2>
+      <h2 style={{ color: '#13293f' }}>How to actually reduce or fund the OPEB liability</h2>
       <section style={{ ...card, marginBottom: 16, borderLeft: '6px solid #9333ea' }}>
         <p style={{ color: '#475569', fontSize: 14, lineHeight: 1.6, marginTop: 0 }}>
           Two different things: <strong>funding</strong> the liability (how it gets paid for) versus{' '}
@@ -275,7 +275,7 @@ export default function CreditRatingPage() {
                 {i + 1}
               </div>
               <div>
-                <strong style={{ fontSize: 14.5, color: '#284a69' }}>{l.title}</strong>
+                <strong style={{ fontSize: 14.5, color: '#13293f' }}>{l.title}</strong>
                 <p style={{ color: '#334155', fontSize: 13.5, lineHeight: 1.6, margin: '4px 0 6px' }}>{l.detail}</p>
                 <p style={{ color: '#64748b', fontSize: 12, margin: 0, fontStyle: 'italic' }}>{l.evidence}</p>
               </div>
@@ -285,7 +285,7 @@ export default function CreditRatingPage() {
       </section>
 
       <section style={{ ...card, marginBottom: 16 }}>
-        <h3 style={{ marginTop: 0, color: '#284a69' }}>Limits of this page</h3>
+        <h3 style={{ marginTop: 0, color: '#13293f' }}>Limits of this page</h3>
         <ul style={{ margin: 0, paddingLeft: 0, listStyle: 'none', display: 'grid', gap: 9 }}>
           {caveats.map((c) => (
             <li key={c} style={{ display: 'flex', gap: 9, alignItems: 'baseline', color: '#475569', fontSize: 14, lineHeight: 1.6 }}>
@@ -311,7 +311,7 @@ function Stat({ label, value, sub, accent }: { label: string; value: string; sub
   return (
     <div style={{ background: accent ? '#dbeafe' : '#f8fafc', border: '1px solid #e2e8f0', borderRadius: 12, padding: 12 }}>
       <div style={{ color: '#64748b', fontSize: 11.5, textTransform: 'uppercase', fontWeight: 900, letterSpacing: 0.4 }}>{label}</div>
-      <strong style={{ fontSize: 20, color: '#284a69' }}>{value}</strong>
+      <strong style={{ fontSize: 20, color: '#13293f' }}>{value}</strong>
       {sub && <div style={{ color: '#64748b', fontSize: 12.5, marginTop: 2 }}>{sub}</div>}
     </div>
   )

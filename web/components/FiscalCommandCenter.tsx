@@ -25,7 +25,7 @@ const sectionAnchors = [
 
 // Matches the standard card style used on every other page (see e.g. funds/page.tsx)
 // so the home page reads as part of the same site.
-const shell = { background: 'var(--rbl-surface)', borderTop: '1px solid var(--rbl-border-subtle)', borderRight: '1px solid var(--rbl-border-subtle)', borderBottom: '1px solid var(--rbl-border-subtle)', borderLeft: '1px solid var(--rbl-border-subtle)', borderRadius: 16, boxShadow: '0 14px 34px rgba(15,23,42,.05)' } as const
+const shell = { background: 'var(--rbl-surface)', borderTop: '1px solid var(--rbl-border-subtle)', borderRight: '1px solid var(--rbl-border-subtle)', borderBottom: '1px solid var(--rbl-border-subtle)', borderLeft: '1px solid var(--rbl-border-subtle)', borderRadius: 16, boxShadow: '0 1px 3px rgba(15,23,42,.04)' } as const
 const muted = 'var(--rbl-text-muted)'
 
 // Map each KPI to an accent color: green = good news, amber = cost pressure, blue = informational
@@ -34,7 +34,7 @@ function kpiAccent(label: string): { border: string; label: string } {
   if (l.includes('surplus'))       return { border: '#16a34a', label: '#15803d' }
   if (l.includes('levy') || l.includes('appropriation') || l.includes('fund balance used'))
                                     return { border: '#d97706', label: '#b45309' }
-  return { border: '#4a7297', label: '#4a7297' }
+  return { border: '#2f6690', label: '#2f6690' }
 }
 
 const surplusScenario = {
@@ -88,7 +88,7 @@ export default function FiscalCommandCenter() {
                   borderBottom: '1px solid var(--rbl-border-subtle)',
                   borderLeft: `4px solid ${accent.border}`,
                   borderRadius: 16,
-                  boxShadow: '0 14px 34px rgba(15,23,42,.05)',
+                  boxShadow: '0 1px 3px rgba(15,23,42,.04)',
                   padding: 18,
                 }}>
                   <div style={{ color: accent.label, textTransform: 'uppercase', fontSize: 11, fontWeight: 950, letterSpacing: 0.4 }}>{kpi.label}</div>
@@ -156,7 +156,7 @@ export default function FiscalCommandCenter() {
 
           <section id="funds" style={{ ...shell, scrollMarginTop: 24, marginTop: 18, padding: 24 }}>
             <h2 style={{ marginTop: 0 }}>Where the money sits — every operating fund</h2>
-            <p style={{ color: muted }}>A town budget isn&apos;t one pot; it&apos;s a set of separate &quot;funds,&quot; each with its own money. Here&apos;s all of them from the adopted budget. Want to go deeper? The <a href={`${base}/funds/`} style={{ color: '#4a7297', fontWeight: 800 }}>Funds &amp; Sub-Accounts explorer</a> lets you open any fund right down to the individual line items, with year-by-year trends.</p>
+            <p style={{ color: muted }}>A town budget isn&apos;t one pot; it&apos;s a set of separate &quot;funds,&quot; each with its own money. Here&apos;s all of them from the adopted budget. Want to go deeper? The <a href={`${base}/funds/`} style={{ color: '#2f6690', fontWeight: 800 }}>Funds &amp; Sub-Accounts explorer</a> lets you open any fund right down to the individual line items, with year-by-year trends.</p>
             <div style={{ display: 'grid', gap: 10 }}>
               {allOperatingFunds2026.map((fund) => (
                 <details key={fund.code} style={{ border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 14, background: 'var(--rbl-surface)' }}>

@@ -11,7 +11,7 @@ import {
 } from '../lib/payroll'
 
 const usd = (n: number) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(n)
-const card = { background: 'white', border: '1px solid #e2e8f0', borderRadius: 16, padding: 18, boxShadow: '0 14px 34px rgba(15,23,42,.05)' } as const
+const card = { background: 'white', border: '1px solid #e2e8f0', borderRadius: 16, padding: 18, boxShadow: '0 1px 3px rgba(15,23,42,.04)' } as const
 const sel = { padding: '9px 11px', border: '1px solid #cbd5e1', borderRadius: 9, fontSize: 14, fontWeight: 700 } as const
 
 type SortKey = 'gross' | 'overtime' | 'regular' | 'name'
@@ -121,7 +121,7 @@ export default function PayrollExplorer() {
 
       {/* Multi-year trend */}
       <section style={{ ...card, display: 'flex', gap: 22, flexWrap: 'wrap', alignItems: 'center', justifyContent: 'space-between' }}>
-        <TrendBlock label={`Total gross pay ${payrollYears[0]}–${payrollYears[payrollYears.length - 1]}`} values={grossTrend} years={payrollYears} stroke="#4a7297" />
+        <TrendBlock label={`Total gross pay ${payrollYears[0]}–${payrollYears[payrollYears.length - 1]}`} values={grossTrend} years={payrollYears} stroke="#2f6690" />
         <TrendBlock label="Total overtime" values={otTrend} years={payrollYears} stroke="#c99a2e" />
       </section>
 
@@ -214,7 +214,7 @@ export default function PayrollExplorer() {
                   <Fragment key={key}>
                     <tr onClick={() => setExpanded(open ? null : key)} style={{ borderBottom: open ? 'none' : '1px solid #f1f5f9', cursor: 'pointer', background: open ? '#f8fafc' : undefined }}>
                       {year === 'all' && <td style={{ ...td, color: '#6b7280' }}>{r.year}</td>}
-                      <td style={{ ...td, fontWeight: 700, color: '#284a69' }}>
+                      <td style={{ ...td, fontWeight: 700, color: '#13293f' }}>
                         <button onClick={(e) => { e.stopPropagation(); setQ(r.name); setYear('all'); setLimit(100) }} style={nameBtn} title="Show this employee across all years">{r.name}</button>
                         {r.fileNumber && <div style={{ fontSize: 11, color: '#6b7280', fontWeight: 600 }}>File #{r.fileNumber}</div>}
                       </td>
@@ -225,7 +225,7 @@ export default function PayrollExplorer() {
                       <td style={{ ...td, textAlign: 'right', color: r.overtime > 0 ? '#b45309' : '#6b7280', fontWeight: r.overtime > 0 ? 700 : 400 }}>{usd(r.overtime)}</td>
                       <td style={{ ...td, textAlign: 'right', color: r.other > 0 ? '#0369a1' : '#6b7280', fontWeight: r.other > 0 ? 700 : 400 }}>{usd(r.other)}</td>
                       <td style={{ ...td, textAlign: 'right', fontWeight: 800 }}>{usd(r.gross)}</td>
-                      <td style={{ ...td, textAlign: 'center', color: '#4a7297', fontWeight: 800 }}>{open ? '▾' : '▸'}</td>
+                      <td style={{ ...td, textAlign: 'center', color: '#2f6690', fontWeight: 800 }}>{open ? '▾' : '▸'}</td>
                     </tr>
                     {open && (
                       <tr style={{ borderBottom: '1px solid #e2e8f0', background: '#f8fafc' }}>
@@ -242,7 +242,7 @@ export default function PayrollExplorer() {
         </div>
         {limit < filtered.length && (
           <div style={{ textAlign: 'center', marginTop: 14 }}>
-            <button onClick={() => setLimit((l) => l + 200)} style={{ padding: '10px 18px', borderRadius: 10, border: '1px solid #4a7297', background: '#4a7297', color: 'white', fontWeight: 800, cursor: 'pointer' }}>
+            <button onClick={() => setLimit((l) => l + 200)} style={{ padding: '10px 18px', borderRadius: 10, border: '1px solid #2f6690', background: '#2f6690', color: 'white', fontWeight: 800, cursor: 'pointer' }}>
               Show more
             </button>
           </div>
@@ -268,7 +268,7 @@ export default function PayrollExplorer() {
 }
 
 const COMP_COLOR: Record<string, string> = {
-  regular: '#4a7297', overtime: '#c99a2e', longevity: '#0e7490', holiday: '#7c3aed',
+  regular: '#2f6690', overtime: '#c99a2e', longevity: '#0e7490', holiday: '#7c3aed',
   stipend: '#0891b2', buyout: '#dc2626', retro: '#65a30d', misc: '#64748b',
 }
 
@@ -294,14 +294,14 @@ function PayBreakdown({ record }: { record: PayrollRecord }) {
             <span style={{ width: 11, height: 11, borderRadius: 3, background: COMP_COLOR[c.key] || '#6b7280' }} />
             <span style={{ color: '#334155', fontWeight: c.key === 'regular' ? 700 : 500 }}>{c.label}</span>
             <span style={{ color: '#6b7280', fontSize: 12, minWidth: 44, textAlign: 'right' }}>{((c.amount / total) * 100).toFixed(0)}%</span>
-            <strong style={{ color: c.amount < 0 ? '#b91c1c' : '#284a69', minWidth: 92, textAlign: 'right' }}>{usd(c.amount)}</strong>
+            <strong style={{ color: c.amount < 0 ? '#b91c1c' : '#13293f', minWidth: 92, textAlign: 'right' }}>{usd(c.amount)}</strong>
           </div>
         ))}
         <div style={{ display: 'grid', gridTemplateColumns: '14px 1fr auto auto', gap: 10, alignItems: 'center', fontSize: 14, borderTop: '2px solid #e2e8f0', paddingTop: 6, marginTop: 2 }}>
           <span />
-          <span style={{ color: '#284a69', fontWeight: 900 }}>Gross pay</span>
+          <span style={{ color: '#13293f', fontWeight: 900 }}>Gross pay</span>
           <span />
-          <strong style={{ color: '#284a69', minWidth: 92, textAlign: 'right' }}>{usd(record.gross)}</strong>
+          <strong style={{ color: '#13293f', minWidth: 92, textAlign: 'right' }}>{usd(record.gross)}</strong>
         </div>
       </div>
       <div style={{ color: '#64748b', fontSize: 12, lineHeight: 1.5 }}>
@@ -320,7 +320,7 @@ function TrendBlock({ label, values, years, stroke }: { label: string; values: (
     <div style={{ display: 'flex', gap: 14, alignItems: 'center' }}>
       <div>
         <div style={{ color: '#64748b', fontSize: 11.5, textTransform: 'uppercase', fontWeight: 900, letterSpacing: 0.3 }}>{label}</div>
-        <strong style={{ fontSize: 18, color: '#284a69' }}>{usd(last)}</strong>
+        <strong style={{ fontSize: 18, color: '#13293f' }}>{usd(last)}</strong>
         <span style={{ marginLeft: 8, fontWeight: 800, fontSize: 13, color: pct >= 0 ? 'var(--inc)' : 'var(--dec)' }}>
           {pct >= 0 ? '▲' : '▼'} {Math.abs(pct).toFixed(0)}% since {years[0]}
         </span>
@@ -339,12 +339,12 @@ function LeaderCard({ title, rows, onPick, amber }: { title: string; rows: { nam
         {rows.slice(0, 12).map((r, i) => (
           <button key={r.name + i} onClick={() => onPick(r.name)} style={{ display: 'grid', gridTemplateColumns: '1fr auto', gap: 8, alignItems: 'center', background: 'none', border: 'none', textAlign: 'left', cursor: 'pointer', padding: '3px 0' }}>
             <div style={{ minWidth: 0 }}>
-              <div style={{ fontWeight: 700, color: '#284a69', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{r.name}</div>
+              <div style={{ fontWeight: 700, color: '#13293f', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{r.name}</div>
               <div style={{ height: 6, background: '#f1f5f9', borderRadius: 6, marginTop: 3 }}>
-                <div style={{ width: `${(r.value / max) * 100}%`, height: '100%', borderRadius: 6, background: amber ? '#c99a2e' : '#4a7297' }} />
+                <div style={{ width: `${(r.value / max) * 100}%`, height: '100%', borderRadius: 6, background: amber ? '#c99a2e' : '#2f6690' }} />
               </div>
             </div>
-            <strong style={{ color: amber ? '#b45309' : '#284a69' }}>{usd(r.value)}</strong>
+            <strong style={{ color: amber ? '#b45309' : '#13293f' }}>{usd(r.value)}</strong>
           </button>
         ))}
       </div>
@@ -416,13 +416,13 @@ function Inferred({ value, inferred }: { value: string; inferred: boolean }) {
 
 const th = { padding: '8px 9px' } as const
 const td = { padding: '7px 9px' } as const
-const nameBtn = { background: 'none', border: 'none', color: '#284a69', fontWeight: 700, cursor: 'pointer', padding: 0, font: 'inherit', textAlign: 'left' as const }
+const nameBtn = { background: 'none', border: 'none', color: '#13293f', fontWeight: 700, cursor: 'pointer', padding: 0, font: 'inherit', textAlign: 'left' as const }
 
 function SortTh({
   label, active, onClick, tip,
 }: { label: string; active: boolean; onClick: () => void; tip?: { heading: string; body: React.ReactNode } }) {
   const button = (
-    <button onClick={onClick} style={{ background: 'none', border: 'none', cursor: 'pointer', fontWeight: 800, color: active ? '#4a7297' : '#64748b', font: 'inherit' }}>
+    <button onClick={onClick} style={{ background: 'none', border: 'none', cursor: 'pointer', fontWeight: 800, color: active ? '#2f6690' : '#64748b', font: 'inherit' }}>
       {label}{active ? ' ▾' : ''}
     </button>
   )
@@ -444,7 +444,7 @@ function Stat({ label, value, sub, accent, amber }: { label: string; value: stri
   return (
     <div style={{ background: amber ? '#fff7ed' : accent ? '#dbeafe' : '#f8fafc', border: '1px solid #e2e8f0', borderRadius: 12, padding: 12 }}>
       <div style={{ color: '#64748b', fontSize: 11.5, textTransform: 'uppercase', fontWeight: 900, letterSpacing: 0.4 }}>{label}</div>
-      <strong style={{ fontSize: 19, color: amber ? '#b45309' : '#284a69' }}>{value}</strong>
+      <strong style={{ fontSize: 19, color: amber ? '#b45309' : '#13293f' }}>{value}</strong>
       {sub && <div style={{ color: '#6b7280', fontSize: 11.5, marginTop: 2 }}>{sub}</div>}
     </div>
   )

@@ -2,7 +2,7 @@ import PageShell from '../../components/PageShell'
 import PlainCallout from '../../components/PlainCallout'
 import data from '../../public/data/town-history.json'
 
-const card = { background: 'white', border: '1px solid #e2e8f0', borderRadius: 16, padding: 18, boxShadow: '0 14px 34px rgba(15,23,42,.05)' } as const
+const card = { background: 'white', border: '1px solid #e2e8f0', borderRadius: 16, padding: 18, boxShadow: '0 1px 3px rgba(15,23,42,.04)' } as const
 
 export const metadata = {
   title: 'Supervisors & Council Members, 2004–2026',
@@ -31,18 +31,18 @@ export default function TownHistoryPage() {
 
   return (
     <PageShell title={data.title} subtitle={data.intro}>
-      <div style={{ background: '#eef6ff', border: '1px solid #bcd9f5', borderLeft: '6px solid #4a7297', borderRadius: 12, padding: '14px 16px', marginBottom: 16, color: '#1f3a52', fontSize: 14.5, lineHeight: 1.6 }}>
+      <div style={{ background: '#eef6ff', border: '1px solid #bcd9f5', borderLeft: '6px solid #2f6690', borderRadius: 12, padding: '14px 16px', marginBottom: 16, color: '#13293f', fontSize: 14.5, lineHeight: 1.6 }}>
         <strong>This isn&apos;t a complete historical record.</strong> {data.scopeNote}
       </div>
 
-      <h2 style={{ color: '#284a69' }}>Town Supervisor</h2>
+      <h2 style={{ color: '#13293f' }}>Town Supervisor</h2>
       <div style={{ display: 'grid', gap: 12, marginBottom: 24 }}>
         {supervisors.map((p) => (
           <PersonCard key={`${p.name}-${p.termStart}`} p={p} />
         ))}
       </div>
 
-      <h2 style={{ color: '#284a69' }}>Town Council</h2>
+      <h2 style={{ color: '#13293f' }}>Town Council</h2>
       <PlainCallout title="Why this list looks incomplete for older years">
         The Town Board always has four council seats at once, but only the seat-holders who could be confirmed with
         a specific, sourced date are listed here — mostly from the mid-2000s onward. Current members show only their
@@ -60,10 +60,10 @@ export default function TownHistoryPage() {
 function PersonCard({ p }: { p: Person }) {
   const current = p.termEnd === null
   return (
-    <section style={{ ...card, borderLeft: `6px solid ${current ? '#4a7297' : '#d8e0e7'}` }}>
+    <section style={{ ...card, borderLeft: `6px solid ${current ? '#2f6690' : '#d8e0e7'}` }}>
       <div style={{ display: 'flex', flexWrap: 'wrap', gap: 10, alignItems: 'baseline', justifyContent: 'space-between' }}>
         <div>
-          <span style={{ fontSize: 18, fontWeight: 900, color: '#284a69' }}>{p.name}</span>
+          <span style={{ fontSize: 18, fontWeight: 900, color: '#13293f' }}>{p.name}</span>
           <span style={{ color: '#64748b', fontWeight: 700, marginLeft: 8 }}>{p.party ? `· ${p.party}` : ''}</span>
         </div>
         <span

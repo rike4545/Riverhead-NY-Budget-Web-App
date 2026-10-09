@@ -11,7 +11,7 @@ import {
 } from '../lib/riverheadSearchAI'
 
 const base = process.env.NEXT_PUBLIC_BASE_PATH || ''
-const card = { background: 'white', border: '1px solid #e2e8f0', borderRadius: 16, padding: 18, boxShadow: '0 14px 34px rgba(15,23,42,.05)' } as const
+const card = { background: 'white', border: '1px solid #e2e8f0', borderRadius: 16, padding: 18, boxShadow: '0 1px 3px rgba(15,23,42,.04)' } as const
 
 const TYPE_META: Record<EntryType, { label: string; bg: string; fg: string }> = {
   fund: { label: 'Fund', bg: '#dbeafe', fg: '#1e3a8a' },
@@ -261,7 +261,7 @@ export default function UnifiedSearch() {
         {(['find', 'ask'] as const).map((m) => (
           <button key={m} onClick={() => setMode(m)} style={{
             padding: '8px 16px', borderRadius: 9, border: 'none', cursor: 'pointer', fontWeight: 800, fontSize: 13.5,
-            background: mode === m ? 'white' : 'transparent', color: mode === m ? '#284a69' : '#64748b',
+            background: mode === m ? 'white' : 'transparent', color: mode === m ? '#13293f' : '#64748b',
             boxShadow: mode === m ? '0 1px 3px rgba(15,23,42,.12)' : 'none',
           }}>
             {m === 'find' ? 'Find records' : 'Ask AI'}
@@ -295,14 +295,14 @@ export default function UnifiedSearch() {
               <button onClick={runAsk} disabled={q.trim().length < 3 || aiState === 'thinking'} style={{
                 padding: '10px 20px', borderRadius: 10, border: 'none', fontWeight: 800, fontSize: 14,
                 cursor: q.trim().length < 3 || aiState === 'thinking' ? 'default' : 'pointer',
-                background: q.trim().length < 3 || aiState === 'thinking' ? '#94a3b8' : '#4a7297', color: 'white',
+                background: q.trim().length < 3 || aiState === 'thinking' ? '#94a3b8' : '#2f6690', color: 'white',
               }}>
                 {aiState === 'thinking' ? 'Thinking…' : 'Ask AI'}
               </button>
               <span style={{ color: hasKey ? '#166534' : '#92400e', fontSize: 12.5, fontWeight: 700 }}>
                 {hasKey ? '● Live AI ready (your key)' : '○ Add your OpenAI key to enable AI answers'}
               </span>
-              <button onClick={() => setShowKeyPanel((v) => !v)} style={{ marginLeft: 'auto', background: 'none', border: 'none', color: '#4a7297', fontWeight: 800, fontSize: 12.5, cursor: 'pointer' }}>
+              <button onClick={() => setShowKeyPanel((v) => !v)} style={{ marginLeft: 'auto', background: 'none', border: 'none', color: '#2f6690', fontWeight: 800, fontSize: 12.5, cursor: 'pointer' }}>
                 {showKeyPanel ? 'Hide key setup' : hasKey ? 'Manage key' : 'Set up AI'}
               </button>
             </div>
@@ -323,7 +323,7 @@ export default function UnifiedSearch() {
               )
             })}
             {types.size > 0 && (
-              <button onClick={() => setTypes(new Set())} style={{ padding: '6px 12px', borderRadius: 999, fontWeight: 800, fontSize: 12.5, cursor: 'pointer', border: 'none', background: 'none', color: '#4a7297' }}>show all</button>
+              <button onClick={() => setTypes(new Set())} style={{ padding: '6px 12px', borderRadius: 999, fontWeight: 800, fontSize: 12.5, cursor: 'pointer', border: 'none', background: 'none', color: '#2f6690' }}>show all</button>
             )}
           </div>
         )}
@@ -348,7 +348,7 @@ export default function UnifiedSearch() {
       {/* BYOK setup panel — the user's key stays in their browser only. */}
       {mode === 'ask' && showKeyPanel && (
         <section style={{ ...card }}>
-          <div style={{ fontWeight: 800, color: '#284a69', marginBottom: 4 }}>Live AI setup — your OpenAI key</div>
+          <div style={{ fontWeight: 800, color: '#13293f', marginBottom: 4 }}>Live AI setup — your OpenAI key</div>
           <p style={{ color: '#64748b', fontSize: 13.5, lineHeight: 1.5, margin: '0 0 6px' }}>
             This site is static and has no server, so AI answers use <strong>your own</strong> OpenAI key. It is stored
             only in this browser (localStorage) and sent directly to OpenAI when you ask — never to this site or anyone
@@ -356,7 +356,7 @@ export default function UnifiedSearch() {
           </p>
           <p style={{ color: '#64748b', fontSize: 12.5, margin: '0 0 12px' }}>
             Get a key at{' '}
-            <a href="https://platform.openai.com/api-keys" target="_blank" rel="noreferrer" style={{ color: '#4a7297', fontWeight: 700 }}>platform.openai.com/api-keys</a>. Usage is billed by OpenAI to your account.
+            <a href="https://platform.openai.com/api-keys" target="_blank" rel="noreferrer" style={{ color: '#2f6690', fontWeight: 700 }}>platform.openai.com/api-keys</a>. Usage is billed by OpenAI to your account.
           </p>
           <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', alignItems: 'center' }}>
             <input
@@ -370,7 +370,7 @@ export default function UnifiedSearch() {
             />
             <button onClick={saveKey} disabled={!keyDraft.trim()} style={{
               padding: '10px 16px', borderRadius: 9, border: 'none', fontWeight: 800, fontSize: 13,
-              cursor: keyDraft.trim() ? 'pointer' : 'default', background: keyDraft.trim() ? '#284a69' : '#94a3b8', color: 'white',
+              cursor: keyDraft.trim() ? 'pointer' : 'default', background: keyDraft.trim() ? '#13293f' : '#94a3b8', color: 'white',
             }}>{hasKey ? 'Update key' : 'Save key'}</button>
             {hasKey && (
               <button onClick={removeKey} style={{ padding: '10px 16px', borderRadius: 9, border: '1px solid #cbd5e1', background: 'white', color: '#b91c1c', fontWeight: 800, fontSize: 13, cursor: 'pointer' }}>Remove key</button>
@@ -386,7 +386,7 @@ export default function UnifiedSearch() {
       {mode === 'ask' && aiState !== 'idle' && (
         <section style={{ display: 'grid', gap: 12 }}>
           {aiAsked && (
-            <div style={{ color: '#284a69', fontWeight: 800, fontSize: 15 }}>“{aiAsked}”</div>
+            <div style={{ color: '#13293f', fontWeight: 800, fontSize: 15 }}>“{aiAsked}”</div>
           )}
 
           {aiState === 'thinking' && (
@@ -401,7 +401,7 @@ export default function UnifiedSearch() {
           )}
 
           {aiState === 'done' && aiAnswer && (
-            <div style={{ ...card, borderLeft: '5px solid #4a7297' }}>
+            <div style={{ ...card, borderLeft: '5px solid #2f6690' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 8 }}>
                 <span style={{ background: '#e0e7ff', color: '#3730a3', fontWeight: 800, fontSize: 11, padding: '2px 9px', borderRadius: 999, textTransform: 'uppercase', letterSpacing: 0.4 }}>AI answer</span>
                 <span style={{ color: '#94a3b8', fontSize: 12 }}>gpt-5-mini · grounded on the records below</span>
@@ -425,7 +425,7 @@ export default function UnifiedSearch() {
 
           {aiSources.length > 0 && (
             <div style={{ display: 'grid', gap: 8 }}>
-              <div style={{ color: '#284a69', fontWeight: 800, fontSize: 13.5, textTransform: 'uppercase', letterSpacing: 0.4 }}>
+              <div style={{ color: '#13293f', fontWeight: 800, fontSize: 13.5, textTransform: 'uppercase', letterSpacing: 0.4 }}>
                 {aiAnswer ? 'Sources the answer used' : 'Most relevant records'}
               </div>
               {aiSources.map((e, i) => {
@@ -438,10 +438,10 @@ export default function UnifiedSearch() {
                     <span style={{ background: '#e0e7ff', color: '#3730a3', fontWeight: 800, fontSize: 12, minWidth: 26, height: 26, borderRadius: 8, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>{i + 1}</span>
                     <div style={{ minWidth: 0, flex: 1 }}>
                       <span style={{ background: meta.bg, color: meta.fg, fontWeight: 800, fontSize: 11, padding: '2px 9px', borderRadius: 999, textTransform: 'uppercase', letterSpacing: 0.4 }}>{meta.label}</span>
-                      <div style={{ fontWeight: 700, color: '#284a69', marginTop: 6, lineHeight: 1.35 }}>{e.n}</div>
+                      <div style={{ fontWeight: 700, color: '#13293f', marginTop: 6, lineHeight: 1.35 }}>{e.n}</div>
                       <div style={{ color: '#64748b', fontSize: 13, marginTop: 3, lineHeight: 1.45 }}>{e.t === 'page' ? snippet(e.x, aiAsked.toLowerCase().split(/\s+/)) : e.x}</div>
                     </div>
-                    {e.v != null && <strong style={{ color: '#284a69', whiteSpace: 'nowrap' }}>{usd(e.v)}</strong>}
+                    {e.v != null && <strong style={{ color: '#13293f', whiteSpace: 'nowrap' }}>{usd(e.v)}</strong>}
                   </a>
                 )
               })}
@@ -453,7 +453,7 @@ export default function UnifiedSearch() {
       {/* Ask-mode empty state: example questions. */}
       {mode === 'ask' && aiState === 'idle' && (
         <section style={{ ...card }}>
-          <div style={{ fontWeight: 800, color: '#284a69', marginBottom: 8 }}>Try asking</div>
+          <div style={{ fontWeight: 800, color: '#13293f', marginBottom: 8 }}>Try asking</div>
           <div style={{ display: 'grid', gap: 8 }}>
             {AI_EXAMPLES.map((ex) => (
               <button key={ex} onClick={() => setQ(ex)} style={{ textAlign: 'left', padding: '10px 14px', borderRadius: 10, border: '1px solid #e2e8f0', background: '#f8fafc', color: '#334155', fontSize: 14, fontWeight: 600, cursor: 'pointer' }}>
@@ -467,14 +467,14 @@ export default function UnifiedSearch() {
       {/* Friendly empty state instead of a bare "0 results". */}
       {mode === 'find' && status === 'ready' && hasQuery && !searching && allScored.length === 0 && (
         <section style={{ ...card }}>
-          <div style={{ fontWeight: 800, color: '#284a69', marginBottom: 6 }}>No matches for “{debounced}”.</div>
+          <div style={{ fontWeight: 800, color: '#13293f', marginBottom: 6 }}>No matches for “{debounced}”.</div>
           <p style={{ color: '#64748b', fontSize: 14, margin: '0 0 10px' }}>
             None of those words appear anywhere in the indexed records. Try a single last name, a department, or a
             project name — for example:
           </p>
           <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
             {EXAMPLES.map((ex) => (
-              <button key={ex} onClick={() => { setQ(ex); setLimit(50) }} style={{ padding: '6px 12px', borderRadius: 999, border: '1px solid #cbd5e1', background: 'white', color: '#4a7297', fontWeight: 700, fontSize: 13, cursor: 'pointer' }}>
+              <button key={ex} onClick={() => { setQ(ex); setLimit(50) }} style={{ padding: '6px 12px', borderRadius: 999, border: '1px solid #cbd5e1', background: 'white', color: '#2f6690', fontWeight: 700, fontSize: 13, cursor: 'pointer' }}>
                 {ex}
               </button>
             ))}
@@ -495,17 +495,17 @@ export default function UnifiedSearch() {
                 <div style={{ display: 'flex', justifyContent: 'space-between', gap: 12, alignItems: 'start', flexWrap: 'wrap' }}>
                   <div style={{ minWidth: 0, flex: '1 1 320px' }}>
                     <span style={{ background: meta.bg, color: meta.fg, fontWeight: 800, fontSize: 11, padding: '2px 9px', borderRadius: 999, textTransform: 'uppercase', letterSpacing: 0.4 }}>{meta.label}</span>
-                    <div style={{ fontWeight: 700, color: '#284a69', marginTop: 6, lineHeight: 1.35 }}>{highlight(e.n, terms)}</div>
+                    <div style={{ fontWeight: 700, color: '#13293f', marginTop: 6, lineHeight: 1.35 }}>{highlight(e.n, terms)}</div>
                     <div style={{ color: '#64748b', fontSize: 13, marginTop: 3, lineHeight: 1.45 }}>{highlight(ctx, terms)}</div>
                   </div>
-                  {e.v != null && <strong style={{ color: '#284a69', whiteSpace: 'nowrap' }}>{usd(e.v)}</strong>}
+                  {e.v != null && <strong style={{ color: '#13293f', whiteSpace: 'nowrap' }}>{usd(e.v)}</strong>}
                 </div>
               </a>
             )
           })}
           {results.length > limit && (
             <div style={{ textAlign: 'center' }}>
-              <button onClick={() => setLimit((l) => l + 100)} style={{ padding: '10px 18px', borderRadius: 10, border: '1px solid #4a7297', background: '#4a7297', color: 'white', fontWeight: 800, cursor: 'pointer' }}>
+              <button onClick={() => setLimit((l) => l + 100)} style={{ padding: '10px 18px', borderRadius: 10, border: '1px solid #2f6690', background: '#2f6690', color: 'white', fontWeight: 800, cursor: 'pointer' }}>
                 Show more ({(results.length - limit).toLocaleString()} remaining)
               </button>
             </div>

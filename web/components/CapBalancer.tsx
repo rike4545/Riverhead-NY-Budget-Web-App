@@ -23,7 +23,7 @@ export default function CapBalancer({ levy2026, predictedLevy, allowedLevy, appr
   const col = under ? good : bad
 
   return (
-    <div style={{ background: 'white', border: '1px solid #e2e8f0', borderRadius: 16, padding: 20, boxShadow: '0 14px 34px rgba(15,23,42,.05)' }}>
+    <div style={{ background: 'white', border: '1px solid #e2e8f0', borderRadius: 16, padding: 20, boxShadow: '0 1px 3px rgba(15,23,42,.04)' }}>
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(260px,1fr))', gap: 20 }}>
         {/* Controls */}
         <div style={{ display: 'grid', gap: 16 }}>
@@ -40,7 +40,7 @@ export default function CapBalancer({ levy2026, predictedLevy, allowedLevy, appr
         {/* Result */}
         <div style={{ background: under ? '#f0fdf4' : '#fef2f2', border: `1px solid ${under ? '#bbf7d0' : '#fecaca'}`, borderRadius: 14, padding: 18, display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
           <div style={{ color: '#64748b', fontSize: 12, fontWeight: 900, textTransform: 'uppercase', letterSpacing: 0.5 }}>Resulting 2027 levy</div>
-          <div style={{ fontSize: 34, fontWeight: 900, color: '#284a69', lineHeight: 1.1, margin: '2px 0 6px' }}>{usd(newLevy)}</div>
+          <div style={{ fontSize: 34, fontWeight: 900, color: '#13293f', lineHeight: 1.1, margin: '2px 0 6px' }}>{usd(newLevy)}</div>
           <div style={{ fontSize: 18, fontWeight: 800, color: col }}>{newPct >= 0 ? '+' : ''}{newPct.toFixed(1)}% vs 2026</div>
           <div style={{ marginTop: 12, padding: '10px 12px', borderRadius: 10, background: col, color: 'white', fontWeight: 800, fontSize: 14.5 }}>
             {under
@@ -72,11 +72,11 @@ function Slider({ label, value, min, max, step, onChange, display, hint }: {
   return (
     <div>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', gap: 8 }}>
-        <span style={{ fontWeight: 800, color: '#284a69', fontSize: 14.5 }}>{label}</span>
-        <span style={{ fontWeight: 800, color: '#4a7297', fontSize: 14 }}>{display}</span>
+        <span style={{ fontWeight: 800, color: '#13293f', fontSize: 14.5 }}>{label}</span>
+        <span style={{ fontWeight: 800, color: '#2f6690', fontSize: 14 }}>{display}</span>
       </div>
       <input type="range" min={min} max={max} step={step} value={value} onChange={(e) => onChange(Number(e.target.value))}
-        style={{ width: '100%', accentColor: '#4a7297', marginTop: 6 }} />
+        style={{ width: '100%', accentColor: '#2f6690', marginTop: 6 }} />
       <div style={{ color: '#6b7280', fontSize: 12, lineHeight: 1.35 }}>{hint}</div>
     </div>
   )

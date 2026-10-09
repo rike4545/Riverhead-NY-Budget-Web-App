@@ -8,12 +8,12 @@ export default function PageShell({ title, subtitle, children }: { title: string
 
   return (
     <main style={{ minHeight: '100vh', background: 'var(--rbl-bg)', color: 'var(--rbl-text)', fontFamily: 'Inter, Arial, sans-serif' }}>
-      <header style={{ background: 'linear-gradient(135deg,var(--rbl-header-a),var(--rbl-header-b) 62%,var(--rbl-header-a))', color: 'white', borderBottom: '5px solid var(--rbl-gold)', padding: '18px 28px', display: 'flex', justifyContent: 'space-between', gap: 20, alignItems: 'center', flexWrap: 'wrap', boxShadow: '0 14px 34px rgba(18,56,91,.24)' }}>
+      <header style={{ background: 'var(--rbl-header-a)', color: 'white', borderBottom: '3px solid var(--rbl-gold)', padding: '16px 28px', display: 'flex', justifyContent: 'space-between', gap: 20, alignItems: 'center', flexWrap: 'wrap' }}>
         <a href={`${base}/`} style={{ color: 'white', textDecoration: 'none', display: 'flex', gap: 12, alignItems: 'center' }}>
-          <span style={{ width: 48, height: 48, borderRadius: 8, display: 'grid', placeItems: 'center', background: '#f8f5ec', color: '#284a69', border: '2px solid var(--rbl-gold)', fontWeight: 950 }}>RB</span>
+          <span style={{ width: 40, height: 40, borderRadius: 9, display: 'grid', placeItems: 'center', background: 'var(--rbl-gold)', color: '#13293f', fontWeight: 950, fontSize: 15 }}>RB</span>
           <span>
-            <strong style={{ fontSize: 22 }}>Riverhead Budget Live</strong>
-            <div style={{ color: '#d7e7f4', fontSize: 12 }}>Following the Town&apos;s money, in plain English</div>
+            <strong style={{ fontSize: 19, letterSpacing: -0.2 }}>Riverhead Budget Live</strong>
+            <div style={{ color: 'rgba(255,255,255,.62)', fontSize: 11.5, fontWeight: 500 }}>Following the Town&apos;s money, in plain English</div>
           </span>
         </a>
         {/* marginLeft: auto mirrors the trick SiteNav uses internally — keeps this
@@ -24,11 +24,11 @@ export default function PageShell({ title, subtitle, children }: { title: string
           <DisplaySettings />
         </div>
       </header>
-      <section style={{ padding: 30, maxWidth: 1380, margin: '0 auto' }}>
-        <div style={{ background: 'var(--rbl-surface)', borderTop: '6px solid var(--rbl-page-accent)', borderRight: '1px solid var(--rbl-border)', borderBottom: '1px solid var(--rbl-border)', borderLeft: '1px solid var(--rbl-border)', borderRadius: 12, padding: 28, boxShadow: '0 14px 34px var(--rbl-shadow)', marginBottom: 18 }}>
-          <div style={{ color: 'var(--rbl-badge)', letterSpacing: 2, textTransform: 'uppercase', fontSize: 12, fontWeight: 950 }}>A resident-built project · not the Town&apos;s official site</div>
-          <h1 style={{ fontSize: 42, lineHeight: 1.05, margin: '8px 0', color: 'var(--rbl-title)' }}>{title}</h1>
-          <p style={{ color: 'var(--rbl-text-sub)', fontSize: 17, lineHeight: 1.55, margin: 0, maxWidth: 980 }}>{subtitle}</p>
+      <section style={{ padding: '26px 30px 30px', maxWidth: 1380, margin: '0 auto' }}>
+        <div style={{ background: 'var(--rbl-surface)', borderTop: '4px solid var(--rbl-page-accent)', borderRight: '1px solid var(--rbl-border)', borderBottom: '1px solid var(--rbl-border)', borderLeft: '1px solid var(--rbl-border)', borderRadius: 12, padding: 26, boxShadow: '0 1px 3px var(--rbl-shadow)', marginBottom: 18 }}>
+          <div style={{ color: 'var(--rbl-badge)', letterSpacing: 1.6, textTransform: 'uppercase', fontSize: 11.5, fontWeight: 800 }}>A resident-built project · not the Town&apos;s official site</div>
+          <h1 style={{ fontSize: 38, lineHeight: 1.1, margin: '8px 0', color: 'var(--rbl-title)', letterSpacing: -0.5, fontWeight: 800 }}>{title}</h1>
+          <p style={{ color: 'var(--rbl-text-sub)', fontSize: 16.5, lineHeight: 1.55, margin: 0, maxWidth: 980 }}>{subtitle}</p>
           <DisclaimerBanner />
           <div style={{ marginTop: 12, display: 'flex', justifyContent: 'flex-end' }}>
             <TrendColors />

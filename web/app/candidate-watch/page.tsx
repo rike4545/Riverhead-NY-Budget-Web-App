@@ -2,7 +2,7 @@ import PageShell from '../../components/PageShell'
 import data from '../../public/data/candidate-watch.json'
 
 const base = process.env.NEXT_PUBLIC_BASE_PATH || ''
-const card = { background: 'white', border: '1px solid #e2e8f0', borderRadius: 16, padding: 20, boxShadow: '0 14px 34px rgba(15,23,42,.05)' } as const
+const card = { background: 'white', border: '1px solid #e2e8f0', borderRadius: 16, padding: 20, boxShadow: '0 1px 3px rgba(15,23,42,.04)' } as const
 
 export const metadata = {
   title: '2026 Town Campaign Candidate Watch',
@@ -52,7 +52,7 @@ export default function CandidateWatchPage() {
       {races.map((race) => (
         <section key={race.office} style={{ marginBottom: 22 }}>
           <div style={{ display: 'flex', alignItems: 'baseline', gap: 12, flexWrap: 'wrap', marginBottom: 12 }}>
-            <h2 style={{ color: '#284a69', margin: 0 }}>{race.office}</h2>
+            <h2 style={{ color: '#13293f', margin: 0 }}>{race.office}</h2>
             <span style={{ color: '#64748b', fontWeight: 700, fontSize: 14 }}>
               1 seat · {race.candidates.length} candidates · Election Nov 3, 2026
             </span>
@@ -64,9 +64,9 @@ export default function CandidateWatchPage() {
               return (
                 <article key={c.name} style={{ ...card, borderTop: `6px solid ${p.color}`, padding: 0, overflow: 'hidden' }}>
                   <div style={{ padding: '18px 20px 14px' }}>
-                    <div style={{ fontSize: 21, fontWeight: 900, color: '#284a69', lineHeight: 1.2 }}>{c.name}</div>
+                    <div style={{ fontSize: 21, fontWeight: 900, color: '#13293f', lineHeight: 1.2 }}>{c.name}</div>
                     <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', marginTop: 8 }}>
-                      <span style={{ background: c.incumbent ? '#284a69' : '#eef3f8', color: c.incumbent ? 'white' : '#284a69', border: '1px solid #284a69', fontWeight: 800, fontSize: 12, padding: '3px 11px', borderRadius: 999 }}>
+                      <span style={{ background: c.incumbent ? '#13293f' : '#eef3f8', color: c.incumbent ? 'white' : '#13293f', border: '1px solid #13293f', fontWeight: 800, fontSize: 12, padding: '3px 11px', borderRadius: 999 }}>
                         {c.incumbent ? 'Incumbent' : 'Challenger'}
                       </span>
                       <span style={{ background: p.tint, color: p.color, fontWeight: 800, fontSize: 12, padding: '3px 11px', borderRadius: 999 }}>
@@ -74,11 +74,11 @@ export default function CandidateWatchPage() {
                       </span>
                     </div>
                     <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', marginTop: 12 }}>
-                      <a href={c.website} target="_blank" rel="noreferrer" style={{ background: '#284a69', color: 'white', padding: '8px 14px', borderRadius: 9, fontSize: 13, fontWeight: 800, textDecoration: 'none' }}>
+                      <a href={c.website} target="_blank" rel="noreferrer" style={{ background: '#13293f', color: 'white', padding: '8px 14px', borderRadius: 9, fontSize: 13, fontWeight: 800, textDecoration: 'none' }}>
                         Campaign site ↗
                       </a>
                       {c.socialMedia.map((s) => (
-                        <a key={s.url} href={s.url} target="_blank" rel="noreferrer" style={{ background: 'white', color: '#284a69', border: '1px solid #cbd5e1', padding: '8px 14px', borderRadius: 9, fontSize: 13, fontWeight: 800, textDecoration: 'none' }}>
+                        <a key={s.url} href={s.url} target="_blank" rel="noreferrer" style={{ background: 'white', color: '#13293f', border: '1px solid #cbd5e1', padding: '8px 14px', borderRadius: 9, fontSize: 13, fontWeight: 800, textDecoration: 'none' }}>
                           {s.platform} ↗
                         </a>
                       ))}
@@ -87,7 +87,7 @@ export default function CandidateWatchPage() {
 
                   <div style={{ padding: '0 20px 16px' }}>
                     <p style={{ color: '#475569', fontSize: 14, lineHeight: 1.55, margin: '0 0 12px' }}>{c.background}</p>
-                    <div style={{ color: '#284a69', fontWeight: 800, fontSize: 13, marginBottom: 6 }}>What they say they'll do</div>
+                    <div style={{ color: '#13293f', fontWeight: 800, fontSize: 13, marginBottom: 6 }}>What they say they'll do</div>
                     <ul style={{ color: '#334155', fontSize: 14, lineHeight: 1.5, margin: 0, paddingLeft: 18, display: 'grid', gap: 4 }}>
                       {c.platform.map((pl) => (
                         <li key={pl}>{pl}</li>
@@ -106,7 +106,7 @@ export default function CandidateWatchPage() {
       ))}
 
       <section style={{ ...card, marginBottom: 16 }}>
-        <h3 style={{ marginTop: 0, color: '#284a69' }}>Key dates</h3>
+        <h3 style={{ marginTop: 0, color: '#13293f' }}>Key dates</h3>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(150px,1fr))', gap: 12 }}>
           <DateItem label="Primary (held)" value={cal.primary} />
           <DateItem label="General election" value={cal.generalElection} highlight />
@@ -127,7 +127,7 @@ function DateItem({ label, value, highlight }: { label: string; value: string; h
   return (
     <div style={{ background: highlight ? '#eef3f8' : '#f8fafc', border: '1px solid #e2e8f0', borderRadius: 10, padding: 12 }}>
       <div style={{ color: '#64748b', fontSize: 11.5, textTransform: 'uppercase', fontWeight: 800, letterSpacing: 0.3 }}>{label}</div>
-      <div style={{ color: '#284a69', fontWeight: 800, marginTop: 3 }}>{value}</div>
+      <div style={{ color: '#13293f', fontWeight: 800, marginTop: 3 }}>{value}</div>
     </div>
   )
 }

@@ -16,7 +16,7 @@ import {
 } from '../lib/campaign-finance'
 
 const usd = (n: number) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(n)
-const card = { background: 'white', border: '1px solid #e2e8f0', borderRadius: 16, padding: 18, boxShadow: '0 14px 34px rgba(15,23,42,.05)' } as const
+const card = { background: 'white', border: '1px solid #e2e8f0', borderRadius: 16, padding: 18, boxShadow: '0 1px 3px rgba(15,23,42,.04)' } as const
 
 function dateOnly(value: string | null): string | null {
   return value ? value.slice(0, 10) : null
@@ -100,7 +100,7 @@ export default function CampaignFinance({
           onClick={refresh}
           disabled={status === 'loading'}
           style={{
-            background: status === 'loading' ? '#93c5fd' : '#4a7297',
+            background: status === 'loading' ? '#93c5fd' : '#2f6690',
             color: 'white',
             border: 'none',
             borderRadius: 10,
@@ -138,7 +138,7 @@ export default function CampaignFinance({
           const perResident = currentCycleRaised != null ? currentCycleRaised / RIVERHEAD_POPULATION_ESTIMATE_2024 : null
 
           return (
-            <article key={official.name} style={{ ...card, borderLeft: `6px solid ${official.currentlyServing ? '#4a7297' : '#6b7280'}` }}>
+            <article key={official.name} style={{ ...card, borderLeft: `6px solid ${official.currentlyServing ? '#2f6690' : '#6b7280'}` }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', gap: 12, flexWrap: 'wrap' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
                   {official.photoUrl && (
@@ -152,14 +152,14 @@ export default function CampaignFinance({
                     />
                   )}
                   <div>
-                    <strong style={{ fontSize: 16, color: '#284a69' }}>{official.name}</strong>
+                    <strong style={{ fontSize: 16, color: '#13293f' }}>{official.name}</strong>
                     <div style={{ color: '#64748b', fontSize: 13 }}>{official.office}</div>
                   </div>
                 </div>
                 <span
                   style={{
                     background: official.currentlyServing ? '#eef6ff' : '#f1f5f9',
-                    color: official.currentlyServing ? '#4a7297' : '#475569',
+                    color: official.currentlyServing ? '#2f6690' : '#475569',
                     border: `1px solid ${official.currentlyServing ? '#bcd9f5' : '#e2e8f0'}`,
                     borderRadius: 999,
                     padding: '3px 10px',
@@ -176,7 +176,7 @@ export default function CampaignFinance({
               {(official.termStarts || official.salary) && (
                 <div style={{ marginTop: 10, display: 'flex', flexWrap: 'wrap', gap: '6px 20px', fontSize: 13, color: '#475569', lineHeight: 1.5 }}>
                   {official.termYears && (
-                    <span style={{ fontWeight: 700, color: '#284a69' }}>
+                    <span style={{ fontWeight: 700, color: '#13293f' }}>
                       {official.termYears}-year term
                     </span>
                   )}
@@ -248,7 +248,7 @@ export default function CampaignFinance({
 
               {live && live.contributorTypeBreakdown.length > 0 && (
                 <div style={{ marginTop: 12, borderTop: '1px solid #e2e8f0', paddingTop: 10 }}>
-                  <div style={{ fontSize: 12, fontWeight: 800, color: '#284a69', textTransform: 'uppercase', letterSpacing: 0.4, marginBottom: 6 }}>
+                  <div style={{ fontSize: 12, fontWeight: 800, color: '#13293f', textTransform: 'uppercase', letterSpacing: 0.4, marginBottom: 6 }}>
                     Who&rsquo;s giving
                   </div>
                   <div style={{ display: 'grid', gap: 4 }}>
@@ -257,7 +257,7 @@ export default function CampaignFinance({
                         <span>
                           {bucket.type} ({bucket.donorCount})
                         </span>
-                        <strong style={{ color: '#284a69' }}>{usd(bucket.amount)}</strong>
+                        <strong style={{ color: '#13293f' }}>{usd(bucket.amount)}</strong>
                       </div>
                     ))}
                   </div>
@@ -267,7 +267,7 @@ export default function CampaignFinance({
               {live && live.historicalByYear.length > 0 && <YearBreakdownList years={live.historicalByYear} />}
 
               <div style={{ marginTop: 12, borderTop: '1px solid #e2e8f0', paddingTop: 10 }}>
-                <div style={{ fontSize: 12, fontWeight: 800, color: '#284a69', textTransform: 'uppercase', letterSpacing: 0.4 }}>
+                <div style={{ fontSize: 12, fontWeight: 800, color: '#13293f', textTransform: 'uppercase', letterSpacing: 0.4 }}>
                   {endYear} filing activity
                 </div>
                 {latestYear ? (
@@ -350,7 +350,7 @@ function PartyCommitteesSection({
           cursor: 'pointer',
           fontWeight: 800,
           fontSize: 14,
-          color: '#4a7297',
+          color: '#2f6690',
           padding: '10px 14px',
           background: '#f1f5f9',
           border: '1px solid #e2e8f0',
@@ -398,7 +398,7 @@ function PartyCommitteesSection({
             const lastReported = dateOnly(live ? live.lastReported : official.seedLastReported)
 
             return (
-              <article key={official.name} style={{ background: 'white', border: '1px solid #e2e8f0', borderRadius: 16, padding: 18, boxShadow: '0 14px 34px rgba(15,23,42,.05)', borderLeft: '6px solid #7c6fa0' }}>
+              <article key={official.name} style={{ background: 'white', border: '1px solid #e2e8f0', borderRadius: 16, padding: 18, boxShadow: '0 1px 3px rgba(15,23,42,.04)', borderLeft: '6px solid #7c6fa0' }}>
                 <div>
                   <strong style={{ fontSize: 16, color: '#374151' }}>{official.name}</strong>
                   <div style={{ color: '#64748b', fontSize: 13 }}>{official.office}</div>
@@ -454,7 +454,7 @@ function FormerOfficialsSection({
           cursor: 'pointer',
           fontWeight: 800,
           fontSize: 14,
-          color: '#4a7297',
+          color: '#2f6690',
           padding: '10px 14px',
           background: '#f1f5f9',
           border: '1px solid #e2e8f0',
@@ -480,7 +480,7 @@ function FormerOfficialsSection({
             const lastReported = dateOnly(live ? live.lastReported : official.seedLastReported)
 
             return (
-              <article key={official.name} style={{ background: 'white', border: '1px solid #e2e8f0', borderRadius: 16, padding: 18, boxShadow: '0 14px 34px rgba(15,23,42,.05)', borderLeft: '6px solid #9ca3af' }}>
+              <article key={official.name} style={{ background: 'white', border: '1px solid #e2e8f0', borderRadius: 16, padding: 18, boxShadow: '0 1px 3px rgba(15,23,42,.04)', borderLeft: '6px solid #9ca3af' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', gap: 12, flexWrap: 'wrap' }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
                     {official.photoUrl && (
@@ -551,7 +551,7 @@ function CampaignFilingsList({ filings, endYear, hasFetched }: { filings: Filing
   if (!filings || filings.length === 0) {
     return (
       <div style={{ marginTop: 12, borderTop: '1px solid #e2e8f0', paddingTop: 10 }}>
-        <div style={{ fontSize: 12, fontWeight: 800, color: '#284a69', textTransform: 'uppercase', letterSpacing: 0.4 }}>Campaign filings</div>
+        <div style={{ fontSize: 12, fontWeight: 800, color: '#13293f', textTransform: 'uppercase', letterSpacing: 0.4 }}>Campaign filings</div>
         <div style={{ color: '#64748b', fontSize: 13, marginTop: 4 }}>No filings found for this committee in this range.</div>
       </div>
     )
@@ -562,11 +562,11 @@ function CampaignFilingsList({ filings, endYear, hasFetched }: { filings: Filing
 
   return (
     <div style={{ marginTop: 12, borderTop: '1px solid #e2e8f0', paddingTop: 10 }}>
-      <div style={{ fontSize: 12, fontWeight: 800, color: '#284a69', textTransform: 'uppercase', letterSpacing: 0.4, marginBottom: 6 }}>Campaign filings</div>
+      <div style={{ fontSize: 12, fontWeight: 800, color: '#13293f', textTransform: 'uppercase', letterSpacing: 0.4, marginBottom: 6 }}>Campaign filings</div>
       <div style={{ display: 'grid', gap: 10 }}>
         {groups.map((g) => (
           <div key={g.bucket}>
-            <div style={{ fontSize: 12, fontWeight: 800, color: '#4a7297', marginBottom: 4 }}>{g.bucket}</div>
+            <div style={{ fontSize: 12, fontWeight: 800, color: '#2f6690', marginBottom: 4 }}>{g.bucket}</div>
             <div style={{ display: 'grid', gap: 4 }}>
               {g.filings.map((f, i) => (
                 <div
@@ -601,7 +601,7 @@ function CampaignFilingsList({ filings, endYear, hasFetched }: { filings: Filing
 function YearBreakdownList({ years }: { years: YearBreakdown[] }) {
   return (
     <div style={{ marginTop: 12, borderTop: '1px solid #e2e8f0', paddingTop: 10 }}>
-      <div style={{ fontSize: 12, fontWeight: 800, color: '#284a69', textTransform: 'uppercase', letterSpacing: 0.4, marginBottom: 6 }}>
+      <div style={{ fontSize: 12, fontWeight: 800, color: '#13293f', textTransform: 'uppercase', letterSpacing: 0.4, marginBottom: 6 }}>
         Direct contributions by year
       </div>
       <div style={{ display: 'grid', gap: 4 }}>
@@ -609,7 +609,7 @@ function YearBreakdownList({ years }: { years: YearBreakdown[] }) {
           <details key={year.year} style={{ background: '#f8fafc', borderRadius: 8, padding: '6px 10px' }}>
             <summary style={{ cursor: 'pointer', display: 'flex', justifyContent: 'space-between', fontSize: 13, color: '#334155' }}>
               <span>{year.year}</span>
-              <strong style={{ color: '#284a69' }}>{usd(year.raised)}</strong>
+              <strong style={{ color: '#13293f' }}>{usd(year.raised)}</strong>
             </summary>
             <div style={{ marginTop: 6, paddingLeft: 4, display: 'grid', gap: 3 }}>
               <div style={{ fontSize: 12, color: '#64748b' }}>
@@ -1385,7 +1385,7 @@ function Stat({ label, value }: { label: string; value: string }) {
   return (
     <div style={{ background: '#f8fafc', borderRadius: 10, padding: 10 }}>
       <div style={{ color: '#64748b', fontSize: 11, textTransform: 'uppercase', fontWeight: 800 }}>{label}</div>
-      <div style={{ fontWeight: 800, marginTop: 2, color: '#284a69' }}>{value}</div>
+      <div style={{ fontWeight: 800, marginTop: 2, color: '#13293f' }}>{value}</div>
     </div>
   )
 }

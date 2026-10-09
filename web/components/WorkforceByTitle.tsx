@@ -33,7 +33,7 @@ const data = titlesData as { years: number[]; note: string; source: { title: str
 const years = data.years
 const latestYear = years[years.length - 1]
 
-const card = { background: 'white', border: '1px solid #e2e8f0', borderRadius: 16, padding: 20, boxShadow: '0 14px 34px rgba(15,23,42,.05)' } as const
+const card = { background: 'white', border: '1px solid #e2e8f0', borderRadius: 16, padding: 20, boxShadow: '0 1px 3px rgba(15,23,42,.04)' } as const
 const th = { padding: '8px 10px', textAlign: 'right' as const, whiteSpace: 'nowrap' as const }
 const td = { padding: '7px 10px', textAlign: 'right' as const }
 
@@ -98,7 +98,7 @@ export default function WorkforceByTitle() {
             <tbody>
               {rows.map((t) => (
                 <tr key={t.title} style={{ borderBottom: '1px solid #f1f5f9' }}>
-                  <td style={{ padding: '7px 10px', color: '#284a69', fontWeight: 700 }}>
+                  <td style={{ padding: '7px 10px', color: '#13293f', fontWeight: 700 }}>
                     {t.title}
                     <Spark counts={t.counts} max={maxLatest} />
                     {t.wage2026 && <WageLine w={t.wage2026} />}
@@ -134,7 +134,7 @@ export default function WorkforceByTitle() {
           — and why it is arithmetic by this site, not a rate the Board voted on. No hourly figure at all is shown
           for elected officials, board members (paid a stipend, not a wage), or sergeants and above, who are a
           separate Superior Officers unit whose duty chart we don&apos;t hold. Source:{' '}
-          <a href={data.source.url} target="_blank" rel="noreferrer" style={{ color: '#4a7297', fontWeight: 700 }}>{data.source.title} ↗</a>
+          <a href={data.source.url} target="_blank" rel="noreferrer" style={{ color: '#2f6690', fontWeight: 700 }}>{data.source.title} ↗</a>
         </p>
       </section>
     </div>
@@ -174,7 +174,7 @@ function Spark({ counts, max }: { counts: Record<string, number>; max: number })
       {years.map((y) => {
         const v = counts[String(y)] ?? 0
         const h = Math.max(2, Math.round((v / max) * 16))
-        return <div key={y} title={`${y}: ${v}`} style={{ width: 6, height: h, background: y === latestYear ? '#4a7297' : '#cbd5e1', borderRadius: 1 }} />
+        return <div key={y} title={`${y}: ${v}`} style={{ width: 6, height: h, background: y === latestYear ? '#2f6690' : '#cbd5e1', borderRadius: 1 }} />
       })}
     </div>
   )
@@ -191,7 +191,7 @@ function Stat({ label, value, sub, accent, green }: { label: string; value: stri
   return (
     <div style={{ background: green ? '#dcfce7' : accent ? '#dbeafe' : '#f8fafc', border: '1px solid #e2e8f0', borderRadius: 12, padding: 12 }}>
       <div style={{ color: '#64748b', fontSize: 11.5, textTransform: 'uppercase', fontWeight: 900, letterSpacing: 0.4 }}>{label}</div>
-      <strong style={{ fontSize: 18, color: green ? '#166534' : accent ? '#1e40af' : '#284a69', display: 'block', marginTop: 2, lineHeight: 1.2 }}>{value}</strong>
+      <strong style={{ fontSize: 18, color: green ? '#166534' : accent ? '#1e40af' : '#13293f', display: 'block', marginTop: 2, lineHeight: 1.2 }}>{value}</strong>
       {sub && <div style={{ color: '#6b7280', fontSize: 12, marginTop: 2 }}>{sub}</div>}
     </div>
   )

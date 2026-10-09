@@ -86,7 +86,7 @@ export default function InfoTip({
         onBlur={hide}
         style={{
           background: 'none', border: 'none', padding: 0, margin: 0, cursor: 'help',
-          color: '#4a7297', fontWeight: 900, fontSize: '0.92em', lineHeight: 1,
+          color: '#2f6690', fontWeight: 900, fontSize: '0.92em', lineHeight: 1,
           display: 'inline-flex', alignItems: 'center',
         }}
       >
@@ -106,7 +106,7 @@ export default function InfoTip({
           role="tooltip"
           style={{
             position: 'fixed', top: pos.top, left: pos.left, width: WIDTH, zIndex: 60,
-            background: '#0f2740', color: '#e6eef6', padding: '11px 13px', borderRadius: 10,
+            background: '#13293f', color: '#e6eef6', padding: '11px 13px', borderRadius: 10,
             boxShadow: '0 18px 44px rgba(15,23,42,.36)', fontSize: 13, fontWeight: 400,
             lineHeight: 1.5, textAlign: 'left', textTransform: 'none', letterSpacing: 0,
             whiteSpace: 'normal', pointerEvents: 'none',

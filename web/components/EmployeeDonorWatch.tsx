@@ -5,7 +5,7 @@ import { fetchEmployeeDonorMatches, type EmployeeDonorMatch } from '../lib/emplo
 import type { CampaignOfficial } from '../lib/campaign-finance'
 
 const usd = (n: number) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(n)
-const card = { background: 'white', border: '1px solid #e2e8f0', borderRadius: 16, padding: 18, boxShadow: '0 14px 34px rgba(15,23,42,.05)' } as const
+const card = { background: 'white', border: '1px solid #e2e8f0', borderRadius: 16, padding: 18, boxShadow: '0 1px 3px rgba(15,23,42,.04)' } as const
 const th = { padding: '8px 10px', fontWeight: 800, fontSize: 12 } as const
 const td = { padding: '8px 10px' } as const
 
@@ -45,12 +45,12 @@ export default function EmployeeDonorWatch({ officials, startYear, endYear }: { 
     <section style={card}>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: 12 }}>
         <div>
-          <h3 style={{ margin: 0, color: '#284a69' }}>Town Employee Donors</h3>
+          <h3 style={{ margin: 0, color: '#13293f' }}>Town Employee Donors</h3>
           <p style={{ margin: '4px 0 0', color: '#64748b', fontSize: 13, maxWidth: 560, lineHeight: 1.5 }}>
             Cross-references Town payroll employees against individual campaign donors to the committees above. Matched by
             name only — this is disclosure context, not an accusation. Modest personal donations from Town employees to
             sitting or former officials are common and legal. A 2011{' '}
-            <a href="https://riverheadlocal.com/2011/04/05/private-business-on-town-time-councilman-says-investigation-underway/" target="_blank" rel="noopener noreferrer" style={{ color: '#4a7297' }}>
+            <a href="https://riverheadlocal.com/2011/04/05/private-business-on-town-time-councilman-says-investigation-underway/" target="_blank" rel="noopener noreferrer" style={{ color: '#2f6690' }}>
               RiverheadLOCAL investigation
             </a>{' '}
             found that a Town finance administrator was using town offices and equipment to conduct outside private
@@ -62,7 +62,7 @@ export default function EmployeeDonorWatch({ officials, startYear, endYear }: { 
           onClick={check}
           disabled={status === 'loading'}
           style={{
-            background: status === 'loading' ? '#93c5fd' : '#4a7297', color: 'white', border: 'none', borderRadius: 10,
+            background: status === 'loading' ? '#93c5fd' : '#2f6690', color: 'white', border: 'none', borderRadius: 10,
             padding: '10px 16px', fontWeight: 800, cursor: status === 'loading' ? 'default' : 'pointer', whiteSpace: 'nowrap',
           }}
         >
@@ -134,7 +134,7 @@ function OfficialSection({ official, matches }: { official: CampaignOfficial; ma
     }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: 8 }}>
         <div>
-          <strong style={{ fontSize: 14, color: '#284a69' }}>{official.name}</strong>
+          <strong style={{ fontSize: 14, color: '#13293f' }}>{official.name}</strong>
           <div style={{ color: '#64748b', fontSize: 11.5, marginTop: 2 }}>
             {official.filerIDs.map((f) => f.committeeName).join(' · ')}
           </div>
@@ -159,7 +159,7 @@ function OfficialSection({ official, matches }: { official: CampaignOfficial; ma
             return (
               <details key={year} open={years.length === 1}>
                 <summary style={{ cursor: 'pointer', listStyle: 'none', padding: '8px 10px', background: 'white', border: '1px solid #e2e8f0', borderRadius: 8, display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap', gap: 8 }}>
-                  <strong style={{ color: '#284a69', fontSize: 13 }}>{year}</strong>
+                  <strong style={{ color: '#13293f', fontSize: 13 }}>{year}</strong>
                   <span style={{ color: '#64748b', fontSize: 12 }}>
                     {yearMatches.length} {yearMatches.length === 1 ? 'contribution' : 'contributions'} · {yearDistinctEmployees} employee{yearDistinctEmployees === 1 ? '' : 's'} · <strong style={{ color: '#9b6b12' }}>{usd(yearTotal)}</strong>
                   </span>
@@ -177,7 +177,7 @@ function OfficialSection({ official, matches }: { official: CampaignOfficial; ma
                     <tbody>
                       {yearMatches.map((m, i) => (
                         <tr key={`${m.employeeName}-${m.electionYear}-${m.filingDesc}-${i}`} style={{ borderBottom: '1px solid #f1f5f9' }}>
-                          <td style={{ ...td, fontWeight: 700, color: '#284a69' }}>
+                          <td style={{ ...td, fontWeight: 700, color: '#13293f' }}>
                             {m.employeeName}
                             {(m.department || m.title) && (
                               <div style={{ fontWeight: 500, color: '#6b7280', fontSize: 11.5 }}>
@@ -214,7 +214,7 @@ function CollapsedGroup({ label, suffix, children }: { label: string; suffix: st
       <button
         onClick={() => setOpen((v) => !v)}
         style={{
-          width: '100%', cursor: 'pointer', fontWeight: 800, fontSize: 13, color: '#4a7297',
+          width: '100%', cursor: 'pointer', fontWeight: 800, fontSize: 13, color: '#2f6690',
           padding: '8px 12px', background: '#f1f5f9', border: '1px solid #e2e8f0', borderRadius: 8,
           display: 'flex', alignItems: 'center', gap: 6, textAlign: 'left',
         }}
@@ -232,7 +232,7 @@ function Stat({ label, value }: { label: string; value: string }) {
   return (
     <div style={{ background: '#f8fafc', borderRadius: 10, padding: 10 }}>
       <div style={{ color: '#64748b', fontSize: 11, textTransform: 'uppercase', fontWeight: 800 }}>{label}</div>
-      <div style={{ fontWeight: 800, marginTop: 2, color: '#284a69' }}>{value}</div>
+      <div style={{ fontWeight: 800, marginTop: 2, color: '#13293f' }}>{value}</div>
     </div>
   )
 }

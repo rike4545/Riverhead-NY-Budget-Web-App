@@ -15,7 +15,7 @@ const STANDING: Record<string, { label: string; color: string; bg: string }> = {
 }
 
 const usd = (n: number) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(n)
-const card = { background: 'white', border: '1px solid #e2e8f0', borderRadius: 16, padding: 20, boxShadow: '0 14px 34px rgba(15,23,42,.05)' } as const
+const card = { background: 'white', border: '1px solid #e2e8f0', borderRadius: 16, padding: 20, boxShadow: '0 1px 3px rgba(15,23,42,.04)' } as const
 const KIND: Record<string, { color: string; bg: string }> = {
   budget: { color: '#1e40af', bg: '#dbeafe' },
   supplement: { color: '#166534', bg: '#dcfce7' },
@@ -40,7 +40,7 @@ export default function SpendingReduction2027Page() {
       {/* THE PROBLEM — one clear framing, one number. */}
       <section style={{ ...card, borderLeft: '6px solid #b91c1c' }}>
         <div style={{ color: '#b91c1c', fontWeight: 900, fontSize: 12, textTransform: 'uppercase', letterSpacing: 0.5 }}>The problem</div>
-        <h2 style={{ margin: '4px 0 8px', color: '#284a69', fontSize: 21 }}>
+        <h2 style={{ margin: '4px 0 8px', color: '#13293f', fontSize: 21 }}>
           The 2027 budget is on track to blow past the tax cap by about {usd(capGap2027.gap)}
         </h2>
         <p style={{ color: '#334155', fontSize: 15, lineHeight: 1.6, margin: 0 }}>
@@ -53,7 +53,7 @@ export default function SpendingReduction2027Page() {
 
       {/* THE ANSWER — the plan in three numbers. */}
       <section style={{ ...card, marginTop: 16, borderLeft: '6px solid #15803d' }}>
-        <h2 style={{ margin: '0 0 6px', color: '#284a69', fontSize: 19 }}>The plan, in three numbers</h2>
+        <h2 style={{ margin: '0 0 6px', color: '#13293f', fontSize: 19 }}>The plan, in three numbers</h2>
         <p style={{ color: '#334155', fontSize: 14.5, lineHeight: 1.6, margin: 0 }}>
           Two things the Town has largely in hand already add up to the whole gap:
         </p>
@@ -71,7 +71,7 @@ export default function SpendingReduction2027Page() {
       {/* WHAT THE TWO BUILDING BLOCKS ARE — two short cards. */}
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(280px,1fr))', gap: 16, marginTop: 16 }}>
         <section style={{ ...card }}>
-          <h3 style={{ margin: '0 0 6px', color: '#284a69', fontSize: 16 }}>1 · The retirement incentive</h3>
+          <h3 style={{ margin: '0 0 6px', color: '#13293f', fontSize: 16 }}>1 · The retirement incentive</h3>
           <p style={{ color: '#334155', fontSize: 14, lineHeight: 1.55, margin: '0 0 10px' }}>
             On July 7, 2026 the Board unanimously approved three voluntary retirement incentives ({ri.eligibleTotal}{' '}
             eligible). The Town projects <strong>{usd(ri.projectedSavingsLow)}–{usd(ri.projectedSavingsHigh)}</strong>{' '}
@@ -80,7 +80,7 @@ export default function SpendingReduction2027Page() {
           <div style={{ display: 'grid', gap: 6 }}>
             {ri.eligible.map((u) => (
               <div key={u.unit} style={{ display: 'flex', justifyContent: 'space-between', gap: 10, alignItems: 'baseline', flexWrap: 'wrap', background: '#f8fafc', border: '1px solid #e2e8f0', borderRadius: 8, padding: '7px 11px' }}>
-                <span style={{ color: '#284a69', fontWeight: 700, fontSize: 13.5 }}>{u.unit} <span style={{ color: '#64748b', fontWeight: 600 }}>· {u.count}</span></span>
+                <span style={{ color: '#13293f', fontWeight: 700, fontSize: 13.5 }}>{u.unit} <span style={{ color: '#64748b', fontWeight: 600 }}>· {u.count}</span></span>
                 <span style={{ color: '#475569', fontSize: 12.5 }}>{u.benefit}</span>
               </div>
             ))}
@@ -91,7 +91,7 @@ export default function SpendingReduction2027Page() {
         </section>
 
         <section style={{ ...card }}>
-          <h3 style={{ margin: '0 0 6px', color: '#284a69', fontSize: 16 }}>2 · The sourced line trims</h3>
+          <h3 style={{ margin: '0 0 6px', color: '#13293f', fontSize: 16 }}>2 · The sourced line trims</h3>
           <p style={{ color: '#334155', fontSize: 14, lineHeight: 1.55, margin: '0 0 10px' }}>
             About <strong>{usd(firmRecurringTotal)}</strong> in firm-confidence recurring trims — every one tied to a
             specific line the Town&apos;s own 2026 Budget Supplement budgets well above its trailing actuals (a line up
@@ -106,7 +106,7 @@ export default function SpendingReduction2027Page() {
       </div>
 
       {/* GO DEEPER — everything else, progressively disclosed. */}
-      <h2 style={{ margin: '26px 0 4px', color: '#284a69', fontSize: 18 }}>Go deeper</h2>
+      <h2 style={{ margin: '26px 0 4px', color: '#13293f', fontSize: 18 }}>Go deeper</h2>
       <p style={{ color: '#64748b', fontSize: 13.5, margin: '0 0 8px' }}>Optional detail — open only what you want.</p>
 
       <Detail title="Build your own savings package (interactive)">
@@ -130,7 +130,7 @@ export default function SpendingReduction2027Page() {
               <div key={p.name} style={{ background: '#f8fafc', border: '1px solid #e2e8f0', borderRadius: 12, padding: '12px 14px' }}>
                 <div style={{ display: 'flex', gap: 10, alignItems: 'baseline', flexWrap: 'wrap' }}>
                   <span style={{ color: '#6b7280', fontWeight: 900, fontSize: 13 }}>{i + 1}</span>
-                  <span style={{ color: '#284a69', fontWeight: 800, fontSize: 14.5, flex: 1, minWidth: 180 }}>{p.name}</span>
+                  <span style={{ color: '#13293f', fontWeight: 800, fontSize: 14.5, flex: 1, minWidth: 180 }}>{p.name}</span>
                   <span style={{ background: s.bg, color: s.color, border: `1px solid ${s.color}22`, borderRadius: 999, padding: '3px 10px', fontSize: 11.5, fontWeight: 800, whiteSpace: 'nowrap' }}>{s.label}</span>
                 </div>
                 <div style={{ color: '#1f7a5c', fontWeight: 700, fontSize: 13, margin: '6px 0 4px' }}>Closes: {p.closes}</div>
@@ -160,7 +160,7 @@ export default function SpendingReduction2027Page() {
           {atb.bases.map((b) => (
             <div key={b.label} style={{ background: '#f8fafc', border: '1px solid #e2e8f0', borderRadius: 10, padding: '10px 14px' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', gap: 12, alignItems: 'baseline', flexWrap: 'wrap' }}>
-                <span style={{ color: '#284a69', fontWeight: 700, fontSize: 14 }}>{b.label}</span>
+                <span style={{ color: '#13293f', fontWeight: 700, fontSize: 14 }}>{b.label}</span>
                 <span style={{ color: '#1f7a5c', fontWeight: 900, fontSize: 16, whiteSpace: 'nowrap' }}>{usd(b.base * atb.cutPercent)}</span>
               </div>
               <div style={{ color: '#6b7280', fontSize: 12.5, marginTop: 2 }}>{b.note}</div>
@@ -180,7 +180,7 @@ export default function SpendingReduction2027Page() {
             <tbody>
               {atb.byFund.map((f) => (
                 <tr key={f.fund} style={{ borderBottom: '1px solid #f1f5f9' }}>
-                  <td style={{ padding: '6px 8px', color: '#284a69', fontWeight: 700 }}>{f.fund}</td>
+                  <td style={{ padding: '6px 8px', color: '#13293f', fontWeight: 700 }}>{f.fund}</td>
                   <td style={{ padding: '6px 8px', textAlign: 'right' }}>{usd(f.tentative)}</td>
                   <td style={{ padding: '6px 8px', textAlign: 'right', fontWeight: 700 }}>{usd(f.tentative * atb.cutPercent)}</td>
                   <td style={{ padding: '6px 8px', textAlign: 'right', color: '#1f7a5c', fontWeight: 700 }}>{f.controllable ? usd(f.controllable * atb.cutPercent) : '—'}</td>
@@ -243,7 +243,7 @@ export default function SpendingReduction2027Page() {
 function Detail({ title, children }: { title: string; children: React.ReactNode }) {
   return (
     <details style={{ ...card, padding: 0, marginTop: 12, overflow: 'hidden' }}>
-      <summary style={{ cursor: 'pointer', listStyle: 'none', padding: '15px 18px', fontWeight: 800, color: '#284a69', fontSize: 15.5, display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 12 }}>
+      <summary style={{ cursor: 'pointer', listStyle: 'none', padding: '15px 18px', fontWeight: 800, color: '#13293f', fontSize: 15.5, display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 12 }}>
         <span>{title}</span>
         <span aria-hidden style={{ color: '#6b7280', fontSize: 13, fontWeight: 700 }}>Open ▾</span>
       </summary>
@@ -254,7 +254,7 @@ function Detail({ title, children }: { title: string; children: React.ReactNode 
 
 function Tile({ label, value, note, green, accent }: { label: string; value: string; note?: string; green?: boolean; accent?: boolean }) {
   const bg = accent ? '#dbeafe' : green ? '#dcfce7' : '#f8fafc'
-  const valueColor = accent ? '#1e40af' : green ? '#166534' : '#284a69'
+  const valueColor = accent ? '#1e40af' : green ? '#166534' : '#13293f'
   return (
     <div style={{ background: bg, border: '1px solid #e2e8f0', borderRadius: 12, padding: 14 }}>
       <div style={{ color: '#475569', fontSize: 11.5, textTransform: 'uppercase', fontWeight: 900, letterSpacing: 0.4 }}>{label}</div>

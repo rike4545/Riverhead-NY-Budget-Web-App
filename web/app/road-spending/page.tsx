@@ -5,7 +5,7 @@ import {
   shareOfMedian, gapToMedianAnnual, riverheadMixTotal, RIVERHEAD,
 } from '../../lib/road-spending'
 
-const card = { background: 'white', border: '1px solid #e2e8f0', borderRadius: 16, padding: 20, boxShadow: '0 14px 34px rgba(15,23,42,.05)' } as const
+const card = { background: 'white', border: '1px solid #e2e8f0', borderRadius: 16, padding: 20, boxShadow: '0 1px 3px rgba(15,23,42,.04)' } as const
 const usd = (n: number) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(n)
 
 export const metadata = {
@@ -28,7 +28,7 @@ export default function RoadSpendingPage() {
       </PlainCallout>
 
       {/* Headline */}
-      <section style={{ ...card, borderLeft: '6px solid #4a7297' }}>
+      <section style={{ ...card, borderLeft: '6px solid #2f6690' }}>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(190px,1fr))', gap: 12 }}>
           <Stat label="Riverhead, per maintained mile" value={usd(riverhead.perMile)} accent />
           <Stat label="Suffolk town median" value={usd(medianPerMile)} />
@@ -44,7 +44,7 @@ export default function RoadSpendingPage() {
 
       {/* Chart */}
       <section style={{ ...card, marginTop: 16 }}>
-        <h2 style={{ margin: '0 0 4px', color: '#284a69', fontSize: 20 }}>Every Suffolk town, {roadSpending.asOf}</h2>
+        <h2 style={{ margin: '0 0 4px', color: '#13293f', fontSize: 20 }}>Every Suffolk town, {roadSpending.asOf}</h2>
         <p style={{ color: '#64748b', fontSize: 14, lineHeight: 1.6, margin: '0 0 16px' }}>
           Highway spending divided by locally maintained centerline miles.
         </p>
@@ -53,7 +53,7 @@ export default function RoadSpendingPage() {
             const me = t.town === RIVERHEAD
             return (
               <div key={t.town} style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-                <span style={{ width: 108, fontSize: 13.5, fontWeight: me ? 900 : 600, color: me ? '#284a69' : '#475569' }}>
+                <span style={{ width: 108, fontSize: 13.5, fontWeight: me ? 900 : 600, color: me ? '#13293f' : '#475569' }}>
                   {t.town}
                 </span>
                 <div style={{ flex: 1, background: '#f1f5f9', borderRadius: 6, height: 24, overflow: 'hidden', position: 'relative' }}>
@@ -76,7 +76,7 @@ export default function RoadSpendingPage() {
 
       {/* What Riverhead's money buys */}
       <section style={{ ...card, marginTop: 16, borderLeft: '6px solid #b45309' }}>
-        <h2 style={{ margin: '0 0 10px', color: '#284a69', fontSize: 19 }}>What Riverhead’s highway money goes to</h2>
+        <h2 style={{ margin: '0 0 10px', color: '#13293f', fontSize: 19 }}>What Riverhead’s highway money goes to</h2>
         <div style={{ display: 'grid', gap: 8 }}>
           {roadSpending.riverheadMix.map((m) => (
             <div key={m.object} style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
@@ -111,7 +111,7 @@ export default function RoadSpendingPage() {
 
       {/* Caveats */}
       <section style={{ ...card, marginTop: 16 }}>
-        <h2 style={{ margin: '0 0 10px', color: '#284a69', fontSize: 17 }}>Limits of this comparison</h2>
+        <h2 style={{ margin: '0 0 10px', color: '#13293f', fontSize: 17 }}>Limits of this comparison</h2>
         <ul style={{ margin: 0, paddingLeft: 0, listStyle: 'none', display: 'grid', gap: 9 }}>
           {roadSpending.caveats.map((c) => (
             <li key={c} style={{ display: 'flex', gap: 9, alignItems: 'baseline', color: '#475569', fontSize: 14.5, lineHeight: 1.6 }}>
@@ -132,8 +132,8 @@ export default function RoadSpendingPage() {
 function SourceLine({ label, s }: { label: string; s: { source: string; detail: string; url: string } }) {
   return (
     <div style={{ color: '#64748b', fontSize: 13, lineHeight: 1.6 }}>
-      <strong style={{ color: '#284a69' }}>{label}:</strong>{' '}
-      <a href={s.url} target="_blank" rel="noreferrer" style={{ color: '#4a7297', fontWeight: 700 }}>{s.source}</a>
+      <strong style={{ color: '#13293f' }}>{label}:</strong>{' '}
+      <a href={s.url} target="_blank" rel="noreferrer" style={{ color: '#2f6690', fontWeight: 700 }}>{s.source}</a>
       {' — '}{s.detail}
     </div>
   )
@@ -143,7 +143,7 @@ function Stat({ label, value, accent }: { label: string; value: string; accent?:
   return (
     <div style={{ background: accent ? '#fff7ed' : '#f8fafc', border: `1px solid ${accent ? '#fed7aa' : '#e2e8f0'}`, borderRadius: 12, padding: '12px 14px' }}>
       <div style={{ color: '#64748b', fontSize: 11, fontWeight: 800, textTransform: 'uppercase', letterSpacing: 0.4, lineHeight: 1.35 }}>{label}</div>
-      <div style={{ color: accent ? '#b45309' : '#284a69', fontSize: 24, fontWeight: 950, marginTop: 3 }}>{value}</div>
+      <div style={{ color: accent ? '#b45309' : '#13293f', fontSize: 24, fontWeight: 950, marginTop: 3 }}>{value}</div>
     </div>
   )
 }

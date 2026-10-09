@@ -13,8 +13,8 @@ export default function Page() {
           glossary/guide as a secondary link (these used to be two separate CTAs). */}
       <div style={{
         display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 16, justifyContent: 'space-between',
-        background: 'linear-gradient(100deg,#0f2942,#4a7297)', color: 'white',
-        borderRadius: 16, padding: '20px 24px', marginBottom: 18, boxShadow: '0 14px 34px rgba(15,23,42,.14)',
+        background: 'linear-gradient(100deg,#13293f,#2f6690)', color: 'white',
+        borderRadius: 16, padding: '20px 24px', marginBottom: 18, boxShadow: '0 10px 24px rgba(15,23,42,.10)',
       }}>
         <div style={{ minWidth: 240 }}>
           <div style={{ fontSize: 12, fontWeight: 900, letterSpacing: 0.8, textTransform: 'uppercase', color: '#9fd0ef' }}>New here? Start here</div>

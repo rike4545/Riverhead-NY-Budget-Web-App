@@ -14,7 +14,7 @@ import {
 } from '../lib/spending-reduction-2027'
 
 const usd = (n: number) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(n)
-const card = { background: 'white', border: '1px solid #e2e8f0', borderRadius: 16, padding: 20, boxShadow: '0 14px 34px rgba(15,23,42,.05)' } as const
+const card = { background: 'white', border: '1px solid #e2e8f0', borderRadius: 16, padding: 20, boxShadow: '0 1px 3px rgba(15,23,42,.04)' } as const
 
 const CONFIDENCE_STYLE: Record<string, { label: string; color: string; bg: string }> = {
   firm: { label: 'FIRM', color: '#1f7a5c', bg: '#d1fae5' },
@@ -82,7 +82,7 @@ export default function SpendingReductionToggleList() {
         </div>
 
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(160px,1fr))', gap: 10, marginBottom: 14 }}>
-          <MetricTile label="Personnel & policy" value={personnelSelected} color="#284a69" />
+          <MetricTile label="Personnel & policy" value={personnelSelected} color="#13293f" />
           <MetricTile label="Operational control" value={operationalSelected} color="#b45309" />
           <MetricTile label="Line-item trims" value={supplementSelected} color="#1f5f8f" />
         </div>
@@ -177,7 +177,7 @@ function ItemSection({
 }) {
   return (
     <section style={card}>
-      <h2 style={{ margin: '0 0 12px', color: '#284a69', fontSize: 17 }}>
+      <h2 style={{ margin: '0 0 12px', color: '#13293f', fontSize: 17 }}>
         {title} — {usd(selectedAmount)} of {usd(fullAmount)}
       </h2>
       <div style={{ display: 'grid', gap: 10 }}>
@@ -198,7 +198,7 @@ function ItemSection({
               }}
             >
               <div style={{ display: 'flex', justifyContent: 'space-between', gap: 10, alignItems: 'baseline' }}>
-                <span style={{ display: 'flex', alignItems: 'center', gap: 8, fontWeight: 800, color: '#284a69', fontSize: 14.5 }}>
+                <span style={{ display: 'flex', alignItems: 'center', gap: 8, fontWeight: 800, color: '#13293f', fontSize: 14.5 }}>
                   <span
                     aria-hidden
                     style={{

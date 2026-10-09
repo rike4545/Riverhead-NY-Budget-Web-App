@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import FiscalImpactTable, { type FiscalResolution } from './FiscalImpactTable'
 
-const card = { background: 'white', border: '1px solid #e2e8f0', borderRadius: 16, padding: 20, boxShadow: '0 14px 34px rgba(15,23,42,.05)' } as const
+const card = { background: 'white', border: '1px solid #e2e8f0', borderRadius: 16, padding: 20, boxShadow: '0 1px 3px rgba(15,23,42,.04)' } as const
 const usd = (n: number) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(n)
 
 export type FiscalMeeting = {
@@ -38,12 +38,12 @@ export default function FiscalImpactMeetings({ meetings }: { meetings: FiscalMee
   return (
     <div style={{ display: 'grid', gap: 16 }}>
       <section style={{ ...card, display: 'flex', gap: 12, flexWrap: 'wrap', alignItems: 'center' }}>
-        <label htmlFor="meeting" style={{ fontWeight: 800, color: '#284a69' }}>Meeting:</label>
+        <label htmlFor="meeting" style={{ fontWeight: 800, color: '#13293f' }}>Meeting:</label>
         <select
           id="meeting"
           value={date}
           onChange={(e) => setDate(e.target.value)}
-          style={{ flex: 1, minWidth: 220, padding: '10px 13px', border: '1px solid #cbd5e1', borderRadius: 9, fontSize: 15, fontWeight: 700, color: '#284a69' }}
+          style={{ flex: 1, minWidth: 220, padding: '10px 13px', border: '1px solid #cbd5e1', borderRadius: 9, fontSize: 15, fontWeight: 700, color: '#13293f' }}
         >
           {meetings.map((x) => (
             <option key={x.meetingDate} value={x.meetingDate}>{fmtDate(x.meetingDate)}</option>
@@ -93,7 +93,7 @@ function Stat({ label, value, sub, accent }: { label: string; value: string; sub
   return (
     <div style={{ background: accent ? '#fee2e2' : '#f8fafc', border: '1px solid #e2e8f0', borderRadius: 12, padding: 12 }}>
       <div style={{ color: '#64748b', fontSize: 11.5, textTransform: 'uppercase', fontWeight: 900, letterSpacing: 0.4 }}>{label}</div>
-      <strong style={{ fontSize: 22, color: accent ? '#991b1b' : '#284a69' }}>{value}</strong>
+      <strong style={{ fontSize: 22, color: accent ? '#991b1b' : '#13293f' }}>{value}</strong>
       {sub && <div style={{ color: '#64748b', fontSize: 12.5, marginTop: 2 }}>{sub}</div>}
     </div>
   )

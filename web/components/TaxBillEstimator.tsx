@@ -4,7 +4,7 @@ import { useState } from 'react'
 import { assessedFromMarketValue, estimateTaxBill, type TaxRates } from '../lib/tax-bill'
 
 const usd = (n: number) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(n)
-const card = { background: 'white', border: '1px solid #e2e8f0', borderRadius: 16, padding: 20, boxShadow: '0 14px 34px rgba(15,23,42,.05)' } as const
+const card = { background: 'white', border: '1px solid #e2e8f0', borderRadius: 16, padding: 20, boxShadow: '0 1px 3px rgba(15,23,42,.04)' } as const
 
 export default function TaxBillEstimator({
   rates2026,
@@ -41,7 +41,7 @@ export default function TaxBillEstimator({
             step={1000}
             value={assessedValue}
             onChange={(e) => setAssessedValue(Number(e.target.value))}
-            style={{ width: '100%', accentColor: '#4a7297' }}
+            style={{ width: '100%', accentColor: '#2f6690' }}
           />
         </Field>
       ) : (
@@ -57,7 +57,7 @@ export default function TaxBillEstimator({
             step={10000}
             value={marketValue}
             onChange={(e) => setMarketValue(Number(e.target.value))}
-            style={{ width: '100%', accentColor: '#4a7297' }}
+            style={{ width: '100%', accentColor: '#2f6690' }}
           />
         </Field>
       )}
@@ -71,7 +71,7 @@ export default function TaxBillEstimator({
             step={500}
             value={starReduction}
             onChange={(e) => setStarReduction(Number(e.target.value))}
-            style={{ width: '100%', accentColor: '#4a7297' }}
+            style={{ width: '100%', accentColor: '#2f6690' }}
           />
         </Field>
       </div>
@@ -79,8 +79,8 @@ export default function TaxBillEstimator({
       <hr style={{ border: 'none', borderTop: '1px solid #e2e8f0', margin: '18px 0' }} />
 
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline' }}>
-        <span style={{ color: '#284a69', fontWeight: 800 }}>2026 Town portion (estimated)</span>
-        <strong style={{ fontSize: 28, color: '#284a69' }}>{usd(estimate2026.total)}</strong>
+        <span style={{ color: '#13293f', fontWeight: 800 }}>2026 Town portion (estimated)</span>
+        <strong style={{ fontSize: 28, color: '#13293f' }}>{usd(estimate2026.total)}</strong>
       </div>
       <div style={{ display: 'flex', justifyContent: 'space-between', color: '#64748b', fontSize: 13.5, marginTop: 4 }}>
         <span>2025 (for comparison)</span>
@@ -116,9 +116,9 @@ function ModeButton({ active, onClick, label }: { active: boolean; onClick: () =
         flex: 1,
         padding: '10px 12px',
         borderRadius: 8,
-        border: active ? '1px solid #4a7297' : '1px solid #e2e8f0',
-        background: active ? '#4a7297' : 'white',
-        color: active ? 'white' : '#284a69',
+        border: active ? '1px solid #2f6690' : '1px solid #e2e8f0',
+        background: active ? '#2f6690' : 'white',
+        color: active ? 'white' : '#13293f',
         fontWeight: 800,
         fontSize: 13.5,
         cursor: 'pointer',
@@ -133,8 +133,8 @@ function Field({ label, value, hint, children }: { label: string; value: string;
   return (
     <div>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline' }}>
-        <span style={{ fontWeight: 800, color: '#284a69', fontSize: 14.5 }}>{label}</span>
-        <span style={{ fontWeight: 800, color: '#4a7297', fontSize: 14 }}>{value}</span>
+        <span style={{ fontWeight: 800, color: '#13293f', fontSize: 14.5 }}>{label}</span>
+        <span style={{ fontWeight: 800, color: '#2f6690', fontSize: 14 }}>{value}</span>
       </div>
       {children}
       <div style={{ color: '#6b7280', fontSize: 12, lineHeight: 1.4, marginTop: 4 }}>{hint}</div>
@@ -146,7 +146,7 @@ function Mini({ label, value }: { label: string; value: string }) {
   return (
     <div style={{ background: '#f8fafc', borderRadius: 10, padding: 10 }}>
       <div style={{ color: '#64748b', fontSize: 11, textTransform: 'uppercase', fontWeight: 800 }}>{label}</div>
-      <div style={{ fontWeight: 800, marginTop: 2, color: '#284a69' }}>{value}</div>
+      <div style={{ fontWeight: 800, marginTop: 2, color: '#13293f' }}>{value}</div>
     </div>
   )
 }
