@@ -36,6 +36,14 @@ const data = titlesData as unknown as { years: number[]; note: string; titleChur
 const titleChurnYears = data.titleChurnYears ?? []
 const years = data.years
 const latestYear = years[years.length - 1]
+// On a phone only the first and latest years show; each row's bars keep the rest.
+const narrowHide = (y: number) => (y !== years[0] && y !== latestYear ? 'rbl-narrow-hide' : undefined)
+// The arrival and departure figures are for regular staff only, and the counts
+// include seasonal staff, so the two never add up; say so, and say when the
+// flows also cover a shorter span than the counts.
+const flowStart = titleChurnYears.length > 0 ? titleChurnYears[0] - 1 : null
+const flowSentence = flowStart === null ? '' :
+  `Those arrival and departure figures cover ${flowStart}\u2013${titleChurnYears[titleChurnYears.length - 1]}, the years the Town reports a title${flowStart > years[0] ? `, a shorter span than the ${years[0]}\u2192${latestYear} change beside them` : ''}. They count regular staff only and the counts include seasonal and part-time staff, so the two need not add up.`
 
 const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 20 } as const
 const th = { padding: '8px 10px', textAlign: 'right' as const, whiteSpace: 'nowrap' as const }
@@ -95,7 +103,7 @@ export default function WorkforceByTitle() {
             <thead>
               <tr style={{ color: 'var(--rbl-text-muted)', borderBottom: '2px solid var(--rbl-border-subtle)' }}>
                 <th style={{ padding: '8px 10px', textAlign: 'left' }}>Title</th>
-                {years.map((y) => <th key={y} style={th}>{y}</th>)}
+                {years.map((y) => <th key={y} className={narrowHide(y)} style={th}>{y}</th>)}
                 <th style={th}>Change<br /><span style={{ fontWeight: 400, fontSize: 11 }}>{years[0]}→{latestYear}</span></th>
               </tr>
             </thead>
@@ -111,10 +119,10 @@ export default function WorkforceByTitle() {
                   </td>
                   {years.map((y) => {
                     const v = t.counts[String(y)] ?? 0
-                    return <td key={y} style={{ ...td, color: v ? 'var(--rbl-text-strong)' : 'var(--rbl-text-faint)', fontWeight: y === latestYear ? 800 : 400 }}>{v || '—'}</td>
+                    return <td key={y} className={narrowHide(y)} style={{ ...td, color: v ? 'var(--rbl-text-strong)' : 'var(--rbl-text-faint)', fontWeight: y === latestYear ? 700 : 400 }}>{v || '—'}</td>
                   })}
-                  <td style={{ ...td, fontWeight: 800, whiteSpace: 'nowrap', color: t.delta > 0 ? 'var(--rbl-success)' : t.delta < 0 ? 'var(--rbl-danger)' : 'var(--rbl-text-muted)' }}>
-                    {t.delta > 0 ? '▲ +' : t.delta < 0 ? '▼ ' : '– '}{t.delta !== 0 ? Math.abs(t.delta) : ''}
+                  <td style={{ ...td, fontWeight: 700, whiteSpace: 'nowrap', color: t.delta > 0 ? 'var(--rbl-success)' : t.delta < 0 ? 'var(--rbl-danger)' : 'var(--rbl-text-muted)' }}>
+                    {t.delta > 0 ? `+${t.delta}` : t.delta < 0 ? `−${Math.abs(t.delta)}` : '—'}
                   </td>
                 </tr>
               ))}
@@ -123,7 +131,7 @@ export default function WorkforceByTitle() {
         </div>
 
         <p style={{ color: 'var(--rbl-text-muted)', fontSize: 12, marginTop: 12, marginBottom: 0, lineHeight: 1.5 }}>
-          {data.note} {data.churnNote} Those arrival and departure figures cover {titleChurnYears.length > 0 ? `${titleChurnYears[0] - 1}\u2013${titleChurnYears[titleChurnYears.length - 1]}` : ''}, the years the Town reports a title, so they are a shorter span than the {years[0]}\u2192{latestYear} change beside them and will not add up to it. Counts are distinct employees paid under each title that year. The teal
+          {data.note} {data.churnNote} {flowSentence} Counts are distinct employees paid under each title that year. The teal
           &ldquo;2026 authorized rate&rdquo; line is what the Town Board&apos;s January 2026 salary resolutions
           actually print for that title, available for {data.titles.filter((t) => t.wage2026).length} of the titles.
           Those rosters have an ANNUAL SALARY column and an HOURLY column, but the Town fills the hourly one in only
@@ -140,7 +148,7 @@ export default function WorkforceByTitle() {
           — and why it is arithmetic by this site, not a rate the Board voted on. No hourly figure at all is shown
           for elected officials, board members (paid a stipend, not a wage), or sergeants and above, who are a
           separate Superior Officers unit whose duty chart we don&apos;t hold. Source:{' '}
-          <a href={data.source.url} target="_blank" rel="noreferrer" style={{ color: 'var(--rbl-accent)', fontWeight: 700 }}>{data.source.title} ↗</a>
+          <a href={data.source.url} target="_blank" rel="noreferrer" style={{ color: 'var(--rbl-link)', fontWeight: 600 }}>{data.source.title}</a>
         </p>
       </section>
     </div>

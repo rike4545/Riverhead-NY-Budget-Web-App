@@ -597,8 +597,15 @@ def build():
     }, separators=(",", ":")))
 
     # Headcount by title and year (for the "Workforce by Title" view — how each
-    # job's staffing changes over time). Titles are populated 2022 onward.
-    title_years = sorted({r["year"] for r in all_rows if (r["title"] or "").strip()})
+    # job's staffing changes over time). The Town's exports carry titles from
+    # 2022 onward. Every earlier title in this dataset was carried back from a
+    # later year by carry_forward_static_fields, so those years are left out, as
+    # they are for departments below: counting them published a 2018 roster of
+    # only the people still employed in 2022, and a change since 2018 built on it.
+    title_years = sorted({
+        r["year"] for r in all_rows
+        if (r["title"] or "").strip() and "t" not in (r.get("_inferred") or "")
+    })
     by_title = {}
     for r in all_rows:
         t = (r["title"] or "").strip()

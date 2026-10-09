@@ -203,7 +203,7 @@ export const topics: AnswerTopic[] = [
   {
     id: 'health',
     title: 'Is the Town in good shape?',
-    blurb: 'Savings, cushion, and whether the position is improving.',
+    blurb: 'Savings (the fund balance), the cushion, and whether the position is improving.',
     answers: [
       {
         q: 'Does the Town have savings?',

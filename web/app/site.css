@@ -28,3 +28,4 @@ table{font-variant-numeric:tabular-nums}
 @container (max-width:560px){.rbl-chart-wide{display:none}.rbl-chart-narrow{display:block}}
 /* A table that becomes one labeled block per row on a phone, so no column is scrolled out of view. Each cell after the first carries data-label. */
 @media(max-width:560px){.rbl-stack thead{display:none}.rbl-stack,.rbl-stack tbody,.rbl-stack tr{display:block;width:100%}.rbl-stack tr{padding:8px 0}.rbl-stack td{display:flex;justify-content:space-between;align-items:baseline;gap:12px;padding:2px 0!important;text-align:right!important}.rbl-stack td::before{content:attr(data-label);color:var(--rbl-text-muted);font-weight:600;text-align:left}.rbl-stack td:first-child{font-weight:800}.rbl-stack td:first-child::before{content:none}}
+@media(max-width:560px){.rbl-narrow-hide{display:none}}

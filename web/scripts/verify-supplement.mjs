@@ -144,6 +144,18 @@ const lastYear = history.actualYears[history.actualYears.length - 1]
 has('revenue', usd(gfOutside.reduce((s, a) => s + (a.actual[String(lastYear)] ?? 0), 0)), `the General Fund's outside revenue for ${lastYear}`)
 for (const r of revenue.neverCollected) has('revenue', r.account, `the never-collected line ${r.account}`)
 
+// The Funds Explorer puts each line's Tentative figure beside the adopted one,
+// so each fund's lines must add up to that fund's own row in the Tentative's
+// Summary, and the pages must show those totals.
+const tentativeFunds = read('public/data/history/budget-stages.json').years[String(LATEST)]?.tentative?.funds ?? {}
+for (const [code, row] of Object.entries(tentativeFunds)) {
+  const lines = current.lines.filter((l) => l.fund === code && l.kind === 'expenditure').reduce((s, l) => s + (l.tentative ?? 0), 0)
+  if (!same(lines, row.appropriations)) fail(`${code}'s ${LATEST} Supplement lines add up to ${usd(lines)}, not the Tentative's ${usd(row.appropriations)}`)
+  has(`funds/${code}`, `${LATEST} proposed`, `the ${LATEST} Tentative for ${code}`)
+  has('funds', usd(row.appropriations), `${code}'s ${LATEST} Tentative appropriations`)
+}
+has('funds/A01', usd(tentativeFunds.A01?.appropriations ?? 0), "the General Fund's 2027 Tentative total")
+
 if (!process.exitCode) {
   console.log(`supplement: ${compared.toLocaleString('en-US')} figures agree across two readings of ${(requests.completeYears ?? []).length} Supplements; ${LATEST} ties to the Tentative; findings and pages check out`)
 }

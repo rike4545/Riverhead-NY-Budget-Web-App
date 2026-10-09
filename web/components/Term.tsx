@@ -18,7 +18,7 @@ export default function Term({ id, children }: { id: string; children?: React.Re
         onClick={() => setOpen((o) => !o)}
         aria-expanded={open}
         style={{
-          background: 'none', border: 'none', padding: 0, font: 'inherit', cursor: 'help',
+          background: 'none', border: 'none', padding: 0, font: 'inherit', cursor: 'help', textAlign: 'inherit',
           color: 'inherit', borderBottom: '1.5px dotted var(--rbl-accent-border)', lineHeight: 1.2,
         }}
         title={entry.plain}
