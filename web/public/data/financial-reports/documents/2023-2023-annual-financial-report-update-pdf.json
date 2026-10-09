@@ -4448,7 +4448,7 @@
     },
     {
       "page": 152,
-      "text": "Town of Riverhead\nAnnual Financial Report\nFor the Fiscal Period 01/01/2023 - 12/31/2023\nBank Reconciliation\nAccounts\nAccount No. Account Type Associated Fund(s) Bank Balance Deposits In Transit Outstanding Checks Adjustments Total\n522 Savings A, CM, DA, ES, EW,\nSL, SM, SR, ST, TC $14,709,169.89 $0.00 $0.00 $0.00 $14,709,169.89\n276 Checking A $913,063.64 $5,499.00 ($168,902.93) $0.00 $749,659.71\n227 Checking ES $1,274,486.58 $0.00 ($34,711.41) $0.00 $1,239,775.17\n5966 Checking ST $256.40 $0.00 $0.00 $0.00 $256.40\n9868 Checking CM $5,332,668.48 $0.00 $0.00 $0.00 $5,332,668.48\n5974 Checking SM $860.21 $0.00 $0.00 $0.00 $860.21\n814 Checking SM $829,149.70 $0.00 $0.00 $0.00 $829,149.70\n9892 Checking MS $200,838.41 $0.00 $0.00 $0.00 $200,838.41\n4463 Checking CD $10,117.01 $0.00 $0.00 $0.00 $10,117.01\n5305 Checking ES $1,186,666.98 $443.91 $0.00 $0.00 $1,187,110.89\n268 Checking TC $180,875.59 $0.00 $0.00 $0.00 $180,875.59\n1959 Checking A $200.00 $0.00 $0.00 $0.00 $200.00\n149 OSC Municipality Code 470371600000",
+      "text": "Town of Riverhead\nAnnual Financial Report\nFor the Fiscal Period 01/01/2023 - 12/31/2023\nBank Reconciliation\nAccounts\nAccount No. Account Type Associated Fund(s) Bank Balance Deposits In Transit Outstanding Checks Adjustments Total\n522 Savings A, CM, DA, ES, EW,SL, SM, SR, ST, TC $14,709,169.89 $0.00 $0.00 $0.00 $14,709,169.89\n276 Checking A $913,063.64 $5,499.00 ($168,902.93) $0.00 $749,659.71\n227 Checking ES $1,274,486.58 $0.00 ($34,711.41) $0.00 $1,239,775.17\n5966 Checking ST $256.40 $0.00 $0.00 $0.00 $256.40\n9868 Checking CM $5,332,668.48 $0.00 $0.00 $0.00 $5,332,668.48\n5974 Checking SM $860.21 $0.00 $0.00 $0.00 $860.21\n814 Checking SM $829,149.70 $0.00 $0.00 $0.00 $829,149.70\n9892 Checking MS $200,838.41 $0.00 $0.00 $0.00 $200,838.41\n4463 Checking CD $10,117.01 $0.00 $0.00 $0.00 $10,117.01\n5305 Checking ES $1,186,666.98 $443.91 $0.00 $0.00 $1,187,110.89\n268 Checking TC $180,875.59 $0.00 $0.00 $0.00 $180,875.59\n1959 Checking A $200.00 $0.00 $0.00 $0.00 $200.00\n149 OSC Municipality Code 470371600000",
       "money_values": [
         "$14,709,169.89",
         "$14,709,169.89",
@@ -4472,7 +4472,7 @@
         "$180,875.59",
         "$180,875.59"
       ],
-      "line_count": 20,
+      "line_count": 19,
       "confidence": "high"
     },
     {

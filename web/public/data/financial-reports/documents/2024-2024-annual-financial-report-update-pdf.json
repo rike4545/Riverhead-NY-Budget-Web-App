@@ -4568,7 +4568,7 @@
     },
     {
       "page": 152,
-      "text": "Town of Riverhead\nAnnual Financial Report\nFor the Fiscal Period 01/01/2024 - 12/31/2024\nAccounts\nAccount No. Account Type Associated Fund(s) Bank Balance Deposits In Transit Outstanding Checks Adjustments Total\n5305 Checking ES $465,560.52 $0.00 $0.00 $0.00 $465,560.52\n268 Checking TC $157,365.72 $0.01 $0.00 $0.00 $157,365.73\n1175 Checking A $1,563,092.92 $0.00 ($1,561,250.75) $0.00 $1,842.17\n4603 Savings A $20,034.61 $0.00 $0.00 $0.00 $20,034.61\n7511 Savings A $52,135.32 $0.00 $0.00 $0.00 $52,135.32\n7515 Savings A $50,581.69 $0.00 $0.00 $0.00 $50,581.69\n464 Savings A, CM, DA, ES, EW,\nSL, SR $43,879,240.96 $0.00 $0.00 $0.00 $43,879,240.96\n1692 Savings\nA, CD, CM, DA, ES,\nEW, MS, SL, SM,\nSR, ST\n$27,005,186.20 $0.00 $0.00 $0.00 $27,005,186.20\n9039 Savings A $1,007,510.34 $0.00 $0.00 $0.00 $1,007,510.34\n4679 Checking A, CM, DA, ES, EW,\nSL, SM, SR, ST, TC $2,402,535.30 $28,715.31 $0.00 $0.00 $2,431,250.61\n522 Savings A, CM, DA, ES, EW,\nSL, SM, SR, ST, TC $42,590,044.50 $2,110,684.87 $0.00 $0.00 $44,700,729.37\n4695 Checking EW $196,075.18 $6,087.40 $0.00 $0.00 $202,162.58\n4703 Checking EW $435,980.93 $0.00 $0.00 $0.00 $435,980.93\n149 OSC Municipality Code 470371600000",
+      "text": "Town of Riverhead\nAnnual Financial Report\nFor the Fiscal Period 01/01/2024 - 12/31/2024\nAccounts\nAccount No. Account Type Associated Fund(s) Bank Balance Deposits In Transit Outstanding Checks Adjustments Total\n5305 Checking ES $465,560.52 $0.00 $0.00 $0.00 $465,560.52\n268 Checking TC $157,365.72 $0.01 $0.00 $0.00 $157,365.73\n1175 Checking A $1,563,092.92 $0.00 ($1,561,250.75) $0.00 $1,842.17\n4603 Savings A $20,034.61 $0.00 $0.00 $0.00 $20,034.61\n7511 Savings A $52,135.32 $0.00 $0.00 $0.00 $52,135.32\n7515 Savings A $50,581.69 $0.00 $0.00 $0.00 $50,581.69\n464 Savings A, CM, DA, ES, EW,SL, SR $43,879,240.96 $0.00 $0.00 $0.00 $43,879,240.96\n1692 Savings\nA, CD, CM, DA, ES,\nEW, MS, SL, SM,\nSR, ST\n$27,005,186.20 $0.00 $0.00 $0.00 $27,005,186.20\n9039 Savings A $1,007,510.34 $0.00 $0.00 $0.00 $1,007,510.34\n4679 Checking A, CM, DA, ES, EW,SL, SM, SR, ST, TC $2,402,535.30 $28,715.31 $0.00 $0.00 $2,431,250.61\n522 Savings A, CM, DA, ES, EW,SL, SM, SR, ST, TC $42,590,044.50 $2,110,684.87 $0.00 $0.00 $44,700,729.37\n4695 Checking EW $196,075.18 $6,087.40 $0.00 $0.00 $202,162.58\n4703 Checking EW $435,980.93 $0.00 $0.00 $0.00 $435,980.93\n149 OSC Municipality Code 470371600000",
       "money_values": [
         "$465,560.52",
         "$465,560.52",
@@ -4601,7 +4601,7 @@
         "$435,980.93",
         "$435,980.93"
       ],
-      "line_count": 26,
+      "line_count": 23,
       "confidence": "high"
     },
     {
@@ -4642,7 +4642,7 @@
     },
     {
       "page": 154,
-      "text": "Town of Riverhead\nAnnual Financial Report\nFor the Fiscal Period 01/01/2024 - 12/31/2024\nAccounts\nAccount No. Account Type Associated Fund(s) Bank Balance Deposits In Transit Outstanding Checks Adjustments Total\n1084 Checking CM $55,622.71 $0.00 $0.00 $0.00 $55,622.71\n9892 Checking MS $256,096.25 $0.00 $0.00 $0.00 $256,096.25\n4463 Checking CD $19,015.97 $0.00 $0.00 $0.00 $19,015.97\n1959 Checking A $200.00 $0.00 $0.00 $0.00 $200.00\n6893 Checking MS $150,000.00 $0.00 $0.00 $0.00 $150,000.00\n4661 Checking A, CM, DA, ES, EW,\nSL, SM, SR, ST, TC $10,369.81 $0.00 ($9,568.85) $0.00 $800.96\n9801 Checking A $5,486.61 $6,920.00 $0.00 $0.00 $12,406.61\n4076 Checking A $610.00 $0.00 $0.00 $0.00 $610.00\n4796 Checking A $1,650.29 $0.00 ($594.00) $0.00 $1,056.29\n4046 Checking A $38,888.00 $2,468.00 $0.00 $0.00 $41,356.00\nTotal $146,311,178.57 $2,169,130.59 ($1,578,840.11) $0.00 $146,901,469.05\n$146,901,469.05Total Cash From Financials\n151 OSC Municipality Code 470371600000",
+      "text": "Town of Riverhead\nAnnual Financial Report\nFor the Fiscal Period 01/01/2024 - 12/31/2024\nAccounts\nAccount No. Account Type Associated Fund(s) Bank Balance Deposits In Transit Outstanding Checks Adjustments Total\n1084 Checking CM $55,622.71 $0.00 $0.00 $0.00 $55,622.71\n9892 Checking MS $256,096.25 $0.00 $0.00 $0.00 $256,096.25\n4463 Checking CD $19,015.97 $0.00 $0.00 $0.00 $19,015.97\n1959 Checking A $200.00 $0.00 $0.00 $0.00 $200.00\n6893 Checking MS $150,000.00 $0.00 $0.00 $0.00 $150,000.00\n4661 Checking A, CM, DA, ES, EW,SL, SM, SR, ST, TC $10,369.81 $0.00 ($9,568.85) $0.00 $800.96\n9801 Checking A $5,486.61 $6,920.00 $0.00 $0.00 $12,406.61\n4076 Checking A $610.00 $0.00 $0.00 $0.00 $610.00\n4796 Checking A $1,650.29 $0.00 ($594.00) $0.00 $1,056.29\n4046 Checking A $38,888.00 $2,468.00 $0.00 $0.00 $41,356.00\nTotal $146,311,178.57 $2,169,130.59 ($1,578,840.11) $0.00 $146,901,469.05\n$146,901,469.05Total Cash From Financials\n151 OSC Municipality Code 470371600000",
       "money_values": [
         "$55,622.71",
         "$55,622.71",
@@ -4668,7 +4668,7 @@
         "$146,901,469.05",
         "$146,901,469.05"
       ],
-      "line_count": 19,
+      "line_count": 18,
       "confidence": "high"
     },
     {
