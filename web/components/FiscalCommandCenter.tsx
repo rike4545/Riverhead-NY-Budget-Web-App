@@ -248,18 +248,6 @@ export default function FiscalCommandCenter() {
               )
             })}
             <p style={{ color: muted, fontSize: 12, marginTop: 12, marginBottom: 0 }}>Links open the Town&apos;s DocumentCenter (townofriverheadny.gov).</p>
-            {/* The four fixed columns need 320px before the title gets a pixel, so on a
-                phone the row overflowed and took the whole page into sideways scroll.
-                Below 700px the title spans the full width and the badge and link drop to
-                a second line. */}
-            <style>{`
-              @media (max-width: 700px) {
-                .doc-row { grid-template-columns: 46px 1fr auto !important; row-gap: 4px !important; }
-                .doc-row > :nth-child(2) { grid-column: 2 / -1; }
-                .doc-row > :nth-child(3) { grid-column: 2; }
-                .doc-row > :nth-child(4) { grid-column: 3; justify-self: end !important; }
-              }
-            `}</style>
           </section>
 
           <section id="about" style={{ ...shell, scrollMarginTop: 24, marginTop: 18, padding: 24 }}>

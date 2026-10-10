@@ -62,7 +62,16 @@ export const corpus = {
   resolutions: meetings.reduce((n, m) => n + m.resolutions.length, 0),
 }
 
-const allRes = meetings.flatMap((m) => m.resolutions.map((r) => ({ ...r, meetingDate: m.meetingDate })))
+/**
+ * The year these commitments were made in. Draws and recurring costs are read
+ * from that year's meetings only, so the first meeting of the next year never
+ * counts as a 2026 commitment. lib/budget-changes.ts reports the same year.
+ */
+export const COMMITMENT_YEAR = 2026
+
+const allRes = meetings
+  .filter((m) => m.meetingDate.startsWith(`${COMMITMENT_YEAR}-`))
+  .flatMap((m) => m.resolutions.map((r) => ({ ...r, meetingDate: m.meetingDate })))
 const isAdopted = (r: { vote: { adopted: boolean | null } }) => r.vote?.adopted === true
 
 // THE ETL's "reserve-draw" FLAG CONFLATES TWO DIFFERENT THINGS, and only one of

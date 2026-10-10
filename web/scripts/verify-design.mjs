@@ -7,6 +7,9 @@
 // 3. No thick coloured stripe down the side of a box that already has a border.
 //    A quote's left rule (a blockquote) is the one side rule allowed.
 // 4. The self-hosted typeface is in the built pages.
+// 5. No <style> element in a page or component. The HTML standard allows one
+//    only in head, so the W3C Nu HTML Checker fails the page; rules go in
+//    app/site.css. app/layout.tsx writes its styles inside head.
 
 import { existsSync, readFileSync, readdirSync, statSync } from 'node:fs'
 import { join, relative } from 'node:path'
@@ -37,6 +40,7 @@ for (const dir of ['app', 'components', 'lib']) {
       if (emoji) fail(`${at} uses the emoji ${emoji[0]} (use a lucide-react icon, or words)`)
       if (/textTransform\s*:\s*['"]uppercase['"]/.test(line)) fail(`${at} sets an uppercase label (labels are sentence case)`)
       if (STRIPE.test(line) && !/blockquote|quoteStyle|paddingLeft/.test(context)) fail(`${at} draws a thick side stripe (put the colour in the 1px border instead)`)
+      if (/<style[\s>]/.test(line) && rel !== join('app', 'layout.tsx')) fail(`${at} puts a <style> element in the page body, which HTML allows only in head (move the rules to app/site.css)`)
     })
   }
 }
@@ -45,4 +49,4 @@ const home = join(root, 'out/index.html')
 if (!existsSync(home)) fail('out/index.html was not built')
 else if (!/\.woff2/.test(readFileSync(home, 'utf8'))) fail('The built home page does not load the self-hosted typeface')
 
-if (!process.exitCode) console.log(`Design verification passed: ${files} source files free of emoji icons, uppercase labels and side stripes; the typeface is preloaded.`)
+if (!process.exitCode) console.log(`Design verification passed: ${files} source files free of emoji icons, uppercase labels, side stripes and body <style> elements; the typeface is preloaded.`)

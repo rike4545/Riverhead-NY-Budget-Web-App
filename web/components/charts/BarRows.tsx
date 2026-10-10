@@ -63,7 +63,7 @@ export default function BarRows({
                 role="img"
                 aria-label={`${r.label}: ${r.display ?? format(r.value)}`}
               >
-                <div style={{ width: `${pct}%`, height: '100%', background: fill, borderRadius: 5 }} />
+                <div style={{ width: `${pct}%`, height: '100%', background: fill, borderRadius: 5, transition: 'width .45s ease' }} />
               </div>
               {r.note && (
                 <div style={{ color: 'var(--rbl-text-muted)', fontSize: 12, marginTop: 4 }}>{r.note}</div>
