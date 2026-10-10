@@ -191,7 +191,7 @@ The four links at the front of the site menu:
 - **What Changed** (`/what-changed`): the 2026 adopted budget against 2025.
 - **Financial Health** (`/analytics`): levy growth, spending, reserves and other indicators side by side.
 - **Budget Overview** (`/funds`): every operating fund, down through department and spending category to 848 account lines, reconciled to the 2026 adopted budget. Each fund has its own page.
-- **Program Budget** (`/programs`): the 2026 budget regrouped into the seven services the State's account system says the Town performs, with pension and health costs included and fees earned back.
+- **Program Budget** (`/programs`): every budget from 2023 to the 2027 proposal regrouped into the seven services the State's account system says the Town performs, with pension and health costs included, fees earned back, and the change between any two years. Earlier Supplements do not add up to their budgets' Summary pages, so 2019–2022 are left out, and the page says so.
 - **Budget Compare** (`/compare`): adopted appropriations for every fund, 2020–2026, sortable by the biggest movers.
 - **General Fund** (`/general-fund`): appropriations, tax levy and revenues year by year since 2005, from the adopted budgets.
 - **Annual Report** (`/annual-report`): actual 2025 year-end results against the plan, for all 14 funds.
