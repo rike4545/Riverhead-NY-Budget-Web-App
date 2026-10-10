@@ -68,12 +68,12 @@ export default function ProgramsPage() {
           ))}
         </ol>
 
-        <h3 style={{ color: 'var(--rbl-title)', fontSize: 17, margin: '18px 0 6px' }}>The arithmetic checks, every year</h3>
+        <h3 id="checks-title" style={{ color: 'var(--rbl-title)', fontSize: 17, margin: '18px 0 6px' }}>The arithmetic checks, every year</h3>
         <p style={{ color: 'var(--rbl-text-body)', fontSize: 14, lineHeight: 1.55, margin: '0 0 10px' }}>
           Services, debt service, money set aside and transfers between Town funds should add up to everything the
           budget appropriates across all its funds, as its own Summary page states. They do, to the dollar.
         </p>
-        <div style={{ overflowX: 'auto' }}>
+        <div role="region" aria-labelledby="checks-title" tabIndex={0} style={{ overflowX: 'auto' }}>
           <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 13.5 }}>
             <thead>
               <tr style={{ color: 'var(--rbl-text-muted)', borderBottom: '2px solid var(--rbl-border-subtle)' }}>

@@ -109,17 +109,17 @@ export default function ProgramExplorer({ series, people, base }: { series: Prog
         )}
       </section>
 
-      <section aria-live="polite" style={{ ...card, display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(160px,1fr))', gap: 12, marginBottom: 18 }}>
+      <div aria-live="polite" style={{ ...card, display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(160px,1fr))', gap: 12, marginBottom: 18 }}>
         <Stat label="Cost of services" value={money(t.fullCost[year])} note={`${series.programs.length} programs, ${t.staff[year]} staff`} change={change(t.fullCost)} />
         <Stat label="Earned back in fees" value={money(t.earned[year])} note={`${((t.earned[year] / t.fullCost[year]) * 100).toFixed(0)}% recovery`} change={change(t.earned)} tone="teal" />
         <Stat label="Not covered by fees" value={money(t.net[year])} note="carried by taxes and general revenue" change={change(t.net)} tone="accent" />
         <Stat label="Per resident, services" value={usd(series.perResident.programs[year])} note={`${people.population.toLocaleString()} residents`} change={change(series.perResident.programs, usd)} />
         <Stat label="Per household, all in" value={usd(series.perHousehold.everything[year])} note={`${series.perHousehold.shareOfMedianIncome[year].toFixed(1)}% of median income`} change={change(series.perHousehold.everything, usd)} tone="gold" />
-      </section>
+      </div>
 
       <YearTable series={series} year={year} measure={measure} setMeasure={setMeasure} />
 
-      <section style={{ ...card, marginBottom: 18 }}>
+      <div style={{ ...card, marginBottom: 18 }}>
         <BarRows
           title={`What each service costs in ${y.title}, once benefits are counted`}
           lede="Full cost: the department’s own appropriation plus the pension, health insurance and payroll taxes for the people who deliver it. Beside each bar, the share the service earns back from the people who use it."
@@ -133,7 +133,7 @@ export default function ProgramExplorer({ series, people, base }: { series: Prog
           format={money}
           source={`Source: ${y.supplement ? y.supplement.title : 'Budget Supplement'}, every account line. Benefits allocated by the Town's own uniformed/non-uniformed account split.`}
         />
-      </section>
+      </div>
 
       <div style={{ display: 'grid', gap: 16, marginBottom: 18 }}>
         {series.programs.map((p) => (
@@ -192,7 +192,7 @@ function YearTable({ series, year, measure, setMeasure }: { series: ProgramSerie
           </button>
         ))}
       </div>
-      <div style={{ overflowX: 'auto' }}>
+      <div role="region" aria-label="Year-by-year table" tabIndex={0} style={{ overflowX: 'auto' }}>
         <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 13.5 }}>
           <thead>
             <tr style={{ color: 'var(--rbl-text-muted)', borderBottom: '2px solid var(--rbl-border-subtle)' }}>

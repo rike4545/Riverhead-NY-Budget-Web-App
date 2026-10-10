@@ -16,7 +16,6 @@ export default function ExperienceFooter() {
         </div>
       </div>
       <div style={{ justifySelf: 'end' }}><TrendColors /></div>
-      <style>{`@media(max-width:760px){footer{grid-template-columns:1fr!important}footer>div:last-of-type{justify-self:start!important}}`}</style>
     </footer>
   )
 }

@@ -39,7 +39,6 @@ export default function PageShell({ title, subtitle, children, home = false }: {
         <ExperienceFooter />
       </div>
       {/* Below the full-nav breakpoint the tools are just Menu and Aa: keep them whole and let the name wrap. */}
-      <style>{`@media(max-width:640px){.brand-subtitle{display:none!important}}@media(max-width:1120px){.header-tools{flex-shrink:0}}@media(max-width:380px){.brand-name{font-size:15.5px!important}}`}</style>
     </div>
   )
 }

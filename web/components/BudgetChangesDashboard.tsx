@@ -145,16 +145,7 @@ export default function BudgetChangesDashboard({ initial, base }: { initial: Bud
 
   return (
     <div>
-      <style>{`
-        @keyframes bc-reveal { from { transform: scaleX(0) } to { transform: scaleX(1) } }
-        .bc-reveal { transform-box: fill-box; transform-origin: left center; animation: bc-reveal 1.2s cubic-bezier(.2,.7,.2,1) both }
-        @keyframes bc-fresh { from { background: var(--rbl-info-bg) } to { background: var(--rbl-surface) } }
-        .bc-fresh { animation: bc-fresh 4s ease-out both }
-        @keyframes bc-spin { to { transform: rotate(360deg) } }
-        .bc-spin { animation: bc-spin 1s linear infinite }
-      `}</style>
-
-      <section aria-label="Live status" style={{ ...card, padding: '12px 16px', marginBottom: 16, display: 'flex', alignItems: 'center', gap: 12, flexWrap: 'wrap' }}>
+      <div data-live-status style={{ ...card, padding: '12px 16px', marginBottom: 16, display: 'flex', alignItems: 'center', gap: 12, flexWrap: 'wrap' }}>
         <span style={{ display: 'inline-flex', alignItems: 'center', gap: 6, fontWeight: 700, color: 'var(--rbl-title)', fontSize: 14 }}>
           <RefreshCw size={16} aria-hidden className={status === 'checking' ? 'bc-spin' : undefined} />
           Live
@@ -163,12 +154,12 @@ export default function BudgetChangesDashboard({ initial, base }: { initial: Bud
           Records through the <strong>{data.latestMeeting ? longDate(data.latestMeeting) : '—'}</strong> meeting. {statusText}
         </span>
         <button type="button" onClick={() => void check.current()} style={buttonStyle(false)}>Check now</button>
-      </section>
+      </div>
 
       <section aria-labelledby="bc-added" style={{ ...card, marginBottom: 16 }}>
-        <div id="bc-added" style={{ color: 'var(--rbl-text-muted)', fontSize: 14, fontWeight: 600 }}>
+        <h2 id="bc-added" style={{ margin: 0, color: 'var(--rbl-text-muted)', fontSize: 14, fontWeight: 600 }}>
           Added to Town budgets by vote{frame !== null && through ? `, through ${shortDate(through.date)}` : ' this year'}
-        </div>
+        </h2>
         <Eased value={added} reduce={reduce} format={dollars} style={{ fontSize: 44, fontWeight: 700, color: 'var(--rbl-title)', lineHeight: 1.1, display: 'block', marginTop: 2 }} />
         <p style={{ color: 'var(--rbl-text-body)', fontSize: 14.5, lineHeight: 1.55, margin: '6px 0 14px', maxWidth: '70ch' }}>
           {changesShown} budget changes at {shownPoints.filter((p) => p.changes > 0).length} of {data.counts.meetings} meetings
@@ -364,8 +355,9 @@ function StepChart({ points, visible, version }: { points: Point[]; visible: num
     <div
       ref={wrap}
       tabIndex={0}
-      role="img"
-      aria-label={`Running total of money added to Town budgets by vote, ${points.length} meetings. ${SERIES.map((s, i) => `${s.label}: ${dollars(cum[i][points.length - 1] ?? 0)}`).join('; ')}. The table below lists every meeting.`}
+      role="group"
+      aria-label="Running total of money added by vote, meeting by meeting"
+      aria-describedby="bc-chart-summary"
       onPointerMove={(e) => pick(e.clientX)}
       onPointerDown={(e) => pick(e.clientX)}
       // A tap keeps its meeting until the next tap; a mouse lets go when it leaves.
@@ -378,6 +370,13 @@ function StepChart({ points, visible, version }: { points: Point[]; visible: num
       }}
       style={{ position: 'relative', outlineOffset: 4, touchAction: 'pan-y' }}
     >
+      <p id="bc-chart-summary" className="rbl-sr-only">
+        {`${points.length} meetings. ${SERIES.map((s, i) => `${s.label}: ${dollars(cum[i][points.length - 1] ?? 0)}`).join('; ')}. Use the left and right arrow keys to read each meeting; the table below the chart lists every one.`}
+      </p>
+      {/* What the readout shows, said aloud as the arrow keys move it. */}
+      <p className="rbl-sr-only" aria-live="polite">
+        {active !== null ? `${longDate(points[active].date)}: ${points[active].changes === 0 ? 'no budget changes' : `${points[active].changes} budget change${points[active].changes === 1 ? '' : 's'}`}. Running totals: ${SERIES.map((s, i) => `${s.label} ${dollars(cum[i][active] ?? 0)}`).join('; ')}.` : ''}
+      </p>
       <svg width={width} height={H} viewBox={`0 0 ${width} ${H}`} style={{ display: 'block', maxWidth: '100%' }} aria-hidden>
         <defs>
           <clipPath id="bc-clip"><rect key={version} className="bc-reveal" x={pad.l} y={0} width={width - pad.l - pad.r + 1} height={H} /></clipPath>
@@ -446,7 +445,7 @@ function niceStep(raw: number) {
 function MeetingTable({ points }: { points: Point[] }) {
   let running = 0
   return (
-    <div style={{ overflowX: 'auto', marginTop: 8 }}>
+    <div role="region" aria-label="The numbers, meeting by meeting" tabIndex={0} style={{ overflowX: 'auto', marginTop: 8 }}>
       <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 13 }}>
         <thead>
           <tr style={{ color: 'var(--rbl-text-muted)', borderBottom: '2px solid var(--rbl-border-subtle)' }}>
