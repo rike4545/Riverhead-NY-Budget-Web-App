@@ -198,6 +198,7 @@ The four links at the front of the site menu:
 - **Tax Cap** (`/tax-cap`): how the State's levy limit is calculated, what an override does, and Riverhead's audited record.
 - **Reserves & Fund Balance** (`/reserves`): the five GASB fund-balance classes, the Town's own reserve rules, and a one-time deployment plan.
 - **Where the Surplus Went** (`/fund-balance-draws`): every 2026 resolution that spent fund balance.
+- **Budget Changes, Live** (`/budget-changes`): every resolution the Town Board has adopted this year that changes a budget, totalled by where the money came from: savings, borrowing, grants and aid, or fees. It re-reads the data while open and updates itself when a meeting's records arrive.
 - **Capital & Debt** (`/capital-debt`): every bond and Bond Anticipation Note outstanding at the close of 2025, with the repayment schedule, plus a calculator comparing a bond now with a BAN first.
 - **Town Square** (`/town-square`): what the Town is building downtown and what it is spending.
 - **Road Spending** (`/road-spending`): highway spending per maintained mile, Riverhead against every Suffolk town.
