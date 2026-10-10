@@ -84,8 +84,11 @@ export default function BudgetChangesDashboard({ initial, base }: { initial: Bud
   const known = useRef(new Set(initial.changes.map(changeId)))
 
   // ── Live: re-read the data whenever the site's meeting data moves ──────────
-  const check = useRef<() => Promise<void>>(async () => {})
-  check.current = async () => {
+  // One check at a time: the timer, the tab coming back into view and the button
+  // can fire together, and two checks in flight could apply an older response
+  // last or clear the new-vote marks the first one set.
+  const inFlight = useRef<Promise<void> | null>(null)
+  const refresh = async () => {
     setStatus('checking')
     try {
       const meta = await fetch(`${base}/data/meta.json`, { cache: 'no-store' }).then((r) => r.json())
@@ -106,6 +109,11 @@ export default function BudgetChangesDashboard({ initial, base }: { initial: Bud
     } catch {
       setStatus('offline')
     }
+  }
+  const check = useRef<() => Promise<void>>(async () => {})
+  check.current = () => {
+    if (!inFlight.current) inFlight.current = refresh().finally(() => { inFlight.current = null })
+    return inFlight.current
   }
   useEffect(() => {
     const run = () => { if (document.visibilityState === 'visible') void check.current() }
@@ -154,11 +162,17 @@ export default function BudgetChangesDashboard({ initial, base }: { initial: Bud
           Records through the <strong>{data.latestMeeting ? longDate(data.latestMeeting) : '—'}</strong> meeting. {statusText}
         </span>
         <button type="button" onClick={() => void check.current()} style={buttonStyle(false)}>Check now</button>
+        {data.laterMeetings > 0 && (
+          <p style={{ flexBasis: '100%', margin: 0, color: 'var(--rbl-text-muted)', fontSize: 13.5 }}>
+            The records also hold {data.laterMeetings} meeting{data.laterMeetings === 1 ? '' : 's'} held after {data.year}.
+            They are not counted here: this page reports {data.year}, the year of the adopted budget it compares against.
+          </p>
+        )}
       </div>
 
       <section aria-labelledby="bc-added" style={{ ...card, marginBottom: 16 }}>
         <h2 id="bc-added" style={{ margin: 0, color: 'var(--rbl-text-muted)', fontSize: 14, fontWeight: 600 }}>
-          Added to Town budgets by vote{frame !== null && through ? `, through ${shortDate(through.date)}` : ' this year'}
+          Added to Town budgets by vote in {data.year}{frame !== null && through ? `, through ${shortDate(through.date)}` : ''}
         </h2>
         <Eased value={added} reduce={reduce} format={dollars} style={{ fontSize: 44, fontWeight: 700, color: 'var(--rbl-title)', lineHeight: 1.1, display: 'block', marginTop: 2 }} />
         <p style={{ color: 'var(--rbl-text-body)', fontSize: 14.5, lineHeight: 1.55, margin: '6px 0 14px', maxWidth: '70ch' }}>

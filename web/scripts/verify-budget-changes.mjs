@@ -3,6 +3,7 @@
 // lib/budget-change-rules.ts and published as /data/budget-changes.json, which
 // the page re-reads while it is open. This holds the published file to the
 // records it is built from:
+//   - it reports one year, and counts only meetings held in it;
 //   - it lists exactly the adopted resolutions the rules call budget changes,
 //     and reads each one's account table the way the rules do;
 //   - its totals by source add up from its own entries;
@@ -26,11 +27,21 @@ const file = path('out/data/budget-changes.json')
 if (!existsSync(file)) { fail('out/data/budget-changes.json was not built'); process.exit() }
 const out = JSON.parse(readFileSync(file, 'utf8'))
 
+// ── One year ─────────────────────────────────────────────────────────────────
+const year = out.year
+if (!Number.isInteger(year)) fail(`the dashboard names no year it reports (year is ${JSON.stringify(year)})`)
+if (!String(out.adopted?.title ?? '').includes(String(year))) fail(`the dashboard reports ${year} but compares against "${out.adopted?.title}"`)
+const indexed = read('public/data/meetings/fiscal-index.json').meetings.slice().sort()
+  .map((slug) => read(`public/data/meetings/${slug}-fiscal.json`))
+const inYear = indexed.filter((m) => m.meetingDate.startsWith(`${year}-`))
+const later = indexed.filter((m) => m.meetingDate > `${year}-12-31`).length
+if (out.laterMeetings !== later) fail(`laterMeetings is ${out.laterMeetings}; the records hold ${later} meetings after ${year}`)
+for (const p of out.byMeeting) if (!p.date.startsWith(`${year}-`)) fail(`the meeting series includes ${p.date}, outside ${year}`)
+if (out.counts.meetings !== inYear.length) fail(`counts.meetings is ${out.counts.meetings}; ${inYear.length} meetings were held in ${year}`)
+
 // ── The same changes, read the same way ──────────────────────────────────────
-const slugs = read('public/data/meetings/fiscal-index.json').meetings.slice().sort()
 const expected = new Map()
-for (const slug of slugs) {
-  const m = read(`public/data/meetings/${slug}-fiscal.json`)
+for (const m of inYear) {
   for (const r of m.resolutions) {
     if (r.vote?.adopted !== true) continue
     const accounts = r.funding?.accounts ?? []
@@ -72,14 +83,15 @@ if (!existsSync(surplus)) fail('/fund-balance-draws/ was not built')
 else {
   const text = readFileSync(surplus, 'utf8').replace(/<!-- -->/g, '')
   for (const [what, n] of [['the General Fund', out.savingsGeneralFund], ['the other funds', out.totals.savings - out.savingsGeneralFund]]) {
-    if (!text.includes(dollars(n))) fail(`the dashboard's savings from ${what}, ${dollars(n)}, is not the figure /fund-balance-draws/ states`)
+    if (!text.includes(dollars(n))) fail(`the dashboard's savings from ${what}, ${dollars(n)}, is not the figure /fund-balance-draws/ states${later ? `. The records hold ${later} meetings after ${year}: when the year turns, COMMITMENT_YEAR in lib/fiscal-commitments-2027.ts moves both pages together` : ''}`)
   }
 }
 
 // ── Live ─────────────────────────────────────────────────────────────────────
 const meta = read('public/data/meta.json')
 if (out.dataVersion !== meta.dataVersion) fail(`the dashboard was built from data version ${out.dataVersion}; meta.json says ${meta.dataVersion}, so the page would refetch forever`)
-if (out.latestMeeting !== slugs[slugs.length - 1]) fail(`latestMeeting is ${out.latestMeeting}; the newest fiscal companion is ${slugs[slugs.length - 1]}`)
+const newest = inYear.length ? inYear[inYear.length - 1].meetingDate : null
+if (out.latestMeeting !== newest) fail(`latestMeeting is ${out.latestMeeting}; the newest ${year} meeting on file is ${newest}`)
 
 // ── The page ─────────────────────────────────────────────────────────────────
 const page = path('out/budget-changes/index.html')
@@ -91,5 +103,5 @@ else {
 }
 
 if (!process.exitCode) {
-  console.log(`budget changes: ${out.counts.changes} adopted changes at ${out.counts.meetingsWithChanges} of ${out.counts.meetings} meetings read by the rules (${out.counts.notTotalled} listed without a total); ${dollars(out.added)} added by vote, savings matching /fund-balance-draws/; built from data version ${out.dataVersion}`)
+  console.log(`budget changes: ${year}, ${out.counts.changes} adopted changes at ${out.counts.meetingsWithChanges} of ${out.counts.meetings} meetings read by the rules${later ? ` (${later} later meeting${later === 1 ? "" : "s"} left out)` : ''} (${out.counts.notTotalled} listed without a total); ${dollars(out.added)} added by vote, savings matching /fund-balance-draws/; built from data version ${out.dataVersion}`)
 }

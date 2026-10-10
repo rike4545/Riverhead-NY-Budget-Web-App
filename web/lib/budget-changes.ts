@@ -1,5 +1,10 @@
-// The budget changes the Town Board has passed this year, for /budget-changes/
-// and for /data/budget-changes.json, which the page re-reads while it is open.
+// The budget changes the Town Board has passed in one year, for
+// /budget-changes/ and for /data/budget-changes.json, which the page re-reads
+// while it is open.
+//
+// The year is COMMITMENT_YEAR, the year of the adopted budget the page compares
+// against and of the draws Where the Surplus Went counts. A meeting held after
+// it changes the next year's budgets, so it is counted apart and never added.
 //
 // Every adopted resolution in each meeting's fiscal companion (parsed by
 // etl/parse_fiscal_impact.py from the agenda packets) is tested with
@@ -17,6 +22,7 @@ import fiscalIndex from '../public/data/meetings/fiscal-index.json'
 import meta from '../public/data/meta.json'
 import budgetStages from '../public/data/history/budget-stages.json'
 import { documentedDraws, otherFundDraws, otherTierGeneralFundDraws } from './fund-balance-draws'
+import { COMMITMENT_YEAR } from './fiscal-commitments-2027'
 import {
   NEW_MONEY, SOURCE_LABELS, budgetChangeReason, readTable,
   type ChangeAccount, type Line, type Reason, type Source,
@@ -36,15 +42,19 @@ type FiscalRes = {
 }
 type FiscalMeeting = { slug: string; meetingDate: string; resolutions: FiscalRes[] }
 
+export const YEAR = COMMITMENT_YEAR
+
 // Every fiscal companion the index names, oldest first. Done with require so
 // the set grows with new meetings without editing this file.
-const meetings: FiscalMeeting[] = (fiscalIndex.meetings as string[])
+const indexed: FiscalMeeting[] = (fiscalIndex.meetings as string[])
   .slice()
   .sort()
   .map((slug) => require(`../public/data/meetings/${slug}-fiscal.json`) as FiscalMeeting)
+const meetings = indexed.filter((m) => m.meetingDate.startsWith(`${YEAR}-`))
+const laterMeetings = indexed.filter((m) => m.meetingDate > `${YEAR}-12-31`).length
 
 type Stage = { source?: { title: string; url: string }; funds: Record<string, { name?: string; appropriations?: number | null }> }
-const adoptedStage = (budgetStages as unknown as { years: Record<string, { adopted?: Stage }> }).years['2026']?.adopted
+const adoptedStage = (budgetStages as unknown as { years: Record<string, { adopted?: Stage }> }).years[String(YEAR)]?.adopted
 const operatingFunds = new Set(Object.keys(adoptedStage?.funds ?? {}))
 const fundName = (code: string) => adoptedStage?.funds[code]?.name ?? code
 
@@ -147,9 +157,13 @@ export const budgetChanges = {
   /** Fingerprint of the meeting data this was built from (etl/write_meta.py); the page re-reads when it moves. */
   dataVersion: meta.dataVersion as string,
   generatedAt: meta.generatedAt as string,
+  /** The year reported: every meeting counted here was held in it. */
+  year: YEAR,
   latestMeeting: meetings.length ? meetings[meetings.length - 1].meetingDate : null,
+  /** Meetings in the records held after the year, which this page does not count. */
+  laterMeetings,
   adopted: {
-    title: adoptedStage?.source?.title.replace(/\s*\(PDF\)$/, '') ?? '2026 Adopted Budget',
+    title: adoptedStage?.source?.title.replace(/\s*\(PDF\)$/, '') ?? `${YEAR} Adopted Budget`,
     url: adoptedStage?.source?.url ?? '',
     appropriations: Object.values(adoptedStage?.funds ?? {}).reduce((s, f) => s + (f.appropriations ?? 0), 0),
     funds: operatingFunds.size,

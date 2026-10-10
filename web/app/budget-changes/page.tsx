@@ -8,18 +8,22 @@ const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-bo
 const dollars = (n: number) => `$${Math.round(n).toLocaleString('en-US')}`
 const longDate = (iso: string) => new Date(`${iso}T12:00:00Z`).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric', timeZone: 'UTC' })
 
+const year = budgetChanges.year
+
 export const metadata = {
-  title: 'Budget Changes, Live — every budget change the Town Board has passed this year',
+  title: `Budget Changes, Live — every budget change the Town Board has passed in ${year}`,
   description:
-    `A live dashboard of every resolution the Riverhead Town Board has adopted in 2026 that changes a Town budget: ${dollars(budgetChanges.added)} added by vote so far, by where the money came from — savings, borrowing, grants and aid, fees — with each vote linked to its meeting record. It updates on its own as new meeting records are published.`,
+    `A live dashboard of every resolution the Riverhead Town Board has adopted in ${year} that changes a Town budget: ${dollars(budgetChanges.added)} added by vote so far, by where the money came from — savings, borrowing, grants and aid, fees — with each vote linked to its meeting record. It updates on its own as new meeting records are published.`,
 }
 
 export default function BudgetChangesPage() {
   const c = budgetChanges.counts
+  // A change passed this year that closes out the year before, named as the example.
+  const priorYear = budgetChanges.changes.find((e) => e.title.startsWith(`${year - 1} Budget`) && e.number)
   return (
     <PageShell
       title="Budget Changes, Live"
-      subtitle={`Every resolution the Town Board has adopted this year that adds money to a Town budget or moves it between lines, totalled by where the money came from. Through the ${budgetChanges.latestMeeting ? longDate(budgetChanges.latestMeeting) : 'latest'} meeting, and it keeps itself current while it is open.`}
+      subtitle={`Every resolution the Town Board has adopted in ${year} that adds money to a Town budget or moves it between lines, totalled by where the money came from. Through the ${budgetChanges.latestMeeting ? longDate(budgetChanges.latestMeeting) : 'latest'} meeting, and it keeps itself current while it is open.`}
     >
       <PlainCallout
         tips={[
@@ -56,8 +60,10 @@ export default function BudgetChangesPage() {
             borrowing, grants or developer fees.
           </li>
           <li>
-            A resolution adopted this year can settle last year’s books — “2025 Budget Transfers”, for one. It is
-            counted here because it was passed this year.
+            A resolution adopted in {year} can settle {year - 1}’s books
+            {priorYear ? <> — “{priorYear.title}” (Resolution {priorYear.number}), for one</> : null}. It is counted here
+            because it was passed in {year}. A meeting held after {year} is not counted: its votes change the next
+            year’s budgets.
           </li>
           <li>
             These are the Town’s own figures as its statements print them. A statement can misstate an amount, and the
