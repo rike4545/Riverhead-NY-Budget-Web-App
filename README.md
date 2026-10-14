@@ -398,7 +398,7 @@ Every page shows when its data was last refreshed.
 | `build_management_history.py` | Multi-year management salary history |
 | `predict_2027.py` | The line-by-line 2027 projection |
 | `analyze_buyout.py` | Cost and likely savings of the 2026 retirement incentive |
-| `parse_police_crime.py` | Police spending next to reported Index crime |
+| `parse_police_crime.py` | Police spending next to reported Index crime. The State's figures are fetched at most weekly; if data.ny.gov cannot be reached, they stay as last fetched and the run shows a warning |
 | `parse_road_spending.py` | Highway spending per maintained mile for the ten Suffolk towns, from State Comptroller filings and NYSDOT's road inventory |
 | `build_search_index.py` | The sharded search index |
 | `export_csv.py` | The CSV downloads |
