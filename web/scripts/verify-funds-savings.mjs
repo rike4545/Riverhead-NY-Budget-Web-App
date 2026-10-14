@@ -12,12 +12,16 @@
 //   - the Supervisor's sentence on the General Fund's savings is shown only
 //     while the Summaries bear out its $300,000;
 //   - a fund page that says no budget plans to close a deficit is not one whose
-//     budget sets money aside for it.
+//     budget sets money aside for it;
+//   - the water and sewer funds' audited holdings are on the page, and every
+//     figure read from the Tentative's Fund Balances page is on that page, with
+//     the sentence on its "2025" column shown only while the budgets match it.
 
 import { existsSync, readFileSync } from 'node:fs'
 import { isAbsolute, relative, resolve, sep } from 'node:path'
 import { drawRunStart, isSetAside, savingsByFund } from '../lib/savings-rules.ts'
-import { AUDITED_GENERAL_FUND, AUDITED_OPERATIONS } from '../lib/audits.ts'
+import { AUDIT_2025, AUDITED_GENERAL_FUND, AUDITED_OPERATIONS } from '../lib/audits.ts'
+import { TENTATIVE_FUND_BALANCES_2027 as TFB } from '../lib/tentative-fund-balances.ts'
 import { LETTER_2027 } from '../lib/tentative-letters.ts'
 
 const root = resolve(process.cwd())
@@ -115,6 +119,43 @@ for (const year of Object.keys(AUDITED_OPERATIONS).map(Number)) {
   for (const x of [usd(planned), signed(AUDITED_OPERATIONS[year].netChange), usd(AUDITED_OPERATIONS[year].ending)]) {
     if (!has(x)) fail(`${year}: "${x}" from the General Fund's budget and audit is not on the page`)
   }
+}
+
+// ── The water and sewer funds' holdings, and the Tentative's own page ────────
+const ent = AUDIT_2025.enterprise
+for (const [name, f] of Object.entries({ sewer: ent.sewer, water: ent.water })) {
+  for (const v of [f.cash, f.total]) if (!has(usd(v))) fail(`${name}: the audited ${usd(v)} is not on the page`)
+  if (!has(f.unrestricted < 0 ? `−${usd(-f.unrestricted)}` : usd(f.unrestricted))) fail(`${name}: its unrestricted net position is not on the page`)
+}
+const sewerDraws = s.rows.filter((r) => ['ES1', 'ES3', 'ES5'].includes(r.code))
+for (const key of ['adopted', 'proposed']) {
+  const total = sewerDraws.reduce((sum, r) => sum + r[key], 0)
+  if (!has(usd(total))) fail(`the sewer funds' ${key} savings, ${usd(total)}, are not on the page`)
+}
+const squash = (x) => x.replace(/\s+/g, ' ')
+const docs = read('public/data/financial-reports/index.json').documents
+const tentativeDoc = docs.find((d) => d.url === TFB.source.url)
+if (!tentativeDoc) fail(`the Tentative at ${TFB.source.url} is not in the financial-reports index`)
+else {
+  const pageOf = read(`public/data/financial-reports/${tentativeDoc.json}`).pages
+  const tpage = squash(pageOf[TFB.source.pdfPage - 1]?.text ?? '')
+  const fig = (n) => n.toLocaleString('en-US')
+  const printed = [
+    TFB.generalFund.audited, TFB.generalFund.estimated, TFB.sewer.audited, TFB.sewer.estimated, TFB.water.audited, TFB.water.estimated,
+    ...Object.values(TFB.sewer.application), ...Object.values(TFB.water.application), TFB.totals.audited, TFB.totals.application, TFB.totals.estimated,
+  ]
+  for (const n of printed) if (!tpage.includes(fig(n))) fail(`${fig(n)} is not on the Tentative's Fund Balances page (PDF p. ${TFB.source.pdfPage})`)
+  if (!tpage.includes(TFB.applicationLabel)) fail(`the Tentative's Fund Balances page has no column "${TFB.applicationLabel}"`)
+  const sum = (o) => Object.values(o).reduce((a, b) => a + b, 0)
+  if (TFB.sewer.audited - sum(TFB.sewer.application) !== TFB.sewer.estimated) fail('the sewer row does not subtract to its estimate')
+  if (TFB.water.audited - sum(TFB.water.application) !== TFB.water.estimated) fail('the water row does not subtract to its estimate')
+  if (TFB.sewer.audited !== ent.sewer.total || TFB.water.audited !== ent.water.total || TFB.generalFund.audited !== AUDITED_GENERAL_FUND[2025].total) fail('the Tentative\'s audited figures are not the audit\'s')
+  const column = { ...TFB.sewer.application, ...TFB.water.application }
+  const plannedIn = (year) => (code) => stages.years[String(year)]?.adopted?.funds[code]?.fundBalance ?? 0
+  const matches = (year) => Object.entries(column).every(([code, v]) => plannedIn(year)(code) === v)
+  const stale = matches(TENTATIVE_YEAR - 2) && !matches(TENTATIVE_YEAR - 1) && TFB.generalFund.application === 0 && plannedIn(TENTATIVE_YEAR - 1)('A01') > 0
+  const said = has(`subtracting a column labelled “${TFB.applicationLabel}”`)
+  if (stale !== said) fail(`the sentence on the Tentative's "${TFB.applicationLabel}" column is ${said ? 'shown' : 'missing'}, but the budgets ${stale ? 'match it' : 'do not match it'}`)
 }
 
 // ── A fund page's deficit note ───────────────────────────────────────────────

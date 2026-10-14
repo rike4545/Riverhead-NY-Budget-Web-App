@@ -67,6 +67,20 @@ if (!pageText(2025, d.page).includes(`${d.pct}%`)) fail(`The debt-limit share ${
 if (d.governmentalBonds + d.bans !== d.subjectToLimit) fail('Governmental bonds and BANs do not add to the debt subject to the limit')
 if (d.governmentalBonds + d.waterBonds + d.efcBonds + d.bans !== d.aggregate) fail('The debt by type does not add to the aggregate')
 if (Math.abs((d.subjectToLimit / d.limit) * 100 - d.pct) > 0.005) fail('The debt subject to the limit over the limit is not the share the audit gives')
+// The sewer and water funds' net position: every figure on its page, the
+// parts adding to the total, and the MD&A's own sentence on the unrestricted.
+const e = AUDIT_2025.enterprise
+const shown = (n) => (n < 0 ? `(${fmt(-n)})` : fmt(n))
+for (const [name, f] of Object.entries({ sewer: e.sewer, water: e.water })) {
+  for (const [k, v] of Object.entries(f)) {
+    const page = k === 'change' ? e.changePage : e.page
+    if (!pageText(2025, page).includes(shown(v))) fail(`${name} ${k} ${shown(v)} is not on packet p. ${page}`)
+    figures++
+  }
+  if (f.capital + f.restricted + f.unrestricted !== f.total) fail(`${name}: capital, restricted and unrestricted do not add to total net position`)
+  if (f.restricted !== f.restrictedCash) fail(`${name}: restricted net position is not the restricted cash it holds`)
+}
+if (!squash(pageText(2025, e.mdaPage)).includes(`amounted to (${fmt(-e.sewer.unrestricted)}) and ${fmt(e.water.unrestricted)}`.replace(/\(/, '($').replace(/and /, 'and $'))) fail('The MD&A sentence on unrestricted net position does not give these figures')
 if (!squash(pageText(2025, 149)).includes(AUDIT_2025.deficitPlan)) fail('The deficit plan is not quoted word for word')
 onPage(2025, 149, AUDIT_2025.communityBenefitDesignation, 'community benefit designation')
 for (const d of AUDIT_2025.designations) { onPage(2025, 149, d.amount, `designation for ${d.purpose}`); figures++ }

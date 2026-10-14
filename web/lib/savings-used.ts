@@ -3,10 +3,11 @@
 // Summary pages (budget-stages.json), the 2027 Budget Supplement and the
 // General Fund's audits.
 
-import { AUDITED_GENERAL_FUND, AUDITED_OPERATIONS } from './audits'
+import { AUDIT_2025, AUDITED_GENERAL_FUND, AUDITED_OPERATIONS } from './audits'
 import { budgetStages, stageDoc } from './budget-stages'
 import { lineSource, supplementActualYear, supplementAdoptedYear, supplementLines, TENTATIVE_YEAR } from './funds-2027'
 import { drawRunStart, isSavingsUsed, isSetAside, savingsByFund } from './savings-rules'
+import { TENTATIVE_FUND_BALANCES_2027 as TFB } from './tentative-fund-balances'
 import { LETTER_2027 } from './tentative-letters'
 
 const adopted = stageDoc(TENTATIVE_YEAR - 1, 'adopted')
@@ -60,3 +61,46 @@ export const generalFundResults = Object.keys(AUDITED_OPERATIONS)
     const page = `${audit.source.printedPage != null ? 'packet ' : ''}p. ${ops.page}`
     return [{ year, planned, actual: ops.netChange, beginning: ops.beginning, ending: ops.ending, source: { title: audit.source.title, url: audit.source.url, page } }]
   })
+
+/**
+ * What the sewer and water funds held at the end of 2025, from the audit,
+ * beside the savings their budgets plan to use. The audit reports the three
+ * sewer funds as one, so their draws are added together here.
+ */
+export const districtHoldings = savings
+  ? (() => {
+      const e = AUDIT_2025.enterprise
+      const draws = (codes: string[]) => {
+        const rows = savings.rows.filter((r) => codes.includes(r.code))
+        return { adopted: rows.reduce((sum, r) => sum + r.adopted, 0), proposed: rows.reduce((sum, r) => sum + r.proposed, 0) }
+      }
+      return {
+        source: { ...AUDIT_2025.source, page: e.page, changePage: e.changePage, printedPage: e.printedPage },
+        funds: [
+          { key: 'sewer', name: 'The three sewer funds', codes: ['ES1', 'ES3', 'ES5'], ...e.sewer, opeb: e.sewer.opebDueWithinYear + e.sewer.opebLater, draws: draws(['ES1', 'ES3', 'ES5']) },
+          { key: 'water', name: 'The Water District', codes: ['EW1'], ...e.water, opeb: e.water.opebDueWithinYear + e.water.opebLater, draws: draws(['EW1']) },
+        ],
+      }
+    })()
+  : null
+
+/**
+ * The Tentative's Fund Balances page, and the budgets its subtracted column
+ * matches: the column's amounts against each fund's planned use in the
+ * 2025 and 2026 adopted budgets.
+ */
+export const tentativeFundBalances = (() => {
+  const y2025 = stageDoc(TENTATIVE_YEAR - 2, 'adopted')
+  const y2026 = adopted
+  if (!y2025 || !y2026) return null
+  const column: Record<string, number> = { ...TFB.sewer.application, ...TFB.water.application }
+  const matches = (doc: typeof y2025) => Object.entries(column).every(([code, v]) => (doc.funds[code]?.fundBalance ?? 0) === v)
+  return {
+    ...TFB,
+    matches2025: matches(y2025),
+    matches2026: matches(y2026),
+    generalFundPlanned2026: y2026.funds.A01?.fundBalance ?? 0,
+    planned2026: y2026.totals.fundBalance,
+    calverton: { column: column.ES3, planned2026: y2026.funds.ES3?.fundBalance ?? 0 },
+  }
+})()

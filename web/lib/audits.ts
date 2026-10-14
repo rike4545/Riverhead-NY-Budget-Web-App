@@ -159,6 +159,31 @@ export const AUDIT_2025 = {
     { purpose: 'improvement and maintenance of Stotzky Park', amount: 68_574 },
     { purpose: 'community benefit funds', amount: 342_821 },
   ],
+  /**
+   * The sewer and water funds, which the audit reports as enterprise funds,
+   * with net position in place of fund balance (packet p. 124, statements
+   * p. 31; the changes on packet p. 125). The sewer column covers the three
+   * sewer funds together (ES1, ES3, ES5). Total net position is the figure the
+   * 2027 Tentative's Fund Balances page prints as each one's audited fund
+   * balance, and most of it is capital: pipes and plants, net of the debt that
+   * paid for them. Unrestricted net position is what is left after capital and
+   * restricted money, net of long-term obligations such as retiree health
+   * benefits (OPEB); the MD&A states both funds' (packet p. 112).
+   */
+  enterprise: {
+    page: 124,
+    printedPage: 31,
+    changePage: 125,
+    mdaPage: 112,
+    sewer: {
+      cash: 7_016_396, restrictedCash: 2_013_864, opebDueWithinYear: 180_108, opebLater: 6_735_197,
+      capital: 26_274_155, restricted: 2_013_864, unrestricted: -4_493_308, total: 23_794_711, change: -1_092_141,
+    },
+    water: {
+      cash: 19_725_215, restrictedCash: 2_701_672, opebDueWithinYear: 165_722, opebLater: 6_197_893,
+      capital: 35_853_428, restricted: 2_701_672, unrestricted: 10_798_404, total: 49_353_504, change: 5_841_851,
+    },
+  },
   /** Retiree health (OPEB), measured December 31, 2025 (packet pp. 167–168, statements pp. 74–75). */
   opeb: { page: 167, total: 142_758_111, governmental: 129_479_191, businessType: 13_278_920, netChange: 10_340_924, discountRatePct: 4.43 },
   /**

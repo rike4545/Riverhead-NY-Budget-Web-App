@@ -7,7 +7,7 @@ import { allOperatingFunds2026 } from '../../lib/all-funds'
 import { dollars } from '../../lib/financial-data'
 import { budgetTotals, fundYears, transferFunded, TENTATIVE_YEAR } from '../../lib/funds-2027'
 import { cpfDebtTransfer } from '../../lib/outlier-watch'
-import { generalFundLetter, generalFundResults, savings } from '../../lib/savings-used'
+import { districtHoldings, generalFundLetter, generalFundResults, savings, tentativeFundBalances } from '../../lib/savings-used'
 import { subAccountIndex, townwideSubAccountTotals, townwideCategoryTotals } from '../../lib/subaccounts'
 
 const base = process.env.NEXT_PUBLIC_BASE_PATH || ''
@@ -482,21 +482,102 @@ function SavingsSection() {
       )}
       <p style={{ ...prose, marginTop: 12 }}>
         During the year the Board can also vote to use savings for a named purpose, beyond what the budget planned. Those votes
-        are listed on <a href={`${base}/fund-balance-draws/`} style={link}>Where the surplus went</a>. The water and sewer
-        districts’ audits measure results another way, as net position, which counts pipes and plants as well as money, so this
-        page does not set their plans beside their results.
+        are listed on <a href={`${base}/fund-balance-draws/`} style={link}>Where the surplus went</a>.
       </p>
+
+      {districtHoldings && <DistrictHoldings />}
 
       <h3 style={h3}>What residents could ask</h3>
       <p style={{ ...prose, marginBottom: 0 }}>
         Using some savings is common. The concern comes when a fund plans to pay a large share of its spending from savings
         year after year: it is planning to spend more than it takes in, which works only while the savings last.
-        {leaning.length >= 2 && (
+        {districtHoldings ? (
+          <> Residents could ask how many more years the sewer funds can draw on savings at this pace, what would happen to
+          sewer rents and taxes when they cannot, and whether the Tentative’s Fund Balances page should subtract the 2026
+          budget’s planned uses.</>
+        ) : leaning.length >= 2 ? (
           <> Residents could ask how much the {leaning[0].name} and the {leaning[1].name} have left, how many more years of draws
           that covers, and what would happen to their charges and taxes when it runs low.</>
-        )}
+        ) : null}
       </p>
     </section>
+  )
+}
+
+/**
+ * What the sewer and water funds held at the end of 2025, as the audit
+ * reports them, beside the savings their budgets plan to use; and the
+ * Tentative's own estimate of their balances.
+ */
+function DistrictHoldings() {
+  if (!districtHoldings) return null
+  const { source, funds } = districtHoldings
+  const sewer = funds.find((f) => f.key === 'sewer')!
+  const tfb = tentativeFundBalances
+  const stale = tfb && tfb.matches2025 && !tfb.matches2026 && tfb.generalFund.application === 0 && tfb.generalFundPlanned2026 > 0
+  const cite = `${source.title}, pp. ${source.page}–${source.changePage}`
+  const rows: { label: string; value: (f: (typeof funds)[number]) => string }[] = [
+    { label: 'Cash at the end of 2025', value: (f) => dollars(f.cash) },
+    { label: 'Unrestricted net position', value: (f) => (f.unrestricted < 0 ? `−${dollars(-f.unrestricted)}` : dollars(f.unrestricted)) },
+    { label: 'Total net position, which the Tentative prints as fund balance', value: (f) => dollars(f.total) },
+    { label: 'Change in net position during 2025', value: (f) => signedUsd(f.change) },
+    { label: 'Savings the 2026 budget uses', value: (f) => dollars(f.draws.adopted) },
+    { label: `Savings the ${TENTATIVE_YEAR} Tentative uses`, value: (f) => dollars(f.draws.proposed) },
+  ]
+  return (
+    <>
+      <h3 style={h3}>What the water and sewer funds hold</h3>
+      <p style={prose}>
+        {tfb && (
+          <>
+            The Tentative’s own Fund Balances page (<a href={`${tfb.source.url}#page=${tfb.source.pdfPage}`} target="_blank" rel="noreferrer" style={link}>p. {tfb.source.printedPage}</a>)
+            lists the three sewer funds together at {dollars(tfb.sewer.audited)} and the Water District at {dollars(tfb.water.audited)},
+            as audited at the end of 2025.{' '}
+          </>
+        )}
+        Those figures are the audit’s total net position, and most of it is capital: pipes and plants, net of the debt that paid for
+        them. What is left after capital and restricted money is unrestricted net position. For the sewer funds it was a deficit of{' '}
+        {dollars(-sewer.unrestricted)}, because it also counts long-term obligations such as the {dollars(sewer.opeb)} they owe in
+        retiree health benefits. In cash, they held {dollars(sewer.cash)} at the end of 2025, and {dollars(sewer.restrictedCash)} more
+        that is restricted.
+      </p>
+      <div role="region" tabIndex={0} aria-labelledby="district-holdings-caption" style={{ overflowX: 'auto' }}>
+        <table className="rbl-stack" style={{ width: '100%', borderCollapse: 'collapse', fontSize: 15 }}>
+          <caption id="district-holdings-caption" style={caption}>The sewer and water funds at the end of 2025, and the savings their budgets use</caption>
+          <thead>
+            <tr style={headRow}>
+              <th scope="col" style={th}>Measure</th>
+              {funds.map((f) => <th key={f.key} scope="col" style={{ ...th, textAlign: 'right' }}>{f.name}</th>)}
+            </tr>
+          </thead>
+          <tbody>
+            {rows.map((r) => (
+              <tr key={r.label} style={bodyRow}>
+                <td style={{ ...td, fontWeight: 600 }}>{r.label}</td>
+                {funds.map((f) => <td key={f.key} data-label={f.name} style={{ ...td, textAlign: 'right' }}>{r.value(f)}</td>)}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <p style={{ ...muted, margin: '8px 0 12px', lineHeight: 1.5 }}>
+        Sources: <a href={source.url} target="_blank" rel="noreferrer" style={link}>{cite}</a> (statements pp. {source.printedPage}–{source.printedPage + 1});
+        the budgets’ Summary pages. The audit reports the three sewer funds as one.
+      </p>
+      <p style={prose}>
+        The sewer funds’ 2026 and {TENTATIVE_YEAR} budgets together plan to use {dollars(sewer.draws.adopted + sewer.draws.proposed)} of
+        savings, against {dollars(sewer.cash)} of cash at the end of 2025, and their net position fell by {dollars(-sewer.change)} in 2025.
+        {stale && tfb && (
+          <>
+            {' '}The Tentative’s page estimates each fund’s balance at the end of 2026 by subtracting a column labelled
+            “{tfb.applicationLabel}”, {dollars(tfb.totals.application)} in all. Outside the General Fund, those are the 2025 budget’s
+            planned uses, not 2026’s: Calverton Sewer’s is {dollars(tfb.calverton.column)}, where the 2026 budget plans{' '}
+            {dollars(tfb.calverton.planned2026)}. It subtracts nothing from the General Fund, whose 2026 budget plans to use{' '}
+            {dollars(tfb.generalFundPlanned2026)}, and leaves that fund at its audited {dollars(tfb.generalFund.audited)}.
+          </>
+        )}
+      </p>
+    </>
   )
 }
 
