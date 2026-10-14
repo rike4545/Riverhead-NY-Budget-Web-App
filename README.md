@@ -375,7 +375,7 @@ Every page shows when its data was last refreshed.
 
 | Script | Produces |
 | --- | --- |
-| `run_ingestion_safe.py` / `parse_all_pdfs.py` | Downloads every document on the Financial Reports page and extracts its text |
+| `run_ingestion_safe.py` / `parse_all_pdfs.py` | Downloads every document on the Financial Reports page and extracts its text. A download that fails is tried three times; a document that still cannot be fetched keeps its last parse, and the run shows a warning naming it |
 | `parse_financial_reports.py` | Searchable page records for every Town PDF |
 | `watch_budget_release.py` | The release check: has the Town posted a budget document the site hasn't parsed? |
 | `parse_subaccounts.py` | Fund → department → category → account line items, with 2020–2026 history |

@@ -4,6 +4,7 @@ from __future__ import annotations
 import hashlib
 import json
 import re
+import time
 from dataclasses import dataclass, asdict
 from datetime import datetime, timezone
 from pathlib import Path
@@ -137,13 +138,37 @@ def sha256(path: Path) -> str:
     return h.hexdigest()
 
 
+# Seconds to wait before the second and third tries at a document. On October
+# 14, 2026 three of the Town's PDFs timed out while the rest downloaded; one
+# blip should not cost a document. A connection the Town's server has not
+# accepted in 30 seconds is tried again rather than waited on for two minutes.
+RETRY_WAITS = (5, 20)
+TIMEOUT = (30, 120)
+
+
+def transient(exc: Exception) -> bool:
+    """A failure worth trying again: no connection, no answer, or a server error."""
+    if isinstance(exc, (requests.ConnectionError, requests.Timeout)):
+        return True
+    response = getattr(exc, 'response', None)
+    return isinstance(exc, requests.HTTPError) and response is not None and (response.status_code >= 500 or response.status_code == 429)
+
+
 def download(link: Link) -> Path:
     CACHE.mkdir(parents=True, exist_ok=True)
     path = CACHE / f'{link.slug}.pdf'
     if path.exists() and path.stat().st_size:
         return path
-    r = requests.get(link.url, timeout=120, headers=HEADERS)
-    r.raise_for_status()
+    for attempt, wait in enumerate((*RETRY_WAITS, None), start=1):
+        try:
+            r = requests.get(link.url, timeout=TIMEOUT, headers=HEADERS)
+            r.raise_for_status()
+            break
+        except requests.RequestException as exc:
+            if wait is None or not transient(exc):
+                raise
+            print(f'  {link.title}: try {attempt} failed ({exc}); trying again in {wait} seconds')
+            time.sleep(wait)
     if not r.content.startswith(b'%PDF') and 'pdf' not in r.headers.get('content-type', '').lower():
         raise RuntimeError(f'not a PDF response: {r.headers.get("content-type", "unknown")}')
     path.write_bytes(r.content)
@@ -156,6 +181,47 @@ def confidence(text: str, values: list[str]) -> str:
     if values:
         return 'high'
     return 'medium'
+
+
+def page_records(doc: dict, texts: list[str], doc_hash: str, doc_ts: str):
+    """A document's pages, search records, citations and line-item candidates,
+    from the text of each page. A fresh parse and a kept one both come through
+    here, so a kept document is written exactly as its last parse was."""
+    slug, title, url, year, cat = doc['slug'], doc['title'], doc['url'], doc['year'], doc['category']
+    pages, search, cites, lines = [], [], [], []
+    money_count = 0
+    for page_no, text in enumerate(texts, start=1):
+        values = MONEY.findall(text)
+        money_count += len(values)
+        conf = confidence(text, values)
+        pages.append({'page': page_no, 'text': text, 'money_values': values[:500], 'line_count': len(text.splitlines()), 'confidence': conf})
+        snippet = ' '.join(text.split())[:500]
+        search.append({'id': f'{slug}-p{page_no}', 'document': title, 'slug': slug, 'year': year, 'category': cat, 'page': page_no, 'url': url, 'text': text, 'snippet': snippet, 'money_values': values, 'confidence': conf, 'parsed_at': doc_ts})
+        cites.append({'id': f'{slug}-p{page_no}', 'document': title, 'url': url, 'page': page_no, 'snippet': snippet, 'confidence': conf, 'sha256': doc_hash, 'parsed_at': doc_ts})
+        for line_no, line in enumerate(text.splitlines(), start=1):
+            vals = MONEY.findall(line)
+            if not vals:
+                continue
+            code = ACCOUNT.search(line)
+            lines.append({'id': f'{slug}-p{page_no}-l{line_no}', 'document': title, 'slug': slug, 'year': year, 'category': cat, 'page': page_no, 'line_number': line_no, 'raw_text': line, 'account_code_candidate': code.group(0) if code else None, 'amounts': vals, 'confidence': 'medium' if code else 'low', 'source_url': url, 'parsed_at': doc_ts})
+    return pages, money_count, search, cites, lines
+
+
+def last_parse(url: str, previous: dict) -> tuple[dict, dict] | None:
+    """The index entry and document file this address had after the last run,
+    if both are still there and agree, so a document that cannot be fetched
+    now can be kept as it was rather than dropped."""
+    entry = previous.get(url.split('?')[0])
+    if not entry or not entry.get('slug') or not entry.get('sha256'):
+        return None
+    path = DOCS / f"{entry['slug']}.json"
+    try:
+        payload = json.loads(path.read_text(encoding='utf-8'))
+    except (OSError, ValueError):
+        return None
+    if payload.get('sha256') != entry['sha256'] or not payload.get('pages'):
+        return None
+    return entry, payload
 
 
 def main() -> int:
@@ -172,6 +238,9 @@ def main() -> int:
     # under the old "unknown-" slug is removed rather than left beside the new one.
     prev_by_url: dict = {}
     prev_slug: dict = {}
+    # Each address's whole entry, so a document that cannot be fetched this
+    # run keeps its last parse (see last_parse).
+    prev_entry: dict = {}
     prev_index_path = OUT / 'index.json'
     if prev_index_path.exists():
         try:
@@ -184,6 +253,8 @@ def main() -> int:
                         prev_by_url[(url, sha)] = ts
                 if slug and url:
                     prev_slug[url] = slug
+                if url:
+                    prev_entry[url] = d
         except Exception:
             pass
     doc_timestamps: list = []
@@ -225,29 +296,16 @@ def main() -> int:
             seen_hashes[doc_hash] = (link.title, link.slug)
             reader = PdfReader(str(pdf))
             doc_ts = prev_parsed_at.get((link.slug, doc_hash)) or prev_by_url.get((link.url.split('?')[0], doc_hash), parsed_at)
-            doc_timestamps.append(doc_ts)
-            pages = []
-            money_count = 0
+            texts = []
+            page_failures = []
             for page_no, page in enumerate(reader.pages, start=1):
                 try:
                     text = page.extract_text() or ''
                 except Exception as exc:
                     text = ''
-                    failures.append({'title': link.title, 'url': link.url, 'page': page_no, 'error': f'page text extraction failed: {exc}'})
-                text = '\n'.join(line.rstrip() for line in text.splitlines() if line.strip())
-                values = MONEY.findall(text)
-                money_count += len(values)
-                conf = confidence(text, values)
-                pages.append({'page': page_no, 'text': text, 'money_values': values[:500], 'line_count': len(text.splitlines()), 'confidence': conf})
-                snippet = ' '.join(text.split())[:500]
-                search_records.append({'id': f'{link.slug}-p{page_no}', 'document': link.title, 'slug': link.slug, 'year': link.year, 'category': link.category, 'page': page_no, 'url': link.url, 'text': text, 'snippet': snippet, 'money_values': values, 'confidence': conf, 'parsed_at': doc_ts})
-                citations.append({'id': f'{link.slug}-p{page_no}', 'document': link.title, 'url': link.url, 'page': page_no, 'snippet': snippet, 'confidence': conf, 'sha256': doc_hash, 'parsed_at': doc_ts})
-                for line_no, line in enumerate(text.splitlines(), start=1):
-                    vals = MONEY.findall(line)
-                    if not vals:
-                        continue
-                    code = ACCOUNT.search(line)
-                    line_candidates.append({'id': f'{link.slug}-p{page_no}-l{line_no}', 'document': link.title, 'slug': link.slug, 'year': link.year, 'category': link.category, 'page': page_no, 'line_number': line_no, 'raw_text': line, 'account_code_candidate': code.group(0) if code else None, 'amounts': vals, 'confidence': 'medium' if code else 'low', 'source_url': link.url, 'parsed_at': doc_ts})
+                    page_failures.append({'title': link.title, 'url': link.url, 'page': page_no, 'error': f'page text extraction failed: {exc}'})
+                texts.append('\n'.join(line.rstrip() for line in text.splitlines() if line.strip()))
+            pages, money_count, doc_search, doc_cites, doc_lines = page_records(asdict(link), texts, doc_hash, doc_ts)
             payload = {**asdict(link), 'sha256': doc_hash, 'page_count': len(pages), 'money_value_count': money_count, 'pages': pages, 'parsed_at': doc_ts}
             (DOCS / f'{link.slug}.json').write_text(json.dumps(payload, indent=2), encoding='utf-8')
             # Only a document filed before with no year: when the index page is
@@ -257,10 +315,37 @@ def main() -> int:
             if renamed and renamed != link.slug and renamed.startswith('unknown-'):
                 (DOCS / f'{renamed}.json').unlink(missing_ok=True)
             docs.append({'title': link.title, 'url': link.url, 'year': link.year, 'category': link.category, 'slug': link.slug, 'json': f'documents/{link.slug}.json', 'page_count': len(pages), 'money_value_count': money_count, 'sha256': doc_hash, 'parsed_at': doc_ts})
+            # Only a document that got this far adds its records, so a failure
+            # partway through leaves no stray pages in search.
+            doc_timestamps.append(doc_ts)
+            search_records.extend(doc_search)
+            citations.extend(doc_cites)
+            line_candidates.extend(doc_lines)
+            failures.extend(page_failures)
             print(f'parsed {link.title} ({len(pages)} pages, {money_count} money values)')
         except Exception as exc:
-            failures.append({'title': link.title, 'url': link.url, 'error': str(exc)})
-            print(f'failed {link.title}: {exc}')
+            # Dropping the document would drop it from the index, search, the
+            # citations, and every dataset built from them (the Community
+            # Preservation Fund lost its 2022 year this way), and the job
+            # would commit that. Keep its last parse instead, and say so.
+            kept = last_parse(link.url, prev_entry)
+            # Not if this run already parsed the same file under another name.
+            twin = seen_hashes.get(kept[0]['sha256']) if kept else None
+            if kept is None or (twin is not None and twin[1] != link.slug):
+                failures.append({'title': link.title, 'url': link.url, 'error': str(exc)})
+                print(f'failed {link.title}: {exc}')
+                continue
+            entry, stored = kept
+            seen_hashes[entry['sha256']] = (entry['title'], entry['slug'])
+            _, _, doc_search, doc_cites, doc_lines = page_records(entry, [page.get('text', '') for page in stored['pages']], entry['sha256'], entry['parsed_at'])
+            docs.append(entry)
+            doc_timestamps.append(entry['parsed_at'])
+            search_records.extend(doc_search)
+            citations.extend(doc_cites)
+            line_candidates.extend(doc_lines)
+            since = str(entry['parsed_at'])[:10]
+            failures.append({'title': link.title, 'url': link.url, 'error': f'{exc}. Its last parse, from {since}, is kept.'})
+            print(f'::warning title=Financial report not refreshed::{link.title} could not be fetched or read ({exc}). Its last parse, from {since}, is kept; the next run tries again.')
 
     # Dataset-level timestamp = the newest per-document timestamp. It only
     # advances when at least one document actually changed, so a no-change run
