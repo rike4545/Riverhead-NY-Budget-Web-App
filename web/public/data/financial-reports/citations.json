@@ -1,5 +1,5 @@
 {
-  "parsed_at": "2026-09-29T18:26:11.923275+00:00",
+  "parsed_at": "2026-10-14T14:41:10.562285+00:00",
   "records": [
     {
       "id": "2027-2027-tentative-budget-pdf-p1",
@@ -18050,6 +18050,986 @@
       "confidence": "high",
       "sha256": "e95d9a99d8e9e9d9cb16a74e221677f15c5d97019b6d60c7c7b722b349095dcb",
       "parsed_at": "2026-09-25T00:22:41.199963+00:00"
+    },
+    {
+      "id": "2022-2022-tentative-budget-pdf-p1",
+      "document": "2022 Tentative Budget (PDF)",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/261/2022-Tentative-Budget-PDF",
+      "page": 1,
+      "snippet": "2022 Tentative Budget Yvette Aguiar Town Supervisor Timothy Hubbard Catherine Kent Town Council Town Council Frank Beyrodt Jr. Kenneth Rothwell Town Council Town Council",
+      "confidence": "medium",
+      "sha256": "c41ef5f612dbf58225068512fac4314029e3737aecb9f312e8b265f1b7456857",
+      "parsed_at": "2026-10-14T14:41:10.562285+00:00"
+    },
+    {
+      "id": "2022-2022-tentative-budget-pdf-p2",
+      "document": "2022 Tentative Budget (PDF)",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/261/2022-Tentative-Budget-PDF",
+      "page": 2,
+      "snippet": "YVETTE M. AGUIAR Town of Riverhead Tel: (631) 727-3200 / Fax: (631) 727-6712 Town Supervisor 200 Howell Avenue, Riverhead, NY 11901 www.townofriverheadny.gov September 30, 2021 The year 2021 has proven to be a year of progress for the Town of Riverhead. Our plans and vision for our great Town are advancing, despite the ongoing financial challenges created by the COVID-19 pandemic. The proactive measures my office instituted to reduce spending town-wide, as outlined in my 2021 budget, were implem",
+      "confidence": "medium",
+      "sha256": "c41ef5f612dbf58225068512fac4314029e3737aecb9f312e8b265f1b7456857",
+      "parsed_at": "2026-10-14T14:41:10.562285+00:00"
+    },
+    {
+      "id": "2022-2022-tentative-budget-pdf-p3",
+      "document": "2022 Tentative Budget (PDF)",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/261/2022-Tentative-Budget-PDF",
+      "page": 3,
+      "snippet": "",
+      "confidence": "low",
+      "sha256": "c41ef5f612dbf58225068512fac4314029e3737aecb9f312e8b265f1b7456857",
+      "parsed_at": "2026-10-14T14:41:10.562285+00:00"
+    },
+    {
+      "id": "2022-2022-tentative-budget-pdf-p4",
+      "document": "2022 Tentative Budget (PDF)",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/261/2022-Tentative-Budget-PDF",
+      "page": 4,
+      "snippet": "TOWN OF RIVERHEAD NEW YORK 2022 TENTATIVE BUDGET TABLE OF CONTENTS Fund TITLE PAGE Fund Description 1 Summary Page 3 Fund Balances 4 Salaries of Elected Officials 5 A01 General Fund 6 A04 Police Athletic League 25 A06 Recreation Program Fund 26 CM1 Business Improvement District 29 CM2 East Creek Docking Facility 30 CM4 Community Preservation Fund 31 DA1 Highway Fund 32 ES1 Riverhead Sewer District 34 ES3 Calverton Sewer District 36 ES5 Riverhead Scavenger Waste 38 EW1 Water District 40 MS1 Worke",
+      "confidence": "medium",
+      "sha256": "c41ef5f612dbf58225068512fac4314029e3737aecb9f312e8b265f1b7456857",
+      "parsed_at": "2026-10-14T14:41:10.562285+00:00"
+    },
+    {
+      "id": "2022-2022-tentative-budget-pdf-p5",
+      "document": "2022 Tentative Budget (PDF)",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/261/2022-Tentative-Budget-PDF",
+      "page": 5,
+      "snippet": "TOWN OF RIVERHEAD NEW YORK 2022 TENTATIVE BUDGET TABLE OF CONTENTS (CONTINUED) Fund TITLE PAGE A01 General Fund 50 A04 Police Athletic League 53 A06 Recreation Program Fund 54 CM1 Business Improvement District 55 CM2 East Creek Docking Facility 56 CM4 Community Preservation Fund 57 DA1 Highway Fund 58 ES1 Riverhead Sewer District 59 ES3 Calverton Sewer District 60 ES5 Riverhead Scavenger Waste 61 EW1 Water District 62 MS1 Workers Compensation Fund 63 MS2 Risk Retention Fund 64 SL1 Street Lightin",
+      "confidence": "medium",
+      "sha256": "c41ef5f612dbf58225068512fac4314029e3737aecb9f312e8b265f1b7456857",
+      "parsed_at": "2026-10-14T14:41:10.562285+00:00"
+    },
+    {
+      "id": "2022-2022-tentative-budget-pdf-p6",
+      "document": "2022 Tentative Budget (PDF)",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/261/2022-Tentative-Budget-PDF",
+      "page": 6,
+      "snippet": "Fund Description 1 A01 General Fund The principal operating fund and includes all operations not required to be reflected in other funds. A04 Police Athletic League This fund is used to separate and distinguish donations received from the community to support the operations of the town\u2010wide youth sports program known as PAL. A06 Recreation Program Fund This fund includes the operations of recreation programs that are self\u2010 sustained and do not require property taxes for their support CM1 Busines",
+      "confidence": "medium",
+      "sha256": "c41ef5f612dbf58225068512fac4314029e3737aecb9f312e8b265f1b7456857",
+      "parsed_at": "2026-10-14T14:41:10.562285+00:00"
+    },
+    {
+      "id": "2022-2022-tentative-budget-pdf-p7",
+      "document": "2022 Tentative Budget (PDF)",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/261/2022-Tentative-Budget-PDF",
+      "page": 7,
+      "snippet": "Fund Description 2 MS2 Risk Retention Fund This fund is used to account for the excess insurance and administration of the Town's Liability Self Insurance Program. SL1 Street Lighting District This special revenue fund includes all operations relating to the repair and maintenance of both traffic and street lights within the boundaries of the Town. SM1 Ambulance District This special revenue fund includes the operations relating to the Town Ambulance serving the entire Town excluding the portion",
+      "confidence": "medium",
+      "sha256": "c41ef5f612dbf58225068512fac4314029e3737aecb9f312e8b265f1b7456857",
+      "parsed_at": "2026-10-14T14:41:10.562285+00:00"
+    },
+    {
+      "id": "2022-2022-tentative-budget-pdf-p8",
+      "document": "2022 Tentative Budget (PDF)",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/261/2022-Tentative-Budget-PDF",
+      "page": 8,
+      "snippet": "2022 TENTATIVE BUDGET TOWN OF RIVERHEAD SUMMARY Fund Code Fund 2022 Appropriations 2022 Estimated Revenues 2022 Appropriated Fund Balance 2022 Tax Levy A01 General Fund 52,487,600 $ 11,998,462$ \u2010 $ 40,489,138$ A04 Police Athletic League 75,900 75,900 \u2010 \u2010 A06 Recreaton Program Fund 534,700 534,700 \u2010 \u2010 CM1 Business Improvement District 130,700 \u2010 \u2010 130,700 CM2 East Creek Docking Facility 287,200 287,200 \u2010 \u2010 CM4 Community Preservation Fund 4,587,800 4,050,000 537,800 \u2010 DA1 Highway Fund 6,607,100 252",
+      "confidence": "high",
+      "sha256": "c41ef5f612dbf58225068512fac4314029e3737aecb9f312e8b265f1b7456857",
+      "parsed_at": "2026-10-14T14:41:10.562285+00:00"
+    },
+    {
+      "id": "2022-2022-tentative-budget-pdf-p9",
+      "document": "2022 Tentative Budget (PDF)",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/261/2022-Tentative-Budget-PDF",
+      "page": 9,
+      "snippet": "TOWN OF RIVERHEAD NEW YORK 2022 TENTATIVE BUDGET FUND BALANCES Code Fund 2022 Appropriations Unaudited Fund Balance 12/31/20 2020 Application of Fund Balance Estimated Fund Balance 12/31/21 A01 General Fund 52,487,600 $ 10,009,214$ \u2010 $ 10,009,214$ A A04 Police Athletic League 75,900 $ \u2010 \u2010 \u2010 $ A06 Recreaton Program Fund 534,700 $ \u2010 \u2010 $ CM1 Business Improvement District 130,700$ \u2010 \u2010 \u2010 $ CM2 East Creek Docking Facility 287,200 $ \u2010 \u2010 $ CM4 Community Preservation Fund 4,587,800$ 7,691,784 537,800 7,1",
+      "confidence": "high",
+      "sha256": "c41ef5f612dbf58225068512fac4314029e3737aecb9f312e8b265f1b7456857",
+      "parsed_at": "2026-10-14T14:41:10.562285+00:00"
+    },
+    {
+      "id": "2022-2022-tentative-budget-pdf-p10",
+      "document": "2022 Tentative Budget (PDF)",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/261/2022-Tentative-Budget-PDF",
+      "page": 10,
+      "snippet": "TOWN OF RIVERHEAD NEW YORK 2022 TENTATIVE BUDGET SALARIES OF ELECTED OFFICIALS Title 2022 Salary Town Supervisor 115,148 $ Town Council 48,955 $ Tax Receiver 83,846 $ Assessor Chair 96,549 $ Assessors 83,846 $ Town Clerk 83,846 $ Town Clerk (A) 5,000 $ Superintendent of Highway 94,803 $ (A) As Registrar of Vital Statistics 5",
+      "confidence": "high",
+      "sha256": "c41ef5f612dbf58225068512fac4314029e3737aecb9f312e8b265f1b7456857",
+      "parsed_at": "2026-10-14T14:41:10.562285+00:00"
+    },
+    {
+      "id": "2022-2022-tentative-budget-pdf-p11",
+      "document": "2022 Tentative Budget (PDF)",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/261/2022-Tentative-Budget-PDF",
+      "page": 11,
+      "snippet": "TOWN OF RIVERHEAD NEW YORK 2022 TENTATIVE BUDGET EXPENDITURES Account Number Account Description Adopted Budget 2021 Dept Requested Budget 2022 Tentative Budget 2022 Adopted Budget 2022 A01\u20101\u20101010\u2010000\u2010000\u201000000 Twn Brd \u2010 Legislature \u2010 Town Board A01\u20101\u20101010\u2010100\u2010000\u201000000 Legislature \u2010 Town Board\u2010PERSONAL SVC A01\u20101\u20101010\u2010101\u2010NON\u201000000 Twn Brd \u2010 Personal Services 237,400.00 241,700.00 241,700.00 0.00 A01\u20101\u20101010\u2010124\u2010000\u201000000 Twn Brd \u2010 Pers Svcs Fringe Benefits 19,600.00 20,000.00 20,000.00 0.00 A01\u2010",
+      "confidence": "high",
+      "sha256": "c41ef5f612dbf58225068512fac4314029e3737aecb9f312e8b265f1b7456857",
+      "parsed_at": "2026-10-14T14:41:10.562285+00:00"
+    },
+    {
+      "id": "2022-2022-tentative-budget-pdf-p12",
+      "document": "2022 Tentative Budget (PDF)",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/261/2022-Tentative-Budget-PDF",
+      "page": 12,
+      "snippet": "TOWN OF RIVERHEAD NEW YORK 2022 TENTATIVE BUDGET EXPENDITURES Account Number Account Description Adopted Budget 2021 Dept Requested Budget 2022 Tentative Budget 2022 Adopted Budget 2022 A01\u20101\u20101220\u2010490\u2010000\u201000000 Super \u2010 Miscellaneous 900.00 900.00 900.00 0.00 Contractual Subtotal 2,600.00 2,600.00 2,600.00 0.00 1220 Total 329,900.00 337,300.00 342,600.00 0.00 A01\u20101\u20101310\u2010000\u2010000\u201000000 Acct \u2010 Finance A01\u20101\u20101310\u2010100\u2010000\u201000000 Finance \u2010PERSONAL SVC A01\u20101\u20101310\u2010101\u2010NON\u201000000 Acct \u2010 Personal Services 63",
+      "confidence": "high",
+      "sha256": "c41ef5f612dbf58225068512fac4314029e3737aecb9f312e8b265f1b7456857",
+      "parsed_at": "2026-10-14T14:41:10.562285+00:00"
+    },
+    {
+      "id": "2022-2022-tentative-budget-pdf-p13",
+      "document": "2022 Tentative Budget (PDF)",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/261/2022-Tentative-Budget-PDF",
+      "page": 13,
+      "snippet": "TOWN OF RIVERHEAD NEW YORK 2022 TENTATIVE BUDGET EXPENDITURES Account Number Account Description Adopted Budget 2021 Dept Requested Budget 2022 Tentative Budget 2022 Adopted Budget 2022 A01\u20101\u20101345\u2010101\u2010NON\u201000000 Purch \u2010 Personal Services 72,100.00 73,400.00 73,400.00 0.00 A01\u20101\u20101345\u2010111\u2010NON\u201000000 Purch \u2010 Personal Services OT 1,000.00 1,000.00 1,000.00 0.00 A01\u20101\u20101345\u2010112\u2010NON\u201000000 Purch \u2010 Pers Svcs Longevity 0.00 0.00 0.00 0.00 A01\u20101\u20101345\u2010123\u2010000\u201000000 Purch \u2010 Pers Svcs Cleaning Allow 400.00 400.",
+      "confidence": "high",
+      "sha256": "c41ef5f612dbf58225068512fac4314029e3737aecb9f312e8b265f1b7456857",
+      "parsed_at": "2026-10-14T14:41:10.562285+00:00"
+    },
+    {
+      "id": "2022-2022-tentative-budget-pdf-p14",
+      "document": "2022 Tentative Budget (PDF)",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/261/2022-Tentative-Budget-PDF",
+      "page": 14,
+      "snippet": "TOWN OF RIVERHEAD NEW YORK 2022 TENTATIVE BUDGET EXPENDITURES Account Number Account Description Adopted Budget 2021 Dept Requested Budget 2022 Tentative Budget 2022 Adopted Budget 2022 1410 Total 274,900.00 282,300.00 282,300.00 0.00 A01\u20101\u20101420\u2010000\u2010000\u201000000 Atty \u2010 Town Attorney A01\u20101\u20101420\u2010100\u2010000\u201000000 Town Attorney\u2010PERSONAL SVC A01\u20101\u20101420\u2010101\u2010NON\u201000000 Atty \u2010 Personal Services 642,300.00 739,700.00 697,800.00 0.00 A01\u20101\u20101420\u2010102\u2010000\u201000000 Atty \u2010 Pers Svcs Part Time 20,000.00 0.00 25,000.00 0.",
+      "confidence": "high",
+      "sha256": "c41ef5f612dbf58225068512fac4314029e3737aecb9f312e8b265f1b7456857",
+      "parsed_at": "2026-10-14T14:41:10.562285+00:00"
+    },
+    {
+      "id": "2022-2022-tentative-budget-pdf-p15",
+      "document": "2022 Tentative Budget (PDF)",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/261/2022-Tentative-Budget-PDF",
+      "page": 15,
+      "snippet": "TOWN OF RIVERHEAD NEW YORK 2022 TENTATIVE BUDGET EXPENDITURES Account Number Account Description Adopted Budget 2021 Dept Requested Budget 2022 Tentative Budget 2022 Adopted Budget 2022 Equipment Subtotal 500.00 500.00 500.00 0.00 A01\u20101\u20101440\u2010400\u2010000\u201000000 Town Engineer\u2010CONTRACTUAL A01\u20101\u20101440\u2010405\u2010000\u201000000 Eng \u2010 R&M \u2010 Vehicles 3,000.00 3,000.00 3,000.00 0.00 A01\u20101\u20101440\u2010416\u2010000\u201000000 Eng \u2010 Supplies \u2010 Office 2,500.00 2,500.00 2,500.00 0.00 A01\u20101\u20101440\u2010422\u2010000\u201000000 Eng \u2010 Dues & Subscriptions 6,500.0",
+      "confidence": "high",
+      "sha256": "c41ef5f612dbf58225068512fac4314029e3737aecb9f312e8b265f1b7456857",
+      "parsed_at": "2026-10-14T14:41:10.562285+00:00"
+    },
+    {
+      "id": "2022-2022-tentative-budget-pdf-p16",
+      "document": "2022 Tentative Budget (PDF)",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/261/2022-Tentative-Budget-PDF",
+      "page": 16,
+      "snippet": "TOWN OF RIVERHEAD NEW YORK 2022 TENTATIVE BUDGET EXPENDITURES Account Number Account Description Adopted Budget 2021 Dept Requested Budget 2022 Tentative Budget 2022 Adopted Budget 2022 A01\u20101\u20101623\u2010200\u2010000\u201000000 Police & Court Complex Operations\u2010EQUIP A01\u20101\u20101623\u2010240\u2010000\u201000000 Pol & Crt Op \u2010Equipment 0.00 0.00 0.00 0.00 Equipment Subtotal 0.00 0.00 0.00 0.00 A01\u20101\u20101623\u2010400\u2010000\u201000000 Police & Court Complex Operations\u2010CONTRA A01\u20101\u20101623\u2010415\u2010000\u201000000 Pol & Crt Op \u2010Supplies 0.00 0.00 0.00 0.00 Contrac",
+      "confidence": "high",
+      "sha256": "c41ef5f612dbf58225068512fac4314029e3737aecb9f312e8b265f1b7456857",
+      "parsed_at": "2026-10-14T14:41:10.562285+00:00"
+    },
+    {
+      "id": "2022-2022-tentative-budget-pdf-p17",
+      "document": "2022 Tentative Budget (PDF)",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/261/2022-Tentative-Budget-PDF",
+      "page": 17,
+      "snippet": "TOWN OF RIVERHEAD NEW YORK 2022 TENTATIVE BUDGET EXPENDITURES Account Number Account Description Adopted Budget 2021 Dept Requested Budget 2022 Tentative Budget 2022 Adopted Budget 2022 A01\u20101\u20101680\u2010100\u2010000\u201000000 Information Technology\u2010PERSONAL SVC A01\u20101\u20101680\u2010101\u2010NON\u201000000 I.T. \u2010 Personal Services 222,800.00 285,000.00 274,000.00 0.00 A01\u20101\u20101680\u2010111\u2010NON\u201000000 I.T. \u2010 Personal Services OT 9,000.00 9,000.00 9,000.00 0.00 A01\u20101\u20101680\u2010112\u2010NON\u201000000 I.T. \u2010 Pers Svcs Longevity 5,000.00 5,100.00 5,400.00 0",
+      "confidence": "high",
+      "sha256": "c41ef5f612dbf58225068512fac4314029e3737aecb9f312e8b265f1b7456857",
+      "parsed_at": "2026-10-14T14:41:10.562285+00:00"
+    },
+    {
+      "id": "2022-2022-tentative-budget-pdf-p18",
+      "document": "2022 Tentative Budget (PDF)",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/261/2022-Tentative-Budget-PDF",
+      "page": 18,
+      "snippet": "TOWN OF RIVERHEAD NEW YORK 2022 TENTATIVE BUDGET EXPENDITURES Account Number Account Description Adopted Budget 2021 Dept Requested Budget 2022 Tentative Budget 2022 Adopted Budget 2022 A01\u20101\u20101950\u2010400\u2010000\u201000000 Taxes & Asses. On Property\u2010CONTRACTUAL A01\u20101\u20101950\u2010481\u2010000\u201000000 Taxes & Asses. \u2010 Taxes on Town Property 40,000.00 40,000.00 40,000.00 0.00 Contractual Subtotal 40,000.00 40,000.00 40,000.00 0.00 1950 Total 40,000.00 40,000.00 40,000.00 0.00 A01\u20101\u20101989\u2010110\u2010000\u201000000 Other Genrl Gov't \u2010 Per",
+      "confidence": "high",
+      "sha256": "c41ef5f612dbf58225068512fac4314029e3737aecb9f312e8b265f1b7456857",
+      "parsed_at": "2026-10-14T14:41:10.562285+00:00"
+    },
+    {
+      "id": "2022-2022-tentative-budget-pdf-p19",
+      "document": "2022 Tentative Budget (PDF)",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/261/2022-Tentative-Budget-PDF",
+      "page": 19,
+      "snippet": "TOWN OF RIVERHEAD NEW YORK 2022 TENTATIVE BUDGET EXPENDITURES Account Number Account Description Adopted Budget 2021 Dept Requested Budget 2022 Tentative Budget 2022 Adopted Budget 2022 A01\u20103\u20103120\u2010403\u2010000\u201000000 Police \u2010 R&M \u2010 Boat 5,000.00 15,000.00 5,000.00 0.00 A01\u20103\u20103120\u2010403\u2010327\u201000000 Police \u2010 R&M Equip \u2010 Radio 10,000.00 20,000.00 20,000.00 0.00 A01\u20103\u20103120\u2010403\u2010328\u201000000 Police \u2010 R&M Equip \u2010 Scuba Gear 1,500.00 1,500.00 1,500.00 0.00 A01\u20103\u20103120\u2010403\u2010329\u201000000 Police \u2010 R&M Equip \u2010 Recording Equi",
+      "confidence": "high",
+      "sha256": "c41ef5f612dbf58225068512fac4314029e3737aecb9f312e8b265f1b7456857",
+      "parsed_at": "2026-10-14T14:41:10.562285+00:00"
+    },
+    {
+      "id": "2022-2022-tentative-budget-pdf-p20",
+      "document": "2022 Tentative Budget (PDF)",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/261/2022-Tentative-Budget-PDF",
+      "page": 20,
+      "snippet": "TOWN OF RIVERHEAD NEW YORK 2022 TENTATIVE BUDGET EXPENDITURES Account Number Account Description Adopted Budget 2021 Dept Requested Budget 2022 Tentative Budget 2022 Adopted Budget 2022 A01\u20103\u20103122\u2010400\u2010000\u201000000 Bay Constable\u2010CONTRACTUAL A01\u20103\u20103122\u2010403\u2010000\u201000000 Bay Con \u2010 R&M \u2010 Equipment 3,000.00 3,000.00 3,000.00 0.00 A01\u20103\u20103122\u2010403\u2010326\u201000000 Bay Con \u2010 R&M Equip 10,000.00 12,000.00 12,000.00 0.00 A01\u20103\u20103122\u2010405\u2010000\u201000000 Bay Con \u2010R&M \u2010 Vehicles 3,200.00 5,000.00 5,000.00 0.00 A01\u20103\u20103122\u2010415\u2010370\u2010",
+      "confidence": "high",
+      "sha256": "c41ef5f612dbf58225068512fac4314029e3737aecb9f312e8b265f1b7456857",
+      "parsed_at": "2026-10-14T14:41:10.562285+00:00"
+    },
+    {
+      "id": "2022-2022-tentative-budget-pdf-p21",
+      "document": "2022 Tentative Budget (PDF)",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/261/2022-Tentative-Budget-PDF",
+      "page": 21,
+      "snippet": "TOWN OF RIVERHEAD NEW YORK 2022 TENTATIVE BUDGET EXPENDITURES Account Number Account Description Adopted Budget 2021 Dept Requested Budget 2022 Tentative Budget 2022 Adopted Budget 2022 A01\u20103\u20103410\u2010280\u2010000\u201000000 Fire Prot \u2010 Vehicles 0.00 50,000.00 0.00 0.00 Equipment Subtotal 2,000.00 52,300.00 2,300.00 0.00 A01\u20103\u20103410\u2010400\u2010000\u201000000 Fire Protection\u2010CONTRACTUAL A01\u20103\u20103410\u2010405\u2010000\u201000000 Fire Prot \u2010 R&M \u2010 Vehicles 5,000.00 6,500.00 6,500.00 0.00 A01\u20103\u20103410\u2010416\u2010000\u201000000 Fire Prot \u2010 Supplies \u2010 Office",
+      "confidence": "high",
+      "sha256": "c41ef5f612dbf58225068512fac4314029e3737aecb9f312e8b265f1b7456857",
+      "parsed_at": "2026-10-14T14:41:10.562285+00:00"
+    },
+    {
+      "id": "2022-2022-tentative-budget-pdf-p22",
+      "document": "2022 Tentative Budget (PDF)",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/261/2022-Tentative-Budget-PDF",
+      "page": 22,
+      "snippet": "TOWN OF RIVERHEAD NEW YORK 2022 TENTATIVE BUDGET EXPENDITURES Account Number Account Description Adopted Budget 2021 Dept Requested Budget 2022 Tentative Budget 2022 Adopted Budget 2022 A01\u20103\u20103625\u2010123\u2010000\u201000000 Code \u2010 Pers Svcs Cleaning Allow 800.00 800.00 800.00 0.00 A01\u20103\u20103625\u2010152\u2010000\u201000000 Code \u2010 Pers Svcs Sick Buy Back 0.00 0.00 0.00 0.00 A01\u20103\u20103625\u2010154\u2010NON\u201000000 Code \u2010 Health Ins Buy Back 3,600.00 3,600.00 3,600.00 0.00 Personal Services Subtotal 344,000.00 427,200.00 397,900.00 0.00 A01\u20103\u2010",
+      "confidence": "high",
+      "sha256": "c41ef5f612dbf58225068512fac4314029e3737aecb9f312e8b265f1b7456857",
+      "parsed_at": "2026-10-14T14:41:10.562285+00:00"
+    },
+    {
+      "id": "2022-2022-tentative-budget-pdf-p23",
+      "document": "2022 Tentative Budget (PDF)",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/261/2022-Tentative-Budget-PDF",
+      "page": 23,
+      "snippet": "TOWN OF RIVERHEAD NEW YORK 2022 TENTATIVE BUDGET EXPENDITURES Account Number Account Description Adopted Budget 2021 Dept Requested Budget 2022 Tentative Budget 2022 Adopted Budget 2022 A01\u20105\u20105010\u2010220\u2010000\u201000000 Highway Admin \u2010 Buildings 0.00 0.00 0.00 0.00 A01\u20105\u20105010\u2010240\u2010000\u201000000 Hwy Admin \u2010 Equipment 0.00 0.00 0.00 0.00 Equipment Subtotal 0.00 0.00 0.00 0.00 A01\u20105\u20105010\u2010400\u2010000\u201000000 Highway Administration\u2010CONTRACTUAL A01\u20105\u20105010\u2010416\u2010000\u201000000 Hwy Adm \u2010 Supplies \u2010 Office 500.00 500.00 500.00 0.0",
+      "confidence": "high",
+      "sha256": "c41ef5f612dbf58225068512fac4314029e3737aecb9f312e8b265f1b7456857",
+      "parsed_at": "2026-10-14T14:41:10.562285+00:00"
+    },
+    {
+      "id": "2022-2022-tentative-budget-pdf-p24",
+      "document": "2022 Tentative Budget (PDF)",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/261/2022-Tentative-Budget-PDF",
+      "page": 24,
+      "snippet": "TOWN OF RIVERHEAD NEW YORK 2022 TENTATIVE BUDGET EXPENDITURES Account Number Account Description Adopted Budget 2021 Dept Requested Budget 2022 Tentative Budget 2022 Adopted Budget 2022 A01\u20107\u20107020\u2010111\u2010NON\u201000000 Rec Adm \u2010 Personal Services OT 7,000.00 7,500.00 7,500.00 0.00 A01\u20107\u20107020\u2010112\u2010NON\u201000000 Rec Adm \u2010 Pers Svcs Longevity 23,000.00 24,900.00 24,400.00 0.00 A01\u20107\u20107020\u2010123\u2010000\u201000000 Rec Adm \u2010 Pers Svcs Cleaning Allow 1,200.00 2,400.00 2,000.00 0.00 A01\u20107\u20107020\u2010124\u2010000\u201000000 Rec Adm \u2010 Pers Svcs",
+      "confidence": "high",
+      "sha256": "c41ef5f612dbf58225068512fac4314029e3737aecb9f312e8b265f1b7456857",
+      "parsed_at": "2026-10-14T14:41:10.562285+00:00"
+    },
+    {
+      "id": "2022-2022-tentative-budget-pdf-p25",
+      "document": "2022 Tentative Budget (PDF)",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/261/2022-Tentative-Budget-PDF",
+      "page": 25,
+      "snippet": "TOWN OF RIVERHEAD NEW YORK 2022 TENTATIVE BUDGET EXPENDITURES Account Number Account Description Adopted Budget 2021 Dept Requested Budget 2022 Tentative Budget 2022 Adopted Budget 2022 A01\u20107\u20107180\u2010100\u2010000\u201000000 Beaches \u2010PERSONAL SVC A01\u20107\u20107180\u2010103\u2010000\u201000000 Beach \u2010 Pers Svcs Seasonal 110,000.00 110,000.00 110,000.00 0.00 Personal Services Subtotal 110,000.00 110,000.00 110,000.00 0.00 A01\u20107\u20107180\u2010200\u2010000\u201000000 Beaches \u2010EQUIP & CAP OUTLAY A01\u20107\u20107180\u2010220\u2010000\u201000000 Beaches \u2010 Buildings 0.00 0.00 0.00",
+      "confidence": "high",
+      "sha256": "c41ef5f612dbf58225068512fac4314029e3737aecb9f312e8b265f1b7456857",
+      "parsed_at": "2026-10-14T14:41:10.562285+00:00"
+    },
+    {
+      "id": "2022-2022-tentative-budget-pdf-p26",
+      "document": "2022 Tentative Budget (PDF)",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/261/2022-Tentative-Budget-PDF",
+      "page": 26,
+      "snippet": "TOWN OF RIVERHEAD NEW YORK 2022 TENTATIVE BUDGET EXPENDITURES Account Number Account Description Adopted Budget 2021 Dept Requested Budget 2022 Tentative Budget 2022 Adopted Budget 2022 A01\u20107\u20107510\u2010400\u2010000\u201000000 Hist \u2010 Contractual 1,000.00 1,000.00 1,000.00 0.00 A01\u20107\u20107510\u2010416\u2010000\u201000000 Hist \u2010 Supplies 0.00 0.00 0.00 0.00 A01\u20107\u20107510\u2010422\u2010000\u201000000 Hist \u2010 Dues & Subscriptions 300.00 300.00 300.00 0.00 A01\u20107\u20107510\u2010461\u2010000\u201000000 Hist \u2010 Historian Bldg Rent 10,500.00 10,500.00 10,500.00 0.00 Contractual",
+      "confidence": "high",
+      "sha256": "c41ef5f612dbf58225068512fac4314029e3737aecb9f312e8b265f1b7456857",
+      "parsed_at": "2026-10-14T14:41:10.562285+00:00"
+    },
+    {
+      "id": "2022-2022-tentative-budget-pdf-p27",
+      "document": "2022 Tentative Budget (PDF)",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/261/2022-Tentative-Budget-PDF",
+      "page": 27,
+      "snippet": "TOWN OF RIVERHEAD NEW YORK 2022 TENTATIVE BUDGET EXPENDITURES Account Number Account Description Adopted Budget 2021 Dept Requested Budget 2022 Tentative Budget 2022 Adopted Budget 2022 Contractual Subtotal 0.00 0.00 0.00 0.00 7988 Total 0.00 0.00 0.00 0.00 A01\u20107\u20107989\u2010000\u2010000\u201000000 Teen \u2010 Teen Center A01\u20107\u20107989\u2010100\u2010000\u201000000 Teen Center\u2010PERSONAL SVC A01\u20107\u20107989\u2010101\u2010NON\u201000000 Teen \u2010 Personal Services 2,000.00 2,000.00 2,000.00 0.00 Personal Services Subtotal 2,000.00 2,000.00 2,000.00 0.00 A01\u20107\u20107",
+      "confidence": "high",
+      "sha256": "c41ef5f612dbf58225068512fac4314029e3737aecb9f312e8b265f1b7456857",
+      "parsed_at": "2026-10-14T14:41:10.562285+00:00"
+    },
+    {
+      "id": "2022-2022-tentative-budget-pdf-p28",
+      "document": "2022 Tentative Budget (PDF)",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/261/2022-Tentative-Budget-PDF",
+      "page": 28,
+      "snippet": "TOWN OF RIVERHEAD NEW YORK 2022 TENTATIVE BUDGET EXPENDITURES Account Number Account Description Adopted Budget 2021 Dept Requested Budget 2022 Tentative Budget 2022 Adopted Budget 2022 A01\u20108\u20108090\u2010100\u2010000\u201000000 Environmental Control\u2010PERSONAL SVC A01\u20108\u20108090\u2010101\u2010NON\u201000000 Env Ctrl \u2010 Personal Services 0.00 0.00 0.00 0.00 A01\u20108\u20108090\u2010102\u2010000\u201000000 Env Ctrl \u2010 Personal Services PT 0.00 0.00 0.00 0.00 A01\u20108\u20108090\u2010104\u2010000\u201000000 Env Ctrl \u2010 Pers Svcs \u2010 Boards 5,600.00 5,600.00 5,600.00 0.00 Personal Service",
+      "confidence": "high",
+      "sha256": "c41ef5f612dbf58225068512fac4314029e3737aecb9f312e8b265f1b7456857",
+      "parsed_at": "2026-10-14T14:41:10.562285+00:00"
+    },
+    {
+      "id": "2022-2022-tentative-budget-pdf-p29",
+      "document": "2022 Tentative Budget (PDF)",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/261/2022-Tentative-Budget-PDF",
+      "page": 29,
+      "snippet": "TOWN OF RIVERHEAD NEW YORK 2022 TENTATIVE BUDGET EXPENDITURES Account Number Account Description Adopted Budget 2021 Dept Requested Budget 2022 Tentative Budget 2022 Adopted Budget 2022 A01\u20108\u20108686\u2010416\u2010000\u201000000 CDA \u2010Supplies \u2010 Office 4,500.00 5,500.00 5,500.00 0.00 A01\u20108\u20108686\u2010422\u2010000\u201000000 CDA \u2010 Dues & Subscriptions 500.00 500.00 500.00 0.00 A01\u20108\u20108686\u2010434\u2010000\u201000000 CDA \u2010Prof Svcs \u2010 Accounting 8,500.00 8,500.00 8,500.00 0.00 A01\u20108\u20108686\u2010442\u2010000\u201000000 CDA \u2010 Professional Education & Training 500.00",
+      "confidence": "high",
+      "sha256": "c41ef5f612dbf58225068512fac4314029e3737aecb9f312e8b265f1b7456857",
+      "parsed_at": "2026-10-14T14:41:10.562285+00:00"
+    },
+    {
+      "id": "2022-2022-tentative-budget-pdf-p30",
+      "document": "2022 Tentative Budget (PDF)",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/261/2022-Tentative-Budget-PDF",
+      "page": 30,
+      "snippet": "TOWN OF RIVERHEAD NEW YORK 2022 TENTATIVE BUDGET EXPENDITURES Account Number Account Description Adopted Budget 2021 Dept Requested Budget 2022 Tentative Budget 2022 Adopted Budget 2022 A04\u20103\u20103120\u2010000\u2010000\u201000000 Police \u2010 Police A04\u20103\u20103120\u2010200\u2010000\u201000000 Police \u2010EQUIP & CAP OUTLAY A04\u20103\u20103120\u2010240\u2010000\u201000000 Police \u2010 Equipment 2,000.00 2,000.00 2,000.00 0.00 Equipment Subtotal 2,000.00 2,000.00 2,000.00 0.00 A04\u20103\u20103120\u2010400\u2010000\u201000000 Police \u2010CONTRACTUAL A04\u20103\u20103120\u2010417\u2010000\u201000000 Police \u2010 Supplies \u2010 Prog",
+      "confidence": "high",
+      "sha256": "c41ef5f612dbf58225068512fac4314029e3737aecb9f312e8b265f1b7456857",
+      "parsed_at": "2026-10-14T14:41:10.562285+00:00"
+    },
+    {
+      "id": "2022-2022-tentative-budget-pdf-p31",
+      "document": "2022 Tentative Budget (PDF)",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/261/2022-Tentative-Budget-PDF",
+      "page": 31,
+      "snippet": "TOWN OF RIVERHEAD NEW YORK 2022 TENTATIVE BUDGET EXPENDITURES Account Number Account Description Adopted Budget 2021 Dept Requested Budget 2022 Tentative Budget 2022 Adopted Budget 2022 A06\u20107\u20107000\u2010000\u2010000\u201000000 Culture \u2010Culture & Recreation A06\u20107\u20107000\u2010100\u2010000\u201000000 Culture & Recreation\u2010PERSONAL SVC A06\u20107\u20107000\u2010101\u2010NON\u201000000 Culture \u2010Personal Services 0.00 0.00 0.00 0.00 Personal Services Subtotal 0.00 0.00 0.00 0.00 7000 Total 0.00 0.00 0.00 0.00 A06\u20107\u20107020\u2010000\u2010000\u201000000 Rec Adm \u2010 Recreation Admi",
+      "confidence": "high",
+      "sha256": "c41ef5f612dbf58225068512fac4314029e3737aecb9f312e8b265f1b7456857",
+      "parsed_at": "2026-10-14T14:41:10.562285+00:00"
+    },
+    {
+      "id": "2022-2022-tentative-budget-pdf-p32",
+      "document": "2022 Tentative Budget (PDF)",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/261/2022-Tentative-Budget-PDF",
+      "page": 32,
+      "snippet": "TOWN OF RIVERHEAD NEW YORK 2022 TENTATIVE BUDGET EXPENDITURES Account Number Account Description Adopted Budget 2021 Dept Requested Budget 2022 Tentative Budget 2022 Adopted Budget 2022 A06\u20107\u20107315\u2010400\u2010000\u201000000 Other Youth Programs\u2010CONTRACTUAL A06\u20107\u20107315\u2010415\u2010000\u201000000 Oth Yth Prg \u2010 Supplies 0.00 0.00 0.00 0.00 A06\u20107\u20107315\u2010455\u2010211\u201000000 Oth Yth Prg \u2010 Little League Program Exp 0.00 0.00 0.00 0.00 Contractual Subtotal 0.00 0.00 0.00 0.00 7315 Total 0.00 0.00 0.00 0.00 A06\u20107\u20107620\u2010000\u2010000\u201000000 Adlt R",
+      "confidence": "high",
+      "sha256": "c41ef5f612dbf58225068512fac4314029e3737aecb9f312e8b265f1b7456857",
+      "parsed_at": "2026-10-14T14:41:10.562285+00:00"
+    },
+    {
+      "id": "2022-2022-tentative-budget-pdf-p33",
+      "document": "2022 Tentative Budget (PDF)",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/261/2022-Tentative-Budget-PDF",
+      "page": 33,
+      "snippet": "TOWN OF RIVERHEAD NEW YORK 2022 TENTATIVE BUDGET EXPENDITURES Account Number Account Description Adopted Budget 2021 Dept Requested Budget 2022 Tentative Budget 2022 Adopted Budget 2022 A06\u20107\u20107627\u2010100\u2010000\u201000000 ADA Adult Rec \u2010 PERSONAL SVC 0.00 0.00 0.00 0.00 Personal Services Subtotal 0.00 0.00 0.00 0.00 A06\u20107\u20107627\u2010400\u2010000\u201000000 ADA Adult Rec \u2010 CONTRACTUAL A06\u20107\u20107627\u2010417\u2010000\u201000000 ADA Adult Rec \u2010 Supplies \u2010 Program 0.00 0.00 0.00 0.00 Contractual Subtotal 0.00 0.00 0.00 0.00 7627 Total 0.00 0.0",
+      "confidence": "high",
+      "sha256": "c41ef5f612dbf58225068512fac4314029e3737aecb9f312e8b265f1b7456857",
+      "parsed_at": "2026-10-14T14:41:10.562285+00:00"
+    },
+    {
+      "id": "2022-2022-tentative-budget-pdf-p34",
+      "document": "2022 Tentative Budget (PDF)",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/261/2022-Tentative-Budget-PDF",
+      "page": 34,
+      "snippet": "TOWN OF RIVERHEAD NEW YORK 2022 TENTATIVE BUDGET EXPENDITURES Account Number Account Description Adopted Budget 2021 Dept Requested Budget 2022 Tentative Budget 2022 Adopted Budget 2022 CM1\u20101\u20101910\u2010000\u2010000\u201000000 Unall Ins \u2010 Unallocated Insurance CM1\u20101\u20101910\u2010400\u2010000\u201000000 Unallocated Insurance\u2010CONTRACTUAL CM1\u20101\u20101910\u2010487\u2010000\u201000000 Unall Ins \u2010 Self Insurance Payments 1,000.00 1,100.00 1,100.00 0.00 CM1\u20101\u20101910\u2010488\u2010000\u201000000 Unall Ins \u2010 Claim Payments 700.00 700.00 700.00 0.00 Contractual Subtotal 1,70",
+      "confidence": "high",
+      "sha256": "c41ef5f612dbf58225068512fac4314029e3737aecb9f312e8b265f1b7456857",
+      "parsed_at": "2026-10-14T14:41:10.562285+00:00"
+    },
+    {
+      "id": "2022-2022-tentative-budget-pdf-p35",
+      "document": "2022 Tentative Budget (PDF)",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/261/2022-Tentative-Budget-PDF",
+      "page": 35,
+      "snippet": "TOWN OF RIVERHEAD NEW YORK 2022 TENTATIVE BUDGET EXPENDITURES Account Number Account Description Adopted Budget 2021 Dept Requested Budget 2022 Tentative Budget 2022 Adopted Budget 2022 CM2\u20101\u20101910\u2010000\u2010000\u201000000 Unall Ins \u2010 Unallocated Insurance CM2\u20101\u20101910\u2010400\u2010000\u201000000 Unallocated Insurance\u2010CONTRACTUAL CM2\u20101\u20101910\u2010487\u2010000\u201000000 Unall Ins \u2010 Self Insurance Payments 15,200.00 16,800.00 16,800.00 0.00 CM2\u20101\u20101910\u2010488\u2010000\u201000000 Unall Ins \u2010 Claim Payments 1,500.00 1,500.00 1,500.00 0.00 Contractual Subt",
+      "confidence": "high",
+      "sha256": "c41ef5f612dbf58225068512fac4314029e3737aecb9f312e8b265f1b7456857",
+      "parsed_at": "2026-10-14T14:41:10.562285+00:00"
+    },
+    {
+      "id": "2022-2022-tentative-budget-pdf-p36",
+      "document": "2022 Tentative Budget (PDF)",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/261/2022-Tentative-Budget-PDF",
+      "page": 36,
+      "snippet": "TOWN OF RIVERHEAD NEW YORK 2022 TENTATIVE BUDGET EXPENDITURES Account Number Account Description Adopted Budget 2021 Dept Requested Budget 2022 Tentative Budget 2022 Adopted Budget 2022 CM4\u20101\u20101320\u2010000\u2010000\u201000000 Auditor \u2010 Auditor CM4\u20101\u20101320\u2010400\u2010000\u201000000 Auditor \u2010CONTRACTUAL CM4\u20101\u20101320\u2010436\u2010000\u201000000 Auditor \u2010 Prof Svcs \u2010 Consultants 10,000.00 10,000.00 10,000.00 0.00 Contractual Subtotal 10,000.00 10,000.00 10,000.00 0.00 1320 Total 10,000.00 10,000.00 10,000.00 0.00 CM4\u20101\u20101420\u2010000\u2010000\u201000000 Atty",
+      "confidence": "high",
+      "sha256": "c41ef5f612dbf58225068512fac4314029e3737aecb9f312e8b265f1b7456857",
+      "parsed_at": "2026-10-14T14:41:10.562285+00:00"
+    },
+    {
+      "id": "2022-2022-tentative-budget-pdf-p37",
+      "document": "2022 Tentative Budget (PDF)",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/261/2022-Tentative-Budget-PDF",
+      "page": 37,
+      "snippet": "TOWN OF RIVERHEAD NEW YORK 2022 TENTATIVE BUDGET EXPENDITURES Account Number Account Description Adopted Budget 2021 Dept Requested Budget 2022 Tentative Budget 2022 Adopted Budget 2022 DA1\u20101\u20101910\u2010000\u2010000\u201000000 Unall Ins \u2010 Unallocated Insurance DA1\u20101\u20101910\u2010400\u2010000\u201000000 Unallocated Insurance\u2010CONTRACTUAL DA1\u20101\u20101910\u2010487\u2010000\u201000000 Unall Ins \u2010 Self Insurance Payments 57,600.00 56,800.00 56,800.00 0.00 DA1\u20101\u20101910\u2010488\u2010000\u201000000 Unall Ins \u2010 Claim Payments 38,500.00 36,600.00 36,600.00 0.00 Contractual S",
+      "confidence": "high",
+      "sha256": "c41ef5f612dbf58225068512fac4314029e3737aecb9f312e8b265f1b7456857",
+      "parsed_at": "2026-10-14T14:41:10.562285+00:00"
+    },
+    {
+      "id": "2022-2022-tentative-budget-pdf-p38",
+      "document": "2022 Tentative Budget (PDF)",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/261/2022-Tentative-Budget-PDF",
+      "page": 38,
+      "snippet": "TOWN OF RIVERHEAD NEW YORK 2022 TENTATIVE BUDGET EXPENDITURES Account Number Account Description Adopted Budget 2021 Dept Requested Budget 2022 Tentative Budget 2022 Adopted Budget 2022 Contractual Subtotal 223,500.00 683,500.00 216,500.00 0.00 5140 Total 302,000.00 762,000.00 295,000.00 0.00 DA1\u20105\u20105142\u2010000\u2010000\u201000000 Snow \u2010 Snow Removal Highway DA1\u20105\u20105142\u2010100\u2010000\u201000000 Snow Removal Highway\u2010PERSONAL SVC DA1\u20105\u20105142\u2010111\u2010NON\u201000000 Snow \u2010 Personal Services OT 75,000.00 75,000.00 50,000.00 0.00 Person",
+      "confidence": "high",
+      "sha256": "c41ef5f612dbf58225068512fac4314029e3737aecb9f312e8b265f1b7456857",
+      "parsed_at": "2026-10-14T14:41:10.562285+00:00"
+    },
+    {
+      "id": "2022-2022-tentative-budget-pdf-p39",
+      "document": "2022 Tentative Budget (PDF)",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/261/2022-Tentative-Budget-PDF",
+      "page": 39,
+      "snippet": "TOWN OF RIVERHEAD NEW YORK 2022 TENTATIVE BUDGET EXPENDITURES Account Number Account Description Adopted Budget 2021 Dept Requested Budget 2022 Tentative Budget 2022 Adopted Budget 2022 ES1\u20101\u20101910\u2010000\u2010000\u201000000 Unall Ins \u2010 Unallocated Insurance ES1\u20101\u20101910\u2010400\u2010000\u201000000 Unallocated Insurance\u2010CONTRACTUAL ES1\u20101\u20101910\u2010487\u2010000\u201000000 Unall Ins \u2010 Self Insurance Payments 55,400.00 54,500.00 54,500.00 0.00 ES1\u20101\u20101910\u2010488\u2010000\u201000000 Unall Ins \u2010 Claim Payments 37,100.00 35,100.00 35,100.00 0.00 Contractual S",
+      "confidence": "high",
+      "sha256": "c41ef5f612dbf58225068512fac4314029e3737aecb9f312e8b265f1b7456857",
+      "parsed_at": "2026-10-14T14:41:10.562285+00:00"
+    },
+    {
+      "id": "2022-2022-tentative-budget-pdf-p40",
+      "document": "2022 Tentative Budget (PDF)",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/261/2022-Tentative-Budget-PDF",
+      "page": 40,
+      "snippet": "TOWN OF RIVERHEAD NEW YORK 2022 TENTATIVE BUDGET EXPENDITURES Account Number Account Description Adopted Budget 2021 Dept Requested Budget 2022 Tentative Budget 2022 Adopted Budget 2022 ES1\u20108\u20108130\u2010425\u2010000\u201000000 Sewer Trmt \u2010 Uniforms 3,000.00 4,500.00 4,500.00 0.00 ES1\u20108\u20108130\u2010426\u2010000\u201000000 Sewer Trmt \u2010 Fuel 0.00 0.00 0.00 0.00 ES1\u20108\u20108130\u2010426\u2010050\u201000000 Sewer Trmt Fuel \u2010 Gasoline & Diesel 15,000.00 15,000.00 15,000.00 0.00 ES1\u20108\u20108130\u2010426\u2010075\u201000000 Sewer Trmt Fuel \u2010 Plant Fuel 15,000.00 10,000.00 10",
+      "confidence": "high",
+      "sha256": "c41ef5f612dbf58225068512fac4314029e3737aecb9f312e8b265f1b7456857",
+      "parsed_at": "2026-10-14T14:41:10.562285+00:00"
+    },
+    {
+      "id": "2022-2022-tentative-budget-pdf-p41",
+      "document": "2022 Tentative Budget (PDF)",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/261/2022-Tentative-Budget-PDF",
+      "page": 41,
+      "snippet": "TOWN OF RIVERHEAD NEW YORK 2022 TENTATIVE BUDGET EXPENDITURES Account Number Account Description Adopted Budget 2021 Dept Requested Budget 2022 Tentative Budget 2022 Adopted Budget 2022 ES3\u20101\u20101910\u2010000\u2010000\u201000000 Unall Ins \u2010 Unallocated Insurance ES3\u20101\u20101910\u2010400\u2010000\u201000000 Unallocated Insurance\u2010CONTRACTUAL ES3\u20101\u20101910\u2010487\u2010000\u201000000 Unall Ins \u2010 Self Insurance Payments 6,100.00 6,000.00 6,000.00 0.00 ES3\u20101\u20101910\u2010488\u2010000\u201000000 Unall Ins \u2010 Claim Payments 4,100.00 3,900.00 3,900.00 0.00 Contractual Subtota",
+      "confidence": "high",
+      "sha256": "c41ef5f612dbf58225068512fac4314029e3737aecb9f312e8b265f1b7456857",
+      "parsed_at": "2026-10-14T14:41:10.562285+00:00"
+    },
+    {
+      "id": "2022-2022-tentative-budget-pdf-p42",
+      "document": "2022 Tentative Budget (PDF)",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/261/2022-Tentative-Budget-PDF",
+      "page": 42,
+      "snippet": "TOWN OF RIVERHEAD NEW YORK 2022 TENTATIVE BUDGET EXPENDITURES Account Number Account Description Adopted Budget 2021 Dept Requested Budget 2022 Tentative Budget 2022 Adopted Budget 2022 9000 Total 136,700.00 139,300.00 129,900.00 0.00 ES3\u20109\u20109710\u2010000\u2010000\u201000000 Bond Pmt \u2010 Serial Bond Payments ES3\u20109\u20109710\u2010400\u2010000\u201000000 Serial Bond Payments\u2010CONTRACTUAL 0.00 0.00 0.00 0.00 Contractual Subtotal 0.00 0.00 0.00 0.00 ES3\u20109\u20109710\u2010600\u2010000\u201000000 Bond Pmt \u2010 Debt Principal 2,700.00 2,700.00 2,700.00 0.00 Bond P",
+      "confidence": "high",
+      "sha256": "c41ef5f612dbf58225068512fac4314029e3737aecb9f312e8b265f1b7456857",
+      "parsed_at": "2026-10-14T14:41:10.562285+00:00"
+    },
+    {
+      "id": "2022-2022-tentative-budget-pdf-p43",
+      "document": "2022 Tentative Budget (PDF)",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/261/2022-Tentative-Budget-PDF",
+      "page": 43,
+      "snippet": "TOWN OF RIVERHEAD NEW YORK 2022 TENTATIVE BUDGET EXPENDITURES Account Number Account Description Adopted Budget 2021 Dept Requested Budget 2022 Tentative Budget 2022 Adopted Budget 2022 ES5\u20101\u20101910\u2010000\u2010000\u201000000 Unall Ins \u2010 Unallocated Insurance ES5\u20101\u20101910\u2010400\u2010000\u201000000 Unallocated Insurance\u2010CONTRACTUAL ES5\u20101\u20101910\u2010487\u2010000\u201000000 Unall Ins \u2010 Self Insurance Payments 13,400.00 13,700.00 13,700.00 0.00 ES5\u20101\u20101910\u2010488\u2010000\u201000000 Unall Ins \u2010 Claim Payments 9,000.00 9,000.00 8,900.00 0.00 Contractual Subt",
+      "confidence": "high",
+      "sha256": "c41ef5f612dbf58225068512fac4314029e3737aecb9f312e8b265f1b7456857",
+      "parsed_at": "2026-10-14T14:41:10.562285+00:00"
+    },
+    {
+      "id": "2022-2022-tentative-budget-pdf-p44",
+      "document": "2022 Tentative Budget (PDF)",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/261/2022-Tentative-Budget-PDF",
+      "page": 44,
+      "snippet": "TOWN OF RIVERHEAD NEW YORK 2022 TENTATIVE BUDGET EXPENDITURES Account Number Account Description Adopted Budget 2021 Dept Requested Budget 2022 Tentative Budget 2022 Adopted Budget 2022 ES5\u20108\u20108189\u2010490\u2010100\u201000000 Scav Waste \u2010 Misc \u2010 Bank Fees 0.00 0.00 0.00 0.00 Contractual Subtotal 658,900.00 739,500.00 729,500.00 0.00 8189 Total 994,000.00 1,092,300.00 1,083,400.00 0.00 ES5\u20109\u20109000\u2010000\u2010000\u201000000 Benefits ES5\u20109\u20109010\u2010801\u2010NON\u201000000 Ret \u2010NYS Retirement Non\u2010Uni Pers 56,500.00 60,300.00 43,300.00 0.00 ",
+      "confidence": "high",
+      "sha256": "c41ef5f612dbf58225068512fac4314029e3737aecb9f312e8b265f1b7456857",
+      "parsed_at": "2026-10-14T14:41:10.562285+00:00"
+    },
+    {
+      "id": "2022-2022-tentative-budget-pdf-p45",
+      "document": "2022 Tentative Budget (PDF)",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/261/2022-Tentative-Budget-PDF",
+      "page": 45,
+      "snippet": "TOWN OF RIVERHEAD NEW YORK 2022 TENTATIVE BUDGET EXPENDITURES Account Number Account Description Adopted Budget 2021 Dept Requested Budget 2022 Tentative Budget 2022 Adopted Budget 2022 EW1\u20101\u20101910\u2010000\u2010000\u201000000 Unall Ins \u2010 Unallocated Insurance EW1\u20101\u20101910\u2010400\u2010000\u201000000 Unallocated Insurance\u2010CONTRACTUAL EW1\u20101\u20101910\u2010487\u2010000\u201000000 Unall Ins \u2010 Self Insurance Payments 69,900.00 76,600.00 76,600.00 0.00 EW1\u20101\u20101910\u2010488\u2010000\u201000000 Unall Ins \u2010 Claim Payments 46,700.00 49,300.00 49,300.00 0.00 Contractual S",
+      "confidence": "high",
+      "sha256": "c41ef5f612dbf58225068512fac4314029e3737aecb9f312e8b265f1b7456857",
+      "parsed_at": "2026-10-14T14:41:10.562285+00:00"
+    },
+    {
+      "id": "2022-2022-tentative-budget-pdf-p46",
+      "document": "2022 Tentative Budget (PDF)",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/261/2022-Tentative-Budget-PDF",
+      "page": 46,
+      "snippet": "TOWN OF RIVERHEAD NEW YORK 2022 TENTATIVE BUDGET EXPENDITURES Account Number Account Description Adopted Budget 2021 Dept Requested Budget 2022 Tentative Budget 2022 Adopted Budget 2022 EW1\u20108\u20108320\u2010474\u2010000\u201000000 Water \u2010 Utl \u2010 Water 70,000.00 70,000.00 70,000.00 0.00 EW1\u20108\u20108320\u2010475\u2010000\u201000000 Water \u2010 Utl \u2010 Comm 30,000.00 23,200.00 23,200.00 0.00 EW1\u20108\u20108320\u2010490\u2010000\u201000000 Water \u2010 Miscellaneous 7,200.00 7,200.00 7,200.00 0.00 Contractual Subtotal 1,955,900.00 1,949,700.00 1,759,700.00 0.00 8320 Total ",
+      "confidence": "high",
+      "sha256": "c41ef5f612dbf58225068512fac4314029e3737aecb9f312e8b265f1b7456857",
+      "parsed_at": "2026-10-14T14:41:10.562285+00:00"
+    },
+    {
+      "id": "2022-2022-tentative-budget-pdf-p47",
+      "document": "2022 Tentative Budget (PDF)",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/261/2022-Tentative-Budget-PDF",
+      "page": 47,
+      "snippet": "TOWN OF RIVERHEAD NEW YORK 2022 TENTATIVE BUDGET EXPENDITURES Account Number Account Description Adopted Budget 2021 Dept Requested Budget 2022 Tentative Budget 2022 Adopted Budget 2022 MS1\u20101\u20101710\u2010488\u2010000\u201000000 Workers Comp \u2010 Claim Payments 950,000.00 950,000.00 950,000.00 0.00 Contractual Subtotal 950,000.00 950,000.00 950,000.00 0.00 1710 Total 950,000.00 950,000.00 950,000.00 0.00 MS1 Total 950,000.00 950,000.00 950,000.00 0.00 42",
+      "confidence": "high",
+      "sha256": "c41ef5f612dbf58225068512fac4314029e3737aecb9f312e8b265f1b7456857",
+      "parsed_at": "2026-10-14T14:41:10.562285+00:00"
+    },
+    {
+      "id": "2022-2022-tentative-budget-pdf-p48",
+      "document": "2022 Tentative Budget (PDF)",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/261/2022-Tentative-Budget-PDF",
+      "page": 48,
+      "snippet": "TOWN OF RIVERHEAD NEW YORK 2022 TENTATIVE BUDGET EXPENDITURES Account Number Account Description Adopted Budget 2021 Dept Requested Budget 2022 Tentative Budget 2022 Adopted Budget 2022 MS2\u20101\u20101930\u2010487\u2010000\u201000000 Risk Retention \u2010 Self Insurance Payments 450,000.00 450,000.00 450,000.00 0.00 Contractual Subtotal 450,000.00 450,000.00 450,000.00 0.00 1930 Total 450,000.00 450,000.00 450,000.00 0.00 MS2 Total 450,000.00 450,000.00 450,000.00 0.00 43",
+      "confidence": "high",
+      "sha256": "c41ef5f612dbf58225068512fac4314029e3737aecb9f312e8b265f1b7456857",
+      "parsed_at": "2026-10-14T14:41:10.562285+00:00"
+    },
+    {
+      "id": "2022-2022-tentative-budget-pdf-p49",
+      "document": "2022 Tentative Budget (PDF)",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/261/2022-Tentative-Budget-PDF",
+      "page": 49,
+      "snippet": "TOWN OF RIVERHEAD NEW YORK 2022 TENTATIVE BUDGET EXPENDITURES Account Number Account Description Adopted Budget 2021 Dept Requested Budget 2022 Tentative Budget 2022 Adopted Budget 2022 SL1\u20101\u20101910\u2010000\u2010000\u201000000 Unall Ins \u2010 Unallocated Insurance SL1\u20101\u20101910\u2010400\u2010000\u201000000 Unallocated Insurance\u2010CONTRACTUAL SL1\u20101\u20101910\u2010487\u2010000\u201000000 Unall Ins \u2010 Self Insurance Payments 9,800.00 10,100.00 10,100.00 0.00 SL1\u20101\u20101910\u2010488\u2010000\u201000000 Unall Ins \u2010 Claim Payments 6,600.00 6,500.00 6,500.00 0.00 Contractual Subto",
+      "confidence": "high",
+      "sha256": "c41ef5f612dbf58225068512fac4314029e3737aecb9f312e8b265f1b7456857",
+      "parsed_at": "2026-10-14T14:41:10.562285+00:00"
+    },
+    {
+      "id": "2022-2022-tentative-budget-pdf-p50",
+      "document": "2022 Tentative Budget (PDF)",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/261/2022-Tentative-Budget-PDF",
+      "page": 50,
+      "snippet": "TOWN OF RIVERHEAD NEW YORK 2022 TENTATIVE BUDGET EXPENDITURES Account Number Account Description Adopted Budget 2021 Dept Requested Budget 2022 Tentative Budget 2022 Adopted Budget 2022 SM1\u20101\u20101910\u2010000\u2010000\u201000000 Unall Ins \u2010 Unallocated Insurance SM1\u20101\u20101910\u2010200\u2010000\u201000000 Unallocated Insurance\u2010EQUIP & CAP OUTLAY SM1\u20101\u20101910\u2010240\u2010000\u201000000 Unall Ins \u2010 Equipment 0.00 0.00 0.00 0.00 Equipment Subtotal 0.00 0.00 0.00 0.00 SM1\u20101\u20101910\u2010400\u2010000\u201000000 Unallocated Insurance\u2010CONTRACTUAL SM1\u20101\u20101910\u2010487\u2010000\u201000000",
+      "confidence": "high",
+      "sha256": "c41ef5f612dbf58225068512fac4314029e3737aecb9f312e8b265f1b7456857",
+      "parsed_at": "2026-10-14T14:41:10.562285+00:00"
+    },
+    {
+      "id": "2022-2022-tentative-budget-pdf-p51",
+      "document": "2022 Tentative Budget (PDF)",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/261/2022-Tentative-Budget-PDF",
+      "page": 51,
+      "snippet": "TOWN OF RIVERHEAD NEW YORK 2022 TENTATIVE BUDGET EXPENDITURES Account Number Account Description Adopted Budget 2021 Dept Requested Budget 2022 Tentative Budget 2022 Adopted Budget 2022 SR1\u20101\u20101910\u2010000\u2010000\u201000000 Unall Ins \u2010 Unallocated Insurance SR1\u20101\u20101910\u2010400\u2010000\u201000000 Unallocated Insurance\u2010CONTRACTUAL SR1\u20101\u20101910\u2010487\u2010000\u201000000 Unall Ins \u2010 Self Insurance Payments 26,800.00 32,500.00 32,500.00 0.00 SR1\u20101\u20101910\u2010488\u2010000\u201000000 Unall Ins \u2010 Claim Payments 17,900.00 21,000.00 21,000.00 0.00 Contractual S",
+      "confidence": "high",
+      "sha256": "c41ef5f612dbf58225068512fac4314029e3737aecb9f312e8b265f1b7456857",
+      "parsed_at": "2026-10-14T14:41:10.562285+00:00"
+    },
+    {
+      "id": "2022-2022-tentative-budget-pdf-p52",
+      "document": "2022 Tentative Budget (PDF)",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/261/2022-Tentative-Budget-PDF",
+      "page": 52,
+      "snippet": "TOWN OF RIVERHEAD NEW YORK 2022 TENTATIVE BUDGET EXPENDITURES Account Number Account Description Adopted Budget 2021 Dept Requested Budget 2022 Tentative Budget 2022 Adopted Budget 2022 ST1\u20101\u20101910\u2010000\u2010000\u201000000 Unall Ins \u2010 Unallocated Insurance ST1\u20101\u20101910\u2010400\u2010000\u201000000 Unallocated Insurance\u2010CONTRACTUAL ST1\u20101\u20101910\u2010487\u2010000\u201000000 Unall Ins \u2010 Self Insurance Payments 1,500.00 1,600.00 1,600.00 0.00 ST1\u20101\u20101910\u2010488\u2010000\u201000000 Unall Ins \u2010 Claim Payments 1,000.00 1,000.00 1,000.00 0.00 Contractual Subtota",
+      "confidence": "high",
+      "sha256": "c41ef5f612dbf58225068512fac4314029e3737aecb9f312e8b265f1b7456857",
+      "parsed_at": "2026-10-14T14:41:10.562285+00:00"
+    },
+    {
+      "id": "2022-2022-tentative-budget-pdf-p53",
+      "document": "2022 Tentative Budget (PDF)",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/261/2022-Tentative-Budget-PDF",
+      "page": 53,
+      "snippet": "TOWN OF RIVERHEAD NEW YORK 2022 TENTATIVE BUDGET EXPENDITURES Account Number Account Description Adopted Budget 2021 Dept Requested Budget 2022 Tentative Budget 2022 Adopted Budget 2022 V01\u20101\u20101380\u2010436\u2010000\u201000000 Prof Svcs \u2010 Fiscal Agent Fees 0.00 0.00 0.00 0.00 Contractual Subtotal 0.00 0.00 0.00 0.00 1380 Total 0.00 0.00 0.00 0.00 V01\u20109\u20109710\u2010000\u2010000\u201000000 Bond Pmt \u2010 Serial Bond Payments V01\u20109\u20109710\u2010400\u2010000\u201000000 Serial Bond Payments\u2010CONTRACTUAL 0.00 0.00 0.00 0.00 Contractual Subtotal 0.00 0.00 0",
+      "confidence": "high",
+      "sha256": "c41ef5f612dbf58225068512fac4314029e3737aecb9f312e8b265f1b7456857",
+      "parsed_at": "2026-10-14T14:41:10.562285+00:00"
+    },
+    {
+      "id": "2022-2022-tentative-budget-pdf-p54",
+      "document": "2022 Tentative Budget (PDF)",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/261/2022-Tentative-Budget-PDF",
+      "page": 54,
+      "snippet": "TOWN OF RIVERHEAD NEW YORK 2022 TENTATIVE BUDGET EXPENDITURES Account Number Account Description Adopted Budget 2021 Dept Requested Budget 2022 Tentative Budget 2022 Adopted Budget 2022 Z14\u20101\u20101910\u2010000\u2010000\u201000000 Unall Ins \u2010 Unallocated Insurance Z14\u20101\u20101910\u2010400\u2010000\u201000000 Unallocated Insurance\u2010CONTRACTUAL Z14\u20101\u20101910\u2010487\u2010000\u201000000 Unall Ins \u2010 Self Insurance Payments 10,800.00 15,200.00 15,200.00 0.00 Z14\u20101\u20101910\u2010488\u2010000\u201000000 Unall Ins \u2010 Claim Payments 200.00 200.00 200.00 0.00 Contractual Subtotal 1",
+      "confidence": "high",
+      "sha256": "c41ef5f612dbf58225068512fac4314029e3737aecb9f312e8b265f1b7456857",
+      "parsed_at": "2026-10-14T14:41:10.562285+00:00"
+    },
+    {
+      "id": "2022-2022-tentative-budget-pdf-p55",
+      "document": "2022 Tentative Budget (PDF)",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/261/2022-Tentative-Budget-PDF",
+      "page": 55,
+      "snippet": "TOWN OF RIVERHEAD NEW YORK 2022 TENTATIVE BUDGET REVENUE Account Number Account Description Current Budget 2021 Dept Requested Budget 2022 Tentative Budget 2022 Adopted Budget 2022 A01\u20101001\u2010001\u201000000\u2010A Property Taxes 41,698,400.00 40,489,138.00 40,489,138.00 0.00 A01\u20101001\u2010002\u201000000\u2010A Property Taxes \u2010 Chapter 217/251 0.00 0.00 0.00 0.00 A01\u20101081\u2010000\u201000000\u2010BP I L O T Programs 766,300.00 2,037,262.00 2,037,262.00 0.00 A01\u20101090\u2010010\u201000000\u2010B Interest & Penalties 65,000.00 65,000.00 65,000.00 0.00 A01\u2010",
+      "confidence": "high",
+      "sha256": "c41ef5f612dbf58225068512fac4314029e3737aecb9f312e8b265f1b7456857",
+      "parsed_at": "2026-10-14T14:41:10.562285+00:00"
+    },
+    {
+      "id": "2022-2022-tentative-budget-pdf-p56",
+      "document": "2022 Tentative Budget (PDF)",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/261/2022-Tentative-Budget-PDF",
+      "page": 56,
+      "snippet": "TOWN OF RIVERHEAD NEW YORK 2022 TENTATIVE BUDGET REVENUE Account Number Account Description Current Budget 2021 Dept Requested Budget 2022 Tentative Budget 2022 Adopted Budget 2022 A01\u20102025\u2010248\u201000000\u20107 Facility Rentals @ Recreation 9,000.00 9,000.00 9,000.00 0.00 A01\u20102025\u2010253\u201000000\u20107P a r k i n g Permit \u2010 Senior Citizen Resident 0.00 0.00 0.00 0.00 A01\u20102110\u2010000\u201000000\u20108Z o n i n g Fees 10,000.00 10,000.00 10,000.00 0.00 A01\u20102115\u2010280\u201000000\u20108S i t e Plan Fees 120,000.00 145,000.00 145,000.00 0.00 A",
+      "confidence": "high",
+      "sha256": "c41ef5f612dbf58225068512fac4314029e3737aecb9f312e8b265f1b7456857",
+      "parsed_at": "2026-10-14T14:41:10.562285+00:00"
+    },
+    {
+      "id": "2022-2022-tentative-budget-pdf-p57",
+      "document": "2022 Tentative Budget (PDF)",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/261/2022-Tentative-Budget-PDF",
+      "page": 57,
+      "snippet": "TOWN OF RIVERHEAD NEW YORK 2022 TENTATIVE BUDGET REVENUE Account Number Account Description Current Budget 2021 Dept Requested Budget 2022 Tentative Budget 2022 Adopted Budget 2022 A01\u20104089\u2010100\u201000000\u20101F e d Aid \u2010 American Rescue Plan 0.00 0.00 0.00 0.00 A01\u20104389\u2010700\u201000000\u20103 Public Safety, Fed Aid (Operation Shield 8,100.00 8,100.00 8,100.00 0.00 A01\u20104389\u2010705\u201000000\u20103D W I Enforcement (STEP) 6,000.00 0.00 0.00 0.00 A01\u20104772\u2010715\u201000000\u20106S N A P Program 0.00 0.00 0.00 0.00 A01\u20104772\u2010720\u201000000\u20106 Reside",
+      "confidence": "high",
+      "sha256": "c41ef5f612dbf58225068512fac4314029e3737aecb9f312e8b265f1b7456857",
+      "parsed_at": "2026-10-14T14:41:10.562285+00:00"
+    },
+    {
+      "id": "2022-2022-tentative-budget-pdf-p58",
+      "document": "2022 Tentative Budget (PDF)",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/261/2022-Tentative-Budget-PDF",
+      "page": 58,
+      "snippet": "TOWN OF RIVERHEAD NEW YORK 2022 TENTATIVE BUDGET REVENUE Account Number Account Description Current Budget 2021 Dept Requested Budget 2022 Tentative Budget 2022 Adopted Budget 2022 A04\u20102025\u2010246\u201000000\u20107I n \u2010Town Soccer Registration Fees 24,000.00 24,000.00 24,000.00 0.00 A04\u20102025\u2010250\u201000000\u20107 Football Registration 5,000.00 33,900.00 33,900.00 0.00 A04\u20102025\u2010251\u201000000\u20107 Lacrosse Registration 33,900.00 13,000.00 13,000.00 0.00 A04\u20102025\u2010252\u201000000\u20107 Basketball Registration 13,000.00 5,000.00 5,000.00 0",
+      "confidence": "high",
+      "sha256": "c41ef5f612dbf58225068512fac4314029e3737aecb9f312e8b265f1b7456857",
+      "parsed_at": "2026-10-14T14:41:10.562285+00:00"
+    },
+    {
+      "id": "2022-2022-tentative-budget-pdf-p59",
+      "document": "2022 Tentative Budget (PDF)",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/261/2022-Tentative-Budget-PDF",
+      "page": 59,
+      "snippet": "TOWN OF RIVERHEAD NEW YORK 2022 TENTATIVE BUDGET REVENUE Account Number Account Description Current Budget 2021 Dept Requested Budget 2022 Tentative Budget 2022 Adopted Budget 2022 A06\u20102001\u2010215\u201000000\u20107 Processing Fee 0.00 0.00 0.00 0.00 A06\u20102001\u2010216\u201000000\u20107M i s c Fees 0.00 0.00 0.00 0.00 A06\u20102012\u2010220\u201000000\u20107B e a c h Concession Sales 0.00 0.00 0.00 0.00 A06\u20102025\u2010230\u201000000\u20107N o n \u2010League Sports Fees 33,000.00 33,000.00 33,000.00 0.00 A06\u20102025\u2010232\u201000000\u20107P h y s Fitness Program Fees 42,000.00 42,",
+      "confidence": "high",
+      "sha256": "c41ef5f612dbf58225068512fac4314029e3737aecb9f312e8b265f1b7456857",
+      "parsed_at": "2026-10-14T14:41:10.562285+00:00"
+    },
+    {
+      "id": "2022-2022-tentative-budget-pdf-p60",
+      "document": "2022 Tentative Budget (PDF)",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/261/2022-Tentative-Budget-PDF",
+      "page": 60,
+      "snippet": "TOWN OF RIVERHEAD NEW YORK 2022 TENTATIVE BUDGET REVENUE Account Number Account Description Current Budget 2021 Dept Requested Budget 2022 Tentative Budget 2022 Adopted Budget 2022 CM1\u20101001\u2010001\u201000000\u2010A Property Taxes 127,400.00 130,700.00 130,700.00 0.00 CM1\u20102401\u2010000\u201000000\u2010G Interest and Earnings 0.00 0.00 0.00 0.00 CM1 Total 127,400.00 130,700.00 130,700.00 0.00 55",
+      "confidence": "high",
+      "sha256": "c41ef5f612dbf58225068512fac4314029e3737aecb9f312e8b265f1b7456857",
+      "parsed_at": "2026-10-14T14:41:10.562285+00:00"
+    },
+    {
+      "id": "2022-2022-tentative-budget-pdf-p61",
+      "document": "2022 Tentative Budget (PDF)",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/261/2022-Tentative-Budget-PDF",
+      "page": 61,
+      "snippet": "TOWN OF RIVERHEAD NEW YORK 2022 TENTATIVE BUDGET REVENUE Account Number Account Description Current Budget 2021 Dept Requested Budget 2022 Tentative Budget 2022 Adopted Budget 2022 CM2\u20102401\u2010000\u201000000\u2010G Interest and Earnings 100.00 100.00 100.00 0.00 CM2\u20102410\u2010000\u201000000\u20107R e n t a l Income 254,500.00 275,100.00 275,100.00 0.00 CM2\u20102410\u2010352\u201000000\u20101R e n t a l Income \u2010 Utilities 12,000.00 12,000.00 12,000.00 0.00 CM2\u20109999\u2010000\u201000000\u20100 Appropriated Fund Balance (Budget Prep O 0.00 0.00 0.00 0.00 CM2 T",
+      "confidence": "high",
+      "sha256": "c41ef5f612dbf58225068512fac4314029e3737aecb9f312e8b265f1b7456857",
+      "parsed_at": "2026-10-14T14:41:10.562285+00:00"
+    },
+    {
+      "id": "2022-2022-tentative-budget-pdf-p62",
+      "document": "2022 Tentative Budget (PDF)",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/261/2022-Tentative-Budget-PDF",
+      "page": 62,
+      "snippet": "TOWN OF RIVERHEAD NEW YORK 2022 TENTATIVE BUDGET REVENUE Account Number Account Description Current Budget 2021 Dept Requested Budget 2022 Tentative Budget 2022 Adopted Budget 2022 CM4\u20101189\u2010000\u201000000\u2010CO t h e r Non Property Taxes 4,000,000.00 4,000,000.00 4,000,000.00 0.00 CM4\u20102401\u2010000\u201000000\u2010G Interest and Earnings 50,000.00 50,000.00 50,000.00 0.00 CM4\u20109999\u2010000\u201000000\u20100 Appropriated Fund Balance (Budget Prep O 649,300.00 537,800.00 537,800.00 0.00 CM4 Total 4,699,300.00 4,587,800.00 4,587,800.00",
+      "confidence": "high",
+      "sha256": "c41ef5f612dbf58225068512fac4314029e3737aecb9f312e8b265f1b7456857",
+      "parsed_at": "2026-10-14T14:41:10.562285+00:00"
+    },
+    {
+      "id": "2022-2022-tentative-budget-pdf-p63",
+      "document": "2022 Tentative Budget (PDF)",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/261/2022-Tentative-Budget-PDF",
+      "page": 63,
+      "snippet": "TOWN OF RIVERHEAD NEW YORK 2022 TENTATIVE BUDGET REVENUE Account Number Account Description Current Budget 2021 Dept Requested Budget 2022 Tentative Budget 2022 Adopted Budget 2022 DA1\u20101001\u2010001\u201000000\u2010A Property Taxes 6,756,600.00 6,560,701.00 6,354,801.00 0.00 DA1\u20101081\u2010000\u201000000\u2010BP I L O T Programs 22,900.00 218,799.00 218,799.00 0.00 DA1\u20101789\u2010000\u201000000\u20105O t h e r Transportation Dept Income 5,000.00 5,000.00 5,000.00 0.00 DA1\u20102401\u2010000\u201000000\u2010G Interest and Earnings 2,000.00 2,000.00 2,000.00 0.00",
+      "confidence": "high",
+      "sha256": "c41ef5f612dbf58225068512fac4314029e3737aecb9f312e8b265f1b7456857",
+      "parsed_at": "2026-10-14T14:41:10.562285+00:00"
+    },
+    {
+      "id": "2022-2022-tentative-budget-pdf-p64",
+      "document": "2022 Tentative Budget (PDF)",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/261/2022-Tentative-Budget-PDF",
+      "page": 64,
+      "snippet": "TOWN OF RIVERHEAD NEW YORK 2022 TENTATIVE BUDGET REVENUE Account Number Account Description Current Budget 2021 Dept Requested Budget 2022 Tentative Budget 2022 Adopted Budget 2022 ES1\u20101001\u2010001\u201000000\u2010A Property Taxes 519,100.00 517,477.00 517,477.00 0.00 ES1\u20101081\u2010000\u201000000\u2010BP I L O T Programs S.C. Center 739,810.00 783,102.00 783,102.00 0.00 ES1\u20101081\u2010100\u201000000\u2010BP I L O T Programs LIPA 0.00 1,623.00 1,623.00 0.00 ES1\u20101120\u2010000\u201000000\u2010CS a l e s Tax 146,688.00 146,688.00 146,688.00 0.00 ES1\u20102120\u2010000",
+      "confidence": "high",
+      "sha256": "c41ef5f612dbf58225068512fac4314029e3737aecb9f312e8b265f1b7456857",
+      "parsed_at": "2026-10-14T14:41:10.562285+00:00"
+    },
+    {
+      "id": "2022-2022-tentative-budget-pdf-p65",
+      "document": "2022 Tentative Budget (PDF)",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/261/2022-Tentative-Budget-PDF",
+      "page": 65,
+      "snippet": "TOWN OF RIVERHEAD NEW YORK 2022 TENTATIVE BUDGET REVENUE Account Number Account Description Current Budget 2021 Dept Requested Budget 2022 Tentative Budget 2022 Adopted Budget 2022 ES3\u20101001\u2010001\u201000000\u2010A Property Taxes 3,000.00 3,000.00 3,000.00 0.00 ES3\u20102120\u2010000\u201000000\u20108 Sewer Rents 608,500.00 640,900.00 640,900.00 0.00 ES3\u20102401\u2010000\u201000000\u2010G Interest and Earnings 400.00 400.00 400.00 0.00 ES3\u20109999\u2010000\u201000000\u20100 Appropriated Fund Balance (Budget Prep O 100,000.00 100,000.00 100,000.00 0.00 ES3 Total 7",
+      "confidence": "high",
+      "sha256": "c41ef5f612dbf58225068512fac4314029e3737aecb9f312e8b265f1b7456857",
+      "parsed_at": "2026-10-14T14:41:10.562285+00:00"
+    },
+    {
+      "id": "2022-2022-tentative-budget-pdf-p66",
+      "document": "2022 Tentative Budget (PDF)",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/261/2022-Tentative-Budget-PDF",
+      "page": 66,
+      "snippet": "TOWN OF RIVERHEAD NEW YORK 2022 TENTATIVE BUDGET REVENUE Account Number Account Description Current Budget 2021 Dept Requested Budget 2022 Tentative Budget 2022 Adopted Budget 2022 ES5\u20102122\u2010000\u201000000\u20108 Sewer Charges 1,501,400.00 1,617,300.00 1,617,300.00 0.00 ES5\u20102122\u2010100\u201000000\u20108 Scavenger Waste Permits 5,000.00 5,000.00 5,000.00 0.00 ES5\u20102401\u2010000\u201000000\u2010G Interest and Earnings 100.00 100.00 100.00 0.00 ES5\u20109999\u2010000\u201000000\u20100 Appropriated Fund Balance (Budget Prep O 135,000.00 135,000.00 135,000.00",
+      "confidence": "high",
+      "sha256": "c41ef5f612dbf58225068512fac4314029e3737aecb9f312e8b265f1b7456857",
+      "parsed_at": "2026-10-14T14:41:10.562285+00:00"
+    },
+    {
+      "id": "2022-2022-tentative-budget-pdf-p67",
+      "document": "2022 Tentative Budget (PDF)",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/261/2022-Tentative-Budget-PDF",
+      "page": 67,
+      "snippet": "TOWN OF RIVERHEAD NEW YORK 2022 TENTATIVE BUDGET REVENUE Account Number Account Description Current Budget 2021 Dept Requested Budget 2022 Tentative Budget 2022 Adopted Budget 2022 EW1\u20101001\u2010001\u201000000\u2010A Property Taxes 1,419,900.00 1,409,360.00 1,409,360.00 0.00 EW1\u20101081\u2010000\u201000000\u2010BP I L O T Programs 0.00 10,540.00 10,540.00 0.00 EW1\u20102140\u2010000\u201000000\u20108 Metered Water Sales 4,590,000.00 4,597,800.00 4,224,600.00 0.00 EW1\u20102144\u2010000\u201000000\u20108W a t e r Service Charges 65,000.00 65,000.00 65,000.00 0.00 EW1\u2010",
+      "confidence": "high",
+      "sha256": "c41ef5f612dbf58225068512fac4314029e3737aecb9f312e8b265f1b7456857",
+      "parsed_at": "2026-10-14T14:41:10.562285+00:00"
+    },
+    {
+      "id": "2022-2022-tentative-budget-pdf-p68",
+      "document": "2022 Tentative Budget (PDF)",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/261/2022-Tentative-Budget-PDF",
+      "page": 68,
+      "snippet": "TOWN OF RIVERHEAD NEW YORK 2022 TENTATIVE BUDGET REVENUE Account Number Account Description Current Budget 2021 Dept Requested Budget 2022 Tentative Budget 2022 Adopted Budget 2022 MS1\u20105031\u2010A01\u201000000\u2010K Interfund Transfers \u2010 A01 950,000.00 950,000.00 950,000.00 0.00 MS1 Total 950,000.00 950,000.00 950,000.00 0.00 63",
+      "confidence": "high",
+      "sha256": "c41ef5f612dbf58225068512fac4314029e3737aecb9f312e8b265f1b7456857",
+      "parsed_at": "2026-10-14T14:41:10.562285+00:00"
+    },
+    {
+      "id": "2022-2022-tentative-budget-pdf-p69",
+      "document": "2022 Tentative Budget (PDF)",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/261/2022-Tentative-Budget-PDF",
+      "page": 69,
+      "snippet": "TOWN OF RIVERHEAD NEW YORK 2022 TENTATIVE BUDGET REVENUE Account Number Account Description Current Budget 2021 Dept Requested Budget 2022 Tentative Budget 2022 Adopted Budget 2022 MS2\u20105031\u2010A01\u201000000\u2010K Interfund Transfers \u2010 A01 450,000.00 450,000.00 450,000.00 0.00 MS2 Total 450,000.00 450,000.00 450,000.00 0.00 64",
+      "confidence": "high",
+      "sha256": "c41ef5f612dbf58225068512fac4314029e3737aecb9f312e8b265f1b7456857",
+      "parsed_at": "2026-10-14T14:41:10.562285+00:00"
+    },
+    {
+      "id": "2022-2022-tentative-budget-pdf-p70",
+      "document": "2022 Tentative Budget (PDF)",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/261/2022-Tentative-Budget-PDF",
+      "page": 70,
+      "snippet": "TOWN OF RIVERHEAD NEW YORK 2022 TENTATIVE BUDGET REVENUE Account Number Account Description Current Budget 2021 Dept Requested Budget 2022 Tentative Budget 2022 Adopted Budget 2022 SL1\u20101001\u2010001\u201000000\u2010A Property Taxes 1,209,100.00 1,177,264.00 1,177,264.00 0.00 SL1\u20101081\u2010000\u201000000\u2010BP I L O T Programs 0.00 31,836.00 31,836.00 0.00 SL1\u20102401\u2010000\u201000000\u2010G Interest and Earnings 300.00 300.00 300.00 0.00 SL1\u20102690\u2010000\u201000000\u20101 Street Lighting \u2010 Insurance Recovery 0.00 0.00 0.00 0.00 SL1\u20102710\u2010000\u201000000\u20100P r",
+      "confidence": "high",
+      "sha256": "c41ef5f612dbf58225068512fac4314029e3737aecb9f312e8b265f1b7456857",
+      "parsed_at": "2026-10-14T14:41:10.562285+00:00"
+    },
+    {
+      "id": "2022-2022-tentative-budget-pdf-p71",
+      "document": "2022 Tentative Budget (PDF)",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/261/2022-Tentative-Budget-PDF",
+      "page": 71,
+      "snippet": "TOWN OF RIVERHEAD NEW YORK 2022 TENTATIVE BUDGET REVENUE Account Number Account Description Current Budget 2021 Dept Requested Budget 2022 Tentative Budget 2022 Adopted Budget 2022 SM1\u20101001\u2010001\u201000000\u2010A Property Taxes 1,565,400.00 1,564,321.00 1,545,221.00 0.00 SM1\u20101081\u2010000\u201000000\u2010BP I L O T Programs 0.00 42,079.00 42,079.00 0.00 SM1\u20101640\u2010000\u201000000\u20104 Ambulance Charges 80,000.00 80,000.00 80,000.00 0.00 SM1\u20102401\u2010000\u201000000\u2010G Interest and Earnings 1,000.00 1,000.00 1,000.00 0.00 SM1\u20109999\u2010000\u201000000\u20100 ",
+      "confidence": "high",
+      "sha256": "c41ef5f612dbf58225068512fac4314029e3737aecb9f312e8b265f1b7456857",
+      "parsed_at": "2026-10-14T14:41:10.562285+00:00"
+    },
+    {
+      "id": "2022-2022-tentative-budget-pdf-p72",
+      "document": "2022 Tentative Budget (PDF)",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/261/2022-Tentative-Budget-PDF",
+      "page": 72,
+      "snippet": "TOWN OF RIVERHEAD NEW YORK 2022 TENTATIVE BUDGET REVENUE Account Number Account Description Current Budget 2021 Dept Requested Budget 2022 Tentative Budget 2022 Adopted Budget 2022 SR1\u20101001\u2010001\u201000000\u2010A Property Taxes 3,897,300.00 3,835,800.00 3,835,800.00 0.00 SR1\u20102401\u2010000\u201000000\u2010G Interest and Earnings 0.00 0.00 0.00 0.00 SR1\u20109999\u2010000\u201000000\u20100 APPROPRIATED FUND BALANCE (BUDGET PREP) 0.00 0.00 0.00 0.00 SR1 Total 3,897,300.00 3,835,800.00 3,835,800.00 0.00 67",
+      "confidence": "high",
+      "sha256": "c41ef5f612dbf58225068512fac4314029e3737aecb9f312e8b265f1b7456857",
+      "parsed_at": "2026-10-14T14:41:10.562285+00:00"
+    },
+    {
+      "id": "2022-2022-tentative-budget-pdf-p73",
+      "document": "2022 Tentative Budget (PDF)",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/261/2022-Tentative-Budget-PDF",
+      "page": 73,
+      "snippet": "TOWN OF RIVERHEAD NEW YORK 2022 TENTATIVE BUDGET REVENUE Account Number Account Description Current Budget 2021 Dept Requested Budget 2022 Tentative Budget 2022 Adopted Budget 2022 ST1\u20101001\u2010001\u201000000\u2010A Property Taxes 183,300.00 186,189.00 186,189.00 0.00 ST1\u20101081\u2010000\u201000000\u2010BP I L O T Programs 0.00 1,911.00 1,911.00 0.00 ST1\u20102401\u2010000\u201000000\u2010G Interest and Earnings 0.00 0.00 0.00 0.00 ST1 Total 183,300.00 188,100.00 188,100.00 0.00 68",
+      "confidence": "high",
+      "sha256": "c41ef5f612dbf58225068512fac4314029e3737aecb9f312e8b265f1b7456857",
+      "parsed_at": "2026-10-14T14:41:10.562285+00:00"
+    },
+    {
+      "id": "2022-2022-tentative-budget-pdf-p74",
+      "document": "2022 Tentative Budget (PDF)",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/261/2022-Tentative-Budget-PDF",
+      "page": 74,
+      "snippet": "TOWN OF RIVERHEAD NEW YORK 2022 TENTATIVE BUDGET REVENUE Account Number Account Description Current Budget 2021 Dept Requested Budget 2022 Tentative Budget 2022 Adopted Budget 2022 V01\u20105031\u2010A01\u201000000\u2010K Interfund Transfers \u2010 A01 4,041,600.00 3,724,000.00 3,724,000.00 0.00 V01\u20105031\u2010CM2\u201000000\u2010K Interfund Transfers \u2010 CM2 116,400.00 114,200.00 114,200.00 0.00 V01\u20105031\u2010CM4\u201000000\u2010K Interfund Transfers \u2010 CM4 4,688,300.00 4,576,800.00 4,576,800.00 0.00 V01\u20105031\u2010DA1\u201000000\u2010K Interfund Transfers \u2010 DA1 480,9",
+      "confidence": "high",
+      "sha256": "c41ef5f612dbf58225068512fac4314029e3737aecb9f312e8b265f1b7456857",
+      "parsed_at": "2026-10-14T14:41:10.562285+00:00"
+    },
+    {
+      "id": "2022-2022-tentative-budget-pdf-p75",
+      "document": "2022 Tentative Budget (PDF)",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/261/2022-Tentative-Budget-PDF",
+      "page": 75,
+      "snippet": "TOWN OF RIVERHEAD NEW YORK 2022 TENTATIVE BUDGET REVENUE Account Number Account Description Current Budget 2021 Dept Requested Budget 2022 Tentative Budget 2022 Adopted Budget 2022 Z14\u20102401\u2010000\u201000000\u2010G Interest and Earnings 100.00 100.00 100.00 0.00 Z14\u20102410\u2010355\u201000000\u20108R e n t a l of Town Property 33,000.00 33,000.00 33,000.00 0.00 Z14\u20105031\u2010A01\u201000000\u2010K Interfund Transfers \u2010 A01 0.00 0.00 0.00 0.00 Z14\u20109999\u2010000\u201000000\u20100 Appropriated Fund Balance (Budget Prep O 0.00 0.00 0.00 0.00 Z14 Total 33,100.",
+      "confidence": "high",
+      "sha256": "c41ef5f612dbf58225068512fac4314029e3737aecb9f312e8b265f1b7456857",
+      "parsed_at": "2026-10-14T14:41:10.562285+00:00"
+    },
+    {
+      "id": "2022-2022-tentative-budget-pdf-p76",
+      "document": "2022 Tentative Budget (PDF)",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/261/2022-Tentative-Budget-PDF",
+      "page": 76,
+      "snippet": "71",
+      "confidence": "low",
+      "sha256": "c41ef5f612dbf58225068512fac4314029e3737aecb9f312e8b265f1b7456857",
+      "parsed_at": "2026-10-14T14:41:10.562285+00:00"
+    },
+    {
+      "id": "2022-2022-tentative-budget-pdf-p77",
+      "document": "2022 Tentative Budget (PDF)",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/261/2022-Tentative-Budget-PDF",
+      "page": 77,
+      "snippet": "72",
+      "confidence": "low",
+      "sha256": "c41ef5f612dbf58225068512fac4314029e3737aecb9f312e8b265f1b7456857",
+      "parsed_at": "2026-10-14T14:41:10.562285+00:00"
+    },
+    {
+      "id": "2022-2022-peconic-bay-community-preservation-fund-financial-statements-pdf-p1",
+      "document": "2022 Peconic Bay Community Preservation Fund Financial Statements (PDF)",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/260/2022-Peconic-Bay-Community-Preservation-Fund-Financial-Statements-PDF",
+      "page": 1,
+      "snippet": "TOWN OF RIVERHEAD PECONIC BAY COMMUNITY PRESERVATION FUND (A Special Revenue Fund of The Town of Riverhead, New York) Special Purpose Framework Financial Statements and Supplementary Information with Independent Auditor\u2019s Reports For the Year Ended December 31, 2022",
+      "confidence": "medium",
+      "sha256": "f868b8112dcc7145e1e0fd86456cbcc622dea77da193a5fbb2ec936165977816",
+      "parsed_at": "2026-10-14T14:41:10.562285+00:00"
+    },
+    {
+      "id": "2022-2022-peconic-bay-community-preservation-fund-financial-statements-pdf-p2",
+      "document": "2022 Peconic Bay Community Preservation Fund Financial Statements (PDF)",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/260/2022-Peconic-Bay-Community-Preservation-Fund-Financial-Statements-PDF",
+      "page": 2,
+      "snippet": "TOWN OF RIVERHEAD PECONIC BAY COMMUNITY PRESERVATION FUND TABLE OF CONTENTS DECEMBER 31, 2022 Page(s) Independent Auditor\u2019s Report on the Audit of the Financial Statements 1 - 2 Financial Statements Balance Sheet 3 Statement of Revenues, Expenditures and Changes in Fund Balance 4 Notes to Financial Statements 5 - 8 Supplementary Information Schedule of Real Estate Purchases 9 Schedule of Related Outstanding Debt 10 Independent Auditor\u2019s Report on Internal Control over Financial Reporting and on ",
+      "confidence": "medium",
+      "sha256": "f868b8112dcc7145e1e0fd86456cbcc622dea77da193a5fbb2ec936165977816",
+      "parsed_at": "2026-10-14T14:41:10.562285+00:00"
+    },
+    {
+      "id": "2022-2022-peconic-bay-community-preservation-fund-financial-statements-pdf-p3",
+      "document": "2022 Peconic Bay Community Preservation Fund Financial Statements (PDF)",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/260/2022-Peconic-Bay-Community-Preservation-Fund-Financial-Statements-PDF",
+      "page": 3,
+      "snippet": "INDEPENDENT AUDITOR\u2019S REPORT The Honorable Supervisorand Town Board Town of Riverhead Riverhead, New York Report on the Audit of the FinancialStatements Opinion We have audited the accompanying financial statements of the Town of Riverhead Peconic Bay Community Preservation Fund, as of and for the year ended December 31, 2022, and the related notes to the financial statements, as listed in the table of contents. In our opinion, the accompanying fund financial statements referred to above preset ",
+      "confidence": "medium",
+      "sha256": "f868b8112dcc7145e1e0fd86456cbcc622dea77da193a5fbb2ec936165977816",
+      "parsed_at": "2026-10-14T14:41:10.562285+00:00"
+    },
+    {
+      "id": "2022-2022-peconic-bay-community-preservation-fund-financial-statements-pdf-p4",
+      "document": "2022 Peconic Bay Community Preservation Fund Financial Statements (PDF)",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/260/2022-Peconic-Bay-Community-Preservation-Fund-Financial-Statements-PDF",
+      "page": 4,
+      "snippet": "Auditor\u2019s Responsibilities for the Audit of the Financial Statements\u2013 continued In performing an audit in accordance with GAASand Government Auditing Standards, we \u2022 Exercise professional judgement and maintain professional skepticism throughout the audit. \u2022 Identify and assess the risks of material misstatement of the financial statements, whether due to fraud or error, and design and perform audit procedures responsive to those risks. Such procedures include examining, on a test basis, evidenc",
+      "confidence": "medium",
+      "sha256": "f868b8112dcc7145e1e0fd86456cbcc622dea77da193a5fbb2ec936165977816",
+      "parsed_at": "2026-10-14T14:41:10.562285+00:00"
+    },
+    {
+      "id": "2022-2022-peconic-bay-community-preservation-fund-financial-statements-pdf-p5",
+      "document": "2022 Peconic Bay Community Preservation Fund Financial Statements (PDF)",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/260/2022-Peconic-Bay-Community-Preservation-Fund-Financial-Statements-PDF",
+      "page": 5,
+      "snippet": "ASSETS Cash and cash equivalents, restricted 12,385,071$ Due from other governments 1,992,342 Total assets 14,377,413$ LIABILITIES -$ FUND BALANCE Restricted for Community Preservation 14,377,413 Total liabilities and fund balance 14,377,413$ TOWN OF RIVERHEAD PECONIC BAY COMMUNITY PRESERVATION FUND BALANCE SHEET - MODIFIED ACCRUAL BASIS DECEMBER 31, 2022 (A Special Revenue Fund of the Town of Riverhead, New York) The accompanying notes are an integral part of these financial statements. -3-",
+      "confidence": "high",
+      "sha256": "f868b8112dcc7145e1e0fd86456cbcc622dea77da193a5fbb2ec936165977816",
+      "parsed_at": "2026-10-14T14:41:10.562285+00:00"
+    },
+    {
+      "id": "2022-2022-peconic-bay-community-preservation-fund-financial-statements-pdf-p6",
+      "document": "2022 Peconic Bay Community Preservation Fund Financial Statements (PDF)",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/260/2022-Peconic-Bay-Community-Preservation-Fund-Financial-Statements-PDF",
+      "page": 6,
+      "snippet": "REVENUES Other non-property tax items 9,238,634$ Interest income 57,074 Total revenues 9,295,708 EXPENDITURES Professional fees 9,325 Total expenditures 9,325 OTHER FINANCING USES Operating transfers for debt service 4,576,778 Total expenditures and other financing uses 4,586,103 Net change in fund balance for year 4,709,605 Fund balance - beginning of year 9,667,808 Fund balance - end of year 14,377,413$ TOWN OF RIVERHEAD PECONIC BAY COMMUNITY PRESERVATION FUND STATEMENT OF REVENUES, EXPENDITUR",
+      "confidence": "high",
+      "sha256": "f868b8112dcc7145e1e0fd86456cbcc622dea77da193a5fbb2ec936165977816",
+      "parsed_at": "2026-10-14T14:41:10.562285+00:00"
+    },
+    {
+      "id": "2022-2022-peconic-bay-community-preservation-fund-financial-statements-pdf-p7",
+      "document": "2022 Peconic Bay Community Preservation Fund Financial Statements (PDF)",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/260/2022-Peconic-Bay-Community-Preservation-Fund-Financial-Statements-PDF",
+      "page": 7,
+      "snippet": "TOWN OF RIVERHEAD PECONIC BAY COMMUNITY PRESERVATION FUND (A Special Revenue Fund of the Town of Riverhead, New York) NOTES TO FINANCIAL STATEMENTS DECEMBER 31, 2022 1. Summary of Significant Accounting Policies The Town of Riverhead Peconic Bay Community Preservation Fund (Community Preservation Fund) was created by Section 64-e of New York State Town Law during 1999. The Community Preservation Fund is a special revenue fund of the Town of Riverhead, New York (Town) and is governed by the Town ",
+      "confidence": "high",
+      "sha256": "f868b8112dcc7145e1e0fd86456cbcc622dea77da193a5fbb2ec936165977816",
+      "parsed_at": "2026-10-14T14:41:10.562285+00:00"
+    },
+    {
+      "id": "2022-2022-peconic-bay-community-preservation-fund-financial-statements-pdf-p8",
+      "document": "2022 Peconic Bay Community Preservation Fund Financial Statements (PDF)",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/260/2022-Peconic-Bay-Community-Preservation-Fund-Financial-Statements-PDF",
+      "page": 8,
+      "snippet": "TOWN OF RIVERHEAD PECONIC BAY COMMUNITY PRESERVATION FUND (A Special Revenue Fund of the Town of Riverhead, New York) NOTES TO FINANCIAL STATEMENTS DECEMBER 31, 2022 1. Summary of Significant Accounting Policies - continued c. Measurement Focus and Basis of Accounting \u2013 continued The modified accrual basis of accounting varies from acc ounting principles generally accepted in the United States of America (U.S. GAAP) primarily in that under U.S. GAAP: \u2022 Financial statements are replaced with the ",
+      "confidence": "medium",
+      "sha256": "f868b8112dcc7145e1e0fd86456cbcc622dea77da193a5fbb2ec936165977816",
+      "parsed_at": "2026-10-14T14:41:10.562285+00:00"
+    },
+    {
+      "id": "2022-2022-peconic-bay-community-preservation-fund-financial-statements-pdf-p9",
+      "document": "2022 Peconic Bay Community Preservation Fund Financial Statements (PDF)",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/260/2022-Peconic-Bay-Community-Preservation-Fund-Financial-Statements-PDF",
+      "page": 9,
+      "snippet": "TOWN OF RIVERHEAD PECONIC BAY COMMUNITY PRESERVATION FUND (A Special Revenue Fund of the Town of Riverhead, New York) NOTES TO FINANCIAL STATEMENTS DECEMBER 31, 2022 1. Summary of Significant Accounting Policies - continued f. Real Estate Transfer Tax During November 1998, the residents of the Town approved a 2% real estate transfer tax to fund the operations of the Community Preservation Fund. The transfer tax became effective April 1, 1999. Transfer tax receipts are used for the purchase and/o",
+      "confidence": "high",
+      "sha256": "f868b8112dcc7145e1e0fd86456cbcc622dea77da193a5fbb2ec936165977816",
+      "parsed_at": "2026-10-14T14:41:10.562285+00:00"
+    },
+    {
+      "id": "2022-2022-peconic-bay-community-preservation-fund-financial-statements-pdf-p10",
+      "document": "2022 Peconic Bay Community Preservation Fund Financial Statements (PDF)",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/260/2022-Peconic-Bay-Community-Preservation-Fund-Financial-Statements-PDF",
+      "page": 10,
+      "snippet": "TOWN OF RIVERHEAD PECONIC BAY COMMUNITY PRESERVATION FUND (A Special Revenue Fund of the Town of Riverhead, New York) NOTES TO FINANCIAL STATEMENTS DECEMBER 31, 2022 3. Due From Other Governments At December 31, 2022, the Community Preservation Fund was due $1,992,342 from Suffolk County, related to unremitted real estate transfer taxes. The balance was subsequently collected in full. Therefore, no allowance against this amount is required. 4. Interfund Transactions Interfund activities at Decem",
+      "confidence": "high",
+      "sha256": "f868b8112dcc7145e1e0fd86456cbcc622dea77da193a5fbb2ec936165977816",
+      "parsed_at": "2026-10-14T14:41:10.562285+00:00"
+    },
+    {
+      "id": "2022-2022-peconic-bay-community-preservation-fund-financial-statements-pdf-p11",
+      "document": "2022 Peconic Bay Community Preservation Fund Financial Statements (PDF)",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/260/2022-Peconic-Bay-Community-Preservation-Fund-Financial-Statements-PDF",
+      "page": 11,
+      "snippet": "Beginning Ending Balance Acquisitions & Balance January 1, 2022 Related Costs December 31, 2022 Real Estate Purchases 76,908,250$ -$ 76,908,250$ TOWN OF RIVERHEAD PECONIC BAY COMMUNITY PRESERVATION FUND SCHEDULE OF REAL ESTATE PURCHASES FOR THE YEAR ENDED DECEMBER 31, 2022 (A Special Revenue Fund of the Town of Riverhead, New York) See Paragraph on Supplementary Information Included within the Independent Auditor's Report -9-",
+      "confidence": "high",
+      "sha256": "f868b8112dcc7145e1e0fd86456cbcc622dea77da193a5fbb2ec936165977816",
+      "parsed_at": "2026-10-14T14:41:10.562285+00:00"
+    },
+    {
+      "id": "2022-2022-peconic-bay-community-preservation-fund-financial-statements-pdf-p12",
+      "document": "2022 Peconic Bay Community Preservation Fund Financial Statements (PDF)",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/260/2022-Peconic-Bay-Community-Preservation-Fund-Financial-Statements-PDF",
+      "page": 12,
+      "snippet": "Interest Outstanding at Date Range December 31, Description Issued Rate Matures 2022 Refunding bonds 2018 4.00% - 5.00% 08/01/2030 17,216,071$ The following is a summary of the debt service requirements: For the years ending December 31, Principal Interest Total 2023 2,408,095$ 788,674$ 3,196,769$ 2024 2,517,388 668,269 3,185,657 2025 2,534,118 542,400 3,076,518 2026 2,543,529 415,694 2,959,223 2027 2,562,941 288,518 2,851,459 2028-2030 4,650,000 371,600 5,021,600 17,216,071$ 3,075,155$ 20,291,2",
+      "confidence": "high",
+      "sha256": "f868b8112dcc7145e1e0fd86456cbcc622dea77da193a5fbb2ec936165977816",
+      "parsed_at": "2026-10-14T14:41:10.562285+00:00"
+    },
+    {
+      "id": "2022-2022-peconic-bay-community-preservation-fund-financial-statements-pdf-p13",
+      "document": "2022 Peconic Bay Community Preservation Fund Financial Statements (PDF)",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/260/2022-Peconic-Bay-Community-Preservation-Fund-Financial-Statements-PDF",
+      "page": 13,
+      "snippet": "INDEPENDENT AUDITOR\u2019S REPORT ON INTERNAL CONTROL OVER FINANCIAL REPORTING AND ON COMPLIANCE AND OTHER MATTERS BASED ON AN AUDIT OF FINANCIAL STATEMENTS PERFORMED IN ACCORDANCE WITH GOVERNMENT AUDITING STANDARDS The Honorable Supervisorand Town Board Town of Riverhead Riverhead,New York We have audited, in accordance with auditing standards generally accepted in the United States of America and the standards applicable to financial audits contained in Government Auditing Standards issued by the C",
+      "confidence": "medium",
+      "sha256": "f868b8112dcc7145e1e0fd86456cbcc622dea77da193a5fbb2ec936165977816",
+      "parsed_at": "2026-10-14T14:41:10.562285+00:00"
+    },
+    {
+      "id": "2022-2022-peconic-bay-community-preservation-fund-financial-statements-pdf-p14",
+      "document": "2022 Peconic Bay Community Preservation Fund Financial Statements (PDF)",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/260/2022-Peconic-Bay-Community-Preservation-Fund-Financial-Statements-PDF",
+      "page": 14,
+      "snippet": "Purpose of this Report The purpose of this report is solely to describe the scope of our testing of internal control and compliance and the results of that testing, and not to provide an opinion on the effectiveness of the Community Preservation Fund\u2019s internal control or on compliance. This report is an integral part of an audit performed in accordance with Government Auditing Standards in considering the entity\u2019s internal control and compliance. Accordingly, this communication is not suitable ",
+      "confidence": "medium",
+      "sha256": "f868b8112dcc7145e1e0fd86456cbcc622dea77da193a5fbb2ec936165977816",
+      "parsed_at": "2026-10-14T14:41:10.562285+00:00"
+    },
+    {
+      "id": "2022-2022-justice-court-statement-of-cash-receipts-and-cash-disbursements-pdf-p1",
+      "document": "2022 Justice Court Statement of Cash Receipts and Cash Disbursements (PDF)",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/259/2022-Justice-Court-Statement-of-Cash-Receipts-and-Cash-Disbursements-PDF",
+      "page": 1,
+      "snippet": "TOWN OF RIVERHEAD JUSTICE COURT STATEMENT OF CASH RECEIPTS, CASH DISBURSEMENTS AND CASH BALANCES Year Ended December 31, 2022",
+      "confidence": "medium",
+      "sha256": "2d88b6bc2c103192b96457a717c7fc1f3ce0ffdcdd6706fb043cc109f438345b",
+      "parsed_at": "2026-10-14T14:41:10.562285+00:00"
+    },
+    {
+      "id": "2022-2022-justice-court-statement-of-cash-receipts-and-cash-disbursements-pdf-p2",
+      "document": "2022 Justice Court Statement of Cash Receipts and Cash Disbursements (PDF)",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/259/2022-Justice-Court-Statement-of-Cash-Receipts-and-Cash-Disbursements-PDF",
+      "page": 2,
+      "snippet": "TOWN OF RIVERHEAD JUSTICE COURT TABLE OF CONTENTS Page No. Independent Auditors\u2019 Report .............................................................................................. 1- 2 Statement of Cash Receipts, Cash Disbursements and Cash Balances ............................ 3 Note to the Financial Statement .......................................................................................... 4-5",
+      "confidence": "medium",
+      "sha256": "2d88b6bc2c103192b96457a717c7fc1f3ce0ffdcdd6706fb043cc109f438345b",
+      "parsed_at": "2026-10-14T14:41:10.562285+00:00"
+    },
+    {
+      "id": "2022-2022-justice-court-statement-of-cash-receipts-and-cash-disbursements-pdf-p3",
+      "document": "2022 Justice Court Statement of Cash Receipts and Cash Disbursements (PDF)",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/259/2022-Justice-Court-Statement-of-Cash-Receipts-and-Cash-Disbursements-PDF",
+      "page": 3,
+      "snippet": "PKF O\u2019CONNOR DAVIES LLP 878 Veterans Memorial Highway, Fourth Floor, Hauppauge, NY 11788 I Tel: 631.434.9500 I Fax: 631.434.9518 I www.pkfod.com PKF O\u2019Connor Davies LLP is a member firm of the PKF International Limited network of legally independent firms and does not accept any responsibility or liability for the actions or inactions on the part of any other individual member firm or firms. Independent Auditors\u2019 Report Honorable Supervisor and Town Board Town of Riverhead Riverhead, New York Re",
+      "confidence": "medium",
+      "sha256": "2d88b6bc2c103192b96457a717c7fc1f3ce0ffdcdd6706fb043cc109f438345b",
+      "parsed_at": "2026-10-14T14:41:10.562285+00:00"
+    },
+    {
+      "id": "2022-2022-justice-court-statement-of-cash-receipts-and-cash-disbursements-pdf-p4",
+      "document": "2022 Justice Court Statement of Cash Receipts and Cash Disbursements (PDF)",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/259/2022-Justice-Court-Statement-of-Cash-Receipts-and-Cash-Disbursements-PDF",
+      "page": 4,
+      "snippet": "- 2 - Auditors\u2019 Responsibilities for the Audit of the Financial Statement Our objectives are to obtain reasonable assurance about whether the financial statement as a whole is free from material misstatement, whether due to fraud or error, and to issue an auditors\u2019 report that includes our opinion. Reasonable assurance is a high level of assurance but is not absolute assurance and therefore is not a guarantee that an audit conducted in accordance with GAAS will always detect a material misstatem",
+      "confidence": "medium",
+      "sha256": "2d88b6bc2c103192b96457a717c7fc1f3ce0ffdcdd6706fb043cc109f438345b",
+      "parsed_at": "2026-10-14T14:41:10.562285+00:00"
+    },
+    {
+      "id": "2022-2022-justice-court-statement-of-cash-receipts-and-cash-disbursements-pdf-p5",
+      "document": "2022 Justice Court Statement of Cash Receipts and Cash Disbursements (PDF)",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/259/2022-Justice-Court-Statement-of-Cash-Receipts-and-Cash-Disbursements-PDF",
+      "page": 5,
+      "snippet": "See note to the financial statement. - 3 - TOWN OF RIVERHEAD JUSTICE COURT STATEMENT OF CASH RECEIPTS, CASH DISBURSEMENTS AND CASH BALANCES Year Ended December 31, 2022 Lori M. Sean M. Bail Petty Cash Hulse Walter Account Account Combined Cash Balance at the Beginning of the Year 30,885 $ 26,193 $ 273,885 $ 100 $ 331,063$ Add: Collection of Fines, Penalties, and Fees 711,772 500,421 1,212,193 Bail Collected 81,589 81,589 Less: Disbursements to the Town of Riverhead 694,170 494,795 1,188,965 Retu",
+      "confidence": "high",
+      "sha256": "2d88b6bc2c103192b96457a717c7fc1f3ce0ffdcdd6706fb043cc109f438345b",
+      "parsed_at": "2026-10-14T14:41:10.562285+00:00"
+    },
+    {
+      "id": "2022-2022-justice-court-statement-of-cash-receipts-and-cash-disbursements-pdf-p6",
+      "document": "2022 Justice Court Statement of Cash Receipts and Cash Disbursements (PDF)",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/259/2022-Justice-Court-Statement-of-Cash-Receipts-and-Cash-Disbursements-PDF",
+      "page": 6,
+      "snippet": "TOWN OF RIVERHEAD JUSTICE COURT NOTE TO THE FINANCIAL STATEMENT December 31, 2022 - 4 - A. SUMMARY OF SIGNIFICANT ACCOUNTING POLICIES 1. Reporting Entity The Town of Riverhead, New York, Justice Court (the \u201cJustice Court\u201d) is a special fund established by the Office of the New York State Comptroller pursuant to Section 99-a of the State Finance Law. The purpose of Section 99-a is to provide centralized accounting for the fines, penalties, forfeitures and fees collected by all of the justice cour",
+      "confidence": "medium",
+      "sha256": "2d88b6bc2c103192b96457a717c7fc1f3ce0ffdcdd6706fb043cc109f438345b",
+      "parsed_at": "2026-10-14T14:41:10.562285+00:00"
+    },
+    {
+      "id": "2022-2022-justice-court-statement-of-cash-receipts-and-cash-disbursements-pdf-p7",
+      "document": "2022 Justice Court Statement of Cash Receipts and Cash Disbursements (PDF)",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/259/2022-Justice-Court-Statement-of-Cash-Receipts-and-Cash-Disbursements-PDF",
+      "page": 7,
+      "snippet": "TOWN OF RIVERHEAD JUSTICE COURT NOTE TO THE FINANCIAL STATEMENT December 31, 2022 - 5 - A. SUMMARY OF SIGNIFICANT ACCOUNTING POLICIES (continued) 3. Cash Balances (continued) Custodial credit risk is the risk that in the event of a bank failure, the Town\u2019s deposits may not be returned to it. GASB Statement No. 40, \u201cDeposit and Investment Risk Disclosures \u2013 an amendment of GASB Statement No. 3\u201d, directs that deposits be disclosed as exposed to custodial credit risk if they are not covered by depo",
+      "confidence": "medium",
+      "sha256": "2d88b6bc2c103192b96457a717c7fc1f3ce0ffdcdd6706fb043cc109f438345b",
+      "parsed_at": "2026-10-14T14:41:10.562285+00:00"
     },
     {
       "id": "2022-2022-budget-supplement-pdf-p1",

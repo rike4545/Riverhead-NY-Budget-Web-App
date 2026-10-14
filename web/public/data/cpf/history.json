@@ -107,6 +107,29 @@
    "sourceTitle": "2021 Peconic Bay Community Preservation Fund Financial Statements (PDF)"
   },
   {
+   "year": 2022,
+   "transferTaxRevenue": 9238634.0,
+   "interestIncome": 57074.0,
+   "fundBalanceBeginning": 9667808.0,
+   "fundBalanceEnd": 14377413.0,
+   "realEstatePurchasesLifetime": 76908250.0,
+   "debt": {
+    "rows": [
+     {
+      "description": "Refunding bonds",
+      "issued": 2018,
+      "rateLow": 0.04,
+      "rateHigh": 0.05,
+      "matures": "08/01/2030",
+      "outstanding": 17216071.0
+     }
+    ],
+    "totalOutstanding": 17216071.0
+   },
+   "sourceUrl": "https://www.townofriverheadny.gov/DocumentCenter/View/260/2022-Peconic-Bay-Community-Preservation-Fund-Financial-Statements-PDF",
+   "sourceTitle": "2022 Peconic Bay Community Preservation Fund Financial Statements (PDF)"
+  },
+  {
    "year": 2023,
    "transferTaxRevenue": 7129460.0,
    "interestIncome": 386389.0,
