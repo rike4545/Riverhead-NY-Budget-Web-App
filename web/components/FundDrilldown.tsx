@@ -187,25 +187,25 @@ function DepartmentCard({ dept, expanded, fundExp, withProposed }: { dept: SubDe
   return (
     <details open={expanded} style={card}>
       <summary style={{ cursor: 'pointer', listStyle: 'none', display: 'flex', justifyContent: 'space-between', gap: 16, alignItems: 'center', flexWrap: 'wrap' }}>
-        <div>
+        <span style={{ display: 'block' }}>
           <strong style={{ fontSize: 17, color: 'var(--rbl-title)' }}>{dept.name}</strong>{' '}
           <span style={{ color: 'var(--rbl-text-muted)', fontWeight: 600, fontSize: 13 }}>{dept.code}</span>
-          <div style={{ color: 'var(--rbl-text-muted)', fontSize: 13.5 }}>
+          <span style={{ display: 'block', color: 'var(--rbl-text-muted)', fontSize: 13.5 }}>
             {dept.lineItemCount} {dept.lineItemCount === 1 ? 'line' : 'lines'} · {pct.toFixed(1)}% of the fund in 2026
             {!withProposed && dept.adopted2025 > 0 && (
               <span style={{ color: changeColor(dept.adopted2025, dept.adopted2026), fontWeight: 600 }}> · {changeWords(dept.adopted2025, dept.adopted2026)} from 2025</span>
             )}
-          </div>
-        </div>
-        <div style={{ textAlign: 'right', marginLeft: 'auto' }}>
+          </span>
+        </span>
+        <span style={{ display: 'block', textAlign: 'right', marginLeft: 'auto' }}>
           <strong style={{ fontSize: 18, color: 'var(--rbl-title)' }}>{usd(dept.adopted2026)}</strong> <span style={{ color: 'var(--rbl-text-muted)', fontSize: 13.5 }}>2026</span>
           {proposed != null && (
-            <div style={{ fontSize: 13.5, color: 'var(--rbl-text-body)' }}>
+            <span style={{ display: 'block', fontSize: 13.5, color: 'var(--rbl-text-body)' }}>
               {usd(proposed)} {PROPOSED_YEAR} proposed{' '}
               <span style={{ color: changeColor(dept.adopted2026, proposed), fontWeight: 600 }}>({changeWords(dept.adopted2026, proposed)})</span>
-            </div>
+            </span>
           )}
-        </div>
+        </span>
       </summary>
 
       <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', margin: '12px 0' }}>

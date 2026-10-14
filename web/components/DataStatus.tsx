@@ -17,9 +17,10 @@ const descriptions = {
 
 export default function DataStatus({ status, text }: DataStatusProps) {
   return (
+    // ARIA allows no aria-label on a plain span, so the description is carried
+    // as text for screen readers, beside the tooltip sighted readers get.
     <span
       title={descriptions[status]}
-      aria-label={`${labels[status]}. ${descriptions[status]}`}
       style={{
         display: 'inline-flex',
         alignItems: 'center',
@@ -36,6 +37,7 @@ export default function DataStatus({ status, text }: DataStatusProps) {
     >
       <span aria-hidden="true" style={{ width: 7, height: 7, borderRadius: '50%', background: status === 'official' ? 'var(--rbl-success)' : status === 'calculated' ? 'var(--rbl-accent)' : 'var(--rbl-warn)' }} />
       {text || labels[status]}
+      <span className="rbl-sr-only">. {descriptions[status]}</span>
     </span>
   )
 }

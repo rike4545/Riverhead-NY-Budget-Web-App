@@ -145,6 +145,8 @@ export default function OvertimeStaffing(p: OvertimeStaffingProps) {
           {(['low', 'mid', 'high'] as const).map((k) => (
             <button
               key={k}
+              type="button"
+              aria-pressed={load === k}
               onClick={() => setLoad(k)}
               title={p.benefitBasis[k]}
               style={{

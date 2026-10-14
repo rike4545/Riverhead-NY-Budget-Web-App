@@ -101,15 +101,15 @@ export default function AuthorizedSalary({ link }: { link?: PayrollLink }) {
           return (
             <div style={{ display: 'grid', gap: 8 }}>
               {groups.map((g) => (
-                <button key={g.group} onClick={() => setGroup(group === g.group ? 'all' : g.group)}
+                <button key={g.group} type="button" aria-pressed={group === g.group} onClick={() => setGroup(group === g.group ? 'all' : g.group)}
                   style={{ background: 'none', border: 'none', textAlign: 'left', cursor: 'pointer', padding: 0 }}>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 13.5 }}>
+                  <span style={{ display: 'flex', justifyContent: 'space-between', fontSize: 13.5 }}>
                     <span style={{ fontWeight: group === g.group ? 900 : 700, color: 'var(--rbl-title)' }}>{g.group} <span style={{ color: 'var(--rbl-text-muted)', fontWeight: 600 }}>({g.headcount})</span></span>
                     <strong>{usd(g.authorized)}</strong>
-                  </div>
-                  <div style={{ height: 8, background: 'var(--rbl-surface-3)', borderRadius: 8, marginTop: 3 }}>
-                    <div style={{ width: `${(g.authorized / max) * 100}%`, height: '100%', borderRadius: 8, background: group === g.group ? 'var(--rbl-fill-gold)' : 'var(--rbl-fill-accent)' }} />
-                  </div>
+                  </span>
+                  <span style={{ display: 'block', height: 8, background: 'var(--rbl-surface-3)', borderRadius: 8, marginTop: 3 }}>
+                    <span style={{ display: 'block', width: `${(g.authorized / max) * 100}%`, height: '100%', borderRadius: 8, background: group === g.group ? 'var(--rbl-fill-gold)' : 'var(--rbl-fill-accent)' }} />
+                  </span>
                 </button>
               ))}
             </div>
@@ -119,12 +119,12 @@ export default function AuthorizedSalary({ link }: { link?: PayrollLink }) {
 
       {/* controls */}
       <section ref={controls} style={{ ...card, display: 'flex', gap: 10, flexWrap: 'wrap', alignItems: 'center', scrollMarginTop: 18 }}>
-        <select value={group} onChange={(e) => { setGroup(e.target.value); setLimit(100) }} style={sel}>
+        <select aria-label="Salary group" value={group} onChange={(e) => { setGroup(e.target.value); setLimit(100) }} style={sel}>
           <option value="all">All groups</option>
           {groups.map((g) => <option key={g.group} value={g.group}>{g.group}</option>)}
         </select>
         <SortSelect sort={sort} presets={SORT_PRESETS} labels={SORT_LABELS} textKeys={TEXT_KEYS} onChange={setSort} style={sel} />
-        <input value={q} onChange={(e) => { setQ(e.target.value); setLimit(100) }} placeholder="Search name or title…"
+        <input aria-label="Search name or title" value={q} onChange={(e) => { setQ(e.target.value); setLimit(100) }} placeholder="Search name or title…"
           style={{ flex: 1, minWidth: 220, padding: '10px 13px', border: '1px solid var(--rbl-border-strong)', borderRadius: 9, fontSize: 15 }} />
       </section>
 

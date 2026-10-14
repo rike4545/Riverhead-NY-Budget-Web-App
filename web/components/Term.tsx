@@ -5,11 +5,24 @@ import { lookup } from '../lib/glossary'
 
 // An inline term with a plain-English definition. Tap or click to open a small
 // popover; tap anywhere else to close. Works on touch and desktop.
-export default function Term({ id, children }: { id: string; children?: React.ReactNode }) {
+//
+// Inside a link, pass `plain`: HTML allows no button inside an <a>, so the term
+// is drawn the same way but as text, with the definition as its tooltip.
+export default function Term({ id, children, plain }: { id: string; children?: React.ReactNode; plain?: boolean }) {
   const [open, setOpen] = useState(false)
   const entry = lookup(id)
   if (!entry) return <>{children ?? id}</>
   const label = children ?? entry.term
+  const mark = <sup style={{ color: 'var(--rbl-accent)', fontWeight: 900, fontSize: '0.7em', marginLeft: 1 }}>?</sup>
+
+  if (plain) {
+    return (
+      <span title={entry.plain} style={{ display: 'inline-block', cursor: 'help', borderBottom: '1.5px dotted var(--rbl-accent-border)', lineHeight: 1.2 }}>
+        {label}
+        {mark}
+      </span>
+    )
+  }
 
   return (
     <span style={{ position: 'relative', display: 'inline' }}>
@@ -24,7 +37,7 @@ export default function Term({ id, children }: { id: string; children?: React.Re
         title={entry.plain}
       >
         {label}
-        <sup style={{ color: 'var(--rbl-accent)', fontWeight: 900, fontSize: '0.7em', marginLeft: 1 }}>?</sup>
+        {mark}
       </button>
       {open && (
         <>

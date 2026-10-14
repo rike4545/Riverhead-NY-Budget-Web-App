@@ -57,16 +57,17 @@ export default function CompareExplorer() {
   return (
     <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0,1fr)', gap: 16 }}>
       <section style={{ ...card, display: 'flex', gap: 16, flexWrap: 'wrap', alignItems: 'center' }}>
-        <label style={{ fontWeight: 600, color: 'var(--rbl-text-strong)' }}>
+        {/* A label may hold one control, so each of the two selects is named itself. */}
+        <span style={{ fontWeight: 600, color: 'var(--rbl-text-strong)' }}>
           Compare&nbsp;
-          <select value={fromKey} onChange={(e) => setFromKey(e.target.value)} style={selStyle}>
+          <select aria-label="Budget to compare" value={fromKey} onChange={(e) => setFromKey(e.target.value)} style={selStyle}>
             {budgetColumns.map((c) => <option key={c.key} value={c.key}>{c.label}</option>)}
           </select>
           &nbsp;to&nbsp;
-          <select value={toKey} onChange={(e) => setToKey(e.target.value)} style={selStyle}>
+          <select aria-label="Budget to compare it to" value={toKey} onChange={(e) => setToKey(e.target.value)} style={selStyle}>
             {budgetColumns.map((c) => <option key={c.key} value={c.key}>{c.label}</option>)}
           </select>
-        </label>
+        </span>
         <label style={{ fontWeight: 600, color: 'var(--rbl-text-strong)' }}>
           Sort by&nbsp;
           <select value={sortKey} onChange={(e) => setSortKey(e.target.value as typeof sortKey)} style={selStyle}>

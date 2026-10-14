@@ -191,7 +191,7 @@ export default function FiscalImpactTable({ resolutions, meetingRecord, voteDeta
                     <td style={{ ...td, textAlign: 'right', whiteSpace: 'nowrap', fontWeight: 700, color: 'var(--rbl-title)' }}>
                       {r.amount ? usd(r.amount) : r.statedCost && !r.amountNote ? (
                         <span title="No figure on the statement; this is the cost the resolution's own text states.">
-                          {usd(r.statedCost)}<div style={{ fontSize: 10.5, fontWeight: 600, color: 'var(--rbl-text-muted)' }}>stated in resolution</div>
+                          {usd(r.statedCost)}<span style={{ display: 'block', fontSize: 10.5, fontWeight: 600, color: 'var(--rbl-text-muted)' }}>stated in resolution</span>
                         </span>
                       ) : <span style={{ color: 'var(--rbl-text-faint)', fontWeight: 500 }}>—</span>}
                       {r.amountNote && <div style={{ marginTop: 3, fontSize: 10.5, fontWeight: 600, color: 'var(--rbl-text-muted)', whiteSpace: 'normal', maxWidth: 160, marginLeft: 'auto' }}>{r.amountNote}</div>}

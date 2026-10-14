@@ -365,12 +365,12 @@ function LeaderCard({ title, rows, onPick, amber }: { title: string; rows: { nam
       <div style={{ display: 'grid', gap: 7 }}>
         {rows.slice(0, 12).map((r, i) => (
           <button key={r.name + i} onClick={() => onPick(r.name)} style={{ display: 'grid', gridTemplateColumns: '1fr auto', gap: 8, alignItems: 'center', background: 'none', border: 'none', textAlign: 'left', cursor: 'pointer', padding: '3px 0' }}>
-            <div style={{ minWidth: 0 }}>
-              <div style={{ fontWeight: 700, color: 'var(--rbl-title)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{r.name}</div>
-              <div style={{ height: 6, background: 'var(--rbl-surface-3)', borderRadius: 6, marginTop: 3 }}>
-                <div style={{ width: `${(r.value / max) * 100}%`, height: '100%', borderRadius: 6, background: amber ? 'var(--rbl-fill-gold)' : 'var(--rbl-fill-accent)' }} />
-              </div>
-            </div>
+            <span style={{ display: 'block', minWidth: 0 }}>
+              <span style={{ display: 'block', fontWeight: 700, color: 'var(--rbl-title)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{r.name}</span>
+              <span style={{ display: 'block', height: 6, background: 'var(--rbl-surface-3)', borderRadius: 6, marginTop: 3 }}>
+                <span style={{ display: 'block', width: `${(r.value / max) * 100}%`, height: '100%', borderRadius: 6, background: amber ? 'var(--rbl-fill-gold)' : 'var(--rbl-fill-accent)' }} />
+              </span>
+            </span>
             <strong style={{ color: amber ? 'var(--rbl-warn)' : 'var(--rbl-title)' }}>{usd(r.value)}</strong>
           </button>
         ))}

@@ -34,7 +34,7 @@ export default function TaxpayerLevyCalculator({ funds }: { funds: LevyShare[] }
 
         <label style={{ display: 'grid', gap: 6, maxWidth: 360 }}>
           <span style={{ fontWeight: 800, color: 'var(--rbl-title)' }}>Annual Town tax</span>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+          <span style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
             <span aria-hidden="true" style={{ fontWeight: 800, color: 'var(--rbl-text-muted)' }}>$</span>
             <input
               type="text"
@@ -45,7 +45,7 @@ export default function TaxpayerLevyCalculator({ funds }: { funds: LevyShare[] }
               aria-label="Annual Town property tax amount"
               style={{ width: '100%', boxSizing: 'border-box', padding: '11px 13px', border: '1px solid var(--rbl-border-strong)', borderRadius: 9, fontSize: 16, fontWeight: 700 }}
             />
-          </div>
+          </span>
         </label>
 
         {validAmount ? (

@@ -144,9 +144,9 @@ export default function FundsPage() {
               </div>
 
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(150px,1fr))', gap: 12, marginTop: 16 }}>
-                <Pair label={<Term id="estimated-revenues">Estimated revenues</Term>} adopted={fund.estimatedRevenues2026} proposed={tentative?.revenues} />
-                <Pair label={<Term id="appropriated-fund-balance">Savings used</Term>} adopted={fund.appropriatedFundBalance2026} proposed={tentative?.fundBalance} />
-                <Pair label={<Term id="tax-levy">Tax levy</Term>} adopted={fund.taxLevy2026} proposed={tentative?.levy} />
+                <Pair label={<Term id="estimated-revenues" plain>Estimated revenues</Term>} adopted={fund.estimatedRevenues2026} proposed={tentative?.revenues} />
+                <Pair label={<Term id="appropriated-fund-balance" plain>Savings used</Term>} adopted={fund.appropriatedFundBalance2026} proposed={tentative?.fundBalance} />
+                <Pair label={<Term id="tax-levy" plain>Tax levy</Term>} adopted={fund.taxLevy2026} proposed={tentative?.levy} />
                 <Mini label="Departments and lines" value={detail ? `${detail.departmentCount} and ${detail.lineItemCount}` : '—'} />
               </div>
 
