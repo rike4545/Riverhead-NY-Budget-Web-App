@@ -1,7 +1,7 @@
 {
- "generatedAt": "2026-10-14T01:04:39Z",
+ "generatedAt": "2026-10-14T14:38:59Z",
  "generatedAtDisplay": "October 14, 2026",
- "dataVersion": "a62920c6254df843",
+ "dataVersion": "8731d525cbe16cb5",
  "datasets": {
   "meetings": 50,
   "votes": 2136,
@@ -17,7 +17,7 @@
    2024,
    2025
   ],
-  "searchEntries": 17227
+  "searchEntries": 17130
  },
  "datasetDetails": {
   "budget": {
@@ -97,7 +97,7 @@
    "asOf": "October 14, 2026",
    "status": "calculated",
    "cadence": "Regenerated with source datasets",
-   "records": 17227,
+   "records": 17130,
    "freshness": "current",
    "freshnessNote": "Source date is 0 days old, inside the expected window.",
    "freshnessPolicy": {
@@ -107,7 +107,7 @@
    },
    "sourceDate": "2026-10-14",
    "format": "sharded",
-   "bytes": 5843118
+   "bytes": 5781562
   }
  }
 }
