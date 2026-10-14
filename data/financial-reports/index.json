@@ -1,6 +1,6 @@
 {
   "source_index": "https://www.townofriverheadny.gov/206/Financial-Reports",
-  "parsed_at": "2026-09-29T18:26:11.923275+00:00",
+  "parsed_at": "2026-10-14T14:41:10.562285+00:00",
   "document_count": 133,
   "audit_document_count": 41,
   "failure_count": 0,
@@ -354,7 +354,7 @@
       "page_count": 77,
       "money_value_count": 3852,
       "sha256": "c41ef5f612dbf58225068512fac4314029e3737aecb9f312e8b265f1b7456857",
-      "parsed_at": "2026-07-31T00:48:42.463564+00:00"
+      "parsed_at": "2026-10-14T14:41:10.562285+00:00"
     },
     {
       "title": "2022 Peconic Bay Community Preservation Fund Financial Statements (PDF)",
@@ -366,7 +366,7 @@
       "page_count": 14,
       "money_value_count": 47,
       "sha256": "f868b8112dcc7145e1e0fd86456cbcc622dea77da193a5fbb2ec936165977816",
-      "parsed_at": "2026-07-31T00:48:42.463564+00:00"
+      "parsed_at": "2026-10-14T14:41:10.562285+00:00"
     },
     {
       "title": "2022 Justice Court Statement of Cash Receipts and Cash Disbursements (PDF)",
@@ -378,7 +378,7 @@
       "page_count": 7,
       "money_value_count": 18,
       "sha256": "2d88b6bc2c103192b96457a717c7fc1f3ce0ffdcdd6706fb043cc109f438345b",
-      "parsed_at": "2026-07-31T00:48:42.463564+00:00"
+      "parsed_at": "2026-10-14T14:41:10.562285+00:00"
     },
     {
       "title": "2022 Budget Supplement (PDF)",
