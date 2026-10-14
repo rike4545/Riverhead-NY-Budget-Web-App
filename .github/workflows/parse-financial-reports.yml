@@ -56,6 +56,9 @@ jobs:
           PY
 
       - name: Parse financial reports
+        # A PDF the Town's site will not serve after three tries keeps its last
+        # parse, with a warning, rather than leaving every dataset built on the
+        # index without it (the CPF history lost 2022 this way on October 14).
         run: python etl/parse_financial_reports.py
       - name: Parse Peconic Bay CPF financial statements
         run: python etl/parse_cpf.py

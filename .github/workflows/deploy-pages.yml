@@ -49,6 +49,7 @@ jobs:
           PY
 
       - name: Parse all financial-report PDFs safely
+        # A PDF that cannot be fetched keeps its last parse, with a warning.
         run: python etl/run_ingestion_safe.py
 
       # Discovery above picks up a new Tentative, Preliminary or Supplement the
