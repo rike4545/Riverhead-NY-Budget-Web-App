@@ -13,11 +13,17 @@
 //   - the built page shows the total and the latest meeting.
 
 import { existsSync, readFileSync } from 'node:fs'
-import { join } from 'node:path'
+import { isAbsolute, relative, resolve, sep } from 'node:path'
 import { NEW_MONEY, budgetChangeReason, readTable } from '../lib/budget-change-rules.ts'
 
-const root = process.cwd()
-const path = (...parts) => join(root, ...parts)
+const root = resolve(process.cwd())
+// Every file this check opens must sit inside the web/ directory it runs from.
+const path = (...parts) => {
+  const target = resolve(root, ...parts)
+  const rel = relative(root, target)
+  if (rel === '..' || rel.startsWith(`..${sep}`) || isAbsolute(rel)) throw new Error(`refusing to read outside ${root}: ${target}`)
+  return target
+}
 const read = (p) => JSON.parse(readFileSync(path(p), 'utf8'))
 const fail = (message) => { console.error(`BUDGET CHANGES VERIFY FAILED: ${message}`); process.exitCode = 1 }
 const dollars = (n) => `$${Math.round(n).toLocaleString('en-US')}`

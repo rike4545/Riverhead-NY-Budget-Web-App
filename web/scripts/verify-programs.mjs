@@ -12,11 +12,17 @@
 //   - the built page shows every year and the budget in force.
 
 import { existsSync, readFileSync, readdirSync } from 'node:fs'
-import { join } from 'node:path'
+import { isAbsolute, relative, resolve, sep } from 'node:path'
 import { PROGRAM_NAMES, budgetYears, programBudget } from '../lib/program-budget.ts'
 
-const root = process.cwd()
-const path = (...parts) => join(root, ...parts)
+const root = resolve(process.cwd())
+// Every file this check opens must sit inside the web/ directory it runs from.
+const path = (...parts) => {
+  const target = resolve(root, ...parts)
+  const rel = relative(root, target)
+  if (rel === '..' || rel.startsWith(`..${sep}`) || isAbsolute(rel)) throw new Error(`refusing to read outside ${root}: ${target}`)
+  return target
+}
 const read = (p) => JSON.parse(readFileSync(path(p), 'utf8'))
 const fail = (message) => { console.error(`PROGRAMS VERIFY FAILED: ${message}`); process.exitCode = 1 }
 const usd = (n) => `${n < 0 ? '−' : ''}$${Math.round(Math.abs(n)).toLocaleString('en-US')}`
@@ -46,11 +52,11 @@ for (const y of shown) {
 }
 
 // ── 2026 against the parsed Adopted Budget ───────────────────────────────────
-const subDir = path('public/data/subaccounts')
+const subDir = 'public/data/subaccounts'
 const subSpend = []
 const subRevenue = new Map()
-for (const file of readdirSync(subDir).filter((f) => f.endsWith('.json') && f !== 'index.json')) {
-  const fund = JSON.parse(readFileSync(join(subDir, file), 'utf8'))
+for (const file of readdirSync(path(subDir)).filter((f) => f.endsWith('.json') && f !== 'index.json')) {
+  const fund = read(`${subDir}/${file}`)
   for (const dept of fund.departments) for (const li of dept.lineItems) subSpend.push({ fund: fund.code, account: li.account, name: li.name, amount: li.adopted2026 || 0 })
   for (const r of fund.revenues) subRevenue.set(r.account, r.adopted2026 || 0)
 }
