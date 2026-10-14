@@ -35,7 +35,9 @@ import os
 import ssl
 import subprocess
 import sys
+import time
 import urllib.parse
+from datetime import date, datetime, timezone
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -60,7 +62,27 @@ PEERS = [
 ]
 
 
-def http_get(url: str) -> bytes:
+# Seconds to wait before the second and third tries. On October 12, 2026
+# data.ny.gov answered one run with a certificate for another host and the next
+# run, eight hours later, worked; a blip like that is what the retries cover.
+RETRY_WAITS = (5, 20)
+
+# DCJS publishes Index crime once a year, so the State's figures are fetched at
+# most once a week. Police spending, which comes from the Town's own budgets in
+# this repository, is rebuilt on every run.
+RECHECK_DAYS = 7
+
+
+def shown(path: Path) -> Path:
+    """A path as the log prints it: relative to the repository when it is inside it."""
+    return path.relative_to(ROOT) if path.is_relative_to(ROOT) else path
+
+
+class SourceUnavailable(RuntimeError):
+    """A public data source could not be reached after every try."""
+
+
+def _get_once(url: str) -> bytes:
     try:
         import requests
         r = requests.get(url, timeout=90)
@@ -70,6 +92,25 @@ def http_get(url: str) -> bytes:
         if not isinstance(exc, (ssl.SSLError, OSError)) and "SSL" not in str(exc):
             raise
         return subprocess.run(["curl", "-sf", url], capture_output=True, check=True).stdout
+
+
+def http_get(url: str) -> bytes:
+    """GET with requests, falling back to curl on a TLS failure, tried three times.
+
+    Never with certificate checks turned off: a source that cannot prove who it
+    is is treated as unreachable.
+    """
+    host = urllib.parse.urlsplit(url).hostname
+    last: Exception | None = None
+    for attempt, wait in enumerate((0, *RETRY_WAITS), start=1):
+        if wait:
+            time.sleep(wait)
+        try:
+            return _get_once(url)
+        except Exception as exc:
+            last = exc
+            print(f"  {host}: try {attempt} failed: {str(exc)[:200]}", file=sys.stderr)
+    raise SourceUnavailable(f"{host} could not be reached after {1 + len(RETRY_WAITS)} tries ({str(last)[:200]}).")
 
 
 def soda(where: str, limit: int = 5000) -> list[dict]:
@@ -162,11 +203,13 @@ def police_spending() -> list[dict]:
     ]
 
 
-def main() -> int:
+def fetch_state() -> dict | None:
+    """Everything that comes from data.ny.gov and the Census API, or None when
+    DCJS has no rows for Riverhead."""
     rows = soda(f"agency = '{AGENCY}'")
     if not rows:
         print("no DCJS rows for", AGENCY, file=sys.stderr)
-        return 1
+        return None
 
     crime = [
         {
@@ -187,26 +230,6 @@ def main() -> int:
     ]
     crime = [c for c in crime if c["year"] is not None]
     crime.sort(key=lambda c: c["year"])
-
-    spending = police_spending()
-    spend_by_year = {s["year"]: s["appropriation"] for s in spending}
-    crime_by_year = {c["year"]: c for c in crime}
-
-    # Only the years that have both. Everything derived lives here so the page
-    # renders the join rather than recomputing it.
-    joined = []
-    for y in sorted(set(spend_by_year) & set(crime_by_year)):
-        c = crime_by_year[y]
-        appropriation = spend_by_year[y]
-        joined.append({
-            "year": y,
-            "appropriation": appropriation,
-            "totalIndexCrimes": c["total"],
-            "violent": c["violent"],
-            "property": c["property"],
-            "monthsReported": c["monthsReported"],
-            "dollarsPerReportedIndexCrime": round(appropriation / c["total"], 2) if c["total"] else None,
-        })
 
     pops, pop_source = town_populations()
     county_pop = county_population()
@@ -245,10 +268,49 @@ def main() -> int:
                 "isRiverhead": agency == AGENCY,
             })
     peers.sort(key=lambda p: -(p["total"] or 0))
+    return {"crime": crime, "peersLatest": peers, "policeDistrict": police_district, "populationSource": pop_source}
+
+
+def state_from(published: dict) -> dict:
+    """The State's figures as the published file already holds them."""
+    census = next((s for s in published.get("sources", []) if str(s.get("title", "")).startswith("U.S. Census Bureau")), None)
+    return {
+        "crime": published["crime"],
+        "peersLatest": published["peersLatest"],
+        "policeDistrict": published.get("policeDistrict"),
+        "populationSource": census,
+    }
+
+
+def write(state: dict, checked_on: str | None) -> None:
+    crime = state["crime"]
+    peers = state["peersLatest"]
+    pop_source = state["populationSource"]
+    spending = police_spending()
+    spend_by_year = {s["year"]: s["appropriation"] for s in spending}
+    crime_by_year = {c["year"]: c for c in crime}
+
+    # Only the years that have both. Everything derived lives here so the page
+    # renders the join rather than recomputing it.
+    joined = []
+    for y in sorted(set(spend_by_year) & set(crime_by_year)):
+        c = crime_by_year[y]
+        appropriation = spend_by_year[y]
+        joined.append({
+            "year": y,
+            "appropriation": appropriation,
+            "totalIndexCrimes": c["total"],
+            "violent": c["violent"],
+            "property": c["property"],
+            "monthsReported": c["monthsReported"],
+            "dollarsPerReportedIndexCrime": round(appropriation / c["total"], 2) if c["total"] else None,
+        })
 
     out = {
         "generated": True,
         "agency": AGENCY,
+        # The day the State's figures were last fetched from data.ny.gov.
+        "crimeCheckedOn": checked_on,
         "sources": [
             DATASET,
             *( [pop_source] if pop_source else [] ),
@@ -271,7 +333,7 @@ def main() -> int:
         "joined": joined,
         "peersLatest": peers,
         "peersHavePopulation": any(p.get("population") for p in peers),
-        "policeDistrict": police_district,
+        "policeDistrict": state["policeDistrict"],
         "limits": [
             "Index crime is the FBI's seven-offence definition. It excludes most of what a police "
             "department spends its time on — traffic, quality-of-life calls, mental-health response, "
@@ -290,8 +352,36 @@ def main() -> int:
         ],
     }
     OUT.write_text(json.dumps(out, indent=1), encoding="utf-8")
-    print(f"wrote {OUT.relative_to(ROOT)}: {len(crime)} crime years, {len(spending)} spending years, "
+    print(f"wrote {shown(OUT)}: {len(crime)} crime years, {len(spending)} spending years, "
           f"{len(joined)} joined, {len(peers)} peers")
+
+
+def main() -> int:
+    published = json.loads(OUT.read_text(encoding="utf-8")) if OUT.exists() else None
+    today = datetime.now(timezone.utc).date()
+    checked = (published or {}).get("crimeCheckedOn")
+    if checked and (today - date.fromisoformat(checked)).days < RECHECK_DAYS and not os.environ.get("POLICE_CRIME_REFRESH"):
+        print(f"  Index crime last fetched {checked}; the State publishes it once a year, "
+              f"so it is fetched again after {RECHECK_DAYS} days")
+        write(state_from(published), checked)
+        return 0
+    try:
+        state = fetch_state()
+    except SourceUnavailable as exc:
+        if not published:
+            raise
+        # A blip at data.ny.gov or the Census API must not stop the rest of the
+        # financial-reports job, which commits and deploys every other dataset.
+        # The State's figures stay as published, and the warning shows on the
+        # run's summary page.
+        print(f"::warning title=Police and crime data not refreshed::{exc} The State's figures in "
+              f"{shown(OUT)} stay as last fetched ({checked or 'date not recorded'}); "
+              f"the next run tries again.")
+        write(state_from(published), checked)
+        return 0
+    if state is None:
+        return 1
+    write(state, today.isoformat())
     return 0
 
 

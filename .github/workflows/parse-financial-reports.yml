@@ -101,6 +101,10 @@ jobs:
         run: python etl/analyze_buyout.py
       - name: Refresh police spending and reported crime
         # Falls back to raw counts when CENSUS_API_KEY is absent; the page says so.
+        # The State's Index crime figures are fetched from data.ny.gov at most once
+        # a week (DCJS publishes them once a year); police spending is rebuilt every
+        # run. If data.ny.gov cannot be reached after three tries, the figures stay
+        # as last fetched and the run shows a warning instead of stopping the job.
         env:
           CENSUS_API_KEY: ${{ secrets.CENSUS_API_KEY }}
         run: python etl/parse_police_crime.py
