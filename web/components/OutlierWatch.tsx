@@ -5,67 +5,79 @@ import type { FundYoyChange } from '../lib/outlier-watch'
 
 const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 18 } as const
 const usd = (n: number) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(n)
-const th = { padding: '8px 10px', fontWeight: 800, fontSize: 12 } as const
-const td = { padding: '8px 10px' } as const
+const signed = (n: number) => `${n >= 0 ? '+' : '−'}${usd(Math.abs(n))}`
+const signedPct = (n: number) => `${n >= 0 ? '+' : '−'}${Math.abs(n).toFixed(1)}%`
+const th = { padding: '8px 10px', fontWeight: 600, fontSize: 13.5 } as const
+const td = { padding: '9px 10px', verticalAlign: 'top' } as const
+const spaced = (key: string) => key.replace('→', ' → ')
 
-export default function OutlierWatch({ outliers, yearTransitions }: { outliers: FundYoyChange[]; yearTransitions: string[] }) {
+export default function OutlierWatch({ outliers, transitions }: { outliers: FundYoyChange[]; transitions: { key: string; proposed: boolean }[] }) {
   const [transition, setTransition] = useState<'all' | string>('all')
 
   const rows = useMemo(
-    () => (transition === 'all' ? outliers : outliers.filter((o) => `${o.fromYear}→${o.toYear}` === transition)),
+    () => (transition === 'all' ? outliers : outliers.filter((o) => o.transition === transition)),
     [outliers, transition]
   )
 
+  const chip = (active: boolean, enabled: boolean) => ({
+    padding: '8px 13px', borderRadius: 9, border: '1px solid', cursor: enabled ? 'pointer' : 'default', fontWeight: 600, fontSize: 14,
+    borderColor: active ? 'var(--rbl-accent-border)' : 'var(--rbl-border-strong)',
+    background: active ? 'var(--rbl-fill-accent)' : 'var(--rbl-surface)',
+    color: active ? 'white' : enabled ? 'var(--rbl-text-strong)' : 'var(--rbl-text-muted)',
+  })
+
   return (
     <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0,1fr)', gap: 12 }}>
-      <section style={{ ...card, display: 'flex', gap: 6, flexWrap: 'wrap' }}>
-        <button onClick={() => setTransition('all')} style={{
-          padding: '8px 13px', borderRadius: 9, border: '1px solid', cursor: 'pointer', fontWeight: 800, fontSize: 13.5,
-          borderColor: transition === 'all' ? 'var(--rbl-accent-border)' : 'var(--rbl-border-strong)', background: transition === 'all' ? 'var(--rbl-fill-accent)' : 'var(--rbl-surface)', color: transition === 'all' ? 'white' : 'var(--rbl-text-strong)',
-        }}>All years ({outliers.length})</button>
-        {yearTransitions.map((t) => {
-          const count = outliers.filter((o) => `${o.fromYear}→${o.toYear}` === t).length
+      <div role="group" aria-label="Show flags for" style={{ ...card, display: 'flex', gap: 6, flexWrap: 'wrap' }}>
+        <button type="button" aria-pressed={transition === 'all'} onClick={() => setTransition('all')} style={chip(transition === 'all', true)}>
+          All years ({outliers.length})
+        </button>
+        {transitions.map((t) => {
+          const count = outliers.filter((o) => o.transition === t.key).length
           return (
-            <button key={t} onClick={() => setTransition(t)} disabled={count === 0} style={{
-              padding: '8px 13px', borderRadius: 9, border: '1px solid', cursor: count === 0 ? 'default' : 'pointer', fontWeight: 800, fontSize: 13.5,
-              borderColor: transition === t ? 'var(--rbl-accent-border)' : 'var(--rbl-border-strong)', background: transition === t ? 'var(--rbl-fill-accent)' : 'var(--rbl-surface)',
-              color: transition === t ? 'white' : count === 0 ? 'var(--rbl-text-muted)' : 'var(--rbl-text-strong)',
-            }}>{t} ({count})</button>
+            <button key={t.key} type="button" aria-pressed={transition === t.key} onClick={() => setTransition(t.key)} disabled={count === 0} style={chip(transition === t.key, count > 0)}>
+              {spaced(t.key)} ({count})
+            </button>
           )
         })}
-      </section>
+      </div>
 
       <section style={card}>
-        <div style={{ color: 'var(--rbl-text-body)', fontWeight: 700, marginBottom: 8, fontSize: 14 }}>{rows.length} flagged fund-year{rows.length === 1 ? '' : 's'}</div>
-        <div style={{ overflowX: 'auto' }}>
-          <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 13.5 }}>
+        <div role="region" tabIndex={0} aria-labelledby="outlier-caption" style={{ overflowX: 'auto' }}>
+          <table className="rbl-stack" style={{ width: '100%', borderCollapse: 'collapse', fontSize: 15 }}>
+            <caption id="outlier-caption" style={{ textAlign: 'left', color: 'var(--rbl-text-body)', fontWeight: 600, fontSize: 15, padding: '0 0 8px' }}>
+              {rows.length} flagged {rows.length === 1 ? 'change' : 'changes'}, largest first
+            </caption>
             <thead>
-              <tr style={{ textAlign: 'left', color: 'var(--rbl-text-muted)', borderBottom: '2px solid var(--rbl-border-subtle)' }}>
-                <th style={th}>Fund</th>
-                <th style={th}>Years</th>
-                <th style={{ ...th, textAlign: 'right' }}>Prior</th>
-                <th style={{ ...th, textAlign: 'right' }}>Current</th>
-                <th style={{ ...th, textAlign: 'right' }}>Change</th>
-                <th style={{ ...th, textAlign: 'right' }}>% Change</th>
+              <tr style={{ textAlign: 'left', color: 'var(--rbl-text-muted)', borderBottom: '1px solid var(--rbl-border)' }}>
+                <th scope="col" style={th}>Fund</th>
+                <th scope="col" style={th}>Budgets compared</th>
+                <th scope="col" style={{ ...th, textAlign: 'right' }}>From</th>
+                <th scope="col" style={{ ...th, textAlign: 'right' }}>To</th>
+                <th scope="col" style={{ ...th, textAlign: 'right' }}>Change</th>
+                <th scope="col" style={{ ...th, textAlign: 'right' }}>% change</th>
               </tr>
             </thead>
             <tbody>
               {rows.map((o) => (
-                <tr key={`${o.code}-${o.fromYear}`} style={{ borderBottom: '1px solid var(--rbl-border-subtle)' }}>
-                  <td style={{ ...td, fontWeight: 800, color: 'var(--rbl-title)' }}>{o.name}<div style={{ fontWeight: 600, color: 'var(--rbl-text-muted)', fontSize: 11.5 }}>{o.code}</div></td>
-                  <td style={td}>{o.fromYear} → {o.toYear}</td>
-                  <td style={{ ...td, textAlign: 'right' }}>{usd(o.prior)}</td>
-                  <td style={{ ...td, textAlign: 'right' }}>{usd(o.current)}</td>
-                  <td style={{ ...td, textAlign: 'right', fontWeight: 800, color: o.dollarChange >= 0 ? 'var(--inc)' : 'var(--dec)' }}>
-                    {o.dollarChange >= 0 ? '+' : ''}{usd(o.dollarChange)}
+                <tr key={`${o.code}-${o.transition}`} style={{ borderBottom: '1px solid var(--rbl-border-subtle)' }}>
+                  <td style={{ ...td, fontWeight: 700, color: 'var(--rbl-title)' }}>
+                    {o.name}
+                    <span style={{ display: 'block', fontWeight: 400, color: 'var(--rbl-text-muted)', fontSize: 13 }}>{o.code}</span>
                   </td>
-                  <td style={{ ...td, textAlign: 'right', fontWeight: 800, color: (o.pctChange ?? 0) >= 0 ? 'var(--inc)' : 'var(--dec)' }}>
-                    {o.pctChange === null ? '—' : `${o.pctChange >= 0 ? '+' : ''}${o.pctChange.toFixed(1)}%`}
+                  <td data-label="Budgets compared" style={td}>{spaced(o.transition)}</td>
+                  <td data-label="From" style={{ ...td, textAlign: 'right' }}>{usd(o.prior)}</td>
+                  <td data-label="To" style={{ ...td, textAlign: 'right' }}>{usd(o.current)}</td>
+                  <td data-label="Change" style={{ ...td, textAlign: 'right', fontWeight: 700, color: o.dollarChange >= 0 ? 'var(--inc)' : 'var(--dec)' }}>
+                    {signed(o.dollarChange)}
+                  </td>
+                  <td data-label="% change" style={{ ...td, textAlign: 'right', fontWeight: 700, color: (o.pctChange ?? 0) >= 0 ? 'var(--inc)' : 'var(--dec)' }}>
+                    {o.pctChange === null ? '—' : signedPct(o.pctChange)}
                   </td>
                 </tr>
               ))}
               {rows.length === 0 && (
-                <tr><td style={{ ...td, color: 'var(--rbl-text-muted)' }} colSpan={6}>No flagged changes for this range.</td></tr>
+                <tr><td style={{ ...td, color: 'var(--rbl-text-muted)' }} colSpan={6}>No flagged changes for these budgets.</td></tr>
               )}
             </tbody>
           </table>

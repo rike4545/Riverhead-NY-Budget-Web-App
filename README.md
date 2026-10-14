@@ -231,7 +231,7 @@ The four links at the front of the site menu:
 - **2027 Spending Reduction** (`/spending-reduction-2027`): how the retirement incentive plus sourced line trims could close that gap.
 - **A Zero-Percent Year** (`/zero-percent-2027`): what matching Suffolk County's pledge would take.
 - **Credit Rating** (`/credit-rating`): Riverhead's Aa2 against Brookhaven's AAA and the other Suffolk towns.
-- **Outlier Watch** (`/outliers`): year-over-year swings of at least 20% and $100,000 across all 19 funds.
+- **Outlier Watch** (`/outliers`): year-over-year swings of at least 20% and $100,000 across all 19 funds, each adopted budget against the year before and next year's proposal (now the 2027 Tentative) against the last adopted budget. A flagged proposal gets its Budget Supplement lines, and the Debt Service Fund's 2027 fall is set beside the two 2026 votes that paid debt down. `scripts/verify-outliers.mjs` holds the page to the records.
 - **Budget Accuracy** (`/budget-accuracy`): where adopted amounts and actual spending drift apart: researched flags read from the Supplements, lines over budget three years running, lines never used, and every outlier in the newest Supplement.
 - **Where Revenue Comes From** (`/revenue`): every revenue stream, 2018 to the 2027 Tentative, estimate against what came in, in every fund.
 - **Fiscal Impact** (`/fiscal-impact`): each resolution's Fiscal Impact Statement next to a realistic financial read, and every dollar figure the resolution's own text states, quoted and labelled (a cost, a fee, money coming in, a budget line, borrowing, a developer's security). Each statement is matched to its resolution by the number printed above it.
