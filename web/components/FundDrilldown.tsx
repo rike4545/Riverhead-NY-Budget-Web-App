@@ -84,7 +84,7 @@ export default function FundDrilldown({ fund, proposed = null, lineSource = null
           />
         )}
         <Stat label="Estimated revenues, 2026" value={usd(fund.revenueTotal2026)} />
-        <Stat label="Departments and lines, 2026" value={`${fund.departmentCount} and ${fund.lineItemCount}`} />
+        <Stat label="Departments, 2026" value={String(fund.departmentCount)} note={`${fund.lineItemCount} account lines`} />
         <Stat
           label="Reconciliation"
           value={fund.reconciled ? 'Adds up to the Summary' : `Off by ${usd(Math.abs(fund.reconciliationVariance2026 ?? 0))}`}

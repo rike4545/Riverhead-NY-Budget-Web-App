@@ -7,7 +7,8 @@ import { afrGroupForBudgetFund } from '../../../lib/afr'
 import { AUDITED_GENERAL_FUND, AUDITED_OPERATIONS, AUDIT_2025, deficitHistory } from '../../../lib/audits'
 import { stageDoc } from '../../../lib/budget-stages'
 import { dollars } from '../../../lib/financial-data'
-import { fundYears, lineSource, TENTATIVE_YEAR, withTentative } from '../../../lib/funds-2027'
+import { fundYears, lineSource, supplementAdoptedYear, supplementLines, supplementPriorAdoptedYear, TENTATIVE_YEAR, withTentative } from '../../../lib/funds-2027'
+import { isSetAside } from '../../../lib/savings-rules'
 
 export function generateStaticParams() {
   return allFundCodes().map((code) => ({ code }))
@@ -117,8 +118,11 @@ function ActualsStrip({ code }: { code: string }) {
 // The Recreation Program Fund and the PAL fund end every audited year in
 // deficit, and every audit has said the deficit would be gone the next year.
 // Both are reported inside the General Fund, so the deficits are netted out of
-// its balance; the budgets for both set revenues equal to spending, which keeps
-// a deficit from growing but never closes one.
+// its balance. The budgets for both set revenues equal to spending, which by
+// itself keeps a deficit from growing but never closes one. A "Fund Balance
+// Contribution" line changes that: it is counted as spending but kept in the
+// fund's savings, so a budget that carries one plans to shrink the deficit by
+// that much. The Budget Supplement prints it for three budgets.
 function AuditedDeficitNote({ code }: { code: string }) {
   const c = code.toUpperCase()
   if (c !== 'A04' && c !== 'A06') return null
@@ -134,6 +138,18 @@ function AuditedDeficitNote({ code }: { code: string }) {
     .filter((b): b is NonNullable<typeof b> => b != null)
   const allBalanced = budgets.length > 0 && budgets.every((b) => b.revenues === b.appropriations)
   const gf = AUDITED_GENERAL_FUND[latest.year]
+  const setAside = supplementLines.find((l) => l.fund === c && isSetAside(l))
+  const setAsideBy = setAside
+    ? [
+        { year: supplementPriorAdoptedYear, label: `${supplementPriorAdoptedYear} budget`, amount: setAside.priorAdopted },
+        { year: supplementAdoptedYear, label: `${supplementAdoptedYear} budget`, amount: setAside.adopted },
+        { year: TENTATIVE_YEAR, label: `${TENTATIVE_YEAR} Tentative`, amount: setAside.tentative },
+      ].filter((y): y is { year: number; label: string; amount: number } => y.amount != null)
+    : []
+  const firstSetAside = setAsideBy.findIndex((y) => y.amount > 0)
+  const before = firstSetAside > 0 ? setAsideBy.slice(0, firstSetAside) : []
+  const planned = firstSetAside >= 0 ? setAsideBy.slice(firstSetAside) : []
+  const pace = planned.length ? planned[planned.length - 1].amount : 0
   return (
     <section data-audited-deficit style={{ background: 'var(--rbl-warn-bg)', border: '1px solid var(--rbl-warn-border)', borderColor: 'var(--rbl-warn-border)', borderRadius: 14, padding: '14px 18px', marginBottom: 16 }}>
       <strong style={{ color: 'var(--rbl-warn-strong)', fontSize: 15 }}>
@@ -143,7 +159,18 @@ function AuditedDeficitNote({ code }: { code: string }) {
         The Town&apos;s auditors report this fund inside the General Fund, and each audit since {first.year} has found
         it in deficit at year-end. Each has also said the deficit would be gone the following year &ldquo;by reducing the
         expenditures and increasing the program revenues.&rdquo; Each year it grew instead.
-        {allBalanced ? (
+        {setAside && planned.length > 0 ? (
+          <>
+            {before.map((y) => ` The ${y.label} set nothing aside to close it.`).join('')}{' '}
+            The {planned[0].label} {planned[0].year === TENTATIVE_YEAR ? 'would set' : 'set'} aside {dollars(planned[0].amount)} in a
+            line called &ldquo;{setAside.name}&rdquo;, which is counted as spending but kept in the fund&apos;s savings
+            {planned.slice(1).map((y) => `, and the ${y.label} ${y.year === TENTATIVE_YEAR ? 'proposes' : 'set aside'} ${dollars(y.amount)}`).join('')}{' '}
+            (Budget Supplement{' '}
+            {lineSource ? <a href={`${lineSource.url}#page=${setAside.page}`} target="_blank" rel="noopener noreferrer" style={{ color: 'inherit' }}>p. {setAside.page}</a> : `p. ${setAside.page}`}).
+            If the rest of the fund came in on budget, the deficit would shrink by about that much a year. At{' '}
+            {dollars(pace)} a year, {dollars(latest[key])} would take about {Math.round(latest[key] / pace)} years to close.
+          </>
+        ) : allBalanced ? (
           <>
             {' '}No budget has planned for it to close: every one since {budgets[0].year} sets this fund&apos;s
             revenues exactly equal to its spending, which at best keeps the deficit from growing. Closing it would take a
@@ -189,7 +216,7 @@ function AuditedDeficitNote({ code }: { code: string }) {
               {b.year} {b.stage} {b.revenues == null ? "n/a" : dollars(b.revenues)} and {dollars(b.appropriations)}
             </span>
           ))}
-          .
+          .{planned.length > 0 ? ' Spending includes the amounts set aside.' : ''}
         </p>
       )}
     </section>
