@@ -207,19 +207,25 @@ def page_records(doc: dict, texts: list[str], doc_hash: str, doc_ts: str):
     return pages, money_count, search, cites, lines
 
 
+# Everything a kept document's records are built from (page_records), and what
+# the index carries for it. A year may be blank; nothing else may be missing.
+KEPT_FIELDS = ('title', 'url', 'category', 'slug', 'sha256', 'parsed_at')
+
+
 def last_parse(url: str, previous: dict) -> tuple[dict, dict] | None:
     """The index entry and document file this address had after the last run,
-    if both are still there and agree, so a document that cannot be fetched
-    now can be kept as it was rather than dropped."""
+    if both are still there, complete and in agreement, so a document that
+    cannot be fetched now can be kept as it was rather than dropped."""
     entry = previous.get(url.split('?')[0])
-    if not entry or not entry.get('slug') or not entry.get('sha256'):
+    if not entry or 'year' not in entry or any(not entry.get(field) for field in KEPT_FIELDS):
         return None
     path = DOCS / f"{entry['slug']}.json"
     try:
         payload = json.loads(path.read_text(encoding='utf-8'))
     except (OSError, ValueError):
         return None
-    if payload.get('sha256') != entry['sha256'] or not payload.get('pages'):
+    pages = payload.get('pages')
+    if payload.get('sha256') != entry['sha256'] or not isinstance(pages, list) or not pages:
         return None
     return entry, payload
 
@@ -336,8 +342,16 @@ def main() -> int:
                 print(f'failed {link.title}: {exc}')
                 continue
             entry, stored = kept
+            # This runs inside the handler, so nothing it raises is caught for
+            # it: a last parse that cannot be rebuilt leaves the document out,
+            # as before this fallback existed, rather than ending the run.
+            try:
+                _, _, doc_search, doc_cites, doc_lines = page_records(entry, [page.get('text', '') for page in stored['pages']], entry['sha256'], entry['parsed_at'])
+            except Exception as rebuild:
+                failures.append({'title': link.title, 'url': link.url, 'error': f'{exc}. Its last parse could not be reused: {rebuild}'})
+                print(f'failed {link.title}: {exc}; its last parse could not be reused: {rebuild}')
+                continue
             seen_hashes[entry['sha256']] = (entry['title'], entry['slug'])
-            _, _, doc_search, doc_cites, doc_lines = page_records(entry, [page.get('text', '') for page in stored['pages']], entry['sha256'], entry['parsed_at'])
             docs.append(entry)
             doc_timestamps.append(entry['parsed_at'])
             search_records.extend(doc_search)
