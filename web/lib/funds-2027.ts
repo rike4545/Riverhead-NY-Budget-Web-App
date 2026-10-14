@@ -49,15 +49,18 @@ export const transferFunded = (code: string) => (TRANSFER_FUNDED as readonly str
 
 // ── Line by line, from the 2027 Budget Supplement ────────────────────────────
 
-type SupplementLine = { account: string; fund: string; name: string; kind: string; tentative: number | null }
+type SupplementLine = { account: string; fund: string; name: string; kind: string; page: number; adopted: number | null; tentative: number | null }
 const supplement = supplementJson as unknown as {
-  columns: { tentative: number }
+  columns: { adopted: number; tentative: number }
   source: { title: string; url: string }
   reconciliation: { complete: boolean; against: string }
   lines: SupplementLine[]
 }
 /** The Supplement, when it is this year's and adds up to the Tentative. */
 export const lineSource = supplement.columns.tentative === TENTATIVE_YEAR && supplement.reconciliation.complete ? supplement.source : null
+/** Every Supplement line, with the adopted year it prints beside the Tentative; none without a Supplement that adds up. */
+export const supplementLines: readonly SupplementLine[] = lineSource ? supplement.lines : []
+export const supplementAdoptedYear = supplement.columns.adopted
 const byAccount = new Map(supplement.lines.map((l) => [l.account, l]))
 
 // The spending category of an account, from its object code, as the
