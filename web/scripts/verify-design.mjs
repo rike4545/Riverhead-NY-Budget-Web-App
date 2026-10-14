@@ -40,7 +40,9 @@ for (const dir of ['app', 'components', 'lib']) {
       if (emoji) fail(`${at} uses the emoji ${emoji[0]} (use a lucide-react icon, or words)`)
       if (/textTransform\s*:\s*['"]uppercase['"]/.test(line)) fail(`${at} sets an uppercase label (labels are sentence case)`)
       if (STRIPE.test(line) && !/blockquote|quoteStyle|paddingLeft/.test(context)) fail(`${at} draws a thick side stripe (put the colour in the 1px border instead)`)
-      if (/<style[\s>]/.test(line) && rel !== join('app', 'layout.tsx')) fail(`${at} puts a <style> element in the page body, which HTML allows only in head (move the rules to app/site.css)`)
+      // Code only: a comment may name the element, as this one does.
+      const code = /^\s*(\/\/|\/\*|\*|\{\/\*)/.test(line) ? '' : line.replace(/\/\/.*$/, '')
+      if (/<style[\s>]/.test(code) && rel !== join('app', 'layout.tsx')) fail(`${at} puts a <style> element in the page body, which HTML allows only in head (move the rules to app/site.css)`)
     })
   }
 }
