@@ -187,6 +187,8 @@ function ItemSection({
           return (
             <button
               key={item.id}
+              type="button"
+              aria-pressed={selected}
               onClick={() => onToggle(item.id)}
               style={{
                 textAlign: 'left',
@@ -198,7 +200,7 @@ function ItemSection({
                 opacity: selected ? 1 : 0.6,
               }}
             >
-              <div style={{ display: 'flex', justifyContent: 'space-between', gap: 10, alignItems: 'baseline' }}>
+              <span style={{ display: 'flex', justifyContent: 'space-between', gap: 10, alignItems: 'baseline' }}>
                 <span style={{ display: 'flex', alignItems: 'center', gap: 8, fontWeight: 800, color: 'var(--rbl-title)', fontSize: 14.5 }}>
                   <span
                     aria-hidden
@@ -227,9 +229,9 @@ function ItemSection({
                 <span style={{ fontWeight: 800, color: selected ? 'var(--rbl-success)' : 'var(--rbl-text-muted)', fontSize: 14.5, whiteSpace: 'nowrap' }}>
                   {usd(item.amount)}
                 </span>
-              </div>
-              <div style={{ color: 'var(--rbl-text-muted)', fontSize: 12.5, marginTop: 5, marginLeft: 24 }}>{item.source}</div>
-              <div style={{ color: 'var(--rbl-text-muted)', fontSize: 12.5, marginTop: 3, marginLeft: 24, fontStyle: 'italic' }}>{item.rationale}</div>
+              </span>
+              <span style={{ display: 'block', color: 'var(--rbl-text-muted)', fontSize: 12.5, marginTop: 5, marginLeft: 24 }}>{item.source}</span>
+              <span style={{ display: 'block', color: 'var(--rbl-text-muted)', fontSize: 12.5, marginTop: 3, marginLeft: 24, fontStyle: 'italic' }}>{item.rationale}</span>
             </button>
           )
         })}

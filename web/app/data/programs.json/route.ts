@@ -11,6 +11,7 @@ import {
   perResident,
   population,
   programs,
+  programYears,
   reconciliation,
   source,
   totals,
@@ -39,12 +40,27 @@ export async function GET() {
       medianHouseholdIncome,
     },
     programs,
-    totals,
+    // `contingency` is the name this field had before the page learned that
+    // account 9990 is "Fund Balance Contribution"; kept so older clients still read it.
+    totals: { ...totals, contingency: totals.setAside },
     perResident,
     perHousehold,
     reconciliation,
     method,
     notCovered,
+    // Every budget the page shows, regrouped the same way. The fields above are the newest adopted year.
+    years: programYears.map((y) => ({
+      year: y.year,
+      stage: y.stage,
+      label: y.label,
+      sources: { supplement: y.supplement, summary: y.summary },
+      staffYear: y.staffYear,
+      totals: y.totals,
+      perResident: y.perResident,
+      perHousehold: y.perHousehold,
+      reconciliation: y.reconciliation,
+      programs: y.programs.map(({ key, name, direct, benefits, fullCost, earned, net, recoveryPct, netPerResident, netPerHousehold, staff }) => ({ key, name, direct, benefits, fullCost, earned, net, recoveryPct, netPerResident, netPerHousehold, staff })),
+    })),
     diagnostics: {
       unmappedPayrollDepartments,
     },

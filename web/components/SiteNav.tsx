@@ -19,7 +19,7 @@ const GROUPS: Group[] = [
     ['Where Your Levy Goes', `${base}/taxpayer-impact/`], ['What Changed', `${base}/what-changed/`], ['Financial Health', `${base}/analytics/`],
     ['Budget Overview', `${base}/funds/`], ['Program Budget', `${base}/programs/`], ['Budget Compare', `${base}/compare/`],
     ['General Fund', `${base}/general-fund/`], ['Where Revenue Comes From', `${base}/revenue/`], ['Annual Report', `${base}/annual-report/`], ['Tax Cap', `${base}/tax-cap/`],
-    ['Reserves & Fund Balance', `${base}/reserves/`], ['Where the Surplus Went', `${base}/fund-balance-draws/`], ['Capital & Debt', `${base}/capital-debt/`], ['Town Square', `${base}/town-square/`],
+    ['Reserves & Fund Balance', `${base}/reserves/`], ['Where the Surplus Went', `${base}/fund-balance-draws/`], ['Budget Changes, Live', `${base}/budget-changes/`], ['Capital & Debt', `${base}/capital-debt/`], ['Town Square', `${base}/town-square/`],
     ['Road Spending', `${base}/road-spending/`], ['Community Preservation Fund', `${base}/community-preservation-fund/`],
     ['Community Housing Plan', `${base}/housing-plan/`], ['Community', `${base}/community/`],
   ] },
@@ -81,7 +81,6 @@ export default function SiteNav() {
         {PRIMARY.map(([label, href]) => <a key={href} href={href} aria-current={isActive(href) ? 'page' : undefined} style={{ display: 'block', color: 'var(--rbl-title)', textDecoration: 'none', fontWeight: 700, fontSize: 17, padding: '10px', borderRadius: 8 }}>{label}</a>)}
         {GROUPS.map(g => <div key={g.label} style={{ marginTop: 10, paddingTop: 8, borderTop: '1px solid var(--rbl-border-subtle)' }}><div style={{ color: 'var(--rbl-text-muted)', fontWeight: 600, fontSize: 13.5, padding: '4px 10px' }}>{g.label}</div>{g.links.map(([label, href]) => <a key={href} href={href} aria-current={isActive(href) ? 'page' : undefined} style={{ display: 'block', color: 'var(--rbl-text-strong)', textDecoration: 'none', fontWeight: isActive(href) ? 700 : 500, fontSize: 16, padding: '9px 10px', borderRadius: 8, background: isActive(href) ? 'var(--rbl-info-bg)' : 'transparent' }}>{label}</a>)}</div>)}
       </div>}
-      <style>{`.nav-dropdown{opacity:0;visibility:hidden;pointer-events:none;transform:translateY(-3px);transition:opacity .12s ease,transform .12s ease}.nav-group:hover .nav-dropdown,.nav-group:focus-within .nav-dropdown,.nav-dropdown.force-open{opacity:1;visibility:visible;pointer-events:auto;transform:translateY(0)}.nav-dropdown-link:hover{background:var(--rbl-info-bg)!important}@media(max-width:1120px){.nav-links{display:none!important}.nav-hamburger{display:inline-block!important}.nav-root{position:static!important}.nav-mobile-panel{display:grid!important;left:12px!important;right:12px!important;top:calc(100% + 8px)!important}}`}</style>
     </div>
   )
 }

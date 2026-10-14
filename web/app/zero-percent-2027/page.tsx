@@ -277,12 +277,12 @@ export default function ZeroPercent2027Page() {
 
       <section style={{ ...card, marginBottom: 18 }}>
         <h2 style={{ marginTop: 0, marginBottom: 8, color: 'var(--rbl-title)', fontSize: 21 }}>So — could Riverhead do it?</h2>
-        <div style={{ display: 'grid', gap: 9, marginBottom: 10 }}>
+        <dl style={{ display: 'grid', gap: 9, margin: '0 0 10px' }}>
           <div><dt style={{ color: 'var(--rbl-success-strong)', fontSize: 13, fontWeight: 700 }}>For one year</dt>
             <dd style={{ margin: '2px 0 0', color: 'var(--rbl-text-body)', fontSize: 14, lineHeight: 1.6 }}>{verdict.oneYear}</dd></div>
           <div><dt style={{ color: 'var(--rbl-warn-strong)', fontSize: 13, fontWeight: 700 }}>Durably</dt>
             <dd style={{ margin: '2px 0 0', color: 'var(--rbl-text-body)', fontSize: 14, lineHeight: 1.6 }}>{verdict.durable}</dd></div>
-        </div>
+        </dl>
         <div style={{ background: 'var(--rbl-teal-bg)', border: '1px solid var(--rbl-teal-border)', borderRadius: 10, padding: '12px 14px' }}>
           <strong style={{ color: 'var(--rbl-teal-strong)', fontSize: 13.6 }}>The point a resident should take away:</strong>{' '}
           <span style={{ color: 'var(--rbl-teal-strong)', fontSize: 13.6, lineHeight: 1.55 }}>{verdict.theRealPoint}</span>

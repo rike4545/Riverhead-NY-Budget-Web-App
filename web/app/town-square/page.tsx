@@ -285,10 +285,10 @@ export default function TownSquarePage() {
       <section style={{ ...card, marginBottom: 18, borderColor: 'var(--rbl-warn-border)' }}>
         <h2 style={{ marginTop: 0, marginBottom: 4, color: 'var(--rbl-title)', fontSize: 22 }}>{idaAssistance.headline}</h2>
         <p style={{ color: 'var(--rbl-text-muted)', fontSize: 12.6, margin: '0 0 12px' }}>{idaAssistance.status}</p>
-        <div style={{ display: 'grid', gap: 9 }}>
+        <dl style={{ display: 'grid', gap: 9, margin: 0 }}>
           <Field term="What was asked for" value={idaAssistance.whatWasAsked} />
           <Field term="What was decided" value={idaAssistance.whatWasDecided} />
-        </div>
+        </dl>
         <div style={{ background: 'var(--rbl-violet-bg)', border: '1px solid var(--rbl-violet-border)', borderRadius: 10, padding: '11px 13px', margin: '12px 0 8px' }}>
           <strong style={{ color: 'var(--rbl-violet-strong)', fontSize: 13.6 }}>The Town already wrote it into the deal:</strong>{' '}
           <span style={{ color: 'var(--rbl-violet-strong)', fontSize: 13.6, lineHeight: 1.55 }}>{idaAssistance.alreadyPromised}</span>
@@ -300,13 +300,13 @@ export default function TownSquarePage() {
         <p style={{ color: 'var(--rbl-text-muted)', fontSize: 12.8, lineHeight: 1.6, margin: 0 }}>{idaAssistance.caution}</p>
 
         <Collapse summary={`Show how the application got here, who decides it, and what to watch for`}>
-          <div style={{ display: 'grid', gap: 9 }}>
+          <dl style={{ display: 'grid', gap: 9, margin: 0 }}>
             <Field term="What happened" value={idaAssistance.timeline} />
             <Field term="The application is not public" value={idaAssistance.notPublic} />
             <Field term="The project cost in that filing" value={idaAssistance.projectCost} />
             <Field term="Who decides" value={idaAssistance.whoDecides} />
             <Field term="What to watch for" value={idaAssistance.whatToWatchFor} />
-          </div>
+          </dl>
         </Collapse>
 
         <h3 style={{ margin: '18px 0 4px', color: 'var(--rbl-title)', fontSize: 17 }}>{idaPrecedent.headline}</h3>
@@ -440,11 +440,11 @@ export default function TownSquarePage() {
         </div>
         <p style={{ color: 'var(--rbl-text-body)', fontSize: 14.2, lineHeight: 1.6, margin: '0 0 12px' }}>{acquisition.whyItMatters}</p>
         <Collapse summary={`Show what happened at the three-hour condemnation hearing`}>
-          <div style={{ display: 'grid', gap: 9, marginBottom: 12 }}>
+          <dl style={{ display: 'grid', gap: 9, margin: '0 0 12px' }}>
             <Field term="The hearing" value={acquisition.theHearing} />
             <Field term="Nobody could say what it would cost" value={acquisition.costUnknownAtTheHearing} />
             <Field term="What public purpose was stated" value={acquisition.publicPurpose} />
-          </div>
+          </dl>
         </Collapse>
         <p style={{ color: 'var(--rbl-text-body)', fontSize: 13.6, lineHeight: 1.6, margin: 0 }}>{acquisition.contested}</p>
       </section>
@@ -493,12 +493,12 @@ export default function TownSquarePage() {
       <section style={{ ...card, marginBottom: 18 }}>
         <h2 style={{ marginTop: 0, marginBottom: 8, color: 'var(--rbl-title)', fontSize: 20 }}>{parkingDistrict.headline}</h2>
         <Collapse summary={`Show the parking terms, the arithmetic raised, and the Board's answer`}>
-          <div style={{ display: 'grid', gap: 9 }}>
+          <dl style={{ display: 'grid', gap: 9, margin: 0 }}>
             <Field term="What the agreement actually provides" value={parkingDistrict.whatTheAgreementSays} />
             <Field term="Why it is a fiscal question" value={parkingDistrict.detail} />
             <Field term="The arithmetic raised" value={parkingDistrict.arithmetic} />
             <Field term="What the Board said" value={parkingDistrict.answer} />
-          </div>
+          </dl>
         </Collapse>
       </section>
 

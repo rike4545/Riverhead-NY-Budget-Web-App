@@ -107,14 +107,14 @@ export default function SalaryRaises({ link }: { link?: PayrollLink }) {
       <section ref={controls} style={{ ...card, display: 'flex', gap: 10, flexWrap: 'wrap', alignItems: 'center', scrollMarginTop: 18 }}>
         <div style={{ display: 'flex', gap: 6 }}>
           {(['raised', 'promotions', 'all'] as const).map((f) => (
-            <button key={f} onClick={() => { setOnly(f); setLimit(60) }} style={{
+            <button key={f} type="button" aria-pressed={only === f} onClick={() => { setOnly(f); setLimit(60) }} style={{
               padding: '8px 13px', borderRadius: 9, border: '1px solid', cursor: 'pointer', fontWeight: 800, fontSize: 13.5,
               borderColor: only === f ? 'var(--rbl-accent-border)' : 'var(--rbl-border-strong)', background: only === f ? 'var(--rbl-fill-accent)' : 'var(--rbl-surface)', color: only === f ? 'white' : 'var(--rbl-text-strong)',
             }}>{f === 'raised' ? `Raises (${summary.raised})` : f === 'promotions' ? `Promotions (${summary.promotions})` : `All 2026 (${summary.count2026})`}</button>
           ))}
         </div>
         <SortSelect sort={sort} presets={SORT_PRESETS} labels={SORT_LABELS} textKeys={TEXT_KEYS} onChange={setSort} style={sel} />
-        <input value={q} onChange={(e) => { setQ(e.target.value); setLimit(60) }} placeholder="Search name or title…"
+        <input aria-label="Search name or title" value={q} onChange={(e) => { setQ(e.target.value); setLimit(60) }} placeholder="Search name or title…"
           style={{ flex: 1, minWidth: 200, padding: '10px 13px', border: '1px solid var(--rbl-border-strong)', borderRadius: 9, fontSize: 15 }} />
       </section>
 

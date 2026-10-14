@@ -95,7 +95,6 @@ export default function Page() {
             ))}
           </ul>
         </section>
-        <style>{`.rbl-toc a:hover .rbl-toc-title{text-decoration:underline;text-underline-offset:.2em}.rbl-cta:hover{background:var(--rbl-header-b)!important}@media(max-width:760px){.rbl-steps{grid-template-columns:1fr!important}.rbl-steps>div{border-left:0!important;padding-left:0!important;border-top:1px solid var(--rbl-border-subtle)}.rbl-steps>div:first-child{border-top:0}}`}</style>
       </div>
     </PageShell>
   )

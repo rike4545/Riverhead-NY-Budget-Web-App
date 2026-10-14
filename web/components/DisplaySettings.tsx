@@ -30,7 +30,6 @@ export default function DisplaySettings() {
           {options.map(([value, label]) => <button key={value} type="button" onClick={() => chooseZoom(value)} aria-pressed={zoom === value} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', textAlign: 'left', border: 0, borderRadius: 8, padding: '9px 10px', cursor: 'pointer', background: zoom === value ? 'var(--rbl-info-bg)' : 'transparent', color: 'var(--rbl-text-strong)', fontWeight: zoom === value ? 700 : 500 }}>{label}{zoom === value && <Check aria-hidden="true" size={16} strokeWidth={2.25} />}</button>)}
         </div>
       </div>
-      <style>{`summary::-webkit-details-marker{display:none}`}</style>
     </details>
   )
 }

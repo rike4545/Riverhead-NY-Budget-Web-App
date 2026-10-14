@@ -191,13 +191,14 @@ The four links at the front of the site menu:
 - **What Changed** (`/what-changed`): the 2026 adopted budget against 2025.
 - **Financial Health** (`/analytics`): levy growth, spending, reserves and other indicators side by side.
 - **Budget Overview** (`/funds`): every operating fund, down through department and spending category to 848 account lines, reconciled to the 2026 adopted budget. Each fund has its own page.
-- **Program Budget** (`/programs`): the 2026 budget regrouped into the seven services the State's account system says the Town performs, with pension and health costs included and fees earned back.
+- **Program Budget** (`/programs`): every budget from 2023 to the 2027 proposal regrouped into the seven services the State's account system says the Town performs, with pension and health costs included, fees earned back, and the change between any two years. Earlier Supplements do not add up to their budgets' Summary pages, so 2019–2022 are left out, and the page says so.
 - **Budget Compare** (`/compare`): adopted appropriations for every fund, 2020–2026, sortable by the biggest movers.
 - **General Fund** (`/general-fund`): appropriations, tax levy and revenues year by year since 2005, from the adopted budgets.
 - **Annual Report** (`/annual-report`): actual 2025 year-end results against the plan, for all 14 funds.
 - **Tax Cap** (`/tax-cap`): how the State's levy limit is calculated, what an override does, and Riverhead's audited record.
 - **Reserves & Fund Balance** (`/reserves`): the five GASB fund-balance classes, the Town's own reserve rules, and a one-time deployment plan.
 - **Where the Surplus Went** (`/fund-balance-draws`): every 2026 resolution that spent fund balance.
+- **Budget Changes, Live** (`/budget-changes`): every resolution the Town Board has adopted in 2026, the year of the adopted budget it compares against, that changes a budget, totalled by where the money came from: savings, borrowing, grants and aid, or fees. It re-reads the data while open and updates itself when a meeting's records arrive.
 - **Capital & Debt** (`/capital-debt`): every bond and Bond Anticipation Note outstanding at the close of 2025, with the repayment schedule, plus a calculator comparing a bond now with a BAN first.
 - **Town Square** (`/town-square`): what the Town is building downtown and what it is spending.
 - **Road Spending** (`/road-spending`): highway spending per maintained mile, Riverhead against every Suffolk town.

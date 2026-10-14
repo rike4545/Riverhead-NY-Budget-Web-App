@@ -239,7 +239,6 @@ export default function TaxCapLetterPage() {
           </Section>
         </article>
       </div>
-      <style>{`.tcl-layout{display:grid;grid-template-columns:minmax(0,1fr);gap:24px}.tcl-contents{background:var(--rbl-surface);border:1px solid var(--rbl-border-subtle);border-radius:14px;padding:16px 18px}@media(max-width:560px){.tcl-table .rbl-stack tr{padding:10px 14px}.tcl-table .rbl-stack tr+tr{border-top:1px solid var(--rbl-border-subtle)}}@media(min-width:1100px){.tcl-layout{grid-template-columns:minmax(0,780px) 260px;gap:56px;align-items:start}.tcl-contents{order:2;position:sticky;top:20px}}`}</style>
     </PageShell>
   )
 }
