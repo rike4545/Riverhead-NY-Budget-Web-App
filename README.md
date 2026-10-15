@@ -231,6 +231,7 @@ The four links at the front of the site menu:
 - **2027 Spending Reduction** (`/spending-reduction-2027`): how the retirement incentive plus sourced line trims could close that gap.
 - **A Zero-Percent Year** (`/zero-percent-2027`): what matching Suffolk County's pledge would take.
 - **Credit Rating** (`/credit-rating`): Riverhead's Aa2 against Brookhaven's AAA and the other Suffolk towns.
+- **Brookhaven's 2027 Tentative** (`/brookhaven-2027`): Brookhaven's 2027 Tentative Operating Budget beside Riverhead's: savings used, growth, the levy, reserves, garbage fees and what each budget book tells residents, with ideas Riverhead could borrow. Brookhaven's copy is a scan, read with OCR and from the page images; `scripts/verify-brookhaven.mjs` checks its tables' arithmetic and its quotations. Per-resident figures use the Census Bureau's July 1 town estimates for Suffolk County (`public/data/census-pep.json`; refresh with `node scripts/fetch-population.mjs` when a new vintage is out, no key needed).
 - **Outlier Watch** (`/outliers`): year-over-year swings of at least 20% and $100,000 across all 19 funds, each adopted budget against the year before and next year's proposal (now the 2027 Tentative) against the last adopted budget. A flagged proposal gets its Budget Supplement lines, and the Debt Service Fund's 2027 fall is set beside the two 2026 votes that paid debt down. `scripts/verify-outliers.mjs` holds the page to the records.
 - **Budget Accuracy** (`/budget-accuracy`): where adopted amounts and actual spending drift apart: researched flags read from the Supplements, lines over budget three years running, lines never used, and every outlier in the newest Supplement.
 - **Where Revenue Comes From** (`/revenue`): every revenue stream, 2018 to the 2027 Tentative, estimate against what came in, in every fund.
@@ -402,6 +403,7 @@ Every page shows when its data was last refreshed.
 | `parse_road_spending.py` | Highway spending per maintained mile for the ten Suffolk towns, from State Comptroller filings and NYSDOT's road inventory |
 | `build_search_index.py` | The sharded search index |
 | `export_csv.py` | The CSV downloads |
+| `ocr_scanned_pdf.py` | The text of a scanned PDF with no text layer, page by page (Brookhaven's 2027 Tentative). Run by hand: it needs Tesseract, which the workflows do not install |
 | `write_meta.py` | The sitewide data-freshness stamp |
 
 The pipeline keeps its own copies of some inputs under `etl/data/`: payroll
@@ -412,8 +414,8 @@ downloaded again from the Town's Financial Reports page on each run.
 **Not part of the automated pipeline:** Campaign Finance queries data.ny.gov
 live in the browser on each page load or refresh, with no build step.
 Research pages such as Town Square, the Supervisor's promises, the Open
-Meetings Law and credit ratings are written by hand from the sources they
-cite. They change when those sources are reviewed again.
+Meetings Law, credit ratings and the Brookhaven comparison are written by hand
+from the sources they cite. They change when those sources are reviewed again.
 
 ---
 

@@ -13,6 +13,7 @@ import json
 import tempfile
 import unittest
 from contextlib import redirect_stdout
+from dataclasses import asdict
 from pathlib import Path
 from unittest import mock
 
@@ -60,7 +61,7 @@ class KeepLastParseTests(unittest.TestCase):
             patcher.start()
             self.addCleanup(patcher.stop)
 
-    def run_parse(self, down=()):
+    def run_parse(self, down=(), links=None):
         """One run of the parse, in which the documents named in `down` time out."""
         def download(link):
             if link.slug in down:
@@ -70,7 +71,7 @@ class KeepLastParseTests(unittest.TestCase):
             path.write_bytes(b'%PDF-1.4')
             return path
 
-        with mock.patch.object(pap, 'discover', return_value=list(LINKS)), \
+        with mock.patch.object(pap, 'discover', return_value=list(links or LINKS)), \
                 mock.patch.object(pap, 'download', side_effect=download), \
                 mock.patch.object(pap, 'sha256', side_effect=lambda path: f'sha-{path.stem}'), \
                 mock.patch.object(pap, 'PdfReader', FakeReader), \
@@ -102,6 +103,46 @@ class KeepLastParseTests(unittest.TestCase):
         self.assertEqual(again['index.json']['failures'], [])
         self.assertEqual(again['index.json']['documents'], before['index.json']['documents'])
         self.assertNotIn('::warning', log)
+
+    def test_an_incomplete_last_parse_leaves_the_document_out_without_ending_the_run(self):
+        # The fallback runs inside the download's except handler, so anything
+        # it raises would end the whole run (Graphify's review of #104).
+        self.run_parse()
+        index_path = self.root / 'out' / 'index.json'
+        index = json.loads(index_path.read_text())
+        for entry in index['documents']:
+            if entry['slug'] == TENTATIVE:
+                del entry['category']
+        index_path.write_text(json.dumps(index))
+        code, written, log = self.run_parse(down={TENTATIVE})
+        self.assertEqual(code, 0)
+        self.assertEqual([d['slug'] for d in written['index.json']['documents']], [CPF])
+        [failure] = written['index.json']['failures']
+        self.assertNotIn('is kept', failure['error'])
+
+    def test_a_last_parse_that_cannot_be_rebuilt_leaves_the_document_out(self):
+        self.run_parse()
+        doc_path = self.root / 'out' / 'documents' / f'{TENTATIVE}.json'
+        stored = json.loads(doc_path.read_text())
+        stored['pages'][0]['text'] = None
+        doc_path.write_text(json.dumps(stored))
+        code, written, log = self.run_parse(down={TENTATIVE})
+        self.assertEqual(code, 0)
+        self.assertEqual([d['slug'] for d in written['index.json']['documents']], [CPF])
+        [failure] = written['index.json']['failures']
+        self.assertIn('could not be reused', failure['error'])
+        self.assertFalse(any(r['slug'] == TENTATIVE for r in written['search-index.json']['records']))
+
+    def test_a_query_string_on_either_side_still_finds_the_last_parse(self):
+        # The Town's links sometimes end in "?bidId=". Both the saved entries
+        # and the lookup drop the query string, so it never hides a last parse.
+        tentative, cpf = LINKS
+        for before, now in (('?bidId=', '?bidId='), ('', '?bidId='), ('?bidId=', '')):
+            with self.subTest(before=before, now=now):
+                (self.root / 'out' / 'index.json').unlink(missing_ok=True)
+                self.run_parse(links=[pap.Link(**{**asdict(tentative), 'url': tentative.url + before}), cpf])
+                _, written, _ = self.run_parse(down={TENTATIVE}, links=[pap.Link(**{**asdict(tentative), 'url': tentative.url + now}), cpf])
+                self.assertIn(TENTATIVE, [d['slug'] for d in written['index.json']['documents']])
 
     def test_a_new_document_that_times_out_is_left_out_and_named(self):
         code, written, log = self.run_parse(down={TENTATIVE})

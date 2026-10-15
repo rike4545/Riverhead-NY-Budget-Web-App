@@ -241,7 +241,11 @@ else {
       const meetingFile = path('out/data/meetings', `${date}.json`)
       if (!existsSync(meetingFile)) continue
       const meeting = JSON.parse(readFileSync(meetingFile, 'utf8'))
-      const numbers = new Set((meeting.resolutions ?? meeting.docket ?? []).map((r) => r.number).filter(Boolean))
+      // Until a meeting's minutes are out, its resolutions list is empty and
+      // its numbers are on the agenda (docket). The transcript step reads the
+      // same lists the same way (etl/transcribe_meetings.py: resolutions, or
+      // the docket when there are none), so an empty list must not hide it.
+      const numbers = new Set(((meeting.resolutions?.length ? meeting.resolutions : meeting.docket) ?? []).map((r) => r.number).filter(Boolean))
       for (const n of Object.keys(entry.ours.votes ?? {})) if (!numbers.has(n)) fail(`${date}: vote time for ${n}, which is not a resolution of that meeting`)
     }
   }

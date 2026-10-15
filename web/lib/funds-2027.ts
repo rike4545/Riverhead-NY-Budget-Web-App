@@ -49,9 +49,13 @@ export const transferFunded = (code: string) => (TRANSFER_FUNDED as readonly str
 
 // ── Line by line, from the 2027 Budget Supplement ────────────────────────────
 
-type SupplementLine = { account: string; fund: string; name: string; kind: string; page: number; adopted: number | null; tentative: number | null }
+type SupplementLine = {
+  account: string; fund: string; name: string; kind: string; page: number; adopted: number | null; tentative: number | null
+  /** The last full year's actual figure, and the adopted figure the year before the adopted column. */
+  actual?: number | null; priorAdopted?: number | null
+}
 const supplement = supplementJson as unknown as {
-  columns: { adopted: number; tentative: number }
+  columns: { adopted: number; tentative: number; actual: number; priorAdopted: number }
   source: { title: string; url: string }
   reconciliation: { complete: boolean; against: string }
   lines: SupplementLine[]
@@ -61,6 +65,9 @@ export const lineSource = supplement.columns.tentative === TENTATIVE_YEAR && sup
 /** Every Supplement line, with the adopted year it prints beside the Tentative; none without a Supplement that adds up. */
 export const supplementLines: readonly SupplementLine[] = lineSource ? supplement.lines : []
 export const supplementAdoptedYear = supplement.columns.adopted
+/** The years of the Supplement's actual and earlier adopted columns. */
+export const supplementActualYear = supplement.columns.actual
+export const supplementPriorAdoptedYear = supplement.columns.priorAdopted
 const byAccount = new Map(supplement.lines.map((l) => [l.account, l]))
 
 // The spending category of an account, from its object code, as the

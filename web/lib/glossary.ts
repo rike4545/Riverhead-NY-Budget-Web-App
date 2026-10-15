@@ -49,8 +49,12 @@ export const glossary: Record<string, GlossaryEntry> = {
     plain: "The Town's savings — money left over from prior years that has not been spent.",
   },
   'appropriated-fund-balance': {
-    term: 'Fund Balance Used',
-    plain: 'Savings from past years that the Town is dipping into to help pay for this year. Using it once is fine; relying on it every year is a warning sign.',
+    term: 'Appropriated fund balance (savings used)',
+    plain: 'Savings from earlier years that a fund counts as income to balance this year’s budget, so less has to come from taxes or charges. It pays toward the whole budget, not one item. Using some is common; a fund that needs a large share of it every year is planning to spend more than it takes in.',
+  },
+  'fund-balance-contribution': {
+    term: 'Fund balance contribution',
+    plain: 'A budget line that sets money aside in a fund’s savings. It is listed with the spending, but the money is meant to stay in the fund.',
   },
   fund: {
     term: 'Fund',
