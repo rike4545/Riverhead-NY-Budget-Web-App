@@ -3,7 +3,7 @@ import path from 'path'
 import type { CSSProperties, ReactNode } from 'react'
 import PageShell from '../../components/PageShell'
 import PlainCallout from '../../components/PlainCallout'
-import { AMENDMENTS, ARTICLE, PACKET, STAFF_APPOINTMENT, SUPPLEMENT_YTD_THROUGH, fundEffects, isRevenue, type Amendment } from '../../lib/budget-amendments-2027'
+import { AMENDMENTS, ARTICLE, PACKET, STAFF_APPOINTMENT, SUPERVISOR_STAFF, SUPPLEMENT_YTD_THROUGH, fundEffects, isRevenue, type Amendment } from '../../lib/budget-amendments-2027'
 import { amendmentEffect, exampleHome, generalFundInterest, raisedRevenues } from '../../lib/budget-amendments-effect'
 import { OUTLOOK, RECORD } from '../../lib/budget-adoption'
 import { AUDIT_2025 } from '../../lib/audits'
@@ -434,18 +434,39 @@ export default function BudgetAmendmentsPage() {
             </ul>
             <H3>Does the staff’s party matter?</H3>
             <P>
-              This site has no record of any staff member’s party, and party is not the test that matters. In Riverhead the Town Board appoints
-              staff by resolution, down to an accountant (Resolution {STAFF_APPOINTMENT.number}, {STAFF_APPOINTMENT.date}), so staff serve the whole
-              Board, in which the Supervisor holds one of five votes. The same office has advised both sides: the financial administrator discussed
-              the Tentative’s figures when it was presented on September 24, as the Riverhead News-Review reported, and by Rothwell’s account helped
-              shape the amendments. When the Supervisor and the council majority are rivals, the same advice can look political to either side.
+              The Supervisor picks his own office staff, and the Board acknowledges them by resolution; it appoints other staff itself, down to an
+              accountant (Resolution {STAFF_APPOINTMENT.number}, {STAFF_APPOINTMENT.date}). Halpin kept the senior staff of the office he took over:
+              the deputy supervisor and the chief of staff, whom {SUPERVISOR_STAFF.report.outlet} titles chief of staff and budget officer. He added a
+              legislative aide. He said his style is “{SUPERVISOR_STAFF.report.quote},” {SUPERVISOR_STAFF.report.outlet} reported the day before he
+              took office. The Board acknowledged all three unanimously on{' '}
+              {SUPERVISOR_STAFF.date} (Resolutions {SUPERVISOR_STAFF.resolutions[0].number} to {SUPERVISOR_STAFF.resolutions[SUPERVISOR_STAFF.resolutions.length - 1].number}).
             </P>
             <P>
-              Rothwell says the financial administrator was comfortable with the amendments and the revenue assumptions behind them, and Town
-              accounting staff prepared the fiscal impact statements on {PACKET.statementsDated}. The Town has published no written forecast behind
-              the new estimates. The surest way to take party out of it is to publish the assumptions, such as the interest rate and cash balance
-              behind the interest estimate and the Building Department’s fee forecast, so residents can weigh the numbers rather than who supplied
-              them.
+              The site’s editor reports that the staff of the Supervisor’s office are {SUPERVISOR_STAFF.editorReportsParty}, the party of the council
+              majority and of Rothwell. This site has not checked that against the Board of Elections’ enrollment records. Separately, the financial
+              administrator discussed the Tentative’s figures when it was presented on September 24, as the Riverhead News-Review reported, and by
+              Rothwell’s account helped shape the amendments, so the Town’s finance staff have advised both sides.
+            </P>
+            <P>Whether it matters shows less in the numbers than in how the advice is received. Weighed evenly:</P>
+            <ul style={list}>
+              <Li>
+                <strong>For Halpin,</strong> keeping his predecessor’s team bought experience and continuity in his first year, and fits his standing
+                outside either party. But a Supervisor whose senior aides share his opponent’s party can be second-guessed, fairly or not, when the
+                council majority rewrites his budget in an election season, starting from the Tentative his own office prepared.
+              </Li>
+              <Li>
+                <strong>For Rothwell,</strong> amendments built with the Town’s finance staff carry more weight than a campaign’s own figures. But
+                critics can ask whether Town staff should be helping a candidate reshape his opponent’s budget weeks before the election, even
+                though amending the budget is ordinary Board business.
+              </Li>
+            </ul>
+            <P>
+              Party is still not a test of the numbers: it says nothing about whether {usd(gfInterest?.after ?? 0)} of interest or{' '}
+              {usd(fees?.after ?? 0)} of building fees is a sound estimate. Rothwell says the financial administrator was comfortable with the
+              amendments and the revenue assumptions behind them, and Town accounting staff prepared the fiscal impact statements on{' '}
+              {PACKET.statementsDated}. The Town has published no written forecast behind the new estimates. The surest way to take party out of
+              it is to publish the assumptions, such as the interest rate and cash balance behind the interest estimate and the Building
+              Department’s fee forecast, so residents can weigh the numbers rather than who supplied them.
             </P>
           </Section>
 
@@ -479,6 +500,11 @@ export default function BudgetAmendmentsPage() {
                 (pp. {PACKET.agendaPages.join('–')}) and the six resolutions with their fiscal impact statements (pp. {AMENDMENTS[0].page}–598)
               </li>
               <li><a href={ARTICLE.url} style={link}>{ARTICLE.outlet}, {ARTICLE.published}: “{ARTICLE.title}”</a></li>
+              <li><a href={SUPERVISOR_STAFF.report.url} style={link}>{SUPERVISOR_STAFF.report.outlet}, {SUPERVISOR_STAFF.report.published}: “{SUPERVISOR_STAFF.report.title}”</a></li>
+              <li>
+                Town Board resolutions {SUPERVISOR_STAFF.resolutions.map((r) => r.number).join(', ')} ({SUPERVISOR_STAFF.date}) and{' '}
+                {STAFF_APPOINTMENT.number} ({STAFF_APPOINTMENT.date}), in this site’s <a href={`${base}/meetings/?meeting=${SUPERVISOR_STAFF.meeting}`} style={link}>Town Board votes</a>
+              </li>
               <li><a href={fx.summary.url} style={link}>Town of Riverhead, {fx.summary.title}</a>: the Summary, p. 8, and the Supervisor’s letter, {LETTER_2027.source.pages}</li>
               <li><a href={fx.source.url} style={link}>Town of Riverhead, {fx.source.title}</a>, and the Budget Supplements for 2025 and 2026, for each year’s collections</li>
               <li>{taxBill.equalization.source.replace(/\. Its residential.*$/, '')}: the residential assessment ratio</li>

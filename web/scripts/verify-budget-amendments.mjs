@@ -16,7 +16,7 @@
 import { existsSync, readFileSync } from 'node:fs'
 import { isAbsolute, relative, resolve, sep } from 'node:path'
 import {
-  AMENDMENTS, ARTICLE, PACKET, PROPERTY_TAXES, STAFF_APPOINTMENT, change, deferredToFundBalance, fundEffects, isRevenue, revenueCode,
+  AMENDMENTS, ARTICLE, PACKET, PROPERTY_TAXES, STAFF_APPOINTMENT, SUPERVISOR_STAFF, change, deferredToFundBalance, fundEffects, isRevenue, revenueCode,
   scaledRate, unbalanced,
 } from '../lib/budget-amendments-2027.ts'
 import { TOWN_WIDE_FUNDS } from '../lib/fund-groups.ts'
@@ -118,6 +118,12 @@ if (Math.round(threeYears / 1e5) / 10 !== ARTICLE.reported.earningsMillions) fai
 const october6 = read(`public/data/meetings/${STAFF_APPOINTMENT.meeting}.json`)
 const appointment = october6.resolutions.find((r) => r.number === STAFF_APPOINTMENT.number)
 if (appointment?.title !== STAFF_APPOINTMENT.title || !appointment.adopted) fail(`Resolution ${STAFF_APPOINTMENT.number} is not an adopted "${STAFF_APPOINTMENT.title}" on ${STAFF_APPOINTMENT.meeting}`)
+// The Supervisor's office staff: acknowledged, unanimously, at the organizational meeting.
+const organizational = read(`public/data/meetings/${SUPERVISOR_STAFF.meeting}.json`)
+for (const cited of SUPERVISOR_STAFF.resolutions) {
+  const r = organizational.resolutions.find((x) => x.number === cited.number)
+  if (r?.title !== cited.title || !r.adopted || r.tag !== 'unanimous') fail(`Resolution ${cited.number} is not a unanimously adopted "${cited.title}" on ${SUPERVISOR_STAFF.meeting}`)
+}
 
 // The final agenda and the vote, once the Town publishes them. The page reports
 // either on its own; a final agenda without all six means the page needs updating.
@@ -149,7 +155,8 @@ const onPage = [
   usd(t2027.totals.appropriations), usd(t2027.totals.appropriations + total(effects.map((e) => e.appropriations))),
   usd(deferredTotal), usd(threeYears), total(rates).toFixed(3), ...rates.map((r) => r.toFixed(3)),
   ...TOWN_WIDE_FUNDS.map((c) => usd(t2027.funds[c].levy + (effects.find((e) => e.fund === c)?.levy ?? 0))),
-  `Resolution ${STAFF_APPOINTMENT.number}`, PACKET.status,
+  `Resolution ${STAFF_APPOINTMENT.number}`, PACKET.status, SUPERVISOR_STAFF.report.quote,
+  `Resolutions ${SUPERVISOR_STAFF.resolutions[0].number} to ${SUPERVISOR_STAFF.resolutions[SUPERVISOR_STAFF.resolutions.length - 1].number}`,
 ]
 for (const s of onPage) if (!has(s)) fail(`"${s}" is not on the page`)
 for (const a of AMENDMENTS) {
@@ -165,6 +172,10 @@ for (const raised of AMENDMENTS.flatMap((a) => a.lines).filter((l) => isRevenue(
 for (const heading of ['For Rothwell, the challenger', 'For Halpin, the incumbent', 'Does the staff’s party matter?']) if (!has(heading)) fail(`the page has no "${heading}"`)
 if (count('Could help.') !== 2 || count('Could hurt.') !== 2) fail(`the election section should give each candidate one "Could help." and one "Could hurt." (found ${count('Could help.')} and ${count('Could hurt.')})`)
 for (const bad of ['NaN', 'undefined', 'Infinity']) if (has(bad)) fail(`the page shows "${bad}"`)
+// The office staff's party is the editor's report, so it stays labelled as one.
+if (!has(`The site’s editor reports that the staff of the Supervisor’s office are ${SUPERVISOR_STAFF.editorReportsParty}`) || !has('has not checked that against the Board of Elections’ enrollment records')) fail('the staff’s party is no longer labelled as the editor’s unchecked report')
+// Each candidate gets a heading and a line in the staff paragraph, and the same number of each.
+if (count('For Halpin,') !== count('For Rothwell,') || count('For Halpin,') < 2) fail(`the election section should weigh both candidates alike ("For Halpin," ${count('For Halpin,')} times, "For Rothwell," ${count('For Rothwell,')})`)
 if (existsSync(path(`public/data/meetings/${PACKET.meeting.slug}.json`))) {
   const meeting = read(`public/data/meetings/${PACKET.meeting.slug}.json`)
   const voted = (meeting.resolutions ?? []).filter((r) => /Amendment #\d to the 2027 Preliminary Budget/i.test(r.title ?? ''))

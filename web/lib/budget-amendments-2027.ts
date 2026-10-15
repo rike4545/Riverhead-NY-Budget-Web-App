@@ -51,10 +51,35 @@ export const ARTICLE = {
 } as const
 
 /**
- * A staff appointment by the Town Board, from this site's meeting record, to
- * show that the Board, not the Supervisor alone, appoints the Town's staff.
+ * Who appoints the staff, from this site's meeting records. The Supervisor
+ * names his own office staff and the Board acknowledges them; the Board
+ * appoints other staff itself, down to an accountant.
  */
 export const STAFF_APPOINTMENT = { number: '2026-891', title: 'Appoints an Accountant', meeting: '2026-10-06', date: 'October 6, 2026' } as const
+export const SUPERVISOR_STAFF = {
+  meeting: '2026-01-06',
+  date: 'January 6, 2026',
+  resolutions: [
+    { number: '2026-58', title: 'Acknowledges Appointment of David Cote (Legislative Aide to Town Supervisor) and Sets Terms and Conditions of Employment' },
+    { number: '2026-59', title: 'Acknowledges Appointment of Chief of Staff (Burkowsky)' },
+    { number: '2026-60', title: 'Acknowledges Appointment of Deputy Supervisor (Higgins)' },
+  ],
+  /** RiverheadLOCAL's account of the staff Halpin kept, the day before he took office. */
+  report: {
+    outlet: 'RiverheadLOCAL',
+    title: 'Pastor Jerry Halpin will be sworn in as town supervisor Thursday. Here’s what’s on his mind.',
+    published: 'December 31, 2025',
+    url: 'https://riverheadlocal.com/2025/12/31/pastor-jerry-halpin-will-be-sworn-in-as-town-supervisor-thursday-heres-whats-on-his-mind/',
+    /** Halpin's words, which the article says refer to keeping the deputy supervisor and the chief of staff/budget officer. */
+    quote: 'evident in the people that I’ve carried over on my team',
+  },
+  /**
+   * The site's editor reports the office staff's party. No record this site
+   * holds shows it, so the page says whose report it is and that it has not
+   * been checked against the Board of Elections' enrollment records.
+   */
+  editorReportsParty: 'Republicans',
+} as const
 
 /** The 2027 Budget Supplement's year-to-date column, as its header prints it: "2026 YTD as of 6/30/26". */
 export const SUPPLEMENT_YTD_THROUGH = 'June 30, 2026'
