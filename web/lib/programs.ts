@@ -45,13 +45,13 @@
 // and aid. scripts/verify-programs.mjs checks all of it.
 
 import census from '../public/data/census-acs.json'
-import community from '../public/data/community.json'
 import payrollSummary from '../public/data/payroll/summary.json'
 import lineHistory from '../public/data/budget-supplement/line-history.json'
 import revenueHistory from '../public/data/budget-supplement/revenue-history.json'
 import budgetStages from '../public/data/history/budget-stages.json'
 import reports from '../public/data/financial-reports/index.json'
 import { GFOA_QUOTES } from './gfoa'
+import { riverheadPopulation } from './population'
 import { allFundCodes, getFundDetail } from './subaccounts'
 import {
   PROGRAM_NAMES, PROGRAM_ORDER, budgetYears, programBudget,
@@ -150,7 +150,9 @@ function staffFor(budgetYear: number) {
 // bill on an actual parcel is what /tax-bill/ is for. The same counts divide
 // every year, so a per-person change is the budget's change and nothing else.
 // ---------------------------------------------------------------------------
-export const population: number = community.population.estimate2024
+export const population: number = riverheadPopulation.estimate
+/** Where the residents come from: the Census Bureau's estimates, not the survey the households come from. */
+export const populationSource = `${riverheadPopulation.source.title}, ${riverheadPopulation.asOf}`
 export const households: number = census.households.estimate
 export const householdsMoe: number = census.households.moe
 export const medianHouseholdIncome: number = census.medianHouseholdIncome.estimate

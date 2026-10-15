@@ -317,7 +317,7 @@ This project uses publicly available Town records and New York State data, inclu
 - **Office of the State Comptroller** Financial Data for Local Governments
 - **NYSDOT** Local Highway Inventory road mileage
 - **NYS Division of Criminal Justice Services** Index crime counts (data.ny.gov)
-- **U.S. Census Bureau** population figures
+- **U.S. Census Bureau** population figures: the 2020 Census count (redistricting data, table P1) and the latest July 1 estimates (`public/data/census-pep.json`), which every per-resident figure divides by through `lib/population.ts`
 - **NYS Committee on Open Government** text of the Open Meetings Law and its advisory opinions
 
 Pages built from research, such as Town Square, the Supervisor's promises
