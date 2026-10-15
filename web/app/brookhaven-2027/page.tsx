@@ -5,7 +5,7 @@ import {
   BROOKHAVEN_2026_ADOPTED, BROOKHAVEN_BOOK, BROOKHAVEN_FUND_BALANCES, BROOKHAVEN_LEVY, BROOKHAVEN_QUOTES, BROOKHAVEN_SALARIES,
   BROOKHAVEN_SOURCE, BROOKHAVEN_STATED,
 } from '../../lib/brookhaven-2027'
-import { brookhaven, growth, riverhead } from '../../lib/brookhaven-compare'
+import { brookhaven, growth, perResident, population, riverhead, riverheadPolice } from '../../lib/brookhaven-compare'
 import { AUDIT_2025 } from '../../lib/audits'
 import { lineSource } from '../../lib/funds-2027'
 import { districtHoldings, generalFundResults, savings } from '../../lib/savings-used'
@@ -25,9 +25,13 @@ const NUMBER_WORDS = ['no', 'one', 'two', 'three', 'four', 'five', 'six', 'seven
 const count = (n: number) => NUMBER_WORDS[n] ?? String(n)
 const words = (items: string[]) => (items.length < 3 ? items.join(' and ') : `${items.slice(0, -1).join(', ')} and ${items[items.length - 1]}`)
 const lower = (s: string) => s.charAt(0).toLowerCase() + s.slice(1)
+const times = (n: number) => (n === 2 ? 'twice' : `${count(n)} times`)
+/** "11–13" for consecutive pages, "11, 14" otherwise. */
+const pageList = (pages: number[]) => (pages.length > 1 && pages[pages.length - 1] - pages[0] === pages.length - 1 ? `${pages[0]}–${pages[pages.length - 1]}` : pages.join(', '))
 
 const SECTIONS = [
   ['glance', 'At a glance'],
+  ['residents', 'Per resident'],
   ['takeaways', 'What Riverhead residents can take from it'],
   ['improve', 'How Riverhead’s budget could be improved'],
   ['differ', 'Where the two towns differ'],
@@ -73,6 +77,7 @@ export default function BrookhavenComparisonPage() {
         Brookhaven’s Tentative balances every fund but one sewer district without dipping into savings, and its Supervisor puts the
         levy increase at {pct(BROOKHAVEN_STATED.levyAdjustmentPct, 2)}. Riverhead’s uses {usd(rh.savingsUsed)} of savings, most of it in
         the water and sewer districts, and its town-wide levy rises {pct(growth.riverheadMainLevy ?? 0, 2)}, the limit its Supervisor states.
+        {perResident && <> Per resident, Riverhead’s town government spends about {count(Math.round(perResident.riverhead.spending / perResident.brookhaven.spending))} times what Brookhaven’s does, mostly because it runs its own police, water and sewer services.</>}
       </PlainCallout>
 
       <div className="tcl-layout">
@@ -133,6 +138,49 @@ export default function BrookhavenComparisonPage() {
               rating is as RiverheadLOCAL reported it in February 2024 (<a href={`${base}/credit-rating/`} style={link}>Credit Rating</a>).
             </P>
           </Section>
+
+          {perResident && riverheadPolice && population.brookhaven && population.riverhead && (
+            <Section id="residents" title="Per resident">
+              <Table
+                caption={`Each town’s 2027 Tentative divided by its residents on ${population.asOf}, the Census Bureau’s estimates from one release.`}
+                head={['Measure', 'Brookhaven', 'Riverhead']}
+                rows={[
+                  [`Residents, ${population.asOf}`, population.brookhaven.toLocaleString('en-US'), population.riverhead.toLocaleString('en-US')],
+                  ['Spending, all funds, per resident', usd(perResident.brookhaven.spending), usd(perResident.riverhead.spending)],
+                  ['Property tax for the general, highway and lighting funds, per resident', usd(perResident.brookhaven.levy), usd(perResident.riverhead.levy)],
+                ]}
+              />
+              <P>
+                Per resident, Riverhead’s town government spends about {count(Math.round(perResident.riverhead.spending / perResident.brookhaven.spending))} times
+                what Brookhaven’s does. The two governments do not do the same things:
+              </P>
+              <ul style={{ margin: '0 0 14px', paddingLeft: 22, display: 'grid', gap: 8, maxWidth: '72ch' }}>
+                <Li>
+                  <strong>Police.</strong> Riverhead pays for a police department: {usd(riverheadPolice.department)} in the 2027 Tentative, and{' '}
+                  {usd(riverheadPolice.benefits)} more in sworn officers’ pensions, health insurance and Social Security,{' '}
+                  {usd(riverheadPolice.total)} in all, or {usd(perResident.riverhead.police)} a resident. Brookhaven’s police are the Suffolk
+                  County Police Department, outside its town budget.
+                </Li>
+                <Li>
+                  <strong>Water and sewer.</strong> Riverhead runs a water district and three sewer funds, {usd(rh.waterSewerSpending)} or{' '}
+                  {usd(perResident.riverhead.waterSewer)} a resident. Brookhaven’s town budget has two small sewer districts and one water district.
+                </Li>
+              </ul>
+              <P>
+                Leave those out, and the three funds the others pay into, and Riverhead’s spending comes to {usd(perResident.riverhead.rest)}:
+                about {usd(perResident.riverhead.restPerResident)} a resident, still about{' '}
+                {times(Math.round(perResident.riverhead.restPerResident / perResident.brookhaven.spending))} Brookhaven’s{' '}
+                {usd(perResident.brookhaven.spending)}. This page does not say why the rest differs. Residents of Brookhaven’s villages also
+                get some services from their villages, which neither town budget counts, and a per-resident figure is not a tax bill:
+                businesses pay part of each levy.
+              </P>
+              <P>
+                Sources: <a href={population.source.url} style={link}>{population.source.title}</a>; Riverhead’s police lines from the{' '}
+                <a href={riverheadPolice.source.url} style={link}>{riverheadPolice.source.title}</a>, pp. {pageList(riverheadPolice.pages.department)} (the
+                department) and pp. {pageList(riverheadPolice.pages.benefits)} (sworn officers’ benefits).
+              </P>
+            </Section>
+          )}
 
           <Section id="takeaways" title="What Riverhead residents can take from it">
             <H3>Brookhaven balances without savings. Riverhead does not.</H3>
@@ -252,9 +300,9 @@ export default function BrookhavenComparisonPage() {
           <Section id="differ" title="Where the two towns differ">
             <ul style={{ margin: '0 0 14px', paddingLeft: 22, display: 'grid', gap: 8, maxWidth: '72ch' }}>
               <Li>
-                <strong>Size.</strong> Brookhaven spends about {ratio !== null ? count(Math.round(ratio)) : '—'} times what Riverhead does and has
-                incorporated villages, whose residents pay some of its taxes and not others. This page compares shares and rates of
-                change, not dollars per resident, because this site does not yet have a Census population for Brookhaven.
+                <strong>Size.</strong> Brookhaven spends about {ratio !== null ? count(Math.round(ratio)) : '—'} times what Riverhead does
+                {population.brookhaven && population.riverhead && <> and has about {Math.round(population.brookhaven / population.riverhead)} times its residents ({population.brookhaven.toLocaleString('en-US')} against {population.riverhead.toLocaleString('en-US')})</>}.
+                It also has incorporated villages, whose residents pay some of its taxes and not others.
               </Li>
               <Li>
                 <strong>Police.</strong> Riverhead’s General Fund pays for a town police department. Brookhaven has no town police

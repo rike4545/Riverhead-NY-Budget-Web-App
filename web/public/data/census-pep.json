@@ -1,0 +1,144 @@
+{
+  "dataset": "Census Bureau Population Estimates, vintage 2025: resident population of Suffolk County's towns, April 1, 2020 to July 1, 2025",
+  "vintage": 2025,
+  "asOf": "July 1, 2025",
+  "source": {
+    "title": "U.S. Census Bureau, Annual Estimates of the Resident Population for Minor Civil Divisions in New York (SUB-EST2025)",
+    "url": "https://www2.census.gov/programs-surveys/popest/datasets/2020-2025/cities/totals/sub-est2025_36.csv",
+    "sha256": "29b57993b8ddadd786825930702b05cc15a26f6c1c7f000d32734580ffe464fb",
+    "detail": "A town’s figure includes the residents of the incorporated villages inside it."
+  },
+  "retrieved": "2026-10-15",
+  "towns": [
+    {
+      "name": "Babylon town",
+      "cousub": "04000",
+      "base2020": 218177,
+      "estimates": {
+        "2020": 217605,
+        "2021": 218863,
+        "2022": 218548,
+        "2023": 218390,
+        "2024": 219613,
+        "2025": 219766
+      }
+    },
+    {
+      "name": "Brookhaven town",
+      "cousub": "10000",
+      "base2020": 485631,
+      "estimates": {
+        "2020": 484406,
+        "2021": 491014,
+        "2022": 490484,
+        "2023": 491470,
+        "2024": 495072,
+        "2025": 496410
+      }
+    },
+    {
+      "name": "East Hampton town",
+      "cousub": "22194",
+      "base2020": 28359,
+      "estimates": {
+        "2020": 28333,
+        "2021": 28540,
+        "2022": 28706,
+        "2023": 28943,
+        "2024": 29234,
+        "2025": 29400
+      }
+    },
+    {
+      "name": "Huntington town",
+      "cousub": "37000",
+      "base2020": 204179,
+      "estimates": {
+        "2020": 203600,
+        "2021": 204527,
+        "2022": 204078,
+        "2023": 204221,
+        "2024": 205627,
+        "2025": 205891
+      }
+    },
+    {
+      "name": "Islip town",
+      "cousub": "38000",
+      "base2020": 339982,
+      "estimates": {
+        "2020": 339081,
+        "2021": 340437,
+        "2022": 339279,
+        "2023": 339028,
+        "2024": 340800,
+        "2025": 340867
+      }
+    },
+    {
+      "name": "Riverhead town",
+      "cousub": "61984",
+      "base2020": 35964,
+      "estimates": {
+        "2020": 35887,
+        "2021": 36100,
+        "2022": 36060,
+        "2023": 36047,
+        "2024": 36293,
+        "2025": 36394
+      }
+    },
+    {
+      "name": "Shelter Island town",
+      "cousub": "66839",
+      "base2020": 3238,
+      "estimates": {
+        "2020": 3236,
+        "2021": 3263,
+        "2022": 3273,
+        "2023": 3298,
+        "2024": 3335,
+        "2025": 3351
+      }
+    },
+    {
+      "name": "Smithtown town",
+      "cousub": "68000",
+      "base2020": 116337,
+      "estimates": {
+        "2020": 115915,
+        "2021": 116483,
+        "2022": 116243,
+        "2023": 116223,
+        "2024": 116794,
+        "2025": 116847
+      }
+    },
+    {
+      "name": "Southampton town",
+      "cousub": "68473",
+      "base2020": 69054,
+      "estimates": {
+        "2020": 68887,
+        "2021": 69369,
+        "2022": 69777,
+        "2023": 70249,
+        "2024": 71065,
+        "2025": 71601
+      }
+    },
+    {
+      "name": "Southold town",
+      "cousub": "69463",
+      "base2020": 23722,
+      "estimates": {
+        "2020": 23737,
+        "2021": 23859,
+        "2022": 24000,
+        "2023": 24010,
+        "2024": 24194,
+        "2025": 24260
+      }
+    }
+  ]
+}

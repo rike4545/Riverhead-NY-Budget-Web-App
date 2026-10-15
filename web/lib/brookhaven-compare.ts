@@ -3,14 +3,16 @@
 // Brookhaven's side is read from its budget (brookhaven-2027.ts). Riverhead's
 // comes from the records this site already checks: the Tentative's Summary
 // (budget-stages.json), the savings each fund uses (savings-used.ts), the
-// audited General Fund reserve (reserve-policy.ts), the Supervisor's letter
-// and the Tentative's own pages. Nothing is divided by population: this site
-// has no Census figure for Brookhaven yet, so the comparisons are shares and
-// rates of change, which do not depend on size.
+// audited General Fund reserve (reserve-policy.ts), the Supervisor's letter,
+// the Tentative's own pages and the 2027 Budget Supplement. Both towns'
+// residents are the Census Bureau's estimates for July 1, 2025, from one
+// release (census-pep.json), so the per-resident figures divide alike.
 
 import { BROOKHAVEN_2026_ADOPTED, BROOKHAVEN_FUND_BALANCES, BROOKHAVEN_LEVY, BROOKHAVEN_STATED } from './brookhaven-2027'
+import pep from '../public/data/census-pep.json'
 import { stageDoc } from './budget-stages'
 import { riverheadCurrent } from './credit-rating'
+import { budgetTotals, lineSource, supplementLines } from './funds-2027'
 import { appropriations as gfAppropriations2026, percentOfAppropriations, reserveYearAudited, unassignedFundBalance } from './reserve-policy'
 import { savings } from './savings-used'
 import { REFUSE_2027 } from './tax-cap-letter'
@@ -97,3 +99,60 @@ export const growth = {
   riverheadAmbulance: riverhead && riverhead.ambulance.from ? pctChange(riverhead.ambulance.from, riverhead.ambulance.to) : null,
   riverheadRefuse: riverhead ? pctChange(riverhead.refuse.adopted2026, riverhead.refuse.tentative2027) : null,
 }
+
+// ── Per resident ─────────────────────────────────────────────────────────────
+
+const residents = (name: string) => (pep.towns as { name: string; estimates: Record<string, number> }[]).find((t) => t.name === name)?.estimates[String(pep.vintage)] ?? null
+
+/** Both towns' residents, from one Census release. */
+export const population = {
+  asOf: pep.asOf,
+  vintage: pep.vintage,
+  source: pep.source,
+  brookhaven: residents('Brookhaven town'),
+  riverhead: residents('Riverhead town'),
+}
+
+/**
+ * Riverhead's police department in the 2027 Tentative, from the Budget
+ * Supplement: every line of the department (function 3120), and the benefits
+ * the Town codes to sworn officers (function 9 accounts marked -UNI-:
+ * pension, health insurance and Social Security). The department's own
+ * -UNI- lines are its officers' pay, already counted in the first.
+ */
+export const riverheadPolice = lineSource
+  ? (() => {
+      const department = supplementLines.filter((l) => l.fund === 'A01' && l.kind === 'expenditure' && l.account.split('-')[2] === '3120')
+      const benefits = supplementLines.filter((l) => l.kind === 'expenditure' && l.account.includes('-UNI-') && l.account.split('-')[2].startsWith('9'))
+      const total = (ls: typeof department) => ls.reduce((s, l) => s + (l.tentative ?? 0), 0)
+      const pages = (ls: typeof department) => Array.from(new Set(ls.map((l) => l.page))).sort((a, b) => a - b)
+      return {
+        department: total(department),
+        benefits: total(benefits),
+        total: total(department) + total(benefits),
+        pages: { department: pages(department), benefits: pages(benefits) },
+        source: lineSource,
+      }
+    })()
+  : null
+
+export const perResident = population.brookhaven && population.riverhead && riverhead && riverheadPolice && budgetTotals?.operatingTentative
+  ? (() => {
+      const b = population.brookhaven
+      const r = population.riverhead
+      /** What is left once the funds the others pay into, the police and the water and sewer districts are taken out. */
+      const rest = budgetTotals.operatingTentative - riverheadPolice.total - riverhead.waterSewerSpending
+      return {
+        brookhaven: { spending: brookhaven.spending / b, levy: brookhaven.main.levy / b },
+        riverhead: {
+          spending: riverhead.spending / r,
+          levy: riverhead.main.levyTo / r,
+          police: riverheadPolice.total / r,
+          waterSewer: riverhead.waterSewerSpending / r,
+          operating: budgetTotals.operatingTentative,
+          rest,
+          restPerResident: rest / r,
+        },
+      }
+    })()
+  : null

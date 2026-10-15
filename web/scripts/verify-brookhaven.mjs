@@ -22,6 +22,7 @@ import {
 import { RIVERHEAD_SALARIES_2027 as RS } from '../lib/tentative-salaries.ts'
 import { REFUSE_2027 } from '../lib/tax-cap-letter.ts'
 import { READ_BY_HAND } from '../lib/tentative-letters.ts'
+import { TRANSFER_FUNDED } from '../lib/fund-groups.ts'
 
 const root = resolve(process.cwd())
 const repo = resolve(root, '..')
@@ -153,6 +154,29 @@ for (const year of ['2025', '2026', '2027']) {
   if (!unreadable.length || !READ_BY_HAND[year]) fail(`the ${year} letter is not recorded as a scanned image, which the page says it is`)
 }
 
+// ── Per resident ─────────────────────────────────────────────────────────────
+// Both towns from one Census release; Riverhead's police from the Supplement:
+// the department's lines (function 3120) and the benefits coded to sworn
+// officers (function 9, -UNI-). Every -UNI- line must be one or the other.
+const pep = read('public/data/census-pep.json')
+const residentsOf = (name) => pep.towns.find((t) => t.name === name)?.estimates[String(pep.vintage)]
+const bRes = residentsOf('Brookhaven town')
+const rRes = residentsOf('Riverhead town')
+if (!bRes || !rRes) fail(`the Census file has no ${pep.vintage} figure for Brookhaven or Riverhead`)
+const supplementLines = read('public/data/budget-supplement/current-lines.json').lines
+const department = supplementLines.filter((l) => l.fund === 'A01' && l.kind === 'expenditure' && l.account.split('-')[2] === '3120')
+const swornBenefits = supplementLines.filter((l) => l.kind === 'expenditure' && l.account.includes('-UNI-') && l.account.split('-')[2].startsWith('9'))
+const stray = supplementLines.filter((l) => l.account.includes('-UNI-') && !department.includes(l) && !swornBenefits.includes(l))
+if (stray.length) fail(`sworn officers' lines outside the police department and its benefits: ${stray.map((l) => l.account).join(', ')}`)
+const tentativeOf = (ls) => ls.reduce((s, l) => s + (l.tentative ?? 0), 0)
+const police = tentativeOf(department) + tentativeOf(swornBenefits)
+const operating = t2027.totals.appropriations - TRANSFER_FUNDED.reduce((s, c) => s + (t2027.funds[c]?.appropriations ?? 0), 0)
+const waterSewer = ['EW1', 'ES1', 'ES3', 'ES5'].reduce((s, c) => s + t2027.funds[c].appropriations, 0)
+const rest = operating - police - waterSewer
+const perResidentFigures = bRes && rRes
+  ? [FB.grandTotal.expenditures / bRes, t2027.totals.appropriations / rRes, LEVY.majorTotal.taxes / bRes, t2027.townWide.levy / rRes, police / rRes, waterSewer / rRes, rest / rRes]
+  : []
+
 // ── The built page ───────────────────────────────────────────────────────────
 const built = 'out/brookhaven-2027/index.html'
 if (!existsSync(path(built))) { fail(`${built} was not built`); process.exit() }
@@ -170,13 +194,16 @@ const onPage = [
   usd(REFUSE_2027.tentative2027), `$${BROOKHAVEN_STATED.refuseFee.toFixed(2)}`,
 ]
 for (const s of onPage) if (!has(s)) fail(`"${s}" is not on the page`)
+for (const s of [fmt(bRes ?? 0), fmt(rRes ?? 0), usd(tentativeOf(department)), usd(tentativeOf(swornBenefits)), usd(police), usd(waterSewer), usd(rest), ...perResidentFigures.map(usd)]) {
+  if (!has(s)) fail(`per resident: "${s}" is not on the page`)
+}
 for (const [key, q] of Object.entries(BROOKHAVEN_QUOTES)) {
   const shown = key === 'caps' ? q.text.charAt(0).toLowerCase() + q.text.slice(1) : q.text
   if (!has(shown)) fail(`quotation "${key}" is not on the page as printed`)
 }
 if (READ_BY_HAND[2027]?.taxCap && !has(READ_BY_HAND[2027].taxCap)) fail('Riverhead\'s letter on the tax cap is not quoted')
-for (const stale of ['Fire Prevention', 'Brookhaven’s budget has none']) if (has(stale)) fail(`the page still says "${stale}"`)
+for (const stale of ['Fire Prevention', 'Brookhaven’s budget has none', 'does not yet have a Census population']) if (has(stale)) fail(`the page still says "${stale}"`)
 
 if (!process.exitCode) {
-  console.log(`brookhaven: ${levyRows.length} levy rows and ${FB.major.length + FB.special.length} fund-balance rows add to their totals; ${Object.keys(BROOKHAVEN_QUOTES).length} quotations in the OCR text; ${missions.length} mission statements; ${BROOKHAVEN_BOOK.publicSafetyDivisions.length - BROOKHAVEN_BOOK.publicSafetyFromImage.length} of ${BROOKHAVEN_BOOK.publicSafetyDivisions.length} public safety divisions in the OCR contents (${BROOKHAVEN_BOOK.publicSafetyFromImage.join(', ')} read from the image); the page shows ${onPage.length} checked figures`)
+  console.log(`brookhaven: ${levyRows.length} levy rows and ${FB.major.length + FB.special.length} fund-balance rows add to their totals; ${Object.keys(BROOKHAVEN_QUOTES).length} quotations in the OCR text; ${missions.length} mission statements; ${BROOKHAVEN_BOOK.publicSafetyDivisions.length - BROOKHAVEN_BOOK.publicSafetyFromImage.length} of ${BROOKHAVEN_BOOK.publicSafetyDivisions.length} public safety divisions in the OCR contents (${BROOKHAVEN_BOOK.publicSafetyFromImage.join(', ')} read from the image); the page shows ${onPage.length} checked figures and ${perResidentFigures.length} per-resident figures (${fmt(bRes ?? 0)} and ${fmt(rRes ?? 0)} residents, ${pep.asOf}); police ${usd(police)}`)
 }
