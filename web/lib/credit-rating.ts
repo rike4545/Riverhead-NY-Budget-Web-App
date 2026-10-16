@@ -15,8 +15,13 @@
 // transcript.
 
 import { AUDIT_2025 } from './audits'
-import { appropriations, percentOfAppropriations, reserveYearAudited, unassignedFundBalance } from './reserve-policy'
+import { appropriations, percentOfAppropriations, planned2027, reserveYearAudited, unassignedFundBalance } from './reserve-policy'
+import { stageDoc } from './budget-stages'
 import { brookhavenNarrowPercent } from './fund-balance-policies'
+
+const usd = (n: number) => `$${Math.round(n).toLocaleString('en-US')}`
+/** Savings every fund counts as income in the 2027 budget's latest stage, the stage planned2027 reads. */
+const allFundsDraw2027 = (stageDoc(2027, 'adopted') ?? stageDoc(2027, 'preliminary') ?? stageDoc(2027, 'tentative'))?.totals.fundBalance ?? 0
 
 /** Unassigned General Fund balance at the end of 2025 as a share of 2026 appropriations, e.g. "41.7%". */
 const reserveShare = `${(percentOfAppropriations(unassignedFundBalance, appropriations) * 100).toFixed(1)}%`
@@ -195,9 +200,12 @@ export const levers: Lever[] = [
   },
   {
     title: 'Close the last structural gaps with recurring revenue, not one-time transfers',
-    detail:
-      "The 2026 adopted budget's General Fund still needed roughly $74,283 in one-time money to true up a mismatch identified in the supplement. It's small, but agencies explicitly reward towns that \"balance responsibly — without dipping into reserves\" (cited for Smithtown's own rating). Fixing recurring-line mismatches at adoption, not with fund balance, keeps that praise applicable to Riverhead too.",
-    evidence: "2026 adopted budget General Fund mismatch: $74,283 (see the Reserves & Fund Balance page, deployment option #1).",
+    detail: planned2027
+      ? `The 2027 ${planned2027.stage} still counts ${usd(planned2027.draw)} of General Fund savings as income, and ${usd(allFundsDraw2027 - planned2027.draw)} more across the water and sewer districts. Agencies explicitly reward towns that "balance responsibly — without dipping into reserves" (cited for Smithtown's own rating). Closing those draws with recurring revenue at adoption, not with fund balance, keeps that praise applicable to Riverhead too.`
+      : "The 2026 adopted budget's General Fund still needed roughly $74,283 in one-time money to true up a mismatch identified in the supplement. It's small, but agencies explicitly reward towns that \"balance responsibly — without dipping into reserves\" (cited for Smithtown's own rating). Fixing recurring-line mismatches at adoption, not with fund balance, keeps that praise applicable to Riverhead too.",
+    evidence: planned2027
+      ? `2027 ${planned2027.stage} Summary: appropriated fund balance ${usd(planned2027.draw)} in the General Fund and ${usd(allFundsDraw2027)} across all funds (see the Reserves & Fund Balance page). The 2026 adopted budget's General Fund mismatch was $74,283.`
+      : '2026 adopted budget General Fund mismatch: $74,283.',
   },
   {
     title: 'Update the reserve policy, and put it where a rating analyst looks',

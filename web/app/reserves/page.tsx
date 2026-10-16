@@ -4,6 +4,9 @@ import ReserveDrawdownSlider from '../../components/ReserveDrawdownSlider'
 import { dollars } from '../../lib/financial-data'
 import { AUDITED_GENERAL_FUND, AUDIT_2025, auditVsReport } from '../../lib/audits'
 import { generalFundAfr } from '../../lib/afr'
+import { amendmentEffect, generalFundInterest } from '../../lib/budget-amendments-effect'
+import { brookhaven } from '../../lib/brookhaven-compare'
+import { savings } from '../../lib/savings-used'
 import {
   appropriations,
   authorizedReserves,
@@ -25,6 +28,7 @@ import {
   peerHoldingsAverage,
   peerHoldingsReading,
   peerHoldingsTowns,
+  planned2027,
   policyMeasurePercent,
   policyMinimumPercent,
   RESERVE_YEAR,
@@ -79,6 +83,44 @@ import {
 const base = process.env.NEXT_PUBLIC_BASE_PATH || ''
 const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 20 } as const
 const pct = (v: number, digits = 1) => `${(v * 100).toFixed(digits)}%`
+
+/** What the six amendments on the October 20, 2026 agenda would do to the General Fund's 2027 use of savings, while they are pending. */
+const amendedGeneralFund = (() => {
+  if (planned2027?.stage !== 'Tentative' || !amendmentEffect) return null
+  const gf = amendmentEffect.funds.find((f) => f.fund === 'A01')
+  const equipment = amendmentEffect.deferred.lines.filter((l) => l.fund === 'A01').reduce((s, l) => s + l.amount, 0)
+  const interest = amendmentEffect.accounts.find((a) => a.account === 'A01-2401-000-00000-G')?.after ?? null
+  return gf?.after ? { draw: gf.after.fundBalance, equipment, interest } : null
+})()
+
+/** The General Fund's interest and earnings in the three years before the 2026 budget, with what each year's budget expected. */
+const interestYears = (() => {
+  const gfi = generalFundInterest
+  return gfi ? gfi.rows.filter((r) => r.year >= gfi.threeYears.from && r.year <= gfi.threeYears.to) : []
+})()
+
+/**
+ * The water and sewer districts' savings: what the 2025 audit reports (as net
+ * position, since it treats them as enterprise funds) and what the 2026 and
+ * 2027 budgets plan to use. The audit's sewer column is the three sewer funds
+ * together.
+ */
+const SEWER_FUNDS = ['ES1', 'ES3', 'ES5']
+const districtReserves = savings
+  ? ((rows) => {
+      const draws = (codes: string[]) => ({
+        adopted: rows.filter((r) => codes.includes(r.code)).reduce((s, r) => s + r.adopted, 0),
+        proposed: rows.filter((r) => codes.includes(r.code)).reduce((s, r) => s + r.proposed, 0),
+      })
+      const { sewer, water, page } = AUDIT_2025.enterprise
+      return {
+        sewer: { ...sewer, opeb: sewer.opebDueWithinYear + sewer.opebLater, draws: draws(SEWER_FUNDS) },
+        water: { ...water, draws: draws(['EW1']) },
+        page,
+      }
+    })(savings.rows)
+  : null
+const signedDollars = (n: number) => `${n < 0 ? '−' : '+'}${dollars(Math.abs(n))}`
 
 export const metadata = {
   title: 'Reserves & fund balance policy — how much cushion is enough?',
@@ -406,6 +448,32 @@ export default function ReservesPage() {
           <strong>Ceiling on what is left</strong>
           <strong style={{ color: 'var(--rbl-accent)' }}>{dollars(unassignedCeiling)}</strong>
         </div>
+        {planned2027 && (
+          <p data-planned-2027 style={{ color: 'var(--rbl-text-body)', fontSize: 14.5, lineHeight: 1.6, margin: '14px 0 0' }}>
+            <strong>What 2027 plans next.</strong> The 2027 {planned2027.stage} counts {dollars(planned2027.draw)} of General Fund
+            savings as income.
+            {amendedGeneralFund && (
+              <>
+                {' '}The six amendments on the October 20 agenda would cut that to {dollars(amendedGeneralFund.draw)}, but buy{' '}
+                {dollars(amendedGeneralFund.equipment)} of equipment from savings by separate votes during 2027 (
+                <a href={`${base}/budget-amendments-2027/#savings`} style={{ color: 'var(--rbl-link)' }}>the proposed amendments</a>).
+              </>
+            )}
+            {planned2027.stage === 'Adopted' ? '' : ' None of it is adopted yet.'} It is not among the 2026 votes subtracted above, so
+            the plan below counts the budget&apos;s own draw first.
+          </p>
+        )}
+        {generalFundInterest && interestYears.length > 0 && (
+          <p data-reserve-earnings style={{ color: 'var(--rbl-text-body)', fontSize: 14.5, lineHeight: 1.6, margin: '10px 0 0' }}>
+            <strong>What the savings earn.</strong> The General Fund collected{' '}
+            {nameList(interestYears.map((r) => `${dollars(r.collected ?? 0)} in ${r.year}`))} in interest and earnings,{' '}
+            {dollars(generalFundInterest.threeYears.collected)} in all, while those years&apos; budgets expected{' '}
+            {dollars(Math.max(...interestYears.map((r) => r.estimated ?? 0)))} or less. The 2027 {planned2027?.stage ?? 'Tentative'} estimates{' '}
+            {dollars(generalFundInterest.tentative ?? 0)}
+            {amendedGeneralFund?.interest ? <>, and the amendments would make it {dollars(amendedGeneralFund.interest)}</> : null}. Spending the
+            balance down also spends down what it earns.
+          </p>
+        )}
         <p style={{ color: 'var(--rbl-text-muted)', fontSize: 12.8, lineHeight: 1.55, marginTop: 12 }}>
           Why a ceiling rather than a balance. These are authorizations, not cash out the door — a budget adjustment
           permits spending, and what was consumed appears in the next financial report. Several adopted draws state no
@@ -624,6 +692,58 @@ export default function ReservesPage() {
         </p>
       </section>
 
+      {districtReserves && (
+        <section data-district-reserves style={{ ...card, marginBottom: 16 }}>
+          <h3 style={{ marginTop: 0, color: 'var(--rbl-title)' }}>Beyond the General Fund: water and sewer</h3>
+          <p style={{ color: 'var(--rbl-text-body)', fontSize: 14.5, marginTop: 0, lineHeight: 1.6 }}>
+            Everything above is the General Fund. The water and sewer districts keep savings of their own, which the audit reports as
+            net position because it treats them as businesses, and their budgets lean on those savings far more than the General Fund
+            does.
+          </p>
+          <div style={{ overflowX: 'auto' }}>
+            <table className="rbl-stack" style={{ width: '100%', borderCollapse: 'collapse', fontSize: 14.5 }}>
+              <caption style={{ textAlign: 'left', color: 'var(--rbl-text-muted)', fontSize: 13, padding: '0 0 6px' }}>
+                The 2025 audit (agenda packet p. {districtReserves.page}) and the savings each year&apos;s budget counts as income. The sewer
+                column is the Riverhead, Calverton and Scavenger Waste funds together, as the audit reports them.
+              </caption>
+              <thead>
+                <tr style={{ borderBottom: '1px solid var(--rbl-border)' }}>
+                  {['Measure', 'Sewer funds', 'Water District'].map((h) => (
+                    <th key={h} scope="col" style={{ textAlign: 'left', padding: '6px 8px', color: 'var(--rbl-text-muted)', fontWeight: 600, fontSize: 13.5 }}>{h}</th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {[
+                  ['Cash, end of 2025', dollars(districtReserves.sewer.cash), dollars(districtReserves.water.cash)],
+                  ['Unrestricted net position, end of 2025', signedDollars(districtReserves.sewer.unrestricted), signedDollars(districtReserves.water.unrestricted)],
+                  ['Change in net position during 2025', signedDollars(districtReserves.sewer.change), signedDollars(districtReserves.water.change)],
+                  ['Savings the 2026 budget uses', dollars(districtReserves.sewer.draws.adopted), dollars(districtReserves.water.draws.adopted)],
+                  [`Savings the 2027 ${planned2027?.stage ?? 'Tentative'} uses`, dollars(districtReserves.sewer.draws.proposed), dollars(districtReserves.water.draws.proposed)],
+                ].map((row) => (
+                  <tr key={row[0]} style={{ borderTop: '1px solid var(--rbl-border-subtle)' }}>
+                    {row.map((c, i) => (
+                      <td key={i} data-label={['Measure', 'Sewer funds', 'Water District'][i]} style={{ padding: '6px 8px', fontWeight: i === 0 ? 600 : 400, color: 'var(--rbl-text-strong)' }}>{c}</td>
+                    ))}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <p style={{ color: 'var(--rbl-text-body)', fontSize: 14.5, lineHeight: 1.6, margin: '12px 0 0' }}>
+            The sewer funds plan to use {dollars(districtReserves.sewer.draws.adopted + districtReserves.sewer.draws.proposed)} of savings
+            across 2026 and 2027, most of the {dollars(districtReserves.sewer.cash)} they held in cash. Their unrestricted net position was
+            already below zero, largely because it counts {dollars(districtReserves.sewer.opeb)} of retiree health benefits owed. The Water
+            District is in a different position: its net position grew in 2025 and it holds {dollars(districtReserves.water.unrestricted)}{' '}
+            unrestricted, so the question there is what its draws pay for, one-time work or the cost of running the district.
+          </p>
+          <p style={{ color: 'var(--rbl-text-muted)', fontSize: 12.8, lineHeight: 1.55, margin: '10px 0 0' }}>
+            Fund by fund, with each district&apos;s share of its own spending, see the{' '}
+            <a href={`${base}/funds/#savings`} style={{ color: 'var(--rbl-link)' }}>Funds Explorer</a>.
+          </p>
+        </section>
+      )}
+
       <h2 style={{ margin: '26px 0 4px', color: 'var(--rbl-title)', fontSize: 18 }}>Go deeper</h2>
       <p style={{ color: 'var(--rbl-text-muted)', fontSize: 13.5, margin: '0 0 8px' }}>The breakdown, peer comparisons, and a draw-down tool — open only what you want.</p>
 
@@ -684,7 +804,9 @@ export default function ReservesPage() {
         <p style={{ color: 'var(--rbl-text-muted)', fontSize: 12.8, lineHeight: 1.55, margin: '0 0 8px' }}>
           On the narrower measure, Brookhaven&apos;s budget shows {dollars(PEER_BALANCES.find((b) => b.town === 'Brookhaven')!.narrower!.amount)} unappropriated and
           unreserved, {pct(brookhavenNarrowPercent)} of its budget. Riverhead&apos;s unassigned balance, the closest
-          match, was {pct(openingPercentOfAppropriations)} at the end of 2025.
+          match, was {pct(openingPercentOfAppropriations)} at the end of 2025. Brookhaven&apos;s 2027 Tentative expects{' '}
+          {dollars(brookhaven.general.cushion)} in its General Town Wide fund entering 2027, {pct(brookhaven.general.cushionShare / 100)} of
+          its 2027 spending (<a href={`${base}/brookhaven-2027/`} style={{ color: 'var(--rbl-link)' }}>Brookhaven beside Riverhead</a>).
         </p>
         <p data-peer-correction style={{ color: 'var(--rbl-text-muted)', fontSize: 12.5, lineHeight: 1.55, margin: 0 }}>
           <strong>Correction.</strong> Until September 2026 this list mixed measures: Brookhaven&apos;s narrower 38.8%
