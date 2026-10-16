@@ -16,7 +16,9 @@ from the backup tables. The Town's Yes/No/treatment answers parse
 deterministically and are transcribed as-published.
 
 Output: web/public/data/meetings/<date>-fiscal.json per meeting, plus a
-fiscal-index.json listing the meetings that have a corrected read.
+fiscal-index.json listing the meetings that have a corrected read. A meeting
+whose packet fails to download or parse stays listed with the read already
+published (fiscal_index).
 
 A date in PROTECTED (currently 2026-07-07) has a hand-curated file, and every
 run merges into it rather than replacing it: its amounts, notes and reads are
@@ -37,6 +39,10 @@ import urllib.parse
 from pathlib import Path
 
 import pypdf
+
+from pdf_limits import raise_town_document_limits
+
+raise_town_document_limits()
 
 ROOT = Path(__file__).resolve().parent.parent
 MEETINGS = ROOT / "web/public/data/meetings"
@@ -1544,6 +1550,22 @@ def merge_hand_curated(date: str, parsed: dict) -> dict:
     )
     return result
 
+
+def fiscal_index(rebuilt: list[str]) -> list[str]:
+    """The meetings fiscal-index.json lists, newest first: every one with a fiscal file.
+
+    A meeting this run did not rebuild keeps the read already published, with a
+    warning, rather than leaving the site. On October 16, 2026, pypdf 6.21's
+    parsing budget failed the February 18 and April 7 packets, and the index
+    that run wrote from the rebuilt meetings alone left both off the site.
+    Deleting a meeting's fiscal file is the way to unpublish it.
+    """
+    listed = sorted((p.name[:10] for p in MEETINGS.glob("????-??-??-fiscal.json")), reverse=True)
+    for date in sorted(set(listed) - set(rebuilt)):
+        print(f"::warning::{date}: the fiscal read was not rebuilt this run, so the one published earlier is kept")
+    return listed
+
+
 def main() -> int:
     # --packet-dir DIR reads each packet's extracted text from DIR/<date>.txt
     # when it is there instead of downloading the PDF again, so the parse can be
@@ -1567,7 +1589,7 @@ def main() -> int:
                 reader = pypdf.PdfReader(io.BytesIO(pdf))
                 text = "\n".join((p.extract_text() or "") for p in reader.pages)
         except Exception as exc:
-            print(f"  {date}: packet fetch/parse failed ({exc}) — skipped")
+            print(f"::warning::{date}: packet fetch/parse failed ({exc}); skipped")
             continue
         meeting = build_meeting(date, text)
         if not meeting:
@@ -1580,7 +1602,7 @@ def main() -> int:
         s = meeting["summary"]
         print(f"  {date}: {s['total']} resolutions, {s['markedNo']} marked no, {s['understatedMarkedNo']} understated-marked-no")
 
-    index = {"meetings": sorted(set(generated), reverse=True)}
+    index = {"meetings": fiscal_index(generated)}
     (MEETINGS / "fiscal-index.json").write_text(json.dumps(index, indent=1), encoding="utf-8")
     print(f"Done: {len(index['meetings'])} meetings with a corrected fiscal read.")
     return 0

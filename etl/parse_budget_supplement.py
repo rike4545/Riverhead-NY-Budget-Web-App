@@ -39,6 +39,10 @@ import json
 import re
 from pathlib import Path
 
+from pdf_limits import raise_town_document_limits
+
+raise_town_document_limits()
+
 ROOT = Path(__file__).resolve().parent.parent
 CACHE = ROOT / ".cache/financial-reports"
 OUT = ROOT / "web/public/data/budget-supplement"

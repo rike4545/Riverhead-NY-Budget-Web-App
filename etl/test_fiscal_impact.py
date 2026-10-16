@@ -11,6 +11,8 @@ developer's bond being released or a project that is already finished. Only a
 figure that reads as the Town paying out counts toward the stated cost.
 """
 
+import contextlib
+import io
 import json
 import re
 import tempfile
@@ -442,6 +444,29 @@ class Summaries(unittest.TestCase):
               {"number": "2026-4", "title": "D", "amount": 205000.0, "townFiscalImpact": "No", "realistic": neutral}]
         self.assertEqual(largest_understated_marked_no(rs), [900.0, "2026-2", "B"])
         self.assertIsNone(largest_understated_marked_no(rs[2:]))
+
+
+class Index(unittest.TestCase):
+    def test_a_packet_that_fails_keeps_its_published_read(self):
+        # October 16, 2026: pypdf 6.21's parsing budget failed the February 18
+        # and April 7 packets, and the index written from the rebuilt meetings
+        # alone left both off the site. February 3 stands for a published
+        # meeting the run did not reach at all.
+        events = [{"startDateTime": "2026-02-18T18:00:00"}, {"startDateTime": "2026-04-07T14:00:00"}]
+        failure = Exception("Reached maximum number of tokens per stream.")
+        with tempfile.TemporaryDirectory() as tmp, mock.patch.object(parse_fiscal_impact, "MEETINGS", Path(tmp)), \
+                mock.patch.object(parse_fiscal_impact, "list_events", return_value=events), \
+                mock.patch.object(parse_fiscal_impact, "agenda_packet_file_id", return_value=1), \
+                mock.patch.object(parse_fiscal_impact, "http_get", side_effect=failure), \
+                contextlib.redirect_stdout(io.StringIO()) as log:
+            for date in ("2026-02-03", "2026-02-18"):
+                (Path(tmp) / f"{date}-fiscal.json").write_text("{}", encoding="utf-8")
+            parse_fiscal_impact.main()
+            index = json.loads((Path(tmp) / "fiscal-index.json").read_text(encoding="utf-8"))
+        self.assertEqual(index["meetings"], ["2026-02-18", "2026-02-03"])
+        for date in ("2026-02-03", "2026-02-18"):
+            self.assertIn(f"::warning::{date}: the fiscal read was not rebuilt this run", log.getvalue())
+        self.assertIn("::warning::2026-04-07: packet fetch/parse failed", log.getvalue())
 
 
 class Datasets(unittest.TestCase):

@@ -18,6 +18,10 @@ from pathlib import Path
 
 import pypdf
 
+from pdf_limits import raise_town_document_limits
+
+raise_town_document_limits()
+
 ROOT = Path(__file__).resolve().parent.parent
 PDF = ROOT / "etl/data/afr/afr-2025.pdf"
 OUT = ROOT / "web/public/data/afr"

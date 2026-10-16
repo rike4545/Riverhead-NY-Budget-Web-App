@@ -39,6 +39,7 @@ jobs:
           python etl/test_fiscal_impact.py
           python etl/test_transcribe_meetings.py
           python etl/test_push_data.py
+          python etl/test_pdf_limits.py
           python - <<'PY'
           import bs4
           import cryptography
