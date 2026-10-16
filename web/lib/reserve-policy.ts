@@ -8,6 +8,8 @@ import { allOperatingFunds2026 } from './all-funds'
 import { generalFundAfr } from './afr'
 import { AUDITED_GENERAL_FUND, AUDITED_YEARS, FUND_BALANCE_CLASSES, type FundBalanceClass } from './audits'
 import { countWord, FUND_BALANCE_POLICY, nameList, PEER_BALANCES } from './fund-balance-policies'
+import { stageDoc, type Stage } from './budget-stages'
+import { lineSource, supplementLines } from './funds-2027'
 
 const generalFund2026 = allOperatingFunds2026.find((f) => f.code === 'A01')!
 
@@ -196,27 +198,60 @@ export type DeploymentOption = {
   detail: string
 }
 
+const usd0 = (n: number) => n.toLocaleString('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 })
+
+/**
+ * The 2027 budget's own use of General Fund savings, from the latest stage of
+ * it the site has read: the Tentative until the Board adopts a budget.
+ */
+const STAGES_2027: Stage[] = ['adopted', 'preliminary', 'tentative']
+const stage2027 = STAGES_2027.find((st) => stageDoc(2027, st))
+const budget2027 = stage2027 ? stageDoc(2027, stage2027) : null
+export const planned2027 = budget2027 && stage2027
+  ? {
+      stage: stage2027.charAt(0).toUpperCase() + stage2027.slice(1),
+      /** Appropriated fund balance: savings the General Fund counts as income. */
+      draw: budget2027.funds.A01?.fundBalance ?? 0,
+      /** The General and Highway funds' appropriations, the base of the tax-stabilization reserve's ceiling. */
+      generalAndHighway: (budget2027.funds.A01?.appropriations ?? 0) + (budget2027.funds.DA1?.appropriations ?? 0),
+      source: budget2027.source,
+    }
+  : null
+
+/** Interest and principal on bond anticipation notes in the Debt Service Fund, from the 2027 Budget Supplement. */
+const supplementTentative = (account: string) => supplementLines.find((l) => l.account === account)?.tentative ?? null
+export const banPayments2027 = lineSource
+  ? {
+      interest: supplementTentative('V01-9-9730-700-000-00000'),
+      principal: supplementTentative('V01-9-9730-600-000-00000'),
+      source: lineSource,
+    }
+  : null
+
 export const deploymentOptions: DeploymentOption[] = [
   {
     number: 1,
-    title: 'Clean up the current General Fund mismatch',
-    amount: 74283,
-    detail:
-      'Use one-time money first to close the current A01 imbalance identified in the 2026 supplement before calling anything else balanced.',
+    title: 'The 2027 budget’s own draw',
+    amount: planned2027?.draw ?? 0,
+    detail: planned2027
+      ? `The 2027 ${planned2027.stage} counts ${usd0(planned2027.draw)} of General Fund savings as income. It comes first because it is already in the budget, and the policy allows it: money above the floor may be used “to reduce the subsequent year’s property taxes.”`
+      : 'The 2027 budget has not been read yet, so its use of savings is not counted here.',
   },
   {
     number: 2,
-    title: 'Crush BAN interest before it compounds',
-    amount: 1233750,
-    detail:
-      'The 2026 adopted budget shows BAN interest in the Debt Service Fund at about $1.234M. A one-time reserve deployment here directly reduces financing drag.',
+    title: 'Pay a year of BAN interest from savings',
+    amount: banPayments2027?.interest ?? 0,
+    detail: banPayments2027?.interest
+      ? `The 2027 Budget Supplement’s Debt Service Fund budgets ${usd0(banPayments2027.interest)} of interest on bond anticipation notes (BANs), the Town’s short-term borrowing for capital projects. Paying it from savings is one year of tax relief, not a saving: BAN interest does not compound, so paying it avoids no future interest. Only paying down principal, the next option, does that.`
+      : 'The 2027 Budget Supplement has not been read yet, so the BAN interest is not counted here.',
   },
   {
     number: 3,
-    title: 'Retire BAN principal early',
-    amount: 1025000,
-    detail:
-      'The adopted V01 debt schedule also carries about $1.025M of BAN principal. Paying that down reduces rollover risk and future interest exposure.',
+    title: 'Pay down BAN principal ahead of schedule',
+    amount: banPayments2027?.principal ?? 0,
+    detail: banPayments2027?.principal
+      ? `The same fund budgets ${usd0(banPayments2027.principal)} of BAN principal for 2027. An extra payment of that size, on top of the scheduled one, would shrink what the Town must later convert to long-term bonds, and the interest on it. The Town retired its Town Square note in August 2026; its Town Hall note, $19,250,000 when it matured in February 2026, must be converted to bonds by February 2028.`
+      : 'The 2027 Budget Supplement has not been read yet, so the BAN principal is not counted here.',
   },
   {
     number: 4,
@@ -340,10 +375,10 @@ export const authorizedReserves: AuthorizedReserve[] = [
   {
     citation: 'GML § 6-e',
     name: 'Contingency and Tax Stabilization Reserve',
-    exposure: 'Ceiling for Riverhead (10% of general + highway)',
-    exposureAmount: 7_703_241,
+    exposure: planned2027 ? `Ceiling for Riverhead (10% of general + highway, 2027 ${planned2027.stage})` : 'Ceiling for Riverhead (10% of general + highway)',
+    exposureAmount: planned2027 ? Math.round(planned2027.generalAndHighway / 10) : 7_703_241,
     detail:
-      'The one written for the problem the Town actually has. It may be used to lessen or prevent a projected levy increase above 2½%, and to absorb unanticipated revenue losses. For a town the ceiling is 10% of the town-wide general and highway funds — about $77.0M for 2026. Establishing it takes a board resolution subject to permissive referendum, and spending from it needs the chief executive officer’s recommendation plus a two-thirds board vote. If the balance ever exceeds the 10% ceiling, the excess must go to reducing the next year’s levy.',
+      `The one written for the problem the Town actually has. It may be used to lessen or prevent a projected levy increase above 2½%, and to absorb unanticipated revenue losses. For a town the ceiling is 10% of the town-wide general and highway funds${planned2027 ? `: ${usd0(planned2027.generalAndHighway)} in the 2027 ${planned2027.stage}, against about $77.0M in the 2026 budget, when the ceiling was $7,703,241` : ' — about $77.0M for 2026'}. Establishing it takes a board resolution subject to permissive referendum, and spending from it needs the chief executive officer’s recommendation plus a two-thirds board vote. If the balance ever exceeds the 10% ceiling, the excess must go to reducing the next year’s levy.`,
   },
 ]
 
