@@ -2,6 +2,8 @@
 // the same Socrata queries used by the iOS app's Council Scorecard. Runs client-side
 // since this is a statically-exported site with no server at runtime.
 
+import { riverheadPopulation } from './population'
+
 export type CampaignFilerRef = { committeeName: string; filerID: string }
 
 export type CampaignOfficial = {
@@ -86,9 +88,9 @@ export type CampaignSnapshot = {
   candidateFamilyContributions: WatchContribution[] | null
 }
 
-// U.S. Census Bureau QuickFacts, Riverhead town, Suffolk County, NY — 2024 estimate. Used only to
+// Riverhead's residents in the Census Bureau's latest estimate (lib/population.ts). Used only to
 // contextualize a committee's raised total as a "per resident" figure.
-export const RIVERHEAD_POPULATION_ESTIMATE_2024 = 35980
+export const RIVERHEAD_POPULATION = riverheadPopulation.estimate
 
 // ---------------------------------------------------------------------------
 // Project-interest and candidate-family watch logic

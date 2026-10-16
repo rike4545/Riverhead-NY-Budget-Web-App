@@ -50,7 +50,7 @@ const MEASURES: { key: Measure; label: string; lede: string }[] = [
   { key: 'net', label: 'Not covered by fees', lede: 'What is left for taxes and general revenue once fees are counted.' },
 ]
 
-export type People = { population: number; households: number; medianHouseholdIncome: number; censusTitle: string; censusDataset: string }
+export type People = { population: number; populationSource: string; households: number; medianHouseholdIncome: number; censusTitle: string; censusDataset: string }
 
 export default function ProgramExplorer({ series, people, base }: { series: ProgramSeries; people: People; base: string }) {
   const [year, setYear] = useState(series.current)
@@ -378,7 +378,7 @@ function PerPerson({ series, year, compare, people, base }: { series: ProgramSer
         </span>
       </div>
       <p style={{ color: 'var(--rbl-text-muted)', fontSize: 12, lineHeight: 1.5, margin: '10px 0 0' }}>
-        Source: {people.censusTitle} — {people.censusDataset}. Household count carries a margin of error, so treat
+        Sources: residents, {people.populationSource}; households and income, {people.censusTitle} — {people.censusDataset}. Household count carries a margin of error, so treat
         per-household figures as approximate. “All in” adds debt service and money set aside to the services&apos; net cost.
       </p>
     </section>

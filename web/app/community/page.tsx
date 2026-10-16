@@ -1,6 +1,7 @@
 import PageShell from '../../components/PageShell'
 import PlainCallout from '../../components/PlainCallout'
 import data from '../../public/data/community.json'
+import { riverheadPopulation } from '../../lib/population'
 
 const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 20 } as const
 const usd0 = (n: number) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(n)
@@ -30,7 +31,7 @@ export default function CommunityPage() {
       </PlainCallout>
 
       <section style={{ ...card, display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(180px,1fr))', gap: 12, marginBottom: 16 }}>
-        <Stat label="Population (2020 Census)" value={d.population.census2020.toLocaleString()} sub={`~${d.population.estimate2024.toLocaleString()} (2024 est.)`} />
+        <Stat label={`Population (${riverheadPopulation.asOf} estimate)`} value={riverheadPopulation.estimate.toLocaleString()} sub={`${d.population.census2020.toLocaleString()} in the 2020 Census`} />
         <Stat label="Employer businesses" value={d.businesses.totalEmployerFirms.toLocaleString()} sub={`${d.businesses.totalEmployerFirmsYear} (Census County Business Patterns)`} />
         <Stat label="Tax base — full (market) value" value={bn(d.taxBase.impliedFullValuation)} sub="implied from debt limit" accent />
         <Stat label="Debt limit (7% of value)" value={usd0(d.taxBase.debtLimit)} sub={`${d.taxBase.debtLimitExhaustedPct}% used`} />

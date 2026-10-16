@@ -8,7 +8,7 @@ import {
   fetchAllWatchContributions,
   fetchCampaignSnapshots,
   fetchFilingHistory,
-  RIVERHEAD_POPULATION_ESTIMATE_2024,
+  RIVERHEAD_POPULATION,
   type CampaignOfficial,
   type CampaignSnapshot,
   type FilingEvent,
@@ -136,7 +136,7 @@ export default function CampaignFinance({
           const currentCycleRaised = live
             ? live.contributorTypeBreakdown.reduce((sum, t) => sum + t.amount, 0)
             : null
-          const perResident = currentCycleRaised != null ? currentCycleRaised / RIVERHEAD_POPULATION_ESTIMATE_2024 : null
+          const perResident = currentCycleRaised != null ? currentCycleRaised / RIVERHEAD_POPULATION : null
 
           return (
             <article key={official.name} style={{ ...card, borderColor: official.currentlyServing ? 'var(--rbl-accent-border)' : 'var(--rbl-text-muted)' }}>

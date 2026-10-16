@@ -6,6 +6,7 @@ import community from '../../public/data/community.json'
 import payrollSummary from '../../public/data/payroll/summary.json'
 import meetingsIndex from '../../public/data/meetings/index.json'
 import { AUDIT_2025 } from '../../lib/audits'
+import { riverheadPopulation } from '../../lib/population'
 import buyout from '../../public/data/buyout-analysis.json'
 
 import { debtProfile, opebLiability } from '../../lib/debt-profile'
@@ -20,7 +21,7 @@ const M = (n: number) => `$${(n / 1e6).toFixed(1)}M`
 const totalApprop = allOperatingFunds2026.reduce((sum, f) => sum + f.appropriations2026, 0)
 // GFOA's Value category asks "How much does the government cost?" (lib/gfoa.ts);
 // this tour answers it per resident, across every operating fund.
-const perResident = totalApprop / community.population.estimate2024
+const perResident = totalApprop / riverheadPopulation.estimate
 
 export const metadata = {
   title: 'Explore the Riverhead Town Budget — a guided tour',
@@ -64,8 +65,8 @@ const stops: Stop[] = [
   },
   {
     n: 4, kicker: 'Who pays', title: 'A few big properties carry a lot of it', accent: 'var(--rbl-success)',
-    body: <>About <b>{community.population.census2020.toLocaleString()}</b> people live here, but the levy is spread across the assessed value of every taxable property — roughly <b>${(community.taxBase.impliedFullValuation / 1e9).toFixed(1)}B</b> of market value. A handful of big commercial ratables (Tanger Outlets, PSEG, Costco) shoulder an outsized share, and 300+ tax grievances a year quietly shift the burden around.</>,
-    stats: [{ label: 'Population', value: community.population.census2020.toLocaleString() }, { label: 'Tax base (full value)', value: `$${(community.taxBase.impliedFullValuation / 1e9).toFixed(1)}B` }],
+    body: <>About <b>{riverheadPopulation.estimate.toLocaleString()}</b> people live here (the Census Bureau&apos;s estimate for {riverheadPopulation.asOf}), but the levy is spread across the assessed value of every taxable property — roughly <b>${(community.taxBase.impliedFullValuation / 1e9).toFixed(1)}B</b> of market value. A handful of big commercial ratables (Tanger Outlets, PSEG, Costco) shoulder an outsized share, and 300+ tax grievances a year quietly shift the burden around.</>,
+    stats: [{ label: `Residents (${riverheadPopulation.vintage} estimate)`, value: riverheadPopulation.estimate.toLocaleString() }, { label: 'Tax base (full value)', value: `$${(community.taxBase.impliedFullValuation / 1e9).toFixed(1)}B` }],
     href: `${base}/community/`, cta: 'See the tax base',
   },
   {
@@ -88,7 +89,7 @@ const stops: Stop[] = [
   },
   {
     n: 8, kicker: 'What it costs you', title: 'About $6,700 a year, per household', accent: 'var(--rbl-series-teal)',
-    body: <>Divide the whole {M(totalApprop)} town-wide budget by the roughly <b>{community.population.estimate2024.toLocaleString()}</b> people who live here and it comes to about <b>{usd0(perResident)}</b> per resident per year. Some of that is money moving between Town funds, and about a fifth of what is left is paid by the people who use a service — water bills, permits, beach passes. Strip both out and the part carried by taxes and general revenue is <b>{usd0(programPerResident.everything)}</b> per resident, or <b>{usd0(programPerHousehold.everything)}</b> per household — {programPerHousehold.shareOfMedianIncome.toFixed(1)}% of what the median Riverhead household earns. Your own share arrives as a tax bill built from your assessed value, not that average. Whether it buys a lot or a little is the fair question: Riverhead spends <b>{usd0(riverheadRoads.perMile)}</b> per maintained mile of road, {riverheadRankPhrase} Suffolk towns, against a median of {usd0(medianPerMile)}.</>,
+    body: <>Divide the whole {M(totalApprop)} town-wide budget by the roughly <b>{riverheadPopulation.estimate.toLocaleString()}</b> people who live here and it comes to about <b>{usd0(perResident)}</b> per resident per year. Some of that is money moving between Town funds, and about a fifth of what is left is paid by the people who use a service — water bills, permits, beach passes. Strip both out and the part carried by taxes and general revenue is <b>{usd0(programPerResident.everything)}</b> per resident, or <b>{usd0(programPerHousehold.everything)}</b> per household — {programPerHousehold.shareOfMedianIncome.toFixed(1)}% of what the median Riverhead household earns. Your own share arrives as a tax bill built from your assessed value, not that average. Whether it buys a lot or a little is the fair question: Riverhead spends <b>{usd0(riverheadRoads.perMile)}</b> per maintained mile of road, {riverheadRankPhrase} Suffolk towns, against a median of {usd0(medianPerMile)}.</>,
     stats: [{ label: 'Per household, all in', value: usd0(programPerHousehold.everything) }, { label: 'Per resident', value: usd0(programPerResident.everything) }, { label: 'Road spend per mile', value: usd0(riverheadRoads.perMile) }],
     href: `${base}/programs/`, cta: 'See what each service costs',
   },

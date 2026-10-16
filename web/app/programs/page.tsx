@@ -3,7 +3,7 @@ import PlainCallout from '../../components/PlainCallout'
 import ProgramExplorer from '../../components/ProgramExplorer'
 import {
   censusDataset, censusSource, households, medianHouseholdIncome, method, notCovered,
-  perResident, population, programSeries, programYears, yearsLeftOut,
+  perResident, population, populationSource, programSeries, programYears, yearsLeftOut,
 } from '../../lib/programs'
 
 const base = process.env.NEXT_PUBLIC_BASE_PATH || ''
@@ -44,7 +44,7 @@ export default function ProgramsPage() {
       <ProgramExplorer
         series={programSeries}
         base={base}
-        people={{ population, households, medianHouseholdIncome, censusTitle: censusSource.title, censusDataset }}
+        people={{ population, populationSource, households, medianHouseholdIncome, censusTitle: censusSource.title, censusDataset }}
       />
 
       {/* The honest limit of the exercise. */}

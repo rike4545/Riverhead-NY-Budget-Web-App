@@ -3,8 +3,7 @@
  "intro": "Who and what the Town of Riverhead taxes. Population sets the scale of demand for services; the tax base — the assessed value of all taxable property — is what the levy is spread across. A few large commercial properties carry an outsized share, which is why grievance settlements on them ripple onto everyone else's bill.",
  "population": {
   "census2020": 35902,
-  "estimate2024": 35980,
-  "source": "U.S. Census Bureau QuickFacts, Riverhead town, Suffolk County, NY."
+  "source": "U.S. Census Bureau, 2020 Census Redistricting Data (Public Law 94-171), table P1, Riverhead town, Suffolk County, NY."
  },
  "businesses": {
   "totalEmployerFirms": 1424,
@@ -51,7 +50,7 @@
   ]
  },
  "sources": [
-  "U.S. Census Bureau QuickFacts — Riverhead town, Suffolk County, NY.",
+  "U.S. Census Bureau: the 2020 Census (redistricting data, table P1), the Population Estimates Program and QuickFacts — Riverhead town, Suffolk County, NY.",
   "Town of Riverhead 2022 Audited Basic Financial Statements (debt-limit and assessed-value disclosures).",
   "RiverheadLOCAL and Riverhead News-Review reporting on Tanger, big-box assessments, grievance litigation, and the Friar's Head refund (2022, 2024, 2026).",
   "U.S. Census Bureau County Business Patterns and Data USA (Census-derived employment by industry)."
