@@ -1,45 +1,356 @@
-// What a zero-percent General Fund year would actually take.
+// What a 1% or a zero-percent 2027 tax levy would take, for /zero-percent-2027/.
 //
-// Suffolk County's executive announced on September 3, 2026 that he would not
-// raise general fund taxes for 2027. The obvious resident question is whether
-// Riverhead could do the same. This file answers it from the site's own
-// pipeline rather than fresh constants: the 2026 adopted General Fund, the
-// 2027 projection, the audited fund balance, and the savings package already
-// catalogued on the spending-reduction page.
+// The page began with Suffolk County's pledge of no general fund increase for
+// 2027, and priced a freeze on this site's projection. The Town's own 2027
+// Tentative is now out, and six amendments before the Board would trim it, so
+// both targets are measured against those instead:
+//   - the Tentative's town-wide levy, the General, Highway and Street Lighting
+//     funds (its Summary's "Total Town Wide", budget-stages.json);
+//   - the same levy with the six amendments (budget-amendments-effect.ts);
+//   - a 1% increase and no increase over 2026's levy.
 //
-// ONE DISTINCTION THE WHOLE PAGE TURNS ON. Suffolk's general fund is one fund
-// among several, and its police district is levied separately from towns that
-// are not in it — Riverhead is not. Riverhead's police department sits inside
-// the very General Fund a freeze would apply to. The comparison is real but the
-// two "general funds" are not the same animal, and the page says so.
+// Where the money could come from is read from the 2027 Budget Supplement, which
+// adds up to the Tentative to the dollar, and from every earlier Supplement
+// (revenue-history.json): what each revenue line brought in during 2023, 2024
+// and 2025, and by June 30, 2026. Savings are the audited 2025 General Fund
+// balance above the Town's 15% policy floor, less what 2026's resolutions have
+// already committed (fiscal-commitments-2027.ts).
+//
+// The Town has proposed no 1% or 0% budget. Every step toward one here is this
+// site's arithmetic from those records, and the page says so.
+//
+// ONE DISTINCTION THE COMPARISON WITH SUFFOLK TURNS ON. Suffolk's police district
+// is levied separately, on the towns inside it, and Riverhead is not one of them.
+// Riverhead's police department sits inside the very General Fund a freeze
+// would apply to.
 
-import prediction from '../public/data/budget-2027-prediction.json'
+import revenueHistory from '../public/data/budget-supplement/revenue-history.json'
+import supplementJson from '../public/data/budget-supplement/current-lines.json'
 import taxBill from '../public/data/tax-bill.json'
-import { appropriations, unassignedFundBalance, policyMinimumPercent, minimumRequired, surplusAboveFloor } from './reserve-policy'
-import { remainingHeadroomCeiling, committedTotal, drawCounts } from './fiscal-commitments-2027'
-import { capGap2027, firmRecurringTotal, retirementIncentive2027 } from './close-the-gap-2027'
-import { personnelPolicyTotal, operationalTotal, supplementTrimTotal, fullRecurringReductionPackage } from './spending-reduction-2027'
+import { AUDITED_GENERAL_FUND, AUDITED_OPERATIONS } from './audits'
+import { PACKET, scaledRate } from './budget-amendments-2027'
+import { amendmentEffect } from './budget-amendments-effect'
+import { stageDoc, TOWN_WIDE_FUNDS } from './budget-stages'
+import { committedTotal, drawCounts, remainingHeadroomCeiling } from './fiscal-commitments-2027'
+import { lineSource } from './funds-2027'
 import { generalFund } from './general-fund'
-import { uptake, savingEstimate, incentiveCostIfAllElected } from './retirement-actuals-2026'
-import { retirementAnnualisation } from './annualization-2027'
-import { triborough, openUnits, corpus as laborCorpus } from './labor-contracts-2027'
-import { released2027 } from './tentative-2027'
-import { outcome as incentiveOutcome } from './buyout-2026'
+import { corpus as laborCorpus, openUnits, triborough } from './labor-contracts-2027'
+import { appropriations, minimumRequired, policyMinimumPercent, surplusAboveFloor, unassignedFundBalance } from './reserve-policy'
+import { savingEstimate } from './retirement-actuals-2026'
+import { LETTER_2027, READ_BY_HAND } from './tentative-letters'
 
-const money = (n: number) => n.toLocaleString('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 })
-const countWord = (n: number) => ['no', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten'][n] ?? String(n)
-/** The incentive saving the 2027 Tentative budgets, once it is out; null before. */
-const incentiveBudgeted = released2027 ? incentiveOutcome.savings2027 : null
-const gfLevyRise2027 = released2027?.generalFund?.levyOverPrior ?? null
+type Line = {
+  account: string; fund: string; name: string; kind: string; page: number
+  actual: number | null; adopted: number | null; ytd: number | null; tentative: number | null; priorActual: number | null
+}
+type History = {
+  account: string; fund: string; name: string; page: number
+  actual: Record<string, number>; adopted: Record<string, number>; ytd: Record<string, number>; tentative: number | null
+}
 
-const gfFund = (prediction.byFund as { fundCode: string; v2026: number; v2027: number; delta: number; pct: number }[])
-  .find((f) => f.fundCode === 'A01')!
+const tentative = stageDoc(2027, 'tentative')
+const adopted = stageDoc(2026, 'adopted')
+const fx = amendmentEffect
+if (!tentative?.townWide || !adopted?.townWide || !fx || !lineSource) {
+  throw new Error('zero-percent-2027: needs the 2027 Tentative and 2026 adopted Summaries, the six amendments and a 2027 Supplement that adds up')
+}
+const tw = tentative.townWide
 
-// The number a freeze has to absorb: the General Fund's own projected cost growth.
-export const generalFund2026 = appropriations
-export const generalFund2027 = gfFund.v2027
-export const costGrowth = gfFund.delta
-export const costGrowthPct = gfFund.pct
+const lines = new Map((supplementJson.lines as unknown as Line[]).map((l) => [l.account, l]))
+const histories = new Map((revenueHistory.accounts as unknown as History[]).map((h) => [h.account, h]))
+const amendedChange = new Map(fx.accounts.map((a) => [a.account, a.change]))
+
+const sum = (xs: number[]) => xs.reduce((s, x) => s + x, 0)
+const pct = (from: number, to: number) => ((to - from) / from) * 100
+const usd = (n: number) => `${n < 0 ? '−' : ''}$${Math.round(Math.abs(n)).toLocaleString('en-US')}`
+const fmtPct = (p: number, digits = 2) => `${p < 0 ? '−' : ''}${Math.abs(p).toFixed(digits)}%`
+const NUMBER_WORDS = ['no', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten', 'eleven', 'twelve']
+const countWord = (n: number) => NUMBER_WORDS[n] ?? String(n)
+const COLLECTED_YEARS = [2023, 2024, 2025] as const
+
+// ── Five levels for 2027 ─────────────────────────────────────────────────────
+
+/** The example home the Supervisor's letter prices the Tentative on, at the Receiver of Taxes' residential assessment ratio. */
+export const exampleHome = (() => {
+  const marketValue = LETTER_2027.generalFund.exampleValue
+  const ratio = taxBill.equalization.residentialAssessmentRatio
+  return { marketValue, ratio, ratioYear: taxBill.equalization.asOfYear, assessed: (marketValue * ratio) / 100 }
+})()
+/** Rounded to the dollar, so a table's changes add up as printed. */
+const homeTax = (rate: number) => Math.round((exampleHome.assessed / 1000) * rate)
+
+/** The three town-wide funds: 2026's levy, the Tentative's, the amended one and the Tentative's rate. */
+export const townWideFunds = (TOWN_WIDE_FUNDS as readonly string[]).map((code) => {
+  const t = tentative.funds[code]
+  const amended = fx.funds.find((f) => f.fund === code)?.after?.levy ?? t.levy ?? 0
+  return {
+    code,
+    name: t.name,
+    prior: adopted.funds[code].levy ?? 0,
+    tentative: t.levy ?? 0,
+    amended,
+    rate: tw.fundRates?.[code]?.rate ?? null,
+  }
+})
+
+/** The town-wide rate if each fund's levy rose by the same percentage over 2026, as each does in the Tentative. */
+const rateAtIncrease = (p: number) =>
+  townWideFunds.every((f) => f.rate !== null)
+    ? sum(townWideFunds.map((f) => scaledRate(f.rate as number, f.tentative, f.prior * (1 + p / 100))))
+    : null
+
+export const TARGET_PCTS = [1, 0] as const
+const targetLevy = (p: number) => Math.round(tw.priorLevy * (1 + p / 100))
+
+export type Level = {
+  id: string
+  label: string
+  levy: number
+  /** Over 2026's levy. */
+  change: number
+  pct: number
+  /** How much less than the Tentative it raises. */
+  belowTentative: number
+  /** The town-wide rate per $1,000 of assessed value. */
+  rate: number | null
+  /** The rate's change over 2026's. */
+  ratePct: number | null
+  /** Printed by the Town, or this site's estimate. */
+  printed: boolean
+  homeTax: number | null
+  homeChange: number | null
+}
+
+const level = (id: string, label: string, levy: number, rate: number | null, printed: boolean): Level => ({
+  id,
+  label,
+  levy,
+  change: levy - tw.priorLevy,
+  pct: pct(tw.priorLevy, levy),
+  belowTentative: tw.levy - levy,
+  rate,
+  ratePct: rate === null ? null : pct(tw.priorRate, rate),
+  printed,
+  homeTax: rate === null ? null : homeTax(rate),
+  homeChange: rate === null ? null : homeTax(rate) - homeTax(tw.priorRate),
+})
+
+export const levels: Level[] = [
+  level('2026', '2026 adopted', tw.priorLevy, tw.priorRate, true),
+  level('tentative', '2027 Tentative', tw.levy, tw.rate, true),
+  level('amended', 'With the six amendments', fx.townWide.after, fx.townWide.rateAfter, false),
+  ...TARGET_PCTS.map((p) => level(`target-${p}`, p === 0 ? 'No increase' : `A ${p}% increase`, targetLevy(p), rateAtIncrease(p), false)),
+]
+export const levelOf = (id: string) => levels.find((l) => l.id === id)!
+
+/** What each target needs: below the Tentative, and beyond the six amendments. */
+export const gaps = TARGET_PCTS.map((p) => {
+  const levy = targetLevy(p)
+  return { pct: p, levy, belowTentative: tw.levy - levy, beyondAmendments: fx.townWide.after - levy }
+})
+export const gapOf = (p: number) => gaps.find((g) => g.pct === p)!
+
+/**
+ * The tax base grew, so a flat levy is spread over more assessed value: the
+ * Tentative raises the levy faster than the rate. Each fund's levy over its
+ * rate is the assessed value it is spread over.
+ */
+export const baseGrowthPct = pct(tw.priorLevy / tw.priorRate, tw.levy / tw.rate)
+
+// ── Where the money could come from ──────────────────────────────────────────
+
+const amendedEstimate = (account: string) => {
+  const t = lines.get(account)?.tentative ?? 0
+  return t + (amendedChange.get(account) ?? 0)
+}
+
+/**
+ * Interest on the three funds' deposits. Each Supplement prints what came in by
+ * June 30 beside the prior year's full year, so the yardstick is twice the first
+ * half of 2026: less than every full year since 2023 brought in.
+ */
+export const interest = (() => {
+  const rows = (TOWN_WIDE_FUNDS as readonly string[]).map((code) => {
+    const account = `${code}-2401-000-00000-G`
+    const h = histories.get(account)
+    const l = lines.get(account)
+    if (!h || !l) throw new Error(`zero-percent-2027: no interest line ${account} in the Supplements`)
+    const collected = COLLECTED_YEARS.map((y) => ({ year: y, amount: h.actual[String(y)], firstHalf: h.ytd[String(y)] }))
+    const firstHalf2026 = h.ytd['2026']
+    const pace = Math.round(2 * firstHalf2026)
+    const amended = amendedEstimate(account)
+    return {
+      account,
+      fund: code,
+      fundName: tentative.funds[code].name,
+      page: l.page,
+      collected,
+      lowest: Math.min(...collected.map((c) => c.amount)),
+      /** The full year over the first half, the smallest of 2023–2025. */
+      lowestMultiple: Math.min(...collected.map((c) => c.amount / c.firstHalf)),
+      firstHalf2026,
+      budgeted2026: h.adopted['2026'],
+      tentative: l.tentative ?? 0,
+      amended,
+      pace,
+      room: Math.max(0, pace - Math.round(amended)),
+    }
+  })
+  return {
+    rows,
+    total: sum(rows.map((r) => r.room)),
+    /** Every year since 2023, each fund collected at least this multiple of its first half. */
+    lowestMultiple: Math.min(...rows.map((r) => r.lowestMultiple)),
+    paceBelowEveryYear: rows.every((r) => r.pace < r.lowest),
+  }
+})()
+
+/**
+ * Every other estimate in the three funds that, even after the amendments, sits
+ * below what the line brought in during each of 2023, 2024 and 2025. Left out:
+ * property taxes and savings, interest (above), charges and transfers between
+ * Town funds (raising them moves a cost, it doesn't collect one), and lines the
+ * Town no longer budgets at all.
+ */
+export const otherEstimates = (() => {
+  const rows = Array.from(lines.values())
+    .filter((l) => (TOWN_WIDE_FUNDS as readonly string[]).includes(l.fund) && l.kind === 'revenue')
+    .filter((l) => {
+      const code = l.account.split('-')[1]
+      return !['1001', '9999', '2401'].includes(code) && !code.startsWith('28') && !code.startsWith('5')
+    })
+    .flatMap((l) => {
+      const h = histories.get(l.account)
+      const estimate = Math.round(amendedEstimate(l.account))
+      if (!h || estimate <= 0 || COLLECTED_YEARS.some((y) => h.actual[String(y)] === undefined)) return []
+      const lowest = Math.round(Math.min(...COLLECTED_YEARS.map((y) => h.actual[String(y)])))
+      if (lowest <= estimate) return []
+      const firstHalf2025 = h.ytd['2025'] ?? null
+      const firstHalf2026 = h.ytd['2026'] ?? null
+      return [{
+        account: l.account,
+        name: l.name,
+        page: l.page,
+        collected: COLLECTED_YEARS.map((y) => ({ year: y, amount: h.actual[String(y)] })),
+        lowest,
+        estimate,
+        amended: amendedChange.has(l.account),
+        room: lowest - estimate,
+        firstHalf2025,
+        firstHalf2026,
+        behind: firstHalf2025 !== null && firstHalf2026 !== null && firstHalf2026 < firstHalf2025,
+      }]
+    })
+    .sort((a, b) => b.room - a.room)
+  return {
+    rows,
+    total: sum(rows.map((r) => r.room)),
+    behind: rows.filter((r) => r.behind).length,
+    largest: rows.filter((r) => r.room >= 25_000),
+  }
+})()
+
+const buildingFees = otherEstimates.rows.find((r) => r.account === 'A01-1560-170-00000-3') ?? null
+export const buildingFeesWatch = buildingFees
+  ? { ...buildingFees, tentative: lines.get(buildingFees.account)?.tentative ?? 0 }
+  : null
+
+/** The General Fund's own savings: what each budget counts as income. */
+export const draws = {
+  y2026: adopted.funds.A01.fundBalance ?? 0,
+  tentative: tentative.funds.A01.fundBalance ?? 0,
+  amended: fx.funds.find((f) => f.fund === 'A01')?.after?.fundBalance ?? (tentative.funds.A01.fundBalance ?? 0),
+}
+
+/** The Town's fund balance policy and what is left above its floor. */
+export const savings = {
+  unassigned: unassignedFundBalance,
+  unassignedYear: 2025,
+  shareOfAppropriations: (unassignedFundBalance / appropriations) * 100,
+  floorPct: policyMinimumPercent * 100,
+  floor: minimumRequired,
+  aboveFloor: surplusAboveFloor,
+  committed: committedTotal,
+  unpriced: drawCounts.unpriced,
+  ceiling: remainingHeadroomCeiling,
+}
+
+/** What each year's adopted budget planned to draw, and what the audit found. */
+export const afterTheFact = Object.entries(AUDITED_OPERATIONS).map(([year, ops]) => {
+  const row = generalFund.rows.find((r) => r.year === Number(year))
+  const audit = AUDITED_GENERAL_FUND[Number(year)]
+  return { year: Number(year), plannedDraw: row?.appropriatedFundBalance ?? null, netChange: ops.netChange, page: ops.page, source: audit?.source ?? null }
+})
+
+// ── One way to reach each ────────────────────────────────────────────────────
+
+/**
+ * The site's illustration, not a proposal: the amendments, then interest at its
+ * 2026 pace, then the rest from General Fund savings. Other estimates could take
+ * the place of some of the savings; the page sets out their risks separately.
+ */
+export const paths = TARGET_PCTS.map((p) => {
+  const g = gapOf(p)
+  const afterInterest = Math.max(0, g.beyondAmendments - interest.total)
+  const fromOthers = Math.min(afterInterest, otherEstimates.total)
+  return {
+    pct: p,
+    levy: g.levy,
+    belowTentative: g.belowTentative,
+    amendments: tw.levy - fx.townWide.after,
+    interest: Math.min(interest.total, g.beyondAmendments),
+    fromSavings: afterInterest,
+    draw: draws.amended + afterInterest,
+    /** If the other estimates were raised to their three-year lows first. */
+    withOthers: { fromOthers, fromSavings: afterInterest - fromOthers, draw: draws.amended + afterInterest - fromOthers },
+  }
+})
+export const pathOf = (p: number) => paths.find((x) => x.pct === p)!
+
+// ── How the levy got here ────────────────────────────────────────────────────
+
+const fundRate = (code: string) => tw.fundRates?.[code]?.rate ?? null
+export const trajectory = {
+  rateRows: [
+    { label: 'General Fund', y2025: taxBill.rates2025.generalFund, y2026: taxBill.rates2026.generalFund, y2027: fundRate('A01') },
+    { label: 'Highway', y2025: taxBill.rates2025.highway, y2026: taxBill.rates2026.highway, y2027: fundRate('DA1') },
+    { label: 'Street lighting', y2025: taxBill.rates2025.streetLighting, y2026: taxBill.rates2026.streetLighting, y2027: fundRate('SL1') },
+    { label: 'Total town-wide', y2025: taxBill.rates2025.totalTownWide, y2026: taxBill.rates2026.totalTownWide, y2027: tw.rate },
+  ],
+  rateSource: taxBill.rateSource,
+  levyHistory: (() => {
+    const rows = generalFund.rows
+      .filter((r) => r.taxLevy !== null && r.year >= 2021)
+      .map((r) => ({ year: r.year, label: String(r.year), levy: r.taxLevy as number }))
+    const gf = townWideFunds.find((f) => f.code === 'A01')!
+    rows.push({ year: 2027, label: '2027 Tentative', levy: gf.tentative }, { year: 2027, label: '2027 with the six amendments', levy: gf.amended })
+    const last2026 = rows.find((r) => r.year === 2026)!.levy
+    return rows.map((r, i) => {
+      const prev = r.year === 2027 ? last2026 : i > 0 ? rows[i - 1].levy : null
+      return { ...r, change: prev === null ? null : pct(prev, r.levy) }
+    })
+  })(),
+}
+
+/** The trend in a sentence, from the rows above. */
+export const trendNote = (() => {
+  const yearly = trajectory.levyHistory.filter((r) => r.year < 2027 && r.change !== null)
+  const t = trajectory.levyHistory.find((r) => r.label === '2027 Tentative')!
+  const a = trajectory.levyHistory.find((r) => r.label === '2027 with the six amendments')!
+  const fell = yearly.filter((r) => (r.change as number) < 0)
+  const lastFall = fell[fell.length - 1]
+  const after = yearly.filter((r) => !lastFall || r.year > lastFall.year)
+  const since = [...yearly].reverse().find((r) => (r.change as number) <= (t.change as number))
+  const lead = lastFall
+    ? `The General Fund levy fell ${fmtPct(-(lastFall.change as number))} in ${lastFall.year}, then rose ${after.map((r) => fmtPct(r.change as number)).join(', ').replace(/, ([^,]*)$/, ' and $1')} in ${after[0].year}–${after[after.length - 1].year}.`
+    : `The General Fund levy rose ${yearly.map((r) => fmtPct(r.change as number)).join(', ')}.`
+  const tail = since
+    ? ` The 2027 Tentative would raise it ${fmtPct(t.change as number)}, or ${fmtPct(a.change as number)} with the amendments: the smallest change since ${since.year}${(since.change as number) < 0 ? ', when it fell' : ''}.`
+    : ` The 2027 Tentative would raise it ${fmtPct(t.change as number)}, or ${fmtPct(a.change as number)} with the amendments.`
+  return lead + tail
+})()
+
+// ── Why a town is harder to hold flat than a county ──────────────────────────
 
 export const suffolk = {
   who: 'Suffolk County Executive Ed Romaine, third State of the County address, September 3, 2026',
@@ -50,210 +361,139 @@ export const suffolk = {
   how:
     'The County credited more than $700 million in reserves, five bond upgrades since 2024, improved liquidity and conservative budgeting.',
   theCatch:
-    'A county general fund is one fund among several. Suffolk’s police district is a separate fund levied on the towns inside it, and the five East End towns — Riverhead among them — are not in it and do not pay that levy. So “no general fund increase” at the county level leaves a great deal of county spending outside the promise. Riverhead’s General Fund is not structured that way.',
+    'A county general fund is one fund among several. Suffolk’s police district is a separate fund levied on the towns inside it, and the five East End towns, Riverhead among them, are not in it and do not pay that levy. So “no general fund increase” at the county level leaves a great deal of county spending outside the promise. Riverhead’s General Fund is not structured that way.',
 }
 
-// Where Riverhead is actually heading, before anyone decides anything.
-export const trajectory = {
-  rateRows: [
-    { label: 'General Fund rate', y2025: taxBill.rates2025.generalFund, y2026: taxBill.rates2026.generalFund },
-    { label: 'Highway', y2025: taxBill.rates2025.highway, y2026: taxBill.rates2026.highway },
-    { label: 'Street lighting', y2025: taxBill.rates2025.streetLighting, y2026: taxBill.rates2026.streetLighting },
-    { label: 'Total town-wide', y2025: taxBill.rates2025.totalTownWide, y2026: taxBill.rates2026.totalTownWide },
-  ],
-  rateSource: taxBill.rateSource,
-  levyHistory: generalFund.rows
-    .filter((r) => r.taxLevy !== null && r.year >= 2021)
-    .map((r) => ({ year: r.year, levy: r.taxLevy as number })),
-  trendNote:
-    'Read year by year, the levy is accelerating rather than sitting at a high plateau: down 3.10% in 2022, then +4.17%, +5.56% and +9.24%. The 2025 jump is the outlier, not the norm — and it is the trend a zero-percent pledge would have to break, from its steepest point.',
-  note:
-    'These are rates per $1,000 of assessed value from the Town’s own adopted rate table, not levies. A rate can move differently from the levy because the assessment roll moves too. Both are shown because residents feel the rate and the cap governs the levy.',
-}
-
-// The arithmetic of a freeze.
-export const theAsk = {
-  headline: 'A zero-percent General Fund year has to absorb about $3.5 million',
-  detail:
-    'The Town’s own 2027 projection puts General Fund appropriations at $72,627,474 against $69,113,159 adopted for 2026 — a rise of $3,514,315, or 5.1%. Holding the levy flat does not make that cost disappear; it means every dollar of it has to come from somewhere that is not the property tax.',
-  versusCap:
-    'For scale, holding the levy to a 2% increase needs $2,316,256. A freeze is about 52% harder than that, and the page on closing the cap gap is the shallower version of this same problem.',
-  precision:
-    'One honest caveat about the number. $3,514,315 is projected growth in General Fund appropriations, which is what a flat levy must offset. It is not itself a levy figure: the Town does not publish a General Fund levy separately from the town-wide levy in the material behind this site, so the appropriations change is used as the closest available proxy.',
-}
-
-export type Lever = {
-  name: string
-  amount: number | null
-  display: string
-  covers: string
-  kind: 'recurring' | 'one-time' | 'legal'
-  detail: string
-  catch: string
-}
-
-export const levers: Lever[] = [
-  {
-    name: 'The savings package already catalogued',
-    amount: fullRecurringReductionPackage,
-    display: `${fullRecurringReductionPackage.toLocaleString('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 })}`,
-    covers: `${Math.round((fullRecurringReductionPackage / gfFund.delta) * 100)}% of the $3.5M`,
-    kind: 'recurring',
-    detail: `Personnel and policy items ${personnelPolicyTotal.toLocaleString('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 })}, operational control ${operationalTotal.toLocaleString('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 })}, and sourced line trims ${supplementTrimTotal.toLocaleString('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 })}. This is the same package the spending-reduction page builds, taken in full.`,
-    catch: `Taken in full it just covers the cost growth, with no margin. The firmest subset alone — the part that excludes volatile fuel, energy and capital-timing items — is ${firmRecurringTotal.toLocaleString('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 })}, which is well short on its own.`,
-  },
-  {
-    name: 'The retirement incentive, already adopted',
-    // Once the Tentative is out, the saving is the one it budgets, from the
-    // Supervisor's letter, and it is already inside the proposal's General Fund.
-    amount: incentiveBudgeted ?? retirementIncentive2027.projectedSavingsHigh,
-    display: incentiveBudgeted !== null
-      ? money(incentiveBudgeted)
-      : `${money(retirementIncentive2027.projectedSavingsLow)} – ${money(retirementIncentive2027.projectedSavingsHigh)}`,
-    covers: incentiveBudgeted !== null
-      ? `${Math.round((incentiveBudgeted / gfFund.delta) * 100)}% of the $3.5M`
-      : `up to ${Math.round((retirementIncentive2027.projectedSavingsHigh / gfFund.delta) * 100)}% of the $3.5M`,
-    kind: 'recurring',
-    detail: incentiveBudgeted !== null
-      ? `Approved unanimously on ${retirementIncentive2027.approved.split(' — ')[0]} by resolutions ${retirementIncentive2027.resolutions}. ${retirementIncentive2027.eligibleTotal} employees were eligible. The Supervisor’s letter in the 2027 Tentative says ${incentiveOutcome.took.total} took it (${incentiveOutcome.took.csea} CSEA, ${incentiveOutcome.took.pba} PBA) and budgets ${money(incentiveBudgeted)} of General Fund savings for 2027, after higher retiree health insurance. The Board’s resolutions show ${uptake.ifPendingConfirmed} retirements filed since ratification, ${uptake.windowRetirements === uptake.ifPendingConfirmed ? 'all' : uptake.windowRetirements} of them with a published vote record.`
-      : `Approved unanimously on ${retirementIncentive2027.approved.split(' — ')[0]} by resolutions ${retirementIncentive2027.resolutions}. ${retirementIncentive2027.eligibleTotal} employees were eligible. Both deadlines have now passed and the Board has confirmed ${uptake.windowRetirements} retirements since ratification — ${uptake.sworn} sworn, ${uptake.civilian} civilian. Pricing the sworn ones at the promotion-chain rate gives ${savingEstimate.annualFromSworn.toLocaleString('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 })} a year${savingEstimate.annualFromSworn >= retirementIncentive2027.projectedSavingsLow && savingEstimate.annualFromSworn <= retirementIncentive2027.projectedSavingsHigh ? ", which lands inside the Town's own estimate by a route that does not depend on it" : ", short of the Town's own estimate on the published votes alone"}.`,
-    catch: incentiveBudgeted !== null
-      ? `It is already inside the 2027 Tentative’s General Fund, so it can’t also pay for a zero-percent General Fund levy on top of it${gfLevyRise2027 !== null && gfLevyRise2027 > 0 ? `: the proposal still raises that levy by ${money(gfLevyRise2027)}` : ''}. The one-time incentive payments fall in 2026, and the letter doesn’t give their cost.`
-      : `The projection has become a measurement, and the measurement is narrower than it looks. Accepting a retirement is not proof the retiree elected the incentive, so ${uptake.windowRetirements} is a ceiling on participation. The saving is also not free: if every confirmed retiree elected the incentive it costs ${incentiveCostIfAllElected.total.toLocaleString('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 })} before sick-day payouts — a scenario, since the Town publishes no election records, and effective dates run July to October, so 2027 is the first budget carrying the whole of it — ${retirementAnnualisation.increment2027Low.toLocaleString('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 })} to ${retirementAnnualisation.increment2027High.toLocaleString('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 })} more than 2026 catches.`,
-  },
-  {
-    name: 'Fund balance above the Town’s 15% policy floor',
-    // Netted, not the audited opening balance. The Board has spent against that
-    // balance all through 2026, and a dollar already voted cannot fund a freeze
-    // as well. See lib/fiscal-commitments-2027.ts.
-    amount: remainingHeadroomCeiling,
-    display: `${remainingHeadroomCeiling.toLocaleString('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 })}`,
-    covers: `${(remainingHeadroomCeiling / gfFund.delta).toFixed(1)}× the $3.5M`,
-    kind: 'one-time',
-    detail: `Unassigned fund balance was ${money(unassignedFundBalance)} at December 31, 2025 — ${((unassignedFundBalance / appropriations) * 100).toFixed(1)}% of appropriations. The Town’s fund balance policy, Resolution 918 of 2011, sets a floor of ${policyMinimumPercent * 100}% (${money(minimumRequired)}) and no ceiling, and the first use it lists for money above the floor is “to reduce the subsequent year’s property taxes.” A freeze paid from that money is the use the policy names. This is the closest Riverhead analogue to the reserves Suffolk leaned on.`,
-    catch:
-      `One-time money against recurring cost, and less of it than the audited balance suggests. The ${money(surplusAboveFloor)} above the floor is the position at December 31, 2025; resolutions adopted during 2026 have already committed ${money(committedTotal)} of it, with ${drawCounts.unpriced} further adopted draws carrying no published amount — so the figure shown is a ceiling on what is left, not a balance. Even at that ceiling it pays for about ${countWord(Math.floor(remainingHeadroomCeiling / gfFund.delta))} zero-percent years, and each one hands a larger structural gap to the next budget on a smaller cushion.`,
-  },
-  {
-    name: 'Non-property-tax revenue',
-    amount: null,
-    display: 'dollar for dollar',
-    covers: 'unbounded in principle',
-    kind: 'recurring',
+const CATEGORY: Record<string, string> = { '1': 'General government', '3': 'Public safety', '9': 'Employee benefits and debt' }
+export const whyHarder = (() => {
+  const gfLines = Array.from(lines.values()).filter((l) => l.fund === 'A01' && l.kind === 'expenditure')
+  const total = sum(gfLines.map((l) => l.tentative ?? 0))
+  const by = new Map<string, number>()
+  for (const l of gfLines) {
+    const label = CATEGORY[l.account.split('-')[1]] ?? 'Everything else'
+    by.set(label, (by.get(label) ?? 0) + (l.tentative ?? 0))
+  }
+  const order = ['Employee benefits and debt', 'Public safety', 'General government', 'Everything else']
+  const shares = order.map((label) => ({ label, amount: by.get(label) ?? 0, pct: Number((((by.get(label) ?? 0) / total) * 100).toFixed(1)) }))
+  const debtTransfer = lines.get('A01-9-9901-900-V01-00000')?.tentative ?? 0
+  const policeAndBenefits = (((by.get('Public safety') ?? 0) + (by.get('Employee benefits and debt') ?? 0)) / total) * 100
+  return {
+    basis: 'the 2027 Tentative’s General Fund',
+    total,
+    lineCount: gfLines.length,
+    shares,
     detail:
-      'State aid, mortgage recording tax, fees and interest earnings offset the levy one for one. Every additional $1,000,000 of non-tax revenue is $1,000,000 the levy does not have to raise.',
-    catch:
-      'Mortgage tax and interest earnings are the volatile ones — they rise and fall with rates and the housing market, and budgeting optimistically on them is how gaps get hidden rather than closed.',
-  },
-  {
-    name: 'The cap’s legal pension exclusion',
-    amount: prediction.capGap.pensionExclusion.totalEstimate,
-    display: `${prediction.capGap.pensionExclusion.totalEstimate.toLocaleString('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 })}`,
-    covers: 'raises the legal ceiling, not the freeze',
-    kind: 'legal',
-    detail:
-      'The police retirement system’s contribution rate rose 2.8 points for 2027, 0.8 points past the two-point threshold, which makes part of that growth legally excludable from the cap.',
-    catch:
-      'This helps with the cap, not with a freeze. Excluding cost from the cap calculation raises how much the Town may lawfully levy; it does not reduce what the General Fund has to spend.',
-  },
-]
-
-// Why the same promise is structurally harder here than at the county.
-export const whyHarder = {
-  headline: 'Riverhead’s General Fund is mostly police and benefits',
-  shares: [
-    { label: 'Employee benefits and debt', amount: 25_507_319, pct: 36.9 },
-    { label: 'Public safety', amount: 24_761_480, pct: 35.8 },
-    { label: 'General government', amount: 14_255_750, pct: 20.6 },
-    { label: 'Everything else', amount: 4_588_610, pct: 6.6 },
-  ],
-  detail:
-    'Public safety and employee benefits together are 72.7% of the 2026 General Fund. Suffolk can hold its general fund flat in part because its largest public-safety cost sits in a separate district fund that Riverhead does not pay into and does not control. Riverhead’s police department sits inside the fund a freeze would apply to.',
-  get contracts() {
-    return (
+      `Public safety and employee benefits together are ${policeAndBenefits.toFixed(1)}% of the 2027 Tentative’s General Fund. The benefits figure includes ${usd(debtTransfer)} sent to the Debt Service Fund for the General Fund’s share of debt payments. Suffolk can hold its general fund flat in part because its largest public-safety cost sits in a separate district fund that Riverhead does not pay into and does not control. Riverhead’s police department sits inside the fund a freeze would apply to.`,
+    contracts:
       'The timing compounds it. The ' + openUnits.map((u) => u.unit).join(' and ') + ' agreements expire on December 31, ' +
-      '2026, and this is now a checked fact rather than an assumption: across ' + laborCorpus.resolutions.toLocaleString() +
-      ' resolutions in ' + laborCorpus.meetings + ' meetings, no successor for either has been put to the Board. Their only ' +
-      'items this year are the July 7 retirement-incentive stipulations, which pay people to leave and set no wage rate. A ' +
-      'zero-percent pledge for 2027 would be made while the Town’s two largest bargaining units are unsettled — the year a ' +
-      'freeze is least within the Board’s control.'
-    )
-  },
-  get triboroughFloor() {
-    return (
+      '2026, and across ' + laborCorpus.resolutions.toLocaleString() + ' resolutions in ' + laborCorpus.meetings +
+      ' meetings, no successor for either has been put to the Board. Their only items this year are the July 7 ' +
+      'retirement-incentive stipulations, which pay people to leave and set no wage rate. A 0% or 1% budget would be ' +
+      'adopted while both police unions are unsettled, and a settlement would add to it.',
+    triboroughFloor:
       'And an unsettled contract is not a free one. Civil Service Law § 209-a(1)(e) makes it an improper practice to refuse ' +
       'to continue the terms of an expired agreement, so step movement carries on with no successor and no vote: ' +
-      triborough.stepCost2027.toLocaleString('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }) +
-      ' in 2027 for the Police Officer ladder alone, ' + triborough.officersMoving + ' officers advancing one rung while the ' +
-      triborough.officersAtTopStep + ' already at top step cost nothing. What does not continue is the across-the-board ' +
-      'increase. So the freeze does not begin from a standstill — it begins from a floor the Board cannot vote away, and the ' +
-      '2027 projection’s police line assumes a settlement on top of it.'
-    )
-  },
-  sourceNote:
-    'Shares are computed from the 848 budget lines behind the 2027 projection, grouped by the first digit of the Uniform System of Accounts function code.',
-}
+      usd(triborough.stepCost2027) + ' in 2027 for the Police Officer ladder alone, ' + triborough.officersMoving +
+      ' officers advancing one rung while the ' + triborough.officersAtTopStep + ' already at top step cost nothing. What does ' +
+      'not continue is the across-the-board increase.',
+    sourceNote:
+      `Shares are computed from the ${gfLines.length} General Fund expenditure lines of the 2027 Budget Supplement, which add up to the Tentative’s ${usd(total)}, grouped by the first digit of each line’s function code.`,
+  }
+})()
 
 /**
- * The two police numbers this year produced, set against each other.
- *
- * They are close enough that treating either alone would mislead. Seven sworn
+ * The two police numbers this year produced, set against each other. Sworn
  * retirements are worth about as much a year as the step movement the Town owes
- * whether or not it settles a contract — so on the police side, the single
- * largest block of the General Fund, 2027 looks less like a saving than like
- * treading water.
+ * whether or not it settles a contract, so on the police side, the largest
+ * block of the General Fund, 2027 looks less like a saving than like treading
+ * water.
  */
 export const policeOffset = {
+  swornCount: savingEstimate.swornCount,
   savingFromRetirements: savingEstimate.annualFromSworn,
   triboroughStepFloor: triborough.stepCost2027,
   net: savingEstimate.annualFromSworn - triborough.stepCost2027,
   get reading() {
     const net = this.savingFromRetirements - this.triboroughStepFloor
-    const usd = (n: number) => Math.abs(n).toLocaleString('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 })
     return (
-      `Seven sworn retirements are worth ${usd(this.savingFromRetirements)} a year. Step movement the Town owes with or ` +
-      `without a contract costs ${usd(this.triboroughStepFloor)} in the Police Officer ladder alone. The two nearly cancel: ` +
-      `${usd(net)} ${net >= 0 ? 'to the good' : 'to the bad'} before a single contract is negotiated, and before the ` +
-      'detective, sergeant and superior-officer ladders — which this floor does not include — are counted at all.'
+      `${countWord(this.swornCount).replace(/^./, (c) => c.toUpperCase())} sworn retirements are worth ${usd(this.savingFromRetirements)} a year. ` +
+      `Step movement the Town owes with or without a contract costs ${usd(this.triboroughStepFloor)} in the Police Officer ladder alone. ` +
+      `The two nearly cancel: ${usd(Math.abs(net))} ${net >= 0 ? 'to the good' : 'to the bad'} before a single contract is negotiated, ` +
+      'and before the detective, sergeant and superior-officer ladders, which this floor does not include, are counted at all.'
     )
   },
   caveat:
     'These are not strictly additive. Some of the retiring officers were at top step and so were not going to move anyway, which is already reflected in both figures being computed from the same authorized-salary listings. The point is the order of magnitude, not a net line in a budget.',
 }
 
+// ── The headline, in a few sentences ─────────────────────────────────────────
+
+const one = pathOf(1)
+const zero = pathOf(0)
+const tentativeLevel = levelOf('tentative')
+const amendedLevel = levelOf('amended')
+const oneLevel = levelOf('target-1')
+const zeroLevel = levelOf('target-0')
+
+export const summary = {
+  tentativePct: tentativeLevel.pct,
+  amendedPct: amendedLevel.pct,
+  tentativeRise: tentativeLevel.change,
+  amendedRise: amendedLevel.change,
+  oneBeyond: gapOf(1).beyondAmendments,
+  zeroBeyond: gapOf(0).beyondAmendments,
+  oneBelowTentative: gapOf(1).belowTentative,
+  zeroBelowTentative: gapOf(0).belowTentative,
+  /** On the letter's example home: the Tentative against no increase, and the amendments against 1%. */
+  homeTentativeVsZero: (tentativeLevel.homeTax ?? 0) - (zeroLevel.homeTax ?? 0),
+  homeAmendedVsOne: (amendedLevel.homeTax ?? 0) - (oneLevel.homeTax ?? 0),
+  generalFundRise: townWideFunds.find((f) => f.code === 'A01')!.tentative - townWideFunds.find((f) => f.code === 'A01')!.prior,
+  statedLimitPct: READ_BY_HAND[2027]?.statedLimitPct ?? null,
+}
+
 export const verdict = {
-  oneYear:
-    `For a single year, yes, and comfortably. Even after netting what 2026 has already committed, the unassigned balance above the Town’s 15% policy floor covers the cost growth ${(remainingHeadroomCeiling / gfFund.delta).toFixed(1)} times over, so a 2027 freeze could be adopted without breaching the reserve policy and without cutting a service. The policy itself lists reducing the next year’s property taxes as a use for that money.`,
-  durable:
-    'For a durable freeze, it is much tighter. The recurring levers — the full savings package plus the retirement incentive — do reach the number, but only by taking nearly all of the package including its least firm items, and by settling two police contracts inside a flat envelope.',
+  onePct:
+    `Yes, without cutting a service. The six amendments bring the increase to ${fmtPct(summary.amendedPct)}. Budgeting interest at its 2026 pace, still below what each fund collected in every year since 2023, adds ${usd(one.interest)}, and the last ${usd(one.fromSavings)} could come from savings: a General Fund draw of ${usd(one.draw)}, still less than 2026’s ${usd(draws.y2026)}. Most of it would be recurring revenue, though interest falls when rates or balances do.`,
+  zeroPct:
+    `For one year, yes, but it leans on savings. After the amendments and interest, ${usd(zero.fromSavings)} would still be needed. From savings, that is a General Fund draw of ${usd(zero.draw)}, ${usd(zero.draw - draws.y2026)} more than 2026’s. The Town’s policy allows it, and what is left above its floor, at most ${usd(remainingHeadroomCeiling)}, is more than ${Math.floor(remainingHeadroomCeiling / zero.fromSavings)} times that. Raising the other estimates to their three-year lows could cut the draw to ${usd(zero.withOthers.draw)}, but leaves no cushion if any of them falls short.`,
   theRealPoint:
-    'The honest framing is the one this site already applies to the cap gap: a freeze paid for out of surplus is not a saving, it is a deferral. It converts a 5.1% problem in 2027 into a larger one in 2028 with less cushion behind it. That may still be the right call — affordability is a real argument and the Town is holding far more than its policy requires — but it should be adopted as a deliberate choice rather than presented as costless.',
+    `On the Supervisor’s ${usd(exampleHome.marketValue)} example home, the Tentative’s town-wide tax is about ${usd(summary.homeTentativeVsZero)} a year more than no increase would be, and the amendments’ about ${usd(summary.homeAmendedVsOne)} more than 1%. Small for one household, the gap is ${usd(summary.zeroBelowTentative)} for the Town. A 1% budget built on revenue the Town actually collects could last. A zero-percent budget paid partly from savings is a one-year choice: whatever comes from savings has to be found again in 2028. GFOA’s recommended practice is to pay recurring costs from recurring revenue, so a draw like that should be adopted as a deliberate choice, not presented as costless.`,
 }
 
 export const sources = [
   {
-    title: 'Suffolk County — County Executive Romaine announces no general fund tax increase (September 3, 2026)',
+    title: 'Town of Riverhead, 2027 Tentative Budget (PDF)',
+    url: LETTER_2027.source.url,
+    covers: 'The town-wide levy, tax rates and General Fund savings in its Summary, and the Supervisor’s letter: the 2.79% limit, the $800,000 example home, the retirement incentive and the new positions.',
+  },
+  {
+    title: 'Town of Riverhead, 2027 Budget Supplement (PDF)',
+    url: lineSource.url,
+    covers: 'Every revenue and spending line: the 2027 estimate, the 2026 budget, what came in by June 30, 2026, and the 2024 and 2025 collections. Earlier Supplements give 2023.',
+  },
+  {
+    title: PACKET.title,
+    url: PACKET.url,
+    covers: 'The six amendments to the 2027 Preliminary Budget, account by account.',
+  },
+  {
+    title: AUDITED_GENERAL_FUND[2025].source.title,
+    url: AUDITED_GENERAL_FUND[2025].source.url,
+    covers: 'The General Fund’s unassigned balance at December 31, 2025, and its change in fund balance for 2025.',
+  },
+  {
+    title: AUDITED_GENERAL_FUND[2024].source.title,
+    url: AUDITED_GENERAL_FUND[2024].source.url,
+    covers: 'The General Fund’s change in fund balance for 2024.',
+  },
+  {
+    title: 'Town of Riverhead, 2026 Adopted Budget',
+    url: taxBill.rateSource.url,
+    covers: 'The 2026 levy and the tax-rate table used for the rate comparison.',
+  },
+  {
+    title: 'Suffolk County: County Executive Romaine announces no general fund tax increase (September 3, 2026)',
     url: 'https://suffolkcountyny.gov/News/ArtMID/583/ArticleID/15376/Suffolk-County-Executive-Ed-Romaine-Announces-No-General-Fund-Tax-Increase-in-2026-State-of-the-County-Address',
     covers: 'The pledge itself, the reserves and bond upgrades the County credits for it, and the headline/body year discrepancy.',
-  },
-  {
-    title: 'Town of Riverhead 2026 Adopted Budget',
-    url: taxBill.rateSource.url,
-    covers: 'The 2026 adopted General Fund appropriations and the published tax-rate table used for the rate comparison.',
-  },
-  {
-    title: 'Riverhead Budget Live — 2027 Prediction',
-    url: 'https://rike4545.github.io/Riverhead-NY-Budget-Web-App/predict-2027/',
-    covers: 'The line-by-line 2027 projection, the per-fund totals, and the tax-cap gap calculation behind the numbers on this page.',
-  },
-  {
-    title: 'Riverhead Budget Live — 2027 Spending Reduction',
-    url: 'https://rike4545.github.io/Riverhead-NY-Budget-Web-App/spending-reduction-2027/',
-    covers: 'The savings package, item by item, with the confidence rating on each.',
-  },
-  {
-    title: 'Riverhead Budget Live — Reserves and Fund Balance',
-    url: 'https://rike4545.github.io/Riverhead-NY-Budget-Web-App/reserves/',
-    covers: 'The audited December 31, 2025 unassigned balance and the Town’s fund balance policy (Resolution 918 of 2011: a 15% floor, no ceiling).',
   },
 ]

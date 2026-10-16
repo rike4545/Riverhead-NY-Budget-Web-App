@@ -146,8 +146,8 @@ meeting records show, such as minutes on file and minutes still outstanding.
   Officers** (`/school-resource-officers`).
 - **Town Square** (`/town-square`): the land, the lease, the pending IDA
   abatement and the construction schedule.
-- **A Zero-Percent Year** (`/zero-percent-2027`): what it would take for
-  Riverhead to match Suffolk County's no-increase pledge.
+- **Zero or 1% for 2027** (`/zero-percent-2027`): what a 1% increase, or
+  none, would take against the 2027 Tentative and its six amendments.
 - **Resident Answers** (`/answers`), **Where Your Levy Goes**
   (`/taxpayer-impact`), **What Changed** (`/what-changed`) and **Data Quality
   & Freshness** (`/data-quality`).
@@ -229,7 +229,7 @@ The four links at the front of the site menu:
 - **How Budgets Get Adopted** (`/budget-adoption`): what the Board changed in every Tentative since 2005.
 - **Scenario Lab** (`/scenarios`): close the gap between projected 2027 spending and the tax cap with your own mix of trims, savings, revenue and reserves.
 - **2027 Spending Reduction** (`/spending-reduction-2027`): how the retirement incentive plus sourced line trims could close that gap.
-- **A Zero-Percent Year** (`/zero-percent-2027`): what matching Suffolk County's pledge would take.
+- **Zero or 1% for 2027** (`/zero-percent-2027`): what a 1% or a zero-percent 2027 town-wide levy would take, priced on the Tentative, its six amendments and the Budget Supplements' revenue history; `scripts/verify-zero-percent-2027.mjs` checks its figures against those records.
 - **Credit Rating** (`/credit-rating`): Riverhead's Aa2 against Brookhaven's AAA and the other Suffolk towns.
 - **Brookhaven's 2027 Tentative** (`/brookhaven-2027`): Brookhaven's 2027 Tentative Operating Budget beside Riverhead's: savings used, growth, the levy, reserves, garbage fees and what each budget book tells residents, with ideas Riverhead could borrow. Brookhaven's copy is a scan, read with OCR and from the page images; `scripts/verify-brookhaven.mjs` checks its tables' arithmetic and its quotations. Per-resident figures use the Census Bureau's July 1 town estimates for Suffolk County (`public/data/census-pep.json`; refresh with `node scripts/fetch-population.mjs` when a new vintage is out, no key needed).
 - **Proposed 2027 amendments** (`/budget-amendments-2027`): the six amendments to the 2027 Preliminary Budget on the Town Board's October 20, 2026 agenda, as the pre-final draft in the October 15 work-session packet prints them, set against the Tentative's Summary and the 2027 Budget Supplement line by line: the levy by fund, the higher revenue estimates beside past collections, the equipment moved to savings, the estimated tax rates and an even-handed reading of how they bear on the supervisor's race. The cited packet pages are kept in `etl/data/budget-2027/amendments-packet-2026-10-15.json`; `scripts/verify-budget-amendments.mjs` checks each resolution balances fund by fund and that every account, amount and quotation is on its packet page. Once the meeting's minutes are in `public/data/meetings/2026-10-20.json`, the page shows each vote.

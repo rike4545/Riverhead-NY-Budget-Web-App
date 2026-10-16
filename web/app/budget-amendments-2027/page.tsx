@@ -349,7 +349,7 @@ export default function BudgetAmendmentsPage() {
               <P>
                 The Supervisor’s letter gives the cost of the General Fund’s increase for “property valued at {usd(exampleHome.marketValue)}”. At the{' '}
                 {exampleHome.ratioYear}–{String(exampleHome.ratioYear + 1).slice(2)} residential assessment ratio of {exampleHome.ratio}%, that home is
-                assessed at about {usd(exampleHome.assessed)}. Before any exemption such as STAR, its town-wide tax would be about{' '}
+                assessed at about {usd(exampleHome.assessed)}. Before any exemption, its town-wide tax would be about{' '}
                 {usd(exampleHome.before)} under the Tentative and {usd(exampleHome.after)} with the six, about {usd(exampleHome.before - exampleHome.after)}{' '}
                 a year less. In 2026 the same assessment paid {usd(exampleHome.prior)}. To use your own assessed value, try the{' '}
                 <a href={`${base}/tax-bill/`} style={link}>tax bill estimator</a>.

@@ -44,7 +44,7 @@ const sections = [
     links: [
       ['/predict-2027/', '2027 prediction', 'Transparent baseline projection, not the Town’s budget.'],
       ['/scenarios/', 'Scenario lab', 'Change assumptions and see the tradeoffs.'],
-      ['/zero-percent-2027/', 'A zero-percent year', 'What a flat levy would require.'],
+      ['/zero-percent-2027/', 'Zero or 1% for 2027', 'What a 1% or a flat levy would require.'],
       ['/spending-reduction-2027/', 'Spending reduction', 'Where a lower spending path could come from.'],
     ],
   },

@@ -116,7 +116,7 @@ export const boardOptions: BoardOption[] = [
       'same cost pressure returns in 2028 against a smaller cushion. A freeze funded by trims is durable; a ' +
       'freeze funded by fund balance buys one year.',
     ourWork: [
-      { label: 'A Zero-Percent Year — the full arithmetic', href: `${base}/zero-percent-2027/` },
+      { label: 'Zero or 1% for 2027 — the full arithmetic', href: `${base}/zero-percent-2027/` },
       { label: 'Reserves & Fund Balance — what surplus can and cannot do', href: `${base}/reserves/` },
     ],
   },
@@ -237,7 +237,7 @@ export const boardOptions: BoardOption[] = [
       'reserves for the recurring part is a zero year wearing a different label.',
     ourWork: [
       { label: '2027 Spending Reduction — build your own package', href: `${base}/spending-reduction-2027/` },
-      { label: 'A Zero-Percent Year — what surplus can and cannot do', href: `${base}/zero-percent-2027/` },
+      { label: 'Zero or 1% for 2027 — what savings can and cannot do', href: `${base}/zero-percent-2027/` },
     ],
   },
 ]
