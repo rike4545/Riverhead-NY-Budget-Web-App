@@ -14,6 +14,10 @@ import requests
 from bs4 import BeautifulSoup
 from pypdf import PdfReader
 
+from pdf_limits import raise_town_document_limits
+
+raise_town_document_limits()
+
 INDEX_URL = 'https://www.townofriverheadny.gov/206/Financial-Reports'
 ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / 'web' / 'public' / 'data' / 'financial-reports'

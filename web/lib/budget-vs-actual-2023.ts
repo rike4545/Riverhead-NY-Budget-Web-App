@@ -8,10 +8,10 @@
 // original budget, the final budget after amendments, the actual result, and
 // encumbrances, all in one table.
 //
-// WHY IT MATTERS FOR A LEVY FREEZE. A zero-percent year needs about $3.5M. In
-// 2023 the Town collected $4.36M more revenue than its own final budget assumed
-// and spent $4.0M less than it appropriated. Either one alone would have paid
-// for a freeze. Both went to fund balance instead.
+// WHY IT MATTERS FOR A LOWER LEVY. In 2023 the Town collected $4.36M more
+// revenue than its own final budget assumed and spent $4.0M less than it
+// appropriated. Either one alone is more than /zero-percent-2027/ finds a 1% or
+// a zero-percent 2027 levy needs. Both went to fund balance instead.
 //
 // RECONCILIATION, because the two sources disagree on their face. The Annual
 // Financial Report filed with the State shows 2023 General Fund revenues of
@@ -97,9 +97,6 @@ export const biggestMisses = [
 ]
 
 export const whatItMeansForAFreeze = {
-  headline: 'A freeze needs $3.5 million. In 2023 the Town found more than that twice over, by accident',
-  detail:
-    'The cost of holding the General Fund levy flat in 2027 is about $3,514,315. In 2023 the Town beat its own final revenue budget by $4,358,819 and under-spent its appropriations by $3,496,912 after encumbrances. Either number on its own would have covered a freeze of that size. Neither was used that way, because neither was known until the year was over — the money surfaced as surplus and went to fund balance.',
   theFairReading:
     `This is not proof of padding. Budgeting revenue conservatively and appropriating generously is ordinary municipal practice and the State Comptroller broadly prefers it to the reverse; an interest-rate spike in particular is not something a budget adopted the previous autumn can be expected to catch. But a pattern this large is also the reason the Town holds unassigned fund balance at ${reserveShare} of appropriations against the 15% floor in its own policy. The surplus is not an accident of one year.`,
   theQuestion:

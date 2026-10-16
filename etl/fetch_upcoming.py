@@ -23,6 +23,10 @@ from html.parser import HTMLParser
 from pathlib import Path
 from zoneinfo import ZoneInfo
 
+from pdf_limits import raise_town_document_limits
+
+raise_town_document_limits()
+
 ROOT = Path(__file__).resolve().parent.parent
 OUT = ROOT / "web/public/data/meetings"
 API = "https://riverheadny.api.civicclerk.com/v1"

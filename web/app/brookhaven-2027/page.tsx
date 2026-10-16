@@ -129,6 +129,10 @@ export default function BrookhavenComparisonPage() {
               ]}
             />
             <P>
+              Southold, Riverhead’s other neighbour, has its 2027 Tentative set beside Riverhead’s too, with Brookhaven alongside:{' '}
+              <a href={`${base}/southold-2027/`} style={link}>Southold beside Riverhead</a>.
+            </P>
+            <P>
               Each total is the document’s own. Riverhead’s counts the Debt Service, Workers’ Compensation and Risk Retention funds, which
               the other funds pay into, so some dollars appear twice; Brookhaven’s table does not say how much of its total passes between
               funds.

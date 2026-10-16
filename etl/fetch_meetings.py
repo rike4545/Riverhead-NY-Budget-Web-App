@@ -33,6 +33,10 @@ from pathlib import Path
 
 import pypdf
 
+from pdf_limits import raise_town_document_limits
+
+raise_town_document_limits()
+
 ROOT = Path(__file__).resolve().parent.parent
 DEST = ROOT / "etl/data/meetings"
 MANIFEST_PATH = DEST / "source-manifest.json"

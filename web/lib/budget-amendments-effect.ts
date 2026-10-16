@@ -174,7 +174,7 @@ export const generalFundInterest = (() => {
  * The Supervisor's letter prices the Tentative for "property valued at
  * $800,000". At the residential assessment ratio on the Receiver of Taxes'
  * 2025–26 rate sheet, that is the assessed value below; the town-wide rates are
- * per $1,000 of it. Before any exemption, such as STAR.
+ * per $1,000 of it. Before any exemption (STAR reduces school taxes, not these).
  */
 export const exampleHome = amendmentEffect?.townWide.rateAfter
   ? (() => {

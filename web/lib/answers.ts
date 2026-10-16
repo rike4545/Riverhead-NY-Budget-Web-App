@@ -28,7 +28,7 @@ import { riverheadCurrent } from './credit-rating'
 import {
   unassignedFundBalance, appropriations, policyMinimumPercent, reserveYearAudited,
 } from './reserve-policy'
-import { whyHarder } from './zero-percent-2027'
+import { summary as freeze, whyHarder } from './zero-percent-2027'
 import { boardOptions, levyPredicted, levy2026 } from './budget-2027-options'
 import { released2027 as tentative2027, levySentence } from './tentative-2027'
 
@@ -130,7 +130,7 @@ export const topics: AnswerTopic[] = [
       },
       {
         q: 'What does the Town actually spend the most on?',
-        a: `Police and people. Public safety is ${publicSafety?.pct}% of the 2026 General Fund (${usd(publicSafety?.amount ?? 0)}) and employee benefits and debt another ${benefits?.pct}% (${usd(benefits?.amount ?? 0)}) — together ${((publicSafety?.pct ?? 0) + (benefits?.pct ?? 0)).toFixed(1)}% before a single other service is funded.`,
+        a: `Police and people. Public safety is ${publicSafety?.pct}% of ${whyHarder.basis} (${usd(publicSafety?.amount ?? 0)}) and employee benefits and debt another ${benefits?.pct}% (${usd(benefits?.amount ?? 0)}) — together ${((publicSafety?.pct ?? 0) + (benefits?.pct ?? 0)).toFixed(1)}% before a single other service is funded.`,
         href: `${base}/general-fund/`,
         cta: 'Inside the General Fund',
       },
@@ -245,13 +245,9 @@ export const topics: AnswerTopic[] = [
       },
       {
         q: 'Could Riverhead just freeze taxes, like Suffolk County did?',
-        a: `It is arithmetically possible and harder than it sounds. A flat levy has to absorb ${usd(prediction.byFund.find((f) => f.fundCode === 'A01')!.delta)} of projected General Fund cost growth, and unlike Suffolk, Riverhead's police department sits inside the very fund a freeze would apply to.${
-          tentative2027?.generalFund?.levyOverPrior != null && tentative2027.generalFund.levyOverPrior > 0
-            ? ` The 2027 Tentative raises the General Fund levy by ${usd(tentative2027.generalFund.levyOverPrior)}, so that is what a freeze would now have to find.`
-            : ''
-        }`,
+        a: `For a year, yes, though it is harder than it sounds. The 2027 Tentative raises the town-wide levy ${usd(freeze.tentativeRise)} (${freeze.tentativePct.toFixed(2)}%), and six amendments before the Board would cut that to ${usd(freeze.amendedRise)} (${freeze.amendedPct.toFixed(2)}%). Holding it flat would take ${usd(freeze.zeroBeyond)} more than the amendments find, and a 1% increase ${usd(freeze.oneBeyond)} more. Interest the Town is already earning covers most of the 1%; no increase also needs savings. Unlike Suffolk, Riverhead's police department sits inside the very fund a freeze would apply to.`,
         href: `${base}/zero-percent-2027/`,
-        cta: 'What a zero-percent year takes',
+        cta: 'What zero or 1% would take',
       },
       {
         q: 'When does the Board actually decide, and can I say anything?',

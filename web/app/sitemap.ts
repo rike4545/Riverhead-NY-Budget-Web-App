@@ -9,7 +9,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '', '/answers', '/guide', '/what-changed', '/payroll', '/funds', '/compare', '/general-fund',
     '/annual-report', '/meetings', '/buyout', '/search', '/downloads', '/gfoa', '/analytics', '/sources',
     '/data-quality', '/scenarios', '/board-elections', '/election-law-case', '/community-preservation-fund', '/housing-plan',
-    '/know-your-rights', '/official-social-media', '/town-square', '/programs', '/budget-changes', '/zero-percent-2027', '/budget-adoption', '/open-meetings', '/revenue', '/budget-accuracy', '/tax-cap', '/tax-cap-letter', '/brookhaven-2027', '/budget-amendments-2027',
+    '/know-your-rights', '/official-social-media', '/town-square', '/programs', '/budget-changes', '/zero-percent-2027', '/budget-adoption', '/open-meetings', '/revenue', '/budget-accuracy', '/tax-cap', '/tax-cap-letter', '/brookhaven-2027', '/southold-2027', '/budget-amendments-2027',
     ...allFundCodes().map((code) => `/funds/${code}`),
   ]
   const now = new Date()
