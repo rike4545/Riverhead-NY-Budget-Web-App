@@ -3,9 +3,10 @@ import PageShell from '../../components/PageShell'
 import PlainCallout from '../../components/PlainCallout'
 import { amendmentEffect } from '../../lib/budget-amendments-effect'
 import { biggestMisses, source as baSource, theMiss, totals as ba2023, whatItMeansForAFreeze } from '../../lib/budget-vs-actual-2023'
+import { CARRYOVER_ARGUMENT, CARRYOVER_QUOTES } from '../../lib/tax-cap-carryover'
 import { LETTER_2027 } from '../../lib/tentative-letters'
 import {
-  afterTheFact, baseGrowthPct, buildingFeesWatch, draws, exampleHome, gapOf, interest, levels, levelOf, otherEstimates, pathOf,
+  afterTheFact, baseGrowthPct, buildingFeesWatch, carryover, draws, middle, middleThresholds, newerRatio, exampleHome, gapOf, interest, levels, levelOf, otherEstimates, pathOf,
   policeOffset, savings, sources, suffolk, summary, townWideFunds, trajectory, trendNote, verdict, whyHarder,
 } from '../../lib/zero-percent-2027'
 
@@ -28,6 +29,7 @@ const interestPages = Array.from(new Set(interest.rows.map((r) => r.page))).sort
 const otherPages = Array.from(new Set(otherEstimates.largest.map((r) => r.page))).sort((a, b) => a - b)
 const pageList = (ps: number[]) => (ps.length > 1 ? `pp. ${ps.join(', ')}` : `p. ${ps[0]}`)
 const NUMBER_WORDS = ['No', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten']
+const q = (k: keyof typeof CARRYOVER_QUOTES) => CARRYOVER_QUOTES[k].text
 
 export const metadata = {
   title: 'Zero or 1%: what a smaller 2027 tax increase would take',
@@ -41,6 +43,8 @@ const SECTIONS = [
   ['trend', 'How the levy got here'],
   ['money', 'Where the money could come from'],
   ['paths', 'One way to reach each'],
+  ['carryover', 'Would a lower levy waste the cap’s carryover?'],
+  ['middle', 'A middle course: 1.24% to 1.58%'],
   ['record', 'The budget keeps beating itself'],
   ['harder', 'Why a town is harder to hold flat'],
   ['verdict', 'So, could Riverhead do it?'],
@@ -64,7 +68,8 @@ export default function ZeroPercent2027Page() {
         The 2027 Tentative raises the town-wide levy by {usd(summary.tentativeRise)}, or {summary.tentativePct.toFixed(2)}%. Six amendments before
         the Town Board would cut the increase to {usd(summary.amendedRise)}, or {summary.amendedPct.toFixed(2)}%. A 1% increase would take{' '}
         <strong>{usd(summary.oneBeyond)}</strong> more than the amendments find. No increase would mean finding all{' '}
-        <strong>{usd(summary.zeroBeyond)}</strong> of it. Budgeting interest at the pace the Town is collecting it covers most of the first. The second leans on savings. On the Supervisor’s{' '}
+        <strong>{usd(summary.zeroBeyond)}</strong> of it. Budgeting interest at the pace the Town is collecting it covers most of the first. The second leans on savings. A middle course of{' '}
+        {middle[0].pct}% to {middle[1].pct}% would need no more savings than the amendments use, and keep the tax cap’s carryover. On the Supervisor’s{' '}
         {usd(exampleHome.marketValue)} example home, the whole distance from the Tentative to no increase is about {usd(summary.homeTentativeVsZero)} a
         year in town taxes.
       </PlainCallout>
@@ -268,6 +273,143 @@ export default function ZeroPercent2027Page() {
             )}
           </Section>
 
+          <Section id="carryover" title="Would a lower levy waste the cap’s carryover?">
+            <P>One argument against a smaller increase runs like this:</P>
+            <blockquote style={{ margin: '0 0 14px', padding: '12px 16px', border: '1px solid var(--rbl-border-subtle)', background: 'var(--rbl-surface-2)', borderRadius: 10, color: 'var(--rbl-text-strong)', fontSize: 16.5, lineHeight: 1.6, maxWidth: '72ch' }}>
+              <span data-argument>“{CARRYOVER_ARGUMENT}”</span>
+            </blockquote>
+            <P>It points at a real rule, but the rule does not support the conclusion.</P>
+
+            <H3 id="carryover-rule">What the rule says</H3>
+            <P>
+              A town that levies less than its limit may add the difference to the next year’s limit, up to a ceiling. The State Comptroller’s
+              glossary defines carryover as the “{q('definition')}” Its answers for local governments spell it out: “{q('lesserOf')}” Its
+              instructions give an example: “{q('example')}” And “{q('exclusions')}”
+            </P>
+            <P>So the 1.5% is of the year in which the town levied less, not of the next year’s limit, as the argument has it.</P>
+
+            <H3 id="carryover-2027">What it would mean for 2027</H3>
+            <P>
+              <span data-carryover-limit>
+                The Tentative levies up to its limit. Its town-wide levy rises {carryover.tentativePct.toFixed(3)}%: the State’s two growth factors
+                multiplied, the {((carryover.allowableFactor - 1) * 100).toFixed(0)}% allowable levy growth factor and Riverhead’s 2027 tax base
+                growth factor of {carryover.taxBaseFactor.toFixed(4)} from the Department of Taxation and Finance, which together come to{' '}
+                {carryover.factorsPct.toFixed(3)}%. Taking the Tentative’s levy as the limit, 1.5% of it is {usd(carryover.cap)}.
+              </span>
+            </P>
+            <div data-carryover>
+              <Table
+                caption="The town-wide levy, as an illustration: the Town has not published its limit in dollars, and the cap counts every fund and district inside it."
+                head={['Level', 'Town-wide levy', 'Room left under the limit', 'Could carry into 2028', 'Would not carry']}
+                rows={carryover.rows.map((r) => [r.label, usd(r.levy), usd(r.room), usd(r.carried), r.lost ? usd(r.lost) : 'None'])}
+              />
+            </div>
+            <P>
+              The amendments would lose nothing. Any increase of about {carryover.thresholdPct.toFixed(2)}% or more leaves no more room than can
+              carry over. A 1% increase would leave {usd(carryover.rows[1].lost)} that couldn’t be carried, and no increase{' '}
+              {usd(carryover.rows[2].lost)}.
+            </P>
+
+            <H3 id="carryover-reply">Why that is not a loss to residents</H3>
+            <ul style={{ margin: '0 0 14px', paddingLeft: 22, display: 'grid', gap: 10, maxWidth: '72ch' }}>
+              <Li>
+                <strong>It is room to tax, not money.</strong> What would not carry over is permission to raise the 2028 levy by that much more
+                without an override vote. No dollar leaves the Town’s accounts. The dollars not levied stay with the people who would have paid them.
+              </Li>
+              <Li>
+                <strong>Riverhead has had no carryover for years.</strong> Its 2025 letter: “{carryover.overCap[0].sentence}” Its 2026 letter:
+                “{carryover.overCap[1].sentence}” The State Comptroller: “{q('noneIfOver')}” So the 2027 limit has no carryover in it, and the
+                Tentative, which levies to that limit, would carry none into 2028. Next to the Tentative, a 1% levy would gain{' '}
+                {usd(carryover.rows[1].carried)} of carryover for 2028; its 2028 limit would still be lower, by the {usd(carryover.rows[1].lost)}{' '}
+                that can’t carry and a year’s growth on it.
+              </Li>
+              <Li>
+                <strong>The Board keeps the power to go higher.</strong> “{q('override')}” On Riverhead’s five-member Board that is three votes, and
+                the Board overrode the cap in each of the four years before this one (<a href={carryover.overrideHeadline.url} style={link}>{carryover.overrideHeadline.title}</a>).
+                A lower 2027 levy would mean a larger 2028 increase needs that recorded vote. It would not take the option away.
+              </Li>
+              <Li>
+                <strong>Levying now to keep room for later collects money the budget doesn’t need.</strong> If the Board adopted a 1% budget,
+                levying the Tentative’s {summary.tentativePct.toFixed(2)}% anyway would raise {usd(summary.oneBelowTentative)} more than that budget
+                needs, to keep {usd(carryover.rows[1].lost)} of room for 2028. And the larger levy would raise the base of every later limit too:
+                “{q('base')}”
+              </Li>
+              <Li>
+                <strong>The cost of living cuts both ways.</strong> The allowable levy growth factor is “{q('growthFactor')}” High inflation does
+                not lift the cap above 2%, and carryover is a small catch-up allowance, not a measure of what the Town needs. Taxpayers face the same
+                prices.
+              </Li>
+            </ul>
+
+            <H3 id="carryover-fair">The part that is fair</H3>
+            <P>
+              A lower levy does lower the base that later limits are built on, and only part of the room carries over. No increase in 2027 would
+              leave the 2028 limit about {usd(carryover.rows[2].lost)} lower than the Tentative would, plus a year’s growth on it. If 2028 needs
+              more than that limit allows, the Board would need the 60% vote. That is a real trade-off for the Board to weigh: taxes collected
+              now that the budget may not need, or a recorded vote later if they are needed. Statewide, overrides are becoming more common: “{q('towns')}”
+              The Comptroller’s advice holds either way: “{q('transparent')}”
+            </P>
+            <P muted>
+              The Town files its limit with the State Comptroller and has not published it. The limit covers more than the town-wide funds: “{q('combined')}”
+              So the dollar figures in this section are an illustration on the town-wide levy.
+            </P>
+          </Section>
+
+          <Section id="middle" title={`A middle course: ${middle[0].pct}% to ${middle[1].pct}%`}>
+            <P>
+              Between 1% and the amendments’ {summary.amendedPct.toFixed(2)}%, an increase of {middle[0].pct}% to {middle[1].pct}% would raise{' '}
+              {usd(middle[1].belowTentative)} to {usd(middle[0].belowTentative)} less than the Tentative, more than the amendments’{' '}
+              {usd(levelOf('amended').belowTentative)}, without the risks of going lower. This is a suggestion from this site’s arithmetic, for
+              residents to put to the Board; the Town has not proposed it.
+            </P>
+            <P>
+              <span data-middle-thresholds>
+                Two thresholds set the range. From about {middleThresholds.noSavingsPct.toFixed(2)}% up, the amendments and interest at its 2026
+                pace cover the gap without more savings. From about {middleThresholds.carryoverPct.toFixed(2)}% up, the cap’s carryover is kept:
+                at exactly {middle[0].pct}%, all but {usd(middle[0].lost)} of the room carries into 2028, and from 1.25% up all of it does.{' '}
+                {middle[0].pct}% to {middle[1].pct}% sits at or above both.
+              </span>
+            </P>
+            <div data-middle>
+              <Table
+                caption="Town-wide, priced like the levels above. The home is the Supervisor’s example."
+                head={['Measure', `A ${middle[0].pct}% increase`, `A ${middle[1].pct}% increase`]}
+                rows={[
+                  ['Town-wide levy', usd(middle[0].levy), usd(middle[1].levy)],
+                  ['Change from 2026', signed(middle[0].change), signed(middle[1].change)],
+                  ['Less than the Tentative', usd(middle[0].belowTentative), usd(middle[1].belowTentative)],
+                  ['Beyond the six amendments', usd(middle[0].beyondAmendments), usd(middle[1].beyondAmendments)],
+                  ['Interest at its 2026 pace left over', usd(middle[0].interestSpare), usd(middle[1].interestSpare)],
+                  [`General Fund savings beyond the amendments’ ${usd(draws.amended)}`, middle[0].fromSavings ? usd(middle[0].fromSavings) : 'None', middle[1].fromSavings ? usd(middle[1].fromSavings) : 'None'],
+                  ['Room under the limit, and how much can carry into 2028', ...middle.map((m) => `${usd(m.room)}, ${m.lost ? `all but ${usd(m.lost)}` : 'all of it'}`)],
+                  ['Town-wide tax on the example home', middle[0].homeTax === null ? '—' : <>about {usd(middle[0].homeTax)} <Nowrap>({signed(middle[0].homeChange ?? 0)})</Nowrap></>, middle[1].homeTax === null ? '—' : <>about {usd(middle[1].homeTax)} <Nowrap>({signed(middle[1].homeChange ?? 0)})</Nowrap></>],
+                ]}
+              />
+            </div>
+            <ul style={{ margin: '0 0 14px', paddingLeft: 22, display: 'grid', gap: 10, maxWidth: '72ch' }}>
+              <Li>
+                <strong>No more savings and no new cuts.</strong> Past the amendments it needs {usd(middle[1].beyondAmendments)} to{' '}
+                {usd(middle[0].beyondAmendments)}. Budgeting interest at its 2026 pace covers that, with {usd(middle[0].interestSpare)} to{' '}
+                {usd(middle[1].interestSpare)} to spare: a cushion if interest comes in lower than that pace.
+              </Li>
+              <Li>
+                <strong>Carryover kept.</strong> On this page’s illustration, an increase from about {carryover.thresholdPct.toFixed(2)}% up leaves
+                no more room under the limit than can carry into 2028; at exactly {middle[0].pct}%, {usd(middle[0].lost)} would not. So it meets the
+                carryover argument on its own terms.
+              </Li>
+              <Li>
+                <strong>A smaller rise for a home.</strong> On the Supervisor’s example home, it costs about {usd(middle[0].homeChange ?? 0)} to{' '}
+                {usd(middle[1].homeChange ?? 0)} more than 2026, against {usd(tentative.homeChange ?? 0)} under the Tentative and{' '}
+                {usd(levelOf('amended').homeChange ?? 0)} with the amendments.
+              </Li>
+              <Li>
+                <strong>What it rests on.</strong> The six amendments, including their higher estimate for building fees, which were running
+                behind 2025 at mid-year, and interest holding near its 2026 pace. If either falls short, the difference comes out of savings at the
+                end of the year.
+              </Li>
+            </ul>
+          </Section>
+
           <Section id="record" title="The budget keeps beating itself">
             <P>{theMiss.detail}</P>
             <Table
@@ -340,6 +482,14 @@ export default function ZeroPercent2027Page() {
           </Section>
 
           <Section id="verdict" title="So, could Riverhead do it?">
+            <H3 id="verdict-middle">{middle[0].pct}% to {middle[1].pct}%</H3>
+            <P>
+              <span data-verdict-middle>
+                Yes. {middle[0].pct}% is about the lowest increase that keeps the cap’s carryover and needs no more savings than the amendments
+                already use: the amendments, plus interest budgeted at its 2026 pace, with {usd(middle[0].interestSpare)} to{' '}
+                {usd(middle[1].interestSpare)} of that interest to spare.
+              </span>
+            </P>
             <H3 id="verdict-one">A 1% increase</H3>
             <P><span data-verdict-one>{verdict.onePct}</span></P>
             <H3 id="verdict-zero">No increase</H3>
@@ -352,7 +502,7 @@ export default function ZeroPercent2027Page() {
               <Li>The 2026 and Tentative levies and rates are the Summaries’ “Total Town Wide” rows. The amended levy applies the six resolutions’ own lines to the 2027 Budget Supplement, which adds up to the Tentative to the dollar.</Li>
               <Li>A 1% increase is {usd(gapOf(1).levy)}, 1% over 2026’s {usd(levelOf('2026').levy)}, rounded to the dollar. No increase is 2026’s levy.</Li>
               <Li>Rates for the last three levels scale each fund’s Tentative rate by its levy, on the Tentative’s assessed values. For 1% and no increase, each fund’s levy rises by the same share, as each does in the Tentative.</Li>
-              <Li>The example home is the {usd(exampleHome.marketValue)} property in the Supervisor’s letter, at the {exampleHome.ratioYear}–{String(exampleHome.ratioYear + 1).slice(2)} residential assessment ratio of {exampleHome.ratio}% on the Receiver of Taxes’ rate sheet. Only town-wide taxes are counted: school, county, fire, library and special district taxes are not.</Li>
+              <Li>The example home is the {usd(exampleHome.marketValue)} property in the Supervisor’s letter, at the {exampleHome.ratioYear}–{String(exampleHome.ratioYear + 1).slice(2)} residential assessment ratio of {exampleHome.ratio}% on the Receiver of Taxes’ rate sheet. Only town-wide taxes are counted: school, county, fire, library and special district taxes are not. The Department of Taxation and Finance’s <a href={newerRatio.source.url} style={link}>municipal profile</a> for Riverhead lists a newer ratio, {newerRatio.ratio}% for {newerRatio.year}; at that ratio the home would be assessed at about {usd((exampleHome.marketValue * newerRatio.ratio) / 100)}, and each tax figure here would be about {Math.round((1 - newerRatio.ratio / exampleHome.ratio) * 100)}% smaller. This site uses the rate sheet’s ratio on every page, so the pages agree.</Li>
               <Li>Interest at its 2026 pace is twice what each fund had collected by June 30, 2026, the Supplement’s year-to-date column.</Li>
               <Li>Other estimates count lines the Town still budgets, other than property taxes, savings, interest, and charges or transfers between Town funds.</Li>
               <Li>Collections are the Town’s books before the audit, as each Supplement prints them. Savings are the audited balance less the 2026 draws on the record.</Li>

@@ -38,6 +38,7 @@ import { corpus as laborCorpus, openUnits, triborough } from './labor-contracts-
 import { appropriations, minimumRequired, policyMinimumPercent, surplusAboveFloor, unassignedFundBalance } from './reserve-policy'
 import { savingEstimate } from './retirement-actuals-2026'
 import { LETTER_2027, READ_BY_HAND } from './tentative-letters'
+import { CARRYOVER_CAP, CARRYOVER_SOURCES, factorsAllowPct, GROWTH_2027 } from './tax-cap-carryover'
 
 type Line = {
   account: string; fund: string; name: string; kind: string; page: number
@@ -76,6 +77,19 @@ export const exampleHome = (() => {
   const ratio = taxBill.equalization.residentialAssessmentRatio
   return { marketValue, ratio, ratioYear: taxBill.equalization.asOfYear, assessed: (marketValue * ratio) / 100 }
 })()
+/**
+ * A newer ratio than the rate sheet's: the Department of Taxation and
+ * Finance's municipal profile for Riverhead, "Most recent RAR: 7.03, Year of
+ * RAR: 2026", as it read on October 16, 2026. The profile is an interactive
+ * page, so no copy is kept. The site keeps the rate sheet's ratio on every
+ * page so the pages agree, and says what the newer one would change.
+ */
+export const newerRatio = {
+  ratio: 7.03,
+  year: 2026,
+  source: { title: 'Department of Taxation and Finance, Municipal Profiles: Town of Riverhead (SWIS 473000)', url: 'https://pad.tax.ny.gov/muni' },
+}
+
 /** Rounded to the dollar, so a table's changes add up as printed. */
 const homeTax = (rate: number) => Math.round((exampleHome.assessed / 1000) * rate)
 
@@ -307,6 +321,79 @@ export const paths = TARGET_PCTS.map((p) => {
 })
 export const pathOf = (p: number) => paths.find((x) => x.pct === p)!
 
+// ── The carryover argument ───────────────────────────────────────────────────
+
+/**
+ * What each 2027 levy would leave under the cap, and how much of it could carry
+ * into 2028. The Tentative levies to its limit: its town-wide levy rises by the
+ * State's two growth factors multiplied, so its levy stands in for the limit.
+ * The Town has published no limit in dollars, and the cap counts the combined
+ * levy of every fund and district inside it, so this is an illustration on the
+ * town-wide levy, labelled as one on the page.
+ */
+export const carryover = (() => {
+  const limit = tw.levy
+  const cap = Math.round(limit * CARRYOVER_CAP)
+  const rows = ['amended', 'target-1', 'target-0'].map((id) => {
+    const l = levelOf(id)
+    const room = Math.max(0, limit - l.levy)
+    const carried = Math.min(room, cap)
+    return { id, label: l.label, levy: l.levy, pct: l.pct, room, carried, lost: room - carried }
+  })
+  return {
+    limit,
+    cap,
+    rows,
+    /** Any increase at least this large leaves no more room than can carry over. */
+    thresholdPct: pct(tw.priorLevy, limit * (1 - CARRYOVER_CAP)),
+    factorsPct: factorsAllowPct(GROWTH_2027.taxBase.riverhead),
+    taxBaseFactor: GROWTH_2027.taxBase.riverhead,
+    allowableFactor: GROWTH_2027.allowable,
+    tentativePct: pct(tw.priorLevy, tw.levy),
+    /** The years the Town's own letters put the town-wide budget over the cap. */
+    overCap: [2025, 2026].map((y) => ({ year: y, sentence: READ_BY_HAND[y]?.taxCap ?? null })),
+    overrideHeadline: LETTER_2027.meetingReport,
+    sources: CARRYOVER_SOURCES,
+  }
+})()
+
+// ── A middle course ──────────────────────────────────────────────────────────
+
+/**
+ * An increase between 1% and the amendments' 1.73%, suggested on the page for
+ * residents to put to the Board. Each end is priced like the targets: beyond
+ * the amendments, how much of interest at its 2026 pace it uses, the example
+ * home's tax, and the room it leaves under the limit against what can carry.
+ */
+export const MIDDLE_PCTS = [1.24, 1.58] as const
+/** The two thresholds the range clears: no more savings than the amendments use, and no carryover lost. */
+export const middleThresholds = {
+  noSavingsPct: pct(tw.priorLevy, fx.townWide.after - interest.total),
+  carryoverPct: carryover.thresholdPct,
+}
+export const middle = MIDDLE_PCTS.map((p) => {
+  const levy = targetLevy(p)
+  const beyondAmendments = fx.townWide.after - levy
+  const rate = rateAtIncrease(p)
+  const room = Math.max(0, carryover.limit - levy)
+  return {
+    pct: p,
+    levy,
+    change: levy - tw.priorLevy,
+    belowTentative: tw.levy - levy,
+    beyondAmendments,
+    /** Interest at its 2026 pace left over once it covers the gap: a cushion if interest falls short. */
+    interestSpare: interest.total - beyondAmendments,
+    fromSavings: Math.max(0, beyondAmendments - interest.total),
+    rate,
+    homeTax: rate === null ? null : homeTax(rate),
+    homeChange: rate === null ? null : homeTax(rate) - homeTax(tw.priorRate),
+    room,
+    /** Room beyond what can carry into 2028. */
+    lost: Math.max(0, room - carryover.cap),
+  }
+})
+
 // ── How the levy got here ────────────────────────────────────────────────────
 
 const fundRate = (code: string) => tw.fundRates?.[code]?.rate ?? null
@@ -491,6 +578,11 @@ export const sources = [
     url: taxBill.rateSource.url,
     covers: 'The 2026 levy and the tax-rate table used for the rate comparison.',
   },
+  ...Object.values(CARRYOVER_SOURCES).map((src) => ({
+    title: src.title,
+    url: src.url,
+    covers: 'How tax cap carryover, the base of the next year’s limit and an override work, and the 2027 growth factors.',
+  })),
   {
     title: 'Suffolk County: County Executive Romaine announces no general fund tax increase (September 3, 2026)',
     url: 'https://suffolkcountyny.gov/News/ArtMID/583/ArticleID/15376/Suffolk-County-Executive-Ed-Romaine-Announces-No-General-Fund-Tax-Increase-in-2026-State-of-the-County-Address',

@@ -12,6 +12,10 @@
 //     audited 2024 and 2025 results beside the draws their budgets planned;
 //   - the General Fund's shares, from the 2027 Supplement's lines;
 //   - the General Fund levy history and the trend sentence;
+//   - the carryover argument's answer: every quotation from the State
+//     Comptroller and the Tax Department against the saved text of its page,
+//     the Tentative rising by exactly the State's two growth factors (which is
+//     what lets the page take its levy as the limit), and the table;
 //   - and that the forecast-era figures this page used to quote are gone.
 
 import { existsSync, readFileSync } from 'node:fs'
@@ -20,6 +24,7 @@ import { AUDITED_OPERATIONS } from '../lib/audits.ts'
 import { AMENDMENTS, change, fundEffects, revenueCode } from '../lib/budget-amendments-2027.ts'
 import { TOWN_WIDE_FUNDS } from '../lib/fund-groups.ts'
 import { LETTER_2027, READ_BY_HAND } from '../lib/tentative-letters.ts'
+import { CARRYOVER_ARGUMENT, CARRYOVER_CAP, CARRYOVER_QUOTES, CARRYOVER_SOURCES, GROWTH_2027 } from '../lib/tax-cap-carryover.ts'
 
 const root = resolve(process.cwd())
 const repo = resolve(root, '..')
@@ -212,6 +217,60 @@ for (const stale of ['$3,514,315', 'about $3.5 million', 'down 3.10%', 'does not
   if (text.includes(stale)) fail(`the page still shows the forecast-era “${stale}”`)
 }
 
+// ── The carryover argument ───────────────────────────────────────────────────
+const capSources = read('../etl/data/tax-cap/carryover-sources.json').documents
+const squash = (str) => str.replace(/\s+/g, ' ').trim()
+const ON_OTHER_PAGES = ['userFees']
+for (const [key, qt] of Object.entries(CARRYOVER_QUOTES)) {
+  const doc = capSources[qt.doc]
+  if (!doc) { fail(`carryover quotation "${key}": there is no saved copy of ${qt.doc}`); continue }
+  if (doc.url !== CARRYOVER_SOURCES[qt.doc].url) fail(`${qt.doc}: the saved copy is not of the page the site cites`)
+  if (!squash(doc.pages[qt.page] ?? '').includes(squash(qt.text))) fail(`carryover quotation "${key}" is not on ${qt.doc} (${qt.page}) word for word`)
+  if (!ON_OTHER_PAGES.includes(key) && !text.includes(qt.text)) fail(`carryover quotation "${key}" is not on the page`)
+}
+const factorsText = squash(capSources['dtf-tbgf-2027']?.pages.page ?? '')
+if (!factorsText.includes('for fiscal years starting in 2027')) fail('the saved tax base growth factors are not the 2027 ones')
+for (const [town, factor] of Object.entries(GROWTH_2027.taxBase)) {
+  const name = town.charAt(0).toUpperCase() + town.slice(1)
+  if (!factorsText.includes(`Suffolk County Town of ${name} ${factor.toFixed(4)}`)) fail(`${name}'s 2027 tax base growth factor is not ${factor.toFixed(4)} in the saved table`)
+}
+const factors = GROWTH_2027.allowable * GROWTH_2027.taxBase.riverhead
+if (Math.abs(tw.levy / tw.priorLevy - factors) > 0.00005) fail('the Tentative’s town-wide levy no longer rises by the State’s two growth factors, so the page can no longer take its levy as the limit')
+const capAmount = Math.round(tw.levy * CARRYOVER_CAP)
+const carryRows = [['With the six amendments', amendedLevy], ['A 1% increase', target(1)], ['No increase', target(0)]].map(([label, levy]) => {
+  const room = Math.max(0, tw.levy - levy)
+  const carried = Math.min(room, capAmount)
+  return { label, levy, room, carried, lost: room - carried }
+})
+expect('the carryover table', block('data-carryover', '</figure>'), carryRows.flatMap((r) => [r.label, usd(r.levy), usd(r.room), usd(r.carried), r.lost ? usd(r.lost) : 'None']))
+expect('the carryover limit note', block('data-carryover-limit', '</span>'), [usd(capAmount), `${growth(tw.priorLevy, tw.levy).toFixed(3)}%`, `${((factors - 1) * 100).toFixed(3)}%`, GROWTH_2027.taxBase.riverhead.toFixed(4)])
+expect('the carryover section', text, [`about ${growth(tw.priorLevy, tw.levy * (1 - CARRYOVER_CAP)).toFixed(2)}% or more`, CARRYOVER_ARGUMENT, usd(carryRows[1].lost), usd(carryRows[2].lost)])
+for (const y of ['2025', '2026']) {
+  const sentence = READ_BY_HAND[y]?.taxCap
+  if (!sentence || !/over the tax cap/i.test(sentence)) fail(`the ${y} letter is no longer recorded as over the tax cap, which the page says left no carryover`)
+  else if (!text.includes(sentence)) fail(`the ${y} letter’s tax-cap sentence is not on the page`)
+}
+
+// ── The middle course ────────────────────────────────────────────────────────
+const middleRows = [1.24, 1.58].map((p) => {
+  const levy = target(p)
+  const rate = sum(funds.map((f) => scaled(f, f.prior * (1 + p / 100))))
+  const room = Math.max(0, tw.levy - levy)
+  return { p, levy, beyond: amendedLevy - levy, spare: interestTotal - (amendedLevy - levy), room, lost: Math.max(0, room - capAmount), home: home(rate) }
+})
+for (const r of middleRows) {
+  if (r.spare < 0) fail(`a ${r.p}% increase now needs savings beyond the amendments, which the page says it does not`)
+  // The low end sits at the carryover threshold: it may leave a sliver that cannot carry, which the page states.
+  if (r.lost > capAmount * 0.005) fail(`a ${r.p}% increase now leaves ${usd(r.lost)} that cannot carry over, more than the sliver the page describes`)
+}
+expect('the middle-course table', block('data-middle', '</figure>'), middleRows.flatMap((r) => [
+  usd(r.levy), signed(r.levy - tw.priorLevy), usd(tw.levy - r.levy), usd(r.beyond), usd(r.spare), `${usd(r.room)}, ${r.lost ? `all but ${usd(r.lost)}` : 'all of it'}`, `about ${usd(r.home)}`, signed(r.home - home(tw.priorRate)),
+]))
+const noSavingsPct = growth(tw.priorLevy, amendedLevy - interestTotal)
+expect('the middle-course thresholds', block('data-middle-thresholds', '</span>'), [`about ${noSavingsPct.toFixed(2)}% up`, `about ${growth(tw.priorLevy, tw.levy * (1 - CARRYOVER_CAP)).toFixed(2)}% up`])
+if (!(noSavingsPct < middleRows[0].p && Math.abs(growth(tw.priorLevy, tw.levy * (1 - CARRYOVER_CAP)) - middleRows[0].p) < 0.01)) fail(`${middleRows[0].p}% is no longer at the carryover threshold and above the no-savings one, as the page says`)
+expect('the middle-course verdict', block('data-verdict-middle', '</span>'), [usd(middleRows[0].spare), usd(middleRows[1].spare)])
+
 // /answers/ routes the freeze question here, with this page's figures.
 const answersFile = 'out/answers/index.html'
 if (existsSync(path(answersFile))) {
@@ -220,5 +279,5 @@ if (existsSync(path(answersFile))) {
 } else fail(`${answersFile} was not built`)
 
 if (!process.exitCode) {
-  console.log(`zero percent 2027: 1% needs ${usd(gap(1).beyondAmendments)} and 0% ${usd(gap(0).beyondAmendments)} beyond the amendments; interest at its 2026 pace ${usd(interestTotal)}; ${others.length} other estimates ${usd(othersTotal)} (${others.filter((r) => r.behind).length} behind); savings used ${usd(path1.draw)} and ${usd(path0.draw)}`)
+  console.log(`zero percent 2027: 1% needs ${usd(gap(1).beyondAmendments)} and 0% ${usd(gap(0).beyondAmendments)} beyond the amendments; carryover cap ${usd(capAmount)}, ${Object.keys(CARRYOVER_QUOTES).length} State quotations on their pages; interest at its 2026 pace ${usd(interestTotal)}; ${others.length} other estimates ${usd(othersTotal)} (${others.filter((r) => r.behind).length} behind); savings used ${usd(path1.draw)} and ${usd(path0.draw)}`)
 }
