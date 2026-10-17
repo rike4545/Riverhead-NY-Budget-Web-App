@@ -23,6 +23,11 @@ import {
   whyItMatters as laborWhyItMatters, limits as laborLimits,
   triborough, placeholderVsFloor,
 } from '../../lib/labor-contracts-2027'
+import {
+  UPDATED, ADOPTION_DEADLINE, updatedPrediction as updated, record, unchangedCount, largestChange, amendmentsLevyChange,
+  basis, scenarios, modelMiss, type PredictionRow,
+} from '../../lib/predict-2027-update'
+import { countWord } from '../../lib/budget-adoption'
 
 const base = process.env.NEXT_PUBLIC_BASE_PATH || ''
 const usd = (n: number) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(n)
@@ -59,12 +64,15 @@ const knownPensionExclusion = p.capGap.pensionExclusion?.totalEstimate ?? 0
 const exclusionProxyLevy = p.capGap.allowedLevy + knownPensionExclusion
 const exclusionProxyGap = Math.max(0, p.capGap.predictedLevy - exclusionProxyLevy)
 const predictedPct = le.levyIncreasePct
+const signedPct = (n: number) => `${n > 0 ? '+' : n < 0 ? '−' : ''}${Math.abs(n).toFixed(2)}%`
+const signedUsd = (n: number) => `${n > 0 ? '+' : n < 0 ? '−' : ''}${usd(Math.abs(n))}`
+const cell = (r: PredictionRow, n: number) => (r.kind === 'pct' ? signedPct(n) : usd(n))
 
 export default function Predict2027Page() {
   return (
     <PageShell
       title="2027 budget outlook — what the model says, and what the tax cap really means"
-      subtitle="A line-by-line projection of Riverhead’s next budget, separated from the legal tax-cap calculation and the Town Board choices that follow from it. This is an independent model, not the Town’s tentative budget."
+      subtitle="What this site now expects the Town Board to adopt for 2027, beside the line-by-line model it made before the Tentative, the legal tax-cap calculation and the Board’s choices. This is an independent prediction, not the Town’s budget."
     >
       <div style={{ background: 'var(--rbl-warn-bg)', border: '1px solid var(--rbl-warn-border)', borderColor: 'var(--rbl-warn-border)', borderRadius: 12, padding: '14px 16px', marginBottom: 16, color: 'var(--rbl-warn-strong)', fontSize: 14.5, lineHeight: 1.55 }}>
         <strong>Read the levy number as a baseline, not a filed tax-cap calculation.</strong>{' '}
@@ -72,12 +80,14 @@ export default function Predict2027Page() {
       </div>
 
       <TentativeReleased>
-        The forecast on this page is left as it was before the Tentative came out, so the two can be compared; the{' '}
-        <a href="#scorecard" style={{ color: 'var(--rbl-link)', fontWeight: 800 }}>scorecard</a> lines them up.
+        The September model on this page is left as it was before the Tentative came out, so the two can be compared; the{' '}
+        <a href="#scorecard" style={{ color: 'var(--rbl-link)', fontWeight: 800 }}>scorecard</a> lines them up. The{' '}
+        <a href="#updated-prediction" style={{ color: 'var(--rbl-link)', fontWeight: 800 }}>updated prediction</a> starts from the Tentative.
       </TentativeReleased>
 
       <nav aria-label="On this page" style={{ display: 'flex', flexWrap: 'wrap', gap: 8, marginBottom: 16 }}>
         {[
+          ...(updated ? [['Updated prediction', '#updated-prediction']] : []),
           ['Tax-cap reality', '#cap-reality'],
           ['State context', '#state-context'],
           ['Board choices', '#board-choices'],
@@ -89,6 +99,127 @@ export default function Predict2027Page() {
         ))}
       </nav>
 
+      {updated && (() => {
+        const townWide = updated.row('town-wide-levy')
+        const allFunds = updated.row('all-funds-levy')
+        const savings = updated.row('general-fund-savings')
+        const [likely, ...others] = scenarios.outcomes
+        return (
+          <section id="updated-prediction" data-updated-prediction style={{ ...card, marginBottom: 16, scrollMarginTop: 16, borderColor: 'var(--rbl-info-border)' }}>
+            <div style={{ display: 'flex', gap: 12, justifyContent: 'space-between', alignItems: 'baseline', flexWrap: 'wrap' }}>
+              <h2 style={{ margin: 0, color: 'var(--rbl-title)', fontSize: 20 }}>Updated prediction: the Board adopts the Tentative with all six amendments</h2>
+              <span style={{ ...chip, background: 'var(--rbl-info-bg)', color: 'var(--rbl-info-text)', border: '1px solid var(--rbl-border-subtle)' }}>Made {UPDATED.date}</span>
+            </div>
+            <p style={{ color: 'var(--rbl-text-body)', fontSize: 14.5, lineHeight: 1.6, margin: '10px 0 12px' }}>
+              In September this site’s model, built on the 2026 budget, put the levy across all funds at {usd(updated.model.levy)}, up {updated.model.levyPct}%,
+              above a 2% increase. The Tentative came in at {usd(allFunds.tentative)}, up {updated.allFundsPct.tentative.toFixed(2)}%, which the Supervisor’s letter
+              puts within the tax cap. Knowing the Tentative and the six amendments to it, this site now predicts that by {ADOPTION_DEADLINE} the Board adopts a
+              town-wide levy of {usd(townWide.predicted)}, up {updated.row('town-wide-change').predicted.toFixed(2)}% from 2026: {usd(allFunds.predicted)} across
+              all funds, up {updated.allFundsPct.predicted.toFixed(2)}%.
+            </p>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(min(180px,100%),1fr))', gap: 12, marginBottom: 14 }}>
+              <Stat label="Predicted town-wide levy" value={usd(townWide.predicted)} sub={`${signedPct(updated.row('town-wide-change').predicted)} over 2026; the Tentative ${signedPct(updated.row('town-wide-change').tentative)}`} accent />
+              <Stat label="General Fund savings used" value={usd(savings.predicted)} sub={`${usd(savings.tentative)} in the Tentative, ${usd(savings.y2026 ?? 0)} in 2026, plus ${usd(updated.equipmentFromSavings)} of equipment bought from savings during 2027`} />
+              <Stat label="Town-wide tax, $800,000 example home" value={likely.homeTax !== null ? `about ${usd(likely.homeTax)}` : '—'} sub={likely.homeChange !== null ? `${signedUsd(likely.homeChange)} over 2026’s ${usd(scenarios.home2026 ?? 0)}` : undefined} />
+              <Stat label="Tax-cap override" value="None expected" sub={updated.statedLimitPct !== null ? `The Supervisor’s letter puts the Tentative within its ${updated.statedLimitPct}% limit, and the amendments only lower the levy` : 'The amendments only lower the levy'} />
+            </div>
+            <p style={{ color: 'var(--rbl-text-muted)', fontSize: 13, lineHeight: 1.5, margin: '0 0 6px' }}>
+              The prediction beside the Tentative. The adopted column fills in when the Town publishes the adopted budget, and the prediction stays as it is.
+            </p>
+            <div style={{ overflowX: 'auto' }}>
+              <table data-updated-table className="rbl-stack" style={{ width: '100%', borderCollapse: 'collapse', fontSize: 13.3 }}>
+                <thead>
+                  <tr style={{ textAlign: 'left', color: 'var(--rbl-text-muted)', borderBottom: '2px solid var(--rbl-border-subtle)' }}>
+                    <th style={th}>Measure</th><th style={th}>Basis</th><th style={{ ...th, textAlign: 'right' }}>2026 adopted</th>
+                    <th style={{ ...th, textAlign: 'right' }}>2027 Tentative</th><th style={{ ...th, textAlign: 'right' }}>Prediction</th><th style={{ ...th, textAlign: 'right' }}>Adopted</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {updated.rows.map((r) => (
+                    <tr key={r.id} data-row={r.id} style={{ borderBottom: '1px solid var(--rbl-border-subtle)' }}>
+                      <td style={{ ...td, fontWeight: 750, color: 'var(--rbl-title)' }}><span>{r.metric}</span></td>
+                      <td data-label="Basis" style={{ ...td, color: 'var(--rbl-text-muted)' }}><span>{r.basis}</span></td>
+                      <td data-label="2026 adopted" className={r.y2026 === null ? 'rbl-narrow-hide' : undefined} style={{ ...td, textAlign: 'right' }}>
+                        <span>{r.y2026 === null ? '—' : usd(r.y2026)}</span>
+                      </td>
+                      <td data-label="2027 Tentative" style={{ ...td, textAlign: 'right' }}><span>{cell(r, r.tentative)}</span></td>
+                      <td data-label="Prediction" style={{ ...td, textAlign: 'right', fontWeight: 800, color: 'var(--rbl-title)' }}><span>{cell(r, r.predicted)}</span></td>
+                      <td data-adopted data-label="Adopted" style={{ ...td, textAlign: 'right', ...(r.adopted === null ? { color: 'var(--rbl-text-faint)' } : { fontWeight: 700 }) }}>
+                        <span>{r.adopted === null ? 'Not yet adopted' : cell(r, r.adopted)}</span>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+
+            <h3 style={{ margin: '18px 0 6px', color: 'var(--rbl-title)', fontSize: 16 }}>Why this site expects it</h3>
+            <ul data-updated-basis style={{ margin: 0, paddingLeft: 20, color: 'var(--rbl-text-body)', fontSize: 14, lineHeight: 1.6 }}>
+              <li>
+                The six are printed as resolutions, items {basis.items[0]} to {basis.items[basis.items.length - 1]} on the draft agenda for the Board’s{' '}
+                {basis.meeting.date} meeting, each with a fiscal impact statement dated {basis.statementsDated}.{' '}
+                <a href={`${base}/budget-amendments-2027/`} style={{ color: 'var(--rbl-link)', fontWeight: 750 }}>What each one changes →</a>
+              </li>
+              <li>
+                {basis.article.outlet} reported on {basis.article.published} that Council Member Ken Rothwell developed them with the Town’s financial administrator
+                and the other council members. “{basis.support}” With his own vote, that is four of the Board’s five, and a resolution needs three.
+              </li>
+              <li>Supervisor Jerry Halpin, whose Tentative it is, had not commented when {basis.article.outlet} reported: “{basis.noResponse}”</li>
+              {amendmentsLevyChange !== null && (
+                <li>
+                  The Board seldom changes a Tentative. Of the {countWord(record.length)} on record, it adopted {countWord(unchangedCount)} unchanged; the largest change, in{' '}
+                  {largestChange.year}, {largestChange.levyDelta > 0 ? 'raised' : 'cut'} the levy {usd(Math.abs(largestChange.levyDelta))}. The six would cut it{' '}
+                  {usd(Math.abs(amendmentsLevyChange))}, more than any year on record, so this prediction rests on the votes announced, not on habit.
+                </li>
+              )}
+            </ul>
+
+            <h3 style={{ margin: '18px 0 6px', color: 'var(--rbl-title)', fontSize: 16 }}>What would change it</h3>
+            <div style={{ overflowX: 'auto' }}>
+              <table data-scenarios className="rbl-stack" style={{ width: '100%', borderCollapse: 'collapse', fontSize: 13.3 }}>
+                <thead>
+                  <tr style={{ textAlign: 'left', color: 'var(--rbl-text-muted)', borderBottom: '2px solid var(--rbl-border-subtle)' }}>
+                    <th style={th}>Outcome</th><th style={{ ...th, textAlign: 'right' }}>Town-wide levy</th><th style={{ ...th, textAlign: 'right' }}>Change from 2026</th>
+                    <th style={{ ...th, textAlign: 'right' }}>$800,000 home</th><th style={th}>Call</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {[likely, ...others].map((o) => (
+                    <tr key={o.id} data-outcome={o.id} style={{ borderBottom: '1px solid var(--rbl-border-subtle)' }}>
+                      <td style={{ ...td, fontWeight: 750, color: 'var(--rbl-title)' }}><span>{o.name}</span></td>
+                      <td data-label="Town-wide levy" style={{ ...td, textAlign: 'right' }}><span>{usd(o.levy)}</span></td>
+                      <td data-label="Change from 2026" style={{ ...td, textAlign: 'right' }}><span>{signedPct(o.pct)}</span></td>
+                      <td data-label="$800,000 home" style={{ ...td, textAlign: 'right' }}><span>{o.homeTax === null ? '—' : `${o.printed ? '' : 'about '}${usd(o.homeTax)}`}</span></td>
+                      <td data-label="Call" style={{ ...td, color: o.id === likely.id ? 'var(--rbl-title)' : 'var(--rbl-text-muted)', fontWeight: o.id === likely.id ? 800 : 600 }}><span>{o.call}</span></td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+            <ul style={{ margin: '10px 0 0', paddingLeft: 20, color: 'var(--rbl-text-body)', fontSize: 14, lineHeight: 1.6 }}>
+              <li>A vote that goes the other way, or an amendment withdrawn, moves the levy back toward the Tentative’s {updated.row('town-wide-change').tentative.toFixed(2)}%.</li>
+              <li>
+                More changes before adoption. This site’s{' '}
+                <a href={`${base}/zero-percent-2027/`} style={{ color: 'var(--rbl-link)', fontWeight: 750 }}>zero-percent page</a> shows a 1% increase is within
+                reach by budgeting interest at the pace it is coming in, but no one has proposed it.
+              </li>
+              <li>The November 3 election does not change who votes: the Board that adopts the budget by {ADOPTION_DEADLINE} is the one sitting now.</li>
+            </ul>
+            <div style={{ marginTop: 12 }}>
+              <ProvenanceLine
+                claimId="2027-updated-prediction"
+                status="projected"
+                source="2027 Tentative Budget, changed by the six amendments on the October 20 draft agenda"
+                asOf={UPDATED.date}
+                calculation="Each amendment’s FROM and TO lines applied to the Tentative’s Summary; scored against the adopted budget once it is published"
+                evidenceHref={`${base}/budget-amendments-2027/`}
+              />
+            </div>
+          </section>
+        )
+      })()}
+
+      <h2 style={{ margin: '4px 0 8px', color: 'var(--rbl-title)', fontSize: 19 }}>The September model, made before the Tentative</h2>
       <section style={{ ...card, display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(min(180px,100%),1fr))', gap: 12, marginBottom: 4 }}>
         <Stat label="2026 adopted · all operating funds" value={usd(t.appropriations2026)} sub="All 19 operating funds" />
         <Stat label="2027 model · all operating funds" value={usd(t.appropriations2027)} sub={`General Fund: ${usd(generalFund2027)}`} accent />
@@ -657,6 +788,53 @@ export default function Predict2027Page() {
             <tbody>{scorecard.map((r) => <tr key={r.metric} style={{ borderBottom: '1px solid var(--rbl-border-subtle)' }}><td style={{ ...td, fontWeight: 750, color: 'var(--rbl-title)' }}>{r.metric}</td><td style={{ ...td, color: 'var(--rbl-text-muted)' }}>{r.basis}</td><td style={{ ...td, textAlign: 'right', fontWeight: 700 }}>{r.ourEstimate !== null ? usd(r.ourEstimate) : (r.estimateLabel ?? '—')}</td><td data-filed style={{ ...td, textAlign: 'right', ...(r.actual !== null || r.actualLabel ? { fontWeight: 700, color: 'var(--rbl-title)' } : { color: 'var(--rbl-text-faint)' }) }}>{r.actual !== null ? usd(r.actual) : (r.actualLabel ?? 'Not yet filed')}</td></tr>)}</tbody>
           </table>
         </div>
+        {modelMiss && (() => {
+          const { wages, debt } = modelMiss
+          const gap = modelMiss.totals.model - modelMiss.totals.tentative
+          return (
+            <div data-model-miss style={{ marginTop: 18 }}>
+              <h3 style={{ margin: '0 0 6px', color: 'var(--rbl-title)', fontSize: 16 }}>Where the September model missed</h3>
+              <p style={{ color: 'var(--rbl-text-body)', fontSize: 14, lineHeight: 1.6, margin: '0 0 10px' }}>
+                The Tentative spends {usd(gap)} less than the model, but not because departments’ costs came in low. Salaries and wages came in{' '}
+                {usd(wages.tentative - wages.model)} above it: the Tentative raises them {wages.tentativePct.toFixed(1)}%, against the model’s{' '}
+                {wages.modelPct.toFixed(1)}%. The difference is debt.
+              </p>
+              <div style={{ overflowX: 'auto' }}>
+                <table data-model-miss-table className="rbl-stack" style={{ width: '100%', borderCollapse: 'collapse', fontSize: 13.3 }}>
+                  <thead>
+                    <tr style={{ textAlign: 'left', color: 'var(--rbl-text-muted)', borderBottom: '2px solid var(--rbl-border-subtle)' }}>
+                      <th style={th}>Spending</th><th style={{ ...th, textAlign: 'right' }}>2026 adopted</th><th style={{ ...th, textAlign: 'right' }}>September model</th>
+                      <th style={{ ...th, textAlign: 'right' }}>2027 Tentative</th><th style={{ ...th, textAlign: 'right' }}>Tentative less model</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {[...modelMiss.rows, { label: 'All 19 funds', ...modelMiss.totals }].map((r) => (
+                      <tr key={r.label} style={{ borderBottom: '1px solid var(--rbl-border-subtle)', ...(r.label === 'All 19 funds' ? { fontWeight: 800 } : {}) }}>
+                        <td style={{ ...td, fontWeight: 750, color: 'var(--rbl-title)' }}><span>{r.label}</span></td>
+                        <td data-label="2026 adopted" style={{ ...td, textAlign: 'right' }}><span>{usd(r.y2026)}</span></td>
+                        <td data-label="September model" style={{ ...td, textAlign: 'right' }}><span>{usd(r.model)}</span></td>
+                        <td data-label="2027 Tentative" style={{ ...td, textAlign: 'right' }}><span>{usd(r.tentative)}</span></td>
+                        <td data-label="Tentative less model" style={{ ...td, textAlign: 'right' }}><span>{signedUsd(r.tentative - r.model)}</span></td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+              <p data-model-miss-debt style={{ color: 'var(--rbl-text-body)', fontSize: 14, lineHeight: 1.6, margin: '10px 0 0' }}>
+                The Board paid down two debts in 2026 that a model built on the 2026 budget and the 2025 repayment schedule could not see. Resolution{' '}
+                {debt.bonds.number} ({debt.bonds.date}) paid down the {debt.bonds.what} early, with{' '}
+                {debt.bonds.cpfSavings !== null ? usd(debt.bonds.cpfSavings) : 'money'} of Community Preservation Fund savings
+                {debt.bonds.saleProceeds !== null ? ` and ${usd(debt.bonds.saleProceeds)} from the sale of the Vail-Leavitt Music Hall` : ''}. Resolutions{' '}
+                {debt.townSquare.numbers.join(' and ')} ({debt.townSquare.dates}) retired the Town Square note instead of renewing it
+                {debt.townSquare.generalFundSavings !== null ? `, paying ${usd(debt.townSquare.generalFundSavings)} of it from General Fund savings until the sale of 127 East Main Street closes` : ''}.
+                The Debt Service Fund’s 2027 budget is {usd(debt.fund.y2027)}, against {usd(debt.fund.y2026)} in 2026. The Community Preservation Fund, which sent it{' '}
+                {usd(debt.cpfTransfer.y2026)} in 2026, sends {debt.cpfTransfer.y2027 === 0 ? 'nothing' : usd(debt.cpfTransfer.y2027)} in 2027 and puts{' '}
+                {usd(debt.cpfToFundBalance)} into its own fund balance instead. The General Fund’s share falls from {usd(debt.gfTransfer.y2026)} to{' '}
+                {usd(debt.gfTransfer.y2027)}.
+              </p>
+            </div>
+          )
+        })()}
       </section>
 
       <section style={{ ...card, marginBottom: 16 }}>
