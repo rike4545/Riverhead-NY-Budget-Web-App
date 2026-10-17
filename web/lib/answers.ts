@@ -31,6 +31,7 @@ import {
 import { summary as freeze, whyHarder } from './zero-percent-2027'
 import { boardOptions, levyPredicted, levy2026 } from './budget-2027-options'
 import { released2027 as tentative2027, levySentence } from './tentative-2027'
+import { UPDATED, updatedPrediction } from './predict-2027-update'
 
 const base = process.env.NEXT_PUBLIC_BASE_PATH || ''
 
@@ -227,7 +228,11 @@ export const topics: AnswerTopic[] = [
       tentative2027
         ? {
             q: 'Will my taxes go up again in 2027?',
-            a: `The Town's 2027 Tentative Budget is out. ${levySentence(tentative2027)} It is a proposal: the Board can change it before adopting a budget by November 20.`,
+            a: `The Town's 2027 Tentative Budget is out. ${levySentence(tentative2027)} It is a proposal: the Board can change it before adopting a budget by November 20.${
+              updatedPrediction
+                ? ` As of ${UPDATED.date}, this site predicts the Board adopts it with the six amendments on its agenda, for a town-wide levy ${updatedPrediction.row('town-wide-change').predicted.toFixed(2)}% above 2026's.`
+                : ''
+            }`,
             href: `${base}/tentative-2027/`,
             cta: 'The Tentative against the forecast',
           }

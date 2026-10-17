@@ -20,6 +20,7 @@ import prediction from '../public/data/budget-2027-prediction.json'
 import { released2027, changePhrase, gapPhrase } from './tentative-2027'
 import { AUDITED_GENERAL_FUND } from './audits'
 import { countWord, overrideStreak, yearsPhrase } from './budget-adoption'
+import { UPDATED, updatedPrediction } from './predict-2027-update'
 
 // The General Fund's balance at the end of 2025, as audited, e.g. "$33.3M" and "$28.8M".
 const gfBalance = `$${(AUDITED_GENERAL_FUND[2025].total / 1e6).toFixed(1)}M`
@@ -205,11 +206,14 @@ export const neutralView = {
   history: [
     '2025 adopted budget: ~7.89% tax-levy increase.',
     `Tax-cap override laws adopted for the ${yearsPhrase(overrideStreak)} budgets.`,
-    `2027 projection: on current trends, the levy rises about ${capGapM} more than a 2% increase.`,
+    `2027 projection, made in September before the Tentative: on the trends then, the levy would rise about ${capGapM} more than a 2% increase.`,
     ...(released2027
       ? [released2027.townWide && released2027.statedLimitPct !== null
           ? `2027 Tentative: a town-wide levy ${changePhrase(released2027.townWide.levyPct, 2)} 2026, which the Supervisor’s letter says is within the Town’s ${released2027.statedLimitPct}% tax cap limit. The Board can still change it.`
           : `2027 Tentative: a levy ${changePhrase(released2027.levyPct)} 2026, ${gapPhrase(released2027.levyVsReference)} a 2% increase. The Board can still change it.`]
+      : []),
+    ...(updatedPrediction
+      ? [`Six amendments on the Board’s October 20 agenda would lower the town-wide increase to ${updatedPrediction.row('town-wide-change').predicted.toFixed(2)}%. This site’s updated prediction (${UPDATED.date}) is that the Board adopts them.`]
       : []),
   ],
   principles: [
