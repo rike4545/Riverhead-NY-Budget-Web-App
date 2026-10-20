@@ -3,7 +3,7 @@
   "parsed_at": "2026-10-14T14:41:10.562285+00:00",
   "document_count": 133,
   "audit_document_count": 41,
-  "failure_count": 0,
+  "failure_count": 4,
   "page_record_count": 14350,
   "citation_count": 14350,
   "line_item_candidate_count": 116090,
@@ -1605,5 +1605,26 @@
       "parsed_at": "2026-07-31T00:48:42.463564+00:00"
     }
   ],
-  "failures": []
+  "failures": [
+    {
+      "title": "2005 Single Audit (PDF)",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/359/2005-Single-Audit-PDF",
+      "error": "('Connection aborted.', RemoteDisconnected('Remote end closed connection without response')). Its last parse, from 2026-07-31, is kept."
+    },
+    {
+      "title": "2005 Audited Basic Financial Statements (PDF)",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/358/2005-Audited-Basic-Financial-Statements-PDF",
+      "error": "('Connection aborted.', RemoteDisconnected('Remote end closed connection without response')). Its last parse, from 2026-07-31, is kept."
+    },
+    {
+      "title": "2005 Annual Financial Report Update (PDF)",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/357/2005-Annual-Financial-Report-Update-PDF",
+      "error": "('Connection aborted.', RemoteDisconnected('Remote end closed connection without response')). Its last parse, from 2026-07-31, is kept."
+    },
+    {
+      "title": "2005 Adopted Budget (PDF)",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/356/2005-Adopted-Budget-PDF",
+      "error": "('Connection aborted.', RemoteDisconnected('Remote end closed connection without response')). Its last parse, from 2026-07-31, is kept."
+    }
+  ]
 }
