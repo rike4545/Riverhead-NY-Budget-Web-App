@@ -82,6 +82,7 @@ export default function CampaignFinance({
       for (const name of Object.keys(snapshotResult)) {
         snapshotResult[name].petrocelliContributions = watchResult.petrocelli[name] ?? []
         snapshotResult[name].scottPointeContributions = watchResult.scottPointe[name] ?? []
+        snapshotResult[name].sandyPondContributions = watchResult.sandyPond[name] ?? []
         snapshotResult[name].candidateFamilyContributions = watchResult.candidateFamily[name] ?? []
       }
       setSnapshots(snapshotResult)
@@ -124,7 +125,7 @@ export default function CampaignFinance({
         <div style={{ marginBottom: 12, color: 'var(--rbl-text-muted)', fontSize: 12 }}>Filings last updated: {lastUpdated.toLocaleString()}</div>
       )}
 
-      <div style={{ display: 'grid', gap: 14 }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1fr)', gap: 14 }}>
         {officials.filter((o) => o.currentlyServing && !o.isPartyCommittee).map((official) => {
           const live = snapshots?.[official.name]
           const raised = live ? live.raised : official.seedRaised
@@ -299,6 +300,12 @@ export default function CampaignFinance({
                 currentlyServing={official.currentlyServing}
                 endYear={endYear}
               />
+              <SandyPondWatch
+                contributions={live?.sandyPondContributions ?? null}
+                hasFetched={!!snapshots}
+                currentlyServing={official.currentlyServing}
+                endYear={endYear}
+              />
               {!official.isPartyCommittee && (
                 <CandidateFamilyWatch
                   contributions={live?.candidateFamilyContributions ?? null}
@@ -368,7 +375,7 @@ function PartyCommitteesSection({
       </button>
 
       {open && (
-        <div style={{ display: 'grid', gap: 14, marginTop: 12 }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1fr)', gap: 14, marginTop: 12 }}>
 
           {/* Contribution rules for constituted committees */}
           <div style={{ background: '#f5f3ff', border: '1px solid var(--rbl-violet-border)', borderRadius: 10, padding: 12 }}>
@@ -419,6 +426,7 @@ function PartyCommitteesSection({
 
                 <PetroCelliWatch contributions={live?.petrocelliContributions ?? null} hasFetched={!!snapshots} currentlyServing={true} endYear={endYear} />
                 <ScottPointeWatch contributions={live?.scottPointeContributions ?? null} hasFetched={!!snapshots} currentlyServing={true} endYear={endYear} />
+                <SandyPondWatch contributions={live?.sandyPondContributions ?? null} hasFetched={!!snapshots} currentlyServing={true} endYear={endYear} />
 
                 <div style={{ color: 'var(--rbl-text-muted)', fontSize: 11, marginTop: 10 }}>{official.note}</div>
               </article>
@@ -472,7 +480,7 @@ function FormerOfficialsSection({
       </button>
 
       {open && (
-        <div style={{ display: 'grid', gap: 14, marginTop: 12 }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1fr)', gap: 14, marginTop: 12 }}>
           {former.map((official) => {
             const live = snapshots?.[official.name]
             const raised = live ? live.raised : official.seedRaised
@@ -534,6 +542,7 @@ function FormerOfficialsSection({
 
                 <PetroCelliWatch contributions={live?.petrocelliContributions ?? null} hasFetched={!!snapshots} currentlyServing={false} endYear={endYear} />
                 <ScottPointeWatch contributions={live?.scottPointeContributions ?? null} hasFetched={!!snapshots} currentlyServing={false} endYear={endYear} />
+                <SandyPondWatch contributions={live?.sandyPondContributions ?? null} hasFetched={!!snapshots} currentlyServing={false} endYear={endYear} />
                 <CandidateFamilyWatch contributions={live?.candidateFamilyContributions ?? null} hasFetched={!!snapshots} currentlyServing={false} endYear={endYear} selfNames={CANDIDATE_SELF_NAMES[official.name] ?? []} />
 
                 <div style={{ color: 'var(--rbl-text-muted)', fontSize: 11, marginTop: 10 }}>{official.note}</div>
@@ -579,7 +588,7 @@ function CampaignFilingsList({ filings, endYear, hasFetched }: { filings: Filing
                     <span style={{ color: 'var(--rbl-text-muted)' }}> — {f.category}, {f.isAmendment ? 'Amendment' : 'Original'}, {f.electionType}</span>
                     {hasMultipleCommittees && <span style={{ color: 'var(--rbl-text-muted)' }}> ({f.committeeName})</span>}
                   </span>
-                  <span style={{ color: 'var(--rbl-text-body)', whiteSpace: 'nowrap' }}>
+                  <span style={{ color: 'var(--rbl-text-body)' }}>
                     {usd(f.amount)} · {f.transactionCount} row{f.transactionCount === 1 ? '' : 's'}
                     {f.lastActivity ? ` · through ${dateOnly(f.lastActivity)}` : ''}
                   </span>
@@ -850,7 +859,7 @@ function PetroCelliWatch({
                 }}
               >
                 <span style={{ color: 'var(--rbl-text-strong)', fontWeight: 600 }}>{c.donorName}</span>
-                <span style={{ color: 'var(--rbl-text-body)', whiteSpace: 'nowrap' }}>
+                <span style={{ color: 'var(--rbl-text-body)' }}>
                   {usd(c.amount)}
                   {c.date ? ` · ${c.date}` : ''}
                   {c.contributorType ? ` · ${c.contributorType}` : ''}
@@ -962,7 +971,7 @@ function ScottPointeWatch({
                 style={{ display: 'flex', justifyContent: 'space-between', gap: 10, fontSize: 12, background: 'var(--rbl-surface)', borderRadius: 6, padding: '5px 8px', flexWrap: 'wrap' }}
               >
                 <span style={{ color: 'var(--rbl-text-strong)', fontWeight: 600 }}>{c.donorName}</span>
-                <span style={{ color: 'var(--rbl-text-body)', whiteSpace: 'nowrap' }}>
+                <span style={{ color: 'var(--rbl-text-body)' }}>
                   {usd(c.amount)}
                   {c.date ? ` · ${c.date}` : ''}
                   {c.contributorType ? ` · ${c.contributorType}` : ''}
@@ -979,6 +988,97 @@ function ScottPointeWatch({
             <a href="https://elections.ny.gov/laws-regulations/contribution-limits" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--rbl-violet-strong)' }}>elections.ny.gov</a> for current limits.
           </div>
         </>
+      )}
+    </div>
+  )
+}
+
+// ---------------------------------------------------------------------------
+// Sandy Pond Links Project-Interest Watch
+// ---------------------------------------------------------------------------
+
+const sandyPondScopeNote = (endYear: number, currentlyServing: boolean) =>
+  `Scope (2005–${currentlyServing ? endYear : endYear - 1}): project-interest watch for Sandy Pond Links, LLC, the golf course at 1495 and 1521 Roanoke Avenue. ` +
+  'The Town Board granted it a special permit (Resolutions 2025-189 and 2025-392) and a Chapter 229 permit (2025-893), and put Water District money into its hydrant and water service (2025-898, 2026-155). ' +
+  'Matches the LLC’s name and any contributor address at either Roanoke Avenue number. ' +
+  'These matches are transparency context, not proof of coordination or quid pro quo.'
+
+function SandyPondWatch({
+  contributions,
+  hasFetched,
+  currentlyServing,
+  endYear,
+}: {
+  contributions: WatchContribution[] | null
+  hasFetched: boolean
+  currentlyServing: boolean
+  endYear: number
+}) {
+  if (!hasFetched) return null
+
+  const total = (contributions ?? []).reduce((sum, c) => sum + c.amount, 0)
+  const hasHits = contributions !== null && contributions.length > 0
+  const clear = contributions !== null && contributions.length === 0
+
+  const borderColor = hasHits ? '#6d28d9' : clear ? 'var(--rbl-success)' : 'var(--rbl-series-slate)'
+  const bgColor = hasHits ? 'var(--rbl-violet-bg)' : clear ? 'var(--rbl-success-bg)' : 'var(--rbl-surface-2)'
+
+  return (
+    <div style={{ marginTop: 14, background: bgColor, border: `1px solid ${borderColor}`, borderRadius: 10, padding: 12 }}>
+      <div
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          gap: 6,
+          fontWeight: 800,
+          fontSize: 13,
+          color: hasHits ? 'var(--rbl-violet-strong)' : clear ? 'var(--rbl-success-strong)' : 'var(--rbl-text-strong)',
+          marginBottom: 6,
+        }}
+      >
+        {hasHits ? <AlertTriangle size={16} strokeWidth={2.25} aria-hidden="true" /> : clear ? <CircleCheck size={16} strokeWidth={2.25} aria-hidden="true" /> : <Search size={16} strokeWidth={2.25} aria-hidden="true" />}
+        <span>Sandy Pond Links Watch</span>
+      </div>
+
+      {contributions === null && (
+        <div style={{ fontSize: 12, color: 'var(--rbl-text-muted)' }}>
+          Tap &ldquo;Refresh from NY Open Data&rdquo; to run the Sandy Pond Links donor check.
+        </div>
+      )}
+
+      {clear && (
+        <div style={{ fontSize: 12, color: 'var(--rbl-success-strong)' }}>
+          No contribution from Sandy Pond Links, LLC, or from a contributor at 1495 or 1521 Roanoke Avenue, was found in NY Open Data
+          for this committee across the 2005–{currentlyServing ? endYear : endYear - 1} filing window.
+        </div>
+      )}
+
+      {hasHits && (
+        <>
+          <div style={{ fontSize: 13, fontWeight: 700, color: 'var(--rbl-violet-strong)', marginBottom: 6 }}>
+            {usd(total)} matched across {contributions!.length} contribution{contributions!.length === 1 ? '' : 's'}
+          </div>
+          <div style={{ display: 'grid', gap: 4, marginBottom: 8 }}>
+            {contributions!.map((c, i) => (
+              <div
+                key={i}
+                style={{ display: 'flex', justifyContent: 'space-between', gap: 10, fontSize: 12, background: 'var(--rbl-surface)', borderRadius: 6, padding: '5px 8px', flexWrap: 'wrap' }}
+              >
+                <span style={{ color: 'var(--rbl-text-strong)', fontWeight: 600 }}>{c.donorName}</span>
+                <span style={{ color: 'var(--rbl-text-body)' }}>
+                  {usd(c.amount)}
+                  {c.date ? ` · ${c.date}` : ''}
+                  {c.contributorType ? ` · ${c.contributorType}` : ''}
+                </span>
+              </div>
+            ))}
+          </div>
+          <EthicsAnalysisPanel contributions={contributions!} accentColor="#5b21b6" watchLabel="Sandy Pond Links" />
+        </>
+      )}
+
+      {contributions !== null && (
+        <div style={{ fontSize: 11, color: 'var(--rbl-text-muted)', marginTop: 6, lineHeight: 1.5 }}>{sandyPondScopeNote(endYear, currentlyServing)}</div>
       )}
     </div>
   )
@@ -1189,7 +1289,7 @@ function CandidateFamilyWatch({
                     style={{ display: 'flex', justifyContent: 'space-between', gap: 10, fontSize: 12, background: 'var(--rbl-surface)', borderRadius: 6, padding: '5px 8px', flexWrap: 'wrap' }}
                   >
                     <span style={{ color: 'var(--rbl-text-strong)', fontWeight: 600 }}>{c.donorName}</span>
-                    <span style={{ color: 'var(--rbl-text-body)', whiteSpace: 'nowrap' }}>
+                    <span style={{ color: 'var(--rbl-text-body)' }}>
                       {usd(c.amount)}
                       {c.electionYear ? ` · ${c.electionYear}` : c.date ? ` · ${c.date}` : ''}
                       {c.contributorType ? ` · ${c.contributorType}` : ''}
@@ -1214,7 +1314,7 @@ function CandidateFamilyWatch({
                     style={{ display: 'flex', justifyContent: 'space-between', gap: 10, fontSize: 12, background: 'var(--rbl-surface)', borderRadius: 6, padding: '5px 8px', flexWrap: 'wrap' }}
                   >
                     <span style={{ color: 'var(--rbl-text-strong)', fontWeight: 600 }}>{c.donorName}</span>
-                    <span style={{ color: 'var(--rbl-text-body)', whiteSpace: 'nowrap' }}>
+                    <span style={{ color: 'var(--rbl-text-body)' }}>
                       {usd(c.amount)}
                       {c.electionYear ? ` · ${c.electionYear}` : c.date ? ` · ${c.date}` : ''}
                       {c.contributorType ? ` · ${c.contributorType}` : ''}
@@ -1244,7 +1344,7 @@ function CandidateFamilyWatch({
                     style={{ display: 'flex', justifyContent: 'space-between', gap: 10, fontSize: 12, background: 'var(--rbl-surface)', borderRadius: 6, padding: '5px 8px', flexWrap: 'wrap' }}
                   >
                     <span style={{ color: 'var(--rbl-text-strong)', fontWeight: 600 }}>{c.donorName}</span>
-                    <span style={{ color: 'var(--rbl-text-body)', whiteSpace: 'nowrap' }}>
+                    <span style={{ color: 'var(--rbl-text-body)' }}>
                       {usd(c.amount)}
                       {c.electionYear ? ` · ${c.electionYear}` : c.date ? ` · ${c.date}` : ''}
                       {c.contributorType ? ` · ${c.contributorType}` : ''}

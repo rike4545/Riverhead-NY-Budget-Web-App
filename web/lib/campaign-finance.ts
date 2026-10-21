@@ -84,6 +84,8 @@ export type CampaignSnapshot = {
   petrocelliContributions: WatchContribution[] | null
   /** Scott's Pointe / Island Water Park project-interest donor rows. null = not yet fetched. */
   scottPointeContributions: WatchContribution[] | null
+  /** Sandy Pond Links, LLC project-interest donor rows. null = not yet fetched. */
+  sandyPondContributions: WatchContribution[] | null
   /** Candidate self-funding and known family-name contributions. null = not yet fetched. */
   candidateFamilyContributions: WatchContribution[] | null
 }
@@ -127,6 +129,16 @@ const SCOTT_POINTE_ENTITY_WATCHLIST = [
   'lake view grill',
 ]
 
+// Sandy Pond Links, LLC, the golf course at 1495 and 1521 Roanoke Avenue: the
+// Board granted it a special permit (Resolutions 2025-189 and 2025-392) and a
+// Chapter 229 permit (2025-893), and put Water District money into its hydrant
+// and water service (2025-898, 2026-155). Matched on the LLC's name and on a
+// contributor address at either Roanoke Avenue number, since an LLC can give
+// under its address. A search of the whole State dataset on October 21, 2026
+// found no contribution from either.
+const SANDY_POND_ENTITY_WATCHLIST = ['sandy pond links', 'sandy pond golf']
+const SANDY_POND_ADDRESSES = ['1495 roanoke', '1521 roanoke']
+
 // Individual name matches for Scott's Pointe — [first, last] pairs
 const SCOTT_POINTE_PEOPLE: [string, string][] = [
   ['eric', 'scott'],
@@ -167,6 +179,7 @@ type ItemizedRow = {
   filing_sched_abbrev?: string
   cntrbr_type_desc?: string
   election_year?: string
+  flng_ent_add1?: string
 }
 
 function nameFields(row: ItemizedRow) {
@@ -195,6 +208,13 @@ function isScottPointeRow(row: ItemizedRow): boolean {
   const first = (row.flng_ent_first_name ?? '').trim().toLowerCase()
   const last = (row.flng_ent_last_name ?? '').trim().toLowerCase()
   return SCOTT_POINTE_PEOPLE.some(([pf, pl]) => first === pf && last === pl)
+}
+
+function isSandyPondRow(row: ItemizedRow): boolean {
+  const entity = stripPeriods((row.flng_ent_name ?? '').toLowerCase())
+  if (SANDY_POND_ENTITY_WATCHLIST.some((term) => entity.includes(term))) return true
+  const address = stripPeriods((row.flng_ent_add1 ?? '').toLowerCase())
+  return SANDY_POND_ADDRESSES.some((a) => address.startsWith(a))
 }
 
 function isCandidateFamilyRow(row: ItemizedRow, officialName: string): boolean {
@@ -242,14 +262,16 @@ function toWatchContribution(row: ItemizedRow): WatchContribution {
 export type AllWatchResults = {
   petrocelli: Record<string, WatchContribution[]>
   scottPointe: Record<string, WatchContribution[]>
+  sandyPond: Record<string, WatchContribution[]>
   candidateFamily: Record<string, WatchContribution[]>
 }
 
 /**
  * Fetches all itemized contribution rows for the given officials in a single
- * Socrata query, then runs each row through all three watch checks:
+ * Socrata query, then runs each row through all four watch checks:
  *   - Petrocelli project-interest
  *   - Scott's Pointe / Island Water Park project-interest
+ *   - Sandy Pond Links, LLC project-interest
  *   - Candidate self-funding and known family-name financing
  *
  * Returns results bucketed by official name for each watch type.
@@ -262,7 +284,7 @@ export async function fetchAllWatchContributions(
   const allFilerIDs = Array.from(new Set(officials.flatMap((o) => o.filerIDs.map((f) => f.filerID))))
   if (allFilerIDs.length === 0) {
     const empty = Object.fromEntries(officials.map((o) => [o.name, []]))
-    return { petrocelli: empty, scottPointe: empty, candidateFamily: empty }
+    return { petrocelli: empty, scottPointe: empty, sandyPond: empty, candidateFamily: empty }
   }
 
   const inClause = allFilerIDs.map((id) => `'${id}'`).join(',')
@@ -271,7 +293,7 @@ export async function fetchAllWatchContributions(
   const url =
     `https://data.ny.gov/resource/4j2b-6a2j.json?` +
     new URLSearchParams({
-      '$select': 'filer_id,flng_ent_name,flng_ent_first_name,flng_ent_last_name,org_amt,sched_date,filing_sched_abbrev,cntrbr_type_desc,election_year',
+      '$select': 'filer_id,flng_ent_name,flng_ent_first_name,flng_ent_last_name,flng_ent_add1,org_amt,sched_date,filing_sched_abbrev,cntrbr_type_desc,election_year',
       '$where': `filer_id in (${inClause}) and election_year in(${years}) and filing_sched_abbrev in('A','B','C')`,
       '$limit': '5000',
       '$order': 'sched_date DESC',
@@ -290,10 +312,12 @@ export async function fetchAllWatchContributions(
 
   const petrocelli: Record<string, WatchContribution[]> = {}
   const scottPointe: Record<string, WatchContribution[]> = {}
+  const sandyPond: Record<string, WatchContribution[]> = {}
   const candidateFamily: Record<string, WatchContribution[]> = {}
   for (const o of officials) {
     petrocelli[o.name] = []
     scottPointe[o.name] = []
+    sandyPond[o.name] = []
     candidateFamily[o.name] = []
   }
 
@@ -307,10 +331,11 @@ export async function fetchAllWatchContributions(
     if (!isServing && row.election_year === endYearStr) continue
     if (isPetroCelliRow(row)) petrocelli[name].push(toWatchContribution(row))
     if (isScottPointeRow(row)) scottPointe[name].push(toWatchContribution(row))
+    if (isSandyPondRow(row)) sandyPond[name].push(toWatchContribution(row))
     if (isCandidateFamilyRow(row, name)) candidateFamily[name].push(toWatchContribution(row))
   }
 
-  return { petrocelli, scottPointe, candidateFamily }
+  return { petrocelli, scottPointe, sandyPond, candidateFamily }
 }
 
 /** @deprecated Use fetchAllWatchContributions — kept for callers that imported the old name. */
@@ -706,6 +731,7 @@ export async function fetchCampaignSnapshots(
       historicalByYear,
       petrocelliContributions: null,       // populated by fetchAllWatchContributions after the main fetch
       scottPointeContributions: null,
+      sandyPondContributions: null,
       candidateFamilyContributions: null,
     }
   }
