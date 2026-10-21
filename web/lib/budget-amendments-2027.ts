@@ -43,11 +43,27 @@ export const ADOPTED_PACKET = {
 } as const
 
 /**
- * The packet does not record abstentions. The site's editor reports that
- * Supervisor Halpin abstained on some of the six; the page says whose report it
- * is and that it waits on the minutes.
+ * RiverheadLOCAL's report of the October 20 vote. The packet's vote block has
+ * no line for abstentions; this report says Halpin abstained on five. The page
+ * quotes it as reported until the minutes are out.
  */
-export const EDITOR_REPORTS_ABSTAINED = 'Supervisor Halpin abstained on some of them'
+export const VOTE_ARTICLE = {
+  title: 'Town Board adopts budget amendments trimming supervisor’s proposed tax levy increase',
+  outlet: 'RiverheadLOCAL',
+  author: 'Denise Civiletti',
+  published: 'October 21, 2026',
+  url: 'https://riverheadlocal.com/2026/10/21/town-board-adopts-budget-amendments-trimming-supervisors-proposed-tax-levy-increase/',
+  reported: {
+    abstained: 'Five resolutions passed 4–1, with Halpin abstaining.',
+    lighting: 'The street lighting amendment passed unanimously.',
+    halpinMotive: 'I feel like this is rooted in political motivation',
+    halpinRisk: 'This type of budgeting can come back to bite us in years ahead',
+    halpinLighting: 'I think this is a risk, but I agree. We’ve been overtaxing street lighting for years, so yes',
+    rothwellInterest: 'It’s an adjustment on interest earnings so that we’re not overtaxing',
+    merrifield: 'I’m very happy that we are able to come in lower than the supervisor’s',
+    hearing: 'A public hearing is scheduled for Nov. 4.',
+  },
+} as const
 
 export const BOARD = ['Jerry Halpin', 'Kenneth Rothwell', 'Robert Kern', 'Denise Merrifield', 'Joann Waski'] as const
 

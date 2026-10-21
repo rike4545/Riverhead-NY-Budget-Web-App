@@ -16,7 +16,7 @@
 import { existsSync, readFileSync } from 'node:fs'
 import { isAbsolute, relative, resolve, sep } from 'node:path'
 import {
-  ADOPTED_PACKET, AMENDMENTS, EDITOR_REPORTS_ABSTAINED, ARTICLE, BOARD, NEXT_STEPS, PACKET, PROPERTY_TAXES, VOTES, STAFF_APPOINTMENT, SUPERVISOR_STAFF, change, deferredToFundBalance, fundEffects, isRevenue, revenueCode,
+  ADOPTED_PACKET, AMENDMENTS, VOTE_ARTICLE, ARTICLE, BOARD, NEXT_STEPS, PACKET, PROPERTY_TAXES, VOTES, STAFF_APPOINTMENT, SUPERVISOR_STAFF, change, deferredToFundBalance, fundEffects, isRevenue, revenueCode,
   scaledRate, unbalanced,
 } from '../lib/budget-amendments-2027.ts'
 import { TOWN_WIDE_FUNDS } from '../lib/fund-groups.ts'
@@ -204,8 +204,12 @@ for (const v of VOTES) {
   if (!v.ayes.every((x) => BOARD.includes(x))) fail(`#${v.n}: an aye is not a Board member`)
   if (!has(`Resolution ${v.number}: moved by ${v.mover}`)) fail(`#${v.n}: the page does not show its vote`)
 }
-// The abstention is the editor's report until the minutes are in, and stays labelled as one.
-if (!has(`The site’s editor reports that ${EDITOR_REPORTS_ABSTAINED}. This site has not checked that against the minutes`)) fail('the abstention is no longer labelled as the editor’s unchecked report')
+// The abstentions are RiverheadLOCAL's report until the minutes are in, quoted as reported,
+// and the report must agree with the packet: abstentions on exactly the amendments that do not list Halpin.
+const notListed = VOTES.filter((v) => !v.ayes.includes('Jerry Halpin')).length
+if (!VOTE_ARTICLE.reported.abstained.startsWith(`${['', 'One', 'Two', 'Three', 'Four', 'Five', 'Six'][notListed]} resolutions`)) fail(`the article's abstention count no longer matches the ${notListed} amendments the packet does not list Halpin on`)
+for (const q of Object.values(VOTE_ARTICLE.reported)) if (!has(q)) fail(`the page does not quote “${q}”`)
+if (!has('This page follows the Town’s notice.')) fail('the page no longer notes the article’s hearing date against the Town’s notice')
 // When the minutes arrive, they must agree that all six passed.
 if (existsSync(path(`public/data/meetings/${PACKET.meeting.slug}.json`))) {
   const meeting = read(`public/data/meetings/${PACKET.meeting.slug}.json`)

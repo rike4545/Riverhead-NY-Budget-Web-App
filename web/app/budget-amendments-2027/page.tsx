@@ -1,7 +1,7 @@
 import type { CSSProperties, ReactNode } from 'react'
 import PageShell from '../../components/PageShell'
 import PlainCallout from '../../components/PlainCallout'
-import { ADOPTED_PACKET, AMENDMENTS, EDITOR_REPORTS_ABSTAINED, ARTICLE, NEXT_STEPS, PACKET, VOTES, STAFF_APPOINTMENT, SUPERVISOR_STAFF, SUPPLEMENT_YTD_THROUGH, fundEffects, isRevenue, type Amendment } from '../../lib/budget-amendments-2027'
+import { ADOPTED_PACKET, AMENDMENTS, VOTE_ARTICLE, ARTICLE, NEXT_STEPS, PACKET, VOTES, STAFF_APPOINTMENT, SUPERVISOR_STAFF, SUPPLEMENT_YTD_THROUGH, fundEffects, isRevenue, type Amendment } from '../../lib/budget-amendments-2027'
 import { amendmentEffect, exampleHome, generalFundInterest, raisedRevenues } from '../../lib/budget-amendments-effect'
 import { OUTLOOK, RECORD } from '../../lib/budget-adoption'
 import { AUDIT_2025 } from '../../lib/audits'
@@ -336,8 +336,13 @@ export default function BudgetAmendmentsPage() {
               On {count(VOTES.length - halpinYes.length)} of the six the packet lists the four council members as the ayes and no one as a nay.
               Supervisor Halpin is listed as an aye only on {words(halpinYes.map((v) => `Amendment #${v.n}`))}, the street lighting
               amendment. He voted on the other resolutions before and after them that night. The packet’s vote record has lines only for ayes and
-              nays, so it does not show how he was recorded on the other {count(VOTES.length - halpinYes.length)}. The site’s editor reports
-              that {EDITOR_REPORTS_ABSTAINED}. This site has not checked that against the minutes, which are not out yet and should say which.
+              nays, so it does not show how he was recorded on the other {count(VOTES.length - halpinYes.length)}. {VOTE_ARTICLE.outlet} reports:
+              “{VOTE_ARTICLE.reported.abstained} {VOTE_ARTICLE.reported.lighting}” The minutes, which are not out yet, will be the Town’s record.
+            </P>
+            <P>
+              The article gives each side’s reasons. Halpin: “{VOTE_ARTICLE.reported.halpinMotive},” and “{VOTE_ARTICLE.reported.halpinRisk}.” On
+              street lighting he said, “{VOTE_ARTICLE.reported.halpinLighting}.” Rothwell, on the interest estimate: “{VOTE_ARTICLE.reported.rothwellInterest}.”
+              Councilwoman Merrifield: “{VOTE_ARTICLE.reported.merrifield}.”
             </P>
             <P>
               The six amend the Preliminary Budget. They do not adopt a budget, and the Board can still change it after the public hearing.
@@ -346,6 +351,10 @@ export default function BudgetAmendmentsPage() {
             <ul style={{ margin: '0 0 14px', paddingLeft: 22, display: 'grid', gap: 6, maxWidth: '72ch' }}>
               {NEXT_STEPS.map((step) => <Li key={step.date}><strong>{step.date}</strong>: {step.what.charAt(0).toLowerCase() + step.what.slice(1)} ({step.source})</Li>)}
             </ul>
+            <P>
+              {VOTE_ARTICLE.outlet} writes “{VOTE_ARTICLE.reported.hearing}” The Town’s published notice, adopted with Resolution 2026-923, sets
+              the hearing for November 5 at 2:05 p.m., and the Town’s meeting calendar lists November 5. This page follows the Town’s notice.
+            </P>
             <P>
               {ARTICLE.outlet} reports that Rothwell said {ARTICLE.reported.developed}. “{ARTICLE.reported.support}” Rothwell is challenging Supervisor
               Halpin in the November 3 election. The article says “{ARTICLE.reported.noResponse}”
@@ -385,14 +394,13 @@ export default function BudgetAmendmentsPage() {
                 <strong>Could help.</strong> The amendments start from his Tentative{streak && <>, which the Riverhead News-Review reported{' '}
                 “{streak}”</>}, and change its levy by about{' '}
                 {((-tw.change / tw.before) * 100).toFixed(0)}%. No one voted against them, and he voted for {words(halpinYes.map((v) => `Amendment #${v.n}`))}.
-                He can still make the case for caution: estimates closer to collections leave less room for error, and the deferred purchases still
+                He made the case for caution at the meeting, as reported: “{VOTE_ARTICLE.reported.halpinRisk}.” There is a basis for it: estimates closer to collections leave less room for error, and the deferred purchases still
                 have to be paid for in 2027.
               </Li>
               <Li>
                 <strong>Could hurt.</strong> A council majority amending his budget in an election season casts his proposal as higher than it needed
-                to be, and {ARTICLE.outlet} reported that he had not answered its request for comment by press time. The packet lists him as an aye on
-                only {count(halpinYes.length)} of the six, and opponents could read that as reluctance to cut the levy, whatever the minutes show
-                his reasons were.
+                to be, and {VOTE_ARTICLE.outlet} reports that he abstained on {count(VOTES.length - halpinYes.length)} of the six. He called the
+                amendments politically motivated, but opponents could describe the abstentions as declining to back a lower levy.
               </Li>
             </ul>
             <H3>Does the staff’s party matter?</H3>
@@ -441,7 +449,7 @@ export default function BudgetAmendmentsPage() {
               <Li>What change in CSEA dental plans is the {usd(dentalTotal)} for, and what happens to the money if the change does not happen?</Li>
               <Li>How would the Highway Department cover the {usd(dentalHighway.amount)} taken from its equipment budget and the {usd(snowLine.cut)} taken from snow removal?</Li>
               <Li>The Preliminary Budget is due out on {NEXT_STEPS[0].date.replace(/, \d{4}$/, '')}. Will it show each amendment’s effect, and the equipment to be bought later from savings?</Li>
-              <Li>Which amendments did the Supervisor abstain on, and why, when they change the Tentative his office prepared?</Li>
+              <Li>Will the Board keep all six when it adopts the budget after the election, and will the Supervisor vote for the adopted budget?</Li>
             </ul>
           </Section>
 
@@ -469,6 +477,7 @@ export default function BudgetAmendmentsPage() {
                 with their votes (pp. {VOTES[0].votePage}–{VOTES[VOTES.length - 1].votePage})
               </li>
               <li>Town Board Resolution 2026-923 ({'October 6, 2026'}) and its public notice of the November 5 budget hearing, in this site’s <a href={`${base}/meetings/?meeting=2026-10-06`} style={link}>Town Board votes</a></li>
+              <li><a href={VOTE_ARTICLE.url} style={link}>{VOTE_ARTICLE.outlet} ({VOTE_ARTICLE.author}), {VOTE_ARTICLE.published}: “{VOTE_ARTICLE.title}”</a></li>
               <li><a href={ARTICLE.url} style={link}>{ARTICLE.outlet}, {ARTICLE.published}: “{ARTICLE.title}”</a></li>
               <li><a href={SUPERVISOR_STAFF.report.url} style={link}>{SUPERVISOR_STAFF.report.outlet}, {SUPERVISOR_STAFF.report.published}: “{SUPERVISOR_STAFF.report.title}”</a></li>
               <li>
