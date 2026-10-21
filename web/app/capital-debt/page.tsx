@@ -4,9 +4,10 @@ import PlainCallout from '../../components/PlainCallout'
 import CapitalDebtCalculator from '../../components/CapitalDebtCalculator'
 import {
   debtIssueTotals, debtIssues, debtProfile, debtProfileTotals, longTermObligations,
-  longTermObligationsTotal, opebLiability, sinceBalanceSheet,
+  longTermObligationsTotal, opebLiability, sinceBalanceSheet, conduitDebt,
   type DebtIssue,
 } from '../../lib/debt-profile'
+import { debtPlan2027, principalBelowSchedule } from '../../lib/debt-2027-plan'
 
 const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 20 } as const
 const usd = (n: number) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(n)
@@ -140,8 +141,8 @@ export default function CapitalDebtPage() {
         <h2 style={{ marginTop: 0, marginBottom: 4, color: 'var(--rbl-note-text)', fontSize: 22 }}>What has happened since</h2>
         <p style={{ color: 'var(--rbl-note-text)', fontSize: 14.8, lineHeight: 1.6, marginTop: 0 }}>
           The balances above are a photograph taken on {debtProfile.asOf}. Both bond anticipation notes reached their
-          maturity dates during 2026, and the Board has voted twice since to pay debt down — so here is what the
-          Town&apos;s own record shows after the shutter closed.
+          maturity dates during 2026, the Board has voted to pay debt down, and it has authorized new borrowing — so
+          here is what the Town&apos;s own record shows after the shutter closed, as of {sinceBalanceSheet.asOf}.
         </p>
         <ol style={{ margin: 0, paddingLeft: 0, listStyle: 'none', display: 'grid', gap: 10 }}>
           {sinceBalanceSheet.events.map((e) => (
@@ -155,6 +156,63 @@ export default function CapitalDebtPage() {
         </ol>
         <p style={{ color: 'var(--rbl-note-text)', fontSize: 13.4, lineHeight: 1.6, marginBottom: 0, marginTop: 12, fontWeight: 600 }}>
           {sinceBalanceSheet.caveat}
+        </p>
+      </section>
+
+      <section id="plan-2027" data-debt-plan-2027 style={{ ...card, marginBottom: 18, scrollMarginTop: 16 }}>
+        <h2 style={{ marginTop: 0, marginBottom: 4, color: 'var(--rbl-title)', fontSize: 21 }}>What the 2027 budget plans to pay</h2>
+        <p style={{ color: 'var(--rbl-text-body)', fontSize: 14.5, lineHeight: 1.6, marginTop: 0 }}>
+          The repayment schedule below was printed as of {debtProfile.asOf}, before the 2026 pay-downs. The 2027 Tentative
+          Budget is the newer record: it budgets {usd(debtPlan2027.bonds.principal.tentative2027)} of bond principal, against{' '}
+          {usd(debtPlan2027.schedule[2027].principal)} on the schedule, {usd(principalBelowSchedule)} less. That is the size of
+          change the July pay-down of the 2018 refunding bonds would make; the budget does not itemise it by issue.
+        </p>
+        <div style={{ overflowX: 'auto' }}>
+          <table className="rbl-stack" style={{ width: '100%', borderCollapse: 'collapse', fontSize: 13.5 }}>
+            <thead>
+              <tr style={{ textAlign: 'left', color: 'var(--rbl-text-muted)', borderBottom: '2px solid var(--rbl-border-subtle)' }}>
+                <th style={{ padding: '8px 10px' }}>Payment</th>
+                <th style={{ padding: '8px 10px', textAlign: 'right' }}>2026 adopted</th>
+                <th style={{ padding: '8px 10px', textAlign: 'right' }}>2027 Tentative</th>
+                <th style={{ padding: '8px 10px', textAlign: 'right' }}>2027 on the AFR schedule</th>
+              </tr>
+            </thead>
+            <tbody>
+              {[
+                { label: 'Bond principal', a: debtPlan2027.bonds.principal.adopted2026, t: debtPlan2027.bonds.principal.tentative2027, s: usd(debtPlan2027.schedule[2027].principal) },
+                { label: 'Bond interest', a: debtPlan2027.bonds.interest.adopted2026, t: debtPlan2027.bonds.interest.tentative2027, s: usd(debtPlan2027.schedule[2027].interest) },
+                { label: 'Note principal', a: debtPlan2027.notes.principal.adopted2026, t: debtPlan2027.notes.principal.tentative2027, s: 'Not scheduled' },
+                { label: 'Note interest', a: debtPlan2027.notes.interest.adopted2026, t: debtPlan2027.notes.interest.tentative2027, s: 'Not scheduled' },
+              ].map((r) => (
+                <tr key={r.label} style={{ borderBottom: '1px solid var(--rbl-border-subtle)' }}>
+                  <td style={{ padding: '8px 10px', fontWeight: 700, color: 'var(--rbl-title)' }}><span>{r.label}</span></td>
+                  <td data-label="2026 adopted" style={{ padding: '8px 10px', textAlign: 'right' }}><span>{usd(r.a)}</span></td>
+                  <td data-label="2027 Tentative" style={{ padding: '8px 10px', textAlign: 'right', fontWeight: 700 }}><span>{usd(r.t)}</span></td>
+                  <td data-label="2027 on the AFR schedule" style={{ padding: '8px 10px', textAlign: 'right' }}><span>{r.s}</span></td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <p style={{ color: 'var(--rbl-text-body)', fontSize: 13.8, lineHeight: 1.6, marginBottom: 0 }}>
+          Bond principal by fund in the Tentative:{' '}
+          {debtPlan2027.bonds.principal.byFund.filter((f) => f.tentative > 0).map((f) => `${f.fund} ${usd(f.tentative)}`).join(', ')}. The
+          notes have no schedule because they are renewed year to year: the Tentative still budgets{' '}
+          {usd(debtPlan2027.notes.interest.tentative2027)} of note interest, so the $19,250,000 Town Hall note is expected to be
+          outstanding in 2027. It must be converted to bonds by February 2028. No resolution renewing it is in the meeting records
+          this site reads. Figures are the 2027 Budget Supplement&apos;s lines, which add up to the Tentative to the dollar.
+        </p>
+      </section>
+
+      <section data-conduit-debt style={{ ...card, marginBottom: 18 }}>
+        <h3 style={{ marginTop: 0, marginBottom: 6, color: 'var(--rbl-title)', fontSize: 17 }}>Bonds with Riverhead’s name on them that the Town does not owe</h3>
+        <p style={{ color: 'var(--rbl-text-body)', fontSize: 14, lineHeight: 1.6, margin: 0 }}>
+          The Riverhead Industrial Development Agency had {conduitDebt.ida.bonds} industrial revenue bond outstanding ({usd(conduitDebt.ida.principal)})
+          and its local development corporation {conduitDebt.ldc.bonds} ({usd(conduitDebt.ldc.principal)}) at {conduitDebt.asOf}. They finance private
+          facilities and are repaid by the businesses. The audit: “{conduitDebt.quote}” None of it is in the totals on this page.{' '}
+          <a href={conduitDebt.source.url} target="_blank" rel="noopener noreferrer" style={{ color: 'var(--rbl-link)', fontWeight: 700 }}>
+            {conduitDebt.source.title}, {conduitDebt.source.detail} ↗
+          </a>
         </p>
       </section>
 

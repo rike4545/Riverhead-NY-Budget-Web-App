@@ -7,6 +7,7 @@ or AI retrieval needs them. Each shard carries a content fingerprint so the
 browser can safely cache unchanged shards between deployments.
 """
 
+import csv
 import hashlib
 import json
 import re
@@ -18,7 +19,7 @@ ROOT = Path(__file__).resolve().parent.parent
 DATA = ROOT / "web/public/data"
 OUT = DATA / "search"
 BASE = ""
-CORE_TYPES = ("line-item", "payroll", "salary", "resolution", "fund")
+CORE_TYPES = ("line-item", "payroll", "salary", "resolution", "fund", "document")
 
 
 def clean(s, limit=None):
@@ -110,6 +111,19 @@ def page_records(records):
     return out
 
 
+def loose_key(name):
+    """'last, first' with middle initials and punctuation dropped."""
+    last, _, rest = name.lower().replace(".", "").partition(",")
+    first = rest.split()
+    return f"{last.strip()}, {first[0] if first else ''}"
+
+
+def file_words(number, code="GFZ"):
+    """A payroll file number as residents type it: 000980, 980, GFZ000980."""
+    bare = number.lstrip("0") or "0"
+    return " ".join(dict.fromkeys([number, bare, f"{code.lower()}{number}"]))
+
+
 def build():
     entries = {t: [] for t in (*CORE_TYPES, "page")}
     sub_index = load("subaccounts/index.json")
@@ -122,10 +136,25 @@ def build():
                 for it in dept["lineItems"]:
                     entries["line-item"].append({"t":"line-item","n":clean(it["name"],90),"x":f"{it['account']} · {dept['name']} · {fund['name']}","v":it.get("adopted2026"),"u":f"{BASE}/funds/{fund['code']}/"})
     payroll = load("payroll/records.json")
+    # Payroll file numbers by name, from the records and the roster lookup
+    # (etl/data/payroll/gfz-code-lookup.csv), which also gives the company code.
+    file_no, fn_code, loose = {}, {}, {}
+    roster = ROOT / "etl/data/payroll/gfz-code-lookup.csv"
+    if roster.exists():
+
+        with roster.open(newline="", encoding="utf-8") as fh:
+            for row in csv.DictReader(fh):
+                name = (row.get("Payroll Name") or "").strip().lower()
+                if name and row.get("File Number"):
+                    file_no[name] = row["File Number"].strip()
+                    fn_code[name] = (row.get("Payroll Company Code") or "GFZ").strip()
+                    loose.setdefault(loose_key(name), []).append(name)
     if payroll:
         latest, first = {}, {}
         for r in payroll["records"]:
             k = r["n"].lower()
+            if r.get("f"):
+                file_no[k] = r["f"]
             if k not in latest or r["y"] > latest[k]["y"]:
                 latest[k] = r
             first[k] = min(first.get(k, r["y"]), r["y"])
@@ -143,7 +172,16 @@ def build():
             # The link opens this person's pay for every year, newest first,
             # with the latest year's breakdown open. "y" is the years on record,
             # shown on the result and not searched.
-            entries["payroll"].append({"t":"payroll","n":clean(r["n"],60),"x":f"{' · '.join(bits) or r.get('u') or 'Town employee'} · {r['y']} gross pay{ot_text}","v":r["g"],"u":payroll_link(q=r["n"], year="all", sort="year", open=r["y"]),"y":[first[k], r["y"]]})
+            # The payroll file number (the GFZ roster's employee number, e.g.
+            # "GFZ 000980"), so a resident holding one finds the person: a
+            # keyword, searched as typed, unpadded and with the company code
+            # attached. Not added to the context, whose length the ranker
+            # weighs; the payroll page the result opens shows it.
+            fn = file_no.get(k, "")
+            entry = {"t":"payroll","n":clean(r["n"],60),"x":f"{' · '.join(bits) or r.get('u') or 'Town employee'} · {r['y']} gross pay{ot_text}","v":r["g"],"u":payroll_link(q=r["n"], year="all", sort="year", open=r["y"]),"y":[first[k], r["y"]]}
+            if fn:
+                entry["k"] = file_words(fn, fn_code.get(k, "GFZ"))
+            entries["payroll"].append(entry)
 
         # Department overtime totals, as records in their own right.
         #
@@ -198,7 +236,18 @@ def build():
             # comparison; the rest open the 2026 salary list. Either way the
             # search box holds the name.
             link = payroll_link(tab="raises", only="all", q=r["name"]) if compared else payroll_link(tab="authorized", year=2026, q=r["name"])
-            entries["salary"].append({"t":"salary","n":clean(r["name"],60),"x":f"{r['title']} · {r['group']} · 2026 authorized salary{change}","v":r["annual"],"u":link})
+            sk = r["name"].lower()
+            # The salary list drops the middle initial the roster carries
+            # ("Ady, Stephen" against "Ady, Stephen A"), so a name not found
+            # as written is matched on surname and first name, and only when
+            # exactly one roster entry fits.
+            if sk not in file_no and len(loose.get(loose_key(sk), [])) == 1:
+                sk = loose[loose_key(sk)][0]
+            fn = file_no.get(sk, "")
+            entry = {"t":"salary","n":clean(r["name"],60),"x":f"{r['title']} · {r['group']} · 2026 authorized salary{change}","v":r["annual"],"u":link}
+            if fn:
+                entry["k"] = file_words(fn, fn_code.get(sk, "GFZ"))
+            entries["salary"].append(entry)
     meetings_index = load("meetings/index.json")
     if meetings_index:
         for m in meetings_index["meetings"]:
@@ -226,6 +275,24 @@ def build():
     if sub_index:
         for f in sub_index["funds"]:
             entries["fund"].append({"t":"fund","n":f"{f['code']} — {f['name']}","x":f"{f['departmentCount']} departments · {f['lineItemCount']} line items · 2026 appropriations","v":f["expenditureTotal2026"],"u":f"{BASE}/funds/{f['code']}/"})
+    # Every Town document the Financial Reports page lists, found by its own
+    # Document Center file number as well as its title: a resident holding a
+    # link such as .../DocumentCenter/View/3513/... can type 3513 or "file 3513"
+    # and get the 2025 Annual Financial Report. The number goes in the context,
+    # where the ranker matches an identifier typed exactly.
+    reports = load("financial-reports/index.json")
+    for d in (reports or {}).get("documents", []):
+        m = re.search(r"/DocumentCenter/View/(\d+)", d.get("url") or "", re.I)
+        if not m:
+            continue
+        pages = d.get("page_count")
+        entries["document"].append({
+            "t": "document",
+            "n": clean(d.get("title"), 90),
+            "x": " · ".join(x for x in (f"File {m.group(1)}", str(d.get("year") or ""), f"{pages} pages" if pages else "") if x),
+            "k": f"document file {m.group(1)} {(d.get('category') or '').replace('_', ' ')}",
+            "u": d["url"],
+        })
     # Pages are stored compactly: each document's name and URL once in "docs",
     # and each page as {"d": document, "p": page, "x": snippet, "k": keywords}.
     # The browser expands them into ordinary entries. Repeating the URL and

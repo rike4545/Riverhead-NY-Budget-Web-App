@@ -29,9 +29,10 @@ const TYPE_META: Record<EntryType, { label: string; bg: string; fg: string }> = 
   payroll: { label: 'Payroll', bg: 'var(--rbl-warn-bg)', fg: 'var(--rbl-warn)' },
   salary: { label: 'Salary 2026', bg: 'var(--rbl-teal-bg)', fg: 'var(--rbl-teal-strong)' },
   resolution: { label: 'Board vote', bg: 'var(--rbl-violet-bg)', fg: 'var(--rbl-violet-strong)' },
-  page: { label: 'Document', bg: 'var(--rbl-surface-3)', fg: 'var(--rbl-text-strong)' },
+  document: { label: 'Town document', bg: 'var(--rbl-surface-3)', fg: 'var(--rbl-text-strong)' },
+  page: { label: 'Document page', bg: 'var(--rbl-surface-3)', fg: 'var(--rbl-text-strong)' },
 }
-const TYPE_ORDER: EntryType[] = ['fund', 'line-item', 'salary', 'payroll', 'resolution', 'page']
+const TYPE_ORDER: EntryType[] = ['fund', 'document', 'line-item', 'salary', 'payroll', 'resolution', 'page']
 const usd = (n: number) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(n)
 const EXAMPLES = ['police overtime', 'Hegermiller', 'reserves', 'tax cap', 'Island Water Park', 'September 15']
 const KEY_STORAGE = 'riverhead-openai-key'
@@ -211,7 +212,7 @@ export default function UnifiedSearch() {
       const manifestRes = await fetch(`${base}/data/search/manifest.json`)
       if (manifestRes.ok) {
         const manifest = await manifestRes.json() as SearchManifest
-        const coreTypes: EntryType[] = ['line-item', 'payroll', 'salary', 'resolution', 'fund']
+        const coreTypes: EntryType[] = ['line-item', 'payroll', 'salary', 'resolution', 'fund', 'document']
         const arrays = await Promise.all(coreTypes.map((type) => loadShard(type, manifest)))
         const coreEntries = (siteEntries() as Entry[]).concat(arrays.flat())
         const result: SearchDataset = { entries: coreEntries, source: 'sharded', loadedTypes: new Set(coreTypes.filter((_, i) => arrays[i].length > 0)) }

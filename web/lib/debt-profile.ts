@@ -281,7 +281,7 @@ export const debtProfile = {
 // things the Town's own record shows happening after the shutter closed, and
 // they matter because both notes reached their maturity dates during 2026.
 export const sinceBalanceSheet = {
-  asOf: 'August 20, 2026',
+  asOf: 'October 21, 2026',
   events: [
     {
       date: 'March 18, 2025',
@@ -325,9 +325,26 @@ export const sinceBalanceSheet = {
       why: 'Five years to the day after the original August 2021 issue — but five was not the deadline. Chapter 157 of the Laws of 2020 lets a capital BAN originally issued in calendar years 2015 through 2021 be renewed for up to seven years rather than five, and this note was issued in August 2021, inside that window. The Town could have rolled it to 2028. It chose to retire it instead, paying from fund balance that the Petrocelli parcel sale is to repay (resolution 2026-762).',
       source: '2025 Annual Financial Report, Statement of Indebtedness Debt Records.',
     },
+    {
+      date: 'September 1, 2026',
+      what: 'Resolution 2026-833 — bond resolution for a new ambulance building, up to $8,100,000',
+      why: 'The building at 1111 Osborne Avenue has an estimated maximum cost of $14,100,000. The plan of financing includes “$6,000,000 provided by Riverhead Volunteer Ambulance Corp, as Lessee, from private funding secured by Lessee,” and the rest, not to exceed $8,100,000, from Town bonds, with the lease “providing for payment of amounts from the Lessee to the Lessor sufficient to pay debt service on the bonds.” Authorized, not yet issued.',
+      source: 'Town Board meeting of September 1, 2026 — adopted unanimously. The terms are from the hearing notice in that meeting’s agenda packet.',
+    },
   ],
   caveat:
     'The budget adjustments name the money moved: $7,305,000 toward the 2018 refunding bonds (resolution 2026-642) and $1,996,718 to debt service for the Town Square note (resolution 2026-762). But no financial report covering 2026 has been filed yet, so the balances on this page are the audited December 31, 2025 figures, and the true figures today are lower by whatever was paid.',
+}
+
+// Bonds with "Riverhead" in the issuer's name that are not the Town's debt.
+// From the 2024 audit (Note 3.E, Conduit Debt Obligations, p. 64), the latest
+// that prints the figures: the 2025 audit extract this site holds does not.
+export const conduitDebt = {
+  asOf: 'December 31, 2024',
+  source: { title: 'Town of Riverhead 2024 Audited Basic Financial Statements', detail: 'Note 3.E, Conduit Debt Obligations, p. 64', url: 'https://townofriverheadny.gov/DocumentCenter/View/2858/2024-Audited-Basic-Financial-Statements-PDF' },
+  ida: { bonds: 1, principal: 480_000 },
+  ldc: { bonds: 3, principal: 49_965_000 },
+  quote: 'Neither the Town, the RIDA, the LDC, the State, nor any political subdivision thereof is obligated in any manner for repayment of the bonds.',
 }
 
 export const debtProfileTotals = {

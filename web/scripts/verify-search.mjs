@@ -65,6 +65,25 @@ else if (!typo.results.some((e) => /Hegermiller/.test(e.n))) fail('"Hegermiler" 
 const resolution = top('2026-642', 1)[0]
 if (!resolution?.x.startsWith('2026-642')) fail(`"2026-642" should find resolution 2026-642 first, found ${resolution?.n ?? 'nothing'}`)
 
+// A number typed the way the Town prints it, or a pasted link, finds its record first.
+for (const [q, want] of [
+  ['Res. #2026-642', (e) => e.x.startsWith('2026-642')],
+  ['resolution 2026-642', (e) => e.x.startsWith('2026-642')],
+  ['3513', (e) => e.t === 'document' && /Annual Financial Report/.test(e.n) && /\/View\/3513\//.test(e.u)],
+  ['file 3513', (e) => e.t === 'document' && /\/View\/3513\//.test(e.u)],
+  ['Doc No. 2858', (e) => e.t === 'document' && /\/View\/2858\//.test(e.u)],
+  // Payroll file numbers, as the roster prints them and as residents type them.
+  ['GFZ 000980', (e) => e.t === 'payroll' && e.n === 'Carroll, Bryan'],
+  ['#GFZ000980', (e) => e.t === 'payroll' && e.n === 'Carroll, Bryan'],
+  ['File # 000980', (e) => e.t === 'payroll' && e.n === 'Carroll, Bryan'],
+  ['000980', (e) => e.t === 'payroll' && e.n === 'Carroll, Bryan'],
+  ['https://townofriverheadny.gov/DocumentCenter/View/2858/2024-Audited-Basic-Financial-Statements-PDF', (e) => e.t === 'document' && /\/View\/2858\//.test(e.u)],
+]) {
+  const got = top(q, 1)[0]
+  if (!got || !want(got)) fail(`"${q}" should find its record first, found ${got?.n ?? 'nothing'}`)
+}
+if (!core.some((e) => e.t === 'document')) fail('The search index has no Town documents by file number')
+
 if (top('sewer district', 1)[0]?.t !== 'fund') fail('"sewer district" should lead with the sewer district fund')
 
 if (top('how much does the police department cost', 5).some((e) => /^Costa/.test(e.n))) fail('"cost" is matching the start of surnames again')
