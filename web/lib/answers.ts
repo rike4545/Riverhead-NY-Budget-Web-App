@@ -250,7 +250,7 @@ export const topics: AnswerTopic[] = [
       },
       {
         q: 'Could Riverhead just freeze taxes, like Suffolk County did?',
-        a: `For a year, yes, though it is harder than it sounds. The 2027 Tentative raises the town-wide levy ${usd(freeze.tentativeRise)} (${freeze.tentativePct.toFixed(2)}%), and six amendments before the Board would cut that to ${usd(freeze.amendedRise)} (${freeze.amendedPct.toFixed(2)}%). Holding it flat would take ${usd(freeze.zeroBeyond)} more than the amendments find, and a 1% increase ${usd(freeze.oneBeyond)} more. Interest the Town is already earning covers most of the 1%; no increase also needs savings. Unlike Suffolk, Riverhead's police department sits inside the very fund a freeze would apply to.`,
+        a: `For a year, yes, though it is harder than it sounds. The 2027 Tentative raises the town-wide levy ${usd(freeze.tentativeRise)} (${freeze.tentativePct.toFixed(2)}%), and six amendments the Board adopted on October 20 would cut that to ${usd(freeze.amendedRise)} (${freeze.amendedPct.toFixed(2)}%). Holding it flat would take ${usd(freeze.zeroBeyond)} more than the amendments find, and a 1% increase ${usd(freeze.oneBeyond)} more. Interest the Town is already earning covers most of the 1%; no increase also needs savings. Unlike Suffolk, Riverhead's police department sits inside the very fund a freeze would apply to.`,
         href: `${base}/zero-percent-2027/`,
         cta: 'What zero or 1% would take',
       },

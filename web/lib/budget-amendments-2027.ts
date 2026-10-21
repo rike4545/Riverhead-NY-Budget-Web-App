@@ -1,5 +1,5 @@
-// The six amendments to the 2027 Preliminary Budget on the Town Board's
-// October 20, 2026 agenda, as the Town printed them, for /budget-amendments-2027/.
+// The six amendments to the 2027 Preliminary Budget the Town Board adopted on
+// October 20, 2026, as the Town printed them, for /budget-amendments-2027/.
 //
 // They come from the pre-final draft of that agenda, which the Town published in
 // the agenda packet for its October 15, 2026 work session (CivicClerk event
@@ -26,6 +26,55 @@ export const PACKET = {
   statementsDated: 'October 9, 2026',
   meeting: { slug: '2026-10-20', date: 'October 20, 2026', label: 'Town Board regular meeting, October 20, 2026, 6:00 PM' },
 } as const
+
+/**
+ * The October 20 agenda packet as the Town reposted it after the meeting, with
+ * each resolution's result filled in (CivicClerk file 12495; this site's text
+ * copy is etl/data/meetings/2026-10-20-vote-packet.txt). The minutes are not
+ * out yet. The packet's vote block has lines for the result, mover, seconder,
+ * ayes and nays only, so a member listed on neither side is not recorded here
+ * as abstaining, absent or anything else.
+ */
+export const ADOPTED_PACKET = {
+  title: 'Town Board meeting agenda packet, October 20, 2026, with results',
+  url: 'https://riverheadny.portal.civicclerk.com/event/6456/files/agenda/12495',
+  text: 'etl/data/meetings/2026-10-20-vote-packet.txt',
+  postedAt: 'October 21, 2026',
+} as const
+
+/**
+ * The packet does not record abstentions. The site's editor reports that
+ * Supervisor Halpin abstained on some of the six; the page says whose report it
+ * is and that it waits on the minutes.
+ */
+export const EDITOR_REPORTS_ABSTAINED = 'Supervisor Halpin abstained on some of them'
+
+export const BOARD = ['Jerry Halpin', 'Kenneth Rothwell', 'Robert Kern', 'Denise Merrifield', 'Joann Waski'] as const
+
+export type AmendmentVote = { n: number; number: string; result: 'Adopted'; mover: string; seconder: string; ayes: string[]; nays: string[]; votePage: number }
+
+const COUNCIL = ['Kenneth Rothwell', 'Robert Kern', 'Denise Merrifield', 'Joann Waski']
+/** Each amendment's vote block, as printed in ADOPTED_PACKET. */
+export const VOTES: AmendmentVote[] = [
+  { n: 1, number: '2026-935', result: 'Adopted', mover: 'Councilman Robert Kern', seconder: 'Councilwoman Denise Merrifield', ayes: COUNCIL, nays: [], votePage: 34 },
+  { n: 2, number: '2026-936', result: 'Adopted', mover: 'Councilwoman Denise Merrifield', seconder: 'Councilwoman Joann Waski', ayes: COUNCIL, nays: [], votePage: 36 },
+  { n: 3, number: '2026-937', result: 'Adopted', mover: 'Councilwoman Joann Waski', seconder: 'Councilman Kenneth Rothwell', ayes: COUNCIL, nays: [], votePage: 38 },
+  { n: 4, number: '2026-938', result: 'Adopted', mover: 'Councilman Kenneth Rothwell', seconder: 'Councilman Robert Kern', ayes: COUNCIL, nays: [], votePage: 40 },
+  { n: 5, number: '2026-939', result: 'Adopted', mover: 'Councilman Robert Kern', seconder: 'Councilwoman Denise Merrifield', ayes: ['Jerry Halpin', ...COUNCIL], nays: [], votePage: 42 },
+  { n: 6, number: '2026-940', result: 'Adopted', mover: 'Councilwoman Denise Merrifield', seconder: 'Councilwoman Joann Waski', ayes: COUNCIL, nays: [], votePage: 45 },
+]
+
+/**
+ * What comes next. The first two are from the public notice attached to
+ * Resolution 2026-923 (October 6, 2026, adopted unanimously); the meeting is
+ * on the Town's calendar; the deadline is Town Law §109.
+ */
+export const NEXT_STEPS: { date: string; what: string; source: string }[] = [
+  { date: 'October 29, 2026', what: 'The Preliminary Budget, with the six amendments in it, is available on the Town’s website and in the Town Clerk’s office', source: 'Notice with Resolution 2026-923' },
+  { date: 'November 5, 2026, 2:05 p.m.', what: 'Public hearing on the 2027 budget, including elected officials’ salaries, at Town Hall', source: 'Notice with Resolution 2026-923' },
+  { date: 'November 17, 2026', what: 'The only Board meeting on the Town’s calendar between the hearing and the deadline; the site’s editor reports the resolution to adopt the budget will be submitted then', source: 'Town meeting calendar' },
+  { date: 'November 20, 2026', what: 'Deadline to adopt; if the Board does not, the Preliminary becomes the budget', source: 'Town Law §109' },
+]
 
 /** The news report that brought the amendments to residents. */
 export const ARTICLE = {

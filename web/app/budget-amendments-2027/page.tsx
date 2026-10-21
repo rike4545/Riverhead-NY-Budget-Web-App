@@ -1,24 +1,21 @@
-import fs from 'fs'
-import path from 'path'
 import type { CSSProperties, ReactNode } from 'react'
 import PageShell from '../../components/PageShell'
 import PlainCallout from '../../components/PlainCallout'
-import { AMENDMENTS, ARTICLE, PACKET, STAFF_APPOINTMENT, SUPERVISOR_STAFF, SUPPLEMENT_YTD_THROUGH, fundEffects, isRevenue, type Amendment } from '../../lib/budget-amendments-2027'
+import { ADOPTED_PACKET, AMENDMENTS, EDITOR_REPORTS_ABSTAINED, ARTICLE, NEXT_STEPS, PACKET, VOTES, STAFF_APPOINTMENT, SUPERVISOR_STAFF, SUPPLEMENT_YTD_THROUGH, fundEffects, isRevenue, type Amendment } from '../../lib/budget-amendments-2027'
 import { amendmentEffect, exampleHome, generalFundInterest, raisedRevenues } from '../../lib/budget-amendments-effect'
 import { OUTLOOK, RECORD } from '../../lib/budget-adoption'
 import { AUDIT_2025 } from '../../lib/audits'
 import { RESERVE_YEAR, reserveYearAudited, unassignedFundBalance } from '../../lib/reserve-policy'
 import { LETTER_2027, READ_BY_HAND } from '../../lib/tentative-letters'
-import upcoming from '../../public/data/meetings/upcoming.json'
 import taxBill from '../../public/data/tax-bill.json'
 
 const fx = amendmentEffect
 
 export const metadata = {
-  title: 'The proposed amendments to the 2027 budget',
+  title: 'The amendments to the 2027 budget',
   description: fx
-    ? `Six resolutions on the Town Board’s October 20, 2026 agenda would raise ${usd(-fx.townWide.change)} less in town-wide property taxes than the 2027 Tentative, a ${fx.townWide.pctAfter.toFixed(2)}% increase over 2026. What each one changes, line by line, and what it means for savings and a tax bill.`
-    : 'Six resolutions on the Town Board’s October 20, 2026 agenda would amend the 2027 budget.',
+    ? `Six resolutions the Town Board adopted on October 20, 2026 would raise ${usd(-fx.townWide.change)} less in town-wide property taxes than the 2027 Tentative, a ${fx.townWide.pctAfter.toFixed(2)}% increase over 2026. What each one changes, line by line, and what it means for savings and a tax bill.`
+    : 'Six resolutions the Town Board adopted on October 20, 2026 amend the 2027 budget.',
 }
 
 const base = process.env.NEXT_PUBLIC_BASE_PATH || ''
@@ -43,39 +40,10 @@ const SECTIONS = [
   ['sources', 'Sources'],
 ] as const
 
-const AMENDMENT_TITLE = /Amendment #(\d) to the 2027 Preliminary Budget/i
-
-type Docket = { seq?: number; number?: string; title?: string }
-type Listed = { slug: string; agendaPublished?: boolean; docket?: Docket[] }
-
-/** The October 20 agenda as the Town finally publishes it, once it has. */
-function finalAgenda() {
-  const meeting = ([...upcoming.recent, ...upcoming.meetings] as Listed[]).find((m) => m.slug === PACKET.meeting.slug)
-  if (!meeting?.agendaPublished) return null
-  const items = (meeting.docket ?? []).flatMap((d) => {
-    const m = AMENDMENT_TITLE.exec(d.title ?? '')
-    return m ? [{ n: Number(m[1]), number: d.number ?? null }] : []
-  })
-  return { items, missing: AMENDMENTS.filter((a) => !items.some((i) => i.n === a.n)).map((a) => a.n) }
-}
-
-type Resolution = { number?: string; title?: string; result?: string; adopted?: boolean }
-
-/** How the Board voted on each, once the meeting's minutes are in this site's records. */
-function boardVotes() {
-  const file = path.join(process.cwd(), 'public', 'data', 'meetings', `${PACKET.meeting.slug}.json`)
-  if (!fs.existsSync(file)) return null
-  const meeting = JSON.parse(fs.readFileSync(file, 'utf8')) as { resolutions?: Resolution[] }
-  return (meeting.resolutions ?? []).flatMap((r) => {
-    const m = AMENDMENT_TITLE.exec(r.title ?? '')
-    return m ? [{ n: Number(m[1]), number: r.number ?? null, result: r.result ?? null }] : []
-  })
-}
-
 export default function BudgetAmendmentsPage() {
   if (!fx) {
     return (
-      <PageShell title="The proposed amendments to the 2027 budget" subtitle="The 2027 Tentative and its Budget Supplement are not in this site’s records, so there is nothing to set the amendments against.">
+      <PageShell title="The amendments to the 2027 budget" subtitle="The 2027 Tentative and its Budget Supplement are not in this site’s records, so there is nothing to set the amendments against.">
         <P>This page returns when the Tentative’s Summary and the Supplement have been read.</P>
       </PageShell>
     )
@@ -87,10 +55,9 @@ export default function BudgetAmendmentsPage() {
   const gf = fund('A01')!
   const sl = fund('SL1')!
   const hw = fund('DA1')!
-  const agenda = finalAgenda()
-  const votes = boardVotes()
-  const voteOf = (n: number) => votes?.find((v) => v.n === n) ?? null
-  const afterMeeting = new Date() > new Date('2026-10-21T04:00:00Z')
+  const voteOf = (n: number) => VOTES.find((v) => v.n === n) ?? null
+  const halpinYes = VOTES.filter((v) => v.ayes.includes('Jerry Halpin'))
+  const allNoNays = VOTES.every((v) => v.nays.length === 0)
 
   // Spending the six take out and put in, line by line.
   const spendingLines = AMENDMENTS.flatMap((a) => a.lines.filter((l) => !isRevenue(l.account)).map((l) => ({ n: a.n, ...l })))
@@ -117,7 +84,6 @@ export default function BudgetAmendmentsPage() {
   const snow = account('DA1-5-5142-400-000-00000')
   const snowLine = snowLineOf()
   const letter = READ_BY_HAND[2027]
-  const timeline = OUTLOOK.calendar.filter(([d]) => /^Nov/.test(d))
   const lastYear = RECORD.find((r) => r.year === 2026)
   /** The News-Review's headline on the Tentative, from "Halpin’s Riverhead budget …". */
   const streak = /“Halpin’s Riverhead budget (would end [^”]+)”/.exec(LETTER_2027.meetingReport.title)?.[1] ?? null
@@ -141,8 +107,8 @@ export default function BudgetAmendmentsPage() {
 
   return (
     <PageShell
-      title="The proposed amendments to the 2027 budget"
-      subtitle={`Six resolutions on the Town Board’s draft agenda for October 20 would raise ${usd(-tw.change)} less in town-wide property taxes than the Supervisor’s Tentative. What each one changes, line by line, and what it means for savings and a tax bill.`}
+      title="The amendments to the 2027 budget"
+      subtitle={`The Town Board adopted six amendments on October 20, with no votes against. They would raise ${usd(-tw.change)} less in town-wide property taxes than the Supervisor’s Tentative. What each one changes, line by line, and what it means for savings and a tax bill.`}
     >
       <PlainCallout
         tips={[
@@ -151,7 +117,8 @@ export default function BudgetAmendmentsPage() {
           { label: 'Savings', text: '“fund balance”: money left from earlier years. A budget can count some of it as income, called appropriated fund balance.' },
         ]}
       >
-        The six would raise {usd(tw.after)} in town-wide property taxes, {usd(-tw.change)} less than the Tentative, so the levy would rise{' '}
+        The Board adopted all six on {PACKET.meeting.date}, with no votes against, and they become part of the Preliminary Budget the
+        Board will hold a hearing on. Once the budget is adopted, the six would raise {usd(tw.after)} in town-wide property taxes, {usd(-tw.change)} less than the Tentative, so the levy would rise{' '}
         {tw.pctAfter.toFixed(2)}% over 2026 instead of {tw.pctBefore.toFixed(2)}%. Of the cut, {usd(cutFromEstimates)} comes from higher estimates of
         what the Town will collect in fees, fines and interest, and {usd(fx.deferred.total)} from taking equipment out of the budget, to be bought
         from savings by separate votes during 2027. One amendment adds {usd(levyAdded)}. Three of the six add pay or insurance costs.{' '}
@@ -217,7 +184,8 @@ export default function BudgetAmendmentsPage() {
                   />
                   <P>
                     {levyEffect(a)} {amendmentNote(a.n)}
-                    {vote && <> On October 20 the Board’s record shows it {vote.result ? vote.result.toLowerCase().replace(/\s*\[(.*)\]/, ' ($1)') : 'with no result printed'}{vote.number && <> (Resolution {vote.number})</>}.</>}
+                    {vote && <> {vote.result} on {PACKET.meeting.date} as Resolution {vote.number}: moved by {vote.mover}, seconded by {vote.seconder}; ayes,{' '}
+                      {words(vote.ayes)}; nays, {vote.nays.length ? words(vote.nays) : 'none'} (packet with results, p. {vote.votePage}).</>}
                   </P>
                 </div>
               )
@@ -359,29 +327,24 @@ export default function BudgetAmendmentsPage() {
 
           <Section id="status" title="Where this stands">
             <P>
-              The six are items {AMENDMENTS[0].item} to {AMENDMENTS[AMENDMENTS.length - 1].item} on the Town’s draft agenda for its{' '}
-              {PACKET.meeting.date} meeting, which the Town published in the packet for its October 15 work session (packet pp.{' '}
-              {PACKET.agendaPages.join('–')}). Every page is marked “{PACKET.status}”, and none yet names who offers or seconds it. The fiscal impact
-              statements are dated {PACKET.statementsDated}. The final agenda can differ.
+              The Board adopted all six on {PACKET.meeting.date}, as Resolutions {VOTES[0].number} to {VOTES[VOTES.length - 1].number}, with{' '}
+              {allNoNays ? 'no votes against any of them' : 'votes against some'}. The Town reposted the meeting’s agenda packet with each result on{' '}
+              {ADOPTED_PACKET.postedAt}, and the resolutions it shows match the draft this page was built from, account for account and word for
+              word.
             </P>
-            {agenda && (
-              <P>
-                The Town has published the final agenda.{' '}
-                {agenda.missing.length === 0
-                  ? `It lists all six${agenda.items.some((i) => i.number) ? `, as ${words(agenda.items.filter((i) => i.number).map((i) => `#${i.n} (${i.number})`))}` : ''}.`
-                  : `It does not list ${words(agenda.missing.map((n) => `#${n}`))}, so this page, built from the draft, may no longer match it.`}
-              </P>
-            )}
             <P>
-              {votes && votes.length > 0
-                ? <>The Board’s record of the meeting is in this site’s <a href={`${base}/meetings/?meeting=${PACKET.meeting.slug}`} style={link}>Town Board votes</a>; each amendment above shows its result.</>
-                : afterMeeting
-                  ? <>The Board was to take them up on {PACKET.meeting.date}. Its minutes are not in this site’s records yet; when they are, the result will appear beside each amendment.</>
-                  : <>The Board is to take them up on {PACKET.meeting.date}. When its minutes are out, the result will appear beside each amendment.</>}
+              On {count(VOTES.length - halpinYes.length)} of the six the packet lists the four council members as the ayes and no one as a nay.
+              Supervisor Halpin is listed as an aye only on {words(halpinYes.map((v) => `Amendment #${v.n}`))}, the street lighting
+              amendment. He voted on the other resolutions before and after them that night. The packet’s vote record has lines only for ayes and
+              nays, so it does not show how he was recorded on the other {count(VOTES.length - halpinYes.length)}. The site’s editor reports
+              that {EDITOR_REPORTS_ABSTAINED}. This site has not checked that against the minutes, which are not out yet and should say which.
+            </P>
+            <P>
+              The six amend the Preliminary Budget. They do not adopt a budget, and the Board can still change it after the public hearing.
+              What comes next:
             </P>
             <ul style={{ margin: '0 0 14px', paddingLeft: 22, display: 'grid', gap: 6, maxWidth: '72ch' }}>
-              <Li><strong>{PACKET.meeting.date.replace(/, \d{4}$/, '')}</strong>: the Board meeting with the six on its agenda</Li>
-              {timeline.map(([d, what, law]) => <Li key={d}><strong>{d.replace(/^Nov /, 'November ')}</strong>: {(what.charAt(0).toLowerCase() + what.slice(1)).replace(/: /, ', ')}{law && ` (${law})`}</Li>)}
+              {NEXT_STEPS.map((step) => <Li key={step.date}><strong>{step.date}</strong>: {step.what.charAt(0).toLowerCase() + step.what.slice(1)} ({step.source})</Li>)}
             </ul>
             <P>
               {ARTICLE.outlet} reports that Rothwell said {ARTICLE.reported.developed}. “{ARTICLE.reported.support}” Rothwell is challenging Supervisor
@@ -404,8 +367,8 @@ export default function BudgetAmendmentsPage() {
             <H3>For Rothwell, the challenger</H3>
             <ul style={list}>
               <Li>
-                <strong>Could help.</strong> It turns his campaign’s stated top issue, lowering the cost of taxes, into six resolutions on the agenda
-                two weeks before the election, with what he says is the support of the other three council members. It sets a{' '}
+                <strong>Could help.</strong> It turns his campaign’s stated top issue, lowering the cost of taxes, into six resolutions the Board
+                adopted two weeks before the election, each with all four council members voting yes. It sets a{' '}
                 {tw.pctAfter.toFixed(2)}% increase beside the incumbent’s {tw.pctBefore.toFixed(2)}%, and by his account “{ARTICLE.reported.services}”.
               </Li>
               <Li>
@@ -421,15 +384,15 @@ export default function BudgetAmendmentsPage() {
               <Li>
                 <strong>Could help.</strong> The amendments start from his Tentative{streak && <>, which the Riverhead News-Review reported{' '}
                 “{streak}”</>}, and change its levy by about{' '}
-                {((-tw.change / tw.before) * 100).toFixed(0)}%. A yes vote would make the cut a decision of the whole Board. A no vote would let him make
-                the case for caution: estimates closer to collections leave less room for error, and the deferred purchases still have to be paid for
-                in 2027.
+                {((-tw.change / tw.before) * 100).toFixed(0)}%. No one voted against them, and he voted for {words(halpinYes.map((v) => `Amendment #${v.n}`))}.
+                He can still make the case for caution: estimates closer to collections leave less room for error, and the deferred purchases still
+                have to be paid for in 2027.
               </Li>
               <Li>
                 <strong>Could hurt.</strong> A council majority amending his budget in an election season casts his proposal as higher than it needed
-                to be, and {ARTICLE.outlet} reports that he had not answered its request for comment by press time. If he votes no and the majority
-                adopts the six,
-                opponents could describe that as a vote for the higher levy, whatever his reasons.
+                to be, and {ARTICLE.outlet} reported that he had not answered its request for comment by press time. The packet lists him as an aye on
+                only {count(halpinYes.length)} of the six, and opponents could read that as reluctance to cut the levy, whatever the minutes show
+                his reasons were.
               </Li>
             </ul>
             <H3>Does the staff’s party matter?</H3>
@@ -477,14 +440,16 @@ export default function BudgetAmendmentsPage() {
               <Li>Which purchases would come back as separate resolutions using savings, when, and for how much? Will the Board list them with the adopted budget?</Li>
               <Li>What change in CSEA dental plans is the {usd(dentalTotal)} for, and what happens to the money if the change does not happen?</Li>
               <Li>How would the Highway Department cover the {usd(dentalHighway.amount)} taken from its equipment budget and the {usd(snowLine.cut)} taken from snow removal?</Li>
-              <Li>Will the Town publish the Preliminary budget, with each amendment’s effect, before the public hearing?</Li>
+              <Li>The Preliminary Budget is due out on {NEXT_STEPS[0].date.replace(/, \d{4}$/, '')}. Will it show each amendment’s effect, and the equipment to be bought later from savings?</Li>
+              <Li>Which amendments did the Supervisor abstain on, and why, when they change the Tentative his office prepared?</Li>
             </ul>
           </Section>
 
           <Section id="method" title="How this page was made">
             <P>
-              The six resolutions and their fiscal impact statements were read from the text of the October 15 work-session packet and checked
-              against the page images. A check runs on every build of this site. It confirms that each resolution balances fund by fund, that every
+              The six resolutions and their fiscal impact statements were read from the text of the October 15 work-session packet, whose pages are marked “{PACKET.status}”, and checked
+              against the page images. The votes are from the October 20 packet as the Town reposted it with results, and the check confirms that
+              its six resolutions print the same accounts, amounts and reasons. A check runs on every build of this site. It confirms that each resolution balances fund by fund, that every
               account, amount and quotation appears on its packet page, and that each Tentative figure is the 2027 Budget Supplement’s.
             </P>
             <P>
@@ -499,6 +464,11 @@ export default function BudgetAmendmentsPage() {
                 <a href={PACKET.url} style={link}>Town of Riverhead, {PACKET.title}</a> (CivicClerk): the draft agenda for {PACKET.meeting.date}{' '}
                 (pp. {PACKET.agendaPages.join('–')}) and the six resolutions with their fiscal impact statements (pp. {AMENDMENTS[0].page}–598)
               </li>
+              <li>
+                <a href={ADOPTED_PACKET.url} style={link}>Town of Riverhead, {ADOPTED_PACKET.title}</a> (CivicClerk): the six resolutions as adopted,
+                with their votes (pp. {VOTES[0].votePage}–{VOTES[VOTES.length - 1].votePage})
+              </li>
+              <li>Town Board Resolution 2026-923 ({'October 6, 2026'}) and its public notice of the November 5 budget hearing, in this site’s <a href={`${base}/meetings/?meeting=2026-10-06`} style={link}>Town Board votes</a></li>
               <li><a href={ARTICLE.url} style={link}>{ARTICLE.outlet}, {ARTICLE.published}: “{ARTICLE.title}”</a></li>
               <li><a href={SUPERVISOR_STAFF.report.url} style={link}>{SUPERVISOR_STAFF.report.outlet}, {SUPERVISOR_STAFF.report.published}: “{SUPERVISOR_STAFF.report.title}”</a></li>
               <li>

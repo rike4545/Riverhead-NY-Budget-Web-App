@@ -213,7 +213,7 @@ export const neutralView = {
           : `2027 Tentative: a levy ${changePhrase(released2027.levyPct)} 2026, ${gapPhrase(released2027.levyVsReference)} a 2% increase. The Board can still change it.`]
       : []),
     ...(updatedPrediction
-      ? [`Six amendments on the Board’s October 20 agenda would lower the town-wide increase to ${updatedPrediction.row('town-wide-change').predicted.toFixed(2)}%. This site’s updated prediction (${UPDATED.date}) is that the Board adopts them.`]
+      ? [`The Board adopted six amendments on October 20 that would lower the town-wide increase to ${updatedPrediction.row('town-wide-change').predicted.toFixed(2)}%, as this site’s updated prediction (${UPDATED.date}) expected. They are now part of the Preliminary Budget.`]
       : []),
   ],
   principles: [
