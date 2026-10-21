@@ -37,6 +37,7 @@ export default function PayrollPage() {
       </PlainCallout>
       <FileNumbers />
       <PersonnelActions />
+      <UnionAgreements />
       <PayrollTabs
         overtime={{
           trends: rankTrends,
@@ -191,7 +192,7 @@ function PersonnelActions() {
                   </td>
                   <td data-label="Action" style={cell}><span>{KIND_LABEL[a.kind] ?? a.kind}{a.result ? `, ${a.result.replace(/\s*\[.*\]/, '').toLowerCase()}` : ''}</span></td>
                   <td data-label="File number" style={{ ...cell, whiteSpace: 'nowrap' }}><span>GFZ{a.fileNumber}</span></td>
-                  <td data-label="On the roster as" style={cell}>
+                  <td className="rbl-stack-prose" data-label="On the roster as" style={cell}>
                     <span>
                       {a.people.length
                         ? a.people.map((p, i) => (
@@ -200,7 +201,74 @@ function PersonnelActions() {
                         : `Not on the roster (above ${personnelActions.rosterHighest})`}
                     </span>
                   </td>
-                  <td data-label="What the resolution says" style={cell}><span>{a.quote ? `“${a.quote}”` : a.title}</span></td>
+                  <td className="rbl-stack-prose" data-label="What the resolution says" style={cell}><span>{a.quote ? `“${a.quote}”` : a.title}</span></td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </details>
+  )
+}
+
+type UnionAgreement = (typeof personnelActions.unionAgreements)[number]
+
+/** "ADOPTED [UNANIMOUS]" or "[UNANIMOUS]", as this site's meeting record prints it, in plain words. */
+const resultWords = (r: string | null) => {
+  if (!r) return 'no result in this site’s records'
+  const adopted = /ADOPTED/i.test(r)
+  const unanimous = /UNANIMOUS/i.test(r)
+  return [adopted && 'adopted', unanimous && 'unanimous'].filter(Boolean).join(', ') || r.toLowerCase()
+}
+
+// Every agreement and stipulation the Board made with the Town's unions, from
+// the meeting records, with the resolution's own clauses where the site has them.
+function UnionAgreements() {
+  const agreements = personnelActions.unionAgreements as UnionAgreement[]
+  if (!agreements.length) return null
+  const cell = { padding: '8px 10px', verticalAlign: 'top' } as const
+  const withText = agreements.filter((a) => a.clauses.length).length
+  const byUnion = ['CSEA', 'Police Benevolent Association', 'Superior Officers Association'].map((u) => [u, agreements.filter((a) => a.union?.includes(u)).length] as const)
+  return (
+    <details id="union-agreements" data-union-agreements style={{ background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 0, margin: '0 0 18px', overflow: 'hidden' }}>
+      <summary style={{ cursor: 'pointer', padding: '15px 18px', fontWeight: 800, color: 'var(--rbl-title)', fontSize: 15.5 }}>
+        Agreements and stipulations with the unions ({agreements.length})
+      </summary>
+      <div style={{ padding: '0 18px 18px', color: 'var(--rbl-text-body)', fontSize: 14, lineHeight: 1.6 }}>
+        <p style={{ marginTop: 0 }}>
+          A stipulation is a side agreement with a union that changes the contract’s terms for one employee or a group: a title the salary
+          schedule lacks, a merit step, an insurance buyout. This site’s meeting records run in full from January 2025, and these are every
+          agreement and stipulation with a union in them, the first on {longDate(agreements[agreements.length - 1].meeting)}: {byUnion.map(([u, n]) => `${n} with the ${u}`).join(', ')}.
+          One covers both police unions.
+        </p>
+        <p>
+          The clauses are the resolution’s own words, shortened where marked …; this site has the text of {withText} of the{' '}
+          {agreements.length}. For the rest, the title is all the minutes give; the Town’s agenda packet for that meeting has the full resolution.
+        </p>
+        <div style={{ overflowX: 'auto' }}>
+          <table className="rbl-stack" style={{ width: '100%', borderCollapse: 'collapse', fontSize: 13.5 }}>
+            <thead>
+              <tr style={{ textAlign: 'left', color: 'var(--rbl-text-muted)', borderBottom: '2px solid var(--rbl-border-subtle)' }}>
+                <th style={cell}>Resolution</th>
+                <th style={cell}>Union</th>
+                <th style={cell}>What it does</th>
+              </tr>
+            </thead>
+            <tbody>
+              {agreements.map((a) => (
+                <tr key={a.resolution} style={{ borderBottom: '1px solid var(--rbl-border-subtle)' }}>
+                  <td style={{ ...cell, fontWeight: 700, color: 'var(--rbl-title)', whiteSpace: 'nowrap' }}>
+                    <span>{a.resolution}<br /><span style={{ fontWeight: 400, color: 'var(--rbl-text-muted)' }}>{longDate(a.meeting)}, {resultWords(a.result)}</span></span>
+                  </td>
+                  <td data-label="Union" style={cell}><span>{a.union ?? '—'}</span></td>
+                  <td className="rbl-stack-prose" data-label="What it does" style={cell}>
+                    <span>
+                      <strong>{a.title}</strong>
+                      {a.clauses.map((c) => <span key={c} style={{ display: 'block', marginTop: 4 }}>“{c}”</span>)}
+                      {a.named.length > 0 && <span style={{ display: 'block', marginTop: 4, color: 'var(--rbl-text-muted)' }}>Named in it: {a.named.join('; ')}</span>}
+                    </span>
+                  </td>
                 </tr>
               ))}
             </tbody>

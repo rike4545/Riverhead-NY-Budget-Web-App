@@ -255,6 +255,9 @@ def build():
     for a in (load("meetings/personnel-actions.json") or {}).get("actions", []):
         words = [file_words(a["fileNumber"])] + [p["name"].replace(",", "") for p in a["people"]]
         personnel[a["resolution"]] = " ".join(filter(None, [personnel[a["resolution"]], *words]))
+    for a in (load("meetings/personnel-actions.json") or {}).get("unionAgreements", []):
+        words = ["union stipulation", a["union"] or ""] + [n.replace(",", "") for n in a["named"]]
+        personnel[a["resolution"]] = " ".join(filter(None, [personnel[a["resolution"]], *words]))
     meetings_index = load("meetings/index.json")
     if meetings_index:
         for m in meetings_index["meetings"]:

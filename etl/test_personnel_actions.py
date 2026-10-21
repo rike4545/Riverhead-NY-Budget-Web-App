@@ -79,6 +79,44 @@ class ParseTest(unittest.TestCase):
         )
 
 
+UNION_RESOLUTION = """
+TB Resolution 2025-353
+
+AUTHORIZES SUPERVISOR TO EXECUTE A STIPULATION WITH LOCAL 1000, AFSCME, AFL-CIO
+
+Councilman Rothwell offered the following resolution,
+which was seconded by Councilman Kern
+
+          WHEREAS, Doris Strange has been an employee of the Town of Riverhead since
+September 13, 1993 serving in the title of Account Clerk in the Recreation department; and
+          NOW, THEREFORE, BE IT
+          RESOLVED, that the Town Board approves the attached Stipulation; and be it further,
+          RESOLVED, that all Town Hall Departments may review and obtain a copy of this resolution.
+
+THE VOTE
+AYES: Hubbard, Kenneth Rothwell, Kern
+"""
+
+
+class UnionTest(unittest.TestCase):
+    def test_both_police_unions(self):
+        title = "Ratifies Authorization For Supervisor To Execute An Agreement Between The Town Of Riverhead And The Riverhead Police Benevolent Association And Superior Officers Association"
+        self.assertEqual(pa.union_of(title), "Police Benevolent Association and Superior Officers Association")
+        self.assertEqual(pa.union_of("Stipulation with Local 1000, AFSCME"), "CSEA")
+
+    def test_clauses_drop_fragments_and_filing_boilerplate(self):
+        body = next(pa.resolutions(UNION_RESOLUTION))["body"]
+        got = pa.clauses(body)
+        self.assertEqual(len(got), 2)
+        self.assertTrue(got[0].startswith("WHEREAS, Doris Strange has been an employee"))
+        self.assertEqual(got[1], "RESOLVED, that the Town Board approves the attached Stipulation")
+
+    def test_named_people_come_from_the_clauses_not_the_vote(self):
+        body = next(pa.resolutions(UNION_RESOLUTION))["body"]
+        jobs = {"Strange, Doris L": {}, "Rothwell, Kenneth T": {}}
+        self.assertEqual(pa.named_people(" ".join(pa.clauses(body, limit=50, length=10_000)), jobs), ["Strange, Doris L"])
+
+
 class OutputTest(unittest.TestCase):
     """The committed output, against the roster it was matched to."""
 

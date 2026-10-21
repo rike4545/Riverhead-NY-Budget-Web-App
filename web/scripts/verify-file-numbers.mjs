@@ -134,4 +134,17 @@ if (existsSync(path(built))) {
   }
 }
 
+// The union agreements table shows every agreement, with its union.
+if (existsSync(path(built))) {
+  const html = readFileSync(path(built), 'utf8')
+  const i = html.indexOf('data-union-agreements')
+  const text = i === -1 ? '' : html.slice(i, html.indexOf('</details>', i)).replace(/<!-- -->/g, '').replace(/<[^>]+>/g, ' ').replace(/&#x27;/g, "'").replace(/\s+/g, ' ')
+  const unions = personnel.unionAgreements ?? []
+  if (unions.length && !text) fail('/payroll/ has no union agreements table')
+  for (const a of unions) {
+    if (!a.union) fail(`${a.resolution} names no union`)
+    if (text && !text.includes(a.resolution)) fail(`the union agreements table does not show ${a.resolution}`)
+  }
+}
+
 if (!process.exitCode) console.log(`File-number verification passed: ${roster.length} roster numbers in ${fileNumbers.blocks.length} blocks, each matching its hire years.`)

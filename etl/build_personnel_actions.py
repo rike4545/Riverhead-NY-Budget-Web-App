@@ -3,7 +3,9 @@
 person the Town's own roster gives that number to.
 
 Resolutions on discipline, terminations, separations, stipulations, suspensions
-and grievances name the employee only as "employee #GFZ000347". The Town's
+and grievances name the employee only as "employee #GFZ000347". It also lists
+every agreement and stipulation with the Town's unions (CSEA, the PBA and the
+Superior Officers Association), with its clauses where this site has the text. The Town's
 payroll company-code roster (etl/data/payroll/gfz-code-lookup.csv) pairs each
 file number with a name, and the Gross Earnings exports give that name's title
 and department. This reads every resolution in the meeting texts this site
@@ -109,6 +111,84 @@ def meeting_date(path):
     return path.name[:10]
 
 
+# Agreements and stipulations with the Town's unions. These usually name the
+# employee, or set terms for a whole unit, so they are listed by title from the
+# meeting records, with the resolution's own clauses where this site has its text.
+UNION = re.compile(r"CSEA|Local\s*(?:1000|852|3852)|AFSCME|Police Benevolent|\bPBA\b|Superior Officers|\bSOA\b|Teamsters", re.I)
+AGREEMENT = re.compile(r"stipulation|agreement|memorandum", re.I)
+UNIONS = (
+    ("Police Benevolent Association", re.compile(r"Police Ben|\bPBA\b", re.I)),
+    ("Superior Officers Association", re.compile(r"Superior Officers|\bSOA\b", re.I)),
+    ("CSEA", re.compile(r"CSEA|Local\s*(?:1000|852|3852)|AFSCME", re.I)),
+)
+BOILERPLATE = re.compile(r"Town Hall Departments|Town Clerk (?:is|be)|forward a copy|certified copy|electronic storage", re.I)
+
+
+def union_of(title):
+    """Every union the title names: one agreement covers both police unions."""
+    return " and ".join(name for name, pattern in UNIONS if pattern.search(title)) or None
+
+
+def clauses(body, limit=4, length=320):
+    """The resolution's WHEREAS and RESOLVED clauses, as printed, without the filing boilerplate."""
+    flat = re.sub(r"\s+([,;])", r"\1", re.sub(r"\s+", " ", body.split("THE VOTE")[0]))
+    parts = re.split(r"(?=\b(?:WHEREAS|NOW,? THEREFORE,? BE IT RESOLVED|BE IT FURTHER RESOLVED|RESOLVED)\b)", flat)
+    out = []
+    for part in parts:
+        part = re.sub(r";?\s*(?:and|and be it further,?|now,? therefore,?)\s*$", "", part.strip(), flags=re.I).strip(" ,;")
+        if not re.match(r"(WHEREAS|NOW|BE IT|RESOLVED)", part) or BOILERPLATE.search(part) or len(part) < 40:
+            continue
+        out.append(part if len(part) <= length else part[: length].rsplit(" ", 1)[0] + " …")
+        if len(out) == limit:
+            break
+    return out
+
+
+def named_people(text, jobs):
+    """Payroll names the resolution spells out, given name and surname, such as "Doris Strange"."""
+    flat = re.sub(r"\s+", " ", text)
+    found = []
+    for name in jobs:
+        last, _, first = name.partition(", ")
+        first = first.split(" ")[0]
+        if len(first) > 1 and re.search(rf"\b{re.escape(first)}\s+(?:[A-Z]\.\s+)?{re.escape(last)}\b", flat):
+            found.append(name)
+    return found
+
+
+def union_agreements(roster, jobs):
+    texts = {}
+    for path in sorted(MEETINGS.glob("*-minutes.txt")) + sorted(MEETINGS.glob("*-vote-packet.txt")):
+        for r in resolutions(path.read_text(errors="replace")):
+            texts.setdefault(r["number"], (r, path))
+    out = []
+    for path in sorted((ROOT / "web/public/data/meetings").glob("20[0-9][0-9]-[0-9][0-9]-[0-9][0-9].json")):
+        meeting = json.loads(path.read_text())
+        for r in (meeting.get("resolutions") or []) + (meeting.get("docket") or []):
+            title = re.sub(r"\s+", " ", r.get("title") or "").strip()
+            number = r.get("number")
+            if not number or not (AGREEMENT.search(title) and UNION.search(title)):
+                continue
+            if any(a["resolution"] == number for a in out):
+                continue
+            held = texts.get(number)
+            body = held[0]["body"] if held else ""
+            numbers = list(dict.fromkeys(FILE_NUMBER.findall(body)))
+            out.append({
+                "meeting": path.stem,
+                "resolution": number,
+                "title": title,
+                "union": union_of(title),
+                "result": (r.get("result") or "").strip() or None,
+                "clauses": clauses(body) if body else [],
+                # The people the clauses name, not the Board members who move and second it.
+                "named": named_people(" ".join(clauses(body, limit=50, length=10_000)), jobs) if body else [],
+                "fileNumbers": [{"fileNumber": n, "people": roster.get(n, [])} for n in numbers],
+                "source": held[1].relative_to(ROOT).as_posix() if held else None,
+            })
+    return sorted(out, key=lambda a: (a["meeting"], a["resolution"]), reverse=True)
+
+
 def build():
     roster = load_roster()
     jobs = load_latest_jobs()
@@ -156,11 +236,13 @@ def build():
         ),
         "rosterHighest": f"{highest:06d}",
         "actions": actions,
+        "unionAgreements": union_agreements(roster, jobs),
     }
     OUT.parent.mkdir(parents=True, exist_ok=True)
     OUT.write_text(json.dumps(out, indent=1, ensure_ascii=False) + "\n")
     named = sum(1 for a in actions if a["people"])
-    print(f"personnel actions: {len(actions)} by file number, {named} matched to the roster -> {OUT.relative_to(ROOT)}")
+    unions = out["unionAgreements"]
+    print(f"personnel actions: {len(actions)} by file number, {named} matched to the roster; {len(unions)} union agreements, {sum(1 for u in unions if u['clauses'])} with text -> {OUT.relative_to(ROOT)}")
     return out
 
 
