@@ -156,11 +156,54 @@ def named_people(text, jobs):
     return found
 
 
+EXCERPTS = MEETINGS / "union-agreement-excerpts.json"
+
+
+def attachment_summary(ocr, length=300):
+    """The attached agreement's own heading, if it has one, and its first clause
+    that says what it does, from the OCR of its scanned pages."""
+    flat = re.sub(r"\s+", " ", ocr)
+    heading = re.match(r"(?:[\d/]+\s+)?((?:AGREEMENT|STIPULATION|MEMORANDUM)[A-Z0-9 ()&,'’-]{10,}?)(?=\s+[A-Z][a-z])", flat)
+    parts = re.split(r"(?=\bWHEREAS\b|\b\d\.\s+[A-Z])", flat)
+    clause = next(
+        (x.strip(" ;,") for x in parts
+         if re.match(r"(WHEREAS|\d\.)", x) and not re.search(r"parties to a collective bargaining|have negotiated|has considered", x)),
+        None,
+    )
+    if clause:
+        clause = re.sub(r";?\s*and$", "", clause).strip()
+    if clause and len(clause) > length:
+        clause = clause[:length].rsplit(" ", 1)[0] + " …"
+    return " — ".join(filter(None, [heading.group(1).strip() if heading else None, clause])) or None
+
+
+def attachment_of(date, number):
+    if not EXCERPTS.exists():
+        return None
+    a = (json.loads(EXCERPTS.read_text()).get(date) or {}).get("attachments", {}).get(number)
+    if not a or not a.get("ocr"):
+        return None
+    return {"pages": a["pages"], "summary": attachment_summary(a["ocr"])}
+
+
+def packet_url(date):
+    packet = json.loads(EXCERPTS.read_text()).get(date) or {}
+    return packet.get("url")
+
+
 def union_agreements(roster, jobs):
     texts = {}
     for path in sorted(MEETINGS.glob("*-minutes.txt")) + sorted(MEETINGS.glob("*-vote-packet.txt")):
         for r in resolutions(path.read_text(errors="replace")):
             texts.setdefault(r["number"], (r, path))
+    # Where the minutes give only titles, the meeting's agenda packet has the
+    # resolution. union-agreement-excerpts.json keeps those resolutions as
+    # printed, with each packet's CivicClerk file id and checksum.
+    if EXCERPTS.exists():
+        for date, packet in json.loads(EXCERPTS.read_text()).items():
+            for number, text in packet["resolutions"].items():
+                for r in resolutions(text):
+                    texts.setdefault(r["number"], (r, EXCERPTS))
     out = []
     for path in sorted((ROOT / "web/public/data/meetings").glob("20[0-9][0-9]-[0-9][0-9]-[0-9][0-9].json")):
         meeting = json.loads(path.read_text())
@@ -185,6 +228,9 @@ def union_agreements(roster, jobs):
                 "named": named_people(" ".join(clauses(body, limit=50, length=10_000)), jobs) if body else [],
                 "fileNumbers": [{"fileNumber": n, "people": roster.get(n, [])} for n in numbers],
                 "source": held[1].relative_to(ROOT).as_posix() if held else None,
+                "sourceUrl": packet_url(path.stem) if held and held[1] == EXCERPTS else None,
+                # The agreement itself, where it is a scan attached to the resolution.
+                "attachment": attachment_of(path.stem, number),
             })
     return sorted(out, key=lambda a: (a["meeting"], a["resolution"]), reverse=True)
 

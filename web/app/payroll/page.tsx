@@ -229,6 +229,7 @@ function UnionAgreements() {
   if (!agreements.length) return null
   const cell = { padding: '8px 10px', verticalAlign: 'top' } as const
   const withText = agreements.filter((a) => a.clauses.length).length
+  const attached = agreements.filter((a) => a.attachment?.summary).length
   const byUnion = ['CSEA', 'Police Benevolent Association', 'Superior Officers Association'].map((u) => [u, agreements.filter((a) => a.union?.includes(u)).length] as const)
   return (
     <details id="union-agreements" data-union-agreements style={{ background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 0, margin: '0 0 18px', overflow: 'hidden' }}>
@@ -243,8 +244,11 @@ function UnionAgreements() {
           One covers both police unions.
         </p>
         <p>
-          The clauses are the resolution’s own words, shortened where marked …; this site has the text of {withText} of the{' '}
-          {agreements.length}. For the rest, the title is all the minutes give; the Town’s agenda packet for that meeting has the full resolution.
+          The clauses are the resolution’s own words, shortened where marked …, from the minutes or, where the minutes give only a
+          title, from the meeting’s agenda packet; this site has the text of {withText} of the {agreements.length}. Several resolutions
+          only approve “the attached” agreement, which the packet includes as a scanned image. For {attached} of them this site has read the
+          scan by machine (OCR) and quotes its first clause that says what it does. OCR can misread letters and figures, so check the packet
+          before relying on a detail.
         </p>
         <div style={{ overflowX: 'auto' }}>
           <table className="rbl-stack" style={{ width: '100%', borderCollapse: 'collapse', fontSize: 13.5 }}>
@@ -266,6 +270,13 @@ function UnionAgreements() {
                     <span>
                       <strong>{a.title}</strong>
                       {a.clauses.map((c) => <span key={c} style={{ display: 'block', marginTop: 4 }}>“{c}”</span>)}
+                      {a.attachment?.summary && (
+                        <span style={{ display: 'block', marginTop: 4 }}>
+                          The attached agreement, read by machine from a scan (packet {a.attachment.pages.length > 1 ? `pp. ${a.attachment.pages[0]}–${a.attachment.pages[a.attachment.pages.length - 1]}` : `p. ${a.attachment.pages[0]}`}):{' '}
+                          “{a.attachment.summary}”
+                        </span>
+                      )}
+                      {a.sourceUrl && <span style={{ display: 'block', marginTop: 4 }}><a href={a.sourceUrl} style={{ color: 'var(--rbl-link)' }}>Agenda packet (PDF)</a></span>}
                       {a.named.length > 0 && <span style={{ display: 'block', marginTop: 4, color: 'var(--rbl-text-muted)' }}>Named in it: {a.named.join('; ')}</span>}
                     </span>
                   </td>
