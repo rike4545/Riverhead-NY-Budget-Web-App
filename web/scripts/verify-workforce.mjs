@@ -32,9 +32,10 @@ const data = JSON.parse(readFileSync(path('public/data/payroll/titles-by-year.js
 const records = JSON.parse(readFileSync(path('public/data/payroll/records.json'), 'utf8')).records
 
 // ── Only the years the Town reports ───────────────────────────────────────────
-// A record's "i" lists the fields carried in from another year: t for title,
-// d for department.
-const reportedYears = (field, code) => Array.from(new Set(records.filter((r) => r[field] && !(r.i ?? '').includes(code)).map((r) => r.y))).sort((a, b) => a - b)
+// A record's "i" lists the fields not in that year's export: t or T for title,
+// d or D for department (lower case carried from another year, upper case from
+// the year's salary resolution).
+const reportedYears = (field, code) => Array.from(new Set(records.filter((r) => r[field] && !(r.i ?? '').toLowerCase().includes(code)).map((r) => r.y))).sort((a, b) => a - b)
 const same = (a, b) => a.length === b.length && a.every((v, i) => v === b[i])
 const titleYears = reportedYears('t', 't')
 const departmentYears = reportedYears('d', 'd')

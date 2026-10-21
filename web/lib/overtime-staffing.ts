@@ -48,7 +48,8 @@ type Raw = { y: number; n: string; d: string; t: string; c: string; u: string; r
 // assigns dollars to a specific rank in a specific year. Using a carried title
 // here would let a since-promoted officer's current rank absorb overtime they
 // earned at a lower one. Rank figures use reported titles only.
-const titleIsReported = (r: Raw) => (r.i ?? '').indexOf('t') < 0
+// Either case: t is carried from another year, T taken from that year's salary schedule.
+const titleIsReported = (r: Raw) => (r.i ?? '').toLowerCase().indexOf('t') < 0
 
 // A DERIVED UNION is treated differently, and deliberately so. Titles are
 // carried across years, which is where the promotion risk lives. A union code

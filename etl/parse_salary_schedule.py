@@ -28,7 +28,30 @@ ROOT = Path(__file__).resolve().parent.parent
 OUT = ROOT / "web/public/data/salary"
 
 # year -> (minutes file, {resolution suffix: schedule group})
+# A file name with a folder in it is under etl/data; a bare name is under
+# etl/data/meetings. The 2018-2021 texts sit in etl/data/salary, not with the
+# meeting records, so the meeting pipeline does not read them as meetings. Their
+# CivicClerk sources are in SOURCES below.
 YEARS = {
+    2018: ("salary/packet-2018-01-03.txt", {
+        "1": "Elected Officials", "2": "Boards", "3": "General Fund", "4": "Highway",
+        "5": "Police", "6": "Sewer / Scavenger Waste", "7": "Street Lighting",
+        "8": "Water District",
+    }),
+    2019: ("salary/minutes-2019-01-03.txt", {
+        "9": "General Fund", "10": "Highway", "11": "Elected Officials", "12": "Water District",
+        "13": "Sewer / Scavenger Waste", "14": "Street Lighting", "15": "Boards", "16": "Police",
+    }),
+    2020: ("salary/minutes-2020-01-07.txt", {
+        "6": "Elected Officials", "7": "General Fund", "8": "Highway", "9": "Police",
+        "10": "Sewer / Scavenger Waste", "11": "Street Lighting", "12": "Water District",
+        "13": "Boards",
+    }),
+    2021: ("salary/minutes-2021-01-05.txt", {
+        "5": "Elected Officials", "6": "General Fund", "7": "Highway", "8": "Police",
+        "9": "Sewer / Scavenger Waste", "10": "Street Lighting", "11": "Water District",
+        "12": "Boards",
+    }),
     2022: ("2022-01-04-minutes.txt", {
         "1": "Elected Officials", "2": "General Fund", "3": "Highway", "4": "Police",
         "5": "Sewer / Scavenger Waste", "6": "Street Lighting", "7": "Boards",
@@ -52,7 +75,23 @@ YEARS = {
     }),
 }
 
+# The 2018 schedules are typed into each resolution ("Resolution # 7 / SETS
+# SALARIES OF STREET LIGHTING DISTRICT"), not attached, so the group comes from
+# the resolution heading above the rows rather than an attachment label below.
+HEADED_YEARS = {2018}
+
+# Where the texts kept in etl/data/salary came from: CivicClerk file, and the
+# PDF's SHA-256, so each can be fetched again and checked.
+SOURCES = {
+    2018: ("2018-01-03 Town Board - Packet", 2586, "7dd823f619d4a7b04d81fca360e5636f28c85297beac4c5ef34775451bcdbda3"),
+    2019: ("2019-01-03 Town Board - Full Minutes", 2591, "ed0f850c72109f13841e7489eb9b82a65fd88ea0cefe89e229400a68e3be315d"),
+    2020: ("2020-01-07 Town Board - Full Minutes", 2718, "992cbe0c97dd4d5dfd59eb1eab0f5b752b9ee561544516a93ccce9cfd8abf9cb"),
+    2021: ("2021-01-05 Town Board - Full Minutes", 2670, "12b6c6e1f42d8218b196fdece346698616aab01bf396e7e0e8e944835c34cb1b"),
+}
+CIVICCLERK_FILE = "https://riverheadny.api.civicclerk.com/v1/Meetings/GetMeetingFileStream(fileId={},plainText=false)"
+
 SOURCE_DATES = {
+    2018: "Jan 3, 2018", 2019: "Jan 3, 2019", 2020: "Jan 7, 2020", 2021: "Jan 5, 2021",
     2022: "Jan 4, 2022", 2023: "Jan 4, 2023", 2024: "Jan 3, 2024", 2025: "Jan 7, 2025",
 }
 
@@ -167,11 +206,24 @@ def parse_row(line):
         title = normalize_title(clean(pre[g.end():]))
         grade = g.group(1)
     else:
-        cm = COMMA_NAME.match(pre) or COMMA_NAME_TIGHT.match(pre)
+        cm = COMMA_NAME.match(pre)
+        # The 2018 schedules pad only before the "$", so the column pattern
+        # takes "Adlah, Taleb Police Officer" as the name and leaves no title.
+        # A row whose title comes out empty is tried again the tight way.
+        if not cm or not clean(cm.group(2)):
+            cm = COMMA_NAME_TIGHT.match(pre)
         if cm:
             name, title, grade = SUFFIX_AFTER_COMMA.sub(r"\1 \2, ", clean(cm.group(1))), normalize_title(clean(cm.group(2))), ""
         else:
             return None
+    # The Sewer/Scavenger and Street Lighting schedules print a fund split
+    # ("100/0/0", "50/50", "0/100") before the grade, and the grade pattern takes
+    # the split as the grade, leaving the real one on the front of the title
+    # ("14/4 Wastewater Tmt Plant Oper IIA"). A title that starts with a grade
+    # means what came before it was the split, so the grade is given back.
+    lead = re.match(r"^(\d{1,2}/[A-Z0-9]{1,3})\s+(\S.*)$", title)
+    if lead:
+        grade, title = lead.group(1), lead.group(2)
     if "," not in name or not title:
         return None
     # Without column padding to anchor on, the tight fallback can also match a
@@ -225,7 +277,7 @@ def enrich_with_actual(records, year):
 
 def build(year):
     src_name, group_names = YEARS[year]
-    src = ROOT / "etl/data/meetings" / src_name
+    src = ROOT / "etl/data" / src_name if "/" in src_name else ROOT / "etl/data/meetings" / src_name
     if not src.exists():
         print(f"  {year}: source missing ({src_name}) - skipped")
         return None
@@ -236,11 +288,19 @@ def build(year):
     # attachment label at or below it (labels sit at the bottom of each page).
     next_group = [None] * len(lines)
     cur = None
-    for i in range(len(lines) - 1, -1, -1):
-        m = LABEL.search(lines[i])
-        if m:
-            cur = m.group(1)
-        next_group[i] = cur
+    if year in HEADED_YEARS:
+        heading = re.compile(r"^\s*Resolution\s*#\s*(\d+)\s*$")
+        for i, line in enumerate(lines):
+            m = heading.match(line)
+            if m:
+                cur = m.group(1) if m.group(1) in group_names else None
+            next_group[i] = cur
+    else:
+        for i in range(len(lines) - 1, -1, -1):
+            m = LABEL.search(lines[i])
+            if m:
+                cur = m.group(1)
+            next_group[i] = cur
 
     records = []
     for i, raw in enumerate(lines):
@@ -258,6 +318,11 @@ def build(year):
         name, grade, title, annual, hourly = parsed
 
         gnum = next_group[i]
+        # A row outside the year's salary resolutions is another resolution's
+        # fee or rate ("Seeman, Certified Environmental Professional, at a fee"
+        # in 2019-32). The 2022-2025 files predate this rule and are unchanged by it.
+        if year in SOURCES and gnum not in group_names:
+            continue
         records.append({
             "name": name,
             "grade": grade,
@@ -312,8 +377,11 @@ def build(year):
     present = sorted({r["group"] for r in uniq})
     absent = sorted(set(group_names.values()) - set(present))
     payload = {
-        "source": {"title": f"{year} Salary Resolutions (Town Board minutes, {SOURCE_DATES[year]})",
-                   "url": "https://www.townofriverheadny.gov/AgendaCenter"},
+        "source": ({"title": f"{year} Salary Resolutions ({SOURCES[year][0]}, CivicClerk)",
+                    "url": CIVICCLERK_FILE.format(SOURCES[year][1]), "sha256": SOURCES[year][2]}
+                   if year in SOURCES else
+                   {"title": f"{year} Salary Resolutions (Town Board minutes, {SOURCE_DATES[year]})",
+                    "url": "https://www.townofriverheadny.gov/AgendaCenter"}),
         "year": year,
         "note": f"Board-authorized annual salaries set by resolutions {year}-{res_lo} through "
                 f"{year}-{res_hi}. Schedules carried here: {', '.join(present)}."

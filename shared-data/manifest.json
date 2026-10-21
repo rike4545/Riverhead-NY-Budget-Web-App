@@ -46,7 +46,7 @@
       "id": "payroll/records",
       "web": "payroll/records.json",
       "ios": "payroll-records.json",
-      "sha256": "01a97e37864cdc2ca33658946dcd406b0d03fd3f2a10022448107a4f4c81373a",
+      "sha256": "7c862e7c2633566345effc08c9bfbb3de0892a46afd08f54db739746c3cf3bfa",
       "android": "payroll/records.json"
     },
     {

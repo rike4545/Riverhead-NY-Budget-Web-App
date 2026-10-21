@@ -475,6 +475,61 @@ def union_from_pay_class(rows):
     return filled
 
 
+# The 2018-2021 exports have no titles or departments at all, and the carry-back
+# above can only reach people who stayed into 2022 with one unchanging value. The
+# Board's January salary resolution for each of those years names every
+# scheduled employee with a title and a pay group (parse_salary_schedule.py ->
+# web/public/data/salary/authorized-<year>.json). That is the Town's own record
+# for the same year, so it beats a value carried back from a later one: it fills
+# a blank title and replaces a carried one, which can be a later promotion
+# written into an earlier year. The schedule's group fills a blank department
+# only where the group is itself a department.
+#
+# Flags are upper-case, T and D, so the site can say where the value came from
+# and every analysis that counts only the export's own fields can still drop it.
+SCHEDULE_YEARS = (2018, 2019, 2020, 2021)
+GROUP_DEPARTMENTS = {
+    "Police": "Police", "Highway": "Highway", "Water District": "Water District",
+    "Sewer / Scavenger Waste": "Sewer / Scavenger Waste", "Street Lighting": "Street Lighting",
+}
+
+
+def fields_from_salary_resolutions(rows):
+    from parse_salary_schedule import match_key
+    filled = Counter()
+    for year in SCHEDULE_YEARS:
+        path = ROOT / f"web/public/data/salary/authorized-{year}.json"
+        if not path.exists():
+            continue
+        schedule = {}
+        for s in json.loads(path.read_text())["records"]:
+            if s["isStipend"] or "stipend" in s["title"].lower():
+                continue
+            schedule.setdefault(match_key(s["name"]), []).append(s)
+        year_rows = [r for r in rows if r["year"] == year]
+        keys = Counter(match_key(r["name"]) for r in year_rows)
+        for r in year_rows:
+            k = match_key(r["name"])
+            # A name two people share, in the payroll or in the schedule, is
+            # left alone rather than guessed.
+            if keys[k] > 1 or k not in schedule or len({s["name"] for s in schedule[k]}) > 1:
+                continue
+            best = max(schedule[k], key=lambda s: s["annual"])
+            inferred = r.get("_inferred", "")
+            if not (r.get("title") or "").strip() or "t" in inferred:
+                filled["replaced" if "t" in inferred else "title"] += 1
+                r["title"] = best["title"]
+                r["_inferred"] = inferred.replace("t", "") + "T"
+            dept = GROUP_DEPARTMENTS.get(best["group"])
+            if dept and not (r.get("department") or "").strip():
+                r["department"] = dept
+                r["_inferred"] = r.get("_inferred", "") + "D"
+                filled["department"] += 1
+    print(f"From the 2018-2021 salary resolutions: {filled['title']} blank titles filled, "
+          f"{filled['replaced']} carried titles replaced, {filled['department']} departments filled")
+    return filled
+
+
 def build():
     all_rows = []
     per_year = {}
@@ -501,6 +556,7 @@ def build():
     # values that carry-forward can then propagate to the person's other years.
     union_from_pay_class(all_rows)
     inferred_counts = carry_forward_static_fields(all_rows, file_numbers)
+    fields_from_salary_resolutions(all_rows)
 
     def rec(r):
         d = {
@@ -525,8 +581,8 @@ def build():
     OUT.mkdir(parents=True, exist_ok=True)
     (OUT / "records.json").write_text(json.dumps({
         "source": {"title": "Town of Riverhead Gross Earnings reports", "url": "https://www.townofriverheadny.gov/206/Financial-Reports"},
-        "note": "Actual paid earnings (including overtime) by employee and year. The Town's export only carries department, title, and pay class from 2022 onward; earlier years are blank unless the same person held one unchanging value across every year on record, in which case it is carried back and flagged in \"i\".",
-        "fields": {"y": "year", "n": "name", "f": "payroll file number", "d": "department", "t": "title", "c": "pay class", "u": "union", "r": "regular earnings", "o": "overtime", "g": "gross pay", "k": "[longevity, holiday/differential, stipends, buy-outs, retro] breakdown of other pay", "i": "fields carried back from the same person's other years rather than reported for this year (d=department, t=title, c=pay class, u=union)"},
+        "note": "Actual paid earnings (including overtime) by employee and year. The Town's export only carries department, title, and pay class from 2022 onward; for 2018-2021 a title comes from the Board's January salary resolution for that year where the person is on it, otherwise from the same person's one unchanging value in later years; both are flagged in \"i\".",
+        "fields": {"y": "year", "n": "name", "f": "payroll file number", "d": "department", "t": "title", "c": "pay class", "u": "union", "r": "regular earnings", "o": "overtime", "g": "gross pay", "k": "[longevity, holiday/differential, stipends, buy-outs, retro] breakdown of other pay", "i": "fields not in this year's export: lower case carried back from the same person's other years (d=department, t=title, c=pay class, u=union); upper case taken from the Board's January salary resolution for the year (T=title, D=department, from the schedule's pay group)"},
         "unionLabels": UNION_LABELS,
         "count": len(records),
         "records": records,
@@ -604,12 +660,15 @@ def build():
     # only the people still employed in 2022, and a change since 2018 built on it.
     title_years = sorted({
         r["year"] for r in all_rows
-        if (r["title"] or "").strip() and "t" not in (r.get("_inferred") or "")
+        if (r["title"] or "").strip() and "t" not in (r.get("_inferred") or "").lower()
     })
     by_title = {}
     for r in all_rows:
         t = (r["title"] or "").strip()
-        if not t:
+        # Only the years the export reports titles for. A title from a 2018-2021
+        # salary resolution is the schedule's wording, not the export's, and
+        # would add a row of zeros for every title it spells differently.
+        if not t or r["year"] not in title_years:
             continue
         by_title.setdefault(t, {}).setdefault(r["year"], set()).add(r["name"])
     titles_out = []
@@ -670,7 +729,7 @@ def build():
     def _reported_years(field, code):
         return sorted({
             r["year"] for r in all_rows
-            if (r[field] or "").strip() and code not in (r.get("_inferred") or "")
+            if (r[field] or "").strip() and code not in (r.get("_inferred") or "").lower()
         })
 
     def _churn_series(field, code):
@@ -742,7 +801,7 @@ def build():
     # up to the workforce.
     dept_years = sorted({
         r["year"] for r in all_rows
-        if (r["department"] or "").strip() and "d" not in (r.get("_inferred") or "")
+        if (r["department"] or "").strip() and "d" not in (r.get("_inferred") or "").lower()
     })
     dept_people, dept_title_people, dept_casual = {}, {}, {}
     for r in all_rows:
