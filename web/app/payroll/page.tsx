@@ -17,6 +17,8 @@ import payrollRecords from '../../public/data/payroll/records.json'
 import { CSEA_2027, ELECTED_2027, raises2027, type Authorized, type PayrollRow } from '../../lib/raises-2027'
 import { triborough, units as laborUnits } from '../../lib/labor-contracts-2027'
 import { AMENDMENTS, VOTES as AMENDMENT_VOTES } from '../../lib/budget-amendments-2027'
+import lineHistory from '../../public/data/budget-supplement/line-history.json'
+import { UNIFORM_OT, policeOvertimeBudget, type HistoryLine } from '../../lib/police-overtime-budget'
 import { BENEFIT_LOAD_BASIS, explainer as benefitExplainer, source as benefitSource } from '../../lib/benefit-load'
 
 export const metadata = {
@@ -46,6 +48,7 @@ export default function PayrollPage() {
       <UnionAgreements />
       <PayrollTabs
         overtime={{
+          budgetLine: policeOvertimeBudget((lineHistory.accounts as HistoryLine[]).find((l) => l.account === UNIFORM_OT.account)!),
           trends: rankTrends,
           flagged: flaggedRanks,
           comparisons: costComparisons,

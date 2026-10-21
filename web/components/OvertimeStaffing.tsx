@@ -50,7 +50,10 @@ export type IndividualCheckProp = {
   highestRatioTitle: string
 }
 
+import { UNIFORM_OT, type PoliceOvertimeBudget } from '../lib/police-overtime-budget'
+
 export type OvertimeStaffingProps = {
+  budgetLine: PoliceOvertimeBudget
   trends: RankTrendProp[]
   flagged: RankTrendProp[]
   comparisons: CostComparisonProp[]
@@ -86,6 +89,8 @@ export default function OvertimeStaffing(p: OvertimeStaffingProps) {
           instead of by headcount, and it is worth costing out whether a hire would be cheaper.
         </p>
       </section>
+
+      <PoliceOvertimeBudgetPanel b={p.budgetLine} />
 
       {/* The individual test that finds nothing — stated first, on purpose */}
       <section style={{ ...card, borderColor: 'var(--rbl-success-border)', background: 'var(--rbl-success-bg)' }}>
@@ -296,5 +301,69 @@ function Stat({ label, value, accent }: { label: string; value: string; accent?:
       <div style={{ color: 'var(--rbl-text-muted)', fontSize: 13, fontWeight: 700, lineHeight: 1.35 }}>{label}</div>
       <div style={{ color: accent ? 'var(--rbl-warn)' : 'var(--rbl-title)', fontSize: 21, fontWeight: 950, marginTop: 3 }}>{value}</div>
     </div>
+  )
+}
+
+// 2026 so far and the 2027 Tentative, from the Budget Supplements, beside each
+// year's budget and what was spent (lib/police-overtime-budget.ts).
+function PoliceOvertimeBudgetPanel({ b }: { b: PoliceOvertimeBudget }) {
+  const cell = { padding: '7px 10px' } as const
+  return (
+    <section data-police-ot-budget style={card}>
+      <h3 style={{ margin: '0 0 6px', color: 'var(--rbl-title)', fontSize: 17 }}>Police overtime in {b.thisYear} and the {b.thisYear + 1} budget</h3>
+      <p style={{ color: 'var(--rbl-text-body)', fontSize: 14.5, lineHeight: 1.6, margin: '0 0 10px' }}>
+        The payroll records below run through {b.lastActualYear}. For {b.thisYear} and {b.thisYear + 1}, the Budget Supplement’s uniformed police
+        overtime line is the record. The Town budgeted {usd(b.adoptedThisYear)} for {b.thisYear} and had spent {usd(b.ytdNow)} by{' '}
+        {UNIFORM_OT.ytdThrough}, {pct(Math.abs(b.ytdChange))} {b.ytdChange < 0 ? 'less' : 'more'} than the {usd(b.ytdThen)} spent by the same date in{' '}
+        {b.lastActualYear}. If the second half of {b.thisYear} runs as {b.lastActualYear}’s did, the year would end near {usd(Math.round(b.paceEstimate / 10_000) * 10_000)}, this
+        site’s estimate.
+      </p>
+      <p style={{ color: 'var(--rbl-text-body)', fontSize: 14.5, lineHeight: 1.6, margin: '0 0 10px' }}>
+        The {b.thisYear + 1} Tentative budgets <strong>{usd(b.tentative ?? 0)}</strong>
+        {b.request === b.tentative ? ', the amount the department requested' : ''}. Spending was above its budget in{' '}
+        <strong>{b.yearsOver} of the last {b.rows.length} years</strong>, and above {usd(b.tentative ?? 0)} in{' '}
+        {b.actualsAboveTentative.length} of the last {b.recentYears.length} ({b.actualsAboveTentative.join(', ')}). That is a likely concern
+        for residents to raise: a budget set below what overtime usually costs has to be made up from other lines or from savings.
+      </p>
+      <div style={{ overflowX: 'auto' }}>
+        <table className="rbl-stack" style={{ width: '100%', borderCollapse: 'collapse', fontSize: 13.5 }}>
+          <thead>
+            <tr style={{ textAlign: 'left', color: 'var(--rbl-text-muted)', borderBottom: '2px solid var(--rbl-border-subtle)' }}>
+              <th style={cell}>Year</th>
+              <th style={{ ...cell, textAlign: 'right' }}>Budgeted</th>
+              <th style={{ ...cell, textAlign: 'right' }}>Spent</th>
+              <th style={{ ...cell, textAlign: 'right' }}>Over budget</th>
+            </tr>
+          </thead>
+          <tbody>
+            {b.rows.map((r) => (
+              <tr key={r.year} style={{ borderBottom: '1px solid var(--rbl-border-subtle)' }}>
+                <td style={{ ...cell, fontWeight: 700, color: 'var(--rbl-title)' }}><span>{r.year}</span></td>
+                <td data-label="Budgeted" style={{ ...cell, textAlign: 'right' }}><span>{usd(r.adopted)}</span></td>
+                <td data-label="Spent" style={{ ...cell, textAlign: 'right' }}><span>{usd(r.actual)}</span></td>
+                <td data-label="Over budget" style={{ ...cell, textAlign: 'right' }}><span>{r.over > 0 ? usd(r.over) : `${usd(-r.over)} under`}</span></td>
+              </tr>
+            ))}
+            <tr style={{ borderBottom: '1px solid var(--rbl-border-subtle)' }}>
+              <td style={{ ...cell, fontWeight: 700, color: 'var(--rbl-title)' }}><span>{b.thisYear}</span></td>
+              <td data-label="Budgeted" style={{ ...cell, textAlign: 'right' }}><span>{usd(b.adoptedThisYear)}</span></td>
+              <td data-label="Spent" style={{ ...cell, textAlign: 'right' }}><span>{usd(b.ytdNow)} by {UNIFORM_OT.ytdThrough}</span></td>
+              <td data-label="Over budget" style={{ ...cell, textAlign: 'right' }}><span>about {usd(Math.round((b.paceEstimate - b.adoptedThisYear) / 10_000) * 10_000)} at {b.lastActualYear}’s pace, an estimate</span></td>
+            </tr>
+            <tr>
+              <td style={{ ...cell, fontWeight: 700, color: 'var(--rbl-title)' }}><span>{b.thisYear + 1}</span></td>
+              <td data-label="Budgeted" style={{ ...cell, textAlign: 'right' }}><span>{usd(b.tentative ?? 0)}, Tentative</span></td>
+              <td data-label="Spent" style={{ ...cell, textAlign: 'right' }}><span>—</span></td>
+              <td data-label="Over budget" style={{ ...cell, textAlign: 'right' }}><span>—</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p style={{ color: 'var(--rbl-text-muted)', fontSize: 12.5, lineHeight: 1.5, margin: '10px 0 0' }}>
+        Account {UNIFORM_OT.account}, “{UNIFORM_OT.name}”, Budget Supplements {b.rows[0].year + 1}–{b.thisYear + 1} (the {b.thisYear + 1} edition, p. {b.page}):{' '}
+        <a href={UNIFORM_OT.source.url} style={{ color: 'var(--rbl-link)' }}>{UNIFORM_OT.source.title}</a>. The line covers uniformed officers’ overtime.
+        The payroll records’ sworn overtime runs within a few percent of it; they count each officer by union, the budget by account.
+      </p>
+    </section>
   )
 }
