@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-20T02:06:03Z",
+  "generatedAt": "2026-10-21T17:39:28Z",
   "meetings": {
     "2025-01-07": {
       "eventId": 1314,
@@ -1606,17 +1606,17 @@
       "eventId": 6456,
       "eventName": "Town Board Meeting",
       "minutesPending": true,
-      "sourceVersionAt": "2026-10-20T02:06:03Z",
+      "sourceVersionAt": "2026-10-21T17:39:28Z",
       "startDateTime": "2026-10-20T18:00:00Z",
       "votePacket": {
-        "bytes": 37718841,
-        "changedAt": "2026-10-20T02:06:03Z",
+        "bytes": 37761711,
+        "changedAt": "2026-10-21T17:39:28Z",
         "current": true,
-        "fileId": 12491,
+        "fileId": 12495,
         "hasVoteBlocks": true,
         "name": "Agenda Packet",
         "pages": 746,
-        "portalUrl": "https://riverheadny.portal.civicclerk.com/event/6456/files/agenda/12491",
+        "portalUrl": "https://riverheadny.portal.civicclerk.com/event/6456/files/agenda/12495",
         "resolutionNumbers": [
           "2023-417",
           "2023-629",
@@ -1669,10 +1669,16 @@
           "2026-967",
           "2026-968"
         ],
-        "revisionCount": 0,
-        "revisions": [],
-        "sha256": "9ddfc83aedf9dc0da935b6d0622a6afbba96244c34796d338c7c2df85999c08c",
-        "sourceUrl": "https://riverheadny.api.civicclerk.com/v1/Meetings/GetMeetingFileStream(fileId=12491,plainText=false)",
+        "revisionCount": 1,
+        "revisions": [
+          {
+            "archivedTextPath": "etl/data/meetings/revisions/2026-10-20/vote-packet-9ddfc83aedf9dc0d.txt",
+            "sha256": "9ddfc83aedf9dc0da935b6d0622a6afbba96244c34796d338c7c2df85999c08c",
+            "supersededAt": "2026-10-21T17:39:28Z"
+          }
+        ],
+        "sha256": "0908794df24989e2d3ed8914c71504d5aa9b64a4826c9fa7e79c993d33fdf375",
+        "sourceUrl": "https://riverheadny.api.civicclerk.com/v1/Meetings/GetMeetingFileStream(fileId=12495,plainText=false)",
         "textPath": "etl/data/meetings/2026-10-20-vote-packet.txt",
         "type": "Agenda Packet",
         "voteBlockCount": 41
