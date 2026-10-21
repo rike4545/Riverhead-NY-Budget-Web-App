@@ -11,6 +11,7 @@ import {
   whyItMattersNow, caveats as separationCaveats, whatWouldSettleIt,
 } from '../../lib/separation-pay'
 import { fileNumbers } from '../../lib/file-numbers'
+import personnelActions from '../../public/data/meetings/personnel-actions.json'
 import { BENEFIT_LOAD_BASIS, explainer as benefitExplainer, source as benefitSource } from '../../lib/benefit-load'
 
 export const metadata = {
@@ -35,6 +36,7 @@ export default function PayrollPage() {
         <strong>Start with the public record.</strong> This page lets you search what Riverhead employees were actually paid, then move into salary, overtime, separation-pay, and police-step analysis. The analytical views are built on the underlying payroll data rather than replacing it.
       </PlainCallout>
       <FileNumbers />
+      <PersonnelActions />
       <PayrollTabs
         overtime={{
           trends: rankTrends,
@@ -125,6 +127,85 @@ function FileNumbers() {
           carry no file number, so this site links each number to a person by name, and the hire years are years, not dates. One
           former employee’s hire year reads 1900 in the exports, an apparent placeholder left out of the ranges above.
         </p>
+      </div>
+    </details>
+  )
+}
+
+type PersonnelAction = (typeof personnelActions.actions)[number]
+
+const KIND_LABEL: Record<string, string> = {
+  discipline: 'Disciplinary charges',
+  suspension: 'Suspension',
+  termination: 'Termination',
+  grievance: 'Grievance',
+  separation: 'Separation agreement',
+  stipulation: 'Stipulation',
+}
+const MONTH_NAMES = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+const longDate = (iso: string) => {
+  const [y, m, d] = iso.split('-').map(Number)
+  return `${MONTH_NAMES[m - 1]} ${d}, ${y}`
+}
+
+// Personnel resolutions that name the employee only by file number, with the
+// person the Town's roster gives that number to (etl/build_personnel_actions.py).
+function PersonnelActions() {
+  const actions = personnelActions.actions as PersonnelAction[]
+  if (!actions.length) return null
+  const cell = { padding: '8px 10px', verticalAlign: 'top' } as const
+  const named = actions.filter((a) => a.people.length).length
+  return (
+    <details id="personnel-actions" data-personnel-actions style={{ background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 0, margin: '0 0 18px', overflow: 'hidden' }}>
+      <summary style={{ cursor: 'pointer', padding: '15px 18px', fontWeight: 800, color: 'var(--rbl-title)', fontSize: 15.5 }}>
+        Personnel actions the Board took by file number ({actions.length})
+      </summary>
+      <div style={{ padding: '0 18px 18px', color: 'var(--rbl-text-body)', fontSize: 14, lineHeight: 1.6 }}>
+        <p style={{ marginTop: 0 }}>
+          These Town Board resolutions take a disciplinary, termination, separation or similar action and name the employee only by payroll
+          file number. The name beside each is the one the Town’s payroll roster gives that number; {named} of the {actions.length} numbers are
+          on it. The title and department are that person’s latest in the payroll exports.
+        </p>
+        <p>
+          A resolution is an action, not a finding. Disciplinary charges are allegations until they are decided, and a stipulation or
+          separation agreement does not say what it settles. The match is by number on a roster that runs through file number{' '}
+          {personnelActions.rosterHighest}, so a higher number has no name here. No resolution in this site’s records names an employee by
+          number in a grievance.
+        </p>
+        <div style={{ overflowX: 'auto' }}>
+          <table className="rbl-stack" style={{ width: '100%', borderCollapse: 'collapse', fontSize: 13.5 }}>
+            <thead>
+              <tr style={{ textAlign: 'left', color: 'var(--rbl-text-muted)', borderBottom: '2px solid var(--rbl-border-subtle)' }}>
+                <th style={cell}>Resolution</th>
+                <th style={cell}>Action</th>
+                <th style={cell}>File number</th>
+                <th style={cell}>On the roster as</th>
+                <th style={cell}>What the resolution says</th>
+              </tr>
+            </thead>
+            <tbody>
+              {actions.map((a) => (
+                <tr key={`${a.resolution}-${a.fileNumber}`} style={{ borderBottom: '1px solid var(--rbl-border-subtle)' }}>
+                  <td style={{ ...cell, fontWeight: 700, color: 'var(--rbl-title)', whiteSpace: 'nowrap' }}>
+                    <span>{a.resolution}<br /><span style={{ fontWeight: 400, color: 'var(--rbl-text-muted)' }}>{longDate(a.meeting)}</span></span>
+                  </td>
+                  <td data-label="Action" style={cell}><span>{KIND_LABEL[a.kind] ?? a.kind}{a.result ? `, ${a.result.replace(/\s*\[.*\]/, '').toLowerCase()}` : ''}</span></td>
+                  <td data-label="File number" style={{ ...cell, whiteSpace: 'nowrap' }}><span>GFZ{a.fileNumber}</span></td>
+                  <td data-label="On the roster as" style={cell}>
+                    <span>
+                      {a.people.length
+                        ? a.people.map((p, i) => (
+                            <span key={p.name}>{i > 0 && ' or '}<strong>{p.name}</strong>{p.title ? `, ${p.title}` : ''}{p.department ? ` (${p.department}, ${p.year})` : ''}</span>
+                          ))
+                        : `Not on the roster (above ${personnelActions.rosterHighest})`}
+                    </span>
+                  </td>
+                  <td data-label="What the resolution says" style={cell}><span>{a.quote ? `“${a.quote}”` : a.title}</span></td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
     </details>
   )

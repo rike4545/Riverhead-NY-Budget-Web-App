@@ -15,7 +15,9 @@ CivicClerk sources in a fixed order:
 6. reconcile_meeting_sources.py   reconcile against the official sources
 7. parse_fiscal_impact.py         rebuild the Fiscal Impact companions, which
                                   depend on the current resolution titles
-8. build_meeting_media.py         link each meeting to the Town's video and to
+8. build_personnel_actions.py     list personnel actions taken by payroll file
+                                  number, with the roster's name for each
+9. build_meeting_media.py         link each meeting to the Town's video and to
                                   its transcripts (skipped with --offline)
 
 Stopping after step 4 publishes every packet-sourced meeting as a bare agenda.
@@ -43,6 +45,7 @@ BUILD_STEPS = (
     "apply_vote_packet_fallback.py",
     "reconcile_meeting_sources.py",
     "parse_fiscal_impact.py",
+    "build_personnel_actions.py",
 )
 # Links, not records: the video and transcript links can be rebuilt on their own
 # (the transcription workflow does), so they sit outside BUILD_STEPS.

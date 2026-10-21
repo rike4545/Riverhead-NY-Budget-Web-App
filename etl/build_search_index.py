@@ -248,6 +248,13 @@ def build():
             if fn:
                 entry["k"] = file_words(fn, fn_code.get(sk, "GFZ"))
             entries["salary"].append(entry)
+    # A personnel resolution names the employee only by payroll file number.
+    # build_personnel_actions.py pairs each with the roster's name, so a
+    # resident who searches the name, or the number, finds the resolution.
+    personnel = defaultdict(str)
+    for a in (load("meetings/personnel-actions.json") or {}).get("actions", []):
+        words = [file_words(a["fileNumber"])] + [p["name"].replace(",", "") for p in a["people"]]
+        personnel[a["resolution"]] = " ".join(filter(None, [personnel[a["resolution"]], *words]))
     meetings_index = load("meetings/index.json")
     if meetings_index:
         for m in meetings_index["meetings"]:
@@ -256,6 +263,7 @@ def build():
                 continue
             names = {p["last"]: p["last"] for p in meeting.get("roster") or [] if p.get("last")}
             for r in meeting["resolutions"]:
+                keyed = personnel.get(r.get("number") or "")
                 number = r.get("number") or ""
                 # Who dissented is the part of a vote a resident searches for
                 # ("Kern voted no"), and on 25 resolutions it is the whole story.
@@ -265,13 +273,19 @@ def build():
                 dissent = "".join(
                     f" · {label}: {', '.join(people)}" for label, people in (("voted no", noes), ("abstained", abstained)) if people
                 )
-                entries["resolution"].append({"t":"resolution","n":clean(r["title"],120),"x":f"{number} · {r['result']} · {meeting['date']}{dissent}","u":f"{BASE}/meetings/?meeting={m['slug']}&q={number}"})
+                entry = {"t":"resolution","n":clean(r["title"],120),"x":f"{number} · {r['result']} · {meeting['date']}{dissent}","u":f"{BASE}/meetings/?meeting={m['slug']}&q={number}"}
+                if keyed:
+                    entry["k"] = keyed
+                entries["resolution"].append(entry)
             # A meeting whose votes are not parsed yet still has its agenda.
             # Leaving it out hid every decision from the latest meetings.
             if not meeting["resolutions"]:
                 for r in meeting.get("docket") or []:
                     number = r.get("number") or ""
-                    entries["resolution"].append({"t":"resolution","n":clean(r["title"],120),"x":f"{number} · outcome not yet on this site · {meeting['date']}","u":f"{BASE}/meetings/?meeting={m['slug']}&q={number}"})
+                    entry = {"t":"resolution","n":clean(r["title"],120),"x":f"{number} · outcome not yet on this site · {meeting['date']}","u":f"{BASE}/meetings/?meeting={m['slug']}&q={number}"}
+                    if personnel.get(number):
+                        entry["k"] = personnel[number]
+                    entries["resolution"].append(entry)
     if sub_index:
         for f in sub_index["funds"]:
             entries["fund"].append({"t":"fund","n":f"{f['code']} — {f['name']}","x":f"{f['departmentCount']} departments · {f['lineItemCount']} line items · 2026 appropriations","v":f["expenditureTotal2026"],"u":f"{BASE}/funds/{f['code']}/"})

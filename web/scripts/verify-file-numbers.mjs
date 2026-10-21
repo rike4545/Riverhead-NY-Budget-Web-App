@@ -112,4 +112,26 @@ else {
   }
 }
 
+// The personnel actions table: each name is the roster's for its number, and
+// the page shows every action with its caveat.
+const personnel = JSON.parse(readFileSync(path('public/data/meetings/personnel-actions.json'), 'utf8'))
+const rosterNames = new Map()
+for (const r of roster) rosterNames.set(r['File Number'], [...(rosterNames.get(r['File Number']) ?? []), r['Payroll Name']])
+for (const a of personnel.actions) {
+  const want = rosterNames.get(a.fileNumber) ?? []
+  if (a.people.map((p) => p.name).join('|') !== want.join('|')) fail(`${a.resolution}: GFZ${a.fileNumber} is shown as ${a.people.map((p) => p.name).join(' or ') || 'no one'}, the roster says ${want.join(' or ') || 'no one'}`)
+  if (!readFileSync(path('..', a.source), 'utf8').includes(a.fileNumber)) fail(`${a.resolution}: ${a.source} does not cite GFZ${a.fileNumber}`)
+}
+if (existsSync(path(built))) {
+  const html = readFileSync(path(built), 'utf8')
+  const i = html.indexOf('data-personnel-actions')
+  const text = i === -1 ? '' : html.slice(i, html.indexOf('</details>', i)).replace(/<!-- -->/g, '').replace(/<[^>]+>/g, ' ').replace(/&#x27;/g, "'").replace(/\s+/g, ' ')
+  if (personnel.actions.length && !text) fail('/payroll/ has no personnel actions table')
+  if (text && !text.includes('A resolution is an action, not a finding.')) fail('the personnel actions table lost its caveat')
+  for (const a of personnel.actions) {
+    if (text && !text.includes(a.resolution)) fail(`the personnel actions table does not show ${a.resolution}`)
+    for (const p of a.people) if (text && !text.includes(p.name)) fail(`the personnel actions table does not show ${p.name} for ${a.resolution}`)
+  }
+}
+
 if (!process.exitCode) console.log(`File-number verification passed: ${roster.length} roster numbers in ${fileNumbers.blocks.length} blocks, each matching its hire years.`)
