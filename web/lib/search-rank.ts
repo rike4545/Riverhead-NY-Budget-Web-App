@@ -79,8 +79,10 @@ const B_KW = 0.5
 // the context of pay and salary records; a site page's keywords are written
 // to be searched.
 const FIELD_W: Record<string, { name: number; ctx: number; kw: number }> = {
-  payroll: { name: 3, ctx: 2, kw: 0 },
-  salary: { name: 3, ctx: 2, kw: 0 },
+  // Their only keywords are the payroll file number, so these weights move
+  // nothing but a search for one.
+  payroll: { name: 3, ctx: 2, kw: 2 },
+  salary: { name: 3, ctx: 2, kw: 2 },
   site: { name: 3, ctx: 1.2, kw: 1.5 },
 }
 const DEFAULT_W = { name: 3, ctx: 1, kw: 0.6 }
@@ -420,7 +422,8 @@ function score<T extends RankEntry>(entries: T[], raw: string): Scoring<T> {
     shown.sort((a, b) => b[1] - a[1]).slice(0, HIGHLIGHT_PER_TERM).forEach(([tok]) => highlight.add(tok))
     const all = new Set<number>(Array.from(name.keys()).concat(Array.from(ctx.keys()), Array.from(kw.keys())))
     // A resolution number, account code or fund code typed exactly.
-    const exact = /\d/.test(term) ? new Set([...(idx.nameIdx.get(term) ?? []), ...(idx.ctxIdx.get(term) ?? [])]) : null
+    // A payroll file number is a keyword: shown on the payroll page, not in the result.
+    const exact = /\d/.test(term) ? new Set([...(idx.nameIdx.get(term) ?? []), ...(idx.ctxIdx.get(term) ?? []), ...(idx.kwIdx.get(term) ?? [])]) : null
     return { name, ctx, kw, idf: idfOf(all.size), exact }
   })
 
@@ -576,7 +579,33 @@ const SITE_MIN_COVERAGE = 0.6
 const SITE_MIN_SHARE = 0.3
 const SITE_LIMIT = 3
 
+// A resident often types an identifier the way the Town prints it: "Resolution
+// 642", "Res. #2026-642", "File 3513", "GFZ 000980", or pastes a Document
+// Center or CivicClerk link. The words around the number say what kind of
+// record it is, but as search terms they match thousands of records and buried
+// the one asked for, so the number is searched alone, where an exact match
+// ranks first.
+const DOC_LINK = /documentcenter\/view\/(\d+)|fileid=(\d+)/i
+const DOC_PREFIX = /^\s*(?:town\s+)?(?:file|doc(?:ument)?|view)\s*(?:no\.?|number|#)?\s*#?\s*(\d{2,6})\s*$/i
+// A payroll file number with its company code: "GFZ 000980", "#GFZ000980".
+const GFZ_PREFIX = /^\s*#?\s*(?:file\s*#?\s*)?gfz\s*[-#]?\s*(\d{1,6})\s*$/i
+const RES_PREFIX = /^\s*(?:tb\s+|town\s+board\s+)?(?:resolution|reso?\.?)\s*(?:no\.?|number|#)?\s*#?\s*((?:20\d\d\s*-\s*)?\d{1,4})\s*$/i
+
+/** The bare identifier a query names, or null when it is an ordinary search. */
+export function identifierQuery(raw: string): string | null {
+  const link = raw.match(DOC_LINK)
+  if (link) return link[1] ?? link[2]
+  const gfz = raw.match(GFZ_PREFIX)
+  if (gfz) return gfz[1]
+  const doc = raw.match(DOC_PREFIX)
+  if (doc) return doc[1]
+  const res = raw.match(RES_PREFIX)
+  if (res) return res[1].replace(/\s+/g, '')
+  return null
+}
+
 export function searchEntries<T extends RankEntry>(entries: T[], raw: string, pool = 60): SearchOutcome<T> {
+  raw = identifierQuery(raw) ?? raw
   const { scored, highlight, corrections } = score(entries, raw)
   const coverage = new Map(scored.map((r) => [r.e, r.coverage] as [T, number]))
   // A site page is offered only when it answers most of the query and stands

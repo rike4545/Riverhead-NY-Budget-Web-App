@@ -30,6 +30,8 @@ const SORT_PRESETS: { label: string; sort: Sort<SortKey> }[] = [
 
 const rowKey = (r: PayrollRecord, i: number) => `${r.name}-${r.year}-${i}`
 
+const FILE_NUMBER = /^\s*(?:file\s*(?:no\.?|number)?\s*)?#?\s*(?:gfz\s*[-#]?\s*)?(\d{1,6})\s*$/i
+
 export default function PayrollExplorer({ link }: { link?: PayrollLink }) {
   const latest = payrollYears[payrollYears.length - 1]
   const [year, setYear] = useState<number | 'all'>(latest)
@@ -67,9 +69,12 @@ export default function PayrollExplorer({ link }: { link?: PayrollLink }) {
       if (dept !== 'all' && r.department !== dept) return false
       if (yq) {
         const hay = `${r.name} ${r.title} ${r.department}`.toLowerCase()
-        // Also match the payroll file number, with or without leading zeros.
+        // Also match the payroll file number, with or without leading zeros,
+        // when the search is one: "000980", "980", "GFZ 000980", "File #980".
+        // Digits pulled from any search used to match too, so "police 2024"
+        // found whoever holds file 002024.
         const fn = r.fileNumber
-        const digits = yq.replace(/\D/g, '')
+        const digits = FILE_NUMBER.exec(yq)?.[1] ?? ''
         const fnMatch = !!fn && !!digits && (fn === digits || fn === digits.padStart(fn.length, '0') || fn.replace(/^0+/, '') === digits.replace(/^0+/, ''))
         if (!hay.includes(yq) && !fnMatch) return false
       }

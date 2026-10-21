@@ -15,7 +15,7 @@
 //
 // This file imports nothing, so scripts/verify-ask.mjs can run it under Node.
 
-export type EntryType = 'line-item' | 'payroll' | 'salary' | 'resolution' | 'fund' | 'page' | 'site' | 'answer'
+export type EntryType = 'line-item' | 'payroll' | 'salary' | 'resolution' | 'fund' | 'document' | 'page' | 'site' | 'answer'
 /**
  * `k` holds words a record is found by but does not show: a document page's text, a site page's keywords.
  * `y` is the first and last year a payroll person was paid, shown on the result and not searched.
@@ -46,6 +46,7 @@ const RECORD_LABEL: Record<EntryType, string> = {
   payroll: 'Payroll (actual pay)',
   salary: 'Authorized salary 2026',
   resolution: 'Town Board vote',
+  document: 'Town document, by its Document Center file number',
   page: 'Document page',
 }
 
