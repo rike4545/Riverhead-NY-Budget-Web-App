@@ -31,6 +31,7 @@ from pathlib import Path
 import pypdf
 
 import build_personnel_actions as pa
+from pdf_limits import raise_town_document_limits
 from fetch_meetings import http_get, list_events, stream_url
 from fetch_vote_packets import is_agenda_packet
 from ocr_scanned_pdf import ocr
@@ -51,6 +52,8 @@ def wanted() -> dict[str, set[str]]:
 
 
 def main(argv: list[str]) -> int:
+    # Agenda packets run to hundreds of pages; pypdf's default limits stop short of them.
+    raise_town_document_limits()
     if len(argv) != 2:
         print(__doc__)
         return 2

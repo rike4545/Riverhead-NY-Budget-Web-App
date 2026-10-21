@@ -117,6 +117,17 @@ class UnionTest(unittest.TestCase):
         self.assertEqual(pa.named_people(" ".join(pa.clauses(body, limit=50, length=10_000)), jobs), ["Strange, Doris L"])
 
 
+class AttachmentTest(unittest.TestCase):
+    def test_skips_the_boilerplate_clauses(self):
+        ocr = ("AGREEMENT dated July __, 2026 by and between the Town and the PBA. WHEREAS, the Town and the PBA are "
+               "parties to a collective bargaining agreement; and WHEREAS, the Town Board is desirous of offering a "
+               "program incentive for voluntary retirement; and WHEREAS, the PBA has considered the terms")
+        self.assertEqual(pa.attachment_summary(ocr), "WHEREAS, the Town Board is desirous of offering a program incentive for voluntary retirement")
+
+    def test_numbered_terms_when_there_is_no_whereas(self):
+        self.assertEqual(pa.attachment_summary("In the Matter of CSEA 1. The Improper Practice Charge will be withdrawn. 2. Other"), "1. The Improper Practice Charge will be withdrawn.")
+
+
 class OutputTest(unittest.TestCase):
     """The committed output, against the roster it was matched to."""
 
