@@ -2,7 +2,7 @@
 //
 // The page began with Suffolk County's pledge of no general fund increase for
 // 2027, and priced a freeze on this site's projection. The Town's own 2027
-// Tentative is now out, and six amendments before the Board would trim it, so
+// Tentative is now out, and six amendments the Board adopted on October 20 trim it, so
 // both targets are measured against those instead:
 //   - the Tentative's town-wide levy, the General, Highway and Street Lighting
 //     funds (its Summary's "Total Town Wide", budget-stages.json);

@@ -16,7 +16,7 @@
 import { existsSync, readFileSync } from 'node:fs'
 import { isAbsolute, relative, resolve, sep } from 'node:path'
 import {
-  AMENDMENTS, ARTICLE, PACKET, PROPERTY_TAXES, STAFF_APPOINTMENT, SUPERVISOR_STAFF, change, deferredToFundBalance, fundEffects, isRevenue, revenueCode,
+  ADOPTED_PACKET, AMENDMENTS, VOTE_ARTICLE, ARTICLE, BOARD, NEXT_STEPS, PACKET, PROPERTY_TAXES, VOTES, STAFF_APPOINTMENT, SUPERVISOR_STAFF, change, deferredToFundBalance, fundEffects, isRevenue, revenueCode,
   scaledRate, unbalanced,
 } from '../lib/budget-amendments-2027.ts'
 import { TOWN_WIDE_FUNDS } from '../lib/fund-groups.ts'
@@ -176,11 +176,61 @@ for (const bad of ['NaN', 'undefined', 'Infinity']) if (has(bad)) fail(`the page
 if (!has(`The site’s editor reports that the staff of the Supervisor’s office are ${SUPERVISOR_STAFF.editorReportsParty}`) || !has('has not checked that against the Board of Elections’ enrollment records')) fail('the staff’s party is no longer labelled as the editor’s unchecked report')
 // Each candidate gets a heading and a line in the staff paragraph, and the same number of each.
 if (count('For Halpin,') !== count('For Rothwell,') || count('For Halpin,') < 2) fail(`the election section should weigh both candidates alike ("For Halpin," ${count('For Halpin,')} times, "For Rothwell," ${count('For Rothwell,')})`)
+// ── The votes ────────────────────────────────────────────────────────────────
+// Each amendment's vote block, as the Town reposted the October 20 packet with
+// results, and the resolution above it, which must print the same accounts,
+// amounts and reasons as the draft this page was built from.
+const adopted = readFileSync(path('..', ADOPTED_PACKET.text), 'utf8')
+const people = (line) => (line.trim() === 'None' ? [] : line.split(',').map((x) => x.trim()))
+if (VOTES.length !== AMENDMENTS.length) fail(`${VOTES.length} votes for ${AMENDMENTS.length} amendments`)
+for (const v of VOTES) {
+  const a = AMENDMENTS.find((x) => x.n === v.n)
+  const at = adopted.indexOf(`TB Resolution ${v.number}`)
+  if (at === -1) { fail(`the October 20 packet has no Resolution ${v.number}`); continue }
+  const next = adopted.indexOf('FISCAL IMPACT STATEMENT', at)
+  const resolution = norm(adopted.slice(at, next))
+  if (!new RegExp(`AMENDMENT #${v.n} TO THE 2027 PRELIMINARY BUDGET`).test(resolution)) fail(`Resolution ${v.number} is not Amendment #${v.n}`)
+  for (const l of a.lines) if (!resolution.includes(l.account) || !resolution.includes(fmt(l.amount))) fail(`#${v.n}: the adopted resolution does not print ${l.account} for ${fmt(l.amount)}`)
+  const plain = (x) => norm(x).toLowerCase().replace(/[’‘]/g, "'")
+  for (const w of a.whereas) if (!plain(resolution).includes(plain(w))) fail(`#${v.n}: the adopted resolution does not give the reason quoted`)
+  const block = adopted.slice(adopted.indexOf('THE VOTE', at), next)
+  const field = (name) => (new RegExp(`${name}:\\s*(.*)`).exec(block)?.[1] ?? '').trim()
+  if (field('RESULT') !== v.result) fail(`#${v.n}: the packet's result is "${field('RESULT')}", the page says ${v.result}`)
+  if (field('MOVER') !== v.mover || field('SECONDER') !== v.seconder) fail(`#${v.n}: mover or seconder differs from the packet`)
+  if (people(field('AYES')).join('|') !== v.ayes.join('|')) fail(`#${v.n}: the packet's ayes are ${field('AYES')}`)
+  if (people(field('NAYS')).join('|') !== v.nays.join('|')) fail(`#${v.n}: the packet's nays are ${field('NAYS')}`)
+  if (!new RegExp(`Page ${v.votePage} of`).test(adopted.slice(adopted.indexOf('THE VOTE', at), next + 40))) fail(`#${v.n}: the vote is not on packet page ${v.votePage}`)
+  if (/ABSTAIN|ABSENT|RECUS/.test(block)) fail(`#${v.n}: the packet now records an abstention or absence, which the page does not describe`)
+  if (!v.ayes.every((x) => BOARD.includes(x))) fail(`#${v.n}: an aye is not a Board member`)
+  if (!has(`Resolution ${v.number}: moved by ${v.mover}`)) fail(`#${v.n}: the page does not show its vote`)
+}
+// The abstentions are RiverheadLOCAL's report until the minutes are in, quoted as reported,
+// and the report must agree with the packet: abstentions on exactly the amendments that do not list Halpin.
+const notListed = VOTES.filter((v) => !v.ayes.includes('Jerry Halpin')).length
+if (!VOTE_ARTICLE.reported.abstained.startsWith(`${['', 'One', 'Two', 'Three', 'Four', 'Five', 'Six'][notListed]} resolutions`)) fail(`the article's abstention count no longer matches the ${notListed} amendments the packet does not list Halpin on`)
+for (const q of Object.values(VOTE_ARTICLE.reported)) if (!has(q)) fail(`the page does not quote “${q}”`)
+if (!has('This page follows the Town’s notice.')) fail('the page no longer notes the article’s hearing date against the Town’s notice')
+// When the minutes arrive, they must agree that all six passed.
 if (existsSync(path(`public/data/meetings/${PACKET.meeting.slug}.json`))) {
   const meeting = read(`public/data/meetings/${PACKET.meeting.slug}.json`)
-  const voted = (meeting.resolutions ?? []).filter((r) => /Amendment #\d to the 2027 Preliminary Budget/i.test(r.title ?? ''))
-  if (voted.length && count('the Board’s record shows it') !== voted.length) fail(`the meeting record has ${voted.length} amendment votes, but the page shows ${count('the Board’s record shows it')}`)
+  for (const v of VOTES) {
+    const r = (meeting.resolutions ?? []).find((x) => x.number === v.number)
+    if (r && !/adopted/i.test(r.result ?? '')) fail(`the minutes record ${v.number} as "${r.result}", not adopted`)
+  }
 }
+
+// ── What comes next ─────────────────────────────────────────────────────────
+// The Preliminary's release and the hearing are from the notice attached to
+// Resolution 2026-923; the meeting is on the Town's calendar.
+const oct6 = norm(readFileSync(path('../etl/data/meetings/2026-10-06-vote-packet.txt'), 'utf8'))
+const notice = oct6.slice(oct6.indexOf('TB Resolution 2026-923'), oct6.indexOf('TB Resolution 2026-924'))
+if (!/CONSIDER THE ADOPTION OF THE 2027 PRELIMINARY ANNUAL BUDGET/.test(notice)) fail('Resolution 2026-923 is no longer the budget hearing notice')
+if (!notice.includes('5 th day of November, 2026 at 2:05 p.m.') && !notice.includes('5th day of November, 2026 at 2:05 p.m.')) fail('the notice no longer sets the hearing for November 5 at 2:05 p.m.')
+if (!notice.includes('beginning October 29, 2026')) fail('the notice no longer says the Preliminary Budget is available beginning October 29')
+const calendar = read('public/data/meetings/upcoming.json').meetings.map((m) => m.date)
+if (!calendar.includes('2026-11-17')) fail('the Town calendar no longer lists a November 17 meeting')
+if (calendar.some((d) => d > '2026-11-05' && d < '2026-11-17')) fail('the calendar now has a meeting between the hearing and November 17, so November 17 is not the only one before the deadline')
+for (const step of NEXT_STEPS) if (!has(step.date)) fail(`the page does not show ${step.date}`)
 
 if (!process.exitCode) {
   console.log(`budget amendments: ${AMENDMENTS.length} resolutions, ${checkedLines} lines on their packet pages and fiscal impact statements, each fund balanced; town-wide levy ${usd(t2027.townWide.levy)} → ${usd(levyAfter)} (up ${pctAfter.toFixed(2)}% on 2026), ${usd(deferredTotal)} of equipment to savings, estimated rate ${total(rates).toFixed(3)}; the page shows ${onPage.length} checked figures`)

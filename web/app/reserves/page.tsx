@@ -84,7 +84,7 @@ const base = process.env.NEXT_PUBLIC_BASE_PATH || ''
 const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 20 } as const
 const pct = (v: number, digits = 1) => `${(v * 100).toFixed(digits)}%`
 
-/** What the six amendments on the October 20, 2026 agenda would do to the General Fund's 2027 use of savings, while they are pending. */
+/** What the six amendments the Board adopted on October 20, 2026 would do to the General Fund's 2027 use of savings, until the budget is adopted. */
 const amendedGeneralFund = (() => {
   if (planned2027?.stage !== 'Tentative' || !amendmentEffect) return null
   const gf = amendmentEffect.funds.find((f) => f.fund === 'A01')
@@ -454,9 +454,9 @@ export default function ReservesPage() {
             savings as income.
             {amendedGeneralFund && (
               <>
-                {' '}The six amendments on the October 20 agenda would cut that to {dollars(amendedGeneralFund.draw)}, but buy{' '}
+                {' '}The six amendments the Board adopted on October 20 would cut that to {dollars(amendedGeneralFund.draw)}, but buy{' '}
                 {dollars(amendedGeneralFund.equipment)} of equipment from savings by separate votes during 2027 (
-                <a href={`${base}/budget-amendments-2027/#savings`} style={{ color: 'var(--rbl-link)' }}>the proposed amendments</a>).
+                <a href={`${base}/budget-amendments-2027/#savings`} style={{ color: 'var(--rbl-link)' }}>the amendments</a>).
               </>
             )}
             {planned2027.stage === 'Adopted' ? '' : ' None of it is adopted yet.'} It is not among the 2026 votes subtracted above, so

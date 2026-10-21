@@ -247,7 +247,7 @@ expect('the September model', html, ['The September model, made before the Tenta
 // The pages that quote the prediction.
 for (const [page, needle] of [
   ['out/answers/index.html', `As of ${UPDATED}, this site predicts the Board adopts it with the six amendments on its agenda, for a town-wide levy ${row('town-wide-change').predicted.toFixed(2)}% above 2026's.`],
-  ['out/candidate-cost-benefit/index.html', `would lower the town-wide increase to ${row('town-wide-change').predicted.toFixed(2)}%. This site’s updated prediction (${UPDATED}) is that the Board adopts them.`],
+  ['out/candidate-cost-benefit/index.html', `would lower the town-wide increase to ${row('town-wide-change').predicted.toFixed(2)}%, as this site’s updated prediction (${UPDATED}) expected.`],
 ]) {
   if (!existsSync(path(page))) { fail(`${page} was not built`); continue }
   if (!visible(readFileSync(path(page), 'utf8')).includes(needle)) fail(`${page} does not carry the updated prediction: ${needle}`)

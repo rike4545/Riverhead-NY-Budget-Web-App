@@ -160,6 +160,10 @@ export default function Predict2027Page() {
                 {basis.meeting.date} meeting, each with a fiscal impact statement dated {basis.statementsDated}.{' '}
                 <a href={`${base}/budget-amendments-2027/`} style={{ color: 'var(--rbl-link)', fontWeight: 750 }}>What each one changes →</a>
               </li>
+              <li data-amendments-adopted>
+                The Board adopted all six on {basis.meeting.date}, with no votes against, so they are now part of the Preliminary Budget.
+                What remains to be seen is whether the budget the Board adopts in November keeps them.
+              </li>
               <li>
                 {basis.article.outlet} reported on {basis.article.published} that Council Member Ken Rothwell developed them with the Town’s financial administrator
                 and the other council members. “{basis.support}” With his own vote, that is four of the Board’s five, and a resolution needs three.

@@ -34,7 +34,7 @@ const q = (k: keyof typeof CARRYOVER_QUOTES) => CARRYOVER_QUOTES[k].text
 export const metadata = {
   title: 'Zero or 1%: what a smaller 2027 tax increase would take',
   description:
-    `The 2027 Tentative raises Riverhead’s town-wide property tax levy ${summary.tentativePct.toFixed(2)}%, and six amendments before the Town Board would make it ${summary.amendedPct.toFixed(2)}%. ` +
+    `The 2027 Tentative raises Riverhead’s town-wide property tax levy ${summary.tentativePct.toFixed(2)}%, and six amendments the Town Board adopted on October 20 would make it ${summary.amendedPct.toFixed(2)}%. ` +
     `A 1% increase would need ${usd(summary.oneBeyond)} more than the amendments find, and no increase ${usd(summary.zeroBeyond)} more. Where it could come from, and what each would cost.`,
 }
 
@@ -87,7 +87,7 @@ export default function ZeroPercent2027Page() {
             <P>
               The Tentative raises each of the three town-wide funds’ levies by the same {summary.tentativePct.toFixed(2)}%. The Supervisor’s letter says
               every taxing district is within the tax cap limit of {summary.statedLimitPct}%, so a 1% or zero-percent levy would sit well inside the cap.
-              The six amendments are proposals until the Board votes on them; the amendments page follows where they stand.
+              The Board adopted the six amendments on October 20, into the Preliminary Budget it holds a hearing on November 5; the amendments page follows where they stand.
             </P>
             <div data-levels>
               <Table
