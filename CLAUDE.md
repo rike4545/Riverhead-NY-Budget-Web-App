@@ -37,6 +37,9 @@ python3 etl/refresh_meeting_records.py
 # Fiscal-impact data, from freshly downloaded agenda packets
 python3 etl/parse_fiscal_impact.py
 
+# The /contracts/ list of bid awards and agreements, likewise
+python3 etl/build_contract_awards.py
+
 # After meeting data changes
 python3 etl/build_search_index.py && python3 etl/write_meta.py
 ```

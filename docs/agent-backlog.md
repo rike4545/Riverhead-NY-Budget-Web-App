@@ -149,6 +149,15 @@ three practice agents and checking the fund-balance ledger. Each agent's file ho
     `etl/data/policies/gfoa-budget-award.json` and `web/lib/gfoa.ts` together,
     and let `verify-gfoa-criteria.mjs` show what moved.
 
+20. **Keep `/contracts/` current.** `etl/build_contract_awards.py` downloads
+    every 2026 agenda packet itself, so it isn't in
+    `etl/refresh_meeting_records.py`: `parse_fiscal_impact.py` already
+    downloads the same packets there, and a second pass would double the run.
+    Have `parse_fiscal_impact.py` hand the text it extracts to the contracts
+    build in the same run (identical text, so not the `--packet-dir` cache the
+    rules forbid), then add the step, with a test that the two read the same
+    packets.
+
 ## Needs the owner
 
 - **What "Identified dollars in play" counts.** Every meeting except July 7

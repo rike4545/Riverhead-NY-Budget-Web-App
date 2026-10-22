@@ -21,10 +21,40 @@ import { released2027, changePhrase, gapPhrase } from './tentative-2027'
 import { AUDITED_GENERAL_FUND } from './audits'
 import { countWord, overrideStreak, yearsPhrase } from './budget-adoption'
 import { UPDATED, updatedPrediction } from './predict-2027-update'
+import { cseaFloor } from './raises-2027'
+import { nyshipPlanPrimeIndividualMonthlyPremium } from './spending-reduction-2027'
 
 // The General Fund's balance at the end of 2025, as audited, e.g. "$33.3M" and "$28.8M".
 const gfBalance = `$${(AUDITED_GENERAL_FUND[2025].total / 1e6).toFixed(1)}M`
 const gfUnassigned = `$${(AUDITED_GENERAL_FUND[2025].classes.Unassigned / 1e6).toFixed(1)}M`
+
+// Halpin named a public relations employee among his three top priorities at the
+// Heart of Riverhead forum (RiverheadLOCAL, Oct. 22, 2026), with no cost or
+// funding source. The figures for that plank, each from the Town's records:
+//  - budget lines from the 2027 Budget Supplement (2026 adopted, 2027 Tentative,
+//    2025 actuals and 2026 spending through June 30): A01-1-1480 Public
+//    Information & Services, $3,100 in 2026 and $0 in 2027 with no salary line
+//    funded; A06-7-7020-440 Rec Adm - Public Relations, $8,000 in 2026 and $0 in
+//    2027; A01-1-1220-102 Super - Pers Svcs - Part Time, $20,000 in 2026 and
+//    2027, $0.00 spent in 2025 and through June 30, 2026.
+//  - pay: the 2026 salary resolution's Community Development Program Analyst,
+//    $73,431, the nearest Town title, raised by the CSEA 2027 terms (2.5% plus
+//    $1,000, raises-2027.ts).
+//  - benefits: FICA 7.65%; ERS 17.6%, the average employer rate NYSLRS set for
+//    2026-27 (tax-cap-letter.ts); NYSHIP's lowest individual premium,
+//    $1,611.46 a month (spending-reduction-2027.ts).
+const PR = {
+  a1480_2026: 3_100,
+  recPublicRelations2026: 8_000,
+  supervisorPartTime: 20_000,
+  comparablePay2026: 73_431,
+  ersRate: 0.176,
+  healthMonthly: nyshipPlanPrimeIndividualMonthlyPremium,
+}
+const usd = (n: number) => `$${Math.round(n).toLocaleString('en-US')}`
+const prPay2027 = cseaFloor(PR.comparablePay2026)
+// Rounded to the thousand: it is an estimate, not a budget figure.
+const prHireTotal = Math.round((prPay2027 * (1 + 0.0765 + PR.ersRate) + PR.healthMonthly * 12) / 1000) * 1000
 
 /** The cap gap, as prose: "$2.32M". Tracks budget-2027-prediction.json. */
 const capGapM = `$${(prediction.capGap.gap / 1_000_000).toFixed(2)}M`
@@ -113,8 +143,18 @@ export const candidates2026: Candidate[] = [
           'Protecting specific groups from tax increases can mean shifting cost to fees or districts, which are less visible but still land on the same households.',
         anchor: { label: 'What it means for your tax bill', href: '/my-tax-bill/' },
       },
+      {
+        proposal: 'Hire a public relations employee to publicize Town activities and local attractions.',
+        benefit:
+          `Residents would hear about meetings, services and events from the Town itself, and visitors about what Riverhead offers. The Town already has a budget unit for this work, Public Information & Services (A1480), but it budgets no salary there. The 2027 Tentative also cuts that unit’s $${PR.a1480_2026.toLocaleString('en-US')} for equipment and services to $0, and cuts Recreation’s $${PR.recPublicRelations2026.toLocaleString('en-US')} public relations line to $0.`,
+        cost:
+          `About ${usd(prHireTotal)} a year for a full-time hire, an estimate. That is pay of ${usd(prPay2027)} in 2027, plus Social Security and Medicare (7.65%), State retirement (${(PR.ersRate * 100).toFixed(1)}%, the average employer rate) and single health coverage (${usd(PR.healthMonthly * 12)}). The pay is the 2026 salary for the Town’s Community Development Program Analyst (${usd(PR.comparablePay2026)}), raised by the CSEA contract’s 2027 terms. Family coverage would cost more.`,
+        tradeoff:
+          `No budget line covers a full-time hire. The Supervisor’s part-time pay line has $${PR.supervisorPartTime.toLocaleString('en-US')} budgeted for 2026 and again for 2027, and spent nothing in 2025 or the first half of 2026. That could pay for part-time help without raising the budget. A full-time job would need about ${usd(prHireTotal - PR.supervisorPartTime)} more each year, from the levy or a cut elsewhere. Fund balance is one-time money, so it should not pay a salary. The Board, not the Supervisor, creates the position and adopts the budget.`,
+        anchor: { label: 'The 2027 Tentative Budget, line by line', href: '/funds/' },
+      },
     ],
-    sources: 'votejerryhalpin.com; Riverhead News-Review (Feb. 2026); RiverheadLOCAL (Nov. 25, 2025).',
+    sources: 'votejerryhalpin.com; Riverhead News-Review (Feb. 2026); RiverheadLOCAL (Nov. 25, 2025; Oct. 22, 2026, the public relations hire); the Town’s 2027 Budget Supplement and 2026 salary resolution.',
   },
   {
     name: 'Kenneth Rothwell',

@@ -24,9 +24,12 @@ const CONFIDENCE_STYLE: Record<string, { label: string; color: string; bg: strin
 }
 
 const allItems = [...personnelPolicyItems, ...operationalItems, ...supplementTrimItems]
+const firmLineIds = new Set(supplementTrimItems.filter((i) => i.confidence === 'firm').map((i) => i.id))
 
 export default function SpendingReductionToggleList() {
-  const [deselected, setDeselected] = useState<Set<string>>(new Set())
+  // Start with nothing selected. Appearing on this list does not make an item a
+  // recommendation; the resident chooses what to test.
+  const [deselected, setDeselected] = useState<Set<string>>(new Set(allItems.map((i) => i.id)))
 
   const isSelected = (id: string) => !deselected.has(id)
 
@@ -47,22 +50,26 @@ export default function SpendingReductionToggleList() {
   const supplementSelected = useMemo(() => selectedTotal(supplementTrimItems), [deselected])
   const grandSelected = personnelSelected + operationalSelected + supplementSelected
 
-  // Uncapped ratio — with the supplement trims this now exceeds 100%, which is
-  // the headline: verified trims cover the gap several times over.
-  const rawCoverage = modeledAutomaticPayrollPressure > 0 ? grandSelected / modeledAutomaticPayrollPressure : 0
+  // Measured against the forecast's distance from a 2% increase, the gap the page
+  // above uses. The payroll comparison is a secondary cost-driver check.
+  const rawCoverage = capGap2027.gap > 0 ? grandSelected / capGap2027.gap : 0
   const coverage = Math.min(rawCoverage, 1)
+  const residual = Math.max(0, capGap2027.gap - grandSelected)
+  const payrollCoverage = modeledAutomaticPayrollPressure > 0 ? grandSelected / modeledAutomaticPayrollPressure : 0
+
+  const selectFirmLines = () => setDeselected(new Set(allItems.filter((i) => !firmLineIds.has(i.id)).map((i) => i.id)))
 
   return (
     <div style={{ display: 'grid', gap: 16 }}>
       <section style={card}>
         <div style={{ color: 'var(--rbl-text-muted)', fontSize: 12.5, fontWeight: 700 }}>
-          Your selected package
+          Your test package
         </div>
-        <div style={{ fontSize: 34, fontWeight: 900, color: 'var(--rbl-success)', lineHeight: 1.15, margin: '2px 0 6px' }}>
+        <div style={{ fontSize: 34, fontWeight: 900, color: grandSelected > 0 ? 'var(--rbl-success)' : 'var(--rbl-title)', lineHeight: 1.15, margin: '2px 0 6px' }}>
           {usd(grandSelected)}
         </div>
         <div style={{ color: 'var(--rbl-text-muted)', fontSize: 13.5, marginBottom: 12 }}>
-          out of {usd(fullRecurringReductionPackage)} available
+          selected from {usd(fullRecurringReductionPackage)} of identified candidates, not booked savings
         </div>
 
         <div style={{ height: 8, borderRadius: 999, background: 'var(--rbl-track)', overflow: 'hidden', marginBottom: 6 }}>
@@ -76,10 +83,9 @@ export default function SpendingReductionToggleList() {
             }}
           />
         </div>
-        <div style={{ color: 'var(--rbl-text-muted)', fontSize: 12.5, marginBottom: 14 }}>
-          {(rawCoverage * 100).toFixed(0)}% of the {usd(modeledAutomaticPayrollPressure)} modeled 2027 payroll-pressure gap
-          {rawCoverage >= 1 ? ' — fully covered' : ''}
-          {' '}<span style={{ color: 'var(--rbl-text-muted)' }}>(the smaller of the two gaps; the ~${(capGap2027.gap / 1_000_000).toFixed(2)}M cap-piercing gap is the one that actually binds)</span>
+        <div style={{ display: 'flex', justifyContent: 'space-between', gap: 10, flexWrap: 'wrap', color: 'var(--rbl-text-muted)', fontSize: 12.5, marginBottom: 14 }}>
+          <span>{(rawCoverage * 100).toFixed(0)}% of the forecast&apos;s {usd(capGap2027.gap)} distance from a 2% levy increase</span>
+          <span>{grandSelected === 0 ? 'Nothing selected yet' : residual > 0 ? `${usd(residual)} still to find` : 'That distance is covered'}</span>
         </div>
 
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(160px,1fr))', gap: 10, marginBottom: 14 }}>
@@ -88,12 +94,20 @@ export default function SpendingReductionToggleList() {
           <MetricTile label="Line-item trims" value={supplementSelected} color="var(--rbl-accent)" />
         </div>
 
-        <div style={{ display: 'flex', gap: 8 }}>
-          <button onClick={() => setDeselected(new Set())} style={buttonStyle}>
-            Select all
+        <p style={{ margin: '0 0 14px', color: 'var(--rbl-text-body)', fontSize: 12.8, lineHeight: 1.5 }}>
+          For comparison, this selection equals {(payrollCoverage * 100).toFixed(0)}% of the {usd(modeledAutomaticPayrollPressure)} of
+          modeled automatic payroll growth. That compares cost drivers; it is not the tax-cap test.
+        </p>
+
+        <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+          <button type="button" onClick={selectFirmLines} style={buttonStyle}>
+            Select firm line trims
           </button>
-          <button onClick={() => setDeselected(new Set(allItems.map((i) => i.id)))} style={buttonStyle}>
-            Clear all
+          <button type="button" onClick={() => setDeselected(new Set())} style={buttonStyle}>
+            Select all candidates
+          </button>
+          <button type="button" onClick={() => setDeselected(new Set(allItems.map((i) => i.id)))} style={buttonStyle}>
+            Clear
           </button>
         </div>
       </section>
@@ -104,7 +118,9 @@ export default function SpendingReductionToggleList() {
           model, but it&apos;s contractually locked and cannot be treated as a spending-reduction lever without a
           successor labor agreement — it stays on the pressure side of the budget, not here. Every dollar below is
           traceable to either a named formula input or an actual 2025→2026 account-level change in the Town&apos;s
-          own 2026 Budget Supplement. Click any item to test a package that leaves it out.
+          own 2026 Budget Supplement. Each item is a candidate to test, not a promise the Town can capture all of it:
+          personnel items need a Board, bargaining or hiring outcome, and operational items need checking before a
+          budget is cut. Click an item to add it to your package or take it out.
         </p>
         <p style={{ margin: '10px 0 0', color: 'var(--rbl-text-strong)', fontSize: 13.8, lineHeight: 1.55 }}>
           PBA and SOA contracts both expire 12/31/2026 (CSEA is already locked through a ratified 2026-2029
@@ -132,7 +148,7 @@ export default function SpendingReductionToggleList() {
         items={operationalItems}
         isSelected={isSelected}
         onToggle={toggle}
-        footer="Real account-level growth from the 2026 Budget Supplement, flagged for Board scrutiny before being carried forward as a permanent baseline."
+        footer="Real account-level growth from the 2026 Budget Supplement, flagged for Board scrutiny before being carried forward as a permanent baseline. A large increase is a question to ask, not proof of waste."
       />
 
       {supplementTrimItems.length > 0 && (
