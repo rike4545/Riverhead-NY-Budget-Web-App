@@ -18,7 +18,15 @@
      "department": "Squad 1 - Police"
     }
    ],
-   "source": "etl/data/meetings/2026-10-20-vote-packet.txt"
+   "source": "etl/data/meetings/2026-10-20-vote-packet.txt",
+   "redacted": [],
+   "review": {
+    "state": "publish",
+    "reviewed": "2026-10-22",
+    "reviewAgainBy": "2027-01-22",
+    "basis": "The site owner asked on October 21, 2026 that employees named only by file number in disciplinary, termination and separation resolutions be identified. The number is on the roster once. The payroll lists this person as a Police Officer in Squad 1 through 2025, which fits charges filed by the Chief of Police. The quote is the resolution's first clause and carries no redactable item. Re-reviewed in three months because the charges are pending and a determination may follow."
+   },
+   "later": []
   },
   {
    "meeting": "2026-10-20",
@@ -29,7 +37,12 @@
    "quote": "RESOLVED, that effective October 5, 2026 this Town Board hereby terminates employee GFZ001716 from his position",
    "result": "Adopted",
    "people": [],
-   "source": "etl/data/meetings/2026-10-20-vote-packet.txt"
+   "source": "etl/data/meetings/2026-10-20-vote-packet.txt",
+   "redacted": [],
+   "review": {
+    "state": "no-match"
+   },
+   "later": []
   },
   {
    "meeting": "2026-09-01",
@@ -47,7 +60,15 @@
      "department": "Town Engineer Management"
     }
    ],
-   "source": "etl/data/meetings/2026-09-01-vote-packet.txt"
+   "source": "etl/data/meetings/2026-09-01-vote-packet.txt",
+   "redacted": [],
+   "review": {
+    "state": "publish",
+    "reviewed": "2026-10-22",
+    "reviewAgainBy": "2027-04-22",
+    "basis": "Identified at the site owner's request of October 21, 2026. The number is on the roster once; the payroll lists this person as Town Engineer through 2025. The resolution approves an agreement concerning retirement and separation and states no reason or finding."
+   },
+   "later": []
   },
   {
    "meeting": "2026-08-18",
@@ -58,7 +79,12 @@
    "quote": "RESOLVED, that effective July 27, 2026 this Town Board hereby terminates employee GFZ001701 from his position",
    "result": "Adopted",
    "people": [],
-   "source": "etl/data/meetings/2026-08-18-vote-packet.txt"
+   "source": "etl/data/meetings/2026-08-18-vote-packet.txt",
+   "redacted": [],
+   "review": {
+    "state": "no-match"
+   },
+   "later": []
   },
   {
    "meeting": "2026-08-18",
@@ -69,7 +95,12 @@
    "quote": "RESOLVED, that effective July 29, 2026 this Town Board hereby terminates employee GFZ001703 from her position",
    "result": "Adopted",
    "people": [],
-   "source": "etl/data/meetings/2026-08-18-vote-packet.txt"
+   "source": "etl/data/meetings/2026-08-18-vote-packet.txt",
+   "redacted": [],
+   "review": {
+    "state": "no-match"
+   },
+   "later": []
   },
   {
    "meeting": "2025-07-01",
@@ -87,7 +118,15 @@
      "department": "Safety Inspection / Inspectors"
     }
    ],
-   "source": "etl/data/meetings/2025-07-01-minutes.txt"
+   "source": "etl/data/meetings/2025-07-01-minutes.txt",
+   "redacted": [],
+   "review": {
+    "state": "publish",
+    "reviewed": "2026-10-22",
+    "reviewAgainBy": "2027-04-22",
+    "basis": "Identified at the site owner's request of October 21, 2026. The number is on the roster once; the payroll lists this person as Chief Building Inspector, with a 2025 status of terminated. The resolution ratifies a stipulation and does not say what it concerns."
+   },
+   "later": []
   },
   {
    "meeting": "2025-07-01",
@@ -105,7 +144,15 @@
      "department": "Sewer / Scavenger Waste"
     }
    ],
-   "source": "etl/data/meetings/2025-07-01-minutes.txt"
+   "source": "etl/data/meetings/2025-07-01-minutes.txt",
+   "redacted": [],
+   "review": {
+    "state": "publish",
+    "reviewed": "2026-10-22",
+    "reviewAgainBy": "2027-04-22",
+    "basis": "Identified at the site owner's request of October 21, 2026. The number is on the roster once; the payroll lists this person as a Wastewater Treatment Plant Operator in the Sewer District. The resolution ratifies a stipulation and does not say what it concerns."
+   },
+   "later": []
   }
  ],
  "unionAgreements": [

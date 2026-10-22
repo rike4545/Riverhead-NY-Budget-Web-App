@@ -128,6 +128,42 @@ class AttachmentTest(unittest.TestCase):
         self.assertEqual(pa.attachment_summary("In the Matter of CSEA 1. The Improper Practice Charge will be withdrawn. 2. Other"), "1. The Improper Practice Charge will be withdrawn.")
 
 
+class ReviewGateTest(unittest.TestCase):
+    action = {"resolution": "2026-962", "fileNumber": "000347", "people": [{"name": "Bianco, William A"}]}
+    approved = {("2026-962", "000347"): {"names": ["Bianco, William A"], "decision": "publish", "reviewed": "2026-10-22", "reviewAgainBy": "2027-01-22", "basis": "checked"}}
+
+    def test_no_review_means_no_name(self):
+        self.assertEqual(pa.review_state(self.action, {}, "2026-10-22")[0], "pending")
+
+    def test_approval_is_for_the_names_it_lists(self):
+        other = {k: {**v, "names": ["Someone, Else"]} for k, v in self.approved.items()}
+        self.assertEqual(pa.review_state(self.action, other, "2026-10-22")[0], "pending")
+
+    def test_approved_until_it_lapses(self):
+        self.assertEqual(pa.review_state(self.action, self.approved, "2026-10-22")[0], "publish")
+        self.assertEqual(pa.review_state(self.action, self.approved, "2027-02-01")[0], "pending")
+
+    def test_withhold_is_kept(self):
+        held = {k: {**v, "decision": "withhold"} for k, v in self.approved.items()}
+        self.assertEqual(pa.review_state(self.action, held, "2026-10-22")[0], "withheld")
+
+    def test_no_roster_match(self):
+        self.assertEqual(pa.review_state({**self.action, "people": []}, self.approved, "2026-10-22")[0], "no-match")
+
+
+class RedactTest(unittest.TestCase):
+    def test_removes_what_section_89_2b_lists(self):
+        text, found = pa.redact("employee #GFZ000347, SSN 123-45-6789, cell 631-555-0100, jdoe@example.com")
+        self.assertNotIn("123-45-6789", text)
+        self.assertNotIn("631-555-0100", text)
+        self.assertNotIn("jdoe@example.com", text)
+        self.assertEqual(found, ["social security number", "phone number", "e-mail address"])
+
+    def test_leaves_file_numbers_dates_and_dollars(self):
+        text = "terminates employee GFZ001716 effective October 5, 2026 at $1,603"
+        self.assertEqual(pa.redact(text), (text, []))
+
+
 class OutputTest(unittest.TestCase):
     """The committed output, against the roster it was matched to."""
 
@@ -141,7 +177,9 @@ class OutputTest(unittest.TestCase):
         self.assertTrue(out["actions"], "no personnel actions found")
         for a in out["actions"]:
             self.assertIn(a["kind"], {k for k, _ in pa.KINDS})
-            self.assertEqual([p["name"] for p in a["people"]], roster.get(a["fileNumber"], []), a["resolution"])
+            # A published name is the roster's; anything else shows no name.
+            want = roster.get(a["fileNumber"], []) if a["review"]["state"] == "publish" else []
+            self.assertEqual([p["name"] for p in a["people"]], want, a["resolution"])
             source = (pa.ROOT / a["source"]).read_text(errors="replace")
             self.assertIn(a["fileNumber"], source)
 
