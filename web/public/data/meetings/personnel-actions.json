@@ -157,6 +157,21 @@
  ],
  "unionAgreements": [
   {
+   "meeting": "2026-10-20",
+   "resolution": "2026-956",
+   "title": "Authorize the Supervisor to Execute Agreement with the CSEA, Local 1000, AFSCME, AFL-CIO, Riverhead Unit of the Suffolk Local # 852",
+   "union": "CSEA",
+   "result": "ADOPTED [UNANIMOUS]",
+   "clauses": [
+    "RESOLVED, that the Town Board hereby approves an Agreement with the CSEA Local 1000 and authorizes the Supervisor to execute same; and"
+   ],
+   "named": [],
+   "fileNumbers": [],
+   "source": "etl/data/meetings/2026-10-20-vote-packet.txt",
+   "sourceUrl": null,
+   "attachment": null
+  },
+  {
    "meeting": "2026-07-07",
    "resolution": "2026-680",
    "title": "Ratifies Authorization for the Supervisor to Execute Stipulation with Riverhead Town Police Benevolent Association",
