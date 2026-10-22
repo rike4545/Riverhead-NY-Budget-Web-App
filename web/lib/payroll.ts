@@ -38,11 +38,14 @@ export type PayrollRecord = {
   // Additive breakdown that sums EXACTLY to gross (misc absorbs the remainder).
   components: PayComponent[]
   // The Town's export carries department/title/pay class only from 2022 on. For
-  // earlier years these are carried back from the same person's other years when
+  // earlier years a title or department comes from that year's January salary
+  // resolution, or else is carried back from the same person's other years when
   // every observed value agreed — an inference, so it's flagged rather than
   // silently merged with reported data.
-  inferredDepartment: boolean
-  inferredTitle: boolean
+  /** Not in this year's export: carried back from the person's other years, or
+   *  taken from the Board's January salary resolution for the year. */
+  inferredDepartment: false | 'carried' | 'schedule'
+  inferredTitle: false | 'carried' | 'schedule'
   inferredPayClass: boolean
   inferredUnion: boolean
 }
@@ -89,7 +92,7 @@ export const payrollSource = {
 export const payrollNote =
   'Actual paid earnings (including overtime) by employee and year — retired, deceased, terminated, and on-leave people ' +
   'who earned nothing that year are excluded, so the count reflects who was actually paid, not the Town’s full roster. ' +
-  'Department, title, and pay class are available for 2022 onward.'
+  'The Town’s export reports department, title, and pay class from 2022 onward. For 2018–2021, titles come from the Board’s January salary resolution for each year where the person is on it, marked as such.'
 
 // Matches UNION_LABELS in etl/parse_payroll.py.
 export const unionLabels: Record<string, string> = {
@@ -129,8 +132,8 @@ export function mapRawRecords(raw: PayrollRecordRaw[]): PayrollRecord[] {
     return {
       year: r.y, name: r.n, fileNumber: r.f ?? '', department: r.d, title: r.t, payClass: r.c, union: r.u,
       regular: r.r, overtime: r.o, gross: r.g, other, components,
-      inferredDepartment: inf.indexOf('d') >= 0,
-      inferredTitle: inf.indexOf('t') >= 0,
+      inferredDepartment: inf.indexOf('D') >= 0 ? 'schedule' : inf.indexOf('d') >= 0 ? 'carried' : false,
+      inferredTitle: inf.indexOf('T') >= 0 ? 'schedule' : inf.indexOf('t') >= 0 ? 'carried' : false,
       inferredPayClass: inf.indexOf('c') >= 0,
       inferredUnion: inf.indexOf('u') >= 0,
     }

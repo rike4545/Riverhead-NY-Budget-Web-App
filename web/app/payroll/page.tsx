@@ -12,6 +12,13 @@ import {
 } from '../../lib/separation-pay'
 import { fileNumbers } from '../../lib/file-numbers'
 import personnelActions from '../../public/data/meetings/personnel-actions.json'
+import authorized2026 from '../../public/data/salary/authorized-2026.json'
+import payrollRecords from '../../public/data/payroll/records.json'
+import { CSEA_2027, ELECTED_2027, raises2027, type Authorized, type PayrollRow } from '../../lib/raises-2027'
+import { triborough, units as laborUnits } from '../../lib/labor-contracts-2027'
+import { AMENDMENTS, VOTES as AMENDMENT_VOTES } from '../../lib/budget-amendments-2027'
+import lineHistory from '../../public/data/budget-supplement/line-history.json'
+import { UNIFORM_OT, policeOvertimeBudget, type HistoryLine } from '../../lib/police-overtime-budget'
 import { BENEFIT_LOAD_BASIS, explainer as benefitExplainer, source as benefitSource } from '../../lib/benefit-load'
 
 export const metadata = {
@@ -35,11 +42,13 @@ export default function PayrollPage() {
       >
         <strong>Start with the public record.</strong> This page lets you search what Riverhead employees were actually paid, then move into salary, overtime, separation-pay, and police-step analysis. The analytical views are built on the underlying payroll data rather than replacing it.
       </PlainCallout>
+      <Raises2027 />
       <FileNumbers />
       <PersonnelActions />
       <UnionAgreements />
       <PayrollTabs
         overtime={{
+          budgetLine: policeOvertimeBudget((lineHistory.accounts as HistoryLine[]).find((l) => l.account === UNIFORM_OT.account)!),
           trends: rankTrends,
           flagged: flaggedRanks,
           comparisons: costComparisons,
@@ -229,6 +238,7 @@ function UnionAgreements() {
   if (!agreements.length) return null
   const cell = { padding: '8px 10px', verticalAlign: 'top' } as const
   const withText = agreements.filter((a) => a.clauses.length).length
+  const attached = agreements.filter((a) => a.attachment?.summary).length
   const byUnion = ['CSEA', 'Police Benevolent Association', 'Superior Officers Association'].map((u) => [u, agreements.filter((a) => a.union?.includes(u)).length] as const)
   return (
     <details id="union-agreements" data-union-agreements style={{ background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 0, margin: '0 0 18px', overflow: 'hidden' }}>
@@ -243,8 +253,11 @@ function UnionAgreements() {
           One covers both police unions.
         </p>
         <p>
-          The clauses are the resolution’s own words, shortened where marked …; this site has the text of {withText} of the{' '}
-          {agreements.length}. For the rest, the title is all the minutes give; the Town’s agenda packet for that meeting has the full resolution.
+          The clauses are the resolution’s own words, shortened where marked …, from the minutes or, where the minutes give only a
+          title, from the meeting’s agenda packet; this site has the text of {withText} of the {agreements.length}. Several resolutions
+          only approve “the attached” agreement, which the packet includes as a scanned image. For {attached} of them this site has read the
+          scan by machine (OCR) and quotes its first clause that says what it does. OCR can misread letters and figures, so check the packet
+          before relying on a detail.
         </p>
         <div style={{ overflowX: 'auto' }}>
           <table className="rbl-stack" style={{ width: '100%', borderCollapse: 'collapse', fontSize: 13.5 }}>
@@ -266,6 +279,13 @@ function UnionAgreements() {
                     <span>
                       <strong>{a.title}</strong>
                       {a.clauses.map((c) => <span key={c} style={{ display: 'block', marginTop: 4 }}>“{c}”</span>)}
+                      {a.attachment?.summary && (
+                        <span style={{ display: 'block', marginTop: 4 }}>
+                          The attached agreement, read by machine from a scan (packet {a.attachment.pages.length > 1 ? `pp. ${a.attachment.pages[0]}–${a.attachment.pages[a.attachment.pages.length - 1]}` : `p. ${a.attachment.pages[0]}`}):{' '}
+                          “{a.attachment.summary}”
+                        </span>
+                      )}
+                      {a.sourceUrl && <span style={{ display: 'block', marginTop: 4 }}><a href={a.sourceUrl} style={{ color: 'var(--rbl-link)' }}>Agenda packet (PDF)</a></span>}
                       {a.named.length > 0 && <span style={{ display: 'block', marginTop: 4, color: 'var(--rbl-text-muted)' }}>Named in it: {a.named.join('; ')}</span>}
                     </span>
                   </td>
@@ -274,6 +294,129 @@ function UnionAgreements() {
             </tbody>
           </table>
         </div>
+      </div>
+    </details>
+  )
+}
+
+const money = (n: number) => `$${Math.round(n).toLocaleString('en-US')}`
+const money2 = (n: number) => `$${n.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`
+
+// 2027 pay: what a contract or a notice already sets, and what waits for the
+// Board's January salary resolution (lib/raises-2027.ts).
+function Raises2027() {
+  const r = raises2027(authorized2026.records as Authorized[], payrollRecords.records as PayrollRow[])
+  const cell = { padding: '8px 10px', verticalAlign: 'top' } as const
+  const pba = laborUnits.find((u) => u.unit === 'PBA')!
+  const highway = [2, 4].map((n) => {
+    const a = AMENDMENTS.find((x) => x.n === n)!
+    const pay = a.lines.filter((l) => l.side === 'to' && /Personal Services|Longevity/.test(l.name)).reduce((s, l) => s + l.amount, 0)
+    return { n, number: AMENDMENT_VOTES.find((v) => v.n === n)!.number, pay, why: a.whereas[0] }
+  })
+  return (
+    <details id="raises-2027" data-raises-2027 style={{ background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 0, margin: '0 0 18px', overflow: 'hidden' }}>
+      <summary style={{ cursor: 'pointer', padding: '15px 18px', fontWeight: 800, color: 'var(--rbl-title)', fontSize: 15.5 }}>
+        Raises 2026 → 2027: what is already set
+      </summary>
+      <div style={{ padding: '0 18px 18px', color: 'var(--rbl-text-body)', fontSize: 14, lineHeight: 1.6 }}>
+        <p style={{ marginTop: 0 }}>
+          No one’s 2027 salary is official yet: the Board sets them in its salary resolution at the January 2027 organizational meeting.
+          But contracts and the budget-hearing notice already fix much of it. Of the {r.listed} salaried people on the 2026
+          authorized list, outside the elected officials:
+        </p>
+        <div style={{ overflowX: 'auto' }}>
+          <table className="rbl-stack" style={{ width: '100%', borderCollapse: 'collapse', fontSize: 13.5 }}>
+            <thead>
+              <tr style={{ textAlign: 'left', color: 'var(--rbl-text-muted)', borderBottom: '2px solid var(--rbl-border-subtle)' }}>
+                <th style={cell}>Who</th>
+                <th style={cell}>People</th>
+                <th style={cell}>2027</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr style={{ borderBottom: '1px solid var(--rbl-border-subtle)' }}>
+                <td style={{ ...cell, fontWeight: 700, color: 'var(--rbl-title)' }}><span>CSEA members</span></td>
+                <td data-label="People" style={cell}><span>{r.csea.length}</span></td>
+                <td data-label="2027" className="rbl-stack-prose" style={cell}>
+                  <span>
+                    Set by contract. The {CSEA_2027.source} raises every step of the salary schedule {(CSEA_2027.pct * 100).toFixed(1)}% and
+                    then adds {money(CSEA_2027.flat)}. On their 2026 salaries that is {money(r.cseaTotal)} more in all
+                    {r.cseaMedian && <>, a median of {money(r.cseaMedian.raise)} ({r.cseaMedian.pct.toFixed(1)}%)</>}
+                    {r.cseaPctRange && <>, from {r.cseaPctRange[0].toFixed(1)}% on the highest salaries to {r.cseaPctRange[1].toFixed(1)}% on the lowest</>}.
+                    Anyone not at the top step also moves up a step, so this is the least each one’s base should rise.
+                  </span>
+                </td>
+              </tr>
+              <tr style={{ borderBottom: '1px solid var(--rbl-border-subtle)' }}>
+                <td style={{ ...cell, fontWeight: 700, color: 'var(--rbl-title)' }}><span>Police: PBA and Superior Officers</span></td>
+                <td data-label="People" style={cell}><span>{r.pba} PBA, {r.soa} SOA</span></td>
+                <td data-label="2027" className="rbl-stack-prose" style={cell}>
+                  <span>
+                    Not set. Both contracts expire December 31, 2026, and no successor has come before the Board. Until one is signed, the
+                    2026 salary schedule stands, but step movement continues under the Taylor Law’s Triborough Amendment (Civil Service Law
+                    § 209-a(1)(e)). On the Police Officer ladder alone that is about {money(triborough.stepCost2027)} for the{' '}
+                    {triborough.officersMoving} officers still climbing it, this site’s estimate; the {triborough.officersAtTopStep} at the top step
+                    get nothing from it, and detectives and sergeants move on their own schedules. The agreement that continues is the {pba.contractTerm}.
+                  </span>
+                </td>
+              </tr>
+              <tr style={{ borderBottom: '1px solid var(--rbl-border-subtle)' }}>
+                <td style={{ ...cell, fontWeight: 700, color: 'var(--rbl-title)' }}><span>Managers, appointees and others</span></td>
+                <td data-label="People" style={cell}><span>{r.others + r.unmatched}</span></td>
+                <td data-label="2027" className="rbl-stack-prose" style={cell}>
+                  <span>
+                    Not set until the January salary resolution. This includes {r.unmatched} whose name could not be matched to a single
+                    union in the {r.payrollYear} payroll export.
+                  </span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p>
+          <strong>Elected officials: no raises proposed.</strong> The {ELECTED_2027.source} lists each 2027 proposed salary at its
+          2026 amount: {ELECTED_2027.rows.map((e) => `${e.position} ${money(e.y2027)}`).join('; ')}. {ELECTED_2027.rows[0].note}
+        </p>
+        <p>
+          <strong>Raises already added to the Preliminary Budget.</strong>{' '}
+          {highway.map((h, i) => (
+            <span key={h.n}>
+              {i > 0 && ' '}Amendment #{h.n} (Resolution {h.number}) adds {money(h.pay)} of pay because “{h.why}”.
+            </span>
+          ))}{' '}
+          The amendments name no employee.
+        </p>
+        <details style={{ marginTop: 10 }}>
+          <summary style={{ cursor: 'pointer', fontWeight: 700, color: 'var(--rbl-title)' }}>Each CSEA member’s 2027 schedule increase ({r.csea.length})</summary>
+          <p style={{ marginBottom: 6 }}>
+            2026 is the Board-authorized salary; 2027 is that salary raised {(CSEA_2027.pct * 100).toFixed(1)}% plus {money(CSEA_2027.flat)}, this
+            site’s arithmetic from the contract. A step move or a promotion adds to it.
+          </p>
+          <div style={{ overflowX: 'auto' }}>
+            <table className="rbl-stack" style={{ width: '100%', borderCollapse: 'collapse', fontSize: 13 }}>
+              <thead>
+                <tr style={{ textAlign: 'left', color: 'var(--rbl-text-muted)', borderBottom: '2px solid var(--rbl-border-subtle)' }}>
+                  <th style={cell}>Name</th>
+                  <th style={cell}>Title</th>
+                  <th style={{ ...cell, textAlign: 'right' }}>2026</th>
+                  <th style={{ ...cell, textAlign: 'right' }}>2027 at least</th>
+                  <th style={{ ...cell, textAlign: 'right' }}>Raise</th>
+                </tr>
+              </thead>
+              <tbody>
+                {r.csea.map((c) => (
+                  <tr key={`${c.name}-${c.title}`} style={{ borderBottom: '1px solid var(--rbl-border-subtle)' }}>
+                    <td style={{ ...cell, fontWeight: 700, color: 'var(--rbl-title)' }}><span>{c.name}</span></td>
+                    <td data-label="Title" style={cell}><span>{c.title}{c.department ? `, ${c.department}` : ''}</span></td>
+                    <td data-label="2026" style={{ ...cell, textAlign: 'right' }}><span>{money2(c.y2026)}</span></td>
+                    <td data-label="2027 at least" style={{ ...cell, textAlign: 'right' }}><span>{money2(c.y2027)}</span></td>
+                    <td data-label="Raise" style={{ ...cell, textAlign: 'right' }}><span>{money2(c.raise)} ({c.pct.toFixed(1)}%)</span></td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </details>
       </div>
     </details>
   )

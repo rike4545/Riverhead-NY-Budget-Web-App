@@ -196,7 +196,8 @@ export default function PayrollExplorer({ link }: { link?: PayrollLink }) {
           { term: 'Other pay', plain: 'Everything on top of base and overtime: longevity, holiday and shift differentials, stipends, retroactive pay, and leave/termination buy-outs. That last group mixes sick and vacation buy-backs with severance and health-insurance opt-out buy-backs — only the buy-backs are accrued leave. Hover the column heading, or click a row, for the breakdown.' },
           { term: 'Gross Pay', plain: 'Base pay + overtime + other pay, all added together — the total actually paid for the year.' },
           { term: 'Group', plain: 'The union or bargaining group the employee belongs to (for example PBA for police, CSEA for many town workers). Elected, appointed, management and part-time staff are not union-covered.' },
-          { term: 'Titles marked “·carried”', plain: 'The Town’s payroll export only includes job titles and departments from 2022 onward. Where someone held one unchanging title across every year on record, it is carried back to their earlier years and marked — it is an inference, not something the Town reported for that year. Anyone whose title ever changed is left blank instead, so a later promotion is never written into an earlier year.' },
+          { term: 'Titles marked “·Jan. schedule”', plain: 'The Town’s payroll export only includes job titles and departments from 2022 onward. For 2018 to 2021, a title marked this way comes from the Town Board’s January salary resolution for that year, which names every employee on a salary schedule with a title and pay group; the department is filled only where the pay group is a department (Police, Highway, Water, Sewer, Street Lighting). Seasonal and part-time workers are not on those schedules, so many of them stay blank.' },
+          { term: 'Titles marked “·carried”', plain: 'Where someone was not on that year’s salary schedule but held one unchanging title in every later year on record, it is carried back and marked: an inference, not something the Town reported for that year. Anyone whose title ever changed is left blank instead, so a later promotion is never written into an earlier year.' },
         ]} />
         <div style={{ color: 'var(--rbl-text-body)', fontSize: 13, marginBottom: 8, lineHeight: 1.5 }}>
           <strong>Tip:</strong> click any employee row to expand a full breakdown of how their gross pay is built —
@@ -293,7 +294,7 @@ export default function PayrollExplorer({ link }: { link?: PayrollLink }) {
         Source: {payrollSource.title}. {payrollNote} Overtime is summed from the detailed overtime pay codes, and each
         gross is broken into base pay, overtime, and the additions on top (longevity, holiday &amp; shift differentials,
         stipends, buy-outs, retroactive pay, and smaller adjustments) — click any row to see the parts add up to the
-        total. Department, title, and pay class are reported from 2022 onward. Verify against the official records before relying on them.
+        total. The export reports department, title, and pay class from 2022 onward; earlier titles are marked with where they came from. Verify against the official records before relying on them.
       </p>
     </div>
   )
@@ -428,20 +429,24 @@ function OtherPayTip({ rows }: { rows: PayrollRecord[] }) {
   )
 }
 
-// The Town's export only carries title/department from 2022 on. Earlier years
-// are carried back from the same person's other years where every observed value
-// agreed — shown in italic with a dotted underline so an inference never reads
-// as something the Town reported for that year.
-function Inferred({ value, inferred }: { value: string; inferred: boolean }) {
+// The Town's export only carries title/department from 2022 on. For 2018-2021 a
+// value is either taken from the Board's January salary resolution for that
+// year, or carried back from the same person's other years where every observed
+// value agreed. Both are shown in italic with a dotted underline and a word
+// saying which, so neither reads as something the export reported.
+function Inferred({ value, inferred }: { value: string; inferred: false | 'carried' | 'schedule' }) {
   if (!value) return <>—</>
   if (!inferred) return <>{value}</>
+  const schedule = inferred === 'schedule'
   return (
     <span
-      title="Not reported for this year — carried back from another year in which this person held this same title, unchanged."
+      title={schedule
+        ? 'Not in this year’s payroll export — from the Town Board’s January salary resolution for this year, as the schedule words it. For a department, the schedule’s pay group.'
+        : 'Not reported for this year — carried back from another year in which this person held this same value, unchanged.'}
       style={{ fontStyle: 'italic', color: 'var(--rbl-text-muted)', borderBottom: '1px dotted var(--rbl-border-strong)', cursor: 'help' }}
     >
       {value}
-      <span aria-hidden style={{ color: 'var(--rbl-text-faint)', fontWeight: 700 }}> ·carried</span>
+      <span aria-hidden style={{ color: 'var(--rbl-text-faint)', fontWeight: 700 }}>{schedule ? ' ·Jan. schedule' : ' ·carried'}</span>
     </span>
   )
 }
