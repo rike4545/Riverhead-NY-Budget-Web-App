@@ -1,11 +1,11 @@
 {
- "generatedAt": "2026-10-22T14:34:44Z",
+ "generatedAt": "2026-10-22T17:43:09Z",
  "generatedAtDisplay": "October 22, 2026",
- "dataVersion": "dda89393fccff482",
+ "dataVersion": "2dd21aed5f512db4",
  "datasets": {
-  "meetings": 50,
-  "votes": 2136,
-  "latestMeeting": "October 6, 2026",
+  "meetings": 51,
+  "votes": 2175,
+  "latestMeeting": "October 20, 2026",
   "budgetLineItems": 1009,
   "payrollYears": [
    2018,
@@ -17,7 +17,7 @@
    2024,
    2025
   ],
-  "searchEntries": 17360
+  "searchEntries": 17399
  },
  "datasetDetails": {
   "budget": {
@@ -36,18 +36,18 @@
   },
   "meetings": {
    "label": "Town Board minutes and votes",
-   "asOf": "October 6, 2026",
+   "asOf": "October 20, 2026",
    "status": "official",
    "cadence": "Checked weekly as the Town publishes minutes; meetings are not held every week",
-   "records": 2136,
+   "records": 2175,
    "freshness": "current",
-   "freshnessNote": "Source date is 16 days old, inside the expected window.",
+   "freshnessNote": "Source date is 2 days old, inside the expected window.",
    "freshnessPolicy": {
     "mode": "date",
     "currentDays": 28,
     "staleDays": 56
    },
-   "sourceDate": "2026-10-06"
+   "sourceDate": "2026-10-20"
   },
   "payroll": {
    "label": "Actual payroll",
@@ -97,7 +97,7 @@
    "asOf": "October 22, 2026",
    "status": "calculated",
    "cadence": "Regenerated with source datasets",
-   "records": 17360,
+   "records": 17399,
    "freshness": "current",
    "freshnessNote": "Source date is 0 days old, inside the expected window.",
    "freshnessPolicy": {
@@ -107,7 +107,7 @@
    },
    "sourceDate": "2026-10-22",
    "format": "sharded",
-   "bytes": 5908306
+   "bytes": 5917033
   }
  }
 }
