@@ -1,0 +1,52 @@
+{
+ "about": "Hand-kept review of each roster match on /payroll/'s personnel-actions table. etl/build_personnel_actions.py publishes a name only when an entry here approves that name for that resolution and file number, and the approval has not passed reviewAgainBy. Each review records what was checked. To review: confirm the roster number is unique, the person's payroll title and department fit what the resolution says, the quote is the Town's own words with nothing from Public Officers Law section 89(2-b), and the page's context for that kind of action is right; then set decision to publish or withhold, with the basis. Re-review by the date given, and whenever a later resolution about the same file number appears.",
+ "checklist": [
+  "The file number appears on the roster once, under this name (a name change shows both names).",
+  "The person's payroll title and department fit the resolution: a police charge names a police employee, and so on.",
+  "The quotation is the resolution's own sentence, with no medical history, home address, personal phone or e-mail, Social Security number, or use of counseling services.",
+  "Any later resolution citing the same file number has been read, and the entry still describes where the matter stands.",
+  "The context the page gives for this kind of action is accurate: charges are allegations; a termination, separation or stipulation states no reason or finding."
+ ],
+ "reviews": [
+  {
+   "resolution": "2026-962",
+   "fileNumber": "000347",
+   "names": ["Bianco, William A"],
+   "decision": "publish",
+   "reviewed": "2026-10-22",
+   "reviewAgainBy": "2027-01-22",
+   "by": "Site editor",
+   "basis": "The site owner asked on October 21, 2026 that employees named only by file number in disciplinary, termination and separation resolutions be identified. The number is on the roster once. The payroll lists this person as a Police Officer in Squad 1 through 2025, which fits charges filed by the Chief of Police. The quote is the resolution's first clause and carries no redactable item. Re-reviewed in three months because the charges are pending and a determination may follow."
+  },
+  {
+   "resolution": "2026-827",
+   "fileNumber": "000397",
+   "names": ["Dillingham, Drew E"],
+   "decision": "publish",
+   "reviewed": "2026-10-22",
+   "reviewAgainBy": "2027-04-22",
+   "by": "Site editor",
+   "basis": "Identified at the site owner's request of October 21, 2026. The number is on the roster once; the payroll lists this person as Town Engineer through 2025. The resolution approves an agreement concerning retirement and separation and states no reason or finding."
+  },
+  {
+   "resolution": "2025-606",
+   "fileNumber": "001191",
+   "names": ["Sofoklis, Andreas P"],
+   "decision": "publish",
+   "reviewed": "2026-10-22",
+   "reviewAgainBy": "2027-04-22",
+   "by": "Site editor",
+   "basis": "Identified at the site owner's request of October 21, 2026. The number is on the roster once; the payroll lists this person as Chief Building Inspector, with a 2025 status of terminated. The resolution ratifies a stipulation and does not say what it concerns."
+  },
+  {
+   "resolution": "2025-589",
+   "fileNumber": "001173",
+   "names": ["Crohan, Tyler E"],
+   "decision": "publish",
+   "reviewed": "2026-10-22",
+   "reviewAgainBy": "2027-04-22",
+   "by": "Site editor",
+   "basis": "Identified at the site owner's request of October 21, 2026. The number is on the roster once; the payroll lists this person as a Wastewater Treatment Plant Operator in the Sewer District. The resolution ratifies a stipulation and does not say what it concerns."
+  }
+ ]
+}

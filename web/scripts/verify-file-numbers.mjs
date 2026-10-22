@@ -6,6 +6,7 @@
 import { existsSync, readFileSync, readdirSync } from 'node:fs'
 import { isAbsolute, relative, resolve, sep } from 'node:path'
 import { fileNumbers } from '../lib/file-numbers.ts'
+import { CORRECTION_URL, KIND_CONTEXT, PERSONNEL_LAW } from '../lib/personnel-law.ts'
 
 const root = resolve(process.cwd())
 const repo = resolve(root, '..')
@@ -117,17 +118,48 @@ else {
 const personnel = JSON.parse(readFileSync(path('public/data/meetings/personnel-actions.json'), 'utf8'))
 const rosterNames = new Map()
 for (const r of roster) rosterNames.set(r['File Number'], [...(rosterNames.get(r['File Number']) ?? []), r['Payroll Name']])
+// A name is published only with a review that approves exactly that name, and
+// the review has not lapsed; a match awaiting review carries no name at all.
+const reviewFile = JSON.parse(readFileSync(path('../etl/data/meetings/personnel-actions-review.json'), 'utf8'))
+const reviews = new Map(reviewFile.reviews.map((r) => [`${r.resolution}|${r.fileNumber}`, r]))
+const today = new Date().toISOString().slice(0, 10)
+// What Public Officers Law § 89(2-b) requires police agencies to redact, where a pattern can find it.
+const REDACTABLE = [/\b\d{3}-\d{2}-\d{4}\b/, /(?<!\d)(?:\(\d{3}\)\s*|\b\d{3}[-.\s])\d{3}[-.\s]\d{4}\b/, /\b[\w.+-]+@[\w-]+\.[\w.-]+\b/]
 for (const a of personnel.actions) {
   const want = rosterNames.get(a.fileNumber) ?? []
-  if (a.people.map((p) => p.name).join('|') !== want.join('|')) fail(`${a.resolution}: GFZ${a.fileNumber} is shown as ${a.people.map((p) => p.name).join(' or ') || 'no one'}, the roster says ${want.join(' or ') || 'no one'}`)
+  const shown = a.people.map((p) => p.name)
+  const review = reviews.get(`${a.resolution}|${a.fileNumber}`)
+  if (shown.length) {
+    if (a.review?.state !== 'publish') fail(`${a.resolution}: ${shown.join(' or ')} is shown without an approved review`)
+    if (!review || review.decision !== 'publish') fail(`${a.resolution}: no approving entry in personnel-actions-review.json for ${shown.join(' or ')}`)
+    else {
+      if ([...review.names].sort().join('|') !== [...shown].sort().join('|')) fail(`${a.resolution}: the review approves ${review.names.join(' or ')}, the table shows ${shown.join(' or ')}`)
+      if (review.reviewAgainBy && review.reviewAgainBy < today) fail(`${a.resolution}: the review of ${shown.join(' or ')} lapsed on ${review.reviewAgainBy}; review it again (personnel-actions-review.json)`)
+      if (!review.basis || review.basis.length < 40) fail(`${a.resolution}: the review gives no basis`)
+    }
+    if (shown.join('|') !== want.join('|')) fail(`${a.resolution}: GFZ${a.fileNumber} is shown as ${shown.join(' or ')}, the roster says ${want.join(' or ') || 'no one'}`)
+  } else if (want.length && a.review?.state === 'publish') fail(`${a.resolution}: marked published but shows no name`)
+  if (!want.length && a.review?.state !== 'no-match') fail(`${a.resolution}: GFZ${a.fileNumber} is not on the roster but is marked ${a.review?.state}`)
+  for (const re of REDACTABLE) if (re.test(a.quote ?? '')) fail(`${a.resolution}: the quotation carries something the law requires police agencies to redact`)
+  if (!KIND_CONTEXT[a.kind]) fail(`${a.resolution}: no note on what a ${a.kind} means`)
   if (!readFileSync(path('..', a.source), 'utf8').includes(a.fileNumber)) fail(`${a.resolution}: ${a.source} does not cite GFZ${a.fileNumber}`)
 }
+// Every review is for an action still in the table.
+for (const r of reviewFile.reviews) if (!personnel.actions.some((a) => a.resolution === r.resolution && a.fileNumber === r.fileNumber)) fail(`the review of ${r.resolution} / GFZ${r.fileNumber} matches no action in the table`)
 if (existsSync(path(built))) {
   const html = readFileSync(path(built), 'utf8')
   const i = html.indexOf('data-personnel-actions')
   const text = i === -1 ? '' : html.slice(i, html.indexOf('</details>', i)).replace(/<!-- -->/g, '').replace(/<[^>]+>/g, ' ').replace(/&#x27;/g, "'").replace(/\s+/g, ' ')
   if (personnel.actions.length && !text) fail('/payroll/ has no personnel actions table')
   if (text && !text.includes('A resolution is an action, not a finding.')) fail('the personnel actions table lost its caveat')
+  // The law section quotes each statute and offers a way to ask for a correction.
+  const decoded = text.replace(/&quot;/g, '"').replace(/&amp;/g, '&')
+  for (const st of Object.values(PERSONNEL_LAW)) {
+    if (text && !decoded.includes(st.cite)) fail(`the personnel table no longer cites ${st.cite}`)
+    if (text && !decoded.includes(st.quote)) fail(`the personnel table no longer quotes ${st.cite}`)
+  }
+  if (text && !decoded.includes('not legal advice')) fail('the personnel table no longer says it is not legal advice')
+  if (!html.includes(CORRECTION_URL.replace(/&/g, '&amp;'))) fail('the personnel table has no link to ask for a correction or review')
   for (const a of personnel.actions) {
     if (text && !text.includes(a.resolution)) fail(`the personnel actions table does not show ${a.resolution}`)
     for (const p of a.people) if (text && !text.includes(p.name)) fail(`the personnel actions table does not show ${p.name} for ${a.resolution}`)

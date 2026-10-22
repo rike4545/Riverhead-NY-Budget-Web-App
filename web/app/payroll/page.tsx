@@ -12,6 +12,7 @@ import {
 } from '../../lib/separation-pay'
 import { fileNumbers } from '../../lib/file-numbers'
 import personnelActions from '../../public/data/meetings/personnel-actions.json'
+import { CORRECTION_URL, KIND_CONTEXT, PERSONNEL_LAW, type Statute } from '../../lib/personnel-law'
 import authorized2026 from '../../public/data/salary/authorized-2026.json'
 import payrollRecords from '../../public/data/payroll/records.json'
 import { CSEA_2027, ELECTED_2027, raises2027, type Authorized, type PayrollRow } from '../../lib/raises-2027'
@@ -142,7 +143,11 @@ function FileNumbers() {
   )
 }
 
-type PersonnelAction = (typeof personnelActions.actions)[number]
+type PersonnelAction = Omit<(typeof personnelActions.actions)[number], 'later' | 'review' | 'redacted'> & {
+  later: { meeting: string; resolution: string; title: string }[]
+  review: { state: 'publish' | 'pending' | 'withheld' | 'no-match'; reviewed?: string; reviewAgainBy?: string | null; basis?: string }
+  redacted: string[]
+}
 
 const KIND_LABEL: Record<string, string> = {
   discipline: 'Disciplinary charges',
@@ -159,12 +164,16 @@ const longDate = (iso: string) => {
 }
 
 // Personnel resolutions that name the employee only by file number, with the
-// person the Town's roster gives that number to (etl/build_personnel_actions.py).
+// person the Town's roster gives that number to, once a review has approved the
+// match (etl/build_personnel_actions.py, personnel-actions-review.json).
 function PersonnelActions() {
-  const actions = personnelActions.actions as PersonnelAction[]
+  const actions = personnelActions.actions as unknown as PersonnelAction[]
   if (!actions.length) return null
   const cell = { padding: '8px 10px', verticalAlign: 'top' } as const
   const named = actions.filter((a) => a.people.length).length
+  const waiting = actions.filter((a) => a.review.state === 'pending' || a.review.state === 'withheld').length
+  const law = PERSONNEL_LAW
+  const cite = (s: Statute) => <a href={s.url} style={{ color: 'var(--rbl-link)' }}>{s.cite}</a>
   return (
     <details id="personnel-actions" data-personnel-actions style={{ background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 0, margin: '0 0 18px', overflow: 'hidden' }}>
       <summary style={{ cursor: 'pointer', padding: '15px 18px', fontWeight: 800, color: 'var(--rbl-title)', fontSize: 15.5 }}>
@@ -173,14 +182,15 @@ function PersonnelActions() {
       <div style={{ padding: '0 18px 18px', color: 'var(--rbl-text-body)', fontSize: 14, lineHeight: 1.6 }}>
         <p style={{ marginTop: 0 }}>
           These Town Board resolutions take a disciplinary, termination, separation or similar action and name the employee only by payroll
-          file number. The name beside each is the one the Town’s payroll roster gives that number; {named} of the {actions.length} numbers are
-          on it. The title and department are that person’s latest in the payroll exports.
+          file number. Where the Town’s payroll roster gives that number to one person, and a review has checked the match, the name is shown
+          with that person’s latest title and department in the payroll exports. {named} of the {actions.length} are named
+          {waiting > 0 ? `; ${waiting} await review and show no name` : ''}.
         </p>
         <p>
-          A resolution is an action, not a finding. Disciplinary charges are allegations until they are decided, and a stipulation or
-          separation agreement does not say what it settles. The match is by number on a roster that runs through file number{' '}
-          {personnelActions.rosterHighest}, so a higher number has no name here. No resolution in this site’s records names an employee by
-          number in a grievance.
+          <strong>A resolution is an action, not a finding.</strong> Disciplinary charges are allegations until they are decided, and a
+          termination, separation agreement or stipulation does not say why. The match is by number on a roster that runs through file
+          number {personnelActions.rosterHighest}, so a higher number has no name here. No resolution in this site’s records names an employee
+          by number in a grievance.
         </p>
         <div style={{ overflowX: 'auto' }}>
           <table className="rbl-stack" style={{ width: '100%', borderCollapse: 'collapse', fontSize: 13.5 }}>
@@ -190,7 +200,7 @@ function PersonnelActions() {
                 <th style={cell}>Action</th>
                 <th style={cell}>File number</th>
                 <th style={cell}>On the roster as</th>
-                <th style={cell}>What the resolution says</th>
+                <th style={cell}>What the resolution says, and what it means</th>
               </tr>
             </thead>
             <tbody>
@@ -201,21 +211,59 @@ function PersonnelActions() {
                   </td>
                   <td data-label="Action" style={cell}><span>{KIND_LABEL[a.kind] ?? a.kind}{a.result ? `, ${a.result.replace(/\s*\[.*\]/, '').toLowerCase()}` : ''}</span></td>
                   <td data-label="File number" style={{ ...cell, whiteSpace: 'nowrap' }}><span>GFZ{a.fileNumber}</span></td>
-                  <td className="rbl-stack-prose" data-label="On the roster as" style={cell}>
+                  <td data-label="On the roster as" className="rbl-stack-prose" style={cell}>
                     <span>
                       {a.people.length
-                        ? a.people.map((p, i) => (
-                            <span key={p.name}>{i > 0 && ' or '}<strong>{p.name}</strong>{p.title ? `, ${p.title}` : ''}{p.department ? ` (${p.department}, ${p.year})` : ''}</span>
-                          ))
-                        : `Not on the roster (above ${personnelActions.rosterHighest})`}
+                        ? <>
+                            {a.people.map((p, i) => (
+                              <span key={p.name}>{i > 0 && ' or '}<strong>{p.name}</strong>{p.title ? `, ${p.title}` : ''}{p.department ? ` (${p.department}, ${p.year})` : ''}</span>
+                            ))}
+                            {a.review.state === 'publish' && a.review.reviewed && (
+                              <span style={{ display: 'block', color: 'var(--rbl-text-muted)', fontSize: 12.5 }}>Match reviewed {longDate(a.review.reviewed)}</span>
+                            )}
+                          </>
+                        : a.review.state === 'no-match'
+                          ? `Not on the roster (above ${personnelActions.rosterHighest})`
+                          : 'On the roster; the match awaits review, so no name is shown'}
                     </span>
                   </td>
-                  <td className="rbl-stack-prose" data-label="What the resolution says" style={cell}><span>{a.quote ? `“${a.quote}”` : a.title}</span></td>
+                  <td data-label="What the resolution says, and what it means" className="rbl-stack-prose" style={cell}>
+                    <span>
+                      {a.quote ? `“${a.quote}”` : a.title}
+                      {KIND_CONTEXT[a.kind] && <span style={{ display: 'block', marginTop: 4, color: 'var(--rbl-text-muted)' }}>{KIND_CONTEXT[a.kind]}</span>}
+                      {a.later.length > 0 && (
+                        <span style={{ display: 'block', marginTop: 4 }}>
+                          Later resolutions citing this number: {a.later.map((l) => `${l.resolution} (${longDate(l.meeting)}, “${l.title}”)`).join('; ')}.
+                        </span>
+                      )}
+                    </span>
+                  </td>
                 </tr>
               ))}
             </tbody>
           </table>
         </div>
+
+        <h3 data-personnel-law style={{ fontSize: 15.5, color: 'var(--rbl-title)', margin: '18px 0 6px' }}>How this table handles privacy and employment law</h3>
+        <p style={{ margin: '0 0 8px' }}>This is context for residents, not legal advice. What New York law says, and what the table does about it:</p>
+        <ul style={{ margin: '0 0 10px', paddingLeft: 20, display: 'grid', gap: 6 }}>
+          <li><strong>Names, titles and pay are public.</strong> {cite(law.public)} requires every agency to keep “{law.public.quote}.” That is all the table shows about a person.</li>
+          <li><strong>What police records must leave out, this table never carries.</strong> {cite(law.redact)}: “{law.redact.quote}.” {law.redact.meaning} Each quotation is also checked for Social Security numbers, phone numbers and e-mail addresses, and any found are removed.</li>
+          <li><strong>Charges are not findings.</strong> {cite(law.charges)}: “{law.charges.quote}” {cite(law.suspension)} allows a suspension without pay pending a hearing “{law.suspension.quote},” and under {cite(law.police)} a town police officer who is not convicted “{law.police.quote}.”</li>
+          <li><strong>Only the Town’s words are quoted; the name is reviewed.</strong> {cite(law.report)} protects a fair and true report of an official proceeding, but “{law.report.quote}.” The resolution text here is the Town’s own; the name is this site’s match. So no name is shown until a person has checked it, and each check lapses after three to six months.</li>
+        </ul>
+        <p style={{ margin: '0 0 8px' }}>
+          <strong>How each match is reviewed.</strong> Before a name is shown, a reviewer confirms that the file number is on the roster once; that
+          the person’s payroll title and department fit the resolution; that the quotation is the resolution’s own words with nothing the law
+          requires removed; that any later resolution about the same number has been read; and that the note on what the action means is
+          right. A new match from the meeting records shows no name until then. When a later resolution, such as a determination of charges, cites
+          the same number, it appears in that row.
+        </p>
+        <p style={{ margin: 0 }}>
+          <strong>Ask for a correction or a review.</strong> If an entry is wrong or out of date, or a person named here wants it reviewed,{' '}
+          <a href={CORRECTION_URL} style={{ color: 'var(--rbl-link)' }}>open a request</a>. Requests are public, so give only the resolution
+          number and what is wrong, with no personal details.
+        </p>
       </div>
     </details>
   )

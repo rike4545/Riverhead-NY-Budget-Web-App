@@ -16,11 +16,24 @@ web/public/data/meetings/personnel-actions.json for /payroll/ and site search.
 
 A resolution is an action, not a finding: charges are allegations until they
 are decided. The page says so, and that the match is by roster number.
+
+Review before a name is published. The resolution's words are the Town's own,
+but the name is this site's addition, and New York's protection for a fair and
+true report of an official proceeding (Civil Rights Law section 74) does not
+reach "any other matter added". So a roster match is published only when
+etl/data/meetings/personnel-actions-review.json approves that name for that
+resolution and file number, and the approval has not lapsed. Anything else is
+written as "awaiting review", with no name, title or department, so a withheld
+name never reaches the public data. Quotes are also scrubbed of what FOIL
+requires police agencies to redact and that a pattern can find (Public Officers
+Law section 89(2-b): Social Security numbers, personal phone numbers and e-mail
+addresses).
 """
 
 import csv
 import json
 import re
+from datetime import date
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -235,16 +248,73 @@ def union_agreements(roster, jobs):
     return sorted(out, key=lambda a: (a["meeting"], a["resolution"]), reverse=True)
 
 
+REVIEW = MEETINGS / "personnel-actions-review.json"
+
+# Section 89(2-b) categories a pattern can find. Medical history, home
+# addresses and use of counseling services cannot be matched reliably, which is
+# one more reason a person reviews every entry before a name is shown.
+REDACT = (
+    ("social security number", re.compile(r"\b\d{3}-\d{2}-\d{4}\b")),
+    ("phone number", re.compile(r"(?<!\d)(?:\(\d{3}\)\s*|\b\d{3}[-.\s])\d{3}[-.\s]\d{4}\b")),
+    ("e-mail address", re.compile(r"\b[\w.+-]+@[\w-]+\.[\w.-]+\b")),
+)
+
+
+def redact(text):
+    """Return the text with redactable items replaced, and what was redacted."""
+    found = []
+    if not text:
+        return text, found
+    for label, pattern in REDACT:
+        if pattern.search(text):
+            found.append(label)
+            text = pattern.sub(f"[{label} redacted]", text)
+    return text, found
+
+
+def load_reviews():
+    if not REVIEW.exists():
+        return {}
+    data = json.loads(REVIEW.read_text())
+    return {(r["resolution"], r["fileNumber"]): r for r in data.get("reviews", [])}
+
+
+def review_state(action, reviews, today):
+    """publish, withheld or pending, for an action's roster match."""
+    if not action["people"]:
+        return "no-match", None
+    r = reviews.get((action["resolution"], action["fileNumber"]))
+    if not r:
+        return "pending", None
+    # An approval is for the names it lists. If the roster now gives the
+    # number to someone else, the approval no longer applies.
+    if sorted(r.get("names", [])) != sorted(p["name"] for p in action["people"]):
+        return "pending", r
+    if r["decision"] != "publish":
+        return "withheld", r
+    if r.get("reviewAgainBy") and r["reviewAgainBy"] < today:
+        return "pending", r
+    return "publish", r
+
+
 def build():
     roster = load_roster()
     jobs = load_latest_jobs()
+    reviews = load_reviews()
+    today = date.today().isoformat()
     found = {}
+    # Every resolution that cites each file number, whatever it does, so a
+    # later one (a determination of charges, a settlement, a reinstatement)
+    # shows beside the action it follows.
+    cited = {}
     # Minutes first: their result is the record. A packet only fills in what
     # the minutes do not have yet.
     paths = sorted(MEETINGS.glob("*-minutes.txt")) + sorted(MEETINGS.glob("*-vote-packet.txt"))
     for path in paths:
         text = path.read_text(errors="replace")
         for r in resolutions(text):
+            for number in dict.fromkeys(FILE_NUMBER.findall(r["body"])):
+                cited.setdefault(number, {})[r["number"]] = {"meeting": meeting_date(path), "resolution": r["number"], "title": r["title"]}
             kind = kind_of(r["title"])
             # Some titles say only "an agreement with a Town employee"; then
             # the resolution's own clauses say what the agreement is.
@@ -272,6 +342,19 @@ def build():
                     "source": path.relative_to(ROOT).as_posix(),
                 }
     actions = sorted(found.values(), key=lambda a: (a["meeting"], a["resolution"]), reverse=True)
+    for a in actions:
+        a["quote"], a["redacted"] = redact(a["quote"])
+        state, r = review_state(a, reviews, today)
+        a["review"] = {"state": state}
+        if state == "publish":
+            a["review"].update({"reviewed": r["reviewed"], "reviewAgainBy": r.get("reviewAgainBy"), "basis": r["basis"]})
+        elif state in ("pending", "withheld"):
+            # No name, title or department leaves this script unless approved.
+            a["people"] = []
+        a["later"] = sorted(
+            (c for c in cited.get(a["fileNumber"], {}).values() if c["meeting"] > a["meeting"]),
+            key=lambda c: c["meeting"],
+        )
     highest = max(int(n) for n in roster if int(n) < 900000)
     out = {
         "note": (
@@ -287,6 +370,9 @@ def build():
     OUT.parent.mkdir(parents=True, exist_ok=True)
     OUT.write_text(json.dumps(out, indent=1, ensure_ascii=False) + "\n")
     named = sum(1 for a in actions if a["people"])
+    waiting = sum(1 for a in actions if a["review"]["state"] == "pending")
+    if waiting:
+        print(f"  {waiting} roster match(es) awaiting review in {REVIEW.relative_to(ROOT)}: names withheld")
     unions = out["unionAgreements"]
     print(f"personnel actions: {len(actions)} by file number, {named} matched to the roster; {len(unions)} union agreements, {sum(1 for u in unions if u['clauses'])} with text -> {OUT.relative_to(ROOT)}")
     return out
