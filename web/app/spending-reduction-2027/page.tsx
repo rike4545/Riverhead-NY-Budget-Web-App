@@ -43,17 +43,17 @@ const comboLow = combined(budgeted ?? ri.projectedSavingsLow)
 const comboHigh = combined(budgeted ?? ri.projectedSavingsHigh)
 
 export const metadata = {
-  title: '2027 Spending Reduction — how the Town can close the tax-cap gap',
+  title: '2027 Spending Reduction — savings that could hold the levy near 2%',
   description: released2027
-    ? `Before the Tentative, this site’s forecast had Riverhead’s 2027 levy about $${(capGap2027.gap / 1_000_000).toFixed(2)}M above a 2% increase. How the retirement incentive and sourced line trims could close that gap, with an interactive package, the politics, and the alternatives explained.`
-    : `In plain terms: Riverhead’s 2027 budget is projected to pierce the tax cap by about $${(capGap2027.gap / 1_000_000).toFixed(2)}M. The retirement incentive plus sourced line trims close it — with an interactive package, the politics, and the alternatives explained.`,
+    ? `Before the Tentative, this site’s forecast had Riverhead’s 2027 levy about $${(capGap2027.gap / 1_000_000).toFixed(2)}M above a 2% increase. How the retirement incentive and sourced line trims could cover that distance, with an interactive package, the politics, and the alternatives explained.`
+    : `In plain terms: Riverhead’s 2027 budget is projected to pierce the tax cap by about $${(capGap2027.gap / 1_000_000).toFixed(2)}M. The retirement incentive plus sourced line trims could close it — with an interactive package, the politics, and the alternatives explained.`,
 }
 
 export default function SpendingReduction2027Page() {
   return (
     <PageShell
       title="2027 Spending Reduction"
-      subtitle={`${released2027 ? 'This site’s forecast had Riverhead’s 2027 budget piercing the state tax cap.' : 'Riverhead’s 2027 budget is on track to pierce the state tax cap.'} Here’s the plainest way to close the gap — start with the three-number plan, then dig in as far as you like.`}
+      subtitle={`${released2027 ? 'This site’s forecast had Riverhead’s 2027 budget piercing the state tax cap.' : 'Riverhead’s 2027 budget is on track to pierce the state tax cap.'} Here’s how the gap could be closed — start with the three-number plan, then dig in as far as you like.`}
     >
       <TentativeReleased>
         {released2027 && (statedLimitPct !== null
@@ -90,7 +90,7 @@ export default function SpendingReduction2027Page() {
       <section style={{ ...card, marginTop: 16, borderColor: 'var(--rbl-success-border)' }}>
         <h2 style={{ margin: '0 0 6px', color: 'var(--rbl-title)', fontSize: 19 }}>The plan, in three numbers</h2>
         <p style={{ color: 'var(--rbl-text-strong)', fontSize: 14.5, lineHeight: 1.6, margin: 0 }}>
-          Two things the Town has largely in hand already add up to the whole gap:
+          Two sources together come close to the whole gap. {budgeted !== null ? 'The first is in the Tentative budget.' : 'The first is adopted and projected by the Town.'} The second is a set of candidate trims the Board has not adopted:
         </p>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(190px,1fr))', gap: 12, margin: '14px 0' }}>
           <Tile
@@ -103,8 +103,9 @@ export default function SpendingReduction2027Page() {
           <Tile label="Together" value={comboLow === comboHigh ? `${comboLow}%` : `${comboLow}–${comboHigh}%`} note={`of the ${usd(capGap2027.gap)} gap, after netting the overlap between the two`} accent />
         </div>
         <p style={{ color: 'var(--rbl-text-strong)', fontSize: 14, lineHeight: 1.6, margin: 0 }}>
-          The unanimous retirement incentive plus only the <em>firmest</em> line trims cover essentially the entire
-          gap. Everything below is the detail behind those two numbers — and the alternatives, for anyone who wants them.
+          The unanimous retirement incentive plus only the <em>firmest</em> line trims would cover about{' '}
+          {comboLow === comboHigh ? `${comboLow}%` : `${comboLow}–${comboHigh}%`} of the gap, if the trims were adopted and held.
+          Everything below is the detail behind those two numbers, and the alternatives, for anyone who wants them.
         </p>
       </section>
 
@@ -204,8 +205,8 @@ export default function SpendingReduction2027Page() {
 
       <Detail title="Build your own savings package (interactive)">
         <p style={{ color: 'var(--rbl-text-strong)', fontSize: 14, lineHeight: 1.6, margin: '0 0 12px' }}>
-          Every real, individually-sourced trim, toggleable. Turn items on and off to build a package and watch it move
-          against the modeled payroll-pressure gap.
+          Every individually sourced candidate, starting with none selected. Turn items on to build a package and see
+          how far it goes toward the forecast&apos;s distance from a 2% levy increase.
         </p>
         <SpendingReductionToggleList />
       </Detail>
