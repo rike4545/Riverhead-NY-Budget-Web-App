@@ -76,6 +76,7 @@ export const SITE_PAGES: SitePage[] = [
 
   // Evidence
   { path: '/sources/', title: 'Source Library', summary: 'Every parsed Town document, with its fingerprint and a link to the original, and the State guidance used to read them.', keywords: 'sources documents PDFs source library original records OSC guidance' },
+  { path: '/records/', title: 'Records to Request', summary: 'Records this site could not find published, a ready Freedom of Information Law request for each, and the deadlines the Town has to meet.', keywords: 'FOIL freedom of information law request records access officer appeal deadline public officers law' },
   { path: '/downloads/', title: 'Downloads', summary: 'CSV files for budgets, payroll, salaries, votes and annual-report results.', keywords: 'downloads CSV data export spreadsheet JSON' },
   { path: '/data-quality/', title: 'Data Quality & Freshness', summary: 'Which figures are official and which are calculated, how current each source is, and what each deploy checks.', keywords: 'data quality freshness last updated methodology checks' },
   { path: '/gfoa/', title: 'Standards (GFOA)', summary: "This site scored against GFOA's revised Distinguished Budget Presentation Award criteria, which take effect January 1, 2027.", keywords: 'GFOA standards distinguished budget presentation award criteria revised 2027' },
