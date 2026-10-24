@@ -36,7 +36,7 @@ const GROUPS: Group[] = [
   ] },
   { label: 'Evidence', links: [
     ['Source Library', `${base}/sources/`], ['Records to Request', `${base}/records/`], ['Downloads', `${base}/downloads/`], ['Data Quality & Freshness', `${base}/data-quality/`],
-    ['Standards (GFOA)', `${base}/gfoa/`], ['Election Law Case', `${base}/election-law-case/`],
+    ['Standards (GFOA)', `${base}/gfoa/`], ['Investment Policy', `${base}/investment-policy/`], ['Election Law Case', `${base}/election-law-case/`],
     ['Officials on Social Media', `${base}/official-social-media/`], ['Know Your Rights (ICE)', `${base}/know-your-rights/`],
   ] },
 ]
