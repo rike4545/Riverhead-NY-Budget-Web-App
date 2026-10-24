@@ -1,7 +1,7 @@
 import type { CSSProperties, ReactNode } from 'react'
 import PageShell from '../../components/PageShell'
 import PlainCallout from '../../components/PlainCallout'
-import { ADOPTED_PACKET, AMENDMENTS, VOTE_ARTICLE, ARTICLE, NEXT_STEPS, PACKET, VOTES, STAFF_APPOINTMENT, SUPERVISOR_STAFF, SUPPLEMENT_YTD_THROUGH, fundEffects, isRevenue, type Amendment } from '../../lib/budget-amendments-2027'
+import { ADOPTED_PACKET, AMENDMENTS, VOTE_ARTICLE, ARTICLE, NEWSDAY_ARTICLE, BUDGET_2022, NEXT_STEPS, PACKET, VOTES, STAFF_APPOINTMENT, SUPERVISOR_STAFF, SUPPLEMENT_YTD_THROUGH, fundEffects, isRevenue, type Amendment } from '../../lib/budget-amendments-2027'
 import { amendmentEffect, exampleHome, generalFundInterest, raisedRevenues } from '../../lib/budget-amendments-effect'
 import { OUTLOOK, RECORD } from '../../lib/budget-adoption'
 import { AUDIT_2025 } from '../../lib/audits'
@@ -281,6 +281,13 @@ export default function BudgetAmendmentsPage() {
               In {ARTICLE.outlet}’s words, “{ARTICLE.reported.financing}”
             </P>
             <P>
+              {NEWSDAY_ARTICLE.outlet} describes it differently: “{NEWSDAY_ARTICLE.reported.equipment}” The equipment is still General Fund
+              equipment; what changes is that the levy no longer pays for it and savings would, by separate votes. Of Amendment #6 it says,
+              “{NEWSDAY_ARTICLE.reported.highwayTransfer}” There is no separate equipment fund: Amendment #6 cuts the Highway Fund’s own
+              equipment line by {usd(dentalHighway.amount)} and moves it to that fund’s health insurance. On the equipment, it reports: “
+              {NEWSDAY_ARTICLE.reported.annually}” If so, the same purchases would come back in later budgets.
+            </P>
+            <P>
               If the Board later approves all of them, the General Fund would use {usd(savingsUseIfBought)} more of its savings in 2027 than the
               Tentative planned ({usd(deferredGeneral)} of equipment against {usd(-gf.fundBalance)} less in the budget), and the Street Lighting
               District {usd(deferredLighting)} more. For scale, the General Fund’s unassigned fund balance was {usd(unassignedFundBalance)} at the end
@@ -323,6 +330,14 @@ export default function BudgetAmendmentsPage() {
                 <a href={`${base}/tax-bill/`} style={link}>tax bill estimator</a>.
               </P>
             )}
+            {exampleHome && (
+              <P>
+                {NEWSDAY_ARTICLE.outlet} reports the Financial Administrator’s own figures for the same home: “{NEWSDAY_ARTICLE.reported.example}”, and
+                “{NEWSDAY_ARTICLE.reported.exampleBefore}” Against 2026, this site’s estimate is about {usd(exampleHome.after - exampleHome.prior)} with
+                the six and {usd(exampleHome.before - exampleHome.prior)} under the Tentative. The small difference likely comes from rounding or the
+                assessment ratio used; hers are the Town’s figures.
+              </P>
+            )}
           </Section>
 
           <Section id="status" title="Where this stands">
@@ -353,7 +368,21 @@ export default function BudgetAmendmentsPage() {
             </ul>
             <P>
               {VOTE_ARTICLE.outlet} writes “{VOTE_ARTICLE.reported.hearing}” The Town’s published notice, adopted with Resolution 2026-923, sets
-              the hearing for November 5 at 2:05 p.m., and the Town’s meeting calendar lists November 5. This page follows the Town’s notice.
+              the hearing for November 5 at 2:05 p.m., and the Town’s meeting calendar lists November 5. {NEWSDAY_ARTICLE.outlet} writes
+              “{NEWSDAY_ARTICLE.reported.hearing}.” This page follows the Town’s notice.
+            </P>
+            <P>
+              {NEWSDAY_ARTICLE.outlet}’s report adds: “{NEWSDAY_ARTICLE.reported.lessRevenue}” The six lower the town-wide levy by {usd(-tw.change)},
+              which matches. Rothwell told it, “{NEWSDAY_ARTICLE.reported.plenty}.” Of last year’s increase he said, “{NEWSDAY_ARTICLE.reported.lastYear}.”
+            </P>
+            <P>
+              It also reports: “{NEWSDAY_ARTICLE.reported.claim2022}” The <a href={BUDGET_2022.url} style={link}>2022 Adopted Budget</a> bears out
+              the first part: the town-wide levy fell from {usd(BUDGET_2022.townWideLevy2021)} to {usd(BUDGET_2022.townWideLevy2022)}, partly because
+              some of it was moved to payments in lieu of taxes. It does not show {usd(BUDGET_2022.generalFundDraw2024)} of savings used in the
+              town-wide funds: the General, Highway and Street Lighting funds appropriated {usd(BUDGET_2022.townWideFundBalance)}, and the{' '}
+              {usd(BUDGET_2022.allFundsFundBalance)} the budget did use was in the Community Preservation, sewer and water funds. The General Fund
+              budget that planned a {usd(BUDGET_2022.generalFundDraw2024)} draw was 2024’s. Savings the Board voted to use during 2022, after the
+              budget was adopted, would not appear in it.
             </P>
             <P>
               {ARTICLE.outlet} reports that Rothwell said {ARTICLE.reported.developed}. “{ARTICLE.reported.support}” Rothwell is challenging Supervisor
@@ -479,6 +508,8 @@ export default function BudgetAmendmentsPage() {
               <li>Town Board Resolution 2026-923 ({'October 6, 2026'}) and its public notice of the November 5 budget hearing, in this site’s <a href={`${base}/meetings/?meeting=2026-10-06`} style={link}>Town Board votes</a></li>
               <li><a href={VOTE_ARTICLE.url} style={link}>{VOTE_ARTICLE.outlet} ({VOTE_ARTICLE.author}), {VOTE_ARTICLE.published}: “{VOTE_ARTICLE.title}”</a></li>
               <li><a href={ARTICLE.url} style={link}>{ARTICLE.outlet}, {ARTICLE.published}: “{ARTICLE.title}”</a></li>
+              <li>{NEWSDAY_ARTICLE.outlet} ({NEWSDAY_ARTICLE.author}), {NEWSDAY_ARTICLE.published}: “{NEWSDAY_ARTICLE.title}”</li>
+              <li><a href={BUDGET_2022.url} style={link}>Town of Riverhead, 2022 Adopted Budget</a>: the Summary and Fund Balances, pp. 3–4</li>
               <li><a href={SUPERVISOR_STAFF.report.url} style={link}>{SUPERVISOR_STAFF.report.outlet}, {SUPERVISOR_STAFF.report.published}: “{SUPERVISOR_STAFF.report.title}”</a></li>
               <li>
                 Town Board resolutions {SUPERVISOR_STAFF.resolutions.map((r) => r.number).join(', ')} ({SUPERVISOR_STAFF.date}) and{' '}

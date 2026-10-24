@@ -16,7 +16,7 @@
 import { existsSync, readFileSync } from 'node:fs'
 import { isAbsolute, relative, resolve, sep } from 'node:path'
 import {
-  ADOPTED_PACKET, AMENDMENTS, VOTE_ARTICLE, ARTICLE, BOARD, NEXT_STEPS, PACKET, PROPERTY_TAXES, VOTES, STAFF_APPOINTMENT, SUPERVISOR_STAFF, change, deferredToFundBalance, fundEffects, isRevenue, revenueCode,
+  ADOPTED_PACKET, AMENDMENTS, VOTE_ARTICLE, ARTICLE, NEWSDAY_ARTICLE, BUDGET_2022, BOARD, NEXT_STEPS, PACKET, PROPERTY_TAXES, VOTES, STAFF_APPOINTMENT, SUPERVISOR_STAFF, change, deferredToFundBalance, fundEffects, isRevenue, revenueCode,
   scaledRate, unbalanced,
 } from '../lib/budget-amendments-2027.ts'
 import { TOWN_WIDE_FUNDS } from '../lib/fund-groups.ts'
@@ -210,6 +210,24 @@ const notListed = VOTES.filter((v) => !v.ayes.includes('Jerry Halpin')).length
 if (!VOTE_ARTICLE.reported.abstained.startsWith(`${['', 'One', 'Two', 'Three', 'Four', 'Five', 'Six'][notListed]} resolutions`)) fail(`the article's abstention count no longer matches the ${notListed} amendments the packet does not list Halpin on`)
 for (const q of Object.values(VOTE_ARTICLE.reported)) if (!has(q)) fail(`the page does not quote “${q}”`)
 if (!has('This page follows the Town’s notice.')) fail('the page no longer notes the article’s hearing date against the Town’s notice')
+// Newsday's report: every quotation on the page, its $640,000 against the
+// resolutions, and Halpin's 2022 example against the 2022 Adopted Budget.
+for (const q of Object.values(NEWSDAY_ARTICLE.reported)) if (!has(q)) fail(`the page does not quote Newsday's “${q}”`)
+{
+  const cut = -effects.filter((e) => ['A01', 'DA1', 'SL1'].includes(e.fund)).reduce((t, e) => t + e.levy, 0)
+  if (Math.abs(cut - 640_000) > 10_000) fail(`Newsday's "about $640,000 less" no longer matches the six's ${fmt(cut)} levy cut`)
+  const doc = read('public/data/financial-reports/documents/2022-2022-adopted-budget-pdf.json')
+  const page = (n) => { const x = doc.pages[n - 1]; return typeof x === 'string' ? x : x.text }
+  const summary = page(6)
+  for (const n of [BUDGET_2022.townWideLevy2021, BUDGET_2022.townWideLevy2022, BUDGET_2022.allFundsFundBalance]) if (!summary.includes(fmt(n).replace('$', ''))) fail(`the 2022 Adopted Budget's Summary does not show ${fmt(n)}`)
+  for (const code of ['A01 General', 'DA1 Highway', 'SL1 Street']) {
+    const row = summary.split('\n').find((l) => l.startsWith(code))
+    const cells = row?.replace(/^\S+\s+/, '').match(/[\d,]+|‐/g) ?? []
+    if (cells[2] !== '‐') fail(`the 2022 Adopted Budget's ${code} row now shows appropriated fund balance: ${row}`)
+  }
+  const gf = readFileSync(path('../etl/data/general_fund_2005_2025.csv'), 'utf8').split('\n').find((l) => l.startsWith('2024,A01'))
+  if (gf?.split(',')[5] !== String(BUDGET_2022.generalFundDraw2024)) fail(`the 2024 Adopted Budget's General Fund draw is not ${fmt(BUDGET_2022.generalFundDraw2024)}`)
+}
 // When the minutes arrive, they must agree that all six passed.
 if (existsSync(path(`public/data/meetings/${PACKET.meeting.slug}.json`))) {
   const meeting = read(`public/data/meetings/${PACKET.meeting.slug}.json`)

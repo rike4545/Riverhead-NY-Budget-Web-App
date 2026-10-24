@@ -65,6 +65,51 @@ export const VOTE_ARTICLE = {
   },
 } as const
 
+/**
+ * Newsday's report of the same vote. Its article is behind a paywall, so the
+ * page cites it by title and date and quotes it as reported. Two of its
+ * descriptions are looser than the resolutions (`equipment`, `highwayTransfer`)
+ * and the page says what the resolutions do; `example` is the Financial
+ * Administrator's tax figure, which the page sets beside its own estimate.
+ */
+export const NEWSDAY_ARTICLE = {
+  title: 'Riverhead Republicans introduce smaller tax hike, sparking budget preelection budget clash',
+  outlet: 'Newsday',
+  author: 'Tara Smith',
+  published: 'October 22, 2026',
+  reported: {
+    lessRevenue: 'Rothwell’s proposal would raise about $640,000 less in tax revenue than Halpin\'s.',
+    plenty: 'Our fund balance is plenty, and we don\'t need to keep adding to it',
+    example: 'the projected tax increase would be $55 per year for a home assessed at $800,000, according to town financial administrator Jeanette DiPaola',
+    exampleBefore: 'Halpin’s initial proposal would carry a roughly $101 increase for a home with the same market value.',
+    equipment: 'The first amendment uses surplus funds to cover $158,300 in equipment rather than the general fund.',
+    highwayTransfer: 'It also relies on a $25,371 transfer from the highway equipment fund.',
+    annually: 'Halpin pushed back and said the town buys those items annually.',
+    claim2022: 'Halpin cited the town’s 2022 budget, which did not raise the tax levy and instead relied on $2 million in surplus funding to balance the budget.',
+    lastYear: 'We did plan for the worst, which unfortunately meant raising taxes last year',
+    hearing: 'A public hearing on the 2027 budget will be held at Town Hall at 2 p.m. on Nov. 5',
+  },
+  /** The Financial Administrator's figures, as reported. */
+  exampleAfter: 55,
+  exampleBeforeAmount: 101,
+} as const
+
+/**
+ * What the 2022 Adopted Budget shows, for Halpin's example (Summary and Fund
+ * Balances, PDF pp. 6–7). The town-wide funds appropriated no fund balance;
+ * the $4,437,800 the budget used was in the Community Preservation, sewer and
+ * water funds. The levy fell partly because of a "re-allocation to PILOT".
+ * The General Fund budget that did plan a $2,000,000 draw was 2024's.
+ */
+export const BUDGET_2022 = {
+  url: 'https://www.townofriverheadny.gov/DocumentCenter/View/257/2022-Adopted-Budget-PDF',
+  townWideLevy2021: 49_664_100,
+  townWideLevy2022: 48_021_203,
+  townWideFundBalance: 0,
+  allFundsFundBalance: 4_437_800,
+  generalFundDraw2024: 2_000_000,
+} as const
+
 export const BOARD = ['Jerry Halpin', 'Kenneth Rothwell', 'Robert Kern', 'Denise Merrifield', 'Joann Waski'] as const
 
 export type AmendmentVote = { n: number; number: string; result: 'Adopted'; mover: string; seconder: string; ayes: string[]; nays: string[]; votePage: number }
