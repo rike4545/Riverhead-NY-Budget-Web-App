@@ -22,6 +22,20 @@ export default function MeetingsPage() {
   const t = meetingsIndex.totals
   const newest = meetingsIndex.meetings[0]
   const oldest = meetingsIndex.meetings[meetingsIndex.meetings.length - 1]
+  // Keep the consent-calendar headline tied to the same live-built meeting
+  // index as the archive. The mover/seconder rotation finding below is a
+  // separate, fixed historical sample and must not be presented as current.
+  const archiveVoteStats = meetingsIndex.meetings.reduce(
+    (totals, meeting) => ({
+      meetings: totals.meetings + 1,
+      resolutions: totals.resolutions + meeting.total,
+      unanimous: totals.unanimous + meeting.unanimous,
+    }),
+    { meetings: 0, resolutions: 0, unanimous: 0 },
+  )
+  const archiveUnanimousPct = archiveVoteStats.resolutions
+    ? Math.round((archiveVoteStats.unanimous / archiveVoteStats.resolutions) * 1000) / 10
+    : 0
 
   return (
     <PageShell
@@ -81,9 +95,12 @@ export default function MeetingsPage() {
           <summary style={summaryStyle}>Why are so many votes unanimous?</summary>
           <p style={body}>{consentCalendar.intro}</p>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2,minmax(0,1fr))', gap: 8, margin: '12px 0' }}>
-            <MiniStat label="Unanimous" value={`${consentCalendar.riverheadPattern.unanimousPct}%`} />
-            <MiniStat label="Resolutions studied" value={consentCalendar.riverheadPattern.totalResolutions.toLocaleString()} />
+            <MiniStat label="Unanimous in current archive" value={`${archiveUnanimousPct}%`} />
+            <MiniStat label="Recorded votes / resolutions" value={archiveVoteStats.resolutions.toLocaleString()} />
           </div>
+          <p style={body}>Current archive coverage: {archiveVoteStats.meetings.toLocaleString()} meetings. These headline figures are recalculated from the same meeting index used by the archive.</p>
+          <h3 style={subhead}>Separate historical mover/seconder sample</h3>
+          <p style={body}>The following rotation finding is based on a fixed historical sample of {consentCalendar.riverheadPattern.totalMeetings} meetings, not all meetings currently in the archive. Its sample size and finding are shown separately and are not presented as a live archive-wide calculation.</p>
           <p style={body}>{consentCalendar.riverheadPattern.rotationFinding}</p>
           <div style={{ display: 'grid', gap: 8 }}>
             {consentCalendar.whatMakesItEffective.map((item) => <div key={item.title} style={mini}><strong>{item.title}</strong><div style={{ marginTop: 3, color: 'var(--rbl-text-body)', fontSize: 13, lineHeight: 1.45 }}>{item.text}</div></div>)}
