@@ -98,6 +98,19 @@ if (proposalColumn) {
   // Line by line, from the Supplement, when it prints this proposal.
   const supplementFits = proposalColumn.stage === 'tentative' && supplement.columns.tentative === proposalColumn.year &&
     supplement.reconciliation.complete && supplement.columns.adopted === lastYear
+  // If the latest published stage is Tentative, the line-level data must be
+  // the current year's Supplement reconciled to that same Tentative and the
+  // adopted budget used as the comparison baseline. Do not silently skip line
+  // detail when the deploy parser has produced stale or mismatched data.
+  if (proposalColumn.stage === 'tentative') {
+    if (supplement.supplementYear !== proposalColumn.year) fail(`the Outlier Watch compares ${proposalColumn.label}, but current-lines.json is Supplement ${supplement.supplementYear}`)
+    if (supplement.columns.tentative !== proposalColumn.year) fail(`the Supplement's Tentative column is ${supplement.columns.tentative}, not ${proposalColumn.year}`)
+    if (supplement.columns.adopted !== lastYear) fail(`the Supplement's adopted column is ${supplement.columns.adopted}, not the ${lastYear} comparison baseline`)
+    if (supplement.reconciliation.complete !== true || Math.abs(Number(supplement.reconciliation.gap ?? Infinity)) > 0.01 || (supplement.reconciliation.fundsOff ?? []).length) {
+      fail(`the ${proposalColumn.label} Supplement is not fully reconciled: ${JSON.stringify(supplement.reconciliation)}`)
+    }
+    if (!supplementFits) fail(`the ${proposalColumn.label} proposal has no valid, reconciled Supplement line data`)
+  }
   const lines = supplementFits ? supplement.lines : []
   for (const c of split.flagged) {
     if (!supplementFits) continue
