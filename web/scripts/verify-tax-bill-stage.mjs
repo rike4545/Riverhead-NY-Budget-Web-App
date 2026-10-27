@@ -17,7 +17,7 @@ if (current?.townWide?.fundRates) {
   const r = current.townWide.fundRates
   const actual = [r.A01?.rate, r.DA1?.rate, r.SL1?.rate, current.townWide.rate]
   if (actual.some(n => !Number.isFinite(n))) fail('current proposal is missing a required town-wide rate')
-  if (!page.includes('proposal2027.townWide.fundRates.A01') || !page.includes('proposal2027.townWide.fundRates.DA1') || !page.includes('proposal2027.townWide.fundRates.SL1')) fail('proposal fund rates are not mapped to the estimator')
+  if (!page.includes('proposalFundRates.A01') || !page.includes('proposalFundRates.DA1') || !page.includes('proposalFundRates.SL1')) fail('proposal fund rates are not mapped to the estimator')
   console.log(`2027 proposal rate available: town-wide ${current.townWide.rate.toFixed(3)} per $1,000; source ${current.source.title}`)
 } else {
   console.log('No 2027 proposal rate table is present; historical adopted calculator remains available.')
