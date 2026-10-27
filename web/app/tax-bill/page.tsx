@@ -17,14 +17,16 @@ export default function TaxBillPage() {
   const rateChange = data.rates2026.totalTownWide - data.rates2025.totalTownWide
   const preliminary2027 = stageDoc(2027, 'preliminary')
   const proposal2027 = preliminary2027 ?? stageDoc(2027, 'tentative')
-  const proposalRates = proposal2027?.townWide?.fundRates
-    ? {
-        generalFund: proposal2027.townWide.fundRates.A01?.rate ?? data.rates2026.generalFund,
-        highway: proposal2027.townWide.fundRates.DA1?.rate ?? data.rates2026.highway,
-        streetLighting: proposal2027.townWide.fundRates.SL1?.rate ?? data.rates2026.streetLighting,
-        totalTownWide: proposal2027.townWide.rate,
-      }
-    : undefined
+  const proposalFundRates = proposal2027?.townWide?.fundRates
+  const proposalRates =
+    proposal2027?.townWide && proposalFundRates?.A01 && proposalFundRates.DA1 && proposalFundRates.SL1
+      ? {
+          generalFund: proposalFundRates.A01.rate,
+          highway: proposalFundRates.DA1.rate,
+          streetLighting: proposalFundRates.SL1.rate,
+          totalTownWide: proposal2027.townWide.rate,
+        }
+      : undefined
   const proposalLabel = preliminary2027 ? '2027 Preliminary Budget' : '2027 Tentative Budget'
   const rateChangePct = (rateChange / data.rates2025.totalTownWide) * 100
   const levyFunds = allOperatingFunds2026
