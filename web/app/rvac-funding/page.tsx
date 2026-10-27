@@ -252,7 +252,7 @@ export default function RvacFundingPage() {
       </section>
 
       <section style={{ ...card, marginBottom: 16 }}>
-        <h2 style={{ marginTop: 0, color: 'var(--rbl-title)' }} >6. What this record does—and does not—prove</h2>
+        <h2 style={{ marginTop: 0, color: 'var(--rbl-title)' }}>7. What this record does—and does not—prove</h2>
         <ul style={{ color: 'var(--rbl-text-body)', lineHeight: 1.65, paddingLeft: 20, fontSize: 14 }}>
           <li>The original adopted RVAC line was {usd(1_274_924)}. After the February reduction and May addition, the calculated line is {usd(revisedContract)}, just {usd(678)} below the original amount.</li>
           <li>Resolution 2026-156 moved $100,000 out of RVAC into other district lines; Resolution 2026-470 added $99,322 back, including $80,000 from fund balance. Resolution 2026-842 later added $45,000 from fund balance for temporary Armory repairs.</li>
