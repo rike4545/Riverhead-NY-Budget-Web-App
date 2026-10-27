@@ -260,5 +260,31 @@ else {
   if (!source.includes('python etl/test_transcribe_meetings.py')) fail('Transcription workflow no longer checks the transcripts before publishing')
 }
 
+// The archive-wide consent-calendar figures must derive from the current
+// meeting index. The mover/seconder rotation analysis is a separate historical
+// sample and must be labelled as such rather than reusing stale archive totals.
+const meetingsPagePath = path('app/meetings/page.tsx')
+if (!existsSync(meetingsPagePath)) fail('Meetings page is missing')
+else {
+  const page = readFileSync(meetingsPagePath, 'utf8')
+  for (const text of [
+    'const archiveVoteStats = meetingsIndex.meetings.reduce(',
+    'archiveUnanimousPct',
+    'archiveVoteStats.resolutions.toLocaleString()',
+    'Current archive coverage:',
+    'Separate historical mover/seconder sample',
+    'not all meetings currently in the archive',
+  ]) if (!page.includes(text)) fail(`Meeting consent-calendar stats are not dynamically scoped: missing ${text}`)
+  if (page.includes('value={`${consentCalendar.riverheadPattern.unanimousPct}%`}')) fail('Consent-calendar unanimous percentage reverted to stale hardcoded JSON')
+  if (page.includes('value={consentCalendar.riverheadPattern.totalResolutions.toLocaleString()}')) fail('Consent-calendar resolution count reverted to stale hardcoded JSON')
+}
+
+const consentPath = path('public/data/consent-calendar.json')
+if (existsSync(consentPath)) {
+  const consent = JSON.parse(readFileSync(consentPath, 'utf8'))
+  if (!String(consent.riverheadPattern?.headline ?? '').includes('fixed sample')) fail('Consent-calendar data no longer labels the rotation analysis as a fixed sample')
+  if (consent.riverheadPattern?.totalMeetings !== 50) fail('Historical rotation sample size changed without recalculating the underlying analysis')
+}
+
 if (process.exitCode) process.exit(process.exitCode)
 console.log('Meeting record verification passed: decision-first UX, accurate vote-availability states, official agenda-packet fallback, fiscal-impact integration, official-resolution verification, and continuous source reconciliation are intact.')
