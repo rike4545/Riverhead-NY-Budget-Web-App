@@ -10,10 +10,11 @@ const pct = (n: number, d: number) => `${(n / d * 100).toFixed(1)}%`
 const sourceLink = { color: 'var(--rbl-accent)', fontWeight: 700 }
 
 const revenue = [
-  { name: 'Property taxes', account: 'SM1-1001-001-00000-A', amount: 1_704_224, ytd: 1_704_224.02, note: 'The district’s main tax-supported revenue.' },
-  { name: 'LIPA PILOT', account: 'SM1-1081-100-00000-B', amount: 43_300, ytd: 0, note: 'Payment in lieu of taxes.' },
-  { name: 'Ambulance charges — medical billing', account: 'SM1-1640-000-00000-4', amount: 640_000, ytd: -205_790.24, note: 'Budget estimate, not proof of collections. The published YTD figure is negative and needs ledger context.' },
-  { name: 'Interest and earnings', account: 'SM1-2401-000-00000-G', amount: 1_300, ytd: 15_120.64, note: 'Budget estimate.' },
+  { name: 'Property taxes', account: 'SM1-1001-001-00000-A', actual2025: 1_658_799.99, amount: 1_704_224, ytd: 1_704_224.02, note: 'The district’s main tax-supported revenue.' },
+  { name: 'LIPA PILOT', account: 'SM1-1081-100-00000-B', actual2025: 43_295.85, amount: 43_300, ytd: 0, note: 'Payment in lieu of taxes.' },
+  { name: 'Ambulance charges — medical billing', account: 'SM1-1640-000-00000-4', actual2025: 205_790.24, amount: 640_000, ytd: -205_790.24, note: '2025 actual and 2026 YTD are equal and opposite; the journal entry needs explanation.' },
+  { name: 'Ambulance charges — full billing', account: 'SM1-1640-100-00000-4', actual2025: 0, amount: 0, ytd: 0, note: 'Separate revenue line; budgeted at $0 in 2026.' },
+  { name: 'Interest and earnings', account: 'SM1-2401-000-00000-G', actual2025: 37_418.99, amount: 1_300, ytd: 15_120.64, note: 'Budget estimate.' },
 ]
 const operating = [
   { name: 'RVAC service contract', account: 'SM1-4-4540-436-203-00000', amount: 1_274_924, note: 'Adopted starting amount, before the two adjustments below.' },
@@ -29,6 +30,7 @@ const operating = [
   { name: 'Administrative charges', account: 'SM1-4-4540-495-000-00000', amount: 164_400, note: 'Administrative charges allocated to the district.' },
 ]
 const baseTotal = revenue.reduce((s, r) => s + r.amount, 0)
+const actual2025Total = revenue.reduce((s, r) => s + r.actual2025, 0)
 const operatingTotal = operating.reduce((s, r) => s + r.amount, 0)
 const revisedContract = 1_274_924 - 100_000 + 99_322
 const revisedTotal = baseTotal + 80_000 + 45_000
@@ -70,15 +72,15 @@ export default function RvacFundingPage() {
         </p>
         <div style={{ overflowX: 'auto' }}>
           <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 13.5 }}>
-            <thead><tr><th style={th}>Revenue source</th><th style={th}>Account</th><th style={{ ...th, textAlign: 'right' }}>2026 adopted</th><th style={{ ...th, textAlign: 'right' }}>YTD to Jun. 30</th><th style={{ ...th, textAlign: 'right' }}>Budget share</th><th style={th}>What it means</th></tr></thead>
+            <thead><tr><th style={th}>Revenue source</th><th style={th}>Account</th><th style={{ ...th, textAlign: 'right' }}>2025 actual</th><th style={{ ...th, textAlign: 'right' }}>2026 adopted</th><th style={{ ...th, textAlign: 'right' }}>YTD to Jun. 30</th><th style={{ ...th, textAlign: 'right' }}>Budget share</th><th style={th}>What it means</th></tr></thead>
             <tbody>
-              {revenue.map(r => <tr key={r.account}><td style={{ ...td, fontWeight: 750 }}>{r.name}</td><td style={{ ...td, whiteSpace: 'nowrap', fontSize: 12 }}>{r.account}</td><td style={{ ...td, textAlign: 'right', whiteSpace: 'nowrap' }}>{usd(r.amount)}</td><td style={{ ...td, textAlign: 'right', whiteSpace: 'nowrap', color: r.ytd < 0 ? 'var(--rbl-warn-strong)' : undefined }}>{usd(r.ytd)}</td><td style={{ ...td, textAlign: 'right', whiteSpace: 'nowrap' }}>{pct(r.amount, baseTotal)}</td><td style={td}>{r.note}</td></tr>)}
-              <tr style={{ background: 'var(--rbl-surface-2)', fontWeight: 850 }}><td style={td} colSpan={2}>Total revenue</td><td style={{ ...td, textAlign: 'right' }}>{usd(baseTotal)}</td><td style={{ ...td, textAlign: 'right' }}>{usd(ytdRevenueTotal)}</td><td style={{ ...td, textAlign: 'right' }}>100.0%</td><td style={td}>Adopted budget versus the Town’s published YTD figure.</td></tr>
+              {revenue.map(r => <tr key={r.account}><td style={{ ...td, fontWeight: 750 }}>{r.name}</td><td style={{ ...td, whiteSpace: 'nowrap', fontSize: 12 }}>{r.account}</td><td style={{ ...td, textAlign: 'right', whiteSpace: 'nowrap' }}>{usd(r.actual2025)}</td><td style={{ ...td, textAlign: 'right', whiteSpace: 'nowrap' }}>{usd(r.amount)}</td><td style={{ ...td, textAlign: 'right', whiteSpace: 'nowrap', color: r.ytd < 0 ? 'var(--rbl-accent)' : undefined }}>{usd(r.ytd)}</td><td style={{ ...td, textAlign: 'right', whiteSpace: 'nowrap' }}>{pct(r.amount, baseTotal)}</td><td style={td}>{r.note}</td></tr>)}
+              <tr style={{ background: 'var(--rbl-surface-2)', fontWeight: 850 }}><td style={td} colSpan={2}>Total revenue</td><td style={{ ...td, textAlign: 'right' }}>{usd(actual2025Total)}</td><td style={{ ...td, textAlign: 'right' }}>{usd(baseTotal)}</td><td style={{ ...td, textAlign: 'right' }}>{usd(ytdRevenueTotal)}</td><td style={{ ...td, textAlign: 'right' }}>100.0%</td><td style={td}>2025 actual, 2026 adopted, and YTD through June 30.</td></tr>
             </tbody>
           </table>
         </div>
         <p style={{ color: 'var(--rbl-text-muted)', fontSize: 12.5, lineHeight: 1.55, marginBottom: 0 }}>
-          The Town’s 2027 Budget Supplement reports {usd(ytdRevenueTotal)} in total Ambulance District revenue through June 30, 2026, including a negative {usd(205_790.24)} on the medical-billing line. That negative figure should not be read as proof that no billing occurred or that patients received refunds; the ledger and billing-reconciliation detail are needed to explain it. The 2025 budget used a separate “Ambulance Charges — Full Billing” line of {usd(2_710_749)} and only {usd(100_000)} for medical billing. The 2026 adopted budget zeroed the full-billing line and estimated {usd(640_000)} in medical billing.
+          The Town’s 2027 Budget Supplement reports {usd(ytdRevenueTotal)} in total Ambulance District revenue through June 30, 2026. Its medical-billing line is negative {usd(205_790.24)}, exactly offsetting the {usd(205_790.24)} reported as 2025 actual medical-billing revenue. That exact reversal may reflect a reclassification or journal entry, but the supplement does not explain it. The ledger and billing-reconciliation detail are needed before drawing conclusions about collections. The 2025 budget used a separate “Ambulance Charges — Full Billing” line of {usd(2_710_749)} and only {usd(100_000)} for medical billing. The 2026 adopted budget zeroed the full-billing line and estimated {usd(640_000)} in medical billing.
         </p>
       </section>
 
@@ -116,7 +118,7 @@ export default function RvacFundingPage() {
               {operating.map(r => <tr key={r.account}><td style={{ ...td, fontWeight: 750 }}>{r.name}</td><td style={{ ...td, whiteSpace: 'nowrap', fontSize: 12 }}>{r.account}</td><td style={{ ...td, textAlign: 'right', whiteSpace: 'nowrap' }}>{usd(r.amount)}</td><td style={td}>{r.note}</td></tr>)}
               <tr style={{ background: 'var(--rbl-surface-2)', fontWeight: 850 }}><td style={td}>Ambulance operations subtotal</td><td style={td}></td><td style={{ ...td, textAlign: 'right' }}>{usd(operatingTotal)}</td><td style={td}>Includes the original RVAC contract line.</td></tr>
               <tr><td style={{ ...td, fontWeight: 750 }}>Transfer to General Fund debt service</td><td style={{ ...td, fontSize: 12, whiteSpace: 'nowrap' }}>SM1-9-9901-900-V01-00000</td><td style={{ ...td, textAlign: 'right', whiteSpace: 'nowrap' }}>{usd(450_000)}</td><td style={td}>An interfund transfer, not an RVAC contract payment.</td></tr>
-              <tr><td style={{ ...td, fontWeight: 750 }}>RVAC &amp; Improvements Reserve contribution</td><td style={{ ...td, fontSize: 12, whiteSpace: 'nowrap' }}>SM1-9-9990-000-000-00000</td><td style={{ ...td, textAlign: 'right', whiteSpace: 'nowrap' }}>{usd(190_000)}</td><td style={td}>Money budgeted to be set aside, not an operating expense paid to RVAC.</td></tr>
+              <tr><td style={{ ...td, fontWeight: 750 }}>RVAC &amp; Improvements Reserve contribution</td><td style={{ ...td, fontSize: 12, whiteSpace: 'nowrap' }}>SM1-9-9990-000-000-00000</td><td style={{ ...td, textAlign: 'right', whiteSpace: 'nowrap' }}>{usd(190_000)}</td><td style={td}>Money budgeted to be set aside, not an operating expense paid to RVAC. The 2025 adopted reserve contribution was {usd(2_536_549)}; the 2026 contribution was reduced to {usd(190_000)}. These annual appropriations are not the reserve’s cash balance.</td></tr>
               <tr><td style={{ ...td, fontWeight: 750 }}>Insurance</td><td style={{ ...td, fontSize: 12, whiteSpace: 'nowrap' }}>SM1-1-1910</td><td style={{ ...td, textAlign: 'right', whiteSpace: 'nowrap' }}>{usd(69_600)}</td><td style={td}>General liability insurance premiums and claim payments.</td></tr>
               <tr style={{ background: 'var(--rbl-surface-2)', fontWeight: 850 }}><td style={td} colSpan={2}>Total adopted expenditures</td><td style={{ ...td, textAlign: 'right' }}>{usd(baseTotal)}</td><td style={td}>Matches planned revenue.</td></tr>
             </tbody>
