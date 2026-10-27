@@ -72,6 +72,13 @@ jobs:
       - name: Build department request vs Tentative
         run: python etl/parse_budget_requests.py
 
+      # Refresh the rolling account-level Supplement history from every known
+      # Supplement, including a newly discovered 2027 PDF, on this same deploy.
+      # This keeps current-lines, revenue-history, current-outliers and the
+      # multi-year trend views from waiting for the scheduled ETL run.
+      - name: Build multi-year Budget Supplement history
+        run: python etl/parse_supplement_history.py
+
       - name: Parse Peconic Bay CPF financial statements
         run: python etl/parse_cpf.py
 
