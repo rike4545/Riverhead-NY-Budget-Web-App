@@ -10,10 +10,10 @@ const pct = (n: number, d: number) => `${(n / d * 100).toFixed(1)}%`
 const sourceLink = { color: 'var(--rbl-accent)', fontWeight: 700 }
 
 const revenue = [
-  { name: 'Property taxes', account: 'SM1-1001-001-00000-A', amount: 1_704_224, note: 'The district’s main tax-supported revenue.' },
-  { name: 'LIPA PILOT', account: 'SM1-1081-100-00000-B', amount: 43_300, note: 'Payment in lieu of taxes.' },
-  { name: 'Ambulance charges — medical billing', account: 'SM1-1640-000-00000-4', amount: 640_000, note: 'Budget estimate, not proof of collections.' },
-  { name: 'Interest and earnings', account: 'SM1-2401-000-00000-G', amount: 1_300, note: 'Budget estimate.' },
+  { name: 'Property taxes', account: 'SM1-1001-001-00000-A', amount: 1_704_224, ytd: 1_704_224.02, note: 'The district’s main tax-supported revenue.' },
+  { name: 'LIPA PILOT', account: 'SM1-1081-100-00000-B', amount: 43_300, ytd: 0, note: 'Payment in lieu of taxes.' },
+  { name: 'Ambulance charges — medical billing', account: 'SM1-1640-000-00000-4', amount: 640_000, ytd: -205_790.24, note: 'Budget estimate, not proof of collections. The published YTD figure is negative and needs ledger context.' },
+  { name: 'Interest and earnings', account: 'SM1-2401-000-00000-G', amount: 1_300, ytd: 15_120.64, note: 'Budget estimate.' },
 ]
 const operating = [
   { name: 'RVAC service contract', account: 'SM1-4-4540-436-203-00000', amount: 1_274_924, note: 'Adopted starting amount, before the two adjustments below.' },
@@ -30,8 +30,9 @@ const operating = [
 ]
 const baseTotal = revenue.reduce((s, r) => s + r.amount, 0)
 const operatingTotal = operating.reduce((s, r) => s + r.amount, 0)
-const revisedContract = 1_274_924 + 100_000 + 99_322
+const revisedContract = 1_274_924 - 100_000 + 99_322
 const revisedTotal = baseTotal + 80_000 + 45_000
+const ytdRevenueTotal = revenue.reduce((s, r) => s + r.ytd, 0)
 
 export const metadata = {
   title: 'Riverhead Volunteer Ambulance Corps — funding explained',
@@ -52,12 +53,12 @@ export default function RvacFundingPage() {
           { label: 'Fund balance', text: 'Accumulated surplus from earlier years. Using it can fund a one-time shortfall, but it is not recurring revenue.' },
         ]}
       >
-        The key distinction: <strong>RVAC’s contract is one line inside a much larger Ambulance District budget.</strong> The adopted 2026 budget set that line at {usd(1_274_924)}. Two Town Board adjustments added {usd(199_322)} to it, taking the contract appropriation to <strong>{usd(revisedContract)}</strong>. Of the added amount, {usd(80_000)} came from Ambulance District fund balance; the rest was shifted from other district budget lines. These are budget authorizations, not a claim that this exact amount has already been paid.
+        The key distinction: <strong>RVAC’s contract is one line inside a much larger Ambulance District budget.</strong> The original adopted 2026 budget set that line at {usd(1_274_924)}. Resolution 2026-156 moved {usd(100_000)} out of the RVAC line to other Ambulance District lines; Resolution 2026-470 later added {usd(99_322)} back. The calculated line after both changes is <strong>{usd(revisedContract)}</strong>—{usd(678)} below the original adopted amount. The May addition used {usd(80_000)} of fund balance and a {usd(19_322)} reduction to the vehicle line. These are budget authorizations, not a claim that this exact amount has already been paid.
       </PlainCallout>
 
       <section style={{ ...card, marginBottom: 16, display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(180px,1fr))', gap: 12 }}>
         <Stat label="2026 adopted fund budget" value={usd(baseTotal)} note="Before the in-year adjustments" />
-        <Stat label="Revised fund budget" value={usd(revisedTotal)} note="Includes $80,000 RVAC correction and $45,000 Armory repairs from fund balance" />
+        <Stat label="Known revised fund budget" value={usd(revisedTotal)} note="Adds $80,000 for RVAC and $45,000 for Armory repairs from fund balance" />
         <Stat label="RVAC contract line" value={usd(revisedContract)} note="After Resolutions 2026-156 and 2026-470" />
         <Stat label="Fund-balance draw for correction" value={usd(80_000)} note="Explicitly listed in Resolution 2026-470" />
       </section>
@@ -69,15 +70,37 @@ export default function RvacFundingPage() {
         </p>
         <div style={{ overflowX: 'auto' }}>
           <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 13.5 }}>
-            <thead><tr><th style={th}>Revenue source</th><th style={th}>Account</th><th style={{ ...th, textAlign: 'right' }}>2026 adopted</th><th style={{ ...th, textAlign: 'right' }}>Share</th><th style={th}>What it means</th></tr></thead>
+            <thead><tr><th style={th}>Revenue source</th><th style={th}>Account</th><th style={{ ...th, textAlign: 'right' }}>2026 adopted</th><th style={{ ...th, textAlign: 'right' }}>YTD to Jun. 30</th><th style={{ ...th, textAlign: 'right' }}>Budget share</th><th style={th}>What it means</th></tr></thead>
             <tbody>
-              {revenue.map(r => <tr key={r.account}><td style={{ ...td, fontWeight: 750 }}>{r.name}</td><td style={{ ...td, whiteSpace: 'nowrap', fontSize: 12 }}>{r.account}</td><td style={{ ...td, textAlign: 'right', whiteSpace: 'nowrap' }}>{usd(r.amount)}</td><td style={{ ...td, textAlign: 'right', whiteSpace: 'nowrap' }}>{pct(r.amount, baseTotal)}</td><td style={td}>{r.note}</td></tr>)}
-              <tr style={{ background: 'var(--rbl-surface-2)', fontWeight: 850 }}><td style={td} colSpan={2}>Total adopted revenue</td><td style={{ ...td, textAlign: 'right' }}>{usd(baseTotal)}</td><td style={{ ...td, textAlign: 'right' }}>100.0%</td><td style={td}>Balanced to the adopted fund budget.</td></tr>
+              {revenue.map(r => <tr key={r.account}><td style={{ ...td, fontWeight: 750 }}>{r.name}</td><td style={{ ...td, whiteSpace: 'nowrap', fontSize: 12 }}>{r.account}</td><td style={{ ...td, textAlign: 'right', whiteSpace: 'nowrap' }}>{usd(r.amount)}</td><td style={{ ...td, textAlign: 'right', whiteSpace: 'nowrap', color: r.ytd < 0 ? 'var(--rbl-warn-strong)' : undefined }}>{usd(r.ytd)}</td><td style={{ ...td, textAlign: 'right', whiteSpace: 'nowrap' }}>{pct(r.amount, baseTotal)}</td><td style={td}>{r.note}</td></tr>)}
+              <tr style={{ background: 'var(--rbl-surface-2)', fontWeight: 850 }}><td style={td} colSpan={2}>Total revenue</td><td style={{ ...td, textAlign: 'right' }}>{usd(baseTotal)}</td><td style={{ ...td, textAlign: 'right' }}>{usd(ytdRevenueTotal)}</td><td style={{ ...td, textAlign: 'right' }}>100.0%</td><td style={td}>Adopted budget versus the Town’s published YTD figure.</td></tr>
             </tbody>
           </table>
         </div>
         <p style={{ color: 'var(--rbl-text-muted)', fontSize: 12.5, lineHeight: 1.55, marginBottom: 0 }}>
-          The 2025 budget used a separate “Ambulance Charges — Full Billing” line of {usd(2_710_749)} and only {usd(100_000)} for medical billing. In the 2026 adopted budget, the full-billing line is zeroed and the medical-billing estimate is {usd(640_000)}. That is a change in budget presentation and forecast; it does not by itself establish actual collections or a change in patient billing practices.
+          The Town’s 2027 Budget Supplement reports {usd(ytdRevenueTotal)} in total Ambulance District revenue through June 30, 2026, including a negative {usd(205_790.24)} on the medical-billing line. That negative figure should not be read as proof that no billing occurred or that patients received refunds; the ledger and billing-reconciliation detail are needed to explain it. The 2025 budget used a separate “Ambulance Charges — Full Billing” line of {usd(2_710_749)} and only {usd(100_000)} for medical billing. The 2026 adopted budget zeroed the full-billing line and estimated {usd(640_000)} in medical billing.
+        </p>
+      </section>
+
+      <section style={{ ...card, marginBottom: 16 }}>
+        <h2 style={{ marginTop: 0, color: 'var(--rbl-title)' }}>As of June 30, 2026: what the supplement reports</h2>
+        <p style={{ color: 'var(--rbl-text-body)', fontSize: 14, lineHeight: 1.6 }}>
+          The Town’s 2027 Budget Supplement lists year-to-date expenditure figures through June 30, 2026. They are an interim accounting snapshot, not the final 2026 result.
+        </p>
+        <div style={{ overflowX: 'auto' }}>
+          <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 13.5 }}>
+            <thead><tr><th style={th}>Expenditure category</th><th style={{ ...th, textAlign: 'right' }}>YTD to Jun. 30</th><th style={th}>Interpretation</th></tr></thead>
+            <tbody>
+              <tr><td style={td}>RVAC professional-services line</td><td style={{ ...td, textAlign: 'right', whiteSpace: 'nowrap' }}>{usd(350_298)}</td><td style={td}>Reported 2026 YTD amount; not the final annual payment total.</td></tr>
+              <tr><td style={td}>Ambulance function subtotal</td><td style={{ ...td, textAlign: 'right', whiteSpace: 'nowrap' }}>{usd(429_585.05)}</td><td style={td}>Includes RVAC plus vehicles, repairs, fuel, utilities and administration.</td></tr>
+              <tr><td style={td}>Insurance</td><td style={{ ...td, textAlign: 'right', whiteSpace: 'nowrap' }}>{usd(66_526.84)}</td><td style={td}>Liability insurance and claim payments.</td></tr>
+              <tr><td style={td}>Transfer to General Fund debt service</td><td style={{ ...td, textAlign: 'right', whiteSpace: 'nowrap' }}>{usd(0)}</td><td style={td}>No YTD amount shown in the supplement.</td></tr>
+              <tr><td style={td}>RVAC &amp; Improvements Reserve contribution</td><td style={{ ...td, textAlign: 'right', whiteSpace: 'nowrap' }}>{usd(0)}</td><td style={td}>No YTD contribution shown in the supplement as of June 30.</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p style={{ color: 'var(--rbl-text-muted)', fontSize: 12.5, lineHeight: 1.55, marginBottom: 0 }}>
+          The supplement’s RVAC line shows {usd(1_174_924)} in its “2026 Adopted Budget” column, while the original adopted-budget page shows {usd(1_274_924)}. The difference matches the February {usd(100_000)} reallocation described below. The May resolution then adds {usd(99_322)} back. We show both documents rather than silently treating their differently timed figures as the same thing.
         </p>
       </section>
 
@@ -108,16 +131,16 @@ export default function RvacFundingPage() {
             <div style={{ color: 'var(--rbl-text-muted)', fontSize: 12, fontWeight: 800 }}>FEBRUARY 18, 2026 · RESOLUTION 2026-156</div>
             <h3 style={{ color: 'var(--rbl-title)', margin: '5px 0 8px' }}>Move $100,000 from other ambulance lines to RVAC</h3>
             <p style={{ color: 'var(--rbl-text-body)', lineHeight: 1.6, fontSize: 14, margin: '0 0 10px' }}>
-              The resolution described inaccuracies in several expenditure lines in the adopted budget and lists $100,000 of offsets against the RVAC professional-services account. One reconciliation issue is worth preserving: the adopted budget shows $0 in the “Other professional services” and “Equipment rent/lease” lines, although the resolution lists $30,000 and $50,000 against those accounts. The resolution table is evidence of the Board’s adjustment, but the starting balances should be reconciled to the Town’s ledger before asserting the exact source-account balances. The resolution’s stated purpose was to correct the RVAC appropriation; the available budget line data alone do not fully reconcile every source line.
+              The resolution corrected several lines that the original adopted budget had left at different amounts. The Town’s 2027 Budget Supplement’s 2026 column shows vehicles at {usd(105_000)}, other professional services at {usd(30_000)}, equipment rent at {usd(50_000)}, and RVAC at {usd(1_174_924)}—a pattern consistent with moving {usd(100_000)} out of RVAC and into those three lines. The original 2026 adopted budget instead shows vehicles at {usd(85_000)}, the other two lines at $0, and RVAC at {usd(1_274_924)}. The supplement appears to incorporate this February adjustment even though it labels the column “2026 Adopted Budget”; that difference is important to disclose.
             </p>
             <div style={{ overflowX: 'auto' }}>
               <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 13 }}>
-                <thead><tr><th style={th}>Source line reduced</th><th style={{ ...th, textAlign: 'right' }}>Moved to RVAC</th></tr></thead>
+                <thead><tr><th style={th}>Other district line increased</th><th style={{ ...th, textAlign: 'right' }}>Amount moved from RVAC</th></tr></thead>
                 <tbody>
                   <tr><td style={td}>Vehicles / equipment</td><td style={{ ...td, textAlign: 'right' }}>{usd(20_000)}</td></tr>
                   <tr><td style={td}>Other professional services</td><td style={{ ...td, textAlign: 'right' }}>{usd(30_000)}</td></tr>
                   <tr><td style={td}>Equipment rent / lease</td><td style={{ ...td, textAlign: 'right' }}>{usd(50_000)}</td></tr>
-                  <tr style={{ fontWeight: 850 }}><td style={td}>Total reallocated</td><td style={{ ...td, textAlign: 'right' }}>{usd(100_000)}</td></tr>
+                  <tr style={{ fontWeight: 850 }}><td style={td}>Total moved out of RVAC</td><td style={{ ...td, textAlign: 'right' }}>{usd(100_000)}</td></tr>
                 </tbody>
               </table>
             </div>
@@ -155,7 +178,7 @@ export default function RvacFundingPage() {
             </table>
           </div>
           <p style={{ color: 'var(--rbl-text-body)', lineHeight: 1.6, fontSize: 13.5, marginBottom: 0 }}>
-            Compared with the 2025 adopted RVAC line of {usd(1_347_300)}, the revised 2026 appropriation is {usd(revisedContract - 1_347_300)} higher ({pct(revisedContract - 1_347_300, 1_347_300)}). That comparison is between budget authorizations, not audited cash payments.
+            Compared with the 2025 adopted RVAC line of {usd(1_347_300)}, the calculated revised 2026 appropriation is {usd(1_347_300 - revisedContract)} lower ({pct(1_347_300 - revisedContract, 1_347_300)}). That comparison is between budget authorizations, not audited cash payments.
           </p>
         </div>
       </section>
@@ -200,11 +223,11 @@ export default function RvacFundingPage() {
       <section style={{ ...card, marginBottom: 16 }}>
         <h2 style={{ marginTop: 0, color: 'var(--rbl-title)' }} >6. What this record does—and does not—prove</h2>
         <ul style={{ color: 'var(--rbl-text-body)', lineHeight: 1.65, paddingLeft: 20, fontSize: 14 }}>
-          <li>The 2026 adopted budget planned {usd(1_274_924)} for the RVAC contract; the two resolutions raise the authorized line to {usd(revisedContract)}.</li>
+          <li>The original adopted RVAC line was {usd(1_274_924)}. After the February reduction and May addition, the calculated line is {usd(revisedContract)}, just {usd(678)} below the original amount.</li>
           <li>The first resolution lists a $100,000 adjustment to RVAC and named offset lines; the adopted-budget account table does not fully reconcile two of those offsets, as explained above. The second added $99,322 to RVAC but was funded by a $19,322 reduction elsewhere and $80,000 from district fund balance. A third, separate resolution added $45,000 from district fund balance for temporary Armory repairs.</li>
           <li>The Ambulance District is separate from the General Fund. These resolutions do not show a $450,000 General Fund shortfall; they document a specific correction to the district’s RVAC contract line.</li>
           <li>The 2026 budget also contains {usd(450_000)} for a transfer to General Fund debt service and {usd(190_000)} for the RVAC &amp; Improvements Reserve. Neither line is itself the RVAC service-contract payment.</li>
-          <li>The available budget and resolutions do not establish the final amount paid to RVAC, actual medical-billing collections, the current reserve balance after all transactions, or whether further adjustments occurred after the records reviewed. Those require year-end ledger / audited actuals and the full contract-payment ledger.</li>
+          <li>The available budget and resolutions do not establish the final amount paid to RVAC, explain the negative YTD medical-billing figure, establish the current reserve balance after all transactions, or show whether further adjustments occurred after the records reviewed. Those require year-end ledger / audited actuals and the full contract-payment ledger.</li>
         </ul>
       </section>
 
