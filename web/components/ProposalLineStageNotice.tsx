@@ -12,11 +12,12 @@ type SupplementIndex = {
 
 const stageIndex = stages as unknown as StageIndex
 const lineIndex = supplement as unknown as SupplementIndex
-const latestProposalYear = Math.max(
+const latestAdoptedYear = Math.max(
   ...Object.entries(stageIndex.years)
-    .filter(([, year]) => year.preliminary || year.tentative)
+    .filter(([, year]) => year.adopted)
     .map(([year]) => Number(year)),
 )
+const latestProposalYear = latestAdoptedYear + 1
 const preliminary = stageIndex.years[String(latestProposalYear)]?.preliminary
 const linesMatchPreliminary =
   preliminary !== undefined &&
