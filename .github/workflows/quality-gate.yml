@@ -34,6 +34,9 @@ jobs:
           python etl/test_budget_release.py
           python etl/test_road_spending.py
           python etl/test_supplement_history.py
+          # Rebuild the published budget-stage index before verifying Outlier Watch,
+          # so CI checks the newest parsed Tentative/Preliminary/Adopted stage.
+          python etl/parse_budget_stages.py
           # Exercise the same rolling parser used by the deploy workflow, then
           # fail CI if the newest Supplement cannot be reconciled to the stage PDF.
           python etl/parse_supplement_history.py
