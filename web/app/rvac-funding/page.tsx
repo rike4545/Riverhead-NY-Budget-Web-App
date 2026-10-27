@@ -31,7 +31,7 @@ const operating = [
 const baseTotal = revenue.reduce((s, r) => s + r.amount, 0)
 const operatingTotal = operating.reduce((s, r) => s + r.amount, 0)
 const revisedContract = 1_274_924 + 100_000 + 99_322
-const revisedTotal = baseTotal + 80_000
+const revisedTotal = baseTotal + 80_000 + 45_000
 
 export const metadata = {
   title: 'Riverhead Volunteer Ambulance Corps — funding explained',
@@ -57,7 +57,7 @@ export default function RvacFundingPage() {
 
       <section style={{ ...card, marginBottom: 16, display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(180px,1fr))', gap: 12 }}>
         <Stat label="2026 adopted fund budget" value={usd(baseTotal)} note="Before the in-year adjustments" />
-        <Stat label="Revised fund budget" value={usd(revisedTotal)} note="Adds net $80,000 of fund-balance financing" />
+        <Stat label="Revised fund budget" value={usd(revisedTotal)} note="Includes $80,000 RVAC correction and $45,000 Armory repairs from fund balance" />
         <Stat label="RVAC contract line" value={usd(revisedContract)} note="After Resolutions 2026-156 and 2026-470" />
         <Stat label="Fund-balance draw for correction" value={usd(80_000)} note="Explicitly listed in Resolution 2026-470" />
       </section>
@@ -108,7 +108,7 @@ export default function RvacFundingPage() {
             <div style={{ color: 'var(--rbl-text-muted)', fontSize: 12, fontWeight: 800 }}>FEBRUARY 18, 2026 · RESOLUTION 2026-156</div>
             <h3 style={{ color: 'var(--rbl-title)', margin: '5px 0 8px' }}>Move $100,000 from other ambulance lines to RVAC</h3>
             <p style={{ color: 'var(--rbl-text-body)', lineHeight: 1.6, fontSize: 14, margin: '0 0 10px' }}>
-              The resolution described inaccuracies in several expenditure lines in the adopted budget. It moved existing appropriations into the RVAC professional-services account; it did not add $100,000 to the total district budget.
+              The resolution described inaccuracies in several expenditure lines in the adopted budget and lists $100,000 of offsets against the RVAC professional-services account. One reconciliation issue is worth preserving: the adopted budget shows $0 in the “Other professional services” and “Equipment rent/lease” lines, although the resolution lists $30,000 and $50,000 against those accounts. The resolution table is evidence of the Board’s adjustment, but the starting balances should be reconciled to the Town’s ledger before asserting the exact source-account balances. The resolution’s stated purpose was to correct the RVAC appropriation; the available budget line data alone do not fully reconcile every source line.
             </p>
             <div style={{ overflowX: 'auto' }}>
               <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 13 }}>
@@ -176,10 +176,32 @@ export default function RvacFundingPage() {
       </section>
 
       <section style={{ ...card, marginBottom: 16 }}>
-        <h2 style={{ marginTop: 0, color: 'var(--rbl-title)' }}>5. What this record does—and does not—prove</h2>
+        <h2 style={{ marginTop: 0, color: 'var(--rbl-title)' }}>5. New headquarters: donations, a Town bond, and lease payments</h2>
+        <p style={{ color: 'var(--rbl-text-body)', lineHeight: 1.6, fontSize: 14.5 }}>
+          The new ambulance headquarters is a separate capital project—not part of RVAC’s annual service-contract line above. The September 1, 2026 public-hearing notice put the project’s estimated maximum cost at <strong>$14.1 million</strong>. The stated financing plan was $6 million provided by RVAC from private fundraising and other available funds, with the balance—up to <strong>$8.1 million</strong>—financed through Town-issued bonds. At the hearing, the Supervisor said fundraising was then just under $6.5 million. Those are reported project-financing figures, not proof of the final construction cost, final donations received, or bonds ultimately issued.
+        </p>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(190px,1fr))', gap: 12, margin: '14px 0' }}>
+          <Stat label="Maximum project estimate" value="$14.1 million" note="Estimated maximum cost in the public-hearing notice." />
+          <Stat label="RVAC private funding" value="$6.0 million" note="Formal financing plan; later public remarks said fundraising was nearly $6.5 million." />
+          <Stat label="Town bond authorization ceiling" value="$8.1 million" note="Maximum planned bond financing, not confirmation of the amount actually borrowed." />
+        </div>
+        <ul style={{ color: 'var(--rbl-text-body)', lineHeight: 1.65, paddingLeft: 20, fontSize: 14 }}>
+          <li><strong>Ownership:</strong> the new building is to be owned by the Ambulance District and leased to RVAC.</li>
+          <li><strong>Repayment plan:</strong> the public notice and hearing record say the lease agreement requires payments from RVAC to the district sufficient to cover bond debt service. The stated plan relies on ambulance-billing revenue generated by services RVAC provides.</li>
+          <li><strong>Risk distinction:</strong> “planned to be paid by RVAC” is not the same as proof that the Town has no financial exposure. The bond documents, executed lease, actual billing collections, debt-service schedule and any guarantee or backstop determine who bears the risk if collections fall short.</li>
+          <li><strong>Timeline:</strong> while the existing headquarters is replaced, RVAC temporarily operates from the Town-owned Armory. Resolution 2026-842 appropriated <strong>$45,000</strong> from Ambulance District fund balance for Armory building repairs. That is a separate operating-fund adjustment, not part of the $8.1 million bond ceiling.</li>
+          <li><strong>Other Town facilities:</strong> 2026 resolutions also authorized temporary use of Town space for EMT instruction, medical billing / records storage and ambulance vehicle storage. The resolutions identify the uses, but do not provide a dollar value for that space or establish whether rent was charged.</li>
+        </ul>
+        <p style={{ color: 'var(--rbl-text-body)', fontSize: 14, lineHeight: 1.7, marginBottom: 0 }}>
+          Sources: <a href="https://riverheadlocal.com/public-notice/town-of-riverhead-notice-of-public-hearing-168/" target="_blank" rel="noreferrer" style={sourceLink}>Town’s September 1 public-hearing notice (reproduced by RiverheadLOCAL)</a>; <a href="https://riverheadtranscripts.org/meetings/town-board/2026-09-01_6442.html" target="_blank" rel="noreferrer" style={sourceLink}>September 1 Town Board hearing and bond resolution</a>; <a href="https://riverheadlocal.com/2026/08/05/riverhead-approves-zoning-exemptions-for-new-rvac-headquarters/" target="_blank" rel="noreferrer" style={sourceLink}>RiverheadLOCAL’s project and lease reporting</a>; Town Board Resolution 2026-842 (September 15).
+        </p>
+      </section>
+
+      <section style={{ ...card, marginBottom: 16 }}>
+        <h2 style={{ marginTop: 0, color: 'var(--rbl-title)' }} >6. What this record does—and does not—prove</h2>
         <ul style={{ color: 'var(--rbl-text-body)', lineHeight: 1.65, paddingLeft: 20, fontSize: 14 }}>
           <li>The 2026 adopted budget planned {usd(1_274_924)} for the RVAC contract; the two resolutions raise the authorized line to {usd(revisedContract)}.</li>
-          <li>The first correction reallocated $100,000 within the existing district budget. The second added $99,322 to RVAC but was funded by a $19,322 reduction elsewhere and $80,000 from district fund balance.</li>
+          <li>The first resolution lists a $100,000 adjustment to RVAC and named offset lines; the adopted-budget account table does not fully reconcile two of those offsets, as explained above. The second added $99,322 to RVAC but was funded by a $19,322 reduction elsewhere and $80,000 from district fund balance. A third, separate resolution added $45,000 from district fund balance for temporary Armory repairs.</li>
           <li>The Ambulance District is separate from the General Fund. These resolutions do not show a $450,000 General Fund shortfall; they document a specific correction to the district’s RVAC contract line.</li>
           <li>The 2026 budget also contains {usd(450_000)} for a transfer to General Fund debt service and {usd(190_000)} for the RVAC &amp; Improvements Reserve. Neither line is itself the RVAC service-contract payment.</li>
           <li>The available budget and resolutions do not establish the final amount paid to RVAC, actual medical-billing collections, the current reserve balance after all transactions, or whether further adjustments occurred after the records reviewed. Those require year-end ledger / audited actuals and the full contract-payment ledger.</li>
