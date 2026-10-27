@@ -1,4 +1,5 @@
 import PageShell from '../../components/PageShell'
+import ProposalLineStageNotice from '../../components/ProposalLineStageNotice'
 import PlainCallout from '../../components/PlainCallout'
 import Sparkline from '../../components/Sparkline'
 import {
@@ -62,6 +63,7 @@ export default function RevenuePage() {
       title="Where revenue comes from"
       subtitle={`Every revenue stream in the Town's Budget Supplements, ${revenueActualYears[0]} through ${YEAR}: what each source was estimated to bring in, what it did, what has come in so far this year, and what the ${YEAR} Tentative expects.`}
     >
+      <ProposalLineStageNotice />
       <PlainCallout
         tips={[
           { label: 'Why it matters', text: 'every dollar of revenue the budget does not count has to be raised by the tax levy instead. When estimates run low year after year, the difference lands in fund balance.' },
