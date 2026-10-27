@@ -235,6 +235,8 @@ export default function RvacFundingPage() {
         <h2 style={{ marginTop: 0, color: 'var(--rbl-title)' }}>Sources and related views</h2>
         <ul style={{ color: 'var(--rbl-text-body)', lineHeight: 1.8, paddingLeft: 20, fontSize: 14 }}>
           <li><a href="https://www.townofriverheadny.gov/DocumentCenter/View/2967/2026-Adopted-Budget" target="_blank" rel="noreferrer" style={sourceLink}>Town of Riverhead — 2026 Adopted Budget</a> (fund SM1 and the account lines above).</li>
+          <li><a href={`${base}/tentative-2027/`} style={sourceLink}>2027 Budget Supplement analysis</a> — line-level 2026 actuals through June 30, 2026, including RVAC expenditures and the negative medical-billing entry.</li>
+          <li><a href="https://www.townofriverheadny.gov/476/2026-Adopted-Budget" target="_blank" rel="noreferrer" style={sourceLink}>Town’s 2026 Adopted Budget line tables</a> — the original RVAC appropriation of $1,274,924 before the February adjustment.
           <li><a href="https://www.townofriverheadny.gov/129/Agendas-Minutes" target="_blank" rel="noreferrer" style={sourceLink}>Town Board agendas and minutes</a>: Resolution 2026-156 (February 18, 2026), Resolution 2026-470 (May 20, 2026), Resolution 2025-944 (adoption of the 2026 budget), and the RVAC agreement Resolution 2023-932.</li>
           <li><a href="https://rike4545.github.io/Riverhead-NY-Budget-Web-App/supervisor-promises/" style={sourceLink}>The Supervisor’s promises and the record</a> — the $450,000 shortfall claim and the evidence for the RVAC budget correction.</li>
           <li><a href={`${base}/funds/SM1/`} style={sourceLink}>Ambulance District fund drilldown</a> — account-level adopted budget data.</li>
