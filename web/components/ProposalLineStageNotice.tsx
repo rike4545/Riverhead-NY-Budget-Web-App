@@ -121,6 +121,7 @@ export default function ProposalLineStageNotice({ showAmendmentOverlay = false }
       <p style={{ margin: '9px 0 0', color: 'var(--rbl-text-sub)', fontSize: 12.5 }}>
         These calculated amounts are only the lines explicitly changed in Resolutions 2026-935 through 2026-940. They do not replace the Town’s full Preliminary Budget or imply that every other Tentative line has been independently confirmed.
       </p>
+      </>}
     </aside>
   )
 }
