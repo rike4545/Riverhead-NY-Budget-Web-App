@@ -171,7 +171,7 @@ export default function RvacFundingPage() {
             <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 13.5 }}>
               <tbody>
                 <tr><td style={td}>Original 2026 RVAC contract appropriation</td><td style={{ ...td, textAlign: 'right', whiteSpace: 'nowrap' }}>{usd(1_274_924)}</td></tr>
-                <tr><td style={td}>February reallocation</td><td style={{ ...td, textAlign: 'right', whiteSpace: 'nowrap' }}>+{usd(100_000)}</td></tr>
+                <tr><td style={td}>February reallocation out of RVAC</td><td style={{ ...td, textAlign: 'right', whiteSpace: 'nowrap' }}>−{usd(100_000)}</td></tr>
                 <tr><td style={td}>May contract adjustment</td><td style={{ ...td, textAlign: 'right', whiteSpace: 'nowrap' }}>+{usd(99_322)}</td></tr>
                 <tr style={{ fontWeight: 900 }}><td style={td}>Revised RVAC contract appropriation</td><td style={{ ...td, textAlign: 'right', whiteSpace: 'nowrap' }}>{usd(revisedContract)}</td></tr>
               </tbody>
@@ -224,7 +224,7 @@ export default function RvacFundingPage() {
         <h2 style={{ marginTop: 0, color: 'var(--rbl-title)' }} >6. What this record does—and does not—prove</h2>
         <ul style={{ color: 'var(--rbl-text-body)', lineHeight: 1.65, paddingLeft: 20, fontSize: 14 }}>
           <li>The original adopted RVAC line was {usd(1_274_924)}. After the February reduction and May addition, the calculated line is {usd(revisedContract)}, just {usd(678)} below the original amount.</li>
-          <li>The first resolution lists a $100,000 adjustment to RVAC and named offset lines; the adopted-budget account table does not fully reconcile two of those offsets, as explained above. The second added $99,322 to RVAC but was funded by a $19,322 reduction elsewhere and $80,000 from district fund balance. A third, separate resolution added $45,000 from district fund balance for temporary Armory repairs.</li>
+          <li>Resolution 2026-156 moved $100,000 out of RVAC into other district lines; Resolution 2026-470 added $99,322 back, including $80,000 from fund balance. Resolution 2026-842 later added $45,000 from fund balance for temporary Armory repairs.</li>
           <li>The Ambulance District is separate from the General Fund. These resolutions do not show a $450,000 General Fund shortfall; they document a specific correction to the district’s RVAC contract line.</li>
           <li>The 2026 budget also contains {usd(450_000)} for a transfer to General Fund debt service and {usd(190_000)} for the RVAC &amp; Improvements Reserve. Neither line is itself the RVAC service-contract payment.</li>
           <li>The available budget and resolutions do not establish the final amount paid to RVAC, explain the negative YTD medical-billing figure, establish the current reserve balance after all transactions, or show whether further adjustments occurred after the records reviewed. Those require year-end ledger / audited actuals and the full contract-payment ledger.</li>
