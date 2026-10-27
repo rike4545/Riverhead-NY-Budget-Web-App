@@ -1,4 +1,5 @@
 import PageShell from '../../components/PageShell'
+import ProposalLineStageNotice from '../../components/ProposalLineStageNotice'
 import LineChart from '../../components/charts/LineChart'
 import PlainCallout from '../../components/PlainCallout'
 import CapitalDebtCalculator from '../../components/CapitalDebtCalculator'
@@ -40,6 +41,7 @@ export default function CapitalDebtPage() {
       title="Capital & Debt"
       subtitle={`Every bond and note the Town owes, itemised — ${usd(debtIssueTotals.all)} outstanding across ${debtIssues.length} issues as of ${debtProfile.asOf} — plus the repayment schedule through 2053 and a calculator for the two ways a town finances a capital project.`}
     >
+      <ProposalLineStageNotice />
       <PlainCallout
         tips={[
           { label: 'BAN', text: 'a Bond Anticipation Note — short-term borrowing a town uses while a project is underway, later paid off or replaced with a long-term bond once the final cost is known.' },
