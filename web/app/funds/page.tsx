@@ -1,6 +1,7 @@
 import type { ReactNode } from 'react'
 import { Check } from 'lucide-react'
 import PageShell from '../../components/PageShell'
+import ProposalLineStageNotice from '../../components/ProposalLineStageNotice'
 import PlainCallout from '../../components/PlainCallout'
 import Term from '../../components/Term'
 import { allOperatingFunds2026 } from '../../lib/all-funds'
@@ -60,6 +61,7 @@ export default function FundsPage() {
       title="Funds Explorer"
       subtitle={`Every operating fund, drilled down to departments, spending categories and individual account lines: the 2026 adopted budget, reconciled to the dollar, beside what the ${TENTATIVE_YEAR} Tentative Budget proposes.`}
     >
+      <ProposalLineStageNotice />
       <PlainCallout
         tips={[
           { label: 'A fund', text: 'is a separate pot of money for a purpose: General (most services), Highway, Water, Sewer and so on. Each has its own balanced budget.' },
