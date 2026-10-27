@@ -69,7 +69,7 @@ export default function ProposalLineStageNotice({ showAmendmentOverlay = false }
     >
       <strong>2027 Preliminary Budget: six amendments adopted; line-level figures are not yet reconciled.</strong>
       <p style={{ margin: '5px 0 0', color: 'var(--rbl-text-sub)', fontSize: 13.5 }}>
-        The Town Board adopted six amendments on October 20, 2026. The Supplement available here still carries the 2027 Tentative column, so the historical analysis below remains based on the published Supplement. The table below separately applies each adopted resolution’s net change to the Tentative account figure. These are this site’s calculations from the resolutions, not an official Town-published Preliminary line table. Do not treat unlisted accounts as changed.
+        The Town Board adopted six amendments on October 20, 2026. The Supplement available here still carries the 2027 Tentative column, so line-level comparisons remain based on the published Supplement. {showAmendmentOverlay ? 'The table below separately applies each adopted resolution’s net change to the Tentative account figure.' : 'The Budget Accuracy page separately calculates the net change for each affected account.'} These are this site’s calculations from the resolutions, not an official Town-published Preliminary line table. Do not treat unlisted accounts as changed.
       </p>
       <p style={{ margin: '7px 0 0', fontSize: 13 }}>
         <a href="/Riverhead-NY-Budget-Web-App/budget-amendments-2027/" target="_blank" rel="noreferrer">Read the six amendments and their sources</a>
