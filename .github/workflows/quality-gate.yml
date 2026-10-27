@@ -34,6 +34,26 @@ jobs:
           python etl/test_budget_release.py
           python etl/test_road_spending.py
           python etl/test_supplement_history.py
+          # Exercise the same rolling parser used by the deploy workflow, then
+          # fail CI if the newest Supplement cannot be reconciled to the stage PDF.
+          python etl/parse_supplement_history.py
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          root = Path("web/public/data/budget-supplement")
+          current = json.loads((root / "current-lines.json").read_text())
+          history = json.loads((root / "history.json").read_text())
+          expected_years = sorted(int(p.stem) for p in Path("etl/data/supplements").glob("20[0-9][0-9].pdf"))
+          latest = max(expected_years)
+          assert current["supplementYear"] == latest, (current.get("supplementYear"), latest)
+          assert history["budgetYear"] == latest, (history.get("budgetYear"), latest)
+          assert current["lines"], "Newest Supplement produced no account lines"
+          reconciliation = current.get("reconciliation", {})
+          assert reconciliation.get("complete") is True, reconciliation
+          assert abs(float(reconciliation.get("gap", 1e99))) <= 0.01, reconciliation
+          assert not reconciliation.get("fundsOff"), reconciliation
+          print(f"Supplement {latest}: {len(current['lines'])} lines; reconciliation gap {reconciliation['gap']}; passed")
+          PY
           python etl/test_meeting_records.py
           python etl/test_salary_names.py
           python etl/test_fiscal_impact.py
