@@ -38,8 +38,7 @@ export default function ProposalLineStageNotice() {
     <aside
       role="note"
       style={{
-        border: '1px solid var(--rbl-border-subtle)',
-        borderLeft: '4px solid var(--rbl-accent)',
+        border: '1px solid var(--rbl-accent)',
         borderRadius: 12,
         background: 'var(--rbl-info-bg)',
         padding: '12px 15px',
