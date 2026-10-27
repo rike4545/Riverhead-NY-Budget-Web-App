@@ -1,4 +1,5 @@
 import PageShell from '../../../components/PageShell'
+import ProposalLineStageNotice from '../../../components/ProposalLineStageNotice'
 import FundDrilldown from '../../../components/FundDrilldown'
 import PlainCallout from '../../../components/PlainCallout'
 import { allFundCodes, getFundDetail } from '../../../lib/subaccounts'
@@ -43,6 +44,7 @@ export default async function FundDetailPage({ params }: { params: Promise<{ cod
       title={`${fund.name} (${fund.code})`}
       subtitle={meta?.description ?? `Account-level appropriations and revenues for the ${fund.name}.`}
     >
+      <ProposalLineStageNotice />
       <a href={`${base}/funds/`} style={{ color: 'var(--rbl-accent)', fontWeight: 800, display: 'inline-block', marginBottom: 14 }}>
         ← Back to Funds Explorer
       </a>
