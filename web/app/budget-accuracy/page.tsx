@@ -44,7 +44,7 @@ export default function BudgetAccuracyPage() {
       title="Budget accuracy"
       subtitle={`A budget is a promise about what things will cost. These are the lines where that promise and the actual spending drift far enough apart to be worth asking about — ${curatedFlags.length} researched by hand, plus ${detectedCount} found automatically in the ${historyBudgetYear} Budget Supplement and more across ${supplementCount} years of Supplements.`}
     >
-      <ProposalLineStageNotice />
+      <ProposalLineStageNotice showAmendmentOverlay />
       <PlainCallout
         tips={[
           { label: 'Why it matters', text: 'a line budgeted at a fraction of what it really costs makes the whole budget look smaller than it is, and the gap has to be absorbed somewhere later in the year.' },
