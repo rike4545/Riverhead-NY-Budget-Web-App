@@ -1,7 +1,7 @@
 import stages from '../public/data/history/budget-stages.json'
 import supplement from '../public/data/budget-supplement/current-lines.json'
 import { amendmentEffect } from '../lib/budget-amendments-effect'
-import { AMENDMENTS, change } from '../lib/budget-amendments-2027'
+import { AMENDMENTS } from '../lib/budget-amendments-2027'
 
 type StageIndex = {
   years: Record<string, {
