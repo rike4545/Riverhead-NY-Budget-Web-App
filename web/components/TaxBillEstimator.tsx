@@ -9,10 +9,14 @@ const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-bo
 export default function TaxBillEstimator({
   rates2026,
   rates2025,
+  rates2027Proposal,
+  proposalLabel = '2027 proposal',
   residentialAssessmentRatio,
 }: {
   rates2026: TaxRates
   rates2025: TaxRates
+  rates2027Proposal?: TaxRates
+  proposalLabel?: string
   residentialAssessmentRatio: number
 }) {
   const [inputMode, setInputMode] = useState<'assessed' | 'market'>('assessed')
@@ -23,6 +27,7 @@ export default function TaxBillEstimator({
   const effectiveAssessed = inputMode === 'assessed' ? assessedValue : assessedFromMarketValue(marketValue, residentialAssessmentRatio)
   const estimate2026 = estimateTaxBill(effectiveAssessed, starReduction, rates2026)
   const estimate2025 = estimateTaxBill(effectiveAssessed, starReduction, rates2025)
+  const estimate2027Proposal = rates2027Proposal ? estimateTaxBill(effectiveAssessed, starReduction, rates2027Proposal) : null
   const diff = estimate2026.total - estimate2025.total
 
   return (
@@ -78,10 +83,19 @@ export default function TaxBillEstimator({
 
       <hr style={{ border: 'none', borderTop: '1px solid var(--rbl-border-subtle)', margin: '18px 0' }} />
 
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline' }}>
-        <span style={{ color: 'var(--rbl-title)', fontWeight: 800 }}>2026 Town portion (estimated)</span>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', gap: 12, flexWrap: 'wrap' }}>
+        <span style={{ color: 'var(--rbl-title)', fontWeight: 800 }}>2026 adopted Town portion (estimated)</span>
         <strong style={{ fontSize: 28, color: 'var(--rbl-title)' }}>{usd(estimate2026.total)}</strong>
       </div>
+      {estimate2027Proposal && (
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', gap: 12, flexWrap: 'wrap', marginTop: 12, padding: 12, borderRadius: 10, background: 'var(--rbl-info-bg)', border: '1px solid var(--rbl-border-subtle)' }}>
+          <div>
+            <div style={{ color: 'var(--rbl-title)', fontWeight: 850 }}>{proposalLabel} Town portion (illustrative)</div>
+            <div style={{ color: 'var(--rbl-text-muted)', fontSize: 12.5, marginTop: 3 }}>Uses the proposal's published town-wide rate; this is not an adopted tax rate or a final tax bill.</div>
+          </div>
+          <strong style={{ fontSize: 24, color: 'var(--rbl-title)' }}>{usd(estimate2027Proposal.total)}</strong>
+        </div>
+      )}
       <div style={{ display: 'flex', justifyContent: 'space-between', color: 'var(--rbl-text-muted)', fontSize: 13.5, marginTop: 4 }}>
         <span>2025 (for comparison)</span>
         <span>{usd(estimate2025.total)}</span>

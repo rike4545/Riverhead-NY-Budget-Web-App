@@ -1,4 +1,5 @@
 import PageShell from '../../components/PageShell'
+import ProposalLineStageNotice from '../../components/ProposalLineStageNotice'
 import PayrollTabs from '../../components/PayrollTabs'
 import PlainCallout from '../../components/PlainCallout'
 import { payrollYears, unionLabels } from '../../lib/payroll'
@@ -34,6 +35,7 @@ export default function PayrollPage() {
       title="Riverhead Payroll Explorer"
       subtitle={`A searchable, SeeThroughNY-style record of actual Town of Riverhead employee earnings ${payrollYears[0]}–${payrollYears[payrollYears.length - 1]} — base pay, overtime, and total gross pay by employee, title, department, and union.`}
     >
+      <ProposalLineStageNotice />
       <PlainCallout
         tips={[
           { label: 'Start with Employees & Pay', text: 'Search a name, title, or department to see what employees were actually paid. Click an employee name to follow that person across years.' },

@@ -1,4 +1,5 @@
 import PageShell from '../../components/PageShell'
+import ProposalLineStageNotice from '../../components/ProposalLineStageNotice'
 import TentativeReleased from '../../components/TentativeReleased'
 import { released2027, statedLimitPct } from '../../lib/tentative-2027'
 import { outcome } from '../../lib/buyout-2026'
@@ -55,6 +56,7 @@ export default function SpendingReduction2027Page() {
       title="2027 Spending Reduction"
       subtitle={`${released2027 ? 'This site’s forecast had Riverhead’s 2027 budget piercing the state tax cap.' : 'Riverhead’s 2027 budget is on track to pierce the state tax cap.'} Here’s how the gap could be closed — start with the three-number plan, then dig in as far as you like.`}
     >
+      <ProposalLineStageNotice />
       <TentativeReleased>
         {released2027 && (statedLimitPct !== null
           ? <>So by the Town’s own account there is no cap gap left to close. The {usd(capGap2027.gap)} below is the forecast’s distance from a 2% increase, and the savings are measured against it.</>

@@ -1,4 +1,5 @@
 import PageShell from '../../components/PageShell'
+import ProposalLineStageNotice from '../../components/ProposalLineStageNotice'
 import PlainCallout from '../../components/PlainCallout'
 import OutlierWatch from '../../components/OutlierWatch'
 import {
@@ -42,6 +43,7 @@ export default function OutlierWatchPage() {
       title="Outlier Watch"
       subtitle={`Riverhead's ${fundCount} town funds, each checked against its own budget the year before, from ${range}. A flag marks a swing large enough to be worth a second look. It is not proof of a problem, but a place to start asking questions.`}
     >
+      <ProposalLineStageNotice />
       <PlainCallout
         tips={[
           {
