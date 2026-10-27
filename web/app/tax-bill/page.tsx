@@ -4,6 +4,7 @@ import TaxBillEstimator from '../../components/TaxBillEstimator'
 import RecordTrail from '../../components/RecordTrail'
 import DataStatus from '../../components/DataStatus'
 import { allOperatingFunds2026 } from '../../lib/all-funds'
+import { stageDoc } from '../../lib/budget-stages'
 import data from '../../public/data/tax-bill.json'
 
 export const metadata = {
@@ -14,6 +15,17 @@ export const metadata = {
 
 export default function TaxBillPage() {
   const rateChange = data.rates2026.totalTownWide - data.rates2025.totalTownWide
+  const preliminary2027 = stageDoc(2027, 'preliminary')
+  const proposal2027 = preliminary2027 ?? stageDoc(2027, 'tentative')
+  const proposalRates = proposal2027?.townWide?.fundRates
+    ? {
+        generalFund: proposal2027.townWide.fundRates.A01?.rate ?? data.rates2026.generalFund,
+        highway: proposal2027.townWide.fundRates.DA1?.rate ?? data.rates2026.highway,
+        streetLighting: proposal2027.townWide.fundRates.SL1?.rate ?? data.rates2026.streetLighting,
+        totalTownWide: proposal2027.townWide.rate,
+      }
+    : undefined
+  const proposalLabel = preliminary2027 ? '2027 Preliminary Budget' : '2027 Tentative Budget'
   const rateChangePct = (rateChange / data.rates2025.totalTownWide) * 100
   const levyFunds = allOperatingFunds2026
     .filter((fund) => fund.taxLevy2026 > 0)
@@ -46,7 +58,7 @@ export default function TaxBillPage() {
         </span>
       </PlainCallout>
 
-      <TaxBillEstimator rates2026={data.rates2026} rates2025={data.rates2025} residentialAssessmentRatio={data.equalization.residentialAssessmentRatio} />
+      <TaxBillEstimator rates2026={data.rates2026} rates2025={data.rates2025} rates2027Proposal={proposalRates} proposalLabel={proposalLabel} residentialAssessmentRatio={data.equalization.residentialAssessmentRatio} />
 
       <section style={{ background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 18, padding: 20, marginTop: 18 }}>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 12, flexWrap: 'wrap' }}>
