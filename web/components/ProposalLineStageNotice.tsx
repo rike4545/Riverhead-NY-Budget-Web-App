@@ -78,9 +78,9 @@ export default function ProposalLineStageNotice({ showAmendmentOverlay = false }
       </p>
 
       {showAmendmentOverlay && <>
-      <h3 style={{ margin: '14px 0 5px', color: 'var(--rbl-title)', fontSize: 16 }}>
+      <h2 style={{ margin: '14px 0 5px', color: 'var(--rbl-title)', fontSize: 16 }}>
         Accounts changed by the six amendments
-      </h3>
+      </h2>
       <p style={{ margin: '0 0 9px', color: 'var(--rbl-text-sub)', fontSize: 12.5 }}>
         Tentative figure + net resolution change = calculated amended figure. Amounts are rounded to whole dollars for display.
       </p>
