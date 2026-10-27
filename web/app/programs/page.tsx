@@ -1,4 +1,5 @@
 import PageShell from '../../components/PageShell'
+import ProposalLineStageNotice from '../../components/ProposalLineStageNotice'
 import PlainCallout from '../../components/PlainCallout'
 import ProgramExplorer from '../../components/ProgramExplorer'
 import {
@@ -27,6 +28,7 @@ export default function ProgramsPage() {
       title="What the Town Does, and What It Costs"
       subtitle={`Every budget from ${first.label} to the ${last.label} budget, regrouped into services rather than funds — full cost including pension and health insurance, fees earned back, and what each one leaves for the tax levy. Pick a year and compare it with any other. In ${current.title}: ${usd(perResident.everything)} per resident, all in.`}
     >
+      <ProposalLineStageNotice />
       <PlainCallout
         tips={[
           { label: 'Full cost, not just the department line', text: 'pension and health insurance are pushed back onto the programs whose staff earned them, so Police costs what Police actually costs.' },
