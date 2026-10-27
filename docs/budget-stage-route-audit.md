@@ -19,7 +19,7 @@ This inventory covers routes whose figures, labels, forecasts, or conclusions ma
 | /annual-report/ | Historical + current | Audited actuals remain historical; current proposal comparisons are clearly separated. |
 | /credit-rating/ | Indirect | Reserve and appropriation denominators are identified by year. |
 | /payroll/ | Stage-sensitive | Proposed salary/personal-service lines and amendments match the current budget stage; actual payroll remains actual; stale proposal line detail is disclosed. |
-| /fringe-benefits/ | Indirect | Benefit-load assumptions have clear provenance and are not confused with adopted appropriations. |
+| /fringe-benefits/ | Historical | Inflation-linked allowance and payroll history retain their source years and remain distinct from current adopted appropriations. |
 | /management-compensation/ | Historical + current | Salary history is distinct from authorized or proposed salaries. |
 | /workforce-by-title/ | Historical | Personnel data is dated; any budgeted salary values name their fiscal year/stage. |
 | /scenarios/ | Stage-sensitive | Scenarios name their baseline and are not presented as official amounts. |
@@ -40,7 +40,7 @@ This inventory covers routes whose figures, labels, forecasts, or conclusions ma
 | /fund-balance-draws/ | Historical + current | Approved commitments/draws are distinguished from an actual current balance. |
 | /reserves/ | Indirect | Ratios, targets and comparisons state their denominator year. |
 | /predict-2027/ | Stage-sensitive | Original forecast, revised estimate, latest proposal and eventual adopted result remain separate. |
-| /taxpayer-impact/ | Stage-sensitive | Household/taxpayer claims reconcile to current levy and rate assumptions. |
+| /taxpayer-impact/ | Historical | The page explicitly allocates the adopted 2026 Town operating levy; preserve the 2026 source-year basis unless the page is intentionally redesigned for a newer levy. |
 | /tax-bill/ | Stage-sensitive | Calculator rate is explicitly dated and sourced. |
 | /zero-percent-2027/ | Stage-sensitive | Zero-levy scenario recalculates from current inputs and remains labeled a scenario. |
 | /spending-reduction-2027/ | Stage-sensitive | Estimated savings are distinguished from adopted cuts and official amendments; line-based assumptions disclose when only Tentative detail is available. |
