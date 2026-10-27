@@ -123,6 +123,57 @@ export default function SupervisorPromisesPage() {
         </div>
       </section>
 
+      <section style={{ ...card, marginBottom: 16, borderColor: 'var(--rbl-border-strong)' }}>
+        <h3 style={{ marginTop: 0, color: 'var(--rbl-title)' }}>What changed after the Tentative Budget</h3>
+        <p style={{ color: 'var(--rbl-text-body)', fontSize: 14.5, lineHeight: 1.6, marginTop: 0 }}>
+          The Town Board adopted six amendments to the 2027 budget on October 20. The scorecard above deliberately
+          remains labeled as the Supervisor’s <strong>Tentative</strong> proposal; it should not be mistaken for a
+          final, line-by-line Preliminary Budget. The amendment analysis applies the adopted resolutions to affected
+          lines and labels those figures as this site’s calculations, not Town-published totals.
+        </p>
+        <p style={{ margin: '8px 0', fontSize: 14 }}>
+          <a href={`${base}/budget-amendments-2027/`} style={{ color: 'var(--rbl-accent)', fontWeight: 800 }}>
+            Read the six amendments, their roll calls and the calculated tax impact →
+          </a>
+        </p>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 260px), 1fr))', gap: 12, marginTop: 12 }}>
+          <div style={{ border: '1px solid var(--rbl-border-subtle)', borderRadius: 12, padding: 14 }}>
+            <h4 style={{ margin: '0 0 6px', color: 'var(--rbl-title)' }}>Savings used to hold down taxes</h4>
+            <p style={{ margin: 0, color: 'var(--rbl-text-body)', fontSize: 13.5, lineHeight: 1.6 }}>
+              The Town’s 2025 audit reports <strong>$28,829,513 in General Fund unassigned fund balance</strong>.
+              That is a year-end audited figure, not a promise that the same amount is free to spend today. The
+              useful questions are how much remains available after commitments, how the amendments change the
+              draw, and what recurring plan replaces one-time money in later budgets.
+            </p>
+            <p style={{ margin: '8px 0 0', fontSize: 13 }}>
+              <a href={`${base}/reserves/`} style={{ color: 'var(--rbl-accent)' }}>Fund-balance rules and audited reserves →</a>
+              {' · '}
+              <a href={`${base}/fund-balance-draws/`} style={{ color: 'var(--rbl-accent)' }}>2026 fund-balance resolutions →</a>
+            </p>
+          </div>
+          <div style={{ border: '1px solid var(--rbl-border-subtle)', borderRadius: 12, padding: 14 }}>
+            <h4 style={{ margin: '0 0 6px', color: 'var(--rbl-title)' }}>Health benefits: match the right document to the right office</h4>
+            <p style={{ margin: 0, color: 'var(--rbl-text-body)', fontSize: 13.5, lineHeight: 1.6 }}>
+              A benefit written into an appointed employee’s contract does not, by itself, establish the Supervisor’s
+              own entitlement. To evaluate the Supervisor’s health-premium arrangement fairly, the record needs the
+              applicable elected-official agreement or resolution, the employee contribution rate, and the amount
+              actually paid by the Town. Evidence about other management positions is relevant context, not proof
+              of the Supervisor’s terms.
+            </p>
+            <p style={{ margin: '8px 0 0', fontSize: 13 }}>
+              <a href={`${base}/management-compensation/`} style={{ color: 'var(--rbl-accent)' }}>Management health premiums and pay →</a>
+              {' · '}
+              <a href={`${base}/fringe-benefits/`} style={{ color: 'var(--rbl-accent)' }}>Fringe-benefit records →</a>
+            </p>
+          </div>
+        </div>
+        <p style={{ color: 'var(--rbl-text-muted)', fontSize: 12.5, lineHeight: 1.55, marginBottom: 0 }}>
+          These are separate tests: a budget amendment can change the tax levy without resolving a contract question,
+          and a contract provision does not by itself show the amount ultimately paid. Each conclusion should follow
+          the source document and the relevant vote or payroll record.
+        </p>
+      </section>
+
       <section style={{ ...card, marginBottom: 16 }}>
         <h3 style={{ marginTop: 0, color: 'var(--rbl-title)' }}>What he promised</h3>
         <div style={{ display: 'grid', gap: 12 }}>
