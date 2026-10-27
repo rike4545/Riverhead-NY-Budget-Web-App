@@ -45,7 +45,7 @@ const usd = (value: number | null | undefined) =>
  * line-level Supplement is available. The overlay is calculated from the
  * published resolutions; it is not represented as an official Town table.
  */
-export default function ProposalLineStageNotice() {
+export default function ProposalLineStageNotice({ showAmendmentOverlay = false }: { showAmendmentOverlay?: boolean }) {
   if (linesMatchPreliminary || !amendmentEffect) return null
 
   const stageSource = preliminary?.source
@@ -77,6 +77,7 @@ export default function ProposalLineStageNotice() {
         {stageSource?.url && <> · <a href={stageSource.url} target="_blank" rel="noreferrer">Preliminary Budget source</a></>}
       </p>
 
+      {showAmendmentOverlay && <>
       <h3 style={{ margin: '14px 0 5px', color: 'var(--rbl-title)', fontSize: 16 }}>
         Accounts changed by the six amendments
       </h3>
