@@ -530,6 +530,7 @@ export const claims: Claim[] = [
     ],
     records: [
       'TB Resolutions 2026-156 (Feb. 18, 2026) and 2026-470 (May 20, 2026)',
+      'TB Resolution 2026-842 (Sept. 15, 2026), $45,000 from Ambulance District fund balance for Armory repairs',
       'TB Resolution 2025-944, the 2026 Ambulance District budget (Nov. 18, 2025), and 2023-932, the RVAC agreement',
       '2027 Budget Supplement (2026 YTD through June 30, 2026), compared with the original 2026 Adopted Budget',
       '2025 audited financial statements (TB Resolution 2026-834, Sept. 1, 2026)',
