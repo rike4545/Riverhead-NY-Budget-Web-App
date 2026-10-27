@@ -18,7 +18,7 @@ This inventory covers routes whose figures, labels, forecasts, or conclusions ma
 | /explore/ | Indirect | Program, payroll, debt, and prediction figures are not presented as one undifferentiated stage. |
 | /annual-report/ | Historical + current | Audited actuals remain historical; current proposal comparisons are clearly separated. |
 | /credit-rating/ | Indirect | Reserve and appropriation denominators are identified by year. |
-| /payroll/ | Stage-sensitive | Proposed salary/personal-service lines and amendments match the current budget stage; actual payroll remains actual. |
+| /payroll/ | Stage-sensitive | Proposed salary/personal-service lines and amendments match the current budget stage; actual payroll remains actual; stale proposal line detail is disclosed. |
 | /fringe-benefits/ | Indirect | Benefit-load assumptions have clear provenance and are not confused with adopted appropriations. |
 | /management-compensation/ | Historical + current | Salary history is distinct from authorized or proposed salaries. |
 | /workforce-by-title/ | Historical | Personnel data is dated; any budgeted salary values name their fiscal year/stage. |
@@ -26,15 +26,15 @@ This inventory covers routes whose figures, labels, forecasts, or conclusions ma
 | /town-square/ | Indirect | Reserve/affordability claims identify the baseline year and assumptions. |
 | /buyout/ | Stage-sensitive | Historical buyout model remains distinct from current proposed appropriations. |
 | /tax-cap/ | Stage-sensitive | Tax-cap assumptions and proposed levy have explicit source and stage labels. |
-| /capital-debt/ | Stage-sensitive | Debt-line sums reconcile to the current Supplement; historical amortization schedule remains dated. |
+| /capital-debt/ | Stage-sensitive | Debt-line sums reconcile to the current Supplement; historical amortization schedule remains dated; any Preliminary-versus-Tentative line-data gap is disclosed. |
 | /compare/ | Stage-sensitive | Preliminary supersedes Tentative as the latest proposal when published. |
 | /what-changed/ | Stage-sensitive | Headlines and comparison sentences use the latest stage. |
 | /general-fund/ | Stage-sensitive | General Fund proposal totals and labels follow the latest stage. |
-| /funds/ and /funds/[code]/ | Stage-sensitive | Town-wide and individual-fund figures agree; account lines reconcile to the Summary. |
-| /programs/ | Stage-sensitive | Program rollups identify their source stage and reconcile to underlying lines. |
-| /revenue/ | Stage-sensitive | Revenue estimates and line history are refreshed from the latest available Supplement. |
-| /budget-accuracy/ | Historical + current | Actual, adopted, and proposed columns are not conflated; outlier year is correct. |
-| /outliers/ | Stage-sensitive | Outlier analysis uses refreshed lines and a clearly identified baseline. |
+| /funds/ and /funds/[code]/ | Stage-sensitive | Town-wide and individual-fund figures agree; account lines reconcile to the Summary. A visible notice appears if Preliminary is published before its line-level Supplement is available. |
+| /programs/ | Stage-sensitive | Program rollups identify their source stage and reconcile to underlying lines; a notice flags when account-level data still reflects Tentative after Preliminary is published. |
+| /revenue/ | Stage-sensitive | Revenue estimates and line history are refreshed from the latest available Supplement; stale-stage line data is explicitly disclosed. |
+| /budget-accuracy/ | Historical + current | Actual, adopted, and proposed columns are not conflated; outlier year is correct; stale-stage detail is disclosed. |
+| /outliers/ | Stage-sensitive | Outlier analysis uses refreshed lines and a clearly identified baseline; a visible notice flags any gap between the latest Summary stage and available Supplement lines. |
 | /budget-amendments-2027/ | Transition-specific | The six October 20 amendments remain an historical record and reconcile to the Preliminary/Adopted document where applicable. |
 | /budget-changes/ | Historical + current | Resolutions and draws stay assigned to the right fiscal-year baseline. |
 | /fund-balance-draws/ | Historical + current | Approved commitments/draws are distinguished from an actual current balance. |
@@ -43,7 +43,7 @@ This inventory covers routes whose figures, labels, forecasts, or conclusions ma
 | /taxpayer-impact/ | Stage-sensitive | Household/taxpayer claims reconcile to current levy and rate assumptions. |
 | /tax-bill/ | Stage-sensitive | Calculator rate is explicitly dated and sourced. |
 | /zero-percent-2027/ | Stage-sensitive | Zero-levy scenario recalculates from current inputs and remains labeled a scenario. |
-| /spending-reduction-2027/ | Stage-sensitive | Estimated savings are distinguished from adopted cuts and official amendments. |
+| /spending-reduction-2027/ | Stage-sensitive | Estimated savings are distinguished from adopted cuts and official amendments; line-based assumptions disclose when only Tentative detail is available. |
 
 ## Other views to review when their specific inputs change
 
@@ -62,3 +62,8 @@ Before treating a new stage as current:
 4. Run focused route verifiers and this dependency audit.
 5. Inspect rendered headings, explanatory text, and calculations for stale year/stage wording.
 6. Check search, sources, downloads, and data-quality reporting.
+
+
+## Shared line-detail notice
+
+`ProposalLineStageNotice` is included on fund, program, revenue, budget-accuracy, outlier, capital/debt, payroll, and spending-reduction views. It is silent while Tentative is the latest proposal, but once Preliminary exists it warns readers if the line-level Supplement is not yet verified as a Preliminary column. It does not invent Preliminary account values or overwrite the historical Tentative record.
