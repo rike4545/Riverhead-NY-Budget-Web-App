@@ -224,10 +224,10 @@ export default function FringeBenefitsPage() {
               the specified New York-area CPI. A separate general-provisions clause says the Town shall establish
               a deferred-compensation plan for Lewis. This is evidence of a historical contractual benefit—not, by
               itself, proof that the same benefit automatically transferred to later incumbents.
-              <div style={{ ...small, marginTop: 5 }}>
-                <a href="https://riverheadny.api.civicclerk.com/v1/Meetings/GetMeetingFileStream(fileId=2661,plainText=false)" style={link}>January 5, 2010 Town Board packet, including Resolution 2010-15</a>
-              </div>
             </p>
+            <div style={{ ...small, marginTop: 5 }}>
+                <a href="https://riverheadny.api.civicclerk.com/v1/Meetings/GetMeetingFileStream(fileId=2661,plainText=false)" style={link}>January 5, 2010 Town Board packet, including Resolution 2010-15</a>
+            </div>
           </div>
           <div>
             <strong style={{ color: 'var(--rbl-title)' }}>Devon Higgins — later terms</strong>
@@ -250,10 +250,10 @@ export default function FringeBenefitsPage() {
               allowance amount. The January 2026 appointment resolution reappoints Burkowsky under previously
               adopted terms. Taken together, the records support an express authorization for the Chief of Staff
               position; they do not, on their own, establish the exact amount paid to Burkowsky in a particular year.
-              <div style={{ ...small, marginTop: 5 }}>
-                <a href="https://riverheadny.api.civicclerk.com/v1/Meetings/GetMeetingFileStream(fileId=2591,plainText=false)" style={link}>January 3, 2019 Town Board packet, Resolution 2019-37</a>
-              </div>
             </p>
+            <div style={{ ...small, marginTop: 5 }}>
+                <a href="https://riverheadny.api.civicclerk.com/v1/Meetings/GetMeetingFileStream(fileId=2591,plainText=false)" style={link}>January 3, 2019 Town Board packet, Resolution 2019-37</a>
+            </div>
           </div>
           <div>
             <strong style={{ color: 'var(--rbl-title)' }}>John Marafino — Executive Assistant to the Supervisor</strong>
