@@ -37,6 +37,9 @@ jobs:
           # Rebuild the published budget-stage index before verifying Outlier Watch,
           # so CI checks the newest parsed Tentative/Preliminary/Adopted stage.
           python etl/parse_budget_stages.py
+          # Keep adopted-year history current too, so an adopted budget replaces
+          # its proposal in Outlier Watch instead of leaving a stale comparison.
+          python etl/parse_budget_adoption.py
           # Exercise the same rolling parser used by the deploy workflow, then
           # fail CI if the newest Supplement cannot be reconciled to the stage PDF.
           python etl/parse_supplement_history.py
