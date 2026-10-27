@@ -205,72 +205,52 @@ export default function FringeBenefitsPage() {
       </section>
 
       <section style={{ ...card, marginBottom: 16 }}>
-        <h3 style={{ marginTop: 0, color: 'var(--rbl-title)' }}>What the Deputy Supervisor and Chief of Staff records establish</h3>
+        <h3 style={{ marginTop: 0, color: 'var(--rbl-title)' }}>Deputy Supervisor and Chief of Staff: contract language versus actual receipt</h3>
         <p style={{ ...body, marginTop: 0 }}>
-          The individual employment agreements and later appointment resolutions are not interchangeable evidence.
-          A contract can describe insurance or allow an employee to open a deferred-compensation account without
-          expressly promising the separate Town-funded allowance tracked on this page. Conversely, a later Town
-          Board resolution can authorize a position-level benefit even when a particular contract does not restate
-          it in the same words.
+          A distinction matters here: standard contract clauses permitting participation in the New York State Deferred Compensation Plan or providing life insurance through the State retirement system are not the same as the separate Town-funded allowance described on this page. According to Jeanette DiPaola, those clauses are standard in all non-union contracts and are not funded by the Town.
         </p>
+        <div style={{ ...card, padding: 14, marginBottom: 14, background: 'var(--rbl-info-bg)', borderColor: 'var(--rbl-info-border)' }}>
+          <strong style={{ color: 'var(--rbl-title)' }}>Town practice since July 2022 — attributed statement</strong>
+          <p style={{ ...body, margin: '5px 0 0' }}>
+            Jeanette DiPaola states that, since she joined the Town in July 2022, neither the Deputy Supervisor nor the Chief of Staff has received the separate fringe benefit paid to elected officials. This is an attributed account of actual practice; it should not be confused with the wording of an employment agreement or a resolution authorizing a benefit.
+          </p>
+        </div>
         <div style={{ display: 'grid', gap: 14 }}>
           <div>
-            <strong style={{ color: 'var(--rbl-title)' }}>Deputy Supervisor — historical authorization (2010)</strong>
+            <strong style={{ color: 'var(--rbl-title)' }}>Deputy Supervisor — Jill Lewis, 2010</strong>
             <p style={{ ...body, margin: '4px 0 0' }}>
-              Resolution 2010-15, setting Jill Lewis&apos;s terms effective January 1, 2010, says the Town would offer
-              universal life insurance, disability insurance and/or participation in the New York State deferred
-              compensation program. It records the Town&apos;s cost for 2009 as <strong>$4,692.59</strong>, permits
-              employee payroll deductions for additional cost, and says the cost would be adjusted annually using
-              the specified New York-area CPI. A separate general-provisions clause says the Town shall establish
-              a deferred-compensation plan for Lewis. This is evidence of a historical contractual benefit—not, by
-              itself, proof that the same benefit automatically transferred to later incumbents.
+              Resolution 2010-15, setting Jill Lewis&apos;s terms effective January 1, 2010, refers to universal life insurance, disability insurance and/or participation in the New York State deferred compensation program. It records the Town&apos;s 2009 cost as <strong>$4,692.59</strong> and provides for annual CPI adjustment. Because the clause predates the period Jeanette DiPaola can speak to, and its wording alone does not establish whether Lewis actually received the same allowance paid to elected officials, her receipt of that benefit remains unconfirmed.
             </p>
             <div style={{ ...small, marginTop: 5 }}>
-                <a href="https://riverheadny.api.civicclerk.com/v1/Meetings/GetMeetingFileStream(fileId=2661,plainText=false)" style={link}>January 5, 2010 Town Board packet, including Resolution 2010-15</a>
+              <a href="https://riverheadny.api.civicclerk.com/v1/Meetings/GetMeetingFileStream(fileId=2661,plainText=false)" style={link}>January 5, 2010 Town Board packet, including Resolution 2010-15</a>
             </div>
           </div>
           <div>
-            <strong style={{ color: 'var(--rbl-title)' }}>Devon Higgins — later terms</strong>
+            <strong style={{ color: 'var(--rbl-title)' }}>Deputy Supervisor — Devon Higgins and later terms</strong>
             <p style={{ ...body, margin: '4px 0 0' }}>
-              The supplied text of Resolution 2020-130 does not expressly restate a separate Town-funded
-              deferred-compensation, annuity or life-insurance allowance. The 2026 appointment resolution,
-              however, acknowledges that Higgins serves under terms previously adopted, including the 2020 terms
-              and subsequent Resolutions 2023-606 and 2024-36. Therefore the 2020 agreement alone is not enough
-              to determine the full current contractual position; those amendments must be reviewed before drawing
-              a conclusion about authorization.
+              The clauses in Devon Higgins&apos;s contract concerning life insurance through the State retirement system and permission to participate in deferred compensation should be read as standard non-union contract provisions, not evidence that the Town paid the separate elected-official allowance. The appointment resolutions reference earlier terms and amendments, but the attributed statement above says the Deputy Supervisor has not received that separate benefit since July 2022.
             </p>
           </div>
           <div>
-            <strong style={{ color: 'var(--rbl-title)' }}>Chief of Staff — express position-level authorization</strong>
+            <strong style={{ color: 'var(--rbl-title)' }}>Chief of Staff — Resolution 2019-37 and Debi Burkowsky</strong>
             <p style={{ ...body, margin: '4px 0 0' }}>
-              Resolution 2019-37 expressly says the “deferred comp., annuity, life insurance benefit” is extended
-              to the Chief of Staff, and its fiscal-impact statement marks the resolution as having a fiscal impact.
-              The supplied text of Debi Burkowsky&apos;s 2022 contract separately provides for life insurance and
-              permits her to establish a deferred-compensation plan, but does not state a specific Town-funded
-              allowance amount. The January 2026 appointment resolution reappoints Burkowsky under previously
-              adopted terms. Taken together, the records support an express authorization for the Chief of Staff
-              position; they do not, on their own, establish the exact amount paid to Burkowsky in a particular year.
+              Resolution 2019-37 expressly refers to extending a “deferred comp., annuity, life insurance benefit” to the Chief of Staff, and its fiscal-impact statement indicates a fiscal impact. That is evidence of historical position-level authorization, but it does not establish that the benefit was actually paid to each later incumbent. Debi Burkowsky&apos;s contract clauses permitting life insurance and deferred compensation are not, by themselves, proof of Town funding. According to Jeanette DiPaola, the Chief of Staff has not received the separate elected-official fringe benefit since July 2022.
             </p>
             <div style={{ ...small, marginTop: 5 }}>
-                <a href="https://riverheadny.api.civicclerk.com/v1/Meetings/GetMeetingFileStream(fileId=2591,plainText=false)" style={link}>January 3, 2019 Town Board packet, Resolution 2019-37</a>
+              <a href="https://riverheadny.api.civicclerk.com/v1/Meetings/GetMeetingFileStream(fileId=2591,plainText=false)" style={link}>January 3, 2019 Town Board packet, Resolution 2019-37</a>
             </div>
           </div>
           <div>
             <strong style={{ color: 'var(--rbl-title)' }}>John Marafino — Executive Assistant to the Supervisor</strong>
             <p style={{ ...body, margin: '4px 0 0' }}>
-              The supplied 2018 agreement provides life insurance and permits a deferred-compensation plan, but
-              does not expressly state the separate Town-funded allowance. A permission to establish a plan is
-              not the same thing as a promise to contribute a specified Town-funded amount.
+              The supplied 2018 agreement permits life insurance and deferred compensation but does not expressly state the separate Town-funded allowance. Those standard provisions should not be treated as evidence that the allowance was paid.
             </p>
           </div>
         </div>
         <p style={{ ...small, marginBottom: 0 }}>
-          <strong>What remains unverified:</strong> the current payment amount and payment status for any named
-          individual must be checked against the relevant later resolutions, current contract terms and payroll
-          records. The payroll-based table above shows who was paid the allowance in 2025; it is not a substitute
-          for determining the legal authorization or the terms in effect in 2026.
+          <strong>Evidence limits:</strong> the 2025 payroll table above lists people whose gross earnings match the allowance amounts; it does not prove legal entitlement for every position or resolve whether a particular incumbent received a payment outside the period covered by the payroll records. The statement attributed to Jeanette DiPaola covers her tenure beginning July 2022. Jill Lewis&apos;s 2010 receipt remains uncertain.
         </p>
-      </section>
+      </section>>
 
       <section style={{ ...card, marginBottom: 16 }}>
         <h3 style={{ marginTop: 0, color: 'var(--rbl-title)' }}>July 2026: left out of the newest contract</h3>
