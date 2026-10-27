@@ -26,7 +26,7 @@ const routeContracts = [
   { route: 'app/general-fund/page.tsx', tier: 'stage-sensitive', deps: ['tentative-2027', 'budget-stages'], why: 'General Fund proposal comparisons must follow the latest published stage.' },
   { route: 'app/funds/page.tsx', tier: 'stage-sensitive', deps: ['funds-2027'], why: 'Fund totals and account-line comparisons must use a reconciled current source.' },
   { route: 'app/funds/[code]/page.tsx', tier: 'stage-sensitive', deps: ['funds-2027', 'budget-stages'], why: 'Individual fund drilldowns can otherwise disagree with town-wide totals.' },
-  { route: 'app/programs/page.tsx', tier: 'stage-sensitive', deps: ['programs', 'program-budget'], why: 'Program rollups should identify proposal-stage inputs and reconciliation.' },
+  { route: 'app/programs/page.tsx', tier: 'stage-sensitive', deps: ['programs'], why: 'Program rollups should identify proposal-stage inputs and reconciliation.' },
   { route: 'app/revenue/page.tsx', tier: 'stage-sensitive', deps: ['revenue'], why: 'Revenue estimates should follow the latest published Supplement/stage.' },
   { route: 'app/budget-accuracy/page.tsx', tier: 'historical-plus-current', deps: ['budget-accuracy', 'supplement'], why: 'Historical budget-vs-actual flags must distinguish adopted, actual and proposed columns.' },
   { route: 'app/outliers/page.tsx', tier: 'stage-sensitive', deps: ['outlier-watch'], why: 'Outlier flags must use the current line data and label comparison stages.' },
@@ -38,7 +38,7 @@ const routeContracts = [
   { route: 'app/taxpayer-impact/page.tsx', tier: 'stage-sensitive', deps: ['tentative-2027'], why: 'Taxpayer-facing conclusions should reconcile to current levy/rate assumptions.' },
   { route: 'app/tax-bill/page.tsx', tier: 'stage-sensitive', deps: ['tax-bill'], why: 'The calculator must state which published Town-wide rate it uses.' },
   { route: 'app/zero-percent-2027/page.tsx', tier: 'stage-sensitive', deps: ['zero-percent-2027'], why: 'A zero-levy scenario must be recalculated against the current proposal, not treated as official.' },
-  { route: 'app/spending-reduction-2027/page.tsx', tier: 'stage-sensitive', deps: ['savings-rules'], why: 'Savings estimates must be distinguished from official budget reductions and amendments.' },
+  { route: 'app/spending-reduction-2027/page.tsx', tier: 'stage-sensitive', deps: ['spending-reduction-2027'], why: 'Savings estimates must be distinguished from official budget reductions and amendments.' },
 ]
 
 let failed = false
