@@ -201,7 +201,36 @@ export default function RvacFundingPage() {
       </section>
 
       <section style={{ ...card, marginBottom: 16 }}>
-        <h2 style={{ marginTop: 0, color: 'var(--rbl-title)' }}>5. New headquarters: donations, a Town bond, and lease payments</h2>
+        <h2 style={{ marginTop: 0, color: 'var(--rbl-title)' }}>5. What the 2027 Tentative Budget proposes</h2>
+        <p style={{ color: 'var(--rbl-text-body)', fontSize: 14, lineHeight: 1.6 }}>
+          The next year’s plan is still <strong>tentative, not adopted</strong>. It proposes a larger RVAC contract line, while reducing the planned debt-service transfer and reserve contribution and lowering the medical-billing revenue estimate.
+        </p>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(180px,1fr))', gap: 12, margin: '14px 0' }}>
+          <Stat label="2027 tentative Ambulance District budget" value={usd(2_312_093)} note="Down from the 2026 adopted plan of $2,388,824." />
+          <Stat label="2027 tentative RVAC line" value={usd(1_401_731)} note={`${usd(127_485)} above the calculated post-resolution 2026 line.`} />
+          <Stat label="Property-tax revenue" value={usd(1_751_693)} note={`${usd(47_469)} above the 2026 adopted estimate.`} />
+          <Stat label="Medical-billing estimate" value={usd(514_000)} note={`${usd(126_000)} below the 2026 adopted estimate; not actual collections.`} />
+        </div>
+        <div style={{ overflowX: 'auto' }}>
+          <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 13.5 }}>
+            <thead><tr><th style={th}>2027 tentative line</th><th style={{ ...th, textAlign: 'right' }}>Amount</th><th style={th}>Compared with 2026 adopted plan</th></tr></thead>
+            <tbody>
+              <tr><td style={td}>Ambulance function, including RVAC</td><td style={{ ...td, textAlign: 'right', whiteSpace: 'nowrap' }}>{usd(1_826_231)}</td><td style={td}>Includes a tentative RVAC line of {usd(1_401_731)}.</td></tr>
+              <tr><td style={td}>Insurance</td><td style={{ ...td, textAlign: 'right', whiteSpace: 'nowrap' }}>{usd(36_732)}</td><td style={td}>Down from {usd(69_600)}.</td></tr>
+              <tr><td style={td}>Transfer to General Fund debt service</td><td style={{ ...td, textAlign: 'right', whiteSpace: 'nowrap' }}>{usd(324_000)}</td><td style={td}>Down from {usd(450_000)}.</td></tr>
+              <tr><td style={td}>RVAC &amp; Improvements Reserve contribution</td><td style={{ ...td, textAlign: 'right', whiteSpace: 'nowrap' }}>{usd(125_130)}</td><td style={td}>Down from {usd(190_000)}; this is the budgeted contribution, not the reserve balance.</td></tr>
+              <tr style={{ background: 'var(--rbl-surface-2)', fontWeight: 850 }}><td style={td}>Total tentative expenditures</td><td style={{ ...td, textAlign: 'right', whiteSpace: 'nowrap' }}>{usd(2_312_093)}</td><td style={td}>Balanced to the tentative revenue plan.</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p style={{ color: 'var(--rbl-text-muted)', fontSize: 12.5, lineHeight: 1.55, marginBottom: 0 }}>
+          The Town’s 2027 Budget Supplement uses {usd(1_174_924)} as the 2026 comparison value for RVAC, apparently reflecting the February reallocation but not the May addition. The tentative 2027 line is therefore best compared with both the published supplement and the calculated post-resolution 2026 line; neither is a substitute for the final 2026 ledger.
+          {' '}<a href={`${base}/tentative-2027/`} style={sourceLink}>Review the 2027 Tentative Budget analysis →</a>
+        </p>
+      </section>
+
+      <section style={{ ...card, marginBottom: 16 }}>
+        <h2 style={{ marginTop: 0, color: 'var(--rbl-title)' }}>6. New headquarters: donations, a Town bond, and lease payments</h2>
         <p style={{ color: 'var(--rbl-text-body)', lineHeight: 1.6, fontSize: 14.5 }}>
           The new ambulance headquarters is a separate capital project—not part of RVAC’s annual service-contract line above. The September 1, 2026 public-hearing notice put the project’s estimated maximum cost at <strong>$14.1 million</strong>. The stated financing plan was $6 million provided by RVAC from private fundraising and other available funds, with the balance—up to <strong>$8.1 million</strong>—financed through Town-issued bonds. At the hearing, the Supervisor said fundraising was then just under $6.5 million. Those are reported project-financing figures, not proof of the final construction cost, final donations received, or bonds ultimately issued.
         </p>
