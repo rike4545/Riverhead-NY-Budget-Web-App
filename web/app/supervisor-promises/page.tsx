@@ -136,6 +136,10 @@ export default function SupervisorPromisesPage() {
             Read the six amendments, their roll calls and the calculated tax impact →
           </a>
         </p>
+        <p style={{ margin: '8px 0', fontSize: 14, color: 'var(--rbl-text-body)' }}>
+          The separate Ambulance District also had a significant 2026 budget correction for its RVAC contract.
+          <a href={`${base}/rvac-funding/`} style={{ color: 'var(--rbl-accent)', fontWeight: 800 }}> See the complete RVAC funding breakdown →</a>
+        </p>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 260px), 1fr))', gap: 12, marginTop: 12 }}>
           <div style={{ border: '1px solid var(--rbl-border-subtle)', borderRadius: 12, padding: 14 }}>
             <h4 style={{ margin: '0 0 6px', color: 'var(--rbl-title)' }}>Savings used to hold down taxes</h4>
