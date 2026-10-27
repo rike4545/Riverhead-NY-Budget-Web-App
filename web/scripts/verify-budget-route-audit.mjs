@@ -35,7 +35,7 @@ const routeContracts = [
   { route: 'app/fund-balance-draws/page.tsx', tier: 'historical-plus-current', deps: ['fund-balance-draws'], why: 'Committed/drawn amounts must not be treated as the current unassigned balance.' },
   { route: 'app/reserves/page.tsx', tier: 'indirect', deps: ['reserve-availability', 'reserve-policy'], why: 'Reserve percentages and policy comparisons may change with appropriation totals.' },
   { route: 'app/predict-2027/page.tsx', tier: 'stage-sensitive', deps: ['predict-2027-update'], why: 'Keep the original forecast, revised proposal-stage estimate and eventual adopted result separate.' },
-  { route: 'app/taxpayer-impact/page.tsx', tier: 'stage-sensitive', deps: ['taxpayer-impact'], why: 'Taxpayer-facing conclusions should reconcile to current levy/rate assumptions.' },
+  { route: 'app/taxpayer-impact/page.tsx', tier: 'stage-sensitive', deps: ['tentative-2027'], why: 'Taxpayer-facing conclusions should reconcile to current levy/rate assumptions.' },
   { route: 'app/tax-bill/page.tsx', tier: 'stage-sensitive', deps: ['tax-bill'], why: 'The calculator must state which published Town-wide rate it uses.' },
   { route: 'app/zero-percent-2027/page.tsx', tier: 'stage-sensitive', deps: ['zero-percent-2027'], why: 'A zero-levy scenario must be recalculated against the current proposal, not treated as official.' },
   { route: 'app/spending-reduction-2027/page.tsx', tier: 'stage-sensitive', deps: ['savings-rules'], why: 'Savings estimates must be distinguished from official budget reductions and amendments.' },
