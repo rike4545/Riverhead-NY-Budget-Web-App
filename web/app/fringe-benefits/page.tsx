@@ -250,7 +250,7 @@ export default function FringeBenefitsPage() {
         <p style={{ ...small, marginBottom: 0 }}>
           <strong>Evidence limits:</strong> the 2025 payroll table above lists people whose gross earnings match the allowance amounts; it does not prove legal entitlement for every position or resolve whether a particular incumbent received a payment outside the period covered by the payroll records. The statement attributed to Jeanette DiPaola covers her tenure beginning July 2022. Jill Lewis&apos;s 2010 receipt remains uncertain.
         </p>
-      </section>>
+      </section>
 
       <section style={{ ...card, marginBottom: 16 }}>
         <h3 style={{ marginTop: 0, color: 'var(--rbl-title)' }}>July 2026: left out of the newest contract</h3>
