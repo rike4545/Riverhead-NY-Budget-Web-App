@@ -246,6 +246,26 @@ export default function RvacFundingPage() {
           <li><strong>Timeline:</strong> while the existing headquarters is replaced, RVAC temporarily operates from the Town-owned Armory. Resolution 2026-842 appropriated <strong>$45,000</strong> from Ambulance District fund balance for Armory building repairs. That is a separate operating-fund adjustment, not part of the $8.1 million bond ceiling.</li>
           <li><strong>Other Town facilities:</strong> 2026 resolutions also authorized temporary use of Town space for EMT instruction, medical billing / records storage and ambulance vehicle storage. The resolutions identify the uses, but do not provide a dollar value for that space or establish whether rent was charged.</li>
         </ul>
+        <div style={{ border: '1px solid var(--rbl-border)', borderRadius: 12, padding: 16, margin: '18px 0', background: 'var(--rbl-surface-2)' }}>
+          <h3 style={{ marginTop: 0, color: 'var(--rbl-title)' }}>How ambulance billing is supposed to repay the building bond</h3>
+          <ol style={{ color: 'var(--rbl-text-body)', lineHeight: 1.7, paddingLeft: 22, fontSize: 14 }}>
+            <li><strong>RVAC responds and transports patients.</strong> Depending on the service and coverage, a bill may be submitted to Medicare, Medicaid, a private insurer, or the patient.</li>
+            <li><strong>Billing produces collections.</strong> The gross amount billed is not the same as cash collected: insurer allowed amounts, denials, write-offs, patient responsibility and timing all affect receipts.</li>
+            <li><strong>The lease is the repayment bridge.</strong> The Town’s bond hearing notice says the lease must require payments from RVAC to the Ambulance District sufficient to cover the bond’s debt service. Public statements describe ambulance-billing receipts as the expected source for those payments.</li>
+            <li><strong>The District pays the bond debt service.</strong> Principal and interest are paid according to the bond schedule. The key test is whether the lease payments actually received, supported by available billing cash, cover each scheduled payment when due.</li>
+          </ol>
+          <p style={{ color: 'var(--rbl-text-body)', fontSize: 14, lineHeight: 1.65 }}>
+            <strong>Important accounting distinction:</strong> ambulance billing is the expected economic source of repayment; it is not proof that each dollar collected is automatically deposited into a legally restricted bond account. The public hearing notice establishes the lease-payment requirement, but the detailed executed lease, revenue pledge or assignment, debt-service schedule, collection reports and annual reconciliations are needed to verify the exact cash path.
+          </p>
+          <h4 style={{ color: 'var(--rbl-title)', marginBottom: 8 }}>What should be published each year</h4>
+          <ul style={{ color: 'var(--rbl-text-body)', lineHeight: 1.65, paddingLeft: 20, fontSize: 14, marginBottom: 0 }}>
+            <li>Gross ambulance charges, collections received, contractual adjustments, write-offs and accounts receivable.</li>
+            <li>Net billing cash available after the cost of billing and other required operating expenses.</li>
+            <li>Lease payments due and received from RVAC, with dates and amounts.</li>
+            <li>Bond principal, interest and fees paid; remaining principal; and any reserve or fund-balance support used.</li>
+            <li>Any shortfall between lease receipts and debt service, including which entity is legally responsible and what funding source covers it.</li>
+          </ul>
+        </div>
         <p style={{ color: 'var(--rbl-text-body)', fontSize: 14, lineHeight: 1.7, marginBottom: 0 }}>
           Sources: <a href="https://riverheadlocal.com/public-notice/town-of-riverhead-notice-of-public-hearing-168/" target="_blank" rel="noreferrer" style={sourceLink}>Town’s September 1 public-hearing notice (reproduced by RiverheadLOCAL)</a>; <a href="https://riverheadtranscripts.org/meetings/town-board/2026-09-01_6442.html" target="_blank" rel="noreferrer" style={sourceLink}>September 1 Town Board hearing and bond resolution</a>; <a href="https://riverheadlocal.com/2026/08/05/riverhead-approves-zoning-exemptions-for-new-rvac-headquarters/" target="_blank" rel="noreferrer" style={sourceLink}>RiverheadLOCAL’s project and lease reporting</a>; <a href="https://www.riverheadvac.com/content/newhq/default.cfm" target="_blank" rel="noreferrer" style={sourceLink}>RVAC’s headquarters fundraising page</a>; Town Board Resolution 2026-842 (September 15).
         </p>
