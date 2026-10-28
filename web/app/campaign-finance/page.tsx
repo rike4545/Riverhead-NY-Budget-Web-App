@@ -37,7 +37,7 @@ export default function CampaignFinancePage() {
         background: 'var(--rbl-info-bg)', border: '1px solid var(--rbl-info-border)',
       }}>
         <div style={{ flex: '1 1 260px' }}>
-          <div style={{ fontSize: 12, fontWeight: 800, color: 'var(--rbl-accent)', textTransform: 'uppercase', letterSpacing: '.06em' }}>
+          <div style={{ fontSize: 12, fontWeight: 800, color: 'var(--rbl-accent)' }}>
             Public disclosure records
           </div>
           <div style={{ color: 'var(--rbl-title)', fontWeight: 800, fontSize: 16, marginTop: 3 }}>
