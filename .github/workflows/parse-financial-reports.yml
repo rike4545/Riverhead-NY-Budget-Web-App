@@ -116,6 +116,11 @@ jobs:
       # published file unchanged.
       - name: Refresh road spending per mile
         run: python etl/parse_road_spending.py
+      # The 2026 General Election reports (32-Day and 11-Day Pre-General,
+      # 27-Day Post-General) on /campaign-finance/, from data.ny.gov. A failed
+      # download leaves the published file unchanged and prints a warning.
+      - name: Refresh 2026 General Election campaign finance reports
+        run: python etl/build_campaign_reports.py
       - name: Build unified search index
         run: python etl/build_search_index.py
       - name: Export CSV downloads

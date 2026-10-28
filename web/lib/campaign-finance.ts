@@ -455,6 +455,137 @@ export const nyFilingDeadlines2026: FilingDeadline[] = [
   { label: '27-Day Post-General Report', date: '2026-11-30', periodNote: 'period ends Nov 26' },
 ]
 
+// ── The 2026 General Election reports ──────────────────────────────────────
+// The 32-Day and 11-Day Pre-General and the 27-Day Post-General reports for the
+// November 3, 2026 election, by committee and schedule. A stored copy is built
+// twice a day by etl/build_campaign_reports.py; Refresh fetches the same rows
+// live. Both go through summarizeElectionReports, so they cannot disagree.
+
+export const GENERAL_2026 = { name: '2026 General', date: '2026-11-03', electionYear: '2026' } as const
+
+export type ElectionReport = {
+  /** The State's label for the report in the open data (filing_desc). */
+  name: '32-Day Pre-General' | '11-Day Pre-General' | '27-Day Post-General'
+  due: string
+  periodEnds: string
+  /** Another name the report may be listed under on the Board of Elections' filing site. */
+  alsoListedAs?: string
+}
+
+export const GENERAL_2026_REPORTS: ElectionReport[] = [
+  { name: '32-Day Pre-General', due: '2026-10-02', periodEnds: '2026-09-28' },
+  { name: '11-Day Pre-General', due: '2026-10-23', periodEnds: '2026-10-19', alsoListedAs: '2026 General 11/03/2026 11-Day' },
+  { name: '27-Day Post-General', due: '2026-11-30', periodEnds: '2026-11-26' },
+]
+
+/** One committee's itemized transactions in one report and schedule, as data.ny.gov groups them. */
+export type ElectionReportRow = {
+  filerID: string
+  report: string
+  amended: boolean
+  schedule: string
+  amount: number
+  rows: number
+  firstDate: string | null
+  lastDate: string | null
+}
+
+export type ElectionReportSummary = {
+  filerID: string
+  committeeName: string
+  candidate: string
+  report: string
+  amended: boolean
+  /** Schedules A, B and C: monetary contributions. */
+  contributions: number
+  /** Schedule G. */
+  transfersIn: number
+  /** Schedules D, E, I and L: in-kind contributions, other receipts, loans received and expenditure refunds. */
+  otherIn: number
+  /** Schedule F. */
+  spent: number
+  /** Schedule H. */
+  transfersOut: number
+  /** Schedule N: the outstanding balance re-reported each period, not money moved in it. */
+  owed: number
+  /** Itemized transactions, leaving out N (a balance) and O (attributions of contributions already counted). */
+  transactions: number
+  /** The latest transaction date in the report, leaving out N, whose dates are the loans' own. */
+  through: string | null
+}
+
+const SUM = { contributions: ['A', 'B', 'C'], transfersIn: ['G'], otherIn: ['D', 'E', 'I', 'L'], spent: ['F'], transfersOut: ['H'], owed: ['N'] } as const
+const NOT_TRANSACTIONS = new Set(['N', 'O'])
+
+export function summarizeElectionReports(rows: ElectionReportRow[], officials: CampaignOfficial[]): ElectionReportSummary[] {
+  const who: Record<string, { committeeName: string; candidate: string }> = {}
+  for (const o of officials) for (const ref of o.filerIDs) who[ref.filerID] = { committeeName: ref.committeeName, candidate: o.name }
+  const byKey = new Map<string, ElectionReportRow[]>()
+  for (const r of rows) {
+    const key = `${r.filerID}|${r.report}`
+    byKey.set(key, [...(byKey.get(key) ?? []), r])
+  }
+  const order = GENERAL_2026_REPORTS.map((r) => r.name as string)
+  return Array.from(byKey.values()).map((group) => {
+    const { filerID, report } = group[0]
+    const total = (schedules: readonly string[]) => Math.round(group.filter((r) => schedules.includes(r.schedule)).reduce((s, r) => s + r.amount, 0) * 100) / 100
+    const counted = group.filter((r) => !NOT_TRANSACTIONS.has(r.schedule))
+    const through = counted.map((r) => r.lastDate).filter((d): d is string => !!d).sort().at(-1) ?? null
+    return {
+      filerID,
+      committeeName: who[filerID]?.committeeName ?? filerID,
+      candidate: who[filerID]?.candidate ?? '',
+      report,
+      amended: group.some((r) => r.amended),
+      contributions: total(SUM.contributions),
+      transfersIn: total(SUM.transfersIn),
+      otherIn: total(SUM.otherIn),
+      spent: total(SUM.spent),
+      transfersOut: total(SUM.transfersOut),
+      owed: total(SUM.owed),
+      transactions: counted.reduce((s, r) => s + r.rows, 0),
+      through,
+    }
+  }).sort((a, b) => order.indexOf(a.report) - order.indexOf(b.report) || a.candidate.localeCompare(b.candidate) || a.committeeName.localeCompare(b.committeeName))
+}
+
+/** The same rows etl/build_campaign_reports.py stores, fetched live from data.ny.gov. */
+export async function fetchElectionReportRows(officials: CampaignOfficial[]): Promise<ElectionReportRow[]> {
+  const ids = Array.from(new Set(officials.flatMap((o) => o.filerIDs.map((f) => f.filerID))))
+  if (ids.length === 0) return []
+  const quoted = (values: string[]) => values.map((v) => `'${v}'`).join(',')
+  const url =
+    `https://data.ny.gov/resource/e9ss-239a.json?` +
+    new URLSearchParams({
+      '$select': 'filer_id,filing_desc,r_amend,filing_sched_abbrev,sum(org_amt) as amount,count(*) as row_count,min(sched_date) as first_date,max(sched_date) as last_date',
+      '$where': `filer_id in(${quoted(ids)}) and election_year='${GENERAL_2026.electionYear}' and filing_desc in(${quoted(GENERAL_2026_REPORTS.map((r) => r.name))})`,
+      '$group': 'filer_id,filing_desc,r_amend,filing_sched_abbrev',
+      '$limit': '5000',
+    }).toString()
+  const raw = (await fetchSocrataRows(url)) as unknown as {
+    filer_id: string; filing_desc?: string; r_amend?: string; filing_sched_abbrev?: string; amount?: string; row_count?: string; first_date?: string; last_date?: string
+  }[]
+  return raw
+    .filter((r) => r.filing_desc && r.filing_sched_abbrev)
+    .map((r) => ({
+      filerID: r.filer_id,
+      report: r.filing_desc as string,
+      amended: (r.r_amend ?? '').toUpperCase() === 'Y',
+      schedule: r.filing_sched_abbrev as string,
+      amount: Math.round((parseFloat(r.amount ?? '0') || 0) * 100) / 100,
+      rows: parseInt(r.row_count ?? '0', 10) || 0,
+      firstDate: r.first_date?.slice(0, 10) ?? null,
+      lastDate: r.last_date?.slice(0, 10) ?? null,
+    }))
+}
+
+/** "2026 General, Nov 3, 2026" for a filing that belongs to that election, else null. */
+export function generalElectionOf(electionYear: string, filingDesc: string): string | null {
+  return electionYear === GENERAL_2026.electionYear && GENERAL_2026_REPORTS.some((r) => r.name === filingDesc)
+    ? `${GENERAL_2026.name}, Nov 3, 2026`
+    : null
+}
+
 export function nextFilingDeadline(from: Date = new Date()): FilingDeadline | null {
   const upcoming = nyFilingDeadlines2026
     .filter((d) => new Date(`${d.date}T23:59:59`) >= from)

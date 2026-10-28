@@ -1,0 +1,307 @@
+{
+ "election": {
+  "name": "2026 General",
+  "date": "2026-11-03",
+  "electionYear": "2026"
+ },
+ "reports": [
+  "32-Day Pre-General",
+  "11-Day Pre-General",
+  "27-Day Post-General"
+ ],
+ "source": {
+  "label": "New York State Board of Elections, Campaign Finance Disclosure Reports Data (data.ny.gov)",
+  "url": "https://data.ny.gov/Transparency/Campaign-Finance-Disclosure-Reports-Data-Beginning/e9ss-239a"
+ },
+ "fetchedOn": "2026-10-28",
+ "filerIDs": [
+  "2378",
+  "3085",
+  "3421",
+  "5418",
+  "9841",
+  "13181",
+  "17738",
+  "18707",
+  "154926",
+  "154927",
+  "154941",
+  "319756",
+  "319970",
+  "320293",
+  "506796",
+  "527501"
+ ],
+ "rows": [
+  {
+   "filerID": "5418",
+   "report": "32-Day Pre-General",
+   "amended": false,
+   "schedule": "B",
+   "amount": 2000.0,
+   "rows": 1,
+   "firstDate": "2026-06-03",
+   "lastDate": "2026-06-03"
+  },
+  {
+   "filerID": "5418",
+   "report": "32-Day Pre-General",
+   "amended": false,
+   "schedule": "C",
+   "amount": 500.0,
+   "rows": 1,
+   "firstDate": "2026-07-07",
+   "lastDate": "2026-07-07"
+  },
+  {
+   "filerID": "5418",
+   "report": "32-Day Pre-General",
+   "amended": false,
+   "schedule": "F",
+   "amount": 11289.74,
+   "rows": 10,
+   "firstDate": "2026-07-23",
+   "lastDate": "2026-09-25"
+  },
+  {
+   "filerID": "5418",
+   "report": "11-Day Pre-General",
+   "amended": false,
+   "schedule": "F",
+   "amount": 5000.0,
+   "rows": 1,
+   "firstDate": "2026-10-05",
+   "lastDate": "2026-10-05"
+  },
+  {
+   "filerID": "13181",
+   "report": "32-Day Pre-General",
+   "amended": true,
+   "schedule": "A",
+   "amount": 7609.93,
+   "rows": 66,
+   "firstDate": "2026-08-08",
+   "lastDate": "2026-09-23"
+  },
+  {
+   "filerID": "13181",
+   "report": "32-Day Pre-General",
+   "amended": true,
+   "schedule": "F",
+   "amount": 802.78,
+   "rows": 6,
+   "firstDate": "2026-08-03",
+   "lastDate": "2026-09-22"
+  },
+  {
+   "filerID": "13181",
+   "report": "11-Day Pre-General",
+   "amended": false,
+   "schedule": "A",
+   "amount": 48.02,
+   "rows": 2,
+   "firstDate": "2026-10-15",
+   "lastDate": "2026-10-15"
+  },
+  {
+   "filerID": "13181",
+   "report": "11-Day Pre-General",
+   "amended": false,
+   "schedule": "F",
+   "amount": 6314.27,
+   "rows": 5,
+   "firstDate": "2026-10-07",
+   "lastDate": "2026-10-15"
+  },
+  {
+   "filerID": "154927",
+   "report": "32-Day Pre-General",
+   "amended": false,
+   "schedule": "A",
+   "amount": 16829.0,
+   "rows": 164,
+   "firstDate": "2026-08-04",
+   "lastDate": "2026-09-28"
+  },
+  {
+   "filerID": "154927",
+   "report": "32-Day Pre-General",
+   "amended": false,
+   "schedule": "B",
+   "amount": 6750.0,
+   "rows": 7,
+   "firstDate": "2026-09-08",
+   "lastDate": "2026-09-22"
+  },
+  {
+   "filerID": "154927",
+   "report": "32-Day Pre-General",
+   "amended": false,
+   "schedule": "C",
+   "amount": 2460.0,
+   "rows": 3,
+   "firstDate": "2026-09-08",
+   "lastDate": "2026-09-22"
+  },
+  {
+   "filerID": "154927",
+   "report": "32-Day Pre-General",
+   "amended": false,
+   "schedule": "F",
+   "amount": 11796.94,
+   "rows": 14,
+   "firstDate": "2026-08-17",
+   "lastDate": "2026-09-28"
+  },
+  {
+   "filerID": "154927",
+   "report": "32-Day Pre-General",
+   "amended": false,
+   "schedule": "H",
+   "amount": 5000.0,
+   "rows": 1,
+   "firstDate": "2026-09-28",
+   "lastDate": "2026-09-28"
+  },
+  {
+   "filerID": "154927",
+   "report": "32-Day Pre-General",
+   "amended": false,
+   "schedule": "L",
+   "amount": 211.0,
+   "rows": 1,
+   "firstDate": "2026-09-22",
+   "lastDate": "2026-09-22"
+  },
+  {
+   "filerID": "154927",
+   "report": "32-Day Pre-General",
+   "amended": false,
+   "schedule": "N",
+   "amount": 5000.0,
+   "rows": 2,
+   "firstDate": "2021-03-21",
+   "lastDate": "2021-03-21"
+  },
+  {
+   "filerID": "154927",
+   "report": "32-Day Pre-General",
+   "amended": false,
+   "schedule": "O",
+   "amount": 1100.0,
+   "rows": 1,
+   "firstDate": "2026-09-22",
+   "lastDate": "2026-09-22"
+  },
+  {
+   "filerID": "154927",
+   "report": "11-Day Pre-General",
+   "amended": false,
+   "schedule": "F",
+   "amount": 8730.88,
+   "rows": 7,
+   "firstDate": "2026-10-05",
+   "lastDate": "2026-10-15"
+  },
+  {
+   "filerID": "154927",
+   "report": "11-Day Pre-General",
+   "amended": false,
+   "schedule": "H",
+   "amount": 14000.0,
+   "rows": 1,
+   "firstDate": "2026-10-19",
+   "lastDate": "2026-10-19"
+  },
+  {
+   "filerID": "154927",
+   "report": "11-Day Pre-General",
+   "amended": false,
+   "schedule": "N",
+   "amount": 5000.0,
+   "rows": 2,
+   "firstDate": "2021-03-21",
+   "lastDate": "2021-03-21"
+  },
+  {
+   "filerID": "506796",
+   "report": "32-Day Pre-General",
+   "amended": false,
+   "schedule": "A",
+   "amount": 497.0,
+   "rows": 10,
+   "firstDate": "2026-07-12",
+   "lastDate": "2026-09-14"
+  },
+  {
+   "filerID": "506796",
+   "report": "32-Day Pre-General",
+   "amended": false,
+   "schedule": "C",
+   "amount": 500.0,
+   "rows": 1,
+   "firstDate": "2026-09-08",
+   "lastDate": "2026-09-08"
+  },
+  {
+   "filerID": "506796",
+   "report": "32-Day Pre-General",
+   "amended": false,
+   "schedule": "F",
+   "amount": 1406.6,
+   "rows": 5,
+   "firstDate": "2026-09-09",
+   "lastDate": "2026-09-21"
+  },
+  {
+   "filerID": "506796",
+   "report": "32-Day Pre-General",
+   "amended": false,
+   "schedule": "N",
+   "amount": 5600.0,
+   "rows": 2,
+   "firstDate": "2025-08-11",
+   "lastDate": "2026-04-22"
+  },
+  {
+   "filerID": "506796",
+   "report": "11-Day Pre-General",
+   "amended": false,
+   "schedule": "A",
+   "amount": 2855.3,
+   "rows": 25,
+   "firstDate": "2026-10-03",
+   "lastDate": "2026-10-19"
+  },
+  {
+   "filerID": "506796",
+   "report": "11-Day Pre-General",
+   "amended": false,
+   "schedule": "C",
+   "amount": 1800.0,
+   "rows": 3,
+   "firstDate": "2026-10-19",
+   "lastDate": "2026-10-19"
+  },
+  {
+   "filerID": "506796",
+   "report": "11-Day Pre-General",
+   "amended": false,
+   "schedule": "F",
+   "amount": 657.31,
+   "rows": 4,
+   "firstDate": "2026-10-05",
+   "lastDate": "2026-10-19"
+  },
+  {
+   "filerID": "506796",
+   "report": "11-Day Pre-General",
+   "amended": false,
+   "schedule": "N",
+   "amount": 5600.0,
+   "rows": 2,
+   "firstDate": "2025-08-11",
+   "lastDate": "2026-04-22"
+  }
+ ]
+}
