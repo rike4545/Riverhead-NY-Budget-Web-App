@@ -149,6 +149,38 @@ export default function BudgetAmendmentsPage() {
                 ['Town-wide tax rate per $1,000 of assessed value', tw.rateBefore.toFixed(3), tw.rateAfter === null ? '—' : `about ${tw.rateAfter.toFixed(2)}, this site’s estimate`],
               ]}
             />
+            <figure aria-labelledby="amendment-impact-title" style={{ margin: '18px 0 22px', padding: 16, border: '1px solid var(--rbl-border-subtle)', borderRadius: 14, background: 'var(--rbl-surface-2)' }}>
+              <figcaption style={{ marginBottom: 14 }}>
+                <h3 id="amendment-impact-title" style={{ margin: '0 0 5px', color: 'var(--rbl-title)', fontSize: 18 }}>What accounts for the lower levy?</h3>
+                <p style={{ margin: 0, color: 'var(--rbl-text-muted)', fontSize: 14, lineHeight: 1.5 }}>
+                  The arithmetic behind the {usd(-tw.change)} reduction from the Tentative. Positive bars reduce the amount raised from property taxes; the negative offset adds to it.
+                </p>
+              </figcaption>
+              <div style={{ display: 'grid', gap: 13 }}>
+                {[
+                  { label: 'Higher revenue estimates', amount: cutFromEstimates, direction: 'reduces the levy' },
+                  { label: 'Equipment moved to separate fund-balance votes', amount: fx.deferred.total, direction: 'reduces the levy' },
+                  { label: 'Levy added by one amendment', amount: -levyAdded, direction: 'offsets the reduction' },
+                ].map((item) => (
+                  <div key={item.label} style={{ display: 'grid', gridTemplateColumns: 'minmax(0,1fr) auto', gap: '5px 12px', alignItems: 'baseline' }}>
+                    <strong style={{ color: 'var(--rbl-text-strong)', fontSize: 14 }}>{item.label}</strong>
+                    <strong style={{ color: item.amount >= 0 ? 'var(--inc)' : 'var(--dec)', fontSize: 14, fontVariantNumeric: 'tabular-nums' }}>
+                      {item.amount >= 0 ? '−' : '+'}{usd(Math.abs(item.amount))}
+                    </strong>
+                    <div role="img" aria-label={`${item.label}: ${item.direction}, ${usd(Math.abs(item.amount))}`} style={{ gridColumn: '1 / -1', height: 10, borderRadius: 99, background: 'var(--rbl-border-subtle)', overflow: 'hidden' }}>
+                      <div style={{ width: `${(Math.abs(item.amount) / Math.max(cutFromEstimates, fx.deferred.total, levyAdded, 1)) * 100}%`, height: '100%', borderRadius: 99, background: item.amount >= 0 ? 'var(--inc)' : 'var(--dec)' }} />
+                    </div>
+                  </div>
+                ))}
+                <div style={{ display: 'flex', justifyContent: 'space-between', gap: 12, paddingTop: 11, borderTop: '1px solid var(--rbl-border-subtle)' }}>
+                  <strong style={{ color: 'var(--rbl-title)' }}>Net reduction in the town-wide levy</strong>
+                  <strong style={{ color: 'var(--rbl-title)', fontVariantNumeric: 'tabular-nums' }}>{usd(-tw.change)}</strong>
+                </div>
+              </div>
+              <p style={{ margin: '12px 0 0', color: 'var(--rbl-text-muted)', fontSize: 12.5, lineHeight: 1.45 }}>
+                Calculated from the six resolutions and the Tentative’s Summary. The Town has not published a consolidated amendment total.
+              </p>
+            </figure>
             <P>
               The levy would still grow, by {usd(tw.growthAfter)} over 2026 instead of the Tentative’s {usd(tw.growthBefore)}. Spending across all
               funds would fall by {usd(-fx.totals.appropriationsChange)}: the six take {usd(spendingOut)} out of equipment and snow-removal lines and
