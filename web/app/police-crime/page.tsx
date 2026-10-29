@@ -143,7 +143,7 @@ export default function PoliceCrimePage() {
         </p>
         <div style={{ display: 'grid', gap: 4 }}>
           {whyOwnDepartment.sources.map((src) => (
-            <a key={src.url} href={src.url} target="_blank" rel="noreferrer" style={{ color: 'var(--rbl-link)', fontWeight: 700, fontSize: 12.8, textDecoration: 'none' }}>
+            <a key={src.url} href={src.url} target="_blank" rel="noreferrer" style={{ color: 'var(--rbl-link)', fontWeight: 700, fontSize: 12.8, textDecoration: 'none', padding: '3px 0' }}>
               {src.title} ↗
               <span style={{ marginLeft: 6, color: 'var(--rbl-text-faint)', fontWeight: 600 }}>
                 {src.kind === 'secondary' ? 'secondary' : 'primary, not published machine-readably'}

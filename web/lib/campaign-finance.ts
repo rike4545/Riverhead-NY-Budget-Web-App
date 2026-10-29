@@ -3,6 +3,7 @@
 // since this is a statically-exported site with no server at runtime.
 
 import { riverheadPopulation } from './population'
+import { fetchJSON } from './fetch-errors'
 
 export type CampaignFilerRef = { committeeName: string; filerID: string }
 
@@ -653,9 +654,7 @@ function yearsClause(startYear: number, endYear: number): string {
 }
 
 async function fetchSocrataRows(url: string): Promise<SocrataAggRow[]> {
-  const response = await fetch(url)
-  if (!response.ok) throw new Error(`NY Open Data request failed: ${response.status}`)
-  return response.json()
+  return fetchJSON<SocrataAggRow[]>(url, 'state')
 }
 
 export async function fetchCampaignSnapshots(

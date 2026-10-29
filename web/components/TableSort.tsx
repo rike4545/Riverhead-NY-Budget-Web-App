@@ -55,7 +55,7 @@ export function SortHeader<K extends string>({
       onClick={() => onSort(column)}
       title={`Sort ${describe(next, text)}`}
       style={{
-        background: 'none', border: 'none', padding: 0, cursor: 'pointer', font: 'inherit', fontWeight: 800,
+        background: 'none', border: 'none', padding: 0, minHeight: 24, cursor: 'pointer', font: 'inherit', fontWeight: 800,
         color: active ? 'var(--rbl-accent)' : 'var(--rbl-text-muted)', display: 'inline-flex', alignItems: 'center', gap: 4, whiteSpace: 'nowrap',
       }}
     >
