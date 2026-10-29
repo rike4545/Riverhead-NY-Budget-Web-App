@@ -160,3 +160,5 @@ summary{min-height:24px}input[type=range]{min-height:24px}
 #against-projection,#adoption-history,#department-requests,#inflation-and-fund-balance,#budget-calendar,#budget-limitations,#supervisor-letter{scroll-margin-top:88px}
 @media(max-width:1120px){.nav-mobile-panel{max-width:none!important}}
 @media(max-width:560px){.rbl-budget-jump{position:relative;top:auto;gap:6px;padding:9px}.rbl-budget-jump-label{width:100%;margin:0 0 2px 2px}.rbl-budget-jump a{font-size:12px;padding:6px 9px}.rbl-budget-status{align-items:flex-start}.nav-mobile-quick{grid-template-columns:repeat(2,minmax(0,1fr))}.nav-mobile-group-links{grid-template-columns:1fr}}
+
+@media(min-width:1121px) and (max-width:1240px){.nav-links{display:none!important}.nav-hamburger{display:inline-block!important}.nav-root{position:static!important}.nav-mobile-panel{display:grid!important;left:12px!important;right:12px!important;top:calc(100% + 8px)!important}}
