@@ -90,7 +90,11 @@ export default function OutlierWatchPage() {
               {Counted(proposal.percentOnly.length)} {proposal.percentOnly.length === 1 ? 'fund changes' : 'funds change'} by {PCT_THRESHOLD}% or more but by less than {usd(DOLLAR_THRESHOLD)}, so {proposal.percentOnly.length === 1 ? 'it is' : 'they are'} not flagged either: {listed(proposal.percentOnly.map(moved))}.
             </p>
           )}
-          {proposal.flagged.map((c) => (proposalLines[c.code] ? <FlagLines key={c.code} change={c} lines={proposalLines[c.code]} fromLabel={String(c.fromYear)} toLabel={labelOf(c)} /> : null))}
+          {/* A flagged fund gets its Supplement lines when the Supplement prints this proposal (a Tentative). The Debt Service
+              Fund's fall is explained by the 2026 votes whichever stage is newest, so it keeps its panel without them. */}
+          {proposal.flagged.map((c) => (proposalLines[c.code] || isDebtServiceFall(c)
+            ? <FlagLines key={c.code} change={c} lines={proposalLines[c.code] ?? null} fromLabel={String(c.fromYear)} toLabel={labelOf(c)} />
+            : null))}
         </section>
       )}
 
@@ -107,13 +111,19 @@ export default function OutlierWatchPage() {
   )
 }
 
-/** One flagged fund in the proposal: the lines that moved, and what the record says about why. */
-function FlagLines({ change, lines, fromLabel, toLabel }: { change: FundYoyChange; lines: { spending: LineMove[]; money: LineMove[] }; fromLabel: string; toLabel: string }) {
-  const debtService = change.code === 'V01' && change.toYear === 2027 && change.dollarChange < 0
+const isDebtServiceFall = (c: FundYoyChange) => c.code === 'V01' && c.toYear === 2027 && c.dollarChange < 0
+
+/**
+ * One flagged fund in the proposal: the lines that moved, and what the record says about why.
+ * `lines` is null when the Supplement does not print this proposal (a Preliminary or Adopted budget).
+ */
+function FlagLines({ change, lines, fromLabel, toLabel }: { change: FundYoyChange; lines: { spending: LineMove[]; money: LineMove[] } | null; fromLabel: string; toLabel: string }) {
+  const debtService = isDebtServiceFall(change)
   const cpf = cpfDebtTransfer
   // Said only while it is the whole story: the transfer gone, the same amount
   // budgeted as a contribution instead, and the fund itself left unflagged.
-  const cpfStory = debtService && cpf && cpf.transfer.to === 0 && cpf.contribution.from === 0 && cpf.contribution.to === cpf.transfer.from &&
+  // Its figures are the Supplement's, which prints the Tentative, so it needs the lines.
+  const cpfStory = debtService && lines && cpf && cpf.transfer.to === 0 && cpf.contribution.from === 0 && cpf.contribution.to === cpf.transfer.from &&
     !proposal?.flagged.some((c) => c.code === 'CM4')
   return (
     <section aria-labelledby={`lines-${change.code}`} style={{ ...card, marginTop: 4 }}>
@@ -148,13 +158,19 @@ function FlagLines({ change, lines, fromLabel, toLabel }: { change: FundYoyChang
           )}
         </>
       )}
-      <LineTable caption={`What the ${change.name} pays for, ${fromLabel} adopted and ${toLabel}`} first="Line" rows={lines.spending} fromLabel={fromLabel} toLabel={toLabel} />
-      {lines.spending.some((l) => /\bBAN\b/.test(l.name)) && (
+      {lines ? (
+        <LineTable caption={`What the ${change.name} pays for, ${fromLabel} adopted and ${toLabel}`} first="Line" rows={lines.spending} fromLabel={fromLabel} toLabel={toLabel} />
+      ) : (
+        <p style={{ ...prose, fontSize: 15 }}>
+          The Budget Supplement, which lists the fund line by line, prints the Tentative, not the {toLabel}, so the lines are not shown here.
+        </p>
+      )}
+      {lines?.spending.some((l) => /\bBAN\b/.test(l.name)) && (
         <p style={{ ...prose, fontSize: 15 }}>
           A BAN, or bond anticipation note, is short-term borrowing that the Town pays off or renews until it sells long-term bonds.
         </p>
       )}
-      {lines.money.length > 0 && (
+      {lines && lines.money.length > 0 && (
         <LineTable caption={`Where the ${change.name}'s money comes from`} first="Source" rows={lines.money} fromLabel={fromLabel} toLabel={toLabel} />
       )}
       {debtService && (
