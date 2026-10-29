@@ -131,3 +131,32 @@ summary{min-height:24px}input[type=range]{min-height:24px}
 @media(max-width:680px){.home-hero{grid-template-columns:1fr;margin-top:18px;padding:25px 21px;border-radius:18px}.home-hero h1{font-size:clamp(39px,10vw,55px)}.home-hero-panel{margin-top:4px}.home-question-strip{grid-template-columns:1fr;gap:10px}.home-question-links{gap:7px}.home-section-heading,.home-research-heading{display:block}.home-section-heading>p{margin-top:10px}.home-research-heading>a{margin-top:13px}.home-research-grid{grid-template-columns:1fr}.home-method-grid{grid-template-columns:1fr;gap:17px}.home-method-grid>div{display:grid;grid-template-columns:30px minmax(0,1fr);column-gap:9px}.home-method-grid>div>span{grid-row:span 2}.home-method-grid strong{margin-top:0}.home-method-grid p{grid-column:2;margin-top:4px}}
 @media(max-width:420px){.home-pathway-grid{grid-template-columns:1fr}.home-pathway-card{min-height:0}.home-card-top{margin-bottom:13px}.home-trust-line{gap:9px 13px;font-size:11px}.home-actions{align-items:stretch;flex-direction:column}.home-primary-action,.home-secondary-action{width:100%}.home-secondary-action{justify-content:flex-start;padding-left:4px}}
 @media(prefers-reduced-motion:reduce){.home-primary-action,.home-pathway-card,.home-card-arrow,.home-research-grid>a>svg{transition:none}}
+
+
+/* October 2026 GUI pass: compact, predictable navigation and a guided budget dashboard. */
+.nav-links{gap:3px!important}
+.nav-links>a:hover,.nav-group>button:hover{background:rgba(255,255,255,.12)!important;border-color:rgba(255,255,255,.18)!important}
+.nav-group>button:focus-visible,.nav-links>a:focus-visible,.nav-hamburger:focus-visible{outline:3px solid var(--rbl-focus-on-dark);outline-offset:3px}
+.nav-mobile-quick{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}
+.nav-mobile-group{border-top:1px solid var(--rbl-border-subtle);margin-top:8px;padding-top:7px}
+.nav-mobile-group>summary{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px;border-radius:8px;color:var(--rbl-title);font-size:15px;font-weight:800;cursor:pointer;list-style:none}
+.nav-mobile-group>summary::-webkit-details-marker{display:none}
+.nav-mobile-group[open]>summary{background:var(--rbl-surface-2)}
+.nav-mobile-group[open]>summary svg{transform:rotate(180deg)}
+.nav-mobile-group-links{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:2px;padding:4px 2px 8px}
+.nav-mobile-group-links>a{display:block;padding:8px 9px;border-radius:7px;color:var(--rbl-text-strong);font-size:14px;line-height:1.35;text-decoration:none}
+.nav-mobile-group-links>a:hover{background:var(--rbl-info-bg)!important}
+.rbl-budget-jump{position:sticky;top:0;z-index:12;display:flex;align-items:center;gap:7px;flex-wrap:wrap;padding:10px 12px;margin:14px 0 12px;border:1px solid var(--rbl-border);border-radius:13px;background:color-mix(in srgb,var(--rbl-surface) 94%,transparent);box-shadow:0 5px 18px rgba(15,35,55,.06);backdrop-filter:blur(12px)}
+.rbl-budget-jump-label{color:var(--rbl-text-muted);font-size:11px;font-weight:850;letter-spacing:.09em;text-transform:uppercase;margin:0 5px 0 2px}
+.rbl-budget-jump a{display:inline-flex;align-items:center;min-height:34px;padding:6px 10px;border:1px solid var(--rbl-border-subtle);border-radius:999px;background:var(--rbl-surface-2);color:var(--rbl-title);font-size:12.5px;font-weight:750;text-decoration:none;white-space:nowrap}
+.rbl-budget-jump a:hover{border-color:var(--rbl-accent);background:var(--rbl-info-bg)}
+.rbl-budget-status{display:flex;align-items:center;gap:9px;flex-wrap:wrap;padding:11px 14px;border:1px solid var(--rbl-border-subtle);border-radius:12px;background:var(--rbl-surface);color:var(--rbl-text-body);font-size:13px;line-height:1.45}
+.rbl-budget-status>span:nth-child(2){flex:1 1 300px}
+.rbl-budget-status a{color:var(--rbl-link);font-weight:750;text-decoration:none}
+.rbl-budget-status a:hover{text-decoration:underline}
+.rbl-budget-status-dot{width:9px;height:9px;flex:0 0 auto;border-radius:50%;background:var(--rbl-warn);box-shadow:0 0 0 4px var(--rbl-warn-bg)}
+.rbl-budget-status-dot.is-live{background:var(--rbl-success);box-shadow:0 0 0 4px var(--rbl-success-bg)}
+.rbl-budget-metrics{scroll-margin-top:84px}
+#against-projection,#adoption-history,#department-requests,#inflation-and-fund-balance,#budget-calendar,#budget-limitations,#supervisor-letter{scroll-margin-top:88px}
+@media(max-width:1120px){.nav-mobile-panel{max-width:none!important}}
+@media(max-width:560px){.rbl-budget-jump{position:relative;top:auto;gap:6px;padding:9px}.rbl-budget-jump-label{width:100%;margin:0 0 2px 2px}.rbl-budget-jump a{font-size:12px;padding:6px 9px}.rbl-budget-status{align-items:flex-start}.nav-mobile-quick{grid-template-columns:repeat(2,minmax(0,1fr))}.nav-mobile-group-links{grid-template-columns:1fr}}
