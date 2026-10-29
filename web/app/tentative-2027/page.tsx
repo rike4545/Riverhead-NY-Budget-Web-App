@@ -69,7 +69,7 @@ export default function Tentative2027Page() {
         {h && <a href="#against-projection">Projection comparison</a>}
         <a href="#adoption-history">Adoption history</a>
         <a href="#department-requests">Department requests</a>
-        <a href="#inflation-and-fund-balance">Reserves &amp; levy</a>
+        {h && <a href="#inflation-and-fund-balance">Reserves &amp; levy</a>}
         <a href="#budget-calendar">Key dates</a>
       </nav>
 
