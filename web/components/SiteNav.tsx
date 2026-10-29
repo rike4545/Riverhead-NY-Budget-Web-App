@@ -1,7 +1,7 @@
 'use client'
 import { useEffect, useRef, useState } from 'react'
 import { usePathname } from 'next/navigation'
-import { ChevronDown } from 'lucide-react'
+import { ChevronDown, Search } from 'lucide-react'
 
 const base = process.env.NEXT_PUBLIC_BASE_PATH || ''
 type Link = [label: string, href: string]
@@ -48,15 +48,16 @@ export default function SiteNav() {
   const pathname = usePathname() || ''
   const [open, setOpen] = useState<string | null>(null)
   const [mobileOpen, setMobileOpen] = useState(false)
+  const [mobileQuery, setMobileQuery] = useState('')
   const navRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     function onMouseDown(e: MouseEvent) { if (navRef.current && !navRef.current.contains(e.target as Node)) setOpen(null) }
-    function onKey(e: KeyboardEvent) { if (e.key === 'Escape') { setOpen(null); setMobileOpen(false) } }
+    function onKey(e: KeyboardEvent) { if (e.key === 'Escape') { setOpen(null); setMobileOpen(false); setMobileQuery('') } }
     document.addEventListener('mousedown', onMouseDown); document.addEventListener('keydown', onKey)
     return () => { document.removeEventListener('mousedown', onMouseDown); document.removeEventListener('keydown', onKey) }
   }, [])
-  useEffect(() => { setOpen(null); setMobileOpen(false) }, [pathname])
+  useEffect(() => { setOpen(null); setMobileOpen(false); setMobileQuery('') }, [pathname])
 
   const normalize = (p: string) => (p.endsWith('/') ? p : `${p}/`)
   const routeOf = (href: string) => normalize(base && href.startsWith(base) ? href.slice(base.length) || '/' : href)
@@ -78,14 +79,27 @@ export default function SiteNav() {
         </div>)}
       </nav>
       {mobileOpen && <div id="site-mobile-navigation" className="nav-mobile-panel" aria-label="Site navigation" style={{ display: 'none', position: 'absolute', top: 'calc(100% + 8px)', right: 0, maxHeight: '78vh', overflowY: 'auto', background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border)', borderRadius: 14, boxShadow: '0 18px 44px rgba(15,35,55,.18)', padding: 10, zIndex: 50 }}>
-        <div style={{ color: 'var(--rbl-text-muted)', fontWeight: 750, fontSize: 11, letterSpacing: '.1em', padding: '7px 10px' }}>Quick access</div>
-        <div className="nav-mobile-quick">
-          {PRIMARY.map(([label, href]) => <a key={href} href={href} aria-current={isActive(href) ? 'page' : undefined} style={{ display: 'block', color: 'var(--rbl-title)', textDecoration: 'none', fontWeight: 750, fontSize: 15, padding: '10px', borderRadius: 9, background: isActive(href) ? 'var(--rbl-info-bg)' : 'var(--rbl-surface-2)' }}>{label}</a>)}
+        <label htmlFor="mobile-site-search" style={{ display: 'block', color: 'var(--rbl-text-muted)', fontWeight: 750, fontSize: 11, letterSpacing: '.1em', padding: '7px 10px' }}>FIND A PAGE</label>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 9, padding: '0 11px', border: '1px solid var(--rbl-border)', borderRadius: 10, background: 'var(--rbl-surface-2)' }}>
+          <Search aria-hidden="true" size={17} color="var(--rbl-text-muted)" />
+          <input id="mobile-site-search" type="search" value={mobileQuery} onChange={event => setMobileQuery(event.target.value)} placeholder="Search pages…" style={{ width: '100%', minWidth: 0, height: 44, border: 0, outline: 0, background: 'transparent', color: 'var(--rbl-text)', fontSize: 15 }} />
         </div>
-        {GROUPS.map(g => <details key={g.label} className="nav-mobile-group" open={groupIsActive(g)}>
-          <summary>{g.label}<ChevronDown aria-hidden="true" size={16} /></summary>
-          <div className="nav-mobile-group-links">{g.links.map(([label, href]) => <a key={href} href={href} aria-current={isActive(href) ? 'page' : undefined} style={{ background: isActive(href) ? 'var(--rbl-info-bg)' : 'transparent', fontWeight: isActive(href) ? 750 : 500 }}>{label}</a>)}</div>
-        </details>)}
+        {!mobileQuery.trim() && <>
+          <div style={{ color: 'var(--rbl-text-muted)', fontWeight: 750, fontSize: 11, letterSpacing: '.1em', padding: '13px 10px 7px' }}>QUICK ACCESS</div>
+          <div className="nav-mobile-quick">
+            {PRIMARY.map(([label, href]) => <a key={href} href={href} aria-current={isActive(href) ? 'page' : undefined} style={{ display: 'block', color: 'var(--rbl-title)', textDecoration: 'none', fontWeight: 750, fontSize: 15, padding: '10px', borderRadius: 9, background: isActive(href) ? 'var(--rbl-info-bg)' : 'var(--rbl-surface-2)' }}>{label}</a>)}
+          </div>
+        </>}
+        {GROUPS.map(g => {
+          const matches = g.links.filter(([label]) => label.toLowerCase().includes(mobileQuery.trim().toLowerCase()))
+          if (mobileQuery.trim() && matches.length === 0) return null
+          return <details key={g.label} className="nav-mobile-group" open={mobileQuery.trim() ? true : groupIsActive(g)}>
+            <summary>{g.label}<ChevronDown aria-hidden="true" size={16} /></summary>
+            <div className="nav-mobile-group-links">{(mobileQuery.trim() ? matches : g.links).map(([label, href]) => <a key={href} href={href} aria-current={isActive(href) ? 'page' : undefined} style={{ background: isActive(href) ? 'var(--rbl-info-bg)' : 'transparent', fontWeight: isActive(href) ? 750 : 500 }}>{label}</a>)}</div>
+          </details>
+        })}
+        {mobileQuery.trim() && !PRIMARY.some(([label]) => label.toLowerCase().includes(mobileQuery.trim().toLowerCase())) && !GROUPS.some(g => g.links.some(([label]) => label.toLowerCase().includes(mobileQuery.trim().toLowerCase()))) && <p role="status" style={{ margin: '14px 10px', color: 'var(--rbl-text-muted)', fontSize: 14 }}>No pages match “{mobileQuery.trim()}”. Try another term.</p>}
+        {mobileQuery.trim() && PRIMARY.some(([label]) => label.toLowerCase().includes(mobileQuery.trim().toLowerCase())) && <div style={{ marginTop: 8 }} className="nav-mobile-quick">{PRIMARY.filter(([label]) => label.toLowerCase().includes(mobileQuery.trim().toLowerCase())).map(([label, href]) => <a key={href} href={href} aria-current={isActive(href) ? 'page' : undefined} style={{ display: 'block', color: 'var(--rbl-title)', textDecoration: 'none', fontWeight: 750, fontSize: 15, padding: '10px', borderRadius: 9, background: isActive(href) ? 'var(--rbl-info-bg)' : 'var(--rbl-surface-2)' }}>{label}</a>)}</div>}
       </div>}
     </div>
   )
