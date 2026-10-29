@@ -78,7 +78,7 @@ export default function SiteNav() {
         </div>)}
       </nav>
       {mobileOpen && <div id="site-mobile-navigation" className="nav-mobile-panel" aria-label="Site navigation" style={{ display: 'none', position: 'absolute', top: 'calc(100% + 8px)', right: 0, maxHeight: '78vh', overflowY: 'auto', background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border)', borderRadius: 14, boxShadow: '0 18px 44px rgba(15,35,55,.18)', padding: 10, zIndex: 50 }}>
-        <div style={{ color: 'var(--rbl-text-muted)', fontWeight: 750, fontSize: 11, letterSpacing: '.1em', textTransform: 'uppercase', padding: '7px 10px' }}>Quick access</div>
+        <div style={{ color: 'var(--rbl-text-muted)', fontWeight: 750, fontSize: 11, padding: '7px 10px' }}>Quick access</div>
         <div className="nav-mobile-quick">
           {PRIMARY.map(([label, href]) => <a key={href} href={href} aria-current={isActive(href) ? 'page' : undefined} style={{ display: 'block', color: 'var(--rbl-title)', textDecoration: 'none', fontWeight: 750, fontSize: 15, padding: '10px', borderRadius: 9, background: isActive(href) ? 'var(--rbl-info-bg)' : 'var(--rbl-surface-2)' }}>{label}</a>)}
         </div>
