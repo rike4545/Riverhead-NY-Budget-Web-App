@@ -82,7 +82,7 @@ export default function SiteNav() {
         <div className="nav-mobile-quick">
           {PRIMARY.map(([label, href]) => <a key={href} href={href} aria-current={isActive(href) ? 'page' : undefined} style={{ display: 'block', color: 'var(--rbl-title)', textDecoration: 'none', fontWeight: 750, fontSize: 15, padding: '10px', borderRadius: 9, background: isActive(href) ? 'var(--rbl-info-bg)' : 'var(--rbl-surface-2)' }}>{label}</a>)}
         </div>
-        {GROUPS.map(g => <details key={g.label} className="nav-mobile-group" defaultOpen={groupIsActive(g)}>
+        {GROUPS.map(g => <details key={g.label} className="nav-mobile-group" open={groupIsActive(g)}>
           <summary>{g.label}<ChevronDown aria-hidden="true" size={16} /></summary>
           <div className="nav-mobile-group-links">{g.links.map(([label, href]) => <a key={href} href={href} aria-current={isActive(href) ? 'page' : undefined} style={{ background: isActive(href) ? 'var(--rbl-info-bg)' : 'transparent', fontWeight: isActive(href) ? 750 : 500 }}>{label}</a>)}</div>
         </details>)}
