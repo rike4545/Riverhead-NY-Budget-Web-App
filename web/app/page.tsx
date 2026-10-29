@@ -1,3 +1,4 @@
+import { ArrowRight, BookOpen, FileSearch, Landmark, Scale, Wallet } from 'lucide-react'
 import PageShell from '../components/PageShell'
 import UpdateSummary from '../components/UpdateSummary'
 import TentativeReleased from '../components/TentativeReleased'
@@ -6,94 +7,99 @@ import { released2027 } from '../lib/tentative-2027'
 const base = process.env.NEXT_PUBLIC_BASE_PATH || ''
 
 const popular = [
-  ...(released2027 ? [['What does the 2027 Tentative propose?', '/tentative-2027/']] : []),
+  ...(released2027 ? [['2027 Tentative Budget', '/tentative-2027/']] : []),
   ['Why did my property taxes change?', '/tax-bill/'],
-  ['What changes in the 2027 Tentative?', '/what-changed/'],
-  ['Would changing the tax cap help Riverhead?', '/tax-cap-letter/'],
+  ['What changed in the budget?', '/what-changed/'],
   ['Who gets paid the most?', '/payroll/'],
+  ['Where does the levy go?', '/taxpayer-impact/'],
   ['What could happen in 2027?', '/predict-2027/'],
 ]
 
 const pathways = [
-  { title: 'My Taxes', text: 'Estimate the Town portion of your bill and understand what changed.', href: '/tax-bill/' },
-  { title: 'Where Your Levy Goes', text: 'See how the Town levy is distributed across the funds it supports.', href: '/taxpayer-impact/' },
-  { title: 'Payroll Explorer', text: 'Search actual pay, overtime, separation payments, titles and departments.', href: '/payroll/' },
-  { title: 'Financial Health', text: 'See the Town’s current position, what moved, and what the Board controls.', href: '/analytics/' },
+  { title: 'Understand your taxes', text: 'Estimate the Town portion of your bill and see what changed.', href: '/tax-bill/', icon: Wallet, eyebrow: 'FOR RESIDENTS' },
+  { title: 'Follow the money', text: 'Trace the Town levy through the funds and services it supports.', href: '/taxpayer-impact/', icon: Landmark, eyebrow: 'REVENUE & SPENDING' },
+  { title: 'Explore payroll', text: 'Search actual pay, overtime, separation payments, titles and departments.', href: '/payroll/', icon: Scale, eyebrow: 'WORKFORCE & PAY' },
+  { title: 'Check fiscal health', text: 'Explore reserves, financial trends, debt and the Town’s fiscal position.', href: '/analytics/', icon: BookOpen, eyebrow: 'FINANCIAL OVERSIGHT' },
 ]
 
-const deeper = [
-  ['/funds/', 'Budget & funds', 'Open the adopted budget down to account-level detail.'],
-  ['/meetings/', 'Town Board votes', 'Follow resolutions and voting records back to the meeting.'],
-  ['/predict-2027/', '2027 outlook', 'Separate the model, tax-cap rules and policy choices.'],
-  ['/sources/', 'Evidence library', 'Check the Town records, OSC guidance and source audit trail.'],
+const research = [
+  { title: 'Budget & funds', text: 'Open adopted budgets down to account-level detail.', href: '/funds/' },
+  { title: 'Town Board votes', text: 'Follow resolutions and voting records back to meetings.', href: '/meetings/' },
+  { title: '2027 budget outlook', text: 'Separate the model, tax-cap rules and policy choices.', href: '/predict-2027/' },
+  { title: 'Evidence library', text: 'Review Town records, OSC guidance and source trails.', href: '/sources/' },
 ]
 
-const steps = [
-  ['Find it', 'Search the budget, payroll, meetings and financial reports.'],
-  ['Understand it', 'Plain-English context separates official figures from calculations and projections.'],
-  ['Verify it', 'Important claims point back to sources, freshness and evidence.'],
+const principles = [
+  { number: '01', title: 'Find the record', text: 'Search budgets, payroll, meetings and financial reports.' },
+  { number: '02', title: 'Understand the number', text: 'Plain-English explanations distinguish facts from calculations and projections.' },
+  { number: '03', title: 'Verify the source', text: 'Follow important claims back to documents, dates and evidence.' },
 ]
 
 export default function Page() {
   return (
-    <PageShell home title="Riverhead Budget Live" subtitle="A resident-first guide to Riverhead Town finances.">
-      <div>
-        <section style={{ padding: 'clamp(44px,8vw,84px) 0 32px', maxWidth: 940 }}>
-          <h1 style={{ fontSize: 'clamp(38px,6.4vw,66px)', fontWeight: 700, lineHeight: 1.02, letterSpacing: '-.03em', color: 'var(--rbl-title)', margin: '0 0 18px', maxWidth: 880 }}>Understand Riverhead’s money without reading the whole budget.</h1>
-          <p style={{ color: 'var(--rbl-text-sub)', fontSize: 'clamp(18px,2.3vw,21px)', lineHeight: 1.5, margin: 0, maxWidth: '52ch' }}>Find the number, understand what it means, and follow the evidence back to the record. No account required.</p>
-          <div style={{ display: 'flex', flexWrap: 'wrap', gap: 12, alignItems: 'center', marginTop: 28 }}>
-            <a href={`${base}/search/`} className="rbl-cta" style={{ display: 'inline-block', background: 'var(--rbl-fill-brand)', color: 'white', fontWeight: 600, fontSize: 17, padding: '13px 20px', borderRadius: 10, textDecoration: 'none' }}>Search the records →</a>
-            <a href={`${base}/tax-bill/`} style={{ display: 'inline-block', color: 'var(--rbl-title)', fontWeight: 600, fontSize: 17, padding: '12px 6px', textDecoration: 'none' }}>Start with my taxes →</a>
+    <PageShell home title="Riverhead Budget Live" subtitle="An independent, resident-first guide to Riverhead Town finances.">
+      <div className="home-page">
+        <section className="home-hero" aria-labelledby="home-title">
+          <div className="home-hero-copy">
+            <div className="home-eyebrow"><span className="home-eyebrow-dot" /> INDEPENDENT PUBLIC-FINANCE EXPLORER</div>
+            <h1 id="home-title">Your town’s budget.<br /><span>Made understandable.</span></h1>
+            <p className="home-intro">Follow Riverhead’s money from the budget line to the public record. Clear explanations, useful tools and evidence you can check for yourself.</p>
+            <div className="home-actions">
+              <a href={`${base}/search/`} className="home-primary-action"><FileSearch size={18} aria-hidden="true" /> Search the records <ArrowRight size={17} aria-hidden="true" /></a>
+              <a href={`${base}/tax-bill/`} className="home-secondary-action">Start with your taxes <ArrowRight size={16} aria-hidden="true" /></a>
+            </div>
+            <div className="home-trust-line"><span><i /> No account required</span><span><i /> Sources linked</span><span><i /> Independent analysis</span></div>
           </div>
-          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px 18px', marginTop: 28, paddingTop: 18, borderTop: '1px solid var(--rbl-border-subtle)' }}>
-            <span style={{ color: 'var(--rbl-text-muted)', fontSize: 15, fontWeight: 600 }}>Common questions:</span>
-            {popular.map(([label, href]) => <a key={href} href={`${base}${href}`} style={{ color: 'var(--rbl-link)', fontSize: 15, fontWeight: 500, textDecoration: 'none' }}>{label}</a>)}
+          <aside className="home-hero-panel" aria-label="Explore the budget">
+            <div className="home-panel-top"><span>RIVERHEAD, NEW YORK</span><span className="home-panel-mark">RB</span></div>
+            <div className="home-panel-title">A clearer view of local government.</div>
+            <p>Start with a question. Follow the numbers. Read the underlying documents.</p>
+            <div className="home-panel-links">
+              <a href={`${base}/tentative-2027/`}><span className="home-panel-icon"><Landmark size={18} /></span><span><strong>2027 budget</strong><small>{released2027 ? 'Tentative proposal and supporting detail' : 'Budget process and supporting detail'}</small></span><ArrowRight size={17} /></a>
+              <a href={`${base}/budget-amendments-2027/`}><span className="home-panel-icon"><Scale size={18} /></span><span><strong>Budget amendments</strong><small>Track proposed changes and their effects</small></span><ArrowRight size={17} /></a>
+              <a href={`${base}/sources/`}><span className="home-panel-icon"><BookOpen size={18} /></span><span><strong>Source library</strong><small>Go directly to records and references</small></span><ArrowRight size={17} /></a>
+            </div>
+            <div className="home-panel-foot">PUBLIC RECORDS <span>•</span> PLAIN LANGUAGE <span>•</span> TRACEABLE ANALYSIS</div>
+          </aside>
+        </section>
+
+        <section className="home-question-strip" aria-label="Popular questions">
+          <div className="home-question-label">WHAT ARE YOU LOOKING FOR?</div>
+          <div className="home-question-links">
+            {popular.map(([label, href]) => <a key={href} href={`${base}${href}`}>{label}<ArrowRight size={13} aria-hidden="true" /></a>)}
           </div>
         </section>
 
         <TentativeReleased />
-
         <UpdateSummary />
 
-        <section aria-label="How the site works" className="rbl-steps" style={{ display: 'grid', gridTemplateColumns: 'repeat(3,minmax(0,1fr))', margin: '28px 0 40px', borderTop: '1px solid var(--rbl-border-subtle)', borderBottom: '1px solid var(--rbl-border-subtle)' }}>
-          {steps.map(([title, text], i) => (
-            <div key={title} style={{ padding: '20px clamp(12px,2vw,24px)', paddingLeft: i === 0 ? 0 : undefined, borderLeft: i === 0 ? 0 : '1px solid var(--rbl-border-subtle)' }}>
-              <strong style={{ display: 'block', color: 'var(--rbl-title)', fontSize: 18 }}>{title}</strong>
-              <p style={{ color: 'var(--rbl-text-muted)', fontSize: 15, lineHeight: 1.5, margin: '4px 0 0' }}>{text}</p>
-            </div>
-          ))}
-        </section>
-
-        <section aria-labelledby="start-with" style={{ marginBottom: 44 }}>
-          <h2 id="start-with" style={{ margin: '0 0 6px', fontSize: 'clamp(26px,3.6vw,32px)', fontWeight: 700, color: 'var(--rbl-title)', letterSpacing: '-.015em' }}>Start with what matters to you</h2>
-          <p style={{ color: 'var(--rbl-text-muted)', fontSize: 16.5, lineHeight: 1.55, margin: '0 0 18px' }}>The deeper research is still here. It just does not need to be the first thing you see.</p>
-          <ul className="rbl-toc" style={{ listStyle: 'none', margin: 0, padding: 0, display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(min(330px,100%),1fr))', columnGap: 36, borderTop: '1px solid var(--rbl-border-subtle)' }}>
-            {pathways.map((item) => (
-              <li key={item.href} style={{ borderBottom: '1px solid var(--rbl-border-subtle)' }}>
-                <a href={`${base}${item.href}`} style={{ display: 'block', padding: '16px 0', textDecoration: 'none', color: 'inherit' }}>
-                  <span className="rbl-toc-title" style={{ display: 'block', fontSize: 20, fontWeight: 700, color: 'var(--rbl-title)' }}>{item.title} <span aria-hidden="true" style={{ color: 'var(--rbl-link)' }}>→</span></span>
-                  <span style={{ display: 'block', color: 'var(--rbl-text-muted)', fontSize: 15.5, lineHeight: 1.5, marginTop: 3 }}>{item.text}</span>
-                </a>
-              </li>
-            ))}
-          </ul>
-        </section>
-
-        <section aria-labelledby="go-deeper" style={{ background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 14, padding: 'clamp(20px,3vw,28px)' }}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', gap: 20, alignItems: 'baseline', flexWrap: 'wrap', marginBottom: 8 }}>
-            <h2 id="go-deeper" style={{ color: 'var(--rbl-title)', margin: 0, fontSize: 24, fontWeight: 700 }}>Research when you need it</h2>
-            <a href={`${base}/guide/`} style={{ color: 'var(--rbl-link)', fontSize: 15, fontWeight: 600, textDecoration: 'none' }}>Open the guide →</a>
+        <section className="home-pathways" aria-labelledby="home-pathways-title">
+          <div className="home-section-heading">
+            <div><span className="home-section-kicker">START WITH A QUESTION</span><h2 id="home-pathways-title">What would you like to understand?</h2></div>
+            <p>The research is deep. Getting to the right place should be simple.</p>
           </div>
-          <ul className="rbl-toc" style={{ listStyle: 'none', margin: 0, padding: 0, display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(min(220px,100%),1fr))', columnGap: 24 }}>
-            {deeper.map(([href, title, text]) => (
-              <li key={href}>
-                <a href={`${base}${href}`} style={{ display: 'block', color: 'inherit', textDecoration: 'none', padding: '12px 0' }}>
-                  <span className="rbl-toc-title" style={{ display: 'block', color: 'var(--rbl-title)', fontSize: 17, fontWeight: 700 }}>{title} →</span>
-                  <span style={{ display: 'block', color: 'var(--rbl-text-muted)', fontSize: 15, lineHeight: 1.45, marginTop: 3 }}>{text}</span>
-                </a>
-              </li>
+          <div className="home-pathway-grid">
+            {pathways.map(({ title, text, href, icon: Icon, eyebrow }) => (
+              <a className="home-pathway-card" key={href} href={`${base}${href}`}>
+                <div className="home-card-top"><span className="home-card-icon"><Icon size={20} aria-hidden="true" /></span><ArrowRight className="home-card-arrow" size={18} aria-hidden="true" /></div>
+                <span className="home-card-eyebrow">{eyebrow}</span>
+                <strong>{title}</strong>
+                <span className="home-card-description">{text}</span>
+              </a>
             ))}
-          </ul>
+          </div>
+        </section>
+
+        <section className="home-research" aria-labelledby="home-research-title">
+          <div className="home-research-heading"><div><span className="home-section-kicker">GO DEEPER</span><h2 id="home-research-title">The details are here when you need them.</h2></div><a href={`${base}/guide/`}>Explore the site guide <ArrowRight size={15} /></a></div>
+          <div className="home-research-grid">
+            {research.map((item, index) => <a href={`${base}${item.href}`} key={item.href}><span className="home-research-number">0{index + 1}</span><span><strong>{item.title}</strong><small>{item.text}</small></span><ArrowRight size={16} /></a>)}
+          </div>
+        </section>
+
+        <section className="home-method" aria-label="How this site works">
+          <div className="home-method-heading"><span className="home-section-kicker">BUILT FOR PUBLIC UNDERSTANDING</span><h2>Clarity is good. Evidence is essential.</h2></div>
+          <div className="home-method-grid">{principles.map(item => <div key={item.number}><span>{item.number}</span><strong>{item.title}</strong><p>{item.text}</p></div>)}</div>
         </section>
       </div>
     </PageShell>
