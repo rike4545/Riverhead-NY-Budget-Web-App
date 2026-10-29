@@ -208,14 +208,19 @@ class HeadingParser(HTMLParser):
 
 
 def official_calendar_hearings(iso_date):
-    """Read only explicitly posted Public Hearing event headings for a date."""
+    """Read only explicitly posted Public Hearing event headings for a date.
+
+    None, not an empty list, when the calendar could not be read: an empty
+    list means the Town posted no hearings, and the caller must not mistake an
+    outage for that.
+    """
     try:
         d = date.fromisoformat(iso_date)
         url = f"{CALENDAR_PAGE}?day={d.day}&month={d.month}&view=list&year={d.year}"
         parser = HeadingParser()
         parser.feed(http_get(url).decode("utf-8", errors="ignore"))
     except Exception:
-        return []
+        return None
     hearings = []
     for heading in parser.headings:
         if "public hearing" not in heading.lower() or heading.lower() == "public hearings":
@@ -245,6 +250,11 @@ def event_item(e):
             docket, agenda_hearings = [], []
 
     calendar_hearings = official_calendar_hearings(dt[:10]) if dt else []
+    if calendar_hearings is None:
+        # The Town's calendar did not answer: keep what was last published for
+        # this date rather than erase its hearings.
+        calendar_hearings = LAST_CALENDAR_HEARINGS.get(dt[:10], [])
+        CALENDAR_MISSES.append(dt[:10])
     hearings = []
     for title in calendar_hearings + agenda_hearings:
         if title and title not in hearings:
@@ -347,11 +357,53 @@ def dedupe_by_slug(items):
     return [by_slug[s] for s in order]
 
 
+# Filled by build() from the upcoming.json already published, so a run that
+# cannot reach the Town's calendar keeps each date's hearings as they were.
+LAST_CALENDAR_HEARINGS = {}
+CALENDAR_MISSES = []
+
+
+def last_calendar_hearings(published_path):
+    """Each date's hearings that came from the Town's calendar in the last published file."""
+    try:
+        last = json.loads(published_path.read_text())
+    except (OSError, ValueError):
+        return {}
+    out = {}
+    for m in (last.get("recent") or []) + (last.get("meetings") or []):
+        if "official-calendar" in (m.get("itemsSource") or "") and m.get("hearings"):
+            out[m["date"]] = list(m["hearings"])
+    return out
+
+
+def schedule_dates_or_last(fetched, published_path):
+    """The schedule dates to publish: this run's, or the last published ones.
+
+    The Town's site sometimes refuses the request or serves a page without the
+    schedule (on October 29, 2026 it reset the connection), and an empty set
+    published as the official schedule fails the deploy's schedule check. So an
+    empty read keeps the dates already in upcoming.json, and says so.
+    """
+    if fetched:
+        return set(fetched), False
+    try:
+        last = json.loads(published_path.read_text()).get("officialScheduleDates") or []
+    except (OSError, ValueError):
+        last = []
+    return set(last), bool(last)
+
+
 def build():
     OUT.mkdir(parents=True, exist_ok=True)
     now = datetime.now(NY)
     recent, meetings = [], []
-    regular_dates = published_regular_meeting_dates()
+    LAST_CALENDAR_HEARINGS.clear()
+    LAST_CALENDAR_HEARINGS.update(last_calendar_hearings(OUT / "upcoming.json"))
+    CALENDAR_MISSES.clear()
+    regular_dates, kept_last = schedule_dates_or_last(published_regular_meeting_dates(), OUT / "upcoming.json")
+    if kept_last:
+        print(f"::warning title=Town Board schedule not refreshed::The Town's schedule page ({SCHEDULE_PAGE}) "
+              f"gave no dates; upcoming.json keeps the {len(regular_dates)} dates last published. The next run tries again.")
 
     eligible = []
     for e in list_schedule():
@@ -392,6 +444,9 @@ def build():
     }
     (OUT / "upcoming.json").write_text(json.dumps(payload, indent=1))
 
+    if CALENDAR_MISSES:
+        print(f"::warning title=Town calendar not refreshed::The Town's calendar did not answer for "
+              f"{len(CALENDAR_MISSES)} meeting date(s) ({', '.join(CALENDAR_MISSES[:6])}); their hearings stay as last published.")
     with_items = sum(1 for m in recent + meetings if m["docket"] or m["hearings"])
     print(f"meeting timeline: {len(recent)} recent + {len(meetings)} upcoming ({with_items} with published items)")
     for label, rows in (("recent", recent[:3]), ("next", meetings[:4])):
