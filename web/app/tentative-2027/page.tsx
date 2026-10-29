@@ -63,6 +63,22 @@ export default function Tentative2027Page() {
         )}
       </PlainCallout>
 
+      <nav className="rbl-budget-jump" aria-label="2027 budget sections">
+        <span className="rbl-budget-jump-label">Explore this budget</span>
+        <a href="#budget-snapshot">At a glance</a>
+        {h && <a href="#against-projection">Projection comparison</a>}
+        <a href="#adoption-history">Adoption history</a>
+        <a href="#department-requests">Department requests</a>
+        <a href="#inflation-and-fund-balance">Reserves &amp; levy</a>
+        <a href="#budget-calendar">Key dates</a>
+      </nav>
+
+      <div className="rbl-budget-status" role="status">
+        <span className={released ? 'rbl-budget-status-dot is-live' : 'rbl-budget-status-dot'} aria-hidden="true" />
+        <span><strong>{released ? '2027 Tentative published' : 'Projection view'}</strong> · {released ? 'Town document compared with the site’s pre-publication projection' : 'The Town document has not yet been incorporated; no tentative figures are implied'}</span>
+        <a href={`${base}/budget-amendments-2027/`}>Review budget amendments <span aria-hidden="true">→</span></a>
+      </div>
+
       {!released && (
         <section style={{ ...card, marginTop: 16, marginBottom: 16, borderColor: 'var(--rbl-warn-border)' }}>
           <strong style={{ color: 'var(--rbl-title)' }}>Waiting for the {YEAR} Tentative.</strong>{' '}
@@ -73,7 +89,7 @@ export default function Tentative2027Page() {
         </section>
       )}
 
-      <section style={{ ...card, display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(190px,1fr))', gap: 12, marginTop: 16, marginBottom: 16 }}>
+      <section id="budget-snapshot" aria-label="2027 budget snapshot" className="rbl-budget-metrics" style={{ ...card, display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(190px,1fr))', gap: 12, marginTop: 16, marginBottom: 16 }}>
         <Stat label={`${PRIOR} adopted, all funds`} value={usd(projection.appropriations2026)} sub={`levy ${usd(projection.levy2026)}`} />
         <Stat label={`${YEAR} projection`} value={usd(projection.appropriations2027)} sub={`${pctf(projection.appropriationsPct)} · levy ${pctf(projection.levyPct)}`} />
         {h ? (
@@ -116,7 +132,7 @@ export default function Tentative2027Page() {
       </section>
 
       {h && (
-        <section style={{ ...card, marginBottom: 16 }}>
+        <section id="against-projection" style={{ ...card, marginBottom: 16 }}>
           <h3 style={{ marginTop: 0, color: 'var(--rbl-title)' }}>Against the projection</h3>
           <p style={{ color: 'var(--rbl-text-body)', fontSize: 14.5, lineHeight: 1.6, marginTop: 0 }}>
             The Tentative appropriates <strong>{usd(h.appropriations)}</strong>, {signed(h.appropriationsVsProjection)} against
@@ -176,7 +192,7 @@ export default function Tentative2027Page() {
 
       {h && READ_BY_HAND[YEAR] && <LetterSection h={h} />}
 
-      <section style={{ ...card, marginBottom: 16 }}>
+      <section id="adoption-history" style={{ ...card, marginBottom: 16 }}>
         <h3 style={{ marginTop: 0, color: 'var(--rbl-title)' }}>Will the Tentative change before adoption?</h3>
         <p style={{ color: 'var(--rbl-text-body)', fontSize: 14.5, lineHeight: 1.6, marginTop: 0 }}>
           Rarely, on the record so far. In <strong>{unchangedYears.length} of the {stability.length}</strong> years where the Town
@@ -205,7 +221,7 @@ export default function Tentative2027Page() {
         </div>
       </section>
 
-      <section style={{ ...card, marginBottom: 16 }}>
+      <section id="department-requests" style={{ ...card, marginBottom: 16 }}>
         <h3 style={{ marginTop: 0, color: 'var(--rbl-title)' }}>What departments asked for</h3>
         <p style={{ color: 'var(--rbl-text-body)', fontSize: 14.5, lineHeight: 1.6, marginTop: 0 }}>
           Every department submits an estimate by Sept 20; the budget officer then writes the Tentative. The Budget Supplement
@@ -253,7 +269,7 @@ export default function Tentative2027Page() {
 
       <SupplementFindings />
 
-      <section style={{ ...card, marginBottom: 16 }}>
+      <section id="budget-calendar" style={{ ...card, marginBottom: 16 }}>
         <h3 style={{ marginTop: 0, color: 'var(--rbl-title)' }}>The {YEAR} calendar</h3>
         <ul style={{ margin: 0, paddingLeft: 18, color: 'var(--rbl-text-body)', fontSize: 14, lineHeight: 1.7 }}>
           {CALENDAR.map(([d, what, law]) => (
@@ -267,7 +283,7 @@ export default function Tentative2027Page() {
         </p>
       </section>
 
-      <section style={{ ...card, marginBottom: 16 }}>
+      <section id="budget-limitations" style={{ ...card, marginBottom: 16 }}>
         <h3 style={{ marginTop: 0, color: 'var(--rbl-title)' }}>What this page cannot tell you</h3>
         <ul style={{ color: 'var(--rbl-text-body)', fontSize: 13.8, lineHeight: 1.6, paddingLeft: 18, margin: 0 }}>
           {limits.map((l, i) => <li key={i} style={{ marginBottom: 6 }}>{l}</li>)}
@@ -393,7 +409,7 @@ function LetterSection({ h }: { h: Headline }) {
   })
 
   return (
-    <section data-letter style={{ ...card, marginBottom: 16 }}>
+    <section id="supervisor-letter" data-letter style={{ ...card, marginBottom: 16 }}>
       <h3 style={{ marginTop: 0, color: 'var(--rbl-title)' }}>What the Supervisor’s letter says</h3>
       <p style={{ color: 'var(--rbl-text-body)', fontSize: 14.5, lineHeight: 1.6, marginTop: 0 }}>
         The Tentative opens with a letter from Supervisor {L.signedBy.split(',')[0]}{letter.dated ? <>, dated {letter.dated}</> : null}. Its pages
