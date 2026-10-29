@@ -18,7 +18,7 @@ const popular = [
 const pathways = [
   { title: 'Understand your taxes', text: 'Estimate the Town portion of your bill and see what changed.', href: '/tax-bill/', icon: Wallet, eyebrow: 'FOR RESIDENTS' },
   { title: 'Follow the money', text: 'Trace the Town levy through the funds and services it supports.', href: '/taxpayer-impact/', icon: Landmark, eyebrow: 'REVENUE & SPENDING' },
-  { title: 'Explore payroll', text: 'Search actual pay, overtime, separation payments, titles and departments.', href: '/payroll/', icon: Scale, eyebrow: 'WORKFORCE & PAY' },
+  { title: 'Payroll Explorer', text: 'Search actual pay, overtime, separation payments, titles and departments.', href: '/payroll/', icon: Scale, eyebrow: 'WORKFORCE & PAY' },
   { title: 'Check fiscal health', text: 'Explore reserves, financial trends, debt and the Town’s fiscal position.', href: '/analytics/', icon: BookOpen, eyebrow: 'FINANCIAL OVERSIGHT' },
 ]
 
