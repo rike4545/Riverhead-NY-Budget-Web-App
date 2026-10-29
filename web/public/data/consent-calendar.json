@@ -1,8 +1,8 @@
 {
  "title": "Is a consent calendar effective? Does Riverhead use one?",
- "intro": "A resident asked: is a \u201cconsent calendar\u201d \u2014 grouping routine items into one block vote \u2014 an effective practice? Riverhead's Town Board has never formally adopted one. But its actual voting pattern already functions like one, informally, and without the safeguards a real consent calendar is supposed to have.",
+ "intro": "The current archive-wide unanimous-vote percentage and resolution count are calculated from the meeting index at build time. The mover/seconder rotation finding is a separate fixed historical sample of 50 meetings and should not be read as a statistic for the entire current archive. A resident asked: is a \u201cconsent calendar\u201d \u2014 grouping routine items into one block vote \u2014 an effective practice? Riverhead's Town Board has never formally adopted one. The historical pattern can be compared with the safeguards a formal consent calendar is supposed to have.",
  "riverheadPattern": {
-  "headline": "97.3% of 2,175 resolutions passed unanimously, across 50 meetings.",
+  "headline": "Historical mover/seconder rotation analysis: 47 of 50 meetings in a fixed sample; current archive voting statistics are computed from the meeting index.",
   "totalResolutions": 2175,
   "unanimousPct": 97.3,
   "contested": 48,

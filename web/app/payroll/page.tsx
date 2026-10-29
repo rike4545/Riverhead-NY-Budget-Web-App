@@ -335,7 +335,7 @@ function UnionAgreements() {
                           “{a.attachment.summary}”
                         </span>
                       )}
-                      {a.sourceUrl && <span style={{ display: 'block', marginTop: 4 }}><a href={a.sourceUrl} style={{ color: 'var(--rbl-link)' }}>Agenda packet (PDF)</a></span>}
+                      {a.sourceUrl && <span style={{ display: 'block', marginTop: 4 }}><a href={a.sourceUrl} style={{ color: 'var(--rbl-link)', display: 'inline-block', padding: '2px 0' }}>Agenda packet (PDF)</a></span>}
                       {a.named.length > 0 && <span style={{ display: 'block', marginTop: 4, color: 'var(--rbl-text-muted)' }}>Named in it: {a.named.join('; ')}</span>}
                     </span>
                   </td>

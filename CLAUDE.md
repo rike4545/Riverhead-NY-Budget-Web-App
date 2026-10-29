@@ -31,6 +31,10 @@ for t in etl/test_*.py; do python3 "$t" || break; done
 # Web: type check, build, then check the built output
 cd web && npx tsc --noEmit && npm run verify
 
+# After a page change: tap targets at phone and desktop width (needs Playwright,
+# so it is not in CI)
+cd web && node scripts/audit-targets.mjs && node scripts/audit-targets.mjs --width 1280
+
 # Meeting records: always the whole pipeline, never one of its steps alone
 python3 etl/refresh_meeting_records.py
 
@@ -96,6 +100,16 @@ python3 etl/build_search_index.py && python3 etl/write_meta.py
   labels above headings, lucide icons and no emoji. Follow it on new pages.
 - `npm run verify` fails on an emoji in the source, an uppercase label, a
   thick side stripe or a missing typeface (`web/scripts/verify-design.mjs`).
+  It also fails on a link or button labelled only "Learn more", "Click here",
+  "Submit" or the like, placeholder copy, a focus outline switched off, and a
+  raw error message shown to readers.
+- Accessibility target: WCAG 2.2 AA (`.claude/references/accessibility-baseline.md`).
+  Tap targets are at least 24 by 24 pixels unless a WCAG exception applies;
+  `web/scripts/audit-targets.mjs` measures them.
+- Words in the interface follow `.claude/references/ux-writing.md`. A failed
+  live fetch says what happened, why and what is still on the page, with a
+  way to try again: use `web/components/LoadError.tsx` and
+  `web/lib/fetch-errors.ts`.
 
 ## Agents
 
@@ -120,7 +134,10 @@ addyosmani/agent-skills at commit 1401c8b (MIT License, kept in
 `.claude/skills/LICENSE-agent-skills`). They cover specs, planning,
 incremental implementation, test-driven development, debugging, code review,
 simplification, security, performance and documentation. The checklists they
-link to are in `.claude/references/`.
+link to are in `.claude/references/`, with two more from the Open Design Agent
+Kit (feimacode/open-design-agent-kit at commit dd8c43f): `accessibility-baseline.md`
+(Apache-2.0, from Open Design) and `ux-writing.md` (MIT). Their licences are in
+`.claude/references/LICENSE-open-design.md`.
 
 They are general practice. Where a skill conflicts with this file, this file
 wins: never merge, auto-merge, push to `main` or deploy; open draft pull

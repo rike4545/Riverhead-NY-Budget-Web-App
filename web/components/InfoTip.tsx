@@ -85,7 +85,7 @@ export default function InfoTip({
         onFocus={show}
         onBlur={hide}
         style={{
-          background: 'none', border: 'none', padding: 0, margin: 0, cursor: 'help',
+          background: 'none', border: 'none', padding: 0, margin: 0, cursor: 'help', minWidth: 24, minHeight: 24, justifyContent: 'center',
           color: 'var(--rbl-accent)', fontWeight: 900, fontSize: '0.92em', lineHeight: 1,
           display: 'inline-flex', alignItems: 'center',
         }}

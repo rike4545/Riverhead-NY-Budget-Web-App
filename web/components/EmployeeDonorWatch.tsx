@@ -3,6 +3,7 @@
 import { useState, type ReactNode } from 'react'
 import { fetchEmployeeDonorMatches, type EmployeeDonorMatch } from '../lib/employee-donors'
 import type { CampaignOfficial } from '../lib/campaign-finance'
+import LoadError from './LoadError'
 
 const usd = (n: number) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(n)
 const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 18 } as const
@@ -12,18 +13,18 @@ const td = { padding: '8px 10px' } as const
 export default function EmployeeDonorWatch({ officials, startYear, endYear }: { officials: CampaignOfficial[]; startYear: number; endYear: number }) {
   const [matches, setMatches] = useState<EmployeeDonorMatch[] | null>(null)
   const [status, setStatus] = useState<'idle' | 'loading' | 'error'>('idle')
-  const [errorMessage, setErrorMessage] = useState<string | null>(null)
+  const [failure, setFailure] = useState<unknown>(null)
 
   async function check() {
     setStatus('loading')
-    setErrorMessage(null)
+    setFailure(null)
     try {
       const result = await fetchEmployeeDonorMatches(officials, startYear, endYear)
       setMatches(result)
       setStatus('idle')
     } catch (err) {
       setStatus('error')
-      setErrorMessage(err instanceof Error ? err.message : 'Check failed.')
+      setFailure(err)
     }
   }
 
@@ -71,9 +72,13 @@ export default function EmployeeDonorWatch({ officials, startYear, endYear }: { 
       </div>
 
       {status === 'error' && (
-        <div style={{ marginTop: 12, color: 'var(--rbl-danger)', background: 'var(--rbl-danger-bg)', border: '1px solid var(--rbl-danger-border)', borderRadius: 10, padding: 10, fontSize: 13 }}>
-          Check failed: {errorMessage}
-        </div>
+        <LoadError
+          what="We couldn’t finish the employee-donor check."
+          still={matches ? 'The matches below are from your last successful check.' : 'No matches are shown until a check finishes.'}
+          error={failure}
+          onRetry={check}
+          retryLabel="Run the check again"
+        />
       )}
 
       {matches && (

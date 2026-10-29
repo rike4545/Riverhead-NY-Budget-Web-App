@@ -310,7 +310,7 @@ export default function UnifiedSearch() {
       setAiAnswer(result.text); setAiCutOff(result.cutOff); setAiState('done')
     } catch (e) {
       if ((e as { name?: string }).name === 'AbortError') return
-      setAiState('error'); setAiError(e instanceof RiverheadAIError ? e.message : 'Something went wrong contacting the AI service.')
+      setAiState('error'); setAiError(e instanceof RiverheadAIError ? e.message : 'An unexpected error in this page stopped the answer. The records it would have read are listed below; try again, or read them directly.')
     }
   }, [q, apiKey, loadDataset, loadAnswers, loadPageShard])
   const stopAsk = () => { aiAbort.current?.abort(); setAiStopped(true); setAiState('done') }

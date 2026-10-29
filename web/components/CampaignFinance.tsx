@@ -7,14 +7,19 @@ import {
   CANDIDATE_SELF_NAMES,
   fetchAllWatchContributions,
   fetchCampaignSnapshots,
+  fetchElectionReportRows,
   fetchFilingHistory,
+  generalElectionOf,
   RIVERHEAD_POPULATION,
   type CampaignOfficial,
   type CampaignSnapshot,
+  type ElectionReportRow,
   type FilingEvent,
   type WatchContribution,
   type YearBreakdown,
 } from '../lib/campaign-finance'
+import GeneralElectionReports from './GeneralElectionReports'
+import LoadError from './LoadError'
 
 const usd = (n: number) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(n)
 const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 18 } as const
@@ -59,25 +64,30 @@ export default function CampaignFinance({
   officials,
   startYear,
   endYear,
+  generalReports,
 }: {
   officials: CampaignOfficial[]
   startYear: number
   endYear: number
+  /** The stored 2026 General Election report rows (web/public/data/campaign-finance-2026-general.json). */
+  generalReports: { fetchedOn: string; rows: ElectionReportRow[] }
 }) {
+  const [liveGeneralRows, setLiveGeneralRows] = useState<ElectionReportRow[] | null>(null)
   const [snapshots, setSnapshots] = useState<Record<string, CampaignSnapshot> | null>(null)
   const [filingsByOfficial, setFilingsByOfficial] = useState<Record<string, FilingEvent[]> | null>(null)
   const [status, setStatus] = useState<'idle' | 'loading' | 'error'>('idle')
   const [lastUpdated, setLastUpdated] = useState<Date | null>(null)
-  const [errorMessage, setErrorMessage] = useState<string | null>(null)
+  const [failure, setFailure] = useState<unknown>(null)
 
   async function refresh() {
     setStatus('loading')
-    setErrorMessage(null)
+    setFailure(null)
     try {
-      const [snapshotResult, filingResult, watchResult] = await Promise.all([
+      const [snapshotResult, filingResult, watchResult, generalRows] = await Promise.all([
         fetchCampaignSnapshots(officials, startYear, endYear),
         fetchFilingHistory(officials, startYear, endYear),
         fetchAllWatchContributions(officials, startYear, endYear),
+        fetchElectionReportRows(officials),
       ])
       for (const name of Object.keys(snapshotResult)) {
         snapshotResult[name].petrocelliContributions = watchResult.petrocelli[name] ?? []
@@ -87,11 +97,12 @@ export default function CampaignFinance({
       }
       setSnapshots(snapshotResult)
       setFilingsByOfficial(filingResult)
+      setLiveGeneralRows(generalRows)
       setLastUpdated(new Date())
       setStatus('idle')
     } catch (err) {
       setStatus('error')
-      setErrorMessage(err instanceof Error ? err.message : 'Update failed.')
+      setFailure(err)
     }
   }
 
@@ -116,14 +127,25 @@ export default function CampaignFinance({
       </div>
 
       {status === 'error' && (
-        <div style={{ marginBottom: 12, color: 'var(--rbl-danger)', background: 'var(--rbl-danger-bg)', border: '1px solid var(--rbl-danger-border)', borderRadius: 10, padding: 10, fontSize: 13 }}>
-          Update failed: {errorMessage}
-        </div>
+        <LoadError
+          what="We couldn’t refresh the figures from New York’s open data."
+          still={snapshots ? 'The figures below are from your last successful refresh.' : 'The figures below are the stored copy; nothing on the page changed.'}
+          error={failure}
+          onRetry={refresh}
+          retryLabel="Try the refresh again"
+        />
       )}
 
       {lastUpdated && (
         <div style={{ marginBottom: 12, color: 'var(--rbl-text-muted)', fontSize: 12 }}>Filings last updated: {lastUpdated.toLocaleString()}</div>
       )}
+
+      <GeneralElectionReports
+        officials={officials}
+        rows={liveGeneralRows ?? generalReports.rows}
+        asOf={liveGeneralRows && lastUpdated ? lastUpdated.toISOString().slice(0, 10) : generalReports.fetchedOn}
+        liveAt={liveGeneralRows && lastUpdated ? lastUpdated.toLocaleString() : undefined}
+      />
 
       <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1fr)', gap: 14 }}>
         {officials.filter((o) => o.currentlyServing && !o.isPartyCommittee).map((official) => {
@@ -585,6 +607,7 @@ function CampaignFilingsList({ filings, endYear, hasFetched }: { filings: Filing
                 >
                   <span style={{ color: 'var(--rbl-text-strong)' }}>
                     <strong>{f.filingDesc}</strong>
+                    {generalElectionOf(f.electionYear, f.filingDesc) && <span style={{ color: 'var(--rbl-text-muted)' }}> ({generalElectionOf(f.electionYear, f.filingDesc)})</span>}
                     <span style={{ color: 'var(--rbl-text-muted)' }}> — {f.category}, {f.isAmendment ? 'Amendment' : 'Original'}, {f.electionType}</span>
                     {hasMultipleCommittees && <span style={{ color: 'var(--rbl-text-muted)' }}> ({f.committeeName})</span>}
                   </span>

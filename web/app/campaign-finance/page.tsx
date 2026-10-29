@@ -4,6 +4,7 @@ import CampaignFinance from '../../components/CampaignFinance'
 import EmployeeDonorWatch from '../../components/EmployeeDonorWatch'
 import { nextFilingDeadline, riverheadContributionLimits } from '../../lib/campaign-finance'
 import data from '../../public/data/campaign-finance.json'
+import general2026 from '../../public/data/campaign-finance-2026-general.json'
 
 export const metadata = {
   title: "Campaign finance — who's funding the Town Board",
@@ -73,6 +74,7 @@ export default function CampaignFinancePage() {
         display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(205px, 1fr))', gap: 10, marginBottom: 24,
       }}>
         <a href="#candidate-records" style={sectionLinkStyle}><span aria-hidden="true">01</span><span>Candidate & committee records</span></a>
+        <a href="#general-2026-reports" style={sectionLinkStyle}><span aria-hidden="true">01a</span><span>2026 General reports (32-Day, 11-Day)</span></a>
         <a href="#employee-donors" style={sectionLinkStyle}><span aria-hidden="true">02</span><span>Town employee donor matches</span></a>
         <a href="#contribution-limits" style={sectionLinkStyle}><span aria-hidden="true">03</span><span>Contribution limits</span></a>
         <a href="#data-notes" style={sectionLinkStyle}><span aria-hidden="true">i</span><span>Sources & interpretation</span></a>
@@ -89,6 +91,7 @@ export default function CampaignFinancePage() {
           officials={data.officials}
           startYear={data.campaignFilingStartYear}
           endYear={data.campaignFilingEndYear}
+          generalReports={general2026}
         />
       </section>
 

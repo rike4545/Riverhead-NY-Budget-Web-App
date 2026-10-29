@@ -59,14 +59,23 @@ def build():
 
     payload = {
         "title": "Is a consent calendar effective? Does Riverhead use one?",
+        # The wording of the intro and headline is the Meetings page's (PR #121):
+        # the archive-wide unanimous rate is computed from the meeting index when
+        # the site is built, and the rotation finding is read as its own sample.
+        # scripts/verify-meeting-record.mjs checks the headline says so.
         "intro": (
-            "A resident asked: is a “consent calendar” — grouping routine items into one block vote — "
-            "an effective practice? Riverhead's Town Board has never formally adopted one. But its actual voting "
-            "pattern already functions like one, informally, and without the safeguards a real consent calendar is "
-            "supposed to have."
+            "The current archive-wide unanimous-vote percentage and resolution count are calculated from the meeting "
+            f"index at build time. The mover/seconder rotation finding is a separate fixed historical sample of {total_meetings} "
+            "meetings and should not be read as a statistic for the entire current archive. A resident asked: is a "
+            "“consent calendar” — grouping routine items into one block vote — an effective practice? Riverhead's Town "
+            "Board has never formally adopted one. The historical pattern can be compared with the safeguards a formal "
+            "consent calendar is supposed to have."
         ),
         "riverheadPattern": {
-            "headline": f"{unanimous_pct}% of {total:,} resolutions passed unanimously, across {total_meetings} meetings.",
+            "headline": (
+                f"Historical mover/seconder rotation analysis: {rotation_meetings} of {total_meetings} meetings in a fixed "
+                "sample; current archive voting statistics are computed from the meeting index."
+            ),
             "totalResolutions": total,
             "unanimousPct": unanimous_pct,
             "contested": contested,

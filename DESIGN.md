@@ -69,6 +69,18 @@ too. Light only.
 - Unofficial material stays labelled, in words: "Tentative", "forecast",
   "calculated", "machine transcript".
 
+## Access and words
+
+- WCAG 2.2 AA is the target (`.claude/references/accessibility-baseline.md`):
+  text contrast at least 4.5:1, a visible focus ring, and tap targets at least
+  24 by 24 pixels unless the link sits in a line of text.
+  `web/scripts/audit-targets.mjs` measures the targets.
+- Interface words follow `.claude/references/ux-writing.md`. A link says where
+  it goes; a button says what it does. When live data fails to load, say what
+  happened, why if known, and what is still on the page, and offer to try
+  again (`web/components/LoadError.tsx`). Never show a status code or a raw
+  error on its own.
+
 ## Icons
 
 From `lucide-react`, at 14–18px with a 2–2.25 stroke, beside words, never

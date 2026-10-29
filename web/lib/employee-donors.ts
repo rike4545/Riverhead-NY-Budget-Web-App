@@ -6,6 +6,7 @@
 // with a different person is possible and not verified beyond the name match itself.
 import { PAYROLL_RECORDS_URL, mapRawRecords, type PayrollRecordRaw } from './payroll'
 import type { CampaignOfficial } from './campaign-finance'
+import { fetchJSON } from './fetch-errors'
 
 export type EmployeeDonorMatch = {
   employeeName: string
@@ -78,9 +79,7 @@ async function fetchIndividualContributions(filerIDs: string[], startYear: numbe
       '$limit': '10000',
       '$order': 'election_year DESC, sched_date DESC',
     }).toString()
-  const response = await fetch(url)
-  if (!response.ok) throw new Error(`NY Open Data request failed: ${response.status}`)
-  return response.json()
+  return fetchJSON<ContributionRow[]>(url, 'state')
 }
 
 export async function fetchEmployeeDonorMatches(
@@ -95,7 +94,7 @@ export async function fetchEmployeeDonorMatches(
   }
 
   const [payrollResponse, contributions] = await Promise.all([
-    fetch(PAYROLL_RECORDS_URL).then((r) => (r.ok ? r.json() : Promise.reject(new Error(`Payroll data request failed: ${r.status}`)))),
+    fetchJSON<{ records?: PayrollRecordRaw[] }>(PAYROLL_RECORDS_URL, 'site'),
     fetchIndividualContributions(filerIDs, startYear, endYear),
   ])
 

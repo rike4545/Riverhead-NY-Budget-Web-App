@@ -286,16 +286,16 @@ function FundContextNote({ code }: { code: string }) {
       </div>
 
       <div style={{ display: 'flex', flexWrap: 'wrap', gap: '4px 14px', marginTop: 10 }}>
-        <a href="https://riverheadlocal.com/2021/11/01/we-cant-sustain-this-riverhead-ambulance-corps-says-it-lacks-funds-needed-to-serve-residents/" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--rbl-warn)', fontWeight: 800, fontSize: 12.5 }}>
+        <a href="https://riverheadlocal.com/2021/11/01/we-cant-sustain-this-riverhead-ambulance-corps-says-it-lacks-funds-needed-to-serve-residents/" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--rbl-warn)', fontWeight: 800, fontSize: 12.5, display: 'inline-block', padding: '3px 0' }}>
           RiverheadLOCAL, Nov. 1, 2021 →
         </a>
-        <a href="https://riverheadlocal.com/2023/05/01/riverhead-ambulance-will-begin-billing-for-all-transports-in-the-next-60-90-days-to-cover-the-rising-costs-of-emergency-rescue-services/" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--rbl-warn)', fontWeight: 800, fontSize: 12.5 }}>
+        <a href="https://riverheadlocal.com/2023/05/01/riverhead-ambulance-will-begin-billing-for-all-transports-in-the-next-60-90-days-to-cover-the-rising-costs-of-emergency-rescue-services/" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--rbl-warn)', fontWeight: 800, fontSize: 12.5, display: 'inline-block', padding: '3px 0' }}>
           RiverheadLOCAL, May 1, 2023 →
         </a>
-        <a href="https://riverheadlocal.com/2025/01/31/riverhead-ambulance-unveils-plans-for-new-headquarters-building-on-osborn-avenue/" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--rbl-warn)', fontWeight: 800, fontSize: 12.5 }}>
+        <a href="https://riverheadlocal.com/2025/01/31/riverhead-ambulance-unveils-plans-for-new-headquarters-building-on-osborn-avenue/" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--rbl-warn)', fontWeight: 800, fontSize: 12.5, display: 'inline-block', padding: '3px 0' }}>
           RiverheadLOCAL, Jan. 31, 2025 →
         </a>
-        <a href="https://riverheadlocal.com/2026/01/09/in-role-reversal-riverhead-ambulance-calls-on-community-help-us-grow/" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--rbl-warn)', fontWeight: 800, fontSize: 12.5 }}>
+        <a href="https://riverheadlocal.com/2026/01/09/in-role-reversal-riverhead-ambulance-calls-on-community-help-us-grow/" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--rbl-warn)', fontWeight: 800, fontSize: 12.5, display: 'inline-block', padding: '3px 0' }}>
           RiverheadLOCAL, Jan. 9, 2026 →
         </a>
         <a href="https://projects.propublica.org/nonprofits/organizations/113396823" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--rbl-warn)', fontWeight: 800, fontSize: 12.5 }}>

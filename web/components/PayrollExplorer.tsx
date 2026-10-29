@@ -453,7 +453,7 @@ function Inferred({ value, inferred }: { value: string; inferred: false | 'carri
 
 const th = { padding: '8px 9px' } as const
 const td = { padding: '7px 9px' } as const
-const nameBtn = { background: 'none', border: 'none', color: 'var(--rbl-title)', fontWeight: 700, cursor: 'pointer', padding: 0, font: 'inherit', textAlign: 'left' as const }
+const nameBtn = { background: 'none', border: 'none', color: 'var(--rbl-title)', fontWeight: 700, cursor: 'pointer', padding: 0, minHeight: 24, font: 'inherit', textAlign: 'left' as const }
 
 function Stat({ label, value, sub, accent, amber }: { label: string; value: string; sub?: string; accent?: boolean; amber?: boolean }) {
   return (

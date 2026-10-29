@@ -11,8 +11,8 @@ export default function ExperienceFooter() {
           Riverhead Budget Live is not affiliated with the Town of Riverhead. Important figures should be checked against the linked official record. Google Analytics is used to understand aggregate site usage; no account is required to use the site.
         </p>
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: 14, marginTop: 10 }}>
-          <a href={`${base}/sources/`} style={{ color: 'var(--rbl-link)', fontWeight: 600, fontSize: 14, textDecoration: 'none' }}>Sources & methods →</a>
-          <a href={`${base}/data-quality/`} style={{ color: 'var(--rbl-link)', fontWeight: 600, fontSize: 14, textDecoration: 'none' }}>Data quality →</a>
+          <a href={`${base}/sources/`} style={{ color: 'var(--rbl-link)', fontWeight: 600, fontSize: 14, textDecoration: 'none', display: 'inline-block', padding: '2px 0' }}>Sources & methods →</a>
+          <a href={`${base}/data-quality/`} style={{ color: 'var(--rbl-link)', fontWeight: 600, fontSize: 14, textDecoration: 'none', display: 'inline-block', padding: '2px 0' }}>Data quality →</a>
         </div>
       </div>
       <div style={{ justifySelf: 'end' }}><TrendColors /></div>

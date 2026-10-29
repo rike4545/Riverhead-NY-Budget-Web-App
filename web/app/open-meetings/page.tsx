@@ -209,7 +209,7 @@ export default function OpenMeetingsPage() {
         <h2 style={{ marginTop: 0, color: 'var(--rbl-title)', fontSize: 20 }}>Sources</h2>
         <ul style={{ margin: 0, paddingLeft: 18, ...body, fontSize: 13.5 }}>
           {(Object.keys(SOURCES) as SourceKey[]).map((k) => (
-            <li key={k}><a href={SOURCES[k].url} target="_blank" rel="noreferrer" style={link}>{SOURCES[k].label}</a></li>
+            <li key={k} style={{ padding: '2px 0' }}><a href={SOURCES[k].url} target="_blank" rel="noreferrer" style={link}>{SOURCES[k].label}</a></li>
           ))}
         </ul>
         <p style={{ ...muted, marginBottom: 0 }}>
