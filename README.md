@@ -22,9 +22,9 @@ An independent public fiscal intelligence platform for exploring Riverhead Town 
 | 🧾 Campaign Finance | https://rike4545.github.io/Riverhead-NY-Budget-Web-App/campaign-finance/ |
 | 🔎 Search Records | https://rike4545.github.io/Riverhead-NY-Budget-Web-App/search/ |
 
-The site has about 55 pages, grouped in its navigation as **Explore**,
-**Government**, **Research** and **Evidence**. See **Every Page** below for
-what each one covers.
+The site menu lists 64 pages, grouped as **Explore**, **Government**,
+**Research** and **Evidence**, and every fund has a page of its own. See
+**Every Page** below for what each one covers.
 
 GitHub Repository:
 https://github.com/rike4545/Riverhead-NY-Budget-Web-App
@@ -43,7 +43,59 @@ https://github.com/rike4545/Riverhead-NY-Budget-Android-App
 
 ---
 
-# What's New — September 2026
+# What's New — October 2026
+
+### 📑 The 2027 Preliminary Budget is in
+The Town's 2027 Preliminary Budget was on its Financial Reports page by the
+evening of October 28, and the site parsed it that night. Its town-wide levy (General Fund, Highway and
+Street Lighting) is $643,858 lower than the Tentative's, the same as the six
+amendments the Town Board voted on October 20. The pages that compare budget
+stages now compare the Preliminary.
+**[2027 Budget Amendments](https://rike4545.github.io/Riverhead-NY-Budget-Web-App/budget-amendments-2027/)**
+sets out each amendment line by line, the votes, and how RiverheadLOCAL and
+Newsday reported them.
+
+### 🧾 The 2026 General Election reports — `/campaign-finance`
+A new section shows each committee's 32-Day and 11-Day Pre-General reports
+for the November 3 election, and the 27-Day Post-General report once it is
+filed: contributions, transfers, spending and the latest transaction. It is
+refreshed from the State's open data twice a day and can be refreshed live
+on the page.
+
+### New pages
+- **Ambulance Funding** (`/rvac-funding`): the Ambulance District's taxes,
+  medical billing, the RVAC contract, and how fees are meant to repay the
+  new building's bond.
+- **Fringe Benefits** (`/fringe-benefits`): the yearly allowance elected
+  officials and a few managers get on top of salary, and why no budget line
+  shows it.
+- **Contracts & Bids** (`/contracts`): every 2026 resolution that awards a
+  bid, buys equipment, changes a construction contract or hires a firm, with
+  the vendor and amount in the resolution's own words.
+- **Records to Request** (`/records`): records this site could not find
+  published, a ready Freedom of Information Law request for each, and the
+  deadlines the Town has to meet.
+- **The Supervisors' Tax-Cap Letter, Checked** (`/tax-cap-letter`): what
+  Suffolk supervisors asked Albany for, and Riverhead's own record.
+- **Brookhaven's** and **Southold's 2027 Tentative** (`/brookhaven-2027`,
+  `/southold-2027`): each neighbor's budget beside Riverhead's.
+- **Zero or 1% for 2027** (`/zero-percent-2027`): what a 1% levy increase,
+  or none, would take.
+
+### Also this month
+- **Payroll** shows the text of every union agreement and stipulation, what
+  is already set for 2027 pay, and police overtime through the 2027
+  Tentative.
+- **Board Votes** link each vote to the moment it is read out in the
+  meeting video, from this site's own transcripts.
+- **Security:** every page carries a Content-Security-Policy that lets only
+  the site's own scripts and Google Analytics run, so an injected script is
+  refused.
+- **Accessibility:** the site aims at WCAG 2.2 AA. Every link and button is
+  at least 24 pixels square or has room around it, and when live data fails
+  to load the page says what happened and offers to try again.
+
+# Earlier — September 2026
 
 ### 📑 The 2027 budget, as soon as the Town posts it
 The Supervisor's 2027 Tentative Budget was presented on September 24: $121.0
@@ -184,7 +236,7 @@ The four links at the front of the site menu:
 - **My Taxes** (`/tax-bill`): the Town's portion of your property-tax bill, estimated from assessed value and the Town's published 2026 rate table.
 - **Payroll** (`/payroll`): actual employee pay 2018–2025 (base, overtime, gross), Board-authorized salaries for 2025 and 2026, and every raise between them. Separate tabs cover overtime and staffing, separation pay and police pay steps. Every table sorts by any column.
 - **Board Votes** (`/meetings`): Town Board meetings as a decision record. Each resolution shows its outcome, each member's vote, whether the official record is on file, and the matching fiscal-impact statement. Each meeting links to the Town's video and to the volunteer transcript at riverheadtranscripts.org. Where this site has transcribed the video, each vote links to the moment the resolution is read out, and the transcript can be searched on the page.
-- **Search** (`/search`): about 17,200 records: the site's own pages, budget lines, payroll, authorized salaries, Town Board votes, funds and more than 12,500 pages of financial documents. See **Search** below.
+- **Search** (`/search`): about 17,400 records: the site's own pages, budget lines, payroll, authorized salaries, Town Board votes, funds and more than 12,500 pages of financial documents. See **Search** below.
 
 ## Explore
 - **Where Your Levy Goes** (`/taxpayer-impact`): how the 2026 Town tax levy divides among the funds.
@@ -195,9 +247,11 @@ The four links at the front of the site menu:
 - **Budget Compare** (`/compare`): adopted appropriations for every fund, 2020–2026, sortable by the biggest movers.
 - **General Fund** (`/general-fund`): appropriations, tax levy and revenues year by year since 2005, from the adopted budgets.
 - **Annual Report** (`/annual-report`): actual 2025 year-end results against the plan, for all 14 funds.
+- **Where Revenue Comes From** (`/revenue`): every revenue stream, 2018 to the 2027 budget, estimate against what came in, in every fund.
 - **Tax Cap** (`/tax-cap`): how the State's levy limit is calculated, what an override does, and Riverhead's audited record.
 - **Reserves & Fund Balance** (`/reserves`): the five GASB fund-balance classes, the Town's own reserve rules, and a one-time deployment plan.
 - **Where the Surplus Went** (`/fund-balance-draws`): every 2026 resolution that spent fund balance.
+- **Ambulance Funding** (`/rvac-funding`): the Ambulance District's tax revenue, medical billing, RVAC contract and budget adjustments, and how ambulance fees are expected to repay the new building's bond.
 - **Budget Changes, Live** (`/budget-changes`): every resolution the Town Board has adopted in 2026, the year of the adopted budget it compares against, that changes a budget, totalled by where the money came from: savings, borrowing, grants and aid, or fees. It re-reads the data while open and updates itself when a meeting's records arrive.
 - **Capital & Debt** (`/capital-debt`): every bond and Bond Anticipation Note outstanding at the close of 2025, with the repayment schedule, plus a calculator comparing a bond now with a BAN first.
 - **Town Square** (`/town-square`): what the Town is building downtown and what it is spending.
@@ -208,15 +262,16 @@ The four links at the front of the site menu:
 
 ## Government
 - **Resident Answers** (`/answers`): plain answers to the questions residents ask, each with the figure and a link to the page that proves it.
-- **Workforce by Title** (`/workforce-by-title`): an organization chart of every office and department with the job titles each paid in the latest year, then headcount by civil-service title and department, 2022–2025.
+- **Organization Chart and Workforce by Title** (`/workforce-by-title`): an organization chart of every office and department with the job titles each paid in the latest year, then headcount by civil-service title and department, 2022–2025.
 - **Officials & Pensions** (`/officials`): elected officials who also collect a New York State public pension.
 - **Management Pay** (`/management-compensation`): the health-premium change for four appointed positions, and the 2026 raises that followed for two of them.
+- **Fringe Benefits** (`/fringe-benefits`): the yearly Town-paid allowance every elected official, and a few managers, gets on top of salary: who gets it, how inflation sets it, and why no budget line shows it.
 - **2026 Buyout** (`/buyout`): the final CSEA, PBA and SOA retirement-incentive terms, eligibility and likely savings.
 - **Police Spending & Crime** (`/police-crime`): police appropriations next to the Index crime the department reports to the State.
 - **School Resource Officers** (`/school-resource-officers`): who pays for them, and every funding route proposed.
 - **Supervisors & Council History** (`/town-history`): who has held each seat since 2004.
 - **Board Elections** (`/board-elections`): the vote counts that elected each current member.
-- **Campaign Finance** (`/campaign-finance`): every current and recent member's committee, live from New York State's campaign-finance data, with a Town Employee Donors cross-check.
+- **Campaign Finance** (`/campaign-finance`): every current and recent member's committee, live from New York State's campaign-finance data, with each committee's 2026 General Election reports (32-Day and 11-Day Pre-General, 27-Day Post-General) and a Town Employee Donors cross-check.
 - **Candidate Watch** (`/candidate-watch`): who is running in November 2026, with links and stated platforms.
 - **Candidate Proposals** (`/candidate-cost-benefit`): a cost–benefit look at each stated plank in the 2026 Supervisor race.
 - **Supervisor's Promises** (`/supervisor-promises`): commitments checked against the record.
@@ -226,6 +281,7 @@ The four links at the front of the site menu:
 - **Start Here** (`/guide`): a plain-English guide to every tool, a budget primer and a glossary.
 - **2027 Prediction** (`/predict-2027`): a line-by-line projection with tax-cap scenarios and a scorecard against the Town's budget.
 - **2027 Tentative Budget** (`/tentative-2027`): the Town's Tentative against this site's projection, fund by fund.
+- **The Supervisors' Tax-Cap Letter, Checked** (`/tax-cap-letter`): Suffolk supervisors' October 2026 letter asking Albany to loosen the tax cap: what it asks, where it is strong, what it leaves out, and Riverhead's own record.
 - **How Budgets Get Adopted** (`/budget-adoption`): what the Board changed in every Tentative since 2005.
 - **Scenario Lab** (`/scenarios`): close the gap between projected 2027 spending and the tax cap with your own mix of trims, savings, revenue and reserves.
 - **2027 Spending Reduction** (`/spending-reduction-2027`): how the retirement incentive plus sourced line trims could close that gap.
@@ -233,14 +289,15 @@ The four links at the front of the site menu:
 - **Credit Rating** (`/credit-rating`): Riverhead's Aa2 against Brookhaven's AAA and the other Suffolk towns.
 - **Southold's 2027 Tentative** (`/southold-2027`): Southold's 2027 Tentative Operating Budget beside Riverhead's, with Brookhaven alongside: savings, the tax cap and the State's growth factors, police, revenue estimates, garbage charges, a capital plan and what each budget book tells residents. Southold's copy is a scan from the Town's website (`etl/data/southold/2027/`), read with OCR and from the page images; `scripts/verify-southold.mjs` checks its tables against each other and its quotations and line figures against the OCR text.
 - **Brookhaven's 2027 Tentative** (`/brookhaven-2027`): Brookhaven's 2027 Tentative Operating Budget beside Riverhead's: savings used, growth, the levy, reserves, garbage fees and what each budget book tells residents, with ideas Riverhead could borrow. Brookhaven's copy is a scan, read with OCR and from the page images; `scripts/verify-brookhaven.mjs` checks its tables' arithmetic and its quotations. Per-resident figures use the Census Bureau's July 1 town estimates for Suffolk County (`public/data/census-pep.json`; refresh with `node scripts/fetch-population.mjs` when a new vintage is out, no key needed).
-- **Proposed 2027 amendments** (`/budget-amendments-2027`): the six amendments to the 2027 Preliminary Budget on the Town Board's October 20, 2026 agenda, as the pre-final draft in the October 15 work-session packet prints them, set against the Tentative's Summary and the 2027 Budget Supplement line by line: the levy by fund, the higher revenue estimates beside past collections, the equipment moved to savings, the estimated tax rates and an even-handed reading of how they bear on the supervisor's race. The cited packet pages are kept in `etl/data/budget-2027/amendments-packet-2026-10-15.json`; `scripts/verify-budget-amendments.mjs` checks each resolution balances fund by fund and that every account, amount and quotation is on its packet page. Once the meeting's minutes are in `public/data/meetings/2026-10-20.json`, the page shows each vote.
-- **Outlier Watch** (`/outliers`): year-over-year swings of at least 20% and $100,000 across all 19 funds, each adopted budget against the year before and next year's proposal (now the 2027 Tentative) against the last adopted budget. A flagged proposal gets its Budget Supplement lines, and the Debt Service Fund's 2027 fall is set beside the two 2026 votes that paid debt down. `scripts/verify-outliers.mjs` holds the page to the records.
+- **2027 Budget Amendments** (`/budget-amendments-2027`): the six amendments to the 2027 budget on the Town Board's October 20, 2026 agenda, as the pre-final draft in the October 15 work-session packet prints them, set against the Tentative's Summary and the 2027 Budget Supplement line by line: the levy by fund, the higher revenue estimates beside past collections, the equipment moved to savings, the estimated tax rates and an even-handed reading of how they bear on the supervisor's race. The cited packet pages are kept in `etl/data/budget-2027/amendments-packet-2026-10-15.json`; `scripts/verify-budget-amendments.mjs` checks each resolution balances fund by fund and that every account, amount and quotation is on its packet page. The page shows each vote from the meeting's record (`public/data/meetings/2026-10-20.json`).
+- **Outlier Watch** (`/outliers`): year-over-year swings of at least 20% and $100,000 across all 19 funds, each adopted budget against the year before and next year's proposal (now the 2027 Preliminary) against the last adopted budget. A flagged proposal gets its Budget Supplement lines, and the Debt Service Fund's 2027 fall is set beside the two 2026 votes that paid debt down. `scripts/verify-outliers.mjs` holds the page to the records.
 - **Budget Accuracy** (`/budget-accuracy`): where adopted amounts and actual spending drift apart: researched flags read from the Supplements, lines over budget three years running, lines never used, and every outlier in the newest Supplement.
-- **Where Revenue Comes From** (`/revenue`): every revenue stream, 2018 to the 2027 Tentative, estimate against what came in, in every fund.
+- **Contracts & Bids** (`/contracts`): every 2026 Town Board resolution that awards a bid, extends one, buys equipment, changes a construction contract or hires a firm, with the vendor and amount in the resolution's own words.
 - **Fiscal Impact** (`/fiscal-impact`): each resolution's Fiscal Impact Statement next to a realistic financial read, and every dollar figure the resolution's own text states, quoted and labelled (a cost, a fee, money coming in, a budget line, borrowing, a developer's security). Each statement is matched to its resolution by the number printed above it.
 
 ## Evidence
 - **Source Library** (`/sources`): every parsed Town document, with its fingerprint and a link to the original.
+- **Records to Request** (`/records`): records this site could not find published, a ready Freedom of Information Law request for each, built in the browser, and the deadlines the Town has to meet.
 - **Downloads** (`/downloads`): CSV files for budgets, payroll, salaries, votes and annual-report results.
 - **Data Quality & Freshness** (`/data-quality`): which figures are official and which are calculated, how current each source is, and what each deploy checks.
 - **Standards (GFOA)** (`/gfoa`): this site scored against the GFOA budget-presentation criteria.
@@ -255,9 +312,10 @@ the numbers are labeled and sourced (`/evidence`).
 
 ## Search
 
-The search covers about 17,200 records: the site's own 54 pages, 848 budget
-lines, 1,228 employee pay records, 362 authorized salaries, about 2,080 Town
-Board votes, 19 funds and more than 12,500 pages of financial documents.
+The search covers about 17,400 records: the site's own 64 pages, 848 budget
+lines, 1,228 employee pay records, 347 authorized salaries, about 2,180 Town
+Board votes, 19 funds and about 12,650 pages from 133 financial documents.
+The counts grow as the pipeline adds records.
 
 - A topic ("reserves", "tax cap", "buyout") opens with the page on this site
   that explains it, above the records.
@@ -293,8 +351,9 @@ The long-term goal is to make public financial information:
 - more transparent
 - more accessible to residents
 
-The current focus is the 2027 budget season: the Tentative in late
-September, then the Preliminary and the Adopted budget in November.
+The current focus is the 2027 budget season: the Tentative came out on
+September 24 and the Preliminary by October 28; the Adopted budget follows
+in November.
 
 ---
 
@@ -316,6 +375,7 @@ This project uses publicly available Town records and New York State data, inclu
   open-source Whisper model (faster-whisper, `small.en`). Like the volunteer
   transcripts they are unofficial: names and figures can be misheard.
 - **New York State Board of Elections** campaign-finance disclosure data (data.ny.gov)
+- **New York State law**, quoted from the State Senate's text where a page cites it (Town Law, General Municipal Law, Public Officers Law, Election Law)
 - **Office of the State Comptroller** Financial Data for Local Governments
 - **NYSDOT** Local Highway Inventory road mileage
 - **NYS Division of Criminal Justice Services** Index crime counts (data.ny.gov)
@@ -345,6 +405,8 @@ Built using:
 - GitHub Pages, deployed by GitHub Actions
 - A Python ingestion pipeline (PyMuPDF, pypdf, pandas, Beautiful Soup) that parses Town PDFs and reconciles them against the official Summary pages
 - Live client-side queries against New York State's open campaign-finance data (data.ny.gov)
+- A hash-based Content-Security-Policy on every page, added after the build (`web/scripts/add-csp.mjs`, checked by `verify-csp.mjs`)
+- About 40 checks on the built site (`web/scripts/verify-*.mjs`) that hold each page's figures and quotations to their sources, plus design and accessibility checks; a tap-target audit (`web/scripts/audit-targets.mjs`) runs by hand in a browser
 
 ---
 
@@ -358,6 +420,9 @@ etl/data/           Committed source inputs (payroll CSVs, salary schedules,
                     AFR and Budget Supplement PDFs, meeting-minutes text)
 docs/               Architecture, parser, and intelligence documentation
 .github/workflows/  The automated pipeline, release watcher and pull-request checks
+.claude/            Agents, skills and reference checklists for Claude Code
+CLAUDE.md           Working rules for Claude Code in this repository
+DESIGN.md           The design brief: type, colour, layout, access and words
 ```
 
 ## The automated data pipeline
@@ -367,8 +432,8 @@ The site keeps itself current. Six GitHub Actions workflows do the work
 
 | Workflow | When | What it does |
 | --- | --- | --- |
-| **Deploy GitHub Pages** (`deploy-pages.yml`) | Every push to `main`, and on demand | Re-parses every financial-report PDF, rebuilds the budget-stage, General Fund history, adoption, department-request and CPF datasets, the search index and the freshness stamp, then commits any data that changed. It then typechecks, builds, verifies the output and deploys, waits for the new build to go live, and checks that key pages and data files load. |
-| **Parse Financial Reports** (`parse-financial-reports.yml`) | Mondays 09:00; daily at 09:00 and 22:00 in September–November | The full pipeline: meetings, financial reports, line items, budget history and stages, General Fund history, AFR actuals, Supplements, votes and fiscal impact, salaries and payroll, the 2027 projection, the buyout, police and crime, road spending, search, CSVs and freshness. Commits the results and redeploys. |
+| **Deploy GitHub Pages** (`deploy-pages.yml`) | Every push to `main`, and on demand | Re-parses every financial-report PDF, rebuilds the budget-stage, General Fund history, adoption, department-request and CPF datasets, the search index and the freshness stamp, then commits any data that changed. It then typechecks, builds, adds the Content-Security-Policy, verifies the output and deploys, waits for the new build to go live, and checks that key pages and data files load. A failed check stops the deploy, and the live site keeps its last good build. |
+| **Parse Financial Reports** (`parse-financial-reports.yml`) | Mondays 09:00; daily at 09:00 and 22:00 in September–November | The full pipeline: meetings, financial reports, line items, budget history and stages, General Fund history, AFR actuals, Supplements, votes and fiscal impact, salaries and payroll, the 2027 projection, the buyout, police and crime, road spending, the 2026 General Election campaign-finance reports, search, CSVs and freshness. Commits the results and redeploys. |
 | **Sync Town Board Meetings** (`sync-meetings.yml`) | Twice a day, 12:30 and 23:30 | Re-checks CivicClerk minutes and agenda packets and the upcoming-meeting schedule. Re-parses votes, falls back to the agenda packet when the minutes omit them, and reconciles each meeting against its official sources. Refreshes each meeting's video and transcript links. Redeploys when anything changed. |
 | **Transcribe Town Board Meetings** (`transcribe-meetings.yml`) | Daily at 14:07, and on demand | Transcribes up to three meeting videos a run, newest first, with faster-whisper on the runner's CPU (about 15 minutes for a two-hour meeting). It finds the moment each resolution is read out, and finds them again in saved transcripts when a meeting's record changes. It checks the results, commits them and redeploys. |
 | **Watch for budget releases** (`watch-budget-release.yml`) | Every 15 minutes, Sept 24–Oct 6; every 30 minutes, Nov 1–21 | Checks the Town's Financial Reports page for a budget document the site hasn't parsed yet, and starts a deploy the moment one appears. The check itself downloads nothing. It skips while a deploy is already running and limits how often it can start one. |
@@ -402,6 +467,8 @@ Every page shows when its data was last refreshed.
 | `predict_2027.py` | The line-by-line 2027 projection |
 | `analyze_buyout.py` | Cost and likely savings of the 2026 retirement incentive |
 | `parse_police_crime.py` | Police spending next to reported Index crime. The State's figures are fetched at most weekly; if data.ny.gov cannot be reached, they stay as last fetched and the run shows a warning |
+| `build_campaign_reports.py` | Each committee's 2026 General Election reports from data.ny.gov, by report and schedule. If data.ny.gov cannot be reached, the last copy stays and the run shows a warning |
+| `build_contract_awards.py` | The `/contracts/` list of bid awards and agreements, from freshly downloaded agenda packets |
 | `parse_road_spending.py` | Highway spending per maintained mile for the ten Suffolk towns, from State Comptroller filings and NYSDOT's road inventory |
 | `build_search_index.py` | The sharded search index |
 | `export_csv.py` | The CSV downloads |
@@ -413,8 +480,10 @@ exports, salary schedules, the AFR, Budget Supplements and meeting-minutes
 text. Those datasets rebuild from a clean checkout. Budget documents are
 downloaded again from the Town's Financial Reports page on each run.
 
-**Not part of the automated pipeline:** Campaign Finance queries data.ny.gov
-live in the browser on each page load or refresh, with no build step.
+**Not part of the automated pipeline:** Campaign Finance's committee totals
+and filing lists come from data.ny.gov live in the browser when a reader
+presses Refresh; only its 2026 General Election reports are stored by the
+pipeline.
 Research pages such as Town Square, the Supervisor's promises, the Open
 Meetings Law, credit ratings and the Brookhaven comparison are written by hand
 from the sources they cite. They change when those sources are reviewed again.
