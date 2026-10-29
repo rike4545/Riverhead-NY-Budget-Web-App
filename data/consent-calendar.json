@@ -1,57 +1,57 @@
 {
-  "title": "Is a consent calendar effective? Does Riverhead use one?",
-  "intro": "The current archive-wide unanimous-vote percentage and resolution count are calculated from the meeting index at build time. The mover/seconder rotation finding is a separate fixed historical sample of 50 meetings and should not be read as a statistic for the entire current archive. A resident asked: is a “consent calendar” — grouping routine items into one block vote — an effective practice? Riverhead's Town Board has never formally adopted one. The historical pattern can be compared with the safeguards a formal consent calendar is supposed to have.",
-  "riverheadPattern": {
-    "headline": "Historical mover/seconder rotation analysis: 47 of 50 meetings in a fixed sample; current archive voting statistics are computed from the meeting index.",
-    "totalResolutions": 2175,
-    "unanimousPct": 97.3,
-    "contested": 48,
-    "failed": 2,
-    "tabled": 10,
-    "rotationMeetingsPct": 94,
-    "rotationMeetings": 47,
-    "totalMeetings": 50,
-    "rotationFinding": "In 47 of 50 meetings (94%), the mover and seconder rotate through a small, fixed set of Board members in strict sequence — first Councilmember A moves and B seconds, then B moves and C seconds, and so on — resolution after resolution, regardless of subject matter. That is not how organic floor debate looks; it is the signature of a prearranged list voted through with pro-forma motions.",
-    "sample": {
-      "slug": "2022-01-04",
-      "date": "January 4, 2022",
-      "movers": [
-        "Tim Hubbard",
-        "Frank Beyrodt Jr.",
-        "Kenneth Rothwell",
-        "Robert Kern",
-        "Tim Hubbard",
-        "Frank Beyrodt Jr.",
-        "Kenneth Rothwell",
-        "Robert Kern"
-      ]
-    }
+ "title": "Is a consent calendar effective? Does Riverhead use one?",
+ "intro": "The current archive-wide unanimous-vote percentage and resolution count are calculated from the meeting index at build time. The mover/seconder rotation finding is a separate fixed historical sample of 50 meetings and should not be read as a statistic for the entire current archive. A resident asked: is a \u201cconsent calendar\u201d \u2014 grouping routine items into one block vote \u2014 an effective practice? Riverhead's Town Board has never formally adopted one. The historical pattern can be compared with the safeguards a formal consent calendar is supposed to have.",
+ "riverheadPattern": {
+  "headline": "Historical mover/seconder rotation analysis: 47 of 50 meetings in a fixed sample; current archive voting statistics are computed from the meeting index.",
+  "totalResolutions": 2175,
+  "unanimousPct": 97.3,
+  "contested": 48,
+  "failed": 2,
+  "tabled": 10,
+  "rotationMeetingsPct": 94,
+  "rotationMeetings": 47,
+  "totalMeetings": 50,
+  "rotationFinding": "In 47 of 50 meetings (94%), the mover and seconder rotate through a small, fixed set of Board members in strict sequence \u2014 first Councilmember A moves and B seconds, then B moves and C seconds, and so on \u2014 resolution after resolution, regardless of subject matter. That is not how organic floor debate looks; it is the signature of a prearranged list voted through with pro-forma motions.",
+  "sample": {
+   "slug": "2022-01-04",
+   "date": "January 4, 2022",
+   "movers": [
+    "Tim Hubbard",
+    "Frank Beyrodt Jr.",
+    "Kenneth Rothwell",
+    "Robert Kern",
+    "Tim Hubbard",
+    "Frank Beyrodt Jr.",
+    "Kenneth Rothwell",
+    "Robert Kern"
+   ]
+  }
+ },
+ "whatMakesItEffective": [
+  {
+   "title": "It genuinely saves time \u2014 when used right",
+   "text": "A consent agenda groups routine, non-controversial items into a single vote so a board can spend its meeting time on the decisions that actually need debate. Done well, it improves governance rather than weakening it."
   },
-  "whatMakesItEffective": [
-    {
-      "title": "It genuinely saves time — when used right",
-      "text": "A consent agenda groups routine, non-controversial items into a single vote so a board can spend its meeting time on the decisions that actually need debate. Done well, it improves governance rather than weakening it."
-    },
-    {
-      "title": "The test is what belongs on it",
-      "text": "The standard test: would a reasonable resident, looking at the agenda, expect this item to be discussed before being approved? If yes, it does not belong on consent — financial commitments, policy changes, and contested matters should not be bundled in."
-    },
-    {
-      "title": "It needs real safeguards",
-      "text": "Best practice: publish the consent agenda at least a week in advance with full supporting documents, let any single member pull an item for separate discussion without needing a second or a vote, and record in the minutes exactly which items were approved as a block."
-    },
-    {
-      "title": "Without those safeguards, it erodes accountability",
-      "text": "The risk case is exactly Riverhead's pattern: near-unanimous, low-visibility approval of dozens of items per meeting with no visible individual debate in the record and no formal mechanism for a resident or Board member to force a discussion — that is where a consent-agenda-like habit becomes a rubber stamp instead of a governance tool."
-    }
-  ],
-  "verdict": "A consent calendar can be an effective governance tool — but only with published advance notice, supporting documents, and a real pull-to-discuss mechanism. Riverhead gets the efficiency (very high unanimous rates, a fast-moving agenda) without ever adopting the formal practice or its safeguards. The fix is not to stop moving routine items quickly — it is to name what's happening: designate an actual consent agenda, publish it with backup documents in advance, and give any Board member or resident a clear, minuted way to pull an item before it passes.",
-  "sources": [
-    "MRSC, “Understanding the Consent Agenda in Local Government Meetings” (Sept. 2025).",
-    "CivicPlus, “How to Use a Consent Agenda to Save Time and Refocus Discussion on Critical Matters.”",
-    "Diligent, “Consent agenda: what it is & how it saves boards time.”",
-    "Institute for Local Government (California), “The Concept of a ‘Consent Calendar.’”",
-    "CivicCA, “Consent Calendar Best Practices for City Councils.”",
-    "Riverhead Town Board meeting minutes, parsed record (this site)."
-  ]
+  {
+   "title": "The test is what belongs on it",
+   "text": "The standard test: would a reasonable resident, looking at the agenda, expect this item to be discussed before being approved? If yes, it does not belong on consent \u2014 financial commitments, policy changes, and contested matters should not be bundled in."
+  },
+  {
+   "title": "It needs real safeguards",
+   "text": "Best practice: publish the consent agenda at least a week in advance with full supporting documents, let any single member pull an item for separate discussion without needing a second or a vote, and record in the minutes exactly which items were approved as a block."
+  },
+  {
+   "title": "Without those safeguards, it erodes accountability",
+   "text": "The risk case is exactly Riverhead's pattern: near-unanimous, low-visibility approval of dozens of items per meeting with no visible individual debate in the record and no formal mechanism for a resident or Board member to force a discussion \u2014 that is where a consent-agenda-like habit becomes a rubber stamp instead of a governance tool."
+  }
+ ],
+ "verdict": "A consent calendar can be an effective governance tool \u2014 but only with published advance notice, supporting documents, and a real pull-to-discuss mechanism. Riverhead gets the efficiency (very high unanimous rates, a fast-moving agenda) without ever adopting the formal practice or its safeguards. The fix is not to stop moving routine items quickly \u2014 it is to name what's happening: designate an actual consent agenda, publish it with backup documents in advance, and give any Board member or resident a clear, minuted way to pull an item before it passes.",
+ "sources": [
+  "MRSC, \u201cUnderstanding the Consent Agenda in Local Government Meetings\u201d (Sept. 2025).",
+  "CivicPlus, \u201cHow to Use a Consent Agenda to Save Time and Refocus Discussion on Critical Matters.\u201d",
+  "Diligent, \u201cConsent agenda: what it is & how it saves boards time.\u201d",
+  "Institute for Local Government (California), \u201cThe Concept of a \u2018Consent Calendar.\u2019\u201d",
+  "CivicCA, \u201cConsent Calendar Best Practices for City Councils.\u201d",
+  "Riverhead Town Board meeting minutes, parsed record (this site)."
+ ]
 }
