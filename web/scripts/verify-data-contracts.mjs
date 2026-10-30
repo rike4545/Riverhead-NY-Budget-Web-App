@@ -1,6 +1,7 @@
-// Runtime contracts for canonical ETL outputs. These checks deliberately validate
-// structure and invariants without rewriting or coercing source data: malformed
-// source output should stop the release, not be silently repaired in the browser.
+// Zod contracts for canonical ETL outputs and the web-to-native data manifest.
+// These checks validate without coercing or rewriting source data: malformed
+// ETL output should stop the release, not be silently repaired in the browser.
+import { z } from 'zod'
 import { readFileSync } from 'node:fs'
 import { resolve } from 'node:path'
 
@@ -11,126 +12,177 @@ const read = (path) => {
   try { return JSON.parse(readFileSync(resolve(root, path), 'utf8')) }
   catch (error) { fail(path, `cannot read valid JSON (${error.message})`); return null }
 }
-const object = (value) => value !== null && typeof value === 'object' && !Array.isArray(value)
-const text = (value) => typeof value === 'string' && value.trim().length > 0
-const finite = (value) => typeof value === 'number' && Number.isFinite(value)
-const date = (value) => typeof value === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(value) && Number.isFinite(Date.parse(`${value}T12:00:00Z`))
-const https = (value) => typeof value === 'string' && value.startsWith('https://')
-const safePath = (value) => text(value) && !value.split('/').includes('..') && !value.startsWith('/')
+const safePath = z.string().min(1).refine(
+  (value) => !value.split('/').includes('..') && !value.startsWith('/'),
+  'must be a safe relative path',
+)
+const dateString = z.string().regex(/^\\d{4}-\\d{2}-\\d{2}$/).refine((value) => {
+  const [year, month, day] = value.split('-').map(Number)
+  const parsed = new Date(Date.UTC(year, month - 1, day))
+  return parsed.getUTCFullYear() === year && parsed.getUTCMonth() === month - 1 && parsed.getUTCDate() === day
+}, 'must be a real YYYY-MM-DD calendar date')
+const httpsUrl = z.string().url().refine((value) => value.startsWith('https://'), 'must use HTTPS')
+const sourceSchema = z.object({
+  title: z.string().min(1),
+  url: httpsUrl,
+}).passthrough()
 
 // Payroll: compact, shared records consumed by both native applications.
-{
-  const path = 'public/data/payroll/records.json'
-  const data = read(path)
-  if (object(data)) {
-    if (!object(data.source) || !text(data.source.title) || !https(data.source.url)) fail(path, 'source must include a title and HTTPS URL')
-    if (!object(data.fields) || !['y', 'n', 'r', 'o', 'g'].every((key) => text(data.fields[key]))) fail(path, 'field dictionary is missing required year, name, regular, overtime or gross-pay labels')
-    if (!Array.isArray(data.records)) fail(path, 'records must be an array')
-    else {
-      if (!Number.isInteger(data.count) || data.count !== data.records.length) fail(path, `count says ${data.count}; records contain ${data.records.length}`)
-      const seen = new Set()
-      for (let i = 0; i < data.records.length; i++) {
-        const row = data.records[i]
-        const at = `records[${i}]`
-        if (!object(row)) { fail(path, `${at} must be an object`); continue }
-        if (!Number.isInteger(row.y) || row.y < 2018 || row.y > 2025) fail(path, `${at}.y must be a published year from 2018 through 2025`)
-        if (!text(row.n)) fail(path, `${at}.n must contain an employee display name`)
-        for (const key of ['r', 'o', 'g']) if (!finite(row[key])) fail(path, `${at}.${key} must be a finite amount`)
-        for (const key of ['d', 't', 'c', 'u']) if (typeof row[key] !== 'string') fail(path, `${at}.${key} must be a string, including when unknown`)
-        if (row.f !== undefined && (typeof row.f !== 'string' || !/^\d{6}$/.test(row.f))) fail(path, `${at}.f must preserve a six-digit payroll file number as text`)
-        if (row.k !== undefined && (!Array.isArray(row.k) || row.k.length !== 5 || !row.k.every(finite))) fail(path, `${at}.k must be five finite other-pay components`)
-        // Only the Town's payroll file number is a reliable unique key.
-        // Older rows can lack it; names alone are not safe identifiers.
-        if (row.f !== undefined) {
-          const identity = `${row.y}|${row.f}`
-          if (seen.has(identity)) fail(path, `duplicate year/payroll-file key ${identity}`)
-          seen.add(identity)
-        }
-      }
-    }
-    if (!object(data.unionLabels) || Object.values(data.unionLabels).some((label) => !text(label))) fail(path, 'unionLabels must map codes to non-empty labels')
+const payrollRecordSchema = z.object({
+  y: z.number().int().min(2018).max(2025),
+  n: z.string().min(1),
+  r: z.number().finite(),
+  o: z.number().finite(),
+  g: z.number().finite(),
+  d: z.string(),
+  t: z.string(),
+  c: z.string(),
+  u: z.string(),
+  f: z.string().regex(/^\\d{6}$/).nullable().optional(),
+  k: z.array(z.number().finite()).length(5).optional(),
+}).passthrough()
+
+const payrollSchema = z.object({
+  source: sourceSchema,
+  fields: z.record(z.string(), z.string().min(1)),
+  count: z.number().int().nonnegative(),
+  records: z.array(payrollRecordSchema),
+  unionLabels: z.record(z.string(), z.string().min(1)),
+}).passthrough().superRefine((data, ctx) => {
+  if (data.count !== data.records.length) {
+    ctx.addIssue({ code: 'custom', path: ['count'], message: `declares ${data.count}; records contain ${data.records.length}` })
   }
-}
+  // Only the Town's payroll file number is a reliable unique key. Older rows
+  // can lack it; names alone are not safe identifiers.
+  const seen = new Set()
+  data.records.forEach((row, index) => {
+    if (!row.f) return
+    const identity = `${row.y}|${row.f}`
+    if (seen.has(identity)) {
+      ctx.addIssue({ code: 'custom', path: ['records', index, 'f'], message: `duplicate year/payroll-file key ${identity}` })
+    }
+    seen.add(identity)
+  })
+})
 
 // Meeting timeline: completed and upcoming collections remain distinct and traceable.
-{
-  const path = 'public/data/meetings/upcoming.json'
-  const data = read(path)
-  if (object(data)) {
-    for (const key of ['source', 'scheduleSource']) {
-      if (!object(data[key]) || !text(data[key].title) || !https(data[key].url)) fail(path, `${key} must include a title and HTTPS source URL`)
-    }
-    if (!date(data.generatedAt)) fail(path, 'generatedAt must be a YYYY-MM-DD source-build date')
-    if (!Array.isArray(data.officialScheduleDates) || data.officialScheduleDates.some((value) => !date(value))) fail(path, 'officialScheduleDates must contain valid calendar dates')
-    const slugs = new Set()
-    for (const collection of ['recent', 'meetings']) {
-      if (!Array.isArray(data[collection])) { fail(path, `${collection} must be an array`); continue }
-      for (let i = 0; i < data[collection].length; i++) {
-        const meeting = data[collection][i]
-        const at = `${collection}[${i}]`
-        if (!object(meeting)) { fail(path, `${at} must be an object`); continue }
-        if (!date(meeting.date) || meeting.slug !== meeting.date) fail(path, `${at} must use its YYYY-MM-DD date as its stable slug`)
-        if (!text(meeting.type) || !text(meeting.startDateTime) || !Number.isFinite(Date.parse(meeting.startDateTime))) fail(path, `${at} needs a meeting type and parseable startDateTime`)
-        if (slugs.has(meeting.slug)) fail(path, `duplicate meeting slug ${meeting.slug}`)
-        slugs.add(meeting.slug)
-        if (typeof meeting.agendaPublished !== 'boolean') fail(path, `${at}.agendaPublished must be boolean`)
-        if (!Array.isArray(meeting.docket) || !Array.isArray(meeting.hearings)) fail(path, `${at} must contain docket and hearings arrays`)
-        for (const item of meeting.docket ?? []) {
-          if (!object(item) || !Number.isInteger(item.seq) || !text(item.number) || !text(item.title)) fail(path, `${at} contains a malformed docket item`)
-        }
-        if ((meeting.hearings ?? []).some((item) => !text(item))) fail(path, `${at}.hearings must contain non-empty text`)
-      }
-    }
-    if (new Set(data.officialScheduleDates ?? []).size !== (data.officialScheduleDates ?? []).length) fail(path, 'officialScheduleDates contains duplicates')
+const docketItemSchema = z.object({
+  seq: z.number().int(),
+  number: z.string().min(1),
+  title: z.string().min(1),
+}).passthrough()
+
+const meetingSchema = z.object({
+  date: dateString,
+  slug: z.string().min(1),
+  type: z.string().min(1),
+  startDateTime: z.string().refine((value) => Number.isFinite(Date.parse(value)), 'must be a parseable date/time'),
+  agendaPublished: z.boolean(),
+  docket: z.array(docketItemSchema),
+  hearings: z.array(z.string().min(1)),
+}).passthrough().superRefine((meeting, ctx) => {
+  if (meeting.slug !== meeting.date) {
+    ctx.addIssue({ code: 'custom', path: ['slug'], message: 'must equal the stable YYYY-MM-DD meeting date' })
   }
-}
+})
+
+const meetingsSchema = z.object({
+  source: sourceSchema,
+  scheduleSource: sourceSchema,
+  generatedAt: dateString,
+  officialScheduleDates: z.array(dateString),
+  recent: z.array(meetingSchema),
+  meetings: z.array(meetingSchema),
+}).passthrough().superRefine((data, ctx) => {
+  const dates = new Set()
+  data.officialScheduleDates.forEach((date, index) => {
+    if (dates.has(date)) ctx.addIssue({ code: 'custom', path: ['officialScheduleDates', index], message: `duplicate date ${date}` })
+    dates.add(date)
+  })
+  const slugs = new Set()
+  for (const collection of ['recent', 'meetings']) {
+    data[collection].forEach((meeting, index) => {
+      if (slugs.has(meeting.slug)) {
+        ctx.addIssue({ code: 'custom', path: [collection, index, 'slug'], message: `duplicate meeting slug ${meeting.slug}` })
+      }
+      slugs.add(meeting.slug)
+    })
+  }
+})
 
 // Shared-data manifest: the web output is canonical; native mappings and hashes
-// must be explicit so a renamed or changed dataset cannot drift silently.
-{
-  const path = '../shared-data/manifest.json'
-  const data = read(path)
-  if (object(data)) {
-    if (data.canonicalRoot !== 'web/public/data') fail(path, 'canonicalRoot must point to web/public/data')
-    for (const platform of ['ios', 'android']) {
-      const consumer = data.consumers?.[platform]
-      if (!object(consumer) || !text(consumer.repo) || !safePath(consumer.root)) fail(path, `consumers.${platform} needs a repository and safe destination root`)
-    }
-    if (!Array.isArray(data.files) || data.files.length === 0) fail(path, 'files must be a non-empty array')
-    else {
-      const ids = new Set()
-      const paths = new Set()
-      for (const entry of data.files) {
-        if (!object(entry)) { fail(path, 'every files entry must be an object'); continue }
-        if (!text(entry.id) || ids.has(entry.id)) fail(path, `missing or duplicate dataset id: ${entry.id}`)
-        ids.add(entry.id)
-        if (!safePath(entry.web)) fail(path, `${entry.id ?? '(unknown)'} has an unsafe or missing canonical web path`)
-        const mapped = ['ios', 'android'].filter((key) => entry[key] !== null && entry[key] !== undefined && safePath(entry[key]))
-        for (const key of ['ios', 'android']) if (entry[key] !== null && entry[key] !== undefined && !safePath(entry[key])) fail(path, `${entry.id ?? '(unknown)'} has an unsafe ${key} path`)
-        if (mapped.length === 0) fail(path, `${entry.id ?? '(unknown)'} is not mapped to either native consumer`)
-        if (text(entry.web) && paths.has(entry.web)) fail(path, `duplicate canonical dataset path: ${entry.web}`)
-        if (text(entry.web)) paths.add(entry.web)
-        if (typeof entry.sha256 !== 'string' || !/^[a-f0-9]{64}$/.test(entry.sha256)) fail(path, `${entry.id ?? '(unknown)'} needs a 64-character SHA-256 digest`)
-      }
-    }
-    if (!Array.isArray(data.directories)) fail(path, 'directories must be an array, even when empty')
-    else for (const entry of data.directories) {
-      if (!object(entry) || !text(entry.web) || !text(entry.pattern)) fail(path, 'each mirrored directory needs a canonical web path and filename pattern')
-      else {
-        const mapped = ['ios', 'android'].filter((key) => entry[key] !== null && entry[key] !== undefined && safePath(entry[key]))
-        for (const key of ['ios', 'android']) if (entry[key] !== null && entry[key] !== undefined && !safePath(entry[key])) fail(path, `directory mapping has an unsafe ${key} path`)
-        if (mapped.length === 0) fail(path, `directory ${entry.web} is not mapped to either native consumer`)
-      }
-    }
+// must be explicit so renamed or changed datasets cannot drift silently.
+const consumerSchema = z.object({
+  repo: z.string().min(1),
+  root: safePath,
+}).passthrough()
+
+const fileMappingSchema = z.object({
+  id: z.string().min(1),
+  web: safePath,
+  ios: safePath.nullable().optional(),
+  android: safePath.nullable().optional(),
+  sha256: z.string().regex(/^[a-f0-9]{64}$/),
+}).passthrough().superRefine((entry, ctx) => {
+  if (!entry.ios && !entry.android) {
+    ctx.addIssue({ code: 'custom', message: 'must map to at least one native consumer' })
   }
+})
+
+const directoryMappingSchema = z.object({
+  web: safePath,
+  ios: safePath.nullable().optional(),
+  android: safePath.nullable().optional(),
+  pattern: z.string().min(1),
+  note: z.string().optional(),
+}).passthrough().superRefine((entry, ctx) => {
+  if (!entry.ios && !entry.android) {
+    ctx.addIssue({ code: 'custom', message: 'must map to at least one native consumer' })
+  }
+  if (entry.pattern.includes('/') || entry.pattern.includes('..')) {
+    ctx.addIssue({ code: 'custom', path: ['pattern'], message: 'must be a filename pattern, not a path' })
+  }
+})
+
+const manifestSchema = z.object({
+  canonicalRoot: z.literal('web/public/data'),
+  consumers: z.object({
+    ios: consumerSchema,
+    android: consumerSchema,
+  }),
+  files: z.array(fileMappingSchema).min(1),
+  directories: z.array(directoryMappingSchema).min(1),
+}).passthrough().superRefine((manifest, ctx) => {
+  const ids = new Set()
+  const paths = new Set()
+  manifest.files.forEach((entry, index) => {
+    if (ids.has(entry.id)) ctx.addIssue({ code: 'custom', path: ['files', index, 'id'], message: `duplicate dataset id ${entry.id}` })
+    if (paths.has(entry.web)) ctx.addIssue({ code: 'custom', path: ['files', index, 'web'], message: `duplicate canonical dataset path ${entry.web}` })
+    ids.add(entry.id)
+    paths.add(entry.web)
+  })
+})
+
+function validate(path, schema, data) {
+  if (data === null) return null
+  const result = schema.safeParse(data)
+  if (!result.success) {
+    for (const issue of result.error.issues) {
+      const location = issue.path.length ? `.${issue.path.join('.')}` : ''
+      fail(`${path}${location}`, issue.message)
+    }
+    return null
+  }
+  return result.data
 }
+
+const payroll = validate('public/data/payroll/records.json', payrollSchema, read('public/data/payroll/records.json'))
+const meetings = validate('public/data/meetings/upcoming.json', meetingsSchema, read('public/data/meetings/upcoming.json'))
+const manifest = validate('../shared-data/manifest.json', manifestSchema, read('../shared-data/manifest.json'))
 
 if (failures.length) {
   for (const failure of failures) console.error(`DATA CONTRACT FAILED: ${failure}`)
   process.exitCode = 1
 } else {
-  const payroll = read('public/data/payroll/records.json')
-  const meetings = read('public/data/meetings/upcoming.json')
-  const manifest = read('../shared-data/manifest.json')
-  console.log(`Data contracts passed: ${payroll.count.toLocaleString()} payroll records; ${meetings.recent.length} completed and ${meetings.meetings.length} upcoming meetings; ${manifest.files.length} native-shared datasets and ${manifest.directories.length} mirrored directories.`)
+  console.log(`Zod data contracts passed: ${payroll.count.toLocaleString()} payroll records; ${meetings.recent.length} completed and ${meetings.meetings.length} upcoming meetings; ${manifest.files.length} native-shared datasets and ${manifest.directories.length} mirrored directories.`)
 }
