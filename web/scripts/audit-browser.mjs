@@ -122,7 +122,7 @@ try {
         const serious = audit.violations.filter((v) => v.impact === 'critical' || v.impact === 'serious')
         violationCount += audit.violations.length
         for (const v of audit.violations) {
-          const targets = v.nodes.slice(0, 5).map((node) => `${node.target.join(', ')} ${(node.failureSummary ?? '').replace(/\\s+/g, ' ').slice(0, 700)}`).join(' || ')
+          const targets = v.nodes.slice(0, 5).map((node) => `${node.target.join(', ')} ${(node.failureSummary ?? '').replace(/\s+/g, ' ').slice(0, 700)}`).join(' || ')
           const summary = `${route} at ${width}px: ${v.id} (${v.impact}) — ${v.help}; ${v.nodes.length} affected node(s); ${targets}`
           if (v.impact === 'critical' || v.impact === 'serious') fail(summary)
           else console.warn(`ACCESSIBILITY NOTE: ${summary}`)
@@ -141,7 +141,7 @@ try {
         }), axeTags)
         axeRuns++
         for (const v of expandedAudit.violations) {
-          const targets = v.nodes.slice(0, 5).map((node) => `${node.target.join(', ')} ${(node.failureSummary ?? '').replace(/\\s+/g, ' ').slice(0, 700)}`).join(' || ')
+          const targets = v.nodes.slice(0, 5).map((node) => `${node.target.join(', ')} ${(node.failureSummary ?? '').replace(/\s+/g, ' ').slice(0, 700)}`).join(' || ')
           const summary = `${route} expanded navigation at ${width}px: ${v.id} (${v.impact}) — ${v.help}; ${v.nodes.length} affected node(s); ${targets}`
           if (v.impact === 'critical' || v.impact === 'serious') fail(summary)
           else console.warn(`ACCESSIBILITY NOTE: ${summary}`)
