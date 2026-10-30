@@ -1,4 +1,5 @@
 {
+  "version": 1,
   "$comment": "Canonical datasets the web app ETL produces and native apps consume. The web repo is the source of truth. Directory mappings may be consumer-specific; null means that app does not consume that path. Use web/scripts/sync-shared-data.mjs with --consumer ios|android and --root <checkout> to sync or --check to detect drift.",
   "canonicalRoot": "web/public/data",
   "consumers": {
@@ -11,6 +12,43 @@
       "root": "app/src/main/assets/data"
     }
   },
+  "files": [
+    {
+      "id": "budget-supplement/lines",
+      "web": "budget-supplement/lines.json",
+      "ios": "supplement-lines.json",
+      "sha256": "a9858c417af411da177924a7c54557dfc4cdc34491b43e8c3639a70d215dfe81",
+      "android": null
+    },
+    {
+      "id": "budget-supplement/outliers",
+      "web": "budget-supplement/outliers.json",
+      "ios": "supplement-outliers.json",
+      "sha256": "3ced32f947aa5d1f551fe2d30b60ff76e6238b68086bc217f3df3fcb7190dbdc",
+      "android": null
+    },
+    {
+      "id": "budget-supplement/reductions",
+      "web": "budget-supplement/reductions.json",
+      "ios": "reductions.json",
+      "sha256": "c1592d4be428eb91e93e61e783719025fea970b21db01b54b8fca50aec92c8f2",
+      "android": null
+    },
+    {
+      "id": "payroll/records",
+      "web": "payroll/records.json",
+      "ios": "payroll-records.json",
+      "sha256": "7c862e7c2633566345effc08c9bfbb3de0892a46afd08f54db739746c3cf3bfa",
+      "android": null
+    },
+    {
+      "id": "payroll/titles-by-year",
+      "web": "payroll/titles-by-year.json",
+      "ios": "titles-by-year.json",
+      "sha256": "e04f19f8aa996a57e8e6d2dd1811852c5cc03468131c40bd41bb1fd0cdb2cc1a",
+      "android": null
+    }
+  ],
   "directories": [
     {
       "web": "meetings",
@@ -74,43 +112,6 @@
       "android": "subaccounts",
       "pattern": "*.json",
       "note": "Operating-fund account indexes and detail datasets."
-    }
-  ],
-  "files": [
-    {
-      "id": "budget-supplement/lines",
-      "web": "budget-supplement/lines.json",
-      "ios": "supplement-lines.json",
-      "sha256": "a9858c417af411da177924a7c54557dfc4cdc34491b43e8c3639a70d215dfe81",
-      "android": null
-    },
-    {
-      "id": "budget-supplement/outliers",
-      "web": "budget-supplement/outliers.json",
-      "ios": "supplement-outliers.json",
-      "sha256": "3ced32f947aa5d1f551fe2d30b60ff76e6238b68086bc217f3df3fcb7190dbdc",
-      "android": null
-    },
-    {
-      "id": "budget-supplement/reductions",
-      "web": "budget-supplement/reductions.json",
-      "ios": "reductions.json",
-      "sha256": "c1592d4be428eb91e93e61e783719025fea970b21db01b54b8fca50aec92c8f2",
-      "android": null
-    },
-    {
-      "id": "payroll/records",
-      "web": "payroll/records.json",
-      "ios": "payroll-records.json",
-      "sha256": "7c862e7c2633566345effc08c9bfbb3de0892a46afd08f54db739746c3cf3bfa",
-      "android": null
-    },
-    {
-      "id": "payroll/titles-by-year",
-      "web": "payroll/titles-by-year.json",
-      "ios": "titles-by-year.json",
-      "sha256": "e04f19f8aa996a57e8e6d2dd1811852c5cc03468131c40bd41bb1fd0cdb2cc1a",
-      "android": null
     }
   ]
 }
