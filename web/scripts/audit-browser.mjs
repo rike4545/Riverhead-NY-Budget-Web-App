@@ -52,8 +52,12 @@ const server = createServer((req, res) => {
   } catch {
     res.writeHead(400).end()
   }
-}).listen(0, '127.0.0.1')
+})
 
+await new Promise((resolveListen, rejectListen) => {
+  server.once('error', rejectListen)
+  server.listen(0, '127.0.0.1', resolveListen)
+})
 const origin = `http://127.0.0.1:${server.address().port}`
 const browser = await chromium.launch({ headless: true })
 const page = await browser.newPage()
