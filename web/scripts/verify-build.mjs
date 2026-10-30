@@ -227,18 +227,33 @@ for (const text of [
 const authorityMarkers = (sources.match(/data-authority-id=/g) ?? []).length
 if (authorityMarkers < 9) fail(`Authority audit metadata coverage collapsed: found ${authorityMarkers}, expected at least 9`)
 
-// Claim-level provenance coverage: only stable data-claim-id markers count.
+// Claim-level provenance coverage: every analytical landing page must expose
+// stable, unique claims with a visible source, as-of date, and classification.
+// These attributes are emitted by ProvenanceLine, so the built HTML—not merely
+// the TypeScript source—must carry the audit trail readers actually receive.
 const provenancePages = ['analytics', 'what-changed', 'taxpayer-impact', 'predict-2027', 'tax-cap', 'reserves', 'capital-debt', 'town-square', 'buyout']
 let pagesWithClaimProvenance = 0
+const provenanceIds = new Set()
+let provenanceClaimCount = 0
 for (const route of provenancePages) {
   const file = path(`out/${route}/index.html`)
-  if (!existsSync(file)) continue
+  if (!existsSync(file)) { fail(`Claim-level provenance page is missing: /${route}/`); continue }
   const html = readFileSync(file, 'utf8')
-  const claimIds = html.match(/data-claim-id="[^"]+"/g) ?? []
-  if (claimIds.length > 0) pagesWithClaimProvenance += 1
-  else warn(`Claim-level provenance rollout pending on /${route}/`)
+  const tags = Array.from(html.matchAll(/<div\\b[^>]*data-claim-id="([^"]+)"[^>]*>/g))
+  if (tags.length === 0) { fail(`Claim-level provenance is missing from /${route}/`); continue }
+  pagesWithClaimProvenance += 1
+  for (const match of tags) {
+    const [tag, id] = match
+    if (provenanceIds.has(id)) fail(`Duplicate claim ID across analytical pages: ${id}`)
+    provenanceIds.add(id)
+    provenanceClaimCount += 1
+    if (!/data-provenance-status="(?:official|calculated|projected)"/.test(tag)) fail(`Claim ${id} has no valid official/calculated/projected classification`)
+    if (!/data-claim-source="[^"]+>/.test(tag)) fail(`Claim ${id} has no source description`)
+    if (!/data-claim-as-of="[^"]+>/.test(tag)) fail(`Claim ${id} has no as-of date`)
+  }
 }
-if (pagesWithClaimProvenance < 3) fail(`Claim-level provenance coverage is unexpectedly low: ${pagesWithClaimProvenance} analytical pages`)
+if (pagesWithClaimProvenance !== provenancePages.length) fail(`Claim-level provenance coverage is ${pagesWithClaimProvenance}/${provenancePages.length} analytical pages`)
+if (provenanceClaimCount < provenancePages.length) fail(`Claim-level provenance count is unexpectedly low: ${provenanceClaimCount}`)
 
 // ── Fund-balance ledger: catch a curated entry a new resolution has superseded ──
 //
