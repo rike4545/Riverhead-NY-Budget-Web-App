@@ -80,10 +80,12 @@ try {
         title: document.title,
         hasMain: !!document.querySelector('main'),
         width: document.documentElement.scrollWidth,
+        bodyWidth: document.body.scrollWidth,
         viewport: window.innerWidth,
       }))
       if (!structure.title.trim()) failures.push({ route, issue: 'document title is empty' })
       if (!structure.hasMain) failures.push({ route, issue: 'main landmark is missing' })
+      if (structure.width > structure.viewport + 2 || structure.bodyWidth > structure.viewport + 2) failures.push({ route, issue: `horizontal overflow at ${structure.viewport}px (document ${structure.width}px, body ${structure.bodyWidth}px)` })
 
       await page.addScriptTag({ url: `${origin}${basePath}/__audit/axe.min.js` })
       const result = await page.evaluate(async () => window.axe.run(document, {
