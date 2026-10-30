@@ -1,5 +1,5 @@
 {
-  "$comment": "Canonical datasets the web app ETL produces and the native apps consume. The web repo is the source of truth. Use web/scripts/sync-shared-data.mjs with --consumer ios|android and --root <checkout> to sync or --check to detect drift.",
+  "$comment": "Canonical datasets the web app ETL produces and native apps consume. The web repo is the source of truth. Directory mappings may be consumer-specific; null means that app does not consume that path. Use web/scripts/sync-shared-data.mjs with --consumer ios|android and --root <checkout> to sync or --check to detect drift.",
   "canonicalRoot": "web/public/data",
   "consumers": {
     "ios": {
@@ -18,6 +18,62 @@
       "pattern": "*.json",
       "note": "Every Town Board meeting, its fiscal-impact companion, and the index/roster files. Mirrored wholesale because a new meeting must not require editing this manifest.",
       "android": "meetings"
+    },
+    {
+      "web": ".",
+      "ios": null,
+      "android": ".",
+      "pattern": "*.json",
+      "note": "All top-level JSON datasets consumed by Android: budget proposal, prediction, tax, elections, community, payroll-adjacent and freshness data."
+    },
+    {
+      "web": "afr",
+      "ios": null,
+      "android": "afr",
+      "pattern": "*.json",
+      "note": "Annual Financial Report datasets used by Android."
+    },
+    {
+      "web": "budget-supplement",
+      "ios": null,
+      "android": "budget-supplement",
+      "pattern": "*.json",
+      "note": "Supplement lines, history, outliers, reductions and related account datasets."
+    },
+    {
+      "web": "history",
+      "ios": null,
+      "android": "history",
+      "pattern": "*.json",
+      "note": "Budget-stage, adoption, fund-appropriation and General Fund history datasets."
+    },
+    {
+      "web": "payroll",
+      "ios": null,
+      "android": "payroll",
+      "pattern": "*.json",
+      "note": "Payroll summary, records and title history; replaces manually maintained Android copies."
+    },
+    {
+      "web": "salary",
+      "ios": null,
+      "android": "salary",
+      "pattern": "*.json",
+      "note": "Authorized salary schedules and year-over-year comparisons."
+    },
+    {
+      "web": "search",
+      "ios": null,
+      "android": "search",
+      "pattern": "*.json",
+      "note": "Canonical typed search shards and their manifest; Android will consume these instead of its stale unified index."
+    },
+    {
+      "web": "subaccounts",
+      "ios": null,
+      "android": "subaccounts",
+      "pattern": "*.json",
+      "note": "Operating-fund account indexes and detail datasets."
     }
   ],
   "files": [
@@ -26,35 +82,35 @@
       "web": "budget-supplement/lines.json",
       "ios": "supplement-lines.json",
       "sha256": "a9858c417af411da177924a7c54557dfc4cdc34491b43e8c3639a70d215dfe81",
-      "android": "budget-supplement/lines.json"
+      "android": null
     },
     {
       "id": "budget-supplement/outliers",
       "web": "budget-supplement/outliers.json",
       "ios": "supplement-outliers.json",
       "sha256": "3ced32f947aa5d1f551fe2d30b60ff76e6238b68086bc217f3df3fcb7190dbdc",
-      "android": "budget-supplement/outliers.json"
+      "android": null
     },
     {
       "id": "budget-supplement/reductions",
       "web": "budget-supplement/reductions.json",
       "ios": "reductions.json",
       "sha256": "c1592d4be428eb91e93e61e783719025fea970b21db01b54b8fca50aec92c8f2",
-      "android": "budget-supplement/reductions.json"
+      "android": null
     },
     {
       "id": "payroll/records",
       "web": "payroll/records.json",
       "ios": "payroll-records.json",
       "sha256": "7c862e7c2633566345effc08c9bfbb3de0892a46afd08f54db739746c3cf3bfa",
-      "android": "payroll/records.json"
+      "android": null
     },
     {
       "id": "payroll/titles-by-year",
       "web": "payroll/titles-by-year.json",
       "ios": "titles-by-year.json",
       "sha256": "e04f19f8aa996a57e8e6d2dd1811852c5cc03468131c40bd41bb1fd0cdb2cc1a",
-      "android": "payroll/titles-by-year.json"
+      "android": null
     }
   ]
 }
