@@ -27,6 +27,7 @@ export default function ReserveDrawdownSlider({
       </div>
       <input
         type="range"
+        aria-label="Reserve drawdown amount"
         min={0}
         max={unassignedFundBalance}
         step={50000}
