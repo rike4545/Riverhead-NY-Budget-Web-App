@@ -118,6 +118,121 @@ const safePath = (value) => text(value) && !value.split('/').includes('..') && !
   }
 }
 
+
+// Sitewide metadata: freshness and dataset counts are part of the published contract.
+{
+  const path = 'public/data/meta.json'
+  const data = read(path)
+  if (object(data)) {
+    if (!text(data.generatedAt) || !Number.isFinite(Date.parse(data.generatedAt))) fail(path, 'generatedAt must be a parseable timestamp')
+    if (typeof data.dataVersion !== 'string' || !/^[a-f0-9]{16}$/.test(data.dataVersion)) fail(path, 'dataVersion must be a 16-character hexadecimal release fingerprint')
+    if (!object(data.datasets) || !Number.isInteger(data.datasets.searchEntries) || data.datasets.searchEntries < 1) fail(path, 'datasets must include a positive searchEntries count')
+    if (!object(data.datasetDetails) || Object.keys(data.datasetDetails).length < 5) fail(path, 'datasetDetails must retain the published source/freshness inventory')
+    else for (const [key, detail] of Object.entries(data.datasetDetails)) {
+      if (!object(detail) || !text(detail.label) || !text(detail.status) || !text(detail.cadence) || !text(detail.freshnessNote)) fail(path, `datasetDetails.${key} is missing its label, status, cadence or freshness explanation`)
+      if (!object(detail.freshnessPolicy) || !text(detail.freshnessPolicy.mode)) fail(path, `datasetDetails.${key} is missing its freshness policy`)
+      if (detail.sourceDate !== undefined && !date(detail.sourceDate)) fail(path, `datasetDetails.${key}.sourceDate must be YYYY-MM-DD`)
+    }
+  }
+}
+
+// 2027 account-line model: catch a partial parse, duplicate account, or broken arithmetic.
+{
+  const path = 'public/data/budget-2027-lines.json'
+  const data = read(path)
+  if (object(data)) {
+    if (!Array.isArray(data.lines) || data.lines.length < 500) fail(path, `lines contains ${data.lines?.length ?? 0} rows; expected at least 500`)
+    else {
+      const accounts = new Set()
+      for (let i = 0; i < data.lines.length; i++) {
+        const row = data.lines[i]
+        const at = `lines[${i}]`
+        if (!object(row)) { fail(path, `${at} must be an object`); continue }
+        for (const key of ['fundCode', 'fund', 'dept', 'account', 'name', 'category']) if (!text(row[key])) fail(path, `${at}.${key} must be non-empty text`)
+        if (text(row.account)) {
+          if (accounts.has(row.account)) fail(path, `duplicate account line ${row.account}`)
+          accounts.add(row.account)
+        }
+        for (const key of ['v2025', 'v2026', 'v2027', 'delta', 'rate', 'pct']) if (!finite(row[key])) fail(path, `${at}.${key} must be a finite number`)
+        if (['v2025', 'v2026', 'v2027', 'delta', 'rate', 'pct'].every((key) => finite(row[key]))) {
+          if (Math.abs((row.v2027 - row.v2026) - row.delta) > 0.02) fail(path, `${at}.delta does not equal v2027 minus v2026`)
+          if (Math.abs(row.pct - row.rate * 100) > 0.11) fail(path, `${at}.pct does not agree with its rate (allowing one-decimal rounding)`)
+        }
+      }
+    }
+  }
+}
+
+// Annual Financial Report: validate the year axis, source trail and fund-level shapes.
+{
+  const path = 'public/data/afr/2025.json'
+  const data = read(path)
+  if (object(data)) {
+    if (!object(data.source) || !text(data.source.title) || !https(data.source.url)) fail(path, 'source must include a title and HTTPS URL')
+    if (data.fiscalYear !== 2025 || !Array.isArray(data.years) || data.years.length !== 3 || data.years[0] !== 2025 || data.years[1] !== 2024 || data.years[2] !== 2023) fail(path, 'fiscalYear/years must describe the published 2025, 2024 and 2023 comparison')
+    if (!Array.isArray(data.funds) || data.funds.length < 10) fail(path, `funds contains ${data.funds?.length ?? 0} records; expected at least 10`)
+    else {
+      const codes = new Set()
+      for (let i = 0; i < data.funds.length; i++) {
+        const fund = data.funds[i]
+        const at = `funds[${i}]`
+        if (!object(fund) || !text(fund.code) || !text(fund.name)) { fail(path, `${at} needs a fund code and name`); continue }
+        if (codes.has(fund.code)) fail(path, `duplicate fund code ${fund.code}`)
+        codes.add(fund.code)
+        for (const key of ['revenues', 'expenditures', 'surplus', 'fundBalance']) {
+          if (!object(fund[key])) { fail(path, `${at}.${key} must be an object`); continue }
+          for (const year of data.years ?? []) if (!finite(fund[key][String(year)])) fail(path, `${at}.${key}[${year}] must be a finite amount`)
+        }
+        if (Array.isArray(fund.fundBalanceClasses)) for (const row of fund.fundBalanceClasses) {
+          if (!object(row) || !text(row.class) || !object(row.values)) fail(path, `${at} contains a malformed fund-balance class`)
+          else for (const year of data.years ?? []) if (!finite(row.values[String(year)])) fail(path, `${at} fund-balance class ${row.class} is missing ${year}`)
+        }
+      }
+    }
+  }
+}
+
+// Tax-bill estimator inputs: prevent a blank or malformed rate table reaching the UI.
+{
+  const path = 'public/data/tax-bill.json'
+  const data = read(path)
+  if (object(data)) {
+    if (!text(data.title) || !Number.isInteger(data.asOf)) fail(path, 'title and integer asOf year are required')
+    if (!object(data.rateSource) || !text(data.rateSource.title) || !https(data.rateSource.url)) fail(path, 'rateSource must identify an HTTPS official source')
+    for (const year of [2025, 2026]) {
+      const rates = data[`rates${year}`]
+      if (!object(rates)) { fail(path, `rates${year} must be an object`); continue }
+      for (const key of ['generalFund', 'highway', 'streetLighting', 'totalTownWide']) if (!finite(rates[key]) || rates[key] < 0) fail(path, `rates${year}.${key} must be a non-negative finite rate`)
+      if (['generalFund', 'highway', 'streetLighting', 'totalTownWide'].every((key) => finite(rates[key])) &&
+          Math.abs(rates.generalFund + rates.highway + rates.streetLighting - rates.totalTownWide) > 0.002) {
+        fail(path, `rates${year}.totalTownWide does not equal the three published component rates`)
+      }
+    }
+    if (!object(data.equalization) || !finite(data.equalization.residentialAssessmentRatio) || data.equalization.residentialAssessmentRatio <= 0 || data.equalization.residentialAssessmentRatio > 100) fail(path, 'equalization must contain a plausible residential assessment ratio')
+  }
+}
+
+// Search shards: declared counts must add up to the index total.
+{
+  const path = 'public/data/search/manifest.json'
+  const data = read(path)
+  if (object(data)) {
+    if (!Number.isInteger(data.version) || data.version < 1) fail(path, 'version must be a positive integer')
+    if (!object(data.shards) || Object.keys(data.shards).length < 3) fail(path, 'shards must contain the published search collections')
+    else {
+      let count = 0
+      for (const [key, shard] of Object.entries(data.shards)) {
+        if (!object(shard) || !safePath(shard.url) || !Number.isInteger(shard.count) || shard.count < 0 || !Number.isInteger(shard.bytes) || shard.bytes < 0 || typeof shard.sha256 !== 'string' || !/^[a-f0-9]{16}$/.test(shard.sha256)) {
+          fail(path, `shards.${key} has an invalid URL, count, byte size or fingerprint`)
+        } else count += shard.count
+      }
+      if (!Number.isInteger(data.total) || count !== data.total) fail(path, `total says ${data.total}; shard counts add up to ${count}`)
+      const meta = read('public/data/meta.json')
+      if (object(meta) && meta.datasets?.searchEntries !== data.total) fail(path, `meta searchEntries (${meta.datasets?.searchEntries}) does not match shard total (${data.total})`)
+    }
+  }
+}
+
 if (failures.length) {
   for (const failure of failures) console.error(`DATA CONTRACT FAILED: ${failure}`)
   process.exitCode = 1
@@ -125,5 +240,5 @@ if (failures.length) {
   const payroll = read('public/data/payroll/records.json')
   const meetings = read('public/data/meetings/upcoming.json')
   const manifest = read('../shared-data/manifest.json')
-  console.log(`Data contracts passed: ${payroll.count.toLocaleString()} payroll records; ${meetings.recent.length} completed and ${meetings.meetings.length} upcoming meetings; ${manifest.files.length} native-shared datasets and ${manifest.directories.length} mirrored directories.`)
+  console.log(`Data contracts passed: ${payroll.count.toLocaleString()} payroll records; ${meetings.recent.length} completed and ${meetings.meetings.length} upcoming meetings; ${manifest.files.length} native-shared datasets; budget lines, AFR, tax rates, search shards and freshness metadata validated.`)
 }
