@@ -92,6 +92,9 @@ jobs:
       - name: Stamp dataset freshness metadata
         run: python etl/write_meta.py
 
+      - name: Build curated downloadable research packets
+        run: python etl/build_research_packets.py
+
       - name: Commit parsed source data only
         run: |
           set -e
