@@ -169,7 +169,7 @@ if (existsSync(path('out/data/meta.json'))) {
 }
 
 const home = readFileSync(path('out/index.html'), 'utf8')
-for (const text of ['Payroll Explorer', 'Start Here', 'Current data snapshot']) if (!home.includes(text)) fail(`Missing expected home-page content: ${text}`)
+for (const text of ['Payroll Explorer', 'What would you like to understand?', 'Latest available data snapshot']) if (!home.includes(text)) fail(`Missing expected home-page content: ${text}`)
 
 // Meeting UX contract: completed and upcoming states must remain distinct.
 const meetingsPage = readFileSync(path('out/meetings/index.html'), 'utf8')
