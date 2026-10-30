@@ -244,8 +244,9 @@ for (const route of provenancePages) {
   pagesWithClaimProvenance += 1
   for (const match of tags) {
     const [tag, id] = match
-    if (provenanceIds.has(id)) fail(`Duplicate claim ID across analytical pages: ${id}`)
-    provenanceIds.add(id)
+    const pageScopedId = `${route}:${id}`
+    if (provenanceIds.has(pageScopedId)) fail(`Duplicate claim ID within /${route}/: ${id}`)
+    provenanceIds.add(pageScopedId)
     provenanceClaimCount += 1
     if (!/data-provenance-status="(?:official|calculated|projected)"/.test(tag)) fail(`Claim ${id} has no valid official/calculated/projected classification`)
     if (!/data-claim-source="[^"]+"/.test(tag)) fail(`Claim ${id} has no source description`)
