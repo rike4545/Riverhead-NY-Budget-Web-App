@@ -1,5 +1,6 @@
 import PageShell from '../../components/PageShell'
 import PlainCallout from '../../components/PlainCallout'
+import HousingTransferTaxCalculator from '../../components/HousingTransferTaxCalculator'
 import BarRows from '../../components/charts/BarRows'
 import ColumnChart from '../../components/charts/ColumnChart'
 import type { Confidence } from '../../lib/community-housing'
@@ -30,9 +31,9 @@ const usd = (n: number) => new Intl.NumberFormat('en-US', { style: 'currency', c
 const millions = (n: number) => `$${(n / 1e6).toFixed(2)}M`
 
 export const metadata = {
-  title: 'Community Housing Plan — the one Peconic Bay requirement Riverhead has not met',
+  title: 'Riverhead’s Community Housing Plan — the law, the choices and the revenue',
   description:
-    "State law lets the five Peconic Bay towns levy a 0.5% transfer tax for housing, but only after the town adopts a community housing plan by local law. Four towns did it in 2022–2023 — Shelter Island's plan came in 2023. Riverhead has neither the plan nor the fund. What that has cost, measured against Riverhead's own audited transfer-tax revenue.",
+    "New York Town Law § 64-k allows the five Peconic Bay towns to establish a 0.5% community-housing transfer tax, subject to a local law and mandatory referendum. Four towns adopted the measure; Riverhead did not put it to voters. Here is the legal process, the regional record and an illustrative estimate based on Riverhead’s audited transfer-tax revenue.",
 }
 
 const confidenceBadge = (c: Confidence) => {
@@ -57,8 +58,8 @@ export default function HousingPlanPage() {
 
   return (
     <PageShell
-      title="The Community Housing Plan Riverhead never wrote"
-      subtitle="State law gives the five Peconic Bay towns the same tool: a half-percent transfer tax dedicated to housing, unlocked only after the town adopts a community housing plan by local law. Shelter Island adopted its plan in 2023. So did the other three. Riverhead has neither the plan nor the fund — and this page puts a number on that, using the Town's own audited transfer-tax record."
+      title="Riverhead’s community housing plan: the law, the choices and the revenue"
+      subtitle="New York Town Law § 64-k gives the five Peconic Bay towns a path to a dedicated community-housing fund. It requires a local law, voter approval, an advisory board and a community housing plan before the money can be spent. Four towns adopted the measure; Riverhead did not put it to voters. This page explains the process and estimates the potential revenue using the Town’s audited transfer-tax record."
     >
       <PlainCallout
         tips={[
@@ -70,16 +71,18 @@ export default function HousingPlanPage() {
         Since collections began {statute.collectionsBegan}, the four participating towns have raised about{' '}
         <strong>{millions(fourTownTotal.amount)}</strong> for housing. Riverhead has raised{' '}
         <strong>$0</strong> — and on the Town&apos;s own audited transfer-tax revenue, the same tax here would have
-        brought in roughly <strong>{millions(forgoneLow)}–{millions(forgoneHigh)}</strong> through {forgoneThroughYear}.
+        produced an illustrative gross amount of <strong>{millions(forgoneLow)}–{millions(forgoneHigh)}</strong> through {forgoneThroughYear}, before the higher exemptions and any change in sales behavior. This is not money owed to the Town or a guaranteed revenue forecast.
       </PlainCallout>
 
       <section style={{ ...card, display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(180px,1fr))', gap: 12, marginBottom: 16 }}>
         <Stat label="Peconic Bay towns with a plan + fund" value={`${adopting.length} of ${peerTowns.length}`} sub="Riverhead is the exception" />
         <Stat label="Raised by those towns" value={millions(fourTownTotal.amount)} sub={`since ${statute.collectionsBegan}`} />
         <Stat label="Raised by Riverhead" value="$0" sub="no fund exists to raise it" accent />
-        <Stat label="Estimated forgone here" value={`${millions(forgoneLow)}–${millions(forgoneHigh)}`} sub={`through ${forgoneThroughYear}, from Riverhead's own CPF revenue`} accent />
+        <Stat label="Illustrative gross receipts" value={`${millions(forgoneLow)}–${millions(forgoneHigh)}`} sub={`through ${forgoneThroughYear}; before exemptions and behavior changes`} accent />
         <Stat label="Buyer's transfer tax" value="2.0%" sub="2.5% in the other four towns" />
       </section>
+
+      <HousingTransferTaxCalculator />
 
       {/* ------------------------------------------------------------------ */}
       <section style={{ ...card, marginBottom: 16 }}>
@@ -230,14 +233,14 @@ export default function HousingPlanPage() {
 
       {/* ------------------------------------------------------------------ */}
       <section style={{ ...card, marginBottom: 16 }}>
-        <h3 style={{ marginTop: 0, color: 'var(--rbl-title)' }}>What the same tax would have raised in Riverhead</h3>
+        <h3 style={{ marginTop: 0, color: 'var(--rbl-title)' }}>What a 0.5% housing tax might have generated</h3>
         <p style={{ color: 'var(--rbl-text-body)', fontSize: 14.5, marginTop: 0, lineHeight: 1.6 }}>
           This is the one part of the page built from Riverhead&apos;s own audited numbers rather than news coverage.
           The Town&apos;s CPF financial statements report exactly what a 2% transfer tax collected each year. A 0.5%
           tax is one quarter of that rate on the same conveyances, so the sizing is division, not modeling.
         </p>
         <ColumnChart
-          title="What a 0.5% housing tax would have raised in Riverhead"
+          title="Illustrative gross receipts from a 0.5% housing tax"
           lede="One quarter of the CPF's 2% rate applied to the same audited conveyances, year by year. 2023 is shorter because the tax only became collectible on April 1."
           columns={forgoneByYear.map((y) => ({
             label: y.partialYear ? `${y.year} (9 mo.)` : String(y.year),
@@ -255,7 +258,7 @@ export default function HousingPlanPage() {
               <tr style={{ background: 'var(--rbl-surface-3)', textAlign: 'left' }}>
                 <th style={th}>Year</th>
                 <th style={{ ...th, textAlign: 'right' }}>Riverhead CPF revenue (2%)</th>
-                <th style={{ ...th, textAlign: 'right' }}>Housing fund at 0.5%</th>
+                <th style={{ ...th, textAlign: 'right' }}>Illustrative gross at 0.5%</th>
               </tr>
             </thead>
             <tbody>
