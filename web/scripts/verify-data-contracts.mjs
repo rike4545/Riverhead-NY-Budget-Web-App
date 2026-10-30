@@ -104,7 +104,10 @@ const safePath = (value) => text(value) && !value.split('/').includes('..') && !
         if (!object(entry)) { fail(path, 'every files entry must be an object'); continue }
         if (!text(entry.id) || ids.has(entry.id)) fail(path, `missing or duplicate dataset id: ${entry.id}`)
         ids.add(entry.id)
-        for (const key of ['web', 'ios', 'android']) if (!safePath(entry[key])) fail(path, `${entry.id ?? '(unknown)'} has an unsafe or missing ${key} path`)
+        if (!safePath(entry.web)) fail(path, `${entry.id ?? '(unknown)'} has an unsafe or missing canonical web path`)
+        const mapped = ['ios', 'android'].filter((key) => entry[key] !== null && entry[key] !== undefined && safePath(entry[key]))
+        for (const key of ['ios', 'android']) if (entry[key] !== null && entry[key] !== undefined && !safePath(entry[key])) fail(path, `${entry.id ?? '(unknown)'} has an unsafe ${key} path`)
+        if (mapped.length === 0) fail(path, `${entry.id ?? '(unknown)'} is not mapped to either native consumer`)
         if (text(entry.web) && paths.has(entry.web)) fail(path, `duplicate canonical dataset path: ${entry.web}`)
         if (text(entry.web)) paths.add(entry.web)
         if (typeof entry.sha256 !== 'string' || !/^[a-f0-9]{64}$/.test(entry.sha256)) fail(path, `${entry.id ?? '(unknown)'} needs a 64-character SHA-256 digest`)
@@ -112,8 +115,12 @@ const safePath = (value) => text(value) && !value.split('/').includes('..') && !
     }
     if (!Array.isArray(data.directories)) fail(path, 'directories must be an array, even when empty')
     else for (const entry of data.directories) {
-      if (!object(entry) || !['web', 'ios', 'android', 'pattern'].every((key) => text(entry[key]))) fail(path, 'each mirrored directory needs web/ios/android paths and a filename pattern')
-      else for (const key of ['web', 'ios', 'android']) if (!safePath(entry[key])) fail(path, `directory mapping has an unsafe ${key} path`)
+      if (!object(entry) || !text(entry.web) || !text(entry.pattern)) fail(path, 'each mirrored directory needs a canonical web path and filename pattern')
+      else {
+        const mapped = ['ios', 'android'].filter((key) => entry[key] !== null && entry[key] !== undefined && safePath(entry[key]))
+        for (const key of ['ios', 'android']) if (entry[key] !== null && entry[key] !== undefined && !safePath(entry[key])) fail(path, `directory mapping has an unsafe ${key} path`)
+        if (mapped.length === 0) fail(path, `directory ${entry.web} is not mapped to either native consumer`)
+      }
     }
   }
 }
