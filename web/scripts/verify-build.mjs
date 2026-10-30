@@ -248,8 +248,8 @@ for (const route of provenancePages) {
     provenanceIds.add(id)
     provenanceClaimCount += 1
     if (!/data-provenance-status="(?:official|calculated|projected)"/.test(tag)) fail(`Claim ${id} has no valid official/calculated/projected classification`)
-    if (!/data-claim-source="[^"]+>/.test(tag)) fail(`Claim ${id} has no source description`)
-    if (!/data-claim-as-of="[^"]+>/.test(tag)) fail(`Claim ${id} has no as-of date`)
+    if (!/data-claim-source="[^"]+"/.test(tag)) fail(`Claim ${id} has no source description`)
+    if (!/data-claim-as-of="[^"]+"/.test(tag)) fail(`Claim ${id} has no as-of date`)
   }
 }
 if (pagesWithClaimProvenance !== provenancePages.length) fail(`Claim-level provenance coverage is ${pagesWithClaimProvenance}/${provenancePages.length} analytical pages`)
