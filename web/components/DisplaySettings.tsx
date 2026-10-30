@@ -23,7 +23,7 @@ export default function DisplaySettings() {
 
   return (
     <details style={{ position: 'relative' }}>
-      <summary aria-label="Display settings" title="Display settings" className="rbl-on-dark" style={{ listStyle: 'none', cursor: 'pointer', color: 'white', border: '1px solid rgba(255,255,255,.20)', borderRadius: 8, padding: '9px 11px', fontWeight: 600, fontSize: 15, lineHeight: 1, background: 'rgba(255,255,255,.08)', userSelect: 'none' }}>Aa</summary>
+      <summary aria-label="Display settings" title="Display settings" className="rbl-on-dark display-settings-trigger" style={{ listStyle: 'none', cursor: 'pointer', color: 'white', border: '1px solid rgba(255,255,255,.20)', borderRadius: 8, padding: '9px 11px', fontWeight: 600, fontSize: 15, lineHeight: 1, background: 'rgba(255,255,255,.08)', userSelect: 'none' }}>Aa</summary>
       <div style={{ position: 'absolute', right: 0, top: 'calc(100% + 9px)', width: 180, background: 'var(--rbl-surface)', color: 'var(--rbl-text)', border: '1px solid var(--rbl-border)', borderRadius: 12, boxShadow: '0 18px 44px rgba(15,35,55,.18)', padding: 10, zIndex: 60 }}>
         <div style={{ color: 'var(--rbl-text-muted)', fontSize: 13.5, fontWeight: 600, padding: '2px 4px 7px' }}>Text size</div>
         <div role="group" aria-label="Text size" style={{ display: 'grid', gap: 4 }}>
