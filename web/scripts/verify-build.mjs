@@ -239,7 +239,7 @@ for (const route of provenancePages) {
   const file = path(`out/${route}/index.html`)
   if (!existsSync(file)) { fail(`Claim-level provenance page is missing: /${route}/`); continue }
   const html = readFileSync(file, 'utf8')
-  const tags = Array.from(html.matchAll(/<div\\b[^>]*data-claim-id="([^"]+)"[^>]*>/g))
+  const tags = Array.from(html.matchAll(/<div\b[^>]*data-claim-id="([^"]+)"[^>]*>/g))
   if (tags.length === 0) { fail(`Claim-level provenance is missing from /${route}/`); continue }
   pagesWithClaimProvenance += 1
   for (const match of tags) {
