@@ -115,6 +115,7 @@ export default function DataQualityPage() {
           <Check title="Claim-level evidence" text="Nine analytical pages must expose stable claim IDs with a source, as-of date and official, calculated or projected classification in the rendered page." />
           <Check title="Browser accessibility" text="Playwright checks core resident routes at desktop and 320px widths; axe checks WCAG 2.0, 2.1 and 2.2 A/AA. Critical violations and horizontal overflow fail the quality gate; other findings are reported for review." />
           <Check title="Visual QA snapshots" text="Desktop and narrow-phone screenshots of the home page and key analytical pages are saved as CI artifacts for review when the interface changes." />
+          <Check title="Research packet integrity" text="Three curated ZIP packets are built from canonical data; each archive is tested and every included file is checked against its SHA-256 manifest before publication." />
           <Check title="ETL imports" text="Python dependencies and ETL modules are smoke-tested before the web build starts." />
           <Check title="Static build" text="TypeScript and the Next.js static export must compile successfully before merge." />
         </div>
