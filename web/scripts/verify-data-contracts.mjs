@@ -153,10 +153,13 @@ const safePath = (value) => text(value) && !value.split('/').includes('..') && !
           if (accounts.has(row.account)) fail(path, `duplicate account line ${row.account}`)
           accounts.add(row.account)
         }
-        for (const key of ['v2025', 'v2026', 'v2027', 'delta', 'rate', 'pct']) if (!finite(row[key])) fail(path, `${at}.${key} must be a finite number`)
-        if (['v2025', 'v2026', 'v2027', 'delta', 'rate', 'pct'].every((key) => finite(row[key]))) {
+        for (const key of ['v2026', 'v2027', 'delta', 'rate']) if (!finite(row[key])) fail(path, `${at}.${key} must be a finite number`)
+        if (row.v2025 !== null && row.v2025 !== undefined && !finite(row.v2025)) fail(path, `${at}.v2025 must be a finite amount or null when no historical line exists`)
+        if (row.pct !== null && row.pct !== undefined && !finite(row.pct)) fail(path, `${at}.pct must be a finite percentage or null when the prior amount is zero`)
+        if (['v2026', 'v2027', 'delta'].every((key) => finite(row[key]))) {
           if (Math.abs((row.v2027 - row.v2026) - row.delta) > 0.02) fail(path, `${at}.delta does not equal v2027 minus v2026`)
-          if (Math.abs(row.pct - row.rate * 100) > 0.11) fail(path, `${at}.pct does not agree with its rate (allowing one-decimal rounding)`)
+          if (finite(row.pct) && row.v2026 !== 0 && Math.abs(row.pct - (row.delta / row.v2026) * 100) > 0.11) fail(path, `${at}.pct does not agree with the rounded change from v2026 to v2027`)
+          if (row.v2026 === 0 && row.pct !== null) fail(path, `${at}.pct must be null when the prior-year amount is zero`)
         }
       }
     }
@@ -180,6 +183,7 @@ const safePath = (value) => text(value) && !value.split('/').includes('..') && !
         if (codes.has(fund.code)) fail(path, `duplicate fund code ${fund.code}`)
         codes.add(fund.code)
         for (const key of ['revenues', 'expenditures', 'surplus', 'fundBalance']) {
+          if (key === 'fundBalance' && fund[key] === null) continue
           if (!object(fund[key])) { fail(path, `${at}.${key} must be an object`); continue }
           for (const year of data.years ?? []) if (!finite(fund[key][String(year)])) fail(path, `${at}.${key}[${year}] must be a finite amount`)
         }
@@ -197,7 +201,7 @@ const safePath = (value) => text(value) && !value.split('/').includes('..') && !
   const path = 'public/data/tax-bill.json'
   const data = read(path)
   if (object(data)) {
-    if (!text(data.title) || !Number.isInteger(data.asOf)) fail(path, 'title and integer asOf year are required')
+    if (!text(data.title) || !(Number.isInteger(data.asOf) || (typeof data.asOf === 'string' && /^\\d{4}$/.test(data.asOf)))) fail(path, 'title and four-digit asOf year are required')
     if (!object(data.rateSource) || !text(data.rateSource.title) || !https(data.rateSource.url)) fail(path, 'rateSource must identify an HTTPS official source')
     for (const year of [2025, 2026]) {
       const rates = data[`rates${year}`]
