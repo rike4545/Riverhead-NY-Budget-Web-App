@@ -42,14 +42,14 @@ export default function BudgetAccuracyPage() {
   return (
     <PageShell
       title="Budget accuracy"
-      subtitle={`A budget is a promise about what things will cost. These are the lines where that promise and the actual spending drift far enough apart to be worth asking about — ${curatedFlags.length} researched by hand, plus ${detectedCount} found automatically in the ${historyBudgetYear} Budget Supplement and more across ${supplementCount} years of Supplements.`}
+      subtitle={`A budget is a spending plan. This page highlights budget lines where the amount approved and the amount actually spent differ enough to deserve a closer look. It includes ${curatedFlags.length} lines reviewed individually, ${detectedCount} additional lines flagged automatically in the ${historyBudgetYear} Budget Supplement, and comparisons across ${supplementCount} years of budget supplements.`}
     >
       <ProposalLineStageNotice showAmendmentOverlay />
       <PlainCallout
         tips={[
-          { label: 'Why it matters', text: 'a line budgeted at a fraction of what it really costs makes the whole budget look smaller than it is, and the gap has to be absorbed somewhere later in the year.' },
-          { label: 'Not the same as overspending', text: 'a line can be over budget because a bill genuinely rose, or because the budgeted figure was never realistic. The point is to ask which.' },
-          { label: 'What is excluded', text: 'mandated costs — pension, workers’ compensation, insurance, debt service, payroll taxes — and revenue lines. Their variance is obligation or timing, not discretion.' },
+          { label: 'Why it matters', text: 'if the Town repeatedly budgets too little for a cost, the original budget can understate what the service is likely to cost. The Town may have to move money from other accounts later.' },
+          { label: 'Not the same as overspending', text: 'spending above a line’s budget does not automatically mean waste or misconduct. Costs may have risen, or the original estimate may have been too low. The records help identify which lines need an explanation.' },
+          { label: 'What is excluded', text: 'required costs such as pensions, workers’ compensation, insurance, debt payments, and payroll taxes, along with revenue lines. These items are driven by legal obligations or timing and are not treated as ordinary discretionary spending.' },
         ]}
       >
         Of the {curatedFlags.length} researched lines below, <strong>{critical}</strong> ran over budget in both {flagYears.first} and{' '}
@@ -66,8 +66,7 @@ export default function BudgetAccuracyPage() {
         <section style={{ ...card, marginBottom: 14, borderColor: 'var(--rbl-danger-border)' }}>
           <h3 style={{ marginTop: 0, color: 'var(--rbl-title)' }}>Over budget three years running, and budgeted low again</h3>
           <p style={{ color: 'var(--rbl-text-body)', fontSize: 14.5, lineHeight: 1.6, marginTop: 0 }}>
-            These lines cost more than their budget in each of {LAST3.join(', ')}. A line can only spend past its budget if money
-            is moved to it from other lines during the year, so the adopted budget never shows what these cost. The{' '}
+            These accounts had more spending than originally budgeted in each of {LAST3.join(', ')}. When that happens, the Town may need to approve transfers from other accounts during the year. The original adopted budget therefore does not show the full amount ultimately spent. The{' '}
             {historyBudgetYear} Tentative budgets them <strong>{usd(chronicGap)}</strong> below their three-year average.
           </p>
           <div style={{ overflowX: 'auto' }}>

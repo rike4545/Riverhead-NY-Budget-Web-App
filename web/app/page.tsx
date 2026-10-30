@@ -11,38 +11,38 @@ const popular = [
   ['Why did my property taxes change?', '/tax-bill/'],
   ['What changed in the budget?', '/what-changed/'],
   ['Who gets paid the most?', '/payroll/'],
-  ['Where does the levy go?', '/taxpayer-impact/'],
+  ['How are Town property taxes used?', '/taxpayer-impact/'],
   ['What could happen in 2027?', '/predict-2027/'],
 ]
 
 const pathways = [
   { title: 'Understand your taxes', text: 'Estimate the Town portion of your bill and see what changed.', href: '/tax-bill/', icon: Wallet, },
-  { title: 'Follow the money', text: 'Trace the Town levy through the funds and services it supports.', href: '/taxpayer-impact/', icon: Landmark, },
-  { title: 'Payroll Explorer', text: 'Explore payroll records: Search actual pay, overtime, separation payments, titles and departments.', href: '/payroll/', icon: Scale, },
-  { title: 'Check fiscal health', text: 'Explore reserves, financial trends, debt and the Town’s fiscal position.', href: '/analytics/', icon: BookOpen, },
+  { title: 'Follow the money', text: 'See how the Town property-tax amount is divided among funds and services.', href: '/taxpayer-impact/', icon: Landmark, },
+  { title: 'Payroll Explorer', text: 'Look up reported employee pay, overtime, job titles, departments, and separation payments.', href: '/payroll/', icon: Scale, },
+  { title: 'Check fiscal health', text: 'See the Town’s savings, debt, spending trends, and other measures of financial health.', href: '/analytics/', icon: BookOpen, },
 ]
 
 const research = [
-  { title: 'Budget & funds', text: 'Open adopted budgets down to account-level detail.', href: '/funds/' },
+  { title: 'Budget & funds', text: 'See what each fund plans to spend, down to individual budget lines.', href: '/funds/' },
   { title: 'Town Board votes', text: 'Follow resolutions and voting records back to meetings.', href: '/meetings/' },
-  { title: '2027 budget outlook', text: 'Separate the model, tax-cap rules and policy choices.', href: '/predict-2027/' },
-  { title: 'Evidence library', text: 'Review Town records, OSC guidance and source trails.', href: '/sources/' },
+  { title: '2027 budget outlook', text: 'Compare the projection with the tax cap and the choices the Town can make.', href: '/predict-2027/' },
+  { title: 'Evidence library', text: 'Open the original Town records and State Comptroller guidance behind the analysis.', href: '/sources/' },
 ]
 
 const principles = [
   { number: '01', title: 'Find the record', text: 'Search budgets, payroll, meetings and financial reports.' },
-  { number: '02', title: 'Understand the number', text: 'Plain-English explanations distinguish facts from calculations and projections.' },
+  { number: '02', title: 'Understand the number', text: 'Each number is identified as a reported fact, a calculation, or a projection.' },
   { number: '03', title: 'Verify the source', text: 'Follow important claims back to documents, dates and evidence.' },
 ]
 
 export default function Page() {
   return (
-    <PageShell home title="Riverhead Budget Live" subtitle="An independent, resident-first guide to Riverhead Town finances.">
+    <PageShell home title="Riverhead Budget Live" subtitle="An independent guide to how Riverhead Town raises, spends, and manages public money.">
       <div className="home-page">
         <section className="home-hero" aria-labelledby="home-title">
           <div className="home-hero-copy">
             <h1 id="home-title">Your town’s budget.<br /><span>Made understandable.</span></h1>
-            <p className="home-intro">Follow Riverhead’s money from the budget line to the public record. Clear explanations, useful tools and evidence you can check for yourself.</p>
+            <p className="home-intro">See where Town revenue comes from, what the budget pays for, how employee pay is reported, and what the Town Board approves. Every important figure links back to its source.</p>
             <div className="home-actions">
               <a href={`${base}/search/`} className="home-primary-action"><FileSearch size={18} aria-hidden="true" /> Search the records <ArrowRight size={17} aria-hidden="true" /></a>
               <a href={`${base}/tax-bill/`} className="home-secondary-action">Start with your taxes <ArrowRight size={16} aria-hidden="true" /></a>

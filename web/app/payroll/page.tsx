@@ -33,14 +33,14 @@ export default function PayrollPage() {
   return (
     <PageShell
       title="Riverhead Payroll Explorer"
-      subtitle={`A searchable, SeeThroughNY-style record of actual Town of Riverhead employee earnings ${payrollYears[0]}–${payrollYears[payrollYears.length - 1]} — base pay, overtime, and total gross pay by employee, title, department, and union.`}
+      subtitle={`Search the Town’s published payroll records for ${payrollYears[0]}–${payrollYears[payrollYears.length - 1]}. See each employee’s reported base pay, overtime, and total gross pay, with filters for job title, department, and union.`}
     >
       <ProposalLineStageNotice />
       <PlainCallout
         tips={[
           { label: 'Start with Employees & Pay', text: 'Search a name, title, or department to see what employees were actually paid. Click an employee name to follow that person across years.' },
-          { label: 'Actual vs. authorized', text: 'Actual pay is what appeared in the payroll record. Authorized salary is the base pay the Board set; overtime, longevity, and buy-outs can make actual gross pay higher.' },
-          { label: 'Analysis layers', text: 'Salaries & Raises, Overtime & Staffing, Separation Pay, and Police Pay Steps answer narrower questions after you understand the underlying payroll record.' },
+          { label: 'Actual vs. authorized', text: 'Actual pay is what the payroll records show was paid. Authorized salary is the employee’s approved base rate. Overtime, longevity payments, and payouts for unused time can make total pay higher.' },
+          { label: 'Analysis layers', text: 'The other sections look more closely at salary changes, overtime, payments when employees leave, and police pay steps.' },
         ]}
       >
         <strong>Start with the public record.</strong> This page lets you search what Riverhead employees were actually paid, then move into salary, overtime, separation-pay, and police-step analysis. The analytical views are built on the underlying payroll data rather than replacing it.

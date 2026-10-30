@@ -41,9 +41,9 @@ export default function TaxBillPage() {
           <div style={{ color: 'var(--rbl-accent)', fontSize: 13.5, fontWeight: 700 }}>What changed</div>
           <DataStatus status="calculated" text="Rate change calculated from published rates" />
         </div>
-        <h2 style={{ margin: '5px 0 6px', fontSize: 22 }}>The Town-wide rate rose from {data.rates2025.totalTownWide.toFixed(3)} to {data.rates2026.totalTownWide.toFixed(3)} per $1,000.</h2>
+        <h2 style={{ margin: '5px 0 6px', fontSize: 22 }}>The Town-wide tax rate increased from {data.rates2025.totalTownWide.toFixed(3)} to {data.rates2026.totalTownWide.toFixed(3)} for every $1,000 of assessed value.</h2>
         <p style={{ margin: 0, color: 'var(--rbl-text-sub)', lineHeight: 1.5 }}>
-          That is an increase of {rateChange.toFixed(3)} per $1,000, or about {rateChangePct.toFixed(1)}%. The calculator below translates that rate change into dollars for your property. Your actual total tax bill also includes county, school, fire, and library charges.
+          That is an increase of {rateChange.toFixed(3)} per $1,000, or about {rateChangePct.toFixed(1)}%. Enter your property’s assessed value below to estimate what the Town portion means in dollars. Your full bill also includes taxes from the county, school district, fire district, and library.
         </p>
       </section>
 
@@ -56,7 +56,7 @@ export default function TaxBillPage() {
       >
         <span style={{ display: 'inline-flex', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}>
           <DataStatus status="official" text="Official published rate table" />
-          <span>These rates come straight from the {data.rateSource.title} ({data.rateSource.note}) — not an estimate.</span>
+          <span>These are the rates published in the {data.rateSource.title} ({data.rateSource.note}); they are not estimates.</span>
         </span>
       </PlainCallout>
 
@@ -69,7 +69,7 @@ export default function TaxBillPage() {
         </div>
         <h2 style={{ margin: '5px 0 6px', fontSize: 22 }}>How the 2026 Town-wide property-tax levy is allocated</h2>
         <p style={{ color: 'var(--rbl-text-muted)', lineHeight: 1.55, maxWidth: 900, margin: 0 }}>
-          This is a view of the <strong>tax levy</strong> by fund — not a claim that the Town spends this percentage on a particular service. Funds can also be supported by fees, grants, other revenues, or fund balance.
+          This shows how much of the Town’s total property-tax levy is assigned to each fund. It does not show each fund’s full spending or mean that this percentage of taxes goes directly to one service. Funds may also receive fees, grants, other revenue, or savings from earlier years.
         </p>
         <a
           href={`${process.env.NEXT_PUBLIC_BASE_PATH || ''}/taxpayer-impact/`}
@@ -83,7 +83,7 @@ export default function TaxBillPage() {
             textDecoration: 'none',
           }}
         >
-          Translate the levy into your own Town-tax dollars →
+          See what each fund means for your Town taxes →
         </a>
         <div style={{ display: 'grid', gap: 12, marginTop: 16 }}>
           {levyFunds.map((fund) => {
