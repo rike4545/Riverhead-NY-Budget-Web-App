@@ -82,6 +82,7 @@ jobs:
         run: |
           python etl/build_search_index.py
           python etl/write_meta.py
+          python etl/build_research_packets.py
 
       - name: Setup Node
         uses: actions/setup-node@v6
