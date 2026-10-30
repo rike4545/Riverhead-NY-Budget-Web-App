@@ -1,4 +1,5 @@
 import PageShell from '../../components/PageShell'
+import ProvenanceLine from '../../components/ProvenanceLine'
 import ProposalLineStageNotice from '../../components/ProposalLineStageNotice'
 import LineChart from '../../components/charts/LineChart'
 import PlainCallout from '../../components/PlainCallout'
@@ -56,6 +57,17 @@ export default function CapitalDebtPage() {
         no new debt during 2025 and retired {usd(debtProfile.principalPaid2025.bonds + debtProfile.principalPaid2025.bans)}{' '}
         of principal. Every issue is listed below.
       </PlainCallout>
+
+      <ProvenanceLine
+        claimId="capital-debt-outstanding"
+        status="official"
+        source={debtProfile.source.title}
+        asOf={debtProfile.asOf}
+        calculation="Statement of Indebtedness and bond repayment schedule; governmental debt is distinguished from water and sewer activity."
+        sourceHref={debtProfile.source.url}
+        evidenceHref="/sources/"
+        evidenceLabel="Review the source library"
+      />
 
       <section style={{ ...card, display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(180px,1fr))', gap: 12, marginBottom: 16 }}>
         <Stat label="Bonds outstanding" value={usd(debtProfile.totalBondedDebt)} sub={`${bonds.length} issues`} />
