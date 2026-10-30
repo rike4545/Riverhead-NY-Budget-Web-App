@@ -201,7 +201,7 @@ export default function Tentative2027Page() {
           the budget the Town ends up with. The full record back to 2005, including the years the Board never voted to adopt,
           is on <a href={`${base}/budget-adoption/`} style={{ color: 'var(--rbl-accent)' }}>How Riverhead adopts its budget</a>.
         </p>
-        <div style={{ overflowX: 'auto' }}>
+        <div tabIndex={0} role="region" aria-label="Scrollable budget history table" style={{ overflowX: 'auto' }}>
           <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 13 }}>
             <thead><tr style={{ borderBottom: '2px solid var(--rbl-border-subtle)' }}>
               <th style={th}>Budget year</th><th style={{ ...th, textAlign: 'right' }}>Funds changed</th>
@@ -228,7 +228,7 @@ export default function Tentative2027Page() {
           prints both side by side, and it is the only public record of that step. The net figure hides most of it: a Tentative
           can cut dozens of lines and raise others by nearly the same amount.
         </p>
-        <div style={{ overflowX: 'auto' }}>
+        <div tabIndex={0} role="region" aria-label="Scrollable budget history table" style={{ overflowX: 'auto' }}>
           <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 13 }}>
             <thead><tr style={{ borderBottom: '2px solid var(--rbl-border-subtle)' }}>
               <th style={th}>Tentative</th><th style={th}>Prepared under</th>
