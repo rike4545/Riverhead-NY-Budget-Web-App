@@ -42,7 +42,7 @@ const GROUPS: Group[] = [
   ] },
 ]
 
-const linkStyle = { color: 'white', textDecoration: 'none', border: '1px solid transparent', borderRadius: 8, padding: '7px 9px', fontWeight: 650, background: 'transparent', fontSize: 14, minHeight: 44, whiteSpace: 'nowrap' as const, display: 'inline-flex', alignItems: 'center', gap: 3 }
+const linkStyle = { color: 'white', textDecoration: 'none', border: '1px solid transparent', borderRadius: 8, padding: '7px 9px', fontWeight: 650, background: 'rgba(0,0,0,.12)', fontSize: 14, minHeight: 44, whiteSpace: 'nowrap' as const, display: 'inline-flex', alignItems: 'center', gap: 3 }
 
 export default function SiteNav() {
   const pathname = usePathname() || ''
