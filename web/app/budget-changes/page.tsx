@@ -28,14 +28,12 @@ export default function BudgetChangesPage() {
       <PlainCallout
         tips={[
           { label: 'What counts', text: 'an adopted resolution the Town itself marks as a budget change: its title says it adjusts, transfers, amends or adopts a budget, its fiscal impact statement fills in the Appropriation Transfer field, or it spends savings.' },
-          { label: 'Where the numbers come from', text: 'each resolution’s fiscal impact statement in the agenda packet, read account by account. Savings are counted exactly as Where the Surplus Went counts them.' },
+          { label: 'Where the numbers come from', text: 'each resolution’s fiscal impact statement in the agenda packet, read account by account. Savings are counted exactly as How Savings Were Used counts them.' },
           { label: 'Not every change is totalled', text: `${c.notTotalled} of the ${c.changes} have tables that cannot be read plainly — a revenue line moved in a transfer field, or no amounts. They are listed with their own lines rather than netted by guesswork.` },
           { label: 'Live', text: 'the site checks the Town’s meeting records twice a day. This page re-reads the data every five minutes while open and updates when a meeting’s records arrive.' },
         ]}
       >
-        The budget the Board adopts in November is a starting point. All year the Board passes resolutions that add
-        money to a fund from its savings, from grants and borrowing, or move money from one line to another. This
-        dashboard keeps the running total, and every figure opens the votes behind it.
+        The budget adopted in November is the Town’s starting spending plan. During the year, the Town Board can approve changes—for example, adding money from savings or grants, authorizing borrowing, or moving money from one budget line to another. This page tracks those approved changes and links each figure to the Board record.
       </PlainCallout>
 
       <BudgetChangesDashboard initial={budgetChanges} base={base} />
@@ -44,12 +42,10 @@ export default function BudgetChangesPage() {
         <h2 style={{ marginTop: 0, color: 'var(--rbl-title)', fontSize: 20 }}>How to read it</h2>
         <ul style={{ color: 'var(--rbl-text-body)', fontSize: 14.5, lineHeight: 1.6, margin: 0, paddingLeft: 18, display: 'grid', gap: 6 }}>
           <li>
-            <strong>Added to budgets</strong> is new money the Board appropriated: savings, borrowing, grants, aid,
-            donations, fees and other revenue. Money moved from one budget line or Town fund to another changes what a
-            budget buys but not its size, so it is shown on its own and left out of that total.
+            <strong>Added to budgets</strong> is additional spending the Board approved, funded by savings, borrowing, grants, aid, donations, fees, or other revenue. Moving money between existing budget lines changes what the Town can spend it on, but does not increase the overall budget. Those transfers are shown separately.
           </li>
           <li>
-            <strong>Savings</strong> is each fund’s own fund balance. The General Fund’s pays for town-wide services; a
+            <strong>Fund balance (savings)</strong> is money a fund has carried over from earlier years. The General Fund’s pays for town-wide services; a
             water or sewer district’s belongs to its ratepayers. For what the General Fund’s draws leave in reserve, see{' '}
             <a href={`${base}/fund-balance-draws/`} style={{ color: 'var(--rbl-link)', fontWeight: 600 }}>Where the Surplus Went</a>{' '}
             and <a href={`${base}/reserves/`} style={{ color: 'var(--rbl-link)', fontWeight: 600 }}>Reserves</a>.
