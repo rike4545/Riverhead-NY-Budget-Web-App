@@ -1,4 +1,5 @@
 import PageShell from '../../components/PageShell'
+import ProvenanceLine from '../../components/ProvenanceLine'
 import PlainCallout from '../../components/PlainCallout'
 import BuyoutEligible, { type EligibleEmployee } from '../../components/BuyoutEligible'
 import { buyout2026 as b, outcome } from '../../lib/buyout-2026'
@@ -37,6 +38,17 @@ export default function BuyoutPage() {
         In 2026 the Town reached agreements with all three of its unions to offer a <strong>voluntary early-retirement
         buyout</strong>. This page lays out exactly who qualifies, the deadlines, and what each retiree is paid.
       </PlainCallout>
+
+      <ProvenanceLine
+        claimId="buyout-outcomes"
+        status="calculated"
+        source="Town Board resolutions 2026-678 through 2026-680, subsequent retirement resolutions, and Town payroll records"
+        asOf="October 20, 2026"
+        calculation="Board votes establish retirements; the salary-step model estimates recurring payroll savings and does not assume incentive uptake."
+        sourceHref="https://www.townofriverheadny.gov/129/Agendas-Minutes"
+        evidenceHref="/sources/"
+        evidenceLabel="Review the source library"
+      />
 
       {/* Status + timeline */}
       <section style={{ ...card, marginBottom: 18 }}>

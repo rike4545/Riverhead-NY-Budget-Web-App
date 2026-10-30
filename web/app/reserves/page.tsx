@@ -1,4 +1,5 @@
 import PageShell from '../../components/PageShell'
+import ProvenanceLine from '../../components/ProvenanceLine'
 import PlainCallout from '../../components/PlainCallout'
 import ReserveDrawdownSlider from '../../components/ReserveDrawdownSlider'
 import { dollars } from '../../lib/financial-data'
@@ -181,6 +182,17 @@ export default function ReservesPage() {
         still well above the Town&apos;s 15% policy floor. A ceiling, not a balance: there is no 2026 financial report.
         Every plan below is priced against that second figure rather than the opening one.
       </PlainCallout>
+
+      <ProvenanceLine
+        claimId="reserves-balance"
+        status="calculated"
+        source="2025 Audited Basic Financial Statements and adopted 2026 Town Board resolutions"
+        asOf="December 31, 2025; commitments through October 20, 2026"
+        calculation="Audited unassigned balance less documented 2026 General Fund commitments; reserve percentage uses 2026 appropriations."
+        sourceHref={AUDIT_2025.source.url}
+        evidenceHref="/sources/"
+        evidenceLabel="Review the source library"
+      />
 
       <section style={{ ...card, marginBottom: 16 }}>
         <h3 style={{ marginTop: 0, color: 'var(--rbl-title)' }}>Policy compliance at a glance</h3>
