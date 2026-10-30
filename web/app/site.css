@@ -34,7 +34,7 @@ table{font-variant-numeric:tabular-nums}
 /* A stacked cell that holds prose (a quotation, a resolution's clauses) takes the full width on a phone, its label above it, rather than a narrow right-aligned column. */
 @media(max-width:560px){.rbl-stack td.rbl-stack-prose{display:block;text-align:left!important}.rbl-stack td.rbl-stack-prose::before{display:block;margin-bottom:2px}}
 /* Rules for single components. They were <style> elements inside the page body, which the HTML standard does not allow (a style element belongs in head), so the W3C Nu HTML Checker failed every page on them. */
-/* Site menu (components/SiteNav.tsx): dropdowns open on hover or keyboard focus, and below 1120px the links fold into the menu button. */
+/* Site menu (components/SiteNav.tsx): dropdowns open on hover or keyboard focus, and below 1480px the links fold into the menu button. */
 .nav-dropdown{opacity:0;visibility:hidden;pointer-events:none;transform:translateY(-3px);transition:opacity .12s ease,transform .12s ease}.nav-group:hover .nav-dropdown,.nav-group:focus-within .nav-dropdown,.nav-dropdown.force-open{opacity:1;visibility:visible;pointer-events:auto;transform:translateY(0)}.nav-dropdown-link:hover{background:var(--rbl-info-bg)!important}@media(max-width:1480px){.nav-links{display:none!important}.nav-hamburger{display:inline-block!important}.nav-root{position:static!important}.nav-mobile-panel:not([hidden]){display:grid!important;left:12px!important;right:12px!important;top:calc(100% + 8px)!important}}
 /* Page masthead (components/PageShell.tsx) on small screens. */
 @media(max-width:640px){.brand-subtitle{display:none!important}}@media(max-width:1480px){.header-tools{flex-shrink:0}}@media(max-width:380px){.brand-name{font-size:15.5px!important}}
