@@ -85,7 +85,7 @@ export default function SiteNav() {
           <input id="mobile-site-search" type="search" value={mobileQuery} onChange={event => setMobileQuery(event.target.value)} placeholder="Search pages…" className="nav-mobile-search-input" style={{ width: '100%', minWidth: 0, height: 44, border: 0, background: 'transparent', color: 'var(--rbl-text)', fontSize: 15 }} />
         </div>
         {!mobileQuery.trim() && <>
-          <div style={{ color: 'var(--rbl-text-muted)', fontWeight: 750, fontSize: 13, fontWeight: 650, padding: '13px 10px 7px' }}>Quick access</div>
+          <div style={{ color: 'var(--rbl-text-muted)', fontWeight: 650, fontSize: 13, padding: '13px 10px 7px' }}>Quick access</div>
           <div className="nav-mobile-quick">
             {PRIMARY.map(([label, href]) => <a key={href} href={href} aria-current={isActive(href) ? 'page' : undefined} style={{ display: 'block', color: 'var(--rbl-title)', textDecoration: 'none', fontWeight: 750, fontSize: 15, minHeight: 44, padding: '10px', borderRadius: 9, background: isActive(href) ? 'var(--rbl-info-bg)' : 'var(--rbl-surface-2)' }}>{label}</a>)}
           </div>
