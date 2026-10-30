@@ -35,9 +35,9 @@ table{font-variant-numeric:tabular-nums}
 @media(max-width:560px){.rbl-stack td.rbl-stack-prose{display:block;text-align:left!important}.rbl-stack td.rbl-stack-prose::before{display:block;margin-bottom:2px}}
 /* Rules for single components. They were <style> elements inside the page body, which the HTML standard does not allow (a style element belongs in head), so the W3C Nu HTML Checker failed every page on them. */
 /* Site menu (components/SiteNav.tsx): dropdowns open on hover or keyboard focus, and below 1120px the links fold into the menu button. */
-.nav-dropdown{opacity:0;visibility:hidden;pointer-events:none;transform:translateY(-3px);transition:opacity .12s ease,transform .12s ease}.nav-group:hover .nav-dropdown,.nav-group:focus-within .nav-dropdown,.nav-dropdown.force-open{opacity:1;visibility:visible;pointer-events:auto;transform:translateY(0)}.nav-dropdown-link:hover{background:var(--rbl-info-bg)!important}@media(max-width:1120px){.nav-links{display:none!important}.nav-hamburger{display:inline-block!important}.nav-root{position:static!important}.nav-mobile-panel{display:grid!important;left:12px!important;right:12px!important;top:calc(100% + 8px)!important}}
+.nav-dropdown{opacity:0;visibility:hidden;pointer-events:none;transform:translateY(-3px);transition:opacity .12s ease,transform .12s ease}.nav-group:hover .nav-dropdown,.nav-group:focus-within .nav-dropdown,.nav-dropdown.force-open{opacity:1;visibility:visible;pointer-events:auto;transform:translateY(0)}.nav-dropdown-link:hover{background:var(--rbl-info-bg)!important}@media(max-width:1480px){.nav-links{display:none!important}.nav-hamburger{display:inline-block!important}.nav-root{position:static!important}.nav-mobile-panel{display:grid!important;left:12px!important;right:12px!important;top:calc(100% + 8px)!important}}
 /* Page masthead (components/PageShell.tsx) on small screens. */
-@media(max-width:640px){.brand-subtitle{display:none!important}}@media(max-width:1120px){.header-tools{flex-shrink:0}}@media(max-width:380px){.brand-name{font-size:15.5px!important}}
+@media(max-width:640px){.brand-subtitle{display:none!important}}@media(max-width:1480px){.header-tools{flex-shrink:0}}@media(max-width:380px){.brand-name{font-size:15.5px!important}}
 /* Site footer (components/ExperienceFooter.tsx): one column on a phone. */
 @media(max-width:760px){footer{grid-template-columns:1fr!important}footer>div:last-of-type{justify-self:start!important}}
 /* Display settings (components/DisplaySettings.tsx): its summary draws its own marker, so the default triangle is hidden. */
@@ -163,7 +163,7 @@ summary{min-height:24px}input[type=range]{min-height:24px}
 .rbl-budget-status-dot.is-live{background:var(--rbl-success);box-shadow:0 0 0 4px var(--rbl-success-bg)}
 .rbl-budget-metrics{scroll-margin-top:84px}
 #against-projection,#adoption-history,#department-requests,#inflation-and-fund-balance,#budget-calendar,#budget-limitations,#supervisor-letter{scroll-margin-top:88px}
-@media(max-width:1120px){.nav-mobile-panel{max-width:none!important}
+@media(max-width:1480px){.nav-mobile-panel{max-width:none!important}
 .nav-mobile-panel[hidden]{display:none!important}}
 @media(max-width:560px){.rbl-budget-jump{position:relative;top:auto;gap:6px;padding:9px}.rbl-budget-jump-label{width:100%;margin:0 0 2px 2px}.rbl-budget-jump a{font-size:12px;padding:6px 9px}.rbl-budget-status{align-items:flex-start}.nav-mobile-quick{grid-template-columns:repeat(2,minmax(0,1fr))}.nav-mobile-group-links{grid-template-columns:1fr}}
 
