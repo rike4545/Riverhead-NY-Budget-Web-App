@@ -22,7 +22,7 @@ const headRow = { textAlign: 'left', color: 'var(--rbl-text-muted)', fontSize: 1
 
 const SEV_COLOR: Record<string, string> = {
   critical: 'var(--rbl-danger)',
-  high: 'var(--rbl-warn-border)',
+  high: 'var(--rbl-warn-strong)',
   explain: 'var(--rbl-badge)',
 }
 
