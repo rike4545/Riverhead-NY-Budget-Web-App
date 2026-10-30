@@ -84,7 +84,7 @@ export default function ProposalLineStageNotice({ showAmendmentOverlay = false }
       <p style={{ margin: '0 0 9px', color: 'var(--rbl-text-sub)', fontSize: 12.5 }}>
         Tentative figure + net resolution change = calculated amended figure. Amounts are rounded to whole dollars for display.
       </p>
-      <div style={{ overflowX: 'auto' }}>
+      <div tabIndex={0} role="region" aria-label="Calculated amendment account comparison table" style={{ overflowX: 'auto' }}>
         <table style={{ width: '100%', minWidth: 720, borderCollapse: 'collapse', fontSize: 12.5 }}>
           <thead>
             <tr style={{ textAlign: 'left', color: 'var(--rbl-text-muted)', borderBottom: '1px solid var(--rbl-border-subtle)' }}>
