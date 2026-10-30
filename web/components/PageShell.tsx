@@ -28,13 +28,13 @@ export default function PageShell({ title, subtitle, children, home = false }: {
       <div style={{ padding: '0 clamp(16px,3vw,28px)', maxWidth: 1240, margin: '0 auto' }}>
         <main id="main">
           {!home && (
-            <header style={{ padding: 'clamp(30px,5vw,52px) 0 22px', borderBottom: '1px solid var(--rbl-border-subtle)', marginBottom: 28 }}>
+            <header className="rbl-page-header" style={{ padding: 'clamp(30px,5vw,52px) 0 22px', borderBottom: '1px solid var(--rbl-border-subtle)', marginBottom: 28 }}>
               <h1 style={{ fontSize: 'clamp(31px,4.6vw,46px)', fontWeight: 700, lineHeight: 1.08, letterSpacing: '-.02em', margin: '0 0 12px', color: 'var(--rbl-title)', maxWidth: 900, overflowWrap: 'anywhere' }}>{title}</h1>
               <p style={{ color: 'var(--rbl-text-sub)', fontSize: 'clamp(16.5px,2vw,19px)', lineHeight: 1.55, margin: 0, maxWidth: '64ch' }}>{subtitle}</p>
               <DisclaimerBanner />
             </header>
           )}
-          {children}
+          <div className="rbl-page-content">{children}</div>
         </main>
         <ExperienceFooter />
       </div>

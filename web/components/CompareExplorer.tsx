@@ -10,6 +10,12 @@ const pct = (n: number | null | undefined) => (n == null ? '—' : `${n > 0 ? '+
 const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 18 } as const
 const base = process.env.NEXT_PUBLIC_BASE_PATH || ''
 
+type FundChange = {
+  code: string
+  name: string
+  change: number | null
+}
+
 export default function CompareExplorer() {
   const years = budgetHistory.years
   const firstYear = years[0]
@@ -54,10 +60,14 @@ export default function CompareExplorer() {
     }
   }, [rows])
 
+  const largestMovers = useMemo(
+    () => rows.filter((r) => r.change != null && r.change !== 0).sort((a, b) => Math.abs(b.change ?? 0) - Math.abs(a.change ?? 0)).slice(0, 6),
+    [rows],
+  )
+
   return (
     <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0,1fr)', gap: 16 }}>
       <section style={{ ...card, display: 'flex', gap: 16, flexWrap: 'wrap', alignItems: 'center' }}>
-        {/* A label may hold one control, so each of the two selects is named itself. */}
         <span style={{ fontWeight: 600, color: 'var(--rbl-text-strong)' }}>
           Compare&nbsp;
           <select aria-label="Budget to compare" value={fromKey} onChange={(e) => setFromKey(e.target.value)} style={selStyle}>
@@ -101,6 +111,19 @@ export default function CompareExplorer() {
         </p>
       )}
 
+      {from.key !== to.key && largestMovers.length > 0 && (
+        <section style={card} aria-labelledby="fund-change-chart-title">
+          <div style={{ marginBottom: 14 }}>
+            <h2 id="fund-change-chart-title" style={{ margin: '3px 0 5px', fontSize: 21, color: 'var(--rbl-title)' }}>Where appropriations moved</h2>
+            <p style={{ margin: 0, color: 'var(--rbl-text-muted)', fontSize: 14.5, lineHeight: 1.5 }}>
+              The six largest fund-level changes by dollar amount. Bars extend right for increases and left for decreases; the center line is zero.
+              These are appropriation changes, not a direct measure of property-tax changes.
+            </p>
+          </div>
+          <ChangeChart rows={largestMovers} />
+        </section>
+      )}
+
       {from.key !== to.key && (drivers.increases.length > 0 || drivers.decreases.length > 0) && (
         <section style={card}>
           <div style={{ marginBottom: 12 }}>
@@ -118,15 +141,15 @@ export default function CompareExplorer() {
 
       <section style={card}>
         <div style={{ overflowX: 'auto' }}>
-          <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 14.5 }}>
+          <table className="rbl-stack" style={{ width: '100%', borderCollapse: 'collapse', fontSize: 14.5 }}>
             <thead>
               <tr style={{ textAlign: 'left', color: 'var(--rbl-text-muted)', borderBottom: '2px solid var(--rbl-border-subtle)' }}>
-                <th style={th}>Fund</th>
-                <th style={{ ...th, textAlign: 'right' }}>{from.label}</th>
-                <th style={{ ...th, textAlign: 'right' }}>{to.label}</th>
-                <th style={{ ...th, textAlign: 'right' }}>Change</th>
-                <th style={{ ...th, textAlign: 'right' }}>%</th>
-                <th style={{ ...th, textAlign: 'center' }}>{firstYear}–{lastYear} adopted</th>
+                <th scope="col" style={th}>Fund</th>
+                <th scope="col" style={{ ...th, textAlign: 'right' }}>{from.label}</th>
+                <th scope="col" style={{ ...th, textAlign: 'right' }}>{to.label}</th>
+                <th scope="col" style={{ ...th, textAlign: 'right' }}>Change</th>
+                <th scope="col" style={{ ...th, textAlign: 'right' }}>%</th>
+                <th scope="col" style={{ ...th, textAlign: 'center' }}>{firstYear}–{lastYear} adopted</th>
               </tr>
             </thead>
             <tbody>
@@ -137,11 +160,11 @@ export default function CompareExplorer() {
                       <span style={{ color: 'var(--rbl-text-muted)', fontWeight: 600, fontSize: 13 }}>{r.code}</span> {r.name}
                     </a>
                   </td>
-                  <td style={{ ...td, textAlign: 'right', color: 'var(--rbl-text-muted)' }}>{usd(r.from)}</td>
-                  <td style={{ ...td, textAlign: 'right', fontWeight: 600 }}>{usd(r.to)}</td>
-                  <td style={{ ...td, textAlign: 'right', color: changeColor(r.change), fontWeight: 600 }}>{r.change == null ? '—' : usd(r.change)}</td>
-                  <td style={{ ...td, textAlign: 'right', color: changeColor(r.change), fontWeight: 600 }}>{pct(r.changePct)}</td>
-                  <td style={{ ...td, textAlign: 'center' }}>
+                  <td data-label={from.label} style={{ ...td, textAlign: 'right', color: 'var(--rbl-text-muted)' }}>{usd(r.from)}</td>
+                  <td data-label={to.label} style={{ ...td, textAlign: 'right', fontWeight: 600 }}>{usd(r.to)}</td>
+                  <td data-label="Change" style={{ ...td, textAlign: 'right', color: changeColor(r.change), fontWeight: 600 }}>{r.change == null ? '—' : usd(r.change)}</td>
+                  <td data-label="Change %" style={{ ...td, textAlign: 'right', color: changeColor(r.change), fontWeight: 600 }}>{pct(r.changePct)}</td>
+                  <td data-label="Adopted trend" style={{ ...td, textAlign: 'center' }}>
                     <div style={{ display: 'inline-block' }}><Sparkline values={r.series} /></div>
                   </td>
                 </tr>
@@ -157,6 +180,36 @@ export default function CompareExplorer() {
         Tax-levy history is intentionally omitted here because the Summary-page levy column is not column-stable across
         funds; see each <a href={`${base}/funds/`} style={{ color: 'var(--rbl-link)', fontWeight: 600 }}>fund page</a> for current-year levy detail.
       </p>
+    </div>
+  )
+}
+
+function ChangeChart({ rows }: { rows: Array<FundChange> }) {
+  const max = Math.max(...rows.map((r) => Math.abs(r.change ?? 0)), 1)
+  return (
+    <div style={{ display: 'grid', gap: 12 }}>
+      {rows.map((r) => {
+        const value = r.change ?? 0
+        const width = `${(Math.abs(value) / max) * 50}%`
+        const positive = value > 0
+        return (
+          <div key={r.code} style={{ display: 'grid', gridTemplateColumns: 'minmax(0,1fr) auto', gap: '3px 14px', alignItems: 'baseline' }}>
+            <a href={`${base}/funds/${r.code}/`} style={{ color: 'var(--rbl-title)', fontWeight: 650, textDecoration: 'none', fontSize: 14.5 }}>
+              <span style={{ color: 'var(--rbl-text-muted)', fontSize: 12.5 }}>{r.code}</span> {r.name}
+            </a>
+            <strong style={{ color: changeColor(value), fontSize: 14, fontVariantNumeric: 'tabular-nums' }}>{value > 0 ? '+' : value < 0 ? '−' : ''}{usd(Math.abs(value))}</strong>
+            <div aria-hidden="true" style={{ gridColumn: '1 / -1', height: 13, position: 'relative', borderRadius: 99, background: 'var(--rbl-surface-2)', overflow: 'hidden' }}>
+              <span style={{ position: 'absolute', zIndex: 1, left: '50%', top: 0, bottom: 0, width: 1, background: 'var(--rbl-border-strong)' }} />
+              {positive
+                ? <span style={{ position: 'absolute', left: '50%', top: 0, bottom: 0, width, borderRadius: '0 99px 99px 0', background: 'var(--inc)' }} />
+                : <span style={{ position: 'absolute', right: '50%', top: 0, bottom: 0, width, borderRadius: '99px 0 0 99px', background: 'var(--dec)' }} />}
+            </div>
+          </div>
+        )
+      })}
+      <div style={{ display: 'flex', justifyContent: 'space-between', color: 'var(--rbl-text-muted)', fontSize: 12 }}>
+        <span>Decrease</span><span>Zero</span><span>Increase</span>
+      </div>
     </div>
   )
 }
