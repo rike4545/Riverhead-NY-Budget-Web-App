@@ -75,7 +75,7 @@ function Slider({ label, value, min, max, step, onChange, display, hint }: {
         <span style={{ fontWeight: 800, color: 'var(--rbl-title)', fontSize: 14.5 }}>{label}</span>
         <span style={{ fontWeight: 800, color: 'var(--rbl-accent)', fontSize: 14 }}>{display}</span>
       </div>
-      <input type="range" min={min} max={max} step={step} value={value} onChange={(e) => onChange(Number(e.target.value))}
+      <input type="range" aria-label={label} min={min} max={max} step={step} value={value} onChange={(e) => onChange(Number(e.target.value))}
         style={{ width: '100%', accentColor: 'var(--rbl-series-blue)', marginTop: 6 }} />
       <div style={{ color: 'var(--rbl-text-muted)', fontSize: 12, lineHeight: 1.35 }}>{hint}</div>
     </div>
