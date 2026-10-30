@@ -82,7 +82,7 @@ export default function SiteNav() {
         <label htmlFor="mobile-site-search" style={{ display: 'block', color: 'var(--rbl-text-muted)', fontWeight: 750, fontSize: 11, letterSpacing: '.1em', padding: '7px 10px' }}>FIND A PAGE</label>
         <div style={{ display: 'flex', alignItems: 'center', gap: 9, padding: '0 11px', border: '1px solid var(--rbl-border)', borderRadius: 10, background: 'var(--rbl-surface-2)' }}>
           <Search aria-hidden="true" size={17} color="var(--rbl-text-muted)" />
-          <input id="mobile-site-search" type="search" value={mobileQuery} onChange={event => setMobileQuery(event.target.value)} placeholder="Search pages…" style={{ width: '100%', minWidth: 0, height: 44, border: 0, outline: 0, background: 'transparent', color: 'var(--rbl-text)', fontSize: 15 }} />
+          <input id="mobile-site-search" type="search" value={mobileQuery} onChange={event => setMobileQuery(event.target.value)} placeholder="Search pages…" className="nav-mobile-search-input" style={{ width: '100%', minWidth: 0, height: 44, border: 0, background: 'transparent', color: 'var(--rbl-text)', fontSize: 15 }} />
         </div>
         {!mobileQuery.trim() && <>
           <div style={{ color: 'var(--rbl-text-muted)', fontWeight: 750, fontSize: 11, letterSpacing: '.1em', padding: '13px 10px 7px' }}>QUICK ACCESS</div>
