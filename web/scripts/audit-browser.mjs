@@ -63,7 +63,7 @@ let violationCount = 0
 
 try {
   for (const route of ROUTES) {
-    const routeName = route === '/' ? 'home' : route.replace(/^\\/+|\\/+$/g, '').replace(/\\//g, '-')
+    const routeName = route === '/' ? 'home' : route.replace(/^\/+|\/+$/g, '').replace(/\//g, '-')
     for (const width of WIDTHS) {
       await page.setViewportSize({ width, height: 900 })
       const response = await page.goto(`${origin}${BASE}${route}`, { waitUntil: 'networkidle' })
