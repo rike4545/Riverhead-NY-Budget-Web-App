@@ -9,6 +9,8 @@ const metrics = [
   { label: 'Homeowner vacancy', value: '1.0%', note: 'ACS estimate; margin of error ±0.9 points' },
   { label: 'Median owner value', value: '$486,600', note: 'Owner-reported value' },
   { label: 'Median gross rent', value: '$1,974/mo.', note: 'Includes utilities' },
+  { label: 'Owner costs with mortgage', value: '$2,944/mo.', note: 'Median selected monthly costs' },
+  { label: 'Rent-burdened renters', value: '39.1%', note: 'Pay at least 35% of income toward housing' },
   { label: 'Single-family detached', value: '68.7%', note: 'Share of housing units' },
   { label: 'Mobile homes', value: '14.1%', note: 'Share of housing units' },
 ]
