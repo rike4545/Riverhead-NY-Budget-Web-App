@@ -6,9 +6,9 @@ const base = process.env.NEXT_PUBLIC_BASE_PATH || ''
 function freshness() {
   const when = new Date(meta.generatedAt).getTime()
   const ageDays = Math.max(0, (Date.now() - when) / 86_400_000)
-  if (ageDays < 7) return { label: 'Current', tone: 'var(--rbl-success-strong)' }
-  if (ageDays < 14) return { label: 'Delayed', tone: 'var(--rbl-warn)' }
-  return { label: 'Stale', tone: 'var(--rbl-danger)' }
+  if (ageDays < 7) return { label: 'Recently refreshed', tone: 'var(--rbl-success-strong)' }
+  if (ageDays < 14) return { label: 'Refresh may be delayed', tone: 'var(--rbl-warn)' }
+  return { label: 'Refresh overdue', tone: 'var(--rbl-danger)' }
 }
 
 export default function DisclaimerBanner() {
