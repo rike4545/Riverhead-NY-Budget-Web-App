@@ -10,7 +10,7 @@ export default function PageShell({ title, subtitle, children, home = false }: {
     <div style={{ minHeight: '100vh', background: 'var(--rbl-bg)', color: 'var(--rbl-text)' }}>
       <a href="#main" className="rbl-skip">Skip to content</a>
       <header style={{ background: 'var(--rbl-fill-brand)', color: 'white', padding: '12px clamp(14px,3vw,26px)', position: 'relative', zIndex: 20 }}>
-        <div style={{ maxWidth: 1240, margin: '0 auto', display: 'flex', justifyContent: 'space-between', gap: 16, alignItems: 'center' }}>
+        <div style={{ maxWidth: 1500, margin: '0 auto', display: 'flex', justifyContent: 'space-between', gap: 16, alignItems: 'center' }}>
           <a href={`${base}/`} className="rbl-on-dark" style={{ color: 'white', textDecoration: 'none', display: 'flex', gap: 10, alignItems: 'center', minWidth: 0, borderRadius: 8 }}>
             <span aria-hidden="true" style={{ width: 36, height: 36, flex: '0 0 auto', borderRadius: 9, display: 'grid', placeItems: 'center', background: 'white', color: 'var(--rbl-logo-fg)', fontWeight: 800, fontSize: 14 }}>RB</span>
             <span style={{ minWidth: 0 }}>
