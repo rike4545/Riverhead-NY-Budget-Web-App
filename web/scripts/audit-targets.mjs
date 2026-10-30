@@ -79,7 +79,7 @@ const page = await browser.newPage({ viewport: { width, height: 900 } })
 const list = only.length ? only.map((p) => (p.startsWith('/') ? p : `/${p}`)) : [...pages(OUT)].filter((p) => !p.startsWith('/_'))
 let failures = 0
 for (const p of list.sort()) {
-  await page.goto(`${origin}${BASE}${p}`, { waitUntil: 'networkidle' }).catch(() => {})
+  await page.goto(`${origin}${BASE}${p}`, { waitUntil: 'load', timeout: 15000 }).catch(() => {})
   const bad = await page.evaluate(failingTargets)
   if (bad.length) {
     failures += bad.length
