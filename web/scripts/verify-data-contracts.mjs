@@ -145,6 +145,7 @@ const directoryMappingSchema = z.object({
 })
 
 const manifestSchema = z.object({
+  version: z.literal(1),
   canonicalRoot: z.literal('web/public/data'),
   consumers: z.object({
     ios: consumerSchema,
