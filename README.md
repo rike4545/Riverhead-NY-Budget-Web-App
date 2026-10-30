@@ -406,7 +406,7 @@ Built using:
 - A Python ingestion pipeline (PyMuPDF, pypdf, pandas, Beautiful Soup) that parses Town PDFs and reconciles them against the official Summary pages
 - Live client-side queries against New York State's open campaign-finance data (data.ny.gov)
 - A hash-based Content-Security-Policy on every page, added after the build (`web/scripts/add-csp.mjs`, checked by `verify-csp.mjs`)
-- Automated checks on the built site (`web/scripts/verify-*.mjs`) that hold routes, figures, quotations, ETL contracts, shared-data hashes and source freshness to their records; the quality gate also runs Playwright + axe-core against key resident workflows at desktop and 320px widths, and uploads accessibility findings plus desktop/mobile visual-QA screenshots. A tap-target audit (`web/scripts/audit-targets.mjs`) remains available for focused manual review.
+- Automated checks on the built site (`web/scripts/verify-*.mjs`) that hold routes, figures, quotations, ETL contracts, shared-data hashes and source freshness to their records; the quality gate also runs Playwright + axe-core against key resident workflows at desktop and 320px widths, and uploads accessibility findings plus desktop/mobile visual-QA screenshots; three topic-specific ZIP research packets are generated with source registers and SHA-256 manifests. A tap-target audit (`web/scripts/audit-targets.mjs`) remains available for focused manual review.
 
 ---
 
