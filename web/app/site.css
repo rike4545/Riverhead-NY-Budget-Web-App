@@ -167,7 +167,6 @@ summary{min-height:24px}input[type=range]{min-height:24px}
 /* Shared page polish: consistent reading rhythm, clear section hierarchy, and visible focus. */
 .nav-mobile-search-input:focus-visible{outline:3px solid var(--rbl-focus)!important;outline-offset:2px!important;border-radius:5px}
 .rbl-page-header{position:relative}
-.rbl-page-header:before{content:"";display:block;width:42px;height:4px;margin:0 0 17px;border-radius:99px;background:var(--rbl-accent)}
 .rbl-page-header h1{letter-spacing:-.035em!important}
 .rbl-page-header p{max-width:68ch}
 .rbl-page-content{min-width:0;padding-bottom:clamp(30px,4vw,54px)}
@@ -181,7 +180,6 @@ summary{min-height:24px}input[type=range]{min-height:24px}
 .rbl-page-content :where(button,input,select,textarea){max-width:100%}
 .rbl-page-content :where(img,svg,canvas){max-width:100%}
 @media(max-width:640px){
-  .rbl-page-header:before{margin-bottom:14px}
   .rbl-page-header{padding-top:26px!important;margin-bottom:20px!important}
   .rbl-page-content{padding-bottom:30px}
   .rbl-page-content :where(h2){font-size:clamp(20px,5.4vw,26px)}
