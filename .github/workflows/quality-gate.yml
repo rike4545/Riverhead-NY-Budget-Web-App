@@ -82,6 +82,7 @@ jobs:
         run: |
           python etl/build_search_index.py
           python etl/write_meta.py
+          python etl/build_research_packets.py
 
       - name: Setup Node
         uses: actions/setup-node@v6
@@ -93,6 +94,14 @@ jobs:
       - name: Install web dependencies
         working-directory: web
         run: npm install --no-audit --no-fund --package-lock=false
+
+      - name: Install pinned browser-audit dependencies
+        working-directory: web
+        run: npm install --no-save --no-audit --no-fund --package-lock=false playwright@1.56.1 axe-core@4.10.3
+
+      - name: Install Chromium for browser checks
+        working-directory: web
+        run: npx playwright install --with-deps chromium
 
       - name: Verify external authority sources
         working-directory: web
@@ -109,3 +118,18 @@ jobs:
       - name: Verify routes, evidence contracts, and generated data
         working-directory: web
         run: npm run verify:output
+
+      - name: Run browser accessibility and responsive checks
+        working-directory: web
+        run: node scripts/verify-browser.mjs
+
+      - name: Upload browser audit and visual QA screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: browser-quality-report
+          path: |
+            web/out/browser-a11y-report.json
+            web/out/browser-snapshots/
+          if-no-files-found: ignore
+          retention-days: 14
