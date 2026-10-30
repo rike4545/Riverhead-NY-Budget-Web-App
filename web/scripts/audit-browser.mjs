@@ -77,7 +77,7 @@ try {
     const routeName = route === '/' ? 'home' : route.replace(/^\/+|\/+$/g, '').replace(/\//g, '-')
     for (const width of WIDTHS) {
       await page.setViewportSize({ width, height: 900 })
-      const response = await page.goto(`${origin}${BASE}${route}`, { waitUntil: 'networkidle' })
+      const response = await page.goto(`${origin}${BASE}${route}`, { waitUntil: 'load', timeout: 15000 })
       if (!response || response.status() !== 200) {
         fail(`${route} returned ${response?.status() ?? 'no response'} at ${width}px`)
         continue
