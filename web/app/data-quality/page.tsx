@@ -111,6 +111,10 @@ export default function DataQualityPage() {
           <Check title="Search shards" text="Manifest counts and byte sizes must match the generated shard files, and the legacy monolith must stay removed." />
           <Check title="Payload guardrail" text="Unexpected search-index growth fails verification instead of silently shipping a much larger download." />
           <Check title="Dataset freshness" text="Every tracked dataset must declare a cadence, freshness policy, status, and as-of value; pipeline-owned data must be current after regeneration." />
+          <Check title="Data contracts" text="Canonical payroll, meeting, budget-line, AFR, tax-rate, search-shard, freshness and native-manifest data must keep their required fields, keys, counts and arithmetic." />
+          <Check title="Claim-level evidence" text="Nine analytical pages must expose stable claim IDs with a source, as-of date and official, calculated or projected classification in the rendered page." />
+          <Check title="Browser accessibility" text="Playwright checks core resident routes at desktop and 320px widths; axe checks WCAG 2.0, 2.1 and 2.2 A/AA. Critical violations and horizontal overflow fail the quality gate; other findings are reported for review." />
+          <Check title="Visual QA snapshots" text="Desktop and narrow-phone screenshots of the home page and key analytical pages are saved as CI artifacts for review when the interface changes." />
           <Check title="ETL imports" text="Python dependencies and ETL modules are smoke-tested before the web build starts." />
           <Check title="Static build" text="TypeScript and the Next.js static export must compile successfully before merge." />
         </div>
