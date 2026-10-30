@@ -39,9 +39,13 @@ const safePath = (value) => text(value) && !value.split('/').includes('..') && !
         for (const key of ['d', 't', 'c', 'u']) if (typeof row[key] !== 'string') fail(path, `${at}.${key} must be a string, including when unknown`)
         if (row.f !== undefined && (typeof row.f !== 'string' || !/^\d{6}$/.test(row.f))) fail(path, `${at}.f must preserve a six-digit payroll file number as text`)
         if (row.k !== undefined && (!Array.isArray(row.k) || row.k.length !== 5 || !row.k.every(finite))) fail(path, `${at}.k must be five finite other-pay components`)
-        const identity = `${row.y}|${row.f ?? row.n}`
-        if (seen.has(identity)) fail(path, `duplicate year/employee key ${identity}`)
-        seen.add(identity)
+        // Only the Town's payroll file number is a reliable unique key.
+        // Older rows can lack it; names alone are not safe identifiers.
+        if (row.f !== undefined) {
+          const identity = `${row.y}|${row.f}`
+          if (seen.has(identity)) fail(path, `duplicate year/payroll-file key ${identity}`)
+          seen.add(identity)
+        }
       }
     }
     if (!object(data.unionLabels) || Object.values(data.unionLabels).some((label) => !text(label))) fail(path, 'unionLabels must map codes to non-empty labels')
