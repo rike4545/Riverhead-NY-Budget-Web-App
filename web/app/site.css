@@ -138,9 +138,9 @@ summary{min-height:24px}input[type=range]{min-height:24px}
 .nav-links>a,.nav-group>button{min-height:44px}
 .nav-dropdown-link{min-height:44px;display:flex!important;align-items:center}
 .nav-links>a:hover,.nav-group>button:hover{background:rgba(255,255,255,.12)!important;border-color:rgba(255,255,255,.18)!important}
-.nav-group>button:focus-visible,.nav-links>a:focus-visible,.nav-hamburger{min-width:44px;min-height:44px}
+.nav-hamburger{min-width:44px;min-height:44px}
 .display-settings-trigger{min-width:44px;min-height:44px;display:inline-flex;align-items:center;justify-content:center}
-.nav-hamburger:focus-visible{outline:3px solid var(--rbl-focus-on-dark);outline-offset:3px}
+.nav-group>button:focus-visible,.nav-links>a:focus-visible,.nav-hamburger:focus-visible{outline:3px solid var(--rbl-focus-on-dark);outline-offset:3px}
 .nav-mobile-quick{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}
 .nav-mobile-quick>a{display:flex!important;align-items:center;min-height:44px}
 .nav-mobile-group{border-top:1px solid var(--rbl-border-subtle);margin-top:8px;padding-top:7px}
