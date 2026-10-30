@@ -114,7 +114,9 @@ try {
       if (SCREENSHOT_ROUTES.has(route) && (width === 390 || width === 1280 || width === 1920)) {
         const screenshot = join(SCREENSHOTS, `${routeName}-${width}.png`)
         await page.screenshot({ path: screenshot, fullPage: true, animations: 'disabled' })
-        if (width === 390 || width === 1920) {
+      }
+
+      if (width === 390 || width === 1920) {
         await page.addScriptTag({ url: `${origin}${BASE}/__audit/axe.min.js` })
         const audit = await page.evaluate(async (tags) => window.axe.run(document, {
           runOnly: { type: 'tag', values: tags },
