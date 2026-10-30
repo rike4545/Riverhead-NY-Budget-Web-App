@@ -201,7 +201,7 @@ const safePath = (value) => text(value) && !value.split('/').includes('..') && !
   const path = 'public/data/tax-bill.json'
   const data = read(path)
   if (object(data)) {
-    if (!text(data.title) || !(Number.isInteger(data.asOf) || (typeof data.asOf === 'string' && /^\\d{4}$/.test(data.asOf)))) fail(path, 'title and four-digit asOf year are required')
+    if (!text(data.title) || !(Number.isInteger(data.asOf) || (typeof data.asOf === 'string' && /^\d{4}$/.test(data.asOf)))) fail(path, 'title and four-digit asOf year are required')
     if (!object(data.rateSource) || !text(data.rateSource.title) || !https(data.rateSource.url)) fail(path, 'rateSource must identify an HTTPS official source')
     for (const year of [2025, 2026]) {
       const rates = data[`rates${year}`]
