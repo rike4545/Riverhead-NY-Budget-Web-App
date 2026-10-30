@@ -6,6 +6,11 @@ on:
       - main
   workflow_dispatch:
 
+# Keep one authoritative run per pull request; new commits supersede stale audits.
+concurrency:
+  group: quality-gate-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
 permissions:
   contents: read
 
