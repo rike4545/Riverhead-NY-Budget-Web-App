@@ -8,7 +8,7 @@ const money = (value: number) =>
 export default function HousingTransferTaxCalculator() {
   const [salePrice, setSalePrice] = useState('500000')
   const amount = Number(salePrice)
-  const valid = Number.isFinite(amount) && amount >= 0 && amount <= 100_000_000
+  const valid = salePrice.trim().length > 0 && Number.isFinite(amount) && amount >= 0 && amount <= 100_000_000
   const estimate = useMemo(() => {
     if (!valid) return null
     return {
@@ -39,6 +39,7 @@ export default function HousingTransferTaxCalculator() {
             value={salePrice}
             onChange={(event) => setSalePrice(event.target.value)}
             aria-describedby="housing-sale-price-note"
+            aria-invalid={!valid}
             style={{ width: 'min(100%, 260px)', minHeight: 44, border: '1px solid var(--rbl-border-strong)', borderRadius: 9, padding: '9px 11px', background: 'var(--rbl-surface)', color: 'var(--rbl-text-strong)', font: 'inherit', fontVariantNumeric: 'tabular-nums' }}
           />
         </div>
