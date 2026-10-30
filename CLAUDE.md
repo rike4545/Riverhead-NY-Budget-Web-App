@@ -58,6 +58,17 @@ python3 etl/build_search_index.py && python3 etl/write_meta.py
   For a page change, look at the page in a browser (Playwright is installed).
 - After regenerating data, diff it against `main` and account for every
   difference before committing. Only the changes you meant should appear.
+- `.claude/hooks/guard-git-push.py` runs before every Bash command and
+  refuses a push to `main` or `master`, a `--force` push, a `+refspec` and
+  `--mirror`. `--force-with-lease` is allowed. Don't work around it.
+- For work that takes several steps, keep a short plan in the scratchpad
+  (`plan.md`: the goal, the steps with their state, and what you found) and
+  update it as you go. Re-read it after the conversation is compacted. Don't
+  commit it. The idea is from OthmanAdi/planning-with-files (MIT); nothing is
+  copied from it.
+- `npm run verify` turns off Node's `MODULE_TYPELESS_PACKAGE_JSON` warning,
+  which repeated for every check script and was most of its output. Other
+  warnings still print.
 
 ### Accuracy
 
