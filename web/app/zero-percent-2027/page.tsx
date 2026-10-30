@@ -583,7 +583,7 @@ function Note({ tone, label, children }: { tone: keyof typeof NOTE; label: strin
 
 function Table({ caption, head, rows }: { caption: string; head: string[]; rows: ReactNode[][] }) {
   return (
-    <figure className="tcl-table" tabIndex={0} role="region" aria-label={`Scrollable table: ${caption}`} style={{ margin: '6px 0 18px', background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 12, overflowX: 'auto' }}>
+    <figure className="tcl-table" tabIndex={0} aria-label={`Scrollable table: ${caption}`} style={{ margin: '6px 0 18px', background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 12, overflowX: 'auto' }}>
       <table className="rbl-stack" style={{ width: '100%', borderCollapse: 'collapse', fontSize: 15.5 }}>
         <caption style={{ padding: '12px 14px 4px', color: 'var(--rbl-text-muted)', fontSize: 14.5, lineHeight: 1.45, textAlign: 'left' }}>{caption}</caption>
         <thead>
