@@ -114,6 +114,12 @@ const safePath = (value) => text(value) && !value.split('/').includes('..') && !
     else for (const entry of data.directories) {
       if (!object(entry) || !['web', 'ios', 'android', 'pattern'].every((key) => text(entry[key]))) fail(path, 'each mirrored directory needs web/ios/android paths and a filename pattern')
       else for (const key of ['web', 'ios', 'android']) if (!safePath(entry[key])) fail(path, `directory mapping has an unsafe ${key} path`)
+      if (object(entry) && entry.exclude !== undefined) {
+        if (!object(entry.exclude)) fail(path, 'directory exclude must map consumer names to filename arrays')
+        else for (const [consumer, names] of Object.entries(entry.exclude)) {
+          if (!['ios', 'android'].includes(consumer) || !Array.isArray(names) || names.some((name) => !text(name) || name.includes('/') || name === '.' || name === '..')) fail(path, `directory exclude for ${consumer} must contain safe filenames`)
+        }
+      }
     }
   }
 }
