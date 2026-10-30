@@ -162,3 +162,27 @@ summary{min-height:24px}input[type=range]{min-height:24px}
 @media(max-width:560px){.rbl-budget-jump{position:relative;top:auto;gap:6px;padding:9px}.rbl-budget-jump-label{width:100%;margin:0 0 2px 2px}.rbl-budget-jump a{font-size:12px;padding:6px 9px}.rbl-budget-status{align-items:flex-start}.nav-mobile-quick{grid-template-columns:repeat(2,minmax(0,1fr))}.nav-mobile-group-links{grid-template-columns:1fr}}
 
 @media(min-width:1121px) and (max-width:1240px){.nav-links{display:none!important}.nav-hamburger{display:inline-block!important}.nav-root{position:static!important}.nav-mobile-panel{display:grid!important;left:12px!important;right:12px!important;top:calc(100% + 8px)!important}}
+
+
+/* Shared page polish: consistent reading rhythm, clear section hierarchy, and visible focus. */
+.nav-mobile-search-input:focus-visible{outline:3px solid var(--rbl-focus)!important;outline-offset:2px!important;border-radius:5px}
+.rbl-page-header{position:relative}
+.rbl-page-header:before{content:"";display:block;width:42px;height:4px;margin:0 0 17px;border-radius:99px;background:var(--rbl-accent)}
+.rbl-page-header h1{letter-spacing:-.035em!important}
+.rbl-page-header p{max-width:68ch}
+.rbl-page-content{min-width:0;padding-bottom:clamp(30px,4vw,54px)}
+.rbl-page-content :where(h2){color:var(--rbl-title);letter-spacing:-.022em;line-height:1.2;text-wrap:balance}
+.rbl-page-content :where(h3){color:var(--rbl-title);line-height:1.3;text-wrap:balance}
+.rbl-page-content :where(p){line-height:1.65}
+.rbl-page-content :where(a:not([class])){text-underline-offset:3px}
+.rbl-page-content :where(table){border-collapse:separate;border-spacing:0}
+.rbl-page-content :where(thead th){background:var(--rbl-surface-2)}
+.rbl-page-content :where(tbody tr+tr td){border-top:1px solid var(--rbl-border-subtle)}
+.rbl-page-content :where(button,input,select,textarea){max-width:100%}
+.rbl-page-content :where(img,svg,canvas){max-width:100%}
+@media(max-width:640px){
+  .rbl-page-header:before{margin-bottom:14px}
+  .rbl-page-header{padding-top:26px!important;margin-bottom:20px!important}
+  .rbl-page-content{padding-bottom:30px}
+  .rbl-page-content :where(h2){font-size:clamp(20px,5.4vw,26px)}
+}
