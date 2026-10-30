@@ -16,7 +16,7 @@ const safePath = z.string().min(1).refine(
   (value) => !value.split('/').includes('..') && !value.startsWith('/'),
   'must be a safe relative path',
 )
-const dateString = z.string().regex(/^\\d{4}-\\d{2}-\\d{2}$/).refine((value) => {
+const dateString = z.string().regex(/^\d{4}-\d{2}-\d{2}$/).refine((value) => {
   const [year, month, day] = value.split('-').map(Number)
   const parsed = new Date(Date.UTC(year, month - 1, day))
   return parsed.getUTCFullYear() === year && parsed.getUTCMonth() === month - 1 && parsed.getUTCDate() === day
@@ -38,7 +38,7 @@ const payrollRecordSchema = z.object({
   t: z.string(),
   c: z.string(),
   u: z.string(),
-  f: z.string().regex(/^\\d{6}$/).nullable().optional(),
+  f: z.string().regex(/^\d{6}$/).nullable().optional(),
   k: z.array(z.number().finite()).length(5).optional(),
 }).passthrough()
 
