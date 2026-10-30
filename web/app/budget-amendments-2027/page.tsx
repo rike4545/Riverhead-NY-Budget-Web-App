@@ -370,6 +370,45 @@ export default function BudgetAmendmentsPage() {
                 assessment ratio used; hers are the Town’s figures.
               </P>
             )}
+            {(() => {
+              // Redfin's September 2026 median sale price; compare it with the Supervisor's $800,000 example.
+              const medianSalePrice = 600_714
+              const values = [500_000, medianSalePrice, exampleHome?.marketValue ?? 800_000]
+              const assessedValue = (market: number) => market * taxBill.equalization.residentialAssessmentRatio / 100
+              const taxAt = (market: number, rate: number) => assessedValue(market) / 1000 * rate
+              const medianGap = ((values[2] / medianSalePrice) - 1) * 100
+              return (
+                <>
+                  <H3>Put the $800,000 example beside Riverhead’s median sale</H3>
+                  <P>
+                    Redfin reports a median sale price of {usd(medianSalePrice)} for Riverhead in September 2026, based on the three months ending that month.
+                    The Supervisor’s {usd(values[2])} example is about {medianGap.toFixed(1)}% above that benchmark. This comparison applies the same
+                    {taxBill.equalization.residentialAssessmentRatio}% residential assessment ratio and the town-wide rates above to each illustrative value.
+                  </P>
+                  <Table
+                    caption={`Estimated town-wide tax only, before exemptions, using the ${taxBill.equalization.asOfYear}–${String(taxBill.equalization.asOfYear + 1).slice(2)} residential assessment ratio. The median is Redfin’s September 2026 median sale price, not a median listing price or assessed value.`}
+                    head={['Illustrative market value', 'Estimated assessed value', '2026', '2027 Tentative', 'With six amendments', 'Tentative increase', 'Amended increase']}
+                    rows={values.map((market) => {
+                      const prior = taxAt(market, tw.ratePrior)
+                      const tentative = taxAt(market, tw.rateBefore)
+                      const amended = taxAt(market, tw.rateAfter ?? tw.rateBefore)
+                      return [
+                        market === medianSalePrice ? `${usd(market)} · median sale` : usd(market),
+                        usd(assessedValue(market)), usd(prior), usd(tentative), usd(amended),
+                        `+${usd(tentative - prior)}`, `+${usd(amended - prior)}`,
+                      ]
+                    })}
+                  />
+                  <P>
+                    At the median sale price, the Tentative would add about {usd(taxAt(medianSalePrice, tw.rateBefore) - taxAt(medianSalePrice, tw.ratePrior))}
+                    a year in town-wide taxes; with the six amendments, about {usd(taxAt(medianSalePrice, tw.rateAfter ?? tw.rateBefore) - taxAt(medianSalePrice, tw.ratePrior))}.
+                    The amendments reduce the estimated increase, but do not eliminate it. These are not complete property-tax bills: school, county and special-district
+                    taxes are outside this comparison, and individual assessments and exemptions vary.
+                  </P>
+                </>
+              )
+            })()}
+
           </Section>
 
           <Section id="status" title="Where this stands">
@@ -550,6 +589,7 @@ export default function BudgetAmendmentsPage() {
               <li><a href={fx.summary.url} style={link}>Town of Riverhead, {fx.summary.title}</a>: the Summary, p. 8, and the Supervisor’s letter, {LETTER_2027.source.pages}</li>
               <li><a href={fx.source.url} style={link}>Town of Riverhead, {fx.source.title}</a>, and the Budget Supplements for 2025 and 2026, for each year’s collections</li>
               <li>{taxBill.equalization.source.replace(/\. Its residential.*$/, '')}: the residential assessment ratio</li>
+              <li><a href="https://www.redfin.com/city/25331/NY/Riverhead/housing-market" style={link}>Redfin, Riverhead housing market</a>: September 2026 median sale price ($600,714; three-month period ending September 2026)</li>
               <li><a href={AUDIT_2025.source.url} style={link}>{AUDIT_2025.source.title}</a></li>
               <li>
                 This site’s <a href={`${base}/tentative-2027/`} style={link}>2027 Tentative</a>,{' '}
