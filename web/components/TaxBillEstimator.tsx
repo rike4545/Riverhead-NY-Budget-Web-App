@@ -91,7 +91,7 @@ export default function TaxBillEstimator({
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', gap: 12, flexWrap: 'wrap', marginTop: 12, padding: 12, borderRadius: 10, background: 'var(--rbl-info-bg)', border: '1px solid var(--rbl-border-subtle)' }}>
           <div>
             <div style={{ color: 'var(--rbl-title)', fontWeight: 850 }}>Estimated Town taxes using the {proposalLabel} rate</div>
-            <div style={{ color: 'var(--rbl-text-muted)', fontSize: 12.5, marginTop: 3 }}>Illustrative estimate only: it applies the rate in the proposal to your current inputs. The rate is not final, and this is not a tax bill.</div>
+            <div style={{ color: 'var(--rbl-text-muted)', fontSize: 12.5, marginTop: 3 }}>This is an illustrative estimate only: it applies the rate in the proposal to your current inputs. The rate is not final, and this is not a tax bill.</div>
           </div>
           <strong style={{ fontSize: 24, color: 'var(--rbl-title)' }}>{usd(estimate2027Proposal.total)}</strong>
         </div>
