@@ -97,7 +97,7 @@ export default function GuidePage() {
           <li><strong>Department requests:</strong> Town departments submit estimates of what they think they will need. They are due to the budget officer by <strong>September 20</strong>.</li>
           <li><strong>Tentative Budget:</strong> The Supervisor, acting as budget officer, puts the requests together into the first complete proposal. It must be filed with the Town Clerk by <strong>September 30</strong> and presented to the Town Board by <strong>October 5</strong>.</li>
           <li><strong>Preliminary Budget:</strong> The Town Board reviews and can change the Tentative Budget. This is the version the Board presents at the public hearing. Notice must be published at least five days beforehand; the hearing is held on the <strong>Thursday after the general election</strong> and cannot be postponed beyond November 15.</li>
-          <li><strong>Adopted Budget:</strong> The Town Board’s final budget for the year. It must be adopted by <strong>November 20</strong> and is the plan the Town uses to authorize spending.
+          <li><strong>Adopted Budget:</strong> The Town Board’s final budget for the year. It must be adopted by <strong>November 20</strong> and is the plan the Town uses to authorize spending.</li>
         </ol>
         <p style={{ color: 'var(--rbl-info-text)', fontSize: 15.5, lineHeight: 1.6, margin: '0 0 12px' }}>
           Important: If the Board does not vote to adopt a budget by November 20, the Preliminary Budget takes effect automatically under State law. In other words, no final vote does not stop the budget from taking effect.
