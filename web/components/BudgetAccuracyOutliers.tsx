@@ -80,7 +80,7 @@ export default function BudgetAccuracyOutliers({
         }}
       />
 
-      <div style={{ overflowX: 'auto' }}>
+      <div tabIndex={0} role="region" aria-label="Budget accuracy outlier comparison table" style={{ overflowX: 'auto' }}>
         <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 13.5, minWidth: 680 }}>
           <thead>
             <tr style={{ textAlign: 'left', color: 'var(--rbl-text-muted)', fontSize: 13 }}>

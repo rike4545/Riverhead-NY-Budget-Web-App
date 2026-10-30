@@ -41,6 +41,7 @@ export default function TaxBillEstimator({
         <Field label="Assessed value" value={usd(assessedValue)} hint="Use the assessed value printed on your tax bill or assessment notice.">
           <input
             type="range"
+            aria-label="Assessed value"
             min={5000}
             max={300000}
             step={1000}
@@ -57,6 +58,7 @@ export default function TaxBillEstimator({
         >
           <input
             type="range"
+            aria-label="Market value"
             min={200000}
             max={1500000}
             step={10000}
@@ -71,6 +73,7 @@ export default function TaxBillEstimator({
         <Field label="STAR assessed-value reduction (if any)" value={usd(starReduction)} hint="If your bill lists a STAR reduction, enter that amount. It varies by school district and year, so this calculator does not assume one.">
           <input
             type="range"
+            aria-label="STAR assessed-value reduction"
             min={0}
             max={30000}
             step={500}

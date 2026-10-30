@@ -7,12 +7,8 @@
 //     target, and no other small target's circle.
 // See .claude/references/accessibility-baseline.md.
 //
-// It needs a browser, which the deploy and quality-gate jobs do not have, so it
-// runs by hand after a page change (CLAUDE.md lists it):
-//
-//   npm run build && node scripts/audit-targets.mjs [--width 390] [page ...]
-//
-// It serves out/ itself and exits non-zero when a target fails.
+// The quality-gate workflow installs Playwright and runs this against key routes
+// at phone, tablet and desktop widths. It can also be run manually after a page change.
 
 import { createServer } from 'node:http'
 import { existsSync, readFileSync, readdirSync, statSync } from 'node:fs'
@@ -42,7 +38,12 @@ const server = createServer((req, res) => {
   if (existsSync(path) && statSync(path).isDirectory()) path = join(path, 'index.html')
   if (!existsSync(path)) { res.writeHead(404).end(); return }
   res.writeHead(200, { 'content-type': TYPES[extname(path)] ?? 'application/octet-stream' }).end(readFileSync(path))
-}).listen(0)
+})
+
+await new Promise((resolveListen, rejectListen) => {
+  server.once('error', rejectListen)
+  server.listen(0, '127.0.0.1', resolveListen)
+})
 const origin = `http://127.0.0.1:${server.address().port}`
 
 /** Runs in the page: every target that fails 2.5.8 after the exceptions. */
@@ -79,7 +80,7 @@ const page = await browser.newPage({ viewport: { width, height: 900 } })
 const list = only.length ? only.map((p) => (p.startsWith('/') ? p : `/${p}`)) : [...pages(OUT)].filter((p) => !p.startsWith('/_'))
 let failures = 0
 for (const p of list.sort()) {
-  await page.goto(`${origin}${BASE}${p}`, { waitUntil: 'networkidle' }).catch(() => {})
+  await page.goto(`${origin}${BASE}${p}`, { waitUntil: 'load', timeout: 15000 }).catch(() => {})
   const bad = await page.evaluate(failingTargets)
   if (bad.length) {
     failures += bad.length
@@ -88,6 +89,6 @@ for (const p of list.sort()) {
   }
 }
 await browser.close()
-server.close()
+await new Promise((resolveClose) => server.close(resolveClose))
 console.log(`targets: ${list.length} pages at ${width}px, ${failures} failing WCAG 2.5.8`)
 process.exitCode = failures ? 1 : 0

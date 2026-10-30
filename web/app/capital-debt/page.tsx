@@ -181,7 +181,7 @@ export default function CapitalDebtPage() {
           {usd(debtPlan2027.schedule[2027].principal)} on the schedule, {usd(principalBelowSchedule)} less. That is the size of
           change the July pay-down of the 2018 refunding bonds would make; the budget does not itemise it by issue.
         </p>
-        <div style={{ overflowX: 'auto' }}>
+        <div tabIndex={0} role="region" aria-label="Debt schedule comparison table" style={{ overflowX: 'auto' }}>
           <table className="rbl-stack" style={{ width: '100%', borderCollapse: 'collapse', fontSize: 13.5 }}>
             <thead>
               <tr style={{ textAlign: 'left', color: 'var(--rbl-text-muted)', borderBottom: '2px solid var(--rbl-border-subtle)' }}>
@@ -240,7 +240,7 @@ export default function CapitalDebtPage() {
           <strong>{usd(longTermObligationsTotal[2025])}</strong> — with retiree health insurance alone larger than all
           the bonds, notes, pension and accrued leave put together.
         </p>
-        <div style={{ overflowX: 'auto' }}>
+        <div tabIndex={0} role="region" aria-label="Long-term obligations comparison table" style={{ overflowX: 'auto' }}>
           <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 14, minWidth: 560 }}>
             <thead>
               <tr style={{ textAlign: 'left', color: 'var(--rbl-text-muted)', fontSize: 13.5 }}>

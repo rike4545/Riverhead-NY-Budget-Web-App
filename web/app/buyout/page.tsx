@@ -154,7 +154,7 @@ export default function BuyoutPage() {
             </p>
           </div>
         )}
-        <div style={{ overflowX: 'auto' }}>
+        <div tabIndex={0} style={{ overflowX: 'auto' }}>
           <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 13.5 }}>
             <thead>
               <tr style={{ textAlign: 'left', color: 'var(--rbl-text-muted)', borderBottom: '2px solid var(--rbl-border-subtle)' }}>
@@ -291,7 +291,7 @@ export default function BuyoutPage() {
           still ahead. Yearly savings still depend on whether each vacated
           job is refilled at the same cost, refilled cheaper (a new hire starts at a lower step), or held open.
         </p>
-        <div style={{ overflowX: 'auto' }}>
+        <div tabIndex={0} style={{ overflowX: 'auto' }}>
           <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 13.5 }}>
             <thead>
               <tr style={{ textAlign: 'left', color: 'var(--rbl-text-muted)', borderBottom: '2px solid var(--rbl-border-subtle)' }}>
@@ -410,7 +410,7 @@ export default function BuyoutPage() {
           </div>
 
           {/* By-rank table for the eligible pool */}
-          <div style={{ overflowX: 'auto' }}>
+          <div tabIndex={0} style={{ overflowX: 'auto' }}>
             <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 13.5 }}>
               <thead>
                 <tr style={{ textAlign: 'left', color: 'var(--rbl-text-muted)', borderBottom: '2px solid var(--rbl-border-subtle)' }}>
@@ -590,7 +590,7 @@ export default function BuyoutPage() {
       </PlainCallout>
       <section style={{ ...card, marginBottom: 18 }}>
         <p style={{ color: 'var(--rbl-text-body)', marginTop: 0, fontSize: 14.5, lineHeight: 1.55 }}>{analysis.compare2019.note}</p>
-        <div style={{ overflowX: 'auto' }}>
+        <div tabIndex={0} style={{ overflowX: 'auto' }}>
           <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 13.5 }}>
             <thead>
               <tr style={{ textAlign: 'left', color: 'var(--rbl-text-muted)', borderBottom: '2px solid var(--rbl-border-subtle)' }}>

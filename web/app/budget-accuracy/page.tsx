@@ -22,7 +22,7 @@ const headRow = { textAlign: 'left', color: 'var(--rbl-text-muted)', fontSize: 1
 
 const SEV_COLOR: Record<string, string> = {
   critical: 'var(--rbl-danger)',
-  high: 'var(--rbl-warn-border)',
+  high: 'var(--rbl-warn-strong)',
   explain: 'var(--rbl-badge)',
 }
 
@@ -69,7 +69,7 @@ export default function BudgetAccuracyPage() {
             These accounts had more spending than originally budgeted in each of {LAST3.join(', ')}. When that happens, the Town may need to approve transfers from other accounts during the year. The original adopted budget therefore does not show the full amount ultimately spent. The{' '}
             {historyBudgetYear} Tentative budgets them <strong>{usd(chronicGap)}</strong> below their three-year average.
           </p>
-          <div style={{ overflowX: 'auto' }}>
+          <div tabIndex={0} style={{ overflowX: 'auto' }}>
             <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 13.5, minWidth: 640 }}>
               <thead>
                 <tr style={headRow}>
@@ -107,7 +107,7 @@ export default function BudgetAccuracyPage() {
           Across {underBudgeted.length} such lines the {historyBudgetYear} Tentative is <strong>{usd(underBudgetedShortfall)}</strong> short
           of what they have actually cost in the years they happened.
         </p>
-        <div style={{ overflowX: 'auto' }}>
+        <div tabIndex={0} style={{ overflowX: 'auto' }}>
           <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 13.5, minWidth: 620 }}>
             <thead>
               <tr style={headRow}>
@@ -149,7 +149,7 @@ export default function BudgetAccuracyPage() {
             Tentative, {usd(unusedGeneralFund)} of it in the General Fund. Some are a cushion for a rare expense, such as severance, and the
             Board may want to keep those; it should know they have gone unused. Debt payments, reserves and contingencies are left out.
           </p>
-          <div style={{ overflowX: 'auto' }}>
+          <div tabIndex={0} style={{ overflowX: 'auto' }}>
             <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 13.5, minWidth: 560 }}>
               <thead>
                 <tr style={headRow}>
