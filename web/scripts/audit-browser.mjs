@@ -42,6 +42,13 @@ const server = createServer((req, res) => {
     const url = new URL(req.url ?? '/', 'http://127.0.0.1')
     let pathname = decodeURIComponent(url.pathname)
     if (!pathname.startsWith(BASE)) { res.writeHead(404).end(); return }
+    // Serve axe as a same-origin external script so the site's strict CSP can
+    // allow the audit without weakening production Content-Security-Policy.
+    if (pathname === `${BASE}/__audit/axe.min.js`) {
+      res.writeHead(200, { 'content-type': 'text/javascript', 'cache-control': 'no-store' })
+      res.end(readFileSync(axePath))
+      return
+    }
     const relativePath = pathname.slice(BASE.length) || '/'
     let file = resolve(OUT, `.${relativePath}`)
     if (!file.startsWith(OUT)) { res.writeHead(403).end(); return }
@@ -87,7 +94,7 @@ try {
       if (width === 390 || width === 1280) {
         const screenshot = join(SCREENSHOTS, `${routeName}-${width}.png`)
         await page.screenshot({ path: screenshot, fullPage: true, animations: 'disabled' })
-        await page.addScriptTag({ path: axePath })
+        await page.addScriptTag({ url: `${origin}${BASE}/__audit/axe.min.js` })
         const audit = await page.evaluate(async (tags) => window.axe.run(document, {
           runOnly: { type: 'tag', values: tags },
         }), axeTags)
