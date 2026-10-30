@@ -1,6 +1,7 @@
 import PageShell from '../../components/PageShell'
 import PlainCallout from '../../components/PlainCallout'
 import HousingTransferTaxCalculator from '../../components/HousingTransferTaxCalculator'
+import HousingInventorySection from '../../components/HousingInventorySection'
 import BarRows from '../../components/charts/BarRows'
 import ColumnChart from '../../components/charts/ColumnChart'
 import type { Confidence } from '../../lib/community-housing'
@@ -83,6 +84,8 @@ export default function HousingPlanPage() {
       </section>
 
       <HousingTransferTaxCalculator />
+
+      <HousingInventorySection />
 
       {/* ------------------------------------------------------------------ */}
       <section style={{ ...card, marginBottom: 16 }}>
