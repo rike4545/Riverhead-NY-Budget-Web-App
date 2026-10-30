@@ -107,15 +107,21 @@ const srcBase = join(REPO, manifest.canonicalRoot)
 // are expanded against what is on disk now, so a meeting added this morning is
 // carried without anyone editing the manifest.
 const pairs = []
-for (const f of manifest.files) pairs.push({ src: join(srcBase, f.web), dest: join(destBase, f[consumerName]), label: f.web })
+for (const f of manifest.files) {
+  const destination = f[consumerName]
+  if (!destination) continue
+  pairs.push({ src: join(srcBase, f.web), dest: join(destBase, destination), label: f.web })
+}
 for (const d of manifest.directories ?? []) {
+  const destination = d[consumerName]
+  if (!destination) continue
   const from = join(srcBase, d.web)
   if (!existsSync(from)) continue
   const suffix = d.pattern?.replace('*', '') ?? ''
   for (const name of readdirSync(from)) {
     if (suffix && !name.endsWith(suffix)) continue
     if (statSync(join(from, name)).isDirectory()) continue
-    pairs.push({ src: join(from, name), dest: join(destBase, d[consumerName], name), label: `${d.web}/${name}` })
+    pairs.push({ src: join(from, name), dest: join(destBase, destination, name), label: `${d.web}/${name}` })
   }
 }
 
@@ -131,13 +137,15 @@ for (const p of pairs) {
 // glance, and deleting from a bundle can break a build that references it.
 const orphans = []
 for (const d of manifest.directories ?? []) {
-  const there = join(destBase, d[consumerName])
+  const destination = d[consumerName]
+  if (!destination) continue
+  const there = join(destBase, destination)
   if (!existsSync(there)) continue
   const here = new Set(existsSync(join(srcBase, d.web)) ? readdirSync(join(srcBase, d.web)) : [])
   const suffix = d.pattern?.replace('*', '') ?? ''
   for (const name of readdirSync(there)) {
     if (suffix && !name.endsWith(suffix)) continue
-    if (!here.has(name)) orphans.push(`${d[consumerName]}/${name}`)
+    if (!here.has(name)) orphans.push(`${destination}/${name}`)
   }
 }
 
