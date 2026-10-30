@@ -153,7 +153,7 @@ export default function Tentative2027Page() {
               )}
             </p>
           )}
-          <div style={{ overflowX: 'auto' }}>
+          <div tabIndex={0} role="region" aria-label="Tentative budget comparison table" style={{ overflowX: 'auto' }}>
             <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 13 }}>
               <thead><tr style={{ borderBottom: '2px solid var(--rbl-border-subtle)' }}>
                 <th style={th}>Fund</th>
