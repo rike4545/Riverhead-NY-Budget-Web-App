@@ -45,7 +45,12 @@
       "ios": "SubaccountsData",
       "android": "subaccounts",
       "pattern": "*.json",
-      "note": "Fund-level adopted budget account lines and their index."
+      "note": "Fund-level adopted budget account lines and their index.",
+      "exclude": {
+        "ios": [
+          "index.json"
+        ]
+      }
     }
   ],
   "files": [
