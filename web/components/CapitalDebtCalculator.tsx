@@ -22,19 +22,19 @@ export default function CapitalDebtCalculator() {
     <div style={{ display: 'flex', flexWrap: 'wrap', gap: 16 }}>
       <div style={{ ...card, flex: '1 1 280px', minWidth: 0, display: 'grid', gap: 16, alignContent: 'start' }}>
         <Field label="Project cost" value={usd(projectCost)} hint="A hypothetical capital project — a road program, a facility, equipment.">
-          <input type="range" min={500_000} max={30_000_000} step={100_000} value={projectCost} onChange={(e) => setProjectCost(Number(e.target.value))} style={slider} />
+          <input type="range" aria-label="Project cost" min={500_000} max={30_000_000} step={100_000} value={projectCost} onChange={(e) => setProjectCost(Number(e.target.value))} style={slider} />
         </Field>
         <Field label="BAN period" value={`${banYears} yr${banYears === 1 ? '' : 's'}`} hint="How long the project is financed short-term before converting to a permanent bond.">
-          <input type="range" min={1} max={5} step={1} value={banYears} onChange={(e) => setBanYears(Number(e.target.value))} style={slider} />
+          <input type="range" aria-label="BAN period" min={1} max={5} step={1} value={banYears} onChange={(e) => setBanYears(Number(e.target.value))} style={slider} />
         </Field>
         <Field label="BAN rate (assumption)" value={`${banRatePct.toFixed(2)}%`} hint="Short-term note rate — you set this; it is not a quoted Town rate.">
-          <input type="range" min={1} max={7} step={0.05} value={banRatePct} onChange={(e) => setBanRatePct(Number(e.target.value))} style={slider} />
+          <input type="range" aria-label="BAN rate assumption" min={1} max={7} step={0.05} value={banRatePct} onChange={(e) => setBanRatePct(Number(e.target.value))} style={slider} />
         </Field>
         <Field label="Bond term" value={`${bondYears} yrs`} hint="Length of the permanent, long-term serial bond once issued.">
-          <input type="range" min={5} max={30} step={1} value={bondYears} onChange={(e) => setBondYears(Number(e.target.value))} style={slider} />
+          <input type="range" aria-label="Bond term" min={5} max={30} step={1} value={bondYears} onChange={(e) => setBondYears(Number(e.target.value))} style={slider} />
         </Field>
         <Field label="Bond rate (assumption)" value={`${bondRatePct.toFixed(2)}%`} hint="Long-term bond rate — also user-set, not a quoted Town rate.">
-          <input type="range" min={1} max={7} step={0.05} value={bondRatePct} onChange={(e) => setBondRatePct(Number(e.target.value))} style={slider} />
+          <input type="range" aria-label="Bond rate assumption" min={1} max={7} step={0.05} value={bondRatePct} onChange={(e) => setBondRatePct(Number(e.target.value))} style={slider} />
         </Field>
       </div>
 
