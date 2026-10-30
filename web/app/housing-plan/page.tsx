@@ -235,9 +235,7 @@ export default function HousingPlanPage() {
       <section style={{ ...card, marginBottom: 16 }}>
         <h3 style={{ marginTop: 0, color: 'var(--rbl-title)' }}>What a 0.5% housing tax might have generated</h3>
         <p style={{ color: 'var(--rbl-text-body)', fontSize: 14.5, marginTop: 0, lineHeight: 1.6 }}>
-          This is the one part of the page built from Riverhead&apos;s own audited numbers rather than news coverage.
-          The Town&apos;s CPF financial statements report exactly what a 2% transfer tax collected each year. A 0.5%
-          tax is one quarter of that rate on the same conveyances, so the sizing is division, not modeling.
+          This estimate uses Riverhead&apos;s own audited numbers rather than regional news coverage. The Town&apos;s CPF financial statements report what its 2% transfer tax collected each year. Dividing that revenue by four gives a simple gross comparison for a hypothetical 0.5% tax on the same conveyances. It does not model the different exemptions or how buyers and sellers might respond.
         </p>
         <ColumnChart
           title="Illustrative gross receipts from a 0.5% housing tax"
@@ -249,7 +247,7 @@ export default function HousingPlanPage() {
             color: 'var(--rbl-series-teal)',
           }))}
           format={usd}
-          source="Computed from the Town's audited CPF transfer-tax revenue. An estimate, not a forecast — see the caveats below."
+          source="Computed as one quarter of the Town's audited CPF transfer-tax revenue. Gross historical illustration, not a forecast or guaranteed receipts; see the caveats below."
         />
         <div style={{ height: 22 }} />
         <div style={{ overflowX: 'auto' }}>
@@ -277,7 +275,7 @@ export default function HousingPlanPage() {
                 <td style={{ ...td, textAlign: 'right', fontWeight: 900 }}>{usd(cpfRevenueSinceHousingTax)}</td>
                 <td style={{ ...td, textAlign: 'right', fontWeight: 900, color: 'var(--rbl-warn)' }}>
                   {usd(forgoneLow)} – {usd(forgoneHigh)}
-                  <div style={{ fontWeight: 500, color: 'var(--rbl-warn)', fontSize: 12 }}>low end prorates the first year to 9 months</div>
+                  <div style={{ fontWeight: 500, color: 'var(--rbl-warn)', fontSize: 12 }}>range reflects two treatments of the partial first year; before statutory exemptions</div>
                 </td>
               </tr>
             </tbody>
@@ -292,7 +290,7 @@ export default function HousingPlanPage() {
           ))}
         </div>
         <p style={{ color: 'var(--rbl-text-strong)', fontSize: 13.5, lineHeight: 1.6, marginTop: 12, marginBottom: 0, borderTop: '1px solid var(--rbl-border-subtle)', paddingTop: 10 }}>
-          <strong>Does the number pass a smell test?</strong> {plausibilityCheck}
+          <strong>Regional context, not a forecast:</strong> {plausibilityCheck}
         </p>
       </section>
 
