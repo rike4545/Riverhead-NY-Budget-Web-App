@@ -64,6 +64,9 @@ export default function SiteNav() {
   const routeOf = (href: string) => normalize(base && href.startsWith(base) ? href.slice(base.length) || '/' : href)
   const isActive = (href: string) => !!pathname && routeOf(href) === normalize(pathname)
   const groupIsActive = (g: Group) => g.links.some(([, href]) => isActive(href))
+  // IDs are referenced by aria-controls, so derive stable, valid HTML identifiers
+  // rather than embedding display labels that contain spaces or ampersands.
+  const groupId = (g: Group) => `nav-dropdown-${g.label.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')}`
 
   return (
     <div ref={navRef} className="nav-root" style={{ position: 'relative', marginLeft: 'auto' }}>
@@ -71,8 +74,8 @@ export default function SiteNav() {
       <nav className="nav-links" aria-label="Primary navigation" style={{ display: 'flex', gap: 2, alignItems: 'center' }}>
         {PRIMARY.map(([label, href]) => <a key={href} href={href} className="rbl-on-dark" aria-current={isActive(href) ? 'page' : undefined} style={{ ...linkStyle, ...(isActive(href) ? { background: 'rgba(255,255,255,.14)', borderColor: 'rgba(255,255,255,.16)' } : {}) }}>{label}</a>)}
         {GROUPS.map((g, index) => <div key={g.label} className="nav-group" style={{ position: 'relative' }}>
-          <button onClick={() => setOpen(v => v === g.label ? null : g.label)} aria-controls={`nav-dropdown-${g.label.toLowerCase()}`} aria-expanded={open === g.label} className="rbl-on-dark" style={{ ...linkStyle, cursor: 'pointer', ...(groupIsActive(g) || open === g.label ? { background: 'rgba(255,255,255,.14)', borderColor: 'rgba(255,255,255,.16)' } : {}) }}>{g.label}<ChevronDown aria-hidden="true" size={15} strokeWidth={2.25} style={{ opacity: .8, transition: 'transform .15s ease', transform: open === g.label ? 'rotate(180deg)' : 'none' }} /></button>
-          <div id={`nav-dropdown-${g.label.toLowerCase()}`} className={`nav-dropdown${open === g.label ? ' force-open' : ''}`} style={{ position: 'absolute', top: '100%', minWidth: 250, maxWidth: 320, paddingTop: 9, zIndex: 40, ...(index >= GROUPS.length - 2 ? { right: 0 } : { left: 0 }) }}>
+          <button onClick={() => setOpen(v => v === g.label ? null : g.label)} aria-controls={groupId(g)} aria-expanded={open === g.label} className="rbl-on-dark" style={{ ...linkStyle, cursor: 'pointer', ...(groupIsActive(g) || open === g.label ? { background: 'rgba(255,255,255,.14)', borderColor: 'rgba(255,255,255,.16)' } : {}) }}>{g.label}<ChevronDown aria-hidden="true" size={15} strokeWidth={2.25} style={{ opacity: .8, transition: 'transform .15s ease', transform: open === g.label ? 'rotate(180deg)' : 'none' }} /></button>
+          <div id={groupId(g)} className={`nav-dropdown${open === g.label ? ' force-open' : ''}`} style={{ position: 'absolute', top: '100%', minWidth: 250, maxWidth: 320, paddingTop: 9, zIndex: 40, ...(index >= GROUPS.length - 2 ? { right: 0 } : { left: 0 }) }}>
             <div style={{ background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border)', borderRadius: 12, boxShadow: '0 18px 44px rgba(15,35,55,.16)', padding: 7, display: 'grid', gap: 1, maxHeight: '72vh', overflowY: 'auto' }}>
               {g.links.map(([label, href]) => { const active = isActive(href); return <a key={href} href={href} className="nav-dropdown-link" aria-current={active ? 'page' : undefined} style={{ color: 'var(--rbl-text-strong)', textDecoration: 'none', fontWeight: active ? 700 : 500, fontSize: 15, padding: '8px 10px', borderRadius: 8, background: active ? 'var(--rbl-info-bg)' : 'transparent', display: 'block' }}>{label}</a> })}
             </div>
