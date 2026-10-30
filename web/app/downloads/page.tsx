@@ -7,8 +7,8 @@ const base = process.env.NEXT_PUBLIC_BASE_PATH || ''
 const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 18 } as const
 
 export const metadata = {
-  title: 'Data Downloads — budgets, payroll & votes as CSV',
-  description: 'Download Town of Riverhead budget, payroll, salary, voting, and financial-report data as CSV or JSON.',
+  title: 'Data Downloads — CSV, JSON & research packets',
+  description: 'Download Riverhead budget, payroll, salary, voting and financial-report data as CSV, JSON or curated ZIP research packets.',
 }
 
 const datasets = [
