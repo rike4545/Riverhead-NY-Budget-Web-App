@@ -19,7 +19,7 @@ const ROUTES = [
   '/town-square/', '/buyout/', '/budget-accuracy/', '/sources/',
   '/data-quality/',
 ]
-const WIDTHS = [390, 768, 1280, 1440]
+const WIDTHS = [390, 768, 1280, 1440, 1920]
 const axeTags = ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22aa']
 const types = {
   '.html': 'text/html; charset=utf-8', '.js': 'text/javascript', '.css': 'text/css',
@@ -110,9 +110,10 @@ try {
       const contentWidth = Math.max(layout.document, layout.body)
       if (contentWidth > layout.viewport + 2) fail(`${route} has horizontal overflow at ${width}px: content ${contentWidth}px vs viewport ${layout.viewport}px; offenders=${JSON.stringify(layout.offenders)}`)
 
-      if (width === 390 || width === 1280) {
+      if (width === 390 || width === 1280 || width === 1920) {
         const screenshot = join(SCREENSHOTS, `${routeName}-${width}.png`)
         await page.screenshot({ path: screenshot, fullPage: true, animations: 'disabled' })
+        if (width === 390 || width === 1920) {
         await page.addScriptTag({ url: `${origin}${BASE}/__audit/axe.min.js` })
         const audit = await page.evaluate(async (tags) => window.axe.run(document, {
           runOnly: { type: 'tag', values: tags },
@@ -121,14 +122,14 @@ try {
         const serious = audit.violations.filter((v) => v.impact === 'critical' || v.impact === 'serious')
         violationCount += audit.violations.length
         for (const v of audit.violations) {
-          const targets = v.nodes.slice(0, 5).map((node) => `${node.target.join(', ')} ${(node.failureSummary ?? '').replace(/\\s+/g, ' ').slice(0, 180)}`).join(' || ')
+          const targets = v.nodes.slice(0, 5).map((node) => `${node.target.join(', ')} ${(node.failureSummary ?? '').replace(/\\s+/g, ' ').slice(0, 700)}`).join(' || ')
           const summary = `${route} at ${width}px: ${v.id} (${v.impact}) — ${v.help}; ${v.nodes.length} affected node(s); ${targets}`
           if (v.impact === 'critical' || v.impact === 'serious') fail(summary)
           else console.warn(`ACCESSIBILITY NOTE: ${summary}`)
         }
 
         // Audit the expanded navigation as a separate interactive state.
-        if (width === 390) {
+        if (width <= 1720) {
           const menu = page.locator('.nav-hamburger')
           if (await menu.isVisible()) await menu.click()
         } else {
@@ -146,6 +147,7 @@ try {
           else console.warn(`ACCESSIBILITY NOTE: ${summary}`)
         }
         violationCount += expandedAudit.violations.length
+        }
       }
     }
   }
