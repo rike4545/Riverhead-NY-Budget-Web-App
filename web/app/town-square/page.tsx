@@ -1,4 +1,5 @@
 import PageShell from '../../components/PageShell'
+import ProvenanceLine from '../../components/ProvenanceLine'
 import PlainCallout from '../../components/PlainCallout'
 import {
   acquisition, amphitheatre, boardRecord, buildSchedule, developmentBudget, garage, idaAssistance,
@@ -59,6 +60,17 @@ export default function TownSquarePage() {
         until the hotel-site sale closes.
         Two draws on accumulated surplus for one project, which is why they are shown together below.
       </PlainCallout>
+
+      <ProvenanceLine
+        claimId="town-square-public-money"
+        status="calculated"
+        source="Town Board resolutions 2026-641, 2026-746 and 2026-762; Town Square QE Documents"
+        asOf="September 1, 2026"
+        calculation="Separates Town land acquisition and fund-balance note paydown from developer construction costs and public grants."
+        sourceHref="https://www.townofriverheadny.gov/129/Agendas-Minutes"
+        evidenceHref="/sources/"
+        evidenceLabel="Review the source library"
+      />
 
       <KeyNumbers />
       <Contents />
