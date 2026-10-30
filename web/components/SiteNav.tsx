@@ -79,13 +79,13 @@ export default function SiteNav() {
         </div>)}
       </nav>
       {mobileOpen && <div id="site-mobile-navigation" className="nav-mobile-panel" aria-label="Site navigation" style={{ display: 'none', position: 'absolute', top: 'calc(100% + 8px)', right: 0, maxHeight: '78vh', overflowY: 'auto', background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border)', borderRadius: 14, boxShadow: '0 18px 44px rgba(15,35,55,.18)', padding: 10, zIndex: 50 }}>
-        <label htmlFor="mobile-site-search" style={{ display: 'block', color: 'var(--rbl-text-muted)', fontWeight: 750, fontSize: 11, letterSpacing: '.1em', padding: '7px 10px' }}>FIND A PAGE</label>
+        <label htmlFor="mobile-site-search" style={{ display: 'block', color: 'var(--rbl-text-muted)', fontWeight: 750, fontSize: 11, letterSpacing: '.1em', padding: '7px 10px' }}>Find a page</label>
         <div style={{ display: 'flex', alignItems: 'center', gap: 9, padding: '0 11px', border: '1px solid var(--rbl-border)', borderRadius: 10, background: 'var(--rbl-surface-2)' }}>
           <Search aria-hidden="true" size={17} color="var(--rbl-text-muted)" />
           <input id="mobile-site-search" type="search" value={mobileQuery} onChange={event => setMobileQuery(event.target.value)} placeholder="Search pages…" className="nav-mobile-search-input" style={{ width: '100%', minWidth: 0, height: 44, border: 0, background: 'transparent', color: 'var(--rbl-text)', fontSize: 15 }} />
         </div>
         {!mobileQuery.trim() && <>
-          <div style={{ color: 'var(--rbl-text-muted)', fontWeight: 750, fontSize: 11, letterSpacing: '.1em', padding: '13px 10px 7px' }}>QUICK ACCESS</div>
+          <div style={{ color: 'var(--rbl-text-muted)', fontWeight: 750, fontSize: 11, letterSpacing: '.1em', padding: '13px 10px 7px' }}>Quick access</div>
           <div className="nav-mobile-quick">
             {PRIMARY.map(([label, href]) => <a key={href} href={href} aria-current={isActive(href) ? 'page' : undefined} style={{ display: 'block', color: 'var(--rbl-title)', textDecoration: 'none', fontWeight: 750, fontSize: 15, padding: '10px', borderRadius: 9, background: isActive(href) ? 'var(--rbl-info-bg)' : 'var(--rbl-surface-2)' }}>{label}</a>)}
           </div>
