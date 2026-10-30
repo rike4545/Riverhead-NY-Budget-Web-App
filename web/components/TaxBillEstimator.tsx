@@ -34,11 +34,11 @@ export default function TaxBillEstimator({
     <div style={card}>
       <div style={{ display: 'flex', gap: 8, marginBottom: 14 }}>
         <ModeButton active={inputMode === 'assessed'} onClick={() => setInputMode('assessed')} label="I know my assessed value" />
-        <ModeButton active={inputMode === 'market'} onClick={() => setInputMode('market')} label="I only know market value" />
+        <ModeButton active={inputMode === 'market'} onClick={() => setInputMode('market')} label="I only know my home’s market value" />
       </div>
 
       {inputMode === 'assessed' ? (
-        <Field label="Assessed value" value={usd(assessedValue)} hint="From your tax bill or assessment notice.">
+        <Field label="Assessed value" value={usd(assessedValue)} hint="Use the assessed value printed on your tax bill or assessment notice.">
           <input
             type="range"
             min={5000}
@@ -68,7 +68,7 @@ export default function TaxBillEstimator({
       )}
 
       <div style={{ marginTop: 14 }}>
-        <Field label="STAR exemption reduction (if any)" value={usd(starReduction)} hint="Enter the assessed-value reduction shown on your tax bill, if you have one — this varies by school district and year, so we don't guess it for you.">
+        <Field label="STAR assessed-value reduction (if any)" value={usd(starReduction)} hint="If your bill lists a STAR reduction, enter that amount. It varies by school district and year, so this calculator does not assume one.">
           <input
             type="range"
             min={0}
@@ -84,14 +84,14 @@ export default function TaxBillEstimator({
       <hr style={{ border: 'none', borderTop: '1px solid var(--rbl-border-subtle)', margin: '18px 0' }} />
 
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', gap: 12, flexWrap: 'wrap' }}>
-        <span style={{ color: 'var(--rbl-title)', fontWeight: 800 }}>2026 adopted Town portion (estimated)</span>
+        <span style={{ color: 'var(--rbl-title)', fontWeight: 800 }}>Estimated 2026 Town taxes</span>
         <strong style={{ fontSize: 28, color: 'var(--rbl-title)' }}>{usd(estimate2026.total)}</strong>
       </div>
       {estimate2027Proposal && (
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', gap: 12, flexWrap: 'wrap', marginTop: 12, padding: 12, borderRadius: 10, background: 'var(--rbl-info-bg)', border: '1px solid var(--rbl-border-subtle)' }}>
           <div>
-            <div style={{ color: 'var(--rbl-title)', fontWeight: 850 }}>{proposalLabel} Town portion (illustrative)</div>
-            <div style={{ color: 'var(--rbl-text-muted)', fontSize: 12.5, marginTop: 3 }}>Uses the proposal's published town-wide rate; this is not an adopted tax rate or a final tax bill.</div>
+            <div style={{ color: 'var(--rbl-title)', fontWeight: 850 }}>Estimated Town taxes using the {proposalLabel} rate</div>
+            <div style={{ color: 'var(--rbl-text-muted)', fontSize: 12.5, marginTop: 3 }}>Uses the rate in the proposal. This rate is not final, and this estimate is not a tax bill.</div>
           </div>
           <strong style={{ fontSize: 24, color: 'var(--rbl-title)' }}>{usd(estimate2027Proposal.total)}</strong>
         </div>
@@ -115,7 +115,7 @@ export default function TaxBillEstimator({
       </div>
 
       <p style={{ color: 'var(--rbl-text-muted)', fontSize: 13, lineHeight: 1.5, marginTop: 16 }}>
-        This is only the Town&apos;s portion of your bill — county, school, fire, and library taxes are separate line
+        This estimate covers Town taxes only. County, school district, fire district, and library taxes are separate line
         items on your actual tax bill and aren&apos;t estimated here.
       </p>
     </div>
