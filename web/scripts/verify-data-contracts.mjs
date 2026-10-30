@@ -35,7 +35,7 @@ const safePath = (value) => text(value) && !value.split('/').includes('..') && !
         if (!object(row)) { fail(path, `${at} must be an object`); continue }
         if (!Number.isInteger(row.y) || row.y < 2018 || row.y > 2025) fail(path, `${at}.y must be a published year from 2018 through 2025`)
         if (!text(row.n)) fail(path, `${at}.n must contain an employee display name`)
-        for (const key of ['r', 'o', 'g']) if (!finite(row[key]) || row[key] < 0) fail(path, `${at}.${key} must be a finite, non-negative amount`)
+        for (const key of ['r', 'o', 'g']) if (!finite(row[key])) fail(path, `${at}.${key} must be a finite amount`)
         for (const key of ['d', 't', 'c', 'u']) if (typeof row[key] !== 'string') fail(path, `${at}.${key} must be a string, including when unknown`)
         if (row.f !== undefined && (typeof row.f !== 'string' || !/^\d{6}$/.test(row.f))) fail(path, `${at}.f must preserve a six-digit payroll file number as text`)
         if (row.k !== undefined && (!Array.isArray(row.k) || row.k.length !== 5 || !row.k.every(finite))) fail(path, `${at}.k must be five finite other-pay components`)
