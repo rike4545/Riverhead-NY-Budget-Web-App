@@ -106,6 +106,28 @@ jobs:
         working-directory: web
         run: npm run build
 
+      - name: Install browser audit tools
+        working-directory: web
+        run: |
+          npm install --no-save --package-lock=false playwright@1.56.1 axe-core@4.13.0
+          npx playwright install --with-deps chromium
+
+      - name: Responsive layout and WCAG 2.2 AA audit
+        working-directory: web
+        run: |
+          node scripts/audit-browser.mjs
+          node scripts/audit-targets.mjs --width 390 / /tentative-2027/ /tax-bill/ /budget-amendments-2027/ /scenarios/ /meetings/ /reserves/ /capital-debt/ /town-square/ /buyout/ /budget-accuracy/ /sources/ /data-quality/
+          node scripts/audit-targets.mjs --width 1280 / /tentative-2027/ /tax-bill/ /budget-amendments-2027/ /scenarios/ /meetings/ /reserves/ /capital-debt/ /town-square/ /buyout/ /budget-accuracy/ /sources/ /data-quality/
+
+      - name: Upload responsive review screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: riverhead-responsive-screenshots
+          path: web/artifacts/screenshots/
+          if-no-files-found: ignore
+          retention-days: 14
+
       - name: Verify routes, evidence contracts, and generated data
         working-directory: web
         run: npm run verify:output
