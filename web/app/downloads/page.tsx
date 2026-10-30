@@ -90,7 +90,7 @@ const researchPackets = [
     file: '2027-budget-research-packet.zip',
     title: '2027 Budget Season',
     description: 'Published budget-stage history, the separate 2027 projection, tax-cap inputs, and multi-year Supplement account data.',
-    contents: '12 files · JSON, CSV, source register and SHA-256 manifest',
+    contents: '13 files · JSON, CSV, source register and SHA-256 manifest',
   },
   {
     file: 'financial-health-research-packet.zip',
