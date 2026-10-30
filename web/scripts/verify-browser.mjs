@@ -41,6 +41,12 @@ const server = createServer((req, res) => {
   catch { res.writeHead(400).end('Bad request'); return }
   if (pathname === basePath || pathname.startsWith(basePath + '/')) pathname = pathname.slice(basePath.length) || '/'
   if (!pathname.startsWith('/')) pathname = '/' + pathname
+  // Serve axe from the same origin so the site's restrictive CSP remains on.
+  if (pathname === '/__audit/axe.min.js') {
+    res.writeHead(200, { 'content-type': 'text/javascript; charset=utf-8', 'cache-control': 'no-store' })
+    createReadStream(axePath).pipe(res)
+    return
+  }
   let target = resolve(out, '.' + pathname)
   if (target !== out && !target.startsWith(out + sep)) { res.writeHead(403).end('Forbidden'); return }
   if (existsSync(target) && statSync(target).isDirectory()) target = join(target, 'index.html')
@@ -79,7 +85,7 @@ try {
       if (!structure.title.trim()) failures.push({ route, issue: 'document title is empty' })
       if (!structure.hasMain) failures.push({ route, issue: 'main landmark is missing' })
 
-      await page.addScriptTag({ path: axePath })
+      await page.addScriptTag({ url: `${origin}${basePath}/__audit/axe.min.js` })
       const result = await page.evaluate(async () => window.axe.run(document, {
         runOnly: { type: 'tag', values: ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22aa'] },
       }))
