@@ -153,7 +153,6 @@ try {
         }
       }
     }
-  }
 } finally {
   await browser.close()
   await new Promise((resolveClose) => server.close(resolveClose))
