@@ -83,13 +83,32 @@ try {
         continue
       }
       pageCount++
-      const layout = await page.evaluate(() => ({
-        viewport: document.documentElement.clientWidth,
-        document: document.documentElement.scrollWidth,
-        body: document.body?.scrollWidth ?? 0,
-      }))
+      const layout = await page.evaluate(() => {
+        const viewport = document.documentElement.clientWidth
+        const offenders = [...document.querySelectorAll('body *')].map((element) => {
+          const rect = element.getBoundingClientRect()
+          const style = getComputedStyle(element)
+          return {
+            tag: element.tagName.toLowerCase(),
+            id: element.id,
+            className: typeof element.className === 'string' ? element.className.slice(0, 90) : '',
+            left: Math.round(rect.left),
+            right: Math.round(rect.right),
+            width: Math.round(rect.width),
+            display: style.display,
+            position: style.position,
+          }
+        }).filter((item) => item.display !== 'none' && item.width > 0 && item.right > viewport + 2)
+          .sort((a, b) => b.right - a.right).slice(0, 6)
+        return {
+          viewport,
+          document: document.documentElement.scrollWidth,
+          body: document.body?.scrollWidth ?? 0,
+          offenders,
+        }
+      })
       const contentWidth = Math.max(layout.document, layout.body)
-      if (contentWidth > layout.viewport + 2) fail(`${route} has horizontal overflow at ${width}px: content ${contentWidth}px vs viewport ${layout.viewport}px`)
+      if (contentWidth > layout.viewport + 2) fail(`${route} has horizontal overflow at ${width}px: content ${contentWidth}px vs viewport ${layout.viewport}px; offenders=${JSON.stringify(layout.offenders)}`)
 
       if (width === 390 || width === 1280) {
         const screenshot = join(SCREENSHOTS, `${routeName}-${width}.png`)
@@ -102,7 +121,8 @@ try {
         const serious = audit.violations.filter((v) => v.impact === 'critical' || v.impact === 'serious')
         violationCount += audit.violations.length
         for (const v of audit.violations) {
-          const summary = `${route} at ${width}px: ${v.id} (${v.impact}) — ${v.help}; ${v.nodes.length} affected node(s)`
+          const targets = v.nodes.slice(0, 5).map((node) => `${node.target.join(', ')} ${(node.failureSummary ?? '').replace(/\\s+/g, ' ').slice(0, 180)}`).join(' || ')
+          const summary = `${route} at ${width}px: ${v.id} (${v.impact}) — ${v.help}; ${v.nodes.length} affected node(s); ${targets}`
           if (v.impact === 'critical' || v.impact === 'serious') fail(summary)
           else console.warn(`ACCESSIBILITY NOTE: ${summary}`)
         }
@@ -120,7 +140,8 @@ try {
         }), axeTags)
         axeRuns++
         for (const v of expandedAudit.violations) {
-          const summary = `${route} expanded navigation at ${width}px: ${v.id} (${v.impact}) — ${v.help}; ${v.nodes.length} affected node(s)`
+          const targets = v.nodes.slice(0, 5).map((node) => `${node.target.join(', ')} ${(node.failureSummary ?? '').replace(/\\s+/g, ' ').slice(0, 180)}`).join(' || ')
+          const summary = `${route} expanded navigation at ${width}px: ${v.id} (${v.impact}) — ${v.help}; ${v.nodes.length} affected node(s); ${targets}`
           if (v.impact === 'critical' || v.impact === 'serious') fail(summary)
           else console.warn(`ACCESSIBILITY NOTE: ${summary}`)
         }
