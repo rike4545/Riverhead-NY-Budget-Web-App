@@ -16,10 +16,10 @@ const popular = [
 ]
 
 const pathways = [
-  { title: 'Understand your taxes', text: 'Estimate the Town portion of your bill and see what changed.', href: '/tax-bill/', icon: Wallet, eyebrow: 'FOR RESIDENTS' },
-  { title: 'Follow the money', text: 'Trace the Town levy through the funds and services it supports.', href: '/taxpayer-impact/', icon: Landmark, eyebrow: 'REVENUE & SPENDING' },
-  { title: 'Payroll Explorer', text: 'Search actual pay, overtime, separation payments, titles and departments.', href: '/payroll/', icon: Scale, eyebrow: 'WORKFORCE & PAY' },
-  { title: 'Check fiscal health', text: 'Explore reserves, financial trends, debt and the Town’s fiscal position.', href: '/analytics/', icon: BookOpen, eyebrow: 'FINANCIAL OVERSIGHT' },
+  { title: 'Understand your taxes', text: 'Estimate the Town portion of your bill and see what changed.', href: '/tax-bill/', icon: Wallet, },
+  { title: 'Follow the money', text: 'Trace the Town levy through the funds and services it supports.', href: '/taxpayer-impact/', icon: Landmark, },
+  { title: 'Payroll Explorer', text: 'Search actual pay, overtime, separation payments, titles and departments.', href: '/payroll/', icon: Scale, },
+  { title: 'Check fiscal health', text: 'Explore reserves, financial trends, debt and the Town’s fiscal position.', href: '/analytics/', icon: BookOpen, },
 ]
 
 const research = [
@@ -41,7 +41,6 @@ export default function Page() {
       <div className="home-page">
         <section className="home-hero" aria-labelledby="home-title">
           <div className="home-hero-copy">
-            <div className="home-eyebrow"><span className="home-eyebrow-dot" /> INDEPENDENT PUBLIC-FINANCE EXPLORER</div>
             <h1 id="home-title">Your town’s budget.<br /><span>Made understandable.</span></h1>
             <p className="home-intro">Follow Riverhead’s money from the budget line to the public record. Clear explanations, useful tools and evidence you can check for yourself.</p>
             <div className="home-actions">
@@ -51,7 +50,7 @@ export default function Page() {
             <div className="home-trust-line"><span><i /> No account required</span><span><i /> Sources linked</span><span><i /> Independent analysis</span></div>
           </div>
           <aside className="home-hero-panel" aria-label="Explore the budget">
-            <div className="home-panel-top"><span>RIVERHEAD, NEW YORK</span><span className="home-panel-mark">RB</span></div>
+            <div className="home-panel-top"><span>Riverhead, New York</span><span className="home-panel-mark">RB</span></div>
             <div className="home-panel-title">A clearer view of local government.</div>
             <p>Start with a question. Follow the numbers. Read the underlying documents.</p>
             <div className="home-panel-links">
@@ -59,12 +58,12 @@ export default function Page() {
               <a href={`${base}/budget-amendments-2027/`}><span className="home-panel-icon"><Scale size={18} /></span><span><strong>Budget amendments</strong><small>Track proposed changes and their effects</small></span><ArrowRight size={17} /></a>
               <a href={`${base}/sources/`}><span className="home-panel-icon"><BookOpen size={18} /></span><span><strong>Source library</strong><small>Go directly to records and references</small></span><ArrowRight size={17} /></a>
             </div>
-            <div className="home-panel-foot">PUBLIC RECORDS <span>•</span> PLAIN LANGUAGE <span>•</span> TRACEABLE ANALYSIS</div>
+            <div className="home-panel-foot">Public records <span>•</span> Plain language <span>•</span> Traceable analysis</div>
           </aside>
         </section>
 
         <section className="home-question-strip" aria-label="Popular questions">
-          <div className="home-question-label">WHAT ARE YOU LOOKING FOR?</div>
+          <div className="home-question-label">What are you looking for?</div>
           <div className="home-question-links">
             {popular.map(([label, href]) => <a key={href} href={`${base}${href}`}>{label}<ArrowRight size={13} aria-hidden="true" /></a>)}
           </div>
@@ -75,14 +74,13 @@ export default function Page() {
 
         <section className="home-pathways" aria-labelledby="home-pathways-title">
           <div className="home-section-heading">
-            <div><span className="home-section-kicker">START WITH A QUESTION</span><h2 id="home-pathways-title">What would you like to understand?</h2></div>
+            <div><h2 id="home-pathways-title">What would you like to understand?</h2></div>
             <p>The research is deep. Getting to the right place should be simple.</p>
           </div>
           <div className="home-pathway-grid">
             {pathways.map(({ title, text, href, icon: Icon, eyebrow }) => (
               <a className="home-pathway-card" key={href} href={`${base}${href}`}>
                 <div className="home-card-top"><span className="home-card-icon"><Icon size={20} aria-hidden="true" /></span><ArrowRight className="home-card-arrow" size={18} aria-hidden="true" /></div>
-                <span className="home-card-eyebrow">{eyebrow}</span>
                 <strong>{title}</strong>
                 <span className="home-card-description">{text}</span>
               </a>
@@ -91,14 +89,14 @@ export default function Page() {
         </section>
 
         <section className="home-research" aria-labelledby="home-research-title">
-          <div className="home-research-heading"><div><span className="home-section-kicker">GO DEEPER</span><h2 id="home-research-title">The details are here when you need them.</h2></div><a href={`${base}/guide/`}>Explore the site guide <ArrowRight size={15} /></a></div>
+          <div className="home-research-heading"><div><h2 id="home-research-title">The details are here when you need them.</h2></div><a href={`${base}/guide/`}>Explore the site guide <ArrowRight size={15} /></a></div>
           <div className="home-research-grid">
             {research.map((item, index) => <a href={`${base}${item.href}`} key={item.href}><span className="home-research-number">0{index + 1}</span><span><strong>{item.title}</strong><small>{item.text}</small></span><ArrowRight size={16} /></a>)}
           </div>
         </section>
 
         <section className="home-method" aria-label="How this site works">
-          <div className="home-method-heading"><span className="home-section-kicker">BUILT FOR PUBLIC UNDERSTANDING</span><h2>Clarity is good. Evidence is essential.</h2></div>
+          <div className="home-method-heading"><h2>Clarity is good. Evidence is essential.</h2></div>
           <div className="home-method-grid">{principles.map(item => <div key={item.number}><span>{item.number}</span><strong>{item.title}</strong><p>{item.text}</p></div>)}</div>
         </section>
       </div>
