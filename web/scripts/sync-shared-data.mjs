@@ -112,7 +112,9 @@ for (const d of manifest.directories ?? []) {
   const from = join(srcBase, d.web)
   if (!existsSync(from)) continue
   const suffix = d.pattern?.replace('*', '') ?? ''
+  const excluded = new Set(d.exclude?.[consumerName] ?? [])
   for (const name of readdirSync(from)) {
+    if (excluded.has(name)) continue
     if (suffix && !name.endsWith(suffix)) continue
     if (statSync(join(from, name)).isDirectory()) continue
     pairs.push({ src: join(from, name), dest: join(destBase, d[consumerName], name), label: `${d.web}/${name}` })
@@ -135,7 +137,9 @@ for (const d of manifest.directories ?? []) {
   if (!existsSync(there)) continue
   const here = new Set(existsSync(join(srcBase, d.web)) ? readdirSync(join(srcBase, d.web)) : [])
   const suffix = d.pattern?.replace('*', '') ?? ''
+  const excluded = new Set(d.exclude?.[consumerName] ?? [])
   for (const name of readdirSync(there)) {
+    if (excluded.has(name)) continue
     if (suffix && !name.endsWith(suffix)) continue
     if (!here.has(name)) orphans.push(`${d[consumerName]}/${name}`)
   }
