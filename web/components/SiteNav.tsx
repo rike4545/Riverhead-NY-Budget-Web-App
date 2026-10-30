@@ -54,7 +54,7 @@ export default function SiteNav() {
 
   useEffect(() => {
     function onMouseDown(e: MouseEvent) { if (navRef.current && !navRef.current.contains(e.target as Node)) setOpen(null) }
-    function onKey(e: KeyboardEvent) { if (e.key === 'Escape') { setOpen(null); setMobileOpen(false); setMobileQuery(''); mobileButtonRef.current?.focus() } }
+    function onKey(e: KeyboardEvent) { if (e.key === 'Escape') { const panel = document.getElementById('site-mobile-navigation'); const restoreFocus = !!panel?.contains(document.activeElement); setOpen(null); setMobileOpen(false); setMobileQuery(''); if (restoreFocus) mobileButtonRef.current?.focus() } }
     document.addEventListener('mousedown', onMouseDown); document.addEventListener('keydown', onKey)
     return () => { document.removeEventListener('mousedown', onMouseDown); document.removeEventListener('keydown', onKey) }
   }, [])
