@@ -85,6 +85,27 @@ const datasets = [
   },
 ]
 
+const researchPackets = [
+  {
+    file: '2027-budget-research-packet.zip',
+    title: '2027 Budget Season',
+    description: 'Published budget-stage history, the separate 2027 projection, tax-cap inputs, and multi-year Supplement account data.',
+    contents: '12 files · JSON, CSV, source register and SHA-256 manifest',
+  },
+  {
+    file: 'financial-health-research-packet.zip',
+    title: 'Financial Health & Reserves',
+    description: '2025 AFR results, General Fund and fund history, revenue context, capital/workforce exposures, and Supplement history.',
+    contents: '17 files · JSON, CSV, source register and SHA-256 manifest',
+  },
+  {
+    file: 'town-board-decisions-research-packet.zip',
+    title: 'Town Board Decisions & Votes',
+    description: 'Meeting records, available fiscal-impact companions, voting records, campaign-finance context and consent-calendar data.',
+    contents: 'All indexed meeting JSON files plus CSV vote exports and source register',
+  },
+]
+
 export default function DownloadsPage() {
   return (
     <PageShell
@@ -100,6 +121,26 @@ export default function DownloadsPage() {
       >
         Working on a story, a study, or your own analysis? Take the data with you — no scraping required.
       </PlainCallout>
+
+      <section style={{ ...card, marginBottom: 18 }}>
+        <h2 style={{ margin: '0 0 6px', color: 'var(--rbl-title)', fontSize: 21 }}>Curated research packets</h2>
+        <p style={{ color: 'var(--rbl-text-body)', margin: '0 0 14px', lineHeight: 1.55 }}>
+          Download a topic-specific ZIP instead of collecting files one at a time. Each packet includes a README, a SHA-256 checksum manifest,
+          the release metadata, and the source-document register. The 2027 packet explicitly separates the Town's published budget stages from this site's independent projection.
+        </p>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(min(230px,100%),1fr))', gap: 10 }}>
+          {researchPackets.map((packet) => (
+            <article key={packet.file} style={{ background: 'var(--rbl-surface-2)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 12, padding: 14, display: 'flex', flexDirection: 'column', gap: 8 }}>
+              <h3 style={{ margin: 0, color: 'var(--rbl-title)', fontSize: 16 }}>{packet.title}</h3>
+              <p style={{ margin: 0, color: 'var(--rbl-text-body)', fontSize: 13.5, lineHeight: 1.5 }}>{packet.description}</p>
+              <div style={{ marginTop: 'auto', color: 'var(--rbl-text-muted)', fontSize: 11.5 }}>{packet.contents}</div>
+              <a href={`${base}/downloads/research-packets/${packet.file}`} download style={{ display: 'inline-flex', alignSelf: 'start', padding: '9px 13px', borderRadius: 9, background: 'var(--rbl-fill-accent)', color: 'white', fontWeight: 800, fontSize: 13, textDecoration: 'none' }}>
+                Download research packet
+              </a>
+            </article>
+          ))}
+        </div>
+      </section>
 
       <section style={{ display: 'grid', gap: 12 }}>
         {datasets.map((d) => (
