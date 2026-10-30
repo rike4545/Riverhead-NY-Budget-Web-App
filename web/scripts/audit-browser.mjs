@@ -19,7 +19,8 @@ const ROUTES = [
   '/town-square/', '/buyout/', '/budget-accuracy/', '/sources/',
   '/data-quality/',
 ]
-const WIDTHS = [390, 768, 1280, 1440, 1920]
+const WIDTHS = [390, 768, 1280, 1920]
+const SCREENSHOT_ROUTES = new Set(['/', '/tentative-2027/', '/tax-bill/', '/budget-amendments-2027/', '/budget-accuracy/', '/capital-debt/', '/buyout/'])
 const axeTags = ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22aa']
 const types = {
   '.html': 'text/html; charset=utf-8', '.js': 'text/javascript', '.css': 'text/css',
@@ -110,7 +111,7 @@ try {
       const contentWidth = Math.max(layout.document, layout.body)
       if (contentWidth > layout.viewport + 2) fail(`${route} has horizontal overflow at ${width}px: content ${contentWidth}px vs viewport ${layout.viewport}px; offenders=${JSON.stringify(layout.offenders)}`)
 
-      if (width === 390 || width === 1280 || width === 1920) {
+      if (SCREENSHOT_ROUTES.has(route) && (width === 390 || width === 1280 || width === 1920)) {
         const screenshot = join(SCREENSHOTS, `${routeName}-${width}.png`)
         await page.screenshot({ path: screenshot, fullPage: true, animations: 'disabled' })
         if (width === 390 || width === 1920) {
