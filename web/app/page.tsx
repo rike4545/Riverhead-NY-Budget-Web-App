@@ -78,7 +78,7 @@ export default function Page() {
             <p>The research is deep. Getting to the right place should be simple.</p>
           </div>
           <div className="home-pathway-grid">
-            {pathways.map(({ title, text, href, icon: Icon, eyebrow }) => (
+            {pathways.map(({ title, text, href, icon: Icon }) => (
               <a className="home-pathway-card" key={href} href={`${base}${href}`}>
                 <div className="home-card-top"><span className="home-card-icon"><Icon size={20} aria-hidden="true" /></span><ArrowRight className="home-card-arrow" size={18} aria-hidden="true" /></div>
                 <strong>{title}</strong>
