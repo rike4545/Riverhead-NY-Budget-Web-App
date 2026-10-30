@@ -50,10 +50,11 @@ export default function SiteNav() {
   const [mobileOpen, setMobileOpen] = useState(false)
   const [mobileQuery, setMobileQuery] = useState('')
   const navRef = useRef<HTMLDivElement>(null)
+  const mobileButtonRef = useRef<HTMLButtonElement>(null)
 
   useEffect(() => {
     function onMouseDown(e: MouseEvent) { if (navRef.current && !navRef.current.contains(e.target as Node)) setOpen(null) }
-    function onKey(e: KeyboardEvent) { if (e.key === 'Escape') { setOpen(null); setMobileOpen(false); setMobileQuery('') } }
+    function onKey(e: KeyboardEvent) { if (e.key === 'Escape') { setOpen(null); setMobileOpen(false); setMobileQuery(''); mobileButtonRef.current?.focus() } }
     document.addEventListener('mousedown', onMouseDown); document.addEventListener('keydown', onKey)
     return () => { document.removeEventListener('mousedown', onMouseDown); document.removeEventListener('keydown', onKey) }
   }, [])
@@ -66,7 +67,7 @@ export default function SiteNav() {
 
   return (
     <div ref={navRef} className="nav-root" style={{ position: 'relative', marginLeft: 'auto' }}>
-      <button onClick={() => setMobileOpen(v => !v)} aria-label={mobileOpen ? 'Close site navigation' : 'Open site navigation'} aria-controls="site-mobile-navigation" aria-expanded={mobileOpen} className="nav-hamburger rbl-on-dark" style={{ display: 'none', color: 'white', background: 'rgba(255,255,255,.08)', border: '1px solid rgba(255,255,255,.20)', borderRadius: 8, padding: '8px 12px', fontWeight: 600, fontSize: 15, minWidth: 44, minHeight: 44, cursor: 'pointer' }}>{mobileOpen ? 'Close' : 'Menu'}</button>
+      <button ref={mobileButtonRef} onClick={() => setMobileOpen(v => !v)} aria-label={mobileOpen ? 'Close site navigation' : 'Open site navigation'} aria-controls="site-mobile-navigation" aria-expanded={mobileOpen} className="nav-hamburger rbl-on-dark" style={{ display: 'none', color: 'white', background: 'rgba(255,255,255,.08)', border: '1px solid rgba(255,255,255,.20)', borderRadius: 8, padding: '8px 12px', fontWeight: 600, fontSize: 15, minWidth: 44, minHeight: 44, cursor: 'pointer' }}>{mobileOpen ? 'Close' : 'Menu'}</button>
       <nav className="nav-links" aria-label="Primary navigation" style={{ display: 'flex', gap: 2, alignItems: 'center' }}>
         {PRIMARY.map(([label, href]) => <a key={href} href={href} className="rbl-on-dark" aria-current={isActive(href) ? 'page' : undefined} style={{ ...linkStyle, ...(isActive(href) ? { background: 'rgba(255,255,255,.14)', borderColor: 'rgba(255,255,255,.16)' } : {}) }}>{label}</a>)}
         {GROUPS.map((g, index) => <div key={g.label} className="nav-group" style={{ position: 'relative' }}>
@@ -78,7 +79,7 @@ export default function SiteNav() {
           </div>
         </div>)}
       </nav>
-      {mobileOpen && <div id="site-mobile-navigation" className="nav-mobile-panel" aria-label="Site navigation" style={{ display: 'none', position: 'absolute', top: 'calc(100% + 8px)', right: 0, maxHeight: '78vh', overflowY: 'auto', background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border)', borderRadius: 14, boxShadow: '0 18px 44px rgba(15,35,55,.18)', padding: 10, zIndex: 50 }}>
+      <nav id="site-mobile-navigation" className="nav-mobile-panel" aria-label="Site navigation" hidden={!mobileOpen} style={{ display: 'none', position: 'absolute', top: 'calc(100% + 8px)', right: 0, maxHeight: '78vh', overflowY: 'auto', background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border)', borderRadius: 14, boxShadow: '0 18px 44px rgba(15,35,55,.18)', padding: 10, zIndex: 50 }}>
         <label htmlFor="mobile-site-search" style={{ display: 'block', color: 'var(--rbl-text-muted)', fontWeight: 750, fontSize: 13, padding: '8px 10px' }}>Find a page</label>
         <div style={{ display: 'flex', alignItems: 'center', gap: 9, padding: '0 11px', border: '1px solid var(--rbl-border)', borderRadius: 10, background: 'var(--rbl-surface-2)' }}>
           <Search aria-hidden="true" size={17} color="var(--rbl-text-muted)" />
@@ -100,7 +101,7 @@ export default function SiteNav() {
         })}
         {mobileQuery.trim() && !PRIMARY.some(([label]) => label.toLowerCase().includes(mobileQuery.trim().toLowerCase())) && !GROUPS.some(g => g.links.some(([label]) => label.toLowerCase().includes(mobileQuery.trim().toLowerCase()))) && <p role="status" style={{ margin: '14px 10px', color: 'var(--rbl-text-muted)', fontSize: 14 }}>No pages match “{mobileQuery.trim()}”. Try another term.</p>}
         {mobileQuery.trim() && PRIMARY.some(([label]) => label.toLowerCase().includes(mobileQuery.trim().toLowerCase())) && <div style={{ marginTop: 8 }} className="nav-mobile-quick">{PRIMARY.filter(([label]) => label.toLowerCase().includes(mobileQuery.trim().toLowerCase())).map(([label, href]) => <a key={href} href={href} aria-current={isActive(href) ? 'page' : undefined} style={{ display: 'block', color: 'var(--rbl-title)', textDecoration: 'none', fontWeight: 750, fontSize: 15, padding: '10px', borderRadius: 9, background: isActive(href) ? 'var(--rbl-info-bg)' : 'var(--rbl-surface-2)' }}>{label}</a>)}</div>}
-      </div>}
+      </nav>
     </div>
   )
 }
