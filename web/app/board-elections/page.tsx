@@ -1,5 +1,6 @@
 import PageShell from '../../components/PageShell'
 import PlainCallout from '../../components/PlainCallout'
+import RiverheadElectionExplorer from '../../components/RiverheadElectionExplorer'
 import data from '../../public/data/board-elections.json'
 import {
   electedRequirements, notRequired, termLimitNote, appointedStaff, disclaimer,
@@ -103,6 +104,8 @@ export default function BoardElectionsPage() {
           </section>
         ))}
       </div>
+
+      <RiverheadElectionExplorer />
 
       <h2 style={{ color: 'var(--rbl-title)', marginTop: 28, marginBottom: 2 }}>Recent general elections</h2>
       <p style={{ color: 'var(--rbl-text-muted)', fontSize: 13.5, lineHeight: 1.55, marginTop: 0 }}>{(data as { priorElectionsNote?: string }).priorElectionsNote}</p>
