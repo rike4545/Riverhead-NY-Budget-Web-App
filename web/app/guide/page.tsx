@@ -7,6 +7,12 @@ const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-bo
 
 const tools = [
   {
+    href: `${base}/governance-accountability/`,
+    title: 'Governance & Accountability',
+    answers: 'How can residents track the Town’s priorities, public services, spending and results?',
+    how: 'Use the eight-area framework to connect measurable questions with the site’s existing budget, housing, infrastructure, public-safety and voting research.',
+  },
+  {
     href: `${base}/payroll/`,
     title: 'Payroll Explorer',
     answers: 'How much was each Town employee actually paid, and how much of that was overtime?',
