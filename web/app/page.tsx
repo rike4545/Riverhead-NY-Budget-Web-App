@@ -23,6 +23,7 @@ const pathways = [
 ]
 
 const research = [
+  { title: 'Governance & accountability', text: 'Track municipal priorities, public services, spending, transparency and measurable results.', href: '/governance-accountability/' },
   { title: 'Budget & funds', text: 'See what each fund plans to spend, down to individual budget lines.', href: '/funds/' },
   { title: 'Town Board votes', text: 'Follow resolutions and voting records back to meetings.', href: '/meetings/' },
   { title: '2027 budget outlook', text: 'Compare the projection with the tax cap and the choices the Town can make.', href: '/predict-2027/' },
