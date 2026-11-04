@@ -28,7 +28,7 @@ type Member = {
 
 type Candidate = { name: string; party: string; votes: number }
 type Race = { office: string; seats: number; note?: string; winners: Candidate[]; runnersUp: Candidate[] }
-type PriorElection = { year: number; turnoutNote: string; races: Race[] }
+type PriorElection = { year: number; status?: string; turnoutNote: string; races: Race[] }
 
 const pct = (n: number, d: number) => `${((n / d) * 100).toFixed(1)}%`
 const num = (n: number) => n.toLocaleString()
@@ -94,7 +94,7 @@ export default function BoardElectionsPage() {
         {(data.priorElections as PriorElection[]).map((el) => (
           <section key={el.year} style={{ ...card }}>
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, alignItems: 'baseline', justifyContent: 'space-between' }}>
-              <span style={{ fontSize: 18, fontWeight: 900, color: 'var(--rbl-title)' }}>{el.year} General Election</span>
+              <span style={{ fontSize: 18, fontWeight: 900, color: 'var(--rbl-title)' }}>{el.year} General Election{el.status && <span style={{ marginLeft: 8, fontSize: 12.5, fontWeight: 800, color: 'var(--rbl-accent)' }}>({el.status})</span>}</span>
               <span style={{ color: 'var(--rbl-text-muted)', fontSize: 12.5, fontWeight: 700 }}>{el.turnoutNote}</span>
             </div>
             {el.races.map((race) => {
