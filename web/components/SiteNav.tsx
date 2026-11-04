@@ -82,7 +82,7 @@ export default function SiteNav() {
           </div>
         </div>)}
       </nav>
-      <nav id="site-mobile-navigation" className="nav-mobile-panel" aria-label="Site navigation" hidden={!mobileOpen} style={{ display: 'none', position: 'absolute', top: 'calc(100% + 8px)', right: 0, maxHeight: '78vh', overflowY: 'auto', background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border)', borderRadius: 14, boxShadow: '0 18px 44px rgba(15,35,55,.18)', padding: 10, zIndex: 50 }}>
+      <nav id="site-mobile-navigation" className="nav-mobile-panel" aria-label="Site navigation" hidden={!mobileOpen} style={{ display: 'none', position: 'absolute', top: 'calc(100% + 8px)', right: 12, width: 'min(560px, calc(100vw - 24px))', maxHeight: 'min(78dvh, 720px)', overflowY: 'auto', background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border)', borderRadius: 14, boxShadow: '0 18px 44px rgba(15,35,55,.18)', padding: 10, zIndex: 50 }}>
         <label htmlFor="mobile-site-search" style={{ display: 'block', color: 'var(--rbl-text-muted)', fontWeight: 750, fontSize: 13, padding: '8px 10px' }}>Find a page</label>
         <div style={{ display: 'flex', alignItems: 'center', gap: 9, padding: '0 11px', border: '1px solid var(--rbl-border)', borderRadius: 10, background: 'var(--rbl-surface-2)' }}>
           <Search aria-hidden="true" size={17} color="var(--rbl-text-muted)" />
