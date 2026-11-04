@@ -47,7 +47,7 @@ function Metric({ label, value, note }: { label: string; value: string; note: st
 export default function HousingInventorySection() {
   return (
     <section aria-labelledby="housing-inventory-title" style={{ ...card, marginBottom: 16 }}>
-      <p style={{ color: 'var(--rbl-accent)', fontSize: 11, fontWeight: 900, letterSpacing: '.08em', textTransform: 'uppercase', margin: '0 0 5px' }}>Supply, demand and delivery</p>
+      <p style={{ color: 'var(--rbl-accent)', fontSize: 11, fontWeight: 900, letterSpacing: '.08em', margin: '0 0 5px' }}>Supply, demand and delivery</p>
       <h2 id="housing-inventory-title" style={{ color: 'var(--rbl-title)', fontSize: 22, margin: '0 0 8px' }}>Riverhead housing inventory: what exists, what is scarce, and what is being built</h2>
       <p style={{ color: 'var(--rbl-text-body)', fontSize: 14.5, lineHeight: 1.65, margin: '0 0 14px' }}>
         The Town needs to measure more than the number of homes. Housing type, price, rent, vacancy, accessibility, household income and the status of proposed developments all affect whether a resident can actually find a suitable home.

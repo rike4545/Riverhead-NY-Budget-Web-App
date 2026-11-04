@@ -21,7 +21,7 @@ export default function HousingTransferTaxCalculator() {
   return (
     <section aria-labelledby="housing-tax-calculator-title" style={{ border: '1px solid var(--rbl-teal-border)', background: 'var(--rbl-teal-bg)', borderRadius: 16, padding: 20, marginBottom: 16 }}>
       <div style={{ maxWidth: 760 }}>
-        <p style={{ color: 'var(--rbl-teal-strong)', fontSize: 11, fontWeight: 900, letterSpacing: '.08em', textTransform: 'uppercase', margin: '0 0 5px' }}>Interactive estimate</p>
+        <p style={{ color: 'var(--rbl-teal-strong)', fontSize: 11, fontWeight: 900, letterSpacing: '.08em', margin: '0 0 5px' }}>Interactive estimate</p>
         <h3 id="housing-tax-calculator-title" style={{ color: 'var(--rbl-title)', margin: '0 0 8px', fontSize: 20 }}>What would an extra half-percent look like?</h3>
         <p style={{ color: 'var(--rbl-text-body)', fontSize: 14, lineHeight: 1.6, margin: '0 0 14px' }}>
           Enter a hypothetical sale price to see the simple, gross arithmetic: today&apos;s 2% Peconic Bay Community Preservation Fund rate, the proposed additional 0.5%, and the combined 2.5% rate used in the four participating towns.
