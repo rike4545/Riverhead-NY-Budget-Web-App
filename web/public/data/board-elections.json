@@ -8,54 +8,125 @@
   "registeredVoters": 24217,
   "registeredVotersSource": "Suffolk County Board of Elections, active registered voters in the Town of Riverhead as of the November 2025 election (~24,217)."
  },
- "note": "Vote counts are the winning candidate's own total, from the Suffolk County Board of Elections' final certified results (including the 2025 supervisor recount). The registered-voter denominator is the November 2025 figure; the 2023 winners are compared against it as an approximate reference, since the exact 2023 roll differed slightly. Percentages are the winner's votes divided by each denominator — not a turnout rate.",
+ "note": "Vote counts are the winning candidate's own total, from the Suffolk County Board of Elections' final certified results (including the 2025 supervisor recount). The registered-voter denominator is the November 2025 figure; the 2023 winners are compared against it as an approximate reference, since the exact 2023 roll differed slightly. Percentages are the winner's votes divided by each denominator — not a turnout rate. The 2026 supervisor results shown under Recent general elections are the Board of Elections' unofficial election-night tally and have not been certified.",
  "members": [
   {
-   "name": "Jerome (Jerry) Halpin", "office": "Town Supervisor", "party": "D",
-   "electionLabel": "November 2025", "votes": 3958,
-   "result": "Defeated incumbent Tim Hubbard 3,958 to 3,921 — a 37-vote margin that held through a full manual recount."
+   "name": "Jerome (Jerry) Halpin",
+   "office": "Town Supervisor",
+   "party": "D",
+   "electionLabel": "November 2025",
+   "votes": 3958,
+   "result": "Defeated incumbent Tim Hubbard 3,958 to 3,921 — a 37-vote margin that held through a full manual recount. On November 3, 2026 he won a full two-year term, 6,779 to 6,152 over Councilman Kenneth Rothwell, in unofficial Board of Elections results that are not yet certified."
   },
   {
-   "name": "Robert \"Bob\" Kern", "office": "Councilman", "party": "R",
-   "electionLabel": "November 2025", "votes": 3958,
+   "name": "Robert \"Bob\" Kern",
+   "office": "Councilman",
+   "party": "R",
+   "electionLabel": "November 2025",
+   "votes": 3958,
    "result": "Re-elected to a three-year term; his 3,958 votes were the highest total in any Riverhead race that year."
   },
   {
-   "name": "Kenneth Rothwell", "office": "Councilman", "party": "R",
-   "electionLabel": "November 2025", "votes": 3882,
-   "result": "Re-elected to a three-year term, defeating Democrat Mark Woolley 3,882 to 3,824 — a 58-vote margin."
+   "name": "Kenneth Rothwell",
+   "office": "Councilman",
+   "party": "R",
+   "electionLabel": "November 2025",
+   "votes": 3882,
+   "result": "Re-elected to a three-year term, defeating Democrat Mark Woolley 3,882 to 3,824 — a 58-vote margin. He ran for Supervisor on November 3, 2026 and trailed 6,779 to 6,152 in unofficial results (not yet certified); his Council seat is unaffected and runs through December 31, 2028."
   },
   {
-   "name": "Joann Waski", "office": "Councilwoman", "party": "R",
-   "electionLabel": "November 2023", "votes": 4875,
+   "name": "Joann Waski",
+   "office": "Councilwoman",
+   "party": "R",
+   "electionLabel": "November 2023",
+   "votes": 4875,
    "result": "Won one of two open council seats with 4,875 votes (29.2%) in a four-way race."
   },
   {
-   "name": "Denise Merrifield", "office": "Councilwoman", "party": "R",
-   "electionLabel": "November 2023", "votes": 4992,
+   "name": "Denise Merrifield",
+   "office": "Councilwoman",
+   "party": "R",
+   "electionLabel": "November 2023",
+   "votes": 4992,
    "result": "Top vote-getter for the two open council seats with 4,992 votes (29.9%) in a four-way race."
   }
  ],
  "priorElections": [
   {
+   "year": 2026,
+   "status": "Unofficial — not yet certified",
+   "turnoutNote": "12,938 votes counted in the supervisor race, including 7 write-in votes, from all 22 election districts' in-person results. Absentee and affidavit ballots may still change these totals.",
+   "races": [
+    {
+     "office": "Supervisor",
+     "seats": 1,
+     "note": "Jerry Halpin leads by 627 votes (52.40% to 47.55%); seven write-in votes were also reported. Halpin: Democratic/Taxpayers First, 6,779. Rothwell: Republican/Conservative, 6,152.",
+     "winners": [
+      {
+       "name": "Jerome (Jerry) Halpin",
+       "party": "D/TF",
+       "votes": 6779
+      }
+     ],
+     "runnersUp": [
+      {
+       "name": "Kenneth T. Rothwell",
+       "party": "R/C",
+       "votes": 6152
+      }
+     ]
+    }
+   ]
+  },
+  {
    "year": 2025,
    "turnoutNote": "7,879 of 24,429 registered voters cast a ballot in the supervisor race (32.3%) — an even lower turnout than the prior cycles.",
    "races": [
     {
-     "office": "Supervisor", "seats": 1,
+     "office": "Supervisor",
+     "seats": 1,
      "note": "Jerry Halpin flipped the seat for the Democrats by 37 votes, confirmed on a full manual recount.",
-     "winners": [{ "name": "Jerome (Jerry) Halpin", "party": "D/TF", "votes": 3958 }],
-     "runnersUp": [{ "name": "Timothy C. Hubbard", "party": "R/C", "votes": 3921 }]
-    },
-    {
-     "office": "Council member", "seats": 2,
      "winners": [
-      { "name": "Bob Kern", "party": "R/C", "votes": 3958 },
-      { "name": "Kenneth Rothwell", "party": "R/C", "votes": 3882 }
+      {
+       "name": "Jerome (Jerry) Halpin",
+       "party": "D/TF",
+       "votes": 3958
+      }
      ],
      "runnersUp": [
-      { "name": "Mark A. Woolley", "party": "D/TF", "votes": 3824 },
-      { "name": "Kevin M. Shea", "party": "D/TF", "votes": 3515 }
+      {
+       "name": "Timothy C. Hubbard",
+       "party": "R/C",
+       "votes": 3921
+      }
+     ]
+    },
+    {
+     "office": "Council member",
+     "seats": 2,
+     "winners": [
+      {
+       "name": "Bob Kern",
+       "party": "R/C",
+       "votes": 3958
+      },
+      {
+       "name": "Kenneth Rothwell",
+       "party": "R/C",
+       "votes": 3882
+      }
+     ],
+     "runnersUp": [
+      {
+       "name": "Mark A. Woolley",
+       "party": "D/TF",
+       "votes": 3824
+      },
+      {
+       "name": "Kevin M. Shea",
+       "party": "D/TF",
+       "votes": 3515
+      }
      ]
     }
    ]
@@ -65,20 +136,50 @@
    "turnoutNote": "9,142 of 23,133 registered voters cast a ballot in the supervisor race (39.5%).",
    "races": [
     {
-     "office": "Supervisor", "seats": 1,
-     "winners": [{ "name": "Yvette Aguiar", "party": "R/C", "votes": 5335 }],
-     "runnersUp": [{ "name": "Catherine Kent", "party": "D/WF", "votes": 3807 }]
-    },
-    {
-     "office": "Councilman", "seats": 2,
-     "note": "Current members Kenneth Rothwell and Robert Kern first won their council seats here.",
+     "office": "Supervisor",
+     "seats": 1,
      "winners": [
-      { "name": "Kenneth Rothwell", "party": "R/C", "votes": 5453 },
-      { "name": "Robert Kern", "party": "R/C", "votes": 5206 }
+      {
+       "name": "Yvette Aguiar",
+       "party": "R/C",
+       "votes": 5335
+      }
      ],
      "runnersUp": [
-      { "name": "Evelyn Hobson-Womack", "party": "D/WF", "votes": 3760 },
-      { "name": "Juan Micieli-Martinez", "party": "D/WF", "votes": 3137 }
+      {
+       "name": "Catherine Kent",
+       "party": "D/WF",
+       "votes": 3807
+      }
+     ]
+    },
+    {
+     "office": "Councilman",
+     "seats": 2,
+     "note": "Current members Kenneth Rothwell and Robert Kern first won their council seats here.",
+     "winners": [
+      {
+       "name": "Kenneth Rothwell",
+       "party": "R/C",
+       "votes": 5453
+      },
+      {
+       "name": "Robert Kern",
+       "party": "R/C",
+       "votes": 5206
+      }
+     ],
+     "runnersUp": [
+      {
+       "name": "Evelyn Hobson-Womack",
+       "party": "D/WF",
+       "votes": 3760
+      },
+      {
+       "name": "Juan Micieli-Martinez",
+       "party": "D/WF",
+       "votes": 3137
+      }
      ]
     }
    ]
@@ -88,26 +189,109 @@
    "turnoutNote": "8,587 of 21,798 registered voters cast a ballot in the supervisor race (39.4%).",
    "races": [
     {
-     "office": "Supervisor", "seats": 1,
-     "winners": [{ "name": "Yvette Aguiar", "party": "R/C", "votes": 4647 }],
-     "runnersUp": [{ "name": "Laura M. Jens-Smith", "party": "D/WF/I", "votes": 3940 }]
-    },
-    {
-     "office": "Councilman", "seats": 2,
-     "note": "Timothy Hubbard — later supervisor, defeated in 2025 — first won a council seat here.",
+     "office": "Supervisor",
+     "seats": 1,
      "winners": [
-      { "name": "Timothy C. Hubbard", "party": "R/C", "votes": 4924 },
-      { "name": "Frank R. Beyrodt Jr.", "party": "R/C", "votes": 4564 }
+      {
+       "name": "Yvette Aguiar",
+       "party": "R/C",
+       "votes": 4647
+      }
      ],
      "runnersUp": [
-      { "name": "Diane E. Tucci", "party": "D", "votes": 3634 },
-      { "name": "Patricia A. Snyder", "party": "D", "votes": 3130 }
+      {
+       "name": "Laura M. Jens-Smith",
+       "party": "D/WF/I",
+       "votes": 3940
+      }
+     ]
+    },
+    {
+     "office": "Councilman",
+     "seats": 2,
+     "note": "Timothy Hubbard — later supervisor, defeated in 2025 — first won a council seat here.",
+     "winners": [
+      {
+       "name": "Timothy C. Hubbard",
+       "party": "R/C",
+       "votes": 4924
+      },
+      {
+       "name": "Frank R. Beyrodt Jr.",
+       "party": "R/C",
+       "votes": 4564
+      }
+     ],
+     "runnersUp": [
+      {
+       "name": "Diane E. Tucci",
+       "party": "D",
+       "votes": 3634
+      },
+      {
+       "name": "Patricia A. Snyder",
+       "party": "D",
+       "votes": 3130
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "year": 2017,
+   "turnoutNote": "9,011 of 21,833 registered voters cast a ballot in the supervisor race (41.3%).",
+   "races": [
+    {
+     "office": "Supervisor",
+     "seats": 1,
+     "note": "Laura Jens-Smith, the last Democrat to win the seat before Jerry Halpin, unseated incumbent Sean Walter by 649 votes (53.6% to 46.4%).",
+     "winners": [
+      {
+       "name": "Laura M. Jens-Smith",
+       "party": "D/WF/I/WEP",
+       "votes": 4830
+      }
+     ],
+     "runnersUp": [
+      {
+       "name": "Sean M. Walter",
+       "party": "R/C",
+       "votes": 4181
+      }
+     ]
+    },
+    {
+     "office": "Council member",
+     "seats": 2,
+     "winners": [
+      {
+       "name": "Jodi A. Giglio",
+       "party": "R/C/I",
+       "votes": 4674
+      },
+      {
+       "name": "Catherine A. Kent",
+       "party": "D/WF/I/WEP",
+       "votes": 4537
+      }
+     ],
+     "runnersUp": [
+      {
+       "name": "Frank R. Beyrodt Jr.",
+       "party": "R/C",
+       "votes": 4409
+      },
+      {
+       "name": "Michele Lynch",
+       "party": "D/WF/WEP",
+       "votes": 3865
+      }
      ]
     }
    ]
   }
  ],
- "priorElectionsNote": "Prior Riverhead town general-election results from the Suffolk County Board of Elections. Totals combine each candidate's party lines (e.g. Republican + Conservative). Turnout stayed near 39% both years — the same low-participation pattern that decides who controls the Town's budget.",
+ "priorElectionsNote": "Riverhead town general-election results from the Suffolk County Board of Elections. Totals combine each candidate's party lines (e.g. Republican + Conservative). 2026 results are unofficial and not yet certified; every other year shown is final. Supervisor-race participation ranged from about a third of registered voters to about 41%, and the 2026 vote count was the largest of any year shown.",
  "sources": [
   "RiverheadLOCAL, “Halpin wins supervisor race by 37 votes: final results announced by Suffolk Board of Elections” (Nov. 25, 2025).",
   "RiverheadLOCAL / Riverhead News-Review 2025 town council results (Kern, Rothwell vote totals).",
@@ -116,6 +300,10 @@
   "Suffolk County BOE — 2025 General Election, Riverhead Town results (apps2.suffolkcountyny.gov/boe/eleres/25ge).",
   "Suffolk County BOE — 2021 General Election, Riverhead Town results (apps2.suffolkcountyny.gov/boe/eleres/21ge).",
   "Suffolk County BOE — 2019 General Election, Riverhead Town results (apps2.suffolkcountyny.gov/boe/eleres/19ge).",
-  "U.S. Census Bureau, 2020 Census — Town of Riverhead."
+  "U.S. Census Bureau, 2020 Census — Town of Riverhead.",
+  "Suffolk County BOE — 2026 General Election, unofficial results, Supervisor, Town of Riverhead (https://app.enhancedvoting.com/results/public/suffolk-county-ny/elections/GE2026_20261028145605), accessed Nov. 4, 2026.",
+  "RiverheadLOCAL, “Halpin edges past Rothwell, 52.4% to 47.6%, in unofficial results” (Nov. 3–4, 2026).",
+  "Suffolk County BOE — 2017 General Election, Riverhead Town results (https://apps2.suffolkcountyny.gov/boe/eleres/17ge/rvroff.htm).",
+  "RiverheadLOCAL, “Rothwell mulling supervisor run in ’26” (Dec. 11, 2025) — council term end dates."
  ]
 }
