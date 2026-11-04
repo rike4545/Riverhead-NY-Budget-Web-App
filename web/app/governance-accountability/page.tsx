@@ -52,7 +52,7 @@ export default function GovernancePage() {
           <div style={{ display: 'flex', gap: 12, alignItems: 'baseline', flexWrap: 'wrap' }}><span style={{ color: 'var(--rbl-text-muted)', fontWeight: 800 }}>{p.n}</span><h3 style={{ color: 'var(--rbl-title)', margin: 0 }}>{p.title}</h3><span style={{ marginLeft: 'auto', color: 'var(--rbl-text-muted)', fontSize: 12, fontWeight: 700 }}>BASELINE / TARGET TO BE ESTABLISHED</span></div>
           <p style={{ ...textStyle, margin: '9px 0 5px' }}><strong>Governing question:</strong> {p.question}</p>
           <p style={{ ...textStyle, margin: '5px 0 9px' }}><strong>What to measure:</strong> {p.measure}</p>
-          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px 14px' }}>{p.links.map(([label, href]) => <a key={href} href={`${base}${href}/`} style={link}>{label} →</a>)}</div>
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px 14px' }}>{p.links.map(([label, href]) => <a key={href} href={`${base}${href}`} style={link}>{label} →</a>)}</div>
         </section>)}
       </div>
 
