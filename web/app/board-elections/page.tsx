@@ -28,7 +28,7 @@ type Member = {
 
 type Candidate = { name: string; party: string; votes: number }
 type Race = { office: string; seats: number; note?: string; winners: Candidate[]; runnersUp: Candidate[] }
-type PriorElection = { year: number; turnoutNote: string; races: Race[] }
+type PriorElection = { year: number; status?: string; turnoutNote: string; turnout?: { ballots: number; registered: number }; races: Race[] }
 
 const pct = (n: number, d: number) => `${((n / d) * 100).toFixed(1)}%`
 const num = (n: number) => n.toLocaleString()
@@ -36,6 +36,23 @@ const num = (n: number) => n.toLocaleString()
 export default function BoardElectionsPage() {
   const { population, registeredVoters } = data.denominators
   const members = data.members as Member[]
+  const supervisorComparisons = (data.priorElections as PriorElection[]).flatMap((el) => {
+    const race = el.races.find((item) => item.office.toLowerCase() === 'supervisor')
+    const winner = race?.winners[0]
+    const runnerUp = race?.runnersUp[0]
+    if (!winner || !runnerUp) return []
+    const total = winner.votes + runnerUp.votes
+    return [{
+      year: el.year, winner, runnerUp, margin: winner.votes - runnerUp.votes,
+      winnerShare: (winner.votes / total) * 100,
+      marginShare: ((winner.votes - runnerUp.votes) / total) * 100,
+      turnout: el.turnout ? (el.turnout.ballots / el.turnout.registered) * 100 : null,
+      status: el.status,
+    }]
+  }).sort((a, b) => a.year - b.year)
+  const closestRace = supervisorComparisons.reduce((best, item) => item.margin < best.margin ? item : best)
+  const widestRace = supervisorComparisons.reduce((best, item) => item.margin > best.margin ? item : best)
+  const latestRace = supervisorComparisons[supervisorComparisons.length - 1]
 
   return (
     <PageShell title={data.title} subtitle={data.intro}>
@@ -94,7 +111,7 @@ export default function BoardElectionsPage() {
         {(data.priorElections as PriorElection[]).map((el) => (
           <section key={el.year} style={{ ...card }}>
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, alignItems: 'baseline', justifyContent: 'space-between' }}>
-              <span style={{ fontSize: 18, fontWeight: 900, color: 'var(--rbl-title)' }}>{el.year} General Election</span>
+              <span style={{ fontSize: 18, fontWeight: 900, color: 'var(--rbl-title)' }}>{el.year} General Election{el.status && <span style={{ marginLeft: 8, fontSize: 12.5, fontWeight: 800, color: 'var(--rbl-accent)' }}>({el.status})</span>}</span>
               <span style={{ color: 'var(--rbl-text-muted)', fontSize: 12.5, fontWeight: 700 }}>{el.turnoutNote}</span>
             </div>
             {el.races.map((race) => {
@@ -126,6 +143,59 @@ export default function BoardElectionsPage() {
           </section>
         ))}
       </div>
+
+      {/* Supervisor-race comparison across cycles */}
+      <section style={{ ...card, marginTop: 16 }}>
+        <h2 style={{ color: 'var(--rbl-title)', margin: '0 0 5px', fontSize: 21 }}>How competitive have Riverhead's supervisor races been?</h2>
+        <p style={{ color: 'var(--rbl-text-muted)', fontSize: 13.5, lineHeight: 1.6, margin: '0 0 13px' }}>
+          A six-election comparison of the winning margin, the winner's share of the two leading candidates' combined votes, and historical turnout.
+          The 2026 result is an unofficial election-night count; its turnout is not yet comparable with certified years.
+        </p>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(150px,1fr))', gap: 9, marginBottom: 16 }}>
+          <div style={{ background: 'var(--rbl-surface-2)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 12, padding: 12 }}>
+            <div style={{ color: 'var(--rbl-text-muted)', fontSize: 12, fontWeight: 700 }}>Closest race</div>
+            <strong style={{ color: 'var(--rbl-title)', fontSize: 24 }}>{num(closestRace.margin)}</strong>
+            <div style={{ color: 'var(--rbl-text-muted)', fontSize: 12 }}>{closestRace.year} · votes</div>
+          </div>
+          <div style={{ background: 'var(--rbl-surface-2)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 12, padding: 12 }}>
+            <div style={{ color: 'var(--rbl-text-muted)', fontSize: 12, fontWeight: 700 }}>Widest race</div>
+            <strong style={{ color: 'var(--rbl-title)', fontSize: 24 }}>{num(widestRace.margin)}</strong>
+            <div style={{ color: 'var(--rbl-text-muted)', fontSize: 12 }}>{widestRace.year} · votes</div>
+          </div>
+          <div style={{ background: 'var(--rbl-surface-2)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 12, padding: 12 }}>
+            <div style={{ color: 'var(--rbl-text-muted)', fontSize: 12, fontWeight: 700 }}>Latest reported margin</div>
+            <strong style={{ color: 'var(--rbl-title)', fontSize: 24 }}>{num(latestRace.margin)}</strong>
+            <div style={{ color: 'var(--rbl-text-muted)', fontSize: 12 }}>{latestRace.year} · {latestRace.status ? 'unofficial' : 'certified'}</div>
+          </div>
+        </div>
+        <div style={{ overflowX: 'auto' }}>
+          <table style={{ width: '100%', borderCollapse: 'collapse', minWidth: 650, fontSize: 13 }}>
+            <thead>
+              <tr style={{ textAlign: 'left', color: 'var(--rbl-text-muted)', borderBottom: '1px solid var(--rbl-border)' }}>
+                {['Year','Winner','Runner-up','Margin','Winner share*','Turnout'].map((label) => <th key={label} style={{ padding: '9px 7px', fontWeight: 800 }}>{label}</th>)}
+              </tr>
+            </thead>
+            <tbody>
+              {supervisorComparisons.map((item) => (
+                <tr key={item.year} style={{ borderBottom: '1px solid var(--rbl-border-subtle)' }}>
+                  <td style={{ padding: '10px 7px', fontWeight: 800, color: 'var(--rbl-title)', whiteSpace: 'nowrap' }}>{item.year}{item.status && <div style={{ color: 'var(--rbl-accent)', fontSize: 10.5 }}>Unofficial</div>}</td>
+                  <td style={{ padding: '10px 7px', color: 'var(--rbl-text-strong)' }}>{item.winner.name}<div style={{ color: 'var(--rbl-text-muted)', fontSize: 11.5 }}>{num(item.winner.votes)} votes</div></td>
+                  <td style={{ padding: '10px 7px', color: 'var(--rbl-text-muted)' }}>{item.runnerUp.name}<div style={{ fontSize: 11.5 }}>{num(item.runnerUp.votes)} votes</div></td>
+                  <td style={{ padding: '10px 7px', fontWeight: 800, color: 'var(--rbl-title)', whiteSpace: 'nowrap' }}>{num(item.margin)}</td>
+                  <td style={{ padding: '10px 7px', color: 'var(--rbl-text-strong)', whiteSpace: 'nowrap' }}>{item.winnerShare.toFixed(2)}%</td>
+                  <td style={{ padding: '10px 7px', color: 'var(--rbl-text-muted)', whiteSpace: 'nowrap' }}>{item.turnout === null ? 'Not final' : `${item.turnout.toFixed(1)}%`}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <p style={{ color: 'var(--rbl-text-muted)', fontSize: 11.5, lineHeight: 1.55, margin: '10px 0 0' }}>
+          *Winner share is calculated from the winner and runner-up totals only; write-ins and any other candidates are excluded. Turnout is ballots cast divided by registered voters for that year's supervisor race. The 2026 figure is deliberately withheld until the Board of Elections completes its canvass.
+        </p>
+        <p style={{ color: 'var(--rbl-text-strong)', fontSize: 13.5, lineHeight: 1.6, margin: '10px 0 0' }}>
+          The 2025 contest was the narrowest in this comparison: Halpin won by 37 votes. His 2026 lead over Rothwell is 627 votes in the unofficial count—about 16.9 times that prior margin. The widest margin shown is Hubbard's 1,635-vote win in 2023.
+        </p>
+      </section>
 
       {/* ---- What the job legally requires ---- */}
       <h2 style={{ color: 'var(--rbl-title)', fontSize: 25, margin: '30px 0 4px' }}>What the job legally requires</h2>
