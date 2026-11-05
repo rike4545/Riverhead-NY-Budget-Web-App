@@ -102,9 +102,9 @@ export default function ProgramExplorer({ series, people, base }: { series: Prog
             {series.years.map((x, i) => (i === year ? null : <option key={x.label} value={i}>{x.label}</option>))}
           </select>
         </label>
-        {y.stage === 'tentative' && (
+        {y.stage !== 'adopted' && (
           <div style={{ background: 'var(--rbl-warn-bg)', border: '1px solid var(--rbl-warn-border)', borderRadius: 10, padding: '10px 12px', marginTop: 12, color: 'var(--rbl-note-text)', fontSize: 14, lineHeight: 1.5 }}>
-            {y.label} is the Supervisor’s Tentative Budget: a proposal the Town Board has not adopted and can still change.
+            {y.label} is {y.stage === 'preliminary' ? 'the Preliminary Budget, the Supervisor’s Tentative with the Board’s changes' : 'the Supervisor’s Tentative Budget'}: a proposal the Town Board has not adopted and can still change.
           </div>
         )}
       </section>

@@ -2,7 +2,7 @@
 
 import { useMemo, useState } from 'react'
 import type { FundDetail, SubDepartment } from '../lib/subaccounts'
-import type { FundYear } from '../lib/funds-2027'
+import { PROPOSAL_LABEL, PROPOSAL_STAGE, type FundYear } from '../lib/funds-2027'
 import Sparkline from './Sparkline'
 import { ColumnGuide } from './PlainCallout'
 import { appropriationsByYear } from '../lib/budget-history'
@@ -33,9 +33,9 @@ const changeColor = (from: number, to: number) => (to > from ? 'var(--inc)' : to
 
 type Props = {
   fund: FundDetail
-  /** The fund's totals in the 2027 Tentative's Summary, when it is out. */
+  /** The fund's totals in the latest 2027 Summary (Preliminary, else Tentative). */
   proposed?: FundYear | null
-  /** The 2027 Budget Supplement, when its lines add up to the Tentative; it gives each line's proposed figure. */
+  /** The Supplement the lines come from, when they add up to the Tentative. The Preliminary book's column rides in the same lines. */
   lineSource?: { title: string; url: string } | null
 }
 
@@ -133,7 +133,7 @@ export default function FundDrilldown({ fund, proposed = null, lineSource = null
       <ColumnGuide items={withProposed ? [
         { term: 'Account', plain: 'The Town’s internal code for a single spending line.' },
         { term: '2025 / 2026', plain: 'What the adopted budget set for that line in each year.' },
-        { term: `${PROPOSED_YEAR} proposed`, plain: `What the ${PROPOSED_YEAR} Tentative Budget proposes for the line, from the ${PROPOSED_YEAR} Budget Supplement. The Board can change it before it adopts a budget by November 20.` },
+        { term: `${PROPOSED_YEAR} proposed`, plain: `What the ${PROPOSED_YEAR} ${PROPOSAL_LABEL} Budget proposes for the line. The Board can change it before it adopts a budget by November 20.` },
         { term: 'Change', plain: `The dollar change from the 2026 budget to the ${PROPOSED_YEAR} proposal. The colour follows your setting for an increase.` },
         { term: 'Trend', plain: 'A small line showing the adopted amount each year from 2020 through 2026.' },
       ] : [
@@ -155,7 +155,7 @@ export default function FundDrilldown({ fund, proposed = null, lineSource = null
           <h3 style={{ marginTop: 0 }}>Estimated revenues by source</h3>
           <LineTable
             withProposed={withProposed}
-            rows={filteredRevenues.map((r) => ({ account: r.account, name: r.name, y2024: null, y2025: r.adopted2025, y2026: r.adopted2026, y2027: r.tentative2027, isNew: r.new2027, trend: [r.adopted2025, r.adopted2026] }))}
+            rows={filteredRevenues.map((r) => ({ account: r.account, name: r.name, y2024: null, y2025: r.adopted2025, y2026: r.adopted2026, y2027: r.proposed2027 ?? r.tentative2027, isNew: r.new2027, trend: [r.adopted2025, r.adopted2026] }))}
           />
           {filteredRevenues.length === 0 && <Empty />}
         </section>
@@ -168,7 +168,7 @@ export default function FundDrilldown({ fund, proposed = null, lineSource = null
           <>
             {' '}The {PROPOSED_YEAR} column is from the{' '}
             <a href={lineSource.url} target="_blank" rel="noreferrer" style={{ color: 'var(--rbl-link)', fontWeight: 600 }}>{lineSource.title}</a>,
-            whose lines add up to the {PROPOSED_YEAR} Tentative to the dollar. Lines marked new were not in the 2026 budget.
+            whose lines add up to the {PROPOSED_YEAR} Tentative to the dollar. {PROPOSAL_STAGE === 'preliminary' ? <>Where the Preliminary Budget book prints a different figure for a line, the column shows the Preliminary&rsquo;s; the book&rsquo;s Tentative column agrees with the Supplement on every line. </> : null} Lines marked new were not in the 2026 budget.
           </>
         ) : null}{' '}
         Verify against the{' '}
@@ -183,7 +183,7 @@ export default function FundDrilldown({ fund, proposed = null, lineSource = null
 
 function DepartmentCard({ dept, expanded, fundExp, withProposed }: { dept: SubDepartment; expanded: boolean; fundExp: number; withProposed: boolean }) {
   const pct = fundExp > 0 ? (dept.adopted2026 / fundExp) * 100 : 0
-  const proposed = withProposed ? dept.tentative2027 ?? null : null
+  const proposed = withProposed ? dept.proposed2027 ?? dept.tentative2027 ?? null : null
   return (
     <details open={expanded} style={card}>
       <summary style={{ cursor: 'pointer', listStyle: 'none', display: 'flex', justifyContent: 'space-between', gap: 16, alignItems: 'center', flexWrap: 'wrap' }}>
@@ -219,7 +219,7 @@ function DepartmentCard({ dept, expanded, fundExp, withProposed }: { dept: SubDe
 
       <LineTable
         withProposed={withProposed}
-        rows={dept.lineItems.map((i) => ({ account: i.account, name: i.name, category: i.category, y2024: i.adopted2024, y2025: i.adopted2025, y2026: i.adopted2026, y2027: i.tentative2027, isNew: i.new2027, trend: i.history.map((h) => h.value) }))}
+        rows={dept.lineItems.map((i) => ({ account: i.account, name: i.name, category: i.category, y2024: i.adopted2024, y2025: i.adopted2025, y2026: i.adopted2026, y2027: i.proposed2027 ?? i.tentative2027, isNew: i.new2027, trend: i.history.map((h) => h.value) }))}
       />
     </details>
   )

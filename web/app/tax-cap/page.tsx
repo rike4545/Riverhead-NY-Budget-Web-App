@@ -1,4 +1,5 @@
 import PageShell from '../../components/PageShell'
+import PreliminaryUpdate from '../../components/PreliminaryUpdate'
 import PlainCallout from '../../components/PlainCallout'
 import TentativeReleased from '../../components/TentativeReleased'
 import { released2027, gapPhrase, statedLimitPct } from '../../lib/tentative-2027'
@@ -58,6 +59,7 @@ export default function TaxCapPage() {
       title="The tax cap — the formula, the override, and Riverhead’s record"
       subtitle="The familiar 2% figure is only one input. This page separates New York’s actual levy-limit formula from Riverhead’s historical compliance record and from simple levy-growth comparisons."
     >
+      <PreliminaryUpdate />
       <PlainCallout
         tips={[
           { label: 'Levy, not tax rate', text: 'the law limits the covered property-tax levy — not the percentage change on an individual tax bill.' },

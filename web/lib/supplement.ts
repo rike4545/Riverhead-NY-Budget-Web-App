@@ -40,6 +40,8 @@ export type CurrentLine = {
   ytd: number | null
   request: number | null
   tentative: number | null
+  /** The Preliminary book's figure for the account; null until a Preliminary is printed. */
+  preliminary?: number | null
   priorActual: number | null
   priorAdopted: number | null
   priorYtd: number | null
@@ -48,7 +50,7 @@ export type CurrentLine = {
 type LineHistoryFile = { supplementYears: number[]; budgetYear: number; actualYears: number[]; adoptedYears: number[]; accounts: LineHistory[] }
 type CurrentFile = {
   supplementYear: number
-  columns: { actual: number; adopted: number; ytd: number; request: number; tentative: number; priorActual: number; priorAdopted: number; priorYtd: number }
+  columns: { actual: number; adopted: number; ytd: number; request: number; tentative: number; preliminary?: number; priorActual: number; priorAdopted: number; priorYtd: number }
   source: { title: string; url: string } | null
   reconciliation: { complete: boolean; gap?: number }
   lines: CurrentLine[]
@@ -65,6 +67,14 @@ export const supplementYears = history.supplementYears
 export const actualYears = history.actualYears
 
 const byAccount = new Map(history.accounts.map((a) => [a.account, a]))
+const currentByAccount = new Map(current.lines.map((l) => [l.account, l]))
+
+/** The newest stage the lines carry: the Preliminary book's column once it is in, else the Tentative. */
+export const proposalStage: 'preliminary' | 'tentative' = columns.preliminary === budgetYear ? 'preliminary' : 'tentative'
+export const proposalLabel = proposalStage === 'preliminary' ? 'Preliminary' : 'Tentative'
+/** One line's figure in the newest stage. */
+export const proposedOf = (l: { tentative: number | null; preliminary?: number | null }): number | null =>
+  proposalStage === 'preliminary' && l.preliminary != null ? l.preliminary : l.tentative
 
 /** Every expenditure account the Supplements have carried, with its full record. */
 export const expenditureHistory: LineHistory[] = history.accounts
@@ -86,6 +96,8 @@ export type Figures = {
   ytd: (year: number) => number | null
   request: number | null
   tentative: number | null
+  /** The newest stage's figure (the Preliminary once printed, else the Tentative), summed over the matched accounts. */
+  proposed: number | null
 }
 
 const sumYear = (rows: LineHistory[], field: 'actual' | 'adopted' | 'ytd', year: number): number | null => {
@@ -110,13 +122,17 @@ export function figures(specs: string[]): Figures {
     ytd: (y) => sumYear(rows, 'ytd', y),
     request: sumLatest('request'),
     tentative: sumLatest('tentative'),
+    proposed: (() => {
+      const vals = rows.map((r) => { const c = currentByAccount.get(r.account); return c ? proposedOf(c) : r.tentative }).filter((v): v is number => typeof v === 'number')
+      return vals.length ? vals.reduce((a, v) => a + v, 0) : null
+    })(),
   }
 }
 
 /** Every line of the newest Supplement matching a test. */
 export const lines = (test: (l: CurrentLine) => boolean) => current.lines.filter(test)
 
-export type CurrentField = 'actual' | 'adopted' | 'ytd' | 'request' | 'tentative' | 'priorActual' | 'priorAdopted' | 'priorYtd'
+export type CurrentField = 'actual' | 'adopted' | 'ytd' | 'request' | 'tentative' | 'preliminary' | 'priorActual' | 'priorAdopted' | 'priorYtd'
 
 export const total = (rows: CurrentLine[], field: CurrentField) =>
   rows.reduce((s, r) => s + (r[field] ?? 0), 0)

@@ -1,4 +1,5 @@
 import PageShell from '../../components/PageShell'
+import PreliminaryUpdate from '../../components/PreliminaryUpdate'
 import LineChart from '../../components/charts/LineChart'
 import PlainCallout from '../../components/PlainCallout'
 import TentativeReleased from '../../components/TentativeReleased'
@@ -44,6 +45,7 @@ export default function GeneralFundPage() {
       title={`General Fund History, ${g.firstYear}–${g.lastYear}`}
       subtitle={`How the Town's principal operating fund has grown from ${g.firstYear} to ${g.lastYear}: appropriations, tax levy, estimated revenues, and reserve use, straight from the adopted budgets.`}
     >
+      <PreliminaryUpdate />
       <PlainCallout
         tips={[
           { label: 'Appropriations', text: 'the dark line = total planned spending. Tax levy (gold) = the amount raised from property taxes. Revenues (green) = other income like fees and state aid.' },

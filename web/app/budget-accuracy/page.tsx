@@ -8,6 +8,7 @@ import {
   dueInBudgetYear, underBudgeted, chronicUnderBudget, chronicGap, unused, unusedTotal, unusedGeneralFund,
   renumbered, historyActualYears, historyBudgetYear, supplementCount,
   historyNote, underBudgetedShortfall, variance, flagYears, flagCorrections,
+  proposalLabel,
 } from '../../lib/budget-accuracy'
 import { supplementSource } from '../../lib/supplement'
 
@@ -53,7 +54,7 @@ export default function BudgetAccuracyPage() {
         ]}
       >
         Of the {curatedFlags.length} researched lines below, <strong>{critical}</strong> ran over budget in both {flagYears.first} and{' '}
-        {flagYears.second} and are budgeted below what they cost again in the {flagYears.tentative} Tentative. Across every fund,{' '}
+        {flagYears.second} and are budgeted below what they cost again in the {flagYears.tentative} {proposalLabel}. Across every fund,{' '}
         <strong>{chronicUnderBudget.length}</strong> lines were over budget in each of the last three years, and{' '}
         <strong>{unused.length}</strong> have been budgeted year after year with nothing spent. Separately, the {historyBudgetYear} Supplement
         budgets <strong>{usd(recoverablePool)}</strong> above the trailing run-rate on controllable lines.
@@ -67,7 +68,7 @@ export default function BudgetAccuracyPage() {
           <h3 style={{ marginTop: 0, color: 'var(--rbl-title)' }}>Over budget three years running, and budgeted low again</h3>
           <p style={{ color: 'var(--rbl-text-body)', fontSize: 14.5, lineHeight: 1.6, marginTop: 0 }}>
             These accounts had more spending than originally budgeted in each of {LAST3.join(', ')}. When that happens, the Town may need to approve transfers from other accounts during the year. The original adopted budget therefore does not show the full amount ultimately spent. The{' '}
-            {historyBudgetYear} Tentative budgets them <strong>{usd(chronicGap)}</strong> below their three-year average.
+            {historyBudgetYear} {proposalLabel} budgets them <strong>{usd(chronicGap)}</strong> below their three-year average.
           </p>
           <div style={{ overflowX: 'auto' }}>
             <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 13.5, minWidth: 640 }}>
@@ -75,7 +76,7 @@ export default function BudgetAccuracyPage() {
                 <tr style={headRow}>
                   <th style={th}>Line</th>
                   {LAST3.map((y) => <th key={y} style={thr}>{y}: spent / budget</th>)}
-                  <th style={thr}>{historyBudgetYear} Tentative</th>
+                  <th style={thr}>{historyBudgetYear} {proposalLabel}</th>
                 </tr>
               </thead>
               <tbody>
@@ -91,7 +92,7 @@ export default function BudgetAccuracyPage() {
                         <div style={{ color: 'var(--rbl-text-muted)', fontSize: 11.5 }}>{usd(r.adoptedByYear[String(y)])}</div>
                       </td>
                     ))}
-                    <td style={{ ...tdr, fontWeight: 800, color: 'var(--rbl-danger)' }}>{usd(r.tentative)}</td>
+                    <td style={{ ...tdr, fontWeight: 800, color: 'var(--rbl-danger)' }}>{usd(r.proposed)}</td>
                   </tr>
                 ))}
               </tbody>
@@ -104,7 +105,7 @@ export default function BudgetAccuracyPage() {
         <h3 style={{ marginTop: 0, color: 'var(--rbl-title)' }}>Lines that go quiet, then cost real money</h3>
         <p style={{ color: 'var(--rbl-text-body)', fontSize: 14.5, lineHeight: 1.6, marginTop: 0 }}>
           These sit at or near zero for years, so any single-year comparison reads them as dead. Then the bill arrives.
-          Across {underBudgeted.length} such lines the {historyBudgetYear} Tentative is <strong>{usd(underBudgetedShortfall)}</strong> short
+          Across {underBudgeted.length} such lines the {historyBudgetYear} {proposalLabel} is <strong>{usd(underBudgetedShortfall)}</strong> short
           of what they have actually cost in the years they happened.
         </p>
         <div style={{ overflowX: 'auto' }}>
@@ -114,7 +115,7 @@ export default function BudgetAccuracyPage() {
                 <th style={th}>Line</th>
                 <th style={th}>{FIRST}–{LAST} actuals</th>
                 <th style={thr}>Costs when it happens</th>
-                <th style={thr}>{historyBudgetYear} Tentative</th>
+                <th style={thr}>{historyBudgetYear} {proposalLabel}</th>
               </tr>
             </thead>
             <tbody>
@@ -130,8 +131,8 @@ export default function BudgetAccuracyPage() {
                     <Spark series={r.series} />
                   </td>
                   <td style={{ ...tdr, fontWeight: 800, color: 'var(--rbl-title)' }}>{usd(r.averageWhenActive)}</td>
-                  <td style={{ ...tdr, color: r.tentative === 0 ? 'var(--rbl-danger)' : 'var(--rbl-text-body)' }}>
-                    {usd(r.tentative)}
+                  <td style={{ ...tdr, color: r.proposed === 0 ? 'var(--rbl-danger)' : 'var(--rbl-text-body)' }}>
+                    {usd(r.proposed)}
                   </td>
                 </tr>
               ))}
@@ -144,9 +145,9 @@ export default function BudgetAccuracyPage() {
         <section style={{ ...card, marginBottom: 14 }}>
           <h3 style={{ marginTop: 0, color: 'var(--rbl-title)' }}>Budgeted every year, never used</h3>
           <p style={{ color: 'var(--rbl-text-body)', fontSize: 14.5, lineHeight: 1.6, marginTop: 0 }}>
-            {unused.length} lines were budgeted in {historyBudgetYear - 2}, {historyBudgetYear - 1} and the {historyBudgetYear} Tentative with
+            {unused.length} lines were budgeted in {historyBudgetYear - 2}, {historyBudgetYear - 1} and the {historyBudgetYear} {proposalLabel} with
             nothing spent in {LAST3.join(', ')} or the first half of {historyBudgetYear - 1}. They hold <strong>{usd(unusedTotal)}</strong> in the
-            Tentative, {usd(unusedGeneralFund)} of it in the General Fund. Some are a cushion for a rare expense, such as severance, and the
+            {proposalLabel}, {usd(unusedGeneralFund)} of it in the General Fund. Some are a cushion for a rare expense, such as severance, and the
             Board may want to keep those; it should know they have gone unused. Debt payments, reserves and contingencies are left out.
           </p>
           <div style={{ overflowX: 'auto' }}>
@@ -156,7 +157,7 @@ export default function BudgetAccuracyPage() {
                   <th style={th}>Line</th>
                   <th style={thr}>{historyBudgetYear - 2} budget</th>
                   <th style={thr}>{historyBudgetYear - 1} budget</th>
-                  <th style={thr}>{historyBudgetYear} Tentative</th>
+                  <th style={thr}>{historyBudgetYear} {proposalLabel}</th>
                 </tr>
               </thead>
               <tbody>
@@ -168,7 +169,7 @@ export default function BudgetAccuracyPage() {
                     </td>
                     <td style={tdr}>{usd(r.adoptedPrior)}</td>
                     <td style={tdr}>{usd(r.adopted)}</td>
-                    <td style={{ ...tdr, fontWeight: 800, color: 'var(--rbl-title)' }}>{usd(r.tentative)}</td>
+                    <td style={{ ...tdr, fontWeight: 800, color: 'var(--rbl-title)' }}>{usd(r.proposed)}</td>
                   </tr>
                 ))}
               </tbody>
@@ -195,8 +196,8 @@ export default function BudgetAccuracyPage() {
                 </div>
                 <div style={{ margin: '6px 0' }}><Spark series={c.series} /></div>
                 <div style={{ color: 'var(--rbl-text-body)', fontSize: 13 }}>
-                  Costs about <strong>{usd(c.spikeAverage)}</strong> when it lands. The {historyBudgetYear} Tentative carries{' '}
-                  <strong style={{ color: c.tentative === 0 ? 'var(--rbl-danger)' : 'var(--rbl-title)' }}>{usd(c.tentative)}</strong>.
+                  Costs about <strong>{usd(c.spikeAverage)}</strong> when it lands. The {historyBudgetYear} {proposalLabel} carries{' '}
+                  <strong style={{ color: c.proposed === 0 ? 'var(--rbl-danger)' : 'var(--rbl-title)' }}>{usd(c.proposed)}</strong>.
                 </div>
               </div>
             ))}
@@ -250,7 +251,7 @@ export default function BudgetAccuracyPage() {
                 </div>
               ))}
               <Fig label={`${flagYears.adopted} adopted`} value={money(f.adopted)} />
-              <Fig label={`${flagYears.tentative} Tentative`} value={money(f.tentative)} strong />
+              <Fig label={`${flagYears.tentative} ${proposalLabel}`} value={money(f.proposed)} strong />
             </div>
 
             {f.plainEnglish && (
@@ -273,6 +274,7 @@ export default function BudgetAccuracyPage() {
       <p style={{ color: 'var(--rbl-text-muted)', fontSize: 14, marginTop: 0, lineHeight: 1.6 }}>{outlierNote}</p>
 
       <BudgetAccuracyOutliers
+        proposalLabel={proposalLabel}
         overBudget={overBudget}
         chronicOverrun={chronicOverrun}
         noBudget={noBudget}
@@ -283,7 +285,7 @@ export default function BudgetAccuracyPage() {
       <section style={{ ...card, marginTop: 18 }}>
         <p style={{ color: 'var(--rbl-text-muted)', fontSize: 13, lineHeight: 1.6, margin: 0 }}>
           Researched flags show each line&apos;s budget and actual for {flagYears.first} and {flagYears.second}, the {flagYears.adopted} adopted
-          amount and the {flagYears.tentative} Tentative. The automatic set comes from the Town&apos;s {historyBudgetYear} Budget
+          amount and the {flagYears.tentative} {proposalLabel}. The automatic set comes from the Town&apos;s {historyBudgetYear} Budget
           Supplement{supplementSource ? <> (<a href={supplementSource.url} style={{ color: 'var(--rbl-link)' }}>PDF</a>)</> : null}; the multi-year
           view stacks every Supplement since {historyActualYears[0] + 2}. Actuals are the Town&apos;s books before each year&apos;s audit. None of
           this is an allegation of waste — a line can miss because costs genuinely rose. The question each raises is whether the budgeted

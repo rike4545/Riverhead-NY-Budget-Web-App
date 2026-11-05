@@ -30,6 +30,8 @@ const linesMatchPreliminary =
   lineIndex.supplementYear === latestProposalYear &&
   lineIndex.columns?.preliminary === latestProposalYear
 
+const changedCount = amendmentEffect?.confirmation?.accounts ?? (amendmentEffect?.accounts ?? []).length
+
 const usd = (value: number | null | undefined) =>
   value == null
     ? '—'
@@ -45,7 +47,22 @@ const usd = (value: number | null | undefined) =>
  * line-level Supplement is available. The overlay is calculated from the
  * published resolutions; it is not represented as an official Town table.
  */
-export default function ProposalLineStageNotice({ showAmendmentOverlay = false }: { showAmendmentOverlay?: boolean }) {
+export default function ProposalLineStageNotice({ showAmendmentOverlay = false, basis = 'proposal' }: { showAmendmentOverlay?: boolean; basis?: 'proposal' | 'tentative' }) {
+  // Once the Preliminary's lines are loaded, a page that follows the newest proposal needs no notice.
+  // A page that deliberately keeps the Tentative says so, so its figures are not read as the Preliminary.
+  if (linesMatchPreliminary && basis === 'tentative') {
+    return (
+      <aside role="note" style={{ border: '1px solid var(--rbl-accent)', borderRadius: 12, background: 'var(--rbl-info-bg)', padding: '12px 15px', margin: '0 0 16px', color: 'var(--rbl-text)', lineHeight: 1.5 }}>
+        <strong>The line figures on this page are the Supervisor’s Tentative.</strong>
+        <p style={{ margin: '5px 0 0', color: 'var(--rbl-text-sub)', fontSize: 13.5 }}>
+          The Town Board’s six October 20, 2026 amendments changed {changedCount} account lines in the Preliminary Budget. This page measures the Tentative as it was filed, so those changes are not in its figures. The funds, revenue and Budget Accuracy pages use the Preliminary.
+        </p>
+        <p style={{ margin: '7px 0 0', fontSize: 13 }}>
+          <a href="/Riverhead-NY-Budget-Web-App/budget-amendments-2027/">Read the six amendments and their sources</a>
+        </p>
+      </aside>
+    )
+  }
   if (linesMatchPreliminary || !amendmentEffect) return null
 
   const stageSource = preliminary?.source

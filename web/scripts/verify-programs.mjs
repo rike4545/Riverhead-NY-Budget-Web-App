@@ -35,7 +35,7 @@ const stages = read('public/data/history/budget-stages.json')
 const { shown, leftOut } = budgetYears(spendHistory, revenueHistory, stages.years)
 const newestAdopted = Math.max(...spendHistory.adoptedYears)
 if (!shown.some((y) => y.stage === 'adopted' && y.year === newestAdopted)) fail(`The newest adopted budget, ${newestAdopted}, does not reconcile, so the page cannot open on it`)
-if (!shown.some((y) => y.stage === 'tentative')) fail(`The ${spendHistory.budgetYear} Tentative does not reconcile`)
+if (!shown.some((y) => y.stage !== 'adopted')) fail(`The ${spendHistory.budgetYear} ${spendHistory.proposalStage === 'preliminary' ? 'Preliminary' : 'Tentative'} does not reconcile`)
 if (shown.length < 5) fail(`Only ${shown.length} years reconcile: ${shown.map((y) => y.year).join(', ')}`)
 
 const figuresByYear = new Map()
@@ -94,7 +94,7 @@ else {
   // The year switcher marks each button with its year.
   const html = readFileSync(file, 'utf8')
   const offered = Array.from(html.matchAll(/data-year="([^"]+)"/g)).map((m) => m[1])
-  const expected = shown.map((y) => (y.stage === 'tentative' ? `${y.year} proposed` : String(y.year)))
+  const expected = shown.map((y) => (y.stage !== 'adopted' ? `${y.year} proposed` : String(y.year)))
   if (offered.join('|') !== expected.join('|')) fail(`/programs/ offers ${offered.join(', ') || 'no years'}; the years that reconcile are ${expected.join(', ')}`)
   const current = figuresByYear.get(`${newestAdopted}-adopted`)
   if (current) {
@@ -108,5 +108,5 @@ else {
 }
 
 if (!process.exitCode) {
-  console.log(`programs: ${shown.map((y) => (y.stage === 'tentative' ? `${y.year} proposed` : y.year)).join(', ')} reconcile to their Summary pages on spending and revenue${leftOut.length ? ` (${leftOut.map((y) => y.year).join(', ')} left out)` : ''}; every year's programs, debt, set-asides and transfers equal its appropriations; 2026 matches the Adopted Budget`)
+  console.log(`programs: ${shown.map((y) => (y.stage !== 'adopted' ? `${y.year} proposed` : y.year)).join(', ')} reconcile to their Summary pages on spending and revenue${leftOut.length ? ` (${leftOut.map((y) => y.year).join(', ')} left out)` : ''}; every year's programs, debt, set-asides and transfers equal its appropriations; 2026 matches the Adopted Budget`)
 }

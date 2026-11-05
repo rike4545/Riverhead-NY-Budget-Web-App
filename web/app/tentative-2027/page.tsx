@@ -1,4 +1,5 @@
 import PageShell from '../../components/PageShell'
+import PreliminaryUpdate from '../../components/PreliminaryUpdate'
 import PlainCallout from '../../components/PlainCallout'
 import SupplementFindings from '../../components/SupplementFindings'
 import {
@@ -44,6 +45,7 @@ export default function Tentative2027Page() {
       title={`The ${YEAR} Tentative Budget`}
       subtitle={`This site’s independent ${YEAR} projection against the Town’s own Tentative, fund by fund — and what the record says about whether a Tentative changes before it is adopted.`}
     >
+      <PreliminaryUpdate />
       <PlainCallout
         tips={[
           { label: 'A Tentative is a proposal', text: 'it appropriates nothing. Only the budget the Board adopts by Nov 20 creates the authority to spend (Town Law §109).' },

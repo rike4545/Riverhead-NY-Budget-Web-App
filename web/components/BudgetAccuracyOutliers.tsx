@@ -9,7 +9,7 @@ const usd = (n: number) => new Intl.NumberFormat('en-US', { style: 'currency', c
 type Tab = 'overBudget' | 'chronicOverrun' | 'noBudget'
 
 export default function BudgetAccuracyOutliers({
-  overBudget, chronicOverrun, noBudget, recoverablePool, columns,
+  overBudget, chronicOverrun, noBudget, recoverablePool, columns, proposalLabel = 'Tentative',
 }: {
   overBudget: Outlier[]
   chronicOverrun: Outlier[]
@@ -17,6 +17,8 @@ export default function BudgetAccuracyOutliers({
   recoverablePool: number
   /** The years the newest Supplement's columns cover. */
   columns: { actual: number; adopted: number; ytd: number; tentative: number }
+  /** The newest stage the lines carry: Preliminary once the Town prints it, else Tentative. */
+  proposalLabel?: string
 }) {
   const [tab, setTab] = useState<Tab>('overBudget')
   const [q, setQ] = useState('')
@@ -25,7 +27,7 @@ export default function BudgetAccuracyOutliers({
     {
       key: 'overBudget',
       label: `Budgeted above the run-rate (${overBudget.length})`,
-      blurb: `Controllable lines where the ${columns.tentative} Tentative sits more than 30% above what the line has actually been running. Together they hold ${usd(recoverablePool)} more than recent spending supports.`,
+      blurb: `Controllable lines where the ${columns.tentative} ${proposalLabel} sits more than 30% above what the line has actually been running. Together they hold ${usd(recoverablePool)} more than recent spending supports.`,
       rows: overBudget,
     },
     {
@@ -88,7 +90,7 @@ export default function BudgetAccuracyOutliers({
               <th style={{ padding: '8px 10px', textAlign: 'right' }}>{columns.actual} actual</th>
               <th style={{ padding: '8px 10px', textAlign: 'right' }}>Jan–Jun {columns.ytd}</th>
               <th style={{ padding: '8px 10px', textAlign: 'right' }}>{columns.adopted} budget</th>
-              <th style={{ padding: '8px 10px', textAlign: 'right' }}>{columns.tentative} Tentative</th>
+              <th style={{ padding: '8px 10px', textAlign: 'right' }}>{columns.tentative} {proposalLabel}</th>
               <th style={{ padding: '8px 10px', textAlign: 'right' }}>Gap</th>
             </tr>
           </thead>
@@ -102,7 +104,7 @@ export default function BudgetAccuracyOutliers({
                 <td style={{ padding: '9px 10px', textAlign: 'right', whiteSpace: 'nowrap' }}>{usd(r.actual ?? 0)}</td>
                 <td style={{ padding: '9px 10px', textAlign: 'right', whiteSpace: 'nowrap' }}>{usd(r.ytd ?? 0)}</td>
                 <td style={{ padding: '9px 10px', textAlign: 'right', whiteSpace: 'nowrap' }}>{usd(r.adopted ?? 0)}</td>
-                <td style={{ padding: '9px 10px', textAlign: 'right', whiteSpace: 'nowrap' }}>{usd(r.tentative ?? 0)}</td>
+                <td style={{ padding: '9px 10px', textAlign: 'right', whiteSpace: 'nowrap' }}>{usd(r.proposal ?? r.tentative ?? 0)}</td>
                 <td style={{ padding: '9px 10px', textAlign: 'right', fontWeight: 800, color: 'var(--rbl-title)', whiteSpace: 'nowrap' }}>{usd(r.excess)}</td>
               </tr>
             ))}

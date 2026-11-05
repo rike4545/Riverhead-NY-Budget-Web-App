@@ -65,6 +65,7 @@ REPORTS = ROOT / "web/public/data/financial-reports"
 STAGES = ROOT / "web/public/data/history/budget-stages.json"
 OUT_DIR = ROOT / "web/public/data/budget-supplement"
 OUT = OUT_DIR / "history.json"
+PRELIM = ROOT / "web/public/data/budget-2027-preliminary-lines.json"
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from parse_budget_requests import reconcile  # noqa: E402
@@ -244,6 +245,7 @@ def read_supplement(year: int, panel: dict, latest: int) -> int:
     return found
 
 
+PRELIM_FIG: dict[str, float] = {}  # account -> the Preliminary book's figure, when it is in
 YEARS: list[int] = []
 LATEST = 0
 ACTUAL_YEARS: list[int] = []
@@ -304,10 +306,24 @@ def find_renumbered(panel: dict) -> list[dict]:
     return sorted(out, key=lambda r: -r["peak"])
 
 
+def proposal_of(rec: dict):
+    """A line's figure in the newest stage the Town has printed: the Preliminary
+    book's where it is loaded (a line the book omits is zero in every column,
+    and is zero here only when its Tentative is), else the Tentative."""
+    tent = rec.get(f"tentative{LATEST}")
+    if not PRELIM_FIG:
+        return tent
+    got = PRELIM_FIG.get(rec["account"])
+    if got is not None:
+        return got
+    return 0.0 if (tent or 0) == 0 else tent
+
+
 def budget_now(rec: dict) -> dict:
-    """The newest adopted budget and Tentative for a line."""
+    """The newest adopted budget, the Tentative and the newest stage for a line."""
     return {"adopted": rec.get(f"adopted{LATEST - 1}") or 0,
-            "tentative": rec.get(f"tentative{LATEST}") or 0}
+            "tentative": rec.get(f"tentative{LATEST}") or 0,
+            "proposed": proposal_of(rec) or 0}
 
 
 def find_cyclical(panel: dict, retired: set[str]) -> list[dict]:
@@ -366,7 +382,7 @@ def find_underbudgeted(panel: dict, retired: set[str]) -> list[dict]:
             continue
         avg_active = statistics.mean(active)
         now = budget_now(rec)
-        if now["tentative"] >= 0.5 * avg_active:
+        if now["proposed"] >= 0.5 * avg_active:
             continue
         out.append({
             "account": acct, "name": name,
@@ -375,7 +391,7 @@ def find_underbudgeted(panel: dict, retired: set[str]) -> list[dict]:
             "averageWhenActive": round(avg_active, 2),
             "peak": round(max(vals), 2),
             **now,
-            "shortfall": round(avg_active - now["tentative"], 2),
+            "shortfall": round(avg_active - now["proposed"], 2),
         })
     return sorted(out, key=lambda r: -r["averageWhenActive"])
 
@@ -401,7 +417,7 @@ def find_chronic_underbudget(panel: dict, retired: set[str]) -> list[dict]:
         now = budget_now(rec)
         if avg_actual < 1.25 * avg_adopted or avg_actual - avg_adopted < 50_000:
             continue
-        if now["tentative"] >= avg_actual:  # the new budget already catches up
+        if now["proposed"] >= avg_actual:  # the new budget already catches up
             continue
         out.append({
             "account": acct, "name": name, "fund": acct.split("-")[0],
@@ -412,7 +428,7 @@ def find_chronic_underbudget(panel: dict, retired: set[str]) -> list[dict]:
             "averageAdopted": round(avg_adopted, 2),
             "ytd": rec.get(f"ytd{LATEST - 1}"),
             **now,
-            "gap": round(avg_actual - now["tentative"], 2),
+            "gap": round(avg_actual - now["proposed"], 2),
         })
     return sorted(out, key=lambda r: -r["gap"])
 
@@ -427,7 +443,7 @@ def find_unused(panel: dict) -> list[dict]:
         if PLACEHOLDER.search(name):
             continue
         now = budget_now(rec)
-        if now["tentative"] <= 0:
+        if now["proposed"] <= 0:
             continue
         if any((rec.get(f"adopted{y}") or 0) <= 0 for y in (LATEST - 2, LATEST - 1)):
             continue
@@ -442,7 +458,7 @@ def find_unused(panel: dict) -> list[dict]:
             "adoptedPrior": rec.get(f"adopted{LATEST - 2}") or 0,
             **now,
         })
-    return sorted(out, key=lambda r: -r["tentative"])
+    return sorted(out, key=lambda r: -r["proposed"])
 
 
 def revenue_category(code: str) -> str:
@@ -463,7 +479,7 @@ def build_revenue_history(panel: dict) -> dict:
             continue
         series = series_of(rec)
         values = [v for k in ("actual", "adopted", "ytd") for v in series[k].values()] + [
-            series["request"] or 0, series["tentative"] or 0]
+            series["request"] or 0, series["tentative"] or 0, series["proposed"] or 0]
         if not any(values):
             continue
         code = acct.split("-")[1]
@@ -492,7 +508,7 @@ def build_revenue_history(panel: dict) -> dict:
         if all(e > 0 and c <= 0 for c, e in pairs) and not any((a["ytd"].get(y) or 0) > 0 for y in last3):
             uncollected.append({**{k: a[k] for k in ("account", "fund", "name", "category", "page")},
                                 "estimated": {y: e for y, (_, e) in zip(last3, pairs)},
-                                "tentative": a["tentative"]})
+                                "tentative": a["tentative"], "proposed": a["proposed"]})
             continue
         # collected at least a quarter more than estimated in each of the last
         # three years, and estimated below that again for the new year
@@ -500,19 +516,21 @@ def build_revenue_history(panel: dict) -> dict:
             continue
         avg_c = statistics.mean(c for c, _ in pairs)
         avg_e = statistics.mean(e for _, e in pairs)
-        if avg_c - avg_e < 25_000 or (a["tentative"] or 0) >= avg_c:
+        if avg_c - avg_e < 25_000 or (a["proposed"] or 0) >= avg_c:
             continue
         under.append({**{k: a[k] for k in ("account", "fund", "name", "category", "page")},
                       "collected": {y: c for y, (c, _) in zip(last3, pairs)},
                       "estimated": {y: e for y, (_, e) in zip(last3, pairs)},
                       "averageCollected": round(avg_c, 2), "averageEstimated": round(avg_e, 2),
-                      "tentative": a["tentative"], "gap": round(avg_c - (a["tentative"] or 0), 2)})
+                      "tentative": a["tentative"], "proposed": a["proposed"],
+                      "gap": round(avg_c - (a["proposed"] or 0), 2)})
     under.sort(key=lambda r: -r["gap"])
     uncollected.sort(key=lambda r: -sum(r["estimated"].values()))
 
     return {
         "supplementYears": YEARS,
         "budgetYear": LATEST,
+        "proposalStage": "preliminary" if PRELIM_FIG else "tentative",
         "actualYears": ACTUAL_YEARS,
         "adoptedYears": list(range(YEARS[0] - 1, LATEST)),
         "underEstimated": under,
@@ -539,6 +557,7 @@ def series_of(rec: dict) -> dict:
         "ytd": {str(y): rec[f"ytd{y}"] for y in range(YEARS[0] - 1, LATEST) if rec.get(f"ytd{y}") is not None},
         "request": rec.get(f"request{LATEST}"),
         "tentative": rec.get(f"tentative{LATEST}"),
+        "proposed": proposal_of(rec),
     }
 
 
@@ -548,14 +567,62 @@ def build_line_history(panel: dict) -> dict:
     accounts = []
     for acct, rec in expenditure(panel):
         s = series_of(rec)
-        values = [v for k in ("actual", "adopted", "ytd") for v in s[k].values()] + [s["request"] or 0, s["tentative"] or 0]
+        values = [v for k in ("actual", "adopted", "ytd") for v in s[k].values()] + [s["request"] or 0, s["tentative"] or 0, s["proposed"] or 0]
         if not any(values):
             continue
         accounts.append({"account": acct, "fund": acct.split("-")[0], "name": rec.get("name", ""),
                          "page": rec.get("page"), **s})
     accounts.sort(key=lambda r: r["account"])
-    return {"supplementYears": YEARS, "budgetYear": LATEST, "actualYears": ACTUAL_YEARS,
+    return {"supplementYears": YEARS, "budgetYear": LATEST, "proposalStage": "preliminary" if PRELIM_FIG else "tentative",
+            "actualYears": ACTUAL_YEARS,
             "adoptedYears": list(range(YEARS[0] - 1, LATEST)), "accounts": accounts}
+
+
+def merge_preliminary(lines: list[dict], cols: dict) -> dict | None:
+    """Add the Preliminary book's figure to each line of the newest Supplement.
+
+    parse_preliminary_lines.py reads the book and has already checked that its
+    lines add up to both Summaries. The book leaves out an all-zero account, so
+    a Supplement line it does not print gets a Preliminary of zero only when its
+    Tentative is zero too; anything else is left blank rather than guessed.
+    """
+    if not PRELIM.exists():
+        return None
+    book = json.loads(PRELIM.read_text(encoding="utf-8"))
+    if book.get("year") != LATEST or not book.get("reconciliation", {}).get("complete"):
+        return None
+    byacct = {r["account"]: r for r in book["lines"]}
+    cols["preliminary"] = LATEST
+    filled = unprinted = blank = tent_mismatch = 0
+    for row in lines:
+        b = byacct.get(row["account"])
+        if b is not None:
+            row["preliminary"] = b["preliminary"]
+            filled += 1
+            if row["tentative"] is not None and abs(row["tentative"] - b["tentative"]) > 0.5:
+                tent_mismatch += 1
+        elif (row["tentative"] or 0) == 0:
+            row["preliminary"] = 0.0
+            unprinted += 1
+        else:
+            row["preliminary"] = None
+            blank += 1
+    # accounts the book prints that the Supplement does not carry would be lost silently
+    known = {r["account"] for r in lines}
+    missing = sorted(a for a in byacct if a not in known)
+    if tent_mismatch or blank or missing:
+        raise SystemExit(f"Preliminary book and Supplement disagree: tentative differs on {tent_mismatch}, "
+                         f"{blank} lines unresolved, {len(missing)} book accounts not in the Supplement {missing[:3]}")
+    return {
+        "complete": True,
+        "against": book["reconciliation"]["against"].get("preliminary"),
+        "summaryTotal": book["reconciliation"]["preliminarySummaryTotal"],
+        "bookTotal": book["reconciliation"]["preliminaryTotal"],
+        "linesPrinted": filled,
+        "linesNotPrintedZero": unprinted,
+        "changedFromTentative": book["changedFromTentative"],
+        "source": {k: book["source"][k] for k in ("title", "url", "sha256")},
+    }
 
 
 def build_current(panel: dict, latest_doc: dict | None) -> tuple[dict, dict, dict]:
@@ -586,6 +653,7 @@ def build_current(panel: dict, latest_doc: dict | None) -> tuple[dict, dict, dic
             continue  # heading rows print zeros in every column
         lines.append(row)
     lines.sort(key=lambda r: (r["kind"] != "expenditure", r["account"]))
+    prelim_note = merge_preliminary(lines, cols)
 
     source = {"title": latest_doc["title"], "url": latest_doc["url"]} if latest_doc else None
     exp = [r for r in lines if r["kind"] == "expenditure"]
@@ -602,20 +670,26 @@ def build_current(panel: dict, latest_doc: dict | None) -> tuple[dict, dict, dic
         "reconciliation": reconcile(LATEST, summary, stages),
         "lines": lines,
     }
+    if prelim_note:
+        current["reconciliation"]["preliminary"] = prelim_note
 
     # The same tests and thresholds parse_budget_supplement.py applies to the
     # 2026 Supplement, on the newest one.
+    # The latest proposal: the Preliminary where the book supplies it, else the Tentative.
+    stage = "preliminary" if "preliminary" in cols else "tentative"
+    for r in exp:
+        r["proposal"] = r["preliminary"] if stage == "preliminary" else r["tentative"]
     for r in exp:
         a, ytd = r["actual"], r["ytd"]
         r["runRate"] = max(a or 0.0, (ytd or 0.0) * 2) if (a is not None or ytd is not None) else None
 
     def pub(r):
         return {k: r[k] for k in ("account", "fund", "name", "control", "page",
-                                  "actual", "adopted", "ytd", "tentative")}
+                                  "actual", "adopted", "ytd", "tentative", "proposal")}
 
     over = []
     for r in exp:
-        tent, rr = r["tentative"] or 0, r["runRate"] or 0
+        tent, rr = r["proposal"] or 0, r["runRate"] or 0
         if r["control"] != "controllable" or rr <= 0:
             continue
         excess = tent - rr
@@ -643,13 +717,14 @@ def build_current(panel: dict, latest_doc: dict | None) -> tuple[dict, dict, dic
     a_y, b_y, t_y = cols["actual"], cols["adopted"], cols["tentative"]
     outliers = {
         "supplementYear": LATEST,
+        "stage": stage,
         "columns": cols,
         "overBudget": over,
         "chronicOverrun": chronic,
         "noBudget": no_budget,
         "recoverablePoolControllable": round(sum(x["excess"] for x in over), 2),
         "note": (
-            f"Over-budget = {t_y} Tentative above the trailing full-year run-rate "
+            f"Over-budget = {t_y} {stage.capitalize()} above the trailing full-year run-rate "
             f"(the larger of the {a_y} actual and twice the spending through June 30, {b_y}), "
             f"restricted to controllable non-personnel lines. Mandated costs (pension, workers "
             f"comp, insurance, debt service, payroll taxes) and revenue lines are excluded — "
@@ -660,18 +735,19 @@ def build_current(panel: dict, latest_doc: dict | None) -> tuple[dict, dict, dic
     items = [{
         "account": x["account"], "name": x["name"], "fund": x["fund"],
         "fundName": FUND_NAMES.get(x["fund"], x["fund"]), "page": x["page"],
-        "actual": x["actual"], "ytd": x["ytd"], "tentative": x["tentative"],
+        "actual": x["actual"], "ytd": x["ytd"], "tentative": x["tentative"], "proposal": x["proposal"],
         "target": x["excess"], "confidence": confidence(x["name"]),
     } for x in over]
     reductions = {
         "supplementYear": LATEST,
+        "stage": stage,
         "columns": cols,
         "total": round(sum(r["target"] for r in items), 2),
         "byConfidence": {c: round(sum(r["target"] for r in items if r["confidence"] == c), 2)
                          for c in ("firm", "moderate", "volatile")},
         "items": items,
         "method": (
-            f"Each controllable, non-mandated expenditure line whose {t_y} Tentative sits more than "
+            f"Each controllable, non-mandated expenditure line whose {t_y} {stage.capitalize()} sits more than "
             f"30% above its trailing full-year run-rate (the larger of the {a_y} actual and twice the "
             f"spending through June 30, {b_y}). The amount above that run-rate is what trimming the line back to it would save. "
             f"Confidence: firm = operating/professional services; moderate = capital/maintenance "
@@ -681,6 +757,7 @@ def build_current(panel: dict, latest_doc: dict | None) -> tuple[dict, dict, dic
     }
     for r in exp:
         r.pop("runRate", None)
+        r.pop("proposal", None)
     return current, outliers, reductions
 
 
@@ -699,6 +776,10 @@ def main():
         raise SystemExit(f"no Supplements in {SRC}")
     LATEST = YEARS[-1]
     ACTUAL_YEARS = list(range(YEARS[0] - 2, LATEST - 1))
+    if PRELIM.exists():  # parse_preliminary_lines.py has already reconciled it to both Summaries
+        book = json.loads(PRELIM.read_text(encoding="utf-8"))
+        if book.get("year") == LATEST and book.get("reconciliation", {}).get("complete"):
+            PRELIM_FIG.update({r["account"]: r["preliminary"] for r in book["lines"]})
 
     panel: dict = {}
     parsed = {}
@@ -719,6 +800,7 @@ def main():
     write("history.json", {
         "supplementYears": YEARS,
         "budgetYear": LATEST,
+        "proposalStage": "preliminary" if PRELIM_FIG else "tentative",
         "adoptedYear": LATEST - 1,
         "actualYears": ACTUAL_YEARS,
         "accountsTracked": exp_accounts,

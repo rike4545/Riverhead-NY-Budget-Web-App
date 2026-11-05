@@ -51,6 +51,9 @@ evening of October 28, and the site parsed it that night. Its town-wide levy (Ge
 Street Lighting) is $643,858 lower than the Tentative's, the same as the six
 amendments the Town Board voted on October 20. The pages that compare budget
 stages now compare the Preliminary.
+Its account lines are now read too (996 lines, 32 changed from the Tentative, each
+matching a resolution), so the fund, revenue, programs and budget accuracy pages
+show the Preliminary line by line. Pages that measure the Tentative as filed say so.
 **[2027 Budget Amendments](https://rike4545.github.io/Riverhead-NY-Budget-Web-App/budget-amendments-2027/)**
 sets out each amendment line by line, the votes, and how RiverheadLOCAL and
 Newsday reported them.
@@ -452,6 +455,7 @@ Every page shows when its data was last refreshed.
 | `parse_budget_adoption.py` | What the Board changed in each Tentative before adopting it, 2005 on |
 | `parse_budget_requests.py` | What each department asked for, against what the budget officer recommended |
 | `parse_general_fund.py` | The long-run General Fund history, adding each newly adopted year from the budget-stage data |
+| `parse_preliminary_lines.py` | Every expenditure and revenue account in the 2027 Preliminary Budget book (adopted, request, Tentative and Preliminary columns), tied to the Preliminary and Tentative Summary fund by fund. Writes `budget-2027-preliminary-lines.json`; `parse_supplement_history.py` then lays the Preliminary beside each Supplement line, and `verify-budget-amendments.mjs` checks the book against the six October 20 resolutions |
 | `parse_budget_supplement.py` / `parse_supplement_history.py` | Every Budget Supplement line, classified, with its multi-year history. The history script reads all eight committed Supplements (2020–2027) for every fund, expenditure and revenue, and writes the newest Supplement's lines, outliers and run-rate trims; `scripts/verify-supplement.mjs` checks its figures against a second reading of the same PDFs |
 | `parse_afr.py` | Actual year-end results for all 14 AFR funds |
 | `parse_cpf.py` | Peconic Bay Community Preservation Fund results |

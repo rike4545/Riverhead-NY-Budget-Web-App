@@ -1,6 +1,7 @@
 import type { CSSProperties, ReactNode } from 'react'
 import PageShell from '../../components/PageShell'
 import PlainCallout from '../../components/PlainCallout'
+import ProposalLineStageNotice from '../../components/ProposalLineStageNotice'
 import { AUDIT_2025 } from '../../lib/audits'
 import { BROOKHAVEN_SOURCE } from '../../lib/brookhaven-2027'
 import { lineSource } from '../../lib/funds-2027'
@@ -64,6 +65,7 @@ export default function SoutholdComparisonPage() {
       title="Southold’s 2027 Tentative beside Riverhead’s"
       subtitle={`The Town of Southold’s 2027 Tentative Operating Budget, filed with its Town Clerk on ${SOUTHOLD_SOURCE.received}, set beside Riverhead’s: savings, the tax cap, police, revenue estimates, garbage, and what each budget book tells residents.`}
     >
+      <ProposalLineStageNotice basis="tentative" />
       <PlainCallout
         tips={[
           { label: 'Two proposals', text: 'both are Tentative budgets, each Supervisor’s proposal. Each Town Board can change its own before it adopts a budget by November 20.' },

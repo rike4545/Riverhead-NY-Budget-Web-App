@@ -111,7 +111,7 @@ export default function ProgramsPage() {
         </ul>
         {yearsLeftOut.length > 0 && (
           <p style={{ color: 'var(--rbl-text-muted)', fontSize: 13, lineHeight: 1.55, margin: '10px 0 0' }}>
-            Left out: {yearsLeftOut.map((y) => `${y.year}${y.stage === 'tentative' ? ' proposed' : ''} (${y.reason})`).join('; ')}.
+            Left out: {yearsLeftOut.map((y) => `${y.year}${y.stage !== 'adopted' ? ' proposed' : ''} (${y.reason})`).join('; ')}.
           </p>
         )}
         <p style={{ color: 'var(--rbl-text-muted)', fontSize: 12.8, lineHeight: 1.55, marginTop: 12, marginBottom: 0 }}>

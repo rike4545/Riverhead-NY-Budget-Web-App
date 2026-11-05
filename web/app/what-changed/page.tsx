@@ -1,4 +1,5 @@
 import PageShell from '../../components/PageShell'
+import PreliminaryUpdate from '../../components/PreliminaryUpdate'
 import DataStatus from '../../components/DataStatus'
 import RecordTrail from '../../components/RecordTrail'
 import ProvenanceLine from '../../components/ProvenanceLine'
@@ -54,6 +55,7 @@ export default function WhatChangedPage() {
 
   return (
     <PageShell title={title} subtitle={subtitle}>
+      <PreliminaryUpdate />
       <div style={{ display: 'grid', gap: 16 }}>
         <section style={{ background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 20 }}>
           <DataStatus status="calculated" text={`Calculated from the ${YEAR} Tentative and ${PRIOR} Adopted budgets`} />

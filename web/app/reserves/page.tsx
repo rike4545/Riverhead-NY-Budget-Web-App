@@ -481,7 +481,7 @@ export default function ReservesPage() {
             {nameList(interestYears.map((r) => `${dollars(r.collected ?? 0)} in ${r.year}`))} in interest and earnings,{' '}
             {dollars(generalFundInterest.threeYears.collected)} in all, while those years&apos; budgets expected{' '}
             {dollars(Math.max(...interestYears.map((r) => r.estimated ?? 0)))} or less. The 2027 {planned2027?.stage ?? 'Tentative'} estimates{' '}
-            {dollars(generalFundInterest.tentative ?? 0)}
+            {dollars(generalFundInterest.proposed ?? 0)}
             {amendedGeneralFund?.interest ? <>, and the amendments would make it {dollars(amendedGeneralFund.interest)}</> : null}. Spending the
             balance down also spends down what it earns.
           </p>

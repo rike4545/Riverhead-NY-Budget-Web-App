@@ -113,11 +113,11 @@ for (const r of history.chronicUnderBudget) {
   for (const y of last3) {
     if (!rec || !(rec.actual[y] > rec.adopted[y])) fail(`${r.account} is listed as over budget in ${y}, but the Supplement says otherwise`)
   }
-  if (!rec || !(rec.tentative < r.averageActual)) fail(`${r.account} is listed as budgeted low, but the Tentative covers its average`)
+  if (!rec || !((rec.proposed ?? rec.tentative) < r.averageActual)) fail(`${r.account} is listed as budgeted low, but the ${history.proposalStage ?? 'Tentative'} covers its average`)
 }
 for (const r of history.unused) {
   const rec = expById.get(r.account)
-  if (!rec || last3.some((y) => rec.actual[y] !== 0) || rec.ytd[String(LATEST - 1)] !== 0 || !(rec.tentative > 0)) fail(`${r.account} is listed as unused, but the Supplement shows spending or no budget`)
+  if (!rec || last3.some((y) => rec.actual[y] !== 0) || rec.ytd[String(LATEST - 1)] !== 0 || !((rec.proposed ?? rec.tentative) > 0)) fail(`${r.account} is listed as unused, but the Supplement shows spending or no budget`)
 }
 for (const r of revenue.neverCollected) {
   const rec = revById.get(r.account)
@@ -144,17 +144,33 @@ const lastYear = history.actualYears[history.actualYears.length - 1]
 has('revenue', usd(gfOutside.reduce((s, a) => s + (a.actual[String(lastYear)] ?? 0), 0)), `the General Fund's outside revenue for ${lastYear}`)
 for (const r of revenue.neverCollected) has('revenue', r.account, `the never-collected line ${r.account}`)
 
-// The Funds Explorer puts each line's Tentative figure beside the adopted one,
-// so each fund's lines must add up to that fund's own row in the Tentative's
-// Summary, and the pages must show those totals.
-const tentativeFunds = read('public/data/history/budget-stages.json').years[String(LATEST)]?.tentative?.funds ?? {}
+// The Funds Explorer puts each line's newest 2027 figure beside the adopted one,
+// so each fund's lines must add up to that fund's own row in the Summary of the
+// same stage, and the pages must show those totals. Once the Preliminary book's
+// column is in current-lines.json both stages are held to their own Summary.
+const stageYear = read('public/data/history/budget-stages.json').years[String(LATEST)] ?? {}
+const tentativeFunds = stageYear.tentative?.funds ?? {}
+const preliminaryFunds = stageYear.preliminary?.funds ?? {}
+const linesPreliminary = current.columns?.preliminary === LATEST
+if (stageYear.preliminary && !linesPreliminary) fail(`The ${LATEST} Preliminary is published but current-lines.json carries no Preliminary column`)
+if (linesPreliminary && !current.reconciliation?.preliminary?.complete) fail(`The Preliminary column does not reconcile: ${JSON.stringify(current.reconciliation?.preliminary)}`)
 for (const [code, row] of Object.entries(tentativeFunds)) {
   const lines = current.lines.filter((l) => l.fund === code && l.kind === 'expenditure').reduce((s, l) => s + (l.tentative ?? 0), 0)
   if (!same(lines, row.appropriations)) fail(`${code}'s ${LATEST} Supplement lines add up to ${usd(lines)}, not the Tentative's ${usd(row.appropriations)}`)
-  has(`funds/${code}`, `${LATEST} proposed`, `the ${LATEST} Tentative for ${code}`)
-  has('funds', usd(row.appropriations), `${code}'s ${LATEST} Tentative appropriations`)
 }
-has('funds/A01', usd(tentativeFunds.A01?.appropriations ?? 0), "the General Fund's 2027 Tentative total")
+const latestFunds = linesPreliminary ? preliminaryFunds : tentativeFunds
+const latestName = linesPreliminary ? 'Preliminary' : 'Tentative'
+for (const [code, row] of Object.entries(latestFunds)) {
+  if (linesPreliminary) {
+    for (const kind of ['expenditure', 'revenue']) {
+      const lines = current.lines.filter((l) => l.fund === code && l.kind === kind).reduce((s, l) => s + (l.preliminary ?? 0), 0)
+      if (!same(lines, row.appropriations)) fail(`${code}'s ${LATEST} Preliminary ${kind} lines add up to ${usd(lines)}, not the Preliminary's ${usd(row.appropriations)}`)
+    }
+  }
+  has(`funds/${code}`, `${LATEST} proposed`, `the ${LATEST} ${latestName} for ${code}`)
+  has('funds', usd(row.appropriations), `${code}'s ${LATEST} ${latestName} appropriations`)
+}
+has('funds/A01', usd(latestFunds.A01?.appropriations ?? 0), `the General Fund's ${LATEST} ${latestName} total`)
 
 if (!process.exitCode) {
   console.log(`supplement: ${compared.toLocaleString('en-US')} figures agree across two readings of ${(requests.completeYears ?? []).length} Supplements; ${LATEST} ties to the Tentative; findings and pages check out`)

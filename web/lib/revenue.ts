@@ -23,6 +23,8 @@ export type RevenueAccount = {
   ytd: YearMap
   request: number | null
   tentative: number | null
+  /** The newest stage's estimate: the Preliminary once the Town prints it, else the Tentative. */
+  proposed: number | null
 }
 
 export type UnderEstimated = {
@@ -36,6 +38,7 @@ export type UnderEstimated = {
   averageCollected: number
   averageEstimated: number
   tentative: number | null
+  proposed: number | null
   gap: number
 }
 
@@ -47,6 +50,7 @@ export type NeverCollected = {
   page: number | null
   estimated: YearMap
   tentative: number | null
+  proposed: number | null
 }
 
 type RevenueFile = {
@@ -98,7 +102,9 @@ const sum = (rows: RevenueAccount[], pick: (a: RevenueAccount) => number | null 
 export const collected = (rows: RevenueAccount[], year: number) => sum(rows, (a) => a.actual[String(year)])
 export const estimated = (rows: RevenueAccount[], year: number) => sum(rows, (a) => a.adopted[String(year)])
 export const midYear = (rows: RevenueAccount[], year: number) => sum(rows, (a) => a.ytd[String(year)])
-export const tentative = (rows: RevenueAccount[]) => sum(rows, (a) => a.tentative)
+/** The newest stage's estimate (Preliminary once printed, else Tentative) and what to call it. */
+export const proposed = (rows: RevenueAccount[]) => sum(rows, (a) => a.proposed ?? a.tentative)
+export const STAGE = (revenueJson as unknown as { proposalStage?: string }).proposalStage === 'preliminary' ? 'Preliminary' : 'Tentative'
 export const requested = (rows: RevenueAccount[]) => sum(rows, (a) => a.request)
 
 /** Years with both an estimate and a collection on file. */
@@ -123,11 +129,12 @@ export type CategoryRow = {
   estimatedNow: number
   midYearPrior: number
   midYearNow: number
-  tentative: number
+  /** The newest stage's estimate for the source (Preliminary once printed, else Tentative). */
+  proposed: number
   accounts: RevenueAccount[]
 }
 
-/** One fund's revenue by source: the last full year, this year so far, and the Tentative. */
+/** One fund's revenue by source: the last full year, this year so far, and the newest 2027 stage. */
 export function byCategory(fund: string): CategoryRow[] {
   const last = revenueActualYears[revenueActualYears.length - 1]
   const now = revenueAdoptedYears[revenueAdoptedYears.length - 1]
@@ -139,10 +146,10 @@ export function byCategory(fund: string): CategoryRow[] {
         id: c.id, label: c.label,
         estimatedLast: estimated(acc, last), collectedLast: collected(acc, last),
         estimatedNow: estimated(acc, now), midYearPrior: midYear(acc, now - 1), midYearNow: midYear(acc, now),
-        tentative: tentative(acc), accounts: acc,
+        proposed: proposed(acc), accounts: acc,
       }
     })
-    .filter((r) => r.accounts.length > 0 && (r.estimatedLast || r.collectedLast || r.estimatedNow || r.tentative))
+    .filter((r) => r.accounts.length > 0 && (r.estimatedLast || r.collectedLast || r.estimatedNow || r.proposed))
 }
 
 /** Streams worth listing: at least $1,000 in some year. */
