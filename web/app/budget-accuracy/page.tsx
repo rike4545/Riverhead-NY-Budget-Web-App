@@ -1,3 +1,5 @@
+import ChartCard from '../../components/infographics/ChartCard'
+import BudgetVsActual from '../../components/infographics/BudgetVsActual'
 import PageShell from '../../components/PageShell'
 import ProposalLineStageNotice from '../../components/ProposalLineStageNotice'
 import PlainCallout from '../../components/PlainCallout'
@@ -222,6 +224,10 @@ export default function BudgetAccuracyPage() {
           ))}
         </section>
       )}
+
+      <ChartCard>
+        <BudgetVsActual />
+      </ChartCard>
 
       <h2 style={{ color: 'var(--rbl-title)' }}>Researched flags</h2>
       <p style={{ color: 'var(--rbl-text-muted)', fontSize: 14, marginTop: 0 }}>

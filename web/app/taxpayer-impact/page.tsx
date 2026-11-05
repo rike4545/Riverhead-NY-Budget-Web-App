@@ -1,3 +1,5 @@
+import ChartCard from '../../components/infographics/ChartCard'
+import LevyDollarBar from '../../components/infographics/LevyDollarBar'
 import Link from 'next/link'
 import PageShell from '../../components/PageShell'
 import RecordTrail from '../../components/RecordTrail'
@@ -57,6 +59,10 @@ export default function TaxpayerImpactPage() {
           evidenceHref="/sources/"
           evidenceLabel="Review source records"
         />
+
+        <ChartCard>
+          <LevyDollarBar />
+        </ChartCard>
 
         <TaxpayerLevyCalculator funds={calculatorFunds} />
 

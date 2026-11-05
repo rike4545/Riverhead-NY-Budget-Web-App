@@ -1,3 +1,6 @@
+import ChartCard from '../../components/infographics/ChartCard'
+import LevyBridge2027 from '../../components/infographics/LevyBridge2027'
+import LevyVsLimit from '../../components/infographics/LevyVsLimit'
 import PageShell from '../../components/PageShell'
 import PreliminaryUpdate from '../../components/PreliminaryUpdate'
 import PlainCallout from '../../components/PlainCallout'
@@ -193,6 +196,14 @@ export default function Tentative2027Page() {
       {h && <InflationAndReserves h={h} />}
 
       {h && READ_BY_HAND[YEAR] && <LetterSection h={h} />}
+
+      <ChartCard>
+        <LevyBridge2027 />
+      </ChartCard>
+
+      <ChartCard>
+        <LevyVsLimit />
+      </ChartCard>
 
       <section id="adoption-history" style={{ ...card, marginBottom: 16 }}>
         <h3 style={{ marginTop: 0, color: 'var(--rbl-title)' }}>Will the Tentative change before adoption?</h3>

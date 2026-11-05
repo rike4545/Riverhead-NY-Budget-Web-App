@@ -1,3 +1,5 @@
+import ChartCard from '../../components/infographics/ChartCard'
+import MeetingImpact from '../../components/infographics/MeetingImpact'
 import PageShell from '../../components/PageShell'
 import PlainCallout from '../../components/PlainCallout'
 import MeetingTimeline from '../../components/MeetingTimeline'
@@ -60,6 +62,10 @@ export default function MeetingsPage() {
       </section>
 
       <MeetingRecordExplorer />
+      <ChartCard>
+        <MeetingImpact />
+      </ChartCard>
+
 
       <section style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(min(300px,100%),1fr))', gap: 12, marginTop: 30 }}>
         <details style={panel}>

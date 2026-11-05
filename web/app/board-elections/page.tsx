@@ -1,3 +1,5 @@
+import ChartCard from '../../components/infographics/ChartCard'
+import ElectionPictures from '../../components/infographics/ElectionPictures'
 import PageShell from '../../components/PageShell'
 import PlainCallout from '../../components/PlainCallout'
 import data from '../../public/data/board-elections.json'
@@ -145,6 +147,10 @@ export default function BoardElectionsPage() {
       </div>
 
       {/* Supervisor-race comparison across cycles */}
+      <ChartCard>
+        <ElectionPictures />
+      </ChartCard>
+
       <section style={{ ...card, marginTop: 16 }}>
         <h2 style={{ color: 'var(--rbl-title)', margin: '0 0 5px', fontSize: 21 }}>How competitive have Riverhead's supervisor races been?</h2>
         <p style={{ color: 'var(--rbl-text-muted)', fontSize: 13.5, lineHeight: 1.6, margin: '0 0 13px' }}>
