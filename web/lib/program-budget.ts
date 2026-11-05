@@ -34,7 +34,7 @@ export const PROGRAM_NAMES: Record<ProgramKey, string> = {
 const SHARED_FUNDS = new Set(['A01', 'MS1', 'MS2'])
 
 export type BudgetLine = { fund: string; account: string; name: string; amount: number }
-export type BudgetStage = 'adopted' | 'tentative'
+export type BudgetStage = 'adopted' | 'tentative' | 'preliminary'
 
 export type ProgramDepartment = { fund: string; code: string; name: string; amount: number }
 
@@ -227,12 +227,14 @@ export type HistoryAccount = {
   name: string
   adopted: Record<string, number | null>
   tentative?: number | null
+  /** The newest proposal's figure: the Preliminary once the Town prints it, else the Tentative. */
+  proposed?: number | null
 }
 
 /** One year's lines: an adopted year's column, or the Tentative of the newest Supplement. */
 export function linesFor(accounts: HistoryAccount[], year: number, stage: BudgetStage): BudgetLine[] {
   return accounts
-    .map((a) => ({ fund: a.fund, account: a.account, name: a.name, amount: (stage === 'tentative' ? a.tentative : a.adopted[String(year)]) ?? 0 }))
+    .map((a) => ({ fund: a.fund, account: a.account, name: a.name, amount: (stage === 'adopted' ? a.adopted[String(year)] : stage === 'preliminary' ? (a.proposed ?? a.tentative) : a.tentative) ?? 0 }))
     .filter((l) => l.amount !== 0)
 }
 
@@ -261,17 +263,17 @@ export type BudgetYear = { year: number; stage: BudgetStage; spend: BudgetLine[]
 
 /**
  * Every adopted year the Supplements reprint, and the newest Supplement's
- * Tentative, split into the years whose lines reconcile to their Summary page
+ * proposal (the Preliminary once printed, else the Tentative), split into the years whose lines reconcile to their Summary page
  * and the years left out, with the funds that do not add up.
  */
 export function budgetYears(
-  spendHistory: { budgetYear: number; adoptedYears: number[]; accounts: HistoryAccount[] },
+  spendHistory: { budgetYear: number; adoptedYears: number[]; accounts: HistoryAccount[]; proposalStage?: string },
   revenueHistory: { accounts: HistoryAccount[] },
   summaries: Record<string, Partial<Record<BudgetStage, StageSummary>>>,
 ): { shown: BudgetYear[]; leftOut: { year: number; stage: BudgetStage; off: string[] }[] } {
   const candidates: { year: number; stage: BudgetStage }[] = spendHistory.adoptedYears
     .map((year) => ({ year, stage: 'adopted' as BudgetStage }))
-    .concat([{ year: spendHistory.budgetYear, stage: 'tentative' }])
+    .concat([{ year: spendHistory.budgetYear, stage: spendHistory.proposalStage === 'preliminary' ? 'preliminary' : 'tentative' }])
   const shown: BudgetYear[] = []
   const leftOut: { year: number; stage: BudgetStage; off: string[] }[] = []
   for (const { year, stage } of candidates) {

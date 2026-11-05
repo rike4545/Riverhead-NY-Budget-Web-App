@@ -166,7 +166,7 @@ export const censusDataset = census.dataset
 // ---------------------------------------------------------------------------
 type Facts = {
   label: string
-  /** "the 2026 adopted budget", or "the 2027 Tentative Budget". */
+  /** "the 2026 adopted budget", or "the 2027 Preliminary Budget". */
   title: string
   p: ProgramFigures
   figures: BudgetFigures
@@ -282,7 +282,7 @@ const NARRATIVES: Record<ProgramKey, { plain: string; buys: string[]; narrative:
 // Supplement's Tentative, shown only where the lines reconcile.
 // ---------------------------------------------------------------------------
 const stages = budgetStages as unknown as { years: Record<string, Partial<Record<BudgetStage, StageSummary>>> }
-const spendHistory = lineHistory as unknown as { budgetYear: number; adoptedYears: number[]; accounts: HistoryAccount[] }
+const spendHistory = lineHistory as unknown as { budgetYear: number; adoptedYears: number[]; accounts: HistoryAccount[]; proposalStage?: string }
 const revenueLines = revenueHistory as unknown as { budgetYear: number; adoptedYears: number[]; accounts: HistoryAccount[] }
 
 type Report = { title: string; url: string; year: number; category: string; slug: string }
@@ -304,9 +304,9 @@ for (const code of allFundCodes()) {
 export type ProgramYear = {
   year: number
   stage: BudgetStage
-  /** "2026", or "2027 proposed" for a Tentative Budget. */
+  /** "2026", or "2027 proposed" for a Tentative or Preliminary Budget. */
   label: string
-  /** "the 2026 adopted budget", or "the 2027 Tentative Budget". */
+  /** "the 2026 adopted budget", or "the 2027 Preliminary Budget". */
   title: string
   /** The Supplement the lines come from, and the budget whose Summary page they reconcile to. */
   supplement: { title: string; url: string } | null
@@ -339,8 +339,8 @@ for (const { year, stage, off } of years.leftOut) {
 for (const { year, stage, spend, revenue, summary } of years.shown) {
   const figures = programBudget(spend, revenue, departmentNames)
   const people = staffFor(year)
-  const label = stage === 'tentative' ? `${year} proposed` : String(year)
-  const title = stage === 'tentative' ? `the ${year} Tentative Budget` : `the ${year} adopted budget`
+  const label = stage !== 'adopted' ? `${year} proposed` : String(year)
+  const title = stage === 'adopted' ? `the ${year} adopted budget` : `the ${year} ${stage === 'preliminary' ? 'Preliminary' : 'Tentative'} Budget`
   const official = Object.values(summary.funds).reduce((s, f) => s + (f.appropriations ?? 0), 0)
   const byStaff = PROGRAM_ORDER.map((k) => people.staff[k] ?? 0).sort((a, b) => b - a)
   const programs = figures.programs.map((p): Program => {
@@ -374,7 +374,7 @@ for (const { year, stage, spend, revenue, summary } of years.shown) {
     stage,
     label,
     title,
-    supplement: supplement(stage === 'tentative' ? year : year + 1),
+    supplement: supplement(stage !== 'adopted' ? year : year + 1),
     summary: summary.source ? { title: summary.source.title.replace(/\s*\(PDF\)$/, ''), url: summary.source.url } : null,
     staffYear: people.year,
     staffHeadcount: people.headcount,
@@ -460,7 +460,7 @@ export const method = [
   },
   {
     title: 'Every year comes from the same kind of record',
-    body: `The Town prints each adopted budget again, line by line, in the next year’s Budget Supplement, and its Tentative Budget in that year’s own. A year is shown only when those lines add up to the budget’s Summary page for every fund, on both the spending and the revenue side: ${shown.join(', ')}.${leftOutYears.length ? ` ${leftOutYears.join(', ')} ${leftOutYears.length === 1 ? 'is' : 'are'} left out because ${leftOutYears.length === 1 ? 'its' : 'their'} lines do not add up.` : ''} A Tentative Budget is the Supervisor’s proposal, not a budget the Board has adopted.`,
+    body: `The Town prints each adopted budget again, line by line, in the next year’s Budget Supplement, and its proposed budget (the Preliminary once printed, else the Tentative) in that year’s own. A year is shown only when those lines add up to the budget’s Summary page for every fund, on both the spending and the revenue side: ${shown.join(', ')}.${leftOutYears.length ? ` ${leftOutYears.join(', ')} ${leftOutYears.length === 1 ? 'is' : 'are'} left out because ${leftOutYears.length === 1 ? 'its' : 'their'} lines do not add up.` : ''} A Tentative Budget is the Supervisor’s proposal, not a budget the Board has adopted.`,
   },
   {
     title: 'Staff counts are the one thing we classified ourselves',
