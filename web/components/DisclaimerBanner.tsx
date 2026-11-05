@@ -21,7 +21,7 @@ export default function DisclaimerBanner() {
       <span aria-hidden="true">·</span>
       <span style={{ color: state.tone, fontWeight: 600, display: 'inline-flex', alignItems: 'center', gap: 6 }}><span aria-hidden="true" style={{ width: 8, height: 8, borderRadius: 999, background: 'currentColor' }} />{state.label}</span>
       <span aria-hidden="true">·</span>
-      <a href={`${base}/data-quality/`} style={{ color: 'var(--rbl-link)', fontWeight: 600, textDecoration: 'none' }} title="See which records are current and when each data source was updated">See data update details →</a>
+      <a href={`${base}/data-quality/`} style={{ color: 'var(--rbl-link)', fontWeight: 600, textDecoration: 'none', display: 'inline-flex', alignItems: 'center', minHeight: 24 }} title="See which records are current and when each data source was updated">See data update details →</a>
     </div>
   )
 }

@@ -3,11 +3,15 @@ import PageShell from '../components/PageShell'
 import UpdateSummary from '../components/UpdateSummary'
 import TentativeReleased from '../components/TentativeReleased'
 import { released2027 } from '../lib/tentative-2027'
+import { stageDoc } from '../lib/budget-stages'
 
 const base = process.env.NEXT_PUBLIC_BASE_PATH || ''
 
+// The newest 2027 stage the Town has printed, so the page does not call the Preliminary a Tentative.
+const stage2027 = stageDoc(2027, 'adopted') ? 'Adopted' : stageDoc(2027, 'preliminary') ? 'Preliminary' : 'Tentative'
+
 const popular = [
-  ...(released2027 ? [['2027 Tentative Budget', '/tentative-2027/']] : []),
+  ...(released2027 ? [[`2027 ${stage2027} Budget`, '/tentative-2027/']] : []),
   ['Why did my property taxes change?', '/tax-bill/'],
   ['What changed in the budget?', '/what-changed/'],
   ['Who gets paid the most?', '/payroll/'],
@@ -55,8 +59,8 @@ export default function Page() {
             <div className="home-panel-title">A clearer view of local government.</div>
             <p>Start with a question. Follow the numbers. Read the underlying documents.</p>
             <div className="home-panel-links">
-              <a href={`${base}/tentative-2027/`}><span className="home-panel-icon"><Landmark size={18} /></span><span><strong>2027 budget</strong><small>{released2027 ? 'Tentative proposal and supporting detail' : 'Budget process and supporting detail'}</small></span><ArrowRight size={17} /></a>
-              <a href={`${base}/budget-amendments-2027/`}><span className="home-panel-icon"><Scale size={18} /></span><span><strong>Budget amendments</strong><small>Track proposed changes and their effects</small></span><ArrowRight size={17} /></a>
+              <a href={`${base}/tentative-2027/`}><span className="home-panel-icon"><Landmark size={18} /></span><span><strong>2027 budget</strong><small>{released2027 ? `${stage2027} budget and supporting detail` : 'Budget process and supporting detail'}</small></span><ArrowRight size={17} /></a>
+              <a href={`${base}/budget-amendments-2027/`}><span className="home-panel-icon"><Scale size={18} /></span><span><strong>Budget amendments</strong><small>The Board’s six changes, line by line</small></span><ArrowRight size={17} /></a>
               <a href={`${base}/sources/`}><span className="home-panel-icon"><BookOpen size={18} /></span><span><strong>Source library</strong><small>Go directly to records and references</small></span><ArrowRight size={17} /></a>
             </div>
             <div className="home-panel-foot">Public records <span>•</span> Plain language <span>•</span> Traceable analysis</div>
