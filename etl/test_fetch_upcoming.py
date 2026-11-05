@@ -69,6 +69,38 @@ class FallbackTest(unittest.TestCase):
         self.assertEqual(item["hearings"], [])
         self.assertEqual(fu.CALENDAR_MISSES, [])
 
+    def test_only_published_agenda_dockets_are_kept(self):
+        published = json.loads(self.path.read_text())
+        published["meetings"][1]["docket"] = [{"number": "2026-1001", "title": "Authorizes a contract"}]
+        published["meetings"][0]["docket"] = [{"number": "2026-0001", "title": "Not from an agenda"}]
+        self.path.write_text(json.dumps(published))
+        self.assertEqual(fu.last_dockets(self.path), {"2026-11-17": [{"number": "2026-1001", "title": "Authorizes a contract"}]})
+
+    def _agenda_event(self):
+        return {"startDateTime": "2026-11-17T14:00:00Z", "eventName": "Town Board Meeting",
+                "publishedFiles": [{"type": "Agenda Packet", "fileId": 1}]}
+
+    def test_an_agenda_that_cannot_be_read_keeps_the_last_resolutions(self):
+        last = [{"number": "2026-1001", "title": "Authorizes a contract"}]
+        fu.LAST_DOCKETS.clear()
+        fu.LAST_DOCKETS.update({"2026-11-17": last})
+        fu.AGENDA_MISSES.clear()
+        with mock.patch.object(fu, "http_get", side_effect=OSError("reset")), \
+                mock.patch.object(fu, "official_calendar_hearings", return_value=[]):
+            item = fu.event_item(self._agenda_event())
+        self.assertEqual(item["docket"], last)
+        self.assertEqual(item["itemsSource"], "published-agenda")
+        self.assertEqual(fu.AGENDA_MISSES, ["2026-11-17"])
+
+    def test_an_unreadable_agenda_with_nothing_published_stays_empty(self):
+        fu.LAST_DOCKETS.clear()
+        fu.AGENDA_MISSES.clear()
+        with mock.patch.object(fu, "http_get", side_effect=OSError("reset")), \
+                mock.patch.object(fu, "official_calendar_hearings", return_value=[]):
+            item = fu.event_item(self._agenda_event())
+        self.assertEqual(item["docket"], [])
+        self.assertEqual(fu.AGENDA_MISSES, [])
+
 
 if __name__ == "__main__":
     unittest.main()

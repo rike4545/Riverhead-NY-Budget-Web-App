@@ -248,6 +248,13 @@ def event_item(e):
             docket, agenda_hearings = extract_from_agenda(text)
         except Exception:
             docket, agenda_hearings = [], []
+        # An agenda that was published, and had resolutions the last time, but
+        # gave none now (the download failed, or the PDF could not be read) is a
+        # read failure, not a Board that withdrew every item. Keep the last
+        # docket and say so, as the calendar and the schedule already do.
+        if not docket and LAST_DOCKETS.get(dt[:10]):
+            docket = list(LAST_DOCKETS[dt[:10]])
+            AGENDA_MISSES.append(dt[:10])
 
     calendar_hearings = official_calendar_hearings(dt[:10]) if dt else []
     if calendar_hearings is None:
@@ -361,6 +368,22 @@ def dedupe_by_slug(items):
 # cannot reach the Town's calendar keeps each date's hearings as they were.
 LAST_CALENDAR_HEARINGS = {}
 CALENDAR_MISSES = []
+# The same for each date's resolutions, read from the published agenda.
+LAST_DOCKETS = {}
+AGENDA_MISSES = []
+
+
+def last_dockets(published_path):
+    """Each date's resolutions that came from a published agenda in the last published file."""
+    try:
+        last = json.loads(published_path.read_text())
+    except (OSError, ValueError):
+        return {}
+    out = {}
+    for m in (last.get("recent") or []) + (last.get("meetings") or []):
+        if "published-agenda" in (m.get("itemsSource") or "") and m.get("docket"):
+            out[m["date"]] = list(m["docket"])
+    return out
 
 
 def last_calendar_hearings(published_path):
@@ -400,6 +423,9 @@ def build():
     LAST_CALENDAR_HEARINGS.clear()
     LAST_CALENDAR_HEARINGS.update(last_calendar_hearings(OUT / "upcoming.json"))
     CALENDAR_MISSES.clear()
+    LAST_DOCKETS.clear()
+    LAST_DOCKETS.update(last_dockets(OUT / "upcoming.json"))
+    AGENDA_MISSES.clear()
     regular_dates, kept_last = schedule_dates_or_last(published_regular_meeting_dates(), OUT / "upcoming.json")
     if kept_last:
         print(f"::warning title=Town Board schedule not refreshed::The Town's schedule page ({SCHEDULE_PAGE}) "
@@ -447,6 +473,9 @@ def build():
     if CALENDAR_MISSES:
         print(f"::warning title=Town calendar not refreshed::The Town's calendar did not answer for "
               f"{len(CALENDAR_MISSES)} meeting date(s) ({', '.join(CALENDAR_MISSES[:6])}); their hearings stay as last published.")
+    if AGENDA_MISSES:
+        print(f"::warning title=Agenda not read::The published agenda could not be read for "
+              f"{len(AGENDA_MISSES)} meeting date(s) ({', '.join(AGENDA_MISSES[:6])}); their resolutions stay as last published.")
     with_items = sum(1 for m in recent + meetings if m["docket"] or m["hearings"])
     print(f"meeting timeline: {len(recent)} recent + {len(meetings)} upcoming ({with_items} with published items)")
     for label, rows in (("recent", recent[:3]), ("next", meetings[:4])):
