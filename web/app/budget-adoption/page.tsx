@@ -1,3 +1,5 @@
+import ChartCard from '../../components/infographics/ChartCard'
+import LevyBridge2027 from '../../components/infographics/LevyBridge2027'
 import PageShell from '../../components/PageShell'
 import UnofficialElectionResult from '../../components/UnofficialElectionResult'
 import PreliminaryUpdate from '../../components/PreliminaryUpdate'
@@ -105,6 +107,10 @@ export default function BudgetAdoptionPage() {
           ))}
         </ol>
       </section>
+
+      <ChartCard>
+        <LevyBridge2027 />
+      </ChartCard>
 
       <section id="years" style={{ ...card, marginBottom: 16 }}>
         <h3 style={{ marginTop: 0, color: 'var(--rbl-title)' }}>Year by year</h3>

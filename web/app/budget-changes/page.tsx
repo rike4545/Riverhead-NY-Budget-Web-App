@@ -1,3 +1,5 @@
+import ChartCard from '../../components/infographics/ChartCard'
+import LevyBridge2027 from '../../components/infographics/LevyBridge2027'
 import PageShell from '../../components/PageShell'
 import PlainCallout from '../../components/PlainCallout'
 import BudgetChangesDashboard from '../../components/BudgetChangesDashboard'
@@ -37,6 +39,10 @@ export default function BudgetChangesPage() {
       </PlainCallout>
 
       <BudgetChangesDashboard initial={budgetChanges} base={base} />
+
+      <ChartCard>
+        <LevyBridge2027 />
+      </ChartCard>
 
       <section style={{ ...card, marginTop: 16 }}>
         <h2 style={{ marginTop: 0, color: 'var(--rbl-title)', fontSize: 20 }}>How to read it</h2>

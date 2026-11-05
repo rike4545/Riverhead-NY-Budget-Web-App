@@ -1,3 +1,5 @@
+import ChartCard from '../../components/infographics/ChartCard'
+import LevyVsLimit from '../../components/infographics/LevyVsLimit'
 import PageShell from '../../components/PageShell'
 import PreliminaryUpdate from '../../components/PreliminaryUpdate'
 import PlainCallout from '../../components/PlainCallout'
@@ -163,6 +165,10 @@ export default function TaxCapPage() {
         </div>
         <ProvenanceLine claimId="general-fund-growth-context" status="calculated" source="Published General Fund levy series" asOf="latest indexed historical series" calculation="Year-over-year General Fund levy change; not the statutory levy-limit calculation" evidenceHref={`${base}/sources/`} />
       </section>
+
+      <ChartCard>
+        <LevyVsLimit />
+      </ChartCard>
 
       <section style={{ ...card, marginBottom: 16 }}>
         <h2 style={{ marginTop: 0, fontSize: 20 }}>2027: what is known now</h2>

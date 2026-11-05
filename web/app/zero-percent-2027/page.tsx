@@ -1,3 +1,5 @@
+import ChartCard from '../../components/infographics/ChartCard'
+import LevyVsLimit from '../../components/infographics/LevyVsLimit'
 import type { ReactNode } from 'react'
 import PageShell from '../../components/PageShell'
 import PlainCallout from '../../components/PlainCallout'
@@ -83,6 +85,10 @@ export default function ZeroPercent2027Page() {
         </nav>
 
         <article className="tcl-article">
+          <ChartCard>
+            <LevyVsLimit />
+          </ChartCard>
+
           <Section id="levels" title="Five levels for 2027">
             <P>
               The Tentative raises each of the three town-wide funds’ levies by the same {summary.tentativePct.toFixed(2)}%. The Supervisor’s letter says

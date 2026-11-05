@@ -1,3 +1,5 @@
+import ChartCard from '../../components/infographics/ChartCard'
+import ReserveCushion from '../../components/infographics/ReserveCushion'
 import PageShell from '../../components/PageShell'
 import ProvenanceLine from '../../components/ProvenanceLine'
 import PlainCallout from '../../components/PlainCallout'
@@ -258,6 +260,10 @@ export default function ReservesPage() {
           the end of {latestFundBalanceYear}. This page tests the unassigned part alone, which is stricter.
         </p>
       </section>
+
+      <ChartCard>
+        <ReserveCushion />
+      </ChartCard>
 
       <section data-fund-balance-policy style={{ ...card, marginBottom: 16 }}>
         <h3 style={{ marginTop: 0, color: 'var(--rbl-title)' }}>What the Town&apos;s fund balance policy says</h3>
