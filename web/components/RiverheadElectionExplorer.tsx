@@ -36,7 +36,7 @@ export default function RiverheadElectionExplorer() {
     <section aria-labelledby="riverhead-election-explorer-title" style={{ ...card, margin: '14px 0 18px' }}>
       <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'end', justifyContent: 'space-between', gap: 12 }}>
         <div>
-          <div style={{ color: 'var(--rbl-accent)', fontSize: 11, fontWeight: 850, letterSpacing: '.08em', textTransform: 'uppercase' }}>Riverhead-only results</div>
+          <div style={{ color: 'var(--rbl-accent)', fontSize: 11, fontWeight: 850, letterSpacing: '.08em' }}>Riverhead-only results</div>
           <h2 id="riverhead-election-explorer-title" style={{ color: 'var(--rbl-title)', fontSize: 22, margin: '4px 0' }}>Explore Riverhead elections</h2>
           <p style={{ color: 'var(--rbl-text-muted)', fontSize: 13.5, margin: 0 }}>Compare candidates and races using the Town of Riverhead results in this dataset.</p>
         </div>
