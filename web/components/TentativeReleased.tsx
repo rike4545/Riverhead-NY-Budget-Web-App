@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react'
+import PreliminaryUpdate from './PreliminaryUpdate'
 import { released2027, levySentence, YEAR } from '../lib/tentative-2027'
 
 const base = process.env.NEXT_PUBLIC_BASE_PATH || ''
@@ -11,6 +12,7 @@ const base = process.env.NEXT_PUBLIC_BASE_PATH || ''
 export default function TentativeReleased({ children }: { children?: ReactNode }) {
   if (!released2027) return null
   return (
+    <>
     <aside
       data-tentative-released
       style={{
@@ -25,5 +27,7 @@ export default function TentativeReleased({ children }: { children?: ReactNode }
         See how it compares →
       </a>
     </aside>
+    <PreliminaryUpdate />
+    </>
   )
 }

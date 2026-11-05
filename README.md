@@ -51,6 +51,9 @@ evening of October 28, and the site parsed it that night. Its town-wide levy (Ge
 Street Lighting) is $643,858 lower than the Tentative's, the same as the six
 amendments the Town Board voted on October 20. The pages that compare budget
 stages now compare the Preliminary.
+Its account lines are now read too (996 lines, 32 changed from the Tentative, each
+matching a resolution), so the fund, revenue, programs and budget accuracy pages
+show the Preliminary line by line. Pages that measure the Tentative as filed say so.
 **[2027 Budget Amendments](https://rike4545.github.io/Riverhead-NY-Budget-Web-App/budget-amendments-2027/)**
 sets out each amendment line by line, the votes, and how RiverheadLOCAL and
 Newsday reported them.

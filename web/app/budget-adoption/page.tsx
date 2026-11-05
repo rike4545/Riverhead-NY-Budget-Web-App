@@ -1,4 +1,5 @@
 import PageShell from '../../components/PageShell'
+import PreliminaryUpdate from '../../components/PreliminaryUpdate'
 import PlainCallout from '../../components/PlainCallout'
 import { released2027, changePhrase } from '../../lib/tentative-2027'
 import {
@@ -74,6 +75,7 @@ export default function BudgetAdoptionPage() {
       title="How Riverhead adopts its budget"
       subtitle={`Every budget from ${first} to ${last}: what the Town Board changed in each Supervisor’s Tentative, whether it changed it before or after the public hearing, and whether it voted to adopt the result. Read from the Town’s own budget books and minutes.`}
     >
+      <PreliminaryUpdate />
       <PlainCallout
         tips={[
           { label: 'The Supervisor proposes', text: 'the Tentative, by Sept 30. It appropriates nothing.' },

@@ -219,7 +219,10 @@ export const planned2027 = budget2027 && stage2027
   : null
 
 /** Interest and principal on bond anticipation notes in the Debt Service Fund, from the 2027 Budget Supplement. */
-const supplementTentative = (account: string) => supplementLines.find((l) => l.account === account)?.tentative ?? null
+const supplementTentative = (account: string) => {
+  const l = supplementLines.find((x) => x.account === account)
+  return l ? ((l as { preliminary?: number | null }).preliminary ?? l.tentative ?? null) : null
+}
 export const banPayments2027 = lineSource
   ? {
       interest: supplementTentative('V01-9-9730-700-000-00000'),

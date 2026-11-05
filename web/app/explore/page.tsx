@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react'
 import PageShell from '../../components/PageShell'
+import PreliminaryUpdate from '../../components/PreliminaryUpdate'
 import { perHousehold as programPerHousehold, perResident as programPerResident } from '../../lib/programs'
 import { allOperatingFunds2026 } from '../../lib/all-funds'
 import community from '../../public/data/community.json'
@@ -137,6 +138,7 @@ export default function ExplorePage() {
       title="Explore the Riverhead Town Budget"
       subtitle="A short, guided tour — thirteen stops that take you from “what is the budget?” all the way to the raw data, in plain English. Follow it top to bottom, or jump to whatever you came for."
     >
+      <PreliminaryUpdate />
       <div style={{ position: 'relative', display: 'grid', gap: 16 }}>
         {stops.map((s) => (
           <section key={s.n} id={`stop-${s.n}`} style={{

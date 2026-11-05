@@ -25,7 +25,7 @@ type Line = {
 }
 type History = {
   account: string; fund: string; name: string; page: number
-  actual: Record<string, number>; adopted: Record<string, number>; ytd: Record<string, number>; tentative: number | null
+  actual: Record<string, number>; adopted: Record<string, number>; ytd: Record<string, number>; tentative: number | null; proposed?: number | null
 }
 
 const tentative = stageDoc(2027, 'tentative')
@@ -189,6 +189,8 @@ export const generalFundInterest = (() => {
     adopted2026: h.adopted['2026'] ?? null,
     firstHalf2026: h.ytd['2026'] ?? null,
     tentative: h.tentative,
+    /** The newest proposal's estimate: the Preliminary once the Town prints it, else the Tentative. */
+    proposed: h.proposed ?? h.tentative,
   }
 })()
 

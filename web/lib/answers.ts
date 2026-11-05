@@ -32,8 +32,15 @@ import { summary as freeze, whyHarder } from './zero-percent-2027'
 import { boardOptions, levyPredicted, levy2026 } from './budget-2027-options'
 import { released2027 as tentative2027, levySentence } from './tentative-2027'
 import { UPDATED, updatedPrediction } from './predict-2027-update'
+import { stageDoc } from './budget-stages'
 
 const base = process.env.NEXT_PUBLIC_BASE_PATH || ''
+
+/** Once the Town prints the Preliminary, say what the Board's six amendments did to the levy. */
+const prelimTW = stageDoc(2027, 'preliminary')?.townWide
+const prelimSentence = prelimTW && prelimTW.levy != null && prelimTW.priorLevy
+  ? ` The Board's six amendments on October 20 turned it into the Preliminary Budget, with a town-wide levy of $${Math.round(prelimTW.levy).toLocaleString('en-US')}, up ${(((prelimTW.levy / prelimTW.priorLevy) - 1) * 100).toFixed(2)}% from 2026.`
+  : ''
 
 const usd = (n: number) =>
   new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(n)
@@ -228,7 +235,7 @@ export const topics: AnswerTopic[] = [
       tentative2027
         ? {
             q: 'Will my taxes go up again in 2027?',
-            a: `The Town's 2027 Tentative Budget is out. ${levySentence(tentative2027)} It is a proposal: the Board can change it before adopting a budget by November 20.${
+            a: `The Town's 2027 Tentative Budget is out. ${levySentence(tentative2027)}${prelimSentence} It is a proposal: the Board can change it before adopting a budget by November 20.${
               updatedPrediction
                 ? ` As of ${UPDATED.date}, this site predicts the Board adopts it with the six amendments on its agenda, for a town-wide levy ${updatedPrediction.row('town-wide-change').predicted.toFixed(2)}% above 2026's.`
                 : ''
