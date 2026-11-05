@@ -549,7 +549,7 @@ export const OUTLOOK = {
     ['Sept 24', 'Town Clerk presents the Tentative at a special meeting', 'Town notice, Sept 2026'],
     ['Sept 30', 'Deadline to file the Tentative', 'Town Law §106(2)'],
     ['Oct 5', 'Presented to the Board, which may change it into the Preliminary', 'Town Law §106(3)–(4)'],
-    ['Nov 3', 'General election: Halpin against Councilman Rothwell', ''],
+    ['Nov 3', 'General election: Halpin against Councilman Rothwell. Unofficial result: Halpin 52.40%, Rothwell 47.55%', 'Suffolk County Board of Elections, Nov. 4, 2026'],
     ['At least 5 days before the hearing', 'Notice published in the official newspaper and posted by the Town Clerk. It must give the time, place and purpose, say the Preliminary can be inspected at the Clerk’s office, and list the proposed salaries of Board members, the elected Town Clerk and the elected Highway Superintendent', 'Town Law §108'],
     ['Nov 5', 'Last day for the public hearing on the Preliminary. Anyone may speak for or against it or any item in it', 'Town Law §108'],
     ['Nov 15', 'Latest the hearing can be adjourned to, if it is continued from day to day', 'Town Law §108'],
