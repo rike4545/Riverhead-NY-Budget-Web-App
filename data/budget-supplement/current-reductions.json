@@ -1,5 +1,6 @@
 {
  "supplementYear": 2027,
+ "stage": "preliminary",
  "columns": {
   "actual": 2025,
   "adopted": 2026,
@@ -8,7 +9,8 @@
   "tentative": 2027,
   "priorActual": 2024,
   "priorAdopted": 2025,
-  "priorYtd": 2025
+  "priorYtd": 2025,
+  "preliminary": 2027
  },
  "total": 2026270.03,
  "byConfidence": {
@@ -26,6 +28,7 @@
    "actual": 543426.53,
    "ytd": 263197.37,
    "tentative": 800000.0,
+   "proposal": 800000.0,
    "target": 256573.47,
    "confidence": "firm"
   },
@@ -38,6 +41,7 @@
    "actual": 244651.87,
    "ytd": 247590.61,
    "tentative": 700000.0,
+   "proposal": 700000.0,
    "target": 204818.78,
    "confidence": "volatile"
   },
@@ -50,6 +54,7 @@
    "actual": 527553.83,
    "ytd": 205628.15,
    "tentative": 710000.0,
+   "proposal": 710000.0,
    "target": 182446.17,
    "confidence": "firm"
   },
@@ -62,6 +67,7 @@
    "actual": 294977.32,
    "ytd": 90094.86,
    "tentative": 390000.0,
+   "proposal": 390000.0,
    "target": 95022.68,
    "confidence": "firm"
   },
@@ -74,6 +80,7 @@
    "actual": 75137.45,
    "ytd": 41390.0,
    "tentative": 175000.0,
+   "proposal": 175000.0,
    "target": 92220.0,
    "confidence": "firm"
   },
@@ -86,6 +93,7 @@
    "actual": 11632.08,
    "ytd": 0.0,
    "tentative": 100000.0,
+   "proposal": 100000.0,
    "target": 88367.92,
    "confidence": "moderate"
   },
@@ -98,6 +106,7 @@
    "actual": 492.56,
    "ytd": 10000.0,
    "tentative": 95000.0,
+   "proposal": 95000.0,
    "target": 75000.0,
    "confidence": "moderate"
   },
@@ -110,6 +119,7 @@
    "actual": 186000.0,
    "ytd": 0.0,
    "tentative": 250000.0,
+   "proposal": 250000.0,
    "target": 64000.0,
    "confidence": "firm"
   },
@@ -122,6 +132,7 @@
    "actual": 2398.25,
    "ytd": 8295.99,
    "tentative": 80000.0,
+   "proposal": 80000.0,
    "target": 63408.02,
    "confidence": "moderate"
   },
@@ -134,6 +145,7 @@
    "actual": 31744.19,
    "ytd": 32475.0,
    "tentative": 125000.0,
+   "proposal": 125000.0,
    "target": 60050.0,
    "confidence": "firm"
   },
@@ -146,6 +158,7 @@
    "actual": 95685.54,
    "ytd": 39413.83,
    "tentative": 145000.0,
+   "proposal": 145000.0,
    "target": 49314.46,
    "confidence": "firm"
   },
@@ -158,6 +171,7 @@
    "actual": 81052.51,
    "ytd": 36578.59,
    "tentative": 125000.0,
+   "proposal": 125000.0,
    "target": 43947.49,
    "confidence": "moderate"
   },
@@ -170,6 +184,7 @@
    "actual": 32358.5,
    "ytd": 16320.0,
    "tentative": 75000.0,
+   "proposal": 75000.0,
    "target": 42360.0,
    "confidence": "firm"
   },
@@ -182,6 +197,7 @@
    "actual": 33600.0,
    "ytd": 28000.0,
    "tentative": 97400.0,
+   "proposal": 97400.0,
    "target": 41400.0,
    "confidence": "firm"
   },
@@ -194,6 +210,7 @@
    "actual": 59359.09,
    "ytd": 0.0,
    "tentative": 100000.0,
+   "proposal": 100000.0,
    "target": 40640.91,
    "confidence": "firm"
   },
@@ -206,6 +223,7 @@
    "actual": 500.0,
    "ytd": 0.0,
    "tentative": 32000.0,
+   "proposal": 32000.0,
    "target": 31500.0,
    "confidence": "firm"
   },
@@ -218,6 +236,7 @@
    "actual": 76593.0,
    "ytd": 49695.0,
    "tentative": 130000.0,
+   "proposal": 130000.0,
    "target": 30610.0,
    "confidence": "firm"
   },
@@ -230,6 +249,7 @@
    "actual": 20830.3,
    "ytd": 2079.05,
    "tentative": 50000.0,
+   "proposal": 50000.0,
    "target": 29169.7,
    "confidence": "firm"
   },
@@ -242,6 +262,7 @@
    "actual": 36631.17,
    "ytd": 15325.89,
    "tentative": 65000.0,
+   "proposal": 65000.0,
    "target": 28368.83,
    "confidence": "firm"
   },
@@ -254,6 +275,7 @@
    "actual": 59806.98,
    "ytd": 0.0,
    "tentative": 85000.0,
+   "proposal": 85000.0,
    "target": 25193.02,
    "confidence": "moderate"
   },
@@ -266,6 +288,7 @@
    "actual": 32615.83,
    "ytd": 2591.9,
    "tentative": 55000.0,
+   "proposal": 55000.0,
    "target": 22384.17,
    "confidence": "moderate"
   },
@@ -278,6 +301,7 @@
    "actual": 24882.73,
    "ytd": 14123.74,
    "tentative": 50000.0,
+   "proposal": 50000.0,
    "target": 21752.52,
    "confidence": "volatile"
   },
@@ -290,6 +314,7 @@
    "actual": 6488.07,
    "ytd": 20317.55,
    "tentative": 61800.0,
+   "proposal": 61800.0,
    "target": 21164.9,
    "confidence": "firm"
   },
@@ -302,6 +327,7 @@
    "actual": 957.14,
    "ytd": 0.0,
    "tentative": 22000.0,
+   "proposal": 22000.0,
    "target": 21042.86,
    "confidence": "moderate"
   },
@@ -314,6 +340,7 @@
    "actual": 22463.72,
    "ytd": 22459.68,
    "tentative": 65000.0,
+   "proposal": 65000.0,
    "target": 20080.64,
    "confidence": "moderate"
   },
@@ -326,6 +353,7 @@
    "actual": 30385.47,
    "ytd": 11257.5,
    "tentative": 50000.0,
+   "proposal": 50000.0,
    "target": 19614.53,
    "confidence": "firm"
   },
@@ -338,6 +366,7 @@
    "actual": -1552.0,
    "ytd": 3000.0,
    "tentative": 25000.0,
+   "proposal": 25000.0,
    "target": 19000.0,
    "confidence": "firm"
   },
@@ -350,6 +379,7 @@
    "actual": 17843.93,
    "ytd": 10787.27,
    "tentative": 40000.0,
+   "proposal": 40000.0,
    "target": 18425.46,
    "confidence": "volatile"
   },
@@ -362,6 +392,7 @@
    "actual": 56967.84,
    "ytd": 17707.94,
    "tentative": 75000.0,
+   "proposal": 75000.0,
    "target": 18032.16,
    "confidence": "firm"
   },
@@ -374,6 +405,7 @@
    "actual": 8119.92,
    "ytd": 1758.32,
    "tentative": 25000.0,
+   "proposal": 25000.0,
    "target": 16880.08,
    "confidence": "moderate"
   },
@@ -386,6 +418,7 @@
    "actual": 34437.05,
    "ytd": 17755.72,
    "tentative": 50000.0,
+   "proposal": 50000.0,
    "target": 14488.56,
    "confidence": "volatile"
   },
@@ -398,6 +431,7 @@
    "actual": 32469.46,
    "ytd": 17355.14,
    "tentative": 49000.0,
+   "proposal": 49000.0,
    "target": 14289.72,
    "confidence": "moderate"
   },
@@ -410,6 +444,7 @@
    "actual": 36321.55,
    "ytd": 16453.5,
    "tentative": 50000.0,
+   "proposal": 50000.0,
    "target": 13678.45,
    "confidence": "moderate"
   },
@@ -422,6 +457,7 @@
    "actual": 1749.1,
    "ytd": 0.0,
    "tentative": 15000.0,
+   "proposal": 15000.0,
    "target": 13250.9,
    "confidence": "moderate"
   },
@@ -434,6 +470,7 @@
    "actual": 41958.8,
    "ytd": 17709.07,
    "tentative": 55000.0,
+   "proposal": 55000.0,
    "target": 13041.2,
    "confidence": "moderate"
   },
@@ -446,6 +483,7 @@
    "actual": 7167.93,
    "ytd": 4615.41,
    "tentative": 22000.0,
+   "proposal": 22000.0,
    "target": 12769.18,
    "confidence": "firm"
   },
@@ -458,6 +496,7 @@
    "actual": 24898.6,
    "ytd": 9853.0,
    "tentative": 36500.0,
+   "proposal": 36500.0,
    "target": 11601.4,
    "confidence": "firm"
   },
@@ -470,6 +509,7 @@
    "actual": 3979.41,
    "ytd": 0.0,
    "tentative": 15000.0,
+   "proposal": 15000.0,
    "target": 11020.59,
    "confidence": "volatile"
   },
@@ -482,6 +522,7 @@
    "actual": 5004.0,
    "ytd": 3753.0,
    "tentative": 18000.0,
+   "proposal": 18000.0,
    "target": 10494.0,
    "confidence": "firm"
   },
@@ -494,6 +535,7 @@
    "actual": 1955.0,
    "ytd": 0.0,
    "tentative": 12000.0,
+   "proposal": 12000.0,
    "target": 10045.0,
    "confidence": "firm"
   },
@@ -506,6 +548,7 @@
    "actual": 5150.0,
    "ytd": 0.0,
    "tentative": 15000.0,
+   "proposal": 15000.0,
    "target": 9850.0,
    "confidence": "firm"
   },
@@ -518,6 +561,7 @@
    "actual": 20181.18,
    "ytd": 9496.39,
    "tentative": 30000.0,
+   "proposal": 30000.0,
    "target": 9818.82,
    "confidence": "moderate"
   },
@@ -530,6 +574,7 @@
    "actual": 0.0,
    "ytd": 2318.42,
    "tentative": 14000.0,
+   "proposal": 14000.0,
    "target": 9363.16,
    "confidence": "firm"
   },
@@ -542,6 +587,7 @@
    "actual": 953.1,
    "ytd": 0.0,
    "tentative": 10000.0,
+   "proposal": 10000.0,
    "target": 9046.9,
    "confidence": "firm"
   },
@@ -554,6 +600,7 @@
    "actual": 0.0,
    "ytd": 2997.4,
    "tentative": 15000.0,
+   "proposal": 15000.0,
    "target": 9005.2,
    "confidence": "moderate"
   },
@@ -566,6 +613,7 @@
    "actual": 6315.63,
    "ytd": 2520.22,
    "tentative": 15000.0,
+   "proposal": 15000.0,
    "target": 8684.37,
    "confidence": "volatile"
   },
@@ -578,6 +626,7 @@
    "actual": 4916.15,
    "ytd": 0.0,
    "tentative": 13210.0,
+   "proposal": 13210.0,
    "target": 8293.85,
    "confidence": "firm"
   },
@@ -590,6 +639,7 @@
    "actual": 655.69,
    "ytd": 512.0,
    "tentative": 9000.0,
+   "proposal": 9000.0,
    "target": 7976.0,
    "confidence": "firm"
   },
@@ -602,6 +652,7 @@
    "actual": 2028.0,
    "ytd": 746.0,
    "tentative": 9500.0,
+   "proposal": 9500.0,
    "target": 7472.0,
    "confidence": "firm"
   },
@@ -614,6 +665,7 @@
    "actual": 4692.31,
    "ytd": 0.0,
    "tentative": 12000.0,
+   "proposal": 12000.0,
    "target": 7307.69,
    "confidence": "moderate"
   },
@@ -626,6 +678,7 @@
    "actual": 13660.0,
    "ytd": 5320.0,
    "tentative": 20000.0,
+   "proposal": 20000.0,
    "target": 6340.0,
    "confidence": "moderate"
   },
@@ -638,6 +691,7 @@
    "actual": 470.18,
    "ytd": 343.3,
    "tentative": 7000.0,
+   "proposal": 7000.0,
    "target": 6313.4,
    "confidence": "moderate"
   },
@@ -650,6 +704,7 @@
    "actual": 5957.04,
    "ytd": 1104.32,
    "tentative": 12000.0,
+   "proposal": 12000.0,
    "target": 6042.96,
    "confidence": "firm"
   },
@@ -662,6 +717,7 @@
    "actual": 6083.65,
    "ytd": 4609.91,
    "tentative": 15000.0,
+   "proposal": 15000.0,
    "target": 5780.18,
    "confidence": "moderate"
   },
@@ -674,6 +730,7 @@
    "actual": 4295.08,
    "ytd": 809.64,
    "tentative": 10000.0,
+   "proposal": 10000.0,
    "target": 5704.92,
    "confidence": "volatile"
   },
@@ -686,6 +743,7 @@
    "actual": 2511.36,
    "ytd": 557.26,
    "tentative": 8000.0,
+   "proposal": 8000.0,
    "target": 5488.64,
    "confidence": "firm"
   },
@@ -698,6 +756,7 @@
    "actual": 9554.83,
    "ytd": 2384.96,
    "tentative": 15000.0,
+   "proposal": 15000.0,
    "target": 5445.17,
    "confidence": "moderate"
   },
@@ -710,6 +769,7 @@
    "actual": 8393.12,
    "ytd": 4826.99,
    "tentative": 15000.0,
+   "proposal": 15000.0,
    "target": 5346.02,
    "confidence": "volatile"
   },
@@ -722,6 +782,7 @@
    "actual": 4777.24,
    "ytd": 0.0,
    "tentative": 10000.0,
+   "proposal": 10000.0,
    "target": 5222.76,
    "confidence": "moderate"
   },
@@ -734,6 +795,7 @@
    "actual": 8402.0,
    "ytd": 0.0,
    "tentative": 13500.0,
+   "proposal": 13500.0,
    "target": 5098.0,
    "confidence": "firm"
   },
@@ -746,6 +808,7 @@
    "actual": 4902.58,
    "ytd": 1818.62,
    "tentative": 10000.0,
+   "proposal": 10000.0,
    "target": 5097.42,
    "confidence": "firm"
   },
@@ -758,6 +821,7 @@
    "actual": 3920.26,
    "ytd": 1816.97,
    "tentative": 9000.0,
+   "proposal": 9000.0,
    "target": 5079.74,
    "confidence": "volatile"
   },
@@ -770,9 +834,10 @@
    "actual": 4674.56,
    "ytd": 4487.47,
    "tentative": 14000.0,
+   "proposal": 14000.0,
    "target": 5025.06,
    "confidence": "firm"
   }
  ],
- "method": "Each controllable, non-mandated expenditure line whose 2027 Tentative sits more than 30% above its trailing full-year run-rate (the larger of the 2025 actual and twice the spending through June 30, 2026). The amount above that run-rate is what trimming the line back to it would save. Confidence: firm = operating/professional services; moderate = capital/maintenance that fluctuates; volatile = price-driven fuel/energy/utilities. Mandated costs (pension, workers comp, insurance, debt, claims) and revenue are excluded."
+ "method": "Each controllable, non-mandated expenditure line whose 2027 Preliminary sits more than 30% above its trailing full-year run-rate (the larger of the 2025 actual and twice the spending through June 30, 2026). The amount above that run-rate is what trimming the line back to it would save. Confidence: firm = operating/professional services; moderate = capital/maintenance that fluctuates; volatile = price-driven fuel/energy/utilities. Mandated costs (pension, workers comp, insurance, debt, claims) and revenue are excluded."
 }
