@@ -79,6 +79,8 @@ jobs:
         run: python etl/parse_afr.py
       - name: Re-analyse the budget supplement
         run: python etl/parse_budget_supplement.py
+      - name: Read the Preliminary Budget book's account lines
+        run: python etl/parse_preliminary_lines.py
       - name: Build multi-year supplement history
         run: python etl/parse_supplement_history.py
       # The meeting sync fetches the CivicClerk sources; this job rebuilds the

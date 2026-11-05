@@ -21,7 +21,7 @@ import { LETTER_2027 } from './tentative-letters'
 
 type Line = {
   account: string; fund: string; name: string; kind: string; page: number
-  actual: number | null; adopted: number | null; ytd: number | null; tentative: number | null; priorActual: number | null
+  actual: number | null; adopted: number | null; ytd: number | null; tentative: number | null; preliminary?: number | null; priorActual: number | null
 }
 type History = {
   account: string; fund: string; name: string; page: number
@@ -30,6 +30,7 @@ type History = {
 
 const tentative = stageDoc(2027, 'tentative')
 const adopted = stageDoc(2026, 'adopted')
+const preliminaryDoc = stageDoc(2027, 'preliminary')
 const lines = new Map((lineSource ? (supplementJson.lines as unknown as Line[]) : []).map((l) => [l.account, l]))
 const histories = new Map((revenueHistory.accounts as unknown as History[]).map((h) => [h.account, h]))
 
@@ -59,6 +60,8 @@ function accounts() {
       adopted: s?.adopted ?? null,
       before,
       after: before === null ? null : before + r.change,
+      /** The figure the Town's own Preliminary book prints for the account, once it is out. */
+      printed: s?.preliminary ?? null,
     }
   })
 }
@@ -90,8 +93,29 @@ export const amendmentEffect = lineSource && tentative?.townWide && adopted?.tow
       })
       const rateAfter = rates.every((r) => r.after !== null) ? sum(rates.map((r) => r.after as number)) : null
       const deferred = deferredToFundBalance(AMENDMENTS)
+      const accountRows = accounts()
+      const printedRows = accountRows.filter((r) => r.printed !== null && r.after !== null)
+      /**
+       * The six resolutions' arithmetic against what the Town printed. Each account's
+       * calculated figure, and each fund's appropriations and levy, is compared with
+       * the Preliminary book. Null until the Preliminary is published.
+       */
+      const confirmation = preliminaryDoc && printedRows.length
+        ? {
+            accounts: printedRows.length,
+            accountsAgree: printedRows.filter((r) => Math.abs((r.after as number) - (r.printed as number)) < 0.5).length,
+            funds: funds.length,
+            fundsAgree: funds.filter((f) => {
+              const p = preliminaryDoc.funds[f.fund]
+              return !!p && !!f.after && Math.abs(f.after.appropriations - p.appropriations) < 0.5 && Math.abs(f.after.levy - (p.levy ?? 0)) < 0.5
+            }).length,
+            levyAfter: preliminaryDoc.townWide?.levy ?? null,
+            source: preliminaryDoc.source,
+          }
+        : null
       return {
-        accounts: accounts(),
+        accounts: accountRows,
+        confirmation,
         funds,
         /** The Summary's "Total Town Wide": the General, Highway and Street Lighting funds. */
         townWide: {

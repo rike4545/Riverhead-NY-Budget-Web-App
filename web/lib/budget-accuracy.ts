@@ -14,12 +14,14 @@
 
 import outliersJson from '../public/data/budget-supplement/current-outliers.json'
 import history from '../public/data/budget-supplement/history.json'
-import { actualYears, budgetYear, columns, figures, pct, usd, type Figures } from './supplement'
+import { actualYears, budgetYear, columns, figures, pct, proposalLabel, usd, type Figures } from './supplement'
+
+export { proposalLabel }
 
 export type Severity = 'critical' | 'high' | 'explain'
 
 /** The two most recent years with actual spending, the budget before the new
-    one, and the new Tentative: the frame every flag is read in. */
+    one, and the newest proposal (Preliminary, else Tentative): the frame every flag is read in. */
 const Y1 = actualYears[actualYears.length - 2]
 const Y2 = actualYears[actualYears.length - 1]
 const ADOPTED_YEAR = budgetYear - 1
@@ -35,7 +37,8 @@ export type BudgetAccuracyFlag = {
   years: FlagYear[]
   adopted: number | null
   midYear: number | null
-  tentative: number | null
+  /** The newest stage's figure: the Preliminary once printed, else the Tentative. */
+  proposed: number | null
   plainEnglish?: string
   issue: string
   action: string
@@ -69,11 +72,11 @@ const specs: FlagSpec[] = [
     plainEnglish: 'Uniform OT means overtime for sworn uniformed police personnel. It is driven by minimum staffing rules, vacancies, sick or vacation backfill, shift coverage, arrests, court time, events, emergencies, training coverage, and contract overtime premiums.',
     issue: (f) => {
       const recent = [2023, 2024, 2025].map((y) => `${usd(a(f, y))} against ${usd(b(f, y))} in ${y}`)
-      return `Over budget in every year shown: ${recent.join(', ')}. The budget was cut from ${usd(b(f, 2022))} in 2022 to ${usd(b(f, 2023))} for 2023, less than the line had cost in any year since ${actualYears[0]}. The ${budgetYear} Tentative's ${usd(f.tentative ?? 0)} is below what it cost in each of the last three years. March workload data complicates the offset story: criminal incidents rose to 167 from 144 and total incidents rose to 2,994 from 2,922, even though accidents and summonses fell.`
+      return `Over budget in every year shown: ${recent.join(', ')}. The budget was cut from ${usd(b(f, 2022))} in 2022 to ${usd(b(f, 2023))} for 2023, less than the line had cost in any year since ${actualYears[0]}. The ${budgetYear} ${proposalLabel}'s ${usd(f.proposed ?? 0)} is below what it cost in each of the last three years. March workload data complicates the offset story: criminal incidents rose to 167 from 144 and total incidents rose to 2,994 from 2,922, even though accidents and summonses fell.`
     },
     action: (f) => {
       const recent = [2023, 2024, 2025].map((y) => a(f, y))
-      return `Either budget overtime at what it has cost, or publish a monthly overtime report showing how the gap between the ${usd(f.tentative ?? 0)} budget and the ${usd(Math.min(...recent))}–${usd(Math.max(...recent))} the line has cost will be closed through scheduling, cause coding, and tighter court, recall, training and event review, without assuming workload has declined.`
+      return `Either budget overtime at what it has cost, or publish a monthly overtime report showing how the gap between the ${usd(f.proposed ?? 0)} budget and the ${usd(Math.min(...recent))}–${usd(Math.max(...recent))} the line has cost will be closed through scheduling, cause coding, and tighter court, recall, training and event review, without assuming workload has declined.`
     },
   },
   {
@@ -82,7 +85,7 @@ const specs: FlagSpec[] = [
     plainEnglish: 'The Highway Department’s machinery function: buying equipment (DA1-5130-240) and repairing it (DA1-5130-403).',
     issue: (f) => {
       const eq = figures(['DA1-5-5130-240-000-00000'])
-      return `The function spent ${usd(a(f, Y1))} in ${Y1} against a ${usd(b(f, Y1))} budget, and ${usd(a(f, Y2))} in ${Y2} against ${usd(b(f, Y2))}. Nearly all of the overrun is the equipment line: ${usd(a(eq, Y1))} and ${usd(a(eq, Y2))} spent against ${usd(b(eq, Y1))} and ${usd(b(eq, Y2))} budgeted. The ${budgetYear} Tentative budgets equipment at ${usd(eq.tentative ?? 0)} again.`
+      return `The function spent ${usd(a(f, Y1))} in ${Y1} against a ${usd(b(f, Y1))} budget, and ${usd(a(f, Y2))} in ${Y2} against ${usd(b(f, Y2))}. Nearly all of the overrun is the equipment line: ${usd(a(eq, Y1))} and ${usd(a(eq, Y2))} spent against ${usd(b(eq, Y1))} and ${usd(b(eq, Y2))} budgeted. The ${budgetYear} ${proposalLabel} budgets equipment at ${usd(eq.proposed ?? 0)} again.`
     },
     action: () => 'Confirm how the purchases are authorized and paid for, whether by transfers within the Highway fund or from its reserves, and budget the equipment line at what it costs.',
   },
@@ -90,14 +93,14 @@ const specs: FlagSpec[] = [
     title: 'Town Attorney — Outside Legal Services',
     accounts: ['A01-1-1420-433-000-00000'],
     plainEnglish: 'Fees for outside lawyers the Town Attorney’s office hires, separate from the office’s own staff.',
-    issue: (f) => `Budgeted at ${usd(b(f, ADOPTED_YEAR))} every year since ${unchangedSince(f)}, it cost ${usd(a(f, 2023))} in 2023, ${usd(a(f, 2024))} in 2024 and ${usd(a(f, 2025))} in 2025. By June 30, ${ADOPTED_YEAR} it had cost ${usd(f.ytd(ADOPTED_YEAR) ?? 0)}, ${(f.ytd(ADOPTED_YEAR) ?? 0) > b(f, ADOPTED_YEAR) ? 'more than the whole year’s budget' : 'most of the year’s budget'}. The ${budgetYear} Tentative budgets ${usd(f.tentative ?? 0)} again.`,
+    issue: (f) => `Budgeted at ${usd(b(f, ADOPTED_YEAR))} every year since ${unchangedSince(f)}, it cost ${usd(a(f, 2023))} in 2023, ${usd(a(f, 2024))} in 2024 and ${usd(a(f, 2025))} in 2025. By June 30, ${ADOPTED_YEAR} it had cost ${usd(f.ytd(ADOPTED_YEAR) ?? 0)}, ${(f.ytd(ADOPTED_YEAR) ?? 0) > b(f, ADOPTED_YEAR) ? 'more than the whole year’s budget' : 'most of the year’s budget'}. The ${budgetYear} ${proposalLabel} budgets ${usd(f.proposed ?? 0)} again.`,
     action: () => 'Budget outside counsel at what it has cost, or say which cases or contracts the Town expects to end.',
   },
   {
     title: 'Police Sick Buy-Back',
     accounts: ['A01-3-3120-152-000-00000'],
     plainEnglish: 'This is payment for unused sick leave under police contract or work rules. It can come from retirement or separation payouts, annual sick-leave sellbacks if permitted, or accumulated sick banks converting into cash.',
-    issue: (f) => `Over budget in ${Y1} (${usd(a(f, Y1))} against ${usd(b(f, Y1))}) and in ${Y2} (${usd(a(f, Y2))} against ${usd(b(f, Y2))}). The ${ADOPTED_YEAR} budget cut the line to ${usd(b(f, ADOPTED_YEAR))}, and ${usd(f.ytd(ADOPTED_YEAR) ?? 0)} of it was spent by June 30 — before the seven PBA retirements under this year’s incentive, which let each retiree cash out up to 30 accrued sick days. The ${budgetYear} Tentative budgets ${usd(f.tentative ?? 0)}.`,
+    issue: (f) => `Over budget in ${Y1} (${usd(a(f, Y1))} against ${usd(b(f, Y1))}) and in ${Y2} (${usd(a(f, Y2))} against ${usd(b(f, Y2))}). The ${ADOPTED_YEAR} budget cut the line to ${usd(b(f, ADOPTED_YEAR))}, and ${usd(f.ytd(ADOPTED_YEAR) ?? 0)} of it was spent by June 30 — before the seven PBA retirements under this year’s incentive, which let each retiree cash out up to 30 accrued sick days. The ${budgetYear} ${proposalLabel} budgets ${usd(f.proposed ?? 0)}.`,
     action: () => 'Budget sick-leave payouts at what they have cost, including the incentive retirements, and say which contract terms drive them.',
   },
   {
@@ -109,7 +112,7 @@ const specs: FlagSpec[] = [
   {
     title: 'IT Equipment',
     accounts: ['A01-1-1680-240-000-00000'],
-    issue: (f) => `${Y1} cost ${usd(a(f, Y1))}, ${times(a(f, Y1), b(f, Y1))} the ${usd(b(f, Y1))} budget. In ${Y2} the line came in ${a(f, Y2) <= b(f, Y2) ? 'under' : 'over'} its ${usd(b(f, Y2))} budget, at ${usd(a(f, Y2))}. The ${ADOPTED_YEAR} budget cut it to ${usd(b(f, ADOPTED_YEAR))}; the ${budgetYear} Tentative raises it to ${usd(f.tentative ?? 0)}.`,
+    issue: (f) => `${Y1} cost ${usd(a(f, Y1))}, ${times(a(f, Y1), b(f, Y1))} the ${usd(b(f, Y1))} budget. In ${Y2} the line came in ${a(f, Y2) <= b(f, Y2) ? 'under' : 'over'} its ${usd(b(f, Y2))} budget, at ${usd(a(f, Y2))}. The ${ADOPTED_YEAR} budget cut it to ${usd(b(f, ADOPTED_YEAR))}; the ${budgetYear} ${proposalLabel} raises it to ${usd(f.proposed ?? 0)}.`,
     action: () => 'Confirm what drove the one-year spike and whether it was a single purchase.',
   },
   {
@@ -124,19 +127,19 @@ const specs: FlagSpec[] = [
   {
     title: 'Planning Environmental Review',
     accounts: ['A01-8-8020-436-100-00000'],
-    issue: (f) => `${usd(a(f, 2023))} in 2023 and ${usd(a(f, 2024))} in 2024 went out with no budget in either year, and ${usd(a(f, 2025))} more in 2025, also unbudgeted. Neither the ${ADOPTED_YEAR} budget nor the ${budgetYear} Tentative carries anything.`,
+    issue: (f) => `${usd(a(f, 2023))} in 2023 and ${usd(a(f, 2024))} in 2024 went out with no budget in either year, and ${usd(a(f, 2025))} more in 2025, also unbudgeted. Neither the ${ADOPTED_YEAR} budget nor the ${budgetYear} ${proposalLabel} carries anything.`,
     action: () => 'Determine whether this was grant-funded, reimbursed by applicants, or an unappropriated consulting expenditure.',
   },
   {
     title: 'Fire Protection - Part-Time Staff',
     accounts: ['A01-3-3410-102-000-00000'],
-    issue: (f) => `Spent ${usd(a(f, Y1))} in ${Y1} against a ${usd(b(f, Y1))} budget. The line was then set to zero for ${Y2}, and ${usd(a(f, Y2))} was paid from it anyway. Neither the ${ADOPTED_YEAR} budget nor the ${budgetYear} Tentative carries anything.`,
+    issue: (f) => `Spent ${usd(a(f, Y1))} in ${Y1} against a ${usd(b(f, Y1))} budget. The line was then set to zero for ${Y2}, and ${usd(a(f, Y2))} was paid from it anyway. Neither the ${ADOPTED_YEAR} budget nor the ${budgetYear} ${proposalLabel} carries anything.`,
     action: () => 'Determine whether part-time Fire Marshal help is still being used and, if it is, budget it.',
   },
   {
     title: 'CDA Special Events',
     accounts: ['A01-8-8686-450-000-00000'],
-    issue: (f) => `The line had no ${Y2} budget, yet ${usd(a(f, Y2))} was spent from it in ${Y2}. It was budgeted at ${usd(b(f, ADOPTED_YEAR))} for ${ADOPTED_YEAR}, and the ${budgetYear} Tentative cuts it to ${usd(f.tentative ?? 0)}.`,
+    issue: (f) => `The line had no ${Y2} budget, yet ${usd(a(f, Y2))} was spent from it in ${Y2}. It was budgeted at ${usd(b(f, ADOPTED_YEAR))} for ${ADOPTED_YEAR}, and the ${budgetYear} ${proposalLabel} cuts it to ${usd(f.proposed ?? 0)}.`,
     action: () => 'Explain the event plan, the funding source and the public purpose, and why the spending came before the budget.',
   },
   {
@@ -146,7 +149,7 @@ const specs: FlagSpec[] = [
     severity: 'explain',
     issue: (f) => {
       const cp = figures(['A01-1-1345-421-000-00000'])
-      return `Budgeted at ${usd(b(f, Y1))} in ${Y1}, it cost ${usd(a(f, Y1))}. For ${Y2} most postage moved to a new Central Purchasing line (${usd(b(cp, Y2))} budgeted, ${usd(a(cp, Y2))} spent) and Town Hall’s own line was cut to ${usd(b(f, Y2))}, but it still cost ${usd(a(f, Y2))}. The ${budgetYear} Tentative keeps ${usd(f.tentative ?? 0)}.`
+      return `Budgeted at ${usd(b(f, Y1))} in ${Y1}, it cost ${usd(a(f, Y1))}. For ${Y2} most postage moved to a new Central Purchasing line (${usd(b(cp, Y2))} budgeted, ${usd(a(cp, Y2))} spent) and Town Hall’s own line was cut to ${usd(b(f, Y2))}, but it still cost ${usd(a(f, Y2))}. The ${budgetYear} ${proposalLabel} keeps ${usd(f.proposed ?? 0)}.`
     },
     action: () => 'What does Town Hall still mail that Central Purchasing does not? Budget the line at what it costs.',
   },
@@ -161,7 +164,7 @@ const specs: FlagSpec[] = [
 function severityOf(f: Figures): Severity {
   const over = (y: number) => a(f, y) > b(f, y) && a(f, y) > 0
   const noBudget = (y: number) => b(f, y) === 0 && a(f, y) > 0
-  const gap = a(f, Y2) - (f.tentative ?? 0)
+  const gap = a(f, Y2) - (f.proposed ?? 0)
   if (over(Y1) && over(Y2) && gap >= 25_000) return 'critical'
   if (noBudget(Y1) || noBudget(Y2)) return 'high'
   if ([Y1, Y2].some((y) => b(f, y) > 0 && a(f, y) > 1.25 * b(f, y))) return 'high'
@@ -181,11 +184,11 @@ export const curatedFlags: BudgetAccuracyFlag[] = specs
       years: [Y1, Y2].map((year) => ({ year, budget: f.adopted(year), actual: f.actual(year) })),
       adopted: f.adopted(ADOPTED_YEAR),
       midYear: f.ytd(ADOPTED_YEAR),
-      tentative: f.tentative,
+      proposed: f.proposed,
       plainEnglish: s.plainEnglish,
       issue: s.issue(f),
       action: s.action(f),
-      gap: a(f, Y2) - (f.tentative ?? 0),
+      gap: a(f, Y2) - (f.proposed ?? 0),
     }
   })
   .sort((x, y) => ORDER[x.severity] - ORDER[y.severity] || y.gap - x.gap)
@@ -223,6 +226,8 @@ export type Outlier = {
   adopted: number | null
   ytd: number | null
   tentative: number | null
+  /** The newest stage's figure the over-budget test ran on. */
+  proposal: number | null
   flag: string
   excess: number
 }
@@ -257,7 +262,7 @@ export type CyclicalLine = {
   nextDue: number
   spikeAverage: number
   adopted: number
-  tentative: number
+  proposed: number
 }
 
 export type UnderBudgetedLine = {
@@ -268,7 +273,7 @@ export type UnderBudgetedLine = {
   averageWhenActive: number
   peak: number
   adopted: number
-  tentative: number
+  proposed: number
   shortfall: number
 }
 
@@ -283,7 +288,7 @@ export type ChronicLine = {
   averageAdopted: number
   ytd: number | null
   adopted: number
-  tentative: number
+  proposed: number
   gap: number
 }
 
@@ -294,7 +299,7 @@ export type UnusedLine = {
   page: number | null
   adoptedPrior: number
   adopted: number
-  tentative: number
+  proposed: number
 }
 
 export type RenumberedLine = {
@@ -320,6 +325,6 @@ export const historyNote = history.note as string
 
 /** What the lumpy, under-budgeted lines would cost if they all landed at once. */
 export const underBudgetedShortfall = underBudgeted.reduce((n, r) => n + r.shortfall, 0)
-export const unusedTotal = unused.reduce((n, r) => n + r.tentative, 0)
-export const unusedGeneralFund = unused.filter((r) => r.fund === 'A01').reduce((n, r) => n + r.tentative, 0)
+export const unusedTotal = unused.reduce((n, r) => n + r.proposed, 0)
+export const unusedGeneralFund = unused.filter((r) => r.fund === 'A01').reduce((n, r) => n + r.proposed, 0)
 export const chronicGap = chronicUnderBudget.reduce((n, r) => n + r.gap, 0)

@@ -452,6 +452,7 @@ Every page shows when its data was last refreshed.
 | `parse_budget_adoption.py` | What the Board changed in each Tentative before adopting it, 2005 on |
 | `parse_budget_requests.py` | What each department asked for, against what the budget officer recommended |
 | `parse_general_fund.py` | The long-run General Fund history, adding each newly adopted year from the budget-stage data |
+| `parse_preliminary_lines.py` | Every expenditure and revenue account in the 2027 Preliminary Budget book (adopted, request, Tentative and Preliminary columns), tied to the Preliminary and Tentative Summary fund by fund. Writes `budget-2027-preliminary-lines.json`; `parse_supplement_history.py` then lays the Preliminary beside each Supplement line, and `verify-budget-amendments.mjs` checks the book against the six October 20 resolutions |
 | `parse_budget_supplement.py` / `parse_supplement_history.py` | Every Budget Supplement line, classified, with its multi-year history. The history script reads all eight committed Supplements (2020–2027) for every fund, expenditure and revenue, and writes the newest Supplement's lines, outliers and run-rate trims; `scripts/verify-supplement.mjs` checks its figures against a second reading of the same PDFs |
 | `parse_afr.py` | Actual year-end results for all 14 AFR funds |
 | `parse_cpf.py` | Peconic Bay Community Preservation Fund results |

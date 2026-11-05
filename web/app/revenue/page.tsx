@@ -5,7 +5,7 @@ import Sparkline from '../../components/Sparkline'
 import {
   accountsIn, byCategory, categoryLabel, collected, estimateRecord, estimated, FUND_LABELS, isOutside, material,
   midYear, neverCollected, requested, revenueActualYears, revenueAdoptedYears, revenueBudgetYear, revenueNote,
-  revenueSupplementYears, tentative, underEstimated, type RevenueAccount,
+  revenueSupplementYears, proposed, STAGE, underEstimated, type RevenueAccount,
 } from '../../lib/revenue'
 import { supplementSource } from '../../lib/supplement'
 
@@ -28,12 +28,12 @@ const NOW = revenueAdoptedYears[revenueAdoptedYears.length - 1]
 const gf = accountsIn('A01')
 const gfOutside = gf.filter(isOutside)
 const byCat = (ids: string[]) => gf.filter((a) => ids.includes(a.category))
-const gfTotal = tentative(gf)
+const gfTotal = proposed(gf)
 const parts = [
-  { label: 'Property tax levy', amount: tentative(byCat(['property-tax'])), note: 'Set by the Board, within the tax cap' },
-  { label: 'Outside revenue', amount: tentative(gfOutside), note: 'Fees, interest, state aid, sales and cannabis taxes, PILOTs and more' },
-  { label: 'From other Town funds', amount: tentative(byCat(['interfund-revenue', 'other-sources'])), note: 'Charges and transfers from the Town’s own districts' },
-  { label: 'Fund balance used', amount: tentative(byCat(['fund-balance'])), note: 'Savings from earlier years' },
+  { label: 'Property tax levy', amount: proposed(byCat(['property-tax'])), note: 'Set by the Board, within the tax cap' },
+  { label: 'Outside revenue', amount: proposed(gfOutside), note: 'Fees, interest, state aid, sales and cannabis taxes, PILOTs and more' },
+  { label: 'From other Town funds', amount: proposed(byCat(['interfund-revenue', 'other-sources'])), note: 'Charges and transfers from the Town’s own districts' },
+  { label: 'Fund balance used', amount: proposed(byCat(['fund-balance'])), note: 'Savings from earlier years' },
 ]
 
 const record = estimateRecord(gfOutside)
@@ -54,14 +54,14 @@ const OTHER_FUNDS = ['DA1', 'EW1', 'ES1', 'ES3', 'ES5', 'SR1', 'SM1', 'SL1', 'CM
 
 export const metadata = {
   title: 'Where Revenue Comes From — every stream, estimate against result',
-  description: `Every revenue stream in Riverhead's Budget Supplements, ${revenueActualYears[0]}–${YEAR}: what each source was estimated to bring in, what it did, what has come in so far in ${NOW}, and what the ${YEAR} Tentative expects.`,
+  description: `Every revenue stream in Riverhead's Budget Supplements, ${revenueActualYears[0]}–${YEAR}: what each source was estimated to bring in, what it did, what has come in so far in ${NOW}, and what the ${YEAR} {STAGE} expects.`,
 }
 
 export default function RevenuePage() {
   return (
     <PageShell
       title="Where revenue comes from"
-      subtitle={`Every revenue stream in the Town's Budget Supplements, ${revenueActualYears[0]} through ${YEAR}: what each source was estimated to bring in, what it did, what has come in so far this year, and what the ${YEAR} Tentative expects.`}
+      subtitle={`Every revenue stream in the Town's Budget Supplements, ${revenueActualYears[0]} through ${YEAR}: what each source was estimated to bring in, what it did, what has come in so far this year, and what the ${YEAR} {STAGE} expects.`}
     >
       <ProposalLineStageNotice />
       <PlainCallout
@@ -75,8 +75,8 @@ export default function RevenuePage() {
           ? <>The General Fund estimated its outside revenue below what came in for <strong>{streak.length} years running</strong>,{' '}
             {streak[0].year}–{streak[streak.length - 1].year}, by <strong>{usd(streakTotal)}</strong> in all.</>
           : <>The General Fund&apos;s outside revenue came in above its estimate in {overYears.length} of the {record.length} years on file.</>}{' '}
-        The {YEAR} Tentative expects{' '}
-        <strong>{usd(tentative(gfOutside))}</strong> from those sources, against {usd(collected(gfOutside, LAST))} collected in {LAST}.
+        The {YEAR} {STAGE} expects{' '}
+        <strong>{usd(proposed(gfOutside))}</strong> from those sources, against {usd(collected(gfOutside, LAST))} collected in {LAST}.
       </PlainCallout>
 
       <section style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(min(210px,100%),1fr))', gap: 12, margin: '16px 0' }}>
@@ -130,8 +130,8 @@ export default function RevenuePage() {
               </tr>
               <tr style={rowLine}>
                 <td style={{ ...td, fontWeight: 800, color: 'var(--rbl-title)' }}>{YEAR}</td>
-                <td style={{ ...tdr, fontWeight: 800, color: 'var(--rbl-title)' }}>{usd(tentative(gfOutside))}</td>
-                <td style={tdr} colSpan={3}><span style={{ color: 'var(--rbl-text-muted)' }}>the Tentative&apos;s estimate{requested(gfOutside) === tentative(gfOutside) ? ', the same as the departments requested' : ` (departments asked for ${usd(requested(gfOutside))})`}</span></td>
+                <td style={{ ...tdr, fontWeight: 800, color: 'var(--rbl-title)' }}>{usd(proposed(gfOutside))}</td>
+                <td style={tdr} colSpan={3}><span style={{ color: 'var(--rbl-text-muted)' }}>the {STAGE}&apos;s estimate{requested(gfOutside) === proposed(gfOutside) ? ', the same as the departments requested' : ` (departments asked for ${usd(requested(gfOutside))})`}</span></td>
               </tr>
             </tbody>
           </table>
@@ -154,7 +154,7 @@ export default function RevenuePage() {
                 <th style={thr}>{NOW} estimate</th>
                 <th style={thr}>Jan–Jun {NOW}</th>
                 <th style={thr}>Jan–Jun {NOW - 1}</th>
-                <th style={thr}>{YEAR} Tentative</th>
+                <th style={thr}>{YEAR} {STAGE}</th>
               </tr>
             </thead>
             <tbody>
@@ -166,7 +166,7 @@ export default function RevenuePage() {
                   <td style={tdr}>{usd(c.estimatedNow)}</td>
                   <td style={tdr}>{usd(c.midYearNow)}</td>
                   <td style={{ ...tdr, color: 'var(--rbl-text-muted)' }}>{usd(c.midYearPrior)}</td>
-                  <td style={{ ...tdr, fontWeight: 800, color: 'var(--rbl-title)' }}>{usd(c.tentative)}</td>
+                  <td style={{ ...tdr, fontWeight: 800, color: 'var(--rbl-title)' }}>{usd(c.proposed)}</td>
                 </tr>
               ))}
             </tbody>
@@ -179,7 +179,7 @@ export default function RevenuePage() {
           <h2 style={{ marginTop: 0, color: 'var(--rbl-title)', fontSize: 20 }}>Estimated low, year after year</h2>
           <p style={{ color: 'var(--rbl-text-body)', fontSize: 14.5, lineHeight: 1.6, marginTop: 0 }}>
             Every fund. Each of these brought in at least a quarter more than its estimate in each of{' '}
-            {revenueActualYears.slice(-3).join(', ')}, and the {YEAR} Tentative estimates it below what it has averaged. Interest
+            {revenueActualYears.slice(-3).join(', ')}, and the {YEAR} {STAGE} estimates it below what it has averaged. Interest
             appears in almost every fund: most districts budget a few hundred dollars and earn tens or hundreds of thousands.
           </p>
           <div style={{ overflowX: 'auto' }}>
@@ -188,7 +188,7 @@ export default function RevenuePage() {
                 <tr style={headRow}>
                   <th style={th}>Line</th>
                   {revenueActualYears.slice(-3).map((y) => <th key={y} style={thr}>{y}: in / estimate</th>)}
-                  <th style={thr}>{YEAR} Tentative</th>
+                  <th style={thr}>{YEAR} {STAGE}</th>
                 </tr>
               </thead>
               <tbody>
@@ -204,7 +204,7 @@ export default function RevenuePage() {
                         <div style={{ color: 'var(--rbl-text-muted)', fontSize: 11.5 }}>{usd(r.estimated[String(y)])}</div>
                       </td>
                     ))}
-                    <td style={{ ...tdr, fontWeight: 800, color: 'var(--rbl-title)' }}>{usd(r.tentative ?? 0)}</td>
+                    <td style={{ ...tdr, fontWeight: 800, color: 'var(--rbl-title)' }}>{usd(r.proposed ?? 0)}</td>
                   </tr>
                 ))}
               </tbody>
@@ -223,9 +223,9 @@ export default function RevenuePage() {
           <h2 style={{ marginTop: 0, color: 'var(--rbl-title)', fontSize: 20 }}>Estimated, never collected</h2>
           <p style={{ color: 'var(--rbl-text-body)', fontSize: 14.5, lineHeight: 1.6, marginTop: 0 }}>
             Counted in each of {revenueActualYears.slice(-3).join(', ')}, with nothing recorded at mid-year or year-end.{' '}
-            {neverCollected.every((r) => !r.tentative)
-              ? `The ${YEAR} Tentative carries none of them. The question is about the budgets that did: where, if anywhere, this money was recorded.`
-              : `Some are still in the ${YEAR} Tentative.`}
+            {neverCollected.every((r) => !r.proposed)
+              ? `The ${YEAR} {STAGE} carries none of them. The question is about the budgets that did: where, if anywhere, this money was recorded.`
+              : `Some are still in the ${YEAR} {STAGE}.`}
           </p>
           <div style={{ overflowX: 'auto' }}>
             <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 13.5, minWidth: 560 }}>
@@ -233,7 +233,7 @@ export default function RevenuePage() {
                 <tr style={headRow}>
                   <th style={th}>Line</th>
                   {revenueActualYears.slice(-3).map((y) => <th key={y} style={thr}>{y} estimate</th>)}
-                  <th style={thr}>{YEAR} Tentative</th>
+                  <th style={thr}>{YEAR} {STAGE}</th>
                 </tr>
               </thead>
               <tbody>
@@ -244,7 +244,7 @@ export default function RevenuePage() {
                       <div style={{ color: 'var(--rbl-text-muted)', fontSize: 11.5, marginTop: 2 }}>{FUND_LABELS[r.fund] ?? r.fund} · {r.account}</div>
                     </td>
                     {revenueActualYears.slice(-3).map((y) => <td key={y} style={tdr}>{usd(r.estimated[String(y)])}</td>)}
-                    <td style={{ ...tdr, fontWeight: 800 }}>{usd(r.tentative ?? 0)}</td>
+                    <td style={{ ...tdr, fontWeight: 800 }}>{usd(r.proposed ?? 0)}</td>
                   </tr>
                 ))}
               </tbody>
@@ -273,7 +273,7 @@ export default function RevenuePage() {
             <thead>
               <tr style={headRow}>
                 <th style={th}>Fund</th>
-                <th style={thr}>{YEAR} revenue (Tentative)</th>
+                <th style={thr}>{YEAR} revenue ({STAGE})</th>
                 <th style={thr}>of it, tax levy</th>
                 <th style={thr}>{LAST} outside: estimate</th>
                 <th style={thr}>{LAST} outside: collected</th>
@@ -286,8 +286,8 @@ export default function RevenuePage() {
                 return (
                   <tr key={f} style={rowLine}>
                     <td style={{ ...td, fontWeight: 700, color: 'var(--rbl-title)' }}>{FUND_LABELS[f] ?? f}</td>
-                    <td style={tdr}>{usd(tentative(acc))}</td>
-                    <td style={tdr}>{usd(tentative(acc.filter((a) => a.category === 'property-tax')))}</td>
+                    <td style={tdr}>{usd(proposed(acc))}</td>
+                    <td style={tdr}>{usd(proposed(acc.filter((a) => a.category === 'property-tax')))}</td>
                     <td style={tdr}>{usd(estimated(out, LAST))}</td>
                     <td style={{ ...tdr, fontWeight: 800 }}>{usd(collected(out, LAST))}</td>
                   </tr>
@@ -325,7 +325,7 @@ function StreamGroup({ title, accounts }: { title: string; accounts: RevenueAcco
       <summary style={{ cursor: 'pointer', display: 'flex', justifyContent: 'space-between', gap: 10, flexWrap: 'wrap' }}>
         <strong style={{ color: 'var(--rbl-title)' }}>{title}</strong>
         <span style={{ color: 'var(--rbl-text-muted)', fontSize: 13 }}>
-          {accounts.length} line{accounts.length === 1 ? '' : 's'} · {YEAR} Tentative {usd(tentative(accounts))}
+          {accounts.length} line{accounts.length === 1 ? '' : 's'} · {YEAR} {STAGE} {usd(proposed(accounts))}
         </span>
       </summary>
       <div style={{ overflowX: 'auto', marginTop: 10 }}>
@@ -337,7 +337,7 @@ function StreamGroup({ title, accounts }: { title: string; accounts: RevenueAcco
               <th style={thr}>{LAST}: in / estimate</th>
               <th style={thr}>{NOW} estimate</th>
               <th style={thr}>Jan–Jun {NOW}</th>
-              <th style={thr}>{YEAR} Tentative</th>
+              <th style={thr}>{YEAR} {STAGE}</th>
             </tr>
           </thead>
           <tbody>
@@ -354,7 +354,7 @@ function StreamGroup({ title, accounts }: { title: string; accounts: RevenueAcco
                 </td>
                 <td style={tdr}>{usd(a.adopted[String(NOW)] ?? 0)}</td>
                 <td style={tdr}>{usd(a.ytd[String(NOW)] ?? 0)}</td>
-                <td style={{ ...tdr, fontWeight: 800, color: 'var(--rbl-title)' }}>{usd(a.tentative ?? 0)}</td>
+                <td style={{ ...tdr, fontWeight: 800, color: 'var(--rbl-title)' }}>{usd(a.proposed ?? 0)}</td>
               </tr>
             ))}
           </tbody>

@@ -250,6 +250,21 @@ if (!calendar.includes('2026-11-17')) fail('the Town calendar no longer lists a 
 if (calendar.some((d) => d > '2026-11-05' && d < '2026-11-17')) fail('the calendar now has a meeting between the hearing and November 17, so November 17 is not the only one before the deadline')
 for (const step of NEXT_STEPS) if (!has(step.date)) fail(`the page does not show ${step.date}`)
 
+// The Town's own Preliminary book (when it is published) must show exactly what
+// the six resolutions do: the same net change on every account, and no other.
+const prelimPath = 'public/data/budget-2027-preliminary-lines.json'
+if (existsSync(path(prelimPath))) {
+  const book = read(prelimPath)
+  const net = new Map()
+  for (const a of AMENDMENTS) for (const l of a.lines) net.set(l.account, (net.get(l.account) ?? 0) + change(l))
+  const printed = new Map(book.lines.filter((l) => l.preliminary !== l.tentative).map((l) => [l.account, Math.round((l.preliminary - l.tentative) * 100) / 100]))
+  for (const acct of new Set([...net.keys(), ...printed.keys()])) {
+    const resolved = Math.round((net.get(acct) ?? 0) * 100) / 100
+    const got = printed.get(acct) ?? 0
+    if (resolved !== got) fail(`${acct}: the resolutions change it by ${resolved} but the Preliminary book changes it by ${got}`)
+  }
+}
+
 if (!process.exitCode) {
   console.log(`budget amendments: ${AMENDMENTS.length} resolutions, ${checkedLines} lines on their packet pages and fiscal impact statements, each fund balanced; town-wide levy ${usd(t2027.townWide.levy)} → ${usd(levyAfter)} (up ${pctAfter.toFixed(2)}% on 2026), ${usd(deferredTotal)} of equipment to savings, estimated rate ${total(rates).toFixed(3)}; the page shows ${onPage.length} checked figures`)
 }
