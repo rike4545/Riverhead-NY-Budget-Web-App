@@ -68,6 +68,8 @@ else {
       if (!html.includes(usd(figure))) fail(`${o.name}'s card does not show ${usd(figure)}`)
     }
   }
+  // The November 3, 2026 Supervisor result is shown, labelled unofficial until the County certifies it.
+  if (!html.includes('data-unofficial-result') || !html.includes('Unofficial result of the November 3, 2026')) fail('the page does not show the unofficial November 3, 2026 Supervisor result')
   // The limits are the County's 2026 index for the Town of Riverhead, not the 2025 index or the Business Council's 2022 figures.
   for (const figure of ['$1,219.30', '$6,096.50', '$1,685.75', '$2,148.50', 'Campaign Contribution Limit Index for 2026']) {
     if (!html.includes(figure)) fail(`the contribution limits section does not show “${figure}” from the County's 2026 index`)

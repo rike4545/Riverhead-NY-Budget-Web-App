@@ -2,6 +2,7 @@ import PageShell from '../../components/PageShell'
 import PlainCallout from '../../components/PlainCallout'
 import CampaignFinance from '../../components/CampaignFinance'
 import EmployeeDonorWatch from '../../components/EmployeeDonorWatch'
+import UnofficialElectionResult from '../../components/UnofficialElectionResult'
 import { nextFilingDeadline, riverheadContributionLimits } from '../../lib/campaign-finance'
 import data from '../../public/data/campaign-finance.json'
 import general2026 from '../../public/data/campaign-finance-2026-general.json'
@@ -79,6 +80,8 @@ export default function CampaignFinancePage() {
         <a href="#contribution-limits" style={sectionLinkStyle}><span aria-hidden="true">03</span><span>Contribution limits</span></a>
         <a href="#data-notes" style={sectionLinkStyle}><span aria-hidden="true">i</span><span>Sources & interpretation</span></a>
       </nav>
+
+      <UnofficialElectionResult />
 
       <section id="candidate-records" style={{ scrollMarginTop: 20 }}>
         <div style={{ marginBottom: 12 }}>
