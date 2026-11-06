@@ -54,6 +54,11 @@ else {
   for (const text of ['2026 General Election reports (November 3, 2026)', '2026 General 11/03/2026 11-Day', 'Election Law §14-108', ...Object.keys(REPORTS).map((r) => `${r} report`)]) {
     if (!html.includes(text)) fail(`the built page is missing “${text}”`)
   }
+  // The schedules explainer quotes the State's schedule names exactly as the open data prints them.
+  for (const name of ['Monetary Contributions Received From Ind. & Part.', 'Monetary Contributions Received From Corporation',
+    'Monetary Contributions Received From All Other', 'In-Kind (Non-Monetary) Contributions Received', 'LLCs/Partnership/Subcontractor']) {
+    if (!html.includes(name)) fail(`the schedules explainer does not quote the schedule name “${name}”`)
+  }
   for (const report of Object.keys(REPORTS)) {
     const start = html.indexOf(`${report} report`)
     const next = Object.keys(REPORTS).map((r) => html.indexOf(`${r} report`)).filter((i) => i > start).sort((a, b) => a - b)[0] ?? html.indexOf('Contributions are Schedules A to C')

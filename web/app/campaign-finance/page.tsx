@@ -136,6 +136,38 @@ export default function CampaignFinancePage() {
         </PlainCallout>
       </section>
 
+      <section id="reading-schedules" aria-labelledby="reading-schedules-heading" style={{ marginTop: 28, scrollMarginTop: 20 }}>
+        <h2 id="reading-schedules-heading" style={{ margin: '0 0 8px', color: 'var(--rbl-title)', fontSize: 22 }}>Money, in-kind and LLC gifts: how a filing shows them</h2>
+        <p style={{ margin: '0 0 12px', color: 'var(--rbl-text-body)', fontSize: 15.5, lineHeight: 1.6, maxWidth: '72ch' }}>
+          A committee lists every contribution on a lettered schedule. The letter tells you what kind of gift it was and who gave
+          it, so it is the first thing to check when a donor and a filing seem to tell different stories. The schedule names
+          below are the State Board of Elections&apos; own, as the open data prints them.
+        </p>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(240px,1fr))', gap: 12 }}>
+          {SCHEDULES.map((s) => (
+            <div key={s.letter} style={{ background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 12, padding: 14 }}>
+              <div style={{ color: 'var(--rbl-title)', fontWeight: 700, fontSize: 15.5 }}>Schedule {s.letter}</div>
+              <div style={{ color: 'var(--rbl-text-muted)', fontSize: 13.5, margin: '2px 0 6px' }}>&ldquo;{s.name}&rdquo;</div>
+              <p style={{ margin: 0, color: 'var(--rbl-text-body)', fontSize: 14.5, lineHeight: 1.55 }}>{s.text}</p>
+            </div>
+          ))}
+        </div>
+        <div style={{ height: 14 }} aria-hidden="true" />
+        <PlainCallout
+          title="When a donor's account and the filing differ"
+          tips={[
+            { label: 'Check the letter and the payment', text: 'a gift filed on Schedule A, B or C with a check number was reported as money. A discount or donated work should be on Schedule D, valued at what it was worth.' },
+            { label: 'Ask the treasurer', text: "the committee, not the donor, files the report. If it is wrong, the committee's treasurer can file an amended report, and the open data marks amended reports." },
+            { label: 'Not a finding', text: 'a mismatch is usually a bookkeeping error, and the State Board of Elections, not this site, decides whether a filing breaks the rules.' },
+          ]}
+        >
+          <p style={{ margin: 0 }}>
+            A donor may describe a gift one way while the committee reported it another way: a discount filed as a check, or a
+            personal gift filed as a business&apos;s. Neither is proof of wrongdoing, but the public record should match what happened.
+          </p>
+        </PlainCallout>
+      </section>
+
       <section id="data-notes" style={{ marginTop: 24, scrollMarginTop: 20 }}>
         <details style={{ border: '1px solid var(--rbl-border-subtle)', borderRadius: 12, background: 'var(--rbl-surface)', padding: '13px 16px' }}>
           <summary style={{ cursor: 'pointer', color: 'var(--rbl-title)', fontWeight: 800 }}>
@@ -158,6 +190,15 @@ export default function CampaignFinancePage() {
     </PageShell>
   )
 }
+
+/** The contribution schedules, named as data.ny.gov's campaign finance dataset (e9ss-239a) prints them. */
+const SCHEDULES = [
+  { letter: 'A', name: 'Monetary Contributions Received From Ind. & Part.', text: 'Money from a person or a partnership: cash, check, card or an online payment.' },
+  { letter: 'B', name: 'Monetary Contributions Received From Corporation', text: "Money from a corporation's own funds. A business owner's personal gift belongs on Schedule A instead." },
+  { letter: 'C', name: 'Monetary Contributions Received From All Other', text: 'Money from anyone else, such as a limited liability company (LLC), a union or a political committee.' },
+  { letter: 'D', name: 'In-Kind (Non-Monetary) Contributions Received', text: "Goods or services given to the campaign instead of money, such as printing, food or work, recorded at what they were worth. A discount the business does not give everyone generally counts too, at the amount taken off. In-kind gifts count toward the same limits as money." },
+  { letter: 'O', name: 'LLCs/Partnership/Subcontractor', text: "Who stands behind a gift from an LLC or partnership: the filing splits the amount among its members, so the same gift appears here as well as on Schedule C." },
+]
 
 function LimitCard({ label, individual, family }: { label: string; individual: number; family: number }) {
   const usd = (n: number) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 2 }).format(n)
