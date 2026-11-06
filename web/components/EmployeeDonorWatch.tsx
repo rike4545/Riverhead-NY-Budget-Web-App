@@ -46,17 +46,11 @@ export default function EmployeeDonorWatch({ officials, startYear, endYear }: { 
     <section style={card}>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: 12 }}>
         <div>
-          <h3 style={{ margin: 0, color: 'var(--rbl-title)' }}>Town Employee Donors</h3>
+          <h3 style={{ margin: 0, color: 'var(--rbl-title)' }}>Town employee donors</h3>
           <p style={{ margin: '4px 0 0', color: 'var(--rbl-text-muted)', fontSize: 13, maxWidth: 560, lineHeight: 1.5 }}>
             Cross-references Town payroll employees against individual campaign donors to the committees above. Matched by
             name only — this is disclosure context, not an accusation. Modest personal donations from Town employees to
-            sitting or former officials are common and legal. A 2011{' '}
-            <a href="https://riverheadlocal.com/2011/04/05/private-business-on-town-time-councilman-says-investigation-underway/" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--rbl-accent)' }}>
-              RiverheadLOCAL investigation
-            </a>{' '}
-            found that a Town finance administrator was using town offices and equipment to conduct outside private
-            business — a case that illustrates why understanding the financial relationships between Town employees and
-            the officials who oversee their employment is a matter of public transparency.
+            sitting or former officials are common and legal.
           </p>
         </div>
         <button

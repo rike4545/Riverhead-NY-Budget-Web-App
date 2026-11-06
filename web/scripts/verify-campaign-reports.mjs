@@ -59,6 +59,18 @@ else {
     'Monetary Contributions Received From All Other', 'In-Kind (Non-Monetary) Contributions Received', 'LLCs/Partnership/Subcontractor']) {
     if (!html.includes(name)) fail(`the schedules explainer does not quote the schedule name “${name}”`)
   }
+  // Each current official's card shows the stored totals before Refresh, and they add up.
+  for (const o of officials.filter((x) => x.currentlyServing && !x.isPartyCommittee)) {
+    const sumOf = Math.round(((o.seedDirectContributions ?? 0) + (o.seedTransfersIn ?? 0)) * 100) / 100
+    if (Math.abs((o.seedRaised ?? 0) - sumOf) > 0.01) fail(`${o.name}: stored total raised ${o.seedRaised} is not contributions plus transfers (${sumOf})`)
+    if (o.seedRaised == null || o.seedCycleRaised == null || o.seedOwed == null) { fail(`${o.name}: stored totals are missing; run etl/build_campaign_totals.py`); continue }
+    for (const figure of [o.seedRaised, o.seedCycleRaised, ...(o.seedOwed > 0 ? [o.seedOwed] : []), ...(o.seedLoansReceived > 0 ? [o.seedLoansReceived] : [])]) {
+      if (!html.includes(usd(figure))) fail(`${o.name}'s card does not show ${usd(figure)}`)
+    }
+  }
+  for (const stale of ['Avg. donation / donor', 'Currently outstanding', '>Passed<']) {
+    if (html.includes(stale)) fail(`the built page still says “${stale.replace(/[<>]/g, '')}”`)
+  }
   for (const report of Object.keys(REPORTS)) {
     const start = html.indexOf(`${report} report`)
     const next = Object.keys(REPORTS).map((r) => html.indexOf(`${r} report`)).filter((i) => i > start).sort((a, b) => a - b)[0] ?? html.indexOf('Contributions are Schedules A to C')

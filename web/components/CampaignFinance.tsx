@@ -156,9 +156,11 @@ export default function CampaignFinance({
           const lastReported = dateOnly(live ? live.lastReported : official.seedLastReported)
           const latestYear = live?.latestYear
           const days = daysToElection(official.nextElection)
+          // Before Refresh, the cycle figures are the stored ones (etl/build_campaign_totals.py), from the same schedules.
           const currentCycleRaised = live
             ? live.contributorTypeBreakdown.reduce((sum, t) => sum + t.amount, 0)
-            : null
+            : official.seedCycleRaised ?? null
+          const cycleItems = live ? live.donorCount : official.seedCycleItems ?? null
           const perResident = currentCycleRaised != null ? currentCycleRaised / RIVERHEAD_POPULATION : null
 
           return (
@@ -173,6 +175,7 @@ export default function CampaignFinance({
                       width={48}
                       height={48}
                       style={{ borderRadius: '50%', objectFit: 'cover', flexShrink: 0 }}
+                      onError={hideBrokenImage}
                     />
                   )}
                   <div>
@@ -211,7 +214,7 @@ export default function CampaignFinance({
                   )}
                   {official.nextElection && (
                     <span>
-                      Next election: <strong>{fmtDate(official.nextElection)}</strong>
+                      {days != null && days < 0 ? 'Election held' : 'Next election'}: <strong>{fmtDate(official.nextElection)}</strong>
                       {days != null && days > 0 ? ` (${days} day${days === 1 ? '' : 's'})` : days === 0 ? ' (today)' : ''}
                     </span>
                   )}
@@ -247,28 +250,18 @@ export default function CampaignFinance({
               </div>
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))', gap: 10, marginTop: 6 }}>
                 <Stat
-                  label="Days to next election"
-                  value={days == null ? '—' : days > 0 ? `${days} day${days === 1 ? '' : 's'}` : days === 0 ? 'Today' : 'Passed'}
+                  label={days != null && days < 0 ? 'Election' : 'Days to next election'}
+                  value={days == null ? '—' : days > 0 ? `${days} day${days === 1 ? '' : 's'}` : days === 0 ? 'Today' : `Held ${fmtDate(official.nextElection as string)}`}
                 />
                 <Stat label="Raised this cycle" value={currentCycleRaised != null ? usd(currentCycleRaised) : '—'} />
                 <Stat
-                  label="Avg. donation / donor"
-                  value={live && live.avgDonationPerDonor != null ? `${usd(live.avgDonationPerDonor)} (${live.donorCount} donors)` : '—'}
+                  label="Avg. itemized contribution"
+                  value={currentCycleRaised != null && cycleItems ? `${usd(currentCycleRaised / cycleItems)} (${cycleItems} contribution${cycleItems === 1 ? '' : 's'})` : '—'}
                 />
                 <Stat label="Raised / resident" value={perResident != null ? `$${perResident.toFixed(2)}` : '—'} />
               </div>
 
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))', gap: 10, marginTop: 10 }}>
-                <Stat label="Loans received (all-time)" value={live?.loanAmount ? usd(live.loanAmount) : 'None on file'} />
-                <Stat
-                  label="Currently outstanding"
-                  value={
-                    live?.outstandingLoanAmount
-                      ? `${usd(live.outstandingLoanAmount)}${live.outstandingLoanYear ? ` (${live.outstandingLoanYear})` : ''}`
-                      : 'None on file'
-                  }
-                />
-              </div>
+              <DebtStats official={official} live={live} />
 
               {live && live.contributorTypeBreakdown.length > 0 && (
                 <div style={{ marginTop: 12, borderTop: '1px solid var(--rbl-border-subtle)', paddingTop: 10 }}>
@@ -444,6 +437,8 @@ function PartyCommitteesSection({
                   <Stat label="Last reported" value={lastReported ?? '—'} />
                 </div>
 
+                <DebtStats official={official} live={live} />
+
                 <CampaignFilingsList filings={filingsByOfficial?.[official.name] ?? null} endYear={endYear} hasFetched={!!filingsByOfficial} />
 
                 <PetroCelliWatch contributions={live?.petrocelliContributions ?? null} hasFetched={!!snapshots} currentlyServing={true} endYear={endYear} />
@@ -516,7 +511,7 @@ function FormerOfficialsSection({
                   <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
                     {official.photoUrl && (
                       // eslint-disable-next-line @next/next/no-img-element
-                      <img src={official.photoUrl} alt={official.name} width={48} height={48} style={{ borderRadius: '50%', objectFit: 'cover', flexShrink: 0 }} />
+                      <img src={official.photoUrl} alt={official.name} width={48} height={48} style={{ borderRadius: '50%', objectFit: 'cover', flexShrink: 0 }} onError={hideBrokenImage} />
                     )}
                     <div>
                       <strong style={{ fontSize: 16, color: 'var(--rbl-text-body)' }}>{official.name}</strong>
@@ -543,6 +538,8 @@ function FormerOfficialsSection({
                   <Stat label="Transfers in" value={transfers != null ? usd(transfers) : '—'} />
                   <Stat label="Last reported" value={lastReported ?? '—'} />
                 </div>
+
+                <DebtStats official={official} live={live} />
 
                 {live && live.contributorTypeBreakdown.length > 0 && (
                   <div style={{ marginTop: 12, borderTop: '1px solid var(--rbl-border-subtle)', paddingTop: 10 }}>
@@ -1510,6 +1507,30 @@ function Stat({ label, value }: { label: string; value: string }) {
     <div style={{ background: 'var(--rbl-surface-2)', borderRadius: 10, padding: 10 }}>
       <div style={{ color: 'var(--rbl-text-muted)', fontSize: 13, fontWeight: 700 }}>{label}</div>
       <div style={{ fontWeight: 800, marginTop: 2, color: 'var(--rbl-title)' }}>{value}</div>
+    </div>
+  )
+}
+
+/** A photo the Town's site will not serve is hidden, not shown as a broken image. */
+function hideBrokenImage(e: React.SyntheticEvent<HTMLImageElement>) {
+  e.currentTarget.style.display = 'none'
+}
+
+/**
+ * Loans received and what the committee still owed in its latest report: live after Refresh,
+ * otherwise the stored figures from etl/build_campaign_totals.py, which use the same schedules.
+ */
+function DebtStats({ official, live }: { official: CampaignOfficial; live: CampaignSnapshot | undefined }) {
+  const loans = live ? live.loanAmount ?? 0 : official.seedLoansReceived ?? null
+  const owed = live ? live.outstandingLoanAmount ?? 0 : official.seedOwed ?? null
+  const report = live ? live.outstandingLoanYear : official.seedOwedReport ?? null
+  return (
+    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))', gap: 10, marginTop: 10 }}>
+      <Stat label="Loans received (all-time)" value={loans == null ? '—' : loans > 0 ? usd(loans) : 'None on file'} />
+      <Stat
+        label="Owed at latest report"
+        value={owed == null ? '—' : owed > 0 ? `${usd(owed)}${report ? ` (${report})` : ''}` : report ? `Nothing (${report})` : 'None on file'}
+      />
     </div>
   )
 }

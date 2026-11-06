@@ -66,6 +66,7 @@ jobs:
           python etl/test_fiscal_impact.py
           python etl/test_transcribe_meetings.py
           python etl/test_campaign_reports.py
+          python etl/test_campaign_totals.py
           python etl/test_fetch_upcoming.py
           python etl/test_push_data.py
           python etl/test_pdf_limits.py

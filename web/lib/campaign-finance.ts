@@ -21,6 +21,15 @@ export type CampaignOfficial = {
   seedDirectContributions: number | null
   seedTransfersIn: number | null
   seedLastReported: string | null
+  /** Built by etl/build_campaign_totals.py from data.ny.gov: Schedule I, summed over the window. */
+  seedLoansReceived?: number | null
+  /** Schedule N in the latest report: loans and bills still owed, a balance. */
+  seedOwed?: number | null
+  /** The report seedOwed is read from, e.g. "2026 11-Day Pre-General". */
+  seedOwedReport?: string | null
+  /** Schedules A to C in the last election year of the window, and how many itemized contributions they are. */
+  seedCycleRaised?: number | null
+  seedCycleItems?: number | null
   photoUrl?: string | null
   isPartyCommittee?: boolean
   /** Annual base salary the official is actually drawing. */
@@ -76,8 +85,9 @@ export type CampaignSnapshot = {
   contributorTypeBreakdown: ContributorTypeAmount[]
   /** Loans received (schedule I), summed across the full window — safe to sum since each row is new money. */
   loanAmount: number | null
-  /** Latest outstanding balance (schedule N) as of its most recent election_year — NOT a sum, since N re-reports a running balance every filing year. */
+  /** Schedule N in the committee's latest report: the loans and bills still owed. A balance, so only the latest report's counts. */
   outstandingLoanAmount: number | null
+  /** The report that balance is read from, e.g. "2026 11-Day Pre-General". */
   outstandingLoanYear: string | null
   /** Direct contributions by election year, most recent first, excluding the current cycle. */
   historicalByYear: YearBreakdown[]
@@ -615,7 +625,8 @@ export function buildCandidateSummary(official: CampaignOfficial, snapshot: Camp
 
   const sentences: string[] = []
   if (donorCount > 0) {
-    sentences.push(`${shortName} has raised ${summaryUsd(cycleRaised)} from ${donorCount} donor${donorCount === 1 ? '' : 's'} this cycle${electionClause}.`)
+    // donorCount counts itemized contributions, not people: one donor who gives twice is two.
+    sentences.push(`${shortName} has raised ${summaryUsd(cycleRaised)} in ${donorCount} itemized contribution${donorCount === 1 ? '' : 's'} this cycle${electionClause}.`)
   } else {
     sentences.push(`${shortName} has no reported contributions for the ${endYear} cycle yet${electionClause}.`)
   }
@@ -630,15 +641,36 @@ export function buildCandidateSummary(official: CampaignOfficial, snapshot: Camp
   }
 
   if (snapshot.outstandingLoanAmount && snapshot.outstandingLoanAmount > 0) {
-    const yearClause = snapshot.outstandingLoanYear ? ` as of the ${snapshot.outstandingLoanYear} filing.` : '.'
-    sentences.push(`The campaign is carrying ${summaryUsd(snapshot.outstandingLoanAmount)} in outstanding loans${yearClause}`)
+    const reportClause = snapshot.outstandingLoanYear ? ` in its ${snapshot.outstandingLoanYear} report.` : '.'
+    sentences.push(`The committee listed ${summaryUsd(snapshot.outstandingLoanAmount)} in loans and bills still owed${reportClause}`)
   } else if (snapshot.loanAmount && snapshot.loanAmount > 0) {
-    sentences.push(`The campaign has taken loans totaling ${summaryUsd(snapshot.loanAmount)} over time, none currently outstanding.`)
+    sentences.push(`The committee has taken loans totaling ${summaryUsd(snapshot.loanAmount)} over time, and its latest report lists nothing still owed.`)
   } else {
     sentences.push('No campaign loans on file.')
   }
 
   return sentences.join(' ')
+}
+
+/** One committee's rows from data.ny.gov grouped by report and schedule. */
+export type ReportScheduleRow = { filer_id: string; election_year?: string; filing_desc?: string; filing_sched_abbrev?: string; amount?: string }
+
+// The reports of one election year in the order they are filed; one not named here (Off Cycle,
+// a special election's) sorts after the July Periodic. The same order as etl/build_campaign_totals.py.
+const REPORT_ORDER = ['January Periodic', '32-Day Pre-Primary', '11-Day Pre-Primary', '10-Day Post-Primary', 'July Periodic', '32-Day Pre-General', '11-Day Pre-General', '27-Day Post-General']
+const reportRank = (r: ReportScheduleRow) => {
+  const i = REPORT_ORDER.indexOf(r.filing_desc ?? '')
+  return Number(r.election_year ?? 0) * 100 + (i >= 0 ? i : REPORT_ORDER.indexOf('July Periodic') + 0.5)
+}
+
+/** What a committee (or one official's committees) still owed in its latest report: Schedule N there, summed. */
+export function owedFromReports(rows: ReportScheduleRow[]): { amount: number; report: string } | null {
+  const reported = rows.filter((r) => r.election_year && r.filing_desc && r.filing_sched_abbrev)
+  if (reported.length === 0) return null
+  const latest = Math.max(...reported.map(reportRank))
+  const inLatest = reported.filter((r) => reportRank(r) === latest)
+  const amount = Math.round(inLatest.filter((r) => r.filing_sched_abbrev === 'N').reduce((s, r) => s + (parseFloat(r.amount ?? '0') || 0), 0) * 100) / 100
+  return { amount, report: `${inLatest[0].election_year} ${inLatest[0].filing_desc}` }
 }
 
 function daysToElectionFor(nextElection: string | null): number | null {
@@ -705,18 +737,18 @@ export async function fetchCampaignSnapshots(
       '$group': 'filer_id',
     }).toString()
 
-  // Schedule N = Outstanding Liabilities/Loans. e9ss-239a is a per-filing aggregate, so the
-  // same outstanding balance is re-reported as a fresh row every filing period within a year.
-  // Summing would multiply the balance by the number of filings. max(org_amt) gives the
-  // highest per-filing total within the election_year — the peak outstanding for that cycle.
-  // We then pick the highest election_year client-side (sched_date is unreliable because NY BOE
-  // carries a loan's original transaction date forward on every re-report).
+  // Schedule N = Outstanding Liabilities/Loans. Every report repeats the loans and bills still
+  // open, one row each, so the balance is the sum of N in the committee's latest report: not a
+  // sum across reports, and not the largest single row. Every report is listed, N or not, so a
+  // latest report with nothing owed reads as zero. owedFromReports does the arithmetic, the same
+  // as etl/build_campaign_totals.py.
   const outstandingLoanURL =
     `https://data.ny.gov/resource/e9ss-239a.json?` +
     new URLSearchParams({
-      '$select': 'filer_id,election_year,max(org_amt) as amount',
-      '$where': `filer_id in (${inClause}) and election_year in(${years}) and filing_sched_abbrev='N'`,
-      '$group': 'filer_id,election_year',
+      '$select': 'filer_id,election_year,filing_desc,filing_sched_abbrev,sum(org_amt) as amount',
+      '$where': `filer_id in (${inClause}) and election_year in(${years})`,
+      '$group': 'filer_id,election_year,filing_desc,filing_sched_abbrev',
+      '$limit': '50000',
     }).toString()
 
   const [raisedRows, latestYearRows, typeBreakdownRows, loanReceivedRows, outstandingLoanRows] = await Promise.all([
@@ -726,7 +758,7 @@ export async function fetchCampaignSnapshots(
       { filer_id: string; election_year?: string; cntrbr_type_desc?: string; amount?: string; row_count?: string }[]
     >,
     fetchSocrataRows(loanReceivedURL) as unknown as Promise<{ filer_id: string; amount?: string }[]>,
-    fetchSocrataRows(outstandingLoanURL) as unknown as Promise<{ filer_id: string; election_year?: string; amount?: string }[]>,
+    fetchSocrataRows(outstandingLoanURL) as unknown as Promise<ReportScheduleRow[]>,
   ])
 
   const directByFiler: Record<string, number> = {}
@@ -778,15 +810,6 @@ export async function fetchCampaignSnapshots(
     loanReceivedByFiler[row.filer_id] = parseFloat(row.amount ?? '0') || 0
   }
 
-  // Keep only the highest election_year per filer.
-  const outstandingByFiler: Record<string, { amount: number; year: string }> = {}
-  for (const row of outstandingLoanRows) {
-    const year = row.election_year ?? ''
-    const existing = outstandingByFiler[row.filer_id]
-    if (!existing || year > existing.year) {
-      outstandingByFiler[row.filer_id] = { amount: parseFloat(row.amount ?? '0') || 0, year }
-    }
-  }
 
   const result: Record<string, CampaignSnapshot> = {}
   for (const official of officials) {
@@ -841,10 +864,7 @@ export async function fetchCampaignSnapshots(
       .sort((a, b) => b.year.localeCompare(a.year))
 
     const loanReceived = ids.reduce((sum, id) => sum + (loanReceivedByFiler[id] ?? 0), 0)
-    const outstanding = ids
-      .map((id) => outstandingByFiler[id])
-      .filter((o): o is { amount: number; year: string } => !!o)
-      .sort((a, b) => b.year.localeCompare(a.year))[0] ?? null
+    const outstanding = owedFromReports(outstandingLoanRows.filter((r) => ids.includes(r.filer_id)))
 
     result[official.name] = {
       raised: direct + transfers,
@@ -857,7 +877,7 @@ export async function fetchCampaignSnapshots(
       contributorTypeBreakdown,
       loanAmount: loanReceived > 0 ? loanReceived : null,
       outstandingLoanAmount: outstanding && outstanding.amount > 0 ? outstanding.amount : null,
-      outstandingLoanYear: outstanding?.year ?? null,
+      outstandingLoanYear: outstanding?.report ?? null,
       historicalByYear,
       petrocelliContributions: null,       // populated by fetchAllWatchContributions after the main fetch
       scottPointeContributions: null,
