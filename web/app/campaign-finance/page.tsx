@@ -121,7 +121,7 @@ export default function CampaignFinancePage() {
         >
           <p style={{ marginTop: 0 }}>
             New York Election Law § 14-114 sets rules that depend on the race, donor relationship, and applicable election cycle.
-            The Business Council of New York State published the following Riverhead reference figures as of {riverheadContributionLimits.asOfYear}:
+            The Suffolk County Board of Elections sets each town&apos;s limits every year. Its {riverheadContributionLimits.asOfYear} index, the latest it has published, gives these for the Town of Riverhead:
           </p>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(180px,1fr))', gap: 10, margin: '10px 0' }}>
             <LimitCard label="General election" individual={riverheadContributionLimits.general.individual} family={riverheadContributionLimits.general.family} />
@@ -131,7 +131,7 @@ export default function CampaignFinancePage() {
           <p style={{ marginBottom: 0 }}>
             Voter counts and limits can change. Do not use these historic reference amounts alone to allege a violation;
             check the current Suffolk County Board of Elections Comprehensive Limits Report and the underlying filing first.
-            Source: {riverheadContributionLimits.source}.
+            Source: <a href={riverheadContributionLimits.sourceUrl} target="_blank" rel="noopener noreferrer" style={{ color: 'var(--rbl-link)', fontWeight: 600 }}>{riverheadContributionLimits.source}</a>. The County has not published a 2026 index at the same address; because the limits follow voter counts, a 2026 race&apos;s may differ slightly.
           </p>
         </PlainCallout>
       </section>

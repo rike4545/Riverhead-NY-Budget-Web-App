@@ -897,10 +897,15 @@ export async function fetchCampaignSnapshots(
 // these dollar caps) shift over time, so treat this as a concrete recent reference point
 // rather than this exact cycle's number. Confirm the current figure with the Suffolk
 // County Board of Elections' own Comprehensive Limits Report before relying on it.
+// The Town of Riverhead line of the Suffolk County Board of Elections' "Campaign Contribution
+// Limit Index for 2025" (dated April 14, 2025), the latest the County has published at its
+// usual address; a 2026 index is not there. Limits are set each year from voter counts, so a
+// 2026 race's may differ slightly.
 export const riverheadContributionLimits = {
-  asOfYear: 2022,
-  source: 'Business Council of New York State, "NYS Campaign Contribution Limits"',
-  general: { individual: 1109.3, family: 5546.5 },
-  democraticPrimary: { individual: 1000, family: 1538 },
-  republicanPrimary: { individual: 1000, family: 2000.75 },
+  asOfYear: 2025,
+  source: 'Suffolk County Board of Elections, "Campaign Contribution Limit Index for 2025" (April 14, 2025)',
+  sourceUrl: 'https://www.suffolkcountyny.gov/Portals/0/formsdocs/boe/2025/2025_Comprehensive_Limits_Report.pdf',
+  general: { individual: 1219.3, family: 6096.5 },
+  democraticPrimary: { individual: 1000, family: 1688.75 },
+  republicanPrimary: { individual: 1000, family: 2148.5 },
 }
