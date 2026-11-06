@@ -128,7 +128,12 @@
     "flag": "reserve-draw",
     "evidence": "category"
    },
-   "vote": null
+   "vote": {
+    "adopted": true,
+    "tag": "unanimous",
+    "ayes": null,
+    "nays": 0
+   }
   },
   {
    "number": "2026-970",
@@ -167,7 +172,12 @@
     "flag": "reserve-draw",
     "evidence": "category"
    },
-   "vote": null
+   "vote": {
+    "adopted": true,
+    "tag": "unanimous",
+    "ayes": null,
+    "nays": 0
+   }
   },
   {
    "number": "2026-971",
@@ -233,7 +243,12 @@
     "flag": "recurring",
     "evidence": "account-code"
    },
-   "vote": null
+   "vote": {
+    "adopted": true,
+    "tag": "unanimous",
+    "ayes": null,
+    "nays": 0
+   }
   },
   {
    "number": "2026-972",
@@ -286,7 +301,12 @@
     "flag": "recurring",
     "evidence": "account-code"
    },
-   "vote": null
+   "vote": {
+    "adopted": true,
+    "tag": "unanimous",
+    "ayes": null,
+    "nays": 0
+   }
   },
   {
    "number": "2026-973",
@@ -346,7 +366,12 @@
     "flag": "recurring",
     "evidence": "account-code"
    },
-   "vote": null
+   "vote": {
+    "adopted": true,
+    "tag": "unanimous",
+    "ayes": null,
+    "nays": 0
+   }
   },
   {
    "number": "2026-974",
@@ -406,7 +431,12 @@
     "flag": "understated",
     "evidence": "category"
    },
-   "vote": null
+   "vote": {
+    "adopted": true,
+    "tag": "unanimous",
+    "ayes": null,
+    "nays": 0
+   }
   },
   {
    "number": "2026-975",
@@ -466,7 +496,12 @@
     "flag": "recurring",
     "evidence": "account-code"
    },
-   "vote": null
+   "vote": {
+    "adopted": true,
+    "tag": "unanimous",
+    "ayes": null,
+    "nays": 0
+   }
   },
   {
    "number": "2026-976",
@@ -505,7 +540,12 @@
     "flag": "saving",
     "evidence": "category"
    },
-   "vote": null
+   "vote": {
+    "adopted": true,
+    "tag": "unanimous",
+    "ayes": null,
+    "nays": 0
+   }
   },
   {
    "number": "2026-977",
@@ -563,7 +603,12 @@
     "flag": "fair",
     "evidence": "category"
    },
-   "vote": null
+   "vote": {
+    "adopted": true,
+    "tag": "unanimous",
+    "ayes": null,
+    "nays": 0
+   }
   },
   {
    "number": "2026-978",
@@ -609,7 +654,12 @@
     "flag": "neutral",
     "evidence": "category"
    },
-   "vote": null
+   "vote": {
+    "adopted": true,
+    "tag": "unanimous",
+    "ayes": null,
+    "nays": 0
+   }
   },
   {
    "number": "2026-979",
@@ -648,7 +698,12 @@
     "flag": "fair",
     "evidence": "category"
    },
-   "vote": null
+   "vote": {
+    "adopted": true,
+    "tag": "unanimous",
+    "ayes": null,
+    "nays": 0
+   }
   },
   {
    "number": "2026-980",
@@ -694,7 +749,12 @@
     "flag": "reserve-draw",
     "evidence": "category"
    },
-   "vote": null
+   "vote": {
+    "adopted": false,
+    "tag": "tabled",
+    "ayes": null,
+    "nays": 0
+   }
   },
   {
    "number": "2026-981",
@@ -733,7 +793,12 @@
     "flag": "understated",
     "evidence": "category"
    },
-   "vote": null
+   "vote": {
+    "adopted": true,
+    "tag": "unanimous",
+    "ayes": null,
+    "nays": 0
+   }
   },
   {
    "number": "2026-982",
@@ -791,7 +856,12 @@
     "flag": "reserve-draw",
     "evidence": "category"
    },
-   "vote": null
+   "vote": {
+    "adopted": true,
+    "tag": "unanimous",
+    "ayes": null,
+    "nays": 0
+   }
   },
   {
    "number": "2026-983",
@@ -844,7 +914,12 @@
     "flag": "fair",
     "evidence": "category"
    },
-   "vote": null
+   "vote": {
+    "adopted": true,
+    "tag": "unanimous",
+    "ayes": null,
+    "nays": 0
+   }
   },
   {
    "number": "2026-984",
@@ -883,7 +958,12 @@
     "flag": "fair",
     "evidence": "category"
    },
-   "vote": null
+   "vote": {
+    "adopted": true,
+    "tag": "unanimous",
+    "ayes": null,
+    "nays": 0
+   }
   },
   {
    "number": "2026-985",
@@ -922,7 +1002,12 @@
     "flag": "fair",
     "evidence": "category"
    },
-   "vote": null
+   "vote": {
+    "adopted": true,
+    "tag": "unanimous",
+    "ayes": null,
+    "nays": 0
+   }
   },
   {
    "number": "2026-986",
@@ -961,7 +1046,12 @@
     "flag": "fair",
     "evidence": "category"
    },
-   "vote": null
+   "vote": {
+    "adopted": true,
+    "tag": "unanimous",
+    "ayes": null,
+    "nays": 0
+   }
   },
   {
    "number": "2026-987",
@@ -1000,7 +1090,12 @@
     "flag": "fair",
     "evidence": "category"
    },
-   "vote": null
+   "vote": {
+    "adopted": true,
+    "tag": "unanimous",
+    "ayes": null,
+    "nays": 0
+   }
   },
   {
    "number": "2026-988",
@@ -1039,7 +1134,12 @@
     "flag": "fair",
     "evidence": "category"
    },
-   "vote": null
+   "vote": {
+    "adopted": true,
+    "tag": "unanimous",
+    "ayes": null,
+    "nays": 0
+   }
   },
   {
    "number": "2026-989",
@@ -1092,7 +1192,12 @@
     "flag": "fair",
     "evidence": "category"
    },
-   "vote": null
+   "vote": {
+    "adopted": true,
+    "tag": "unanimous",
+    "ayes": null,
+    "nays": 0
+   }
   },
   {
    "number": "2026-990",
@@ -1145,7 +1250,12 @@
     "flag": "fair",
     "evidence": "category"
    },
-   "vote": null
+   "vote": {
+    "adopted": true,
+    "tag": "unanimous",
+    "ayes": null,
+    "nays": 0
+   }
   },
   {
    "number": "2026-991",
@@ -1198,7 +1308,12 @@
     "flag": "recurring",
     "evidence": "account-code"
    },
-   "vote": null
+   "vote": {
+    "adopted": true,
+    "tag": "unanimous",
+    "ayes": null,
+    "nays": 0
+   }
   },
   {
    "number": "2026-992",
@@ -1237,7 +1352,12 @@
     "flag": "fair",
     "evidence": "category"
    },
-   "vote": null
+   "vote": {
+    "adopted": true,
+    "tag": "unanimous",
+    "ayes": null,
+    "nays": 0
+   }
   },
   {
    "number": "2026-993",
@@ -1276,7 +1396,12 @@
     "flag": "disbursement",
     "evidence": "category"
    },
-   "vote": null
+   "vote": {
+    "adopted": true,
+    "tag": "unanimous",
+    "ayes": null,
+    "nays": 0
+   }
   },
   {
    "number": "2026-994",
@@ -1322,7 +1447,12 @@
     "flag": "fair",
     "evidence": "category"
    },
-   "vote": null
+   "vote": {
+    "adopted": true,
+    "tag": "unanimous",
+    "ayes": null,
+    "nays": 0
+   }
   }
  ]
 }
