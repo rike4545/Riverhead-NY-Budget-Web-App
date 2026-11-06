@@ -14,6 +14,13 @@
 
 import outliersJson from '../public/data/budget-supplement/current-outliers.json'
 import history from '../public/data/budget-supplement/history.json'
+import lineHistoryJson from '../public/data/budget-supplement/line-history.json'
+import revenueHistoryJson from '../public/data/budget-supplement/revenue-history.json'
+import currentLinesJson from '../public/data/budget-supplement/current-lines.json'
+import {
+  aboveCost, GAP_FLOOR, isScreenedRevenue, isScreenedSpending, OVER_SHARE, pastBudgetByMidYear, REVENUE_SHARE, revenueBelowEstimate,
+  SHORT_RATIO, shortOfCost, type AccountHistory, type MidYearRow, type ScreenRow,
+} from './accuracy-screens'
 import { actualYears, budgetYear, columns, figures, pct, proposalLabel, usd, type Figures } from './supplement'
 
 export { proposalLabel }
@@ -328,3 +335,28 @@ export const underBudgetedShortfall = underBudgeted.reduce((n, r) => n + r.short
 export const unusedTotal = unused.reduce((n, r) => n + r.proposed, 0)
 export const unusedGeneralFund = unused.filter((r) => r.fund === 'A01').reduce((n, r) => n + r.proposed, 0)
 export const chronicGap = chronicUnderBudget.reduce((n, r) => n + r.gap, 0)
+
+// ── Budget against cost, year by year ────────────────────────────────────────
+//
+// The four screens in accuracy-screens.ts, run over every account's history:
+// each year's actual beside that year's adopted budget, for the last three
+// years with an actual, and the current year's spending through June 30.
+
+const lineHistory = lineHistoryJson as unknown as { actualYears: number[]; accounts: AccountHistory[] }
+const revenueHistory = revenueHistoryJson as unknown as { actualYears: number[]; accounts: AccountHistory[] }
+const controlOf = new Map((currentLinesJson as unknown as { lines: { account: string; control?: string }[] }).lines.map((l) => [l.account, l.control]))
+/** Lines the page already lists, as never used or over budget three years running, are not repeated. */
+const listedAbove = new Set([...unused, ...chronicUnderBudget].map((r) => r.account))
+const screened = lineHistory.accounts.filter((a) => isScreenedSpending(a.account, controlOf.get(a.account)) && !listedAbove.has(a.account))
+
+export const screenYears = lineHistory.actualYears.slice(-3).map(String)
+/** The year whose spending through June 30 the Supplement prints. */
+export const midYear = String(lineHistory.actualYears[lineHistory.actualYears.length - 1] + 1)
+export const yearMatched = {
+  shortOfCost: shortOfCost(screened, screenYears),
+  aboveCost: aboveCost(screened, screenYears),
+  pastBudgetByMidYear: pastBudgetByMidYear(screened, midYear),
+  revenueBelowEstimate: revenueBelowEstimate(revenueHistory.accounts.filter(isScreenedRevenue), revenueHistory.actualYears.slice(-3).map(String)),
+}
+export { GAP_FLOOR, OVER_SHARE, REVENUE_SHARE, SHORT_RATIO }
+export type { MidYearRow, ScreenRow }
