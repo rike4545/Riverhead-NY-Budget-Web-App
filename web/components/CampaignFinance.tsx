@@ -408,7 +408,7 @@ function PartyCommitteesSection({
                 <strong>Housekeeping:</strong> No contribution limits for funds designated toward housekeeping expenses. Only constituted committees may maintain a housekeeping fund for headquarters upkeep.
               </div>
               <div style={{ fontSize: 10, color: 'var(--rbl-violet)', marginTop: 2, fontStyle: 'italic', lineHeight: 1.4 }}>
-                Source: Suffolk County Board of Elections, Campaign Contribution Limit Index for 2025; NCSL 2025–26 State Limits on Contributions to Candidates. Note: corporations may also contribute to candidate committees subject to the same per-candidate limits as individuals, but face a $5,000 statewide aggregate cap across all NY political contributions per calendar year under § 14-116.
+                Source: Suffolk County Board of Elections, Campaign Contribution Limit Index for 2026; NCSL 2025–26 State Limits on Contributions to Candidates. Note: corporations may also contribute to candidate committees subject to the same per-candidate limits as individuals, but face a $5,000 statewide aggregate cap across all NY political contributions per calendar year under § 14-116.
               </div>
             </div>
           </div>

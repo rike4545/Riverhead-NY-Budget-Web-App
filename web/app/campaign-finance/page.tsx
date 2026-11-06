@@ -112,7 +112,7 @@ export default function CampaignFinancePage() {
       <section id="contribution-limits" style={{ marginTop: 28, scrollMarginTop: 20 }}>
         <h2 style={{ margin: '0 0 12px', color: 'var(--rbl-title)', fontSize: 22 }}>What contribution limits apply?</h2>
         <PlainCallout
-          title="Riverhead Town race — reference figures, not a current compliance determination"
+          title="Riverhead Town races in 2026, from the County's own index"
           tips={[
             { label: 'Most individual donors', text: 'The ordinary limit is generally based on registered voters in the district × $0.05, subject to a $1,000 minimum.' },
             { label: 'Qualifying family donors', text: 'Certain close family members may be subject to a separate higher limit based on registered voters × $0.25, subject to a $1,250 minimum.' },
@@ -121,7 +121,7 @@ export default function CampaignFinancePage() {
         >
           <p style={{ marginTop: 0 }}>
             New York Election Law § 14-114 sets rules that depend on the race, donor relationship, and applicable election cycle.
-            The Suffolk County Board of Elections sets each town&apos;s limits every year. Its {riverheadContributionLimits.asOfYear} index, the latest it has published, gives these for the Town of Riverhead:
+            The Suffolk County Board of Elections sets each town&apos;s limits every year from its voter counts. Its {riverheadContributionLimits.asOfYear} index gives these for the Town of Riverhead:
           </p>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(180px,1fr))', gap: 10, margin: '10px 0' }}>
             <LimitCard label="General election" individual={riverheadContributionLimits.general.individual} family={riverheadContributionLimits.general.family} />
@@ -129,9 +129,10 @@ export default function CampaignFinancePage() {
             <LimitCard label="Republican primary" individual={riverheadContributionLimits.republicanPrimary.individual} family={riverheadContributionLimits.republicanPrimary.family} />
           </div>
           <p style={{ marginBottom: 0 }}>
-            Voter counts and limits can change. Do not use these historic reference amounts alone to allege a violation;
-            check the current Suffolk County Board of Elections Comprehensive Limits Report and the underlying filing first.
-            Source: <a href={riverheadContributionLimits.sourceUrl} target="_blank" rel="noopener noreferrer" style={{ color: 'var(--rbl-link)', fontWeight: 600 }}>{riverheadContributionLimits.source}</a>. The County has not published a 2026 index at the same address; because the limits follow voter counts, a 2026 race&apos;s may differ slightly.
+            A limit is per donor and per election, and some donors (a candidate&apos;s own money, family members) follow different
+            rules. Before reading a gift as over the limit, check the filing itself: whether it is one gift or several, for
+            the primary or the general, and from whom.
+            Source: <a href={riverheadContributionLimits.sourceUrl} target="_blank" rel="noopener noreferrer" style={{ color: 'var(--rbl-link)', fontWeight: 600 }}>{riverheadContributionLimits.source}</a>.
           </p>
         </PlainCallout>
       </section>

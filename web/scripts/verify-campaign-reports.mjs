@@ -68,11 +68,11 @@ else {
       if (!html.includes(usd(figure))) fail(`${o.name}'s card does not show ${usd(figure)}`)
     }
   }
-  // The limits are the County's 2025 index for the Town of Riverhead, not the Business Council's 2022 figures.
-  for (const figure of ['$1,219.30', '$6,096.50', '$1,688.75', '$2,148.50', 'Campaign Contribution Limit Index for 2025']) {
-    if (!html.includes(figure)) fail(`the contribution limits section does not show “${figure}” from the County's 2025 index`)
+  // The limits are the County's 2026 index for the Town of Riverhead, not the 2025 index or the Business Council's 2022 figures.
+  for (const figure of ['$1,219.30', '$6,096.50', '$1,685.75', '$2,148.50', 'Campaign Contribution Limit Index for 2026']) {
+    if (!html.includes(figure)) fail(`the contribution limits section does not show “${figure}” from the County's 2026 index`)
   }
-  for (const stale of ['Avg. donation / donor', 'Currently outstanding', '>Passed<', '$1,109.30', 'Business Council of New York State']) {
+  for (const stale of ['Avg. donation / donor', 'Currently outstanding', '>Passed<', '$1,109.30', '$1,688.75', 'Business Council of New York State']) {
     if (html.includes(stale)) fail(`the built page still says “${stale.replace(/[<>]/g, '')}”`)
   }
   for (const report of Object.keys(REPORTS)) {
