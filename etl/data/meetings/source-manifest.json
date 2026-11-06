@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-05T03:44:15Z",
+  "generatedAt": "2026-11-06T19:40:42Z",
   "meetings": {
     "2025-01-07": {
       "eventId": 1314,
@@ -1712,8 +1712,21 @@
     "2026-11-05": {
       "eventId": 6444,
       "eventName": "Town Board Meeting",
-      "minutesPending": true,
-      "sourceVersionAt": "2026-11-05T03:44:15Z",
+      "minutes": {
+        "bytes": 6165105,
+        "changedAt": "2026-11-06T19:40:42Z",
+        "fileId": 12559,
+        "hasVoteSummary": true,
+        "name": "Minutes",
+        "pages": 25,
+        "revisionCount": 0,
+        "revisions": [],
+        "sha256": "25150c3725d25db8ef9c4b5b24075bcdae2d890f2a17d1b7c31f29111859b7ba",
+        "sourceUrl": "https://riverheadny.api.civicclerk.com/v1/Meetings/GetMeetingFileStream(fileId=12559,plainText=false)",
+        "textPath": "etl/data/meetings/2026-11-05-minutes.txt",
+        "type": "Minutes"
+      },
+      "sourceVersionAt": "2026-11-06T19:40:42Z",
       "startDateTime": "2026-11-05T14:00:00Z",
       "votePacket": {
         "bytes": 11760546,
