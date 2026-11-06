@@ -174,11 +174,6 @@ export const CANDIDATE_SELF_NAMES: Record<string, string[]> = {
   'Yvette Aguiar': ['yvette aguiar'],
   'Laura Jens-Smith': ['laura jens-smith', 'laura jens smith'],
 }
-const CANDIDATE_FAMILY_NAMES: Record<string, string[]> = {
-  'Honorable Jerome Halpin': ['dennis halpin', 'chloe halpin', 'patrick halpin', 'kristen halpin'],
-  'Kenneth Rothwell': ['werner rothwell', 'alexander rothwell', 'thomas rothwell'],
-  'Denise Merrifield': ['peter timmons'],
-}
 
 type ItemizedRow = {
   filer_id: string
@@ -244,10 +239,11 @@ function isCandidateFamilyRow(row: ItemizedRow, officialName: string): boolean {
     type.includes('sole') || type === 'association' || type === 'other'
   ) && !type.includes('unitem')
   if (isBusiness && (row.flng_ent_name ?? '').trim() !== '') return true
+  // The candidate's own money, when the filing lists it as an individual's. Family members are
+  // only those the filing itself marks "Candidate Family Member": a shared surname is not evidence.
   const fullName = nameFields(row).at(-1) ?? '' // "first last"
   const self = CANDIDATE_SELF_NAMES[officialName] ?? []
-  const family = CANDIDATE_FAMILY_NAMES[officialName] ?? []
-  return [...self, ...family].some((n) => fullName === n || nameFields(row).includes(n))
+  return self.some((n) => fullName === n || nameFields(row).includes(n))
 }
 
 function donorDisplayName(row: ItemizedRow): string {
@@ -900,11 +896,36 @@ export async function fetchCampaignSnapshots(
 // The Town of Riverhead line of the Suffolk County Board of Elections' "Campaign Contribution
 // Limit Index for 2026" (dated April 23, 2026). The County sets the limits each year from voter
 // counts. (The file's name on the County's site spells "Limts".)
-export const riverheadContributionLimits = {
+export type RiverheadLimits = {
+  asOfYear: number
+  source: string
+  sourceUrl: string
+  general: { individual: number; family: number }
+  democraticPrimary: { individual: number; family: number }
+  republicanPrimary: { individual: number; family: number }
+}
+
+export const riverheadContributionLimits: RiverheadLimits = {
   asOfYear: 2026,
   source: 'Suffolk County Board of Elections, "Campaign Contribution Limit Index for 2026" (April 23, 2026)',
   sourceUrl: 'https://www.suffolkcountyny.gov/Portals/0/formsdocs/boe/2026/2026%20Comprehensive%20Limts%20Report.pdf',
   general: { individual: 1219.3, family: 6096.5 },
   democraticPrimary: { individual: 1000, family: 1685.75 },
   republicanPrimary: { individual: 1000, family: 2148.5 },
+}
+
+// The same row of the County's 2025 index (April 14, 2025), for contributions to the 2025 races.
+const riverheadContributionLimits2025: RiverheadLimits = {
+  asOfYear: 2025,
+  source: 'Suffolk County Board of Elections, "Campaign Contribution Limit Index for 2025" (April 14, 2025)',
+  sourceUrl: 'https://www.suffolkcountyny.gov/Portals/0/formsdocs/boe/2025/2025_Comprehensive_Limits_Report.pdf',
+  general: { individual: 1219.3, family: 6096.5 },
+  democraticPrimary: { individual: 1000, family: 1688.75 },
+  republicanPrimary: { individual: 1000, family: 2148.5 },
+}
+
+/** The County's Riverhead limits for an election year, or null for a year whose index the site does not hold. */
+export function riverheadLimitsFor(year: string | number | null | undefined): RiverheadLimits | null {
+  const y = Number(year)
+  return y === 2026 ? riverheadContributionLimits : y === 2025 ? riverheadContributionLimits2025 : null
 }

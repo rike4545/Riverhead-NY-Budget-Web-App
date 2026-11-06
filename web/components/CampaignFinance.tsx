@@ -11,6 +11,8 @@ import {
   fetchFilingHistory,
   generalElectionOf,
   RIVERHEAD_POPULATION,
+  riverheadContributionLimits,
+  riverheadLimitsFor,
   type CampaignOfficial,
   type CampaignSnapshot,
   type ElectionReportRow,
@@ -22,6 +24,8 @@ import GeneralElectionReports from './GeneralElectionReports'
 import LoadError from './LoadError'
 
 const usd = (n: number) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(n)
+/** A contribution limit, to the cent as the County's index prints it ($6,096.50). */
+const limitUsd = (n: number) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 2 }).format(n)
 const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 18 } as const
 
 function dateOnly(value: string | null): string | null {
@@ -690,23 +694,25 @@ function EthicsAnalysisPanel({
   contributions,
   accentColor,
   watchLabel,
+  relatedEntities = false,
 }: {
   contributions: WatchContribution[]
   accentColor: string
   watchLabel: string
+  /** True when the donors are linked to one interest (one developer's companies), so their combined total means something. */
+  relatedEntities?: boolean
 }) {
   const groups = groupByDonorAndYear(contributions)
   const flagged = groups.filter((g) => g.total > 1000)
   const approaching = groups.filter((g) => g.total > 800 && g.total <= 1000)
   const allClear = flagged.length === 0 && approaching.length === 0
 
-  // Combined exposure: all contributions in this watch summed together.
-  // Fires when no single entity/person hit $1,000 individually but the
-  // total across multiple entities exceeds $1,000 — e.g. two Petrocelli
-  // LLCs each giving $600 would not trigger per-entity flagging but the
-  // combined relationship still warrants voluntary disclosure.
+  // Combined exposure: all contributions in this watch summed together, only when the donors
+  // are linked to one interest (e.g. two Petrocelli LLCs each giving $600). For a list of
+  // unrelated PACs or businesses, a combined total is not something the ethics code measures,
+  // so it is not shown.
   const combinedTotal = contributions.reduce((s, c) => s + c.amount, 0)
-  const showCombinedWarning = flagged.length === 0 && groups.length > 1 && combinedTotal > 1000
+  const showCombinedWarning = relatedEntities && flagged.length === 0 && groups.length > 1 && combinedTotal > 1000
 
   return (
     <div
@@ -719,7 +725,7 @@ function EthicsAnalysisPanel({
       }}
     >
       <div style={{ fontSize: 12, fontWeight: 800, color: flagged.length > 0 ? 'var(--rbl-danger-strong)' : approaching.length > 0 ? 'var(--rbl-warn)' : 'var(--rbl-success-strong)', marginBottom: 6 }}>
-        § 113-4(B)(1)(f) Ethics Analysis — Town of Riverhead Code of Ethics
+        § 113-4(B)(1)(f) check, Town of Riverhead Code of Ethics
       </div>
 
       {allClear && !showCombinedWarning && (
@@ -899,7 +905,7 @@ function PetroCelliWatch({
             {petrocelliScopeNote(endYear, currentlyServing)}
           </div>
 
-          <EthicsAnalysisPanel contributions={contributions!} accentColor="#92400e" watchLabel="Petrocelli" />
+          <EthicsAnalysisPanel contributions={contributions!} accentColor="#92400e" watchLabel="Petrocelli" relatedEntities />
           <div style={{ fontSize: 10, color: 'var(--rbl-text-muted)', marginTop: 6, lineHeight: 1.4, fontStyle: 'italic' }}>
             § 14-114 note: individual contributors are subject to the Town of Riverhead per-election limit ({usd(SUFFOLK_TOWN_LIMIT_PER_ELECTION)} general / {usd(SUFFOLK_TOWN_PRIMARY_LIMIT)} primary, per Suffolk County BOE 2026 Comprehensive Limits Report). Corporations, PACs, and unions face the same per-candidate limits as individuals under § 14-114; corporations are additionally capped at $5,000 statewide aggregate across all NY political contributions per calendar year under § 14-116 (Suffolk County BOE 2026 Comprehensive Limits Report; NCSL 2025–26). See{' '}
             <a href="https://elections.ny.gov/laws-regulations/contribution-limits" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--rbl-warn)' }}>elections.ny.gov</a> for current limits.
@@ -1002,7 +1008,7 @@ function ScottPointeWatch({
 
           <div style={{ fontSize: 11, color: 'var(--rbl-text-muted)', marginBottom: 6, lineHeight: 1.5 }}>{scottPointeScopeNote(endYear, currentlyServing)}</div>
 
-          <EthicsAnalysisPanel contributions={contributions!} accentColor="#5b21b6" watchLabel="Scott's Pointe / Island Water Park" />
+          <EthicsAnalysisPanel contributions={contributions!} accentColor="#5b21b6" watchLabel="Scott's Pointe / Island Water Park" relatedEntities />
           <div style={{ fontSize: 10, color: 'var(--rbl-text-muted)', marginTop: 6, lineHeight: 1.4, fontStyle: 'italic' }}>
             § 14-114 note: individual contributors are subject to the Town of Riverhead per-election limit ({usd(SUFFOLK_TOWN_LIMIT_PER_ELECTION)} general / {usd(SUFFOLK_TOWN_PRIMARY_LIMIT)} primary, per Suffolk County BOE 2026 Comprehensive Limits Report). Corporations, PACs, and unions face the same per-candidate limits as individuals under § 14-114; corporations are additionally capped at $5,000 statewide aggregate across all NY political contributions per calendar year under § 14-116 (Suffolk County BOE 2026 Comprehensive Limits Report; NCSL 2025–26). See{' '}
             <a href="https://elections.ny.gov/laws-regulations/contribution-limits" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--rbl-violet-strong)' }}>elections.ny.gov</a> for current limits.
@@ -1093,7 +1099,7 @@ function SandyPondWatch({
               </div>
             ))}
           </div>
-          <EthicsAnalysisPanel contributions={contributions!} accentColor="#5b21b6" watchLabel="Sandy Pond Links" />
+          <EthicsAnalysisPanel contributions={contributions!} accentColor="#5b21b6" watchLabel="Sandy Pond Links" relatedEntities />
         </>
       )}
 
@@ -1109,29 +1115,18 @@ function SandyPondWatch({
 // ---------------------------------------------------------------------------
 
 const candidateFamilyScopeNote = (endYear: number, currentlyServing: boolean) =>
-  `Scope (2005–${currentlyServing ? endYear : endYear - 1}): candidate self-funding, known immediate-family financing, cross-campaign committee donations, and business-entity contributors (LLC, partnership, sole proprietorship, association). ` +
-  'Matches contributor type fields ("Candidate/Candidate Spouse", "Candidate Family Member", committee-type donors, and business-entity types) ' +
-  'plus known family names from public records: Halpin family (Dennis, Chloe, Patrick, Kristen Halpin); ' +
-  'Rothwell family (Werner Rothwell, Alexander Rothwell — each reported $2,500 outstanding Schedule N loans; Thomas Rothwell). ' +
+  `Scope (2005–${currentlyServing ? endYear : endYear - 1}): candidate self-funding, family members the filing names as such, cross-campaign committee donations, and business-entity contributors (LLC, partnership, sole proprietorship, association). ` +
+  'Matches the contributor type the filing gives ("Candidate/Candidate Spouse", "Candidate Family Member", committee-type donors, and business-entity types), ' +
+  "and the candidate's own name. Someone is counted as family only when the filing says so; a shared surname is not enough. " +
   'All contributions shown are legal under NY Election Law but relevant to understanding who finances a committee. ' +
   'These matches are disclosure context, not proof of wrongdoing.'
 
-// NY Election Law § 14-114(1): per-contributor per-election limit for Town of Riverhead.
-// Source: Suffolk County BOE "2026 Comprehensive Limits Report", Town of Riverhead row:
-//   General election individual: $1,219.30 | All primaries individual: $1,000.00
-// These limits are biennial CPI-adjusted; primary and general elections count separately.
-const SUFFOLK_TOWN_LIMIT_PER_ELECTION = 1219.30
-const SUFFOLK_TOWN_PRIMARY_LIMIT = 1000.00
-
-// NY Election Law § 14-114 family aggregate limit: 1/4 × registered voters in district.
-// Source: Suffolk County BOE voter enrollment report, Feb 20, 2026.
-// All Riverhead town offices are town-wide races (25,341 total registered).
-//   General:          1/4 × 25,341 = $6,335.25
-//   Dem primary:      1/4 × 6,914  = $1,728.50
-//   Rep primary:      1/4 × 8,919  = $2,229.75
-const FAMILY_AGGREGATE_GENERAL = 6335.25
-const FAMILY_AGGREGATE_DEM_PRIMARY = 1728.50
-const FAMILY_AGGREGATE_REP_PRIMARY = 2229.75
+// NY Election Law § 14-114(1): the Town of Riverhead limits, from the Suffolk County Board of
+// Elections' own index for each year (lib/campaign-finance.ts, riverheadLimitsFor). The County
+// sets them every year from voter counts; primary and general elections count separately.
+const SUFFOLK_TOWN_LIMIT_PER_ELECTION = riverheadContributionLimits.general.individual
+const SUFFOLK_TOWN_PRIMARY_LIMIT = riverheadContributionLimits.democraticPrimary.individual
+const isFamilyType = (c: WatchContribution) => (c.contributorType ?? '').toLowerCase() === 'candidate family member'
 
 type DonorElectionGroup = { donor: string; year: string; total: number; rows: WatchContribution[] }
 
@@ -1275,7 +1270,7 @@ function CandidateFamilyWatch({
         }}
       >
         {hasHits ? <CircleDollarSign size={16} strokeWidth={2.25} aria-hidden="true" /> : clear ? <CircleCheck size={16} strokeWidth={2.25} aria-hidden="true" /> : <Search size={16} strokeWidth={2.25} aria-hidden="true" />}
-        <span>Candidate &amp; Family Financing Watch</span>
+        <span>Candidate &amp; family financing watch</span>
       </div>
 
       {contributions === null && (
@@ -1300,7 +1295,7 @@ function CandidateFamilyWatch({
           {committeeContribs.length > 0 && (
             <div style={{ marginBottom: 10 }}>
               <div style={{ fontSize: 12, fontWeight: 800, color: 'var(--rbl-violet-strong)', marginBottom: 6, borderBottom: '1px solid var(--rbl-violet-border)', paddingBottom: 4 }}>
-                PAC &amp; Committee Donors
+                PAC &amp; committee donors
               </div>
               <div style={{ display: 'grid', gap: 4, marginBottom: 8 }}>
                 {committeeContribs.map((c, i) => (
@@ -1325,7 +1320,7 @@ function CandidateFamilyWatch({
           {businessContribs.length > 0 && (
             <div style={{ marginBottom: 10 }}>
               <div style={{ fontSize: 12, fontWeight: 800, color: 'var(--rbl-warn)', marginBottom: 6, borderBottom: '1px solid var(--rbl-warn-border)', paddingBottom: 4 }}>
-                Business &amp; Corporate Donors
+                Business &amp; corporate donors
               </div>
               <div style={{ display: 'grid', gap: 4, marginBottom: 8 }}>
                 {businessContribs.map((c, i) => (
@@ -1344,7 +1339,7 @@ function CandidateFamilyWatch({
               </div>
               <EthicsAnalysisPanel contributions={businessContribs} accentColor="#92400e" watchLabel="business entity" />
               <div style={{ fontSize: 10, color: 'var(--rbl-warn-strong)', marginTop: 6, lineHeight: 1.4, fontStyle: 'italic' }}>
-                Corporations, LLCs, and partnerships may contribute to candidate committees subject to the same per-election limit as individuals ({usd(SUFFOLK_TOWN_LIMIT_PER_ELECTION)} general / {usd(SUFFOLK_TOWN_PRIMARY_LIMIT)} primary). Corporations are additionally capped at $5,000 statewide aggregate across all NY political contributions per calendar year under § 14-116 (Suffolk County BOE 2026 Comprehensive Limits Report).
+                Corporations, LLCs, and partnerships may contribute to candidate committees subject to the same per-election limit as individuals ({usd(SUFFOLK_TOWN_LIMIT_PER_ELECTION)} general / {usd(SUFFOLK_TOWN_PRIMARY_LIMIT)} primary). Corporations are additionally capped at $5,000 statewide aggregate across all NY political contributions per calendar year under § 14-116 (Suffolk County Board of Elections, Campaign Contribution Limit Index for 2026; {limitUsd(SUFFOLK_TOWN_LIMIT_PER_ELECTION)} and {limitUsd(SUFFOLK_TOWN_PRIMARY_LIMIT)} there).
               </div>
             </div>
           )}
@@ -1354,7 +1349,7 @@ function CandidateFamilyWatch({
             <div>
               {committeeContribs.length > 0 && (
                 <div style={{ fontSize: 12, fontWeight: 800, color: 'var(--rbl-info-text)', marginBottom: 6, borderBottom: '1px solid var(--rbl-sky-border)', paddingBottom: 4, marginTop: 4 }}>
-                  Self-Funding &amp; Family Donors
+                  Self-funding &amp; family donors
                 </div>
               )}
               <div style={{ display: 'grid', gap: 4, marginBottom: 10 }}>
@@ -1384,24 +1379,33 @@ function CandidateFamilyWatch({
                 }}
               >
                 <div style={{ fontSize: 12, fontWeight: 800, color: 'var(--rbl-info-text)', marginBottom: 8 }}>
-                  § 14-114 Limit Analysis — {usd(SUFFOLK_TOWN_LIMIT_PER_ELECTION)} general / {usd(SUFFOLK_TOWN_PRIMARY_LIMIT)} primary per contributor (Town of Riverhead, Suffolk County BOE 2026)
+                  § 14-114 limit check, against the County&apos;s Riverhead limits for each year
                 </div>
 
                 {/* Family aggregate cap — all immediate family combined, per election year */}
                 {(() => {
-                  const familyGroups = groupsIndividual.filter((g) => !selfNames.some((n) => g.donor.toLowerCase().includes(n)))
+                  const familyGroups = groupsIndividual.filter((g) => g.rows.some(isFamilyType) && !selfNames.some((n) => g.donor.toLowerCase().includes(n)))
                   const byYear = new Map<string, number>()
                   for (const g of familyGroups) byYear.set(g.year, (byYear.get(g.year) ?? 0) + g.total)
                   if (byYear.size === 0) return null
                   return (
                     <div style={{ marginBottom: 12, paddingBottom: 10, borderBottom: '1px solid var(--rbl-sky-border)' }}>
                       <div style={{ fontSize: 11, fontWeight: 700, color: 'var(--rbl-title)', marginBottom: 6 }}>
-                        Family Aggregate Cap — all immediate family members combined
+                        Family members, combined
                       </div>
                       {Array.from(byYear.entries()).sort((a, b) => b[0].localeCompare(a[0])).map(([year, familyTotal]) => {
-                        const remaining = Math.max(0, FAMILY_AGGREGATE_GENERAL - familyTotal)
-                        const pct = Math.min(100, (familyTotal / FAMILY_AGGREGATE_GENERAL) * 100)
-                        const over = familyTotal > FAMILY_AGGREGATE_GENERAL
+                        const limits = riverheadLimitsFor(year)
+                        if (!limits) {
+                          return (
+                            <div key={year} style={{ marginBottom: 8, fontSize: 12, color: 'var(--rbl-text-body)' }}>
+                              <strong style={{ color: 'var(--rbl-title)' }}>Family members</strong> ({year} election): {usd(familyTotal)}. The site does not hold the County&apos;s {year} limits, so this total is not checked against one.
+                            </div>
+                          )
+                        }
+                        const cap = limits.general.family
+                        const remaining = Math.max(0, cap - familyTotal)
+                        const pct = Math.min(100, (familyTotal / cap) * 100)
+                        const over = familyTotal > cap
                         const atLimit = !over && remaining === 0
                         const barColor = over ? 'var(--rbl-danger)' : pct >= 80 ? 'var(--rbl-warn)' : 'var(--rbl-series-violet)'
                         const labelColor = over ? 'var(--rbl-danger)' : atLimit ? '#92400e' : 'var(--rbl-success-strong)'
@@ -1409,30 +1413,30 @@ function CandidateFamilyWatch({
                           <div key={year} style={{ marginBottom: 8 }}>
                             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', fontSize: 12 }}>
                               <span style={{ fontWeight: 700, color: 'var(--rbl-title)' }}>
-                                All family members <span style={{ fontWeight: 400, color: 'var(--rbl-text-muted)' }}>({year} election)</span>
+                                Family members <span style={{ fontWeight: 400, color: 'var(--rbl-text-muted)' }}>({year} election)</span>
                               </span>
                               <span style={{ fontWeight: 800, color: labelColor, fontSize: 11 }}>
-                                {over ? 'Over aggregate cap' : atLimit ? 'At cap' : `${usd(remaining)} remaining`}
+                                {over ? 'Above the general-election family limit' : atLimit ? 'At the limit' : `${limitUsd(remaining)} below the limit`}
                               </span>
                             </div>
                             <div style={{ height: 6, background: 'var(--rbl-sky-bg)', borderRadius: 3, margin: '4px 0', overflow: 'hidden' }}>
                               <div style={{ height: '100%', width: `${pct}%`, background: barColor, borderRadius: 3, transition: 'width 0.3s' }} />
                             </div>
                             <div style={{ fontSize: 10, color: 'var(--rbl-text-body)' }}>
-                              {usd(familyTotal)} of {usd(FAMILY_AGGREGATE_GENERAL)} general-election family aggregate cap (1/4 × 25,341 registered voters)
-                              {over && ` — EXCESS: ${usd(familyTotal - FAMILY_AGGREGATE_GENERAL)}`}
+                              {usd(familyTotal)} of the {limitUsd(cap)} general-election family limit in the County&apos;s {limits.asOfYear} index
+                              {over && ` (${usd(familyTotal - cap)} more; check whether some of it was for the primary, which has its own limit)`}
                             </div>
                           </div>
                         )
                       })}
                       <div style={{ fontSize: 10, color: 'var(--rbl-text-muted)', lineHeight: 1.4, fontStyle: 'italic' }}>
-                        § 14-114 caps combined immediate-family contributions (child, parent, grandparent, sibling, and their spouses) at 1/4 of total registered voters. Primary limits are lower: DEM {usd(FAMILY_AGGREGATE_DEM_PRIMARY)} / REP {usd(FAMILY_AGGREGATE_REP_PRIMARY)} (Feb 20, 2026 Suffolk County BOE enrollment).
+                        Family here means the donors the filing marks &ldquo;Candidate Family Member&rdquo;. Under § 14-114 a candidate&apos;s child, parent, grandparent, brother or sister, and their spouses share a higher family limit. The County&apos;s {riverheadContributionLimits.asOfYear} index sets it at {limitUsd(riverheadContributionLimits.general.family)} for the general election, {limitUsd(riverheadContributionLimits.democraticPrimary.family)} for the Democratic primary and {limitUsd(riverheadContributionLimits.republicanPrimary.family)} for the Republican primary. A total near a limit is a question for the committee, not a finding.
                       </div>
                     </div>
                   )
                 })()}
 
-                {groupsIndividual.map(({ donor, year, total: groupTotal }) => {
+                {groupsIndividual.map(({ donor, year, total: groupTotal, rows }) => {
                   const isSelf = selfNames.some((n) => donor.toLowerCase().includes(n))
 
                   if (isSelf) {
@@ -1451,9 +1455,12 @@ function CandidateFamilyWatch({
                     )
                   }
 
-                  const remaining = Math.max(0, SUFFOLK_TOWN_LIMIT_PER_ELECTION - groupTotal)
-                  const pct = Math.min(100, (groupTotal / SUFFOLK_TOWN_LIMIT_PER_ELECTION) * 100)
-                  const over = groupTotal > SUFFOLK_TOWN_LIMIT_PER_ELECTION
+                  if (rows.some(isFamilyType)) return null
+                  const limit = riverheadLimitsFor(year)?.general.individual
+                  if (limit == null) return null
+                  const remaining = Math.max(0, limit - groupTotal)
+                  const pct = Math.min(100, (groupTotal / limit) * 100)
+                  const over = groupTotal > limit
                   const atLimit = !over && remaining === 0
                   const barColor = over ? 'var(--rbl-danger)' : pct >= 80 ? 'var(--rbl-warn)' : 'var(--rbl-accent)'
                   const labelColor = over ? 'var(--rbl-danger)' : atLimit ? '#92400e' : 'var(--rbl-success-strong)'
@@ -1472,8 +1479,8 @@ function CandidateFamilyWatch({
                         <div style={{ height: '100%', width: `${pct}%`, background: barColor, borderRadius: 3, transition: 'width 0.3s' }} />
                       </div>
                       <div style={{ fontSize: 10, color: 'var(--rbl-text-body)' }}>
-                        {usd(groupTotal)} of {usd(SUFFOLK_TOWN_LIMIT_PER_ELECTION)} per-election limit
-                        {over && ` — EXCESS: ${usd(groupTotal - SUFFOLK_TOWN_LIMIT_PER_ELECTION)}`}
+                        {usd(groupTotal)} of the {limitUsd(limit)} general-election limit in the County&apos;s {year} index
+                        {over && ` (${usd(groupTotal - limit)} more; check whether some of it was for the primary)`}
                       </div>
                     </div>
                   )
@@ -1481,10 +1488,9 @@ function CandidateFamilyWatch({
 
                 <div style={{ fontSize: 10, color: 'var(--rbl-text-muted)', marginTop: 4, lineHeight: 1.4, fontStyle: 'italic' }}>
                   Primary and general elections are separate limits under § 14-114(1). This analysis groups by election year as reported in the filing; it cannot distinguish primary vs. general election
-                  within the same year. Limits shown are from the Suffolk County BOE 2026 Comprehensive Limits Report (general: {usd(SUFFOLK_TOWN_LIMIT_PER_ELECTION)}, all primaries: {usd(SUFFOLK_TOWN_PRIMARY_LIMIT)}). These are biennial CPI-adjusted; verify the current cycle at{' '}
-                  <a href="https://elections.ny.gov/laws-regulations/contribution-limits" target="_blank" rel="noopener noreferrer" style={{ color: '#0369a1' }}>
-                    elections.ny.gov
-                  </a>.
+                  within the same year. Each year is checked against that year&apos;s Town of Riverhead limits in the{' '}
+                  <a href={riverheadContributionLimits.sourceUrl} target="_blank" rel="noopener noreferrer" style={{ color: '#0369a1' }}>Suffolk County Board of Elections&apos; index</a>{' '}
+                  ({riverheadContributionLimits.asOfYear}: {limitUsd(SUFFOLK_TOWN_LIMIT_PER_ELECTION)} general, {limitUsd(SUFFOLK_TOWN_PRIMARY_LIMIT)} primary). The County sets them every year from voter counts; a year the site holds no index for is not checked.
                 </div>
               </div>
             </div>
