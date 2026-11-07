@@ -1,6 +1,6 @@
 {
  "version": 2,
- "sourceVersionAt": "2026-11-06T19:40:42Z",
+ "sourceVersionAt": "2026-11-07T03:06:25Z",
  "source": "Town of Riverhead CivicClerk published files",
  "meetings": {
   "2025-01-07": {
@@ -2136,18 +2136,18 @@
    "eventId": 6444,
    "eventName": "Town Board Meeting",
    "startDateTime": "2026-11-05T14:00:00Z",
-   "sourceVersionAt": "2026-11-06T19:40:42Z",
+   "sourceVersionAt": "2026-11-07T03:06:25Z",
    "officialRecordStatus": "vote-record-parsed",
    "minutes": {
-    "fileId": 12559,
+    "fileId": 12566,
     "type": "Minutes",
     "name": "Minutes",
-    "sha256": "25150c3725d25db8ef9c4b5b24075bcdae2d890f2a17d1b7c31f29111859b7ba",
-    "bytes": 6165105,
-    "pages": 25,
-    "changedAt": "2026-11-06T19:40:42Z",
-    "revisionCount": 0,
-    "sourceUrl": "https://riverheadny.api.civicclerk.com/v1/Meetings/GetMeetingFileStream(fileId=12559,plainText=false)",
+    "sha256": "01db2c7084977ce04867e7507a4697b7e22390301a472c8eb38649b5953dd42f",
+    "bytes": 272547,
+    "pages": 8,
+    "changedAt": "2026-11-07T03:06:25Z",
+    "revisionCount": 1,
+    "sourceUrl": "https://riverheadny.api.civicclerk.com/v1/Meetings/GetMeetingFileStream(fileId=12566,plainText=false)",
     "hasVoteSummary": true
    },
    "votePacket": {
@@ -2208,15 +2208,15 @@
    },
    "voteSourceKind": "minutes",
    "voteSource": {
-    "fileId": 12559,
+    "fileId": 12566,
     "type": "Minutes",
     "name": "Minutes",
-    "sha256": "25150c3725d25db8ef9c4b5b24075bcdae2d890f2a17d1b7c31f29111859b7ba",
-    "bytes": 6165105,
-    "pages": 25,
-    "changedAt": "2026-11-06T19:40:42Z",
-    "revisionCount": 0,
-    "sourceUrl": "https://riverheadny.api.civicclerk.com/v1/Meetings/GetMeetingFileStream(fileId=12559,plainText=false)",
+    "sha256": "01db2c7084977ce04867e7507a4697b7e22390301a472c8eb38649b5953dd42f",
+    "bytes": 272547,
+    "pages": 8,
+    "changedAt": "2026-11-07T03:06:25Z",
+    "revisionCount": 1,
+    "sourceUrl": "https://riverheadny.api.civicclerk.com/v1/Meetings/GetMeetingFileStream(fileId=12566,plainText=false)",
     "hasVoteSummary": true
    },
    "resolutionSources": [],

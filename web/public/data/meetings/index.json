@@ -22,10 +22,10 @@
    "tabled": 1,
    "officialRecordStatus": "vote-record-parsed",
    "voteSource": "minutes",
-   "minutesRevisionCount": 0,
+   "minutesRevisionCount": 1,
    "verifiedResolutionCount": 0,
    "resolutionSourceCount": 0,
-   "sourceVersionAt": "2026-11-06T19:40:42Z"
+   "sourceVersionAt": "2026-11-07T03:06:25Z"
   },
   {
    "slug": "2026-10-20",
