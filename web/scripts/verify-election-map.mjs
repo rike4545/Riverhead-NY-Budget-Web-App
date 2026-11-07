@@ -73,6 +73,16 @@ for (const r of history) {
   }
   if (!(r.registered > r.votesCast)) fail(`Supervisor ${r.year}: ${r.registered} registered voters for ${r.votesCast} votes`)
 }
+// Turnout: every year with a final Riverhead page, each a share no higher than 100%,
+// and in Supervisor years no lower than the Supervisor race itself.
+const turnout = data.turnoutHistory ?? []
+for (const y of [2013, 2015, 2016, 2017, 2019, 2020, 2021, 2023, 2024, 2025]) if (!turnout.some((t) => t.year === y)) fail(`turnout is missing ${y}`)
+for (const t of turnout) {
+  if (!(t.registered >= t.votesCast && t.votesCast > 0)) fail(`turnout ${t.year}: ${t.votesCast} votes of ${t.registered} registered`)
+  const sup = history.find((r) => r.year === t.year)
+  if (sup && (t.votesCast < sup.votesCast || t.registered !== sup.registered)) fail(`turnout ${t.year} does not agree with that year's Supervisor race`)
+}
+
 // The County's final 2025 page and this site's certified record must agree.
 const board25 = read('public', 'data', 'board-elections.json').priorElections.find((p) => p.year === 2025).races.find((x) => x.office === 'Supervisor')
 const final25 = history.find((r) => r.year === 2025)
@@ -115,8 +125,9 @@ else {
     const w = r.candidates[0], margin = w.votes - (r.candidates[1]?.votes ?? 0)
     if (!text.includes(`${r.year}`) || !text.includes(num(w.votes)) || !text.includes(num(margin))) fail(`the ${r.year} Supervisor row is missing or wrong`)
   }
+  for (const t of turnout) if (!new RegExp(`${t.year}\\s*:\\s*${num(t.votesCast)} votes`).test(text)) fail(`the ${t.year} turnout figures are not on the page`)
   const pres = data.elections.flatMap((e) => e.contests).find((c) => c.key === 'president-2024')
   for (const c of pres.candidates.filter((x) => x.name !== 'Write-in')) if (!text.includes(num(c.votes))) fail(`the 2024 President total ${num(c.votes)} is not on the page`)
 }
 
-if (!process.exitCode) console.log(`Election map verified: 22 districts, ${data.elections.reduce((n, e) => n + e.contests.length, 0)} contests in ${data.elections.length} elections, ${history.length} Supervisor races since 2013, 2026 Supervisor matches the site's record.`)
+if (!process.exitCode) console.log(`Election map verified: 22 districts, ${data.elections.reduce((n, e) => n + e.contests.length, 0)} contests in ${data.elections.length} elections, ${history.length} Supervisor races since 2013, ${turnout.length} years of turnout, 2026 Supervisor matches the site's record.`)

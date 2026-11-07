@@ -130,6 +130,9 @@ so the page gives the certified totals beside them.
 The map now also has the 2024 presidential and congressional results by
 district, checked against the County's final count, and a table of every
 Supervisor race since 2013 with its margin and turnout.
+It also charts Riverhead's turnout in every November election since 2013
+(32.3% in 2025, the lowest), from the County's final results pages, and adds
+2026 when the County certifies it.
 
 ### Also this month
 - **Meeting schedule** (since October 29): when the Town's website does not
@@ -576,7 +579,7 @@ Every page shows when its data was last refreshed.
 | `parse_police_crime.py` | Police spending next to reported Index crime. The State's figures are fetched at most weekly; if data.ny.gov cannot be reached, they stay as last fetched and the run shows a warning |
 | `build_campaign_reports.py` | Each committee's 2026 General Election reports from data.ny.gov, by report and schedule. If data.ny.gov cannot be reached, the last copy stays and the run shows a warning |
 | `build_campaign_totals.py` | Each committee's stored figures on `/campaign-finance/`: what it raised, refunded and borrowed, its in-kind gifts, and what it owed at its latest report. It writes `campaign-finance-totals.json` and never the hand-typed `campaign-finance.json`. The rules match the page's live Refresh: money moved between one official's own committees is not counted twice. If data.ny.gov cannot be reached, the last figures stay |
-| `build_election_map.py` | Riverhead's 22 election-district boundaries from the County GIS (`riverhead-districts.json`) and each district's votes in the 2026 and 2025 general elections from the Board of Elections' results site, plus every Supervisor race since 2013 from the County's final results pages (`riverhead-map.json`), for `/election-map/`. A candidate on several party lines is counted once. If a source cannot be reached, its file stays as it was |
+| `build_election_map.py` | Riverhead's 22 election-district boundaries from the County GIS (`riverhead-districts.json`) and each district's votes in the 2026 and 2025 general elections from the Board of Elections' results site, plus every Supervisor race and each November's turnout since 2013 from the County's final results pages (`riverhead-map.json`), for `/election-map/`. A candidate on several party lines is counted once. If a source cannot be reached, its file stays as it was |
 | `import_2024_results.py` | Run by hand: Riverhead's 2024 President and 1st Congressional District results by district, from Benjamin J. Rosenblatt's statewide compilation (`riverhead-2024.json`). It writes nothing unless Suffolk's totals equal the County's final 2024 results exactly and the 2024 districts match today's to 99% |
 | `build_contract_awards.py` | The `/contracts/` list of bid awards and agreements, from freshly downloaded agenda packets |
 | `parse_road_spending.py` | Highway spending per maintained mile for the ten Suffolk towns, from State Comptroller filings and NYSDOT's road inventory |

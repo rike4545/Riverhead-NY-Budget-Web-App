@@ -26,8 +26,10 @@ export type HistoryCandidate = { name: string; lines: Record<string, number>; vo
 export type SupervisorRace = { year: number; url: string; status: string; registered: number; votesCast: number; candidates: HistoryCandidate[] }
 type MapFile = {
   source: { title: string; url: string }; boundarySource: { title: string; url: string }; finalSource: { title: string; url: string }
-  elections: Election[]; supervisorHistory: SupervisorRace[]; fetchedOn: string
+  elections: Election[]; supervisorHistory: SupervisorRace[]; turnoutHistory: TurnoutYear[]; fetchedOn: string
 }
+/** One November election's turnout: votes in the Town's most-voted one-seat race, out of registered voters. */
+export type TurnoutYear = { year: number; url: string; race: string; votesCast: number; registered: number }
 
 const data = mapJson as unknown as MapFile
 export const elections = data.elections
@@ -36,6 +38,7 @@ export const boundarySource = data.boundarySource
 export const fetchedOn = data.fetchedOn
 export const finalSource = data.finalSource
 export const supervisorHistory = data.supervisorHistory
+export const turnoutHistory = data.turnoutHistory
 
 const features = (geoJson as unknown as { features: Feature[] }).features
 
