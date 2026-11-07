@@ -31,28 +31,28 @@ class TotalsTest(unittest.TestCase):
 
     def test_contributions_and_transfers(self):
         t = ct.totals(self.ROWS, 2026)
-        self.assertEqual(t["seedDirectContributions"], 3900)
-        self.assertEqual(t["seedTransfersIn"], 150)
-        self.assertEqual(t["seedRaised"], 4050)
+        self.assertEqual(t["directContributions"], 3900)
+        self.assertEqual(t["transfersIn"], 150)
+        self.assertEqual(t["raised"], 4050)
 
     def test_last_reported_is_the_latest_contribution_or_transfer(self):
         # Spending and loan rows do not move it.
-        self.assertEqual(ct.totals(self.ROWS, 2026)["seedLastReported"], "2026-09-28")
+        self.assertEqual(ct.totals(self.ROWS, 2026)["lastContribution"], "2026-09-28")
 
     def test_owed_is_the_latest_reports_balance_not_a_sum(self):
         t = ct.totals(self.ROWS, 2026)
-        self.assertEqual(t["seedOwed"], 5600)
-        self.assertEqual(t["seedOwedReport"], "2026 11-Day Pre-General")
+        self.assertEqual(t["owed"], 5600)
+        self.assertEqual(t["owedReport"], "2026 11-Day Pre-General")
 
     def test_owed_is_zero_when_the_latest_report_lists_nothing_owed(self):
         rows = [r for r in self.ROWS if not (r["filing_desc"] == "11-Day Pre-General" and r["filing_sched_abbrev"] == "N")]
-        self.assertEqual(ct.totals(rows, 2026)["seedOwed"], 0)
+        self.assertEqual(ct.totals(rows, 2026)["owed"], 0)
 
     def test_loans_received_and_this_cycle(self):
         t = ct.totals(self.ROWS, 2026)
-        self.assertEqual(t["seedLoansReceived"], 600)
-        self.assertEqual(t["seedCycleRaised"], 2900)
-        self.assertEqual(t["seedCycleItems"], 5)
+        self.assertEqual(t["loansReceived"], 600)
+        self.assertEqual(t["cycleRaised"], 2900)
+        self.assertEqual(t["cycleItems"], 5)
 
     def test_reports_sort_in_filing_order(self):
         keys = [ct.report_key(row(2026, d, "A", 0)) for d in ("January Periodic", "July Periodic", "32-Day Pre-General", "27-Day Post-General")]
@@ -61,7 +61,7 @@ class TotalsTest(unittest.TestCase):
 
     def test_no_rows(self):
         t = ct.totals([], 2026)
-        self.assertEqual((t["seedRaised"], t["seedLastReported"], t["seedOwed"], t["seedOwedReport"]), (0, None, 0, None))
+        self.assertEqual((t["raised"], t["lastContribution"], t["owed"], t["owedReport"]), (0, None, 0, None))
 
 
 class InternalTransfersTest(unittest.TestCase):
@@ -77,8 +77,8 @@ class InternalTransfersTest(unittest.TestCase):
         rows = [row(2025, "July Periodic", "A", 1000), row(2025, "July Periodic", "G", 900),
                 row(2025, "July Periodic", "D", 75), row(2025, "July Periodic", "M", 40)]
         t = ct.totals(rows, 2026, internal=600)
-        self.assertEqual((t["seedTransfersIn"], t["seedInternalTransfers"], t["seedRaised"]), (300, 600, 1300))
-        self.assertEqual((t["seedInKind"], t["seedRefunds"]), (75, 40))
+        self.assertEqual((t["transfersIn"], t["internalTransfers"], t["raised"]), (300, 600, 1300))
+        self.assertEqual((t["inKind"], t["refunds"]), (75, 40))
 
 
 class QueryTest(unittest.TestCase):

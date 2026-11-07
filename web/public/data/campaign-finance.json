@@ -24,19 +24,7 @@
     }
    ],
    "note": "COMMCAND fields: candidate ID 506792, Jerome Halpin, County, TERMINATED, Supervisor, Suffolk / Riverhead Town. Committee/filer ID 506796, Friends of Jerry Halpin, County, ACTIVE, Authorized Single Candidate Committee. NY's shift to even-year elections shortened the supervisor term elected in 2025 from two years to one; the November 3, 2026 election decides who serves the regular two-year term from January 1, 2027, once the Suffolk County Board of Elections certifies the result. Source: NYS BOE Even-Year Elections Transition Guidance (Nov 2025).",
-   "seedRaised": 24093.04,
-   "seedDirectContributions": 24093.04,
-   "seedTransfersIn": 0,
-   "seedLastReported": "2026-10-19",
-   "photoUrl": "https://www.townofriverheadny.gov/ImageRepository/Document?documentID=3086",
-   "seedLoansReceived": 5600.0,
-   "seedOwed": 5600.0,
-   "seedOwedReport": "2026 11-Day Pre-General",
-   "seedCycleRaised": 11139.3,
-   "seedCycleItems": 74,
-   "seedInternalTransfers": 0,
-   "seedInKind": 0,
-   "seedRefunds": 1000.0
+   "photoUrl": "https://www.townofriverheadny.gov/ImageRepository/Document?documentID=3086"
   },
   {
    "name": "Kenneth Rothwell",
@@ -59,19 +47,7 @@
     }
    ],
    "note": "Combines filer IDs 154927 and 154926 because Rothwell ran for Supervisor in the Nov 3, 2026 election (candidate record 154926, Supervisor), so the election shown is that race, not his council seat's. That election decided the Supervisor post only: his council seat runs to the end of 2028 either way, and the Suffolk County Board of Elections certifies the result. The 3-year council term (not the usual 4) reflects NY's even-year election transition: council seats elected in Nov 2025 were shortened by one year under NYS BOE Even-Year Elections Transition Guidance (Nov 2025).",
-   "seedRaised": 189663.61,
-   "seedDirectContributions": 189513.61,
-   "seedTransfersIn": 150.0,
-   "seedLastReported": "2026-09-28",
-   "photoUrl": "https://www.townofriverheadny.gov/ImageRepository/Document?documentID=186",
-   "seedLoansReceived": 5000.0,
-   "seedOwed": 5000.0,
-   "seedOwedReport": "2026 11-Day Pre-General",
-   "seedCycleRaised": 43089.68,
-   "seedCycleItems": 217,
-   "seedInternalTransfers": 0,
-   "seedInKind": 0,
-   "seedRefunds": 1145.0
+   "photoUrl": "https://www.townofriverheadny.gov/ImageRepository/Document?documentID=186"
   },
   {
    "name": "Robert \"Bob\" Kern",
@@ -94,19 +70,7 @@
     }
    ],
    "note": "Combines current committee 527501 with legacy committee 154941 (\"Friends of Bob Kern\") for the full 2005-2026 review window. The 3-year council term (not the usual 4) reflects NY's even-year election transition: council seats elected in Nov 2025 were shortened by one year under NYS BOE Even-Year Elections Transition Guidance (Nov 2025).",
-   "seedRaised": 62838.8,
-   "seedDirectContributions": 62638.8,
-   "seedTransfersIn": 200.0,
-   "seedLastReported": "2025-10-14",
-   "photoUrl": "https://www.townofriverheadny.gov/ImageRepository/Document?documentID=3106",
-   "seedLoansReceived": 4500.0,
-   "seedOwed": 0,
-   "seedOwedReport": "2026 July Periodic",
-   "seedCycleRaised": 0,
-   "seedCycleItems": 0,
-   "seedInternalTransfers": 0,
-   "seedInKind": 400.0,
-   "seedRefunds": 55.0
+   "photoUrl": "https://www.townofriverheadny.gov/ImageRepository/Document?documentID=3106"
   },
   {
    "name": "Joann Waski",
@@ -125,19 +89,7 @@
     }
    ],
    "note": "COMMCAND fields: candidate 320292, Joann Waski, County, TERMINATED, Council Member (legacy candidate record). Committee/filer 320293, Friends of Joann Waski, County, ACTIVE, Authorized Single Candidate Committee. The TERMINATED tag is on the legacy candidate registration, not her current Town Board seat.",
-   "seedRaised": 19460.0,
-   "seedDirectContributions": 18460.0,
-   "seedTransfersIn": 1000.0,
-   "seedLastReported": "2024-01-10",
-   "photoUrl": "https://www.townofriverheadny.gov/ImageRepository/Document?documentID=195",
-   "seedLoansReceived": 0,
-   "seedOwed": 0,
-   "seedOwedReport": "2025 32-Day Pre-General",
-   "seedCycleRaised": 0,
-   "seedCycleItems": 0,
-   "seedInternalTransfers": 0,
-   "seedInKind": 0,
-   "seedRefunds": 0
+   "photoUrl": "https://www.townofriverheadny.gov/ImageRepository/Document?documentID=195"
   },
   {
    "name": "Denise Merrifield",
@@ -156,19 +108,7 @@
     }
    ],
    "note": "COMMCAND fields: candidate 319755, Denise M. Merrifield, County, TERMINATED, Council Member (legacy candidate record). Committee/filer 319756, Committee to Elect Denise Merrifield, County, TERMINATED, Authorized Single Candidate Committee. These TERMINATED tags are on the legacy campaign-finance registration, not her current Town Board seat.",
-   "seedRaised": 17579.75,
-   "seedDirectContributions": 15579.75,
-   "seedTransfersIn": 2000.0,
-   "seedLastReported": "2023-11-30",
-   "photoUrl": "https://www.townofriverheadny.gov/ImageRepository/Document?documentID=193",
-   "seedLoansReceived": 0,
-   "seedOwed": 0,
-   "seedOwedReport": "2023 27-Day Post-General",
-   "seedCycleRaised": 0,
-   "seedCycleItems": 0,
-   "seedInternalTransfers": 0,
-   "seedInKind": 0,
-   "seedRefunds": 0
+   "photoUrl": "https://www.townofriverheadny.gov/ImageRepository/Document?documentID=193"
   },
   {
    "name": "Riverhead Town Democratic Committee",
@@ -185,19 +125,7 @@
      "filerID": "13181"
     }
    ],
-   "note": "The local Democratic party committee. Shown here for completeness — no Petrocelli or Scott's Pointe project-interest contributions appear in the NY Open Data filings for this committee.",
-   "seedRaised": 460462.58,
-   "seedDirectContributions": 460462.58,
-   "seedTransfersIn": 0.0,
-   "seedLastReported": "2026-10-15",
-   "seedLoansReceived": 0,
-   "seedOwed": 0,
-   "seedOwedReport": "2026 11-Day Pre-General",
-   "seedCycleRaised": 17063.34,
-   "seedCycleItems": 178,
-   "seedInternalTransfers": 19794.76,
-   "seedInKind": 0,
-   "seedRefunds": 1000.0
+   "note": "The local Democratic party committee. Shown here for completeness — no Petrocelli or Scott's Pointe project-interest contributions appear in the NY Open Data filings for this committee."
   },
   {
    "name": "Riverhead Republican Committee",
@@ -214,19 +142,7 @@
      "filerID": "5418"
     }
    ],
-   "note": "The local party committee that nominates and supports Republican candidates for Town Board. Petrocelli and project-interest contributions to this committee fund the broader candidate pipeline, not a single election.",
-   "seedRaised": 771311.92,
-   "seedDirectContributions": 650393.6,
-   "seedTransfersIn": 120918.32,
-   "seedLastReported": "2026-07-07",
-   "seedLoansReceived": 12000.0,
-   "seedOwed": 0,
-   "seedOwedReport": "2026 11-Day Pre-General",
-   "seedCycleRaised": 9888.09,
-   "seedCycleItems": 13,
-   "seedInternalTransfers": 0,
-   "seedInKind": 122.63,
-   "seedRefunds": 1560.0
+   "note": "The local party committee that nominates and supports Republican candidates for Town Board. Petrocelli and project-interest contributions to this committee fund the broader candidate pipeline, not a single election."
   },
   {
    "name": "Tim Hubbard",
@@ -246,19 +162,7 @@
      "filerID": "3085"
     }
    ],
-   "note": "Sworn in as the Town's 64th Supervisor on January 1, 2024; lost the November 2025 election to Jerry Halpin by 37 votes after a recount. Combines two committees: filer 319970 (supervisor campaign, 2023–2026) and filer 3085 (council-era committee, 2015–2023).",
-   "seedRaised": 121547.68,
-   "seedDirectContributions": 120047.68,
-   "seedTransfersIn": 1500.0,
-   "seedLastReported": "2026-01-05",
-   "seedLoansReceived": 400.0,
-   "seedOwed": 0,
-   "seedOwedReport": "2026 July Periodic",
-   "seedCycleRaised": 3200.0,
-   "seedCycleItems": 6,
-   "seedInternalTransfers": 7686.52,
-   "seedInKind": 785.0,
-   "seedRefunds": 2190.0
+   "note": "Sworn in as the Town's 64th Supervisor on January 1, 2024; lost the November 2025 election to Jerry Halpin by 37 votes after a recount. Combines two committees: filer 319970 (supervisor campaign, 2023–2026) and filer 3085 (council-era committee, 2015–2023)."
   },
   {
    "name": "Jodi Giglio",
@@ -278,19 +182,7 @@
      "filerID": "3421"
     }
    ],
-   "note": "Riverhead Town Board committees only (filer 9841 and 3421). Her Assembly committees (Giglio For Assembly / filer 20584 and filer 4950) are excluded from this Riverhead-scope review. Last Riverhead-committee activity: February 2020.",
-   "seedRaised": 420371.04,
-   "seedDirectContributions": 419270.5,
-   "seedTransfersIn": 1100.54,
-   "seedLastReported": "2020-02-28",
-   "seedLoansReceived": 500.0,
-   "seedOwed": 0,
-   "seedOwedReport": "2023 July Periodic",
-   "seedCycleRaised": 0,
-   "seedCycleItems": 0,
-   "seedInternalTransfers": 1000.0,
-   "seedInKind": 1040.0,
-   "seedRefunds": 1185.0
+   "note": "Riverhead Town Board committees only (filer 9841 and 3421). Her Assembly committees (Giglio For Assembly / filer 20584 and filer 4950) are excluded from this Riverhead-scope review. Last Riverhead-committee activity: February 2020."
   },
   {
    "name": "Yvette Aguiar",
@@ -306,19 +198,7 @@
      "filerID": "18707"
     }
    ],
-   "note": "Served as Town Supervisor until 2023. Committee: Taxpayers For Aguiar, filer 18707.",
-   "seedRaised": 170818.0,
-   "seedDirectContributions": 170818.0,
-   "seedTransfersIn": 0,
-   "seedLastReported": "2022-12-27",
-   "seedLoansReceived": 76500.0,
-   "seedOwed": 20000.0,
-   "seedOwedReport": "2026 July Periodic",
-   "seedCycleRaised": 0,
-   "seedCycleItems": 0,
-   "seedInternalTransfers": 0,
-   "seedInKind": 1500.0,
-   "seedRefunds": 34063.0
+   "note": "Served as Town Supervisor until 2023. Committee: Taxpayers For Aguiar, filer 18707."
   },
   {
    "name": "Laura Jens-Smith",
@@ -338,24 +218,7 @@
      "filerID": "2378"
     }
    ],
-   "note": "Combines two registered committees under the same name: filer 17738 (primary 2020-era committee) and filer 2378 (earlier 2015–2019 committee).",
-   "seedRaised": 173635.13,
-   "seedDirectContributions": 173635.13,
-   "seedTransfersIn": 0.0,
-   "seedLastReported": "2020-12-09",
-   "seedLoansReceived": 25300.0,
-   "seedOwed": 0,
-   "seedOwedReport": "2022 January Periodic",
-   "seedCycleRaised": 0,
-   "seedCycleItems": 0,
-   "seedInternalTransfers": 17895.4,
-   "seedInKind": 1655.78,
-   "seedRefunds": 4000.0
+   "note": "Combines two registered committees under the same name: filer 17738 (primary 2020-era committee) and filer 2378 (earlier 2015–2019 committee)."
   }
- ],
- "totalsSource": {
-  "label": "New York State Board of Elections, Campaign Finance Disclosure Reports Data (data.ny.gov)",
-  "url": "https://data.ny.gov/Transparency/Campaign-Finance-Disclosure-Reports-Data-Beginning/e9ss-239a",
-  "fetchedOn": "2026-11-07"
- }
+ ]
 }

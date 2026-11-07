@@ -4,7 +4,8 @@ import CampaignFinance from '../../components/CampaignFinance'
 import EmployeeDonorWatch from '../../components/EmployeeDonorWatch'
 import UnofficialElectionResult from '../../components/UnofficialElectionResult'
 import { nextFilingDeadline, riverheadContributionLimits } from '../../lib/campaign-finance'
-import data from '../../public/data/campaign-finance.json'
+import CampaignSummaryTable from '../../components/CampaignSummaryTable'
+import { campaignFacts, campaignOfficials, totalsSource } from '../../lib/campaign-officials'
 import general2026 from '../../public/data/campaign-finance-2026-general.json'
 
 export const metadata = {
@@ -32,7 +33,7 @@ export default function CampaignFinancePage() {
   const deadline = nextFilingDeadline()
 
   return (
-    <PageShell title={data.title} subtitle={data.intro}>
+    <PageShell title={campaignFacts.title} subtitle={campaignFacts.intro}>
       <div style={{
         display: 'flex', alignItems: 'flex-start', gap: 12, flexWrap: 'wrap',
         padding: '14px 16px', marginBottom: 16, borderRadius: 14,
@@ -52,7 +53,7 @@ export default function CampaignFinancePage() {
         </div>
         <div style={{ flex: '0 1 230px', fontSize: 12, color: 'var(--rbl-text-muted)', lineHeight: 1.55 }}>
           <strong style={{ color: 'var(--rbl-title)' }}>Coverage</strong><br />
-          {data.campaignFilingStartYear}–{data.campaignFilingEndYear} · NY Open Data
+          {campaignFacts.startYear}–{campaignFacts.endYear} · NY Open Data
           <br />
           <a href="https://data.ny.gov" style={{ color: 'var(--rbl-accent)', fontWeight: 800 }}>Open data source ↗</a>
         </div>
@@ -74,14 +75,18 @@ export default function CampaignFinancePage() {
       <nav aria-label="Campaign finance page sections" style={{
         display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(205px, 1fr))', gap: 10, marginBottom: 24,
       }}>
-        <a href="#candidate-records" style={sectionLinkStyle}><span aria-hidden="true">01</span><span>Candidate & committee records</span></a>
-        <a href="#general-2026-reports" style={sectionLinkStyle}><span aria-hidden="true">01a</span><span>2026 General reports (32-Day, 11-Day)</span></a>
-        <a href="#employee-donors" style={sectionLinkStyle}><span aria-hidden="true">02</span><span>Town employee donor matches</span></a>
-        <a href="#contribution-limits" style={sectionLinkStyle}><span aria-hidden="true">03</span><span>Contribution limits</span></a>
+        <a href="#at-a-glance" style={sectionLinkStyle}><span aria-hidden="true">01</span><span>Every committee at a glance</span></a>
+        <a href="#candidate-records" style={sectionLinkStyle}><span aria-hidden="true">02</span><span>Candidate & committee records</span></a>
+        <a href="#general-2026-reports" style={sectionLinkStyle}><span aria-hidden="true">02a</span><span>2026 General reports (32-Day, 11-Day)</span></a>
+        <a href="#employee-donors" style={sectionLinkStyle}><span aria-hidden="true">03</span><span>Town employee donor matches</span></a>
+        <a href="#contribution-limits" style={sectionLinkStyle}><span aria-hidden="true">04</span><span>Contribution limits</span></a>
+        <a href="#reading-schedules" style={sectionLinkStyle}><span aria-hidden="true">05</span><span>Reading a filing</span></a>
         <a href="#data-notes" style={sectionLinkStyle}><span aria-hidden="true">i</span><span>Sources & interpretation</span></a>
       </nav>
 
       <UnofficialElectionResult />
+
+      <CampaignSummaryTable officials={campaignOfficials} startYear={campaignFacts.startYear} endYear={campaignFacts.endYear} source={totalsSource} />
 
       <section id="candidate-records" style={{ scrollMarginTop: 20 }}>
         <div style={{ marginBottom: 12 }}>
@@ -91,9 +96,9 @@ export default function CampaignFinancePage() {
           </p>
         </div>
         <CampaignFinance
-          officials={data.officials}
-          startYear={data.campaignFilingStartYear}
-          endYear={data.campaignFilingEndYear}
+          officials={campaignOfficials}
+          startYear={campaignFacts.startYear}
+          endYear={campaignFacts.endYear}
           generalReports={general2026}
         />
       </section>
@@ -106,9 +111,9 @@ export default function CampaignFinancePage() {
           </p>
         </div>
         <EmployeeDonorWatch
-          officials={data.officials}
-          startYear={data.campaignFilingStartYear}
-          endYear={data.campaignFilingEndYear}
+          officials={campaignOfficials}
+          startYear={campaignFacts.startYear}
+          endYear={campaignFacts.endYear}
         />
       </section>
 
@@ -179,7 +184,7 @@ export default function CampaignFinancePage() {
           </summary>
           <div style={{ color: 'var(--rbl-text-body)', fontSize: 13, lineHeight: 1.65, marginTop: 10 }}>
             <p>
-              The page uses New York State&apos;s open campaign-finance data from data.ny.gov, with a local snapshot for initial display and live refresh controls for updated records. Coverage shown here is {data.campaignFilingStartYear}–{data.campaignFilingEndYear}.
+              The page uses New York State&apos;s open campaign-finance data from data.ny.gov, with a local snapshot for initial display and live refresh controls for updated records. Coverage shown here is {campaignFacts.startYear}–{campaignFacts.endYear}.
             </p>
             <ul>
               <li>Candidate registrations and committee/filer records are separate records and may have different statuses.</li>

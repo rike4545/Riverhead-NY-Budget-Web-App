@@ -1,18 +1,19 @@
 """Rebuild the stored totals on each /campaign-finance/ card from the State's open data.
 
-Each committee card shows figures before a visitor presses Refresh: lifetime
-contributions and transfers, the latest transaction, the 2026 cycle, loans
-received and the balance still owed. Until now those were typed into
-web/public/data/campaign-finance.json by hand and fell behind (a card showed
-June totals after September and October reports were filed). This script
-computes them from data.ny.gov's Campaign Finance Disclosure Reports Data
-(dataset e9ss-239a), with the same schedules the live refresh uses:
+Each committee card, and the summary table above them, shows figures before a
+visitor presses Refresh: lifetime contributions and transfers, the latest
+contribution, the 2026 cycle, in-kind gifts, refunds, loans received and the
+balance still owed. This script computes them from data.ny.gov's Campaign
+Finance Disclosure Reports Data (dataset e9ss-239a) and writes them to
+web/public/data/campaign-finance-totals.json, apart from the facts typed by
+hand in campaign-finance.json (office, term, salary, notes, committees), which
+it only reads. It uses the same schedules as the live refresh:
 
   contributions   Schedules A, B and C (money from people, corporations, others)
   transfers in    Schedule G, apart from money moved between the official's own
                   committees: a card that combines an old and a new committee
                   already counts that money where it was first raised, so it is
-                  reported apart (seedInternalTransfers) and not added again
+                  reported apart (internalTransfers) and not added again
   in-kind gifts   Schedule D, shown on its own: goods and services, not money
   refunded        Schedule M, contributions the committee gave back
   loans received  Schedule I, summed: each row is new money
@@ -42,6 +43,7 @@ from build_campaign_reports import DATASET, SOURCE_PAGE, SourceUnavailable, file
 
 ROOT = Path(__file__).resolve().parent.parent
 OFFICIALS = ROOT / "web/public/data/campaign-finance.json"
+TOTALS = ROOT / "web/public/data/campaign-finance-totals.json"
 
 CONTRIBUTIONS = ("A", "B", "C")
 # The reports of one election year in the order they are filed. A report not
@@ -108,18 +110,18 @@ def totals(rows: list[dict], end_year: int, internal: float = 0) -> dict:
     owed = amount([r for r in latest_rows if r["filing_sched_abbrev"] == "N"])
     cycle = [r for r in of(CONTRIBUTIONS) if r["election_year"] == str(end_year)]
     return {
-        "seedRaised": round(direct + transfers, 2),
-        "seedDirectContributions": direct,
-        "seedTransfersIn": transfers,
-        "seedInternalTransfers": round(internal, 2),
-        "seedInKind": amount(of(("D",))),
-        "seedRefunds": amount(of(("M",))),
-        "seedLastReported": max(dated) if dated else None,
-        "seedLoansReceived": amount(of(("I",))),
-        "seedOwed": owed,
-        "seedOwedReport": f"{latest_rows[0]['election_year']} {latest_rows[0]['filing_desc']}" if latest_rows else None,
-        "seedCycleRaised": amount(cycle),
-        "seedCycleItems": sum(int(r.get("row_count") or 0) for r in cycle),
+        "raised": round(direct + transfers, 2),
+        "directContributions": direct,
+        "transfersIn": transfers,
+        "internalTransfers": round(internal, 2),
+        "inKind": amount(of(("D",))),
+        "refunds": amount(of(("M",))),
+        "lastContribution": max(dated) if dated else None,
+        "loansReceived": amount(of(("I",))),
+        "owed": owed,
+        "owedReport": f"{latest_rows[0]['election_year']} {latest_rows[0]['filing_desc']}" if latest_rows else None,
+        "cycleRaised": amount(cycle),
+        "cycleItems": sum(int(r.get("row_count") or 0) for r in cycle),
     }
 
 
@@ -131,32 +133,34 @@ def main() -> int:
         transfer_rows = json.loads(http_get(transfers_url(filer_ids(data), start, end)))
     except SourceUnavailable as exc:
         print(f"::warning title=Campaign finance totals not refreshed::{exc} "
-              f"{OFFICIALS.relative_to(ROOT)} keeps its last totals; the next run tries again.")
+              f"{TOTALS.relative_to(ROOT)} keeps its last totals; the next run tries again.")
         return 0
     rows = [r for r in raw if r.get("filing_sched_abbrev") and r.get("filing_desc") and r.get("election_year")]
     if not rows:
         print(f"::warning title=Campaign finance totals not refreshed::data.ny.gov returned no rows for these committees. "
-              f"{OFFICIALS.relative_to(ROOT)} keeps its last totals.")
+              f"{TOTALS.relative_to(ROOT)} keeps its last totals.")
         return 0
-    changed = []
+    committees = {}
     for official in data["officials"]:
-        ids = {ref["filerID"] for ref in official["filerIDs"]}
+        ids = [ref["filerID"] for ref in official["filerIDs"]]
         own_names = [ref["committeeName"] for ref in official["filerIDs"]]
         internal = internal_transfers([r for r in transfer_rows if r.get("filer_id") in ids], own_names)
-        new = totals([r for r in rows if r["filer_id"] in ids], end, internal)
-        if any(official.get(k) != v for k, v in new.items()):
-            changed.append(f"{official['name']}: {official.get('seedRaised')} -> {new['seedRaised']}")
-        official.update(new)
-    if not changed:
-        print(f"  {OFFICIALS.relative_to(ROOT)}: totals unchanged")
+        committees[official["name"]] = {"filerIDs": ids, **totals([r for r in rows if r["filer_id"] in ids], end, internal)}
+    published = json.loads(TOTALS.read_text(encoding="utf-8")) if TOTALS.exists() else None
+    if published and published.get("committees") == committees and published.get("window") == [start, end]:
+        print(f"  {TOTALS.relative_to(ROOT)}: totals unchanged")
         return 0
-    data["totalsSource"] = {
-        "label": "New York State Board of Elections, Campaign Finance Disclosure Reports Data (data.ny.gov)",
-        "url": SOURCE_PAGE,
+    out = {
+        "source": {
+            "label": "New York State Board of Elections, Campaign Finance Disclosure Reports Data (data.ny.gov)",
+            "url": SOURCE_PAGE,
+        },
         "fetchedOn": datetime.now(timezone.utc).date().isoformat(),
+        "window": [start, end],
+        "committees": committees,
     }
-    OFFICIALS.write_text(json.dumps(data, indent=1, ensure_ascii=False) + "\n", encoding="utf-8")
-    print(f"wrote {OFFICIALS.relative_to(ROOT)}: " + "; ".join(changed))
+    TOTALS.write_text(json.dumps(out, indent=1, ensure_ascii=False) + "\n", encoding="utf-8")
+    print(f"wrote {TOTALS.relative_to(ROOT)}: " + "; ".join(f"{name}: {c['raised']}" for name, c in committees.items()))
     return 0
 
 

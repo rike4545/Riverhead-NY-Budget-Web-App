@@ -19,7 +19,12 @@ const fail = (message) => { console.error(`CAMPAIGN REPORTS VERIFY FAILED: ${mes
 const read = (p) => JSON.parse(readFileSync(join(process.cwd(), p), 'utf8'))
 
 const store = read('public/data/campaign-finance-2026-general.json')
-const officials = read('public/data/campaign-finance.json').officials
+// Hand-typed facts and the figures the data refresh builds live in separate files
+// (lib/campaign-officials.ts joins them); the figures are read here under the names the cards use.
+const factsFile = read('public/data/campaign-finance.json')
+const totalsFile = read('public/data/campaign-finance-totals.json')
+const SEED = { raised: 'seedRaised', directContributions: 'seedDirectContributions', transfersIn: 'seedTransfersIn', internalTransfers: 'seedInternalTransfers', inKind: 'seedInKind', refunds: 'seedRefunds', lastContribution: 'seedLastReported', loansReceived: 'seedLoansReceived', owed: 'seedOwed', owedReport: 'seedOwedReport', cycleRaised: 'seedCycleRaised', cycleItems: 'seedCycleItems' }
+const officials = factsFile.officials.map((o) => ({ ...o, ...Object.fromEntries(Object.entries(totalsFile.committees[o.name] ?? {}).flatMap(([k, v]) => (SEED[k] ? [[SEED[k], v]] : []))) }))
 
 const REPORTS = { '32-Day Pre-General': '2026-09-28', '11-Day Pre-General': '2026-10-19', '27-Day Post-General': '2026-11-26' }
 if (store.election?.date !== '2026-11-03' || store.election?.electionYear !== '2026') fail('the stored file does not name the November 3, 2026 General Election')
@@ -69,6 +74,17 @@ else {
       if (!html.includes(usd(figure))) fail(`${o.name}'s card does not show ${usd(figure)}`)
     }
   }
+  // The figures stay out of the hand-typed file, and every committee is in the summary table.
+  for (const o of factsFile.officials) {
+    const typed = Object.keys(o).filter((k) => k.startsWith('seed'))
+    if (typed.length) fail(`${o.name}: campaign-finance.json holds figures (${typed.join(', ')}); they belong in campaign-finance-totals.json`)
+    const t = totalsFile.committees[o.name]
+    if (!t) { fail(`${o.name}: no totals in campaign-finance-totals.json; run etl/build_campaign_totals.py`); continue }
+    if (t.filerIDs.join() !== o.filerIDs.map((f) => f.filerID).join()) fail(`${o.name}: the totals cover filer IDs ${t.filerIDs.join(', ')}, not the committees listed`)
+  }
+  const table = html.slice(html.indexOf('Every committee at a glance'), html.indexOf('id="candidate-records"'))
+  if (!table.includes('Every committee at a glance')) fail('the page has no summary table')
+  for (const o of officials) if (!table.includes(usd(o.seedRaised))) fail(`the summary table does not show ${o.name}'s ${usd(o.seedRaised)}`)
   // The November 3, 2026 Supervisor result is shown, labelled unofficial until the County certifies it.
   if (!html.includes('data-unofficial-result') || !html.includes('Unofficial result of the November 3, 2026')) fail('the page does not show the unofficial November 3, 2026 Supervisor result')
   // The limits are the County's 2026 index for the Town of Riverhead, not the 2025 index or the Business Council's 2022 figures.
