@@ -283,7 +283,18 @@ const consentPath = path('public/data/consent-calendar.json')
 if (existsSync(consentPath)) {
   const consent = JSON.parse(readFileSync(consentPath, 'utf8'))
   if (!String(consent.riverheadPattern?.headline ?? '').includes('fixed sample')) fail('Consent-calendar data no longer labels the rotation analysis as a fixed sample')
-  if (consent.riverheadPattern?.totalMeetings !== 50) fail('Historical rotation sample size changed without recalculating the underlying analysis')
+  // etl/analyze_consent_calendar.py recomputes the rotation analysis from every parsed meeting on each
+  // run, so its meeting count grows as minutes are added. What must not happen is one figure changing
+  // without the rest: the percentage has to follow from the counts, and every sentence has to quote them.
+  const rp = consent.riverheadPattern ?? {}
+  const counts = `${rp.rotationMeetings} of ${rp.totalMeetings}`
+  if (!(rp.totalMeetings >= 50)) fail(`Historical rotation sample shrank to ${rp.totalMeetings} meetings; it covered 50 when it was introduced`)
+  if (!(rp.rotationMeetings <= rp.totalMeetings)) fail(`Rotation analysis counts ${rp.rotationMeetings} rotating meetings out of ${rp.totalMeetings}`)
+  if (rp.rotationMeetingsPct !== Math.round((rp.rotationMeetings / rp.totalMeetings) * 100)) fail(`Rotation percentage ${rp.rotationMeetingsPct}% does not follow from ${counts} meetings; the analysis was not recalculated`)
+  for (const [field, text] of [['headline', rp.headline], ['rotationFinding', rp.rotationFinding]]) {
+    if (!String(text ?? '').includes(counts)) fail(`Consent-calendar ${field} does not quote the recalculated ${counts} meetings`)
+  }
+  if (!String(consent.intro ?? '').includes(`sample of ${rp.totalMeetings} meetings`)) fail(`Consent-calendar intro does not quote the recalculated sample of ${rp.totalMeetings} meetings`)
 }
 
 if (process.exitCode) process.exit(process.exitCode)
