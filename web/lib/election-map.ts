@@ -18,9 +18,9 @@ export type Candidate = { name: string; party: string; lines: Record<string, num
 export type DistrictResult = { mapFeatureId: string | null; total: number; reporting: number | null; votes: Record<string, number> }
 export type Contest = { key: string; name: string; voteFor: number; candidates: Candidate[]; total: number; districts: Record<string, DistrictResult>; url: string }
 export type Election = {
-  id: string; label: string; date: string; official: boolean; asOf: string | null; url: string; contests: Contest[]
+  id: string; label: string; date: string | null; official: boolean; asOf: string | null; url: string; contests: Contest[]
   /** Set when the district counts come from a compilation rather than the Board's own results site (2024). */
-  districtSource?: { title: string; url: string; checks: string; boundaryOverlap: number }
+  districtSource?: { title: string; url: string; checks: string; boundaryOverlap: number; boundaryNote?: string }
 }
 export type HistoryCandidate = { name: string; lines: Record<string, number>; votes: number }
 export type SupervisorRace = { year: number; url: string; status: string; registered: number; votesCast: number; candidates: HistoryCandidate[] }
