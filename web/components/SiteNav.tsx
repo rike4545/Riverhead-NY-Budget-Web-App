@@ -27,7 +27,7 @@ const GROUPS: Group[] = [
   { label: 'Government', links: [
     ['Resident Answers', `${base}/answers/`], ['Organization Chart', `${base}/workforce-by-title/#organization`], ['Town Jobs & Staffing', `${base}/workforce-by-title/`], ['Elected Officials & Pensions', `${base}/officials/`], ['Management Salaries & Benefits', `${base}/management-compensation/`], ['Fringe Benefits', `${base}/fringe-benefits/`],
     ['2026 Buyout', `${base}/buyout/`], ['Police Spending & Crime', `${base}/police-crime/`], ['School Resource Officers', `${base}/school-resource-officers/`], ['Supervisors & Council History', `${base}/town-history/`], ['Board Elections', `${base}/board-elections/`], ['Election Map', `${base}/election-map/`],
-    ['Campaign Finance', `${base}/campaign-finance/`], ['Candidate Watch', `${base}/candidate-watch/`], ['Candidate Proposals', `${base}/candidate-cost-benefit/`],
+    ['Campaign Finance', `${base}/campaign-finance/`], ['Donation Map', `${base}/donation-map/`], ['Candidate Watch', `${base}/candidate-watch/`], ['Candidate Proposals', `${base}/candidate-cost-benefit/`],
     ['Supervisor’s Promises', `${base}/supervisor-promises/`], ['Open Meetings Law', `${base}/open-meetings/`],
   ] },
   { label: 'Research', links: [

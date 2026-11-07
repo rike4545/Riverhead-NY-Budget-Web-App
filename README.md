@@ -147,6 +147,22 @@ How the earlier years are checked:
 - **2025:** the County's figures are its election-night count, so the page
   gives the certified totals beside them.
 
+### 💵 Donation map — `/donation-map`
+Where each Town Board candidate's and party committee's itemized contributions
+came from, by ZIP code. Pick a committee and a year, or every year since 2005,
+and the map shades the ZIP code areas around Riverhead.
+
+- **Breakdown:** money from ZIP codes that reach into the Town, from elsewhere
+  in New York and from other states.
+- **Table:** the ZIP codes that gave the most.
+- **Comparison:** how much of each committee's money came from Riverhead ZIP
+  codes.
+
+The figures are grouped by the ZIP code on each filing, never by name or
+address. Each committee's total equals the "direct contributions" on its
+campaign-finance card. ZIP codes cross town lines (Wading River, Calverton and
+Manorville reach into Brookhaven), and the page says so.
+
 ### 📈 Turnout — `/election-map#turnout`
 Riverhead's turnout in every November election since 2013, from the County
 Board of Elections' final results pages. Each year's figure is the votes cast
@@ -441,6 +457,7 @@ The four links at the front of the site menu:
 - **Election Law Case** (`/election-law-case`): what the Town spent fighting New York's even-year election law.
 - **Legal Costs** (`/legal-costs`): outside lawyers, the Town Attorney's office and claims, 2018 to the 2027 Preliminary, and the Board's votes on counsel and settlements.
 - **Regional CPF Counsel** (`/regional-cpf-counsel`): the regional Community Preservation Fund attorney the 2024 state law requires, the contract the Board tabled, and the home rule question.
+- **Donation Map** (`/donation-map`): where each committee's itemized contributions came from, by ZIP code, with a committee and year picker, from the State Board of Elections' filings.
 - **Election Map** (`/election-map`): Riverhead's 22 election districts, colored by who led, a candidate's share or the votes cast, in fifteen contests from 2013 to 2026 (including the 2024 presidential race). Compare sets any two candidates and years against each other, district by district. The page also lists every Supervisor race since 2013 and charts Riverhead's turnout in every November election since 2013.
 - **Officials on Social Media** (`/official-social-media`): when an official's account counts as government speech.
 - **Know Your Rights (ICE)** (`/know-your-rights`): your rights if immigration agents come, and New York's 2026 protections.
@@ -610,9 +627,11 @@ Every page shows when its data was last refreshed.
 | `parse_police_crime.py` | Police spending next to reported Index crime. The State's figures are fetched at most weekly; if data.ny.gov cannot be reached, they stay as last fetched and the run shows a warning |
 | `build_campaign_reports.py` | Each committee's 2026 General Election reports from data.ny.gov, by report and schedule. If data.ny.gov cannot be reached, the last copy stays and the run shows a warning |
 | `build_campaign_totals.py` | Each committee's stored figures on `/campaign-finance/`: what it raised, refunded and borrowed, its in-kind gifts, and what it owed at its latest report. It writes `campaign-finance-totals.json` and never the hand-typed `campaign-finance.json`. The rules match the page's live Refresh: money moved between one official's own committees is not counted twice. If data.ny.gov cannot be reached, the last figures stay |
+| `build_donation_map.py` | Each committee's itemized contributions (Schedules A to C) by ZIP code and year, from the same data.ny.gov dataset, for `/donation-map/` (`campaign-donations-by-zip.json`). No names or addresses are kept. If data.ny.gov cannot be reached, the last file stays |
 | `build_election_map.py` | Riverhead's 22 election-district boundaries from the County GIS (`riverhead-districts.json`) and each district's votes in the 2026 and 2025 general elections from the Board of Elections' results site, plus every Supervisor race and each November's turnout since 2013 from the County's final results pages (`riverhead-map.json`), for `/election-map/`. A candidate on several party lines is counted once. If a source cannot be reached, its file stays as it was |
 | `import_2024_results.py` | Run by hand: Riverhead's 2024 President and 1st Congressional District results by district, from Benjamin J. Rosenblatt's statewide compilation (`riverhead-2024.json`). It writes nothing unless Suffolk's totals equal the County's final 2024 results exactly and the 2024 districts match today's to 99% |
 | `import_past_supervisor.py` | Run by hand: the 2013, 2015 and 2017 Supervisor races by district, from OpenElections' transcription of the County's precinct returns (`riverhead-supervisor-past.json`). It writes nothing unless each candidate's Town total equals the County's final page exactly and the Census Bureau's 2010 and 2020 voting-district maps match today's districts |
+| `import_zip_areas.py` | Run by hand: the Census Bureau's 2020 ZIP code areas around Riverhead, simplified for the web, each with the share of the Town it covers (`geo/riverhead-zip-areas.json`) |
 | `build_contract_awards.py` | The `/contracts/` list of bid awards and agreements, from freshly downloaded agenda packets |
 | `parse_road_spending.py` | Highway spending per maintained mile for the ten Suffolk towns, from State Comptroller filings and NYSDOT's road inventory |
 | `build_search_index.py` | The sharded search index |
