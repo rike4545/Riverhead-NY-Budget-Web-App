@@ -22,7 +22,7 @@ const GROUPS: Group[] = [
     ['Main Operating Fund', `${base}/general-fund/`], ['Town Revenue', `${base}/revenue/`], ['Annual Report', `${base}/annual-report/`], ['Property-Tax Cap', `${base}/tax-cap/`],
     ['Savings & Reserves', `${base}/reserves/`], ['How Savings Were Used', `${base}/fund-balance-draws/`], ['Ambulance Funding', `${base}/rvac-funding/`], ['Approved Budget Changes', `${base}/budget-changes/`], ['Projects & Borrowing', `${base}/capital-debt/`], ['Town Square', `${base}/town-square/`],
     ['Road Spending', `${base}/road-spending/`], ['Community Preservation Fund', `${base}/community-preservation-fund/`],
-    ['Community Housing Plan', `${base}/housing-plan/`], ['Community', `${base}/community/`], ['Preserved Land', `${base}/preserved-land/`],
+    ['Community Housing Plan', `${base}/housing-plan/`], ['Community', `${base}/community/`], ['Preserved Land', `${base}/preserved-land/`], ['Transfer of Development Rights', `${base}/tdr/`],
   ] },
   { label: 'Government', links: [
     ['Resident Answers', `${base}/answers/`], ['Organization Chart', `${base}/workforce-by-title/#organization`], ['Town Jobs & Staffing', `${base}/workforce-by-title/`], ['Elected Officials & Pensions', `${base}/officials/`], ['Management Salaries & Benefits', `${base}/management-compensation/`], ['Fringe Benefits', `${base}/fringe-benefits/`],
@@ -34,7 +34,7 @@ const GROUPS: Group[] = [
     ['Start Here', `${base}/guide/`], ['2027 Budget Forecast', `${base}/predict-2027/`], ['2027 Budget Amendments', `${base}/budget-amendments-2027/`], ['Review of the Tax-Cap Letter', `${base}/tax-cap-letter/`], ['Brookhaven’s 2027 Tentative', `${base}/brookhaven-2027/`], ['Southold’s 2027 Tentative', `${base}/southold-2027/`], ['How the Town Approves Its Budget', `${base}/budget-adoption/`], ['Budget Scenario Tool', `${base}/scenarios/`],
     ['2027 Spending Reduction', `${base}/spending-reduction-2027/`], ['Zero or 1% for 2027', `${base}/zero-percent-2027/`],
     ['Credit Rating', `${base}/credit-rating/`], ['Unusual Spending Patterns', `${base}/outliers/`], ['Budget vs. Actual Spending', `${base}/budget-accuracy/`], ['Cost of Board Decisions', `${base}/fiscal-impact/`], ['Contracts & Bids', `${base}/contracts/`],
-    ['Budget Flow', `${base}/budget-flow/`], ['Legal Costs', `${base}/legal-costs/`], ['Regional CPF Counsel', `${base}/regional-cpf-counsel/`],
+    ['Budget Flow', `${base}/budget-flow/`], ['Assessment Roll', `${base}/assessment/`], ['Legal Costs', `${base}/legal-costs/`], ['Regional CPF Counsel', `${base}/regional-cpf-counsel/`],
   ] },
   { label: 'Sources', links: [
     ['Original Documents', `${base}/sources/`], ['Records the Town Has Not Published', `${base}/records/`], ['Downloads', `${base}/downloads/`], ['Data Quality & Freshness', `${base}/data-quality/`],

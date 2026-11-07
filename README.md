@@ -165,6 +165,24 @@ holds every meeting. The page shows:
 
 Abstentions can be recusals, and the page says so.
 
+### 🏠 Assessment roll — `/assessment`
+Graphs from the Assessor's 2026 tentative and final assessment rolls, totals
+only: 16,562 parcels assessed at $1,136,208,305, about $14.7 billion of
+market value at the Town's 7.73% uniform percentage. The page shows market
+value by property class, the spread of one-family home values (median
+$598,965), exemptions from the Town tax by kind, what changed between the
+tentative and final rolls, and the school districts. Every parcel record is
+added up by class, and the sums must equal the roll's own section totals.
+
+### 🔁 Transfer of development rights — `/tdr`
+How Riverhead's TDR program trades farmland for building room. It covers:
+- which land can sell credits (the Agricultural Protection Zone, one credit an acre);
+- where credits can be used and what one buys (3,000 sq. ft. on Route 58 since December 2024);
+- what a credit costs (about $80,000, the Town's planners say);
+- how many are outstanding (about 43 in 2023), and that there is no TDR bank;
+- the Walmart expansion, row by row from its site plan: 46.212 credits
+  needed, 44.9 held, 1.312 more to buy, with a public hearing on November 19, 2026.
+
 ### 💸 Budget flow — `/budget-flow`
 One diagram of the 2027 Preliminary budget. Its $120,854,219 runs from the
 kind of revenue, through each fund, to what it pays for. Revenue and spending
@@ -485,6 +503,8 @@ The four links at the front of the site menu:
 - **Preserved Land** (`/preserved-land`): every preserved farm parcel, by who holds the rights and when.
 - **Board Votes** (`/board-votes`): how each member voted when the Board did not agree, and who votes with whom.
 - **Budget Flow** (`/budget-flow`): the 2027 Preliminary budget from revenue, through the funds, to spending.
+- **Assessment Roll** (`/assessment`): market value by property class, exemptions, home values and what changed between the 2026 tentative and final rolls.
+- **Transfer of Development Rights** (`/tdr`): sending and receiving districts, what a credit buys and costs, credits outstanding, and the Walmart expansion.
 - **Donation Map** (`/donation-map`): where each committee's itemized contributions came from, by ZIP code, with a committee and year picker, from the State Board of Elections' filings.
 - **Election Map** (`/election-map`): Riverhead's 22 election districts, colored by who led, a candidate's share or the votes cast, in fifteen contests from 2013 to 2026 (including the 2024 presidential race). Compare sets any two candidates and years against each other, district by district. The page also lists every Supervisor race since 2013 and charts Riverhead's turnout in every November election since 2013.
 - **Officials on Social Media** (`/official-social-media`): when an official's account counts as government speech.
@@ -658,6 +678,7 @@ Every page shows when its data was last refreshed.
 | `build_donation_map.py` | Each committee's itemized contributions (Schedules A to C) by ZIP code and year, from the same data.ny.gov dataset, for `/donation-map/` (`campaign-donations-by-zip.json`). No names or addresses are kept. If data.ny.gov cannot be reached, the last file stays |
 | `build_preserved_land.py` | Riverhead's preserved-farmland parcels from the County GIS (`geo/riverhead-preserved-farmland.json`), with who holds the rights, acres, year and hamlet, never the address. If the GIS cannot be reached, the last file stays |
 | `build_vote_agreement.py` | Each contested resolution since 2025 and how often each pair of Board members voted alike (`vote-agreement.json`), from the site's own voting record; it reruns whenever the meeting records change |
+| `build_assessment_roll.py` | Run by hand when the Assessor posts a roll (tentative by May 1, final in September): town-wide totals from the 2026 tentative and final rolls (`assessment-roll-2026.json`) by property class, roll section, school district and exemption, and the spread of one-family home values. No owner, address or single parcel's value is kept. It writes nothing unless the parcel records add to the roll's own section totals. Needs `pdftotext` |
 | `build_election_map.py` | Riverhead's 22 election-district boundaries from the County GIS (`riverhead-districts.json`) and each district's votes in the 2026 and 2025 general elections from the Board of Elections' results site, plus every Supervisor race and each November's turnout since 2013 from the County's final results pages (`riverhead-map.json`), for `/election-map/`. A candidate on several party lines is counted once. If a source cannot be reached, its file stays as it was |
 | `import_2024_results.py` | Run by hand: Riverhead's 2024 President and 1st Congressional District results by district, from Benjamin J. Rosenblatt's statewide compilation (`riverhead-2024.json`). It writes nothing unless Suffolk's totals equal the County's final 2024 results exactly and the 2024 districts match today's to 99% |
 | `import_past_supervisor.py` | Run by hand: the 2013, 2015 and 2017 Supervisor races by district, from OpenElections' transcription of the County's precinct returns (`riverhead-supervisor-past.json`). It writes nothing unless each candidate's Town total equals the County's final page exactly and the Census Bureau's 2010 and 2020 voting-district maps match today's districts |

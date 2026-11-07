@@ -70,6 +70,7 @@ jobs:
           python etl/test_election_map.py
           python etl/test_donation_map.py
           python etl/test_new_views.py
+          python etl/test_assessment_roll.py
           python etl/test_fetch_upcoming.py
           python etl/test_push_data.py
           python etl/test_pdf_limits.py
