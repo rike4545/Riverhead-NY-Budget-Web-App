@@ -165,6 +165,20 @@ holds every meeting. The page shows:
 
 Abstentions can be recusals, and the page says so.
 
+### 🎁 Grants — `/grants`
+Grants and State and federal aid the Town received from 2018 to 2025:
+$26.83 million, rising from $1.65 million in 2018 to $7.42 million
+in 2025. The figures come from the Town's own Annual Financial Reports to the
+State Comptroller. Mortgage tax and State revenue sharing are left out as
+general aid. The page shows:
+- the total received each year, State and federal;
+- what the money paid for, by fund and revenue code;
+- every grant, State aid allocation and County agreement the Town Board
+  accepted since January 2025, with the award, what was received where a
+  record says, and the cost share where the resolution states one;
+- the federal awards in the Town's 2025 single audit, from the Federal Audit
+  Clearinghouse, which match the federal aid the Town reported to the dollar.
+
 ### 🏠 Assessment roll — `/assessment`
 Graphs from the Assessor's 2026 tentative and final assessment rolls, totals
 only: 16,562 parcels assessed at $1,136,208,305, about $14.7 billion of
@@ -503,6 +517,7 @@ The four links at the front of the site menu:
 - **Preserved Land** (`/preserved-land`): every preserved farm parcel, by who holds the rights and when.
 - **Board Votes** (`/board-votes`): how each member voted when the Board did not agree, and who votes with whom.
 - **Budget Flow** (`/budget-flow`): the 2027 Preliminary budget from revenue, through the funds, to spending.
+- **Grants** (`/grants`): grants and State and federal aid received since 2018, and each grant the Board accepted since 2025 with its award and cost share.
 - **Assessment Roll** (`/assessment`): market value by property class, exemptions, home values and what changed between the 2026 tentative and final rolls.
 - **Transfer of Development Rights** (`/tdr`): sending and receiving districts, what a credit buys and costs, credits outstanding, and the Walmart expansion.
 - **Donation Map** (`/donation-map`): where each committee's itemized contributions came from, by ZIP code, with a committee and year picker, from the State Board of Elections' filings.
@@ -678,6 +693,7 @@ Every page shows when its data was last refreshed.
 | `build_donation_map.py` | Each committee's itemized contributions (Schedules A to C) by ZIP code and year, from the same data.ny.gov dataset, for `/donation-map/` (`campaign-donations-by-zip.json`). No names or addresses are kept. If data.ny.gov cannot be reached, the last file stays |
 | `build_preserved_land.py` | Riverhead's preserved-farmland parcels from the County GIS (`geo/riverhead-preserved-farmland.json`), with who holds the rights, acres, year and hamlet, never the address. If the GIS cannot be reached, the last file stays |
 | `build_vote_agreement.py` | Each contested resolution since 2025 and how often each pair of Board members voted alike (`vote-agreement.json`), from the site's own voting record; it reruns whenever the meeting records change |
+| `build_grants.py` | Grants and State and federal aid the Town received each year since 2018, by revenue account, from the State Comptroller's data, and each single audit's federal awards from the Federal Audit Clearinghouse (`grants-received.json`). It stops if an audit's federal total differs from the Comptroller's. If a source cannot be reached, the last file stays. The award-by-award list (`grants-awards.json`) is hand-curated from Board resolutions |
 | `build_assessment_roll.py` | Run by hand when the Assessor posts a roll (tentative by May 1, final in September): town-wide totals from the 2026 tentative and final rolls (`assessment-roll-2026.json`) by property class, roll section, school district and exemption, and the spread of one-family home values. No owner, address or single parcel's value is kept. It writes nothing unless the parcel records add to the roll's own section totals. Needs `pdftotext` |
 | `build_election_map.py` | Riverhead's 22 election-district boundaries from the County GIS (`riverhead-districts.json`) and each district's votes in the 2026 and 2025 general elections from the Board of Elections' results site, plus every Supervisor race and each November's turnout since 2013 from the County's final results pages (`riverhead-map.json`), for `/election-map/`. A candidate on several party lines is counted once. If a source cannot be reached, its file stays as it was |
 | `import_2024_results.py` | Run by hand: Riverhead's 2024 President and 1st Congressional District results by district, from Benjamin J. Rosenblatt's statewide compilation (`riverhead-2024.json`). It writes nothing unless Suffolk's totals equal the County's final 2024 results exactly and the 2024 districts match today's to 99% |

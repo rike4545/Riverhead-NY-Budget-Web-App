@@ -136,6 +136,11 @@ jobs:
       # A failed download keeps the last file.
       - name: Refresh the preserved-land map
         run: python etl/build_preserved_land.py
+      # Grants and State and federal aid received (/grants/), from the State
+      # Comptroller's data and the Federal Audit Clearinghouse. A failed
+      # download keeps the last file.
+      - name: Refresh grants received
+        run: python etl/build_grants.py
       # How Board members voted when they did not agree (/board-votes/), from
       # the voting record rebuilt above.
       - name: Rebuild the Board vote comparison

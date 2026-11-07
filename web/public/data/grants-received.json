@@ -1,0 +1,1268 @@
+{
+ "sources": {
+  "osc": {
+   "title": "Office of the State Comptroller, Financial Data for Local Governments",
+   "url": "https://www.osc.ny.gov/local-government/data"
+  },
+  "fac": {
+   "title": "Federal Audit Clearinghouse, single audit search",
+   "url": "https://app.fac.gov/dissemination/search/"
+  }
+ },
+ "generalAidAccounts": {
+  "3001": "State revenue sharing (Aid and Incentives for Municipalities)",
+  "3005": "Mortgage tax"
+ },
+ "years": [
+  {
+   "year": 2018,
+   "state": 1037461.04,
+   "federal": 613835.8,
+   "total": 1651296.84,
+   "generalAid": 1406329.88,
+   "byPurpose": {
+    "Roads and highways": 561230.1,
+    "Parks, youth and recreation": 378364.48,
+    "Community development (CDBG and HOME housing)": 208169.0,
+    "Police and public safety": 167683.7,
+    "Senior programs": 164369.13,
+    "Disaster recovery (FEMA and State)": 133233.77,
+    "Other State and federal aid": 38246.66
+   },
+   "accounts": [
+    {
+     "code": "H3501",
+     "name": "State Aid Consolidated Highway Aid",
+     "level": "State Aid",
+     "category": "State Aid - Transportation",
+     "amount": 561230.1,
+     "purpose": "Roads and highways"
+    },
+    {
+     "code": "H3897",
+     "name": "State Aid Culture and Recreation Capital Projects",
+     "level": "State Aid",
+     "category": "State Aid - Culture And Recreation",
+     "amount": 378364.48,
+     "purpose": "Parks, youth and recreation"
+    },
+    {
+     "code": "CD4089",
+     "name": "Federal Aid Other",
+     "level": "Federal Aid",
+     "category": "Miscellaneous Federal Aid",
+     "amount": 208169.0,
+     "purpose": "Community development (CDBG and HOME housing)"
+    },
+    {
+     "code": "A4389",
+     "name": "Federal Aid Other Public Safety",
+     "level": "Federal Aid",
+     "category": "Federal Aid - Public Safety",
+     "amount": 132615.7,
+     "purpose": "Police and public safety"
+    },
+    {
+     "code": "A4772",
+     "name": "Federal Aid Programs for Aging",
+     "level": "Federal Aid",
+     "category": "Federal Aid - Community Services",
+     "amount": 132493.65,
+     "purpose": "Senior programs"
+    },
+    {
+     "code": "H4960",
+     "name": "Federal Aid Emergency Disaster Assistance",
+     "level": "Federal Aid",
+     "category": "Federal Aid - Public Safety",
+     "amount": 115611.0,
+     "purpose": "Disaster recovery (FEMA and State)"
+    },
+    {
+     "code": "A3389",
+     "name": "State Aid Other Public Safety",
+     "level": "State Aid",
+     "category": "State Aid - Public Safety",
+     "amount": 34738.0,
+     "purpose": "Police and public safety"
+    },
+    {
+     "code": "A3772",
+     "name": "State Aid Programs for Aging",
+     "level": "State Aid",
+     "category": "State Aid - Community Services",
+     "amount": 31875.48,
+     "purpose": "Senior programs"
+    },
+    {
+     "code": "A3910",
+     "name": "State Aid Conservation Programs",
+     "level": "State Aid",
+     "category": "State Aid - Community Services",
+     "amount": 30922.98,
+     "purpose": "Other State and federal aid"
+    },
+    {
+     "code": "A4960",
+     "name": "Federal Aid Emergency Disaster Assistance",
+     "level": "Federal Aid",
+     "category": "Federal Aid - Public Safety",
+     "amount": 17622.77,
+     "purpose": "Disaster recovery (FEMA and State)"
+    },
+    {
+     "code": "ST4089",
+     "name": "Federal Aid Other",
+     "level": "Federal Aid",
+     "category": "Miscellaneous Federal Aid",
+     "amount": 7323.68,
+     "purpose": "Other State and federal aid"
+    },
+    {
+     "code": "H3397",
+     "name": "State Aid Public Safety Capital Projects",
+     "level": "State Aid",
+     "category": "State Aid - Public Safety",
+     "amount": 330.0,
+     "purpose": "Police and public safety"
+    }
+   ],
+   "general": [
+    {
+     "code": "A3001",
+     "name": "State Aid Revenue Sharing",
+     "level": "State Aid",
+     "category": "Unrestricted State Aid",
+     "amount": 107028.0
+    },
+    {
+     "code": "A3005",
+     "name": "State Aid Mortgage Tax",
+     "level": "State Aid",
+     "category": "Mortgage Tax",
+     "amount": 1299301.88
+    }
+   ],
+   "snapshot": "2026-10-30"
+  },
+  {
+   "year": 2019,
+   "state": 732866.0,
+   "federal": 506625.73,
+   "total": 1239491.73,
+   "generalAid": 1266291.76,
+   "byPurpose": {
+    "Parks, youth and recreation": 571033.16,
+    "Community development (CDBG and HOME housing)": 313415.13,
+    "Senior programs": 248627.23,
+    "Police and public safety": 86244.02,
+    "Other State and federal aid": 20172.19
+   },
+   "accounts": [
+    {
+     "code": "H3897",
+     "name": "State Aid Culture and Recreation Capital Projects",
+     "level": "State Aid",
+     "category": "State Aid - Culture And Recreation",
+     "amount": 571033.16,
+     "purpose": "Parks, youth and recreation"
+    },
+    {
+     "code": "CD4089",
+     "name": "Federal Aid Other",
+     "level": "Federal Aid",
+     "category": "Miscellaneous Federal Aid",
+     "amount": 304791.71,
+     "purpose": "Community development (CDBG and HOME housing)"
+    },
+    {
+     "code": "A4772",
+     "name": "Federal Aid Programs for Aging",
+     "level": "Federal Aid",
+     "category": "Federal Aid - Community Services",
+     "amount": 159316.39,
+     "purpose": "Senior programs"
+    },
+    {
+     "code": "A3772",
+     "name": "State Aid Programs for Aging",
+     "level": "State Aid",
+     "category": "State Aid - Community Services",
+     "amount": 89310.84,
+     "purpose": "Senior programs"
+    },
+    {
+     "code": "A3389",
+     "name": "State Aid Other Public Safety",
+     "level": "State Aid",
+     "category": "State Aid - Public Safety",
+     "amount": 69094.31,
+     "purpose": "Police and public safety"
+    },
+    {
+     "code": "A4389",
+     "name": "Federal Aid Other Public Safety",
+     "level": "Federal Aid",
+     "category": "Federal Aid - Public Safety",
+     "amount": 17149.71,
+     "purpose": "Police and public safety"
+    },
+    {
+     "code": "CM4089",
+     "name": "Federal Aid Other",
+     "level": "Federal Aid",
+     "category": "Miscellaneous Federal Aid",
+     "amount": 16744.5,
+     "purpose": "Other State and federal aid"
+    },
+    {
+     "code": "CD4989",
+     "name": "Federal Aid Other Home and Community Services",
+     "level": "Federal Aid",
+     "category": "Federal Aid - Community Services",
+     "amount": 8623.42,
+     "purpose": "Community development (CDBG and HOME housing)"
+    },
+    {
+     "code": "A3910",
+     "name": "State Aid Conservation Programs",
+     "level": "State Aid",
+     "category": "State Aid - Community Services",
+     "amount": 2325.78,
+     "purpose": "Other State and federal aid"
+    },
+    {
+     "code": "CM3089",
+     "name": "State Aid Other",
+     "level": "State Aid",
+     "category": "Miscellaneous State Aid",
+     "amount": 1101.91,
+     "purpose": "Other State and federal aid"
+    }
+   ],
+   "general": [
+    {
+     "code": "A3005",
+     "name": "State Aid Mortgage Tax",
+     "level": "State Aid",
+     "category": "Mortgage Tax",
+     "amount": 1266291.76
+    }
+   ],
+   "snapshot": "2026-10-30"
+  },
+  {
+   "year": 2020,
+   "state": 1113492.6,
+   "federal": 109412.0,
+   "total": 1222904.6,
+   "generalAid": 1379039.04,
+   "byPurpose": {
+    "Roads and highways": 595620.57,
+    "Senior programs": 427430.0,
+    "Community development (CDBG and HOME housing)": 80508.0,
+    "Sewer district": 77375.0,
+    "Police and public safety": 26971.03,
+    "Other State and federal aid": 15000.0
+   },
+   "accounts": [
+    {
+     "code": "H3591",
+     "name": "State Aid Highway Capital Projects",
+     "level": "State Aid",
+     "category": "State Aid - Transportation",
+     "amount": 595620.57,
+     "purpose": "Roads and highways"
+    },
+    {
+     "code": "A3772",
+     "name": "State Aid Programs for Aging",
+     "level": "State Aid",
+     "category": "State Aid - Community Services",
+     "amount": 400376.0,
+     "purpose": "Senior programs"
+    },
+    {
+     "code": "ES3901",
+     "name": "State Aid Operation and Maintenance of Sewer Treatment Plant",
+     "level": "State Aid",
+     "category": "State Aid - Sanitation",
+     "amount": 77375.0,
+     "purpose": "Sewer district"
+    },
+    {
+     "code": "CD4089",
+     "name": "Federal Aid Other",
+     "level": "Federal Aid",
+     "category": "Miscellaneous Federal Aid",
+     "amount": 72358.0,
+     "purpose": "Community development (CDBG and HOME housing)"
+    },
+    {
+     "code": "A4772",
+     "name": "Federal Aid Programs for Aging",
+     "level": "Federal Aid",
+     "category": "Federal Aid - Community Services",
+     "amount": 27054.0,
+     "purpose": "Senior programs"
+    },
+    {
+     "code": "A3389",
+     "name": "State Aid Other Public Safety",
+     "level": "State Aid",
+     "category": "State Aid - Public Safety",
+     "amount": 16971.03,
+     "purpose": "Police and public safety"
+    },
+    {
+     "code": "A3910",
+     "name": "State Aid Conservation Programs",
+     "level": "State Aid",
+     "category": "State Aid - Community Services",
+     "amount": 15000.0,
+     "purpose": "Other State and federal aid"
+    },
+    {
+     "code": "A4389",
+     "name": "Federal Aid Other Public Safety",
+     "level": "Federal Aid",
+     "category": "Federal Aid - Public Safety",
+     "amount": 10000.0,
+     "purpose": "Police and public safety"
+    },
+    {
+     "code": "CD3389",
+     "name": "State Aid Other Public Safety",
+     "level": "State Aid",
+     "category": "State Aid - Public Safety",
+     "amount": 8150.0,
+     "purpose": "Community development (CDBG and HOME housing)"
+    }
+   ],
+   "general": [
+    {
+     "code": "A3005",
+     "name": "State Aid Mortgage Tax",
+     "level": "State Aid",
+     "category": "Mortgage Tax",
+     "amount": 1379039.04
+    }
+   ],
+   "snapshot": "2026-10-30"
+  },
+  {
+   "year": 2021,
+   "state": 1102327.43,
+   "federal": 740158.92,
+   "total": 1842486.35,
+   "generalAid": 2184470.0,
+   "byPurpose": {
+    "Roads and highways": 533600.0,
+    "Sewer district": 375028.06,
+    "Senior programs": 359595.04,
+    "Disaster recovery (FEMA and State)": 259745.98,
+    "Community development (CDBG and HOME housing)": 255968.47,
+    "Other State and federal aid": 21010.5,
+    "Police and public safety": 18500.0,
+    "Water district": 17400.3,
+    "Parks, youth and recreation": 1638.0
+   },
+   "accounts": [
+    {
+     "code": "H3591",
+     "name": "State Aid Highway Capital Projects",
+     "level": "State Aid",
+     "category": "State Aid - Transportation",
+     "amount": 533600.0,
+     "purpose": "Roads and highways"
+    },
+    {
+     "code": "ES3901",
+     "name": "State Aid Operation and Maintenance of Sewer Treatment Plant",
+     "level": "State Aid",
+     "category": "State Aid - Sanitation",
+     "amount": 375028.06,
+     "purpose": "Sewer district"
+    },
+    {
+     "code": "CD4089",
+     "name": "Federal Aid Other",
+     "level": "Federal Aid",
+     "category": "Miscellaneous Federal Aid",
+     "amount": 255968.47,
+     "purpose": "Community development (CDBG and HOME housing)"
+    },
+    {
+     "code": "A4772",
+     "name": "Federal Aid Programs for Aging",
+     "level": "Federal Aid",
+     "category": "Federal Aid - Community Services",
+     "amount": 228136.49,
+     "purpose": "Senior programs"
+    },
+    {
+     "code": "DA4960",
+     "name": "Federal Aid Emergency Disaster Assistance",
+     "level": "Federal Aid",
+     "category": "Federal Aid - Public Safety",
+     "amount": 188083.06,
+     "purpose": "Disaster recovery (FEMA and State)"
+    },
+    {
+     "code": "A3772",
+     "name": "State Aid Programs for Aging",
+     "level": "State Aid",
+     "category": "State Aid - Community Services",
+     "amount": 131458.55,
+     "purpose": "Senior programs"
+    },
+    {
+     "code": "DA3960",
+     "name": "State Aid Emergency Disaster Assistance",
+     "level": "State Aid",
+     "category": "State Aid - Public Safety",
+     "amount": 31347.17,
+     "purpose": "Disaster recovery (FEMA and State)"
+    },
+    {
+     "code": "A4960",
+     "name": "Federal Aid Emergency Disaster Assistance",
+     "level": "Federal Aid",
+     "category": "Federal Aid - Public Safety",
+     "amount": 26528.34,
+     "purpose": "Disaster recovery (FEMA and State)"
+    },
+    {
+     "code": "A4389",
+     "name": "Federal Aid Other Public Safety",
+     "level": "Federal Aid",
+     "category": "Federal Aid - Public Safety",
+     "amount": 18500.0,
+     "purpose": "Police and public safety"
+    },
+    {
+     "code": "A3910",
+     "name": "State Aid Conservation Programs",
+     "level": "State Aid",
+     "category": "State Aid - Community Services",
+     "amount": 15220.75,
+     "purpose": "Other State and federal aid"
+    },
+    {
+     "code": "EW4989",
+     "name": "Federal Aid Other Home and Community Services",
+     "level": "Federal Aid",
+     "category": "Federal Aid - Community Services",
+     "amount": 14914.54,
+     "purpose": "Water district"
+    },
+    {
+     "code": "SL4960",
+     "name": "Federal Aid Emergency Disaster Assistance",
+     "level": "Federal Aid",
+     "category": "Federal Aid - Public Safety",
+     "amount": 8028.02,
+     "purpose": "Disaster recovery (FEMA and State)"
+    },
+    {
+     "code": "A3902",
+     "name": "State Aid Planning Studies",
+     "level": "State Aid",
+     "category": "State Aid - General Government",
+     "amount": 5789.75,
+     "purpose": "Other State and federal aid"
+    },
+    {
+     "code": "A3960",
+     "name": "State Aid Emergency Disaster Assistance",
+     "level": "State Aid",
+     "category": "State Aid - Public Safety",
+     "amount": 4421.39,
+     "purpose": "Disaster recovery (FEMA and State)"
+    },
+    {
+     "code": "EW3989",
+     "name": "State Aid Other Home and Community Service",
+     "level": "State Aid",
+     "category": "State Aid - Community Services",
+     "amount": 2485.76,
+     "purpose": "Water district"
+    },
+    {
+     "code": "A3820",
+     "name": "State Aid Youth Programs",
+     "level": "State Aid",
+     "category": "State Aid - Culture And Recreation",
+     "amount": 1638.0,
+     "purpose": "Parks, youth and recreation"
+    },
+    {
+     "code": "SL3960",
+     "name": "State Aid Emergency Disaster Assistance",
+     "level": "State Aid",
+     "category": "State Aid - Public Safety",
+     "amount": 1338.0,
+     "purpose": "Disaster recovery (FEMA and State)"
+    }
+   ],
+   "general": [
+    {
+     "code": "A3005",
+     "name": "State Aid Mortgage Tax",
+     "level": "State Aid",
+     "category": "Mortgage Tax",
+     "amount": 2184470.0
+    }
+   ],
+   "snapshot": "2026-10-30"
+  },
+  {
+   "year": 2022,
+   "state": 2057091.74,
+   "federal": 1354864.21,
+   "total": 3411955.95,
+   "generalAid": 1980752.18,
+   "byPurpose": {
+    "Roads and highways": 938822.71,
+    "Economic development": 800000.0,
+    "Other federal aid (in 2025, the ARPA recovery funds)": 716471.46,
+    "Community development (CDBG and HOME housing)": 372049.85,
+    "Senior programs": 338165.81,
+    "Disaster recovery (FEMA and State)": 106073.54,
+    "Police and public safety": 65506.62,
+    "Water district": 65360.76,
+    "Other State and federal aid": 8869.75,
+    "Sewer district": 635.45
+   },
+   "accounts": [
+    {
+     "code": "H3591",
+     "name": "State Aid Highway Capital Projects",
+     "level": "State Aid",
+     "category": "State Aid - Transportation",
+     "amount": 938822.71,
+     "purpose": "Roads and highways"
+    },
+    {
+     "code": "H3797",
+     "name": "State Aid Other Economic Assistance",
+     "level": "State Aid",
+     "category": "State Aid - Economic Development",
+     "amount": 800000.0,
+     "purpose": "Economic development"
+    },
+    {
+     "code": "A4089",
+     "name": "Federal Aid Other",
+     "level": "Federal Aid",
+     "category": "Miscellaneous Federal Aid",
+     "amount": 716471.46,
+     "purpose": "Other federal aid (in 2025, the ARPA recovery funds)"
+    },
+    {
+     "code": "CD4089",
+     "name": "Federal Aid Other",
+     "level": "Federal Aid",
+     "category": "Miscellaneous Federal Aid",
+     "amount": 370199.85,
+     "purpose": "Community development (CDBG and HOME housing)"
+    },
+    {
+     "code": "A3772",
+     "name": "State Aid Programs for Aging",
+     "level": "State Aid",
+     "category": "State Aid - Community Services",
+     "amount": 229775.07,
+     "purpose": "Senior programs"
+    },
+    {
+     "code": "A4772",
+     "name": "Federal Aid Programs for Aging",
+     "level": "Federal Aid",
+     "category": "Federal Aid - Community Services",
+     "amount": 108390.74,
+     "purpose": "Senior programs"
+    },
+    {
+     "code": "A4960",
+     "name": "Federal Aid Emergency Disaster Assistance",
+     "level": "Federal Aid",
+     "category": "Federal Aid - Public Safety",
+     "amount": 106073.54,
+     "purpose": "Disaster recovery (FEMA and State)"
+    },
+    {
+     "code": "EW3989",
+     "name": "State Aid Other Home and Community Service",
+     "level": "State Aid",
+     "category": "State Aid - Community Services",
+     "amount": 65360.76,
+     "purpose": "Water district"
+    },
+    {
+     "code": "A4389",
+     "name": "Federal Aid Other Public Safety",
+     "level": "Federal Aid",
+     "category": "Federal Aid - Public Safety",
+     "amount": 53728.62,
+     "purpose": "Police and public safety"
+    },
+    {
+     "code": "A3389",
+     "name": "State Aid Other Public Safety",
+     "level": "State Aid",
+     "category": "State Aid - Public Safety",
+     "amount": 11778.0,
+     "purpose": "Police and public safety"
+    },
+    {
+     "code": "A3910",
+     "name": "State Aid Conservation Programs",
+     "level": "State Aid",
+     "category": "State Aid - Community Services",
+     "amount": 8869.75,
+     "purpose": "Other State and federal aid"
+    },
+    {
+     "code": "CD3089",
+     "name": "State Aid Other",
+     "level": "State Aid",
+     "category": "Miscellaneous State Aid",
+     "amount": 1850.0,
+     "purpose": "Community development (CDBG and HOME housing)"
+    },
+    {
+     "code": "ES3901",
+     "name": "State Aid Operation and Maintenance of Sewer Treatment Plant",
+     "level": "State Aid",
+     "category": "State Aid - Sanitation",
+     "amount": 635.45,
+     "purpose": "Sewer district"
+    }
+   ],
+   "general": [
+    {
+     "code": "A3005",
+     "name": "State Aid Mortgage Tax",
+     "level": "State Aid",
+     "category": "Mortgage Tax",
+     "amount": 1980752.18
+    }
+   ],
+   "snapshot": "2026-10-30"
+  },
+  {
+   "year": 2023,
+   "state": 3900966.28,
+   "federal": 873296.61,
+   "total": 4774262.89,
+   "generalAid": 1879254.89,
+   "byPurpose": {
+    "Water district": 2725966.0,
+    "Roads and highways": 718340.17,
+    "Senior programs": 359042.14,
+    "Community development (CDBG and HOME housing)": 316538.03,
+    "Other federal aid (in 2025, the ARPA recovery funds)": 240556.89,
+    "Parks, youth and recreation": 157100.5,
+    "Disaster recovery (FEMA and State)": 127357.59,
+    "Other State and federal aid": 79932.97,
+    "Police and public safety": 49428.6
+   },
+   "accounts": [
+    {
+     "code": "EW3989",
+     "name": "State Aid Other Home and Community Service",
+     "level": "State Aid",
+     "category": "State Aid - Community Services",
+     "amount": 2725966.0,
+     "purpose": "Water district"
+    },
+    {
+     "code": "H3591",
+     "name": "State Aid Highway Capital Projects",
+     "level": "State Aid",
+     "category": "State Aid - Transportation",
+     "amount": 668340.17,
+     "purpose": "Roads and highways"
+    },
+    {
+     "code": "A4089",
+     "name": "Federal Aid Other",
+     "level": "Federal Aid",
+     "category": "Miscellaneous Federal Aid",
+     "amount": 240556.89,
+     "purpose": "Other federal aid (in 2025, the ARPA recovery funds)"
+    },
+    {
+     "code": "CD4089",
+     "name": "Federal Aid Other",
+     "level": "Federal Aid",
+     "category": "Miscellaneous Federal Aid",
+     "amount": 230788.03,
+     "purpose": "Community development (CDBG and HOME housing)"
+    },
+    {
+     "code": "A3772",
+     "name": "State Aid Programs for Aging",
+     "level": "State Aid",
+     "category": "State Aid - Community Services",
+     "amount": 219626.64,
+     "purpose": "Senior programs"
+    },
+    {
+     "code": "H3897",
+     "name": "State Aid Culture and Recreation Capital Projects",
+     "level": "State Aid",
+     "category": "State Aid - Culture And Recreation",
+     "amount": 150000.0,
+     "purpose": "Parks, youth and recreation"
+    },
+    {
+     "code": "A4772",
+     "name": "Federal Aid Programs for Aging",
+     "level": "Federal Aid",
+     "category": "Federal Aid - Community Services",
+     "amount": 139415.5,
+     "purpose": "Senior programs"
+    },
+    {
+     "code": "A4960",
+     "name": "Federal Aid Emergency Disaster Assistance",
+     "level": "Federal Aid",
+     "category": "Federal Aid - Public Safety",
+     "amount": 127357.59,
+     "purpose": "Disaster recovery (FEMA and State)"
+    },
+    {
+     "code": "CD4989",
+     "name": "Federal Aid Other Home and Community Services",
+     "level": "Federal Aid",
+     "category": "Federal Aid - Community Services",
+     "amount": 85750.0,
+     "purpose": "Community development (CDBG and HOME housing)"
+    },
+    {
+     "code": "A3910",
+     "name": "State Aid Conservation Programs",
+     "level": "State Aid",
+     "category": "State Aid - Community Services",
+     "amount": 52893.25,
+     "purpose": "Other State and federal aid"
+    },
+    {
+     "code": "SL3597",
+     "name": "State Aid Transportation Capital Grants",
+     "level": "State Aid",
+     "category": "State Aid - Transportation",
+     "amount": 50000.0,
+     "purpose": "Roads and highways"
+    },
+    {
+     "code": "A4389",
+     "name": "Federal Aid Other Public Safety",
+     "level": "Federal Aid",
+     "category": "Federal Aid - Public Safety",
+     "amount": 49428.6,
+     "purpose": "Police and public safety"
+    },
+    {
+     "code": "A3089",
+     "name": "State Aid Other",
+     "level": "State Aid",
+     "category": "Miscellaneous State Aid",
+     "amount": 27039.72,
+     "purpose": "Other State and federal aid"
+    },
+    {
+     "code": "A3820",
+     "name": "State Aid Youth Programs",
+     "level": "State Aid",
+     "category": "State Aid - Culture And Recreation",
+     "amount": 7100.5,
+     "purpose": "Parks, youth and recreation"
+    }
+   ],
+   "general": [
+    {
+     "code": "A3001",
+     "name": "State Aid Revenue Sharing",
+     "level": "State Aid",
+     "category": "Unrestricted State Aid",
+     "amount": 107028.0
+    },
+    {
+     "code": "A3005",
+     "name": "State Aid Mortgage Tax",
+     "level": "State Aid",
+     "category": "Mortgage Tax",
+     "amount": 1772226.89
+    }
+   ],
+   "snapshot": "2026-10-30"
+  },
+  {
+   "year": 2024,
+   "state": 4456822.86,
+   "federal": 812440.29,
+   "total": 5269263.15,
+   "generalAid": 1452799.91,
+   "byPurpose": {
+    "Water district": 1437247.73,
+    "Other State and federal aid": 1312006.2,
+    "Economic development": 796342.05,
+    "Roads and highways": 640863.24,
+    "Senior programs": 377837.99,
+    "Other federal aid (in 2025, the ARPA recovery funds)": 345284.99,
+    "Community development (CDBG and HOME housing)": 293941.01,
+    "Police and public safety": 51803.08,
+    "Parks, youth and recreation": 13936.86
+   },
+   "accounts": [
+    {
+     "code": "EW3989",
+     "name": "State Aid Other Home and Community Service",
+     "level": "State Aid",
+     "category": "State Aid - Community Services",
+     "amount": 1437247.73,
+     "purpose": "Water district"
+    },
+    {
+     "code": "A3089",
+     "name": "State Aid Other",
+     "level": "State Aid",
+     "category": "Miscellaneous State Aid",
+     "amount": 1312006.2,
+     "purpose": "Other State and federal aid"
+    },
+    {
+     "code": "H3797",
+     "name": "State Aid Other Economic Assistance",
+     "level": "State Aid",
+     "category": "State Aid - Economic Development",
+     "amount": 796342.05,
+     "purpose": "Economic development"
+    },
+    {
+     "code": "H3591",
+     "name": "State Aid Highway Capital Projects",
+     "level": "State Aid",
+     "category": "State Aid - Transportation",
+     "amount": 640863.24,
+     "purpose": "Roads and highways"
+    },
+    {
+     "code": "A4089",
+     "name": "Federal Aid Other",
+     "level": "Federal Aid",
+     "category": "Miscellaneous Federal Aid",
+     "amount": 345284.99,
+     "purpose": "Other federal aid (in 2025, the ARPA recovery funds)"
+    },
+    {
+     "code": "CD4089",
+     "name": "Federal Aid Other",
+     "level": "Federal Aid",
+     "category": "Miscellaneous Federal Aid",
+     "amount": 293941.01,
+     "purpose": "Community development (CDBG and HOME housing)"
+    },
+    {
+     "code": "A3772",
+     "name": "State Aid Programs for Aging",
+     "level": "State Aid",
+     "category": "State Aid - Community Services",
+     "amount": 255069.43,
+     "purpose": "Senior programs"
+    },
+    {
+     "code": "A4772",
+     "name": "Federal Aid Programs for Aging",
+     "level": "Federal Aid",
+     "category": "Federal Aid - Community Services",
+     "amount": 122768.56,
+     "purpose": "Senior programs"
+    },
+    {
+     "code": "A4389",
+     "name": "Federal Aid Other Public Safety",
+     "level": "Federal Aid",
+     "category": "Federal Aid - Public Safety",
+     "amount": 50445.73,
+     "purpose": "Police and public safety"
+    },
+    {
+     "code": "A3820",
+     "name": "State Aid Youth Programs",
+     "level": "State Aid",
+     "category": "State Aid - Culture And Recreation",
+     "amount": 13936.86,
+     "purpose": "Parks, youth and recreation"
+    },
+    {
+     "code": "A3389",
+     "name": "State Aid Other Public Safety",
+     "level": "State Aid",
+     "category": "State Aid - Public Safety",
+     "amount": 1357.35,
+     "purpose": "Police and public safety"
+    }
+   ],
+   "general": [
+    {
+     "code": "A3001",
+     "name": "State Aid Revenue Sharing",
+     "level": "State Aid",
+     "category": "Unrestricted State Aid",
+     "amount": 107028.0
+    },
+    {
+     "code": "A3005",
+     "name": "State Aid Mortgage Tax",
+     "level": "State Aid",
+     "category": "Mortgage Tax",
+     "amount": 1345771.91
+    }
+   ],
+   "snapshot": "2026-10-30"
+  },
+  {
+   "year": 2025,
+   "state": 800206.55,
+   "federal": 6616741.53,
+   "total": 7416948.08,
+   "generalAid": 1741739.3,
+   "byPurpose": {
+    "Water district": 3657986.75,
+    "Other federal aid (in 2025, the ARPA recovery funds)": 2130394.29,
+    "Community development (CDBG and HOME housing)": 564761.86,
+    "Senior programs": 364783.07,
+    "Roads and highways": 353106.82,
+    "Other State and federal aid": 141694.2,
+    "Economic development": 133772.21,
+    "Police and public safety": 34140.0,
+    "Disaster recovery (FEMA and State)": 31478.8,
+    "Parks, youth and recreation": 4830.08
+   },
+   "accounts": [
+    {
+     "code": "EW4989",
+     "name": "Federal Aid Other Home and Community Services",
+     "level": "Federal Aid",
+     "category": "Federal Aid - Community Services",
+     "amount": 3575000.0,
+     "purpose": "Water district"
+    },
+    {
+     "code": "A4089",
+     "name": "Federal Aid Other",
+     "level": "Federal Aid",
+     "category": "Miscellaneous Federal Aid",
+     "amount": 2130394.29,
+     "purpose": "Other federal aid (in 2025, the ARPA recovery funds)"
+    },
+    {
+     "code": "H3591",
+     "name": "State Aid Highway Capital Projects",
+     "level": "State Aid",
+     "category": "State Aid - Transportation",
+     "amount": 353106.82,
+     "purpose": "Roads and highways"
+    },
+    {
+     "code": "CD4989",
+     "name": "Federal Aid Other Home and Community Services",
+     "level": "Federal Aid",
+     "category": "Federal Aid - Community Services",
+     "amount": 347842.19,
+     "purpose": "Community development (CDBG and HOME housing)"
+    },
+    {
+     "code": "CD4089",
+     "name": "Federal Aid Other",
+     "level": "Federal Aid",
+     "category": "Miscellaneous Federal Aid",
+     "amount": 216919.67,
+     "purpose": "Community development (CDBG and HOME housing)"
+    },
+    {
+     "code": "A4772",
+     "name": "Federal Aid Programs for Aging",
+     "level": "Federal Aid",
+     "category": "Federal Aid - Community Services",
+     "amount": 204231.84,
+     "purpose": "Senior programs"
+    },
+    {
+     "code": "A3772",
+     "name": "State Aid Programs for Aging",
+     "level": "State Aid",
+     "category": "State Aid - Community Services",
+     "amount": 160551.23,
+     "purpose": "Senior programs"
+    },
+    {
+     "code": "H3797",
+     "name": "State Aid Other Economic Assistance",
+     "level": "State Aid",
+     "category": "State Aid - Economic Development",
+     "amount": 116086.95,
+     "purpose": "Economic development"
+    },
+    {
+     "code": "EW3989",
+     "name": "State Aid Other Home and Community Service",
+     "level": "State Aid",
+     "category": "State Aid - Community Services",
+     "amount": 82986.75,
+     "purpose": "Water district"
+    },
+    {
+     "code": "H4097",
+     "name": "Federal Aid Capital Projects",
+     "level": "Federal Aid",
+     "category": "Miscellaneous Federal Aid",
+     "amount": 76734.74,
+     "purpose": "Other State and federal aid"
+    },
+    {
+     "code": "A3089",
+     "name": "State Aid Other",
+     "level": "State Aid",
+     "category": "Miscellaneous State Aid",
+     "amount": 64959.46,
+     "purpose": "Other State and federal aid"
+    },
+    {
+     "code": "A4389",
+     "name": "Federal Aid Other Public Safety",
+     "level": "Federal Aid",
+     "category": "Federal Aid - Public Safety",
+     "amount": 34140.0,
+     "purpose": "Police and public safety"
+    },
+    {
+     "code": "A4960",
+     "name": "Federal Aid Emergency Disaster Assistance",
+     "level": "Federal Aid",
+     "category": "Federal Aid - Public Safety",
+     "amount": 31478.8,
+     "purpose": "Disaster recovery (FEMA and State)"
+    },
+    {
+     "code": "A3789",
+     "name": "State Aid Economic Assistance",
+     "level": "State Aid",
+     "category": "State Aid - Economic Development",
+     "amount": 17685.26,
+     "purpose": "Economic development"
+    },
+    {
+     "code": "A3820",
+     "name": "State Aid Youth Programs",
+     "level": "State Aid",
+     "category": "State Aid - Culture And Recreation",
+     "amount": 4830.08,
+     "purpose": "Parks, youth and recreation"
+    }
+   ],
+   "general": [
+    {
+     "code": "A3001",
+     "name": "State Aid Revenue Sharing",
+     "level": "State Aid",
+     "category": "Unrestricted State Aid",
+     "amount": 107028.0
+    },
+    {
+     "code": "A3005",
+     "name": "State Aid Mortgage Tax",
+     "level": "State Aid",
+     "category": "Mortgage Tax",
+     "amount": 1634711.3
+    }
+   ],
+   "snapshot": "2026-10-30"
+  }
+ ],
+ "singleAudits": [
+  {
+   "year": 2025,
+   "reportId": "2025-12-GSAFAC-0000425623",
+   "accepted": "2026-08-24",
+   "total": 6616741.0,
+   "awards": [
+    {
+     "reference": "AWARD-00001",
+     "listing": "14.218",
+     "program": "COMMUNITY DEVELOPMENT BLOCK GRANTS/ENTITLEMENT GRANTS",
+     "amount": 25203.0,
+     "direct": false,
+     "passThrough": "Suffolk County Department of Economic Development and Planning",
+     "passThroughId": "B21-UC-36-0102"
+    },
+    {
+     "reference": "AWARD-00002",
+     "listing": "14.218",
+     "program": "COMMUNITY DEVELOPMENT BLOCK GRANTS/ENTITLEMENT GRANTS",
+     "amount": 21372.0,
+     "direct": false,
+     "passThrough": "Suffolk County Department of Economic Development and Planning",
+     "passThroughId": "B22-UC-36-0102"
+    },
+    {
+     "reference": "AWARD-00003",
+     "listing": "14.218",
+     "program": "COMMUNITY DEVELOPMENT BLOCK GRANTS/ENTITLEMENT GRANTS",
+     "amount": 64063.0,
+     "direct": false,
+     "passThrough": "Suffolk County Department of Economic Development and Planning",
+     "passThroughId": "B22-UC-36-0102"
+    },
+    {
+     "reference": "AWARD-00004",
+     "listing": "14.218",
+     "program": "COMMUNITY DEVELOPMENT BLOCK GRANTS/ENTITLEMENT GRANTS",
+     "amount": 120376.0,
+     "direct": false,
+     "passThrough": "Suffolk County Department of Economic Development and Planning",
+     "passThroughId": "B22-UC-36-0102"
+    },
+    {
+     "reference": "AWARD-00005",
+     "listing": "14.218",
+     "program": "COMMUNITY DEVELOPMENT BLOCK GRANTS/ENTITLEMENT GRANTS",
+     "amount": 10000.0,
+     "direct": false,
+     "passThrough": "Suffolk County Department of Economic Development and Planning",
+     "passThroughId": "B22-UC-36-0102"
+    },
+    {
+     "reference": "AWARD-00006",
+     "listing": "14.239",
+     "program": "HOME INVESTMENT PARTNERSHIPS PROGRAM",
+     "amount": 127519.0,
+     "direct": false,
+     "passThrough": "Suffolk County Department of Economic Development and Planning",
+     "passThroughId": "M-18-DC-36-0210"
+    },
+    {
+     "reference": "AWARD-00007",
+     "listing": "14.239",
+     "program": "HOME INVESTMENT PARTNERSHIPS PROGRAM",
+     "amount": 220323.0,
+     "direct": false,
+     "passThrough": "Suffolk County Department of Economic Development and Planning",
+     "passThroughId": "M-18-DC-36-0210"
+    },
+    {
+     "reference": "AWARD-00008",
+     "listing": "97.036",
+     "program": "DISASTER GRANTS - PUBLIC ASSISTANCE (PRESIDENTIALLY DECLARED DISASTERS)",
+     "amount": 5716.0,
+     "direct": false,
+     "passThrough": "New York State Division of Homeland Security and Emergency Services",
+     "passThroughId": "FEMA SANDY - PA-02-NY-4085-PW-03561(0)"
+    },
+    {
+     "reference": "AWARD-00009",
+     "listing": "97.036",
+     "program": "DISASTER GRANTS - PUBLIC ASSISTANCE (PRESIDENTIALLY DECLARED DISASTERS)",
+     "amount": 16789.0,
+     "direct": false,
+     "passThrough": "New York State Division of Homeland Security and Emergency Services",
+     "passThroughId": "FEMA SANDY - PA-02-NY-4085-PW-03583(0)"
+    },
+    {
+     "reference": "AWARD-00010",
+     "listing": "97.036",
+     "program": "DISASTER GRANTS - PUBLIC ASSISTANCE (PRESIDENTIALLY DECLARED DISASTERS)",
+     "amount": 8974.0,
+     "direct": false,
+     "passThrough": "New York State Division of Homeland Security and Emergency Services",
+     "passThroughId": "FEMA COVID-19 - 4480DR-NY - PW-3224(0)"
+    },
+    {
+     "reference": "AWARD-00011",
+     "listing": "20.600",
+     "program": "STATE AND COMMUNITY HIGHWAY SAFETY",
+     "amount": 19740.0,
+     "direct": false,
+     "passThrough": "New York State Governor's Traffic Safety Committee",
+     "passThroughId": "PTS-2022-00174-(052)"
+    },
+    {
+     "reference": "AWARD-00012",
+     "listing": "93.044",
+     "program": "SPECIAL PROGRAMS FOR THE AGING, TITLE III, PART B, GRANTS FOR SUPPORTIVE SERVICES AND SENIOR CENTERS",
+     "amount": 25587.0,
+     "direct": false,
+     "passThrough": "Suffolk County Office for the Aging",
+     "passThroughId": "SCS0000008634"
+    },
+    {
+     "reference": "AWARD-00013",
+     "listing": "93.045",
+     "program": "SPECIAL PROGRAMS FOR THE AGING, TITLE III, PART C, NUTRITION SERVICES",
+     "amount": 158826.0,
+     "direct": false,
+     "passThrough": "Suffolk County Office for the Aging",
+     "passThroughId": "SC00000009070"
+    },
+    {
+     "reference": "AWARD-00014",
+     "listing": "93.053",
+     "program": "NUTRITION SERVICES INCENTIVE PROGRAM",
+     "amount": 19819.0,
+     "direct": false,
+     "passThrough": "Suffolk County Office for the Aging",
+     "passThroughId": "SCS10000006898"
+    },
+    {
+     "reference": "AWARD-00015",
+     "listing": "66.202",
+     "program": "CONGRESSIONALLY MANDATED PROJECTS",
+     "amount": 3575000.0,
+     "direct": true,
+     "passThrough": null,
+     "passThroughId": null
+    },
+    {
+     "reference": "AWARD-00016",
+     "listing": "66.456",
+     "program": "NATIONAL ESTUARY PROGRAM",
+     "amount": 52321.0,
+     "direct": false,
+     "passThrough": "The Research Foundation for The State University of New York/The Peconic Estuary Partnership",
+     "passThroughId": "96235922 subaward no: 96965/1181292/2"
+    },
+    {
+     "reference": "AWARD-00017",
+     "listing": "81.128",
+     "program": "ENERGY EFFICIENCY AND CONSERVATION BLOCK GRANT PROGRAM (EECBG)",
+     "amount": 319.0,
+     "direct": true,
+     "passThrough": null,
+     "passThroughId": null
+    },
+    {
+     "reference": "AWARD-00018",
+     "listing": "16.607",
+     "program": "BULLETPROOF VEST PARTNERSHIP PROGRAM",
+     "amount": 14400.0,
+     "direct": true,
+     "passThrough": null,
+     "passThroughId": null
+    },
+    {
+     "reference": "AWARD-00019",
+     "listing": "21.027",
+     "program": "CORONAVIRUS STATE AND LOCAL FISCAL RECOVERY FUNDS",
+     "amount": 2130394.0,
+     "direct": true,
+     "passThrough": null,
+     "passThroughId": null
+    }
+   ]
+  }
+ ]
+}
