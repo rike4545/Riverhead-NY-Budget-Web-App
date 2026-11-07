@@ -34,6 +34,7 @@ const GROUPS: Group[] = [
     ['Start Here', `${base}/guide/`], ['2027 Budget Forecast', `${base}/predict-2027/`], ['2027 Budget Amendments', `${base}/budget-amendments-2027/`], ['Review of the Tax-Cap Letter', `${base}/tax-cap-letter/`], ['Brookhaven’s 2027 Tentative', `${base}/brookhaven-2027/`], ['Southold’s 2027 Tentative', `${base}/southold-2027/`], ['How the Town Approves Its Budget', `${base}/budget-adoption/`], ['Budget Scenario Tool', `${base}/scenarios/`],
     ['2027 Spending Reduction', `${base}/spending-reduction-2027/`], ['Zero or 1% for 2027', `${base}/zero-percent-2027/`],
     ['Credit Rating', `${base}/credit-rating/`], ['Unusual Spending Patterns', `${base}/outliers/`], ['Budget vs. Actual Spending', `${base}/budget-accuracy/`], ['Cost of Board Decisions', `${base}/fiscal-impact/`], ['Contracts & Bids', `${base}/contracts/`],
+    ['Legal Costs', `${base}/legal-costs/`], ['Regional CPF Counsel', `${base}/regional-cpf-counsel/`],
   ] },
   { label: 'Sources', links: [
     ['Original Documents', `${base}/sources/`], ['Records the Town Has Not Published', `${base}/records/`], ['Downloads', `${base}/downloads/`], ['Data Quality & Freshness', `${base}/data-quality/`],
