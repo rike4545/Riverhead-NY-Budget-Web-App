@@ -3160,6 +3160,832 @@
      "url": "https://apps2.suffolkcountyny.gov/boe/eleres/24ge/cd.htm"
     }
    ]
+  },
+  {
+   "id": "GE2017",
+   "label": "2017 General Election",
+   "date": null,
+   "official": true,
+   "asOf": null,
+   "url": "https://apps2.suffolkcountyny.gov/boe/eleres/17ge/default.htm",
+   "districtSource": {
+    "title": "OpenElections, New York precinct-level results",
+    "url": "https://github.com/openelections/openelections-data-ny/blob/master/2017/20171107__ny__general__suffolk__precinct.csv",
+    "checks": "Each candidate's Town total equals the County Board of Elections' final results page exactly.",
+    "boundaryOverlap": 0.967,
+    "boundaryNote": "The Census Bureau's 2010 and 2020 voting-district maps match today's districts; they draw districts 4 and 14 as one."
+   },
+   "contests": [
+    {
+     "key": "supervisor-2017",
+     "name": "Supervisor, Town of Riverhead",
+     "voteFor": 1,
+     "url": "https://apps2.suffolkcountyny.gov/boe/eleres/17ge/rvroff.htm",
+     "candidates": [
+      {
+       "name": "Laura M Jens-Smith",
+       "party": "DEM",
+       "lines": {
+        "DEM": 4142,
+        "WOR": 264,
+        "IND": 367,
+        "WEP": 57
+       },
+       "votes": 4830
+      },
+      {
+       "name": "Sean M Walter",
+       "party": "REP",
+       "lines": {
+        "REP": 3379,
+        "CON": 802
+       },
+       "votes": 4181
+      },
+      {
+       "name": "Write-in",
+       "party": "",
+       "lines": {
+        "W/I": 132
+       },
+       "votes": 132
+      }
+     ],
+     "districts": {
+      "001": {
+       "mapFeatureId": null,
+       "total": 599,
+       "reporting": null,
+       "votes": {
+        "Laura M Jens-Smith": 282,
+        "Sean M Walter": 313,
+        "Write-in": 4
+       }
+      },
+      "002": {
+       "mapFeatureId": null,
+       "total": 162,
+       "reporting": null,
+       "votes": {
+        "Laura M Jens-Smith": 123,
+        "Sean M Walter": 37,
+        "Write-in": 2
+       }
+      },
+      "003": {
+       "mapFeatureId": null,
+       "total": 64,
+       "reporting": null,
+       "votes": {
+        "Laura M Jens-Smith": 32,
+        "Sean M Walter": 29,
+        "Write-in": 3
+       }
+      },
+      "004": {
+       "mapFeatureId": null,
+       "total": 466,
+       "reporting": null,
+       "votes": {
+        "Laura M Jens-Smith": 269,
+        "Sean M Walter": 186,
+        "Write-in": 11
+       }
+      },
+      "005": {
+       "mapFeatureId": null,
+       "total": 166,
+       "reporting": null,
+       "votes": {
+        "Laura M Jens-Smith": 109,
+        "Sean M Walter": 57
+       }
+      },
+      "006": {
+       "mapFeatureId": null,
+       "total": 102,
+       "reporting": null,
+       "votes": {
+        "Laura M Jens-Smith": 72,
+        "Sean M Walter": 28,
+        "Write-in": 2
+       }
+      },
+      "007": {
+       "mapFeatureId": null,
+       "total": 623,
+       "reporting": null,
+       "votes": {
+        "Laura M Jens-Smith": 341,
+        "Sean M Walter": 270,
+        "Write-in": 12
+       }
+      },
+      "008": {
+       "mapFeatureId": null,
+       "total": 385,
+       "reporting": null,
+       "votes": {
+        "Laura M Jens-Smith": 233,
+        "Sean M Walter": 151,
+        "Write-in": 1
+       }
+      },
+      "009": {
+       "mapFeatureId": null,
+       "total": 316,
+       "reporting": null,
+       "votes": {
+        "Laura M Jens-Smith": 186,
+        "Sean M Walter": 126,
+        "Write-in": 4
+       }
+      },
+      "010": {
+       "mapFeatureId": null,
+       "total": 161,
+       "reporting": null,
+       "votes": {
+        "Laura M Jens-Smith": 84,
+        "Sean M Walter": 76,
+        "Write-in": 1
+       }
+      },
+      "011": {
+       "mapFeatureId": null,
+       "total": 506,
+       "reporting": null,
+       "votes": {
+        "Laura M Jens-Smith": 271,
+        "Sean M Walter": 208,
+        "Write-in": 27
+       }
+      },
+      "012": {
+       "mapFeatureId": null,
+       "total": 716,
+       "reporting": null,
+       "votes": {
+        "Laura M Jens-Smith": 394,
+        "Sean M Walter": 300,
+        "Write-in": 22
+       }
+      },
+      "013": {
+       "mapFeatureId": null,
+       "total": 542,
+       "reporting": null,
+       "votes": {
+        "Laura M Jens-Smith": 332,
+        "Sean M Walter": 203,
+        "Write-in": 7
+       }
+      },
+      "014": {
+       "mapFeatureId": null,
+       "total": 616,
+       "reporting": null,
+       "votes": {
+        "Laura M Jens-Smith": 279,
+        "Sean M Walter": 327,
+        "Write-in": 10
+       }
+      },
+      "015": {
+       "mapFeatureId": null,
+       "total": 68,
+       "reporting": null,
+       "votes": {
+        "Laura M Jens-Smith": 38,
+        "Sean M Walter": 29,
+        "Write-in": 1
+       }
+      },
+      "016": {
+       "mapFeatureId": null,
+       "total": 363,
+       "reporting": null,
+       "votes": {
+        "Laura M Jens-Smith": 197,
+        "Sean M Walter": 163,
+        "Write-in": 3
+       }
+      },
+      "017": {
+       "mapFeatureId": null,
+       "total": 856,
+       "reporting": null,
+       "votes": {
+        "Laura M Jens-Smith": 355,
+        "Sean M Walter": 498,
+        "Write-in": 3
+       }
+      },
+      "018": {
+       "mapFeatureId": null,
+       "total": 200,
+       "reporting": null,
+       "votes": {
+        "Laura M Jens-Smith": 110,
+        "Sean M Walter": 89,
+        "Write-in": 1
+       }
+      },
+      "019": {
+       "mapFeatureId": null,
+       "total": 630,
+       "reporting": null,
+       "votes": {
+        "Laura M Jens-Smith": 317,
+        "Sean M Walter": 302,
+        "Write-in": 11
+       }
+      },
+      "020": {
+       "mapFeatureId": null,
+       "total": 803,
+       "reporting": null,
+       "votes": {
+        "Laura M Jens-Smith": 355,
+        "Sean M Walter": 448
+       }
+      },
+      "021": {
+       "mapFeatureId": null,
+       "total": 339,
+       "reporting": null,
+       "votes": {
+        "Laura M Jens-Smith": 203,
+        "Sean M Walter": 133,
+        "Write-in": 3
+       }
+      },
+      "022": {
+       "mapFeatureId": null,
+       "total": 460,
+       "reporting": null,
+       "votes": {
+        "Laura M Jens-Smith": 248,
+        "Sean M Walter": 208,
+        "Write-in": 4
+       }
+      }
+     },
+     "total": 9143
+    }
+   ]
+  },
+  {
+   "id": "GE2015",
+   "label": "2015 General Election",
+   "date": null,
+   "official": true,
+   "asOf": null,
+   "url": "https://apps2.suffolkcountyny.gov/boe/eleres/15ge/default.htm",
+   "districtSource": {
+    "title": "OpenElections, New York precinct-level results",
+    "url": "https://github.com/openelections/openelections-data-ny/blob/master/2015/20151103__ny__general__suffolk__precinct.csv",
+    "checks": "Each candidate's Town total equals the County Board of Elections' final results page exactly.",
+    "boundaryOverlap": 0.967,
+    "boundaryNote": "The Census Bureau's 2010 and 2020 voting-district maps match today's districts; they draw districts 4 and 14 as one."
+   },
+   "contests": [
+    {
+     "key": "supervisor-2015",
+     "name": "Supervisor, Town of Riverhead",
+     "voteFor": 1,
+     "url": "https://apps2.suffolkcountyny.gov/boe/eleres/15ge/rvroff.htm",
+     "candidates": [
+      {
+       "name": "Sean M Walter",
+       "party": "CON",
+       "lines": {
+        "CON": 3027
+       },
+       "votes": 3027
+      },
+      {
+       "name": "Jodi A Giglio",
+       "party": "REP",
+       "lines": {
+        "REP": 2390,
+        "IND": 188,
+        "REF": 29
+       },
+       "votes": 2607
+      },
+      {
+       "name": "Anthony Coates",
+       "party": "DEM",
+       "lines": {
+        "DEM": 1698,
+        "WOR": 139,
+        "WEP": 42
+       },
+       "votes": 1879
+      },
+      {
+       "name": "Write-in",
+       "party": "",
+       "lines": {
+        "W/I": 14
+       },
+       "votes": 14
+      }
+     ],
+     "districts": {
+      "001": {
+       "mapFeatureId": null,
+       "total": 425,
+       "reporting": null,
+       "votes": {
+        "Anthony Coates": 98,
+        "Jodi A Giglio": 104,
+        "Sean M Walter": 223
+       }
+      },
+      "002": {
+       "mapFeatureId": null,
+       "total": 148,
+       "reporting": null,
+       "votes": {
+        "Anthony Coates": 47,
+        "Jodi A Giglio": 59,
+        "Sean M Walter": 42
+       }
+      },
+      "003": {
+       "mapFeatureId": null,
+       "total": 65,
+       "reporting": null,
+       "votes": {
+        "Anthony Coates": 17,
+        "Jodi A Giglio": 27,
+        "Sean M Walter": 21
+       }
+      },
+      "004": {
+       "mapFeatureId": null,
+       "total": 413,
+       "reporting": null,
+       "votes": {
+        "Anthony Coates": 119,
+        "Jodi A Giglio": 148,
+        "Sean M Walter": 144,
+        "Write-in": 2
+       }
+      },
+      "005": {
+       "mapFeatureId": null,
+       "total": 146,
+       "reporting": null,
+       "votes": {
+        "Anthony Coates": 34,
+        "Jodi A Giglio": 56,
+        "Sean M Walter": 55,
+        "Write-in": 1
+       }
+      },
+      "006": {
+       "mapFeatureId": null,
+       "total": 103,
+       "reporting": null,
+       "votes": {
+        "Anthony Coates": 26,
+        "Jodi A Giglio": 49,
+        "Sean M Walter": 28
+       }
+      },
+      "007": {
+       "mapFeatureId": null,
+       "total": 500,
+       "reporting": null,
+       "votes": {
+        "Anthony Coates": 133,
+        "Jodi A Giglio": 186,
+        "Sean M Walter": 181
+       }
+      },
+      "008": {
+       "mapFeatureId": null,
+       "total": 374,
+       "reporting": null,
+       "votes": {
+        "Anthony Coates": 132,
+        "Jodi A Giglio": 134,
+        "Sean M Walter": 108
+       }
+      },
+      "009": {
+       "mapFeatureId": null,
+       "total": 261,
+       "reporting": null,
+       "votes": {
+        "Anthony Coates": 67,
+        "Jodi A Giglio": 93,
+        "Sean M Walter": 100,
+        "Write-in": 1
+       }
+      },
+      "010": {
+       "mapFeatureId": null,
+       "total": 127,
+       "reporting": null,
+       "votes": {
+        "Anthony Coates": 34,
+        "Jodi A Giglio": 26,
+        "Sean M Walter": 66,
+        "Write-in": 1
+       }
+      },
+      "011": {
+       "mapFeatureId": null,
+       "total": 460,
+       "reporting": null,
+       "votes": {
+        "Anthony Coates": 125,
+        "Jodi A Giglio": 170,
+        "Sean M Walter": 165
+       }
+      },
+      "012": {
+       "mapFeatureId": null,
+       "total": 625,
+       "reporting": null,
+       "votes": {
+        "Anthony Coates": 175,
+        "Jodi A Giglio": 178,
+        "Sean M Walter": 271,
+        "Write-in": 1
+       }
+      },
+      "013": {
+       "mapFeatureId": null,
+       "total": 417,
+       "reporting": null,
+       "votes": {
+        "Anthony Coates": 106,
+        "Jodi A Giglio": 162,
+        "Sean M Walter": 148,
+        "Write-in": 1
+       }
+      },
+      "014": {
+       "mapFeatureId": null,
+       "total": 455,
+       "reporting": null,
+       "votes": {
+        "Anthony Coates": 86,
+        "Jodi A Giglio": 156,
+        "Sean M Walter": 212,
+        "Write-in": 1
+       }
+      },
+      "015": {
+       "mapFeatureId": null,
+       "total": 58,
+       "reporting": null,
+       "votes": {
+        "Anthony Coates": 14,
+        "Jodi A Giglio": 27,
+        "Sean M Walter": 17
+       }
+      },
+      "016": {
+       "mapFeatureId": null,
+       "total": 333,
+       "reporting": null,
+       "votes": {
+        "Anthony Coates": 72,
+        "Jodi A Giglio": 128,
+        "Sean M Walter": 131,
+        "Write-in": 2
+       }
+      },
+      "017": {
+       "mapFeatureId": null,
+       "total": 647,
+       "reporting": null,
+       "votes": {
+        "Anthony Coates": 122,
+        "Jodi A Giglio": 188,
+        "Sean M Walter": 336,
+        "Write-in": 1
+       }
+      },
+      "018": {
+       "mapFeatureId": null,
+       "total": 172,
+       "reporting": null,
+       "votes": {
+        "Anthony Coates": 51,
+        "Jodi A Giglio": 62,
+        "Sean M Walter": 59
+       }
+      },
+      "019": {
+       "mapFeatureId": null,
+       "total": 567,
+       "reporting": null,
+       "votes": {
+        "Anthony Coates": 122,
+        "Jodi A Giglio": 228,
+        "Sean M Walter": 214,
+        "Write-in": 3
+       }
+      },
+      "020": {
+       "mapFeatureId": null,
+       "total": 529,
+       "reporting": null,
+       "votes": {
+        "Anthony Coates": 106,
+        "Jodi A Giglio": 184,
+        "Sean M Walter": 239
+       }
+      },
+      "021": {
+       "mapFeatureId": null,
+       "total": 306,
+       "reporting": null,
+       "votes": {
+        "Anthony Coates": 83,
+        "Jodi A Giglio": 107,
+        "Sean M Walter": 116
+       }
+      },
+      "022": {
+       "mapFeatureId": null,
+       "total": 396,
+       "reporting": null,
+       "votes": {
+        "Anthony Coates": 110,
+        "Jodi A Giglio": 135,
+        "Sean M Walter": 151
+       }
+      }
+     },
+     "total": 7527
+    }
+   ]
+  },
+  {
+   "id": "GE2013",
+   "label": "2013 General Election",
+   "date": null,
+   "official": true,
+   "asOf": null,
+   "url": "https://apps2.suffolkcountyny.gov/boe/eleres/13ge/default.htm",
+   "districtSource": {
+    "title": "OpenElections, New York precinct-level results",
+    "url": "https://github.com/openelections/openelections-data-ny/blob/master/2013/20131105__ny__general__suffolk__precinct.csv",
+    "checks": "Each candidate's Town total equals the County Board of Elections' final results page exactly.",
+    "boundaryOverlap": 0.967,
+    "boundaryNote": "The Census Bureau's 2010 and 2020 voting-district maps match today's districts; they draw districts 4 and 14 as one."
+   },
+   "contests": [
+    {
+     "key": "supervisor-2013",
+     "name": "Supervisor, Town of Riverhead",
+     "voteFor": 1,
+     "url": "https://apps2.suffolkcountyny.gov/boe/eleres/13ge/rvroff.htm",
+     "candidates": [
+      {
+       "name": "Sean M Walter",
+       "party": "REP",
+       "lines": {
+        "REP": 3058,
+        "CON": 761,
+        "IND": 341
+       },
+       "votes": 4160
+      },
+      {
+       "name": "Angela M De Vito",
+       "party": "DEM",
+       "lines": {
+        "DEM": 2929,
+        "WOR": 404
+       },
+       "votes": 3333
+      },
+      {
+       "name": "Write-in",
+       "party": "",
+       "lines": {
+        "W/I": 6
+       },
+       "votes": 6
+      }
+     ],
+     "districts": {
+      "001": {
+       "mapFeatureId": null,
+       "total": 436,
+       "reporting": null,
+       "votes": {
+        "Angela M De Vito": 180,
+        "Sean M Walter": 256
+       }
+      },
+      "002": {
+       "mapFeatureId": null,
+       "total": 152,
+       "reporting": null,
+       "votes": {
+        "Angela M De Vito": 97,
+        "Sean M Walter": 55
+       }
+      },
+      "003": {
+       "mapFeatureId": null,
+       "total": 62,
+       "reporting": null,
+       "votes": {
+        "Angela M De Vito": 28,
+        "Sean M Walter": 34
+       }
+      },
+      "004": {
+       "mapFeatureId": null,
+       "total": 449,
+       "reporting": null,
+       "votes": {
+        "Angela M De Vito": 206,
+        "Sean M Walter": 241,
+        "Write-in": 2
+       }
+      },
+      "005": {
+       "mapFeatureId": null,
+       "total": 157,
+       "reporting": null,
+       "votes": {
+        "Angela M De Vito": 69,
+        "Sean M Walter": 88
+       }
+      },
+      "006": {
+       "mapFeatureId": null,
+       "total": 93,
+       "reporting": null,
+       "votes": {
+        "Angela M De Vito": 52,
+        "Sean M Walter": 41
+       }
+      },
+      "007": {
+       "mapFeatureId": null,
+       "total": 464,
+       "reporting": null,
+       "votes": {
+        "Angela M De Vito": 194,
+        "Sean M Walter": 270
+       }
+      },
+      "008": {
+       "mapFeatureId": null,
+       "total": 371,
+       "reporting": null,
+       "votes": {
+        "Angela M De Vito": 209,
+        "Sean M Walter": 161,
+        "Write-in": 1
+       }
+      },
+      "009": {
+       "mapFeatureId": null,
+       "total": 258,
+       "reporting": null,
+       "votes": {
+        "Angela M De Vito": 121,
+        "Sean M Walter": 136,
+        "Write-in": 1
+       }
+      },
+      "010": {
+       "mapFeatureId": null,
+       "total": 130,
+       "reporting": null,
+       "votes": {
+        "Angela M De Vito": 53,
+        "Sean M Walter": 77
+       }
+      },
+      "011": {
+       "mapFeatureId": null,
+       "total": 497,
+       "reporting": null,
+       "votes": {
+        "Angela M De Vito": 210,
+        "Sean M Walter": 287
+       }
+      },
+      "012": {
+       "mapFeatureId": null,
+       "total": 616,
+       "reporting": null,
+       "votes": {
+        "Angela M De Vito": 246,
+        "Sean M Walter": 369,
+        "Write-in": 1
+       }
+      },
+      "013": {
+       "mapFeatureId": null,
+       "total": 415,
+       "reporting": null,
+       "votes": {
+        "Angela M De Vito": 204,
+        "Sean M Walter": 211
+       }
+      },
+      "014": {
+       "mapFeatureId": null,
+       "total": 455,
+       "reporting": null,
+       "votes": {
+        "Angela M De Vito": 171,
+        "Sean M Walter": 283,
+        "Write-in": 1
+       }
+      },
+      "015": {
+       "mapFeatureId": null,
+       "total": 48,
+       "reporting": null,
+       "votes": {
+        "Angela M De Vito": 21,
+        "Sean M Walter": 27
+       }
+      },
+      "016": {
+       "mapFeatureId": null,
+       "total": 335,
+       "reporting": null,
+       "votes": {
+        "Angela M De Vito": 167,
+        "Sean M Walter": 168
+       }
+      },
+      "017": {
+       "mapFeatureId": null,
+       "total": 637,
+       "reporting": null,
+       "votes": {
+        "Angela M De Vito": 255,
+        "Sean M Walter": 382
+       }
+      },
+      "018": {
+       "mapFeatureId": null,
+       "total": 179,
+       "reporting": null,
+       "votes": {
+        "Angela M De Vito": 78,
+        "Sean M Walter": 101
+       }
+      },
+      "019": {
+       "mapFeatureId": null,
+       "total": 512,
+       "reporting": null,
+       "votes": {
+        "Angela M De Vito": 216,
+        "Sean M Walter": 296
+       }
+      },
+      "020": {
+       "mapFeatureId": null,
+       "total": 507,
+       "reporting": null,
+       "votes": {
+        "Angela M De Vito": 199,
+        "Sean M Walter": 308
+       }
+      },
+      "021": {
+       "mapFeatureId": null,
+       "total": 316,
+       "reporting": null,
+       "votes": {
+        "Angela M De Vito": 161,
+        "Sean M Walter": 155
+       }
+      },
+      "022": {
+       "mapFeatureId": null,
+       "total": 410,
+       "reporting": null,
+       "votes": {
+        "Angela M De Vito": 196,
+        "Sean M Walter": 214
+       }
+      }
+     },
+     "total": 7499
+    }
+   ]
   }
  ],
  "supervisorHistory": [

@@ -51,7 +51,16 @@ for (const e of data.elections) {
     }
     // 2024 comes from a compilation without the results site's map ids; its import checks the boundaries instead.
     if (e.districtSource) {
-      if (!(e.districtSource.boundaryOverlap >= 0.99)) fail(`${where}: the 2024 districts match today's only to ${e.districtSource.boundaryOverlap}`)
+      if (!(e.districtSource.boundaryOverlap >= 0.95)) fail(`${where}: that year's districts match today's only to ${e.districtSource.boundaryOverlap}`)
+      // The County's final page for the year must agree with the district counts, candidate by candidate.
+      const final = (data.supervisorHistory ?? []).find((r) => `GE${r.year}` === e.id)
+      if (final && c.key.startsWith('supervisor-')) {
+        for (const fc of final.candidates) {
+          const surname = fc.name.split(',')[0].trim().toLowerCase()
+          const mine = c.candidates.find((x) => x.name.toLowerCase().endsWith(` ${surname}`))
+          if (!mine || mine.votes !== fc.votes) fail(`${where}: ${fc.name} has ${mine?.votes} by district but ${fc.votes} on the County's final page`)
+        }
+      }
       continue
     }
     const ids = Object.fromEntries(Object.entries(c.districts).map(([ed, d]) => [ed, d.mapFeatureId]))

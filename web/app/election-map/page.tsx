@@ -1,6 +1,6 @@
 import PageShell from '../../components/PageShell'
 import PlainCallout from '../../components/PlainCallout'
-import ElectionMap, { type MapComparison, type MapContest } from '../../components/ElectionMap'
+import ElectionMap, { type MapContest, type MapPreset } from '../../components/ElectionMap'
 import ColumnChart from '../../components/charts/ColumnChart'
 import {
   boundarySource, boundaryUpdated, certified, comparisons, contestByKey, displayName, districts, elections, fetchedOn, finalSource, historyName,
@@ -19,7 +19,7 @@ const counted = (n: number) => ['no', 'one', 'two', 'three', 'four', 'five', 'si
 
 export const metadata = {
   title: 'Election map — how each Riverhead district voted',
-  description: "Riverhead's 22 election districts, colored by how each voted in the 2026, 2025 and 2024 general elections, from Supervisor to President, and every Supervisor race since 2013.",
+  description: "Riverhead's 22 election districts, colored by how each voted from 2013 to 2026, from Supervisor to President, with any two candidates compared district by district, and turnout since 2013.",
 }
 
 const HALPIN = 'Jerome Halpin'
@@ -27,6 +27,7 @@ const ROTHWELL = 'Kenneth T Rothwell'
 const HUBBARD = 'Timothy C Hubbard'
 const HARRIS = 'Kamala D Harris AND Tim Walz'
 const TRUMP = 'Donald J Trump AND JD Vance'
+const JENS_SMITH = 'Laura M Jens-Smith'
 
 export default function ElectionMapPage() {
   const sup26 = contestByKey.get('supervisor-2026')!
@@ -37,6 +38,10 @@ export default function ElectionMapPage() {
   const pres24 = contestByKey.get('president-2024')!
   const trumpLed = ledCount(pres24, TRUMP), harrisLed = ledCount(pres24, HARRIS)
   const aheadOfHarris = districts.filter((d) => shift(vsHarris, d.ed) > 0).length
+  const sup17 = contestByKey.get('supervisor-2017')!
+  const sup17Share = v(sup17, JENS_SMITH) / sup17.total
+  const share = (c: typeof sup26, ed: string, name: string) => (c.districts[ed].total ? (c.districts[ed].votes[name] ?? 0) / c.districts[ed].total : 0)
+  const halpinOverJS = districts.filter((d) => share(sup26, d.ed, HALPIN) > share(sup17, d.ed, JENS_SMITH)).length
   const halpinLed26 = ledCount(sup26, HALPIN), rothwellLed26 = ledCount(sup26, ROTHWELL)
   const halpinLed25 = ledCount(sup25, HALPIN), hubbardLed25 = ledCount(sup25, HUBBARD)
   const aheadOfHochul = districts.filter((d) => shift(vsHochul, d.ed) > 0).length
@@ -57,21 +62,23 @@ export default function ElectionMapPage() {
     candidates: c.candidates.map((x) => ({ name: x.name, display: displayName(x.name), party: x.party, votes: x.votes })),
     districts: Object.fromEntries(Object.entries(c.districts).map(([ed, d]) => [ed, { total: d.total, votes: d.votes }])),
   })))
-  const cmps: MapComparison[] = comparisons.map((c) => ({
-    key: c.key, label: c.label, higher: c.higher, lower: c.lower, explain: c.explain,
-    values: Object.fromEntries(districts.map((d) => [d.ed, shift(c, d.ed)])),
-  }))
+  // Ready-made comparisons for the Compare view; a reader can pick any two candidates and years.
+  const presets: MapPreset[] = [
+    { key: 'halpin-jens-smith', label: 'Halpin 2026 against Jens-Smith 2017', a: { contest: 'supervisor-2026', candidate: HALPIN }, b: { contest: 'supervisor-2017', candidate: JENS_SMITH } },
+    ...comparisons.map((c) => ({ key: c.key, label: c.label, a: c.to, b: c.from })),
+  ]
   const e26 = elections[0], e25 = elections[1], e24 = elections.find((e) => e.id === 'GE2024')!
+  const past = elections.filter((e) => ['GE2013', 'GE2015', 'GE2017'].includes(e.id))
 
   return (
     <PageShell
       title="Election map"
-      subtitle="How each of Riverhead's 22 election districts voted in the 2026, 2025 and 2024 general elections, and every Supervisor race since 2013."
+      subtitle="How each of Riverhead's 22 election districts voted, from the 2013 Supervisor race to 2026, with any two candidates compared district by district."
     >
       <PlainCallout
         tips={[
           { label: 'Election districts', text: 'the County Board of Elections divides the Town into 22 districts. Each votes at an assigned polling place, and the Board counts each one separately.' },
-          { label: 'Which counts', text: `2026 and 2025 are the counts on the Board's results site, which it labels unofficial; for 2025 that is the election-night count, and the certified totals are below. 2024 is the final count, district by district.` },
+          { label: 'Which counts', text: `2026 and 2025 are the counts on the Board's results site, which it labels unofficial; for 2025 that is the election-night count, and the certified totals are below. 2024 and the 2013, 2015 and 2017 Supervisor races are final counts, district by district.` },
           { label: 'Votes, not turnout', text: 'the results site does not give registered voters by district, so the map shows votes cast, not the share of voters who turned out.' },
         ]}
       >
@@ -83,7 +90,7 @@ export default function ElectionMapPage() {
 
       <section id="map" aria-labelledby="map-heading" style={card}>
         <h2 id="map-heading" style={h2}>The map</h2>
-        <ElectionMap districts={districts} contests={contests} comparisons={cmps} width={MAP_W} height={MAP_H} />
+        <ElectionMap districts={districts} contests={contests} presets={presets} width={MAP_W} height={MAP_H} />
       </section>
 
       <section id="findings" aria-labelledby="findings-heading" style={card}>
@@ -103,6 +110,11 @@ export default function ElectionMapPage() {
             <strong>2024 President.</strong> {displayName(TRUMP)} carried Riverhead {num(v(pres24, TRUMP))} to {num(v(pres24, HARRIS))}, leading in{' '}
             {counted(trumpLed)} districts to {counted(harrisLed)} for {displayName(HARRIS)}. Two years later Halpin ran ahead of Harris&apos;s share in{' '}
             {counted(aheadOfHarris)} of the 22 districts: choose &ldquo;Compare&rdquo; and &ldquo;{vsHarris.label}&rdquo;.
+          </li>
+          <li style={{ marginBottom: 8 }}>
+            <strong>Two Democratic wins, nine years apart.</strong> Laura Jens-Smith won in 2017 with {pct(sup17Share)} of the vote; Halpin
+            won in 2026 with {pct(v(sup26, HALPIN) / sup26.total)}. Halpin&apos;s share was higher in {counted(halpinOverJS)} of the 22 districts.
+            In Compare, choose any two candidates and years, back to 2013.
           </li>
           <li style={{ marginBottom: 8 }}>
             <strong>2025 to 2026.</strong> In the 2025 election-night count Halpin led Tim Hubbard {num(v(sup25, HALPIN))} to {num(v(sup25, HUBBARD))},
@@ -160,8 +172,9 @@ export default function ElectionMapPage() {
       <section id="supervisor-history" aria-labelledby="supervisor-history-heading" style={card}>
         <h2 id="supervisor-history-heading" style={h2}>Every Supervisor race since 2013</h2>
         <p style={prose}>
-          The Town&apos;s results for each race, from the County Board of Elections&apos; final results pages. The County does not post these
-          races district by district, so they are not on the map. Turnout is votes cast for Supervisor out of the Town&apos;s registered voters.
+          The Town&apos;s results for each race, from the County Board of Elections&apos; final results pages. The 2013, 2015, 2017, 2025 and
+          2026 races are also on the map, district by district. No source publishes 2019, 2021 or 2023 by district, so those three are here
+          only. Turnout is votes cast for Supervisor out of the Town&apos;s registered voters.
         </p>
         <div style={{ overflowX: 'auto' }}>
           <table className="rbl-stack" style={{ width: '100%', borderCollapse: 'collapse', fontSize: 15 }}>
@@ -216,7 +229,7 @@ export default function ElectionMapPage() {
       <section id="certified" aria-labelledby="certified-heading" style={card}>
         <h2 id="certified-heading" style={h2}>The certified 2025 totals</h2>
         <p style={prose}>
-          The map&apos;s 2025 figures are the results site&apos;s count as of {longDate(e25.asOf ?? e25.date)}, which it still labels unofficial.
+          The map&apos;s 2025 figures are the results site&apos;s count as of {longDate(e25.asOf ?? e25.date ?? "")}, which it still labels unofficial.
           The Board&apos;s certified totals, after absentee ballots and a full manual recount, were higher:
         </p>
         <ul style={prose}>
@@ -238,14 +251,21 @@ export default function ElectionMapPage() {
         <ul style={prose}>
           <li>
             Results: <a href={resultsSource.url} style={link}>{resultsSource.title}</a>, each contest&apos;s &ldquo;results by election
-            district&rdquo;: the <a href={e26.url} style={link}>{e26.label}</a> as of {longDate(e26.asOf ?? e26.date)}, and the{' '}
-            <a href={e25.url} style={link}>{e25.label}</a> as of {longDate(e25.asOf ?? e25.date)}. A candidate on more than one party line is counted once.
+            district&rdquo;: the <a href={e26.url} style={link}>{e26.label}</a> as of {longDate(e26.asOf ?? e26.date ?? "")}, and the{' '}
+            <a href={e25.url} style={link}>{e25.label}</a> as of {longDate(e25.asOf ?? e25.date ?? "")}. A candidate on more than one party line is counted once.
           </li>
           <li>
             2024 by district: <a href={e24.districtSource!.url} style={link}>{e24.districtSource!.title}</a>, compiled from the State and County
             boards of elections. Its Suffolk totals for President and the 1st Congressional District equal the County Board&apos;s{' '}
             <a href={e24.url} style={link}>final 2024 results</a> exactly, and its 2024 districts match today&apos;s to{' '}
             {(e24.districtSource!.boundaryOverlap * 100).toFixed(1)}% or better.
+          </li>
+          <li>
+            2013, 2015 and 2017 Supervisor races by district: <a href={past[0].districtSource!.url.replace(/\/blob\/.*$/, '')} style={link}>OpenElections</a>,
+            transcribed from the County&apos;s precinct returns. Each candidate&apos;s Town total equals the County&apos;s final results page
+            exactly. No County map of those years&apos; districts is published, so the lines are checked against the Census Bureau&apos;s 2010
+            and 2020 voting-district maps, which match today&apos;s to {(past[0].districtSource!.boundaryOverlap * 100).toFixed(1)}% or better
+            (the Census draws districts 4 and 14 as one).
           </li>
           <li>
             Boundaries: <a href={boundarySource.url} style={link}>{boundarySource.title}</a>{boundaryUpdated ? `, last updated ${longDate(boundaryUpdated)}` : ''}.

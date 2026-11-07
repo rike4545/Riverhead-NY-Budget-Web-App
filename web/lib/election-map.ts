@@ -18,9 +18,9 @@ export type Candidate = { name: string; party: string; lines: Record<string, num
 export type DistrictResult = { mapFeatureId: string | null; total: number; reporting: number | null; votes: Record<string, number> }
 export type Contest = { key: string; name: string; voteFor: number; candidates: Candidate[]; total: number; districts: Record<string, DistrictResult>; url: string }
 export type Election = {
-  id: string; label: string; date: string; official: boolean; asOf: string | null; url: string; contests: Contest[]
+  id: string; label: string; date: string | null; official: boolean; asOf: string | null; url: string; contests: Contest[]
   /** Set when the district counts come from a compilation rather than the Board's own results site (2024). */
-  districtSource?: { title: string; url: string; checks: string; boundaryOverlap: number }
+  districtSource?: { title: string; url: string; checks: string; boundaryOverlap: number; boundaryNote?: string }
 }
 export type HistoryCandidate = { name: string; lines: Record<string, number>; votes: number }
 export type SupervisorRace = { year: number; url: string; status: string; registered: number; votesCast: number; candidates: HistoryCandidate[] }
@@ -53,6 +53,10 @@ export const MAP_W = 800
 const scale = MAP_W / ((maxLon - minLon) * kx)
 export const MAP_H = Math.round((maxLat - minLat) * scale)
 const px = (p: Position): [number, number] => [(p[0] - minLon) * kx * scale, (maxLat - p[1]) * scale]
+/** The map's projection, for other maps drawn over the same districts (the preserved-land map). */
+export const project = px
+/** Metres in one map unit: a degree of latitude is about 111,320 m. */
+export const METRES_PER_UNIT = 111320 / scale
 
 /** Area-weighted centroid of the largest ring, for the district's number. */
 function labelPoint(g: Geometry): [number, number] {

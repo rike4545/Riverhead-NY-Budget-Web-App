@@ -13,7 +13,9 @@ how each voted, from the Suffolk County Board of Elections' own sources.
               which do not give each district's count.
 
 The 2024 results by district come from riverhead-2024.json, which
-import_2024_results.py writes once by hand.
+import_2024_results.py writes once by hand, and the 2013 to 2017 Supervisor
+races from riverhead-supervisor-past.json, which import_past_supervisor.py
+writes once by hand.
 
 Writes web/public/data/elections/riverhead-districts.json and
 web/public/data/elections/riverhead-map.json. If either source cannot be
@@ -40,6 +42,7 @@ OUT_DIR = ROOT / "web/public/data/elections"
 GEOJSON = OUT_DIR / "riverhead-districts.json"
 RESULTS = OUT_DIR / "riverhead-map.json"
 RESULTS_2024 = OUT_DIR / "riverhead-2024.json"
+RESULTS_PAST = OUT_DIR / "riverhead-supervisor-past.json"
 
 GIS_LAYER = "https://gis.suffolkcountyny.gov/server/rest/services/LocalGovernmentSQLData/VotingPrecinct/FeatureServer/0"
 RESULTS_SITE = "https://app.enhancedvoting.com/results/public/suffolk-county-ny/elections"
@@ -360,6 +363,9 @@ def main() -> int:
     # The 2024 results, imported once by import_2024_results.py: the County does not post them by district.
     if RESULTS_2024.exists():
         elections.append(json.loads(RESULTS_2024.read_text(encoding="utf-8")))
+    # 2013 to 2017 Supervisor races, imported once by import_past_supervisor.py, newest first.
+    if RESULTS_PAST.exists():
+        elections.extend(sorted(json.loads(RESULTS_PAST.read_text(encoding="utf-8"))["elections"], key=lambda e: e["id"], reverse=True))
     try:
         history = fetch_supervisor_history()
     except SourceUnavailable as exc:

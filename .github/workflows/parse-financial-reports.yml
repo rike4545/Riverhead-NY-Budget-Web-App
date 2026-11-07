@@ -128,6 +128,18 @@ jobs:
       # dataset. A failed download keeps the last totals and prints a warning.
       - name: Refresh campaign finance card totals
         run: python etl/build_campaign_totals.py
+      # Each committee's itemized contributions by ZIP code (/donation-map/),
+      # from the same dataset. A failed download keeps the last file.
+      - name: Refresh the donation map
+        run: python etl/build_donation_map.py
+      # Riverhead's preserved farmland (/preserved-land/), from the County GIS.
+      # A failed download keeps the last file.
+      - name: Refresh the preserved-land map
+        run: python etl/build_preserved_land.py
+      # How Board members voted when they did not agree (/board-votes/), from
+      # the voting record rebuilt above.
+      - name: Rebuild the Board vote comparison
+        run: python etl/build_vote_agreement.py
       # Riverhead's 22 election districts and how each voted (/election-map/),
       # from the County GIS and the Board of Elections' results site. A failed
       # download keeps the last files and prints a warning.

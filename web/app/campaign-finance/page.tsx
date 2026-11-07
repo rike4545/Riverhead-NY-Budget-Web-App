@@ -8,6 +8,8 @@ import CampaignSummaryTable from '../../components/CampaignSummaryTable'
 import { campaignFacts, campaignOfficials, totalsSource } from '../../lib/campaign-officials'
 import general2026 from '../../public/data/campaign-finance-2026-general.json'
 
+const base = process.env.NEXT_PUBLIC_BASE_PATH || ''
+
 export const metadata = {
   title: "Campaign finance — who's funding the Town Board",
   description:
@@ -73,6 +75,7 @@ export default function CampaignFinancePage() {
           <h2 style={{ margin: 0, color: 'var(--rbl-title)', fontSize: 22 }}>Committee details</h2>
           <p style={{ margin: '5px 0 0', color: 'var(--rbl-text-muted)', fontSize: 14, lineHeight: 1.55 }}>
             The 2026 election reports, then each committee: its totals, loans and what it owes, with donors, filings and watch lists one tap away. Refresh pulls the latest filings.
+            Where each committee&apos;s money came from, by ZIP code, is on the <a href={`${base}/donation-map/`} style={{ color: 'var(--rbl-link)', fontWeight: 600 }}>Donation map</a>.
           </p>
         </div>
         <CampaignFinance

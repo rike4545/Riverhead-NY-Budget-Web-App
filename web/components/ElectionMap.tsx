@@ -19,7 +19,8 @@ export type MapContest = {
   total: number
   districts: Record<string, { total: number; votes: Record<string, number> }>
 }
-export type MapComparison = { key: string; label: string; higher: string; lower: string; explain: string; values: Record<string, number> }
+/** A ready-made comparison: one candidate's share set against another's, each in its own contest. */
+export type MapPreset = { key: string; label: string; a: { contest: string; candidate: string }; b: { contest: string; candidate: string } }
 
 type View = 'lead' | 'share' | 'votes' | 'compare'
 
@@ -30,6 +31,9 @@ const RAMP: Record<string, string[]> = {
 }
 const SEQ = ['var(--rbl-map-seq-1)', 'var(--rbl-map-seq-2)', 'var(--rbl-map-seq-3)', 'var(--rbl-map-seq-4)', 'var(--rbl-map-seq-5)']
 const ramp = (party: string) => RAMP[party] ?? RAMP.other
+/** Compare is not about party: teal where the first candidate ran stronger, gold where the second did. */
+const FIRST = ['var(--rbl-map-seq-2)', 'var(--rbl-map-seq-3)', 'var(--rbl-map-seq-5)']
+const SECOND = ['var(--rbl-map-other-1)', 'var(--rbl-map-other-2)', 'var(--rbl-map-other-4)']
 const partyName = (p: string) => (p === 'DEM' ? 'Democrat' : p === 'REP' ? 'Republican' : p === 'BOTH' ? 'Both major parties' : p || 'Other')
 /** Margin bins, in points of the district's votes. */
 const LEAD_BINS = [5, 15, 25]
@@ -49,16 +53,35 @@ function steps(values: number[]) {
 }
 
 export default function ElectionMap({
-  districts, contests, comparisons, width, height,
-}: { districts: MapDistrict[]; contests: MapContest[]; comparisons: MapComparison[]; width: number; height: number }) {
+  districts, contests, presets, width, height,
+}: { districts: MapDistrict[]; contests: MapContest[]; presets: MapPreset[]; width: number; height: number }) {
   const [contestKey, setContestKey] = useState(contests[0].key)
   const [view, setView] = useState<View>('lead')
   const contest = contests.find((c) => c.key === contestKey) ?? contests[0]
   const named = contest.candidates.filter((c) => c.name !== 'Write-in')
   const [candidate, setCandidate] = useState(named[0].name)
   const cand = named.find((c) => c.name === candidate) ?? named[0]
-  const [cmpKey, setCmpKey] = useState(comparisons[0].key)
-  const cmp = comparisons.find((c) => c.key === cmpKey) ?? comparisons[0]
+  // Compare: any candidate in any contest against any other, by share of their own contest's votes.
+  const candidacies = contests.flatMap((c) => c.candidates.filter((x) => x.name !== 'Write-in').map((x) => ({ id: `${c.key}::${x.name}`, contest: c, cand: x })))
+  const idOf = (r: { contest: string; candidate: string }) => `${r.contest}::${r.candidate}`
+  const [aId, setAId] = useState(idOf(presets[0].a))
+  const [bId, setBId] = useState(idOf(presets[0].b))
+  const A = candidacies.find((x) => x.id === aId) ?? candidacies[0]
+  const B = candidacies.find((x) => x.id === bId) ?? candidacies[1]
+  const yearOf = (c: MapContest) => c.election.slice(0, 4)
+  const tag = (x: typeof A) => `${x.cand.display} (${yearOf(x.contest)})`
+  const shareIn = (c: MapContest, ed: string, name: string) => {
+    const d = c.districts[ed]
+    return d && d.total ? (d.votes[name] ?? 0) / d.total : 0
+  }
+  const cmp = {
+    label: `${tag(A)} against ${tag(B)}`,
+    higher: `${tag(A)} ran stronger`,
+    lower: `${tag(B)} ran stronger`,
+    explain: `${A.cand.display}’s share of the ${yearOf(A.contest)} vote for ${A.contest.name} in each district, minus ${B.cand.display}’s share of the ${yearOf(B.contest)} vote for ${B.contest.name}.`,
+    values: Object.fromEntries(districts.map((d) => [d.ed, shareIn(A.contest, d.ed, A.cand.name) - shareIn(B.contest, d.ed, B.cand.name)])) as Record<string, number>,
+  }
+  const cmpTown = A.cand.votes / A.contest.total - B.cand.votes / B.contest.total
   const [active, setActive] = useState<string | null>(null)
   const multi = contest.voteFor > 1
   const effectiveView: View = view === 'lead' && multi ? 'share' : view
@@ -95,7 +118,7 @@ export default function ElectionMap({
     if (effectiveView === 'votes') return SEQ[voteSteps.at(contest.districts[ed]?.total ?? 0)]
     const v = cmp.values[ed] ?? 0
     if (Math.abs(v * 100) < 1) return 'var(--rbl-map-neutral)'
-    return (v > 0 ? RAMP.DEM : RAMP.REP)[binOf(Math.abs(v), SHIFT_BINS)]
+    return (v > 0 ? FIRST : SECOND)[binOf(Math.abs(v), SHIFT_BINS)]
   }
 
   const describe = (ed: string) => {
@@ -123,8 +146,8 @@ export default function ElectionMap({
       return [{ title: 'Votes cast in the district for this office', items: SEQ.map((color, i) => ({ color, label: `${num(Math.round(s.lo + i * s.w))} to ${num(Math.round(s.lo + (i + 1) * s.w))}` })) }]
     }
     return [
-      { title: cmp.higher, items: [{ color: RAMP.DEM[0], label: '1 to 5 points' }, { color: RAMP.DEM[1], label: '5 to 10' }, { color: RAMP.DEM[2], label: '10 or more' }] },
-      { title: cmp.lower, items: [{ color: RAMP.REP[0], label: '1 to 5 points' }, { color: RAMP.REP[1], label: '5 to 10' }, { color: RAMP.REP[2], label: '10 or more' }] },
+      { title: cmp.higher, items: [{ color: FIRST[0], label: '1 to 5 points' }, { color: FIRST[1], label: '5 to 10' }, { color: FIRST[2], label: '10 or more' }] },
+      { title: cmp.lower, items: [{ color: SECOND[0], label: '1 to 5 points' }, { color: SECOND[1], label: '5 to 10' }, { color: SECOND[2], label: '10 or more' }] },
       { title: 'About the same', items: [{ color: 'var(--rbl-map-neutral)', label: 'within 1 point' }] },
     ]
   })()
@@ -160,12 +183,20 @@ export default function ElectionMap({
             </select>
           </label>
         ) : (
-          <label style={field}>
-            <span style={label}>Comparison</span>
-            <select value={cmpKey} onChange={(e) => setCmpKey(e.target.value)} style={select}>
-              {comparisons.map((c) => <option key={c.key} value={c.key}>{c.label}</option>)}
-            </select>
-          </label>
+          <>
+            {([['First', aId, setAId], ['Against', bId, setBId]] as const).map(([t, value, set]) => (
+              <label key={t} style={field}>
+                <span style={label}>{t}</span>
+                <select value={value} onChange={(e) => set(e.target.value)} style={select}>
+                  {contests.map((c) => (
+                    <optgroup key={c.key} label={`${yearOf(c)} ${c.name}`}>
+                      {c.candidates.filter((x) => x.name !== 'Write-in').map((x) => <option key={x.name} value={`${c.key}::${x.name}`}>{yearOf(c)}: {x.display}</option>)}
+                    </optgroup>
+                  ))}
+                </select>
+              </label>
+            ))}
+          </>
         )}
         {effectiveView === 'share' && (
           <label style={field}>
@@ -176,13 +207,21 @@ export default function ElectionMap({
           </label>
         )}
       </div>
+      {view === 'compare' && (
+        <div role="group" aria-label="Ready-made comparisons" style={{ display: 'flex', flexWrap: 'wrap', gap: 6, alignItems: 'center', margin: '-4px 0 10px' }}>
+          <span style={{ fontSize: 14, color: 'var(--rbl-text-muted)' }}>Try:</span>
+          {presets.map((p) => (
+            <button key={p.key} type="button" onClick={() => { setAId(idOf(p.a)); setBId(idOf(p.b)) }} style={{ ...btn(aId === idOf(p.a) && bId === idOf(p.b)), minHeight: 32, fontSize: 14 }}>{p.label}</button>
+          ))}
+        </div>
+      )}
       {view === 'lead' && multi && (
         <p style={{ margin: '0 0 10px', color: 'var(--rbl-text-muted)', fontSize: 14.5 }}>
           Voters could choose {contest.voteFor} candidates for this office, so the map shows one candidate&apos;s share instead of a single leader.
         </p>
       )}
       <p style={{ margin: '0 0 10px', color: 'var(--rbl-text-body)', fontSize: 15 }}>
-        {effectiveView === 'compare' ? cmp.explain : `${contest.election}: ${contest.name}. ${contest.official ? 'Certified results.' : 'The County’s unofficial count.'}`}
+        {effectiveView === 'compare' ? `${cmp.explain} Town-wide: ${pts(cmpTown)}.` : `${contest.election}: ${contest.name}. ${contest.official ? 'Certified results.' : 'The County’s unofficial count.'}`}
       </p>
 
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 300px), 1fr))', gap: 16, alignItems: 'start' }}>
@@ -290,7 +329,7 @@ export default function ElectionMap({
 const th = { padding: '8px 10px', textAlign: 'left', fontWeight: 600, fontSize: 13, color: 'var(--rbl-text-muted)', verticalAlign: 'bottom' } as const
 const td = { padding: '7px 10px', verticalAlign: 'top', whiteSpace: 'nowrap' } as const
 
-function DistrictPanel({ ed, area, contest, compare }: { ed: string; area: string | null; contest: MapContest; compare: MapComparison | null }) {
+function DistrictPanel({ ed, area, contest, compare }: { ed: string; area: string | null; contest: MapContest; compare: { label: string; values: Record<string, number> } | null }) {
   const d = contest.districts[ed]
   return (
     <div>
