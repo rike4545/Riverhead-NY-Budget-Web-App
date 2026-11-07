@@ -64,7 +64,8 @@ else {
     const sumOf = Math.round(((o.seedDirectContributions ?? 0) + (o.seedTransfersIn ?? 0)) * 100) / 100
     if (Math.abs((o.seedRaised ?? 0) - sumOf) > 0.01) fail(`${o.name}: stored total raised ${o.seedRaised} is not contributions plus transfers (${sumOf})`)
     if (o.seedRaised == null || o.seedCycleRaised == null || o.seedOwed == null) { fail(`${o.name}: stored totals are missing; run etl/build_campaign_totals.py`); continue }
-    for (const figure of [o.seedRaised, o.seedCycleRaised, ...(o.seedOwed > 0 ? [o.seedOwed] : []), ...(o.seedLoansReceived > 0 ? [o.seedLoansReceived] : [])]) {
+    if (o.seedInternalTransfers == null || o.seedRefunds == null || o.seedInKind == null) fail(`${o.name}: stored refunds, in-kind or internal transfers are missing; run etl/build_campaign_totals.py`)
+    for (const figure of [o.seedRaised, o.seedCycleRaised, ...[o.seedOwed, o.seedLoansReceived, o.seedRefunds, o.seedInKind, o.seedInternalTransfers].filter((x) => x > 0)]) {
       if (!html.includes(usd(figure))) fail(`${o.name}'s card does not show ${usd(figure)}`)
     }
   }

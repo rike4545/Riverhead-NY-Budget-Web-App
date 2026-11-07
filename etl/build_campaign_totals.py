@@ -9,7 +9,12 @@ computes them from data.ny.gov's Campaign Finance Disclosure Reports Data
 (dataset e9ss-239a), with the same schedules the live refresh uses:
 
   contributions   Schedules A, B and C (money from people, corporations, others)
-  transfers in    Schedule G
+  transfers in    Schedule G, apart from money moved between the official's own
+                  committees: a card that combines an old and a new committee
+                  already counts that money where it was first raised, so it is
+                  reported apart (seedInternalTransfers) and not added again
+  in-kind gifts   Schedule D, shown on its own: goods and services, not money
+  refunded        Schedule M, contributions the committee gave back
   loans received  Schedule I, summed: each row is new money
   owed            Schedule N in the committee's latest report, summed: N repeats
                   the open loans and bills in every report, so it is a balance,
@@ -60,15 +65,43 @@ def query_url(ids: list[str], start: int, end: int) -> str:
     return f"{DATASET}?{urllib.parse.urlencode(params)}"
 
 
+def transfers_url(ids: list[str], start: int, end: int) -> str:
+    """Schedule G by who sent it, so transfers between an official's own committees can be told apart."""
+    quoted = lambda values: ",".join(f"'{v}'" for v in values)
+    params = {
+        "$select": "filer_id,flng_ent_name,flng_ent_first_name,flng_ent_last_name,sum(org_amt) as amount",
+        "$where": f"filer_id in({quoted(ids)}) and election_year in({quoted(str(y) for y in range(start, end + 1))}) "
+                  "and filing_sched_abbrev='G'",
+        "$group": "filer_id,flng_ent_name,flng_ent_first_name,flng_ent_last_name",
+        "$limit": "50000",
+    }
+    return f"{DATASET}?{urllib.parse.urlencode(params)}"
+
+
+def normalize_name(name: str) -> str:
+    return "".join(ch for ch in (name or "").lower() if ch.isalnum())
+
+
+def internal_transfers(transfer_rows: list[dict], own_names: list[str]) -> float:
+    """Transfers into these committees from a committee of the same official, matched by its name."""
+    own = {normalize_name(n) for n in own_names}
+    sender = lambda r: r.get("flng_ent_name") or f"{r.get('flng_ent_first_name') or ''} {r.get('flng_ent_last_name') or ''}"
+    return round(sum(float(r.get("amount") or 0) for r in transfer_rows if normalize_name(sender(r)) in own), 2)
+
+
 def report_key(row: dict) -> tuple:
     return (int(row["election_year"]), REPORT_ORDER.get(row["filing_desc"], UNNAMED_REPORT))
 
 
-def totals(rows: list[dict], end_year: int) -> dict:
-    """One committee's (or one official's combined committees') figures from its grouped rows."""
+def totals(rows: list[dict], end_year: int, internal: float = 0) -> dict:
+    """One committee's (or one official's combined committees') figures from its grouped rows.
+
+    `internal` is the part of Schedule G that came from the official's own other committees.
+    """
     amount = lambda rs: round(sum(float(r.get("amount") or 0) for r in rs), 2)
     of = lambda schedules: [r for r in rows if r["filing_sched_abbrev"] in schedules]
-    direct, transfers = amount(of(CONTRIBUTIONS)), amount(of(("G",)))
+    direct = amount(of(CONTRIBUTIONS))
+    transfers = round(amount(of(("G",))) - internal, 2)
     dated = [r["last_date"][:10] for r in of(CONTRIBUTIONS + ("G",)) if r.get("last_date")]
     latest = max((report_key(r) for r in rows), default=None)
     latest_rows = [r for r in rows if report_key(r) == latest] if latest else []
@@ -78,6 +111,9 @@ def totals(rows: list[dict], end_year: int) -> dict:
         "seedRaised": round(direct + transfers, 2),
         "seedDirectContributions": direct,
         "seedTransfersIn": transfers,
+        "seedInternalTransfers": round(internal, 2),
+        "seedInKind": amount(of(("D",))),
+        "seedRefunds": amount(of(("M",))),
         "seedLastReported": max(dated) if dated else None,
         "seedLoansReceived": amount(of(("I",))),
         "seedOwed": owed,
@@ -92,6 +128,7 @@ def main() -> int:
     start, end = data["campaignFilingStartYear"], data["campaignFilingEndYear"]
     try:
         raw = json.loads(http_get(query_url(filer_ids(data), start, end)))
+        transfer_rows = json.loads(http_get(transfers_url(filer_ids(data), start, end)))
     except SourceUnavailable as exc:
         print(f"::warning title=Campaign finance totals not refreshed::{exc} "
               f"{OFFICIALS.relative_to(ROOT)} keeps its last totals; the next run tries again.")
@@ -104,7 +141,9 @@ def main() -> int:
     changed = []
     for official in data["officials"]:
         ids = {ref["filerID"] for ref in official["filerIDs"]}
-        new = totals([r for r in rows if r["filer_id"] in ids], end)
+        own_names = [ref["committeeName"] for ref in official["filerIDs"]]
+        internal = internal_transfers([r for r in transfer_rows if r.get("filer_id") in ids], own_names)
+        new = totals([r for r in rows if r["filer_id"] in ids], end, internal)
         if any(official.get(k) != v for k, v in new.items()):
             changed.append(f"{official['name']}: {official.get('seedRaised')} -> {new['seedRaised']}")
         official.update(new)

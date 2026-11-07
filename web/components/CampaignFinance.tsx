@@ -245,9 +245,11 @@ export default function CampaignFinance({
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))', gap: 10, marginTop: 6 }}>
                 <Stat label="Total raised" value={raised != null ? usd(raised) : 'No data on file'} />
                 <Stat label="Direct contributions" value={direct != null ? usd(direct) : '—'} />
-                <Stat label="Transfers in" value={transfers != null ? usd(transfers) : '—'} />
+                <Stat label="Transfers from other committees" value={transfers != null ? usd(transfers) : '—'} />
                 <Stat label="Last reported" value={lastReported ?? '—'} />
               </div>
+
+              <GiftStats official={official} live={live} />
 
               <div style={{ fontSize: 13, fontWeight: 700, color: 'var(--rbl-text-muted)', marginTop: 14 }}>
                 {endYear} election cycle
@@ -437,9 +439,11 @@ function PartyCommitteesSection({
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))', gap: 10, marginTop: 6 }}>
                   <Stat label="Total raised" value={raised != null ? usd(raised) : 'No data on file'} />
                   <Stat label="Direct contributions" value={direct != null ? usd(direct) : '—'} />
-                  <Stat label="Transfers in" value={transfers != null ? usd(transfers) : '—'} />
+                  <Stat label="Transfers from other committees" value={transfers != null ? usd(transfers) : '—'} />
                   <Stat label="Last reported" value={lastReported ?? '—'} />
                 </div>
+
+                <GiftStats official={official} live={live} />
 
                 <DebtStats official={official} live={live} />
 
@@ -539,9 +543,11 @@ function FormerOfficialsSection({
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))', gap: 10, marginTop: 6 }}>
                   <Stat label="Total raised" value={raised != null ? usd(raised) : 'No data on file'} />
                   <Stat label="Direct contributions" value={direct != null ? usd(direct) : '—'} />
-                  <Stat label="Transfers in" value={transfers != null ? usd(transfers) : '—'} />
+                  <Stat label="Transfers from other committees" value={transfers != null ? usd(transfers) : '—'} />
                   <Stat label="Last reported" value={lastReported ?? '—'} />
                 </div>
+
+                <GiftStats official={official} live={live} />
 
                 <DebtStats official={official} live={live} />
 
@@ -1538,5 +1544,30 @@ function DebtStats({ official, live }: { official: CampaignOfficial; live: Campa
         value={owed == null ? '—' : owed > 0 ? `${usd(owed)}${report ? ` (${report})` : ''}` : report ? `Nothing (${report})` : 'None on file'}
       />
     </div>
+  )
+}
+
+/**
+ * What the lifetime totals leave out, beside them: in-kind gifts (Schedule D), contributions refunded
+ * (Schedule M), and money moved between the official's own committees, which "Total raised" counts
+ * once, where it was first raised. Live after Refresh, otherwise the stored figures.
+ */
+function GiftStats({ official, live }: { official: CampaignOfficial; live: CampaignSnapshot | undefined }) {
+  const inKind = live ? live.inKind : official.seedInKind ?? null
+  const refunds = live ? live.refunds : official.seedRefunds ?? null
+  const internal = live ? live.internalTransfers : official.seedInternalTransfers ?? null
+  if (inKind == null && refunds == null) return null
+  return (
+    <>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))', gap: 10, marginTop: 10 }}>
+        <Stat label="In-kind gifts (not in total)" value={inKind ? usd(inKind) : 'None itemized'} />
+        <Stat label="Refunded to donors" value={refunds ? usd(refunds) : 'None itemized'} />
+      </div>
+      {internal ? (
+        <div style={{ color: 'var(--rbl-text-muted)', fontSize: 12.5, marginTop: 6, lineHeight: 1.5 }}>
+          {usd(internal)} moved between this official&apos;s own committees is counted once, where it was first raised, not again as a transfer.
+        </div>
+      ) : null}
+    </>
   )
 }

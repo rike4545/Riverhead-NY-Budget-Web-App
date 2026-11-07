@@ -21,6 +21,11 @@ export type CampaignOfficial = {
   seedDirectContributions: number | null
   seedTransfersIn: number | null
   seedLastReported: string | null
+  /** Built by etl/build_campaign_totals.py, like the fields below: Schedule G between the official's own committees. */
+  seedInternalTransfers?: number | null
+  /** Schedule D, in-kind gifts, and Schedule M, contributions refunded. */
+  seedInKind?: number | null
+  seedRefunds?: number | null
   /** Built by etl/build_campaign_totals.py from data.ny.gov: Schedule I, summed over the window. */
   seedLoansReceived?: number | null
   /** Schedule N in the latest report: loans and bills still owed, a balance. */
@@ -74,9 +79,17 @@ export type WatchContribution = {
 export type PetroCelliContribution = WatchContribution
 
 export type CampaignSnapshot = {
+  /** Contributions plus transfers from outside committees. */
   raised: number
   directContributions: number
+  /** Schedule G from committees that are not this official's own. */
   transfersIn: number
+  /** Schedule G between this official's own committees: counted where first raised, not again. */
+  internalTransfers: number
+  /** Schedule D: goods and services given instead of money. */
+  inKind: number
+  /** Schedule M: contributions the committee gave back. */
+  refunds: number
   lastReported: string | null
   latestYear: LatestYearSnapshot | null
   /** Scoped to the current cycle (endYear) only — not the full multi-year window. */
@@ -648,6 +661,18 @@ export function buildCandidateSummary(official: CampaignOfficial, snapshot: Camp
   return sentences.join(' ')
 }
 
+/** Schedule G rows grouped by the committee that sent them. */
+export type TransferSenderRow = { filer_id: string; flng_ent_name?: string; flng_ent_first_name?: string; flng_ent_last_name?: string; amount?: string }
+
+const normalizeName = (s: string) => s.toLowerCase().replace(/[^a-z0-9]/g, '')
+
+/** Transfers into an official's committees from one of their own other committees, matched by name. */
+export function internalTransfers(rows: TransferSenderRow[], ownCommitteeNames: string[]): number {
+  const own = new Set(ownCommitteeNames.map(normalizeName))
+  const sender = (r: TransferSenderRow) => r.flng_ent_name || `${r.flng_ent_first_name ?? ''} ${r.flng_ent_last_name ?? ''}`
+  return Math.round(rows.filter((r) => own.has(normalizeName(sender(r)))).reduce((t, r) => t + (parseFloat(r.amount ?? '0') || 0), 0) * 100) / 100
+}
+
 /** One committee's rows from data.ny.gov grouped by report and schedule. */
 export type ReportScheduleRow = { filer_id: string; election_year?: string; filing_desc?: string; filing_sched_abbrev?: string; amount?: string }
 
@@ -747,7 +772,19 @@ export async function fetchCampaignSnapshots(
       '$limit': '50000',
     }).toString()
 
-  const [raisedRows, latestYearRows, typeBreakdownRows, loanReceivedRows, outstandingLoanRows] = await Promise.all([
+  // Schedule G by who sent it, so money moved between one official's own committees (an old one
+  // and a new one the card combines) is not counted a second time. The same rule as
+  // etl/build_campaign_totals.py, internal_transfers.
+  const transfersBySenderURL =
+    `https://data.ny.gov/resource/e9ss-239a.json?` +
+    new URLSearchParams({
+      '$select': 'filer_id,flng_ent_name,flng_ent_first_name,flng_ent_last_name,sum(org_amt) as amount',
+      '$where': `filer_id in (${inClause}) and election_year in(${years}) and filing_sched_abbrev='G'`,
+      '$group': 'filer_id,flng_ent_name,flng_ent_first_name,flng_ent_last_name',
+      '$limit': '50000',
+    }).toString()
+
+  const [raisedRows, latestYearRows, typeBreakdownRows, loanReceivedRows, outstandingLoanRows, transferSenderRows] = await Promise.all([
     fetchSocrataRows(raisedURL),
     fetchSocrataRows(latestYearURL),
     fetchSocrataRows(typeBreakdownURL) as unknown as Promise<
@@ -755,6 +792,7 @@ export async function fetchCampaignSnapshots(
     >,
     fetchSocrataRows(loanReceivedURL) as unknown as Promise<{ filer_id: string; amount?: string }[]>,
     fetchSocrataRows(outstandingLoanURL) as unknown as Promise<ReportScheduleRow[]>,
+    fetchSocrataRows(transfersBySenderURL) as unknown as Promise<TransferSenderRow[]>,
   ])
 
   const directByFiler: Record<string, number> = {}
@@ -862,10 +900,17 @@ export async function fetchCampaignSnapshots(
     const loanReceived = ids.reduce((sum, id) => sum + (loanReceivedByFiler[id] ?? 0), 0)
     const outstanding = owedFromReports(outstandingLoanRows.filter((r) => ids.includes(r.filer_id)))
 
+    const internal = internalTransfers(transferSenderRows.filter((r) => ids.includes(r.filer_id)), official.filerIDs.map((f) => f.committeeName))
+    const scheduleTotal = (s: string) =>
+      Math.round(outstandingLoanRows.filter((r) => ids.includes(r.filer_id) && r.filing_sched_abbrev === s).reduce((t, r) => t + (parseFloat(r.amount ?? '0') || 0), 0) * 100) / 100
+    const outside = Math.round((transfers - internal) * 100) / 100
     result[official.name] = {
-      raised: direct + transfers,
+      raised: direct + outside,
       directContributions: direct,
-      transfersIn: transfers,
+      transfersIn: outside,
+      internalTransfers: internal,
+      inKind: scheduleTotal('D'),
+      refunds: scheduleTotal('M'),
       lastReported,
       latestYear,
       donorCount,

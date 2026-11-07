@@ -64,6 +64,23 @@ class TotalsTest(unittest.TestCase):
         self.assertEqual((t["seedRaised"], t["seedLastReported"], t["seedOwed"], t["seedOwedReport"]), (0, None, 0, None))
 
 
+class InternalTransfersTest(unittest.TestCase):
+    def test_transfers_from_the_officials_own_committees_are_internal(self):
+        rows = [
+            {"flng_ent_name": "Friends Of Tim Hubbard", "amount": "7686.52"},
+            {"flng_ent_name": "Riverhead Republican Committee", "amount": "1500"},
+            {"flng_ent_first_name": "Tim", "flng_ent_last_name": "Hubbard", "amount": "50"},
+        ]
+        self.assertEqual(ct.internal_transfers(rows, ["Tim Hubbard for Supervisor", "Friends of Tim Hubbard"]), 7686.52)
+
+    def test_internal_transfers_are_not_counted_as_raised(self):
+        rows = [row(2025, "July Periodic", "A", 1000), row(2025, "July Periodic", "G", 900),
+                row(2025, "July Periodic", "D", 75), row(2025, "July Periodic", "M", 40)]
+        t = ct.totals(rows, 2026, internal=600)
+        self.assertEqual((t["seedTransfersIn"], t["seedInternalTransfers"], t["seedRaised"]), (300, 600, 1300))
+        self.assertEqual((t["seedInKind"], t["seedRefunds"]), (75, 40))
+
+
 class QueryTest(unittest.TestCase):
     def test_asks_for_the_pages_window(self):
         where = urllib.parse.parse_qs(urllib.parse.urlsplit(ct.query_url(["506796"], 2024, 2026)).query)["$where"][0]
