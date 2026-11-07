@@ -53,6 +53,10 @@ export const MAP_W = 800
 const scale = MAP_W / ((maxLon - minLon) * kx)
 export const MAP_H = Math.round((maxLat - minLat) * scale)
 const px = (p: Position): [number, number] => [(p[0] - minLon) * kx * scale, (maxLat - p[1]) * scale]
+/** The map's projection, for other maps drawn over the same districts (the preserved-land map). */
+export const project = px
+/** Metres in one map unit: a degree of latitude is about 111,320 m. */
+export const METRES_PER_UNIT = 111320 / scale
 
 /** Area-weighted centroid of the largest ring, for the district's number. */
 function labelPoint(g: Geometry): [number, number] {

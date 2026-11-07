@@ -147,6 +147,31 @@ How the earlier years are checked:
 - **2025:** the County's figures are its election-night count, so the page
   gives the certified totals beside them.
 
+### 🌾 Preserved land — `/preserved-land`
+Every Riverhead farm whose development rights have been bought or restricted,
+from Suffolk County's GIS: 8,581 acres on 257 parcels, about a fifth of the
+Town. The map colors each parcel by who holds the rights (the County holds
+5,961 acres, the Town 1,546 and the two jointly 435) or by the decade it was
+preserved. A table lists every parcel. Street addresses and tax-map numbers
+are left out.
+
+### 🗳️ Board votes — `/board-votes`
+How each Town Board member voted when the Board did not agree. That happened
+on 39 of 2,029 resolutions since January 2025, the period for which the site
+holds every meeting. The page shows:
+- a grid of how often each pair voted alike;
+- each member's yes, no, abstain and absence counts;
+- every contested resolution with each member's vote.
+
+Abstentions can be recusals, and the page says so.
+
+### 💸 Budget flow — `/budget-flow`
+One diagram of the 2027 Preliminary budget. Its $120,854,219 runs from the
+kind of revenue, through each fund, to what it pays for. Revenue and spending
+are grouped by the State Comptroller's account codes, and every figure is in
+tables under the diagram. Money that moves between funds appears on both
+sides, and the page says how much.
+
 ### 💵 Donation map — `/donation-map`
 Where each Town Board candidate's and party committee's itemized contributions
 came from, by ZIP code. Pick a committee and a year, or every year since 2005,
@@ -457,6 +482,9 @@ The four links at the front of the site menu:
 - **Election Law Case** (`/election-law-case`): what the Town spent fighting New York's even-year election law.
 - **Legal Costs** (`/legal-costs`): outside lawyers, the Town Attorney's office and claims, 2018 to the 2027 Preliminary, and the Board's votes on counsel and settlements.
 - **Regional CPF Counsel** (`/regional-cpf-counsel`): the regional Community Preservation Fund attorney the 2024 state law requires, the contract the Board tabled, and the home rule question.
+- **Preserved Land** (`/preserved-land`): every preserved farm parcel, by who holds the rights and when.
+- **Board Votes** (`/board-votes`): how each member voted when the Board did not agree, and who votes with whom.
+- **Budget Flow** (`/budget-flow`): the 2027 Preliminary budget from revenue, through the funds, to spending.
 - **Donation Map** (`/donation-map`): where each committee's itemized contributions came from, by ZIP code, with a committee and year picker, from the State Board of Elections' filings.
 - **Election Map** (`/election-map`): Riverhead's 22 election districts, colored by who led, a candidate's share or the votes cast, in fifteen contests from 2013 to 2026 (including the 2024 presidential race). Compare sets any two candidates and years against each other, district by district. The page also lists every Supervisor race since 2013 and charts Riverhead's turnout in every November election since 2013.
 - **Officials on Social Media** (`/official-social-media`): when an official's account counts as government speech.
@@ -628,6 +656,8 @@ Every page shows when its data was last refreshed.
 | `build_campaign_reports.py` | Each committee's 2026 General Election reports from data.ny.gov, by report and schedule. If data.ny.gov cannot be reached, the last copy stays and the run shows a warning |
 | `build_campaign_totals.py` | Each committee's stored figures on `/campaign-finance/`: what it raised, refunded and borrowed, its in-kind gifts, and what it owed at its latest report. It writes `campaign-finance-totals.json` and never the hand-typed `campaign-finance.json`. The rules match the page's live Refresh: money moved between one official's own committees is not counted twice. If data.ny.gov cannot be reached, the last figures stay |
 | `build_donation_map.py` | Each committee's itemized contributions (Schedules A to C) by ZIP code and year, from the same data.ny.gov dataset, for `/donation-map/` (`campaign-donations-by-zip.json`). No names or addresses are kept. If data.ny.gov cannot be reached, the last file stays |
+| `build_preserved_land.py` | Riverhead's preserved-farmland parcels from the County GIS (`geo/riverhead-preserved-farmland.json`), with who holds the rights, acres, year and hamlet, never the address. If the GIS cannot be reached, the last file stays |
+| `build_vote_agreement.py` | Each contested resolution since 2025 and how often each pair of Board members voted alike (`vote-agreement.json`), from the site's own voting record; it reruns whenever the meeting records change |
 | `build_election_map.py` | Riverhead's 22 election-district boundaries from the County GIS (`riverhead-districts.json`) and each district's votes in the 2026 and 2025 general elections from the Board of Elections' results site, plus every Supervisor race and each November's turnout since 2013 from the County's final results pages (`riverhead-map.json`), for `/election-map/`. A candidate on several party lines is counted once. If a source cannot be reached, its file stays as it was |
 | `import_2024_results.py` | Run by hand: Riverhead's 2024 President and 1st Congressional District results by district, from Benjamin J. Rosenblatt's statewide compilation (`riverhead-2024.json`). It writes nothing unless Suffolk's totals equal the County's final 2024 results exactly and the 2024 districts match today's to 99% |
 | `import_past_supervisor.py` | Run by hand: the 2013, 2015 and 2017 Supervisor races by district, from OpenElections' transcription of the County's precinct returns (`riverhead-supervisor-past.json`). It writes nothing unless each candidate's Town total equals the County's final page exactly and the Census Bureau's 2010 and 2020 voting-district maps match today's districts |

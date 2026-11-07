@@ -22,19 +22,19 @@ const GROUPS: Group[] = [
     ['Main Operating Fund', `${base}/general-fund/`], ['Town Revenue', `${base}/revenue/`], ['Annual Report', `${base}/annual-report/`], ['Property-Tax Cap', `${base}/tax-cap/`],
     ['Savings & Reserves', `${base}/reserves/`], ['How Savings Were Used', `${base}/fund-balance-draws/`], ['Ambulance Funding', `${base}/rvac-funding/`], ['Approved Budget Changes', `${base}/budget-changes/`], ['Projects & Borrowing', `${base}/capital-debt/`], ['Town Square', `${base}/town-square/`],
     ['Road Spending', `${base}/road-spending/`], ['Community Preservation Fund', `${base}/community-preservation-fund/`],
-    ['Community Housing Plan', `${base}/housing-plan/`], ['Community', `${base}/community/`],
+    ['Community Housing Plan', `${base}/housing-plan/`], ['Community', `${base}/community/`], ['Preserved Land', `${base}/preserved-land/`],
   ] },
   { label: 'Government', links: [
     ['Resident Answers', `${base}/answers/`], ['Organization Chart', `${base}/workforce-by-title/#organization`], ['Town Jobs & Staffing', `${base}/workforce-by-title/`], ['Elected Officials & Pensions', `${base}/officials/`], ['Management Salaries & Benefits', `${base}/management-compensation/`], ['Fringe Benefits', `${base}/fringe-benefits/`],
     ['2026 Buyout', `${base}/buyout/`], ['Police Spending & Crime', `${base}/police-crime/`], ['School Resource Officers', `${base}/school-resource-officers/`], ['Supervisors & Council History', `${base}/town-history/`], ['Board Elections', `${base}/board-elections/`], ['Election Map', `${base}/election-map/`],
-    ['Campaign Finance', `${base}/campaign-finance/`], ['Donation Map', `${base}/donation-map/`], ['Candidate Watch', `${base}/candidate-watch/`], ['Candidate Proposals', `${base}/candidate-cost-benefit/`],
+    ['Campaign Finance', `${base}/campaign-finance/`], ['Donation Map', `${base}/donation-map/`], ['Board Votes', `${base}/board-votes/`], ['Candidate Watch', `${base}/candidate-watch/`], ['Candidate Proposals', `${base}/candidate-cost-benefit/`],
     ['Supervisor’s Promises', `${base}/supervisor-promises/`], ['Open Meetings Law', `${base}/open-meetings/`],
   ] },
   { label: 'Research', links: [
     ['Start Here', `${base}/guide/`], ['2027 Budget Forecast', `${base}/predict-2027/`], ['2027 Budget Amendments', `${base}/budget-amendments-2027/`], ['Review of the Tax-Cap Letter', `${base}/tax-cap-letter/`], ['Brookhaven’s 2027 Tentative', `${base}/brookhaven-2027/`], ['Southold’s 2027 Tentative', `${base}/southold-2027/`], ['How the Town Approves Its Budget', `${base}/budget-adoption/`], ['Budget Scenario Tool', `${base}/scenarios/`],
     ['2027 Spending Reduction', `${base}/spending-reduction-2027/`], ['Zero or 1% for 2027', `${base}/zero-percent-2027/`],
     ['Credit Rating', `${base}/credit-rating/`], ['Unusual Spending Patterns', `${base}/outliers/`], ['Budget vs. Actual Spending', `${base}/budget-accuracy/`], ['Cost of Board Decisions', `${base}/fiscal-impact/`], ['Contracts & Bids', `${base}/contracts/`],
-    ['Legal Costs', `${base}/legal-costs/`], ['Regional CPF Counsel', `${base}/regional-cpf-counsel/`],
+    ['Budget Flow', `${base}/budget-flow/`], ['Legal Costs', `${base}/legal-costs/`], ['Regional CPF Counsel', `${base}/regional-cpf-counsel/`],
   ] },
   { label: 'Sources', links: [
     ['Original Documents', `${base}/sources/`], ['Records the Town Has Not Published', `${base}/records/`], ['Downloads', `${base}/downloads/`], ['Data Quality & Freshness', `${base}/data-quality/`],
