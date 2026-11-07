@@ -76,6 +76,8 @@ jobs:
       # Supplement, including a newly discovered 2027 PDF, on this same deploy.
       # This keeps current-lines, revenue-history, current-outliers and the
       # multi-year trend views from waiting for the scheduled ETL run.
+      - name: Read the Preliminary Budget book's account lines
+        run: python etl/parse_preliminary_lines.py
       - name: Build multi-year Budget Supplement history
         run: python etl/parse_supplement_history.py
 

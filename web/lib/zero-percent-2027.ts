@@ -42,7 +42,7 @@ import { CARRYOVER_CAP, CARRYOVER_SOURCES, factorsAllowPct, GROWTH_2027 } from '
 
 type Line = {
   account: string; fund: string; name: string; kind: string; page: number
-  actual: number | null; adopted: number | null; ytd: number | null; tentative: number | null; priorActual: number | null
+  actual: number | null; adopted: number | null; ytd: number | null; tentative: number | null; preliminary?: number | null; priorActual: number | null
 }
 type History = {
   account: string; fund: string; name: string; page: number
@@ -174,8 +174,10 @@ export const baseGrowthPct = pct(tw.priorLevy / tw.priorRate, tw.levy / tw.rate)
 // ── Where the money could come from ──────────────────────────────────────────
 
 const amendedEstimate = (account: string) => {
-  const t = lines.get(account)?.tentative ?? 0
-  return t + (amendedChange.get(account) ?? 0)
+  const l = lines.get(account)
+  // The Town's printed Preliminary, when the book is loaded; it equals the Tentative plus the six resolutions (checked by verify-budget-amendments).
+  if (l?.preliminary != null) return l.preliminary
+  return (l?.tentative ?? 0) + (amendedChange.get(account) ?? 0)
 }
 
 /**

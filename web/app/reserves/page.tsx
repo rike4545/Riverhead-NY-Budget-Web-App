@@ -1,3 +1,5 @@
+import ChartCard from '../../components/infographics/ChartCard'
+import ReserveCushion from '../../components/infographics/ReserveCushion'
 import PageShell from '../../components/PageShell'
 import ProvenanceLine from '../../components/ProvenanceLine'
 import PlainCallout from '../../components/PlainCallout'
@@ -259,6 +261,10 @@ export default function ReservesPage() {
         </p>
       </section>
 
+      <ChartCard>
+        <ReserveCushion />
+      </ChartCard>
+
       <section data-fund-balance-policy style={{ ...card, marginBottom: 16 }}>
         <h3 style={{ marginTop: 0, color: 'var(--rbl-title)' }}>What the Town&apos;s fund balance policy says</h3>
         <p style={{ color: 'var(--rbl-text-body)', fontSize: 14.5, lineHeight: 1.6, marginTop: 0 }}>
@@ -481,7 +487,7 @@ export default function ReservesPage() {
             {nameList(interestYears.map((r) => `${dollars(r.collected ?? 0)} in ${r.year}`))} in interest and earnings,{' '}
             {dollars(generalFundInterest.threeYears.collected)} in all, while those years&apos; budgets expected{' '}
             {dollars(Math.max(...interestYears.map((r) => r.estimated ?? 0)))} or less. The 2027 {planned2027?.stage ?? 'Tentative'} estimates{' '}
-            {dollars(generalFundInterest.tentative ?? 0)}
+            {dollars(generalFundInterest.proposed ?? 0)}
             {amendedGeneralFund?.interest ? <>, and the amendments would make it {dollars(amendedGeneralFund.interest)}</> : null}. Spending the
             balance down also spends down what it earns.
           </p>

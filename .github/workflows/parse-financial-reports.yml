@@ -79,6 +79,8 @@ jobs:
         run: python etl/parse_afr.py
       - name: Re-analyse the budget supplement
         run: python etl/parse_budget_supplement.py
+      - name: Read the Preliminary Budget book's account lines
+        run: python etl/parse_preliminary_lines.py
       - name: Build multi-year supplement history
         run: python etl/parse_supplement_history.py
       # The meeting sync fetches the CivicClerk sources; this job rebuilds the
@@ -121,6 +123,28 @@ jobs:
       # download leaves the published file unchanged and prints a warning.
       - name: Refresh 2026 General Election campaign finance reports
         run: python etl/build_campaign_reports.py
+      # Each committee card's stored totals on /campaign-finance/ (lifetime,
+      # this cycle, loans and the balance owed), from the same data.ny.gov
+      # dataset. A failed download keeps the last totals and prints a warning.
+      - name: Refresh campaign finance card totals
+        run: python etl/build_campaign_totals.py
+      # Each committee's itemized contributions by ZIP code (/donation-map/),
+      # from the same dataset. A failed download keeps the last file.
+      - name: Refresh the donation map
+        run: python etl/build_donation_map.py
+      # Riverhead's preserved farmland (/preserved-land/), from the County GIS.
+      # A failed download keeps the last file.
+      - name: Refresh the preserved-land map
+        run: python etl/build_preserved_land.py
+      # How Board members voted when they did not agree (/board-votes/), from
+      # the voting record rebuilt above.
+      - name: Rebuild the Board vote comparison
+        run: python etl/build_vote_agreement.py
+      # Riverhead's 22 election districts and how each voted (/election-map/),
+      # from the County GIS and the Board of Elections' results site. A failed
+      # download keeps the last files and prints a warning.
+      - name: Refresh the election-district map
+        run: python etl/build_election_map.py
       - name: Build unified search index
         run: python etl/build_search_index.py
       - name: Export CSV downloads

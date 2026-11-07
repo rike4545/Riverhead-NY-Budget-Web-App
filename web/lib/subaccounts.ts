@@ -37,6 +37,8 @@ export type SubLineItem = {
   history: SubYearValue[]
   /** The 2027 Tentative figure, where funds-2027.ts adds it. */
   tentative2027?: number
+  /** The latest 2027 stage: the Preliminary once the Town prints it, else the Tentative. */
+  proposed2027?: number
   /** Not in the 2026 budget; first appears in the 2027 Tentative. */
   new2027?: boolean
 }
@@ -56,6 +58,8 @@ export type SubDepartment = {
   lineItems: SubLineItem[]
   lineItemCount: number
   tentative2027?: number
+  /** The latest 2027 stage: the Preliminary once the Town prints it, else the Tentative. */
+  proposed2027?: number
 }
 
 export type RevenueLineItem = {
@@ -67,6 +71,8 @@ export type RevenueLineItem = {
   preliminary2026: number | null
   adopted2026: number | null
   tentative2027?: number
+  /** The latest 2027 stage: the Preliminary once the Town prints it, else the Tentative. */
+  proposed2027?: number
   new2027?: boolean
 }
 
@@ -86,6 +92,7 @@ export type FundDetail = {
   revenues: RevenueLineItem[]
   /** The sum of the 2027 Tentative lines, where funds-2027.ts adds them. */
   tentativeExpenditure2027?: number
+  proposedExpenditure2027?: number
 }
 
 export type FundIndexEntry = {

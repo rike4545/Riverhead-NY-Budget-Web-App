@@ -1,11 +1,11 @@
 {
- "generatedAt": "2026-10-30T18:21:44Z",
- "generatedAtDisplay": "October 30, 2026",
- "dataVersion": "2e96a88105905a25",
+ "generatedAt": "2026-11-07T03:13:49Z",
+ "generatedAtDisplay": "November 7, 2026",
+ "dataVersion": "bcaa4441fd58565a",
  "datasets": {
-  "meetings": 51,
-  "votes": 2175,
-  "latestMeeting": "October 20, 2026",
+  "meetings": 52,
+  "votes": 2201,
+  "latestMeeting": "November 5, 2026",
   "budgetLineItems": 1009,
   "payrollYears": [
    2018,
@@ -17,7 +17,7 @@
    2024,
    2025
   ],
-  "searchEntries": 17468
+  "searchEntries": 17494
  },
  "datasetDetails": {
   "budget": {
@@ -36,18 +36,18 @@
   },
   "meetings": {
    "label": "Town Board minutes and votes",
-   "asOf": "October 20, 2026",
+   "asOf": "November 5, 2026",
    "status": "official",
    "cadence": "Checked weekly as the Town publishes minutes; meetings are not held every week",
-   "records": 2175,
+   "records": 2201,
    "freshness": "current",
-   "freshnessNote": "Source date is 10 days old, inside the expected window.",
+   "freshnessNote": "Source date is 2 days old, inside the expected window.",
    "freshnessPolicy": {
     "mode": "date",
     "currentDays": 28,
     "staleDays": 56
    },
-   "sourceDate": "2026-10-20"
+   "sourceDate": "2026-11-05"
   },
   "payroll": {
    "label": "Actual payroll",
@@ -79,7 +79,7 @@
   },
   "projection": {
    "label": "2027 projection model",
-   "asOf": "October 30, 2026",
+   "asOf": "November 7, 2026",
    "status": "projected",
    "cadence": "Regenerated with the ETL pipeline",
    "records": null,
@@ -90,14 +90,14 @@
     "currentDays": 7,
     "staleDays": 14
    },
-   "sourceDate": "2026-10-30"
+   "sourceDate": "2026-11-07"
   },
   "search": {
    "label": "Unified search index",
-   "asOf": "October 30, 2026",
+   "asOf": "November 7, 2026",
    "status": "calculated",
    "cadence": "Regenerated with source datasets",
-   "records": 17468,
+   "records": 17494,
    "freshness": "current",
    "freshnessNote": "Source date is 0 days old, inside the expected window.",
    "freshnessPolicy": {
@@ -105,9 +105,9 @@
     "currentDays": 7,
     "staleDays": 14
    },
-   "sourceDate": "2026-10-30",
+   "sourceDate": "2026-11-07",
    "format": "sharded",
-   "bytes": 5953996
+   "bytes": 5959818
   }
  }
 }

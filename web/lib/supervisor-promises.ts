@@ -66,7 +66,7 @@ const RH_LOCAL: Source = {
 
 export const context = [
   `He won by 37 votes after a hand recount, 3,958 to 3,921, defeating Supervisor Tim Hubbard (RiverheadLOCAL, Nov. 25, 2025).`,
-  'He is serving a one-year term. New York moved local elections to even-numbered years, which cut his two-year term short, so the seat is on the ballot again this November (Riverhead News-Review, Feb. 2026).',
+  'He is serving a one-year term. New York moved local elections to even-numbered years, which cut his two-year term short, so the seat was on the ballot again on November 3, 2026 (Riverhead News-Review, Feb. 2026). He led that race 6,779 to 6,152 in the County’s unofficial count, for a two-year term from January 1, 2027; the result is not yet certified.',
   'He is an independent who ran on the Democratic line (East End Beacon, Dec. 31, 2025). He isn’t registered in any party, and he is the only Town Board member who isn’t a Republican (RiverheadLOCAL). In his words: “I am not a Republican, and I am not a Democrat” (votejerryhalpin.com). In February the Riverhead Town Democratic Committee unanimously backed him for reelection (Riverhead News-Review).',
   'His opponent, Councilman Kenneth Rothwell, is one of the five Board members who will vote on the 2027 budget by November 20.',
 ]

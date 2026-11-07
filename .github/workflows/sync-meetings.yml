@@ -62,8 +62,9 @@ jobs:
         if: steps.meeting_changes.outputs.changed == 'true'
         run: |
           python etl/build_search_index.py
+          python etl/build_vote_agreement.py
           python etl/write_meta.py
-          git add web/public/data/search web/public/data/meta.json || true
+          git add web/public/data/search web/public/data/vote-agreement.json web/public/data/meta.json || true
 
       - name: Commit refreshed meeting data
         id: commit
@@ -78,7 +79,7 @@ jobs:
           # conflict in meta.json. See .github/scripts/push-data.sh.
           DERIVED='^(web/public/data/meta\.json$|web/public/data/search/)' \
           REBUILD='python etl/build_search_index.py && python etl/write_meta.py' \
-            bash .github/scripts/push-data.sh etl/data/meetings web/public/data/meetings web/public/data/search web/public/data/meta.json
+            bash .github/scripts/push-data.sh etl/data/meetings web/public/data/meetings web/public/data/search web/public/data/vote-agreement.json web/public/data/meta.json
           echo "changed=true" >> "$GITHUB_OUTPUT"
 
       - name: Feature-branch validation notice

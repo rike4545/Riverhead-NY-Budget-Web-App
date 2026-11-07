@@ -3,9 +3,10 @@ import ProposalLineStageNotice from '../../components/ProposalLineStageNotice'
 import PlainCallout from '../../components/PlainCallout'
 import OutlierWatch from '../../components/OutlierWatch'
 import {
-  outliers, transitions, allYoyChanges, fundCount, fundNames, adoptedYears, proposal, proposalLines, supplementSource,
-  paydowns2026, cpfDebtTransfer, PCT_THRESHOLD, DOLLAR_THRESHOLD, type FundYoyChange, type LineMove,
+  outliers, transitions, allYoyChanges, fundCount, fundNames, adoptedYears, proposal, proposalLines, supplementSource, preliminarySource,
+  accountOutliers, paydowns2026, cpfDebtTransfer, PCT_THRESHOLD, DOLLAR_THRESHOLD, type AccountFlag, type FundYoyChange, type LineMove,
 } from '../../lib/outlier-watch'
+import { supplementActualYear } from '../../lib/funds-2027'
 
 const base = process.env.NEXT_PUBLIC_BASE_PATH || ''
 const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 20 } as const
@@ -43,7 +44,7 @@ export default function OutlierWatchPage() {
       title="Outlier Watch"
       subtitle={`Riverhead's ${fundCount} town funds, each checked against its own budget the year before, from ${range}. A flag marks a swing large enough to be worth a second look. It is not proof of a problem, but a place to start asking questions.`}
     >
-      <ProposalLineStageNotice />
+      <ProposalLineStageNotice basis="tentative" />
       <PlainCallout
         tips={[
           {
@@ -90,13 +91,15 @@ export default function OutlierWatchPage() {
               {Counted(proposal.percentOnly.length)} {proposal.percentOnly.length === 1 ? 'fund changes' : 'funds change'} by {PCT_THRESHOLD}% or more but by less than {usd(DOLLAR_THRESHOLD)}, so {proposal.percentOnly.length === 1 ? 'it is' : 'they are'} not flagged either: {listed(proposal.percentOnly.map(moved))}.
             </p>
           )}
-          {/* A flagged fund gets its Supplement lines when the Supplement prints this proposal (a Tentative). The Debt Service
+          {/* A flagged fund gets its Supplement lines when they can be read at this proposal. The Debt Service
               Fund's fall is explained by the 2026 votes whichever stage is newest, so it keeps its panel without them. */}
           {proposal.flagged.map((c) => (proposalLines[c.code] || isDebtServiceFall(c)
             ? <FlagLines key={c.code} change={c} lines={proposalLines[c.code] ?? null} fromLabel={String(c.fromYear)} toLabel={labelOf(c)} />
             : null))}
         </section>
       )}
+
+      {proposal && accountOutliers && <AccountSection />}
 
       <h2 style={{ margin: '0 0 10px', color: 'var(--rbl-title)', fontSize: 24, lineHeight: 1.25 }}>Every flag since {adoptedYears.first}</h2>
       <OutlierWatch outliers={outliers} transitions={transitions} />
@@ -105,7 +108,9 @@ export default function OutlierWatchPage() {
         Sources: each adopted budget's Summary page, through the same fund history that powers{' '}
         <a href={`${base}/funds/`} style={link}>Funds Explorer</a>
         {proposal && <>; the <a href={proposal.to.source.url} target="_blank" rel="noopener noreferrer" style={link}>{proposal.to.source.title}</a>, its Summary page</>}
-        {supplementSource && Object.keys(proposalLines).length > 0 && <>; and, line by line, the <a href={supplementSource.url} target="_blank" rel="noopener noreferrer" style={link}>{supplementSource.title}</a>, whose lines add up to the Tentative to the dollar</>}.
+        {supplementSource && (Object.keys(proposalLines).length > 0 || accountOutliers) && (preliminarySource
+          ? <>; and, line by line, the <a href={supplementSource.url} target="_blank" rel="noopener noreferrer" style={link}>{supplementSource.title}</a> for the {supplementActualYear} actual and {proposal?.from.label} adopted figures, with each line&apos;s Preliminary figure from the <a href={preliminarySource.url} target="_blank" rel="noopener noreferrer" style={link}>{preliminarySource.title}</a>; the lines add up to the Preliminary&apos;s totals to the dollar</>
+          : <>; and, line by line, the <a href={supplementSource.url} target="_blank" rel="noopener noreferrer" style={link}>{supplementSource.title}</a>, whose lines add up to the Tentative to the dollar</>)}.
       </p>
     </PageShell>
   )
@@ -115,14 +120,14 @@ const isDebtServiceFall = (c: FundYoyChange) => c.code === 'V01' && c.toYear ===
 
 /**
  * One flagged fund in the proposal: the lines that moved, and what the record says about why.
- * `lines` is null when the Supplement does not print this proposal (a Preliminary or Adopted budget).
+ * `lines` is null when the Supplement's lines cannot be read at this proposal.
  */
 function FlagLines({ change, lines, fromLabel, toLabel }: { change: FundYoyChange; lines: { spending: LineMove[]; money: LineMove[] } | null; fromLabel: string; toLabel: string }) {
   const debtService = isDebtServiceFall(change)
   const cpf = cpfDebtTransfer
   // Said only while it is the whole story: the transfer gone, the same amount
   // budgeted as a contribution instead, and the fund itself left unflagged.
-  // Its figures are the Supplement's, which prints the Tentative, so it needs the lines.
+  // Its figures are the Supplement's lines, so it needs them.
   const cpfStory = debtService && lines && cpf && cpf.transfer.to === 0 && cpf.contribution.from === 0 && cpf.contribution.to === cpf.transfer.from &&
     !proposal?.flagged.some((c) => c.code === 'CM4')
   return (
@@ -162,7 +167,7 @@ function FlagLines({ change, lines, fromLabel, toLabel }: { change: FundYoyChang
         <LineTable caption={`What the ${change.name} pays for, ${fromLabel} adopted and ${toLabel}`} first="Line" rows={lines.spending} fromLabel={fromLabel} toLabel={toLabel} />
       ) : (
         <p style={{ ...prose, fontSize: 15 }}>
-          The Budget Supplement, which lists the fund line by line, prints the Tentative, not the {toLabel}, so the lines are not shown here.
+          The Budget Supplement, which lists the fund line by line, cannot yet be matched to the {toLabel}, so the lines are not shown here.
         </p>
       )}
       {lines?.spending.some((l) => /\bBAN\b/.test(l.name)) && (
@@ -222,6 +227,102 @@ function LineTable({ caption, first, rows, fromLabel, toLabel }: { caption: stri
             <td data-label={`${fromLabel} adopted`} style={{ ...cell, textAlign: 'right' }}>{usd(l.from)}</td>
             <td data-label={toLabel} style={{ ...cell, textAlign: 'right' }}>{usd(l.to)}</td>
             <td data-label="Change" style={{ ...cell, textAlign: 'right', fontWeight: 700, color: l.dollarChange >= 0 ? 'var(--inc)' : 'var(--dec)' }}>{signed(l.dollarChange)}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  )
+}
+
+/** Accounts, not funds: the Supplement lines the proposal moves past both bars. */
+function AccountSection() {
+  if (!proposal || !accountOutliers) return null
+  const { spending, revenue, debtServiceCount } = accountOutliers
+  const to = proposal.to.label
+  const from = proposal.from.label
+  const actual = String(supplementActualYear)
+  // A line new in the proposal has no history to compare, so it is named apart.
+  const raisedRevenue = revenue.filter((l) => l.dollarChange > 0 && l.pctChange !== null)
+  const newRevenue = revenue.filter((l) => l.pctChange === null)
+  const raisedUnderActual = raisedRevenue.filter((l) => l.actual !== null && l.to <= l.actual)
+  const allOrSome = (n: number, of: number) => (n === of ? `All ${counted(of)}` : `${Counted(n)} of the ${counted(of)}`)
+  const raisedSpending = spending.filter((l) => l.dollarChange > 0)
+  const spendingOverActual = raisedSpending.filter((l) => l.actual !== null && l.to > l.actual)
+  return (
+    <section aria-labelledby="accounts-heading" style={{ marginBottom: 24 }}>
+      <h2 id="accounts-heading" style={{ margin: '0 0 10px', color: 'var(--rbl-title)', fontSize: 24, lineHeight: 1.25 }}>Accounts the {to} moves most</h2>
+      <p style={prose}>
+        A fund&apos;s total can hide large moves inside it. These are the Budget Supplement&apos;s lines that move at least {PCT_THRESHOLD}% and
+        at least {usd(DOLLAR_THRESHOLD)} from the {from} adopted budget to the {to}, or that are new and at least {usd(DOLLAR_THRESHOLD)}.
+        {debtServiceCount > 0 && <> {Counted(debtServiceCount)} more only carry the Debt Service Fund&apos;s fall, which is explained above.</>}
+        {' '}The {actual} actual column is what the Town really spent or collected in its last full year, for scale.
+      </p>
+      {spending.length > 0 && (
+        <>
+          <AccountTable caption={`Spending lines (${spending.length})`} rows={spending} actual={actual} fromLabel={from} toLabel={to} />
+          {raisedSpending.length > 0 && (
+            <p style={prose}>
+              {spendingOverActual.length === 0
+                ? <>None of the {counted(raisedSpending.length)} spending increases budgets more than the Town spent on that line in {actual}.</>
+                : <>{allOrSome(spendingOverActual.length, raisedSpending.length)} spending increases {spendingOverActual.length === 1 && raisedSpending.length > 1 ? 'budgets' : 'budget'} more than the Town spent on that line in {actual}: {listed(spendingOverActual.map((l) => `${l.name} (${usd(l.to)} against ${usd(l.actual ?? 0)})`))}. That is a fair question to put to the Town Board: what is the extra money for?</>}
+            </p>
+          )}
+        </>
+      )}
+      {revenue.length > 0 && (
+        <>
+          <AccountTable caption={`Revenue lines (${revenue.length})`} rows={revenue} actual={actual} fromLabel={from} toLabel={to} />
+          {(raisedRevenue.length > 0 || newRevenue.length > 0) && (
+            <p style={prose}>
+              {raisedRevenue.length > 0 && (raisedUnderActual.length === raisedRevenue.length
+                ? <>{allOrSome(raisedUnderActual.length, raisedRevenue.length)} revenue lines the {to} raises are still at or below what the Town collected in {actual}, so the increases follow results the Town has already seen.</>
+                : <>{allOrSome(raisedUnderActual.length, raisedRevenue.length)} revenue lines the {to} raises {raisedUnderActual.length === 1 ? 'is' : 'are'} still at or below what the Town collected in {actual}. The rest count on more than the Town collected that year, which is worth asking about: {listed(raisedRevenue.filter((l) => !raisedUnderActual.includes(l)).map((l) => `${l.name} (${usd(l.to)} against ${usd(l.actual ?? 0)})`))}.</>)}
+              {newRevenue.length > 0 && <> {listed(newRevenue.map((l) => l.name))} {newRevenue.length === 1 ? 'is a new line' : 'are new lines'}, with no adopted budget or {actual} figure to compare.</>}
+            </p>
+          )}
+        </>
+      )}
+      <p style={{ ...prose, fontSize: 15 }}>
+        A big move in one line is not a problem in itself. Some are a line renamed or moved to another account, some are a new
+        contract, and some are a closer estimate of what the Town really collects. Each is a place to ask a question.
+      </p>
+    </section>
+  )
+}
+
+function AccountTable({ caption, rows, actual, fromLabel, toLabel }: { caption: string; rows: AccountFlag[]; actual: string; fromLabel: string; toLabel: string }) {
+  const cell = { padding: '8px 10px', verticalAlign: 'top' } as const
+  const head = { ...cell, fontWeight: 600, fontSize: 13.5, color: 'var(--rbl-text-muted)' } as const
+  return (
+    <table className="rbl-stack" style={{ width: '100%', borderCollapse: 'collapse', fontSize: 15, margin: '4px 0 14px' }}>
+      <caption style={{ textAlign: 'left', color: 'var(--rbl-text-body)', fontWeight: 600, fontSize: 15, padding: '0 0 6px' }}>
+        {caption} <span style={{ fontWeight: 400, color: 'var(--rbl-text-muted)' }}>(Budget Supplement, {pages(rows)})</span>
+      </caption>
+      <thead>
+        <tr style={{ borderBottom: '1px solid var(--rbl-border)', textAlign: 'left' }}>
+          <th scope="col" style={head}>Line</th>
+          <th scope="col" style={{ ...head, textAlign: 'right' }}>{actual} actual</th>
+          <th scope="col" style={{ ...head, textAlign: 'right' }}>{fromLabel} adopted</th>
+          <th scope="col" style={{ ...head, textAlign: 'right' }}>{toLabel}</th>
+          <th scope="col" style={{ ...head, textAlign: 'right' }}>Change</th>
+        </tr>
+      </thead>
+      <tbody>
+        {rows.map((l) => (
+          <tr key={l.account} style={{ borderBottom: '1px solid var(--rbl-border-subtle)' }}>
+            <td style={{ ...cell, color: 'var(--rbl-text-strong)' }}>
+              <span style={{ textAlign: 'left' }}>
+                {l.name}
+                <span style={{ display: 'block', color: 'var(--rbl-text-muted)', fontSize: 13, fontWeight: 400 }}>{fundNames[l.fund] ?? l.fund} · {l.account}</span>
+              </span>
+            </td>
+            <td data-label={`${actual} actual`} style={{ ...cell, textAlign: 'right' }}>{l.actual === null ? '—' : usd(l.actual)}</td>
+            <td data-label={`${fromLabel} adopted`} style={{ ...cell, textAlign: 'right' }}>{usd(l.from)}</td>
+            <td data-label={toLabel} style={{ ...cell, textAlign: 'right' }}>{usd(l.to)}</td>
+            <td data-label="Change" style={{ ...cell, textAlign: 'right', fontWeight: 700, color: l.dollarChange >= 0 ? 'var(--inc)' : 'var(--dec)' }}>
+              {signed(l.dollarChange)}
+              <span style={{ display: 'block', fontWeight: 400, fontSize: 13, color: 'var(--rbl-text-muted)' }}>{l.pctChange === null ? 'new' : pct(l.pctChange)}</span>
+            </td>
           </tr>
         ))}
       </tbody>

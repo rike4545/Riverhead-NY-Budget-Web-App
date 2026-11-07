@@ -19,7 +19,12 @@ const fail = (message) => { console.error(`CAMPAIGN REPORTS VERIFY FAILED: ${mes
 const read = (p) => JSON.parse(readFileSync(join(process.cwd(), p), 'utf8'))
 
 const store = read('public/data/campaign-finance-2026-general.json')
-const officials = read('public/data/campaign-finance.json').officials
+// Hand-typed facts and the figures the data refresh builds live in separate files
+// (lib/campaign-officials.ts joins them); the figures are read here under the names the cards use.
+const factsFile = read('public/data/campaign-finance.json')
+const totalsFile = read('public/data/campaign-finance-totals.json')
+const SEED = { raised: 'seedRaised', directContributions: 'seedDirectContributions', transfersIn: 'seedTransfersIn', internalTransfers: 'seedInternalTransfers', inKind: 'seedInKind', refunds: 'seedRefunds', lastContribution: 'seedLastReported', loansReceived: 'seedLoansReceived', owed: 'seedOwed', owedReport: 'seedOwedReport', cycleRaised: 'seedCycleRaised', cycleItems: 'seedCycleItems' }
+const officials = factsFile.officials.map((o) => ({ ...o, ...Object.fromEntries(Object.entries(totalsFile.committees[o.name] ?? {}).flatMap(([k, v]) => (SEED[k] ? [[SEED[k], v]] : []))) }))
 
 const REPORTS = { '32-Day Pre-General': '2026-09-28', '11-Day Pre-General': '2026-10-19', '27-Day Post-General': '2026-11-26' }
 if (store.election?.date !== '2026-11-03' || store.election?.electionYear !== '2026') fail('the stored file does not name the November 3, 2026 General Election')
@@ -53,6 +58,49 @@ else {
   const html = readFileSync(built, 'utf8').replace(/<!-- -->/g, '').replace(/&amp;/g, '&').replace(/&quot;/g, '"').replace(/&#x27;/g, "'")
   for (const text of ['2026 General Election reports (November 3, 2026)', '2026 General 11/03/2026 11-Day', 'Election Law §14-108', ...Object.keys(REPORTS).map((r) => `${r} report`)]) {
     if (!html.includes(text)) fail(`the built page is missing “${text}”`)
+  }
+  // The schedules explainer quotes the State's schedule names exactly as the open data prints them.
+  for (const name of ['Monetary Contributions Received From Ind. & Part.', 'Monetary Contributions Received From Corporation',
+    'Monetary Contributions Received From All Other', 'In-Kind (Non-Monetary) Contributions Received', 'LLCs/Partnership/Subcontractor']) {
+    if (!html.includes(name)) fail(`the schedules explainer does not quote the schedule name “${name}”`)
+  }
+  // Each current official's card shows the stored totals before Refresh, and they add up.
+  for (const o of officials.filter((x) => x.currentlyServing && !x.isPartyCommittee)) {
+    const sumOf = Math.round(((o.seedDirectContributions ?? 0) + (o.seedTransfersIn ?? 0)) * 100) / 100
+    if (Math.abs((o.seedRaised ?? 0) - sumOf) > 0.01) fail(`${o.name}: stored total raised ${o.seedRaised} is not contributions plus transfers (${sumOf})`)
+    if (o.seedRaised == null || o.seedCycleRaised == null || o.seedOwed == null) { fail(`${o.name}: stored totals are missing; run etl/build_campaign_totals.py`); continue }
+    if (o.seedInternalTransfers == null || o.seedRefunds == null || o.seedInKind == null) fail(`${o.name}: stored refunds, in-kind or internal transfers are missing; run etl/build_campaign_totals.py`)
+    for (const figure of [o.seedRaised, o.seedCycleRaised, ...[o.seedOwed, o.seedLoansReceived, o.seedRefunds, o.seedInKind, o.seedInternalTransfers].filter((x) => x > 0)]) {
+      if (!html.includes(usd(figure))) fail(`${o.name}'s card does not show ${usd(figure)}`)
+    }
+  }
+  // The figures stay out of the hand-typed file, and every committee is in the summary table.
+  for (const o of factsFile.officials) {
+    const typed = Object.keys(o).filter((k) => k.startsWith('seed'))
+    if (typed.length) fail(`${o.name}: campaign-finance.json holds figures (${typed.join(', ')}); they belong in campaign-finance-totals.json`)
+    const t = totalsFile.committees[o.name]
+    if (!t) { fail(`${o.name}: no totals in campaign-finance-totals.json; run etl/build_campaign_totals.py`); continue }
+    if (t.filerIDs.join() !== o.filerIDs.map((f) => f.filerID).join()) fail(`${o.name}: the totals cover filer IDs ${t.filerIDs.join(', ')}, not the committees listed`)
+  }
+  const table = html.slice(html.indexOf('Every committee at a glance'), html.indexOf('id="candidate-records"'))
+  if (!table.includes('Every committee at a glance')) fail('the page has no summary table')
+  for (const o of officials) if (!table.includes(usd(o.seedRaised))) fail(`the summary table does not show ${o.name}'s ${usd(o.seedRaised)}`)
+  // The 2026 reports name every official whose committee filed them, whatever their next election.
+  const ballot = html.slice(html.indexOf('On the ballot from this page:'), html.indexOf('On the ballot from this page:') + 200)
+  for (const name of ['Jerome Halpin', 'Kenneth Rothwell']) if (!ballot.includes(name)) fail(`the 2026 reports do not name ${name} as on the ballot`)
+  // Terms: a next term still waiting on certification says so on the card.
+  for (const o of officials.filter((x) => x.nextTermStarts)) {
+    if (!html.includes('Next term:')) fail(`${o.name}'s card does not show the next term`)
+    if (o.nextTermStatus === 'unofficial' && !html.includes('unofficial result, not yet certified')) fail(`${o.name}'s next term is not labelled unofficial`)
+  }
+  // The November 3, 2026 Supervisor result is shown, labelled unofficial until the County certifies it.
+  if (!html.includes('data-unofficial-result') || !html.includes('Unofficial result of the November 3, 2026')) fail('the page does not show the unofficial November 3, 2026 Supervisor result')
+  // The limits are the County's 2026 index for the Town of Riverhead, not the 2025 index or the Business Council's 2022 figures.
+  for (const figure of ['$1,219.30', '$6,096.50', '$1,685.75', '$2,148.50', 'Campaign Contribution Limit Index for 2026']) {
+    if (!html.includes(figure)) fail(`the contribution limits section does not show “${figure}” from the County's 2026 index`)
+  }
+  for (const stale of ['Avg. donation / donor', 'Currently outstanding', '>Passed<', '$1,109.30', '$1,688.75', 'Business Council of New York State']) {
+    if (html.includes(stale)) fail(`the built page still says “${stale.replace(/[<>]/g, '')}”`)
   }
   for (const report of Object.keys(REPORTS)) {
     const start = html.indexOf(`${report} report`)

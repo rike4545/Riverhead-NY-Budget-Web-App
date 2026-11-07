@@ -1,3 +1,5 @@
+import ChartCard from '../../components/infographics/ChartCard'
+import ReserveCushion from '../../components/infographics/ReserveCushion'
 import { Fragment } from 'react'
 import PageShell from '../../components/PageShell'
 import PlainCallout from '../../components/PlainCallout'
@@ -60,6 +62,10 @@ export default function FundBalanceDrawsPage() {
         )}
         <Stat label="Record coverage" value={`${coverage.accountSharePct.toFixed(0)}%`} sub={`${coverage.resolutionsWithAccounts} of ${coverage.resolutionsWithStatement.toLocaleString()} statements itemise accounts`} warn />
       </section>
+
+      <ChartCard>
+        <ReserveCushion />
+      </ChartCard>
 
       <section style={{ ...card, marginBottom: 16 }}>
         <h3 style={{ marginTop: 0, color: 'var(--rbl-title)' }}>Channel one: the adopted budget</h3>

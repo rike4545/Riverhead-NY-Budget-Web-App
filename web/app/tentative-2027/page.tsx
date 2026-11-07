@@ -1,4 +1,8 @@
+import ChartCard from '../../components/infographics/ChartCard'
+import LevyBridge2027 from '../../components/infographics/LevyBridge2027'
+import LevyVsLimit from '../../components/infographics/LevyVsLimit'
 import PageShell from '../../components/PageShell'
+import PreliminaryUpdate from '../../components/PreliminaryUpdate'
 import PlainCallout from '../../components/PlainCallout'
 import SupplementFindings from '../../components/SupplementFindings'
 import {
@@ -44,6 +48,7 @@ export default function Tentative2027Page() {
       title={`The ${YEAR} Tentative Budget`}
       subtitle={`This site’s independent ${YEAR} projection against the Town’s own Tentative, fund by fund — and what the record says about whether a Tentative changes before it is adopted.`}
     >
+      <PreliminaryUpdate />
       <PlainCallout
         tips={[
           { label: 'A Tentative is a proposal', text: 'it appropriates nothing. Only the budget the Board adopts by Nov 20 creates the authority to spend (Town Law §109).' },
@@ -191,6 +196,14 @@ export default function Tentative2027Page() {
       {h && <InflationAndReserves h={h} />}
 
       {h && READ_BY_HAND[YEAR] && <LetterSection h={h} />}
+
+      <ChartCard>
+        <LevyBridge2027 />
+      </ChartCard>
+
+      <ChartCard>
+        <LevyVsLimit />
+      </ChartCard>
 
       <section id="adoption-history" style={{ ...card, marginBottom: 16 }}>
         <h3 style={{ marginTop: 0, color: 'var(--rbl-title)' }}>Will the Tentative change before adoption?</h3>

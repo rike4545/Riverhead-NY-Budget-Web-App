@@ -261402,7 +261402,7 @@
       "category": "annual_financial_report",
       "page": 152,
       "line_number": 25,
-      "raw_text": "4661 Checking A, CM, DA, ES, EW,SL, SM, SR, ST, TC $2,892.32 $0.00 ($310.30) $0.00 $2,582.02",
+      "raw_text": "4661 Checking A, CM, DA, ES, EW, SL, SM, SR, ST, TC $2,892.32 $0.00 ($310.30) $0.00 $2,582.02",
       "account_code_candidate": null,
       "amounts": [
         "$2,892.32",
@@ -261420,7 +261420,7 @@
       "category": "annual_financial_report",
       "page": 152,
       "line_number": 26,
-      "raw_text": "4679 Checking A, CM, DA, ES, EW,SL, SM, SR, ST, TC $1,652,520.66 $29,725.00 $0.00 $0.00 $1,682,245.66",
+      "raw_text": "4679 Checking A, CM, DA, ES, EW, SL, SM, SR, ST, TC $1,652,520.66 $29,725.00 $0.00 $0.00 $1,682,245.66",
       "account_code_candidate": null,
       "amounts": [
         "$1,652,520.66",
@@ -261439,7 +261439,7 @@
       "category": "annual_financial_report",
       "page": 153,
       "line_number": 6,
-      "raw_text": "522 Savings A, CM, DA, ES, EW,SL, SM, SR, ST, TC $16,914,076.33 $29,325,860.34 $0.00 $0.00 $46,239,936.67",
+      "raw_text": "522 Savings A, CM, DA, ES, EW, SL, SM, SR, ST, TC $16,914,076.33 $29,325,860.34 $0.00 $0.00 $46,239,936.67",
       "account_code_candidate": null,
       "amounts": [
         "$16,914,076.33",
@@ -387578,7 +387578,7 @@
       "category": "annual_financial_report",
       "page": 152,
       "line_number": 12,
-      "raw_text": "464 Savings A, CM, DA, ES, EW,SL, SR $43,879,240.96 $0.00 $0.00 $0.00 $43,879,240.96",
+      "raw_text": "464 Savings A, CM, DA, ES, EW, SL, SR $43,879,240.96 $0.00 $0.00 $0.00 $43,879,240.96",
       "account_code_candidate": null,
       "amounts": [
         "$43,879,240.96",
@@ -387632,7 +387632,7 @@
       "category": "annual_financial_report",
       "page": 152,
       "line_number": 19,
-      "raw_text": "4679 Checking A, CM, DA, ES, EW,SL, SM, SR, ST, TC $2,402,535.30 $28,715.31 $0.00 $0.00 $2,431,250.61",
+      "raw_text": "4679 Checking A, CM, DA, ES, EW, SL, SM, SR, ST, TC $2,402,535.30 $28,715.31 $0.00 $0.00 $2,431,250.61",
       "account_code_candidate": null,
       "amounts": [
         "$2,402,535.30",
@@ -387651,7 +387651,7 @@
       "category": "annual_financial_report",
       "page": 152,
       "line_number": 20,
-      "raw_text": "522 Savings A, CM, DA, ES, EW,SL, SM, SR, ST, TC $42,590,044.50 $2,110,684.87 $0.00 $0.00 $44,700,729.37",
+      "raw_text": "522 Savings A, CM, DA, ES, EW, SL, SM, SR, ST, TC $42,590,044.50 $2,110,684.87 $0.00 $0.00 $44,700,729.37",
       "account_code_candidate": null,
       "amounts": [
         "$42,590,044.50",
@@ -387999,7 +387999,7 @@
       "category": "annual_financial_report",
       "page": 154,
       "line_number": 11,
-      "raw_text": "4661 Checking A, CM, DA, ES, EW,SL, SM, SR, ST, TC $10,369.81 $0.00 ($9,568.85) $0.00 $800.96",
+      "raw_text": "4661 Checking A, CM, DA, ES, EW, SL, SM, SR, ST, TC $10,369.81 $0.00 ($9,568.85) $0.00 $800.96",
       "account_code_candidate": null,
       "amounts": [
         "$10,369.81",
@@ -511278,7 +511278,7 @@
       "category": "annual_financial_report",
       "page": 152,
       "line_number": 7,
-      "raw_text": "522 Savings A, CM, DA, ES, EW,SL, SM, SR, ST, TC $14,709,169.89 $0.00 $0.00 $0.00 $14,709,169.89",
+      "raw_text": "522 Savings A, CM, DA, ES, EW, SL, SM, SR, ST, TC $14,709,169.89 $0.00 $0.00 $0.00 $14,709,169.89",
       "account_code_candidate": null,
       "amounts": [
         "$14,709,169.89",

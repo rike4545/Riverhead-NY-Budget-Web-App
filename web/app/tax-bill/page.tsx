@@ -1,3 +1,5 @@
+import ChartCard from '../../components/infographics/ChartCard'
+import LevyDollarBar from '../../components/infographics/LevyDollarBar'
 import PageShell from '../../components/PageShell'
 import PlainCallout from '../../components/PlainCallout'
 import TaxBillEstimator from '../../components/TaxBillEstimator'
@@ -61,6 +63,10 @@ export default function TaxBillPage() {
       </PlainCallout>
 
       <TaxBillEstimator rates2026={data.rates2026} rates2025={data.rates2025} rates2027Proposal={proposalRates} proposalLabel={proposalLabel} residentialAssessmentRatio={data.equalization.residentialAssessmentRatio} />
+
+      <ChartCard>
+        <LevyDollarBar />
+      </ChartCard>
 
       <section style={{ background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 18, padding: 20, marginTop: 18 }}>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 12, flexWrap: 'wrap' }}>

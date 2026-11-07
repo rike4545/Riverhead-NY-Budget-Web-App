@@ -8,7 +8,7 @@ type Link = [label: string, href: string]
 type Group = { label: string; links: Link[] }
 
 const PRIMARY: Link[] = [
-  ['2027 Budget Proposal', `${base}/tentative-2027/`],
+  ['2027 Budget', `${base}/tentative-2027/`],
   ['Property Taxes', `${base}/tax-bill/`],
   ['Employee Pay', `${base}/payroll/`],
   ['Board Decisions', `${base}/meetings/`],
@@ -16,26 +16,27 @@ const PRIMARY: Link[] = [
 ]
 
 const GROUPS: Group[] = [
-  { label: 'Explore the numbers', links: [
+  { label: 'The numbers', links: [
     ['How Property Taxes Are Used', `${base}/taxpayer-impact/`], ['What Changed', `${base}/what-changed/`], ['Financial Health & Trends', `${base}/analytics/`],
     ['Budget by Fund', `${base}/funds/`], ['Spending by Service', `${base}/programs/`], ['Compare Budgets', `${base}/compare/`],
     ['Main Operating Fund', `${base}/general-fund/`], ['Town Revenue', `${base}/revenue/`], ['Annual Report', `${base}/annual-report/`], ['Property-Tax Cap', `${base}/tax-cap/`],
     ['Savings & Reserves', `${base}/reserves/`], ['How Savings Were Used', `${base}/fund-balance-draws/`], ['Ambulance Funding', `${base}/rvac-funding/`], ['Approved Budget Changes', `${base}/budget-changes/`], ['Projects & Borrowing', `${base}/capital-debt/`], ['Town Square', `${base}/town-square/`],
     ['Road Spending', `${base}/road-spending/`], ['Community Preservation Fund', `${base}/community-preservation-fund/`],
-    ['Community Housing Plan', `${base}/housing-plan/`], ['Community', `${base}/community/`],
+    ['Community Housing Plan', `${base}/housing-plan/`], ['Community', `${base}/community/`], ['Preserved Land', `${base}/preserved-land/`], ['Transfer of Development Rights', `${base}/tdr/`],
   ] },
-  { label: 'Town government', links: [
+  { label: 'Government', links: [
     ['Resident Answers', `${base}/answers/`], ['Organization Chart', `${base}/workforce-by-title/#organization`], ['Town Jobs & Staffing', `${base}/workforce-by-title/`], ['Elected Officials & Pensions', `${base}/officials/`], ['Management Salaries & Benefits', `${base}/management-compensation/`], ['Fringe Benefits', `${base}/fringe-benefits/`],
-    ['2026 Buyout', `${base}/buyout/`], ['Police Spending & Crime', `${base}/police-crime/`], ['School Resource Officers', `${base}/school-resource-officers/`], ['Supervisors & Council History', `${base}/town-history/`], ['Board Elections', `${base}/board-elections/`],
-    ['Campaign Finance', `${base}/campaign-finance/`], ['Candidate Watch', `${base}/candidate-watch/`], ['Candidate Proposals', `${base}/candidate-cost-benefit/`],
+    ['2026 Buyout', `${base}/buyout/`], ['Police Spending & Crime', `${base}/police-crime/`], ['School Resource Officers', `${base}/school-resource-officers/`], ['Supervisors & Council History', `${base}/town-history/`], ['Board Elections', `${base}/board-elections/`], ['Election Map', `${base}/election-map/`],
+    ['Campaign Finance', `${base}/campaign-finance/`], ['Donation Map', `${base}/donation-map/`], ['Board Votes', `${base}/board-votes/`], ['Candidate Watch', `${base}/candidate-watch/`], ['Candidate Proposals', `${base}/candidate-cost-benefit/`],
     ['Supervisor’s Promises', `${base}/supervisor-promises/`], ['Open Meetings Law', `${base}/open-meetings/`],
   ] },
-  { label: 'Research & analysis', links: [
-    ['Start Here', `${base}/guide/`], ['2027 Budget Forecast', `${base}/predict-2027/`], ['Proposed 2027 Budget Changes', `${base}/budget-amendments-2027/`], ['Review of the Tax-Cap Letter', `${base}/tax-cap-letter/`], ['Brookhaven’s 2027 Tentative', `${base}/brookhaven-2027/`], ['Southold’s 2027 Tentative', `${base}/southold-2027/`], ['How the Town Approves Its Budget', `${base}/budget-adoption/`], ['Budget Scenario Tool', `${base}/scenarios/`],
+  { label: 'Research', links: [
+    ['Start Here', `${base}/guide/`], ['2027 Budget Forecast', `${base}/predict-2027/`], ['2027 Budget Amendments', `${base}/budget-amendments-2027/`], ['Review of the Tax-Cap Letter', `${base}/tax-cap-letter/`], ['Brookhaven’s 2027 Tentative', `${base}/brookhaven-2027/`], ['Southold’s 2027 Tentative', `${base}/southold-2027/`], ['How the Town Approves Its Budget', `${base}/budget-adoption/`], ['Budget Scenario Tool', `${base}/scenarios/`],
     ['2027 Spending Reduction', `${base}/spending-reduction-2027/`], ['Zero or 1% for 2027', `${base}/zero-percent-2027/`],
     ['Credit Rating', `${base}/credit-rating/`], ['Unusual Spending Patterns', `${base}/outliers/`], ['Budget vs. Actual Spending', `${base}/budget-accuracy/`], ['Cost of Board Decisions', `${base}/fiscal-impact/`], ['Contracts & Bids', `${base}/contracts/`],
+    ['Budget Flow', `${base}/budget-flow/`], ['Assessment Roll', `${base}/assessment/`], ['Legal Costs', `${base}/legal-costs/`], ['Regional CPF Counsel', `${base}/regional-cpf-counsel/`],
   ] },
-  { label: 'Documents & sources', links: [
+  { label: 'Sources', links: [
     ['Original Documents', `${base}/sources/`], ['Records the Town Has Not Published', `${base}/records/`], ['Downloads', `${base}/downloads/`], ['Data Quality & Freshness', `${base}/data-quality/`],
     ['Budget Best Practices (GFOA)', `${base}/gfoa/`], ['Election Law Case', `${base}/election-law-case/`],
     ['Officials on Social Media', `${base}/official-social-media/`], ['Know Your Rights (ICE)', `${base}/know-your-rights/`],
@@ -82,7 +83,7 @@ export default function SiteNav() {
           </div>
         </div>)}
       </nav>
-      <nav id="site-mobile-navigation" className="nav-mobile-panel" aria-label="Site navigation" hidden={!mobileOpen} style={{ display: 'none', position: 'absolute', top: 'calc(100% + 8px)', right: 0, maxHeight: '78vh', overflowY: 'auto', background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border)', borderRadius: 14, boxShadow: '0 18px 44px rgba(15,35,55,.18)', padding: 10, zIndex: 50 }}>
+      <nav id="site-mobile-navigation" className="nav-mobile-panel" aria-label="Site navigation" hidden={!mobileOpen} style={{ display: 'none', position: 'absolute', top: 'calc(100% + 8px)', right: 12, width: 'min(560px, calc(100vw - 24px))', maxHeight: 'min(78dvh, 720px)', overflowY: 'auto', background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border)', borderRadius: 14, boxShadow: '0 18px 44px rgba(15,35,55,.18)', padding: 10, zIndex: 50 }}>
         <label htmlFor="mobile-site-search" style={{ display: 'block', color: 'var(--rbl-text-muted)', fontWeight: 750, fontSize: 13, padding: '8px 10px' }}>Find a page</label>
         <div style={{ display: 'flex', alignItems: 'center', gap: 9, padding: '0 11px', border: '1px solid var(--rbl-border)', borderRadius: 10, background: 'var(--rbl-surface-2)' }}>
           <Search aria-hidden="true" size={17} color="var(--rbl-text-muted)" />

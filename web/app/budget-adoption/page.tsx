@@ -1,4 +1,8 @@
+import ChartCard from '../../components/infographics/ChartCard'
+import LevyBridge2027 from '../../components/infographics/LevyBridge2027'
 import PageShell from '../../components/PageShell'
+import UnofficialElectionResult from '../../components/UnofficialElectionResult'
+import PreliminaryUpdate from '../../components/PreliminaryUpdate'
 import PlainCallout from '../../components/PlainCallout'
 import { released2027, changePhrase } from '../../lib/tentative-2027'
 import {
@@ -74,6 +78,8 @@ export default function BudgetAdoptionPage() {
       title="How Riverhead adopts its budget"
       subtitle={`Every budget from ${first} to ${last}: what the Town Board changed in each Supervisor’s Tentative, whether it changed it before or after the public hearing, and whether it voted to adopt the result. Read from the Town’s own budget books and minutes.`}
     >
+      <UnofficialElectionResult />
+      <PreliminaryUpdate />
       <PlainCallout
         tips={[
           { label: 'The Supervisor proposes', text: 'the Tentative, by Sept 30. It appropriates nothing.' },
@@ -101,6 +107,10 @@ export default function BudgetAdoptionPage() {
           ))}
         </ol>
       </section>
+
+      <ChartCard>
+        <LevyBridge2027 />
+      </ChartCard>
 
       <section id="years" style={{ ...card, marginBottom: 16 }}>
         <h3 style={{ marginTop: 0, color: 'var(--rbl-title)' }}>Year by year</h3>

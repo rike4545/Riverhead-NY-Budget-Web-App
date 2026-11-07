@@ -1,4 +1,5 @@
 import PageShell from '../../components/PageShell'
+import UnofficialElectionResult from '../../components/UnofficialElectionResult'
 import PlainCallout from '../../components/PlainCallout'
 import {
   SUPERVISOR, ELECTION, context, tests, commitments, claims, STATUS_LABEL, prudence, released, levers,
@@ -59,6 +60,7 @@ export default function SupervisorPromisesPage() {
       title="The Supervisor’s promises and the record"
       subtitle={`What Supervisor ${SUPERVISOR} said he would do, what he says he has done, and what the Town’s own records show.`}
     >
+      <UnofficialElectionResult />
       <PlainCallout
         tips={[
           { label: 'Tentative budget', text: 'the Supervisor’s proposed budget for next year. The Town Board can change it before adopting the final budget by November 20.' },

@@ -18,6 +18,39 @@
       "pattern": "*.json",
       "note": "Every Town Board meeting, its fiscal-impact companion, and the index/roster files. Mirrored wholesale because a new meeting must not require editing this manifest.",
       "android": "meetings"
+    },
+    {
+      "web": "afr",
+      "ios": "AFRData",
+      "android": "afr",
+      "pattern": "*.json",
+      "note": "Annual Financial Report datasets, mirrored as a directory so a new fiscal year does not require a manifest edit."
+    },
+    {
+      "web": "history",
+      "ios": "HistoryData",
+      "android": "history",
+      "pattern": "*.json",
+      "note": "Historical adopted-budget, budget-stage, fund-appropriation and General Fund series."
+    },
+    {
+      "web": "salary",
+      "ios": "SalaryData",
+      "android": "salary",
+      "pattern": "*.json",
+      "note": "Board-authorized salary schedules and year-over-year comparisons."
+    },
+    {
+      "web": "subaccounts",
+      "ios": "SubaccountsData",
+      "android": "subaccounts",
+      "pattern": "*.json",
+      "note": "Fund-level adopted budget account lines and their index.",
+      "exclude": {
+        "ios": [
+          "index.json"
+        ]
+      }
     }
   ],
   "files": [

@@ -1,4 +1,5 @@
 import PageShell from '../../components/PageShell'
+import UnofficialElectionResult from '../../components/UnofficialElectionResult'
 import PlainCallout from '../../components/PlainCallout'
 import TentativeReleased from '../../components/TentativeReleased'
 import { PREPARED_UNDER, SUPERVISOR_ROLE_SOURCE, YEAR } from '../../lib/tentative-2027'
@@ -23,6 +24,7 @@ export default function CandidateCostBenefitPage() {
       title="Candidate proposals: cost & benefit"
       subtitle={`Every stated platform plank in the ${race.electionDate} ${race.office} race, weighed evenly — each with a benefit, a cost, and a tradeoff, tied to the Town's own numbers. Not an endorsement.`}
     >
+      <UnofficialElectionResult />
       <PlainCallout title="How to read this">
         {race.disclaimer} {race.ballotNote}{' '}
         For each candidate&apos;s own words, see{' '}

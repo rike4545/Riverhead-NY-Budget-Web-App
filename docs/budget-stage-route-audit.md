@@ -67,3 +67,7 @@ Before treating a new stage as current:
 ## Shared line-detail notice
 
 `ProposalLineStageNotice` is included on fund, program, revenue, budget-accuracy, outlier, capital/debt, payroll, and spending-reduction views. It is silent while Tentative is the latest proposal, but once Preliminary exists it warns readers if the line-level Supplement is not yet verified as a Preliminary column. It does not invent Preliminary account values or overwrite the historical Tentative record.
+
+## Preliminary line-level data (2027)
+
+`etl/parse_preliminary_lines.py` reads the Preliminary book's account lines. `parse_supplement_history.py` adds them to `current-lines.json` as `preliminary` and sets `columns.preliminary`. Once that column matches the budget year, `ProposalLineStageNotice` is silent and these routes show the Preliminary as the proposal: `/funds`, `/funds/[code]`, `/budget-accuracy`, `/revenue` and `/budget-amendments-2027` (which confirms its arithmetic against the Town's printed book). The Tentative figure stays in the data as `tentative`. Routes still reading Tentative-only figures: `/programs`, `/payroll`, `/capital-debt`, `/spending-reduction-2027`, `/zero-percent-2027`, `/predict-2027` and `/outliers`; each needs its own review before it is called Preliminary-based.

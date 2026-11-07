@@ -56,7 +56,7 @@ export default function SpendingReduction2027Page() {
       title="2027 Spending Reduction"
       subtitle={`${released2027 ? 'This site’s forecast had Riverhead’s 2027 budget piercing the state tax cap.' : 'Riverhead’s 2027 budget is on track to pierce the state tax cap.'} Here’s how the gap could be closed — start with the three-number plan, then dig in as far as you like.`}
     >
-      <ProposalLineStageNotice />
+      <ProposalLineStageNotice basis="tentative" />
       <TentativeReleased>
         {released2027 && (statedLimitPct !== null
           ? <>So by the Town’s own account there is no cap gap left to close. The {usd(capGap2027.gap)} below is the forecast’s distance from a 2% increase, and the savings are measured against it.</>
@@ -157,10 +157,10 @@ export default function SpendingReduction2027Page() {
 
       {/* THE SAME TEST ON THE NEW TENTATIVE — the package above predates it. */}
       <section style={{ ...card, marginTop: 16 }}>
-        <h3 style={{ margin: '0 0 6px', color: 'var(--rbl-title)', fontSize: 16 }}>The same test on the {tt.year} Tentative</h3>
+        <h3 style={{ margin: '0 0 6px', color: 'var(--rbl-title)', fontSize: 16 }}>The same test on the {tt.year} {tt.stage}</h3>
         <p style={{ color: 'var(--rbl-text-strong)', fontSize: 14, lineHeight: 1.6, margin: '0 0 10px' }}>
           The line trims above were found in the 2026 Tentative, before the {tt.year} budget existed. Run the same test on the{' '}
-          {tt.year} Tentative&apos;s own lines — controllable lines budgeted more than 30% above what they have been running — and it
+          {tt.year} {tt.stage}&apos;s own lines — controllable lines budgeted more than 30% above what they have been running — and it
           finds <strong>{tt.items.length}</strong> lines holding <strong>{usd(tt.total)}</strong> more than recent spending supports:{' '}
           {usd(tt.byConfidence.firm)} firm, {usd(tt.byConfidence.moderate)} in capital or maintenance that fluctuates, and{' '}
           {usd(tt.byConfidence.volatile)} in fuel and energy. These are questions for the Board before it adopts the budget, not
@@ -173,7 +173,7 @@ export default function SpendingReduction2027Page() {
                 <th style={{ padding: '6px 8px' }}>Line</th>
                 <th style={{ padding: '6px 8px', textAlign: 'right' }}>{tt.columns.actual} actual</th>
                 <th style={{ padding: '6px 8px', textAlign: 'right' }}>Jan–Jun {tt.columns.ytd}</th>
-                <th style={{ padding: '6px 8px', textAlign: 'right' }}>{tt.year} Tentative</th>
+                <th style={{ padding: '6px 8px', textAlign: 'right' }}>{tt.year} {tt.stage}</th>
                 <th style={{ padding: '6px 8px', textAlign: 'right' }}>Above run-rate</th>
               </tr>
             </thead>
@@ -186,7 +186,7 @@ export default function SpendingReduction2027Page() {
                   </td>
                   <td style={{ padding: '7px 8px', textAlign: 'right', whiteSpace: 'nowrap' }}>{usd(r.actual ?? 0)}</td>
                   <td style={{ padding: '7px 8px', textAlign: 'right', whiteSpace: 'nowrap' }}>{usd(r.ytd ?? 0)}</td>
-                  <td style={{ padding: '7px 8px', textAlign: 'right', whiteSpace: 'nowrap' }}>{usd(r.tentative ?? 0)}</td>
+                  <td style={{ padding: '7px 8px', textAlign: 'right', whiteSpace: 'nowrap' }}>{usd(r.proposal ?? r.tentative ?? 0)}</td>
                   <td style={{ padding: '7px 8px', textAlign: 'right', whiteSpace: 'nowrap', fontWeight: 800, color: 'var(--rbl-title)' }}>{usd(r.target)}</td>
                 </tr>
               ))}

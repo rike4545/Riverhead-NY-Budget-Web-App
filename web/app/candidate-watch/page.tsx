@@ -1,4 +1,5 @@
 import PageShell from '../../components/PageShell'
+import UnofficialElectionResult from '../../components/UnofficialElectionResult'
 import data from '../../public/data/candidate-watch.json'
 
 const base = process.env.NEXT_PUBLIC_BASE_PATH || ''
@@ -39,8 +40,9 @@ export default function CandidateWatchPage() {
   return (
     <PageShell
       title="2026 Candidate Watch"
-      subtitle="Who's on the ballot for Riverhead Town office this November — with each candidate's campaign links and, in their own words, what they're running on."
+      subtitle="Who was on the November 3 ballot for Riverhead Town office — with each candidate's campaign links and, in their own words, what they're running on."
     >
+      <UnofficialElectionResult />
       <div style={{ ...card, marginBottom: 18, background: 'var(--rbl-teal-bg)' }}>
         <strong style={{ color: 'var(--rbl-teal)' }}>Want the numbers behind the promises?</strong>{' '}
         <span style={{ color: 'var(--rbl-teal-strong)', fontSize: 14.5, lineHeight: 1.6 }}>

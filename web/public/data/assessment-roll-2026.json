@@ -1,0 +1,590 @@
+{
+ "assessorPage": "https://www.townofriverheadny.gov/204/Assessor",
+ "note": "Totals only. No owner, address, tax-map number or single parcel's value is published here.",
+ "tentative": {
+  "title": "2026/27 Tentative Assessment Roll",
+  "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3510/Tentative-Roll-2026-27-",
+  "uniformPercent": 7.73,
+  "valuationDate": "JUL 01, 2025",
+  "taxableStatusDate": "MAR 01, 2026",
+  "grandTotals": {
+   "sections": {
+    "1": {
+     "name": "Taxable",
+     "parcels": 15006,
+     "assessedTotal": 898883944
+    },
+    "3": {
+     "name": "State-owned land",
+     "parcels": 40,
+     "assessedTotal": 15532700
+    },
+    "5": {
+     "name": "Special franchise",
+     "parcels": 57,
+     "assessedTotal": 24452034
+    },
+    "6": {
+     "name": "Utilities",
+     "parcels": 85,
+     "assessedTotal": 17056250
+    },
+    "8": {
+     "name": "Wholly exempt",
+     "parcels": 1371,
+     "assessedTotal": 182897036
+    }
+   },
+   "parcels": 16559,
+   "assessedLand": 282414505,
+   "assessedTotal": 1138821964,
+   "taxableCounty": 845520509,
+   "taxableTown": 856483330,
+   "taxableSchool": 879363817,
+   "starTaxable": 847734817
+  },
+  "byClass": [
+   {
+    "code": "1",
+    "name": "Agricultural",
+    "parcels": 642,
+    "assessedTotal": 44585793,
+    "marketValue": 576789045
+   },
+   {
+    "code": "2",
+    "name": "Residential",
+    "parcels": 12612,
+    "assessedTotal": 599096308,
+    "marketValue": 7749953861
+   },
+   {
+    "code": "3",
+    "name": "Vacant land",
+    "parcels": 1299,
+    "assessedTotal": 23031859,
+    "marketValue": 297954218
+   },
+   {
+    "code": "4",
+    "name": "Commercial",
+    "parcels": 777,
+    "assessedTotal": 212322810,
+    "marketValue": 2746737512
+   },
+   {
+    "code": "5",
+    "name": "Recreation and entertainment",
+    "parcels": 58,
+    "assessedTotal": 24170170,
+    "marketValue": 312680078
+   },
+   {
+    "code": "6",
+    "name": "Community services",
+    "parcels": 284,
+    "assessedTotal": 122144660,
+    "marketValue": 1580137913
+   },
+   {
+    "code": "7",
+    "name": "Industrial",
+    "parcels": 29,
+    "assessedTotal": 24551900,
+    "marketValue": 317618373
+   },
+   {
+    "code": "8",
+    "name": "Public services (utilities)",
+    "parcels": 345,
+    "assessedTotal": 63589584,
+    "marketValue": 822633689
+   },
+   {
+    "code": "9",
+    "name": "Forest, conservation land and public parks",
+    "parcels": 513,
+    "assessedTotal": 25328880,
+    "marketValue": 327669856
+   }
+  ],
+  "residential": [
+   {
+    "code": "210",
+    "name": "One-family homes",
+    "parcels": 10963,
+    "assessedTotal": 541457624,
+    "marketValue": 7004626339
+   },
+   {
+    "code": "270",
+    "name": "Mobile homes",
+    "parcels": 561,
+    "assessedTotal": 9478353,
+    "marketValue": 122296067
+   },
+   {
+    "code": "260",
+    "name": "Seasonal homes",
+    "parcels": 453,
+    "assessedTotal": 10066987,
+    "marketValue": 130232696
+   },
+   {
+    "code": "220",
+    "name": "Two-family homes",
+    "parcels": 223,
+    "assessedTotal": 10913876,
+    "marketValue": 141188556
+   },
+   {
+    "code": "280",
+    "name": "Multiple homes on one parcel",
+    "parcels": 214,
+    "assessedTotal": 14346879,
+    "marketValue": 185599988
+   },
+   {
+    "code": "215",
+    "name": "One-family homes with an apartment",
+    "parcels": 152,
+    "assessedTotal": 9731294,
+    "marketValue": 125889966
+   },
+   {
+    "code": "230",
+    "name": "Three-family homes",
+    "parcels": 30,
+    "assessedTotal": 1659300,
+    "marketValue": 21465721
+   },
+   {
+    "code": "283",
+    "name": "Homes with some commercial use",
+    "parcels": 7,
+    "assessedTotal": 414795,
+    "marketValue": 5366041
+   },
+   {
+    "code": "240",
+    "name": "Rural homes on 10+ acres",
+    "parcels": 7,
+    "assessedTotal": 797600,
+    "marketValue": 10318241
+   },
+   {
+    "code": "241",
+    "name": "Other residential (241)",
+    "parcels": 2,
+    "assessedTotal": 229600,
+    "marketValue": 2970246
+   }
+  ]
+ },
+ "final": {
+  "title": "2026/27 Final Assessment Roll, revised 9/17/26",
+  "url": "https://www.townofriverheadny.gov/DocumentCenter/View/2788/202627-Final-Roll-PDF",
+  "uniformPercent": 7.73,
+  "valuationDate": "JUL 01, 2025",
+  "taxableStatusDate": "MAR 01, 2026",
+  "grandTotals": {
+   "sections": {
+    "1": {
+     "name": "Taxable",
+     "parcels": 15009,
+     "assessedTotal": 896727504
+    },
+    "3": {
+     "name": "State-owned land",
+     "parcels": 40,
+     "assessedTotal": 15532700
+    },
+    "5": {
+     "name": "Special franchise",
+     "parcels": 57,
+     "assessedTotal": 23994815
+    },
+    "6": {
+     "name": "Utilities",
+     "parcels": 85,
+     "assessedTotal": 17056250
+    },
+    "8": {
+     "name": "Wholly exempt",
+     "parcels": 1371,
+     "assessedTotal": 182897036
+    }
+   },
+   "parcels": 16562,
+   "assessedLand": 282407505,
+   "assessedTotal": 1136208305,
+   "taxableCounty": 843900867,
+   "taxableTown": 854846090,
+   "taxableSchool": 877702588,
+   "starTaxable": 847793763
+  },
+  "byClass": [
+   {
+    "code": "1",
+    "name": "Agricultural",
+    "parcels": 642,
+    "assessedTotal": 44585793,
+    "marketValue": 576789045
+   },
+   {
+    "code": "2",
+    "name": "Residential",
+    "parcels": 12615,
+    "assessedTotal": 598415031,
+    "marketValue": 7741140441
+   },
+   {
+    "code": "3",
+    "name": "Vacant land",
+    "parcels": 1299,
+    "assessedTotal": 23031859,
+    "marketValue": 297954218
+   },
+   {
+    "code": "4",
+    "name": "Commercial",
+    "parcels": 777,
+    "assessedTotal": 210887647,
+    "marketValue": 2728171366
+   },
+   {
+    "code": "5",
+    "name": "Recreation and entertainment",
+    "parcels": 58,
+    "assessedTotal": 24130170,
+    "marketValue": 312162614
+   },
+   {
+    "code": "6",
+    "name": "Community services",
+    "parcels": 284,
+    "assessedTotal": 122144660,
+    "marketValue": 1580137913
+   },
+   {
+    "code": "7",
+    "name": "Industrial",
+    "parcels": 29,
+    "assessedTotal": 24551900,
+    "marketValue": 317618373
+   },
+   {
+    "code": "8",
+    "name": "Public services (utilities)",
+    "parcels": 345,
+    "assessedTotal": 63132365,
+    "marketValue": 816718824
+   },
+   {
+    "code": "9",
+    "name": "Forest, conservation land and public parks",
+    "parcels": 513,
+    "assessedTotal": 25328880,
+    "marketValue": 327669856
+   }
+  ],
+  "residential": [
+   {
+    "code": "210",
+    "name": "One-family homes",
+    "parcels": 10964,
+    "assessedTotal": 540867547,
+    "marketValue": 6996992738
+   },
+   {
+    "code": "270",
+    "name": "Mobile homes",
+    "parcels": 564,
+    "assessedTotal": 9502583,
+    "marketValue": 122609522
+   },
+   {
+    "code": "260",
+    "name": "Seasonal homes",
+    "parcels": 453,
+    "assessedTotal": 10066987,
+    "marketValue": 130232696
+   },
+   {
+    "code": "220",
+    "name": "Two-family homes",
+    "parcels": 223,
+    "assessedTotal": 10909576,
+    "marketValue": 141132928
+   },
+   {
+    "code": "280",
+    "name": "Multiple homes on one parcel",
+    "parcels": 214,
+    "assessedTotal": 14321779,
+    "marketValue": 185275279
+   },
+   {
+    "code": "215",
+    "name": "One-family homes with an apartment",
+    "parcels": 151,
+    "assessedTotal": 9645264,
+    "marketValue": 124777029
+   },
+   {
+    "code": "230",
+    "name": "Three-family homes",
+    "parcels": 30,
+    "assessedTotal": 1659300,
+    "marketValue": 21465721
+   },
+   {
+    "code": "283",
+    "name": "Homes with some commercial use",
+    "parcels": 7,
+    "assessedTotal": 414795,
+    "marketValue": 5366041
+   },
+   {
+    "code": "240",
+    "name": "Rural homes on 10+ acres",
+    "parcels": 7,
+    "assessedTotal": 797600,
+    "marketValue": 10318241
+   },
+   {
+    "code": "241",
+    "name": "Other residential (241)",
+    "parcels": 2,
+    "assessedTotal": 229600,
+    "marketValue": 2970246
+   }
+  ],
+  "schoolDistricts": [
+   {
+    "code": "472235",
+    "name": "Eastport-SManor CSD",
+    "parcels": 1,
+    "assessedTotal": 63100
+   },
+   {
+    "code": "473001",
+    "name": "Wading River Csd #1",
+    "parcels": 1739,
+    "assessedTotal": 107278746
+   },
+   {
+    "code": "473002",
+    "name": "Riverhead Csd #2",
+    "parcels": 14697,
+    "assessedTotal": 1019783629
+   },
+   {
+    "code": "473812",
+    "name": "Mattitck-Cutch Ufsd",
+    "parcels": 125,
+    "assessedTotal": 9082830
+   }
+  ],
+  "exemptions": {
+   "total": {
+    "parcels": 10424,
+    "county": 292307438,
+    "town": 281362215,
+    "school": 288414542
+   },
+   "groups": [
+    {
+     "name": "Government-owned",
+     "codes": 9,
+     "parcels": 1277,
+     "town": 138885520,
+     "school": 123026420
+    },
+    {
+     "name": "Religious, nonprofit, hospital, cemetery",
+     "codes": 5,
+     "parcels": 183,
+     "town": 60211710,
+     "school": 60211710
+    },
+    {
+     "name": "STAR school tax relief",
+     "codes": 2,
+     "parcels": 3499,
+     "town": 0,
+     "school": 29908825
+    },
+    {
+     "name": "Industrial Development Agency (IDA)",
+     "codes": 1,
+     "parcels": 19,
+     "town": 29764636,
+     "school": 29764636
+    },
+    {
+     "name": "Farm buildings and farmland",
+     "codes": 3,
+     "parcels": 533,
+     "town": 22378782,
+     "school": 22378782
+    },
+    {
+     "name": "Solar and wind",
+     "codes": 1,
+     "parcels": 9,
+     "town": 12938600,
+     "school": 12938600
+    },
+    {
+     "name": "Veterans",
+     "codes": 15,
+     "parcels": 3200,
+     "town": 9602119,
+     "school": 2268583
+    },
+    {
+     "name": "Seniors",
+     "codes": 7,
+     "parcels": 1230,
+     "town": 3799708,
+     "school": 4428670
+    },
+    {
+     "name": "Other exemptions",
+     "codes": 9,
+     "parcels": 84,
+     "town": 1812030,
+     "school": 1743380
+    },
+    {
+     "name": "Volunteer firefighters and ambulance workers",
+     "codes": 3,
+     "parcels": 242,
+     "town": 1212482,
+     "school": 1138046
+    },
+    {
+     "name": "People with disabilities",
+     "codes": 8,
+     "parcels": 148,
+     "town": 756628,
+     "school": 606890
+    }
+   ]
+  }
+ },
+ "oneFamilyHomes": {
+  "count": 10941,
+  "median": 598965,
+  "lowerQuartile": 425614,
+  "upperQuartile": 783959,
+  "bands": [
+   {
+    "from": 0,
+    "to": 100000,
+    "homes": 3
+   },
+   {
+    "from": 100000,
+    "to": 200000,
+    "homes": 32
+   },
+   {
+    "from": 200000,
+    "to": 300000,
+    "homes": 624
+   },
+   {
+    "from": 300000,
+    "to": 400000,
+    "homes": 1613
+   },
+   {
+    "from": 400000,
+    "to": 500000,
+    "homes": 1609
+   },
+   {
+    "from": 500000,
+    "to": 600000,
+    "homes": 1612
+   },
+   {
+    "from": 600000,
+    "to": 700000,
+    "homes": 1551
+   },
+   {
+    "from": 700000,
+    "to": 800000,
+    "homes": 1358
+   },
+   {
+    "from": 800000,
+    "to": 900000,
+    "homes": 1046
+   },
+   {
+    "from": 900000,
+    "to": 1000000,
+    "homes": 638
+   },
+   {
+    "from": 1000000,
+    "to": 1100000,
+    "homes": 292
+   },
+   {
+    "from": 1100000,
+    "to": 1200000,
+    "homes": 154
+   },
+   {
+    "from": 1200000,
+    "to": 1300000,
+    "homes": 100
+   },
+   {
+    "from": 1300000,
+    "to": 1400000,
+    "homes": 77
+   },
+   {
+    "from": 1400000,
+    "to": 1500000,
+    "homes": 47
+   },
+   {
+    "from": 1500000,
+    "to": 1600000,
+    "homes": 48
+   },
+   {
+    "from": 1600000,
+    "to": 1700000,
+    "homes": 17
+   },
+   {
+    "from": 1700000,
+    "to": 1800000,
+    "homes": 23
+   },
+   {
+    "from": 1800000,
+    "to": 1900000,
+    "homes": 17
+   },
+   {
+    "from": 1900000,
+    "to": 2000000,
+    "homes": 20
+   },
+   {
+    "from": 2000000,
+    "to": null,
+    "homes": 60
+   }
+  ]
+ }
+}

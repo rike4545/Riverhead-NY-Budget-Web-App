@@ -21,6 +21,20 @@ export type CampaignOfficial = {
   seedDirectContributions: number | null
   seedTransfersIn: number | null
   seedLastReported: string | null
+  /** Built by etl/build_campaign_totals.py, like the fields below: Schedule G between the official's own committees. */
+  seedInternalTransfers?: number | null
+  /** Schedule D, in-kind gifts, and Schedule M, contributions refunded. */
+  seedInKind?: number | null
+  seedRefunds?: number | null
+  /** Built by etl/build_campaign_totals.py from data.ny.gov: Schedule I, summed over the window. */
+  seedLoansReceived?: number | null
+  /** Schedule N in the latest report: loans and bills still owed, a balance. */
+  seedOwed?: number | null
+  /** The report seedOwed is read from, e.g. "2026 11-Day Pre-General". */
+  seedOwedReport?: string | null
+  /** Schedules A to C in the last election year of the window, and how many itemized contributions they are. */
+  seedCycleRaised?: number | null
+  seedCycleItems?: number | null
   photoUrl?: string | null
   isPartyCommittee?: boolean
   /** Annual base salary the official is actually drawing. */
@@ -31,6 +45,11 @@ export type CampaignOfficial = {
   salaryNote?: string | null
   /** Length of the elected term in years (2 for Supervisor, 4 for Council). */
   termYears?: number | null
+  /** The term won at the last election, when it has not started yet; "unofficial" until the County certifies the count. */
+  nextTermStarts?: string | null
+  nextTermEnds?: string | null
+  nextTermYears?: number | null
+  nextTermStatus?: 'unofficial' | 'certified' | null
 }
 
 export type LatestYearSnapshot = {
@@ -65,9 +84,17 @@ export type WatchContribution = {
 export type PetroCelliContribution = WatchContribution
 
 export type CampaignSnapshot = {
+  /** Contributions plus transfers from outside committees. */
   raised: number
   directContributions: number
+  /** Schedule G from committees that are not this official's own. */
   transfersIn: number
+  /** Schedule G between this official's own committees: counted where first raised, not again. */
+  internalTransfers: number
+  /** Schedule D: goods and services given instead of money. */
+  inKind: number
+  /** Schedule M: contributions the committee gave back. */
+  refunds: number
   lastReported: string | null
   latestYear: LatestYearSnapshot | null
   /** Scoped to the current cycle (endYear) only — not the full multi-year window. */
@@ -76,8 +103,9 @@ export type CampaignSnapshot = {
   contributorTypeBreakdown: ContributorTypeAmount[]
   /** Loans received (schedule I), summed across the full window — safe to sum since each row is new money. */
   loanAmount: number | null
-  /** Latest outstanding balance (schedule N) as of its most recent election_year — NOT a sum, since N re-reports a running balance every filing year. */
+  /** Schedule N in the committee's latest report: the loans and bills still owed. A balance, so only the latest report's counts. */
   outstandingLoanAmount: number | null
+  /** The report that balance is read from, e.g. "2026 11-Day Pre-General". */
   outstandingLoanYear: string | null
   /** Direct contributions by election year, most recent first, excluding the current cycle. */
   historicalByYear: YearBreakdown[]
@@ -164,11 +192,6 @@ export const CANDIDATE_SELF_NAMES: Record<string, string[]> = {
   'Yvette Aguiar': ['yvette aguiar'],
   'Laura Jens-Smith': ['laura jens-smith', 'laura jens smith'],
 }
-const CANDIDATE_FAMILY_NAMES: Record<string, string[]> = {
-  'Honorable Jerome Halpin': ['dennis halpin', 'chloe halpin', 'patrick halpin', 'kristen halpin'],
-  'Kenneth Rothwell': ['werner rothwell', 'alexander rothwell', 'thomas rothwell'],
-  'Denise Merrifield': ['peter timmons'],
-}
 
 type ItemizedRow = {
   filer_id: string
@@ -234,10 +257,11 @@ function isCandidateFamilyRow(row: ItemizedRow, officialName: string): boolean {
     type.includes('sole') || type === 'association' || type === 'other'
   ) && !type.includes('unitem')
   if (isBusiness && (row.flng_ent_name ?? '').trim() !== '') return true
+  // The candidate's own money, when the filing lists it as an individual's. Family members are
+  // only those the filing itself marks "Candidate Family Member": a shared surname is not evidence.
   const fullName = nameFields(row).at(-1) ?? '' // "first last"
   const self = CANDIDATE_SELF_NAMES[officialName] ?? []
-  const family = CANDIDATE_FAMILY_NAMES[officialName] ?? []
-  return [...self, ...family].some((n) => fullName === n || nameFields(row).includes(n))
+  return self.some((n) => fullName === n || nameFields(row).includes(n))
 }
 
 function donorDisplayName(row: ItemizedRow): string {
@@ -615,7 +639,8 @@ export function buildCandidateSummary(official: CampaignOfficial, snapshot: Camp
 
   const sentences: string[] = []
   if (donorCount > 0) {
-    sentences.push(`${shortName} has raised ${summaryUsd(cycleRaised)} from ${donorCount} donor${donorCount === 1 ? '' : 's'} this cycle${electionClause}.`)
+    // donorCount counts itemized contributions, not people: one donor who gives twice is two.
+    sentences.push(`${shortName} has raised ${summaryUsd(cycleRaised)} in ${donorCount} itemized contribution${donorCount === 1 ? '' : 's'} this cycle${electionClause}.`)
   } else {
     sentences.push(`${shortName} has no reported contributions for the ${endYear} cycle yet${electionClause}.`)
   }
@@ -630,15 +655,48 @@ export function buildCandidateSummary(official: CampaignOfficial, snapshot: Camp
   }
 
   if (snapshot.outstandingLoanAmount && snapshot.outstandingLoanAmount > 0) {
-    const yearClause = snapshot.outstandingLoanYear ? ` as of the ${snapshot.outstandingLoanYear} filing.` : '.'
-    sentences.push(`The campaign is carrying ${summaryUsd(snapshot.outstandingLoanAmount)} in outstanding loans${yearClause}`)
+    const reportClause = snapshot.outstandingLoanYear ? ` in its ${snapshot.outstandingLoanYear} report.` : '.'
+    sentences.push(`The committee listed ${summaryUsd(snapshot.outstandingLoanAmount)} in loans and bills still owed${reportClause}`)
   } else if (snapshot.loanAmount && snapshot.loanAmount > 0) {
-    sentences.push(`The campaign has taken loans totaling ${summaryUsd(snapshot.loanAmount)} over time, none currently outstanding.`)
+    sentences.push(`The committee has taken loans totaling ${summaryUsd(snapshot.loanAmount)} over time, and its latest report lists nothing still owed.`)
   } else {
     sentences.push('No campaign loans on file.')
   }
 
   return sentences.join(' ')
+}
+
+/** Schedule G rows grouped by the committee that sent them. */
+export type TransferSenderRow = { filer_id: string; flng_ent_name?: string; flng_ent_first_name?: string; flng_ent_last_name?: string; amount?: string }
+
+const normalizeName = (s: string) => s.toLowerCase().replace(/[^a-z0-9]/g, '')
+
+/** Transfers into an official's committees from one of their own other committees, matched by name. */
+export function internalTransfers(rows: TransferSenderRow[], ownCommitteeNames: string[]): number {
+  const own = new Set(ownCommitteeNames.map(normalizeName))
+  const sender = (r: TransferSenderRow) => r.flng_ent_name || `${r.flng_ent_first_name ?? ''} ${r.flng_ent_last_name ?? ''}`
+  return Math.round(rows.filter((r) => own.has(normalizeName(sender(r)))).reduce((t, r) => t + (parseFloat(r.amount ?? '0') || 0), 0) * 100) / 100
+}
+
+/** One committee's rows from data.ny.gov grouped by report and schedule. */
+export type ReportScheduleRow = { filer_id: string; election_year?: string; filing_desc?: string; filing_sched_abbrev?: string; amount?: string }
+
+// The reports of one election year in the order they are filed; one not named here (Off Cycle,
+// a special election's) sorts after the July Periodic. The same order as etl/build_campaign_totals.py.
+const REPORT_ORDER = ['January Periodic', '32-Day Pre-Primary', '11-Day Pre-Primary', '10-Day Post-Primary', 'July Periodic', '32-Day Pre-General', '11-Day Pre-General', '27-Day Post-General']
+const reportRank = (r: ReportScheduleRow) => {
+  const i = REPORT_ORDER.indexOf(r.filing_desc ?? '')
+  return Number(r.election_year ?? 0) * 100 + (i >= 0 ? i : REPORT_ORDER.indexOf('July Periodic') + 0.5)
+}
+
+/** What a committee (or one official's committees) still owed in its latest report: Schedule N there, summed. */
+export function owedFromReports(rows: ReportScheduleRow[]): { amount: number; report: string } | null {
+  const reported = rows.filter((r) => r.election_year && r.filing_desc && r.filing_sched_abbrev)
+  if (reported.length === 0) return null
+  const latest = Math.max(...reported.map(reportRank))
+  const inLatest = reported.filter((r) => reportRank(r) === latest)
+  const amount = Math.round(inLatest.filter((r) => r.filing_sched_abbrev === 'N').reduce((s, r) => s + (parseFloat(r.amount ?? '0') || 0), 0) * 100) / 100
+  return { amount, report: `${inLatest[0].election_year} ${inLatest[0].filing_desc}` }
 }
 
 function daysToElectionFor(nextElection: string | null): number | null {
@@ -705,28 +763,41 @@ export async function fetchCampaignSnapshots(
       '$group': 'filer_id',
     }).toString()
 
-  // Schedule N = Outstanding Liabilities/Loans. e9ss-239a is a per-filing aggregate, so the
-  // same outstanding balance is re-reported as a fresh row every filing period within a year.
-  // Summing would multiply the balance by the number of filings. max(org_amt) gives the
-  // highest per-filing total within the election_year — the peak outstanding for that cycle.
-  // We then pick the highest election_year client-side (sched_date is unreliable because NY BOE
-  // carries a loan's original transaction date forward on every re-report).
+  // Schedule N = Outstanding Liabilities/Loans. Every report repeats the loans and bills still
+  // open, one row each, so the balance is the sum of N in the committee's latest report: not a
+  // sum across reports, and not the largest single row. Every report is listed, N or not, so a
+  // latest report with nothing owed reads as zero. owedFromReports does the arithmetic, the same
+  // as etl/build_campaign_totals.py.
   const outstandingLoanURL =
     `https://data.ny.gov/resource/e9ss-239a.json?` +
     new URLSearchParams({
-      '$select': 'filer_id,election_year,max(org_amt) as amount',
-      '$where': `filer_id in (${inClause}) and election_year in(${years}) and filing_sched_abbrev='N'`,
-      '$group': 'filer_id,election_year',
+      '$select': 'filer_id,election_year,filing_desc,filing_sched_abbrev,sum(org_amt) as amount',
+      '$where': `filer_id in (${inClause}) and election_year in(${years})`,
+      '$group': 'filer_id,election_year,filing_desc,filing_sched_abbrev',
+      '$limit': '50000',
     }).toString()
 
-  const [raisedRows, latestYearRows, typeBreakdownRows, loanReceivedRows, outstandingLoanRows] = await Promise.all([
+  // Schedule G by who sent it, so money moved between one official's own committees (an old one
+  // and a new one the card combines) is not counted a second time. The same rule as
+  // etl/build_campaign_totals.py, internal_transfers.
+  const transfersBySenderURL =
+    `https://data.ny.gov/resource/e9ss-239a.json?` +
+    new URLSearchParams({
+      '$select': 'filer_id,flng_ent_name,flng_ent_first_name,flng_ent_last_name,sum(org_amt) as amount',
+      '$where': `filer_id in (${inClause}) and election_year in(${years}) and filing_sched_abbrev='G'`,
+      '$group': 'filer_id,flng_ent_name,flng_ent_first_name,flng_ent_last_name',
+      '$limit': '50000',
+    }).toString()
+
+  const [raisedRows, latestYearRows, typeBreakdownRows, loanReceivedRows, outstandingLoanRows, transferSenderRows] = await Promise.all([
     fetchSocrataRows(raisedURL),
     fetchSocrataRows(latestYearURL),
     fetchSocrataRows(typeBreakdownURL) as unknown as Promise<
       { filer_id: string; election_year?: string; cntrbr_type_desc?: string; amount?: string; row_count?: string }[]
     >,
     fetchSocrataRows(loanReceivedURL) as unknown as Promise<{ filer_id: string; amount?: string }[]>,
-    fetchSocrataRows(outstandingLoanURL) as unknown as Promise<{ filer_id: string; election_year?: string; amount?: string }[]>,
+    fetchSocrataRows(outstandingLoanURL) as unknown as Promise<ReportScheduleRow[]>,
+    fetchSocrataRows(transfersBySenderURL) as unknown as Promise<TransferSenderRow[]>,
   ])
 
   const directByFiler: Record<string, number> = {}
@@ -778,15 +849,6 @@ export async function fetchCampaignSnapshots(
     loanReceivedByFiler[row.filer_id] = parseFloat(row.amount ?? '0') || 0
   }
 
-  // Keep only the highest election_year per filer.
-  const outstandingByFiler: Record<string, { amount: number; year: string }> = {}
-  for (const row of outstandingLoanRows) {
-    const year = row.election_year ?? ''
-    const existing = outstandingByFiler[row.filer_id]
-    if (!existing || year > existing.year) {
-      outstandingByFiler[row.filer_id] = { amount: parseFloat(row.amount ?? '0') || 0, year }
-    }
-  }
 
   const result: Record<string, CampaignSnapshot> = {}
   for (const official of officials) {
@@ -841,15 +903,19 @@ export async function fetchCampaignSnapshots(
       .sort((a, b) => b.year.localeCompare(a.year))
 
     const loanReceived = ids.reduce((sum, id) => sum + (loanReceivedByFiler[id] ?? 0), 0)
-    const outstanding = ids
-      .map((id) => outstandingByFiler[id])
-      .filter((o): o is { amount: number; year: string } => !!o)
-      .sort((a, b) => b.year.localeCompare(a.year))[0] ?? null
+    const outstanding = owedFromReports(outstandingLoanRows.filter((r) => ids.includes(r.filer_id)))
 
+    const internal = internalTransfers(transferSenderRows.filter((r) => ids.includes(r.filer_id)), official.filerIDs.map((f) => f.committeeName))
+    const scheduleTotal = (s: string) =>
+      Math.round(outstandingLoanRows.filter((r) => ids.includes(r.filer_id) && r.filing_sched_abbrev === s).reduce((t, r) => t + (parseFloat(r.amount ?? '0') || 0), 0) * 100) / 100
+    const outside = Math.round((transfers - internal) * 100) / 100
     result[official.name] = {
-      raised: direct + transfers,
+      raised: direct + outside,
       directContributions: direct,
-      transfersIn: transfers,
+      transfersIn: outside,
+      internalTransfers: internal,
+      inKind: scheduleTotal('D'),
+      refunds: scheduleTotal('M'),
       lastReported,
       latestYear,
       donorCount,
@@ -857,7 +923,7 @@ export async function fetchCampaignSnapshots(
       contributorTypeBreakdown,
       loanAmount: loanReceived > 0 ? loanReceived : null,
       outstandingLoanAmount: outstanding && outstanding.amount > 0 ? outstanding.amount : null,
-      outstandingLoanYear: outstanding?.year ?? null,
+      outstandingLoanYear: outstanding?.report ?? null,
       historicalByYear,
       petrocelliContributions: null,       // populated by fetchAllWatchContributions after the main fetch
       scottPointeContributions: null,
@@ -877,10 +943,39 @@ export async function fetchCampaignSnapshots(
 // these dollar caps) shift over time, so treat this as a concrete recent reference point
 // rather than this exact cycle's number. Confirm the current figure with the Suffolk
 // County Board of Elections' own Comprehensive Limits Report before relying on it.
-export const riverheadContributionLimits = {
-  asOfYear: 2022,
-  source: 'Business Council of New York State, "NYS Campaign Contribution Limits"',
-  general: { individual: 1109.3, family: 5546.5 },
-  democraticPrimary: { individual: 1000, family: 1538 },
-  republicanPrimary: { individual: 1000, family: 2000.75 },
+// The Town of Riverhead line of the Suffolk County Board of Elections' "Campaign Contribution
+// Limit Index for 2026" (dated April 23, 2026). The County sets the limits each year from voter
+// counts. (The file's name on the County's site spells "Limts".)
+export type RiverheadLimits = {
+  asOfYear: number
+  source: string
+  sourceUrl: string
+  general: { individual: number; family: number }
+  democraticPrimary: { individual: number; family: number }
+  republicanPrimary: { individual: number; family: number }
+}
+
+export const riverheadContributionLimits: RiverheadLimits = {
+  asOfYear: 2026,
+  source: 'Suffolk County Board of Elections, "Campaign Contribution Limit Index for 2026" (April 23, 2026)',
+  sourceUrl: 'https://www.suffolkcountyny.gov/Portals/0/formsdocs/boe/2026/2026%20Comprehensive%20Limts%20Report.pdf',
+  general: { individual: 1219.3, family: 6096.5 },
+  democraticPrimary: { individual: 1000, family: 1685.75 },
+  republicanPrimary: { individual: 1000, family: 2148.5 },
+}
+
+// The same row of the County's 2025 index (April 14, 2025), for contributions to the 2025 races.
+const riverheadContributionLimits2025: RiverheadLimits = {
+  asOfYear: 2025,
+  source: 'Suffolk County Board of Elections, "Campaign Contribution Limit Index for 2025" (April 14, 2025)',
+  sourceUrl: 'https://www.suffolkcountyny.gov/Portals/0/formsdocs/boe/2025/2025_Comprehensive_Limits_Report.pdf',
+  general: { individual: 1219.3, family: 6096.5 },
+  democraticPrimary: { individual: 1000, family: 1688.75 },
+  republicanPrimary: { individual: 1000, family: 2148.5 },
+}
+
+/** The County's Riverhead limits for an election year, or null for a year whose index the site does not hold. */
+export function riverheadLimitsFor(year: string | number | null | undefined): RiverheadLimits | null {
+  const y = Number(year)
+  return y === 2026 ? riverheadContributionLimits : y === 2025 ? riverheadContributionLimits2025 : null
 }

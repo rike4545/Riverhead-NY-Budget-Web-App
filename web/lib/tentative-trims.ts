@@ -17,11 +17,15 @@ export type TentativeTrim = {
   actual: number | null
   ytd: number | null
   tentative: number | null
+  /** The figure tested: the Preliminary once the Town prints it, else the Tentative. */
+  proposal: number | null
   target: number
   confidence: 'firm' | 'moderate' | 'volatile'
 }
 export const tentativeTrims = {
   year: currentReductions.supplementYear as number,
+  /** 'Preliminary' once the Town prints it and the test is run on it, else 'Tentative'. */
+  stage: ((currentReductions as { stage?: string }).stage === 'preliminary' ? 'Preliminary' : 'Tentative') as 'Preliminary' | 'Tentative',
   columns: currentReductions.columns as { actual: number; adopted: number; ytd: number; tentative: number },
   total: currentReductions.total as number,
   byConfidence: currentReductions.byConfidence as Record<'firm' | 'moderate' | 'volatile', number>,

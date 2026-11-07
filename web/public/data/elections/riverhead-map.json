@@ -1,0 +1,4253 @@
+{
+ "source": {
+  "title": "Suffolk County Board of Elections, public election results",
+  "url": "https://app.enhancedvoting.com/results/public/suffolk-county-ny/elections"
+ },
+ "boundarySource": {
+  "title": "Suffolk County GIS, Voting Precincts (Suffolk County Board of Elections)",
+  "url": "https://gis.suffolkcountyny.gov/server/rest/services/LocalGovernmentSQLData/VotingPrecinct/FeatureServer/0"
+ },
+ "finalSource": {
+  "title": "Suffolk County Board of Elections, final election results",
+  "url": "https://suffolkcountyny.gov/Departments/BOE/Election-Results"
+ },
+ "elections": [
+  {
+   "id": "GE2026_20261028145605",
+   "label": "2026 General Election",
+   "date": "2026-11-03",
+   "official": false,
+   "asOf": "2026-11-04T05:24:42.4777318Z",
+   "url": "https://app.enhancedvoting.com/results/public/suffolk-county-ny/elections/GE2026_20261028145605",
+   "contests": [
+    {
+     "key": "supervisor-2026",
+     "name": "Supervisor, Town of Riverhead",
+     "voteFor": 1,
+     "candidates": [
+      {
+       "name": "Jerome Halpin",
+       "party": "DEM",
+       "lines": {
+        "DEM": 6587,
+        "TPF": 192
+       },
+       "votes": 6779
+      },
+      {
+       "name": "Kenneth T Rothwell",
+       "party": "REP",
+       "lines": {
+        "REP": 5264,
+        "CON": 888
+       },
+       "votes": 6152
+      },
+      {
+       "name": "Write-in",
+       "party": "",
+       "lines": {
+        "W/I": 7
+       },
+       "votes": 7
+      }
+     ],
+     "total": 12938,
+     "districts": {
+      "001": {
+       "mapFeatureId": "3658723365910662",
+       "total": 758,
+       "reporting": 2,
+       "votes": {
+        "Jerome Halpin": 389,
+        "Kenneth T Rothwell": 369,
+        "Write-in": 0
+       }
+      },
+      "002": {
+       "mapFeatureId": "807966879748990",
+       "total": 252,
+       "reporting": 2,
+       "votes": {
+        "Jerome Halpin": 169,
+        "Kenneth T Rothwell": 83,
+        "Write-in": 0
+       }
+      },
+      "003": {
+       "mapFeatureId": "3962789360089877",
+       "total": 92,
+       "reporting": 2,
+       "votes": {
+        "Jerome Halpin": 62,
+        "Kenneth T Rothwell": 30,
+        "Write-in": 0
+       }
+      },
+      "004": {
+       "mapFeatureId": "8434346057341543",
+       "total": 657,
+       "reporting": 2,
+       "votes": {
+        "Jerome Halpin": 382,
+        "Kenneth T Rothwell": 272,
+        "Write-in": 3
+       }
+      },
+      "005": {
+       "mapFeatureId": "4778098643565874",
+       "total": 201,
+       "reporting": 2,
+       "votes": {
+        "Jerome Halpin": 129,
+        "Kenneth T Rothwell": 72,
+        "Write-in": 0
+       }
+      },
+      "006": {
+       "mapFeatureId": "2999464248918931",
+       "total": 186,
+       "reporting": 2,
+       "votes": {
+        "Jerome Halpin": 130,
+        "Kenneth T Rothwell": 55,
+        "Write-in": 1
+       }
+      },
+      "007": {
+       "mapFeatureId": "1099738145678188",
+       "total": 875,
+       "reporting": 2,
+       "votes": {
+        "Jerome Halpin": 454,
+        "Kenneth T Rothwell": 421,
+        "Write-in": 0
+       }
+      },
+      "008": {
+       "mapFeatureId": "3904750066960782",
+       "total": 489,
+       "reporting": 2,
+       "votes": {
+        "Jerome Halpin": 287,
+        "Kenneth T Rothwell": 202,
+        "Write-in": 0
+       }
+      },
+      "009": {
+       "mapFeatureId": "1056084594890771",
+       "total": 396,
+       "reporting": 2,
+       "votes": {
+        "Jerome Halpin": 243,
+        "Kenneth T Rothwell": 152,
+        "Write-in": 1
+       }
+      },
+      "010": {
+       "mapFeatureId": "7445025730300058",
+       "total": 262,
+       "reporting": 2,
+       "votes": {
+        "Jerome Halpin": 139,
+        "Kenneth T Rothwell": 123,
+        "Write-in": 0
+       }
+      },
+      "011": {
+       "mapFeatureId": "427678325786385",
+       "total": 791,
+       "reporting": 2,
+       "votes": {
+        "Kenneth T Rothwell": 403,
+        "Jerome Halpin": 388,
+        "Write-in": 0
+       }
+      },
+      "012": {
+       "mapFeatureId": "1162492379022671",
+       "total": 1093,
+       "reporting": 2,
+       "votes": {
+        "Jerome Halpin": 610,
+        "Kenneth T Rothwell": 483,
+        "Write-in": 0
+       }
+      },
+      "013": {
+       "mapFeatureId": "2432176677277614",
+       "total": 659,
+       "reporting": 2,
+       "votes": {
+        "Jerome Halpin": 392,
+        "Kenneth T Rothwell": 266,
+        "Write-in": 1
+       }
+      },
+      "014": {
+       "mapFeatureId": "5153793840211433",
+       "total": 875,
+       "reporting": 2,
+       "votes": {
+        "Kenneth T Rothwell": 466,
+        "Jerome Halpin": 409,
+        "Write-in": 0
+       }
+      },
+      "015": {
+       "mapFeatureId": "2484183755979713",
+       "total": 101,
+       "reporting": 2,
+       "votes": {
+        "Jerome Halpin": 52,
+        "Kenneth T Rothwell": 49,
+        "Write-in": 0
+       }
+      },
+      "016": {
+       "mapFeatureId": "272625357577693",
+       "total": 456,
+       "reporting": 2,
+       "votes": {
+        "Jerome Halpin": 260,
+        "Kenneth T Rothwell": 196,
+        "Write-in": 0
+       }
+      },
+      "017": {
+       "mapFeatureId": "8450031412422883",
+       "total": 1197,
+       "reporting": 2,
+       "votes": {
+        "Kenneth T Rothwell": 641,
+        "Jerome Halpin": 556,
+        "Write-in": 0
+       }
+      },
+      "018": {
+       "mapFeatureId": "4921803926925390",
+       "total": 324,
+       "reporting": 2,
+       "votes": {
+        "Kenneth T Rothwell": 169,
+        "Jerome Halpin": 155,
+        "Write-in": 0
+       }
+      },
+      "019": {
+       "mapFeatureId": "1808000856600626",
+       "total": 939,
+       "reporting": 2,
+       "votes": {
+        "Jerome Halpin": 472,
+        "Kenneth T Rothwell": 467,
+        "Write-in": 0
+       }
+      },
+      "020": {
+       "mapFeatureId": "7354331069340060",
+       "total": 1232,
+       "reporting": 2,
+       "votes": {
+        "Kenneth T Rothwell": 775,
+        "Jerome Halpin": 457,
+        "Write-in": 0
+       }
+      },
+      "021": {
+       "mapFeatureId": "511237974035790",
+       "total": 439,
+       "reporting": 2,
+       "votes": {
+        "Jerome Halpin": 253,
+        "Kenneth T Rothwell": 186,
+        "Write-in": 0
+       }
+      },
+      "022": {
+       "mapFeatureId": "4728054213589490",
+       "total": 664,
+       "reporting": 2,
+       "votes": {
+        "Jerome Halpin": 391,
+        "Kenneth T Rothwell": 272,
+        "Write-in": 1
+       }
+      }
+     },
+     "url": "https://app.enhancedvoting.com/results/public/suffolk-county-ny/elections/GE2026_20261028145605/ballot-items/01000000-d6c5-0591-fd8a-08df2faefec8"
+    },
+    {
+     "key": "governor-2026",
+     "name": "Governor and Lieutenant Governor",
+     "voteFor": 1,
+     "candidates": [
+      {
+       "name": "Kathy C Hochul AND Adrienne E Adams",
+       "party": "DEM",
+       "lines": {
+        "DEM": 5765,
+        "WOR": 309
+       },
+       "votes": 6074
+      },
+      {
+       "name": "Bruce A Blakeman AND Todd Hood",
+       "party": "REP",
+       "lines": {
+        "REP": 6039,
+        "CON": 896,
+        "VAP": 83
+       },
+       "votes": 7018
+      },
+      {
+       "name": "Write-in",
+       "party": "",
+       "lines": {
+        "W/I": 16
+       },
+       "votes": 16
+      }
+     ],
+     "total": 13108,
+     "districts": {
+      "001": {
+       "mapFeatureId": "3658723365910662",
+       "total": 765,
+       "reporting": 2,
+       "votes": {
+        "Bruce A Blakeman AND Todd Hood": 402,
+        "Kathy C Hochul AND Adrienne E Adams": 359,
+        "Write-in": 4
+       }
+      },
+      "002": {
+       "mapFeatureId": "807966879748990",
+       "total": 259,
+       "reporting": 2,
+       "votes": {
+        "Kathy C Hochul AND Adrienne E Adams": 158,
+        "Bruce A Blakeman AND Todd Hood": 101,
+        "Write-in": 0
+       }
+      },
+      "003": {
+       "mapFeatureId": "3962789360089877",
+       "total": 96,
+       "reporting": 2,
+       "votes": {
+        "Kathy C Hochul AND Adrienne E Adams": 60,
+        "Bruce A Blakeman AND Todd Hood": 36,
+        "Write-in": 0
+       }
+      },
+      "004": {
+       "mapFeatureId": "8434346057341543",
+       "total": 665,
+       "reporting": 2,
+       "votes": {
+        "Bruce A Blakeman AND Todd Hood": 336,
+        "Kathy C Hochul AND Adrienne E Adams": 329,
+        "Write-in": 0
+       }
+      },
+      "005": {
+       "mapFeatureId": "4778098643565874",
+       "total": 201,
+       "reporting": 2,
+       "votes": {
+        "Kathy C Hochul AND Adrienne E Adams": 113,
+        "Bruce A Blakeman AND Todd Hood": 88,
+        "Write-in": 0
+       }
+      },
+      "006": {
+       "mapFeatureId": "2999464248918931",
+       "total": 193,
+       "reporting": 2,
+       "votes": {
+        "Kathy C Hochul AND Adrienne E Adams": 116,
+        "Bruce A Blakeman AND Todd Hood": 77,
+        "Write-in": 0
+       }
+      },
+      "007": {
+       "mapFeatureId": "1099738145678188",
+       "total": 889,
+       "reporting": 2,
+       "votes": {
+        "Bruce A Blakeman AND Todd Hood": 491,
+        "Kathy C Hochul AND Adrienne E Adams": 396,
+        "Write-in": 2
+       }
+      },
+      "008": {
+       "mapFeatureId": "3904750066960782",
+       "total": 488,
+       "reporting": 2,
+       "votes": {
+        "Bruce A Blakeman AND Todd Hood": 250,
+        "Kathy C Hochul AND Adrienne E Adams": 238,
+        "Write-in": 0
+       }
+      },
+      "009": {
+       "mapFeatureId": "1056084594890771",
+       "total": 406,
+       "reporting": 2,
+       "votes": {
+        "Kathy C Hochul AND Adrienne E Adams": 219,
+        "Bruce A Blakeman AND Todd Hood": 186,
+        "Write-in": 1
+       }
+      },
+      "010": {
+       "mapFeatureId": "7445025730300058",
+       "total": 265,
+       "reporting": 2,
+       "votes": {
+        "Kathy C Hochul AND Adrienne E Adams": 133,
+        "Bruce A Blakeman AND Todd Hood": 132,
+        "Write-in": 0
+       }
+      },
+      "011": {
+       "mapFeatureId": "427678325786385",
+       "total": 815,
+       "reporting": 2,
+       "votes": {
+        "Bruce A Blakeman AND Todd Hood": 438,
+        "Kathy C Hochul AND Adrienne E Adams": 377,
+        "Write-in": 0
+       }
+      },
+      "012": {
+       "mapFeatureId": "1162492379022671",
+       "total": 1116,
+       "reporting": 2,
+       "votes": {
+        "Kathy C Hochul AND Adrienne E Adams": 575,
+        "Bruce A Blakeman AND Todd Hood": 540,
+        "Write-in": 1
+       }
+      },
+      "013": {
+       "mapFeatureId": "2432176677277614",
+       "total": 667,
+       "reporting": 2,
+       "votes": {
+        "Bruce A Blakeman AND Todd Hood": 335,
+        "Kathy C Hochul AND Adrienne E Adams": 331,
+        "Write-in": 1
+       }
+      },
+      "014": {
+       "mapFeatureId": "5153793840211433",
+       "total": 882,
+       "reporting": 2,
+       "votes": {
+        "Bruce A Blakeman AND Todd Hood": 516,
+        "Kathy C Hochul AND Adrienne E Adams": 364,
+        "Write-in": 2
+       }
+      },
+      "015": {
+       "mapFeatureId": "2484183755979713",
+       "total": 103,
+       "reporting": 2,
+       "votes": {
+        "Bruce A Blakeman AND Todd Hood": 59,
+        "Kathy C Hochul AND Adrienne E Adams": 44,
+        "Write-in": 0
+       }
+      },
+      "016": {
+       "mapFeatureId": "272625357577693",
+       "total": 464,
+       "reporting": 2,
+       "votes": {
+        "Bruce A Blakeman AND Todd Hood": 251,
+        "Kathy C Hochul AND Adrienne E Adams": 213,
+        "Write-in": 0
+       }
+      },
+      "017": {
+       "mapFeatureId": "8450031412422883",
+       "total": 1215,
+       "reporting": 2,
+       "votes": {
+        "Bruce A Blakeman AND Todd Hood": 689,
+        "Kathy C Hochul AND Adrienne E Adams": 526,
+        "Write-in": 0
+       }
+      },
+      "018": {
+       "mapFeatureId": "4921803926925390",
+       "total": 332,
+       "reporting": 2,
+       "votes": {
+        "Bruce A Blakeman AND Todd Hood": 187,
+        "Kathy C Hochul AND Adrienne E Adams": 145,
+        "Write-in": 0
+       }
+      },
+      "019": {
+       "mapFeatureId": "1808000856600626",
+       "total": 939,
+       "reporting": 2,
+       "votes": {
+        "Bruce A Blakeman AND Todd Hood": 579,
+        "Kathy C Hochul AND Adrienne E Adams": 360,
+        "Write-in": 0
+       }
+      },
+      "020": {
+       "mapFeatureId": "7354331069340060",
+       "total": 1235,
+       "reporting": 2,
+       "votes": {
+        "Bruce A Blakeman AND Todd Hood": 772,
+        "Kathy C Hochul AND Adrienne E Adams": 461,
+        "Write-in": 2
+       }
+      },
+      "021": {
+       "mapFeatureId": "511237974035790",
+       "total": 442,
+       "reporting": 2,
+       "votes": {
+        "Bruce A Blakeman AND Todd Hood": 232,
+        "Kathy C Hochul AND Adrienne E Adams": 207,
+        "Write-in": 3
+       }
+      },
+      "022": {
+       "mapFeatureId": "4728054213589490",
+       "total": 671,
+       "reporting": 2,
+       "votes": {
+        "Kathy C Hochul AND Adrienne E Adams": 350,
+        "Bruce A Blakeman AND Todd Hood": 321,
+        "Write-in": 0
+       }
+      }
+     },
+     "url": "https://app.enhancedvoting.com/results/public/suffolk-county-ny/elections/GE2026_20261028145605/ballot-items/01000000-d6c5-0591-a15e-08df2faefeb2"
+    },
+    {
+     "key": "congress-2026",
+     "name": "Representative in Congress, 1st Congressional District",
+     "voteFor": 1,
+     "candidates": [
+      {
+       "name": "Nicholas J LaLota",
+       "party": "REP",
+       "lines": {
+        "REP": 5954,
+        "CON": 1021
+       },
+       "votes": 6975
+      },
+      {
+       "name": "Christopher J Gallant",
+       "party": "DEM",
+       "lines": {
+        "DEM": 5962
+       },
+       "votes": 5962
+      },
+      {
+       "name": "Write-in",
+       "party": "",
+       "lines": {
+        "W/I": 3
+       },
+       "votes": 3
+      }
+     ],
+     "total": 12940,
+     "districts": {
+      "001": {
+       "mapFeatureId": "3658723365910662",
+       "total": 760,
+       "reporting": 2,
+       "votes": {
+        "Nicholas J LaLota": 397,
+        "Christopher J Gallant": 363,
+        "Write-in": 0
+       }
+      },
+      "002": {
+       "mapFeatureId": "807966879748990",
+       "total": 253,
+       "reporting": 2,
+       "votes": {
+        "Christopher J Gallant": 154,
+        "Nicholas J LaLota": 99,
+        "Write-in": 0
+       }
+      },
+      "003": {
+       "mapFeatureId": "3962789360089877",
+       "total": 92,
+       "reporting": 2,
+       "votes": {
+        "Christopher J Gallant": 56,
+        "Nicholas J LaLota": 36,
+        "Write-in": 0
+       }
+      },
+      "004": {
+       "mapFeatureId": "8434346057341543",
+       "total": 649,
+       "reporting": 2,
+       "votes": {
+        "Christopher J Gallant": 324,
+        "Nicholas J LaLota": 324,
+        "Write-in": 1
+       }
+      },
+      "005": {
+       "mapFeatureId": "4778098643565874",
+       "total": 199,
+       "reporting": 2,
+       "votes": {
+        "Christopher J Gallant": 108,
+        "Nicholas J LaLota": 91,
+        "Write-in": 0
+       }
+      },
+      "006": {
+       "mapFeatureId": "2999464248918931",
+       "total": 185,
+       "reporting": 2,
+       "votes": {
+        "Christopher J Gallant": 118,
+        "Nicholas J LaLota": 67,
+        "Write-in": 0
+       }
+      },
+      "007": {
+       "mapFeatureId": "1099738145678188",
+       "total": 887,
+       "reporting": 2,
+       "votes": {
+        "Nicholas J LaLota": 505,
+        "Christopher J Gallant": 382,
+        "Write-in": 0
+       }
+      },
+      "008": {
+       "mapFeatureId": "3904750066960782",
+       "total": 485,
+       "reporting": 2,
+       "votes": {
+        "Nicholas J LaLota": 247,
+        "Christopher J Gallant": 238,
+        "Write-in": 0
+       }
+      },
+      "009": {
+       "mapFeatureId": "1056084594890771",
+       "total": 399,
+       "reporting": 2,
+       "votes": {
+        "Christopher J Gallant": 212,
+        "Nicholas J LaLota": 187,
+        "Write-in": 0
+       }
+      },
+      "010": {
+       "mapFeatureId": "7445025730300058",
+       "total": 264,
+       "reporting": 2,
+       "votes": {
+        "Christopher J Gallant": 137,
+        "Nicholas J LaLota": 127,
+        "Write-in": 0
+       }
+      },
+      "011": {
+       "mapFeatureId": "427678325786385",
+       "total": 784,
+       "reporting": 2,
+       "votes": {
+        "Nicholas J LaLota": 441,
+        "Christopher J Gallant": 343,
+        "Write-in": 0
+       }
+      },
+      "012": {
+       "mapFeatureId": "1162492379022671",
+       "total": 1099,
+       "reporting": 2,
+       "votes": {
+        "Christopher J Gallant": 557,
+        "Nicholas J LaLota": 541,
+        "Write-in": 1
+       }
+      },
+      "013": {
+       "mapFeatureId": "2432176677277614",
+       "total": 650,
+       "reporting": 2,
+       "votes": {
+        "Christopher J Gallant": 325,
+        "Nicholas J LaLota": 324,
+        "Write-in": 1
+       }
+      },
+      "014": {
+       "mapFeatureId": "5153793840211433",
+       "total": 875,
+       "reporting": 2,
+       "votes": {
+        "Nicholas J LaLota": 509,
+        "Christopher J Gallant": 366,
+        "Write-in": 0
+       }
+      },
+      "015": {
+       "mapFeatureId": "2484183755979713",
+       "total": 100,
+       "reporting": 2,
+       "votes": {
+        "Nicholas J LaLota": 55,
+        "Christopher J Gallant": 45,
+        "Write-in": 0
+       }
+      },
+      "016": {
+       "mapFeatureId": "272625357577693",
+       "total": 459,
+       "reporting": 2,
+       "votes": {
+        "Nicholas J LaLota": 250,
+        "Christopher J Gallant": 209,
+        "Write-in": 0
+       }
+      },
+      "017": {
+       "mapFeatureId": "8450031412422883",
+       "total": 1212,
+       "reporting": 2,
+       "votes": {
+        "Nicholas J LaLota": 696,
+        "Christopher J Gallant": 516,
+        "Write-in": 0
+       }
+      },
+      "018": {
+       "mapFeatureId": "4921803926925390",
+       "total": 324,
+       "reporting": 2,
+       "votes": {
+        "Nicholas J LaLota": 191,
+        "Christopher J Gallant": 133,
+        "Write-in": 0
+       }
+      },
+      "019": {
+       "mapFeatureId": "1808000856600626",
+       "total": 936,
+       "reporting": 2,
+       "votes": {
+        "Nicholas J LaLota": 575,
+        "Christopher J Gallant": 361,
+        "Write-in": 0
+       }
+      },
+      "020": {
+       "mapFeatureId": "7354331069340060",
+       "total": 1233,
+       "reporting": 2,
+       "votes": {
+        "Nicholas J LaLota": 782,
+        "Christopher J Gallant": 451,
+        "Write-in": 0
+       }
+      },
+      "021": {
+       "mapFeatureId": "511237974035790",
+       "total": 438,
+       "reporting": 2,
+       "votes": {
+        "Nicholas J LaLota": 229,
+        "Christopher J Gallant": 209,
+        "Write-in": 0
+       }
+      },
+      "022": {
+       "mapFeatureId": "4728054213589490",
+       "total": 657,
+       "reporting": 2,
+       "votes": {
+        "Christopher J Gallant": 355,
+        "Nicholas J LaLota": 302,
+        "Write-in": 0
+       }
+      }
+     },
+     "url": "https://app.enhancedvoting.com/results/public/suffolk-county-ny/elections/GE2026_20261028145605/ballot-items/01000000-d6c5-0591-ff5b-08df2faefebf"
+    },
+    {
+     "key": "senate-2026",
+     "name": "State Senator, 1st Senatorial District",
+     "voteFor": 1,
+     "candidates": [
+      {
+       "name": "E Christopher Murray",
+       "party": "DEM",
+       "lines": {
+        "DEM": 5442,
+        "WOR": 333
+       },
+       "votes": 5775
+      },
+      {
+       "name": "Anthony H Palumbo",
+       "party": "REP",
+       "lines": {
+        "REP": 6118,
+        "CON": 1023
+       },
+       "votes": 7141
+      },
+      {
+       "name": "Write-in",
+       "party": "",
+       "lines": {
+        "W/I": 2
+       },
+       "votes": 2
+      }
+     ],
+     "total": 12918,
+     "districts": {
+      "001": {
+       "mapFeatureId": "3658723365910662",
+       "total": 759,
+       "reporting": 2,
+       "votes": {
+        "Anthony H Palumbo": 406,
+        "E Christopher Murray": 353,
+        "Write-in": 0
+       }
+      },
+      "002": {
+       "mapFeatureId": "807966879748990",
+       "total": 252,
+       "reporting": 2,
+       "votes": {
+        "E Christopher Murray": 150,
+        "Anthony H Palumbo": 102,
+        "Write-in": 0
+       }
+      },
+      "003": {
+       "mapFeatureId": "3962789360089877",
+       "total": 94,
+       "reporting": 2,
+       "votes": {
+        "E Christopher Murray": 57,
+        "Anthony H Palumbo": 37,
+        "Write-in": 0
+       }
+      },
+      "004": {
+       "mapFeatureId": "8434346057341543",
+       "total": 647,
+       "reporting": 2,
+       "votes": {
+        "Anthony H Palumbo": 339,
+        "E Christopher Murray": 308,
+        "Write-in": 0
+       }
+      },
+      "005": {
+       "mapFeatureId": "4778098643565874",
+       "total": 201,
+       "reporting": 2,
+       "votes": {
+        "E Christopher Murray": 109,
+        "Anthony H Palumbo": 92,
+        "Write-in": 0
+       }
+      },
+      "006": {
+       "mapFeatureId": "2999464248918931",
+       "total": 183,
+       "reporting": 2,
+       "votes": {
+        "E Christopher Murray": 113,
+        "Anthony H Palumbo": 70,
+        "Write-in": 0
+       }
+      },
+      "007": {
+       "mapFeatureId": "1099738145678188",
+       "total": 880,
+       "reporting": 2,
+       "votes": {
+        "Anthony H Palumbo": 514,
+        "E Christopher Murray": 366,
+        "Write-in": 0
+       }
+      },
+      "008": {
+       "mapFeatureId": "3904750066960782",
+       "total": 487,
+       "reporting": 2,
+       "votes": {
+        "Anthony H Palumbo": 263,
+        "E Christopher Murray": 224,
+        "Write-in": 0
+       }
+      },
+      "009": {
+       "mapFeatureId": "1056084594890771",
+       "total": 395,
+       "reporting": 2,
+       "votes": {
+        "E Christopher Murray": 203,
+        "Anthony H Palumbo": 191,
+        "Write-in": 1
+       }
+      },
+      "010": {
+       "mapFeatureId": "7445025730300058",
+       "total": 263,
+       "reporting": 2,
+       "votes": {
+        "Anthony H Palumbo": 136,
+        "E Christopher Murray": 127,
+        "Write-in": 0
+       }
+      },
+      "011": {
+       "mapFeatureId": "427678325786385",
+       "total": 786,
+       "reporting": 2,
+       "votes": {
+        "Anthony H Palumbo": 443,
+        "E Christopher Murray": 343,
+        "Write-in": 0
+       }
+      },
+      "012": {
+       "mapFeatureId": "1162492379022671",
+       "total": 1097,
+       "reporting": 2,
+       "votes": {
+        "E Christopher Murray": 554,
+        "Anthony H Palumbo": 543,
+        "Write-in": 0
+       }
+      },
+      "013": {
+       "mapFeatureId": "2432176677277614",
+       "total": 655,
+       "reporting": 2,
+       "votes": {
+        "Anthony H Palumbo": 339,
+        "E Christopher Murray": 315,
+        "Write-in": 1
+       }
+      },
+      "014": {
+       "mapFeatureId": "5153793840211433",
+       "total": 876,
+       "reporting": 2,
+       "votes": {
+        "Anthony H Palumbo": 520,
+        "E Christopher Murray": 356,
+        "Write-in": 0
+       }
+      },
+      "015": {
+       "mapFeatureId": "2484183755979713",
+       "total": 100,
+       "reporting": 2,
+       "votes": {
+        "Anthony H Palumbo": 58,
+        "E Christopher Murray": 42,
+        "Write-in": 0
+       }
+      },
+      "016": {
+       "mapFeatureId": "272625357577693",
+       "total": 459,
+       "reporting": 2,
+       "votes": {
+        "Anthony H Palumbo": 259,
+        "E Christopher Murray": 200,
+        "Write-in": 0
+       }
+      },
+      "017": {
+       "mapFeatureId": "8450031412422883",
+       "total": 1201,
+       "reporting": 2,
+       "votes": {
+        "Anthony H Palumbo": 698,
+        "E Christopher Murray": 503,
+        "Write-in": 0
+       }
+      },
+      "018": {
+       "mapFeatureId": "4921803926925390",
+       "total": 328,
+       "reporting": 2,
+       "votes": {
+        "Anthony H Palumbo": 193,
+        "E Christopher Murray": 135,
+        "Write-in": 0
+       }
+      },
+      "019": {
+       "mapFeatureId": "1808000856600626",
+       "total": 930,
+       "reporting": 2,
+       "votes": {
+        "Anthony H Palumbo": 581,
+        "E Christopher Murray": 349,
+        "Write-in": 0
+       }
+      },
+      "020": {
+       "mapFeatureId": "7354331069340060",
+       "total": 1230,
+       "reporting": 2,
+       "votes": {
+        "Anthony H Palumbo": 800,
+        "E Christopher Murray": 430,
+        "Write-in": 0
+       }
+      },
+      "021": {
+       "mapFeatureId": "511237974035790",
+       "total": 435,
+       "reporting": 2,
+       "votes": {
+        "Anthony H Palumbo": 235,
+        "E Christopher Murray": 200,
+        "Write-in": 0
+       }
+      },
+      "022": {
+       "mapFeatureId": "4728054213589490",
+       "total": 660,
+       "reporting": 2,
+       "votes": {
+        "E Christopher Murray": 338,
+        "Anthony H Palumbo": 322,
+        "Write-in": 0
+       }
+      }
+     },
+     "url": "https://app.enhancedvoting.com/results/public/suffolk-county-ny/elections/GE2026_20261028145605/ballot-items/01000000-d6c5-0591-060d-08df2faefec2"
+    },
+    {
+     "key": "assembly-2026",
+     "name": "Member of Assembly, 2nd Assembly District",
+     "voteFor": 1,
+     "candidates": [
+      {
+       "name": "Jodi A Giglio",
+       "party": "REP",
+       "lines": {
+        "REP": 6219,
+        "CON": 1080
+       },
+       "votes": 7299
+      },
+      {
+       "name": "Michael J Szika",
+       "party": "DEM",
+       "lines": {
+        "DEM": 5329
+       },
+       "votes": 5329
+      },
+      {
+       "name": "Kimberly Wilder",
+       "party": "VOP",
+       "lines": {
+        "VOP": 233
+       },
+       "votes": 233
+      },
+      {
+       "name": "Write-in",
+       "party": "",
+       "lines": {
+        "W/I": 3
+       },
+       "votes": 3
+      }
+     ],
+     "total": 12864,
+     "districts": {
+      "001": {
+       "mapFeatureId": "3658723365910662",
+       "total": 755,
+       "reporting": 2,
+       "votes": {
+        "Jodi A Giglio": 421,
+        "Michael J Szika": 319,
+        "Kimberly Wilder": 15,
+        "Write-in": 0
+       }
+      },
+      "002": {
+       "mapFeatureId": "807966879748990",
+       "total": 253,
+       "reporting": 2,
+       "votes": {
+        "Michael J Szika": 140,
+        "Jodi A Giglio": 108,
+        "Kimberly Wilder": 5,
+        "Write-in": 0
+       }
+      },
+      "003": {
+       "mapFeatureId": "3962789360089877",
+       "total": 92,
+       "reporting": 2,
+       "votes": {
+        "Michael J Szika": 53,
+        "Jodi A Giglio": 37,
+        "Kimberly Wilder": 2,
+        "Write-in": 0
+       }
+      },
+      "004": {
+       "mapFeatureId": "8434346057341543",
+       "total": 650,
+       "reporting": 2,
+       "votes": {
+        "Jodi A Giglio": 359,
+        "Michael J Szika": 269,
+        "Kimberly Wilder": 22,
+        "Write-in": 0
+       }
+      },
+      "005": {
+       "mapFeatureId": "4778098643565874",
+       "total": 202,
+       "reporting": 2,
+       "votes": {
+        "Jodi A Giglio": 102,
+        "Michael J Szika": 95,
+        "Kimberly Wilder": 5,
+        "Write-in": 0
+       }
+      },
+      "006": {
+       "mapFeatureId": "2999464248918931",
+       "total": 182,
+       "reporting": 2,
+       "votes": {
+        "Michael J Szika": 105,
+        "Jodi A Giglio": 68,
+        "Kimberly Wilder": 9,
+        "Write-in": 0
+       }
+      },
+      "007": {
+       "mapFeatureId": "1099738145678188",
+       "total": 878,
+       "reporting": 2,
+       "votes": {
+        "Jodi A Giglio": 519,
+        "Michael J Szika": 349,
+        "Kimberly Wilder": 10,
+        "Write-in": 0
+       }
+      },
+      "008": {
+       "mapFeatureId": "3904750066960782",
+       "total": 481,
+       "reporting": 2,
+       "votes": {
+        "Jodi A Giglio": 269,
+        "Michael J Szika": 203,
+        "Kimberly Wilder": 8,
+        "Write-in": 1
+       }
+      },
+      "009": {
+       "mapFeatureId": "1056084594890771",
+       "total": 396,
+       "reporting": 2,
+       "votes": {
+        "Michael J Szika": 196,
+        "Jodi A Giglio": 192,
+        "Kimberly Wilder": 7,
+        "Write-in": 1
+       }
+      },
+      "010": {
+       "mapFeatureId": "7445025730300058",
+       "total": 264,
+       "reporting": 2,
+       "votes": {
+        "Jodi A Giglio": 140,
+        "Michael J Szika": 121,
+        "Kimberly Wilder": 3,
+        "Write-in": 0
+       }
+      },
+      "011": {
+       "mapFeatureId": "427678325786385",
+       "total": 777,
+       "reporting": 2,
+       "votes": {
+        "Jodi A Giglio": 449,
+        "Michael J Szika": 320,
+        "Kimberly Wilder": 8,
+        "Write-in": 0
+       }
+      },
+      "012": {
+       "mapFeatureId": "1162492379022671",
+       "total": 1085,
+       "reporting": 2,
+       "votes": {
+        "Jodi A Giglio": 552,
+        "Michael J Szika": 520,
+        "Kimberly Wilder": 13,
+        "Write-in": 0
+       }
+      },
+      "013": {
+       "mapFeatureId": "2432176677277614",
+       "total": 648,
+       "reporting": 2,
+       "votes": {
+        "Jodi A Giglio": 348,
+        "Michael J Szika": 284,
+        "Kimberly Wilder": 15,
+        "Write-in": 1
+       }
+      },
+      "014": {
+       "mapFeatureId": "5153793840211433",
+       "total": 868,
+       "reporting": 2,
+       "votes": {
+        "Jodi A Giglio": 525,
+        "Michael J Szika": 326,
+        "Kimberly Wilder": 17,
+        "Write-in": 0
+       }
+      },
+      "015": {
+       "mapFeatureId": "2484183755979713",
+       "total": 98,
+       "reporting": 2,
+       "votes": {
+        "Jodi A Giglio": 57,
+        "Michael J Szika": 38,
+        "Kimberly Wilder": 3,
+        "Write-in": 0
+       }
+      },
+      "016": {
+       "mapFeatureId": "272625357577693",
+       "total": 456,
+       "reporting": 2,
+       "votes": {
+        "Jodi A Giglio": 260,
+        "Michael J Szika": 181,
+        "Kimberly Wilder": 15,
+        "Write-in": 0
+       }
+      },
+      "017": {
+       "mapFeatureId": "8450031412422883",
+       "total": 1199,
+       "reporting": 2,
+       "votes": {
+        "Jodi A Giglio": 721,
+        "Michael J Szika": 453,
+        "Kimberly Wilder": 25,
+        "Write-in": 0
+       }
+      },
+      "018": {
+       "mapFeatureId": "4921803926925390",
+       "total": 319,
+       "reporting": 2,
+       "votes": {
+        "Jodi A Giglio": 191,
+        "Michael J Szika": 122,
+        "Kimberly Wilder": 6,
+        "Write-in": 0
+       }
+      },
+      "019": {
+       "mapFeatureId": "1808000856600626",
+       "total": 932,
+       "reporting": 2,
+       "votes": {
+        "Jodi A Giglio": 590,
+        "Michael J Szika": 327,
+        "Kimberly Wilder": 15,
+        "Write-in": 0
+       }
+      },
+      "020": {
+       "mapFeatureId": "7354331069340060",
+       "total": 1231,
+       "reporting": 2,
+       "votes": {
+        "Jodi A Giglio": 817,
+        "Michael J Szika": 400,
+        "Kimberly Wilder": 14,
+        "Write-in": 0
+       }
+      },
+      "021": {
+       "mapFeatureId": "511237974035790",
+       "total": 440,
+       "reporting": 2,
+       "votes": {
+        "Jodi A Giglio": 250,
+        "Michael J Szika": 184,
+        "Kimberly Wilder": 6,
+        "Write-in": 0
+       }
+      },
+      "022": {
+       "mapFeatureId": "4728054213589490",
+       "total": 658,
+       "reporting": 2,
+       "votes": {
+        "Michael J Szika": 324,
+        "Jodi A Giglio": 324,
+        "Kimberly Wilder": 10,
+        "Write-in": 0
+       }
+      }
+     },
+     "url": "https://app.enhancedvoting.com/results/public/suffolk-county-ny/elections/GE2026_20261028145605/ballot-items/01000000-d6c5-0591-0fbc-08df2faefec5"
+    }
+   ]
+  },
+  {
+   "id": "GE25",
+   "label": "2025 General Election",
+   "date": "2025-11-04",
+   "official": false,
+   "asOf": "2025-11-06T00:34:04.7126985Z",
+   "url": "https://app.enhancedvoting.com/results/public/suffolk-county-ny/elections/GE25",
+   "contests": [
+    {
+     "key": "supervisor-2025",
+     "name": "Supervisor, Town of Riverhead",
+     "voteFor": 1,
+     "candidates": [
+      {
+       "name": "Jerome Halpin",
+       "party": "DEM",
+       "lines": {
+        "DEM": 3515,
+        "TPF": 376
+       },
+       "votes": 3891
+      },
+      {
+       "name": "Timothy C Hubbard",
+       "party": "REP",
+       "lines": {
+        "REP": 3007,
+        "CON": 863
+       },
+       "votes": 3870
+      },
+      {
+       "name": "Write-in",
+       "party": "",
+       "lines": {
+        "W/I": 3
+       },
+       "votes": 3
+      }
+     ],
+     "total": 7764,
+     "districts": {
+      "001": {
+       "mapFeatureId": "3658723365910662",
+       "total": 455,
+       "reporting": 4,
+       "votes": {
+        "Jerome Halpin": 256,
+        "Timothy C Hubbard": 199,
+        "Write-in": 0
+       }
+      },
+      "002": {
+       "mapFeatureId": "807966879748990",
+       "total": 129,
+       "reporting": 4,
+       "votes": {
+        "Jerome Halpin": 73,
+        "Timothy C Hubbard": 56,
+        "Write-in": 0
+       }
+      },
+      "003": {
+       "mapFeatureId": "3962789360089877",
+       "total": 48,
+       "reporting": 4,
+       "votes": {
+        "Jerome Halpin": 28,
+        "Timothy C Hubbard": 20,
+        "Write-in": 0
+       }
+      },
+      "004": {
+       "mapFeatureId": "8434346057341543",
+       "total": 406,
+       "reporting": 4,
+       "votes": {
+        "Jerome Halpin": 199,
+        "Timothy C Hubbard": 205,
+        "Write-in": 2
+       }
+      },
+      "005": {
+       "mapFeatureId": "4778098643565874",
+       "total": 134,
+       "reporting": 4,
+       "votes": {
+        "Jerome Halpin": 76,
+        "Timothy C Hubbard": 58,
+        "Write-in": 0
+       }
+      },
+      "006": {
+       "mapFeatureId": "2999464248918931",
+       "total": 104,
+       "reporting": 4,
+       "votes": {
+        "Jerome Halpin": 68,
+        "Timothy C Hubbard": 36,
+        "Write-in": 0
+       }
+      },
+      "007": {
+       "mapFeatureId": "1099738145678188",
+       "total": 522,
+       "reporting": 4,
+       "votes": {
+        "Jerome Halpin": 261,
+        "Timothy C Hubbard": 261,
+        "Write-in": 0
+       }
+      },
+      "008": {
+       "mapFeatureId": "3904750066960782",
+       "total": 359,
+       "reporting": 4,
+       "votes": {
+        "Jerome Halpin": 172,
+        "Timothy C Hubbard": 187,
+        "Write-in": 0
+       }
+      },
+      "009": {
+       "mapFeatureId": "1056084594890771",
+       "total": 223,
+       "reporting": 4,
+       "votes": {
+        "Jerome Halpin": 129,
+        "Timothy C Hubbard": 94,
+        "Write-in": 0
+       }
+      },
+      "010": {
+       "mapFeatureId": "7445025730300058",
+       "total": 152,
+       "reporting": 4,
+       "votes": {
+        "Jerome Halpin": 89,
+        "Timothy C Hubbard": 63,
+        "Write-in": 0
+       }
+      },
+      "011": {
+       "mapFeatureId": "427678325786385",
+       "total": 501,
+       "reporting": 4,
+       "votes": {
+        "Jerome Halpin": 223,
+        "Timothy C Hubbard": 278,
+        "Write-in": 0
+       }
+      },
+      "012": {
+       "mapFeatureId": "1162492379022671",
+       "total": 649,
+       "reporting": 4,
+       "votes": {
+        "Jerome Halpin": 352,
+        "Timothy C Hubbard": 297,
+        "Write-in": 0
+       }
+      },
+      "013": {
+       "mapFeatureId": "2432176677277614",
+       "total": 379,
+       "reporting": 4,
+       "votes": {
+        "Jerome Halpin": 178,
+        "Timothy C Hubbard": 201,
+        "Write-in": 0
+       }
+      },
+      "014": {
+       "mapFeatureId": "5153793840211433",
+       "total": 517,
+       "reporting": 4,
+       "votes": {
+        "Jerome Halpin": 235,
+        "Timothy C Hubbard": 281,
+        "Write-in": 1
+       }
+      },
+      "015": {
+       "mapFeatureId": "2484183755979713",
+       "total": 45,
+       "reporting": 4,
+       "votes": {
+        "Jerome Halpin": 23,
+        "Timothy C Hubbard": 22,
+        "Write-in": 0
+       }
+      },
+      "016": {
+       "mapFeatureId": "272625357577693",
+       "total": 313,
+       "reporting": 4,
+       "votes": {
+        "Jerome Halpin": 159,
+        "Timothy C Hubbard": 154,
+        "Write-in": 0
+       }
+      },
+      "017": {
+       "mapFeatureId": "8450031412422883",
+       "total": 709,
+       "reporting": 4,
+       "votes": {
+        "Jerome Halpin": 346,
+        "Timothy C Hubbard": 363,
+        "Write-in": 0
+       }
+      },
+      "018": {
+       "mapFeatureId": "4921803926925390",
+       "total": 190,
+       "reporting": 4,
+       "votes": {
+        "Jerome Halpin": 94,
+        "Timothy C Hubbard": 96,
+        "Write-in": 0
+       }
+      },
+      "019": {
+       "mapFeatureId": "1808000856600626",
+       "total": 553,
+       "reporting": 4,
+       "votes": {
+        "Jerome Halpin": 271,
+        "Timothy C Hubbard": 282,
+        "Write-in": 0
+       }
+      },
+      "020": {
+       "mapFeatureId": "7354331069340060",
+       "total": 652,
+       "reporting": 4,
+       "votes": {
+        "Jerome Halpin": 267,
+        "Timothy C Hubbard": 385,
+        "Write-in": 0
+       }
+      },
+      "021": {
+       "mapFeatureId": "511237974035790",
+       "total": 309,
+       "reporting": 4,
+       "votes": {
+        "Jerome Halpin": 154,
+        "Timothy C Hubbard": 155,
+        "Write-in": 0
+       }
+      },
+      "022": {
+       "mapFeatureId": "4728054213589490",
+       "total": 415,
+       "reporting": 4,
+       "votes": {
+        "Jerome Halpin": 238,
+        "Timothy C Hubbard": 177,
+        "Write-in": 0
+       }
+      }
+     },
+     "url": "https://app.enhancedvoting.com/results/public/suffolk-county-ny/elections/GE25/ballot-items/01000000-3a76-cbf6-e0ae-08de125cbe18"
+    },
+    {
+     "key": "council-2025",
+     "name": "Council member, Town of Riverhead",
+     "voteFor": 2,
+     "candidates": [
+      {
+       "name": "Mark A Woolley",
+       "party": "DEM",
+       "lines": {
+        "DEM": 3383,
+        "TPF": 376
+       },
+       "votes": 3759
+      },
+      {
+       "name": "Kevin M Shea",
+       "party": "DEM",
+       "lines": {
+        "DEM": 3177,
+        "TPF": 275
+       },
+       "votes": 3452
+      },
+      {
+       "name": "Bob Kern",
+       "party": "REP",
+       "lines": {
+        "REP": 3005,
+        "CON": 902
+       },
+       "votes": 3907
+      },
+      {
+       "name": "Kenneth T Rothwell",
+       "party": "REP",
+       "lines": {
+        "REP": 2921,
+        "CON": 912
+       },
+       "votes": 3833
+      },
+      {
+       "name": "Write-in",
+       "party": "",
+       "lines": {
+        "W/I": 5
+       },
+       "votes": 5
+      }
+     ],
+     "total": 14956,
+     "districts": {
+      "001": {
+       "mapFeatureId": "3658723365910662",
+       "total": 886,
+       "reporting": 4,
+       "votes": {
+        "Mark A Woolley": 251,
+        "Kevin M Shea": 249,
+        "Bob Kern": 196,
+        "Kenneth T Rothwell": 190,
+        "Write-in": 0
+       }
+      },
+      "002": {
+       "mapFeatureId": "807966879748990",
+       "total": 244,
+       "reporting": 4,
+       "votes": {
+        "Mark A Woolley": 75,
+        "Kevin M Shea": 68,
+        "Bob Kern": 53,
+        "Kenneth T Rothwell": 48,
+        "Write-in": 0
+       }
+      },
+      "003": {
+       "mapFeatureId": "3962789360089877",
+       "total": 93,
+       "reporting": 4,
+       "votes": {
+        "Mark A Woolley": 29,
+        "Kevin M Shea": 25,
+        "Bob Kern": 19,
+        "Kenneth T Rothwell": 20,
+        "Write-in": 0
+       }
+      },
+      "004": {
+       "mapFeatureId": "8434346057341543",
+       "total": 775,
+       "reporting": 4,
+       "votes": {
+        "Mark A Woolley": 187,
+        "Kevin M Shea": 167,
+        "Bob Kern": 210,
+        "Kenneth T Rothwell": 211,
+        "Write-in": 0
+       }
+      },
+      "005": {
+       "mapFeatureId": "4778098643565874",
+       "total": 253,
+       "reporting": 4,
+       "votes": {
+        "Mark A Woolley": 71,
+        "Kevin M Shea": 60,
+        "Bob Kern": 59,
+        "Kenneth T Rothwell": 63,
+        "Write-in": 0
+       }
+      },
+      "006": {
+       "mapFeatureId": "2999464248918931",
+       "total": 209,
+       "reporting": 4,
+       "votes": {
+        "Mark A Woolley": 66,
+        "Kevin M Shea": 64,
+        "Bob Kern": 40,
+        "Kenneth T Rothwell": 39,
+        "Write-in": 0
+       }
+      },
+      "007": {
+       "mapFeatureId": "1099738145678188",
+       "total": 1003,
+       "reporting": 4,
+       "votes": {
+        "Mark A Woolley": 253,
+        "Kevin M Shea": 227,
+        "Bob Kern": 264,
+        "Kenneth T Rothwell": 259,
+        "Write-in": 0
+       }
+      },
+      "008": {
+       "mapFeatureId": "3904750066960782",
+       "total": 683,
+       "reporting": 4,
+       "votes": {
+        "Mark A Woolley": 172,
+        "Kevin M Shea": 154,
+        "Bob Kern": 183,
+        "Kenneth T Rothwell": 174,
+        "Write-in": 0
+       }
+      },
+      "009": {
+       "mapFeatureId": "1056084594890771",
+       "total": 438,
+       "reporting": 4,
+       "votes": {
+        "Mark A Woolley": 123,
+        "Kevin M Shea": 116,
+        "Bob Kern": 103,
+        "Kenneth T Rothwell": 96,
+        "Write-in": 0
+       }
+      },
+      "010": {
+       "mapFeatureId": "7445025730300058",
+       "total": 299,
+       "reporting": 4,
+       "votes": {
+        "Mark A Woolley": 86,
+        "Kevin M Shea": 81,
+        "Bob Kern": 67,
+        "Kenneth T Rothwell": 65,
+        "Write-in": 0
+       }
+      },
+      "011": {
+       "mapFeatureId": "427678325786385",
+       "total": 946,
+       "reporting": 4,
+       "votes": {
+        "Mark A Woolley": 237,
+        "Kevin M Shea": 201,
+        "Bob Kern": 261,
+        "Kenneth T Rothwell": 247,
+        "Write-in": 0
+       }
+      },
+      "012": {
+       "mapFeatureId": "1162492379022671",
+       "total": 1241,
+       "reporting": 4,
+       "votes": {
+        "Mark A Woolley": 332,
+        "Kevin M Shea": 304,
+        "Bob Kern": 308,
+        "Kenneth T Rothwell": 296,
+        "Write-in": 1
+       }
+      },
+      "013": {
+       "mapFeatureId": "2432176677277614",
+       "total": 737,
+       "reporting": 4,
+       "votes": {
+        "Mark A Woolley": 178,
+        "Kevin M Shea": 157,
+        "Bob Kern": 199,
+        "Kenneth T Rothwell": 202,
+        "Write-in": 1
+       }
+      },
+      "014": {
+       "mapFeatureId": "5153793840211433",
+       "total": 1004,
+       "reporting": 4,
+       "votes": {
+        "Mark A Woolley": 223,
+        "Kevin M Shea": 206,
+        "Bob Kern": 292,
+        "Kenneth T Rothwell": 283,
+        "Write-in": 0
+       }
+      },
+      "015": {
+       "mapFeatureId": "2484183755979713",
+       "total": 87,
+       "reporting": 4,
+       "votes": {
+        "Mark A Woolley": 23,
+        "Kevin M Shea": 20,
+        "Bob Kern": 22,
+        "Kenneth T Rothwell": 22,
+        "Write-in": 0
+       }
+      },
+      "016": {
+       "mapFeatureId": "272625357577693",
+       "total": 588,
+       "reporting": 4,
+       "votes": {
+        "Mark A Woolley": 141,
+        "Kevin M Shea": 132,
+        "Bob Kern": 170,
+        "Kenneth T Rothwell": 145,
+        "Write-in": 0
+       }
+      },
+      "017": {
+       "mapFeatureId": "8450031412422883",
+       "total": 1376,
+       "reporting": 4,
+       "votes": {
+        "Mark A Woolley": 322,
+        "Kevin M Shea": 318,
+        "Bob Kern": 359,
+        "Kenneth T Rothwell": 376,
+        "Write-in": 1
+       }
+      },
+      "018": {
+       "mapFeatureId": "4921803926925390",
+       "total": 376,
+       "reporting": 4,
+       "votes": {
+        "Mark A Woolley": 92,
+        "Kevin M Shea": 90,
+        "Bob Kern": 93,
+        "Kenneth T Rothwell": 101,
+        "Write-in": 0
+       }
+      },
+      "019": {
+       "mapFeatureId": "1808000856600626",
+       "total": 1074,
+       "reporting": 4,
+       "votes": {
+        "Mark A Woolley": 258,
+        "Kevin M Shea": 218,
+        "Bob Kern": 299,
+        "Kenneth T Rothwell": 297,
+        "Write-in": 2
+       }
+      },
+      "020": {
+       "mapFeatureId": "7354331069340060",
+       "total": 1264,
+       "reporting": 4,
+       "votes": {
+        "Mark A Woolley": 261,
+        "Kevin M Shea": 252,
+        "Bob Kern": 379,
+        "Kenneth T Rothwell": 372,
+        "Write-in": 0
+       }
+      },
+      "021": {
+       "mapFeatureId": "511237974035790",
+       "total": 587,
+       "reporting": 4,
+       "votes": {
+        "Mark A Woolley": 153,
+        "Kevin M Shea": 129,
+        "Bob Kern": 154,
+        "Kenneth T Rothwell": 151,
+        "Write-in": 0
+       }
+      },
+      "022": {
+       "mapFeatureId": "4728054213589490",
+       "total": 793,
+       "reporting": 4,
+       "votes": {
+        "Mark A Woolley": 226,
+        "Kevin M Shea": 214,
+        "Bob Kern": 177,
+        "Kenneth T Rothwell": 176,
+        "Write-in": 0
+       }
+      }
+     },
+     "url": "https://app.enhancedvoting.com/results/public/suffolk-county-ny/elections/GE25/ballot-items/01000000-3a76-cbf6-e26b-08de125cbe18"
+    },
+    {
+     "key": "highway-2025",
+     "name": "Superintendent of Highways, Town of Riverhead",
+     "voteFor": 1,
+     "candidates": [
+      {
+       "name": "Michael T Zaleski",
+       "party": "REP",
+       "lines": {
+        "REP": 3854,
+        "CON": 1517
+       },
+       "votes": 5371
+      },
+      {
+       "name": "Write-in",
+       "party": "",
+       "lines": {
+        "W/I": 44
+       },
+       "votes": 44
+      }
+     ],
+     "total": 5415,
+     "districts": {
+      "001": {
+       "mapFeatureId": "3658723365910662",
+       "total": 294,
+       "reporting": 4,
+       "votes": {
+        "Michael T Zaleski": 288,
+        "Write-in": 6
+       }
+      },
+      "002": {
+       "mapFeatureId": "807966879748990",
+       "total": 77,
+       "reporting": 4,
+       "votes": {
+        "Michael T Zaleski": 77,
+        "Write-in": 0
+       }
+      },
+      "003": {
+       "mapFeatureId": "3962789360089877",
+       "total": 27,
+       "reporting": 4,
+       "votes": {
+        "Michael T Zaleski": 27,
+        "Write-in": 0
+       }
+      },
+      "004": {
+       "mapFeatureId": "8434346057341543",
+       "total": 286,
+       "reporting": 4,
+       "votes": {
+        "Michael T Zaleski": 280,
+        "Write-in": 6
+       }
+      },
+      "005": {
+       "mapFeatureId": "4778098643565874",
+       "total": 94,
+       "reporting": 4,
+       "votes": {
+        "Michael T Zaleski": 93,
+        "Write-in": 1
+       }
+      },
+      "006": {
+       "mapFeatureId": "2999464248918931",
+       "total": 72,
+       "reporting": 4,
+       "votes": {
+        "Michael T Zaleski": 70,
+        "Write-in": 2
+       }
+      },
+      "007": {
+       "mapFeatureId": "1099738145678188",
+       "total": 366,
+       "reporting": 4,
+       "votes": {
+        "Michael T Zaleski": 363,
+        "Write-in": 3
+       }
+      },
+      "008": {
+       "mapFeatureId": "3904750066960782",
+       "total": 243,
+       "reporting": 4,
+       "votes": {
+        "Michael T Zaleski": 242,
+        "Write-in": 1
+       }
+      },
+      "009": {
+       "mapFeatureId": "1056084594890771",
+       "total": 157,
+       "reporting": 4,
+       "votes": {
+        "Michael T Zaleski": 156,
+        "Write-in": 1
+       }
+      },
+      "010": {
+       "mapFeatureId": "7445025730300058",
+       "total": 98,
+       "reporting": 4,
+       "votes": {
+        "Michael T Zaleski": 98,
+        "Write-in": 0
+       }
+      },
+      "011": {
+       "mapFeatureId": "427678325786385",
+       "total": 340,
+       "reporting": 4,
+       "votes": {
+        "Michael T Zaleski": 340,
+        "Write-in": 0
+       }
+      },
+      "012": {
+       "mapFeatureId": "1162492379022671",
+       "total": 417,
+       "reporting": 4,
+       "votes": {
+        "Michael T Zaleski": 414,
+        "Write-in": 3
+       }
+      },
+      "013": {
+       "mapFeatureId": "2432176677277614",
+       "total": 295,
+       "reporting": 4,
+       "votes": {
+        "Michael T Zaleski": 293,
+        "Write-in": 2
+       }
+      },
+      "014": {
+       "mapFeatureId": "5153793840211433",
+       "total": 389,
+       "reporting": 4,
+       "votes": {
+        "Michael T Zaleski": 383,
+        "Write-in": 6
+       }
+      },
+      "015": {
+       "mapFeatureId": "2484183755979713",
+       "total": 35,
+       "reporting": 4,
+       "votes": {
+        "Michael T Zaleski": 35,
+        "Write-in": 0
+       }
+      },
+      "016": {
+       "mapFeatureId": "272625357577693",
+       "total": 208,
+       "reporting": 4,
+       "votes": {
+        "Michael T Zaleski": 208,
+        "Write-in": 0
+       }
+      },
+      "017": {
+       "mapFeatureId": "8450031412422883",
+       "total": 501,
+       "reporting": 4,
+       "votes": {
+        "Michael T Zaleski": 496,
+        "Write-in": 5
+       }
+      },
+      "018": {
+       "mapFeatureId": "4921803926925390",
+       "total": 139,
+       "reporting": 4,
+       "votes": {
+        "Michael T Zaleski": 139,
+        "Write-in": 0
+       }
+      },
+      "019": {
+       "mapFeatureId": "1808000856600626",
+       "total": 422,
+       "reporting": 4,
+       "votes": {
+        "Michael T Zaleski": 420,
+        "Write-in": 2
+       }
+      },
+      "020": {
+       "mapFeatureId": "7354331069340060",
+       "total": 462,
+       "reporting": 4,
+       "votes": {
+        "Michael T Zaleski": 458,
+        "Write-in": 4
+       }
+      },
+      "021": {
+       "mapFeatureId": "511237974035790",
+       "total": 223,
+       "reporting": 4,
+       "votes": {
+        "Michael T Zaleski": 222,
+        "Write-in": 1
+       }
+      },
+      "022": {
+       "mapFeatureId": "4728054213589490",
+       "total": 270,
+       "reporting": 4,
+       "votes": {
+        "Michael T Zaleski": 269,
+        "Write-in": 1
+       }
+      }
+     },
+     "url": "https://app.enhancedvoting.com/results/public/suffolk-county-ny/elections/GE25/ballot-items/01000000-3a76-cbf6-e1be-08de125cbe18"
+    },
+    {
+     "key": "assessor-2025",
+     "name": "Assessor, Town of Riverhead",
+     "voteFor": 1,
+     "candidates": [
+      {
+       "name": "Laverne Tennenberg",
+       "party": "REP",
+       "lines": {
+        "REP": 3748,
+        "CON": 1520
+       },
+       "votes": 5268
+      },
+      {
+       "name": "Write-in",
+       "party": "",
+       "lines": {
+        "W/I": 24
+       },
+       "votes": 24
+      }
+     ],
+     "total": 5292,
+     "districts": {
+      "001": {
+       "mapFeatureId": "3658723365910662",
+       "total": 278,
+       "reporting": 4,
+       "votes": {
+        "Laverne Tennenberg": 272,
+        "Write-in": 6
+       }
+      },
+      "002": {
+       "mapFeatureId": "807966879748990",
+       "total": 78,
+       "reporting": 4,
+       "votes": {
+        "Laverne Tennenberg": 78,
+        "Write-in": 0
+       }
+      },
+      "003": {
+       "mapFeatureId": "3962789360089877",
+       "total": 29,
+       "reporting": 4,
+       "votes": {
+        "Laverne Tennenberg": 29,
+        "Write-in": 0
+       }
+      },
+      "004": {
+       "mapFeatureId": "8434346057341543",
+       "total": 276,
+       "reporting": 4,
+       "votes": {
+        "Laverne Tennenberg": 273,
+        "Write-in": 3
+       }
+      },
+      "005": {
+       "mapFeatureId": "4778098643565874",
+       "total": 89,
+       "reporting": 4,
+       "votes": {
+        "Laverne Tennenberg": 88,
+        "Write-in": 1
+       }
+      },
+      "006": {
+       "mapFeatureId": "2999464248918931",
+       "total": 70,
+       "reporting": 4,
+       "votes": {
+        "Laverne Tennenberg": 70,
+        "Write-in": 0
+       }
+      },
+      "007": {
+       "mapFeatureId": "1099738145678188",
+       "total": 365,
+       "reporting": 4,
+       "votes": {
+        "Laverne Tennenberg": 364,
+        "Write-in": 1
+       }
+      },
+      "008": {
+       "mapFeatureId": "3904750066960782",
+       "total": 228,
+       "reporting": 4,
+       "votes": {
+        "Laverne Tennenberg": 228,
+        "Write-in": 0
+       }
+      },
+      "009": {
+       "mapFeatureId": "1056084594890771",
+       "total": 159,
+       "reporting": 4,
+       "votes": {
+        "Laverne Tennenberg": 158,
+        "Write-in": 1
+       }
+      },
+      "010": {
+       "mapFeatureId": "7445025730300058",
+       "total": 96,
+       "reporting": 4,
+       "votes": {
+        "Laverne Tennenberg": 96,
+        "Write-in": 0
+       }
+      },
+      "011": {
+       "mapFeatureId": "427678325786385",
+       "total": 335,
+       "reporting": 4,
+       "votes": {
+        "Laverne Tennenberg": 335,
+        "Write-in": 0
+       }
+      },
+      "012": {
+       "mapFeatureId": "1162492379022671",
+       "total": 416,
+       "reporting": 4,
+       "votes": {
+        "Laverne Tennenberg": 416,
+        "Write-in": 0
+       }
+      },
+      "013": {
+       "mapFeatureId": "2432176677277614",
+       "total": 288,
+       "reporting": 4,
+       "votes": {
+        "Laverne Tennenberg": 287,
+        "Write-in": 1
+       }
+      },
+      "014": {
+       "mapFeatureId": "5153793840211433",
+       "total": 375,
+       "reporting": 4,
+       "votes": {
+        "Laverne Tennenberg": 372,
+        "Write-in": 3
+       }
+      },
+      "015": {
+       "mapFeatureId": "2484183755979713",
+       "total": 35,
+       "reporting": 4,
+       "votes": {
+        "Laverne Tennenberg": 35,
+        "Write-in": 0
+       }
+      },
+      "016": {
+       "mapFeatureId": "272625357577693",
+       "total": 206,
+       "reporting": 4,
+       "votes": {
+        "Laverne Tennenberg": 206,
+        "Write-in": 0
+       }
+      },
+      "017": {
+       "mapFeatureId": "8450031412422883",
+       "total": 480,
+       "reporting": 4,
+       "votes": {
+        "Laverne Tennenberg": 477,
+        "Write-in": 3
+       }
+      },
+      "018": {
+       "mapFeatureId": "4921803926925390",
+       "total": 138,
+       "reporting": 4,
+       "votes": {
+        "Laverne Tennenberg": 138,
+        "Write-in": 0
+       }
+      },
+      "019": {
+       "mapFeatureId": "1808000856600626",
+       "total": 415,
+       "reporting": 4,
+       "votes": {
+        "Laverne Tennenberg": 413,
+        "Write-in": 2
+       }
+      },
+      "020": {
+       "mapFeatureId": "7354331069340060",
+       "total": 457,
+       "reporting": 4,
+       "votes": {
+        "Laverne Tennenberg": 457,
+        "Write-in": 0
+       }
+      },
+      "021": {
+       "mapFeatureId": "511237974035790",
+       "total": 222,
+       "reporting": 4,
+       "votes": {
+        "Laverne Tennenberg": 221,
+        "Write-in": 1
+       }
+      },
+      "022": {
+       "mapFeatureId": "4728054213589490",
+       "total": 257,
+       "reporting": 4,
+       "votes": {
+        "Laverne Tennenberg": 255,
+        "Write-in": 2
+       }
+      }
+     },
+     "url": "https://app.enhancedvoting.com/results/public/suffolk-county-ny/elections/GE25/ballot-items/01000000-3a76-cbf6-e35d-08de125cbe18"
+    },
+    {
+     "key": "legislator-2025",
+     "name": "County Legislator, 1st Legislative District",
+     "voteFor": 1,
+     "candidates": [
+      {
+       "name": "Greg Doroski",
+       "party": "DEM",
+       "lines": {
+        "DEM": 3487,
+        "WOR": 344
+       },
+       "votes": 3831
+      },
+      {
+       "name": "Catherine L Stark",
+       "party": "REP",
+       "lines": {
+        "REP": 3019,
+        "CON": 898
+       },
+       "votes": 3917
+      },
+      {
+       "name": "Write-in",
+       "party": "",
+       "lines": {
+        "W/I": 2
+       },
+       "votes": 2
+      }
+     ],
+     "total": 7750,
+     "districts": {
+      "001": {
+       "mapFeatureId": "3658723365910662",
+       "total": 455,
+       "reporting": 4,
+       "votes": {
+        "Greg Doroski": 265,
+        "Catherine L Stark": 190,
+        "Write-in": 0
+       }
+      },
+      "002": {
+       "mapFeatureId": "807966879748990",
+       "total": 131,
+       "reporting": 4,
+       "votes": {
+        "Greg Doroski": 80,
+        "Catherine L Stark": 50,
+        "Write-in": 1
+       }
+      },
+      "003": {
+       "mapFeatureId": "3962789360089877",
+       "total": 50,
+       "reporting": 4,
+       "votes": {
+        "Greg Doroski": 34,
+        "Catherine L Stark": 16,
+        "Write-in": 0
+       }
+      },
+      "004": {
+       "mapFeatureId": "8434346057341543",
+       "total": 401,
+       "reporting": 4,
+       "votes": {
+        "Greg Doroski": 194,
+        "Catherine L Stark": 207,
+        "Write-in": 0
+       }
+      },
+      "005": {
+       "mapFeatureId": "4778098643565874",
+       "total": 134,
+       "reporting": 4,
+       "votes": {
+        "Greg Doroski": 72,
+        "Catherine L Stark": 62,
+        "Write-in": 0
+       }
+      },
+      "006": {
+       "mapFeatureId": "2999464248918931",
+       "total": 106,
+       "reporting": 4,
+       "votes": {
+        "Greg Doroski": 63,
+        "Catherine L Stark": 43,
+        "Write-in": 0
+       }
+      },
+      "007": {
+       "mapFeatureId": "1099738145678188",
+       "total": 516,
+       "reporting": 4,
+       "votes": {
+        "Greg Doroski": 240,
+        "Catherine L Stark": 276,
+        "Write-in": 0
+       }
+      },
+      "008": {
+       "mapFeatureId": "3904750066960782",
+       "total": 358,
+       "reporting": 4,
+       "votes": {
+        "Greg Doroski": 180,
+        "Catherine L Stark": 178,
+        "Write-in": 0
+       }
+      },
+      "009": {
+       "mapFeatureId": "1056084594890771",
+       "total": 225,
+       "reporting": 4,
+       "votes": {
+        "Greg Doroski": 132,
+        "Catherine L Stark": 93,
+        "Write-in": 0
+       }
+      },
+      "010": {
+       "mapFeatureId": "7445025730300058",
+       "total": 152,
+       "reporting": 4,
+       "votes": {
+        "Greg Doroski": 81,
+        "Catherine L Stark": 71,
+        "Write-in": 0
+       }
+      },
+      "011": {
+       "mapFeatureId": "427678325786385",
+       "total": 493,
+       "reporting": 4,
+       "votes": {
+        "Greg Doroski": 218,
+        "Catherine L Stark": 275,
+        "Write-in": 0
+       }
+      },
+      "012": {
+       "mapFeatureId": "1162492379022671",
+       "total": 641,
+       "reporting": 4,
+       "votes": {
+        "Greg Doroski": 349,
+        "Catherine L Stark": 292,
+        "Write-in": 0
+       }
+      },
+      "013": {
+       "mapFeatureId": "2432176677277614",
+       "total": 385,
+       "reporting": 4,
+       "votes": {
+        "Greg Doroski": 191,
+        "Catherine L Stark": 194,
+        "Write-in": 0
+       }
+      },
+      "014": {
+       "mapFeatureId": "5153793840211433",
+       "total": 522,
+       "reporting": 4,
+       "votes": {
+        "Greg Doroski": 240,
+        "Catherine L Stark": 281,
+        "Write-in": 1
+       }
+      },
+      "015": {
+       "mapFeatureId": "2484183755979713",
+       "total": 45,
+       "reporting": 4,
+       "votes": {
+        "Greg Doroski": 22,
+        "Catherine L Stark": 23,
+        "Write-in": 0
+       }
+      },
+      "016": {
+       "mapFeatureId": "272625357577693",
+       "total": 311,
+       "reporting": 4,
+       "votes": {
+        "Greg Doroski": 148,
+        "Catherine L Stark": 163,
+        "Write-in": 0
+       }
+      },
+      "017": {
+       "mapFeatureId": "8450031412422883",
+       "total": 704,
+       "reporting": 4,
+       "votes": {
+        "Greg Doroski": 327,
+        "Catherine L Stark": 377,
+        "Write-in": 0
+       }
+      },
+      "018": {
+       "mapFeatureId": "4921803926925390",
+       "total": 191,
+       "reporting": 4,
+       "votes": {
+        "Greg Doroski": 88,
+        "Catherine L Stark": 103,
+        "Write-in": 0
+       }
+      },
+      "019": {
+       "mapFeatureId": "1808000856600626",
+       "total": 556,
+       "reporting": 4,
+       "votes": {
+        "Greg Doroski": 244,
+        "Catherine L Stark": 312,
+        "Write-in": 0
+       }
+      },
+      "020": {
+       "mapFeatureId": "7354331069340060",
+       "total": 651,
+       "reporting": 4,
+       "votes": {
+        "Greg Doroski": 274,
+        "Catherine L Stark": 377,
+        "Write-in": 0
+       }
+      },
+      "021": {
+       "mapFeatureId": "511237974035790",
+       "total": 307,
+       "reporting": 4,
+       "votes": {
+        "Greg Doroski": 150,
+        "Catherine L Stark": 157,
+        "Write-in": 0
+       }
+      },
+      "022": {
+       "mapFeatureId": "4728054213589490",
+       "total": 416,
+       "reporting": 4,
+       "votes": {
+        "Greg Doroski": 239,
+        "Catherine L Stark": 177,
+        "Write-in": 0
+       }
+      }
+     },
+     "url": "https://app.enhancedvoting.com/results/public/suffolk-county-ny/elections/GE25/ballot-items/01000000-3a76-cbf6-ca69-08de125cbe18"
+    }
+   ]
+  },
+  {
+   "id": "GE2024",
+   "label": "2024 General Election",
+   "date": "2024-11-05",
+   "official": true,
+   "asOf": null,
+   "url": "https://apps2.suffolkcountyny.gov/boe/eleres/24ge/default.htm",
+   "districtSource": {
+    "title": "Benjamin J. Rosenblatt and @cinyc9, New York 2024 general election results by election district",
+    "url": "https://www.benjrosenblatt.com/2024general-live-results",
+    "checks": "Suffolk's totals for President and the 1st Congressional District equal the Board of Elections' final results exactly.",
+    "boundaryOverlap": 0.996
+   },
+   "contests": [
+    {
+     "key": "president-2024",
+     "name": "President and Vice President",
+     "voteFor": 1,
+     "candidates": [
+      {
+       "name": "Donald J Trump AND JD Vance",
+       "party": "REP",
+       "lines": {
+        "REP": 9028,
+        "CON": 1094
+       },
+       "votes": 10122
+      },
+      {
+       "name": "Kamala D Harris AND Tim Walz",
+       "party": "DEM",
+       "lines": {
+        "DEM": 7220,
+        "WOR": 285
+       },
+       "votes": 7505
+      },
+      {
+       "name": "Write-in",
+       "party": "",
+       "lines": {
+        "W/I": 127
+       },
+       "votes": 127
+      }
+     ],
+     "total": 17754,
+     "districts": {
+      "001": {
+       "mapFeatureId": null,
+       "total": 1017,
+       "reporting": null,
+       "votes": {
+        "Kamala D Harris AND Tim Walz": 457,
+        "Donald J Trump AND JD Vance": 554,
+        "Write-in": 6
+       }
+      },
+      "002": {
+       "mapFeatureId": null,
+       "total": 384,
+       "reporting": null,
+       "votes": {
+        "Kamala D Harris AND Tim Walz": 190,
+        "Donald J Trump AND JD Vance": 191,
+        "Write-in": 3
+       }
+      },
+      "003": {
+       "mapFeatureId": null,
+       "total": 143,
+       "reporting": null,
+       "votes": {
+        "Kamala D Harris AND Tim Walz": 70,
+        "Donald J Trump AND JD Vance": 71,
+        "Write-in": 2
+       }
+      },
+      "004": {
+       "mapFeatureId": null,
+       "total": 967,
+       "reporting": null,
+       "votes": {
+        "Kamala D Harris AND Tim Walz": 419,
+        "Donald J Trump AND JD Vance": 543,
+        "Write-in": 5
+       }
+      },
+      "005": {
+       "mapFeatureId": null,
+       "total": 294,
+       "reporting": null,
+       "votes": {
+        "Kamala D Harris AND Tim Walz": 132,
+        "Donald J Trump AND JD Vance": 158,
+        "Write-in": 4
+       }
+      },
+      "006": {
+       "mapFeatureId": null,
+       "total": 293,
+       "reporting": null,
+       "votes": {
+        "Kamala D Harris AND Tim Walz": 153,
+        "Donald J Trump AND JD Vance": 135,
+        "Write-in": 5
+       }
+      },
+      "007": {
+       "mapFeatureId": null,
+       "total": 1172,
+       "reporting": null,
+       "votes": {
+        "Kamala D Harris AND Tim Walz": 481,
+        "Donald J Trump AND JD Vance": 681,
+        "Write-in": 10
+       }
+      },
+      "008": {
+       "mapFeatureId": null,
+       "total": 637,
+       "reporting": null,
+       "votes": {
+        "Kamala D Harris AND Tim Walz": 321,
+        "Donald J Trump AND JD Vance": 308,
+        "Write-in": 8
+       }
+      },
+      "009": {
+       "mapFeatureId": null,
+       "total": 568,
+       "reporting": null,
+       "votes": {
+        "Kamala D Harris AND Tim Walz": 286,
+        "Donald J Trump AND JD Vance": 278,
+        "Write-in": 4
+       }
+      },
+      "010": {
+       "mapFeatureId": null,
+       "total": 370,
+       "reporting": null,
+       "votes": {
+        "Kamala D Harris AND Tim Walz": 161,
+        "Donald J Trump AND JD Vance": 207,
+        "Write-in": 2
+       }
+      },
+      "011": {
+       "mapFeatureId": null,
+       "total": 1020,
+       "reporting": null,
+       "votes": {
+        "Kamala D Harris AND Tim Walz": 427,
+        "Donald J Trump AND JD Vance": 592,
+        "Write-in": 1
+       }
+      },
+      "012": {
+       "mapFeatureId": null,
+       "total": 1527,
+       "reporting": null,
+       "votes": {
+        "Kamala D Harris AND Tim Walz": 765,
+        "Donald J Trump AND JD Vance": 755,
+        "Write-in": 7
+       }
+      },
+      "013": {
+       "mapFeatureId": null,
+       "total": 860,
+       "reporting": null,
+       "votes": {
+        "Kamala D Harris AND Tim Walz": 374,
+        "Donald J Trump AND JD Vance": 474,
+        "Write-in": 12
+       }
+      },
+      "014": {
+       "mapFeatureId": null,
+       "total": 1230,
+       "reporting": null,
+       "votes": {
+        "Kamala D Harris AND Tim Walz": 468,
+        "Donald J Trump AND JD Vance": 746,
+        "Write-in": 16
+       }
+      },
+      "015": {
+       "mapFeatureId": null,
+       "total": 145,
+       "reporting": null,
+       "votes": {
+        "Kamala D Harris AND Tim Walz": 49,
+        "Donald J Trump AND JD Vance": 95,
+        "Write-in": 1
+       }
+      },
+      "016": {
+       "mapFeatureId": null,
+       "total": 606,
+       "reporting": null,
+       "votes": {
+        "Kamala D Harris AND Tim Walz": 244,
+        "Donald J Trump AND JD Vance": 355,
+        "Write-in": 7
+       }
+      },
+      "017": {
+       "mapFeatureId": null,
+       "total": 1631,
+       "reporting": null,
+       "votes": {
+        "Kamala D Harris AND Tim Walz": 636,
+        "Donald J Trump AND JD Vance": 982,
+        "Write-in": 13
+       }
+      },
+      "018": {
+       "mapFeatureId": null,
+       "total": 444,
+       "reporting": null,
+       "votes": {
+        "Kamala D Harris AND Tim Walz": 166,
+        "Donald J Trump AND JD Vance": 277,
+        "Write-in": 1
+       }
+      },
+      "019": {
+       "mapFeatureId": null,
+       "total": 1250,
+       "reporting": null,
+       "votes": {
+        "Kamala D Harris AND Tim Walz": 431,
+        "Donald J Trump AND JD Vance": 815,
+        "Write-in": 4
+       }
+      },
+      "020": {
+       "mapFeatureId": null,
+       "total": 1719,
+       "reporting": null,
+       "votes": {
+        "Kamala D Harris AND Tim Walz": 600,
+        "Donald J Trump AND JD Vance": 1111,
+        "Write-in": 8
+       }
+      },
+      "021": {
+       "mapFeatureId": null,
+       "total": 566,
+       "reporting": null,
+       "votes": {
+        "Kamala D Harris AND Tim Walz": 242,
+        "Donald J Trump AND JD Vance": 320,
+        "Write-in": 4
+       }
+      },
+      "022": {
+       "mapFeatureId": null,
+       "total": 911,
+       "reporting": null,
+       "votes": {
+        "Kamala D Harris AND Tim Walz": 433,
+        "Donald J Trump AND JD Vance": 474,
+        "Write-in": 4
+       }
+      }
+     },
+     "url": "https://apps2.suffolkcountyny.gov/boe/eleres/24ge/usoff.htm"
+    },
+    {
+     "key": "congress-2024",
+     "name": "Representative in Congress, 1st Congressional District",
+     "voteFor": 1,
+     "candidates": [
+      {
+       "name": "Nicholas J LaLota",
+       "party": "REP",
+       "lines": {
+        "REP": 8578,
+        "CON": 1232
+       },
+       "votes": 9810
+      },
+      {
+       "name": "John P Avlon",
+       "party": "DEM",
+       "lines": {
+        "DEM": 7094,
+        "CSS": 96
+       },
+       "votes": 7190
+      },
+      {
+       "name": "Write-in",
+       "party": "",
+       "lines": {
+        "W/I": 3
+       },
+       "votes": 3
+      }
+     ],
+     "total": 17003,
+     "districts": {
+      "001": {
+       "mapFeatureId": null,
+       "total": 994,
+       "reporting": null,
+       "votes": {
+        "Nicholas J LaLota": 545,
+        "John P Avlon": 449,
+        "Write-in": 0
+       }
+      },
+      "002": {
+       "mapFeatureId": null,
+       "total": 352,
+       "reporting": null,
+       "votes": {
+        "Nicholas J LaLota": 172,
+        "John P Avlon": 180,
+        "Write-in": 0
+       }
+      },
+      "003": {
+       "mapFeatureId": null,
+       "total": 129,
+       "reporting": null,
+       "votes": {
+        "Nicholas J LaLota": 61,
+        "John P Avlon": 68,
+        "Write-in": 0
+       }
+      },
+      "004": {
+       "mapFeatureId": null,
+       "total": 925,
+       "reporting": null,
+       "votes": {
+        "Nicholas J LaLota": 518,
+        "John P Avlon": 407,
+        "Write-in": 0
+       }
+      },
+      "005": {
+       "mapFeatureId": null,
+       "total": 280,
+       "reporting": null,
+       "votes": {
+        "Nicholas J LaLota": 155,
+        "John P Avlon": 125,
+        "Write-in": 0
+       }
+      },
+      "006": {
+       "mapFeatureId": null,
+       "total": 266,
+       "reporting": null,
+       "votes": {
+        "Nicholas J LaLota": 120,
+        "John P Avlon": 146,
+        "Write-in": 0
+       }
+      },
+      "007": {
+       "mapFeatureId": null,
+       "total": 1113,
+       "reporting": null,
+       "votes": {
+        "Nicholas J LaLota": 655,
+        "John P Avlon": 458,
+        "Write-in": 0
+       }
+      },
+      "008": {
+       "mapFeatureId": null,
+       "total": 617,
+       "reporting": null,
+       "votes": {
+        "Nicholas J LaLota": 317,
+        "John P Avlon": 300,
+        "Write-in": 0
+       }
+      },
+      "009": {
+       "mapFeatureId": null,
+       "total": 531,
+       "reporting": null,
+       "votes": {
+        "Nicholas J LaLota": 255,
+        "John P Avlon": 276,
+        "Write-in": 0
+       }
+      },
+      "010": {
+       "mapFeatureId": null,
+       "total": 360,
+       "reporting": null,
+       "votes": {
+        "Nicholas J LaLota": 198,
+        "John P Avlon": 162,
+        "Write-in": 0
+       }
+      },
+      "011": {
+       "mapFeatureId": null,
+       "total": 946,
+       "reporting": null,
+       "votes": {
+        "Nicholas J LaLota": 548,
+        "John P Avlon": 398,
+        "Write-in": 0
+       }
+      },
+      "012": {
+       "mapFeatureId": null,
+       "total": 1458,
+       "reporting": null,
+       "votes": {
+        "Nicholas J LaLota": 749,
+        "John P Avlon": 709,
+        "Write-in": 0
+       }
+      },
+      "013": {
+       "mapFeatureId": null,
+       "total": 824,
+       "reporting": null,
+       "votes": {
+        "Nicholas J LaLota": 476,
+        "John P Avlon": 347,
+        "Write-in": 1
+       }
+      },
+      "014": {
+       "mapFeatureId": null,
+       "total": 1187,
+       "reporting": null,
+       "votes": {
+        "Nicholas J LaLota": 733,
+        "John P Avlon": 453,
+        "Write-in": 1
+       }
+      },
+      "015": {
+       "mapFeatureId": null,
+       "total": 137,
+       "reporting": null,
+       "votes": {
+        "Nicholas J LaLota": 88,
+        "John P Avlon": 49,
+        "Write-in": 0
+       }
+      },
+      "016": {
+       "mapFeatureId": null,
+       "total": 583,
+       "reporting": null,
+       "votes": {
+        "Nicholas J LaLota": 354,
+        "John P Avlon": 229,
+        "Write-in": 0
+       }
+      },
+      "017": {
+       "mapFeatureId": null,
+       "total": 1556,
+       "reporting": null,
+       "votes": {
+        "Nicholas J LaLota": 943,
+        "John P Avlon": 612,
+        "Write-in": 1
+       }
+      },
+      "018": {
+       "mapFeatureId": null,
+       "total": 428,
+       "reporting": null,
+       "votes": {
+        "Nicholas J LaLota": 266,
+        "John P Avlon": 162,
+        "Write-in": 0
+       }
+      },
+      "019": {
+       "mapFeatureId": null,
+       "total": 1204,
+       "reporting": null,
+       "votes": {
+        "Nicholas J LaLota": 776,
+        "John P Avlon": 428,
+        "Write-in": 0
+       }
+      },
+      "020": {
+       "mapFeatureId": null,
+       "total": 1677,
+       "reporting": null,
+       "votes": {
+        "Nicholas J LaLota": 1105,
+        "John P Avlon": 572,
+        "Write-in": 0
+       }
+      },
+      "021": {
+       "mapFeatureId": null,
+       "total": 553,
+       "reporting": null,
+       "votes": {
+        "Nicholas J LaLota": 323,
+        "John P Avlon": 230,
+        "Write-in": 0
+       }
+      },
+      "022": {
+       "mapFeatureId": null,
+       "total": 883,
+       "reporting": null,
+       "votes": {
+        "Nicholas J LaLota": 453,
+        "John P Avlon": 430,
+        "Write-in": 0
+       }
+      }
+     },
+     "url": "https://apps2.suffolkcountyny.gov/boe/eleres/24ge/cd.htm"
+    }
+   ]
+  },
+  {
+   "id": "GE2017",
+   "label": "2017 General Election",
+   "date": null,
+   "official": true,
+   "asOf": null,
+   "url": "https://apps2.suffolkcountyny.gov/boe/eleres/17ge/default.htm",
+   "districtSource": {
+    "title": "OpenElections, New York precinct-level results",
+    "url": "https://github.com/openelections/openelections-data-ny/blob/master/2017/20171107__ny__general__suffolk__precinct.csv",
+    "checks": "Each candidate's Town total equals the County Board of Elections' final results page exactly.",
+    "boundaryOverlap": 0.967,
+    "boundaryNote": "The Census Bureau's 2010 and 2020 voting-district maps match today's districts; they draw districts 4 and 14 as one."
+   },
+   "contests": [
+    {
+     "key": "supervisor-2017",
+     "name": "Supervisor, Town of Riverhead",
+     "voteFor": 1,
+     "url": "https://apps2.suffolkcountyny.gov/boe/eleres/17ge/rvroff.htm",
+     "candidates": [
+      {
+       "name": "Laura M Jens-Smith",
+       "party": "DEM",
+       "lines": {
+        "DEM": 4142,
+        "WOR": 264,
+        "IND": 367,
+        "WEP": 57
+       },
+       "votes": 4830
+      },
+      {
+       "name": "Sean M Walter",
+       "party": "REP",
+       "lines": {
+        "REP": 3379,
+        "CON": 802
+       },
+       "votes": 4181
+      },
+      {
+       "name": "Write-in",
+       "party": "",
+       "lines": {
+        "W/I": 132
+       },
+       "votes": 132
+      }
+     ],
+     "districts": {
+      "001": {
+       "mapFeatureId": null,
+       "total": 599,
+       "reporting": null,
+       "votes": {
+        "Laura M Jens-Smith": 282,
+        "Sean M Walter": 313,
+        "Write-in": 4
+       }
+      },
+      "002": {
+       "mapFeatureId": null,
+       "total": 162,
+       "reporting": null,
+       "votes": {
+        "Laura M Jens-Smith": 123,
+        "Sean M Walter": 37,
+        "Write-in": 2
+       }
+      },
+      "003": {
+       "mapFeatureId": null,
+       "total": 64,
+       "reporting": null,
+       "votes": {
+        "Laura M Jens-Smith": 32,
+        "Sean M Walter": 29,
+        "Write-in": 3
+       }
+      },
+      "004": {
+       "mapFeatureId": null,
+       "total": 466,
+       "reporting": null,
+       "votes": {
+        "Laura M Jens-Smith": 269,
+        "Sean M Walter": 186,
+        "Write-in": 11
+       }
+      },
+      "005": {
+       "mapFeatureId": null,
+       "total": 166,
+       "reporting": null,
+       "votes": {
+        "Laura M Jens-Smith": 109,
+        "Sean M Walter": 57
+       }
+      },
+      "006": {
+       "mapFeatureId": null,
+       "total": 102,
+       "reporting": null,
+       "votes": {
+        "Laura M Jens-Smith": 72,
+        "Sean M Walter": 28,
+        "Write-in": 2
+       }
+      },
+      "007": {
+       "mapFeatureId": null,
+       "total": 623,
+       "reporting": null,
+       "votes": {
+        "Laura M Jens-Smith": 341,
+        "Sean M Walter": 270,
+        "Write-in": 12
+       }
+      },
+      "008": {
+       "mapFeatureId": null,
+       "total": 385,
+       "reporting": null,
+       "votes": {
+        "Laura M Jens-Smith": 233,
+        "Sean M Walter": 151,
+        "Write-in": 1
+       }
+      },
+      "009": {
+       "mapFeatureId": null,
+       "total": 316,
+       "reporting": null,
+       "votes": {
+        "Laura M Jens-Smith": 186,
+        "Sean M Walter": 126,
+        "Write-in": 4
+       }
+      },
+      "010": {
+       "mapFeatureId": null,
+       "total": 161,
+       "reporting": null,
+       "votes": {
+        "Laura M Jens-Smith": 84,
+        "Sean M Walter": 76,
+        "Write-in": 1
+       }
+      },
+      "011": {
+       "mapFeatureId": null,
+       "total": 506,
+       "reporting": null,
+       "votes": {
+        "Laura M Jens-Smith": 271,
+        "Sean M Walter": 208,
+        "Write-in": 27
+       }
+      },
+      "012": {
+       "mapFeatureId": null,
+       "total": 716,
+       "reporting": null,
+       "votes": {
+        "Laura M Jens-Smith": 394,
+        "Sean M Walter": 300,
+        "Write-in": 22
+       }
+      },
+      "013": {
+       "mapFeatureId": null,
+       "total": 542,
+       "reporting": null,
+       "votes": {
+        "Laura M Jens-Smith": 332,
+        "Sean M Walter": 203,
+        "Write-in": 7
+       }
+      },
+      "014": {
+       "mapFeatureId": null,
+       "total": 616,
+       "reporting": null,
+       "votes": {
+        "Laura M Jens-Smith": 279,
+        "Sean M Walter": 327,
+        "Write-in": 10
+       }
+      },
+      "015": {
+       "mapFeatureId": null,
+       "total": 68,
+       "reporting": null,
+       "votes": {
+        "Laura M Jens-Smith": 38,
+        "Sean M Walter": 29,
+        "Write-in": 1
+       }
+      },
+      "016": {
+       "mapFeatureId": null,
+       "total": 363,
+       "reporting": null,
+       "votes": {
+        "Laura M Jens-Smith": 197,
+        "Sean M Walter": 163,
+        "Write-in": 3
+       }
+      },
+      "017": {
+       "mapFeatureId": null,
+       "total": 856,
+       "reporting": null,
+       "votes": {
+        "Laura M Jens-Smith": 355,
+        "Sean M Walter": 498,
+        "Write-in": 3
+       }
+      },
+      "018": {
+       "mapFeatureId": null,
+       "total": 200,
+       "reporting": null,
+       "votes": {
+        "Laura M Jens-Smith": 110,
+        "Sean M Walter": 89,
+        "Write-in": 1
+       }
+      },
+      "019": {
+       "mapFeatureId": null,
+       "total": 630,
+       "reporting": null,
+       "votes": {
+        "Laura M Jens-Smith": 317,
+        "Sean M Walter": 302,
+        "Write-in": 11
+       }
+      },
+      "020": {
+       "mapFeatureId": null,
+       "total": 803,
+       "reporting": null,
+       "votes": {
+        "Laura M Jens-Smith": 355,
+        "Sean M Walter": 448
+       }
+      },
+      "021": {
+       "mapFeatureId": null,
+       "total": 339,
+       "reporting": null,
+       "votes": {
+        "Laura M Jens-Smith": 203,
+        "Sean M Walter": 133,
+        "Write-in": 3
+       }
+      },
+      "022": {
+       "mapFeatureId": null,
+       "total": 460,
+       "reporting": null,
+       "votes": {
+        "Laura M Jens-Smith": 248,
+        "Sean M Walter": 208,
+        "Write-in": 4
+       }
+      }
+     },
+     "total": 9143
+    }
+   ]
+  },
+  {
+   "id": "GE2015",
+   "label": "2015 General Election",
+   "date": null,
+   "official": true,
+   "asOf": null,
+   "url": "https://apps2.suffolkcountyny.gov/boe/eleres/15ge/default.htm",
+   "districtSource": {
+    "title": "OpenElections, New York precinct-level results",
+    "url": "https://github.com/openelections/openelections-data-ny/blob/master/2015/20151103__ny__general__suffolk__precinct.csv",
+    "checks": "Each candidate's Town total equals the County Board of Elections' final results page exactly.",
+    "boundaryOverlap": 0.967,
+    "boundaryNote": "The Census Bureau's 2010 and 2020 voting-district maps match today's districts; they draw districts 4 and 14 as one."
+   },
+   "contests": [
+    {
+     "key": "supervisor-2015",
+     "name": "Supervisor, Town of Riverhead",
+     "voteFor": 1,
+     "url": "https://apps2.suffolkcountyny.gov/boe/eleres/15ge/rvroff.htm",
+     "candidates": [
+      {
+       "name": "Sean M Walter",
+       "party": "CON",
+       "lines": {
+        "CON": 3027
+       },
+       "votes": 3027
+      },
+      {
+       "name": "Jodi A Giglio",
+       "party": "REP",
+       "lines": {
+        "REP": 2390,
+        "IND": 188,
+        "REF": 29
+       },
+       "votes": 2607
+      },
+      {
+       "name": "Anthony Coates",
+       "party": "DEM",
+       "lines": {
+        "DEM": 1698,
+        "WOR": 139,
+        "WEP": 42
+       },
+       "votes": 1879
+      },
+      {
+       "name": "Write-in",
+       "party": "",
+       "lines": {
+        "W/I": 14
+       },
+       "votes": 14
+      }
+     ],
+     "districts": {
+      "001": {
+       "mapFeatureId": null,
+       "total": 425,
+       "reporting": null,
+       "votes": {
+        "Anthony Coates": 98,
+        "Jodi A Giglio": 104,
+        "Sean M Walter": 223
+       }
+      },
+      "002": {
+       "mapFeatureId": null,
+       "total": 148,
+       "reporting": null,
+       "votes": {
+        "Anthony Coates": 47,
+        "Jodi A Giglio": 59,
+        "Sean M Walter": 42
+       }
+      },
+      "003": {
+       "mapFeatureId": null,
+       "total": 65,
+       "reporting": null,
+       "votes": {
+        "Anthony Coates": 17,
+        "Jodi A Giglio": 27,
+        "Sean M Walter": 21
+       }
+      },
+      "004": {
+       "mapFeatureId": null,
+       "total": 413,
+       "reporting": null,
+       "votes": {
+        "Anthony Coates": 119,
+        "Jodi A Giglio": 148,
+        "Sean M Walter": 144,
+        "Write-in": 2
+       }
+      },
+      "005": {
+       "mapFeatureId": null,
+       "total": 146,
+       "reporting": null,
+       "votes": {
+        "Anthony Coates": 34,
+        "Jodi A Giglio": 56,
+        "Sean M Walter": 55,
+        "Write-in": 1
+       }
+      },
+      "006": {
+       "mapFeatureId": null,
+       "total": 103,
+       "reporting": null,
+       "votes": {
+        "Anthony Coates": 26,
+        "Jodi A Giglio": 49,
+        "Sean M Walter": 28
+       }
+      },
+      "007": {
+       "mapFeatureId": null,
+       "total": 500,
+       "reporting": null,
+       "votes": {
+        "Anthony Coates": 133,
+        "Jodi A Giglio": 186,
+        "Sean M Walter": 181
+       }
+      },
+      "008": {
+       "mapFeatureId": null,
+       "total": 374,
+       "reporting": null,
+       "votes": {
+        "Anthony Coates": 132,
+        "Jodi A Giglio": 134,
+        "Sean M Walter": 108
+       }
+      },
+      "009": {
+       "mapFeatureId": null,
+       "total": 261,
+       "reporting": null,
+       "votes": {
+        "Anthony Coates": 67,
+        "Jodi A Giglio": 93,
+        "Sean M Walter": 100,
+        "Write-in": 1
+       }
+      },
+      "010": {
+       "mapFeatureId": null,
+       "total": 127,
+       "reporting": null,
+       "votes": {
+        "Anthony Coates": 34,
+        "Jodi A Giglio": 26,
+        "Sean M Walter": 66,
+        "Write-in": 1
+       }
+      },
+      "011": {
+       "mapFeatureId": null,
+       "total": 460,
+       "reporting": null,
+       "votes": {
+        "Anthony Coates": 125,
+        "Jodi A Giglio": 170,
+        "Sean M Walter": 165
+       }
+      },
+      "012": {
+       "mapFeatureId": null,
+       "total": 625,
+       "reporting": null,
+       "votes": {
+        "Anthony Coates": 175,
+        "Jodi A Giglio": 178,
+        "Sean M Walter": 271,
+        "Write-in": 1
+       }
+      },
+      "013": {
+       "mapFeatureId": null,
+       "total": 417,
+       "reporting": null,
+       "votes": {
+        "Anthony Coates": 106,
+        "Jodi A Giglio": 162,
+        "Sean M Walter": 148,
+        "Write-in": 1
+       }
+      },
+      "014": {
+       "mapFeatureId": null,
+       "total": 455,
+       "reporting": null,
+       "votes": {
+        "Anthony Coates": 86,
+        "Jodi A Giglio": 156,
+        "Sean M Walter": 212,
+        "Write-in": 1
+       }
+      },
+      "015": {
+       "mapFeatureId": null,
+       "total": 58,
+       "reporting": null,
+       "votes": {
+        "Anthony Coates": 14,
+        "Jodi A Giglio": 27,
+        "Sean M Walter": 17
+       }
+      },
+      "016": {
+       "mapFeatureId": null,
+       "total": 333,
+       "reporting": null,
+       "votes": {
+        "Anthony Coates": 72,
+        "Jodi A Giglio": 128,
+        "Sean M Walter": 131,
+        "Write-in": 2
+       }
+      },
+      "017": {
+       "mapFeatureId": null,
+       "total": 647,
+       "reporting": null,
+       "votes": {
+        "Anthony Coates": 122,
+        "Jodi A Giglio": 188,
+        "Sean M Walter": 336,
+        "Write-in": 1
+       }
+      },
+      "018": {
+       "mapFeatureId": null,
+       "total": 172,
+       "reporting": null,
+       "votes": {
+        "Anthony Coates": 51,
+        "Jodi A Giglio": 62,
+        "Sean M Walter": 59
+       }
+      },
+      "019": {
+       "mapFeatureId": null,
+       "total": 567,
+       "reporting": null,
+       "votes": {
+        "Anthony Coates": 122,
+        "Jodi A Giglio": 228,
+        "Sean M Walter": 214,
+        "Write-in": 3
+       }
+      },
+      "020": {
+       "mapFeatureId": null,
+       "total": 529,
+       "reporting": null,
+       "votes": {
+        "Anthony Coates": 106,
+        "Jodi A Giglio": 184,
+        "Sean M Walter": 239
+       }
+      },
+      "021": {
+       "mapFeatureId": null,
+       "total": 306,
+       "reporting": null,
+       "votes": {
+        "Anthony Coates": 83,
+        "Jodi A Giglio": 107,
+        "Sean M Walter": 116
+       }
+      },
+      "022": {
+       "mapFeatureId": null,
+       "total": 396,
+       "reporting": null,
+       "votes": {
+        "Anthony Coates": 110,
+        "Jodi A Giglio": 135,
+        "Sean M Walter": 151
+       }
+      }
+     },
+     "total": 7527
+    }
+   ]
+  },
+  {
+   "id": "GE2013",
+   "label": "2013 General Election",
+   "date": null,
+   "official": true,
+   "asOf": null,
+   "url": "https://apps2.suffolkcountyny.gov/boe/eleres/13ge/default.htm",
+   "districtSource": {
+    "title": "OpenElections, New York precinct-level results",
+    "url": "https://github.com/openelections/openelections-data-ny/blob/master/2013/20131105__ny__general__suffolk__precinct.csv",
+    "checks": "Each candidate's Town total equals the County Board of Elections' final results page exactly.",
+    "boundaryOverlap": 0.967,
+    "boundaryNote": "The Census Bureau's 2010 and 2020 voting-district maps match today's districts; they draw districts 4 and 14 as one."
+   },
+   "contests": [
+    {
+     "key": "supervisor-2013",
+     "name": "Supervisor, Town of Riverhead",
+     "voteFor": 1,
+     "url": "https://apps2.suffolkcountyny.gov/boe/eleres/13ge/rvroff.htm",
+     "candidates": [
+      {
+       "name": "Sean M Walter",
+       "party": "REP",
+       "lines": {
+        "REP": 3058,
+        "CON": 761,
+        "IND": 341
+       },
+       "votes": 4160
+      },
+      {
+       "name": "Angela M De Vito",
+       "party": "DEM",
+       "lines": {
+        "DEM": 2929,
+        "WOR": 404
+       },
+       "votes": 3333
+      },
+      {
+       "name": "Write-in",
+       "party": "",
+       "lines": {
+        "W/I": 6
+       },
+       "votes": 6
+      }
+     ],
+     "districts": {
+      "001": {
+       "mapFeatureId": null,
+       "total": 436,
+       "reporting": null,
+       "votes": {
+        "Angela M De Vito": 180,
+        "Sean M Walter": 256
+       }
+      },
+      "002": {
+       "mapFeatureId": null,
+       "total": 152,
+       "reporting": null,
+       "votes": {
+        "Angela M De Vito": 97,
+        "Sean M Walter": 55
+       }
+      },
+      "003": {
+       "mapFeatureId": null,
+       "total": 62,
+       "reporting": null,
+       "votes": {
+        "Angela M De Vito": 28,
+        "Sean M Walter": 34
+       }
+      },
+      "004": {
+       "mapFeatureId": null,
+       "total": 449,
+       "reporting": null,
+       "votes": {
+        "Angela M De Vito": 206,
+        "Sean M Walter": 241,
+        "Write-in": 2
+       }
+      },
+      "005": {
+       "mapFeatureId": null,
+       "total": 157,
+       "reporting": null,
+       "votes": {
+        "Angela M De Vito": 69,
+        "Sean M Walter": 88
+       }
+      },
+      "006": {
+       "mapFeatureId": null,
+       "total": 93,
+       "reporting": null,
+       "votes": {
+        "Angela M De Vito": 52,
+        "Sean M Walter": 41
+       }
+      },
+      "007": {
+       "mapFeatureId": null,
+       "total": 464,
+       "reporting": null,
+       "votes": {
+        "Angela M De Vito": 194,
+        "Sean M Walter": 270
+       }
+      },
+      "008": {
+       "mapFeatureId": null,
+       "total": 371,
+       "reporting": null,
+       "votes": {
+        "Angela M De Vito": 209,
+        "Sean M Walter": 161,
+        "Write-in": 1
+       }
+      },
+      "009": {
+       "mapFeatureId": null,
+       "total": 258,
+       "reporting": null,
+       "votes": {
+        "Angela M De Vito": 121,
+        "Sean M Walter": 136,
+        "Write-in": 1
+       }
+      },
+      "010": {
+       "mapFeatureId": null,
+       "total": 130,
+       "reporting": null,
+       "votes": {
+        "Angela M De Vito": 53,
+        "Sean M Walter": 77
+       }
+      },
+      "011": {
+       "mapFeatureId": null,
+       "total": 497,
+       "reporting": null,
+       "votes": {
+        "Angela M De Vito": 210,
+        "Sean M Walter": 287
+       }
+      },
+      "012": {
+       "mapFeatureId": null,
+       "total": 616,
+       "reporting": null,
+       "votes": {
+        "Angela M De Vito": 246,
+        "Sean M Walter": 369,
+        "Write-in": 1
+       }
+      },
+      "013": {
+       "mapFeatureId": null,
+       "total": 415,
+       "reporting": null,
+       "votes": {
+        "Angela M De Vito": 204,
+        "Sean M Walter": 211
+       }
+      },
+      "014": {
+       "mapFeatureId": null,
+       "total": 455,
+       "reporting": null,
+       "votes": {
+        "Angela M De Vito": 171,
+        "Sean M Walter": 283,
+        "Write-in": 1
+       }
+      },
+      "015": {
+       "mapFeatureId": null,
+       "total": 48,
+       "reporting": null,
+       "votes": {
+        "Angela M De Vito": 21,
+        "Sean M Walter": 27
+       }
+      },
+      "016": {
+       "mapFeatureId": null,
+       "total": 335,
+       "reporting": null,
+       "votes": {
+        "Angela M De Vito": 167,
+        "Sean M Walter": 168
+       }
+      },
+      "017": {
+       "mapFeatureId": null,
+       "total": 637,
+       "reporting": null,
+       "votes": {
+        "Angela M De Vito": 255,
+        "Sean M Walter": 382
+       }
+      },
+      "018": {
+       "mapFeatureId": null,
+       "total": 179,
+       "reporting": null,
+       "votes": {
+        "Angela M De Vito": 78,
+        "Sean M Walter": 101
+       }
+      },
+      "019": {
+       "mapFeatureId": null,
+       "total": 512,
+       "reporting": null,
+       "votes": {
+        "Angela M De Vito": 216,
+        "Sean M Walter": 296
+       }
+      },
+      "020": {
+       "mapFeatureId": null,
+       "total": 507,
+       "reporting": null,
+       "votes": {
+        "Angela M De Vito": 199,
+        "Sean M Walter": 308
+       }
+      },
+      "021": {
+       "mapFeatureId": null,
+       "total": 316,
+       "reporting": null,
+       "votes": {
+        "Angela M De Vito": 161,
+        "Sean M Walter": 155
+       }
+      },
+      "022": {
+       "mapFeatureId": null,
+       "total": 410,
+       "reporting": null,
+       "votes": {
+        "Angela M De Vito": 196,
+        "Sean M Walter": 214
+       }
+      }
+     },
+     "total": 7499
+    }
+   ]
+  }
+ ],
+ "supervisorHistory": [
+  {
+   "year": 2013,
+   "url": "https://apps2.suffolkcountyny.gov/boe/eleres/13ge/rvroff.htm",
+   "status": "final",
+   "registered": 21001,
+   "votesCast": 7493,
+   "candidates": [
+    {
+     "name": "WALTER, SEAN M",
+     "lines": {
+      "Republican": 3058,
+      "Conservative": 761,
+      "Independence": 341
+     },
+     "votes": 4160
+    },
+    {
+     "name": "DE VITO, ANGELA M",
+     "lines": {
+      "Democratic": 2929,
+      "Working Families": 404
+     },
+     "votes": 3333
+    }
+   ]
+  },
+  {
+   "year": 2015,
+   "url": "https://apps2.suffolkcountyny.gov/boe/eleres/15ge/rvroff.htm",
+   "status": "final",
+   "registered": 21012,
+   "votesCast": 7513,
+   "candidates": [
+    {
+     "name": "Walter, Sean M",
+     "lines": {
+      "Conservative": 3027
+     },
+     "votes": 3027
+    },
+    {
+     "name": "Giglio, Jodi A",
+     "lines": {
+      "Republican": 2390,
+      "Independence": 188,
+      "Reform": 29
+     },
+     "votes": 2607
+    },
+    {
+     "name": "Coates, Anthony",
+     "lines": {
+      "Democratic": 1698,
+      "Working Families": 139,
+      "Women's Equality": 42
+     },
+     "votes": 1879
+    }
+   ]
+  },
+  {
+   "year": 2017,
+   "url": "https://apps2.suffolkcountyny.gov/boe/eleres/17ge/rvroff.htm",
+   "status": "final",
+   "registered": 21833,
+   "votesCast": 9011,
+   "candidates": [
+    {
+     "name": "Jens-Smith, Laura M",
+     "lines": {
+      "Democratic": 4142,
+      "Working Families": 264,
+      "Independence": 367,
+      "Women's Equality": 57
+     },
+     "votes": 4830
+    },
+    {
+     "name": "Walter, Sean M",
+     "lines": {
+      "Republican": 3379,
+      "Conservative": 802
+     },
+     "votes": 4181
+    }
+   ]
+  },
+  {
+   "year": 2019,
+   "url": "https://apps2.suffolkcountyny.gov/boe/eleres/19ge/rvroff.htm",
+   "status": "final",
+   "registered": 21798,
+   "votesCast": 8587,
+   "candidates": [
+    {
+     "name": "Aguiar, Yvette",
+     "lines": {
+      "Republican": 3893,
+      "Conservative": 754
+     },
+     "votes": 4647
+    },
+    {
+     "name": "Jens-Smith, Laura M",
+     "lines": {
+      "Democratic": 3591,
+      "Working Families": 190,
+      "Independence": 159
+     },
+     "votes": 3940
+    }
+   ]
+  },
+  {
+   "year": 2021,
+   "url": "https://apps2.suffolkcountyny.gov/boe/eleres/21ge/rvroff.htm",
+   "status": "final",
+   "registered": 23133,
+   "votesCast": 9142,
+   "candidates": [
+    {
+     "name": "Aguiar, Yvette",
+     "lines": {
+      "Republican": 4314,
+      "Conservative": 1021
+     },
+     "votes": 5335
+    },
+    {
+     "name": "Kent, Catherine A",
+     "lines": {
+      "Democratic": 3536,
+      "Working Families": 271
+     },
+     "votes": 3807
+    }
+   ]
+  },
+  {
+   "year": 2023,
+   "url": "https://apps2.suffolkcountyny.gov/boe/eleres/23ge/rvroff.htm",
+   "status": "final",
+   "registered": 23509,
+   "votesCast": 8753,
+   "candidates": [
+    {
+     "name": "Hubbard, Timothy C",
+     "lines": {
+      "Republican": 4232,
+      "Conservative": 962
+     },
+     "votes": 5194
+    },
+    {
+     "name": "De Vito, Angela M",
+     "lines": {
+      "Democratic": 3559
+     },
+     "votes": 3559
+    }
+   ]
+  },
+  {
+   "year": 2025,
+   "url": "https://apps2.suffolkcountyny.gov/boe/eleres/25ge/rvroff.htm",
+   "status": "final",
+   "registered": 24429,
+   "votesCast": 7879,
+   "candidates": [
+    {
+     "name": "Halpin, Jerome",
+     "lines": {
+      "Democratic": 3579,
+      "Taxpayers First": 379
+     },
+     "votes": 3958
+    },
+    {
+     "name": "Hubbard, Timothy C",
+     "lines": {
+      "Republican": 3044,
+      "Conservative": 877
+     },
+     "votes": 3921
+    }
+   ]
+  }
+ ],
+ "turnoutHistory": [
+  {
+   "year": 2013,
+   "url": "https://apps2.suffolkcountyny.gov/boe/eleres/13ge/rvroff.htm",
+   "race": "Supervisor, Town of Riverhead",
+   "votesCast": 7493,
+   "registered": 21001
+  },
+  {
+   "year": 2015,
+   "url": "https://apps2.suffolkcountyny.gov/boe/eleres/15ge/rvroff.htm",
+   "race": "Supervisor, Town of Riverhead",
+   "votesCast": 7513,
+   "registered": 21012
+  },
+  {
+   "year": 2016,
+   "url": "https://apps2.suffolkcountyny.gov/boe/eleres/16ge/rvroff.htm",
+   "race": "Town Justice, Town of Riverhead",
+   "votesCast": 13992,
+   "registered": 21935
+  },
+  {
+   "year": 2017,
+   "url": "https://apps2.suffolkcountyny.gov/boe/eleres/17ge/rvroff.htm",
+   "race": "Supervisor, Town of Riverhead",
+   "votesCast": 9011,
+   "registered": 21833
+  },
+  {
+   "year": 2019,
+   "url": "https://apps2.suffolkcountyny.gov/boe/eleres/19ge/rvroff.htm",
+   "race": "Supervisor, Town of Riverhead",
+   "votesCast": 8587,
+   "registered": 21798
+  },
+  {
+   "year": 2020,
+   "url": "https://apps2.suffolkcountyny.gov/boe/eleres/20ge/rvroff.htm",
+   "race": "Town Justice, Town of Riverhead",
+   "votesCast": 16686,
+   "registered": 23296
+  },
+  {
+   "year": 2021,
+   "url": "https://apps2.suffolkcountyny.gov/boe/eleres/21ge/rvroff.htm",
+   "race": "Supervisor, Town of Riverhead",
+   "votesCast": 9142,
+   "registered": 23133
+  },
+  {
+   "year": 2023,
+   "url": "https://apps2.suffolkcountyny.gov/boe/eleres/23ge/rvroff.htm",
+   "race": "Supervisor, Town of Riverhead",
+   "votesCast": 8753,
+   "registered": 23509
+  },
+  {
+   "year": 2024,
+   "url": "https://apps2.suffolkcountyny.gov/boe/eleres/24ge/rvroff.htm",
+   "race": "Town Justice, Town of Riverhead",
+   "votesCast": 16686,
+   "registered": 24462
+  },
+  {
+   "year": 2025,
+   "url": "https://apps2.suffolkcountyny.gov/boe/eleres/25ge/rvroff.htm",
+   "race": "Supervisor, Town of Riverhead",
+   "votesCast": 7879,
+   "registered": 24429
+  }
+ ],
+ "fetchedOn": "2026-11-07"
+}

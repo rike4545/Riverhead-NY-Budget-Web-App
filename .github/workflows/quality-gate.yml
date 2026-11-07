@@ -42,6 +42,7 @@ jobs:
           python etl/parse_budget_adoption.py
           # Exercise the same rolling parser used by the deploy workflow, then
           # fail CI if the newest Supplement cannot be reconciled to the stage PDF.
+          python etl/parse_preliminary_lines.py
           python etl/parse_supplement_history.py
           python - <<'PY'
           import json
@@ -65,6 +66,11 @@ jobs:
           python etl/test_fiscal_impact.py
           python etl/test_transcribe_meetings.py
           python etl/test_campaign_reports.py
+          python etl/test_campaign_totals.py
+          python etl/test_election_map.py
+          python etl/test_donation_map.py
+          python etl/test_new_views.py
+          python etl/test_assessment_roll.py
           python etl/test_fetch_upcoming.py
           python etl/test_push_data.py
           python etl/test_pdf_limits.py

@@ -10,11 +10,11 @@
 
 import fiscalIndex from '../public/data/meetings/fiscal-index.json'
 import { budgetColumns, budgetHistory } from './budget-history'
-import { lineSource, supplementAdoptedYear, supplementLines } from './funds-2027'
-import { compareColumns, lineMoves, splitByBar } from './outlier-rules'
+import { lineSource, preliminaryLineSource, proposedOf, supplementAdoptedYear, supplementLines } from './funds-2027'
+import { accountFlags, compareColumns, isDebtServiceLine, lineMoves, splitByBar, type LineStage } from './outlier-rules'
 
 export { DOLLAR_THRESHOLD, PCT_THRESHOLD, isOutlier } from './outlier-rules'
-export type { FundYoyChange, LineMove } from './outlier-rules'
+export type { AccountFlag, FundYoyChange, LineMove } from './outlier-rules'
 
 const compared = compareColumns(budgetColumns, budgetHistory.funds)
 
@@ -35,20 +35,47 @@ export const proposal = (() => {
 })()
 
 /**
- * For each fund the proposal flags, the Budget Supplement lines that moved.
- * Only for a Tentative that the Supplement prints, beside the same adopted
- * year the comparison starts from.
+ * The stage the Supplement's lines can be read at for the proposal: the
+ * Tentative it prints, or the Preliminary once that book is matched to it
+ * line by line and adds up. Null when neither fits, or when the Supplement's
+ * adopted column is not the year the comparison starts from.
  */
+const lineStage: LineStage | null = (() => {
+  if (!proposal || !lineSource || supplementAdoptedYear !== proposal.from.year) return null
+  if (proposal.to.stage === 'tentative') return 'tentative'
+  if (proposal.to.stage === 'preliminary' && preliminaryLineSource) return 'preliminary'
+  return null
+})()
+
+/** For each fund the proposal flags, the Budget Supplement lines that moved. */
 export const proposalLines = (() => {
-  if (!proposal || proposal.to.stage !== 'tentative' || !lineSource || supplementAdoptedYear !== proposal.from.year) return {}
+  if (!proposal || !lineStage) return {}
   return Object.fromEntries(
     proposal.flagged.flatMap((c) => {
-      const moves = lineMoves([...supplementLines], c.code, c.prior, c.current)
+      const moves = lineMoves([...supplementLines], c.code, c.prior, c.current, lineStage)
       return moves ? [[c.code, moves]] : []
     }),
   ) as Record<string, NonNullable<ReturnType<typeof lineMoves>>>
 })()
 export const supplementSource = lineSource
+/** Where the Preliminary's line figures come from, when the lines are read at the Preliminary. */
+export const preliminarySource = lineStage === 'preliminary' ? preliminaryLineSource : null
+
+/**
+ * Accounts, not funds: every Supplement line that clears both bars from the
+ * adopted budget to the proposal, apart from the lines that only carry the
+ * Debt Service Fund's change, which its own panel explains.
+ */
+export const accountOutliers = (() => {
+  if (!lineStage) return null
+  const all = accountFlags([...supplementLines], lineStage)
+  const other = all.filter((l) => !isDebtServiceLine(l))
+  return {
+    spending: other.filter((l) => l.kind === 'expenditure'),
+    revenue: other.filter((l) => l.kind === 'revenue'),
+    debtServiceCount: all.length - other.length,
+  }
+})()
 
 // ── Why the 2027 Tentative's Debt Service Fund falls ─────────────────────────
 //
@@ -120,7 +147,7 @@ export const paydowns2026: Paydown[] = (() => {
 /**
  * The Community Preservation Fund's side of it, from the Supplement: its
  * transfer for debt payments, and the "Fund Balance Contribution" line that
- * takes its place in the Tentative.
+ * takes its place in the proposal.
  */
 export const cpfDebtTransfer = (() => {
   const line = (account: string) => supplementLines.find((l) => l.account === account)
@@ -128,7 +155,7 @@ export const cpfDebtTransfer = (() => {
   const contribution = line('CM4-9-9990-000-000-00000')
   if (!transfer || !contribution) return null
   return {
-    transfer: { from: transfer.adopted ?? 0, to: transfer.tentative ?? 0, page: transfer.page },
-    contribution: { from: contribution.adopted ?? 0, to: contribution.tentative ?? 0, page: contribution.page, name: contribution.name },
+    transfer: { from: transfer.adopted ?? 0, to: proposedOf(transfer), page: transfer.page },
+    contribution: { from: contribution.adopted ?? 0, to: proposedOf(contribution), page: contribution.page, name: contribution.name },
   }
 })()

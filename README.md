@@ -43,7 +43,195 @@ https://github.com/rike4545/Riverhead-NY-Budget-Android-App
 
 ---
 
-# What's New — October 2026
+# What's New — November 2026
+
+### 🧾 Campaign Finance, rebuilt and corrected — `/campaign-finance`
+The page now reads in order: the November 3 result, then **Every committee
+at a glance**, then each committee's card, then the rules and how to read a
+filing. The summary table puts every committee side by side, showing what it
+raised since 2005 and in 2026, refunds, loans received, what it still owed
+at its latest report, and its last contribution. Each card leads with four
+figures and folds the rest, the donors, filings and watch lists, under one
+heading.
+
+The figures were checked against the State Board of Elections' records and
+corrected:
+- **Totals are current.** Two cards stopped in June; they now run to each
+  committee's latest report, rebuilt from data.ny.gov on every data refresh.
+- **Nothing is counted twice.** Money moved between one official's own
+  committees is counted once, where it was first raised.
+- **Refunds, in-kind gifts and loans are shown.** Each card says what it
+  refunded and what in-kind gifts it got. It also shows what it still owed
+  at its latest report, rather than "None on file".
+- **Limits are the County's own.** The Suffolk County Board of Elections'
+  2026 index for Riverhead ($1,219.30 for an individual in the general
+  election) replaces 2022 reference figures, and the family-financing panel
+  counts as family only the donors a filing names as family.
+
+A new section explains how a filing shows money, in-kind and LLC gifts, and
+what to check when a donor's account and the filing differ.
+
+### 🗳️ The November 3 Supervisor result
+The County's unofficial count, 6,779 for Jerry Halpin to 6,152 for Ken
+Rothwell, is on the election and campaign pages, labelled unofficial until
+the County certifies it. Office terms follow New York's move to even-year
+elections. The Supervisor elected this month serves two years from January
+1, 2027. The council seats up in November 2027 are for a one-time
+three-year term.
+
+### 🔎 Account by account
+- **Outlier Watch** (`/outliers`) reads the 2027 Preliminary line by line
+  and lists the accounts that move most, at least 20% and $100,000 from the
+  2026 adopted budget, each with its 2025 actual.
+- **Budget Accuracy** (`/budget-accuracy`) adds four year-by-year checks:
+  - lines budgeted below what they cost;
+  - lines budgeted well above it;
+  - lines past their whole 2026 budget by June 30;
+  - revenue estimated above what comes in.
+
+### ⚖️ Legal costs — `/legal-costs`
+What the Town spends on lawyers and claims, 2018 to the 2027 Preliminary,
+from the Budget Supplements' own accounts:
+- the Town Attorney's outside-counsel line, budget against cost each year.
+  It was budgeted at $400,000 and cost $818,961 in 2025. By June 30, 2026 it
+  had spent $405,990, more than the year's budget;
+- all legal services in four groups: outside lawyers, other departments'
+  outside lawyers, the office's staff pay and its other costs;
+- the self-insurance fund's payments on claims;
+- the Board's resolutions on special counsel, settlements and claims.
+
+`scripts/verify-legal-costs.mjs` rebuilds the groups from the line history
+and checks that every Town Attorney or legal account that spent money is in
+one.
+
+### 🏛️ Regional CPF counsel — `/regional-cpf-counsel`
+On November 5 the Board tabled, 5–0, a $400-an-hour retainer for a regional
+Community Preservation Fund attorney that a 2024 state law (Chapter 666)
+requires the five East End towns to share. The page quotes:
+- the statute;
+- the contract;
+- the Town's December 2025 resolution saying the law passed "without
+  requirement for Home Rule Message" and that the Board was "compelled" to
+  join.
+
+It also explains the home rule rule and shows what Riverhead's share of a
+bill could be.
+
+### 🗺️ Election map — `/election-map`
+Riverhead's 22 election districts on the County's own boundaries, colored by
+how each voted. The map has fifteen contests:
+- **2026:** Supervisor, Governor, Congress, State Senate and Assembly.
+- **2025:** Supervisor, Town Council, Highway Superintendent, Assessor and
+  County Legislator.
+- **2024:** President and Congress.
+- **2013, 2015 and 2017:** the Supervisor races.
+
+It can show who led, one candidate's share or the votes cast. Every figure
+is in a table under the map.
+
+**Compare** sets any candidate against any other, each with a year: for
+example, Halpin in 2026 against Jens-Smith in 2017. Each district shows the
+gap in their shares of the vote. Ready-made comparisons include Halpin from
+2025 to 2026 and Halpin against Hochul and against Harris.
+
+How the earlier years are checked:
+- **2024:** from Benjamin J. Rosenblatt's statewide compilation of certified
+  results. Its Suffolk totals equal the County's final count exactly.
+- **2013 to 2017:** from OpenElections' transcription of the County's
+  precinct returns. Each candidate's Town total equals the County's final
+  page exactly. The district lines are checked against the Census Bureau's
+  2010 and 2020 voting-district maps.
+- **2019, 2021 and 2023:** no source publishes these Supervisor races by
+  district, so they appear in the table of every race since 2013, not on
+  the map.
+- **2025:** the County's figures are its election-night count, so the page
+  gives the certified totals beside them.
+
+### 🌾 Preserved land — `/preserved-land`
+Every Riverhead farm whose development rights have been bought or restricted,
+from Suffolk County's GIS: 8,581 acres on 257 parcels, about a fifth of the
+Town. The map colors each parcel by who holds the rights (the County holds
+5,961 acres, the Town 1,546 and the two jointly 435) or by the decade it was
+preserved. A table lists every parcel. Street addresses and tax-map numbers
+are left out.
+
+### 🗳️ Board votes — `/board-votes`
+How each Town Board member voted when the Board did not agree. That happened
+on 39 of 2,029 resolutions since January 2025, the period for which the site
+holds every meeting. The page shows:
+- a grid of how often each pair voted alike;
+- each member's yes, no, abstain and absence counts;
+- every contested resolution with each member's vote.
+
+Abstentions can be recusals, and the page says so.
+
+### 🏠 Assessment roll — `/assessment`
+Graphs from the Assessor's 2026 tentative and final assessment rolls, totals
+only: 16,562 parcels assessed at $1,136,208,305, about $14.7 billion of
+market value at the Town's 7.73% uniform percentage. The page shows market
+value by property class, the spread of one-family home values (median
+$598,965), exemptions from the Town tax by kind, what changed between the
+tentative and final rolls, and the school districts. Every parcel record is
+added up by class, and the sums must equal the roll's own section totals.
+
+### 🔁 Transfer of development rights — `/tdr`
+How Riverhead's TDR program trades farmland for building room. It covers:
+- which land can sell credits (the Agricultural Protection Zone, one credit an acre);
+- where credits can be used and what one buys (3,000 sq. ft. on Route 58 since December 2024);
+- what a credit costs (about $80,000, the Town's planners say);
+- how many are outstanding (about 43 in 2023), and that there is no TDR bank;
+- the Walmart expansion, row by row from its site plan: 46.212 credits
+  needed, 44.9 held, 1.312 more to buy, with a public hearing on November 19, 2026.
+
+### 💸 Budget flow — `/budget-flow`
+One diagram of the 2027 Preliminary budget. Its $120,854,219 runs from the
+kind of revenue, through each fund, to what it pays for. Revenue and spending
+are grouped by the State Comptroller's account codes, and every figure is in
+tables under the diagram. Money that moves between funds appears on both
+sides, and the page says how much.
+
+### 💵 Donation map — `/donation-map`
+Where each Town Board candidate's and party committee's itemized contributions
+came from, by ZIP code. Pick a committee and a year, or every year since 2005,
+and the map shades the ZIP code areas around Riverhead.
+
+- **Breakdown:** money from ZIP codes that reach into the Town, from elsewhere
+  in New York and from other states.
+- **Table:** the ZIP codes that gave the most.
+- **Comparison:** how much of each committee's money came from Riverhead ZIP
+  codes.
+
+The figures are grouped by the ZIP code on each filing, never by name or
+address. Each committee's total equals the "direct contributions" on its
+campaign-finance card. ZIP codes cross town lines (Wading River, Calverton and
+Manorville reach into Brookhaven), and the page says so.
+
+### 📈 Turnout — `/election-map#turnout`
+Riverhead's turnout in every November election since 2013, from the County
+Board of Elections' final results pages. Each year's figure is the votes cast
+in the Town-wide race that drew the most votes, out of the Town's registered
+voters.
+- **Odd years**, with only local offices on the ballot: 32.3% to 41.3%.
+- **Presidential years:** 63.8% to 71.6%.
+- **2025:** 32.3% (7,879 of 24,429), the lowest since 2013.
+
+There are gaps:
+- 2014, 2018 and 2022 had no Town race, so the County has no Riverhead page
+  for those years.
+- The County has not yet published Riverhead's 2026 registered voters. The
+  chart adds 2026 when its final page appears.
+- Registered voters are not published by district, so there is no turnout
+  map. The page links to New York Focus's 2026 county turnout map for the
+  State-wide view.
+
+### Also this month
+- **Meeting schedule** (since October 29): when the Town's website does not
+  answer, the meeting refresh keeps the last published schedule and hearings
+  instead of publishing an empty one.
+
+---
+
+# Earlier — October 2026
 
 ### 📑 The 2027 Preliminary Budget is in
 The Town's 2027 Preliminary Budget was on its Financial Reports page by the
@@ -51,6 +239,9 @@ evening of October 28, and the site parsed it that night. Its town-wide levy (Ge
 Street Lighting) is $643,858 lower than the Tentative's, the same as the six
 amendments the Town Board voted on October 20. The pages that compare budget
 stages now compare the Preliminary.
+Its account lines are now read too (996 lines, 32 changed from the Tentative, each
+matching a resolution), so the fund, revenue, programs and budget accuracy pages
+show the Preliminary line by line. Pages that measure the Tentative as filed say so.
 **[2027 Budget Amendments](https://rike4545.github.io/Riverhead-NY-Budget-Web-App/budget-amendments-2027/)**
 sets out each amendment line by line, the votes, and how RiverheadLOCAL and
 Newsday reported them.
@@ -271,7 +462,12 @@ The four links at the front of the site menu:
 - **School Resource Officers** (`/school-resource-officers`): who pays for them, and every funding route proposed.
 - **Supervisors & Council History** (`/town-history`): who has held each seat since 2004.
 - **Board Elections** (`/board-elections`): the vote counts that elected each current member.
-- **Campaign Finance** (`/campaign-finance`): every current and recent member's committee, live from New York State's campaign-finance data, with each committee's 2026 General Election reports (32-Day and 11-Day Pre-General, 27-Day Post-General) and a Town Employee Donors cross-check.
+- **Campaign Finance** (`/campaign-finance`): every current and recent member's committee and both town party committees, from New York State's campaign-finance data. It covers:
+  - the unofficial November 3 Supervisor result;
+  - a summary table comparing what each committee raised, refunded, borrowed and still owed;
+  - a card for each committee, with its 2026 General Election reports and a live Refresh;
+  - the County's 2026 contribution limits for Riverhead, and a guide to reading a filing;
+  - a Town Employee Donors cross-check.
 - **Candidate Watch** (`/candidate-watch`): who is running in November 2026, with links and stated platforms.
 - **Candidate Proposals** (`/candidate-cost-benefit`): a cost–benefit look at each stated plank in the 2026 Supervisor race.
 - **Supervisor's Promises** (`/supervisor-promises`): commitments checked against the record.
@@ -290,8 +486,8 @@ The four links at the front of the site menu:
 - **Southold's 2027 Tentative** (`/southold-2027`): Southold's 2027 Tentative Operating Budget beside Riverhead's, with Brookhaven alongside: savings, the tax cap and the State's growth factors, police, revenue estimates, garbage charges, a capital plan and what each budget book tells residents. Southold's copy is a scan from the Town's website (`etl/data/southold/2027/`), read with OCR and from the page images; `scripts/verify-southold.mjs` checks its tables against each other and its quotations and line figures against the OCR text.
 - **Brookhaven's 2027 Tentative** (`/brookhaven-2027`): Brookhaven's 2027 Tentative Operating Budget beside Riverhead's: savings used, growth, the levy, reserves, garbage fees and what each budget book tells residents, with ideas Riverhead could borrow. Brookhaven's copy is a scan, read with OCR and from the page images; `scripts/verify-brookhaven.mjs` checks its tables' arithmetic and its quotations. Per-resident figures use the Census Bureau's July 1 town estimates for Suffolk County (`public/data/census-pep.json`; refresh with `node scripts/fetch-population.mjs` when a new vintage is out, no key needed).
 - **2027 Budget Amendments** (`/budget-amendments-2027`): the six amendments to the 2027 budget on the Town Board's October 20, 2026 agenda, as the pre-final draft in the October 15 work-session packet prints them, set against the Tentative's Summary and the 2027 Budget Supplement line by line: the levy by fund, the higher revenue estimates beside past collections, the equipment moved to savings, the estimated tax rates and an even-handed reading of how they bear on the supervisor's race. The cited packet pages are kept in `etl/data/budget-2027/amendments-packet-2026-10-15.json`; `scripts/verify-budget-amendments.mjs` checks each resolution balances fund by fund and that every account, amount and quotation is on its packet page. The page shows each vote from the meeting's record (`public/data/meetings/2026-10-20.json`).
-- **Outlier Watch** (`/outliers`): year-over-year swings of at least 20% and $100,000 across all 19 funds, each adopted budget against the year before and next year's proposal (now the 2027 Preliminary) against the last adopted budget. A flagged proposal gets its Budget Supplement lines, and the Debt Service Fund's 2027 fall is set beside the two 2026 votes that paid debt down. `scripts/verify-outliers.mjs` holds the page to the records.
-- **Budget Accuracy** (`/budget-accuracy`): where adopted amounts and actual spending drift apart: researched flags read from the Supplements, lines over budget three years running, lines never used, and every outlier in the newest Supplement.
+- **Outlier Watch** (`/outliers`): year-over-year swings of at least 20% and $100,000 across all 19 funds, each adopted budget against the year before and next year's proposal (now the 2027 Preliminary) against the last adopted budget. A flagged proposal gets its Budget Supplement lines, and the Debt Service Fund's 2027 fall is set beside the two 2026 votes that paid debt down. A second section lists the accounts the 2027 Preliminary moves most, on the same two bars, with each line's 2025 actual. `scripts/verify-outliers.mjs` holds the page to the records.
+- **Budget Accuracy** (`/budget-accuracy`): where adopted amounts and actual spending drift apart: researched flags read from the Supplements, lines over budget three years running, lines never used, every outlier in the newest Supplement, and year-by-year checks of each line's budget against its cost for 2023 to 2025 (`scripts/verify-accuracy-screens.mjs`).
 - **Contracts & Bids** (`/contracts`): every 2026 Town Board resolution that awards a bid, extends one, buys equipment, changes a construction contract or hires a firm, with the vendor and amount in the resolution's own words.
 - **Fiscal Impact** (`/fiscal-impact`): each resolution's Fiscal Impact Statement next to a realistic financial read, and every dollar figure the resolution's own text states, quoted and labelled (a cost, a fee, money coming in, a budget line, borrowing, a developer's security). Each statement is matched to its resolution by the number printed above it.
 
@@ -302,6 +498,15 @@ The four links at the front of the site menu:
 - **Data Quality & Freshness** (`/data-quality`): which figures are official and which are calculated, how current each source is, and what each deploy checks.
 - **Standards (GFOA)** (`/gfoa`): this site scored against the GFOA budget-presentation criteria.
 - **Election Law Case** (`/election-law-case`): what the Town spent fighting New York's even-year election law.
+- **Legal Costs** (`/legal-costs`): outside lawyers, the Town Attorney's office and claims, 2018 to the 2027 Preliminary, and the Board's votes on counsel and settlements.
+- **Regional CPF Counsel** (`/regional-cpf-counsel`): the regional Community Preservation Fund attorney the 2024 state law requires, the contract the Board tabled, and the home rule question.
+- **Preserved Land** (`/preserved-land`): every preserved farm parcel, by who holds the rights and when.
+- **Board Votes** (`/board-votes`): how each member voted when the Board did not agree, and who votes with whom.
+- **Budget Flow** (`/budget-flow`): the 2027 Preliminary budget from revenue, through the funds, to spending.
+- **Assessment Roll** (`/assessment`): market value by property class, exemptions, home values and what changed between the 2026 tentative and final rolls.
+- **Transfer of Development Rights** (`/tdr`): sending and receiving districts, what a credit buys and costs, credits outstanding, and the Walmart expansion.
+- **Donation Map** (`/donation-map`): where each committee's itemized contributions came from, by ZIP code, with a committee and year picker, from the State Board of Elections' filings.
+- **Election Map** (`/election-map`): Riverhead's 22 election districts, colored by who led, a candidate's share or the votes cast, in fifteen contests from 2013 to 2026 (including the 2024 presidential race). Compare sets any two candidates and years against each other, district by district. The page also lists every Supervisor race since 2013 and charts Riverhead's turnout in every November election since 2013.
 - **Officials on Social Media** (`/official-social-media`): when an official's account counts as government speech.
 - **Know Your Rights (ICE)** (`/know-your-rights`): your rights if immigration agents come, and New York's 2026 protections.
 
@@ -433,7 +638,7 @@ The site keeps itself current. Six GitHub Actions workflows do the work
 | Workflow | When | What it does |
 | --- | --- | --- |
 | **Deploy GitHub Pages** (`deploy-pages.yml`) | Every push to `main`, and on demand | Re-parses every financial-report PDF, rebuilds the budget-stage, General Fund history, adoption, department-request and CPF datasets, the search index and the freshness stamp, then commits any data that changed. It then typechecks, builds, adds the Content-Security-Policy, verifies the output and deploys, waits for the new build to go live, and checks that key pages and data files load. A failed check stops the deploy, and the live site keeps its last good build. |
-| **Parse Financial Reports** (`parse-financial-reports.yml`) | Mondays 09:00; daily at 09:00 and 22:00 in September–November | The full pipeline: meetings, financial reports, line items, budget history and stages, General Fund history, AFR actuals, Supplements, votes and fiscal impact, salaries and payroll, the 2027 projection, the buyout, police and crime, road spending, the 2026 General Election campaign-finance reports, search, CSVs and freshness. Commits the results and redeploys. |
+| **Parse Financial Reports** (`parse-financial-reports.yml`) | Mondays 09:00; daily at 09:00 and 22:00 in September–November | The full pipeline: meetings, financial reports, line items, budget history and stages, General Fund history, AFR actuals, Supplements, votes and fiscal impact, salaries and payroll, the 2027 projection, the buyout, police and crime, road spending, the 2026 General Election campaign-finance reports and committee totals, the election-district map, search, CSVs and freshness. Commits the results and redeploys. |
 | **Sync Town Board Meetings** (`sync-meetings.yml`) | Twice a day, 12:30 and 23:30 | Re-checks CivicClerk minutes and agenda packets and the upcoming-meeting schedule. Re-parses votes, falls back to the agenda packet when the minutes omit them, and reconciles each meeting against its official sources. Refreshes each meeting's video and transcript links. Redeploys when anything changed. |
 | **Transcribe Town Board Meetings** (`transcribe-meetings.yml`) | Daily at 14:07, and on demand | Transcribes up to three meeting videos a run, newest first, with faster-whisper on the runner's CPU (about 15 minutes for a two-hour meeting). It finds the moment each resolution is read out, and finds them again in saved transcripts when a meeting's record changes. It checks the results, commits them and redeploys. |
 | **Watch for budget releases** (`watch-budget-release.yml`) | Every 15 minutes, Sept 24–Oct 6; every 30 minutes, Nov 1–21 | Checks the Town's Financial Reports page for a budget document the site hasn't parsed yet, and starts a deploy the moment one appears. The check itself downloads nothing. It skips while a deploy is already running and limits how often it can start one. |
@@ -452,7 +657,8 @@ Every page shows when its data was last refreshed.
 | `parse_budget_adoption.py` | What the Board changed in each Tentative before adopting it, 2005 on |
 | `parse_budget_requests.py` | What each department asked for, against what the budget officer recommended |
 | `parse_general_fund.py` | The long-run General Fund history, adding each newly adopted year from the budget-stage data |
-| `parse_budget_supplement.py` / `parse_supplement_history.py` | Every Budget Supplement line, classified, with its multi-year history. The history script reads all eight committed Supplements (2020–2027) for every fund, expenditure and revenue, and writes the newest Supplement's lines, outliers and run-rate trims; `scripts/verify-supplement.mjs` checks its figures against a second reading of the same PDFs |
+| `parse_preliminary_lines.py` | Every expenditure and revenue account in the 2027 Preliminary Budget book (adopted, request, Tentative and Preliminary columns), tied to the Preliminary and Tentative Summary fund by fund. Writes `budget-2027-preliminary-lines.json`; `parse_supplement_history.py` then lays the Preliminary beside each Supplement line, and `verify-budget-amendments.mjs` checks the book against the six October 20 resolutions |
+| `parse_budget_supplement.py` / `parse_supplement_history.py` | Every Budget Supplement line, classified, with its multi-year history. The history script reads all eight committed Supplements (2020–2027) for every fund, expenditure and revenue, and writes the newest Supplement's lines, outliers and run-rate trims; `scripts/verify-supplement.mjs` checks its figures against a second reading of the same PDFs. `/legal-costs/` reads the Town Attorney's and every legal-services account from this history; `scripts/verify-legal-costs.mjs` rebuilds its four groups from `line-history.json` and fails if a legal account that spent money is left out |
 | `parse_afr.py` | Actual year-end results for all 14 AFR funds |
 | `parse_cpf.py` | Peconic Bay Community Preservation Fund results |
 | `fetch_meetings.py` / `fetch_upcoming.py` / `fetch_vote_packets.py` | Meeting minutes, the upcoming schedule, and agenda packets when the minutes omit votes |
@@ -468,6 +674,15 @@ Every page shows when its data was last refreshed.
 | `analyze_buyout.py` | Cost and likely savings of the 2026 retirement incentive |
 | `parse_police_crime.py` | Police spending next to reported Index crime. The State's figures are fetched at most weekly; if data.ny.gov cannot be reached, they stay as last fetched and the run shows a warning |
 | `build_campaign_reports.py` | Each committee's 2026 General Election reports from data.ny.gov, by report and schedule. If data.ny.gov cannot be reached, the last copy stays and the run shows a warning |
+| `build_campaign_totals.py` | Each committee's stored figures on `/campaign-finance/`: what it raised, refunded and borrowed, its in-kind gifts, and what it owed at its latest report. It writes `campaign-finance-totals.json` and never the hand-typed `campaign-finance.json`. The rules match the page's live Refresh: money moved between one official's own committees is not counted twice. If data.ny.gov cannot be reached, the last figures stay |
+| `build_donation_map.py` | Each committee's itemized contributions (Schedules A to C) by ZIP code and year, from the same data.ny.gov dataset, for `/donation-map/` (`campaign-donations-by-zip.json`). No names or addresses are kept. If data.ny.gov cannot be reached, the last file stays |
+| `build_preserved_land.py` | Riverhead's preserved-farmland parcels from the County GIS (`geo/riverhead-preserved-farmland.json`), with who holds the rights, acres, year and hamlet, never the address. If the GIS cannot be reached, the last file stays |
+| `build_vote_agreement.py` | Each contested resolution since 2025 and how often each pair of Board members voted alike (`vote-agreement.json`), from the site's own voting record; it reruns whenever the meeting records change |
+| `build_assessment_roll.py` | Run by hand when the Assessor posts a roll (tentative by May 1, final in September): town-wide totals from the 2026 tentative and final rolls (`assessment-roll-2026.json`) by property class, roll section, school district and exemption, and the spread of one-family home values. No owner, address or single parcel's value is kept. It writes nothing unless the parcel records add to the roll's own section totals. Needs `pdftotext` |
+| `build_election_map.py` | Riverhead's 22 election-district boundaries from the County GIS (`riverhead-districts.json`) and each district's votes in the 2026 and 2025 general elections from the Board of Elections' results site, plus every Supervisor race and each November's turnout since 2013 from the County's final results pages (`riverhead-map.json`), for `/election-map/`. A candidate on several party lines is counted once. If a source cannot be reached, its file stays as it was |
+| `import_2024_results.py` | Run by hand: Riverhead's 2024 President and 1st Congressional District results by district, from Benjamin J. Rosenblatt's statewide compilation (`riverhead-2024.json`). It writes nothing unless Suffolk's totals equal the County's final 2024 results exactly and the 2024 districts match today's to 99% |
+| `import_past_supervisor.py` | Run by hand: the 2013, 2015 and 2017 Supervisor races by district, from OpenElections' transcription of the County's precinct returns (`riverhead-supervisor-past.json`). It writes nothing unless each candidate's Town total equals the County's final page exactly and the Census Bureau's 2010 and 2020 voting-district maps match today's districts |
+| `import_zip_areas.py` | Run by hand: the Census Bureau's 2020 ZIP code areas around Riverhead, simplified for the web, each with the share of the Town it covers (`geo/riverhead-zip-areas.json`) |
 | `build_contract_awards.py` | The `/contracts/` list of bid awards and agreements, from freshly downloaded agenda packets |
 | `parse_road_spending.py` | Highway spending per maintained mile for the ten Suffolk towns, from State Comptroller filings and NYSDOT's road inventory |
 | `build_search_index.py` | The sharded search index |
@@ -480,10 +695,14 @@ exports, salary schedules, the AFR, Budget Supplements and meeting-minutes
 text. Those datasets rebuild from a clean checkout. Budget documents are
 downloaded again from the Town's Financial Reports page on each run.
 
-**Not part of the automated pipeline:** Campaign Finance's committee totals
-and filing lists come from data.ny.gov live in the browser when a reader
-presses Refresh; only its 2026 General Election reports are stored by the
-pipeline.
+**Not part of the automated pipeline:** Campaign Finance's filing lists,
+donor breakdowns and watch lists come from data.ny.gov live in the browser
+when a reader presses Refresh. The pipeline stores only the committee totals
+and the 2026 General Election reports. The facts about each official (office,
+term, salary, notes) are typed by hand in `campaign-finance.json`, and the
+2026 election result in `web/lib/election-results-2026.ts`; both change when
+the sources are reviewed again, such as when the County certifies the
+result.
 Research pages such as Town Square, the Supervisor's promises, the Open
 Meetings Law, credit ratings and the Brookhaven comparison are written by hand
 from the sources they cite. They change when those sources are reviewed again.

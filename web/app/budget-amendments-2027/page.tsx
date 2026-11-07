@@ -179,6 +179,15 @@ export default function BudgetAmendmentsPage() {
               </div>
               <p style={{ margin: '12px 0 0', color: 'var(--rbl-text-muted)', fontSize: 12.5, lineHeight: 1.45 }}>
                 Calculated from the six resolutions and the Tentative’s Summary. The Town has not published a consolidated amendment total.
+                {fx.confirmation ? (
+                  <>
+                    {' '}The Town’s own{' '}
+                    <a href={fx.confirmation.source.url} target="_blank" rel="noreferrer" style={{ color: 'var(--rbl-link)' }}>{fx.confirmation.source.title}</a>{' '}
+                    now prints the result: its account-level Preliminary column matches this arithmetic on{' '}
+                    {fx.confirmation.accountsAgree} of {fx.confirmation.accounts} amended accounts, and its Summary matches the calculated
+                    appropriations and levy in {fx.confirmation.fundsAgree} of {fx.confirmation.funds} amended funds. Its town-wide levy is {usd(fx.confirmation.levyAfter ?? 0)}.
+                  </>
+                ) : null}
               </p>
             </figure>
             <P>

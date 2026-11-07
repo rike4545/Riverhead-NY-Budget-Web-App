@@ -1,6 +1,7 @@
 import type { CSSProperties, ReactNode } from 'react'
 import PageShell from '../../components/PageShell'
 import PlainCallout from '../../components/PlainCallout'
+import ProposalLineStageNotice from '../../components/ProposalLineStageNotice'
 import {
   BROOKHAVEN_2026_ADOPTED, BROOKHAVEN_BOOK, BROOKHAVEN_FUND_BALANCES, BROOKHAVEN_LEVY, BROOKHAVEN_QUOTES, BROOKHAVEN_SALARIES,
   BROOKHAVEN_SOURCE, BROOKHAVEN_STATED,
@@ -65,6 +66,7 @@ export default function BrookhavenComparisonPage() {
       title="Brookhaven’s 2027 Tentative beside Riverhead’s"
       subtitle={`The Town of Brookhaven’s 2027 Tentative Operating Budget, dated ${BROOKHAVEN_SOURCE.dated}, set beside Riverhead’s: how each balances, how fast each grows, what each tells residents, and what Riverhead could borrow.`}
     >
+      <ProposalLineStageNotice basis="tentative" />
       <PlainCallout
         tips={[
           { label: 'Two proposals', text: 'both are Tentative budgets, each Supervisor’s proposal. Each Town Board can change its own before it adopts a budget by November 20.' },

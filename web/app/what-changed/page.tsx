@@ -1,6 +1,8 @@
 import PageShell from '../../components/PageShell'
+import PreliminaryUpdate from '../../components/PreliminaryUpdate'
 import DataStatus from '../../components/DataStatus'
 import RecordTrail from '../../components/RecordTrail'
+import ProvenanceLine from '../../components/ProvenanceLine'
 import { dollars, townWideComparison2026, adoptedBudget2026Summary } from '../../lib/financial-data'
 import { stageDoc } from '../../lib/budget-stages'
 import { released2027, adoptedPrior, levySentence, spendingSentence, stability, unchangedYears, PRIOR, YEAR } from '../../lib/tentative-2027'
@@ -53,6 +55,7 @@ export default function WhatChangedPage() {
 
   return (
     <PageShell title={title} subtitle={subtitle}>
+      <PreliminaryUpdate />
       <div style={{ display: 'grid', gap: 16 }}>
         <section style={{ background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 20 }}>
           <DataStatus status="calculated" text={`Calculated from the ${YEAR} Tentative and ${PRIOR} Adopted budgets`} />
@@ -68,6 +71,16 @@ export default function WhatChangedPage() {
             <div style={{ color: 'var(--rbl-accent)', fontSize: 12.5, fontWeight: 800, marginTop: 11 }}>See the evidence →</div>
           </a>)}
         </section>
+
+        <ProvenanceLine
+          claimId="what-changed-budget-comparison"
+          status="calculated"
+          source={h.source.title}
+          asOf={`${YEAR} budget stage compared with ${PRIOR} adopted budget`}
+          calculation="Compares the Town-wide Summary rows and General Fund appropriations; percentage changes use the prior adopted amount as the denominator."
+          evidenceHref="/tentative-2027/"
+          evidenceLabel="Open the budget-stage figures"
+        />
 
         <section style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(min(300px,100%),1fr))', gap: 14 }}>
           <article style={card}>

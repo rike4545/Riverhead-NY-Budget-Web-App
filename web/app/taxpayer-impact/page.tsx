@@ -1,7 +1,10 @@
+import ChartCard from '../../components/infographics/ChartCard'
+import LevyDollarBar from '../../components/infographics/LevyDollarBar'
 import Link from 'next/link'
 import PageShell from '../../components/PageShell'
 import RecordTrail from '../../components/RecordTrail'
 import DataStatus from '../../components/DataStatus'
+import ProvenanceLine from '../../components/ProvenanceLine'
 import TaxpayerLevyCalculator from '../../components/TaxpayerLevyCalculator'
 import { allOperatingFunds2026 } from '../../lib/all-funds'
 import { dollars } from '../../lib/financial-data'
@@ -45,6 +48,21 @@ export default function TaxpayerImpactPage() {
             <DataStatus status="official" text="Based on the adopted 2026 budget fund schedule" />
           </div>
         </section>
+
+        <ProvenanceLine
+          claimId="taxpayer-impact-levy-allocation"
+          status="calculated"
+          source="Town of Riverhead 2026 Adopted Budget, fund-level tax levy schedule"
+          sourceHref="https://www.townofriverheadny.gov/DocumentCenter/View/2967/2026-Adopted-Budget"
+          asOf="2026 adopted budget"
+          calculation="Each fund's published levy divided by the sum of positive operating-fund levies displayed on this page. This is not a full property-tax bill allocation."
+          evidenceHref="/sources/"
+          evidenceLabel="Review source records"
+        />
+
+        <ChartCard>
+          <LevyDollarBar />
+        </ChartCard>
 
         <TaxpayerLevyCalculator funds={calculatorFunds} />
 

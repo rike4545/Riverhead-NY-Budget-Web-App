@@ -5,11 +5,15 @@ export default function PlainCallout({
   title = 'In plain English',
   children,
   tips,
+  headingLevel = 2,
 }: {
   title?: string
   children: ReactNode
+  /** The title's heading level: 2 at the top of a page, deeper inside a section. */
+  headingLevel?: 2 | 3 | 4
   tips?: { label: string; text: string }[]
 }) {
+  const Heading = `h${headingLevel}` as 'h2' | 'h3' | 'h4'
   return (
     <section
       style={{
@@ -17,7 +21,7 @@ export default function PlainCallout({
         borderRadius: 14, padding: '18px 20px 20px', marginBottom: 20,
       }}
     >
-      <h2 style={{ margin: '0 0 6px', color: 'var(--rbl-title)', fontSize: 18, fontWeight: 700, lineHeight: 1.3 }}>{title}</h2>
+      <Heading style={{ margin: '0 0 6px', color: 'var(--rbl-title)', fontSize: 18, fontWeight: 700, lineHeight: 1.3 }}>{title}</Heading>
       <div style={{ color: 'var(--rbl-info-text)', fontSize: 16.5, lineHeight: 1.6, maxWidth: '72ch' }}>{children}</div>
       {tips && tips.length > 0 && (
         <ul style={{ margin: '12px 0 0', paddingLeft: 20, display: 'grid', gap: 6, maxWidth: '72ch' }}>
