@@ -1,0 +1,530 @@
+{
+ "id": "GE2024",
+ "label": "2024 General Election",
+ "date": "2024-11-05",
+ "official": true,
+ "asOf": null,
+ "url": "https://apps2.suffolkcountyny.gov/boe/eleres/24ge/default.htm",
+ "districtSource": {
+  "title": "Benjamin J. Rosenblatt and @cinyc9, New York 2024 general election results by election district",
+  "url": "https://www.benjrosenblatt.com/2024general-live-results",
+  "checks": "Suffolk's totals for President and the 1st Congressional District equal the Board of Elections' final results exactly.",
+  "boundaryOverlap": 0.996
+ },
+ "contests": [
+  {
+   "key": "president-2024",
+   "name": "President and Vice President",
+   "voteFor": 1,
+   "candidates": [
+    {
+     "name": "Donald J Trump AND JD Vance",
+     "party": "REP",
+     "lines": {
+      "REP": 9028,
+      "CON": 1094
+     },
+     "votes": 10122
+    },
+    {
+     "name": "Kamala D Harris AND Tim Walz",
+     "party": "DEM",
+     "lines": {
+      "DEM": 7220,
+      "WOR": 285
+     },
+     "votes": 7505
+    },
+    {
+     "name": "Write-in",
+     "party": "",
+     "lines": {
+      "W/I": 127
+     },
+     "votes": 127
+    }
+   ],
+   "total": 17754,
+   "districts": {
+    "001": {
+     "mapFeatureId": null,
+     "total": 1017,
+     "reporting": null,
+     "votes": {
+      "Kamala D Harris AND Tim Walz": 457,
+      "Donald J Trump AND JD Vance": 554,
+      "Write-in": 6
+     }
+    },
+    "002": {
+     "mapFeatureId": null,
+     "total": 384,
+     "reporting": null,
+     "votes": {
+      "Kamala D Harris AND Tim Walz": 190,
+      "Donald J Trump AND JD Vance": 191,
+      "Write-in": 3
+     }
+    },
+    "003": {
+     "mapFeatureId": null,
+     "total": 143,
+     "reporting": null,
+     "votes": {
+      "Kamala D Harris AND Tim Walz": 70,
+      "Donald J Trump AND JD Vance": 71,
+      "Write-in": 2
+     }
+    },
+    "004": {
+     "mapFeatureId": null,
+     "total": 967,
+     "reporting": null,
+     "votes": {
+      "Kamala D Harris AND Tim Walz": 419,
+      "Donald J Trump AND JD Vance": 543,
+      "Write-in": 5
+     }
+    },
+    "005": {
+     "mapFeatureId": null,
+     "total": 294,
+     "reporting": null,
+     "votes": {
+      "Kamala D Harris AND Tim Walz": 132,
+      "Donald J Trump AND JD Vance": 158,
+      "Write-in": 4
+     }
+    },
+    "006": {
+     "mapFeatureId": null,
+     "total": 293,
+     "reporting": null,
+     "votes": {
+      "Kamala D Harris AND Tim Walz": 153,
+      "Donald J Trump AND JD Vance": 135,
+      "Write-in": 5
+     }
+    },
+    "007": {
+     "mapFeatureId": null,
+     "total": 1172,
+     "reporting": null,
+     "votes": {
+      "Kamala D Harris AND Tim Walz": 481,
+      "Donald J Trump AND JD Vance": 681,
+      "Write-in": 10
+     }
+    },
+    "008": {
+     "mapFeatureId": null,
+     "total": 637,
+     "reporting": null,
+     "votes": {
+      "Kamala D Harris AND Tim Walz": 321,
+      "Donald J Trump AND JD Vance": 308,
+      "Write-in": 8
+     }
+    },
+    "009": {
+     "mapFeatureId": null,
+     "total": 568,
+     "reporting": null,
+     "votes": {
+      "Kamala D Harris AND Tim Walz": 286,
+      "Donald J Trump AND JD Vance": 278,
+      "Write-in": 4
+     }
+    },
+    "010": {
+     "mapFeatureId": null,
+     "total": 370,
+     "reporting": null,
+     "votes": {
+      "Kamala D Harris AND Tim Walz": 161,
+      "Donald J Trump AND JD Vance": 207,
+      "Write-in": 2
+     }
+    },
+    "011": {
+     "mapFeatureId": null,
+     "total": 1020,
+     "reporting": null,
+     "votes": {
+      "Kamala D Harris AND Tim Walz": 427,
+      "Donald J Trump AND JD Vance": 592,
+      "Write-in": 1
+     }
+    },
+    "012": {
+     "mapFeatureId": null,
+     "total": 1527,
+     "reporting": null,
+     "votes": {
+      "Kamala D Harris AND Tim Walz": 765,
+      "Donald J Trump AND JD Vance": 755,
+      "Write-in": 7
+     }
+    },
+    "013": {
+     "mapFeatureId": null,
+     "total": 860,
+     "reporting": null,
+     "votes": {
+      "Kamala D Harris AND Tim Walz": 374,
+      "Donald J Trump AND JD Vance": 474,
+      "Write-in": 12
+     }
+    },
+    "014": {
+     "mapFeatureId": null,
+     "total": 1230,
+     "reporting": null,
+     "votes": {
+      "Kamala D Harris AND Tim Walz": 468,
+      "Donald J Trump AND JD Vance": 746,
+      "Write-in": 16
+     }
+    },
+    "015": {
+     "mapFeatureId": null,
+     "total": 145,
+     "reporting": null,
+     "votes": {
+      "Kamala D Harris AND Tim Walz": 49,
+      "Donald J Trump AND JD Vance": 95,
+      "Write-in": 1
+     }
+    },
+    "016": {
+     "mapFeatureId": null,
+     "total": 606,
+     "reporting": null,
+     "votes": {
+      "Kamala D Harris AND Tim Walz": 244,
+      "Donald J Trump AND JD Vance": 355,
+      "Write-in": 7
+     }
+    },
+    "017": {
+     "mapFeatureId": null,
+     "total": 1631,
+     "reporting": null,
+     "votes": {
+      "Kamala D Harris AND Tim Walz": 636,
+      "Donald J Trump AND JD Vance": 982,
+      "Write-in": 13
+     }
+    },
+    "018": {
+     "mapFeatureId": null,
+     "total": 444,
+     "reporting": null,
+     "votes": {
+      "Kamala D Harris AND Tim Walz": 166,
+      "Donald J Trump AND JD Vance": 277,
+      "Write-in": 1
+     }
+    },
+    "019": {
+     "mapFeatureId": null,
+     "total": 1250,
+     "reporting": null,
+     "votes": {
+      "Kamala D Harris AND Tim Walz": 431,
+      "Donald J Trump AND JD Vance": 815,
+      "Write-in": 4
+     }
+    },
+    "020": {
+     "mapFeatureId": null,
+     "total": 1719,
+     "reporting": null,
+     "votes": {
+      "Kamala D Harris AND Tim Walz": 600,
+      "Donald J Trump AND JD Vance": 1111,
+      "Write-in": 8
+     }
+    },
+    "021": {
+     "mapFeatureId": null,
+     "total": 566,
+     "reporting": null,
+     "votes": {
+      "Kamala D Harris AND Tim Walz": 242,
+      "Donald J Trump AND JD Vance": 320,
+      "Write-in": 4
+     }
+    },
+    "022": {
+     "mapFeatureId": null,
+     "total": 911,
+     "reporting": null,
+     "votes": {
+      "Kamala D Harris AND Tim Walz": 433,
+      "Donald J Trump AND JD Vance": 474,
+      "Write-in": 4
+     }
+    }
+   },
+   "url": "https://apps2.suffolkcountyny.gov/boe/eleres/24ge/usoff.htm"
+  },
+  {
+   "key": "congress-2024",
+   "name": "Representative in Congress, 1st Congressional District",
+   "voteFor": 1,
+   "candidates": [
+    {
+     "name": "Nicholas J LaLota",
+     "party": "REP",
+     "lines": {
+      "REP": 8578,
+      "CON": 1232
+     },
+     "votes": 9810
+    },
+    {
+     "name": "John P Avlon",
+     "party": "DEM",
+     "lines": {
+      "DEM": 7094,
+      "CSS": 96
+     },
+     "votes": 7190
+    },
+    {
+     "name": "Write-in",
+     "party": "",
+     "lines": {
+      "W/I": 3
+     },
+     "votes": 3
+    }
+   ],
+   "total": 17003,
+   "districts": {
+    "001": {
+     "mapFeatureId": null,
+     "total": 994,
+     "reporting": null,
+     "votes": {
+      "Nicholas J LaLota": 545,
+      "John P Avlon": 449,
+      "Write-in": 0
+     }
+    },
+    "002": {
+     "mapFeatureId": null,
+     "total": 352,
+     "reporting": null,
+     "votes": {
+      "Nicholas J LaLota": 172,
+      "John P Avlon": 180,
+      "Write-in": 0
+     }
+    },
+    "003": {
+     "mapFeatureId": null,
+     "total": 129,
+     "reporting": null,
+     "votes": {
+      "Nicholas J LaLota": 61,
+      "John P Avlon": 68,
+      "Write-in": 0
+     }
+    },
+    "004": {
+     "mapFeatureId": null,
+     "total": 925,
+     "reporting": null,
+     "votes": {
+      "Nicholas J LaLota": 518,
+      "John P Avlon": 407,
+      "Write-in": 0
+     }
+    },
+    "005": {
+     "mapFeatureId": null,
+     "total": 280,
+     "reporting": null,
+     "votes": {
+      "Nicholas J LaLota": 155,
+      "John P Avlon": 125,
+      "Write-in": 0
+     }
+    },
+    "006": {
+     "mapFeatureId": null,
+     "total": 266,
+     "reporting": null,
+     "votes": {
+      "Nicholas J LaLota": 120,
+      "John P Avlon": 146,
+      "Write-in": 0
+     }
+    },
+    "007": {
+     "mapFeatureId": null,
+     "total": 1113,
+     "reporting": null,
+     "votes": {
+      "Nicholas J LaLota": 655,
+      "John P Avlon": 458,
+      "Write-in": 0
+     }
+    },
+    "008": {
+     "mapFeatureId": null,
+     "total": 617,
+     "reporting": null,
+     "votes": {
+      "Nicholas J LaLota": 317,
+      "John P Avlon": 300,
+      "Write-in": 0
+     }
+    },
+    "009": {
+     "mapFeatureId": null,
+     "total": 531,
+     "reporting": null,
+     "votes": {
+      "Nicholas J LaLota": 255,
+      "John P Avlon": 276,
+      "Write-in": 0
+     }
+    },
+    "010": {
+     "mapFeatureId": null,
+     "total": 360,
+     "reporting": null,
+     "votes": {
+      "Nicholas J LaLota": 198,
+      "John P Avlon": 162,
+      "Write-in": 0
+     }
+    },
+    "011": {
+     "mapFeatureId": null,
+     "total": 946,
+     "reporting": null,
+     "votes": {
+      "Nicholas J LaLota": 548,
+      "John P Avlon": 398,
+      "Write-in": 0
+     }
+    },
+    "012": {
+     "mapFeatureId": null,
+     "total": 1458,
+     "reporting": null,
+     "votes": {
+      "Nicholas J LaLota": 749,
+      "John P Avlon": 709,
+      "Write-in": 0
+     }
+    },
+    "013": {
+     "mapFeatureId": null,
+     "total": 824,
+     "reporting": null,
+     "votes": {
+      "Nicholas J LaLota": 476,
+      "John P Avlon": 347,
+      "Write-in": 1
+     }
+    },
+    "014": {
+     "mapFeatureId": null,
+     "total": 1187,
+     "reporting": null,
+     "votes": {
+      "Nicholas J LaLota": 733,
+      "John P Avlon": 453,
+      "Write-in": 1
+     }
+    },
+    "015": {
+     "mapFeatureId": null,
+     "total": 137,
+     "reporting": null,
+     "votes": {
+      "Nicholas J LaLota": 88,
+      "John P Avlon": 49,
+      "Write-in": 0
+     }
+    },
+    "016": {
+     "mapFeatureId": null,
+     "total": 583,
+     "reporting": null,
+     "votes": {
+      "Nicholas J LaLota": 354,
+      "John P Avlon": 229,
+      "Write-in": 0
+     }
+    },
+    "017": {
+     "mapFeatureId": null,
+     "total": 1556,
+     "reporting": null,
+     "votes": {
+      "Nicholas J LaLota": 943,
+      "John P Avlon": 612,
+      "Write-in": 1
+     }
+    },
+    "018": {
+     "mapFeatureId": null,
+     "total": 428,
+     "reporting": null,
+     "votes": {
+      "Nicholas J LaLota": 266,
+      "John P Avlon": 162,
+      "Write-in": 0
+     }
+    },
+    "019": {
+     "mapFeatureId": null,
+     "total": 1204,
+     "reporting": null,
+     "votes": {
+      "Nicholas J LaLota": 776,
+      "John P Avlon": 428,
+      "Write-in": 0
+     }
+    },
+    "020": {
+     "mapFeatureId": null,
+     "total": 1677,
+     "reporting": null,
+     "votes": {
+      "Nicholas J LaLota": 1105,
+      "John P Avlon": 572,
+      "Write-in": 0
+     }
+    },
+    "021": {
+     "mapFeatureId": null,
+     "total": 553,
+     "reporting": null,
+     "votes": {
+      "Nicholas J LaLota": 323,
+      "John P Avlon": 230,
+      "Write-in": 0
+     }
+    },
+    "022": {
+     "mapFeatureId": null,
+     "total": 883,
+     "reporting": null,
+     "votes": {
+      "Nicholas J LaLota": 453,
+      "John P Avlon": 430,
+      "Write-in": 0
+     }
+    }
+   },
+   "url": "https://apps2.suffolkcountyny.gov/boe/eleres/24ge/cd.htm"
+  }
+ ]
+}
