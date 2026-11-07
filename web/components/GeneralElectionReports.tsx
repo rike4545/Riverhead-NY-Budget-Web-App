@@ -29,7 +29,10 @@ export default function GeneralElectionReports({
   liveAt?: string
 }) {
   const summaries = summarizeElectionReports(rows, officials)
-  const onBallot = officials.filter((o) => o.nextElection === GENERAL_2026.date)
+  // The candidates are the officials (not party committees) whose committees filed these reports; a
+  // candidate's next election may already point past this one, to the seat they still hold.
+  const filers = new Set(rows.map((r) => r.filerID))
+  const onBallot = officials.filter((o) => !o.isPartyCommittee && o.filerIDs.some((f) => filers.has(f.filerID)))
 
   return (
     <section
@@ -42,9 +45,14 @@ export default function GeneralElectionReports({
       </h3>
       <p style={{ margin: '6px 0 0', color: 'var(--rbl-text-body)', fontSize: 14, lineHeight: 1.55, maxWidth: '75ch' }}>
         Committees in a general election file three reports with the State: 32 days and 11 days before the election, and 27 days after.
-        On the ballot from this page: {onBallot.map((o) => o.name).join(' and ')}. The two town party committees are shown too.
+        On the ballot from this page: {onBallot.map((o) => o.name.replace(/^Honorable /, '')).join(' and ')}. The two town party committees are shown too.
         {liveAt ? ` Fetched live from data.ny.gov ${liveAt}.` : ` Stored copy from data.ny.gov, ${longDate(asOf)}; Refresh fetches it live.`}
       </p>
+
+      <details style={{ marginTop: 10 }}>
+        <summary style={{ cursor: 'pointer', color: 'var(--rbl-link)', fontWeight: 600, fontSize: 14.5, minHeight: 24, padding: '4px 0' }}>
+          Show the {GENERAL_2026_REPORTS.length} reports, committee by committee
+        </summary>
 
       {GENERAL_2026_REPORTS.map((report) => {
         const filed = summaries.filter((s) => s.report === report.name)
@@ -110,6 +118,7 @@ export default function GeneralElectionReports({
         Contributions or loans over $1,000 received after October 19 and before the election are reported separately within 24 hours (Election Law §14-108) and are not in these reports.
         Source: <a href="https://data.ny.gov/Transparency/Campaign-Finance-Disclosure-Reports-Data-Beginning/e9ss-239a" style={{ color: 'var(--rbl-link)', fontWeight: 600 }}>Campaign Finance Disclosure Reports Data, data.ny.gov</a>.
       </p>
+      </details>
     </section>
   )
 }

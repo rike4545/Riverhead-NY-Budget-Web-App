@@ -7,7 +7,7 @@ import LoadError from './LoadError'
 
 const usd = (n: number) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(n)
 const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 18 } as const
-const th = { padding: '8px 10px', fontWeight: 800, fontSize: 12 } as const
+const th = { padding: '8px 10px', fontWeight: 800, fontSize: 13 } as const
 const td = { padding: '8px 10px' } as const
 
 export default function EmployeeDonorWatch({ officials, startYear, endYear }: { officials: CampaignOfficial[]; startYear: number; endYear: number }) {
@@ -134,16 +134,16 @@ function OfficialSection({ official, matches }: { official: CampaignOfficial; ma
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: 8 }}>
         <div>
           <strong style={{ fontSize: 14, color: 'var(--rbl-title)' }}>{official.name}</strong>
-          <div style={{ color: 'var(--rbl-text-muted)', fontSize: 11.5, marginTop: 2 }}>
+          <div style={{ color: 'var(--rbl-text-muted)', fontSize: 13, marginTop: 2 }}>
             {official.filerIDs.map((f) => f.committeeName).join(' · ')}
           </div>
         </div>
         {hasMatches ? (
-          <span style={{ fontSize: 12, fontWeight: 800, color: 'var(--rbl-warn)', background: 'var(--rbl-warn-bg)', border: '1px solid var(--rbl-warn-border)', borderRadius: 999, padding: '2px 8px', whiteSpace: 'nowrap' }}>
+          <span style={{ fontSize: 13, fontWeight: 800, color: 'var(--rbl-warn)', background: 'var(--rbl-warn-bg)', border: '1px solid var(--rbl-warn-border)', borderRadius: 999, padding: '2px 8px', whiteSpace: 'nowrap' }}>
             {matches.length} {matches.length === 1 ? 'match' : 'matches'} · {distinctEmployees} employee{distinctEmployees === 1 ? '' : 's'} · {usd(total)}
           </span>
         ) : (
-          <span style={{ fontSize: 12, fontWeight: 700, color: 'var(--rbl-success-strong)', background: 'var(--rbl-success-bg)', border: '1px solid var(--rbl-success-border)', borderRadius: 999, padding: '2px 8px' }}>
+          <span style={{ fontSize: 13, fontWeight: 700, color: 'var(--rbl-success-strong)', background: 'var(--rbl-success-bg)', border: '1px solid var(--rbl-success-border)', borderRadius: 999, padding: '2px 8px' }}>
             ✓ No matches
           </span>
         )}
@@ -159,7 +159,7 @@ function OfficialSection({ official, matches }: { official: CampaignOfficial; ma
               <details key={year} open={years.length === 1}>
                 <summary style={{ cursor: 'pointer', listStyle: 'none', padding: '8px 10px', background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 8, display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap', gap: 8 }}>
                   <strong style={{ color: 'var(--rbl-title)', fontSize: 13 }}>{year}</strong>
-                  <span style={{ color: 'var(--rbl-text-muted)', fontSize: 12 }}>
+                  <span style={{ color: 'var(--rbl-text-muted)', fontSize: 13 }}>
                     {yearMatches.length} {yearMatches.length === 1 ? 'contribution' : 'contributions'} · {yearDistinctEmployees} employee{yearDistinctEmployees === 1 ? '' : 's'} · <strong style={{ color: 'var(--rbl-badge)' }}>{usd(yearTotal)}</strong>
                   </span>
                 </summary>
@@ -179,7 +179,7 @@ function OfficialSection({ official, matches }: { official: CampaignOfficial; ma
                           <td style={{ ...td, fontWeight: 700, color: 'var(--rbl-title)' }}>
                             {m.employeeName}
                             {(m.department || m.title) && (
-                              <div style={{ fontWeight: 500, color: 'var(--rbl-text-muted)', fontSize: 11.5 }}>
+                              <div style={{ fontWeight: 500, color: 'var(--rbl-text-muted)', fontSize: 13 }}>
                                 {[m.title, m.department].filter(Boolean).join(', ')} ({m.mostRecentPayrollYear})
                               </div>
                             )}
@@ -187,7 +187,7 @@ function OfficialSection({ official, matches }: { official: CampaignOfficial; ma
                           <td style={td}>
                             {year} {m.filingDesc}
                             {official.filerIDs.length > 1 && (
-                              <div style={{ color: 'var(--rbl-text-muted)', fontSize: 11.5 }}>{m.committeeName}</div>
+                              <div style={{ color: 'var(--rbl-text-muted)', fontSize: 13 }}>{m.committeeName}</div>
                             )}
                           </td>
                           <td style={{ ...td, textAlign: 'right', fontWeight: 700 }}>{usd(m.amount)}</td>
@@ -218,9 +218,9 @@ function CollapsedGroup({ label, suffix, children }: { label: string; suffix: st
           display: 'flex', alignItems: 'center', gap: 6, textAlign: 'left',
         }}
       >
-        <span style={{ fontSize: 12, transition: 'transform 0.15s', transform: open ? 'rotate(90deg)' : 'rotate(0deg)', display: 'inline-block' }}>▶</span>
+        <span style={{ fontSize: 13, transition: 'transform 0.15s', transform: open ? 'rotate(90deg)' : 'rotate(0deg)', display: 'inline-block' }}>▶</span>
         {label}
-        <span style={{ fontWeight: 400, fontSize: 11, color: 'var(--rbl-text-muted)', marginLeft: 2 }}>— {suffix}</span>
+        <span style={{ fontWeight: 400, fontSize: 13, color: 'var(--rbl-text-muted)', marginLeft: 2 }}>— {suffix}</span>
       </button>
       {open && <div style={{ display: 'grid', gap: 6, marginTop: 8 }}>{children}</div>}
     </div>

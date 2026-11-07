@@ -85,6 +85,9 @@ else {
   const table = html.slice(html.indexOf('Every committee at a glance'), html.indexOf('id="candidate-records"'))
   if (!table.includes('Every committee at a glance')) fail('the page has no summary table')
   for (const o of officials) if (!table.includes(usd(o.seedRaised))) fail(`the summary table does not show ${o.name}'s ${usd(o.seedRaised)}`)
+  // The 2026 reports name every official whose committee filed them, whatever their next election.
+  const ballot = html.slice(html.indexOf('On the ballot from this page:'), html.indexOf('On the ballot from this page:') + 200)
+  for (const name of ['Jerome Halpin', 'Kenneth Rothwell']) if (!ballot.includes(name)) fail(`the 2026 reports do not name ${name} as on the ballot`)
   // Terms: a next term still waiting on certification says so on the card.
   for (const o of officials.filter((x) => x.nextTermStarts)) {
     if (!html.includes('Next term:')) fail(`${o.name}'s card does not show the next term`)

@@ -67,7 +67,7 @@ export default function CampaignSummaryTable({
                 <td data-label={columns[4]} style={num}>
                   <span>
                     {money(o.seedOwed)}
-                    {o.seedOwedReport && <span style={{ display: 'block', color: 'var(--rbl-text-muted)', fontSize: 12 }}>{o.seedOwedReport}</span>}
+                    {o.seedOwedReport && <span style={{ display: 'block', color: 'var(--rbl-text-muted)', fontSize: 13 }}>{o.seedOwedReport}</span>}
                   </span>
                 </td>
                 <td data-label={columns[5]} style={num}>{longDate(o.seedLastReported)}</td>
