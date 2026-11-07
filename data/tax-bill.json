@@ -1,7 +1,7 @@
 {
  "title": "My tax bill — what would I actually pay?",
  "asOf": "2026",
- "intro": "Estimate the Town's portion of your property-tax bill using the Town's own published 2026 rate table. This covers only the Town — county, school, fire, and library taxes are billed separately and aren't included here.",
+ "intro": "Estimate the Town's portion of your property-tax bill at the 2025 and 2026 adopted rates and the proposed 2027 rate, from the Town's own budget books. This covers only the Town: county, school, fire and library taxes are billed separately.",
  "rateSource": {
   "title": "2026 Adopted Budget",
   "url": "https://www.townofriverheadny.gov/DocumentCenter/View/2967/2026-Adopted-Budget",
@@ -16,7 +16,7 @@
  "rates2025": {
   "generalFund": 57.503,
   "highway": 8.538,
-  "streetLighting": 0.990,
+  "streetLighting": 0.99,
   "totalTownWide": 67.031
  },
  "equalization": {
