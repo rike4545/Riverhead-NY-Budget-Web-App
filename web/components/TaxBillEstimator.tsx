@@ -1,140 +1,206 @@
 'use client'
 
-import { useState } from 'react'
+import { useId, useState } from 'react'
 import { assessedFromMarketValue, estimateTaxBill, type TaxRates } from '../lib/tax-bill'
 
 const usd = (n: number) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(n)
 const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 20 } as const
+const group = (n: number) => Math.round(n).toLocaleString('en-US')
+const parse = (s: string) => {
+  const n = Number(s.replace(/[^0-9.]/g, ''))
+  return Number.isFinite(n) ? n : 0
+}
 
+/**
+ * The Town portion of a property-tax bill, for one property, under each year's
+ * Town-wide rates. Exemptions here are only those that lower the Town's
+ * taxable value (veterans', seniors', disability); STAR lowers school taxes
+ * only, so it is not an input.
+ */
 export default function TaxBillEstimator({
   rates2026,
   rates2025,
   rates2027Proposal,
   proposalLabel = '2027 proposal',
   residentialAssessmentRatio,
+  medianAssessed,
 }: {
   rates2026: TaxRates
   rates2025: TaxRates
   rates2027Proposal?: TaxRates
   proposalLabel?: string
   residentialAssessmentRatio: number
+  /** The median one-family home's assessed value on the latest final roll, for the quick-fill button. */
+  medianAssessed?: number
 }) {
+  const id = useId()
   const [inputMode, setInputMode] = useState<'assessed' | 'market'>('assessed')
-  const [assessedValue, setAssessedValue] = useState(45000)
-  const [marketValue, setMarketValue] = useState(550000)
-  const [starReduction, setStarReduction] = useState(0)
+  const [assessedText, setAssessedText] = useState(group(medianAssessed ?? 45000))
+  const [marketText, setMarketText] = useState('600,000')
+  const [exemptText, setExemptText] = useState('0')
 
+  const assessedValue = parse(assessedText)
+  const marketValue = parse(marketText)
+  const exemption = parse(exemptText)
   const effectiveAssessed = inputMode === 'assessed' ? assessedValue : assessedFromMarketValue(marketValue, residentialAssessmentRatio)
-  const estimate2026 = estimateTaxBill(effectiveAssessed, starReduction, rates2026)
-  const estimate2025 = estimateTaxBill(effectiveAssessed, starReduction, rates2025)
-  const estimate2027Proposal = rates2027Proposal ? estimateTaxBill(effectiveAssessed, starReduction, rates2027Proposal) : null
-  const diff = estimate2026.total - estimate2025.total
+  const e2025 = estimateTaxBill(effectiveAssessed, exemption, rates2025)
+  const e2026 = estimateTaxBill(effectiveAssessed, exemption, rates2026)
+  const e2027 = rates2027Proposal ? estimateTaxBill(effectiveAssessed, exemption, rates2027Proposal) : null
+  const latest = e2027 ?? e2026
+  const change = e2027 ? e2027.total - e2026.total : e2026.total - e2025.total
+  const changeBase = e2027 ? e2026.total : e2025.total
+  const years = [
+    { label: '2025 adopted', value: e2025.total },
+    { label: '2026 adopted', value: e2026.total },
+    ...(e2027 ? [{ label: proposalLabel.replace(' Budget', ''), value: e2027.total, proposal: true }] : []),
+  ]
+  const max = Math.max(...years.map((y) => y.value), 1)
+  const funds: { label: string; key: keyof TaxRates }[] = [
+    { label: 'General Fund', key: 'generalFund' },
+    { label: 'Highway Fund', key: 'highway' },
+    { label: 'Street Lighting', key: 'streetLighting' },
+  ]
 
   return (
     <div style={card}>
-      <div style={{ display: 'flex', gap: 8, marginBottom: 14 }}>
-        <ModeButton active={inputMode === 'assessed'} onClick={() => setInputMode('assessed')} label="I know my assessed value" />
-        <ModeButton active={inputMode === 'market'} onClick={() => setInputMode('market')} label="I only know my home’s market value" />
-      </div>
+      <h2 style={{ margin: '0 0 12px', fontSize: 21, color: 'var(--rbl-title)' }}>Estimate your Town taxes</h2>
+
+      <fieldset style={{ border: 0, padding: 0, margin: '0 0 14px' }}>
+        <legend style={{ fontWeight: 700, color: 'var(--rbl-title)', fontSize: 14.5, marginBottom: 8 }}>1. What do you know about your property?</legend>
+        <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+          <ModeButton active={inputMode === 'assessed'} onClick={() => setInputMode('assessed')} label="Its assessed value (on my tax bill)" />
+          <ModeButton active={inputMode === 'market'} onClick={() => setInputMode('market')} label="Only its market value" />
+        </div>
+      </fieldset>
 
       {inputMode === 'assessed' ? (
-        <Field label="Assessed value" value={usd(assessedValue)} hint="Use the assessed value printed on your tax bill or assessment notice.">
-          <input
-            type="range"
-            min={5000}
-            max={300000}
-            step={1000}
-            value={assessedValue}
-            onChange={(e) => setAssessedValue(Number(e.target.value))}
-            style={{ width: '100%', accentColor: 'var(--rbl-series-blue)' }}
-          />
-        </Field>
-      ) : (
-        <Field
-          label="Market value"
-          value={usd(marketValue)}
-          hint={`Converted to an estimated assessed value of ${usd(effectiveAssessed)} using Riverhead's ${residentialAssessmentRatio}% residential assessment ratio — an approximation, not exact.`}
+        <MoneyField
+          id={`${id}-assessed`}
+          label="2. Assessed value"
+          value={assessedText}
+          onChange={setAssessedText}
+          hint="Printed on your tax bill or assessment notice as “assessed value” or “total assessment.” In Riverhead it is a small number, usually $20,000 to $100,000, because the Town assesses at a fraction of market value."
         >
-          <input
-            type="range"
-            min={200000}
-            max={1500000}
-            step={10000}
-            value={marketValue}
-            onChange={(e) => setMarketValue(Number(e.target.value))}
-            style={{ width: '100%', accentColor: 'var(--rbl-series-blue)' }}
-          />
-        </Field>
+          {medianAssessed ? (
+            <button type="button" onClick={() => setAssessedText(group(medianAssessed))} style={chip}>
+              Use the median one-family home: {usd(medianAssessed)}
+            </button>
+          ) : null}
+        </MoneyField>
+      ) : (
+        <MoneyField
+          id={`${id}-market`}
+          label="2. Market value"
+          value={marketText}
+          onChange={setMarketText}
+          hint={`Converted to an assessed value of about ${usd(effectiveAssessed)} using the Town's ${residentialAssessmentRatio}% residential assessment ratio. This is an approximation; your bill's assessed value gives an exact answer.`}
+        />
       )}
 
       <div style={{ marginTop: 14 }}>
-        <Field label="STAR assessed-value reduction (if any)" value={usd(starReduction)} hint="If your bill lists a STAR reduction, enter that amount. It varies by school district and year, so this calculator does not assume one.">
-          <input
-            type="range"
-            min={0}
-            max={30000}
-            step={500}
-            value={starReduction}
-            onChange={(e) => setStarReduction(Number(e.target.value))}
-            style={{ width: '100%', accentColor: 'var(--rbl-series-blue)' }}
-          />
-        </Field>
+        <MoneyField
+          id={`${id}-exempt`}
+          label="3. Exemptions that lower Town taxes (optional)"
+          value={exemptText}
+          onChange={setExemptText}
+          hint="The assessed value your bill exempts from the Town tax: veterans’, senior citizens’ or disability exemptions. Leave STAR out: it lowers school taxes only and does not change the Town portion."
+        />
       </div>
 
       <hr style={{ border: 'none', borderTop: '1px solid var(--rbl-border-subtle)', margin: '18px 0' }} />
 
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', gap: 12, flexWrap: 'wrap' }}>
-        <span style={{ color: 'var(--rbl-title)', fontWeight: 800 }}>Estimated 2026 Town taxes</span>
-        <strong style={{ fontSize: 28, color: 'var(--rbl-title)' }}>{usd(estimate2026.total)}</strong>
-      </div>
-      {estimate2027Proposal && (
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', gap: 12, flexWrap: 'wrap', marginTop: 12, padding: 12, borderRadius: 10, background: 'var(--rbl-info-bg)', border: '1px solid var(--rbl-border-subtle)' }}>
-          <div>
-            <div style={{ color: 'var(--rbl-title)', fontWeight: 850 }}>Estimated Town taxes using the {proposalLabel} rate</div>
-            <div style={{ color: 'var(--rbl-text-muted)', fontSize: 12.5, marginTop: 3 }}>This is an illustrative estimate only: it applies the rate in the proposal to your current inputs. The rate is not final, and this is not a tax bill.</div>
-          </div>
-          <strong style={{ fontSize: 24, color: 'var(--rbl-title)' }}>{usd(estimate2027Proposal.total)}</strong>
+      <div aria-live="polite">
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', gap: 12, flexWrap: 'wrap' }}>
+          <span style={{ color: 'var(--rbl-title)', fontWeight: 700 }}>
+            {e2027 ? `Town taxes at the ${proposalLabel} rate` : 'Estimated 2026 Town taxes'}
+          </span>
+          <strong style={{ fontSize: 30, color: 'var(--rbl-title)' }}>{usd(latest.total)}</strong>
         </div>
-      )}
-      <div style={{ display: 'flex', justifyContent: 'space-between', color: 'var(--rbl-text-muted)', fontSize: 13.5, marginTop: 4 }}>
-        <span>2025 (for comparison)</span>
-        <span>{usd(estimate2025.total)}</span>
-      </div>
-      <div style={{ display: 'flex', justifyContent: 'space-between', fontWeight: 800, marginTop: 6 }}>
-        <span>Change vs. 2025</span>
-        <span style={{ color: diff >= 0 ? 'var(--rbl-danger)' : 'var(--rbl-success-strong)' }}>
-          {diff >= 0 ? '+' : ''}
-          {usd(diff)}
-        </span>
+        <p style={{ margin: '6px 0 0', color: 'var(--rbl-text-body)', fontSize: 15.5, lineHeight: 1.5 }}>
+          That is {change >= 0 ? 'up' : 'down'} <strong>{usd(Math.abs(change))}</strong>
+          {changeBase > 0 ? ` (${((change / changeBase) * 100).toFixed(1)}%)` : ''} from {e2027 ? '2026' : '2025'}, or about{' '}
+          {usd(latest.total / 12)} a month.
+          {e2027 ? ' This is an illustrative estimate: it applies the proposed rate to your inputs. The rate is not final until the Town Board adopts the budget, and this is not a tax bill.' : ''}
+        </p>
       </div>
 
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))', gap: 10, marginTop: 16 }}>
-        <Mini label="General Fund" value={usd(estimate2026.generalFund)} />
-        <Mini label="Highway Fund" value={usd(estimate2026.highway)} />
-        <Mini label="Street Lighting" value={usd(estimate2026.streetLighting)} />
+      <figure style={{ margin: '16px 0 0' }}>
+        <figcaption style={{ fontSize: 14, fontWeight: 700, color: 'var(--rbl-text-strong)', marginBottom: 8 }}>Your Town taxes, year by year</figcaption>
+        <div style={{ display: 'grid', gap: 8 }}>
+          {years.map((y) => (
+            <div key={y.label} style={{ display: 'grid', gridTemplateColumns: 'minmax(92px, 150px) minmax(0, 1fr) auto', gap: 10, alignItems: 'center' }}>
+              <span style={{ fontSize: 13.5, color: 'var(--rbl-text-strong)', fontWeight: 600 }}>{y.label}</span>
+              <div aria-hidden="true" style={{ background: 'var(--rbl-track)', borderRadius: 5, height: 12, overflow: 'hidden' }}>
+                <div style={{ width: `${(y.value / max) * 100}%`, height: '100%', borderRadius: 5, background: 'proposal' in y ? 'var(--rbl-series-gold)' : 'var(--rbl-series-blue)' }} />
+              </div>
+              <span style={{ fontSize: 14, fontWeight: 700, color: 'var(--rbl-title)', minWidth: 64, textAlign: 'right' }}>{usd(y.value)}</span>
+            </div>
+          ))}
+        </div>
+      </figure>
+
+      <div style={{ overflowX: 'auto', marginTop: 16 }}>
+        <table className="rbl-stack" style={{ width: '100%', borderCollapse: 'collapse', fontSize: 14.5 }}>
+          <caption style={{ textAlign: 'left', fontSize: 14, fontWeight: 700, color: 'var(--rbl-text-strong)', paddingBottom: 6 }}>By fund</caption>
+          <thead>
+            <tr style={{ borderBottom: '1px solid var(--rbl-border)' }}>
+              <th scope="col" style={th}>Fund</th>
+              <th scope="col" style={{ ...th, textAlign: 'right' }}>2026</th>
+              {e2027 ? <th scope="col" style={{ ...th, textAlign: 'right' }}>{proposalLabel.replace(' Budget', '')}</th> : null}
+              {e2027 ? <th scope="col" style={{ ...th, textAlign: 'right' }}>Change</th> : null}
+            </tr>
+          </thead>
+          <tbody>
+            {funds.map((f) => (
+              <tr key={f.key} style={{ borderBottom: '1px solid var(--rbl-border-subtle)' }}>
+                <th scope="row" style={{ ...td, textAlign: 'left', fontWeight: 600 }}>{f.label}</th>
+                <td data-label="2026" style={{ ...td, textAlign: 'right' }}>{usd(e2026[f.key as keyof typeof e2026])}</td>
+                {e2027 ? <td data-label={proposalLabel} style={{ ...td, textAlign: 'right' }}>{usd(e2027[f.key as keyof typeof e2027])}</td> : null}
+                {e2027 ? <td data-label="Change" style={{ ...td, textAlign: 'right' }}>{signed(e2027[f.key as keyof typeof e2027] - e2026[f.key as keyof typeof e2026])}</td> : null}
+              </tr>
+            ))}
+            <tr>
+              <th scope="row" style={{ ...td, textAlign: 'left', fontWeight: 700 }}>Town total</th>
+              <td data-label="2026" style={{ ...td, textAlign: 'right', fontWeight: 700 }}>{usd(e2026.total)}</td>
+              {e2027 ? <td data-label={proposalLabel} style={{ ...td, textAlign: 'right', fontWeight: 700 }}>{usd(e2027.total)}</td> : null}
+              {e2027 ? <td data-label="Change" style={{ ...td, textAlign: 'right', fontWeight: 700 }}>{signed(e2027.total - e2026.total)}</td> : null}
+            </tr>
+          </tbody>
+        </table>
       </div>
 
-      <p style={{ color: 'var(--rbl-text-muted)', fontSize: 13, lineHeight: 1.5, marginTop: 16 }}>
-        This estimate covers Town taxes only. County, school district, fire district, and library taxes are separate line
-        items on your actual tax bill and aren&apos;t estimated here.
+      <p style={{ color: 'var(--rbl-text-muted)', fontSize: 13.5, lineHeight: 1.5, marginTop: 14 }}>
+        Town taxes only, at the Town-wide rates. County, school district, fire, library and other special-district taxes are separate
+        lines on your bill and are not estimated here.
       </p>
     </div>
   )
 }
 
+const th = { padding: '7px 8px', fontSize: 13, color: 'var(--rbl-text-muted)', fontWeight: 600, textAlign: 'left' } as const
+const td = { padding: '7px 8px' } as const
+const chip = {
+  marginTop: 8, minHeight: 32, padding: '5px 12px', borderRadius: 999, border: '1px solid var(--rbl-border)',
+  background: 'var(--rbl-surface-2)', color: 'var(--rbl-link)', fontWeight: 600, fontSize: 13.5, cursor: 'pointer',
+} as const
+const signed = (n: number) => `${n >= 0 ? '+' : '−'}${usd(Math.abs(n))}`
+
 function ModeButton({ active, onClick, label }: { active: boolean; onClick: () => void; label: string }) {
   return (
     <button
+      type="button"
+      aria-pressed={active}
       onClick={onClick}
       style={{
-        flex: 1,
-        padding: '10px 12px',
+        flex: '1 1 200px',
+        minHeight: 40,
+        padding: '8px 12px',
         borderRadius: 8,
         border: active ? '1px solid var(--rbl-accent-border)' : '1px solid var(--rbl-border-subtle)',
         background: active ? 'var(--rbl-fill-accent)' : 'var(--rbl-surface)',
         color: active ? 'white' : 'var(--rbl-title)',
-        fontWeight: 800,
-        fontSize: 13.5,
+        fontWeight: 700,
+        fontSize: 14,
         cursor: 'pointer',
       }}
     >
@@ -143,24 +209,27 @@ function ModeButton({ active, onClick, label }: { active: boolean; onClick: () =
   )
 }
 
-function Field({ label, value, hint, children }: { label: string; value: string; hint: string; children: React.ReactNode }) {
+function MoneyField({ id, label, value, onChange, hint, children }: {
+  id: string; label: string; value: string; onChange: (v: string) => void; hint: string; children?: React.ReactNode
+}) {
   return (
     <div>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline' }}>
-        <span style={{ fontWeight: 800, color: 'var(--rbl-title)', fontSize: 14.5 }}>{label}</span>
-        <span style={{ fontWeight: 800, color: 'var(--rbl-accent)', fontSize: 14 }}>{value}</span>
+      <label htmlFor={id} style={{ display: 'block', fontWeight: 700, color: 'var(--rbl-title)', fontSize: 14.5, marginBottom: 6 }}>{label}</label>
+      <div style={{ display: 'flex', alignItems: 'center', border: '1px solid var(--rbl-border)', borderRadius: 8, background: 'var(--rbl-surface)', maxWidth: 260 }}>
+        <span aria-hidden="true" style={{ padding: '0 4px 0 12px', color: 'var(--rbl-text-muted)', fontWeight: 600 }}>$</span>
+        <input
+          id={id}
+          type="text"
+          inputMode="numeric"
+          autoComplete="off"
+          value={value}
+          onChange={(e) => { const digits = e.target.value.replace(/[^0-9]/g, ''); onChange(digits ? group(Number(digits)) : '') }}
+          aria-describedby={`${id}-hint`}
+          style={{ flex: 1, minWidth: 0, minHeight: 40, border: 0, background: 'transparent', color: 'var(--rbl-text-strong)', fontSize: 17, fontWeight: 600, padding: '6px 10px 6px 0' }}
+        />
       </div>
       {children}
-      <div style={{ color: 'var(--rbl-text-muted)', fontSize: 12, lineHeight: 1.4, marginTop: 4 }}>{hint}</div>
-    </div>
-  )
-}
-
-function Mini({ label, value }: { label: string; value: string }) {
-  return (
-    <div style={{ background: 'var(--rbl-surface-2)', borderRadius: 10, padding: 10 }}>
-      <div style={{ color: 'var(--rbl-text-muted)', fontSize: 13, fontWeight: 700 }}>{label}</div>
-      <div style={{ fontWeight: 800, marginTop: 2, color: 'var(--rbl-title)' }}>{value}</div>
+      <div id={`${id}-hint`} style={{ color: 'var(--rbl-text-muted)', fontSize: 13, lineHeight: 1.45, marginTop: 6, maxWidth: '68ch' }}>{hint}</div>
     </div>
   )
 }
