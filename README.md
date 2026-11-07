@@ -117,6 +117,16 @@ requires the five East End towns to share. The page quotes:
 It also explains the home rule rule and shows what Riverhead's share of a
 bill could be.
 
+### 🗺️ Election map — `/election-map`
+Riverhead's 22 election districts on the County's own boundaries, colored by
+how each voted in ten contests from the 2026 and 2025 general elections:
+Supervisor, Town Council, Highway Superintendent, Assessor, County Legislator,
+Governor, Congress, State Senate and Assembly. It can show who led, one
+candidate's share or the votes cast, and two comparisons: Halpin from 2025 to
+2026, and Halpin against Hochul on the same 2026 ballots. Every figure is in
+a table under the map. The 2025 counts are the County's election-night figures,
+so the page gives the certified totals beside them.
+
 ### Also this month
 - **Meeting schedule** (since October 29): when the Town's website does not
   answer, the meeting refresh keeps the last published schedule and hearings
@@ -393,6 +403,7 @@ The four links at the front of the site menu:
 - **Election Law Case** (`/election-law-case`): what the Town spent fighting New York's even-year election law.
 - **Legal Costs** (`/legal-costs`): outside lawyers, the Town Attorney's office and claims, 2018 to the 2027 Preliminary, and the Board's votes on counsel and settlements.
 - **Regional CPF Counsel** (`/regional-cpf-counsel`): the regional Community Preservation Fund attorney the 2024 state law requires, the contract the Board tabled, and the home rule question.
+- **Election Map** (`/election-map`): Riverhead's 22 election districts, colored by who led, a candidate's share or the votes cast, in ten 2026 and 2025 contests, with two comparison maps.
 - **Officials on Social Media** (`/official-social-media`): when an official's account counts as government speech.
 - **Know Your Rights (ICE)** (`/know-your-rights`): your rights if immigration agents come, and New York's 2026 protections.
 
@@ -524,7 +535,7 @@ The site keeps itself current. Six GitHub Actions workflows do the work
 | Workflow | When | What it does |
 | --- | --- | --- |
 | **Deploy GitHub Pages** (`deploy-pages.yml`) | Every push to `main`, and on demand | Re-parses every financial-report PDF, rebuilds the budget-stage, General Fund history, adoption, department-request and CPF datasets, the search index and the freshness stamp, then commits any data that changed. It then typechecks, builds, adds the Content-Security-Policy, verifies the output and deploys, waits for the new build to go live, and checks that key pages and data files load. A failed check stops the deploy, and the live site keeps its last good build. |
-| **Parse Financial Reports** (`parse-financial-reports.yml`) | Mondays 09:00; daily at 09:00 and 22:00 in September–November | The full pipeline: meetings, financial reports, line items, budget history and stages, General Fund history, AFR actuals, Supplements, votes and fiscal impact, salaries and payroll, the 2027 projection, the buyout, police and crime, road spending, the 2026 General Election campaign-finance reports and committee totals, search, CSVs and freshness. Commits the results and redeploys. |
+| **Parse Financial Reports** (`parse-financial-reports.yml`) | Mondays 09:00; daily at 09:00 and 22:00 in September–November | The full pipeline: meetings, financial reports, line items, budget history and stages, General Fund history, AFR actuals, Supplements, votes and fiscal impact, salaries and payroll, the 2027 projection, the buyout, police and crime, road spending, the 2026 General Election campaign-finance reports and committee totals, the election-district map, search, CSVs and freshness. Commits the results and redeploys. |
 | **Sync Town Board Meetings** (`sync-meetings.yml`) | Twice a day, 12:30 and 23:30 | Re-checks CivicClerk minutes and agenda packets and the upcoming-meeting schedule. Re-parses votes, falls back to the agenda packet when the minutes omit them, and reconciles each meeting against its official sources. Refreshes each meeting's video and transcript links. Redeploys when anything changed. |
 | **Transcribe Town Board Meetings** (`transcribe-meetings.yml`) | Daily at 14:07, and on demand | Transcribes up to three meeting videos a run, newest first, with faster-whisper on the runner's CPU (about 15 minutes for a two-hour meeting). It finds the moment each resolution is read out, and finds them again in saved transcripts when a meeting's record changes. It checks the results, commits them and redeploys. |
 | **Watch for budget releases** (`watch-budget-release.yml`) | Every 15 minutes, Sept 24–Oct 6; every 30 minutes, Nov 1–21 | Checks the Town's Financial Reports page for a budget document the site hasn't parsed yet, and starts a deploy the moment one appears. The check itself downloads nothing. It skips while a deploy is already running and limits how often it can start one. |
@@ -544,7 +555,7 @@ Every page shows when its data was last refreshed.
 | `parse_budget_requests.py` | What each department asked for, against what the budget officer recommended |
 | `parse_general_fund.py` | The long-run General Fund history, adding each newly adopted year from the budget-stage data |
 | `parse_preliminary_lines.py` | Every expenditure and revenue account in the 2027 Preliminary Budget book (adopted, request, Tentative and Preliminary columns), tied to the Preliminary and Tentative Summary fund by fund. Writes `budget-2027-preliminary-lines.json`; `parse_supplement_history.py` then lays the Preliminary beside each Supplement line, and `verify-budget-amendments.mjs` checks the book against the six October 20 resolutions |
-| `parse_budget_supplement.py` / `parse_supplement_history.py` | Every Budget Supplement line, classified, with its multi-year history. The history script reads all eight committed Supplements (2020–2027) for every fund, expenditure and revenue, and writes the newest Supplement's lines, outliers and run-rate trims; `scripts/verify-supplement.mjs` checks its figures against a second reading of the same PDFs |
+| `parse_budget_supplement.py` / `parse_supplement_history.py` | Every Budget Supplement line, classified, with its multi-year history. The history script reads all eight committed Supplements (2020–2027) for every fund, expenditure and revenue, and writes the newest Supplement's lines, outliers and run-rate trims; `scripts/verify-supplement.mjs` checks its figures against a second reading of the same PDFs. `/legal-costs/` reads the Town Attorney's and every legal-services account from this history; `scripts/verify-legal-costs.mjs` rebuilds its four groups from `line-history.json` and fails if a legal account that spent money is left out |
 | `parse_afr.py` | Actual year-end results for all 14 AFR funds |
 | `parse_cpf.py` | Peconic Bay Community Preservation Fund results |
 | `fetch_meetings.py` / `fetch_upcoming.py` / `fetch_vote_packets.py` | Meeting minutes, the upcoming schedule, and agenda packets when the minutes omit votes |
@@ -561,6 +572,7 @@ Every page shows when its data was last refreshed.
 | `parse_police_crime.py` | Police spending next to reported Index crime. The State's figures are fetched at most weekly; if data.ny.gov cannot be reached, they stay as last fetched and the run shows a warning |
 | `build_campaign_reports.py` | Each committee's 2026 General Election reports from data.ny.gov, by report and schedule. If data.ny.gov cannot be reached, the last copy stays and the run shows a warning |
 | `build_campaign_totals.py` | Each committee's stored figures on `/campaign-finance/`: what it raised, refunded and borrowed, its in-kind gifts, and what it owed at its latest report. It writes `campaign-finance-totals.json` and never the hand-typed `campaign-finance.json`. The rules match the page's live Refresh: money moved between one official's own committees is not counted twice. If data.ny.gov cannot be reached, the last figures stay |
+| `build_election_map.py` | Riverhead's 22 election-district boundaries from the County GIS (`riverhead-districts.json`) and each district's votes in the 2026 and 2025 general elections from the Board of Elections' results site (`riverhead-map.json`), for `/election-map/`. A candidate on several party lines is counted once. If either source cannot be reached, its file stays as it was |
 | `build_contract_awards.py` | The `/contracts/` list of bid awards and agreements, from freshly downloaded agenda packets |
 | `parse_road_spending.py` | Highway spending per maintained mile for the ten Suffolk towns, from State Comptroller filings and NYSDOT's road inventory |
 | `build_search_index.py` | The sharded search index |
