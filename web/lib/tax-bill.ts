@@ -27,8 +27,13 @@ export type TaxBillEstimate = {
   total: number
 }
 
-export function estimateTaxBill(assessedValue: number, starReduction: number, rates: TaxRates): TaxBillEstimate {
-  const taxable = Math.max(assessedValue - starReduction, 0) / 1000
+/**
+ * `townExemption` is assessed value exempt from the Town tax (veterans', seniors',
+ * disability). STAR is not one: it lowers school taxable value only, as the
+ * 2026 final roll's exemption summary shows (no Town amount for codes 41834, 41854).
+ */
+export function estimateTaxBill(assessedValue: number, townExemption: number, rates: TaxRates): TaxBillEstimate {
+  const taxable = Math.max(assessedValue - townExemption, 0) / 1000
   return {
     generalFund: taxable * rates.generalFund,
     highway: taxable * rates.highway,
