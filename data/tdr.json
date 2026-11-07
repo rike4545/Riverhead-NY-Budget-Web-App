@@ -1,0 +1,230 @@
+{
+ "note": "Hand-curated from the Town's own documents. Each figure names the document and page it is quoted from. Checked by web/scripts/verify-tdr.mjs.",
+ "code": {
+  "title": "Riverhead Town Code, Chapter 301, Article XLII, Transfer of Development Rights (eCode360)",
+  "url": "https://ecode360.com/29712487",
+  "adopted": "Added 8-7-2018 by L.L. No. 15-2018; § 301-208 amended 12-17-2024 by L.L. No. 43-2024"
+ },
+ "sources": {
+  "tb20261020": {
+   "title": "Town Board agenda packet, October 20, 2026 (Golf Course zoning Draft Generic Environmental Impact Statement, with § 301-208 in Appendix 1.2.C)",
+   "url": "https://riverheadny.portal.civicclerk.com/event/6456/files/agenda/12495"
+  },
+  "pb20261015": {
+   "title": "Planning Board agenda packet, October 15, 2026 (Walmart Riverhead Expansion staff report and site plan)",
+   "url": "https://riverheadny.portal.civicclerk.com/event/6534/files/agenda/12465"
+  },
+  "tdr2004": {
+   "title": "Town of Riverhead, Proposed Transfer of Development Rights Map and Text (2004)",
+   "url": "https://www.townofriverheadny.gov/DocumentCenter/View/914/Proposed-Transfer-of-Development-Rights-Map-and-Text-PDF"
+  },
+  "cpu2024": {
+   "title": "2024 Adopted Town of Riverhead Comprehensive Plan Update",
+   "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3243"
+  }
+ },
+ "sending": {
+  "district": "Agricultural Protection Zone (APZ)",
+  "yield": "one (1) right per 43,560 square feet of real property",
+  "squareFeetPerCredit": 43560,
+  "source": "tdr2004",
+  "where": "§ 108-304 and § 108-307, pages 2 and 4",
+  "exclusions": [
+   "land whose development rights have already been sold or transferred",
+   "land under easements, rights of way or other recorded encumbrances",
+   "land already built on with homes, farm buildings or other improvements, including golf courses"
+  ],
+  "dgeisCheck": "If the six (6) proposed golf courses ... at a TDR redemption rate of 1,200 square feet per TDR, the result would be 54 acres.",
+  "dgeisCheckWhere": "tb20261020, page 179"
+ },
+ "price": {
+  "perCredit": 80000,
+  "quote": "approximately $80,000 per TDR credit, based on a recent contract of sale for an existing TDR Certificate, Certificate No. 15.01",
+  "source": "tb20261020",
+  "where": "page 178"
+ },
+ "receiving": [
+  {
+   "code": "BC",
+   "name": "Business Center",
+   "kind": "floor",
+   "squareFeetPerCredit": 3000,
+   "maxFar": 0.3
+  },
+  {
+   "code": "SC",
+   "name": "Shopping Center",
+   "kind": "floor",
+   "squareFeetPerCredit": 3000,
+   "maxFar": 0.3
+  },
+  {
+   "code": "DRC",
+   "name": "Destination Retail Center (Route 58)",
+   "kind": "floor",
+   "squareFeetPerCredit": 3000,
+   "maxFar": 0.3
+  },
+  {
+   "code": "BF",
+   "name": "Business F",
+   "kind": "floor",
+   "squareFeetPerCredit": 3000,
+   "maxFar": 0.3
+  },
+  {
+   "code": "PRP",
+   "name": "Planned Recreational Park",
+   "kind": "floor",
+   "squareFeetPerCredit": 1500,
+   "maxFar": 0.2
+  },
+  {
+   "code": "CI",
+   "name": "Calverton Industrial",
+   "kind": "floor",
+   "squareFeetPerCredit": 5000,
+   "maxFar": 0.3
+  },
+  {
+   "code": "RA80",
+   "name": "Residence A-80",
+   "kind": "homes",
+   "rule": "more lots, up to one lot per 40,000 square feet"
+  },
+  {
+   "code": "RA40",
+   "name": "Residence A-40",
+   "kind": "homes",
+   "rule": "more lots, up to one lot per 20,000 square feet"
+  },
+  {
+   "code": "HR",
+   "name": "Hamlet Residential",
+   "kind": "homes",
+   "rule": "more lots, up to one lot per 40,000 square feet"
+  },
+  {
+   "code": "RC",
+   "name": "Retirement Community",
+   "kind": "homes",
+   "rule": "one more home per credit, up to four per 40,000 square feet"
+  },
+  {
+   "code": "CRC",
+   "name": "Commercial/Residential Campus",
+   "kind": "homes",
+   "rule": "one credit for the second home of a two-family house on 40,000 square feet"
+  }
+ ],
+ "receivingSource": "tb20261020",
+ "receivingWhere": "Appendix 1.2.C, pages 732 to 734, downloaded by the Planning Department from eCode360 on 2026-04-22",
+ "proposed": {
+  "code": "GC",
+  "name": "Golf Course (proposed)",
+  "squareFeetPerCredit": 1200,
+  "history": "The 2024 Comprehensive Plan Update recommended one TDR per golf cottage of up to 600 square feet. At the Town Board's request the draft was changed to 1,200 square feet per credit, which the DGEIS says is \"effectively cutting the TDR redemption rate recommended by the 2024 CPU in half.\"",
+  "source": "tb20261020",
+  "where": "pages 178 and 179"
+ },
+ "rateChange": {
+  "before": {
+   "date": "2005-04-19",
+   "squareFeetPerCredit": 1500
+  },
+  "after": {
+   "date": "2024-12-17",
+   "squareFeetPerCredit": 3000
+  },
+  "quote": "DATED 04/19/05; 1 TDR CREDIT EQUATES TO 1,500 SF OF BUILDING AREA ... DATED 12/17/24; 1 TDR CREDIT EQUATES TO 3,000 SF OF BUILDING AREA",
+  "source": "pb20261015",
+  "where": "site plan, site analysis table"
+ },
+ "walmart": {
+  "address": "1890 Old Country Road",
+  "zoning": "Destination Retail Center (DRC)",
+  "acres": 20.722,
+  "lotSquareFeet": 902668,
+  "expansionSquareFeet": 26835,
+  "baseCoverageShare": 0.15,
+  "baseSquareFeet": 135400.2,
+  "maxWithCreditsSquareFeet": 270794.7,
+  "existingBuildingSquareFeet": 201992,
+  "approvedBuildingSquareFeet": 200047,
+  "proposedBuildingSquareFeet": 209392,
+  "liquorStoreSquareFeet": 1945,
+  "additionalSquareFeet": 9345,
+  "calculation": [
+   {
+    "label": "Allowed without credits: 15% of the lot",
+    "squareFeet": 135400.2,
+    "perCredit": 1500,
+    "credits": -90.267
+   },
+   {
+    "label": "Building area now",
+    "squareFeet": 201992,
+    "perCredit": 1500,
+    "credits": 134.661
+   },
+   {
+    "label": "Approved liquor-store expansion, moved into the Walmart addition",
+    "squareFeet": 1945,
+    "perCredit": 1500,
+    "credits": -1.297
+   },
+   {
+    "label": "New building area (209,392 − 200,047 approved)",
+    "squareFeet": 9345,
+    "perCredit": 3000,
+    "credits": 3.115
+   }
+  ],
+  "creditsRequired": 46.212,
+  "creditsBought": [
+   {
+    "credits": 41,
+    "approval": "Planning Board Resolution No. 99, 12/6/2007",
+    "recorded": "Certificate of Development Rights No. 9, deed dated 10/14/2010"
+   },
+   {
+    "credits": 4,
+    "approval": "Planning Board Resolution No. 2016-0033, 4/21/2016",
+    "recorded": "Certificate of Development Rights No. 21, recorded 9/21/2020"
+   }
+  ],
+  "creditsConveyed": 0.1,
+  "creditsHeld": 44.9,
+  "creditsAdditional": 1.312,
+  "status": "The Planning Board's October 15, 2026 agenda carried two Walmart resolutions: No. 2026-067, taking the lead in the environmental review and issuing a negative declaration (no significant adverse environmental impact expected), and No. 2026-068, scheduling a public hearing on the site plan for Thursday, November 19, 2026 at 3:00 p.m. at Town Hall. The Board's minutes are not yet posted; RiverheadLOCAL reported that both were adopted.",
+  "staffQuote": "approval of the application will require the redemption of an additional 1.312 TDR’s, in addition to the re-allocation of the previously approved liquor store expansion",
+  "source": "pb20261015",
+  "where": "agenda items 2, 5 and 6; staff report of October 9, 2026, pages 28 and 29; site plan site analysis table",
+  "hearing": "2026-11-19",
+  "news": {
+   "title": "RiverheadLOCAL, October 21, 2026: Walmart expansion set for Nov. 19 public hearing",
+   "url": "https://riverheadlocal.com/2026/10/21/walmart-expansion-set-for-nov-19-public-hearing-planning-board-meeting-wrap-up/"
+  }
+ },
+ "program": {
+  "since": 2003,
+  "acresPreserved": 300,
+  "creditsRedeemed": 265,
+  "residentialRedeemed": 171,
+  "commercialRedeemed": 94,
+  "creditsNotRedeemed": 43,
+  "asOf": "2023",
+  "quote": "The Riverhead TDR Program has been in effect since 2003. Over 300 acres have been preserved through the program, and about 265 TDR credits have been redeemed, including 171 credits for residential development and 94 credits for commercial development. About 43 credits have not yet been redeemed.",
+  "attribution": "Riverhead Planning Department, Town of Riverhead, 2023",
+  "source": "cpu2024",
+  "where": "Chapter 6, Agricultural Lands, page 93 of the PDF"
+ },
+ "bank": {
+  "exists": false,
+  "quote": "A TDR bank would serve as a central, trusted repository for developers and landowners to deposit, purchase, and trade development rights ... Establishing a TDR Bank does come with administrative considerations; significant resources and funding would be needed for the bank’s establishment and ongoing long-term management.",
+  "noList": "The Town does not currently have a list of interested farmers (sellers).",
+  "recommendation": "2.1. Establish a TDR Bank to facilitate transactions.",
+  "source": "cpu2024",
+  "where": "Chapter 6, recommendations 2.1 and 2.2, page 100 of the PDF"
+ }
+}
