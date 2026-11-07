@@ -2,8 +2,8 @@ import PageShell from '../../components/PageShell'
 import PlainCallout from '../../components/PlainCallout'
 import ElectionMap, { type MapComparison, type MapContest } from '../../components/ElectionMap'
 import {
-  boundarySource, boundaryUpdated, certified, comparisons, contestByKey, displayName, districts, elections, fetchedOn, leader, ledCount,
-  MAP_H, MAP_W, resultsSource, shift,
+  boundarySource, boundaryUpdated, certified, comparisons, contestByKey, displayName, districts, elections, fetchedOn, finalSource, historyName,
+  historyParty, leader, ledCount, MAP_H, MAP_W, resultsSource, shift, supervisorHistory,
 } from '../../lib/election-map'
 
 const base = process.env.NEXT_PUBLIC_BASE_PATH || ''
@@ -18,19 +18,24 @@ const counted = (n: number) => ['no', 'one', 'two', 'three', 'four', 'five', 'si
 
 export const metadata = {
   title: 'Election map — how each Riverhead district voted',
-  description: "Riverhead's 22 election districts, colored by how each voted in the 2026 and 2025 general elections: Supervisor, Town Council, Governor, Congress and the State Legislature, from the Suffolk County Board of Elections.",
+  description: "Riverhead's 22 election districts, colored by how each voted in the 2026, 2025 and 2024 general elections, from Supervisor to President, and every Supervisor race since 2013.",
 }
 
 const HALPIN = 'Jerome Halpin'
 const ROTHWELL = 'Kenneth T Rothwell'
 const HUBBARD = 'Timothy C Hubbard'
+const HARRIS = 'Kamala D Harris AND Tim Walz'
+const TRUMP = 'Donald J Trump AND JD Vance'
 
 export default function ElectionMapPage() {
   const sup26 = contestByKey.get('supervisor-2026')!
   const sup25 = contestByKey.get('supervisor-2025')!
   const gov26 = contestByKey.get('governor-2026')!
   const v = (c: typeof sup26, name: string) => c.candidates.find((x) => x.name === name)?.votes ?? 0
-  const [vsHochul, vs2025] = [comparisons[1], comparisons[0]]
+  const [vs2025, vsHochul, vsHarris] = comparisons
+  const pres24 = contestByKey.get('president-2024')!
+  const trumpLed = ledCount(pres24, TRUMP), harrisLed = ledCount(pres24, HARRIS)
+  const aheadOfHarris = districts.filter((d) => shift(vsHarris, d.ed) > 0).length
   const halpinLed26 = ledCount(sup26, HALPIN), rothwellLed26 = ledCount(sup26, ROTHWELL)
   const halpinLed25 = ledCount(sup25, HALPIN), hubbardLed25 = ledCount(sup25, HUBBARD)
   const aheadOfHochul = districts.filter((d) => shift(vsHochul, d.ed) > 0).length
@@ -55,17 +60,17 @@ export default function ElectionMapPage() {
     key: c.key, label: c.label, higher: c.higher, lower: c.lower, explain: c.explain,
     values: Object.fromEntries(districts.map((d) => [d.ed, shift(c, d.ed)])),
   }))
-  const e26 = elections[0], e25 = elections[1]
+  const e26 = elections[0], e25 = elections[1], e24 = elections.find((e) => e.id === 'GE2024')!
 
   return (
     <PageShell
       title="Election map"
-      subtitle="How each of Riverhead's 22 election districts voted in the 2026 and 2025 general elections, from the Suffolk County Board of Elections' own district counts."
+      subtitle="How each of Riverhead's 22 election districts voted in the 2026, 2025 and 2024 general elections, and every Supervisor race since 2013."
     >
       <PlainCallout
         tips={[
           { label: 'Election districts', text: 'the County Board of Elections divides the Town into 22 districts. Each votes at an assigned polling place, and the Board counts each one separately.' },
-          { label: 'Unofficial counts', text: `both years are the counts on the Board's results site, which it labels unofficial. For 2025 that is the election-night count, before absentee ballots and the recount; the certified totals are below.` },
+          { label: 'Which counts', text: `2026 and 2025 are the counts on the Board's results site, which it labels unofficial; for 2025 that is the election-night count, and the certified totals are below. 2024 is the final count, district by district.` },
           { label: 'Votes, not turnout', text: 'the results site does not give registered voters by district, so the map shows votes cast, not the share of voters who turned out.' },
         ]}
       >
@@ -94,6 +99,11 @@ export default function ElectionMapPage() {
             &ldquo;Compare&rdquo; and &ldquo;{vsHochul.label}&rdquo; on the map to see where his vote ran ahead of hers.
           </li>
           <li style={{ marginBottom: 8 }}>
+            <strong>2024 President.</strong> {displayName(TRUMP)} carried Riverhead {num(v(pres24, TRUMP))} to {num(v(pres24, HARRIS))}, leading in{' '}
+            {counted(trumpLed)} districts to {counted(harrisLed)} for {displayName(HARRIS)}. Two years later Halpin ran ahead of Harris&apos;s share in{' '}
+            {counted(aheadOfHarris)} of the 22 districts: choose &ldquo;Compare&rdquo; and &ldquo;{vsHarris.label}&rdquo;.
+          </li>
+          <li style={{ marginBottom: 8 }}>
             <strong>2025 to 2026.</strong> In the 2025 election-night count Halpin led Tim Hubbard {num(v(sup25, HALPIN))} to {num(v(sup25, HUBBARD))},
             ahead in {counted(halpinLed25)} districts to Hubbard&apos;s {counted(hubbardLed25)}. His share rose in {counted(rose)} of the 22 districts in 2026.
             About {num(sup26.total - sup25.total)} more votes were cast for Supervisor in 2026, a year with a race for Governor on the ballot.
@@ -101,10 +111,66 @@ export default function ElectionMapPage() {
         </ul>
       </section>
 
+      <section id="supervisor-history" aria-labelledby="supervisor-history-heading" style={card}>
+        <h2 id="supervisor-history-heading" style={h2}>Every Supervisor race since 2013</h2>
+        <p style={prose}>
+          The Town&apos;s results for each race, from the County Board of Elections&apos; final results pages. The County does not post these
+          races district by district, so they are not on the map. Turnout is votes cast for Supervisor out of the Town&apos;s registered voters.
+        </p>
+        <div style={{ overflowX: 'auto' }}>
+          <table className="rbl-stack" style={{ width: '100%', borderCollapse: 'collapse', fontSize: 15 }}>
+            <thead>
+              <tr style={{ borderBottom: '1px solid var(--rbl-border)' }}>
+                {['Year', 'Winner', 'Ran against', 'Margin', 'Turnout', 'Split of the vote'].map((h, i) => (
+                  <th key={h} scope="col" style={{ padding: '8px 10px', textAlign: i === 3 || i === 4 ? 'right' : 'left', fontWeight: 600, fontSize: 13, color: 'var(--rbl-text-muted)' }}>{h}</th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {[...supervisorHistory.map((r) => ({
+                year: String(r.year), url: r.url, note: '',
+                cands: r.candidates.map((c) => ({ name: historyName(c.name), party: historyParty(c), votes: c.votes })),
+                cast: r.votesCast, registered: r.registered as number | null,
+              })), {
+                year: '2026', url: e26.url, note: 'unofficial',
+                cands: sup26.candidates.filter((c) => c.name !== 'Write-in').map((c) => ({ name: c.name === HALPIN ? 'Jerome Halpin' : c.name === ROTHWELL ? 'Kenneth T Rothwell' : c.name, party: c.party === 'DEM' ? 'DEM' : c.party === 'REP' ? 'REP' : 'other', votes: c.votes })),
+                cast: sup26.total, registered: null as number | null,
+              }].reverse().map((r) => {
+                const [w, ...rest] = r.cands
+                const margin = w.votes - (rest[0]?.votes ?? 0)
+                return (
+                  <tr key={r.year} style={{ borderBottom: '1px solid var(--rbl-border-subtle)' }}>
+                    <th scope="row" style={{ padding: '8px 10px', textAlign: 'left', fontWeight: 700 }}>
+                      <a href={r.url} style={link}>{r.year}</a>{r.note ? <span style={{ display: 'block', fontWeight: 400, fontSize: 13, color: 'var(--rbl-text-muted)' }}>{r.note}</span> : null}
+                    </th>
+                    <td data-label="Winner" style={{ padding: '8px 10px' }}>{w.name} <span style={{ color: 'var(--rbl-text-muted)' }}>({partyWord(w.party)}), {num(w.votes)}</span></td>
+                    <td data-label="Ran against" style={{ padding: '8px 10px' }}>{rest.map((c) => <span key={c.name} style={{ display: 'block' }}>{c.name} <span style={{ color: 'var(--rbl-text-muted)' }}>({partyWord(c.party)}), {num(c.votes)}</span></span>)}</td>
+                    <td data-label="Margin" style={{ padding: '8px 10px', textAlign: 'right', whiteSpace: 'nowrap' }}>{num(margin)} <span style={{ color: 'var(--rbl-text-muted)' }}>({pct(margin / r.cast)})</span></td>
+                    <td data-label="Turnout" style={{ padding: '8px 10px', textAlign: 'right', whiteSpace: 'nowrap' }}>{r.registered ? `${pct(r.cast / r.registered)}` : '—'}<span style={{ display: 'block', color: 'var(--rbl-text-muted)', fontSize: 13 }}>{num(r.cast)} votes</span></td>
+                    <td data-label="Split of the vote" style={{ padding: '8px 10px', minWidth: 140 }}>
+                      <span role="img" aria-label={r.cands.map((c) => `${c.name} ${pct(c.votes / r.cast)}`).join(', ')} style={{ display: 'flex', height: 14, borderRadius: 4, overflow: 'hidden', gap: 2, background: 'var(--rbl-surface)' }}>
+                        {[...r.cands].sort((a, b) => order(a.party) - order(b.party)).map((c) => (
+                          <span key={c.name} style={{ width: `${(c.votes / r.cast) * 100}%`, background: c.party === 'DEM' ? 'var(--rbl-map-dem-3)' : c.party === 'REP' ? 'var(--rbl-map-rep-3)' : 'var(--rbl-map-other-3)' }} />
+                        ))}
+                      </span>
+                    </td>
+                  </tr>
+                )
+              })}
+            </tbody>
+          </table>
+        </div>
+        <p style={{ ...prose, marginTop: 10, fontSize: 14.5 }}>
+          Each candidate&apos;s party lines are combined. In 2015 Sean Walter ran only on the Conservative line after losing the Republican
+          primary. In the bar, Democrats are blue, Republicans red and others gold. Source:{' '}
+          <a href={finalSource.url} style={link}>{finalSource.title}</a>; 2026 from the Board&apos;s results site, not yet certified.
+        </p>
+      </section>
+
       <section id="certified" aria-labelledby="certified-heading" style={card}>
         <h2 id="certified-heading" style={h2}>The certified 2025 totals</h2>
         <p style={prose}>
-          The map&apos;s 2025 figures are the results site&apos;s count as of {longDate(e25.asOf)}, which it still labels unofficial.
+          The map&apos;s 2025 figures are the results site&apos;s count as of {longDate(e25.asOf ?? e25.date)}, which it still labels unofficial.
           The Board&apos;s certified totals, after absentee ballots and a full manual recount, were higher:
         </p>
         <ul style={prose}>
@@ -126,12 +192,18 @@ export default function ElectionMapPage() {
         <ul style={prose}>
           <li>
             Results: <a href={resultsSource.url} style={link}>{resultsSource.title}</a>, each contest&apos;s &ldquo;results by election
-            district&rdquo;: the <a href={e26.url} style={link}>{e26.label}</a> as of {longDate(e26.asOf)}, and the{' '}
-            <a href={e25.url} style={link}>{e25.label}</a> as of {longDate(e25.asOf)}. A candidate on more than one party line is counted once.
+            district&rdquo;: the <a href={e26.url} style={link}>{e26.label}</a> as of {longDate(e26.asOf ?? e26.date)}, and the{' '}
+            <a href={e25.url} style={link}>{e25.label}</a> as of {longDate(e25.asOf ?? e25.date)}. A candidate on more than one party line is counted once.
+          </li>
+          <li>
+            2024 by district: <a href={e24.districtSource!.url} style={link}>{e24.districtSource!.title}</a>, compiled from the State and County
+            boards of elections. Its Suffolk totals for President and the 1st Congressional District equal the County Board&apos;s{' '}
+            <a href={e24.url} style={link}>final 2024 results</a> exactly, and its 2024 districts match today&apos;s to{' '}
+            {(e24.districtSource!.boundaryOverlap * 100).toFixed(1)}% or better.
           </li>
           <li>
             Boundaries: <a href={boundarySource.url} style={link}>{boundarySource.title}</a>{boundaryUpdated ? `, last updated ${longDate(boundaryUpdated)}` : ''}.
-            The results site draws both years on the same district map, so the 2025 figures fit these lines. The place name beside each
+            The results site draws 2025 and 2026 on the same district map, and the 2024 districts match it, so every year&apos;s figures fit these lines. The place name beside each
             district is the County&apos;s.
           </li>
           <li>Refreshed by <code>etl/build_election_map.py</code>{fetchedOn ? `; data last changed ${longDate(fetchedOn)}` : ''}. The map is drawn from the County&apos;s boundaries; no outside map service is used.</li>
@@ -147,4 +219,11 @@ export default function ElectionMapPage() {
       </section>
     </PageShell>
   )
+}
+
+function partyWord(p: string) {
+  return p === 'DEM' ? 'D' : p === 'REP' ? 'R' : p === 'CON' ? 'C' : 'other'
+}
+function order(p: string) {
+  return p === 'DEM' ? 0 : p === 'REP' ? 2 : 1
 }

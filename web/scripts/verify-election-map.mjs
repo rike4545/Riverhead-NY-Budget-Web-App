@@ -49,11 +49,35 @@ for (const e of data.elections) {
       const lines = Object.values(cand.lines).reduce((a, b) => a + b, 0)
       if (lines !== cand.votes) fail(`${where}: ${cand.name}'s party lines add to ${lines}, not ${cand.votes}`)
     }
+    // 2024 comes from a compilation without the results site's map ids; its import checks the boundaries instead.
+    if (e.districtSource) {
+      if (!(e.districtSource.boundaryOverlap >= 0.99)) fail(`${where}: the 2024 districts match today's only to ${e.districtSource.boundaryOverlap}`)
+      continue
+    }
     const ids = Object.fromEntries(Object.entries(c.districts).map(([ed, d]) => [ed, d.mapFeatureId]))
     firstMap ??= ids
     if (JSON.stringify(ids) !== JSON.stringify(firstMap)) fail(`${where} is drawn on a different district map from the first contest`)
   }
 }
+
+// Every Supervisor race since 2013, from the County's final pages.
+const history = data.supervisorHistory ?? []
+const years = history.map((r) => r.year)
+if (years.join() !== '2013,2015,2017,2019,2021,2023,2025') fail(`Supervisor history covers ${years.join(', ')}, not every odd year 2013 to 2025`)
+for (const r of history) {
+  const sum = r.candidates.reduce((a, c) => a + c.votes, 0)
+  if (sum !== r.votesCast) fail(`Supervisor ${r.year}: candidates add to ${sum}, not ${r.votesCast}`)
+  for (const c of r.candidates) {
+    const lines = Object.values(c.lines).reduce((a, b) => a + b, 0)
+    if (lines !== c.votes) fail(`Supervisor ${r.year}: ${c.name}'s lines add to ${lines}, not ${c.votes}`)
+  }
+  if (!(r.registered > r.votesCast)) fail(`Supervisor ${r.year}: ${r.registered} registered voters for ${r.votesCast} votes`)
+}
+// The County's final 2025 page and this site's certified record must agree.
+const board25 = read('public', 'data', 'board-elections.json').priorElections.find((p) => p.year === 2025).races.find((x) => x.office === 'Supervisor')
+const final25 = history.find((r) => r.year === 2025)
+const boardVotes = [...board25.winners, ...board25.runnersUp].map((x) => x.votes).sort((a, b) => b - a).join()
+if (final25 && final25.candidates.map((c) => c.votes).join() !== boardVotes) fail(`2025 Supervisor: the County's final page (${final25.candidates.map((c) => c.votes).join()}) differs from board-elections.json (${boardVotes})`)
 
 // The 2026 Supervisor result the rest of the site quotes.
 const lib = readFileSync(path('lib', 'election-results-2026.ts'), 'utf8')
@@ -87,6 +111,12 @@ else {
   const sup25 = board.priorElections.find((p) => p.year === 2025).races.find((x) => x.office === 'Supervisor')
   for (const v of [...sup25.winners, ...sup25.runnersUp].map((x) => num(x.votes))) if (!text.includes(v)) fail(`the certified 2025 Supervisor total ${v} is not on the page`)
   if (!/unofficial/i.test(text)) fail('the page does not say the counts are unofficial')
+  for (const r of history) {
+    const w = r.candidates[0], margin = w.votes - (r.candidates[1]?.votes ?? 0)
+    if (!text.includes(`${r.year}`) || !text.includes(num(w.votes)) || !text.includes(num(margin))) fail(`the ${r.year} Supervisor row is missing or wrong`)
+  }
+  const pres = data.elections.flatMap((e) => e.contests).find((c) => c.key === 'president-2024')
+  for (const c of pres.candidates.filter((x) => x.name !== 'Write-in')) if (!text.includes(num(c.votes))) fail(`the 2024 President total ${num(c.votes)} is not on the page`)
 }
 
-if (!process.exitCode) console.log(`Election map verified: 22 districts, ${data.elections.reduce((n, e) => n + e.contests.length, 0)} contests in ${data.elections.length} elections, one district map, 2026 Supervisor matches the site's record.`)
+if (!process.exitCode) console.log(`Election map verified: 22 districts, ${data.elections.reduce((n, e) => n + e.contests.length, 0)} contests in ${data.elections.length} elections, ${history.length} Supervisor races since 2013, 2026 Supervisor matches the site's record.`)

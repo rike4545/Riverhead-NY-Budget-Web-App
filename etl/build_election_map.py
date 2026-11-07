@@ -8,6 +8,13 @@ how each voted, from the Suffolk County Board of Elections' own sources.
               district. A candidate on more than one party line is counted
               once, with each line kept beside the total.
 
+  history     Every Supervisor race since 2013, town-wide, from the County's
+              final results pages (apps2.suffolkcountyny.gov/boe/eleres),
+              which do not give each district's count.
+
+The 2024 results by district come from riverhead-2024.json, which
+import_2024_results.py writes once by hand.
+
 Writes web/public/data/elections/riverhead-districts.json and
 web/public/data/elections/riverhead-map.json. If either source cannot be
 reached, the file it feeds stays as it was and the run prints a warning instead
@@ -17,6 +24,7 @@ Board certifies it, and the JSON carries that label through.
 
 from __future__ import annotations
 
+import html
 import json
 import re
 import sys
@@ -30,6 +38,7 @@ ROOT = Path(__file__).resolve().parent.parent
 OUT_DIR = ROOT / "web/public/data/elections"
 GEOJSON = OUT_DIR / "riverhead-districts.json"
 RESULTS = OUT_DIR / "riverhead-map.json"
+RESULTS_2024 = OUT_DIR / "riverhead-2024.json"
 
 GIS_LAYER = "https://gis.suffolkcountyny.gov/server/rest/services/LocalGovernmentSQLData/VotingPrecinct/FeatureServer/0"
 RESULTS_SITE = "https://app.enhancedvoting.com/results/public/suffolk-county-ny/elections"
@@ -69,19 +78,87 @@ class SourceUnavailable(RuntimeError):
     """A source could not be reached after every try."""
 
 
-def http_get(url: str, label: str) -> bytes:
+def http_get(url: str, label: str, accept: str = "application/json") -> bytes:
     last: Exception | None = None
     for attempt, wait in enumerate((0, *RETRY_WAITS), start=1):
         if wait:
             time.sleep(wait)
         try:
-            req = urllib.request.Request(url, headers={"User-Agent": USER_AGENT, "Accept": "application/json"})
+            req = urllib.request.Request(url, headers={"User-Agent": USER_AGENT, "Accept": accept})
             with urllib.request.urlopen(req, timeout=60) as resp:
                 return resp.read()
         except Exception as exc:  # noqa: BLE001 - every failure is retried, then reported
             last = exc
             print(f"  {label}: try {attempt} failed: {str(exc)[:200]}", file=sys.stderr)
     raise SourceUnavailable(f"{label} could not be reached after {1 + len(RETRY_WAITS)} tries ({str(last)[:200]}).")
+
+
+FINAL_RESULTS = "https://apps2.suffolkcountyny.gov/boe/eleres"
+# The County's final results pages for each year a Supervisor was elected.
+SUPERVISOR_YEARS = (2013, 2015, 2017, 2019, 2021, 2023, 2025)
+
+
+def _cell(text: str) -> str:
+    return " ".join(html.unescape(re.sub(r"<[^>]+>", " ", text)).split())
+
+
+def parse_final_page(page: str) -> list[dict]:
+    """A page of the County's final results (apps2.suffolkcountyny.gov/boe/eleres/<yy>ge/<office>.htm) as contests:
+    [{title, registered, votesCast, candidates: [{name, lines: {party: votes}, votes}]}].
+    A contest's heading can omit the office (2013), so titles come from the page's own contents list, in order."""
+    toc = [_cell(t) for t in re.findall(r'<a href="#\d+">(.*?)</a>', page, re.S)]
+    chunks = re.split(r"<h2>", page)[1:]
+    contests = []
+    for i, chunk in enumerate(chunks):
+        heading = _cell(chunk.split("</h2>")[0])
+        title = toc[i] if i < len(toc) else heading
+        cast = re.search(r"([\d,]+) Votes cast out of ([\d,]+)", _cell(chunk))
+        candidates: list[dict] = []
+        for row in re.findall(r"<tr[^>]*>(.*?)</tr>", chunk, re.S):
+            cells = re.findall(r"<td([^>]*)>(.*?)</td>", row, re.S)
+            if len(cells) not in (3, 4):
+                continue
+            texts = [_cell(c[1]) for c in cells]
+            # Four cells open a candidate (name, party, votes, share); three add a party line or the total.
+            if len(cells) == 4:
+                candidates.append({"name": texts[0], "lines": {}, "votes": 0})
+                texts = texts[1:]
+            if len(texts) < 2 or not candidates or not re.fullmatch(r"[\d,]+", texts[1]):
+                continue
+            party, votes = texts[0], int(texts[1].replace(",", ""))
+            if party == "Total":
+                candidates[-1]["votes"] = votes
+            else:
+                candidates[-1]["lines"][party] = votes
+        for c in candidates:
+            line_sum = sum(c["lines"].values())
+            if not c["votes"]:
+                c["votes"] = line_sum
+            if c["votes"] != line_sum:
+                raise SourceUnavailable(f"{title}: {c['name']}'s party lines add to {line_sum}, not {c['votes']}")
+        contests.append({
+            "title": title, "heading": heading,
+            "votesCast": int(cast.group(1).replace(",", "")) if cast else None,
+            "registered": int(cast.group(2).replace(",", "")) if cast else None,
+            "candidates": candidates,
+        })
+    return contests
+
+
+def fetch_supervisor_history() -> list[dict]:
+    """Every Supervisor race since 2013, town-wide, from the County's final results pages."""
+    out = []
+    for year in SUPERVISOR_YEARS:
+        url = f"{FINAL_RESULTS}/{str(year)[2:]}ge/rvroff.htm"
+        contests = parse_final_page(http_get(url, "Suffolk County final results", accept="text/html,*/*").decode("utf-8", "ignore"))
+        race = next((c for c in contests if c["title"].startswith("Supervisor, Town of Riverhead")), None)
+        if not race or not race["candidates"]:
+            raise SourceUnavailable(f"{year}: no Supervisor race on {url}")
+        if race["votesCast"] != sum(c["votes"] for c in race["candidates"]):
+            raise SourceUnavailable(f"{year}: Supervisor votes add to {sum(c['votes'] for c in race['candidates'])}, not {race['votesCast']}")
+        out.append({"year": year, "url": url, "status": "final", "registered": race["registered"], "votesCast": race["votesCast"],
+                    "candidates": sorted(race["candidates"], key=lambda c: -c["votes"])})
+    return out
 
 
 def district_code(text: str) -> str | None:
@@ -239,18 +316,28 @@ def main() -> int:
     except SourceUnavailable as exc:
         print(f"WARNING: {exc} The district boundaries were left as they were.", file=sys.stderr)
 
+    previous = json.loads(RESULTS.read_text(encoding="utf-8")) if RESULTS.exists() else None
     try:
         elections = [fetch_election(spec) for spec in ELECTIONS]
     except SourceUnavailable as exc:
         print(f"WARNING: {exc} The election map's results were left as they were.", file=sys.stderr)
         return 0
+    # The 2024 results, imported once by import_2024_results.py: the County does not post them by district.
+    if RESULTS_2024.exists():
+        elections.append(json.loads(RESULTS_2024.read_text(encoding="utf-8")))
+    try:
+        history = fetch_supervisor_history()
+    except SourceUnavailable as exc:
+        print(f"WARNING: {exc} The Supervisor history was left as it was.", file=sys.stderr)
+        history = (previous or {}).get("supervisorHistory", [])
 
     out = {
         "source": {"title": "Suffolk County Board of Elections, public election results", "url": f"{RESULTS_SITE}"},
         "boundarySource": {"title": "Suffolk County GIS, Voting Precincts (Suffolk County Board of Elections)", "url": GIS_LAYER},
+        "finalSource": {"title": "Suffolk County Board of Elections, final election results", "url": "https://suffolkcountyny.gov/Departments/BOE/Election-Results"},
         "elections": elections,
+        "supervisorHistory": history,
     }
-    previous = json.loads(RESULTS.read_text(encoding="utf-8")) if RESULTS.exists() else None
     if previous and {k: v for k, v in previous.items() if k != "fetchedOn"} == out:
         print("  election map: results unchanged")
         return 0
