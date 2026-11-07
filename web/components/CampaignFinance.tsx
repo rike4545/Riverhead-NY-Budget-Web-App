@@ -216,6 +216,13 @@ export default function CampaignFinance({
                       {fmtDate(official.termStarts)} – {fmtDate(official.termEnds)}
                     </span>
                   )}
+                  {official.nextTermStarts && official.nextTermEnds && (
+                    <span>
+                      Next term: <strong>{fmtDate(official.nextTermStarts)} – {fmtDate(official.nextTermEnds)}</strong>
+                      {official.nextTermYears ? ` (${official.nextTermYears} years` : ' ('}
+                      {official.nextTermStatus === 'unofficial' ? `${official.nextTermYears ? '; ' : ''}unofficial result, not yet certified)` : official.nextTermYears ? ')' : ''}
+                    </span>
+                  )}
                   {official.nextElection && (
                     <span>
                       {days != null && days < 0 ? 'Election held' : 'Next election'}: <strong>{fmtDate(official.nextElection)}</strong>

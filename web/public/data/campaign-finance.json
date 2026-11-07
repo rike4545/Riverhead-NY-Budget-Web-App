@@ -23,15 +23,19 @@
      "filerID": "506796"
     }
    ],
-   "note": "COMMCAND fields: candidate ID 506792, Jerome Halpin, County, TERMINATED, Supervisor, Suffolk / Riverhead Town. Committee/filer ID 506796, Friends of Jerry Halpin, County, ACTIVE, Authorized Single Candidate Committee. NY's shift to even-year elections shortened the supervisor term elected in 2025 from two years to one; the November 3, 2026 election decides who serves the regular two-year term from January 1, 2027, once the Suffolk County Board of Elections certifies the result. Source: NYS BOE Even-Year Elections Transition Guidance (Nov 2025).",
-   "photoUrl": "https://www.townofriverheadny.gov/ImageRepository/Document?documentID=3086"
+   "note": "COMMCAND fields: candidate ID 506792, Jerome Halpin, County, TERMINATED, Supervisor, Suffolk / Riverhead Town. Committee/filer ID 506796, Friends of Jerry Halpin, County, ACTIVE, Authorized Single Candidate Committee. NY's shift to even-year elections shortened the supervisor term elected in 2025 from two years to one; on November 3, 2026 he led for the regular two-year term that starts January 1, 2027, 6,779 to 6,152 in the County's unofficial count; the term is his once the Suffolk County Board of Elections certifies the result. Source: NYS BOE Even-Year Elections Transition Guidance (Nov 2025).",
+   "photoUrl": "https://www.townofriverheadny.gov/ImageRepository/Document?documentID=3086",
+   "nextTermStarts": "2027-01-01",
+   "nextTermEnds": "2028-12-31",
+   "nextTermYears": 2,
+   "nextTermStatus": "unofficial"
   },
   {
    "name": "Kenneth Rothwell",
    "office": "Councilman",
    "termStarts": "2026-01-01",
    "termEnds": "2028-12-31",
-   "nextElection": "2026-11-03",
+   "nextElection": "2028-11-07",
    "currentlyServing": true,
    "salary": 50558,
    "termYears": 3,
@@ -46,7 +50,7 @@
      "filerID": "154926"
     }
    ],
-   "note": "Combines filer IDs 154927 and 154926 because Rothwell ran for Supervisor in the Nov 3, 2026 election (candidate record 154926, Supervisor), so the election shown is that race, not his council seat's. That election decided the Supervisor post only: his council seat runs to the end of 2028 either way, and the Suffolk County Board of Elections certifies the result. The 3-year council term (not the usual 4) reflects NY's even-year election transition: council seats elected in Nov 2025 were shortened by one year under NYS BOE Even-Year Elections Transition Guidance (Nov 2025).",
+   "note": "Combines filer IDs 154927 and 154926 because Rothwell ran for Supervisor on Nov 3, 2026 (candidate record 154926, Supervisor). He trailed 6,152 to 6,779 in the County's unofficial count. That race decided the Supervisor post only: his council seat runs to December 31, 2028, and its next election, shown here, is November 7, 2028. The 3-year council term (not the usual 4) reflects NY's even-year election transition: council seats elected in Nov 2025 were shortened by one year under NYS BOE Even-Year Elections Transition Guidance (Nov 2025).",
    "photoUrl": "https://www.townofriverheadny.gov/ImageRepository/Document?documentID=186"
   },
   {
@@ -88,7 +92,7 @@
      "filerID": "320293"
     }
    ],
-   "note": "COMMCAND fields: candidate 320292, Joann Waski, County, TERMINATED, Council Member (legacy candidate record). Committee/filer 320293, Friends of Joann Waski, County, ACTIVE, Authorized Single Candidate Committee. The TERMINATED tag is on the legacy candidate registration, not her current Town Board seat.",
+   "note": "COMMCAND fields: candidate 320292, Joann Waski, County, TERMINATED, Council Member (legacy candidate record). Committee/filer 320293, Friends of Joann Waski, County, ACTIVE, Authorized Single Candidate Committee. The TERMINATED tag is on the legacy candidate registration, not her current Town Board seat. Her four-year term, from the November 2023 election, is unchanged by New York's move to even-year elections. The seat's November 2, 2027 election is for a one-time three-year term, January 1, 2028 to December 31, 2030, after which council terms return to four years (Association of Towns of the State of New York, Even Year Election Law FAQ).",
    "photoUrl": "https://www.townofriverheadny.gov/ImageRepository/Document?documentID=195"
   },
   {
@@ -107,7 +111,7 @@
      "filerID": "319756"
     }
    ],
-   "note": "COMMCAND fields: candidate 319755, Denise M. Merrifield, County, TERMINATED, Council Member (legacy candidate record). Committee/filer 319756, Committee to Elect Denise Merrifield, County, TERMINATED, Authorized Single Candidate Committee. These TERMINATED tags are on the legacy campaign-finance registration, not her current Town Board seat.",
+   "note": "COMMCAND fields: candidate 319755, Denise M. Merrifield, County, TERMINATED, Council Member (legacy candidate record). Committee/filer 319756, Committee to Elect Denise Merrifield, County, TERMINATED, Authorized Single Candidate Committee. These TERMINATED tags are on the legacy campaign-finance registration, not her current Town Board seat. Her four-year term, from the November 2023 election, is unchanged by New York's move to even-year elections. The seat's November 2, 2027 election is for a one-time three-year term, January 1, 2028 to December 31, 2030, after which council terms return to four years (Association of Towns of the State of New York, Even Year Election Law FAQ).",
    "photoUrl": "https://www.townofriverheadny.gov/ImageRepository/Document?documentID=193"
   },
   {

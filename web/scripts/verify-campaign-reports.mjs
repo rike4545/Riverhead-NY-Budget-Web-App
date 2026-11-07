@@ -85,6 +85,11 @@ else {
   const table = html.slice(html.indexOf('Every committee at a glance'), html.indexOf('id="candidate-records"'))
   if (!table.includes('Every committee at a glance')) fail('the page has no summary table')
   for (const o of officials) if (!table.includes(usd(o.seedRaised))) fail(`the summary table does not show ${o.name}'s ${usd(o.seedRaised)}`)
+  // Terms: a next term still waiting on certification says so on the card.
+  for (const o of officials.filter((x) => x.nextTermStarts)) {
+    if (!html.includes('Next term:')) fail(`${o.name}'s card does not show the next term`)
+    if (o.nextTermStatus === 'unofficial' && !html.includes('unofficial result, not yet certified')) fail(`${o.name}'s next term is not labelled unofficial`)
+  }
   // The November 3, 2026 Supervisor result is shown, labelled unofficial until the County certifies it.
   if (!html.includes('data-unofficial-result') || !html.includes('Unofficial result of the November 3, 2026')) fail('the page does not show the unofficial November 3, 2026 Supervisor result')
   // The limits are the County's 2026 index for the Town of Riverhead, not the 2025 index or the Business Council's 2022 figures.

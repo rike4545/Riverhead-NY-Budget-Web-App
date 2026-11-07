@@ -45,6 +45,11 @@ export type CampaignOfficial = {
   salaryNote?: string | null
   /** Length of the elected term in years (2 for Supervisor, 4 for Council). */
   termYears?: number | null
+  /** The term won at the last election, when it has not started yet; "unofficial" until the County certifies the count. */
+  nextTermStarts?: string | null
+  nextTermEnds?: string | null
+  nextTermYears?: number | null
+  nextTermStatus?: 'unofficial' | 'certified' | null
 }
 
 export type LatestYearSnapshot = {

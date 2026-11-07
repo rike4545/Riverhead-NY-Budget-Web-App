@@ -83,7 +83,7 @@ export const supervisorRace2026 = {
   seats: 1,
   electionDate: 'November 3, 2026',
   ballotNote:
-    'The Supervisor is the only Town seat on the November 2026 ballot. The winner of the 2025 race is serving a one-year term: New York’s move to even-year local elections cut the two-year term short, and the 2026 winner serves two years (Riverhead News-Review, Feb. 2026). Council members Kern and Rothwell won three-year terms in 2025 (through 2028); Waski and Merrifield are up in 2027. Under NY Town Law the Supervisor prepares the tentative budget and the Council adopts it — so whoever wins still has to work with the current Republican Council majority.',
+    'The Supervisor is the only Town seat on the November 2026 ballot. The winner of the 2025 race is serving a one-year term: New York’s move to even-year local elections cut the two-year term short, and the 2026 winner serves two years (Riverhead News-Review, Feb. 2026). Council members Kern and Rothwell won three-year terms in 2025 (through 2028); Waski and Merrifield are up in 2027, for a one-time three-year term (Association of Towns). Under NY Town Law the Supervisor prepares the tentative budget and the Council adopts it — so whoever wins still has to work with the current Republican Council majority.',
   disclaimer:
     'This is analysis of each candidate’s stated positions, weighed evenly. Costs and benefits are estimates tied to the Town’s own figures, not campaign estimates or predictions of what will actually be proposed. Every plank is shown with both a benefit and a cost.',
 }
