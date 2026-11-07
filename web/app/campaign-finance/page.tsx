@@ -34,31 +34,6 @@ export default function CampaignFinancePage() {
 
   return (
     <PageShell title={campaignFacts.title} subtitle={campaignFacts.intro}>
-      <div style={{
-        display: 'flex', alignItems: 'flex-start', gap: 12, flexWrap: 'wrap',
-        padding: '14px 16px', marginBottom: 16, borderRadius: 14,
-        background: 'var(--rbl-info-bg)', border: '1px solid var(--rbl-info-border)',
-      }}>
-        <div style={{ flex: '1 1 260px' }}>
-          <div style={{ fontSize: 12, fontWeight: 800, color: 'var(--rbl-accent)' }}>
-            Public disclosure records
-          </div>
-          <div style={{ color: 'var(--rbl-title)', fontWeight: 800, fontSize: 16, marginTop: 3 }}>
-            Follow the money, then inspect the underlying filings
-          </div>
-          <p style={{ margin: '5px 0 0', color: 'var(--rbl-text-body)', fontSize: 13, lineHeight: 1.55 }}>
-            This independent project organizes New York State campaign-finance records for current and recent Riverhead officials.
-            Snapshot figures are not the same as a complete audit; use the refresh controls to check the latest available filings.
-          </p>
-        </div>
-        <div style={{ flex: '0 1 230px', fontSize: 12, color: 'var(--rbl-text-muted)', lineHeight: 1.55 }}>
-          <strong style={{ color: 'var(--rbl-title)' }}>Coverage</strong><br />
-          {campaignFacts.startYear}–{campaignFacts.endYear} · NY Open Data
-          <br />
-          <a href="https://data.ny.gov" style={{ color: 'var(--rbl-accent)', fontWeight: 800 }}>Open data source ↗</a>
-        </div>
-      </div>
-
       {deadline && deadline.label !== 'General Election Day' && (
         <div style={{
           background: 'var(--rbl-warn-bg)', border: '1px solid var(--rbl-gold-border)',
@@ -73,26 +48,31 @@ export default function CampaignFinancePage() {
       )}
 
       <nav aria-label="Campaign finance page sections" style={{
-        display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(205px, 1fr))', gap: 10, marginBottom: 24,
+        display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(175px, 1fr))', gap: 10, marginBottom: 24,
       }}>
-        <a href="#at-a-glance" style={sectionLinkStyle}><span aria-hidden="true">01</span><span>Every committee at a glance</span></a>
-        <a href="#candidate-records" style={sectionLinkStyle}><span aria-hidden="true">02</span><span>Candidate & committee records</span></a>
-        <a href="#general-2026-reports" style={sectionLinkStyle}><span aria-hidden="true">02a</span><span>2026 General reports (32-Day, 11-Day)</span></a>
-        <a href="#employee-donors" style={sectionLinkStyle}><span aria-hidden="true">03</span><span>Town employee donor matches</span></a>
-        <a href="#contribution-limits" style={sectionLinkStyle}><span aria-hidden="true">04</span><span>Contribution limits</span></a>
-        <a href="#reading-schedules" style={sectionLinkStyle}><span aria-hidden="true">05</span><span>Reading a filing</span></a>
-        <a href="#data-notes" style={sectionLinkStyle}><span aria-hidden="true">i</span><span>Sources & interpretation</span></a>
+        <a href="#election-2026" style={sectionLinkStyle}><span aria-hidden="true">01</span><span>The 2026 election</span></a>
+        <a href="#at-a-glance" style={sectionLinkStyle}><span aria-hidden="true">02</span><span>Every committee at a glance</span></a>
+        <a href="#candidate-records" style={sectionLinkStyle}><span aria-hidden="true">03</span><span>Committee details</span></a>
+        <a href="#rules" style={sectionLinkStyle}><span aria-hidden="true">04</span><span>The rules, and how to read a filing</span></a>
+        <a href="#employee-donors" style={sectionLinkStyle}><span aria-hidden="true">05</span><span>Town employee donor matches</span></a>
+        <a href="#data-notes" style={sectionLinkStyle}><span aria-hidden="true">i</span><span>Sources</span></a>
       </nav>
 
-      <UnofficialElectionResult />
+      <section id="election-2026" aria-labelledby="election-2026-heading" style={{ scrollMarginTop: 20 }}>
+        <h2 id="election-2026-heading" style={{ margin: '0 0 10px', color: 'var(--rbl-title)', fontSize: 22 }}>The 2026 election</h2>
+        <UnofficialElectionResult />
+        <p style={{ margin: '-4px 0 20px', color: 'var(--rbl-text-muted)', fontSize: 14, lineHeight: 1.55 }}>
+          Each committee&apos;s 32-Day and 11-Day reports for this election are in <a href="#general-2026-reports" style={{ color: 'var(--rbl-link)', fontWeight: 600 }}>committee details</a>.
+        </p>
+      </section>
 
       <CampaignSummaryTable officials={campaignOfficials} startYear={campaignFacts.startYear} endYear={campaignFacts.endYear} source={totalsSource} />
 
       <section id="candidate-records" style={{ scrollMarginTop: 20 }}>
         <div style={{ marginBottom: 12 }}>
-          <h2 style={{ margin: 0, color: 'var(--rbl-title)', fontSize: 22 }}>Candidate & committee records</h2>
+          <h2 style={{ margin: 0, color: 'var(--rbl-title)', fontSize: 22 }}>Committee details</h2>
           <p style={{ margin: '5px 0 0', color: 'var(--rbl-text-muted)', fontSize: 14, lineHeight: 1.55 }}>
-            Start with the individual records. Refresh pulls current data where available; committee history and candidate history may not align one-to-one.
+            The 2026 election reports, then each committee: its totals, loans and what it owes, with donors, filings and watch lists one tap away. Refresh pulls the latest filings.
           </p>
         </div>
         <CampaignFinance
@@ -103,24 +83,15 @@ export default function CampaignFinancePage() {
         />
       </section>
 
-      <section id="employee-donors" style={{ marginTop: 28, scrollMarginTop: 20 }}>
-        <div style={{ marginBottom: 12 }}>
-          <h2 style={{ margin: 0, color: 'var(--rbl-title)', fontSize: 22 }}>Town employee donor matches</h2>
-          <p style={{ margin: '5px 0 0', color: 'var(--rbl-text-muted)', fontSize: 14, lineHeight: 1.55 }}>
-            A separate name-matching tool compares employee payroll records with disclosed individual donors. A name match is a lead for review, not proof of identity, influence, or wrongdoing.
-          </p>
-        </div>
-        <EmployeeDonorWatch
-          officials={campaignOfficials}
-          startYear={campaignFacts.startYear}
-          endYear={campaignFacts.endYear}
-        />
-      </section>
-
-      <section id="contribution-limits" style={{ marginTop: 28, scrollMarginTop: 20 }}>
-        <h2 style={{ margin: '0 0 12px', color: 'var(--rbl-title)', fontSize: 22 }}>What contribution limits apply?</h2>
+      <section id="rules" aria-labelledby="rules-heading" style={{ marginTop: 32, scrollMarginTop: 20 }}>
+        <h2 id="rules-heading" style={{ margin: '0 0 4px', color: 'var(--rbl-title)', fontSize: 22 }}>The rules, and how to read a filing</h2>
+        <p style={{ margin: '0 0 8px', color: 'var(--rbl-text-muted)', fontSize: 14, lineHeight: 1.55, maxWidth: '75ch' }}>
+          What a donor may give in a Riverhead race, and what each part of a committee&apos;s report means.
+        </p>
+        <section id="contribution-limits" style={{ marginTop: 12, scrollMarginTop: 20 }}>
+        <h3 style={{ margin: '0 0 12px', color: 'var(--rbl-title)', fontSize: 19 }}>What contribution limits apply?</h3>
         <PlainCallout
-          title="Riverhead Town races in 2026, from the County's own index"
+          title="Riverhead Town races in 2026, from the County's own index" headingLevel={4}
           tips={[
             { label: 'Most individual donors', text: 'The ordinary limit is generally based on registered voters in the district × $0.05, subject to a $1,000 minimum.' },
             { label: 'Qualifying family donors', text: 'Certain close family members may be subject to a separate higher limit based on registered voters × $0.25, subject to a $1,250 minimum.' },
@@ -143,10 +114,10 @@ export default function CampaignFinancePage() {
             Source: <a href={riverheadContributionLimits.sourceUrl} target="_blank" rel="noopener noreferrer" style={{ color: 'var(--rbl-link)', fontWeight: 600 }}>{riverheadContributionLimits.source}</a>.
           </p>
         </PlainCallout>
-      </section>
+        </section>
 
-      <section id="reading-schedules" aria-labelledby="reading-schedules-heading" style={{ marginTop: 28, scrollMarginTop: 20 }}>
-        <h2 id="reading-schedules-heading" style={{ margin: '0 0 8px', color: 'var(--rbl-title)', fontSize: 22 }}>Money, in-kind and LLC gifts: how a filing shows them</h2>
+        <section id="reading-schedules" aria-labelledby="reading-schedules-heading" style={{ marginTop: 28, scrollMarginTop: 20 }}>
+        <h3 id="reading-schedules-heading" style={{ margin: '0 0 8px', color: 'var(--rbl-title)', fontSize: 19 }}>Money, in-kind and LLC gifts: how a filing shows them</h3>
         <p style={{ margin: '0 0 12px', color: 'var(--rbl-text-body)', fontSize: 15.5, lineHeight: 1.6, maxWidth: '72ch' }}>
           A committee lists every contribution on a lettered schedule. The letter tells you what kind of gift it was and who gave
           it, so it is the first thing to check when a donor and a filing seem to tell different stories. The schedule names
@@ -163,7 +134,7 @@ export default function CampaignFinancePage() {
         </div>
         <div style={{ height: 14 }} aria-hidden="true" />
         <PlainCallout
-          title="When a donor's account and the filing differ"
+          title="When a donor's account and the filing differ" headingLevel={4}
           tips={[
             { label: 'Check the letter and the payment', text: 'a gift filed on Schedule A, B or C with a check number was reported as money. A discount or donated work should be on Schedule D, valued at what it was worth.' },
             { label: 'Ask the treasurer', text: "the committee, not the donor, files the report. If it is wrong, the committee's treasurer can file an amended report, and the open data marks amended reports." },
@@ -175,6 +146,22 @@ export default function CampaignFinancePage() {
             personal gift filed as a business&apos;s. Neither is proof of wrongdoing, but the public record should match what happened.
           </p>
         </PlainCallout>
+        </section>
+
+      </section>
+
+      <section id="employee-donors" style={{ marginTop: 32, scrollMarginTop: 20 }}>
+        <div style={{ marginBottom: 12 }}>
+          <h2 style={{ margin: 0, color: 'var(--rbl-title)', fontSize: 22 }}>Town employee donor matches</h2>
+          <p style={{ margin: '5px 0 0', color: 'var(--rbl-text-muted)', fontSize: 14, lineHeight: 1.55 }}>
+            A separate name-matching tool compares employee payroll records with disclosed individual donors. A name match is a lead for review, not proof of identity, influence, or wrongdoing.
+          </p>
+        </div>
+        <EmployeeDonorWatch
+          officials={campaignOfficials}
+          startYear={campaignFacts.startYear}
+          endYear={campaignFacts.endYear}
+        />
       </section>
 
       <section id="data-notes" style={{ marginTop: 24, scrollMarginTop: 20 }}>

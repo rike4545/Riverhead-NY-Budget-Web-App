@@ -246,7 +246,7 @@ export default function CampaignFinance({
                 <Stat label="Total raised" value={raised != null ? usd(raised) : 'No data on file'} />
                 <Stat label="Direct contributions" value={direct != null ? usd(direct) : '—'} />
                 <Stat label="Transfers from other committees" value={transfers != null ? usd(transfers) : '—'} />
-                <Stat label="Last reported" value={lastReported ?? '—'} />
+                <Stat label="Last contribution" value={lastReported ?? '—'} />
               </div>
 
               <GiftStats official={official} live={live} />
@@ -269,75 +269,78 @@ export default function CampaignFinance({
 
               <DebtStats official={official} live={live} />
 
-              {live && live.contributorTypeBreakdown.length > 0 && (
-                <div style={{ marginTop: 12, borderTop: '1px solid var(--rbl-border-subtle)', paddingTop: 10 }}>
-                  <div style={{ fontSize: 13.5, fontWeight: 700, color: 'var(--rbl-title)', marginBottom: 6 }}>
-                    Who&rsquo;s giving
-                  </div>
-                  <div style={{ display: 'grid', gap: 4 }}>
-                    {live.contributorTypeBreakdown.map((bucket) => (
-                      <div key={bucket.type} style={{ display: 'flex', justifyContent: 'space-between', fontSize: 13, color: 'var(--rbl-text-strong)' }}>
-                        <span>
-                          {bucket.type} ({bucket.donorCount})
-                        </span>
-                        <strong style={{ color: 'var(--rbl-title)' }}>{usd(bucket.amount)}</strong>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              )}
+              <CardMore fetched={!!snapshots}>
 
-              {live && live.historicalByYear.length > 0 && <YearBreakdownList years={live.historicalByYear} />}
-
-              <div style={{ marginTop: 12, borderTop: '1px solid var(--rbl-border-subtle)', paddingTop: 10 }}>
-                <div style={{ fontSize: 13.5, fontWeight: 700, color: 'var(--rbl-title)' }}>
-                  {endYear} filing activity
-                </div>
-                {latestYear ? (
-                  <div style={{ color: 'var(--rbl-success-strong)', fontSize: 13, marginTop: 4 }}>
-                    {usd(latestYear.filingAmount)} across {latestYear.rowCount} row(s), schedules {latestYear.schedules || 'none'}
-                    {latestYear.lastReported ? ` · latest ${dateOnly(latestYear.lastReported)}` : ''}
-                  </div>
-                ) : snapshots ? (
-                  <div style={{ color: 'var(--rbl-warn)', fontSize: 13, marginTop: 4 }}>No {endYear} filings found yet for this committee.</div>
-                ) : (
-                  <div style={{ color: 'var(--rbl-text-muted)', fontSize: 13, marginTop: 4 }}>
-                    Tap &ldquo;Refresh from NY Open Data&rdquo; to check {endYear} activity.
+                {live && live.contributorTypeBreakdown.length > 0 && (
+                  <div style={{ marginTop: 12, borderTop: '1px solid var(--rbl-border-subtle)', paddingTop: 10 }}>
+                    <div style={{ fontSize: 13.5, fontWeight: 700, color: 'var(--rbl-title)', marginBottom: 6 }}>
+                      Who&rsquo;s giving
+                    </div>
+                    <div style={{ display: 'grid', gap: 4 }}>
+                      {live.contributorTypeBreakdown.map((bucket) => (
+                        <div key={bucket.type} style={{ display: 'flex', justifyContent: 'space-between', fontSize: 13, color: 'var(--rbl-text-strong)' }}>
+                          <span>
+                            {bucket.type} ({bucket.donorCount})
+                          </span>
+                          <strong style={{ color: 'var(--rbl-title)' }}>{usd(bucket.amount)}</strong>
+                        </div>
+                      ))}
+                    </div>
                   </div>
                 )}
-              </div>
 
-              <CampaignFilingsList filings={filingsByOfficial?.[official.name] ?? null} endYear={endYear} hasFetched={!!filingsByOfficial} />
+                {live && live.historicalByYear.length > 0 && <YearBreakdownList years={live.historicalByYear} />}
 
-              <PetroCelliWatch
-                contributions={live?.petrocelliContributions ?? null}
-                hasFetched={!!snapshots}
-                currentlyServing={official.currentlyServing}
-                endYear={endYear}
-              />
-              <ScottPointeWatch
-                contributions={live?.scottPointeContributions ?? null}
-                hasFetched={!!snapshots}
-                currentlyServing={official.currentlyServing}
-                endYear={endYear}
-              />
-              <SandyPondWatch
-                contributions={live?.sandyPondContributions ?? null}
-                hasFetched={!!snapshots}
-                currentlyServing={official.currentlyServing}
-                endYear={endYear}
-              />
-              {!official.isPartyCommittee && (
-                <CandidateFamilyWatch
-                  contributions={live?.candidateFamilyContributions ?? null}
+                <div style={{ marginTop: 12, borderTop: '1px solid var(--rbl-border-subtle)', paddingTop: 10 }}>
+                  <div style={{ fontSize: 13.5, fontWeight: 700, color: 'var(--rbl-title)' }}>
+                    {endYear} filing activity
+                  </div>
+                  {latestYear ? (
+                    <div style={{ color: 'var(--rbl-success-strong)', fontSize: 13, marginTop: 4 }}>
+                      {usd(latestYear.filingAmount)} across {latestYear.rowCount} row(s), schedules {latestYear.schedules || 'none'}
+                      {latestYear.lastReported ? ` · latest ${dateOnly(latestYear.lastReported)}` : ''}
+                    </div>
+                  ) : snapshots ? (
+                    <div style={{ color: 'var(--rbl-warn)', fontSize: 13, marginTop: 4 }}>No {endYear} filings found yet for this committee.</div>
+                  ) : (
+                    <div style={{ color: 'var(--rbl-text-muted)', fontSize: 13, marginTop: 4 }}>
+                      Tap &ldquo;Refresh from NY Open Data&rdquo; to check {endYear} activity.
+                    </div>
+                  )}
+                </div>
+
+                <CampaignFilingsList filings={filingsByOfficial?.[official.name] ?? null} endYear={endYear} hasFetched={!!filingsByOfficial} />
+
+                <PetroCelliWatch
+                  contributions={live?.petrocelliContributions ?? null}
                   hasFetched={!!snapshots}
                   currentlyServing={official.currentlyServing}
                   endYear={endYear}
-                  selfNames={CANDIDATE_SELF_NAMES[official.name] ?? []}
                 />
-              )}
+                <ScottPointeWatch
+                  contributions={live?.scottPointeContributions ?? null}
+                  hasFetched={!!snapshots}
+                  currentlyServing={official.currentlyServing}
+                  endYear={endYear}
+                />
+                <SandyPondWatch
+                  contributions={live?.sandyPondContributions ?? null}
+                  hasFetched={!!snapshots}
+                  currentlyServing={official.currentlyServing}
+                  endYear={endYear}
+                />
+                {!official.isPartyCommittee && (
+                  <CandidateFamilyWatch
+                    contributions={live?.candidateFamilyContributions ?? null}
+                    hasFetched={!!snapshots}
+                    currentlyServing={official.currentlyServing}
+                    endYear={endYear}
+                    selfNames={CANDIDATE_SELF_NAMES[official.name] ?? []}
+                  />
+                )}
 
-              <div style={{ color: 'var(--rbl-text-muted)', fontSize: 11, marginTop: 10 }}>{official.note}</div>
+                <div style={{ color: 'var(--rbl-text-muted)', fontSize: 11, marginTop: 10 }}>{official.note}</div>
+              </CardMore>
             </article>
           )
         })}
@@ -440,20 +443,23 @@ function PartyCommitteesSection({
                   <Stat label="Total raised" value={raised != null ? usd(raised) : 'No data on file'} />
                   <Stat label="Direct contributions" value={direct != null ? usd(direct) : '—'} />
                   <Stat label="Transfers from other committees" value={transfers != null ? usd(transfers) : '—'} />
-                  <Stat label="Last reported" value={lastReported ?? '—'} />
+                  <Stat label="Last contribution" value={lastReported ?? '—'} />
                 </div>
 
                 <GiftStats official={official} live={live} />
 
                 <DebtStats official={official} live={live} />
 
-                <CampaignFilingsList filings={filingsByOfficial?.[official.name] ?? null} endYear={endYear} hasFetched={!!filingsByOfficial} />
+                <CardMore fetched={!!snapshots}>
 
-                <PetroCelliWatch contributions={live?.petrocelliContributions ?? null} hasFetched={!!snapshots} currentlyServing={true} endYear={endYear} />
-                <ScottPointeWatch contributions={live?.scottPointeContributions ?? null} hasFetched={!!snapshots} currentlyServing={true} endYear={endYear} />
-                <SandyPondWatch contributions={live?.sandyPondContributions ?? null} hasFetched={!!snapshots} currentlyServing={true} endYear={endYear} />
+                  <CampaignFilingsList filings={filingsByOfficial?.[official.name] ?? null} endYear={endYear} hasFetched={!!filingsByOfficial} />
 
-                <div style={{ color: 'var(--rbl-text-muted)', fontSize: 11, marginTop: 10 }}>{official.note}</div>
+                  <PetroCelliWatch contributions={live?.petrocelliContributions ?? null} hasFetched={!!snapshots} currentlyServing={true} endYear={endYear} />
+                  <ScottPointeWatch contributions={live?.scottPointeContributions ?? null} hasFetched={!!snapshots} currentlyServing={true} endYear={endYear} />
+                  <SandyPondWatch contributions={live?.sandyPondContributions ?? null} hasFetched={!!snapshots} currentlyServing={true} endYear={endYear} />
+
+                  <div style={{ color: 'var(--rbl-text-muted)', fontSize: 11, marginTop: 10 }}>{official.note}</div>
+                </CardMore>
               </article>
             )
           })}
@@ -544,37 +550,40 @@ function FormerOfficialsSection({
                   <Stat label="Total raised" value={raised != null ? usd(raised) : 'No data on file'} />
                   <Stat label="Direct contributions" value={direct != null ? usd(direct) : '—'} />
                   <Stat label="Transfers from other committees" value={transfers != null ? usd(transfers) : '—'} />
-                  <Stat label="Last reported" value={lastReported ?? '—'} />
+                  <Stat label="Last contribution" value={lastReported ?? '—'} />
                 </div>
 
                 <GiftStats official={official} live={live} />
 
                 <DebtStats official={official} live={live} />
 
-                {live && live.contributorTypeBreakdown.length > 0 && (
-                  <div style={{ marginTop: 12, borderTop: '1px solid var(--rbl-border-subtle)', paddingTop: 10 }}>
-                    <div style={{ fontSize: 13.5, fontWeight: 700, color: 'var(--rbl-text-body)', marginBottom: 6 }}>Who&rsquo;s giving</div>
-                    <div style={{ display: 'grid', gap: 4 }}>
-                      {live.contributorTypeBreakdown.map((bucket) => (
-                        <div key={bucket.type} style={{ display: 'flex', justifyContent: 'space-between', fontSize: 13, color: 'var(--rbl-text-strong)' }}>
-                          <span>{bucket.type} ({bucket.donorCount})</span>
-                          <strong style={{ color: 'var(--rbl-text-body)' }}>{usd(bucket.amount)}</strong>
-                        </div>
-                      ))}
+                <CardMore fetched={!!snapshots}>
+
+                  {live && live.contributorTypeBreakdown.length > 0 && (
+                    <div style={{ marginTop: 12, borderTop: '1px solid var(--rbl-border-subtle)', paddingTop: 10 }}>
+                      <div style={{ fontSize: 13.5, fontWeight: 700, color: 'var(--rbl-text-body)', marginBottom: 6 }}>Who&rsquo;s giving</div>
+                      <div style={{ display: 'grid', gap: 4 }}>
+                        {live.contributorTypeBreakdown.map((bucket) => (
+                          <div key={bucket.type} style={{ display: 'flex', justifyContent: 'space-between', fontSize: 13, color: 'var(--rbl-text-strong)' }}>
+                            <span>{bucket.type} ({bucket.donorCount})</span>
+                            <strong style={{ color: 'var(--rbl-text-body)' }}>{usd(bucket.amount)}</strong>
+                          </div>
+                        ))}
+                      </div>
                     </div>
-                  </div>
-                )}
+                  )}
 
-                {live && live.historicalByYear.length > 0 && <YearBreakdownList years={live.historicalByYear} />}
+                  {live && live.historicalByYear.length > 0 && <YearBreakdownList years={live.historicalByYear} />}
 
-                <CampaignFilingsList filings={filingsByOfficial?.[official.name] ?? null} endYear={endYear} hasFetched={!!filingsByOfficial} />
+                  <CampaignFilingsList filings={filingsByOfficial?.[official.name] ?? null} endYear={endYear} hasFetched={!!filingsByOfficial} />
 
-                <PetroCelliWatch contributions={live?.petrocelliContributions ?? null} hasFetched={!!snapshots} currentlyServing={false} endYear={endYear} />
-                <ScottPointeWatch contributions={live?.scottPointeContributions ?? null} hasFetched={!!snapshots} currentlyServing={false} endYear={endYear} />
-                <SandyPondWatch contributions={live?.sandyPondContributions ?? null} hasFetched={!!snapshots} currentlyServing={false} endYear={endYear} />
-                <CandidateFamilyWatch contributions={live?.candidateFamilyContributions ?? null} hasFetched={!!snapshots} currentlyServing={false} endYear={endYear} selfNames={CANDIDATE_SELF_NAMES[official.name] ?? []} />
+                  <PetroCelliWatch contributions={live?.petrocelliContributions ?? null} hasFetched={!!snapshots} currentlyServing={false} endYear={endYear} />
+                  <ScottPointeWatch contributions={live?.scottPointeContributions ?? null} hasFetched={!!snapshots} currentlyServing={false} endYear={endYear} />
+                  <SandyPondWatch contributions={live?.sandyPondContributions ?? null} hasFetched={!!snapshots} currentlyServing={false} endYear={endYear} />
+                  <CandidateFamilyWatch contributions={live?.candidateFamilyContributions ?? null} hasFetched={!!snapshots} currentlyServing={false} endYear={endYear} selfNames={CANDIDATE_SELF_NAMES[official.name] ?? []} />
 
-                <div style={{ color: 'var(--rbl-text-muted)', fontSize: 11, marginTop: 10 }}>{official.note}</div>
+                  <div style={{ color: 'var(--rbl-text-muted)', fontSize: 11, marginTop: 10 }}>{official.note}</div>
+                </CardMore>
               </article>
             )
           })}
@@ -1569,5 +1578,20 @@ function GiftStats({ official, live }: { official: CampaignOfficial; live: Campa
         </div>
       ) : null}
     </>
+  )
+}
+
+/**
+ * The long tail of a committee card (who gives, year by year, filings, watch lists and the
+ * registration note) folded under one heading, so the card leads with its totals.
+ */
+function CardMore({ fetched, children }: { fetched: boolean; children: React.ReactNode }) {
+  return (
+    <details style={{ marginTop: 12, borderTop: '1px solid var(--rbl-border-subtle)', paddingTop: 8 }}>
+      <summary style={{ cursor: 'pointer', color: 'var(--rbl-link)', fontWeight: 600, fontSize: 14.5, minHeight: 24, padding: '4px 0' }}>
+        Donors, filings and watch lists{fetched ? '' : ' (press Refresh to fill them in)'}
+      </summary>
+      {children}
+    </details>
   )
 }
