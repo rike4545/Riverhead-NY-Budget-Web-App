@@ -15,16 +15,27 @@ type Geometry = { type: 'Polygon'; coordinates: Position[][] } | { type: 'MultiP
 type Feature = { properties: { ed: string; name: string; area: string | null; updated: string | null }; geometry: Geometry }
 
 export type Candidate = { name: string; party: string; lines: Record<string, number>; votes: number }
-export type DistrictResult = { mapFeatureId: string; total: number; reporting: number; votes: Record<string, number> }
+export type DistrictResult = { mapFeatureId: string | null; total: number; reporting: number | null; votes: Record<string, number> }
 export type Contest = { key: string; name: string; voteFor: number; candidates: Candidate[]; total: number; districts: Record<string, DistrictResult>; url: string }
-export type Election = { id: string; label: string; date: string; official: boolean; asOf: string; url: string; contests: Contest[] }
-type MapFile = { source: { title: string; url: string }; boundarySource: { title: string; url: string }; elections: Election[]; fetchedOn: string }
+export type Election = {
+  id: string; label: string; date: string; official: boolean; asOf: string | null; url: string; contests: Contest[]
+  /** Set when the district counts come from a compilation rather than the Board's own results site (2024). */
+  districtSource?: { title: string; url: string; checks: string; boundaryOverlap: number }
+}
+export type HistoryCandidate = { name: string; lines: Record<string, number>; votes: number }
+export type SupervisorRace = { year: number; url: string; status: string; registered: number; votesCast: number; candidates: HistoryCandidate[] }
+type MapFile = {
+  source: { title: string; url: string }; boundarySource: { title: string; url: string }; finalSource: { title: string; url: string }
+  elections: Election[]; supervisorHistory: SupervisorRace[]; fetchedOn: string
+}
 
 const data = mapJson as unknown as MapFile
 export const elections = data.elections
 export const resultsSource = data.source
 export const boundarySource = data.boundarySource
 export const fetchedOn = data.fetchedOn
+export const finalSource = data.finalSource
+export const supervisorHistory = data.supervisorHistory
 
 const features = (geoJson as unknown as { features: Feature[] }).features
 
@@ -99,6 +110,15 @@ export const comparisons = [
     lower: 'Halpin ran behind Hochul',
     explain: 'Jerry Halpin’s share of the Supervisor vote in each district, minus Governor Hochul’s share of the vote for Governor on the same ballots.',
   },
+  {
+    key: 'halpin-harris',
+    label: 'Halpin in 2026 against Harris in 2024',
+    from: { contest: 'president-2024', candidate: 'Kamala D Harris AND Tim Walz' },
+    to: { contest: 'supervisor-2026', candidate: 'Jerome Halpin' },
+    higher: 'Halpin ran ahead of Harris',
+    lower: 'Halpin ran behind Harris',
+    explain: 'Jerry Halpin’s share of the 2026 Supervisor vote in each district, minus Kamala Harris’s share of the 2024 vote for President.',
+  },
 ] as const
 
 export const shift = (cmp: (typeof comparisons)[number], ed: string) => {
@@ -116,3 +136,12 @@ export const certified = {
 
 /** "Kathy C Hochul AND Adrienne E Adams" to "Kathy C Hochul and Adrienne E Adams". */
 export const displayName = (n: string) => n.replace(/ AND /g, ' and ')
+
+/** A history candidate's party, from the County's line names. */
+export const historyParty = (c: HistoryCandidate) => ('Democratic' in c.lines ? 'DEM' : 'Republican' in c.lines ? 'REP' : 'Conservative' in c.lines ? 'CON' : 'other')
+/** "WALTER, SEAN M" or "Walter, Sean M" to "Sean M Walter". */
+export const historyName = (n: string) => {
+  const [last, first] = n.split(',').map((x) => x.trim())
+  const fix = (w: string) => (w === w.toUpperCase() ? w.toLowerCase().replace(/(^|[\s-])(\w)/g, (_, a, b) => a + b.toUpperCase()) : w)
+  return first ? `${fix(first)} ${fix(last)}` : fix(n)
+}

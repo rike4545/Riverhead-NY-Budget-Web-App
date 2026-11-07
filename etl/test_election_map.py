@@ -67,5 +67,32 @@ class ContestRecord(unittest.TestCase):
         self.assertEqual(rec["voteFor"], 1)
 
 
+FINAL_PAGE = """<p><a name="0"></a><a href="#1"><img src="x.gif">Supervisor, Town of Riverhead</a><a href="#2"><img src="x.gif">Assessor, Town of Riverhead</a></p>
+<table><tr><td colspan="2"><h2><font face="Tahoma">(Elect 1)</font></h2></td></tr>
+<tr><td>7,513 Votes cast out of 21,012</td><td>35.76%</td></tr></table>
+<table><tr><th>Candidate</th><th>Party</th><th>Votes</th><th>Share</th></tr>
+<tr><td rowspan="1">Walter, Sean M</td><td>Conservative</td><td>3,027</td><td>40.29%</td></tr>
+<tr><td rowspan="3">Giglio, Jodi A</td><td>Republican</td><td>2,390</td><td>31.81%</td></tr>
+<tr><td>Independence</td><td>217</td><td>2.89%</td></tr>
+<tr><td>Total</td><td>2,607</td><td>34.70%</td></tr>
+<tr><td>Coates, Anthony</td><td>Democratic</td><td>1,879</td><td>25.01%</td></tr></table>
+<table><tr><td><h2>Assessor, Town of Riverhead (Elect 1)</h2></td></tr></table>"""
+
+
+class FinalPages(unittest.TestCase):
+    def test_titles_from_contents_and_lines_combined(self):
+        contests = m.parse_final_page(FINAL_PAGE)
+        self.assertEqual([c["title"] for c in contests], ["Supervisor, Town of Riverhead", "Assessor, Town of Riverhead"])
+        sup = contests[0]
+        self.assertEqual((sup["votesCast"], sup["registered"]), (7513, 21012))
+        self.assertEqual([(c["name"], c["votes"]) for c in sup["candidates"]], [("Walter, Sean M", 3027), ("Giglio, Jodi A", 2607), ("Coates, Anthony", 1879)])
+        self.assertEqual(sup["candidates"][1]["lines"], {"Republican": 2390, "Independence": 217})
+
+    def test_lines_that_do_not_add_up_stop_the_run(self):
+        bad = FINAL_PAGE.replace("<td>2,607</td>", "<td>2,600</td>")
+        with self.assertRaises(m.SourceUnavailable):
+            m.parse_final_page(bad)
+
+
 if __name__ == "__main__":
     unittest.main()
