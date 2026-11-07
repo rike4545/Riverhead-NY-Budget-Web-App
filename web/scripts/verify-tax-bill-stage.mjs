@@ -22,4 +22,11 @@ if (current?.townWide?.fundRates) {
 } else {
   console.log('No 2027 proposal rate table is present; historical adopted calculator remains available.')
 }
+// STAR lowers school taxable value only (the 2026 final roll's exemption summary has no Town amount for codes 41834 and 41854),
+// so the Town-tax estimator must not offer it as a reduction.
+const roll = read('public/data/assessment-roll-2026.json')
+const star = roll.final.exemptions.groups.find((g) => g.name.startsWith('STAR'))
+if (!star || star.town !== 0) fail('the roll no longer shows STAR as school-only; re-check the estimator')
+if (/starReduction|STAR assessed-value reduction/.test(component)) fail('the estimator still subtracts a STAR reduction from the Town tax')
+if (!component.includes('STAR') || !component.includes('school taxes only')) fail('the estimator must tell readers STAR does not lower Town taxes')
 if (!process.exitCode) console.log('Tax-bill stage check passed.')

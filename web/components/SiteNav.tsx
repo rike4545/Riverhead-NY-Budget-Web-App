@@ -19,7 +19,7 @@ const GROUPS: Group[] = [
   { label: 'The numbers', links: [
     ['How Property Taxes Are Used', `${base}/taxpayer-impact/`], ['What Changed', `${base}/what-changed/`], ['Financial Health & Trends', `${base}/analytics/`],
     ['Budget by Fund', `${base}/funds/`], ['Spending by Service', `${base}/programs/`], ['Compare Budgets', `${base}/compare/`],
-    ['Main Operating Fund', `${base}/general-fund/`], ['Town Revenue', `${base}/revenue/`], ['Annual Report', `${base}/annual-report/`], ['Property-Tax Cap', `${base}/tax-cap/`],
+    ['Main Operating Fund', `${base}/general-fund/`], ['Town Revenue', `${base}/revenue/`], ['Grants', `${base}/grants/`], ['Annual Report', `${base}/annual-report/`], ['Property-Tax Cap', `${base}/tax-cap/`],
     ['Savings & Reserves', `${base}/reserves/`], ['How Savings Were Used', `${base}/fund-balance-draws/`], ['Ambulance Funding', `${base}/rvac-funding/`], ['Approved Budget Changes', `${base}/budget-changes/`], ['Projects & Borrowing', `${base}/capital-debt/`], ['Town Square', `${base}/town-square/`],
     ['Road Spending', `${base}/road-spending/`], ['Community Preservation Fund', `${base}/community-preservation-fund/`],
     ['Community Housing Plan', `${base}/housing-plan/`], ['Community', `${base}/community/`], ['Preserved Land', `${base}/preserved-land/`], ['Transfer of Development Rights', `${base}/tdr/`],

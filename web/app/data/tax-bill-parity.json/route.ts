@@ -1,5 +1,6 @@
 import taxBill from '../../../public/data/tax-bill.json'
 import { allOperatingFunds2026 } from '../../../lib/all-funds'
+import { stageDoc } from '../../../lib/budget-stages'
 
 // Static-export contract for native clients.
 //
@@ -23,10 +24,27 @@ export async function GET() {
 
   const levyTotal = levyFunds.reduce((sum, fund) => sum + fund.taxLevy2026, 0)
 
+  // The latest 2027 proposal (Preliminary, else Tentative), from the same stage index
+  // the /tax-bill/ page reads. Optional for clients: absent until a proposal exists.
+  const proposal = stageDoc(2027, 'preliminary') ?? stageDoc(2027, 'tentative')
+  const fr = proposal?.townWide?.fundRates
+  const rates2027Proposal = proposal?.townWide && fr?.A01 && fr.DA1 && fr.SL1
+    ? {
+        label: stageDoc(2027, 'preliminary') ? '2027 Preliminary Budget' : '2027 Tentative Budget',
+        source: proposal.source.title,
+        generalFund: fr.A01.rate,
+        highway: fr.DA1.rate,
+        streetLighting: fr.SL1.rate,
+        totalTownWide: proposal.townWide.rate,
+      }
+    : null
+
   return Response.json({
     schemaVersion: 1,
     ...taxBill,
     levyFunds,
     levyTotal,
+    rates2027Proposal,
+    starAppliesToTownTax: false,
   })
 }

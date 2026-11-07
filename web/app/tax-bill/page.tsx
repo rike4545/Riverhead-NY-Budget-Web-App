@@ -8,11 +8,12 @@ import DataStatus from '../../components/DataStatus'
 import { allOperatingFunds2026 } from '../../lib/all-funds'
 import { stageDoc } from '../../lib/budget-stages'
 import data from '../../public/data/tax-bill.json'
+import { homes, uniformPercent } from '../../lib/assessment'
 
 export const metadata = {
   title: 'My tax bill — what would I actually pay?',
   description:
-    "Estimate the Town's portion of your property-tax bill using Riverhead's own published 2026 rate table.",
+    "Estimate the Town's portion of your property-tax bill at the 2025 and 2026 adopted rates and the proposed 2027 rate, from the Town's own budget books.",
 }
 
 export default function TaxBillPage() {
@@ -31,6 +32,17 @@ export default function TaxBillPage() {
       : undefined
   const proposalLabel = preliminary2027 ? '2027 Preliminary Budget' : '2027 Tentative Budget'
   const rateChangePct = (rateChange / data.rates2025.totalTownWide) * 100
+  const tentative2027 = stageDoc(2027, 'tentative')
+  const rateRows = [
+    { year: '2025', label: 'Adopted', rate: data.rates2025.totalTownWide, source: '2025 Adopted Budget, as restated in the 2026 Adopted Budget' },
+    { year: '2026', label: 'Adopted', rate: data.rates2026.totalTownWide, source: data.rateSource.title },
+    ...(tentative2027?.townWide ? [{ year: '2027', label: 'Tentative (September 30)', rate: tentative2027.townWide.rate, source: tentative2027.source.title }] : []),
+    ...(preliminary2027?.townWide ? [{ year: '2027', label: 'Preliminary, after the October 20 amendments', rate: preliminary2027.townWide.rate, source: preliminary2027.source.title }] : []),
+  ]
+  const latestRate = rateRows[rateRows.length - 1]
+  const latestChange = latestRate.rate - data.rates2026.totalTownWide
+  // The median one-family home on the 2026 final roll, the roll the 2027 Town taxes are levied on.
+  const medianAssessed = Math.round((homes.median * uniformPercent) / 100) * 100
   const levyFunds = allOperatingFunds2026
     .filter((fund) => fund.taxLevy2026 > 0)
     .sort((a, b) => b.taxLevy2026 - a.taxLevy2026)
@@ -38,31 +50,57 @@ export default function TaxBillPage() {
 
   return (
     <PageShell title={data.title} subtitle={data.intro}>
-      <section style={{ background: 'var(--rbl-info-bg)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 18, marginBottom: 16 }}>
+      <section aria-labelledby="rates-heading" style={{ background: 'var(--rbl-info-bg)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 18, marginBottom: 16 }}>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 12, flexWrap: 'wrap' }}>
-          <div style={{ color: 'var(--rbl-accent)', fontSize: 13.5, fontWeight: 700 }}>What changed</div>
-          <DataStatus status="calculated" text="Rate change calculated from published rates" />
+          <h2 id="rates-heading" style={{ margin: 0, fontSize: 20, color: 'var(--rbl-title)' }}>The Town-wide tax rate, per $1,000 of assessed value</h2>
+          <DataStatus status="official" text="Rates from the Town's budget books" />
         </div>
-        <h2 style={{ margin: '5px 0 6px', fontSize: 22 }}>The Town-wide tax rate increased from {data.rates2025.totalTownWide.toFixed(3)} to {data.rates2026.totalTownWide.toFixed(3)} for every $1,000 of assessed value.</h2>
-        <p style={{ margin: 0, color: 'var(--rbl-text-sub)', lineHeight: 1.5 }}>
-          That is an increase of {rateChange.toFixed(3)} per $1,000, or about {rateChangePct.toFixed(1)}%. Enter your property’s assessed value below to estimate what the Town portion means in dollars. Your full bill also includes taxes from the county, school district, fire district, and library.
+        <p style={{ margin: '8px 0 10px', color: 'var(--rbl-text-sub)', lineHeight: 1.55, maxWidth: '75ch' }}>
+          {proposalRates ? (
+            <>The {proposalLabel} sets the rate at <strong>{latestRate.rate.toFixed(3)}</strong>, {latestChange >= 0 ? 'up' : 'down'}{' '}
+              {Math.abs(latestChange).toFixed(3)} ({((latestChange / data.rates2026.totalTownWide) * 100).toFixed(1)}%) from 2026. It is not final: the
+              Town Board adopts the 2027 budget by November 20, and the rate is then reset on the final assessment roll, as 2026&apos;s moved
+              from 71.549 to 71.598.</>
+          ) : (
+            <>The rate went from {data.rates2025.totalTownWide.toFixed(3)} to {data.rates2026.totalTownWide.toFixed(3)}, up {rateChange.toFixed(3)} ({rateChangePct.toFixed(1)}%).</>
+          )}
         </p>
+        <div style={{ overflowX: 'auto' }}>
+          <table className="rbl-stack" style={{ width: '100%', maxWidth: 720, borderCollapse: 'collapse', fontSize: 15 }}>
+            <thead>
+              <tr style={{ borderBottom: '1px solid var(--rbl-border)' }}>
+                <th scope="col" style={{ padding: '6px 8px', textAlign: 'left', fontSize: 13, color: 'var(--rbl-text-muted)', fontWeight: 600 }}>Budget</th>
+                <th scope="col" style={{ padding: '6px 8px', textAlign: 'right', fontSize: 13, color: 'var(--rbl-text-muted)', fontWeight: 600 }}>Rate per $1,000</th>
+                <th scope="col" style={{ padding: '6px 8px', textAlign: 'left', fontSize: 13, color: 'var(--rbl-text-muted)', fontWeight: 600 }}>Source</th>
+              </tr>
+            </thead>
+            <tbody>
+              {rateRows.map((r) => (
+                <tr key={r.year + r.label} style={{ borderBottom: '1px solid var(--rbl-border-subtle)' }}>
+                  <th scope="row" style={{ padding: '6px 8px', textAlign: 'left', fontWeight: r === latestRate ? 700 : 600 }}>{r.year} {r.label}</th>
+                  <td data-label="Rate per $1,000" style={{ padding: '6px 8px', textAlign: 'right', fontWeight: r === latestRate ? 700 : 400 }}>{r.rate.toFixed(3)}</td>
+                  <td data-label="Source" style={{ padding: '6px 8px', fontSize: 13.5, color: 'var(--rbl-text-muted)' }}>{r.source}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </section>
 
       <PlainCallout
         tips={[
-          { label: 'Assessed value, not market value', text: "New York towns bill against the assessed value on the roll. Suffolk County towns assess at a small fraction of market value, not 100% — Riverhead's residential assessment ratio was 7.44% for the referenced 2025–2026 roll." },
-          { label: 'Town portion only', text: 'County, school, fire, and library taxes are separate line items on your real bill.' },
-          { label: 'Best input', text: 'If you have your current tax bill or assessment notice, use the assessed value printed there. The market-value option is only an approximation.' },
+          { label: 'Assessed value, not market value', text: `Riverhead assesses property at a small fraction of market value, ${(uniformPercent * 100).toFixed(2)}% on the 2026 roll. The median one-family home is assessed at about ${formatDollars(medianAssessed)}, which stands for a market value of about ${formatDollars(homes.median)}.` },
+          { label: 'Town portion only', text: 'County, school, fire and library taxes are separate lines on your bill.' },
+          { label: 'STAR', text: 'STAR lowers school taxes only. It does not change the Town portion, so this calculator does not ask for it.' },
         ]}
       >
         <span style={{ display: 'inline-flex', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}>
           <DataStatus status="official" text="Official published rate table" />
-          <span>These are the rates published in the {data.rateSource.title} ({data.rateSource.note}); they are not estimates.</span>
+          <span>Enter the assessed value from your tax bill to see your Town taxes at each year&apos;s rate. The 2025 and 2026 rates are the adopted ones ({data.rateSource.note}); the 2027 rate is the latest proposal.</span>
         </span>
       </PlainCallout>
 
-      <TaxBillEstimator rates2026={data.rates2026} rates2025={data.rates2025} rates2027Proposal={proposalRates} proposalLabel={proposalLabel} residentialAssessmentRatio={data.equalization.residentialAssessmentRatio} />
+      <TaxBillEstimator rates2026={data.rates2026} rates2025={data.rates2025} rates2027Proposal={proposalRates} proposalLabel={proposalLabel} residentialAssessmentRatio={data.equalization.residentialAssessmentRatio} medianAssessed={medianAssessed} />
 
       <ChartCard>
         <LevyDollarBar />
