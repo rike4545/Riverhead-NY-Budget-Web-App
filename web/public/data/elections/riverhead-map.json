@@ -3351,5 +3351,77 @@
    ]
   }
  ],
+ "turnoutHistory": [
+  {
+   "year": 2013,
+   "url": "https://apps2.suffolkcountyny.gov/boe/eleres/13ge/rvroff.htm",
+   "race": "Supervisor, Town of Riverhead",
+   "votesCast": 7493,
+   "registered": 21001
+  },
+  {
+   "year": 2015,
+   "url": "https://apps2.suffolkcountyny.gov/boe/eleres/15ge/rvroff.htm",
+   "race": "Supervisor, Town of Riverhead",
+   "votesCast": 7513,
+   "registered": 21012
+  },
+  {
+   "year": 2016,
+   "url": "https://apps2.suffolkcountyny.gov/boe/eleres/16ge/rvroff.htm",
+   "race": "Town Justice, Town of Riverhead",
+   "votesCast": 13992,
+   "registered": 21935
+  },
+  {
+   "year": 2017,
+   "url": "https://apps2.suffolkcountyny.gov/boe/eleres/17ge/rvroff.htm",
+   "race": "Supervisor, Town of Riverhead",
+   "votesCast": 9011,
+   "registered": 21833
+  },
+  {
+   "year": 2019,
+   "url": "https://apps2.suffolkcountyny.gov/boe/eleres/19ge/rvroff.htm",
+   "race": "Supervisor, Town of Riverhead",
+   "votesCast": 8587,
+   "registered": 21798
+  },
+  {
+   "year": 2020,
+   "url": "https://apps2.suffolkcountyny.gov/boe/eleres/20ge/rvroff.htm",
+   "race": "Town Justice, Town of Riverhead",
+   "votesCast": 16686,
+   "registered": 23296
+  },
+  {
+   "year": 2021,
+   "url": "https://apps2.suffolkcountyny.gov/boe/eleres/21ge/rvroff.htm",
+   "race": "Supervisor, Town of Riverhead",
+   "votesCast": 9142,
+   "registered": 23133
+  },
+  {
+   "year": 2023,
+   "url": "https://apps2.suffolkcountyny.gov/boe/eleres/23ge/rvroff.htm",
+   "race": "Supervisor, Town of Riverhead",
+   "votesCast": 8753,
+   "registered": 23509
+  },
+  {
+   "year": 2024,
+   "url": "https://apps2.suffolkcountyny.gov/boe/eleres/24ge/rvroff.htm",
+   "race": "Town Justice, Town of Riverhead",
+   "votesCast": 16686,
+   "registered": 24462
+  },
+  {
+   "year": 2025,
+   "url": "https://apps2.suffolkcountyny.gov/boe/eleres/25ge/rvroff.htm",
+   "race": "Supervisor, Town of Riverhead",
+   "votesCast": 7879,
+   "registered": 24429
+  }
+ ],
  "fetchedOn": "2026-11-07"
 }

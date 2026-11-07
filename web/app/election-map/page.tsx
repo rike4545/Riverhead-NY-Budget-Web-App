@@ -1,9 +1,10 @@
 import PageShell from '../../components/PageShell'
 import PlainCallout from '../../components/PlainCallout'
 import ElectionMap, { type MapComparison, type MapContest } from '../../components/ElectionMap'
+import ColumnChart from '../../components/charts/ColumnChart'
 import {
   boundarySource, boundaryUpdated, certified, comparisons, contestByKey, displayName, districts, elections, fetchedOn, finalSource, historyName,
-  historyParty, leader, ledCount, MAP_H, MAP_W, resultsSource, shift, supervisorHistory,
+  historyParty, leader, ledCount, MAP_H, MAP_W, resultsSource, shift, supervisorHistory, turnoutHistory,
 } from '../../lib/election-map'
 
 const base = process.env.NEXT_PUBLIC_BASE_PATH || ''
@@ -109,6 +110,51 @@ export default function ElectionMapPage() {
             About {num(sup26.total - sup25.total)} more votes were cast for Supervisor in 2026, a year with a race for Governor on the ballot.
           </li>
         </ul>
+      </section>
+
+      <section id="turnout" aria-labelledby="turnout-heading" style={card}>
+        <h2 id="turnout-heading" style={h2}>Turnout, year by year</h2>
+        <p style={prose}>
+          The share of Riverhead&apos;s registered voters who voted in each November election the County has a final Town page for.
+          {(() => {
+            const last = turnoutHistory[turnoutHistory.length - 1]
+            const lows = [...turnoutHistory].sort((a, b) => a.votesCast / a.registered - b.votesCast / b.registered)
+            const odd = turnoutHistory.filter((t) => t.year % 2 === 1)
+            const even = turnoutHistory.filter((t) => t.year % 2 === 0)
+            const range = (xs: typeof turnoutHistory) => `${pct(Math.min(...xs.map((t) => t.votesCast / t.registered)))} and ${pct(Math.max(...xs.map((t) => t.votesCast / t.registered)))}`
+            return (
+              <>
+                {' '}In the odd years, when only local offices are on the ballot, between {range(odd)} voted; with a President on the ballot,{' '}
+                {range(even)}. {last.year}&apos;s {pct(last.votesCast / last.registered)}
+                {lows[0].year === last.year ? <>, {num(last.votesCast)} of {num(last.registered)}, was the lowest since {turnoutHistory[0].year}.</> : '.'}
+              </>
+            )
+          })()}
+        </p>
+        <ColumnChart
+          title={`Turnout in Riverhead, ${turnoutHistory[0].year}–${turnoutHistory[turnoutHistory.length - 1].year}`}
+          lede="Votes cast in the Town-wide race that drew the most votes, out of the Town's registered voters."
+          columns={turnoutHistory.map((t) => ({ label: String(t.year), value: t.votesCast / t.registered, display: `${Math.round((t.votesCast / t.registered) * 100)}%`, emphasis: t.year === turnoutHistory[turnoutHistory.length - 1].year }))}
+          format={(n) => `${Math.round(n * 100)}%`}
+          source={`Suffolk County Board of Elections, final results for each year (${turnoutHistory.map((t) => t.year).join(', ')}).`}
+        />
+        <details style={{ marginTop: 10 }}>
+          <summary style={{ cursor: 'pointer', color: 'var(--rbl-link)', fontWeight: 600, minHeight: 24 }}>Each year&apos;s figures</summary>
+          <ul style={{ ...prose, marginTop: 8 }}>
+            {turnoutHistory.map((t) => (
+              <li key={t.year}><a href={t.url} style={link}>{t.year}</a>: {num(t.votesCast)} votes for {t.race.replace(', Town of Riverhead', '')}, of {num(t.registered)} registered ({pct(t.votesCast / t.registered)}).</li>
+            ))}
+          </ul>
+        </details>
+        <p style={{ ...prose, marginTop: 10, fontSize: 15 }}>
+          2014, 2018 and 2022 had no Town race, so the County has no Riverhead page for them. In the presidential years the measure is the
+          Town Justice race; in 2024 the race for President drew more, {num(pres24.total)} votes ({pct(pres24.total / (turnoutHistory.find((t) => t.year === 2024)?.registered ?? pres24.total))}).
+          For 2026, {num(gov26.total)} votes were counted for Governor in Riverhead, but the County has not yet published the Town&apos;s
+          registered voters or its final 2026 page; this chart adds 2026 when it does. The County&apos;s results site does not give
+          registered voters by district, so there is no turnout map; the map&apos;s &ldquo;Votes cast&rdquo; view shows where the votes
+          came from. For turnout by county across the State, see{' '}
+          <a href="https://nysfocus.com/interactives/2026-election-results/turnout/" style={link}>New York Focus&apos;s 2026 turnout map</a>.
+        </p>
       </section>
 
       <section id="supervisor-history" aria-labelledby="supervisor-history-heading" style={card}>

@@ -29,6 +29,7 @@ import json
 import re
 import sys
 import time
+import urllib.error
 import urllib.parse
 import urllib.request
 from datetime import datetime, timezone
@@ -78,6 +79,10 @@ class SourceUnavailable(RuntimeError):
     """A source could not be reached after every try."""
 
 
+class NotPosted(SourceUnavailable):
+    """The page does not exist (HTTP 404): not posted yet, or no such election."""
+
+
 def http_get(url: str, label: str, accept: str = "application/json") -> bytes:
     last: Exception | None = None
     for attempt, wait in enumerate((0, *RETRY_WAITS), start=1):
@@ -87,6 +92,11 @@ def http_get(url: str, label: str, accept: str = "application/json") -> bytes:
             req = urllib.request.Request(url, headers={"User-Agent": USER_AGENT, "Accept": accept})
             with urllib.request.urlopen(req, timeout=60) as resp:
                 return resp.read()
+        except urllib.error.HTTPError as exc:
+            if exc.code == 404:
+                raise NotPosted(f"{label}: {url} is not posted") from exc
+            last = exc
+            print(f"  {label}: try {attempt} failed: {str(exc)[:200]}", file=sys.stderr)
         except Exception as exc:  # noqa: BLE001 - every failure is retried, then reported
             last = exc
             print(f"  {label}: try {attempt} failed: {str(exc)[:200]}", file=sys.stderr)
@@ -158,6 +168,31 @@ def fetch_supervisor_history() -> list[dict]:
             raise SourceUnavailable(f"{year}: Supervisor votes add to {sum(c['votes'] for c in race['candidates'])}, not {race['votesCast']}")
         out.append({"year": year, "url": url, "status": "final", "registered": race["registered"], "votesCast": race["votesCast"],
                     "candidates": sorted(race["candidates"], key=lambda c: -c["votes"])})
+    return out
+
+
+TURNOUT_FROM = 2013
+
+
+def fetch_turnout_history(through: int) -> list[dict]:
+    """Riverhead's turnout in each November election the County has a final Riverhead page for.
+
+    Turnout is the votes cast in the Town-wide, one-seat race that drew the most votes, out of the Town's
+    registered voters as the page gives them. Years with no Town race (2014, 2018, 2022) have no Riverhead
+    page, and the current year's appears only once the Board certifies it."""
+    out = []
+    for year in range(TURNOUT_FROM, through + 1):
+        url = f"{FINAL_RESULTS}/{str(year)[2:]}ge/rvroff.htm"
+        try:
+            contests = parse_final_page(http_get(url, "Suffolk County final results", accept="text/html,*/*").decode("utf-8", "ignore"))
+        except NotPosted:
+            continue
+        town = [c for c in contests if c["registered"] and c["votesCast"]]
+        if not town:
+            continue
+        registered = min(c["registered"] for c in town)
+        top = max((c for c in town if c["registered"] == registered), key=lambda c: c["votesCast"])
+        out.append({"year": year, "url": url, "race": re.sub(r" \(Elect \d+\)$", "", top["title"]), "votesCast": top["votesCast"], "registered": registered})
     return out
 
 
@@ -330,6 +365,11 @@ def main() -> int:
     except SourceUnavailable as exc:
         print(f"WARNING: {exc} The Supervisor history was left as it was.", file=sys.stderr)
         history = (previous or {}).get("supervisorHistory", [])
+    try:
+        turnout = fetch_turnout_history(datetime.now(timezone.utc).year)
+    except SourceUnavailable as exc:
+        print(f"WARNING: {exc} The turnout history was left as it was.", file=sys.stderr)
+        turnout = (previous or {}).get("turnoutHistory", [])
 
     out = {
         "source": {"title": "Suffolk County Board of Elections, public election results", "url": f"{RESULTS_SITE}"},
@@ -337,6 +377,7 @@ def main() -> int:
         "finalSource": {"title": "Suffolk County Board of Elections, final election results", "url": "https://suffolkcountyny.gov/Departments/BOE/Election-Results"},
         "elections": elections,
         "supervisorHistory": history,
+        "turnoutHistory": turnout,
     }
     if previous and {k: v for k, v in previous.items() if k != "fetchedOn"} == out:
         print("  election map: results unchanged")
