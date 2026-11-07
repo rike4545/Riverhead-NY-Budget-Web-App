@@ -73,7 +73,7 @@ type SupplementLine = {
 const supplement = supplementJson as unknown as {
   columns: { adopted: number; tentative: number; preliminary?: number; actual: number; priorAdopted: number }
   source: { title: string; url: string }
-  reconciliation: { complete: boolean; against: string }
+  reconciliation: { complete: boolean; against: string; preliminary?: { complete: boolean; source: { title: string; url: string } } }
   lines: SupplementLine[]
 }
 /** The Supplement, when it is this year's and adds up to the Tentative. */
@@ -81,6 +81,11 @@ export const lineSource = supplement.columns.tentative === TENTATIVE_YEAR && sup
 /** Every Supplement line, with the adopted year it prints beside the Tentative; none without a Supplement that adds up. */
 export const supplementLines: readonly SupplementLine[] = lineSource ? supplement.lines : []
 export const supplementAdoptedYear = supplement.columns.adopted
+/** The Preliminary book, when its lines are matched to this Supplement and add up to its Summary; else null. */
+export const preliminaryLineSource =
+  lineSource && supplement.columns.preliminary === TENTATIVE_YEAR && supplement.reconciliation.preliminary?.complete === true
+    ? supplement.reconciliation.preliminary.source
+    : null
 /** The years of the Supplement's actual and earlier adopted columns. */
 export const supplementActualYear = supplement.columns.actual
 export const supplementPriorAdoptedYear = supplement.columns.priorAdopted

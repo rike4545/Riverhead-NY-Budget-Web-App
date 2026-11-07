@@ -123,6 +123,11 @@ jobs:
       # download leaves the published file unchanged and prints a warning.
       - name: Refresh 2026 General Election campaign finance reports
         run: python etl/build_campaign_reports.py
+      # Each committee card's stored totals on /campaign-finance/ (lifetime,
+      # this cycle, loans and the balance owed), from the same data.ny.gov
+      # dataset. A failed download keeps the last totals and prints a warning.
+      - name: Refresh campaign finance card totals
+        run: python etl/build_campaign_totals.py
       - name: Build unified search index
         run: python etl/build_search_index.py
       - name: Export CSV downloads

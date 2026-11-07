@@ -10,8 +10,10 @@ import {
   dueInBudgetYear, underBudgeted, chronicUnderBudget, chronicGap, unused, unusedTotal, unusedGeneralFund,
   renumbered, historyActualYears, historyBudgetYear, supplementCount,
   historyNote, underBudgetedShortfall, variance, flagYears, flagCorrections,
-  proposalLabel,
+  proposalLabel, yearMatched, screenYears, midYear, GAP_FLOOR, SHORT_RATIO, OVER_SHARE, REVENUE_SHARE,
+  type ScreenRow, type MidYearRow,
 } from '../../lib/budget-accuracy'
+import { fundNames } from '../../lib/outlier-watch'
 import { supplementSource } from '../../lib/supplement'
 
 const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 20 } as const
@@ -276,6 +278,8 @@ export default function BudgetAccuracyPage() {
         <p style={{ color: 'var(--rbl-text-body)', fontSize: 14, lineHeight: 1.6, margin: 0 }}>{flagCorrections.note}</p>
       </section>
 
+      <YearMatched />
+
       <h2 style={{ color: 'var(--rbl-title)' }}>Found automatically</h2>
       <p style={{ color: 'var(--rbl-text-muted)', fontSize: 14, marginTop: 0, lineHeight: 1.6 }}>{outlierNote}</p>
 
@@ -299,6 +303,161 @@ export default function BudgetAccuracyPage() {
         </p>
       </section>
     </PageShell>
+  )
+}
+
+const pctOf = (share: number) => `${Math.round(share * 100)}%`
+const span = `${screenYears[0]} to ${screenYears[screenYears.length - 1]}`
+const lineCell = (r: { name: string; fund: string; account: string }) => (
+  <span style={{ textAlign: 'left' }}>
+    {r.name}
+    <span style={{ display: 'block', color: 'var(--rbl-text-muted)', fontSize: 12.5, fontWeight: 400 }}>{fundNames[r.fund] ?? r.fund} · {r.account}</span>
+  </span>
+)
+const pages = (rows: { page: number }[]) => {
+  const p = Array.from(new Set(rows.map((r) => r.page))).sort((a, b) => a - b)
+  return p.length === 1 ? `p. ${p[0]}` : `pp. ${p.join(', ')}`
+}
+
+/** Budget against cost, year by year: the four screens in lib/accuracy-screens.ts. */
+function YearMatched() {
+  const { shortOfCost, aboveCost, pastBudgetByMidYear, revenueBelowEstimate } = yearMatched
+  const proposed = `${flagYears.tentative} ${proposalLabel}`
+  // The General Fund's fuel line and the fuel it charges other funds move together, so they are read together,
+  // and the sentence says "most" only while the revenue shortfall is at least half the spending room.
+  const fuelSpend = aboveCost.find((r) => r.account === 'A01-1-1670-400-000-00000')
+  const fuelCharge = revenueBelowEstimate.find((r) => r.account === 'A01-2801-904-00000-K')
+  return (
+    <section aria-labelledby="year-matched" style={{ marginBottom: 22 }}>
+      <h2 id="year-matched" style={{ color: 'var(--rbl-title)' }}>Budget against cost, year by year</h2>
+      <p style={{ color: 'var(--rbl-text-body)', fontSize: 15.5, lineHeight: 1.6, marginTop: 0, maxWidth: '75ch' }}>
+        These four checks set each year&apos;s actual beside that same year&apos;s adopted budget, for {span}, and then ask whether
+        the {proposed} repeats the pattern. Each gap shown is at least {usd(GAP_FLOOR)}. Lines already listed above, as never used or
+        over budget three years running, are not repeated. Some also appear in the automatic list below, which compares the{' '}
+        {proposed} with the recent run-rate instead. As elsewhere on this page, mandated costs, debt payments and transfers between funds
+        are left out.
+      </p>
+
+      <ScreenTable
+        id="short-of-cost"
+        title={`Budgeted below what it costs (${shortOfCost.length})`}
+        blurb={`Spending ran past the budget by at least ${pctOf(SHORT_RATIO - 1)} in at least two of the three years, including ${screenYears[screenYears.length - 1]}, and the ${proposed} is again below the ${screenYears[screenYears.length - 1]} cost. The difference has to be found during the year, usually by moving money from other lines.`}
+        rows={shortOfCost}
+        gapLabel={`${proposed} below ${screenYears[screenYears.length - 1]} cost`}
+      />
+      <ScreenTable
+        id="above-cost"
+        title={`Budgeted well above what it costs (${aboveCost.length})`}
+        blurb={`Spending used no more than ${pctOf(OVER_SHARE)} of the budget in each of the three years, and the ${proposed} is at least half again the three years' average cost. Money budgeted and not spent usually ends the year as surplus, so a line like this can make the budget look tighter than it is.`}
+        rows={aboveCost}
+        gapLabel={`${proposed} above average cost`}
+      />
+      {fuelSpend && fuelCharge && fuelCharge.gap >= fuelSpend.gap / 2 && (
+        <p style={{ color: 'var(--rbl-text-body)', fontSize: 15, lineHeight: 1.6, margin: '0 0 16px', maxWidth: '75ch' }}>
+          Municipal fuel is read with the revenue below. The General Fund budgets {usd(fuelSpend.proposed)} for fuel and expects{' '}
+          {usd(fuelCharge.proposed)} back from other funds for it (account {fuelCharge.account}). In {span} it spent between{' '}
+          {usd(Math.min(...fuelSpend.years.map((y) => y.actual)))} and {usd(Math.max(...fuelSpend.years.map((y) => y.actual)))} a year
+          and collected between {usd(Math.min(...fuelCharge.years.map((y) => y.actual)))} and{' '}
+          {usd(Math.max(...fuelCharge.years.map((y) => y.actual)))}, so most of the room in the fuel line is matched by revenue that
+          does not come in either.
+        </p>
+      )}
+      <MidYearTable rows={pastBudgetByMidYear} proposed={proposed} />
+      <ScreenTable
+        id="revenue-below"
+        title={`Revenue estimated above what comes in (${revenueBelowEstimate.length})`}
+        blurb={`Collections came to no more than ${pctOf(REVENUE_SHARE)} of the estimate in each of the three years, and the ${proposed} again counts on more than the average. The opposite case, revenue the Town collects far more of than it estimates, is on the revenue page.`}
+        rows={revenueBelowEstimate}
+        gapLabel={`${proposed} above average collected`}
+        revenue
+      />
+      <p style={{ color: 'var(--rbl-text-muted)', fontSize: 14, lineHeight: 1.6, margin: 0, maxWidth: '75ch' }}>
+        A gap is not a finding of waste. Equipment bought with a grant or borrowed money, or overtime charged to this line for work
+        billed elsewhere, can look the same. Each line is a fair question for the Finance Department: is the budgeted figure meant to
+        be realistic? <a href={`${process.env.NEXT_PUBLIC_BASE_PATH || ''}/revenue/`} style={{ color: 'var(--rbl-link)', fontWeight: 600 }}>Revenue</a>{' '}
+        lists the revenue the Town collects far more of than it estimates.
+      </p>
+    </section>
+  )
+}
+
+function ScreenTable({ id, title, blurb, rows, gapLabel, revenue }: { id: string; title: string; blurb: string; rows: ScreenRow[]; gapLabel: string; revenue?: boolean }) {
+  if (rows.length === 0) return null
+  const proposed = `${flagYears.tentative} ${proposalLabel}`
+  return (
+    <section aria-labelledby={id} style={{ ...card, marginBottom: 16 }}>
+      <h3 id={id} style={{ margin: '0 0 6px', color: 'var(--rbl-title)', fontSize: 18 }}>{title}</h3>
+      <p style={{ color: 'var(--rbl-text-body)', fontSize: 14.5, lineHeight: 1.6, margin: '0 0 10px', maxWidth: '75ch' }}>{blurb}</p>
+      <table className="rbl-stack" style={{ width: '100%', borderCollapse: 'collapse', fontSize: 14.5 }}>
+        <caption style={{ textAlign: 'left', color: 'var(--rbl-text-muted)', fontSize: 13, padding: '0 0 6px' }}>
+          Each year shows {revenue ? 'what was collected against the estimate' : 'what was spent against the budget'}. {flagYears.tentative} Budget Supplement, {pages(rows)}; earlier years from the Supplements before it.
+        </caption>
+        <thead>
+          <tr style={{ ...headRow, borderBottom: '1px solid var(--rbl-border)' }}>
+            <th scope="col" style={th}>Line</th>
+            {screenYears.map((y) => <th key={y} scope="col" style={thr}>{y}</th>)}
+            <th scope="col" style={thr}>{proposed}</th>
+            <th scope="col" style={thr}>{gapLabel}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {rows.map((r) => (
+            <tr key={r.account} style={{ borderBottom: '1px solid var(--rbl-border-subtle)' }}>
+              <td style={{ ...td, color: 'var(--rbl-text-strong)' }}>{lineCell(r)}</td>
+              {r.years.map((y) => (
+                <td key={y.year} data-label={y.year} style={tdr}>
+                  {/* One box, so a phone's stacked row keeps both figures together on the right. */}
+                  <span>
+                    {usd(y.actual)}
+                    <span style={{ display: 'block', color: 'var(--rbl-text-muted)', fontSize: 12.5 }}>of {usd(y.budget)}</span>
+                  </span>
+                </td>
+              ))}
+              <td data-label={proposed} style={tdr}>{usd(r.proposed)}</td>
+              <td data-label={gapLabel} style={{ ...tdr, fontWeight: 700, color: 'var(--rbl-title)' }}>{usd(r.gap)}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </section>
+  )
+}
+
+function MidYearTable({ rows, proposed }: { rows: MidYearRow[]; proposed: string }) {
+  if (rows.length === 0) return null
+  return (
+    <section aria-labelledby="past-mid-year" style={{ ...card, marginBottom: 16 }}>
+      <h3 id="past-mid-year" style={{ margin: '0 0 6px', color: 'var(--rbl-title)', fontSize: 18 }}>Past the whole {midYear} budget by June 30 ({rows.length})</h3>
+      <p style={{ color: 'var(--rbl-text-body)', fontSize: 14.5, lineHeight: 1.6, margin: '0 0 10px', maxWidth: '75ch' }}>
+        By June 30, {midYear}, these lines had already spent more than their budget for the whole year. Some lines are paid once a year
+        up front, but none of these can be explained that way: each is already past its full-year figure.
+      </p>
+      <table className="rbl-stack" style={{ width: '100%', borderCollapse: 'collapse', fontSize: 14.5 }}>
+        <caption style={{ textAlign: 'left', color: 'var(--rbl-text-muted)', fontSize: 13, padding: '0 0 6px' }}>
+          {flagYears.tentative} Budget Supplement, {pages(rows)}.
+        </caption>
+        <thead>
+          <tr style={{ ...headRow, borderBottom: '1px solid var(--rbl-border)' }}>
+            <th scope="col" style={th}>Line</th>
+            <th scope="col" style={thr}>{midYear} budget</th>
+            <th scope="col" style={thr}>Spent by June 30</th>
+            <th scope="col" style={thr}>Over the year&apos;s budget</th>
+            <th scope="col" style={thr}>{proposed}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {rows.map((r) => (
+            <tr key={r.account} style={{ borderBottom: '1px solid var(--rbl-border-subtle)' }}>
+              <td style={{ ...td, color: 'var(--rbl-text-strong)' }}>{lineCell(r)}</td>
+              <td data-label={`${midYear} budget`} style={tdr}>{usd(r.budget)}</td>
+              <td data-label="Spent by June 30" style={tdr}>{usd(r.spent)}</td>
+              <td data-label="Over the year's budget" style={{ ...tdr, fontWeight: 700, color: 'var(--rbl-title)' }}>{usd(r.gap)}</td>
+              <td data-label={proposed} style={tdr}>{usd(r.proposed)}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </section>
   )
 }
 

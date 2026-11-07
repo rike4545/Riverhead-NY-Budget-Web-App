@@ -15,7 +15,7 @@
 
 import { existsSync, readFileSync } from 'node:fs'
 import { isAbsolute, relative, resolve, sep } from 'node:path'
-import { compareColumns, lineMoves, splitByBar } from '../lib/outlier-rules.ts'
+import { accountFlags, compareColumns, isDebtServiceLine, lineMoves, splitByBar } from '../lib/outlier-rules.ts'
 
 const root = resolve(process.cwd())
 // Every file this check opens must sit inside the web/ directory it runs from.
@@ -95,12 +95,19 @@ if (proposalColumn) {
     if (!has(`${c.name}`) || !has(usd(Math.abs(c.dollarChange)))) fail(`the ${proposalColumn.label} section leaves out ${c.name}, ${signed(c.dollarChange)}`)
   }
 
-  // Line by line, from the Supplement, when it prints this proposal.
-  const supplementFits = proposalColumn.stage === 'tentative' && supplement.columns.tentative === proposalColumn.year &&
-    supplement.reconciliation.complete && supplement.columns.adopted === lastYear
+  // Line by line, from the Supplement: at the Tentative it prints, or at the
+  // Preliminary once that book is matched to it and adds up.
+  const tentativeFits = supplement.columns.tentative === proposalColumn.year && supplement.reconciliation.complete && supplement.columns.adopted === lastYear
+  const supplementFits = tentativeFits && (proposalColumn.stage === 'tentative' ||
+    (proposalColumn.stage === 'preliminary' && supplement.columns.preliminary === proposalColumn.year && supplement.reconciliation.preliminary?.complete === true))
+  const lineStage = proposalColumn.stage
+  const proposedOf = (l) => (lineStage === 'preliminary' ? l.preliminary ?? l.tentative : l.tentative) ?? 0
   // If the latest published stage is Tentative, line-level data must be the
   // current year's Supplement reconciled to that Tentative and adopted baseline.
   // Do not silently skip line detail when deploy data is stale or mismatched.
+  if (proposalColumn.stage === 'preliminary' && supplement.columns.preliminary === proposalColumn.year && !supplementFits) {
+    fail(`the ${proposalColumn.label} lines are in current-lines.json but do not reconcile: ${JSON.stringify(supplement.reconciliation)}`)
+  }
   if (proposalColumn.stage === 'tentative') {
     if (supplement.supplementYear !== proposalColumn.year) fail(`the Outlier Watch compares ${proposalColumn.label}, but current-lines.json is Supplement ${supplement.supplementYear}`)
     if (supplement.columns.tentative !== proposalColumn.year) fail(`the Supplement's Tentative column is ${supplement.columns.tentative}, not ${proposalColumn.year}`)
@@ -113,7 +120,7 @@ if (proposalColumn) {
   const lines = supplementFits ? supplement.lines : []
   for (const c of split.flagged) {
     if (!supplementFits) continue
-    const moves = lineMoves(lines, c.code, c.prior, c.current)
+    const moves = lineMoves(lines, c.code, c.prior, c.current, lineStage)
     if (!moves) { fail(`${c.code}: its Supplement lines do not add up to ${usd(c.prior)} and ${usd(c.current)}, so the page drops its line table`); continue }
     for (const l of [...moves.spending, ...moves.money]) {
       if (!has(l.account) || !has(signed(l.dollarChange))) fail(`${c.code}: line ${l.account} (${signed(l.dollarChange)}) is not on the page`)
@@ -141,12 +148,26 @@ if (proposalColumn) {
     const line = (account) => lines.find((l) => l.account === account)
     const transfer = line('CM4-9-9901-900-V01-00000')
     const contribution = line('CM4-9-9990-000-000-00000')
-    const holds = !!transfer && !!contribution && transfer.tentative === 0 && contribution.adopted === 0 &&
-      contribution.tentative === transfer.adopted && !split.flagged.some((c) => c.code === 'CM4')
+    const holds = !!transfer && !!contribution && proposedOf(transfer) === 0 && contribution.adopted === 0 &&
+      proposedOf(contribution) === transfer.adopted && !split.flagged.some((c) => c.code === 'CM4')
     const shown = has('which is why the Community Preservation Fund is not flagged')
     if (holds !== shown) fail(`the Community Preservation Fund sentence is ${shown ? 'shown' : 'missing'}, but the Supplement ${holds ? 'bears it out' : 'does not bear it out'}`)
   }
-  detail = `${proposalColumn.label}: ${split.flagged.length} flagged, ${split.dollarsOnly.length} past the dollar bar only, ${split.percentOnly.length} past the percent bar only`
+  // Accounts, not funds: every line past both bars, apart from the Debt Service Fund's own story.
+  let accountDetail = ''
+  if (supplementFits) {
+    const flags = accountFlags(lines, lineStage).filter((l) => !isDebtServiceLine(l))
+    if (!has(`Accounts the ${proposalColumn.label} moves most`)) fail(`the page has no account-level section on the ${proposalColumn.label}`)
+    for (const l of flags) {
+      if (!has(l.account) || !has(signed(l.dollarChange))) fail(`account ${l.account} (${signed(l.dollarChange)}) is flagged but not on the page`)
+    }
+    for (const [kind, words] of [['expenditure', 'Spending lines'], ['revenue', 'Revenue lines']]) {
+      const n = flags.filter((l) => l.kind === kind).length
+      if (n > 0 && !has(`${words} (${n})`)) fail(`the ${words.toLowerCase()} table does not count its ${n} lines`)
+    }
+    accountDetail = `; ${flags.length} accounts flagged`
+  } else if (has('Accounts the ')) fail('the page shows an account-level section without line data that reconciles')
+  detail = `${proposalColumn.label}: ${split.flagged.length} flagged, ${split.dollarsOnly.length} past the dollar bar only, ${split.percentOnly.length} past the percent bar only${accountDetail}`
 }
 
 if (!process.exitCode) {
