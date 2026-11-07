@@ -142,7 +142,7 @@ export default function TaxBillPage() {
                   <div style={{ height: 9, background: 'var(--rbl-surface-2)', borderRadius: 999, overflow: 'hidden', border: '1px solid var(--rbl-border-subtle)' }}>
                     <div style={{ width: `${Math.max(0, Math.min(100, share))}%`, height: '100%', background: 'var(--rbl-fill-accent)', borderRadius: 999 }} />
                   </div>
-                  <div style={{ marginTop: 4, fontSize: 11.5, color: 'var(--rbl-text-muted)' }}>{share.toFixed(1)}% of levy</div>
+                  <div style={{ marginTop: 4, fontSize: 12.5, color: 'var(--rbl-text-muted)' }}>{share.toFixed(1)}% of levy</div>
                 </div>
                 <strong style={{ color: 'var(--rbl-title)', whiteSpace: 'nowrap' }}>{formatDollars(fund.taxLevy2026)}</strong>
               </a>

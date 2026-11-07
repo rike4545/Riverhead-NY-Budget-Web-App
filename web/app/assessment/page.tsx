@@ -1,7 +1,6 @@
 import PageShell from '../../components/PageShell'
 import PlainCallout from '../../components/PlainCallout'
 import BarRows from '../../components/charts/BarRows'
-import ColumnChart from '../../components/charts/ColumnChart'
 import DivergingBars from '../../components/charts/DivergingBars'
 import { assessorPage, classChanges, exemptions, final, homes, marketOf, schoolDistricts, tentative, townTaxable, uniformPercent, whollyExempt } from '../../lib/assessment'
 
@@ -34,6 +33,19 @@ export default function AssessmentPage() {
   const star = exemptions.groups.find((x) => x.name.startsWith('STAR'))
   const townExempt = exemptions.groups.filter((x) => x.town > 0)
   const example = 46_300
+  // $100,000 bands up to $1 million, then wider ones: 21 bands are too many to read on a phone.
+  const groups = [[0, 2], [2, 3], [3, 4], [4, 5], [5, 6], [6, 7], [7, 8], [8, 9], [9, 10], [10, 15], [15, 20], [20, 21]]
+  const money = (v: number) => (v >= 1e6 ? `$${(v / 1e6).toFixed(v % 1e6 ? 1 : 0)} million` : `$${v / 1000}K`)
+  const homeBands = groups.map(([a, z]) => {
+    const bs = homes.bands.slice(a, z)
+    const from = bs[0].from
+    const to = bs[bs.length - 1].to
+    return {
+      label: to == null ? `${money(from)} and up` : from === 0 ? `Under ${money(to)}` : `${money(from)} to ${money(to)}`,
+      homes: bs.reduce((t, b) => t + b.homes, 0),
+      median: homes.median >= from && (to == null || homes.median < to),
+    }
+  })
   return (
     <PageShell
       title="Assessment roll"
@@ -74,13 +86,12 @@ export default function AssessmentPage() {
           <strong>{usd(homes.median)}</strong>: half are worth less and half more. The middle half fall between {usd(homes.lowerQuartile)}{' '}
           and {usd(homes.upperQuartile)}.
         </p>
-        <ColumnChart
+        <BarRows
           title="One-family homes by market value"
-          lede="Homes in each $100,000 band of the roll's full market value."
-          columns={homes.bands.map((b) => ({ label: b.to == null ? '$2M+' : b.from >= 1e6 ? `$${(b.from / 1e6).toFixed(1)}M` : `$${b.from / 1000}K`, value: b.homes, display: b.homes ? n(b.homes) : '', emphasis: homes.median >= b.from && (b.to == null || homes.median < b.to) }))}
+          lede="Homes in each band of the roll's full market value. The band holding the median is highlighted."
+          rows={homeBands.map((b) => ({ label: b.label, value: b.homes, display: n(b.homes), highlight: b.median }))}
           format={n}
-          source={`${final.title}, class 210 on the taxable section. The highlighted band holds the median.`}
-          height={230}
+          source={`${final.title}, class 210 on the taxable section.`}
         />
         <p style={{ ...prose, fontSize: 15, marginTop: 10 }}>
           A roll&apos;s market value is the assessment divided by {upct(uniformPercent)}, valued as of {rollDate(final.valuationDate)}. It is not a

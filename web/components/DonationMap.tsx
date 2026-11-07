@@ -87,7 +87,7 @@ export default function DonationMap({
       </p>
 
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 300px), 1fr))', gap: 16, alignItems: 'start' }}>
-        <div style={{ gridColumn: 'span 2', minWidth: 0 }}>
+        <div className="rbl-chart" style={{ gridColumn: 'span 2', minWidth: 0 }}>
           <svg viewBox={`-4 -4 ${width + 8} ${height + 8}`} role="group" aria-label={`Map of ZIP code areas around Riverhead: ${committee.label}'s itemized contributions`} style={{ width: '100%', height: 'auto', display: 'block' }}>
             {zips.map((z) => (
               <path
@@ -106,7 +106,7 @@ export default function DonationMap({
             {townPaths.map((d, i) => <path key={i} d={d} style={{ fill: 'none', stroke: 'var(--rbl-text-strong)', strokeOpacity: 0.35, strokeWidth: 0.8, pointerEvents: 'none' }} />)}
             {activeShape && <path d={activeShape.path} style={{ fill: 'none', stroke: 'var(--rbl-text-strong)', strokeWidth: 2.5, pointerEvents: 'none' }} />}
             {zips.filter((z) => riverheadZips.includes(z.zip)).map((z) => (
-              <text key={z.zip} x={z.x} y={z.y} textAnchor="middle" dominantBaseline="central" style={{ fontSize: 13, fontWeight: 700, fill: 'var(--rbl-text-strong)', stroke: 'var(--rbl-surface)', strokeWidth: 3, paintOrder: 'stroke', pointerEvents: 'none' }}>{z.zip}</text>
+              <text className="rbl-map-label" key={z.zip} x={z.x} y={z.y} textAnchor="middle" dominantBaseline="central" style={{ fontSize: 13, fontWeight: 700, fill: 'var(--rbl-text-strong)', stroke: 'var(--rbl-surface)', strokeWidth: 3, paintOrder: 'stroke', pointerEvents: 'none' }}>{z.zip}</text>
             ))}
           </svg>
           <p style={{ margin: '6px 0 0', color: 'var(--rbl-text-muted)', fontSize: 13.5 }}>
