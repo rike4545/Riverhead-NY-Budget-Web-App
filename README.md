@@ -89,6 +89,34 @@ three-year term.
   - lines past their whole 2026 budget by June 30;
   - revenue estimated above what comes in.
 
+### ⚖️ Legal costs — `/legal-costs`
+What the Town spends on lawyers and claims, 2018 to the 2027 Preliminary,
+from the Budget Supplements' own accounts:
+- the Town Attorney's outside-counsel line, budget against cost each year.
+  It was budgeted at $400,000 and cost $818,961 in 2025. By June 30, 2026 it
+  had spent $405,990, more than the year's budget;
+- all legal services in four groups: outside lawyers, other departments'
+  outside lawyers, the office's staff pay and its other costs;
+- the self-insurance fund's payments on claims;
+- the Board's resolutions on special counsel, settlements and claims.
+
+`scripts/verify-legal-costs.mjs` rebuilds the groups from the line history
+and checks that every Town Attorney or legal account that spent money is in
+one.
+
+### 🏛️ Regional CPF counsel — `/regional-cpf-counsel`
+On November 5 the Board tabled, 5–0, a $400-an-hour retainer for a regional
+Community Preservation Fund attorney that a 2024 state law (Chapter 666)
+requires the five East End towns to share. The page quotes:
+- the statute;
+- the contract;
+- the Town's December 2025 resolution saying the law passed "without
+  requirement for Home Rule Message" and that the Board was "compelled" to
+  join.
+
+It also explains the home rule rule and shows what Riverhead's share of a
+bill could be.
+
 ### Also this month
 - **Meeting schedule** (since October 29): when the Town's website does not
   answer, the meeting refresh keeps the last published schedule and hearings
@@ -363,6 +391,8 @@ The four links at the front of the site menu:
 - **Data Quality & Freshness** (`/data-quality`): which figures are official and which are calculated, how current each source is, and what each deploy checks.
 - **Standards (GFOA)** (`/gfoa`): this site scored against the GFOA budget-presentation criteria.
 - **Election Law Case** (`/election-law-case`): what the Town spent fighting New York's even-year election law.
+- **Legal Costs** (`/legal-costs`): outside lawyers, the Town Attorney's office and claims, 2018 to the 2027 Preliminary, and the Board's votes on counsel and settlements.
+- **Regional CPF Counsel** (`/regional-cpf-counsel`): the regional Community Preservation Fund attorney the 2024 state law requires, the contract the Board tabled, and the home rule question.
 - **Officials on Social Media** (`/official-social-media`): when an official's account counts as government speech.
 - **Know Your Rights (ICE)** (`/know-your-rights`): your rights if immigration agents come, and New York's 2026 protections.
 
