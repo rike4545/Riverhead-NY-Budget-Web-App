@@ -62,6 +62,11 @@ const sections = [
 
 const slug = (value: string) => value.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')
 
+export const metadata = {
+  title: 'Financial health',
+  description: 'Where the Town of Riverhead stands now, what changed, what could happen next, and the choices the Town Board controls.',
+}
+
 export default function AnalyticsPage() {
   const levyTotal = allOperatingFunds2026.reduce((sum, fund) => sum + fund.taxLevy2026, 0)
   const appropriationTotal = allOperatingFunds2026.reduce((sum, fund) => sum + fund.appropriations2026, 0)

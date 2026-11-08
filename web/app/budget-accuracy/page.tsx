@@ -30,6 +30,8 @@ const SEV_COLOR: Record<string, string> = {
   high: 'var(--rbl-warn-border)',
   explain: 'var(--rbl-badge)',
 }
+// The border colours are too light for text, so labels use the darker step.
+const SEV_TEXT: Record<string, string> = { high: 'var(--rbl-warn)' }
 
 const FIRST = historyActualYears[0]
 const LAST = historyActualYears[historyActualYears.length - 1]
@@ -243,7 +245,7 @@ export default function BudgetAccuracyPage() {
             <div style={{ display: 'flex', alignItems: 'baseline', gap: 10, flexWrap: 'wrap' }}>
               <span style={{ color: 'var(--rbl-text-muted)', fontWeight: 900, fontSize: 12 }}>#{f.rank}</span>
               <strong style={{ color: 'var(--rbl-title)', fontSize: 16.5 }}>{f.title}</strong>
-              <span style={{ marginLeft: 'auto', color: SEV_COLOR[f.severity], fontWeight: 700, fontSize: 13.5 }}>
+              <span style={{ marginLeft: 'auto', color: SEV_TEXT[f.severity] ?? SEV_COLOR[f.severity], fontWeight: 700, fontSize: 13.5 }}>
                 {severityLabel[f.severity]}
               </span>
             </div>

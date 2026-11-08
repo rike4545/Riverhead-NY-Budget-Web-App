@@ -99,7 +99,7 @@ export default function TaxCapPage() {
           source="NYS OSC local-government property-tax-cap formula"
           sourceHref={OSC_FORMULA}
           asOf="current OSC guidance; 2027 growth factor announced July 15, 2026"
-          evidenceHref={`${base}/sources/#osc-guidance`}
+          evidenceHref="/sources/#osc-guidance"
         />
       </section>
 
@@ -111,7 +111,7 @@ export default function TaxCapPage() {
           <Fact title="Timing" text="The override local law must be enacted before adoption of a budget whose levy exceeds the calculated limit." />
           <Fact title="Not a mandate to exceed" text="The Board can authorize an override and still adopt a final levy at or below the calculated limit." />
         </div>
-        <ProvenanceLine claimId="override-rule" status="official" source="NYS OSC tax-cap guidance" sourceHref={OSC_CAP} asOf="current guidance" evidenceHref={`${base}/sources/#osc-guidance`} />
+        <ProvenanceLine claimId="override-rule" status="official" source="NYS OSC tax-cap guidance" sourceHref={OSC_CAP} asOf="current guidance" evidenceHref="/sources/#osc-guidance" />
       </section>
 
       <section style={{ ...card, marginBottom: 16, borderColor: 'var(--rbl-danger-border)' }}>
@@ -122,7 +122,7 @@ export default function TaxCapPage() {
           <span style={{ display: 'block', fontStyle: 'normal', fontSize: 12, color: 'var(--rbl-warn)', marginTop: 6 }}>— Town of Riverhead 2022 Audited Basic Financial Statements</span>
         </blockquote>
         <p style={{ color: 'var(--rbl-text-strong)', fontSize: 14.5, lineHeight: 1.6, margin: 0 }}><strong>Later treatment.</strong> {d.finding.correction}</p>
-        <ProvenanceLine claimId="riverhead-cap-history" status="official" source="Town of Riverhead audited financial statements and adopted override local laws" asOf="2018–2026 historical record" evidenceHref={`${base}/sources/`} />
+        <ProvenanceLine claimId="riverhead-cap-history" status="official" source="Town of Riverhead audited financial statements and adopted override local laws" asOf="2018–2026 historical record" evidenceHref="/sources/" />
       </section>
 
       <section style={{ ...card, marginBottom: 16 }}>
@@ -163,7 +163,7 @@ export default function TaxCapPage() {
             <tbody>{d.levyContext.rows.map((r) => <tr key={r.year} style={{ borderBottom: '1px solid var(--rbl-border-subtle)' }}><td style={{ ...td, fontWeight: 700 }}>{r.year}</td><td style={{ ...td, textAlign: 'right' }}>{usd(r.levy)}</td><td style={{ ...td, textAlign: 'right', fontWeight: 700 }}>{r.pct > 0 ? '+' : ''}{r.pct.toFixed(2)}%</td></tr>)}</tbody>
           </table>
         </div>
-        <ProvenanceLine claimId="general-fund-growth-context" status="calculated" source="Published General Fund levy series" asOf="latest indexed historical series" calculation="Year-over-year General Fund levy change; not the statutory levy-limit calculation" evidenceHref={`${base}/sources/`} />
+        <ProvenanceLine claimId="general-fund-growth-context" status="calculated" source="Published General Fund levy series" asOf="latest indexed historical series" calculation="Year-over-year General Fund levy change; not the statutory levy-limit calculation" evidenceHref="/sources/" />
       </section>
 
       <ChartCard>
@@ -195,7 +195,7 @@ export default function TaxCapPage() {
           </p>
         )}
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}><a href={`${base}/tax-cap-letter/`} style={pillLink}>The supervisors’ October letter, checked →</a><a href={`${base}/predict-2027/`} style={pillLink}>Open 2027 scenarios →</a><a href={OSC_2027} target="_blank" rel="noreferrer" style={pillLink}>OSC 2027 announcement ↗</a><a href={`${base}/sources/#osc-guidance`} style={pillLink}>Authority sources →</a></div>
-        <ProvenanceLine claimId="2027-growth-factor" status="official" source="NYS OSC — 2027 allowable levy growth factor" sourceHref={OSC_2027} asOf="July 15, 2026" evidenceHref={`${base}/sources/#osc-guidance`} />
+        <ProvenanceLine claimId="2027-growth-factor" status="official" source="NYS OSC — 2027 allowable levy growth factor" sourceHref={OSC_2027} asOf="July 15, 2026" evidenceHref="/sources/#osc-guidance" />
       </section>
     </PageShell>
   )

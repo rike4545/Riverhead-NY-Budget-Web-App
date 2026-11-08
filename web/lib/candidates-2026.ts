@@ -141,7 +141,7 @@ export const candidates2026: Candidate[] = [
           `“Stable” is an outcome, not a mechanism: it still requires either the trims or the new revenue above. If neither fully lands, the only lever left is fund balance — ${gfUnassigned} of the ${gfBalance} General Fund balance is unassigned and actually flexible — and that is one-time money that can’t fund a recurring gap twice.`,
         tradeoff:
           'Protecting specific groups from tax increases can mean shifting cost to fees or districts, which are less visible but still land on the same households.',
-        anchor: { label: 'What it means for your tax bill', href: '/my-tax-bill/' },
+        anchor: { label: 'What it means for your tax bill', href: '/tax-bill/' },
       },
       {
         proposal: 'Hire a public relations employee to publicize Town activities and local attractions.',

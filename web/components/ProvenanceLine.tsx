@@ -15,7 +15,8 @@ type Props = {
 
 function resolvedHref(href: string | undefined, base: string) {
   if (!href) return null
-  return href.startsWith('http') ? href : `${base}${href}`
+  if (href.startsWith('http') || (base && href.startsWith(`${base}/`))) return href
+  return `${base}${href}`
 }
 
 export default function ProvenanceLine({
