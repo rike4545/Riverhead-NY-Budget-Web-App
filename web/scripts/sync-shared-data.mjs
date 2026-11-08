@@ -108,7 +108,10 @@ const srcBase = join(REPO, manifest.canonicalRoot)
 // carried without anyone editing the manifest.
 const pairs = []
 for (const f of manifest.files) pairs.push({ src: join(srcBase, f.web), dest: join(destBase, f[consumerName]), label: f.web })
-for (const d of manifest.directories ?? []) {
+// A directory a consumer does not read has no key for it, and is skipped
+// rather than resolved to an "undefined" folder.
+const dirs = (manifest.directories ?? []).filter((d) => d[consumerName])
+for (const d of dirs) {
   const from = join(srcBase, d.web)
   if (!existsSync(from)) continue
   const suffix = d.pattern?.replace('*', '') ?? ''
@@ -132,7 +135,7 @@ for (const p of pairs) {
 // produces. Not deleted automatically — a stale meeting file is worth a human
 // glance, and deleting from a bundle can break a build that references it.
 const orphans = []
-for (const d of manifest.directories ?? []) {
+for (const d of dirs) {
   const there = join(destBase, d[consumerName])
   if (!existsSync(there)) continue
   const here = new Set(existsSync(join(srcBase, d.web)) ? readdirSync(join(srcBase, d.web)) : [])
