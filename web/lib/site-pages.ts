@@ -99,6 +99,7 @@ export const SITE_PAGES: SitePage[] = [
 
   // Not in the menu
   { path: '/explore/', title: 'Explore the Budget', summary: 'A guided, plain-English tour of the Town budget: what it is, where the money comes from, where it goes, and who decides.', keywords: 'explore tour how the budget works overview walkthrough' },
+  { path: '/governance-accountability/', title: 'Following How the Town Is Governed', summary: 'A framework for following how Riverhead is governed: the decisions, public costs, services and results residents can check, with links to each.', keywords: 'governance accountability framework fiscal stewardship transparency oversight how the town is run' },
   { path: '/evidence/', title: 'Evidence & Sources', summary: 'How the site labels, calculates and sources its figures, and how to trace a number back to the record.', keywords: 'evidence verify methodology labels sources how to check' },
 ]
 
