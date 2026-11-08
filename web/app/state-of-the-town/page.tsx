@@ -22,6 +22,7 @@ const marks = yearMarks()
 const firstYear = marks[0].year
 const lastYear = marks[marks.length - 1].year
 const asOfLong = longDate(addressesAsOf)
+const pastWithAddress = supervisors.slice(0, -1).filter((s) => s.addresses.length > 0).length
 
 function Sources({ e }: { e: AddressEvent }) {
   return (
@@ -177,6 +178,29 @@ export default function StateOfTheTownPage() {
           ) : null}
         </section>
       ))}
+
+      <section aria-labelledby="useful-heading" style={card}>
+        <h2 id="useful-heading" style={h2}>What makes an address useful to residents</h2>
+        <p style={prose}>
+          {pastWithAddress} of the {supervisors.length - 1} Supervisors before the current one gave at least one State of the Town address.
+          Nothing in State law says what one must contain. These are practices that would make any Supervisor’s address easier for residents
+          to check and use. They are this site’s suggestions, not a rule.
+        </p>
+        <ul style={{ ...prose, paddingLeft: 18 }}>
+          <li><strong>Give it after the budget is adopted.</strong> The Town Board adopts the next year’s budget each November. An address early
+            in the year can explain decisions that are final, not proposals that may still change.</li>
+          <li><strong>State the hard numbers first.</strong> The tax rate, the levy, any use of savings and any new borrowing, each matching the
+            adopted budget and the <a href={`${base}/annual-report/`} style={link}>annual financial report</a>.</li>
+          <li><strong>Publish the full text, with sources.</strong> This site has not found the text of any address posted as a Town record. Posting it, with
+            each figure tied to its document, lets residents check it without relying on a transcript or a news report.</li>
+          <li><strong>Measure the year against the inaugural goals.</strong> Say which goals from the swearing-in were met, which slipped and
+            why. Hubbard’s 2024 address, given on his 100th day, reviewed his first three months in office.</li>
+          <li><strong>Keep it open.</strong> Since 2018 the address has been given at Town Hall, free to attend and livestreamed, rather than at a
+            ticketed dinner.</li>
+          <li><strong>Residents can ask for one.</strong> Any resident may ask the Supervisor, at a Town Board meeting or in writing, when the next
+            address will be. The record above shows it is a custom every recent Supervisor has kept, not something the law requires.</li>
+        </ul>
+      </section>
 
       <section aria-labelledby="concerns-heading" style={card}>
         <h2 id="concerns-heading" style={h2}>Likely concerns for residents</h2>
