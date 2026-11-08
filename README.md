@@ -15,6 +15,7 @@ An independent public fiscal intelligence platform for exploring Riverhead Town 
 | 🔮 2027 Prediction | https://rike4545.github.io/Riverhead-NY-Budget-Web-App/predict-2027/ |
 | 🧮 How Budgets Get Adopted (2005–2026) | https://rike4545.github.io/Riverhead-NY-Budget-Web-App/budget-adoption/ |
 | ✅ The Supervisor’s Promises | https://rike4545.github.io/Riverhead-NY-Budget-Web-App/supervisor-promises/ |
+| 🗺️ Comprehensive Plan Tracker | https://rike4545.github.io/Riverhead-NY-Budget-Web-App/comprehensive-plan/ |
 | 🎤 State of the Town Addresses | https://rike4545.github.io/Riverhead-NY-Budget-Web-App/state-of-the-town/ |
 | 🚪 Open Meetings Law | https://rike4545.github.io/Riverhead-NY-Budget-Web-App/open-meetings/ |
 | 🏛️ Funds & Line Items | https://rike4545.github.io/Riverhead-NY-Budget-Web-App/funds/ |
@@ -374,6 +375,15 @@ Town's own budget books.
 What Supervisor Jerry Halpin promised, and what he says he has done, checked
 against the Town's own votes, budgets and resolutions. Also lists the tests
 his 2027 budget will answer.
+
+### 🗺️ Comprehensive Plan Tracker — `/comprehensive-plan`
+The main land use recommendations of the 2024 Comprehensive Plan Update,
+adopted September 4, 2024 (Resolution 2024-760), each checked against Town
+Board resolutions since: which became law (most in the December 17, 2024
+zoning package), which are under way, and which show no action. Each item
+quotes the plan with its page and cites the resolution. Data: hand-curated
+`web/public/data/comprehensive-plan.json`; checked by
+`web/scripts/verify-comprehensive-plan.mjs`.
 
 ### 🎤 State of the Town and inaugural addresses — `/state-of-the-town`
 Why a Supervisor's State of the Town and inaugural addresses matter, what
