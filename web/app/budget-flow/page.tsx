@@ -60,7 +60,7 @@ export default function BudgetFlowPage() {
 
       <section id="flow" aria-labelledby="flow-heading" style={card}>
         <h2 id="flow-heading" style={h2}>Where the money comes from and goes</h2>
-        <p style={prose}>Each band&apos;s thickness is its dollars. Point at a band to read it; every figure is in the tables below. On a narrow screen the diagram becomes three lists, one for each column.</p>
+        <p style={prose}>Each band&apos;s thickness is its dollars. Choose a revenue, a fund or a purpose to light its flows and list them with their shares; pick a fund to see both where its money comes from and what it pays for. Every figure is also in the tables below. On a narrow screen the diagram is replaced by lists.</p>
         <BudgetFlow nodes={flow.nodes} links={flow.links} total={flowTotal} />
         <p style={{ ...prose, fontSize: 14.5, marginTop: 8 }}>
           {flow.smallFunds.length} funds under $2 million are grouped: {flow.smallFunds.join(', ')}.

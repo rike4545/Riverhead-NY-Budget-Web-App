@@ -28,6 +28,7 @@ table{font-variant-numeric:tabular-nums}
 .rbl-chart-wide{display:block}
 .rbl-chart-narrow{display:none}
 @container (max-width:560px){.rbl-chart-wide{display:none}.rbl-chart-narrow{display:block}}
+.rbl-flow-band{transition:fill-opacity .15s ease}@media (prefers-reduced-motion:reduce){.rbl-flow-band{transition:none}}
 /* Map labels (district numbers, ZIP codes) render at 5 or 6px on a phone, too small to read, and pile up on small districts: hide them there. Tapping a district still names it. */
 @container (max-width:560px){.rbl-map-label{display:none}}
 /* A table that becomes one labeled block per row on a phone, so no column is scrolled out of view. Each cell after the first carries data-label. */

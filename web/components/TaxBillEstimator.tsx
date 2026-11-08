@@ -24,6 +24,7 @@ export default function TaxBillEstimator({
   proposalLabel = '2027 proposal',
   residentialAssessmentRatio,
   medianAssessed,
+  lookup,
 }: {
   rates2026: TaxRates
   rates2025: TaxRates
@@ -32,16 +33,20 @@ export default function TaxBillEstimator({
   residentialAssessmentRatio: number
   /** The median one-family home's assessed value on the latest final roll, for the quick-fill button. */
   medianAssessed?: number
+  /** Where a resident can look up their own bill. Linked only: nothing is read from it. */
+  lookup?: { title: string; url: string }
 }) {
   const id = useId()
   const [inputMode, setInputMode] = useState<'assessed' | 'market'>('assessed')
   const [assessedText, setAssessedText] = useState(group(medianAssessed ?? 45000))
   const [marketText, setMarketText] = useState('600,000')
   const [exemptText, setExemptText] = useState('0')
+  const [billText, setBillText] = useState('')
 
   const assessedValue = parse(assessedText)
   const marketValue = parse(marketText)
   const exemption = parse(exemptText)
+  const billTotal = parse(billText)
   const effectiveAssessed = inputMode === 'assessed' ? assessedValue : assessedFromMarketValue(marketValue, residentialAssessmentRatio)
   const e2025 = estimateTaxBill(effectiveAssessed, exemption, rates2025)
   const e2026 = estimateTaxBill(effectiveAssessed, exemption, rates2026)
@@ -64,6 +69,18 @@ export default function TaxBillEstimator({
   return (
     <div style={card}>
       <h2 style={{ margin: '0 0 12px', fontSize: 21, color: 'var(--rbl-title)' }}>Estimate your Town taxes</h2>
+
+      {lookup ? (
+        <div style={{ margin: '0 0 16px', padding: '12px 14px', borderRadius: 10, background: 'var(--rbl-info-bg)', border: '1px solid var(--rbl-border-subtle)' }}>
+          <p style={{ margin: '0 0 6px', fontWeight: 700, color: 'var(--rbl-title)', fontSize: 15 }}>Get your own numbers first</p>
+          <p style={{ margin: 0, color: 'var(--rbl-text-body)', fontSize: 14.5, lineHeight: 1.5, maxWidth: '72ch' }}>
+            Look up your property on <a href={lookup.url} target="_blank" rel="noreferrer" style={{ color: 'var(--rbl-link)', fontWeight: 600 }}>{lookup.title}</a>{' '}
+            (opens the County’s site; it asks you to search by one field at a time). Copy your property’s assessed value, any Town exemptions and
+            the bill’s total into the boxes below. Your paper bill or assessment notice has them too. This site never sees what you look up: the
+            estimate is worked out in your browser and not saved.
+          </p>
+        </div>
+      ) : null}
 
       <fieldset style={{ border: 0, padding: 0, margin: '0 0 14px' }}>
         <legend style={{ fontWeight: 700, color: 'var(--rbl-title)', fontSize: 14.5, marginBottom: 8 }}>1. What do you know about your property?</legend>
@@ -107,6 +124,16 @@ export default function TaxBillEstimator({
         />
       </div>
 
+      <div style={{ marginTop: 14 }}>
+        <MoneyField
+          id={`${id}-bill`}
+          label="4. Your whole tax bill (optional)"
+          value={billText}
+          onChange={setBillText}
+          hint="The total of your 2025–26 bill, the one that carries the 2026 Town rates. With it, the result shows how much of your bill is Town tax. The rest goes to your school district, the County, and fire, library and other districts."
+        />
+      </div>
+
       <hr style={{ border: 'none', borderTop: '1px solid var(--rbl-border-subtle)', margin: '18px 0' }} />
 
       <div aria-live="polite">
@@ -122,6 +149,27 @@ export default function TaxBillEstimator({
           {usd(latest.total / 12)} a month.
           {e2027 ? ' This is an illustrative estimate: it applies the proposed rate to your inputs. The rate is not final until the Town Board adopts the budget, and this is not a tax bill.' : ''}
         </p>
+        {billTotal > 0 ? (
+          billTotal >= e2026.total ? (
+            <div style={{ marginTop: 12 }}>
+              <p style={{ margin: '0 0 6px', color: 'var(--rbl-text-body)', fontSize: 15.5, lineHeight: 1.5 }}>
+                Of your {usd(billTotal)} bill, about <strong>{usd(e2026.total)}</strong> ({((e2026.total / billTotal) * 100).toFixed(0)}%) is Town tax at the
+                2026 rates. The other {usd(billTotal - e2026.total)} goes to your school district, the County and your special districts.
+              </p>
+              <div aria-hidden="true" style={{ display: 'flex', height: 14, borderRadius: 6, overflow: 'hidden', background: 'var(--rbl-track)' }}>
+                <div style={{ width: `${(e2026.total / billTotal) * 100}%`, background: 'var(--rbl-series-blue)' }} />
+              </div>
+              <div aria-hidden="true" style={{ display: 'flex', justifyContent: 'space-between', fontSize: 13, color: 'var(--rbl-text-muted)', marginTop: 4 }}>
+                <span>Town</span><span>School, County and districts</span>
+              </div>
+            </div>
+          ) : (
+            <p role="status" style={{ margin: '12px 0 0', color: 'var(--rbl-warn-strong)', fontSize: 15, lineHeight: 1.5 }}>
+              The bill total you entered is less than the Town tax estimated from your assessed value, so one of them is likely off. Check the
+              assessed value and exemptions against the bill.
+            </p>
+          )
+        ) : null}
       </div>
 
       <figure style={{ margin: '16px 0 0' }}>

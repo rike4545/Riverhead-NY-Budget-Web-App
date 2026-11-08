@@ -100,7 +100,7 @@ export default function TaxBillPage() {
         </span>
       </PlainCallout>
 
-      <TaxBillEstimator rates2026={data.rates2026} rates2025={data.rates2025} rates2027Proposal={proposalRates} proposalLabel={proposalLabel} residentialAssessmentRatio={data.equalization.residentialAssessmentRatio} medianAssessed={medianAssessed} />
+      <TaxBillEstimator rates2026={data.rates2026} rates2025={data.rates2025} rates2027Proposal={proposalRates} proposalLabel={proposalLabel} residentialAssessmentRatio={data.equalization.residentialAssessmentRatio} medianAssessed={medianAssessed} lookup={data.lookup} />
 
       <ChartCard>
         <LevyDollarBar />
@@ -168,7 +168,8 @@ export default function TaxBillPage() {
 
       <p style={{ color: 'var(--rbl-text-muted)', fontSize: 13, lineHeight: 1.55, marginTop: 16 }}>
         Source: <a href={data.rateSource.url} style={{ color: 'var(--rbl-accent)', fontWeight: 700 }}>{data.rateSource.title}</a>.{' '}
-        {data.equalization.note}
+        {data.equalization.note} To look up your own bill, use{' '}
+        <a href={data.lookup.url} style={{ color: 'var(--rbl-accent)', fontWeight: 700 }}>{data.lookup.title}</a>, run by {data.lookup.operator}, which lists the {data.lookup.contact} as its contact.
       </p>
     </PageShell>
   )
