@@ -746,6 +746,10 @@ from the sources they cite. They change when those sources are reviewed again.
 
 ---
 
+## License
+
+This project is licensed under the **GNU General Public License v2.0 only (GPL-2.0-only)**. See [LICENSE](LICENSE) for the complete license text.
+
 # Status
 
 Riverhead Budget Live is under active development and expanding rapidly as additional Town financial records, New York State disclosure data, and analytics systems are integrated into the platform.
