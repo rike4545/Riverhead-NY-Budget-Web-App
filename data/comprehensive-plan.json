@@ -1,0 +1,493 @@
+{
+ "note": "Hand-curated from the adopted plan and Town Board resolutions. A 'none' status means no Town Board action was found in the records this site searched; it does not mean the Town did nothing. Checked by web/scripts/verify-comprehensive-plan.mjs.",
+ "asOf": "2026-11-07",
+ "plan": {
+  "title": "Town of Riverhead 2024 Comprehensive Plan Update",
+  "pages": 210,
+  "consultant": "BFJ Planning",
+  "url": "https://www.townofriverheadny.gov/DocumentCenter/View/3243/riverhead-CPU-Update-FINAL---ADOPTED?bidId=",
+  "adopted": {
+   "date": "2024-09-04",
+   "resolution": "2024-760",
+   "vote": "Adopted unanimously: Hubbard, Rothwell, Kern, Merrifield, Waski",
+   "url": "https://riverheadny.portal.civicclerk.com/event/3301/files/agenda/5788",
+   "previous": "First tabled on August 21, 2024",
+   "replaces": "the 2003 Comprehensive Plan"
+  }
+ },
+ "coverage": "Town Board resolutions from September 4, 2024 to November 5, 2026: agendas and minutes from CivicClerk for 2024, and this site's meeting records and agenda packets for 2025 and 2026. Planning Board actions, building permits and capital projects were not searched.",
+ "statuses": {
+  "done": "Law adopted",
+  "partial": "Partly adopted",
+  "related": "Related law adopted",
+  "underway": "Under way",
+  "none": "No action found"
+ },
+ "items": [
+  {
+   "id": "calverton-industrial",
+   "group": "Industrial areas",
+   "recommendation": "Create a new Calverton Industrial (CI) district for the IND A land in Calverton, with larger setbacks and lower building coverage.",
+   "planPage": 191,
+   "quote": "Create a new Calverton Industrial District (CI) for IND A",
+   "status": "done",
+   "actions": [
+    {
+     "date": "2024-12-17",
+     "resolution": "2024-1016",
+     "what": "Rezoned properties to the new Calverton Industrial (CI) district",
+     "citesPlan": true,
+     "url": "https://riverheadny.portal.civicclerk.com/event/4229/files/agenda/7204"
+    },
+    {
+     "date": "2024-12-17",
+     "resolution": "2024-1019",
+     "what": "Removed the Industrial A (IND A) district",
+     "citesPlan": true,
+     "url": "https://riverheadny.portal.civicclerk.com/event/4229/files/agenda/7204"
+    },
+    {
+     "date": "2024-12-17",
+     "resolution": "2024-1024",
+     "what": "Added the new districts to the list of zoning districts",
+     "citesPlan": true,
+     "url": "https://riverheadny.portal.civicclerk.com/event/4229/files/agenda/7204"
+    },
+    {
+     "date": "2024-12-17",
+     "resolution": "2024-1025",
+     "what": "Added an industrial districts table of permitted uses for LI and CI",
+     "citesPlan": true,
+     "url": "https://riverheadny.portal.civicclerk.com/event/4229/files/agenda/7204"
+    }
+   ]
+  },
+  {
+   "id": "light-industrial",
+   "group": "Industrial areas",
+   "recommendation": "Fold the scattered IND A, IND B and IND C properties into a Light Industrial (LI) district with new dimensional rules.",
+   "planPage": 193,
+   "quote": null,
+   "status": "done",
+   "actions": [
+    {
+     "date": "2024-12-17",
+     "resolution": "2024-1013",
+     "what": "Rezoned properties to Light Industrial (LI)",
+     "citesPlan": true,
+     "url": "https://riverheadny.portal.civicclerk.com/event/4229/files/agenda/7204"
+    },
+    {
+     "date": "2024-12-17",
+     "resolution": "2024-1018",
+     "what": "Removed the Industrial B (IND B) district",
+     "citesPlan": true,
+     "url": "https://riverheadny.portal.civicclerk.com/event/4229/files/agenda/7204"
+    },
+    {
+     "date": "2024-12-17",
+     "resolution": "2024-1026",
+     "what": "Amended the Light Industrial (LI) district",
+     "citesPlan": true,
+     "url": "https://riverheadny.portal.civicclerk.com/event/4229/files/agenda/7204"
+    },
+    {
+     "date": "2024-12-17",
+     "resolution": "2024-1022",
+     "what": "Adopted the LI table of dimensional regulations",
+     "citesPlan": true,
+     "url": "https://riverheadny.portal.civicclerk.com/event/4229/files/agenda/7204"
+    },
+    {
+     "date": "2024-12-17",
+     "resolution": "2024-1027",
+     "what": "Amended the Industrial C (IND C) district",
+     "citesPlan": true,
+     "url": "https://riverheadny.portal.civicclerk.com/event/4229/files/agenda/7204"
+    },
+    {
+     "date": "2024-12-17",
+     "resolution": "2024-1017",
+     "what": "Amended permitted uses in the Planned Industrial Park (PIP) district",
+     "citesPlan": true,
+     "url": "https://riverheadny.portal.civicclerk.com/event/4229/files/agenda/7204"
+    }
+   ]
+  },
+  {
+   "id": "vertical-farming",
+   "group": "Industrial areas",
+   "recommendation": "Allow vertical farming in all industrial districts.",
+   "planPage": 199,
+   "quote": "Vertical farming should be a permitted use in all industrial districts.",
+   "status": "done",
+   "actions": [
+    {
+     "date": "2024-12-17",
+     "resolution": "2024-1025",
+     "what": "Adopted the industrial use table; the table proposed in November 2024 (Resolution 2024-889) marked vertical farming permitted in LI and CI",
+     "citesPlan": true,
+     "url": "https://riverheadny.portal.civicclerk.com/event/4229/files/agenda/7204"
+    },
+    {
+     "date": "2024-12-17",
+     "resolution": "2024-1021",
+     "what": "Added a definition of vertical farming to the zoning code",
+     "citesPlan": true,
+     "url": "https://riverheadny.portal.civicclerk.com/event/4229/files/agenda/7204"
+    }
+   ]
+  },
+  {
+   "id": "calverton-hamlet",
+   "group": "Commercial areas and hamlets",
+   "recommendation": "Rezone Industrial B land at the Calverton hamlet center to a hamlet commercial district for small-scale shops.",
+   "planPage": 191,
+   "quote": null,
+   "status": "done",
+   "actions": [
+    {
+     "date": "2024-12-17",
+     "resolution": "2024-1015",
+     "what": "Rezoned properties to the Hamlet Center (HC) district",
+     "citesPlan": true,
+     "url": "https://riverheadny.portal.civicclerk.com/event/4229/files/agenda/7204"
+    }
+   ]
+  },
+  {
+   "id": "rezonings",
+   "group": "Commercial areas and hamlets",
+   "recommendation": "Other map changes in the plan's zoning approach, including land moved to residential and open-space districts.",
+   "planPage": 191,
+   "quote": null,
+   "status": "done",
+   "actions": [
+    {
+     "date": "2024-12-17",
+     "resolution": "2024-1011",
+     "what": "Rezoned properties to Residence B-40 (RB40)",
+     "citesPlan": true,
+     "url": "https://riverheadny.portal.civicclerk.com/event/4229/files/agenda/7204"
+    },
+    {
+     "date": "2024-12-17",
+     "resolution": "2024-1012",
+     "what": "Rezoned properties to Open Space Conservation (OSC)",
+     "citesPlan": true,
+     "url": "https://riverheadny.portal.civicclerk.com/event/4229/files/agenda/7204"
+    },
+    {
+     "date": "2024-12-17",
+     "resolution": "2024-1023",
+     "what": "Amended the commercial districts table of dimensional regulations",
+     "citesPlan": true,
+     "url": "https://riverheadny.portal.civicclerk.com/event/4229/files/agenda/7204"
+    },
+    {
+     "date": "2026-04-21",
+     "resolution": "2026-406",
+     "what": "Set a hearing on further changes to the commercial dimensional table, 4 to 1 (Halpin voting no); no adoption found",
+     "citesPlan": false,
+     "url": "/meetings/?meeting=2026-04-21&q=2026-406"
+    }
+   ]
+  },
+  {
+   "id": "tdr-map",
+   "group": "Transfer of development rights",
+   "recommendation": "Add new TDR sending and receiving areas, worked out with the TDR Committee.",
+   "planPage": 204,
+   "quote": "Meetings were held with the TDR Committee to identify additions to the TDR sending and receiving areas.",
+   "status": "done",
+   "actions": [
+    {
+     "date": "2024-12-17",
+     "resolution": "2024-1010",
+     "what": "Amended the Transfer of Development Rights map",
+     "citesPlan": true,
+     "url": "https://riverheadny.portal.civicclerk.com/event/4229/files/agenda/7204"
+    }
+   ]
+  },
+  {
+   "id": "tdr-formula",
+   "group": "Transfer of development rights",
+   "recommendation": "Change the transfer formula so one credit buys more than one small or age-restricted unit, to raise what credits are worth.",
+   "planPage": 203,
+   "quote": "The current transfer formula is a one-to-one basis, meaning that one TDR credit is equal to one residential unit in a receiving district regardless of unit size or type.",
+   "status": "done",
+   "actions": [
+    {
+     "date": "2024-12-17",
+     "resolution": "2024-1020",
+     "what": "Amended the TDR rules, sections 301-204 through 301-208",
+     "citesPlan": true,
+     "url": "https://riverheadny.portal.civicclerk.com/event/4229/files/agenda/7204"
+    },
+    {
+     "date": "2026-01-06",
+     "resolution": "2026-50",
+     "what": "Set a hearing on another TDR amendment, which would let credits be used for golf cottages; no adoption found",
+     "citesPlan": false,
+     "url": "/meetings/?meeting=2026-01-06&q=2026-50"
+    }
+   ]
+  },
+  {
+   "id": "golf-cottages",
+   "group": "Transfer of development rights",
+   "recommendation": "Consider allowing golf cottages as an accessory use at golf courses, each one requiring a TDR credit.",
+   "planPage": 207,
+   "quote": "Consider allowing for “Golf Cottages”",
+   "status": "underway",
+   "actions": [
+    {
+     "date": "2026-08-04",
+     "resolution": "2026-747",
+     "what": "Began a full environmental review of golf course zoning amendments, which the resolution says implement the plan",
+     "citesPlan": true,
+     "url": "/meetings/?meeting=2026-08-04&q=2026-747"
+    },
+    {
+     "date": "2026-10-20",
+     "resolution": "2026-968",
+     "what": "Accepted the draft environmental impact statement and set a hearing",
+     "citesPlan": false,
+     "url": "/meetings/?meeting=2026-10-20&q=2026-968"
+    }
+   ]
+  },
+  {
+   "id": "dc1-cap",
+   "group": "Downtown",
+   "recommendation": "Study whether to change the 500-unit cap on apartments in the downtown DC-1 district, including a fiscal cost-benefit analysis. The plan does not recommend removing the cap.",
+   "planPage": 195,
+   "quote": "It is recommending that the Town conduct a study to reassess the 500-unit cap.",
+   "status": "none",
+   "actions": []
+  },
+  {
+   "id": "pattern-book",
+   "group": "Downtown",
+   "recommendation": "Write the downtown Pattern Book into the zoning code, so developers and boards must consider it.",
+   "planPage": 196,
+   "quote": "It is recommended that the Pattern Book be formally included in the zoning code, so it is required to be considered during the site plan approval process by developers, land use boards, the Town Board, and Town staff.",
+   "status": "none",
+   "actions": []
+  },
+  {
+   "id": "hamlet-design",
+   "group": "Commercial areas and hamlets",
+   "recommendation": "Add design guidelines and buffers to the hamlet and village center districts, and work with residents on hamlet studies.",
+   "planPage": 197,
+   "quote": "It is recommended that the Town work with residents in several hamlet areas such as Aquebogue, Jamesport, Calverton, and Polish Town, to develop hamlet studies with design guidelines or a pattern book for new development.",
+   "status": "underway",
+   "actions": [
+    {
+     "date": "2026-11-05",
+     "resolution": "2026-986",
+     "what": "Set a hearing on amendments to the HC, VC, BC and BUS CR districts and the supplementary use rules; the resolution does not cite the plan",
+     "citesPlan": false,
+     "url": "/meetings/?meeting=2026-11-05&q=2026-986"
+    }
+   ]
+  },
+  {
+   "id": "bus-f",
+   "group": "Commercial areas and hamlets",
+   "recommendation": "Give the Tanger outlets district (BUS F) more flexibility for new kinds of retail and mixed use.",
+   "planPage": 197,
+   "quote": "It is important to provide some flexibility in the zoning code to enable businesses to experiment with new concepts",
+   "status": "related",
+   "actions": [
+    {
+     "date": "2026-07-07",
+     "resolution": "2026-666",
+     "what": "Amended the BUS F district; the resolution does not cite the plan",
+     "citesPlan": false,
+     "url": "/meetings/?meeting=2026-07-07&q=2026-666"
+    }
+   ]
+  },
+  {
+   "id": "hospital",
+   "group": "Commercial areas and hamlets",
+   "recommendation": "Expand the Hospital district to the hospital's neighboring land and allow wellness uses and staff housing.",
+   "planPage": 198,
+   "quote": "It is recommended that the existing hospital zone be expanded to encompass adjacent properties owned by the Peconic Bay Medical Center (PBMC).",
+   "status": "none",
+   "actions": []
+  },
+  {
+   "id": "assisted-living",
+   "group": "Housing",
+   "recommendation": "Create an overlay that allows assisted living and continuing care, using TDR credits.",
+   "planPage": 198,
+   "quote": null,
+   "status": "none",
+   "actions": []
+  },
+  {
+   "id": "cbd",
+   "group": "Housing",
+   "recommendation": "Reconsider the 10-units-per-acre cap in the Community Benefit District.",
+   "planPage": 199,
+   "quote": "The Town may reconsider the existing residential density cap of 10 units per acre",
+   "status": "related",
+   "actions": [
+    {
+     "date": "2025-09-03",
+     "resolution": "2025-774",
+     "what": "Amended the Community Benefit District; the amended text still says the district carries out the 2003 plan, and this site has not checked whether it changed the density cap",
+     "citesPlan": false,
+     "url": "/meetings/?meeting=2025-09-03&q=2025-774"
+    }
+   ]
+  },
+  {
+   "id": "adu",
+   "group": "Housing",
+   "recommendation": "Revise the accessory dwelling unit rules to remove needless barriers, such as the three-year certificate of occupancy wait.",
+   "planPage": 46,
+   "quote": "Revise standards for accessory dwelling units to reduce extraneous barriers for new housing.",
+   "status": "related",
+   "actions": [
+    {
+     "date": "2026-03-17",
+     "resolution": "2026-252",
+     "what": "Replaced the accessory apartment law with a new accessory dwelling unit law; the resolution does not cite the plan, and this site has not checked which barriers it removed",
+     "citesPlan": false,
+     "url": "/meetings/?meeting=2026-03-17&q=2026-252"
+    }
+   ]
+  },
+  {
+   "id": "min-home",
+   "group": "Housing",
+   "recommendation": "Drop the 1,200-square-foot minimum home size in some residential districts.",
+   "planPage": 199,
+   "quote": "Some residential zones have a 1,200-square-foot minimum home size.",
+   "status": "none",
+   "actions": []
+  },
+  {
+   "id": "solar-bess",
+   "group": "Environment and energy",
+   "recommendation": "Tighten where commercial solar and battery storage may go, keeping solar off wooded land.",
+   "planPage": 210,
+   "quote": "Solar should also be limited to previously disturbed/cleared lands rather than on existing wooded areas.",
+   "status": "done",
+   "actions": [
+    {
+     "date": "2025-04-01",
+     "resolution": "2025-320",
+     "what": "Amended the commercial solar rules",
+     "citesPlan": true,
+     "url": "/meetings/?meeting=2025-04-01&q=2025-320"
+    },
+    {
+     "date": "2025-04-01",
+     "resolution": "2025-323",
+     "what": "Amended the rules for larger battery energy storage systems",
+     "citesPlan": true,
+     "url": "/meetings/?meeting=2025-04-01&q=2025-323"
+    }
+   ]
+  },
+  {
+   "id": "cleanups",
+   "group": "Environment and energy",
+   "recommendation": "Other code changes the Board said carry out the plan: signs, wireless towers and Pine Barrens clearing standards. This site did not find the matching passages in the plan's land use chapter.",
+   "planPage": null,
+   "quote": null,
+   "status": "done",
+   "actions": [
+    {
+     "date": "2025-04-01",
+     "resolution": "2025-319",
+     "what": "Amended the sign rules by zoning district",
+     "citesPlan": true,
+     "url": "/meetings/?meeting=2025-04-01&q=2025-319"
+    },
+    {
+     "date": "2025-04-01",
+     "resolution": "2025-321",
+     "what": "Amended the wireless tower permit rules",
+     "citesPlan": true,
+     "url": "/meetings/?meeting=2025-04-01&q=2025-321"
+    },
+    {
+     "date": "2025-04-01",
+     "resolution": "2025-324",
+     "what": "Amended the Pine Barrens Overlay clearing and open space standards",
+     "citesPlan": true,
+     "url": "/meetings/?meeting=2025-04-01&q=2025-324"
+    }
+   ]
+  },
+  {
+   "id": "tree-law",
+   "group": "Environment and energy",
+   "recommendation": "Adopt a tree preservation law and map the Town's forest.",
+   "planPage": 29,
+   "quote": "The chapter also recommends several initiatives to protect the forest such as a tree preservation law.",
+   "status": "none",
+   "actions": []
+  },
+  {
+   "id": "climate-plan",
+   "group": "Environment and energy",
+   "recommendation": "Write a Climate Action Plan, ideally with the other East End towns.",
+   "planPage": 182,
+   "quote": "Establish a Climate Action Plan and partner with neighboring communities on a regional plan.",
+   "status": "none",
+   "actions": [],
+   "note": "The Board reappointed its Climate Smart Community Task Force in February 2026; that is not a plan."
+  },
+  {
+   "id": "sound-avenue",
+   "group": "Farmland and rural roads",
+   "recommendation": "Write design standards for the Sound Avenue corridor, possibly as an overlay zone.",
+   "planPage": 201,
+   "quote": "The design standards could be incorporated into an overlay zone for the corridor.",
+   "status": "none",
+   "actions": []
+  },
+  {
+   "id": "agritourism",
+   "group": "Farmland and rural roads",
+   "recommendation": "Define agritourism and set permits or size limits for farm events that go beyond it.",
+   "planPage": 201,
+   "quote": "Events and activities that do not meet the agreed upon definition of agritourism could be limited with a permitting process or imposing size restrictions.",
+   "status": "none",
+   "actions": []
+  },
+  {
+   "id": "use-schedule",
+   "group": "Townwide code",
+   "recommendation": "Add a full table of permitted uses for every zoning district.",
+   "planPage": 208,
+   "quote": "The zoning code should incorporate a clear and comprehensive list of permissible land uses for each zoning district.",
+   "status": "partial",
+   "actions": [
+    {
+     "date": "2024-12-17",
+     "resolution": "2024-1025",
+     "what": "Adopted a use table for the industrial districts only",
+     "citesPlan": true,
+     "url": "https://riverheadny.portal.civicclerk.com/event/4229/files/agenda/7204"
+    }
+   ]
+  },
+  {
+   "id": "safety-plan",
+   "group": "Townwide code",
+   "recommendation": "Develop a Safety Action Plan for pedestrian and traffic safety, which opens federal funding.",
+   "planPage": 85,
+   "quote": "Develop a Safety Action Plan (SAP)",
+   "status": "none",
+   "actions": []
+  }
+ ]
+}
