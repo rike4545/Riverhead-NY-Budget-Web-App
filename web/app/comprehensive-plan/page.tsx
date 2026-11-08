@@ -107,28 +107,22 @@ export default function ComprehensivePlanPage() {
             </li>
           ))}
         </ul>
-        <div style={{ overflowX: 'auto', marginTop: 16 }}>
-          <table className="rbl-stack" style={{ width: '100%', borderCollapse: 'collapse', fontSize: 15 }}>
-            <caption style={{ textAlign: 'left', ...muted, paddingBottom: 6 }}>By topic.</caption>
-            <thead><tr style={{ borderBottom: '1px solid var(--rbl-border)' }}>
-              <th scope="col" style={{ padding: '6px 10px', textAlign: 'left', fontSize: 13, color: 'var(--rbl-text-muted)', fontWeight: 600 }}>Topic</th>
-              {statusCounts.map((c) => (
-                <th key={c.status} scope="col" style={{ padding: '6px 10px', textAlign: 'right', fontSize: 13, color: 'var(--rbl-text-muted)', fontWeight: 600 }}>{statusLabel[c.status]}</th>
-              ))}
-            </tr></thead>
-            <tbody>
-              {groups.map((g) => (
-                <tr key={g} style={{ borderBottom: '1px solid var(--rbl-border-subtle)' }}>
-                  <th scope="row" style={{ padding: '6px 10px', textAlign: 'left', fontWeight: 600 }}>{g}</th>
-                  {statusCounts.map((c) => {
-                    const n = planItems.filter((i) => i.group === g && i.status === c.status).length
-                    return <td key={c.status} data-label={statusLabel[c.status]} style={{ padding: '6px 10px', textAlign: 'right', color: n ? 'var(--rbl-text-strong)' : 'var(--rbl-text-muted)' }}>{n || '–'}</td>
-                  })}
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+        <h3 style={{ margin: '18px 0 8px', color: 'var(--rbl-title)', fontSize: 17 }}>By topic</h3>
+        <ul style={{ margin: 0, padding: 0, listStyle: 'none' }}>
+          {groups.map((g) => (
+            <li key={g} style={{ borderTop: '1px solid var(--rbl-border-subtle)', padding: '8px 0', display: 'flex', flexWrap: 'wrap', gap: '6px 14px', alignItems: 'baseline' }}>
+              <span style={{ fontWeight: 600, color: 'var(--rbl-text-strong)', minWidth: '14em' }}>{g}</span>
+              <span style={{ color: 'var(--rbl-text-body)', fontSize: 15 }}>
+                {statusCounts.map((c) => ({ s: c.status, n: planItems.filter((i) => i.group === g && i.status === c.status).length }))
+                  .filter((x) => x.n).map((x) => `${x.n} ${statusLabel[x.s].toLowerCase()}`).join(' · ')}
+              </span>
+            </li>
+          ))}
+        </ul>
+        <p style={{ display: 'flex', flexWrap: 'wrap', gap: '4px 18px', margin: '14px 0 0' }}>
+          <a href="#adopted-heading" style={{ ...link, display: 'inline-block', padding: '4px 0' }}>Jump to what was adopted ({adoptedItems.length})</a>
+          <a href="#open-heading" style={{ ...link, display: 'inline-block', padding: '4px 0' }}>Jump to what was not ({openItems.length})</a>
+        </p>
       </section>
 
       <section aria-labelledby="when-heading" style={card}>
