@@ -13,6 +13,11 @@ function statusFor(doc: { page_count: number; money_value_count: number; status?
   return doc.page_count > 0 ? 'parsed' : 'pending parser output'
 }
 
+export const metadata = {
+  title: 'The paper trail: sources',
+  description: 'The Riverhead records, accounting authorities and calculations behind this site, with how current each one is.',
+}
+
 export default function SourcesPage() {
   const docs = parserExtractionReport.documents
 

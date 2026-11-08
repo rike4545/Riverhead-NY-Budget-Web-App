@@ -104,7 +104,7 @@ function QuestionButton({ active, onClick, title, text }: { active: boolean; onC
       boxShadow: active ? '0 8px 20px rgba(0,0,0,.12)' : 'none',
     }}>
       <span style={{ display: 'block', fontWeight: 900, fontSize: 14 }}>{title} →</span>
-      <span style={{ display: 'block', fontSize: 12.5, color: '#c8d9e7', marginTop: 4, lineHeight: 1.4 }}>{text}</span>
+      <span style={{ display: 'block', fontSize: 12.5, color: '#dbe7f1', marginTop: 4, lineHeight: 1.4 }}>{text}</span>
     </button>
   )
 }
@@ -118,7 +118,7 @@ function Tab({ active, onClick, title, sub }: { active: boolean; onClick: () => 
       boxShadow: active ? '0 10px 24px rgba(31,95,143,.22)' : 'none',
     }}>
       <span style={{ display: 'block', fontWeight: 900, fontSize: 16 }}>{title}</span>
-      <span style={{ display: 'block', fontSize: 12.5, opacity: 0.85 }}>{sub}</span>
+      <span style={{ display: 'block', fontSize: 12.5, color: active ? 'white' : 'var(--rbl-text-body)' }}>{sub}</span>
     </button>
   )
 }

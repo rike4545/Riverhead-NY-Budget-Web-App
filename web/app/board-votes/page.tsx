@@ -24,7 +24,7 @@ const SEQ = ['var(--rbl-map-seq-1)', 'var(--rbl-map-seq-2)', 'var(--rbl-map-seq-
 const shade = (v: number) => SEQ[Math.min(4, Math.floor(v * 5))]
 const VOTE_STYLE: Record<string, { label: string; bg: string; fg: string }> = {
   aye: { label: 'Yes', bg: 'var(--rbl-surface-2)', fg: 'var(--rbl-text-body)' },
-  nay: { label: 'No', bg: 'var(--rbl-map-other-3)', fg: 'var(--rbl-on-series)' },
+  nay: { label: 'No', bg: 'var(--rbl-map-other-4)', fg: 'var(--rbl-on-series)' },
   abstain: { label: 'Abstained', bg: 'var(--rbl-map-other-1)', fg: 'var(--rbl-text-strong)' },
   absent: { label: 'Absent', bg: 'var(--rbl-surface)', fg: 'var(--rbl-text-muted)' },
 }

@@ -11,6 +11,11 @@ import { dollars } from '../../lib/financial-data'
 
 const base = process.env.NEXT_PUBLIC_BASE_PATH || ''
 
+export const metadata = {
+  title: 'Where your Town levy goes',
+  description: 'The 2026 Town operating tax levy, fund by fund, with what each fund pays for.',
+}
+
 export default function TaxpayerImpactPage() {
   const levyFunds = allOperatingFunds2026
     .filter((fund) => fund.taxLevy2026 > 0)
@@ -69,7 +74,7 @@ export default function TaxpayerImpactPage() {
         <section style={{ display: 'grid', gap: 10 }}>
           {levyFunds.map((fund) => {
             const share = levyTotal ? fund.taxLevy2026 / levyTotal : 0
-            const detailHref = `${base}/funds/${fund.code}/`
+            const detailHref = `/funds/${fund.code}/`
             return (
               <article key={fund.code} style={card}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', gap: 16, flexWrap: 'wrap', alignItems: 'start' }}>

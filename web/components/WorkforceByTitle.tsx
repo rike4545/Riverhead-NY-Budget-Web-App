@@ -86,7 +86,7 @@ export default function WorkforceByTitle() {
             placeholder="Search a title (e.g. Police Officer, Lifeguard)…"
             style={{ flex: 1, minWidth: 220, padding: '10px 13px', border: '1px solid var(--rbl-border-strong)', borderRadius: 9, fontSize: 15 }}
           />
-          <select value={sortKey} onChange={(e) => setSortKey(e.target.value as SortKey)} style={{ padding: '10px 12px', border: '1px solid var(--rbl-border-strong)', borderRadius: 9, fontSize: 14 }}>
+          <select aria-label="Sort titles" value={sortKey} onChange={(e) => setSortKey(e.target.value as SortKey)} style={{ padding: '10px 12px', border: '1px solid var(--rbl-border-strong)', borderRadius: 9, fontSize: 14 }}>
             <option value="latest">Sort: Most in {latestYear}</option>
             <option value="gain">Sort: Biggest increase</option>
             <option value="delta">Sort: Biggest decrease</option>

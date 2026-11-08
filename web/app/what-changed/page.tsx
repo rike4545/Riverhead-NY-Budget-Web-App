@@ -25,6 +25,11 @@ const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-bo
 const title = `What Changed: ${PRIOR} → ${YEAR} Tentative`
 const subtitle = `The resident version of the year-over-year story: what the Supervisor’s ${YEAR} Tentative Budget changes from the ${PRIOR} adopted budget, with a direct path to the underlying records.`
 
+export const metadata = {
+  title: `What changed in the ${YEAR} Tentative Budget`,
+  description: `What the Supervisor’s ${YEAR} Tentative Budget changes from the ${PRIOR} adopted budget, with links to the records.`,
+}
+
 export default function WhatChangedPage() {
   const h = released2027
   const tw = h?.townWide

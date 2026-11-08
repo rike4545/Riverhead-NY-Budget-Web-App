@@ -170,7 +170,7 @@ export default function ExplorePage() {
         ))}
 
         <section style={{ background: '#0f2942', color: 'white', borderRadius: 16, padding: '26px 24px', textAlign: 'center' }}>
-          <h2 style={{ margin: '0 0 6px', fontSize: 22 }}>That’s the tour.</h2>
+          <h2 style={{ margin: '0 0 6px', fontSize: 22, color: 'white' }}>That’s the tour.</h2>
           <p style={{ color: '#cbd8e6', fontSize: 15.5, lineHeight: 1.6, margin: '0 auto 16px', maxWidth: 620 }}>
             You now know where Riverhead’s money comes from, where it goes, who pays, and who decides. Pick a thread and pull on it — it all traces back to official documents.
           </p>

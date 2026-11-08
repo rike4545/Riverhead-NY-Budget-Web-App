@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import type { ReactNode } from 'react'
 import localFont from 'next/font/local'
 import './site.css'
+import ScrollRegions from '../components/ScrollRegions'
 
 // Source Sans 3, self-hosted: the Latin subset of the variable font, upright and
 // italic (SIL Open Font License, app/fonts/OFL.txt). Its figures are tabular by
@@ -49,7 +50,7 @@ const LIGHT_TOKENS = `
   --rbl-text-body:#475569;
   --rbl-text-sub:#44576a;
   --rbl-text-muted:#5f6e83;
-  --rbl-text-faint:#687787;
+  --rbl-text-faint:#627181;
   --rbl-title:#1d405d;
   --rbl-accent:#4a7297;
   --rbl-accent-border:#4a7297;
@@ -117,7 +118,7 @@ const LIGHT_TOKENS = `
   --rbl-map-seq-1:#e0f2ef;
   --rbl-map-seq-2:#a8ddd5;
   --rbl-map-seq-3:#5fbfb2;
-  --rbl-map-seq-4:#1f9284;
+  --rbl-map-seq-4:#187a6e;
   --rbl-map-seq-5:#0d5c53;
   --rbl-map-neutral:#e5e7eb;
   --rbl-map-edge:#ffffff;
@@ -175,6 +176,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       </head>
       <body>
         <div id="rbl-shell" style={{ background: 'var(--rbl-page)' }}>{children}</div>
+        <ScrollRegions />
       </body>
     </html>
   )

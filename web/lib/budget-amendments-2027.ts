@@ -128,11 +128,21 @@ export const VOTES: AmendmentVote[] = [
 /**
  * What comes next. The first two are from the public notice attached to
  * Resolution 2026-923 (October 6, 2026, adopted unanimously); the meeting is
- * on the Town's calendar; the deadline is Town Law §109.
+ * on the Town's calendar; the deadline is Town Law §109. A step that has
+ * happened carries `done`, quoted from the record that shows it: the Town's
+ * posted Preliminary Budget, and the minutes of November 5, 2026 (section VII,
+ * etl/data/meetings/2026-11-05-minutes.txt).
  */
-export const NEXT_STEPS: { date: string; what: string; source: string }[] = [
-  { date: 'October 29, 2026', what: 'The Preliminary Budget, with the six amendments in it, is available on the Town’s website and in the Town Clerk’s office', source: 'Notice with Resolution 2026-923' },
-  { date: 'November 5, 2026, 2:05 p.m.', what: 'Public hearing on the 2027 budget, including elected officials’ salaries, at Town Hall', source: 'Notice with Resolution 2026-923' },
+export type NextStep = { date: string; what: string; source: string; done?: { what: string; source: string; href: string } }
+export const NEXT_STEPS: NextStep[] = [
+  {
+    date: 'October 29, 2026', what: 'The Preliminary Budget, with the six amendments in it, is available on the Town’s website and in the Town Clerk’s office', source: 'Notice with Resolution 2026-923',
+    done: { what: 'the date set for the Preliminary Budget. The Town has since posted it', source: 'Town of Riverhead, 2027 Preliminary Budget (PDF)', href: 'https://www.townofriverheadny.gov/DocumentCenter/View/4065/2027-Preliminary-Budget-PDF' },
+  },
+  {
+    date: 'November 5, 2026, 2:05 p.m.', what: 'Public hearing on the 2027 budget, including elected officials’ salaries, at Town Hall', source: 'Notice with Resolution 2026-923',
+    done: { what: 'the hearing was held. The minutes say it was called to order at 2:32 p.m., there was “No public comment,” and it was “Held open for written comment for 10 days,” to November 15', source: 'Minutes of the November 5, 2026 meeting', href: '/meetings/?meeting=2026-11-05' },
+  },
   { date: 'November 17, 2026', what: 'The only Board meeting on the Town’s calendar between the hearing and the deadline; the site’s editor reports the resolution to adopt the budget will be submitted then', source: 'Town meeting calendar' },
   { date: 'November 20, 2026', what: 'Deadline to adopt; if the Board does not, the Preliminary becomes the budget', source: 'Town Law §109' },
 ]

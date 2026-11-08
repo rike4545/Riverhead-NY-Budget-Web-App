@@ -165,16 +165,16 @@ export default function PayrollExplorer({ link }: { link?: PayrollLink }) {
 
       {/* Controls */}
       <section ref={controls} style={{ ...card, display: 'flex', gap: 10, flexWrap: 'wrap', alignItems: 'center', scrollMarginTop: 18 }}>
-        <select value={String(year)} onChange={(e) => { setYear(e.target.value === 'all' ? 'all' : Number(e.target.value)); setLimit(100) }} style={sel}>
+        <select aria-label="Year" value={String(year)} onChange={(e) => { setYear(e.target.value === 'all' ? 'all' : Number(e.target.value)); setLimit(100) }} style={sel}>
           <option value="all">All years</option>
           {[...payrollYears].reverse().map((y) => <option key={y} value={y}>{y}</option>)}
         </select>
-        <select value={union} onChange={(e) => { setUnion(e.target.value); setLimit(100) }} style={sel}>
+        <select aria-label="Union or group" value={union} onChange={(e) => { setUnion(e.target.value); setLimit(100) }} style={sel}>
           <option value="all">All unions / groups</option>
           {unions.map((u) => <option key={u} value={u}>{unionLabel(u)}</option>)}
         </select>
         {departments.length > 0 && (
-          <select value={dept} onChange={(e) => { setDept(e.target.value); setLimit(100) }} style={sel}>
+          <select aria-label="Department" value={dept} onChange={(e) => { setDept(e.target.value); setLimit(100) }} style={sel}>
             <option value="all">All departments</option>
             {departments.map((d) => <option key={d} value={d}>{d}</option>)}
           </select>

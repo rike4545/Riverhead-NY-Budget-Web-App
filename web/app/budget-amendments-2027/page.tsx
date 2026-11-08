@@ -441,15 +441,24 @@ export default function BudgetAmendmentsPage() {
             </P>
             <P>
               The six amend the Preliminary Budget. They do not adopt a budget, and the Board can still change it after the public hearing.
-              What comes next:
+              Where it stands, from the Town’s notice and records:
             </P>
             <ul style={{ margin: '0 0 14px', paddingLeft: 22, display: 'grid', gap: 6, maxWidth: '72ch' }}>
-              {NEXT_STEPS.map((step) => <Li key={step.date}><strong>{step.date}</strong>: {step.what.charAt(0).toLowerCase() + step.what.slice(1)} ({step.source})</Li>)}
+              {NEXT_STEPS.map((step) => (
+                <Li key={step.date}>
+                  <strong>{step.date}</strong>:{' '}
+                  {step.done ? (
+                    <>{step.done.what} (<a href={step.done.href.startsWith('/') ? `${base}${step.done.href}` : step.done.href} style={link}>{step.done.source}</a>).</>
+                  ) : (
+                    <>{step.what.charAt(0).toLowerCase() + step.what.slice(1)} ({step.source})</>
+                  )}
+                </Li>
+              ))}
             </ul>
             <P>
               {VOTE_ARTICLE.outlet} writes “{VOTE_ARTICLE.reported.hearing}” The Town’s published notice, adopted with Resolution 2026-923, sets
               the hearing for November 5 at 2:05 p.m., and the Town’s meeting calendar lists November 5. {NEWSDAY_ARTICLE.outlet} writes
-              “{NEWSDAY_ARTICLE.reported.hearing}.” This page follows the Town’s notice.
+              “{NEWSDAY_ARTICLE.reported.hearing}.” The minutes show it was held on November 5.
             </P>
             <P>
               {NEWSDAY_ARTICLE.outlet}’s report adds: “{NEWSDAY_ARTICLE.reported.lessRevenue}” The six lower the town-wide levy by {usd(-tw.change)},
@@ -557,8 +566,8 @@ export default function BudgetAmendmentsPage() {
               <Li>Which purchases would come back as separate resolutions using savings, when, and for how much? Will the Board list them with the adopted budget?</Li>
               <Li>What change in CSEA dental plans is the {usd(dentalTotal)} for, and what happens to the money if the change does not happen?</Li>
               <Li>How would the Highway Department cover the {usd(dentalHighway.amount)} taken from its equipment budget and the {usd(snowLine.cut)} taken from snow removal?</Li>
-              <Li>The Preliminary Budget is due out on {NEXT_STEPS[0].date.replace(/, \d{4}$/, '')}. Will it show each amendment’s effect, and the equipment to be bought later from savings?</Li>
-              <Li>Will the Board keep all six when it adopts the budget after the election, and will the Supervisor vote for the adopted budget?</Li>
+              <Li>Does the Preliminary Budget show each amendment’s effect, and the equipment to be bought later from savings?</Li>
+              <Li>Will the Board keep all six when it adopts the budget, and will the Supervisor vote for the adopted budget?</Li>
             </ul>
           </Section>
 

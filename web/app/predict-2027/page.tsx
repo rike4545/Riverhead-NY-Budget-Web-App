@@ -216,7 +216,7 @@ export default function Predict2027Page() {
                 source="2027 Tentative Budget, changed by the six amendments on the October 20 draft agenda"
                 asOf={UPDATED.date}
                 calculation="Each amendment’s FROM and TO lines applied to the Tentative’s Summary; scored against the adopted budget once it is published"
-                evidenceHref={`${base}/budget-amendments-2027/`}
+                evidenceHref="/budget-amendments-2027/"
               />
             </div>
           </section>
@@ -237,7 +237,7 @@ export default function Predict2027Page() {
           source="2027 line-item projection built from the adopted 2026 budget"
           asOf="2026 adopted-budget baseline"
           calculation={`${t.lineItems.toLocaleString()} indexed line items projected by category assumptions`}
-          evidenceHref={`${base}/sources/`}
+          evidenceHref="/sources/"
         />
       </div>
 
@@ -296,7 +296,7 @@ export default function Predict2027Page() {
           source="NYS OSC — 2027 allowable levy growth factor"
           sourceHref={OSC_2027}
           asOf="July 15, 2026"
-          evidenceHref={`${base}/sources/#osc-guidance`}
+          evidenceHref="/sources/#osc-guidance"
         />
       </section>
 
@@ -322,7 +322,7 @@ export default function Predict2027Page() {
           source="NYS OSC — planned tax-cap overrides"
           sourceHref={OSC_OVERRIDES}
           asOf="August 20, 2026"
-          evidenceHref={`${base}/sources/#osc-guidance`}
+          evidenceHref="/sources/#osc-guidance"
         />
         <p style={{ color: 'var(--rbl-text-muted)', fontSize: 12.5, lineHeight: 1.5, margin: '10px 0 0' }}>Riverhead 2026 budget context: <a href={RIVERHEAD_2026} target="_blank" rel="noopener noreferrer" style={{ color: 'var(--rbl-link)', fontWeight: 750 }}>adopted-budget reporting ↗</a></p>
       </section>
