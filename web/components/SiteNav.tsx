@@ -7,39 +7,57 @@ const base = process.env.NEXT_PUBLIC_BASE_PATH || ''
 type Link = [label: string, href: string]
 type Group = { label: string; links: Link[] }
 
+// Menu labels are in sentence case (DESIGN.md) and name what the reader gets,
+// not the site's section. Each page appears once. Groups hold related pages so
+// no menu runs past about 14 items: a resident looking for the 2027 budget, pay,
+// land use or elections should find it under that word.
 const PRIMARY: Link[] = [
-  ['2027 Budget', `${base}/tentative-2027/`],
-  ['Property Taxes', `${base}/tax-bill/`],
-  ['Employee Pay', `${base}/payroll/`],
-  ['Board Decisions', `${base}/meetings/`],
+  ['Property taxes', `${base}/tax-bill/`],
+  ['Board votes', `${base}/meetings/`],
   ['Search', `${base}/search/`],
 ]
 
+// The phone menu's tiles sit two to a row, so it adds a fourth: Employee pay,
+// which on desktop sits first under Pay and staff.
+const QUICK: Link[] = [PRIMARY[0], ['Employee pay', `${base}/payroll/`], ...PRIMARY.slice(1)]
+
 const GROUPS: Group[] = [
-  { label: 'The numbers', links: [
-    ['How Property Taxes Are Used', `${base}/taxpayer-impact/`], ['What Changed', `${base}/what-changed/`], ['Financial Health & Trends', `${base}/analytics/`],
-    ['Budget by Fund', `${base}/funds/`], ['Spending by Service', `${base}/programs/`], ['Compare Budgets', `${base}/compare/`],
-    ['Main Operating Fund', `${base}/general-fund/`], ['Town Revenue', `${base}/revenue/`], ['Grants', `${base}/grants/`], ['Annual Report', `${base}/annual-report/`], ['Property-Tax Cap', `${base}/tax-cap/`],
-    ['Savings & Reserves', `${base}/reserves/`], ['How Savings Were Used', `${base}/fund-balance-draws/`], ['Ambulance Funding', `${base}/rvac-funding/`], ['Approved Budget Changes', `${base}/budget-changes/`], ['Projects & Borrowing', `${base}/capital-debt/`], ['Town Square', `${base}/town-square/`],
-    ['Road Spending', `${base}/road-spending/`], ['Community Preservation Fund', `${base}/community-preservation-fund/`],
-    ['Community Housing Plan', `${base}/housing-plan/`], ['Community', `${base}/community/`], ['Preserved Land', `${base}/preserved-land/`], ['Transfer of Development Rights', `${base}/tdr/`], ['Comprehensive Plan Tracker', `${base}/comprehensive-plan/`],
+  { label: '2027 budget', links: [
+    ['The 2027 budget', `${base}/tentative-2027/`], ['What changed from 2026', `${base}/what-changed/`], ['Budget amendments', `${base}/budget-amendments-2027/`],
+    ['How the budget is adopted', `${base}/budget-adoption/`], ['Where the money goes (flow chart)', `${base}/budget-flow/`], ['Property-tax cap', `${base}/tax-cap/`],
+    ['The tax-cap letter, checked', `${base}/tax-cap-letter/`], ['2027 forecast', `${base}/predict-2027/`], ['Ways to cut 2027 spending', `${base}/spending-reduction-2027/`],
+    ['A 0% or 1% levy for 2027', `${base}/zero-percent-2027/`], ['Try your own budget', `${base}/scenarios/`], ['Brookhaven’s 2027 budget', `${base}/brookhaven-2027/`], ['Southold’s 2027 budget', `${base}/southold-2027/`],
   ] },
-  { label: 'Government', links: [
-    ['Resident Answers', `${base}/answers/`], ['Organization Chart', `${base}/workforce-by-title/#organization`], ['Town Jobs & Staffing', `${base}/workforce-by-title/`], ['Elected Officials & Pensions', `${base}/officials/`], ['Management Salaries & Benefits', `${base}/management-compensation/`], ['Fringe Benefits', `${base}/fringe-benefits/`],
-    ['2026 Buyout', `${base}/buyout/`], ['Police Spending & Crime', `${base}/police-crime/`], ['School Resource Officers', `${base}/school-resource-officers/`], ['Supervisors & Council History', `${base}/town-history/`], ['Board Elections', `${base}/board-elections/`], ['Election Map', `${base}/election-map/`],
-    ['Campaign Finance', `${base}/campaign-finance/`], ['Donation Map', `${base}/donation-map/`], ['Board Votes', `${base}/board-votes/`], ['Candidate Watch', `${base}/candidate-watch/`], ['Candidate Proposals', `${base}/candidate-cost-benefit/`],
-    ['Supervisor’s Promises', `${base}/supervisor-promises/`], ['State of the Town Addresses', `${base}/state-of-the-town/`], ['Open Meetings Law', `${base}/open-meetings/`],
+  { label: 'Finances', links: [
+    ['Financial health', `${base}/analytics/`], ['Where your Town levy goes', `${base}/taxpayer-impact/`], ['Budget by fund', `${base}/funds/`], ['Spending by service', `${base}/programs/`],
+    ['Compare budgets', `${base}/compare/`], ['General Fund', `${base}/general-fund/`], ['Revenue', `${base}/revenue/`], ['Grants', `${base}/grants/`],
+    ['Savings and reserves', `${base}/reserves/`], ['How savings were used', `${base}/fund-balance-draws/`], ['Projects and borrowing', `${base}/capital-debt/`], ['Credit rating', `${base}/credit-rating/`],
+    ['Annual financial report', `${base}/annual-report/`], ['Population and tax base', `${base}/community/`],
   ] },
-  { label: 'Research', links: [
-    ['Start Here', `${base}/guide/`], ['2027 Budget Forecast', `${base}/predict-2027/`], ['2027 Budget Amendments', `${base}/budget-amendments-2027/`], ['Review of the Tax-Cap Letter', `${base}/tax-cap-letter/`], ['Brookhaven’s 2027 Tentative', `${base}/brookhaven-2027/`], ['Southold’s 2027 Tentative', `${base}/southold-2027/`], ['How the Town Approves Its Budget', `${base}/budget-adoption/`], ['Budget Scenario Tool', `${base}/scenarios/`],
-    ['2027 Spending Reduction', `${base}/spending-reduction-2027/`], ['Zero or 1% for 2027', `${base}/zero-percent-2027/`],
-    ['Credit Rating', `${base}/credit-rating/`], ['Unusual Spending Patterns', `${base}/outliers/`], ['Budget vs. Actual Spending', `${base}/budget-accuracy/`], ['Cost of Board Decisions', `${base}/fiscal-impact/`], ['Contracts & Bids', `${base}/contracts/`],
-    ['Budget Flow', `${base}/budget-flow/`], ['Assessment Roll', `${base}/assessment/`], ['Legal Costs', `${base}/legal-costs/`], ['Regional CPF Counsel', `${base}/regional-cpf-counsel/`],
+  { label: 'Pay and staff', links: [
+    ['Employee pay and overtime', `${base}/payroll/`], ['Town jobs and staffing', `${base}/workforce-by-title/`], ['Organization chart', `${base}/workforce-by-title/#organization`],
+    ['Elected officials and pensions', `${base}/officials/`], ['Management pay and benefits', `${base}/management-compensation/`], ['Fringe benefits', `${base}/fringe-benefits/`], ['2026 retirement buyout', `${base}/buyout/`],
   ] },
-  { label: 'Sources', links: [
-    ['Original Documents', `${base}/sources/`], ['Records the Town Has Not Published', `${base}/records/`], ['Downloads', `${base}/downloads/`], ['Data Quality & Freshness', `${base}/data-quality/`],
-    ['Budget Best Practices (GFOA)', `${base}/gfoa/`], ['Election Law Case', `${base}/election-law-case/`],
-    ['Officials on Social Media', `${base}/official-social-media/`], ['Know Your Rights (ICE)', `${base}/know-your-rights/`],
+  { label: 'Spending checks', links: [
+    ['Budget vs. actual spending', `${base}/budget-accuracy/`], ['Budget changes the Board approved', `${base}/budget-changes/`], ['Cost of Board decisions', `${base}/fiscal-impact/`],
+    ['Unusual spending patterns', `${base}/outliers/`], ['Contracts and bids', `${base}/contracts/`], ['Legal costs', `${base}/legal-costs/`], ['Regional CPF counsel', `${base}/regional-cpf-counsel/`],
+    ['Town Square project', `${base}/town-square/`], ['Road spending', `${base}/road-spending/`], ['Ambulance funding', `${base}/rvac-funding/`],
+    ['Police spending and crime', `${base}/police-crime/`], ['School resource officers', `${base}/school-resource-officers/`],
+  ] },
+  { label: 'Land use', links: [
+    ['Community Preservation Fund', `${base}/community-preservation-fund/`], ['Preserved land', `${base}/preserved-land/`], ['Transfer of development rights', `${base}/tdr/`],
+    ['Comprehensive Plan tracker', `${base}/comprehensive-plan/`], ['Community Housing Plan', `${base}/housing-plan/`], ['Assessment roll', `${base}/assessment/`],
+  ] },
+  { label: 'Elections', links: [
+    ['How each member votes', `${base}/board-votes/`], ['Supervisors and Council history', `${base}/town-history/`], ['State of the Town addresses', `${base}/state-of-the-town/`],
+    ['Supervisor’s promises', `${base}/supervisor-promises/`], ['Board election results', `${base}/board-elections/`], ['Election map', `${base}/election-map/`],
+    ['Campaign finance', `${base}/campaign-finance/`], ['Donation map', `${base}/donation-map/`], ['2026 candidates', `${base}/candidate-watch/`], ['Candidates’ proposals, costed', `${base}/candidate-cost-benefit/`],
+    ['Officials on social media', `${base}/official-social-media/`], ['Election law case', `${base}/election-law-case/`],
+  ] },
+  { label: 'Help', links: [
+    ['Start here', `${base}/guide/`], ['Guided tour', `${base}/explore/`], ['Questions residents ask', `${base}/answers/`], ['How to check a figure', `${base}/evidence/`],
+    ['Original documents', `${base}/sources/`], ['Records the Town has not published', `${base}/records/`], ['Downloads', `${base}/downloads/`], ['Data quality and freshness', `${base}/data-quality/`],
+    ['Budget best practices (GFOA)', `${base}/gfoa/`], ['Following how the Town is governed', `${base}/governance-accountability/`], ['Open Meetings Law', `${base}/open-meetings/`], ['Know your rights (ICE)', `${base}/know-your-rights/`],
   ] },
 ]
 
@@ -92,7 +110,7 @@ export default function SiteNav() {
         {!mobileQuery.trim() && <>
           <div style={{ color: 'var(--rbl-text-muted)', fontWeight: 650, fontSize: 13, padding: '13px 10px 7px' }}>Quick access</div>
           <div className="nav-mobile-quick">
-            {PRIMARY.map(([label, href]) => <a key={href} href={href} aria-current={isActive(href) ? 'page' : undefined} style={{ display: 'block', color: 'var(--rbl-title)', textDecoration: 'none', fontWeight: 750, fontSize: 15, minHeight: 44, padding: '10px', borderRadius: 9, background: isActive(href) ? 'var(--rbl-info-bg)' : 'var(--rbl-surface-2)' }}>{label}</a>)}
+            {QUICK.map(([label, href]) => <a key={href} href={href} aria-current={isActive(href) ? 'page' : undefined} style={{ display: 'block', color: 'var(--rbl-title)', textDecoration: 'none', fontWeight: 750, fontSize: 15, minHeight: 44, padding: '10px', borderRadius: 9, background: isActive(href) ? 'var(--rbl-info-bg)' : 'var(--rbl-surface-2)' }}>{label}</a>)}
           </div>
         </>}
         {GROUPS.map(g => {
@@ -103,8 +121,8 @@ export default function SiteNav() {
             <div className="nav-mobile-group-links">{(mobileQuery.trim() ? matches : g.links).map(([label, href]) => <a key={href} href={href} aria-current={isActive(href) ? 'page' : undefined} style={{ background: isActive(href) ? 'var(--rbl-info-bg)' : 'transparent', fontWeight: isActive(href) ? 750 : 500 }}>{label}</a>)}</div>
           </details>
         })}
-        {mobileQuery.trim() && !PRIMARY.some(([label]) => label.toLowerCase().includes(mobileQuery.trim().toLowerCase())) && !GROUPS.some(g => g.links.some(([label]) => label.toLowerCase().includes(mobileQuery.trim().toLowerCase()))) && <p role="status" style={{ margin: '14px 10px', color: 'var(--rbl-text-muted)', fontSize: 14 }}>No pages match “{mobileQuery.trim()}”. Try another term.</p>}
-        {mobileQuery.trim() && PRIMARY.some(([label]) => label.toLowerCase().includes(mobileQuery.trim().toLowerCase())) && <div style={{ marginTop: 8 }} className="nav-mobile-quick">{PRIMARY.filter(([label]) => label.toLowerCase().includes(mobileQuery.trim().toLowerCase())).map(([label, href]) => <a key={href} href={href} aria-current={isActive(href) ? 'page' : undefined} style={{ display: 'block', color: 'var(--rbl-title)', textDecoration: 'none', fontWeight: 750, fontSize: 15, padding: '10px', borderRadius: 9, background: isActive(href) ? 'var(--rbl-info-bg)' : 'var(--rbl-surface-2)' }}>{label}</a>)}</div>}
+        {mobileQuery.trim() && !QUICK.some(([label]) => label.toLowerCase().includes(mobileQuery.trim().toLowerCase())) && !GROUPS.some(g => g.links.some(([label]) => label.toLowerCase().includes(mobileQuery.trim().toLowerCase()))) && <p role="status" style={{ margin: '14px 10px', color: 'var(--rbl-text-muted)', fontSize: 14 }}>No pages match “{mobileQuery.trim()}”. Try another term.</p>}
+        {mobileQuery.trim() && QUICK.some(([label]) => label.toLowerCase().includes(mobileQuery.trim().toLowerCase())) && <div style={{ marginTop: 8 }} className="nav-mobile-quick">{QUICK.filter(([label]) => label.toLowerCase().includes(mobileQuery.trim().toLowerCase())).map(([label, href]) => <a key={href} href={href} aria-current={isActive(href) ? 'page' : undefined} style={{ display: 'block', color: 'var(--rbl-title)', textDecoration: 'none', fontWeight: 750, fontSize: 15, padding: '10px', borderRadius: 9, background: isActive(href) ? 'var(--rbl-info-bg)' : 'var(--rbl-surface-2)' }}>{label}</a>)}</div>}
       </nav>
     </div>
   )
