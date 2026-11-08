@@ -24,5 +24,12 @@
   "asOfYear": 2025,
   "source": "Town of Riverhead 2025-2026 Receiver of Taxes rate sheet. Its residential assessment ratio (RAR) of 7.44% is the figure New York's Homestead Tax Option (RPTL Article 19) designates specifically for converting a residential property's market value to assessed value — more precise for this purpose than the town's general equalization/uniform percentage (about 8.16-8.34% depending on the roll year), which is meant for cross-jurisdiction comparison, not household-level conversion.",
   "note": "This ratio can shift slightly from year to year with each new assessment roll. Use it only as an approximation if you don't know your assessed value directly; if you have a recent tax bill or assessment notice, enter that assessed value instead for an exact answer."
+ },
+ "lookup": {
+  "title": "Suffolk County Property Tax Services",
+  "url": "https://suffolkcountyny.residentaccess.tylerapp.com/main/real-estate/",
+  "operator": "Suffolk County",
+  "contact": "Suffolk County Comptroller",
+  "note": "The County's public-records search for property tax bills. Its own notice asks for one search field at a time. This site links to it and reads nothing from it."
  }
 }
