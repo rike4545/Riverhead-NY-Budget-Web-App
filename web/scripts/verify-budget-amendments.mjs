@@ -209,7 +209,14 @@ for (const v of VOTES) {
 const notListed = VOTES.filter((v) => !v.ayes.includes('Jerry Halpin')).length
 if (!VOTE_ARTICLE.reported.abstained.startsWith(`${['', 'One', 'Two', 'Three', 'Four', 'Five', 'Six'][notListed]} resolutions`)) fail(`the article's abstention count no longer matches the ${notListed} amendments the packet does not list Halpin on`)
 for (const q of Object.values(VOTE_ARTICLE.reported)) if (!has(q)) fail(`the page does not quote “${q}”`)
-if (!has('This page follows the Town’s notice.')) fail('the page no longer notes the article’s hearing date against the Town’s notice')
+// The two reports gave different hearing dates; the minutes settle it.
+if (!has('The minutes show it was held on November 5.')) fail('the page no longer notes the articles’ hearing dates against the minutes')
+// The hearing's outcome is quoted from the minutes the site keeps.
+{
+  const minutes = readFileSync(new URL('../../etl/data/meetings/2026-11-05-minutes.txt', import.meta.url), 'utf8').replace(/\s+/g, ' ')
+  for (const q of ['No public comment', 'Held open for written comment for 10 days', 'The hearing was called to order at 2:32 pm']) if (!minutes.includes(q)) fail(`the November 5 minutes no longer say “${q}”`)
+  if (!has('No public comment') || !has('Held open for written comment for 10 days')) fail('the page no longer quotes the hearing’s outcome from the minutes')
+}
 // Newsday's report: every quotation on the page, its $640,000 against the
 // resolutions, and Halpin's 2022 example against the 2022 Adopted Budget.
 for (const q of Object.values(NEWSDAY_ARTICLE.reported)) if (!has(q)) fail(`the page does not quote Newsday's “${q}”`)
