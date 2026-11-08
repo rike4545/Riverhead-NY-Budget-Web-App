@@ -21,36 +21,33 @@
     },
     {
       "web": "afr",
-      "ios": "AFRData",
       "android": "afr",
       "pattern": "*.json",
-      "note": "Annual Financial Report datasets, mirrored as a directory so a new fiscal year does not require a manifest edit."
+      "note": "Annual Financial Report datasets, mirrored as a directory so a new fiscal year does not require a manifest edit. Android only: no iOS screen reads these files."
     },
     {
       "web": "history",
-      "ios": "HistoryData",
       "android": "history",
       "pattern": "*.json",
-      "note": "Historical adopted-budget, budget-stage, fund-appropriation and General Fund series."
+      "note": "Historical adopted-budget, budget-stage, fund-appropriation and General Fund series. Android only: no iOS screen reads these files."
     },
     {
       "web": "salary",
-      "ios": "SalaryData",
       "android": "salary",
       "pattern": "*.json",
-      "note": "Board-authorized salary schedules and year-over-year comparisons."
+      "note": "Board-authorized salary schedules and year-over-year comparisons. Android only: no iOS screen reads these files."
     },
     {
       "web": "subaccounts",
-      "ios": "SubaccountsData",
       "android": "subaccounts",
       "pattern": "*.json",
-      "note": "Fund-level adopted budget account lines and their index.",
-      "exclude": {
-        "ios": [
-          "index.json"
-        ]
-      }
+      "note": "Fund-level adopted budget account lines and their index. Android only: no iOS screen reads these files."
+    },
+    {
+      "web": "search",
+      "android": "search",
+      "pattern": "*.json",
+      "note": "The unified search index as a manifest and typed shards. Android only: the iOS app searches the published site."
     }
   ],
   "files": [
