@@ -181,26 +181,22 @@ export default function TdrPage() {
                 </tr>
               ))}
               <tr style={{ borderBottom: '1px solid var(--rbl-border)' }}>
-                <th scope="row" style={{ ...td, textAlign: 'left', fontWeight: 700 }}>Credits required</th>
-                <td data-label="Square feet" style={td} /><td data-label="Sq. ft. per credit" style={td} />
-                <td data-label="Credits" style={{ ...td, textAlign: 'right', fontWeight: 700 }}>{n(walmartSumCredits, 3)}</td>
+                <th scope="row" style={{ ...td, textAlign: 'left', fontWeight: 700 }} colSpan={3}>Credits required</th>
+                                <td data-label="Credits" style={{ ...td, textAlign: 'right', fontWeight: 700 }}>{n(walmartSumCredits, 3)}</td>
               </tr>
               {w.creditsBought.map((b) => (
                 <tr key={b.approval} style={{ borderBottom: '1px solid var(--rbl-border-subtle)' }}>
-                  <th scope="row" style={{ ...td, textAlign: 'left', fontWeight: 600 }}>Bought: {b.approval}; {b.recorded}</th>
-                  <td data-label="Square feet" style={td} /><td data-label="Sq. ft. per credit" style={td} />
-                  <td data-label="Credits" style={{ ...td, textAlign: 'right' }}>−{n(b.credits, 3)}</td>
+                  <th scope="row" style={{ ...td, textAlign: 'left', fontWeight: 600 }} colSpan={3}>Bought: {b.approval}; {b.recorded}</th>
+                                    <td data-label="Credits" style={{ ...td, textAlign: 'right' }}>−{n(b.credits, 3)}</td>
                 </tr>
               ))}
               <tr style={{ borderBottom: '1px solid var(--rbl-border-subtle)' }}>
-                <th scope="row" style={{ ...td, textAlign: 'left', fontWeight: 600 }}>Conveyed away earlier</th>
-                <td data-label="Square feet" style={td} /><td data-label="Sq. ft. per credit" style={td} />
-                <td data-label="Credits" style={{ ...td, textAlign: 'right' }}>+{n(w.creditsConveyed, 3)}</td>
+                <th scope="row" style={{ ...td, textAlign: 'left', fontWeight: 600 }} colSpan={3}>Conveyed away earlier</th>
+                                <td data-label="Credits" style={{ ...td, textAlign: 'right' }}>+{n(w.creditsConveyed, 3)}</td>
               </tr>
               <tr>
-                <th scope="row" style={{ ...td, textAlign: 'left', fontWeight: 700 }}>Still to buy</th>
-                <td data-label="Square feet" style={td} /><td data-label="Sq. ft. per credit" style={td} />
-                <td data-label="Credits" style={{ ...td, textAlign: 'right', fontWeight: 700 }}>{n(w.creditsAdditional, 3)}</td>
+                <th scope="row" style={{ ...td, textAlign: 'left', fontWeight: 700 }} colSpan={3}>Still to buy</th>
+                                <td data-label="Credits" style={{ ...td, textAlign: 'right', fontWeight: 700 }}>{n(w.creditsAdditional, 3)}</td>
               </tr>
             </tbody>
           </table>

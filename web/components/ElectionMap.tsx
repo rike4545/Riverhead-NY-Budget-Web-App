@@ -225,7 +225,7 @@ export default function ElectionMap({
       </p>
 
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 300px), 1fr))', gap: 16, alignItems: 'start' }}>
-        <div style={{ gridColumn: 'span 2', minWidth: 0 }}>
+        <div className="rbl-chart" style={{ gridColumn: 'span 2', minWidth: 0 }}>
           <svg viewBox={`-6 -6 ${width + 12} ${height + 12}`} role="group" aria-label={`Map of Riverhead's 22 election districts: ${effectiveView === 'compare' ? cmp.label : contest.name}`} style={{ width: '100%', height: 'auto', display: 'block' }}>
             {districts.map((d) => (
               <path
@@ -243,10 +243,10 @@ export default function ElectionMap({
             ))}
             {activeShape && <path d={activeShape.path} style={{ fill: 'none', stroke: 'var(--rbl-text-strong)', strokeWidth: 3, pointerEvents: 'none' }} />}
             {districts.map((d) => (
-              <text key={d.ed} x={d.x} y={d.y} textAnchor="middle" dominantBaseline="central" style={{ fontSize: 15, fontWeight: 700, fill: 'var(--rbl-text-strong)', stroke: 'var(--rbl-surface)', strokeWidth: 3.5, paintOrder: 'stroke', pointerEvents: 'none' }}>{d.label}</text>
+              <text className="rbl-map-label" key={d.ed} x={d.x} y={d.y} textAnchor="middle" dominantBaseline="central" style={{ fontSize: 15, fontWeight: 700, fill: 'var(--rbl-text-strong)', stroke: 'var(--rbl-surface)', strokeWidth: 3.5, paintOrder: 'stroke', pointerEvents: 'none' }}>{d.label}</text>
             ))}
           </svg>
-          <p style={{ margin: '6px 0 0', color: 'var(--rbl-text-muted)', fontSize: 13.5 }}>Point at, tap or tab to a district to read its votes. The numbers are the Board of Elections&apos; district numbers.</p>
+          <p style={{ margin: '6px 0 0', color: 'var(--rbl-text-muted)', fontSize: 13.5 }}>Point at, tap or tab to a district to read its votes. The numbers are the Board of Elections&apos; district numbers; on a narrow screen they are hidden, and tapping a district shows its number.</p>
         </div>
 
         <div>

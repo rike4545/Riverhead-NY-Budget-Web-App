@@ -60,7 +60,7 @@ export default function BudgetFlowPage() {
 
       <section id="flow" aria-labelledby="flow-heading" style={card}>
         <h2 id="flow-heading" style={h2}>Where the money comes from and goes</h2>
-        <p style={prose}>Each band&apos;s thickness is its dollars. Point at a band to read it; every figure is in the tables below.</p>
+        <p style={prose}>Each band&apos;s thickness is its dollars. Point at a band to read it; every figure is in the tables below. On a narrow screen the diagram becomes three lists, one for each column.</p>
         <BudgetFlow nodes={flow.nodes} links={flow.links} total={flowTotal} />
         <p style={{ ...prose, fontSize: 14.5, marginTop: 8 }}>
           {flow.smallFunds.length} funds under $2 million are grouped: {flow.smallFunds.join(', ')}.

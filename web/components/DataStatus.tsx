@@ -30,7 +30,7 @@ export default function DataStatus({ status, text }: DataStatusProps) {
         border: '1px solid var(--rbl-border-subtle)',
         background: 'var(--rbl-surface-2)',
         color: 'var(--rbl-text-strong)',
-        fontSize: 11.5,
+        fontSize: 12,
         fontWeight: 900,
         lineHeight: 1.2,
       }}

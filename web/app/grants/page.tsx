@@ -50,7 +50,7 @@ export default function GrantsPage() {
         <ColumnChart
           title="Grants and State and federal aid received"
           lede="Each year's State and federal aid tied to a purpose, as the Town reported it to the State Comptroller."
-          columns={grantYears.map((y) => ({ label: String(y.year), value: y.total, display: big(y.total) }))}
+          columns={grantYears.map((y) => ({ label: String(y.year), value: y.total, display: `$${(y.total / 1e6).toFixed(1)}M` }))}
           format={big}
           source={`${grantSources.osc.title}. Mortgage tax and State revenue sharing are left out.`}
           height={230}

@@ -1,0 +1,311 @@
+{
+ "note": "Hand-curated. Town records (minutes, resolutions, meeting transcripts) are marked 'town'; news coverage is marked 'news' and is not a Town record. Machine transcripts can mishear words. Checked by web/scripts/verify-supervisor-addresses.mjs.",
+ "asOf": "2026-11-07",
+ "law": {
+  "governor": {
+   "text": "The governor shall communicate by message to the legislature at every session the condition of the state, and recommend such matters to it as he or she shall judge expedient.",
+   "cite": "New York State Constitution, Article IV, § 3",
+   "url": "https://www.nysenate.gov/legislation/laws/CNS/A4S3"
+  },
+  "townReport": {
+   "text": "Town Law § 29(10) requires the supervisor to file an annual financial report with the town clerk within thirty days after the fiscal year ends; under § 29(10-a) a town board may instead have the supervisor file a copy of the annual report sent to the State Comptroller.",
+   "cite": "New York Town Law § 29, subdivisions 10 and 10-a",
+   "url": "https://www.nysenate.gov/legislation/laws/TWN/29"
+  },
+  "finding": "This site found no State law that requires a town supervisor to give a 'State of the Town' address or an inaugural speech. In Riverhead both are customs."
+ },
+ "format": {
+  "before2018": "Before 2018 the address was given at a joint dinner meeting of the Riverhead Rotary, Kiwanis and Lions clubs, held at local restaurants.",
+  "change2018": "Laura Jens-Smith moved it to Town Hall in 2018, free to attend, broadcast on the public-access channel and livestreamed.",
+  "source": {
+   "kind": "news",
+   "title": "RiverheadLOCAL, March 18, 2019: Jens-Smith announces 'State of the Town' address at town hall April 8",
+   "url": "https://riverheadlocal.com/2019/03/18/jens-smith-announces-state-of-the-town-address-at-town-hall-april-8/"
+  }
+ },
+ "supervisors": [
+  {
+   "name": "Sean Walter",
+   "party": "R",
+   "term": "2010–2017",
+   "inauguration": {
+    "date": "2010-01-01",
+    "where": null,
+    "summary": "Took office on January 1, 2010, setting out three goals: fiscal health, downtown revitalization and redeveloping the Enterprise Park at Calverton (EPCAL).",
+    "sources": [
+     {
+      "kind": "news",
+      "title": "RiverheadLOCAL, December 31, 2017: A look back at eight years of Sean Walter",
+      "url": "https://riverheadlocal.com/2017/12/31/look-back-eight-years-sean-walter-fiscal-responsibility-epcal-downtown-revitalization-god/"
+     }
+    ]
+   },
+   "addresses": [
+    {
+     "date": "2010-02",
+     "where": "Joint dinner of the Rotary, Kiwanis and Lions clubs",
+     "summary": "His first address; he gave one every year through 2016, each restating his three goals.",
+     "sources": [
+      {
+       "kind": "news",
+       "title": "RiverheadLOCAL, December 31, 2017: A look back at eight years of Sean Walter",
+       "url": "https://riverheadlocal.com/2017/12/31/look-back-eight-years-sean-walter-fiscal-responsibility-epcal-downtown-revitalization-god/"
+      }
+     ]
+    },
+    {
+     "date": "2015-02-25",
+     "where": "Joint meeting of the Riverhead Kiwanis, Rotary and Lions clubs",
+     "summary": "Proposed merging the elected tax receiver into the Town Clerk's office and replacing the elected Board of Assessors with appointed assessors, which he said would save $150,000 a year, and one combined highway, garage and State DOT yard at EPCAL to save another $150,000. He predicted the first proposal would \"be met with an uproar.\"",
+     "sources": [
+      {
+       "kind": "news",
+       "title": "RiverheadLOCAL, February 25, 2015: Walter in 'State of Town' to call for elimination of elected tax receiver, assessor positions",
+       "url": "https://riverheadlocal.com/2015/02/25/walter-state-town-call-elimination-elected-tax-receiver-assessor-positions-predicts-uproar/"
+      }
+     ]
+    },
+    {
+     "date": "2016-03-02",
+     "where": null,
+     "summary": "His last address, recorded on video.",
+     "sources": [
+      {
+       "kind": "video",
+       "title": "Riverhead State of the Town 2016 (YouTube)",
+       "url": "https://www.youtube.com/watch?v=PnJ8l60BuWo"
+      }
+     ]
+    }
+   ],
+   "gaps": [
+    "No address in 2017, his final year.",
+    "Walter was re-elected three times; this site has not found coverage of his 2012, 2014 and 2016 swearing-ins, so the timeline marks only 2010."
+   ],
+   "inaugurationYears": [
+    2010
+   ],
+   "addressYears": [
+    2010,
+    2011,
+    2012,
+    2013,
+    2014,
+    2015,
+    2016
+   ]
+  },
+  {
+   "name": "Laura Jens-Smith",
+   "party": "D",
+   "term": "2018–2019",
+   "inauguration": {
+    "date": "2018-01-01",
+    "where": null,
+    "summary": "Sworn in as the Town's 62nd Supervisor and its first woman in the office; called for unity, cooperation and perseverance in Town government.",
+    "sources": [
+     {
+      "kind": "news",
+      "title": "RiverheadLOCAL, January 1, 2018: History is made in Riverhead: Jens-Smith sworn in as first woman town supervisor",
+      "url": "https://riverheadlocal.com/2018/01/01/history-made-riverhead-jens-smith-sworn-first-woman-town-supervisor/"
+     }
+    ]
+   },
+   "addresses": [
+    {
+     "date": "2018-04-10",
+     "where": "Town Hall meeting room, free and open to the public",
+     "summary": "Moved the address out of the service clubs' dinner to a free public forum; standing room only, broadcast live and streamed. Her message: \"Riverhead can do better.\"",
+     "sources": [
+      {
+       "kind": "news",
+       "title": "RiverheadLOCAL, April 11, 2018: Jens-Smith's first State of the Town: Riverhead can do better",
+       "url": "https://riverheadlocal.com/2018/04/11/jens-smiths-first-state-of-the-town-riverhead-can-do-better"
+      }
+     ]
+    },
+    {
+     "date": "2019-04-08",
+     "where": "Town Hall, 6:30 p.m.",
+     "summary": "Her second address, again at Town Hall.",
+     "sources": [
+      {
+       "kind": "news",
+       "title": "RiverheadLOCAL, March 18, 2019: Jens-Smith announces 'State of the Town' address at town hall April 8",
+       "url": "https://riverheadlocal.com/2019/03/18/jens-smith-announces-state-of-the-town-address-at-town-hall-april-8/"
+      }
+     ]
+    }
+   ],
+   "gaps": [],
+   "inaugurationYears": [
+    2018
+   ],
+   "addressYears": [
+    2018,
+    2019
+   ]
+  },
+  {
+   "name": "Yvette Aguiar",
+   "party": "R",
+   "term": "2020–2023",
+   "inauguration": {
+    "date": "2020-01-01",
+    "where": "Suffolk Theater",
+    "summary": "Sworn in as the 63rd Supervisor at the Suffolk Theater, the only official that day to give a speech, urging residents to work together rather than rely on government alone. At the next Board meeting she said \"We had over two, three hundred and fifty people at the theater.\" Sworn in for a second term on January 2, 2022 at a scaled-back ceremony at Town Hall, with a seven-minute prepared address.",
+    "sources": [
+     {
+      "kind": "town",
+      "title": "Town Board minutes, January 7, 2020 (announcements)",
+      "url": "https://www.townofriverheadny.gov/129/Agendas-Minutes"
+     },
+     {
+      "kind": "news",
+      "title": "RiverheadLOCAL, January 1, 2020: Riverhead officials sworn into office in ceremonies at the Suffolk Theater",
+      "url": "https://riverheadlocal.com/2020/01/01/riverhead-officials-sworn-into-office-in-ceremonies-at-the-suffolk-theater"
+     },
+     {
+      "kind": "news",
+      "title": "RiverheadLOCAL, January 2, 2022: Aguiar sworn in for second term as supervisor at Riverhead Town Hall",
+      "url": "https://riverheadlocal.com/2022/01/02/aguiar-sworn-in-for-second-term-as-supervisor-at-riverhead-town-hall/"
+     }
+    ]
+   },
+   "addresses": [
+    {
+     "date": "2021-02-08",
+     "where": "Town Hall, by invitation only because of the pandemic",
+     "summary": "Her first address, given at Town Hall to an invited audience because of the pandemic.",
+     "sources": [
+      {
+       "kind": "news",
+       "title": "RiverheadLOCAL, February 1, 2021: Riverhead supervisor will give State of the Town address Feb. 8 at Town Hall",
+       "url": "https://riverheadlocal.com/2021/02/01/riverhead-supervisor-will-give-state-of-the-town-address-feb-8-at-town-hall/"
+      }
+     ]
+    },
+    {
+     "date": "2022-06-29",
+     "where": "Town Hall, livestreamed",
+     "summary": "Planned for the service clubs' dinner on June 8 ($35 a ticket), then rescheduled and given at Town Hall. Two years of accomplishments, downtown revitalization and the sale of Town land at EPCAL.",
+     "sources": [
+      {
+       "kind": "news",
+       "title": "RiverheadLOCAL topic page 'State of the Town', listing the June 30, 2022 article: Aguiar sets forth accomplishments over past two years",
+       "url": "https://riverheadlocal.com/topic/state-of-the-town/"
+      }
+     ]
+    },
+    {
+     "date": "2023-12-04",
+     "where": null,
+     "summary": "Her final address, announced to \"tout accomplishments\" of her four years.",
+     "sources": [
+      {
+       "kind": "news",
+       "title": "RiverheadLOCAL, November 24, 2023: Supervisor announces final 'State of the Town' speech",
+       "url": "https://riverheadlocal.com/2023/11/24/supervisor-announces-final-state-of-the-town-speech-to-tout-accomplishments-of-her-tenure/"
+      },
+      {
+       "kind": "town",
+       "title": "Town of Riverhead news release: Supervisor Yvette Aguiar to Deliver Final State of the Town Address",
+       "url": "https://riverheadny.municipalone.com/newsview.aspx?nid=12248"
+      }
+     ]
+    }
+   ],
+   "gaps": [],
+   "inaugurationYears": [
+    2020,
+    2022
+   ],
+   "addressYears": [
+    2021,
+    2022,
+    2023
+   ]
+  },
+  {
+   "name": "Tim Hubbard",
+   "party": "R",
+   "term": "2024–2025",
+   "inauguration": {
+    "date": "2024-01-01",
+    "where": "the new Town Hall",
+    "summary": "Sworn in as the 64th Supervisor in the new Town Hall, pledging transparency, civility and action. At the next Board meeting he said the ceremony \"is on channel 22 if you haven't seen it\" and that he \"felt it was appropriate to do it in the new building.\"",
+    "sources": [
+     {
+      "kind": "town",
+      "title": "Town Board minutes, January 3, 2024 (announcements)",
+      "url": "https://www.townofriverheadny.gov/129/Agendas-Minutes"
+     },
+     {
+      "kind": "news",
+      "title": "RiverheadLOCAL, January 2, 2024: A new day in Riverhead: Tim Hubbard, pledging transparency, civility and action, is sworn in",
+      "url": "https://riverheadlocal.com/2024/01/02/a-new-day-in-riverhead-tim-hubbard-pledging-transparency-civility-and-action-is-sworn-in-as-the-county-seats-64th-town-supervisor/"
+     }
+    ]
+   },
+   "addresses": [
+    {
+     "date": "2024-04-09",
+     "where": "Town Hall, 11 a.m.",
+     "summary": "Given on his 100th day in office: the first three months and the work ahead.",
+     "sources": [
+      {
+       "kind": "news",
+       "title": "RiverheadLOCAL, April 9, 2024: Supervisor Tim Hubbard, on his 100th day in office, delivers 'State of the Town' speech",
+       "url": "https://riverheadlocal.com/2024/04/09/supervisor-tim-hubbard-on-his-100th-day-in-office-delivers-state-of-the-town-speech"
+      }
+     ]
+    }
+   ],
+   "gaps": [
+    "No address found for 2025."
+   ],
+   "inaugurationYears": [
+    2024
+   ],
+   "addressYears": [
+    2024
+   ]
+  },
+  {
+   "name": "Jerome (Jerry) Halpin",
+   "party": "D",
+   "term": "2026–",
+   "inauguration": {
+    "date": "2026-01-01",
+    "where": "Town Hall",
+    "summary": "Sworn in as the 65th Supervisor at a packed Town Hall. His first salary resolution set the Supervisor's 2026 pay at $110,000, \"reduced from budgeted amount of $118,919.\" At the January 6 meeting he twice pointed back to the speech, saying it would be \"a little clunky at first\" and that \"we could look for the negative in everything.\"",
+    "sources": [
+     {
+      "kind": "town",
+      "title": "Town Board Resolution 2026-1, January 6, 2026: Sets Salaries of Elected Officials for the Year 2026",
+      "url": "https://riverheadny.portal.civicclerk.com/"
+     },
+     {
+      "kind": "transcript",
+      "title": "Machine transcript of the January 6, 2026 Town Board meeting (this site)",
+      "url": "/meetings/"
+     },
+     {
+      "kind": "news",
+      "title": "RiverheadLOCAL, January 2, 2026: Swearing-in ushers in new Riverhead Town administration on New Year's Day",
+      "url": "https://riverheadlocal.com/2026/01/02/swearing-in-ushers-in-new-riverhead-town-administration-on-new-years-day/"
+     }
+    ]
+   },
+   "addresses": [],
+   "gaps": [
+    "No State of the Town address found in 2026, as of November 7."
+   ],
+   "inaugurationYears": [
+    2026
+   ],
+   "addressYears": []
+  }
+ ],
+ "termNote": "Riverhead Supervisors serve two-year terms, so a Supervisor is sworn in again after each re-election."
+}
