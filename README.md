@@ -15,6 +15,7 @@ An independent public fiscal intelligence platform for exploring Riverhead Town 
 | 🔮 2027 Prediction | https://rike4545.github.io/Riverhead-NY-Budget-Web-App/predict-2027/ |
 | 🧮 How Budgets Get Adopted (2005–2026) | https://rike4545.github.io/Riverhead-NY-Budget-Web-App/budget-adoption/ |
 | ✅ The Supervisor’s Promises | https://rike4545.github.io/Riverhead-NY-Budget-Web-App/supervisor-promises/ |
+| 🎤 State of the Town Addresses | https://rike4545.github.io/Riverhead-NY-Budget-Web-App/state-of-the-town/ |
 | 🚪 Open Meetings Law | https://rike4545.github.io/Riverhead-NY-Budget-Web-App/open-meetings/ |
 | 🏛️ Funds & Line Items | https://rike4545.github.io/Riverhead-NY-Budget-Web-App/funds/ |
 | 📊 Budget Compare (2020–2026) | https://rike4545.github.io/Riverhead-NY-Budget-Web-App/compare/ |
@@ -374,6 +375,15 @@ What Supervisor Jerry Halpin promised, and what he says he has done, checked
 against the Town's own votes, budgets and resolutions. Also lists the tests
 his 2027 budget will answer.
 
+### 🎤 State of the Town and inaugural addresses — `/state-of-the-town`
+Why a Supervisor's State of the Town and inaugural addresses matter, what
+State law requires (an annual financial report, not a speech), how the custom
+moved from the service clubs' dinner to Town Hall in 2018, and what each
+Supervisor since 2010 did, year by year. Data: hand-curated
+`web/public/data/supervisor-addresses.json`, every source labelled as a Town
+record, news, video or machine transcript; checked by
+`web/scripts/verify-supervisor-addresses.mjs`.
+
 ### 🚪 The Open Meetings Law in Riverhead — `/open-meetings`
 What New York's Open Meetings Law requires of the Town Board and the Town's
 other boards, and how the Board's own rules compare. It covers notice,
@@ -485,6 +495,7 @@ The four links at the front of the site menu:
 - **Candidate Watch** (`/candidate-watch`): who is running in November 2026, with links and stated platforms.
 - **Candidate Proposals** (`/candidate-cost-benefit`): a cost–benefit look at each stated plank in the 2026 Supervisor race.
 - **Supervisor's Promises** (`/supervisor-promises`): commitments checked against the record.
+- **State of the Town Addresses** (`/state-of-the-town`): what each Supervisor said in their inaugural and yearly addresses, and what the law requires.
 - **Open Meetings Law** (`/open-meetings`): what the law requires, and what the Town's records show.
 
 ## Research
