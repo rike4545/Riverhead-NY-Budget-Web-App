@@ -101,7 +101,8 @@ python3 etl/build_search_index.py && python3 etl/write_meta.py
 ### Writing
 
 - Plain English for residents: short sentences, the number and its source,
-  and no jargon without a gloss.
+  and no jargon without a gloss. Avoid the patterns in
+  `.claude/references/copy-tells.md`.
 - Commit messages and pull requests say what changed and why, in prose.
 
 ### Design
@@ -149,6 +150,25 @@ link to are in `.claude/references/`, with two more from the Open Design Agent
 Kit (feimacode/open-design-agent-kit at commit dd8c43f): `accessibility-baseline.md`
 (Apache-2.0, from Open Design) and `ux-writing.md` (MIT). Their licences are in
 `.claude/references/LICENSE-open-design.md`.
+
+Four more are copied unchanged from other collections, for gaps the 25 leave:
+
+- `verification-before-completion` (obra/superpowers at 22f0b46, MIT): run the
+  check and read its output before saying anything passes or is done. This is
+  the site's accuracy rule applied to the work itself.
+- `receiving-code-review` (obra/superpowers at 22f0b46, MIT): verify a review
+  comment, including a bot's, against the code before acting on it.
+- `writing-for-agents` (mattpocock/skills at 4ae2317, MIT): use it when editing
+  this file, a skill or an agent definition.
+- `handoff` (mattpocock/skills at 4ae2317, MIT): run as `/handoff` to write a
+  summary a fresh session can pick up.
+
+`.claude/references/copy-tells.md` (leonxlnx/taste-skill at f6b7657, MIT) lists
+what makes copy read as machine-written. Check resident-facing copy against it
+alongside `ux-writing.md`. It names files from its own repo (`copy-lint.mjs`,
+`copy-moves.md` and others) that were not copied. Licences are in
+`.claude/skills/LICENSE-superpowers`, `.claude/skills/LICENSE-mattpocock-skills`
+and `.claude/references/LICENSE-taste-skill`.
 
 They are general practice. Where a skill conflicts with this file, this file
 wins: never merge, auto-merge, push to `main` or deploy; open draft pull
