@@ -61,5 +61,8 @@ else {
   if (!text.includes(`${years} of the ${span} years`)) fail(`page does not say "${years} of the ${span} years"`)
   for (const s of d.supervisors) if (!text.includes(s.name)) fail(`page does not name ${s.name}`)
   if (!text.includes('Machine transcript') || !text.includes('News coverage')) fail('page does not label transcripts and news')
+  if (!text.includes('What makes an address useful to residents') || !text.includes('suggestions, not a rule')) fail('page is missing the useful-address practices, or no longer labels them as suggestions')
+  const pastWith = d.supervisors.slice(0, -1).filter((s) => s.addresses.length > 0).length
+  if (!text.includes(`${pastWith} of the ${d.supervisors.length - 1} Supervisors before the current one`)) fail('page miscounts the past Supervisors who gave an address')
 }
 if (!process.exitCode) console.log(`supervisor addresses: ${d.supervisors.length} Supervisors, ${years} years with an address, all sourced`)
