@@ -112,8 +112,12 @@ const safePath = (value) => text(value) && !value.split('/').includes('..') && !
     }
     if (!Array.isArray(data.directories)) fail(path, 'directories must be an array, even when empty')
     else for (const entry of data.directories) {
-      if (!object(entry) || !['web', 'ios', 'android', 'pattern'].every((key) => text(entry[key]))) fail(path, 'each mirrored directory needs web/ios/android paths and a filename pattern')
-      else for (const key of ['web', 'ios', 'android']) if (!safePath(entry[key])) fail(path, `directory mapping has an unsafe ${key} path`)
+      // A directory may map to only the apps that read it, but it must map to at
+      // least one, and only to consumers the manifest declares.
+      const consumers = object(data.consumers) ? Object.keys(data.consumers) : ['ios', 'android']
+      const mapped = object(entry) ? consumers.filter((key) => entry[key] !== undefined) : []
+      if (!object(entry) || !['web', 'pattern'].every((key) => text(entry[key])) || !mapped.length || !mapped.every((key) => text(entry[key]))) fail(path, 'each mirrored directory needs a web path, a filename pattern, and a path for at least one consumer app')
+      else for (const key of ['web', ...mapped]) if (!safePath(entry[key])) fail(path, `directory mapping has an unsafe ${key} path`)
       if (object(entry) && entry.exclude !== undefined) {
         if (!object(entry.exclude)) fail(path, 'directory exclude must map consumer names to filename arrays')
         else for (const [consumer, names] of Object.entries(entry.exclude)) {
