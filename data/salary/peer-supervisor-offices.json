@@ -1,0 +1,275 @@
+{
+  "note": "Annual base salaries for the roles in each town supervisor's office, 2026, from each town's own records. Riverhead's figures are in authorized-2026.json, from the January 6, 2026 agenda packet. Each peer figure is quoted from the source text kept in etl/data/salary/peers/ (Smithtown's from a hand transcription of a scanned page, kept with the page image) and checked by scripts/verify-supervisor-office-pay.mjs. Salaries only: benefits, longevity and stipends for other duties are noted where the source gives them.",
+  "asOf": "2026",
+  "peers": [
+    {
+      "town": "Southampton",
+      "censusName": "Southampton town",
+      "source": {
+        "title": "Town of Southampton 2026 Budget, Salary Charts (Adopted)",
+        "url": "https://www.southamptontownny.gov/DocumentCenter/View/42519/2026-Salary-Charts---Adopted",
+        "text": "etl/data/salary/peers/southampton-2026-salary-charts-adopted.txt"
+      },
+      "roles": [
+        {
+          "role": "supervisor",
+          "title": "Supervisor",
+          "salary": 149773,
+          "prior": {
+            "2025": 149773,
+            "2024": 143193
+          },
+          "quote": "Supervisor                                                                       $ 149,773",
+          "note": "Elected. The chart also lists $48,838 in benefits, for a total of $198,611.",
+          "inOffice": true
+        },
+        {
+          "role": "deputy",
+          "title": "Deputy Supervisor",
+          "salary": 99246,
+          "prior": {
+            "2025": 97300,
+            "2024": 101414
+          },
+          "quote": "Deputy Supervisor                       $    99,246",
+          "note": "Listed with the town's administrative support salaries.",
+          "inOffice": true
+        },
+        {
+          "role": "aide",
+          "title": "Special Assistant (Confidential Secretary) - Supervisor",
+          "salary": 105033,
+          "prior": {
+            "2025": 102973,
+            "2024": 97535
+          },
+          "quote": "Special Assistant (Confidential Secretary) - Supervisor                    $ 105,033",
+          "note": "The supervisor's confidential secretary.",
+          "inOffice": true
+        },
+        {
+          "role": "budget",
+          "title": "Town Comptroller",
+          "salary": 166956,
+          "prior": {
+            "2025": 163683,
+            "2024": 156764
+          },
+          "quote": "Town Comptroller                                                      $ 166,956",
+          "note": "Not in the supervisor's office: the Comptroller heads a separate finance department. Shown for context, not as a like-for-like counterpart.",
+          "inOffice": false
+        }
+      ],
+      "missing": [
+        {
+          "role": "chief",
+          "why": "The salary charts list no chief of staff."
+        }
+      ]
+    },
+    {
+      "town": "Southold",
+      "censusName": "Southold town",
+      "source": {
+        "title": "Southold Town Board Organizational Meeting agenda, January 2, 2026: 2026 Elected Officials Salaries and 2026 Appointed Officials Salaries",
+        "url": "https://southoldtownny.gov/AgendaCenter/ViewFile/Agenda/_01022026-1620",
+        "text": "etl/data/salary/peers/southold-2026-01-02-organizational-meeting-agenda.txt"
+      },
+      "roles": [
+        {
+          "role": "supervisor",
+          "title": "Supervisor",
+          "salary": 129502,
+          "quote": "Supervisor Albert J Krupski, Jr                              129,502.00",
+          "note": "Elected.",
+          "inOffice": true
+        },
+        {
+          "role": "deputy",
+          "title": "Deputy Supervisor",
+          "salary": 5000,
+          "quote": "Deputy Supervisor John Stype                                             5,000.00",
+          "note": "Set at $5,000 for the year, so not a full-time salary.",
+          "inOffice": true
+        },
+        {
+          "role": "aide",
+          "title": "Confidential Secretary, Office of the Supervisor",
+          "salary": 97671,
+          "quote": "Confidential Secretary, Office of the Supervisor, Lauren Standish        97,671.00",
+          "note": "Plus 8% longevity, as the resolution marks it.",
+          "inOffice": true,
+          "primary": true
+        },
+        {
+          "role": "aide",
+          "title": "Secretarial Assistant, Office of the Supervisor",
+          "salary": 94776,
+          "quote": "Secretarial Assistant, Office of the Supervisor, Michelle Tomaszewski    94,776.00",
+          "note": "Plus 7% longevity, as the resolution marks it.",
+          "inOffice": true
+        },
+        {
+          "role": "budget",
+          "title": "Town Comptroller",
+          "salary": 166464,
+          "quote": "Town Comptroller, Michelle Nickonovitz                                   166,464.00",
+          "note": "Not in the supervisor's office: the Comptroller heads a separate finance department. Shown for context, not as a like-for-like counterpart.",
+          "inOffice": false
+        }
+      ],
+      "missing": [
+        {
+          "role": "chief",
+          "why": "The resolution lists no chief of staff. It lists an Executive Assistant ($122,638) without saying which office, so it is left out."
+        }
+      ]
+    },
+    {
+      "town": "Smithtown",
+      "censusName": "Smithtown town",
+      "source": {
+        "title": "Town of Smithtown 2026 Adopted Budget, Appendix C: Budgeted Salaries (PDF page 149, printed at the tentative stage)",
+        "url": "https://www.smithtownny.gov/DocumentCenter/View/9030/26-Adopted--BudgetFinalPDF",
+        "text": "etl/data/salary/peers/smithtown-2026-adopted-budget-page-149-transcription.txt",
+        "transcribed": true
+      },
+      "roles": [
+        {
+          "role": "supervisor",
+          "title": "Supervisor",
+          "salary": 161694,
+          "quote": "SUPERVISOR 161,694.00",
+          "note": "Elected.",
+          "inOffice": true
+        },
+        {
+          "role": "deputy",
+          "title": "Deputy Supervisor",
+          "salary": 35000,
+          "quote": "DEPUTY SUPERVISOR 35,000.00",
+          "note": "The budget names a Town Board member as Deputy Supervisor; Board members are paid $95,451 each, listed separately.",
+          "inOffice": true
+        },
+        {
+          "role": "aide",
+          "title": "Secretary to Supervisor",
+          "salary": 118083,
+          "quote": "SECRETARY TO SUPERVISOR 118,083.00",
+          "note": "The office also has two Legislative Secretaries ($67,476 and $78,722).",
+          "inOffice": true,
+          "primary": true
+        },
+        {
+          "role": "budget",
+          "title": "Town Budget Officer",
+          "salary": 168689,
+          "quote": "TOWN BUDGET OFFICER 168,689.00",
+          "note": "The same title as Riverhead's, but in the Comptroller's department rather than the Supervisor's.",
+          "inOffice": false
+        }
+      ],
+      "missing": [
+        {
+          "role": "chief",
+          "why": "The salary appendix lists no chief of staff. The Supervisor's department also has a Public Information Officer and a Government Liaison."
+        }
+      ]
+    },
+    {
+      "town": "Huntington",
+      "censusName": "Huntington town",
+      "source": {
+        "title": "Town of Huntington 2026 Adopted Budget, Full Time Salaries Schedule (A-1220 Supervisor, PDF page 250)",
+        "url": "https://www.huntingtonny.gov/filestorage/13753/13757/17478/17482/2026_Adopted_Budget.pdf",
+        "text": "etl/data/salary/peers/huntington-2026-adopted-budget-excerpt.txt"
+      },
+      "roles": [
+        {
+          "role": "supervisor",
+          "title": "Supervisor",
+          "salary": 162903,
+          "prior": {
+            "2025": 162903
+          },
+          "quote": "Supervisor                                            1                162,903       1              162,903",
+          "note": "Elected.",
+          "inOffice": true
+        },
+        {
+          "role": "deputy",
+          "title": "Deputy Supervisor",
+          "salary": 162546,
+          "prior": {
+            "2025": 162546
+          },
+          "quote": "Deputy Supervisor                                     1                162,546       1              162,546",
+          "note": "A full-time position in the Supervisor's division.",
+          "inOffice": true
+        },
+        {
+          "role": "budget",
+          "title": "Director of Finance",
+          "salary": 156000,
+          "prior": {
+            "2025": 148400
+          },
+          "quote": "Director of Finance                                   1                148,400       1              156,000",
+          "note": "In the Supervisor's division, so the closest match to Riverhead's budget officer.",
+          "inOffice": true
+        },
+        {
+          "role": "aide",
+          "title": "Confidential Secretary",
+          "salary": 54667,
+          "prior": {
+            "2025": 54667
+          },
+          "quote": "Confidential Secretary                                1                 54,667       1               54,667",
+          "note": "In the Supervisor's division.",
+          "inOffice": true,
+          "primary": true
+        },
+        {
+          "role": "aide",
+          "title": "Executive Assistant",
+          "salary": 102500,
+          "prior": {
+            "2025": 79500
+          },
+          "quote": "Executive Assistant                                   1                 79,500       1              102,500",
+          "note": "In the Supervisor's division.",
+          "inOffice": true
+        }
+      ],
+      "missing": [
+        {
+          "role": "chief",
+          "why": "The schedule lists no chief of staff. Its Supervisor's division also has two Citizens Advocates, which have no Riverhead counterpart."
+        }
+      ]
+    }
+  ],
+  "notFound": [
+    {
+      "town": "Brookhaven",
+      "why": "Its 2026 adopted budget could not be read: the town's website refused this site's automated requests, and the latest budget found through search is 2022."
+    },
+    {
+      "town": "Islip",
+      "why": "Its 2026 adopted budget is a 90 MB file on a town website that refused this site's automated requests."
+    },
+    {
+      "town": "Babylon",
+      "why": "Its 2026 salaries are set in administrative salary plan schedules by level and step, attached to Board resolutions, rather than listed by title; they were not read."
+    },
+    {
+      "town": "East Hampton",
+      "why": "Its 2026 adopted budget is posted on the town's website, which refused this site's automated requests."
+    },
+    {
+      "town": "Shelter Island",
+      "why": "Its January 5, 2026 resolutions appoint a deputy supervisor and a confidential secretary to be paid 'as per the 2026 budget' without stating amounts, and the budget was not found."
+    }
+  ]
+}
