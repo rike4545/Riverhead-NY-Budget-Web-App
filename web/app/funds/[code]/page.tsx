@@ -10,6 +10,9 @@ import { stageDoc } from '../../../lib/budget-stages'
 import { dollars } from '../../../lib/financial-data'
 import { fundYears, lineSource, PROPOSAL_LABEL, proposedOf, supplementAdoptedYear, supplementLines, supplementPriorAdoptedYear, TENTATIVE_YEAR, withTentative } from '../../../lib/funds-2027'
 import { isSetAside } from '../../../lib/savings-rules'
+import { SNOW, snowOvertime, highwayPayrollOvertime, type SupplementLine } from '../../../lib/snow-overtime'
+import lineHistory from '../../../public/data/budget-supplement/line-history.json'
+import payrollRecords from '../../../public/data/payroll/records.json'
 
 export function generateStaticParams() {
   return allFundCodes().map((code) => ({ code }))
@@ -61,6 +64,7 @@ export default async function FundDetailPage({ params }: { params: Promise<{ cod
       <ActualsStrip code={fund.code} />
       <AuditedDeficitNote code={fund.code} />
       <FundContextNote code={fund.code} />
+      <SnowOvertimeNote code={fund.code} />
       <FundDrilldown fund={withTentative(fund)} proposed={fundYears(fund.code).proposal} lineSource={lineSource} />
     </PageShell>
   )
@@ -316,5 +320,109 @@ function ActualStat({ label, value, strong, negative }: { label: string; value: 
       <div style={{ color: 'var(--rbl-success-strong)', fontSize: 13, fontWeight: 700 }}>{label}</div>
       <strong style={{ fontSize: 16.5, color: negative ? 'var(--rbl-danger)' : strong ? 'var(--rbl-success)' : 'var(--rbl-success-strong)' }}>{value}</strong>
     </div>
+  )
+}
+
+// Snow-plowing overtime, on the Highway Fund's page only. lib/snow-overtime.ts
+// explains the two overtime lines; scripts/verify-snow-overtime.mjs checks the
+// figures against the Supplement and the built page.
+function SnowOvertimeNote({ code }: { code: string }) {
+  if (code.toUpperCase() !== 'DA1') return null
+  const accounts = (lineHistory as unknown as { accounts: SupplementLine[] }).accounts
+  const find = (a: string) => accounts.find((l) => l.account === a)
+  const snowOt = find(SNOW.snowOt)
+  const repairOt = find(SNOW.repairOt)
+  const supplies = find(SNOW.snowContractual)
+  if (!snowOt || !repairOt || !supplies) return null
+  const s = snowOvertime(snowOt, repairOt, supplies)
+  const payroll = highwayPayrollOvertime((payrollRecords as unknown as { records: { y: number; d: string; o: number | null }[] }).records)
+  const payrollLast = payroll[s.repair.lastActualYear]
+  const th = { padding: '6px 8px', textAlign: 'right' as const, fontSize: 13, color: 'var(--rbl-text-muted)' }
+  const td = { padding: '6px 8px', textAlign: 'right' as const, whiteSpace: 'nowrap' as const }
+  const link = { color: 'var(--rbl-link)', fontWeight: 600 } as const
+  const rows = s.snow.rows.filter((r) => r.year >= s.snow.lastActualYear - 6)
+  const repairBy = Object.fromEntries(s.repair.rows.map((r) => [r.year, r]))
+  const t = SNOW.transfers2026[0]
+  const base = process.env.NEXT_PUBLIC_BASE_PATH || ''
+  return (
+    <section id="snow-overtime" data-snow-overtime aria-labelledby="snow-overtime-heading" style={{ background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 20, marginBottom: 16, scrollMarginTop: 16 }}>
+      <h2 id="snow-overtime-heading" style={{ margin: '0 0 8px', color: 'var(--rbl-title)', fontSize: 21 }}>Snow-plowing overtime</h2>
+      <p style={{ margin: '0 0 10px', color: 'var(--rbl-text-body)', fontSize: 15.5, lineHeight: 1.6, maxWidth: '75ch' }}>
+        The Highway Fund budgets overtime on two lines. The snow-removal overtime line spent{' '}
+        <strong>{dollars(s.snowSpentFiveYears)}</strong> in the five years to {s.snow.lastActualYear} against{' '}
+        {dollars(s.snowBudgetedFiveYears)} budgeted, nothing at all in {s.snowUnspentYears.join(' and ')}, and{' '}
+        {dollars(s.snow.ytdThisYear ?? 0)} through {SNOW.ytdThrough}, {s.snow.thisYear}. The general repair overtime line, budgeted at{' '}
+        {dollars(s.repairLast.adopted)}, spent <strong>{dollars(s.repairLast.actual)}</strong> in {s.repairLast.year} and{' '}
+        {dollars(s.repair.ytdThisYear ?? 0)} by {SNOW.ytdThrough}, {s.repair.thisYear}. That pattern suggests plowing overtime is
+        charged to the repair line; the budget does not say. The {s.snow.thisYear + 1} Preliminary keeps both lines as they were:{' '}
+        {dollars(s.snow.proposed ?? 0)} for snow overtime and {dollars(s.repair.proposed ?? 0)} for repair overtime.
+      </p>
+      <div data-scroll-region style={{ overflowX: 'auto' }}>
+        <table className="rbl-stack" style={{ width: '100%', borderCollapse: 'collapse', fontSize: 14.5, maxWidth: 640 }}>
+          <caption style={{ textAlign: 'left', fontWeight: 700, color: 'var(--rbl-text-strong)', paddingBottom: 6 }}>Highway overtime: budgeted and spent</caption>
+          <thead><tr style={{ borderBottom: '1px solid var(--rbl-border)' }}>
+            <th scope="col" style={{ ...th, textAlign: 'left' }}>Year</th>
+            <th scope="col" style={th}>Snow OT budget</th>
+            <th scope="col" style={th}>Snow OT spent</th>
+            <th scope="col" style={th}>Repair OT budget</th>
+            <th scope="col" style={th}>Repair OT spent</th>
+          </tr></thead>
+          <tbody>
+            {rows.map((r) => (
+              <tr key={r.year} data-snow-row={r.year} style={{ borderBottom: '1px solid var(--rbl-border-subtle)' }}>
+                <th scope="row" style={{ ...td, textAlign: 'left' }}>{r.year}</th>
+                <td data-label="Snow OT budget" style={td}>{dollars(r.adopted)}</td>
+                <td data-label="Snow OT spent" style={td}>{dollars(r.actual)}</td>
+                <td data-label="Repair OT budget" style={td}>{repairBy[r.year] ? dollars(repairBy[r.year].adopted) : 'n/a'}</td>
+                <td data-label="Repair OT spent" style={td}>{repairBy[r.year] ? dollars(repairBy[r.year].actual) : 'n/a'}</td>
+              </tr>
+            ))}
+            <tr style={{ borderBottom: '1px solid var(--rbl-border-subtle)' }}>
+              <th scope="row" style={{ ...td, textAlign: 'left' }}>{s.snow.thisYear}, to {SNOW.ytdThrough}</th>
+              <td data-label="Snow OT budget" style={td}>{dollars(s.snow.adoptedThisYear ?? 0)}</td>
+              <td data-label="Snow OT spent" style={td}>{dollars(s.snow.ytdThisYear ?? 0)}</td>
+              <td data-label="Repair OT budget" style={td}>{dollars(s.repair.adoptedThisYear ?? 0)}</td>
+              <td data-label="Repair OT spent" style={td}>{dollars(s.repair.ytdThisYear ?? 0)}</td>
+            </tr>
+            <tr>
+              <th scope="row" style={{ ...td, textAlign: 'left' }}>{s.snow.thisYear + 1} Preliminary</th>
+              <td data-label="Snow OT budget" style={td}>{dollars(s.snow.proposed ?? 0)}</td>
+              <td data-label="Snow OT spent" style={td}>not yet</td>
+              <td data-label="Repair OT budget" style={td}>{dollars(s.repair.proposed ?? 0)}</td>
+              <td data-label="Repair OT spent" style={td}>not yet</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p style={{ margin: '12px 0 10px', color: 'var(--rbl-text-body)', fontSize: 15.5, lineHeight: 1.6, maxWidth: '75ch' }}>
+        <strong>Salt and outside contractors</strong> are a separate snow line. Its {s.supplies.thisYear} budget of{' '}
+        {dollars(s.supplies.adoptedThisYear ?? 0)} grew to {dollars(s.suppliesThisYear)} when the Board added {dollars(t.amount)} on{' '}
+        {t.date} (Resolution {t.number}, “{t.title}”), and {dollars(s.supplies.ytdThisYear ?? 0)} was spent by {SNOW.ytdThrough}. The{' '}
+        {s.supplies.thisYear + 1} Tentative raised it to {dollars(s.supplies.tentative ?? 0)}; the Board’s {SNOW.amendment2027.label} moved{' '}
+        {dollars(SNOW.amendment2027.amount)} of that to Highway pay, leaving {dollars(s.supplies.proposed ?? 0)} in the Preliminary (
+        <a href={`${base}/budget-amendments-2027/`} style={link}>the amendments</a>).
+      </p>
+      {payrollLast != null && (
+        <p style={{ margin: '0 0 10px', color: 'var(--rbl-text-body)', fontSize: 15.5, lineHeight: 1.6, maxWidth: '75ch' }}>
+          The Town’s payroll export shows {dollars(Math.round(payrollLast))} of overtime paid to Highway Department staff in{' '}
+          {s.repair.lastActualYear}, less than the {dollars(s.repairLast.actual)} the budget books to repair overtime that year. Payroll
+          is sorted by the employee’s department and the budget by account, and overtime worked by staff listed under another
+          department would be missed; this site has not reconciled the two.
+        </p>
+      )}
+      <p style={{ margin: '0 0 4px', color: 'var(--rbl-text-strong)', fontWeight: 700 }}>Questions residents may want to ask</p>
+      <ul style={{ margin: '0 0 10px', paddingLeft: 20, color: 'var(--rbl-text-body)', fontSize: 15, lineHeight: 1.6, maxWidth: '75ch' }}>
+        <li>Is snow-plowing overtime charged to the repair overtime line? If so, the {s.snow.thisYear + 1} budget again puts{' '}
+          {dollars(s.snow.proposed ?? 0)} where it has not been spent and {dollars(s.repair.proposed ?? 0)} where it has.</li>
+        <li>How much of the {dollars(s.repairLast.actual)} of repair overtime in {s.repairLast.year} was for plowing?</li>
+        <li>What would a winter like {s.repairLast.year}’s cost in overtime, salt and contractors under the {s.snow.thisYear + 1} budget?</li>
+      </ul>
+      <p style={{ margin: 0, color: 'var(--rbl-text-muted)', fontSize: 13.5, lineHeight: 1.55 }}>
+        Source: <a href={SNOW.source.url} style={link}>{SNOW.source.title}</a>, {s.repair.page === s.snow.page ? `page ${s.snow.page}` : `pages ${s.repair.page} and ${s.snow.page}`} (lines {SNOW.snowOt}, {SNOW.repairOt} and{' '}
+        {SNOW.snowContractual}); spending “to {SNOW.ytdThrough}” is the Supplement’s year-to-date column. Resolution {t.number} and{' '}
+        {SNOW.amendment2027.label} (Resolution {SNOW.amendment2027.number}) are from the Town Board’s fiscal impact statements; payroll
+        from the Town’s Gross Earnings reports. These are likely questions, not findings.
+      </p>
+    </section>
   )
 }
