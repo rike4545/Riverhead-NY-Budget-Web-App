@@ -1,7 +1,7 @@
 import { Circle, CircleCheck } from 'lucide-react'
 import PageShell from '../../components/PageShell'
 import PlainCallout from '../../components/PlainCallout'
-import { armoryAsOf, bill, discrepancies, kindLabel, law2011, loi, longDate, news, property, questions, quote, timeline } from '../../lib/armory'
+import { armoryAsOf, bill, discrepancies, kindLabel, law2011, loi, longDate, news, property, questions, quote, timeline, ymcaPlan } from '../../lib/armory'
 
 const base = process.env.NEXT_PUBLIC_BASE_PATH || ''
 const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 20, marginBottom: 16 } as const
@@ -24,6 +24,7 @@ export default function ArmoryPage() {
   const storage = quote('storage')
   const repairs = quote('repairs')
   const received = quote('received')
+  const ages = quote('ages')
   const pending = bill.steps.find((s) => !s.done)
   return (
     <PageShell
@@ -84,6 +85,22 @@ export default function ArmoryPage() {
             <p style={{ ...muted, margin: '6px 0 0' }}>{bill.effective} The bill allows a lease, not a sale.</p>
           </div>
         </div>
+      </section>
+
+      <section aria-labelledby="ymca-heading" style={card}>
+        <h2 id="ymca-heading" style={h2}>What the YMCA would offer</h2>
+        <p style={prose}>
+          In Resolution 2025-458 the Board said the YMCA had expressed interest in the site for <q>{ages.text}</q>.
+        </p>
+        <h3 style={h3}>Planned facilities</h3>
+        <blockquote style={{ ...quoteBox, marginBottom: 10 }}>“{ymcaPlan.facilities}”</blockquote>
+        <p style={prose}>{ymcaPlan.differs}</p>
+        <h3 style={h3}>Health programs</h3>
+        <p style={prose}>The letter limits the site to recreation, health and wellness, and youth and family programming, <q>{ymcaPlan.health}</q>.</p>
+        <h3 style={h3}>Stotzky Park next door</h3>
+        <blockquote style={{ ...quoteBox, marginBottom: 10 }}>“{ymcaPlan.park}”</blockquote>
+        <p style={{ ...prose, margin: 0 }}><strong>Not yet known.</strong> {ymcaPlan.unknown}</p>
+        <p style={{ ...muted, margin: '8px 0 0' }}>Sources: Resolution 2025-458 (May 21, 2025) and the letter of intent with Resolution {loi.resolution}.</p>
       </section>
 
       <section aria-labelledby="loi-heading" style={card}>

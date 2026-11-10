@@ -55,6 +55,13 @@
    { "topic": "Confidentiality", "quote": "Except as otherwise required by law, the YMCA and the Town agree to maintain the confidentiality of the terms and conditions of this LOI" }
   ]
  },
+ "ymcaPlan": {
+  "facilities": "The YMCA intends that its programming for the YMCA Building will include but not be limited to multi-purpose rooms, community kitchen, co-working space, STEM lab, teen room, gymnasium, indoor track, sports courts, multi-purpose exercise studios, fitness area, adult locker rooms, youth locker rooms, aquatics, and administrative offices.",
+  "health": "including YMCA-sponsored health care related programs which the YMCA may choose to offer in conjunction with area health organizations and/or healthcare systems",
+  "park": "To the extent practicable and mutually agreed to by both parties, the Town and the YMCA would work in collaboration to offer programming to adjacent Stotzky Park owned and operated by the Town of Riverhead. Exact details to be explored and agreed to in the future during negotiation of a lease agreement.",
+  "differs": "The list in Resolution 2025-458 also named a children’s room and multi-purpose classroom space, which the 2026 letter of intent does not list.",
+  "unknown": "The records do not give membership fees, opening hours, how many people the facility would serve, or an opening date. The letter of intent ties construction to the YMCA’s own funding and permits."
+ },
  "timeline": [
   { "date": "2011-08-31", "what": "The Governor signs Chapter 495 of the Laws of 2011, which lets the State convey the armory to the Town for one dollar, for police, justice court, public safety and police-run recreation, and sends it back to the State if that use ends.", "source": { "kind": "law", "title": "Assembly record for S.4404 / A.6825 (2011)", "url": "https://nyassembly.gov/leg/?default_fld=&leg_video=&bn=A06825&term=2011&Summary=Y&Actions=Y&Text=Y" } },
   { "date": "2017", "what": "RiverheadLOCAL reports that the Town Board rejected a roughly $13 million plan to turn the armory into a police and court complex in 2014 and again in 2017, as too expensive.", "source": { "kind": "news", "title": "RiverheadLOCAL, June 9, 2025", "url": "https://riverheadlocal.com/2025/06/09/state-lawmakers-look-to-remove-legal-barrier-for-ymca-at-former-armory-in-riverhead/" } },
@@ -69,6 +76,7 @@
   { "date": "2026-10-06", "what": "The minutes record a Board member's report that the ambulance corps is \"officially in armory during construction of the new facility.\"", "source": { "kind": "town", "title": "Minutes, October 6, 2026", "url": "/meetings/?meeting=2026-10-06" } }
  ],
  "quotes": [
+  { "id": "ages", "text": "a variety of uses all centered and focused on well-being, including but not limited to, fitness and health, education, designed for and spanning ages from pre-school/early childhood, children, pre-teen and teen programs, adults and older adults for local and county residents", "resolution": "2025-458", "file": "2025-05-21-minutes.txt" },
   { "id": "unable", "text": "despite various attempts, the Town of Riverhead has been unable to repurpose the former Armory", "resolution": "2025-458", "file": "2025-05-21-minutes.txt" },
   { "id": "nofunding", "text": "the Town does not have the funding to undertake the necessary renovations of the former New York State Armory facility, now in a state of blight", "resolution": "2025-458", "file": "2025-05-21-minutes.txt" },
   { "id": "received", "text": "a Home Rule request has been received by the Town of Riverhead from State Assemblywoman Jodi Giglio", "resolution": "2025-569", "file": "2025-06-17-minutes.txt" },

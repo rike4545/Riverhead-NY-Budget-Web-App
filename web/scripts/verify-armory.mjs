@@ -21,7 +21,9 @@ const text = (f) => {
   return norm(readFileSync(p, 'utf8'))
 }
 
-for (const q of data.quotes) if (!text(q.file).includes(norm(q.text))) fail(`quote "${q.id}" (Resolution ${q.resolution}) is not in ${q.file}`)
+// The minutes' text layer splits hyphenated words ("pre -\nschool", "multi -purpose"); join them on both sides before comparing.
+const joinHyphens = (s) => s.replace(/ ?- (?=[a-z])/g, '-').replace(/ -(?=[a-z])/g, '-')
+for (const q of data.quotes) if (!joinHyphens(text(q.file)).includes(joinHyphens(norm(q.text)))) fail(`quote "${q.id}" (Resolution ${q.resolution}) is not in ${q.file}`)
 
 const wrongYear = 'signed into law by the Governor on August 31, 2022'
 for (const f of ['2025-05-21-minutes.txt', '2025-06-17-minutes.txt']) if (!text(f).includes(wrongYear)) fail(`${f} no longer says "${wrongYear}"; recheck the discrepancy the page reports`)
@@ -46,6 +48,7 @@ else {
   const html = norm(readFileSync(page, 'utf8').replace(/<[^>]+>/g, ' ').replace(/&#x27;|&#39;/g, "'").replace(/&quot;/g, '"').replace(/&amp;/g, '&'))
   for (const s of steps) if (!html.includes(s.step)) fail(`the page does not show the bill step "${s.step}"`)
   for (const t of data.loi.terms) if (!html.includes(norm(t.quote))) fail(`the page does not quote the letter of intent on "${t.topic}"`)
+  for (const k of ['facilities', 'health', 'park']) if (!html.includes(norm(data.ymcaPlan[k]))) fail(`the page does not quote the YMCA's plan (${k})`)
   if (!html.includes('99 years')) fail('the page does not state the 99-year term')
 }
 

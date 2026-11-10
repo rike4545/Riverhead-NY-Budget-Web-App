@@ -15,6 +15,7 @@ type File = {
   property: { name: string; address: string; acres: string; acresSource: string; building: string; buildingSource: string }
   law2011: { chapter: string; bill: string; signed: string; url: string; conveyance: string; section4: string }
   bill2026: { numbers: string; sponsors: string; url: string; senateUrl: string; section4: string; effective: string; steps: BillStep[]; earlierTry: string }
+  ymcaPlan: { facilities: string; health: string; park: string; differs: string; unknown: string }
   loi: { resolution: string; date: string; url: string; pages: string; signedNote: string; terms: { topic: string; quote: string }[] }
   timeline: TimelineItem[]
   quotes: { id: string; text: string; resolution: string; file: string }[]
@@ -29,6 +30,7 @@ export const property = data.property
 export const law2011 = data.law2011
 export const bill = data.bill2026
 export const loi = data.loi
+export const ymcaPlan = data.ymcaPlan
 export const timeline = data.timeline
 export const news = data.news
 export const discrepancies = data.discrepancies
