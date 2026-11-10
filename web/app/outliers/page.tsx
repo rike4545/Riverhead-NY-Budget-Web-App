@@ -7,6 +7,14 @@ import {
   accountOutliers, paydowns2026, cpfDebtTransfer, PCT_THRESHOLD, DOLLAR_THRESHOLD, type AccountFlag, type FundYoyChange, type LineMove,
 } from '../../lib/outlier-watch'
 import { supplementActualYear } from '../../lib/funds-2027'
+import SpendingCategories from '../../components/SpendingCategories'
+import { spendingCategories, type SupplementLine as CatLine, type Flag } from '../../lib/spending-categories'
+import lineHistory from '../../public/data/budget-supplement/line-history.json'
+import lineFlags from '../../public/data/budget-supplement/current-outliers.json'
+
+const flagList: Flag[] = (['overBudget', 'chronicOverrun', 'noBudget'] as const)
+  .flatMap((k) => ((lineFlags as unknown as Record<string, { account: string; flag: string }[]>)[k] ?? []).map((x) => ({ account: x.account, flag: x.flag })))
+const categories = spendingCategories(lineHistory.accounts as unknown as CatLine[], flagList)
 
 const base = process.env.NEXT_PUBLIC_BASE_PATH || ''
 const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 20 } as const
@@ -100,6 +108,8 @@ export default function OutlierWatchPage() {
       )}
 
       {proposal && accountOutliers && <AccountSection />}
+
+      <SpendingCategories categories={categories} />
 
       <h2 style={{ margin: '0 0 10px', color: 'var(--rbl-title)', fontSize: 24, lineHeight: 1.25 }}>Every flag since {adoptedYears.first}</h2>
       <OutlierWatch outliers={outliers} transitions={transitions} />
