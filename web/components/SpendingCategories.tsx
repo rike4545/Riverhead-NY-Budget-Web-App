@@ -27,6 +27,15 @@ export default function SpendingCategories({ categories }: { categories: Categor
         history: a pattern, or a single event. Spending is from {c0.actualYears[0]}, budgets from {c0.years[0].year}, using the Town’s own
         account codes.
       </p>
+      <p style={{ margin: '0 0 12px', color: 'var(--rbl-text-body)', fontSize: 15.5, lineHeight: 1.6, maxWidth: '75ch' }}>
+        This is governmental accounting. The Town records each of these as an <a href={`${base}/glossary/#term-expenditure`} style={link}>expenditure</a> of
+        the fund that pays it, by <a href={`${base}/glossary/#term-function-code`} style={link}>function</a> (the department) and{' '}
+        <a href={`${base}/glossary/#term-object-code`} style={link}>object</a> (what was bought), under the State Comptroller’s chart of accounts. Each
+        budget line is an <a href={`${base}/glossary/#term-appropriations`} style={link}>appropriation</a>, a legal limit on spending: money left over{' '}
+        <a href={`${base}/glossary/#term-lapse`} style={link}>lapses</a> into fund balance, and spending past the limit needs a{' '}
+        <a href={`${base}/glossary/#term-budget-transfer`} style={link}>budget transfer</a>. The “kind of cost” note on each category (fixed, variable,
+        semi-variable) is a budgeting term for what makes it move and what the Town can change; it is not a category in the Town’s books.
+      </p>
       <div data-scroll-region style={{ overflowX: 'auto', marginBottom: 14 }}>
         <table className="rbl-stack" style={{ width: '100%', borderCollapse: 'collapse', fontSize: 14.5 }}>
           <caption style={{ textAlign: 'left', fontWeight: 700, color: 'var(--rbl-text-strong)', paddingBottom: 6 }}>Every category at a glance</caption>
@@ -89,6 +98,20 @@ function CategoryCard({ c }: { c: CategoryResult }) {
       </summary>
       <div style={{ padding: '0 18px 18px' }}>
         <p style={{ margin: '0 0 8px', color: 'var(--rbl-text-muted)', fontSize: 14 }}>{c.what} {c.lines} accounts.</p>
+        <div data-cost-kind={c.kind} style={{ background: 'var(--rbl-surface-2)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 10, padding: '10px 12px', margin: '0 0 12px', maxWidth: '75ch' }}>
+          <p style={{ margin: 0, color: 'var(--rbl-text-body)', fontSize: 14.5, lineHeight: 1.55 }}>
+            <strong>Kind of cost: </strong>
+            {c.kind === 'catch-all'
+              ? <>none in particular, a catch-all.</>
+              : c.kind === 'mixed'
+                ? <>mixed, partly <a href={`${base}/glossary/#term-variable-cost`} style={link}>variable</a> and partly <a href={`${base}/glossary/#term-fixed-cost`} style={link}>fixed</a>.</>
+                : <><a href={`${base}/glossary/#term-${c.kind}-cost`} style={link}>{c.kind}</a>.</>}{' '}
+            What moves it: {c.drivers}
+          </p>
+          <p style={{ margin: '4px 0 0', color: 'var(--rbl-text-body)', fontSize: 14.5, lineHeight: 1.55 }}>
+            <strong><a href={`${base}/glossary/#term-controllable-cost`} style={link}>What the Town controls</a>: </strong>{c.control}
+          </p>
+        </div>
         <ul style={{ margin: '0 0 12px', paddingLeft: 20, color: 'var(--rbl-text-body)', fontSize: 15, lineHeight: 1.6, display: 'grid', gap: 4, maxWidth: '75ch' }}>
           <li>
             Spending came in under the budget in <strong>{c.yearsUnder} of {n} years</strong> ({first.year}–{last.year}) and over it in {c.yearsOver}.

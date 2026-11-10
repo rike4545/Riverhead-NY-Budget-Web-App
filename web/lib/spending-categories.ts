@@ -20,16 +20,37 @@ export const CATEGORY_SOURCE = {
   ytdThrough: 'June 30',
 } as const
 
-export type Category = { id: string; label: string; objects: string[]; what: string }
+export type CostKind = 'fixed' | 'variable' | 'semi-variable' | 'mixed' | 'catch-all'
+/**
+ * kind, drivers and control are budgeting terms (what makes the cost move,
+ * and what the Town can change), not how the Town's books classify it: in
+ * governmental accounting each line is an expenditure of its fund, by
+ * function and object, under the State Comptroller's chart of accounts.
+ */
+export type Category = { id: string; label: string; objects: string[]; what: string; kind: CostKind; drivers: string; control: string }
 
 export const CATEGORIES: Category[] = [
-  { id: 'electricity', label: 'Electricity', objects: ['472'], what: 'Power for Town buildings, the water and sewer plants, pump stations and street lights.' },
-  { id: 'heating', label: 'Heating fuel and gas', objects: ['473'], what: 'Heating oil and natural gas for Town buildings and plants.' },
-  { id: 'vehicle-fuel', label: 'Vehicle gasoline and diesel', objects: ['426'], what: 'Fuel for police cars, highway trucks, ambulances and other Town vehicles.' },
-  { id: 'supplies', label: 'Supplies', objects: ['415', '416', '417', '418', '419', '424'], what: 'Office, program, computer and operating supplies, including the water and sewer plants’ chemicals.' },
-  { id: 'postage', label: 'Postage', objects: ['421'], what: 'Mailing, including tax bills and water bills.' },
-  { id: 'miscellaneous', label: 'Miscellaneous', objects: ['490'], what: 'Costs the Town codes as miscellaneous, including bank fees.' },
-  { id: 'cleaning-allowance', label: 'Cleaning allowance', objects: ['123'], what: 'The yearly clothing-cleaning payment union contracts give employees, mostly police officers. It is pay, coded as Personal Services.' },
+  { id: 'electricity', label: 'Electricity', objects: ['472'], what: 'Power for Town buildings, the water and sewer plants, pump stations and street lights.',
+    kind: 'semi-variable', drivers: 'a monthly service charge, plus the power used, which rises with the water pumped, the sewage treated, the buildings open and the street lights lit, times the utility’s rate.',
+    control: 'The rate is set by the utility and its regulators, not the Town. How much power is used is the Town’s to manage: equipment, buildings and lighting.' },
+  { id: 'heating', label: 'Heating fuel and gas', objects: ['473'], what: 'Heating oil and natural gas for Town buildings and plants.',
+    kind: 'semi-variable', drivers: 'mostly the weather (how cold the winter is), times the price of oil or gas, with a smaller steady base for the plants.',
+    control: 'The price and the weather are outside the Town’s control; insulation, boilers and thermostats are within it.' },
+  { id: 'vehicle-fuel', label: 'Vehicle gasoline and diesel', objects: ['426'], what: 'Fuel for police cars, highway trucks, ambulances and other Town vehicles.',
+    kind: 'variable', drivers: 'gallons used (the size of the fleet, miles driven, storms) times the price per gallon.',
+    control: 'The price is not the Town’s to set; the size of the fleet, the vehicles bought and how they are used are.' },
+  { id: 'supplies', label: 'Supplies', objects: ['415', '416', '417', '418', '419', '424'], what: 'Office, program, computer and operating supplies, including the water and sewer plants’ chemicals.',
+    kind: 'mixed', drivers: 'the plants’ chemicals vary with the water and sewage treated and the treatment rules; office and program supplies stay close to the same each year.',
+    control: 'Largely within departments’ control, except chemicals the treatment standards require.' },
+  { id: 'postage', label: 'Postage', objects: ['421'], what: 'Mailing, including tax bills and water bills.',
+    kind: 'fixed', drivers: 'mostly the same mailings each year to the same property owners and water customers, so it moves mainly when postal rates rise.',
+    control: 'Postal rates are set by the Postal Service; the number of mailings, and moving bills to email, are the Town’s choice.' },
+  { id: 'miscellaneous', label: 'Miscellaneous', objects: ['490'], what: 'Costs the Town codes as miscellaneous, including bank fees.',
+    kind: 'catch-all', drivers: 'whatever the Town codes as miscellaneous, so it has no single driver; a large entry here is a reason to ask what it was.',
+    control: 'Within the Town’s control, case by case.' },
+  { id: 'cleaning-allowance', label: 'Cleaning allowance', objects: ['123'], what: 'The yearly clothing-cleaning payment union contracts give employees, mostly police officers. It is pay, coded as Personal Services.',
+    kind: 'fixed', drivers: 'an amount per employee set in each union contract, so the total moves with the number of eligible employees and with each new contract.',
+    control: 'Not controllable during a contract; it is set when the Town negotiates the next one.' },
 ]
 
 export type SupplementLine = {

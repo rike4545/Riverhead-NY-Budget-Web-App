@@ -306,6 +306,54 @@ export const glossary: Record<string, GlossaryEntry> = {
     category: 'Spending',
     plain: 'What happens to an operating appropriation that is neither spent nor encumbered by year end: the permission to spend it ends, and the money stays in fund balance.',
   },
+  expenditure: {
+    term: 'Expenditure',
+    category: 'Spending',
+    plain: 'Money a government fund spends or owes during the year, counted under the modified accrual basis. Governments record expenditures, not the business “costs” of making a product, and set them against the appropriation that allowed them.',
+    see: { label: 'How the Town’s books work', href: '/accounting-basics/' },
+  },
+  'function-code': {
+    term: 'Function (account code)',
+    category: 'Spending',
+    plain: 'The part of an account number that says which service the money is for: 3120 is Police, 5142 is snow removal, 1620 is Town Hall. The State Comptroller’s chart of accounts sets the codes for every town.',
+    see: { label: 'Recurring costs by category', href: '/outliers/' },
+  },
+  'object-code': {
+    term: 'Object of expenditure (object code)',
+    category: 'Spending',
+    plain: 'The part of an account number that says what was bought: 111 is overtime, 426 vehicle fuel, 472 electricity. Grouping lines by object code shows one kind of cost across every department.',
+    see: { label: 'Recurring costs by category', href: '/outliers/' },
+  },
+  'budget-variance': {
+    term: 'Budget-to-actual variance',
+    category: 'Spending',
+    plain: 'The difference between what a line was budgeted (its appropriation) and what was actually spent. Spending below the budget leaves money that lapses into fund balance; spending above it needs a budget transfer from another line.',
+    see: { label: 'Budget vs. actual spending', href: '/budget-accuracy/' },
+  },
+  'fixed-cost': {
+    term: 'Fixed cost',
+    category: 'Spending',
+    plain: 'A cost that stays about the same however much service the Town provides, such as an allowance set per employee by a union contract. A budgeting term for what drives a cost, not a category in the Town’s books.',
+    see: { label: 'Recurring costs by category', href: '/outliers/' },
+  },
+  'variable-cost': {
+    term: 'Variable cost',
+    category: 'Spending',
+    plain: 'A cost that rises and falls with how much service is provided, such as vehicle fuel (miles driven times the price per gallon) or overtime after storms. A budgeting term, not a category in the Town’s books.',
+    see: { label: 'Recurring costs by category', href: '/outliers/' },
+  },
+  'semi-variable-cost': {
+    term: 'Semi-variable cost',
+    category: 'Spending',
+    plain: 'A cost with a fixed part and a part that varies, such as electricity: a monthly service charge plus the power actually used.',
+    see: { label: 'Recurring costs by category', href: '/outliers/' },
+  },
+  'controllable-cost': {
+    term: 'Controllable cost',
+    category: 'Spending',
+    plain: 'A cost the Town Board and departments can change by their own decisions in the year, such as how much fuel the fleet uses. Prices set by others, State-mandated pension and insurance costs, and amounts fixed by union contracts are not controllable in the short term.',
+    see: { label: 'Budget vs. actual spending', href: '/budget-accuracy/' },
+  },
 
   // ── Borrowing and debt ──
   'debt-service': {

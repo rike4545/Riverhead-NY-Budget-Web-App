@@ -57,6 +57,8 @@ else {
   if (!raw.includes('data-spending-categories')) fail('the outliers page has no category section')
   for (const c of cats) {
     if (!raw.includes(`data-category-card="${c.id}"`)) fail(`the page has no card for ${c.label}`)
+    if (!raw.includes(`data-cost-kind="${c.kind}"`)) fail(`${c.label} has no kind-of-cost note`)
+    if (!c.drivers || !c.control) fail(`${c.label} does not say what moves it or what the Town controls`)
     const last = c.years[c.years.length - 1]
     for (const n of [last.budget, last.usual, c.budgetNow, c.ytdNow, c.proposed]) if (!html.includes(usd(n))) fail(`${c.label}: the page does not show ${usd(n)}`)
     for (const l of c.all) {
