@@ -27,7 +27,7 @@ An independent public fiscal intelligence platform for exploring Riverhead Town 
 | 🧾 Campaign Finance | https://rike4545.github.io/Riverhead-NY-Budget-Web-App/campaign-finance/ |
 | 🔎 Search Records | https://rike4545.github.io/Riverhead-NY-Budget-Web-App/search/ |
 
-The site menu lists 85 pages: quick links to property taxes, Board votes and
+The site menu lists 86 pages: quick links to property taxes, Board votes and
 search, and seven menus, **2027 budget**, **Finances**, **Pay and staff**,
 **Spending checks**, **Land use**, **Elections** and **Help**. Every fund also
 has a page of its own. See **Every Page** below for what each one covers.
@@ -450,6 +450,7 @@ meeting records show, such as minutes on file and minutes still outstanding.
   that spent fund balance, beyond what the adopted budget appropriated up
   front.
 - **Management Pay** (`/management-compensation`): four appointed positions
+- **Supervisor's Office Pay Compared** (`/supervisor-office-pay`): the 2026 salaries of the five roles in the Supervisor's office (Supervisor, Deputy Supervisor, Chief of Staff and Town Budget Officer, held by one person, and Legislative Aide) beside their counterparts in Southampton, Southold, Smithtown and Huntington, each quoted from that town's own records, with Riverhead's salaries since 2023 and the towns left out and why. `scripts/verify-supervisor-office-pay.mjs` finds every peer figure on its quoted line.
   moved to fully employer-paid health premiums "in lieu of merit increases",
   and two of them then got raises in the 2026 salary schedule.
 - **Police Spending & Crime** (`/police-crime`) and **School Resource
@@ -592,7 +593,7 @@ the numbers are labeled and sourced (`/evidence`).
 
 ## Search
 
-The search covers about 17,400 records: the site's own 84 pages, 848 budget
+The search covers about 17,400 records: the site's own 85 pages, 848 budget
 lines, 1,228 employee pay records, 347 authorized salaries, about 2,180 Town
 Board votes, 19 funds and about 12,650 pages from 133 financial documents.
 The counts grow as the pipeline adds records.

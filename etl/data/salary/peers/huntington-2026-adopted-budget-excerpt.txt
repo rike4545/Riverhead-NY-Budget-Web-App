@@ -1,0 +1,82 @@
+Town of Huntington, 2026 Adopted Budget. Source: https://www.huntingtonny.gov/filestorage/13753/13757/17478/17482/2026_Adopted_Budget.pdf
+Text of the cover (PDF page 1) and the Full Time Salaries Schedule page holding A-1220 Supervisor (PDF page 250 of 397), extracted with pdftotext -layout.
+
+TOWN OF HUNTINGTON
+
+        2026
+   ADOPTED BUDGET
+
+
+
+
+         TOWN BOARD
+   Edmund J. Smyth, Supervisor
+
+   Dr. Dave Bennardo, Councilman
+    Salvatore Ferro, Councilman
+ Brooke A. Lupinacci, Councilwoman
+    Theresa Mari, Councilwoman
+----- PDF page 250 -----
+                                                 Town of Huntington
+                                              Full Time Salaries Schedule
+
+
+
+                                                                 2025                         2026
+Position/ Title                                      FTE           Budget           FTE         Budget
+
+
+A-1010 Town Board
+Councilmember                                         4     $          307,364       4    $         307,364
+Legislative Secretary                                 4                230,020       0                    0
+  DIVISION TOTALS:                                    8     $          537,384       4    $         307,364
+
+
+A-1110 Administrative Adjudication
+Account Clerk                                         0      $                  0    1    $          50,289
+  DIVISION TOTALS:                                    0      $              -        1    $          50,289
+
+
+A-1220 Supervisor
+Citizens Advocate III                                 1     $           98,793       1    $         100,768
+Citizens Advocate IV                                  1                120,462       1              128,685
+Confidential Secretary                                1                 54,667       1               54,667
+Deputy Supervisor                                     1                162,546       1              162,546
+Director of Finance                                   1                148,400       1              156,000
+Executive Assistant                                   1                 79,500       1              102,500
+Supervisor                                            1                162,903       1              162,903
+Agenda - Stipend                                                        10,000                       10,000
+   DIVISION TOTALS:                                   7     $          837,271       7    $         878,069
+
+A-1225 Constituent Services
+Citizen Advocate I                                    0      $               0       4    $         247,845
+Citizen Advocate III                                  0                      0       4              344,665
+Legislative Aide                                      4                336,020       0                    0
+Legislative Secretary-Stipend                                           10,000                       10,000
+   DIVISION TOTALS:                                   4     $          346,020       8    $         602,510
+
+A-1315 Comptroller
+Account Clerk                                         0      $                0      1    $          49,303
+Accountant                                            1                  78,079      2              155,488
+Confidential Secretary                                1                  63,600      1               60,005
+Comptroller                                           1                 152,000      1              100,000
+Executive Assistant to the Comptroller                1                 101,041      1               75,000
+Principal Acountant                                   1                 104,185      1              106,269
+Principal Office Assistant                            2                 160,203      1               90,676
+Senior Account Clerk                                  2                 121,960      1               66,116
+Senior Accountant                                     2                 224,163      2              228,646
+Town Deputy Director of Audit & Control-Stipend                          14,000                      13,910
+   DIVISION TOTALS:                                   11     $        1,019,232     11    $         945,413
+
+
+A-1316 Payroll
+Budget Technician                                     1     $           93,466       1    $          95,336
+Payroll Supervisor                                    1                 96,512       1               98,442
+Senior Account Clerk                                  0                      0       1               61,432
+  DIVISION TOTALS:                                    2     $          189,979       3    $         255,210
+
+
+
+
+                                                           242
+

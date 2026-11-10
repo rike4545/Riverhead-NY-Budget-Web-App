@@ -1,0 +1,30 @@
+Town of Smithtown, 2026 Adopted Budget (PDF), Appendix C: Budgeted Salaries.
+Source: https://www.smithtownny.gov/DocumentCenter/View/9030/26-Adopted--BudgetFinalPDF
+PDF page 149 of 201 is a scanned image with no text layer. The lines below are transcribed by hand from it;
+the rendered page is kept beside this file (smithtown-2026-adopted-budget-page-149-149.png) so each line can be checked.
+The page is headed "TOWN OF SMITHTOWN, Budget Preparation Publication, Fiscal Year: 2026", report BUD4050, "Page 1 of 25",
+dated 09/16/2025, and its amount column is headed "2026 TENTATIVE Stage": the adopted budget book prints its salary
+appendix at the tentative stage.
+
+Dept 1010 TOWN COUNCIL  A.1010.0110 FULL-TIME SALARIES
+COUNCILMAN/WOMAN 95,451.00
+COUNCILMAN/WOMAN 95,451.00
+COUNCILMAN/WOMAN 95,451.00
+COUNCILMAN/WOMAN 95,451.00
+LEGISLATIVE SECRETARY 92,006.00
+Total Dept 1010 TOWN COUNCIL 473,810.00
+
+Dept 1220 SUPERVISOR  A.1220.0110 FULL-TIME SALARIES
+SUPERVISOR 161,694.00
+DEPUTY SUPERVISOR 35,000.00
+SECRETARY TO SUPERVISOR 118,083.00
+GOVERNMENT LIASON 30,000.00
+LEGISLATIVE SECRETARY 67,476.00
+LEGISLATIVE SECRETARY 78,722.00
+PUBLIC INFORMATION OFFICER 131,342.00
+Total Dept 1220 SUPERVISOR 622,317.00
+
+Dept 1315 COMPTROLLER  A.1315.0110 FULL-TIME SALARIES
+TOWN COMPTROLLER 204,717.00
+DEPUTY TOWN COMPTROLLER 169,314.00
+TOWN BUDGET OFFICER 168,689.00
