@@ -6,7 +6,7 @@ import { accountChanges, type FiscalMeeting } from './account-changes'
 
 export const CHANGES_YEAR = 2026
 
-const meetings: FiscalMeeting[] = (fiscalIndex.meetings as string[]).map(
+export const meetings: FiscalMeeting[] = (fiscalIndex.meetings as string[]).map(
   (slug) => require(`../public/data/meetings/${slug}-fiscal.json`) as FiscalMeeting,
 )
 

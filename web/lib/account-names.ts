@@ -34,6 +34,43 @@ export const DEPARTMENTS: Record<string, string> = {
   'ST1-5650': 'Public Parking District', 'Z14-6980': 'Calverton Community Development Agency',
 }
 
+/**
+ * Functions found in several funds, named from the Town's own line text
+ * ("Gen Liab", "Ret", "FICA", "Trf"). Used when the fund and function pair has
+ * no entry above.
+ */
+const FUNCTIONS: Record<string, string> = {
+  '1320': 'Independent auditor', '1670': 'Central fuel', '1710': 'Workers’ compensation', '1910': 'General liability insurance',
+  '1920': 'Municipal association dues', '1930': 'Risk retention', '1931': 'Property loss', '1940': 'Purchase of land',
+  '1950': 'Taxes and assessments on Town property', '1994': 'Depreciation', '1995': 'Loss on sale of fixed assets',
+  '3510': 'Dog control', '4020': 'Registrar of vital statistics', '6410': 'Economic development', '6510': 'Veterans services',
+  '7610': 'Senior programs', '7611': 'Home aid', '7621': 'Bus trips', '7624': 'Recreation instruction',
+  '8010': 'Zoning', '8025': 'Seed clam program', '8090': 'Environmental control', '8340': 'Water transmission and distribution',
+  '8666': 'Housing rehabilitation', '8989': 'Other home and community services',
+  '9010': 'State retirement', '9015': 'Police retirement', '9030': 'Social Security (FICA)', '9035': 'Social Security (FICA), police',
+  '9040': 'Workers’ compensation', '9050': 'Unemployment insurance', '9055': 'Other fringe benefits', '9060': 'Health insurance',
+  '9065': 'Health insurance, second line', '9710': 'Serial bond payments', '9730': 'Bond anticipation note payments',
+  '9785': 'Installment purchase debt', '9788': 'Lease payments', '9789': 'Other long-term debt', '9901': 'Transfers to other funds',
+  '9950': 'Transfers to capital projects', '9990': 'Contribution to fund balance',
+}
+
+/** Fund codes to names, from the adopted budget's Summary. */
+export const FUND_NAMES: Record<string, string> = {
+  A01: 'General Fund', A04: 'Police Athletic League', A06: 'Recreation Program Fund', CM1: 'Business Improvement District',
+  CM2: 'East Creek Docking Facility', CM4: 'Community Preservation Fund', DA1: 'Highway Fund', ES1: 'Riverhead Sewer District',
+  ES3: 'Calverton Sewer District', ES5: 'Riverhead Scavenger Waste', EW1: 'Water District', MS1: 'Workers Compensation Fund',
+  MS2: 'Risk Retention Fund', SL1: 'Street Lighting District', SM1: 'Ambulance District', SR1: 'Refuse and Garbage District',
+  ST1: 'Public Parking District', V01: 'Debt Service Fund', Z14: 'Calverton Parks Community Development Agency',
+}
+
+/** Benefit, debt, insurance and transfer functions that belong to a whole fund rather than a department. */
+export const isFundWide = (fn: string) => /^(9\d{3}|19[0-9]{2}|1710)$/.test(fn)
+
+/** A department's name from its fund and function codes, or null when this site has no name for it. */
+export function departmentName(fund: string, fn: string): string | null {
+  return DEPARTMENTS[`${fund}-${fn}`] ?? FUNCTIONS[fn] ?? null
+}
+
 const OBJECTS: Record<string, string> = {
   '111': 'overtime', '123': 'clothing-cleaning allowance', '415': 'supplies', '416': 'office supplies', '417': 'program supplies',
   '418': 'computer supplies', '419': 'other supplies', '421': 'postage', '424': 'office supplies', '426': 'vehicle gasoline and diesel',
@@ -54,7 +91,7 @@ const GENERIC = /^(supplies|utl|utilities|fuel|electricity|electric|heat|gas|gas
 
 export function plainAccountName(account: string, townName: string): { name: string; known: boolean } {
   const [fund, , fn, obj] = account.split('-')
-  const dept = DEPARTMENTS[`${fund}-${fn}`]
+  const dept = departmentName(fund, fn)
   const label = DETAIL.find(([re]) => re.test(townName))?.[1] ?? OBJECTS[obj] ?? 'other costs'
   // The Town's own words after the department, less what the label already says.
   const rest = townName.split(/\s+-\s*|-\s+/).slice(1).map((x) => x.trim()).filter((x) => x && !GENERIC.test(x))
