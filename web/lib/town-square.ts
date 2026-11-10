@@ -175,6 +175,14 @@ export const timeline: Milestone[] = [
       'A unanimous vote approving the Town’s appraisal at $1,950,000 and authorizing its attorneys to transmit that offer to The Place for Learning, with the sum to be paid out of the General Fund balance. The resolution also authorizes the town financial administrator to establish a budget for the expenditure.',
     source: 'RiverheadLOCAL, September 2, 2026',
   },
+  {
+    date: 'October 6, 2026',
+    kind: 'build',
+    what: 'The Town seeks proposals for a destination attraction at 111 East Main Street',
+    detail:
+      'A unanimous vote authorizing the Town Clerk to publish a Request for Proposals, in the October 15 News-Review, for “Redevelopment and Operation of a Destination Attraction at 111 East Main Street.” The Town “seeks proposals from qualified developers, attraction operators, entertainment companies, destination retailers, hospitality groups, and public-private partnership teams.” The fiscal impact statement marks no cost to the Town. No developer had been chosen in the Board records through November 5, 2026.',
+    source: 'Town Board resolution 2026-922, agenda packet, October 6, 2026',
+  },
 ]
 
 // THE OTHER LEDGER. The Town's spending and the development's cost are two

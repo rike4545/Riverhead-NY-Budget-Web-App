@@ -134,8 +134,8 @@ export type PeerRating = {
 export const peerRatings: PeerRating[] = [
   { town: 'Brookhaven', moodyRating: 'Aaa', moodyNotchesBelowAaa: 0, otherAgencyRating: 'AAA (S&P)', asOf: '~Sept. 2025', confidence: 'REPORTED' },
   { town: 'Smithtown', moodyRating: 'Aaa', moodyNotchesBelowAaa: 0, asOf: 'reaffirmed 2024–2026 bond issues', confidence: 'REPORTED' },
-  { town: 'Islip', moodyRating: 'Aaa', moodyNotchesBelowAaa: 0, asOf: 'Oct. 2020 — may be stale, re-verify', confidence: 'REPORTED' },
-  { town: 'Southold', moodyRating: 'Aa1', moodyNotchesBelowAaa: 1, asOf: 'July 2015 — may be stale, re-verify', confidence: 'REPORTED' },
+  { town: 'Islip', moodyRating: 'Aaa', moodyNotchesBelowAaa: 0, asOf: 'reaffirmed April 2026, negative outlook (LongIsland.com, Apr. 22, 2026)', confidence: 'REPORTED' },
+  { town: 'Southold', moodyRating: 'Aaa', moodyNotchesBelowAaa: 0, asOf: 'upgraded from Aa1, Sept. 2023 (Town of Southold press release, Sept. 14, 2023)', confidence: 'REPORTED' },
   { town: 'Riverhead', moodyRating: 'Aa2', moodyNotchesBelowAaa: 2, asOf: 'affirmed Feb. 2024', confidence: 'REPORTED', isRiverhead: true },
   { town: 'Huntington', otherAgencyRating: 'AAA (Fitch)', moodyNotchesBelowAaa: 0, asOf: 'no Moody\'s rating found', confidence: 'REPORTED' },
   { town: 'Suffolk County', moodyRating: 'Baa1', moodyNotchesBelowAaa: 7, otherAgencyRating: 'AA- (Fitch & S&P, Oct. 2025)', asOf: 'Moody\'s downgraded A3 → Baa1 in 2020', confidence: 'REPORTED' },
@@ -272,6 +272,6 @@ export const opebLevers: Lever[] = [
 export const caveats = [
   "Every quote and figure here that isn't independently confirmed against a primary audited document is marked REPORTED — reconstructed from news coverage and press releases, not a certified transcript of the rating agency's own text.",
   'Rating-agency methodology weights are approximate, synthesized from secondary summaries rather than a direct read of the current Moody\'s/S&P methodology PDFs — treat them as illustrative, not precise.',
-  "Islip's Aaa (2020) and Southold's Aa1 (2015) are the newest data points found for those towns and may be outdated; ratings can and do move without making it into easily searchable coverage.",
+  "Islip's April 2026 reaffirmation (with a negative outlook, which Moody's tied to rising costs across Long Island) and Southold's September 2023 upgrade to Aaa come from news coverage and the Town of Southold's own press release, not Moody's reports; ratings can move without making it into easily searchable coverage.",
   'The user-supplied Brookhaven quote about disciplined budgeting could not be verified verbatim against any source checked and is not presented here as an attributed quotation — see the note above.',
 ]
