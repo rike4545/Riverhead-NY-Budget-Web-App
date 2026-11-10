@@ -208,3 +208,10 @@ summary{min-height:24px}input[type=range]{min-height:24px}
   html.eff-printing #eff-survey-kit { border: 0 !important; border-radius: 0 !important; padding: 0 !important; }
   html.eff-printing .eff-page-break { break-before: page; }
 }
+
+/* Department efficiency view: "Print or save the report" prints the quality report alone. */
+@media print {
+  html.eff-quality-printing body *:not(:has(#eff-quality-report)):not(#eff-quality-report):not(#eff-quality-report *) { display: none !important; }
+  html.eff-quality-printing body, html.eff-quality-printing main { margin: 0 !important; padding: 0 !important; background: #fff !important; }
+  html.eff-quality-printing #eff-quality-report { border: 0 !important; border-radius: 0 !important; padding: 0 !important; margin: 0 !important; }
+}
