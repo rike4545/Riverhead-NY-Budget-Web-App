@@ -11,6 +11,7 @@ import { dollars } from '../../../lib/financial-data'
 import { fundYears, lineSource, PROPOSAL_LABEL, proposedOf, supplementAdoptedYear, supplementLines, supplementPriorAdoptedYear, TENTATIVE_YEAR, withTentative } from '../../../lib/funds-2027'
 import { isSetAside } from '../../../lib/savings-rules'
 import { SNOW, snowOvertime, highwayPayrollOvertime, type SupplementLine } from '../../../lib/snow-overtime'
+import { OT_SOURCE, PAL_UNIFORMS, palUniforms } from '../../../lib/overtime-by-department'
 import lineHistory from '../../../public/data/budget-supplement/line-history.json'
 import payrollRecords from '../../../public/data/payroll/records.json'
 
@@ -65,6 +66,7 @@ export default async function FundDetailPage({ params }: { params: Promise<{ cod
       <AuditedDeficitNote code={fund.code} />
       <FundContextNote code={fund.code} />
       <SnowOvertimeNote code={fund.code} />
+      <PalUniformsNote code={fund.code} />
       <FundDrilldown fund={withTentative(fund)} proposed={fundYears(fund.code).proposal} lineSource={lineSource} />
     </PageShell>
   )
@@ -422,6 +424,61 @@ function SnowOvertimeNote({ code }: { code: string }) {
         {SNOW.snowContractual}); spending “to {SNOW.ytdThrough}” is the Supplement’s year-to-date column. Resolution {t.number} and{' '}
         {SNOW.amendment2027.label} (Resolution {SNOW.amendment2027.number}) are from the Town Board’s fiscal impact statements; payroll
         from the Town’s Gross Earnings reports. These are likely questions, not findings.
+      </p>
+    </section>
+  )
+}
+
+// The Police Athletic League's uniform line runs well over its budget every
+// year, in a fund the audits have found in deficit (lib/overtime-by-department.ts).
+function PalUniformsNote({ code }: { code: string }) {
+  if (code.toUpperCase() !== 'A04') return null
+  const line = (lineHistory as unknown as { accounts: SupplementLine[] }).accounts.find((l) => l.account === PAL_UNIFORMS)
+  if (!line) return null
+  const u = palUniforms(line)
+  const link = { color: 'var(--rbl-link)', fontWeight: 600 } as const
+  const td = { padding: '6px 8px', textAlign: 'right' as const, whiteSpace: 'nowrap' as const }
+  return (
+    <section id="pal-uniforms" data-pal-uniforms aria-labelledby="pal-uniforms-heading" style={{ background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 20, marginBottom: 16, scrollMarginTop: 16 }}>
+      <h2 id="pal-uniforms-heading" style={{ margin: '0 0 8px', color: 'var(--rbl-title)', fontSize: 21 }}>Uniforms</h2>
+      <p style={{ margin: '0 0 10px', color: 'var(--rbl-text-body)', fontSize: 15.5, lineHeight: 1.6, maxWidth: '75ch' }}>
+        The league’s uniform line spent more than its budget in <strong>{u.yearsOver} of the last {u.rows.length} years</strong>. By{' '}
+        {OT_SOURCE.ytdThrough}, {u.thisYear} it had spent {dollars(u.ytdNow)} of {dollars(u.budgetNow)}, and the {u.thisYear + 1} Preliminary keeps{' '}
+        {dollars(u.proposed)}. The Town describes this fund as separating the donations that support the league, and the audits have found it in deficit, so a line that
+        regularly runs over its budget is part of that question.
+      </p>
+      <div data-scroll-region style={{ overflowX: 'auto' }}>
+        <table className="rbl-stack" style={{ width: '100%', borderCollapse: 'collapse', fontSize: 14.5, maxWidth: 420 }}>
+          <caption style={{ textAlign: 'left', fontWeight: 700, color: 'var(--rbl-text-strong)', paddingBottom: 6 }}>PAL uniforms: budgeted and spent</caption>
+          <thead><tr style={{ borderBottom: '1px solid var(--rbl-border)' }}>
+            <th scope="col" style={{ ...td, textAlign: 'left', fontSize: 13, color: 'var(--rbl-text-muted)' }}>Year</th>
+            <th scope="col" style={{ ...td, fontSize: 13, color: 'var(--rbl-text-muted)' }}>Budget</th>
+            <th scope="col" style={{ ...td, fontSize: 13, color: 'var(--rbl-text-muted)' }}>Spent</th>
+          </tr></thead>
+          <tbody>
+            {u.rows.map((r) => (
+              <tr key={r.year} data-pal-row={r.year} style={{ borderBottom: '1px solid var(--rbl-border-subtle)' }}>
+                <th scope="row" style={{ ...td, textAlign: 'left' }}>{r.year}</th>
+                <td data-label="Budget" style={td}>{dollars(r.budget)}</td>
+                <td data-label="Spent" style={{ ...td, fontWeight: r.spent > r.budget ? 700 : 400 }}>{dollars(r.spent)}</td>
+              </tr>
+            ))}
+            <tr style={{ borderBottom: '1px solid var(--rbl-border-subtle)' }}>
+              <th scope="row" style={{ ...td, textAlign: 'left' }}>{u.thisYear}, to {OT_SOURCE.ytdThrough}</th>
+              <td data-label="Budget" style={td}>{dollars(u.budgetNow)}</td>
+              <td data-label="Spent" style={td}>{dollars(u.ytdNow)}</td>
+            </tr>
+            <tr>
+              <th scope="row" style={{ ...td, textAlign: 'left' }}>{u.thisYear + 1} Preliminary</th>
+              <td data-label="Budget" style={td}>{dollars(u.proposed)}</td>
+              <td data-label="Spent" style={td}>not yet</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p style={{ margin: '10px 0 0', color: 'var(--rbl-text-muted)', fontSize: 13.5, lineHeight: 1.55 }}>
+        Source: <a href={OT_SOURCE.url} style={link}>{OT_SOURCE.title}</a>, page {u.page}, line {PAL_UNIFORMS}, with the Supplements before it.
+        Whether donations given for uniforms covered the difference is not in the budget; ask the Town.
       </p>
     </section>
   )
