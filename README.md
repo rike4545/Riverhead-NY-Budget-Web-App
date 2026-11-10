@@ -27,7 +27,7 @@ An independent public fiscal intelligence platform for exploring Riverhead Town 
 | 🧾 Campaign Finance | https://rike4545.github.io/Riverhead-NY-Budget-Web-App/campaign-finance/ |
 | 🔎 Search Records | https://rike4545.github.io/Riverhead-NY-Budget-Web-App/search/ |
 
-The site menu lists 81 pages: quick links to property taxes, Board votes and
+The site menu lists 83 pages: quick links to property taxes, Board votes and
 search, and seven menus, **2027 budget**, **Finances**, **Pay and staff**,
 **Spending checks**, **Land use**, **Elections** and **Help**. Every fund also
 has a page of its own. See **Every Page** below for what each one covers.
@@ -544,7 +544,9 @@ one on phones, and first under **Pay and staff** on desktop):
 - **Open Meetings Law** (`/open-meetings`): what the law requires, and what the Town's records show.
 
 ## Research
-- **Start Here** (`/guide`): a plain-English guide to every tool, a budget primer and a glossary.
+- **Start Here** (`/guide`): a plain-English guide to every tool, a budget primer, and links to the glossary and accounting basics.
+- **Glossary** (`/glossary`): plain-English definitions of 91 budget, tax, accounting, debt, pay and Town Board terms, searchable and grouped by topic, each linked to the page where it matters.
+- **How the Town's Books Work** (`/accounting-basics`): separate funds, the three bases of accounting, the five tiers of fund balance in the 2025 audit, how a year changes fund balance, the path of a budget dollar, and which report answers which question.
 - **2027 Prediction** (`/predict-2027`): a line-by-line projection with tax-cap scenarios and a scorecard against the Town's budget.
 - **2027 Tentative Budget** (`/tentative-2027`): the Town's Tentative against this site's projection, fund by fund.
 - **The Supervisors' Tax-Cap Letter, Checked** (`/tax-cap-letter`): Suffolk supervisors' October 2026 letter asking Albany to loosen the tax cap: what it asks, where it is strong, what it leaves out, and Riverhead's own record.
@@ -588,7 +590,7 @@ the numbers are labeled and sourced (`/evidence`).
 
 ## Search
 
-The search covers about 17,400 records: the site's own 80 pages, 848 budget
+The search covers about 17,400 records: the site's own 82 pages, 848 budget
 lines, 1,228 employee pay records, 347 authorized salaries, about 2,180 Town
 Board votes, 19 funds and about 12,650 pages from 133 financial documents.
 The counts grow as the pipeline adds records.

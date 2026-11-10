@@ -1,160 +1,554 @@
-// Plain-English definitions of budget and payroll terms, written for someone
-// who has never read a municipal budget. Keep these short and jargon-free.
+// Plain-English definitions of the budget, tax, accounting and Town Board terms
+// used on this site, written for someone who has never read a municipal budget.
+// Keep each one short and jargon-free; the bigger ideas live in
+// lib/budget-concepts.ts and on /accounting-basics/.
+//
+// Each entry has a topic (for /glossary/) and, where one helps, the page on this
+// site where the term matters most. Keys are stable: <Term id="..."> uses them,
+// and web/scripts/verify-vocabulary.mjs checks every <Term> id has an entry and
+// every `see` link is a page the build exports.
 
-export type GlossaryEntry = { term: string; plain: string }
+export type GlossaryCategory =
+  | 'Budget and process'
+  | 'Taxes and revenue'
+  | 'Funds and savings'
+  | 'Spending'
+  | 'Borrowing and debt'
+  | 'Accounting and reports'
+  | 'Pay and benefits'
+  | 'Town Board'
+
+export type GlossaryEntry = { term: string; plain: string; category: GlossaryCategory; see?: { label: string; href: string } }
+
+export const glossaryCategories: GlossaryCategory[] = [
+  'Budget and process', 'Taxes and revenue', 'Funds and savings', 'Spending', 'Borrowing and debt', 'Accounting and reports', 'Pay and benefits', 'Town Board',
+]
 
 export const glossary: Record<string, GlossaryEntry> = {
+  // ── Budget and process ──
   appropriations: {
     term: 'Appropriations',
-    plain: "The money the Town plans to spend. This is the spending side of the budget.",
-  },
-  'retirement-buyout': {
-    term: 'Early Retirement Buyout / Incentive',
-    plain: 'A one-time payment the Town offers to encourage eligible longtime employees to retire now, so it can hold positions open, combine roles, or refill them at lower cost.',
-  },
-  'leave-buyback': {
-    term: 'Sick / vacation buy-back',
-    plain: 'Employees earn sick and vacation days each year, and unused days often carry over. A buy-back is the Town paying cash for some of those banked days instead of letting the person take the time off — either periodically during a career, or as one payment when they leave. The days were already earned, so this is settling a debt, not a bonus.',
-  },
-  'compensated-absences': {
-    term: 'Compensated absences',
-    plain: 'The accounting name for unused sick, vacation, and personal time that employees have earned and the Town will eventually have to pay for. It appears as a liability on the Town’s audited books because it is money owed, even though nobody has cashed it out yet.',
-  },
-  'health-insurance-buyback': {
-    term: 'Health insurance buy-back',
-    plain: 'A payment to an employee who declines the Town’s health coverage — usually because they are covered by a spouse’s plan. The Town pays them part of what the premium would have cost. Despite the similar name, this has nothing to do with sick or vacation time.',
-  },
-  severance: {
-    term: 'Severance',
-    plain: 'A payment made because employment is ending, set by contract or agreement. Unlike a leave buy-back it is not time the employee banked and earned — which is why the two should not be read as the same thing even though they land in the same payroll column.',
-  },
-  ers: {
-    term: 'ERS',
-    plain: 'The New York State & Local Employees’ Retirement System — the state pension system most non-police town workers belong to.',
-  },
-  pfrs: {
-    term: 'PFRS',
-    plain: 'The New York State Police and Fire Retirement System — the state pension system for police officers and firefighters.',
+    category: 'Budget and process',
+    plain: 'The money the Town plans to spend, approved line by line. An appropriation is the legal permission to spend up to that amount for that purpose.',
+    see: { label: 'Budget by fund', href: '/funds/' },
   },
   'estimated-revenues': {
     term: 'Estimated Revenues',
+    category: 'Budget and process',
     plain: 'Money the Town expects to take in from things other than property taxes — fees, permits, state aid, interest, and so on.',
+    see: { label: 'Revenue', href: '/revenue/' },
   },
+  'adopted-budget': {
+    term: 'Adopted Budget',
+    category: 'Budget and process',
+    plain: 'The budget the Town Board adopts by resolution, no later than November 20 (Town Law §109). It is the only version that appropriates money — the legal authority to spend. The Town sometimes titles it the Final Budget.',
+    see: { label: 'How the budget is adopted', href: '/budget-adoption/' },
+  },
+  'tentative-budget': {
+    term: 'Tentative Budget',
+    category: 'Budget and process',
+    plain: 'The budget officer’s recommended budget, filed with the Town Clerk by September 30 and presented to the Town Board by October 5 (Town Law §106). It is a proposal and authorizes no spending. It usually comes with a Budget Supplement showing what each department asked for.',
+    see: { label: 'The 2027 budget', href: '/tentative-2027/' },
+  },
+  'preliminary-budget': {
+    term: 'Preliminary Budget',
+    category: 'Budget and process',
+    plain: 'The Tentative Budget plus any changes the Town Board makes to it (Town Law §106(4)). The required public hearing is held on this version, by the Thursday after the general election (§108). If the Board fails to adopt a budget by November 20, the Preliminary becomes the budget (§109(3)).',
+    see: { label: 'Budget amendments', href: '/budget-amendments-2027/' },
+  },
+  'budget-supplement': {
+    term: 'Budget Supplement',
+    category: 'Budget and process',
+    plain: 'The account-by-account detail published alongside the Tentative Budget. For every line it shows the actual from two years back, last year’s adopted amount and spending to June 30, what the department requested, and what the Tentative recommends.',
+    see: { label: 'Budget by fund', href: '/funds/' },
+  },
+  'budget-officer': {
+    term: 'Budget officer',
+    category: 'Budget and process',
+    plain: 'The official who assembles the department requests into the Tentative Budget. In Riverhead, as in most towns, it is the Supervisor.',
+  },
+  'fiscal-year': {
+    term: 'Fiscal year',
+    category: 'Budget and process',
+    plain: 'The twelve months a budget covers. For New York towns it is the calendar year, January 1 to December 31.',
+  },
+  'budget-hearing': {
+    term: 'Budget public hearing',
+    category: 'Budget and process',
+    plain: 'The meeting, required by Town Law §108, where residents can speak on the Preliminary Budget before it is adopted. The notice must print the proposed salaries of the Board members, the Town Clerk and the Highway Superintendent.',
+    see: { label: 'How the budget is adopted', href: '/budget-adoption/' },
+  },
+  'budget-transfer': {
+    term: 'Budget transfer / adjustment',
+    category: 'Budget and process',
+    plain: 'A Board resolution that moves money between budget lines after the budget is adopted, or adds money from savings or a grant. It changes the plan, not the total taxes already levied.',
+    see: { label: 'Budget changes the Board approved', href: '/budget-changes/' },
+  },
+  contingency: {
+    term: 'Contingency appropriation',
+    category: 'Budget and process',
+    plain: 'A cushion inside the budget for unexpected costs, capped at 10 percent of certain appropriations (Town Law §107). Nothing is paid from it directly: the Board first transfers money from it to a real spending line.',
+  },
+  'fiscal-impact-statement': {
+    term: 'Fiscal impact statement',
+    category: 'Budget and process',
+    plain: 'The form attached to each Riverhead Town Board resolution saying whether it costs money, how much, and which account pays. It is the Town’s own summary, so this site checks it against the resolution’s text.',
+    see: { label: 'Cost of Board decisions', href: '/fiscal-impact/' },
+  },
+
+  // ── Taxes and revenue ──
   'tax-levy': {
     term: 'Tax Levy',
+    category: 'Taxes and revenue',
     plain: 'The total amount the Town collects from property taxes to cover whatever the other revenues do not pay for.',
+    see: { label: 'Where your Town levy goes', href: '/taxpayer-impact/' },
   },
-  'fund-balance': {
-    term: 'Fund Balance',
-    plain: "The Town's savings — money left over from prior years that has not been spent.",
+  'assessed-value': {
+    term: 'Assessed value',
+    category: 'Taxes and revenue',
+    plain: 'The value the Town Assessor puts on a property for taxes. In Riverhead it is a small fraction of what the property would sell for, so it looks low; the tax rate is set to match.',
+    see: { label: 'Your tax bill', href: '/tax-bill/' },
   },
-  'appropriated-fund-balance': {
-    term: 'Appropriated fund balance (savings used)',
-    plain: 'Savings from earlier years that a fund counts as income to balance this year’s budget, so less has to come from taxes or charges. It pays toward the whole budget, not one item. Using some is common; a fund that needs a large share of it every year is planning to spend more than it takes in.',
+  'market-value': {
+    term: 'Market (full) value',
+    category: 'Taxes and revenue',
+    plain: 'What a property would likely sell for. Dividing assessed value by the residential assessment ratio gives an estimate of it.',
   },
-  'fund-balance-contribution': {
-    term: 'Fund balance contribution',
-    plain: 'A budget line that sets money aside in a fund’s savings. It is listed with the spending, but the money is meant to stay in the fund.',
+  'assessment-ratio': {
+    term: 'Residential assessment ratio',
+    category: 'Taxes and revenue',
+    plain: 'The share of market value at which homes are assessed, published by the State for each assessment roll. It converts market value to assessed value and back.',
+    see: { label: 'Your tax bill', href: '/tax-bill/' },
   },
+  'tax-rate': {
+    term: 'Tax rate',
+    category: 'Taxes and revenue',
+    plain: 'The tax charged per $1,000 of assessed value. Each fund or district with a levy has its own rate; your bill adds them up.',
+    see: { label: 'Your tax bill', href: '/tax-bill/' },
+  },
+  exemption: {
+    term: 'Exemption',
+    category: 'Taxes and revenue',
+    plain: 'Part of a property’s assessed value that is not taxed, such as a veterans’, senior citizens’ or disability exemption. Some exemptions lower only certain taxes.',
+  },
+  star: {
+    term: 'STAR',
+    category: 'Taxes and revenue',
+    plain: 'The State’s School Tax Relief program. It lowers school taxes only, so it does not change the Town portion of a bill.',
+  },
+  'tax-cap': {
+    term: 'Property tax cap',
+    category: 'Taxes and revenue',
+    plain: 'The State limit on how much a town’s levy may grow each year: generally 2 percent or the rate of inflation, whichever is lower, with adjustments (General Municipal Law §3-c).',
+    see: { label: 'Property-tax cap', href: '/tax-cap/' },
+  },
+  'cap-override': {
+    term: 'Tax cap override',
+    category: 'Taxes and revenue',
+    plain: 'A local law that lets the Town levy more than the cap allows. It must be adopted before the budget, by at least 60 percent of the Board.',
+    see: { label: 'Property-tax cap', href: '/tax-cap/' },
+  },
+  carryover: {
+    term: 'Tax cap carryover',
+    category: 'Taxes and revenue',
+    plain: 'If the Town levies less than its cap allows, it may carry some of the unused room into the next year, up to 1.5 percent of the levy limit.',
+    see: { label: 'Property-tax cap', href: '/tax-cap/' },
+  },
+  pilot: {
+    term: 'PILOT',
+    category: 'Taxes and revenue',
+    plain: 'A payment in lieu of taxes: what some businesses pay instead of property tax under an agreement with the Town or its Industrial Development Agency.',
+    see: { label: 'Revenue', href: '/revenue/' },
+  },
+  'franchise-fee': {
+    term: 'Franchise fee',
+    category: 'Taxes and revenue',
+    plain: 'What a cable company pays the Town for using Town roads and rights-of-way, set as a share of its cable revenue. Federal law caps it at 5 percent.',
+    see: { label: 'Optimum cable franchise', href: '/cable-franchise/' },
+  },
+  'state-aid': {
+    term: 'State aid',
+    category: 'Taxes and revenue',
+    plain: 'Money the State sends the Town, either for general purposes or tied to a program such as highways or a grant.',
+    see: { label: 'Grants', href: '/grants/' },
+  },
+  'special-district': {
+    term: 'Special district',
+    category: 'Taxes and revenue',
+    plain: 'An area within the Town that pays for a service only it receives, such as water, sewer, street lighting or ambulance. Only properties in the district pay its tax or charges.',
+    see: { label: 'Budget by fund', href: '/funds/' },
+  },
+
+  // ── Funds and savings ──
   fund: {
     term: 'Fund',
-    plain: 'A separate pot of money set aside for a specific purpose — like Highway, Water, or Sewer. Each fund has its own budget.',
+    category: 'Funds and savings',
+    plain: 'A separate pot of money set aside for a specific purpose — like Highway, Water, or Sewer. Each fund has its own budget and its own savings, and money cannot move between funds without Board action.',
+    see: { label: 'Budget by fund', href: '/funds/' },
   },
   'general-fund': {
     term: 'General Fund',
+    category: 'Funds and savings',
     plain: 'The main pot of money that pays for most town-wide services, like police, the town clerk, and general administration.',
+    see: { label: 'General Fund', href: '/general-fund/' },
   },
+  'fund-balance': {
+    term: 'Fund Balance',
+    category: 'Funds and savings',
+    plain: 'A fund’s savings: what is left after years of revenue minus spending. Only part of it is free to spend; accounting rules sort it into five tiers.',
+    see: { label: 'Savings and reserves', href: '/reserves/' },
+  },
+  'appropriated-fund-balance': {
+    term: 'Appropriated fund balance (savings used)',
+    category: 'Funds and savings',
+    plain: 'Savings from earlier years that a fund counts as income to balance this year’s budget, so less has to come from taxes or charges. It pays toward the whole budget, not one item. Using some is common; a fund that needs a large share of it every year is planning to spend more than it takes in.',
+    see: { label: 'How savings were used', href: '/fund-balance-draws/' },
+  },
+  'fund-balance-contribution': {
+    term: 'Fund balance contribution',
+    category: 'Funds and savings',
+    plain: 'A budget line that sets money aside in a fund’s savings. It is listed with the spending, but the money is meant to stay in the fund.',
+  },
+  nonspendable: {
+    term: 'Nonspendable fund balance',
+    category: 'Funds and savings',
+    plain: 'The part of fund balance that is not cash at all, such as prepaid bills or inventory. It cannot be spent.',
+    see: { label: 'How the Town’s books work', href: '/accounting-basics/' },
+  },
+  restricted: {
+    term: 'Restricted fund balance',
+    category: 'Funds and savings',
+    plain: 'Money that outside rules, such as a law, grant or bond, say can only be used for a stated purpose.',
+    see: { label: 'How the Town’s books work', href: '/accounting-basics/' },
+  },
+  committed: {
+    term: 'Committed fund balance',
+    category: 'Funds and savings',
+    plain: 'Money the Town Board has set aside by its own formal action. Only another formal Board action can free it.',
+    see: { label: 'How the Town’s books work', href: '/accounting-basics/' },
+  },
+  assigned: {
+    term: 'Assigned fund balance',
+    category: 'Funds and savings',
+    plain: 'Money earmarked for an intended use without a formal Board commitment, such as next year’s budget or purchases already ordered.',
+    see: { label: 'How the Town’s books work', href: '/accounting-basics/' },
+  },
+  unassigned: {
+    term: 'Unassigned fund balance',
+    category: 'Funds and savings',
+    plain: 'The part of the General Fund’s savings with no label on it: the real cushion for emergencies and shortfalls.',
+    see: { label: 'Savings and reserves', href: '/reserves/' },
+  },
+  'reserve-fund': {
+    term: 'Reserve fund',
+    category: 'Funds and savings',
+    plain: 'Savings set aside under a specific State law for a stated purpose, such as capital projects, repairs or retirement costs. Spending from it follows that law’s rules.',
+    see: { label: 'Savings and reserves', href: '/reserves/' },
+  },
+  'reserve-use': {
+    term: 'Reserve Use',
+    category: 'Funds and savings',
+    plain: 'Spending savings instead of recurring income. It can balance a single budget but is risky if repeated year after year.',
+    see: { label: 'How savings were used', href: '/fund-balance-draws/' },
+  },
+  transfers: {
+    term: 'Interfund / Transfers',
+    category: 'Funds and savings',
+    plain: 'Money moved from one of the Town’s funds to another. A transfer is permanent; a loan between funds must be repaid by the end of the year.',
+  },
+
+  // ── Spending ──
   department: {
     term: 'Department',
+    category: 'Spending',
     plain: 'A unit of town government within a fund — for example Police or Town Clerk inside the General Fund.',
   },
   'line-item': {
     term: 'Account / Line item',
-    plain: 'The smallest level of budget detail — a single spending line, such as "Police – Overtime."',
+    category: 'Spending',
+    plain: 'The smallest level of budget detail — a single spending line, such as "Police – Overtime." Each has an account code that says its fund, purpose and type.',
+    see: { label: 'Budget by fund', href: '/funds/' },
   },
   'personal-services': {
     term: 'Personal Services',
+    category: 'Spending',
     plain: 'Salaries and wages paid to Town employees.',
   },
   'employee-benefits': {
     term: 'Employee Benefits',
-    plain: "Health insurance, retirement, and other non-salary costs of employing people.",
+    category: 'Spending',
+    plain: 'Health insurance, retirement, and other non-salary costs of employing people.',
+    see: { label: 'Fringe benefits', href: '/fringe-benefits/' },
   },
   contractual: {
     term: 'Contractual',
+    category: 'Spending',
     plain: 'Day-to-day operating costs paid to outside vendors — supplies, utilities, repairs, and professional services.',
   },
   'equipment-capital': {
     term: 'Equipment & Capital Outlay',
+    category: 'Spending',
     plain: 'Bigger one-time purchases such as vehicles, machinery, and equipment.',
   },
-  transfers: {
-    term: 'Interfund / Transfers',
-    plain: "Money moved from one of the Town's funds to another.",
+  'capital-project': {
+    term: 'Capital project',
+    category: 'Spending',
+    plain: 'Building or buying something that lasts for years, such as a building, road or major vehicle, usually paid for over time with borrowing. Its money does not lapse at year end.',
+    see: { label: 'Projects and borrowing', href: '/capital-debt/' },
   },
-  // The three stages are separate documents under Town Law ss.106-109, not
-  // drafts of one. This entry used to merge Tentative and Preliminary as
-  // "earlier draft versions", which hid that the Preliminary is the Board's own
-  // document and the one the budget defaults to.
-  'adopted-budget': {
-    term: 'Adopted Budget',
-    plain: 'The budget the Town Board adopts by resolution, no later than November 20 (Town Law §109). It is the only version that appropriates money — the legal authority to spend. The Town sometimes titles it the Final Budget.',
+  encumbrance: {
+    term: 'Encumbrance',
+    category: 'Spending',
+    plain: 'Money set aside within an appropriation for an order already placed but not yet paid. It keeps the same money from being spent twice.',
   },
-  'tentative-budget': {
-    term: 'Tentative Budget',
-    plain: 'The budget officer’s recommended budget, filed with the Town Clerk by September 30 and presented to the Town Board by October 5 (Town Law §106). It is a proposal and authorizes no spending. It usually comes with a Budget Supplement showing what each department asked for.',
+  lapse: {
+    term: 'Lapse',
+    category: 'Spending',
+    plain: 'What happens to an operating appropriation that is neither spent nor encumbered by year end: the permission to spend it ends, and the money stays in fund balance.',
   },
-  'preliminary-budget': {
-    term: 'Preliminary Budget',
-    plain: 'The Tentative Budget plus any changes the Town Board makes to it (Town Law §106(4)). The required public hearing is held on this version, by the Thursday after the general election (§108). If the Board fails to adopt a budget by November 20, the Preliminary becomes the budget (§109(3)).',
-  },
-  'budget-supplement': {
-    term: 'Budget Supplement',
-    plain: 'The account-by-account detail published alongside the Tentative Budget. For every line it shows the actual from two years back, last year’s adopted amount and spending to June 30, what the department requested, and what the Tentative recommends.',
-  },
+
+  // ── Borrowing and debt ──
   'debt-service': {
     term: 'Debt Service',
+    category: 'Borrowing and debt',
     plain: 'Payments on money the Town has borrowed — similar to making mortgage payments.',
+    see: { label: 'Projects and borrowing', href: '/capital-debt/' },
+  },
+  bond: {
+    term: 'Bond',
+    category: 'Borrowing and debt',
+    plain: 'Long-term borrowing, repaid with interest over years. Town bonds are usually serial bonds, with part of the principal due each year.',
+    see: { label: 'Projects and borrowing', href: '/capital-debt/' },
+  },
+  'bond-resolution': {
+    term: 'Bond resolution',
+    category: 'Borrowing and debt',
+    plain: 'The Board’s permission to borrow for a stated purpose up to a stated amount. It needs a two-thirds vote. Borrowing happens only later, when bonds or notes are sold.',
+    see: { label: 'The new Justice Court', href: '/justice-court/' },
+  },
+  'authorized-unissued': {
+    term: 'Authorized but unissued',
+    category: 'Borrowing and debt',
+    plain: 'Borrowing the Board has approved but the Town has not yet done. It is not yet debt, but it shows what is coming.',
+    see: { label: 'Projects and borrowing', href: '/capital-debt/' },
   },
   ban: {
     term: 'BAN (Bond Anticipation Note)',
+    category: 'Borrowing and debt',
     plain: 'Short-term borrowing the Town later pays back or replaces with a long-term bond.',
+    see: { label: 'Projects and borrowing', href: '/capital-debt/' },
   },
-  overtime: {
-    term: 'Overtime',
-    plain: 'Extra pay for hours an employee works beyond their normal schedule.',
+  tan: {
+    term: 'TAN (Tax Anticipation Note)',
+    category: 'Borrowing and debt',
+    plain: 'Short-term borrowing to pay bills until taxes come in, repaid from those taxes.',
   },
-  'gross-pay': {
-    term: 'Gross Pay',
-    plain: 'The total an employee was paid in a year before deductions — including base pay, overtime, and extras.',
+  'budget-note': {
+    term: 'Budget note',
+    category: 'Borrowing and debt',
+    plain: 'Short-term borrowing to pay for spending the budget did not include. State law ordinarily caps it at 5 percent of the budget, so heavy use is a warning sign.',
   },
-  'base-pay': {
-    term: 'Regular / Base Pay',
-    plain: "An employee's normal salary or wages, not counting overtime or extras.",
+  'probable-usefulness': {
+    term: 'Period of probable usefulness',
+    category: 'Borrowing and debt',
+    plain: 'The useful life the Local Finance Law assigns to what is being financed. Bonds for it cannot run longer than that.',
   },
-  union: {
-    term: 'Union / Bargaining Group',
-    plain: 'The labor group an employee belongs to — for example PBA for police officers or CSEA for many town workers.',
+  'debt-limit': {
+    term: 'Constitutional debt limit',
+    category: 'Borrowing and debt',
+    plain: 'The cap the State Constitution puts on a town’s debt: 7 percent of the average full value of its taxable property over five years.',
+    see: { label: 'Projects and borrowing', href: '/capital-debt/' },
+  },
+  'credit-rating': {
+    term: 'Credit rating',
+    category: 'Borrowing and debt',
+    plain: 'A rating agency’s grade on how likely the Town is to repay its debt. A higher rating usually means lower interest costs.',
+    see: { label: 'Credit rating', href: '/credit-rating/' },
+  },
+
+  // ── Accounting and reports ──
+  gaap: {
+    term: 'GAAP',
+    category: 'Accounting and reports',
+    plain: 'Generally Accepted Accounting Principles: the standard rules for financial statements. For state and local governments they are set by GASB.',
+    see: { label: 'How the Town’s books work', href: '/accounting-basics/' },
+  },
+  gasb: {
+    term: 'GASB',
+    category: 'Accounting and reports',
+    plain: 'The Governmental Accounting Standards Board, which writes the accounting rules for state and local governments, such as Statement No. 54 on fund balance.',
+  },
+  'budgetary-basis': {
+    term: 'Budgetary basis',
+    category: 'Accounting and reports',
+    plain: 'Counting the way the budget does: spending counts when money is committed, including encumbrances. It answers “did we stay within what was approved?”',
+    see: { label: 'How the Town’s books work', href: '/accounting-basics/' },
+  },
+  'modified-accrual': {
+    term: 'Modified accrual',
+    category: 'Accounting and reports',
+    plain: 'How the audited fund statements count: revenue when it is measurable and available to pay this year’s bills, and spending when the bill comes due. Long-term debt is left out.',
+    see: { label: 'How the Town’s books work', href: '/accounting-basics/' },
+  },
+  'full-accrual': {
+    term: 'Full accrual',
+    category: 'Accounting and reports',
+    plain: 'How the Town-wide statements count, as a business would: revenue when earned and costs when incurred, with buildings, roads, debt, pensions and retiree health care all included.',
+    see: { label: 'How the Town’s books work', href: '/accounting-basics/' },
+  },
+  afr: {
+    term: 'Annual Financial Report (AFR)',
+    category: 'Accounting and reports',
+    plain: 'The report each town files with the State Comptroller every year on its actual revenue, spending and balances. The Comptroller’s fiscal stress scores are built from it.',
+    see: { label: 'Annual financial report', href: '/annual-report/' },
+  },
+  'audited-statements': {
+    term: 'Audited financial statements',
+    category: 'Accounting and reports',
+    plain: 'The Town’s yearly financial statements, examined by an independent accounting firm. The auditor’s opinion says whether they fairly present the Town’s finances.',
+    see: { label: 'Annual financial report', href: '/annual-report/' },
+  },
+  'net-position': {
+    term: 'Net position',
+    category: 'Accounting and reports',
+    plain: 'In the Town-wide statements, everything the Town owns minus everything it owes. Long-term obligations such as pensions and retiree health care can make it negative.',
+  },
+  opeb: {
+    term: 'OPEB',
+    category: 'Accounting and reports',
+    plain: 'Other post-employment benefits: mainly health insurance the Town has promised retirees. The audit reports the cost of those promises as a liability.',
+  },
+  'net-pension-liability': {
+    term: 'Net pension liability',
+    category: 'Accounting and reports',
+    plain: 'The Town’s share of the gap between what the State pension systems owe and what they hold, as the audit reports it.',
+  },
+  'fiscal-stress': {
+    term: 'Fiscal stress score',
+    category: 'Accounting and reports',
+    plain: 'The State Comptroller’s yearly rating of each local government’s financial condition, from its Annual Financial Report: no designation, susceptible, moderate or significant stress.',
+    see: { label: 'Financial health', href: '/analytics/' },
+  },
+  'structural-balance': {
+    term: 'Structural balance',
+    category: 'Accounting and reports',
+    plain: 'When recurring revenue pays for recurring costs, without leaning on savings or one-time money. A budget can be balanced on paper and still not be structurally balanced.',
+    see: { label: 'Budget best practices (GFOA)', href: '/gfoa/' },
+  },
+  'one-time-revenue': {
+    term: 'One-time money',
+    category: 'Accounting and reports',
+    plain: 'Money that comes once, such as savings, an asset sale or a one-off grant. Using it for costs that recur every year leaves the same gap next year.',
   },
   reconciled: {
     term: 'Reconciled',
-    plain: "Our totals add up exactly to the Town's official published numbers, so you can trust the detail behind them.",
+    category: 'Accounting and reports',
+    plain: 'Our totals add up exactly to the Town’s official published numbers, so you can trust the detail behind them.',
   },
-  'reserve-use': {
-    term: 'Reserve Use',
-    plain: 'Spending savings instead of recurring income. It can balance a single budget but is risky if repeated year after year.',
+
+  // ── Pay and benefits ──
+  'retirement-buyout': {
+    term: 'Early Retirement Buyout / Incentive',
+    category: 'Pay and benefits',
+    plain: 'A one-time payment the Town offers to encourage eligible longtime employees to retire now, so it can hold positions open, combine roles, or refill them at lower cost.',
+    see: { label: '2026 retirement buyout', href: '/buyout/' },
   },
+  'leave-buyback': {
+    term: 'Sick / vacation buy-back',
+    category: 'Pay and benefits',
+    plain: 'Employees earn sick and vacation days each year, and unused days often carry over. A buy-back is the Town paying cash for some of those banked days instead of letting the person take the time off — either periodically during a career, or as one payment when they leave. The days were already earned, so this is settling a debt, not a bonus.',
+  },
+  'compensated-absences': {
+    term: 'Compensated absences',
+    category: 'Pay and benefits',
+    plain: 'The accounting name for unused sick, vacation, and personal time that employees have earned and the Town will eventually have to pay for. It appears as a liability on the Town’s audited books because it is money owed, even though nobody has cashed it out yet.',
+  },
+  'health-insurance-buyback': {
+    term: 'Health insurance buy-back',
+    category: 'Pay and benefits',
+    plain: 'A payment to an employee who declines the Town’s health coverage — usually because they are covered by a spouse’s plan. The Town pays them part of what the premium would have cost. Despite the similar name, this has nothing to do with sick or vacation time.',
+  },
+  severance: {
+    term: 'Severance',
+    category: 'Pay and benefits',
+    plain: 'A payment made because employment is ending, set by contract or agreement. Unlike a leave buy-back it is not time the employee banked and earned — which is why the two should not be read as the same thing even though they land in the same payroll column.',
+  },
+  ers: {
+    term: 'ERS',
+    category: 'Pay and benefits',
+    plain: 'The New York State & Local Employees’ Retirement System — the state pension system most non-police town workers belong to.',
+  },
+  pfrs: {
+    term: 'PFRS',
+    category: 'Pay and benefits',
+    plain: 'The New York State Police and Fire Retirement System — the state pension system for police officers and firefighters.',
+  },
+  overtime: {
+    term: 'Overtime',
+    category: 'Pay and benefits',
+    plain: 'Extra pay for hours an employee works beyond their normal schedule.',
+    see: { label: 'Employee pay and overtime', href: '/payroll/' },
+  },
+  'gross-pay': {
+    term: 'Gross Pay',
+    category: 'Pay and benefits',
+    plain: 'The total an employee was paid in a year before deductions — including base pay, overtime, and extras.',
+    see: { label: 'Employee pay and overtime', href: '/payroll/' },
+  },
+  'base-pay': {
+    term: 'Regular / Base Pay',
+    category: 'Pay and benefits',
+    plain: 'An employee’s normal salary or wages, not counting overtime or extras.',
+  },
+  union: {
+    term: 'Union / Bargaining Group',
+    category: 'Pay and benefits',
+    plain: 'The labor group an employee belongs to — for example PBA for police officers or CSEA for many town workers. Its contract with the Town sets pay and benefits for its members.',
+  },
+
+  // ── Town Board ──
   resolution: {
     term: 'Resolution',
+    category: 'Town Board',
     plain: 'A formal item the Town Board votes on — approving a contract, setting a fee, authorizing spending, or making an appointment.',
+    see: { label: 'Board votes', href: '/meetings/' },
+  },
+  'local-law': {
+    term: 'Local law',
+    category: 'Town Board',
+    plain: 'A change to the Town Code, such as zoning or a tax cap override. It needs a public hearing before the Board adopts it.',
   },
   'mover-seconder': {
     term: 'Mover / Seconder',
+    category: 'Town Board',
     plain: 'The member who formally proposes a resolution ("moves" it) and the member who supports bringing it to a vote ("seconds" it).',
   },
   abstain: {
     term: 'Abstain',
+    category: 'Town Board',
     plain: 'To formally decline to vote yes or no — often because a member has a conflict of interest on that item.',
+  },
+  'permissive-referendum': {
+    term: 'Permissive referendum',
+    category: 'Town Board',
+    plain: 'A Board action that voters can force to a public vote by filing a petition within 30 days. If no valid petition is filed, the action takes effect. Many bond resolutions are subject to one.',
+  },
+  'home-rule-request': {
+    term: 'Home rule request',
+    category: 'Town Board',
+    plain: 'A local government’s formal request that the State Legislature pass a bill that affects only it. The State Constitution requires one for most such bills.',
+    see: { label: 'The former armory and the YMCA', href: '/armory/' },
+  },
+  'public-hearing': {
+    term: 'Public hearing',
+    category: 'Town Board',
+    plain: 'A session where anyone may speak on a proposal before the Board acts, required for local laws, the budget and some other actions. Written comments are often accepted for a time afterward.',
+  },
+  'executive-session': {
+    term: 'Executive session',
+    category: 'Town Board',
+    plain: 'A closed part of a meeting, allowed by the Open Meetings Law only for listed topics such as litigation or personnel. It must be called in public, by a majority vote that names the topic.',
+    see: { label: 'Open Meetings Law', href: '/open-meetings/' },
   },
 }
 
@@ -162,4 +556,8 @@ export function lookup(key: string): GlossaryEntry | undefined {
   return glossary[key]
 }
 
-export const glossaryList: GlossaryEntry[] = Object.values(glossary).sort((a, b) => a.term.localeCompare(b.term))
+export const glossaryEntries: (GlossaryEntry & { id: string })[] = Object.entries(glossary)
+  .map(([id, e]) => ({ id, ...e }))
+  .sort((a, b) => a.term.localeCompare(b.term))
+
+export const glossaryList: GlossaryEntry[] = glossaryEntries

@@ -1,5 +1,5 @@
 import PageShell from '../../components/PageShell'
-import Glossary from '../../components/Glossary'
+import { glossaryEntries } from '../../lib/glossary'
 import { budgetConcepts, OSC_TOWN_GUIDE } from '../../lib/budget-concepts'
 
 const base = process.env.NEXT_PUBLIC_BASE_PATH || ''
@@ -117,41 +117,21 @@ export default function GuidePage() {
         </p>
       </section>
 
-      <h2 id="glossary" style={{ color: 'var(--rbl-title)' }}>Budget terms, in plain English</h2>
-      <p style={{ color: 'var(--rbl-text-body)', marginTop: 0 }}>Short definitions of the words used in Town budgets and financial reports.</p>
-      <Glossary />
-
-      {/* The concepts behind the vocabulary — open only what you want. */}
-      <h2 id="concepts" style={{ color: 'var(--rbl-title)', marginTop: 30, scrollMarginTop: 24 }}>Want more detail? Explore the ideas behind the terms</h2>
-      <p style={{ color: 'var(--rbl-text-body)', marginTop: 0 }}>
-        The glossary gives short definitions. These optional sections explain the bigger ideas, show how they apply to Riverhead, and suggest questions residents can ask. Open only the topics you want to explore.
-      </p>
-
-      {budgetConcepts.map((c) => (
-        <details key={c.id} id={c.id} style={{ ...card, padding: 0, marginBottom: 12, overflow: 'hidden', scrollMarginTop: 24 }}>
-          <summary style={{ cursor: 'pointer', listStyle: 'none', padding: '15px 18px', fontWeight: 800, color: 'var(--rbl-title)', fontSize: 15.5, display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 12 }}>
-            <span>{c.title}</span>
-            <span aria-hidden style={{ color: 'var(--rbl-text-muted)', fontSize: 13, fontWeight: 700 }}>Open ▾</span>
-          </summary>
-          <div style={{ padding: '0 18px 18px' }}>
-            <p style={{ color: 'var(--rbl-info-text)', fontSize: 15, lineHeight: 1.6, marginTop: 0 }}>{c.plain}</p>
-            {c.riverhead && (
-              <div style={{ background: 'var(--rbl-teal-bg)', border: '1px solid var(--rbl-teal-border)', borderRadius: 10, padding: '12px 14px', margin: '10px 0' }}>
-                <strong style={{ color: 'var(--rbl-teal)', fontSize: 13 }}>In Riverhead&apos;s numbers:</strong>{' '}
-                <span style={{ color: 'var(--rbl-teal-strong)', fontSize: 14.5, lineHeight: 1.6 }}>{c.riverhead}</span>
-              </div>
-            )}
-            <div style={{ color: 'var(--rbl-text-body)', fontSize: 14.5, lineHeight: 1.6 }}>
-              <strong style={{ color: 'var(--rbl-title)' }}>Question to ask:</strong> {c.ask}
-            </div>
-            {c.cite && (
-              <div style={{ color: 'var(--rbl-text-muted)', fontSize: 13, marginTop: 10, paddingTop: 10, borderTop: '1px solid var(--rbl-border-subtle)' }}>
-                <strong>Authority:</strong> {c.cite}
-              </div>
-            )}
-          </div>
-        </details>
-      ))}
+      <h2 id="glossary" style={{ color: 'var(--rbl-title)', scrollMarginTop: 24 }}>Budget terms, in plain English</h2>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(min(300px,100%),1fr))', gap: 12, marginBottom: 12 }}>
+        <a href={`${base}/glossary/`} style={{ ...card, display: 'block', textDecoration: 'none' }}>
+          <span style={{ display: 'block', fontWeight: 700, color: 'var(--rbl-link)', fontSize: 17, marginBottom: 4 }}>Glossary of budget and Town terms</span>
+          <span style={{ color: 'var(--rbl-text-body)', fontSize: 15, lineHeight: 1.55 }}>
+            {glossaryEntries.length} words from budgets, tax bills, audits and Board meetings, each defined in a sentence or two. Search them or browse by topic.
+          </span>
+        </a>
+        <a id="concepts" href={`${base}/accounting-basics/`} style={{ ...card, display: 'block', textDecoration: 'none', scrollMarginTop: 24 }}>
+          <span style={{ display: 'block', fontWeight: 700, color: 'var(--rbl-link)', fontSize: 17, marginBottom: 4 }}>How the Town’s books work</span>
+          <span style={{ color: 'var(--rbl-text-body)', fontSize: 15, lineHeight: 1.55 }}>
+            Funds, the three ways of counting, the five tiers of fund balance in the Town’s audit, and {budgetConcepts.length} bigger ideas such as one-time money and the tax cap.
+          </span>
+        </a>
+      </div>
 
       <p style={{ color: 'var(--rbl-text-muted)', fontSize: 13.5, lineHeight: 1.6, marginTop: 16 }}>
         Statutory detail and deadlines above come from the State Comptroller&apos;s{' '}
