@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react'
-import PreliminaryUpdate from './PreliminaryUpdate'
+import PreliminaryUpdate, { preliminaryIsLatest } from './PreliminaryUpdate'
 import { released2027, levySentence, YEAR } from '../lib/tentative-2027'
 
 const base = process.env.NEXT_PUBLIC_BASE_PATH || ''
@@ -11,6 +11,11 @@ const base = process.env.NEXT_PUBLIC_BASE_PATH || ''
 // yardstick the proposal is measured against, not a description of it.
 export default function TentativeReleased({ children }: { children?: ReactNode }) {
   if (!released2027) return null
+  // Once the Preliminary is out, one box leads with it and carries what the
+  // page says about the Tentative, rather than announcing the Tentative as news.
+  if (preliminaryIsLatest()) {
+    return <PreliminaryUpdate tentative={<>{levySentence(released2027)}{children && <> {children}</>}</>} />
+  }
   return (
     <>
     <aside

@@ -41,7 +41,6 @@ import {
 } from './fiscal-commitments-2027'
 import { adoptedBudget2026Summary } from './financial-data'
 import { stageDoc } from './budget-stages'
-import { released2027 } from './tentative-2027'
 import fiscalIndex from '../public/data/meetings/fiscal-index.json'
 
 export {
@@ -93,15 +92,23 @@ export const budgetedUseUnexplained =
   townWideBudgetedUse == null ? null : townWideBudgetedUse - budgetedUseTotal
 
 /**
- * What the 2027 Tentative plans, for the line under the 2026 table. Null until
- * the Tentative is parsed.
+ * What the latest published 2027 budget plans, for the line under the 2026
+ * table: the Adopted once it is parsed, else the Preliminary, else the
+ * Tentative. Null until one of them is parsed. The Board amends the Preliminary
+ * before it adopts it, so the stage is named wherever the figure is shown.
  */
-export const plannedUse2027 = released2027
+const stage2027 = (['adopted', 'preliminary', 'tentative'] as const)
+  .map((stage) => ({ stage, doc: stageDoc(2027, stage) }))
+  .find((s) => s.doc !== null)
+
+export const plannedUse2027 = stage2027?.doc
   ? {
-      allFunds: released2027.fundBalance,
-      allFundsPrior: released2027.fundBalancePrior,
-      generalFund: released2027.generalFund?.fundBalance ?? null,
-      generalFundPrior: released2027.generalFund?.fundBalancePrior ?? null,
+      stage: stage2027.stage,
+      allFunds: stage2027.doc.totals.fundBalance,
+      generalFund: stage2027.doc.funds.A01?.fundBalance ?? null,
+      generalFundPrior: generalFundBudgetedUse || null,
+      tentativeGeneralFund: stageDoc(2027, 'tentative')?.funds.A01?.fundBalance ?? null,
+      source: stage2027.doc.source,
     }
   : null
 
@@ -193,15 +200,16 @@ const listPhrase = (items: string[]) =>
   items.length <= 1 ? items.join('') : `${items.slice(0, -1).join(', ')}${items.length > 2 ? ',' : ''} and ${items[items.length - 1]}`
 
 export const limits = [
-  'These are appropriations, not expenditures. Adopting the resolution creates the authority to spend the money; whether it was then obligated or paid is a separate question this site does not track. An encumbrance in the accounting sense — a purchase order reserving part of an appropriation — happens later and is not published in a form this site reads.',
+  'These are appropriations, not expenditures. Adopting the resolution creates the authority to spend the money; whether it was then obligated or paid is a separate question this site does not track. An encumbrance in the accounting sense, a purchase order reserving part of an appropriation, happens later and is not published in a form this site reads.',
   `Only ${coverage.resolutionsWithAccounts} of the ${coverage.resolutionsWithStatement.toLocaleString()} resolutions with a parsed fiscal impact statement (${coverage.accountSharePct.toFixed(0)}%) itemise their accounts. The rest name a funding source without the account detail that identifies a fund balance draw, so a draw among them cannot be counted here. Every total on this page is a floor.`,
-  `${documentedDraws.length} of the ${chargedToFundBalanceCount} General Fund draws name no GASB 54 tier on the account itself. The object code alone does not distinguish Unassigned from Assigned or Committed, so an unnamed draw is treated as unassigned — the overwhelming default, but a default rather than a fact from the record.`,
-  'A draw split across two tiers is held out whole. The Meals on Wheels truck (2026-645) charges A01-9999 twice — $48,128.53 of Assigned Fund Balance for Senior Day Care and $31,871.47 of Appropriated Fund Balance — and the rule that keeps Assigned money out of the unassigned cushion applies to the resolution rather than to each account, so all $80,000 sits in the reported-not-netted section. The $31,871.47 genuinely is unassigned, so the cushion is described as very slightly larger than the record supports, in the direction that flatters it. Splitting per account would be more exact and is not what the code does today.',
+  `${documentedDraws.length} of the ${chargedToFundBalanceCount} General Fund draws name no GASB 54 tier on the account itself. The object code alone does not distinguish Unassigned from Assigned or Committed, so an unnamed draw is treated as unassigned. That is by far the usual case, but it is an assumption rather than a fact from the record.`,
+  'A draw split across two tiers is held out whole. The Meals on Wheels truck (2026-645) charges A01-9999 twice: $48,128.53 of Assigned Fund Balance for Senior Day Care and $31,871.47 of Appropriated Fund Balance. The rule that keeps Assigned money out of the unassigned cushion applies to the resolution rather than to each account, so all $80,000 sits in the reported-not-netted section. The $31,871.47 genuinely is unassigned, so the cushion is described as very slightly larger than the record supports. Splitting the draw by account would be more exact; this site does not do that yet.',
   ...(otherTierGeneralFundDraws.length
-    ? [`${otherTierGeneralFundDraws.length === 1 ? 'One General Fund draw is' : `${otherTierGeneralFundDraws.length} General Fund draws are`} reported and deliberately not netted against the unassigned cushion, because the account itself names another GASB 54 tier: ${listPhrase(otherTierGeneralFundDraws.map((d) => `resolution ${d.number ?? '\u2014'} (${usd(d.amount)}, ${d.tiers.join(' and ')} fund balance)`))}. Real money and real votes, but they do not come out of the unassigned tier this site measures the cushion on.`]
+    ? [`${otherTierGeneralFundDraws.length === 1 ? 'One General Fund draw is' : `${otherTierGeneralFundDraws.length} General Fund draws are`} reported and deliberately not netted against the unassigned cushion, because the account itself names another GASB 54 tier: ${listPhrase(otherTierGeneralFundDraws.map((d) => `resolution ${d.number ?? '\u2014'} (${usd(d.amount)}, ${d.tiers.join(' and ')} fund balance)`))}. They are money spent by Board votes, but they do not come out of the unassigned tier this site measures the cushion on.`]
     : []),
   `Draws on other funds' balances are listed apart and never added to the General Fund figures. ${otherFundsPriced} other funds drew ${usd(otherFundDrawTotal)} from their own balances by resolution${otherFundVotes.unpriced ? `, and ${otherFundVotes.unpriced === 1 ? 'one vote names' : `${otherFundVotes.unpriced} votes name`} a fund balance account without an amount` : ''}. Each fund keeps its balance for its own purposes, so that money does not pay for General Fund services and does not move the cushion either way.`,
-  `Two kinds of entry are listed apart and never totalled together. A documented draw charged A01-9999 on the Town's own fiscal impact statement, so the figure is the Town's. A curated commitment was read from the record because the account codes do not cover it, and the largest of them was authorized by vote rather than booked against the fund balance account — firmer than a ceiling, but the record notes it could rise if the property owner litigates. Adding the two would assert of the curated entries something the record does not say.`,
+  `Two kinds of entry are listed apart and never totalled together. A documented draw charged A01-9999 on the Town's own fiscal impact statement, so the figure is the Town's. A curated commitment was read from the record because the account codes do not cover it, and the largest of them was authorized by vote rather than booked against the fund balance account. That is firmer than a ceiling, but the record notes it could rise if the property owner litigates. Adding the two would assert of the curated entries something the record does not say.`,
+  'A vote that amends next year\'s budget, such as the amendments to the 2027 Preliminary Budget, changes how much fund balance that budget plans to use. It does not draw on this year\'s balance, so it is left out of the 2026 figures and shows in the 2027 line instead.',
   'A resolution that amends the funding source of spending already budgeted moves money between sources rather than appropriating new surplus. Adding it to the budgeted figure would overstate the year. The record does not mark which resolutions do this, so the combined total is presented as a sum of two channels rather than as a settled figure.',
 ]
 
@@ -218,8 +226,8 @@ export const sources = [
       : 'Appropriated fund balance by fund, summary page 3',
     url: budgetedUseFrom.source.url || 'https://www.townofriverheadny.gov/DocumentCenter/View/2967/2026-Adopted-Budget',
   },
-  ...(released2027
-    ? [{ title: released2027.source.title.replace(/\s*\(PDF\)$/, ''), detail: 'Appropriated fund balance planned for 2027, by fund', url: released2027.source.url }]
+  ...(plannedUse2027
+    ? [{ title: plannedUse2027.source.title.replace(/\s*\(PDF\)$/, ''), detail: 'Appropriated fund balance planned for 2027, by fund', url: plannedUse2027.source.url }]
     : []),
   {
     title: 'State Comptroller, Accounting and Reporting Manual (April 2024)',

@@ -51,9 +51,11 @@ export type IndividualCheckProp = {
 }
 
 import { UNIFORM_OT, type PoliceOvertimeBudget } from '../lib/police-overtime-budget'
+import { OT_SOURCE, type overtimeByDepartment } from '../lib/overtime-by-department'
 
 export type OvertimeStaffingProps = {
   budgetLine: PoliceOvertimeBudget
+  departments: ReturnType<typeof overtimeByDepartment>
   trends: RankTrendProp[]
   flagged: RankTrendProp[]
   comparisons: CostComparisonProp[]
@@ -91,6 +93,7 @@ export default function OvertimeStaffing(p: OvertimeStaffingProps) {
       </section>
 
       <PoliceOvertimeBudgetPanel b={p.budgetLine} />
+      <DepartmentOvertimePanel d={p.departments} />
 
       {/* The individual test that finds nothing — stated first, on purpose */}
       <section style={{ ...card, borderColor: 'var(--rbl-success-border)', background: 'var(--rbl-success-bg)' }}>
@@ -304,7 +307,7 @@ function Stat({ label, value, accent }: { label: string; value: string; accent?:
   )
 }
 
-// 2026 so far and the 2027 Tentative, from the Budget Supplements, beside each
+// 2026 so far and the 2027 Preliminary (unchanged from the Tentative), from the Budget Supplements, beside each
 // year's budget and what was spent (lib/police-overtime-budget.ts).
 function PoliceOvertimeBudgetPanel({ b }: { b: PoliceOvertimeBudget }) {
   const cell = { padding: '7px 10px' } as const
@@ -319,7 +322,7 @@ function PoliceOvertimeBudgetPanel({ b }: { b: PoliceOvertimeBudget }) {
         site’s estimate.
       </p>
       <p style={{ color: 'var(--rbl-text-body)', fontSize: 14.5, lineHeight: 1.6, margin: '0 0 10px' }}>
-        The {b.thisYear + 1} Tentative budgets <strong>{usd(b.tentative ?? 0)}</strong>
+        The {b.thisYear + 1} Preliminary budgets <strong>{usd(b.tentative ?? 0)}</strong>, the same as the Tentative
         {b.request === b.tentative ? ', the amount the department requested' : ''}. Spending was above its budget in{' '}
         <strong>{b.yearsOver} of the last {b.rows.length} years</strong>, and above {usd(b.tentative ?? 0)} in{' '}
         {b.actualsAboveTentative.length} of the last {b.recentYears.length} ({b.actualsAboveTentative.join(', ')}). That is a likely concern
@@ -352,7 +355,7 @@ function PoliceOvertimeBudgetPanel({ b }: { b: PoliceOvertimeBudget }) {
             </tr>
             <tr>
               <td style={{ ...cell, fontWeight: 700, color: 'var(--rbl-title)' }}><span>{b.thisYear + 1}</span></td>
-              <td data-label="Budgeted" style={{ ...cell, textAlign: 'right' }}><span>{usd(b.tentative ?? 0)}, Tentative</span></td>
+              <td data-label="Budgeted" style={{ ...cell, textAlign: 'right' }}><span>{usd(b.tentative ?? 0)}, Preliminary</span></td>
               <td data-label="Spent" style={{ ...cell, textAlign: 'right' }}><span>—</span></td>
               <td data-label="Over budget" style={{ ...cell, textAlign: 'right' }}><span>—</span></td>
             </tr>
@@ -363,6 +366,74 @@ function PoliceOvertimeBudgetPanel({ b }: { b: PoliceOvertimeBudget }) {
         Account {UNIFORM_OT.account}, “{UNIFORM_OT.name}”, Budget Supplements {b.rows[0].year + 1}–{b.thisYear + 1} (the {b.thisYear + 1} edition, p. {b.page}):{' '}
         <a href={UNIFORM_OT.source.url} style={{ color: 'var(--rbl-link)' }}>{UNIFORM_OT.source.title}</a>. The line covers uniformed officers’ overtime.
         The payroll records’ sworn overtime runs within a few percent of it; they count each officer by union, the budget by account.
+      </p>
+    </section>
+  )
+}
+
+// Every overtime line in the budget, beside the police panel above
+// (lib/overtime-by-department.ts; checked by scripts/verify-overtime-departments.mjs).
+function DepartmentOvertimePanel({ d }: { d: ReturnType<typeof overtimeByDepartment> }) {
+  const cell = { padding: '7px 10px' } as const
+  const right = { ...cell, textAlign: 'right' as const, whiteSpace: 'nowrap' as const }
+  const over = d.restSpentLast - d.restBudgetLast
+  return (
+    <section id="overtime-by-department" data-ot-departments style={{ ...card, scrollMarginTop: 16 }}>
+      <h3 style={{ margin: '0 0 6px', color: 'var(--rbl-title)', fontSize: 17 }}>Overtime by department</h3>
+      <p style={{ color: 'var(--rbl-text-body)', fontSize: 14.5, lineHeight: 1.6, margin: '0 0 10px' }}>
+        Overtime budgets mostly stay the same from year to year, whatever was spent. <strong>{d.unchangedLines} of the {d.budgetedLines}</strong>{' '}
+        overtime lines with a {d.thisYear} budget carry into the {d.thisYear + 1} Preliminary at exactly the same amount. Without the sworn
+        police line above, departments spent <strong>{usd(d.restSpentLast)}</strong> on overtime in {d.lastActual} against {usd(d.restBudgetLast)}{' '}
+        budgeted, {usd(Math.abs(over))} {over > 0 ? 'over' : 'under'}. By {OT_SOURCE.ytdThrough}, {d.thisYear} they had spent {usd(d.restYtdNow)}{' '}
+        of {usd(d.restBudgetNow)}, and the {d.thisYear + 1} Preliminary budgets {usd(d.restProposed)}.
+        {d.spentByJune.length > 0 && <> {d.spentByJune.length === 1 ? 'One line' : `${d.spentByJune.length} lines`} had spent the whole year’s budget by {OT_SOURCE.ytdThrough}: {d.spentByJune.map((r) => r.department).join(', ')}.</>}
+      </p>
+      <div data-scroll-region style={{ overflowX: 'auto' }}>
+        <table className="rbl-stack" style={{ width: '100%', borderCollapse: 'collapse', fontSize: 13.5 }}>
+          <caption style={{ textAlign: 'left', fontWeight: 700, color: 'var(--rbl-text-strong)', paddingBottom: 6 }}>
+            Overtime lines, largest overspend in {d.lastActual} first
+          </caption>
+          <thead>
+            <tr style={{ textAlign: 'left', color: 'var(--rbl-text-muted)', borderBottom: '2px solid var(--rbl-border-subtle)' }}>
+              <th scope="col" style={cell}>Department</th>
+              <th scope="col" style={{ ...cell, textAlign: 'right' }}>{d.lastActual} budget</th>
+              <th scope="col" style={{ ...cell, textAlign: 'right' }}>{d.lastActual} spent</th>
+              <th scope="col" style={{ ...cell, textAlign: 'right' }}>{d.thisYear} budget</th>
+              <th scope="col" style={{ ...cell, textAlign: 'right' }}>Spent by {OT_SOURCE.ytdThrough}</th>
+              <th scope="col" style={{ ...cell, textAlign: 'right' }}>{d.thisYear + 1} Preliminary</th>
+              <th scope="col" style={{ ...cell, textAlign: 'right' }}>Years over, of 5</th>
+            </tr>
+          </thead>
+          <tbody>
+            {d.rows.map((r) => (
+              <tr key={r.account} data-ot-line={r.account} style={{ borderBottom: '1px solid var(--rbl-border-subtle)' }}>
+                <th scope="row" style={{ ...cell, textAlign: 'left', fontWeight: 700, color: 'var(--rbl-title)' }}>
+                  {r.department}
+                  <span style={{ display: 'block', fontWeight: 400, fontSize: 12, color: 'var(--rbl-text-muted)' }}>{r.account}</span>
+                </th>
+                <td data-label={`${d.lastActual} budget`} style={right}><span>{usd(r.budgetLast)}</span></td>
+                <td data-label={`${d.lastActual} spent`} style={{ ...right, fontWeight: r.spentLast > r.budgetLast ? 700 : 400 }}><span>{usd(r.spentLast)}</span></td>
+                <td data-label={`${d.thisYear} budget`} style={right}><span>{usd(r.budgetNow)}</span></td>
+                <td data-label={`Spent by ${OT_SOURCE.ytdThrough}`} style={right}>
+                  <span>{usd(r.ytdNow)}{r.ytdShare !== null && r.ytdShare >= 1 ? ', over the year’s budget' : ''}</span>
+                </td>
+                <td data-label={`${d.thisYear + 1} Preliminary`} style={right}><span>{usd(r.proposed)}{r.unchanged && r.budgetNow > 0 ? ', unchanged' : ''}</span></td>
+                <td data-label="Years over, of 5" style={right}><span>{r.yearsOver}</span></td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <p style={{ color: 'var(--rbl-text-body)', fontSize: 14.5, lineHeight: 1.6, margin: '10px 0 0' }}>
+        A budget set below what a department usually spends has to be covered by transfers from other lines during the year, and one
+        set above it holds money that could be used elsewhere. Questions residents may want to ask: why do the lines that run over every
+        year keep the same budget, and is overtime charged to the line for the work done? On the Highway Fund, plowing overtime appears
+        to be charged to repairs; see <a href={`${process.env.NEXT_PUBLIC_BASE_PATH || ''}/funds/DA1/#snow-overtime`} style={{ color: 'var(--rbl-link)' }}>snow-plowing overtime</a>.
+      </p>
+      <p style={{ color: 'var(--rbl-text-muted)', fontSize: 12.5, lineHeight: 1.5, margin: '10px 0 0' }}>
+        Every account with object code 111 (overtime) in the <a href={OT_SOURCE.url} style={{ color: 'var(--rbl-link)' }}>{OT_SOURCE.title}</a>, with the
+        Supplements before it for earlier years. “Spent by {OT_SOURCE.ytdThrough}” is the Supplement’s year-to-date column. Department names are
+        this site’s plain-English labels for the account codes.
       </p>
     </section>
   )
