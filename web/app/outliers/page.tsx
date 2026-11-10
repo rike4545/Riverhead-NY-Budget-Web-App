@@ -8,12 +8,22 @@ import {
 } from '../../lib/outlier-watch'
 import { supplementActualYear } from '../../lib/funds-2027'
 import SpendingCategories from '../../components/SpendingCategories'
+import FundPatterns from '../../components/FundPatterns'
+import { fundPatterns, type SpendLine, type RevenueLine } from '../../lib/fund-patterns'
+import { FUND_NAMES } from '../../lib/account-names'
+import { ONE_OFF_EXPLAINED } from '../../lib/account-changes'
+import revenueHistory from '../../public/data/budget-supplement/revenue-history.json'
 import { spendingCategories, type SupplementLine as CatLine, type Flag } from '../../lib/spending-categories'
 import lineHistory from '../../public/data/budget-supplement/line-history.json'
 import lineFlags from '../../public/data/budget-supplement/current-outliers.json'
 
 const flagList: Flag[] = (['overBudget', 'chronicOverrun', 'noBudget'] as const)
   .flatMap((k) => ((lineFlags as unknown as Record<string, { account: string; flag: string }[]>)[k] ?? []).map((x) => ({ account: x.account, flag: x.flag })))
+const patterns = fundPatterns(
+  lineHistory.accounts as unknown as SpendLine[], revenueHistory.accounts as unknown as RevenueLine[],
+  lineHistory.actualYears as number[], lineHistory.adoptedYears as number[], FUND_NAMES,
+  Object.entries(ONE_OFF_EXPLAINED).map(([account, o]) => ({ account, year: o.year, amount: o.amount, number: o.number })),
+)
 const categories = spendingCategories(lineHistory.accounts as unknown as CatLine[], flagList)
 
 const base = process.env.NEXT_PUBLIC_BASE_PATH || ''
@@ -110,6 +120,7 @@ export default function OutlierWatchPage() {
       {proposal && accountOutliers && <AccountSection />}
 
       <SpendingCategories categories={categories} />
+      <FundPatterns patterns={patterns} firstYear={Math.min(...(lineHistory.actualYears as number[]))} lastYear={Math.max(...(lineHistory.actualYears as number[]))} base={base} />
 
       <h2 style={{ margin: '0 0 10px', color: 'var(--rbl-title)', fontSize: 24, lineHeight: 1.25 }}>Every flag since {adoptedYears.first}</h2>
       <OutlierWatch outliers={outliers} transitions={transitions} />
