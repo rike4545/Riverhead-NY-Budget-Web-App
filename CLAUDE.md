@@ -183,7 +183,12 @@ catalog in `.claude/plugins/.claude-plugin/` and turned on in
 session that reads a redacted slice of the conversation and proposes skills;
 it writes them to `.claude/skills/`, each marked `self-authored` in its
 ledger, and retires the ones that go unused. `/learn` asks it to distill the
-current session now. `AUTOHARNESS_DISABLE_GLOBAL=1` keeps it to this project.
+current session now. `AUTOHARNESS_DISABLE_GLOBAL=1` keeps it to this project,
+and it reflects every 20 tool calls and consolidates every 100 (its defaults
+are 50 and 250). It was seeded on November 10, 2026 with five `riverhead-*`
+skills distilled from that day's work (merging, adding a page, the
+outdated-information review, checks, adopting outside tools); its ledger and
+sidecar files beside each skill mark them as its own, so commit them too.
 
 - A learned skill is a draft. Read it before committing it, and commit it only
   if it is right for this repo. Never commit `.claude/autoharness/` (its

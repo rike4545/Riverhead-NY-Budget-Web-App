@@ -8,7 +8,9 @@
     "autoharness@riverhead-local": true
   },
   "env": {
-    "AUTOHARNESS_DISABLE_GLOBAL": "1"
+    "AUTOHARNESS_DISABLE_GLOBAL": "1",
+    "AUTOHARNESS_REFLECT_EVERY_N": "20",
+    "AUTOHARNESS_CONSOLIDATE_EVERY_N": "100"
   },
   "hooks": {
     "SessionStart": [
