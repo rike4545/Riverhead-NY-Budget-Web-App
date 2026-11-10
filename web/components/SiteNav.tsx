@@ -36,7 +36,7 @@ const GROUPS: Group[] = [
   ] },
   { label: 'Spending checks', links: [
     ['Budget vs. actual spending', `${base}/budget-accuracy/`], ['Budget changes the Board approved', `${base}/budget-changes/`], ['Cost of Board decisions', `${base}/fiscal-impact/`],
-    ['Unusual spending patterns', `${base}/outliers/`], ['Contracts and bids', `${base}/contracts/`], ['Legal costs', `${base}/legal-costs/`], ['Regional CPF counsel', `${base}/regional-cpf-counsel/`],
+    ['Unusual spending patterns', `${base}/outliers/`], ['Contracts and bids', `${base}/contracts/`], ['Optimum cable franchise and Verizon', `${base}/cable-franchise/`], ['Legal costs', `${base}/legal-costs/`], ['Regional CPF counsel', `${base}/regional-cpf-counsel/`],
     ['Town Square project', `${base}/town-square/`], ['New Justice Court at 200 Howell', `${base}/justice-court/`], ['Road spending', `${base}/road-spending/`], ['Ambulance funding', `${base}/rvac-funding/`],
     ['Police spending and crime', `${base}/police-crime/`], ['School resource officers', `${base}/school-resource-officers/`],
   ] },

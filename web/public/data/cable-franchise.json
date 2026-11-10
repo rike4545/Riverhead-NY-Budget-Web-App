@@ -1,0 +1,53 @@
+{
+ "$comment": "Hand-curated for /cable-franchise/. Town actions are quoted from the CivicClerk minutes of April 5 and April 19, 2016; federal law from 47 U.S.C. 541, 542 and 546; revenue from the Budget Supplement data this site already publishes (budget-supplement/revenue-history.json, account A01-1170) and the 2027 Preliminary Budget. News items are labelled. web/scripts/verify-cable-franchise.mjs checks the figures against the site's own budget data.",
+ "asOf": "2026-11-10",
+ "recordsSearched": "the Town Board's 2025 and 2026 meeting records, through November 5, 2026",
+ "franchise": {
+  "operator": "CSC Acquisition-NY, Inc. (Cablevision), now Optimum, owned by Altice USA",
+  "resolution": "#279",
+  "adopted": "2016-04-19",
+  "vote": "5 to 0",
+  "minutesUrl": "https://riverheadny.portal.civicclerk.com/event/2177/files/minutes/4039",
+  "hearing": "2016-04-05",
+  "hearingUrl": "https://riverheadny.portal.civicclerk.com/event/2047/files/minutes/3841",
+  "term": "The proposed agreement before you is a renewal of cablevisions franchise for a term of ten (10) years. The agreement becomes effective upon confirmation by the New York Public Service Commission.",
+  "endNote": "The minutes say the ten years start when the State Public Service Commission confirms the agreement. This site has not found the confirmation order, so it cannot give the end date. A term confirmed in 2016 or 2017 would end in 2026 or 2027: ask the Town for the date.",
+  "terms": [
+   { "topic": "Franchise fee", "quote": "franchise fees at five percent on a broad basis of gross revenue definition. Right now it’s somewhere around eight hundred and sixty thousand dollars" },
+   { "topic": "Grants to the Town", "quote": "an upfront Grant of one hundred thousand dollars in support of paid access programing payable within sixty days of the effective date; a public education and government equipment purchase and installment, the purchase and installation of playback equipment and mounted cameras in this room at a value of fifty thousand dollars; a technical Grant of five thousand dollars" },
+   { "topic": "Senior discount", "quote": "fifteen percent off expanded basic and equivalent level of service plus fifteen percent off installs" },
+   { "topic": "Free service", "quote": "free basic cable service to at this point we’re still finalizing the final list. There’s around thirty-four locations between schools, libraries, fire department, police department and municipal buildings" },
+   { "topic": "Access channels", "quote": "the continuation of the airing of your two access channels. So you have here channel 20 which is the regional public access channel and then channel 22" },
+   { "topic": "Not exclusive", "quote": "Any cable company can come in as long as they have a franchise agreement with us can come in and give us service. So it’s not exclusive to them" }
+  ],
+  "speakers": { "Franchise fee": "Cablevision’s Director of Government Affairs", "Grants to the Town": "Cablevision’s Director of Government Affairs", "Senior discount": "Cablevision’s Director of Government Affairs", "Free service": "Cablevision’s Director of Government Affairs", "Access channels": "Cablevision’s Director of Government Affairs", "Not exclusive": "Councilman John Dunleavy" }
+ },
+ "revenue": {
+  "account": "A01-1170-000-00000-F",
+  "name": "Franchises",
+  "note": "The General Fund’s “Franchises” revenue line. The budget does not split it by company, so it may include franchise payments other than Optimum’s.",
+  "actual": { "2018": 915483, "2019": 891149, "2020": 859283, "2021": 892425, "2022": 867868, "2023": 869927, "2024": 838232, "2025": 814730 },
+  "adopted2026": 800000,
+  "preliminary2027": 740000,
+  "source": "Town of Riverhead 2027 Budget Supplement and 2027 Preliminary Budget"
+ },
+ "law": [
+  { "topic": "No exclusive franchise", "cite": "47 U.S.C. §541(a)(1)", "url": "https://www.law.cornell.edu/uscode/text/47/541", "quote": "a franchising authority may not grant an exclusive franchise and may not unreasonably refuse to award an additional competitive franchise" },
+  { "topic": "Fee cap", "cite": "47 U.S.C. §542(b)", "url": "https://www.law.cornell.edu/uscode/text/47/542", "quote": "the franchise fees paid by a cable operator with respect to any cable system shall not exceed 5 percent of such cable operator’s gross revenues derived in such period from the operation of the cable system to provide cable services" },
+  { "topic": "Renewal review", "cite": "47 U.S.C. §546(a)", "url": "https://www.law.cornell.edu/uscode/text/47/546", "quote": "A franchising authority may, on its own initiative during the 6-month period which begins with the 36th month before the franchise expiration, commence a proceeding which affords the public in the franchise area appropriate notice and participation for the purpose of (A) identifying the future cable-related community needs and interests, and (B) reviewing the performance of the cable operator under the franchise during the then current franchise term." },
+  { "topic": "Informal renewal", "cite": "47 U.S.C. §546(h)", "url": "https://www.law.cornell.edu/uscode/text/47/546", "quote": "a cable operator may submit a proposal for the renewal of a franchise pursuant to this subsection at any time" }
+ ],
+ "verizon": [
+  { "date": "2014-11-04", "point": "Asked about bringing FiOS to the East End, a Verizon spokesperson said, “It’s a simple no,” and the paper reported the company “isn’t planning to invest in any new build-outs.” The paper also reported that Riverhead’s earlier franchise with Cablevision included “a non-exclusivity deal allowing the towns to allow other cable companies to operate.”", "source": { "kind": "news", "title": "Riverhead News-Review, November 4, 2014", "url": "https://riverheadnewsreview.archive.timesreview.com/2014/11/verizon-fios-isnt-coming-to-east-end-rally-or-no-rally" } },
+  { "date": "2014-11-10", "point": "A union and elected officials, including Riverhead’s Supervisor, asked the State Public Service Commission to order Verizon to bring FiOS to Suffolk.", "source": { "kind": "news", "title": "RiverheadLOCAL, November 10, 2014", "url": "https://riverheadlocal.com/topic/fios/" } }
+ ],
+ "verizonNow": "This site found no Town Board resolution, hearing or application in 2025 or 2026 about a Verizon cable franchise in Riverhead, and no current statement from Verizon about building FiOS here. Commercial availability websites give conflicting figures, so the page does not use them.",
+ "channels": { "date": "2025-08-26", "point": "Optimum moved the Town’s government channel from 22 to 1310 and the public access channels 20 and 115 to 1300 and 1302. The Town said the change was “initiated without prior notice.” Meetings remain available on the Town’s website.", "source": { "kind": "news", "title": "RiverheadLOCAL, August 26, 2025", "url": "https://riverheadlocal.com/2025/08/26/optimum-moves-government-public-access-channels-surprising-local-officials/" } },
+ "questions": [
+  "When did the State Public Service Commission confirm the 2016 franchise, and when does it end?",
+  "Has the Town started the renewal review federal law allows, with public notice, to identify residents’ cable needs and review Optimum’s performance?",
+  "Will a renewal keep the 15 percent senior discount, the free service to Town buildings and schools, and channel placement the Town agrees to in advance?",
+  "Has the Town asked Verizon, or any other provider, whether it would apply for a competing franchise? Federal law lets the Town grant one but not require anyone to build.",
+  "Franchise revenue fell from $915,483 in 2018 to $814,730 in 2025. What does the Town expect as more residents drop cable, and does it plan for that in the budget?"
+ ]
+}
