@@ -1,5 +1,6 @@
 import Sparkline from './Sparkline'
 import { CATEGORY_SOURCE, type CategoryResult } from '../lib/spending-categories'
+import { plainAccountName } from '../lib/account-names'
 
 // Recurring costs by category on /outliers/ (lib/spending-categories.ts;
 // checked by scripts/verify-spending-categories.mjs). Server-rendered.
@@ -159,24 +160,53 @@ function CategoryCard({ c }: { c: CategoryResult }) {
           </table>
         </div>
         {c.oneOffs.length > 0 && <p style={{ margin: '6px 0 0', color: 'var(--rbl-text-muted)', fontSize: 13 }}>* Without the one-off entry described above.</p>}
-        <p style={{ margin: '14px 0 6px', color: 'var(--rbl-text-strong)', fontWeight: 700, fontSize: 15 }}>The largest accounts</p>
-        <ul style={{ listStyle: 'none', margin: 0, padding: 0, display: 'grid', gap: 8 }}>
-          {c.top.map((t) => (
-            <li key={t.account} style={{ display: 'grid', gridTemplateColumns: 'minmax(0,1fr) auto', gap: 10, alignItems: 'center', borderTop: '1px solid var(--rbl-border-subtle)', paddingTop: 8 }}>
-              <span style={{ fontSize: 14.5, color: 'var(--rbl-text-body)', lineHeight: 1.5 }}>
-                <strong style={{ color: 'var(--rbl-title)' }}>{t.name}</strong>{' '}
-                <span style={{ color: 'var(--rbl-text-muted)', fontSize: 12.5 }}>{t.account}</span>
-                <span style={{ display: 'block' }}>
-                  {c.lastActual}: {usd(t.last)} of {usd(t.budgetLast)}; {c.thisYear}: {usd(t.ytdNow)} of {usd(t.budgetNow)} by {CATEGORY_SOURCE.ytdThrough}; {c.thisYear + 1}: {usd(t.proposed)}
-                </span>
-              </span>
-              <span role="img" aria-label={`Spending ${c.actualYears[0]} to ${c.lastActual}: ${t.actuals.map((v) => (v === null ? 'none' : usd(v))).join(', ')}`}>
-                <Sparkline values={t.actuals} width={110} height={30} />
-              </span>
-            </li>
-          ))}
-        </ul>
+        <p style={{ margin: '14px 0 6px', color: 'var(--rbl-text-strong)', fontWeight: 700, fontSize: 15 }}>Every account, with its history</p>
+        <AccountList c={c} rows={c.all.slice(0, 6)} />
+        {c.all.length > 6 && (
+          <details style={{ marginTop: 8 }}>
+            <summary style={{ cursor: 'pointer', minHeight: 32, color: 'var(--rbl-link)', fontWeight: 600, fontSize: 14.5 }}>The other {c.all.length - 6} accounts</summary>
+            <AccountList c={c} rows={c.all.slice(6)} />
+          </details>
+        )}
+        {c.inactive > 0 && (
+          <p style={{ margin: '8px 0 0', color: 'var(--rbl-text-muted)', fontSize: 13 }}>
+            {c.inactive} more {c.inactive === 1 ? 'account has' : 'accounts have'} no budget or spending in any year shown.
+          </p>
+        )}
       </div>
     </details>
+  )
+}
+
+function AccountList({ c, rows }: { c: CategoryResult; rows: CategoryResult['all'] }) {
+  const n = c.years.length
+  return (
+    <ul style={{ listStyle: 'none', margin: 0, padding: 0, display: 'grid', gap: 8 }}>
+      {rows.map((t) => {
+        const plain = plainAccountName(t.account, t.townName)
+        return (
+          <li key={t.account} data-category-line={t.account} style={{ display: 'grid', gridTemplateColumns: 'minmax(0,1fr) auto', gap: 10, alignItems: 'center', borderTop: '1px solid var(--rbl-border-subtle)', paddingTop: 8 }}>
+            <span style={{ fontSize: 14.5, color: 'var(--rbl-text-body)', lineHeight: 1.5 }}>
+              <strong style={{ color: 'var(--rbl-title)' }}>{plain.name}</strong>
+              <span style={{ display: 'block', color: 'var(--rbl-text-muted)', fontSize: 12.5 }}>
+                {plain.known ? <>Town’s name: “{t.townName}”, </> : <>This site has not identified the abbreviation. </>}{t.account}, Supplement page {t.page}
+              </span>
+              <span style={{ display: 'block' }}>
+                {c.lastActual}: {usd(t.last)} spent of {usd(t.budgetLast)}. {c.thisYear}: {usd(t.ytdNow)} by {CATEGORY_SOURCE.ytdThrough} of {usd(t.budgetNow)}. {c.thisYear + 1} Preliminary: {usd(t.proposed)}.
+              </span>
+              <span style={{ display: 'block', color: 'var(--rbl-text-sub)', fontSize: 13.5 }}>
+                {t.yearsBudgeted > 0
+                  ? <>Budgeted in {t.yearsBudgeted} of {n} years ({c.years[0].year}–{c.lastActual}); spent more than the budget in {t.yearsOver === 0 ? 'none of them' : t.yearsOver === t.yearsBudgeted ? `all ${t.yearsOver}` : t.yearsOver}.</>
+                  : <>No budget in any year from {c.years[0].year} to {c.lastActual}.</>}
+                {t.yearsUnbudgeted > 0 && <> Spent money with no budget in {t.yearsUnbudgeted} {t.yearsUnbudgeted === 1 ? 'year' : 'years'}.</>}
+              </span>
+            </span>
+            <span role="img" aria-label={`Spending ${c.actualYears[0]} to ${c.lastActual}: ${t.actuals.map((v) => (v === null ? 'none' : usd(v))).join(', ')}`}>
+              <Sparkline values={t.actuals} width={110} height={30} />
+            </span>
+          </li>
+        )
+      })}
+    </ul>
   )
 }

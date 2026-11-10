@@ -92,15 +92,26 @@ export function spendingCategories(accounts: SupplementLine[], flags: Flag[]) {
       : null
     const first = years[0]
     const flagged = flags.filter((f) => ls.some((l) => l.account === f.account))
-    const top = [...ls]
+    // Every account in the category with any budget or spending since the
+    // first compared year, largest first, each with its own history.
+    const active = ls.filter((l) => compared.some((y) => (l.actual[y] ?? 0) !== 0 || (l.adopted[y] ?? 0) !== 0) || (l.adopted[thisYear] ?? 0) !== 0 || (l.ytd[thisYear] ?? 0) !== 0 || (l.proposed ?? 0) !== 0)
+    const all = [...active]
       .sort((a, b) => ((b.actual[lastActual] ?? 0) + (b.adopted[thisYear] ?? 0)) - ((a.actual[lastActual] ?? 0) + (a.adopted[thisYear] ?? 0)))
-      .slice(0, 4)
-      .map((l) => ({
-        account: l.account, name: l.name, page: l.page,
-        actuals: actualYears.map((y) => l.actual[y] ?? null),
-        last: l.actual[lastActual] ?? 0, budgetLast: l.adopted[lastActual] ?? 0,
-        budgetNow: l.adopted[thisYear] ?? 0, ytdNow: l.ytd[thisYear] ?? 0, proposed: l.proposed ?? 0,
-      }))
+      .map((l) => {
+        const withBudget = compared.filter((y) => (l.adopted[y] ?? 0) > 0)
+        return {
+          account: l.account, townName: l.name, page: l.page,
+          actuals: actualYears.map((y) => l.actual[y] ?? null),
+          last: l.actual[lastActual] ?? 0, budgetLast: l.adopted[lastActual] ?? 0,
+          budgetNow: l.adopted[thisYear] ?? 0, ytdNow: l.ytd[thisYear] ?? 0, proposed: l.proposed ?? 0,
+          /** Years this account had a budget, and how many of them it spent more than budgeted. */
+          yearsBudgeted: withBudget.length,
+          yearsOver: withBudget.filter((y) => (l.actual[y] ?? 0) > l.adopted[y]).length,
+          /** Years it spent money with no budget at all. */
+          yearsUnbudgeted: compared.filter((y) => (l.adopted[y] ?? 0) === 0 && (l.actual[y] ?? 0) > 0).length,
+        }
+      })
+    const top = all.slice(0, 4)
     return {
       ...c,
       lines: ls.length,
@@ -128,6 +139,9 @@ export function spendingCategories(accounts: SupplementLine[], flags: Flag[]) {
       oneOffs,
       flagged,
       top,
+      all,
+      /** Accounts with no budget or spending in any year shown. */
+      inactive: ls.length - active.length,
     }
   })
 }

@@ -9,6 +9,7 @@
 import { existsSync, readFileSync } from 'node:fs'
 import { join } from 'node:path'
 import { CATEGORIES, spendingCategories } from '../lib/spending-categories.ts'
+import { plainAccountName } from '../lib/account-names.ts'
 
 const root = process.cwd()
 const fail = (m) => { console.error(`SPENDING CATEGORIES VERIFY FAILED: ${m}`); process.exitCode = 1 }
@@ -58,6 +59,11 @@ else {
     if (!raw.includes(`data-category-card="${c.id}"`)) fail(`the page has no card for ${c.label}`)
     const last = c.years[c.years.length - 1]
     for (const n of [last.budget, last.usual, c.budgetNow, c.ytdNow, c.proposed]) if (!html.includes(usd(n))) fail(`${c.label}: the page does not show ${usd(n)}`)
+    for (const l of c.all) {
+      const p = plainAccountName(l.account, l.townName)
+      if (!p.known) fail(`${l.account} ("${l.townName}") has no plain department name`)
+      if (!raw.includes(`data-category-line="${l.account}"`)) fail(`${c.label}: the page does not list ${l.account}`)
+    }
     for (const one of c.oneOffs) if (!raw.includes(`data-one-off="${one.account}"`) || !html.includes(usd(one.actual))) fail(`${c.label}: the one-off ${one.account} is not explained on the page`)
   }
 }
