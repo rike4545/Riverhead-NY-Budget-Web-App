@@ -1,6 +1,6 @@
 {
- "generatedAt": "2026-11-09T22:46:42Z",
- "generatedAtDisplay": "November 9, 2026",
+ "generatedAt": "2026-11-10T04:10:39Z",
+ "generatedAtDisplay": "November 10, 2026",
  "dataVersion": "686d7a988e46e80e",
  "datasets": {
   "meetings": 52,
@@ -41,7 +41,7 @@
    "cadence": "Checked weekly as the Town publishes minutes; meetings are not held every week",
    "records": 2201,
    "freshness": "current",
-   "freshnessNote": "Source date is 4 days old, inside the expected window.",
+   "freshnessNote": "Source date is 5 days old, inside the expected window.",
    "freshnessPolicy": {
     "mode": "date",
     "currentDays": 28,
@@ -79,7 +79,7 @@
   },
   "projection": {
    "label": "2027 projection model",
-   "asOf": "November 9, 2026",
+   "asOf": "November 10, 2026",
    "status": "projected",
    "cadence": "Regenerated with the ETL pipeline",
    "records": null,
@@ -90,11 +90,11 @@
     "currentDays": 7,
     "staleDays": 14
    },
-   "sourceDate": "2026-11-09"
+   "sourceDate": "2026-11-10"
   },
   "search": {
    "label": "Unified search index",
-   "asOf": "November 9, 2026",
+   "asOf": "November 10, 2026",
    "status": "calculated",
    "cadence": "Regenerated with source datasets",
    "records": 17494,
@@ -105,7 +105,7 @@
     "currentDays": 7,
     "staleDays": 14
    },
-   "sourceDate": "2026-11-09",
+   "sourceDate": "2026-11-10",
    "format": "sharded",
    "bytes": 5959818
   }
