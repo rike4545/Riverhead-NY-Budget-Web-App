@@ -22,7 +22,7 @@ export const DEPARTMENTS: Record<string, string> = {
   'A01-8686': 'Community development',
   'A04-3120': 'Police Athletic League', 'A04-3125': 'Police Athletic League, juvenile aid', 'A04-7311': 'Police Athletic League basketball',
   'A04-7312': 'Police Athletic League soccer', 'A04-7313': 'Police Athletic League travel soccer', 'A04-7314': 'Police Athletic League lacrosse',
-  'A06-7020': 'Recreation programs, administration', 'A06-7110': 'Recreation programs, parks', 'A06-7310': 'Recreation programs, youth',
+  'A04-7625': 'Police Athletic League, liability insurance', 'A06-7000': 'Recreation programs, culture', 'A06-7020': 'Recreation programs, administration', 'A06-7110': 'Recreation programs, parks', 'A06-7310': 'Recreation programs, youth',
   'A06-7311': 'Recreation programs, basketball', 'A06-7315': 'Recreation programs, other youth', 'A06-7620': 'Recreation programs, adults',
   'A06-7625': 'Recreation programs, softball', 'A06-7626': 'Recreation programs, non-resident', 'A06-7627': 'Recreation programs, adaptive adult',
   'CM1-6410': 'Business Improvement District', 'CM2-7230': 'East Creek docking', 'CM4-1420': 'Community Preservation Fund, legal',

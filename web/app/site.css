@@ -200,3 +200,11 @@ summary{min-height:24px}input[type=range]{min-height:24px}
   html.fis-printing #fis-form { border: 0 !important; border-radius: 0 !important; padding: 0 !important; max-width: none !important; }
   html.fis-printing .fis-page-break { break-before: page; }
 }
+
+/* Department efficiency view (/department-efficiency/): "Print or save the survey kit" prints the two questionnaires alone, the staff survey on its own page, the same way as the fiscal impact helper's form above. */
+@media print {
+  html.eff-printing body *:not(:has(#eff-survey-kit)):not(#eff-survey-kit):not(#eff-survey-kit *) { display: none !important; }
+  html.eff-printing body, html.eff-printing main { margin: 0 !important; padding: 0 !important; background: #fff !important; }
+  html.eff-printing #eff-survey-kit { border: 0 !important; border-radius: 0 !important; padding: 0 !important; }
+  html.eff-printing .eff-page-break { break-before: page; }
+}

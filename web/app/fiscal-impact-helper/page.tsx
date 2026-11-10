@@ -34,7 +34,7 @@ export default function FiscalImpactHelperPage() {
       <PlainCallout
         tips={[
           { label: 'Section G', text: 'the part that names the accounts. Budget adjustments list the revenue or savings account under “Grant or other Revenue Source” and the spending lines under “Appropriation Transfer”, as the Town’s accounting staff fill it.' },
-          { label: 'Journal entries', text: 'a resolution can carry one or several. Each one balances on its own and stays in one fund.' },
+          { label: 'Journal entries', text: 'a resolution can carry one or up to ten. Each one balances on its own, and the reconciliation adds them up by account and fund.' },
           { label: 'Private', text: 'everything runs in your browser. Nothing you type is sent or saved.' },
         ]}
       >
