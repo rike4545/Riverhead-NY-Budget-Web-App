@@ -23,7 +23,7 @@ const num = { ...td, textAlign: 'right' as const, whiteSpace: 'nowrap' as const,
 const shortDate = (iso: string) => new Date(`${iso}T00:00:00Z`).toLocaleDateString('en-US', { timeZone: 'UTC', month: 'short', day: 'numeric' })
 
 export const metadata = {
-  title: 'Where the surplus went — every 2026 resolution that spent fund balance',
+  title: 'Where the surplus went: every 2026 resolution that spent fund balance',
   description:
     'Riverhead uses accumulated surplus through two channels: the adopted budget appropriates it up front, and individual Town Board resolutions appropriate more during the year. This page lists every 2026 resolution that charged an Appropriated Fund Balance account, in the General Fund and in the other funds, what it funded, and how much of the record it can see.',
 }
@@ -36,7 +36,7 @@ export default function FundBalanceDrawsPage() {
     >
       <PlainCallout
         tips={[
-          { label: 'Fund balance', text: 'accumulated surplus — money left over from prior years. It is a balance, not an income stream: spending it is a one-time act that cannot be repeated without rebuilding it first.' },
+          { label: 'Fund balance', text: 'accumulated surplus: money left over from prior years. It is a balance, not an income stream, so spending it is a one-time act that cannot be repeated without rebuilding it first.' },
           { label: 'Appropriated, not spent', text: 'these votes create the authority to spend. Whether the money was then obligated or paid out is a separate question, and not one this site can answer.' },
           { label: 'Object code 9999', text: 'the Town numbers its Appropriated Fund Balance accounts like revenue lines (A01-9999 in the General Fund), but the money is not new revenue. The State Comptroller\u2019s accounting manual keeps it as a budget account of its own, 599 Appropriated Fund Balance. A resolution that draws on it adds the same amount to the fund balance the budget uses and to what the budget may spend: a debit to 599 and a credit to 960 Appropriations.' },
         ]}
@@ -51,11 +51,14 @@ export default function FundBalanceDrawsPage() {
             listed separately below because that money does not pay for General Fund services.
           </>
         )}
+        {' '}New to these terms? See{' '}
+        <a href={`${base}/glossary/#term-appropriated-fund-balance`} style={{ color: 'var(--rbl-link)', fontWeight: 600 }}>appropriated fund balance</a> in the glossary, or{' '}
+        <a href={`${base}/accounting-basics/#fund-balance`} style={{ color: 'var(--rbl-link)', fontWeight: 600 }}>the five tiers of fund balance</a>.
       </PlainCallout>
 
       <section style={{ ...card, display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(170px,1fr))', gap: 12, marginTop: 16, marginBottom: 16 }}>
         <Stat label="Budgeted up front" value={usd(generalFundBudgetedUse)} sub="General Fund, 2026 adopted budget" />
-        <Stat label="Charged by resolution" value={usd(chargedToFundBalanceTotal)} sub={`${chargedToFundBalanceCount} adopted votes hitting A01-9999`} accent />
+        <Stat label="Charged by resolution" value={usd(chargedToFundBalanceTotal)} sub={`${chargedToFundBalanceCount} adopted votes charging A01-9999: ${usd(documentedTotal)} unassigned, ${usd(otherTierDrawTotal)} assigned`} accent />
         <Stat label="Combined, General Fund" value={usd(generalFundUseThisYear)} sub="see the caveat below" />
         {otherFundDraws.length > 0 && (
           <Stat label="Other funds, by resolution" value={usd(otherFundDrawTotal)} sub={`${otherFundVotes.priced} votes in ${otherFundsPriced} funds, kept apart${otherFundVotes.unpriced ? `; ${otherFundVotes.unpriced} ${otherFundVotes.unpriced === 1 ? 'vote names' : 'votes name'} an account with no amount` : ''}`} />
@@ -112,14 +115,18 @@ export default function FundBalanceDrawsPage() {
         )}
         {plannedUse2027 && plannedUse2027.generalFund !== null && (
           <p style={{ color: 'var(--rbl-text-body)', fontSize: 13.5, lineHeight: 1.6, marginBottom: 0, marginTop: 10 }}>
-            <strong>For 2027</strong>, the Tentative budget, a proposal the Board has not yet adopted, plans{' '}
-            <strong>{usd(plannedUse2027.generalFund)}</strong> of General Fund balance
+            <strong>For 2027</strong>, the {plannedUse2027.stage === 'adopted' ? 'Adopted budget' : `${plannedUse2027.stage === 'preliminary' ? 'Preliminary' : 'Tentative'} budget, which the Board can still change before it adopts the budget,`}{' '}
+            plans <strong>{usd(plannedUse2027.generalFund)}</strong> of General Fund balance
             {plannedUse2027.generalFundPrior !== null && plannedUse2027.generalFundPrior !== plannedUse2027.generalFund && (
               <>, {usd(Math.abs(plannedUse2027.generalFund - plannedUse2027.generalFundPrior))}{' '}
               {plannedUse2027.generalFund < plannedUse2027.generalFundPrior ? 'less' : 'more'} than 2026</>
             )}
-            , and <strong>{usd(plannedUse2027.allFunds)}</strong> across all funds.{' '}
-            <a href={`${base}/tentative-2027/`} style={{ color: 'var(--rbl-accent)', fontWeight: 700 }}>See the 2027 Tentative</a>.
+            , and <strong>{usd(plannedUse2027.allFunds)}</strong> across all funds.
+            {plannedUse2027.stage !== 'tentative' && plannedUse2027.tentativeGeneralFund !== null && plannedUse2027.tentativeGeneralFund !== plannedUse2027.generalFund && (
+              <> The Tentative had planned {usd(plannedUse2027.tentativeGeneralFund)} before the Board&apos;s amendments.</>
+            )}{' '}
+            <a href={`${base}/budget-amendments-2027/`} style={{ color: 'var(--rbl-accent)', fontWeight: 700 }}>See the 2027 budget amendments</a>.
+            {' '}Votes that amend the 2027 budget change next year&apos;s plan, not this year&apos;s balance, so they are not counted below.
           </p>
         )}
       </section>
@@ -145,9 +152,9 @@ export default function FundBalanceDrawsPage() {
           <p style={{ color: 'var(--rbl-text-body)', fontSize: 14.5, lineHeight: 1.6, marginTop: 0 }}>
             These were read from the record rather than from an account line, so they are <strong>not</strong> added
             to the figure above and are not claimed to have charged A01-9999. The largest, the East Main Street
-            acquisition, was authorized explicitly from General Fund balance — a firm vote, but the record notes the
+            acquisition, was authorized explicitly from General Fund balance. That is a firm vote, but the record notes the
             figure could <em>rise</em> if the owner pursues more in court, so it is not a settled cost either. They
-            are listed because leaving a committed sum off a page about committed sums would be its own distortion.
+            are listed because a page about committed money would be incomplete without them.
           </p>
           <DrawTable rows={curatedCommitments} total={curatedTotal} totalLabel="Committed, not booked to 9999" />
         </section>
@@ -160,15 +167,15 @@ export default function FundBalanceDrawsPage() {
             GASB Statement 54 splits fund balance into five tiers, and this site measures the cushion on the
             unassigned one. {otherTierGeneralFundDraws.length === 1 ? 'This draw names' : 'These draws name'} a
             different tier on the account itself, so netting {otherTierGeneralFundDraws.length === 1 ? 'it' : 'them'}{' '}
-            against the unassigned cushion would report the cushion shrinking when it has not moved. Real money and a
-            real vote — shown here rather than filtered away in silence.
+            against the unassigned cushion would report the cushion shrinking when it has not moved. They are still
+            money spent by a Board vote, so they are listed here.
           </p>
           <ul style={{ margin: 0, paddingLeft: 18, color: 'var(--rbl-text-body)', fontSize: 14, lineHeight: 1.6 }}>
             {otherTierGeneralFundDraws.map((d) => (
               <li key={d.number ?? d.title} style={{ marginBottom: 6 }}>
-                <strong>{usd(d.amount)}</strong> — {d.title}{' '}
+                <strong>{usd(d.amount)}</strong>: {d.title}{' '}
                 <span style={{ color: 'var(--rbl-text-muted)' }}>
-                  (Resolution {d.number ?? '—'}, {d.tiers.join(', ')})
+                  (Resolution {d.number ?? 'unnumbered'}, {d.tiers.join(', ')} fund balance)
                 </span>
                 {d.tableGap && <div style={{ color: 'var(--rbl-warn)', fontSize: 12, marginTop: 2 }}>{gapNote(d.tableGap)}</div>}
               </li>
@@ -288,7 +295,7 @@ function DrawTable({ rows, total, totalLabel }: { rows: Commitment[]; total: num
                 )}
                 {c.supersedes && (
                   <div style={{ color: 'var(--rbl-warn)', fontSize: 12, marginTop: 2 }}>
-                    Replaces a {usd(c.supersedes.was)} ceiling carried before the Town published a figure — lower by{' '}
+                    Replaces a {usd(c.supersedes.was)} ceiling carried before the Town published a figure, lower by{' '}
                     {usd(c.supersedes.was - c.supersedes.by)}.
                   </div>
                 )}

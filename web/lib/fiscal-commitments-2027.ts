@@ -74,6 +74,20 @@ const allRes = meetings
   .flatMap((m) => m.resolutions.map((r) => ({ ...r, meetingDate: m.meetingDate })))
 const isAdopted = (r: { vote: { adopted: boolean | null } }) => r.vote?.adopted === true
 
+/**
+ * A resolution that amends a LATER year's budget, such as "Authorizes Amendment
+ * #3 to the 2027 Preliminary Budget". Its 9999 line changes how much fund
+ * balance that budget plans to use, which the later budget document already
+ * carries; it is not a draw on this year's balance. Resolution 2026-937 moved
+ * $70,000 off the 2027 General Fund's appropriated fund balance (the Tentative's
+ * $950,000 became the Preliminary's $880,000) and was being counted here as a
+ * $70,000 draw in 2026.
+ */
+const amendsLaterBudget = (r: { title?: string | null }) => {
+  const m = (r.title ?? '').match(/\b(20\d\d)\s+(?:Tentative|Preliminary|Adopted)?\s*Budget\b/i)
+  return !!m && Number(m[1]) > COMMITMENT_YEAR
+}
+
 // THE ETL's "reserve-draw" FLAG CONFLATES TWO DIFFERENT THINGS, and only one of
 // them touches fund balance. etl/parse_fiscal_impact.py assigns the flag from the
 // resolution's CATEGORY and the Yes/No box alone — it never reads an amount — and
@@ -253,6 +267,7 @@ const isUnassignedDraw = (r: FiscalRes) =>
 const generalFundBalanceDraws = allRes.filter(
   (r) =>
     isAdopted(r) &&
+    !amendsLaterBudget(r) &&
     r.funding?.drawsFundBalance === true &&
     (generalFundDraw(r)?.amount ?? 0) > 0,
 )
@@ -298,7 +313,7 @@ export const otherTierDrawTotal = otherTierGeneralFundDraws.reduce((s, d) => s +
  * an amount stays unpriced even when the other fund's line has one.
  */
 export const otherFundDraws = allRes
-  .filter((r) => isAdopted(r) && r.funding?.drawsFundBalance === true)
+  .filter((r) => isAdopted(r) && !amendsLaterBudget(r) && r.funding?.drawsFundBalance === true)
   .flatMap((r) =>
     fundDraws(r)
       .filter((d) => d.fund !== GENERAL_FUND)

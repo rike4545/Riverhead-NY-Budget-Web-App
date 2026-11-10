@@ -177,9 +177,20 @@ for (const { slug, r } of draws) {
 }
 
 // ── 3. The built page, against the source lines ──────────────────────────────
+// A vote amending a later year's budget ("Amendment #3 to the 2027 Preliminary
+// Budget") changes that budget's planned use of fund balance, not this year's
+// balance, so the page leaves it out. The same rule as amendsLaterBudget in
+// lib/fiscal-commitments-2027.ts, written again here so the two are checked
+// against each other rather than one against itself.
+const COMMITMENT_YEAR = 2026
+const amendsLaterBudget = (r) => {
+  const m = (r.title ?? '').match(/\b(20\d\d)\s+(?:Tentative|Preliminary|Adopted)?\s*Budget\b/i)
+  return !!m && Number(m[1]) > COMMITMENT_YEAR
+}
+const laterBudget = draws.filter(({ r }) => amendsLaterBudget(r))
 let generalFund = 0
 let otherFunds = 0
-for (const { r } of draws) {
+for (const { r } of draws.filter(({ slug, r }) => slug.startsWith(`${COMMITMENT_YEAR}-`) && !amendsLaterBudget(r))) {
   for (const [fund, amount] of adoptedByFund(r)) {
     if (fund === GENERAL_FUND) generalFund += amount ?? 0
     else otherFunds += amount ?? 0
@@ -224,7 +235,8 @@ if (!existsSync(pageFile)) {
     console.log(
       `Fund-balance lines: ${cases.length} split cases pass; ${draws.length} adopted draws each counted once; ` +
       `/fund-balance-draws/ matches its source lines (General Fund ${generalFund.toLocaleString('en-US')}, ` +
-      `other funds ${otherFunds.toLocaleString('en-US')} in ${groups.length} funds).`,
+      `other funds ${otherFunds.toLocaleString('en-US')} in ${groups.length} funds; ` +
+      `${laterBudget.length} vote${laterBudget.length === 1 ? '' : 's'} amending a later year's budget left out: ${laterBudget.map(({ r }) => r.number).join(', ') || 'none'}).`,
     )
   }
 }
