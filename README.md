@@ -592,7 +592,7 @@ the numbers are labeled and sourced (`/evidence`).
 
 ## Search
 
-The search covers about 17,400 records: the site's own 83 pages, 848 budget
+The search covers about 17,400 records: the site's own 84 pages, 848 budget
 lines, 1,228 employee pay records, 347 authorized salaries, about 2,180 Town
 Board votes, 19 funds and about 12,650 pages from 133 financial documents.
 The counts grow as the pipeline adds records.
