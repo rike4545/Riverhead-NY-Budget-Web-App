@@ -17,6 +17,9 @@ An independent public fiscal intelligence platform for exploring Riverhead Town 
 | ✅ The Supervisor’s Promises | https://rike4545.github.io/Riverhead-NY-Budget-Web-App/supervisor-promises/ |
 | 🗺️ Comprehensive Plan Tracker | https://rike4545.github.io/Riverhead-NY-Budget-Web-App/comprehensive-plan/ |
 | 🎤 State of the Town Addresses | https://rike4545.github.io/Riverhead-NY-Budget-Web-App/state-of-the-town/ |
+| 🏛️ The Former Armory and the YMCA | https://rike4545.github.io/Riverhead-NY-Budget-Web-App/armory/ |
+| ⚖️ New Justice Court at 200 Howell | https://rike4545.github.io/Riverhead-NY-Budget-Web-App/justice-court/ |
+| 📺 Optimum Cable Franchise and Verizon | https://rike4545.github.io/Riverhead-NY-Budget-Web-App/cable-franchise/ |
 | 🚪 Open Meetings Law | https://rike4545.github.io/Riverhead-NY-Budget-Web-App/open-meetings/ |
 | 🏛️ Funds & Line Items | https://rike4545.github.io/Riverhead-NY-Budget-Web-App/funds/ |
 | 📊 Budget Compare (2020–2026) | https://rike4545.github.io/Riverhead-NY-Budget-Web-App/compare/ |
@@ -24,9 +27,10 @@ An independent public fiscal intelligence platform for exploring Riverhead Town 
 | 🧾 Campaign Finance | https://rike4545.github.io/Riverhead-NY-Budget-Web-App/campaign-finance/ |
 | 🔎 Search Records | https://rike4545.github.io/Riverhead-NY-Budget-Web-App/search/ |
 
-The site menu lists 64 pages, grouped as **Explore**, **Government**,
-**Research** and **Evidence**, and every fund has a page of its own. See
-**Every Page** below for what each one covers.
+The site menu lists 83 pages: quick links to property taxes, Board votes and
+search, and seven menus, **2027 budget**, **Finances**, **Pay and staff**,
+**Spending checks**, **Land use**, **Elections** and **Help**. Every fund also
+has a page of its own. See **Every Page** below for what each one covers.
 
 GitHub Repository:
 https://github.com/rike4545/Riverhead-NY-Budget-Web-App
@@ -394,6 +398,35 @@ Supervisor since 2010 did, year by year. Data: hand-curated
 record, news, video or machine transcript; checked by
 `web/scripts/verify-supervisor-addresses.mjs`.
 
+### 🏛️ The former armory and the YMCA — `/armory`
+What the 2011 State law (Chapter 495) allows at the former armory at 1405 Old
+Country Road, and how S.8378-B / A.8809-B, passed by the Senate on May 14 and
+the Assembly on June 5, 2026 but not yet law, would let the Town lease it to
+the YMCA of Long Island for 99 years at $1. Quotes the Town's home rule
+requests and its non-binding letter of intent with the YMCA (Resolution
+2026-520), what the YMCA would offer, the ambulance corps' temporary use, and
+where the records disagree. Data: hand-curated `web/public/data/armory.json`;
+checked by `web/scripts/verify-armory.mjs`.
+
+### ⚖️ 200 Howell Avenue and the new Justice Court — `/justice-court`
+The plan to turn the former Town Hall into the Town Justice Court: Resolution
+2025-458's commitment, the $6,500,000 bond (Resolution 2025-856, October 7,
+2025), and the steps not yet taken (no architect or construction contract in
+the records through November 5, 2026). Lays out the grants that could help:
+the court system's Justice Court Assistance Program, a legislator-sponsored
+grant through DCJS, and DASNY's State and Municipal Facilities Program. Data:
+hand-curated `web/public/data/justice-court.json`; checked by
+`web/scripts/verify-justice-court.mjs`.
+
+### 📺 The Optimum cable franchise and Verizon — `/cable-franchise`
+Riverhead's ten-year cable franchise with Optimum (Cablevision), approved by
+Resolution #279 on April 19, 2016: its terms as stated at the hearing, the
+General Fund's franchise revenue since 2018, how federal law handles renewal,
+and why the Town can admit a competitor such as Verizon but cannot make one
+build. Data: hand-curated `web/public/data/cable-franchise.json`; revenue
+checked against the Budget Supplement by
+`web/scripts/verify-cable-franchise.mjs`.
+
 ### 🚪 The Open Meetings Law in Riverhead — `/open-meetings`
 What New York's Open Meetings Law requires of the Town Board and the Town's
 other boards, and how the Board's own rules compare. It covers notice,
@@ -456,7 +489,9 @@ Rather than forcing residents to manually review hundreds of pages of PDFs and s
 
 # Every Page
 
-The four links at the front of the site menu:
+Pages are listed below by topic; the site menu groups them as described
+under **Live Platform**. The quick links at the front of the menu (Payroll is
+one on phones, and first under **Pay and staff** on desktop):
 
 - **My Taxes** (`/tax-bill`): the Town's portion of your property-tax bill, estimated from assessed value and the Town's published 2026 rate table.
 - **Payroll** (`/payroll`): actual employee pay 2018–2025 (base, overtime, gross), Board-authorized salaries for 2025 and 2026, and every raise between them. Separate tabs cover overtime and staffing, separation pay and police pay steps. Every table sorts by any column.
@@ -509,7 +544,9 @@ The four links at the front of the site menu:
 - **Open Meetings Law** (`/open-meetings`): what the law requires, and what the Town's records show.
 
 ## Research
-- **Start Here** (`/guide`): a plain-English guide to every tool, a budget primer and a glossary.
+- **Start Here** (`/guide`): a plain-English guide to every tool, a budget primer, and links to the glossary and accounting basics.
+- **Glossary** (`/glossary`): plain-English definitions of 91 budget, tax, accounting, debt, pay and Town Board terms, searchable and grouped by topic, each linked to the page where it matters.
+- **How the Town's Books Work** (`/accounting-basics`): separate funds, the three bases of accounting, the five tiers of fund balance in the 2025 audit, how a year changes fund balance, the path of a budget dollar, and which report answers which question.
 - **2027 Prediction** (`/predict-2027`): a line-by-line projection with tax-cap scenarios and a scorecard against the Town's budget.
 - **2027 Tentative Budget** (`/tentative-2027`): the Town's Tentative against this site's projection, fund by fund.
 - **The Supervisors' Tax-Cap Letter, Checked** (`/tax-cap-letter`): Suffolk supervisors' October 2026 letter asking Albany to loosen the tax cap: what it asks, where it is strong, what it leaves out, and Riverhead's own record.
@@ -553,7 +590,7 @@ the numbers are labeled and sourced (`/evidence`).
 
 ## Search
 
-The search covers about 17,400 records: the site's own 64 pages, 848 budget
+The search covers about 17,400 records: the site's own 82 pages, 848 budget
 lines, 1,228 employee pay records, 347 authorized salaries, about 2,180 Town
 Board votes, 19 funds and about 12,650 pages from 133 financial documents.
 The counts grow as the pipeline adds records.

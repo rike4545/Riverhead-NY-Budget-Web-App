@@ -336,7 +336,7 @@ export default function BudgetAmendmentsPage() {
             </P>
             <P>
               Paying for equipment from savings uses one-time money for a one-time cost, the rule of thumb in this site’s guide to{' '}
-              <a href={`${base}/guide/#one-time-vs-recurring`} style={link}>one-time money and recurring costs</a>. Rothwell, as{' '}
+              <a href={`${base}/accounting-basics/#one-time-vs-recurring`} style={link}>one-time money and recurring costs</a>. Rothwell, as{' '}
               {ARTICLE.outlet} reports him: “{ARTICLE.reported.ongoing}.”
             </P>
             <P>
