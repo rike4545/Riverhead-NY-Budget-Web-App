@@ -45,7 +45,7 @@ else {
     if (Math.round(prop(k)) !== Math.round(d[k])) fail(`the payroll page carries ${k} ${prop(k)}, the Supplement gives ${d[k]}`)
   }
   for (const r of d.rows) if (!raw.includes(`"account":"${r.account}"`)) fail(`the payroll page's table data has no row for ${r.account}`)
-  if (!readFileSync(join(root, 'components/OvertimeStaffing.tsx'), 'utf8').includes('<DepartmentOvertimePanel d={p.departments} />')) fail('the Overtime & Staffing tab does not render the table')
+  if (!readFileSync(join(root, 'components/OvertimeStaffing.tsx'), 'utf8').match(/<DepartmentOvertimePanel d={p\.departments}[^>]*\/>/)) fail('the Overtime & Staffing tab does not render the table')
 }
 
 const pal = history.find((l) => l.account === PAL_UNIFORMS)

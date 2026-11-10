@@ -52,10 +52,12 @@ export type IndividualCheckProp = {
 
 import { UNIFORM_OT, type PoliceOvertimeBudget } from '../lib/police-overtime-budget'
 import { OT_SOURCE, type overtimeByDepartment } from '../lib/overtime-by-department'
+import type { AccountChange } from '../lib/account-changes'
 
 export type OvertimeStaffingProps = {
   budgetLine: PoliceOvertimeBudget
   departments: ReturnType<typeof overtimeByDepartment>
+  otChanges: { year: number; through: string; byAccount: Record<string, AccountChange[]> }
   trends: RankTrendProp[]
   flagged: RankTrendProp[]
   comparisons: CostComparisonProp[]
@@ -93,7 +95,7 @@ export default function OvertimeStaffing(p: OvertimeStaffingProps) {
       </section>
 
       <PoliceOvertimeBudgetPanel b={p.budgetLine} />
-      <DepartmentOvertimePanel d={p.departments} />
+      <DepartmentOvertimePanel d={p.departments} ch={p.otChanges} />
 
       {/* The individual test that finds nothing — stated first, on purpose */}
       <section style={{ ...card, borderColor: 'var(--rbl-success-border)', background: 'var(--rbl-success-bg)' }}>
@@ -373,7 +375,9 @@ function PoliceOvertimeBudgetPanel({ b }: { b: PoliceOvertimeBudget }) {
 
 // Every overtime line in the budget, beside the police panel above
 // (lib/overtime-by-department.ts; checked by scripts/verify-overtime-departments.mjs).
-function DepartmentOvertimePanel({ d }: { d: ReturnType<typeof overtimeByDepartment> }) {
+function DepartmentOvertimePanel({ d, ch }: { d: ReturnType<typeof overtimeByDepartment>; ch: OvertimeStaffingProps['otChanges'] }) {
+  const longDate = (iso: string) => new Date(`${iso}T12:00:00`).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })
+  const named = d.rows.filter((r) => ch.byAccount[r.account]?.length)
   const cell = { padding: '7px 10px' } as const
   const right = { ...cell, textAlign: 'right' as const, whiteSpace: 'nowrap' as const }
   const over = d.restSpentLast - d.restBudgetLast
@@ -424,6 +428,15 @@ function DepartmentOvertimePanel({ d }: { d: ReturnType<typeof overtimeByDepartm
           </tbody>
         </table>
       </div>
+      <p data-original-budget-note style={{ color: 'var(--rbl-text-body)', fontSize: 14.5, lineHeight: 1.6, margin: '10px 0 0' }}>
+        <strong>Original, not amended, budgets.</strong> The budgets here are as the Board first adopted them, which is what the Supplements
+        print. The Board can amend a line during the year by resolution, so an overrun may have been covered by a transfer from another line.{' '}
+        {named.length === 0
+          ? <>No budget change the Board adopted in {ch.year} names one of these overtime accounts, in the records through {longDate(ch.through)}: but not every fiscal impact statement lists its accounts, so a change could be missing from this count.</>
+          : <>In the records through {longDate(ch.through)}, {ch.year} budget changes name {named.length === 1 ? 'one of these accounts' : `${named.length} of these accounts`}: {named.map((r, i) => (
+              <span key={r.account}>{i > 0 ? '; ' : ''}{r.department}, {ch.byAccount[r.account].map((c) => `Resolution ${c.number} (${longDate(c.date)}, ${usd(c.amount)})`).join(', ')}</span>
+            ))}. Not every fiscal impact statement lists its accounts, so the list can be incomplete.</>}
+      </p>
       <p style={{ color: 'var(--rbl-text-body)', fontSize: 14.5, lineHeight: 1.6, margin: '10px 0 0' }}>
         A budget set below what a department usually spends has to be covered by transfers from other lines during the year, and one
         set above it holds money that could be used elsewhere. Questions residents may want to ask: why do the lines that run over every
