@@ -32,7 +32,7 @@ const GROUPS: Group[] = [
   ] },
   { label: 'Pay and staff', links: [
     ['Employee pay and overtime', `${base}/payroll/`], ['Town jobs and staffing', `${base}/workforce-by-title/`], ['Organization chart', `${base}/workforce-by-title/#organization`],
-    ['Elected officials and pensions', `${base}/officials/`], ['Management pay and benefits', `${base}/management-compensation/`], ['Fringe benefits', `${base}/fringe-benefits/`], ['2026 retirement buyout', `${base}/buyout/`],
+    ['Elected officials and pensions', `${base}/officials/`], ['Management pay and benefits', `${base}/management-compensation/`], ['Supervisor’s office pay compared', `${base}/supervisor-office-pay/`], ['Fringe benefits', `${base}/fringe-benefits/`], ['2026 retirement buyout', `${base}/buyout/`],
   ] },
   { label: 'Spending checks', links: [
     ['Budget vs. actual spending', `${base}/budget-accuracy/`], ['Budget changes the Board approved', `${base}/budget-changes/`], ['Cost of Board decisions', `${base}/fiscal-impact/`],
