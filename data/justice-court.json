@@ -1,0 +1,95 @@
+{
+ "$comment": "Hand-curated for /justice-court/. Every quote is copied from the record it cites. Town resolutions are quoted from their agenda packets or minutes; State programs from the agencies' own pages and the Judiciary Law. News items are labelled as news. web/scripts/verify-justice-court.mjs checks the quotes the repository's own minutes and packets can confirm.",
+ "asOf": "2026-11-10",
+ "recordsThrough": "2026-11-05",
+ "bond": {
+  "resolution": "2025-856",
+  "date": "2025-10-07",
+  "vote": "adopted unanimously",
+  "url": "https://riverheadny.portal.civicclerk.com/event/9/files/agenda/10248",
+  "pages": "pages 253 to 255 of the October 7, 2025 agenda packet",
+  "amount": 6500000,
+  "purpose": "to finance the construction of improvements to the former Town Hall building located at 200 Howell Avenue, and renovations to accommodate use of said building as the Town Justice Court, including building furnishings, site work and architectural, engineering and other related or ancillary costs",
+  "repayment": "the levy and collection of taxes on all the taxable real property in the Town to pay the principal of said bonds and the interest thereon as the same shall become due and payable",
+  "usefulLife": "fifteen (15) years",
+  "referendum": "This bond resolution is subject to a permissive referendum"
+ },
+ "steps": [
+  { "step": "Town Hall moves out of 200 Howell Avenue", "date": "2023-10", "done": true, "note": "Town offices moved to 4 West Second Street in October 2023 (news reports); a June 2025 resolution calls 200 Howell Avenue the “former Town Hall”." },
+  { "step": "The Board names the building for the court", "date": "2025-05-21", "done": true, "note": "Resolution 2025-458 says the Town “has committed to renovate” it into a new Justice Court." },
+  { "step": "Borrowing authorized", "date": "2025-10-07", "done": true, "note": "Resolution 2025-856: up to $6,500,000 in bonds." },
+  { "step": "Architect hired and plans drawn", "date": null, "done": false, "note": "No Town Board resolution hiring an architect for the court was found in the records through November 5, 2026." },
+  { "step": "Construction contract awarded", "date": null, "done": false, "note": "No bid award for the court was found in the records through November 5, 2026." },
+  { "step": "The court moves in", "date": null, "done": false, "note": "The Justice Court still shares 210 Howell Avenue with the Police Department." }
+ ],
+ "quotes": [
+  { "id": "committed", "text": "the Town determined that it is most cost effective and has committed to renovate the building previously used as the Town Hall at 200 Howell Avenue, Riverhead, NY into a new Justice Court thereby permitting the Police Department at 210 Howell Avenue to recapture the space currently occupied by the Justice Court facility", "resolution": "2025-458", "file": "2025-05-21-minutes.txt" },
+  { "id": "former", "text": "200 Howell Avenue (former Town Hall) to 4 West Second Street (new Town Hall)", "resolution": "2025-469", "file": "2025-06-03-minutes.txt" },
+  { "id": "bondtitle", "text": "Bond Resolution of the Town of Riverhead, New York, Adopted October 7, 2025, Authorizing the Issuance of Bonds and Appropriating $6,500,000", "resolution": "2025-856", "file": "2025-10-07-minutes.txt" },
+  { "id": "ac", "text": "an air conditioning unit for the Town of Riverhead Justice Court as well as one unit for the Police Department, both located at 210 Howell Avenue, Riverhead, NY, have been deemed irreparable and require emergency replacement", "resolution": "2026-814", "file": "2026-09-01-vote-packet.txt" },
+  { "id": "acamount", "text": "A01-9999-000-00000-0 Appropriated Fund Balance $60,000.00", "resolution": "2026-814", "file": "2026-09-01-vote-packet.txt" }
+ ],
+ "condition": [
+  { "point": "In 2006 the State Office of Court Administration assessed the court at 210 Howell Avenue and “found the town court facility did not meet safety and security standards.” It said “the town must install outdoor video cameras, bullet-resistant exterior glass, locked gates to restrict access.” In 2022 RiverheadLOCAL reported that “The recommendations have mainly gone unaddressed in the last 16 years.”", "source": { "kind": "news", "title": "RiverheadLOCAL, May 31, 2022", "url": "https://riverheadlocal.com/2022/05/31/officials-eye-new-three-story-town-hall-on-howell-avenue-as-solution-to-towns-space-problems/" } },
+  { "point": "The former Town Hall at 200 Howell Avenue, a former supermarket, has “a host of known structural and systems issues in dire need of repair or replacement,” including “its roof, HVAC system and mold in the basement.”", "source": { "kind": "news", "title": "RiverheadLOCAL, September 10, 2024", "url": "https://riverheadlocal.com/2024/09/10/riverhead-looking-at-possibly-moving-police-and-justice-court-to-towns-second-street-campus/" } },
+  { "point": "Councilman Ken Rothwell said the Town is “obligated by the State of New York court system” to follow its design guidelines. The Supervisor said the renovation “will result in two courtrooms and additional office and conference room space.” The Town had “not yet hired architects to draw plans for the building renovation” and was “hoping to begin renovation work on the former town hall shortly after the new year.”", "source": { "kind": "news", "title": "RiverheadLOCAL, October 7, 2025", "url": "https://riverheadlocal.com/2025/10/07/riverhead-authorizes-6-5-million-in-borrowing-to-fund-renovation-of-old-town-hall-for-justice-court/" } }
+ ],
+ "meanwhile": {
+  "resolution": "2026-814",
+  "date": "2026-09-01",
+  "url": "https://riverheadny.portal.civicclerk.com/event/6442/files/agenda/12303",
+  "pages": "pages 12 to 13 of the September 1, 2026 agenda packet",
+  "amount": 60000
+ },
+ "grants": [
+  {
+   "name": "Justice Court Assistance Program (JCAP)",
+   "agency": "New York State Unified Court System, under the Chief Administrator of the Courts",
+   "fit": "The only State grant program this site found that is meant for town and village courts. Judiciary Law §849-h lists “improvement or expansion of court facilities” among its purposes. It may not pay justices or court staff, or replace what a town already spends on its court.",
+   "townHistory": "The Town already uses it. Resolution 2025-790 (September 16, 2025) authorized an application “for up to $30,000”; on February 20, 2026 the court “was awarded $12,843.75”, which went to scanning old traffic tickets (Resolution 2026-274). A future application could be aimed at the new building's equipment or furnishings, but at that size it would cover a small part of a $6.5 million project.",
+   "status": "Awarded each year; the Town applied in September for the 2025–26 cycle.",
+   "sources": [
+    { "kind": "law", "title": "Judiciary Law §849-h", "url": "https://www.nysenate.gov/legislation/laws/JUD/849-H" },
+    { "kind": "town", "title": "Resolution 2026-274, April 7, 2026 agenda packet, pages 34–35", "url": "https://riverheadny.portal.civicclerk.com/event/6437/files/agenda/12511" }
+   ]
+  },
+  {
+   "name": "Division of Criminal Justice Services (DCJS)",
+   "agency": "New York State Division of Criminal Justice Services",
+   "fit": "DCJS's own list of the program areas it funds covers police, prosecutors, defenders, probation, crime victims, alternatives to incarceration, youth justice, and security grants for nonprofits at risk of hate crimes. None of them is for building or renovating a court. Its federal Byrne JAG funds support “law enforcement, prosecution and defense” and related programs, so they could help with police or court equipment, not the building itself.",
+   "townHistory": "DCJS also processes the Legislature's “Legislative Grant Initiative”: grants a State senator or Assembly member sponsors. That is the DCJS route most likely to reach a court project, and it depends on a legislator choosing to sponsor it.",
+   "status": "On November 10, 2026 DCJS listed one open opportunity: a Request for Applications for Extreme Risk Protection Order work, dated October 7, 2026.",
+   "sources": [
+    { "kind": "state", "title": "DCJS, Funding Program Areas", "url": "https://criminaljustice.ny.gov/funding-program-areas" },
+    { "kind": "state", "title": "DCJS, Current Funding Opportunities", "url": "https://criminaljustice.ny.gov/current-funding-opportunities" }
+   ]
+  },
+  {
+   "name": "State and Municipal Facilities Program (SAM)",
+   "agency": "Administered by the Dormitory Authority of the State of New York (DASNY); each grant is sponsored by a member of the Senate or Assembly",
+   "fit": "Capital grants for local facilities, including courts. DASNY's October 2021 report lists $250,000 to the City of Troy for “Renovations to the Troy City Court Facilities” and $700,000 to the City of Buffalo for “Security Upgrades in City Hall and Dillon Courthouse,” both sponsored in the Assembly.",
+   "townHistory": "There is no open application: the Town would ask its State senator or Assembly member to sponsor a grant.",
+   "status": "Depends on a legislator's sponsorship and the State budget.",
+   "sources": [
+    { "kind": "state", "title": "DASNY, SAM grants report as of October 27, 2021", "url": "https://www.dasny.org/sites/default/files/inline-files/SAM%20Posting%20Report%2010-28-21.pdf" }
+   ]
+  }
+ ],
+ "timeline": [
+  { "date": "2022-05-31", "what": "An architect's estimate presented to the Board puts converting the Town Hall at 200 Howell Avenue into a court with “two court rooms, multiple conference rooms and secure holding rooms” at $4.3 million, within a $30.8 million plan that also built a new Town Hall.", "source": { "kind": "news", "title": "RiverheadLOCAL, May 31, 2022", "url": "https://riverheadlocal.com/2022/05/31/officials-eye-new-three-story-town-hall-on-howell-avenue-as-solution-to-towns-space-problems/" } },
+  { "date": "2023-10", "what": "Town offices move from 200 Howell Avenue to the new Town Hall at 4 West Second Street.", "source": { "kind": "news", "title": "RiverheadLOCAL, October 4, 2023", "url": "https://riverheadlocal.com/2023/10/04/riverhead-officials-celebrate-opening-of-the-new-town-hall-on-west-second-street/" } },
+  { "date": "2024-09-10", "what": "The Supervisor says the Town hired consultants H2M to study whether the old Town Hall can become a court, and that converting it “would cost so much that you'd have to rip it down, demolish it and then start over again.”", "source": { "kind": "news", "title": "RiverheadLOCAL, September 10, 2024", "url": "https://riverheadlocal.com/2024/09/10/riverhead-looking-at-possibly-moving-police-and-justice-court-to-towns-second-street-campus/" } },
+  { "date": "2025-05-21", "what": "Resolution 2025-458 states the Town “has committed to renovate” 200 Howell Avenue into a new Justice Court, so the police can take back the court's space at 210 Howell Avenue. This is the same resolution that freed the armory for the YMCA.", "source": { "kind": "town", "title": "Minutes and packet, May 21, 2025", "url": "https://riverheadny.portal.civicclerk.com/event/2460/files/agenda/4471" } },
+  { "date": "2025-10-07", "what": "Resolution 2025-856, adopted unanimously, authorizes up to $6,500,000 in bonds for the court at 200 Howell Avenue, repaid from Town-wide property taxes.", "source": { "kind": "town", "title": "Agenda packet, October 7, 2025, pages 253–255", "url": "https://riverheadny.portal.civicclerk.com/event/9/files/agenda/10248" } },
+  { "date": "2026-02-20", "what": "The court receives a $12,843.75 State JCAP grant, used to scan old traffic tickets.", "source": { "kind": "town", "title": "Resolution 2026-274, agenda packet, April 7, 2026", "url": "https://riverheadny.portal.civicclerk.com/event/6437/files/agenda/12511" } },
+  { "date": "2026-09-01", "what": "Resolution 2026-814 ratifies $60,000 from General Fund savings to replace two air conditioning units at 210 Howell Avenue, one for the court and one for the police, “deemed irreparable.”", "source": { "kind": "town", "title": "Agenda packet, September 1, 2026, pages 12–13", "url": "https://riverheadny.portal.civicclerk.com/event/6442/files/agenda/12303" } }
+ ],
+ "questions": [
+  "Has the Town sold any of the $6.5 million in bonds or notes, and what will the payments add to the Town tax each year?",
+  "Has H2M's feasibility study been finished, and will it be made public? Does $6.5 million still cover the work it describes?",
+  "Who will design the court, and when will the Board hire them? The October 2025 plan hoped to start work early in 2026.",
+  "Has the Town asked its State senator or Assembly member to sponsor a capital grant for the court, and will it aim a JCAP application at the new building?",
+  "Will the new court meet the security measures the State court system called for in 2006?",
+  "What will it cost to give the police the court's space at 210 Howell Avenue, and is that in the $6.5 million?"
+ ]
+}

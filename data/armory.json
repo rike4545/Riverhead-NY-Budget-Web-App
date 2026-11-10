@@ -31,7 +31,7 @@
    { "step": "Delivered to the Governor", "date": null, "done": false, "note": "The Assembly’s record shows no delivery to the Governor through November 10, 2026." },
    { "step": "Signed into law", "date": null, "done": false, "note": "Until it is signed, the 2011 limits on the property stay in force." }
   ],
-  "earlierTry": "The Assembly first passed the bill on June 17, 2025. The Senate did not act on it, and on January 7, 2026 the Assembly record reads \"died in senate.\" A separate Senate bill, S.8327, would have allowed the Town to sell the property to the YMCA as well as lease it; it has stayed in committee."
+  "earlierTry": "The Assembly first passed the bill on June 17, 2025. The Senate did not act on it, and on January 7, 2026 the Assembly record reads “died in senate.” A separate Senate bill, S.8327, would have allowed the Town to sell the property to the YMCA as well as lease it; it has stayed in committee."
  },
  "loi": {
   "resolution": "2026-520",
@@ -73,7 +73,7 @@
   { "date": "2026-06-05", "what": "The Assembly passes the Senate bill. Both houses have now passed it.", "source": { "kind": "law", "title": "Assembly record for A.8809 / S.8378", "url": "https://nyassembly.gov/leg/?default_fld=&leg_video=&bn=A08809&term=2025&Summary=Y&Actions=Y&Text=Y&Memo=Y" } },
   { "date": "2026-08-18", "what": "Resolution 2026-797, adopted unanimously, ratifies a temporary, revocable license letting the Riverhead Volunteer Ambulance Corps use the armory's vehicle bays while its new headquarters is built. It says the site is otherwise expected to hold only police storage for the next year.", "source": { "kind": "town", "title": "Agenda packet, August 18, 2026, pages 112–113", "url": "https://riverheadny.portal.civicclerk.com/event/6454/files/agenda/12255" } },
   { "date": "2026-09-15", "what": "Resolution 2026-842, adopted unanimously, moves $45,000 from Ambulance District fund balance to repair the armory for the ambulance corps' temporary use.", "source": { "kind": "town", "title": "Agenda packet, September 15, 2026, pages 19–20", "url": "https://riverheadny.portal.civicclerk.com/event/6455/files/agenda/12366" } },
-  { "date": "2026-10-06", "what": "The minutes record a Board member's report that the ambulance corps is \"officially in armory during construction of the new facility.\"", "source": { "kind": "town", "title": "Minutes, October 6, 2026", "url": "/meetings/?meeting=2026-10-06" } }
+  { "date": "2026-10-06", "what": "The minutes record a Board member's report that the ambulance corps is “officially in armory during construction of the new facility.”", "source": { "kind": "town", "title": "Minutes, October 6, 2026", "url": "/meetings/?meeting=2026-10-06" } }
  ],
  "quotes": [
   { "id": "ages", "text": "a variety of uses all centered and focused on well-being, including but not limited to, fitness and health, education, designed for and spanning ages from pre-school/early childhood, children, pre-teen and teen programs, adults and older adults for local and county residents", "resolution": "2025-458", "file": "2025-05-21-minutes.txt" },
@@ -84,14 +84,14 @@
   { "id": "repairs", "text": "the Supervisor has requested to transfer $45,000 from the Ambulance District Fund balance in order to pay for the repairs to the Armory Building", "resolution": "2026-842", "file": "2026-09-15-vote-packet.txt" }
  ],
  "news": [
-  { "outlet": "RiverheadLOCAL", "date": "2025-06-09", "url": "https://riverheadlocal.com/2025/06/09/state-lawmakers-look-to-remove-legal-barrier-for-ymca-at-former-armory-in-riverhead/", "point": "The Deputy Town Attorney, reading a draft lease, said the YMCA would owe no rent \"in exchange and conditioned upon YMCA's dedication of $25,000 per year\" to residents eligible for financial assistance with membership costs. The report says the Town also sought free classes and youth and adult programs for residents, and that \"The YMCA has yet to agree to those terms.\"" },
-  { "outlet": "Riverhead News-Review", "date": "2026-05-26", "url": "https://riverheadnewsreview.timesreview.com/2026/05/134075/plan-moves-further-ahead-for-ymca-bid-in-riverhead/", "point": "Councilman Bob Kern \"estimated the project could cost between $20 million and $40 million.\" A YMCA official called the letter of intent \"a vital first step for the YMCA to move forward with requests for funding and approvals.\"" }
+  { "outlet": "RiverheadLOCAL", "date": "2025-06-09", "url": "https://riverheadlocal.com/2025/06/09/state-lawmakers-look-to-remove-legal-barrier-for-ymca-at-former-armory-in-riverhead/", "point": "The Deputy Town Attorney, reading a draft lease, said the YMCA would owe no rent “in exchange and conditioned upon YMCA's dedication of $25,000 per year” to residents eligible for financial assistance with membership costs. The report says the Town also sought free classes and youth and adult programs for residents, and that “The YMCA has yet to agree to those terms.”" },
+  { "outlet": "Riverhead News-Review", "date": "2026-05-26", "url": "https://riverheadnewsreview.timesreview.com/2026/05/134075/plan-moves-further-ahead-for-ymca-bid-in-riverhead/", "point": "Councilman Bob Kern “estimated the project could cost between $20 million and $40 million.” A YMCA official called the letter of intent “a vital first step for the YMCA to move forward with requests for funding and approvals.”" }
  ],
  "discrepancies": [
-  "Town Resolutions 2025-458, 2025-569 and 2026-92 say the 2011 law was \"signed into law by the Governor on August 31, 2022,\" and the bill sponsors' memo says \"Back in 2022, the State sold\" the property. The Assembly's record shows Chapter 495 was signed on August 31, 2011. This site found no record of the date the deed itself was delivered.",
-  "The letter of intent describes \"An approximately 5.90-acre parcel,\" while its own Exhibit A and the 2011 law describe 5.716 acres. The lease would need to settle which land it covers.",
-  "The letter of intent carries a confidentiality clause, yet it was published, signed by the YMCA, in the Town Board's public agenda packet. The clause applies \"Except as otherwise required by law.\"",
-  "The bill as printed says \"nomimal value of one dollar\"; the sponsors' memo describes it as \"a nominal value of $1.\""
+  "Town Resolutions 2025-458, 2025-569 and 2026-92 say the 2011 law was “signed into law by the Governor on August 31, 2022,” and the bill sponsors' memo says “Back in 2022, the State sold” the property. The Assembly's record shows Chapter 495 was signed on August 31, 2011. This site found no record of the date the deed itself was delivered.",
+  "The letter of intent describes “An approximately 5.90-acre parcel,” while its own Exhibit A and the 2011 law describe 5.716 acres. The lease would need to settle which land it covers.",
+  "The letter of intent carries a confidentiality clause, yet it was published, signed by the YMCA, in the Town Board's public agenda packet. The clause applies “Except as otherwise required by law.”",
+  "The bill as printed says “nomimal value of one dollar”; the sponsors' memo describes it as “a nominal value of $1.”"
  ],
  "questions": [
   "When will the Legislature send the bill to the Governor, and has the Governor said whether she will sign it?",
