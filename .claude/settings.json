@@ -1,4 +1,15 @@
 {
+  "extraKnownMarketplaces": {
+    "riverhead-local": {
+      "source": { "source": "directory", "path": "./.claude/plugins" }
+    }
+  },
+  "enabledPlugins": {
+    "autoharness@riverhead-local": true
+  },
+  "env": {
+    "AUTOHARNESS_DISABLE_GLOBAL": "1"
+  },
   "hooks": {
     "SessionStart": [
       {

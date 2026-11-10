@@ -1,0 +1,11 @@
+{
+  "name": "riverhead-local",
+  "owner": { "name": "Riverhead Budget Live" },
+  "plugins": [
+    {
+      "name": "autoharness",
+      "source": "./autoharness",
+      "description": "Learns skills from real sessions and keeps them by use (tigerless-labs/autoharness at 84f1840, unchanged)."
+    }
+  ]
+}

@@ -173,3 +173,22 @@ and `.claude/references/LICENSE-taste-skill`.
 They are general practice. Where a skill conflicts with this file, this file
 wins: never merge, auto-merge, push to `main` or deploy; open draft pull
 requests; and keep every figure traced to an official record.
+
+## Learned skills (autoharness)
+
+`.claude/plugins/autoharness/` is tigerless-labs/autoharness copied unchanged
+at commit 84f1840 (MIT License, in that folder), offered through the local
+catalog in `.claude/plugins/.claude-plugin/` and turned on in
+`.claude/settings.json`. Every 50 or so tool calls it starts a background
+session that reads a redacted slice of the conversation and proposes skills;
+it writes them to `.claude/skills/`, each marked `self-authored` in its
+ledger, and retires the ones that go unused. `/learn` asks it to distill the
+current session now. `AUTOHARNESS_DISABLE_GLOBAL=1` keeps it to this project.
+
+- A learned skill is a draft. Read it before committing it, and commit it only
+  if it is right for this repo. Never commit `.claude/autoharness/` (its
+  state, gitignored).
+- A learned skill never overrides this file, the accuracy rules or the design
+  brief. If one does, fix or delete it.
+- To update autoharness, copy a newer commit over the folder unchanged and
+  record the commit here; don't edit its code in place.

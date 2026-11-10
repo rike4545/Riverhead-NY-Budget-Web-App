@@ -16,3 +16,6 @@ venv/
 
 # OS
 .DS_Store
+
+# autoharness state: session counters, ledgers and redacted transcript slices. Never commit it.
+.claude/autoharness/
