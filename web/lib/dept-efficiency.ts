@@ -217,6 +217,8 @@ export function surveyKit(d: Pick<Department, 'name' | 'group' | 'fn'>): SurveyK
     { text: 'What one change would most improve this service?', kind: 'open' },
   ]
   const staff: SurveyQuestion[] = [
+    { text: 'Does your department have a written strategic plan or mission statement?', kind: 'choice', choices: ['Yes', 'Being written', 'No', 'Not sure'] },
+    { text: 'If so, do you know its goals and how your work is measured against them?', kind: 'choice', choices: ['Yes', 'Partly', 'No', 'There is no plan'] },
     { text: 'Which tasks take the most of your time in a typical week?', kind: 'open' },
     { text: 'Which steps in your work are repeated, done on paper, or entered in more than one system?', kind: 'open' },
     { text: 'Do you have the equipment, software and training you need to do your job well?', kind: 'scale' },

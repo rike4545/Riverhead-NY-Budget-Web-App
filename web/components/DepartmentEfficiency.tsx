@@ -2,6 +2,7 @@
 
 import { useEffect, useId, useMemo, useState, type ReactNode } from 'react'
 import { CircleAlert, Printer, TrendingDown, TrendingUp, Ban } from 'lucide-react'
+import QualityInputs from './QualityInputs'
 import { GROUPS, SURVEY_SCALE, surveyKit, type Department, type SurveyQuestion } from '../lib/dept-efficiency'
 
 const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 20, marginBottom: 16 } as const
@@ -127,6 +128,7 @@ export default function DepartmentEfficiency({ departments, lastYear, currentYea
       </section>
 
       {dept && <DepartmentPanel d={dept} lastYear={lastYear} currentYear={currentYear} budgetYear={budgetYear} />}
+      {dept && <QualityInputs d={dept} years={Object.keys(dept.actual).map(Number).sort((a, b) => a - b)} />}
       {dept && <SurveyKit d={dept} />}
     </div>
   )
@@ -238,6 +240,7 @@ function reviewQuestions(d: Department, lastYear: number): string[] {
   if (d.review.some((r) => r.why === 'under')) q.push('Some lines are budgeted well above what they spend year after year. Could those budgets be reduced, or the money moved to where it is needed?')
   if (d.review.some((r) => r.why === 'unused')) q.push('Some lines are budgeted but not used. Are they still needed?')
   if (d.mix.contractual > d.mix.personal && d.mix.contractual > 0) q.push('Most spending is contractual. When were the largest contracts last bid, and could they be shared with another department or town?')
+  q.push('Has the department adopted a strategic plan or mission statement, with goals and published service targets? Without them there is nothing to measure performance against.')
   q.push('What does this department produce each year (permits issued, calls answered, miles paved, participants served), and is that number tracked? Cost per unit of service is the measure the budget records cannot give.')
   q.push('Which tasks are repeated, done on paper, or entered twice, and could they be moved online or combined with another department’s?')
   return q
