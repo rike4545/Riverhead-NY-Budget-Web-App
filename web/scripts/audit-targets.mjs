@@ -48,7 +48,9 @@ const origin = `http://127.0.0.1:${server.address().port}`
 /** Runs in the page: every target that fails 2.5.8 after the exceptions. */
 function failingTargets() {
   const SEL = 'a[href], button, input:not([type=hidden]), select, textarea, summary, [role=button], [role=link], [tabindex]:not([tabindex="-1"])'
-  const visible = (el) => { const s = getComputedStyle(el); const r = el.getBoundingClientRect(); return s.visibility !== 'hidden' && s.display !== 'none' && r.width > 0 && r.height > 0 }
+  // Inside a closed <details>, only the summary is shown; the rest still reports a box in Chromium, so it is ruled out here.
+  const inClosedDetails = (el) => { const d = el.closest('details'); return !!d && !d.open && !el.closest('summary') }
+  const visible = (el) => { const s = getComputedStyle(el); const r = el.getBoundingClientRect(); return !inClosedDetails(el) && s.visibility !== 'hidden' && s.display !== 'none' && r.width > 0 && r.height > 0 }
   const targets = [...document.querySelectorAll(SEL)].filter(visible).map((el) => ({ el, r: el.getBoundingClientRect() }))
   const isInline = (el) => {
     // A link inside running text: the line it sits on holds more than the link.
