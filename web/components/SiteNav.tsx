@@ -36,7 +36,7 @@ const GROUPS: Group[] = [
   ] },
   { label: 'Spending checks', links: [
     ['Budget vs. actual spending', `${base}/budget-accuracy/`], ['Budget changes the Board approved', `${base}/budget-changes/`], ['Cost of Board decisions', `${base}/fiscal-impact/`],
-    ['Unusual spending patterns', `${base}/outliers/`], ['Contracts and bids', `${base}/contracts/`], ['Optimum cable franchise and Verizon', `${base}/cable-franchise/`], ['Legal costs', `${base}/legal-costs/`], ['Regional CPF counsel', `${base}/regional-cpf-counsel/`],
+    ['Unusual spending patterns', `${base}/outliers/`], ['Department efficiency', `${base}/department-efficiency/`], ['Contracts and bids', `${base}/contracts/`], ['Optimum cable franchise and Verizon', `${base}/cable-franchise/`], ['Legal costs', `${base}/legal-costs/`], ['Regional CPF counsel', `${base}/regional-cpf-counsel/`],
     ['Town Square project', `${base}/town-square/`], ['New Justice Court at 200 Howell', `${base}/justice-court/`], ['Road spending', `${base}/road-spending/`], ['Ambulance funding', `${base}/rvac-funding/`],
     ['Police spending and crime', `${base}/police-crime/`], ['School resource officers', `${base}/school-resource-officers/`],
   ] },
@@ -51,7 +51,7 @@ const GROUPS: Group[] = [
     ['Officials on social media', `${base}/official-social-media/`], ['Election law case', `${base}/election-law-case/`],
   ] },
   { label: 'Help', links: [
-    ['Start here', `${base}/guide/`], ['Glossary of terms', `${base}/glossary/`], ['How the Town’s books work', `${base}/accounting-basics/`], ['Guided tour', `${base}/explore/`], ['Questions residents ask', `${base}/answers/`], ['How to check a figure', `${base}/evidence/`],
+    ['Start here', `${base}/guide/`], ['Glossary of terms', `${base}/glossary/`], ['How the Town’s books work', `${base}/accounting-basics/`], ['Fiscal impact statement helper', `${base}/fiscal-impact-helper/`], ['Guided tour', `${base}/explore/`], ['Questions residents ask', `${base}/answers/`], ['How to check a figure', `${base}/evidence/`],
     ['Original documents', `${base}/sources/`], ['Records the Town has not published', `${base}/records/`], ['Downloads', `${base}/downloads/`], ['Data quality and freshness', `${base}/data-quality/`],
     ['Budget best practices (GFOA)', `${base}/gfoa/`], ['Following how the Town is governed', `${base}/governance-accountability/`], ['Open Meetings Law', `${base}/open-meetings/`], ['Know your rights (ICE)', `${base}/know-your-rights/`],
   ] },

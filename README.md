@@ -27,7 +27,7 @@ An independent public fiscal intelligence platform for exploring Riverhead Town 
 | 🧾 Campaign Finance | https://rike4545.github.io/Riverhead-NY-Budget-Web-App/campaign-finance/ |
 | 🔎 Search Records | https://rike4545.github.io/Riverhead-NY-Budget-Web-App/search/ |
 
-The site menu lists 83 pages: quick links to property taxes, Board votes and
+The site menu lists 85 pages: quick links to property taxes, Board votes and
 search, and seven menus, **2027 budget**, **Finances**, **Pay and staff**,
 **Spending checks**, **Land use**, **Elections** and **Help**. Every fund also
 has a page of its own. See **Every Page** below for what each one covers.
@@ -547,6 +547,7 @@ one on phones, and first under **Pay and staff** on desktop):
 - **Start Here** (`/guide`): a plain-English guide to every tool, a budget primer, and links to the glossary and accounting basics.
 - **Glossary** (`/glossary`): plain-English definitions of 91 budget, tax, accounting, debt, pay and Town Board terms, searchable and grouped by topic, each linked to the page where it matters.
 - **How the Town's Books Work** (`/accounting-basics`): separate funds, the three bases of accounting, the five tiers of fund balance in the 2025 audit, how a year changes fund balance, the path of a budget dollar, and which report answers which question.
+- **Fiscal Impact Statement Helper** (`/fiscal-impact-helper`): for Town staff preparing a Board resolution. Pick a department and up to ten journal entries from the 2027 Supplement's accounts, see checks drawn from how the Town fills section G, reconcile the entries by entry, account and fund, print the statement in the Town's form wording as a PDF, and learn how a new sub-account is numbered and established.
 - **2027 Prediction** (`/predict-2027`): a line-by-line projection with tax-cap scenarios and a scorecard against the Town's budget.
 - **2027 Tentative Budget** (`/tentative-2027`): the Town's Tentative against this site's projection, fund by fund.
 - **The Supervisors' Tax-Cap Letter, Checked** (`/tax-cap-letter`): Suffolk supervisors' October 2026 letter asking Albany to loosen the tax cap: what it asks, where it is strong, what it leaves out, and Riverhead's own record.
@@ -559,6 +560,7 @@ one on phones, and first under **Pay and staff** on desktop):
 - **Brookhaven's 2027 Tentative** (`/brookhaven-2027`): Brookhaven's 2027 Tentative Operating Budget beside Riverhead's: savings used, growth, the levy, reserves, garbage fees and what each budget book tells residents, with ideas Riverhead could borrow. Brookhaven's copy is a scan, read with OCR and from the page images; `scripts/verify-brookhaven.mjs` checks its tables' arithmetic and its quotations. Per-resident figures use the Census Bureau's July 1 town estimates for Suffolk County (`public/data/census-pep.json`; refresh with `node scripts/fetch-population.mjs` when a new vintage is out, no key needed).
 - **2027 Budget Amendments** (`/budget-amendments-2027`): the six amendments to the 2027 budget on the Town Board's October 20, 2026 agenda, as the pre-final draft in the October 15 work-session packet prints them, set against the Tentative's Summary and the 2027 Budget Supplement line by line: the levy by fund, the higher revenue estimates beside past collections, the equipment moved to savings, the estimated tax rates and an even-handed reading of how they bear on the supervisor's race. The cited packet pages are kept in `etl/data/budget-2027/amendments-packet-2026-10-15.json`; `scripts/verify-budget-amendments.mjs` checks each resolution balances fund by fund and that every account, amount and quotation is on its packet page. The page shows each vote from the meeting's record (`public/data/meetings/2026-10-20.json`).
 - **Outlier Watch** (`/outliers`): year-over-year swings of at least 20% and $100,000 across all 19 funds, each adopted budget against the year before and next year's proposal (now the 2027 Preliminary) against the last adopted budget. A flagged proposal gets its Budget Supplement lines, and the Debt Service Fund's 2027 fall is set beside the two 2026 votes that paid debt down. A second section lists the accounts the 2027 Preliminary moves most, on the same two bars, with each line's 2025 actual. `scripts/verify-outliers.mjs` holds the page to the records.
+- **Department Efficiency** (`/department-efficiency`): 84 departments and cost centers (a fund and function each) compared on spending, growth per year, cost per resident, distance from budget and years over budget, from the Budget Supplements' line history. Each department shows its budget and spending by year, what its spending paid for, the lines a review would start with (over budget, well under it, or unused in four of five years), questions its numbers raise, and printable resident and staff survey kits; the site collects no answers. `scripts/verify-dept-efficiency.mjs` checks that every department adds up to its lines.
 - **Budget Accuracy** (`/budget-accuracy`): where adopted amounts and actual spending drift apart: researched flags read from the Supplements, lines over budget three years running, lines never used, every outlier in the newest Supplement, and year-by-year checks of each line's budget against its cost for 2023 to 2025 (`scripts/verify-accuracy-screens.mjs`).
 - **Contracts & Bids** (`/contracts`): every 2026 Town Board resolution that awards a bid, extends one, buys equipment, changes a construction contract or hires a firm, with the vendor and amount in the resolution's own words.
 - **Fiscal Impact** (`/fiscal-impact`): each resolution's Fiscal Impact Statement next to a realistic financial read, and every dollar figure the resolution's own text states, quoted and labelled (a cost, a fee, money coming in, a budget line, borrowing, a developer's security). Each statement is matched to its resolution by the number printed above it.
@@ -590,7 +592,7 @@ the numbers are labeled and sourced (`/evidence`).
 
 ## Search
 
-The search covers about 17,400 records: the site's own 82 pages, 848 budget
+The search covers about 17,400 records: the site's own 84 pages, 848 budget
 lines, 1,228 employee pay records, 347 authorized salaries, about 2,180 Town
 Board votes, 19 funds and about 12,650 pages from 133 financial documents.
 The counts grow as the pipeline adds records.

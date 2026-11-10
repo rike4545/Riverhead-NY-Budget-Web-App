@@ -192,3 +192,19 @@ summary{min-height:24px}input[type=range]{min-height:24px}
   .rbl-page-content{padding-bottom:30px}
   .rbl-page-content :where(h2){font-size:clamp(20px,5.4vw,26px)}
 }
+
+/* Fiscal impact statement helper (/fiscal-impact-helper/): "Print or save as PDF" prints the filled-in form alone. While html carries fis-printing, every element that neither holds the form nor sits inside it is hidden, so the form starts on page one with no blank pages after it; the budget table starts a new page. */
+@media print {
+  html.fis-printing body *:not(:has(#fis-form)):not(#fis-form):not(#fis-form *) { display: none !important; }
+  html.fis-printing body, html.fis-printing main { margin: 0 !important; padding: 0 !important; background: #fff !important; }
+  html.fis-printing #fis-form { border: 0 !important; border-radius: 0 !important; padding: 0 !important; max-width: none !important; }
+  html.fis-printing .fis-page-break { break-before: page; }
+}
+
+/* Department efficiency view (/department-efficiency/): "Print or save the survey kit" prints the two questionnaires alone, the staff survey on its own page, the same way as the fiscal impact helper's form above. */
+@media print {
+  html.eff-printing body *:not(:has(#eff-survey-kit)):not(#eff-survey-kit):not(#eff-survey-kit *) { display: none !important; }
+  html.eff-printing body, html.eff-printing main { margin: 0 !important; padding: 0 !important; background: #fff !important; }
+  html.eff-printing #eff-survey-kit { border: 0 !important; border-radius: 0 !important; padding: 0 !important; }
+  html.eff-printing .eff-page-break { break-before: page; }
+}

@@ -1,6 +1,8 @@
 import Sparkline from './Sparkline'
 import { CATEGORY_SOURCE, type CategoryResult } from '../lib/spending-categories'
 import { plainAccountName } from '../lib/account-names'
+import { ONE_OFF_EXPLAINED, type AccountChange } from '../lib/account-changes'
+import { changesByAccount, CHANGES_YEAR, CHANGES_THROUGH } from '../lib/account-changes-data'
 
 // Recurring costs by category on /outliers/ (lib/spending-categories.ts;
 // checked by scripts/verify-spending-categories.mjs). Server-rendered.
@@ -8,6 +10,7 @@ import { plainAccountName } from '../lib/account-names'
 const base = process.env.NEXT_PUBLIC_BASE_PATH || ''
 const usd = (n: number) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(n)
 const round10k = (n: number) => Math.round(n / 10_000) * 10_000
+const longDate = (iso: string) => new Date(`${iso}T12:00:00`).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })
 const pct = (n: number) => `${Math.abs(n * 100).toFixed(0)}%`
 const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 20 } as const
 const link = { color: 'var(--rbl-link)', fontWeight: 600 } as const
@@ -35,6 +38,13 @@ export default function SpendingCategories({ categories }: { categories: Categor
         <a href={`${base}/glossary/#term-lapse`} style={link}>lapses</a> into fund balance, and spending past the limit needs a{' '}
         <a href={`${base}/glossary/#term-budget-transfer`} style={link}>budget transfer</a>. The “kind of cost” note on each category (fixed, variable,
         semi-variable) is a budgeting term for what makes it move and what the Town can change; it is not a category in the Town’s books.
+      </p>
+      <p data-original-budget-note style={{ margin: '0 0 12px', color: 'var(--rbl-text-body)', fontSize: 15.5, lineHeight: 1.6, maxWidth: '75ch' }}>
+        <strong>Original, not amended, budgets.</strong> Every “budget” here is the budget as the Board first adopted it, which is what the
+        Supplements print. During the year the Board amends it: adjustments add money from a grant, a donation or savings, and transfers move it
+        between lines. A line that looks over its original budget may have been covered by such a vote, and one that looks under may have given
+        money to another line. Under each account, this lists the Board’s {CHANGES_YEAR} budget changes that name it, from the records through{' '}
+        {longDate(CHANGES_THROUGH)}; read the resolution for which way the money moved. Not every fiscal impact statement lists its accounts, so these lists can be incomplete.
       </p>
       <div data-scroll-region style={{ overflowX: 'auto', marginBottom: 14 }}>
         <table className="rbl-stack" style={{ width: '100%', borderCollapse: 'collapse', fontSize: 14.5 }}>
@@ -136,12 +146,22 @@ function CategoryCard({ c }: { c: CategoryResult }) {
           <li>
             The {c.thisYear + 1} Preliminary budgets {usd(c.proposed)}, {usd(Math.abs(c.proposed - last.usual))} {c.proposed >= last.usual ? 'above' : 'below'} what was spent in {c.lastActual}.
           </li>
-          {c.oneOffs.map((o) => (
-            <li key={o.account + o.year} data-one-off={o.account}>
-              <strong>One entry is left out of the figures above:</strong> “{o.name}” ({o.account}) recorded {usd(o.actual)} in {o.year} against
-              a {usd(o.budget)} budget, on page {o.page} of the Supplement. The Supplement does not say what it was; ask the Town.
-            </li>
-          ))}
+          {c.oneOffs.map((o) => {
+            const why = ONE_OFF_EXPLAINED[o.account]
+            return (
+              <li key={o.account + o.year} data-one-off={o.account}>
+                <strong>One entry is left out of the figures above:</strong> “{o.name}” ({o.account}) recorded {usd(o.actual)} in {o.year} against
+                an original budget of {usd(o.budget)}, on page {o.page} of the Supplement.{' '}
+                {why && why.year === o.year
+                  ? <span data-one-off-explained>{why.note} The resolution, {why.number} of {why.date} (“{why.title}”), says {why.quotes.map((q, i) => <span key={i}>{i > 0 ? ' and ' : ''}“{q}”</span>)}.</span>
+                  : <>The records this site holds do not say what it was; ask the Town.</>}
+              </li>
+            )
+          })}
+          {(() => {
+            const n = c.all.filter((t) => changesByAccount[t.account]?.length).length
+            return <li>{n === 0 ? `No ${CHANGES_YEAR} budget change the Board adopted names an account in this category` : `${n} of its accounts ${n === 1 ? 'is' : 'are'} named in ${CHANGES_YEAR} budget changes the Board adopted, listed under each account below`}, in the records through {longDate(CHANGES_THROUGH)}.</li>
+          })()}
           {c.flagged.length > 0 && (
             <li>
               {c.flagged.length === 1 ? 'One account' : `${c.flagged.length} accounts`} in this category {c.flagged.length === 1 ? 'is' : 'are'} flagged on{' '}
@@ -223,6 +243,7 @@ function AccountList({ c, rows }: { c: CategoryResult; rows: CategoryResult['all
                   : <>No budget in any year from {c.years[0].year} to {c.lastActual}.</>}
                 {t.yearsUnbudgeted > 0 && <> Spent money with no budget in {t.yearsUnbudgeted} {t.yearsUnbudgeted === 1 ? 'year' : 'years'}.</>}
               </span>
+              <Changes list={changesByAccount[t.account]} />
             </span>
             <span role="img" aria-label={`Spending ${c.actualYears[0]} to ${c.lastActual}: ${t.actuals.map((v) => (v === null ? 'none' : usd(v))).join(', ')}`}>
               <Sparkline values={t.actuals} width={110} height={30} />
@@ -231,5 +252,16 @@ function AccountList({ c, rows }: { c: CategoryResult; rows: CategoryResult['all
         )
       })}
     </ul>
+  )
+}
+
+function Changes({ list }: { list?: AccountChange[] }) {
+  if (!list?.length) return null
+  return (
+    <span data-account-changes style={{ display: 'block', color: 'var(--rbl-text-sub)', fontSize: 13.5 }}>
+      Named in {CHANGES_YEAR} budget changes: {list.map((ch, i) => (
+        <span key={ch.number}>{i > 0 ? '; ' : ''}Resolution {ch.number} ({longDate(ch.date)}, {usd(ch.amount)}, “{ch.title}”)</span>
+      ))}.
+    </span>
   )
 }

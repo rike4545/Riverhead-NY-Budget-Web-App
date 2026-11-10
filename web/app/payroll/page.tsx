@@ -21,7 +21,8 @@ import { triborough, units as laborUnits } from '../../lib/labor-contracts-2027'
 import { AMENDMENTS, VOTES as AMENDMENT_VOTES } from '../../lib/budget-amendments-2027'
 import lineHistory from '../../public/data/budget-supplement/line-history.json'
 import { UNIFORM_OT, policeOvertimeBudget, type HistoryLine } from '../../lib/police-overtime-budget'
-import { overtimeByDepartment, type SupplementLine as OtLine } from '../../lib/overtime-by-department'
+import { overtimeByDepartment, isOvertime, type SupplementLine as OtLine } from '../../lib/overtime-by-department'
+import { changesByAccount, CHANGES_YEAR, CHANGES_THROUGH } from '../../lib/account-changes-data'
 import { BENEFIT_LOAD_BASIS, explainer as benefitExplainer, source as benefitSource } from '../../lib/benefit-load'
 
 export const metadata = {
@@ -54,6 +55,7 @@ export default function PayrollPage() {
         overtime={{
           budgetLine: policeOvertimeBudget((lineHistory.accounts as HistoryLine[]).find((l) => l.account === UNIFORM_OT.account)!),
           departments: overtimeByDepartment(lineHistory.accounts as unknown as OtLine[]),
+          otChanges: { year: CHANGES_YEAR, through: CHANGES_THROUGH, byAccount: Object.fromEntries(Object.entries(changesByAccount).filter(([k]) => isOvertime(k))) },
           trends: rankTrends,
           flagged: flaggedRanks,
           comparisons: costComparisons,
