@@ -189,7 +189,7 @@ export const sources = [
 // useful part for a Riverhead resident.
 //
 // Riverhead's own entry needed the most care. Searching every Town Board
-// resolution this site has parsed — 42 meetings across 2025 and 2026 — turns up
+// resolution this site has parsed, 53 meetings from January 2025 through November 5, 2026, turns up
 // nothing on immigration enforcement. That is a statement about the resolution
 // record, not proof no policy exists: a police department can hold a general
 // order that never reaches a Town Board vote. The entry says that and no more.
@@ -264,9 +264,9 @@ export const regionalResponses: TownResponse[] = [
     town: 'Riverhead',
     status: 'no-action-on-record',
     headline: 'No resolution on immigration enforcement appears in the Town Board record',
-    asOf: 'Across 42 meetings on record, 2025 through August 2026',
+    asOf: 'Across 53 meetings on record, January 2025 through November 5, 2026',
     detail:
-      'This site parses every Riverhead Town Board resolution it can obtain. Searching all of them for immigration enforcement — ICE, federal agents, a public-safety-and-accountability law, 287(g) — returns nothing. Southold spent months of work sessions on the question and voted. Southampton’s supervisor answered it at a public meeting. Riverhead’s Board has not taken it up in any resolution we can find.',
+      'This site parses every Riverhead Town Board resolution it can obtain. Searching all of them for immigration enforcement — ICE, federal agents, a public-safety-and-accountability law, 287(g) — returns nothing. Southold spent months of work sessions on the question and voted. Southampton’s supervisor answered it at a public meeting. Riverhead’s Board has not taken it up in any resolution we can find, although residents raised immigration enforcement in public comment and letters to the Board at six meetings from August 4 through October 20, 2026.',
     what: [
       'This describes the resolution record, not the whole of Town policy. A police department can operate under a general order that never reaches a Town Board vote, and this site cannot see those.',
       'The state law described above applies in Riverhead regardless. It is state legislation and does not depend on the Town adopting anything.',

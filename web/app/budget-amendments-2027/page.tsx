@@ -9,6 +9,10 @@ import { RESERVE_YEAR, reserveYearAudited, unassignedFundBalance } from '../../l
 import { LETTER_2027, READ_BY_HAND } from '../../lib/tentative-letters'
 import taxBill from '../../public/data/tax-bill.json'
 
+/** The hearing date, once the minutes show it was held. */
+const hearingStep = NEXT_STEPS.find((s) => /public hearing/i.test(s.what))
+const hearing = hearingStep?.done ? hearingStep.date.split(',').slice(0, 2).join(',') : null
+
 const fx = amendmentEffect
 
 export const metadata = {
@@ -117,8 +121,8 @@ export default function BudgetAmendmentsPage() {
           { label: 'Savings', text: '“fund balance”: money left from earlier years. A budget can count some of it as income, called appropriated fund balance.' },
         ]}
       >
-        The Board adopted all six on {PACKET.meeting.date}, with no votes against, and they become part of the Preliminary Budget the
-        Board will hold a hearing on. Once the budget is adopted, the six would raise {usd(tw.after)} in town-wide property taxes, {usd(-tw.change)} less than the Tentative, so the levy would rise{' '}
+        The Board adopted all six on {PACKET.meeting.date}, with no votes against, and they became part of the Preliminary Budget the
+        Town posted for the public hearing{hearing ? <> held on {hearing}</> : null}. Once the budget is adopted, the six would raise {usd(tw.after)} in town-wide property taxes, {usd(-tw.change)} less than the Tentative, so the levy would rise{' '}
         {tw.pctAfter.toFixed(2)}% over 2026 instead of {tw.pctBefore.toFixed(2)}%. Of the cut, {usd(cutFromEstimates)} comes from higher estimates of
         what the Town will collect in fees, fines and interest, and {usd(fx.deferred.total)} from taking equipment out of the budget, to be bought
         from savings by separate votes during 2027. One amendment adds {usd(levyAdded)}. Three of the six add pay or insurance costs.{' '}

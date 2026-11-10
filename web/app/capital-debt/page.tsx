@@ -176,8 +176,8 @@ export default function CapitalDebtPage() {
       <section id="plan-2027" data-debt-plan-2027 style={{ ...card, marginBottom: 18, scrollMarginTop: 16 }}>
         <h2 style={{ marginTop: 0, marginBottom: 4, color: 'var(--rbl-title)', fontSize: 21 }}>What the 2027 budget plans to pay</h2>
         <p style={{ color: 'var(--rbl-text-body)', fontSize: 14.5, lineHeight: 1.6, marginTop: 0 }}>
-          The repayment schedule below was printed as of {debtProfile.asOf}, before the 2026 pay-downs. The 2027 Tentative
-          Budget is the newer record: it budgets {usd(debtPlan2027.bonds.principal.tentative2027)} of bond principal, against{' '}
+          The repayment schedule below was printed as of {debtProfile.asOf}, before the 2026 pay-downs. The 2027
+          budget is the newer record (the Board’s amendments left debt service unchanged, so the Tentative and the Preliminary agree): it budgets {usd(debtPlan2027.bonds.principal.tentative2027)} of bond principal, against{' '}
           {usd(debtPlan2027.schedule[2027].principal)} on the schedule, {usd(principalBelowSchedule)} less. That is the size of
           change the July pay-down of the 2018 refunding bonds would make; the budget does not itemise it by issue.
         </p>

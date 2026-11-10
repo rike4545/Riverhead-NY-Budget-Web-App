@@ -2,6 +2,7 @@ import PageShell from '../../components/PageShell'
 import Budget2027Table from '../../components/Budget2027Table'
 import ProvenanceLine from '../../components/ProvenanceLine'
 import TentativeReleased from '../../components/TentativeReleased'
+import { preliminaryIsLatest } from '../../components/PreliminaryUpdate'
 import { released2027, levySentence, statedLimitPct } from '../../lib/tentative-2027'
 import p from '../../public/data/budget-2027-prediction.json'
 import {
@@ -845,7 +846,7 @@ export default function Predict2027Page() {
         <h2 style={{ margin: '0 0 5px', color: 'var(--rbl-title)', fontSize: 18 }}>What could still move the model</h2>
         <div style={{ display: 'grid', gap: 8 }}>
           {p.watchList.map((w) => (w.id === 'tentative' && released2027 ? {
-            item: 'The Town’s own 2027 Tentative Budget is out',
+            item: preliminaryIsLatest() ? 'The Town’s 2027 Tentative and Preliminary budgets are out' : 'The Town’s own 2027 Tentative Budget is out',
             effect: 'now the number to measure',
             detail: `${levySentence(released2027)} This projection is left as it was, as the yardstick for it.`,
           } : w)).map((w) => (
