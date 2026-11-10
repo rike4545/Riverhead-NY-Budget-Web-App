@@ -1,0 +1,97 @@
+{
+ "$comment": "Hand-curated for /armory/. Every quote is copied from the record it cites. Town resolutions are quoted from their agenda packets or minutes; the 2011 and 2025-26 bills from the Assembly's bill record. News items are labelled as news. web/scripts/verify-armory.mjs checks the quotes the repository's own minutes text can confirm.",
+ "asOf": "2026-11-10",
+ "property": {
+  "name": "Former New York State Armory",
+  "address": "1405 Old Country Road (Route 58), Riverhead",
+  "acres": "5.716",
+  "acresSource": "The 1953 survey described in the 2011 law and in Exhibit A of the 2026 letter of intent",
+  "building": "approximately 32,101 square feet",
+  "buildingSource": "Town Board Resolution 2025-458"
+ },
+ "law2011": {
+  "chapter": "Chapter 495 of the Laws of 2011",
+  "bill": "S.4404 / A.6825",
+  "signed": "2011-08-31",
+  "url": "https://nyassembly.gov/leg/?default_fld=&leg_video=&bn=A06825&term=2011&Summary=Y&Actions=Y&Text=Y",
+  "conveyance": "the commissioner of general services is hereby authorized to transfer and convey to the town of Riverhead in consideration of one dollar",
+  "section4": "Any lands transferred pursuant to this act shall be used for the purposes of the town of Riverhead to utilize the subject property and improve the structures for use by the police department, justice court, public safety and recreational programs developed and operated by the town of Riverhead police department and upon termination of such use title to the lands so transferred shall revert to the state of New York."
+ },
+ "bill2026": {
+  "numbers": "S.8378-B / A.8809-B",
+  "sponsors": "Senator Anthony Palumbo and Assemblywoman Jodi Giglio",
+  "url": "https://nyassembly.gov/leg/?default_fld=&leg_video=&bn=A08809&term=2025&Summary=Y&Actions=Y&Text=Y&Memo=Y",
+  "senateUrl": "https://www.nysenate.gov/legislation/bills/2025/S8378/amendment/B",
+  "section4": "Any lands transferred pursuant to this act shall be authorized to be subject to a lease between the town of Riverhead and the YMCA of Long Island for a term of 99 years at a nomimal value of one dollar used for the purposes of the YMCA of Long Island to utilize the subject property to improve the structures and provide for recreational and community services; provided, however, that if such lands cease to be used for such purposes, then such lands shall revert to the state of New York.",
+  "effective": "This act shall take effect immediately.",
+  "steps": [
+   { "step": "Introduced", "date": "2025-06-06", "done": true, "note": "Senate bill introduced June 6, 2025; the Assembly bill June 9, 2025." },
+   { "step": "Passed the Senate", "date": "2026-05-14", "done": true, "note": "With the Town's home rule request on file." },
+   { "step": "Passed the Assembly", "date": "2026-06-05", "done": true, "note": "The Assembly substituted the Senate bill for its own and passed it." },
+   { "step": "Delivered to the Governor", "date": null, "done": false, "note": "The Assembly’s record shows no delivery to the Governor through November 10, 2026." },
+   { "step": "Signed into law", "date": null, "done": false, "note": "Until it is signed, the 2011 limits on the property stay in force." }
+  ],
+  "earlierTry": "The Assembly first passed the bill on June 17, 2025. The Senate did not act on it, and on January 7, 2026 the Assembly record reads \"died in senate.\" A separate Senate bill, S.8327, would have allowed the Town to sell the property to the YMCA as well as lease it; it has stayed in committee."
+ },
+ "loi": {
+  "resolution": "2026-520",
+  "date": "2026-05-20",
+  "url": "https://riverheadny.portal.civicclerk.com/event/6451/files/agenda/11919",
+  "pages": "pages 319 to 326 of the May 20, 2026 agenda packet",
+  "signedNote": "The copy in the agenda packet is signed by the YMCA. The Town's signature line is blank; Resolution 2026-520 authorized the Supervisor to sign it.",
+  "terms": [
+   { "topic": "Binding or not", "quote": "This letter is not intended to be, nor should it be interpreted or construed as, a contract between the YMCA and the Town and is only intended to advance discussions between the parties concerning a possible Lease." },
+   { "topic": "Length", "quote": "The term shall commence on the date the Lease is signed and shall end on the last day of the month in which the ninety-ninth (99th) anniversary of the commencement date occurs." },
+   { "topic": "Who pays to build", "quote": "The YMCA will construct the YMCA Building in accordance with its design and will be responsible for the cost of such construction." },
+   { "topic": "Who pays to run it", "quote": "The YMCA will be responsible for all costs of operating and maintaining the Premises and the YMCA Building to keep the same in good condition and repair" },
+   { "topic": "Cleanup", "quote": "The Town is not responsible for any remediation of the Building or Premises." },
+   { "topic": "The Town's promise on approvals", "quote": "The Town commits to facilitating the YMCA throughout the planning, permitting and construction process and will cause all such plans and permits, including a building permit(s) and a certificate of occupancy, to be approved as expeditiously as possible, but in no event later than twenty-four (24) months after submission by the YMCA of its initial plans." },
+   { "topic": "Ways the YMCA can leave", "quote": "The YMCA will have the right to terminate the Lease if it does not receive all necessary (i) permits; and (ii) funding in an amount determined by the YMCA for the project contemplated by the Lease." },
+   { "topic": "Environmental testing", "quote": "The YMCA has the right to conduct a Phase 1 and Phase 2 environmental investigation. If it is not satisfied with the results thereof, it may terminate the Lease." },
+   { "topic": "Water and sewer", "quote": "The Town and the YMCA shall coordinate, collaborate and use best efforts to identity and obtain relevant grants relating to sewer and water infrastructure costs to service the subject development." },
+   { "topic": "Uses", "quote": "The YMCA will use the Premises only for recreation, health and wellness, and youth and family programming which are consistent with the mission of the YMCA" },
+   { "topic": "Taxes", "quote": "The land and improvements on it are currently exempt from the payment of ad valorem taxes by virtue of a governmental body owning the land. YMCA is also a non-profit organization whose real property is exempt from ad valorem taxes." },
+   { "topic": "State law", "quote": "relevant state legislation passes the Senate" },
+   { "topic": "Confidentiality", "quote": "Except as otherwise required by law, the YMCA and the Town agree to maintain the confidentiality of the terms and conditions of this LOI" }
+  ]
+ },
+ "timeline": [
+  { "date": "2011-08-31", "what": "The Governor signs Chapter 495 of the Laws of 2011, which lets the State convey the armory to the Town for one dollar, for police, justice court, public safety and police-run recreation, and sends it back to the State if that use ends.", "source": { "kind": "law", "title": "Assembly record for S.4404 / A.6825 (2011)", "url": "https://nyassembly.gov/leg/?default_fld=&leg_video=&bn=A06825&term=2011&Summary=Y&Actions=Y&Text=Y" } },
+  { "date": "2017", "what": "RiverheadLOCAL reports that the Town Board rejected a roughly $13 million plan to turn the armory into a police and court complex in 2014 and again in 2017, as too expensive.", "source": { "kind": "news", "title": "RiverheadLOCAL, June 9, 2025", "url": "https://riverheadlocal.com/2025/06/09/state-lawmakers-look-to-remove-legal-barrier-for-ymca-at-former-armory-in-riverhead/" } },
+  { "date": "2025-05-21", "what": "Resolution 2025-458, adopted unanimously: the Board supports a YMCA at the armory and directs the Town Attorney to seek a change in State law allowing a lease or sale to the YMCA of Long Island.", "source": { "kind": "town", "title": "Minutes and packet, May 21, 2025", "url": "https://riverheadny.portal.civicclerk.com/event/2460/files/agenda/4471" } },
+  { "date": "2025-06-17", "what": "Resolution 2025-569, adopted unanimously, approves the home rule request the Town received from Assemblywoman Giglio for S.8378 / A.8809. The Assembly passes the bill the same day; the Senate does not act on it before the session ends.", "source": { "kind": "town", "title": "Minutes and packet, June 17, 2025", "url": "https://riverheadny.portal.civicclerk.com/event/2671/files/agenda/4805" } },
+  { "date": "2026-01-21", "what": "Resolution 2026-92, adopted unanimously, approves the home rule request again for the new session, on a request from Senator Palumbo and Assemblywoman Giglio. It says the Town seeks a 99-year lease to the YMCA for $1.", "source": { "kind": "town", "title": "Agenda packet, January 21, 2026, pages 293–294", "url": "https://riverheadny.portal.civicclerk.com/event/6447/files/agenda/10560" } },
+  { "date": "2026-05-14", "what": "The State Senate passes S.8378-B.", "source": { "kind": "law", "title": "Assembly record for A.8809 / S.8378", "url": "https://nyassembly.gov/leg/?default_fld=&leg_video=&bn=A08809&term=2025&Summary=Y&Actions=Y&Text=Y&Memo=Y" } },
+  { "date": "2026-05-20", "what": "Resolution 2026-520, adopted unanimously, authorizes the Supervisor to sign a non-binding letter of intent with the YMCA for a lease of the armory.", "source": { "kind": "town", "title": "Agenda packet, May 20, 2026, pages 319–326", "url": "https://riverheadny.portal.civicclerk.com/event/6451/files/agenda/11919" } },
+  { "date": "2026-06-05", "what": "The Assembly passes the Senate bill. Both houses have now passed it.", "source": { "kind": "law", "title": "Assembly record for A.8809 / S.8378", "url": "https://nyassembly.gov/leg/?default_fld=&leg_video=&bn=A08809&term=2025&Summary=Y&Actions=Y&Text=Y&Memo=Y" } },
+  { "date": "2026-08-18", "what": "Resolution 2026-797, adopted unanimously, ratifies a temporary, revocable license letting the Riverhead Volunteer Ambulance Corps use the armory's vehicle bays while its new headquarters is built. It says the site is otherwise expected to hold only police storage for the next year.", "source": { "kind": "town", "title": "Agenda packet, August 18, 2026, pages 112–113", "url": "https://riverheadny.portal.civicclerk.com/event/6454/files/agenda/12255" } },
+  { "date": "2026-09-15", "what": "Resolution 2026-842, adopted unanimously, moves $45,000 from Ambulance District fund balance to repair the armory for the ambulance corps' temporary use.", "source": { "kind": "town", "title": "Agenda packet, September 15, 2026, pages 19–20", "url": "https://riverheadny.portal.civicclerk.com/event/6455/files/agenda/12366" } },
+  { "date": "2026-10-06", "what": "The minutes record a Board member's report that the ambulance corps is \"officially in armory during construction of the new facility.\"", "source": { "kind": "town", "title": "Minutes, October 6, 2026", "url": "/meetings/?meeting=2026-10-06" } }
+ ],
+ "quotes": [
+  { "id": "unable", "text": "despite various attempts, the Town of Riverhead has been unable to repurpose the former Armory", "resolution": "2025-458", "file": "2025-05-21-minutes.txt" },
+  { "id": "nofunding", "text": "the Town does not have the funding to undertake the necessary renovations of the former New York State Armory facility, now in a state of blight", "resolution": "2025-458", "file": "2025-05-21-minutes.txt" },
+  { "id": "received", "text": "a Home Rule request has been received by the Town of Riverhead from State Assemblywoman Jodi Giglio", "resolution": "2025-569", "file": "2025-06-17-minutes.txt" },
+  { "id": "storage", "text": "at present and for the next year, it is anticipated that the Armory site will not be utilized except for storage of police equipment and vehicles", "resolution": "2026-797", "file": "2026-08-18-vote-packet.txt" },
+  { "id": "repairs", "text": "the Supervisor has requested to transfer $45,000 from the Ambulance District Fund balance in order to pay for the repairs to the Armory Building", "resolution": "2026-842", "file": "2026-09-15-vote-packet.txt" }
+ ],
+ "news": [
+  { "outlet": "RiverheadLOCAL", "date": "2025-06-09", "url": "https://riverheadlocal.com/2025/06/09/state-lawmakers-look-to-remove-legal-barrier-for-ymca-at-former-armory-in-riverhead/", "point": "The Deputy Town Attorney, reading a draft lease, said the YMCA would owe no rent \"in exchange and conditioned upon YMCA's dedication of $25,000 per year\" to residents eligible for financial assistance with membership costs. The report says the Town also sought free classes and youth and adult programs for residents, and that \"The YMCA has yet to agree to those terms.\"" },
+  { "outlet": "Riverhead News-Review", "date": "2026-05-26", "url": "https://riverheadnewsreview.timesreview.com/2026/05/134075/plan-moves-further-ahead-for-ymca-bid-in-riverhead/", "point": "Councilman Bob Kern \"estimated the project could cost between $20 million and $40 million.\" A YMCA official called the letter of intent \"a vital first step for the YMCA to move forward with requests for funding and approvals.\"" }
+ ],
+ "discrepancies": [
+  "Town Resolutions 2025-458, 2025-569 and 2026-92 say the 2011 law was \"signed into law by the Governor on August 31, 2022,\" and the bill sponsors' memo says \"Back in 2022, the State sold\" the property. The Assembly's record shows Chapter 495 was signed on August 31, 2011. This site found no record of the date the deed itself was delivered.",
+  "The letter of intent describes \"An approximately 5.90-acre parcel,\" while its own Exhibit A and the 2011 law describe 5.716 acres. The lease would need to settle which land it covers.",
+  "The letter of intent carries a confidentiality clause, yet it was published, signed by the YMCA, in the Town Board's public agenda packet. The clause applies \"Except as otherwise required by law.\"",
+  "The bill as printed says \"nomimal value of one dollar\"; the sponsors' memo describes it as \"a nominal value of $1.\""
+ ],
+ "questions": [
+  "When will the Legislature send the bill to the Governor, and has the Governor said whether she will sign it?",
+  "Will the lease include the $25,000 a year in membership help and the free programs the Town sought in 2025? The 2026 letter of intent does not mention them.",
+  "What does the environmental work already done on the site show, and what cleanup is still needed? The letter of intent says the Town is not responsible for any.",
+  "How much must the YMCA raise before it builds, and by when? The letter lets it leave if funding falls short, with no deadline named for fundraising.",
+  "If the YMCA leaves partway, or the building stops being used for recreation and community services, the land goes back to the State. What happens to the Town's costs in the meantime?",
+  "Will Riverhead residents pay the same membership rates as others, and how many people will the facility serve?",
+  "How long will the ambulance corps stay in the armory, and will the $45,000 in repairs help or delay the YMCA's work?"
+ ]
+}
