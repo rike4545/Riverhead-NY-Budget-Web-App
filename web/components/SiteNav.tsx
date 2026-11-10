@@ -17,10 +17,6 @@ const PRIMARY: Link[] = [
   ['Search', `${base}/search/`],
 ]
 
-// The phone menu's tiles sit two to a row, so it adds a fourth: Employee pay,
-// which on desktop sits first under Pay and staff.
-const QUICK: Link[] = [PRIMARY[0], ['Employee pay', `${base}/payroll/`], ...PRIMARY.slice(1)]
-
 const GROUPS: Group[] = [
   { label: '2027 budget', links: [
     ['The 2027 budget', `${base}/tentative-2027/`], ['What changed from 2026', `${base}/what-changed/`], ['Budget amendments', `${base}/budget-amendments-2027/`],
@@ -40,8 +36,8 @@ const GROUPS: Group[] = [
   ] },
   { label: 'Spending checks', links: [
     ['Budget vs. actual spending', `${base}/budget-accuracy/`], ['Budget changes the Board approved', `${base}/budget-changes/`], ['Cost of Board decisions', `${base}/fiscal-impact/`],
-    ['Unusual spending patterns', `${base}/outliers/`], ['Contracts and bids', `${base}/contracts/`], ['Legal costs', `${base}/legal-costs/`], ['Regional CPF counsel', `${base}/regional-cpf-counsel/`],
-    ['Town Square project', `${base}/town-square/`], ['Road spending', `${base}/road-spending/`], ['Ambulance funding', `${base}/rvac-funding/`],
+    ['Unusual spending patterns', `${base}/outliers/`], ['Contracts and bids', `${base}/contracts/`], ['Optimum cable franchise and Verizon', `${base}/cable-franchise/`], ['Legal costs', `${base}/legal-costs/`], ['Regional CPF counsel', `${base}/regional-cpf-counsel/`],
+    ['Town Square project', `${base}/town-square/`], ['New Justice Court at 200 Howell', `${base}/justice-court/`], ['Road spending', `${base}/road-spending/`], ['Ambulance funding', `${base}/rvac-funding/`],
     ['Police spending and crime', `${base}/police-crime/`], ['School resource officers', `${base}/school-resource-officers/`],
   ] },
   { label: 'Land use', links: [
@@ -62,6 +58,11 @@ const GROUPS: Group[] = [
 ]
 
 const linkStyle = { color: 'white', textDecoration: 'none', border: '1px solid transparent', borderRadius: 8, padding: '7px 9px', fontWeight: 650, background: 'transparent', fontSize: 14, minHeight: 44, whiteSpace: 'nowrap' as const, display: 'inline-flex', alignItems: 'center', gap: 3 }
+
+// The phone menu's tiles sit two to a row, so it adds a fourth: Employee pay,
+// which on desktop sits first under Pay and staff. It sits after GROUPS so the
+// apps' parity checks, which read PRIMARY through GROUPS, see each page once.
+const QUICK: Link[] = [PRIMARY[0], ['Employee pay', `${base}/payroll/`], ...PRIMARY.slice(1)]
 
 export default function SiteNav() {
   const pathname = usePathname() || ''

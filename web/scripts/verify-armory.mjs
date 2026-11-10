@@ -29,7 +29,8 @@ const wrongYear = 'signed into law by the Governor on August 31, 2022'
 for (const f of ['2025-05-21-minutes.txt', '2025-06-17-minutes.txt']) if (!text(f).includes(wrongYear)) fail(`${f} no longer says "${wrongYear}"; recheck the discrepancy the page reports`)
 if (!data.discrepancies.some((d) => d.includes('August 31, 2022')) || data.law2011.signed !== '2011-08-31') fail('the signing-date discrepancy or the 2011 signing date is missing')
 
-if (/SCTM|\d{3,4}-\d{3}(\.\d+)?-\d/.test(raw)) fail('armory.json contains a tax-map number')
+// Riverhead's tax-map numbers are in district 600 ("600-108-2-3", "0600-108.00-2.00-005.000").
+if (/SCTM|\b0?600-\d{3}(\.\d+)?-\d/.test(raw)) fail('armory.json contains a tax-map number')
 if (/[\w.+-]+@[\w-]+\.[\w.]+/.test(raw)) fail('armory.json contains an email address')
 
 const allowed = [/^https:\/\/riverheadny\.portal\.civicclerk\.com\//, /^https:\/\/nyassembly\.gov\/leg\//, /^https:\/\/www\.nysenate\.gov\/legislation\//, /^https:\/\/riverheadlocal\.com\//, /^https:\/\/riverheadnewsreview\.timesreview\.com\//, /^\/[a-z0-9-]+\//]
