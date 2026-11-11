@@ -62,7 +62,6 @@ export default function SupervisorOfficePayPage() {
   const stipendDeputies = peers.filter((p) => sal(p, 'deputy') !== null && !fullTimeDeputies.includes(p))
   const budgetPeers = peers.filter((p) => sal(p, 'budget') !== null)
   const smithtown = peers.find((p) => p.town === 'Smithtown')
-  const chiefListed = peers.filter((p) => p.missing.some((m) => m.role === 'chief' && m.listedTitle))
   return (
     <PageShell
       title="Supervisor’s office pay compared"
@@ -76,8 +75,7 @@ export default function SupervisorOfficePayPage() {
         ]}
       >
         Every Riverhead figure is from the Town’s 2026 salary schedule in the January 6, 2026 agenda packet. Each other town’s figures are from its own
-        2026 records: an adopted budget, a salary chart or the salary resolutions of its organizational meeting, each linked below. Brookhaven’s
-        come from the 2026 adopted budget column of its 2027 Preliminary Budget. Towns organize the
+        2026 records: an adopted budget, a salary chart or the salary resolutions of its organizational meeting, each linked below. Towns organize the
         Supervisor’s office differently, so a lower or higher salary can reflect a different job rather than different pay for the same one. For
         Riverhead’s other management salaries, see <a href={`${base}/management-compensation/`} style={link}>Management pay and benefits</a>.
       </PlainCallout>
@@ -163,11 +161,7 @@ export default function SupervisorOfficePayPage() {
             {stipendDeputies.length > 0 && <>{listed(stipendDeputies.map((p) => `${p.town} pays ${usd0(sal(p, 'deputy') ?? 0)}`))} for the year, so there it is not a full-time salary{smithtown && stipendDeputies.includes(smithtown) ? '; Smithtown’s deputy is a Town Board member' : ''}.</>}
           </li>
           <li>
-            <strong>Chief of Staff and Budget Officer.</strong>{' '}
-            {chiefListed.length === 0
-              ? <>None of the {peers.length} other towns’ records lists a chief of staff.</>
-              : <>Of the {peers.length} other towns, only {listed(chiefListed.map((p) => p.town))} {chiefListed.length > 1 ? 'list' : 'lists'} a chief of staff, and {chiefListed.length > 1 ? 'they give' : 'its budget gives'} no salary for the post.</>}
-            {' '}For budget work,
+            <strong>Chief of Staff and Budget Officer.</strong> None of the {peers.length} other towns’ records lists a chief of staff. For budget work,
             {' '}{listed(budgetPeers.map((p) => { const r = peerSalary(p, 'budget')!; return `${p.town} has a ${r.title} (${usd0(r.salary)}, ${r.inOffice === false ? 'outside' : 'in'} the Supervisor’s office)` }))}.
             {' '}Riverhead’s combined role is paid {usd0(rh.chief ?? 0)}{budgetPeers.every((p) => (sal(p, 'budget') ?? 0) > (rh.chief ?? 0)) ? ', less than any of them' : ''}.
             {smithtown && sal(smithtown, 'budget') !== null && <> Smithtown’s Town Budget Officer has the same title as Riverhead’s, at {usd0(sal(smithtown, 'budget') ?? 0)}, though in its Comptroller’s department. The Comptrollers run whole finance departments, a larger job than Riverhead’s role.</>}
