@@ -1,7 +1,9 @@
 // /supervisor-office-pay/ (lib/supervisor-office-pay.ts and
 // public/data/salary/peer-supervisor-offices.json).
 // - every peer salary, and every prior-year figure, appears on its quoted line
-//   in the town's own record kept in etl/data/salary/peers/;
+//   in the town's own record kept in etl/data/salary/peers/; a salary paid from
+//   several budget lines has each line quoted, the lines add up to it, and the
+//   same lines for the next year add up to the total the record prints;
 // - Riverhead's figures match the 2026 salary schedule and the agenda packet,
 //   including the Supervisor's "reduced from budgeted amount of $118,919";
 // - a hand transcription of a scanned page adds up to the page's printed
@@ -23,6 +25,23 @@ for (const p of data.peers) {
   if (!existsSync(path)) { fail(`${p.town}: ${p.source.text} is missing`); continue }
   const text = norm(readFileSync(path, 'utf8'))
   for (const r of p.roles) {
+    if (r.parts) {
+      for (const part of r.parts) {
+        if (!text.includes(norm(part.quote))) fail(`${p.town} ${r.title}: "${part.quote.slice(0, 50)}" is not in the record`)
+        if (!part.quote.includes(part.amount.toLocaleString('en-US'))) fail(`${p.town} ${r.title}: the quoted line does not carry ${part.amount}`)
+        figures++
+      }
+      const sum = r.parts.reduce((s, x) => s + x.amount, 0)
+      if (sum !== r.salary) fail(`${p.town} ${r.title}: its budget lines add to ${sum}, not ${r.salary}`)
+      if (!r.nextTotal) fail(`${p.town} ${r.title}: a salary split across lines needs the next year's printed total to show the lines are the whole salary`)
+      else {
+        if (!text.includes(norm(r.nextTotal.quote)) || !r.nextTotal.quote.includes(r.nextTotal.amount.toLocaleString('en-US'))) fail(`${p.town} ${r.title}: "${r.nextTotal.quote}" is not in the record`)
+        const next = r.parts.reduce((s, x) => s + (x.next ?? NaN), 0)
+        if (next !== r.nextTotal.amount) fail(`${p.town} ${r.title}: next year's lines add to ${next}, but the record prints ${r.nextTotal.amount}`)
+        for (const part of r.parts) if (!part.quote.includes(String(part.next?.toLocaleString('en-US')))) fail(`${p.town} ${r.title}: next year's ${part.next} is not on its line`)
+      }
+      continue
+    }
     const q = norm(r.quote)
     if (!text.includes(q)) { fail(`${p.town}: "${r.quote.trim().slice(0, 50)}" is not in the record`); continue }
     if (!q.includes(r.salary.toLocaleString('en-US'))) fail(`${p.town} ${r.title}: the quote does not carry ${r.salary}`)

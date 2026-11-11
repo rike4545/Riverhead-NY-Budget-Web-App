@@ -1,0 +1,29 @@
+Town of Brookhaven, 2027 Preliminary Operating Budget (October 1, 2026). Read from the accessible transcript of the Town's PDF (DocAccess, published by brookhavenny.gov), uploaded by the site's owner on November 11, 2026; the same pages are in etl/data/brookhaven/2027/brookhaven2027-compressed.pdf, the 2027 Tentative it was converted from with no changes.
+Table cells are joined one row per line. Page numbers are the PDF's.
+
+PDF page 2:
+“The 2027 Tentative Operating Budget was converted on October 1, 2026 to the 2027 Preliminary Operating Budget with no changes”
+
+PDF page 11: Salaries of elected officials
+Supervisor $181,800
+
+PDF page 29: Division A1220: Supervisor’s Office
+Object | 2024 actual | 2025 actual | 2026 adopted budget | 2026 revised budget | 2026 YTD actual | 2027 preliminary budget
+1020 - Town Supervisor 135,896 144,173 141,893 141,893 96,332 145,440
+1310 - Management Employees 359,233 416,333 559,468 557,993 290,769 640,396
+
+PDF page 43: Division B8015: Planning Town Board
+Object | 2024 Actual | 2025 Actual | 2026 Adopted Budget | 2026 Revised Budget | 2026 YTD Actual | 2027 Preliminary Budget
+1020 - Town Supervisor 0 29,106 35,473 35,473 24,083 36,360
+
+PDF page 31: Schedule of positions, Supervisor - A1220, full time. Columns: grade where printed, 2026 Adopted Budget, 2027 Preliminary Budget, change
+Chief of Staff 1 1 0
+Deputy Chief of Staff (Executive Asst) 1 1 0
+Deputy Town Supervisor See Note 1 below See Note 1 below 0
+Director of Finance 1 1 0
+Government Liaison Officer 1 1 0
+Secretary to the Supervisor 1 1 0
+Secretary to the Deputy Supervisor 0 0 0
+Sub-Total Management 5 5 0
+Town Supervisor 1 1 0
+1 - Stipend assigned to member of Town Council who also serves as Deputy Supervisor

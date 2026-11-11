@@ -248,13 +248,63 @@
           "why": "The schedule lists no chief of staff. Its Supervisor's division also has two Citizens Advocates, which have no Riverhead counterpart."
         }
       ]
+    },
+    {
+      "town": "Brookhaven",
+      "censusName": "Brookhaven town",
+      "source": {
+        "title": "Town of Brookhaven 2027 Preliminary Operating Budget, 2026 adopted budget column (pages 11, 29, 31 and 43)",
+        "url": "https://github.com/rike4545/Riverhead-NY-Budget-Web-App/blob/main/etl/data/brookhaven/2027/brookhaven2027-compressed.pdf",
+        "text": "etl/data/salary/peers/brookhaven-2027-preliminary-budget-excerpt.txt"
+      },
+      "roles": [
+        {
+          "role": "supervisor",
+          "title": "Town Supervisor",
+          "salary": 177366,
+          "quote": "1020 - Town Supervisor 135,896 144,173 141,893 141,893 96,332 145,440",
+          "parts": [
+            {
+              "quote": "1020 - Town Supervisor 135,896 144,173 141,893 141,893 96,332 145,440",
+              "amount": 141893,
+              "next": 145440
+            },
+            {
+              "quote": "1020 - Town Supervisor 0 29,106 35,473 35,473 24,083 36,360",
+              "amount": 35473,
+              "next": 36360
+            }
+          ],
+          "nextTotal": {
+            "quote": "Supervisor $181,800",
+            "amount": 181800
+          },
+          "note": "Elected. The 2026 adopted budget pays it from two lines: $141,893 in the Supervisor's Office (A1220, page 29) and $35,473 in Planning Town Board (B8015, page 43). The same two lines for 2027, $145,440 and $36,360, add to the $181,800 printed as the Supervisor's 2027 salary (page 11), so together they are the whole salary.",
+          "inOffice": true
+        }
+      ],
+      "missing": [
+        {
+          "role": "deputy",
+          "why": "A Town Council member serves as Deputy Supervisor for a stipend (page 31, note 1). The budget does not state the amount."
+        },
+        {
+          "role": "chief",
+          "why": "The office has a Chief of Staff and a Deputy Chief of Staff (page 31). The budget gives no salary for each post: the office's management employees share one line, $559,468 in the 2026 adopted budget (page 29).",
+          "listedTitle": "Chief of Staff"
+        },
+        {
+          "role": "budget",
+          "why": "The office has a Director of Finance (page 31). The budget gives no salary for each post: the office's management employees share one line, $559,468 in the 2026 adopted budget (page 29)."
+        },
+        {
+          "role": "aide",
+          "why": "The office has a Secretary to the Supervisor (page 31). The budget gives no salary for each post: the office's management employees share one line, $559,468 in the 2026 adopted budget (page 29)."
+        }
+      ]
     }
   ],
   "notFound": [
-    {
-      "town": "Brookhaven",
-      "why": "Its 2026 adopted budget could not be read: the town's website refused this site's automated requests. This site does have Brookhaven's 2027 Tentative Operating Budget, but it does not fill the gap. Its list of elected officials' salaries (page 11 of the PDF) gives the Supervisor $181,800, which is the proposed 2027 salary, not the 2026 one this page compares. Its schedule of positions for the Supervisor's office (page 31) counts staff, including a Chief of Staff and a Deputy Chief of Staff, but gives no salaries."
-    },
     {
       "town": "Islip",
       "why": "Its 2026 adopted budget is a 90 MB file on a town website that refused this site's automated requests."

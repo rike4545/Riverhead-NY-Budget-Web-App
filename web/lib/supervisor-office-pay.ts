@@ -23,9 +23,15 @@ export const ROLES: { key: RoleKey; label: string; riverheadTitle: string; what:
   { key: 'aide', label: 'Legislative Aide or Secretary', riverheadTitle: 'Secretary (Legislative Aide, Resolution 2026-58)', what: 'Supports the Supervisor with correspondence, scheduling and Board business.' },
 ]
 
-/** primary: the title compared when a town has more than one for a role. inOffice: false when the counterpart sits outside the Supervisor's office. */
-export type PeerRole = { role: RoleKey; title: string; salary: number; prior?: Record<string, number>; quote: string; note: string; primary?: boolean; inOffice?: boolean }
-export type Peer = { town: string; censusName: string; source: { title: string; url: string; text: string; transcribed?: boolean }; roles: PeerRole[]; missing: { role: RoleKey; why: string }[] }
+/**
+ * primary: the title compared when a town has more than one for a role. inOffice: false when the counterpart sits outside the Supervisor's office.
+ * parts: a salary the record pays from more than one budget line, each line quoted with its amount; salary is their sum. next and nextTotal
+ * carry the same lines' figures for the following year and the total printed for that year, which shows the lines are the whole salary.
+ */
+export type SalaryPart = { quote: string; amount: number; next?: number }
+export type PeerRole = { role: RoleKey; title: string; salary: number; prior?: Record<string, number>; quote: string; parts?: SalaryPart[]; nextTotal?: { quote: string; amount: number }; note: string; primary?: boolean; inOffice?: boolean }
+/** listedTitle: the record lists the post but gives it no salary of its own. */
+export type Peer = { town: string; censusName: string; source: { title: string; url: string; text: string; transcribed?: boolean }; roles: PeerRole[]; missing: { role: RoleKey; why: string; listedTitle?: string }[] }
 export type SalaryRecord = { title?: string | null; department?: string | null; annual?: number | null }
 
 /** Riverhead's 2026 base salary for each role, from the salary schedule. The Chief of Staff and Budget Officer share one. */
