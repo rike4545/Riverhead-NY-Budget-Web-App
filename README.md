@@ -613,7 +613,8 @@ The counts grow as the pipeline adds records.
 
 There is also an optional AI answer mode. The site has no server, so there is
 nowhere safe to keep a shared API key. Instead, a reader pastes their own
-OpenAI key, which stays in their browser. The answer is built only from the
+OpenAI key, which is kept in that browser tab only (`sessionStorage`) and cleared
+when the tab closes. The answer is built only from the
 most relevant search records, and it cites them by number, so every answer
 can be traced to a real record.
 

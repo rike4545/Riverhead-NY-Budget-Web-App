@@ -41,7 +41,7 @@ jobs:
           python-version: '3.12'
 
       - name: Install the discovery dependencies
-        run: python -m pip install --quiet requests beautifulsoup4 pypdf
+        run: python -m pip install --quiet "requests>=2.33.0" beautifulsoup4 "pypdf>=6.21.4"
 
       - name: Look for a budget document not yet parsed
         id: watch

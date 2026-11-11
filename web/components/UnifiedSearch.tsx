@@ -35,6 +35,11 @@ const TYPE_META: Record<EntryType, { label: string; bg: string; fg: string }> = 
 const TYPE_ORDER: EntryType[] = ['fund', 'document', 'line-item', 'salary', 'payroll', 'resolution', 'page']
 const usd = (n: number) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(n)
 const EXAMPLES = ['police overtime', 'Hegermiller', 'reserves', 'tax cap', 'Island Water Park', 'September 15']
+// The reader's key lives in sessionStorage: this tab only, gone when it closes.
+// localStorage would keep it indefinitely and share it with every page on
+// rike4545.github.io, which hosts other GitHub Pages sites under the same
+// origin. A key saved there by an earlier version is moved into this tab once
+// and deleted from localStorage.
 const KEY_STORAGE = 'riverhead-openai-key'
 const AI_RECORD_COUNT = 24
 // Fewer structured matches than this and the document pages load too.
@@ -251,7 +256,13 @@ export default function UnifiedSearch() {
   }, [])
 
   const ensureIndex = useCallback(() => { loadDataset().catch(() => {}) }, [loadDataset])
-  useEffect(() => { try { setApiKey(localStorage.getItem(KEY_STORAGE) ?? '') } catch { /* ignore */ } }, [])
+  useEffect(() => {
+    try {
+      const legacy = localStorage.getItem(KEY_STORAGE)
+      if (legacy) { sessionStorage.setItem(KEY_STORAGE, legacy); localStorage.removeItem(KEY_STORAGE) }
+      setApiKey(sessionStorage.getItem(KEY_STORAGE) ?? '')
+    } catch { /* storage blocked: the key works for this page view only */ }
+  }, [])
   useEffect(() => {
     try { const params = new URLSearchParams(window.location.search); if (params.get('mode') === 'ask') setMode('ask'); const qp = params.get('q') ?? ''; if (qp) { setQ(qp); setDebounced(qp); ensureIndex() } } catch { /* ignore */ }
   }, [ensureIndex])
@@ -279,8 +290,8 @@ export default function UnifiedSearch() {
   const results = useMemo(() => types.size > 0 ? allScored.filter((e) => types.has(e.t)) : allScored, [allScored, types])
 
   const toggleType = (t: EntryType) => { if (t === 'page' && !entries?.some((e) => e.t === 'page')) loadPageShard().catch(() => {}); setTypes((prev) => { const next = new Set(prev); if (next.has(t)) next.delete(t); else next.add(t); return next }); setLimit(50) }
-  const saveKey = () => { const trimmed = keyDraft.trim(); if (!trimmed) return; try { localStorage.setItem(KEY_STORAGE, trimmed) } catch { /* ignore */ }; setApiKey(trimmed); setKeyDraft('') }
-  const removeKey = () => { try { localStorage.removeItem(KEY_STORAGE) } catch { /* ignore */ }; setApiKey(''); setKeyDraft('') }
+  const saveKey = () => { const trimmed = keyDraft.trim(); if (!trimmed) return; try { sessionStorage.setItem(KEY_STORAGE, trimmed) } catch { /* ignore */ }; setApiKey(trimmed); setKeyDraft('') }
+  const removeKey = () => { try { sessionStorage.removeItem(KEY_STORAGE); localStorage.removeItem(KEY_STORAGE) } catch { /* ignore */ }; setApiKey(''); setKeyDraft('') }
 
   const runAsk = useCallback(async (asked?: string) => {
     const question = (asked ?? q).trim()
@@ -355,7 +366,7 @@ export default function UnifiedSearch() {
                 : <button type="button" onClick={() => runAsk()} disabled={!canAsk} style={{ padding: '10px 20px', borderRadius: 10, border: 'none', fontWeight: 600, fontSize: 15, cursor: canAsk ? 'pointer' : 'not-allowed', background: 'var(--rbl-fill-brand)', color: 'white', opacity: canAsk ? 1 : 0.45 }}>Ask AI</button>}
               <span style={{ display: 'inline-flex', alignItems: 'center', gap: 6, fontSize: 14, color: hasKey ? 'var(--rbl-success-strong)' : 'var(--rbl-text-muted)' }}>
                 {hasKey ? <CircleCheck size={16} strokeWidth={2.25} aria-hidden /> : <KeyRound size={16} strokeWidth={2.25} aria-hidden />}
-                {hasKey ? 'Your OpenAI key is saved in this browser' : 'Answers need your own OpenAI key'}
+                {hasKey ? 'Your OpenAI key is set for this tab' : 'Answers need your own OpenAI key'}
               </span>
               <button type="button" onClick={() => setShowKeyPanel((v) => !v)} aria-expanded={showKeyPanel} aria-controls="ai-key" style={linkButton}>{showKeyPanel ? 'Hide key setup' : hasKey ? 'Change key' : 'Set up a key'}</button>
             </div>
@@ -375,14 +386,14 @@ export default function UnifiedSearch() {
       {mode === 'ask' && showKeyPanel && (
         <section id="ai-key" aria-labelledby="ai-key-title" style={card}>
           <h2 id="ai-key-title" style={{ margin: '0 0 6px', fontSize: 17, fontWeight: 700, color: 'var(--rbl-title)' }}>Your OpenAI key</h2>
-          <p style={{ ...muted, color: 'var(--rbl-text-body)', marginBottom: 6 }}>This site has no server, so Ask AI uses your own OpenAI key. The key stays in this browser and goes only to OpenAI, with your question and the records it is answered from. OpenAI bills your account. Find records needs no key.</p>
+          <p style={{ ...muted, color: 'var(--rbl-text-body)', marginBottom: 6 }}>This site has no server, so Ask AI uses your own OpenAI key. The key is kept in this tab only and is cleared when you close it. It goes only to OpenAI, with your question and the records it is answered from. OpenAI bills your account. Find records needs no key.</p>
           <p style={{ ...muted, marginBottom: 12 }}>Get a key at <a href="https://platform.openai.com/api-keys" target="_blank" rel="noreferrer" style={{ color: 'var(--rbl-link)', fontWeight: 600 }}>platform.openai.com/api-keys</a>.</p>
           <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', alignItems: 'center' }}>
             <input type="password" value={keyDraft} onChange={(e) => setKeyDraft(e.target.value)} onKeyDown={(e) => { if (e.key === 'Enter') saveKey() }} placeholder={hasKey ? 'Paste a new key to replace the saved one' : 'sk-…'} autoComplete="off" style={{ flex: '1 1 260px', padding: 11, borderRadius: 9, border: '1px solid var(--rbl-border)', fontSize: 15, fontFamily: 'ui-monospace, monospace', boxSizing: 'border-box' }} aria-label="OpenAI API key" />
             <button type="button" onClick={saveKey} disabled={!keyDraft.trim()} style={{ padding: '10px 16px', borderRadius: 9, border: 'none', fontWeight: 600, fontSize: 14, cursor: keyDraft.trim() ? 'pointer' : 'not-allowed', background: 'var(--rbl-fill-brand)', color: 'white', opacity: keyDraft.trim() ? 1 : 0.45 }}>{hasKey ? 'Replace key' : 'Save key'}</button>
             {hasKey && <button type="button" onClick={removeKey} style={{ padding: '10px 16px', borderRadius: 9, border: '1px solid var(--rbl-border-strong)', background: 'var(--rbl-surface)', color: 'var(--rbl-danger)', fontWeight: 600, fontSize: 14, cursor: 'pointer' }}>Remove key</button>}
           </div>
-          <p role="status" style={{ ...muted, fontSize: 13.5, marginTop: 10 }}>{hasKey ? 'A key is saved in this browser.' : 'No key saved yet.'}</p>
+          <p role="status" style={{ ...muted, fontSize: 13.5, marginTop: 10 }}>{hasKey ? 'A key is set for this tab. Closing the tab clears it.' : 'No key set yet.'}</p>
         </section>
       )}
 

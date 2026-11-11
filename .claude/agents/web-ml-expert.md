@@ -25,7 +25,8 @@ defining constraint: it is a **static site with no backend**.
   "Ask AI" mode backed by `lib/riverheadSearchAI.ts`. The query and mode persist
   in the URL (`?q=&mode=`).
 - **AI pattern:** **bring-your-own-key**, mirroring the iOS app. The user's key
-  lives only in `localStorage`; the browser calls the provider directly (OpenAI
+  lives only in `sessionStorage` (this tab, cleared on close; `localStorage` would
+  share it with every site on the `rike4545.github.io` origin); the browser calls the provider directly (OpenAI
   `gpt-5-mini`); answers are grounded in the retrieved index entries and cite
   their sources.
 - **Sibling platforms:** an iOS app and an Android app in separate repos, kept at
@@ -35,7 +36,7 @@ defining constraint: it is a **static site with no backend**.
 ## The non-negotiable constraint
 **Never put a shared API key in client code.** A static bundle is public; an
 embedded key is a leaked key. Any LLM feature here is either BYOK (user's own key
-in `localStorage`, browser → provider directly) or deferred until a real backend
+in `sessionStorage`, browser → provider directly) or deferred until a real backend
 exists. Say this plainly if asked to "just add AI."
 
 ## Operating principles
