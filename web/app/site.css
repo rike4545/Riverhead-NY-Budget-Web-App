@@ -201,6 +201,13 @@ summary{min-height:24px}input[type=range]{min-height:24px}
   html.fis-printing .fis-page-break { break-before: page; }
 }
 
+/* Resolution builder (/resolution-builder/): "Print or save as PDF" prints the formatted resolution alone, in the same way as the fiscal impact helper's form above. */
+@media print {
+  html.res-printing body *:not(:has(#res-sheet)):not(#res-sheet):not(#res-sheet *) { display: none !important; }
+  html.res-printing body, html.res-printing main { margin: 0 !important; padding: 0 !important; background: #fff !important; }
+  html.res-printing #res-sheet { border: 0 !important; border-radius: 0 !important; padding: 0 !important; max-width: none !important; box-shadow: none !important; }
+}
+
 /* Department efficiency view (/department-efficiency/): "Print or save the survey kit" prints the two questionnaires alone, the staff survey on its own page, the same way as the fiscal impact helper's form above. */
 @media print {
   html.eff-printing body *:not(:has(#eff-survey-kit)):not(#eff-survey-kit):not(#eff-survey-kit *) { display: none !important; }
