@@ -253,7 +253,7 @@
   "notFound": [
     {
       "town": "Brookhaven",
-      "why": "Its 2026 adopted budget could not be read: the town's website refused this site's automated requests, and the latest budget found through search is 2022."
+      "why": "Its 2026 adopted budget could not be read: the town's website refused this site's automated requests. This site does have Brookhaven's 2027 Tentative Operating Budget, but it does not fill the gap. Its list of elected officials' salaries (page 11 of the PDF) gives the Supervisor $181,800, which is the proposed 2027 salary, not the 2026 one this page compares. Its schedule of positions for the Supervisor's office (page 31) counts staff, including a Chief of Staff and a Deputy Chief of Staff, but gives no salaries."
     },
     {
       "town": "Islip",
