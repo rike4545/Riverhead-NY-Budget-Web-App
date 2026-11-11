@@ -163,7 +163,7 @@ export const candidates2026: Candidate[] = [
     incumbent: false,
     site: 'https://www.friendsofkenrothwell.com/',
     background:
-      'Current Town Councilman (since 2021) and licensed funeral director; Republican and Conservative nominee for Supervisor. His council seat runs through 2028 and would need separate filling if he wins.',
+      'Current Town Councilman (since 2021) and licensed funeral director; Republican and Conservative nominee for Supervisor in November 2026. His council seat runs through 2028.',
     planks: [
       {
         proposal: 'Lower the cost of taxes — the campaign’s stated top issue.',

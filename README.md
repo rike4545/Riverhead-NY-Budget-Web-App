@@ -538,7 +538,7 @@ one on phones, and first under **Pay and staff** on desktop):
   - a card for each committee, with its 2026 General Election reports and a live Refresh;
   - the County's 2026 contribution limits for Riverhead, and a guide to reading a filing;
   - a Town Employee Donors cross-check.
-- **Candidate Watch** (`/candidate-watch`): who is running in November 2026, with links and stated platforms.
+- **Candidate Watch** (`/candidate-watch`): who was on the November 3, 2026 ballot, the unofficial Supervisor result from the Suffolk County Board of Elections (`web/lib/election-results-2026.ts`, to be replaced with the certified count), and each candidate's links and stated platforms.
 - **Candidate Proposals** (`/candidate-cost-benefit`): a cost–benefit look at each stated plank in the 2026 Supervisor race.
 - **Supervisor's Promises** (`/supervisor-promises`): commitments checked against the record.
 - **State of the Town Addresses** (`/state-of-the-town`): what each Supervisor said in their inaugural and yearly addresses, and what the law requires.
@@ -684,7 +684,7 @@ Built using:
 
 - Next.js 15 (static export), React and TypeScript
 - GitHub Pages, deployed by GitHub Actions
-- A Python ingestion pipeline (PyMuPDF, pypdf, pandas, Beautiful Soup) that parses Town PDFs and reconciles them against the official Summary pages
+- A Python 3.12 ingestion pipeline (PyMuPDF, pypdf, pandas, Beautiful Soup) that parses Town PDFs and reconciles them against the official Summary pages
 - Live client-side queries against New York State's open campaign-finance data (data.ny.gov)
 - A hash-based Content-Security-Policy on every page, added after the build (`web/scripts/add-csp.mjs`, checked by `verify-csp.mjs`)
 - Automated checks on the built site (`web/scripts/verify-*.mjs`) that hold routes, figures, quotations, ETL contracts, shared-data hashes and source freshness to their records; the quality gate also runs Playwright + axe-core against key resident workflows at desktop and 320px widths, and uploads accessibility findings plus desktop/mobile visual-QA screenshots; three topic-specific ZIP research packets are generated with source registers and SHA-256 manifests. A tap-target audit (`web/scripts/audit-targets.mjs`) remains available for focused manual review.
