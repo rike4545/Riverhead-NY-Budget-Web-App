@@ -49,8 +49,9 @@ export function formatServiceDate(s: string): string {
 }
 
 /**
- * When each Riverhead holder started. Hire years are from the Hire Date column of the Town's 2025 Gross Earnings
- * report (etl/data/payroll/gross-earnings-2025.csv); the aide's start is from Resolution 2026-58. No Town record on
+ * When each Riverhead holder started. Hire dates are from the Hire Date column of the Town's 2023 Gross Earnings
+ * report (etl/data/payroll/gross-earnings-2023.csv), the latest export on file with full dates; the aide's start is
+ * from Resolution 2026-58. No Town record on
  * file gives the Supervisor's start, so his is from a news report, labelled as one (SUPERVISOR_START_SOURCE).
  */
 export const SUPERVISOR_START_SOURCE = {
@@ -59,9 +60,9 @@ export const SUPERVISOR_START_SOURCE = {
 }
 export const RIVERHEAD_SERVICE: Record<RoleKey, string | null> = {
   supervisor: 'Sworn in January 1, 2026 (news report)',
-  deputy: 'Hired 2020',
-  chief: 'Hired 2022',
-  budget: 'Hired 2022',
+  deputy: 'Hired January 1, 2020',
+  chief: 'Hired July 5, 2022',
+  budget: 'Hired July 5, 2022',
   aide: 'Term began January 1, 2026',
 }
 
