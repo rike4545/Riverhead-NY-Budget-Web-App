@@ -49,12 +49,16 @@ export function formatServiceDate(s: string): string {
 }
 
 /**
- * When each Riverhead holder started, where a Town record says. Hire years are from the Hire Date column of the
- * Town's 2025 Gross Earnings report (etl/data/payroll/gross-earnings-2025.csv); the aide's start is from
- * Resolution 2026-58. No record here gives the Supervisor's start, so none is shown.
+ * When each Riverhead holder started. Hire years are from the Hire Date column of the Town's 2025 Gross Earnings
+ * report (etl/data/payroll/gross-earnings-2025.csv); the aide's start is from Resolution 2026-58. No Town record on
+ * file gives the Supervisor's start, so his is from a news report, labelled as one (SUPERVISOR_START_SOURCE).
  */
+export const SUPERVISOR_START_SOURCE = {
+  title: 'RiverheadLOCAL, December 31, 2025: “Pastor Jerry Halpin will be sworn in as town supervisor Thursday”',
+  url: 'https://riverheadlocal.com/2025/12/31/pastor-jerry-halpin-will-be-sworn-in-as-town-supervisor-thursday-heres-whats-on-his-mind/',
+}
 export const RIVERHEAD_SERVICE: Record<RoleKey, string | null> = {
-  supervisor: null,
+  supervisor: 'Sworn in January 1, 2026 (news report)',
   deputy: 'Hired 2020',
   chief: 'Hired 2022',
   budget: 'Hired 2022',

@@ -10,7 +10,7 @@
 //   towns compared, and the built page names every town left out and why.
 import { existsSync, readFileSync } from 'node:fs'
 import { join } from 'node:path'
-import { riverheadRoles, compare, RIVERHEAD_SERVICE } from '../lib/supervisor-office-pay.ts'
+import { riverheadRoles, compare, RIVERHEAD_SERVICE, SUPERVISOR_START_SOURCE } from '../lib/supervisor-office-pay.ts'
 
 const root = process.cwd()
 const fail = (m) => { console.error(`SUPERVISOR OFFICE PAY VERIFY FAILED: ${m}`); process.exitCode = 1 }
@@ -73,7 +73,9 @@ for (const [key, name, title] of [['deputy', 'Higgins, Devon M', 'Deputy Supervi
 }
 if (RIVERHEAD_SERVICE.chief !== RIVERHEAD_SERVICE.budget) fail('the Chief of Staff and Budget Officer are one person, so they share one service date')
 if (!packet.includes(norm('David Cote, as Legislative Aide to the Town Supervisor for a term commencing January 1, 2026')) || RIVERHEAD_SERVICE.aide !== 'Term began January 1, 2026') fail("the aide's start does not match Resolution 2026-58")
-if (RIVERHEAD_SERVICE.supervisor !== null) fail("no record here gives the Supervisor's start, so the page should show none")
+// The Supervisor's start is from a news report, so it must say so and the page must link it.
+if (RIVERHEAD_SERVICE.supervisor !== 'Sworn in January 1, 2026 (news report)') fail(`the Supervisor's start reads "${RIVERHEAD_SERVICE.supervisor}", not the labelled news-report date`)
+if (new Date(Date.UTC(2026, 0, 1)).getUTCDay() !== 4) fail('January 1, 2026 is not the Thursday the report names')
 
 const rows = compare(rh, data.peers)
 const sup = rows.find((r) => r.role.key === 'supervisor')
@@ -87,6 +89,7 @@ else {
   if (!html.includes('data-supervisor-comparison')) fail('the page lacks the comparison table')
   for (const n of data.notFound) if (!html.includes(n.town)) fail(`the page does not say why ${n.town} is left out`)
   for (const p of data.peers) if (!html.includes(p.source.url)) fail(`the page does not link ${p.town}'s source`)
+  if (!html.includes(SUPERVISOR_START_SOURCE.url)) fail("the page does not link the news report for the Supervisor's start")
 }
 
 if (!process.exitCode) console.log(`supervisor office pay: ${figures} peer figures found on their quoted lines in ${data.peers.length} towns' records; Riverhead's four salaries match the 2026 schedule and packet; ${data.notFound.length} towns left out with reasons.`)

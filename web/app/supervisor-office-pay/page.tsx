@@ -1,6 +1,6 @@
 import PageShell from '../../components/PageShell'
 import PlainCallout from '../../components/PlainCallout'
-import { ROLES, RIVERHEAD_SERVICE, formatServiceDate, riverheadRoles, compare, percentFrom, peerSalary, type Peer, type RoleKey, type SalaryRecord } from '../../lib/supervisor-office-pay'
+import { ROLES, RIVERHEAD_SERVICE, SUPERVISOR_START_SOURCE, formatServiceDate, riverheadRoles, compare, percentFrom, peerSalary, type Peer, type RoleKey, type SalaryRecord } from '../../lib/supervisor-office-pay'
 import peerData from '../../public/data/salary/peer-supervisor-offices.json'
 import pep from '../../public/data/census-pep.json'
 import a2023 from '../../public/data/salary/authorized-2023.json'
@@ -146,7 +146,8 @@ export default function SupervisorOfficePayPage() {
         <p style={{ ...help, margin: '10px 0 0' }}>
           A service date is the hire date a town’s record prints beside the salary; of the records here, only Brookhaven’s schedule
           lists them. It dates service with the town, so it can be earlier than the current title. Riverhead’s hire years are from the Hire Date column of the Town’s 2025 Gross Earnings report, and its aide’s
-          start from Resolution 2026-58. Populations are the Census Bureau’s estimates for {pep.asOf}. Sources:{' '}
+          start from Resolution 2026-58. No Town record on file gives the Supervisor’s start; it is from a news report,{' '}
+          <a href={SUPERVISOR_START_SOURCE.url} style={link}>{SUPERVISOR_START_SOURCE.title}</a> (the Thursday was January 1, 2026). Populations are the Census Bureau’s estimates for {pep.asOf}. Sources:{' '}
           {peers.map((p, i) => <span key={p.town}>{i ? '; ' : ''}<a href={p.source.url} style={link}>{p.source.title}</a>{p.source.transcribed ? ' (a scanned page, transcribed by hand; the budget book prints its salary appendix at the tentative stage)' : ''}</span>)}.
         </p>
       </section>
