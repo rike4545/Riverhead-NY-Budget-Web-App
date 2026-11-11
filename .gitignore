@@ -20,3 +20,14 @@ venv/
 # autoharness state: session counters, ledgers and redacted transcript slices. Never commit it.
 .claude/autoharness/
 .claude/skills/**/*.lock
+
+# Secrets and signing material: never commit
+.env
+*.p12
+*.p8
+*.mobileprovision
+*.jks
+*.keystore
+*.pem
+.env.*
+!.env.example
