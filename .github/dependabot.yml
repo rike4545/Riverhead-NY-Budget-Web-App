@@ -9,7 +9,7 @@ updates:
       github-actions-updates:
         patterns: ["*"]
   - package-ecosystem: "pip"
-    directory: "/etl"
+    directory: "/"
     schedule:
       interval: "monthly"
     open-pull-requests-limit: 5
@@ -17,6 +17,10 @@ updates:
       pip-updates:
         patterns: ["*"]
         update-types: ["minor", "patch"]
+    ignore:
+      # Major upgrades need a deliberate migration; propose them by hand.
+      - dependency-name: "*"
+        update-types: ["version-update:semver-major"]
   - package-ecosystem: "npm"
     directory: "/web"
     schedule:
@@ -26,3 +30,7 @@ updates:
       npm-updates:
         patterns: ["*"]
         update-types: ["minor", "patch"]
+    ignore:
+      # Major upgrades need a deliberate migration; propose them by hand.
+      - dependency-name: "*"
+        update-types: ["version-update:semver-major"]
