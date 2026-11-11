@@ -44,9 +44,11 @@ const vs = (p: Peer, role: RoleKey, mine: number) => {
   const d = percentFrom(mine, s)
   return `${p.town}’s ${usd0(s)} (Riverhead ${Math.abs(d).toFixed(0)}% ${d < 0 ? 'less' : 'more'})`
 }
-const sizeText = peers.map((p) => {
+/** "Southampton has 2.0 times as many residents, Southold 67% as many, …": the first names the verb and noun, the rest follow it. */
+const sizeText = peers.map((p, i) => {
   const r = (population(p.censusName) ?? 0) / rhPop
-  return r < 1 ? `${p.town} ${Math.round(r * 100)}% as many` : `${p.town} ${r.toFixed(1)} times as many`
+  const share = r < 1 ? `${Math.round(r * 100)}% as many` : `${r.toFixed(1)} times as many`
+  return i === 0 ? `${p.town} has ${share} residents` : `${p.town} ${share}`
 })
 const smallerPeers = peers.filter((p) => (population(p.censusName) ?? 0) < rhPop).length
 const ordinal = ['smallest', 'second smallest', 'third smallest', 'fourth smallest', 'fifth smallest', 'sixth smallest', 'seventh smallest']
@@ -74,10 +76,9 @@ export default function SupervisorOfficePayPage() {
           { label: 'Counterpart', text: 'the title doing the same job in another town. Where a town has none, the table says so.' },
         ]}
       >
-        Every Riverhead figure is from the Town’s 2026 salary schedule in the January 6, 2026 agenda packet. Each other town’s figures are from its own
-        2026 records: an adopted budget, a salary chart or the salary resolutions of its organizational meeting, each linked below. Towns organize the
-        Supervisor’s office differently, so a lower or higher salary can reflect a different job rather than different pay for the same one. For
-        Riverhead’s other management salaries, see <a href={`${base}/management-compensation/`} style={link}>Management pay and benefits</a>.
+        Riverhead’s figures come from the Town’s 2026 salary schedule, in the January 6, 2026 agenda packet. Each other town’s come from its own
+        2026 records, linked below the table. Towns set up the Supervisor’s office in different ways, so a higher or lower salary can mean a different
+        job, not only different pay. For Riverhead’s other management salaries, see <a href={`${base}/management-compensation/`} style={link}>Management pay and benefits</a>.
       </PlainCallout>
 
       <section style={card} aria-labelledby="riverhead-roles">
@@ -144,10 +145,11 @@ export default function SupervisorOfficePayPage() {
           </table>
         </div>
         <p style={{ ...help, margin: '10px 0 0' }}>
-          A service date is the hire date a town’s record prints beside the salary; of the records here, only Brookhaven’s schedule
-          lists them. It dates service with the town, so it can be earlier than the current title. Riverhead’s hire dates are from the Hire Date column of the Town’s 2023 Gross Earnings report, the latest on file with full dates, and its aide’s
-          start from Resolution 2026-58. No Town record on file gives the Supervisor’s start; it is from a news report,{' '}
-          <a href={SUPERVISOR_START_SOURCE.url} style={link}>{SUPERVISOR_START_SOURCE.title}</a> (the Thursday was January 1, 2026). Populations are the Census Bureau’s estimates for {pep.asOf}. Sources:{' '}
+          About the dates: a service date is when the person was hired by the town, so it can be years before they started their current job.
+          Brookhaven’s schedule lists one for each person; the other towns’ records do not. Riverhead’s come from the Town’s 2023 payroll report,
+          the latest with full dates, and the aide’s from Resolution 2026-58. No Town record gives the Supervisor’s start date, so it comes from a
+          news report: <a href={SUPERVISOR_START_SOURCE.url} style={link}>{SUPERVISOR_START_SOURCE.title}</a>. That Thursday was January 1, 2026.
+          Populations are the Census Bureau’s estimates for {pep.asOf}. Sources:{' '}
           {peers.map((p, i) => <span key={p.town}>{i ? '; ' : ''}<a href={p.source.url} style={link}>{p.source.title}</a>{p.source.transcribed ? ' (a scanned page, transcribed by hand; the budget book prints its salary appendix at the tentative stage)' : ''}</span>)}.
         </p>
       </section>
@@ -159,13 +161,13 @@ export default function SupervisorOfficePayPage() {
             <strong>Supervisor.</strong> At {usd0(sup)}, Riverhead’s Supervisor is paid {supAbove.length === peers.length ? `less than in any of the ${peers.length} other towns` : `less than in ${supAbove.length} of the ${peers.length} other towns`}:{' '}
             {listed(peers.map((p) => vs(p, 'supervisor', sup)).filter((x): x is string => x !== null))}.
             {peers.every((p) => (sal(p, 'supervisor') ?? 0) > BUDGETED_SUPERVISOR_2026) && <> The {usd0(BUDGETED_SUPERVISOR_2026)} the budget set aside would also have been the lowest.</>}{' '}
-            Riverhead is the {smallerPeers === peers.length ? 'largest' : ordinal[smallerPeers] ?? 'smallest'} of the {countWord(peers.length + 1)} by population; against its residents, {listed(sizeText)}.
+            By population, Riverhead is the {smallerPeers === peers.length ? 'largest' : ordinal[smallerPeers] ?? 'smallest'} of the {countWord(peers.length + 1)} towns. {listed(sizeText)}.
           </li>
           <li>
             <strong>Deputy Supervisor.</strong> Towns use the job differently. Riverhead’s deputy serves full time at {usd0(dep)}, {Math.round((dep / sup) * 100)}% of the
             Supervisor’s salary.{' '}
             {fullTimeDeputies.length > 0 && <>{listed(fullTimeDeputies.map((p) => `${p.town} also pays a full salary (${usd0(sal(p, 'deputy') ?? 0)}, ${Math.round(((sal(p, 'deputy') ?? 0) / (sal(p, 'supervisor') ?? 1)) * 100)}% of its Supervisor’s)`))}. </>}
-            {stipendDeputies.length > 0 && <>{listed(stipendDeputies.map((p) => `${p.town} pays ${usd0(sal(p, 'deputy') ?? 0)}`))} for the year, so there it is not a full-time salary{smithtown && stipendDeputies.includes(smithtown) ? '; Smithtown’s deputy is a Town Board member' : ''}.</>}
+            {stipendDeputies.length > 0 && <>{listed(stipendDeputies.map((p) => `${p.town} pays ${usd0(sal(p, 'deputy') ?? 0)}`))} for the year: a stipend, not a full-time salary{smithtown && stipendDeputies.includes(smithtown) ? '; Smithtown’s deputy is a Town Board member' : ''}.</>}
           </li>
           <li>
             <strong>Chief of Staff and Budget Officer.</strong> None of the {peers.length} other towns’ records lists a chief of staff. For budget work,
