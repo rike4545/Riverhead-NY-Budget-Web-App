@@ -8,7 +8,7 @@ const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-bo
 export const metadata = {
   title: '2026 Town Campaign Candidate Watch',
   description:
-    "Who's running for Riverhead Town office in the November 2026 general election, their campaign links, and their stated platforms.",
+    "Who was on the November 3, 2026 ballot for Riverhead Town office, the unofficial Supervisor result, their campaign links, and their stated platforms.",
 }
 
 type Candidate = {
