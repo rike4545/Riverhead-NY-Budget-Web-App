@@ -28,8 +28,9 @@ residents, and every figure on it has to trace to an official record.
 # ETL tests (the same ones the quality gate runs)
 for t in etl/test_*.py; do python3 "$t" || break; done
 
-# Web: type check, build, then check the built output
-cd web && npx tsc --noEmit && npm run verify
+# Web: type check, build, then check the built output. verify:quiet runs the
+# same checks but prints only failures, warnings and a count; verify prints all.
+cd web && npx tsc --noEmit && npm run verify:quiet
 
 # After a page change: tap targets at phone and desktop width (needs Playwright,
 # so it is not in CI)
@@ -54,7 +55,8 @@ python3 etl/build_search_index.py && python3 etl/write_meta.py
 
 - Work on the branch the session gives you and open draft pull requests.
   Never merge and never push to `main`: the owner merges.
-- Before pushing, run the ETL tests, `npx tsc --noEmit` and `npm run verify`.
+- Before pushing, run the ETL tests, `npx tsc --noEmit` and `npm run verify`
+  (or `npm run verify:quiet`, the same checks with only failures printed).
   For a page change, look at the page in a browser (Playwright is installed).
 - After regenerating data, diff it against `main` and account for every
   difference before committing. Only the changes you meant should appear.
@@ -141,59 +143,29 @@ agents in affaan-m/ECC (MIT License).
 
 ## Skills
 
-`.claude/skills/` holds 25 general engineering skills copied unchanged from
-addyosmani/agent-skills at commit 1401c8b (MIT License, kept in
-`.claude/skills/LICENSE-agent-skills`). They cover specs, planning,
-incremental implementation, test-driven development, debugging, code review,
-simplification, security, performance and documentation. The checklists they
-link to are in `.claude/references/`, with two more from the Open Design Agent
-Kit (feimacode/open-design-agent-kit at commit dd8c43f): `accessibility-baseline.md`
-(Apache-2.0, from Open Design) and `ux-writing.md` (MIT). Their licences are in
-`.claude/references/LICENSE-open-design.md`.
-
-Four more are copied unchanged from other collections, for gaps the 25 leave:
-
-- `verification-before-completion` (obra/superpowers at 22f0b46, MIT): run the
-  check and read its output before saying anything passes or is done. This is
-  the site's accuracy rule applied to the work itself.
-- `receiving-code-review` (obra/superpowers at 22f0b46, MIT): verify a review
-  comment, including a bot's, against the code before acting on it.
-- `writing-for-agents` (mattpocock/skills at 4ae2317, MIT): use it when editing
-  this file, a skill or an agent definition.
-- `handoff` (mattpocock/skills at 4ae2317, MIT): run as `/handoff` to write a
-  summary a fresh session can pick up.
-
-`.claude/references/copy-tells.md` (leonxlnx/taste-skill at f6b7657, MIT) lists
-what makes copy read as machine-written. Check resident-facing copy against it
-alongside `ux-writing.md`. It names files from its own repo (`copy-lint.mjs`,
-`copy-moves.md` and others) that were not copied. Licences are in
-`.claude/skills/LICENSE-superpowers`, `.claude/skills/LICENSE-mattpocock-skills`
-and `.claude/references/LICENSE-taste-skill`.
-
-They are general practice. Where a skill conflicts with this file, this file
-wins: never merge, auto-merge, push to `main` or deploy; open draft pull
-requests; and keep every figure traced to an official record.
+`.claude/skills/` holds general engineering skills (specs, planning,
+incremental work, TDD, debugging, review, security, performance,
+documentation), plus `verification-before-completion`,
+`receiving-code-review`, `writing-for-agents` (use it when editing this file,
+a skill or an agent) and `handoff` (`/handoff` writes a summary a fresh
+session can pick up). Check resident-facing copy against
+`.claude/references/copy-tells.md` and `ux-writing.md`.
+Where each came from, its commit and its licence are in
+`.claude/references/provenance.md`; read it before adding, updating or
+removing one. Where a skill conflicts with this file, this file wins: never
+merge, auto-merge, push to `main` or deploy; open draft pull requests; and
+keep every figure traced to an official record.
 
 ## Learned skills (autoharness)
 
-`.claude/plugins/autoharness/` is tigerless-labs/autoharness copied unchanged
-at commit 84f1840 (MIT License, in that folder), offered through the local
-catalog in `.claude/plugins/.claude-plugin/` and turned on in
-`.claude/settings.json`. Every 50 or so tool calls it starts a background
-session that reads a redacted slice of the conversation and proposes skills;
-it writes them to `.claude/skills/`, each marked `self-authored` in its
-ledger, and retires the ones that go unused. `/learn` asks it to distill the
-current session now. `AUTOHARNESS_DISABLE_GLOBAL=1` keeps it to this project,
-and it reflects every 20 tool calls and consolidates every 100 (its defaults
-are 50 and 250). It was seeded on November 10, 2026 with five `riverhead-*`
-skills distilled from that day's work (merging, adding a page, the
-outdated-information review, checks, adopting outside tools); its ledger and
-sidecar files beside each skill mark them as its own, so commit them too.
+The autoharness plugin (`.claude/plugins/autoharness/`, on in
+`.claude/settings.json`) starts a background session every 50 tool calls
+that reads a redacted slice of the conversation and proposes skills into
+`.claude/skills/`, and consolidates every 250. `/learn` runs it now.
 
 - A learned skill is a draft. Read it before committing it, and commit it only
-  if it is right for this repo. Never commit `.claude/autoharness/` (its
-  state, gitignored).
+  if it is right for this repo (with its ledger and sidecar files). Never
+  commit `.claude/autoharness/` (its state, gitignored).
 - A learned skill never overrides this file, the accuracy rules or the design
   brief. If one does, fix or delete it.
-- To update autoharness, copy a newer commit over the folder unchanged and
-  record the commit here; don't edit its code in place.
+- Don't edit its code in place; `provenance.md` says how to update it.

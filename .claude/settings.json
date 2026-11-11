@@ -9,8 +9,8 @@
   },
   "env": {
     "AUTOHARNESS_DISABLE_GLOBAL": "1",
-    "AUTOHARNESS_REFLECT_EVERY_N": "20",
-    "AUTOHARNESS_CONSOLIDATE_EVERY_N": "100"
+    "AUTOHARNESS_REFLECT_EVERY_N": "50",
+    "AUTOHARNESS_CONSOLIDATE_EVERY_N": "250"
   },
   "hooks": {
     "SessionStart": [
