@@ -1,6 +1,6 @@
 import PageShell from '../../components/PageShell'
 import PlainCallout from '../../components/PlainCallout'
-import { ROLES, riverheadRoles, compare, percentFrom, peerSalary, type Peer, type RoleKey, type SalaryRecord } from '../../lib/supervisor-office-pay'
+import { ROLES, RIVERHEAD_SERVICE, SUPERVISOR_START_SOURCE, formatServiceDate, riverheadRoles, compare, percentFrom, peerSalary, type Peer, type RoleKey, type SalaryRecord } from '../../lib/supervisor-office-pay'
 import peerData from '../../public/data/salary/peer-supervisor-offices.json'
 import pep from '../../public/data/census-pep.json'
 import a2023 from '../../public/data/salary/authorized-2023.json'
@@ -49,7 +49,8 @@ const sizeText = peers.map((p) => {
   return r < 1 ? `${p.town} ${Math.round(r * 100)}% as many` : `${p.town} ${r.toFixed(1)} times as many`
 })
 const smallerPeers = peers.filter((p) => (population(p.censusName) ?? 0) < rhPop).length
-const ordinal = ['smallest', 'second smallest', 'third smallest', 'fourth smallest', 'largest']
+const ordinal = ['smallest', 'second smallest', 'third smallest', 'fourth smallest', 'fifth smallest', 'sixth smallest', 'seventh smallest']
+const countWord = (n: number) => ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine'][n] ?? String(n)
 const largest = Math.max(...peers.map((p) => (population(p.censusName) ?? 0) / rhPop))
 
 export default function SupervisorOfficePayPage() {
@@ -120,7 +121,10 @@ export default function SupervisorOfficePayPage() {
               {rows.map(({ role, riverhead, cells }) => (
                 <tr key={role.key}>
                   <th scope="row" style={{ ...td, fontWeight: 700, color: 'var(--rbl-text-strong)' }}>{role.label}</th>
-                  <td style={td}>{role.key === 'budget' ? <span style={help}>Combined with Chief of Staff</span> : riverhead === null ? '—' : <span style={money}>{usd(riverhead)}</span>}</td>
+                  <td style={td}>
+                    {role.key === 'budget' ? <span style={help}>Combined with Chief of Staff</span> : riverhead === null ? '—' : <span style={money}>{usd(riverhead)}</span>}
+                    {role.key !== 'budget' && RIVERHEAD_SERVICE[role.key] && <div style={{ ...help, fontSize: 13 }}>{RIVERHEAD_SERVICE[role.key]}</div>}
+                  </td>
                   {cells.map((c) => (
                     <td key={c.town} style={td}>
                       {c.salary === null
@@ -128,6 +132,7 @@ export default function SupervisorOfficePayPage() {
                         : <>
                             <span style={money}>{usd(c.salary)}</span>
                             <div style={{ fontSize: 13.5 }}>{c.titles.join('; ')}</div>
+                            {c.serviceDate && <div style={{ ...help, fontSize: 13 }}>Service date {formatServiceDate(c.serviceDate)}</div>}
                             {!c.inOffice && <div style={{ ...help, fontSize: 13, fontWeight: 700 }}>Outside the Supervisor’s office</div>}
                             {c.notes.map((n, i) => <div key={i} style={{ ...help, fontSize: 13 }}>{n}</div>)}
                           </>}
@@ -139,7 +144,10 @@ export default function SupervisorOfficePayPage() {
           </table>
         </div>
         <p style={{ ...help, margin: '10px 0 0' }}>
-          Populations are the Census Bureau’s estimates for {pep.asOf}. Sources:{' '}
+          A service date is the hire date a town’s record prints beside the salary; of the records here, only Brookhaven’s schedule
+          lists them. It dates service with the town, so it can be earlier than the current title. Riverhead’s hire years are from the Hire Date column of the Town’s 2025 Gross Earnings report, and its aide’s
+          start from Resolution 2026-58. No Town record on file gives the Supervisor’s start; it is from a news report,{' '}
+          <a href={SUPERVISOR_START_SOURCE.url} style={link}>{SUPERVISOR_START_SOURCE.title}</a> (the Thursday was January 1, 2026). Populations are the Census Bureau’s estimates for {pep.asOf}. Sources:{' '}
           {peers.map((p, i) => <span key={p.town}>{i ? '; ' : ''}<a href={p.source.url} style={link}>{p.source.title}</a>{p.source.transcribed ? ' (a scanned page, transcribed by hand; the budget book prints its salary appendix at the tentative stage)' : ''}</span>)}.
         </p>
       </section>
@@ -151,7 +159,7 @@ export default function SupervisorOfficePayPage() {
             <strong>Supervisor.</strong> At {usd0(sup)}, Riverhead’s Supervisor is paid {supAbove.length === peers.length ? `less than in any of the ${peers.length} other towns` : `less than in ${supAbove.length} of the ${peers.length} other towns`}:{' '}
             {listed(peers.map((p) => vs(p, 'supervisor', sup)).filter((x): x is string => x !== null))}.
             {peers.every((p) => (sal(p, 'supervisor') ?? 0) > BUDGETED_SUPERVISOR_2026) && <> The {usd0(BUDGETED_SUPERVISOR_2026)} the budget set aside would also have been the lowest.</>}{' '}
-            Riverhead is the {ordinal[smallerPeers] ?? 'smallest'} of the five by population; against its residents, {listed(sizeText)}.
+            Riverhead is the {smallerPeers === peers.length ? 'largest' : ordinal[smallerPeers] ?? 'smallest'} of the {countWord(peers.length + 1)} by population; against its residents, {listed(sizeText)}.
           </li>
           <li>
             <strong>Deputy Supervisor.</strong> Towns use the job differently. Riverhead’s deputy serves full time at {usd0(dep)}, {Math.round((dep / sup) * 100)}% of the

@@ -450,7 +450,7 @@ meeting records show, such as minutes on file and minutes still outstanding.
   that spent fund balance, beyond what the adopted budget appropriated up
   front.
 - **Management Pay** (`/management-compensation`): four appointed positions
-- **Supervisor's Office Pay Compared** (`/supervisor-office-pay`): the 2026 salaries of the five roles in the Supervisor's office (Supervisor, Deputy Supervisor, Chief of Staff and Town Budget Officer, held by one person, and Legislative Aide) beside their counterparts in Southampton, Southold, Smithtown and Huntington, each quoted from that town's own records, with Riverhead's salaries since 2023 and the towns left out and why. `scripts/verify-supervisor-office-pay.mjs` finds every peer figure on its quoted line.
+- **Supervisor's Office Pay Compared** (`/supervisor-office-pay`): the 2026 salaries of the five roles in the Supervisor's office (Supervisor, Deputy Supervisor, Chief of Staff and Town Budget Officer, held by one person, and Legislative Aide) beside their counterparts in Southampton, Southold, Smithtown, Huntington and Brookhaven, each quoted from that town's own records, with Riverhead's salaries since 2023 and the towns left out and why. `scripts/verify-supervisor-office-pay.mjs` finds every peer figure on its quoted line.
   moved to fully employer-paid health premiums "in lieu of merit increases",
   and two of them then got raises in the 2026 salary schedule.
 - **Police Spending & Crime** (`/police-crime`) and **School Resource

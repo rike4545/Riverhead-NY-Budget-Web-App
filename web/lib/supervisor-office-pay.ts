@@ -23,8 +23,11 @@ export const ROLES: { key: RoleKey; label: string; riverheadTitle: string; what:
   { key: 'aide', label: 'Legislative Aide or Secretary', riverheadTitle: 'Secretary (Legislative Aide, Resolution 2026-58)', what: 'Supports the Supervisor with correspondence, scheduling and Board business.' },
 ]
 
-/** primary: the title compared when a town has more than one for a role. inOffice: false when the counterpart sits outside the Supervisor's office. */
-export type PeerRole = { role: RoleKey; title: string; salary: number; prior?: Record<string, number>; quote: string; note: string; primary?: boolean; inOffice?: boolean }
+/**
+ * primary: the title compared when a town has more than one for a role. inOffice: false when the counterpart sits outside the Supervisor's office.
+ * serviceDate: the hire date, as the record prints it on the quoted line (MM/DD/YY), where the record gives one.
+ */
+export type PeerRole = { role: RoleKey; title: string; salary: number; prior?: Record<string, number>; quote: string; note: string; primary?: boolean; inOffice?: boolean; serviceDate?: string }
 export type Peer = { town: string; censusName: string; source: { title: string; url: string; text: string; transcribed?: boolean }; roles: PeerRole[]; missing: { role: RoleKey; why: string }[] }
 export type SalaryRecord = { title?: string | null; department?: string | null; annual?: number | null }
 
@@ -36,7 +39,31 @@ export function riverheadRoles(records: SalaryRecord[]): Record<RoleKey, number 
   return { supervisor: office('Town Supervisor'), deputy: office('Deputy Town Supervisor'), chief: budget, budget, aide: office('Secretary') }
 }
 
-export type ComparisonCell = { town: string; titles: string[]; salary: number | null; notes: string[]; missing?: string; inOffice?: boolean }
+export type ComparisonCell = { town: string; titles: string[]; salary: number | null; notes: string[]; missing?: string; inOffice?: boolean; serviceDate?: string }
+
+/** "03/17/10" as "March 17, 2010". Two-digit years above 50 are 19xx. */
+export function formatServiceDate(s: string): string {
+  const [m, d, y] = s.split('/').map(Number)
+  const year = y < 100 ? (y > 50 ? 1900 + y : 2000 + y) : y
+  return new Date(Date.UTC(year, m - 1, d)).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric', timeZone: 'UTC' })
+}
+
+/**
+ * When each Riverhead holder started. Hire years are from the Hire Date column of the Town's 2025 Gross Earnings
+ * report (etl/data/payroll/gross-earnings-2025.csv); the aide's start is from Resolution 2026-58. No Town record on
+ * file gives the Supervisor's start, so his is from a news report, labelled as one (SUPERVISOR_START_SOURCE).
+ */
+export const SUPERVISOR_START_SOURCE = {
+  title: 'RiverheadLOCAL, December 31, 2025: “Pastor Jerry Halpin will be sworn in as town supervisor Thursday”',
+  url: 'https://riverheadlocal.com/2025/12/31/pastor-jerry-halpin-will-be-sworn-in-as-town-supervisor-thursday-heres-whats-on-his-mind/',
+}
+export const RIVERHEAD_SERVICE: Record<RoleKey, string | null> = {
+  supervisor: 'Sworn in January 1, 2026 (news report)',
+  deputy: 'Hired 2020',
+  chief: 'Hired 2022',
+  budget: 'Hired 2022',
+  aide: 'Term began January 1, 2026',
+}
 
 /** The salary compared for a role: the primary title's, else the only one. */
 export function peerSalary(p: Peer, role: RoleKey): PeerRole | null {
@@ -61,6 +88,7 @@ export function compare(riverhead: Record<RoleKey, number | null>, peers: Peer[]
         salary: main.salary,
         notes: [main.note],
         inOffice: main.inOffice !== false,
+        serviceDate: main.serviceDate,
       }
     }),
   }))
