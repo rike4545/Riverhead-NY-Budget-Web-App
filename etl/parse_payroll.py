@@ -130,7 +130,7 @@ UNION_LABELS = {
 # count only Active employees, and without it that script had to read the
 # original .xls, which kept it out of CI.
 SLIM_COLUMNS = ["year", "name", "department", "title", "pay_class", "union",
-                "regular", "overtime", "gross"] + BUCKETS + ["hire_year", "status"]
+                "regular", "overtime", "gross"] + BUCKETS + ["hire_year", "hire_date", "status"]
 
 
 def money(val):
@@ -151,6 +151,31 @@ def find_col(header, *needles):
         if all(n in low for n in needles):
             return col
     return None
+
+
+def hire_date(val):
+    """ISO date (YYYY-MM-DD) from a Hire Date cell: an Excel serial (from .xls)
+    or a MM/DD/YYYY or MM/DD/YY string (from .csv). None when there is no full
+    date to read; hire_year() still recovers a bare year."""
+    if val is None or val == "":
+        return None
+    from datetime import date, datetime, timedelta
+    try:
+        f = float(val)
+        if f > 20000:  # Excel date serial (days since 1899-12-30)
+            return (datetime(1899, 12, 30) + timedelta(days=f)).date().isoformat()
+    except (ValueError, TypeError):
+        pass
+    m = re.match(r"\s*(\d{1,2})[/-](\d{1,2})[/-](\d{4}|\d{2})\b", str(val))
+    if not m:
+        return None
+    mo, d, y = int(m.group(1)), int(m.group(2)), int(m.group(3))
+    if y < 100:
+        y = 2000 + y if y < 60 else 1900 + y
+    try:
+        return date(y, mo, d).isoformat()
+    except ValueError:
+        return None
 
 
 def hire_year(val):
@@ -233,6 +258,7 @@ def parse_source_row(header, r, year, cols, ot_cols, cat_cols):
         "union": (str(r.get(cols["union"]) or "")).strip() if cols["union"] else "",
         "regular": reg, "overtime": round(ot, 2), "gross": gross,
         "hire_year": hire_year(r.get(cols["hire"])) if cols.get("hire") else None,
+        "hire_date": hire_date(r.get(cols["hire"])) if cols.get("hire") else None,
         "status": (str(r.get(cols["status"]) or "")).strip() if cols.get("status") else "",
         **buckets,
     }
@@ -279,6 +305,7 @@ def read_year(year):
                     "regular": money(r.get("regular")), "overtime": money(r.get("overtime")),
                     "gross": money(r.get("gross")),
                     "hire_year": int(r["hire_year"]) if (r.get("hire_year") or "").strip() else None,
+                    "hire_date": (r.get("hire_date") or "").strip() or None,
                     "status": (r.get("status") or "").strip(),
                     **{b: money(r.get(b)) for b in BUCKETS},
                 }
@@ -385,6 +412,32 @@ def _derive_hourly(wage_by_title, reso_source):
 #   2. Every filled value is flagged in the record's "i" string, so the site can
 #      mark it as inferred and any analysis that needs ground truth can drop it.
 CARRY_FIELDS = [("department", "d"), ("title", "t"), ("pay_class", "c"), ("union", "u")]
+
+
+def carry_hire_dates(rows, file_numbers):
+    """Fill a blank hire date from the same person's other years. The full date
+    is only in the original exports (2018-2023 are on file; the 2024 and 2025
+    exports are kept as slim copies, which hold only the hire year). A date is
+    filled only when the person's other years agree on one date and that date's
+    year matches this year's hire year, so a rehire is never given the earlier
+    date. Each filled date is flagged "h" in the record's "i" string."""
+    def identity(row):
+        key = name_key(row["name"])
+        return file_numbers.get(key) or key
+    seen = {}
+    for r in rows:
+        if r.get("hire_date"):
+            seen.setdefault(identity(r), set()).add(r["hire_date"])
+    filled = 0
+    for r in rows:
+        if r.get("hire_date") or not r.get("hire_year"):
+            continue
+        dates = {d for d in seen.get(identity(r), set()) if int(d[:4]) == r["hire_year"]}
+        if len(dates) == 1:
+            r["hire_date"] = dates.pop()
+            r["_inferred"] = (r.get("_inferred") or "") + "h"
+            filled += 1
+    return filled
 
 
 def carry_forward_static_fields(rows, file_numbers):
@@ -557,6 +610,8 @@ def build():
     union_from_pay_class(all_rows)
     inferred_counts = carry_forward_static_fields(all_rows, file_numbers)
     fields_from_salary_resolutions(all_rows)
+    hire_filled = carry_hire_dates(all_rows, file_numbers)
+    print(f"Hire dates carried from the same person's other years: {hire_filled}")
 
     def rec(r):
         d = {
@@ -567,6 +622,10 @@ def build():
         fn = file_numbers.get(name_key(r["name"]))
         if fn:
             d["f"] = fn
+        if r.get("hire_date"):
+            d["h"] = r["hire_date"]
+        elif r.get("hire_year"):
+            d["h"] = str(r["hire_year"])
         if r.get("_inferred"):
             d["i"] = r["_inferred"]
         k = [round(r.get(b, 0) or 0, 2) for b in BUCKETS]
@@ -582,7 +641,7 @@ def build():
     (OUT / "records.json").write_text(json.dumps({
         "source": {"title": "Town of Riverhead Gross Earnings reports", "url": "https://www.townofriverheadny.gov/206/Financial-Reports"},
         "note": "Actual paid earnings (including overtime) by employee and year. The Town's export only carries department, title, and pay class from 2022 onward; for 2018-2021 a title comes from the Board's January salary resolution for that year where the person is on it, otherwise from the same person's one unchanging value in later years; both are flagged in \"i\".",
-        "fields": {"y": "year", "n": "name", "f": "payroll file number", "d": "department", "t": "title", "c": "pay class", "u": "union", "r": "regular earnings", "o": "overtime", "g": "gross pay", "k": "[longevity, holiday/differential, stipends, buy-outs, retro] breakdown of other pay", "i": "fields not in this year's export: lower case carried back from the same person's other years (d=department, t=title, c=pay class, u=union); upper case taken from the Board's January salary resolution for the year (T=title, D=department, from the schedule's pay group)"},
+        "fields": {"y": "year", "n": "name", "f": "payroll file number", "d": "department", "t": "title", "c": "pay class", "u": "union", "r": "regular earnings", "o": "overtime", "g": "gross pay", "k": "[longevity, holiday/differential, stipends, buy-outs, retro] breakdown of other pay", "h": "hire date from the export's Hire Date column (YYYY-MM-DD), or the hire year alone (YYYY) where only the year is on file", "i": "fields not in this year's export: lower case carried back from the same person's other years (d=department, t=title, c=pay class, u=union, h=hire date); upper case taken from the Board's January salary resolution for the year (T=title, D=department, from the schedule's pay group)"},
         "unionLabels": UNION_LABELS,
         "count": len(records),
         "records": records,

@@ -63,13 +63,14 @@ for (const s of ['Halpin, Jerry Town Supervisor $110,000.00*', '* reduced from b
 }
 if (rh.chief !== rh.budget) fail('the Chief of Staff and Budget Officer should share one salary')
 
-// Riverhead's service dates: hire years from the 2025 Gross Earnings report, the aide's start from Resolution 2026-58.
-const gross = readFileSync(join(root, '../etl/data/payroll/gross-earnings-2025.csv'), 'utf8').split('\n')
-const hireYear = (name, title) => gross.find((l) => l.includes(`"${name}"`) && l.includes(`,${title},`))?.split(',').at(-2)
+// Riverhead's service dates: hire dates from the 2023 Gross Earnings report (the latest with full dates), the aide's start from Resolution 2026-58.
+const gross = readFileSync(join(root, '../etl/data/payroll/gross-earnings-2023.csv'), 'utf8').split('\n')
+const hireDate = (name, title) => gross.find((l) => l.includes(`"${name}"`) && l.includes(`,${title},`))?.split(',').at(-2)
+const longDate = (iso) => new Date(`${iso}T00:00:00Z`).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric', timeZone: 'UTC' })
 for (const [key, name, title] of [['deputy', 'Higgins, Devon M', 'Deputy Supervisor'], ['budget', 'Burkowsky, Debi Iris', 'Town Budget Officer']]) {
-  const y = hireYear(name, title)
-  if (!y) fail(`the 2025 Gross Earnings report has no ${title} row for ${name}`)
-  else if (RIVERHEAD_SERVICE[key] !== `Hired ${y}`) fail(`Riverhead ${key}: the page says "${RIVERHEAD_SERVICE[key]}", the report's hire year is ${y}`)
+  const d = hireDate(name, title)
+  if (!d || !/^\d{4}-\d{2}-\d{2}$/.test(d)) fail(`the 2023 Gross Earnings report has no hire date for ${name} as ${title}`)
+  else if (RIVERHEAD_SERVICE[key] !== `Hired ${longDate(d)}`) fail(`Riverhead ${key}: the page says "${RIVERHEAD_SERVICE[key]}", the report's hire date is ${d}`)
 }
 if (RIVERHEAD_SERVICE.chief !== RIVERHEAD_SERVICE.budget) fail('the Chief of Staff and Budget Officer are one person, so they share one service date')
 if (!packet.includes(norm('David Cote, as Legislative Aide to the Town Supervisor for a term commencing January 1, 2026')) || RIVERHEAD_SERVICE.aide !== 'Term began January 1, 2026') fail("the aide's start does not match Resolution 2026-58")

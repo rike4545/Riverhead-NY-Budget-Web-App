@@ -18,7 +18,8 @@ export type PayrollRecordRaw = {
   r: number; o: number; g: number
   f?: string     // payroll file number (employee ID), joined from the Town roster
   k?: number[]   // [longevity, holiday, stipend, buyout, retro] breakdown of "other"
-  i?: string     // fields carried back from the person's other years: d/t/c/u
+  h?: string     // hire date (YYYY-MM-DD) from the export, or the hire year alone (YYYY)
+  i?: string     // fields carried back from the person's other years: d/t/c/u/h
 }
 
 export type PayComponent = { key: string; label: string; amount: number }
@@ -48,6 +49,17 @@ export type PayrollRecord = {
   inferredTitle: false | 'carried' | 'schedule'
   inferredPayClass: boolean
   inferredUnion: boolean
+  /** The export's Hire Date: YYYY-MM-DD, or YYYY where only the year is on file, or ''. */
+  hireDate: string
+  /** The date came from the same person's other years (the 2024 and 2025 exports on file keep only the year). */
+  inferredHireDate: boolean
+}
+
+/** "2015-03-04" as "March 4, 2015"; a bare year stays as it is. */
+export function formatHireDate(h: string): string {
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(h)) return h
+  const [y, m, d] = h.split('-').map(Number)
+  return new Date(Date.UTC(y, m - 1, d)).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric', timeZone: 'UTC' })
 }
 
 const COMPONENT_LABELS: [string, string][] = [
@@ -136,6 +148,8 @@ export function mapRawRecords(raw: PayrollRecordRaw[]): PayrollRecord[] {
       inferredTitle: inf.indexOf('T') >= 0 ? 'schedule' : inf.indexOf('t') >= 0 ? 'carried' : false,
       inferredPayClass: inf.indexOf('c') >= 0,
       inferredUnion: inf.indexOf('u') >= 0,
+      hireDate: r.h ?? '',
+      inferredHireDate: inf.indexOf('h') >= 0,
     }
   })
 }
