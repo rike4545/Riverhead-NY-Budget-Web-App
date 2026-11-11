@@ -264,7 +264,8 @@
           "salary": 177366,
           "quote": "Panico, Daniel* Supervisor Allocated 03/17/10 $177,366.00",
           "note": "Elected. The schedule marks it “Pursuant to Public Hearing 11/20/25”. Brookhaven’s 2027 budget pays it from two lines, $141,893 and $35,473 in its 2026 adopted column (pages 29 and 43), which add to the same figure.",
-          "inOffice": true
+          "inOffice": true,
+          "serviceDate": "03/17/10"
         },
         {
           "role": "deputy",
@@ -272,7 +273,8 @@
           "salary": 25625,
           "quote": "Foley, Cornelius Deputy Town Supervisor 01/01/24 + $25,625.00",
           "note": "Marked “+ Stipend”: paid to a Town Board member who also serves as Deputy Supervisor (2027 budget, page 31), so not a full-time salary.",
-          "inOffice": true
+          "inOffice": true,
+          "serviceDate": "01/01/24"
         },
         {
           "role": "budget",
@@ -280,7 +282,8 @@
           "salary": 188600,
           "quote": "DeLuca, Nicole Director of Finance 03/11/22 $188,600.00 $0.00",
           "note": "In the Supervisor’s office, so the closest match to Riverhead’s budget officer. The schedule also titles the post Chief of Operations.",
-          "inOffice": true
+          "inOffice": true,
+          "serviceDate": "03/11/22"
         },
         {
           "role": "aide",
@@ -288,7 +291,8 @@
           "salary": 87125,
           "quote": "Zavesky, Melinda Secretary 05/29/18 $87,125.00 $400.00",
           "note": "Plus $400 longevity, as the schedule lists it.",
-          "inOffice": true
+          "inOffice": true,
+          "serviceDate": "05/29/18"
         }
       ],
       "missing": [

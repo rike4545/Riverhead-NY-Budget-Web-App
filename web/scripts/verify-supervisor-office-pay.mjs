@@ -10,7 +10,7 @@
 //   towns compared, and the built page names every town left out and why.
 import { existsSync, readFileSync } from 'node:fs'
 import { join } from 'node:path'
-import { riverheadRoles, compare } from '../lib/supervisor-office-pay.ts'
+import { riverheadRoles, compare, RIVERHEAD_SERVICE } from '../lib/supervisor-office-pay.ts'
 
 const root = process.cwd()
 const fail = (m) => { console.error(`SUPERVISOR OFFICE PAY VERIFY FAILED: ${m}`); process.exitCode = 1 }
@@ -26,6 +26,7 @@ for (const p of data.peers) {
     const q = norm(r.quote)
     if (!text.includes(q)) { fail(`${p.town}: "${r.quote.trim().slice(0, 50)}" is not in the record`); continue }
     if (!q.includes(r.salary.toLocaleString('en-US'))) fail(`${p.town} ${r.title}: the quote does not carry ${r.salary}`)
+    if (r.serviceDate && !q.includes(r.serviceDate)) fail(`${p.town} ${r.title}: service date ${r.serviceDate} is not on the quoted line`)
     figures++
     // Prior years sit on the same printed line, after the quoted 2026 figures.
     const line = readFileSync(path, 'utf8').split('\n').find((l) => norm(l).includes(q))
@@ -61,6 +62,18 @@ for (const s of ['Halpin, Jerry Town Supervisor $110,000.00*', '* reduced from b
   if (!packet.includes(norm(s))) fail(`the 2026 agenda packet does not carry "${s}"`)
 }
 if (rh.chief !== rh.budget) fail('the Chief of Staff and Budget Officer should share one salary')
+
+// Riverhead's service dates: hire years from the 2025 Gross Earnings report, the aide's start from Resolution 2026-58.
+const gross = readFileSync(join(root, '../etl/data/payroll/gross-earnings-2025.csv'), 'utf8').split('\n')
+const hireYear = (name, title) => gross.find((l) => l.includes(`"${name}"`) && l.includes(`,${title},`))?.split(',').at(-2)
+for (const [key, name, title] of [['deputy', 'Higgins, Devon M', 'Deputy Supervisor'], ['budget', 'Burkowsky, Debi Iris', 'Town Budget Officer']]) {
+  const y = hireYear(name, title)
+  if (!y) fail(`the 2025 Gross Earnings report has no ${title} row for ${name}`)
+  else if (RIVERHEAD_SERVICE[key] !== `Hired ${y}`) fail(`Riverhead ${key}: the page says "${RIVERHEAD_SERVICE[key]}", the report's hire year is ${y}`)
+}
+if (RIVERHEAD_SERVICE.chief !== RIVERHEAD_SERVICE.budget) fail('the Chief of Staff and Budget Officer are one person, so they share one service date')
+if (!packet.includes(norm('David Cote, as Legislative Aide to the Town Supervisor for a term commencing January 1, 2026')) || RIVERHEAD_SERVICE.aide !== 'Term began January 1, 2026') fail("the aide's start does not match Resolution 2026-58")
+if (RIVERHEAD_SERVICE.supervisor !== null) fail("no record here gives the Supervisor's start, so the page should show none")
 
 const rows = compare(rh, data.peers)
 const sup = rows.find((r) => r.role.key === 'supervisor')
