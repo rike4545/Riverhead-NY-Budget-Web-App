@@ -2649,7 +2649,7 @@ year,name,department,title,pay_class,union,regular,overtime,longevity,holiday_di
 2022,"Spanburgh, Joann",Town Board Elected,Council Member,NON-TIME,NON,13100.04,0.0,0,0,0,0,0,0.0,13100.04
 2022,"Spear, Emma A",Recreation,Recreation Aide,Recreation PT Seasonal,NON,4383.11,0.0,0,0,0,0,0,0.0,4383.11
 2022,"Sproston, Robert T",Headquarters,Police Officer,PBA 8-40,PBA,89690.36,18454.52,0,7944.19,1200.0,0,0,25543.34,142832.41
-2022,"Squillace, Annamaria",Assessment,Assessment Clerk,CSEA 7-35,CSE,13896.01,0.0,0,991.74,166.65,0,-165.29,-0.0,14889.11
+2022,"Squillace, Annamaria",Assessment,Assessment Clerk,CSEA 7-35,CSE,13896.01,0.0,0,991.74,166.65,0,-165.29,0.0,14889.11
 2022,"Stafford, Richard B",Town Attorney Appointed,Deputy Town Attorney,Contractual 7,NON,15480.78,0.0,0,0,0,0,0,0.0,15480.78
 2022,"Staker, Matthew T",Squad 2 - Police,Police Officer,PBA 10-40,PBA,56426.82,18204.43,0,9666.85,1200.0,0,803.38,17436.69,103738.17
 2022,"Stasiukiewicz, Cole",COPE Comm Oriented Police Enforce,Police Officer,PBA 8-40,PBA,77293.92,5863.8,0,13245.15,1200.0,0,-175.75,22744.81,120171.93
@@ -2678,7 +2678,7 @@ year,name,department,title,pay_class,union,regular,overtime,longevity,holiday_di
 2022,"Thomas, Kevin H",Squad 4 - Police,Police Officer,PBA 8-40,PBA,52989.73,10057.01,0,9866.64,1200.0,0,-30.25,9979.24,84062.37
 2022,"Thompson, Dan",Community Development Clerical,Housing Inspector,CSEA 7-35,CSE,19681.72,0.0,0,1298.68,0,0,0,1471.88,22452.28
 2022,"Tocci, Grace E",Recreation,Recreation Aide,Recreation PT Seasonal,NON,114.1,0.0,0,0,0,0,0,0.0,114.1
-2022,"Tocci, Kelly A",Nutrition Management,Senior Citizens Program Director,Contractual 7,NON,111553.86,0.0,7808.86,0,0,7529.34,17.6,-0.0,126909.66
+2022,"Tocci, Kelly A",Nutrition Management,Senior Citizens Program Director,Contractual 7,NON,111553.86,0.0,7808.86,0,0,7529.34,17.6,0.0,126909.66
 2022,"Toth, Emily",Accounting,Accountant,CSEA-Flex,CSE,65383.6,357.58,0,3937.05,400.0,0,0,5735.11,75813.34
 2022,"Treadwell, James E",Squad 1 - Police,Police Officer,PBA 10-40,PBA,79694.03,5875.4,0,16199.48,1200.0,0,224.55,32060.5,135253.96
 2022,"Trent, Cynthia V",Nutrition,Homemaker,Part Time,CSE,2699.69,0.0,0,198.75,0,0,0,132.5,3030.94
@@ -3312,7 +3312,7 @@ year,name,department,title,pay_class,union,regular,overtime,longevity,holiday_di
 2024,"Anderson, Peter J",COPE Comm Oriented Police Enforce,Police Officer,PBA 8-40,PBA,49539.5,9181.41,0,10491.65,900.0,15454.94,0,73019.96,158587.46
 2024,"Anderson, Richard",Detectives,Detective,PBA 8-40,PBA,116303.17,20679.37,11097.04,15903.18,2200.0,22652.68,-59.26,48570.03,237346.21
 2024,"Andruszkiewicz, David J",Fire Marshall,Fire Marshal I,CSEA-Flex 30DED,CSE,40382.94,0.0,12493.79,3481.08,0,0,0,49125.01,105482.82
-2024,"Apicello, John K",Highway Admin  Elected/Appointed,Deputy Highway Superintendent,Contractual 8,CON,91437.71,0.0,6400.68,0,3808.4,19788.84,0,0.0,121435.63
+2024,"Apicello, John K",Highway Admin  Elected/Appointed,Deputy Highway Superintendent,Contractual 8,CON,91437.71,0.0,6400.68,0,3808.4,19788.84,0,-0.0,121435.63
 2024,"Arena, Ellie A",Recreation,Lifeguard,NON-TIME,NON,1716.75,0.0,0,0,0,0,0,0.0,1716.75
 2024,"Arena, Isabella M",Recreation,Lifeguard,NON-TIME,NON,1564.5,0.0,0,0,0,0,0,0.0,1564.5
 2024,"Arena, Michael J",Recreation,Lifeguard,NON-TIME,NON,551.25,0.0,0,0,0,0,0,0.0,551.25
