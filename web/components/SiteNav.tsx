@@ -51,7 +51,7 @@ const GROUPS: Group[] = [
     ['Officials on social media', `${base}/official-social-media/`], ['Election law case', `${base}/election-law-case/`],
   ] },
   { label: 'Help', links: [
-    ['Start here', `${base}/guide/`], ['Glossary of terms', `${base}/glossary/`], ['How the Town’s books work', `${base}/accounting-basics/`], ['Fiscal impact statement helper', `${base}/fiscal-impact-helper/`], ['Guided tour', `${base}/explore/`], ['Questions residents ask', `${base}/answers/`], ['How to check a figure', `${base}/evidence/`],
+    ['Start here', `${base}/guide/`], ['Glossary of terms', `${base}/glossary/`], ['How the Town’s books work', `${base}/accounting-basics/`], ['Fiscal impact statement helper', `${base}/fiscal-impact-helper/`], ['Resolution builder', `${base}/resolution-builder/`], ['Guided tour', `${base}/explore/`], ['Questions residents ask', `${base}/answers/`], ['How to check a figure', `${base}/evidence/`],
     ['Original documents', `${base}/sources/`], ['Records the Town has not published', `${base}/records/`], ['Downloads', `${base}/downloads/`], ['Data quality and freshness', `${base}/data-quality/`],
     ['Budget best practices (GFOA)', `${base}/gfoa/`], ['Following how the Town is governed', `${base}/governance-accountability/`], ['Open Meetings Law', `${base}/open-meetings/`], ['Know your rights (ICE)', `${base}/know-your-rights/`],
   ] },
