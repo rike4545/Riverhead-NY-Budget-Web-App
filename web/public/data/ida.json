@@ -1,0 +1,3159 @@
+{
+ "source": {
+  "title": "Industrial Development Agencies' Project Data (New York State Authorities Budget Office, data.ny.gov)",
+  "url": "https://data.ny.gov/Government-Finance/Industrial-Development-Agencies-Project-Data/9rtk-3fkw",
+  "dataset": "9rtk-3fkw",
+  "rowsUpdatedAt": 1764601131,
+  "note": "Each IDA reports its projects to the Authorities Budget Office every year. Exemptions are the taxes the agency reports a project did not pay; PILOTs are the payments in lieu of taxes it made; net exemptions are the difference. Jobs are what each company reported, published as reported."
+ },
+ "agency": "Riverhead Industrial Development Agency",
+ "reports": 252,
+ "years": [
+  {
+   "year": 2017,
+   "projects": 35.0,
+   "stateSales": 447875.65,
+   "localSales": 502240.66,
+   "countyProperty": 38016.0,
+   "localProperty": 1039047.0,
+   "schoolProperty": 1945376.0,
+   "mortgageRecording": 89564.0,
+   "pilot_county": 14648.0,
+   "pilot_local": 400078.0,
+   "pilot_school": 749608.0,
+   "exemptions": 4062119.31,
+   "pilots": 1164334.0,
+   "pilotsDue": 1164331.0,
+   "net": 2897785.31,
+   "projectsWithBreaks": 26.0,
+   "ftesWithBreaks": 1047.5,
+   "ftesBeforeWithBreaks": 431.0
+  },
+  {
+   "year": 2018,
+   "projects": 36.0,
+   "stateSales": 243681.46,
+   "localSales": 281756.06,
+   "countyProperty": 42725.0,
+   "localProperty": 1220669.0,
+   "schoolProperty": 2326416.0,
+   "mortgageRecording": 455970.0,
+   "pilot_county": 18337.44,
+   "pilot_local": 523881.4,
+   "pilot_school": 998570.74,
+   "exemptions": 4571217.52,
+   "pilots": 1540789.58,
+   "pilotsDue": 1540789.58,
+   "net": 3030427.94,
+   "projectsWithBreaks": 29.0,
+   "ftesWithBreaks": 1230.59,
+   "ftesBeforeWithBreaks": 437.0
+  },
+  {
+   "year": 2019,
+   "projects": 36.0,
+   "stateSales": 665187.57,
+   "localSales": 769123.11,
+   "countyProperty": 98184.0,
+   "localProperty": 1407275.0,
+   "schoolProperty": 2615297.0,
+   "mortgageRecording": 14600.0,
+   "pilot_county": 43292.0,
+   "pilot_local": 620580.0,
+   "pilot_school": 1153432.0,
+   "exemptions": 5569666.68,
+   "pilots": 1817304.0,
+   "pilotsDue": 1817484.0,
+   "net": 3752362.68,
+   "projectsWithBreaks": 30.0,
+   "ftesWithBreaks": 902.0,
+   "ftesBeforeWithBreaks": 540.0
+  },
+  {
+   "year": 2020,
+   "projects": 32.0,
+   "stateSales": 184182.0,
+   "localSales": 212958.0,
+   "countyProperty": 56939.0,
+   "localProperty": 1486245.0,
+   "schoolProperty": 2785867.0,
+   "mortgageRecording": 29361.92,
+   "pilot_county": 23142.0,
+   "pilot_local": 602936.0,
+   "pilot_school": 1132238.0,
+   "exemptions": 4755552.92,
+   "pilots": 1758316.0,
+   "pilotsDue": 1758316.0,
+   "net": 2997236.92,
+   "projectsWithBreaks": 27.0,
+   "ftesWithBreaks": 913.0,
+   "ftesBeforeWithBreaks": 534.0
+  },
+  {
+   "year": 2021,
+   "projects": 30.0,
+   "stateSales": 205894.0,
+   "localSales": 238064.0,
+   "countyProperty": 136159.0,
+   "localProperty": 2077638.0,
+   "schoolProperty": 3767962.0,
+   "mortgageRecording": 59250.0,
+   "pilot_county": 41561.0,
+   "pilot_local": 634396.0,
+   "pilot_school": 1150191.0,
+   "exemptions": 6484967.0,
+   "pilots": 1826148.0,
+   "pilotsDue": 1826148.0,
+   "net": 4658819.0,
+   "projectsWithBreaks": 26.0,
+   "ftesWithBreaks": 1067.0,
+   "ftesBeforeWithBreaks": 488.0
+  },
+  {
+   "year": 2022,
+   "projects": 31.0,
+   "stateSales": 137167.0,
+   "localSales": 158600.0,
+   "countyProperty": 190242.0,
+   "localProperty": 2096443.0,
+   "schoolProperty": 3965599.0,
+   "mortgageRecording": 0.0,
+   "pilot_county": 62447.0,
+   "pilot_local": 688155.0,
+   "pilot_school": 1301675.0,
+   "exemptions": 6548051.0,
+   "pilots": 2052277.0,
+   "pilotsDue": 2052277.0,
+   "net": 4495774.0,
+   "projectsWithBreaks": 26.0,
+   "ftesWithBreaks": 1114.0,
+   "ftesBeforeWithBreaks": 488.0
+  },
+  {
+   "year": 2023,
+   "projects": 28.0,
+   "stateSales": 290197.33,
+   "localSales": 335541.2,
+   "countyProperty": 229816.0,
+   "localProperty": 2323330.0,
+   "schoolProperty": 4110303.0,
+   "mortgageRecording": 95625.0,
+   "pilot_county": 81635.0,
+   "pilot_local": 828985.0,
+   "pilot_school": 1454975.0,
+   "exemptions": 7384812.53,
+   "pilots": 2365595.0,
+   "pilotsDue": 2365595.0,
+   "net": 5019217.53,
+   "projectsWithBreaks": 24.0,
+   "ftesWithBreaks": 1323.0,
+   "ftesBeforeWithBreaks": 292.0
+  },
+  {
+   "year": 2024,
+   "projects": 24.0,
+   "stateSales": 111873.0,
+   "localSales": 129354.0,
+   "countyProperty": 106016.0,
+   "localProperty": 2199150.0,
+   "schoolProperty": 3765436.0,
+   "mortgageRecording": 112500.0,
+   "pilot_county": 31232.0,
+   "pilot_local": 700812.0,
+   "pilot_school": 1174714.0,
+   "exemptions": 6424329.0,
+   "pilots": 1906758.0,
+   "pilotsDue": 1906758.0,
+   "net": 4517571.0,
+   "projectsWithBreaks": 21.0,
+   "ftesWithBreaks": 1536.25,
+   "ftesBeforeWithBreaks": 296.0
+  }
+ ],
+ "projects": [
+  {
+   "code": "4701 10 01A",
+   "name": "ATLANTIS HOLDING COMPANY, LLC",
+   "applicant": "Atlantis Holding Company, LLC",
+   "type": "Straight Lease",
+   "purpose": "Services",
+   "address": "431 East Main Street Riverhead",
+   "approved": "2010-02-24",
+   "plannedEnd": 2021,
+   "firstYear": 2017,
+   "lastYear": 2024,
+   "projectAmount": 24323000.0,
+   "bondAmount": 0.0,
+   "exemptions": 8142788.57,
+   "pilots": 947988.58,
+   "net": 7194799.99,
+   "byType": {
+    "stateSales": 138888.02,
+    "localSales": 160588.55,
+    "countyProperty": 164684.0,
+    "localProperty": 2717217.0,
+    "schoolProperty": 4961411.0,
+    "mortgageRecording": 0.0
+   },
+   "jobsBefore": 72.0,
+   "jobsPromised": 103.0,
+   "jobsRetainedPromised": 72.0,
+   "jobsLatest": 140.0,
+   "avgSalaryPromised": 38177.0,
+   "years": {
+    "2017": {
+     "exemptions": 916946.0,
+     "pilots": 110827.0,
+     "net": 806119.0,
+     "jobs": 201.0
+    },
+    "2018": {
+     "exemptions": 947211.0,
+     "pilots": 114485.58,
+     "net": 832725.42,
+     "jobs": 203.0
+    },
+    "2019": {
+     "exemptions": 1135085.57,
+     "pilots": 117028.0,
+     "net": 1018057.57,
+     "jobs": 206.0
+    },
+    "2020": {
+     "exemptions": 989265.0,
+     "pilots": 116709.0,
+     "net": 872556.0,
+     "jobs": 117.0
+    },
+    "2021": {
+     "exemptions": 1051650.0,
+     "pilots": 119996.0,
+     "net": 931654.0,
+     "jobs": 128.0
+    },
+    "2022": {
+     "exemptions": 1068499.0,
+     "pilots": 123087.0,
+     "net": 945412.0,
+     "jobs": 135.0
+    },
+    "2023": {
+     "exemptions": 1014294.0,
+     "pilots": 122593.0,
+     "net": 891701.0,
+     "jobs": 138.0
+    },
+    "2024": {
+     "exemptions": 1019838.0,
+     "pilots": 123263.0,
+     "net": 896575.0,
+     "jobs": 140.0
+    }
+   }
+  },
+  {
+   "code": "4704 18 03",
+   "name": "Calverton Addiction and Treatment Center",
+   "applicant": "Calverton Addiction and Treatment, LLC/EDBK at Calverton, LLC",
+   "type": "Straight Lease",
+   "purpose": "Other Categories",
+   "address": "Jan Way Calverton",
+   "approved": "2018-03-05",
+   "plannedEnd": 2031,
+   "firstYear": 2018,
+   "lastYear": 2024,
+   "projectAmount": 59062000.0,
+   "bondAmount": 0.0,
+   "exemptions": 8246650.21,
+   "pilots": 1961065.0,
+   "net": 6285585.21,
+   "byType": {
+    "stateSales": 315895.46,
+    "localSales": 365254.75,
+    "countyProperty": 184202.0,
+    "localProperty": 2502473.0,
+    "schoolProperty": 4522575.0,
+    "mortgageRecording": 356250.0
+   },
+   "jobsBefore": 0.0,
+   "jobsPromised": 40.0,
+   "jobsRetainedPromised": 0.0,
+   "jobsLatest": 201.6,
+   "avgSalaryPromised": 77950.0,
+   "years": {
+    "2018": {
+     "exemptions": 462252.52,
+     "pilots": 0.0,
+     "net": 462252.52,
+     "jobs": 0.0
+    },
+    "2019": {
+     "exemptions": 519082.69,
+     "pilots": 0.0,
+     "net": 519082.69,
+     "jobs": 10.0
+    },
+    "2020": {
+     "exemptions": 474760.0,
+     "pilots": 200070.0,
+     "net": 274690.0,
+     "jobs": 71.0
+    },
+    "2021": {
+     "exemptions": 1667442.0,
+     "pilots": 213041.0,
+     "net": 1454401.0,
+     "jobs": 89.5
+    },
+    "2022": {
+     "exemptions": 1711718.0,
+     "pilots": 367999.0,
+     "net": 1343719.0,
+     "jobs": 143.0
+    },
+    "2023": {
+     "exemptions": 1703254.0,
+     "pilots": 514744.0,
+     "net": 1188510.0,
+     "jobs": 163.0
+    },
+    "2024": {
+     "exemptions": 1708141.0,
+     "pilots": 665211.0,
+     "net": 1042930.0,
+     "jobs": 201.6
+    }
+   }
+  },
+  {
+   "code": "4704 17 2",
+   "name": "Georgica Green/Riverhead Apartments",
+   "applicant": "Georgica Green Ventures, LLC",
+   "type": "Straight Lease",
+   "purpose": "Finance, Insurance and Real Estate",
+   "address": "221 East Main Street Riverhead",
+   "approved": "2017-09-11",
+   "plannedEnd": 2051,
+   "firstYear": 2017,
+   "lastYear": 2024,
+   "projectAmount": 57072768.0,
+   "bondAmount": 0.0,
+   "exemptions": 2394985.59,
+   "pilots": 302213.0,
+   "net": 2092772.59,
+   "byType": {
+    "stateSales": 516284.43,
+    "localSales": 596953.16,
+    "countyProperty": 33237.0,
+    "localProperty": 448401.0,
+    "schoolProperty": 800110.0,
+    "mortgageRecording": 0.0
+   },
+   "jobsBefore": 0.0,
+   "jobsPromised": 3.0,
+   "jobsRetainedPromised": 0.0,
+   "jobsLatest": 35.0,
+   "avgSalaryPromised": 55000.0,
+   "years": {
+    "2017": {
+     "exemptions": 5046.0,
+     "pilots": 0.0,
+     "net": 5046.0,
+     "jobs": 0.0
+    },
+    "2018": {
+     "exemptions": 163131.0,
+     "pilots": 0.0,
+     "net": 163131.0,
+     "jobs": 0.0
+    },
+    "2019": {
+     "exemptions": 669619.59,
+     "pilots": 31623.0,
+     "net": 637996.59,
+     "jobs": 0.0
+    },
+    "2020": {
+     "exemptions": 386536.0,
+     "pilots": 31536.0,
+     "net": 355000.0,
+     "jobs": 2.0
+    },
+    "2021": {
+     "exemptions": 96978.0,
+     "pilots": 58000.0,
+     "net": 38978.0,
+     "jobs": 4.0
+    },
+    "2022": {
+     "exemptions": 358197.0,
+     "pilots": 59160.0,
+     "net": 299037.0,
+     "jobs": 16.5
+    },
+    "2023": {
+     "exemptions": 356764.0,
+     "pilots": 60343.0,
+     "net": 296421.0,
+     "jobs": 12.0
+    },
+    "2024": {
+     "exemptions": 358714.0,
+     "pilots": 61551.0,
+     "net": 297163.0,
+     "jobs": 35.0
+    }
+   }
+  },
+  {
+   "code": "4705 15 04",
+   "name": "BROWNING PHASE II MARRIOT RESIDENCE",
+   "applicant": "Browning Hotel Properties, LLC",
+   "type": "Straight Lease",
+   "purpose": "Other Categories",
+   "address": "2012 Old Country Road Riverhead",
+   "approved": "2015-04-06",
+   "plannedEnd": 2028,
+   "firstYear": 2017,
+   "lastYear": 2023,
+   "projectAmount": 26849775.0,
+   "bondAmount": 0.0,
+   "exemptions": 4912632.0,
+   "pilots": 3134313.0,
+   "net": 1778319.0,
+   "byType": {
+    "stateSales": 245521.0,
+    "localSales": 283883.0,
+    "countyProperty": 109678.0,
+    "localProperty": 1502903.0,
+    "schoolProperty": 2756047.0,
+    "mortgageRecording": 14600.0
+   },
+   "jobsBefore": 0.0,
+   "jobsPromised": 45.0,
+   "jobsRetainedPromised": 0.0,
+   "jobsLatest": 45.0,
+   "avgSalaryPromised": 34444.0,
+   "years": {
+    "2017": {
+     "exemptions": 521172.0,
+     "pilots": 2576.0,
+     "net": 518596.0,
+     "jobs": 3.0
+    },
+    "2018": {
+     "exemptions": 286733.0,
+     "pilots": 137963.0,
+     "net": 148770.0,
+     "jobs": 46.0
+    },
+    "2019": {
+     "exemptions": 628736.0,
+     "pilots": 337775.0,
+     "net": 290961.0,
+     "jobs": 42.0
+    },
+    "2020": {
+     "exemptions": 612457.0,
+     "pilots": 367474.0,
+     "net": 244983.0,
+     "jobs": 30.0
+    },
+    "2021": {
+     "exemptions": 939665.0,
+     "pilots": 719267.0,
+     "net": 220398.0,
+     "jobs": 34.0
+    },
+    "2022": {
+     "exemptions": 963864.0,
+     "pilots": 770085.0,
+     "net": 193779.0,
+     "jobs": 31.0
+    },
+    "2023": {
+     "exemptions": 960005.0,
+     "pilots": 799173.0,
+     "net": 160832.0,
+     "jobs": 45.0
+    }
+   }
+  },
+  {
+   "code": "4704 18 01",
+   "name": "JOHN WESLEY VILLAGE I, LP",
+   "applicant": "John Wesley Village, LP",
+   "type": "Straight Lease",
+   "purpose": "Other Categories",
+   "address": "1 Aldersgate Riverhead",
+   "approved": "2018-12-04",
+   "plannedEnd": 2038,
+   "firstYear": 2018,
+   "lastYear": 2024,
+   "projectAmount": 12804393.0,
+   "bondAmount": 0.0,
+   "exemptions": 1893319.0,
+   "pilots": 235001.0,
+   "net": 1658318.0,
+   "byType": {
+    "stateSales": 0.0,
+    "localSales": 0.0,
+    "countyProperty": 46484.0,
+    "localProperty": 627970.0,
+    "schoolProperty": 1128895.0,
+    "mortgageRecording": 89970.0
+   },
+   "jobsBefore": 6.0,
+   "jobsPromised": 0.0,
+   "jobsRetainedPromised": 6.0,
+   "jobsLatest": 5.0,
+   "avgSalaryPromised": null,
+   "years": {
+    "2018": {
+     "exemptions": 89970.0,
+     "pilots": 0.0,
+     "net": 89970.0,
+     "jobs": 6.0
+    },
+    "2019": {
+     "exemptions": 348274.0,
+     "pilots": 75000.0,
+     "net": 273274.0,
+     "jobs": 6.0
+    },
+    "2020": {
+     "exemptions": 0.0,
+     "pilots": 0.0,
+     "net": 0.0,
+     "jobs": 6.0
+    },
+    "2021": {
+     "exemptions": 357106.0,
+     "pilots": 0.0,
+     "net": 357106.0,
+     "jobs": 5.0
+    },
+    "2022": {
+     "exemptions": 366302.0,
+     "pilots": 0.0,
+     "net": 366302.0,
+     "jobs": 5.0
+    },
+    "2023": {
+     "exemptions": 364837.0,
+     "pilots": 75001.0,
+     "net": 289836.0,
+     "jobs": 5.0
+    },
+    "2024": {
+     "exemptions": 366830.0,
+     "pilots": 85000.0,
+     "net": 281830.0,
+     "jobs": 5.0
+    }
+   }
+  },
+  {
+   "code": "47041302A",
+   "name": "WOOLWORTH",
+   "applicant": "WOOLWORTH REVITALIZATION LLC",
+   "type": "Straight Lease",
+   "purpose": "Services",
+   "address": "126-138 East Main Street Riverhead",
+   "approved": "2013-02-04",
+   "plannedEnd": 2023,
+   "firstYear": 2017,
+   "lastYear": 2023,
+   "projectAmount": 5707500.0,
+   "bondAmount": 0.0,
+   "exemptions": 1428896.0,
+   "pilots": 76434.0,
+   "net": 1352462.0,
+   "byType": {
+    "stateSales": 0.0,
+    "localSales": 0.0,
+    "countyProperty": 30776.0,
+    "localProperty": 490979.0,
+    "schoolProperty": 907141.0,
+    "mortgageRecording": 0.0
+   },
+   "jobsBefore": 0.0,
+   "jobsPromised": 25.0,
+   "jobsRetainedPromised": 0.0,
+   "jobsLatest": 20.5,
+   "avgSalaryPromised": 30000.0,
+   "years": {
+    "2017": {
+     "exemptions": 192016.0,
+     "pilots": 10527.0,
+     "net": 181489.0,
+     "jobs": 31.0
+    },
+    "2018": {
+     "exemptions": 198355.0,
+     "pilots": 10873.0,
+     "net": 187482.0,
+     "jobs": 5.5
+    },
+    "2019": {
+     "exemptions": 202761.0,
+     "pilots": 9218.0,
+     "net": 193543.0,
+     "jobs": 25.0
+    },
+    "2020": {
+     "exemptions": 202206.0,
+     "pilots": 11085.0,
+     "net": 191121.0,
+     "jobs": 22.0
+    },
+    "2021": {
+     "exemptions": 207901.0,
+     "pilots": 11397.0,
+     "net": 196504.0,
+     "jobs": 21.0
+    },
+    "2022": {
+     "exemptions": 213255.0,
+     "pilots": 11691.0,
+     "net": 201564.0,
+     "jobs": 21.0
+    },
+    "2023": {
+     "exemptions": 212402.0,
+     "pilots": 11643.0,
+     "net": 200759.0,
+     "jobs": 20.5
+    }
+   }
+  },
+  {
+   "code": "4704 21 02",
+   "name": "Island Water Park",
+   "applicant": "Island Water Park Corp",
+   "type": "Straight Lease",
+   "purpose": "Other Categories",
+   "address": "5835 Middle Country Road Calverton",
+   "approved": "2021-11-08",
+   "plannedEnd": 2034,
+   "firstYear": 2022,
+   "lastYear": 2024,
+   "projectAmount": 25000000.0,
+   "bondAmount": 0.0,
+   "exemptions": 1101734.0,
+   "pilots": 95488.0,
+   "net": 1006246.0,
+   "byType": {
+    "stateSales": 84722.0,
+    "localSales": 97960.0,
+    "countyProperty": 21822.0,
+    "localProperty": 264780.0,
+    "schoolProperty": 519950.0,
+    "mortgageRecording": 112500.0
+   },
+   "jobsBefore": 0.0,
+   "jobsPromised": 283.0,
+   "jobsRetainedPromised": 0.0,
+   "jobsLatest": 106.5,
+   "avgSalaryPromised": 60000.0,
+   "years": {
+    "2022": {
+     "exemptions": 128855.0,
+     "pilots": 0.0,
+     "net": 128855.0,
+     "jobs": 10.0
+    },
+    "2023": {
+     "exemptions": 456369.0,
+     "pilots": 28943.0,
+     "net": 427426.0,
+     "jobs": 10.0
+    },
+    "2024": {
+     "exemptions": 516510.0,
+     "pilots": 66545.0,
+     "net": 449965.0,
+     "jobs": 106.5
+    }
+   }
+  },
+  {
+   "code": "4704 19 01",
+   "name": "Island International Exterior Fabricators, LLC",
+   "applicant": "Timothy Stevens",
+   "type": "Straight Lease",
+   "purpose": "Manufacturing",
+   "address": "1101 Scott Avenue Calverton",
+   "approved": "2019-02-22",
+   "plannedEnd": 2034,
+   "firstYear": 2019,
+   "lastYear": 2024,
+   "projectAmount": 16635598.0,
+   "bondAmount": 0.0,
+   "exemptions": 973490.89,
+   "pilots": 0.0,
+   "net": 973490.89,
+   "byType": {
+    "stateSales": 46424.78,
+    "localSales": 53677.11,
+    "countyProperty": 20745.0,
+    "localProperty": 303861.0,
+    "schoolProperty": 548783.0,
+    "mortgageRecording": 0.0
+   },
+   "jobsBefore": 213.0,
+   "jobsPromised": 80.0,
+   "jobsRetainedPromised": 213.0,
+   "jobsLatest": 399.0,
+   "avgSalaryPromised": 37440.0,
+   "years": {
+    "2019": {
+     "exemptions": 56294.89,
+     "pilots": 0.0,
+     "net": 56294.89,
+     "jobs": 68.0
+    },
+    "2020": {
+     "exemptions": 191570.0,
+     "pilots": 0.0,
+     "net": 191570.0,
+     "jobs": 295.0
+    },
+    "2021": {
+     "exemptions": 193894.0,
+     "pilots": 0.0,
+     "net": 193894.0,
+     "jobs": 264.0
+    },
+    "2022": {
+     "exemptions": 177715.0,
+     "pilots": 0.0,
+     "net": 177715.0,
+     "jobs": 224.0
+    },
+    "2023": {
+     "exemptions": 176801.0,
+     "pilots": 0.0,
+     "net": 176801.0,
+     "jobs": 395.0
+    },
+    "2024": {
+     "exemptions": 177216.0,
+     "pilots": 0.0,
+     "net": 177216.0,
+     "jobs": 399.0
+    }
+   }
+  },
+  {
+   "code": "4704 16 01",
+   "name": "ATLANTIS PHASE III PRESTON HOUSE",
+   "applicant": "J. Petrocelli Development Assoc/Preston House, LLC",
+   "type": "Straight Lease",
+   "purpose": "Other Categories",
+   "address": "428 East Main Street Riverhead",
+   "approved": "2016-05-02",
+   "plannedEnd": 2029,
+   "firstYear": 2017,
+   "lastYear": 2024,
+   "projectAmount": 10691000.0,
+   "bondAmount": 0.0,
+   "exemptions": 928867.0,
+   "pilots": 47346.0,
+   "net": 881521.0,
+   "byType": {
+    "stateSales": 131766.0,
+    "localSales": 152354.0,
+    "countyProperty": 15129.0,
+    "localProperty": 224805.0,
+    "schoolProperty": 404813.0,
+    "mortgageRecording": 0.0
+   },
+   "jobsBefore": 0.0,
+   "jobsPromised": 25.0,
+   "jobsRetainedPromised": 0.0,
+   "jobsLatest": 22.0,
+   "avgSalaryPromised": 30902.9,
+   "years": {
+    "2017": {
+     "exemptions": 273537.0,
+     "pilots": 0.0,
+     "net": 273537.0,
+     "jobs": 5.0
+    },
+    "2018": {
+     "exemptions": 24118.0,
+     "pilots": 6475.0,
+     "net": 17643.0,
+     "jobs": 37.0
+    },
+    "2019": {
+     "exemptions": 13836.0,
+     "pilots": 6619.0,
+     "net": 7217.0,
+     "jobs": 26.0
+    },
+    "2020": {
+     "exemptions": 118969.0,
+     "pilots": 6601.0,
+     "net": 112368.0,
+     "jobs": 19.5
+    },
+    "2021": {
+     "exemptions": 122320.0,
+     "pilots": 6786.0,
+     "net": 115534.0,
+     "jobs": 23.0
+    },
+    "2022": {
+     "exemptions": 125468.0,
+     "pilots": 6961.0,
+     "net": 118507.0,
+     "jobs": 24.0
+    },
+    "2023": {
+     "exemptions": 124968.0,
+     "pilots": 6933.0,
+     "net": 118035.0,
+     "jobs": 9.0
+    },
+    "2024": {
+     "exemptions": 125651.0,
+     "pilots": 6971.0,
+     "net": 118680.0,
+     "jobs": 22.0
+    }
+   }
+  },
+  {
+   "code": "4704 11 02A",
+   "name": "EASTERN PROPERTY INVESTOR CONSULTANTS, LLC (EPIC LLC)",
+   "applicant": "EASTERN PROPERTY INVESTOR CONSULTANTS, LLC (EPIC LLC)",
+   "type": "Straight Lease",
+   "purpose": "Other Categories",
+   "address": "Peconic Avenue Riverhead",
+   "approved": "2009-12-07",
+   "plannedEnd": 2021,
+   "firstYear": 2017,
+   "lastYear": 2022,
+   "projectAmount": 0.0,
+   "bondAmount": 0.0,
+   "exemptions": 906986.0,
+   "pilots": 95193.0,
+   "net": 811793.0,
+   "byType": {
+    "stateSales": 0.0,
+    "localSales": 0.0,
+    "countyProperty": 17502.0,
+    "localProperty": 310510.0,
+    "schoolProperty": 578974.0,
+    "mortgageRecording": 0.0
+   },
+   "jobsBefore": 0.0,
+   "jobsPromised": 20.0,
+   "jobsRetainedPromised": 0.0,
+   "jobsLatest": 10.0,
+   "avgSalaryPromised": null,
+   "years": {
+    "2017": {
+     "exemptions": 143162.0,
+     "pilots": 15025.0,
+     "net": 128137.0,
+     "jobs": 46.0
+    },
+    "2018": {
+     "exemptions": 147888.0,
+     "pilots": 15522.0,
+     "net": 132366.0,
+     "jobs": 14.5
+    },
+    "2019": {
+     "exemptions": 151173.0,
+     "pilots": 15867.0,
+     "net": 135306.0,
+     "jobs": 19.0
+    },
+    "2020": {
+     "exemptions": 150759.0,
+     "pilots": 15822.0,
+     "net": 134937.0,
+     "jobs": 8.0
+    },
+    "2021": {
+     "exemptions": 155006.0,
+     "pilots": 16269.0,
+     "net": 138737.0,
+     "jobs": 9.0
+    },
+    "2022": {
+     "exemptions": 158998.0,
+     "pilots": 16688.0,
+     "net": 142310.0,
+     "jobs": 10.0
+    }
+   }
+  },
+  {
+   "code": "4704 16 04",
+   "name": "PECONIC CROSSING",
+   "applicant": "Peconic Crossing, LLC",
+   "type": "Straight Lease",
+   "purpose": "Finance, Insurance and Real Estate",
+   "address": "11 West Main Street Riverhead",
+   "approved": "2016-11-07",
+   "plannedEnd": 2029,
+   "firstYear": 2017,
+   "lastYear": 2024,
+   "projectAmount": 18541044.0,
+   "bondAmount": 0.0,
+   "exemptions": 916117.31,
+   "pilots": 104988.0,
+   "net": 811129.31,
+   "byType": {
+    "stateSales": 159939.65,
+    "localSales": 169313.66,
+    "countyProperty": 11480.0,
+    "localProperty": 173128.0,
+    "schoolProperty": 312692.0,
+    "mortgageRecording": 89564.0
+   },
+   "jobsBefore": 0.0,
+   "jobsPromised": 1.5,
+   "jobsRetainedPromised": 0.0,
+   "jobsLatest": 4.15,
+   "avgSalaryPromised": 60000.0,
+   "years": {
+    "2017": {
+     "exemptions": 189492.31,
+     "pilots": 0.0,
+     "net": 189492.31,
+     "jobs": 0.0
+    },
+    "2018": {
+     "exemptions": 255934.0,
+     "pilots": 26609.0,
+     "net": 229325.0,
+     "jobs": 1.4
+    },
+    "2019": {
+     "exemptions": 27199.0,
+     "pilots": 12692.0,
+     "net": 14507.0,
+     "jobs": 0.0
+    },
+    "2020": {
+     "exemptions": 85461.0,
+     "pilots": 12658.0,
+     "net": 72803.0,
+     "jobs": 1.0
+    },
+    "2021": {
+     "exemptions": 87869.0,
+     "pilots": 13014.0,
+     "net": 74855.0,
+     "jobs": 1.5
+    },
+    "2022": {
+     "exemptions": 90131.0,
+     "pilots": 13350.0,
+     "net": 76781.0,
+     "jobs": 1.5
+    },
+    "2023": {
+     "exemptions": 89771.0,
+     "pilots": 13296.0,
+     "net": 76475.0,
+     "jobs": 1.5
+    },
+    "2024": {
+     "exemptions": 90260.0,
+     "pilots": 13369.0,
+     "net": 76891.0,
+     "jobs": 4.15
+    }
+   }
+  },
+  {
+   "code": "04704 05 01A",
+   "name": "LENAPE ASSOCIATES, LP",
+   "applicant": "The D&F Group",
+   "type": "Bonds/Notes Issuance",
+   "purpose": "Finance, Insurance and Real Estate",
+   "address": "19-02 WHITESTONE EXPRESSWAY Whitestone",
+   "approved": "2005-12-05",
+   "plannedEnd": 2021,
+   "firstYear": 2017,
+   "lastYear": 2023,
+   "projectAmount": 2920000.0,
+   "bondAmount": 2920000.0,
+   "exemptions": 948914.0,
+   "pilots": 197392.0,
+   "net": 751522.0,
+   "byType": {
+    "stateSales": 0.0,
+    "localSales": 0.0,
+    "countyProperty": 17294.0,
+    "localProperty": 326770.0,
+    "schoolProperty": 604850.0,
+    "mortgageRecording": 0.0
+   },
+   "jobsBefore": 0.0,
+   "jobsPromised": 0.0,
+   "jobsRetainedPromised": 0.0,
+   "jobsLatest": 2.0,
+   "avgSalaryPromised": null,
+   "years": {
+    "2017": {
+     "exemptions": 221638.0,
+     "pilots": 36000.0,
+     "net": 185638.0,
+     "jobs": 1.0
+    },
+    "2018": {
+     "exemptions": 228954.0,
+     "pilots": 36000.0,
+     "net": 192954.0,
+     "jobs": 1.0
+    },
+    "2019": {
+     "exemptions": 122433.0,
+     "pilots": 36001.0,
+     "net": 86432.0,
+     "jobs": 2.0
+    },
+    "2020": {
+     "exemptions": 122097.0,
+     "pilots": 36000.0,
+     "net": 86097.0,
+     "jobs": 2.0
+    },
+    "2021": {
+     "exemptions": 125537.0,
+     "pilots": 36000.0,
+     "net": 89537.0,
+     "jobs": 5.0
+    },
+    "2022": {
+     "exemptions": 0.0,
+     "pilots": 0.0,
+     "net": 0.0,
+     "jobs": 2.0
+    },
+    "2023": {
+     "exemptions": 128255.0,
+     "pilots": 17391.0,
+     "net": 110864.0,
+     "jobs": 2.0
+    }
+   }
+  },
+  {
+   "code": "4704 21 01",
+   "name": "331 East Main",
+   "applicant": "331 East Main Street, LLC",
+   "type": "Straight Lease",
+   "purpose": "Other Categories",
+   "address": "331 East Main Street Riverhead",
+   "approved": "2020-10-05",
+   "plannedEnd": 2032,
+   "firstYear": 2021,
+   "lastYear": 2024,
+   "projectAmount": 13143851.0,
+   "bondAmount": 0.0,
+   "exemptions": 811242.0,
+   "pilots": 76621.0,
+   "net": 734621.0,
+   "byType": {
+    "stateSales": 217391.0,
+    "localSales": 251359.0,
+    "countyProperty": 7102.0,
+    "localProperty": 101337.0,
+    "schoolProperty": 174803.0,
+    "mortgageRecording": 59250.0
+   },
+   "jobsBefore": 0.0,
+   "jobsPromised": 2.0,
+   "jobsRetainedPromised": 0.0,
+   "jobsLatest": 0.0,
+   "avgSalaryPromised": 75000.0,
+   "years": {
+    "2021": {
+     "exemptions": 423557.0,
+     "pilots": 0.0,
+     "net": 423557.0,
+     "jobs": 3.0
+    },
+    "2022": {
+     "exemptions": 119395.0,
+     "pilots": 14952.0,
+     "net": 104443.0,
+     "jobs": 4.0
+    },
+    "2023": {
+     "exemptions": 116761.0,
+     "pilots": 25660.0,
+     "net": 91101.0,
+     "jobs": 2.0
+    },
+    "2024": {
+     "exemptions": 151529.0,
+     "pilots": 36009.0,
+     "net": 115520.0,
+     "jobs": 0.0
+    }
+   }
+  },
+  {
+   "code": "4704 07 03AA",
+   "name": "Riveredge, LLC Phase II",
+   "applicant": "Riveredege, LLC",
+   "type": "Straight Lease",
+   "purpose": "Other Categories",
+   "address": "962 Burman Boulevard Calverton",
+   "approved": "2014-03-03",
+   "plannedEnd": 2025,
+   "firstYear": 2017,
+   "lastYear": 2024,
+   "projectAmount": 5056219.1,
+   "bondAmount": 0.0,
+   "exemptions": 1630057.0,
+   "pilots": 992493.0,
+   "net": 637564.0,
+   "byType": {
+    "stateSales": 0.0,
+    "localSales": 0.0,
+    "countyProperty": 36509.0,
+    "localProperty": 567937.0,
+    "schoolProperty": 1025611.0,
+    "mortgageRecording": 0.0
+   },
+   "jobsBefore": 0.0,
+   "jobsPromised": 5.0,
+   "jobsRetainedPromised": 0.0,
+   "jobsLatest": 81.0,
+   "avgSalaryPromised": 48000.0,
+   "years": {
+    "2017": {
+     "exemptions": 137358.0,
+     "pilots": 13736.0,
+     "net": 123622.0,
+     "jobs": 19.0
+    },
+    "2018": {
+     "exemptions": 142135.0,
+     "pilots": 28427.0,
+     "net": 113708.0,
+     "jobs": 21.0
+    },
+    "2019": {
+     "exemptions": 145233.0,
+     "pilots": 43571.0,
+     "net": 101662.0,
+     "jobs": 20.0
+    },
+    "2020": {
+     "exemptions": 144935.0,
+     "pilots": 57973.0,
+     "net": 86962.0,
+     "jobs": 21.0
+    },
+    "2021": {
+     "exemptions": 148825.0,
+     "pilots": 74413.0,
+     "net": 74412.0,
+     "jobs": 25.0
+    },
+    "2022": {
+     "exemptions": 152802.0,
+     "pilots": 91682.0,
+     "net": 61120.0,
+     "jobs": 30.0
+    },
+    "2023": {
+     "exemptions": 378941.0,
+     "pilots": 333336.0,
+     "net": 45605.0,
+     "jobs": 31.0
+    },
+    "2024": {
+     "exemptions": 379828.0,
+     "pilots": 349355.0,
+     "net": 30473.0,
+     "jobs": 81.0
+    }
+   }
+  },
+  {
+   "code": "4704 23 3",
+   "name": "Bradford Allen Hospitality Riverhead JV",
+   "applicant": "Jeffrey Bernstein",
+   "type": "Straight Lease",
+   "purpose": "Other Categories",
+   "address": "2012 Old Country Road Riverhead",
+   "approved": "2023-10-02",
+   "plannedEnd": 2028,
+   "firstYear": 2023,
+   "lastYear": 2024,
+   "projectAmount": 37000000.0,
+   "bondAmount": 0.0,
+   "exemptions": 714121.0,
+   "pilots": 117562.0,
+   "net": 596559.0,
+   "byType": {
+    "stateSales": 0.0,
+    "localSales": 0.0,
+    "countyProperty": 12410.0,
+    "localProperty": 260921.0,
+    "schoolProperty": 440790.0,
+    "mortgageRecording": 0.0
+   },
+   "jobsBefore": 0.0,
+   "jobsPromised": 0.0,
+   "jobsRetainedPromised": 0.0,
+   "jobsLatest": 65.0,
+   "avgSalaryPromised": 34444.0,
+   "years": {
+    "2023": {
+     "exemptions": 0.0,
+     "pilots": 0.0,
+     "net": 0.0,
+     "jobs": 96.0
+    },
+    "2024": {
+     "exemptions": 714121.0,
+     "pilots": 117562.0,
+     "net": 596559.0,
+     "jobs": 65.0
+    }
+   }
+  },
+  {
+   "code": "4704 12 04A",
+   "name": "SUFFOLK THEATER",
+   "applicant": "Wolf Properties, LLC",
+   "type": "Straight Lease",
+   "purpose": "Other Categories",
+   "address": "118 East Main Street Riverhead",
+   "approved": "2012-10-22",
+   "plannedEnd": 2023,
+   "firstYear": 2017,
+   "lastYear": 2023,
+   "projectAmount": 1577000.0,
+   "bondAmount": 0.0,
+   "exemptions": 545262.0,
+   "pilots": 67088.0,
+   "net": 478174.0,
+   "byType": {
+    "stateSales": 0.0,
+    "localSales": 0.0,
+    "countyProperty": 11744.0,
+    "localProperty": 187356.0,
+    "schoolProperty": 346162.0,
+    "mortgageRecording": 0.0
+   },
+   "jobsBefore": 1.0,
+   "jobsPromised": 20.0,
+   "jobsRetainedPromised": 1.0,
+   "jobsLatest": 67.0,
+   "avgSalaryPromised": 60000.0,
+   "years": {
+    "2017": {
+     "exemptions": 73273.0,
+     "pilots": 9015.0,
+     "net": 64258.0,
+     "jobs": 39.0
+    },
+    "2018": {
+     "exemptions": 75691.0,
+     "pilots": 9313.0,
+     "net": 66378.0,
+     "jobs": 32.0
+    },
+    "2019": {
+     "exemptions": 77372.0,
+     "pilots": 9520.0,
+     "net": 67852.0,
+     "jobs": 22.0
+    },
+    "2020": {
+     "exemptions": 77161.0,
+     "pilots": 9494.0,
+     "net": 67667.0,
+     "jobs": 15.0
+    },
+    "2021": {
+     "exemptions": 79335.0,
+     "pilots": 9761.0,
+     "net": 69574.0,
+     "jobs": 15.0
+    },
+    "2022": {
+     "exemptions": 81378.0,
+     "pilots": 10013.0,
+     "net": 71365.0,
+     "jobs": 15.0
+    },
+    "2023": {
+     "exemptions": 81052.0,
+     "pilots": 9972.0,
+     "net": 71080.0,
+     "jobs": 67.0
+    }
+   }
+  },
+  {
+   "code": "47041304A",
+   "name": "400 BURMAN BOULEVARD/ISLAND GREEN STEEL, LLC",
+   "applicant": "400 BURMAN BLVD",
+   "type": "Straight Lease",
+   "purpose": "Manufacturing",
+   "address": "400 BURMAN BLVD Calverton",
+   "approved": "2013-07-08",
+   "plannedEnd": 2025,
+   "firstYear": 2017,
+   "lastYear": 2024,
+   "projectAmount": 5372000.0,
+   "bondAmount": 0.0,
+   "exemptions": 581558.92,
+   "pilots": 181543.0,
+   "net": 400015.92,
+   "byType": {
+    "stateSales": 0.0,
+    "localSales": 0.0,
+    "countyProperty": 11612.0,
+    "localProperty": 190765.0,
+    "schoolProperty": 349820.0,
+    "mortgageRecording": 29361.92
+   },
+   "jobsBefore": 0.0,
+   "jobsPromised": 25.0,
+   "jobsRetainedPromised": 0.0,
+   "jobsLatest": 124.0,
+   "avgSalaryPromised": 30000.0,
+   "years": {
+    "2017": {
+     "exemptions": 64515.0,
+     "pilots": 29176.0,
+     "net": 35339.0,
+     "jobs": 70.0
+    },
+    "2018": {
+     "exemptions": 66759.0,
+     "pilots": 34761.0,
+     "net": 31998.0,
+     "jobs": 49.0
+    },
+    "2019": {
+     "exemptions": 68214.0,
+     "pilots": 40189.0,
+     "net": 28025.0,
+     "jobs": 49.0
+    },
+    "2020": {
+     "exemptions": 97435.92,
+     "pilots": 5564.0,
+     "net": 91871.92,
+     "jobs": 38.0
+    },
+    "2021": {
+     "exemptions": 69902.0,
+     "pilots": 5713.0,
+     "net": 64189.0,
+     "jobs": 89.0
+    },
+    "2022": {
+     "exemptions": 71768.0,
+     "pilots": 15217.0,
+     "net": 56551.0,
+     "jobs": 73.0
+    },
+    "2023": {
+     "exemptions": 71398.0,
+     "pilots": 21998.0,
+     "net": 49400.0,
+     "jobs": 99.0
+    },
+    "2024": {
+     "exemptions": 71567.0,
+     "pilots": 28925.0,
+     "net": 42642.0,
+     "jobs": 124.0
+    }
+   }
+  },
+  {
+   "code": "4704 23 1",
+   "name": "RD America, LLC",
+   "applicant": "Craig MIller",
+   "type": "Straight Lease",
+   "purpose": "Wholesale Trade",
+   "address": "765 Old Country Road Riverhead",
+   "approved": "2023-02-06",
+   "plannedEnd": 2033,
+   "firstYear": 2023,
+   "lastYear": 2024,
+   "projectAmount": 6000000.0,
+   "bondAmount": 0.0,
+   "exemptions": 384933.0,
+   "pilots": 0.0,
+   "net": 384933.0,
+   "byType": {
+    "stateSales": 178519.65,
+    "localSales": 206413.35,
+    "countyProperty": 0.0,
+    "localProperty": 0.0,
+    "schoolProperty": 0.0,
+    "mortgageRecording": 0.0
+   },
+   "jobsBefore": 0.0,
+   "jobsPromised": 33.0,
+   "jobsRetainedPromised": 0.0,
+   "jobsLatest": 27.0,
+   "avgSalaryPromised": 61442.0,
+   "years": {
+    "2023": {
+     "exemptions": 384933.0,
+     "pilots": 0.0,
+     "net": 384933.0,
+     "jobs": 23.0
+    },
+    "2024": {
+     "exemptions": 0.0,
+     "pilots": 0.0,
+     "net": 0.0,
+     "jobs": 27.0
+    }
+   }
+  },
+  {
+   "code": "47041301A",
+   "name": "HAMPTON JITNEY, INC.",
+   "applicant": "HAMPTON JITNEY, INC.",
+   "type": "Straight Lease",
+   "purpose": "Transportation, Communication, Electric, Gas and Sanitary Services",
+   "address": "253 Edwards Avenue Calverton",
+   "approved": "2011-10-03",
+   "plannedEnd": 2023,
+   "firstYear": 2017,
+   "lastYear": 2024,
+   "projectAmount": 8745800.0,
+   "bondAmount": 0.0,
+   "exemptions": 1302126.0,
+   "pilots": 991286.0,
+   "net": 310840.0,
+   "byType": {
+    "stateSales": 0.0,
+    "localSales": 0.0,
+    "countyProperty": 27341.0,
+    "localProperty": 451106.0,
+    "schoolProperty": 823679.0,
+    "mortgageRecording": 0.0
+   },
+   "jobsBefore": 0.0,
+   "jobsPromised": 100.0,
+   "jobsRetainedPromised": 0.0,
+   "jobsLatest": 199.0,
+   "avgSalaryPromised": 27250.0,
+   "years": {
+    "2017": {
+     "exemptions": 152229.0,
+     "pilots": 91901.0,
+     "net": 60328.0,
+     "jobs": 77.5
+    },
+    "2018": {
+     "exemptions": 157253.0,
+     "pilots": 101859.0,
+     "net": 55394.0,
+     "jobs": 85.0
+    },
+    "2019": {
+     "exemptions": 160746.0,
+     "pilots": 111199.0,
+     "net": 49547.0,
+     "jobs": 91.0
+    },
+    "2020": {
+     "exemptions": 160307.0,
+     "pilots": 117955.0,
+     "net": 42352.0,
+     "jobs": 74.0
+    },
+    "2021": {
+     "exemptions": 164823.0,
+     "pilots": 128535.0,
+     "net": 36288.0,
+     "jobs": 158.5
+    },
+    "2022": {
+     "exemptions": 169068.0,
+     "pilots": 139290.0,
+     "net": 29778.0,
+     "jobs": 187.0
+    },
+    "2023": {
+     "exemptions": 168390.0,
+     "pilots": 146147.0,
+     "net": 22243.0,
+     "jobs": 174.0
+    },
+    "2024": {
+     "exemptions": 169310.0,
+     "pilots": 154400.0,
+     "net": 14910.0,
+     "jobs": 199.0
+    }
+   }
+  },
+  {
+   "code": "4704 22 01",
+   "name": "205 Osborn, LLC",
+   "applicant": "205 Osborn Avenue, LLC",
+   "type": "Straight Lease",
+   "purpose": "Other Categories",
+   "address": "205 Osborn Avenue Riverhead",
+   "approved": "2022-07-11",
+   "plannedEnd": 2034,
+   "firstYear": 2022,
+   "lastYear": 2024,
+   "projectAmount": 19593827.0,
+   "bondAmount": 0.0,
+   "exemptions": 313798.53,
+   "pilots": 9270.0,
+   "net": 304528.53,
+   "byType": {
+    "stateSales": 92437.68,
+    "localSales": 106880.85,
+    "countyProperty": 343.0,
+    "localProperty": 6322.0,
+    "schoolProperty": 12190.0,
+    "mortgageRecording": 95625.0
+   },
+   "jobsBefore": 0.0,
+   "jobsPromised": 3.0,
+   "jobsRetainedPromised": 0.0,
+   "jobsLatest": 0.0,
+   "avgSalaryPromised": 60000.0,
+   "years": {
+    "2022": {
+     "exemptions": 12340.0,
+     "pilots": 0.0,
+     "net": 12340.0,
+     "jobs": 0.0
+    },
+    "2023": {
+     "exemptions": 282603.53,
+     "pilots": 0.0,
+     "net": 282603.53,
+     "jobs": 0.0
+    },
+    "2024": {
+     "exemptions": 18855.0,
+     "pilots": 9270.0,
+     "net": 9585.0,
+     "jobs": 0.0
+    }
+   }
+  },
+  {
+   "code": "4704 15 01",
+   "name": "20 WEST MAIN",
+   "applicant": "20 West Main, LLC",
+   "type": "Straight Lease",
+   "purpose": "Other Categories",
+   "address": "20 West Main Street Riverhead",
+   "approved": "2015-06-01",
+   "plannedEnd": 2026,
+   "firstYear": 2017,
+   "lastYear": 2024,
+   "projectAmount": 1475500.0,
+   "bondAmount": 0.0,
+   "exemptions": 297580.0,
+   "pilots": 50380.0,
+   "net": 247200.0,
+   "byType": {
+    "stateSales": 3241.0,
+    "localSales": 3748.0,
+    "countyProperty": 6115.0,
+    "localProperty": 97355.0,
+    "schoolProperty": 177371.0,
+    "mortgageRecording": 9750.0
+   },
+   "jobsBefore": 0.0,
+   "jobsPromised": 2.0,
+   "jobsRetainedPromised": 0.0,
+   "jobsLatest": 68.5,
+   "avgSalaryPromised": 50000.0,
+   "years": {
+    "2017": {
+     "exemptions": 17120.0,
+     "pilots": 5890.0,
+     "net": 11230.0,
+     "jobs": 22.5
+    },
+    "2018": {
+     "exemptions": 46771.0,
+     "pilots": 6084.0,
+     "net": 40687.0,
+     "jobs": 22.5
+    },
+    "2019": {
+     "exemptions": 37844.0,
+     "pilots": 6219.0,
+     "net": 31625.0,
+     "jobs": 21.0
+    },
+    "2020": {
+     "exemptions": 37740.0,
+     "pilots": 6202.0,
+     "net": 31538.0,
+     "jobs": 20.5
+    },
+    "2021": {
+     "exemptions": 38803.0,
+     "pilots": 6377.0,
+     "net": 32426.0,
+     "jobs": 21.5
+    },
+    "2022": {
+     "exemptions": 39801.0,
+     "pilots": 6541.0,
+     "net": 33260.0,
+     "jobs": 44.5
+    },
+    "2023": {
+     "exemptions": 39642.0,
+     "pilots": 6515.0,
+     "net": 33127.0,
+     "jobs": 41.5
+    },
+    "2024": {
+     "exemptions": 39859.0,
+     "pilots": 6552.0,
+     "net": 33307.0,
+     "jobs": 68.5
+    }
+   }
+  },
+  {
+   "code": "4704 23 2",
+   "name": "Riverhead Housing, LP",
+   "applicant": "David Pearson",
+   "type": "Straight Lease",
+   "purpose": "Other Categories",
+   "address": "821 East Main Street Riverhead",
+   "approved": "2023-11-20",
+   "plannedEnd": 2054,
+   "firstYear": 2023,
+   "lastYear": 2024,
+   "projectAmount": 57629897.0,
+   "bondAmount": 0.0,
+   "exemptions": 241227.0,
+   "pilots": 0.0,
+   "net": 241227.0,
+   "byType": {
+    "stateSales": 111873.0,
+    "localSales": 129354.0,
+    "countyProperty": 0.0,
+    "localProperty": 0.0,
+    "schoolProperty": 0.0,
+    "mortgageRecording": 0.0
+   },
+   "jobsBefore": 5.0,
+   "jobsPromised": 0.0,
+   "jobsRetainedPromised": 5.0,
+   "jobsLatest": 5.0,
+   "avgSalaryPromised": null,
+   "years": {
+    "2023": {
+     "exemptions": 0.0,
+     "pilots": 0.0,
+     "net": 0.0,
+     "jobs": 5.0
+    },
+    "2024": {
+     "exemptions": 241227.0,
+     "pilots": 0.0,
+     "net": 241227.0,
+     "jobs": 5.0
+    }
+   }
+  },
+  {
+   "code": "4704 16 03",
+   "name": "CITY CIDER HOUSE, LLC",
+   "applicant": "J King Realty/City Cider House, LLC",
+   "type": "Straight Lease",
+   "purpose": "Manufacturing",
+   "address": "2711 Sound Avenue Calverton",
+   "approved": "2016-05-02",
+   "plannedEnd": 2029,
+   "firstYear": 2017,
+   "lastYear": 2024,
+   "projectAmount": 6115000.0,
+   "bondAmount": 0.0,
+   "exemptions": 823142.0,
+   "pilots": 621480.0,
+   "net": 201662.0,
+   "byType": {
+    "stateSales": 4340.0,
+    "localSales": 5019.0,
+    "countyProperty": 17998.0,
+    "localProperty": 282173.0,
+    "schoolProperty": 513612.0,
+    "mortgageRecording": 0.0
+   },
+   "jobsBefore": 0.0,
+   "jobsPromised": 6.0,
+   "jobsRetainedPromised": 0.0,
+   "jobsLatest": 10.0,
+   "avgSalaryPromised": 51666.0,
+   "years": {
+    "2017": {
+     "exemptions": 6963.0,
+     "pilots": 0.0,
+     "net": 6963.0,
+     "jobs": 20.0
+    },
+    "2018": {
+     "exemptions": 113422.0,
+     "pilots": 79264.0,
+     "net": 34158.0,
+     "jobs": 3.19
+    },
+    "2019": {
+     "exemptions": 115410.0,
+     "pilots": 82942.0,
+     "net": 32468.0,
+     "jobs": 11.0
+    },
+    "2020": {
+     "exemptions": 113182.0,
+     "pilots": 84628.0,
+     "net": 28554.0,
+     "jobs": 11.0
+    },
+    "2021": {
+     "exemptions": 116372.0,
+     "pilots": 88978.0,
+     "net": 27394.0,
+     "jobs": 13.0
+    },
+    "2022": {
+     "exemptions": 119365.0,
+     "pilots": 93287.0,
+     "net": 26078.0,
+     "jobs": 7.0
+    },
+    "2023": {
+     "exemptions": 118888.0,
+     "pilots": 94921.0,
+     "net": 23967.0,
+     "jobs": 9.0
+    },
+    "2024": {
+     "exemptions": 119540.0,
+     "pilots": 97460.0,
+     "net": 22080.0,
+     "jobs": 10.0
+    }
+   }
+  },
+  {
+   "code": "4704 14 02",
+   "name": "Thirty West Main, LLC",
+   "applicant": "Thirty West Main, LLC",
+   "type": "Straight Lease",
+   "purpose": "Other Categories",
+   "address": "30 West Main Street Riverhead",
+   "approved": "2014-01-06",
+   "plannedEnd": 2024,
+   "firstYear": 2017,
+   "lastYear": 2024,
+   "projectAmount": 2040000.0,
+   "bondAmount": 0.0,
+   "exemptions": 339298.0,
+   "pilots": 145415.0,
+   "net": 193883.0,
+   "byType": {
+    "stateSales": 0.0,
+    "localSales": 0.0,
+    "countyProperty": 7124.0,
+    "localProperty": 117545.0,
+    "schoolProperty": 214629.0,
+    "mortgageRecording": 0.0
+   },
+   "jobsBefore": 0.0,
+   "jobsPromised": 3.0,
+   "jobsRetainedPromised": 0.0,
+   "jobsLatest": 35.5,
+   "avgSalaryPromised": 40000.0,
+   "years": {
+    "2017": {
+     "exemptions": 39667.0,
+     "pilots": 17001.0,
+     "net": 22666.0,
+     "jobs": 52.0
+    },
+    "2018": {
+     "exemptions": 40976.0,
+     "pilots": 17561.0,
+     "net": 23415.0,
+     "jobs": 62.0
+    },
+    "2019": {
+     "exemptions": 41887.0,
+     "pilots": 17952.0,
+     "net": 23935.0,
+     "jobs": 55.0
+    },
+    "2020": {
+     "exemptions": 41771.0,
+     "pilots": 17902.0,
+     "net": 23869.0,
+     "jobs": 46.5
+    },
+    "2021": {
+     "exemptions": 42948.0,
+     "pilots": 18407.0,
+     "net": 24541.0,
+     "jobs": 56.0
+    },
+    "2022": {
+     "exemptions": 44054.0,
+     "pilots": 18880.0,
+     "net": 25174.0,
+     "jobs": 36.0
+    },
+    "2023": {
+     "exemptions": 43877.0,
+     "pilots": 18804.0,
+     "net": 25073.0,
+     "jobs": 35.5
+    },
+    "2024": {
+     "exemptions": 44118.0,
+     "pilots": 18908.0,
+     "net": 25210.0,
+     "jobs": 35.5
+    }
+   }
+  },
+  {
+   "code": "47041305A",
+   "name": "1998 PECONIC/ALLIED BUILDING PRODUCTS",
+   "applicant": "1998 Peconic LLC",
+   "type": "Straight Lease",
+   "purpose": "Wholesale Trade",
+   "address": "558 Edwards Avenue Calverton",
+   "approved": "2013-07-01",
+   "plannedEnd": 2024,
+   "firstYear": 2017,
+   "lastYear": 2024,
+   "projectAmount": 1845000.0,
+   "bondAmount": 0.0,
+   "exemptions": 368972.0,
+   "pilots": 227267.0,
+   "net": 141705.0,
+   "byType": {
+    "stateSales": 0.0,
+    "localSales": 0.0,
+    "countyProperty": 7748.0,
+    "localProperty": 127825.0,
+    "schoolProperty": 233399.0,
+    "mortgageRecording": 0.0
+   },
+   "jobsBefore": 0.0,
+   "jobsPromised": 6.0,
+   "jobsRetainedPromised": 0.0,
+   "jobsLatest": 10.0,
+   "avgSalaryPromised": 58000.0,
+   "years": {
+    "2017": {
+     "exemptions": 43135.0,
+     "pilots": 13160.0,
+     "net": 29975.0,
+     "jobs": 7.0
+    },
+    "2018": {
+     "exemptions": 44559.0,
+     "pilots": 17466.0,
+     "net": 27093.0,
+     "jobs": 6.0
+    },
+    "2019": {
+     "exemptions": 45549.0,
+     "pilots": 21811.0,
+     "net": 23738.0,
+     "jobs": 6.0
+    },
+    "2020": {
+     "exemptions": 45425.0,
+     "pilots": 25696.0,
+     "net": 19729.0,
+     "jobs": 7.0
+    },
+    "2021": {
+     "exemptions": 46704.0,
+     "pilots": 30476.0,
+     "net": 16228.0,
+     "jobs": 8.0
+    },
+    "2022": {
+     "exemptions": 47907.0,
+     "pilots": 35423.0,
+     "net": 12484.0,
+     "jobs": 8.0
+    },
+    "2023": {
+     "exemptions": 47715.0,
+     "pilots": 39426.0,
+     "net": 8289.0,
+     "jobs": 9.0
+    },
+    "2024": {
+     "exemptions": 47978.0,
+     "pilots": 43809.0,
+     "net": 4169.0,
+     "jobs": 10.0
+    }
+   }
+  },
+  {
+   "code": "4704 15 03",
+   "name": "FIREHOUSE/WOLF/LONG BEARD",
+   "applicant": "Wolf Properties Associates, LP/Long Beard",
+   "type": "Straight Lease",
+   "purpose": "Manufacturing",
+   "address": "24 East Second Street Riverhead",
+   "approved": "2015-08-03",
+   "plannedEnd": 2026,
+   "firstYear": 2017,
+   "lastYear": 2024,
+   "projectAmount": 986000.0,
+   "bondAmount": 0.0,
+   "exemptions": 166083.0,
+   "pilots": 29378.0,
+   "net": 136705.0,
+   "byType": {
+    "stateSales": 3180.0,
+    "localSales": 3678.0,
+    "countyProperty": 3392.0,
+    "localProperty": 55207.0,
+    "schoolProperty": 100626.0,
+    "mortgageRecording": 0.0
+   },
+   "jobsBefore": 0.0,
+   "jobsPromised": 4.0,
+   "jobsRetainedPromised": 0.0,
+   "jobsLatest": 21.0,
+   "avgSalaryPromised": 30000.0,
+   "years": {
+    "2017": {
+     "exemptions": 22115.0,
+     "pilots": 3435.0,
+     "net": 18680.0,
+     "jobs": 0.0
+    },
+    "2018": {
+     "exemptions": 18326.0,
+     "pilots": 3548.0,
+     "net": 14778.0,
+     "jobs": 4.0
+    },
+    "2019": {
+     "exemptions": 17444.0,
+     "pilots": 3626.0,
+     "net": 13818.0,
+     "jobs": 27.0
+    },
+    "2020": {
+     "exemptions": 20849.0,
+     "pilots": 3616.0,
+     "net": 17233.0,
+     "jobs": 20.0
+    },
+    "2021": {
+     "exemptions": 21437.0,
+     "pilots": 3719.0,
+     "net": 17718.0,
+     "jobs": 24.0
+    },
+    "2022": {
+     "exemptions": 21990.0,
+     "pilots": 3814.0,
+     "net": 18176.0,
+     "jobs": 24.0
+    },
+    "2023": {
+     "exemptions": 21901.0,
+     "pilots": 3800.0,
+     "net": 18101.0,
+     "jobs": 24.0
+    },
+    "2024": {
+     "exemptions": 22021.0,
+     "pilots": 3820.0,
+     "net": 18201.0,
+     "jobs": 21.0
+    }
+   }
+  },
+  {
+   "code": "47041303A",
+   "name": "THERIAC ENTERPRISES OF RIVERHEAD/21st CENTURY",
+   "applicant": "THERIAC ENTERPRISES OF RIVERHEAD",
+   "type": "Straight Lease",
+   "purpose": "Services",
+   "address": "896 OLD COUNTRY ROAD Riverhead",
+   "approved": "2013-06-03",
+   "plannedEnd": 2019,
+   "firstYear": 2017,
+   "lastYear": 2019,
+   "projectAmount": 8173586.0,
+   "bondAmount": 0.0,
+   "exemptions": 450232.0,
+   "pilots": 319351.0,
+   "net": 130881.0,
+   "byType": {
+    "stateSales": 0.0,
+    "localSales": 0.0,
+    "countyProperty": 7292.0,
+    "localProperty": 153920.0,
+    "schoolProperty": 289020.0,
+    "mortgageRecording": 0.0
+   },
+   "jobsBefore": 0.0,
+   "jobsPromised": 21.0,
+   "jobsRetainedPromised": 0.0,
+   "jobsLatest": 6.0,
+   "avgSalaryPromised": 76000.0,
+   "years": {
+    "2017": {
+     "exemptions": 145755.0,
+     "pilots": 81618.0,
+     "net": 64137.0,
+     "jobs": 7.0
+    },
+    "2018": {
+     "exemptions": 150567.0,
+     "pilots": 106397.0,
+     "net": 44170.0,
+     "jobs": 9.0
+    },
+    "2019": {
+     "exemptions": 153910.0,
+     "pilots": 131336.0,
+     "net": 22574.0,
+     "jobs": 6.0
+    }
+   }
+  },
+  {
+   "code": "4704 18 02",
+   "name": "Twin Fork Beer",
+   "applicant": "ADPC RAYNOR, LLC",
+   "type": "Straight Lease",
+   "purpose": "Manufacturing",
+   "address": "807 Raynor Avenue Riverhead",
+   "approved": "2018-05-07",
+   "plannedEnd": 2029,
+   "firstYear": 2018,
+   "lastYear": 2024,
+   "projectAmount": 1491196.0,
+   "bondAmount": 0.0,
+   "exemptions": 176329.66,
+   "pilots": 54356.0,
+   "net": 121973.66,
+   "byType": {
+    "stateSales": 11858.7,
+    "localSales": 13710.96,
+    "countyProperty": 3966.0,
+    "localProperty": 52760.0,
+    "schoolProperty": 94034.0,
+    "mortgageRecording": 0.0
+   },
+   "jobsBefore": 0.0,
+   "jobsPromised": 5.0,
+   "jobsRetainedPromised": 0.0,
+   "jobsLatest": 4.0,
+   "avgSalaryPromised": 50000.0,
+   "years": {
+    "2018": {
+     "exemptions": 1569.0,
+     "pilots": 0.0,
+     "net": 1569.0,
+     "jobs": 0.0
+    },
+    "2019": {
+     "exemptions": 21807.66,
+     "pilots": 0.0,
+     "net": 21807.66,
+     "jobs": 0.0
+    },
+    "2020": {
+     "exemptions": 5809.0,
+     "pilots": 3616.0,
+     "net": 2193.0,
+     "jobs": 1.0
+    },
+    "2021": {
+     "exemptions": 23780.0,
+     "pilots": 5724.0,
+     "net": 18056.0,
+     "jobs": 4.0
+    },
+    "2022": {
+     "exemptions": 41157.0,
+     "pilots": 11282.0,
+     "net": 29875.0,
+     "jobs": 4.0
+    },
+    "2023": {
+     "exemptions": 40991.0,
+     "pilots": 14956.0,
+     "net": 26035.0,
+     "jobs": 7.0
+    },
+    "2024": {
+     "exemptions": 41216.0,
+     "pilots": 18778.0,
+     "net": 22438.0,
+     "jobs": 4.0
+    }
+   }
+  },
+  {
+   "code": "4701 10 03A",
+   "name": "COUNTRY LIMOSUINES LLC",
+   "applicant": "Country Limosuines LLC",
+   "type": "Straight Lease",
+   "purpose": "Services",
+   "address": "1 East Main Street Riverhead",
+   "approved": "2010-06-21",
+   "plannedEnd": 2022,
+   "firstYear": 2017,
+   "lastYear": 2021,
+   "projectAmount": 1640000.0,
+   "bondAmount": 0.0,
+   "exemptions": 221606.0,
+   "pilots": 114391.0,
+   "net": 107215.0,
+   "byType": {
+    "stateSales": 0.0,
+    "localSales": 0.0,
+    "countyProperty": 3751.0,
+    "localProperty": 76195.0,
+    "schoolProperty": 141660.0,
+    "mortgageRecording": 0.0
+   },
+   "jobsBefore": 0.0,
+   "jobsPromised": 20.0,
+   "jobsRetainedPromised": 0.0,
+   "jobsLatest": 5.0,
+   "avgSalaryPromised": 20000.0,
+   "years": {
+    "2017": {
+     "exemptions": 42414.0,
+     "pilots": 21893.0,
+     "net": 20521.0,
+     "jobs": 10.0
+    },
+    "2018": {
+     "exemptions": 43815.0,
+     "pilots": 22617.0,
+     "net": 21198.0,
+     "jobs": 6.0
+    },
+    "2019": {
+     "exemptions": 44788.0,
+     "pilots": 23120.0,
+     "net": 21668.0,
+     "jobs": 5.5
+    },
+    "2020": {
+     "exemptions": 44665.0,
+     "pilots": 23056.0,
+     "net": 21609.0,
+     "jobs": 5.0
+    },
+    "2021": {
+     "exemptions": 45924.0,
+     "pilots": 23705.0,
+     "net": 22219.0,
+     "jobs": 5.0
+    }
+   }
+  },
+  {
+   "code": "4704 16 02",
+   "name": "SOLUTIONS RIVERHEAD",
+   "applicant": "Solutions Riverhead, LLC",
+   "type": "Straight Lease",
+   "purpose": "Services",
+   "address": "21 East Main Street Riverhead",
+   "approved": "2016-09-12",
+   "plannedEnd": 2023,
+   "firstYear": 2017,
+   "lastYear": 2022,
+   "projectAmount": 863625.0,
+   "bondAmount": 0.0,
+   "exemptions": 85188.0,
+   "pilots": 6505.0,
+   "net": 78683.0,
+   "byType": {
+    "stateSales": 2117.0,
+    "localSales": 2447.0,
+    "countyProperty": 1657.0,
+    "localProperty": 27577.0,
+    "schoolProperty": 51390.0,
+    "mortgageRecording": 0.0
+   },
+   "jobsBefore": 0.0,
+   "jobsPromised": 12.0,
+   "jobsRetainedPromised": 0.0,
+   "jobsLatest": 9.0,
+   "avgSalaryPromised": 120000.0,
+   "years": {
+    "2017": {
+     "exemptions": 4202.0,
+     "pilots": 0.0,
+     "net": 4202.0,
+     "jobs": 5.5
+    },
+    "2018": {
+     "exemptions": 15973.0,
+     "pilots": 1259.0,
+     "net": 14714.0,
+     "jobs": 7.0
+    },
+    "2019": {
+     "exemptions": 15956.0,
+     "pilots": 1288.0,
+     "net": 14668.0,
+     "jobs": 9.0
+    },
+    "2020": {
+     "exemptions": 15914.0,
+     "pilots": 1284.0,
+     "net": 14630.0,
+     "jobs": 8.5
+    },
+    "2021": {
+     "exemptions": 16361.0,
+     "pilots": 1320.0,
+     "net": 15041.0,
+     "jobs": 9.0
+    },
+    "2022": {
+     "exemptions": 16782.0,
+     "pilots": 1354.0,
+     "net": 15428.0,
+     "jobs": 9.0
+    }
+   }
+  },
+  {
+   "code": "4701 12 02A",
+   "name": "MAIN ROAD HOLDINGS, LLC/ALL STAR",
+   "applicant": "Main Road Holdings, LLC",
+   "type": "Straight Lease",
+   "purpose": "Services",
+   "address": "96 Main Road Riverhead",
+   "approved": "2012-02-27",
+   "plannedEnd": 2018,
+   "firstYear": 2017,
+   "lastYear": 2019,
+   "projectAmount": 5250000.0,
+   "bondAmount": 0.0,
+   "exemptions": 332740.0,
+   "pilots": 255840.0,
+   "net": 76900.0,
+   "byType": {
+    "stateSales": 0.0,
+    "localSales": 0.0,
+    "countyProperty": 5388.0,
+    "localProperty": 113754.0,
+    "schoolProperty": 213598.0,
+    "mortgageRecording": 0.0
+   },
+   "jobsBefore": 0.0,
+   "jobsPromised": 45.0,
+   "jobsRetainedPromised": 0.0,
+   "jobsLatest": 32.0,
+   "avgSalaryPromised": 19222.23,
+   "years": {
+    "2017": {
+     "exemptions": 107719.0,
+     "pilots": 79194.0,
+     "net": 28525.0,
+     "jobs": 52.0
+    },
+    "2018": {
+     "exemptions": 111274.0,
+     "pilots": 85491.0,
+     "net": 25783.0,
+     "jobs": 32.0
+    },
+    "2019": {
+     "exemptions": 113747.0,
+     "pilots": 91155.0,
+     "net": 22592.0,
+     "jobs": 32.0
+    }
+   }
+  },
+  {
+   "code": "4704 07 01A",
+   "name": "BROWNING HOTEL PROPERTIES, LLC",
+   "applicant": "Browning Hotel Properites, LLC",
+   "type": "Straight Lease",
+   "purpose": "Services",
+   "address": "500 EXPRESS DRIVE Ronkonkoma",
+   "approved": "2007-01-22",
+   "plannedEnd": 2019,
+   "firstYear": 2017,
+   "lastYear": 2020,
+   "projectAmount": 0.0,
+   "bondAmount": 0.0,
+   "exemptions": 1185749.0,
+   "pilots": 1112904.0,
+   "net": 72845.0,
+   "byType": {
+    "stateSales": 0.0,
+    "localSales": 0.0,
+    "countyProperty": 18272.0,
+    "localProperty": 406516.0,
+    "schoolProperty": 760961.0,
+    "mortgageRecording": 0.0
+   },
+   "jobsBefore": 0.0,
+   "jobsPromised": 50.0,
+   "jobsRetainedPromised": 0.0,
+   "jobsLatest": 0.0,
+   "avgSalaryPromised": 32000.0,
+   "years": {
+    "2017": {
+     "exemptions": 286273.0,
+     "pilots": 250576.0,
+     "net": 35697.0,
+     "jobs": 40.0
+    },
+    "2018": {
+     "exemptions": 295723.0,
+     "pilots": 271139.0,
+     "net": 24584.0,
+     "jobs": 39.0
+    },
+    "2019": {
+     "exemptions": 302290.0,
+     "pilots": 289726.0,
+     "net": 12564.0,
+     "jobs": 49.0
+    },
+    "2020": {
+     "exemptions": 301463.0,
+     "pilots": 301463.0,
+     "net": 0.0,
+     "jobs": 0.0
+    }
+   }
+  },
+  {
+   "code": "4704 15 02",
+   "name": "PECONIC MANAGEMENT GROUP II",
+   "applicant": "Peconic Management Group, LLC",
+   "type": "Straight Lease",
+   "purpose": "Services",
+   "address": "715 Roanoke Avenue Riverhead",
+   "approved": "2015-06-01",
+   "plannedEnd": 2022,
+   "firstYear": 2017,
+   "lastYear": 2020,
+   "projectAmount": 1609140.0,
+   "bondAmount": 0.0,
+   "exemptions": 268044.0,
+   "pilots": 220515.0,
+   "net": 47529.0,
+   "byType": {
+    "stateSales": 13569.0,
+    "localSales": 15689.0,
+    "countyProperty": 3839.0,
+    "localProperty": 81905.0,
+    "schoolProperty": 153042.0,
+    "mortgageRecording": 0.0
+   },
+   "jobsBefore": 52.0,
+   "jobsPromised": 20.0,
+   "jobsRetainedPromised": 52.0,
+   "jobsLatest": 36.0,
+   "avgSalaryPromised": 40000.0,
+   "years": {
+    "2017": {
+     "exemptions": 74335.0,
+     "pilots": 45077.0,
+     "net": 29258.0,
+     "jobs": 41.0
+    },
+    "2018": {
+     "exemptions": 46564.0,
+     "pilots": 43150.0,
+     "net": 3414.0,
+     "jobs": 39.0
+    },
+    "2019": {
+     "exemptions": 73673.0,
+     "pilots": 65409.0,
+     "net": 8264.0,
+     "jobs": 33.0
+    },
+    "2020": {
+     "exemptions": 73472.0,
+     "pilots": 66879.0,
+     "net": 6593.0,
+     "jobs": 36.0
+    }
+   }
+  },
+  {
+   "code": "4704 06 02A",
+   "name": "CAL 81 REALTY, LLC",
+   "applicant": "Cal 81 Realty, LLC",
+   "type": "Bonds/Notes Issuance",
+   "purpose": "Manufacturing",
+   "address": "4062-81 GRUMMAN ROAD Calverton",
+   "approved": "2006-12-04",
+   "plannedEnd": 2018,
+   "firstYear": 2017,
+   "lastYear": 2019,
+   "projectAmount": 1500000.0,
+   "bondAmount": 1500000.0,
+   "exemptions": 325064.0,
+   "pilots": 287444.0,
+   "net": 37620.0,
+   "byType": {
+    "stateSales": 0.0,
+    "localSales": 0.0,
+    "countyProperty": 3981.0,
+    "localProperty": 110913.0,
+    "schoolProperty": 210170.0,
+    "mortgageRecording": 0.0
+   },
+   "jobsBefore": 110.0,
+   "jobsPromised": 10.0,
+   "jobsRetainedPromised": 110.0,
+   "jobsLatest": 160.0,
+   "avgSalaryPromised": null,
+   "years": {
+    "2017": {
+     "exemptions": 159754.0,
+     "pilots": 134962.0,
+     "net": 24792.0,
+     "jobs": 230.0
+    },
+    "2018": {
+     "exemptions": 165310.0,
+     "pilots": 152482.0,
+     "net": 12828.0,
+     "jobs": 427.0
+    },
+    "2019": {
+     "exemptions": 0.0,
+     "pilots": 0.0,
+     "net": 0.0,
+     "jobs": 160.0
+    }
+   }
+  },
+  {
+   "code": "4704 07 03A",
+   "name": "RIVEREDGE, LLC",
+   "applicant": "Edgar Goodale",
+   "type": "Bonds/Notes Issuance",
+   "purpose": "Manufacturing",
+   "address": "1295 PULASKI STREET Riverhead",
+   "approved": "2007-08-20",
+   "plannedEnd": 2022,
+   "firstYear": 2017,
+   "lastYear": 2022,
+   "projectAmount": 7500000.0,
+   "bondAmount": 7500000.0,
+   "exemptions": 1300626.0,
+   "pilots": 1263621.0,
+   "net": 37005.0,
+   "byType": {
+    "stateSales": 0.0,
+    "localSales": 0.0,
+    "countyProperty": 25119.0,
+    "localProperty": 444515.0,
+    "schoolProperty": 830992.0,
+    "mortgageRecording": 0.0
+   },
+   "jobsBefore": 196.0,
+   "jobsPromised": 15.0,
+   "jobsRetainedPromised": 196.0,
+   "jobsLatest": 50.0,
+   "avgSalaryPromised": 59000.0,
+   "years": {
+    "2017": {
+     "exemptions": 205043.0,
+     "pilots": 180656.0,
+     "net": 24387.0,
+     "jobs": 58.0
+    },
+    "2018": {
+     "exemptions": 212174.0,
+     "pilots": 199556.0,
+     "net": 12618.0,
+     "jobs": 61.0
+    },
+    "2019": {
+     "exemptions": 216799.0,
+     "pilots": 216799.0,
+     "net": 0.0,
+     "jobs": 53.0
+    },
+    "2020": {
+     "exemptions": 216353.0,
+     "pilots": 216353.0,
+     "net": 0.0,
+     "jobs": 42.0
+    },
+    "2021": {
+     "exemptions": 222161.0,
+     "pilots": 222161.0,
+     "net": 0.0,
+     "jobs": 50.0
+    },
+    "2022": {
+     "exemptions": 228096.0,
+     "pilots": 228096.0,
+     "net": 0.0,
+     "jobs": 50.0
+    }
+   }
+  },
+  {
+   "code": "4701 12 01a",
+   "name": "MIRAH MAX",
+   "applicant": "MIRAHMAX",
+   "type": "Straight Lease",
+   "purpose": "Retail Trade",
+   "address": "309 East Main Street Riverhead",
+   "approved": "2012-02-06",
+   "plannedEnd": 2021,
+   "firstYear": 2017,
+   "lastYear": 2022,
+   "projectAmount": 1150000.0,
+   "bondAmount": 0.0,
+   "exemptions": 109224.0,
+   "pilots": 76587.0,
+   "net": 32637.0,
+   "byType": {
+    "stateSales": 0.0,
+    "localSales": 0.0,
+    "countyProperty": 2108.0,
+    "localProperty": 37393.0,
+    "schoolProperty": 69723.0,
+    "mortgageRecording": 0.0
+   },
+   "jobsBefore": 0.0,
+   "jobsPromised": 20.0,
+   "jobsRetainedPromised": 0.0,
+   "jobsLatest": 1.5,
+   "avgSalaryPromised": 6096.0,
+   "years": {
+    "2017": {
+     "exemptions": 17240.0,
+     "pilots": 12089.0,
+     "net": 5151.0,
+     "jobs": 10.0
+    },
+    "2018": {
+     "exemptions": 17810.0,
+     "pilots": 12488.0,
+     "net": 5322.0,
+     "jobs": 11.5
+    },
+    "2019": {
+     "exemptions": 18205.0,
+     "pilots": 12765.0,
+     "net": 5440.0,
+     "jobs": 8.5
+    },
+    "2020": {
+     "exemptions": 18156.0,
+     "pilots": 12731.0,
+     "net": 5425.0,
+     "jobs": 0.0
+    },
+    "2021": {
+     "exemptions": 18667.0,
+     "pilots": 13089.0,
+     "net": 5578.0,
+     "jobs": 2.0
+    },
+    "2022": {
+     "exemptions": 19146.0,
+     "pilots": 13425.0,
+     "net": 5721.0,
+     "jobs": 1.5
+    }
+   }
+  },
+  {
+   "code": "4704 17 01",
+   "name": "PECONIC MANAGEMENT GROUP PHASE III OSTRANDER",
+   "applicant": "Peconic Management Group, LLC",
+   "type": "Straight Lease",
+   "purpose": "Services",
+   "address": "1224 Ostrander Avenue Riverhead",
+   "approved": "2017-08-07",
+   "plannedEnd": 2023,
+   "firstYear": 2017,
+   "lastYear": 2020,
+   "projectAmount": 1397000.0,
+   "bondAmount": 0.0,
+   "exemptions": 31132.28,
+   "pilots": 12803.0,
+   "net": 18329.28,
+   "byType": {
+    "stateSales": 8089.64,
+    "localSales": 9353.64,
+    "countyProperty": 253.0,
+    "localProperty": 4703.0,
+    "schoolProperty": 8733.0,
+    "mortgageRecording": 0.0
+   },
+   "jobsBefore": 0.0,
+   "jobsPromised": 10.0,
+   "jobsRetainedPromised": 0.0,
+   "jobsLatest": 0.0,
+   "avgSalaryPromised": 71142.0,
+   "years": {
+    "2017": {
+     "exemptions": 0.0,
+     "pilots": 0.0,
+     "net": 0.0,
+     "jobs": 0.0
+    },
+    "2018": {
+     "exemptions": 0.0,
+     "pilots": 0.0,
+     "net": 0.0,
+     "jobs": 0.0
+    },
+    "2019": {
+     "exemptions": 24297.28,
+     "pilots": 6854.0,
+     "net": 17443.28,
+     "jobs": 0.0
+    },
+    "2020": {
+     "exemptions": 6835.0,
+     "pilots": 5949.0,
+     "net": 886.0,
+     "jobs": 0.0
+    }
+   }
+  },
+  {
+   "code": "4704 01 04A",
+   "name": "ISLAND INTERNATIONAL INDUSTRIES, INC.",
+   "applicant": "CAL 81 Realty, LLC",
+   "type": "Bonds/Notes Issuance",
+   "purpose": "Manufacturing",
+   "address": "4062-81 GRUMMAN ROAD Calverton",
+   "approved": "2001-12-01",
+   "plannedEnd": 2016,
+   "firstYear": 2017,
+   "lastYear": 2017,
+   "projectAmount": 3360000.0,
+   "bondAmount": 3360000.0,
+   "exemptions": 0.0,
+   "pilots": 0.0,
+   "net": 0.0,
+   "byType": {
+    "stateSales": 0.0,
+    "localSales": 0.0,
+    "countyProperty": 0.0,
+    "localProperty": 0.0,
+    "schoolProperty": 0.0,
+    "mortgageRecording": 0.0
+   },
+   "jobsBefore": 30.0,
+   "jobsPromised": 150.0,
+   "jobsRetainedPromised": 30.0,
+   "jobsLatest": 150.0,
+   "avgSalaryPromised": null,
+   "years": {
+    "2017": {
+     "exemptions": 0.0,
+     "pilots": 0.0,
+     "net": 0.0,
+     "jobs": 150.0
+    }
+   }
+  },
+  {
+   "code": "4704 03 03A",
+   "name": "JOHN WESLEY VILLAGE III",
+   "applicant": "John Wesley Village III, LP",
+   "type": "Bonds/Notes Issuance",
+   "purpose": "Finance, Insurance and Real Estate",
+   "address": "377 OAK STREET Garden City",
+   "approved": "2003-10-06",
+   "plannedEnd": 2013,
+   "firstYear": 2017,
+   "lastYear": 2018,
+   "projectAmount": 8400000.0,
+   "bondAmount": 8400000.0,
+   "exemptions": 0.0,
+   "pilots": 0.0,
+   "net": 0.0,
+   "byType": {
+    "stateSales": 0.0,
+    "localSales": 0.0,
+    "countyProperty": 0.0,
+    "localProperty": 0.0,
+    "schoolProperty": 0.0,
+    "mortgageRecording": 0.0
+   },
+   "jobsBefore": 0.0,
+   "jobsPromised": 14.0,
+   "jobsRetainedPromised": 0.0,
+   "jobsLatest": 2.0,
+   "avgSalaryPromised": null,
+   "years": {
+    "2017": {
+     "exemptions": 0.0,
+     "pilots": 0.0,
+     "net": 0.0,
+     "jobs": 2.0
+    },
+    "2018": {
+     "exemptions": 0.0,
+     "pilots": 0.0,
+     "net": 0.0,
+     "jobs": 2.0
+    }
+   }
+  },
+  {
+   "code": "4704 04 03A",
+   "name": "EASTERN WHOLESALE FENCE CO., INC",
+   "applicant": "Eastern Wholesale Fence Co, Inc.",
+   "type": "Bonds/Notes Issuance",
+   "purpose": "Manufacturing",
+   "address": "274 MIDDLE ISLAND ROAD Medford",
+   "approved": "2004-12-20",
+   "plannedEnd": 2030,
+   "firstYear": 2017,
+   "lastYear": 2024,
+   "projectAmount": 4900000.0,
+   "bondAmount": 4900000.0,
+   "exemptions": 0.0,
+   "pilots": 0.0,
+   "net": 0.0,
+   "byType": {
+    "stateSales": 0.0,
+    "localSales": 0.0,
+    "countyProperty": 0.0,
+    "localProperty": 0.0,
+    "schoolProperty": 0.0,
+    "mortgageRecording": 0.0
+   },
+   "jobsBefore": 0.0,
+   "jobsPromised": 75.0,
+   "jobsRetainedPromised": 0.0,
+   "jobsLatest": 132.0,
+   "avgSalaryPromised": null,
+   "years": {
+    "2017": {
+     "exemptions": 0.0,
+     "pilots": 0.0,
+     "net": 0.0,
+     "jobs": 150.0
+    },
+    "2018": {
+     "exemptions": 0.0,
+     "pilots": 0.0,
+     "net": 0.0,
+     "jobs": 166.0
+    },
+    "2019": {
+     "exemptions": 0.0,
+     "pilots": 0.0,
+     "net": 0.0,
+     "jobs": 186.0
+    },
+    "2020": {
+     "exemptions": 0.0,
+     "pilots": 0.0,
+     "net": 0.0,
+     "jobs": 182.0
+    },
+    "2021": {
+     "exemptions": 0.0,
+     "pilots": 0.0,
+     "net": 0.0,
+     "jobs": 193.0
+    },
+    "2022": {
+     "exemptions": 0.0,
+     "pilots": 0.0,
+     "net": 0.0,
+     "jobs": 163.0
+    },
+    "2023": {
+     "exemptions": 0.0,
+     "pilots": 0.0,
+     "net": 0.0,
+     "jobs": 148.0
+    },
+    "2024": {
+     "exemptions": 0.0,
+     "pilots": 0.0,
+     "net": 0.0,
+     "jobs": 132.0
+    }
+   }
+  },
+  {
+   "code": "4704 05 02A",
+   "name": "RIVERHEAD VILLAGE PRESERVATION, LP",
+   "applicant": "Riverhead Village Preservation, LP",
+   "type": "Bonds/Notes Issuance",
+   "purpose": "Finance, Insurance and Real Estate",
+   "address": "60 COLUMBUS CIRCLE New York",
+   "approved": "2005-12-05",
+   "plannedEnd": 2046,
+   "firstYear": 2017,
+   "lastYear": 2023,
+   "projectAmount": 9500000.0,
+   "bondAmount": 9500000.0,
+   "exemptions": 0.0,
+   "pilots": 0.0,
+   "net": 0.0,
+   "byType": {
+    "stateSales": 0.0,
+    "localSales": 0.0,
+    "countyProperty": 0.0,
+    "localProperty": 0.0,
+    "schoolProperty": 0.0,
+    "mortgageRecording": 0.0
+   },
+   "jobsBefore": 4.0,
+   "jobsPromised": 0.0,
+   "jobsRetainedPromised": 4.0,
+   "jobsLatest": 4.0,
+   "avgSalaryPromised": 40000.0,
+   "years": {
+    "2017": {
+     "exemptions": 0.0,
+     "pilots": 0.0,
+     "net": 0.0,
+     "jobs": 4.0
+    },
+    "2018": {
+     "exemptions": 0.0,
+     "pilots": 0.0,
+     "net": 0.0,
+     "jobs": 4.0
+    },
+    "2019": {
+     "exemptions": 0.0,
+     "pilots": 0.0,
+     "net": 0.0,
+     "jobs": 4.5
+    },
+    "2020": {
+     "exemptions": 0.0,
+     "pilots": 0.0,
+     "net": 0.0,
+     "jobs": 4.0
+    },
+    "2021": {
+     "exemptions": 0.0,
+     "pilots": 0.0,
+     "net": 0.0,
+     "jobs": 4.0
+    },
+    "2022": {
+     "exemptions": 0.0,
+     "pilots": 0.0,
+     "net": 0.0,
+     "jobs": 4.0
+    },
+    "2023": {
+     "exemptions": 0.0,
+     "pilots": 0.0,
+     "net": 0.0,
+     "jobs": 4.0
+    }
+   }
+  },
+  {
+   "code": "4704 06 01A",
+   "name": "CENTRAL SUFFOLK HOSPITAL DBA PECONIC BAY MEDICAL CENTER",
+   "applicant": "Central Suffolk Hospital",
+   "type": "Bonds/Notes Issuance",
+   "purpose": "Civic Facility",
+   "address": "PO BOX 9009 Riverhead",
+   "approved": "2006-06-05",
+   "plannedEnd": 2031,
+   "firstYear": 2017,
+   "lastYear": 2022,
+   "projectAmount": 35000000.0,
+   "bondAmount": 35000000.0,
+   "exemptions": 0.0,
+   "pilots": 0.0,
+   "net": 0.0,
+   "byType": {
+    "stateSales": 0.0,
+    "localSales": 0.0,
+    "countyProperty": 0.0,
+    "localProperty": 0.0,
+    "schoolProperty": 0.0,
+    "mortgageRecording": 0.0
+   },
+   "jobsBefore": 640.0,
+   "jobsPromised": 15.0,
+   "jobsRetainedPromised": 640.0,
+   "jobsLatest": 1314.0,
+   "avgSalaryPromised": null,
+   "years": {
+    "2017": {
+     "exemptions": 0.0,
+     "pilots": 0.0,
+     "net": 0.0,
+     "jobs": 989.0
+    },
+    "2018": {
+     "exemptions": 0.0,
+     "pilots": 0.0,
+     "net": 0.0,
+     "jobs": 1061.0
+    },
+    "2019": {
+     "exemptions": 0.0,
+     "pilots": 0.0,
+     "net": 0.0,
+     "jobs": 938.0
+    },
+    "2020": {
+     "exemptions": 0.0,
+     "pilots": 0.0,
+     "net": 0.0,
+     "jobs": 1331.0
+    },
+    "2021": {
+     "exemptions": 0.0,
+     "pilots": 0.0,
+     "net": 0.0,
+     "jobs": 1314.0
+    },
+    "2022": {
+     "exemptions": 0.0,
+     "pilots": 0.0,
+     "net": 0.0,
+     "jobs": 1314.0
+    }
+   }
+  },
+  {
+   "code": "4704 07 02A",
+   "name": "CENTRAL SUFFOLK HOSPITAL DBA PECONIC BAY MEDICAL CENTER",
+   "applicant": "Cnetral Suffolk Hospital",
+   "type": "Bonds/Notes Issuance",
+   "purpose": "Civic Facility",
+   "address": "PO BOX 9009 Riverhead",
+   "approved": "2007-06-04",
+   "plannedEnd": 2017,
+   "firstYear": 2017,
+   "lastYear": 2022,
+   "projectAmount": 12000000.0,
+   "bondAmount": 12000000.0,
+   "exemptions": 0.0,
+   "pilots": 0.0,
+   "net": 0.0,
+   "byType": {
+    "stateSales": 0.0,
+    "localSales": 0.0,
+    "countyProperty": 0.0,
+    "localProperty": 0.0,
+    "schoolProperty": 0.0,
+    "mortgageRecording": 0.0
+   },
+   "jobsBefore": 0.0,
+   "jobsPromised": 0.0,
+   "jobsRetainedPromised": 0.0,
+   "jobsLatest": 0.0,
+   "avgSalaryPromised": null,
+   "years": {
+    "2017": {
+     "exemptions": 0.0,
+     "pilots": 0.0,
+     "net": 0.0,
+     "jobs": 0.0
+    },
+    "2018": {
+     "exemptions": 0.0,
+     "pilots": 0.0,
+     "net": 0.0,
+     "jobs": 0.0
+    },
+    "2019": {
+     "exemptions": 0.0,
+     "pilots": 0.0,
+     "net": 0.0,
+     "jobs": 0.0
+    },
+    "2020": {
+     "exemptions": 0.0,
+     "pilots": 0.0,
+     "net": 0.0,
+     "jobs": 0.0
+    },
+    "2021": {
+     "exemptions": 0.0,
+     "pilots": 0.0,
+     "net": 0.0,
+     "jobs": 0.0
+    },
+    "2022": {
+     "exemptions": 0.0,
+     "pilots": 0.0,
+     "net": 0.0,
+     "jobs": 0.0
+    }
+   }
+  },
+  {
+   "code": "4704 11 01A",
+   "name": "PECONIC MANAGEMENT GROUP, LLC",
+   "applicant": "PECONIC MANAGEMENT GROUP, LLC",
+   "type": "Straight Lease",
+   "purpose": "Other Categories",
+   "address": "715 ROANOKE AVENUE Riverhead",
+   "approved": "2011-08-01",
+   "plannedEnd": 2021,
+   "firstYear": 2017,
+   "lastYear": 2019,
+   "projectAmount": 0.0,
+   "bondAmount": 0.0,
+   "exemptions": 0.0,
+   "pilots": 0.0,
+   "net": 0.0,
+   "byType": {
+    "stateSales": 0.0,
+    "localSales": 0.0,
+    "countyProperty": 0.0,
+    "localProperty": 0.0,
+    "schoolProperty": 0.0,
+    "mortgageRecording": 0.0
+   },
+   "jobsBefore": 0.0,
+   "jobsPromised": 0.0,
+   "jobsRetainedPromised": 0.0,
+   "jobsLatest": 0.0,
+   "avgSalaryPromised": null,
+   "years": {
+    "2017": {
+     "exemptions": 0.0,
+     "pilots": 0.0,
+     "net": 0.0,
+     "jobs": 0.0
+    },
+    "2018": {
+     "exemptions": 0.0,
+     "pilots": 0.0,
+     "net": 0.0,
+     "jobs": 0.0
+    },
+    "2019": {
+     "exemptions": 0.0,
+     "pilots": 0.0,
+     "net": 0.0,
+     "jobs": 0.0
+    }
+   }
+  },
+  {
+   "code": "4704 98 01A",
+   "name": "RIVERHEAD INDUSTRIAL PROPERTIES(ADCHEM CORP)",
+   "applicant": "Riverhead Industrial Properties",
+   "type": "Bonds/Notes Issuance",
+   "purpose": "Manufacturing",
+   "address": "1852 OLD COUNTRY ROAD Riverhead",
+   "approved": "1997-12-01",
+   "plannedEnd": 2018,
+   "firstYear": 2017,
+   "lastYear": 2017,
+   "projectAmount": 7000000.0,
+   "bondAmount": 7000000.0,
+   "exemptions": 0.0,
+   "pilots": 0.0,
+   "net": 0.0,
+   "byType": {
+    "stateSales": 0.0,
+    "localSales": 0.0,
+    "countyProperty": 0.0,
+    "localProperty": 0.0,
+    "schoolProperty": 0.0,
+    "mortgageRecording": 0.0
+   },
+   "jobsBefore": 45.0,
+   "jobsPromised": 60.0,
+   "jobsRetainedPromised": 45.0,
+   "jobsLatest": 60.0,
+   "avgSalaryPromised": null,
+   "years": {
+    "2017": {
+     "exemptions": 0.0,
+     "pilots": 0.0,
+     "net": 0.0,
+     "jobs": 60.0
+    }
+   }
+  },
+  {
+   "code": "4704 24 01",
+   "name": "203 Riverhead, LLC",
+   "applicant": "203 Riverhead, LLC",
+   "type": "Straight Lease",
+   "purpose": "Other Categories",
+   "address": "203-213 East Main Street Riverhead",
+   "approved": "2024-04-08",
+   "plannedEnd": 2041,
+   "firstYear": 2024,
+   "lastYear": 2024,
+   "projectAmount": 81920682.0,
+   "bondAmount": 0.0,
+   "exemptions": 0.0,
+   "pilots": 0.0,
+   "net": 0.0,
+   "byType": {
+    "stateSales": 0.0,
+    "localSales": 0.0,
+    "countyProperty": 0.0,
+    "localProperty": 0.0,
+    "schoolProperty": 0.0,
+    "mortgageRecording": 0.0
+   },
+   "jobsBefore": 0.0,
+   "jobsPromised": 3.0,
+   "jobsRetainedPromised": 0.0,
+   "jobsLatest": 0.0,
+   "avgSalaryPromised": 69000.0,
+   "years": {
+    "2024": {
+     "exemptions": 0.0,
+     "pilots": 0.0,
+     "net": 0.0,
+     "jobs": 0.0
+    }
+   }
+  }
+ ]
+}

@@ -27,7 +27,7 @@ An independent public fiscal intelligence platform for exploring Riverhead Town 
 | 🧾 Campaign Finance | https://rike4545.github.io/Riverhead-NY-Budget-Web-App/campaign-finance/ |
 | 🔎 Search Records | https://rike4545.github.io/Riverhead-NY-Budget-Web-App/search/ |
 
-The site menu lists 87 pages: quick links to property taxes, Board votes and
+The site menu lists 88 pages: quick links to property taxes, Board votes and
 search, and seven menus, **2027 budget**, **Finances**, **Pay and staff**,
 **Spending checks**, **Land use**, **Elections** and **Help**. Every fund also
 has a page of its own. See **Every Page** below for what each one covers.
@@ -457,6 +457,12 @@ meeting records show, such as minutes on file and minutes still outstanding.
   Officers** (`/school-resource-officers`).
 - **Town Square** (`/town-square`): the land, the lease, the pending IDA
   abatement and the construction schedule.
+- **IDA Tax Breaks** (`/ida`): every Riverhead Industrial Development Agency
+  project in the State Authorities Budget Office's data (2017-2024): the taxes
+  each was spared, the PILOTs paid back, the jobs reported against those
+  promised, who carried the cost, and the agency's own revenue from its
+  audited statements. Built by `etl/build_ida.py`; checked by
+  `web/scripts/verify-ida.mjs`.
 - **Zero or 1% for 2027** (`/zero-percent-2027`): what a 1% increase, or
   none, would take against the 2027 Tentative and its six amendments.
 - **Resident Answers** (`/answers`), **Where Your Levy Goes**
