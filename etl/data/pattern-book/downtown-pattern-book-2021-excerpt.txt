@@ -1,0 +1,236 @@
+Downtown Riverhead Pattern Book, Urban Design Associates, January 2021 (adopted by the Town Board January 20, 2021).
+Source: https://www.townofriverheadny.gov/356/Final-Pattern-Book-2021-PDF (downloaded November 12, 2026; 145 pages).
+Excerpt: the PDF pages below, text extracted with pdftotext -layout. Kept so scripts/verify-pattern-book.mjs can check the page's quotes.
+
+===== PDF page 13 =====
+Between state and federal grants offering post-Sandy disaster relief and the
+momentum gained through creative placemaking efforts, four multi-family
+residential buildings with retail ground floors have been added in River-
+head: Summerwind Square in 2013, Woolworth Apartments in 2015, Peconic
+Crossing in 2018, and Riverview Lofts in 2020. For the most part, buildings
+constructed in the last five years are residential or hospitality uses and be-
+tween four and five stories, a height required for developers to recoup their
+investment on the cost of construction and land values.
+
+The result of these development patterns is an architecturally diverse street-
+scape along a heavily-trafficked commercial corridor. Newer multi-family
+residential buildings match the heights of the older building stock but are
+generally disliked. Surface parking lots separate activity on Main Street and
+trails and views on the Peconic River. A wide swathe of former department
+stores along Main Street remain vacant. Restaurants, theaters, small retail
+storefronts, and other entertainment uses build off of the excitement from
+the strong special events programming. Office space remains a high priority
+
+
+
+
+                                                                                 Introduction
+due to the county courts. Downtown Riverhead represents a historical com-
+mercial corridor with lots of momentum to return to its vibrant past.
+
+
+
+
+        BUILT BEFORE 1900
+
+
+        BUILT 1901-1950
+
+
+        BUILT 1951-1990
+
+
+        BUILT 1991-2020
+
+
+
+
+History of Development in Downtown Riverhead
+
+
+
+
+                                                                                 6
+===== PDF page 32 =====
+     MAXIMUM BUILD OUT
+
+
+
+     Current DC-1 zoning permits 5-story buildings with up to 80% lot coverage
+     (applicants may apply for 100% lot coverage). Community surveys revealed
+     that many residents prefer buildings to appear smaller in scale, in keeping
+     with the historical fabric. Balancing these aesthetic preferences with finan-
+     cial limitations of smaller-scale redevelopment has generated much discus-
+     sion about the future of Downtown Riverhead. A hypothetical analysis of the
+     potential build out for the overlay district revealed that Downtown has the
+     potential to significantly increase density under current zoning. If built out,
+     there are three likely types of redevelopment scenarios:                                                                       Typical Existing fabric of downtown Riverhead
+
+
+     •   Redevelopment of vacant lots and buildings;
+     •   Redevelopment of parking district parking lots; and
+     •   Redevelopment of key opportunity sites (existing 1- and 2-story buildings
+         with no historic architectural value).
+     FINDINGS
+     •   Existing buildings could be dwarfed by new buildings unless objective
+                                                                                                                                    Vacant buildings provide an opportunity for
+         standards are developed and the existing zoning is changed.                                                                redevelopment
+     •   Development on parking district lots may require surface parking to be
+         replaced in parking garages to accommodate replacement parking and
+         any new development requirements.
+     •   Five-story buildings along the length of Main Street could create a can-
+         yon-like effect and cast shadows on streets, sidewalks and outdoor din-
+         ing, creating an undesirable condition for pedestrians.
+     •   Net new development could effectively double built square footage in
+         Downtown Riverhead and accommodate approximately 1,200 rental
+                                                                                                                                    5-story 80% lot coverage buildings are
+         apartments (assuming a 50/50 mix of 1- and 2-bedrooms).                                                                    permitted under current zoning
+
+     EXISTING CONDITIONS
+
+
+
+
+                                                                                                  Existing
+                                                                                                                                                                    REDEVELOPMENT OF
+                                                                                                                    493,000               STUDY AREA
+                                                                              Ground Floor (SF)                                                                     VACANCIES
+
+                                                                              Upper Floor (SF)                      577,000                                        REDEVELOPMENT OF
+                                                                                                                                          EXISTING BUILDING
+                                                                                                                                                                   PUBLIC PARKING
+                                                                                                                   1,070,000
+                                                                              Total
+                                                                                                                                          EXISTING VACANT           REDEVELOPMENT OF
+                                                                                                                         42               BUILDING                  OPPORTUNITY SITES
+                                                                              Single Family Homes (#)
+
+     Existing Aerial: Primarily 1-3 story buildings front Main Street.                                                              Square footages are approximate
+                                                                                                    Redevelopment of Vacant Lots and Buildings
+
+                                                                                                         New Development Demolition              Net New
+                                                                       Ground Floor (SF)     82,000
+25                                                          DOWNTOWN RIVERHEAD           PATTERN    BOOK 36,000                                  46,000
+
+                                                                              Upper Floor (SF)           260,000               13,000            247,000
+
+                                                                              Total (SF)                 342,000               49,000            293,000
+===== PDF page 70 =====
+     LOT DEVELOPMENT STANDARDS
+
+     CONTEXTUAL SCALE,
+     FULL-WRAP ARCHITECTURE
+     After engaging with numerous stakeholders, community members, and
+                                                                                           PRIMARY LOT DEVELOPMENT
+     residents at community meetings, a clear vision for the future of Downtown            OBJECTIVES
+     Riverhead emerged. The architectural character and scale of Main Street
+     are strengths that need to be respected as downtown evolves. But, as the de-          • The existing historical architectural
+                                                                                             character and scale of Main Street
+     mand to live downtown and develop underutilized parcels grows, there must
+                                                                                             should be respected
+     be realistic, feasible financial return for developers and investors to maintain
+                                                                                           • Realistic, feasible financial return
+     an interest in downtown. The lot development standards strike a balance
+                                                                                             for developers and investors must
+     between maintaining downtown's character and the need to stay relevant.                 be achievable to offset land and
+                                                                                             construction costs
+     At the time of publication, five stories and 80% lot coverage is permitted in
+     the Main Street (DC-1) Zoning Use District. This document proposes four
+     stories but with 100% lot coverage with a slight stepback on the fourth story.
+     This achieves the two primary objectives stated previously. First, this pro-
+     motes the small-town character cherished by residents, as exemplified in the
+     image below. Secondly, this maintains approximately the same permitted
+     developable square footage for any lot.
+
+     Additionally, the condition along Main Street with either a large parking lot
+     or recreational amenity sited behind a single block creates a public face on
+     all sides of Main Street's buildings. All buildings within the Pattern Book
+     boundary shall be designed as full-wrap architecture. These standards apply
+     to all sides of the building that are visible that do not have an abutting party
+     wall, even if only temporarily exposed.
+
+
+
+
+     A 4-story building on Main Street appears as a 3-story building to a pedestrian.
+
+
+
+63                                                       DOWNTOWN RIVERHEAD PATTERN BOOK
+===== PDF page 71 =====
+DC–1 Zoning Use District Objective Design Standards for Private Development
+
+        Height                   BA Building Height                    4 stories or 50' maximum
+
+                                                                       45° above the 3rd story, measured from the top of 3rd floor parapet (or where the 3rd story
+      Stepbacks                  BB Building Stepbacks                 parapet would be if not included). This applies to addresses along Main Street, the Peconic
+                                                                       River, side streets, open spaces (such as East End Arts), and freestanding-historical structures.
+
+
+                                                                       Minimum setback is equal to adjacent building(s) setbacks on the same block frontage.
+                                                                       13' minimum from the face of curb encouraged to allow for outdoor dining and/or displays.
+                                     C      Front Street Setback
+                                                                       Maximum 3' offset from adjacent building(s). 13' minimum setback from face of curb where
+                                                                       there are no buildings on adjacent lots, including facing the Peconic River.
+       Setbacks
+                                     D      Side Street Setback        0' minimum. Accommodating a minimum 8-foot pedestrian sidewalk encouraged.
+                                      E     Side Yard Setback          0' minimum
+                                      F     Rear Yard Setback          0' minimum
+     Lot Coverage                           Lot Coverage               100% maximum
+
+
+
+
+                                                                                                                                                                           Objective design standards for private development
+   Floor Area Ratio                         Floor Area Ratio           3.5 maximum
+ Green Roof Coverage                 G      Green Roof Coverage        40% minimum of the lot area
+
+                                                                       Signage, lighting, awnings, canopies, bay windows, and balconies may encroach into the
+    Encroachments                           Permitted Encroachments    front yard and past rights-of-way so long as they maintain an 8' clear space above the side-
+                                                                       walk and extend no more than 2'.
+
+     Ground Level                                                      Minimum 20' depth of the ground story facing Main Street and the lots adjacent to streets
+                                            Ground Level Activation
+      Activation                                                       along the Peconic River shall have an active use.
+
+                                                                       Vehicle ingress and egress shall be taken from an alley where the condition exists. Parking
+ Parking and Vehicle
+                                            Parking & Vehicle Access   is not permitted in the first 20' of the ground story facing Main Street and the first 20' adja-
+       Access
+                                                                       cent to streets along the Peconic River.
+
+   Zero Net Energy                          Zero Net Energy            Meeting ZNE standards is strongly encouraged, including the use of solar panels.
+
+
+
+
+                                                           B                                                  G
+
+
+
+
+                                                   A
+
+
+
+                                                                                                                                              D
+
+
+
+                                                                                                                                         et
+                 Pr                                                                                                             t   re
+                      im
+                           ar                                                                                            r   yS
+                                yS                             C
+                                                                                                                n   da
+                                     tre                                                                     co
+                                           et                                                           Se
+
+
+
+
+One hypothetical proposal shown above for the DC–1 Zoning Use District.
+
+
+
+                                                                                                                                                                            64

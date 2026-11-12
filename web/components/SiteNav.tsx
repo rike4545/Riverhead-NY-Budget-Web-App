@@ -42,7 +42,7 @@ const GROUPS: Group[] = [
   ] },
   { label: 'Land use', links: [
     ['Community Preservation Fund', `${base}/community-preservation-fund/`], ['Preserved land', `${base}/preserved-land/`], ['Transfer of development rights', `${base}/tdr/`],
-    ['Comprehensive Plan tracker', `${base}/comprehensive-plan/`], ['Community Housing Plan', `${base}/housing-plan/`], ['The former armory and the YMCA', `${base}/armory/`], ['Assessment roll', `${base}/assessment/`],
+    ['Comprehensive Plan tracker', `${base}/comprehensive-plan/`], ['EPCAL at Calverton', `${base}/epcal/`], ['Downtown Pattern Book', `${base}/pattern-book/`], ['Community Housing Plan', `${base}/housing-plan/`], ['The former armory and the YMCA', `${base}/armory/`], ['Assessment roll', `${base}/assessment/`],
   ] },
   { label: 'Elections', links: [
     ['How each member votes', `${base}/board-votes/`], ['Supervisors and Council history', `${base}/town-history/`], ['State of the Town addresses', `${base}/state-of-the-town/`],

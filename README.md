@@ -27,7 +27,7 @@ An independent public fiscal intelligence platform for exploring Riverhead Town 
 | 🧾 Campaign Finance | https://rike4545.github.io/Riverhead-NY-Budget-Web-App/campaign-finance/ |
 | 🔎 Search Records | https://rike4545.github.io/Riverhead-NY-Budget-Web-App/search/ |
 
-The site menu lists 88 pages: quick links to property taxes, Board votes and
+The site menu lists 90 pages: quick links to property taxes, Board votes and
 search, and seven menus, **2027 budget**, **Finances**, **Pay and staff**,
 **Spending checks**, **Land use**, **Elections** and **Help**. Every fund also
 has a page of its own. See **Every Page** below for what each one covers.
