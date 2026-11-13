@@ -55,21 +55,21 @@
       "id": "budget-supplement/lines",
       "web": "budget-supplement/lines.json",
       "ios": "supplement-lines.json",
-      "sha256": "a9858c417af411da177924a7c54557dfc4cdc34491b43e8c3639a70d215dfe81",
+      "sha256": "c86a7ce38207892ee0b222f534b7fd122d0b371ac373fbd1527a9a0547a655db",
       "android": "budget-supplement/lines.json"
     },
     {
       "id": "budget-supplement/outliers",
       "web": "budget-supplement/outliers.json",
       "ios": "supplement-outliers.json",
-      "sha256": "3ced32f947aa5d1f551fe2d30b60ff76e6238b68086bc217f3df3fcb7190dbdc",
+      "sha256": "b1318ac9233d95f4f2ff17b5186d55c7141e66220e3553d2a910cd81117a8d15",
       "android": "budget-supplement/outliers.json"
     },
     {
       "id": "budget-supplement/reductions",
       "web": "budget-supplement/reductions.json",
       "ios": "reductions.json",
-      "sha256": "c1592d4be428eb91e93e61e783719025fea970b21db01b54b8fca50aec92c8f2",
+      "sha256": "c3abad6a6cb93b43ace2f473e819d571c0dd4b7315b2bfe4b9e5f2afd52fb0ff",
       "android": "budget-supplement/reductions.json"
     },
     {

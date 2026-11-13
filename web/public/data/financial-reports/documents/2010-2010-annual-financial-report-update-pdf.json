@@ -2035,7 +2035,7 @@
     },
     {
       "page": 62,
-      "text": "Balance Sheet\n(SL) LIGHTING\nCode Description 2009 EdpCode 2010\nAssets\nCash 744,487 SL200 793,263\nTOTAL Cash 744,487 793,263\nAccured Interest Receivable SL381 99\nTOTAL Other Receivables (net) 09 9\nPrepaid Expenses 3,566 SL480 6,153\nTOTAL Prepaid Expenses 3,566 6,153\nTOTAL Assets 748,053 799,515\nOSC Municipality Code 470371600000Page 62\nTOWN OF Riverhead\nAnnual Update Document\nFor the Fiscal Year Ending 2010",
+      "text": "Balance Sheet\n(SL) LIGHTING\nCode Description 2009 EdpCode 2010\nAssets\nCash 744,487 SL200 793,263\nTOTAL Cash 744,487 793,263\nAccured Interest Receivable SL381 99\nTOTAL Other Receivables (net) 099\nPrepaid Expenses 3,566 SL480 6,153\nTOTAL Prepaid Expenses 3,566 6,153\nTOTAL Assets 748,053 799,515\nOSC Municipality Code 470371600000Page 62\nTOWN OF Riverhead\nAnnual Update Document\nFor the Fiscal Year Ending 2010",
       "money_values": [
         "744,487",
         "793,263",
@@ -2292,7 +2292,7 @@
     },
     {
       "page": 72,
-      "text": "Balance Sheet\n(SR) REFUSE AND GARBAGE\nCode Description 2009 EdpCode 2010\nAssets\nCash 1,730,842 SR200 1,589,277\nTOTAL Cash 1,730,842 1,589,277\nAccrued Interest Receivable SR381 95\nTOTAL Other Receivables (net) 09 5\nDue From Other Funds 1,418 SR391\nTOTAL Due From Other Funds 1,418 0\nPrepaid Expenses 2,331 SR480 4,027\nTOTAL Prepaid Expenses 2,331 4,027\nTOTAL Assets 1,734,591 1,593,399\nOSC Municipality Code 470371600000Page 72\nTOWN OF Riverhead\nAnnual Update Document\nFor the Fiscal Year Ending 2010",
+      "text": "Balance Sheet\n(SR) REFUSE AND GARBAGE\nCode Description 2009 EdpCode 2010\nAssets\nCash 1,730,842 SR200 1,589,277\nTOTAL Cash 1,730,842 1,589,277\nAccrued Interest Receivable SR381 95\nTOTAL Other Receivables (net) 095\nDue From Other Funds 1,418 SR391\nTOTAL Due From Other Funds 1,418 0\nPrepaid Expenses 2,331 SR480 4,027\nTOTAL Prepaid Expenses 2,331 4,027\nTOTAL Assets 1,734,591 1,593,399\nOSC Municipality Code 470371600000Page 72\nTOWN OF Riverhead\nAnnual Update Document\nFor the Fiscal Year Ending 2010",
       "money_values": [
         "1,730,842",
         "1,589,277",

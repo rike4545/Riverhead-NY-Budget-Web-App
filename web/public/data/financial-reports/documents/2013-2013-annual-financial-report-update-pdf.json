@@ -2310,7 +2310,7 @@
     },
     {
       "page": 66,
-      "text": "Results of Operation\n(SR) REFUSE AND GARBAGE\nCode Description 2012 EdpCode 2013\nRevenues\nSR1001 2,812,4553,699,374Real Property Taxes\nTOTAL Real Property Taxes 3,699,374 2,812,455\nSR2401 2,4882,650Interest And Earnings\nTOTAL Use of Money And Property 2,650 2,488\nSR2590 30Permits, Other\nTOTAL Licenses And Permits 03 0\nSR2651 11,7318,407Sale of Refuse For Recycling\nTOTAL Sale of Property And Compensation For Loss 8,407 11,731\nSR4089 9,944Federal Aid - Other\nTOTAL Federal Aid 0 9,944\nTOTAL Revenues 3,710,431 2,836,649\nSR5031 7,661Interfund Transfers\nTOTAL Interfund Transfers 0 7,661\nTOTAL Other Sources 0 7,661\nTOTAL Detail Revenues And Other Sources 3,710,431 2,844,311\nPage 66 OSC Municipality Code 470371600000\nTOWN OF Riverhead\nAnnual Update Document\nFor the Fiscal Year Ending 2013",
+      "text": "Results of Operation\n(SR) REFUSE AND GARBAGE\nCode Description 2012 EdpCode 2013\nRevenues\nSR1001 2,812,4553,699,374Real Property Taxes\nTOTAL Real Property Taxes 3,699,374 2,812,455\nSR2401 2,4882,650Interest And Earnings\nTOTAL Use of Money And Property 2,650 2,488\nSR2590 30Permits, Other\nTOTAL Licenses And Permits 030\nSR2651 11,7318,407Sale of Refuse For Recycling\nTOTAL Sale of Property And Compensation For Loss 8,407 11,731\nSR4089 9,944Federal Aid - Other\nTOTAL Federal Aid 0 9,944\nTOTAL Revenues 3,710,431 2,836,649\nSR5031 7,661Interfund Transfers\nTOTAL Interfund Transfers 0 7,661\nTOTAL Other Sources 0 7,661\nTOTAL Detail Revenues And Other Sources 3,710,431 2,844,311\nPage 66 OSC Municipality Code 470371600000\nTOWN OF Riverhead\nAnnual Update Document\nFor the Fiscal Year Ending 2013",
       "money_values": [
         "2,812,455",
         "3,699,374",
@@ -2404,7 +2404,7 @@
     },
     {
       "page": 69,
-      "text": "Code Description 2012 EdpCode 2013\n(ST) PUBLIC PARKING\nBalance Sheet\nAssets\nCash 158,398 ST200 129,869\nCash In Time Deposits 97,146 ST201 66,350\nTOTAL Cash 255,544 196,220\nAccounts Receivable ST380 14\nTOTAL Other Receivables (net) 01 4\nDue From Other Funds 3,000 ST391 212\nTOTAL Due From Other Funds 3,000 212\nPrepaid Expenses 2,643 ST480 2,690\nTOTAL Prepaid Expenses 2,643 2,690\nTOTAL Assets and Deferred Outflows of Resources 261,186 199,136\nOSC Municipality Code 470371600000Page 69\nTOWN OF Riverhead\nAnnual Update Document\nFor the Fiscal Year Ending 2013",
+      "text": "Code Description 2012 EdpCode 2013\n(ST) PUBLIC PARKING\nBalance Sheet\nAssets\nCash 158,398 ST200 129,869\nCash In Time Deposits 97,146 ST201 66,350\nTOTAL Cash 255,544 196,220\nAccounts Receivable ST380 14\nTOTAL Other Receivables (net) 014\nDue From Other Funds 3,000 ST391 212\nTOTAL Due From Other Funds 3,000 212\nPrepaid Expenses 2,643 ST480 2,690\nTOTAL Prepaid Expenses 2,643 2,690\nTOTAL Assets and Deferred Outflows of Resources 261,186 199,136\nOSC Municipality Code 470371600000Page 69\nTOWN OF Riverhead\nAnnual Update Document\nFor the Fiscal Year Ending 2013",
       "money_values": [
         "158,398",
         "129,869",
@@ -2902,7 +2902,7 @@
     },
     {
       "page": 88,
-      "text": "TOWN OF Riverhead\nEmployee and Retiree Benefits\nFor the Fiscal Year Ending 2013\n# of Retirees# of Full\nTime\nEmployees\n# of Part\nTime\nEmployees\nTotal\nExpenditures\n(All Funds)\nAccount\nCode\nDescription\n$2,354,968.0090108 State Retirement System\n$3,127,827.0090158 Police and Fire Retirement\n90258 Local Pension Fund\n$1,830,839.0090308 Social Security\n$1,366,040.0090408 Worker's Compensation\n Insurance\n90458 Life Insurance\n$23,047.0090508 Unemployment Insurance\n90558 Disability Insurance\n$5,097,151.0090608 Hospital and Medical\n(Dental) Insurance\n90708 Union Welfare Benefits\n90858Supplemental Benefit Payment to\nDisabled Fire Fighters\n91890 Other Employee Benefits\nTotal Full Time Employees:\nTotal Part Time Employees:\nTotal\nComputed Total From Financial\nSection (comparative purposes only)\n$13,799,872.00\n$15,936,811.17\nPage 88 OSC Municipality 470371600000",
+      "text": "TOWN OF Riverhead\nEmployee and Retiree Benefits\nFor the Fiscal Year Ending 2013\n# of Retirees# of Full\nTime\nEmployees\n# of Part\nTime\nEmployees\nTotal\nExpenditures\n(All Funds)\nAccount\nCode\nDescription\n$2,354,968.0090108 State Retirement System\n$3,127,827.0090158 Police and Fire Retirement\n90258 Local Pension Fund\n$1,830,839.0090308 Social Security\n$1,366,040.0090408 Worker's Compensation\n Insurance\n90458 Life Insurance\n$23,047.0090508 Unemployment Insurance\n90558 Disability Insurance\n$5,097,151.0090608 Hospital and Medical\n(Dental) Insurance\n90708 Union Welfare Benefits\n90858 Supplemental Benefit Payment to\nDisabled Fire Fighters\n91890 Other Employee Benefits\nTotal Full Time Employees:\nTotal Part Time Employees:\nTotal\nComputed Total From Financial\nSection (comparative purposes only)\n$13,799,872.00\n$15,936,811.17\nPage 88 OSC Municipality 470371600000",
       "money_values": [
         "$2,354,968.00",
         "$3,127,827.00",
