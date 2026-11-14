@@ -139,6 +139,26 @@ def norm(s: str) -> str:
     return unicodedata.normalize("NFKC", s).translate(DASH).replace("\xa0", " ").strip()
 
 
+# Most pages print an account and its description on separate lines; a few
+# (the 2023 Supplement's East Creek Docking and Water District pages) print
+# them on one. Split those so the account still starts its own line.
+ACC_HEAD = re.compile(
+    r"^([A-Z]{1,3}\d{1,2}-\d-\d{4}-\d{3}-[A-Z0-9]{3}-\d{4,5}|"
+    r"[A-Z]{1,3}\d{1,2}-\d{4}-[A-Z0-9]{3}-\d{5}-[A-Z0-9])\s+(\S.*)$"
+)
+
+
+def split_account_lines(lines: list[str]) -> list[str]:
+    out = []
+    for line in lines:
+        m = ACC_HEAD.match(line)
+        if m and not NUM.match(m.group(2)):
+            out += [m.group(1), m.group(2)]
+        else:
+            out.append(line)
+    return out
+
+
 def num(s: str):
     s = s.strip()
     if s == "-":
@@ -209,7 +229,7 @@ def read_supplement(year: int, panel: dict, latest: int) -> int:
         return 0
     found = 0
     for pno, page in enumerate(fitz.open(path), start=1):
-        lines = [norm(l) for l in page.get_text().split("\n")]
+        lines = split_account_lines([norm(l) for l in page.get_text().split("\n")])
         first = next((k for k, l in enumerate(lines) if ACC.match(l) or REV.match(l)), len(lines))
         cols = columns_for(year, " ".join(lines[:first]))
         i = 0

@@ -42,6 +42,23 @@ class AccountShapes(unittest.TestCase):
             self.assertNotRegex(acct, h.ACC)
 
 
+class AccountOnOneLineWithItsDescription(unittest.TestCase):
+    # The 2023 Supplement prints some funds' accounts and descriptions on one line
+    def test_split(self):
+        self.assertEqual(
+            h.split_account_lines(["CM2-7-7230-101-NON-00000 Docs - Personal Services", "26,694.13"]),
+            ["CM2-7-7230-101-NON-00000", "Docs - Personal Services", "26,694.13"])
+
+    def test_account_alone_and_figures_are_left_alone(self):
+        lines = ["EW1-8-8310-101-NON-00000", "Water AdmPersonal Services", "1,409,972.90"]
+        self.assertEqual(h.split_account_lines(lines), lines)
+
+    def test_2023_docking_line_is_read(self):
+        panel = {}
+        h.read_supplement(2023, panel, 2027)
+        self.assertEqual(panel["CM2-7-7230-101-NON-00000"]["actual2021"], 26694.13)
+
+
 class RevenueCategories(unittest.TestCase):
     def test_uniform_codes(self):
         cases = {
