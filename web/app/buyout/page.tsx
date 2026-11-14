@@ -3,6 +3,7 @@ import ProvenanceLine from '../../components/ProvenanceLine'
 import PlainCallout from '../../components/PlainCallout'
 import BuyoutEligible, { type EligibleEmployee } from '../../components/BuyoutEligible'
 import { buyout2026 as b, outcome } from '../../lib/buyout-2026'
+import { INCENTIVE_PAYOUTS, MEETING } from '../../lib/police-stipulations-2027'
 import { released2027 } from '../../lib/tentative-2027'
 import { LETTER_2027 } from '../../lib/tentative-letters'
 import analysis from '../../public/data/buyout-analysis.json'
@@ -695,6 +696,14 @@ function OutcomeSection() {
           ? `It matches this site’s count from the Board’s resolutions: ${recordTotal} retirements filed since ratification, ${recordSworn} of them sworn police and ${recordTotal - recordSworn} civilian${uptake.awaitingVoteRecord > 0 ? `, though ${uptake.awaitingVoteRecord} still have no published vote record` : ''}.`
           : `This site’s count from the Board’s resolutions is ${recordTotal} retirements filed since ratification, ${recordSworn} of them sworn police, so the two don’t line up exactly: a retirement in the window need not be an incentive one.`}{' '}
         The letter doesn’t say who took it, or give the one-time cost of the incentive payments, which fall in 2026.
+      </p>
+      <p data-incentive-payouts style={{ color: 'var(--rbl-text-body)', fontSize: 14, lineHeight: 1.6, margin: '8px 0 0' }}>
+        <strong>The one-time cost, proposed.</strong> Item {INCENTIVE_PAYOUTS.item} on the{' '}
+        <a href={MEETING.agendaUrl} style={{ color: 'var(--rbl-accent)' }}>{MEETING.date} agenda</a> asks the Board to move{' '}
+        <strong>{usd(INCENTIVE_PAYOUTS.fromFundBalance)}</strong> of General Fund balance to pay the severance payouts, saying “
+        {INCENTIVE_PAYOUTS.took}”: {INCENTIVE_PAYOUTS.lines.map((l) => `${usd(l.amount)} to ${l.name}`).join(', ')}. That is
+        the cost of the payouts alone, against the {usd(outcome.savings2027)} the Town budgets to save in 2027. It is not yet voted on
+        (agenda packet page {INCENTIVE_PAYOUTS.packetPage}).
       </p>
       <p style={{ color: 'var(--rbl-text-muted)', fontSize: 12.5, margin: '8px 0 0' }}>
         Source: <a href={outcome.source.url} style={{ color: 'var(--rbl-accent)' }}>{outcome.source.title}</a>. The letter is a scanned image, read by hand.

@@ -1,0 +1,338 @@
+Town of Riverhead, Town Board regular meeting of November 17, 2026: agenda packet (CivicClerk event 6457, file 12599).
+Source: https://riverheadny.api.civicclerk.com/v1/Meetings/GetMeetingFileStream(fileId=12599,plainText=false)
+Downloaded November 14, 2026; 230 pages; sha256 1afe65f1fe7ad5fed9642634130065d18571b344974db8b6663e37ab4dd1ba08.
+Excerpt: the pages below, text extracted with pdftotext -layout. Items IX.2 (retirement incentive payouts), IX.26 (PBA stipulation) and IX.27 (SOA stipulation).
+
+===== Packet page 23 =====
+11/17/2026                                                                                  IX.2.
+
+
+                                    TOWN OF RIVERHEAD
+
+                                        TB Resolution
+
+           BUDGET ADJUSTMENT FOR RETIREMENT INCENTIVE SEVERANCE PAYOUTS
+
+                             None offered the following resolution,
+                                which was seconded by None
+
+       WHEREAS, by Resolutions 2026-678 and 2026-680 adopted on July 7, 2026, the Town
+Board did authorize and approve a stipulation with the CSEA, Local 1000, AFSCME, AFL-CIO,
+Riverhead Unit of the Suffolk Local #852 and a stipulation with the Riverhead Town Police
+Benevolent Association ("PBA") to offer a program incentive for voluntary retirement to certain
+eligible members in order to generate savings for the Town in Fiscal Year 2027 and beyond;
+and
+
+       WHEREAS, three CSEA members and seven PBA members accepted this incentive, and
+their retirement severance payouts require a budget transfer from the General Fund balance to
+cover the associated one-time costs. Now, therefore be it
+
+     RESOLVED, that the Town Board be, and is hereby authorized to establish the following
+budget adjustments:
+
+                                                              FROM               TO
+
+A01-9999-000-00000-0 Appropriated Fund Balance          $1,387,034
+     A01-3-3120-101-UNI-00000 Police Uni Personal Services                       $1,188,322
+     A01-1-1110-101-NON-00000 Justice Court Personal Services                    $   37,180
+     A01-1-1355-101-NON-00000 Assessors Personal Services                        $ 48,395
+     A01-1-1680-101-NON-00000 IT Personal Services                               $ 14,569
+     A01-9-9035-805-UNI-00000 FICA Police Uni                                    $ 90,907
+     A01-9-9030-805-NON-00000 FICA Non-Uni                                       $    7,661
+
+And be it further
+
+       RESOLVED, that the Town Clerk is hereby authorized to forward a copy of this resolution
+to finance@townofriverheadny.gov, and be it further
+
+      RESOLVED, all Town Hall Departments may review and obtain a copy of this resolution
+from the electronic storage device and, if needed, a certified copy of the same may be obtained
+from the Office of the Town Clerk.
+
+
+
+
+                                                                                         Page 23 of 230
+===== Packet page 24 =====
+                 THE VOTE
+
+RESULT:
+MOVER:    None
+SECONDER: None
+AYES:     None
+NAYS:     None
+
+
+
+
+                            Page 24 of 230
+===== Packet page 202 =====
+11/17/2026                                                                                  IX.26.
+
+
+                                    TOWN OF RIVERHEAD
+
+                                         TB Resolution
+
+      AUTHORIZE SUPERVISOR TO EXECUTE STIPULATION WITH RIVERHEAD TOWN POLICE
+                           BENEVOLENT ASSOCIATION, INC
+
+                             None offered the following resolution,
+                                which was seconded by None
+
+      NOW, THEREFORE, BE IT RESOLVED, that the Town Board hereby approves the
+attached Stipulation with the Riverhead Town Police Benevolent Association, Inc. (“PBA”) and
+authorizes the Supervisor to execute the same; and, be it further,
+
+      RESOLVED, that the Town Clerk is hereby directed to forward a Certified copy of this
+resolution to the PBA President, Office of the Chief of Police, Office of the Town Attorney and
+the Accounting Office; and, be it further,
+
+       RESOLVED, that all Town Hall Departments may review and obtain a copy of this
+resolution from the electronic storage device and, if needed, a certified copy of same from the
+Office of the Town Clerk.
+
+
+
+
+                                            THE VOTE
+
+ RESULT:
+ MOVER:    None
+ SECONDER: None
+ AYES:     None
+ NAYS:     None
+
+
+
+
+                                                                                         Page 202 of 230
+===== Packet page 203 =====
+                                 FISCAL IMPACT STATEMENT
+                       OF PROPOSED RIVERHEAD TOWN BOARD LEGISLATION
+
+
+A.   Type of Legislation: Resolution
+
+B.  Title of Proposed Legislation: Authorize Supervisor to Execute Stipulation with Riverhead Town Police
+Benevolent Association, Inc
+
+C. Purpose of Proposed Legislation: Authorize Supervisor to Execute Stipulation with Riverhead Town Police
+Benevolent Association, Inc
+
+D.    Will the Proposed Legislation have a Fiscal Impact: No
+
+E.   If the answer above is "yes", select (a) or (b) below and initial or detail as applicable
+
+          (a)   The fiscal impact can be absorbed by Town/Department existing resources set forth in
+                approved Town Annual Budget (example: routine and budgeted procurement of
+                goods/services)*if selecting E (a), please initial then skip items F,G and complete H,I and J
+                   Detail/Initials:
+          (b)   The description/explanation of fiscal impact is set forth as follows:
+
+
+
+F.   If the answer to E required description/explanation of fiscal impact (E(b)), please describe
+     total Financial Cost of Funding over ___
+
+
+G.    Proposed Source of Funding:
+
+
+     Appropriation Account to be Charged:
+
+     Grant or other Revenue Source:
+
+     Appropriation Transfer (list account(s) and amount):
+
+
+
+H. Typed Name & Title of Preparer        I. Signature of Preparer                 J. Date
+
+Karen Occhiogrosso, Paralegal
+
+K. Accounting Staff Name & Title         L. Signature of Accounting Staff         M. Date
+
+[SPONSOR]
+
+
+
+
+                                                                                                            Page 203 of 230
+===== Packet page 204 =====
+                                   APPENDIX A
+                               NIGHT DIFFERENTIAL
+
+
+                              CURRENT
+                                2026        2027          2028          2029          2030
+Midnight Tour                $ 9,189.11 $    9,533.70 $    9,891.22 $   10,262.14 $   10,646.97
+
+Two Tour Rotating Schedule   $ 5,365.07 $   5,566.26 $    5,774.99 $     5,991.56 $    6,216.24
+
+K-9                          $ 8,047.60 $   8,349.39 $    8,662.49 $     8,987.33 $    9,324.36
+
+
+
+
+                                                                                       Page 204 of 230
+===== Packet page 205 =====
+                              APPENDIX B
+                    PBA SALARY SCHEDULE 2027 TO 2030
+                        POLICE OFFICER SALARY SCHEDULE
+
+                                CURRENT
+                                   2026          2027 (a)         2028           2029           2030
+ACADEMY                        $ 55,899.88     $ 58,496.13    $ 60,689.73    $ 62,965.60    $ 65,326.80
+1ST YEAR OFFICER               $ 72,066.67     $ 75,269.17    $ 78,091.76    $ 81,020.21    $ 84,058.46
+2ND YEAR OFFICER               $ 88,233.47     $ 92,042.23    $ 95,493.81    $ 99,074.83    $ 102,790.13
+3RD YEAR OFFICER               $ 104,400.27    $ 108,815.28   $ 112,895.85   $ 117,129.45   $ 121,521.80
+4TH YEAR OFFICER               $ 120,567.07    $ 125,588.34   $ 130,297.90   $ 135,184.07   $ 140,253.47
+5TH YEAR OFFICER               $ 136,733.86    $ 142,361.38   $ 147,699.93   $ 153,238.68   $ 158,985.13
+6TH YEAR OFFICER               $ 152,900.66    $ 159,134.43   $ 165,101.98   $ 171,293.30   $ 177,716.80
+
+                             DETECTIVE SALARY SCHEDULE
+                                   2026          2027 (a)         2028           2029           2030
+DETECTIVE GRADE III            $ 163,860.84    $ 170,505.62   $ 176,899.58   $ 183,533.32   $ 190,415.82
+DETECTIVE GRADE II             $ 170,754.31    $ 177,657.60   $ 184,319.76   $ 191,231.75   $ 198,402.94
+DETECTIVE GRADE I              $ 175,080.43    $ 182,145.95   $ 188,976.42   $ 196,063.03   $ 203,415.40
+
+
+
+(a) Bodycam agreement increases the 2027 salaries by $500 for PBA - 2027 is the final year for bodycam
+increases
+
+
+
+
+                                                                                                         Page 205 of 230
+===== Packet page 206 =====
+11/17/2026                                                                                 IX.27.
+
+
+                                    TOWN OF RIVERHEAD
+
+                                         TB Resolution
+
+    AUTHORIZE SUPERVISOR TO EXECUTE STIPULATION WITH RIVERHEAD TOWN SUPERIOR
+                            OFFICERS ASSOCIATION, INC.
+
+                             None offered the following resolution,
+                                which was seconded by None
+
+      NOW, THEREFORE, BE IT RESOLVED, that the Town Board hereby approves the
+attached Stipulation with the Riverhead Town Superior Officers Association, Inc. (“SOA”) and
+authorizes the Supervisor to execute the same; and, be it further,
+
+      RESOLVED, that the Town Clerk is hereby directed to forward a Certified copy of this
+resolution to the SOA President, Office of the Chief of Police, Office of the Town Attorney and
+the Accounting Office; and, be it further,
+
+       RESOLVED, that all Town Hall Departments may review and obtain a copy of this
+resolution from the electronic storage device and, if needed, a certified copy of same from the
+Office of the Town Clerk.
+
+
+
+                                            THE VOTE
+
+ RESULT:
+ MOVER:    None
+ SECONDER: None
+ AYES:     None
+ NAYS:     None
+
+
+
+
+                                                                                         Page 206 of 230
+===== Packet page 207 =====
+                                 FISCAL IMPACT STATEMENT
+                       OF PROPOSED RIVERHEAD TOWN BOARD LEGISLATION
+
+
+A.   Type of Legislation:
+
+B.   Title of Proposed Legislation: Authorize Supervisor to Execute Stipulation with Riverhead Town Superior
+Officers Association, Inc.
+
+C. Purpose of Proposed Legislation: Authorize Supervisor to Execute Stipulation with Riverhead Town Superior
+Officers Association, Inc.
+
+D.    Will the Proposed Legislation have a Fiscal Impact: No
+
+E.   If the answer above is "yes", select (a) or (b) below and initial or detail as applicable
+
+          (a)   The fiscal impact can be absorbed by Town/Department existing resources set forth in
+                approved Town Annual Budget (example: routine and budgeted procurement of
+                goods/services)*if selecting E (a), please initial then skip items F,G and complete H,I and J
+                   Detail/Initials:
+          (b)   The description/explanation of fiscal impact is set forth as follows:
+
+
+
+F.   If the answer to E required description/explanation of fiscal impact (E(b)), please describe
+     total Financial Cost of Funding over ___
+
+
+G.    Proposed Source of Funding:
+
+
+     Appropriation Account to be Charged:
+
+     Grant or other Revenue Source:
+
+     Appropriation Transfer (list account(s) and amount):
+
+
+
+H. Typed Name & Title of Preparer        I. Signature of Preparer                 J. Date
+
+Karen Occhiogrosso, Paralegal
+
+K. Accounting Staff Name & Title         L. Signature of Accounting Staff         M. Date
+
+[SPONSOR]
+
+
+
+
+                                                                                                            Page 207 of 230
+===== Packet page 208 =====
+                                   APPENDIX A
+                               NIGHT DIFFERENTIAL
+
+
+                              CURRENT
+                                2026        2027          2028          2029          2030
+Steady Midnight Tour         $ 9,189.11 $    9,533.70 $    9,891.22 $   10,262.14 $   10,646.97
+
+Two Tour Rotating Schedule   $ 5,365.07 $   5,566.26 $    5,774.99 $     5,991.56 $    6,216.24
+
+
+
+
+                                                                                       Page 208 of 230
+===== Packet page 209 =====
+                                          APPENDIX B
+                       SOA SALARY SCHEDULE 2027 TO 2030
+
+
+                             CURRENT
+          Year                 2026           2027 (a)          2028            2029            2030
+
+Probationary Sergeant *    $ 170,273.93    $ 177,159.20    $ 183,802.68    $ 190,695.28    $ 197,846.35
+Sergeant                   $ 187,647.21    $ 195,183.98    $ 202,503.37    $ 210,097.25    $ 217,975.90
+Det. Sergeant              $ 192,311.78    $ 200,023.47    $ 207,524.35    $ 215,306.51    $ 223,380.51
+Lieutenant                 $ 201,531.81    $ 209,589.25    $ 217,448.85    $ 225,603.18    $ 234,063.30
+
+* Probationary Sergeant salary calculated as the midpoint between the top step Police Officer and Sergeant
+salaries
+
+(a) Bodycam agreement increases the 2027 salaries by $500 for SOA - 2027 is the final year for bodycam
+increases
+
+
+
+
+                                                                                                    Page 209 of 230

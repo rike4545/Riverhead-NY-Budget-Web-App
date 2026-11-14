@@ -9,9 +9,10 @@
 //     etl/predict_2027.py uses). Applied to each person's 2026 authorized salary,
 //     that is the schedule increase; moving up a step adds more for anyone not
 //     at the top, so it is the least a CSEA member's base should rise.
-//   - PBA and SOA: both agreements expire December 31, 2026 and no successor has
-//     come before the Board (labor-contracts-2027.ts). Under the Triborough
-//     Amendment the 2026 schedule stands and step movement continues.
+//   - PBA and SOA: both agreements expire December 31, 2026. Successor
+//     stipulations are on the November 17, 2026 agenda, not yet voted on
+//     (police-stipulations-2027.ts). Until one is approved, the Triborough
+//     Amendment keeps the 2026 schedule and step movement continues.
 //   - Elected officials: the public notice of the November 5, 2026 budget
 //     hearing, attached to Resolution 2026-923, proposes every 2027 salary at
 //     its 2026 amount.
