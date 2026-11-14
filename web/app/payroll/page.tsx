@@ -18,6 +18,7 @@ import authorized2026 from '../../public/data/salary/authorized-2026.json'
 import payrollRecords from '../../public/data/payroll/records.json'
 import { CSEA_2027, ELECTED_2027, raises2027, type Authorized, type PayrollRow } from '../../lib/raises-2027'
 import { triborough, units as laborUnits } from '../../lib/labor-contracts-2027'
+import { PoliceStipulations2027 } from '../../components/PoliceStipulations2027'
 import { AMENDMENTS, VOTES as AMENDMENT_VOTES } from '../../lib/budget-amendments-2027'
 import lineHistory from '../../public/data/budget-supplement/line-history.json'
 import { UNIFORM_OT, policeOvertimeBudget, type HistoryLine } from '../../lib/police-overtime-budget'
@@ -406,11 +407,12 @@ function Raises2027() {
                 <td data-label="People" style={cell}><span>{r.pba} PBA, {r.soa} SOA</span></td>
                 <td data-label="2027" className="rbl-stack-prose" style={cell}>
                   <span>
-                    Not set. Both contracts expire December 31, 2026, and no successor has come before the Board. Until one is signed, the
-                    2026 salary schedule stands, but step movement continues under the Taylor Law’s Triborough Amendment (Civil Service Law
-                    § 209-a(1)(e)). On the Police Officer ladder alone that is about {money(triborough.stepCost2027)} for the{' '}
-                    {triborough.officersMoving} officers still climbing it, this site’s estimate; the {triborough.officersAtTopStep} at the top step
-                    get nothing from it, and detectives and sergeants move on their own schedules. The agreement that continues is the {pba.contractTerm}.
+                    Proposed, not yet approved. Both contracts expire December 31, 2026. Stipulations for 2027 to 2030 are on the Board’s
+                    November 17, 2026 agenda: their schedules raise every step 3.75% a year, plus $500 in 2027 for the body-camera agreement
+                    (see the schedules below). If the Board does not approve them, the 2026 salary schedule stands and step movement continues
+                    under the Taylor Law’s Triborough Amendment (Civil Service Law § 209-a(1)(e)): on the Police Officer ladder alone about{' '}
+                    {money(triborough.stepCost2027)} for the {triborough.officersMoving} officers still climbing it, this site’s estimate. The
+                    agreement that continues until then is the {pba.contractTerm}.
                   </span>
                 </td>
               </tr>
@@ -427,6 +429,7 @@ function Raises2027() {
             </tbody>
           </table>
         </div>
+        <PoliceStipulations2027 />
         <p>
           <strong>Elected officials: no raises proposed.</strong> The {ELECTED_2027.source} lists each 2027 proposed salary at its
           2026 amount: {ELECTED_2027.rows.map((e) => `${e.position} ${money(e.y2027)}`).join('; ')}. {ELECTED_2027.rows[0].note}

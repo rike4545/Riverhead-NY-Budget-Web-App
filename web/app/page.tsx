@@ -1,4 +1,4 @@
-import { ArrowRight, BookOpen, FileSearch, Landmark, Scale, Wallet } from 'lucide-react'
+import { ArrowRight, BookOpen, Building2, FileSearch, Gavel, Landmark, Library, MapPinned, Scale, TrendingUp, Wallet } from 'lucide-react'
 import PageShell from '../components/PageShell'
 import UpdateSummary from '../components/UpdateSummary'
 import TentativeReleased from '../components/TentativeReleased'
@@ -27,17 +27,18 @@ const pathways = [
 ]
 
 const research = [
-  { title: 'Governance & accountability', text: 'Track municipal priorities, public services, spending, transparency and measurable results.', href: '/governance-accountability/' },
-  { title: 'Budget & funds', text: 'See what each fund plans to spend, down to individual budget lines.', href: '/funds/' },
-  { title: 'Town Board votes', text: 'Follow resolutions and voting records back to meetings.', href: '/meetings/' },
-  { title: '2027 budget outlook', text: 'Compare the projection with the tax cap and the choices the Town can make.', href: '/predict-2027/' },
-  { title: 'Evidence library', text: 'Open the original Town records and State Comptroller guidance behind the analysis.', href: '/sources/' },
+  { title: 'Governance and accountability', text: 'Track the Town’s priorities, services, spending, openness and results.', href: '/governance-accountability/', icon: Building2 },
+  { title: 'Budget and funds', text: 'See what each fund plans to spend, down to individual budget lines.', href: '/funds/', icon: Landmark },
+  { title: 'Town Board votes', text: 'Follow resolutions and voting records back to meetings.', href: '/meetings/', icon: Gavel },
+  { title: '2027 budget outlook', text: 'Compare the projection with the tax cap and the choices the Town can make.', href: '/predict-2027/', icon: TrendingUp },
+  { title: 'EPCAL at Calverton', text: 'Where the Town’s 1,643 acres stand after the failed sale, and what to weigh before the next deal.', href: '/epcal/', icon: MapPinned },
+  { title: 'Evidence library', text: 'Open the original Town records and State Comptroller guidance behind the analysis.', href: '/sources/', icon: Library },
 ]
 
 const principles = [
-  { number: '01', title: 'Find the record', text: 'Search budgets, payroll, meetings and financial reports.' },
-  { number: '02', title: 'Understand the number', text: 'Each number is identified as a reported fact, a calculation, or a projection.' },
-  { number: '03', title: 'Verify the source', text: 'Follow important claims back to documents, dates and evidence.' },
+  { number: '1', title: 'Find the record', text: 'Search budgets, payroll, meetings and financial reports.' },
+  { number: '2', title: 'Understand the number', text: 'Each number is identified as a reported fact, a calculation, or a projection.' },
+  { number: '3', title: 'Verify the source', text: 'Follow important claims back to documents, dates and evidence.' },
 ]
 
 export default function Page() {
@@ -63,7 +64,6 @@ export default function Page() {
               <a href={`${base}/budget-amendments-2027/`}><span className="home-panel-icon"><Scale size={18} /></span><span><strong>Budget amendments</strong><small>The Board’s six changes, line by line</small></span><ArrowRight size={17} /></a>
               <a href={`${base}/sources/`}><span className="home-panel-icon"><BookOpen size={18} /></span><span><strong>Source library</strong><small>Go directly to records and references</small></span><ArrowRight size={17} /></a>
             </div>
-            <div className="home-panel-foot">Public records <span>•</span> Plain language <span>•</span> Traceable analysis</div>
           </aside>
         </section>
 
@@ -94,9 +94,9 @@ export default function Page() {
         </section>
 
         <section className="home-research" aria-labelledby="home-research-title">
-          <div className="home-research-heading"><div><h2 id="home-research-title">The details are here when you need them.</h2></div><a href={`${base}/guide/`}>Explore the site guide <ArrowRight size={15} /></a></div>
+          <div className="home-research-heading"><div><h2 id="home-research-title">The details are here when you need them.</h2></div><a href={`${base}/guide/`}>Explore the site guide <ArrowRight size={15} aria-hidden="true" /></a></div>
           <div className="home-research-grid">
-            {research.map((item, index) => <a href={`${base}${item.href}`} key={item.href}><span className="home-research-number">0{index + 1}</span><span><strong>{item.title}</strong><small>{item.text}</small></span><ArrowRight size={16} /></a>)}
+            {research.map(({ icon: Icon, ...item }) => <a href={`${base}${item.href}`} key={item.href}><span className="home-research-icon"><Icon size={17} aria-hidden="true" /></span><span><strong>{item.title}</strong><small>{item.text}</small></span><ArrowRight size={16} aria-hidden="true" /></a>)}
           </div>
         </section>
 

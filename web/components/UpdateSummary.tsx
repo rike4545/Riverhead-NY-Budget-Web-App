@@ -40,15 +40,15 @@ export default function UpdateSummary() {
   return (
     <section aria-label="Data update summary" style={{ marginBottom: 22, padding: '12px 0', borderTop: '1px solid var(--rbl-border-subtle)', borderBottom: '1px solid var(--rbl-border-subtle)', display: 'flex', justifyContent: 'space-between', gap: 14, flexWrap: 'wrap', alignItems: 'center' }}>
       <div style={{ minWidth: 0 }}>
-        <div style={{ color: 'var(--rbl-text-muted)', fontSize: 13, fontWeight: 700 }}>{headline}</div>
-        <div style={{ color: 'var(--rbl-text-strong)', fontSize: 12.8, lineHeight: 1.5, marginTop: 3 }}>
+        <div style={{ color: 'var(--rbl-text-muted)', fontSize: 14.5, fontWeight: 700 }}>{headline}</div>
+        <div style={{ color: 'var(--rbl-text-strong)', fontSize: 14.5, lineHeight: 1.5, marginTop: 3 }}>
           Site data last refreshed {meta.generatedAtDisplay}
           {meta.datasets.latestMeeting ? ` · Board records through ${meta.datasets.latestMeeting}` : ''}
           {payroll ? ` · payroll through ${payroll}` : ''}
           {meta.datasets.searchEntries ? ` · ${meta.datasets.searchEntries.toLocaleString()} searchable public records` : ''}
         </div>
       </div>
-      <a href={`${base}/data-quality/`} style={{ color: 'var(--rbl-link)', fontWeight: 850, fontSize: 12.5, textDecoration: 'none', whiteSpace: 'nowrap' }} title="See the update date and source status for each dataset">See data update details →</a>
+      <a href={`${base}/data-quality/`} style={{ color: 'var(--rbl-link)', fontWeight: 700, fontSize: 14.5, textDecoration: 'none', whiteSpace: 'nowrap' }} title="See the update date and source status for each dataset">See data update details →</a>
     </section>
   )
 }

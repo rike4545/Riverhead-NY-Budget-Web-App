@@ -105,7 +105,7 @@ export const units: UnitStatus[] = [
     resolutions: forUnit('PBA'),
     candidates: forUnit('PBA').filter((r) => !r.isRetirementIncentive),
     finding:
-      'Nothing that could be a successor has come before the Board this year. The only PBA item in the record is the July 7 retirement-incentive stipulation, which pays people to leave and sets no wage rate. The contract runs out on December 31, 2026.',
+      'Not yet voted on. Item IX.26 on the November 17, 2026 agenda asks the Board to approve a stipulation with the PBA; its attached salary schedule runs from 2027 to 2030 and raises every step 3.75% a year, plus $500 in 2027 for the body-camera agreement. Until the Board votes, the projection keeps its placeholder. The only earlier PBA item this year is the July 7 retirement-incentive stipulation, which sets no wage rate. The current contract runs out on December 31, 2026.',
   },
   {
     unit: 'SOA',
@@ -115,7 +115,7 @@ export const units: UnitStatus[] = [
     resolutions: forUnit('SOA'),
     candidates: forUnit('SOA').filter((r) => !r.isRetirementIncentive),
     finding:
-      'Same as the PBA: the only SOA item this year is the July 7 retirement-incentive stipulation. No successor wage agreement has been put to a vote, and the contract expires December 31, 2026.',
+      'Not yet voted on. Item IX.27 on the November 17, 2026 agenda asks the Board to approve a stipulation with the SOA, with the same terms as the PBA’s: 3.75% a year from 2027 to 2030, plus $500 in 2027. The only earlier SOA item this year is the July 7 retirement-incentive stipulation. The current contract expires December 31, 2026.',
   },
 ]
 
@@ -216,7 +216,8 @@ export const headline =
   `Of the Town's three bargaining units, ${settledUnits.length} has a signed 2027 wage rate and ` +
   `${openUnits.length} do not. The ${openUnits.map((u) => u.unit).join(' and ')} contracts expire on ` +
   `December 31, 2026, and across ${corpus.resolutions.toLocaleString()} resolutions in ` +
-  `${corpus.meetings} meetings no successor for either has been put to the Board.`
+  `${corpus.meetings} meetings no successor for either has been voted on. Successor stipulations for both are on the ` +
+  `Board's November 17, 2026 agenda.`
 
 export const whyItMatters =
   'These are the police units, and police is the largest single department in the General Fund. The 2027 ' +
@@ -227,6 +228,6 @@ export const whyItMatters =
 
 export const limits = [
   'A resolution title names the union, not what the document does. A "stipulation" can be a full successor agreement or a narrow side letter about a single employee, and the Town does not publish the underlying documents, so this check reports what the Board was asked to approve and not what was inside it.',
-  'Negotiations are not public and need not reach the Board until they conclude. Nothing here implies that talks are not happening — only that nothing has been voted on.',
+  'The November 17, 2026 agenda packet attaches only each stipulation’s salary and night-differential schedules, not the stipulation itself, so its other terms (health contributions, overtime, leave) are not public. Both Fiscal Impact Statements answer “No” to whether the resolution has a fiscal impact.',
   'The check covers the meetings this site has parsed. A successor agreement approved at a meeting outside that range would not appear.',
 ]
