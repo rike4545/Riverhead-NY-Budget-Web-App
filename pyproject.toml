@@ -23,7 +23,7 @@ transcribe = [
     # faster-whisper 1.2.1 opens audio with av.open(..., metadata_errors="ignore"),
     # an argument PyAV 19.0 removed, so decoding fails with a TypeError. Lift this
     # once a faster-whisper release stops passing it.
-    "av>=11,<19",
+    "av>=11,<20",
 ]
 
 # This repository contains ETL scripts plus a web app and Supabase assets; it is
