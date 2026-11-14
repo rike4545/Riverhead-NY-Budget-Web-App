@@ -90,7 +90,7 @@ export default function SiteNav() {
 
   return (
     <div ref={navRef} className="nav-root" style={{ position: 'relative', marginLeft: 'auto' }}>
-      <button ref={mobileButtonRef} onClick={() => setMobileOpen(v => !v)} aria-label={mobileOpen ? 'Close site navigation' : 'Open site navigation'} aria-controls="site-mobile-navigation" aria-expanded={mobileOpen} className="nav-hamburger rbl-on-dark" style={{ display: 'none', color: 'white', background: 'rgba(255,255,255,.08)', border: '1px solid rgba(255,255,255,.20)', borderRadius: 8, padding: '8px 12px', fontWeight: 600, fontSize: 15, minWidth: 44, minHeight: 44, cursor: 'pointer' }}>{mobileOpen ? 'Close' : 'Menu'}</button>
+      <button ref={mobileButtonRef} onClick={() => setMobileOpen(v => !v)} aria-controls="site-mobile-navigation" aria-expanded={mobileOpen} className="nav-hamburger rbl-on-dark" style={{ display: 'none', color: 'white', background: 'rgba(255,255,255,.08)', border: '1px solid rgba(255,255,255,.20)', borderRadius: 8, padding: '8px 12px', fontWeight: 600, fontSize: 15, minWidth: 44, minHeight: 44, cursor: 'pointer' }}>{mobileOpen ? 'Close' : 'Menu'}</button>
       <nav className="nav-links" aria-label="Primary navigation" style={{ display: 'flex', gap: 2, alignItems: 'center' }}>
         {PRIMARY.map(([label, href]) => <a key={href} href={href} className="rbl-on-dark" aria-current={isActive(href) ? 'page' : undefined} style={{ ...linkStyle, ...(isActive(href) ? { background: 'rgba(255,255,255,.14)', borderColor: 'rgba(255,255,255,.16)' } : {}) }}>{label}</a>)}
         {GROUPS.map((g, index) => <div key={g.label} className="nav-group" style={{ position: 'relative' }}>

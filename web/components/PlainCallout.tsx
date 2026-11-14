@@ -18,7 +18,7 @@ export default function PlainCallout({
     <section
       style={{
         background: 'var(--rbl-info-bg)', border: '1px solid var(--rbl-info-border)',
-        borderRadius: 14, padding: '18px 20px 20px', marginBottom: 20,
+        borderRadius: 14, padding: '18px 22px 20px', marginBottom: 20, width: 'fit-content', maxWidth: '100%', boxSizing: 'border-box',
       }}
     >
       <Heading style={{ margin: '0 0 6px', color: 'var(--rbl-title)', fontSize: 18, fontWeight: 700, lineHeight: 1.3 }}>{title}</Heading>
