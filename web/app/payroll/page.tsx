@@ -429,7 +429,7 @@ function Raises2027() {
             </tbody>
           </table>
         </div>
-        <PoliceStipulations2027 />
+        <PoliceStipulations2027 cseaTypical2026={r.csea.length ? [...r.csea].sort((a, b) => a.y2026 - b.y2026)[Math.floor(r.csea.length / 2)].y2026 : null} />
         <p>
           <strong>Elected officials: no raises proposed.</strong> The {ELECTED_2027.source} lists each 2027 proposed salary at its
           2026 amount: {ELECTED_2027.rows.map((e) => `${e.position} ${money(e.y2027)}`).join('; ')}. {ELECTED_2027.rows[0].note}

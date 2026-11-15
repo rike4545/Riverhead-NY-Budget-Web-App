@@ -25,6 +25,19 @@
 // No JSON imports: the page passes the data in, so verify-raises-2027.mjs can
 // run the same arithmetic under Node.
 
+/**
+ * Every year of the 2026–2029 CSEA agreement, Article 15(2) (Wages): each step
+ * rises by the percentage, then the flat amount is added to every step and
+ * carries into later years' base. The same terms etl/predict_2027.py uses
+ * (CSEA_WAGE_TERMS); scripts/verify-police-stipulations.mjs checks they agree.
+ */
+export const CSEA_TERMS = [
+  { year: 2026, pct: 0.02, flat: 1_500 },
+  { year: 2027, pct: 0.025, flat: 1_000 },
+  { year: 2028, pct: 0.03, flat: 500 },
+  { year: 2029, pct: 0.035, flat: 0 },
+] as const
+
 export const CSEA_2027 = { pct: 0.025, flat: 1_000, source: '2026–2029 CSEA agreement (Article 15(2), Wages), which the Board approved December 16, 2025 (Resolution 2025-1001),' } as const
 
 export const ELECTED_2027 = {
