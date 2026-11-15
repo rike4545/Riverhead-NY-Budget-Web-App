@@ -9,6 +9,7 @@
 import { existsSync, readFileSync } from 'node:fs'
 import { join } from 'node:path'
 import { PBA, SOA, FIS_ANSWER, IMPLIED_RAISE, BODYCAM_2027, INCENTIVE_PAYOUTS, MEETING, adopted } from '../lib/police-stipulations-2027.ts'
+import { CSEA_TERMS, CSEA_2027 } from '../lib/raises-2027.ts'
 
 const root = process.cwd()
 const fail = (m) => { console.error(`POLICE STIPULATIONS VERIFY FAILED: ${m}`); process.exitCode = 1 }
@@ -52,8 +53,17 @@ for (const l of INCENTIVE_PAYOUTS.lines) {
 }
 if (INCENTIVE_PAYOUTS.lines.reduce((s, l) => s + l.amount, 0) !== INCENTIVE_PAYOUTS.fromFundBalance) fail('IX.2: the lines do not add to the transfer')
 
+// The CSEA terms shown beside the police ones are the ones the 2027 forecast uses.
+const py = readFileSync(join(root, '../etl/predict_2027.py'), 'utf8')
+for (const t of CSEA_TERMS) {
+  const m = py.match(new RegExp(`${t.year}: \\{"pctStep": ([0-9.]+), "flatAdj": (\\d+)\\}`))
+  if (!m || Number(m[1]) !== t.pct || Number(m[2]) !== t.flat) fail(`CSEA ${t.year}: raises-2027.ts and etl/predict_2027.py disagree`)
+}
+const c27 = CSEA_TERMS.find((t) => t.year === 2027)
+if (c27?.pct !== CSEA_2027.pct || c27?.flat !== CSEA_2027.flat) fail('CSEA 2027: CSEA_TERMS and CSEA_2027 disagree')
+
 const built = [
-  ['payroll', [MEETING.packetUrl, MEETING.agendaUrl, money(PBA.officers[6].rates[4]), money(SOA.ranks[3].rates[4]), FIS_ANSWER, adopted === null ? 'proposed, not yet voted on' : 'approved']],
+  ['payroll', ['How this compares with the Town’s civilian workers', 'Resolution 2025-1001', MEETING.packetUrl, MEETING.agendaUrl, money(PBA.officers[6].rates[4]), money(SOA.ranks[3].rates[4]), FIS_ANSWER, adopted === null ? 'proposed, not yet voted on' : 'approved by the Town Board']],
   ['buyout', [MEETING.agendaUrl, `$${whole(INCENTIVE_PAYOUTS.fromFundBalance)}`, 'not yet voted on']],
 ]
 for (const [page, must] of built) {
