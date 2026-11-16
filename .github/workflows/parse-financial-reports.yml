@@ -92,6 +92,8 @@ jobs:
         run: python etl/refresh_meeting_records.py --offline
       - name: Check meeting records against their official sources
         run: python etl/test_meeting_records.py
+      - name: Record the Board's votes on watched resolutions
+        run: python etl/resolve_watched.py
       - name: Analyse consent-calendar voting pattern
         run: python etl/analyze_consent_calendar.py
       - name: Parse 2025 authorized salary schedule
@@ -187,8 +189,8 @@ jobs:
           # rebases this commit onto the latest tip (never a force-push) and
           # rebuilds the files derived from the data on top of it, so another
           # job's push cannot leave this one stuck on a conflict in meta.json.
-          DERIVED='^(web/public/data/meta\.json$|web/public/data/search/|web/public/downloads/|shared-data/manifest\.json$)' \
-          REBUILD='python etl/build_search_index.py && python etl/export_csv.py && python etl/write_meta.py && node web/scripts/sync-shared-data.mjs --refresh' \
+          DERIVED='^(web/public/data/meta\.json$|web/public/data/search/|web/public/downloads/|shared-data/manifest\.json$|web/public/data/watched-resolutions\.json$)' \
+          REBUILD='python etl/resolve_watched.py && python etl/build_search_index.py && python etl/export_csv.py && python etl/write_meta.py && node web/scripts/sync-shared-data.mjs --refresh' \
             bash .github/scripts/push-data.sh etl/data/meetings etl/data/supplements web/public/data web/public/downloads shared-data/manifest.json
 
           echo "changed=true" >> "$GITHUB_OUTPUT"

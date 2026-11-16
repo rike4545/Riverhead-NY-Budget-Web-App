@@ -19,6 +19,8 @@ import payrollRecords from '../../public/data/payroll/records.json'
 import { CSEA_2027, ELECTED_2027, raises2027, type Authorized, type PayrollRow } from '../../lib/raises-2027'
 import { triborough, units as laborUnits } from '../../lib/labor-contracts-2027'
 import { PoliceStipulations2027 } from '../../components/PoliceStipulations2027'
+import { WATCH } from '../../lib/police-stipulations-2027'
+import { statusPhrase, watched } from '../../lib/watched-resolutions'
 import { AMENDMENTS, VOTES as AMENDMENT_VOTES } from '../../lib/budget-amendments-2027'
 import lineHistory from '../../public/data/budget-supplement/line-history.json'
 import { UNIFORM_OT, policeOvertimeBudget, type HistoryLine } from '../../lib/police-overtime-budget'
@@ -407,9 +409,14 @@ function Raises2027() {
                 <td data-label="People" style={cell}><span>{r.pba} PBA, {r.soa} SOA</span></td>
                 <td data-label="2027" className="rbl-stack-prose" style={cell}>
                   <span>
-                    Proposed, not yet approved. Both contracts expire December 31, 2026. Stipulations for 2027 to 2030 are on the Board’s
-                    November 17, 2026 agenda: their schedules raise every step 3.75% a year, plus $500 in 2027 for the body-camera agreement
-                    (see the schedules below). If the Board does not approve them, the 2026 salary schedule stands and step movement continues
+                    {watched(WATCH.pba).status === 'adopted' && watched(WATCH.soa).status === 'adopted'
+                      ? 'Set by contract, newly approved.'
+                      : watched(WATCH.pba).status === 'pending' || watched(WATCH.soa).status === 'pending' ? 'Proposed, not yet approved.'
+                      : watched(WATCH.pba).status === 'adopted' || watched(WATCH.soa).status === 'adopted' ? 'Partly set.' : 'Not set.'}{' '}
+                    Both contracts expire December 31, 2026. Stipulations for 2027 to 2030 were put on the Board’s November 17, 2026
+                    agenda. Officers’ contract: {statusPhrase(watched(WATCH.pba))}. Superior officers’ contract: {statusPhrase(watched(WATCH.soa))}. Their schedules raise
+                    every step 3.75% a year, plus $500 in 2027 for the body-camera agreement (see the schedules below). Without an approved
+                    successor, the 2026 salary schedule stands and step movement continues
                     under the Taylor Law’s Triborough Amendment (Civil Service Law § 209-a(1)(e)): on the Police Officer ladder alone about{' '}
                     {money(triborough.stepCost2027)} for the {triborough.officersMoving} officers still climbing it, this site’s estimate. The
                     agreement that continues until then is the {pba.contractTerm}.

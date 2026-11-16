@@ -7,7 +7,8 @@
 // schedule), not the stipulation's own text, so its other terms are not public.
 // Every rate below is copied from those appendices and checked against the kept
 // packet text (etl/data/meetings/2026-11-17-police-stipulations-excerpt.txt) by
-// scripts/verify-police-stipulations.mjs. Change `adopted` once the Board votes.
+// scripts/verify-police-stipulations.mjs. Whether the Board has approved them
+// comes from the meeting record, through lib/watched-resolutions.ts (WATCH ids).
 //
 // No imports, so the verify script can load this file directly.
 
@@ -18,8 +19,8 @@ export const MEETING = {
   packetUrl: 'https://riverheadny.portal.civicclerk.com/event/6457/files/agenda/12599',
 }
 
-/** null until the Board votes; then true or false. */
-export const adopted: boolean | null = null
+/** Their ids in etl/data/watched-resolutions.json, which records the Board's vote. */
+export const WATCH = { pba: 'pba-stipulation-2027-2030', soa: 'soa-stipulation-2027-2030', payouts: 'incentive-payouts-ix2' } as const
 
 export const YEARS = [2026, 2027, 2028, 2029, 2030] as const
 

@@ -47,10 +47,15 @@ jobs:
       - name: Check meeting records against their official sources
         run: python etl/test_meeting_records.py
 
+      # Pages that wait on a particular resolution (lib/watched-resolutions.ts)
+      # read its vote from this file, so a vote reaches them on this same run.
+      - name: Record the Board's votes on watched resolutions
+        run: python etl/resolve_watched.py
+
       - name: Detect meeting-data changes
         id: meeting_changes
         run: |
-          git add etl/data/meetings web/public/data/meetings || true
+          git add etl/data/meetings web/public/data/meetings web/public/data/watched-resolutions.json || true
           if git diff --cached --quiet; then
             echo "changed=false" >> "$GITHUB_OUTPUT"
             echo "No meeting-data changes detected."
@@ -77,9 +82,9 @@ jobs:
           # Rebase onto main and rebuild the search index and freshness stamp on
           # top of it, so a push by another job cannot leave this one stuck on a
           # conflict in meta.json. See .github/scripts/push-data.sh.
-          DERIVED='^(web/public/data/meta\.json$|web/public/data/search/)' \
-          REBUILD='python etl/build_search_index.py && python etl/write_meta.py' \
-            bash .github/scripts/push-data.sh etl/data/meetings web/public/data/meetings web/public/data/search web/public/data/vote-agreement.json web/public/data/meta.json
+          DERIVED='^(web/public/data/meta\.json$|web/public/data/search/|web/public/data/watched-resolutions\.json$)' \
+          REBUILD='python etl/resolve_watched.py && python etl/build_search_index.py && python etl/write_meta.py' \
+            bash .github/scripts/push-data.sh etl/data/meetings web/public/data/meetings web/public/data/search web/public/data/vote-agreement.json web/public/data/meta.json web/public/data/watched-resolutions.json
           echo "changed=true" >> "$GITHUB_OUTPUT"
 
       - name: Feature-branch validation notice

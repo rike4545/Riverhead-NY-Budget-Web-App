@@ -1,7 +1,8 @@
 import { triborough } from '../lib/labor-contracts-2027'
 import { realRaiseExamples } from '../lib/pba-step-schedule'
 import { CSEA_TERMS } from '../lib/raises-2027'
-import { adopted, BODYCAM_2027, FIS_ANSWER, IMPLIED_RAISE, MEETING, officerLadderIncrease2027, PBA, SOA, YEARS, type Row } from '../lib/police-stipulations-2027'
+import { statusPhrase, watched } from '../lib/watched-resolutions'
+import { WATCH, BODYCAM_2027, FIS_ANSWER, IMPLIED_RAISE, MEETING, officerLadderIncrease2027, PBA, SOA, YEARS, type Row } from '../lib/police-stipulations-2027'
 
 // The proposed 2027-2030 police contracts, written for readers who would rather
 // see dollars than percentages: a real salary followed year by year, what every
@@ -61,7 +62,10 @@ function Schedule({ caption, rows, first = 'Step or rank' }: { caption: string; 
 }
 
 export function PoliceStipulations2027({ cseaTypical2026 }: { cseaTypical2026?: number | null }) {
-  const status = adopted === null ? 'proposed, not yet voted on' : adopted ? 'approved by the Town Board' : 'not approved by the Town Board'
+  const pba = watched(WATCH.pba)
+  const soa = watched(WATCH.soa)
+  const sameOutcome = pba.status === soa.status
+  const status = sameOutcome && pba.status === 'pending' ? 'proposed, not yet voted on' : sameOutcome ? pba.status === 'adopted' ? 'approved' : pba.status === 'tabled' ? 'tabled' : 'not approved' : 'see each union below'
   const top = PBA.officers[6].rates
   const lt = SOA.ranks[3].rates
   const p2029 = per100Police[2].value
@@ -72,10 +76,11 @@ export function PoliceStipulations2027({ cseaTypical2026 }: { cseaTypical2026?: 
     <section data-police-stipulations aria-labelledby="police-stipulations" style={{ border: '1px solid var(--rbl-warn-border)', background: 'var(--rbl-warn-bg)', borderRadius: 14, padding: '16px 18px', margin: '14px 0' }}>
       <h3 id="police-stipulations" style={{ margin: '0 0 6px', color: 'var(--rbl-title)', fontSize: 17 }}>Police contracts for 2027 to 2030: {status}</h3>
       <p style={{ margin: '0 0 8px' }}>
-        On {MEETING.date} the Town Board is asked to approve new contracts with the two police unions, the Police Benevolent
+        On {MEETING.date} the Town Board {pba.status === 'pending' && soa.status === 'pending' ? 'is asked' : 'was asked'} to approve new contracts with the two police unions, the Police Benevolent
         Association (officers and detectives) and the Superior Officers Association (sergeants and lieutenants). They are items{' '}
         {PBA.item} and {SOA.item} on the <a href={MEETING.agendaUrl} style={link}>meeting agenda</a>. The Town has published the pay
-        tables from each contract, but not the rest of the contract.
+        tables from each contract, but not the rest of the contract.{' '}
+        <span data-watch-status>Officers’ contract: {statusPhrase(pba)}. Superior officers’ contract: {statusPhrase(soa)}.</span>
       </p>
 
       <h4 style={h4}>In short</h4>
