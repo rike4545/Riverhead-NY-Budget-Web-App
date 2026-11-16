@@ -1,0 +1,66 @@
+{
+ "source": "etl/data/watched-resolutions.json, resolved against web/public/data/meetings by etl/resolve_watched.py",
+ "items": [
+  {
+   "id": "pba-stipulation-2027-2030",
+   "meetingDate": "2026-11-17",
+   "agendaItem": "IX.26",
+   "match": "Execute Stipulation with Riverhead Town Police Benevolent Association",
+   "pages": [
+    "/payroll/",
+    "/predict-2027/"
+   ],
+   "followUps": [
+    "If adopted: treat the PBA's 2027 rate as contractual (3.75% plus $500) in etl/predict_2027.py and lib/labor-contracts-2027.ts instead of the trailing-average placeholder.",
+    "If adopted: set PoliceContracts2027.adopted in the iOS and Android apps."
+   ],
+   "status": "pending",
+   "number": null,
+   "title": null,
+   "voteTag": null,
+   "ayes": null,
+   "nays": null,
+   "note": "The meeting has no parsed record yet."
+  },
+  {
+   "id": "soa-stipulation-2027-2030",
+   "meetingDate": "2026-11-17",
+   "agendaItem": "IX.27",
+   "match": "Execute Stipulation with Riverhead Town Superior Officers Association",
+   "pages": [
+    "/payroll/",
+    "/predict-2027/"
+   ],
+   "followUps": [
+    "If adopted: treat the SOA's 2027 rate as contractual (3.75% plus $500) in etl/predict_2027.py and lib/labor-contracts-2027.ts.",
+    "If adopted: set PoliceContracts2027.adopted in the iOS and Android apps."
+   ],
+   "status": "pending",
+   "number": null,
+   "title": null,
+   "voteTag": null,
+   "ayes": null,
+   "nays": null,
+   "note": "The meeting has no parsed record yet."
+  },
+  {
+   "id": "incentive-payouts-ix2",
+   "meetingDate": "2026-11-17",
+   "agendaItem": "IX.2",
+   "match": "Budget Adjustment for Retirement Incentive Severance Payouts",
+   "pages": [
+    "/buyout/"
+   ],
+   "followUps": [
+    "If adopted: add the $1,387,034 draw to the fund-balance draws page if that page does not pick it up from the meeting data."
+   ],
+   "status": "pending",
+   "number": null,
+   "title": null,
+   "voteTag": null,
+   "ayes": null,
+   "nays": null,
+   "note": "The meeting has no parsed record yet."
+  }
+ ]
+}
