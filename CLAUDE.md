@@ -113,7 +113,10 @@ python3 etl/build_search_index.py && python3 etl/write_meta.py
 
 - Plain English for residents: short sentences, the number and its source,
   and no jargon without a gloss. Avoid the patterns in
-  `.claude/references/copy-tells.md`.
+  `.claude/references/copy-tells.md`; after a page change, run
+  `cd web && npm run copy-lint` and fix what it finds where the sentence is
+  better for it. Its word budgets suit short marketing pages, so treat it as
+  advice.
 - Commit messages and pull requests say what changed and why, in prose.
 
 ### Design
