@@ -19,6 +19,7 @@ Status is only what the official record says:
 Run after refresh_meeting_records.py (sync-meetings.yml does):
     python3 etl/resolve_watched.py
 """
+import datetime as dt
 import json
 import sys
 from pathlib import Path
@@ -27,6 +28,9 @@ ROOT = Path(__file__).resolve().parent.parent
 REGISTRY = ROOT / "etl/data/watched-resolutions.json"
 MEETINGS = ROOT / "web/public/data/meetings"
 OUT = ROOT / "web/public/data/watched-resolutions.json"
+# Minutes usually post within a week or two. Past this, a still-pending item
+# more likely means a renamed title or a parser gap than a slow clerk.
+OVERDUE_DAYS = 21
 
 
 def status_of(vote):
@@ -69,6 +73,16 @@ def resolve(item, meetings_dir=MEETINGS):
     return out
 
 
+def days_overdue(item, today=None):
+    """Days past the grace period for a decision that should be on record by now,
+    or 0. Only pending items can be overdue."""
+    if item["status"] != "pending":
+        return 0
+    today = today or dt.date.today()
+    late = (today - dt.date.fromisoformat(item["meetingDate"])).days - OVERDUE_DAYS
+    return max(late, 0)
+
+
 def main():
     registry = json.loads(REGISTRY.read_text(encoding="utf-8"))
     items = [resolve(i) for i in registry["items"]]
@@ -85,6 +99,13 @@ def main():
     for i in changed:
         # GitHub Actions shows this as an annotation on the run.
         print(f"::notice title=Watched resolution decided::{i['id']} is now {i['status']}" + (f" ({i['number']})" if i["number"] else ""))
+    for i in items:
+        if days_overdue(i):
+            # Loud on purpose: a page would otherwise keep saying "proposed" with
+            # nothing to show that the record it waits on went missing.
+            print(f"::warning title=Watched resolution still pending::{i['id']} ({i['agendaItem']}, {i['meetingDate']}) "
+                  f"has no recorded vote {OVERDUE_DAYS + days_overdue(i)} days after the meeting: {i['note']} "
+                  "Check the minutes, and the match phrase in etl/data/watched-resolutions.json.")
     return 0
 
 

@@ -16,7 +16,7 @@ in the same pull request as its changes.
     python3 etl/agent_queue.py [--out queue.json]
 
 Prints a summary, writes the queue as JSON, and (in GitHub Actions) sets the
-step output has_work=true|false.
+step output has_work=true|false and lists the queue in the run's summary page.
 """
 import argparse
 import json
@@ -80,6 +80,14 @@ def main():
     for q in queue:
         label = q["id"] if q["kind"] == "watched" else q["number"]
         print(f"  {q['kind']}: {label} {q.get('title') or ''} -> {', '.join(q['pages'])}")
+    if os.environ.get("GITHUB_STEP_SUMMARY"):
+        with open(os.environ["GITHUB_STEP_SUMMARY"], "a", encoding="utf-8") as out:
+            out.write(f"### Board decisions queued for the drafting agent: {len(queue)}\n\n")
+            for q in queue:
+                label = q["id"] if q["kind"] == "watched" else q["number"]
+                out.write(f"- {q['kind']} `{label}` ({q['meetingDate']}): {q.get('title') or ''}; pages {', '.join(q['pages'])}\n")
+            if not queue:
+                out.write("Nothing new, so the agent did not run.\n")
     if os.environ.get("GITHUB_OUTPUT"):
         with open(os.environ["GITHUB_OUTPUT"], "a", encoding="utf-8") as out:
             out.write(f"has_work={'true' if queue else 'false'}\n")

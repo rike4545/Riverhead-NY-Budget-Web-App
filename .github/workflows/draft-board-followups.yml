@@ -61,9 +61,27 @@ jobs:
           echo "open=$([ "$n" -gt 0 ] && echo true || echo false)" >> "$GITHUB_OUTPUT"
           [ "$n" -gt 0 ] && echo "::notice::A draft from $BRANCH is still open; the queue waits until it is merged or closed." || true
 
+      - name: Stop after repeated failures
+        # A failed agent run records nothing, so the same queue would run again
+        # (and cost again) on every sync. After two failures in a row, wait for
+        # a person: a manual dispatch runs it once more.
+        id: retry
+        if: steps.queue.outputs.has_work == 'true' && steps.open.outputs.open == 'false'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          fails=$(gh run list --repo "$GITHUB_REPOSITORY" --workflow draft-board-followups.yml --status completed --limit 2 \
+            --json conclusion --jq '[.[] | select(.conclusion == "failure")] | length')
+          if [ "$fails" -ge 2 ] && [ "$GITHUB_EVENT_NAME" != "workflow_dispatch" ]; then
+            echo "ok=false" >> "$GITHUB_OUTPUT"
+            echo "::warning::The last two drafting runs failed, so this one did not start the agent. Read their logs, then run this workflow by hand."
+          else
+            echo "ok=true" >> "$GITHUB_OUTPUT"
+          fi
+
       - name: Check for an API key
         id: key
-        if: steps.queue.outputs.has_work == 'true' && steps.open.outputs.open == 'false'
+        if: steps.queue.outputs.has_work == 'true' && steps.open.outputs.open == 'false' && steps.retry.outputs.ok == 'true'
         env:
           A: ${{ secrets.ANTHROPIC_API_KEY }}
           O: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}

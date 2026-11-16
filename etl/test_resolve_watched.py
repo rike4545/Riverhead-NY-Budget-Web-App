@@ -74,5 +74,18 @@ class Registry(unittest.TestCase):
                 self.assertIn(k, i, f"{i.get('id')}: missing {k}")
 
 
+class Overdue(unittest.TestCase):
+    import datetime as _dt
+
+    def test_pending_past_grace_is_overdue(self):
+        d = self._dt.date(2026, 11, 17) + self._dt.timedelta(days=rw.OVERDUE_DAYS + 3)
+        self.assertEqual(rw.days_overdue({**ITEM, "status": "pending"}, d), 3)
+
+    def test_within_grace_or_decided_is_not(self):
+        d = self._dt.date(2026, 11, 17) + self._dt.timedelta(days=rw.OVERDUE_DAYS)
+        self.assertEqual(rw.days_overdue({**ITEM, "status": "pending"}, d), 0)
+        self.assertEqual(rw.days_overdue({**ITEM, "status": "adopted"}, d + self._dt.timedelta(days=99)), 0)
+
+
 if __name__ == "__main__":
     unittest.main()
