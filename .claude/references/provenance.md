@@ -52,6 +52,11 @@ Licences are in `.claude/skills/LICENSE-superpowers`,
 `.claude/skills/LICENSE-mattpocock-skills` and
 `.claude/references/LICENSE-taste-skill`.
 
+`DESIGN.md` follows the nine-section layout collected in
+VoltAgent/awesome-claude-design (commit 8f746b5, MIT). Nothing was copied: that
+repository is a README listing DESIGN.md files that imitate other companies'
+sites, and none of those is used here.
+
 They are general practice. Where a skill conflicts with this file, this file
 wins: never merge, auto-merge, push to `main` or deploy; open draft pull
 requests; and keep every figure traced to an official record.
