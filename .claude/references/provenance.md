@@ -62,3 +62,15 @@ sidecar files beside each skill mark them as its own, so commit them too.
   brief. If one does, fix or delete it.
 - To update autoharness, copy a newer commit over the folder unchanged and
   record the commit here; don't edit its code in place.
+
+## GitHub Actions
+
+`.github/workflows/draft-board-followups.yml` runs
+anthropics/claude-code-action (MIT License, Anthropic) pinned to commit
+f3b070c88125d33dbae5653df5f143101d4ea9dc, release v1.0.276 of November 13,
+2026, reviewed November 16, 2026. It is used in automation mode only (a fixed
+prompt, no @claude mentions), with the tool list in the workflow's
+`claude_args`. Its docs/security.md describes the write-access check on
+`workflow_run` triggers. To update it, read the newer release's action.yml and
+docs/security.md, then change the pinned commit and this entry; never point it
+at a moving tag such as `@v1`.
