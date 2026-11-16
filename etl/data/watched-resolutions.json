@@ -1,0 +1,37 @@
+{
+  "note": "Resolutions that hand-written pages depend on. etl/resolve_watched.py looks each one up in the parsed meeting data after every meeting sync and records how the Board voted, in web/public/data/watched-resolutions.json; the pages read their status from there, so a vote changes them with no one editing a page. `match` is a case-insensitive phrase from the agenda title. `followUps` lists what a person (or the drafting agent) still has to do once the vote is in, because it needs judgment rather than a status flip.",
+  "items": [
+    {
+      "id": "pba-stipulation-2027-2030",
+      "meetingDate": "2026-11-17",
+      "agendaItem": "IX.26",
+      "match": "Execute Stipulation with Riverhead Town Police Benevolent Association",
+      "pages": ["/payroll/", "/predict-2027/"],
+      "followUps": [
+        "If adopted: treat the PBA's 2027 rate as contractual (3.75% plus $500) in etl/predict_2027.py and lib/labor-contracts-2027.ts instead of the trailing-average placeholder.",
+        "If adopted: set PoliceContracts2027.adopted in the iOS and Android apps."
+      ]
+    },
+    {
+      "id": "soa-stipulation-2027-2030",
+      "meetingDate": "2026-11-17",
+      "agendaItem": "IX.27",
+      "match": "Execute Stipulation with Riverhead Town Superior Officers Association",
+      "pages": ["/payroll/", "/predict-2027/"],
+      "followUps": [
+        "If adopted: treat the SOA's 2027 rate as contractual (3.75% plus $500) in etl/predict_2027.py and lib/labor-contracts-2027.ts.",
+        "If adopted: set PoliceContracts2027.adopted in the iOS and Android apps."
+      ]
+    },
+    {
+      "id": "incentive-payouts-ix2",
+      "meetingDate": "2026-11-17",
+      "agendaItem": "IX.2",
+      "match": "Budget Adjustment for Retirement Incentive Severance Payouts",
+      "pages": ["/buyout/"],
+      "followUps": [
+        "If adopted: add the $1,387,034 draw to the fund-balance draws page if that page does not pick it up from the meeting data."
+      ]
+    }
+  ]
+}

@@ -8,7 +8,7 @@
 // - the built payroll and buyout pages show them and link the packet.
 import { existsSync, readFileSync } from 'node:fs'
 import { join } from 'node:path'
-import { PBA, SOA, FIS_ANSWER, IMPLIED_RAISE, BODYCAM_2027, INCENTIVE_PAYOUTS, MEETING, adopted } from '../lib/police-stipulations-2027.ts'
+import { PBA, SOA, FIS_ANSWER, IMPLIED_RAISE, BODYCAM_2027, INCENTIVE_PAYOUTS, MEETING } from '../lib/police-stipulations-2027.ts'
 import { CSEA_TERMS, CSEA_2027 } from '../lib/raises-2027.ts'
 
 const root = process.cwd()
@@ -63,8 +63,9 @@ const c27 = CSEA_TERMS.find((t) => t.year === 2027)
 if (c27?.pct !== CSEA_2027.pct || c27?.flat !== CSEA_2027.flat) fail('CSEA 2027: CSEA_TERMS and CSEA_2027 disagree')
 
 const built = [
-  ['payroll', ['How this compares with the Town’s civilian workers', 'Resolution 2025-1001', MEETING.packetUrl, MEETING.agendaUrl, money(PBA.officers[6].rates[4]), money(SOA.ranks[3].rates[4]), FIS_ANSWER, adopted === null ? 'proposed, not yet voted on' : 'approved by the Town Board']],
-  ['buyout', [MEETING.agendaUrl, `$${whole(INCENTIVE_PAYOUTS.fromFundBalance)}`, 'not yet voted on']],
+  ['payroll', ['How this compares with the Town’s civilian workers', 'Resolution 2025-1001', MEETING.packetUrl, MEETING.agendaUrl, money(PBA.officers[6].rates[4]), money(SOA.ranks[3].rates[4]), FIS_ANSWER]],
+  // Each page's vote status is checked by verify-watched-resolutions.mjs.
+  ['buyout', [MEETING.agendaUrl, `$${whole(INCENTIVE_PAYOUTS.fromFundBalance)}`]],
 ]
 for (const [page, must] of built) {
   const file = join(root, `out/${page}/index.html`)

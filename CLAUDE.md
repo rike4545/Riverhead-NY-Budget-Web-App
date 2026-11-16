@@ -17,8 +17,9 @@ residents, and every figure on it has to trace to an official record.
   `scripts/verify-*.mjs` (checks on the built output).
 - `.github/workflows/`: `deploy-pages` (every push to `main`),
   `parse-financial-reports`, `sync-meetings` (twice daily),
-  `transcribe-meetings` (daily), `watch-budget-release`, and `quality-gate`
-  (every pull request).
+  `transcribe-meetings` (daily), `watch-budget-release`, `quality-gate`
+  (every pull request) and `draft-board-followups` (after each sync; see
+  below).
 - `.claude/agents/`: this project's agents (below).
   `docs/agent-backlog.md`: the weekly improvement agent's backlog.
 
@@ -84,6 +85,14 @@ python3 etl/build_search_index.py && python3 etl/write_meta.py
   file itself: no script generates it, and the parser merges into it and
   computes its summary. A resolution described elsewhere on the site (the
   Town Square, debt and 2027 pages) must be corrected there too.
+- A page that waits on a particular resolution reads its vote from
+  `etl/data/watched-resolutions.json` through `web/lib/watched-resolutions.ts`
+  (`etl/resolve_watched.py` fills it on every sync). Add the resolution there
+  rather than writing "proposed" into a page; list in `followUps` what a
+  person must still do once it is decided.
+- `draft-board-followups` runs a Claude agent on decided watched resolutions
+  and new on-topic resolutions (`etl/data/agent-topics.json`) and opens a
+  draft PR for the owner. It never merges; review its PRs like any other.
 - Keep unofficial material labelled. Machine transcripts can mishear names
   and figures.
 - Frame findings as likely concerns for residents, never as legal or audit

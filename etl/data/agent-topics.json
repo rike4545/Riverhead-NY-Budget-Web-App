@@ -1,0 +1,17 @@
+{
+  "note": "Topics with hand-written pages, for etl/agent_queue.py. A new Town Board resolution whose title contains one of a topic's phrases (case-insensitive) is queued for the drafting agent, which proposes an update to the topic's pages in a draft pull request. Only resolutions from meetings on or after `since` are queued, so history is not re-proposed.",
+  "since": "2026-11-17",
+  "topics": [
+    { "id": "town-square", "pages": ["/town-square/"], "phrases": ["town square", "peconic river hotel", "127 east main", "117-127 e", "east main street urban renewal"] },
+    { "id": "epcal", "pages": ["/epcal/"], "phrases": ["epcal", "enterprise park at calverton", "calverton aviation", "community development agency (cda)"] },
+    { "id": "ida", "pages": ["/ida/"], "phrases": ["industrial development agency"] },
+    { "id": "police-contracts", "pages": ["/payroll/", "/predict-2027/"], "phrases": ["police benevolent association", "superior officers association"] },
+    { "id": "csea", "pages": ["/payroll/", "/predict-2027/"], "phrases": ["csea"] },
+    { "id": "pattern-book", "pages": ["/pattern-book/"], "phrases": ["pattern book", "dc-1", "downtown center 1"] },
+    { "id": "armory", "pages": ["/armory/"], "phrases": ["armory", "ymca"] },
+    { "id": "justice-court", "pages": ["/justice-court/"], "phrases": ["200 howell", "justice court"] },
+    { "id": "cable-franchise", "pages": ["/cable-franchise/"], "phrases": ["cable franchise", "optimum", "cablevision", "verizon"] },
+    { "id": "buyout", "pages": ["/buyout/"], "phrases": ["retirement incentive"] },
+    { "id": "comprehensive-plan", "pages": ["/comprehensive-plan/"], "phrases": ["comprehensive plan"] }
+  ]
+}

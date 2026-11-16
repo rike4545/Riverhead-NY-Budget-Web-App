@@ -20,6 +20,11 @@
 
 import fiscalIndex from '../public/data/meetings/fiscal-index.json'
 import { realRaiseExamples } from './pba-step-schedule'
+import { statusPhrase, watched } from './watched-resolutions'
+
+const pbaWatch = watched('pba-stipulation-2027-2030')
+const soaWatch = watched('soa-stipulation-2027-2030')
+const pending = (w: { status: string }) => w.status === 'pending'
 
 type Res = {
   number: string | null
@@ -105,7 +110,7 @@ export const units: UnitStatus[] = [
     resolutions: forUnit('PBA'),
     candidates: forUnit('PBA').filter((r) => !r.isRetirementIncentive),
     finding:
-      'Not yet voted on. Item IX.26 on the November 17, 2026 agenda asks the Board to approve a stipulation with the PBA; its attached salary schedule runs from 2027 to 2030 and raises every step 3.75% a year, plus $500 in 2027 for the body-camera agreement. Until the Board votes, the projection keeps its placeholder. The only earlier PBA item this year is the July 7 retirement-incentive stipulation, which sets no wage rate. The current contract runs out on December 31, 2026.',
+      `Item IX.26: ${statusPhrase(pbaWatch)}. Item IX.26 on the November 17, 2026 agenda put a stipulation with the PBA to the Board; its attached salary schedule runs from 2027 to 2030 and raises every step 3.75% a year, plus $500 in 2027 for the body-camera agreement. ${pending(pbaWatch) ? 'Until the Board votes, the projection keeps its placeholder.' : 'The projection still uses its placeholder until its rates are updated to the new schedule.'} The only earlier PBA item this year is the July 7 retirement-incentive stipulation, which sets no wage rate. The current contract runs out on December 31, 2026.`,
   },
   {
     unit: 'SOA',
@@ -115,7 +120,7 @@ export const units: UnitStatus[] = [
     resolutions: forUnit('SOA'),
     candidates: forUnit('SOA').filter((r) => !r.isRetirementIncentive),
     finding:
-      'Not yet voted on. Item IX.27 on the November 17, 2026 agenda asks the Board to approve a stipulation with the SOA, with the same terms as the PBA’s: 3.75% a year from 2027 to 2030, plus $500 in 2027. The only earlier SOA item this year is the July 7 retirement-incentive stipulation. The current contract expires December 31, 2026.',
+      `Item IX.27: ${statusPhrase(soaWatch)}. Item IX.27 on the November 17, 2026 agenda put a stipulation with the SOA to the Board, with the same terms as the PBA’s: 3.75% a year from 2027 to 2030, plus $500 in 2027. The only earlier SOA item this year is the July 7 retirement-incentive stipulation. The current contract expires December 31, 2026.`,
   },
 ]
 
@@ -216,8 +221,10 @@ export const headline =
   `Of the Town's three bargaining units, ${settledUnits.length} has a signed 2027 wage rate and ` +
   `${openUnits.length} do not. The ${openUnits.map((u) => u.unit).join(' and ')} contracts expire on ` +
   `December 31, 2026, and across ${corpus.resolutions.toLocaleString()} resolutions in ` +
-  `${corpus.meetings} meetings no successor for either has been voted on. Successor stipulations for both are on the ` +
-  `Board's November 17, 2026 agenda.`
+  `${corpus.meetings} meetings ` +
+  (pending(pbaWatch) && pending(soaWatch)
+    ? `no successor for either has been voted on. Successor stipulations for both are on the Board's November 17, 2026 agenda.`
+    : `successor stipulations for both went to the Board on November 17, 2026: the PBA's was ${statusPhrase(pbaWatch)} and the SOA's ${statusPhrase(soaWatch)}.`)
 
 export const whyItMatters =
   'These are the police units, and police is the largest single department in the General Fund. The 2027 ' +

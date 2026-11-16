@@ -1,0 +1,5 @@
+{
+  "note": "What the drafting agent has already proposed changes for, so it is not queued again. The agent adds to these lists in the same pull request as its changes; until that pull request is merged or closed, the workflow does not start another.",
+  "watched": [],
+  "resolutions": []
+}
