@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-17T05:16:51Z",
+  "generatedAt": "2026-11-17T21:19:35Z",
   "meetings": {
     "2025-01-07": {
       "eventId": 1314,
@@ -1797,19 +1797,18 @@
       "eventId": 6457,
       "eventName": "Town Board Meeting",
       "minutesPending": true,
-      "sourceVersionAt": "2026-11-17T05:16:51Z",
+      "sourceVersionAt": "2026-11-17T21:19:35Z",
       "startDateTime": "2026-11-17T18:00:00Z",
       "votePacket": {
-        "bytes": 44783383,
-        "changedAt": "2026-11-17T05:16:50Z",
+        "bytes": 44426068,
+        "changedAt": "2026-11-17T21:19:35Z",
         "current": true,
-        "fileId": 12605,
+        "fileId": 12609,
         "hasVoteBlocks": true,
         "name": "Agenda Packet",
-        "pages": 247,
-        "portalUrl": "https://riverheadny.portal.civicclerk.com/event/6457/files/agenda/12605",
+        "pages": 235,
+        "portalUrl": "https://riverheadny.portal.civicclerk.com/event/6457/files/agenda/12609",
         "resolutionNumbers": [
-          "2012-2015",
           "2025-393",
           "2026-1000",
           "2026-1001",
@@ -1837,8 +1836,6 @@
           "2026-1023",
           "2026-1024",
           "2026-1025",
-          "2026-1026",
-          "2026-2029",
           "2026-242",
           "2026-391",
           "2026-678",
@@ -1856,13 +1853,19 @@
           "2026-998",
           "2026-999"
         ],
-        "revisionCount": 0,
-        "revisions": [],
-        "sha256": "68656665a3958bc49e4db612f10473e0d75ce475819f13fc07bf2acc93df5361",
-        "sourceUrl": "https://riverheadny.api.civicclerk.com/v1/Meetings/GetMeetingFileStream(fileId=12605,plainText=false)",
+        "revisionCount": 1,
+        "revisions": [
+          {
+            "archivedTextPath": "etl/data/meetings/revisions/2026-11-17/vote-packet-68656665a3958bc4.txt",
+            "sha256": "68656665a3958bc49e4db612f10473e0d75ce475819f13fc07bf2acc93df5361",
+            "supersededAt": "2026-11-17T21:19:35Z"
+          }
+        ],
+        "sha256": "7be445207f3615d7a5682f44d19f9d0e7352a609250c497da1cde4a5d83be417",
+        "sourceUrl": "https://riverheadny.api.civicclerk.com/v1/Meetings/GetMeetingFileStream(fileId=12609,plainText=false)",
         "textPath": "etl/data/meetings/2026-11-17-vote-packet.txt",
         "type": "Agenda Packet",
-        "voteBlockCount": 32
+        "voteBlockCount": 31
       }
     }
   },
