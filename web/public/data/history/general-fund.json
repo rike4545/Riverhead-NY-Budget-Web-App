@@ -6,9 +6,9 @@
  "note": "Adopted General Fund figures by year. Some early years are unavailable; the series shows every year with a parsed adopted budget, and adds each new one from the Town\u2019s own Summary page when it is adopted. Corrected to the Town\u2019s Summary page, which the following year\u2019s budget repeats: 2021.",
  "growth": {
   "firstYear": 2005,
-  "lastYear": 2026,
-  "appropriationsChangePct": 124.1,
-  "taxLevyChangePct": 145.2
+  "lastYear": 2027,
+  "appropriationsChangePct": 133.2,
+  "taxLevyChangePct": 149.5
  },
  "rows": [
   {
@@ -180,6 +180,15 @@
    "appropriatedFundBalance": 1250000,
    "taxLevy": 52864609,
    "source": "2026 Adopted Budget (PDF)",
+   "status": "Adopted"
+  },
+  {
+   "year": 2027,
+   "appropriations": 71932070,
+   "estimatedRevenues": 17267412,
+   "appropriatedFundBalance": 880000,
+   "taxLevy": 53784658,
+   "source": "2027 Adopted Budget (PDF)",
    "status": "Adopted"
   }
  ]
