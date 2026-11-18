@@ -27,12 +27,35 @@ Four more are copied unchanged from other collections, for gaps the 25 leave:
 - `handoff` (mattpocock/skills at 4ae2317, MIT): run as `/handoff` to write a
   summary a fresh session can pick up.
 
-`.claude/references/copy-tells.md` (leonxlnx/taste-skill at f6b7657, MIT) lists
-what makes copy read as machine-written. Check resident-facing copy against it
-alongside `ux-writing.md`. It names files from its own repo (`copy-lint.mjs`,
-`copy-moves.md` and others) that were not copied. Licences are in
-`.claude/skills/LICENSE-superpowers`, `.claude/skills/LICENSE-mattpocock-skills`
-and `.claude/references/LICENSE-taste-skill`.
+From leonxlnx/taste-skill (v2.5.1, commit f6b7657, MIT), the copy layer only,
+copied unchanged:
+
+- `.claude/references/copy-tells.md`: what makes copy read as machine-written.
+- `.claude/references/copy.md`, `copy-voice.md`, `copy-moves.md` and
+  `copy-registers.md`: its rules for headings, buttons, voice and register.
+- `.claude/tools/taste-skill/copy-lint.mjs`: counts the tells in built pages.
+  Node only; it opens no browser and makes no network calls. Run it with
+  `cd web && npm run copy-lint` after a build, or on one page with
+  `node ../.claude/tools/taste-skill/copy-lint.mjs out/<page>/index.html`.
+
+The rest of that skill (its design kit, photographs, effects, browser checks
+and Stop hook) was read on November 16, 2026 and not adopted: it is built for
+marketing sites and contradicts `DESIGN.md` (one typeface, lucide icons, flat
+cards, sources under figures). Its copy files still name those parts
+(`sections.md`, `cards.md`, `--kind`, the gate); ignore them here. Its word
+budgets were set for short marketing pages, so on long data pages treat its
+findings as advice, and fix a FAIL only where the sentence is better for it.
+To update, copy the same files from a newer commit, unchanged, and change the
+commit here.
+
+Licences are in `.claude/skills/LICENSE-superpowers`,
+`.claude/skills/LICENSE-mattpocock-skills` and
+`.claude/references/LICENSE-taste-skill`.
+
+`DESIGN.md` follows the nine-section layout collected in
+VoltAgent/awesome-claude-design (commit 8f746b5, MIT). Nothing was copied: that
+repository is a README listing DESIGN.md files that imitate other companies'
+sites, and none of those is used here.
 
 They are general practice. Where a skill conflicts with this file, this file
 wins: never merge, auto-merge, push to `main` or deploy; open draft pull

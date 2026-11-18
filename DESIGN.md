@@ -10,6 +10,13 @@ reworked against two references:
 
 This is that brief. Change it when the design changes, not after.
 
+Its sections follow the nine-part `DESIGN.md` layout collected in
+[awesome-claude-design](https://github.com/VoltAgent/awesome-claude-design):
+theme, colour, type, components, layout, depth, do's and don'ts, responsive
+behaviour and prompts for agents. A design agent such as Claude Design can
+then build screens from this file alone. The brand files that collection links
+to are not used: this site is a public record and copies no one's look.
+
 ## Who reads this, and where
 
 Riverhead residents, most of them on a phone, often in the evening or at a Town
@@ -47,6 +54,28 @@ danger). Every colour is a `--rbl-*` token in `web/app/layout.tsx`. The focus
 ring, text selection, scrollbars and caret take their colours from those tokens
 too. Light only.
 
+The tokens a new screen needs most, with their values in `layout.tsx`:
+
+| Role | Token | Value |
+| --- | --- | --- |
+| Page ground | `--rbl-bg` | `#f7f9fb` |
+| Card | `--rbl-surface` | `#ffffff` |
+| Card border | `--rbl-border` | `#d8e0e7` |
+| Text | `--rbl-text` | `#1f2933` |
+| Body text | `--rbl-text-body` | `#475569` |
+| Muted text | `--rbl-text-muted` | `#5f6e83` |
+| Titles and masthead | `--rbl-title` | `#1d405d` |
+| Accent | `--rbl-accent` | `#4a7297` |
+| Link | `--rbl-link` | `#2563eb` |
+| Gold | `--rbl-gold` | `#c99a2e` |
+| Info panel | `--rbl-info-bg` / `--rbl-info-border` / `--rbl-info-text` | `#eef6ff` / `#bcd9f5` / `#1f3a52` |
+| Warning panel | `--rbl-warn-bg` / `--rbl-warn-border` / `--rbl-warn-strong` | `#fff8e6` / `#d8b45a` / `#78350f` |
+| Success panel | `--rbl-success-bg` / `--rbl-success-border` / `--rbl-success-strong` | `#f0fdf4` / `#bbf7d0` / `#166534` |
+| Danger panel | `--rbl-danger-bg` / `--rbl-danger-border` / `--rbl-danger-strong` | `#fef2f2` / `#fecaca` / `#991b1b` |
+
+Use the token, never the hex, in code. Charts use their own validated series
+tokens (`--rbl-series-*`); a status colour never stands for a series.
+
 ## Shapes and surfaces
 
 - Cards are flat: white, a faint 1px border, 14–16px corners, no drop shadow.
@@ -58,6 +87,13 @@ too. Light only.
 - Tables are tables: a caption saying what and where from, sentence-case
   headings, right-aligned figures, hairline rows. On a phone they stack
   (`.rbl-stack`), one labelled block per row.
+
+## Depth
+
+Two levels only. A card sits on the page with its border and no shadow, or a
+hairline one (`--rbl-shadow`). Something that floats over the page, such as a
+menu, a sticky jump bar or a popover, gets one soft shadow. Nothing is nested
+more than two boxes deep.
 
 ## Structure
 
@@ -81,6 +117,17 @@ too. Light only.
   again (`web/components/LoadError.tsx`). Never show a status code or a raw
   error on its own.
 
+## On a phone
+
+- Design at 390px first, then check 1280px.
+- Multi-column grids drop to one column on a phone. Tables stack into
+  labelled blocks (`.rbl-stack`) below 560px, so nothing scrolls sideways.
+- No sideways scroll on any page at 320px.
+- Tap targets at least 24 by 24 pixels, as above; give primary buttons 44px
+  where there is room.
+- Under reduced motion nothing moves, and nothing waits on an animation to
+  appear.
+
 ## Icons
 
 From `lucide-react`, at 14–18px with a 2–2.25 stroke, beside words, never
@@ -103,3 +150,18 @@ When a page feels empty, the fix is a clearer sentence, not more chrome.
 `npm run verify` runs `web/scripts/verify-design.mjs`, which fails the build
 on an emoji in the source, an uppercase label, a thick side stripe, or a built
 page that no longer loads the typeface.
+
+## Prompts for agents
+
+For a design agent, or for Claude building a page here:
+
+- "Build a page that explains <topic> to a Riverhead resident on a phone. Use
+  the tokens, type and card rules in this file. Lead with the one figure that
+  matters and its source document."
+- "Add a table of <figures> with a caption that says what it shows and where
+  it comes from, right-aligned numbers, and the `.rbl-stack` layout on a phone."
+- "Show this status as a tinted panel of the matching family, in words, with
+  no side stripe and no icon standing in for the word."
+
+Every figure in a generated screen still has to come from an official record
+(see `CLAUDE.md`); an agent's sample numbers are placeholders and never ship.
