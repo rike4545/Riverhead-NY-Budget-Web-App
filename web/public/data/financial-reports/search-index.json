@@ -1,5 +1,5 @@
 {
-  "parsed_at": "2026-11-18T18:57:52.735999+00:00",
+  "parsed_at": "2026-11-18T17:25:43.545222+00:00",
   "records": [
     {
       "id": "2027-2027-tentative-budget-pdf-p1",
@@ -16812,7 +16812,7 @@
       "snippet": "2027 Adopted Budget Jerome Halpin Town Supervisor Kenneth Rothwell Robert Kern Town Council Town Council Denise Merrifield Joann Waski Town Council Town Council",
       "money_values": [],
       "confidence": "medium",
-      "parsed_at": "2026-11-18T18:57:52.735999+00:00"
+      "parsed_at": "2026-11-18T17:25:43.545222+00:00"
     },
     {
       "id": "2027-2027-adopted-budget-pdf-p2",
@@ -16826,7 +16826,7 @@
       "snippet": "TOWN OF RIVERHEAD NEW YORK 2027 ADOPTED BUDGET TABLE OF CONTENTS Fund TITLE PAGE Fund Description 1 Summary Page 3 Fund Balances 4 Salaries of Elected Officials 5 A01 General Fund 6 A04 Police Athletic League 18 A06 Recreation Program Fund 19 CM1 Business Improvement District 20 CM2 East Creek Docking Facility 21 CM4 Community Preservation Fund 22 DA1 Highway Fund 23 ES1 Riverhead Sewer District 25 ES3 Calverton Sewer District 27 ES5 Scavenger Waste District 29 EW1 Water District 30 MS1 Workers ",
       "money_values": [],
       "confidence": "medium",
-      "parsed_at": "2026-11-18T18:57:52.735999+00:00"
+      "parsed_at": "2026-11-18T17:25:43.545222+00:00"
     },
     {
       "id": "2027-2027-adopted-budget-pdf-p3",
@@ -16840,7 +16840,7 @@
       "snippet": "TOWN OF RIVERHEAD NEW YORK 2027 ADOPTED BUDGET TABLE OF CONTENTS Fund TITLE PAGE A01 General Fund 40 A04 Police Athletic League 42 A06 Recreation Program Fund 43 CM1 Business Improvement District 44 CM2 East Creek Docking Facility 45 CM4 Community Preservation Fund 46 DA1 Highway Fund 47 ES1 Riverhead Sewer District 48 ES3 Calverton Sewer District 49 ES5 Scavenger Waste District 50 EW1 Water District 51 MS1 Workers Compensation Fund 52 MS2 Risk Retention Fund 53 SL1 Street Lighting District 54 S",
       "money_values": [],
       "confidence": "medium",
-      "parsed_at": "2026-11-18T18:57:52.735999+00:00"
+      "parsed_at": "2026-11-18T17:25:43.545222+00:00"
     },
     {
       "id": "2027-2027-adopted-budget-pdf-p4",
@@ -16854,7 +16854,7 @@
       "snippet": "Fund Description 1 A01 General Fund The principal operating fund and includes all operations not required to be reflected in other funds. A04 Police Athletic League This fund is used to separate and distinguish donations received from the community to support the operations of the town-wide youth sports program known as PAL. A06 Recreation Program Fund This fund includes the operations of recreation programs that are self- sustained and do not require property taxes for their support. CM1 Busine",
       "money_values": [],
       "confidence": "medium",
-      "parsed_at": "2026-11-18T18:57:52.735999+00:00"
+      "parsed_at": "2026-11-18T17:25:43.545222+00:00"
     },
     {
       "id": "2027-2027-adopted-budget-pdf-p5",
@@ -16868,7 +16868,7 @@
       "snippet": "Fund Description 2 MS2 Risk Retention Fund This fund is used to account for the excess insurance and administration of the Town's Liability Self Insurance Program. SL1 Street Lighting District This special revenue fund includes all operations relating to the repair and maintenance of both traffic and street lights within the boundaries of the Town. SM1 Ambulance District This special revenue fund includes the operations relating to the Town Ambulance serving the entire Town excluding the portion",
       "money_values": [],
       "confidence": "medium",
-      "parsed_at": "2026-11-18T18:57:52.735999+00:00"
+      "parsed_at": "2026-11-18T17:25:43.545222+00:00"
     },
     {
       "id": "2027-2027-adopted-budget-pdf-p6",
@@ -16962,7 +16962,7 @@
         "1,060,052"
       ],
       "confidence": "high",
-      "parsed_at": "2026-11-18T18:57:52.735999+00:00"
+      "parsed_at": "2026-11-18T17:25:43.545222+00:00"
     },
     {
       "id": "2027-2027-adopted-budget-pdf-p7",
@@ -16972,8 +16972,8 @@
       "category": "adopted_budget",
       "page": 7,
       "url": "https://www.townofriverheadny.gov/DocumentCenter/View/4170/2027-Adopted-Budget-PDF",
-      "text": "TOWN OF RIVERHEAD NEW YORK\n2027 ADOPTED BUDGET\nFUND BALANCES\nCode Fund\nAudited Fund\nBalance\n12/31/25\nProjected 2026\nApplication of\nFund Balance\nEstimated Fund\nBalance\n12/31/26\nProjected 2027\nApplication of\nFund Balance\nEstimated Fund\nBalance\n12/31/27\nA01 General Fund (A) 33,303,051 $     1,250,000 $       32,053,051 $     880,000 $           31,173,051$\nA04 Police Athletic League -                       -\nA06 Recreation Program Fund -                       -\nCM1 Business Improvement District -                       -\nCM2 East Creek Docking Facility -                       -\nCM4 Community Preservation Fund (B) 30,784,388       -                       30,784,388       -                       30,784,388\nDA1 Highway Fund 5,518,987           -                       5,518,987          -                       5,518,987\nES1 Riverhead Sewer District (C) 23,794,711        -                       23,794,711       -                       23,794,711\nES3 Calverton Sewer District -                       -\nES5 Scavenger Waste District -                       -\nEW1 Water District 49,353,504        -                       49,353,504       -                       49,353,504\nMS1 Workers Compensation Fund (D) 95,447                -                       95,447               -                       95,447\nMS2 Risk Retention Fund -                       -\nSL1 Street Lighting District 2,682,970           -                       2,682,970          -                       2,682,970\nSM1 Ambulance District 756,396              -                       756,396             -                       756,396\nSR1 Refuse and Garbage District 2,046,399           -                       2,046,399          -                       2,046,399\nST1 Public Parking District 579,078              -                       579,078             -                       579,078\nV01 Debt Service Fund -                       -                       -                       -                       -\nZ14 Calverton Parks - CDA (E) 1,418,265           -                       1,418,265          -                       1,418,265\nTotal Town Operating 150,333,196$   1,250,000$       149,083,196$   880,000$           148,203,196$\nNotes:\n(A) Funds A01, A04, A06 are reported in the General Fund\n(B) Funds CM1, CM2, CM4 are reported in the Special Miscellaneous Revenue Fund\n(C) Funds ES1, ES3, ES5 are reported in the Enterprise Sewer Fund\n(D) Funds MS1, MS2 are reported in the Self Insurance Fund\n(E) Funds Z14, Z15, Z18 are reported in the Calverton Parks - CDA Fund\n4",
-      "snippet": "TOWN OF RIVERHEAD NEW YORK 2027 ADOPTED BUDGET FUND BALANCES Code Fund Audited Fund Balance 12/31/25 Projected 2026 Application of Fund Balance Estimated Fund Balance 12/31/26 Projected 2027 Application of Fund Balance Estimated Fund Balance 12/31/27 A01 General Fund (A) 33,303,051 $ 1,250,000 $ 32,053,051 $ 880,000 $ 31,173,051$ A04 Police Athletic League - - A06 Recreation Program Fund - - CM1 Business Improvement District - - CM2 East Creek Docking Facility - - CM4 Community Preservation Fund",
+      "text": "TOWN OF RIVERHEAD NEW YORK\n2027 ADOPTED BUDGET\nFUND BALANCES\nCode Fund\nAudited Fund\nBalance\n12/31/25\nProjected 2026\nApplication of\nFund Balance\nEstimated Fund\nBalance\n12/31/26\nProjected 2027\nApplication of\nFund Balance\nEstimated Fund\nBalance\n12/31/27\nA01 General Fund (A) 33,303,051$     1,250,000$       32,053,051$     880,000$           31,173,051$\nA04 Police Athletic League -                      -\nA06 Recreation Program Fund -                      -\nCM1 Business Improvement District -                      -\nCM2 East Creek Docking Facility -                      -\nCM4 Community Preservation Fund (B) 30,784,388       -                      30,784,388       -                      30,784,388\nDA1 Highway Fund 5,518,987          -                      5,518,987          -                      5,518,987\nES1 Riverhead Sewer District (C) 23,794,711       -                      23,794,711       -                      23,794,711\nES3 Calverton Sewer District -                      -\nES5 Scavenger Waste District -                      -\nEW1 Water District 49,353,504       -                      49,353,504       -                      49,353,504\nMS1 Workers Compensation Fund (D) 95,447               -                      95,447               -                      95,447\nMS2 Risk Retention Fund -                      -\nSL1 Street Lighting District 2,682,970          -                      2,682,970          -                      2,682,970\nSM1 Ambulance District 756,396             -                      756,396             -                      756,396\nSR1 Refuse and Garbage District 2,046,399          -                      2,046,399          -                      2,046,399\nST1 Public Parking District 579,078             -                      579,078             -                      579,078\nV01 Debt Service Fund -                      -                      -                      -                      -\nZ14 Calverton Parks - CDA (E) 1,418,265          -                      1,418,265          -                      1,418,265\nTotal Town Operating 150,333,196$   1,250,000$       149,083,196$   880,000$           148,203,196$\nNotes:\n(A) Funds A01, A04, A06 are reported in the General Fund\n(B) Funds CM1, CM2, CM4 are reported in the Special Miscellaneous Revenue Fund\n(C) Funds ES1, ES3, ES5 are reported in the Enterprise Sewer Fund\n(D) Funds MS1, MS2 are reported in the Self Insurance Fund\n(E) Funds Z14, Z15, Z18 are reported in the Calverton Parks - CDA Fund\n4",
+      "snippet": "TOWN OF RIVERHEAD NEW YORK 2027 ADOPTED BUDGET FUND BALANCES Code Fund Audited Fund Balance 12/31/25 Projected 2026 Application of Fund Balance Estimated Fund Balance 12/31/26 Projected 2027 Application of Fund Balance Estimated Fund Balance 12/31/27 A01 General Fund (A) 33,303,051$ 1,250,000$ 32,053,051$ 880,000$ 31,173,051$ A04 Police Athletic League - - A06 Recreation Program Fund - - CM1 Business Improvement District - - CM2 East Creek Docking Facility - - CM4 Community Preservation Fund (B)",
       "money_values": [
         "33,303,051",
         "1,250,000",
@@ -17017,7 +17017,7 @@
         "148,203,196"
       ],
       "confidence": "high",
-      "parsed_at": "2026-11-18T18:57:52.735999+00:00"
+      "parsed_at": "2026-11-18T17:25:43.545222+00:00"
     },
     {
       "id": "2027-2027-adopted-budget-pdf-p8",
@@ -17067,7 +17067,7 @@
         "$110,000"
       ],
       "confidence": "high",
-      "parsed_at": "2026-11-18T18:57:52.735999+00:00"
+      "parsed_at": "2026-11-18T17:25:43.545222+00:00"
     },
     {
       "id": "2027-2027-adopted-budget-pdf-p9",
@@ -17316,7 +17316,7 @@
         "215,000.00"
       ],
       "confidence": "high",
-      "parsed_at": "2026-11-18T18:57:52.735999+00:00"
+      "parsed_at": "2026-11-18T17:25:43.545222+00:00"
     },
     {
       "id": "2027-2027-adopted-budget-pdf-p10",
@@ -17522,7 +17522,7 @@
         "305,480.00"
       ],
       "confidence": "high",
-      "parsed_at": "2026-11-18T18:57:52.735999+00:00"
+      "parsed_at": "2026-11-18T17:25:43.545222+00:00"
     },
     {
       "id": "2027-2027-adopted-budget-pdf-p11",
@@ -17774,7 +17774,7 @@
         "680,643.00"
       ],
       "confidence": "high",
-      "parsed_at": "2026-11-18T18:57:52.735999+00:00"
+      "parsed_at": "2026-11-18T17:25:43.545222+00:00"
     },
     {
       "id": "2027-2027-adopted-budget-pdf-p12",
@@ -18029,7 +18029,7 @@
         "2,500.00"
       ],
       "confidence": "high",
-      "parsed_at": "2026-11-18T18:57:52.735999+00:00"
+      "parsed_at": "2026-11-18T17:25:43.545222+00:00"
     },
     {
       "id": "2027-2027-adopted-budget-pdf-p13",
@@ -18277,7 +18277,7 @@
         "10,000.00"
       ],
       "confidence": "high",
-      "parsed_at": "2026-11-18T18:57:52.735999+00:00"
+      "parsed_at": "2026-11-18T17:25:43.545222+00:00"
     },
     {
       "id": "2027-2027-adopted-budget-pdf-p14",
@@ -18617,7 +18617,7 @@
         "1,118,290.00"
       ],
       "confidence": "high",
-      "parsed_at": "2026-11-18T18:57:52.735999+00:00"
+      "parsed_at": "2026-11-18T17:25:43.545222+00:00"
     },
     {
       "id": "2027-2027-adopted-budget-pdf-p15",
@@ -18854,7 +18854,7 @@
         "42,604.00"
       ],
       "confidence": "high",
-      "parsed_at": "2026-11-18T18:57:52.735999+00:00"
+      "parsed_at": "2026-11-18T17:25:43.545222+00:00"
     },
     {
       "id": "2027-2027-adopted-budget-pdf-p16",
@@ -19096,7 +19096,7 @@
         "7,500.00"
       ],
       "confidence": "high",
-      "parsed_at": "2026-11-18T18:57:52.735999+00:00"
+      "parsed_at": "2026-11-18T17:25:43.545222+00:00"
     },
     {
       "id": "2027-2027-adopted-budget-pdf-p17",
@@ -19350,7 +19350,7 @@
         "9,000.00"
       ],
       "confidence": "high",
-      "parsed_at": "2026-11-18T18:57:52.735999+00:00"
+      "parsed_at": "2026-11-18T17:25:43.545222+00:00"
     },
     {
       "id": "2027-2027-adopted-budget-pdf-p18",
@@ -19578,7 +19578,7 @@
         "3,600.00"
       ],
       "confidence": "high",
-      "parsed_at": "2026-11-18T18:57:52.735999+00:00"
+      "parsed_at": "2026-11-18T17:25:43.545222+00:00"
     },
     {
       "id": "2027-2027-adopted-budget-pdf-p19",
@@ -19817,7 +19817,7 @@
         "55,000.00"
       ],
       "confidence": "high",
-      "parsed_at": "2026-11-18T18:57:52.735999+00:00"
+      "parsed_at": "2026-11-18T17:25:43.545222+00:00"
     },
     {
       "id": "2027-2027-adopted-budget-pdf-p20",
@@ -20038,7 +20038,7 @@
         "71,932,070.00"
       ],
       "confidence": "high",
-      "parsed_at": "2026-11-18T18:57:52.735999+00:00"
+      "parsed_at": "2026-11-18T17:25:43.545222+00:00"
     },
     {
       "id": "2027-2027-adopted-budget-pdf-p21",
@@ -20192,7 +20192,7 @@
         "84,090.00"
       ],
       "confidence": "high",
-      "parsed_at": "2026-11-18T18:57:52.735999+00:00"
+      "parsed_at": "2026-11-18T17:25:43.545222+00:00"
     },
     {
       "id": "2027-2027-adopted-budget-pdf-p22",
@@ -20366,7 +20366,7 @@
         "472,195.00"
       ],
       "confidence": "high",
-      "parsed_at": "2026-11-18T18:57:52.735999+00:00"
+      "parsed_at": "2026-11-18T17:25:43.545222+00:00"
     },
     {
       "id": "2027-2027-adopted-budget-pdf-p23",
@@ -20421,7 +20421,7 @@
         "144,136.00"
       ],
       "confidence": "high",
-      "parsed_at": "2026-11-18T18:57:52.735999+00:00"
+      "parsed_at": "2026-11-18T17:25:43.545222+00:00"
     },
     {
       "id": "2027-2027-adopted-budget-pdf-p24",
@@ -20570,7 +20570,7 @@
         "288,100.00"
       ],
       "confidence": "high",
-      "parsed_at": "2026-11-18T18:57:52.735999+00:00"
+      "parsed_at": "2026-11-18T17:25:43.545222+00:00"
     },
     {
       "id": "2027-2027-adopted-budget-pdf-p25",
@@ -20620,7 +20620,7 @@
         "2,979,300.00"
       ],
       "confidence": "high",
-      "parsed_at": "2026-11-18T18:57:52.735999+00:00"
+      "parsed_at": "2026-11-18T17:25:43.545222+00:00"
     },
     {
       "id": "2027-2027-adopted-budget-pdf-p26",
@@ -20885,7 +20885,7 @@
         "2,844,458.00"
       ],
       "confidence": "high",
-      "parsed_at": "2026-11-18T18:57:52.735999+00:00"
+      "parsed_at": "2026-11-18T17:25:43.545222+00:00"
     },
     {
       "id": "2027-2027-adopted-budget-pdf-p27",
@@ -20920,7 +20920,7 @@
         "8,286,042.00"
       ],
       "confidence": "high",
-      "parsed_at": "2026-11-18T18:57:52.735999+00:00"
+      "parsed_at": "2026-11-18T17:25:43.545222+00:00"
     },
     {
       "id": "2027-2027-adopted-budget-pdf-p28",
@@ -21183,7 +21183,7 @@
         "2,325,690.00"
       ],
       "confidence": "high",
-      "parsed_at": "2026-11-18T18:57:52.735999+00:00"
+      "parsed_at": "2026-11-18T17:25:43.545222+00:00"
     },
     {
       "id": "2027-2027-adopted-budget-pdf-p29",
@@ -21303,7 +21303,7 @@
         "8,411,538.00"
       ],
       "confidence": "high",
-      "parsed_at": "2026-11-18T18:57:52.735999+00:00"
+      "parsed_at": "2026-11-18T17:25:43.545222+00:00"
     },
     {
       "id": "2027-2027-adopted-budget-pdf-p30",
@@ -21570,7 +21570,7 @@
         "35,932.00"
       ],
       "confidence": "high",
-      "parsed_at": "2026-11-18T18:57:52.735999+00:00"
+      "parsed_at": "2026-11-18T17:25:43.545222+00:00"
     },
     {
       "id": "2027-2027-adopted-budget-pdf-p31",
@@ -21592,7 +21592,7 @@
         "1,538,701.00"
       ],
       "confidence": "high",
-      "parsed_at": "2026-11-18T18:57:52.735999+00:00"
+      "parsed_at": "2026-11-18T17:25:43.545222+00:00"
     },
     {
       "id": "2027-2027-adopted-budget-pdf-p32",
@@ -21851,7 +21851,7 @@
         "2,407,154.00"
       ],
       "confidence": "high",
-      "parsed_at": "2026-11-18T18:57:52.735999+00:00"
+      "parsed_at": "2026-11-18T17:25:43.545222+00:00"
     },
     {
       "id": "2027-2027-adopted-budget-pdf-p33",
@@ -22129,7 +22129,7 @@
         "1,415,061.00"
       ],
       "confidence": "high",
-      "parsed_at": "2026-11-18T18:57:52.735999+00:00"
+      "parsed_at": "2026-11-18T17:25:43.545222+00:00"
     },
     {
       "id": "2027-2027-adopted-budget-pdf-p34",
@@ -22184,7 +22184,7 @@
         "11,402,339.00"
       ],
       "confidence": "high",
-      "parsed_at": "2026-11-18T18:57:52.735999+00:00"
+      "parsed_at": "2026-11-18T17:25:43.545222+00:00"
     },
     {
       "id": "2027-2027-adopted-budget-pdf-p35",
@@ -22219,7 +22219,7 @@
         "1,050,000.00"
       ],
       "confidence": "high",
-      "parsed_at": "2026-11-18T18:57:52.735999+00:00"
+      "parsed_at": "2026-11-18T17:25:43.545222+00:00"
     },
     {
       "id": "2027-2027-adopted-budget-pdf-p36",
@@ -22254,7 +22254,7 @@
         "450,000.00"
       ],
       "confidence": "high",
-      "parsed_at": "2026-11-18T18:57:52.735999+00:00"
+      "parsed_at": "2026-11-18T17:25:43.545222+00:00"
     },
     {
       "id": "2027-2027-adopted-budget-pdf-p37",
@@ -22411,7 +22411,7 @@
         "911,244.00"
       ],
       "confidence": "high",
-      "parsed_at": "2026-11-18T18:57:52.735999+00:00"
+      "parsed_at": "2026-11-18T17:25:43.545222+00:00"
     },
     {
       "id": "2027-2027-adopted-budget-pdf-p38",
@@ -22551,7 +22551,7 @@
         "2,312,093.00"
       ],
       "confidence": "high",
-      "parsed_at": "2026-11-18T18:57:52.735999+00:00"
+      "parsed_at": "2026-11-18T17:25:43.545222+00:00"
     },
     {
       "id": "2027-2027-adopted-budget-pdf-p39",
@@ -22672,7 +22672,7 @@
         "5,302,990.00"
       ],
       "confidence": "high",
-      "parsed_at": "2026-11-18T18:57:52.735999+00:00"
+      "parsed_at": "2026-11-18T17:25:43.545222+00:00"
     },
     {
       "id": "2027-2027-adopted-budget-pdf-p40",
@@ -22775,7 +22775,7 @@
         "212,938.00"
       ],
       "confidence": "high",
-      "parsed_at": "2026-11-18T18:57:52.735999+00:00"
+      "parsed_at": "2026-11-18T17:25:43.545222+00:00"
     },
     {
       "id": "2027-2027-adopted-budget-pdf-p41",
@@ -22845,7 +22845,7 @@
         "2,594,028.00"
       ],
       "confidence": "high",
-      "parsed_at": "2026-11-18T18:57:52.735999+00:00"
+      "parsed_at": "2026-11-18T17:25:43.545222+00:00"
     },
     {
       "id": "2027-2027-adopted-budget-pdf-p42",
@@ -22905,7 +22905,7 @@
         "75,261.00"
       ],
       "confidence": "high",
-      "parsed_at": "2026-11-18T18:57:52.735999+00:00"
+      "parsed_at": "2026-11-18T17:25:43.545222+00:00"
     },
     {
       "id": "2027-2027-adopted-budget-pdf-p43",
@@ -23227,7 +23227,7 @@
         "5,000.00"
       ],
       "confidence": "high",
-      "parsed_at": "2026-11-18T18:57:52.735999+00:00"
+      "parsed_at": "2026-11-18T17:25:43.545222+00:00"
     },
     {
       "id": "2027-2027-adopted-budget-pdf-p44",
@@ -23337,7 +23337,7 @@
         "71,932,070.00"
       ],
       "confidence": "high",
-      "parsed_at": "2026-11-18T18:57:52.735999+00:00"
+      "parsed_at": "2026-11-18T17:25:43.545222+00:00"
     },
     {
       "id": "2027-2027-adopted-budget-pdf-p45",
@@ -23372,7 +23372,7 @@
         "84,090.00"
       ],
       "confidence": "high",
-      "parsed_at": "2026-11-18T18:57:52.735999+00:00"
+      "parsed_at": "2026-11-18T17:25:43.545222+00:00"
     },
     {
       "id": "2027-2027-adopted-budget-pdf-p46",
@@ -23422,7 +23422,7 @@
         "472,195.00"
       ],
       "confidence": "high",
-      "parsed_at": "2026-11-18T18:57:52.735999+00:00"
+      "parsed_at": "2026-11-18T17:25:43.545222+00:00"
     },
     {
       "id": "2027-2027-adopted-budget-pdf-p47",
@@ -23447,7 +23447,7 @@
         "144,136.00"
       ],
       "confidence": "high",
-      "parsed_at": "2026-11-18T18:57:52.735999+00:00"
+      "parsed_at": "2026-11-18T17:25:43.545222+00:00"
     },
     {
       "id": "2027-2027-adopted-budget-pdf-p48",
@@ -23477,7 +23477,7 @@
         "288,100.00"
       ],
       "confidence": "high",
-      "parsed_at": "2026-11-18T18:57:52.735999+00:00"
+      "parsed_at": "2026-11-18T17:25:43.545222+00:00"
     },
     {
       "id": "2027-2027-adopted-budget-pdf-p49",
@@ -23502,7 +23502,7 @@
         "2,979,300.00"
       ],
       "confidence": "high",
-      "parsed_at": "2026-11-18T18:57:52.735999+00:00"
+      "parsed_at": "2026-11-18T17:25:43.545222+00:00"
     },
     {
       "id": "2027-2027-adopted-budget-pdf-p50",
@@ -23557,7 +23557,7 @@
         "8,286,042.00"
       ],
       "confidence": "high",
-      "parsed_at": "2026-11-18T18:57:52.735999+00:00"
+      "parsed_at": "2026-11-18T17:25:43.545222+00:00"
     },
     {
       "id": "2027-2027-adopted-budget-pdf-p51",
@@ -23615,7 +23615,7 @@
         "8,411,538.00"
       ],
       "confidence": "high",
-      "parsed_at": "2026-11-18T18:57:52.735999+00:00"
+      "parsed_at": "2026-11-18T17:25:43.545222+00:00"
     },
     {
       "id": "2027-2027-adopted-budget-pdf-p52",
@@ -23652,7 +23652,7 @@
         "1,538,701.00"
       ],
       "confidence": "high",
-      "parsed_at": "2026-11-18T18:57:52.735999+00:00"
+      "parsed_at": "2026-11-18T17:25:43.545222+00:00"
     },
     {
       "id": "2027-2027-adopted-budget-pdf-p53",
@@ -23689,7 +23689,7 @@
         "2,407,154.00"
       ],
       "confidence": "high",
-      "parsed_at": "2026-11-18T18:57:52.735999+00:00"
+      "parsed_at": "2026-11-18T17:25:43.545222+00:00"
     },
     {
       "id": "2027-2027-adopted-budget-pdf-p54",
@@ -23750,7 +23750,7 @@
         "11,402,339.00"
       ],
       "confidence": "high",
-      "parsed_at": "2026-11-18T18:57:52.735999+00:00"
+      "parsed_at": "2026-11-18T17:25:43.545222+00:00"
     },
     {
       "id": "2027-2027-adopted-budget-pdf-p55",
@@ -23775,7 +23775,7 @@
         "1,050,000.00"
       ],
       "confidence": "high",
-      "parsed_at": "2026-11-18T18:57:52.735999+00:00"
+      "parsed_at": "2026-11-18T17:25:43.545222+00:00"
     },
     {
       "id": "2027-2027-adopted-budget-pdf-p56",
@@ -23800,7 +23800,7 @@
         "450,000.00"
       ],
       "confidence": "high",
-      "parsed_at": "2026-11-18T18:57:52.735999+00:00"
+      "parsed_at": "2026-11-18T17:25:43.545222+00:00"
     },
     {
       "id": "2027-2027-adopted-budget-pdf-p57",
@@ -23832,7 +23832,7 @@
         "911,244.00"
       ],
       "confidence": "high",
-      "parsed_at": "2026-11-18T18:57:52.735999+00:00"
+      "parsed_at": "2026-11-18T17:25:43.545222+00:00"
     },
     {
       "id": "2027-2027-adopted-budget-pdf-p58",
@@ -23872,7 +23872,7 @@
         "2,312,093.00"
       ],
       "confidence": "high",
-      "parsed_at": "2026-11-18T18:57:52.735999+00:00"
+      "parsed_at": "2026-11-18T17:25:43.545222+00:00"
     },
     {
       "id": "2027-2027-adopted-budget-pdf-p59",
@@ -23897,7 +23897,7 @@
         "5,302,990.00"
       ],
       "confidence": "high",
-      "parsed_at": "2026-11-18T18:57:52.735999+00:00"
+      "parsed_at": "2026-11-18T17:25:43.545222+00:00"
     },
     {
       "id": "2027-2027-adopted-budget-pdf-p60",
@@ -23927,7 +23927,7 @@
         "212,938.00"
       ],
       "confidence": "high",
-      "parsed_at": "2026-11-18T18:57:52.735999+00:00"
+      "parsed_at": "2026-11-18T17:25:43.545222+00:00"
     },
     {
       "id": "2027-2027-adopted-budget-pdf-p61",
@@ -23973,7 +23973,7 @@
         "2,594,028.00"
       ],
       "confidence": "high",
-      "parsed_at": "2026-11-18T18:57:52.735999+00:00"
+      "parsed_at": "2026-11-18T17:25:43.545222+00:00"
     },
     {
       "id": "2027-2027-adopted-budget-pdf-p62",
@@ -23998,7 +23998,7 @@
         "75,261.00"
       ],
       "confidence": "high",
-      "parsed_at": "2026-11-18T18:57:52.735999+00:00"
+      "parsed_at": "2026-11-18T17:25:43.545222+00:00"
     },
     {
       "id": "2027-2027-adopted-budget-pdf-p63",
@@ -24045,7 +24045,7 @@
         "1,020,129"
       ],
       "confidence": "high",
-      "parsed_at": "2026-11-18T18:57:52.735999+00:00"
+      "parsed_at": "2026-11-18T17:25:43.545222+00:00"
     },
     {
       "id": "2027-2027-adopted-budget-pdf-p64",
@@ -24083,7 +24083,7 @@
         "3,639,873,415"
       ],
       "confidence": "high",
-      "parsed_at": "2026-11-18T18:57:52.735999+00:00"
+      "parsed_at": "2026-11-18T17:25:43.545222+00:00"
     },
     {
       "id": "2026-2026-tentative-budget-pdf-p1",

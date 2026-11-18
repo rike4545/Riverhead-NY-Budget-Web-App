@@ -1,6 +1,6 @@
 {
   "source_index": "https://www.townofriverheadny.gov/206/Financial-Reports",
-  "parsed_at": "2026-11-18T18:57:52.735999+00:00",
+  "parsed_at": "2026-11-18T17:25:43.545222+00:00",
   "document_count": 135,
   "audit_document_count": 41,
   "failure_count": 0,
@@ -54,7 +54,7 @@
       "page_count": 64,
       "money_value_count": 6330,
       "sha256": "0751f70d5ef95b3196a49c89292bc52698c2107b39c61973d39d1d64e6af2d3e",
-      "parsed_at": "2026-11-18T18:57:52.735999+00:00"
+      "parsed_at": "2026-11-18T17:25:43.545222+00:00"
     },
     {
       "title": "2026 Tentative Budget (PDF)",
