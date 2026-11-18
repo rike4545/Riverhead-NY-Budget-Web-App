@@ -1,5 +1,6 @@
 import PageShell from '../../components/PageShell'
 import PlainCallout from '../../components/PlainCallout'
+import { lineStageLabel } from '../../lib/budget-stages'
 import {
   cableAsOf, channels, franchise, kindLabel, law, longDate, questions, recordsSearched, revenue, revenueRows, usd, verizon, verizonNow,
   type CableSource,
@@ -97,7 +98,7 @@ export default function CableFranchisePage() {
             </div>
           ))}
         </div>
-        <p style={{ ...muted, margin: '0 0 12px' }}>Blue bars are actual receipts; gold bars are the 2026 adopted and 2027 Preliminary budgets.</p>
+        <p style={{ ...muted, margin: '0 0 12px' }}>Blue bars are actual receipts; gold bars are the 2026 and 2027 adopted budgets.</p>
         <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 15, maxWidth: 520 }}>
           <caption style={{ textAlign: 'left', fontWeight: 700, color: 'var(--rbl-text-strong)', paddingBottom: 6 }}>{revenue.name} revenue, {revenue.account}</caption>
           <thead><tr style={{ borderBottom: '1px solid var(--rbl-border)' }}>
@@ -153,7 +154,7 @@ export default function CableFranchisePage() {
         <h2 id="method-heading" style={h2}>How this was put together</h2>
         <p style={prose}>
           The 2016 terms are quoted from the Town Board’s minutes on the Town’s CivicClerk portal, which record the hearing word for word. The federal
-          rules are quoted from Title 47 of the U.S. Code. The revenue figures are the Town’s, from its 2027 Budget Supplement and Preliminary
+          rules are quoted from Title 47 of the U.S. Code. The revenue figures are the Town’s, from its 2027 Budget Supplement and {lineStageLabel(2027) === 'Adopted' ? 'Adopted' : 'Preliminary'}
           Budget. News reports are labelled. These are likely concerns for residents, not legal findings.
         </p>
       </section>

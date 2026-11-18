@@ -11,6 +11,7 @@ import {
   afterTheFact, baseGrowthPct, buildingFeesWatch, carryover, draws, middle, middleThresholds, newerRatio, exampleHome, gapOf, interest, levels, levelOf, otherEstimates, pathOf,
   policeOffset, savings, sources, suffolk, summary, townWideFunds, trajectory, trendNote, verdict, whyHarder,
 } from '../../lib/zero-percent-2027'
+import { adoptedAsPreliminary } from '../../lib/budget-stages'
 
 const base = process.env.NEXT_PUBLIC_BASE_PATH || ''
 function usd(n: number) { return `${n < 0 ? '−' : ''}$${Math.round(Math.abs(n)).toLocaleString('en-US')}` }
@@ -93,7 +94,7 @@ export default function ZeroPercent2027Page() {
             <P>
               The Tentative raises each of the three town-wide funds’ levies by the same {summary.tentativePct.toFixed(2)}%. The Supervisor’s letter says
               every taxing district is within the tax cap limit of {summary.statedLimitPct}%, so a 1% or zero-percent levy would sit well inside the cap.
-              The Board adopted the six amendments on October 20, into the Preliminary Budget it holds a hearing on November 5; the amendments page follows where they stand.
+              {adoptedAsPreliminary(2027) ? 'The Board adopted the six amendments on October 20 and, on November 17, adopted the budget with them in it.' : 'The Board adopted the six amendments on October 20, into the Preliminary Budget it holds a hearing on November 5; the amendments page follows where they stand.'}
             </P>
             <div data-levels>
               <Table

@@ -4,6 +4,7 @@ import { useEffect, useId, useMemo, useState, type ReactNode } from 'react'
 import { CircleAlert, Printer, TrendingDown, TrendingUp, Ban } from 'lucide-react'
 import QualityInputs from './QualityInputs'
 import { GROUPS, SURVEY_SCALE, surveyKit, type Department, type SurveyQuestion } from '../lib/dept-efficiency'
+import { lineStageLabel } from '../lib/budget-stages'
 
 const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 20, marginBottom: 16 } as const
 const h2 = { margin: '0 0 6px', color: 'var(--rbl-title)', fontSize: 20 } as const
@@ -159,7 +160,7 @@ function DepartmentPanel({ d, lastYear, currentYear, budgetYear }: { d: Departme
       <p style={{ ...help, margin: '0 0 12px' }}>{d.fundName} ({d.fund}), function {d.fn}, {GROUPS[d.group]?.toLowerCase()}. {d.lines} budget lines.</p>
       <div style={{ display: 'grid', gap: 10, gridTemplateColumns: 'repeat(auto-fit,minmax(min(170px,100%),1fr))' }}>
         <Tile label={`Spent in ${lastYear}`} value={usd(d.latestActual)} note={`Budget ${usd(d.latestBudget)}`} />
-        <Tile label={`${currentYear} budget`} value={usd(d.currentBudget)} note={d.proposed ? `${budgetYear} Preliminary ${usd(d.proposed)}` : undefined} />
+        <Tile label={`${currentYear} budget`} value={usd(d.currentBudget)} note={d.proposed ? `${budgetYear} ${lineStageLabel(budgetYear)} ${usd(d.proposed)}` : undefined} />
         <Tile label="Growth per year" value={d.growth?.perYear == null ? '—' : pct(d.growth.perYear)} note={d.growth ? `${usd(d.growth.from)} in ${d.growth.first} to ${usd(d.growth.to)} in ${d.growth.last}` : undefined} />
         <Tile label="From budget, on average" value={pct(d.avgVariance, false)} note={d.yearsCompared ? `Over budget ${d.yearsOver} of ${d.yearsCompared} years` : undefined} />
         <Tile label="Overtime share of pay" value={pct(d.overtimeShare, false)} note={d.overtimeShare === null ? 'No payroll lines here' : `${lastYear}`} />
@@ -179,7 +180,7 @@ function DepartmentPanel({ d, lastYear, currentYear, budgetYear }: { d: Departme
               </tr>
             ))}
             <tr><th scope="row" style={{ ...td, fontWeight: 600 }}>{currentYear}</th><td style={num}>{usd(d.currentBudget)}</td><td style={{ ...td, ...help }} colSpan={2}>Year in progress</td></tr>
-            {d.proposed > 0 && <tr><th scope="row" style={{ ...td, fontWeight: 600 }}>{budgetYear}</th><td style={num}>{usd(d.proposed)}</td><td style={{ ...td, ...help }} colSpan={2}>Preliminary budget</td></tr>}
+            {d.proposed > 0 && <tr><th scope="row" style={{ ...td, fontWeight: 600 }}>{budgetYear}</th><td style={num}>{usd(d.proposed)}</td><td style={{ ...td, ...help }} colSpan={2}>{lineStageLabel(budgetYear)} budget</td></tr>}
           </tbody>
         </table>
       </div>

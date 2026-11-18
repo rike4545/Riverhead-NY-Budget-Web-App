@@ -23,6 +23,7 @@ import { countWord, overrideStreak, yearsPhrase } from './budget-adoption'
 import { UPDATED, updatedPrediction } from './predict-2027-update'
 import { cseaFloor } from './raises-2027'
 import { nyshipPlanPrimeIndividualMonthlyPremium } from './spending-reduction-2027'
+import { adoptedAsPreliminary } from './budget-stages'
 
 // The General Fund's balance at the end of 2025, as audited, e.g. "$33.3M" and "$28.8M".
 const gfBalance = `$${(AUDITED_GENERAL_FUND[2025].total / 1e6).toFixed(1)}M`
@@ -253,7 +254,7 @@ export const neutralView = {
           : `2027 Tentative: a levy ${changePhrase(released2027.levyPct)} 2026, ${gapPhrase(released2027.levyVsReference)} a 2% increase. The Board can still change it.`]
       : []),
     ...(updatedPrediction
-      ? [`The Board adopted six amendments on October 20 that would lower the town-wide increase to ${updatedPrediction.row('town-wide-change').predicted.toFixed(2)}%, as this site’s updated prediction (${UPDATED.date}) expected. They are now part of the Preliminary Budget.`]
+      ? [`The Board adopted six amendments on October 20 that would lower the town-wide increase to ${updatedPrediction.row('town-wide-change').predicted.toFixed(2)}%, as this site’s updated prediction (${UPDATED.date}) expected. They are now part of the Preliminary Budget${adoptedAsPreliminary(2027) ? ', which the Board adopted unchanged on November 17, 2026' : ''}.`]
       : []),
   ],
   principles: [

@@ -6,7 +6,7 @@ import { allFundCodes, getFundDetail } from '../../../lib/subaccounts'
 import { allOperatingFunds2026 } from '../../../lib/all-funds'
 import { afrGroupForBudgetFund } from '../../../lib/afr'
 import { AUDITED_GENERAL_FUND, AUDITED_OPERATIONS, AUDIT_2025, deficitHistory } from '../../../lib/audits'
-import { stageDoc } from '../../../lib/budget-stages'
+import { lineStageLabel, stageDoc } from '../../../lib/budget-stages'
 import { dollars } from '../../../lib/financial-data'
 import { fundYears, lineSource, PROPOSAL_ADOPTED, PROPOSAL_LABEL, PROPOSAL_STATUS, PROPOSAL_VERB, proposedOf, supplementAdoptedYear, supplementLines, supplementPriorAdoptedYear, TENTATIVE_YEAR, withTentative } from '../../../lib/funds-2027'
 import { isSetAside } from '../../../lib/savings-rules'
@@ -356,7 +356,7 @@ function SnowOvertimeNote({ code }: { code: string }) {
         {dollars(s.snow.ytdThisYear ?? 0)} through {SNOW.ytdThrough}, {s.snow.thisYear}. The general repair overtime line, budgeted at{' '}
         {dollars(s.repairLast.adopted)}, spent <strong>{dollars(s.repairLast.actual)}</strong> in {s.repairLast.year} and{' '}
         {dollars(s.repair.ytdThisYear ?? 0)} by {SNOW.ytdThrough}, {s.repair.thisYear}. That pattern suggests plowing overtime is
-        charged to the repair line; the budget does not say. The {s.snow.thisYear + 1} Preliminary keeps both lines as they were:{' '}
+        charged to the repair line; the budget does not say. The {s.snow.thisYear + 1} {lineStageLabel(s.snow.thisYear + 1)} budget keeps both lines as they were:{' '}
         {dollars(s.snow.proposed ?? 0)} for snow overtime and {dollars(s.repair.proposed ?? 0)} for repair overtime.
       </p>
       <div data-scroll-region style={{ overflowX: 'auto' }}>
@@ -387,7 +387,7 @@ function SnowOvertimeNote({ code }: { code: string }) {
               <td data-label="Repair OT spent" style={td}>{dollars(s.repair.ytdThisYear ?? 0)}</td>
             </tr>
             <tr>
-              <th scope="row" style={{ ...td, textAlign: 'left' }}>{s.snow.thisYear + 1} Preliminary</th>
+              <th scope="row" style={{ ...td, textAlign: 'left' }}>{s.snow.thisYear + 1} {lineStageLabel(s.snow.thisYear + 1)}</th>
               <td data-label="Snow OT budget" style={td}>{dollars(s.snow.proposed ?? 0)}</td>
               <td data-label="Snow OT spent" style={td}>not yet</td>
               <td data-label="Repair OT budget" style={td}>{dollars(s.repair.proposed ?? 0)}</td>
@@ -443,7 +443,7 @@ function PalUniformsNote({ code }: { code: string }) {
       <h2 id="pal-uniforms-heading" style={{ margin: '0 0 8px', color: 'var(--rbl-title)', fontSize: 21 }}>Uniforms</h2>
       <p style={{ margin: '0 0 10px', color: 'var(--rbl-text-body)', fontSize: 15.5, lineHeight: 1.6, maxWidth: '75ch' }}>
         The league’s uniform line spent more than its budget in <strong>{u.yearsOver} of the last {u.rows.length} years</strong>. By{' '}
-        {OT_SOURCE.ytdThrough}, {u.thisYear} it had spent {dollars(u.ytdNow)} of {dollars(u.budgetNow)}, and the {u.thisYear + 1} Preliminary keeps{' '}
+        {OT_SOURCE.ytdThrough}, {u.thisYear} it had spent {dollars(u.ytdNow)} of {dollars(u.budgetNow)}, and the {u.thisYear + 1} {lineStageLabel(u.thisYear + 1)} budget keeps{' '}
         {dollars(u.proposed)}. The Town describes this fund as separating the donations that support the league, and the audits have found it in deficit, so a line that
         regularly runs over its budget is part of that question.
       </p>
@@ -469,7 +469,7 @@ function PalUniformsNote({ code }: { code: string }) {
               <td data-label="Spent" style={td}>{dollars(u.ytdNow)}</td>
             </tr>
             <tr>
-              <th scope="row" style={{ ...td, textAlign: 'left' }}>{u.thisYear + 1} Preliminary</th>
+              <th scope="row" style={{ ...td, textAlign: 'left' }}>{u.thisYear + 1} {lineStageLabel(u.thisYear + 1)}</th>
               <td data-label="Budget" style={td}>{dollars(u.proposed)}</td>
               <td data-label="Spent" style={td}>not yet</td>
             </tr>

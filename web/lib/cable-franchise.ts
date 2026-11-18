@@ -6,6 +6,7 @@
 // web/scripts/verify-cable-franchise.mjs checks the revenue against that data.
 
 import json from '../public/data/cable-franchise.json'
+import { lineStageLabel } from './budget-stages'
 
 export type SourceKind = 'town' | 'law' | 'news'
 export type CableSource = { kind: SourceKind; title: string; url: string }
@@ -35,11 +36,11 @@ export const verizonNow = data.verizonNow
 export const channels = data.channels
 export const questions = data.questions
 
-/** Revenue by year: actuals, then the 2026 adopted and 2027 Preliminary budgets. */
+/** Revenue by year: actuals, then the 2026 adopted and the 2027 budget (Adopted once the Board adopted the Preliminary unchanged). */
 export const revenueRows = [
   ...Object.entries(revenue.actual).map(([year, value]) => ({ year, value, kind: 'Actual' as const })),
   { year: '2026', value: revenue.adopted2026, kind: 'Adopted budget' as const },
-  { year: '2027', value: revenue.preliminary2027, kind: 'Preliminary budget' as const },
+  { year: '2027', value: revenue.preliminary2027, kind: (lineStageLabel(2027) === 'Adopted' ? 'Adopted budget' : 'Preliminary budget') as 'Adopted budget' | 'Preliminary budget' },
 ]
 
 export const usd = (n: number) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(n)

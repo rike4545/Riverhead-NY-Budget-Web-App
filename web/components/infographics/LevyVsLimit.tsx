@@ -1,5 +1,5 @@
 import ColumnChart from '../charts/ColumnChart'
-import { stageDoc } from '../../lib/budget-stages'
+import { adoptedAsPreliminary, stageDoc } from '../../lib/budget-stages'
 import { statedLimitPct } from '../../lib/tentative-2027'
 import { pct2 } from './format'
 
@@ -12,15 +12,16 @@ export default function LevyVsLimit() {
   if (!tent || statedLimitPct === null) return null
   const limit: number = statedLimitPct
   const growth = (t: { levy: number; priorLevy: number }) => (t.levy / t.priorLevy - 1) * 100
-  const cols = [{ label: 'Tentative', g: growth(tent) }, ...(prelim ? [{ label: 'Preliminary', g: growth(prelim) }] : [])]
+  const adopted = adoptedAsPreliminary(2027) ? stageDoc(2027, 'adopted')?.townWide ?? null : null
+  const cols = [{ label: 'Tentative', g: growth(tent) }, ...(prelim ? [{ label: 'Preliminary', g: growth(prelim) }] : []), ...(adopted ? [{ label: 'Adopted', g: growth(adopted) }] : [])]
   const room = prelim ? ((limit - growth(prelim)) / 100) * tent.priorLevy : null
   return (
     <ColumnChart
       title="Town-wide levy growth against the stated limit"
       lede={room !== null && room > 0
-        ? `The Preliminary leaves about $${Math.round(room).toLocaleString('en-US')} of room under the limit the Supervisor’s letter states (${statedLimitPct}%). That room is calculated here from the stated figure, not published by the Town.`
+        ? `The ${adopted ? 'adopted budget, unchanged from the Preliminary,' : 'Preliminary'} leaves about $${Math.round(room).toLocaleString('en-US')} of room under the limit the Supervisor’s letter states (${statedLimitPct}%). That room is calculated here from the stated figure, not published by the Town.`
         : `The Supervisor’s Tentative letter states a limit of ${statedLimitPct}%.`}
-      source="Source: Town of Riverhead 2027 Tentative Budget (Supervisor’s letter) and Summary pages, 2027 Preliminary Budget Summary. Growth is the “Total Town Wide” levy against the year before."
+      source={`Source: Town of Riverhead 2027 Tentative Budget (Supervisor’s letter) and Summary pages, 2027 Preliminary${adopted ? ' and Adopted' : ''} Budget Summary. Growth is the “Total Town Wide” levy against the year before.`}
       columns={cols.map((c) => ({ label: c.label, value: Number(c.g.toFixed(2)), display: `+${pct2(c.g)}`, color: c.g >= limit - 0.005 ? 'var(--rbl-warn)' : 'var(--rbl-series-blue)' }))}
       format={pct2}
       threshold={{ value: limit, label: `Stated limit ${limit}%` }}

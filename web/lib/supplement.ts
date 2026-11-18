@@ -13,6 +13,7 @@
 
 import lineHistoryJson from '../public/data/budget-supplement/line-history.json'
 import currentJson from '../public/data/budget-supplement/current-lines.json'
+import { lineStageLabel } from './budget-stages'
 
 export type YearMap = Record<string, number>
 
@@ -71,7 +72,7 @@ const currentByAccount = new Map(current.lines.map((l) => [l.account, l]))
 
 /** The newest stage the lines carry: the Preliminary book's column once it is in, else the Tentative. */
 export const proposalStage: 'preliminary' | 'tentative' = columns.preliminary === budgetYear ? 'preliminary' : 'tentative'
-export const proposalLabel = proposalStage === 'preliminary' ? 'Preliminary' : 'Tentative'
+export const proposalLabel = proposalStage === 'preliminary' ? lineStageLabel(budgetYear) : 'Tentative'
 /** One line's figure in the newest stage. */
 export const proposedOf = (l: { tentative: number | null; preliminary?: number | null }): number | null =>
   proposalStage === 'preliminary' && l.preliminary != null ? l.preliminary : l.tentative

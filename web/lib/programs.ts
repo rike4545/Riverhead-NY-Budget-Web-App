@@ -57,6 +57,7 @@ import {
   PROGRAM_NAMES, PROGRAM_ORDER, budgetYears, programBudget,
   type BudgetFigures, type BudgetStage, type HistoryAccount, type ProgramDepartment, type ProgramFigures, type ProgramKey, type StageSummary,
 } from './program-budget'
+import { adoptedAsPreliminary, lineStageLabel } from './budget-stages'
 
 export type { BudgetStage, ProgramDepartment, ProgramKey } from './program-budget'
 export type ProgramRevenue = { name: string; amount: number }
@@ -340,7 +341,7 @@ for (const { year, stage, spend, revenue, summary } of years.shown) {
   const figures = programBudget(spend, revenue, departmentNames)
   const people = staffFor(year)
   const label = stage !== 'adopted' ? `${year} proposed` : String(year)
-  const title = stage === 'adopted' ? `the ${year} adopted budget` : `the ${year} ${stage === 'preliminary' ? 'Preliminary' : 'Tentative'} Budget`
+  const title = stage === 'adopted' ? `the ${year} adopted budget` : `the ${year} ${stage === 'preliminary' ? lineStageLabel(year) : 'Tentative'} Budget`
   const official = Object.values(summary.funds).reduce((s, f) => s + (f.appropriations ?? 0), 0)
   const byStaff = PROGRAM_ORDER.map((k) => people.staff[k] ?? 0).sort((a, b) => b - a)
   const programs = figures.programs.map((p): Program => {
@@ -375,7 +376,11 @@ for (const { year, stage, spend, revenue, summary } of years.shown) {
     label,
     title,
     supplement: supplement(stage !== 'adopted' ? year : year + 1),
-    summary: summary.source ? { title: summary.source.title.replace(/\s*\(PDF\)$/, ''), url: summary.source.url } : null,
+    // Once the Board adopted the Preliminary unchanged, cite the Adopted book, whose Summary is the same.
+    summary: (() => {
+      const src = stage === 'preliminary' && adoptedAsPreliminary(year) ? stages.years[String(year)]?.adopted?.source ?? summary.source : summary.source
+      return src ? { title: src.title.replace(/\s*\(PDF\)$/, ''), url: src.url } : null
+    })(),
     staffYear: people.year,
     staffHeadcount: people.headcount,
     figures,
