@@ -4,9 +4,9 @@
  "assumptions": [
   {
    "category": "Personal Services",
-   "ratePct": 3.8,
+   "ratePct": 4.1,
    "recentTrend": "+11.3% over 2024\u20132026 (~5.5%/yr)",
-   "why": "Payroll-weighted blend of each Riverhead bargaining unit's own 2027 terms: CSEA gets its contractual 4.6% (2026\u20132029 CBA). PBA and SOA are between contracts \u2014 both 2023\u20132026 agreements expire 12/31/2026 with no successor yet public \u2014 so each uses its own trailing average annual raise as a placeholder. Non-union staff use a general 3.0% trend assumption. Weighted by each group's share of 2025 actual Town payroll. Full breakdown below."
+   "why": "Payroll-weighted blend of each Riverhead bargaining unit's own 2027 terms: CSEA gets its contractual 4.6% (2026\u20132029 CBA). PBA and SOA get their contractual 4.28% and 4.09% (3.75% plus $500, from the 2027\u20132030 stipulations the Board adopted on November 17, 2026). Non-union staff use a general 3.0% trend assumption. Weighted by each group's share of 2025 actual Town payroll. Full breakdown below."
   },
   {
    "category": "Employee Benefits",
@@ -41,17 +41,17 @@
  ],
  "totals": {
   "appropriations2026": 121110904,
-  "appropriations2027": 125849378,
-  "delta": 4738474,
-  "pct": 3.91,
+  "appropriations2027": 125971643,
+  "delta": 4860739,
+  "pct": 4.01,
   "lineItems": 848
  },
  "levyEstimate": {
   "note": "Illustrative only. Assumes non-property-tax revenue (state aid, fees, grants, reserves) grows 2% and the property-tax levy balances the rest. The real levy also depends on revenue and reserve choices the Board makes.",
   "levy2026": 65343939,
-  "levy2027": 68967074,
-  "levyIncreasePct": 5.5,
-  "appropriations2027": 125849378,
+  "levy2027": 69089339,
+  "levyIncreasePct": 5.7,
+  "appropriations2027": 125971643,
   "nonLevyRevenueGrowthPct": 2,
   "recentLevyIncreases": "For context, the town-wide levy rose 4.86% (2024) and 7.74% (2026)."
  },
@@ -59,9 +59,9 @@
   "piercesCap": true,
   "capBasePct": 2,
   "allowedLevy": 66650818,
-  "predictedLevy": 68967074,
-  "gap": 2316256,
-  "predictedLevyPct": 5.5,
+  "predictedLevy": 69089339,
+  "gap": 2438521,
+  "predictedLevyPct": 5.7,
   "pensionExclusion": {
    "totalEstimate": 137642,
    "pfrsRateIncreasePts": 2.8,
@@ -72,7 +72,7 @@
    "payrollYear": 2025,
    "source": "OSC, \u201cNYSLRS Announces Employer Contribution Rates for SFY 2026-27\u201d (9/2025): ERS 16.5%\u219217.6% (+1.1 pts, no exclusion \u2014 under the 2-pt threshold); PFRS 33.7%\u219236.5% (+2.8 pts, 0.8 pts over the threshold, so a real exclusion applies). Estimate uses actual PBA+SOA payroll as a stand-in for the state's \u201cestimated salary base\u201d \u2014 the Town's own ERS/PFRS billing detail would be more precise."
   },
-  "summary": "On current trends the 2027 levy grows about 5.5% \u2014 well above the roughly 2% the cap allows \u2014 so the budget would pierce the cap by about $2,316,256. To stay under the cap the Town would have to close that ~$2,316,256 gap. (The real ceiling is a bit higher than a flat 2% once the tax-base-growth factor and exclusions are added, which would shrink the gap somewhat.)",
+  "summary": "On current trends the 2027 levy grows about 5.7% \u2014 well above the roughly 2% the cap allows \u2014 so the budget would pierce the cap by about $2,438,521. To stay under the cap the Town would have to close that ~$2,438,521 gap. (The real ceiling is a bit higher than a flat 2% once the tax-base-growth factor and exclusions are added, which would shrink the gap somewhat.)",
   "levers": [
    {
     "lever": "Refill fewer / lower-cost positions (the retirement buyout)",
@@ -80,7 +80,7 @@
    },
    {
     "lever": "Trim or slow spending",
-    "detail": "Every 1% cut to the $125,849,378 spending plan is about $1,258,494. Closing the whole gap this way means roughly a 1.8% cut \u2014 e.g. holding posts vacant, deferring equipment and capital, or trimming contractual lines."
+    "detail": "Every 1% cut to the $125,971,643 spending plan is about $1,259,716. Closing the whole gap this way means roughly a 1.9% cut \u2014 e.g. holding posts vacant, deferring equipment and capital, or trimming contractual lines."
    },
    {
     "lever": "Grow non-property-tax revenue",
@@ -88,7 +88,7 @@
    },
    {
     "lever": "Use reserves (one-time)",
-    "detail": "Appropriating about $2,316,256 more of the $28,829,513 unassigned General Fund balance would erase the gap outright \u2014 but it's roughly 8.0% of that cushion, spends one-time money on recurring cost, and can't be repeated forever."
+    "detail": "Appropriating about $2,438,521 more of the $28,829,513 unassigned General Fund balance would erase the gap outright \u2014 but it's roughly 8.5% of that cushion, spends one-time money on recurring cost, and can't be repeated forever."
    },
    {
     "lever": "Claim the cap's legal exclusions",
@@ -101,7 +101,7 @@
   ]
  },
  "unionBreakdown": {
-  "note": "How the Personal Services rate above (3.84%/yr) is built: each bargaining unit's own 2027 rate, weighted by its share of 2025 actual Town payroll.",
+  "note": "How the Personal Services rate above (4.14%/yr) is built: each bargaining unit's own 2027 rate, weighted by its share of 2025 actual Town payroll.",
   "groups": [
    {
     "union": "CSEA",
@@ -114,18 +114,18 @@
    {
     "union": "PBA",
     "payrollSharePct": 36.7,
-    "ratePct": 3.36,
-    "known2027": false,
-    "term": "2023\u20132026 MOA (expires 12/31/2026, no successor yet public)",
-    "source": "Signed PBA MOA, Article XXXVII (Salaries), 7/25/2023. Full known PBA history back to 2016 (2%/2%/1.5%/1.5% in 2017\u20132020, 2%/2% in the 2021\u20132022 COVID extension per Town Board Resolution 2020-519) confirms the contracts are continuous with no gap \u2014 but the placeholder below still uses only the most recent 2023\u20132026 contract, as the closer starting point for the next negotiation."
+    "ratePct": 4.28,
+    "known2027": true,
+    "term": "2027\u20132030 stipulation (Resolution 2026-1020, adopted 11/17/2026)",
+    "source": "PBA stipulation adopted by the Town Board on 11/17/2026 (Resolution 2026-1020): its salary schedule raises every step 3.75% a year from 2027 to 2030, with $500 added to 2027 salaries for the body-camera agreement. Converted here to an effective 2027 rate using average PBA base pay ($94,580). Earlier terms: signed PBA MOA, Article XXXVII (Salaries), 7/25/2023."
    },
    {
     "union": "SOA",
     "payrollSharePct": 8.5,
-    "ratePct": 4.49,
-    "known2027": false,
-    "term": "2023\u20132026 agreement (expires 12/31/2026, no successor yet public)",
-    "source": "Signed SOA MOA, Article XXXII (Salaries), 12/12/2023. Full known SOA history back to 2016 (2%/2%/2%/2%/1.5% in 2016\u20132020, 2%/2% in the 2021\u20132022 COVID extension per Town Board Resolution 2020-520) confirms the contracts are continuous with no gap \u2014 but the placeholder below still uses only the most recent 2023\u20132026 contract, as the closer starting point for the next negotiation."
+    "ratePct": 4.09,
+    "known2027": true,
+    "term": "2027\u20132030 stipulation (Resolution 2026-1021, adopted 11/17/2026)",
+    "source": "SOA stipulation adopted by the Town Board on 11/17/2026 (Resolution 2026-1021): the same terms as the PBA's, 3.75% a year from 2027 to 2030 plus $500 on 2027 salaries. Converted here to an effective 2027 rate using average SOA base pay ($148,716). Earlier terms: signed SOA MOA, Article XXXII (Salaries), 12/12/2023."
    },
    {
     "union": "Non-union / other (management-confidential, elected, temporary, unspecified)",
@@ -150,9 +150,9 @@
    "category": "Personal Services",
    "count": 225,
    "v2026": 40497622,
-   "v2027": 42052788,
-   "delta": 1555166,
-   "pct": 3.8
+   "v2027": 42175053,
+   "delta": 1677431,
+   "pct": 4.1
   },
   {
    "category": "Contractual",
@@ -192,33 +192,33 @@
    "fundCode": "A01",
    "fund": "General Fund",
    "v2026": 69113159,
-   "v2027": 72627474,
-   "delta": 3514315,
-   "pct": 5.1
+   "v2027": 72730660,
+   "delta": 3617501,
+   "pct": 5.2
   },
   {
    "fundCode": "DA1",
    "fund": "Highway Fund",
    "v2026": 7919250,
-   "v2027": 8319034,
-   "delta": 399784,
-   "pct": 5.0
+   "v2027": 8327123,
+   "delta": 407873,
+   "pct": 5.2
   },
   {
    "fundCode": "EW1",
    "fund": "Water District",
    "v2026": 11008655,
-   "v2027": 11234111,
-   "delta": 225456,
-   "pct": 2.0
+   "v2027": 11239457,
+   "delta": 230802,
+   "pct": 2.1
   },
   {
    "fundCode": "ES1",
    "fund": "Riverhead Sewer District",
    "v2026": 8142722,
-   "v2027": 8349686,
-   "delta": 206964,
-   "pct": 2.5
+   "v2027": 8352248,
+   "delta": 209526,
+   "pct": 2.6
   },
   {
    "fundCode": "SR1",
@@ -232,9 +232,9 @@
    "fundCode": "ES5",
    "fund": "Riverhead Scavenger Waste",
    "v2026": 2231988,
-   "v2027": 2325872,
-   "delta": 93884,
-   "pct": 4.2
+   "v2027": 2327020,
+   "delta": 95032,
+   "pct": 4.3
   },
   {
    "fundCode": "CM4",
@@ -256,16 +256,16 @@
    "fundCode": "ES3",
    "fund": "Calverton Sewer District",
    "v2026": 1488357,
-   "v2027": 1536733,
-   "delta": 48376,
+   "v2027": 1537273,
+   "delta": 48916,
    "pct": 3.3
   },
   {
    "fundCode": "SL1",
    "fund": "Street Lighting District",
    "v2026": 926533,
-   "v2027": 966860,
-   "delta": 40327,
+   "v2027": 967605,
+   "delta": 41072,
    "pct": 4.4
   },
   {
@@ -280,9 +280,9 @@
    "fundCode": "A06",
    "fund": "Recreation Program Fund",
    "v2026": 504500,
-   "v2027": 521569,
-   "delta": 17069,
-   "pct": 3.4
+   "v2027": 522085,
+   "delta": 17585,
+   "pct": 3.5
   },
   {
    "fundCode": "MS2",
@@ -296,9 +296,9 @@
    "fundCode": "CM2",
    "fund": "East Creek Docking Facility",
    "v2026": 288100,
-   "v2027": 298574,
-   "delta": 10474,
-   "pct": 3.6
+   "v2027": 298707,
+   "delta": 10607,
+   "pct": 3.7
   },
   {
    "fundCode": "ST1",
@@ -348,9 +348,9 @@
    "name": "Police - Pers Serv - FT Uni Pers",
    "category": "Personal Services",
    "v2026": 14966311.0,
-   "v2027": 15541040,
-   "delta": 574729.0,
-   "pct": 3.8
+   "v2027": 15586221,
+   "delta": 619910.0,
+   "pct": 4.1
   },
   {
    "fund": "General Fund",
@@ -428,9 +428,9 @@
    "name": "Repair - Personal Services",
    "category": "Personal Services",
    "v2026": 2468135.0,
-   "v2027": 2562915,
-   "delta": 94780.0,
-   "pct": 3.8
+   "v2027": 2570366,
+   "delta": 102231.0,
+   "pct": 4.1
   },
   {
    "fund": "General Fund",
@@ -473,6 +473,26 @@
    "pct": 3.5
   },
   {
+   "fund": "General Fund",
+   "dept": "Building & Grounds",
+   "name": "B&G - Personal Services",
+   "category": "Personal Services",
+   "v2026": 1653637.0,
+   "v2027": 1722131,
+   "delta": 68494.0,
+   "pct": 4.1
+  },
+  {
+   "fund": "Water District",
+   "dept": "Water AdmWater Administration",
+   "name": "Water AdmPersonal Services",
+   "category": "Personal Services",
+   "v2026": 1613708.0,
+   "v2027": 1680548,
+   "delta": 66840.0,
+   "pct": 4.1
+  },
+  {
    "fund": "Water District",
    "dept": "Depreciation",
    "name": "Depr - Depreciation",
@@ -484,33 +504,13 @@
   },
   {
    "fund": "General Fund",
-   "dept": "Building & Grounds",
-   "name": "B&G - Personal Services",
-   "category": "Personal Services",
-   "v2026": 1653637.0,
-   "v2027": 1717139,
-   "delta": 63502.0,
-   "pct": 3.8
-  },
-  {
-   "fund": "Water District",
-   "dept": "Water AdmWater Administration",
-   "name": "Water AdmPersonal Services",
-   "category": "Personal Services",
-   "v2026": 1613708.0,
-   "v2027": 1675677,
-   "delta": 61969.0,
-   "pct": 3.8
-  },
-  {
-   "fund": "General Fund",
    "dept": "Police",
    "name": "Police - Personal Services",
    "category": "Personal Services",
    "v2026": 1403312.0,
-   "v2027": 1457201,
-   "delta": 53889.0,
-   "pct": 3.8
+   "v2027": 1461438,
+   "delta": 58126.0,
+   "pct": 4.1
   },
   {
    "fund": "Water District",
@@ -544,6 +544,26 @@
   },
   {
    "fund": "General Fund",
+   "dept": "Police",
+   "name": "Police - Pers Svcs Uniform OT",
+   "category": "Personal Services",
+   "v2026": 1000000.0,
+   "v2027": 1041420,
+   "delta": 41420.0,
+   "pct": 4.1
+  },
+  {
+   "fund": "General Fund",
+   "dept": "Police",
+   "name": "Police - Pers Svcs Holiday Pay Uni",
+   "category": "Personal Services",
+   "v2026": 943000.0,
+   "v2027": 982059,
+   "delta": 39059.0,
+   "pct": 4.1
+  },
+  {
+   "fund": "General Fund",
    "dept": "WC",
    "name": "WC - Claim Payments",
    "category": "Employee Benefits",
@@ -563,16 +583,6 @@
    "pct": 3.5
   },
   {
-   "fund": "General Fund",
-   "dept": "Police",
-   "name": "Police - Pers Svcs Uniform OT",
-   "category": "Personal Services",
-   "v2026": 1000000.0,
-   "v2027": 1038402,
-   "delta": 38402.0,
-   "pct": 3.8
-  },
-  {
    "fund": "Workers Compensation Fund",
    "dept": "Workers Comp",
    "name": "Workers Comp - Claim Payments",
@@ -583,16 +593,6 @@
    "pct": 3.5
   },
   {
-   "fund": "General Fund",
-   "dept": "Police",
-   "name": "Police - Pers Svcs Holiday Pay Uni",
-   "category": "Personal Services",
-   "v2026": 943000.0,
-   "v2027": 979213,
-   "delta": 36213.0,
-   "pct": 3.8
-  },
-  {
    "fund": "Highway Fund",
    "dept": "Function 9010",
    "name": "Ret -NYS Retirement Non-Uni Pers",
@@ -601,6 +601,16 @@
    "v2027": 483750,
    "delta": 35833.0,
    "pct": 8.0
+  },
+  {
+   "fund": "General Fund",
+   "dept": "Town Attorney",
+   "name": "Atty - Personal Services",
+   "category": "Personal Services",
+   "v2026": 821524.0,
+   "v2027": 855552,
+   "delta": 34028.0,
+   "pct": 4.1
   },
   {
    "fund": "Riverhead Sewer District",
@@ -614,33 +624,23 @@
   },
   {
    "fund": "General Fund",
-   "dept": "Town Attorney",
-   "name": "Atty - Personal Services",
-   "category": "Personal Services",
-   "v2026": 821524.0,
-   "v2027": 853072,
-   "delta": 31548.0,
-   "pct": 3.8
-  },
-  {
-   "fund": "Highway Fund",
-   "dept": "WC",
-   "name": "WC - Claim Payments",
-   "category": "Employee Benefits",
-   "v2026": 373600.0,
-   "v2027": 403488,
-   "delta": 29888.0,
-   "pct": 8.0
-  },
-  {
-   "fund": "General Fund",
    "dept": "Finance",
    "name": "Acct - Personal Services",
    "category": "Personal Services",
    "v2026": 749817.0,
-   "v2027": 778611,
-   "delta": 28794.0,
-   "pct": 3.8
+   "v2027": 780875,
+   "delta": 31058.0,
+   "pct": 4.1
+  },
+  {
+   "fund": "Riverhead Sewer District",
+   "dept": "Sewer Administration",
+   "name": "Sewer Adm - Personal Services",
+   "category": "Personal Services",
+   "v2026": 749817.0,
+   "v2027": 780875,
+   "delta": 31058.0,
+   "pct": 4.1
   }
  ],
  "debtSchedule": {
@@ -665,9 +665,9 @@
    "detail": "The Town Square note matured August 14, 2026 and the Town Hall note February 20, 2026. On July 7, 2026 the Board voted unanimously to pay down the Town Square note with rent and the net proceeds of selling 127 East Main Street (res. 2026-641), and to put $7,212,941 of Community Preservation Fund balance and $92,059 of property-sale proceeds toward the 2018 Series B refunding (res. 2026-642). When the sale was delayed, the Board paid the Town Square note in the interim with $1,874,218 of General Fund balance and $122,500 of rent, to be reimbursed from the sale (res. 2026-762, August 4). No financial report covering 2026 has been filed, so how much these paydowns take off 2027 debt service is real but not yet quantifiable from public documents."
   },
   {
-   "item": "PBA and SOA stipulations were ratified July 7, 2026",
-   "effect": "unknown \u2014 could move Personal Services either way",
-   "detail": "The Personal Services rate below assumes PBA and SOA are between contracts with no successor public, and uses each unit's trailing average raise as a placeholder. Resolutions 2026-679 (SOA) and 2026-680 (PBA) ratified stipulations that the titles do not describe. A stipulation may be a full successor agreement or a narrow side deal. Until the terms are public the placeholder stands, but it should be treated as less reliable than it was."
+   "item": "PBA and SOA 2027\u20132030 stipulations adopted November 17, 2026",
+   "effect": "now in the rate below",
+   "detail": "Resolutions 2026-1020 (PBA) and 2026-1021 (SOA) set 3.75% a year from 2027 to 2030, plus $500 on 2027 salaries. The Personal Services rate below uses those terms in place of the trailing-average placeholder. The July 7 stipulations (2026-679, 2026-680) were the retirement incentive, not wage terms."
   },
   {
    "id": "tentative",

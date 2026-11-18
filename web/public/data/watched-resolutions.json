@@ -14,13 +14,13 @@
     "If adopted: treat the PBA's 2027 rate as contractual (3.75% plus $500) in etl/predict_2027.py and lib/labor-contracts-2027.ts instead of the trailing-average placeholder.",
     "If adopted: set PoliceContracts2027.adopted in the iOS and Android apps."
    ],
-   "status": "pending",
+   "status": "adopted",
    "number": "2026-1020",
    "title": "Authorize Supervisor to Execute Stipulation with Riverhead Town Police Benevolent Association, Inc",
-   "voteTag": null,
+   "voteTag": "unanimous",
    "ayes": null,
-   "nays": null,
-   "note": "On the agenda; no vote recorded yet."
+   "nays": 0,
+   "note": null
   },
   {
    "id": "soa-stipulation-2027-2030",
@@ -35,13 +35,13 @@
     "If adopted: treat the SOA's 2027 rate as contractual (3.75% plus $500) in etl/predict_2027.py and lib/labor-contracts-2027.ts.",
     "If adopted: set PoliceContracts2027.adopted in the iOS and Android apps."
    ],
-   "status": "pending",
+   "status": "adopted",
    "number": "2026-1021",
    "title": "Authorize Supervisor to Execute Stipulation with Riverhead Town Superior Officers Association, Inc.",
-   "voteTag": null,
+   "voteTag": "unanimous",
    "ayes": null,
-   "nays": null,
-   "note": "On the agenda; no vote recorded yet."
+   "nays": 0,
+   "note": null
   },
   {
    "id": "incentive-payouts-ix2",
@@ -54,13 +54,13 @@
    "followUps": [
     "If adopted: add the $1,387,034 draw to the fund-balance draws page if that page does not pick it up from the meeting data."
    ],
-   "status": "pending",
+   "status": "adopted",
    "number": "2026-996",
    "title": "Budget Adjustment for Retirement Incentive Severance Payouts",
-   "voteTag": null,
+   "voteTag": "unanimous",
    "ayes": null,
-   "nays": null,
-   "note": "On the agenda; no vote recorded yet."
+   "nays": 0,
+   "note": null
   }
  ]
 }

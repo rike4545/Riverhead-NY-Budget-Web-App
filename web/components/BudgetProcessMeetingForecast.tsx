@@ -60,7 +60,7 @@ const forecasts: Forecast[] = [
     date: '2026-11-17',
     phase: 'Final 2027 budget adoption',
     confidence: 'Very high',
-    why: 'The annual budget must be adopted by November 20. November 17 is Riverhead’s final published regular Town Board meeting before that deadline, making it the strongest scheduled candidate for the adoption resolution unless the Board adopts earlier or calls a special meeting.',
+    why: 'The annual budget must be adopted by November 20. November 17 was Riverhead’s last regular Town Board meeting before that deadline, and the Board adopted the 2027 budget that night, Resolution 2026-995, 5–0.',
     statute: 'Town Law §109(2)',
     lawUrl: 'https://www.nysenate.gov/legislation/laws/TWN/109',
   },

@@ -25,6 +25,7 @@ import { statusPhrase, watched } from './watched-resolutions'
 const pbaWatch = watched('pba-stipulation-2027-2030')
 const soaWatch = watched('soa-stipulation-2027-2030')
 const pending = (w: { status: string }) => w.status === 'pending'
+const settled = (w: { status: string }) => w.status === 'adopted'
 
 type Res = {
   number: string | null
@@ -104,23 +105,23 @@ export const units: UnitStatus[] = [
   },
   {
     unit: 'PBA',
-    contractual2027: false,
-    contractTerm: '2023–2026 PBA memorandum of agreement',
-    expiry: '2026-12-31',
+    contractual2027: settled(pbaWatch),
+    contractTerm: settled(pbaWatch) ? '2027–2030 PBA stipulation' : '2023–2026 PBA memorandum of agreement',
+    expiry: settled(pbaWatch) ? '2030-12-31' : '2026-12-31',
     resolutions: forUnit('PBA'),
     candidates: forUnit('PBA').filter((r) => !r.isRetirementIncentive),
     finding:
-      `Item IX.26: ${statusPhrase(pbaWatch)}. Item IX.26 on the November 17, 2026 agenda put a stipulation with the PBA to the Board; its attached salary schedule runs from 2027 to 2030 and raises every step 3.75% a year, plus $500 in 2027 for the body-camera agreement. ${pending(pbaWatch) ? 'Until the Board votes, the projection keeps its placeholder.' : 'The projection still uses its placeholder until its rates are updated to the new schedule.'} The only earlier PBA item this year is the July 7 retirement-incentive stipulation, which sets no wage rate. The current contract runs out on December 31, 2026.`,
+      `Item IX.26: ${statusPhrase(pbaWatch)}. Item IX.26 on the November 17, 2026 agenda put a stipulation with the PBA to the Board; its attached salary schedule runs from 2027 to 2030 and raises every step 3.75% a year, plus $500 in 2027 for the body-camera agreement. ${settled(pbaWatch) ? 'The projection now uses that 2027 rate.' : pending(pbaWatch) ? 'Until the Board votes, the projection keeps its placeholder.' : 'The projection keeps its placeholder.'} The only earlier PBA item this year is the July 7 retirement-incentive stipulation, which sets no wage rate.${settled(pbaWatch) ? '' : ' The current contract runs out on December 31, 2026.'}`,
   },
   {
     unit: 'SOA',
-    contractual2027: false,
-    contractTerm: '2023–2026 SOA agreement',
-    expiry: '2026-12-31',
+    contractual2027: settled(soaWatch),
+    contractTerm: settled(soaWatch) ? '2027–2030 SOA stipulation' : '2023–2026 SOA agreement',
+    expiry: settled(soaWatch) ? '2030-12-31' : '2026-12-31',
     resolutions: forUnit('SOA'),
     candidates: forUnit('SOA').filter((r) => !r.isRetirementIncentive),
     finding:
-      `Item IX.27: ${statusPhrase(soaWatch)}. Item IX.27 on the November 17, 2026 agenda put a stipulation with the SOA to the Board, with the same terms as the PBA’s: 3.75% a year from 2027 to 2030, plus $500 in 2027. The only earlier SOA item this year is the July 7 retirement-incentive stipulation. The current contract expires December 31, 2026.`,
+      `Item IX.27: ${statusPhrase(soaWatch)}. Item IX.27 on the November 17, 2026 agenda put a stipulation with the SOA to the Board, with the same terms as the PBA’s: 3.75% a year from 2027 to 2030, plus $500 in 2027.${settled(soaWatch) ? ' The projection now uses that 2027 rate.' : ''} The only earlier SOA item this year is the July 7 retirement-incentive stipulation.${settled(soaWatch) ? '' : ' The current contract expires December 31, 2026.'}`,
   },
 ]
 
@@ -200,8 +201,11 @@ export const triborough = (() => {
   }
 })()
 
-export const placeholderVsFloor =
-  'This matters for how the projection above should be read. For the PBA and the SOA it applies each unit’s ' +
+export const placeholderVsFloor = settled(pbaWatch) && settled(soaWatch)
+  ? 'With both police stipulations adopted, the projection above uses their 2027 terms: 3.75% on every step, plus ' +
+    '$500 on each 2027 salary. The Triborough floor below is what the Town would have owed with no agreement; it is ' +
+    'kept for comparison and no longer applies.'
+  : 'This matters for how the projection above should be read. For the PBA and the SOA it applies each unit’s ' +
   'trailing average raise, which is an across-the-board figure — so it is modelling a SETTLEMENT, at roughly ' +
   'the rate the last one landed. Triborough gives the other bound: the floor the Town owes if nothing is ' +
   'signed at all. Neither is a forecast. The real 2027 number sits somewhere between them, and which end it ' +
@@ -217,8 +221,10 @@ export const corpus = {
   latest: [...(fiscalIndex.meetings as string[])].sort().slice(-1)[0],
 }
 
-export const headline =
-  `Of the Town's three bargaining units, ${settledUnits.length} has a signed 2027 wage rate and ` +
+export const headline = openUnits.length === 0
+  ? `All three of the Town's bargaining units now have a 2027 wage rate the Board has approved: CSEA's 2026–2029 ` +
+    `agreement, and the PBA's and SOA's 2027–2030 stipulations, ${statusPhrase(pbaWatch)} and ${statusPhrase(soaWatch)}.`
+  : `Of the Town's three bargaining units, ${settledUnits.length} has a signed 2027 wage rate and ` +
   `${openUnits.length} do not. The ${openUnits.map((u) => u.unit).join(' and ')} contracts expire on ` +
   `December 31, 2026, and across ${corpus.resolutions.toLocaleString()} resolutions in ` +
   `${corpus.meetings} meetings ` +
@@ -226,8 +232,11 @@ export const headline =
     ? `no successor for either has been voted on. Successor stipulations for both are on the Board's November 17, 2026 agenda.`
     : `successor stipulations for both went to the Board on November 17, 2026: the PBA's was ${statusPhrase(pbaWatch)} and the SOA's ${statusPhrase(soaWatch)}.`)
 
-export const whyItMatters =
-  'These are the police units, and police is the largest single department in the General Fund. The 2027 ' +
+export const whyItMatters = openUnits.length === 0
+  ? 'These are the police units, and police is the largest single department in the General Fund. Until November 17, ' +
+    '2026 the projection had to use each unit’s trailing average raise as a placeholder. It now uses the adopted ' +
+    'terms, so the police share of the Personal Services estimate rests on a contract, not a guess.'
+  : 'These are the police units, and police is the largest single department in the General Fund. The 2027 ' +
   'projection has to put some number against their payroll, so it uses each unit’s own trailing average raise ' +
   'as a placeholder. That is a defensible stand-in and it is still a guess — the difference between the ' +
   'placeholder and a settlement is real money on the levy, and nobody will know which until an agreement is ' +

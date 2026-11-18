@@ -167,7 +167,12 @@ for (const [code, row] of Object.entries(latestFunds)) {
       if (!same(lines, row.appropriations)) fail(`${code}'s ${LATEST} Preliminary ${kind} lines add up to ${usd(lines)}, not the Preliminary's ${usd(row.appropriations)}`)
     }
   }
-  has(`funds/${code}`, `${LATEST} proposed`, `the ${LATEST} ${latestName} for ${code}`)
+  // Once the Board adopts the year's budget the column is labelled adopted. The
+  // lines are still the Preliminary book's, so the two must agree for the fund.
+  if (stageYear.adopted && linesPreliminary && !same(stageYear.adopted.funds?.[code]?.appropriations ?? NaN, preliminaryFunds[code]?.appropriations ?? NaN)) {
+    fail(`${code}'s ${LATEST} Adopted appropriations differ from the Preliminary's, so the Preliminary's lines cannot stand for the adopted budget`)
+  }
+  has(`funds/${code}`, `${LATEST} ${stageYear.adopted ? 'adopted' : 'proposed'}`, `the ${LATEST} ${stageYear.adopted ? 'Adopted' : latestName} for ${code}`)
   has('funds', usd(row.appropriations), `${code}'s ${LATEST} ${latestName} appropriations`)
 }
 has('funds/A01', usd(latestFunds.A01?.appropriations ?? 0), `the General Fund's ${LATEST} ${latestName} total`)

@@ -6,7 +6,7 @@ import PlainCallout from '../../components/PlainCallout'
 import Term from '../../components/Term'
 import { allOperatingFunds2026 } from '../../lib/all-funds'
 import { dollars } from '../../lib/financial-data'
-import { budgetTotals, fundYears, PROPOSAL_LABEL, transferFunded, TENTATIVE_YEAR } from '../../lib/funds-2027'
+import { budgetTotals, fundYears, PROPOSAL_ADOPTED, PROPOSAL_LABEL, PROPOSAL_STATUS, PROPOSAL_VERB, transferFunded, TENTATIVE_YEAR } from '../../lib/funds-2027'
 import { cpfDebtTransfer } from '../../lib/outlier-watch'
 import { districtHoldings, generalFundLetter, generalFundResults, savings, tentativeFundBalances } from '../../lib/savings-used'
 import { subAccountIndex, townwideSubAccountTotals, townwideCategoryTotals } from '../../lib/subaccounts'
@@ -47,7 +47,7 @@ const caption = { textAlign: 'left', color: 'var(--rbl-text-body)', fontWeight: 
 export const metadata = {
   title: 'Funds Explorer — every fund, department & line item, 2026 and the 2027 proposal',
   description:
-    'Every Town of Riverhead operating fund, drilled down to departments, spending categories and 848 account lines, reconciled to the official 2026 adopted budget, beside what the 2027 Preliminary Budget proposes for each.',
+    `Every Town of Riverhead operating fund, drilled down to departments, spending categories and 848 account lines, reconciled to the official 2026 adopted budget, beside what the ${TENTATIVE_YEAR} ${PROPOSAL_LABEL} Budget ${PROPOSAL_VERB} for each.`,
 }
 
 export default function FundsPage() {
@@ -59,14 +59,14 @@ export default function FundsPage() {
   return (
     <PageShell
       title="Funds Explorer"
-      subtitle={`Every operating fund, drilled down to departments, spending categories and individual account lines: the 2026 adopted budget, reconciled to the dollar, beside what the ${TENTATIVE_YEAR} ${PROPOSAL_LABEL} Budget proposes.`}
+      subtitle={`Every operating fund, drilled down to departments, spending categories and individual account lines: the 2026 adopted budget, reconciled to the dollar, beside what the ${TENTATIVE_YEAR} ${PROPOSAL_LABEL} Budget ${PROPOSAL_VERB}.`}
     >
       <ProposalLineStageNotice />
       <PlainCallout
         tips={[
           { label: 'A fund', text: 'is a separate pot of money for a purpose: General (most services), Highway, Water, Sewer and so on. Each has its own balanced budget.' },
-          { label: 'Open any fund', text: `to see the departments and individual spending lines inside it, with what each was budgeted for 2025 and 2026 and what the ${TENTATIVE_YEAR} ${PROPOSAL_LABEL} proposes.` },
-          { label: PROPOSAL_LABEL, text: `${PROPOSAL_LABEL === 'Preliminary' ? 'the Supervisor’s Tentative with the Town Board’s changes' : 'the Supervisor’s proposal'} for ${TENTATIVE_YEAR}. The Town Board can change it before it adopts a budget by November 20.` },
+          { label: 'Open any fund', text: `to see the departments and individual spending lines inside it, with what each was budgeted for 2025 and 2026 and what the ${TENTATIVE_YEAR} ${PROPOSAL_LABEL} ${PROPOSAL_VERB}.` },
+          { label: PROPOSAL_LABEL, text: `${PROPOSAL_ADOPTED ? 'the budget the Town Board voted to adopt' : PROPOSAL_LABEL === 'Preliminary' ? 'the Supervisor’s Tentative with the Town Board’s changes' : 'the Supervisor’s proposal'} for ${TENTATIVE_YEAR}. ${PROPOSAL_STATUS}` },
           { label: 'Savings used', text: 'money left over from earlier years that a fund counts as income to balance its budget. A section below shows which funds use it and how much.' },
           { label: 'Reconciled', text: 'our line totals add up exactly to the Town’s official published numbers.' },
         ]}
@@ -77,18 +77,18 @@ export default function FundsPage() {
 
       {t && (
         <section aria-labelledby="proposal" style={{ ...card, marginBottom: 18 }}>
-          <h2 id="proposal" style={{ margin: '0 0 6px', fontSize: 20, color: 'var(--rbl-title)' }}>What the {TENTATIVE_YEAR} {PROPOSAL_LABEL} proposes</h2>
+          <h2 id="proposal" style={{ margin: '0 0 6px', fontSize: 20, color: 'var(--rbl-title)' }}>What the {TENTATIVE_YEAR} {PROPOSAL_LABEL} {PROPOSAL_ADOPTED ? 'sets' : 'proposes'}</h2>
           <p style={{ color: 'var(--rbl-text-body)', lineHeight: 1.6, margin: '0 0 14px' }}>
             {t.operatingAdopted !== null && t.operatingProposal !== null ? (
               <>
                 Leaving out the Debt Service, Workers’ Compensation and Risk Retention funds, which the other funds pay for,
-                spending would go from <strong>{dollars(t.operatingAdopted)}</strong> in 2026 to{' '}
+                spending {PROPOSAL_ADOPTED ? 'goes' : 'would go'} from <strong>{dollars(t.operatingAdopted)}</strong> in 2026 to{' '}
                 <strong>{dollars(t.operatingProposal)}</strong>, {changeBy(t.operatingAdopted, t.operatingProposal)}.{' '}
               </>
             ) : null}
-            The property tax levy across all funds would go from <strong>{dollars(t.levyAdopted)}</strong> to{' '}
-            <strong>{dollars(t.levyProposal)}</strong>, {changeBy(t.levyAdopted, t.levyProposal)}. It is a proposal: the Town
-            Board can change it before it adopts a budget by November 20.
+            The property tax levy across all funds {PROPOSAL_ADOPTED ? 'goes' : 'would go'} from <strong>{dollars(t.levyAdopted)}</strong> to{' '}
+            <strong>{dollars(t.levyProposal)}</strong>, {changeBy(t.levyAdopted, t.levyProposal)}. {PROPOSAL_ADOPTED ? PROPOSAL_STATUS : <>It is a proposal: the Town
+            Board can change it before it adopts a budget by November 20.</>}
           </p>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(220px,1fr))', gap: 12 }}>
             <Pair label={<Term id="appropriations">Appropriations, all 19 funds</Term>} adopted={t.adopted} proposed={t.proposal} />

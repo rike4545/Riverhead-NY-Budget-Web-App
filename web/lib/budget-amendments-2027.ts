@@ -145,9 +145,12 @@ export const NEXT_STEPS: NextStep[] = [
   },
   {
     date: 'November 17, 2026', what: 'The only Board meeting on the Town’s calendar between the hearing and the deadline; the site’s editor reports the resolution to adopt the budget will be submitted then', source: 'Town meeting calendar',
-    done: { what: 'the agenda put item IX.1, “Adopts Town of Riverhead 2027 Annual Budget,” before the Board. Its vote is not yet in the published minutes', source: 'Agenda packet for November 17, 2026', href: 'https://riverheadny.portal.civicclerk.com/event/6457/files/agenda/12599' },
+    done: { what: 'the Board adopted the 2027 budget, Resolution 2026-995, 5–0: the Preliminary unchanged, $120,854,219 across all funds', source: 'Agenda packet with votes, November 17, 2026', href: 'https://riverheadny.portal.civicclerk.com/event/6457/files/agenda/12615' },
   },
-  { date: 'November 20, 2026', what: 'Deadline to adopt; if the Board does not, the Preliminary becomes the budget', source: 'Town Law §109' },
+  {
+    date: 'November 20, 2026', what: 'Deadline to adopt; if the Board does not, the Preliminary becomes the budget', source: 'Town Law §109',
+    done: { what: 'the deadline the Board met three days early, by voting', source: 'Town Law §109', href: 'https://www.nysenate.gov/legislation/laws/TWN/109' },
+  },
 ]
 
 /** The news report that brought the amendments to residents. */

@@ -1,6 +1,7 @@
 import { triborough } from '../lib/labor-contracts-2027'
 import { realRaiseExamples } from '../lib/pba-step-schedule'
 import { CSEA_TERMS } from '../lib/raises-2027'
+import { stageDoc } from '../lib/budget-stages'
 import { statusPhrase, watched } from '../lib/watched-resolutions'
 import { WATCH, BODYCAM_2027, BUDGET_LINES, FIS_ANSWER, IMPLIED_RAISE, MEETING, officerLadderIncrease2027, PBA, PFRS_RATE, POLICE_FORM_FIXES, raiseCostEstimate, SOA, YEARS, type Row } from '../lib/police-stipulations-2027'
 
@@ -66,6 +67,10 @@ function Schedule({ caption, rows, first = 'Step or rank' }: { caption: string; 
 export function PoliceStipulations2027({ cseaTypical2026 }: { cseaTypical2026?: number | null }) {
   const pba = watched(WATCH.pba)
   const soa = watched(WATCH.soa)
+  // Both contracts approved: the schedules are the terms, not a proposal.
+  const both = pba.status === 'adopted' && soa.status === 'adopted'
+  // The 2027 budget (item IX.1), once the Town has published it as adopted.
+  const budgetAdopted = stageDoc(2027, 'adopted') !== null && stageDoc(2027, 'preliminary')?.totals.appropriations === stageDoc(2027, 'adopted')?.totals.appropriations
   const sameOutcome = pba.status === soa.status
   const status = sameOutcome && pba.status === 'pending' ? 'vote not yet published' : sameOutcome ? pba.status === 'adopted' ? 'approved' : pba.status === 'tabled' ? 'tabled' : 'not approved' : 'see each union below'
   const top = PBA.officers[6].rates
@@ -90,10 +95,10 @@ export function PoliceStipulations2027({ cseaTypical2026 }: { cseaTypical2026?: 
         <li>Pay goes up by the same share every year for four years: {pct(IMPLIED_RAISE)}, or a little under 4 cents on every dollar.</li>
         <li>In 2027 everyone also gets {round(BODYCAM_2027)} more for agreeing to wear body cameras. The pay tables say this is the last such increase.</li>
         <li>
-          A police officer at the top of the pay scale earns <strong>{round(top[0])}</strong> this year. That would become {round(top[1])} next
+          A police officer at the top of the pay scale earns <strong>{round(top[0])}</strong> this year. That {both ? 'becomes' : 'would become'} {round(top[1])} next
           year and <strong>{round(top[4])}</strong> in 2030: {round(top[4] - top[0])} more a year.
         </li>
-        <li>A lieutenant would go from {round(lt[0])} to {round(lt[4])}, {round(lt[4] - lt[0])} more a year.</li>
+        <li>A lieutenant {both ? 'goes' : 'would go'} from {round(lt[0])} to {round(lt[4])}, {round(lt[4] - lt[0])} more a year.</li>
       </ul>
 
       <h4 style={h4}>What it might cost the Town</h4>
@@ -112,7 +117,7 @@ export function PoliceStipulations2027({ cseaTypical2026 }: { cseaTypical2026?: 
           on December 16, 2025 (Resolution 2025-1001). It is not new; it is here so you can compare the two.
         </p>
         <p style={{ margin: '0 0 8px' }}>
-          <strong>For every $100 of pay today</strong>, the police proposal would pay about <strong>{round(p2029)}</strong> in 2029 and{' '}
+          <strong>For every $100 of pay today</strong>, the police {both ? 'contracts pay' : 'proposal would pay'} about <strong>{round(p2029)}</strong> in 2029 and{' '}
           {round(p2030)} in 2030. The CSEA contract pays about <strong>{round(c2029)}</strong> in 2029 and then ends. CSEA members also get
           flat dollar raises on top (shown below), which matter more on smaller salaries.
         </p>
@@ -127,7 +132,7 @@ export function PoliceStipulations2027({ cseaTypical2026 }: { cseaTypical2026?: 
           <thead>
             <tr>
               <th scope="col" style={{ ...th, textAlign: 'left' }}>Year</th>
-              <th scope="col" style={th}>Police (proposed)</th>
+              <th scope="col" style={th}>Police ({both ? 'approved' : 'proposed'})</th>
               <th scope="col" style={th}>CSEA (approved)</th>
             </tr>
           </thead>
@@ -179,14 +184,14 @@ export function PoliceStipulations2027({ cseaTypical2026 }: { cseaTypical2026?: 
 
       <h4 style={h4}>Is the 2027 raise in the budget?</h4>
       <p style={{ margin: '0 0 8px' }}>
-        It appears so. The 2027 budget the Board was asked to adopt as item IX.1 that same night raises police overtime by{' '}
+        It appears so. The 2027 budget the Board {budgetAdopted ? 'adopted' : 'was asked to adopt'} as item IX.1 that same night raises police overtime by{' '}
         {pct(change(BUDGET_LINES[1]))}, holiday pay by {pct(change(BUDGET_LINES[3]))} and night pay by {pct(change(BUDGET_LINES[2]))}: close to the
         contracts’ {pct(IMPLIED_RAISE)}. The police department asked for no increase in holiday or night pay, so those were added after its request.
         If the forms meant “the 2027 cost is budgeted”, the right answer is still “yes”, with box E(a) for 2027 and box E(b) for the three later
         years.
       </p>
       <p id="police-budget-lines" style={{ margin: '4px 0 6px', fontWeight: 700, color: 'var(--rbl-title)', fontSize: 14 }}>
-        Police lines in the 2027 Preliminary Budget (pages 14 and 21), General Fund
+        Police lines in the 2027 Preliminary Budget (pages 14 and 21), General Fund{budgetAdopted ? ', adopted unchanged' : ''}
       </p>
       <div data-scroll-region style={{ overflowX: 'auto' }}>
         <table data-budget-lines aria-labelledby="police-budget-lines" style={{ width: '100%', borderCollapse: 'collapse', fontSize: 14, margin: '0 0 8px', minWidth: 560 }}>

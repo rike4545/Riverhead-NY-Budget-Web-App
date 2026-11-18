@@ -3,6 +3,7 @@ import UnofficialElectionResult from '../../components/UnofficialElectionResult'
 import PlainCallout from '../../components/PlainCallout'
 import TentativeReleased from '../../components/TentativeReleased'
 import { PREPARED_UNDER, SUPERVISOR_ROLE_SOURCE, YEAR } from '../../lib/tentative-2027'
+import { stageDoc } from '../../lib/budget-stages'
 import { candidates2026, supervisorRace2026 as race, synthesis, neutralView, type Plank, type Candidate } from '../../lib/candidates-2026'
 
 const base = process.env.NEXT_PUBLIC_BASE_PATH || ''
@@ -35,8 +36,11 @@ export default function CandidateCostBenefitPage() {
         It is {PREPARED_UNDER[YEAR]}’s proposal: the{' '}
         <a href={SUPERVISOR_ROLE_SOURCE.url} target="_blank" rel="noreferrer" style={{ color: 'var(--rbl-link)', fontWeight: 800 }}>Supervisor’s Office page</a>{' '}
         describes the Supervisor as the Town’s “Chief Financial Officer,” responsible for “accounting, budgeting, payroll and
-        personnel.” The Board can change it before adopting a budget by November 20. The costs and benefits below are still
-        measured against the forecast.
+        personnel.”{' '}
+        {stageDoc(YEAR, 'adopted')
+          ? <>The Board amended it on October 20 and adopted it on November 17, 2026 (Resolution 2026-995, 5–0).</>
+          : <>The Board can change it before adopting a budget by November 20.</>}{' '}
+        The costs and benefits below are still measured against the forecast.
       </TentativeReleased>
 
       {candidates2026.map((c) => (

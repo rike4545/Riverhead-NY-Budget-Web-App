@@ -26,11 +26,11 @@ export async function GET() {
 
   // The latest 2027 proposal (Preliminary, else Tentative), from the same stage index
   // the /tax-bill/ page reads. Optional for clients: absent until a proposal exists.
-  const proposal = stageDoc(2027, 'preliminary') ?? stageDoc(2027, 'tentative')
+  const proposal = stageDoc(2027, 'adopted') ?? stageDoc(2027, 'preliminary') ?? stageDoc(2027, 'tentative')
   const fr = proposal?.townWide?.fundRates
   const rates2027Proposal = proposal?.townWide && fr?.A01 && fr.DA1 && fr.SL1
     ? {
-        label: stageDoc(2027, 'preliminary') ? '2027 Preliminary Budget' : '2027 Tentative Budget',
+        label: stageDoc(2027, 'adopted') ? '2027 Adopted Budget' : stageDoc(2027, 'preliminary') ? '2027 Preliminary Budget' : '2027 Tentative Budget',
         source: proposal.source.title,
         generalFund: fr.A01.rate,
         highway: fr.DA1.rate,

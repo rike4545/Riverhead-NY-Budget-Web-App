@@ -4,6 +4,7 @@ import PlainCallout from '../../components/PlainCallout'
 import { ADOPTED_PACKET, AMENDMENTS, VOTE_ARTICLE, ARTICLE, NEWSDAY_ARTICLE, BUDGET_2022, NEXT_STEPS, PACKET, VOTES, STAFF_APPOINTMENT, SUPERVISOR_STAFF, SUPPLEMENT_YTD_THROUGH, fundEffects, isRevenue, type Amendment } from '../../lib/budget-amendments-2027'
 import { amendmentEffect, exampleHome, generalFundInterest, raisedRevenues } from '../../lib/budget-amendments-effect'
 import { OUTLOOK, RECORD } from '../../lib/budget-adoption'
+import { stageDoc } from '../../lib/budget-stages'
 import { AUDIT_2025 } from '../../lib/audits'
 import { RESERVE_YEAR, reserveYearAudited, unassignedFundBalance } from '../../lib/reserve-policy'
 import { LETTER_2027, READ_BY_HAND } from '../../lib/tentative-letters'
@@ -18,7 +19,7 @@ const fx = amendmentEffect
 export const metadata = {
   title: 'The amendments to the 2027 budget',
   description: fx
-    ? `Six resolutions the Town Board adopted on October 20, 2026 would raise ${usd(-fx.townWide.change)} less in town-wide property taxes than the 2027 Tentative, a ${fx.townWide.pctAfter.toFixed(2)}% increase over 2026. What each one changes, line by line, and what it means for savings and a tax bill.`
+    ? `Six resolutions the Town Board adopted on October 20, 2026, now in the adopted budget, raise ${usd(-fx.townWide.change)} less in town-wide property taxes than the 2027 Tentative, a ${fx.townWide.pctAfter.toFixed(2)}% increase over 2026. What each one changes, line by line, and what it means for savings and a tax bill.`
     : 'Six resolutions the Town Board adopted on October 20, 2026 amend the 2027 budget.',
 }
 
@@ -109,21 +110,40 @@ export default function BudgetAmendmentsPage() {
     return parts.length ? `It ${words(parts)}.` : 'It leaves every levy where the Tentative put it.'
   }
 
+  const adoptedBook = stageDoc(2027, 'adopted')
+  const adoptedVote = RECORD.find((r) => r.year === 2027)?.adoption ?? null
+  const adopted = adoptedBook !== null
+  const sameAsPrelim = adopted && stageDoc(2027, 'preliminary')?.totals.levy === adoptedBook.totals.levy
+
   return (
     <PageShell
       title="The amendments to the 2027 budget"
-      subtitle={`The Town Board adopted six amendments on October 20, with no votes against. They would raise ${usd(-tw.change)} less in town-wide property taxes than the Supervisor’s Tentative. What each one changes, line by line, and what it means for savings and a tax bill.`}
+      subtitle={adopted
+        ? `The Town Board adopted six amendments on October 20, with no votes against, and on November 17 adopted the budget with them in it. They raise ${usd(-tw.change)} less in town-wide property taxes than the Supervisor’s Tentative. What each one changes, line by line, and what it means for savings and a tax bill.`
+        : `The Town Board adopted six amendments on October 20, with no votes against. They would raise ${usd(-tw.change)} less in town-wide property taxes than the Supervisor’s Tentative. What each one changes, line by line, and what it means for savings and a tax bill.`}
     >
       <PlainCallout
         tips={[
-          { label: 'Preliminary budget', text: 'the Supervisor’s Tentative as the Board changes it. The Board holds a public hearing on it, then adopts a budget by November 20.' },
+          { label: 'Preliminary budget', text: `the Supervisor’s Tentative as the Board changes it. The Board holds a public hearing on it, then adopts a budget by November 20.${adopted ? ' The Board adopted the 2027 one on November 17.' : ''}` },
           { label: 'Levy', text: 'the total the Town raises from property taxes. The town-wide levy pays for the General, Highway and Street Lighting funds.' },
           { label: 'Savings', text: '“fund balance”: money left from earlier years. A budget can count some of it as income, called appropriated fund balance.' },
         ]}
       >
         The Board adopted all six on {PACKET.meeting.date}, with no votes against, and they became part of the Preliminary Budget the
-        Town posted for the public hearing{hearing ? <> held on {hearing}</> : null}. Once the budget is adopted, the six would raise {usd(tw.after)} in town-wide property taxes, {usd(-tw.change)} less than the Tentative, so the levy would rise{' '}
-        {tw.pctAfter.toFixed(2)}% over 2026 instead of {tw.pctBefore.toFixed(2)}%. Of the cut, {usd(cutFromEstimates)} comes from higher estimates of
+        Town posted for the public hearing{hearing ? <> held on {hearing}</> : null}.{' '}
+        {adopted ? (
+          <>
+            The Board adopted {sameAsPrelim ? 'that Preliminary unchanged' : 'the 2027 budget'} on November 17
+            {adoptedVote?.resolution ? <> (Resolution {adoptedVote.resolution.replace('#', '')}, {adoptedVote.vote})</> : null}, so the six now raise{' '}
+            {usd(tw.after)} in town-wide property taxes, {usd(-tw.change)} less than the Tentative, and the levy rises {tw.pctAfter.toFixed(2)}% over 2026
+            instead of {tw.pctBefore.toFixed(2)}%.
+          </>
+        ) : (
+          <>
+            Once the budget is adopted, the six would raise {usd(tw.after)} in town-wide property taxes, {usd(-tw.change)} less than the Tentative, so the levy would rise{' '}
+            {tw.pctAfter.toFixed(2)}% over 2026 instead of {tw.pctBefore.toFixed(2)}%.
+          </>
+        )} Of the cut, {usd(cutFromEstimates)} comes from higher estimates of
         what the Town will collect in fees, fines and interest, and {usd(fx.deferred.total)} from taking equipment out of the budget, to be bought
         from savings by separate votes during 2027. One amendment adds {usd(levyAdded)}. Three of the six add pay or insurance costs.{' '}
         {ARTICLE.outlet} reports that Council Member Ken Rothwell proposed them.
@@ -195,13 +215,13 @@ export default function BudgetAmendmentsPage() {
               </p>
             </figure>
             <P>
-              The levy would still grow, by {usd(tw.growthAfter)} over 2026 instead of the Tentative’s {usd(tw.growthBefore)}. Spending across all
-              funds would fall by {usd(-fx.totals.appropriationsChange)}: the six take {usd(spendingOut)} out of equipment and snow-removal lines and
+              The levy {adopted ? 'still grows' : 'would still grow'}, by {usd(tw.growthAfter)} over 2026 instead of the Tentative’s {usd(tw.growthBefore)}. Spending across all
+              funds {adopted ? 'falls' : 'would fall'} by {usd(-fx.totals.appropriationsChange)}: the six take {usd(spendingOut)} out of equipment and snow-removal lines and
               add {usd(spendingIn)} of pay and health insurance.
             </P>
             {letter?.taxCap && (
               <P>
-                The Supervisor’s letter says “{letter.taxCap}” With the six, the town-wide levy would rise less than that. The letter gives the
+                The Supervisor’s letter says “{letter.taxCap}” With the six, the town-wide levy {adopted ? 'rises' : 'would rise'} less than that. The letter gives the
                 limit only as a percentage, and no Town document prints its dollar amount (<a href={`${base}/tentative-2027/`} style={link}>2027 Tentative</a>).
               </P>
             )}
@@ -444,8 +464,10 @@ export default function BudgetAmendmentsPage() {
               Councilwoman Merrifield: “{VOTE_ARTICLE.reported.merrifield}.”
             </P>
             <P>
-              The six amend the Preliminary Budget. They do not adopt a budget, and the Board can still change it after the public hearing.
-              Where it stands, from the Town’s notice and records:
+              {adopted
+                ? <>The six amended the Preliminary Budget, and the Board adopted that budget on November 17{sameAsPrelim ? ' without further change' : ''}. How it got there, from the Town’s notice and records:</>
+                : <>The six amend the Preliminary Budget. They do not adopt a budget, and the Board can still change it after the public hearing.
+              Where it stands, from the Town’s notice and records:</>}
             </P>
             <ul style={{ margin: '0 0 14px', paddingLeft: 22, display: 'grid', gap: 6, maxWidth: '72ch' }}>
               {NEXT_STEPS.map((step) => (

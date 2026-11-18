@@ -108,7 +108,9 @@ export const updatedPrediction =
 // ── Why this outcome ─────────────────────────────────────────────────────────
 
 /** Each budget on record whose Tentative and Adopted versions are both parsed, and how far the Board moved its levy. */
-export const record = tentativeToAdopted.map((t) => ({ year: t.year, fundsChanged: t.fundsChanged, levyDelta: t.levy.delta }))
+// The record the prediction was made against: the years before 2027, so the
+// 2027 result itself is not counted once the Town publishes it.
+export const record = tentativeToAdopted.filter((t) => t.year < 2027).map((t) => ({ year: t.year, fundsChanged: t.fundsChanged, levyDelta: t.levy.delta }))
 export const unchangedCount = record.filter((r) => r.fundsChanged === 0).length
 export const largestChange = record.reduce((a, b) => (Math.abs(b.levyDelta) > Math.abs(a.levyDelta) ? b : a))
 /** The six amendments' change to the levy, which no year on record matches. */

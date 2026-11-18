@@ -1,12 +1,12 @@
 {
   "source_index": "https://www.townofriverheadny.gov/206/Financial-Reports",
-  "parsed_at": "2026-10-29T02:13:46.116480+00:00",
-  "document_count": 134,
+  "parsed_at": "2026-11-18T18:57:52.735999+00:00",
+  "document_count": 135,
   "audit_document_count": 41,
   "failure_count": 0,
-  "page_record_count": 14418,
-  "citation_count": 14418,
-  "line_item_candidate_count": 117558,
+  "page_record_count": 14482,
+  "citation_count": 14482,
+  "line_item_candidate_count": 118940,
   "documents": [
     {
       "title": "2027 Tentative Budget (PDF)",
@@ -43,6 +43,18 @@
       "money_value_count": 4829,
       "sha256": "298aeb9226d29840d7035b3915c7d861e313dd0bc3299fbabfc1f4ba9096218b",
       "parsed_at": "2026-09-25T00:22:41.199963+00:00"
+    },
+    {
+      "title": "2027 Adopted Budget (PDF)",
+      "url": "https://www.townofriverheadny.gov/DocumentCenter/View/4170/2027-Adopted-Budget-PDF",
+      "year": 2027,
+      "category": "adopted_budget",
+      "slug": "2027-2027-adopted-budget-pdf",
+      "json": "documents/2027-2027-adopted-budget-pdf.json",
+      "page_count": 64,
+      "money_value_count": 6330,
+      "sha256": "0751f70d5ef95b3196a49c89292bc52698c2107b39c61973d39d1d64e6af2d3e",
+      "parsed_at": "2026-11-18T18:57:52.735999+00:00"
     },
     {
       "title": "2026 Tentative Budget (PDF)",

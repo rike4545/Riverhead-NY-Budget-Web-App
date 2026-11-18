@@ -2,6 +2,7 @@ import ChartCard from '../../components/infographics/ChartCard'
 import LevyBridge2027 from '../../components/infographics/LevyBridge2027'
 import LevyVsLimit from '../../components/infographics/LevyVsLimit'
 import PageShell from '../../components/PageShell'
+import { stageDoc } from '../../lib/budget-stages'
 import PreliminaryUpdate from '../../components/PreliminaryUpdate'
 import PlainCallout from '../../components/PlainCallout'
 import SupplementFindings from '../../components/SupplementFindings'
@@ -206,7 +207,7 @@ export default function Tentative2027Page() {
       </ChartCard>
 
       <section id="adoption-history" style={{ ...card, marginBottom: 16 }}>
-        <h3 style={{ marginTop: 0, color: 'var(--rbl-title)' }}>Will the Tentative change before adoption?</h3>
+        <h3 style={{ marginTop: 0, color: 'var(--rbl-title)' }}>{stageDoc(YEAR, 'adopted') ? 'How often a Tentative changes before adoption' : 'Will the Tentative change before adoption?'}</h3>
         <p style={{ color: 'var(--rbl-text-body)', fontSize: 14.5, lineHeight: 1.6, marginTop: 0 }}>
           Rarely, on the record so far. In <strong>{unchangedYears.length} of the {stability.length}</strong> years where the Town
           published both, the adopted budget matched its Tentative at every fund: nothing moved in the Board’s review, and

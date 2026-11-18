@@ -2,7 +2,7 @@
 
 import { useMemo, useState } from 'react'
 import type { FundDetail, SubDepartment } from '../lib/subaccounts'
-import { PROPOSAL_LABEL, PROPOSAL_STAGE, type FundYear } from '../lib/funds-2027'
+import { PROPOSAL_LABEL, PROPOSAL_STAGE, PROPOSAL_STATUS, PROPOSAL_VERB, PROPOSAL_WORD, type FundYear } from '../lib/funds-2027'
 import Sparkline from './Sparkline'
 import { ColumnGuide } from './PlainCallout'
 import { appropriationsByYear } from '../lib/budget-history'
@@ -78,7 +78,7 @@ export default function FundDrilldown({ fund, proposed = null, lineSource = null
         <Stat label="Appropriations, 2026" value={usd(fund.expenditureTotal2026)} accent />
         {proposed && (
           <Stat
-            label={`Appropriations, ${PROPOSED_YEAR} proposed`}
+            label={`Appropriations, ${PROPOSED_YEAR} ${PROPOSAL_WORD}`}
             value={usd(proposed.appropriations)}
             note={<span style={{ color: changeColor(fund.expenditureTotal2026, proposed.appropriations), fontWeight: 600 }}>{changeWords(fund.expenditureTotal2026, proposed.appropriations)} from 2026</span>}
           />
@@ -133,8 +133,8 @@ export default function FundDrilldown({ fund, proposed = null, lineSource = null
       <ColumnGuide items={withProposed ? [
         { term: 'Account', plain: 'The Town’s internal code for a single spending line.' },
         { term: '2025 / 2026', plain: 'What the adopted budget set for that line in each year.' },
-        { term: `${PROPOSED_YEAR} proposed`, plain: `What the ${PROPOSED_YEAR} ${PROPOSAL_LABEL} Budget proposes for the line. The Board can change it before it adopts a budget by November 20.` },
-        { term: 'Change', plain: `The dollar change from the 2026 budget to the ${PROPOSED_YEAR} proposal. The colour follows your setting for an increase.` },
+        { term: `${PROPOSED_YEAR} ${PROPOSAL_WORD}`, plain: `What the ${PROPOSED_YEAR} ${PROPOSAL_LABEL} Budget ${PROPOSAL_VERB} for the line. ${PROPOSAL_STATUS}` },
+        { term: 'Change', plain: `The dollar change from the 2026 budget to the ${PROPOSED_YEAR} ${PROPOSAL_STAGE === 'adopted' ? 'budget' : 'proposal'}. The colour follows your setting for an increase.` },
         { term: 'Trend', plain: 'A small line showing the adopted amount each year from 2020 through 2026.' },
       ] : [
         { term: 'Account', plain: 'The Town’s internal code for a single spending line.' },
@@ -168,7 +168,7 @@ export default function FundDrilldown({ fund, proposed = null, lineSource = null
           <>
             {' '}The {PROPOSED_YEAR} column is from the{' '}
             <a href={lineSource.url} target="_blank" rel="noreferrer" style={{ color: 'var(--rbl-link)', fontWeight: 600 }}>{lineSource.title}</a>,
-            whose lines add up to the {PROPOSED_YEAR} Tentative to the dollar. {PROPOSAL_STAGE === 'preliminary' ? <>Where the Preliminary Budget book prints a different figure for a line, the column shows the Preliminary&rsquo;s; the book&rsquo;s Tentative column agrees with the Supplement on every line. </> : null} Lines marked new were not in the 2026 budget.
+            whose lines add up to the {PROPOSED_YEAR} Tentative to the dollar. {PROPOSAL_STAGE !== 'tentative' ? <>Where the Preliminary Budget book prints a different figure for a line, the column shows the Preliminary&rsquo;s; the book&rsquo;s Tentative column agrees with the Supplement on every line. </> : null}{PROPOSAL_STAGE === 'adopted' ? <>The Adopted Budget matches the Preliminary in every fund. </> : null} Lines marked new were not in the 2026 budget.
           </>
         ) : null}{' '}
         Verify against the{' '}
@@ -201,7 +201,7 @@ function DepartmentCard({ dept, expanded, fundExp, withProposed }: { dept: SubDe
           <strong style={{ fontSize: 18, color: 'var(--rbl-title)' }}>{usd(dept.adopted2026)}</strong> <span style={{ color: 'var(--rbl-text-muted)', fontSize: 13.5 }}>2026</span>
           {proposed != null && (
             <span style={{ display: 'block', fontSize: 13.5, color: 'var(--rbl-text-body)' }}>
-              {usd(proposed)} {PROPOSED_YEAR} proposed{' '}
+              {usd(proposed)} {PROPOSED_YEAR} {PROPOSAL_WORD}{' '}
               <span style={{ color: changeColor(dept.adopted2026, proposed), fontWeight: 600 }}>({changeWords(dept.adopted2026, proposed)})</span>
             </span>
           )}
@@ -238,7 +238,7 @@ function LineTable({ rows, withProposed = false }: { rows: Row[]; withProposed?:
             {!withProposed && <th style={{ padding: '7px 8px', textAlign: 'right' }}>2024</th>}
             <th style={{ padding: '7px 8px', textAlign: 'right' }}>2025</th>
             <th style={{ padding: '7px 8px', textAlign: 'right' }}>2026</th>
-            {withProposed && <th style={{ padding: '7px 8px', textAlign: 'right' }}>{PROPOSED_YEAR} proposed</th>}
+            {withProposed && <th style={{ padding: '7px 8px', textAlign: 'right' }}>{PROPOSED_YEAR} {PROPOSAL_WORD}</th>}
             <th style={{ padding: '7px 8px', textAlign: 'right' }}>{withProposed ? 'Change from 2026' : 'Change from 2025'}</th>
             <th style={{ padding: '7px 8px', textAlign: 'center' }} title="Adopted appropriations 2020–2026">Trend</th>
           </tr>

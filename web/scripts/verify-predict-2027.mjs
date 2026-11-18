@@ -105,7 +105,7 @@ const outcomes = [
 ]
 
 // ── The adoption record ──────────────────────────────────────────────────────
-const record = stages.transitions.filter((x) => x.from === 'tentative' && x.to === 'adopted')
+const record = stages.transitions.filter((x) => x.from === 'tentative' && x.to === 'adopted' && x.year < 2027)
 const unchanged = record.filter((x) => x.fundsChanged === 0).length
 const largest = record.reduce((a, b) => (Math.abs(b.levy.delta) > Math.abs(a.levy.delta) ? b : a))
 if (Math.abs(townWideChange) <= Math.abs(largest.levy.delta)) fail(`the page says the six are the largest change on record, but ${largest.year} moved the levy ${usd(Math.abs(largest.levy.delta))}`)
@@ -244,9 +244,10 @@ expect('the debt paragraph', block(miss, 'data-model-miss-debt', '</p>'), [
 // The September model is still on the page as it was made.
 expect('the September model', html, ['The September model, made before the Tentative', usd(prediction.totals.appropriations2027), `+${prediction.levyEstimate.levyIncreasePct}%`])
 
-// The pages that quote the prediction.
+// The pages that quote the prediction. Once 2027 is adopted the answers page gives the result instead.
+const adoptedDone = stages.transitions.some((x) => x.year === 2027 && x.to === 'adopted')
 for (const [page, needle] of [
-  ['out/answers/index.html', `As of ${UPDATED}, this site predicts the Board adopts it with the six amendments on its agenda, for a town-wide levy ${row('town-wide-change').predicted.toFixed(2)}% above 2026's.`],
+  ['out/answers/index.html', adoptedDone ? 'On November 17, 2026 the Board adopted the 2027 budget (Resolution 2026-995, 5–0), unchanged from the Preliminary.' : `As of ${UPDATED}, this site predicts the Board adopts it with the six amendments on its agenda, for a town-wide levy ${row('town-wide-change').predicted.toFixed(2)}% above 2026's.`],
   ['out/candidate-cost-benefit/index.html', `would lower the town-wide increase to ${row('town-wide-change').predicted.toFixed(2)}%, as this site’s updated prediction (${UPDATED}) expected.`],
 ]) {
   if (!existsSync(path(page))) { fail(`${page} was not built`); continue }

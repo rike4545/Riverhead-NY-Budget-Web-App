@@ -7,7 +7,7 @@ import PlainCallout from '../../components/PlainCallout'
 import { released2027, changePhrase } from '../../lib/tentative-2027'
 import {
   RECORD, ERAS, REASONS, OUTLOOK, LIMITS, AUDIT_SOURCE, PARTY_SOURCE, counts, eraStats, book, netChange,
-  overrideState, OVERRIDE_LABEL, OUTCOME_LABEL, TIMING_LABEL, countWord, overLimitRecord, overrideStreak, type YearRecord,
+  overrideState, OVERRIDE_LABEL, OUTCOME_LABEL, TIMING_LABEL, countWord, overLimitRecord, overrideStreak, outlookDone, type YearRecord,
 } from '../../lib/budget-adoption'
 
 const base = process.env.NEXT_PUBLIC_BASE_PATH || ''
@@ -24,7 +24,7 @@ const body = { color: 'var(--rbl-text-body)', fontSize: 14.5, lineHeight: 1.6 } 
 const muted = { color: 'var(--rbl-text-muted)', fontSize: 12.5, lineHeight: 1.5 } as const
 
 export const metadata = {
-  title: 'How Riverhead adopts its budget, 2005–2026',
+  title: `How Riverhead adopts its budget, 2005–${RECORD[RECORD.length - 1].year}`,
   description:
     'Every Riverhead budget since 2005: what the Town Board changed in each Supervisor’s Tentative, whether it changed it before or after the public hearing, and whether it ever voted to adopt the result — from the Town’s budget books and minutes.',
 }
@@ -140,7 +140,7 @@ export default function BudgetAdoptionPage() {
                   <td style={{ ...td, color: overrideState(r) === 'missed' ? 'var(--rbl-warn-strong)' : 'var(--rbl-text-body)' }}>{OVERRIDE_LABEL[overrideState(r)]}</td>
                 </tr>
               ))}
-              <tr data-year={OUTLOOK.year} style={{ borderBottom: '1px solid var(--rbl-border-subtle)' }}>
+              {!outlookDone && <tr data-year={OUTLOOK.year} style={{ borderBottom: '1px solid var(--rbl-border-subtle)' }}>
                 <td style={{ ...td, fontWeight: 800 }}>{OUTLOOK.year}</td>
                 <td style={td}>{OUTLOOK.supervisor} <span style={{ color: 'var(--rbl-text-muted)' }}>({OUTLOOK.partyLabel})</span></td>
                 {released2027 ? (
@@ -166,7 +166,7 @@ export default function BudgetAdoptionPage() {
                 ) : (
                   <td style={{ ...td, color: 'var(--rbl-text-muted)' }} colSpan={4}>Tentative due September 30; see <a href="#outlook" style={link}>what the record suggests</a>.</td>
                 )}
-              </tr>
+              </tr>}
             </tbody>
           </table>
         </div>
@@ -217,7 +217,7 @@ export default function BudgetAdoptionPage() {
         </ol>
       </section>
 
-      <section id="outlook" style={{ ...card, marginBottom: 16 }}>
+      {!outlookDone && <section id="outlook" style={{ ...card, marginBottom: 16 }}>
         <h3 style={{ marginTop: 0, color: 'var(--rbl-title)' }}>What it means for {OUTLOOK.year}</h3>
         <p style={{ ...body, marginTop: 0 }}>
           {OUTLOOK.supervisor} {released2027 ? 'prepared' : 'prepares'} the {OUTLOOK.year} Tentative for a Board of four Republicans ({OUTLOOK.board.join(', ')}). The record has two
@@ -235,7 +235,7 @@ export default function BudgetAdoptionPage() {
           Precedents: {OUTLOOK.precedents.map((y, i) => <span key={y}>{i > 0 && ', '}<a href={`#year-${y}`} style={link}>{y}</a></span>)}.
           The Tentative itself, against this site’s projection: <a href={`${base}/tentative-${OUTLOOK.year}/`} style={link}>{OUTLOOK.year} Tentative Budget</a>.
         </p>
-      </section>
+      </section>}
 
       <section style={{ ...card, marginBottom: 16 }}>
         <h3 style={{ marginTop: 0, color: 'var(--rbl-title)' }}>How this was built, and what it cannot tell you</h3>
