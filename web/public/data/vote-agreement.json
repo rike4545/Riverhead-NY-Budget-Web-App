@@ -1,8 +1,8 @@
 {
  "from": "2025-01-07",
- "to": "2026-11-05",
- "meetings": 49,
- "resolutions": 2029,
+ "to": "2026-11-17",
+ "meetings": 50,
+ "resolutions": 2061,
  "members": [
   {
    "last": "Hubbard",
@@ -20,9 +20,9 @@
    "last": "Kern",
    "name": "Robert Kern",
    "first": "2025-01-07",
-   "last_meeting": "2026-11-05",
+   "last_meeting": "2026-11-17",
    "votes": {
-    "aye": 1987,
+    "aye": 2019,
     "nay": 12,
     "abstain": 1,
     "absent": 1
@@ -32,9 +32,9 @@
    "last": "Merrifield",
    "name": "Denise Merrifield",
    "first": "2025-01-07",
-   "last_meeting": "2026-11-05",
+   "last_meeting": "2026-11-17",
    "votes": {
-    "aye": 2017,
+    "aye": 2049,
     "nay": 9,
     "abstain": 3,
     "absent": 0
@@ -44,9 +44,9 @@
    "last": "Rothwell",
    "name": "Kenneth Rothwell",
    "first": "2025-01-07",
-   "last_meeting": "2026-11-05",
+   "last_meeting": "2026-11-17",
    "votes": {
-    "aye": 1984,
+    "aye": 2016,
     "nay": 4,
     "abstain": 4,
     "absent": 2
@@ -56,9 +56,9 @@
    "last": "Waski",
    "name": "Joann Waski",
    "first": "2025-01-07",
-   "last_meeting": "2026-11-05",
+   "last_meeting": "2026-11-17",
    "votes": {
-    "aye": 2027,
+    "aye": 2059,
     "nay": 2,
     "abstain": 0,
     "absent": 0
@@ -68,9 +68,9 @@
    "last": "Halpin",
    "name": "Jerry Halpin",
    "first": "2026-01-06",
-   "last_meeting": "2026-11-05",
+   "last_meeting": "2026-11-17",
    "votes": {
-    "aye": 981,
+    "aye": 1013,
     "nay": 5,
     "abstain": 7,
     "absent": 0

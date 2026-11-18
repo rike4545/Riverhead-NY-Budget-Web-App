@@ -7,7 +7,7 @@
   "title": "Town of Riverhead Town Board Meeting Schedule",
   "url": "https://townofriverheadny.gov/282/Town-Board-Meeting-Schedule"
  },
- "generatedAt": "2026-11-17",
+ "generatedAt": "2026-11-18",
  "officialScheduleDates": [
   "2026-01-06",
   "2026-01-21",
@@ -182,6 +182,11 @@
      "seq": 31,
      "number": "2026-1025",
      "title": "Pays Bills"
+    },
+    {
+     "seq": 32,
+     "number": "2026-1026",
+     "title": "Adopts A Local Law Amending Chapter 279 Of The Riverhead Town Code Entitled \u201cTaxation\u201d"
     }
    ],
    "hearings": [
@@ -359,7 +364,8 @@
    "itemsSource": "official-calendar",
    "docket": [],
    "hearings": [
-    "DGEIS amending Chapter 301-3, Golf Course"
+    "DGEIS Amending Chapter 301-3, Golf Course",
+    "Amend Chapter 105 - Boards, Commissions and Councils"
    ]
   },
   {
@@ -368,9 +374,11 @@
    "startDateTime": "2026-12-15T14:00:00Z",
    "type": "Town Board Meeting",
    "agendaPublished": false,
-   "itemsSource": null,
+   "itemsSource": "official-calendar",
    "docket": [],
-   "hearings": []
+   "hearings": [
+    "Amend Chapter 241- Landmarks and Historic Districts"
+   ]
   }
  ]
 }
