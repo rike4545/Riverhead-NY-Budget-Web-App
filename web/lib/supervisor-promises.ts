@@ -220,7 +220,7 @@ export const tests: Test[] = [
     value: req2027 && req2027.reconciliation.complete
       ? `${signed(req2027.expenditure.delta)} (${pct((req2027.expenditure.delta / req2027.expenditure.request) * 100)})`
       : null,
-    benchmark: requestHistory.filter((r) => r.year < 2027).map((r) => `${r.year} (${r.preparedUnder}): ${pct(r.deltaPct)}`).join('; '),
+    benchmark: requestHistory.filter((r) => r.year < 2027).map((r) => `${r.year}${r.preparedUnder ? ` (${r.preparedUnder})` : ''}: ${pct(r.deltaPct)}`).join('; '),
     note: req2027 && !req2027.reconciliation.complete
       ? 'The 2027 Budget Supplement is out, but it doesn’t add up to the proposal, so we’re holding this back rather than showing a wrong number.'
       : undefined,
@@ -248,7 +248,7 @@ export const tests: Test[] = [
     value: office2027 ? `${usd(office2027.tentative)} (${signed(office2027.tentative - office2027.adopted)})` : null,
     benchmark: [
       office2026Budget !== null ? `2026 budget: ${usd(office2026Budget)}.` : null,
-      officeHistory.length ? `Earlier proposals: ${officeHistory.map((o) => `${o.year} ${usd(o.tentative)} (${o.preparedUnder})`).join('; ')}.` : null,
+      officeHistory.length ? `Earlier proposals: ${officeHistory.map((o) => `${o.year} ${usd(o.tentative)}${o.preparedUnder ? ` (${o.preparedUnder})` : ''}`).join('; ')}.` : null,
     ].filter(Boolean).join(' '),
     note: [
       office2026Budget !== null
