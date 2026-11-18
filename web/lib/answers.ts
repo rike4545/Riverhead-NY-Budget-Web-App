@@ -38,6 +38,7 @@ const base = process.env.NEXT_PUBLIC_BASE_PATH || ''
 
 /** Once the Town prints the Preliminary, say what the Board's six amendments did to the levy. */
 const prelimTW = stageDoc(2027, 'preliminary')?.townWide
+const adopted2027 = stageDoc(2027, 'adopted')
 const prelimSentence = prelimTW && prelimTW.levy != null && prelimTW.priorLevy
   ? ` The Board's six amendments on October 20 turned it into the Preliminary Budget, with a town-wide levy of $${Math.round(prelimTW.levy).toLocaleString('en-US')}, up ${(((prelimTW.levy / prelimTW.priorLevy) - 1) * 100).toFixed(2)}% from 2026.`
   : ''
@@ -235,7 +236,9 @@ export const topics: AnswerTopic[] = [
       tentative2027
         ? {
             q: 'Will my taxes go up again in 2027?',
-            a: `The Town's 2027 Tentative Budget is out. ${levySentence(tentative2027)}${prelimSentence} It is a proposal: the Board can change it before adopting a budget by November 20.${
+            a: adopted2027?.townWide
+              ? `Yes, a little. On November 17, 2026 the Board adopted the 2027 budget (Resolution 2026-995, 5–0), unchanged from the Preliminary. The town-wide levy is $${Math.round(adopted2027.townWide.levy).toLocaleString('en-US')}, up ${(((adopted2027.townWide.levy / adopted2027.townWide.priorLevy) - 1) * 100).toFixed(2)}% from 2026, and the town-wide rate is $${adopted2027.townWide.rate.toFixed(3)} per $1,000 of assessed value, against $${adopted2027.townWide.priorRate.toFixed(3)} in 2026. It started from the Supervisor’s Tentative: ${levySentence(tentative2027)}`
+              : `The Town's 2027 Tentative Budget is out. ${levySentence(tentative2027)}${prelimSentence} It is a proposal: the Board can change it before adopting a budget by November 20.${
               updatedPrediction
                 ? ` As of ${UPDATED.date}, this site predicts the Board adopts it with the six amendments on its agenda, for a town-wide levy ${updatedPrediction.row('town-wide-change').predicted.toFixed(2)}% above 2026's.`
                 : ''

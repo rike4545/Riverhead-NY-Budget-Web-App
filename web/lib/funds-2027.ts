@@ -26,11 +26,22 @@ export const TENTATIVE_YEAR = 2027
 const tentative = stageDoc(TENTATIVE_YEAR, 'tentative')
 const preliminary = stageDoc(TENTATIVE_YEAR, 'preliminary')
 const adopted = stageDoc(TENTATIVE_YEAR - 1, 'adopted')
+const adoptedNext = stageDoc(TENTATIVE_YEAR, 'adopted')
 export const tentativeOut = tentative !== null && adopted !== null
 /** The newest stage the Town has printed for the year, and its name for readers. */
-export const PROPOSAL_STAGE: 'preliminary' | 'tentative' = preliminary ? 'preliminary' : 'tentative'
-export const PROPOSAL_LABEL = PROPOSAL_STAGE === 'preliminary' ? 'Preliminary' : 'Tentative'
-const proposalDoc = preliminary ?? tentative
+export const PROPOSAL_STAGE: 'adopted' | 'preliminary' | 'tentative' = adoptedNext ? 'adopted' : preliminary ? 'preliminary' : 'tentative'
+export const PROPOSAL_LABEL = PROPOSAL_STAGE === 'adopted' ? 'Adopted' : PROPOSAL_STAGE === 'preliminary' ? 'Preliminary' : 'Tentative'
+/** Once the Board has adopted the year's budget its figures are no longer a proposal. */
+export const PROPOSAL_ADOPTED = PROPOSAL_STAGE === 'adopted'
+/** "proposed" or "adopted", for a column or a figure. */
+export const PROPOSAL_WORD = PROPOSAL_ADOPTED ? 'adopted' : 'proposed'
+/** What the document does with a line: "proposes" or "budgets". */
+export const PROPOSAL_VERB = PROPOSAL_ADOPTED ? 'budgets' : 'proposes'
+/** Where the year's budget stands, in one sentence. */
+export const PROPOSAL_STATUS = PROPOSAL_ADOPTED
+  ? `The Town Board adopted it on November 17, 2026, unchanged from the Preliminary.`
+  : 'The Town Board can change it before it adopts a budget by November 20.'
+const proposalDoc = adoptedNext ?? preliminary ?? tentative
 
 export type FundYear = { appropriations: number; revenues: number; fundBalance: number; levy: number }
 const yearOf = (row: { appropriations: number; revenues: number | null; fundBalance: number | null; levy: number | null } | undefined): FundYear | null =>

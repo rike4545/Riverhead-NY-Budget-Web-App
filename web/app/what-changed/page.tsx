@@ -64,7 +64,7 @@ export default function WhatChangedPage() {
       <div style={{ display: 'grid', gap: 16 }}>
         <section style={{ background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 20 }}>
           <DataStatus status="calculated" text={`Calculated from the ${YEAR} Tentative and ${PRIOR} Adopted budgets`} />
-          <p style={{ margin: '10px 0 0', color: 'var(--rbl-text-sub)', lineHeight: 1.6, maxWidth: 930 }}>This page answers the first resident question — <strong>what is about to move?</strong> — for the budget now on the table, then lets you drill into the underlying records. The Tentative is the Supervisor’s proposal. The Town Board can change it before adopting a budget, which it must do by November 20.</p>
+          <p style={{ margin: '10px 0 0', color: 'var(--rbl-text-sub)', lineHeight: 1.6, maxWidth: 930 }}>This page answers the first resident question — <strong>what is about to move?</strong> — for the budget now on the table, then lets you drill into the underlying records. The Tentative is the Supervisor’s proposal.{stageDoc(YEAR, 'adopted') ? ' The Town Board amended it on October 20 and adopted the budget on November 17, 2026.' : ' The Town Board can change it before adopting a budget, which it must do by November 20.'}</p>
         </section>
 
         <section aria-label={`${PRIOR} to ${YEAR} Tentative changes`} style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(230px,1fr))', gap: 12 }}>

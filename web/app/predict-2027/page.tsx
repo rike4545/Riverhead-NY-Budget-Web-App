@@ -28,7 +28,11 @@ import {
   UPDATED, ADOPTION_DEADLINE, updatedPrediction as updated, record, unchangedCount, largestChange, amendmentsLevyChange,
   basis, scenarios, modelMiss, type PredictionRow,
 } from '../../lib/predict-2027-update'
-import { countWord } from '../../lib/budget-adoption'
+import { countWord, RECORD } from '../../lib/budget-adoption'
+import { stageDoc } from '../../lib/budget-stages'
+
+const adoptedBook = stageDoc(2027, 'adopted')
+const adoptedVote = RECORD.find((r) => r.year === 2027)?.adoption ?? null
 
 const base = process.env.NEXT_PUBLIC_BASE_PATH || ''
 const usd = (n: number) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(n)
@@ -127,6 +131,13 @@ export default function Predict2027Page() {
             <p style={{ color: 'var(--rbl-text-muted)', fontSize: 13, lineHeight: 1.5, margin: '0 0 6px' }}>
               The prediction beside the Tentative. The adopted column fills in when the Town publishes the adopted budget, and the prediction stays as it is.
             </p>
+            {adoptedBook?.townWide && (
+              <p data-prediction-outcome style={{ color: 'var(--rbl-text-body)', fontSize: 14.5, lineHeight: 1.6, margin: '0 0 10px' }}>
+                <strong>The outcome.</strong> The Board adopted the 2027 budget on November 17, 2026{adoptedVote?.resolution ? <> (Resolution {adoptedVote.resolution.replace('#', '')}, {adoptedVote.vote})</> : null},
+                with all six amendments and no other change. The adopted town-wide levy is {usd(adoptedBook.townWide.levy)}
+                {Math.round(adoptedBook.townWide.levy) === Math.round(townWide.predicted) ? ', exactly as predicted' : `, against a prediction of ${usd(townWide.predicted)}`}.
+              </p>
+            )}
             <div style={{ overflowX: 'auto' }}>
               <table data-updated-table className="rbl-stack" style={{ width: '100%', borderCollapse: 'collapse', fontSize: 13.3 }}>
                 <thead>
@@ -163,7 +174,7 @@ export default function Predict2027Page() {
               </li>
               <li data-amendments-adopted>
                 The Board adopted all six on {basis.meeting.date}, with no votes against, so they are now part of the Preliminary Budget.
-                What remains to be seen is whether the budget the Board adopts in November keeps them.
+                {adoptedBook ? ' The budget the Board adopted on November 17 keeps all six.' : ' What remains to be seen is whether the budget the Board adopts in November keeps them.'}
               </li>
               <li>
                 {basis.article.outlet} reported on {basis.article.published} that Council Member Ken Rothwell developed them with the Town’s financial administrator
@@ -179,7 +190,7 @@ export default function Predict2027Page() {
               )}
             </ul>
 
-            <h3 style={{ margin: '18px 0 6px', color: 'var(--rbl-title)', fontSize: 16 }}>What would change it</h3>
+            <h3 style={{ margin: '18px 0 6px', color: 'var(--rbl-title)', fontSize: 16 }}>{adoptedBook ? 'What could have changed it' : 'What would change it'}</h3>
             <div style={{ overflowX: 'auto' }}>
               <table data-scenarios className="rbl-stack" style={{ width: '100%', borderCollapse: 'collapse', fontSize: 13.3 }}>
                 <thead>

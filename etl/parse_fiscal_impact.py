@@ -1443,8 +1443,10 @@ def build_meeting(date: str, packet_text: str) -> dict | None:
                 "ayes": matched.get("ayesCount"),
                 "nays": matched.get("naysCount"),
             }
-        number = matched.get("number") if matched else printed
-        if number and number_source is None:
+        # The minutes can print an item without its number (2026-1012 on
+        # November 17, 2026) while the packet prints it; keep the packet's.
+        number = (matched.get("number") if matched else None) or printed
+        if number and (number_source is None or (number == printed and not (matched or {}).get("number"))):
             number_source = "printed"
         resolutions.append({
             "number": number,

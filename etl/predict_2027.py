@@ -73,6 +73,26 @@ def csea_effective_rates():
 
 CSEA_EFFECTIVE_RATES, CSEA_PAYROLL_YEAR, CSEA_STARTING_BASE = csea_effective_rates()
 
+# The PBA and SOA 2027-2030 stipulations, adopted November 17, 2026 (Resolutions
+# 2026-1020 and 2026-1021): every salary step rises 3.75% a year, and 2027
+# salaries also gain $500 under the body-camera agreement (the schedules in
+# that meeting's agenda packet, pages 205 and 209; web/lib/police-stipulations-2027.ts).
+POLICE_2027_RAISE = 0.0375
+POLICE_2027_BODYCAM = 500
+
+
+def police_effective_2027(union: str) -> tuple[float, float]:
+    """3.75% plus $500, as a share of the unit's average base pay in the latest payroll year."""
+    records = json.loads(PAYROLL_RECORDS.read_text())["records"]
+    latest_year = max(r["y"] for r in records if r["u"] == union)
+    pool = [r["r"] for r in records if r["y"] == latest_year and r["u"] == union and r["r"] > 0]
+    base = sum(pool) / len(pool)
+    return POLICE_2027_RAISE + POLICE_2027_BODYCAM / base, base
+
+
+PBA_2027, PBA_BASE = police_effective_2027("PBA")
+SOA_2027, SOA_BASE = police_effective_2027("SOA")
+
 # Each Riverhead bargaining unit's actual negotiated raises, by contract. Where the
 # contract doesn't cover 2027, "rate2027" is left None and computed as that union's own
 # trailing geometric-average annual raise (a placeholder until a successor CBA is public).
@@ -91,25 +111,24 @@ UNION_CONTRACTS = {
     },
     "PBA": {
         "label": "PBA",
-        "term": "2023–2026 MOA (expires 12/31/2026, no successor yet public)",
-        "rates": {2023: 0.060, 2024: 0.025, 2025: 0.025, 2026: 0.025},
-        "known2027": False,
-        "source": "Signed PBA MOA, Article XXXVII (Salaries), 7/25/2023. Full known PBA history back to "
-                  "2016 (2%/2%/1.5%/1.5% in 2017–2020, 2%/2% in the 2021–2022 COVID extension per Town "
-                  "Board Resolution 2020-519) confirms the contracts are continuous with no gap — but the "
-                  "placeholder below still uses only the most recent 2023–2026 contract, as the closer "
-                  "starting point for the next negotiation.",
+        "term": "2027–2030 stipulation (Resolution 2026-1020, adopted 11/17/2026)",
+        "rates": {2023: 0.060, 2024: 0.025, 2025: 0.025, 2026: 0.025, 2027: PBA_2027},
+        "known2027": True,
+        "source": f"PBA stipulation adopted by the Town Board on 11/17/2026 (Resolution 2026-1020): its "
+                  f"salary schedule raises every step 3.75% a year from 2027 to 2030, with $500 added to "
+                  f"2027 salaries for the body-camera agreement. Converted here to an effective 2027 rate "
+                  f"using average PBA base pay (${PBA_BASE:,.0f}). Earlier terms: signed PBA MOA, "
+                  f"Article XXXVII (Salaries), 7/25/2023.",
     },
     "SOA": {
         "label": "SOA",
-        "term": "2023–2026 agreement (expires 12/31/2026, no successor yet public)",
-        "rates": {2023: 0.060, 2024: 0.020, 2025: 0.040, 2026: 0.060},
-        "known2027": False,
-        "source": "Signed SOA MOA, Article XXXII (Salaries), 12/12/2023. Full known SOA history back to "
-                  "2016 (2%/2%/2%/2%/1.5% in 2016–2020, 2%/2% in the 2021–2022 COVID extension per Town "
-                  "Board Resolution 2020-520) confirms the contracts are continuous with no gap — but the "
-                  "placeholder below still uses only the most recent 2023–2026 contract, as the closer "
-                  "starting point for the next negotiation.",
+        "term": "2027–2030 stipulation (Resolution 2026-1021, adopted 11/17/2026)",
+        "rates": {2023: 0.060, 2024: 0.020, 2025: 0.040, 2026: 0.060, 2027: SOA_2027},
+        "known2027": True,
+        "source": f"SOA stipulation adopted by the Town Board on 11/17/2026 (Resolution 2026-1021): the "
+                  f"same terms as the PBA's, 3.75% a year from 2027 to 2030 plus $500 on 2027 salaries. "
+                  f"Converted here to an effective 2027 rate using average SOA base pay (${SOA_BASE:,.0f}). "
+                  f"Earlier terms: signed SOA MOA, Article XXXII (Salaries), 12/12/2023.",
     },
 }
 NON_UNION_RATE = 0.03  # no CBA governs these (management/confidential, elected, temp); general trend
@@ -195,8 +214,8 @@ def personal_services_rate():
     why = (
         "Payroll-weighted blend of each Riverhead bargaining unit's own 2027 terms: CSEA gets its "
         f"contractual {round(UNION_CONTRACTS['CSE']['rates'][2027] * 100, 1)}% (2026–2029 CBA). PBA and SOA "
-        "are between contracts — both 2023–2026 agreements expire 12/31/2026 with no successor yet "
-        "public — so each uses its own trailing average annual raise as a placeholder. Non-union staff use "
+        f"get their contractual {round(PBA_2027 * 100, 2)}% and {round(SOA_2027 * 100, 2)}% (3.75% plus $500, "
+        "from the 2027–2030 stipulations the Board adopted on November 17, 2026). Non-union staff use "
         f"a general {round(NON_UNION_RATE * 100, 1)}% trend assumption. Weighted by each group's share of "
         f"{latest['year']} actual Town payroll. Full breakdown below."
     )
@@ -484,14 +503,12 @@ def build():
                        "2026-762, August 4). No financial report covering 2026 has been filed, so how much "
                        "these paydowns take off 2027 debt service is real but not yet quantifiable from "
                        "public documents."},
-            {"item": "PBA and SOA stipulations were ratified July 7, 2026",
-             "effect": "unknown — could move Personal Services either way",
-             "detail": "The Personal Services rate below assumes PBA and SOA are between contracts with no "
-                       "successor public, and uses each unit's trailing average raise as a placeholder. "
-                       "Resolutions 2026-679 (SOA) and 2026-680 (PBA) ratified stipulations that the titles "
-                       "do not describe. A stipulation may be a full successor agreement or a narrow side "
-                       "deal. Until the terms are public the placeholder stands, but it should be treated "
-                       "as less reliable than it was."},
+            {"item": "PBA and SOA 2027–2030 stipulations adopted November 17, 2026",
+             "effect": "now in the rate below",
+             "detail": "Resolutions 2026-1020 (PBA) and 2026-1021 (SOA) set 3.75% a year from 2027 to 2030, "
+                       "plus $500 on 2027 salaries. The Personal Services rate below uses those terms in place "
+                       "of the trailing-average placeholder. The July 7 stipulations (2026-679, 2026-680) were "
+                       "the retirement incentive, not wage terms."},
             # The id lets the page replace this item with the Tentative itself
             # once it is parsed, since this file is not rebuilt by that deploy.
             {"id": "tentative",

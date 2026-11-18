@@ -8,7 +8,7 @@ import { afrGroupForBudgetFund } from '../../../lib/afr'
 import { AUDITED_GENERAL_FUND, AUDITED_OPERATIONS, AUDIT_2025, deficitHistory } from '../../../lib/audits'
 import { stageDoc } from '../../../lib/budget-stages'
 import { dollars } from '../../../lib/financial-data'
-import { fundYears, lineSource, PROPOSAL_LABEL, proposedOf, supplementAdoptedYear, supplementLines, supplementPriorAdoptedYear, TENTATIVE_YEAR, withTentative } from '../../../lib/funds-2027'
+import { fundYears, lineSource, PROPOSAL_ADOPTED, PROPOSAL_LABEL, PROPOSAL_STATUS, PROPOSAL_VERB, proposedOf, supplementAdoptedYear, supplementLines, supplementPriorAdoptedYear, TENTATIVE_YEAR, withTentative } from '../../../lib/funds-2027'
 import { isSetAside } from '../../../lib/savings-rules'
 import { SNOW, snowOvertime, highwayPayrollOvertime, type SupplementLine } from '../../../lib/snow-overtime'
 import { OT_SOURCE, PAL_UNIFORMS, palUniforms } from '../../../lib/overtime-by-department'
@@ -25,7 +25,7 @@ export async function generateMetadata({ params }: { params: Promise<{ code: str
   if (!fund) return { title: 'Fund not found' }
   return {
     title: `${fund.name} (${fund.code}) — budget drilldown`,
-    description: `Every department and account line item in the Town of Riverhead ${fund.name}: 2026 appropriations and revenues, what the ${TENTATIVE_YEAR} ${PROPOSAL_LABEL} Budget proposes for each line, and trends back to 2020.`,
+    description: `Every department and account line item in the Town of Riverhead ${fund.name}: 2026 appropriations and revenues, what the ${TENTATIVE_YEAR} ${PROPOSAL_LABEL} Budget ${PROPOSAL_VERB} for each line, and trends back to 2020.`,
   }
 }
 
@@ -55,7 +55,7 @@ export default async function FundDetailPage({ params }: { params: Promise<{ cod
       <PlainCallout
         tips={[
           { label: 'Departments', text: 'group the spending. Click one to expand it and see its individual spending lines.' },
-          { label: 'The columns', text: lineSource ? `show what was budgeted in 2025 and 2026, what the ${TENTATIVE_YEAR} ${PROPOSAL_LABEL} proposes, the change from 2026, and a trend line back to 2020. The Tentative is the Supervisor’s proposal and the Preliminary adds the Board’s changes; the Board can change either before it adopts a budget by November 20.` : 'show what was budgeted in 2024, 2025, and 2026, the change, and a mini trend line back to 2020.' },
+          { label: 'The columns', text: lineSource ? `show what was budgeted in 2025 and 2026, what the ${TENTATIVE_YEAR} ${PROPOSAL_LABEL} ${PROPOSAL_VERB}, the change from 2026, and a trend line back to 2020. The Tentative is the Supervisor’s proposal and the Preliminary adds the Board’s changes${PROPOSAL_ADOPTED ? `. ${PROPOSAL_STATUS}` : '; the Board can change either before it adopts a budget by November 20.'}` : 'show what was budgeted in 2024, 2025, and 2026, the change, and a mini trend line back to 2020.' },
           { label: 'Categories', text: 'Personal Services = salaries, Contractual = vendor/operating costs, Equipment = one-time purchases, Benefits = health/retirement.' },
         ]}
       >

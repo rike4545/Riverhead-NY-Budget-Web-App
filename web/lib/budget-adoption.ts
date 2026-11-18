@@ -378,6 +378,15 @@ export const RECORD: YearRecord[] = [
     quotes: [],
     sources: [civic(10248, 'Agenda packet, Oct. 7, 2025 (combined notice)'), civic(10345, 'Minutes, Nov. 6, 2025 (hearing)'), civic(10384, 'Minutes, Nov. 18, 2025 (override and adoption)'), LOCAL_NOTICE_2025],
   },
+  {
+    year: 2027, supervisor: 'Jerry Halpin', party: null, board: ['Rothwell', 'Kern', 'Merrifield', 'Waski'],
+    hearing: '2026-11-05', timing: 'before',
+    adoption: { outcome: 'vote', date: '2026-11-17', vote: '5–0', resolution: '#2026-995' },
+    summary:
+      'Halpin’s first budget. On October 20, before the hearing, the Board passed six amendments to his Tentative, which made it the Preliminary. On November 17 the Board adopted the Preliminary unchanged, unanimously.',
+    quotes: [],
+    sources: [civic(12495, 'Agenda packet with votes, Oct. 20, 2026 (the six amendments)'), civic(12615, 'Agenda packet with votes, Nov. 17, 2026 (adoption, Resolution 2026-995)')],
+  },
 ]
 
 // --- what follows from the record -------------------------------------------
@@ -539,7 +548,7 @@ export const REASONS: Reason[] = [
 export const AUDIT_SOURCE = LOCAL_AUDIT_2023
 export const PARTY_SOURCE = NEWS_REVIEW_2017
 
-/** 2027, which none of the record above can yet describe. */
+/** 2027, before the record above could describe it. Pages show it only while 2027 is not yet in RECORD. */
 export const OUTLOOK = {
   year: 2027,
   supervisor: 'Jerry Halpin',
@@ -566,3 +575,6 @@ export const LIMITS: string[] = [
   'Party labels are shown only where a source gives them. None is shown for council members before 2010.',
   'A column’s label is kept as printed. The 2020 “Proposed Preliminary” column includes an amendment the Board rejected, so the record of votes comes from the minutes, not the column.',
 ]
+
+/** True once the record holds the year the outlook was written for. */
+export const outlookDone = RECORD.some((r) => r.year === OUTLOOK.year)

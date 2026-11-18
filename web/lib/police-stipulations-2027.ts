@@ -1,8 +1,9 @@
-// The proposed 2027-2030 police stipulations, on the Town Board's November 17,
-// 2026 agenda, for the payroll, 2027 forecast and buyout pages.
+// The 2027-2030 police stipulations, on the Town Board's November 17, 2026
+// agenda, for the payroll, 2027 forecast and buyout pages.
 //
-// PROPOSED, NOT APPROVED. Items IX.26 (PBA) and IX.27 (SOA) ask the Board to
-// approve "the attached Stipulation" with each union. The agenda packet attaches
+// Items IX.26 (PBA) and IX.27 (SOA) asked the Board to approve "the attached
+// Stipulation" with each union; it did, 5-0, as Resolutions 2026-1020 and
+// 2026-1021. The agenda packet attaches
 // only each stipulation's Appendix A (night differential) and Appendix B (salary
 // schedule), not the stipulation's own text, so its other terms are not public.
 // Every rate below is copied from those appendices and checked against the kept

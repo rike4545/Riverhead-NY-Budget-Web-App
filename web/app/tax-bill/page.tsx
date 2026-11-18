@@ -13,13 +13,14 @@ import { homes, uniformPercent } from '../../lib/assessment'
 export const metadata = {
   title: 'My tax bill — what would I actually pay?',
   description:
-    "Estimate the Town's portion of your property-tax bill at the 2025 and 2026 adopted rates and the proposed 2027 rate, from the Town's own budget books.",
+    `Estimate the Town's portion of your property-tax bill at the 2025 and 2026 adopted rates and the ${stageDoc(2027, 'adopted') ? 'adopted' : 'proposed'} 2027 rate, from the Town's own budget books.`,
 }
 
 export default function TaxBillPage() {
   const rateChange = data.rates2026.totalTownWide - data.rates2025.totalTownWide
   const preliminary2027 = stageDoc(2027, 'preliminary')
-  const proposal2027 = preliminary2027 ?? stageDoc(2027, 'tentative')
+  const adopted2027 = stageDoc(2027, 'adopted')
+  const proposal2027 = adopted2027 ?? preliminary2027 ?? stageDoc(2027, 'tentative')
   const proposalFundRates = proposal2027?.townWide?.fundRates
   const proposalRates =
     proposal2027?.townWide && proposalFundRates?.A01 && proposalFundRates.DA1 && proposalFundRates.SL1
@@ -30,7 +31,7 @@ export default function TaxBillPage() {
           totalTownWide: proposal2027.townWide.rate,
         }
       : undefined
-  const proposalLabel = preliminary2027 ? '2027 Preliminary Budget' : '2027 Tentative Budget'
+  const proposalLabel = adopted2027 ? '2027 Adopted Budget' : preliminary2027 ? '2027 Preliminary Budget' : '2027 Tentative Budget'
   const rateChangePct = (rateChange / data.rates2025.totalTownWide) * 100
   const tentative2027 = stageDoc(2027, 'tentative')
   const rateRows = [
@@ -38,6 +39,7 @@ export default function TaxBillPage() {
     { year: '2026', label: 'Adopted', rate: data.rates2026.totalTownWide, source: data.rateSource.title },
     ...(tentative2027?.townWide ? [{ year: '2027', label: 'Tentative (September 30)', rate: tentative2027.townWide.rate, source: tentative2027.source.title }] : []),
     ...(preliminary2027?.townWide ? [{ year: '2027', label: 'Preliminary, after the October 20 amendments', rate: preliminary2027.townWide.rate, source: preliminary2027.source.title }] : []),
+    ...(adopted2027?.townWide ? [{ year: '2027', label: 'Adopted, November 17', rate: adopted2027.townWide.rate, source: adopted2027.source.title }] : []),
   ]
   const latestRate = rateRows[rateRows.length - 1]
   const latestChange = latestRate.rate - data.rates2026.totalTownWide
@@ -58,9 +60,11 @@ export default function TaxBillPage() {
         <p style={{ margin: '8px 0 10px', color: 'var(--rbl-text-sub)', lineHeight: 1.55, maxWidth: '75ch' }}>
           {proposalRates ? (
             <>The {proposalLabel} sets the rate at <strong>{latestRate.rate.toFixed(3)}</strong>, {latestChange >= 0 ? 'up' : 'down'}{' '}
-              {Math.abs(latestChange).toFixed(3)} ({((latestChange / data.rates2026.totalTownWide) * 100).toFixed(1)}%) from 2026. It is not final: the
+              {Math.abs(latestChange).toFixed(3)} ({((latestChange / data.rates2026.totalTownWide) * 100).toFixed(1)}%) from 2026.{' '}
+              {adopted2027 ? <>The Town Board adopted the 2027 budget on November 17, 2026. Your own bill also depends on your assessment and on
+              the other districts you pay into.</> : <>It is not final: the
               Town Board adopts the 2027 budget by November 20, and the rate is then reset on the final assessment roll, as 2026&apos;s moved
-              from 71.549 to 71.598.</>
+              from 71.549 to 71.598.</>}</>
           ) : (
             <>The rate went from {data.rates2025.totalTownWide.toFixed(3)} to {data.rates2026.totalTownWide.toFixed(3)}, up {rateChange.toFixed(3)} ({rateChangePct.toFixed(1)}%).</>
           )}
@@ -96,7 +100,7 @@ export default function TaxBillPage() {
       >
         <span style={{ display: 'inline-flex', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}>
           <DataStatus status="official" text="Official published rate table" />
-          <span>Enter the assessed value from your tax bill to see your Town taxes at each year&apos;s rate. The 2025 and 2026 rates are the adopted ones ({data.rateSource.note}); the 2027 rate is the latest proposal.</span>
+          <span>Enter the assessed value from your tax bill to see your Town taxes at each year&apos;s rate. The 2025 and 2026 rates are the adopted ones ({data.rateSource.note}); the 2027 rate is {adopted2027 ? 'the adopted one' : 'the latest proposal'}.</span>
         </span>
       </PlainCallout>
 

@@ -147,7 +147,7 @@ export default function TaxBillEstimator({
           That is {change >= 0 ? 'up' : 'down'} <strong>{usd(Math.abs(change))}</strong>
           {changeBase > 0 ? ` (${((change / changeBase) * 100).toFixed(1)}%)` : ''} from {e2027 ? '2026' : '2025'}, or about{' '}
           {usd(latest.total / 12)} a month.
-          {e2027 ? ' This is an illustrative estimate: it applies the proposed rate to your inputs. The rate is not final until the Town Board adopts the budget, and this is not a tax bill.' : ''}
+          {e2027 ? (/Adopted/.test(proposalLabel) ? ' This is an illustrative estimate: it applies the adopted rate to your inputs, and it is not a tax bill.' : ' This is an illustrative estimate: it applies the proposed rate to your inputs. The rate is not final until the Town Board adopts the budget, and this is not a tax bill.') : ''}
         </p>
         {billTotal > 0 ? (
           billTotal >= e2026.total ? (
