@@ -70,6 +70,23 @@ function recordState(slug: string, meetingDate: string, record: Meeting | null):
       detail: `This meeting is still inside the ${VOTE_GRACE_DAYS}-day reconciliation window. The fiscal filing is available, but it is not proof of the final vote.`,
     }
   }
+  // The packet, and so the fiscal statements, are posted a few days before the
+  // meeting, and the minutes some days after it. Until then there is nothing to
+  // index, which is not the same as a record this site failed to match.
+  if (!indexEntry && meetingDate > new Date().toISOString().slice(0, 10)) {
+    return {
+      kind: 'pending',
+      title: 'Agenda published · meeting not yet held',
+      detail: 'These are the fiscal statements filed with the agenda. Nothing has been voted on yet, so none of them is proof of a decision.',
+    }
+  }
+  if (!indexEntry && ageDays(meetingDate) <= VOTE_GRACE_DAYS) {
+    return {
+      kind: 'pending',
+      title: 'Meeting completed · vote record not yet available',
+      detail: `This meeting is still inside the ${VOTE_GRACE_DAYS}-day reconciliation window, and its minutes are not yet in this site's record. The fiscal filing is available, but it is not proof of the final vote.`,
+    }
+  }
   return {
     kind: 'unindexed',
     title: 'Fiscal statement available · vote record not indexed',
@@ -85,7 +102,9 @@ export default function FiscalImpactMeetings({ meetings }: { meetings: FiscalMee
   useEffect(() => {
     let cancelled = false
     setMeetingRecord(null)
-    if (!m?.slug) return () => { cancelled = true }
+    // Only meetings in the index have a record file; asking for any other one
+    // is a 404 in every reader's console.
+    if (!m?.slug || !meetingsIndex.meetings.some((entry) => entry.slug === m.slug)) return () => { cancelled = true }
     fetch(meetingUrl(m.slug))
       .then((response) => response.ok ? response.json() : null)
       .then((value) => { if (!cancelled) setMeetingRecord(value as Meeting | null) })

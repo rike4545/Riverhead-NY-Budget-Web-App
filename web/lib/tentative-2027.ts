@@ -270,6 +270,9 @@ export const SUPERVISOR_ROLE_SOURCE = {
 }
 
 export const PREPARED_UNDER: Record<number, string> = {
+  // A Tentative is filed in the fall before its year, so 2023's (fall 2022)
+  // and 2024's (fall 2023) were both Supervisor Aguiar's (in office 2020-2023).
+  2023: 'Supervisor Yvette Aguiar',
   2024: 'Supervisor Yvette Aguiar',
   2025: 'Supervisor Tim Hubbard',
   2026: 'Supervisor Tim Hubbard',
