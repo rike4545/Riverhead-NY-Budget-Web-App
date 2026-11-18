@@ -37,6 +37,9 @@ export function watched(id: string): Watched {
 const longDate = (iso: string) =>
   new Date(`${iso}T00:00:00Z`).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric', timeZone: 'UTC' })
 
+/** True once the meeting day is over (the site is rebuilt after every meeting sync). */
+const meetingPassed = (w: Watched) => new Date().toISOString().slice(0, 10) > w.meetingDate
+
 /** The vote in words, for the end of a sentence: "approved by the Town Board on November 17, 2026 (Resolution 2026-1001, unanimously)". */
 export function statusPhrase(w: Watched): string {
   const how = w.voteTag === 'unanimous' ? ', unanimously' : w.ayes != null && w.nays != null ? `, ${w.ayes}–${w.nays}` : ''
@@ -45,7 +48,16 @@ export function statusPhrase(w: Watched): string {
     case 'adopted': return `approved by the Town Board on ${longDate(w.meetingDate)}${res}`
     case 'tabled': return `tabled by the Town Board on ${longDate(w.meetingDate)}${res}`
     case 'failed': return `not approved by the Town Board on ${longDate(w.meetingDate)}${res}`
-    default: return 'proposed, not yet voted on'
+    // The agenda numbers a resolution before the vote, so a pending one can
+    // still be found by its number in the minutes later. Once the meeting has
+    // passed, "not yet voted on" may be untrue: the minutes may simply not be
+    // out yet, so say only what the record shows.
+    default: {
+      const num = w.number ? ` (Resolution ${w.number})` : ''
+      return meetingPassed(w)
+        ? `on the Town Board’s ${longDate(w.meetingDate)} agenda${num}, with no vote in the published record yet`
+        : `proposed, not yet voted on${num}`
+    }
   }
 }
 

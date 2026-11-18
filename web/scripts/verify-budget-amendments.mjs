@@ -253,7 +253,8 @@ if (!/CONSIDER THE ADOPTION OF THE 2027 PRELIMINARY ANNUAL BUDGET/.test(notice))
 if (!notice.includes('5 th day of November, 2026 at 2:05 p.m.') && !notice.includes('5th day of November, 2026 at 2:05 p.m.')) fail('the notice no longer sets the hearing for November 5 at 2:05 p.m.')
 if (!notice.includes('beginning October 29, 2026')) fail('the notice no longer says the Preliminary Budget is available beginning October 29')
 const calendar = read('public/data/meetings/upcoming.json').meetings.map((m) => m.date)
-if (!calendar.includes('2026-11-17')) fail('the Town calendar no longer lists a November 17 meeting')
+// Once it has passed, the calendar drops it and the meeting's own record stands in.
+if (!calendar.includes('2026-11-17') && !existsSync(path('public/data/meetings/2026-11-17-fiscal.json'))) fail('the Town calendar no longer lists a November 17 meeting, and there is no record of one')
 if (calendar.some((d) => d > '2026-11-05' && d < '2026-11-17')) fail('the calendar now has a meeting between the hearing and November 17, so November 17 is not the only one before the deadline')
 for (const step of NEXT_STEPS) if (!has(step.date)) fail(`the page does not show ${step.date}`)
 

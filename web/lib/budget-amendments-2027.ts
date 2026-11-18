@@ -143,7 +143,10 @@ export const NEXT_STEPS: NextStep[] = [
     date: 'November 5, 2026, 2:05 p.m.', what: 'Public hearing on the 2027 budget, including elected officials’ salaries, at Town Hall', source: 'Notice with Resolution 2026-923',
     done: { what: 'the hearing was held. The minutes say it was called to order at 2:32 p.m., there was “No public comment,” and it was “Held open for written comment for 10 days,” to November 15', source: 'Minutes of the November 5, 2026 meeting', href: '/meetings/?meeting=2026-11-05' },
   },
-  { date: 'November 17, 2026', what: 'The only Board meeting on the Town’s calendar between the hearing and the deadline; the site’s editor reports the resolution to adopt the budget will be submitted then', source: 'Town meeting calendar' },
+  {
+    date: 'November 17, 2026', what: 'The only Board meeting on the Town’s calendar between the hearing and the deadline; the site’s editor reports the resolution to adopt the budget will be submitted then', source: 'Town meeting calendar',
+    done: { what: 'the agenda put item IX.1, “Adopts Town of Riverhead 2027 Annual Budget,” before the Board. Its vote is not yet in the published minutes', source: 'Agenda packet for November 17, 2026', href: 'https://riverheadny.portal.civicclerk.com/event/6457/files/agenda/12599' },
+  },
   { date: 'November 20, 2026', what: 'Deadline to adopt; if the Board does not, the Preliminary becomes the budget', source: 'Town Law §109' },
 ]
 
