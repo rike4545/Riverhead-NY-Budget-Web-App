@@ -1,6 +1,6 @@
 {
  "version": 2,
- "sourceVersionAt": "2026-11-18T19:01:54Z",
+ "sourceVersionAt": "2026-11-18T20:52:35Z",
  "source": "Town of Riverhead CivicClerk published files",
  "meetings": {
   "2025-01-07": {
@@ -2226,7 +2226,7 @@
    "eventId": 6457,
    "eventName": "Town Board Meeting",
    "startDateTime": "2026-11-17T18:00:00Z",
-   "sourceVersionAt": "2026-11-18T19:01:54Z",
+   "sourceVersionAt": "2026-11-18T20:52:35Z",
    "officialRecordStatus": "vote-record-parsed",
    "minutes": {
     "fileId": 12616,
@@ -2235,7 +2235,7 @@
     "sha256": "03c156c9655e5f2a2ed595ef3cd94a0f108790aee9c659deffabe9ea8478e1a6",
     "bytes": 297541,
     "pages": 9,
-    "changedAt": "2026-11-18T19:01:54Z",
+    "changedAt": "2026-11-18T20:52:35Z",
     "revisionCount": 0,
     "sourceUrl": "https://riverheadny.api.civicclerk.com/v1/Meetings/GetMeetingFileStream(fileId=12616,plainText=false)",
     "hasVoteSummary": true
@@ -2308,7 +2308,7 @@
     "sha256": "03c156c9655e5f2a2ed595ef3cd94a0f108790aee9c659deffabe9ea8478e1a6",
     "bytes": 297541,
     "pages": 9,
-    "changedAt": "2026-11-18T19:01:54Z",
+    "changedAt": "2026-11-18T20:52:35Z",
     "revisionCount": 0,
     "sourceUrl": "https://riverheadny.api.civicclerk.com/v1/Meetings/GetMeetingFileStream(fileId=12616,plainText=false)",
     "hasVoteSummary": true
