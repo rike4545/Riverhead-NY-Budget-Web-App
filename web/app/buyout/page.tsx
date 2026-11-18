@@ -3,7 +3,7 @@ import ProvenanceLine from '../../components/ProvenanceLine'
 import PlainCallout from '../../components/PlainCallout'
 import BuyoutEligible, { type EligibleEmployee } from '../../components/BuyoutEligible'
 import { buyout2026 as b, outcome } from '../../lib/buyout-2026'
-import { INCENTIVE_PAYOUTS, MEETING, WATCH } from '../../lib/police-stipulations-2027'
+import { INCENTIVE_PAYOUTS, MEETING, PAYOUTS_FORM, WATCH } from '../../lib/police-stipulations-2027'
 import { statusPhrase, watched } from '../../lib/watched-resolutions'
 import { released2027 } from '../../lib/tentative-2027'
 import { LETTER_2027 } from '../../lib/tentative-letters'
@@ -700,11 +700,18 @@ function OutcomeSection() {
       </p>
       <p data-incentive-payouts style={{ color: 'var(--rbl-text-body)', fontSize: 14, lineHeight: 1.6, margin: '8px 0 0' }}>
         <strong>The one-time cost{watched(WATCH.payouts).status === 'pending' ? ', proposed' : ''}.</strong> Item {INCENTIVE_PAYOUTS.item} on the{' '}
-        <a href={MEETING.agendaUrl} style={{ color: 'var(--rbl-accent)' }}>{MEETING.date} agenda</a> {watched(WATCH.payouts).status === 'pending' ? 'asks' : 'asked'} the Board to move{' '}
+        <a href={MEETING.agendaUrl} style={{ color: 'var(--rbl-accent)' }}>{MEETING.date} agenda</a> asked the Board to move{' '}
         <strong>{usd(INCENTIVE_PAYOUTS.fromFundBalance)}</strong> of General Fund balance to pay the severance payouts, saying “
         {INCENTIVE_PAYOUTS.took}”: {INCENTIVE_PAYOUTS.lines.map((l) => `${usd(l.amount)} to ${l.name}`).join(', ')}. That is
         the cost of the payouts alone, against the {usd(outcome.savings2027)} the Town budgets to save in 2027 (agenda packet page{' '}
         {INCENTIVE_PAYOUTS.packetPage}). Status: <span data-watch-status>{statusPhrase(watched(WATCH.payouts))}</span>.
+      </p>
+      <p data-payouts-form style={{ color: 'var(--rbl-text-body)', fontSize: 14, lineHeight: 1.6, margin: '8px 0 0' }}>
+        <strong>One box on its cost form is wrong.</strong> The item’s Fiscal Impact Statement (packet page {PAYOUTS_FORM.packetPage}) rightly
+        answers “yes” and lists the same accounts and amounts. But it is initialled under box E(a), which is for a cost that can be “absorbed
+        by Town/Department existing resources set forth in approved Town Annual Budget” and tells the preparer to skip the cost sections. The
+        form then fills them in: “{PAYOUTS_FORM.years}”, paid from “{PAYOUTS_FORM.source}”. Money from fund balance is not in the approved
+        budget, so box E(b), with the cost explained, is the one that fits.
       </p>
       <p style={{ color: 'var(--rbl-text-muted)', fontSize: 12.5, margin: '8px 0 0' }}>
         Source: <a href={outcome.source.url} style={{ color: 'var(--rbl-accent)' }}>{outcome.source.title}</a>. The letter is a scanned image, read by hand.

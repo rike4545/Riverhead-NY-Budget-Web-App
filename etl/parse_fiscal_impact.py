@@ -126,7 +126,12 @@ CATEGORY_RULES: list[tuple[str, list[str]]] = [
     ("litigation", ["settlement of", "settle the claim", "authorizes settlement",
                     "stipulation of settlement", "notice of claim", "tax certiorari"]),
     ("grant", ["grant"]),
-    ("labor-contract", ["collective bargaining", "cba", "union", "pba", "csea", "soa", "memorandum of agreement"]),
+    # The Town writes the unions' names out, not their initials: "Authorize
+    # Supervisor to Execute Stipulation with Riverhead Town Police Benevolent
+    # Association, Inc" (2026-1020) matched none of these and was read as
+    # "procedural / no direct cost", though it sets four years of police raises.
+    ("labor-contract", ["collective bargaining", "cba", "union", "pba", "csea", "soa", "memorandum of agreement",
+                        "benevolent association", "superior officers association", "bargaining unit"]),
     ("personnel-out", ["retirement", "resignation", "separation", "terminate", "termination"]),
     ("personnel", ["appoint", "hire", "salary", "salaries", "promote", "promotion", "provisional",
                    "permanent appointment", "part-time", "full-time", "stipend",
