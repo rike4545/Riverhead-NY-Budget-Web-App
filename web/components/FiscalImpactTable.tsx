@@ -33,6 +33,9 @@ export type FiscalResolution = {
   // Why a hand-curated amount differs from the statement's figure, or is left
   // blank; a blank with a note shows the note, not the stated-cost fallback.
   amountNote?: string | null
+  // Whether the preparer (section J) and the Accounting Office (section M)
+  // dated the statement. Absent on meetings parsed before it was read.
+  signoff?: { preparerDated: boolean; accountingDated: boolean } | null
   realistic: { verdict: string; reason: string; flag: string; evidence?: 'account-code' | 'category' | 'statement-text' | 'resolution-text' }
   vote: { adopted: boolean | null; tag: string | null; ayes: number | null; nays: number | null } | null
 }
