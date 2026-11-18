@@ -34,12 +34,14 @@ for (const item of registry) {
   if (expected !== 'pending' && r.number !== number) fail(`${item.id}: resolution number ${r.number}, the meeting record has ${number}`)
 
   // Every page it names says so.
-  const phrase = r.status === 'pending' ? 'proposed, not yet voted on' : { adopted: 'approved by the Town Board', tabled: 'tabled by the Town Board', failed: 'not approved by the Town Board' }[r.status]
+  // A pending item reads "proposed, not yet voted on" before its meeting and
+  // "with no vote in the published record yet" after it (lib/watched-resolutions.ts).
+  const phrases = r.status === 'pending' ? ['proposed, not yet voted on', 'with no vote in the published record yet'] : [{ adopted: 'approved by the Town Board', tabled: 'tabled by the Town Board', failed: 'not approved by the Town Board' }[r.status]]
   for (const page of item.pages) {
     const html = join(root, 'out', page, 'index.html')
     if (!existsSync(html)) { fail(`${item.id}: ${page} was not built`); continue }
     const text = readFileSync(html, 'utf8').replace(/<!-- -->/g, '')
-    if (!text.includes(phrase)) fail(`${item.id}: ${page} does not say "${phrase}"`)
+    if (!phrases.some((p) => text.includes(p))) fail(`${item.id}: ${page} does not say "${phrases.join('" or "')}"`)
     if (r.number && !text.includes(r.number)) fail(`${item.id}: ${page} does not give Resolution ${r.number}`)
   }
 }

@@ -131,3 +131,111 @@ export const INCENTIVE_PAYOUTS = {
     { account: 'A01-9-9030-805-NON-00000', name: 'FICA Non-Uni', amount: 7_661 },
   ],
 }
+
+// ── What the Fiscal Impact Statements should say ──────────────────────────
+//
+// Each correction quotes the form as printed (the kept packet excerpt, checked
+// by scripts/verify-police-stipulations.mjs) and says what the form's own
+// instructions ask for instead. These are a resident's reading of the Town's
+// form, not an audit finding.
+
+/** Section E(a) of the Town's form, word for word: it sits under a "yes". */
+export const FORM_E_A = 'The fiscal impact can be absorbed by Town/Department existing resources set forth in approved Town Annual Budget'
+
+/** What both police forms print in each section, and what they should say. */
+export const POLICE_FORM_FIXES: { section: string; says: string; shouldSay: string; why: string; soaOnly?: boolean }[] = [
+  {
+    section: 'A. Type of legislation',
+    says: 'Blank',
+    shouldSay: 'Resolution',
+    why: 'The officers’ form says “Resolution”; the superior officers’ form leaves it empty.',
+    soaOnly: true,
+  },
+  {
+    section: 'D. Will it have a fiscal impact',
+    says: 'No',
+    shouldSay: 'Yes',
+    why: 'Every pay rate in the attached schedules rises each year from 2027 to 2030. The form has no “no” for a cost the budget already covers: that case is box E(a), which is only reached by answering “yes”.',
+  },
+  {
+    section: 'E. Absorbed (a) or explained (b)',
+    says: 'Blank',
+    shouldSay: '(b), with the cost explained',
+    why: 'Box (a) is for a cost the approved budget already holds. The 2027 raise appears to be in the 2027 budget (see below), but the 2028, 2029 and 2030 raises are in no budget yet.',
+  },
+  {
+    section: 'F. Total cost, and over how many years',
+    says: 'Blank',
+    shouldSay: 'The cost of each year, 2027 to 2030, and the four-year total',
+    why: 'The form asks for the “total Financial Cost of Funding over ___” years. The payouts form on the same agenda fills this in.',
+  },
+  {
+    section: 'G. Accounts to be charged',
+    says: 'Blank',
+    shouldSay: 'The police pay, overtime, night-differential, holiday, pension and Social Security lines',
+    why: 'These are the General Fund lines the raises change. Their account numbers are in the table below.',
+  },
+  {
+    section: 'I and J. Preparer’s signature and date',
+    says: 'Typed name only',
+    shouldSay: 'Signed and dated',
+    why: 'The payouts form on the same agenda is signed and dated by its preparer.',
+  },
+  {
+    section: 'K to M. Accounting staff review',
+    says: '“[SPONSOR]”, with no signature or date',
+    shouldSay: 'Reviewed, signed and dated by the Accounting Office',
+    why: 'The payouts form names its accounting reviewer and the date. Neither police form shows that the Accounting Office saw it.',
+  },
+]
+
+/** The payouts form (item IX.2, packet page 25): right on the money, wrong on one box. */
+export const PAYOUTS_FORM = {
+  packetPage: 25,
+  initialled: 'Detail/Initials: BM',
+  years: 'Fiscal Year 2026',
+  source: 'A01-9999-000-00000-0 Appropriated Fund Balance',
+}
+
+/**
+ * The 2027 budget lines the police raises run through, from the 2027
+ * Preliminary Budget (pages 14 and 21), which item IX.1 on the same agenda asks
+ * the Board to adopt. "adopted2026" is that document's 2026 adopted column.
+ * Checked against public/data/budget-2027-preliminary-lines.json.
+ */
+export const BUDGET_LINES = [
+  { account: 'A01-3-3120-101-UNI-00000', name: 'Police full-time uniformed pay', adopted2026: 14_966_311, request2027: 15_929_468, budget2027: 15_652_868, rateLinked: true },
+  { account: 'A01-3-3120-111-UNI-00000', name: 'Police uniformed overtime', adopted2026: 1_000_000, request2027: 1_037_500, budget2027: 1_037_500, rateLinked: true },
+  { account: 'A01-3-3120-121-UNI-00000', name: 'Police uniformed night differential', adopted2026: 629_465, request2027: 629_465, budget2027: 652_716, rateLinked: true },
+  { account: 'A01-3-3120-122-UNI-00000', name: 'Police uniformed holiday pay', adopted2026: 943_000, request2027: 943_000, budget2027: 978_379, rateLinked: true },
+  { account: 'A01-9-9015-801-UNI-00000', name: 'Police pension (State retirement system)', adopted2026: 6_633_131, request2027: 7_739_816, budget2027: 6_994_740, rateLinked: false },
+  { account: 'A01-9-9035-805-UNI-00000', name: 'Police Social Security', adopted2026: 1_334_471, request2027: 1_409_160, budget2027: 1_390_419, rateLinked: false },
+]
+
+/** The police pension rate for the State's 2027 bill (the Comptroller's 2025 actuary report, as in etl/predict_2027.py). */
+export const PFRS_RATE = 0.365
+export const FICA_RATE = 0.0765
+
+/**
+ * This site's rough cost of the raises alone, against 2026 pay: each year's
+ * pay on the rate-linked lines above is the 2026 amount raised 3.75% a year,
+ * so the extra in year k is 2026 × (1.0375^k − 1). It assumes the same staff,
+ * steps and hours as the 2026 budget, and leaves out the $500 in 2027 (it is
+ * per person, and the stipulations' own headcount is not published), step
+ * increases the Town owes anyway, longevity, and retirements. Social Security
+ * is 7.65% of the extra pay. The pension figure is the yearly cost once the
+ * 2030 pay is fully in the State's bill, at today's rate, on base pay only.
+ */
+export function raiseCostEstimate() {
+  const base = BUDGET_LINES.filter((l) => l.rateLinked).reduce((s, l) => s + l.adopted2026, 0)
+  const salary = BUDGET_LINES[0].adopted2026
+  const years = [2027, 2028, 2029, 2030].map((year, i) => ({ year, pay: base * ((1 + IMPLIED_RAISE) ** (i + 1) - 1) }))
+  const pay = years.reduce((s, y) => s + y.pay, 0)
+  return {
+    base,
+    years,
+    pay,
+    socialSecurity: pay * FICA_RATE,
+    pensionYearly: salary * ((1 + IMPLIED_RAISE) ** 4 - 1) * PFRS_RATE,
+  }
+}

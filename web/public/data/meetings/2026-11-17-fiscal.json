@@ -10,8 +10,8 @@
   "total": 31,
   "markedNo": 17,
   "markedYes": 14,
-  "understated": 8,
-  "understatedMarkedNo": 3,
+  "understated": 10,
+  "understatedMarkedNo": 5,
   "identifiedDollarsAtStake": 1956749.0,
   "pricedResolutions": 3,
   "largestUnderstatedMarkedNo": null,
@@ -1441,7 +1441,7 @@
    "numberSource": "printed",
    "seq": 26,
    "title": "Authorize Supervisor to Execute Stipulation with Riverhead Town Police Benevolent Association, Inc",
-   "category": "procedural",
+   "category": "labor-contract",
    "townFiscalImpact": "No",
    "townTreatment": "described",
    "amount": null,
@@ -1468,9 +1468,9 @@
    "statedCost": null,
    "statementBelowTable": null,
    "realistic": {
-    "verdict": "No direct cost",
-    "reason": "A procedural, permit, or administrative action with no direct levy cost identified.",
-    "flag": "fair",
+    "verdict": "Understated \u2014 the form says 'no fiscal impact'",
+    "reason": "A salary, contract, or fee item marked 'no fiscal impact' typically still moves money.",
+    "flag": "understated",
     "evidence": "category"
    },
    "vote": null
@@ -1480,7 +1480,7 @@
    "numberSource": "printed",
    "seq": 27,
    "title": "Authorize Supervisor to Execute Stipulation with Riverhead Town Superior Officers Association, Inc.",
-   "category": "procedural",
+   "category": "labor-contract",
    "townFiscalImpact": "No",
    "townTreatment": "described",
    "amount": null,
@@ -1507,9 +1507,9 @@
    "statedCost": null,
    "statementBelowTable": null,
    "realistic": {
-    "verdict": "No direct cost",
-    "reason": "A procedural, permit, or administrative action with no direct levy cost identified.",
-    "flag": "fair",
+    "verdict": "Understated \u2014 the form says 'no fiscal impact'",
+    "reason": "A salary, contract, or fee item marked 'no fiscal impact' typically still moves money.",
+    "flag": "understated",
     "evidence": "category"
    },
    "vote": null

@@ -24,6 +24,7 @@ import parse_fiscal_impact
 from parse_fiscal_impact import (
     adopted_draws,
     build_meeting,
+    classify,
     closeout_read,
     closes_project,
     corrected_amount,
@@ -570,6 +571,18 @@ class Datasets(unittest.TestCase):
         self.assertEqual((gtsc[54000000.0], gtsc[13045.0]), ("program", "revenue"))
         vactor = self.load("2026-08-18")["2026-767"]
         self.assertEqual((vactor["statedCost"], vactor["townFiscalImpact"]), (650000.0, "No"))
+
+
+class LaborContracts(unittest.TestCase):
+    def test_unions_named_in_full_are_labor_contracts(self):
+        # 2026-1020 and 2026-1021 (November 17, 2026) set the police raises for
+        # 2027-2030 and were read as procedural before.
+        for title in ("Authorize Supervisor to Execute Stipulation with Riverhead Town Police Benevolent Association, Inc",
+                      "Authorize Supervisor to Execute Stipulation with Riverhead Town Superior Officers Association, Inc."):
+            self.assertEqual(classify(title, title), "labor-contract", title)
+
+    def test_a_settlement_stipulation_is_still_litigation(self):
+        self.assertEqual(classify("Authorizes Stipulation of Settlement in Tax Certiorari", ""), "litigation")
 
 
 if __name__ == "__main__":

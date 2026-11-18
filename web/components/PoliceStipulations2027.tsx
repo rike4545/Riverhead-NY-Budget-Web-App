@@ -2,7 +2,7 @@ import { triborough } from '../lib/labor-contracts-2027'
 import { realRaiseExamples } from '../lib/pba-step-schedule'
 import { CSEA_TERMS } from '../lib/raises-2027'
 import { statusPhrase, watched } from '../lib/watched-resolutions'
-import { WATCH, BODYCAM_2027, FIS_ANSWER, IMPLIED_RAISE, MEETING, officerLadderIncrease2027, PBA, SOA, YEARS, type Row } from '../lib/police-stipulations-2027'
+import { WATCH, BODYCAM_2027, BUDGET_LINES, FIS_ANSWER, IMPLIED_RAISE, MEETING, officerLadderIncrease2027, PBA, PFRS_RATE, POLICE_FORM_FIXES, raiseCostEstimate, SOA, YEARS, type Row } from '../lib/police-stipulations-2027'
 
 // The proposed 2027-2030 police contracts, written for readers who would rather
 // see dollars than percentages: a real salary followed year by year, what every
@@ -21,6 +21,8 @@ const h4 = { margin: '16px 0 6px', color: 'var(--rbl-title)', fontSize: 16 } as 
 const LADDER_2026 = ['Academy', '1st Year Officer', '2nd Year Officer', '3rd Year Officer', '4th Year Officer', '5th Year Officer', '6th Year Officer (top step)']
 const counts = LADDER_2026.map((step) => realRaiseExamples.filter((r) => r.toStep === step).reduce((n, r) => n + r.officerCount, 0))
 export const ladderIncrease = officerLadderIncrease2027(counts)
+const estimate = raiseCostEstimate()
+const change = (l: { adopted2026: number; budget2027: number }) => l.budget2027 / l.adopted2026 - 1
 
 /** What $100 of 2026 pay becomes each year under the proposed police terms. The $500 is per person, so it is left out here. */
 const per100Police = [2027, 2028, 2029, 2030].map((y, i) => ({ year: y, value: 100 * (1 + IMPLIED_RAISE) ** (i + 1) }))
@@ -65,7 +67,7 @@ export function PoliceStipulations2027({ cseaTypical2026 }: { cseaTypical2026?: 
   const pba = watched(WATCH.pba)
   const soa = watched(WATCH.soa)
   const sameOutcome = pba.status === soa.status
-  const status = sameOutcome && pba.status === 'pending' ? 'proposed, not yet voted on' : sameOutcome ? pba.status === 'adopted' ? 'approved' : pba.status === 'tabled' ? 'tabled' : 'not approved' : 'see each union below'
+  const status = sameOutcome && pba.status === 'pending' ? 'vote not yet published' : sameOutcome ? pba.status === 'adopted' ? 'approved' : pba.status === 'tabled' ? 'tabled' : 'not approved' : 'see each union below'
   const top = PBA.officers[6].rates
   const lt = SOA.ranks[3].rates
   const p2029 = per100Police[2].value
@@ -76,7 +78,7 @@ export function PoliceStipulations2027({ cseaTypical2026 }: { cseaTypical2026?: 
     <section data-police-stipulations aria-labelledby="police-stipulations" style={{ border: '1px solid var(--rbl-warn-border)', background: 'var(--rbl-warn-bg)', borderRadius: 14, padding: '16px 18px', margin: '14px 0' }}>
       <h3 id="police-stipulations" style={{ margin: '0 0 6px', color: 'var(--rbl-title)', fontSize: 17 }}>Police contracts for 2027 to 2030: {status}</h3>
       <p style={{ margin: '0 0 8px' }}>
-        On {MEETING.date} the Town Board {pba.status === 'pending' && soa.status === 'pending' ? 'is asked' : 'was asked'} to approve new contracts with the two police unions, the Police Benevolent
+        On {MEETING.date} the Town Board was asked to approve new contracts with the two police unions, the Police Benevolent
         Association (officers and detectives) and the Superior Officers Association (sergeants and lieutenants). They are items{' '}
         {PBA.item} and {SOA.item} on the <a href={MEETING.agendaUrl} style={link}>meeting agenda</a>. The Town has published the pay
         tables from each contract, but not the rest of the contract.{' '}
@@ -144,12 +146,92 @@ export function PoliceStipulations2027({ cseaTypical2026 }: { cseaTypical2026?: 
         </table>
       </div>
 
-      <h4 style={h4}>Something to ask about</h4>
+      <h4 style={h4}>What the Town’s cost forms get wrong</h4>
+      <p style={{ margin: '0 0 8px' }}>
+        Every Board resolution comes with a Fiscal Impact Statement, a one-page form that says whether it will cost money. Both police
+        forms answer “{FIS_ANSWER}” and leave every cost line blank (pages {PBA.packetPages.fiscalImpact} and{' '}
+        {SOA.packetPages.fiscalImpact} of the <a href={MEETING.packetUrl} style={link}>agenda packet</a>). Read against the form’s own
+        instructions, these are the corrections they need. This is a resident’s reading of the form, not an audit.
+      </p>
+      <table data-form-fixes className="rbl-stack" style={{ width: '100%', borderCollapse: 'collapse', fontSize: 14, margin: '8px 0' }}>
+        <caption style={{ textAlign: 'left', fontWeight: 700, color: 'var(--rbl-title)', padding: '0 0 6px' }}>
+          Items {PBA.item} and {SOA.item}: what the forms say, and what they should say
+        </caption>
+        <thead>
+          <tr>
+            <th scope="col" style={{ ...th, textAlign: 'left' }}>Part of the form</th>
+            <th scope="col" style={{ ...th, textAlign: 'left' }}>It says</th>
+            <th scope="col" style={{ ...th, textAlign: 'left' }}>It should say</th>
+            <th scope="col" style={{ ...th, textAlign: 'left' }}>Why</th>
+          </tr>
+        </thead>
+        <tbody>
+          {POLICE_FORM_FIXES.map((f) => (
+            <tr key={f.section}>
+              <td style={{ ...td, textAlign: 'left', fontWeight: 600, whiteSpace: 'normal' }}>{f.section}{f.soaOnly ? ' (superior officers’ form only)' : ''}</td>
+              <td data-label="It says" className="rbl-stack-prose" style={{ ...td, textAlign: 'left', whiteSpace: 'normal' }}>{f.says}</td>
+              <td data-label="It should say" className="rbl-stack-prose" style={{ ...td, textAlign: 'left', whiteSpace: 'normal' }}>{f.shouldSay}</td>
+              <td data-label="Why" className="rbl-stack-prose" style={{ ...td, textAlign: 'left', whiteSpace: 'normal', color: 'var(--rbl-text-body)' }}>{f.why}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+
+      <h4 style={h4}>Is the 2027 raise in the budget?</h4>
+      <p style={{ margin: '0 0 8px' }}>
+        It appears so. The 2027 budget the Board was asked to adopt as item IX.1 that same night raises police overtime by{' '}
+        {pct(change(BUDGET_LINES[1]))}, holiday pay by {pct(change(BUDGET_LINES[3]))} and night pay by {pct(change(BUDGET_LINES[2]))}: close to the
+        contracts’ {pct(IMPLIED_RAISE)}. The police department asked for no increase in holiday or night pay, so those were added after its request.
+        If the forms meant “the 2027 cost is budgeted”, the right answer is still “yes”, with box E(a) for 2027 and box E(b) for the three later
+        years.
+      </p>
+      <p id="police-budget-lines" style={{ margin: '4px 0 6px', fontWeight: 700, color: 'var(--rbl-title)', fontSize: 14 }}>
+        Police lines in the 2027 Preliminary Budget (pages 14 and 21), General Fund
+      </p>
+      <div data-scroll-region style={{ overflowX: 'auto' }}>
+        <table data-budget-lines aria-labelledby="police-budget-lines" style={{ width: '100%', borderCollapse: 'collapse', fontSize: 14, margin: '0 0 8px', minWidth: 560 }}>
+          <thead>
+            <tr>
+              <th scope="col" style={{ ...th, textAlign: 'left' }}>Line</th>
+              <th scope="col" style={th}>2026 adopted</th>
+              <th scope="col" style={th}>Police request</th>
+              <th scope="col" style={th}>2027 budget</th>
+              <th scope="col" style={th}>Change</th>
+            </tr>
+          </thead>
+          <tbody>
+            {BUDGET_LINES.map((l) => (
+              <tr key={l.account}>
+                <th scope="row" style={{ ...td, textAlign: 'left', fontWeight: 600, whiteSpace: 'normal' }}>
+                  {l.name}<span style={{ display: 'block', fontWeight: 400, fontSize: 12.5, color: 'var(--rbl-text-muted)' }}>{l.account}</span>
+                </th>
+                <td style={td}>{round(l.adopted2026)}</td>
+                <td style={td}>{round(l.request2027)}</td>
+                <td style={td}>{round(l.budget2027)}</td>
+                <td style={td}>{pct(change(l))}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <p style={{ margin: '0 0 8px' }}>
+        <strong>The pension bill comes later.</strong> The State bills the Town each year on pay already earned: the bill due February 1, 2027 is
+        based on pay from April 2025 to March 2026. So the 2027 raise reaches the police pension bill partly in 2028 and fully from 2029, and the
+        2027 pension line cannot include it. The pension line rises {pct(change(BUDGET_LINES[4]))}, less
+        than the State’s own rate increase alone, and {round(BUDGET_LINES[4].request2027 - BUDGET_LINES[4].budget2027)} below what the police
+        department asked for. The budget does not say why.
+      </p>
+
+      <h4 style={h4}>What a filled-in section F might show</h4>
       <p style={{ margin: 0 }}>
-        Every Board resolution comes with a form that asks whether it will cost money. On both of these, the form answers “
-        {FIS_ANSWER}” and leaves the cost lines blank (pages {PBA.packetPages.fiscalImpact} and {SOA.packetPages.fiscalImpact} of the{' '}
-        <a href={MEETING.packetUrl} style={link}>agenda packet</a>). A four-year raise for the largest department in the General Fund
-        does cost money, so residents may want to ask the Board for the figure before the vote.
+        This site’s rough estimate, not a Town figure. Raising 2026’s police pay, overtime, night and holiday lines ({round(estimate.base)})
+        by {pct(IMPLIED_RAISE)} a year adds about <strong>{round(Math.round(estimate.years[0].pay / 10_000) * 10_000)}</strong> in 2027, rising to{' '}
+        <strong>{round(Math.round(estimate.years[3].pay / 10_000) * 10_000)}</strong> in 2030: about{' '}
+        <strong>{round(Math.round(estimate.pay / 100_000) * 100_000)}</strong> over the four years, plus about{' '}
+        {round(Math.round(estimate.socialSecurity / 10_000) * 10_000)} in Social Security. Once the 2030 pay is fully in the State’s bill, the pension
+        cost would be about {round(Math.round(estimate.pensionYearly / 10_000) * 10_000)} a year more at today’s {pct(PFRS_RATE)} rate. It assumes
+        the same officers, steps and hours as 2026, and leaves out the {round(BODYCAM_2027)} added to each 2027 salary, the step increases the Town
+        owes anyway, and the seven officers who retired. The real figure is the Town’s to give.
       </p>
 
       <details style={{ marginTop: 14 }}>

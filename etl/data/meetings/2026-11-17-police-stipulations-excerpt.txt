@@ -1,7 +1,7 @@
 Town of Riverhead, Town Board regular meeting of November 17, 2026: agenda packet (CivicClerk event 6457, file 12599).
 Source: https://riverheadny.api.civicclerk.com/v1/Meetings/GetMeetingFileStream(fileId=12599,plainText=false)
 Downloaded November 14, 2026; 230 pages; sha256 1afe65f1fe7ad5fed9642634130065d18571b344974db8b6663e37ab4dd1ba08.
-Excerpt: the pages below, text extracted with pdftotext -layout. Items IX.2 (retirement incentive payouts), IX.26 (PBA stipulation) and IX.27 (SOA stipulation).
+Excerpt: the pages below, text extracted with pdftotext -layout. Items IX.2 (retirement incentive payouts, with its Fiscal Impact Statement on page 25), IX.26 (PBA stipulation) and IX.27 (SOA stipulation).
 
 ===== Packet page 23 =====
 11/17/2026                                                                                  IX.2.
@@ -66,6 +66,67 @@ NAYS:     None
 
 
                             Page 24 of 230
+===== Packet page 25 =====
+                                 FISCAL IMPACT STATEMENT
+                       OF PROPOSED RIVERHEAD TOWN BOARD LEGISLATION
+
+
+A.   Type of Legislation: Resolution
+
+B.   Title of Proposed Legislation: Budget Adjustment for Retirement Incentive Severance Payouts
+
+C.   Purpose of Proposed Legislation: Budget Adjustment for Retirement Incentive Severance Payouts
+
+D.   Will the Proposed Legislation have a Fiscal Impact: Yes
+
+E.   If the answer above is "yes", select (a) or (b) below and initial or detail as applicable
+
+          (a)   The fiscal impact can be absorbed by Town/Department existing resources set forth in
+                approved Town Annual Budget (example: routine and budgeted procurement of
+                goods/services)*if selecting E (a), please initial then skip items F,G and complete H,I and J
+                   Detail/Initials: BM
+          (b)   The description/explanation of fiscal impact is set forth as follows:
+
+
+
+F.   If the answer to E required description/explanation of fiscal impact (E(b)), please describe
+     total Financial Cost of Funding over ___
+     Fiscal Year 2026
+
+G.    Proposed Source of Funding:
+
+
+     Appropriation Account to be Charged:
+
+     Grant or other Revenue Source:                          A01-9999-000-00000-0 Appropriated Fund Balance
+                                                             $1,387,034
+
+     Appropriation Transfer (list account(s) and amount): A01-3-3120-101-UNI-00000 Police Uni Personal
+                                                          Services $1,188,322
+                                                          A01-1-1110-101-NON-00000 Justice Court
+                                                          Personal Services $37,180
+                                                          A01-1-1355-101-NON-00000 Assessors Personal
+                                                          Services $48,395
+                                                          A01-1-1680-101-NON-00000 IT Personal Services
+                                                          $14,569
+                                                          A01-9-9035-805-UNI-00000 FICA Police Uni
+                                                          $90,907
+                                                          A01-9-9030-805-NON-00000 FICA Non-Uni $7,661
+
+
+
+H. Typed Name & Title of Preparer        I. Signature of Preparer                 J. Date
+
+Brittney Miller, Accountant              Brittney Miller                          11/2/2026
+
+K. Accounting Staff Name & Title         L. Signature of Accounting Staff         M. Date
+
+[SPONSOR]                                Jeanette DiPaola                         11/5/2026
+
+
+
+
+                                                                                                                Page 25 of 230
 ===== Packet page 202 =====
 11/17/2026                                                                                  IX.26.
 
