@@ -4,6 +4,8 @@ import PageShell from '../../components/PageShell'
 import PlainCallout from '../../components/PlainCallout'
 import FiscalImpactMeetings, { type FiscalMeeting } from '../../components/FiscalImpactMeetings'
 import { statementContradictions, type StatementMeeting, type Contradiction } from '../../lib/statement-contradictions'
+import FiscalSignoff from '../../components/FiscalSignoff'
+import type { SignoffMeeting } from '../../lib/fiscal-signoff'
 
 const base = process.env.NEXT_PUBLIC_BASE_PATH || ''
 const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 20 } as const
@@ -69,6 +71,8 @@ export default function FiscalImpactPage() {
       </PlainCallout>
 
       {contra.adopted > 0 && <ContradictionsSection c={contra} year={year} />}
+
+      <FiscalSignoff meetings={meetings as unknown as SignoffMeeting[]} year={year} />
 
       {meetingCount === 0 ? (
         <section style={{ ...card }}>

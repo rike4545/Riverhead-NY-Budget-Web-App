@@ -34,6 +34,7 @@ from parse_fiscal_impact import (
     mark_program_totals,
     merge_hand_curated,
     parse_packet,
+    signoff,
     stated_amounts,
     stated_cost,
     statement_below_table,
@@ -583,6 +584,25 @@ class LaborContracts(unittest.TestCase):
 
     def test_a_settlement_stipulation_is_still_litigation(self):
         self.assertEqual(classify("Authorizes Stipulation of Settlement in Tax Certiorari", ""), "litigation")
+
+
+class SignOff(unittest.TestCase):
+    # As pypdf prints sections H to M (2026-11-17 packet, pages 25 and 203).
+    SIGNED = ("H. Typed Name & Title of Preparer \n \nBrittney Miller, Accountant \nI. Signature of Preparer \n \n"
+              "Brittney Miller \nJ. Date \n \n11/2/2026 \nK. Accounting Staff Name & Title \n \n[SPONSOR] \n"
+              "L. Signature of Accounting Staff \n \nJeanette DiPaola \nM. Date \n \n11/5/2026 \n \nPage 25 of 230")
+    BLANK = ("H. Typed Name & Title of Preparer \n \nKaren Occhiogrosso, Paralegal \nI. Signature of Preparer \n \n"
+             "J. Date \n \nK. Accounting Staff Name & Title \n \n[SPONSOR] \nL. Signature of Accounting Staff \n \n \n"
+             "M. Date \n \n \n \nPage 203 of 230\n11/17/2026 IX.27. TB Resolution")
+
+    def test_signed_and_dated(self):
+        self.assertEqual(signoff(self.SIGNED), {"preparerDated": True, "accountingDated": True})
+
+    def test_blank_block_is_unsigned_even_with_a_date_after_it(self):
+        self.assertEqual(signoff(self.BLANK), {"preparerDated": False, "accountingDated": False})
+
+    def test_no_block(self):
+        self.assertIsNone(signoff("D. Will the Proposed Legislation have a Fiscal Impact: No"))
 
 
 if __name__ == "__main__":

@@ -1244,6 +1244,36 @@ def _field(block_text: str, label_pat: str) -> str:
     return " ".join((rest[: end.start()] if end else rest[:400]).split()).strip()
 
 
+# ── Who signed the statement ───────────────────────────────────────────────
+#
+# Sections H to M of every statement are the preparer's name, signature and
+# date, then the Accounting Office's. A dated block is the record that someone
+# signed it; an empty one is the record that no one did. Only that is kept,
+# not the names: the page reports how often the forms were reviewed, not by
+# whom. A date is matched only in the few lines after its label, so a date in
+# the next resolution's text is never read as a signature.
+SIGNOFF_DATE = re.compile(r"\b\d{1,2}/\d{1,2}/\d{2,4}\b")
+
+
+def _dated_after(block_text: str, label_pat: str, stop_pat: str) -> bool | None:
+    m = re.search(label_pat, block_text)
+    if not m:
+        return None
+    rest = block_text[m.end(): m.end() + 160]
+    stop = re.search(stop_pat, rest)
+    return bool(SIGNOFF_DATE.search(rest[: stop.start()] if stop else rest))
+
+
+def signoff(block_text: str) -> dict | None:
+    """Whether the preparer (J) and the Accounting Office (M) dated the
+    statement. None where the statement has no sign-off block to read."""
+    preparer = _dated_after(block_text, r"J\.\s*Date", r"K\.\s*Accounting")
+    accounting = _dated_after(block_text, r"M\.\s*Date", r"Page \d+ of \d+|TB Resolution|FISCAL IMPACT")
+    if preparer is None and accounting is None:
+        return None
+    return {"preparerDated": bool(preparer), "accountingDated": bool(accounting)}
+
+
 def parse_packet(text: str) -> list[dict]:
     marker = "FISCAL IMPACT STATEMENT"
     starts = [m.start() for m in re.finditer(marker, text)]
@@ -1285,6 +1315,7 @@ def parse_packet(text: str) -> list[dict]:
             "statedCost": stated_cost(amounts),
             "closesProject": closes_project(body),
             "tableFundBalance": table_fund_balance(body),
+            "signoff": signoff(b),
         })
     return out
 
@@ -1362,6 +1393,11 @@ def derived_summary(resolutions: list[dict]) -> dict:
         "statementBelowTable": sum(1 for r in resolutions if r.get("statementBelowTable")),
         "statedCostMarkedNo": len(stated_no),
         "largestStatedCostMarkedNo": {"number": largest.get("number"), "amount": largest["statedCost"]} if largest else None,
+        # Sections H to M: how many statements carry a sign-off block, and how
+        # many of those the preparer and the Accounting Office dated.
+        "signoffRead": sum(1 for r in resolutions if r.get("signoff")),
+        "preparerDated": sum(1 for r in resolutions if (r.get("signoff") or {}).get("preparerDated")),
+        "accountingDated": sum(1 for r in resolutions if (r.get("signoff") or {}).get("accountingDated")),
     }
 
 
@@ -1435,6 +1471,8 @@ def build_meeting(date: str, packet_text: str) -> dict | None:
             # The 9999 rows of that table, kept only where there are any.
             **({"tableFundBalance": table_fb} if table_fb else {}),
             "realistic": realistic,
+            # Whether the preparer and the Accounting Office dated the form.
+            "signoff": p.get("signoff"),
             "vote": vote,
         })
 
@@ -1512,7 +1550,7 @@ def merge_hand_curated(date: str, parsed: dict) -> dict:
         if p is not None:
             if p.get("funding"):
                 merged["funding"] = p["funding"]
-            for key in ("numberSource", "statedAmounts", "statedCost", "statementBelowTable"):
+            for key in ("numberSource", "statedAmounts", "statedCost", "statementBelowTable", "signoff"):
                 merged[key] = p.get(key)
             if p.get("tableFundBalance"):
                 merged["tableFundBalance"] = p["tableFundBalance"]
