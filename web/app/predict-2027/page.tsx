@@ -865,7 +865,11 @@ export default function Predict2027Page() {
       <section style={{ ...card, marginBottom: 16 }}>
         <h2 style={{ margin: '0 0 5px', color: 'var(--rbl-title)', fontSize: 18 }}>What could still move the model</h2>
         <div style={{ display: 'grid', gap: 8 }}>
-          {p.watchList.map((w) => (w.id === 'tentative' && released2027 ? {
+          {p.watchList.map((w) => (adoptedBook && /PBA and SOA stipulations were ratified/.test(w.item) ? {
+            item: 'PBA and SOA 2027–2030 stipulations, approved November 17, 2026',
+            effect: 'known now; the model keeps its placeholders',
+            detail: 'Resolutions 2026-1020 and 2026-1021 raise every police step 3.75% a year, plus $500 in 2027. This September model used each unit’s trailing average raise instead and is kept as it was made.',
+          } : w.id === 'tentative' && released2027 ? {
             item: adoptedBook ? 'The Town Board adopted the 2027 budget on November 17, 2026' : preliminaryIsLatest() ? 'The Town’s 2027 Tentative and Preliminary budgets are out' : 'The Town’s own 2027 Tentative Budget is out',
             effect: 'now the number to measure',
             detail: `${levySentence(released2027)} This projection is left as it was, as the yardstick for it.`,
@@ -886,7 +890,7 @@ export default function Predict2027Page() {
           <div style={{ overflowX: 'auto' }}>
             <table style={{ width: '100%', minWidth: 650, borderCollapse: 'collapse', fontSize: 13.3 }}>
               <thead><tr style={{ textAlign: 'left', color: 'var(--rbl-text-muted)', borderBottom: '2px solid var(--rbl-border-subtle)' }}><th style={th}>Category</th><th style={{ ...th, textAlign: 'right' }}>Rate used</th><th style={th}>Recent trend</th><th style={th}>Why</th></tr></thead>
-              <tbody>{p.assumptions.map((a) => <tr key={a.category} style={{ borderBottom: '1px solid var(--rbl-border-subtle)', verticalAlign: 'top' }}><td style={{ ...td, fontWeight: 750, color: 'var(--rbl-title)' }}>{a.category}</td><td style={{ ...td, textAlign: 'right', fontWeight: 750 }}>+{a.ratePct}%</td><td style={{ ...td, color: 'var(--rbl-text-muted)' }}>{a.recentTrend}</td><td style={{ ...td, color: 'var(--rbl-text-body)', lineHeight: 1.45 }}>{a.why}</td></tr>)}</tbody>
+              <tbody>{p.assumptions.map((a) => <tr key={a.category} style={{ borderBottom: '1px solid var(--rbl-border-subtle)', verticalAlign: 'top' }}><td style={{ ...td, fontWeight: 750, color: 'var(--rbl-title)' }}>{a.category}</td><td style={{ ...td, textAlign: 'right', fontWeight: 750 }}>+{a.ratePct}%</td><td style={{ ...td, color: 'var(--rbl-text-muted)' }}>{a.recentTrend}</td><td style={{ ...td, color: 'var(--rbl-text-body)', lineHeight: 1.45 }}>{a.why}{adoptedBook && /PBA and SOA are between contracts/.test(a.why) ? ' (As of September. On November 17, 2026 the Board approved 2027–2030 stipulations for both: 3.75% a year plus $500 in 2027.)' : null}</td></tr>)}</tbody>
             </table>
           </div>
         </Detail>

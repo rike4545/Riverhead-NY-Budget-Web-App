@@ -470,7 +470,7 @@ export default function ZeroPercent2027Page() {
             </div>
             <P>{whyHarder.detail}</P>
 
-            <H3 id="contracts">Both police contracts are open</H3>
+            <H3 id="contracts">{adoptedAsPreliminary(2027) ? 'Both police contracts, settled November 17' : 'Both police contracts are open'}</H3>
             <P>{whyHarder.contracts}</P>
             <P>{whyHarder.triboroughFloor}</P>
 

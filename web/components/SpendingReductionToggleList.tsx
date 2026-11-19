@@ -1,4 +1,5 @@
 'use client'
+import { adoptedAsPreliminary } from '../lib/budget-stages'
 
 import { useMemo, useState } from 'react'
 import {
@@ -123,11 +124,9 @@ export default function SpendingReductionToggleList() {
           budget is cut. Click an item to add it to your package or take it out.
         </p>
         <p style={{ margin: '10px 0 0', color: 'var(--rbl-text-strong)', fontSize: 13.8, lineHeight: 1.55 }}>
-          PBA and SOA contracts both expire 12/31/2026 (CSEA is already locked through a ratified 2026-2029
-          agreement). New York law routes police/fire bargaining impasses to binding arbitration rather than
-          legislative resolution, and comparable Long Island police contracts have taken 1-3+ years past expiration
-          to settle — so the PBA/SOA figures above will likely remain placeholder estimates through the 2027 budget
-          cycle, with any successor terms applied retroactively once reached.
+          {adoptedAsPreliminary(2027)
+            ? 'PBA and SOA’s 2023–2026 contracts expire 12/31/2026 (CSEA is locked through a ratified 2026–2029 agreement). They did not go to arbitration: on November 17, 2026 the Board approved 2027–2030 stipulations for both, 3.75% a year plus $500 in 2027 (Resolutions 2026-1020 and 2026-1021). The PBA/SOA figures above are the September model’s placeholders, kept as they were.'
+            : 'PBA and SOA contracts both expire 12/31/2026 (CSEA is already locked through a ratified 2026-2029 agreement). New York law routes police/fire bargaining impasses to binding arbitration rather than legislative resolution, and comparable Long Island police contracts have taken 1-3+ years past expiration to settle — so the PBA/SOA figures above will likely remain placeholder estimates through the 2027 budget cycle, with any successor terms applied retroactively once reached.'}
         </p>
       </section>
 

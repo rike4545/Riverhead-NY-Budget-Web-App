@@ -233,9 +233,10 @@ export const headline = openUnits.length === 0
     : `successor stipulations for both went to the Board on November 17, 2026: the PBA's was ${statusPhrase(pbaWatch)} and the SOA's ${statusPhrase(soaWatch)}.`)
 
 export const whyItMatters = openUnits.length === 0
-  ? 'These are the police units, and police is the largest single department in the General Fund. Until November 17, ' +
-    '2026 the projection had to use each unit’s trailing average raise as a placeholder. It now uses the adopted ' +
-    'terms, so the police share of the Personal Services estimate rests on a contract, not a guess.'
+  ? 'These are the police units, and police is the largest single department in the General Fund. This site’s ' +
+    'September model, kept as it was made, had to use each unit’s trailing average raise as a placeholder (3.36% for ' +
+    'the PBA, 4.49% for the SOA). The terms the Board approved on November 17, 2026 are 3.75% a year plus $500 in ' +
+    '2027: about 4.28% and 4.09% in 2027 on average base pay, by this site’s calculation, so the model’s placeholder ran low for the PBA.'
   : 'These are the police units, and police is the largest single department in the General Fund. The 2027 ' +
   'projection has to put some number against their payroll, so it uses each unit’s own trailing average raise ' +
   'as a placeholder. That is a defensible stand-in and it is still a guess — the difference between the ' +
