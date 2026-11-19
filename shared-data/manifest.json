@@ -29,7 +29,8 @@
       "web": "history",
       "android": "history",
       "pattern": "*.json",
-      "note": "Historical adopted-budget, budget-stage, fund-appropriation and General Fund series. Android only: no iOS screen reads these files."
+      "note": "Historical adopted-budget, budget-stage, fund-appropriation and General Fund series. iOS reads budget-stages.json for its budget, overview and tax screens; Android reads the set.",
+      "ios": "BudgetHistory"
     },
     {
       "web": "salary",
@@ -85,6 +86,38 @@
       "ios": "titles-by-year.json",
       "sha256": "e04f19f8aa996a57e8e6d2dd1811852c5cc03468131c40bd41bb1fd0cdb2cc1a",
       "android": "payroll/titles-by-year.json"
+    },
+    {
+      "id": "budget-2027-preliminary-lines",
+      "web": "budget-2027-preliminary-lines.json",
+      "ios": "BudgetHistory/budget-2027-preliminary-lines.json",
+      "sha256": "69fc17d0e0f03f8b41a4b73da621ff2e72251cea8f6bc5ebbd2414e6d667bec3",
+      "note": "Every account line of the 2027 budget as printed in the Preliminary, which the Town Board adopted unchanged on November 17, 2026 (Resolution 2026-995), with 2026 adopted beside it. iOS reads it for fund, department and account detail and the 2027 cost drivers.",
+      "android": "budget-2027-preliminary-lines.json"
+    },
+    {
+      "id": "budget-supplement/current-lines",
+      "web": "budget-supplement/current-lines.json",
+      "ios": "supplement-current-lines.json",
+      "sha256": "bb39d8ea639af9808693c9cb8d83de2e89d86be4aa615198e2fc98ac68ae49e3",
+      "android": "budget-supplement/current-lines.json",
+      "note": "Every account line of the newest Budget Supplement (2027: actuals through 2025, 2026 adopted and year-to-date, the 2027 request, Tentative and Preliminary). iOS reads it for the Line-Item Ledger."
+    },
+    {
+      "id": "budget-supplement/history",
+      "web": "budget-supplement/history.json",
+      "ios": "supplement-history.json",
+      "sha256": "5d4ad1dc84271a7d2371dd680cd38b8721d77ab146e25eb0e051945000f64d5f",
+      "android": "budget-supplement/history.json",
+      "note": "The Budget Supplements stacked, 2020 through 2027: lines that go quiet then cost money, lines on a cycle, and renumbered accounts. iOS reads it for the Budget Accuracy watch list."
+    },
+    {
+      "id": "budget-supplement/current-outliers",
+      "web": "budget-supplement/current-outliers.json",
+      "ios": "supplement-current-outliers.json",
+      "sha256": "1e725865d698c442c80fe808d646d27da22f41fd669501f24c160db7e427ecbd",
+      "android": "budget-supplement/current-outliers.json",
+      "note": "The 2027 Supplement's auto-detected outliers against the 2027 Adopted figures. iOS reads it for the Budget Accuracy watch list."
     }
   ]
 }
