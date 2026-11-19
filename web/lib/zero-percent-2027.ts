@@ -473,14 +473,22 @@ export const whyHarder = (() => {
     shares,
     detail:
       `Public safety and employee benefits together are ${policeAndBenefits.toFixed(1)}% of the 2027 Tentative’s General Fund. The benefits figure includes ${usd(debtTransfer)} sent to the Debt Service Fund for the General Fund’s share of debt payments. Suffolk can hold its general fund flat in part because its largest public-safety cost sits in a separate district fund that Riverhead does not pay into and does not control. Riverhead’s police department sits inside the fund a freeze would apply to.`,
-    contracts:
-      'The timing compounds it. The ' + openUnits.map((u) => u.unit).join(' and ') + ' agreements expire on December 31, ' +
-      '2026, and across ' + laborCorpus.resolutions.toLocaleString() + ' resolutions in ' + laborCorpus.meetings +
-      ' meetings, no successor for either has been put to the Board. Their only items this year are the July 7 ' +
-      'retirement-incentive stipulations, which pay people to leave and set no wage rate. A 0% or 1% budget would be ' +
-      'adopted while both police unions are unsettled, and a settlement would add to it.',
-    triboroughFloor:
-      'And an unsettled contract is not a free one. Civil Service Law § 209-a(1)(e) makes it an improper practice to refuse ' +
+    // Once both police units are settled (lib/labor-contracts-2027.ts reads the votes), say what was settled.
+    contracts: openUnits.length === 0
+      ? 'The timing compounded it. Both police unions’ 2023–2026 agreements expire on December 31, 2026. On November 17, ' +
+        '2026, the same night it adopted the budget, the Board approved 2027–2030 stipulations for both (Resolutions ' +
+        '2026-1020 and 2026-1021): 3.75% a year, plus $500 in 2027 for wearing body cameras. A 0% or 1% budget would have ' +
+        'had to absorb those raises as well.'
+      : 'The timing compounds it. The ' + openUnits.map((u) => u.unit).join(' and ') + ' agreements expire on December 31, ' +
+        '2026, and across ' + laborCorpus.resolutions.toLocaleString() + ' resolutions in ' + laborCorpus.meetings +
+        ' meetings, no successor for either has been put to the Board. Their only items this year are the July 7 ' +
+        'retirement-incentive stipulations, which pay people to leave and set no wage rate. A 0% or 1% budget would be ' +
+        'adopted while both police unions are unsettled, and a settlement would add to it.',
+    triboroughFloor: openUnits.length === 0
+      ? 'Step movement comes on top of the raises: ' + usd(triborough.stepCost2027) + ' in 2027 for the Police Officer ' +
+        'ladder alone, ' + triborough.officersMoving + ' officers advancing one rung while the ' + triborough.officersAtTopStep +
+        ' already at top step move only with the raise.'
+      : 'And an unsettled contract is not a free one. Civil Service Law § 209-a(1)(e) makes it an improper practice to refuse ' +
       'to continue the terms of an expired agreement, so step movement carries on with no successor and no vote: ' +
       usd(triborough.stepCost2027) + ' in 2027 for the Police Officer ladder alone, ' + triborough.officersMoving +
       ' officers advancing one rung while the ' + triborough.officersAtTopStep + ' already at top step cost nothing. What does ' +

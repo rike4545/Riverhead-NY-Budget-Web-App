@@ -111,7 +111,7 @@ export const candidates2026: Candidate[] = [
         cost:
           'Most of the budget base is personnel and mandated costs (pension, debt service, insurance) a spending freeze can’t touch. Real restraint means audits, held vacancies, and deferred equipment/capital — each of which trades a dollar saved for a service or a delayed repair.',
         tradeoff:
-          'The two largest cost drivers — the PBA and SOA contracts — expire 12/31/2026 and settle through binding arbitration, not a Supervisor’s pen. Much of the 2027 payroll pressure is locked until those settle.',
+          (adoptedAsPreliminary(2027) ? 'The two largest cost drivers — the PBA and SOA contracts — expire 12/31/2026; On November 17, 2026 the Board approved 2027–2030 stipulations for both: 3.75% a year, plus $500 in 2027 (Resolutions 2026-1020 and 2026-1021).' : 'The two largest cost drivers — the PBA and SOA contracts — expire 12/31/2026 and settle through binding arbitration, not a Supervisor’s pen.') + ' Much of the 2027 payroll pressure is locked until those settle.',
         anchor: { label: 'The 2027 spending-reduction package', href: '/spending-reduction-2027/' },
       },
       {
@@ -226,7 +226,7 @@ export const candidates2026: Candidate[] = [
 export const synthesis = {
   common: [
     'Both run on tax-base growth over levy increases, and both promise spending restraint — on fiscal strategy they are more alike than different.',
-    `Both face the same unnamed constraint: the ~${capGapM} by which this site’s forecast had the 2027 levy above a 2% increase, and the PBA/SOA contracts expiring 12/31/2026 that settle by binding arbitration.`,
+    `Both face the same unnamed constraint: the ~${capGapM} by which this site’s forecast had the 2027 levy above a 2% increase, and the PBA/SOA contracts expiring 12/31/2026${adoptedAsPreliminary(2027) ? ', settled on November 17, 2026 at 3.75% a year plus $500 in 2027' : ' that settle by binding arbitration'}.`,
   ],
   divergence: [
     'The incumbent’s platform is mostly “hold and grow” — restraint plus development — which maps onto the identified trims but is slow on the revenue side.',
