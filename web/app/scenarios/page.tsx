@@ -3,7 +3,7 @@ import PlainCallout from '../../components/PlainCallout'
 import TentativeReleased from '../../components/TentativeReleased'
 import { statedLimitPct } from '../../lib/tentative-2027'
 import CapBalancer from '../../components/CapBalancer'
-import p from '../../public/data/budget-2027-prediction.json'
+import p from '../../public/data/budget-2027-prediction-september.json'
 import { AUDIT_2025 } from '../../lib/audits'
 import { debtProfile } from '../../lib/debt-profile'
 
@@ -39,7 +39,7 @@ const grounded = [
 export default function ScenariosPage() {
   return (
     <PageShell title="What-if scenarios" subtitle="Play out choices the Town could make — starting with the big one for next year: can it fund services without blowing past the tax cap? These are illustrations for thinking, not Town policy.">
-      <TentativeReleased>
+      <TentativeReleased adoptedNote={`The sliders below start from this site’s September model and a ${cg.capBasePct}% line, not from the adopted budget: they show choices the Board had, not what it did.`}>
         The sliders below still start from the forecast and a {cg.capBasePct}% line.
         {statedLimitPct !== null && (() => {
           const ceiling = Math.round(p.levyEstimate.levy2026 * (1 + statedLimitPct / 100))

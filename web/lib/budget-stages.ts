@@ -94,6 +94,21 @@ export function operatingAppropriations(d: StageDoc | null): number | null {
   return rows.filter(([code]) => !(TRANSFER_FUNDED as readonly string[]).includes(code)).reduce((sum, [, f]) => sum + f.appropriations, 0)
 }
 
+/**
+ * True once the Town's Adopted book for the year is parsed and changes no fund
+ * from the Preliminary, so the Preliminary's line figures are the adopted
+ * budget's. (verify-supplement also checks that no line changed.)
+ */
+export function adoptedAsPreliminary(year: number): boolean {
+  const t = budgetStages.transitions.find((x) => x.year === year && x.from === 'preliminary' && x.to === 'adopted')
+  return t !== undefined && t.fundsChanged === 0 && t.appropriations.delta === 0 && t.levy.delta === 0
+}
+
+/** What to call a year's newest line figures: "Adopted" once the Board adopted the Preliminary unchanged. */
+export function lineStageLabel(year: number): 'Adopted' | 'Preliminary' {
+  return adoptedAsPreliminary(year) ? 'Adopted' : 'Preliminary'
+}
+
 export const STAGE_LABEL: Record<Stage, string> = {
   tentative: 'Tentative',
   preliminary: 'Preliminary',

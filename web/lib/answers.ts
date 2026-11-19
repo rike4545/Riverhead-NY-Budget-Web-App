@@ -19,7 +19,7 @@
 //   2. Every answer links to the page that proves it. This page is an index, not
 //      an authority; it must never become the only place a figure appears.
 
-import prediction from '../public/data/budget-2027-prediction.json'
+import prediction from '../public/data/budget-2027-prediction-september.json'
 import taxBill from '../public/data/tax-bill.json'
 import { estimateTaxBill } from './tax-bill'
 import { yearSummaries } from './payroll'
@@ -260,13 +260,13 @@ export const topics: AnswerTopic[] = [
       },
       {
         q: 'Could Riverhead just freeze taxes, like Suffolk County did?',
-        a: `For a year, yes, though it is harder than it sounds. The 2027 Tentative raises the town-wide levy ${usd(freeze.tentativeRise)} (${freeze.tentativePct.toFixed(2)}%), and six amendments the Board adopted on October 20 would cut that to ${usd(freeze.amendedRise)} (${freeze.amendedPct.toFixed(2)}%). Holding it flat would take ${usd(freeze.zeroBeyond)} more than the amendments find, and a 1% increase ${usd(freeze.oneBeyond)} more. Interest the Town is already earning covers most of the 1%; no increase also needs savings. Unlike Suffolk, Riverhead's police department sits inside the very fund a freeze would apply to.`,
+        a: `For a year, yes, though it is harder than it sounds. The 2027 Tentative raises the town-wide levy ${usd(freeze.tentativeRise)} (${freeze.tentativePct.toFixed(2)}%), and six amendments the Board adopted on October 20 ${adopted2027 ? 'cut that to' : 'would cut that to'} ${usd(freeze.amendedRise)} (${freeze.amendedPct.toFixed(2)}%)${adopted2027 ? ', the levy the Board adopted on November 17' : ''}. Holding it flat would take ${usd(freeze.zeroBeyond)} more than the amendments find, and a 1% increase ${usd(freeze.oneBeyond)} more. Interest the Town is already earning covers most of the 1%; no increase also needs savings. Unlike Suffolk, Riverhead's police department sits inside the very fund a freeze would apply to.`,
         href: `${base}/zero-percent-2027/`,
         cta: 'What zero or 1% would take',
       },
       {
         q: 'When does the Board actually decide, and can I say anything?',
-        a: `${tentative2027 ? 'The 2027 Tentative is out, so the Board’s part has begun. ' : ''}The Supervisor files a tentative budget by September 30. The public hearing falls on or before the Thursday after the November election, and the Board must adopt by November 20. The hearing is the formal moment residents are heard.`,
+        a: `${adopted2027 ? 'For 2027 it has: the Board adopted the budget on November 17, 2026, after the public hearing on November 5. For the 2028 budget, the same calendar applies. ' : tentative2027 ? 'The 2027 Tentative is out, so the Board’s part has begun. ' : ''}The Supervisor files a tentative budget by September 30. The public hearing falls on or before the Thursday after the November election, and the Board must adopt by November 20. The hearing is the formal moment residents are heard.`,
         href: `${base}/predict-2027/#the-clock`,
         cta: 'The statutory calendar',
       },

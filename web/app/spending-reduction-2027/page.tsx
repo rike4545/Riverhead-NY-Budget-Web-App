@@ -1,4 +1,5 @@
 import PageShell from '../../components/PageShell'
+import { stageDoc } from '../../lib/budget-stages'
 import ProposalLineStageNotice from '../../components/ProposalLineStageNotice'
 import TentativeReleased from '../../components/TentativeReleased'
 import { released2027, statedLimitPct } from '../../lib/tentative-2027'
@@ -163,7 +164,7 @@ export default function SpendingReduction2027Page() {
           {tt.year} {tt.stage}&apos;s own lines — controllable lines budgeted more than 30% above what they have been running — and it
           finds <strong>{tt.items.length}</strong> lines holding <strong>{usd(tt.total)}</strong> more than recent spending supports:{' '}
           {usd(tt.byConfidence.firm)} firm, {usd(tt.byConfidence.moderate)} in capital or maintenance that fluctuates, and{' '}
-          {usd(tt.byConfidence.volatile)} in fuel and energy. These are questions for the Board before it adopts the budget, not
+          {usd(tt.byConfidence.volatile)} in fuel and energy. {stageDoc(2027, 'adopted') ? 'The Board adopted the budget with these lines in it, so they are questions for its budget-to-actual reports during 2027,' : 'These are questions for the Board before it adopts the budget,'} not
           a replacement for the package above.
         </p>
         <div style={{ overflowX: 'auto' }}>

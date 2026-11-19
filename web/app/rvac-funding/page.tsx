@@ -1,5 +1,6 @@
 import PageShell from '../../components/PageShell'
 import PlainCallout from '../../components/PlainCallout'
+import { adoptedAsPreliminary } from '../../lib/budget-stages'
 
 const base = process.env.NEXT_PUBLIC_BASE_PATH || ''
 const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 20 } as const
@@ -201,19 +202,19 @@ export default function RvacFundingPage() {
       </section>
 
       <section style={{ ...card, marginBottom: 16 }}>
-        <h2 style={{ marginTop: 0, color: 'var(--rbl-title)' }}>5. What the 2027 budget proposes</h2>
+        <h2 style={{ marginTop: 0, color: 'var(--rbl-title)' }}>5. What the 2027 budget {adoptedAsPreliminary(2027) ? 'sets' : 'proposes'}</h2>
         <p style={{ color: 'var(--rbl-text-body)', fontSize: 14, lineHeight: 1.6 }}>
-          The next year’s plan is still <strong>a proposal, not adopted</strong>. The Board’s October 20 amendments did not touch the Ambulance District, so the Preliminary Budget carries the same figures as the Supervisor’s Tentative. It proposes a larger RVAC contract line, while reducing the planned debt-service transfer and reserve contribution and lowering the medical-billing revenue estimate.
+          {adoptedAsPreliminary(2027) ? <>The Town Board adopted the 2027 budget on November 17, 2026. Its October 20 amendments did not touch the Ambulance District, so the adopted budget carries the same figures as the Supervisor’s Tentative. It sets a larger RVAC contract line,</> : <>The next year’s plan is still <strong>a proposal, not adopted</strong>. The Board’s October 20 amendments did not touch the Ambulance District, so the Preliminary Budget carries the same figures as the Supervisor’s Tentative. It proposes a larger RVAC contract line,</>} while reducing the planned debt-service transfer and reserve contribution and lowering the medical-billing revenue estimate.
         </p>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(180px,1fr))', gap: 12, margin: '14px 0' }}>
-          <Stat label="2027 proposed Ambulance District budget" value={usd(2_312_093)} note="Down from the 2026 adopted plan of $2,388,824." />
-          <Stat label="2027 proposed RVAC line" value={usd(1_401_731)} note={`${usd(127_485)} above the calculated post-resolution 2026 line.`} />
+          <Stat label={`2027 ${adoptedAsPreliminary(2027) ? 'adopted' : 'proposed'} Ambulance District budget`} value={usd(2_312_093)} note="Down from the 2026 adopted plan of $2,388,824." />
+          <Stat label={`2027 ${adoptedAsPreliminary(2027) ? 'adopted' : 'proposed'} RVAC line`} value={usd(1_401_731)} note={`${usd(127_485)} above the calculated post-resolution 2026 line.`} />
           <Stat label="Property-tax revenue" value={usd(1_751_693)} note={`${usd(47_469)} above the 2026 adopted estimate.`} />
           <Stat label="Medical-billing estimate" value={usd(514_000)} note={`${usd(126_000)} below the 2026 adopted estimate; not actual collections.`} />
         </div>
         <div style={{ overflowX: 'auto' }}>
           <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 13.5 }}>
-            <thead><tr><th style={th}>2027 proposed line</th><th style={{ ...th, textAlign: 'right' }}>Amount</th><th style={th}>Compared with 2026 adopted plan</th></tr></thead>
+            <thead><tr><th style={th}>{adoptedAsPreliminary(2027) ? '2027 adopted line' : '2027 proposed line'}</th><th style={{ ...th, textAlign: 'right' }}>Amount</th><th style={th}>Compared with 2026 adopted plan</th></tr></thead>
             <tbody>
               <tr><td style={td}>Ambulance function, including RVAC</td><td style={{ ...td, textAlign: 'right', whiteSpace: 'nowrap' }}>{usd(1_826_231)}</td><td style={td}>Includes a proposed RVAC line of {usd(1_401_731)}.</td></tr>
               <tr><td style={td}>Insurance</td><td style={{ ...td, textAlign: 'right', whiteSpace: 'nowrap' }}>{usd(36_732)}</td><td style={td}>Down from {usd(69_600)}.</td></tr>

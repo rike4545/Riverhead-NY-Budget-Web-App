@@ -1,6 +1,7 @@
 import { readFileSync } from 'node:fs'
 import { join } from 'node:path'
 import PageShell from '../../components/PageShell'
+import { stageDoc } from '../../lib/budget-stages'
 import PlainCallout from '../../components/PlainCallout'
 import { CDA_FUND_BALANCE_2024, NEWS, POSITIONS, RAIL_SPUR, TIMELINE, Z14 } from '../../lib/epcal'
 import current from '../../public/data/budget-supplement/current-lines.json'
@@ -29,7 +30,7 @@ const row = (a: string) => ({ y2023: old(a)?.actual2023 ?? 0, y2024: cur(a)?.pri
 const rent = row(Z14.rent)
 const legal = [Z14.legal, Z14.catLegal, Z14.consultants].map(row).reduce((s, r) => ({ y2023: s.y2023 + r.y2023, y2024: s.y2024 + r.y2024, y2025: s.y2025 + r.y2025, y2026: s.y2026 + r.y2026, y2027: s.y2027 + r.y2027 }))
 const years = ['y2023', 'y2024', 'y2025', 'y2026', 'y2027'] as const
-const yearLabel = { y2023: '2023', y2024: '2024', y2025: '2025', y2026: '2026 budget', y2027: '2027 proposed' }
+const yearLabel = { y2023: '2023', y2024: '2024', y2025: '2025', y2026: '2026 budget', y2027: stageDoc(2027, 'adopted') ? '2027 adopted' : '2027 proposed' }
 
 // This year's Town Board actions on EPCAL, from the meeting data.
 type Res = { number: string; title: string; vote?: { adopted?: boolean } }

@@ -3,6 +3,7 @@ import { CATEGORY_SOURCE, type CategoryResult } from '../lib/spending-categories
 import { plainAccountName } from '../lib/account-names'
 import { ONE_OFF_EXPLAINED, type AccountChange } from '../lib/account-changes'
 import { changesByAccount, CHANGES_YEAR, CHANGES_THROUGH } from '../lib/account-changes-data'
+import { lineStageLabel } from '../lib/budget-stages'
 
 // Recurring costs by category on /outliers/ (lib/spending-categories.ts;
 // checked by scripts/verify-spending-categories.mjs). Server-rendered.
@@ -55,7 +56,7 @@ export default function SpendingCategories({ categories }: { categories: Categor
             <th scope="col" style={th}>{y} spent</th>
             <th scope="col" style={th}>{now} budget</th>
             <th scope="col" style={th}>Spent by {CATEGORY_SOURCE.ytdThrough}</th>
-            <th scope="col" style={th}>{now + 1} Preliminary</th>
+            <th scope="col" style={th}>{now + 1} {lineStageLabel(now + 1)}</th>
           </tr></thead>
           <tbody>
             {categories.map((c) => {
@@ -67,7 +68,7 @@ export default function SpendingCategories({ categories }: { categories: Categor
                   <td data-label={`${y} spent`} style={td}>{usd(last.actual)}{last.actual !== last.usual ? '*' : ''}</td>
                   <td data-label={`${now} budget`} style={td}>{usd(c.budgetNow)}</td>
                   <td data-label={`Spent by ${CATEGORY_SOURCE.ytdThrough}`} style={td}>{usd(c.ytdNow)}</td>
-                  <td data-label={`${now + 1} Preliminary`} style={td}>{usd(c.proposed)}</td>
+                  <td data-label={`${now + 1} ${lineStageLabel(now + 1)}`} style={td}>{usd(c.proposed)}</td>
                 </tr>
               )
             })}
@@ -144,7 +145,7 @@ function CategoryCard({ c }: { c: CategoryResult }) {
                 {' '}These are this site’s estimates.</>}
           </li>
           <li>
-            The {c.thisYear + 1} Preliminary budgets {usd(c.proposed)}, {usd(Math.abs(c.proposed - last.usual))} {c.proposed >= last.usual ? 'above' : 'below'} what was spent in {c.lastActual}.
+            The {c.thisYear + 1} {lineStageLabel(c.thisYear + 1)} budget sets {usd(c.proposed)}, {usd(Math.abs(c.proposed - last.usual))} {c.proposed >= last.usual ? 'above' : 'below'} what was spent in {c.lastActual}.
           </li>
           {c.oneOffs.map((o) => {
             const why = ONE_OFF_EXPLAINED[o.account]
@@ -194,7 +195,7 @@ function CategoryCard({ c }: { c: CategoryResult }) {
                 <td data-label="Difference" style={td}>{c.range ? `${usd(round10k(c.range.low))} to ${usd(round10k(c.range.high))} for the year` : 'not yet'}</td>
               </tr>
               <tr>
-                <th scope="row" style={{ ...td, textAlign: 'left' }}>{c.thisYear + 1} Preliminary</th>
+                <th scope="row" style={{ ...td, textAlign: 'left' }}>{c.thisYear + 1} {lineStageLabel(c.thisYear + 1)}</th>
                 <td data-label="Budget" style={td}>{usd(c.proposed)}</td>
                 <td data-label="Spent" style={td}>not yet</td>
                 <td data-label="Difference" style={td}>not yet</td>
@@ -235,7 +236,7 @@ function AccountList({ c, rows }: { c: CategoryResult; rows: CategoryResult['all
                 {plain.known ? <>Town’s name: “{t.townName}”, </> : <>This site has not identified the abbreviation. </>}{t.account}, Supplement page {t.page}
               </span>
               <span style={{ display: 'block' }}>
-                {c.lastActual}: {usd(t.last)} spent of {usd(t.budgetLast)}. {c.thisYear}: {usd(t.ytdNow)} by {CATEGORY_SOURCE.ytdThrough} of {usd(t.budgetNow)}. {c.thisYear + 1} Preliminary: {usd(t.proposed)}.
+                {c.lastActual}: {usd(t.last)} spent of {usd(t.budgetLast)}. {c.thisYear}: {usd(t.ytdNow)} by {CATEGORY_SOURCE.ytdThrough} of {usd(t.budgetNow)}. {c.thisYear + 1} {lineStageLabel(c.thisYear + 1)}: {usd(t.proposed)}.
               </span>
               <span style={{ display: 'block', color: 'var(--rbl-text-sub)', fontSize: 13.5 }}>
                 {t.yearsBudgeted > 0

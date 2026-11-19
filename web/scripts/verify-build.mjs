@@ -398,7 +398,8 @@ const htmlText = (html) => html
   .replace(/&nbsp;|&#160;/g, ' ').replace(/&#x27;|&#39;/g, "'").replace(/&quot;/g, '"')
   .replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&amp;/g, '&')
   .replace(/\$\s+(?=\d)/g, '$').replace(/\s+/g, ' ')
-const FIGURE = /\$\d[\d,]*(?:\.\d+)?|\d+(?:\.\d+)?%/g
+// A dollar figure stops at its last digit group, so "$880,000, against" reads as $880,000, not $880,000,.
+const FIGURE = /\$\d{1,3}(?:,\d{3})*(?:\.\d+)?|\$\d+(?:\.\d+)?|\d+(?:\.\d+)?%/g
 let evidenceLinks = 0
 for (const page of EVIDENCE_PAGES) {
   const file = path('out', page, 'index.html')

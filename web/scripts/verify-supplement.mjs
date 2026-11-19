@@ -149,6 +149,19 @@ for (const r of revenue.neverCollected) has('revenue', r.account, `the never-col
 // same stage, and the pages must show those totals. Once the Preliminary book's
 // column is in current-lines.json both stages are held to their own Summary.
 const stageYear = read('public/data/history/budget-stages.json').years[String(LATEST)] ?? {}
+// The site labels the year's line figures "Adopted" when the Adopted book changes
+// no fund from the Preliminary (lib/budget-stages adoptedAsPreliminary). Hold that
+// to the line level too: the Adopted book's own columns must match the
+// Preliminary's on every line.
+{
+  const adoption = read('public/data/history/budget-adoption.json').years?.[String(LATEST)]
+  const pa = adoption?.changes?.preliminaryToAdopted
+  const fundLevel = read('public/data/history/budget-stages.json').transitions.find((t) => t.year === LATEST && t.from === 'preliminary' && t.to === 'adopted')
+  if (fundLevel && fundLevel.fundsChanged === 0 && fundLevel.appropriations.delta === 0 && fundLevel.levy.delta === 0) {
+    if (!pa) fail(`${LATEST}: the Adopted book matches the Preliminary by fund, but budget-adoption.json has no Preliminary-to-Adopted line comparison, so the site cannot label the lines adopted`)
+    else if (pa.linesChanged !== 0) fail(`${LATEST}: the Adopted book changes ${pa.linesChanged} lines from the Preliminary, so the Preliminary's lines cannot be labelled adopted`)
+  }
+}
 const tentativeFunds = stageYear.tentative?.funds ?? {}
 const preliminaryFunds = stageYear.preliminary?.funds ?? {}
 const linesPreliminary = current.columns?.preliminary === LATEST

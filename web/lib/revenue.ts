@@ -8,6 +8,7 @@
 // is everything else: the sources whose estimates can be right or wrong.
 
 import revenueJson from '../public/data/budget-supplement/revenue-history.json'
+import { lineStageLabel } from './budget-stages'
 
 export type YearMap = Record<string, number>
 
@@ -104,7 +105,7 @@ export const estimated = (rows: RevenueAccount[], year: number) => sum(rows, (a)
 export const midYear = (rows: RevenueAccount[], year: number) => sum(rows, (a) => a.ytd[String(year)])
 /** The newest stage's estimate (Preliminary once printed, else Tentative) and what to call it. */
 export const proposed = (rows: RevenueAccount[]) => sum(rows, (a) => a.proposed ?? a.tentative)
-export const STAGE = (revenueJson as unknown as { proposalStage?: string }).proposalStage === 'preliminary' ? 'Preliminary' : 'Tentative'
+export const STAGE = (revenueJson as unknown as { proposalStage?: string }).proposalStage === 'preliminary' ? lineStageLabel(2027) : 'Tentative'
 export const requested = (rows: RevenueAccount[]) => sum(rows, (a) => a.request)
 
 /** Years with both an estimate and a collection on file. */

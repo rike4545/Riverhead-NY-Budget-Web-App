@@ -19,11 +19,12 @@
 // savings catalogue rather than fresh constants, so the options move when the
 // model does.
 
-import prediction from '../public/data/budget-2027-prediction.json'
+import prediction from '../public/data/budget-2027-prediction-september.json'
 import { fullRecurringReductionPackage, personnelPolicyItems } from './spending-reduction-2027'
 import { firmRecurringTotal, retirementIncentive2027 } from './close-the-gap-2027'
 import { surplusAboveFloor } from './reserve-policy'
 import { released2027, statedLimitPct } from './tentative-2027'
+import { stageDoc } from './budget-stages'
 
 const le = prediction.levyEstimate
 const cg = prediction.capGap
@@ -265,13 +266,14 @@ export const calendar = {
       when: 'On or before September 30, 2026',
       what: 'The Supervisor, as budget officer, files the tentative budget with the Town Clerk.',
       law: 'Town Law §106(2)',
-      // Read from the Tentative itself, not from the date: done once it is parsed.
-      done: released2027 !== null,
+      // Each step is marked done from the Town's own documents, not from the date.
+      done: released2027 !== null ? { label: 'Done: the Tentative is out', href: '/tentative-2027/' } : null,
     },
     {
       when: 'Early October',
       what: 'The Town Board reviews it and may change it. Once it does, it becomes the preliminary budget.',
       law: 'Town Law §106(3)',
+      done: stageDoc(2027, 'preliminary') ? { label: 'Done: six amendments, October 20', href: '/budget-amendments-2027/' } : null,
     },
     {
       when: 'November 3, 2026',
@@ -282,11 +284,13 @@ export const calendar = {
       when: 'On or before Thursday, November 5, 2026',
       what: 'Public hearing on the preliminary budget — the Thursday immediately following the general election.',
       law: 'Town Law §108',
+      done: stageDoc(2027, 'adopted') ? { label: 'Done: held November 5', href: '/budget-amendments-2027/' } : null,
     },
     {
       when: 'On or before November 20, 2026',
       what: 'The Board adopts the budget by resolution. It then becomes the annual budget.',
       law: 'Town Law §109(2)',
+      done: stageDoc(2027, 'adopted') ? { label: 'Done: adopted November 17, Resolution 2026-995, 5–0', href: '/budget-adoption/' } : null,
     },
   ],
   theCollision:

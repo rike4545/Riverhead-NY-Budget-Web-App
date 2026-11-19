@@ -697,6 +697,16 @@ def build_current(panel: dict, latest_doc: dict | None) -> tuple[dict, dict, dic
     # 2026 Supplement, on the newest one.
     # The latest proposal: the Preliminary where the book supplies it, else the Tentative.
     stage = "preliminary" if "preliminary" in cols else "tentative"
+    # What to call that stage in the notes: once the Town's Adopted book changes
+    # no line from the Preliminary, the Preliminary's figures are the adopted
+    # budget's (budget-adoption.json, built by parse_budget_adoption.py).
+    stage_word = stage.capitalize()
+    adoption_path = ROOT / "web/public/data/history/budget-adoption.json"
+    if stage == "preliminary" and adoption_path.exists():
+        adoption = json.loads(adoption_path.read_text(encoding="utf-8")).get("years", {}).get(str(LATEST), {})
+        to_adopted = (adoption.get("changes") or {}).get("preliminaryToAdopted")
+        if to_adopted and to_adopted.get("linesChanged") == 0 and to_adopted.get("delta") == 0:
+            stage_word = "Adopted"
     for r in exp:
         r["proposal"] = r["preliminary"] if stage == "preliminary" else r["tentative"]
     for r in exp:
@@ -744,7 +754,7 @@ def build_current(panel: dict, latest_doc: dict | None) -> tuple[dict, dict, dic
         "noBudget": no_budget,
         "recoverablePoolControllable": round(sum(x["excess"] for x in over), 2),
         "note": (
-            f"Over-budget = {t_y} {stage.capitalize()} above the trailing full-year run-rate "
+            f"Over-budget = {t_y} {stage_word} figure above the trailing full-year run-rate "
             f"(the larger of the {a_y} actual and twice the spending through June 30, {b_y}), "
             f"restricted to controllable non-personnel lines. Mandated costs (pension, workers "
             f"comp, insurance, debt service, payroll taxes) and revenue lines are excluded — "
@@ -767,7 +777,7 @@ def build_current(panel: dict, latest_doc: dict | None) -> tuple[dict, dict, dic
                          for c in ("firm", "moderate", "volatile")},
         "items": items,
         "method": (
-            f"Each controllable, non-mandated expenditure line whose {t_y} {stage.capitalize()} sits more than "
+            f"Each controllable, non-mandated expenditure line whose {t_y} {stage_word} figure sits more than "
             f"30% above its trailing full-year run-rate (the larger of the {a_y} actual and twice the "
             f"spending through June 30, {b_y}). The amount above that run-rate is what trimming the line back to it would save. "
             f"Confidence: firm = operating/professional services; moderate = capital/maintenance "

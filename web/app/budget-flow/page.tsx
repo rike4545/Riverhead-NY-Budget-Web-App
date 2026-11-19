@@ -2,6 +2,7 @@ import PageShell from '../../components/PageShell'
 import PlainCallout from '../../components/PlainCallout'
 import BudgetFlow from '../../components/BudgetFlow'
 import { flow, flowSource, flowTotal, flowYear, revenueTotal, spendingTotal } from '../../lib/budget-flow'
+import { lineStageLabel } from '../../lib/budget-stages'
 
 const base = process.env.NEXT_PUBLIC_BASE_PATH || ''
 const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 20, marginBottom: 16 } as const
@@ -13,7 +14,7 @@ const pct = (v: number) => `${(v * 100).toFixed(1)}%`
 
 export const metadata = {
   title: 'Budget flow — where the 2027 budget’s money comes from and goes',
-  description: 'One picture of the Town of Riverhead’s 2027 Preliminary budget: every dollar from its kind of revenue, through the funds, to what it pays for.',
+  description: 'One picture of the Town of Riverhead’s 2027 adopted budget: every dollar from its kind of revenue, through the funds, to what it pays for.',
 }
 
 export default function BudgetFlowPage() {
@@ -43,7 +44,7 @@ export default function BudgetFlowPage() {
   return (
     <PageShell
       title="Budget flow"
-      subtitle={`One picture of the ${flowYear} Preliminary budget: every dollar from its kind of revenue, through the Town's funds, to what it pays for.`}
+      subtitle={`One picture of the ${flowYear} ${lineStageLabel(flowYear).toLowerCase()} budget: every dollar from its kind of revenue, through the Town's funds, to what it pays for.`}
     >
       <PlainCallout
         tips={[
@@ -52,7 +53,7 @@ export default function BudgetFlowPage() {
           { label: 'Right', text: 'what it pays for, grouped by the State’s function codes.' },
         ]}
       >
-        The {flowYear} Preliminary budget is <strong>{usd(flowTotal)}</strong> across all funds.{' '}
+        The {flowYear} {lineStageLabel(flowYear).toLowerCase()} budget is <strong>{usd(flowTotal)}</strong> across all funds.{' '}
         {tax ? <>Property taxes bring in {usd(tax.value)}, {pct(tax.value / flowTotal)} of it. </> : null}
         Some money is counted twice because it moves between funds: {usd(transfersIn)} in transfers and up to {usd(charges)} in charges one fund
         pays another, which the State groups with other local income. Both appear as money in and money out.

@@ -2,6 +2,7 @@ import stages from '../public/data/history/budget-stages.json'
 import supplement from '../public/data/budget-supplement/current-lines.json'
 import { amendmentEffect } from '../lib/budget-amendments-effect'
 import { AMENDMENTS } from '../lib/budget-amendments-2027'
+import { adoptedAsPreliminary } from '../lib/budget-stages'
 
 type StageIndex = {
   years: Record<string, {
@@ -18,17 +19,16 @@ type SupplementIndex = {
 
 const stageIndex = stages as unknown as StageIndex
 const lineIndex = supplement as unknown as SupplementIndex
-const latestAdoptedYear = Math.max(
-  ...Object.entries(stageIndex.years)
-    .filter(([, year]) => year.adopted)
-    .map(([year]) => Number(year)),
-)
-const latestProposalYear = latestAdoptedYear + 1
+// The year the lines budget. This was once "the latest adopted year plus one",
+// which stopped working when 2027 was adopted: it pointed at 2028, found no
+// Preliminary, and brought back the "not yet reconciled" notice.
+const latestProposalYear = lineIndex.supplementYear ?? 0
 const preliminary = stageIndex.years[String(latestProposalYear)]?.preliminary
 const linesMatchPreliminary =
   preliminary !== undefined &&
-  lineIndex.supplementYear === latestProposalYear &&
   lineIndex.columns?.preliminary === latestProposalYear
+/** The Board adopted the Preliminary unchanged, so its lines are the adopted budget's. */
+const adopted = adoptedAsPreliminary(latestProposalYear)
 
 const changedCount = amendmentEffect?.confirmation?.accounts ?? (amendmentEffect?.accounts ?? []).length
 
@@ -55,7 +55,7 @@ export default function ProposalLineStageNotice({ showAmendmentOverlay = false, 
       <aside role="note" style={{ border: '1px solid var(--rbl-accent)', borderRadius: 12, background: 'var(--rbl-info-bg)', padding: '12px 15px', margin: '0 0 16px', color: 'var(--rbl-text)', lineHeight: 1.5 }}>
         <strong>The line figures on this page are the Supervisor’s Tentative.</strong>
         <p style={{ margin: '5px 0 0', color: 'var(--rbl-text-sub)', fontSize: 13.5 }}>
-          The Town Board’s six October 20, 2026 amendments changed {changedCount} account lines in the Preliminary Budget. This page measures the Tentative as it was filed, so those changes are not in its figures. The funds, revenue and Budget Accuracy pages use the Preliminary.
+          The Town Board’s six October 20, 2026 amendments changed {changedCount} account lines in the Preliminary Budget{adopted ? ', which the Board adopted unchanged on November 17, 2026' : ''}. This page measures the Tentative as it was filed, so those changes are not in its figures. The funds, revenue and Budget Accuracy pages use the {adopted ? 'adopted budget' : 'Preliminary'}.
         </p>
         <p style={{ margin: '7px 0 0', fontSize: 13 }}>
           <a href="/Riverhead-NY-Budget-Web-App/budget-amendments-2027/">Read the six amendments and their sources</a>

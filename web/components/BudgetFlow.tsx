@@ -2,6 +2,7 @@
 
 import { useMemo, useRef, useState } from 'react'
 import type { FlowLink, FlowNode } from '../lib/budget-flow'
+import { lineStageLabel } from '../lib/budget-stages'
 
 // A Sankey diagram drawn as plain SVG: revenue kinds on the left, funds in the
 // middle, spending purposes on the right. Each band's thickness is its dollars.
@@ -165,7 +166,7 @@ export default function BudgetFlow({ nodes, links, total }: { nodes: FlowNode[];
 
       <div className="rbl-chart-wide" ref={box} style={{ position: 'relative' }} onMouseLeave={() => { setHover(null); setTip(null) }}>
         <svg viewBox={`-4 ${-HEAD} ${W + 8} ${H + HEAD + 4 + LABEL_ROOM}`} role="img"
-          aria-label={sel ? `Flow of the 2027 Preliminary budget with ${sel.label} highlighted. Its figures are listed below the diagram.` : 'Flow of the 2027 Preliminary budget from revenue, through the funds, to spending. The tables below give every figure.'}
+          aria-label={sel ? `Flow of the 2027 ${lineStageLabel(2027).toLowerCase()} budget with ${sel.label} highlighted. Its figures are listed below the diagram.` : `Flow of the 2027 ${lineStageLabel(2027).toLowerCase()} budget from revenue, through the funds, to spending. The tables below give every figure.`}
           style={{ width: '100%', height: 'auto', display: 'block' }}>
           {HEADS.map((h, c) => (
             <text key={h} x={c === 0 ? COL_X[0] + NODE_W : c === 1 ? COL_X[1] + NODE_W / 2 : COL_X[2]} y={-HEAD + 16}

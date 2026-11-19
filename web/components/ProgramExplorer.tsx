@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import BarRows from './charts/BarRows'
 import type { ProgramSeries, SeriesProgram } from '../lib/programs'
+import { adoptedAsPreliminary } from '../lib/budget-stages'
 
 const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 20 } as const
 
@@ -104,7 +105,7 @@ export default function ProgramExplorer({ series, people, base }: { series: Prog
         </label>
         {y.stage !== 'adopted' && (
           <div style={{ background: 'var(--rbl-warn-bg)', border: '1px solid var(--rbl-warn-border)', borderRadius: 10, padding: '10px 12px', marginTop: 12, color: 'var(--rbl-note-text)', fontSize: 14, lineHeight: 1.5 }}>
-            {y.label} is {y.stage === 'preliminary' ? 'the Preliminary Budget, the Supervisor’s Tentative with the Board’s changes' : 'the Supervisor’s Tentative Budget'}: a proposal the Town Board has not adopted and can still change.
+            {y.stage === 'preliminary' && adoptedAsPreliminary(y.year) ? <>{y.label} is the budget the Town Board adopted on November 17, 2026: the Preliminary Budget, unchanged.</> : <>{y.label} is {y.stage === 'preliminary' ? 'the Preliminary Budget, the Supervisor’s Tentative with the Board’s changes' : 'the Supervisor’s Tentative Budget'}: a proposal the Town Board has not adopted and can still change.</>}
           </div>
         )}
       </section>

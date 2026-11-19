@@ -6,6 +6,7 @@ import { plainAccountName, departmentName, FUND_NAMES, isFundWide } from '../../
 import { ONE_OFF_EXPLAINED } from '../../lib/account-changes'
 import { riverheadPopulation } from '../../lib/population'
 import lineHistory from '../../public/data/budget-supplement/line-history.json'
+import { lineStageLabel } from '../../lib/budget-stages'
 
 const base = process.env.NEXT_PUBLIC_BASE_PATH || ''
 const link = { color: 'var(--rbl-link)', fontWeight: 600 } as const
@@ -36,7 +37,7 @@ export default function DepartmentEfficiencyPage() {
         ]}
       >
         Every figure here comes from the Town’s Budget Supplements: actual spending for each year from {Math.min(...actualYears)} to {lastYear}, adopted
-        budgets from {Math.min(...adoptedYears)} to {currentYear}, and the {lineHistory.budgetYear} Preliminary budget. Employee benefits are budgeted for each
+        budgets from {Math.min(...adoptedYears)} to {currentYear}, and the {lineHistory.budgetYear} {lineStageLabel(lineHistory.budgetYear).toLowerCase()} budget. Employee benefits are budgeted for each
         fund as a whole, so they are not in any department’s figures. One-time entries the records explain are taken out ({oneOffs.map((o) => `Resolution ${o.number}`).join(', ')});
         see <a href={`${base}/outliers/#by-category`} style={link}>Unusual spending patterns</a>. The budget records show cost, not output, so the surveys
         and questions are how a review learns what the money buys.

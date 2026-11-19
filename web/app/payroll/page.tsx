@@ -442,7 +442,7 @@ function Raises2027() {
           2026 amount: {ELECTED_2027.rows.map((e) => `${e.position} ${money(e.y2027)}`).join('; ')}. {ELECTED_2027.rows[0].note}
         </p>
         <p>
-          <strong>Raises already added to the Preliminary Budget.</strong>{' '}
+          <strong>Raises the Board added to the 2027 budget.</strong>{' '}
           {highway.map((h, i) => (
             <span key={h.n}>
               {i > 0 && ' '}Amendment #{h.n} (Resolution {h.number}) adds {money(h.pay)} of pay because “{h.why}”.

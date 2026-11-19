@@ -53,6 +53,7 @@ export type IndividualCheckProp = {
 import { UNIFORM_OT, type PoliceOvertimeBudget } from '../lib/police-overtime-budget'
 import { OT_SOURCE, type overtimeByDepartment } from '../lib/overtime-by-department'
 import type { AccountChange } from '../lib/account-changes'
+import { lineStageLabel } from '../lib/budget-stages'
 
 export type OvertimeStaffingProps = {
   budgetLine: PoliceOvertimeBudget
@@ -324,7 +325,7 @@ function PoliceOvertimeBudgetPanel({ b }: { b: PoliceOvertimeBudget }) {
         site’s estimate.
       </p>
       <p style={{ color: 'var(--rbl-text-body)', fontSize: 14.5, lineHeight: 1.6, margin: '0 0 10px' }}>
-        The {b.thisYear + 1} Preliminary budgets <strong>{usd(b.tentative ?? 0)}</strong>, the same as the Tentative
+        The {b.thisYear + 1} {lineStageLabel(b.thisYear + 1)} budget sets <strong>{usd(b.tentative ?? 0)}</strong>, the same as the Tentative
         {b.request === b.tentative ? ', the amount the department requested' : ''}. Spending was above its budget in{' '}
         <strong>{b.yearsOver} of the last {b.rows.length} years</strong>, and above {usd(b.tentative ?? 0)} in{' '}
         {b.actualsAboveTentative.length} of the last {b.recentYears.length} ({b.actualsAboveTentative.join(', ')}). That is a likely concern
@@ -357,7 +358,7 @@ function PoliceOvertimeBudgetPanel({ b }: { b: PoliceOvertimeBudget }) {
             </tr>
             <tr>
               <td style={{ ...cell, fontWeight: 700, color: 'var(--rbl-title)' }}><span>{b.thisYear + 1}</span></td>
-              <td data-label="Budgeted" style={{ ...cell, textAlign: 'right' }}><span>{usd(b.tentative ?? 0)}, Preliminary</span></td>
+              <td data-label="Budgeted" style={{ ...cell, textAlign: 'right' }}><span>{usd(b.tentative ?? 0)}, {lineStageLabel(b.thisYear + 1)}</span></td>
               <td data-label="Spent" style={{ ...cell, textAlign: 'right' }}><span>—</span></td>
               <td data-label="Over budget" style={{ ...cell, textAlign: 'right' }}><span>—</span></td>
             </tr>
@@ -386,10 +387,10 @@ function DepartmentOvertimePanel({ d, ch }: { d: ReturnType<typeof overtimeByDep
       <h3 style={{ margin: '0 0 6px', color: 'var(--rbl-title)', fontSize: 17 }}>Overtime by department</h3>
       <p style={{ color: 'var(--rbl-text-body)', fontSize: 14.5, lineHeight: 1.6, margin: '0 0 10px' }}>
         Overtime budgets mostly stay the same from year to year, whatever was spent. <strong>{d.unchangedLines} of the {d.budgetedLines}</strong>{' '}
-        overtime lines with a {d.thisYear} budget carry into the {d.thisYear + 1} Preliminary at exactly the same amount. Without the sworn
+        overtime lines with a {d.thisYear} budget carry into the {d.thisYear + 1} {lineStageLabel(d.thisYear + 1)} budget at exactly the same amount. Without the sworn
         police line above, departments spent <strong>{usd(d.restSpentLast)}</strong> on overtime in {d.lastActual} against {usd(d.restBudgetLast)}{' '}
         budgeted, {usd(Math.abs(over))} {over > 0 ? 'over' : 'under'}. By {OT_SOURCE.ytdThrough}, {d.thisYear} they had spent {usd(d.restYtdNow)}{' '}
-        of {usd(d.restBudgetNow)}, and the {d.thisYear + 1} Preliminary budgets {usd(d.restProposed)}.
+        of {usd(d.restBudgetNow)}, and the {d.thisYear + 1} {lineStageLabel(d.thisYear + 1)} budget sets {usd(d.restProposed)}.
         {d.spentByJune.length > 0 && <> {d.spentByJune.length === 1 ? 'One line' : `${d.spentByJune.length} lines`} had spent the whole year’s budget by {OT_SOURCE.ytdThrough}: {d.spentByJune.map((r) => r.department).join(', ')}.</>}
       </p>
       <div data-scroll-region style={{ overflowX: 'auto' }}>
@@ -404,7 +405,7 @@ function DepartmentOvertimePanel({ d, ch }: { d: ReturnType<typeof overtimeByDep
               <th scope="col" style={{ ...cell, textAlign: 'right' }}>{d.lastActual} spent</th>
               <th scope="col" style={{ ...cell, textAlign: 'right' }}>{d.thisYear} budget</th>
               <th scope="col" style={{ ...cell, textAlign: 'right' }}>Spent by {OT_SOURCE.ytdThrough}</th>
-              <th scope="col" style={{ ...cell, textAlign: 'right' }}>{d.thisYear + 1} Preliminary</th>
+              <th scope="col" style={{ ...cell, textAlign: 'right' }}>{d.thisYear + 1} {lineStageLabel(d.thisYear + 1)}</th>
               <th scope="col" style={{ ...cell, textAlign: 'right' }}>Years over, of 5</th>
             </tr>
           </thead>
@@ -421,7 +422,7 @@ function DepartmentOvertimePanel({ d, ch }: { d: ReturnType<typeof overtimeByDep
                 <td data-label={`Spent by ${OT_SOURCE.ytdThrough}`} style={right}>
                   <span>{usd(r.ytdNow)}{r.ytdShare !== null && r.ytdShare >= 1 ? ', over the year’s budget' : ''}</span>
                 </td>
-                <td data-label={`${d.thisYear + 1} Preliminary`} style={right}><span>{usd(r.proposed)}{r.unchanged && r.budgetNow > 0 ? ', unchanged' : ''}</span></td>
+                <td data-label={`${d.thisYear + 1} ${lineStageLabel(d.thisYear + 1)}`} style={right}><span>{usd(r.proposed)}{r.unchanged && r.budgetNow > 0 ? ', unchanged' : ''}</span></td>
                 <td data-label="Years over, of 5" style={right}><span>{r.yearsOver}</span></td>
               </tr>
             ))}

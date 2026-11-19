@@ -3,6 +3,7 @@
 // component: anything imported beside it ships to the browser.
 
 import currentReductions from '../public/data/budget-supplement/current-reductions.json'
+import { lineStageLabel } from './budget-stages'
 
 // Kept apart from the savings package: the package, and the pages that
 // measure against it, were built on the 2026 Tentative before the 2027
@@ -25,7 +26,7 @@ export type TentativeTrim = {
 export const tentativeTrims = {
   year: currentReductions.supplementYear as number,
   /** 'Preliminary' once the Town prints it and the test is run on it, else 'Tentative'. */
-  stage: ((currentReductions as { stage?: string }).stage === 'preliminary' ? 'Preliminary' : 'Tentative') as 'Preliminary' | 'Tentative',
+  stage: ((currentReductions as { stage?: string }).stage === 'preliminary' ? lineStageLabel(2027) : 'Tentative') as 'Adopted' | 'Preliminary' | 'Tentative',
   columns: currentReductions.columns as { actual: number; adopted: number; ytd: number; tentative: number },
   total: currentReductions.total as number,
   byConfidence: currentReductions.byConfidence as Record<'firm' | 'moderate' | 'volatile', number>,

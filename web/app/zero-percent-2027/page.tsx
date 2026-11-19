@@ -11,6 +11,7 @@ import {
   afterTheFact, baseGrowthPct, buildingFeesWatch, carryover, draws, middle, middleThresholds, newerRatio, exampleHome, gapOf, interest, levels, levelOf, otherEstimates, pathOf,
   policeOffset, savings, sources, suffolk, summary, townWideFunds, trajectory, trendNote, verdict, whyHarder,
 } from '../../lib/zero-percent-2027'
+import { adoptedAsPreliminary } from '../../lib/budget-stages'
 
 const base = process.env.NEXT_PUBLIC_BASE_PATH || ''
 function usd(n: number) { return `${n < 0 ? '−' : ''}$${Math.round(Math.abs(n)).toLocaleString('en-US')}` }
@@ -67,8 +68,8 @@ export default function ZeroPercent2027Page() {
           { label: 'Savings', text: '“fund balance”: money left from earlier years. A budget can count some of it as income. It is one-time money.' },
         ]}
       >
-        The 2027 Tentative raises the town-wide levy by {usd(summary.tentativeRise)}, or {summary.tentativePct.toFixed(2)}%. Six amendments before
-        the Town Board would cut the increase to {usd(summary.amendedRise)}, or {summary.amendedPct.toFixed(2)}%. A 1% increase would take{' '}
+        The 2027 Tentative raises the town-wide levy by {usd(summary.tentativeRise)}, or {summary.tentativePct.toFixed(2)}%. {adoptedAsPreliminary(2027) ? 'The six amendments the Board adopted cut' : 'Six amendments before the Town Board would cut'}{' '}
+        the increase to {usd(summary.amendedRise)}, or {summary.amendedPct.toFixed(2)}%{adoptedAsPreliminary(2027) ? ', the levy adopted on November 17, 2026' : ''}. A 1% increase would take{' '}
         <strong>{usd(summary.oneBeyond)}</strong> more than the amendments find. No increase would mean finding all{' '}
         <strong>{usd(summary.zeroBeyond)}</strong> of it. Budgeting interest at the pace the Town is collecting it covers most of the first. The second leans on savings. A middle course of{' '}
         {middle[0].pct}% to {middle[1].pct}% would need no more savings than the amendments use, and keep the tax cap’s carryover. On the Supervisor’s{' '}
@@ -93,7 +94,7 @@ export default function ZeroPercent2027Page() {
             <P>
               The Tentative raises each of the three town-wide funds’ levies by the same {summary.tentativePct.toFixed(2)}%. The Supervisor’s letter says
               every taxing district is within the tax cap limit of {summary.statedLimitPct}%, so a 1% or zero-percent levy would sit well inside the cap.
-              The Board adopted the six amendments on October 20, into the Preliminary Budget it holds a hearing on November 5; the amendments page follows where they stand.
+              {adoptedAsPreliminary(2027) ? 'The Board adopted the six amendments on October 20 and, on November 17, adopted the budget with them in it.' : 'The Board adopted the six amendments on October 20, into the Preliminary Budget it holds a hearing on November 5; the amendments page follows where they stand.'}
             </P>
             <div data-levels>
               <Table

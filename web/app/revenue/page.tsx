@@ -54,14 +54,14 @@ const OTHER_FUNDS = ['DA1', 'EW1', 'ES1', 'ES3', 'ES5', 'SR1', 'SM1', 'SL1', 'CM
 
 export const metadata = {
   title: 'Where Revenue Comes From — every stream, estimate against result',
-  description: `Every revenue stream in Riverhead's Budget Supplements, ${revenueActualYears[0]}–${YEAR}: what each source was estimated to bring in, what it did, what has come in so far in ${NOW}, and what the ${YEAR} {STAGE} expects.`,
+  description: `Every revenue stream in Riverhead's Budget Supplements, ${revenueActualYears[0]}–${YEAR}: what each source was estimated to bring in, what it did, what has come in so far in ${NOW}, and what the ${YEAR} ${STAGE} budget expects.`,
 }
 
 export default function RevenuePage() {
   return (
     <PageShell
       title="Where revenue comes from"
-      subtitle={`Every revenue stream in the Town's Budget Supplements, ${revenueActualYears[0]} through ${YEAR}: what each source was estimated to bring in, what it did, what has come in so far this year, and what the ${YEAR} {STAGE} expects.`}
+      subtitle={`Every revenue stream in the Town's Budget Supplements, ${revenueActualYears[0]} through ${YEAR}: what each source was estimated to bring in, what it did, what has come in so far this year, and what the ${YEAR} ${STAGE} budget expects.`}
     >
       <ProposalLineStageNotice />
       <PlainCallout
@@ -75,7 +75,7 @@ export default function RevenuePage() {
           ? <>The General Fund estimated its outside revenue below what came in for <strong>{streak.length} years running</strong>,{' '}
             {streak[0].year}–{streak[streak.length - 1].year}, by <strong>{usd(streakTotal)}</strong> in all.</>
           : <>The General Fund&apos;s outside revenue came in above its estimate in {overYears.length} of the {record.length} years on file.</>}{' '}
-        The {YEAR} {STAGE} expects{' '}
+        The {YEAR} {STAGE} budget expects{' '}
         <strong>{usd(proposed(gfOutside))}</strong> from those sources, against {usd(collected(gfOutside, LAST))} collected in {LAST}.
       </PlainCallout>
 
@@ -131,7 +131,7 @@ export default function RevenuePage() {
               <tr style={rowLine}>
                 <td style={{ ...td, fontWeight: 800, color: 'var(--rbl-title)' }}>{YEAR}</td>
                 <td style={{ ...tdr, fontWeight: 800, color: 'var(--rbl-title)' }}>{usd(proposed(gfOutside))}</td>
-                <td style={tdr} colSpan={3}><span style={{ color: 'var(--rbl-text-muted)' }}>the {STAGE}&apos;s estimate{requested(gfOutside) === proposed(gfOutside) ? ', the same as the departments requested' : ` (departments asked for ${usd(requested(gfOutside))})`}</span></td>
+                <td style={tdr} colSpan={3}><span style={{ color: 'var(--rbl-text-muted)' }}>the {STAGE} budget&apos;s estimate{requested(gfOutside) === proposed(gfOutside) ? ', the same as the departments requested' : ` (departments asked for ${usd(requested(gfOutside))})`}</span></td>
               </tr>
             </tbody>
           </table>
@@ -179,7 +179,7 @@ export default function RevenuePage() {
           <h2 style={{ marginTop: 0, color: 'var(--rbl-title)', fontSize: 20 }}>Estimated low, year after year</h2>
           <p style={{ color: 'var(--rbl-text-body)', fontSize: 14.5, lineHeight: 1.6, marginTop: 0 }}>
             Every fund. Each of these brought in at least a quarter more than its estimate in each of{' '}
-            {revenueActualYears.slice(-3).join(', ')}, and the {YEAR} {STAGE} estimates it below what it has averaged. Interest
+            {revenueActualYears.slice(-3).join(', ')}, and the {YEAR} {STAGE} budget estimates it below what it has averaged. Interest
             appears in almost every fund: most districts budget a few hundred dollars and earn tens or hundreds of thousands.
           </p>
           <div style={{ overflowX: 'auto' }}>
@@ -224,8 +224,8 @@ export default function RevenuePage() {
           <p style={{ color: 'var(--rbl-text-body)', fontSize: 14.5, lineHeight: 1.6, marginTop: 0 }}>
             Counted in each of {revenueActualYears.slice(-3).join(', ')}, with nothing recorded at mid-year or year-end.{' '}
             {neverCollected.every((r) => !r.proposed)
-              ? `The ${YEAR} {STAGE} carries none of them. The question is about the budgets that did: where, if anywhere, this money was recorded.`
-              : `Some are still in the ${YEAR} {STAGE}.`}
+              ? `The ${YEAR} ${STAGE} budget carries none of them. The question is about the budgets that did: where, if anywhere, this money was recorded.`
+              : `Some are still in the ${YEAR} ${STAGE} budget.`}
           </p>
           <div style={{ overflowX: 'auto' }}>
             <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 13.5, minWidth: 560 }}>

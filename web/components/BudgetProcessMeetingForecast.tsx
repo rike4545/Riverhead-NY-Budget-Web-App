@@ -1,5 +1,6 @@
 import scheduleJson from '../public/data/meetings/upcoming.json'
 import { released2027 } from '../lib/tentative-2027'
+import { stageDoc } from '../lib/budget-stages'
 
 const base = process.env.NEXT_PUBLIC_BASE_PATH || ''
 
@@ -93,9 +94,11 @@ export default function BudgetProcessMeetingForecast() {
 
       {released2027 ? (
       <div data-tentative-released style={{ background: 'var(--rbl-success-bg)', border: '1px solid var(--rbl-success-border)', borderRadius: 13, padding: 13, marginBottom: 10 }}>
-        <strong style={{ color: 'var(--rbl-success-strong)' }}>The 2027 Tentative Budget is out.</strong>
+        <strong style={{ color: 'var(--rbl-success-strong)' }}>{stageDoc(2027, 'adopted') ? 'The 2027 budget is adopted.' : 'The 2027 Tentative Budget is out.'}</strong>
         <div style={{ color: 'var(--rbl-text-body)', fontSize: 13, lineHeight: 1.5, marginTop: 4 }}>
-          The Town has published it. The meetings below are where the Board can change it, hear the public on it and adopt it.{' '}
+          {stageDoc(2027, 'adopted')
+            ? 'The Board amended the Tentative on October 20, heard the public on November 5 and adopted the budget on November 17, 2026. The meetings below were where each step happened.'
+            : 'The Town has published it. The meetings below are where the Board can change it, hear the public on it and adopt it.'}{' '}
           <a href={`${base}/tentative-2027/`} style={link}>The Tentative against the forecast →</a>
         </div>
       </div>
