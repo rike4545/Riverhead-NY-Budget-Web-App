@@ -29,7 +29,8 @@
       "web": "history",
       "android": "history",
       "pattern": "*.json",
-      "note": "Historical adopted-budget, budget-stage, fund-appropriation and General Fund series. Android only: no iOS screen reads these files."
+      "note": "Historical adopted-budget, budget-stage, fund-appropriation and General Fund series. iOS reads budget-stages.json for its budget, overview and tax screens; Android reads the set.",
+      "ios": "BudgetHistory"
     },
     {
       "web": "salary",
