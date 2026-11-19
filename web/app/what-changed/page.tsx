@@ -5,7 +5,7 @@ import RecordTrail from '../../components/RecordTrail'
 import ProvenanceLine from '../../components/ProvenanceLine'
 import { dollars, townWideComparison2026, adoptedBudget2026Summary } from '../../lib/financial-data'
 import { stageDoc } from '../../lib/budget-stages'
-import { released2027, adoptedPrior, levySentence, spendingSentence, stability, unchangedYears, PRIOR, YEAR } from '../../lib/tentative-2027'
+import { released2027, adopted2027, adoptedPrior, levySentence, spendingSentence, stability, unchangedYears, PRIOR, YEAR } from '../../lib/tentative-2027'
 import { READ_BY_HAND } from '../../lib/tentative-letters'
 
 // The budget on the table: the 2027 Tentative against the 2026 adopted budget.
@@ -22,16 +22,24 @@ const base = process.env.NEXT_PUBLIC_BASE_PATH || ''
 const pct = (n: number | null) => (n === null ? '' : `${n >= 0 ? '+' : ''}${n.toFixed(2)}%`)
 const delta = (n: number) => `${n >= 0 ? '+' : ''}${dollars(n)}`
 const card = { background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 14, padding: 18 }
-const title = `What Changed: ${PRIOR} → ${YEAR} Tentative`
-const subtitle = `The resident version of the year-over-year story: what the Supervisor’s ${YEAR} Tentative Budget changes from the ${PRIOR} adopted budget, with a direct path to the underlying records.`
+// Once the Board adopts the year's budget, the page compares the adopted budget
+// with the year before, not the Tentative.
+const ADOPTED = adopted2027 !== null
+const STAGE = ADOPTED ? 'Adopted' : 'Tentative'
+const title = `What Changed: ${PRIOR} → ${YEAR} ${STAGE}`
+const subtitle = ADOPTED
+  ? `The resident version of the year-over-year story: what the ${YEAR} budget the Town Board adopted on November 17, 2026 changes from the ${PRIOR} adopted budget, with a direct path to the underlying records.`
+  : `The resident version of the year-over-year story: what the Supervisor’s ${YEAR} Tentative Budget changes from the ${PRIOR} adopted budget, with a direct path to the underlying records.`
 
 export const metadata = {
-  title: `What changed in the ${YEAR} Tentative Budget`,
-  description: `What the Supervisor’s ${YEAR} Tentative Budget changes from the ${PRIOR} adopted budget, with links to the records.`,
+  title: `What changed in the ${YEAR} ${ADOPTED ? 'adopted budget' : 'Tentative Budget'}`,
+  description: ADOPTED
+    ? `What the ${YEAR} adopted budget changes from the ${PRIOR} adopted budget, with links to the records.`
+    : `What the Supervisor’s ${YEAR} Tentative Budget changes from the ${PRIOR} adopted budget, with links to the records.`,
 }
 
 export default function WhatChangedPage() {
-  const h = released2027
+  const h = adopted2027 ?? released2027
   const tw = h?.townWide
   const gf = h?.generalFund
   const gfPrior = adoptedPrior?.funds.A01?.appropriations ?? null
@@ -51,11 +59,11 @@ export default function WhatChangedPage() {
   const biggest = stability.reduce((a, b) => (Math.abs(b.appropriationsDelta) > Math.abs(a.appropriationsDelta) ? b : a), stability[0])
 
   const metrics = [
-    { label: 'Town-wide appropriations', value: dollars(tw.appropriations), change: `${delta(tw.appropriations - tw.priorAppropriations)} · ${pct(tw.appropriationsPct)}`, href: '/tentative-2027/', note: `General Fund, Highway and Street Lighting, the Tentative’s own “Total Town Wide” row. ${PRIOR} adopted: ${dollars(tw.priorAppropriations)}.` },
+    { label: 'Town-wide appropriations', value: dollars(tw.appropriations), change: `${delta(tw.appropriations - tw.priorAppropriations)} · ${pct(tw.appropriationsPct)}`, href: '/tentative-2027/', note: `General Fund, Highway and Street Lighting, the ${STAGE} Budget’s own “Total Town Wide” row. ${PRIOR} adopted: ${dollars(tw.priorAppropriations)}.` },
     { label: 'Town-wide tax levy', value: dollars(tw.levy), change: `${delta(tw.levy - tw.priorLevy)} · ${pct(tw.levyPct)}`, href: '/tentative-2027/', note: `The property tax those three funds raise on every parcel. With the special districts, the levy is ${dollars(h.levy)}.` },
     { label: 'Town-wide rate', value: `$${tw.rate.toFixed(3)} / $1,000`, change: `${tw.rate >= tw.priorRate ? '+' : ''}${(tw.rate - tw.priorRate).toFixed(3)} · ${pct(tw.ratePct)}`, href: '/tentative-2027/', note: 'The Town rate per $1,000 of assessed value, not the full school, county, fire and library bill.' },
     { label: 'General Fund', value: dollars(gf.appropriations), change: `${delta(gfChange)} · ${pct((gfChange / gfPrior) * 100)}`, href: '/general-fund/', note: 'The main operating fund for Town services.' },
-    { label: 'Appropriated fund balance', value: dollars(h.fundBalance), change: h.fundBalancePrior !== null ? `${delta(h.fundBalance - h.fundBalancePrior)} vs ${PRIOR}` : `${YEAR} Tentative`, href: '/tentative-2027/', note: `One-time reserves used to balance the budget, across all funds. The General Fund’s share is ${dollars(gf.fundBalance ?? 0)}, against ${dollars(gf.fundBalancePrior ?? 0)} in ${PRIOR}.` },
+    { label: 'Appropriated fund balance', value: dollars(h.fundBalance), change: h.fundBalancePrior !== null ? `${delta(h.fundBalance - h.fundBalancePrior)} vs ${PRIOR}` : `${YEAR} ${STAGE}`, href: '/tentative-2027/', note: `One-time reserves used to balance the budget, across all funds. The General Fund’s share is ${dollars(gf.fundBalance ?? 0)}, against ${dollars(gf.fundBalancePrior ?? 0)} in ${PRIOR}.` },
   ]
 
   return (
@@ -63,11 +71,11 @@ export default function WhatChangedPage() {
       <PreliminaryUpdate />
       <div style={{ display: 'grid', gap: 16 }}>
         <section style={{ background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 16, padding: 20 }}>
-          <DataStatus status="calculated" text={`Calculated from the ${YEAR} Tentative and ${PRIOR} Adopted budgets`} />
-          <p style={{ margin: '10px 0 0', color: 'var(--rbl-text-sub)', lineHeight: 1.6, maxWidth: 930 }}>This page answers the first resident question — <strong>what is about to move?</strong> — for the budget now on the table, then lets you drill into the underlying records. The Tentative is the Supervisor’s proposal.{stageDoc(YEAR, 'adopted') ? ' The Town Board amended it on October 20 and adopted the budget on November 17, 2026.' : ' The Town Board can change it before adopting a budget, which it must do by November 20.'}</p>
+          <DataStatus status="calculated" text={`Calculated from the ${YEAR} ${STAGE} and ${PRIOR} Adopted budgets`} />
+          <p style={{ margin: '10px 0 0', color: 'var(--rbl-text-sub)', lineHeight: 1.6, maxWidth: 930 }}>This page answers the first resident question — <strong>{ADOPTED ? 'what moved?' : 'what is about to move?'}</strong> — for {ADOPTED ? 'the budget the Board adopted' : 'the budget now on the table'}, then lets you drill into the underlying records. The Tentative is the Supervisor’s proposal.{stageDoc(YEAR, 'adopted') ? ' The Town Board amended it on October 20 and adopted the budget on November 17, 2026.' : ' The Town Board can change it before adopting a budget, which it must do by November 20.'}</p>
         </section>
 
-        <section aria-label={`${PRIOR} to ${YEAR} Tentative changes`} style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(230px,1fr))', gap: 12 }}>
+        <section aria-label={`${PRIOR} to ${YEAR} ${STAGE} changes`} style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(230px,1fr))', gap: 12 }}>
           {metrics.map(m => <a key={m.label} href={`${base}${m.href}`} style={{ color: 'inherit', textDecoration: 'none', background: 'var(--rbl-surface)', border: '1px solid var(--rbl-border-subtle)', borderRadius: 14, padding: 17 }}>
             <div style={{ color: 'var(--rbl-text-muted)', fontSize: 13.5, fontWeight: 700 }}>{m.label}</div>
             <div style={{ fontSize: 25, fontWeight: 950, marginTop: 6 }}>{m.value}</div>
@@ -89,19 +97,19 @@ export default function WhatChangedPage() {
 
         <section style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(min(300px,100%),1fr))', gap: 14 }}>
           <article style={card}>
-            <h2 style={{ margin: 0, fontSize: 20 }}>What changes most?</h2>
-            <p style={{ color: 'var(--rbl-text-sub)', lineHeight: 1.6 }}>The Tentative raises town-wide appropriations <strong>{dollars(tw.appropriations - tw.priorAppropriations)}</strong> ({pct(tw.appropriationsPct)}) and the town-wide property-tax levy <strong>{dollars(tw.levy - tw.priorLevy)}</strong> ({pct(tw.levyPct)}).</p>
+            <h2 style={{ margin: 0, fontSize: 20 }}>{ADOPTED ? 'What changed most?' : 'What changes most?'}</h2>
+            <p style={{ color: 'var(--rbl-text-sub)', lineHeight: 1.6 }}>The {ADOPTED ? 'adopted budget' : 'Tentative'} raises town-wide appropriations <strong>{dollars(tw.appropriations - tw.priorAppropriations)}</strong> ({pct(tw.appropriationsPct)}) and the town-wide property-tax levy <strong>{dollars(tw.levy - tw.priorLevy)}</strong> ({pct(tw.levyPct)}).</p>
             <p style={{ color: 'var(--rbl-text-sub)', lineHeight: 1.6 }}>{spendingSentence(h)}</p>
             <a href={`${base}/tentative-2027/`} style={{ color: 'var(--rbl-accent)', fontWeight: 900 }}>See every fund in the Tentative →</a>
           </article>
           <article style={card}>
             <h2 style={{ margin: 0, fontSize: 20 }}>Is it within the tax cap?</h2>
-            <p style={{ color: 'var(--rbl-text-sub)', lineHeight: 1.6 }}>{levySentence(h)}</p>
+            <p style={{ color: 'var(--rbl-text-sub)', lineHeight: 1.6 }}>{ADOPTED ? levySentence(h, { verb: 'sets', model: 'the projection in this site’s September model' }) : levySentence(h)}</p>
             <a href={`${base}/tax-cap/`} style={{ color: 'var(--rbl-accent)', fontWeight: 900 }}>How the tax cap works →</a>
           </article>
           <article style={card}>
             <h2 style={{ margin: 0, fontSize: 20 }}>What should I be careful not to confuse?</h2>
-            <p style={{ color: 'var(--rbl-text-sub)', lineHeight: 1.6 }}>A Tentative is a proposal, not the budget. In {unchangedYears.length} of the last {stability.length} years the adopted budget matched it fund for fund; the most it moved was {dollars(Math.abs(biggest.appropriationsDelta))} of appropriations, in {biggest.year}.</p>
+            <p style={{ color: 'var(--rbl-text-sub)', lineHeight: 1.6 }}>{ADOPTED && released2027 ? <>The Tentative was a proposal. The Board’s six October 20 amendments lowered its levy across all funds from {dollars(released2027.levy)} to {dollars(h.levy)} before adoption. </> : 'A Tentative is a proposal, not the budget. '}In {unchangedYears.length} of the last {stability.length} years the adopted budget matched it fund for fund; the most it moved was {dollars(Math.abs(biggest.appropriationsDelta))} of appropriations, in {biggest.year}.</p>
             <p style={{ color: 'var(--rbl-text-sub)', lineHeight: 1.6, marginBottom: 0 }}>Appropriations are spending authority, not proof that cash was spent. The Town levy is only the Town&apos;s property-tax share. And the Town rate shown here is not your complete property-tax bill.</p>
           </article>
         </section>
@@ -116,7 +124,7 @@ export default function WhatChangedPage() {
         </section>
 
         <RecordTrail title="Primary records" items={[
-          { label: `${YEAR} Tentative Budget`, text: `${h.source.title}: the Summary’s fund totals and its “Total Town Wide” rows.`, href: '/tentative-2027/' },
+          { label: `${YEAR} ${STAGE} Budget`, text: `${h.source.title}: the Summary’s fund totals and its “Total Town Wide” rows.`, href: '/tentative-2027/' },
           { label: `${PRIOR} Adopted Budget`, text: 'The same Summary rows as adopted, for the comparison.', href: '/compare/' },
           { label: 'Supervisor’s budget letter', text: `${READ_BY_HAND[YEAR]?.dated ? `Dated ${READ_BY_HAND[YEAR]?.dated}; it` : 'It'} gives the tax cap limit${h.statedLimitPct !== null ? ` of ${h.statedLimitPct}%` : ''}.`, href: '/tentative-2027/' },
         ]} />

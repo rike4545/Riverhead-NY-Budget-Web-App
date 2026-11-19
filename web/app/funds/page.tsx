@@ -1,12 +1,13 @@
 import type { ReactNode } from 'react'
 import { Check } from 'lucide-react'
 import PageShell from '../../components/PageShell'
+import { stageDoc } from '../../lib/budget-stages'
 import ProposalLineStageNotice from '../../components/ProposalLineStageNotice'
 import PlainCallout from '../../components/PlainCallout'
 import Term from '../../components/Term'
 import { allOperatingFunds2026 } from '../../lib/all-funds'
 import { dollars } from '../../lib/financial-data'
-import { budgetTotals, fundYears, PROPOSAL_ADOPTED, PROPOSAL_LABEL, PROPOSAL_STATUS, PROPOSAL_VERB, transferFunded, TENTATIVE_YEAR } from '../../lib/funds-2027'
+import { budgetTotals, fundYears, PROPOSAL_ADOPTED, PROPOSAL_LABEL, PROPOSAL_STATUS, PROPOSAL_VERB, PROPOSAL_WORD, transferFunded, TENTATIVE_YEAR } from '../../lib/funds-2027'
 import { cpfDebtTransfer } from '../../lib/outlier-watch'
 import { districtHoldings, generalFundLetter, generalFundResults, savings, tentativeFundBalances } from '../../lib/savings-used'
 import { subAccountIndex, townwideSubAccountTotals, townwideCategoryTotals } from '../../lib/subaccounts'
@@ -43,6 +44,8 @@ const link = { color: 'var(--rbl-link)', fontWeight: 600 } as const
 const th = { padding: '8px 10px', fontWeight: 600, fontSize: 13.5 } as const
 const td = { padding: '9px 10px', verticalAlign: 'top' } as const
 const caption = { textAlign: 'left', color: 'var(--rbl-text-body)', fontWeight: 600, fontSize: 15, padding: '0 0 8px' } as const
+
+const adoptedSavings = stageDoc(2027, 'adopted')?.totals.fundBalance ?? null
 
 export const metadata = {
   title: 'Funds Explorer — every fund, department & line item, 2026 and the 2027 proposal',
@@ -156,7 +159,7 @@ export default function FundsPage() {
                   <strong style={{ fontSize: 22, color: 'var(--rbl-title)' }}>{dollars(fund.appropriations2026)}</strong>
                   {tentative && (
                     <div style={{ fontSize: 14, marginTop: 2 }}>
-                      <span style={{ color: 'var(--rbl-text-body)' }}>{TENTATIVE_YEAR} proposed: <strong>{dollars(tentative.appropriations)}</strong></span>{' '}
+                      <span style={{ color: 'var(--rbl-text-body)' }}>{TENTATIVE_YEAR} {PROPOSAL_WORD}: <strong>{dollars(tentative.appropriations)}</strong></span>{' '}
                       <span style={{ color: changeColor(fund.appropriations2026, tentative.appropriations), fontWeight: 600 }}>{changeBy(fund.appropriations2026, tentative.appropriations)}</span>
                     </div>
                   )}
@@ -209,7 +212,7 @@ function Pair({ label, adopted, proposed, note }: { label: ReactNode; adopted: n
           <dd style={figure}>{dollars(adopted)}</dd>
           {proposed != null && (
             <>
-              <dt style={muted}>{TENTATIVE_YEAR} proposed</dt>
+              <dt style={muted}>{TENTATIVE_YEAR} {PROPOSAL_WORD}</dt>
               <dd style={figure}>{dollars(proposed)}</dd>
             </>
           )}
@@ -249,7 +252,7 @@ function setAsideNote(code: string) {
   const proposed = own.reduce((sum, x) => sum + x.proposed, 0)
   return (
     <div style={{ ...muted, marginTop: 6, lineHeight: 1.45 }}>
-      Also sets money aside: {dollars(adopted)} in 2026, {dollars(proposed)} proposed for {TENTATIVE_YEAR}.
+      Also sets money aside: {dollars(adopted)} in 2026, {dollars(proposed)} in the {TENTATIVE_YEAR} Tentative.
     </div>
   )
 }
@@ -291,8 +294,12 @@ function SavingsSection() {
     <section id="savings" aria-labelledby="savings-title" style={{ ...card, marginBottom: 18 }}>
       <h2 id="savings-title" style={{ margin: '0 0 6px', fontSize: 20, color: 'var(--rbl-title)' }}>How savings help balance the budget</h2>
       <p style={prose}>
-        The {TENTATIVE_YEAR} Tentative plans to use <strong>{dollars(totals.proposed)}</strong> of savings,{' '}
+        The {TENTATIVE_YEAR} Tentative {PROPOSAL_ADOPTED ? 'planned' : 'plans'} to use <strong>{dollars(totals.proposed)}</strong> of savings,{' '}
         {changeBy(totals.adopted, totals.proposed)} from the <strong>{dollars(totals.adopted)}</strong> in the 2026 budget.
+        {PROPOSAL_ADOPTED && adoptedSavings !== null && adoptedSavings !== totals.proposed && (
+          <> The budget the Board adopted uses <strong>{dollars(adoptedSavings)}</strong>, because the October 20 amendments cut the General Fund’s share. The
+          tables below stay on the Tentative, the stage the Budget Supplement’s lines match.</>
+        )}
         That money is not spent on any one thing. Each fund’s budget lists its share as income, under the name
         “appropriated fund balance”: money left over from earlier years that pays part of this year’s bills, so less has
         to come from taxes and charges. {Count(rows.length)} of the {funds} funds use it, and each uses only its own savings: a
@@ -306,7 +313,7 @@ function SavingsSection() {
             <tr style={headRow}>
               <th scope="col" style={th}>Fund</th>
               <th scope="col" style={{ ...th, textAlign: 'right' }}>2026 adopted</th>
-              <th scope="col" style={{ ...th, textAlign: 'right' }}>{TENTATIVE_YEAR} proposed</th>
+              <th scope="col" style={{ ...th, textAlign: 'right' }}>{TENTATIVE_YEAR} Tentative</th>
               <th scope="col" style={{ ...th, textAlign: 'right' }}>Change</th>
               <th scope="col" style={{ ...th, textAlign: 'right' }}>Share of its {TENTATIVE_YEAR} spending</th>
               <th scope="col" style={th}>Budget Supplement</th>
@@ -320,7 +327,7 @@ function SavingsSection() {
                   <span style={{ ...muted, fontWeight: 400 }}>{r.code}</span>
                 </td>
                 <td data-label="2026 adopted" style={{ ...td, textAlign: 'right' }}>{dollars(r.adopted)}</td>
-                <td data-label={`${TENTATIVE_YEAR} proposed`} style={{ ...td, textAlign: 'right', fontWeight: 700 }}>{dollars(r.proposed)}</td>
+                <td data-label={`${TENTATIVE_YEAR} Tentative`} style={{ ...td, textAlign: 'right', fontWeight: 700 }}>{dollars(r.proposed)}</td>
                 <td data-label="Change" style={{ ...td, textAlign: 'right', fontWeight: 600, color: changeColor(r.adopted, r.proposed) }}>{signedUsd(r.proposed - r.adopted)}</td>
                 <td data-label={`Share of its ${TENTATIVE_YEAR} spending`} style={{ ...td, textAlign: 'right' }}>{pctText(r.sharePct)}</td>
                 <td data-label="Budget Supplement" style={td}>{cite(r.page)}</td>
@@ -329,7 +336,7 @@ function SavingsSection() {
             <tr style={totalRow}>
               <td style={{ ...td, fontWeight: 700 }}>All funds</td>
               <td data-label="2026 adopted" style={{ ...td, textAlign: 'right', fontWeight: 700 }}>{dollars(totals.adopted)}</td>
-              <td data-label={`${TENTATIVE_YEAR} proposed`} style={{ ...td, textAlign: 'right', fontWeight: 700 }}>{dollars(totals.proposed)}</td>
+              <td data-label={`${TENTATIVE_YEAR} Tentative`} style={{ ...td, textAlign: 'right', fontWeight: 700 }}>{dollars(totals.proposed)}</td>
               <td data-label="Change" style={{ ...td, textAlign: 'right', fontWeight: 600, color: changeColor(totals.adopted, totals.proposed) }}>{signedUsd(totals.proposed - totals.adopted)}</td>
               <td style={td} aria-hidden />
               <td style={td} aria-hidden />
@@ -348,7 +355,7 @@ function SavingsSection() {
         )}
         {leaning.length >= 2 && (
           <li>
-            <strong>The {leaning[0].name} leans on savings most.</strong> Savings would pay {pctText(leaning[0].sharePct)} of its
+            <strong>The {leaning[0].name} leans on savings most.</strong> {PROPOSAL_ADOPTED ? 'In the Tentative, savings were to pay' : 'Savings would pay'} {pctText(leaning[0].sharePct)} of its
             proposed spending, about {dollars(Math.round(leaning[0].sharePct))} of every $100. The {leaning[1].name}’s share is{' '}
             {pctText(leaning[1].sharePct)}{leaning[2] ? <>, the {leaning[2].name}’s {pctText(leaning[2].sharePct)}</> : null}.
           </li>
@@ -390,7 +397,7 @@ function SavingsSection() {
                   <th scope="col" style={th}>Fund</th>
                   <th scope="col" style={th}>Budget line</th>
                   <th scope="col" style={{ ...th, textAlign: 'right' }}>2026 adopted</th>
-                  <th scope="col" style={{ ...th, textAlign: 'right' }}>{TENTATIVE_YEAR} proposed</th>
+                  <th scope="col" style={{ ...th, textAlign: 'right' }}>{TENTATIVE_YEAR} Tentative</th>
                   <th scope="col" style={th}>Budget Supplement</th>
                 </tr>
               </thead>
@@ -403,7 +410,7 @@ function SavingsSection() {
                     </td>
                     <td data-label="Budget line" style={td}>{x.line}</td>
                     <td data-label="2026 adopted" style={{ ...td, textAlign: 'right' }}>{dollars(x.adopted)}</td>
-                    <td data-label={`${TENTATIVE_YEAR} proposed`} style={{ ...td, textAlign: 'right', fontWeight: 700 }}>{dollars(x.proposed)}</td>
+                    <td data-label={`${TENTATIVE_YEAR} Tentative`} style={{ ...td, textAlign: 'right', fontWeight: 700 }}>{dollars(x.proposed)}</td>
                     <td data-label="Budget Supplement" style={td}>{cite(x.page)}</td>
                   </tr>
                 ))}
@@ -411,7 +418,7 @@ function SavingsSection() {
                   <td style={{ ...td, fontWeight: 700 }}>All funds</td>
                   <td style={td} aria-hidden />
                   <td data-label="2026 adopted" style={{ ...td, textAlign: 'right', fontWeight: 700 }}>{dollars(totals.setAsideAdopted)}</td>
-                  <td data-label={`${TENTATIVE_YEAR} proposed`} style={{ ...td, textAlign: 'right', fontWeight: 700 }}>{dollars(totals.setAsideProposed)}</td>
+                  <td data-label={`${TENTATIVE_YEAR} Tentative`} style={{ ...td, textAlign: 'right', fontWeight: 700 }}>{dollars(totals.setAsideProposed)}</td>
                   <td style={td} aria-hidden />
                 </tr>
               </tbody>

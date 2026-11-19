@@ -16,7 +16,7 @@
 // planks can't drift from the number the rest of the site shows. It was
 // hardcoded as "~$2.62M" against an older run of the model; the projection has
 // since moved and the prose had not.
-import prediction from '../public/data/budget-2027-prediction.json'
+import prediction from '../public/data/budget-2027-prediction-september.json'
 import { released2027, changePhrase, gapPhrase } from './tentative-2027'
 import { AUDITED_GENERAL_FUND } from './audits'
 import { countWord, overrideStreak, yearsPhrase } from './budget-adoption'
@@ -57,7 +57,7 @@ const prPay2027 = cseaFloor(PR.comparablePay2026)
 // Rounded to the thousand: it is an estimate, not a budget figure.
 const prHireTotal = Math.round((prPay2027 * (1 + 0.0765 + PR.ersRate) + PR.healthMonthly * 12) / 1000) * 1000
 
-/** The cap gap, as prose: "$2.32M". Tracks budget-2027-prediction.json. */
+/** The cap gap, as prose: "$2.32M". Tracks budget-2027-prediction-september.json. */
 const capGapM = `$${(prediction.capGap.gap / 1_000_000).toFixed(2)}M`
 
 export type Plank = {
@@ -250,11 +250,11 @@ export const neutralView = {
     `2027 projection, made in September before the Tentative: on the trends then, the levy would rise about ${capGapM} more than a 2% increase.`,
     ...(released2027
       ? [released2027.townWide && released2027.statedLimitPct !== null
-          ? `2027 Tentative: a town-wide levy ${changePhrase(released2027.townWide.levyPct, 2)} 2026, which the Supervisor’s letter says is within the Town’s ${released2027.statedLimitPct}% tax cap limit. The Board can still change it.`
-          : `2027 Tentative: a levy ${changePhrase(released2027.levyPct)} 2026, ${gapPhrase(released2027.levyVsReference)} a 2% increase. The Board can still change it.`]
+          ? `2027 Tentative: a town-wide levy ${changePhrase(released2027.townWide.levyPct, 2)} 2026, which the Supervisor’s letter says is within the Town’s ${released2027.statedLimitPct}% tax cap limit.${adoptedAsPreliminary(2027) ? '' : ' The Board can still change it.'}`
+          : `2027 Tentative: a levy ${changePhrase(released2027.levyPct)} 2026, ${gapPhrase(released2027.levyVsReference)} a 2% increase.${adoptedAsPreliminary(2027) ? '' : ' The Board can still change it.'}`]
       : []),
     ...(updatedPrediction
-      ? [`The Board adopted six amendments on October 20 that would lower the town-wide increase to ${updatedPrediction.row('town-wide-change').predicted.toFixed(2)}%, as this site’s updated prediction (${UPDATED.date}) expected. They are now part of the Preliminary Budget${adoptedAsPreliminary(2027) ? ', which the Board adopted unchanged on November 17, 2026' : ''}.`]
+      ? [`The Board adopted six amendments on October 20 that ${adoptedAsPreliminary(2027) ? 'lowered' : 'would lower'} the town-wide increase to ${updatedPrediction.row('town-wide-change').predicted.toFixed(2)}%, as this site’s updated prediction (${UPDATED.date}) expected. They are now part of the Preliminary Budget${adoptedAsPreliminary(2027) ? ', which the Board adopted unchanged on November 17, 2026' : ''}.`]
       : []),
   ],
   principles: [

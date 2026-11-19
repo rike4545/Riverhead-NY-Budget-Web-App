@@ -4,7 +4,7 @@ import ProvenanceLine from '../../components/ProvenanceLine'
 import TentativeReleased from '../../components/TentativeReleased'
 import { preliminaryIsLatest } from '../../components/PreliminaryUpdate'
 import { released2027, levySentence, statedLimitPct } from '../../lib/tentative-2027'
-import p from '../../public/data/budget-2027-prediction.json'
+import p from '../../public/data/budget-2027-prediction-september.json'
 import {
   boardOptions, leversAvailable, overlapCaveat, calendar, scorecard, release,
   levy2026, onePercent,
@@ -76,15 +76,17 @@ const cell = (r: PredictionRow, n: number) => (r.kind === 'pct' ? signedPct(n) :
 export default function Predict2027Page() {
   return (
     <PageShell
-      title="2027 budget outlook — what the model says, and what the tax cap really means"
-      subtitle="What this site now expects the Town Board to adopt for 2027, beside the line-by-line model it made before the Tentative, the legal tax-cap calculation and the Board’s choices. This is an independent prediction, not the Town’s budget."
+      title={adoptedBook ? '2027 budget: what this site predicted, and what the Board adopted' : '2027 budget outlook — what the model says, and what the tax cap really means'}
+      subtitle={adoptedBook
+        ? 'Two predictions this site made before the vote, set against the budget the Town Board adopted on November 17, 2026: a line-by-line model from September, built from recent cost trends and contract raises, and an October update built from the Tentative and its six amendments. They were projections, not the Town’s budget and not a record of what happened.'
+        : 'What this site now expects the Town Board to adopt for 2027, beside the line-by-line model it made before the Tentative, the legal tax-cap calculation and the Board’s choices. This is an independent prediction, not the Town’s budget.'}
     >
       <div style={{ background: 'var(--rbl-warn-bg)', border: '1px solid var(--rbl-warn-border)', borderColor: 'var(--rbl-warn-border)', borderRadius: 12, padding: '14px 16px', marginBottom: 16, color: 'var(--rbl-warn-strong)', fontSize: 14.5, lineHeight: 1.55 }}>
         <strong>Read the levy number as a baseline, not a filed tax-cap calculation.</strong>{' '}
         {p.disclaimer} The 2027 allowable levy growth factor for calendar-year local governments is officially 2%, but Riverhead’s final legal levy limit also depends on the full State Comptroller formula.
       </div>
 
-      <TentativeReleased>
+      <TentativeReleased adoptedNote={<>The September model on this page is kept as it was made, before the Tentative, so it can be set against what the Board adopted; the{' '}<a href="#scorecard" style={{ color: 'var(--rbl-link)', fontWeight: 800 }}>scorecard</a> lines them up.</>}>
         The September model on this page is left as it was before the Tentative came out, so the two can be compared; the{' '}
         <a href="#scorecard" style={{ color: 'var(--rbl-link)', fontWeight: 800 }}>scorecard</a> lines them up. The{' '}
         <a href="#updated-prediction" style={{ color: 'var(--rbl-link)', fontWeight: 800 }}>updated prediction</a> starts from the Tentative.
@@ -118,7 +120,7 @@ export default function Predict2027Page() {
             <p style={{ color: 'var(--rbl-text-body)', fontSize: 14.5, lineHeight: 1.6, margin: '10px 0 12px' }}>
               In September this site’s model, built on the 2026 budget, put the levy across all funds at {usd(updated.model.levy)}, up {updated.model.levyPct}%,
               above a 2% increase. The Tentative came in at {usd(allFunds.tentative)}, up {updated.allFundsPct.tentative.toFixed(2)}%, which the Supervisor’s letter
-              puts within the tax cap. Knowing the Tentative and the six amendments to it, this site now predicts that by {ADOPTION_DEADLINE} the Board adopts a
+              puts within the tax cap. Knowing the Tentative and the six amendments to it, this site {adoptedBook ? 'predicted on October 17, 2026' : 'now predicts'} that by {ADOPTION_DEADLINE} the Board {adoptedBook ? 'would adopt' : 'adopts'} a
               town-wide levy of {usd(townWide.predicted)}, up {updated.row('town-wide-change').predicted.toFixed(2)}% from 2026: {usd(allFunds.predicted)} across
               all funds, up {updated.allFundsPct.predicted.toFixed(2)}%.
             </p>
@@ -165,7 +167,7 @@ export default function Predict2027Page() {
               </table>
             </div>
 
-            <h3 style={{ margin: '18px 0 6px', color: 'var(--rbl-title)', fontSize: 16 }}>Why this site expects it</h3>
+            <h3 style={{ margin: '18px 0 6px', color: 'var(--rbl-title)', fontSize: 16 }}>{adoptedBook ? 'Why this site expected it' : 'Why this site expects it'}</h3>
             <ul data-updated-basis style={{ margin: 0, paddingLeft: 20, color: 'var(--rbl-text-body)', fontSize: 14, lineHeight: 1.6 }}>
               <li>
                 The six are printed as resolutions, items {basis.items[0]} to {basis.items[basis.items.length - 1]} on the draft agenda for the Board’s{' '}
@@ -213,13 +215,13 @@ export default function Predict2027Page() {
               </table>
             </div>
             <ul style={{ margin: '10px 0 0', paddingLeft: 20, color: 'var(--rbl-text-body)', fontSize: 14, lineHeight: 1.6 }}>
-              <li>A vote that goes the other way, or an amendment withdrawn, moves the levy back toward the Tentative’s {updated.row('town-wide-change').tentative.toFixed(2)}%.</li>
+              <li>{adoptedBook ? 'A vote the other way, or an amendment withdrawn, would have moved' : 'A vote that goes the other way, or an amendment withdrawn, moves'} the levy back toward the Tentative’s {updated.row('town-wide-change').tentative.toFixed(2)}%.</li>
               <li>
                 More changes before adoption. This site’s{' '}
                 <a href={`${base}/zero-percent-2027/`} style={{ color: 'var(--rbl-link)', fontWeight: 750 }}>zero-percent page</a> shows a 1% increase is within
-                reach by budgeting interest at the pace it is coming in, but no one has proposed it.
+                reach by budgeting interest at the pace it is coming in, but no one {adoptedBook ? 'proposed' : 'has proposed'} it.
               </li>
-              <li>The November 3 election does not change who votes: the Board that adopts the budget by {ADOPTION_DEADLINE} is the one sitting now.</li>
+              <li>{adoptedBook ? 'The November 3 election did not change who voted: the Board that adopted the budget on November 17 was the one already sitting.' : <>The November 3 election does not change who votes: the Board that adopts the budget by {ADOPTION_DEADLINE} is the one sitting now.</>}</li>
             </ul>
             <div style={{ marginTop: 12 }}>
               <ProvenanceLine
@@ -236,6 +238,13 @@ export default function Predict2027Page() {
       })()}
 
       <h2 style={{ margin: '4px 0 8px', color: 'var(--rbl-title)', fontSize: 19 }}>The September model, made before the Tentative</h2>
+      {adoptedBook && (
+        <p data-model-framing style={{ color: 'var(--rbl-text-body)', fontSize: 14.5, lineHeight: 1.6, margin: '0 0 10px', maxWidth: '80ch' }}>
+          This is a prediction, kept as it was made. It grew each line of the 2026 budget by a rate for its kind of cost, drawn from the 2024–2026
+          trend and the Town’s stated cost drivers (contract raises, health insurance, pensions). It is not the Town’s budget and not what happened: the
+          Board adopted a levy across all funds of {usd(adoptedBook.totals.levy)}, against the model’s {usd(le.levy2027)}.
+        </p>
+      )}
       <section style={{ ...card, display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(min(180px,100%),1fr))', gap: 12, marginBottom: 4 }}>
         <Stat label="2026 adopted · all operating funds" value={usd(t.appropriations2026)} sub="All 19 operating funds" />
         <Stat label="2027 model · all operating funds" value={usd(t.appropriations2027)} sub={`General Fund: ${usd(generalFund2027)}`} accent />
@@ -774,7 +783,7 @@ export default function Predict2027Page() {
               <strong style={{ color: 'var(--rbl-title)', fontSize: 13.8 }}>{step.when}</strong>
               {step.law && <span style={{ marginLeft: 8, color: 'var(--rbl-text-muted)', fontSize: 12 }}>{step.law}</span>}
               {step.done && (
-                <a href={`${base}/tentative-2027/`} data-step-done style={{ ...chip, marginLeft: 8, background: 'var(--rbl-success-bg)', color: 'var(--rbl-success-strong)', textDecoration: 'none', fontSize: 11 }}>Done: the Tentative is out →</a>
+                <a href={`${base}${step.done.href}`} data-step-done style={{ ...chip, marginLeft: 8, background: 'var(--rbl-success-bg)', color: 'var(--rbl-success-strong)', textDecoration: 'none', fontSize: 11 }}>{step.done.label} →</a>
               )}
               <div style={{ color: 'var(--rbl-text-body)', fontSize: 13.4, lineHeight: 1.5, marginTop: 3 }}>{step.what}</div>
             </li>
@@ -857,7 +866,7 @@ export default function Predict2027Page() {
         <h2 style={{ margin: '0 0 5px', color: 'var(--rbl-title)', fontSize: 18 }}>What could still move the model</h2>
         <div style={{ display: 'grid', gap: 8 }}>
           {p.watchList.map((w) => (w.id === 'tentative' && released2027 ? {
-            item: preliminaryIsLatest() ? 'The Town’s 2027 Tentative and Preliminary budgets are out' : 'The Town’s own 2027 Tentative Budget is out',
+            item: adoptedBook ? 'The Town Board adopted the 2027 budget on November 17, 2026' : preliminaryIsLatest() ? 'The Town’s 2027 Tentative and Preliminary budgets are out' : 'The Town’s own 2027 Tentative Budget is out',
             effect: 'now the number to measure',
             detail: `${levySentence(released2027)} This projection is left as it was, as the yardstick for it.`,
           } : w)).map((w) => (

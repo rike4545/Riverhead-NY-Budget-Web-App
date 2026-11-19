@@ -1,6 +1,7 @@
 import ChartCard from '../../components/infographics/ChartCard'
 import LevyVsLimit from '../../components/infographics/LevyVsLimit'
 import PageShell from '../../components/PageShell'
+import { stageDoc } from '../../lib/budget-stages'
 import PlainCallout from '../../components/PlainCallout'
 import TentativeReleased from '../../components/TentativeReleased'
 import { released2027, gapPhrase, statedLimitPct } from '../../lib/tentative-2027'
@@ -30,7 +31,7 @@ const STATUS_STYLE: Record<string, { bg: string; fg: string; dot: string }> = {
 const STATUS_TONES: Record<string, { label: string; color: string; bg: string; glyph: string }> = {
   'over-no-law': { label: 'Above levy limit, no override law', color: 'var(--rbl-danger)', bg: 'var(--rbl-danger-bg)', glyph: '✕' },
   'over-with-law': { label: 'Above levy limit, override adopted', color: 'var(--rbl-success)', bg: 'var(--rbl-success-bg)', glyph: '✓' },
-  proposed: { label: 'Proposed', color: 'var(--rbl-warn)', bg: 'var(--rbl-warn-bg)', glyph: '•' },
+  proposed: { label: stageDoc(2027, 'adopted') ? 'Adopted' : 'Proposed', color: 'var(--rbl-warn)', bg: 'var(--rbl-warn-bg)', glyph: '•' },
 }
 
 const formulaSteps = [
@@ -48,9 +49,12 @@ export default function TaxCapPage() {
     ? {
         year: '2027',
         status: 'proposed',
-        label: released2027.withinStatedLimit
-          ? `Proposed: within the ${released2027.statedLimitPct}% limit the Supervisor’s letter gives. Not adopted yet`
-          : `Proposed: the Supervisor’s letter gives a ${released2027.statedLimitPct}% limit, and not every district is within it. Not adopted yet`,
+        // Once adopted: no override law is in the record, so the row says only what the books show.
+        label: stageDoc(2027, 'adopted')
+          ? `Adopted November 17, 2026 with no override local law in the record; the Supervisor’s letter puts the Tentative within a ${released2027.statedLimitPct}% limit, and the six amendments lowered the levy`
+          : released2027.withinStatedLimit
+            ? `Proposed: within the ${released2027.statedLimitPct}% limit the Supervisor’s letter gives. Not adopted yet`
+            : `Proposed: the Supervisor’s letter gives a ${released2027.statedLimitPct}% limit, and not every district is within it. Not adopted yet`,
       }
     : null
   const statusRows = proposal ? [...d.capStatus, proposal] : d.capStatus
@@ -73,7 +77,7 @@ export default function TaxCapPage() {
           : ' It should be updated here when the Town files it.'}
       </PlainCallout>
 
-      <TentativeReleased>
+      <TentativeReleased adoptedNote={statedLimitPct !== null ? 'The tax cap limit is the Town’s own figure, from the Supervisor’s letter. No table in the budget prints it, and the letter gives no dollar figure or calculation for it. Those are in the filing the Town makes with the State Comptroller.' : undefined}>
         {statedLimitPct !== null
           ? 'No table in the budget prints the limit, and the letter gives no dollar figure or calculation for it. Those are in the filing the Town makes with the State Comptroller.'
           : 'The levy limit the Town files with the State Comptroller is not printed in the Tentative, so 2% is a yardstick here, not the legal limit.'}

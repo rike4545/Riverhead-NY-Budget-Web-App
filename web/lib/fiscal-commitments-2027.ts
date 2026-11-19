@@ -29,7 +29,7 @@ import fiscalIndex from '../public/data/meetings/fiscal-index.json'
 import { surplusAboveFloor } from './reserve-policy'
 import { AUDIT_2025 } from './audits'
 import { fundBalanceImpact } from './town-square'
-import prediction from '../public/data/budget-2027-prediction.json'
+import prediction from '../public/data/budget-2027-prediction-september.json'
 import type { ResolutionFunding } from './account-lookup'
 import { drawsByFund, tableCorrects, type FundDraw, type TableLine } from './fund-balance-lines'
 

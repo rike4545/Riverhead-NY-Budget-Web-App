@@ -22,7 +22,7 @@
 // is the figure the letter gives, which no table in the budget prints; the
 // letter is a scanned image, read by hand in tentative-letters.ts.
 
-import prediction from '../public/data/budget-2027-prediction.json'
+import prediction from '../public/data/budget-2027-prediction-september.json'
 import requestsJson from '../public/data/budget-supplement/requests-by-year.json'
 import { stageDoc, tentativeToAdopted, operatingAppropriations, type StageDoc } from './budget-stages'
 import { READ_BY_HAND } from './tentative-letters'
@@ -170,6 +170,8 @@ export function headline(t: StageDoc | null = tentative) {
 
 /** The Tentative's headline figures, or null until it is parsed. */
 export const released2027 = headline()
+/** The same figures for the budget the Board adopted, once its book is parsed. */
+export const adopted2027 = stageDoc(YEAR, 'adopted') ? headline(stageDoc(YEAR, 'adopted')) : null
 
 const dollars = (n: number) => `$${Math.round(Math.abs(n)).toLocaleString('en-US')}`
 
@@ -194,12 +196,16 @@ type Headline = NonNullable<ReturnType<typeof headline>>
  * gives. Before the letter is read, the 2% reference line stands in for the
  * limit, and says it is only a reference.
  */
-export function levySentence(h: Headline): string {
+export function levySentence(h: Headline, opts: { verb?: string; model?: string } = {}): string {
+  // A Tentative "proposes"; the adopted budget "sets". The forecast is this
+  // site's September model, kept as made (budget-2027-prediction-september.json).
+  const verb = opts.verb ?? 'proposes'
+  const model = opts.model ?? 'this site’s forecast'
   const tw = h.townWide
   const lead = tw
-    ? `It proposes a town-wide tax levy of ${dollars(tw.levy)}, ${changePhrase(tw.levyPct, 2)} ${PRIOR}, for the General Fund, Highway and Street Lighting. With the special districts, the levy is ${dollars(h.levy)}, `
-    : `It proposes a tax levy of ${dollars(h.levy)} across all funds, `
-  const forecast = `${changePhrase(h.levyPct, 2)} ${PRIOR} and ${gapPhrase(h.levyVsProjection)} this site’s forecast of ${dollars(projection.levy2027)}.`
+    ? `It ${verb} a town-wide tax levy of ${dollars(tw.levy)}, ${changePhrase(tw.levyPct, 2)} ${PRIOR}, for the General Fund, Highway and Street Lighting. With the special districts, the levy is ${dollars(h.levy)}, `
+    : `It ${verb} a tax levy of ${dollars(h.levy)} across all funds, `
+  const forecast = `${changePhrase(h.levyPct, 2)} ${PRIOR} and ${gapPhrase(h.levyVsProjection)} ${model} of ${dollars(projection.levy2027)}.`
   if (h.statedLimitPct === null) {
     return `${lead}${forecast} It is ${gapPhrase(h.levyVsReference)} a ${projection.referencePct}% increase, a reference line rather than the legal limit.`
   }

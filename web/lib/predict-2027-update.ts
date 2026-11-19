@@ -13,11 +13,11 @@
 // without being rewritten. scripts/verify-predict-2027.mjs re-derives every
 // figure.
 
-import modelJson from '../public/data/budget-2027-lines.json'
+import modelJson from '../public/data/budget-2027-lines-september.json'
 import supplementJson from '../public/data/budget-supplement/current-lines.json'
 import july7 from '../public/data/meetings/2026-07-07-fiscal.json'
 import august4 from '../public/data/meetings/2026-08-04-fiscal.json'
-import prediction from '../public/data/budget-2027-prediction.json'
+import prediction from '../public/data/budget-2027-prediction-september.json'
 import { AMENDMENTS, ARTICLE, PACKET } from './budget-amendments-2027'
 import { amendmentEffect } from './budget-amendments-effect'
 import { stageDoc, tentativeToAdopted } from './budget-stages'

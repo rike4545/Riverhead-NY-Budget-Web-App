@@ -111,8 +111,8 @@ const largest = record.reduce((a, b) => (Math.abs(b.levy.delta) > Math.abs(a.lev
 if (Math.abs(townWideChange) <= Math.abs(largest.levy.delta)) fail(`the page says the six are the largest change on record, but ${largest.year} moved the levy ${usd(Math.abs(largest.levy.delta))}`)
 
 // ── Where the September model missed ─────────────────────────────────────────
-const prediction = read('public/data/budget-2027-prediction.json')
-const model = read('public/data/budget-2027-lines.json').lines
+const prediction = read('public/data/budget-2027-prediction-september.json')
+const model = read('public/data/budget-2027-lines-september.json').lines
 const supplement = read('public/data/budget-supplement/current-lines.json').lines
 const spending = supplement.filter((l) => l.kind === 'expenditure')
 const OBJECT_CATEGORY = { 1: 'Personal Services', 2: 'Equipment & Capital Outlay', 4: 'Contractual', 8: 'Employee Benefits', 9: 'Interfund / Transfers' }
@@ -248,7 +248,7 @@ expect('the September model', html, ['The September model, made before the Tenta
 const adoptedDone = stages.transitions.some((x) => x.year === 2027 && x.to === 'adopted')
 for (const [page, needle] of [
   ['out/answers/index.html', adoptedDone ? 'On November 17, 2026 the Board adopted the 2027 budget (Resolution 2026-995, 5–0), unchanged from the Preliminary.' : `As of ${UPDATED}, this site predicts the Board adopts it with the six amendments on its agenda, for a town-wide levy ${row('town-wide-change').predicted.toFixed(2)}% above 2026's.`],
-  ['out/candidate-cost-benefit/index.html', `would lower the town-wide increase to ${row('town-wide-change').predicted.toFixed(2)}%, as this site’s updated prediction (${UPDATED}) expected.`],
+  ['out/candidate-cost-benefit/index.html', `${adoptedDone ? 'lowered' : 'would lower'} the town-wide increase to ${row('town-wide-change').predicted.toFixed(2)}%, as this site’s updated prediction (${UPDATED}) expected.`],
 ]) {
   if (!existsSync(path(page))) { fail(`${page} was not built`); continue }
   if (!visible(readFileSync(path(page), 'utf8')).includes(needle)) fail(`${page} does not carry the updated prediction: ${needle}`)

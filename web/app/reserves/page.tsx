@@ -1,6 +1,7 @@
 import ChartCard from '../../components/infographics/ChartCard'
 import ReserveCushion from '../../components/infographics/ReserveCushion'
 import PageShell from '../../components/PageShell'
+import { stageDoc } from '../../lib/budget-stages'
 import ProvenanceLine from '../../components/ProvenanceLine'
 import PlainCallout from '../../components/PlainCallout'
 import ReserveDrawdownSlider from '../../components/ReserveDrawdownSlider'
@@ -472,7 +473,7 @@ export default function ReservesPage() {
             savings as income.
             {amendedGeneralFund && (
               <>
-                {' '}The six amendments the Board adopted on October 20 would cut that to {dollars(amendedGeneralFund.draw)}, but buy{' '}
+                {' '}The six amendments the Board adopted on October 20 {stageDoc(2027, 'adopted') ? 'cut that to' : 'would cut that to'} {dollars(amendedGeneralFund.draw)}{stageDoc(2027, 'adopted') ? ' in the adopted budget' : ''}, but buy{' '}
                 {dollars(amendedGeneralFund.equipment)} of equipment from savings by separate votes during 2027 (
                 <a href={`${base}/budget-amendments-2027/#savings`} style={{ color: 'var(--rbl-link)' }}>the amendments</a>).
               </>

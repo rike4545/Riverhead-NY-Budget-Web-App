@@ -1,6 +1,7 @@
 import type { ReactNode } from 'react'
 import PreliminaryUpdate, { preliminaryIsLatest } from './PreliminaryUpdate'
 import { released2027, levySentence, YEAR } from '../lib/tentative-2027'
+import { stageDoc } from '../lib/budget-stages'
 
 const base = process.env.NEXT_PUBLIC_BASE_PATH || ''
 
@@ -9,8 +10,13 @@ const base = process.env.NEXT_PUBLIC_BASE_PATH || ''
 // is, the page says what the Tentative actually proposes, in the words every
 // other such page uses, and leaves its own figures as they were: they are the
 // yardstick the proposal is measured against, not a description of it.
-export default function TentativeReleased({ children }: { children?: ReactNode }) {
+export default function TentativeReleased({ children, adoptedNote }: { children?: ReactNode; adoptedNote?: ReactNode }) {
   if (!released2027) return null
+  // Once the budget is adopted, the Tentative is history, not news: one box
+  // shows the adopted budget, the three stages side by side and the September
+  // model, labelled as a model. A page's note about the Tentative as filed is
+  // left out unless the page passes one that is still true (adoptedNote).
+  if (stageDoc(YEAR, 'adopted')?.townWide) return <PreliminaryUpdate adoptedNote={adoptedNote} />
   // Once the Preliminary is out, one box leads with it and carries what the
   // page says about the Tentative, rather than announcing the Tentative as news.
   if (preliminaryIsLatest()) {

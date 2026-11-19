@@ -18,7 +18,7 @@
 // buyout-2026.ts (resolutions 2026-678/679/680, adopted unanimously July 7,
 // 2026). Board composition is from BoardElectionsData / the July 7 roster.
 
-import prediction from '../public/data/budget-2027-prediction.json'
+import prediction from '../public/data/budget-2027-prediction-september.json'
 import { personnelPolicyTotal, operationalTotal, supplementTrimItems } from './spending-reduction-2027'
 import { unassignedFundBalance } from './reserve-policy'
 import { overrideStreak, yearsPhrase } from './budget-adoption'

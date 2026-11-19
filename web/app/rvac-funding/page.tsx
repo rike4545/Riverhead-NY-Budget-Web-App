@@ -214,7 +214,7 @@ export default function RvacFundingPage() {
         </div>
         <div style={{ overflowX: 'auto' }}>
           <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 13.5 }}>
-            <thead><tr><th style={th}>2027 proposed line</th><th style={{ ...th, textAlign: 'right' }}>Amount</th><th style={th}>Compared with 2026 adopted plan</th></tr></thead>
+            <thead><tr><th style={th}>{adoptedAsPreliminary(2027) ? '2027 adopted line' : '2027 proposed line'}</th><th style={{ ...th, textAlign: 'right' }}>Amount</th><th style={th}>Compared with 2026 adopted plan</th></tr></thead>
             <tbody>
               <tr><td style={td}>Ambulance function, including RVAC</td><td style={{ ...td, textAlign: 'right', whiteSpace: 'nowrap' }}>{usd(1_826_231)}</td><td style={td}>Includes a proposed RVAC line of {usd(1_401_731)}.</td></tr>
               <tr><td style={td}>Insurance</td><td style={{ ...td, textAlign: 'right', whiteSpace: 'nowrap' }}>{usd(36_732)}</td><td style={td}>Down from {usd(69_600)}.</td></tr>

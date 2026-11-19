@@ -68,8 +68,8 @@ export default function ZeroPercent2027Page() {
           { label: 'Savings', text: '“fund balance”: money left from earlier years. A budget can count some of it as income. It is one-time money.' },
         ]}
       >
-        The 2027 Tentative raises the town-wide levy by {usd(summary.tentativeRise)}, or {summary.tentativePct.toFixed(2)}%. Six amendments before
-        the Town Board would cut the increase to {usd(summary.amendedRise)}, or {summary.amendedPct.toFixed(2)}%. A 1% increase would take{' '}
+        The 2027 Tentative raises the town-wide levy by {usd(summary.tentativeRise)}, or {summary.tentativePct.toFixed(2)}%. {adoptedAsPreliminary(2027) ? 'The six amendments the Board adopted cut' : 'Six amendments before the Town Board would cut'}{' '}
+        the increase to {usd(summary.amendedRise)}, or {summary.amendedPct.toFixed(2)}%{adoptedAsPreliminary(2027) ? ', the levy adopted on November 17, 2026' : ''}. A 1% increase would take{' '}
         <strong>{usd(summary.oneBeyond)}</strong> more than the amendments find. No increase would mean finding all{' '}
         <strong>{usd(summary.zeroBeyond)}</strong> of it. Budgeting interest at the pace the Town is collecting it covers most of the first. The second leans on savings. A middle course of{' '}
         {middle[0].pct}% to {middle[1].pct}% would need no more savings than the amendments use, and keep the tax cap’s carryover. On the Supervisor’s{' '}

@@ -10,7 +10,7 @@
 // regardless of population — so the budget deadlines below are the general ones,
 // not the later dates that apply only to Westchester and Monroe County towns.
 
-import prediction from '../public/data/budget-2027-prediction.json'
+import prediction from '../public/data/budget-2027-prediction-september.json'
 import { AUDITED_GENERAL_FUND } from './audits'
 import { unassignedFundBalanceAfr } from './reserve-policy'
 import { overrideStreak, yearsPhrase } from './budget-adoption'

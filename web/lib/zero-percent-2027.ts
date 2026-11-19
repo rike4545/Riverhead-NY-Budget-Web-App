@@ -434,8 +434,8 @@ export const trendNote = (() => {
     ? `The General Fund levy fell ${fmtPct(-(lastFall.change as number))} in ${lastFall.year}, then rose ${after.map((r) => fmtPct(r.change as number)).join(', ').replace(/, ([^,]*)$/, ' and $1')} in ${after[0].year}–${after[after.length - 1].year}.`
     : `The General Fund levy rose ${yearly.map((r) => fmtPct(r.change as number)).join(', ')}.`
   const tail = since
-    ? ` The 2027 Tentative would raise it ${fmtPct(t.change as number)}, or ${fmtPct(a.change as number)} with the amendments: the smallest change since ${since.year}${(since.change as number) < 0 ? ', when it fell' : ''}.`
-    : ` The 2027 Tentative would raise it ${fmtPct(t.change as number)}, or ${fmtPct(a.change as number)} with the amendments.`
+    ? ` The 2027 Tentative ${stageDoc(2027, 'adopted') ? 'proposed raising' : 'would raise'} it ${fmtPct(t.change as number)}, or ${fmtPct(a.change as number)} with the amendments${stageDoc(2027, 'adopted') ? ', as adopted' : ''}: the smallest change since ${since.year}${(since.change as number) < 0 ? ', when it fell' : ''}.`
+    : ` The 2027 Tentative ${stageDoc(2027, 'adopted') ? 'proposed raising' : 'would raise'} it ${fmtPct(t.change as number)}, or ${fmtPct(a.change as number)} with the amendments${stageDoc(2027, 'adopted') ? ', as adopted' : ''}.`
   return lead + tail
 })()
 

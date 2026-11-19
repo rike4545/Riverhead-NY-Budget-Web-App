@@ -94,7 +94,10 @@ else {
   // The year switcher marks each button with its year.
   const html = readFileSync(file, 'utf8')
   const offered = Array.from(html.matchAll(/data-year="([^"]+)"/g)).map((m) => m[1])
-  const expected = shown.map((y) => (y.stage !== 'adopted' ? `${y.year} proposed` : String(y.year)))
+  // A Preliminary the Board adopted unchanged is labelled adopted, as lib/budget-stages adoptedAsPreliminary decides.
+  const transitions = JSON.parse(readFileSync(new URL('../public/data/history/budget-stages.json', import.meta.url), 'utf8')).transitions
+  const adoptedAsPrelim = (year) => transitions.some((t) => t.year === year && t.from === 'preliminary' && t.to === 'adopted' && t.fundsChanged === 0 && t.appropriations.delta === 0 && t.levy.delta === 0)
+  const expected = shown.map((y) => (y.stage !== 'adopted' ? (y.stage === 'preliminary' && adoptedAsPrelim(y.year) ? `${y.year} adopted` : `${y.year} proposed`) : String(y.year)))
   if (offered.join('|') !== expected.join('|')) fail(`/programs/ offers ${offered.join(', ') || 'no years'}; the years that reconcile are ${expected.join(', ')}`)
   const current = figuresByYear.get(`${newestAdopted}-adopted`)
   if (current) {

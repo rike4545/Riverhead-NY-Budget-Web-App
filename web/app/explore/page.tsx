@@ -12,7 +12,7 @@ import buyout from '../../public/data/buyout-analysis.json'
 
 import { debtProfile, opebLiability } from '../../lib/debt-profile'
 import { medianPerMile, riverhead as riverheadRoads, riverheadRankPhrase } from '../../lib/road-spending'
-import prediction from '../../public/data/budget-2027-prediction.json'
+import prediction from '../../public/data/budget-2027-prediction-september.json'
 import { released2027, changePhrase, gapPhrase } from '../../lib/tentative-2027'
 
 const base = process.env.NEXT_PUBLIC_BASE_PATH || ''

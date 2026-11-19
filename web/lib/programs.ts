@@ -340,7 +340,7 @@ for (const { year, stage, off } of years.leftOut) {
 for (const { year, stage, spend, revenue, summary } of years.shown) {
   const figures = programBudget(spend, revenue, departmentNames)
   const people = staffFor(year)
-  const label = stage !== 'adopted' ? `${year} proposed` : String(year)
+  const label = stage !== 'adopted' ? (stage === 'preliminary' && adoptedAsPreliminary(year) ? `${year} adopted` : `${year} proposed`) : String(year)
   const title = stage === 'adopted' ? `the ${year} adopted budget` : `the ${year} ${stage === 'preliminary' ? lineStageLabel(year) : 'Tentative'} Budget`
   const official = Object.values(summary.funds).reduce((s, f) => s + (f.appropriations ?? 0), 0)
   const byStaff = PROGRAM_ORDER.map((k) => people.staff[k] ?? 0).sort((a, b) => b - a)

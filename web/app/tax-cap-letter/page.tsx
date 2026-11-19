@@ -186,7 +186,7 @@ export default function TaxCapLetterPage() {
               ]}
             />
             <P>
-              The timing also matters. The appeal was made as towns prepare their 2027 budgets, which Riverhead must adopt by November 20 (<a href={LAW.townLaw109.url} style={link}>{LAW.townLaw109.label}</a>). The Legislature assembles each January (<a href={LAW.constitution.url} style={link}>{LAW.constitution.label}</a>), so in the normal course no change could reach a 2027 tax bill. Whatever comes of the letter, this year’s budget rests on choices the Board makes now.
+              The timing also matters. The appeal was made as towns prepared their 2027 budgets, which Riverhead had to adopt by November 20 (<a href={LAW.townLaw109.url} style={link}>{LAW.townLaw109.label}</a>). The Legislature assembles each January (<a href={LAW.constitution.url} style={link}>{LAW.constitution.label}</a>), so in the normal course no change could reach a 2027 tax bill. Whatever comes of the letter, this year’s budget rests on choices the Board makes now.
             </P>
           </Section>
 
