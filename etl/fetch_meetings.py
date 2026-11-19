@@ -34,6 +34,7 @@ from pathlib import Path
 import pypdf
 
 from pdf_limits import raise_town_document_limits
+from safe_http import CURL_SAFE_ARGS, meeting_date, require_public_https
 
 raise_town_document_limits()
 
@@ -56,6 +57,7 @@ def stable_json(value: dict) -> str:
 
 
 def http_get(url: str) -> bytes:
+    require_public_https(url)
     try:
         import requests
         response = requests.get(url, timeout=90)
@@ -64,7 +66,7 @@ def http_get(url: str) -> bytes:
     except Exception as exc:
         if not isinstance(exc, (ssl.SSLError, OSError)) and "SSL" not in str(exc):
             raise
-        return subprocess.run(["curl", "-sf", url], capture_output=True, check=True).stdout
+        return subprocess.run(["curl", "-sf", *CURL_SAFE_ARGS, url], capture_output=True, check=True).stdout
 
 
 def list_events() -> list[dict]:
@@ -122,11 +124,11 @@ def stream_url(file_id: int | str) -> str:
 
 
 def archived_minutes_path(date: str, sha: str) -> Path:
-    return REVISIONS / date / f"minutes-{sha[:16]}.txt"
+    return REVISIONS / meeting_date(date) / f"minutes-{sha[:16]}.txt"
 
 
 def official_text_path(date: str, file: dict, sha: str) -> Path:
-    return OFFICIAL / date / f"{safe_slug(file_label(file))}-{file.get('fileId')}-{sha[:16]}.txt"
+    return OFFICIAL / meeting_date(date) / f"{safe_slug(file_label(file))}-{file.get('fileId')}-{sha[:16]}.txt"
 
 
 def public_file_metadata(file: dict) -> dict:
@@ -146,7 +148,7 @@ def reconcile_minutes(date: str, event_name: str, file: dict, meeting_state: dic
     sha = hashlib.sha256(pdf_bytes).hexdigest()
     text, pages = extract_text(pdf_bytes)
     has_votes = bool(re.search(r"RESULT\s*:", text))
-    dest = DEST / f"{date}-minutes.txt"
+    dest = DEST / f"{meeting_date(date)}-minutes.txt"
     previous = meeting_state.get("minutes") or {}
     previous_sha = previous.get("sha256")
     revisions = list(previous.get("revisions") or [])

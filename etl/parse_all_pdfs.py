@@ -15,6 +15,7 @@ from bs4 import BeautifulSoup
 from pypdf import PdfReader
 
 from pdf_limits import raise_town_document_limits
+from safe_http import require_public_https
 
 raise_town_document_limits()
 
@@ -165,7 +166,7 @@ def download(link: Link) -> Path:
         return path
     for attempt, wait in enumerate((*RETRY_WAITS, None), start=1):
         try:
-            r = requests.get(link.url, timeout=TIMEOUT, headers=HEADERS)
+            r = requests.get(require_public_https(link.url), timeout=TIMEOUT, headers=HEADERS)
             r.raise_for_status()
             break
         except requests.RequestException as exc:

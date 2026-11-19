@@ -371,7 +371,9 @@ def build(year=2025, prior_year=2024):
     if ret2019:
         elig_names = {e["name"] for e in eligible_list}
         overlap = [r["name"] for r in ret2019["retirees"] if r["name"] in elig_names]
-        assert not overlap, f"2019 retirees appear in 2026 eligible list: {overlap}"
+        # A real check, not an assert: python -O strips asserts.
+        if overlap:
+            raise ValueError(f"2019 retirees appear in 2026 eligible list: {overlap}")
 
     payload = {
         "program": "2026 Voluntary Retirement Incentive Program",

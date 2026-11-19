@@ -41,6 +41,7 @@ from pathlib import Path
 import pypdf
 
 from pdf_limits import raise_town_document_limits
+from safe_http import CURL_SAFE_ARGS, require_public_https
 
 raise_town_document_limits()
 
@@ -71,6 +72,7 @@ MONEY = re.compile(r"\$[\d,]+(?:\.\d{2})?")
 
 
 def http_get(url: str) -> bytes:
+    require_public_https(url)
     try:
         import requests
         r = requests.get(url, timeout=90)
@@ -79,7 +81,7 @@ def http_get(url: str) -> bytes:
     except Exception as exc:
         if not isinstance(exc, (ssl.SSLError, OSError)) and "SSL" not in str(exc):
             raise
-        return subprocess.run(["curl", "-sf", url], capture_output=True, check=True).stdout
+        return subprocess.run(["curl", "-sf", *CURL_SAFE_ARGS, url], capture_output=True, check=True).stdout
 
 
 def list_events() -> list[dict]:

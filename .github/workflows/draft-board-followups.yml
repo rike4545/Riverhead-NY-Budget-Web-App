@@ -25,14 +25,28 @@ concurrency:
   group: draft-board-followups
   cancel-in-progress: false
 
-permissions:
-  contents: write
-  pull-requests: write
-  id-token: write
+# No token scopes at the workflow level; the one job asks for exactly what it
+# uses.
+permissions: {}
 
 jobs:
   draft:
-    if: github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success'
+    # workflow_run runs with this repository's secrets and a write token, so it
+    # must never act on a run started by a pull request or by a fork. The two
+    # upstream workflows run only on a schedule or by hand today; these checks
+    # keep it that way if either ever gains a pull_request trigger.
+    if: >-
+      github.event_name == 'workflow_dispatch' || (
+        github.event.workflow_run.conclusion == 'success' &&
+        github.event.workflow_run.event != 'pull_request' &&
+        github.event.workflow_run.event != 'pull_request_target' &&
+        github.event.workflow_run.head_repository.full_name == github.repository &&
+        github.event.workflow_run.head_branch == 'main'
+      )
+    permissions:
+      contents: write
+      pull-requests: write
+      id-token: write
     runs-on: ubuntu-latest
     timeout-minutes: 45
     env:

@@ -24,6 +24,7 @@ from pathlib import Path
 from zoneinfo import ZoneInfo
 
 from pdf_limits import raise_town_document_limits
+from safe_http import CURL_SAFE_ARGS, require_public_https
 
 raise_town_document_limits()
 
@@ -44,6 +45,7 @@ MONTHS = {
 
 
 def http_get(url):
+    require_public_https(url)
     try:
         import requests
         r = requests.get(url, timeout=60)
@@ -52,7 +54,7 @@ def http_get(url):
     except Exception as exc:
         if not isinstance(exc, (ssl.SSLError, OSError)) and "SSL" not in str(exc):
             raise
-        out = subprocess.run(["curl", "-sf", url], capture_output=True, check=True)
+        out = subprocess.run(["curl", "-sf", *CURL_SAFE_ARGS, url], capture_output=True, check=True)
         return out.stdout
 
 

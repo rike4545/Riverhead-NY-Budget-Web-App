@@ -26,6 +26,7 @@ import json
 import re
 from datetime import datetime, timezone
 from pathlib import Path
+from safe_http import meeting_date
 
 from fetch_meetings import (
     DEST,
@@ -58,11 +59,11 @@ def is_agenda_packet(file: dict) -> bool:
 
 
 def vote_packet_path(date: str) -> Path:
-    return DEST / f"{date}-vote-packet.txt"
+    return DEST / f"{meeting_date(date)}-vote-packet.txt"
 
 
 def archived_vote_packet_path(date: str, sha: str) -> Path:
-    return VOTE_PACKET_REVISIONS / date / f"vote-packet-{sha[:16]}.txt"
+    return VOTE_PACKET_REVISIONS / meeting_date(date) / f"vote-packet-{sha[:16]}.txt"
 
 
 def portal_url(event_id: int | str | None, file_id: int | str) -> str | None:

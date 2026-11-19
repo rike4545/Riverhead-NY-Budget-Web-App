@@ -36,6 +36,7 @@ import urllib.parse
 import urllib.request
 from datetime import datetime, timezone
 from pathlib import Path
+from safe_http import require_public_https
 
 ROOT = Path(__file__).resolve().parent.parent
 OUT_DIR = ROOT / "web/public/data/elections"
@@ -92,7 +93,7 @@ def http_get(url: str, label: str, accept: str = "application/json") -> bytes:
         if wait:
             time.sleep(wait)
         try:
-            req = urllib.request.Request(url, headers={"User-Agent": USER_AGENT, "Accept": accept})
+            req = urllib.request.Request(require_public_https(url), headers={"User-Agent": USER_AGENT, "Accept": accept})
             with urllib.request.urlopen(req, timeout=60) as resp:
                 return resp.read()
         except urllib.error.HTTPError as exc:
