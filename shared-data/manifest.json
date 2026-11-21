@@ -118,6 +118,14 @@
       "sha256": "1e725865d698c442c80fe808d646d27da22f41fd669501f24c160db7e427ecbd",
       "android": "budget-supplement/current-outliers.json",
       "note": "The 2027 Supplement's auto-detected outliers against the 2027 Adopted figures. iOS reads it for the Budget Accuracy watch list."
+    },
+    {
+      "id": "payroll/purchasing-power",
+      "web": "payroll/purchasing-power.json",
+      "ios": "purchasing-power.json",
+      "sha256": "98bd8839fc5583f23397ab39af079885d2436b49a3128c30ca704c8c31973cc6",
+      "android": "payroll/purchasing-power.json",
+      "note": "Each 2026 authorized salary against the first salary on file for the same person, carried forward by the New York-area CPI-U (etl/build_purchasing_power.py). iOS reads it for the Purchasing Power view."
     }
   ]
 }
