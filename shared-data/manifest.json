@@ -126,6 +126,14 @@
       "sha256": "98bd8839fc5583f23397ab39af079885d2436b49a3128c30ca704c8c31973cc6",
       "android": "payroll/purchasing-power.json",
       "note": "Each 2026 authorized salary against the first salary on file for the same person, carried forward by the New York-area CPI-U (etl/build_purchasing_power.py). iOS reads it for the Purchasing Power view."
+    },
+    {
+      "id": "salary/peer-title-pay",
+      "web": "salary/peer-title-pay.json",
+      "ios": "peer-title-pay.json",
+      "sha256": "d42c52293b3bf2a9d924f202169ae33f95727b71d2980685983ae8f3cdac48ae",
+      "android": "salary/peer-title-pay.json",
+      "note": "The same job title in Riverhead, Southampton and Southold in 2022, 2024 and 2026, from each town's own salary records (etl/build_peer_title_pay.py). iOS reads it for the Purchasing Power view."
     }
   ]
 }
