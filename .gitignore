@@ -31,3 +31,4 @@ venv/
 *.pem
 .env.*
 !.env.example
+*.egg-info/
