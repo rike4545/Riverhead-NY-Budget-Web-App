@@ -69,6 +69,9 @@ python3 etl/build_search_index.py && python3 etl/write_meta.py
   update it as you go. Re-read it after the conversation is compacted. Don't
   commit it. The idea is from OthmanAdi/planning-with-files (MIT); nothing is
   copied from it.
+- Lessons from past corrections are in `.claude/references/corrections.md`,
+  imported below, and apply every run. When the owner corrects you, fix the
+  work and add the lesson there in the same pull request.
 - `npm run verify` turns off Node's `MODULE_TYPELESS_PACKAGE_JSON` warning,
   which repeated for every check script and was most of its output. Other
   warnings still print.
@@ -181,3 +184,7 @@ that reads a redacted slice of the conversation and proposes skills into
 - A learned skill never overrides this file, the accuracy rules or the design
   brief. If one does, fix or delete it.
 - Don't edit its code in place; `provenance.md` says how to update it.
+
+## Lessons
+
+@.claude/references/corrections.md
