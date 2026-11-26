@@ -69,6 +69,14 @@ class PeerTitlePayTest(unittest.TestCase):
         disp = row("Public Safety Dispatcher I")["towns"]["Southampton"]["current"]
         self.assertEqual(disp["count"], 19)
 
+    def test_abbreviated_titles_are_counted(self):
+        # authorized-2022.json lists 17 Highway "Automotive Equip Operator" rows beside two
+        # spelled in full; all are the same title.
+        recs = json.loads((ROOT / "web/public/data/salary/authorized-2022.json").read_text())["records"]
+        n = sum(r.get("title", "").startswith("Automotive Equip") and r.get("annual", 0) >= 20_000 for r in recs)
+        self.assertEqual(row("Automotive Equipment Operator")["towns"]["Riverhead"]["start"]["count"], n)
+        self.assertGreater(n, 2)
+
     def test_comparisons_only_at_the_same_year(self):
         for r in DOC["titles"]:
             riv = r["towns"]["Riverhead"]
