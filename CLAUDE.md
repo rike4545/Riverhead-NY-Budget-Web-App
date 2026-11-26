@@ -17,7 +17,7 @@ residents, and every figure on it has to trace to an official record.
   `scripts/verify-*.mjs` (checks on the built output).
 - `.github/workflows/`: `deploy-pages` (every push to `main`),
   `parse-financial-reports`, `sync-meetings` (twice daily),
-  `transcribe-meetings` (daily), `watch-budget-release`, `quality-gate`
+  `transcribe-meetings` (weekly), `watch-budget-release`, `quality-gate`
   (every pull request) and `draft-board-followups` (after each sync; see
   below).
 - `.claude/agents/`: this project's agents (below).
