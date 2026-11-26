@@ -6,7 +6,7 @@
   "failure_count": 0,
   "page_record_count": 14482,
   "citation_count": 14482,
-  "line_item_candidate_count": 118940,
+  "line_item_candidate_count": 118907,
   "documents": [
     {
       "title": "2027 Tentative Budget (PDF)",
@@ -136,7 +136,7 @@
       "slug": "2025-2025-riverhead-community-development-agency-basic-financial-statements-pdf",
       "json": "documents/2025-2025-riverhead-community-development-agency-basic-financial-statements-pdf.json",
       "page_count": 31,
-      "money_value_count": 226,
+      "money_value_count": 228,
       "sha256": "100a25c575ae3e8f49be9f04887d3f88c57766bcb330410604664cd140166ea8",
       "parsed_at": "2026-09-25T00:22:41.199963+00:00"
     },
@@ -256,7 +256,7 @@
       "slug": "2024-2024-audited-basic-financial-statements-pdf",
       "json": "documents/2024-2024-audited-basic-financial-statements-pdf.json",
       "page_count": 98,
-      "money_value_count": 2936,
+      "money_value_count": 2937,
       "sha256": "b6bd00682c8673e8a2bab25422412539c6da48a215d28d99c0742c76bd744fe4",
       "parsed_at": "2026-07-31T00:48:42.463564+00:00"
     },
@@ -340,7 +340,7 @@
       "slug": "2023-2023-audited-basic-financial-statement-pdf",
       "json": "documents/2023-2023-audited-basic-financial-statement-pdf.json",
       "page_count": 96,
-      "money_value_count": 2800,
+      "money_value_count": 2801,
       "sha256": "1bc077565cf41a1958845a8dca7ed609466db8652d9aca6b0494379dfa609fcf",
       "parsed_at": "2026-07-31T00:48:42.463564+00:00"
     },
@@ -424,7 +424,7 @@
       "slug": "2022-2022-audited-basic-financial-statement-pdf",
       "json": "documents/2022-2022-audited-basic-financial-statement-pdf.json",
       "page_count": 96,
-      "money_value_count": 2814,
+      "money_value_count": 2815,
       "sha256": "167d063e5b425b1ac733f1cc00454660386cd3320b82da53cd3d792498e27598",
       "parsed_at": "2026-07-31T00:48:42.463564+00:00"
     },
@@ -856,7 +856,7 @@
       "slug": "2016-2016-adopted-budget-pdf",
       "json": "documents/2016-2016-adopted-budget-pdf.json",
       "page_count": 459,
-      "money_value_count": 17113,
+      "money_value_count": 17146,
       "sha256": "36f2f03d502e6000ae517985ca16165ad350e0f0e3b3ea96842941a12ddf9d6e",
       "parsed_at": "2026-07-31T00:48:42.463564+00:00"
     },
@@ -988,7 +988,7 @@
       "slug": "2014-2014-adopted-budget-pdf",
       "json": "documents/2014-2014-adopted-budget-pdf.json",
       "page_count": 495,
-      "money_value_count": 17705,
+      "money_value_count": 17706,
       "sha256": "6250e1ca04f639cb1177b35bde915e335ecf62f6463393fe305349b8dd577f61",
       "parsed_at": "2026-07-31T00:48:42.463564+00:00"
     },
@@ -1516,7 +1516,7 @@
       "slug": "2007-2007-annual-financial-report-update-pdf",
       "json": "documents/2007-2007-annual-financial-report-update-pdf.json",
       "page_count": 162,
-      "money_value_count": 2473,
+      "money_value_count": 2475,
       "sha256": "a0cc3a7fbd78e2c817a0f5e7f21889b16c6f8225d5a7f18417d1adee9c84d05f",
       "parsed_at": "2026-07-31T00:48:42.463564+00:00"
     },
@@ -1564,7 +1564,7 @@
       "slug": "2006-2006-annual-financial-report-update-pdf",
       "json": "documents/2006-2006-annual-financial-report-update-pdf.json",
       "page_count": 211,
-      "money_value_count": 2815,
+      "money_value_count": 2816,
       "sha256": "1eb1adfe7f0e3c448aa620a51ffa3f699e96785c6eca1a9368dac1a52b0247cf",
       "parsed_at": "2026-07-31T00:48:42.463564+00:00"
     },
