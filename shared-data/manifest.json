@@ -131,7 +131,7 @@
       "id": "salary/peer-title-pay",
       "web": "salary/peer-title-pay.json",
       "ios": "peer-title-pay.json",
-      "sha256": "d42c52293b3bf2a9d924f202169ae33f95727b71d2980685983ae8f3cdac48ae",
+      "sha256": "0c6572d1d0253e1164bbfe6973be18e15aa7ab38ed722cba82103eb0edf79b74",
       "android": "salary/peer-title-pay.json",
       "note": "The same job title in Riverhead, Southampton and Southold in 2022, 2024 and 2026, from each town's own salary records (etl/build_peer_title_pay.py). iOS reads it for the Purchasing Power view."
     }

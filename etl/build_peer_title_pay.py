@@ -85,10 +85,26 @@ ELECTED = ["Supervisor", "Town Board member", "Town Justice", "Town Clerk",
 POLICE = ["Police Officer", "Detective", "Detective Sergeant", "Sergeant", "Lieutenant", "Captain"]
 
 
+# Abbreviations in the salary lists, spelled out so "Automotive Equip Operator"
+# (Riverhead 2022) matches "Automotive Equipment Operator" (2024 on, and Southampton).
+WORDS = {
+    "maint": "maintenance", "equip": "equipment", "sr": "senior", "asst": "assistant",
+    "auto": "automotive", "oper": "operator", "tmt": "treatment", "trt": "treatment",
+    "wtr": "water", "dist": "district", "mgr": "manager", "dev": "development",
+    "comm": "community", "admin": "administrator", "enforce": "enforcement",
+}
+# Department tags some lists add after a title, e.g. "Account Clerk (Hwy)".
+TRAILING_TAGS = ("hwy", "water")
+
+
 def norm(t: str) -> str:
     t = re.sub(r"\(\d+\)|\*+|@", " ", t.lower())
+    t = re.sub(r"\bass't\b", "asst", t)
     t = re.sub(r"[^a-z0-9 ]", " ", t)
-    return re.sub(r"\s+", " ", t).strip()
+    words = [WORDS.get(w, w) for w in t.split()]
+    while len(words) > 2 and words[-1] in TRAILING_TAGS:
+        words.pop()
+    return " ".join(words)
 
 
 # Titles that are the same job under a different name. Anything else must match exactly.
