@@ -15,9 +15,10 @@ on:
         description: 'One meeting date (YYYY-MM-DD), redone even if it has a transcript'
         default: ''
   schedule:
-    # The Town posts a meeting's video the next morning; this runs after the
-    # morning meeting sync has picked it up.
-    - cron: '7 14 * * *'
+    # Weekly. The Town Board meets on Tuesdays and posts the video the next
+    # morning, so a Thursday run picks up that week's meeting after the
+    # meeting sync has listed it. Run it by hand for anything sooner.
+    - cron: '7 14 * * 4'
 
 permissions:
   contents: write

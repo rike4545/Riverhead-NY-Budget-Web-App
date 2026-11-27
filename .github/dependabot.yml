@@ -21,6 +21,10 @@ updates:
       # Major upgrades need a deliberate migration; propose them by hand.
       - dependency-name: "*"
         update-types: ["version-update:semver-major"]
+      # PyAV 19 removed an argument faster-whisper 1.2.1 still passes, which
+      # breaks meeting transcription (see pyproject.toml).
+      - dependency-name: "av"
+        versions: [">=19"]
   - package-ecosystem: "npm"
     directory: "/web"
     schedule:
