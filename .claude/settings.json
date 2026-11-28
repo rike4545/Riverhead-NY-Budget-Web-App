@@ -1,11 +1,21 @@
 {
   "extraKnownMarketplaces": {
     "riverhead-local": {
-      "source": { "source": "directory", "path": "./.claude/plugins" }
+      "source": {
+        "source": "directory",
+        "path": "./.claude/plugins"
+      }
+    },
+    "anthropic-agent-skills": {
+      "source": {
+        "source": "github",
+        "repo": "anthropics/skills"
+      }
     }
   },
   "enabledPlugins": {
-    "autoharness@riverhead-local": true
+    "autoharness@riverhead-local": true,
+    "document-skills@anthropic-agent-skills": true
   },
   "env": {
     "AUTOHARNESS_DISABLE_GLOBAL": "1",
